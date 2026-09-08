@@ -1,142 +1,120 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B5458B6BF
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924C857269E;
+	Tue,  8 Sep 2026 17:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886284; cv=none; b=TxJ9uERcZ30s/7urM2utXlwRsmCpTkuI7ka46ighWHH2OR6gqjxCiOyGGJotOlFyipOI9O5QaH4GD+pwj4pNXCzWbbVRF+9pX7Fg6aV1RZ7StIJHEza6ik/qjyrdrRbo+AuQpUcaQmOIUMgskoAbtqq08cOj7SkAPPbGkndbpnc=
+	t=1788887168; cv=none; b=mhORzMorO4rBMwwLmKJA3oKYMA0UIKBaBhF8WCKawBrJ6XSq1K8iSUrv3PZZoY9WVy4QJl7KTYa+V7aeZCXWYgpRUdlq4fZG3/h9yGVn2VM3LyGuyFClxrbvWEpsmz7EiGoKcrPOPfw3Ck/m8ixKzIWmAfErC/D8eERopoEdzJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886284; c=relaxed/simple;
-	bh=UfQvBvSuxFTjQyo4ge7nD5KznVnWw+/9dkfp9bppCVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fkDBm1UQRZP05lwSdyakcE8fvmj7p7UN9+UjGobM1A2Py+6IjujTjCkKU6NAEgp5uBqGDWwCEtZm+c3dvq4x2La+MxcTNVPGxfgiwW2eNdLsJCsKS78JocJ+N+Ps/AxjSDyUOovQICa3jl5yAeOEpbvuaErPjBdoHqPfgdgVT3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+C5l1zo; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788887168; c=relaxed/simple;
+	bh=DmEcGIuIViBHOha3ytewODV0Ikb5MB58pqUxXeUM82g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IRpTMTAbN5qu/XOZOfX6n9im7y+b3EhEiVuAuAsIFGmYwVVdEyNf800jY0pE1aZ0wB142hhyx/A3lAi5gjbPM4twHgxBpcdj73Vf6vZw/JFR8coFkfileSB9r31l983vtjdkkHINLplb72TaYLWwiCpEcWAKkcqW3Xc3cr8+OaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVSpAPYN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+C5l1zo"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-853e2610bb4so3642223b3a.0
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 09:51:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788886282; x=1789491082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=llq/+G51IPyNePo3r5tJVqAdU0RXFNXMCuQq3OACrvE=;
-        b=L+C5l1zo0hlH7lW+ewtEA7Bl/X41puccls3vD4KXP4PTteMTnAKdvEgXBF+yyeAdc7
-         kgvBOF4VueGQZXDuT17ZKm3MwyA7t07zECLeFWw0yo0c6tup5EGG8Wi+RDsV+trwhDD8
-         /don2ozN9KwpTBDO95zO3w7VDSjIn7xM+cNWmW23a2pmb7Y5VqhIJ8BF+VAyv3Hlxe9t
-         1AZ0GKWeqcr7DuSjhDid6TsDoQeM2KpW/GrVsreXYCzWE1erEuvt2s1R/h/Lp8i/+12/
-         YK1bSfGkg4okeUZTZotEW1DrQ9+noqHaWOwsjNEc7yJksBT8CnuPw7KRv5ShxIbMTU6k
-         oRdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886282; x=1789491082;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=llq/+G51IPyNePo3r5tJVqAdU0RXFNXMCuQq3OACrvE=;
-        b=Y6hpme5fzX9nM367UUcH8JJcGXE9KwzUs6mBHLaJKi+OgAOorCQ1BXmtENE5ubRggO
-         zXmXlUM8T6w1lRMfkD3oSBk8zwkoHhQMrQvUuIGTqUKW/GrUMZ9P7/a7PGD01RXdjCTY
-         mtA6hdYCpN/BClfjb+0ZrzQ4hiPPKLJPXwJrn8+HoxkJVutqe42T8vcnvPS1k4z70NU0
-         aoi6EBLedmV6UDwp2jEbd8NzlDfyRJeSAA1mF6FQZRiI9rFKHlbMzi4lK7OGMjN/X1ee
-         lKTtVdAdSptyjMpTtP78NIeo9t3KI3EumlcnR/hFHjlXi0NkqyTqgkWK8ksch7QAUrJE
-         Cr8w==
-X-Forwarded-Encrypted: i=1; AKwUvByVJJbGu95/lxZe5QP+cjY/xjKTtHzX9k1NsnedMm6oxf81MEUSWmZidvEaH5uKSi4cYlD98co=@vger.kernel.org
-X-Gm-Message-State: AFuF++neIiATssf1exvxwxiSOXZM9ccoGAWIycQTft70/wEPufRpiFTN
-	qdxgA9nOGJ3QMtQxrBGHoFT6lm/DPKVe1JYxzj0QGAy24b2CF5bdwvu0
-X-Gm-Gg: AYBFou1SlZroGL0EXhpQAvX4Ol6Mzoc4RAM2OcWyzpoFmBSGIYZulGvXjc2nh3gmvbB
-	aQF+1Rws/Tbd7qFjYqTep1I80QftH7DWe8jkVbPzpDRqdVGfCUp/ZQYGC0O+PvuOKq6s6EbZwMF
-	YWixd5T4t6tFKd6s6x/z72yAvpzGnwEXWX/fThdr8mUGPPqAlR3xwFaImNODfL3QGeI7wDClRah
-	d198Vhikx87JTwmPNVui8OaQ8ncyrBAoL0myEHOdummPuPmi17QSV6eVGxDnmMq70Yr7GpnzX0s
-	Bdq06By77liGcHT47ocgIuN2vEofukce7w5Y9vRFMGC4Q7w2tfClAFjtT8F7byyEaLKX09O+OGi
-	uGa8YoO3Rr68/OT7qoqhfGiFgglkzIqzswtOd/p5ulmRP/R7zb8qjH3F07AIr5MgUkCufTojDyk
-	Hr/zEXJqM+OFuTiyBPWb5OreApFZfarlBOzieL2xobgKsEKQdD6P/WjwS4jqy/ulesXQjS0bMQn
-	1jQI3VMuiYkrjrp5rvT
-X-Received: by 2002:a05:6a20:cf83:b0:3d2:ee7a:eba9 with SMTP id adf61e73a8af0-3da213cae76mr40530496637.4.1788886282481;
-        Tue, 08 Sep 2026 09:51:22 -0700 (PDT)
-Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cc455451bc0sm5851334a12.19.2026.09.08.09.51.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:51:21 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=81lvaro=20Fern=C3=A1ndez=20Rojas?= <noltari@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	co+28eef7d8af9428e6@bugs.sh,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: dsa: tag_brcm: legacy FCS: request needed tailroom
-Date: Wed,  9 Sep 2026 00:50:47 +0800
-Message-ID: <20260908165047.2786340-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVSpAPYN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D271F00A3A;
+	Tue,  8 Sep 2026 17:06:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788887167;
+	bh=+7xs9pGKZgdoziLh6xyiceOfRslnYaDU2pz1U7G3dSI=;
+	h=From:To:Cc:Subject:Date;
+	b=WVSpAPYNxRe6LcTsDo+lu312p9poJqbRtg25DQgyFu6qkfNoo+FFRw9WzS6eZ98oV
+	 Jhl7Yqm1DGo+zAdYooA7dv/Ep1Mok+a6dp+URkggUjn8lyseBlZPQ63WmF53CcldtU
+	 WFe58HWrrU5y7+NL3k1xAXiJvJjRV9h2nM/ZXmNWmGUVJa+g0lNp1fTMQmvOHtjjvM
+	 3KeFyFDHGvzeTUTPLA8cDCVvGClwxLElm8rzVdHDYHTxJ/hSk4lKCd+s75Jee/+GCL
+	 MuBBfl1n5aM/v3v8oKwL/yMV0zyTeiry4vKC68/r8GMs/8o1QcDSwivv019hhSPvIt
+	 gOdhqCPyeyTug==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Emilio=20Cobos=20=C3=81lvarez?= <emilio@crisal.io>
+Subject: [PATCH] rust: allow `unknown_lints` in generated bindings for Rust < 1.88
+Date: Tue,  8 Sep 2026 19:05:39 +0200
+Message-ID: <20260908170539.345207-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The legacy FCS tagger calculates the CRC over skb->len bytes starting at
-skb->data. When a nonlinear skb reaches the tagger, this reads past the
-linear head into unrelated slab memory.
+Starting with bindgen 0.73.2 [1], `#[allow(unnecessary_transmutes)]`
+are used, even when `--rust-target 1.85` is passed.
 
-The tagger appends an Ethernet FCS but does not declare that tailroom. As a
-result, DSA leaves NETIF_F_SG and NETIF_F_FRAGLIST enabled on the user
-port, and nonlinear skbs can reach the CRC calculation.
+However, the lint was introduced in Rust 1.88.0. Thus building with
+older Rust versions warns like:
 
-Declare the required tailroom. DSA will then clear those features and the
-networking core will linearize skbs before the tagger runs.
+    error: unknown lint: `unnecessary_transmutes`
+         --> rust/uapi/uapi_generated.rs:26294:13
+          |
+    26294 |     #[allow(unnecessary_transmutes)]
+          |             ^^^^^^^^^^^^^^^^^^^^^^
+          |
+          = note: `-D unknown-lints` implied by `-D warnings`
+          = help: to override `-D warnings` add `#[allow(unknown_lints)]`
 
-A KASAN-enabled dsa_loop test using this tagger reports:
+Thus allow `unknown_lints` in the generated bindings -- only when building
+with older Rust versions.
 
-  BUG: KASAN: slab-out-of-bounds in crc32_le
-  Read of size 1 at addr ffff8880397086c0 by task exp/135
+I have asked upstream if this is intentional [1], i.e. if we are supposed
+to always allow unknown lints in case `bindgen` uses such attributes,
+or whether it is an oversight.
 
-  Call Trace:
-   crc32_le (lib/crc/crc32-main.c:38)
-   brcm_leg_fcs_tag_xmit (net/dsa/tag_brcm.c:343)
-   dsa_user_xmit (net/dsa/user.c:942)
-   dev_hard_start_xmit (net/core/dev.c:3937)
-   __dev_queue_xmit (net/core/dev.c:4926)
-   packet_sendmsg (net/packet/af_packet.c:3110)
-   __sys_sendto (net/socket.c:2281)
-
-  The buggy address belongs to the object at ffff888039708400
-   which belongs to the cache skbuff_small_head of size 704
-  The buggy address is located 0 bytes to the right of
-   allocated 704-byte region [ffff888039708400, ffff8880397086c0)
-
-Fixes: ef07df397a62 ("net: dsa: tag_brcm: add support for legacy FCS tags")
-Cc: stable@vger.kernel.org
-Reported-by: co+28eef7d8af9428e6@bugs.sh
-Closes: https://lore.kernel.org/all/jH6u350kaBRuqklDjd3k3BW4nWzp0tYRjq3p%40bugs.sh/
-Assisted-by: Claude:gpt-5
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
+Cc: Emilio Cobos Álvarez <emilio@crisal.io>
+Link: https://github.com/rust-lang/rust-bindgen/pull/3455 [1]
+Assisted-by: LLM
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- net/dsa/tag_brcm.c | 1 +
- 1 file changed, 1 insertion(+)
+ rust/bindings/lib.rs | 1 +
+ rust/uapi/lib.rs     | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/net/dsa/tag_brcm.c b/net/dsa/tag_brcm.c
-index 411e3b57d16af..b7c49822ca888 100644
---- a/net/dsa/tag_brcm.c
-+++ b/net/dsa/tag_brcm.c
-@@ -373,6 +373,7 @@ static const struct dsa_device_ops brcm_legacy_fcs_netdev_ops = {
- 	.xmit = brcm_leg_fcs_tag_xmit,
- 	.rcv = brcm_leg_tag_rcv,
- 	.needed_headroom = BRCM_LEG_TAG_LEN,
-+	.needed_tailroom = ETH_FCS_LEN,
- };
- 
- DSA_TAG_DRIVER(brcm_legacy_fcs_netdev_ops);
+diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
+index ad24c920b919..9e2c9a8e7e6c 100644
+--- a/rust/bindings/lib.rs
++++ b/rust/bindings/lib.rs
+@@ -27,6 +27,7 @@
+ #[allow(clippy::ptr_as_ptr)]
+ #[allow(clippy::ref_as_ptr)]
+ #[allow(clippy::undocumented_unsafe_blocks)]
++#[cfg_attr(not(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES), allow(unknown_lints))]
+ #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
+ #[cfg_attr(
+     CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
+index 2df0340e63d1..c1e27192ecce 100644
+--- a/rust/uapi/lib.rs
++++ b/rust/uapi/lib.rs
+@@ -24,6 +24,7 @@
+     unreachable_pub,
+     unsafe_op_in_unsafe_fn
+ )]
++#![cfg_attr(not(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES), allow(unknown_lints))]
+ #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
+ #![cfg_attr(
+     CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+
+base-commit: 2ac74c6db40adaa29c50cbb281ae9a6f63de18e1
 -- 
 2.55.0
 
