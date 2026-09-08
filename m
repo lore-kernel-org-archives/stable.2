@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D0A534456
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C314D98FB
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:24:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870239; cv=none; b=PiXPcqJ8OdeKaqCaLnOgBfTElYzyAMRNFMXp73YNY9V6b9LXHh1trOj9SldkxNx4mth18kodFH7hIq4Xrom8R+vTipHUMv0xld0d2KtYS6TK46p59/0Kw7OTua7PQJViubKa5xQbZ7spYFtxpMHgUPnYMMTIqCqXXCAacbNI6Oc=
+	t=1788870247; cv=none; b=UifPP9MqDBFxmjbw4QvymuVtI0MhihCEaQ/oE2DcFRdcbn841kzQWEVMmZag0WUTXeGhcZlDZNohZEDAL85LlmbhyHhoOqxBgrMOlrnCRFdQZgrQUyWsa/lsOUZAfYGYBYCkjVhER0ciJZ2s9dtdjHrB3txFcShOHD+PoUdOEGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870239; c=relaxed/simple;
-	bh=RCcbifiGKOO1A10PAloKUW6qPLpRa8yIOq3BOVq3cpA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=I/LiF27UDTQJ3Y4wIxjZ5RxVyTNz+rraAahex3g4w2NqWJvE/ErLTL7OA/zhtYy/POMPvXcJZRf4dJTdUhaRGDRM4El8YVQaYTtNX8tJsWz8d2K0u9/VU1T2IpiWg979l9lmDcNwht59M8CIAmBVT2dzyDHhJHhj3wrG8WHot1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QCMeyWf8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788870247; c=relaxed/simple;
+	bh=vf95O901ZOCYO6NdGBcwbcNIOvnEOzJ+TcoAU9xBTSg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lovdtZOZWbNpN+QLPIIWbDSvz6GNSypXksHWPuXWOLG4Byx1LyRVjoThRG7vR1HANUw44pBqRdSC8RrzdLbYjsNvFMq6jzcgJ+60ORBfS4FXtBDehfl+6PvqBSfUE8fwJfN3KmEXESbKRw1eSpwzrjXm7rTUDQ+UnZ8l/TzAAPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v9x2w2JV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QCMeyWf8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050231F00A3A;
-	Tue,  8 Sep 2026 12:23:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v9x2w2JV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EF01F00A3A;
+	Tue,  8 Sep 2026 12:24:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788870237;
-	bh=LMQRmX11SuMEGQr+nEtz0jrrBIH6btYvRni6m/UdLR4=;
+	s=korg; t=1788870245;
+	bh=4/+IMpnq/A8ogQssx5gk+p3GDV8+S7m6KxmKQUdrQdg=;
 	h=Subject:To:Cc:From:Date;
-	b=QCMeyWf8J0IZXl5HSRUG1UepxL5OJSSlR5jJh781qqQr3WY7GabhlkW6ezDMLG/OS
-	 lOpfwpJRttf9zBk3lbOmcJy0vBtofcNn+Jq/hbRQCZNUcVEsDLknkMopyETuVWSa1T
-	 1Ndu6ypixP/GUwLNkuUxn8vxke2Y+tCZC3ySkZ5A=
-Subject: FAILED: patch "[PATCH] usb: gadget: f_mass_storage: fix null pointer dereference in" failed to apply to 6.18-stable tree
+	b=v9x2w2JV4crkWQPzxiDeozb7kOeOU981W0B+EtkC8P4w1QhKMHRKYsfiPhqykKmqW
+	 d/zy4/rLsarf1OXOXSPCDWrJ332pgQodNknIawTYLWWgkLDLT77pH+D48DL4mnu9t6
+	 bmfHOhsKmnV/oQEhDBS0wTLzEMMqJJEptDznXz1I=
+Subject: FAILED: patch "[PATCH] usb: gadget: f_mass_storage: fix null pointer dereference in" failed to apply to 6.12-stable tree
 To: jeffinphilip14@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org,stern@rowland.harvard.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:23:50 +0200
-Message-ID: <2026090850-ethics-surfer-b50f@gregkh>
+Message-ID: <2026090850-exonerate-dumpster-494a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2c0f5ca48674a5b5f9fa4a9c3325aa48053af0bc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090850-ethics-surfer-b50f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090850-exonerate-dumpster-494a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
