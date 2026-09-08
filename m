@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834B554A7F3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631DC52ED42
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874686; cv=none; b=czVqqO51XTzknIgcsHGLT+o6Ab9IIdCaubKAFSoNfDG6verEBYw8UzFzks9Afmp31w8OBzwDpHt0+p05dnt3a2wld+DlkhizTTFDfZwY5IcC0qh3jUB15gpEVxv+Q1yoY2Gw5H3sZL+zSlv55cg6wvAPXahtwdh0Q7Ybd6vsPzc=
+	t=1788874686; cv=none; b=TdKIAoUDkQ0aK6BMze0Oy8czHujEMp/0XrB8ePOYsieijc8aon3iezD30grkvGfLeaiM0zOYaKHlFrsvxGNd0stVpU/mn/hSP+MVLeoyuLzwNrhX71ys0QxE82gzJbRfaAi6rEKPNyLe+LJJ82WGy1nQMxKwmhcgoP1cV1WEHVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788874686; c=relaxed/simple;
-	bh=o5997Qlx/kUyYV6huKqLRPWQjOd+I3du5RHFV4pDzYY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uLCLyy1CoXYXi3EeWJ4V5j6OX/ty7usq5hV029unJhc1RsCpVX/Xm2D98I2czhJ7opKZ0IreJOgY8r+scaIpUtW6RJUaMqYM/XmTLiF6W1PClwnFPrhn9OM1rgCwMqGhG/q51D2fQwk3H4VmXAgj6OE4GWzwYBMS5gxrY52qKiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tDLEIdWc; arc=none smtp.client-ip=100.103.45.18
+	bh=KCd4SJ61/REEZTgIYe2/va3Ew4mSw9LMOXVra6hi6mg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZxpQniPfSCRo/VX6+qkXd3sj1xZjMKqFicXDINnCDPpOrw7dJqVRmtNCfCvswzW9WdBeTnK3s5Z0Ugx4u5e2qf65EidYtQHN29vOSnlufWPMoIa1FAiVUeTuFouEnHA6R61SS0C6praTUrS6X/saPQ8jhd16d47BMcU3tAAPj/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=imkj8uAh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tDLEIdWc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00441F00A3E;
-	Tue,  8 Sep 2026 13:37:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="imkj8uAh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4561F00A3D;
+	Tue,  8 Sep 2026 13:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874677;
-	bh=rjMaUOhww7t9hzIvvdF0jkoz1unnwpOaZ9+UdE0/NsY=;
+	s=korg; t=1788874674;
+	bh=3FGawUvG4Smmn3gAnwVyDpmXIYqeJm7SQetB8ClKOso=;
 	h=Subject:To:Cc:From:Date;
-	b=tDLEIdWcDWM3R8unz/aUiJNBLM2MDizPtQ+um7E8PF91TPaNQQMpMk6+6oydi42Td
-	 B6Ir2TyaWWB3QJ5W4M9QzI/FAsC8pN7AU3dS2qjzB5gBC4BlP9hmmZqnUeIzl5dE+k
-	 jM3agsbVC0sB8GyZg9ZRodqoSA6fEXgScn6v/xY8=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on" failed to apply to 6.6-stable tree
+	b=imkj8uAhrCjNTrhZpa69tGZsJ569f4p3HAv4KFf4IbMcsBSiEq5+oJ8n/23BmDqRA
+	 vJ7ppAHeNE3+FBVBFOM01Dp5tBJz6cnfNo/EMsQOA7J4G3FTH9Omf2+/sBXPULkRE0
+	 nWgF2k/r1Jgd2TknbBx9b0UF6YCmtg0/5pOSfnaE=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on" failed to apply to 6.12-stable tree
 To: usama.arif@linux.dev,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hannes@cmpxchg.org,hughd@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,nphamcs@gmail.com,riel@surriel.com,ryan.roberts@arm.com,shakeel.butt@linux.dev,stable@vger.kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:33:47 +0200
-Message-ID: <2026090847-underdone-embellish-3458@gregkh>
+Date: Tue, 08 Sep 2026 15:33:46 +0200
+Message-ID: <2026090846-bankroll-storeroom-c814@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x fe6cf984939d8e12cb33a99673c8d026c5135e68
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090847-underdone-embellish-3458@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090846-bankroll-storeroom-c814@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
