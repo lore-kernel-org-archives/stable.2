@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E155563FCA
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE0B494823
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874220; cv=none; b=TmFKn4kCk53KRA/icigGgu2EXiqHSOcY1JJ3wawCjFcWw/6UliuyvrQk4ODOzkuSOcjTKyx1WQUf/wY2Hnz045hooGdZoXT7OPw7PJWTKT4L+3Dqw2RnvvZk2S6aOd+IpfirO4P5FPPuE3dnIb99skzQB422skUyta35rzDfo7k=
+	t=1788874219; cv=none; b=kyIg+Cr4UmXdiw0cUA0G57+jIVx8mhFZwH65CQQSkXZIdmVSouK5cAbNQXTm9e/OrFOdYbVLU+fHt48jMiHDWqSezLq+S43NLkQjoLCsnNeApc2EU2xUSj+DmGPB05uh8rEAIH47a+9ccaywVAcHeAgfF54WPIUbhnUQI9dG0rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874220; c=relaxed/simple;
-	bh=tMzTy3oGJzEPepzTgdNfLtvNDeN8xOjTa4OoMXUe3L8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kyMS02Bdi3ek+A4cS4P+NZ9RcTR+x7VtA1D+gRabnz+PpRvyMJHlpDCqy3UIZSFCN99uUdu5mcjxus9Il4dxU2R0OPFjn86Cr7iFMigMCMSVlCCeST66qhp7RtuTasOi/or1M8dXOxH3LvBBkYUJeIMrhfluTjsiaIhQIBiQT2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=juMef07E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874219; c=relaxed/simple;
+	bh=2agZ5lsvsAmE/skyUErN2YzLb+SMG3bfkfNCPTz9mOg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pxUKOfrgIPRExbYiJvsRsc81TiIMPgx78NOe2dn4KfvZfTVtq0Dm/5K5Klb4zzdneDunTzVZ5RoxbBuF9mRh/i21DHz0t78U0IHJWwqc3ZK4eLYTX54soBhpaKnZp9ruDo9H80xXfA3Nrzu3VClpXInU/XjcdeIt0CplR4h31qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VIhXhoAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="juMef07E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7765B1F00ADE;
-	Tue,  8 Sep 2026 13:30:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VIhXhoAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C419D1F00ACA;
+	Tue,  8 Sep 2026 13:30:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874206;
-	bh=xCj3iQA2EFSuIouPRYkRaLfNZq4mF7cT0CAVnE8kyz4=;
+	s=korg; t=1788874203;
+	bh=WCsCJ7zlXmKIlmdfE3+cxmiOKxek6NwiBMrjSLOfvmY=;
 	h=Subject:To:Cc:From:Date;
-	b=juMef07ECA91YcC7OgQ1KnI50HU/8zt+0vyAIQGji8umWpb+q/Y0XLCHsdedZY7My
-	 s0GCNXYLZ96nsOIxGbm9AArLJmiRNIYHd5rK1H7L/r8Qe2jxaMS7RfNdf6FM3rxNiY
-	 mieaispC4DTih+UsdAAQ4/504FNZjaj5uI+4XtKU=
-Subject: FAILED: patch "[PATCH] ftrace: Take trace_array reference before accessing its" failed to apply to 6.1-stable tree
+	b=VIhXhoAvQuzW03AxusvaOY0ql8YT80JEYeSm9I7Va1O3H4SlyeSswr23LJ39mjh7F
+	 wUYYOCPRcqrJ+/4eAjSjx8VhIcVE4bvVXr7+tYQZnj9jO5g2s4vwqZRqAc+1Lfdp/M
+	 zf1vo2VW4bd4JUgnFOvT4o4UTemPVrw7m1wV+twY=
+Subject: FAILED: patch "[PATCH] ftrace: Take trace_array reference before accessing its" failed to apply to 6.6-stable tree
 To: rostedt@goodmis.org,leitao@debian.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:19:08 +0200
-Message-ID: <2026090807-trailside-suspend-7338@gregkh>
+Date: Tue, 08 Sep 2026 15:19:06 +0200
+Message-ID: <2026090806-impulse-directive-c104@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9100191e5acb2e5ea2313f436667bb5fce129f47
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090807-trailside-suspend-7338@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090806-impulse-directive-c104@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
