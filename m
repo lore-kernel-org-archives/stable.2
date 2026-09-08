@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FED53ECED
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:42:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232E653B601
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871369; cv=none; b=IuRKBQhm5fBYEbeUh4PxjyUCALYAhKMhfg9Vl1tDoW74rsQfOvVvMlM3NAShRxBeb0e9P8y4cQ62V+3+LLtZcJ5JouwEyFlvPzW9Ndh2R/cSWRCoyui0RndXNQThEbIYvh65+xRZ2oYyvcjcQ8OKFwYcqaqDEj05Rt6Q4qV0xGs=
+	t=1788871399; cv=none; b=duKvtqHP11TAv+iNQOlRPy5Z9tyuvfDXmuPaKhKm8t/7VNtm7UNDG/1uqcL/ABzxoq6CVfW/s4O668T6oDkPwW83WVubftRKbyPJQB34XMZbGilMpsB/UvnXCCMqcz4a40e/ZX9SGgfRIbA4tk2UoX0t/GfL5MGeS4+2XLfDFa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871369; c=relaxed/simple;
-	bh=c/jFeKAmS9QLZa00vvV5dyE54lCsjuY+bzn5LH7V7fY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YnYpWPqmZSt97zBlPxgsmhaZQUzaodxuprnbPeE3LfU3vsFkbQ52VjGvWksKPG89baGtyC6UQCe68QCFZQY9EQHi4DkBH2u9sQIK2F+XD3aKyyNKM/AJAA+TlNJ6DcjAzr07rXW683e/4H6GrtHyUOMnyhWFBSg1teffkqwkm2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BoLhsJ2H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871399; c=relaxed/simple;
+	bh=PZn6Kz70MwwndCuQr2wloU3KUPLWPKo6hc1Js/5pzUs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OSEiW16sQJX3ANu0VV3tBJhuFqiUFbMRTAbR6ELqQzGV5tWwl3er2F2E/Z3uduhDAL7m4hvRj3w/vpZPMqDQBK292ipgBepKdiQYY9yhBcq3+Z1oCUNr+yZJl3bgFUbdPdVWbtkxbwx75FzAtcfse5hMhVDHeAXwl2TJ0DwpxgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VMa5LaF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BoLhsJ2H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B471F00A3E;
-	Tue,  8 Sep 2026 12:42:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VMa5LaF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6701F00A3A;
+	Tue,  8 Sep 2026 12:43:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788871367;
-	bh=/BxkHQBkPn5XaD9af2UCTxJK9G74MXvLaTvHzh62olU=;
+	s=korg; t=1788871397;
+	bh=m2dG8OFN6lVgBuIT32Uj91waz2OfDeK/UqgN6ug96R4=;
 	h=Subject:To:Cc:From:Date;
-	b=BoLhsJ2HoZ4RtAQik+b2HJN+DLMBs3zOjxF8Y+3qC3TprlbSn1MfBgoRgY87opfUA
-	 cXFkSEKcmmAKmU+qIDzPxCNQRj7R7Mf/w1sw6fvEB8eWBe0KhSkpkVlWOHAPAcYVLF
-	 qQEgHqVYfJ5ggm3/jDFLQxXbThVxy6YyIwZsyGVQ=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()" failed to apply to 5.10-stable tree
-To: meatuni001@gmail.com,gregkh@linuxfoundation.org
+	b=VMa5LaF3NxleZZEtw9cG8VkAsGgTl2uLrOEE8Th4IDV5xDY0sPlhKDV+6SDoW9z2M
+	 nAUsqfZbER3MR/R6O4PFbCdRHh2busgrzemYx0uxR4vZ45tmqrDysrym2KvAf3BN/O
+	 EgJ6Qc6OENsHob2Kt6DFkfoRp4QHIPuW9sYm4eH4=
+Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 6.12-stable tree
+To: baloo@superbaloo.net,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,michal.pecio@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:42:23 +0200
-Message-ID: <2026090823-contour-casket-b871@gregkh>
+Date: Tue, 08 Sep 2026 14:43:10 +0200
+Message-ID: <2026090810-remold-gleaming-2a4e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 28a289beaf226b30b1e6e7d7b1a2946fe2d6e852
+git cherry-pick -x ff44dfb03a293bf30e31f98772a1dd316a6071d1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090823-contour-casket-b871@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090810-remold-gleaming-2a4e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,137 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 28a289beaf226b30b1e6e7d7b1a2946fe2d6e852 Mon Sep 17 00:00:00 2001
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 28 Jul 2026 17:54:56 +0500
-Subject: [PATCH] staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()
+From ff44dfb03a293bf30e31f98772a1dd316a6071d1 Mon Sep 17 00:00:00 2001
+From: Arthur Gautier <baloo@superbaloo.net>
+Date: Mon, 31 Aug 2026 12:04:48 +0300
+Subject: [PATCH] xhci: fix lost bounce buffers on TDs spanning several ring
+ segments
 
-rtw_restruct_wmm_ie() scans in_ie for a WMM IE with:
+When a TD reaches a link TRB with data that is not aligned to the
+endpoint's wMaxPacketSize, xhci_align_td() stages the unalignable tail
+through the bounce buffer of the ring segment holding that link TRB.
+xhci_unmap_td_bounce_buffer() later unmaps it and, for IN transfers,
+copies the data back into the URB's buffer.
 
-	while (i < in_len) {
-		...
-		if (i + 5 < in_len && in_ie[i] == 0xDD && ...) {
-			...
-			break;
-		}
-		i += (in_ie[i + 1] + 2); /* to the next IE element */
-	}
+The enqueue path records the segment that was bounced in td->bounce_seg,
+under the assumption that a TD never spans more than two ring segments.
+That assumption does not hold: a TD large enough to span three or more
+segments crosses several link TRBs and can be bounced at each of them.
+Only the last one survives in td->bounce_seg, so every earlier bounce
+buffer is neither copied back nor DMA unmapped.
 
-When the "i + 5 < in_len" match check fails simply because i is
-within 5 bytes of the end of the buffer (i.e. no WMM IE was found
-near the tail of in_ie), execution falls through to
-"i += (in_ie[i + 1] + 2)", which reads in_ie[i + 1]. If i == in_len
-- 1 at that point, this is a 1-byte out-of-bounds read of an
-attacker-influenced IE buffer built from association/scan data.
+The URB still completes with actual_length equal to the requested length
+and no error, so the transfer looks successful while a wMaxPacketSize
+sized hole in the destination buffer silently keeps its previous
+contents. It also leaks a DMA mapping per dropped bounce.
 
-Commit a75281626fc8f ("staging: rtl8723bs: fix potential
-out-of-bounds read in rtw_restruct_wmm_ie") added the "i + 5 <
-in_len" guard to the match condition itself, but did not add an
-equivalent guard before the fallthrough advance, so the same class
-of OOB read remained reachable through the non-matching path.
+Any sufficiently large and fragmented bulk transfer can hit this. It was
+found with a USB mass storage device behind xHCI backing a dm-verity
+target with 512 byte hash blocks, where the stale data is detected rather
+than silently consumed. The device enumerates as SuperSpeed, so
+wMaxPacketSize is 1024, while dm-bufio issues one 512 byte bio per hash
+block. verity_prefetch_io() makes the block layer merge hundreds of them
+into a single request of up to 512 scatterlist entries of 512 bytes each.
+At 256 TRBs per ring segment such a TD spans three segments, and every
+segment boundary falls on an odd multiple of 512, i.e. unaligned to
+wMaxPacketSize. dm-bufio then caches a hash block holding stale data and
+dm-verity declares the metadata block corrupted:
 
-Add an explicit bounds check before advancing to the next IE.
+  device-mapper: verity: 8:2: metadata block 10850 is corrupted
 
-Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+A reproducer running this under qemu is available at
+https://github.com/baloo/xhci-verity
+
+The bounce state (bounce_buf, bounce_dma, bounce_len, bounce_offs)
+already lives on the ring segment, so there is nothing extra to track.
+Keep recording the last bounced segment in td->bounce_seg and, on
+completion, walk the segments from td->start_seg up to it, unmapping
+every segment that still has a pending bounce.
+
+Stopping at td->bounce_seg rather than td->end_seg matters: a bounce
+implies the TD continues past that segment's link TRB, so bounce_seg is
+always strictly before end_seg, and a later TD may already have started
+in end_seg and been bounced there. Walking that far would copy a foreign
+bounce buffer into this URB and unmap it twice. It also keeps the walk
+correct if a TD ever wraps the whole ring so that end_seg == start_seg.
+
+[mn: Add ring->num_segs check to prevent unlikely infinite for loop.]
+
+Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260728125456.32359-4-meatuni001@gmail.com
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Arthur Gautier <baloo@superbaloo.net>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20260831090448.95644-4-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index fc46b33b836a..d18768a51b19 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -1975,6 +1975,9 @@ int rtw_restruct_wmm_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, uint in_
- 			break;
- 		}
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 9847c5bfc41b..ec278a9f9540 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -824,21 +824,18 @@ static void xhci_giveback_urb_in_irq(struct xhci_hcd *xhci,
+ 	usb_hcd_giveback_urb(hcd, urb, status);
+ }
  
-+		if (i + 1 >= in_len)
-+			break;
-+
- 		i += (in_ie[i + 1] + 2); /*  to the next IE element */
+-static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+-		struct xhci_ring *ring, struct xhci_td *td)
++static void xhci_unmap_one_bounce_buffer(struct xhci_hcd *xhci,
++		struct xhci_ring *ring, struct xhci_td *td,
++		struct xhci_segment *seg)
+ {
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+-	struct xhci_segment *seg = td->bounce_seg;
+ 	struct urb *urb = td->urb;
+ 	size_t len;
+ 
+-	if (!ring || !seg || !urb)
+-		return;
+-
+ 	if (usb_urb_dir_out(urb)) {
+ 		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+ 				 DMA_TO_DEVICE);
+-		return;
++		goto done;
  	}
  
+ 	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+@@ -854,10 +851,29 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+ 		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
+ 		       seg->bounce_len);
+ 	}
++done:
+ 	seg->bounce_len = 0;
+ 	seg->bounce_offs = 0;
+ }
+ 
++static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
++		struct xhci_ring *ring, struct xhci_td *td)
++{
++	struct xhci_segment *seg;
++	int i = 0;
++
++	if (!td->bounce_seg || !ring || !td->urb)
++		return;
++
++	/* td->bounce_seg is the last one bounced, unmap them all */
++	for (seg = td->start_seg; i++ < ring->num_segs; seg = seg->next) {
++		if (seg->bounce_len)
++			xhci_unmap_one_bounce_buffer(xhci, ring, td, seg);
++		if (seg == td->bounce_seg)
++			break;
++	}
++}
++
+ static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
+ 			    struct xhci_ring *ep_ring, int status)
+ {
+@@ -3685,7 +3701,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 						  &trb_buff_len,
+ 						  ring->enq_seg)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+-					/* assuming TD won't span 2 segs */
++					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
+ 				}
+ 			}
 
