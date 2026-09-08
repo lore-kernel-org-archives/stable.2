@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90A953A8B8
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90475437EC
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872238; cv=none; b=M8Krrp3Pplq6C9ZI2azqfg0r8D+BmiLNTieY/qBtsUoKJX5oMQWi6MtL0dhAgYFJ8vbD1PqaeeAYKgUII7u5QYYj/wLx025QdVYylf+aoImCBPBNrC7FPUTbgcATn5vAmWdhF8uTzY4XqR6BMOwv8kBCbuy7kYfySdd3/4lhJfY=
+	t=1788872240; cv=none; b=Ho6/HXlu61F2lGjFVdDEieJQDZine0gSRoVtodtwKDR/6295RATB/THM7M40Wh7QFtFvOqCq88V/DzQlEFjmz1oCOp5eKXgvEuuRo8YDaudk42wSWLaQAw6+I/3s2Mw1PJP9tWLSmsSsItY3BVwruWEkLpFPjjs5Sno71X7KLeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872238; c=relaxed/simple;
-	bh=Xtebxwg+ElpoLGOFWFEWiZm3aKmmd4boZGWhefF/Fg8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J/foxGZicVQW69G/3TxQMxAiiWNE7dBetAympjpIcFvApg//pwdoUFHE4r2a8zu3BXjnMKfJJAxIQI59YiJfjQEw1HwchUnintSvc7awKuize8NI52u4C+dGCE2orJTDgWNtVcPBHuNxNnIP87CnoyNUbnn8h2w1D1hjRSO/rkw=
+	s=arc-20240116; t=1788872240; c=relaxed/simple;
+	bh=5poo7QGoRFC8Gql0b1/ZBpp000/2T/CefGnx1gv3f3M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JEd9VTwo/x0xdQYppD3TxNmW1u1TnRtBuSK/ywPr/F/y7HUcDKFgtK7i8jHrzb7fhOK32BfDZDhgCkbYZc+HUz8rM2rC/X5vdCajhHIr6SaHgx82zasfuyRN58U1BfGbzuM7JTWab8NDoZ27H/sTg6ozLLQh+TXhdIYlVIBnuNs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151E51F00A3D;
-	Tue,  8 Sep 2026 12:57:14 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] mm/damon/core: avoid infinite kdamond_merge_regions()" failed to apply to 5.15-stable tree
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E7A1F00A3A;
+	Tue,  8 Sep 2026 12:57:17 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] mm/damon/core: avoid infinite kdamond_merge_regions()" failed to apply to 6.1-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:52:34 +0200
-Message-ID: <2026090834-entourage-unwound-48d4@gregkh>
+Message-ID: <2026090834-colonist-recital-c7f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090834-entourage-unwound-48d4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090834-colonist-recital-c7f0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
