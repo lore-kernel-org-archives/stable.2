@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC3A560AB9
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56185437C7
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:14:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873255; cv=none; b=S5AuJ2uMAKYEH/FeHn60Yk2yea4oXwFJa3dk2frf/EIYozBn2fvc9unWnUBmU/dBZWIhASI7NYd1PrDj2G5RUg0VdUEd1D6I8dUoD9U80DA/kDSGsFkKvTByKuKbBbAbzSpi3j+Ax+4UImfVROmD3nj5UK213gKqkk7142M/X64=
+	t=1788873253; cv=none; b=j22PqIQKcibrxE1hhPbNSdo2zCmh0pDH7Fju4bTXTjLtaSSZ809j3MDQ//ub8ZNBRXQ8W/K5uLT+dJ+7aiTXl4GS/e5zvbigc9oyfvVhYf4IsDdqyXAamMPtcLv1wWUGm4d4kXfvUvccKxvGm2gimyyp2O2DZ6SybSdWPl/WkrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873255; c=relaxed/simple;
-	bh=+eogbqNbaxR1E1MX9cwltB/59rh7sZQIJVUBrqzpZ48=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xwf6vK6e0yF4fJ3yvQ7+j615KhNotUdrBagF/L+qfE2gZNokIU27gSdu/Sxu2L427PPKRY5AvL3Oe9xjehGZUFDyY47HP6rBJmoRn/YbLsjDkAbkuH3zvpXPYzlUAN1F0jUm5SMjYmCp5bWz0Z0E4BaBWn5zL2S0dm9S4zuf91Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UBX7GkFh; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UBX7GkFh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086721F00A3E;
-	Tue,  8 Sep 2026 13:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788873242;
-	bh=chQJxs9rqDFd9eDhZUYWg9Lq8kvc2sDH4T38IWndcDc=;
-	h=Subject:To:Cc:From:Date;
-	b=UBX7GkFh6isHxWrqM/4COBbBHq5t+4a1CORxBD1UtvHnqzhmF5wz+Jop27RaxDvy9
-	 DVEUIbSlAq6fQx25KVRbKJyc5AsrVO71ExNr8NT7qbMwkqkMeVbQe3zilqPmcO0UbO
-	 wI//+1rWhM9h1mZ8cYCrzmIVqLKWuVJZ1aT+kjqg=
-Subject: FAILED: patch "[PATCH] tracing: Take trace_array reference when opening options file" failed to apply to 6.6-stable tree
+	s=arc-20240116; t=1788873253; c=relaxed/simple;
+	bh=n3sTMJXEd/A+IuruN971xYSwz8Bv8ZOS3BeQ/9HcTDo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KeJgSo7nCnfHxOHG8P4BSiBPqfUbuf3Ah0N87MStNpg74SO4AsEFUxN++xsJqQs9zdq1J6zGGfdxdIPuPteGAU+4Xhxq+xFn/MMzFU+4JSKPnVNxmMxyE5/tZdc+he7jX4IcSUX85xSj+7rqQBxmAf/H0ugepyidsDJKpFPVOfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F92F1F00AC4;
+	Tue,  8 Sep 2026 13:14:05 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] tracing: Take trace_array reference when opening options file" failed to apply to 6.12-stable tree
 To: rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:56:32 +0200
-Message-ID: <2026090832-jalapeno-putdown-ae1a@gregkh>
+Message-ID: <2026090832-earflap-imprecise-3dce@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f2951ebd15c36a1ea4820a7f0cbb0b5f1c028b73
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090832-jalapeno-putdown-ae1a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090832-earflap-imprecise-3dce@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
