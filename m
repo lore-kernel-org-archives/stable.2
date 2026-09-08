@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4253B442B;
-	Tue,  8 Sep 2026 20:49:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04083B6363;
+	Tue,  8 Sep 2026 20:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900587; cv=none; b=IfXVSQFmQoUIbjXIf0okYRiFab+0z7LoBCJYfLuDk/5HL8SABt/IdoQvFXQhKXBp0MW7d5p+KZS4UFhRzm9y991zG+X4691PmEh6yW3eRkL6jlGiXDiAEaeT74ZxERfu3NIb+9/TEItkBzQ7WBGDEtyRx0lyheVTs3UBc9NW/CM=
+	t=1788900589; cv=none; b=V4PuYW8z93okZ6CODHn+zS7SCLzkIxfH6GvqfobNUfjlhURskimmEkF6senoamMmsJdzV29bQs7o5l6XLSjdfxCO0uWK9RVNcCYl3LLH3dMI5HF3dsN7gJd8iJLc1tR0EgO9f3ieVc2HcjtsSx2QLJ+k8sJIvKs6UNiMgqT/dsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900587; c=relaxed/simple;
-	bh=Dng7831vqNk2SZgSqFVsQPCf1ZyMSGSym74azEmt+gM=;
+	s=arc-20240116; t=1788900589; c=relaxed/simple;
+	bh=jc7TqDe8lS/aD+zyDHIJYEe0pFz97x32pMr7UUlKVO8=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I1mceGyjOnKSDQvmMqyLGnnmKECy7rPFjBI1TXu83HuKicWZJHXxm6j/GuFfUarxNzd2RmZr2/0F3gFolwPmsWI+DD+3fGpjIia606L2T7YSIO2TTOB6rV/GY61/otBk/T255awg+fRmAKkdPzM+JzExptdyHbX1LU1/0cN7SGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oklRGMHM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=M800VuyJqnB3wlJvRE6OvZaUi8qG0dYwB6cfh7rmZjDanew5NqOt6+3u0Ajux6DnZhxlRTizuZFLNEcLMnJTeIid/UmQw5iFQbIWjqmHItjcHugUdANFrNHW1LtkNdDl4KR2N2NDgHn14ap1aWrZbYb6n2fWGLUldjopW4fI3AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZaHWRIx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oklRGMHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4A41F00A3E;
-	Tue,  8 Sep 2026 20:49:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZaHWRIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19761F00A3D;
+	Tue,  8 Sep 2026 20:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788900585;
-	bh=/hswGx65WijV47LY6dkL2gLh2Pm2eltopBe3BPD2/UE=;
+	s=k20260515; t=1788900586;
+	bh=OgSBOBp6IqZIPjLgNTcqDaELLZvc9xccI/MnvDdto/k=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oklRGMHMSu8+H/66yZVd/pDHY2+EQCtGZZoJne14RKQoeOQxZ2ZoO+px3khUTiKap
-	 e32en6i1aKsA+p++scK01AHHxrIRuxJUdyg4p5z1T3lr2G/jXnmiYNnGh3FUgDj2/z
-	 QZqHhpXLWoTWGgHImX07IxX5o3mrheoqm4NBsRF5sZ2bmxFJ9cmpOkkUEPbwt8iayI
-	 wQBdV52HtSuWWFZd7t+Mo5AYcLPiaRhZweMuRkANU4yzkuD+uMzZQ2e21eiCJeMR7+
-	 fgh+owJmiNhsuhRqo1VgYF8OxNj589XrOtvHqCCSarcaZOvG08u9gwbxd5Zm81Eid5
-	 ZrdvTK22I1Mvg==
-Subject: Re: [PATCH net v9 07/14] rxrpc: Fix update of call->tx_pending
- without holding lock
+	b=oZaHWRIx/9HXzTbMnfMiDtyjPmc5TKdjRuT5CLr+EAqah/Wix15bIuKkdyf85bVIk
+	 tZyPRhVbXmoWnMhU4xgaNo2pLgwc9q4o6QoRrgqlE0B3CrKSWmHft7ap4+jktcpPnp
+	 Sq+QKzXyJKU6QvMFqgEpZ66qZVMiMdIr3ohahpUMLHyUr9x4pKyqvtme46yd8ZzVTw
+	 eiPAzNPAJlHpieTG/QJH/LIrCROJJ4uoGJMjwJGgJQ5Ezzwft+ca55pGCthHdX74IR
+	 8CjNvhWuOAawkc9XfajlfoLSMeBXBskLTh3bcRf3u7AIOHmZ5YFdr5SXn1k4vlK4+c
+	 ++UH1Lxgydx2A==
+Subject: Re: [PATCH net v9 09/14] rxrpc: Fix generation of notifications after
+ call completion
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  nicoyip.dev@gmail.com, stable@vger.kernel.org
-Date: Tue, 08 Sep 2026 20:49:44 +0000
-Message-ID: <178890058440.219967.530648287942294857@kernel.org>
-In-Reply-To: <20260907113743.1453210-8-dhowells@redhat.com>
-References: <20260907113743.1453210-8-dhowells@redhat.com>
-X-sashiko-severity: Critical
+Date: Tue, 08 Sep 2026 20:49:45 +0000
+Message-ID: <178890058557.219967.11776960278332769876@kernel.org>
+In-Reply-To: <20260907113743.1453210-10-dhowells@redhat.com>
+References: <20260907113743.1453210-10-dhowells@redhat.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,139 +48,206 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-- [Critical] rxrpc_send_data() (net/rxrpc/sendmsg.c) can store an
-  *indeterminate* pointer into call->tx_pending.
+- [Low] Undisclosed behavioural divergence introduced by the refactor:
+  the new helper rxrpc_requeue_call() (net/rxrpc/recvmsg.c:22-46), which…
+- [Low] Comment vs code mismatch in net/rxrpc/call_state.c: the new
+  wrapper rxrpc_notify_socket() (line 54) carries a comment that is a…
 
 --
 
-rxrpc: Fix update of call->tx_pending without holding lock
+rxrpc: Fix generation of notifications after call completion
 
-This moves the release of call->user_mutex down into rxrpc_send_data() and
-drops the _dropped_lock indicator parameter, so the callers no longer have
-to work out whether the lock is still held.  The interrupted-reacquire path
-in wait_for_space now returns directly instead of falling through the
-common exit path, and the exit labels are renamed to out_txb/out_unlock.
+The patch stops AF_RXRPC from generating a second notification after a call
+has completed by splitting rxrpc_notify_socket() into a skip-if-completed
+wrapper plus an unconditional __rxrpc_notify_socket() in call_state.c.  The
+recvmsg path instead gets a new lightweight rxrpc_requeue_call() helper that
+only puts the call back on rx->recvmsg_q.
 
-Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+A couple of questions below about the split.
 
-> diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
-> index 4ce3ae0ba2e88..8bb327dc2833e 100644
-> --- a/net/rxrpc/sendmsg.c
-> +++ b/net/rxrpc/sendmsg.c
-
-[ ... ]
-
-> @@ -464,7 +464,7 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
->  				if (ret == -ENOMEM)
->  					goto maybe_error_rewind;
->  				set_bit(RXRPC_CALL_TX_ERROR, &call->flags);
-> -				goto out;
-> +				goto out_txb;
->  			}
+> diff --git a/net/rxrpc/call_state.c b/net/rxrpc/call_state.c
+> index 6afb54373ebbf..364810c652766 100644
+> --- a/net/rxrpc/call_state.c
+> +++ b/net/rxrpc/call_state.c
+> @@ -7,6 +7,60 @@
 >  
->  			if (len == 0 && !more)
-> @@ -476,15 +476,18 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+>  #include "ar-internal.h"
 >  
->  success:
->  	ret = copied;
-> -out:
-> +out_txb:
->  	call->tx_pending = txb;
-> +out_unlock:
-> +	mutex_unlock(&call->user_mutex);
->  	_leave(" = %d", ret);
->  	return ret;
+> +/*
+> + * Post a call for attention by the socket or kernel service.
+> + */
+> +static void __rxrpc_notify_socket(struct rxrpc_call *call)
+> +{
+> +	struct rxrpc_sock *rx;
+> +	struct sock *sk;
+> +	unsigned long flags;
+> +
+> +	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
+> +		rxrpc_see_call(call, rxrpc_call_see_notify_released);
+> +		return;
+> +	}
+> +
+> +	rcu_read_lock();
+> +
+> +	rx = rcu_dereference(call->socket);
+> +	sk = &rx->sk;
+> +	if (rx && sk->sk_state < RXRPC_CLOSE) {
+> +		if (call->notify_rx) {
+> +			spin_lock_irqsave(&call->notify_lock, flags);
+> +			call->notify_rx(sk, call, call->user_call_ID);
+> +			spin_unlock_irqrestore(&call->notify_lock, flags);
+> +		} else {
+> +			spin_lock_irqsave(&rx->recvmsg_lock, flags);
+> +			if (list_empty(&call->recvmsg_link)) {
+> +				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
+> +				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
+> +			}
+> +			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
+> +
+> +			if (!sock_flag(sk, SOCK_DEAD)) {
+> +				_debug("call %ps", sk->sk_data_ready);
+> +				sk->sk_data_ready(sk);
+> +			}
+> +		}
+> +	}
+> +
+> +	rcu_read_unlock();
+> +}
+> +
+> +/*
+> + * Post a call for attention by the socket or kernel service.
+> + */
+> +void rxrpc_notify_socket(struct rxrpc_call *call)
+> +{
+> +	if (rxrpc_call_is_complete(call)) {
+> +		rxrpc_see_call(call, rxrpc_call_see_notify_skipped);
+> +		return;
+> +	}
+> +
+> +	__rxrpc_notify_socket(call);
+> +}
 
-[Severity: Critical]
+[Severity: Low]
+This isn't a bug, but the comment on the new rxrpc_notify_socket() wrapper is
+a verbatim copy of the one on __rxrpc_notify_socket(), and the wrapper does
+not post anything when rxrpc_call_is_complete(call) is true, it just emits
+the rxrpc_call_see_notify_skipped trace and returns.
 
-Can out_txb publish an uninitialised txb into call->tx_pending?
+Since the skip is the only difference between the two functions, and is the
+reason rxrpc_set_call_completion() must use the double-underscore variant,
+would it be worth mentioning it in the comment?  As it stands, a caller that
+needs a completed-but-not-yet-drained call re-posted cannot tell from the
+comments which variant to pick.
 
-txb is declared without an initialiser in rxrpc_send_data():
-
-	struct rxrpc_txbuf *txb;
-
-but the two flag tests at the top of the reload block run before txb is
-ever assigned, and both jump out of the function:
-
-reload:
-	if (unlikely(test_bit(RXRPC_CALL_TX_NO_MORE, &call->flags))) {
-		...
-		ret = -EPROTO;
-		goto maybe_error;
-	}
-	if (unlikely(test_bit(RXRPC_CALL_TX_ERROR, &call->flags))) {
-		...
-		ret = -EIO;
-		goto maybe_error;
-	}
-
-	txb = call->tx_pending;
-	call->tx_pending = NULL;
-
-With copied == 0, which is the case on first entry, maybe_error falls
-straight through to "goto out_txb", so "call->tx_pending = txb;" runs on a
-never-assigned variable.
-
-A two-sendmsg() sequence on one AF_RXRPC call looks like it reaches this:
-the first sendmsg() sends the whole request without MSG_MORE, so
-rxrpc_queue_packet() sets RXRPC_CALL_TX_NO_MORE for the last packet; a
-second sendmsg() before the call completes passes the
-rxrpc_call_is_complete() gate in rxrpc_do_sendmsg(), enters
-rxrpc_send_data(), trips the TX_NO_MORE test and returns -EPROTO via
-out_txb.
-
-Does call->tx_pending then hold a stale stack value that rxrpc_destroy_call()
-hands to rxrpc_put_txbuf()?
-
-net/rxrpc/call_object.c:rxrpc_destroy_call() {
-	...
-	rxrpc_put_txbuf(call->tx_pending, rxrpc_txbuf_put_cleaned);
-	...
-}
-
-net/rxrpc/txbuf.c:rxrpc_put_txbuf() {
-	if (txb) {
-		debug_id = txb->debug_id;
-		call_debug_id = txb->call_debug_id;
-		seq = txb->seq;
-		dead = __refcount_dec_and_test(&txb->ref, &r);
-		...
-	}
-}
-
-That dereferences, decrements and possibly kfree()s whatever was stored.
-CONFIG_INIT_STACK_ALL_ZERO would reduce this to a NULL store, but
-CONFIG_INIT_STACK_NONE builds would not.
-
-There also looks to be a txbuf reference dropped on the TX_ERROR path even
-when the pointer happens to be NULL: the fatal secure_packet() error above
-sets RXRPC_CALL_TX_ERROR and stores the affected txbuf into
-call->tx_pending via out_txb, and the next sendmsg() overwrites that
-pointer from the TX_ERROR branch before "txb = call->tx_pending;" runs, so
-the txbuf and its data buffer are never freed.
-
-The two flag tests were placed above the "txb = call->tx_pending;"
-assignment by the earlier "rxrpc: Fix packet encryption error handling"
-change in this series, and this patch's rename to out_txb keeps the same
-path.  Would having those two paths use "goto out_unlock", or initialising
-txb to NULL at declaration, be preferable?
-
-> @@ -507,36 +510,38 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
->  		if (rxrpc_call_is_complete(call) &&
->  		    call->error < 0) {
->  			ret = call->error;
-> -			goto out;
-> +			goto out_txb;
->  		}
->  		goto success;
+> diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
+> index 56fa324d0962e..28b2148b56936 100644
+> --- a/net/rxrpc/recvmsg.c
+> +++ b/net/rxrpc/recvmsg.c
+> @@ -17,14 +17,12 @@
+>  #include "ar-internal.h"
+>  
+>  /*
+> - * Post a call for attention by the socket or kernel service.  Further
+> - * notifications are suppressed by putting recvmsg_link on a dummy queue.
+> + * Requeue a call for recvmsg() to pick up.
+>   */
+> -void rxrpc_notify_socket(struct rxrpc_call *call)
+> +static void rxrpc_requeue_call(struct socket *sock, struct rxrpc_call *call)
+>  {
+> -	struct rxrpc_sock *rx;
+> -	struct sock *sk;
+> -	unsigned long flags;
+> +	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
+> +	struct sock *sk = &rx->sk;
+>  
+>  	_enter("%d", call->debug_id);
+>  
+> @@ -33,31 +31,18 @@ void rxrpc_notify_socket(struct rxrpc_call *call)
+>  		return;
 >  	}
-> -	goto out;
-> +	goto out_txb;
+>  
+> -	rcu_read_lock();
+> -
+> -	rx = rcu_dereference(call->socket);
+> -	sk = &rx->sk;
+> -	if (rx && sk->sk_state < RXRPC_CLOSE) {
+> -		if (call->notify_rx) {
+> -			spin_lock_irqsave(&call->notify_lock, flags);
+> -			call->notify_rx(sk, call, call->user_call_ID);
+> -			spin_unlock_irqrestore(&call->notify_lock, flags);
+> -		} else {
+> -			spin_lock_irqsave(&rx->recvmsg_lock, flags);
+> -			if (list_empty(&call->recvmsg_link)) {
+> -				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
+> -				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
+> -			}
+> -			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
+> +	spin_lock_irq(&rx->recvmsg_lock);
+> +	if (list_empty(&call->recvmsg_link)) {
+> +		rxrpc_get_call(call, rxrpc_call_get_notify_socket);
+> +		list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
+> +	}
+> +	spin_unlock_irq(&rx->recvmsg_lock);
+
+[Severity: Low]
+Is dropping the "rx && sk->sk_state < RXRPC_CLOSE" test intentional here?
+
+rxrpc_requeue_call() keeps only the RXRPC_CALL_RELEASED check, so it will add
+the call to rx->recvmsg_q regardless of sk_state, while the other enqueue site
+for the same list, __rxrpc_notify_socket() in call_state.c, still requires
+sk_state < RXRPC_CLOSE.
+
+The CLOSE transition looks like it was written as a fence for additions to
+that list, since rxrpc_shutdown() and rxrpc_release_sock() in af_rxrpc.c set
+it under the same lock:
+
+net/rxrpc/af_rxrpc.c:rxrpc_shutdown() {
+	...
+	if (sk->sk_state < RXRPC_CLOSE) {
+		spin_lock_irq(&rx->recvmsg_lock);
+		sk->sk_state = RXRPC_CLOSE;
+		sk->sk_shutdown = SHUTDOWN_MASK;
+		spin_unlock_irq(&rx->recvmsg_lock);
+	...
+}
+
+The requeue in rxrpc_recvmsg() runs after release_sock(&rx->sk), so a
+concurrent shutdown(SHUT_RDWR) on another thread of the same socket can flip
+sk_state to RXRPC_CLOSE in that window and the call is requeued anyway, with a
+fresh rxrpc_call_get_notify_socket ref.
+
+The consequences look bounded: the extra ref is reclaimed when
+rxrpc_release_calls_on_socket() drains rx->recvmsg_q, and handing out
+already-queued data after shutdown was possible before this patch too, since
+rxrpc_recvmsg() has no RXRPC_CLOSE rejection and the fence never removes
+entries that are already queued.
+
+Similarly, the call->notify_rx branch is gone from this path.  That looks safe
+today, since notify_rx is only set for kernel service calls and
+__rxrpc_notify_socket() never puts those on rx->recvmsg_q, so every call
+rxrpc_recvmsg() takes off that queue has notify_rx == NULL.
+
+Would it be worth either restoring the sk_state test so both enqueue sites
+agree, or noting in a comment why the requeue path does not need it?
+
+> -			if (!sock_flag(sk, SOCK_DEAD)) {
+> -				_debug("call %ps", sk->sk_data_ready);
+> -				sk->sk_data_ready(sk);
+> -			}
+> -		}
+> +	if (!sock_flag(sk, SOCK_DEAD)) {
+> +		_debug("call %ps", sk->sk_data_ready);
+> +		sk->sk_data_ready(sk);
+>  	}
+>  
+> -	rcu_read_unlock();
+>  	_leave("");
+>  }
 
 [ ... ]
 
