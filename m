@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD6D552940
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CBA519939
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874246; cv=none; b=lhPBV0Q/TR5RC2Vw/ud6saiYjIzDXxwDxjokY0A3Rd/dbfjOmaJe+kGXnvcGqdc84F5jFeEhwaLqbEeptzo3BYhudu4cL8IxY08K7b5kyJcGqeDsx3okY9y1CoyVuph6D7hR5xL9u+idYZZFoH+uejqN9Xqv5b99trE7e166Wyg=
+	t=1788874251; cv=none; b=pgAzwbB5pB7cjW+q4+iNDFAiHb34CRtzIe2UoMM2agJEe34UVnwelG0c1M5Q5VQAuU8Lt6stnwpq88M2oYePB2gkViVFl46NR7JdDjAKnvoTD1Gnl2XE/ly/Sta+x5lX2GslVg3/f5g2q9IAe2fVhyKfOawnt0C/KciCJNnaFvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874246; c=relaxed/simple;
-	bh=qTcUpZeXmOhBQ007fl+hsdCCHvSbii5g+yrdOIvONEU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=euGFVbU5WwL9jRJnJTR4YHRjl0pJDArbzQ4gbV+x2jeTBHXwxmNGYHGmk6vztgJlEMA1eYdrSptUeywCITkMr8deXdoE2MdK/CBUm/KCWYA7FWE+xX8iYqDmUITz8FjncWJA/lnT2dRn5owpFCa6tL+ppxbGmJhMu95Y1PXaETc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fsCkvPf3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874251; c=relaxed/simple;
+	bh=Z2fV1zGf6qtV9KEJs2TbCy/zKLPklBHCwMHVQ/RqWIM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XUgdvxiUjODGK+2LIlZliwHKb3iB9wGrPz9tDnPPHOCQIfN+Cou32zRrg+7iGCsVGTjeYMOrUg4eqfbM2lVDbqGatsusgmnW11tS4/q1sfJDRglxnzMRr9ov8f/qRWcTZCx7FdNFYYU7Ra+WmmJ0ulU3kYZaF8a4bI1wwinyKAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=05r7tEoq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fsCkvPf3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3341F00A3A;
-	Tue,  8 Sep 2026 13:30:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="05r7tEoq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF20C1F00ACF;
+	Tue,  8 Sep 2026 13:30:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874232;
-	bh=RWcCK8RDJe0PKAFto0MjA1VEkG9wlElVrXyL0k75egw=;
+	s=korg; t=1788874229;
+	bh=11fj7gd34BEOLV0puAiSvhJVG6eBv5TguYHA2uUmcrA=;
 	h=Subject:To:Cc:From:Date;
-	b=fsCkvPf36/IT3oVJ5EJZzctKwawNRhiHBiZbeX5VfAd+Xs2BhBFYsPMh+ExygSv+3
-	 OZmlLPmzp4I4C3QDLDe3PpneTg0wK+FfqPPL+eWgrb+VV40zPZ5Xo6Sje4aS0duz1Z
-	 UDxOYNLazmqnqxkqM0Zw9Cf0YkEfTZPYz/rbHhRI=
-Subject: FAILED: patch "[PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()" failed to apply to 6.6-stable tree
-To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org,tjmercier@google.com
+	b=05r7tEoqBvdjOxkIjUEANeU+ESuRx0YqWZsOTV2LTcG5DSAPAFnI1tsMf9dVAQSA3
+	 aIPjaeXEN0KEbR6GUZWhgcfJJHPSryE0HrJmOCYlLryV9M9Yv+ZOLL3IXr1693+0PG
+	 Q6myCg136BWuBIVIbpHnY6Tq8HU5cIwutrXptKqY=
+Subject: FAILED: patch "[PATCH] ftrace: Synchronize the initialization of ftrace_ops" failed to apply to 5.15-stable tree
+To: rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:20:59 +0200
-Message-ID: <2026090859-unpainted-acclaim-c3fd@gregkh>
+Date: Tue, 08 Sep 2026 15:19:30 +0200
+Message-ID: <2026090830-bonus-gaining-b7d0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0
+git cherry-pick -x 4617721c502b2ddaa4e324e86da4997edf738fa5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090859-unpainted-acclaim-c3fd@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090830-bonus-gaining-b7d0@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,246 +62,64 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 Mon Sep 17 00:00:00 2001
-From: Baineng Shou <shoubaineng@gmail.com>
-Date: Mon, 17 Aug 2026 13:04:54 +0800
-Subject: [PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()
- succeeds
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 4617721c502b2ddaa4e324e86da4997edf738fa5 Mon Sep 17 00:00:00 2001
+From: Steven Rostedt <rostedt@goodmis.org>
+Date: Wed, 2 Sep 2026 09:55:01 -0400
+Subject: [PATCH] ftrace: Synchronize the initialization of ftrace_ops
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+There's some internal state that ftrace_ops needs to have set, but since
+it can be declared outside of the ftrace.c code, it calls
+ftrace_ops_init() on the ops in every global function. The issue is that
+if two tasks call it on the same ops at the same time it is possible to
+have the initialization of one corrupt the initialization of the other
+call.
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+Create a ops_mutex to use to synchronize every initialization of the
+ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
+states it was initializied but the flag is checked again after the mutex
+has been taken. Checking first outside the mutex allows it to shortcut
+having to take the mutex. But then the check needs to be done again after
+the mute is taken in case of races.
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
-
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Link: https://patch.msgid.link/20260902095501.6b59af20@gandalf.local.home
+Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
+Reported-by: sashiko-bot@kernel.org
+Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..4c9add51f9ef 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -803,6 +803,26 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_fd, "DMA_BUF");
- 
-+/**
-+ * dma_buf_fd_install - install a reserved fd for a dma-buf
-+ * @dmabuf:	[in]	pointer to dma_buf
-+ * @fd:		[in]	fd reserved with get_unused_fd_flags()
-+ *
-+ * Publishes a previously reserved fd into the caller's fd table.
-+ * Must only be called after all fallible work (e.g. copy_to_user)
-+ * has succeeded, as it cannot be undone safely once called.
-+ *
-+ * The caller is responsible for having emitted the trace event
-+ * (via dma_buf_fd() or get_unused_fd_flags() + this function)
-+ * before calling this.
-+ */
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd)
-+{
-+	DMA_BUF_TRACE(trace_dma_buf_fd, dmabuf, fd);
-+	fd_install(fd, dmabuf->file);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_fd_install, "DMA_BUF");
-+
- /**
-  * dma_buf_get - returns the struct dma_buf related to an fd
-  * @fd:	[in]	fd associated with the struct dma_buf to be returned
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index a76bf3f8b071..43c32fb28313 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
- 		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
- EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
- 
--static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
--				 u32 fd_flags,
--				 u64 heap_flags)
--{
--	struct dma_buf *dmabuf;
--	int fd;
--
--	/*
--	 * Allocations from all heaps have to begin
--	 * and end on page boundaries.
--	 */
--	len = PAGE_ALIGN(len);
--	if (!len)
--		return -EINVAL;
--
--	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
--	fd = dma_buf_fd(dmabuf, fd_flags);
--	if (fd < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--	}
--	return fd;
--}
--
- static int dma_heap_open(struct inode *inode, struct file *file)
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index c7cf36f2dd7b..53d5db60bfa5 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -75,6 +75,8 @@
+ 	.func_hash		= &opsname.local_hash,			\
+ 	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock), \
+ 	.subop_list		= LIST_HEAD_INIT(opsname.subop_list),
++/* Used only to synchronize the initialization of ftrace_ops */
++static DEFINE_MUTEX(ops_mutex);
+ #else
+ #define INIT_OPS_HASH(opsname)
+ #endif
+@@ -159,11 +161,18 @@ const struct ftrace_ops ftrace_nop_ops = {
+ static inline void ftrace_ops_init(struct ftrace_ops *ops)
  {
- 	struct dma_heap *heap;
-@@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static long dma_heap_ioctl_allocate(struct file *file, void *data)
-+static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
- {
- 	struct dma_heap_allocation_data *heap_allocation = data;
- 	struct dma_heap *heap = file->private_data;
-+	struct dma_buf *dmabuf;
- 	int fd;
-+	size_t len;
- 
- 	if (heap_allocation->fd)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
--	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
--				   heap_allocation->fd_flags,
--				   heap_allocation->heap_flags);
--	if (fd < 0)
--		return fd;
-+	len = PAGE_ALIGN(heap_allocation->len);
-+	if (!len)
-+		return ERR_PTR(-EINVAL);
+ #ifdef CONFIG_DYNAMIC_FTRACE
+-	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
++	unsigned long flags = smp_load_acquire(&ops->flags);
 +
-+	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-+				     heap_allocation->heap_flags);
-+
-+	if (IS_ERR(dmabuf))
-+		return dmabuf;
-+
-+	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		return ERR_PTR(fd);
-+	}
- 
- 	heap_allocation->fd = fd;
- 
--	return 0;
-+	return dmabuf;
- }
- 
- static unsigned int dma_heap_ioctl_cmds[] = {
-@@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 	unsigned int in_size, out_size, drv_size, ksize;
- 	int nr = _IOC_NR(ucmd);
- 	int ret = 0;
-+	int fd;
-+	struct dma_buf *dmabuf;
- 
- 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
- 		return -EINVAL;
-@@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 
- 	switch (kcmd) {
- 	case DMA_HEAP_IOCTL_ALLOC:
--		ret = dma_heap_ioctl_allocate(file, kdata);
-+		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-+
-+		if (IS_ERR(dmabuf)) {
-+			ret = PTR_ERR(dmabuf);
-+			break;
-+		}
-+
-+		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-+		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-+			put_unused_fd(fd);
-+			dma_buf_put(dmabuf);
-+			ret = -EFAULT;
-+		} else {
-+			dma_buf_fd_install(dmabuf, fd);
-+		}
-+
- 		break;
- 	default:
- 		ret = -ENOTTY;
- 		goto err;
++	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
++		guard(mutex)(&ops_mutex);
++		/* Could have been initialized before lock taken */
++		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
++			return;
+ 		mutex_init(&ops->local_hash.regex_lock);
+ 		INIT_LIST_HEAD(&ops->subop_list);
+ 		ops->func_hash = &ops->local_hash;
+-		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
++		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
++		smp_store_release(&ops->flags, flags);
  	}
- 
--	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
--		ret = -EFAULT;
- err:
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..d15b2b31d3c9 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -567,6 +567,7 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
- 
- int dma_buf_fd(struct dma_buf *dmabuf, int flags);
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
- struct dma_buf *dma_buf_get(int fd);
- void dma_buf_put(struct dma_buf *dmabuf);
- 
+ #endif
+ }
 
