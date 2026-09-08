@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A805C55D88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF46560AA5
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883846; cv=none; b=gHR1A2zsTw+Wdzu6PnyGdUClr/hbTaChLzK4RGDVI9LUeG0UtK6mEloIXpzxJAo03ioR+t5Cy3zeugHlM1qUL+9igLV8nntF6XGrkouOaMRsHLBmdlDR/FIgumsZwKcssMflTn70rnk50Eyq2wHhHLzY8eZZN9F5JWaXSy5G4P4=
+	t=1788883847; cv=none; b=BmtEGCh1IgEVEyJjPxckdx8/i3hMRNL/4JMuixOTTPmnmM01k1Q35H2yFb57aEfobTTSrW70gP8IasoWFG6CNie8yUOfLsjqAY94T3h3uYR/TG3QDb/PFqmM+FEovWLl4krvw5XkhKeGJydANZxnbMWv7z1rt4xCDtWvLqqDiuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883846; c=relaxed/simple;
-	bh=BH853UXiMZ4gPk6q+yBvXONn9nKBVwv1S+hPtZWGNNk=;
+	s=arc-20240116; t=1788883847; c=relaxed/simple;
+	bh=B4Zj1J2HPA9pS25lkXJpUkCik3Uhog7hV20hUrZspjk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sYJXgrfWbOUEKBIMxIitHzUflB/45fnI0dCPEqGKezbW+4cVayrMGUd+xIT/3Kx3plrAjrI4PzfiiKbNtZkVaTjzJhWxCR2stt3l3xew7D5AEBNlSKdYTSH8WYxSHT8w2RYDR+E8cs6jEO63dfZWRV3WNDNxummB3XDJzJefD6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTpI+ojB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GnfM4TZFlRWXjAldSQuftpC3CJjsspa9fzezUuxiyiFmxPRq6/ab7+YLYQQ7wKbiEyjoqNB8iYPIVZnCtx4Z7r6gDPfplQeMhxKdiZY2K3FqA203/khfTWX11KcQnWjZKAFwcOtei4FOWIyhvPfmM09i8GvhiG5I0NFRXzvaAxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5JxsElT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTpI+ojB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CEB1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5JxsElT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE53F1F00A3E;
 	Tue,  8 Sep 2026 16:10:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883843;
-	bh=uaHOEYWP80xxjhkaT+/Bn7k5I4zTTYBP+g86aB9zMXU=;
+	s=k20260515; t=1788883844;
+	bh=QlX5ZHVKq4TU2EDRmUOUxrJgjUb2haCUoMeN5a3uHZ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CTpI+ojB8YpndV02QsEWjE3b+Yc4eOqIaskvcrZiLe+fTm/pBYi1l1qIU5VB3n+fk
-	 fwpBT4KRbzBj08Ujx9tjXVmL1bm+V8hHINLPCQHXXlmRfAr/5/LcInv6h6zp3KqEif
-	 WGqReKxualwcdokD+x5Q0FSezCvr30bjqEIwR4+y2u0E9bYnyyqVNCf4nTxP6QgwHg
-	 qzmR5mJoEplYG2MeWmJZdNHE7e91L7B0g0Su+Xp14WXPoEFDUNkAwvCXb0CqZClRb0
-	 Y14N5Q3y7ZCb/a0DBn6LaubGvtRk0w9Iw60YLuN27gGJcN6Bh88oiahrdCWAkdYHOv
-	 TaeuRnr2oO07A==
+	b=E5JxsElTgkVHhxugNUcd/laDSgf6HeybAHShIBYylYz9gcvXf7iV0JGl4bv95CDYm
+	 lihN2mB+tOTBIl14EzIhRbQwmIVm3nsMP6RnE+GMfJnL96OztHOz05pYbg0bF6a7Sc
+	 W3AbihMV2yVCqsfK9FuwFUaspztn6PmykYM0yZ24G6qrp8N6OTtRhGvWCdAjmOgoTp
+	 yvQYjT0lf/1nz8VTS68hGsusbZB/PMkFxJ6vfO3GTtvP1C6t6UW9yflKimakk7Sdfc
+	 Dhn4vdGGWSF4Ig5NLydHrO5sNWOEGnUskIN2qmAgAhuE2QC5vZKVT2ECokobtEz66E
+	 GcR7lvWwFS6ug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ye Bin <yebin10@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] jbd2: add prefix 'jbd2' for 'shrink_type'
-Date: Tue,  8 Sep 2026 12:10:39 -0400
-Message-ID: <20260908161040.2593291-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] Bluetooth: hci_sync: Convert MGMT_OP_START_DISCOVERY
+Date: Tue,  8 Sep 2026 12:10:41 -0400
+Message-ID: <20260908161042.2593360-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908161040.2593291-1-sashal@kernel.org>
-References: <2026090324-scorer-unbutton-3de6@gregkh>
- <20260908161040.2593291-1-sashal@kernel.org>
+In-Reply-To: <2026090318-staring-emphases-67af@gregkh>
+References: <2026090318-staring-emphases-67af@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,128 +45,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ye Bin <yebin10@huawei.com>
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit 26770a717cac57041d9414725e3e01dd19b08dd2 ]
+[ Upstream commit abfeea476c68afea54c9c050a2d3b19d5d2ee873 ]
 
-As 'shrink_type' is exported. The module prefix 'jbd2' is added to
-distinguish from memory reclamation.
+This make use of hci_cmd_sync_queue for MGMT_OP_START_DISCOVERY,
+MGMT_OP_START_SERVICE_DISCOVERY and MGMT_OP_STOP_DISCOVERY to use
+hci_cmd_sync_queue so they no longer depend on hdev->discov_update work
+to send any commands.
 
-Signed-off-by: Ye Bin <yebin10@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://lore.kernel.org/r/20240407065355.1528580-3-yebin10@huawei.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Stable-dep-of: 15cb16496446 ("jbd2: bound shrinker scans by examined checkpoint buffers")
+Tested with:
+
+tools/mgmt-tester -s "Start Discovery"
+
+Test Summary
+------------
+Start Discovery - Not powered 1                      Passed
+Start Discovery - Invalid parameters 1               Passed
+Start Discovery - Not supported 1                    Passed
+Start Discovery - Success 1                          Passed
+Start Discovery - Success 2                          Passed
+Start Discovery - Power Off 1                        Passed
+Start Discovery BREDR LE - (Ext Scan Enable)         Passed
+Start Discovery LE - (Ext Scan Enable)               Passed
+Start Discovery LE - (Ext Scan Param)                Passed
+Start Discovery - (2m, Scan Param)                   Passed
+Start Discovery - (coded, Scan Param)                Passed
+Start Discovery - (1m, 2m, coded, Scan Param)        Passed
+LL Privacy - Start Discovery 1 (Disable RL)          Passed
+LL Privacy - Start Discovery 2 (Disable RL)          Passed
+Total: 14, Passed: 14 (100.0%), Failed: 0, Not Run: 0
+
+tools/mgmt-tester -s "Start Service"
+
+Test Summary
+------------
+Start Service Discovery - Not powered 1              Passed
+Start Service Discovery - Invalid parameters 1       Passed
+Start Service Discovery - Not supported 1            Passed
+Start Service Discovery - Success 1                  Passed
+Start Service Discovery - Success 2                  Passed
+Total: 5, Passed: 5 (100.0%), Failed: 0, Not Run: 0
+
+tools/mgmt-tester -s "Stop Discovery"
+
+Test Summary
+------------
+Stop Discovery - Success 1                           Passed
+Stop Discovery - BR/EDR (Inquiry) Success 1          Passed
+Stop Discovery - Rejected 1                          Passed
+Stop Discovery - Invalid parameters 1                Passed
+Stop Discovery - (Ext Scan Disable)                  Passed
+Total: 5, Passed: 5 (100.0%), Failed: 0, Not Run: 0
+
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+
+[ sashal: Reduced backport -- upstream abfeea476c68a touches 5 file(s), this
+  backport carries 2. Not backported here:
+  include/net/bluetooth/hci_sync.h
+  net/bluetooth/hci_event.c
+  net/bluetooth/hci_sync.c
+  net/bluetooth/mgmt.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: ed5fb41d3b6b ("Bluetooth: hci_conn: re-enable advertising only for peripheral role")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/jbd2/checkpoint.c | 22 +++++++++++-----------
- fs/jbd2/commit.c     |  2 +-
- include/linux/jbd2.h |  4 ++--
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ net/bluetooth/hci_conn.c    | 4 ++--
+ net/bluetooth/hci_request.h | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 9fcc68884e262..36c64cf44e005 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -378,7 +378,7 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
-  * Called with j_list_lock held.
-  */
- static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
--						enum shrink_type type,
-+						enum jbd2_shrink_type type,
- 						bool *released)
- {
- 	struct journal_head *last_jh;
-@@ -395,12 +395,12 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 		jh = next_jh;
- 		next_jh = jh->b_cpnext;
- 
--		if (type == SHRINK_DESTROY) {
-+		if (type == JBD2_SHRINK_DESTROY) {
- 			ret = __jbd2_journal_remove_checkpoint(jh);
- 		} else {
- 			ret = jbd2_journal_try_remove_checkpoint(jh);
- 			if (ret < 0) {
--				if (type == SHRINK_BUSY_SKIP)
-+				if (type == JBD2_SHRINK_BUSY_SKIP)
- 					continue;
- 				break;
- 			}
-@@ -470,7 +470,7 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 		tid = transaction->t_tid;
- 
- 		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--						   SHRINK_BUSY_SKIP, &released);
-+						   JBD2_SHRINK_BUSY_SKIP, &released);
- 		nr_freed += freed;
- 		(*nr_to_scan) -= min(*nr_to_scan, freed);
- 		if (*nr_to_scan == 0)
-@@ -503,20 +503,20 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
-  * journal_clean_checkpoint_list
-  *
-  * Find all the written-back checkpoint buffers in the journal and release them.
-- * If 'type' is SHRINK_DESTROY, release all buffers unconditionally. If 'type'
-- * is SHRINK_BUSY_STOP, will stop release buffers if encounters a busy buffer.
-- * To avoid wasting CPU cycles scanning the buffer list in some cases, don't
-- * pass SHRINK_BUSY_SKIP 'type' for this function.
-+ * If 'type' is JBD2_SHRINK_DESTROY, release all buffers unconditionally. If
-+ * 'type' is JBD2_SHRINK_BUSY_STOP, will stop release buffers if encounters a
-+ * busy buffer. To avoid wasting CPU cycles scanning the buffer list in some
-+ * cases, don't pass JBD2_SHRINK_BUSY_SKIP 'type' for this function.
-  *
-  * Called with j_list_lock held.
-  */
- void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
--					  enum shrink_type type)
-+					  enum jbd2_shrink_type type)
- {
- 	transaction_t *transaction, *last_transaction, *next_transaction;
- 	bool released;
- 
--	WARN_ON_ONCE(type == SHRINK_BUSY_SKIP);
-+	WARN_ON_ONCE(type == JBD2_SHRINK_BUSY_SKIP);
- 
- 	transaction = journal->j_checkpoint_transactions;
- 	if (!transaction)
-@@ -562,7 +562,7 @@ void jbd2_journal_destroy_checkpoint(journal_t *journal)
- 			spin_unlock(&journal->j_list_lock);
- 			break;
- 		}
--		__jbd2_journal_clean_checkpoint_list(journal, SHRINK_DESTROY);
-+		__jbd2_journal_clean_checkpoint_list(journal, JBD2_SHRINK_DESTROY);
- 		spin_unlock(&journal->j_list_lock);
- 		cond_resched();
- 	}
-diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
-index 33113c01f6fc6..5a45e31530264 100644
---- a/fs/jbd2/commit.c
-+++ b/fs/jbd2/commit.c
-@@ -535,7 +535,7 @@ void jbd2_journal_commit_transaction(journal_t *journal)
- 	 * frees some memory
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index eb70a4f44c7d1..fcbeb508a3e76 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -744,10 +744,10 @@ void hci_le_conn_failed(struct hci_conn *conn, u8 status)
  	 */
- 	spin_lock(&journal->j_list_lock);
--	__jbd2_journal_clean_checkpoint_list(journal, SHRINK_BUSY_STOP);
-+	__jbd2_journal_clean_checkpoint_list(journal, JBD2_SHRINK_BUSY_STOP);
- 	spin_unlock(&journal->j_list_lock);
+ 	hci_update_background_scan(hdev);
  
- 	jbd2_debug(3, "JBD2: commit phase 1\n");
-diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
-index e3d371565da85..a5cff8024f767 100644
---- a/include/linux/jbd2.h
-+++ b/include/linux/jbd2.h
-@@ -1443,9 +1443,9 @@ void jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block);
- extern void jbd2_journal_commit_transaction(journal_t *);
+-	/* Re-enable advertising in case this was a failed connection
++	/* Enable advertising in case this was a failed connection
+ 	 * attempt as a peripheral.
+ 	 */
+-	hci_req_reenable_advertising(hdev);
++	hci_enable_advertising(hdev);
+ }
  
- /* Checkpoint list management */
--enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
-+enum jbd2_shrink_type {JBD2_SHRINK_DESTROY, JBD2_SHRINK_BUSY_STOP, JBD2_SHRINK_BUSY_SKIP};
+ static void create_le_conn_complete(struct hci_dev *hdev, u8 status, u16 opcode)
+diff --git a/net/bluetooth/hci_request.h b/net/bluetooth/hci_request.h
+index 6a12e84c66c40..ee3d2047a6c0b 100644
+--- a/net/bluetooth/hci_request.h
++++ b/net/bluetooth/hci_request.h
+@@ -72,6 +72,7 @@ void hci_req_prepare_suspend(struct hci_dev *hdev, enum suspended_state next);
  
--void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum shrink_type type);
-+void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum jbd2_shrink_type type);
- unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal, unsigned long *nr_to_scan);
- int __jbd2_journal_remove_checkpoint(struct journal_head *);
- int jbd2_journal_try_remove_checkpoint(struct journal_head *jh);
+ void hci_req_disable_address_resolution(struct hci_dev *hdev);
+ void hci_req_reenable_advertising(struct hci_dev *hdev);
++#define hci_enable_advertising hci_req_reenable_advertising
+ void __hci_req_enable_advertising(struct hci_request *req);
+ void __hci_req_disable_advertising(struct hci_request *req);
+ void __hci_req_update_adv_data(struct hci_request *req, u8 instance);
 -- 
 2.53.0
 
