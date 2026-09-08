@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A05538D9E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FDB560AC0
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883847; cv=none; b=QvBc2vLQAqMM3l5QZKSjjI/2EV9s4OdZDW0ku4/li7uP4dOU28lPLcekOPsPvEhrTlNLPEHnCwTtZBAxoRRdaYjPGSRckhXqOeiL+wFCCndUtkXN7atJSjx6LGnfIH/uc0Ksk5B2zyT4PNQxl8QavgVXfKK0cz38SfoNtMhMhN4=
+	t=1788884042; cv=none; b=dbMYlzzjS6vkbt65bAMLfWquOKh350/CMMOvMlC31/8D4NEY1eRFo19400gpaKYpXIdKpoHpDstg2cso7mUIF0S0QS/Zod6A11yQf62Q4WvjaudqQKkX8gnZWlhszzNYlQmKGBn09h3X3U+rwrC6+Utc7omGt6nbp7VoqhHcxno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883847; c=relaxed/simple;
-	bh=JSujCaC06RA1yHRYtqKF1wiV2QG6XRQ+4bdg7FzS/sY=;
+	s=arc-20240116; t=1788884042; c=relaxed/simple;
+	bh=JwDVA+wGmnWCXy+ogztDp4IH7cRai0KmXbi2xGfZUcU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gsKYvMfs3unW20Gr2tfYFlkaLMr+6ZYklLP0BOM6eMH/tODbMsOX0k6JlLSkFmBE64Tcig4vV0PA90zUPHtYG7fxysYZbvSzVzNYmn+Snk0n5clg8SW/pExvZ9i1SRiraK9hpi0orVaRoM5nduhrSSrTLH98+eygzPZNln3g5gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+lDHIvX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nitzLQH2+0NqHTfXWoLvtv2/G0x1tHel+aeq7FbO+58oyhqE2sh8CRpwPdOELNYPzKigfhy6k6NgQTyhxBbOxQ1V6MgEm+ktMA4Rh2LARl9gUNb+OQYNpS70gPZvXkgRyXrAICOrHX2X+4grx8EQyT8/Q2la9mUN7hCzw+gTRvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8GbxWlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+lDHIvX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307C31F00A3F;
-	Tue,  8 Sep 2026 16:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8GbxWlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6764F1F00A3A;
+	Tue,  8 Sep 2026 16:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883844;
-	bh=DkyTmT/aHRN0NyezK4B8JxLyqO/bkd8K6uetKDkMyeI=;
+	s=k20260515; t=1788884037;
+	bh=Ynk9eaDU6FP0oflZg7NXaM5jRLiVcw3tVQ/cMxkrjO8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N+lDHIvXw5Zq/vRfa/8yT1MAKLZ0WSHDHTDTdANymFbgvMPbfxDDZZxlnAsW7+fR1
-	 szECtcyWo1foKWQgiTtTxP9liu840TI+uh68cCP2GgQ8MqDSwnsOfzRowKb1TY+jKW
-	 vcOX80PguTHkYbLPJvSQAKETT9TBqbsFc2M9BJUWNRaCiaJ34fzRNoIUMlHDhXXJ7u
-	 rHsfZ60dQidMvchQfPjZQ2uvfWGpWRAvRc5puJNjvZ0Pzu+68jMtQca0Kfc2ww4Pq9
-	 kx0s9HtrAA6xqIOJhbYTtznSs5mqdEXMt6Iu4zQ35yGDinLcujUA4pY/TyfrAsm3tO
-	 v0IL4kww1D2jA==
+	b=Q8GbxWlphnNUiBzBRvEU4ktOiIQg3ng5lECDUAwCgFkjDTIhwk4pXip65c1wx0ZnU
+	 Sz05mUnlmohfhXU7ZMvwtByMSkn22ArpYXLphYv/AbLh97eTiTTAzo9HzMtKYifpqL
+	 WAx4tDObCf+1GrMED5YHpr2eYv4Hbt/6SMQ/w8i+bbSzHhAZ/u+XDV3F12Vo1p9Oh5
+	 NotAmkVCNKV5V+PxzS0xvlL6v07TAs2j7lUvG5cOQTFptKVaSJK4mbrfSN4sf020lC
+	 l/3jWJ7zFHDpjI4TbNR0stBTEc3Of7NpNoJnv/+YjYq02BBeCWmpYlG5ivxaj8QISm
+	 i6ehVd+684fHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] jbd2: bound shrinker scans by examined checkpoint buffers
-Date: Tue,  8 Sep 2026 12:10:40 -0400
-Message-ID: <20260908161040.2593291-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] ACPI: TAD: Rearrange RT data validation checking
+Date: Tue,  8 Sep 2026 12:13:53 -0400
+Message-ID: <20260908161355.2608022-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908161040.2593291-1-sashal@kernel.org>
-References: <2026090324-scorer-unbutton-3de6@gregkh>
- <20260908161040.2593291-1-sashal@kernel.org>
+In-Reply-To: <2026090332-kindling-purplish-35e9@gregkh>
+References: <2026090332-kindling-purplish-35e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,121 +44,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Max Kellermann <max.kellermann@ionos.com>
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-[ Upstream commit 15cb16496446b94e67f7abcb049b8e2c75cd3d02 ]
+[ Upstream commit 3329a1416c3350449081ca5daaa94802a65b2992 ]
 
-The jbd2 shrinker currently accounts only checkpoint buffers that it
-successfully releases against nr_to_scan.  Busy buffers therefore do not
-consume the scan budget.
+Move RT data validation checks from acpi_tad_set_real_time() to
+a separate function called acpi_tad_rt_is_invalid() and use it
+also in acpi_tad_get_real_time() to validate data coming from
+the platform firmware.
 
-If a checkpoint transaction contains mostly busy buffers, the shrinker
-can scan its entire checkpoint list while holding journal->j_list_lock.
-Large checkpoint lists can result in excessive lock hold times and leave
-other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
+Also make acpi_tad_set_real_time() return -EINVAL when the RT data
+passed to it is invalid (instead of -ERANGE which is somewhat
+confusing) and introduce ACPI_TAD_TZ_UNSPEC to represent the
+"unspecified timezone" value.
 
-Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
-every buffer examined, including busy buffers.  Pass NULL from checkpoint
-cleanup paths so their existing full-list behavior is preserved.
-
-This restores the scan-budget semantics that existed before
-journal_shrink_one_cp_list() was changed to always scan a complete
-checkpoint list.
-
-Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Link: https://patch.msgid.link/3409319.aeNJFYEL58@rafael.j.wysocki
+Stable-dep-of: a3df8bbe0a70 ("ACPI: TAD: Add locking around AML evaluations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/jbd2/checkpoint.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/acpi/acpi_tad.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 36c64cf44e005..724a6ff505089 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -370,15 +370,16 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
- /*
-  * journal_shrink_one_cp_list
-  *
-- * Find all the written-back checkpoint buffers in the given list
-- * and try to release them. If the whole transaction is released, set
-- * the 'released' parameter. Return the number of released checkpointed
-- * buffers.
-+ * Find written-back checkpoint buffers in the given list and try to release
-+ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
-+ * transaction is released, set the 'released' parameter. Return the number of
-+ * released checkpointed buffers.
-  *
-  * Called with j_list_lock held.
-  */
- static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 						enum jbd2_shrink_type type,
-+						unsigned long *nr_to_scan,
- 						bool *released)
+diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
+index 8383d6329c645..664281d7f4259 100644
+--- a/drivers/acpi/acpi_tad.c
++++ b/drivers/acpi/acpi_tad.c
+@@ -48,6 +48,9 @@ MODULE_AUTHOR("Rafael J. Wysocki");
+ /* Special value for disabled timer or expired timer wake policy. */
+ #define ACPI_TAD_WAKE_DISABLED	(~(u32)0)
+ 
++/* ACPI TAD RTC */
++#define ACPI_TAD_TZ_UNSPEC	2047
++
+ struct acpi_tad_driver_data {
+ 	u32 capabilities;
+ };
+@@ -66,6 +69,16 @@ struct acpi_tad_rt {
+ 	u8 padding[3]; /* must be 0 */
+ } __packed;
+ 
++static bool acpi_tad_rt_is_invalid(struct acpi_tad_rt *rt)
++{
++	return rt->year < 1900 || rt->year > 9999 ||
++	    rt->month < 1 || rt->month > 12 ||
++	    rt->hour > 23 || rt->minute > 59 || rt->second > 59 ||
++	    rt->tz < -1440 ||
++	    (rt->tz > 1440 && rt->tz != ACPI_TAD_TZ_UNSPEC) ||
++	    rt->daylight > 3;
++}
++
+ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
  {
- 	struct journal_head *last_jh;
-@@ -387,13 +388,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 	int ret;
+ 	acpi_handle handle = ACPI_HANDLE(dev);
+@@ -79,12 +92,8 @@ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
+ 	unsigned long long retval;
+ 	acpi_status status;
  
- 	*released = false;
--	if (!jh)
-+	if (!jh || (nr_to_scan && !*nr_to_scan))
- 		return 0;
+-	if (rt->year < 1900 || rt->year > 9999 ||
+-	    rt->month < 1 || rt->month > 12 ||
+-	    rt->hour > 23 || rt->minute > 59 || rt->second > 59 ||
+-	    rt->tz < -1440 || (rt->tz > 1440 && rt->tz != 2047) ||
+-	    rt->daylight > 3)
+-		return -ERANGE;
++	if (acpi_tad_rt_is_invalid(rt))
++		return -EINVAL;
  
- 	last_jh = jh->b_cpprev;
- 	do {
- 		jh = next_jh;
- 		next_jh = jh->b_cpnext;
-+		if (nr_to_scan)
-+			(*nr_to_scan)--;
+ 	args[0].buffer.pointer = (u8 *)rt;
+ 	args[0].buffer.length = sizeof(*rt);
+@@ -131,6 +140,11 @@ static int acpi_tad_get_real_time(struct device *dev, struct acpi_tad_rt *rt)
+ 		goto out_free;
  
- 		if (type == JBD2_SHRINK_DESTROY) {
- 			ret = __jbd2_journal_remove_checkpoint(jh);
-@@ -414,7 +417,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 	memcpy(rt, data, sizeof(*rt));
++	if (acpi_tad_rt_is_invalid(rt)) {
++		ret = -ENODATA;
++		goto out_free;
++	}
++
+ 	ret = 0;
  
- 		if (need_resched())
- 			break;
--	} while (jh != last_jh);
-+	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
- 
- 	return nr_freed;
- }
-@@ -436,7 +439,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
- 	tid_t tid = 0;
- 	unsigned long nr_freed = 0;
--	unsigned long freed;
- 	bool first_set = false;
- 
- again:
-@@ -469,10 +471,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 		next_transaction = transaction->t_cpnext;
- 		tid = transaction->t_tid;
- 
--		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--						   JBD2_SHRINK_BUSY_SKIP, &released);
--		nr_freed += freed;
--		(*nr_to_scan) -= min(*nr_to_scan, freed);
-+		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
-+						       JBD2_SHRINK_BUSY_SKIP,
-+						       nr_to_scan, &released);
- 		if (*nr_to_scan == 0)
- 			break;
- 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
-@@ -528,7 +529,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
- 		transaction = next_transaction;
- 		next_transaction = transaction->t_cpnext;
- 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--					   type, &released);
-+					   type, NULL, &released);
- 		/*
- 		 * This function only frees up some memory if possible so we
- 		 * dont have an obligation to finish processing. Bail out if
+ out_free:
 -- 
 2.53.0
 
