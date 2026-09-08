@@ -1,144 +1,157 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E47563293
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36A9560AB8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874161; cv=none; b=i94PofpoPuiSvRb817wftGAPnCfxIeGeRCKY2scaW2RCgzxGxViMSkOzNsu9VId6wXvaQiwDz+gOdgiwUwLU7xhSl/GqIFfQpXVVMZGSkdWTZanKy04R4ejNvhyaKGHnspkJpKCFlqakb6FWrvGNhwEbrJOzS2wkqciZ2oQXS6I=
+	t=1788874191; cv=none; b=T7fSNfqxyv6nKlFUpvSPl50p3WFu4h6YMXERGHRZvV/kipG3XX2nsAAryJOsLVEercS9PxPDQRXi9M2lauIk6NBFrVFOABJ1C69+Xbp9ec/MaH84rrkBcPqE4SOeJgXp4GR2c+zftMZfXE0Y25QWZyzQvfUGEa8WAe/zc7jogsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874161; c=relaxed/simple;
-	bh=aJVEhPGkMTT1P48K01gpb3w3kby8nqqjTJra58+oIss=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Lu64bLe0kC5FW4tAC14dJ3Y7HUg5PnaQ8FLvZRRqfGzjeEF+yRYgxtaFcxMG5uTkLov4uIto2CyAFG74klUr++XaDTg2VaePCRfYrG041Gm+ri73m6TEQk2FBPC635y8Y4kdA0OWuAeozKoHCv5sIlcDnVPkpvI1x7CoraIfjnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Nx/N6CrK; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+	s=arc-20240116; t=1788874191; c=relaxed/simple;
+	bh=QuwGrxrZQjIxm0I+5r7AKR224LwMuq3ERtpeX88Di3A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kuFsqtLHpkvSF8gjf2Z9t52ce+DggxWuKc6Nje7ql8kGT7x+etUSAIP87blYS1cf6alWZScaeHvgUbWL2G04R33jdQsEjvlM9gZztouna5QvwiwdzAiRmqxfLHDcdiIAxWlcSJ+gVA8iwaddFXROIqi/zBuCTHM+gJVN54w9XQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qUN1+SwT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Nx/N6CrK"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so7103950a91.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:28:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788874134; x=1789478934; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bWc79TE/cY5J3S3dbAxwEvcg/Sbb2k+6ttNtNE60y8o=;
-        b=Nx/N6CrKQwreMZL77CQRjmDUzpPIS5AD96Q+gqECZ6y//oKxMYPHoejLhXXQMP9WbR
-         HaYSB9WmZObePyKAlG71MTpHkeZ1xut8l09gtqzzL1xC2iwPiiTEiO5fEmiwlkzKL4lC
-         eEGYKxPwYDzXRsQXyvS27b47TA2WkTe8XbJ6zcCLrq274lomAx09Jcus9PoQ3k4sY3Wj
-         XTpHRITOFV+WGpMXwNXn+oOcdp3ljvhhE/pNXNUFs1pbAM+HB6beCFUq+Np0UYe3BPPw
-         Iw3Nms43MWdu3os0J4fd7e1SmHoPC7dLL8L2PI3tm16r2hhEcOnnTV7nHuvhNaDeRZ/Y
-         KDZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874134; x=1789478934;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bWc79TE/cY5J3S3dbAxwEvcg/Sbb2k+6ttNtNE60y8o=;
-        b=nM8rA5EeN73l7ZxutC3ETZe1LGKqcYrYbDJKWkpi69mZrpERynhEVEQECm8UcwnNHS
-         AEHybnnibm/I2OD/vWOXDb3yrU/xzvsoHPCIYkEYQERcevzz+nUa/thoWGxMqdDzDcGY
-         wT7zHEJDf4bTQ7E7NWWC7CxOkm+OmEIy2rUlM0UrBhBpLLC+qQ74GoSf7N52d8lLiG07
-         WA4MK8ki1sZGfu6yJhPW+gka1OP6GmTEMDwDg7QX7iTTdeiY/sHRsUxTcbtl1wpJlNBO
-         aCTaxLF8riSNRZw3T0PjcI9xv2RF2TBkucn6pVa8He28qWXvGhC7dM4Z+PhaVt43fedj
-         IU0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwJBK0RCcOz6kqNLGflOdjU78gtdNjxlhiB4P7pyO27GvAmoizvMHcABURTPI5gO8xRyJ/7hBM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrFCGtdw4zfP18O3K+3/UUQjJYy8OPVcRATcTvki4YZdn6nOHK
-	dQvypjgbYJ538dYJdIShrclHeB3WqQtGdS3GtMFaV1Z4EjeT2tQ48f8WA3LDh8qtVhQhJda9z8N
-	xjznYsBN5g4gFGA==
-X-Received: from pjbnc12.prod.google.com ([2002:a17:90b:37cc:b0:39b:47ee:e30e])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4fcb:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-39b26100e5dmr41952708a91.4.1788874133755;
- Tue, 08 Sep 2026 06:28:53 -0700 (PDT)
-Date: Tue,  8 Sep 2026 06:28:38 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qUN1+SwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CBD1F00A3D;
+	Tue,  8 Sep 2026 13:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788874178;
+	bh=7Dj6seXRE+dbAaUzgbcXb7kP3lVDdBsMtI9SotfSUI8=;
+	h=Subject:To:Cc:From:Date;
+	b=qUN1+SwTkKwwRR4O0dTJzMt5EaD3YbW/pE9RoVnaLNsA2X5pZYSbYXX3I5kS4PCNy
+	 5qWlq1qJmBnXNGMkWD1v1NNN4z/mDidhZ/Srg4pwPPNps41MFT3KEM7TBjP/KnBAHk
+	 ApBJWixQcN4VXDetEZuTym4xYZNX6Qe8kEXdEOas=
+Subject: FAILED: patch "[PATCH] futex: Prevent rcuwait use-after-free during requeue PI" failed to apply to 5.15-stable tree
+To: yaokai34@huawei.com,bigeasy@linutronix.de,tglx@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 15:18:26 +0200
+Message-ID: <2026090826-jeep-tassel-64cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260908132838.2116068-1-jmattson@google.com>
-Subject: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory during
- vCPU teardown
-From: Jim Mattson <jmattson@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, Yosry Ahmed <yosry@kernel.org>, 
-	Jim Mattson <jmattson@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-When a vCPU is destroyed while L2 is active, KVM synthesizes a nested
-VM-Exit, which flushes the cached shadow VMCS12 back to guest memory:
 
-  vmx_vcpu_free()
-  |-> nested_vmx_free_vcpu()
-      |-> vmx_leave_nested()
-          |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
-              |-> nested_flush_cached_shadow_vmcs12()
-                  |-> kvm_write_guest_cached()
-                      |-> __copy_to_user(ghc->hva, ...)
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-During process exit, do_exit() calls exit_mm() before closing file
-descriptors, so vCPU destruction runs with current->mm == NULL on a
-borrowed lazy TLB active_mm. If the borrowed address space has a writable
-mapping at ghc->hva, __copy_to_user() corrupts an unrelated task's memory.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Skip the flush when KVM synthesizes a VM-exit with vm_exit_reason == -1
-(e.g. during vCPU teardown or SMM entry). In these paths, KVM forces the
-vCPU out of guest mode internally--no architectural VM-exit is delivered
-to L1.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x a3b8d46fe401cba3a5c46dea610e6eb3dc15370e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090826-jeep-tassel-64cd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Fixes: 61ada7488ffd ("KVM: nVMX: Cache shadow vmcs12 on VMEntry and flush to memory on VMExit")
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a3b8d46fe401cba3a5c46dea610e6eb3dc15370e Mon Sep 17 00:00:00 2001
+From: Yao Kai <yaokai34@huawei.com>
+Date: Tue, 1 Sep 2026 15:54:52 +0200
+Subject: [PATCH] futex: Prevent rcuwait use-after-free during requeue PI
+
+On PREEMPT_RT, FUTEX_CMP_REQUEUE_PI can trigger a KASAN report
+(slab-out-of-bounds) in futex_requeue_pi_complete() invocation of
+rcuwait_wake_up().
+
+The futex_q used by futex_wait_requeue_pi() is allocated on the waiter's
+stack. An early wakeup can race with a PI requeue as follows:
+
+        waiter                          requeue task
+        ------                          ------------
+futex_wait_requeue_pi()
+  futex_do_wait()
+    schedule()
+                                       futex_requeue
+                                         futex_proxy_trylock_atomic()
+                                           futex_requeue_pi_prepare()
+                                            Q_REQUEUE_PI_NONE -> Q_REQUEUE_PI_IN_PROGRESS
+* timeout/ signal wakes waiter *
+  futex_requeue_pi_wakeup_sync()
+   Q_REQUEUE_PI_IN_PROGRESS -> Q_REQUEUE_PI_WAIT
+                                           requeue_pi_wake_futex
+                                             futex_requeue_pi_complete()
+                                               cmpxchg Q_REQUEUE_PI_WAIT -> Q_REQUEUE_PI_LOCKED
+    rcuwait_wait_event()
+      if (atomic_read(&q->requeue_state) != Q_REQUEUE_PI_WAIT)
+       break /* no schedule() */
+
+ /* q.pi_state->owner == current */
+ futex_private_hash_put()
+ /* return from syscall */
+                                              rcuwait_wake_up(&q->requeue_wait)
+                                                /* q is gone */
+
+futex_requeue_pi_complete() publishes Q_REQUEUE_PI_LOCKED before
+calling rcuwait_wake_up(). The waiter observes this state in
+rcuwait_wait_event() before invoking schedule() in rcuwait_wait_event().
+Here, the waiter is free leave the syscall before requeue task can
+complete the wake.
+
+To address this race skip rcuwait_wake_up() in the Q_REQUEUE_PI_LOCKED
+case.
+This state is only published by requeue_pi_wake_futex(), which saves
+q->task before futex_requeue_pi_complete() and wakes the waiter via
+wake_up_state().
+
+This wake is intended to wake the waiter from its futex_do_wait() sleep.
+If the waiter is still sleeping there, it can not get into the
+Q_REQUEUE_PI_WAIT state (and require this removed wake).
+Should the waiter be woken up from futex_do_wait() by other means (as in
+this example) and sleep in futex_requeue_pi_wakeup_sync() then the
+wake_up_state() from requeue_pi_wake_futex() will wake it, too.
+Should the waiter task terminate before wake_up_state() had a chance to
+wake the task then the task pointer does not become invalid because the
+futex_hash_bucket::lock is held and the task pointer is RCU protected.
+
+[bigeasy: Updated comment and commit message]
+
+Fixes: 07d91ef510fb1 ("futex: Prevent requeue_pi() lock nesting issue on RT")
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jim Mattson <jmattson@google.com>
----
- arch/x86/kvm/vmx/nested.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+Link: https://patch.msgid.link/20260901135453.3121948-3-bigeasy@linutronix.de
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 151873407abd..33dc8a07019f 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -5121,21 +5121,28 @@ void __nested_vmx_vmexit(struct kvm_vcpu *vcpu, u32 vm_exit_reason,
- 	if (likely(!vmx->fail)) {
- 		sync_vmcs02_to_vmcs12(vcpu, vmcs12);
+diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
+index 79823ad13683..b3f4a4bccb12 100644
+--- a/kernel/futex/requeue.c
++++ b/kernel/futex/requeue.c
+@@ -154,8 +154,16 @@ static inline void futex_requeue_pi_complete(struct futex_q *q, int locked)
+ 	} while (!atomic_try_cmpxchg(&q->requeue_state, &old, new));
  
--		if (vm_exit_reason != -1)
-+		if (vm_exit_reason != -1) {
- 			prepare_vmcs12(vcpu, vmcs12, vm_exit_reason,
- 				       exit_intr_info, exit_qualification,
- 				       exit_insn_len);
- 
--		/*
--		 * Must happen outside of sync_vmcs02_to_vmcs12() as it will
--		 * also be used to capture vmcs12 cache as part of
--		 * capturing nVMX state for snapshot (migration).
--		 *
--		 * Otherwise, this flush will dirty guest memory at a
--		 * point it is already assumed by user-space to be
--		 * immutable.
--		 */
--		nested_flush_cached_shadow_vmcs12(vcpu, vmcs12);
-+			/*
-+			 * Must happen outside of sync_vmcs02_to_vmcs12() as it will
-+			 * also be used to capture vmcs12 cache as part of
-+			 * capturing nVMX state for snapshot (migration).
-+			 *
-+			 * Otherwise, this flush will dirty guest memory at a
-+			 * point it is already assumed by user-space to be
-+			 * immutable.
-+			 *
-+			 * Do not flush when vm_exit_reason == -1 (e.g. forced exit
-+			 * on vCPU teardown or SMM entry). On teardown, KVM may run
-+			 * with current->mm == NULL on a borrowed lazy TLB mm,
-+			 * where writing guest memory would corrupt an unrelated
-+			 * task. Nothing can observe the flush in that case anyway.
-+			 */
-+			nested_flush_cached_shadow_vmcs12(vcpu, vmcs12);
-+		}
- 	} else {
- 		/*
- 		 * The only expected VM-instruction error is "VM entry with
-
-base-commit: 28924df2a08f440c73991b83028032c901de2ae4
--- 
-2.55.0.979.g7e5102b832-goog
+ #ifdef CONFIG_PREEMPT_RT
+-	/* If the waiter interleaved with the requeue let it know */
+-	if (unlikely(old == Q_REQUEUE_PI_WAIT))
++	/*
++	 * The waiter in futex_requeue_pi_wakeup_sync() can interleave with the
++	 * wake below: It will assign Q_REQUEUE_PI_IN_PROGRESS and here it will
++	 * be updated to Q_REQUEUE_PI_LOCKED (locked = 1). The rcuwait_wait_event()
++	 * will already read Q_REQUEUE_PI_LOCKED and skip the schedule() invocation,
++	 * leading to an access of futex_q::requeue_wait after the waiter returned.
++	 * In this case only we skip the wake here and rely on following wake in
++	 * requeue_pi_wake_futex() to perform the wake if needed.
++	 */
++	if (unlikely(old == Q_REQUEUE_PI_WAIT) && new != Q_REQUEUE_PI_LOCKED)
+ 		rcuwait_wake_up(&q->requeue_wait);
+ #endif
+ }
 
