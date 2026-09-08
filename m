@@ -1,133 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA21D3043DB
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE9555295A
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874549; cv=none; b=LKcwb0q1Sw2JaUmsO9T4QLk54uYMgBbfR5BD2IMu9uR9tWicZPTrsKNFtzdwET1xP1nYYo72A6fVwRPJdY71N8mcGosU4cZH4camFHWcMWV6A+WOLb2+5R+18qkwcSWEHtjg2fdFeAEn9afzn2JiTJuAGbgzRIbPQ6RXcrUshkQ=
+	t=1788874621; cv=none; b=CnefEUg7eZBNR3UdwAOgpSj1FjyiMf9PxWW8UNCsP/zV0YwjNWcuGS6RMoN+OwQ/wE7JpaJrCYRsUrC4Nei3xS9jd+2FKWAW2aTl92eConKKWl4XXj8aBG0fe3MolWZn5GILHMxE+a0cI8PM2J2RT1cZgv6njLNKoq2SR2RFcz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874549; c=relaxed/simple;
-	bh=jRLWmSQ1yJt4NVQzPoosjnnS6qFiP+AbIGW1zlfD8ek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QvgK5chyKMKRoL2Mpv6SKj6MmWBVmfjd5XiYCr9q5iHPqRsRpNAXmqXptxLdmdUwJxbqJv1HkjiVU2fMBA0LBbIRYeY5h/tqwsf1jCi4DXiUuy44kkAmIdMHafPownqFDh3y4ykX4D1Zg3vkdqZ5URMtxASy8icjOxRNrp+tMn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7mh6/ub; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7mh6/ub"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DA71F00ACA
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788874538;
-	bh=PB7mGes5DxmiOJerZm8E11TDr69SJwv8NYwNhjZZWCQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=D7mh6/ub8Tem8FCpwEAsIm4vBfMHeGGenRePXLJxaqX+oq6O/Ne2X9BJfwAKqfKM8
-	 7+UgQhSJe0nX4AKsyUQqg0VsyX+UaBfDKlz2yQMrhqreD3qfyHo7sGH9ULBR6on5yx
-	 mPyE54M9NxR0jLhomI715B0UofEOwmzM2IkGmLHhCRaJFltJxJ3hIComRvgQY3/l1l
-	 zCzZCnPoaOb4cUvf7oMI4L9erf8k+JUqrRPa0fF+36C4QrwcqTSGP2mHekTzBa2wod
-	 NcH9QKFKWAqMWkFUcUjOVlf4w9EmkLn1qr6LcjLHsKVMmuL8E/3/9XidBlBR9vWhVs
-	 v2Fxf0cHHvhig==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so543677366b.2
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:35:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxMiYPS1foxlMnRE2qFOXPWwzsgDoN2jfHam+tuyz0Yb+Y/1lJf1RxEDa2rK78/CY6JxEuhsdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbujG7xfehHLtsdoRf7fj06/wanwVnHf7F9nSYOnDnfB87ygC7
-	6EI5dPC8YMbGCCOrfw7xPdTe8oQZ4Azd+tflYuhXO+hroLCdrx8J1nBnw7p9irLvB4pL1cJyxdr
-	cS0OUBNnRHPU41w52vcvLjdIgZQujtCk=
-X-Received: by 2002:a17:907:ea8d:b0:c26:2795:b494 with SMTP id
- a640c23a62f3a-c262795c1b3mr741273366b.49.1788874530621; Tue, 08 Sep 2026
- 06:35:30 -0700 (PDT)
+	s=arc-20240116; t=1788874621; c=relaxed/simple;
+	bh=XbC6Euk2Qr+JnfgijuFbut6UIIywhSK8/DDgwRdstLI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C3Jnm4+hLlFYGtfST8WM7cWjgHFZjLXy28c6ECYsTFDiLUnEnuH9CRtzU3hDGddeyB1we7RHQ5BJJz95lLjXljw44gIpaOnhjDnVDA15sFBSDcUcRa8PRjIQLj7JkSUsDLJxgEek9crtuz+h0hbqYbcqEHkxr4r6WbXb+oevKww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882371F00A3D;
+	Tue,  8 Sep 2026 13:36:52 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] btrfs: abort transaction before releasing tree_log_mutex on" failed to apply to 7.2-stable tree
+To: loemra.dev@gmail.com,boris@bur.io,dsterba@suse.com,fdmanana@suse.com,jlayton@meta.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 15:30:20 +0200
+Message-ID: <2026090820-emerald-festive-f68c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908081631.9735-1-15815827059@163.com>
-In-Reply-To: <20260908081631.9735-1-15815827059@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 8 Sep 2026 22:35:18 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8g5RbLf7d7uNvtLZmODR2w_xW900E8dcWD1QyF5_hRfw@mail.gmail.com>
-X-Gm-Features: AcwNN1WYpfTc2JE2BDFx-ZUXyxY7AN9NsXmy2W21aau5cA21jpg-cbjdzn6rCXQ
-Message-ID: <CAKYAXd8g5RbLf7d7uNvtLZmODR2w_xW900E8dcWD1QyF5_hRfw@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix invalid pointer dereference when
- get_inode_acl() fails
-To: huhai <15815827059@163.com>
-Cc: senozhatsky@chromium.org, tom@talpey.com, linux-cifs@vger.kernel.org, 
-	Henry Hu <huhai@kylinos.cn>, stable@vger.kernel.org, 
-	ChenXiaoSong <chenxiaosong@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026 at 5:16=E2=80=AFPM huhai <15815827059@163.com> wrote:
->
-> From: Henry Hu <huhai@kylinos.cn>
->
-> When get_inode_acl() fails, it returns an ERR_PTR(), but
-> ksmbd_acls_fattr() stored that pointer in smb_fattr without
-> checking for errors. Later callers then passed the error pointer
-> to security descriptor helpers or posix_acl_release(), resulting
-> in an invalid pointer dereference.
->
-> This was reproduced on an XFS-backed share when xfs_get_acl()
-> returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
-> triggered the crash:
->
->   BUG: unable to handle page fault for address: fffffffffffffff8
->   RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
->   Call Trace:
->    smb2_query_info+0x40d/0x17c0 [ksmbd]
->    handle_ksmbd_work+0x1ca/0x770 [ksmbd]
->
-> Fix this by checking the return values from get_inode_acl() in
-> ksmbd_acls_fattr() and propagating any errors to its callers.
-> Update smb2_open() and smb2_get_info_sec() to handle these errors.
->
-> Cc: stable@vger.kernel.org
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Assisted-by: Codex:gpt-5.6-sol
-> Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-> Signed-off-by: Henry Hu <huhai@kylinos.cn>
-> ---
->  fs/smb/server/smb2pdu.c | 29 +++++++++++++++++++++++------
->  1 file changed, 23 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-> index b7ce67094626..c6df9a9789ba 100644
-> --- a/fs/smb/server/smb2pdu.c
-> +++ b/fs/smb/server/smb2pdu.c
-> @@ -3634,9 +3634,9 @@ static int smb2_create_sd_buffer(struct ksmbd_work =
-*work,
->                             le32_to_cpu(sd_buf->ccontext.DataLength), tru=
-e, false);
->  }
->
-> -static void ksmbd_acls_fattr(struct smb_fattr *fattr,
-> -                            struct mnt_idmap *idmap,
-> -                            struct inode *inode)
-> +static int ksmbd_acls_fattr(struct smb_fattr *fattr,
-> +                           struct mnt_idmap *idmap,
-> +                           struct inode *inode)
->  {
->         vfsuid_t vfsuid =3D i_uid_into_vfsuid(idmap, inode);
->         vfsgid_t vfsgid =3D i_gid_into_vfsgid(idmap, inode);
-> @@ -3649,9 +3649,19 @@ static void ksmbd_acls_fattr(struct smb_fattr *fat=
-tr,
->
->         if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
->                 fattr->cf_acls =3D get_inode_acl(inode, ACL_TYPE_ACCESS);
-> -               if (S_ISDIR(inode->i_mode))
-> +               if (IS_ERR(fattr->cf_acls))
-> +                       return PTR_ERR(fattr->cf_acls);
--EOPNOTSUPP and -ENODATA can indicate that the filesystem does not
-support or have ACL, so those errors can be normalized to NULL.
-However, other errors such as -ENOMEM, -EIO, and ACL corruption errors
-should be propagated to the caller like this.
 
-> +
-> +               if (S_ISDIR(inode->i_mode)) {
->                         fattr->cf_dacls =3D get_inode_acl(inode, ACL_TYPE=
-_DEFAULT);
-> +                       if (IS_ERR(fattr->cf_dacls)) {
-> +                               posix_acl_release(fattr->cf_acls);
-> +                               return PTR_ERR(fattr->cf_dacls);
-Ditto.
-Thanks.
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x 529c01c3dc0d322c103611c35b01d71ea04562b2
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090820-emerald-festive-f68c@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 529c01c3dc0d322c103611c35b01d71ea04562b2 Mon Sep 17 00:00:00 2001
+From: Leo Martins <loemra.dev@gmail.com>
+Date: Tue, 18 Aug 2026 17:40:10 -0700
+Subject: [PATCH] btrfs: abort transaction before releasing tree_log_mutex on
+ commit failure
+
+When transaction metadata writeout fails in btrfs_commit_transaction(),
+the current code only logs the error, drops tree_log_mutex and then goes
+through cleanup_transaction(), which aborts the transaction and records
+the fs error.
+
+That is too late for the tree log side. A log sync can already be
+waiting on tree_log_mutex, because the committing transaction is moved
+to TRANS_STATE_UNBLOCKED while that mutex is held, which lets fsyncs
+join the next transaction and queue up in btrfs_sync_log(). Once the
+failed commit drops tree_log_mutex, such a log sync acquires it, sees
+BTRFS_FS_ERROR() still clear, and writes super_for_commit. That
+superblock holds the roots prepared for the transaction that has just
+failed to write out its metadata, so it can point at tree blocks that
+never reached the disk, and the next mount fails with a parent transid
+mismatch.
+
+Commit 165ea85f1483 ("btrfs: do not write supers if we have an fs
+error") fixed this class of problem by making btrfs_sync_log() check for
+an fs error right after taking tree_log_mutex. That check only works if
+the commit path publishes the fs error before it releases the same
+mutex, and commit 68d4ece9c30e ("btrfs: don't call
+btrfs_handle_fs_error() in btrfs_commit_transaction()") removed the only
+thing that did so.
+
+Restore the ordering by aborting the transaction while tree_log_mutex is
+still held. We have a transaction handle here, so this does not need to
+bring back the btrfs_handle_fs_error() call: __btrfs_abort_transaction()
+records the fs error itself, which is all btrfs_sync_log() looks at, and
+the error message put in its place is kept.
+
+This is what commit 3810ab40afa5 ("btrfs: abort transaction on error in
+write_all_supers()") already does for the next call in this function.
+
+This is reproducible on an unmodified kernel by failing the first
+couple of bios of a transaction commit with fail_make_request while a
+concurrent fsync workload keeps log syncs queued on tree_log_mutex.
+
+Fixes: 68d4ece9c30e ("btrfs: don't call btrfs_handle_fs_error() in btrfs_commit_transaction()")
+CC: stable@vger.kernel.org # 7.0+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Reviewed-by: jlayton@meta.com <jlayton@meta.com>
+Signed-off-by: Leo Martins <loemra.dev@gmail.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
+index bafc62cf5ebc..39909d363591 100644
+--- a/fs/btrfs/transaction.c
++++ b/fs/btrfs/transaction.c
+@@ -2583,6 +2583,12 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
+ 	ret = btrfs_write_and_wait_transaction(trans);
+ 	if (unlikely(ret)) {
+ 		btrfs_err(fs_info, "error while writing out transaction: %pe", ERR_PTR(ret));
++		/*
++		 * Abort before releasing tree_log_mutex, so a log sync waiting
++		 * on it sees the fs error and skips writing super_for_commit
++		 * for this failed transaction. See btrfs_sync_log().
++		 */
++		btrfs_abort_transaction(trans, ret);
+ 		mutex_unlock(&fs_info->tree_log_mutex);
+ 		goto scrub_continue;
+ 	}
+
