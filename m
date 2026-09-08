@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A203859B672
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:21:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E250952E04D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891674; cv=none; b=RGd3f+Fd+MSz5QfZ8uNtuno8M1S+jQhAs9SiHhjeLs2DXNhmUgKZ3Glp1U5wLHB1TVhnAt1Lz3K6w+GnSJ+RwWvEUschUI6lz0SpiRhj+3r5sO9tjXba1pptwz7sYpvp7dzSs8jcKtoxSnM8mfpcJyHIFHT2UfS0ponSL/lcvMw=
+	t=1788891754; cv=none; b=WfsOpJjrScKnABoWUGgf+BNE5dtSZTUHjO1RrERFP4mOKExW5O16t/hRNfanrjPoW8w0QFdn740L8oDPCiPjggvyhe23BWH+doDp6MTksoIC53jByI/kuOGJYySwgHCBLjB80Ebvclpbsr96rl5TBokQbx8zUvbiF3aJVREuYtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891674; c=relaxed/simple;
-	bh=tJvJM9URRC9p+8c6+Mym1dx0E3aR/0c5jDRoubEyuKk=;
+	s=arc-20240116; t=1788891754; c=relaxed/simple;
+	bh=dmqj1TdZnwlAhVWf47yoySCJaj8U5IS5aVK1lMn8/xI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tXcjnA1O0grG0FS6UBIW/4+MLBChyxIMjunjIi3SLQj3rjvvNmRoNVBLyejMSnmZtG+16gYLDuthd98y6O2G1A7CftBgV08p8gyMFFDLbfOoJayj2JSGKbSOa0V51uI5Zk/2lDLSK1K1YdDxSLlgNgOl11TacUtoilIe9ulNVnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5q2eF/1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Sr82tCUiQpdLUZ+TylGdqTnGhzLfds4qOVtET7uILEHB8vB8RB04QXJnXBroYSeKxBSi48VMOFib6oDowHAWASybtjqBmWcOOkG8GmgNtTrVSzSlq0zWnPh5PeBucv2mq5P9SEisWQcrgpFvKR23LWVHhM73auoAzbcURd0ZY5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+IuBXYp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5q2eF/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD1E1F00A3D;
-	Tue,  8 Sep 2026 18:21:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+IuBXYp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DCBC1F00A3A;
+	Tue,  8 Sep 2026 18:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788891672;
-	bh=I9R3EpxLo8aQbj1cPy9cXd4b/GsGGXsPShxFpdGz6wM=;
+	s=k20260515; t=1788891752;
+	bh=6jeEarjRPWfuBGxIahT3B7LSuRIt8VdIMBxlRvax/jk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C5q2eF/1YpVJsQp9Ht1DFP5TejRN8jo1WMc6nGm6hpYTAqvQNLfmhXJ2/7GeFm2Ln
-	 5XANl8HX7YW9YBL1UaFk/tUIZq8MWG9d0to7jXUFsoXYSVyIHShVAJuPAJ8DVK9j7j
-	 Feoyv3qOwc/2Cv/6+WVMyS6uoC+dSJB0VO+ETXYiliXGMiCtRh9llpuOPGi2oMxSMm
-	 7K5tD9M9F5Nz+SsDwIdTC1q4Bkj7W2iqcWSMytu5RfQS2fRJ7U7hzMWZmFIqCre2u9
-	 WcIOCzZ1qj7zcGoADs/nIIXHJgTUExw82wOQckxr+oPcIsTuwlDoSAm7S7zNP4WhsL
-	 uzoGcf/7QkdZg==
+	b=K+IuBXYphUjOKg8eX3oBFe+iXkP1NmzgwUBjWREE8RMV2JNdy8dRP5s0dV0P29Ann
+	 6RAFXR2SRDMvORjsQGzgqlIrxa8L7WqDn2EhaxaCUebIv5t2XlSkKrmYr5zUurqOis
+	 PVZQVojmEy+1Gn5HnuudwL3qorgHPhRC/b98ofzXfy8sON+4C/e5f8k5TSbAyMPidF
+	 3QWWPDgLTkdaoYLk6snzOSICP8OW3kBVCA2STWUSRy2AuAhYLHlCv0B05by6vMPSqx
+	 djjCY5FxZiSMDp7DGpuJhCCu33T42UrAviQRzVtuKNaq7BCuw4xDVAlI+tEwDAe04w
+	 kZkGSE+OntryQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiacheng Yu <yujiacheng3@huawei.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
+Cc: Dave Airlie <airlied@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 6/6] params: fix charp corruption on allocation failure
-Date: Tue,  8 Sep 2026 14:21:06 -0400
-Message-ID: <20260908182106.202353-6-sashal@kernel.org>
+Subject: [PATCH 5.10.y] nouveau/gem: reserve the bo in the info ioctl around the vma lookup
+Date: Tue,  8 Sep 2026 14:22:30 -0400
+Message-ID: <20260908182230.203917-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908182106.202353-1-sashal@kernel.org>
-References: <2026090332-lankiness-same-e48c@gregkh>
- <20260908182106.202353-1-sashal@kernel.org>
+In-Reply-To: <2026090306-creamlike-diagram-e3f0@gregkh>
+References: <2026090306-creamlike-diagram-e3f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,81 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiacheng Yu <yujiacheng3@huawei.com>
+From: Dave Airlie <airlied@redhat.com>
 
-[ Upstream commit 3dfaae04243cde460d82dfc2a7dd0bb6664d20ae ]
+[ Upstream commit 5e17160d41d92823f3379c1982e1369680c5ce4d ]
 
-param_set_charp() stores charp parameters in allocated memory after slab is
-available, and releases the previous value when the parameter is updated.
+In the non-uvmm path, there could be a race between the info lookup
+finding the vma, and the gem close path closing the vma leading
+to a use-after-free.
 
-The previous value is released before the replacement allocation succeeds.
-If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
-left as NULL.
+Spotted with the help of Opus 4.6.
 
-Failing zswap's compressor update before zswap is initialized can later
-trigger:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:strcmp+0x10/0x30
-  Call Trace:
-    zswap_setup+0x3b1/0x490
-    zswap_enabled_param_set+0x5b/0xa0
-    param_attr_store+0x93/0xe0
-    module_attr_store+0x1c/0x30
-    kernfs_fop_write_iter+0x116/0x1f0
-
-Allocate and copy the replacement first, then replace the parameter value
-only after allocation succeeds.
-
-Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Fixes: e758a3111914 ("drm/nouveau: fixup gem_info ioctl to return client-specific bo virtual")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Link: https://patch.msgid.link/20260612020658.3176270-1-airlied@gmail.com
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+[ adapted VMM and UVMM handling to the legacy direct VMM selection and condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/params.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_gem.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/params.c b/kernel/params.c
-index e1eba5b8230c1..32682334ca7ff 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -265,6 +265,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 93c1afff5e90e..2b4488adff343 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -227,11 +227,20 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
+ 		rep->domain = NOUVEAU_GEM_DOMAIN_VRAM;
+ 	rep->offset = nvbo->offset;
+ 	if (vmm->vmm.object.oclass >= NVIF_CLASS_VMM_NV50) {
++		int ret;
++
++		ret = ttm_bo_reserve(&nvbo->bo, false, false, NULL);
++		if (ret)
++			return ret;
++
+ 		vma = nouveau_vma_find(nvbo, vmm);
+-		if (!vma)
++		if (!vma) {
++			ttm_bo_unreserve(&nvbo->bo);
+ 			return -EINVAL;
++		}
  
- int param_set_charp(const char *val, const struct kernel_param *kp)
- {
-+	char *tmp;
- 	size_t len, maxlen = 1024;
- 
- 	len = strnlen(val, maxlen + 1);
-@@ -273,19 +274,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
- 		return -ENOSPC;
+ 		rep->offset = vma->addr;
++		ttm_bo_unreserve(&nvbo->bo);
  	}
  
--	maybe_kfree_parameter(*(char **)kp->arg);
--
- 	/*
- 	 * This is a hack. We can't kmalloc() in early boot, and we
- 	 * don't need to; this mangled commandline is preserved.
- 	 */
- 	if (slab_is_available()) {
--		*(char **)kp->arg = kmalloc_parameter(len + 1);
--		if (!*(char **)kp->arg)
-+		tmp = kmalloc_parameter(len + 1);
-+		if (!tmp)
- 			return -ENOMEM;
--		strcpy(*(char **)kp->arg, val);
-+		memcpy(tmp, val, len + 1);
- 	} else
--		*(const char **)kp->arg = val;
-+		tmp = (char *)val;
-+
-+	maybe_kfree_parameter(*(char **)kp->arg);
-+	*(char **)kp->arg = tmp;
- 
- 	return 0;
- }
+ 	rep->size = nvbo->bo.mem.num_pages << PAGE_SHIFT;
 -- 
 2.53.0
 
