@@ -1,87 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD23370D56;
-	Tue,  8 Sep 2026 08:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0757147A867;
+	Tue,  8 Sep 2026 08:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856850; cv=none; b=qMvr1yd+1PkPMmYABVXyYancg/7brPXfcutHnXxMvjWGd3kQ2uQXnqAXZ1hWFw3+nl1nIdzJc0L5ncij9e3ndqyAR5BhrBp0/fL8Fcn+Yho1v3amzMVLNqLPmL75d4RdDr54AqpJK03RmHgMNe6vFuuwlLciM+k47XZJWZbyGKY=
+	t=1788856876; cv=none; b=gXgG5OGnTvms66Ii6eoOiZk0hTqdJuuMh2oH+UA6QqCud1TgZa09ZYNzT11sU9t659HOWBQ4jTLaBraFFzRyDCBsOVsrVHq8ZJY+b8EENPzVEacQwm1SI9EmRUIUhgakHiIFaONYc2uhe/KnovlHfHBi5BN5S3K8csQyi9/CZEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856850; c=relaxed/simple;
-	bh=Vrfr7zzEwJQEzZ6zaoaVGnzBmprSB9I9ol5Uhw6aLiY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RVRiMeGG/qgRVejLrJPr1nJTtYWeAL0nnHyYc3rwsiTUeAgqJSRAvme8b39fVCjWd0ChcdTxx7cOERSrclGZb6lG7EsE6Po9u6Lny4iWs5HVHk/wzfF3xuHWM6gtNDRailN2ZD6goc/Fv53aTFyYV7xVLa3tL9RIo56QERMqx5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZlqqDKr4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788856876; c=relaxed/simple;
+	bh=C4ZpWujrP3lY3tYZUmesciEdDg6gzrkYfF8gpZ7Tv7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NNw2xelXPhOY1iwK9m7lyqsKQyCJuvSZA2x6jJpnkwYsEEgxSI48VZLu6S14MT8QH7U/cQAatN1VKEAToM5Oerh4jGF4u3WjILJ4wREszsxqY19OugBr/QHWVupd/xCeU/rfCgY7hldtR1C566vjT9rlcKBdkbLB9n/diUJbZ5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZlqqDKr4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CD01F00A3A;
-	Tue,  8 Sep 2026 08:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856848;
-	bh=lfq8Fegv4esMs1vY+nfswJ3ke6lOATunr4YBcpYS5h0=;
-	h=From:To:Cc:Subject:Date;
-	b=ZlqqDKr4S7WJiCUdcsb9ZAsQNLwkw63A124ROPrQKMGTpRsZDTMnH5nnOj9Ycg8GS
-	 wK3BxKThX+QFlzR0qp9zdBdmydTV6HuIwQJIyiMDAWZfUiKa/H8YKW9X4WVKRVgp1z
-	 KRwjbi/oX39At6pIP+92QhxiakkiXnORDDbCPH+uMaZ73CRFbij8t/yJoZ20vOD+re
-	 8QZ4GJBryTt/4W0JHlRZNTfpwlZsH+ijkOYYzph8WS6H8g2GtKCe+Nb1sJ8vSZlLpV
-	 NIQBOqbQZ5X9vUFmTyCLUya4+oSrdD+Wwds6BHxJ6K9tTa3PmfAUosJlzH+CcjCE3F
-	 a+I+ND0wcFywQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3rNl-00000000urb-3q1o;
-	Tue, 08 Sep 2026 10:40:45 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] tty: tty_port: restore TTY_IO_ERROR on activation failure
-Date: Tue,  8 Sep 2026 10:40:00 +0200
-Message-ID: <20260908084000.218528-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="CIEUUamV"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id B27FD1A9;
+	Tue,  8 Sep 2026 08:42:03 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 5256621B2;
+	Tue,  8 Sep 2026 08:41:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1788856866;
+	bh=4GdPyjWrZkTFVn0/S95iWhZM6CbPF4y1CFYjl9hyLBg=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=CIEUUamVeS7RfAIh0VLHKDW180fdGbQ5evBmBDTZNfKhyoyBaJrB1qbniS0r4rC9m
+	 v5I9yIYLsn480pYjbId0SKt0AkLilPbrmkTVFOStAq+8mTo1Jau4lKSdm4+YSdDx5D
+	 Dh8RdsBwrH7ZQVPo5qKzQpDt5FuGGsgaGp9bCQYU=
+Received: from [192.168.95.128] (172.30.20.187) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Tue, 8 Sep 2026 11:41:04 +0300
+Message-ID: <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
+Date: Tue, 8 Sep 2026 10:41:01 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in
+ ni_create_attr_list()
+To: =?UTF-8?B?SEUgV0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
+CC: <ntfs3@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, Christian
+ Brauner <brauner@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260625031932.9412-1-skyexpoc@gmail.com>
+ <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-Make sure to restore the TTY_IO_ERROR flag if activation fails to
-prevent I/O attempts on a port that is gone or powered down.
+On 7/6/26 06:40, HE WEI（ギカク） wrote:
 
-This specifically avoids issues like kernel panic due to unclocked
-accesses or NULL-pointer dereferences when accessing powered down or
-deregistered ports when a TTY ioctl races with hangup and open.
+> Hi Konstantin,
+>
+> Gentle ping on this v2. It's an attacker-controlled on-disk image heap
+> out-of-bounds write in ni_create_attr_list(),
+> reachable via setxattr on a crafted, loop-mounted NTFS image (KASAN
+> trace is in the commit message), which is why it's Cc'd to stable.
+>
+> For the record, the fix was first posted as v1 on 2026-06-10:
+> https://lore.kernel.org/ntfs3/20260610002929.51765-1-skyexpoc@gmail.com/
+> This v2 (2026-06-25) only adds Cc: stable and widens review to
+> linux-fsdevel; the fix itself is unchanged from v1.
+>
+> Could you let me know if you'd like any changes, or whether it can be
+> queued for a future bugfix pull? I'm happy to rebase or adjust as
+> needed.
+>
+> Thanks,
+> HE WEI (ギカク)
+>
+> hewei-gikaku <skyexpoc@gmail.com> 于2026年6月25日周四 12:19写道：
+>> From: HE WEI (ギカク) <skyexpoc@gmail.com>
+>>
+>> ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
+>> (== record_size) bytes and then walks every attribute of the primary MFT
+>> record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
+>> by le_size(name_len), with no check against the end of the buffer; the
+>> total size is only computed after the loop.
+>>
+>> A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
+>> bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
+>> bytes in the list.  Because the number of attributes in a record is not
+>> bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
+>> minimum-size attributes), a crafted record packed with such attributes
+>> produces a list larger than record_size and overflows the heap buffer.
+>>
+>> This is reachable from a crafted, loop-mounted NTFS image: opening the file
+>> and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
+>> ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
+>> ni_create_attr_list().
+>>
+>>    BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
+>>    Write of size 4 at addr ffff000008984c00 by task setfattr/345
+>>     ni_create_attr_list+0xc48/0x1058
+>>     ni_ins_attr_ext+0x510/0x7c0
+>>     ni_insert_attr+0x3f8/0x70c
+>>     ni_insert_resident+0xc8/0x3b0
+>>     ntfs_set_ea+0x66c/0xd28
+>>     ntfs_setxattr+0x4d8/0x5b0
+>>     __arm64_sys_setxattr+0xa4/0x124
+>>    Allocated by task 345:
+>>     ni_create_attr_list+0x188/0x1058
+>>    The buggy address belongs to the cache kmalloc-1k of size 1024
+>>    (the write lands at object+1024).
+>>
+>> Size the buffer from the actual attributes instead of assuming a single
+>> record_size is always enough.
+>>
+>> Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: HE WEI (ギカク) <skyexpoc@gmail.com>
+>> ---
+>> v2:
+>>   - Add Cc: stable@vger.kernel.org: this is an attacker-controlled on-disk
+>>     image heap out-of-bounds write and should be backported.
+>>   - No functional change from v1; widening Cc (linux-fsdevel, VFS) for
+>>     review, as the v1 posting received no response.
+>>   - Drop a redundant self Reported-by.
+>>
+>> v1: https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.com/
+>> ---
+>>   fs/ntfs3/frecord.c | 20 ++++++++++++++++----
+>>   1 file changed, 16 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+>> index 2e901d073fe9..6488d7a415c0 100644
+>> --- a/fs/ntfs3/frecord.c
+>> +++ b/fs/ntfs3/frecord.c
+>> @@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+>>          rs = sbi->record_size;
+>>
+>>          /*
+>> -        * Skip estimating exact memory requirement.
+>> -        * Looks like one record_size is always enough.
+>> +        * Compute the exact size of the attribute list.  Each attribute in the
+>> +        * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
+>> +        * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
+>> +        * unnamed one expands to le_size(0) (0x20) here, so a record crafted
+>> +        * with many such attributes needs more than a single record_size; the
+>> +        * previous fixed kzalloc(record_size) could therefore be overflowed by
+>> +        * an attacker-controlled record.
+>>           */
+>> -       le = kzalloc(al_aligned(rs), GFP_NOFS);
+>> +       lsize = 0;
+>> +       attr = NULL;
+>> +       while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
+>> +               lsize += le_size(attr->name_len);
+>> +
+>> +       if (!lsize)
+>> +               return -EINVAL;
+>> +
+>> +       le = kzalloc(al_aligned(lsize), GFP_NOFS);
+>>          if (!le)
+>>                  return -ENOMEM;
+>>
+>> @@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+>>          attr = NULL;
+>>          nb = 0;
+>>          free_b = 0;
+>> -       attr = NULL;
+>>
+>>          for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
+>>                  sz = le_size(attr->name_len);
+>> --
+>> 2.43.0
 
-Note that the flag is set again in tty_port_close() but not restoring it
-on activation failure leaves a window where drivers fail to handle the
-ioctl-hangup race.
+Hello,
 
-Fixes: a9a37ec33a1b ("tty: tty_port: Move the IO_ERROR clear")
-Cc: stable@vger.kernel.org	# 2.6.33
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/tty/tty_port.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Sorry for the confusion. The fix is already upstream: v1 was applied as
+commit 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
+ni_create_attr_list()"), in v7.3-rc1. v2 is functionally identical, so
+there is nothing further for me to apply.
 
-diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
-index 54359310e293..ae33987207b6 100644
---- a/drivers/tty/tty_port.c
-+++ b/drivers/tty/tty_port.c
-@@ -767,8 +767,10 @@ int tty_port_open(struct tty_port *port, struct tty_struct *tty,
- 		clear_bit(TTY_IO_ERROR, &tty->flags);
- 		if (port->ops->activate) {
- 			int retval = port->ops->activate(port, tty);
--			if (retval)
-+			if (retval) {
-+				set_bit(TTY_IO_ERROR, &tty->flags);
- 				return retval;
-+			}
- 		}
- 		tty_port_set_initialized(port, true);
- 	}
--- 
-2.55.0
+The applied commit does not carry Cc: stable, though, so it has not
+been backported.
+
+Thanks for the fix, and for following up on it.
+
+Regards,
+Konstantin
 
