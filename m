@@ -1,42 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8793F33344A
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFE5363C5A;
+	Tue,  8 Sep 2026 16:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883720; cv=none; b=KnkkVO9QPKf8ehdSkbcs6PKzVipbsxN/xgFfEd05H+ZVe45FHtPmhmT4k/XbRkvMloa9k6PpbKIN8gY2E8Vr/dUT711PzLW5lObPykYEckXJfjxSe7Yi8pJclVEyE1pCDKlg0eU38dIq7kOHIPVXXrb3Pen/j+aCCKN8fmML1PU=
+	t=1788883825; cv=none; b=hF1jt+wqbXHZkUbih7TJe5F+i0nSs4qmwWJxOXKQPX4HwSZG8nNN73eE0dxDbW0mlX+Zz8DT/KCQJskDx7ILc4F81GBqdQDQrQ2M6/ATMQYSQXw9OmDqghnAbxCo6/Vl7zoDL1C9wSUfkhK+TBNqsPSFm03rLH8tX+Q1tYQznUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883720; c=relaxed/simple;
-	bh=fwJVZK9xuLHslPip3uoJru+zgd8K1OULmtfdZ9KYeWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P3WZeQsvyi1dhxLZpa8kUqkv+sIZVB2JYLrO9296TnzC8xte5kNTcF3bol1ZlWfu6U89KV3FH+VnlWHKJdNU3rvQ5X0gpYIa8nH0J/DDbRuIreZ0qxvlMydeScco1tRMYw3kljL/XpxmtScVd9bnn0nKLEO4ZsI3lL4Begi7hj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dEPsRj1e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788883825; c=relaxed/simple;
+	bh=EKpe/G2t/a1VbysYtsyuNiyzdKbBLauBZeg2QMWDjKE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iYxia53qCin0lo/RG99rKncOqLgRRccBATUWk9K2Mc/Fl0xh1au60mlu+tuA7J6wZPGzySkMeFTUlhm1PiIrdRRIlvOH2KNmBrjSSaA6tnYfSwT04tBWUjJdWImFJvGSash1g3Hi0+My5+HzjdRRj6SkjobwQOZaxkWXuUUAgG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=Rq2+xGrR; arc=none smtp.client-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dEPsRj1e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC311F00AC4;
-	Tue,  8 Sep 2026 16:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883718;
-	bh=grL0nV6MAG3Cjng+VLvQ11eTckepsTu5Aq7CWWuAmeA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dEPsRj1e2OcUv47OC5u7OQ5Y0fWVBlrlZ8Re+VGtHpLcZpd781ycE+E1T25Y1izcP
-	 HKLF9SkelbaqrfG0bGECjIr8M5POYXNaJXCB8kZlK1vALhOAUofg8YfN90YiFYiNU0
-	 aEZatD7TfSxIyCBnhfTgoTspo0O6XGAcw9X3oWNcF2ZQhUWRhUj0xXXyi8o/hHiYfI
-	 7/N9RqGddHN3RV2Ut64giMEbhqJcqYdUx1ED2jpAHVFN7Oi3MSF185E0d6hT9xMrzq
-	 9oP7XHUH5ACuyoYqyEo1YXO0IiV9J4dtmqMB6w22IW6ipH3D3hnLY0WA1PPR3PM8wm
-	 Zg/Vc65Se/bzA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] ACPI: TAD: Add locking around AML evaluations
-Date: Tue,  8 Sep 2026 12:08:33 -0400
-Message-ID: <20260908160833.2575733-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908160833.2575733-1-sashal@kernel.org>
-References: <2026090332-delighted-felt-tip-2059@gregkh>
- <20260908160833.2575733-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="Rq2+xGrR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1788883823; x=1820419823;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Q2BXE6Ur7AFNkUgpQWEyi2lyndEfw5dtpYmnWEDRjZM=;
+  b=Rq2+xGrRkxdLOBmHYtkfQ3inMMH4nHExD608x7RLL+ZAmsG1hOqCkf2k
+   UcYGxrKHWmx1LHbsFRLIZaALRO7lL1ZfOJdG5p8MdkHgDj7oWstchXj6t
+   sHamsOlTLfEZfsv+OY4fX+BkChSfx6TAt0pa4hz8lz5gUfiVgHFDZjMMm
+   9Y2kpoisTrW8ojuJN9y4+j1eW8wA3nqBLCb8MnQlVMQxXfO4prrxfm4VX
+   Kt3S15Shg8hx7tfyIVKTNvGfodtMFBasNyNDaraa82A2JJ6weRDj0NMGc
+   l9OMW3m8pq7v4QqTsqiVsuGrY+WTZ6nS6r65XBMdk9/s0wbpCjLEQST/A
+   A==;
+X-CSE-ConnectionGUID: P4rQlcEDTHy7OTvX4YFcyg==
+X-CSE-MsgGUID: WiI34h14QZqibi1cArKKGA==
+X-IronPort-AV: E=Sophos;i="6.25,269,1779148800"; 
+   d="scan'208";a="27914447"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:10:21 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:15987]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.124:2525] with esmtp (Farcaster)
+ id 64882264-9490-422e-aff4-f9043ee81cd6; Tue, 8 Sep 2026 16:10:20 +0000 (UTC)
+X-Farcaster-Flow-ID: 64882264-9490-422e-aff4-f9043ee81cd6
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Tue, 8 Sep 2026 16:10:20 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Tue, 8 Sep 2026 16:10:19 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <linux-cifs@vger.kernel.org>
+CC: <linkinjeon@kernel.org>, <pc@manguebit.com>, <stable@vger.kernel.org>,
+	Bjoern Doebel <doebel@amazon.de>
+Subject: [PATCH v3 0/2] smb: client: fix DACL rewrite overflows
+Date: Tue, 8 Sep 2026 16:09:59 +0000
+Message-ID: <20260908161001.2603610-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260904125844.1803343-1-doebel@amazon.de>
+References: <20260904125844.1803343-1-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,149 +64,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA004.ant.amazon.com (10.13.139.85) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Two overflow fixes in the CIFS DACL owner/group rewrite path:
 
-[ Upstream commit a3df8bbe0a704fa5c1609b9666b594f350558fe0 ]
+1. Patch 1 fixes a heap overflow when copying ACEs whose total size
+   exceeds what kmalloc() allocated. The allocation used the old
+   (pre-rewrite) ACE count, but the copy loop iterated over the new
+   count.
 
-In the ACPI TAD driver, there are hidden assumptions that the ACPI
-control methods used by it will not be evaluated concurrently due
-to ACPICA namespace and interpreter locking.
+2. Patch 2 fixes a u16 accumulator overflow in the size calculation
+   that could wrap around for DACLs with 800+ ACEs, causing the
+   check in patch 1 to pass despite the actual size exceeding 64KB.
+   Returns -EOVERFLOW when this would occur.
 
-However, that may not be the case since ACPICA may drop and re-acquire
-the namespace and interpreter locks during the evaluation of a given
-object in a few cases, including the one in which the AML in question
-sleeps causing acpi_ex_system_do_sleep() to be called.  In that case,
-the evaluation of one control method may be started while the
-evaluation of another one is still in progress.
+Changes since v2:
+- Patch 1 unchanged (already Reviewed-by Namjae Jeon)
+- Patch 2: widened nsize from u16 to u32 and added explicit overflow
+  guard instead of relying on check_add_overflow (which gcc optimized
+  away for a u16 accumulator)
+- Patch 2: fixed build_sec_desc() to propagate error from set_chmod_dacl()
+  when it fails (discovered during testing)
 
-For this reason, add a global lock to the ACPI TAD driver and
-acquire it every time before evaluating an ACPI control method,
-except for the initial evaluation of _GCP in acpi_tad_probe().
+Bjoern Doebel (2):
+  smb: client: fix heap overflow in DACL owner/group rewrite
+  smb: client: fail DACL rewrite when the new DACL exceeds 64K
 
-Fixes: 95c513ec84f7 ("ACPI: Add Time and Alarm Device (TAD) driver")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/12951141.O9o76ZdvQC@rafael.j.wysocki
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/acpi/acpi_tad.c | 50 ++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 20 deletions(-)
+ fs/smb/client/cifsacl.c | 51 ++++++++++++++++++++++++++---------------
+ 1 file changed, 33 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
-index 8fb892424cfb2..ca0d5640de052 100644
---- a/drivers/acpi/acpi_tad.c
-+++ b/drivers/acpi/acpi_tad.c
-@@ -23,6 +23,7 @@
- #include <linux/acpi.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/suspend.h>
-@@ -79,6 +80,8 @@ static bool acpi_tad_rt_is_invalid(struct acpi_tad_rt *rt)
- 	    rt->daylight > 3;
- }
- 
-+static DEFINE_MUTEX(acpi_tad_aml_lock);
-+
- static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
- {
- 	acpi_handle handle = ACPI_HANDLE(dev);
-@@ -100,6 +103,8 @@ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, "_SRT", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
-@@ -114,30 +119,27 @@ static int acpi_tad_evaluate_grt(struct device *dev, struct acpi_tad_rt *rt)
- {
- 	acpi_handle handle = ACPI_HANDLE(dev);
- 	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER };
--	union acpi_object *out_obj;
--	struct acpi_tad_rt *data;
- 	acpi_status status;
- 	int ret = -EIO;
- 
--	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
--	if (ACPI_FAILURE(status))
--		goto out_free;
--
--	out_obj = output.pointer;
--	if (out_obj->type != ACPI_TYPE_BUFFER)
--		goto out_free;
-+	guard(mutex)(&acpi_tad_aml_lock);
- 
--	if (out_obj->buffer.length != sizeof(*rt))
--		goto out_free;
--
--	data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
--	if (!data->valid)
--		goto out_free;
--
--	memcpy(rt, data, sizeof(*rt));
--	ret = 0;
--
--out_free:
-+	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
-+	if (ACPI_SUCCESS(status)) {
-+		union acpi_object *out_obj;
-+
-+		out_obj = output.pointer;
-+		if (out_obj->type == ACPI_TYPE_BUFFER &&
-+		    out_obj->buffer.length == sizeof(*rt)) {
-+			struct acpi_tad_rt *data;
-+
-+			data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
-+			if (data->valid) {
-+				memcpy(rt, data, sizeof(*rt));
-+				ret = 0;
-+			}
-+		}
-+	}
- 	ACPI_FREE(output.pointer);
- 	return ret;
- }
-@@ -187,6 +189,8 @@ static int __acpi_tad_wake_set(struct device *dev, char *method, u32 timer_id,
- 	args[0].integer.value = timer_id;
- 	args[1].integer.value = value;
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, method, &arg_list, &retval);
- 	if (ACPI_FAILURE(status) || retval)
- 		return -EIO;
-@@ -209,6 +213,8 @@ static int __acpi_tad_wake_read(struct device *dev, char *method, u32 timer_id,
- 
- 	args[0].integer.value = timer_id;
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, method, &arg_list, retval);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
-@@ -425,6 +431,8 @@ static int acpi_tad_clear_status(struct device *dev, u32 timer_id)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, "_CWS", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
-@@ -466,6 +474,8 @@ static ssize_t acpi_tad_status_read(struct device *dev, char *buf, u32 timer_id)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, "_GWS", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
 -- 
-2.53.0
+2.50.1
 
