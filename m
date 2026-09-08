@@ -1,198 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896175328B5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75E653ECEB;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871413; cv=none; b=jPRXBwo3Tx6nS0/L288Lle37Dz0ZwTzn4PMiPt/zD/IT0Leb4M2tPbIDFOvF7Lsora3gqLaqLv61RXabelz3JwnCQNpudtNR1KLCXcc8nAq7d1QssIWdWTA7If7l5MvR7MxZDIH5iiRVMXwsIeYozAZOWEf41ZYm4YFhd4DSG88=
+	t=1788871504; cv=none; b=iiDePxgLLRX2EC1s6r6Gyo32xjZ/581H12H+MayTg0Nt5rFgqrEZWvhMfnrPIB/Rg2TfxDqM+HzqH/3oSuyaSqjO5xP77JStqGFSoq3THypP9xov2iG9boLNEXX/F0LbowGRZXRZhTK02Ne4H9idzppNpCWM/uo+rRdgZ0mwAdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871413; c=relaxed/simple;
-	bh=9qWN5mwMEJjhQsRGuktGt+9hwlvAgug8nYZ/NuCfK/M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Li4Uw9D2qaCsHMJBgZNA2ScvgMDrIALu/CsoVdVD5Renazjt9ZsiuBLQlk8TiDjsV12LdwwUZdN0TCPASqwc3ihonnPFPTUZ4A8mUbIHJAFiUPn7oUe/XQQnEY5HXiULMTsforrYvsf54+NeWDWWgsI0BaR8Z0Uqm0JrgTY4Tho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HqA9OaE2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871504; c=relaxed/simple;
+	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D/2ZBNFrDDgv7dmzDA3N5dmCJNPP94teIKX0PAIVgXiGqz+FGGiwKRWUokIIytbUFUqG7v9pF3MG974KYqJGAbXv1vwyaFOj4qlrVY+9zqy5tWm4BlF7ZPNw2nZZRw5ii/mNwcQ+Euv+DtucNpU0N5oRK+biPEM22hPfLvxZ7/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LvCSllkj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HqA9OaE2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45571F00A3A;
-	Tue,  8 Sep 2026 12:43:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788871412;
-	bh=gWPeNUbo8w/yheWu6UkcsP0ARfq/we4ddPjdKZk9Ea0=;
-	h=Subject:To:Cc:From:Date;
-	b=HqA9OaE2416ZgbJmS7KTbkbrheUYo9SOGJb7XVVE1e6IeztQBfK1DccauXN0yldSO
-	 +6eW7IGQBSsQVSmVfrFji4qsi5d6QNmBWu6u81hxFxtgG3WwDsFtQWkF2LTZFENEr9
-	 dIFaSs0TPe+94b4qX7j6ovM9QchQjk2i7Vk0IpsU=
-Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 5.15-stable tree
-To: baloo@superbaloo.net,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,michal.pecio@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:43:13 +0200
-Message-ID: <2026090813-undocked-untwist-c0a8@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LvCSllkj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56667C2BCFB;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788871504;
+	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LvCSllkj2sm2J7JLd9pjsN4toGFiIanibYlRwxG8GRLppF9gcb+Q9E/2lfAUlcAMd
+	 CZ2Tqh3jfpZVXNznujApSMNDS8W9gpLjcB5jp9Ct9Wvyo6ZQC9MdB0CGxFHjG6XTne
+	 BPyDrS6EnQ9wDYqYk/7jikloDFqQMMvfIE0YVjXhgJEnhaOCoNZSs5/Gjil7A6YpEe
+	 0rp387o2TmN1ZzqVs7BmQ1jPJwnuBA4xVDYVJm2aacX9r1A3QSs6skSiwegDEdrvai
+	 CQlQNOswOM533J5YZhr8zVl+TPdfEbAOMSkmPvWN9X41qJhm77/1A6akfI9O/cX1VB
+	 DAVBVuXNoGOjA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39B8FC79F99;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+Date: Tue, 08 Sep 2026 14:45:01 +0200
+Message-Id: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NsQ6DMAxEfwV5rivHAgqd+I+KgQQDXgAlFNEi/
+ r0pXTu+O927HYJ4lQD3ZAcvqwadxgh8ScANzdgLahsZmDgnw4xibY/dUtxMiZ1uzzmgdZKlBWd
+ kiSEOZy+xOaWPOvKgYZn86/xYzTf96UrK/+lWg4SpFGmeGXJNayrddLm6N9THcXwAEn4yybIAA
+ AA=
+X-Change-ID: 20260122-ebbg-ft8719-fixups-bce548250b02
+To: Joel Selvaraj <foss@joelselvaraj.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANOFJeLQjNYi0kXTpsGdTO+bBpMS+a5Wl0S6
+ Nl0RyjUoaiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
+ ciBnD/wNSFGRfZVkyBhqNF/AkPwW+A9tFaAfw6x8X3yaefweifSqELEDIH87v+L6N1TSxgj32QD
+ RNZ6ocaJEAZge4WV6qcvklwSJcWGlwhWFoBDHnIndBbRudUMIkdZkxvIo1htvE9Wn9Gq7GCsCwY
+ mhIRGr05Uba06qS+W0SoZt1jt8U+Y0O9N1AOql3NGNv0qRXD63M8cPh2PYBuOFgcu/nQVOrF3m8
+ GNB9GKF5dPRjRfjNB7Yp0pUCX+4OrS1opxeRZ4qZi9pin26icIIoMHBqMV+tz7qY+x5eRNJSL5y
+ RmNkl2frVAmm4Apapb120L0gG4Rezu9RS/0hC94pRoRAypz4Ku2ZkhJ/7IlDbgEV8yNu4S0zCyg
+ WoRACCzChM1NvHTey88xChBgEzsNleOO1GXjqVvzTNkCnFyNuTqIMDBdmhdM0poX/QGKu5Y4dPX
+ F2dXB8APaQPmZssiW72lizk5G84nletKZKvHiPRO/y9M4B4pRzyGmw2cQ86Q+XSADb7Hj7HjZlk
+ g3r6G1Dt47ugA8YxFSSvqT+CJH+zhTxcc+DbXHn2+Ein+ejEjocHPVGm1NCIrh6RUmvxULnvBOB
+ FkHPEFCE+Z1A61t5ROmhpTKdQwRjALU9ow3HIQD40cy5V2cZLJGGWQbZs0Sfrg4hJxyvbBZljdv
+ laqYTedl76R230A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
+Been broken in mainline for some time.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Ignore the disable() errors, as there were ignored before too. (Neil)
+- Update the `Split initialization into enable/disable fn` commit
+  message. (Neil)
+- Replaced the maintainer old email with new, so Joel gets notified
+  about this patchset being sent.
+- Link to v1: https://patch.msgid.link/20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz
 
-To reproduce the conflict and resubmit, you may use the following commands:
+---
+Casey Connolly (1):
+      drm/panel: ebbg-ft8719: Set prepare_prev_first
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x ff44dfb03a293bf30e31f98772a1dd316a6071d1
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-undocked-untwist-c0a8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+David Heidelberg (2):
+      drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
 
-Possible dependencies:
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260122-ebbg-ft8719-fixups-bce548250b02
 
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From ff44dfb03a293bf30e31f98772a1dd316a6071d1 Mon Sep 17 00:00:00 2001
-From: Arthur Gautier <baloo@superbaloo.net>
-Date: Mon, 31 Aug 2026 12:04:48 +0300
-Subject: [PATCH] xhci: fix lost bounce buffers on TDs spanning several ring
- segments
-
-When a TD reaches a link TRB with data that is not aligned to the
-endpoint's wMaxPacketSize, xhci_align_td() stages the unalignable tail
-through the bounce buffer of the ring segment holding that link TRB.
-xhci_unmap_td_bounce_buffer() later unmaps it and, for IN transfers,
-copies the data back into the URB's buffer.
-
-The enqueue path records the segment that was bounced in td->bounce_seg,
-under the assumption that a TD never spans more than two ring segments.
-That assumption does not hold: a TD large enough to span three or more
-segments crosses several link TRBs and can be bounced at each of them.
-Only the last one survives in td->bounce_seg, so every earlier bounce
-buffer is neither copied back nor DMA unmapped.
-
-The URB still completes with actual_length equal to the requested length
-and no error, so the transfer looks successful while a wMaxPacketSize
-sized hole in the destination buffer silently keeps its previous
-contents. It also leaks a DMA mapping per dropped bounce.
-
-Any sufficiently large and fragmented bulk transfer can hit this. It was
-found with a USB mass storage device behind xHCI backing a dm-verity
-target with 512 byte hash blocks, where the stale data is detected rather
-than silently consumed. The device enumerates as SuperSpeed, so
-wMaxPacketSize is 1024, while dm-bufio issues one 512 byte bio per hash
-block. verity_prefetch_io() makes the block layer merge hundreds of them
-into a single request of up to 512 scatterlist entries of 512 bytes each.
-At 256 TRBs per ring segment such a TD spans three segments, and every
-segment boundary falls on an odd multiple of 512, i.e. unaligned to
-wMaxPacketSize. dm-bufio then caches a hash block holding stale data and
-dm-verity declares the metadata block corrupted:
-
-  device-mapper: verity: 8:2: metadata block 10850 is corrupted
-
-A reproducer running this under qemu is available at
-https://github.com/baloo/xhci-verity
-
-The bounce state (bounce_buf, bounce_dma, bounce_len, bounce_offs)
-already lives on the ring segment, so there is nothing extra to track.
-Keep recording the last bounced segment in td->bounce_seg and, on
-completion, walk the segments from td->start_seg up to it, unmapping
-every segment that still has a pending bounce.
-
-Stopping at td->bounce_seg rather than td->end_seg matters: a bounce
-implies the TD continues past that segment's link TRB, so bounce_seg is
-always strictly before end_seg, and a later TD may already have started
-in end_seg and been bounced there. Walking that far would copy a foreign
-bounce buffer into this URB and unmap it twice. It also keeps the walk
-correct if a TD ever wraps the whole ring so that end_seg == start_seg.
-
-[mn: Add ring->num_segs check to prevent unlikely infinite for loop.]
-
-Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
-Cc: stable@vger.kernel.org
-Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Arthur Gautier <baloo@superbaloo.net>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20260831090448.95644-4-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 9847c5bfc41b..ec278a9f9540 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -824,21 +824,18 @@ static void xhci_giveback_urb_in_irq(struct xhci_hcd *xhci,
- 	usb_hcd_giveback_urb(hcd, urb, status);
- }
- 
--static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
--		struct xhci_ring *ring, struct xhci_td *td)
-+static void xhci_unmap_one_bounce_buffer(struct xhci_hcd *xhci,
-+		struct xhci_ring *ring, struct xhci_td *td,
-+		struct xhci_segment *seg)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
--	struct xhci_segment *seg = td->bounce_seg;
- 	struct urb *urb = td->urb;
- 	size_t len;
- 
--	if (!ring || !seg || !urb)
--		return;
--
- 	if (usb_urb_dir_out(urb)) {
- 		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
- 				 DMA_TO_DEVICE);
--		return;
-+		goto done;
- 	}
- 
- 	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
-@@ -854,10 +851,29 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
- 		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
- 		       seg->bounce_len);
- 	}
-+done:
- 	seg->bounce_len = 0;
- 	seg->bounce_offs = 0;
- }
- 
-+static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
-+		struct xhci_ring *ring, struct xhci_td *td)
-+{
-+	struct xhci_segment *seg;
-+	int i = 0;
-+
-+	if (!td->bounce_seg || !ring || !td->urb)
-+		return;
-+
-+	/* td->bounce_seg is the last one bounced, unmap them all */
-+	for (seg = td->start_seg; i++ < ring->num_segs; seg = seg->next) {
-+		if (seg->bounce_len)
-+			xhci_unmap_one_bounce_buffer(xhci, ring, td, seg);
-+		if (seg == td->bounce_seg)
-+			break;
-+	}
-+}
-+
- static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
- 			    struct xhci_ring *ep_ring, int status)
- {
-@@ -3685,7 +3701,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 						  &trb_buff_len,
- 						  ring->enq_seg)) {
- 					send_addr = ring->enq_seg->bounce_dma;
--					/* assuming TD won't span 2 segs */
-+					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
- 				}
- 			}
 
