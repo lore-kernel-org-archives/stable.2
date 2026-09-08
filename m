@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510E55947FF
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:25:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC0E5921E7
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888335; cv=none; b=nsAur9OtkLIQ5NRchkUU+2i/LYwytdOEJetL5NmnKsyxBNd1uiD/u9p5IeGtH9bBma+sKwvmgJtf+j2JDmMZbRlbWsnv6sZIkccmUdY3de0IHln7CiXR/BrPbwkTGJ6VVi5uxVGiLvVGXZ8T7i4JS6E5wIfaV59hgG7rybU2lg0=
+	t=1788888336; cv=none; b=FLchH9A/FBtrKvgsB6jOPitzf6QOSclEzzn3Uz0/Rprl4XsYY9r0s3txG7vzhSWkaGobwJF3DHVS+bSLTohi7w12LWUcq/+E0+xZbViAhtQ/SC45ayN0ZHbSTw1ngvSzOGsVI1wwIWZSomWiNd2Zhtl2tkIuwOhXaYsnLQnJEGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888335; c=relaxed/simple;
-	bh=KLHMjw0HNy76BmKOiktrQOZo8euNdrXQCWk7Du4xjPY=;
+	s=arc-20240116; t=1788888336; c=relaxed/simple;
+	bh=kz9XUu3mC1jvt2qTx8KPefKmWVG3J1sWLfBl5CrO8d8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TS0BzQKkNg6KlkIOdWHhvmh1M9ZiyiePpscET8DAxlzhHSygczNwdl1Uq9dhH2AzDjbGpcRAeS7/DP8S8dWccfoalm4Q+hZKOFk+C5EpY7Y5Ox43pyB17nXeNJ+XiBwPkbPCVf2vlNx0OGeFJcDlBjh+WQE5Z5cccm9gGbt/ABs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNKyUQ5T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=geydEBprg5fE6jAASs/W+mvO12d0o8cPkWsJvfCI6Ou5ii0rNXFkSBTxsqmx1wfS272E7n+JWNGKAhkmyhQx/+D/p6lc7c742zquDxWZjCBMJEP1D1VSI1eGYBjTaawo2EHv9ADyT3mrBbO/BV9DnobP6sGljDkbeFuf0bFZKpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EB5dfUPO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNKyUQ5T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1F01F00A3E;
-	Tue,  8 Sep 2026 17:25:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EB5dfUPO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29081F00A3A;
+	Tue,  8 Sep 2026 17:25:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888333;
-	bh=0KCDyGA7RZpCxAdkTPfbAWayDggP6gx2yaUYI/z/48k=;
+	s=k20260515; t=1788888335;
+	bh=59rgVtMDmJMysXnyfe/q+rL+hC/b0waDZX5W7M6EgZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DNKyUQ5T0fmFMyL+tnhfnCe2Wcql4/EHcvvNs7o5BF7RcN37Y4BoMeYTHg/k23K/8
-	 FjdzRQ7aEBK7aFGJBqjloON9ow9EIv2WPWRS9pP/r/kno97+Sk5tRHVSdlO7USj2Hr
-	 K3oVwOdld2UAfjUgedmg7zOZOujxnv3tF0JRctBaUExryvAZlGUvZE+DEgm9MOZXpm
-	 vs3czl3q5V//Ld3OCanu4VJLo6xYSA5Fecwbou5dVvdHqAeI0xksE+ovz6TbS3iYt5
-	 BoC65QpgwvEcw5UpMZsxNENxz3ftkWL4JYiCwmQPkYb3TqzCn4/J53gpasoHmtQcXi
-	 AaJgBHBVIj8zw==
+	b=EB5dfUPO6J4mGo8AfMj30G3iBEvRuV1nnmFrJuUozP/BxbvKiJTwqIGiR9RKg7Lkf
+	 w6A1hMkDQzs3FQUDGrZAryb5AKCg6NQCjxftE2xWT3pdC95HeGbQ1s2DigJ+1Lw3Fh
+	 wHts/LXTH8B6tMHJUS7gk/OmIwPNeVe6WtRAS17ec8OHzI9N2kbgaJgK0TqFXNDXEY
+	 PPNaTuZYRr4LX+v5PSPTXXQD40D5p9Z3Cz2XMqNrBq+HqpDVLcxnI8n76Gjj74lsia
+	 oxNjaLDZTYwPvyh68/3Xeus0peLIwy6lwm5HG9aT2yS8y+AyWmIUlKkMgACtuYMMgc
+	 IFgR2JNipeguA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Huang Yiwei <quic_hyiwei@quicinc.com>,
+	Jassi Brar <jaswinder.singh@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] ip: orphan prefetched skbs before multicast forwarding
-Date: Tue,  8 Sep 2026 13:25:29 -0400
-Message-ID: <20260908172529.78857-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] mailbox: qcom-ipcc: Dynamic alloc for channel arrangement
+Date: Tue,  8 Sep 2026 13:25:32 -0400
+Message-ID: <20260908172533.79209-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908172529.78857-1-sashal@kernel.org>
-References: <2026090318-afterglow-hash-e60c@gregkh>
- <20260908172529.78857-1-sashal@kernel.org>
+In-Reply-To: <2026090341-antibody-riches-1252@gregkh>
+References: <2026090341-antibody-riches-1252@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,70 +45,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Huang Yiwei <quic_hyiwei@quicinc.com>
 
-[ Upstream commit e36ce6e78fe3fc3c071a26750783b7ba081ce10d ]
+[ Upstream commit e9d50e4b4d04165097a71e20e0a77e7ad7053dd0 ]
 
-IPv4 and IPv6 input preserve an skb->sk association installed by
-bpf_sk_assign() so that local delivery can use the selected socket under
-RCU. Both address families can also prefetch a socket in UDP early demux.
-In both paths (BPF and UDP early demux) a reference is not guaranteed to
-be held on the socket.
+Dynamic alloc for channel arrangement instead of static alloced
+array, it is more flexible and can reduce memory usage.
 
-When a multicast packet is not locally deliverable, IPv6 hands the
-original skb to ip6_mr_input(). IPv4's ip_mr_input() similarly keeps the
-original skb when local delivery is not needed. Either path can put the
-skb on an unresolved multicast route queue or forward it after the
-receive-side RCU section ends.
-
-After the prefetched socket is destroyed, a later skb free invokes
-sock_pfree() and dereferences the stale skb->sk. Orphan the skb before
-each non-local multicast forwarding path. Local delivery retains the
-original skb; the existing skb_clone() calls provide multicast forwarding
-with a socket-free clone.
-
-Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
-Fixes: 08842c43d016 ("udp: no longer touch sk->sk_refcnt in early demux")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/0c52eb3d7532aaf8bccf37e0f7c922143c639735.1786552223.git.zhilinz@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Huang Yiwei <quic_hyiwei@quicinc.com>
+Signed-off-by: Jassi Brar <jaswinder.singh@linaro.org>
+Stable-dep-of: 66c7bcad7243 ("mailbox: qcom-ipcc: fix duplicate channel allocation across holes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c      | 3 +++
- net/ipv6/ip6_input.c | 1 +
- 2 files changed, 4 insertions(+)
+ drivers/mailbox/qcom-ipcc.c | 90 ++++++++++++++++++++++++++++---------
+ 1 file changed, 69 insertions(+), 21 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index f0294b1148246..131b565c52051 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -2140,6 +2140,9 @@ int ip_mr_input(struct sk_buff *skb)
- 	if (IPCB(skb)->flags & IPSKB_FORWARDED)
- 		goto dont_forward;
+diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
+index f1d4f4679b17b..10cb0b5461090 100644
+--- a/drivers/mailbox/qcom-ipcc.c
++++ b/drivers/mailbox/qcom-ipcc.c
+@@ -13,8 +13,6 @@
  
-+	if (!local)
-+		skb_orphan(skb);
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ 
+-#define IPCC_MBOX_MAX_CHAN		48
+-
+ /* IPCC Register offsets */
+ #define IPCC_REG_SEND_ID		0x0c
+ #define IPCC_REG_RECV_ID		0x10
+@@ -52,9 +50,10 @@ struct qcom_ipcc {
+ 	struct device *dev;
+ 	void __iomem *base;
+ 	struct irq_domain *irq_domain;
+-	struct mbox_chan chan[IPCC_MBOX_MAX_CHAN];
+-	struct qcom_ipcc_chan_info mchan[IPCC_MBOX_MAX_CHAN];
++	struct mbox_chan *chans;
++	struct qcom_ipcc_chan_info *mchan;
+ 	struct mbox_controller mbox;
++	int num_chans;
+ 	int irq;
+ };
+ 
+@@ -166,25 +165,37 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
+ 	struct qcom_ipcc *ipcc = to_qcom_ipcc(mbox);
+ 	struct qcom_ipcc_chan_info *mchan;
+ 	struct mbox_chan *chan;
+-	unsigned int i;
++	struct device *dev;
++	int chan_id;
 +
- 	mrt = ipmr_rt_fib_lookup(net, skb);
- 	if (IS_ERR(mrt)) {
- 		kfree_skb(skb);
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index bc535e79bdc8d..f0a98c61a087a 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -566,6 +566,7 @@ int ip6_mc_input(struct sk_buff *skb)
- 		if (deliver) {
- 			skb2 = skb_clone(skb, GFP_ATOMIC);
- 		} else {
-+			skb_orphan(skb);
- 			skb2 = skb;
- 			skb = NULL;
- 		}
++	dev = ipcc->dev;
+ 
+ 	if (ph->args_count != 2)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	for (i = 0; i < IPCC_MBOX_MAX_CHAN; i++) {
+-		chan = &ipcc->chan[i];
+-		if (!chan->con_priv) {
+-			mchan = &ipcc->mchan[i];
+-			mchan->client_id = ph->args[0];
+-			mchan->signal_id = ph->args[1];
+-			chan->con_priv = mchan;
+-			break;
+-		}
++	for (chan_id = 0; chan_id < mbox->num_chans; chan_id++) {
++		chan = &ipcc->chans[chan_id];
++		mchan = chan->con_priv;
+ 
+-		chan = NULL;
++		if (!mchan)
++			break;
++		else if (mchan->client_id == ph->args[0] &&
++				mchan->signal_id == ph->args[1])
++			return ERR_PTR(-EBUSY);
+ 	}
+ 
+-	return chan ?: ERR_PTR(-EBUSY);
++	if (chan_id >= mbox->num_chans)
++		return ERR_PTR(-EBUSY);
++
++	mchan = devm_kzalloc(dev, sizeof(*mchan), GFP_KERNEL);
++	if (!mchan)
++		return ERR_PTR(-ENOMEM);
++
++	mchan->client_id = ph->args[0];
++	mchan->signal_id = ph->args[1];
++	chan->con_priv = mchan;
++
++	return chan;
+ }
+ 
+ static const struct mbox_chan_ops ipcc_mbox_chan_ops = {
+@@ -192,15 +203,49 @@ static const struct mbox_chan_ops ipcc_mbox_chan_ops = {
+ 	.shutdown = qcom_ipcc_mbox_shutdown,
+ };
+ 
+-static int qcom_ipcc_setup_mbox(struct qcom_ipcc *ipcc)
++static int qcom_ipcc_setup_mbox(struct qcom_ipcc *ipcc,
++				struct device_node *controller_dn)
+ {
++	struct of_phandle_args curr_ph;
++	struct device_node *client_dn;
+ 	struct mbox_controller *mbox;
+ 	struct device *dev = ipcc->dev;
++	int i, j, ret;
++
++	/*
++	 * Find out the number of clients interested in this mailbox
++	 * and create channels accordingly.
++	 */
++	ipcc->num_chans = 0;
++	for_each_node_with_property(client_dn, "mboxes") {
++		if (!of_device_is_available(client_dn))
++			continue;
++		i = of_count_phandle_with_args(client_dn,
++						"mboxes", "#mbox-cells");
++		for (j = 0; j < i; j++) {
++			ret = of_parse_phandle_with_args(client_dn, "mboxes",
++						"#mbox-cells", j, &curr_ph);
++			of_node_put(curr_ph.np);
++			if (!ret && curr_ph.np == controller_dn) {
++				ipcc->num_chans++;
++				break;
++			}
++		}
++	}
++
++	/* If no clients are found, skip registering as a mbox controller */
++	if (!ipcc->num_chans)
++		return 0;
++
++	ipcc->chans = devm_kcalloc(dev, ipcc->num_chans,
++					sizeof(struct mbox_chan), GFP_KERNEL);
++	if (!ipcc->chans)
++		return -ENOMEM;
+ 
+ 	mbox = &ipcc->mbox;
+ 	mbox->dev = dev;
+-	mbox->num_chans = IPCC_MBOX_MAX_CHAN;
+-	mbox->chans = ipcc->chan;
++	mbox->num_chans = ipcc->num_chans;
++	mbox->chans = ipcc->chans;
+ 	mbox->ops = &ipcc_mbox_chan_ops;
+ 	mbox->of_xlate = qcom_ipcc_mbox_xlate;
+ 	mbox->txdone_irq = false;
+@@ -233,7 +278,7 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 	if (!ipcc->irq_domain)
+ 		return -ENOMEM;
+ 
+-	ret = qcom_ipcc_setup_mbox(ipcc);
++	ret = qcom_ipcc_setup_mbox(ipcc, pdev->dev.of_node);
+ 	if (ret)
+ 		goto err_mbox;
+ 
+@@ -241,7 +286,7 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 			       IRQF_TRIGGER_HIGH, "ipcc", ipcc);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "Failed to register the irq: %d\n", ret);
+-		goto err_mbox;
++		goto err_req_irq;
+ 	}
+ 
+ 	enable_irq_wake(ipcc->irq);
+@@ -249,6 +294,9 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++err_req_irq:
++	if (ipcc->num_chans)
++		mbox_controller_unregister(&ipcc->mbox);
+ err_mbox:
+ 	irq_domain_remove(ipcc->irq_domain);
+ 
 -- 
 2.53.0
 
