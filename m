@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E250952E04D
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:22:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4D759B692
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:28:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891754; cv=none; b=WfsOpJjrScKnABoWUGgf+BNE5dtSZTUHjO1RrERFP4mOKExW5O16t/hRNfanrjPoW8w0QFdn740L8oDPCiPjggvyhe23BWH+doDp6MTksoIC53jByI/kuOGJYySwgHCBLjB80Ebvclpbsr96rl5TBokQbx8zUvbiF3aJVREuYtA=
+	t=1788892131; cv=none; b=SzRDZz80nNbVK2T9SnYBDP7A48xlE2gL0zICDZsi912c9t4Y1zZztdBfnAo97+dCxUk0xddrherGaNRCJL68BNjNlO/Tx8m247LF9M1UsMP8jnPpKhN7pqkSdqBubiXdT4xzmsr6A/7dyl6DzIAmvPQ/7ZIJBCsuP4w5tBYtWmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891754; c=relaxed/simple;
-	bh=dmqj1TdZnwlAhVWf47yoySCJaj8U5IS5aVK1lMn8/xI=;
+	s=arc-20240116; t=1788892131; c=relaxed/simple;
+	bh=Aorujg5WaE8rRUwURWiEUaJwQ1Get9k+kq/cGByO1o8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sr82tCUiQpdLUZ+TylGdqTnGhzLfds4qOVtET7uILEHB8vB8RB04QXJnXBroYSeKxBSi48VMOFib6oDowHAWASybtjqBmWcOOkG8GmgNtTrVSzSlq0zWnPh5PeBucv2mq5P9SEisWQcrgpFvKR23LWVHhM73auoAzbcURd0ZY5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+IuBXYp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LA9JhxTA1Uc08M1o6avvgZiRVA0hLhYe6K1FXOgul00jBZg9nQlkpS7Brz4gK48lCUnPieICYUeXV1VHlk265985ZZnN6FZ/KNRR+n8VVRwxCOGRIi+7JNhyDtE8UrBy5N5WgHYOQlBTFJNJkVfeFBcJIC8tL6ybUP6AG9Z008A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQF7lO3O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+IuBXYp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DCBC1F00A3A;
-	Tue,  8 Sep 2026 18:22:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQF7lO3O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBDD1F00A3A;
+	Tue,  8 Sep 2026 18:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788891752;
-	bh=6jeEarjRPWfuBGxIahT3B7LSuRIt8VdIMBxlRvax/jk=;
+	s=k20260515; t=1788892127;
+	bh=n2sCIQOK+oInYCWoPVMmF6fTedkpetFmW1/O78WHqGE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K+IuBXYphUjOKg8eX3oBFe+iXkP1NmzgwUBjWREE8RMV2JNdy8dRP5s0dV0P29Ann
-	 6RAFXR2SRDMvORjsQGzgqlIrxa8L7WqDn2EhaxaCUebIv5t2XlSkKrmYr5zUurqOis
-	 PVZQVojmEy+1Gn5HnuudwL3qorgHPhRC/b98ofzXfy8sON+4C/e5f8k5TSbAyMPidF
-	 3QWWPDgLTkdaoYLk6snzOSICP8OW3kBVCA2STWUSRy2AuAhYLHlCv0B05by6vMPSqx
-	 djjCY5FxZiSMDp7DGpuJhCCu33T42UrAviQRzVtuKNaq7BCuw4xDVAlI+tEwDAe04w
-	 kZkGSE+OntryQ==
+	b=VQF7lO3OrZHZ0tc2/BeqNk3Cid7eMhai0OpBnjtXXkg8saPYoC/+fuHW5XR2uOuR5
+	 Xb3ppnZ2qfyH1d+WTI0SOIQ8drKbV7nBsRFmWpWhqaflFO+ytl9AVTU8HrFqyBbPSC
+	 8kLaE00gwGFJ17LZpjrIU9t+nZbfUqFDlDDJ/PP9J0Qjewis4Q+hSc6FJEAxvAtW5H
+	 LAo2t29t2D5SdwBVEOpdc5VEDxkgAeWTyktsYWNS/oVyd3X1jo1sg1HwWxHQx0oRjm
+	 5Ll6erxbr97gsIcDLj4+y/+dL7GXMxYVkirp9D2tLnATCFL5tN2NdsFzJ72Mpw4fRA
+	 SLKKIdw+B/+zg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dave Airlie <airlied@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Miroslav Benes <mbenes@suse.cz>,
+	Luis Chamberlain <mcgrof@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nouveau/gem: reserve the bo in the info ioctl around the vma lookup
-Date: Tue,  8 Sep 2026 14:22:30 -0400
-Message-ID: <20260908182230.203917-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/6] kernel/params.c: Use kstrtobool() instead of strtobool()
+Date: Tue,  8 Sep 2026 14:28:40 -0400
+Message-ID: <20260908182845.219246-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090306-creamlike-diagram-e3f0@gregkh>
-References: <2026090306-creamlike-diagram-e3f0@gregkh>
+In-Reply-To: <2026090333-barista-diagnosis-cdab@gregkh>
+References: <2026090333-barista-diagnosis-cdab@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,53 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dave Airlie <airlied@redhat.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 5e17160d41d92823f3379c1982e1369680c5ce4d ]
+[ Upstream commit def7b92efd868a6c78da86770704c1a03506016e ]
 
-In the non-uvmm path, there could be a race between the info lookup
-finding the vma, and the gem close path closing the vma leading
-to a use-after-free.
+strtobool() is the same as kstrtobool().
+However, the latter is more used within the kernel.
 
-Spotted with the help of Opus 4.6.
+In order to remove strtobool() and slightly simplify kstrtox.h, switch to
+the other function name.
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Fixes: e758a3111914 ("drm/nouveau: fixup gem_info ioctl to return client-specific bo virtual")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260612020658.3176270-1-airlied@gmail.com
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-[ adapted VMM and UVMM handling to the legacy direct VMM selection and condition. ]
+While at it, include the corresponding header file (<linux/kstrtox.h>)
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Reviewed-by: Miroslav Benes <mbenes@suse.cz>
+Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+Stable-dep-of: 3dfaae04243c ("params: fix charp corruption on allocation failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/nouveau/nouveau_gem.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ kernel/params.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 93c1afff5e90e..2b4488adff343 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -227,11 +227,20 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
- 		rep->domain = NOUVEAU_GEM_DOMAIN_VRAM;
- 	rep->offset = nvbo->offset;
- 	if (vmm->vmm.object.oclass >= NVIF_CLASS_VMM_NV50) {
-+		int ret;
-+
-+		ret = ttm_bo_reserve(&nvbo->bo, false, false, NULL);
-+		if (ret)
-+			return ret;
-+
- 		vma = nouveau_vma_find(nvbo, vmm);
--		if (!vma)
-+		if (!vma) {
-+			ttm_bo_unreserve(&nvbo->bo);
- 			return -EINVAL;
-+		}
+diff --git a/kernel/params.c b/kernel/params.c
+index 0df4a315760d5..9f0f059571a0a 100644
+--- a/kernel/params.c
++++ b/kernel/params.c
+@@ -4,6 +4,7 @@
  
- 		rep->offset = vma->addr;
-+		ttm_bo_unreserve(&nvbo->bo);
- 	}
+ */
+ #include <linux/kernel.h>
++#include <linux/kstrtox.h>
+ #include <linux/string.h>
+ #include <linux/errno.h>
+ #include <linux/module.h>
+@@ -310,7 +311,7 @@ int param_set_bool(const char *val, const struct kernel_param *kp)
+ 	if (!val) val = "1";
  
- 	rep->size = nvbo->bo.mem.num_pages << PAGE_SHIFT;
+ 	/* One of =[yYnN01] */
+-	return strtobool(val, kp->arg);
++	return kstrtobool(val, kp->arg);
+ }
+ EXPORT_SYMBOL(param_set_bool);
+ 
 -- 
 2.53.0
 
