@@ -1,19 +1,19 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44509538D6D
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8434353A8BE
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:28:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870525; cv=none; b=jJUXdpRxoKfiCNWshZA7hjqOHDMBp/B8la+hQFJzdO+WzLwtf7YStLkBoAR2vD0KIQIJ+gm7PRZDbdFGRTrYjv9pBpPyxqwo8DCisBemPfuSFtMcKRM5HV/1bVs5V3HFL5/Idli8ES5qfu0hTJmxZ8Lxl23Ui/zcWM3EYfy9Qlg=
+	t=1788870529; cv=none; b=mS+AregHsTMa+Zp8WmMa2t54Z3NruGj6uXslICvzv51DfeqrvcarB6wcCNydUSuYegiJa4FzAfuUQX+BElTINWS5yFwcEBFikrhYgQ6tBVPhngiilF7yUrJr0j2n4YRtG9Hv6aRotJWxFr5J2DC44hQODOKkq1fOH5QGsPLX4M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870525; c=relaxed/simple;
+	s=arc-20240116; t=1788870529; c=relaxed/simple;
 	bh=XZvB0Pq2aNkp+7CMzCyqKeCftuhCL7mGCNUrTypyU0Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ctjc8sfMekcfDi2nTrVHe+JYOEsGXDj2OJSY2M9maF4Gjx77JhM+ldJU+fcMT/vR0hdlbPsr5Viw9+W2wfmE7GYsOxfG7D/0we3OhnGd9IAtL+1vzeiGuBTZP75XsBKD0FPRwURUwxC4frya/nZGPCukuTluWBCgOUnFJM0wSA4=
+	 MIME-Version; b=XlQKGG12zcoSCd3aH1vj5trzux5RZn8T0bzApD3BNzyoZ2DMdDqYgqo1eDPDzliILbY4w9wOHD+LRD479TY5sG+qhO0f5zMAgOiBQWR1dq5WZkk15RVYrlEoqVwvA11zERxNfDpXWgzi14cWxExfrpnVizxiJHQCv1+7aMxUSUQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A141F00A3D;
-	Tue,  8 Sep 2026 12:28:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2F11F00A3A;
+	Tue,  8 Sep 2026 12:28:46 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Loehle <christian.loehle@arm.com>,
@@ -21,8 +21,8 @@ Cc: Christian Loehle <christian.loehle@arm.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.6.y] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+
-Date: Tue,  8 Sep 2026 08:28:40 -0400
-Message-ID: <20260908122840.2091786-1-sashal@kernel.org>
+Date: Tue,  8 Sep 2026 08:28:44 -0400
+Message-ID: <20260908122844.2091884-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026090308-padlock-setting-e1ac@gregkh>
 References: <2026090308-padlock-setting-e1ac@gregkh>
