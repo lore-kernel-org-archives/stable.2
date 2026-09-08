@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34715867D0
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:04:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D1E56B877
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890679; cv=none; b=Cx8sWVjkoe7VQyCbu5APWfl4u0fpAZDvItUGuHeBoNmyu91uSVBTA1WSuSNUYsZdzjhqji0S+3G9PFqBhY7CiO/5lSIBOMcJSFZmmeRO8KeeSvss+GgGBdr3ZiXv+ONYfrAdgdzV14NnAJfhhYSj0fyCV66yQBc8UlQmb+D8zkk=
+	t=1788890685; cv=none; b=nSMlRY7ZjESC7Nu+nGd5oSiItc3WDNYlHBw3m8xrAwmbUDWiKJSDav8J6rm94QD+WYD5SFosl5r2i8bSHXG6Hk/LBJnYaiKcFhqKKIQNZLCPpsoqt+2RyZFsmZdbAKd+GuF2J6whGz1PvF2qxKdPzXqFoVKnTAS22U3PH+SY3Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890679; c=relaxed/simple;
-	bh=WhK7PDhS1yJ07yuJezX/NRTMEY0rFtCu8AOgrXK4nSo=;
+	s=arc-20240116; t=1788890685; c=relaxed/simple;
+	bh=/C8ChBl64B2ldTCyc0AWu4BFB6H1eTsk/JmSO8IvqtY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZMITPIuPUNL2FiDzBzfZi9k9Z6u7mRbD6WGBCOAUNRjRpLQ5oVaK+8wOja2SFesv0e2qaRmJrpLN2mffIafbkfjQl8zMOFTKNc1bmV3nb9KCS3tCVvht3KNxcCT1THWExpZFcSLajAAPfXNNPakh6Ecf0mJMw+3dS2nZcT5etao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXNVeZ6I; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Zk3JIi/wUhQxji35x3AhFNz7JdraTzSv70gZkVIQUtb7yD3B8nMw3fVsBOjiZh/MqJTkIN++a43KkGuWolSvHHTOxWYgudi/L/ajSNp7tERkbsVERaFcIoBeCjyISsJHB8/LD5w5UQckyQXrbqLZJEeep5VR0mmDs3vr9xk4Zxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsIikZuS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXNVeZ6I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C111F00A3E;
-	Tue,  8 Sep 2026 18:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsIikZuS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D101F00A3A;
+	Tue,  8 Sep 2026 18:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890676;
-	bh=F4iyfWRp0tcYltfMuInKSZTHoGMABx86rZHNzrZeyWk=;
+	s=k20260515; t=1788890683;
+	bh=9KV4J50SQUFGkKto8sMdjHEvCH5cYkXTiKZwJrePZpg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LXNVeZ6I+yPdDh0ICGo921e4604WBAPC4Fi27BM1RHOv1rJsv1drlyAp8e4TUEQTV
-	 +ta4XmOkaA6q4ncZcqaN8jqc9UUzfwLkUY9++pyjaebYmFlFc5/RkQv9KG/d1vQV7P
-	 JkaOYCeM/K0WYuhOO0Zmq73Nx7DGhbHg4Uo+0Uf/d2RA58YTkRpCZAViivgP3tgau9
-	 e0fbP989ehKMWPTp63BvCCMrUDtuwgi9mIjSPGWI9AT8iEC6R6o9eOQq15zQJyDINo
-	 tOYBgFFtvjc+IZ3sRQfbs7ja39w7J2pGJW5fN2vG6LjhJgHho9E2vmEsWhT46eNDdC
-	 03+1neezcsOsg==
+	b=PsIikZuSPcrmVh5hCf54qg4WVrvv8R/5G44YGNpTcNiVnoy9U6KgbuQQeykESUFr+
+	 mzSZWlJTaPQna54y3y9sCz9byLlI7zxDF97ixTZBs4Mzlg8S7Ahu/KFz/p/SOe3GJu
+	 xdVacF6zYuDyzRAiON3XB6whA/F+9UPVtS4QwOJ/dpGZogyoMGw9iOdRvn/E/oXZRK
+	 01cVlPrUCJuInHRHbfodlePVs1UChtSaRs0aIEsceABPfYqf25MzH0ohfqZ/EL36AZ
+	 PykmUBtGlZfLNLmXko+mufPmkgb3dN2wTt8kISQOGSUuf+VVn7Ao7fBikwxg8YwMea
+	 OiSyXMk+gFkcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Dave Airlie <airlied@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] SUNRPC: svcauth_gss: enforce krb5 token minimum length
-Date: Tue,  8 Sep 2026 14:04:32 -0400
-Message-ID: <20260908180432.174786-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y] nouveau/gem: reserve the bo in the info ioctl around the vma lookup
+Date: Tue,  8 Sep 2026 14:04:41 -0400
+Message-ID: <20260908180441.175024-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908180432.174786-1-sashal@kernel.org>
-References: <2026090352-bamboo-relic-6231@gregkh>
- <20260908180432.174786-1-sashal@kernel.org>
+In-Reply-To: <2026090305-award-junior-d158@gregkh>
+References: <2026090305-award-junior-d158@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,68 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+From: Dave Airlie <airlied@redhat.com>
 
-[ Upstream commit a919c5c88769cf8fb3ec071e6078d830bf512489 ]
+[ Upstream commit 5e17160d41d92823f3379c1982e1369680c5ce4d ]
 
-svcauth_gss_unwrap_priv() validates only an upper bound on the
-wire-supplied opaque length before handing the buffer to
-gss_unwrap():
+In the non-uvmm path, there could be a race between the info lookup
+finding the vma, and the gem close path closing the vma leading
+to a use-after-free.
 
-    if (len > xdr_stream_remaining(xdr))
-            goto unwrap_failed;
-    offset = xdr_stream_pos(xdr);
-    ...
-    maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
+Spotted with the help of Opus 4.6.
 
-The wire value `len` flows unchanged as the upper bound into the
-krb5 unwrap path, so a len in [0, 16] passes this check and is
-handed to gss_unwrap(). For a krb5 v2 context that lands in
-gss_krb5_unwrap_v2(), which reads the 16-byte RFC 4121 token
-header fields at ptr+4 and ptr+6 and then calls rotate_left()
-before any integrity check. With a sub-header length the header
-reads run past the token, and _rotate_left()'s `shift %= buf->len`
-path can divide by zero when buf->len has been driven to zero by
-the truncated token. A header-only token (len == 16) is equally
-invalid: with a non-zero RRC field and the opaque blob ending at
-the XDR buffer boundary, rotate_left() builds a zero-length
-subbuffer, reaching the same division.
-
-Reject the token at the server entry point before it reaches the
-krb5 unwrap core. A valid sealed RFC 4121 token must contain
-the 16-byte header plus at least some encrypted payload.
-
-Fix by adding a minimum-length check immediately after the
-existing upper-bound check:
-
-    if (len <= GSS_KRB5_TOK_HDR_LEN)
-            goto unwrap_failed;
-
-Fixes: 7c9fdcfb1b64 ("[PATCH] knfsd: svcrpc: gss: server-side implementation of rpcsec_gss privacy")
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Fixes: e758a3111914 ("drm/nouveau: fixup gem_info ioctl to return client-specific bo virtual")
 Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260524010213.557424-2-cel@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Link: https://patch.msgid.link/20260612020658.3176270-1-airlied@gmail.com
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+[ adapted VMM and UVMM handling to the legacy direct VMM selection and condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/auth_gss/svcauth_gss.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_gem.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index afcfdb2f84b6c..77a61bdd1d5ed 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1003,6 +1003,8 @@ svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
- 	}
- 	if (len > xdr_stream_remaining(xdr))
- 		goto unwrap_failed;
-+	if (len <= GSS_KRB5_TOK_HDR_LEN)
-+		goto unwrap_failed;
- 	offset = xdr_stream_pos(xdr);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 0ec96d9372cd7..571633c07e03e 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -277,11 +277,20 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
+ 		rep->domain = NOUVEAU_GEM_DOMAIN_VRAM;
+ 	rep->offset = nvbo->offset;
+ 	if (vmm->vmm.object.oclass >= NVIF_CLASS_VMM_NV50) {
++		int ret;
++
++		ret = ttm_bo_reserve(&nvbo->bo, false, false, NULL);
++		if (ret)
++			return ret;
++
+ 		vma = nouveau_vma_find(nvbo, vmm);
+-		if (!vma)
++		if (!vma) {
++			ttm_bo_unreserve(&nvbo->bo);
+ 			return -EINVAL;
++		}
  
- 	saved_len = buf->len;
+ 		rep->offset = vma->addr;
++		ttm_bo_unreserve(&nvbo->bo);
+ 	}
+ 
+ 	rep->size = nvbo->bo.base.size;
 -- 
 2.53.0
 
