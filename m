@@ -1,24 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B8C545D95
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631AA54280A
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872104; cv=none; b=spfb4QBMHKJl5VRLMI/KwVGY4aXm9qs+cEHl2WiOx8OgZ+XoAkqCny950ruqt13bkjwvfjkAJdC8CwXFTeyC2UtWvQszZLOxjofmqIEXqX4pMvOxx8NYMypbflnEhdpLLrlebRnG9gv9v/Ho5tSBzvImSGsXPWoCN8eYDIoXenQ=
+	t=1788872112; cv=none; b=Fa1XGEDTuLMFCuxMrGGKamR4q+bZdQSRImplRJz691BR1xU0TKD4TvcTc4GUxbAVfUuRXUrnbFOenyWa/kQIKTmCNYh1GQLrBmXZsGCGbILtDUoUQKIWd5esWb00W1nXKU9wI31aOOfiLcjKTFd19b5GMLaJm6j9xVOHuZrT8VM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872104; c=relaxed/simple;
-	bh=2HyesEUmWR00Laa2cnNv308fx36RoBssf3Ztj3+KMOo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=I0jwNq++b31cpHwUkj/Hkv0CCJPTj2lKNZXi5zyQtQnIZC+ORIeZz1ZGKBYo7pYupUX/CJ80IJAtJheB+Z9JiDZWAIHXVPvLJ8GNl7VN/O+9RZoMk3DE3aCV7ldkOyQ+3iMKUbafh6yhVncet1ciL/zXyZljVt1oeovZErLAitw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96D21F00A3A;
-	Tue,  8 Sep 2026 12:55:01 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix BTF kflag check for anonymous struct" failed to apply to 6.6-stable tree
-To: mhiramat@kernel.org,rostedt@goodmis.org,sashiko-bot@kernel.org
+	s=arc-20240116; t=1788872112; c=relaxed/simple;
+	bh=n82+7QQZGqIO/HK3D6iGyJXIRqrbXn/U+p0uuwlljMc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YV42s8CaqEfAPYiMkWWHi3A05vtHy1Mw59MiBmNyuJIa07ZbVy2aC5ZAHN6TNG2drdRlKjl8kQPZnqaILCkV9JI7m8/2/Azp4njN0bMbkVqdaIs2LlXZnNfkXGcTFfUGEUfpTft996KvI7RfpVv8Y6y4QPw/5v29YWzmtAOUDU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Oe3m0sUd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Oe3m0sUd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41D91F00A3D;
+	Tue,  8 Sep 2026 12:55:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788872111;
+	bh=UNa+42oVpBI8c4FnJbHjeKGqFTeWPOIsIKpspfoOpnQ=;
+	h=Subject:To:Cc:From:Date;
+	b=Oe3m0sUdeDmuhoTM7GC0rYkJms9HAgXyeGkTodPEIr8E0DXp5UrsfuU5MROhCFldi
+	 kH/tVlAr00rk1K1ZMrnCrxKiPnQMuiFAXKL3acbWdENVRwL+sq4PM9rgzSy8sr9PSQ
+	 XwF+EMeeD7Xv0Dce6QklA2hfBzexPriAIJfg5PIw=
+Subject: FAILED: patch "[PATCH] spi: bcm63xx-hsspi: disable clocks on resume failure" failed to apply to 6.1-stable tree
+To: pengcan@kylinos.cn,broonie@kernel.org,kursad.oney@broadcom.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:45:50 +0200
-Message-ID: <2026090850-fiber-stony-0dfd@gregkh>
+Date: Tue, 08 Sep 2026 14:46:31 +0200
+Message-ID: <2026090831-flashy-precook-e8f5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 47e93045a2db80d24f5fef65adecc6b2b32efa23
+git cherry-pick -x 3b0cee02664041aea7e4f787c66cb86c82eb4e97
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090850-fiber-stony-0dfd@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090831-flashy-precook-e8f5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -53,127 +62,42 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 47e93045a2db80d24f5fef65adecc6b2b32efa23 Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Tue, 1 Sep 2026 23:21:49 +0900
-Subject: [PATCH] tracing/probes: Fix BTF kflag check for anonymous struct
- member access
+From 3b0cee02664041aea7e4f787c66cb86c82eb4e97 Mon Sep 17 00:00:00 2001
+From: Can Peng <pengcan@kylinos.cn>
+Date: Tue, 4 Aug 2026 15:20:17 +0800
+Subject: [PATCH] spi: bcm63xx-hsspi: disable clocks on resume failure
 
-btf_find_struct_member() traverses into nested anonymous structures and
-unions to find a struct member. However, get_bitoffset_of_field() in
-trace_probe.c checked btf_type_kflag(type) using the outer parent type
-instead of the actual anonymous structure/union that directly contains
-the found member.
+bcm63xx_hsspi_resume() enables the HSSPI clock, and optionally the PLL
+clock, before restarting the SPI controller queue.
 
-If the parent structure and anonymous structure have mismatched kflags
-(e.g., the parent has kflag=0 while the anonymous structure has kflag=1
-because it contains bitfields), the bitfield size encoded in the upper
-8 bits of member->offset is erroneously treated as part of the byte/bit
-offset, corrupting the resolved offset and failing to set last_bitsize.
-Similarly, btf_find_struct_member() pushed anonymous member offsets
-onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
+If spi_controller_resume() fails, the function currently reports success
+and leaves those clocks enabled. Propagate the error and disable the
+clocks before returning.
 
-To fix this problem, update btf_find_struct_member() to return actual
-containing structure/union type via member_type, use appropriate
-__btf_member_bit_offset() to get bit offset, and use member_type for
-btf_type_kflag() in get_bitoffset_of_field().
-
-Link: https://lore.kernel.org/all/178827250904.123716.17452648791331881284.stgit@devnote2/
-
-Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
+Fixes: 142168eba9dc ("spi: bcm63xx-hsspi: add bcm63xx HSSPI driver")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.7-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+Reviewed-by: Kursad Oney <kursad.oney@broadcom.com>
+Link: https://patch.msgid.link/20260804072017.860974-1-pengcan@kylinos.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index d3ba356d5503..ee7a04886bf6 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -61,16 +61,17 @@ struct btf_anon_stack {
- 
- /*
-  * Find a member of data structure/union by name and return it.
-- * Return NULL if not found, or -EINVAL if parameter is invalid.
-- * If the member is an member of anonymous union/structure, the offset
-- * of that anonymous union/structure is stored into @anon_offset. Caller
-- * can calculate the correct offset from the root data structure by
-- * adding anon_offset to the member's offset.
-+ * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
-+ * If the member is a member of an anonymous union/structure, the bit offset
-+ * of that anonymous union/structure is stored into @anon_offset.
-+ * If @member_type is non-NULL, the actual containing structure/union type
-+ * of the found member is stored into @member_type.
-  */
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset)
-+						u32 *anon_offset,
-+						const struct btf_type **member_type)
- {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-@@ -94,14 +95,16 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
- 			if (mtype && btf_type_is_struct(mtype) &&
- 			    top < BTF_ANON_STACK_MAX) {
- 				anon_stack[top].tid = tid;
--				anon_stack[top++].offset =
--					cur_offset + member->offset;
-+				anon_stack[top++].offset = cur_offset +
-+					__btf_member_bit_offset(type, member);
- 			}
- 		} else {
- 			name = btf_name_by_offset(btf, member->name_off);
- 			if (name && !strcmp(member_name, name)) {
- 				if (anon_offset)
- 					*anon_offset = cur_offset;
-+				if (member_type)
-+					*member_type = type;
- 				goto out;
- 			}
+diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
+index 37b3534d0b0a..633164e5a856 100644
+--- a/drivers/spi/spi-bcm63xx-hsspi.c
++++ b/drivers/spi/spi-bcm63xx-hsspi.c
+@@ -919,7 +919,13 @@ static int bcm63xx_hsspi_resume(struct device *dev)
  		}
-diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-index 4bc44bc261e6..4bd26bceae23 100644
---- a/kernel/trace/trace_btf.h
-+++ b/kernel/trace/trace_btf.h
-@@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset);
-+						u32 *anon_offset,
-+						const struct btf_type **member_type);
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index c4163904ba74..144e790077c6 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- {
- 	const struct btf_type *type = *ptype;
- 	const struct btf_member *field;
-+	const struct btf_type *mtype;
- 	struct btf *btf = ctx_btf(ctx);
- 	char *fieldname = *pfieldname;
- 	int bitoffs = 0;
-@@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+ 	}
  
- 		anon_offs = 0;
- 		field = btf_find_struct_member(btf, type, fieldname,
--						&anon_offs);
-+						&anon_offs, &mtype);
- 		if (IS_ERR(field)) {
- 			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 			return PTR_ERR(field);
-@@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 		bitoffs += anon_offs;
+-	spi_controller_resume(host);
++	ret = spi_controller_resume(host);
++	if (ret) {
++		if (bs->pll_clk)
++			clk_disable_unprepare(bs->pll_clk);
++		clk_disable_unprepare(bs->clk);
++		return ret;
++	}
  
- 		/* Accumulate the bit-offsets of the dot-connected fields */
--		if (btf_type_kflag(type)) {
-+		if (btf_type_kflag(mtype)) {
- 			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
- 			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
- 		} else {
+ 	return 0;
+ }
 
