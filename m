@@ -1,159 +1,194 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB6B52ED4A
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4D853D0BA
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871026; cv=none; b=KSd5j3maTw5MSr83hTJJ2PxXmpleu5TA32xdMOUUiFRf9EbsljCOix++lWMRD+eVmK3xaSEMhePu/M4Es2NauBeQ8fnmNTiW2Eay8pYZRWIoOeLp3l684mPIEmEQ8paaYzzi3DBzk2vbOdq844EVAidvWHiye0CbVaU2zhgaTNA=
+	t=1788871296; cv=none; b=Jh07I10a0yVoSOO2XeQOMeO3nFrFQUWtuUEWhDNNA5cs2dNO2+Y6OlYAzHxiXVzwJ100NvyVRkqwcNMGiFzYomIDopYn+qLKvFHO9tgtRasAdLkcYVj0yrRlrYYb7vUQS9TdM7+1+7iBR+JzQO+MLYXMukyUAsSDFRGas6eefqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871026; c=relaxed/simple;
-	bh=rFgdO2dJ9qHWHCugdPsurRI0n1j/jdZfr1HAi1LVuiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MAYGRZmGcCgpLQGoEufVea1XipYT4bXIz1jEYXwVEJ4tK3YDY2PVugyuFFgpOKMu87LZtzteT02Molvb8HM8eIR/GiFXDt0t4Iu5LPzKTDxJpXRQM88ef9cMCOt0DWOEY1m5n9O6kkuGNI7vWKGXn76QzFRN3g22pNKDZ8ywSco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLLyEI3S; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788871296; c=relaxed/simple;
+	bh=nmhcVsbwkv27u24H0BwIOLOVr7QJ6kYbh4HK+fMNF6U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V0yjfzWJrOe8IbHJQ98SYB6wN1gKI5lL3MRSBsHnGqj18YdAZI0ukG4AvnuJuI8lAHlHWHHBaMX44JJMf1Rf4L0eesBr9ss8Y6LGT/jLuLKAVsoxKutOd0RY4GTYpuO6W9cQeGdgj8NDCPs/yAqqsH2C6jHVj7YZc6TYy2IuSMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fK3vc3aO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLLyEI3S"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so1509575e9.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 05:37:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788871021; x=1789475821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
-        b=rLLyEI3SMmxMOLKyiHNRr2PZaQulnFWIlx2NnPM+OfWM+ExYhYCjETiTGcWl020RC9
-         U2kFNCCRPe9pUympox+69Lzx1EmI7eIvrQhhEBUVnBFoo/b3XiX66l1e2KjKxoSRTVs8
-         RZQR5G15AZ5JwjiiMAEU7rFWOjt5D3TgBQL/7lVNE9lMGLuqYuCzM6KoLWM53BVcuyDp
-         tGsqAdYPnjyXxH8ZjCxQ8wmytz0p2vWrO37529tMhsfESUrEWBrjYocL5N1ir8lm4NBj
-         nTXO6mdXfUfMSIcFk40IuDj403NCLAGbRwqO+/pAYJBYb0/lir2WSjvcy/NgzMCOmJVO
-         +uuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788871021; x=1789475821;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
-        b=dQhkwcikMU/CQ9fuG58DbNdzds7CcuD85yB+fJ7jBEjAKzSdUQEMmTf4Q/4izLAyVo
-         lQUh64/9qizVWhxWLKOU78sg5gE+yc79FxwBC9zdlFLN3ttSPxP52m+vsnznavY6WiF1
-         Nu2fyjCxSmQIrIBQHq0IQv6YDvpLtHe/UrxxmTJeD8MIGK/PEg6t5X+zDnMRz6BEgdqk
-         pa2yo/XH3jWm0WI1EgHg91CiTvvkOoJ1jglDxrLcEefyJwoyG14DD12mUSo/ptw++dlA
-         QaBUuQmZaeZh4Hosv2KElDymb6ec0D/Ud/iJwGpiviZeYcqONgk81PR549qfWDonC+i9
-         YNlA==
-X-Forwarded-Encrypted: i=1; AKwUvBwCn88/rtfoMxyyJnCVvmKVdAA3wyXMTMsCdkesnQHFdfalJW6kDjlZ1DoduXbOpwr+OlayCBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0qCsMAv6WilD8iHdqHfokDW888F5zbgUSd2oHH3aHB77hvf+D
-	23rRwakge6VA0cT0JIei7tJTPs7rL5dFhNlybq/HwPLwYdpWQ58P0btg
-X-Gm-Gg: AYBFou3ttVJX4JuV/37SHEqH/SiqbzjVarnq5sYmpt+mqWHbZ4/lEK+gKThrIxKd6uv
-	27jQ2yaQIxHlwRJODeRNjRvHsnbTvz5e59toPwcaIFWtwILhM2KhDWcp7/YERMdbCc6TyL7DBRu
-	VoqDUmlwN4skwrwgdw0rRFnOBrXAWY3E8PI2prKHAc3EQrJdcot/j4bjeTCix7QtUHhSWVsX9RA
-	XFZxj1VPg4SQpSbRcIHI2Ya5bD9IAbnv24XLxelEjaC0fMqxQAwn/n8B8msJX31Z53/vaXUNOSD
-	5BpOPFZOSH7E8MedtkR/74uMBFQkbLdVOVSNdEMF//skNQq3qeXyf2pQWcMFFqo2wxEcteam4Kr
-	6uMioRJMhTXW8NTiSAdFiMPp0gpnPCQaqyo/NbNC3FZ2fe9/AgTXgDR3gHHpk5ZfOot206hy/EB
-	WCltbFUr7z9/Ecggph92hlWbKY5PeQf7J1ture3qsWdJbWsQMigUz+68geh9M0xVGgjTuF1w03e
-	3NLmMYY7DmIBLJ5r88bS5Fg0BwfmO+WZQ5M02CYb11+q8WVKowxA9U/+UA7OkbgJg5oqA==
-X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr183513645e9.1.1788871020732;
-        Tue, 08 Sep 2026 05:37:00 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D004857F441745A19CB.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:4857:f441:745a:19cb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm253454955e9.8.2026.09.08.05.36.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 05:36:59 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	daniels@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	macromorgan@hotmail.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
-Date: Tue,  8 Sep 2026 14:36:34 +0200
-Message-ID: <20260908123638.7282-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908070220.41574-1-rmxpzlb@gmail.com>
-References: <20260908070220.41574-1-rmxpzlb@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fK3vc3aO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FCAA1F00A3A;
+	Tue,  8 Sep 2026 12:41:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788871294;
+	bh=4/RYh/YjD9ZKsSYUuPCS9W+CxluavvFGO9ZUAoJFWZ0=;
+	h=Subject:To:Cc:From:Date;
+	b=fK3vc3aO2sVnShujHdaxeHPCI0v9xLXscDBzRLgejeWwGrI/GPk7fqBc+vefSQWrY
+	 cRQMKAYMrMI85wyS8eiBR9v1Hk7OhbbYmn9jDc5DgtrMV1MFFJJPrV+rwMjyPXMRiG
+	 rRtZq08UkIZ95jq6m44YpOvwTInHHcPlo/y+rJ1I=
+Subject: FAILED: patch "[PATCH] staging: sm750fb: fix mono image source stride mismatch in" failed to apply to 7.2-stable tree
+To: meatuni001@gmail.com,error27@gmail.com,gregkh@linuxfoundation.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 14:41:27 +0200
+Message-ID: <2026090827-reps-stylishly-8b80@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Hi Frank,
 
-Thank you for sending v5 so quickly.
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-I tested it on an Orange Pi 5 Plus (RK3588) against the exact case I
-reported in [1]. v5 applied cleanly to my 7.2.0-rc7 based tree with no
-context fixup, which v4 still needed here.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Reproducer, unchanged from [1]: the compositor turns the HDMI sink off
-(so tmds_char_rate is 0 and the PHY is down), then plughw:hdmi1,0 is
-opened and closed. Before, that took the machine down on close, in
-dw_hdmi_qp_bridge_clear_audio_infoframe() -> regmap_update_bits_base()
--> _regmap_read() -> regmap_mmio_read32le(), either as a synchronous
-external abort in the closing task or as an asynchronous SError panic.
-The task died with interrupts disabled, so the codec lock stayed held
-and every later open of that PCM hung in D state until reboot.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x cc7cd2a9228175c975f62ad56ed7c767701cb4fa
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090827-reps-stylishly-8b80@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
-With v5 applied, three consecutive open/close cycles in that state all
-behave identically: prepare fails with -ENODEV as before (3 x "ASoC
-error (-19) at snd_soc_dai_prepare()"), no external abort, no SError,
-the shutdown path completes, and the PCM can be opened again afterwards.
+Possible dependencies:
 
-I also confirmed with ftrace that the guard is what stops it, rather than
-the path simply not being reached. Tracing
-dw_hdmi_qp_bridge_clear_audio_infoframe with function_graph:
 
-  - sink off (tmds_char_rate == 0): the function is entered and returns
-    as a leaf, 2.9 us, with no calls inside it at all.
 
-  - sink on, as a positive control: the same function shows
-    regmap_update_bits_base() -> _regmap_update_bits() -> _regmap_read()
-    / _regmap_write() nested inside - the same frames the crash walked
-    through - so the tracer does see the body, and "empty" in the first
-    case really is the tmds_char_rate check taking effect.
+thanks,
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
+greg k-h
 
-Two notes, so this is not read as more than it is.
+------------------ original commit in Linus's tree ------------------
 
-First, what I exercised is the sequential case: the display is already
-off before the audio device is closed. I did not try to hit the narrow
-window the automated review raised in this thread, where the atomic
-disable lands between the tmds_char_rate check and the register access,
-so my test says nothing about that race either way.
+From cc7cd2a9228175c975f62ad56ed7c767701cb4fa Mon Sep 17 00:00:00 2001
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Tue, 1 Sep 2026 16:30:31 +0500
+Subject: [PATCH] staging: sm750fb: fix mono image source stride mismatch in
+ lynxfb_ops_imageblit()
 
-Second, for whoever picks this up: Detlev Casanova's patch [2] covers
-the other half of the same problem on this hardware - the enable/prepare
-side returning -EOPNOTSUPP when there is no link - and has three
-Tested-by tags. The two are complementary here. His cuts the case where
-the PCM is opened while the sink is already off; yours covers the case
-where the PCM is already open and the output goes away underneath it.
-Taking only one of them still leaves a way to reach the crash. With both
-applied together on this board the path is quiet and the -19 messages
-are gone as well.
+sm750_hw_imageblit() advances its monochrome source pointer by
+src_delta per scanline, and computes the correct rounded-up stride
+internally as:
 
-[1] https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail.com/
-[2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
+        bytes_per_scan = (width + start_bit + 7) / 8;
 
-Igor
+Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+image->width >> 3. For widths not a multiple of 8 this under-counted
+the stride, so the source pointer fell further behind the real
+per-scanline layout on every line, corrupting the rendered image.
+
+Rather than just fixing the caller's calculation, remove src_delta
+as a parameter entirely and have sm750_hw_imageblit() advance by the
+bytes_per_scan it already computes for itself. There has only ever
+been one caller, and that caller was passing an out-of-sync
+derivative of the same width/start_bit values sm750_hw_imageblit()
+already has, so keeping stride as a separate parameter served no
+purpose beyond letting the two calculations drift apart, which is
+exactly what happened here.
+
+Rounding up, rather than down, is the direction consistent with the
+rest of the fbdev core: struct fb_image mono bitmap data (the same
+image->data this driver receives) is walked elsewhere with byte
+strides derived from a ceiling division of width by 8. The generic
+mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+ceiling division with an added start_bit offset, so the caller's
+">> 3" (floor) was the one calculation out of step with how this data
+layout is handled everywhere else.
+
+Found by code review of sm750_hw_imageblit()'s internal stride
+calculation against what its only caller was passing in, and
+confirmed with a clean -Werror build. I do not have this hardware,
+so this has not been exercised at runtime on real sm750 silicon.
+
+Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 039e2033f84e..8b93bfeb217b 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -252,7 +252,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+ 	spin_lock(&sm750_dev->slock);
+ 
+ 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
+-				      image->data, image->width >> 3, 0,
++				      image->data, 0,
+ 				      base, pitch, bpp,
+ 				      image->dx, image->dy,
+ 				      image->width, image->height,
+diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
+index 89a61bf80779..fd1cf9eb5797 100644
+--- a/drivers/staging/sm750fb/sm750.h
++++ b/drivers/staging/sm750fb/sm750.h
+@@ -64,7 +64,7 @@ struct lynx_accel {
+ 			   u32 rop2);
+ 
+ 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
+-			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
++			    u32 start_bit, u32 d_base, u32 d_pitch,
+ 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
+ 
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index 0316ea69d009..bac9a209899c 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -288,8 +288,6 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
+  * sm750_hw_imageblit
+  * @accel: Acceleration device data
+  * @src_buf: pointer to start of source buffer in system memory
+- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *	      and -ive mean button up
+  * @start_bit: Mono data can start at any bit in a byte, this value should be
+  *	      0 to 7
+  * @dest_base: Address of destination: offset in frame buffer
+@@ -304,7 +302,7 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+-		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
++		       u32 start_bit, u32 dest_base, u32 dest_pitch,
+ 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2)
+ {
+@@ -395,7 +393,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+ 			write_dp_port(accel, *(unsigned int *)remain);
+ 		}
+ 
+-		src_buf += src_delta;
++		src_buf += bytes_per_scan;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 617885431661..efceefaaafb0 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+ /**
+  * sm750_hw_imageblit
+  * @src_buf: pointer to start of source buffer in system memory
+- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *>-----      and -ive mean button up
+  * @start_bit: Mono data can start at any bit in a byte, this value should be
+  *>-----      0 to 7
+  * @dest_base: Address of destination: offset in frame buffer
+@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+-		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
++		       u32 start_bit, u32 dest_base, u32 dest_pitch,
+ 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2);
+ 
+
