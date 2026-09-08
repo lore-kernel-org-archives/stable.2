@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BDF4349AD
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6675539DBFD
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895711; cv=none; b=fUq+hs6F0d1FLamSyaoN8uVOXdAEzEke1fEFKPHXCfF57dgyqWUkX1+micx+QLq+tlHw2JRuncnambNHVSoI+5iRtYb+aX/r7PGNKfsj2NpvA78XcE33sID+wq7edumqZsvBrIf/43KKLoXloDGZEGI2LxD9v438bvgEfwpX5qw=
+	t=1788895715; cv=none; b=KavLeGet2HiwK80PjoStjO9v7ywA77bjsCPL6BXG9ub87+zTyTua0WPvF8K9cP2oxCCMQ+Jl8fHMOroA9tBbQOJt7b8cQ+tye8ixvAZSfmo1R4bpJxx5qhUWnFiizHydUKF5nUMhbIBSO1y4E6YmqXCFNvCdf35hOHDzBt163EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895711; c=relaxed/simple;
-	bh=WXb5hbdJa+rGJCRWZMOK5xLtVncNolpFYnvOjDzzT6E=;
+	s=arc-20240116; t=1788895715; c=relaxed/simple;
+	bh=txBf6u3W/UElgdeGY5T5G0KFwnpIymlZQRRgSw9TBi0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ys1W9HdxLEsksz5ulRlFddvNapC4jruMx3sqd3Hi11/pTMjlvhU/aBm4sNoiHNOkcMy9uP2GlVgbvWtHLE8x9bndMH3kYWIKomRLpn8WErezVzYNsOmMU2fCk5FbsGj6f4dCK1dTufh80YnRKowBXqM0d/tU5Kg2cEEfefODtYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IznKF1IB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PXE7d1q6VDr45+9mvLA4MLPWAUg5lOqlb5PnVx9NEsEx4zCMiFogMEEeKV14OTC0YgecPUUOQgQG8HzGfZDaDJRE0bpQUSNnpdJiCxSgEB3SYQnzNHnBBsvE/DTV/SdSbNhUMMqD0lHiFVbXvyH86FOuFSHY1vtOuGTJ1yWXlWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBT5o6XB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IznKF1IB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086631F00A3A;
-	Tue,  8 Sep 2026 19:28:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBT5o6XB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8563A1F00A3D;
+	Tue,  8 Sep 2026 19:28:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788895707;
-	bh=Wy7RXa5piPykCI+pcyisaMu9NXhySEpcDldoPU6dRQs=;
+	s=k20260515; t=1788895711;
+	bh=0P7anQYqmabIRndcp6Vo5DNXeikngS3FIJqsKdiBbMg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IznKF1IBE81xyC859v62Vwb9ksr9ASkDMi4hJkN0q4j7gNHcgRTDhgY2xQdWm2UYs
-	 ZAuSLVpS06Au84OGoFQZRquF8WeZbliFbNX+cQ521QLgn5lqbprY4i33/Boq9MooTD
-	 rXE/lhkUBCUzPbklkYG6g5PDH54yEKrD9yrUZQiXB/eYLiA3PzQt0FIPebEv2fGBYp
-	 M37rpeh+iNOF0mH7lRHuzIWDd5VRLJFjRdNpaPY3Pr1vFQ0Ix5kSaX7RexeeOdOAIq
-	 FkMRMqStxFxPjsRcM4YuSzYChRv2G8toVHP6BX99/qvD+H+gBzLgou411NN9Tf0QYH
-	 ZC4BgIc0BwSCg==
+	b=PBT5o6XBDXQEMUoHDpJTPnvbaY8FdPjcMthj+ml5i7xiv/+T5/1EuKMbcxMBI+74A
+	 hfBHSIEBjKr+1rqK0hlQKYwmfi4bLUeAiN4s1J4fhhAIk84LhVxfDt+kn+V/VBnzzc
+	 6kxBoUXPbyMJLRcMW7D7dC9TWUwlCqQcJBw+5X0r9fWmoxQQ0UL57WlLWadv4e7mfu
+	 of0e4XKF+DDBh+NVo4gxEz+Q0YvGSsWMUNO4KNtK+XQXNJHopEAgfJNKoeZyqOkpZQ
+	 veRzUQhD4FCmTuqI4VwsHqlNjMXS83Hw+OlbiTnt8dtMfCnMD+FUgZiJpq9VMcUa+5
+	 JD4hhI/hldjWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Anna Schumaker <anna.schumaker@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] SUNRPC: fix gssx_dec_option_array error path bugs
-Date: Tue,  8 Sep 2026 15:28:25 -0400
-Message-ID: <20260908192825.296449-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] SUNRPC: Update svcxdr_init_decode() to call xdr_set_scratch_folio()
+Date: Tue,  8 Sep 2026 15:28:27 -0400
+Message-ID: <20260908192828.296500-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090359-sudoku-unpeeled-8447@gregkh>
-References: <2026090359-sudoku-unpeeled-8447@gregkh>
+In-Reply-To: <20260908192828.296500-1-sashal@kernel.org>
+References: <2026090349-throwing-hardware-8a25@gregkh>
+ <20260908192828.296500-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,114 +45,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+From: Anna Schumaker <anna.schumaker@oracle.com>
 
-[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
+[ Upstream commit d57e43b72bf2071caac90da323849c3983a695f0 ]
 
-Four coupled defects in the gssx XDR option-array decoder make the
-error paths unsafe: a NULL deref in the caller, a refcount leak on
-the decoded group_info, and a latent use-after-free that the leak
-fix would otherwise expose.
+The only snag here is that __folio_alloc_node() doesn't handle
+NUMA_NO_NODE, so I also need to update svc_pool_map_get_node() to return
+numa_mem_id() instead. I arrived at this approach by  looking at what
+other users of __folio_alloc_node() do for this case.
 
-gssx_dec_option_array() sets oa->count = 1 before allocating
-oa->data.  If that allocation fails, -ENOMEM is returned with
-oa->count == 1 and oa->data == NULL.  All other error paths jump
-to free_oa: which frees oa->data and NULLs it but also leaves
-oa->count == 1.  The caller trusts the count:
-
-    gssp_accept_sec_context_upcall()
-      gssx_dec_accept_sec_context()
-        gssx_dec_option_array()        /* fails, count=1 data=NULL */
-      data = res.options.data[0].value /* NULL deref */
-
-Independently, free_creds: releases the partially decoded svc_cred
-with a bare kfree(creds).  gssx_dec_linux_creds() installs a
-groups_alloc() result into creds->cr_group_info; that object is
-kvmalloc-backed and refcounted, and only put_group_info() reaches
-kvfree().  A plain kfree(creds) drops the wrapper and leaks the
-group_info allocation.
-
-The natural fix for the leak is to call free_svc_cred(creds) before
-kfree(creds), but free_svc_cred() invokes put_group_info() on
-creds->cr_group_info unconditionally when non-NULL.  The existing
-out_free_groups: path in gssx_dec_linux_creds() already called
-groups_free() on that pointer without clearing it, so once
-free_svc_cred() is wired in, the subsequent put_group_info() would
-touch freed memory.
-
-Fix all four together:
-
-  - Move the oa->count = 1 assignment below the oa->data allocation
-    so it is never set when oa->data is NULL.
-  - Reset oa->count to 0 at free_oa: so count and data stay
-    coherent and the caller sees an empty option array.
-  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
-    so the refcounted cr_group_info is released.  free_svc_cred()
-    either NULL-guards each field explicitly (cr_group_info has
-    an if() check) or delegates to a helper that is NULL-safe
-    itself (kfree for the string fields, gss_mech_put() which
-    guards with if(gm) at gss_mech_switch.c:342), so it is safe
-    to call on a partially decoded svc_cred where only
-    cr_uid/cr_gid/cr_group_info have been written and everything
-    else is zero from kzalloc.
-  - In gssx_dec_linux_creds()'s out_free_groups: path, release
-    cr_group_info with put_group_info() rather than groups_free()
-    so the teardown matches free_svc_cred()'s refcount-aware path,
-    and clear the pointer so a later free_svc_cred() on the same
-    creds does not release it a second time.
-
-Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
-Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@oracle.com>
+Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ include/linux/sunrpc/svc.h |  4 ++--
+ net/sunrpc/svc.c           | 10 +++++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-index 3837e0a33d496..752c4e8ebd44a 100644
---- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
-+++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
+index 617ebfff2f304..57c4dace80200 100644
+--- a/include/linux/sunrpc/svc.h
++++ b/include/linux/sunrpc/svc.h
+@@ -190,7 +190,7 @@ struct svc_rqst {
+ 	struct xdr_buf		rq_arg;
+ 	struct xdr_stream	rq_arg_stream;
+ 	struct xdr_stream	rq_res_stream;
+-	struct page		*rq_scratch_page;
++	struct folio		*rq_scratch_folio;
+ 	struct xdr_buf		rq_res;
+ 	struct page		*rq_pages[RPCSVC_MAXPAGES + 1];
+ 	struct page *		*rq_respages;	/* points into rq_pages */
+@@ -504,7 +504,7 @@ static inline void svcxdr_init_decode(struct svc_rqst *rqstp)
+ 	buf->len = buf->head->iov_len + buf->page_len + buf->tail->iov_len;
  
- 	return 0;
- out_free_groups:
--	groups_free(creds->cr_group_info);
-+	put_group_info(creds->cr_group_info);
-+	creds->cr_group_info = NULL;
- 	return err;
+ 	xdr_init_decode(xdr, buf, argv->iov_base, NULL);
+-	xdr_set_scratch_page(xdr, rqstp->rq_scratch_page);
++	xdr_set_scratch_folio(xdr, rqstp->rq_scratch_folio);
  }
  
-@@ -243,12 +244,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 		return 0;
+ /**
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index df4dacd70beac..553ec553d3baf 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -352,7 +352,7 @@ static int svc_pool_map_get_node(unsigned int pidx)
+ 		if (m->mode == SVC_POOL_PERNODE)
+ 			return m->pool_to[pidx];
+ 	}
+-	return NUMA_NO_NODE;
++	return numa_mem_id();
+ }
+ /*
+  * Set the given thread's cpus_allowed mask so that it
+@@ -734,8 +734,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
+ {
+ 	folio_batch_release(&rqstp->rq_fbatch);
+ 	svc_release_buffer(rqstp);
+-	if (rqstp->rq_scratch_page)
+-		put_page(rqstp->rq_scratch_page);
++	if (rqstp->rq_scratch_folio)
++		folio_put(rqstp->rq_scratch_folio);
+ 	kfree(rqstp->rq_resp);
+ 	kfree(rqstp->rq_argp);
+ 	kfree(rqstp->rq_auth_data);
+@@ -756,8 +756,8 @@ svc_prepare_thread(struct svc_serv *serv, struct svc_pool *pool, int node)
+ 	rqstp->rq_server = serv;
+ 	rqstp->rq_pool = pool;
  
- 	/* we recognize only 1 currently: CREDS_VALUE */
--	oa->count = 1;
--
- 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
- 	if (!oa->data)
- 		return -ENOMEM;
+-	rqstp->rq_scratch_page = alloc_pages_node(node, GFP_KERNEL, 0);
+-	if (!rqstp->rq_scratch_page)
++	rqstp->rq_scratch_folio = __folio_alloc_node(GFP_KERNEL, 0, node);
++	if (!rqstp->rq_scratch_folio)
+ 		goto out_enomem;
  
-+	oa->count = 1;
-+
- 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
- 	if (!creds) {
- 		err = -ENOMEM;
-@@ -300,8 +301,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 	return 0;
- 
- free_creds:
-+	free_svc_cred(creds);
- 	kfree(creds);
- free_oa:
-+	oa->count = 0;
- 	kfree(oa->data);
- 	oa->data = NULL;
- 	return err;
+ 	rqstp->rq_argp = kmalloc_node(serv->sv_xdrsize, GFP_KERNEL, node);
 -- 
 2.53.0
 
