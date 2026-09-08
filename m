@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47234915BC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63D85519A9
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908050; cv=none; b=mYk/87cbYFcnUbIrat0sgeK8KOou9JbWEcOJEV/nAye2Am0itCIbFX5rZvGBk569WfJ7cvEdkmElK1PZxWHGS0BMlgad8hvcjEBYpejUkc4UuV6Qf5JU0ajFg9Riz5jhldvnqktSClXLRp7NiRHcms0zxZ6idinWsrH9PW7HawE=
+	t=1788908051; cv=none; b=dcU6jUnDUDZ2kUDy+XsjITekKEl+1m70/bDGSOhS3+miKzJnzMzwN1BcuJiTAMh888iYumusQ47hx4RXL468J9jr3YQE1pKGWgJ4DF3jHcw4IVO/gL4uDp/HDpFEocMR5NfcrNfQPRzJcI9e9YAT8wvr82w0VHh82JYxUcucroM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908050; c=relaxed/simple;
-	bh=P4pzRqX9+JiI+AdjvA0X0fHe/uENMGgcd93q8wEoCpk=;
+	s=arc-20240116; t=1788908051; c=relaxed/simple;
+	bh=hBo6+MWqIJJWTzo7AILGpg46kwem+BE6XaQLlEbFz4Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XEjAmAR+K9RP3oxPX1V70vlA0ZcXoLyAXWF2L4plrtZTswsG5HnLVpRDEkTALGcEm5l8chYr5rc6pGVDXPiNGdHkoP4wrLOpbSjTnZqGi9mVFv4lks9uKDQzORhTinXr32YDmakbotut67xDotAOzS8fjxT/EMHkoR2BtpaHKTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GX3pMwHk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XQxvX1Q/iAbnueeaw4NSxuqQ31SRpmx0cbXpuqlkHbgtfZ3OobWettozIcQl8lJg2dUMzfhMy+NWYIcykR2XdFxuXpWepQ1r1rxEHmpUUZCawmT2EbG5onSxBOqL3wmhOgNX0S90Z/ogB26FYqYMVWZaCdNwJ3y2tLK5z3t3Es0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W577Pi2+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GX3pMwHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4640E1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W577Pi2+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054FA1F00A3E;
 	Tue,  8 Sep 2026 22:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788908048;
-	bh=sfMJPRdH5JWN0GgCB8QRkD9u/i036gsKf9rk+j/rNXA=;
+	s=k20260515; t=1788908049;
+	bh=rC3KTR8wKNZJq4+z6fa9JU5pOc3dbu/raUjaz9bdCpo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GX3pMwHk1ZHlnK0jQclwcQ5fE2J3LzrDTvzJbT+R3isLBgDECOpWQczDiym+b5Pj4
-	 WTKCd8bNp+s1S2sUISSd4m/vY5SSCcbVEP0kGcZHq9S/cGHZS+Z2aGCmCa5ONPpxUo
-	 kzqh/NT92Hv6PuFx3lQZq0H89VUrsCTVkiQ2D8euvC3R2f1lWwZAF71pnbRI4Uipxs
-	 Z/qrefZdRSMEgRGJ0NZu92sUXAX8zSolMFAqSQDn36u7dVc7WF4n/ZefgfRUn4xWWw
-	 IYEWfi5oA3eTZ/v2FcB/+veI2bA96cAwJr2IALvODgTzoSSadIO+eLkPq//7LnnWKh
-	 k6b7V7qy4M37A==
+	b=W577Pi2+rHQ2xX3462PEEo8jUPUDMpFScG2LbxlacO85f/HFbywYUW7PbUp+dssxf
+	 2BTczqvGod6I9beBW/T2uayOsFbYSipSbjuldpNxCzIzr6HLptp3Xd/7yGooSowvth
+	 raQVutPnnilj5cDBk6PjmJ8IEA2SlD1Lf1pv68f1UC09DGvHqjiNjT9cXcd5CigCq5
+	 4fp+DtMBcAM6XcUIliXKJIAO9qHbauk0VdM90KRgUCO7JSAbes3FLHmksoN1d+IVt0
+	 TrUvVH3gYRkHhlp2LSJBDyCXFkQVxzV9PJjcsPebP0Eoe9L/3lSyDmoZSx5GHh3XJ4
+	 v76sERu+QxXFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Ido Schimmel <idosch@nvidia.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] ipv4: frags: remove ipq_put()
-Date: Tue,  8 Sep 2026 18:54:05 -0400
-Message-ID: <20260908225406.538697-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] ip: orphan prefetched skbs before multicast forwarding
+Date: Tue,  8 Sep 2026 18:54:06 -0400
+Message-ID: <20260908225406.538697-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908225406.538697-1-sashal@kernel.org>
 References: <2026090319-antiques-palm-c286@gregkh>
@@ -46,93 +48,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit a2fb987c0ecf0498cc17056339cb11d128c46ab7 ]
+[ Upstream commit e36ce6e78fe3fc3c071a26750783b7ba081ce10d ]
 
-Replace ipq_put() with inet_frag_putn()
+IPv4 and IPv6 input preserve an skb->sk association installed by
+bpf_sk_assign() so that local delivery can use the selected socket under
+RCU. Both address families can also prefetch a socket in UDP early demux.
+In both paths (BPF and UDP early demux) a reference is not guaranteed to
+be held on the socket.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20250312082250.1803501-3-edumazet@google.com
+When a multicast packet is not locally deliverable, IPv6 hands the
+original skb to ip6_mr_input(). IPv4's ip_mr_input() similarly keeps the
+original skb when local delivery is not needed. Either path can put the
+skb on an unresolved multicast route queue or forward it after the
+receive-side RCU section ends.
+
+After the prefetched socket is destroyed, a later skb free invokes
+sock_pfree() and dereferences the stale skb->sk. Orphan the skb before
+each non-local multicast forwarding path. Local delivery retains the
+original skb; the existing skb_clone() calls provide multicast forwarding
+with a socket-free clone.
+
+Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
+Fixes: 08842c43d016 ("udp: no longer touch sk->sk_refcnt in early demux")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/0c52eb3d7532aaf8bccf37e0f7c922143c639735.1786552223.git.zhilinz@nebusec.ai
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-For the stable backport, retain the existing ip_expire() error and skb
-freeing paths.  Also brace the multicast delivery conditional so that
-the dependent fix can add its non-local skb orphaning without conflict.
-
-Stable-dep-of: e36ce6e78fe3 ("ip: orphan prefetched skbs before multicast forwarding")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ip_fragment.c | 15 ++++-----------
- net/ipv6/ip6_input.c   |  4 ++--
- 2 files changed, 6 insertions(+), 13 deletions(-)
+ net/ipv4/ipmr.c      | 3 +++
+ net/ipv6/ip6_input.c | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 11dedc82b98da..34e85c552ac36 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -102,14 +102,6 @@ static void ip4_frag_free(struct inet_frag_queue *q)
- 		inet_putpeer(qp->peer);
- }
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 5e582eab1ea19..5ef20e8467e31 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -2100,6 +2100,9 @@ int ip_mr_input(struct sk_buff *skb)
+ 	if (IPCB(skb)->flags & IPSKB_FORWARDED)
+ 		goto dont_forward;
  
--
--/* Destruction primitives. */
--
--static void ipq_put(struct ipq *ipq)
--{
--	inet_frag_putn(&ipq->q, 1);
--}
--
- /* Kill ipq entry. It is not destroyed immediately,
-  * because caller (and someone more) holds reference count.
-  */
-@@ -138,6 +130,7 @@ static void ip_expire(struct timer_list *t)
- 	struct net *net;
- 	struct ipq *qp;
- 	int err;
-+	int refs = 1;
- 
- 	qp = container_of(frag, struct ipq, q);
- 	net = qp->q.fqdir->net;
-@@ -195,7 +188,7 @@ static void ip_expire(struct timer_list *t)
- out_rcu_unlock:
- 	rcu_read_unlock();
- 	kfree_skb(head);
--	ipq_put(qp);
-+	inet_frag_putn(&qp->q, refs);
- }
- 
- /* Find the correct entry in the "incomplete datagrams" queue for
-@@ -484,14 +477,14 @@ int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
- 	/* Lookup (or create) queue header */
- 	qp = ip_find(net, ip_hdr(skb), user, vif);
- 	if (qp) {
--		int ret;
-+		int ret, refs = 1;
- 
- 		spin_lock(&qp->q.lock);
- 
- 		ret = ip_frag_queue(qp, skb);
- 
- 		spin_unlock(&qp->q.lock);
--		ipq_put(qp);
-+		inet_frag_putn(&qp->q, refs);
- 		return ret;
- 	}
- 
++	if (!local)
++		skb_orphan(skb);
++
+ 	mrt = ipmr_rt_fib_lookup(net, skb);
+ 	if (IS_ERR(mrt)) {
+ 		kfree_skb(skb);
 diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index cf577cc3b48cf..94d2ab8689d88 100644
+index 94d2ab8689d88..403697fa5569d 100644
 --- a/net/ipv6/ip6_input.c
 +++ b/net/ipv6/ip6_input.c
-@@ -552,9 +552,9 @@ int ip6_mc_input(struct sk_buff *skb)
- 			/* unknown RA - process it normally */
- 		}
- 
--		if (deliver)
-+		if (deliver) {
+@@ -555,6 +555,7 @@ int ip6_mc_input(struct sk_buff *skb)
+ 		if (deliver) {
  			skb2 = skb_clone(skb, GFP_ATOMIC);
--		else {
-+		} else {
+ 		} else {
++			skb_orphan(skb);
  			skb2 = skb;
  			skb = NULL;
  		}
