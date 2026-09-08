@@ -1,31 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2415581E3
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:33:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7CB558202
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874389; cv=none; b=l6Z0n9713fejbmns8q0g0s2sIBWxEBib+m0u8AnBmRxw+8Hskl2L+/IVG8ULDBY5PrhPszh5l6I5uRqmuiDYshE1Jj3d7U3y465C28tTLPcw1iqkqLBChU6hfwQNa/rHmxudg7rX8eo0ixzXx0MAo74Vca6pqK+3HQUbunxj4/I=
+	t=1788874389; cv=none; b=AJN9zzQ8eBtFFldnlMlNWac7DSpiJ7nL0JSNfhmd/0PC2ckGCrfk0kb5arJOwu4xz/XCnkSLMidUBWBqR65ayPWrV5/JlvvDzA3Z1ZZw/RirGbeJY4MWVBSGnk9h03dCyTMhK8nwNDndxvwt8S5FJ26rq6vmhsQ+JTHfZsDargc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788874389; c=relaxed/simple;
-	bh=J1tJE2KD7sB2AukWctxbLBweCHPvbmMXVYqj1BLboZE=;
+	bh=myKcD2FsElqBvhWFDj6XfIomnq5GPYgPry5AtjUvCuI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t3WbVUTa+bGSKwFzy1uTge7JMnoOfff+tgEOxW9/UY4VOgGl44+D33R5pkka8r0CZZGdghmFG9QZawLBkSZxvVih/HTyr1lLU/vX7kO8CIbSQFOzqw6HTtJH6QlE6ONGWFXSzPGs9iYf+d8mljyy7a5i2TkWZ9GRsd306qc61bE=
+	 MIME-Version; b=u1VissceQn+RKo8AFk9Pxg2TUKfaRS7islyACrawv3aE+dW9HKR3J8csbnP9DPyfB3svcmNHV4gr23hWLvPY2TDWHIRabsPLsTp583SBPQfynsn90c71zOwppX/JGTd0ZyUNCcibMOtqHrZL0J30uZAUCk0SXiXUhilTUbayK6k=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7471F00A3E;
-	Tue,  8 Sep 2026 13:33:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F191F01558;
+	Tue,  8 Sep 2026 13:32:54 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] block: simplify the disk_force_media_change interface
-Date: Tue,  8 Sep 2026 09:32:56 -0400
-Message-ID: <20260908133259.2325197-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] bpf: decouple stack_map_get_build_id_offset() from perf_callchain_entry
+Date: Tue,  8 Sep 2026 09:32:50 -0400
+Message-ID: <20260908133251.2324526-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090327-engross-lapped-120b@gregkh>
-References: <2026090327-engross-lapped-120b@gregkh>
+In-Reply-To: <20260908133251.2324526-1-sashal@kernel.org>
+References: <2026090326-saturate-wobbling-7457@gregkh>
+ <20260908133251.2324526-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,103 +35,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Andrii Nakryiko <andrii@kernel.org>
 
-[ Upstream commit ab6860f62bfe329e11e5b5b7295b673c9c3a62d0 ]
+[ Upstream commit 4f4c4fc0153fb11ac40b16c24a24543dc9689d8c ]
 
-Hard code the events to DISK_EVENT_MEDIA_CHANGE as that is the only
-useful use case, and drop the superfluous return value.
+Change stack_map_get_build_id_offset() which is used to convert stack
+trace IP addresses into build ID+offset pairs. Right now this function
+accepts an array of u64s as an input, and uses array of
+struct bpf_stack_build_id as an output.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
-Message-Id: <20230811100828.1897174-9-hch@lst.de>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 7e9a46004b47 ("block: set QUEUE_FLAG_DYING unconditionally in blk_mark_disk_dead()")
+This is problematic because u64 array is coming from
+perf_callchain_entry, which is (non-sleepable) RCU protected, so once we
+allows sleepable build ID fetching, this all breaks down.
+
+But its actually pretty easy to make stack_map_get_build_id_offset()
+works with array of struct bpf_stack_build_id as both input and output.
+Which is what this patch is doing, eliminating the dependency on
+perf_callchain_entry. We require caller to fill out
+bpf_stack_build_id.ip fields (all other can be left uninitialized), and
+update in place as we do build ID resolution.
+
+We make sure to READ_ONCE() and cache locally current IP value as we
+used it in a few places to find matching VMA and so on. Given this data
+is directly accessible and modifiable by user's BPF code, we should make
+sure to have a consistent view of it.
+
+Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/r/20240829174232.3133883-9-andrii@kernel.org
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Stable-dep-of: b1a47b2708d4 ("bpf: Disable preemption in __bpf_get_stack")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/disk-events.c    | 15 ++++-----------
- drivers/block/loop.c   |  6 +++---
- include/linux/blkdev.h |  2 +-
- 3 files changed, 8 insertions(+), 15 deletions(-)
+ kernel/bpf/stackmap.c | 49 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 33 insertions(+), 16 deletions(-)
 
-diff --git a/block/disk-events.c b/block/disk-events.c
-index 450c2cbe23d56..c25b67c190a6c 100644
---- a/block/disk-events.c
-+++ b/block/disk-events.c
-@@ -294,25 +294,18 @@ EXPORT_SYMBOL(bdev_check_media_change);
-  * @disk: the disk which will raise the event
-  * @events: the events to raise
-  *
-- * Generate uevents for the disk. If DISK_EVENT_MEDIA_CHANGE is present,
-- * attempt to free all dentries and inodes and invalidates all block
-+ * Should be called when the media changes for @disk.  Generates a uevent
-+ * and attempts to free all dentries and inodes and invalidates all block
-  * device page cache entries in that case.
-- *
-- * Returns %true if DISK_EVENT_MEDIA_CHANGE was raised, or %false if not.
-  */
--bool disk_force_media_change(struct gendisk *disk, unsigned int events)
-+void disk_force_media_change(struct gendisk *disk)
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+index 0ed48217b2089..fac13cfb32eec 100644
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -124,8 +124,18 @@ static struct bpf_map *stack_map_alloc(union bpf_attr *attr)
+ 	return ERR_PTR(err);
+ }
+ 
++/*
++ * Expects all id_offs[i].ip values to be set to correct initial IPs.
++ * They will be subsequently:
++ *   - either adjusted in place to a file offset, if build ID fetching
++ *     succeeds; in this case id_offs[i].build_id is set to correct build ID,
++ *     and id_offs[i].status is set to BPF_STACK_BUILD_ID_VALID;
++ *   - or IP will be kept intact, if build ID fetching failed; in this case
++ *     id_offs[i].build_id is zeroed out and id_offs[i].status is set to
++ *     BPF_STACK_BUILD_ID_IP.
++ */
+ static void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
+-					  u64 *ips, u32 trace_nr, bool user)
++					  u32 trace_nr, bool user)
  {
--	disk_event_uevent(disk, events);
--
--	if (!(events & DISK_EVENT_MEDIA_CHANGE))
--		return false;
--
-+	disk_event_uevent(disk, DISK_EVENT_MEDIA_CHANGE);
- 	inc_diskseq(disk);
- 	if (__invalidate_device(disk->part0, true))
- 		pr_warn("VFS: busy inodes on changed media %s\n",
- 			disk->disk_name);
- 	set_bit(GD_NEED_PART_SCAN, &disk->state);
--	return true;
- }
- EXPORT_SYMBOL_GPL(disk_force_media_change);
+ 	int i;
+ 	struct mmap_unlock_irq_work *work = NULL;
+@@ -142,30 +152,28 @@ static void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
+ 		/* cannot access current->mm, fall back to ips */
+ 		for (i = 0; i < trace_nr; i++) {
+ 			id_offs[i].status = BPF_STACK_BUILD_ID_IP;
+-			id_offs[i].ip = ips[i];
+ 			memset(id_offs[i].build_id, 0, BUILD_ID_SIZE_MAX);
+ 		}
+ 		return;
+ 	}
  
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index e3e5d533a7eca..a12a67947c682 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -598,7 +598,7 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
- 		goto out_err;
+ 	for (i = 0; i < trace_nr; i++) {
+-		if (range_in_vma(prev_vma, ips[i], ips[i])) {
++		u64 ip = READ_ONCE(id_offs[i].ip);
++
++		if (range_in_vma(prev_vma, ip, ip)) {
+ 			vma = prev_vma;
+-			memcpy(id_offs[i].build_id, prev_build_id,
+-			       BUILD_ID_SIZE_MAX);
++			memcpy(id_offs[i].build_id, prev_build_id, BUILD_ID_SIZE_MAX);
+ 			goto build_id_valid;
+ 		}
+-		vma = find_vma(current->mm, ips[i]);
++		vma = find_vma(current->mm, ip);
+ 		if (!vma || build_id_parse_nofault(vma, id_offs[i].build_id, NULL)) {
+ 			/* per entry fall back to ips */
+ 			id_offs[i].status = BPF_STACK_BUILD_ID_IP;
+-			id_offs[i].ip = ips[i];
+ 			memset(id_offs[i].build_id, 0, BUILD_ID_SIZE_MAX);
+ 			continue;
+ 		}
+ build_id_valid:
+-		id_offs[i].offset = (vma->vm_pgoff << PAGE_SHIFT) + ips[i]
+-			- vma->vm_start;
++		id_offs[i].offset = (vma->vm_pgoff << PAGE_SHIFT) + ip - vma->vm_start;
+ 		id_offs[i].status = BPF_STACK_BUILD_ID_VALID;
+ 		prev_vma = vma;
+ 		prev_build_id = id_offs[i].build_id;
+@@ -216,7 +224,7 @@ static long __bpf_get_stackid(struct bpf_map *map,
+ 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
+ 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
+ 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
+-	u32 hash, id, trace_nr, trace_len;
++	u32 hash, id, trace_nr, trace_len, i;
+ 	bool user = flags & BPF_F_USER_STACK;
+ 	u64 *ips;
+ 	bool hash_matches;
+@@ -238,15 +246,18 @@ static long __bpf_get_stackid(struct bpf_map *map,
+ 		return id;
  
- 	/* and ... switch */
--	disk_force_media_change(lo->lo_disk, DISK_EVENT_MEDIA_CHANGE);
-+	disk_force_media_change(lo->lo_disk);
- 	blk_mq_freeze_queue(lo->lo_queue);
- 	mapping_set_gfp_mask(old_file->f_mapping, lo->old_gfp_mask);
- 	lo->lo_backing_file = file;
-@@ -1063,7 +1063,7 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
- 	/* suppress uevents while reconfiguring the device */
- 	dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 1);
+ 	if (stack_map_use_build_id(map)) {
++		struct bpf_stack_build_id *id_offs;
++
+ 		/* for build_id+offset, pop a bucket before slow cmp */
+ 		new_bucket = (struct stack_map_bucket *)
+ 			pcpu_freelist_pop(&smap->freelist);
+ 		if (unlikely(!new_bucket))
+ 			return -ENOMEM;
+ 		new_bucket->nr = trace_nr;
+-		stack_map_get_build_id_offset(
+-			(struct bpf_stack_build_id *)new_bucket->data,
+-			ips, trace_nr, user);
++		id_offs = (struct bpf_stack_build_id *)new_bucket->data;
++		for (i = 0; i < trace_nr; i++)
++			id_offs[i].ip = ips[i];
++		stack_map_get_build_id_offset(id_offs, trace_nr, user);
+ 		trace_len = trace_nr * sizeof(struct bpf_stack_build_id);
+ 		if (hash_matches && bucket->nr == trace_nr &&
+ 		    memcmp(bucket->data, new_bucket->data, trace_len) == 0) {
+@@ -445,10 +456,16 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	copy_len = trace_nr * elem_size;
  
--	disk_force_media_change(lo->lo_disk, DISK_EVENT_MEDIA_CHANGE);
-+	disk_force_media_change(lo->lo_disk);
- 	set_disk_ro(lo->lo_disk, (lo->lo_flags & LO_FLAGS_READ_ONLY) != 0);
+ 	ips = trace->ip + skip;
+-	if (user && user_build_id)
+-		stack_map_get_build_id_offset(buf, ips, trace_nr, user);
+-	else
++	if (user && user_build_id) {
++		struct bpf_stack_build_id *id_offs = buf;
++		u32 i;
++
++		for (i = 0; i < trace_nr; i++)
++			id_offs[i].ip = ips[i];
++		stack_map_get_build_id_offset(buf, trace_nr, user);
++	} else {
+ 		memcpy(buf, ips, copy_len);
++	}
  
- 	lo->use_dio = lo->lo_flags & LO_FLAGS_DIRECT_IO;
-@@ -1167,7 +1167,7 @@ static void __loop_clr_fd(struct loop_device *lo, bool release)
- 	if (!release)
- 		blk_mq_unfreeze_queue(lo->lo_queue);
- 
--	disk_force_media_change(lo->lo_disk, DISK_EVENT_MEDIA_CHANGE);
-+	disk_force_media_change(lo->lo_disk);
- 
- 	if (lo->lo_flags & LO_FLAGS_PARTSCAN) {
- 		int err;
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index de013fc37ef83..e57b6e77b3757 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -773,7 +773,7 @@ static inline int bdev_read_only(struct block_device *bdev)
- }
- 
- bool set_capacity_and_notify(struct gendisk *disk, sector_t size);
--bool disk_force_media_change(struct gendisk *disk, unsigned int events);
-+void disk_force_media_change(struct gendisk *disk);
- 
- void add_disk_randomness(struct gendisk *disk) __latent_entropy;
- void rand_initialize_disk(struct gendisk *disk);
+ 	if (size > copy_len)
+ 		memset(buf + copy_len, 0, size - copy_len);
 -- 
 2.53.0
 
