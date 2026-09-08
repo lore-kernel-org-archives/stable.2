@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56185437C7
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:14:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8177955D890
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873253; cv=none; b=j22PqIQKcibrxE1hhPbNSdo2zCmh0pDH7Fju4bTXTjLtaSSZ809j3MDQ//ub8ZNBRXQ8W/K5uLT+dJ+7aiTXl4GS/e5zvbigc9oyfvVhYf4IsDdqyXAamMPtcLv1wWUGm4d4kXfvUvccKxvGm2gimyyp2O2DZ6SybSdWPl/WkrU=
+	t=1788873260; cv=none; b=jP4GUNk/0hXGBpeGhCu21fJ1+IIYJ+1cN+75BTKd30PJtZDBICG3JMBX2e2tTa4oxqucQYVFf5v1pTam9PLvKVTlGnqSWHhOmRZJVfJn2sZEhL1FIAMyzGKcYdyOEUVVBrw7R6oEXWAt96HJCD2E5nJrHZ0EoHV5bmZJqwPauys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873253; c=relaxed/simple;
-	bh=n3sTMJXEd/A+IuruN971xYSwz8Bv8ZOS3BeQ/9HcTDo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KeJgSo7nCnfHxOHG8P4BSiBPqfUbuf3Ah0N87MStNpg74SO4AsEFUxN++xsJqQs9zdq1J6zGGfdxdIPuPteGAU+4Xhxq+xFn/MMzFU+4JSKPnVNxmMxyE5/tZdc+he7jX4IcSUX85xSj+7rqQBxmAf/H0ugepyidsDJKpFPVOfM=
+	s=arc-20240116; t=1788873260; c=relaxed/simple;
+	bh=Mt7Vz6kuZKnVL+qVFg/T88rzamRlnl63tS1SlJ7NNE8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=t3EQAFiEG/kZB+kl4C9O/eBCpfz12s+VPCRocy6DPnyqX11NbckeLXaBJd1aOBEZWArLW3KgWsPt6GUN+RcRZ88RN5mdY2lFG2p4+5qp5XfWHltYKgNVm+Fr/ssbenwIAHHlF7H9/ERXzRxAQc+fAsCKpjbuQ0CDE6kfGrpvObM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F92F1F00AC4;
-	Tue,  8 Sep 2026 13:14:05 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] tracing: Take trace_array reference when opening options file" failed to apply to 6.12-stable tree
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4341F00A3A;
+	Tue,  8 Sep 2026 13:14:08 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] tracing: Take trace_array reference when opening options file" failed to apply to 5.15-stable tree
 To: rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:56:32 +0200
-Message-ID: <2026090832-earflap-imprecise-3dce@gregkh>
+Date: Tue, 08 Sep 2026 14:56:33 +0200
+Message-ID: <2026090833-imaging-carving-723a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x f2951ebd15c36a1ea4820a7f0cbb0b5f1c028b73
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090832-earflap-imprecise-3dce@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090833-imaging-carving-723a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
