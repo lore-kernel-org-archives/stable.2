@@ -1,24 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6934E53ED04
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347ED5437E1
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872187; cv=none; b=HeIrWcQAMvn7u4bUvnXDF+ugYSL0eEDFMudqzVJTsHU1ishtKac1XhF02LCF3Rg3C1ps2DHmODvc4Cxyev1LtnWO9SfbxVaeINNfdjBwx8KchxBUGgptpXrBvYYfPRa4iIIhBYpVAw5KW1398eJ3jmjnN6+RZUOJeRzbLBFcF/Q=
+	t=1788872190; cv=none; b=VR01UctGPeX95qPoFevo5J+GzRtTv5+DZ/vClJKEC8skYDRB5rggzkrUnPrX30F+iNNRDBoBKARUWNethZp4ZMMdjeQfjrYu2rJPYxlgYzisO6pZ9LvgckplhAmH7ZAesOZmguNJ3nSUr5Go3Kc05aoX+WyRNANVxknCx4DCrzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872187; c=relaxed/simple;
-	bh=ut9e5qXB4LuFr2c+uOkTvYQ2dxndGPSPuOFBijC7+tQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=buQ8wBimEo5Kn2mOYK7dJFhSjWoSTbMWG9wSgov+NfYF7Jdz1XwyPu/2rWlIdkYxsIr7eU5IhA5caNtCBxIQAaQj0gTIoNNju4OZBo9qVGGtqG1FMBfTU9WpsPKgMDLxwYu7aVvreQw+ieF4x7yIVRdsAZPxNKTz6qnIeUCmTAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E47E1F00A3A;
-	Tue,  8 Sep 2026 12:56:24 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] mm/damon/vaddr-kunit: check region count in three_regions" failed to apply to 6.12-stable tree
+	s=arc-20240116; t=1788872190; c=relaxed/simple;
+	bh=q1FSh6C2plQPJhBXrt8XsN61N6D7SFGGSROHeLF0Qz0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XJXKJilxakajNk/MAIyZ7/x9H+dBCmaJr3ZZKdrEwqnySD8aIdFGKIjTqLAL8t2Ca86RRhlEoBUYOQqkwuz0lcD91RZaeG3wCsyKFLP73BEgGdP9xb6dPY3v90JYvF7WViaLVlNSYs52elhtFzKCmLivE1juetmjp7s48VYeAoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qar457vU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qar457vU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D29F1F00A3D;
+	Tue,  8 Sep 2026 12:56:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788872187;
+	bh=iEK17uDE7xPrA3qk1cAzRc5HpsWcRYJrMdhx58AphO4=;
+	h=Subject:To:Cc:From:Date;
+	b=qar457vUkDT1EWf1Xfk5ZogNUhv9XAyRnxxCCqXuqRxYu2/3Rd1ErpAQYRz0xiHus
+	 8MOtQVvO76qO8n0DLlQXRXgzbXgK7D4Pz/O79YJ5Q3WanVzxfIzQ9qSBLqEfbX8SyI
+	 42tdJntCEPFsCmxVb3sg0N7WTIfQXjacq2DopPpo=
+Subject: FAILED: patch "[PATCH] mm/damon/vaddr-kunit: check region count in three_regions" failed to apply to 6.1-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,brendan.higgins@linux.dev,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:49:19 +0200
-Message-ID: <2026090819-haiku-machinist-83fa@gregkh>
+Date: Tue, 08 Sep 2026 14:49:20 +0200
+Message-ID: <2026090820-flakily-douche-e51f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5fea07e460874c8c7cf00f728efbe22abc62c8d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090819-haiku-machinist-83fa@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090820-flakily-douche-e51f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
