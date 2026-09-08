@@ -1,24 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD3E5328B5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA63053D0BA
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871402; cv=none; b=AnV3H74rb4+67co3J9m1HhEHS8xOf8i68WAK56APsA4cUn9UMyPw+xZB9gIiegtD2LvRxyqgJvfUrWxFv/1Gc1sESEU6vGDFTE+6dkM9knlxpOscJX9VDxFIoqurml0bZOFSSjImwPPCD0nppKb50y/7C2bUq5vsQELCk2A4JWk=
+	t=1788871408; cv=none; b=a4vHrUuvKq/j2810W+nRFqtWRE9qVotSRtVyS5QHy6wW+906PRB4hahJHZIWg/u6vMaONZRZdv87mCB1CE5CgxbunAVWY0ZBa3JUpj2Xd7xDplmbDgCi7c/KBVl607AnLBQJh+S62KE++zPzSPDxjcICI3uomu2Tln9pEOTXFpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871402; c=relaxed/simple;
-	bh=rluPgWHeiJBf0t9nMvLcO7bOK8+eNbo4d5KaSkF20pY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r+mwwXUi9VqzecEEq3yH0zNOnf7uhvhdl0S86S0sH5JJgT5dhm5zP4Tz3dGsWaYFolUYmw91CDH26zCWajAEwHtO3SsvbE/1SmMHcUVN6Xk70wXpwLN2Ud/zyrQs9enf/fVcyKzC3T+oHoTe6A3irjF/V+U7Bzj2Jg5Ok6JyyZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801431F00A3D;
-	Tue,  8 Sep 2026 12:43:20 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 6.6-stable tree
+	s=arc-20240116; t=1788871408; c=relaxed/simple;
+	bh=0uwAl0NnNrfQJp2NqaLlrL+T0uyc4+Z/4AR92yBQhbw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FThaRXxvL5dKsBGQFFjA6+6jjFueNPuNBq8WXhCRaXx3Cb4cPcaJHIvPZG9GdfYbkcEDohGOg3Gc+P5i7V8scvf4XcVKboLTIGY6W8pZef6yW2oTzNnAIwYJ2nsC49YQytFoGbjbWaqUtdGxnVtSqtSZD5nZUWzNEDHulQhibks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t4Aau383; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t4Aau383"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B6B1F00A3A;
+	Tue,  8 Sep 2026 12:43:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788871406;
+	bh=C3Kt6oqF4d6y3g7nK+atqivijK60Ouk+IUCZtlSrAG0=;
+	h=Subject:To:Cc:From:Date;
+	b=t4Aau383faeFr0qkE2vMPj8JcaRwIfEpDalMe0TPy7il2PsizNbsSASIMBclE8pDY
+	 61AyJKFBn5MEqmKhbmGoXV023QhvN9DROtCxGoHTrXkZ3xexIxGIkwZ2fmJlMsuO+W
+	 hwWl2HJbhRE62VrN/eTgOZVWOLAXk+X/ilI6Y6vQ=
+Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 6.1-stable tree
 To: baloo@superbaloo.net,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,michal.pecio@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:43:11 +0200
-Message-ID: <2026090811-curler-hatchet-10b9@gregkh>
+Date: Tue, 08 Sep 2026 14:43:12 +0200
+Message-ID: <2026090812-landowner-denial-17f8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x ff44dfb03a293bf30e31f98772a1dd316a6071d1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090811-curler-hatchet-10b9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090812-landowner-denial-17f8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
