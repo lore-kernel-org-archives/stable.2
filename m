@@ -1,24 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90475437EC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597A753FD55
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872240; cv=none; b=Ho6/HXlu61F2lGjFVdDEieJQDZine0gSRoVtodtwKDR/6295RATB/THM7M40Wh7QFtFvOqCq88V/DzQlEFjmz1oCOp5eKXgvEuuRo8YDaudk42wSWLaQAw6+I/3s2Mw1PJP9tWLSmsSsItY3BVwruWEkLpFPjjs5Sno71X7KLeE=
+	t=1788872244; cv=none; b=WMJCR/dDhcjxVhoynHJVjCNddSKH8efGpgRG5EdVx70KYDIsqcasoYx5ZJc/vmniYPV9utdGwkwMRHZlgQ7QPgPKm619dzePrdJLp7gB2eE4H1NAjUpUCRTLWfThqRNeekNABC907ysVTcQqks3/uYaGCjCoSENos7lBQDU0qsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872240; c=relaxed/simple;
-	bh=5poo7QGoRFC8Gql0b1/ZBpp000/2T/CefGnx1gv3f3M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JEd9VTwo/x0xdQYppD3TxNmW1u1TnRtBuSK/ywPr/F/y7HUcDKFgtK7i8jHrzb7fhOK32BfDZDhgCkbYZc+HUz8rM2rC/X5vdCajhHIr6SaHgx82zasfuyRN58U1BfGbzuM7JTWab8NDoZ27H/sTg6ozLLQh+TXhdIYlVIBnuNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E7A1F00A3A;
-	Tue,  8 Sep 2026 12:57:17 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] mm/damon/core: avoid infinite kdamond_merge_regions()" failed to apply to 6.1-stable tree
+	s=arc-20240116; t=1788872244; c=relaxed/simple;
+	bh=HyZObEiMUOQgn01YDVdcBfYnfQqoBlI2bzoT4NyP5ag=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IwR/TbCRyydAmu5ZUlb7asol7D1eBNh+jdCAT1h0sz8fDN52yb7/NUeyB8xtixxiv/Np0TMACEgZ8/ayMnmX8Xk5YWifIcP08gmLHKg/123bV6fsEHv2yLVt4OBT5TZQV5MLOO9XW/YiYDlrsJ6H3IopLoLMfQil2Bj+t7CGxKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jJMvUm0H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jJMvUm0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F321F00A3A;
+	Tue,  8 Sep 2026 12:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788872241;
+	bh=ncQ/Nswq54jqB2FpxjCKgsiGS3MoCS7KVETow5W9Cg8=;
+	h=Subject:To:Cc:From:Date;
+	b=jJMvUm0HGDqtjsXQw8XaQ+YYfQdre7RdOSi9a0nKYinRKlLc1sSL7b5ZkhKDWnSpW
+	 WDiHEm7wMxai3Z9XXa4aEzVn9KwMVdBLn+Z4tGky3XlxZbCSF+O4IXJ39rK4z1EpK4
+	 Ok820TTaz8cmyd+vPjFwElscGuT1pk19evg/Gwx8=
+Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 7.2-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:52:34 +0200
-Message-ID: <2026090834-colonist-recital-c7f0@gregkh>
+Date: Tue, 08 Sep 2026 14:52:39 +0200
+Message-ID: <2026090839-reoccupy-dizzy-a7bd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd
+git cherry-pick -x 0250dbe08c730d003ef9f484da56ae09a1ea0c4c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090834-colonist-recital-c7f0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090839-reoccupy-dizzy-a7bd@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -53,91 +62,98 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd Mon Sep 17 00:00:00 2001
+From 0250dbe08c730d003ef9f484da56ae09a1ea0c4c Mon Sep 17 00:00:00 2001
 From: SJ Park <sj@kernel.org>
-Date: Tue, 14 Jul 2026 20:09:56 -0700
-Subject: [PATCH] mm/damon/core: avoid infinite kdamond_merge_regions()
- internal loop
+Date: Sun, 12 Jul 2026 09:54:30 -0700
+Subject: [PATCH] mm/damon/core: skip aging from repeated aggressive merging
 
-Patch series "mm/damon: unurgent fixes for infinite loop, NULL de-ref and
-races", v1.1.
+The number of DAMON regions could temporarily exceed the user-defined
+maximum number of regions limit for corner cases.  For example, users
+could lower the limit via runtime parameters update.  For such a case,
+kdamond_merge_regions() repeats merging regions in the case doubling the
+merge threshold.  The repeated merge operation could update the age of
+regions multiple times.  This corrupts the monitoring results.  Fix the
+issue by asking the merge operation to skip aging for the corner case.
 
-Sashiko found a few issues in DAMON that could cause infinite loop, NULL
-dereference and monitoring results degradation.  The first two sounds
-scary but the infinite loop happens only under unreasonable user setup.
-The NULL dereference is only in a unit test.  Monitoring results
-degradation is trivial since it is only best-effort, and those happens
-from only unlikely races.  Still those are bugs that better to fix if
-possible.  Fix those.
+The user impact is degradation of the monitoring quality.  The impact
+should be mild, since the degradation is only temporal, and it is not
+common to happen in realistic setups.
 
+The issue was discovered [1,2] by Sashiko.
 
-This patch (of 6):
-
-Due to online parameter update like events, the number of DAMON regions
-could be higher than the user-set upper limit.  kdamond_merge_regions()
-repeats merge regions until the number meets the limit, while doubling the
-merge threshold up to the theoretical maximum threshold.  It is tried only
-up to the theoretical maximum threshold because even the aggressive
-merging can fail from reducing the number of regions under the
-user-defined upper limit.  For example, there could be many user-defined
-non-contiguous regions that cannot be merged.
-
-The threshold based loop break condition is evaluated by comparing the
-threshold for the next merging try against the theoretical maximum
-threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
-threshold could make it overflow, and bypass the loop break condition.  In
-the case, if the number of regions cannot be reduced under the upper limit
-like explained above, the loop will run infinitely.
-
-Prevent the case by doing the break condition check before doubling the
-threshold.  Also, prevent the threshold exceeding the maximum threshold,
-as it could overflow and apply the wrong merge threshold.
-
-This issue is unlikely to occur in real world, since having the max_thres
-higher than UINT_MAX / 2 require unrealistically large aggregation
-intervals compared to the sampling interval.  Also, it requires an
-unrealistically large number of uncontiguous regions setup.  Nonetheless,
-the consequence is bad and the fix is simple.
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260715031002.108504-1-sj@kernel.org
-Link: https://lore.kernel.org/20260715031002.108504-2-sj@kernel.org
-Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [1]
+Link: https://lore.kernel.org/20260712165432.87609-1-sj@kernel.org
+Link: https://lore.kernel.org/20260621203548.10718-1-sj@kernel.org [1]
+Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [2]
 Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.10.x
+Cc: <stable@vger.kernel.org> # 6.10
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 6c4215cc809e..603b102ff80f 100644
+index 806a67d02a6e..6c4215cc809e 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -3372,7 +3372,7 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+@@ -3308,7 +3308,7 @@ static unsigned int damon_merge_score(struct damon_region *r, bool last,
+  * sz_limit	size upper limit of each region
+  */
+ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+-		unsigned long sz_limit, struct damon_ctx *ctx)
++		unsigned long sz_limit, struct damon_ctx *ctx, bool count_age)
+ {
+ 	struct damon_region *r, *prev = NULL, *next;
+ 	bool use_probe_hits = damon_has_probe_weights(ctx);
+@@ -3319,12 +3319,14 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+ 		score = damon_merge_score(r, false, ctx, use_probe_hits);
+ 		last_score = damon_merge_score(r, true, ctx, use_probe_hits);
+ 
+-		if (abs_diff(score, last_score) > thres)
+-			r->age = 0;
+-		else if ((score == 0) != (last_score == 0))
+-			r->age = 0;
+-		else
+-			r->age++;
++		if (count_age) {
++			if (abs_diff(score, last_score) > thres)
++				r->age = 0;
++			else if ((score == 0) != (last_score == 0))
++				r->age = 0;
++			else
++				r->age++;
++		}
+ 
+ 		if (!prev)
+ 			goto set_prev_continue;
+@@ -3366,15 +3368,18 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 	struct damon_target *t;
+ 	unsigned int nr_regions;
+ 	unsigned int max_thres;
++	bool count_age = true;
  
  	max_thres = c->attrs.aggr_interval /
  		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
--	do {
-+	while (true) {
+ 	do {
  		nr_regions = 0;
  		damon_for_each_target(t, c) {
- 			damon_merge_regions_of(t, threshold, sz_limit, c,
-@@ -3380,9 +3380,14 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+-			damon_merge_regions_of(t, threshold, sz_limit, c);
++			damon_merge_regions_of(t, threshold, sz_limit, c,
++					count_age);
  			nr_regions += damon_nr_regions(t);
  		}
- 		count_age = false;
--		threshold = max(1, threshold * 2);
--	} while (nr_regions > c->attrs.max_nr_regions &&
--			threshold / 2 < max_thres);
-+		if (nr_regions <= c->attrs.max_nr_regions ||
-+				max_thres <= threshold)
-+			break;
-+		if (threshold < max_thres / 2)
-+			threshold = max(1, threshold * 2);
-+		else
-+			threshold = max_thres;
-+	}
- }
++		count_age = false;
+ 		threshold = max(1, threshold * 2);
+ 	} while (nr_regions > c->attrs.max_nr_regions &&
+ 			threshold / 2 < max_thres);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 73cb8fcdf07e..485472ddebd1 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -257,7 +257,7 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 		damon_add_region(r, t);
+ 	}
  
- #ifdef CONFIG_DAMON_DEBUG_SANITY
+-	damon_merge_regions_of(t, 9, 9999, ctx);
++	damon_merge_regions_of(t, 9, 9999, ctx, true);
+ 	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
+ 	for (i = 0; i < 6; i++) {
 
