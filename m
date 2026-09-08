@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8785749E5DE
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:33:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D8453B5F8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888794; cv=none; b=UGDEi49UPvmM7E/FF9TVlLsvRI8dTP2INZtAOYVsVo4CupYm6/JFIYhIQU/Vtss8oJBNbaRLi108F+d7RyancUy6jjOW3e1lKhpsgTrsDfqumCzVucjc0tR+AEmWLzayYk6HE8t4fKEtOa5SpN5EswVnjiB3ANzhwNb3+P1TujU=
+	t=1788888847; cv=none; b=aQOFFcWulcChn6LFRb/ixdAO6BcC/1iNg9XPTHtyu0foeK30IwtBSrrmPlr3OEAYJZPbm0yX8FFIaOVq2LwcUXTZKxe9QOi51UHfGosMLSkMOTTSt6R3DaZGTwa2Y7T3Drb9UfEwaihrVtg+oBXWG3QRkMeA1+/uhPIVZ5YnVd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888794; c=relaxed/simple;
-	bh=pgK1BuqFcbPqYRX+LC4apJeUcNoED+V7k1VNEi2CDCs=;
+	s=arc-20240116; t=1788888847; c=relaxed/simple;
+	bh=kz9XUu3mC1jvt2qTx8KPefKmWVG3J1sWLfBl5CrO8d8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oiX0CH5J20LWhHShVSX6dH1/eFQbSav7HuxGnmLyrDZ49CQ7XPE618OiuK5bsuKQZYi9dYepizl6wH5AZoMm3R6dDRe5iLgx0RKzWZTC6UyeaRqrlh9NdWXPXKHHqxv9SpuXi+CzpnjbYh8zKj2nVqWJ5kiXjrHK0+QlYhCVv4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYT0evrm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MDvRIChVNBrlGKdIeUaDW5uN29QEP0TVjfvjx4rcBXOix+I/dd7p9bn1/4gudPM7Mxbg7QxVenB11ICWTd0qpW9D9XzWiBqeBao7aTC6FEbKJX394fsLoxDjOO2zH7/acGIqhq6QOstp/x5xAbw3rfuQusvDOUertM6mvYIFpVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arAY5XiD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYT0evrm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EB81F00A3E;
-	Tue,  8 Sep 2026 17:33:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arAY5XiD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E32C1F00A3A;
+	Tue,  8 Sep 2026 17:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888793;
-	bh=g5wHepAmSsPfMM6Td/7NnbSsW117x/kgSmJ832TjQX8=;
+	s=k20260515; t=1788888845;
+	bh=59rgVtMDmJMysXnyfe/q+rL+hC/b0waDZX5W7M6EgZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CYT0evrmekeKXCZbL8YEKo/FgurujwFEWA0g7yQ5CVwYQ7tC+A7lF7sZLcGYuYHUW
-	 sbFRCStNFMBUynSM4galv6yGo1UCy9JB8bEBXs3PQaVO4lgqOeWtZLvp/zak0gYpW0
-	 Lt6nIhOG6wwzvR3yzh8cfp0dnZb1C8J3rIQ5NiPkkO28j+up+VEcrjKIKbRK4XhApq
-	 0S1TVEUf3y34BJfxP2ejP8L/4swlEp2GVGPdupjRz3jjj/PFi4kl7eJXj3Wq/uI/rZ
-	 W+NiwXbzKznIqIwZ+mA+99Sr+fW3oQH/akiWt3qQKMxwuTW00BtwuqkEjJTcTYd7SS
-	 zw3OKYENO/Huw==
+	b=arAY5XiDZ633BNgQlT1bDlm2yXybR0nUV5mVugoY6RsAVXTaUpBrMLaronnuBLFY1
+	 hRqSJwb6pcIzWRcAMeyjA4vJfVDkHc1n6dV1yJuaF39FvpuGje7jOr67MejChDHeOf
+	 EsD41U6CBXwFIdxX8YvQNpGmzLJPTjmBE7OJ8PYZsCiBLDxc1ay7v0TOmyqK/5W7SP
+	 UylU5pSYxHvK37j0rgxYMoqtKkK3tdUjrOCUQolm87s3NU3oUEvV96O8NxlMVuKwKn
+	 iGlQYSitGEGv2uVqhqc4k+havn5ISZ3NPEjPgPv8Gs227ssSHXRLhnDQmZeBi38BjC
+	 ocFeAgzqpoBXA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anton Danilov <littlesmilingcloud@gmail.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Huang Yiwei <quic_hyiwei@quicinc.com>,
+	Jassi Brar <jaswinder.singh@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] ipip: fix skb leak in collect_md mode when metadata_dst allocation fails
-Date: Tue,  8 Sep 2026 13:33:09 -0400
-Message-ID: <20260908173309.106466-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] mailbox: qcom-ipcc: Dynamic alloc for channel arrangement
+Date: Tue,  8 Sep 2026 13:34:02 -0400
+Message-ID: <20260908173403.109367-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908173309.106466-1-sashal@kernel.org>
-References: <2026090359-hurry-disagree-2db4@gregkh>
- <20260908173309.106466-1-sashal@kernel.org>
+In-Reply-To: <2026090341-antibody-riches-1252@gregkh>
+References: <2026090341-antibody-riches-1252@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,52 +45,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Anton Danilov <littlesmilingcloud@gmail.com>
+From: Huang Yiwei <quic_hyiwei@quicinc.com>
 
-[ Upstream commit 6776efe4a52f289a3fc18f8adf19b035a7d8e1bb ]
+[ Upstream commit e9d50e4b4d04165097a71e20e0a77e7ad7053dd0 ]
 
-In collect_md mode ipip_tunnel_rcv() returns 0 without freeing the skb
-when ip_tun_rx_dst() fails to allocate the metadata_dst. ipip_rcv() and
-mplsip_rcv() are registered as xfrm_tunnel handlers, so tunnel4_rcv()
-and tunnelmpls4_rcv() read the zero return as "the packet has been
-consumed" and do not free it either. The skb is leaked.
+Dynamic alloc for channel arrangement instead of static alloced
+array, it is more flexible and can reduce memory usage.
 
-The other tunnel drivers all dispose of the packet at this point:
-ip6_tunnel.c jumps to its drop label, ip_gre.c and ip6_gre.c return
-PACKET_REJECT, which makes gre_rcv() free the skb. Only ipip returns 0.
-
-Jump to the existing drop label instead. It frees the skb and still
-returns 0, so the packet keeps being reported as consumed, which is what
-we want here: the outer header has already been pulled, and neither the
-remaining handlers nor an ICMP unreachable have any use for it.
-
-Triggering this needs an ipip or mplsip tunnel in collect_md mode and an
-atomic allocation failure, which is why it has gone unnoticed.
-
-Fixes: cfc7381b3002 ("ip_tunnel: add collect_md mode to IPIP tunnel")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Link: https://patch.msgid.link/20260819104338.432631-2-littlesmilingcloud@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted the failure path around the older ip_tun_rx_dst() call to use the existing drop label. ]
+Signed-off-by: Huang Yiwei <quic_hyiwei@quicinc.com>
+Signed-off-by: Jassi Brar <jaswinder.singh@linaro.org>
+Stable-dep-of: 66c7bcad7243 ("mailbox: qcom-ipcc: fix duplicate channel allocation across holes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mailbox/qcom-ipcc.c | 90 ++++++++++++++++++++++++++++---------
+ 1 file changed, 69 insertions(+), 21 deletions(-)
 
-diff --git a/net/ipv4/ipip.c b/net/ipv4/ipip.c
-index d22d8e5f4abc1..3ec9553436930 100644
---- a/net/ipv4/ipip.c
-+++ b/net/ipv4/ipip.c
-@@ -240,7 +240,7 @@ static int ipip_tunnel_rcv(struct sk_buff *skb, u8 ipproto)
- 		if (tunnel->collect_md) {
- 			tun_dst = ip_tun_rx_dst(skb, 0, 0, 0);
- 			if (!tun_dst)
--				return 0;
-+				goto drop;
- 		}
- 		skb_reset_mac_header(skb);
+diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
+index f1d4f4679b17b..10cb0b5461090 100644
+--- a/drivers/mailbox/qcom-ipcc.c
++++ b/drivers/mailbox/qcom-ipcc.c
+@@ -13,8 +13,6 @@
+ 
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ 
+-#define IPCC_MBOX_MAX_CHAN		48
+-
+ /* IPCC Register offsets */
+ #define IPCC_REG_SEND_ID		0x0c
+ #define IPCC_REG_RECV_ID		0x10
+@@ -52,9 +50,10 @@ struct qcom_ipcc {
+ 	struct device *dev;
+ 	void __iomem *base;
+ 	struct irq_domain *irq_domain;
+-	struct mbox_chan chan[IPCC_MBOX_MAX_CHAN];
+-	struct qcom_ipcc_chan_info mchan[IPCC_MBOX_MAX_CHAN];
++	struct mbox_chan *chans;
++	struct qcom_ipcc_chan_info *mchan;
+ 	struct mbox_controller mbox;
++	int num_chans;
+ 	int irq;
+ };
+ 
+@@ -166,25 +165,37 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
+ 	struct qcom_ipcc *ipcc = to_qcom_ipcc(mbox);
+ 	struct qcom_ipcc_chan_info *mchan;
+ 	struct mbox_chan *chan;
+-	unsigned int i;
++	struct device *dev;
++	int chan_id;
++
++	dev = ipcc->dev;
+ 
+ 	if (ph->args_count != 2)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	for (i = 0; i < IPCC_MBOX_MAX_CHAN; i++) {
+-		chan = &ipcc->chan[i];
+-		if (!chan->con_priv) {
+-			mchan = &ipcc->mchan[i];
+-			mchan->client_id = ph->args[0];
+-			mchan->signal_id = ph->args[1];
+-			chan->con_priv = mchan;
+-			break;
+-		}
++	for (chan_id = 0; chan_id < mbox->num_chans; chan_id++) {
++		chan = &ipcc->chans[chan_id];
++		mchan = chan->con_priv;
+ 
+-		chan = NULL;
++		if (!mchan)
++			break;
++		else if (mchan->client_id == ph->args[0] &&
++				mchan->signal_id == ph->args[1])
++			return ERR_PTR(-EBUSY);
+ 	}
+ 
+-	return chan ?: ERR_PTR(-EBUSY);
++	if (chan_id >= mbox->num_chans)
++		return ERR_PTR(-EBUSY);
++
++	mchan = devm_kzalloc(dev, sizeof(*mchan), GFP_KERNEL);
++	if (!mchan)
++		return ERR_PTR(-ENOMEM);
++
++	mchan->client_id = ph->args[0];
++	mchan->signal_id = ph->args[1];
++	chan->con_priv = mchan;
++
++	return chan;
+ }
+ 
+ static const struct mbox_chan_ops ipcc_mbox_chan_ops = {
+@@ -192,15 +203,49 @@ static const struct mbox_chan_ops ipcc_mbox_chan_ops = {
+ 	.shutdown = qcom_ipcc_mbox_shutdown,
+ };
+ 
+-static int qcom_ipcc_setup_mbox(struct qcom_ipcc *ipcc)
++static int qcom_ipcc_setup_mbox(struct qcom_ipcc *ipcc,
++				struct device_node *controller_dn)
+ {
++	struct of_phandle_args curr_ph;
++	struct device_node *client_dn;
+ 	struct mbox_controller *mbox;
+ 	struct device *dev = ipcc->dev;
++	int i, j, ret;
++
++	/*
++	 * Find out the number of clients interested in this mailbox
++	 * and create channels accordingly.
++	 */
++	ipcc->num_chans = 0;
++	for_each_node_with_property(client_dn, "mboxes") {
++		if (!of_device_is_available(client_dn))
++			continue;
++		i = of_count_phandle_with_args(client_dn,
++						"mboxes", "#mbox-cells");
++		for (j = 0; j < i; j++) {
++			ret = of_parse_phandle_with_args(client_dn, "mboxes",
++						"#mbox-cells", j, &curr_ph);
++			of_node_put(curr_ph.np);
++			if (!ret && curr_ph.np == controller_dn) {
++				ipcc->num_chans++;
++				break;
++			}
++		}
++	}
++
++	/* If no clients are found, skip registering as a mbox controller */
++	if (!ipcc->num_chans)
++		return 0;
++
++	ipcc->chans = devm_kcalloc(dev, ipcc->num_chans,
++					sizeof(struct mbox_chan), GFP_KERNEL);
++	if (!ipcc->chans)
++		return -ENOMEM;
+ 
+ 	mbox = &ipcc->mbox;
+ 	mbox->dev = dev;
+-	mbox->num_chans = IPCC_MBOX_MAX_CHAN;
+-	mbox->chans = ipcc->chan;
++	mbox->num_chans = ipcc->num_chans;
++	mbox->chans = ipcc->chans;
+ 	mbox->ops = &ipcc_mbox_chan_ops;
+ 	mbox->of_xlate = qcom_ipcc_mbox_xlate;
+ 	mbox->txdone_irq = false;
+@@ -233,7 +278,7 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 	if (!ipcc->irq_domain)
+ 		return -ENOMEM;
+ 
+-	ret = qcom_ipcc_setup_mbox(ipcc);
++	ret = qcom_ipcc_setup_mbox(ipcc, pdev->dev.of_node);
+ 	if (ret)
+ 		goto err_mbox;
+ 
+@@ -241,7 +286,7 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 			       IRQF_TRIGGER_HIGH, "ipcc", ipcc);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "Failed to register the irq: %d\n", ret);
+-		goto err_mbox;
++		goto err_req_irq;
+ 	}
+ 
+ 	enable_irq_wake(ipcc->irq);
+@@ -249,6 +294,9 @@ static int qcom_ipcc_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++err_req_irq:
++	if (ipcc->num_chans)
++		mbox_controller_unregister(&ipcc->mbox);
+ err_mbox:
+ 	irq_domain_remove(ipcc->irq_domain);
  
 -- 
 2.53.0
