@@ -1,189 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8741656B87D
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080964B4873
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907012; cv=none; b=TdXxBW/C8nIVcwGmtM0tWitorowRuwMohbDbEOqnIEpzJOVdH4yv0IO0n2ZT/AcoIxKAkRUbRyK2N9a2dH773d/XIrb5xUYM9QzlYbLzNPHvkTr+cAhDNeX8s4VqkmBlfGGTO0kE8yqi0N4561HjvCpjlkTInawUVv3FQpSv72o=
+	t=1788907016; cv=none; b=g1h8qG62+Z//DdLsNW6tU3k5t6JwHEIgxeWE9NjyLowFfdPNbj6aGi7KHdAbKWfig2cTD8MNo/lO/LwtAVHu1XN9nfEc+zkI+KsDHIAGmHVZyuMsQDMBG45UowIXXchf4s9NzgQkllpxLNtOUZf41UJJkPAClnRKQsojPB9rc+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907012; c=relaxed/simple;
-	bh=55emPDcj/GwpRCJZ9Xh/fs17XxtQBr8eorSQ/GAqiII=;
+	s=arc-20240116; t=1788907016; c=relaxed/simple;
+	bh=cblmYlIppXYv1w4skBY3NgFS1FQH6uC1E4D6FnxV+wE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aOs1Rb3BO0yZdn2QqDR8V6agyt8qN/62vwSVAlWKDKeXv7ISQ3H/lbKB0EhtlmTOlH8QaBgGTeilMI8MsM0dwsIw+Zq/ZH6EaRs3ncfO9Qle4IYYXz7+Ks/Of6aVOkb9VC7Carbdf4UrR9sgNsEEBgC1ylMZUZ+nvK8UWHNK4/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJWBVVVQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HYKbPo6fU41NVPniCDdOO4LSk5iodO5PRgkGexS4hxp3rQvl0bg+lX6NNDDM+aduuWhzJH1q62oTiJS8AaaZckvw9sZsjcOzZJDxcWGPUzW5WZw4fexPGk4orO53yZY7jS6uQAXZb/SEpYrWR+oTmO4Eai49tdNV3brBpX7RIe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKvPXeB1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJWBVVVQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD191F00A3A;
-	Tue,  8 Sep 2026 22:36:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKvPXeB1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CE11F00A3E;
+	Tue,  8 Sep 2026 22:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907008;
-	bh=Lm7MNuFp0HSTuReKi2VQ40BZC+S++6cvtl2FE73fGl4=;
+	s=k20260515; t=1788907013;
+	bh=HZ98ADxZ0VZzQj4JKeIGHUfJqGn8l7XFcxbVo23QWGE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QJWBVVVQinFxOAbUZiHW3D3fkTKC/Wk0yNQWegSi8/l1u+NKuyaGBZEwAjNU7kQCe
-	 ZjWC90AzZJq85GLe9v5FdIjkYtsv+CvGdgWfsp1zqtvyFG6xlqVSBG4LXrRnEFsxqF
-	 9WQSRgBxINOeOC42skFvQp0EFCsuCvNtMKa+ytnkF+7+qitag8eioGbCgJZgbKVcIR
-	 9Tg3z79kqn6yyFd6ax3Kax+bZ67BXcF3bzHu8Cdq9AqG6CQ3LE+TtJwUnHUhuxVyPs
-	 wGtIjZLaOpAT9WcbJTu6wfrr+WdSwiDcejUXBgKVebm4DYLSjCBL5mK8Hn9r/8cHq2
-	 elbCpLF9HNpVg==
+	b=hKvPXeB1QAR5RtVOX3IvqDCFbKk8Jl63MiNAcAs0FPDhPEqM3Ii7nUhIc9L5zNbI+
+	 2GgHKHMTdeqkXvcUtrZE+1eaC8TDUcat/L0B9+XYueIaJDslEw/IP+PNp5OKfDjNpL
+	 O1nxRBh98bFUCJ9Ts2LanoJz6SB4r7umuTQO4xkiz4X5GqOMFJ+Yc8s9fhwlY/wnww
+	 +RTEsHFmobtQiMTBV28DoFELgwSkXIH86X2K/RvbOL1k/GdHcdGG8U96NMFgHPnl1d
+	 RbzBOxBPYcdDzmE8RwFY2KWZzKyiESC7vqDCbTwjmp8G7YGtw5ef6d2Mjd2AxW0+Qt
+	 Hxs6r8YQ1yeEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
-Date: Tue,  8 Sep 2026 18:36:46 -0400
-Message-ID: <20260908223646.501653-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/7] SUNRPC: Add a server-side API for retrieving an RPC's pseudoflavor
+Date: Tue,  8 Sep 2026 18:36:45 -0400
+Message-ID: <20260908223651.501880-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090350-camcorder-skillful-ef4f@gregkh>
-References: <2026090350-camcorder-skillful-ef4f@gregkh>
+In-Reply-To: <20260908223651.501880-1-sashal@kernel.org>
+References: <2026090350-breeze-repugnant-70de@gregkh>
+ <20260908223651.501880-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+[ Upstream commit deb704281f076097b0347116a82edeba96697db1 ]
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+NFSD will use this new API to determine whether nfsd_splice_read is
+safe to use. This avoids the need to add a dependency to NFSD for
+CONFIG_SUNRPC_GSS.
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
-
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
-
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
-
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
-
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
-
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
-
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ preserved the branch’s assignment/comparison clamp instead of upstream’s min(READ_ONCE(...)) form ]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ include/linux/sunrpc/svcauth.h    |  7 ++++++-
+ net/sunrpc/auth_gss/svcauth_gss.c |  6 ++++++
+ net/sunrpc/svcauth.c              | 16 ++++++++++++++++
+ 3 files changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 823d405069b7d..e3210d3662a04 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -373,23 +373,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
+diff --git a/include/linux/sunrpc/svcauth.h b/include/linux/sunrpc/svcauth.h
+index 6f90203edbf8d..61c455f1e1f50 100644
+--- a/include/linux/sunrpc/svcauth.h
++++ b/include/linux/sunrpc/svcauth.h
+@@ -131,8 +131,11 @@ enum svc_auth_status {
+  *   This call releases a domain.
+  *
+  * set_client()
+- *   Givens a pending request (struct svc_rqst), finds and assigns
++ *   Given a pending request (struct svc_rqst), finds and assigns
+  *   an appropriate 'auth_domain' as the client.
++ *
++ * pseudoflavor()
++ *   Returns RPC_AUTH pseudoflavor in use by @rqstp.
+  */
+ struct auth_ops {
+ 	char *	name;
+@@ -143,11 +146,13 @@ struct auth_ops {
+ 	int			(*release)(struct svc_rqst *rqstp);
+ 	void			(*domain_release)(struct auth_domain *dom);
+ 	enum svc_auth_status	(*set_client)(struct svc_rqst *rqstp);
++	rpc_authflavor_t	(*pseudoflavor)(struct svc_rqst *rqstp);
+ };
+ 
+ struct svc_xprt;
+ 
+ extern enum svc_auth_status svc_authenticate(struct svc_rqst *rqstp);
++extern rpc_authflavor_t svc_auth_flavor(struct svc_rqst *rqstp);
+ extern int	svc_authorise(struct svc_rqst *rqstp);
+ extern enum svc_auth_status svc_set_client(struct svc_rqst *rqstp);
+ extern int	svc_auth_register(rpc_authflavor_t flavor, struct auth_ops *aops);
+diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
+index 49a8623cc1d57..3015839da877f 100644
+--- a/net/sunrpc/auth_gss/svcauth_gss.c
++++ b/net/sunrpc/auth_gss/svcauth_gss.c
+@@ -2009,6 +2009,11 @@ svcauth_gss_domain_release(struct auth_domain *dom)
+ 	call_rcu(&dom->rcu_head, svcauth_gss_domain_release_rcu);
  }
  
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
- 
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
--
- 	accept_seg6 = net->ipv6.devconf_all->seg6_enabled;
- 	if (accept_seg6 > idev->cnf.seg6_enabled)
- 		accept_seg6 = idev->cnf.seg6_enabled;
-@@ -497,12 +490,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
- }
- 
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	unsigned int chdr_len;
- 	unsigned char *buf;
-@@ -511,8 +503,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = net->ipv6.devconf_all->rpl_seg_enabled;
- 	if (accept_rpl_seg > idev->cnf.rpl_seg_enabled)
- 		accept_rpl_seg = idev->cnf.rpl_seg_enabled;
-@@ -719,10 +709,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
- 		break;
- 	}
-@@ -870,6 +864,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
++static rpc_authflavor_t svcauth_gss_pseudoflavor(struct svc_rqst *rqstp)
++{
++	return svcauth_gss_flavor(rqstp->rq_gssclient);
++}
 +
-+disabled:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
-+	return -1;
- }
+ static struct auth_ops svcauthops_gss = {
+ 	.name		= "rpcsec_gss",
+ 	.owner		= THIS_MODULE,
+@@ -2017,6 +2022,7 @@ static struct auth_ops svcauthops_gss = {
+ 	.release	= svcauth_gss_release,
+ 	.domain_release = svcauth_gss_domain_release,
+ 	.set_client	= svcauth_gss_set_client,
++	.pseudoflavor	= svcauth_gss_pseudoflavor,
+ };
  
- static const struct inet6_protocol rthdr_protocol = {
+ static int rsi_cache_create_net(struct net *net)
+diff --git a/net/sunrpc/svcauth.c b/net/sunrpc/svcauth.c
+index aa4429d0b8106..1619211f0960a 100644
+--- a/net/sunrpc/svcauth.c
++++ b/net/sunrpc/svcauth.c
+@@ -160,6 +160,22 @@ svc_auth_unregister(rpc_authflavor_t flavor)
+ }
+ EXPORT_SYMBOL_GPL(svc_auth_unregister);
+ 
++/**
++ * svc_auth_flavor - return RPC transaction's RPC_AUTH flavor
++ * @rqstp: RPC transaction context
++ *
++ * Returns an RPC flavor or GSS pseudoflavor.
++ */
++rpc_authflavor_t svc_auth_flavor(struct svc_rqst *rqstp)
++{
++	struct auth_ops *aops = rqstp->rq_authop;
++
++	if (!aops->pseudoflavor)
++		return aops->flavour;
++	return aops->pseudoflavor(rqstp);
++}
++EXPORT_SYMBOL_GPL(svc_auth_flavor);
++
+ /**************************************************
+  * 'auth_domains' are stored in a hash table indexed by name.
+  * When the last reference to an 'auth_domain' is dropped,
 -- 
 2.53.0
 
