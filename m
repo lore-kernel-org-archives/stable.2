@@ -1,125 +1,100 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC2C145A1F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 02:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6ED33938F
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 02:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788834618; cv=none; b=kg7GtzvBia46brBZ5Urj2rkPXs3yFnrrVUFwbu9hkNJg2nIhzG/ANeOYudLvp/huD+bF3uhc8diPSaNVP412MdGngzjyExigsCqr75W8MjsqBPVRPO/SOHAyhWxKyDN3qmrhgQf51+N8KEO4g/GrmtS73EEm5AwbaVLbI4gJGRc=
+	t=1788835092; cv=none; b=dztGzlkTwHx0NbRbAkH89Z74E9BTYYMaK8Yb6xLP+TO3vPa4RQmghG8ANhVcblQx8CeNHC/v+5bhsrH5yUZM9osNkGz9U4n0lxnl0zpw/b6EMLzIYmhkkoXtVCUE10tXQJDHfMVQATf6UuwJP0Xl0pLVlBG7TrIjhtb4QjzstxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788834618; c=relaxed/simple;
-	bh=b1gIX7KXg+DsXTZM6ikXYuL53dZ4dhPPjXyxfZSoHwQ=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=Us6RFOFta+JdsepJGd1usNXB6lMYuKKyvP7h+ENTB4DtWDfgYtiuiRT89i8lHDdXfiznb/ZUGCHok1tmKi5eEeqzctC2eatVUaJ9APhhUnFY4Eq43nxecJCWenPI8xcRsXPfa8MVU/ELpW65sZJib9wLryR3vXh3gnr3a7CBSpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=bin5hxgv; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1788835092; c=relaxed/simple;
+	bh=rfJMxKZZRzj4HZMtbUgPCYMFf6bfVaKIMTAZk4aVrjA=;
+	h=Message-Id:To:Cc:Subject:Date:Content-Type:From:Mime-Version; b=lLpeY5SUgoFO5bqkdWVs82pc8RTor9pLVX5XkHN58BKTJ5a1n+btkZpWeOhs0CYgSiBjTVltB4VpJSuZI5b/4tI3WTrCdUyvgktmB+PML2vq81s6zdivKjVte/w/LPFccZ1T2Prbc3TiRZ1tGYmIQHGOBu2Af1tJx68HqOVF5uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=cOL+YMup; arc=none smtp.client-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="bin5hxgv"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso4455466a91.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 19:30:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1788834615; x=1789439415; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oK0cvidTN3EWT84RtkUpwCSrLd9n/dIqM3OXGoYEDEU=;
-        b=bin5hxgvXdD7S8/OAuYkNQags1QoysSIwkdhKqBYiTYe54XOV7QP30GbhY0ckJkGgX
-         Ma3lRvJ8Akhlhk41CVafPRzfZJTZcUY3Kcx1HOfCu10mHw4V/FXmQMgSvdgEvajOe6mf
-         fBIVMZLwTRdA8qp+rm8aDC9BMWJDkSS1cnINClFPNli5ZSwl1IgBT3q2bohxSfdVJ1Au
-         R3LuxQEPW9WFnttDiEsv2ldVukGvMWF4rru2/66n3K/qC7hCP5tgJ10+5Lylw0QFjq3g
-         ZkMSZB8SHT3w2a60SsmUQ+JctDOQctmSqh7/sqVhREO4HrC5NwUd09Fa5UjZxBx22jlr
-         +daw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788834615; x=1789439415;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oK0cvidTN3EWT84RtkUpwCSrLd9n/dIqM3OXGoYEDEU=;
-        b=Hvp1t+JcdT/c13TOFGMmHYEuJDf9ArKU6WpUfwJKYO2M74wIdQH11AO7y0gXE7wkxa
-         P+doSuTGg2tmrGOBN3EtkQmY5R44nFAWCnDQfOVVZjOyJxUyzK/49UlZm+AJ230t+1tp
-         dSWB7KcY7wxA2L3UoodAzWSC8ybjPQLlfnz2orNPd06O2gNWsyPWpH1IcJXy21iPJfqp
-         ccR/saFGuUAPMAkwl5KFfU1CGCoEmmgnExqADDOBf1LQ1oF3LM29xdwXjdbXFemI4qo7
-         0WT6Fbw5adHjmOKGjxDMH27fASlH6kUV/DjTJukmNeSy5lbcgcQ7aM7+iQO0UtaU0+tw
-         +15Q==
-X-Gm-Message-State: AFuF++nf+QZVHSYrSOYjybrhh2mQOj5M1LOOYE9b+uFuSTdTS+ihqwaL
-	EP2gjAKD44E0R2F1EYAZXf6larqv6QFYvSRriJGH9vPEH0gQpcQftNrt5d9TbZF34sW3vuYLYon
-	UF+tS
-X-Gm-Gg: AYBFou3YuU83oaM0aJzkeggX5Z0newk0d+ys+jZPFgSFwPFiqeaJnrB4qE1UZ3FriSl
-	u0afJ+TEE/fqe6y4IcVN/SGst7s62ZPZwWdZx6EQNkEp7ha9uHggB1xWNg3Nd86OQCaVzrZZotL
-	7B5eAIkmW6t06yCWmHt+ffqppLcTsEGri2yp8Y8QpoaBpprPR1dNPLubzm0cJk0MrjA7GTZU/RV
-	cLNgn37u+0jV6sIs3rrP/46QmKV4w+ygW7tpvE40hYR5yik+PTzQnT2QqYi0OzjaQOyDQ9OGTW4
-	aI3eAVRG5T/QcajKp5nWATLKkNFZ3AySnsBr6f2RFe9W+iQ1qSrdHejTWxZOhPT1WMJMmUrjlGd
-	1kmf+xK/OFSyB9Ytw+ZTMY8PHw5Z5zF8JOzmbDBnlCiEaK2FcRZDoCHBjmOmN7S4QsCSwci6/s6
-	pS7+3OwgSppAAMgl8dttpr/LzT/QKgcVbDernfy+tdkffqu1ZqQlj3
-X-Received: by 2002:a17:90b:51c7:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39b2609f34bmr42847373a91.1.1788834614750;
-        Mon, 07 Sep 2026 19:30:14 -0700 (PDT)
-Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm50561372eec.15.2026.09.07.19.30.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 19:30:13 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="cOL+YMup"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788835083; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=kSI7yGDTAXS2LsAwqINs1fL1cOHm9czyVm2WQa6R7SU=;
+ b=cOL+YMupfdxf8xPOZFa9bPKU87Lg3ltSnXVWV3Hh1kmomiwx5MtpV1/MahZm43Ncn9ft/z
+ yXcqGNxntS8j1Es5e9OdJBNZ6uh8NF3C8Y/DR2Aukz2MkUUqb8/oQ9E6T4o0TuzmyTz9CZ
+ 1ZtEc9BwpmSd+6NRP+xVSW0f0Mb0RVQ4KKLqAV1Arm1EjLXI2j5GMWxAzMLgyQyuxwJk1J
+ TJ0CZdJjKz3PLUBeuIpavNls7y54oauG0RW258cC4S2CFIAetl2pXfdKPD416VKcIE57C2
+ WKD2tsdpvLLXSP3HYuEe5i2IupqP+adtYUQvt6C90inWt10Cb6l/5D4gP080Ig==
+Message-Id: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
+X-Lms-Return-Path: <lba+26a9f7509+c8d703+vger.kernel.org+me@cherr.cc>
+To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>
+Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
+	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH net v2 0/2] net: fec: fix PTP clock teardown races on device removal
+Date: Tue, 08 Sep 2026 10:37:56 +0800
+X-B4-Tracking: v=1; b=H4sIAAR1n2oC/3WNwQ6CMBBEf4Xs2TUtqRg8+R+EQ7tspR5K05ZGQ /h3Ab16fJOZeQskjo4T3KoFIheX3OQ3qE8V0Kj9g9ENG0Mt6ka0QqJlwpADhpCQC/uMs7Y4EF2 lubAcjIBtGyJb9zp+O/Ccof+GaTZPprw/7rXRpTzF92Ev8ij/ROqPqEgU2GqrVGNYaSnvNHKMZ yLo13X9AKAq6HDQAAAA
+Content-Type: text/plain; charset=UTF-8
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.12.y -
- 39a867754a8a743765a458e87d3a46ce26990f83
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Tue, 08 Sep 2026 02:30:13 -0000
-Message-ID: <178883461318.2670.11223229638146043597@41049dfc76e5>
+Mime-Version: 1.0
+Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 10:38:00 +0800
 
+This series fixes two FEC teardown races: ethtool can access a freed
+PTP clock, and the PPS interrupt can outlive the PHC and netdev.
 
+I have kept the main Ethernet IRQ issue discussed with Phuc [1] out of
+this revision. His PTP initialization error-propagation changes are
+also separate; if they land first, the new probe failure path will
+need PPS IRQ cleanup too.
 
-Hello,
+Full x86_64 kernel and module builds passed with W=1, FEC=m and PTP
+enabled and disabled. The bugs were found by code inspection; no
+hardware testing was done.
 
-Status summary for stable/linux-6.12.y
+[1] https://lore.kernel.org/r/CAABR9nHLcR103aADF1WMSEkw-_BjWB9vyWXENJCYfjX5Wz1nkw@mail.gmail.com/
 
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.12.y/39a867754a8a743765a458e87d3a46ce26990f83/
+---
+Link to v1: https://lore.kernel.org/netdev/20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc
 
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.12.y
-commit hash: 39a867754a8a743765a458e87d3a46ce26990f83
-origin: maestro
-test start time: 2026-09-07 16:02:00.701000+00:00
+Changes in v2:
+- Drop the ptp_clock_index_by_dev() lookup and unregister the netdev
+  before fec_ptp_stop() instead, as suggested by Wei Fang, so the
+  netdev callbacks are drained before the PHC teardown.
+- Use -1 as the "no PPS interrupt" sentinel so a valid IRQ 0 is neither
+  skipped on release nor freed when the request never happened.
 
-Builds:	   56 ✅    0 ❌    0 ⚠️
-Boots: 	   89 ✅    0 ❌    0 ⚠️
-Tests: 	 8953 ✅  501 ❌  328 ⚠️
+---
+Shengzhuo Wei (2):
+      net: fec: stop the PTP clock after the netdev is unregistered
+      net: fec: free the PPS interrupt before tearing down the PHC and netdev
 
-### POSSIBLE REGRESSIONS
+ drivers/net/ethernet/freescale/fec.h      |  1 +
+ drivers/net/ethernet/freescale/fec_main.c |  2 +-
+ drivers/net/ethernet/freescale/fec_ptp.c  | 12 +++++++++++-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+---
+base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
+change-id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
 
-  No possible regressions observed.
-
-
-### FIXED REGRESSIONS
-
-  No fixed regressions observed.
-
-
-### UNSTABLE TESTS
-    
-Hardware: qemu-arm64
-  > Config: defconfig+netdev+nfs-root-boot+kselftest
-    - Architecture/compiler: arm64/gcc-15
-      - ltp
-      last run: https://d.kernelci.org/test/maestro:6a9ef792e41d7f97d60dda3a
-      history:  > ✅  > ❌  > ✅  > ✅  > ✅  
-            
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
