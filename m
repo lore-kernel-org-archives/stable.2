@@ -1,120 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BD93D9DB3;
-	Tue,  8 Sep 2026 23:00:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DCA4C77A0
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:01:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908423; cv=none; b=fIJAZ/ZBji2Hmjkf0737gOV7gQykpkP2o15QKjleOENzqf0wjLK8HDdZLZ/TnA0trv0mkAr0xPHkQTYtWYkieoINKxmP1tC6McDE3s4zKmlzJaukFh11y2n278T0E3J4YEJw5juP2lgfgbN/0sFOws7QwSbJBkFbSV7n3ZrnGA0=
+	t=1788908461; cv=none; b=qu/WVAf9wlNC1KbUyrkwrhmEPBTJMJIz2GtHvhHDFizeyfIJF/DokFYWua+RvF1MWa8rFyHv+c4Qv7IFCyyv4xIIC49pKTMfLJZnE2UvCKxkmf45/2TTsEP6dK29UBo/M6LLC9C5PSVgILiADLM9bx29mvjp8NRpoA6BnrN7MpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908423; c=relaxed/simple;
-	bh=lwjFeGoCwHwf0RhLsg74GELBxSAXXN7ly37dd0Lng+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cq+R/ekpaYey3n6QtCYVPcCscJxZvuGeyOjiQceDsUVvSI/KR03mtQOZRsUwwvE/gOp6q0oqrfLNvKEJtU6rpDeHdB+HrzdsjSQIUqA6r/ZlhkIgh9ToDPWQMAnhVgufHMmQRjLuDbPI12T6I80dK0/qexrvuQ6FAjtoMjz4o8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SmS/HH9p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788908461; c=relaxed/simple;
+	bh=Nf7snmk0gIrgURsTEoin01BR1w/+c5dC9w6iUZCC7FA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U5oOBbzg4kYhyCn1sGPPio3XgRM+AdEUOoeseNrQPJ921exSKKEwho0WghDhTPXcdmUcV7+0joB/dWB3G4ocMshhu14Xr+VSqof0uJcTqYYFbThLI8LaiXhnK68DDkagTa9Q8oYiTLU8z4vF4ymOdWJSH81FR2qzepRMq+5z2ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8AtYAHd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SmS/HH9p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B671F00A3A;
-	Tue,  8 Sep 2026 23:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8AtYAHd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679511F00A3A;
+	Tue,  8 Sep 2026 23:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788908422;
-	bh=Nt4uaGZn/6bmzshlKxJ9+ij5yYtfxkJje7wsxu8z5hE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SmS/HH9pqP7PiJDvXP7YQfPcXwbX7xKB2XpPzeMzWK0UyAdCNhp959gDLCKL9tuJC
-	 0yNgnpn+CHngo5uEAsvlAnUX5l4SVHBJ90uYVHZr4pZG4HzBq90kEvXOGZ4DukKuUg
-	 TvIzYMrqpJ45EKOKbEfwFAnDVdj0wMUhM1KveY9h1KZ/bmmNyUAB4n/28YIX3Cfnim
-	 S8lZGiULxGVXiGyQanCsdDIVHtGqO3U0MkO+BmQq69qaCH9K1WsPqlah/Dap8lcsBK
-	 cfZZyhmIEMH6pl8FFqD5k/pSosrSLZ/sFs0BafHu1sRUa14fW7UjlEjadDPxLcKz4y
-	 OpUyn/zCYp3GA==
-Date: Wed, 9 Sep 2026 09:00:13 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Hongling Zeng <zhongling0719@126.com>
-Cc: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org,
-	darrick.wong@oracle.com, chandanrlinux@gmail.com,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer
- recovery
-Message-ID: <aqCTfSqqywJ5qKcY@dread>
-References: <20260907080450.314067-1-zenghongling@kylinos.cn>
- <ap8ucHIw-pKLhh9c@dread>
- <6A9F7022.6020206@126.com>
- <ap-sV2Cc5U5fNMmo@dread>
- <6A9FBDB3.20705@126.com>
+	s=k20260515; t=1788908460;
+	bh=sU2vuoWFdHX6Qb6ratQzRBWHmb54ZUeWJ+tHnxcRwlU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C8AtYAHds7sQ1wFa5+4WWo51/MhWTB/WNvjoKmQYtn+brEbMULGSN3wU5eFSJNYBQ
+	 Zn4vEYaRX2zhi3FzCi6J5qDCklEw9joAuiabbQb0iSfz7JtE4NBbf0+MAQ48bLd75e
+	 31lMpIIywifjhRD/vgupep3g6ggtMoXRf1+/5NynMXngiE/EkL11yMYjQCd+QBqC7Y
+	 AGBPCG5fediNoVMHfUUTiCDp86DDdXUdhO1W+NgjnOG5xXhdJUEjW11X+SmxQamIvv
+	 lYN3y+/P/fHsD+PduBrE5F83hMvP4N+DePdWND1Jzn6KjNiHI+IaAB4WbYunvjY2Hm
+	 rsCjWoA4pkDrQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] SUNRPC: fix gssx_dec_option_array error path bugs
+Date: Tue,  8 Sep 2026 19:00:57 -0400
+Message-ID: <20260908230057.556770-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090304-mouth-annuity-d658@gregkh>
+References: <2026090304-mouth-annuity-d658@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <6A9FBDB3.20705@126.com>
 
-On Tue, Sep 08, 2026 at 03:48:03PM +0800, Hongling Zeng wrote:
-> 在 2026年09月08日 14:33, Dave Chinner 写道:
-> > Don't take the design doc as being complete or correct - it's a
-> > working document and really only serves as the initial high level
-> > plan I fleshed out.
-> > 
-> > Indeed, I implemented a chunk of it yesterday afternoon (i.e.
-> > before I saw your patch this morning) and my findings change quite a
-> > bit of the generic infrastructure to make it handle the transaction
-> > header without having to special case it. So from that perspective,
-> > it's already out of date...
-> > 
-> > I'll post what I have in the series later this afternoon so you can
-> > get up to speed.
+From: Chris Mason <clm@meta.com>
 
-Ok, I just posted my current WIP to the log-verification-1 branch in
-my kernel.org repo
-(https://git.kernel.org/pub/scm/linux/kernel/git/dgc/linux-xfs.git)
+[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
 
-This is completely untested, I've only made sure it compiles. Don't
-expect it to work. If you do start adding to it, build on top of it
-and point me to the git repo where all your new work can be found.
+Four coupled defects in the gssx XDR option-array decoder make the
+error paths unsafe: a NULL deref in the caller, a refcount leak on
+the decoded group_info, and a latent use-after-free that the leak
+fix would otherwise expose.
 
-What I've implemented so far is the refactoring necessary to
-implement generic handling of log item verification and decoding,
-converted the special case transhdr decoding to use the generic
-infrastructure, and implemented fairly complete ophdr validation,
-including validation of the log unmount record (which isn't
-validated in any way right now).
+gssx_dec_option_array() sets oa->count = 1 before allocating
+oa->data.  If that allocation fails, -ENOMEM is returned with
+oa->count == 1 and oa->data == NULL.  All other error paths jump
+to free_oa: which frees oa->data and NULLs it but also leaves
+oa->count == 1.  The caller trusts the count:
 
-Design has changed to use methods for item specific region count
-checking, as well as adding a completion method that allows item
-types to consume the item rather than queuing it for later recovery
-(both needed for the transhdr conversion). Implementation has been
-refined to avoid decoding ophdrs until sufficient validation has
-been performed to guarantee the buffer pointer is sane and is long
-enough to contain a full ophdr, and then it valdates the rest of the
-ophdr before passing it to the processing code.
+    gssp_accept_sec_context_upcall()
+      gssx_dec_accept_sec_context()
+        gssx_dec_option_array()        /* fails, count=1 data=NULL */
+      data = res.options.data[0].value /* NULL deref */
 
-The next steps are to start implementing the per-item type
-validation functions.
+Independently, free_creds: releases the partially decoded svc_cred
+with a bare kfree(creds).  gssx_dec_linux_creds() installs a
+groups_alloc() result into creds->cr_group_info; that object is
+kvmalloc-backed and refcounted, and only put_group_info() reaches
+kvfree().  A plain kfree(creds) drops the wrapper and leaks the
+group_info allocation.
 
-I also noticed that the head/tail search code that reads log
-record headers doesn't really do much validation on the log record
-headers. We probably need to address that, too, so we can detect
-corrupted headers during the head/tail search and avoid finding
-incorrect head/tail records as a result.
+The natural fix for the leak is to call free_svc_cred(creds) before
+kfree(creds), but free_svc_cred() invokes put_group_info() on
+creds->cr_group_info unconditionally when non-NULL.  The existing
+out_free_groups: path in gssx_dec_linux_creds() already called
+groups_free() on that pointer without clearing it, so once
+free_svc_cred() is wired in, the subsequent put_group_info() would
+touch freed memory.
 
-> Once your series is posted I'll start with review and the
-> recoveryloop / logprint-based testing, then take the per-type
-> validate_region() / validate_item() implementations on top of your
-> iterator.
+Fix all four together:
 
-I think it's probably better that you first read the code yourself
-and develop an understanding of what needs to be done without the
-aid of an LLM. See if you can find bugs in what I've already done
--without- an LLM - you will learn the code at the same time, and
-then be in a much better place to guide an LLM through later stages
-of development.
+  - Move the oa->count = 1 assignment below the oa->data allocation
+    so it is never set when oa->data is NULL.
+  - Reset oa->count to 0 at free_oa: so count and data stay
+    coherent and the caller sees an empty option array.
+  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
+    so the refcounted cr_group_info is released.  free_svc_cred()
+    either NULL-guards each field explicitly (cr_group_info has
+    an if() check) or delegates to a helper that is NULL-safe
+    itself (kfree for the string fields, gss_mech_put() which
+    guards with if(gm) at gss_mech_switch.c:342), so it is safe
+    to call on a partially decoded svc_cred where only
+    cr_uid/cr_gid/cr_group_info have been written and everything
+    else is zero from kzalloc.
+  - In gssx_dec_linux_creds()'s out_free_groups: path, release
+    cr_group_info with put_group_info() rather than groups_free()
+    so the teardown matches free_svc_cred()'s refcount-aware path,
+    and clear the pointer so a later free_svc_cred() on the same
+    creds does not release it a second time.
 
-Cheers,
+Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Dave.
+diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+index c9268a17ea4ad..1f0bbc3a21c09 100644
+--- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
++++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+ 
+ 	return 0;
+ out_free_groups:
+-	groups_free(creds->cr_group_info);
++	put_group_info(creds->cr_group_info);
++	creds->cr_group_info = NULL;
+ 	return err;
+ }
+ 
+@@ -242,12 +243,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 		return 0;
+ 
+ 	/* we recognize only 1 currently: CREDS_VALUE */
+-	oa->count = 1;
+-
+ 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
+ 	if (!oa->data)
+ 		return -ENOMEM;
+ 
++	oa->count = 1;
++
+ 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
+ 	if (!creds) {
+ 		err = -ENOMEM;
+@@ -294,8 +295,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 	return 0;
+ 
+ free_creds:
++	free_svc_cred(creds);
+ 	kfree(creds);
+ free_oa:
++	oa->count = 0;
+ 	kfree(oa->data);
+ 	oa->data = NULL;
+ 	return err;
 -- 
-Dave Chinner
-dgc@kernel.org
+2.53.0
+
