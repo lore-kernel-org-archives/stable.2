@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEED36B935
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9834B363C5A
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883306; cv=none; b=ryCTS0kx3Toxq5/nmYMbSXEZhwHCmBG+yFuTm38ahCvyWQQ/VtPOaBdnfAGhHjhilEsMJAtCCJAhvu2bzXHgBzfF5+ScN/KAuxHzafYM3Ro9eaYYglpOmFPb1wejm5e9fUAU4QwTm4A2hnH4vwfsBwxgqcJmrkgVRXKDC0hybSw=
+	t=1788883307; cv=none; b=GeQ/OZ1o5K+1O356p2RAHU9ymZTLYXwMbx9qwvPKaLibxIrDRYXmQZPLIZ/fJWFgPAGWke9hpv+/d53qJoRJ/7BGE8nf/mHMtXfVtIyjMcW+1qSbVJpwDSFHtTbPwjgNZcnqcksrFJuprssR+TbBzdcbcLZC453kBMSvHK13OVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883306; c=relaxed/simple;
-	bh=hs1BvvYTUd1tVfJ3F0kJ691RCeKk0t5DrwFc8Yu0NKw=;
+	s=arc-20240116; t=1788883307; c=relaxed/simple;
+	bh=+NA2hsXD8REewAyyGRnOZbf4IGSfzcbx2kHQq5XeBKk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cqBrr5f/fGTAoLZeS2klTBWrSz1+uKwGLO7p5mMriAWUhaOUYAALSGbluv1c01vKOyPwFUSpAdbqfhWmjeQ73I6ZMu8s1LRxMrVHgAyRDQsO69bGmOyr2+RLWxz209RcWdItqdYcoTXz79ATH2f1dX01O9YGBuHRXSdRuaxaRuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rv0GpzjT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ryWXDRujxWqE4a3U32df1f0ycpqpFzOHwDOLJn2v9KhVdVv8lb3eD0xiArFOAEDHWpeCiAR6yfDdq2TR6lGFTriotxycK9Tabmfsskdq6t64TIAOkht1gsMVFTNiBxuUJ9APZFlVnGfr06ClZ6CjWFOm+swAXjVJNFakxrijeHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDMK8Djb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rv0GpzjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD56B1F00A3A;
-	Tue,  8 Sep 2026 16:01:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDMK8Djb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD95D1F00A3D;
+	Tue,  8 Sep 2026 16:01:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883304;
-	bh=tKnc1PUwe8hS2ieSC2EyxrzgJ+DscTCuaafeywtiOF0=;
+	s=k20260515; t=1788883305;
+	bh=dDASWUUOUlW/DseiisEkuyn/hFxTDS44kcTxIFRQnhU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rv0GpzjTyH7PTAJ+k3NSeCi5+s5sQmbkfuO3C1LAzjUqM6pDP4wn9/0EzmhpkPATj
-	 KCB7q/DKVPko2KjN6wDsVOAa+isywu7AvTAXKDeTOrEd0ub5J8dLlCttLpqNeqdfIf
-	 ysr24AChW6b94C2cbE2S02LxBSqbaC/vyccY8aU4Zpm8yVnByoKp/CQwML0ZhLty5k
-	 wsb/IYrMASpaDzzjyrsFzN60gpnEfuRc5t6EIRnhieyrQOW7Xddk+J7a+A04pvAqo3
-	 KGA+c7fdlC7YUc/2l1coY3ldVdnb5NbUHZMjmhahTJ64CAyt/bedmrtp4Zc7kMgiDD
-	 IHMMoWC9trcrg==
+	b=TDMK8DjblnSSUpGVlkm+H6fXV8eYtVcttZmYaJiaRD7hCgYS9LONUKa6v+vtgF+jH
+	 9fh1qkmTk4K2bqT+sg25o2r1GfkizZu/7E3Cbtlx0PjrXl15POAySuusB6UBjvNmcR
+	 RWiRCrpBBiRUkICtmjwtjTFwA5gX4FgVjRVDbkS5AUx5yC4Asx5V25nB/WTtinQwF5
+	 tG8bh7k2HV4CM0XnC4P7vRmOQ/29MxdCggeki2l/xoX9dQAsbia53UNo5jt3H8ssWH
+	 40e8jgFn3Y/t2u0Kdg0fsImKELReEeym1jtQ6wTyKacAZUUPRZSa1HbtLAFCfMIwRC
+	 EONpfXNTsRxBQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ye Bin <yebin10@huawei.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
 	Zhang Yi <yi.zhang@huawei.com>,
+	Jan Kara <jack@suse.cz>,
 	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] jbd2: add prefix 'jbd2' for 'shrink_type'
-Date: Tue,  8 Sep 2026 12:01:40 -0400
-Message-ID: <20260908160141.2549593-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] jbd2: bound shrinker scans by examined checkpoint buffers
+Date: Tue,  8 Sep 2026 12:01:41 -0400
+Message-ID: <20260908160141.2549593-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908160141.2549593-1-sashal@kernel.org>
 References: <2026090324-reemerge-botany-12c4@gregkh>
@@ -48,128 +48,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ye Bin <yebin10@huawei.com>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit 26770a717cac57041d9414725e3e01dd19b08dd2 ]
+[ Upstream commit 15cb16496446b94e67f7abcb049b8e2c75cd3d02 ]
 
-As 'shrink_type' is exported. The module prefix 'jbd2' is added to
-distinguish from memory reclamation.
+The jbd2 shrinker currently accounts only checkpoint buffers that it
+successfully releases against nr_to_scan.  Busy buffers therefore do not
+consume the scan budget.
 
-Signed-off-by: Ye Bin <yebin10@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
+If a checkpoint transaction contains mostly busy buffers, the shrinker
+can scan its entire checkpoint list while holding journal->j_list_lock.
+Large checkpoint lists can result in excessive lock hold times and leave
+other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
+
+Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
+every buffer examined, including busy buffers.  Pass NULL from checkpoint
+cleanup paths so their existing full-list behavior is preserved.
+
+This restores the scan-budget semantics that existed before
+journal_shrink_one_cp_list() was changed to always scan a complete
+checkpoint list.
+
+Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://lore.kernel.org/r/20240407065355.1528580-3-yebin10@huawei.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Stable-dep-of: 15cb16496446 ("jbd2: bound shrinker scans by examined checkpoint buffers")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/jbd2/checkpoint.c | 22 +++++++++++-----------
- fs/jbd2/commit.c     |  2 +-
- include/linux/jbd2.h |  4 ++--
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ fs/jbd2/checkpoint.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
 diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 29036bc9135f8..1562f97861aaa 100644
+index 1562f97861aaa..ee0fd42485f5a 100644
 --- a/fs/jbd2/checkpoint.c
 +++ b/fs/jbd2/checkpoint.c
-@@ -366,7 +366,7 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+@@ -358,15 +358,16 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ /*
+  * journal_shrink_one_cp_list
+  *
+- * Find all the written-back checkpoint buffers in the given list
+- * and try to release them. If the whole transaction is released, set
+- * the 'released' parameter. Return the number of released checkpointed
+- * buffers.
++ * Find written-back checkpoint buffers in the given list and try to release
++ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
++ * transaction is released, set the 'released' parameter. Return the number of
++ * released checkpointed buffers.
+  *
   * Called with j_list_lock held.
   */
  static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
--						enum shrink_type type,
-+						enum jbd2_shrink_type type,
+ 						enum jbd2_shrink_type type,
++						unsigned long *nr_to_scan,
  						bool *released)
  {
  	struct journal_head *last_jh;
-@@ -383,12 +383,12 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+@@ -375,13 +376,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 	int ret;
+ 
+ 	*released = false;
+-	if (!jh)
++	if (!jh || (nr_to_scan && !*nr_to_scan))
+ 		return 0;
+ 
+ 	last_jh = jh->b_cpprev;
+ 	do {
  		jh = next_jh;
  		next_jh = jh->b_cpnext;
++		if (nr_to_scan)
++			(*nr_to_scan)--;
  
--		if (type == SHRINK_DESTROY) {
-+		if (type == JBD2_SHRINK_DESTROY) {
+ 		if (type == JBD2_SHRINK_DESTROY) {
  			ret = __jbd2_journal_remove_checkpoint(jh);
- 		} else {
- 			ret = jbd2_journal_try_remove_checkpoint(jh);
- 			if (ret < 0) {
--				if (type == SHRINK_BUSY_SKIP)
-+				if (type == JBD2_SHRINK_BUSY_SKIP)
- 					continue;
- 				break;
- 			}
-@@ -458,7 +458,7 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+@@ -402,7 +405,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 
+ 		if (need_resched())
+ 			break;
+-	} while (jh != last_jh);
++	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
+ 
+ 	return nr_freed;
+ }
+@@ -424,7 +427,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
+ 	tid_t tid = 0;
+ 	unsigned long nr_freed = 0;
+-	unsigned long freed;
+ 	bool first_set = false;
+ 
+ again:
+@@ -457,10 +459,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 		next_transaction = transaction->t_cpnext;
  		tid = transaction->t_tid;
  
- 		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--						   SHRINK_BUSY_SKIP, &released);
-+						   JBD2_SHRINK_BUSY_SKIP, &released);
- 		nr_freed += freed;
- 		(*nr_to_scan) -= min(*nr_to_scan, freed);
+-		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-						   JBD2_SHRINK_BUSY_SKIP, &released);
+-		nr_freed += freed;
+-		(*nr_to_scan) -= min(*nr_to_scan, freed);
++		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
++						       JBD2_SHRINK_BUSY_SKIP,
++						       nr_to_scan, &released);
  		if (*nr_to_scan == 0)
-@@ -491,20 +491,20 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
-  * journal_clean_checkpoint_list
-  *
-  * Find all the written-back checkpoint buffers in the journal and release them.
-- * If 'type' is SHRINK_DESTROY, release all buffers unconditionally. If 'type'
-- * is SHRINK_BUSY_STOP, will stop release buffers if encounters a busy buffer.
-- * To avoid wasting CPU cycles scanning the buffer list in some cases, don't
-- * pass SHRINK_BUSY_SKIP 'type' for this function.
-+ * If 'type' is JBD2_SHRINK_DESTROY, release all buffers unconditionally. If
-+ * 'type' is JBD2_SHRINK_BUSY_STOP, will stop release buffers if encounters a
-+ * busy buffer. To avoid wasting CPU cycles scanning the buffer list in some
-+ * cases, don't pass JBD2_SHRINK_BUSY_SKIP 'type' for this function.
-  *
-  * Called with j_list_lock held.
-  */
- void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
--					  enum shrink_type type)
-+					  enum jbd2_shrink_type type)
- {
- 	transaction_t *transaction, *last_transaction, *next_transaction;
- 	bool released;
- 
--	WARN_ON_ONCE(type == SHRINK_BUSY_SKIP);
-+	WARN_ON_ONCE(type == JBD2_SHRINK_BUSY_SKIP);
- 
- 	transaction = journal->j_checkpoint_transactions;
- 	if (!transaction)
-@@ -550,7 +550,7 @@ void jbd2_journal_destroy_checkpoint(journal_t *journal)
- 			spin_unlock(&journal->j_list_lock);
  			break;
- 		}
--		__jbd2_journal_clean_checkpoint_list(journal, SHRINK_DESTROY);
-+		__jbd2_journal_clean_checkpoint_list(journal, JBD2_SHRINK_DESTROY);
- 		spin_unlock(&journal->j_list_lock);
- 		cond_resched();
- 	}
-diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
-index 4de8b49afd226..53628e2340b33 100644
---- a/fs/jbd2/commit.c
-+++ b/fs/jbd2/commit.c
-@@ -501,7 +501,7 @@ void jbd2_journal_commit_transaction(journal_t *journal)
- 	 * frees some memory
- 	 */
- 	spin_lock(&journal->j_list_lock);
--	__jbd2_journal_clean_checkpoint_list(journal, SHRINK_BUSY_STOP);
-+	__jbd2_journal_clean_checkpoint_list(journal, JBD2_SHRINK_BUSY_STOP);
- 	spin_unlock(&journal->j_list_lock);
- 
- 	jbd2_debug(3, "JBD2: commit phase 1\n");
-diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
-index 9f498fef91cd4..41da8fc28cb53 100644
---- a/include/linux/jbd2.h
-+++ b/include/linux/jbd2.h
-@@ -1451,9 +1451,9 @@ void jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block);
- extern void jbd2_journal_commit_transaction(journal_t *);
- 
- /* Checkpoint list management */
--enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
-+enum jbd2_shrink_type {JBD2_SHRINK_DESTROY, JBD2_SHRINK_BUSY_STOP, JBD2_SHRINK_BUSY_SKIP};
- 
--void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum shrink_type type);
-+void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum jbd2_shrink_type type);
- unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal, unsigned long *nr_to_scan);
- int __jbd2_journal_remove_checkpoint(struct journal_head *);
- int jbd2_journal_try_remove_checkpoint(struct journal_head *jh);
+ 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
+@@ -516,7 +517,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
+ 		transaction = next_transaction;
+ 		next_transaction = transaction->t_cpnext;
+ 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-					   type, &released);
++					   type, NULL, &released);
+ 		/*
+ 		 * This function only frees up some memory if possible so we
+ 		 * dont have an obligation to finish processing. Bail out if
 -- 
 2.53.0
 
