@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFE3598BEB;
-	Tue,  8 Sep 2026 18:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF8A56B851;
+	Tue,  8 Sep 2026 18:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893580; cv=none; b=tfizELLd50BkstzacofZznMuNRBe9adlQd9OmObLzJg6tnCYtFn4Daa6aqm1CsMnzlAvglwVr5vChrYK18MD4fqaZxwmqm+WyrM/gG9aPKnUMchRl7g3urDxCCM2HNltBsmKqllEraLvO/uHpIyu3FkjqACin652+8Q6ygdgwjg=
+	t=1788893731; cv=none; b=S/INibQFK9ZK+i8kyYbBlgl9cDZYmsERW4oPS0YNcPvkRmgF6OYLR7SjKN0gXZ7XYwX8ttcmDnh3dppJcq943Z0/EHBw5elbsJKKlAUVizpdQL3LA6frVc8pPy9bnRtcRIiT/RcYvsy34NQ9q0VWQTp1OpH7dBn53qgURGje3y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893580; c=relaxed/simple;
-	bh=FkOlW4BSLjtPbdVhL1BHPnX43nPaswMx+gHYElEBNUs=;
-	h=Date:To:From:Subject:Message-Id; b=YlrQTuxWMivyrbIUeyHp9ATAYvxFHGynZceHMAAm5Ehnd3W1gdrf7IPZ1BnAg7yb8M7MnRB0CsWCuu1aCIQADlBOImwcooapZBsNH0rynPd7DHIzcA/P1/Lm5CVPhpXyFPyPkhbqRbpp4pjL6pZ/XK3kyAWw4fwG/2YNOc+if2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AHCLzMSY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788893731; c=relaxed/simple;
+	bh=Y5PfoiBjG9Lv3vq8xevK0wc3T7LZdcmran0efa0EtAo=;
+	h=Date:To:From:Subject:Message-Id; b=rUMmHJT9z7TcPk/brR5By1/J+0sufYFlSN8iJ8mXtk+aNZHusWglDPaCCjK0ccZmuyfXgdBbcWaFqW4255KdsDNWalIpyuBFGUH5Q6OY/+51j394487+p8m4rfv436tY1nPJ/ZTj1oKRVCuC88wdIbxLVPXLJwmDxyOFXHz1fu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=p3cM095i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AHCLzMSY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51551F00A3D;
-	Tue,  8 Sep 2026 18:52:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="p3cM095i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888231F00A3A;
+	Tue,  8 Sep 2026 18:55:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788893579;
-	bh=BKe8T6nROiVRH3fvgVTEmXzzXU79Kao3I62VQ9CFsR4=;
+	d=linux-foundation.org; s=korg; t=1788893729;
+	bh=Dsd/cQxN5YEcxY03RcFqw8Qhawnp1n/TTsJXwmOVBhU=;
 	h=Date:To:From:Subject;
-	b=AHCLzMSYmWVBdO/rkwGg58oOqdTv4As56fek05xsKOrIeVCaB6PJ4zWqzSBmsfoIp
-	 PKm8IFACiNumibz9+4W4FWy4PPF9HqnVXnCC56XRfVQjRQbQ3RUgeynZqz49hLjmFy
-	 d5FWVjbx1KfuV9k+z2jWx+XRvv/NnocQU/SC3jKo=
-Date: Tue, 08 Sep 2026 11:52:58 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,aethernet65535@gmail.com,akpm@linux-foundation.org
+	b=p3cM095iN/1lA5Cj5oiJsuX8gcxTQDTetmGy9OK/xPdrkQaXVJTgSwenEV4hIS2gv
+	 vgEvVnB/MAcw6fyxAwTg5XbWutbRNRdKi/UeOykmPkRG5IuW+5SHP14/bE2NVe4NfX
+	 qw+Ajzw0Fzmj/ZiR+6S5ljRK+fawJ8SsDRHHuY1w=
+Date: Tue, 08 Sep 2026 11:55:29 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-allow-esz-to-be-set-to-zero.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260908185258.E51551F00A3D@smtp.kernel.org>
+Subject: + mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold.patch added to mm-new branch
+Message-Id: <20260908185529.888231F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,15 +35,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The patch titled
-     Subject: mm/damon/core: allow esz to be set to zero
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-core-allow-esz-to-be-set-to-zero.patch
+     Subject: mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-allow-esz-to-be-set-to-zero.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold.patch
 
-This patch will later appear in the mm-hotfixes-unstable branch at
+This patch will later appear in the mm-new branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
 Before you just go and hit "reply", please:
    a) Consider who else should be cc'ed
@@ -58,60 +69,140 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Liew Rui Yan <aethernet65535@gmail.com>
-Subject: mm/damon/core: allow esz to be set to zero
-Date: Tue, 8 Sep 2026 06:54:11 -0700
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Mon, 7 Sep 2026 10:03:56 -0700
 
-When the temporal quota goal tuner determines that the goal has been
-achieved (score >= 10000), it sets esz_bp to zero so that the esz becomes
-zero.  However, damos_set_effective_quota() clamps the esz to
-min_region_sz when quota->ms is set.
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table entry
+with the updated variable value.  If hardware updates the same page table
+entry in parallel, the hw updates could be lost.  For example,
+hardware-updated dirty bits might be lost.
 
-This is a minor issue, the main problem is that it doesn't match the
-description in the documentation, which state that if the goal has already
-been [over-]achieved, the quota will be set to zero.
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to the
+memory is made after the clearing, the hw will see the page table entry is
+cleared, trigger page fault and wait until it is handled.  The page fault
+handling will wait for damon_hugetlb_mkold() due to the page table lock.
 
-Fix this by set quota (esz) as minimum as possible.
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot be
+reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-Link: https://lore.kernel.org/20260908135413.97570-1-sj@kernel.org
-Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260907170358.100168-1-sj@kernel.org
+Link: https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org [1]
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
 Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # v7.1.x
+Cc: <stable@vger.kernel.org> # 5.17.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/damon/core.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ mm/damon/vaddr.c |   21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
---- a/mm/damon/core.c~mm-damon-core-allow-esz-to-be-set-to-zero
-+++ a/mm/damon/core.c
-@@ -3091,6 +3091,7 @@ static void damos_set_effective_quota(st
- 	struct damos_quota *quota = &s->quota;
- 	unsigned long throughput;
- 	unsigned long esz = ULONG_MAX;
-+	unsigned long esz_time;
+--- a/mm/damon/vaddr.c~mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold
++++ a/mm/damon/vaddr.c
+@@ -283,22 +283,29 @@ out:
+ }
  
- 	if (!quota->ms && list_empty(&quota->goals)) {
- 		quota->esz = quota->sz;
-@@ -3111,8 +3112,8 @@ static void damos_set_effective_quota(st
- 					1000000, quota->total_charged_ns);
- 		else
- 			throughput = PAGE_SIZE * 1024;
--		esz = min(throughput * quota->ms, esz);
--		esz = max(ctx->min_region_sz, esz);
-+		esz_time = max(throughput * quota->ms, ctx->min_region_sz);
-+		esz = min(esz_time, esz);
- 	}
+ #ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
++{
++	unsigned long psize = huge_page_size(hstate_vma(vma));
++
++	if (!pte_young(*entry))
++		return false;
++	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
++	*entry = pte_mkold(*entry);
++	set_huge_pte_at(mm, addr, pte, *entry, psize);
++	return true;
++}
++
+ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+ 				struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	bool referenced = false;
+ 	pte_t entry = huge_ptep_get(mm, addr, pte);
+ 	struct folio *folio = pfn_folio(pte_pfn(entry));
+-	unsigned long psize = huge_page_size(hstate_vma(vma));
  
- 	if (quota->sz && quota->sz < esz)
+ 	folio_get(folio);
+ 
+-	if (pte_young(entry)) {
+-		referenced = true;
+-		entry = pte_mkold(entry);
+-		set_huge_pte_at(mm, addr, pte, entry, psize);
+-	}
+-
++	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+ 	if (mmu_notifier_clear_young(mm, addr,
+ 				     addr + huge_page_size(hstate_vma(vma))))
+ 		referenced = true;
 _
 
-Patches currently in -mm which might be from aethernet65535@gmail.com are
+Patches currently in -mm which might be from sj@kernel.org are
 
-mm-damon-core-allow-esz-to-be-set-to-zero.patch
-docs-mm-damon-design-accurate-semantics-of-nr_snapshots.patch
-docs-mm-damon-design-difference-between-watermarks-and-nr_snapshots.patch
-docs-mm-damon-design-fix-typo-of-max_nr_snapshots.patch
+mm-damon-core-skip-applying-scheme-if-region-split-for-quota-fails.patch
+mm-damon-paddr-respect-folio-end-for-damos_stat.patch
+mm-damon-paddr-respect-folio-end-for-damos-actions-except-stat.patch
+mm-damon-vaddr-respect-folio-end-for-damos_stat.patch
+mm-damon-vaddr-respect-folio-end-for-damos_migrate_hotcold.patch
+mm-damon-core-handle-extreme-memory-state-in-damon_get_node_mem_bp.patch
+mm-damon-core-handle-extreme-memory-state-in-get_node_memcg_used_bp.patch
+mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
+mm-damon-core-introduce-damon_filter_type_pgidle_unset.patch
+mm-damon-paddr-support-pgidle_unset-probe-filter-type.patch
+mm-damon-sysfs-support-pgidle_unset-probe-filter-type.patch
+docs-mm-damon-design-document-pgidle_unset-probe-filter-type.patch
+mm-damon-core-introduce-damon_prep-struct.patch
+mm-damon-core-commit-preps.patch
+mm-damon-core-introduce-damon_operations-prep_probes.patch
+mm-damon-paddr-support-damon_prep.patch
+mm-damon-sysfs-implement-preps-directory.patch
+mm-damon-sysfs-implement-preps-nr_preps-file.patch
+mm-damon-sysfs-create-directories-for-nr_preps-writes.patch
+mm-damon-sysfs-implement-prep_action-file.patch
+mm-damon-sysfs-pass-preps-to-damon-core.patch
+selftests-damon-sysfssh-test-probe-prep-sysfs-files.patch
+docs-mm-damon-design-document-probe-preps.patch
+docs-admin-guide-mm-damon-usage-document-probe-preps-sysfs-files.patch
+docs-abi-damon-document-probe-prep-sysfs-files.patch
+mm-damon-tests-core-kunit-test-committing-psi-goal-to-psi-goal.patch
+mm-damon-core-handle-uninitialized-damos_quota_goal-last_psi_total.patch
+mm-damon-core-copy-nid-for-eligible_mem_bp-damos-quota-goal-commit.patch
+mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+mm-damon-tests-core-kunit-test-damon_commit_filter.patch
+mm-damon-tests-core-kunit-add-damon_commit_probes-test.patch
+selftests-damon-_damon_sysfs-implement-damonprobes.patch
+selftests-damon-drgn_dump_damon_status-dump-probes.patch
+selftests-damon-sysfspy-extend-commit-assertion-function-for-probes.patch
+selftests-damon-sysfspy-test-damon-probes.patch
+mm-damon-core-use-damon_nr_samples_per_aggr-for-max-merge-threshold.patch
+mm-damon-core-remove-debug-messages.patch
+mm-damon-core-remove-debug-messages-fix.patch
+mm-damon-vaddr-remove-a-debug-message.patch
+mm-damon-core-validate-number-of-probes-in-valid_probe_params.patch
+mm-damon-sysfs-remove-probes-number-validation.patch
+mm-damon-tests-core-kunit-extend-set_regions-test-for-error-case.patch
+mm-damon-tests-core-kunit-test-=0-size-damon_set_regions-inputs.patch
+mm-damon-tests-core-kunit-test-overlapping-ranges-for-set_regions.patch
+mm-damon-tests-core-kunit-test-damon_nr_samples_per_aggr.patch
+selftests-damon-sysfssh-test-hugepage_mem_bp-quota-goal.patch
+docs-mm-damon-maintainer-profile-update-ai-review-for-sashiko-replies.patch
+docs-abi-damon-recommend-subsystem-doc-instead-of-admin-guide.patch
+mm-damon-core-error-damos_commit_quota_goal-for-zero-target_value.patch
+revert-mm-damon-lru_sort-error-out-for-10000-active_mem_bp.patch
+revert-samples-damon-mtier-error-out-for-zero-quota-goal-target-values.patch
+mm-damon-core-handle-null-ctx-parameter-in-damon_call.patch
+mm-damon-core-set-ctx-call_controls_obsolete-in-damon_new_ctx.patch
+mm-damon-reclaim-remove-unnecessary-damon_call-param-validation.patch
+mm-damon-lru_sort-remove-unnecessary-damon_call-param-validation.patch
+mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold.patch
+mm-damon-move-damon_hugetlb_mkold-from-vaddr-to-ops-common.patch
+mm-damon-ops-common-handle-hugetlb-folios-in-folio-mkold-young-rmap-walkers.patch
+mm-damon-paddr-support-hugetlb-folios-in-access-monitoring.patch
 
