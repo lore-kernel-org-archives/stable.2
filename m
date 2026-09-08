@@ -1,93 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9B559C984
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFE3598BEB;
+	Tue,  8 Sep 2026 18:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893033; cv=none; b=LEpOKR0Y7BwNmrTpAPNqCaFREYr/QLpytYt9YEayddtq7uqja6s8W9HneBv3U2VA8GSdesUyUd1mjcVhf4/2NGpJCPQ2BwKmnaXkOk9u2XaEM852hlOKIeHPQgTxhbMFf86qBk6XL3ZO7rgzil6M13P+h8enHZgDmt3kfiePtD0=
+	t=1788893580; cv=none; b=tfizELLd50BkstzacofZznMuNRBe9adlQd9OmObLzJg6tnCYtFn4Daa6aqm1CsMnzlAvglwVr5vChrYK18MD4fqaZxwmqm+WyrM/gG9aPKnUMchRl7g3urDxCCM2HNltBsmKqllEraLvO/uHpIyu3FkjqACin652+8Q6ygdgwjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893033; c=relaxed/simple;
-	bh=5Rw/JlqIG5T/As5eBmk3ZU9xOi4Qm3HLXKvGD75HOY0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AQsJBxRK7o+z1NFiaqpUEtNIOZ+WYvGUbh3A5XNppeA04co8QmxE/mk33wkv4AQxAXnS7ERc0Wfi+QD54NspqkLOMPqRiNCQGT01EJeh0H1szZ/hGiBVsNwHnRjBDBPDwh046N+29Z1Pm8lnARtl2ymx6YNExFz6eYExE3R5NBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N1Y5o0Eb; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788893580; c=relaxed/simple;
+	bh=FkOlW4BSLjtPbdVhL1BHPnX43nPaswMx+gHYElEBNUs=;
+	h=Date:To:From:Subject:Message-Id; b=YlrQTuxWMivyrbIUeyHp9ATAYvxFHGynZceHMAAm5Ehnd3W1gdrf7IPZ1BnAg7yb8M7MnRB0CsWCuu1aCIQADlBOImwcooapZBsNH0rynPd7DHIzcA/P1/Lm5CVPhpXyFPyPkhbqRbpp4pjL6pZ/XK3kyAWw4fwG/2YNOc+if2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AHCLzMSY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N1Y5o0Eb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788893031; x=1820429031;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=5Rw/JlqIG5T/As5eBmk3ZU9xOi4Qm3HLXKvGD75HOY0=;
-  b=N1Y5o0EbC7EG+zkwpDs8l1XN5U/QTeh9BG/45PICzuAozBHuE5zDjupY
-   YYT+p+Aq4ow/iddWpHXdUEd9DcN6Cp/hu92CQZfc1Ut7reeLk71/cY+Mr
-   khsUnGAbYiAW3aGb+Z+TBP87E7/Tb/52LXqrOu6EkXx7GZoqF2Lt9EBdI
-   64e/32mKUzxujEMfC6GEXlSPtYonF1UeT+TMWa3sHu/7n2w370R4lQcBf
-   NvVYZnwGyTPcCsmz4D4hDFe5j+MEWHOLvffK20kzqNwkewgYgh6N16vKy
-   ujq9Cqfa7fct7ph/iOscfSC8njzTW7Egd6Popl13sLIoUFDYBPRxOkb31
-   g==;
-X-CSE-ConnectionGUID: UszN9oCRQf20oeISN3GhIA==
-X-CSE-MsgGUID: iNLr5CL1S5KrBSPk23p4Iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100826291"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="100826291"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 11:43:51 -0700
-X-CSE-ConnectionGUID: UJO4LCE+QFqGYHxq5/so3g==
-X-CSE-MsgGUID: +VW7/waxQOWS+74VcvE72w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="270589962"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 11:43:51 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] drm/xe: Keep walking on SVM eviction failure
-Date: Tue,  8 Sep 2026 11:43:46 -0700
-Message-Id: <20260908184346.92332-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AHCLzMSY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51551F00A3D;
+	Tue,  8 Sep 2026 18:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788893579;
+	bh=BKe8T6nROiVRH3fvgVTEmXzzXU79Kao3I62VQ9CFsR4=;
+	h=Date:To:From:Subject;
+	b=AHCLzMSYmWVBdO/rkwGg58oOqdTv4As56fek05xsKOrIeVCaB6PJ4zWqzSBmsfoIp
+	 PKm8IFACiNumibz9+4W4FWy4PPF9HqnVXnCC56XRfVQjRQbQ3RUgeynZqz49hLjmFy
+	 d5FWVjbx1KfuV9k+z2jWx+XRvv/NnocQU/SC3jKo=
+Date: Tue, 08 Sep 2026 11:52:58 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,aethernet65535@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-core-allow-esz-to-be-set-to-zero.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260908185258.E51551F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The desired behavior for SVM eviction failures, which can occur due to
-various uncontrollable races, is for TTM to continue walking the LRU
-list and look for another eviction candidate. This is expressed by
-returning -ENOSPC from the ->move() callback.
 
-Adjust the SVM eviction failure path in ->move() to return -ENOSPC so
-that TTM continues searching for another buffer to evict.
+The patch titled
+     Subject: mm/damon/core: allow esz to be set to zero
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-damon-core-allow-esz-to-be-set-to-zero.patch
 
-Fixes: 3ca608dc7561 ("drm/xe: Basic SVM BO eviction")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-allow-esz-to-be-set-to-zero.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Liew Rui Yan <aethernet65535@gmail.com>
+Subject: mm/damon/core: allow esz to be set to zero
+Date: Tue, 8 Sep 2026 06:54:11 -0700
+
+When the temporal quota goal tuner determines that the goal has been
+achieved (score >= 10000), it sets esz_bp to zero so that the esz becomes
+zero.  However, damos_set_effective_quota() clamps the esz to
+min_region_sz when quota->ms is set.
+
+This is a minor issue, the main problem is that it doesn't match the
+description in the documentation, which state that if the goal has already
+been [over-]achieved, the quota will be set to zero.
+
+Fix this by set quota (esz) as minimum as possible.
+
+Link: https://lore.kernel.org/20260908135413.97570-1-sj@kernel.org
+Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.1.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/gpu/drm/xe/xe_bo.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index b162753cebb7..8264b2ef557e 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1043,6 +1043,11 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 		} else {
- 			drm_dbg(&xe->drm, "Evict system allocator BO failed=%pe\n",
- 				ERR_PTR(ret));
-+			/*
-+			 * The semantic we want upon SVM eviction failure is
-+			 * keep walking for eviction, which is -ENOSPC.
-+			 */
-+			ret = -ENOSPC;
- 		}
+ mm/damon/core.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/mm/damon/core.c~mm-damon-core-allow-esz-to-be-set-to-zero
++++ a/mm/damon/core.c
+@@ -3091,6 +3091,7 @@ static void damos_set_effective_quota(st
+ 	struct damos_quota *quota = &s->quota;
+ 	unsigned long throughput;
+ 	unsigned long esz = ULONG_MAX;
++	unsigned long esz_time;
  
- 		goto out;
--- 
-2.34.1
+ 	if (!quota->ms && list_empty(&quota->goals)) {
+ 		quota->esz = quota->sz;
+@@ -3111,8 +3112,8 @@ static void damos_set_effective_quota(st
+ 					1000000, quota->total_charged_ns);
+ 		else
+ 			throughput = PAGE_SIZE * 1024;
+-		esz = min(throughput * quota->ms, esz);
+-		esz = max(ctx->min_region_sz, esz);
++		esz_time = max(throughput * quota->ms, ctx->min_region_sz);
++		esz = min(esz_time, esz);
+ 	}
+ 
+ 	if (quota->sz && quota->sz < esz)
+_
+
+Patches currently in -mm which might be from aethernet65535@gmail.com are
+
+mm-damon-core-allow-esz-to-be-set-to-zero.patch
+docs-mm-damon-design-accurate-semantics-of-nr_snapshots.patch
+docs-mm-damon-design-difference-between-watermarks-and-nr_snapshots.patch
+docs-mm-damon-design-fix-typo-of-max_nr_snapshots.patch
 
