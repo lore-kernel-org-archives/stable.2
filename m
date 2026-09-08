@@ -1,117 +1,290 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD1C492E55
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2CC478E5F
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908552; cv=none; b=JPdr1tKez2ATUfTDhTbi5wJpnRXMRevG6NUq9bD+LmFJmE0ABZWcBHNmPoHI0lsQA+1ed6N9YxgD0i7708RULmfxvseqDrAB6N0+f72jY8SiMvxdm9qdPxy977D1qvnn9j775/5KtYEgB5nJLvRDSZHAxqVRPy387JIhcBfgppc=
+	t=1788908586; cv=none; b=dmS0DO8PtNmZmyAZcq6Zmti/UVwrqgbJi8boefvq0zHOJv7JPKxSBXiN1iPNKjRz9ssul+2hVenNzIKQzwDnfOC4mH2UVhb48ewcfzHCSmqxUwK4ypZcrdxvjgr/eT0WDmqEtr8ajPhY5IFssROuHC5sBU5Dj7VG5kSct9ddJ+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908552; c=relaxed/simple;
-	bh=DdAHUusZsgq8pC7zD4ogjrIO6qJ7TmVHXzBPBw7vdNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CJdDqrO3OvbZiH8fidVYmAtJon3TxMxnMCxybg+CyxtkF9kXtl8oCKwTTYlnrevvSyIrVVAVdy43b/k7tBGl30FRqOQI60EEj34e0Lqigesq7+DuG4A7ZzPKYtNL86JvvFL9U8U8K5ur8u9J2uy5BF17lb9UEVyngVHT/j2H0Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhrEHiE/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788908586; c=relaxed/simple;
+	bh=D2YuvcUAHUFJza8GC6Kjwm7Grr/7KVf6tU/jjasoRfQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MgmNE/+STGB+VZxUc1k2B7SOCEefuJJaEsotKErLTx/fLOFZ/aYi/lHx4Us28QQlv1RPoYLnyyiiMkO10nZhs/Xms9HfNRAmMuqNZ4UEj921whc6zfeL9AlU/apcxu6fj7IcmH0h/frxFT1OgBYpn+9f727xiA++kQmW2GAVPjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=XmUfG0D1; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhrEHiE/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2991F00A3E;
-	Tue,  8 Sep 2026 23:02:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788908550;
-	bh=F/4TJ8YWiDj6B2ND98+TmdBMLZsyxRBgeAucvzVBXFM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mhrEHiE/9QJwMM8pU6HO3rv1aIZi2i8BwOtEh8FEIz6PXyeoFwWDSbM0GasL52gsX
-	 xNdeJhpGcCf9Z3bLdzJlkjlhFwI0cYEhPSRTNgbz5yq1midhssBlce/SZFho29Jn9J
-	 0gbt3qQqDZ32jO0+rCtK/mg7sG2zrPEPw2u5J4A39SsP/m0CXadOmgAVoIVkMKsrZR
-	 zPzUqkGqH8g5mArb0o69RDT4pur0QUHYrD3tmSWQAyCsewwu38rXnlXu7KkEjLzJuQ
-	 5Z7kdXbIwFmH5fh4FGXr7fokm0sUcbJGdPLzyNT0rshAAND5wKbAhNbcMA1S86Z04A
-	 aN7t533flC/VA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] ip: orphan prefetched skbs before multicast forwarding
-Date: Tue,  8 Sep 2026 19:02:27 -0400
-Message-ID: <20260908230227.559723-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908230227.559723-1-sashal@kernel.org>
-References: <2026090320-tiptop-scrooge-9ea0@gregkh>
- <20260908230227.559723-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="XmUfG0D1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1788908583;
+	bh=hzMs9bWmTBKn/dyZ3v41ire/mT+Fl+HYyGkzUgv04nk=;
+	b=XmUfG0D1X6lSbycQsv+9AG4MZ0XLSfjt20qJdPz/kTDgMsG71Sd0IYImmu7PovV6Rz2n
+	fnUai95JFV2AcXPgI3pfIwzPx8RoDobq0uZeDzSAoJbUAL29DG8qN5oiUl9uD9ZLXgAh7O
+	ZR5TTjKHmJlmu0n+vFAzefOpBpgcpm1L2P1crZCAgDFGSk7qVOFn5OcJQz2kUjmixVe6P+
+	S6/RrXpvacWDQ5wjQ71wtQRbTZx3BmfXVMHDmSFuddd7OlcOLjh1sjcwnnmos8VMRMQz8i
+	53EP1mspRQLwSMRzEkSqaVE5MAAEUPfEXJ72wNZXX+sWm6vpmEgwMlVqbd2B9mxw==
+Received: by recvd-668757f9cc-jnt6k with SMTP id recvd-668757f9cc-jnt6k-1-6AA09426-141
+	2026-09-08 23:03:02.859202496 +0000 UTC m=+3643851.653686036
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-8 (SG) with ESMTP
+	id oYFXptEuSG6pF6ftZE61Ag
+	Tue, 08 Sep 2026 23:03:02.804 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Tue, 08 Sep 2026 23:03:03 +0000 (UTC)
+Subject: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PQW7DIBAF0KtErEs0DHaArHKPqAsDQ02lmggcq
+ 1HkuxenihpVLL/0533NnRXKkQo77u4s0xJLTFMN/duOuXGYPohHXzNDwAMo6PjFRZ7JDpnnlGZ
+ ur4UHKVAGEhCcYvXwkinE7wd6fv/N5Wo/yc2btDXGWOaUb4/VRWy950DfGlgEF7zvfVDgrPdan
+ 8Y00c2lL7uPiW0bC74oApsKVmUQ1ghQg0bvGop8UaRoKrIqByWRUMrgjGko3Z9iQDeVriqoNJB
+ xiAT/P1rX9QcRazMsmwEAAA==
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9707; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=D2YuvcUAHUFJza8GC6Kjwm7Grr/7KVf6tU/jjasoRfQ=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqoJQmvh3lUFWQGVYTBoKHHX13qVQYZ3v7VoOhm
+ MAY4oF2oJ+JATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCaqCUJgAKCRClztTjl62v
+ woNNCAC7e2YMkWiEwxf06fN7i9NVJXM5svGmCdIM1YrGjKHfi3h8cQ4AQh7YmjOsvl76vFkXtKZ
+ HlLiw2+wg0gjqPBcI5iuFAabcMFZ1ZeuVuR1GMSCPvyK/s1AOWTMqKEOEEKDtgsPnJdL52B709o
+ 939hyQ0C39fEM5KE2ltuP8gSLYg/TypRp/gXLtQ1PxrvlMqatt83dl1bWLYhPUNCDXzYrYNNmM/
+ NodQxzZJseiO0XSSpXdZZk09/f22Y1QiHIcgQaeQ6mufPz0AIc2KNhujJzqVEXxjRQXa+ymjKza
+ 5naF6Do8hSMPQ0X2SuRWw07KWzMYiL2NT8WQDGaxgin9o5sf
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmef43UvCFff4x?=
+ =?us-ascii?Q?hVKLca=2FKLaJQz5Z7IxcROrl0PkkesuNkUt9DEJC?=
+ =?us-ascii?Q?jF7OMyVM7olLWpf+j2dZZewHV8XYQ005O1Y+gK5?=
+ =?us-ascii?Q?rFjnG8jUu7h8YOQfKA8meNKWbrcoZx6LzR31=2FNe?=
+ =?us-ascii?Q?tkmlUEdqhAiUoMtKCW8Yg=2FJ0rOeVJKDnhwasIUa?= =?us-ascii?Q?haPQ?=
+To: Bjorn Helgaas <bhelgaas@google.com>, Ilpo =?iso-8859-1?q?J=E4rvinen?=
+	<ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org, Liz Fong-Jones <lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-[ Upstream commit e36ce6e78fe3fc3c071a26750783b7ba081ce10d ]
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-IPv4 and IPv6 input preserve an skb->sk association installed by
-bpf_sk_assign() so that local delivery can use the selected socket under
-RCU. Both address families can also prefetch a socket in UDP early demux.
-In both paths (BPF and UDP early demux) a reference is not guaranteed to
-be held on the socket.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-When a multicast packet is not locally deliverable, IPv6 hands the
-original skb to ip6_mr_input(). IPv4's ip_mr_input() similarly keeps the
-original skb when local delivery is not needed. Either path can put the
-skb on an unresolved multicast route queue or forward it after the
-receive-side RCU section ends.
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
 
-After the prefetched socket is destroyed, a later skb free invokes
-sock_pfree() and dereferences the stale skb->sk. Orphan the skb before
-each non-local multicast forwarding path. Local delivery retains the
-original skb; the existing skb_clone() calls provide multicast forwarding
-with a socket-free clone.
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
 
-Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
-Fixes: 08842c43d016 ("udp: no longer touch sk->sk_refcnt in early demux")
+When there is no upstream bridge, call pci_bus_assign_resources() on
+the root bus to place the BARs released above, using the same
+alignment-sorted algorithm as normal enumeration instead of a manual
+per-BAR loop. This also walks the rest of the hierarchy under the
+root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+release before resize") removed that call -- the core-side fix that
+commit asked for ("such a problem should be fixed inside
+pci_resize_resource() instead").
+
+pci_bus_assign_resources() returns void, so failure is detected by
+checking whether the released BARs are still assigned afterward; if
+not, roll back as in the bridged case. This is stricter than the
+bridged path -- it fails on any unplaced resource, not just required
+ones -- since a root bus typically has one shared window, and failing
+loudly seemed better than leaving something silently unassigned.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly. The two are usually equivalent, but pci_upstream_bridge()
+is the canonical test -- pci_is_root_bus(), which it's built on,
+warns that bus->self == NULL doesn't necessarily mean a root bus
+(SR-IOV virtual buses from virtfn_add_bus() are the same).
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/0c52eb3d7532aaf8bccf37e0f7c922143c639735.1786552223.git.zhilinz@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
- net/ipv4/ipmr.c      | 3 +++
- net/ipv6/ip6_input.c | 1 +
- 2 files changed, 4 insertions(+)
+#regzbot introduced: 337b1b566db0
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 6e4f91e76e2d3..bd8d828818aac 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -2112,6 +2112,9 @@ int ip_mr_input(struct sk_buff *skb)
- 	if (IPCB(skb)->flags & IPSKB_FORWARDED)
- 		goto dont_forward;
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+
+On the topology question raised in review: this is physical hardware,
+not a virtualized guest, running the UEFI/ACPI firmware variant of
+this board (SolidRun also ships a U-Boot/devicetree variant of the
+same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
+exact root complex wiring; see the hardware manual's block diagram:
+https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-manual#block-diagram
+---
+Changes in v5:
+- Per Ilpo Järvinen's review of v4: use pci_bus_assign_resources()
+  instead of a manual per-BAR pci_assign_resource() loop in the
+  root-bus branch. Same outcome for the bug being fixed, but reuses
+  the core's alignment-sorted placement algorithm and matches the
+  design intent stated in db92e3fef53e's commit message, rather than
+  reimplementing assignment ad hoc.
+- Drop Reviewed-by from Krzysztof Wilczyński: this revision changes
+  what the root-bus branch actually does (not just a predicate, as
+  in v3's pci_upstream_bridge() change), so his v2 review doesn't
+  carry over. Add Suggested-by for Ilpo instead.
+- Add Suggested-by for Bjorn Helgaas too: overdue credit for the
+  pci_upstream_bridge() suggestion from v3 review, which only ever
+  made it into the cover letter's changelog, not the actual commit
+  trailers.
+- Link to v4: https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io
+
+Changes in v4:
+- No functional changes. Resending per Thorsten Leemhuis (regressions
+  tracking) -- this looked to have fallen through the cracks after
+  v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
+  (stable): pci_do_resource_release_and_resize() still has the
+  original "if (!bus->self) goto out;" with no reassignment on that
+  path.
+- Rebase onto current mainline.
+- Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io
+
+Changes in v3:
+- Add Reviewed-by from Krzysztof Wilczyński, received on v2.
+- Use pci_upstream_bridge() instead of testing pdev->bus->self
+  directly, per Bjorn Helgaas's review: bus->self == NULL doesn't
+  necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
+  same), and this function is reachable for VF BAR resizes elsewhere
+  in this file. Doesn't affect the bug being fixed here (not a VF)
+  but is more correct in general. Reviewed-by kept from v2 -- this is
+  a narrow, mechanical change to a path this device doesn't exercise,
+  not a substantive rework of what was reviewed.
+- Rebase onto current mainline.
+- Add Jacob Martin to Cc: he independently triaged and accepted the
+  corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
+  team, so he has direct interest in this landing.
+- Move Ilpo Järvinen to To: for final review, per Bjorn.
+- Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io
+
+Changes in v2:
+- Add Assisted-by tags (missing from v1; required per
+  Documentation/process/coding-assistants.rst)
+- Add Link: to the corresponding Ubuntu bug report
+- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+  given the Fixes: tag already lets the stable team derive applicable
+  versions (per stable-kernel-rules.rst)
+- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Jon Nettleton <jon@solid-run.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+Cc: Jacob Martin <jacob.martin@canonical.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+---
+ drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index e8c94aa1d3c12..ed16ef7c26fa7 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
  
-+	if (!local)
-+		skb_orphan(skb);
++	down_read(&pci_bus_sem);
 +
- 	mrt = ipmr_rt_fib_lookup(net, skb);
- 	if (IS_ERR(mrt)) {
- 		kfree_skb(skb);
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 493666b0c6098..db2f74f7ccd37 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -557,6 +557,7 @@ int ip6_mc_input(struct sk_buff *skb)
- 		if (deliver) {
- 			skb2 = skb_clone(skb, GFP_ATOMIC);
- 		} else {
-+			skb_orphan(skb);
- 			skb2 = skb;
- 			skb = NULL;
- 		}
--- 
-2.53.0
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/* No bridge window to adjust; let the core reassign the bus. */
++		pci_bus_assign_resources(bus);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++		list_for_each_entry(dev_res, &saved, list) {
++			if (!resource_assigned(dev_res->res)) {
++				ret = -ENOSPC;
++				goto restore;
++			}
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
 
