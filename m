@@ -1,165 +1,117 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B1AF560AA5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1255292C;
+	Tue,  8 Sep 2026 15:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880680; cv=none; b=OBkauOgCVml5kuEXIj8Rx1X3Vx9V4wnanqIrotm71hWTpIgaqQZvdF0YHqhjUR1DZtwNdjEqFImPtP14vvTPJ/D/UWH2CdWpreNIY8CM2QkeYb7N1mmUaPib3XW5o7gym6hFuy6KFoaWUB4PX4NYPhptTZAQO/hrZLieFwPVp74=
+	t=1788880681; cv=none; b=EiUncEcQPPXemCnXuX9tMicdnTCutiCm4HatNB10Vm72VDjEE4m9wYpYSwxvcv92iwcR7lWx7ALOU9KWKQAMBtakusPOoi/NB3vcwkSfXz2neXqf65aHGeJLwvfzJG8yBpEXGlXUYxSWZr2kss18UZLSPLk9PyzDqnITYY/RtUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880680; c=relaxed/simple;
-	bh=XfPVvq8e9tGKo018JKnP1xN3ulUHGDRgrdtFYDoHbhQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PLOiPD8t17dN641uXIUtk6VyjSuk67+2V6NbiCARsAKus3ODZ/Zv+4FpL3GDxwMfOPYGuFPyF3C8kSF/QnbWR6hq2kEehG69+uAm+61ehh3Ju4w2zuwXo7k/H4eNYPXzJ/Ha9aYjxytE6b6CdTIhWwq/hOyLPEj4dJsV9qcwqUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eC1JwmJX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eC1JwmJX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3BE1C1476;
-	Tue,  8 Sep 2026 08:17:49 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 25AF93F7B4;
-	Tue,  8 Sep 2026 08:17:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788880672; bh=XfPVvq8e9tGKo018JKnP1xN3ulUHGDRgrdtFYDoHbhQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=eC1JwmJXjAGjIR8jtufTmIkRWC9+mz95Z+2YR5MTq9dTvmA3NECireUnkC1iacjsd
-	 FLVOJoxem4DY8FJshVvwvNaOM6Yjz4+Tr+4k/HLioTAHN1MC9dfj0yOIjtKcmpvPQI
-	 uyBIzAhSeZCKdYV2y4Ibzr5ehUtu5O0lwmD9vzh8=
-From: Mark Rutland <mark.rutland@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com,
-	ardb@kernel.org,
-	catalin.marinas@arm.com,
-	cl@gentwo.org,
-	david@kernel.org,
-	david.laight.linux@gmail.com,
-	james.morse@arm.com,
-	ljs@kernel.org,
-	mark.rutland@arm.com,
-	maz@kernel.org,
-	peterz@infradead.org,
-	ruanjinjie@huawei.com,
-	ryan.roberts@arm.com,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com,
-	vladimir.murzin@arm.com,
-	will@kernel.org,
-	yang@os.amperecomputing.com
-Subject: [PATCH v4 00/21] Preemptible this_cpu_*() operations
-Date: Tue,  8 Sep 2026 16:17:20 +0100
-Message-Id: <20260908151741.394589-1-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
+	s=arc-20240116; t=1788880681; c=relaxed/simple;
+	bh=lX2+xlhy6aKGcKxfnElI7gsPN9ftet39k8I+KmFj3SI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Oue0YKmGfrqyWONGOCfBLhXTKej9OT2R9JTVJhGDa9fPNJ15zH7zPLE7ZYLDkO7ezryyDzaZHcYMznI89iWgitGFKOPUkXjCQJjpoKa8NWJ/CoRkPwIIIatR6o46mhSq75mEo3MguYd7cBcnNBqi/TILleByN46rI8UQgHRvNyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432B41F00A3A;
+	Tue,  8 Sep 2026 15:17:44 +0000 (UTC)
+Message-ID: <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
+Date: Tue, 8 Sep 2026 17:17:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
+ collapse to avoid UAF
+Content-Language: en-US
+To: Dave Hansen <dave.hansen@intel.com>, Mike Rapoport <rppt@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
+ David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+ <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
+ <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
+ <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+ <ap_WIZwCPKB07nAf@kernel.org>
+ <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This series reworks arm64's this_cpu_*() operations such that they do
-not need to disable preemption. The scheme is described in detail in patch 13,
-and is similar to the approach Heiko Carstens applied to s390 [1], which
-inspired this series.
+On 9/8/26 15:58, Dave Hansen wrote:
+> On 9/8/26 02:32, Mike Rapoport wrote:
+>> I have to say I'm confused with today's batch of tip-bot emails saying Ingo
+>> applied these to x86/mm :/
+> 
+> Just a reminder that we have x86/urgent which will be going to Linus
+> like today. There's also x86/mm which goes up in the next merge window..
 
-This scheme should build and function in all kernel configurations (e.g.
-regardless of KPTI, SW PAN, CNP, VA BITS), and has no dependency on new
-architectural features. The fixup logic should "just work" with kprobes,
-etc, and I don't expect that this will need to become more complicated.
+However x86/urgent (at least as visible [1]) doesn't contain anything from
+this series, and x86/mm has everything except "Fix effective RW computation".
 
-The patches are organised as follows:
+But tip/urgent does merge x86/mm so hopefully it means it's really going to
+Linus now-ish (and not next merge window)? It just doesn't have "urgent" in
+the branch name?
 
-* Patches 1 to 3 are preparatory fixes for latent issues which were
-  found by inspection. These will need to be backported to stable, and
-  have appropriate Fixes tags.
+> The "Fix effective RW computation" patch is getting broken out and is
+> going to wait for the next merge window. We don't want it sitting in
+> mainline generating warnings, especially false positives like the one
+> this weekend. That's not to disparage the patch; it's overall the right
+> thing to do.
 
-* Patches 4 to 7 are preparatory improvements to code generation issues
-  found by inspection during development. These aren't strictly related
-  to the PCPU GPR scheme, and it would make sense to queue these even if
-  we don't go ahead with the rest of the series.
+So that means adding it to x86/mm after the current one is sent as urgent?
 
-* Patches 8 to 13 are preparatory work for the PCPU GPR scheme.
+Just wanted to double check, thanks.
+Vlastimil
 
-* Patch 14 implements the core of the PCPU GPR scheme, with all the
-  necessary exception handling logic, and the addition of helpers to
-  begin/end a PCPU GPR critical section.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/
 
-* Patches 15 to 20 convert this_cpu_*() operations over to the PCPU GPR
-  scheme. These changes have been made over several patches to aid
-  review and bisection (if necessary).
-
-* Patch 21 removes code made redundant by earlier patches.
-
-I've given this build-testing (with GCC and clang) and some light boot
-testing.
-
-Since v1 [2]:
-* Implement necessary SDEI entry logic.
-* Drop RFC tag, as I believe this is now functionally complete.
-* Add patches to fix latent bugs and poor codegen (per David, and myself)
-* Make gpr-num handling consistent with asm-extable.h
-* Assert PCPU GPRs are distinct at compile time (per Vladimir)
-* Add comments to document PCPU GPR helpers.
-* Improve commit messages.
-* Add tags from v1.
-
-Since v2 [3]:
-* Rebase to v7.3-rc1.
-* Fix SDEI register restoration.
-* Avoid -Woverflow warnings.
-* Add preparatory fix for {8,16}-bit types.
-* Add tags from v2.
-
-Since v3 [4]:
-* (hopefully) correct CC list and send this out without issues.
-* Add Jinjie's Reviewed-by tag on patch 3.
-* No other changes.
-
-Thanks,
-Mark.
-
-[1] https://lore.kernel.org/linux-s390/20260526055702.1429061-1-hca@linux.ibm.com/
-[2] https://lore.kernel.org/linux-arm-kernel/20260728123859.2911495-1-mark.rutland@arm.com/
-[3] https://lore.kernel.org/linux-arm-kernel/20260804170503.3513916-1-mark.rutland@arm.com/
-[4] https://lore.kernel.org/linux-arm-kernel/20260904161758.376504-1-mark.rutland@arm.com/
-
-Mark Rutland (21):
-  arm64: percpu: Fix this_cpu_write() casting
-  arm64: percpu: Fix this_cpu_and() mask generation
-  arm64: percpu: Fix LSE operations on {8,16}-bit types
-  arm64: cmpxchg: LL/SC: Avoid redundant extension
-  arm64: cmpxchg128: LSE: Remove redundant operands
-  arm64: preempt: Simplify and optimize __preempt_count_dec_and_test()
-  arm64: preempt: Treat should_resched() as unlikely
-  arm64: ptrace: Always inline pt_regs_[read,write}_reg()
-  arm64: percpu: Factor out percpu offset asm
-  arm64: gpr-num: Add wxN aliases for wN registers
-  arm64: gpr-num: add __GPR_NUM() helper
-  arm64: entry: sdei: Restore all clobberable GPRs
-  arm64: entry: sdei: Make 'tsk' available
-  arm64: percpu: Add infrastructure for preemptible this_cpu_*() ops
-  arm64: percpu: Implement preemptible read/write ops
-  arm64: percpu: Implement preemptible void RMW ops
-  arm64: percpu: Implement preemptible return RMW ops
-  arm64: percpu: Implement preemptible XCHG ops
-  arm64: percpu: Implement preemptible CMPXCHG ops
-  arm64: percpu: Implement preemptible CMPXCHG128 ops
-  arm64: percpu: Remove _pcp_protect*() wrappers
-
- arch/arm64/include/asm/atomic_ll_sc.h |  27 +-
- arch/arm64/include/asm/atomic_lse.h   |   4 +-
- arch/arm64/include/asm/gpr-num.h      |   9 +
- arch/arm64/include/asm/percpu.h       | 462 ++++++++++++++++++++------
- arch/arm64/include/asm/preempt.h      |  29 +-
- arch/arm64/include/asm/ptrace.h       |  12 +-
- arch/arm64/include/asm/thread_info.h  |   1 +
- arch/arm64/include/asm/xwreg.h        |  16 +
- arch/arm64/kernel/asm-offsets.c       |   2 +
- arch/arm64/kernel/entry-common.c      |  38 +++
- arch/arm64/kernel/entry.S             |  41 ++-
- 11 files changed, 497 insertions(+), 144 deletions(-)
- create mode 100644 arch/arm64/include/asm/xwreg.h
-
--- 
-2.30.2
+> Sound good?
 
