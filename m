@@ -1,290 +1,262 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2CC478E5F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908586; cv=none; b=dmS0DO8PtNmZmyAZcq6Zmti/UVwrqgbJi8boefvq0zHOJv7JPKxSBXiN1iPNKjRz9ssul+2hVenNzIKQzwDnfOC4mH2UVhb48ewcfzHCSmqxUwK4ypZcrdxvjgr/eT0WDmqEtr8ajPhY5IFssROuHC5sBU5Dj7VG5kSct9ddJ+A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908586; c=relaxed/simple;
-	bh=D2YuvcUAHUFJza8GC6Kjwm7Grr/7KVf6tU/jjasoRfQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MgmNE/+STGB+VZxUc1k2B7SOCEefuJJaEsotKErLTx/fLOFZ/aYi/lHx4Us28QQlv1RPoYLnyyiiMkO10nZhs/Xms9HfNRAmMuqNZ4UEj921whc6zfeL9AlU/apcxu6fj7IcmH0h/frxFT1OgBYpn+9f727xiA++kQmW2GAVPjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=XmUfG0D1; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2426F492E55;
+	Tue,  8 Sep 2026 23:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788908613; cv=fail; b=lPf6HdeJrhDrB9yPjpfNRg3x9SMvgERFqqkr0HRZMmwGlxjcxlI/55flRdvvAscZmZPSn0UJZCG+4vEyIwxD2I2UJLDvgNFC6su/u0roLPxtGTV+l6XXAoFGL36hyJhJYIWcS+t8Pmhm7vgYhdGNUXn44dmcnWIwIUXcd+b7CRo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788908613; c=relaxed/simple;
+	bh=9fc78rUmwLz0N5GD62pkwbWS4WtkNwykUc8tyMcwPXc=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=s31L31eKmElhKqzkZKbYhNaOVSSmLAdmkDfSqAQ9Cajp0yPVXcmPhk5Jn1P0i1qQox5r9cIQe5FEE6WOEJPVmZfHEc5uHOFwHGUi883IXf5ssOBnP+sFX20IumZifPUisjBEUhQEF3NYe5f6jOJMRcBqIb8rRcWK7g7bBR1r7Eo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=muXkExU9; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="XmUfG0D1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
-	to:cc:cc:content-type:date:from:subject:to;
-	s=s1; t=1788908583;
-	bh=hzMs9bWmTBKn/dyZ3v41ire/mT+Fl+HYyGkzUgv04nk=;
-	b=XmUfG0D1X6lSbycQsv+9AG4MZ0XLSfjt20qJdPz/kTDgMsG71Sd0IYImmu7PovV6Rz2n
-	fnUai95JFV2AcXPgI3pfIwzPx8RoDobq0uZeDzSAoJbUAL29DG8qN5oiUl9uD9ZLXgAh7O
-	ZR5TTjKHmJlmu0n+vFAzefOpBpgcpm1L2P1crZCAgDFGSk7qVOFn5OcJQz2kUjmixVe6P+
-	S6/RrXpvacWDQ5wjQ71wtQRbTZx3BmfXVMHDmSFuddd7OlcOLjh1sjcwnnmos8VMRMQz8i
-	53EP1mspRQLwSMRzEkSqaVE5MAAEUPfEXJ72wNZXX+sWm6vpmEgwMlVqbd2B9mxw==
-Received: by recvd-668757f9cc-jnt6k with SMTP id recvd-668757f9cc-jnt6k-1-6AA09426-141
-	2026-09-08 23:03:02.859202496 +0000 UTC m=+3643851.653686036
-Received: from [127.0.1.1] (unknown)
-	by geopod-ismtpd-8 (SG) with ESMTP
-	id oYFXptEuSG6pF6ftZE61Ag
-	Tue, 08 Sep 2026 23:03:02.804 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Date: Tue, 08 Sep 2026 23:03:03 +0000 (UTC)
-Subject: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="muXkExU9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788908613; x=1820444613;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=9fc78rUmwLz0N5GD62pkwbWS4WtkNwykUc8tyMcwPXc=;
+  b=muXkExU9sgXMieKJSPdofuj0ZRMS7qcqI4hQ951nRvwsHo4wAAYWaYlA
+   FjV12qAyr1nLSsPWg+2RKERLBm2iV794cSaWYZKukSykxRhO/BI0pNlJK
+   QxH1LyE2rRQ5dEdqPOaw3qJwHwSt/5IzR79Qzuu/SlPIAll/jXMee+q7b
+   WAjdYPSqGzHzmFKxhESGKSojOhcVhPwWnl3U166z94qvl7Il5L7mOHu0D
+   wAnhMRKxPkZRRdhLkVVmhP2LZm9n/1IoebT15Q/5f4AG+qMe7Kwp5ItuL
+   C4kkMN/cdfgsW5RkEeqkfe+WH3nwIl7PIcz757IZ6TeFkOJDW7gq00gfz
+   Q==;
+X-CSE-ConnectionGUID: WlPOfeY4R4y43ZtdNixJ2A==
+X-CSE-MsgGUID: xmIR9cS3RjCL5R3vS+q1yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100484561"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="100484561"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:03:32 -0700
+X-CSE-ConnectionGUID: 6Er9SWocR36HPv0mH/2RxQ==
+X-CSE-MsgGUID: naYnH1NrSHm9GZYUsIpM8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="273091283"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:03:31 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 16:03:30 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 16:03:30 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.45) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 16:03:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rgoHcnKZRD53f0fDdUo97+NoTLA5RPUKRbKPv7an8R79Si020WSkjLEiSRwFAqvQV7PFWxCtUi0xwSY+JAE0UZx5WUnlP0CGEkFC/LY1voduHpS6+5H+Mme3VdDxuW9z3iqblCsLacGnB2pzK9ITnIeWrF18cCnYufuenX61YSIFqM0mBoXysb870K59pQGL8/w1bqtUXMTdqYlpRoxLL5Dv3HfePbwkaHgmVeLFDGE0h5NbrDI72uWz8qwU7OcgTkr1ATg9HfGW7S/QZuFUptlm+w01mcXYPrD+Wg27PO5/s8YnnRMBt8cjrUEDv3BQdGEwyUcFVSPWWowKPuyDmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ubSJenL/dwEokq39sQh7TiHAjG7SYOGzITp+5x6dngw=;
+ b=RYoznZ5DjkDVVylQ355kvCHKSWH3VcqAecKM7e5urvURmWTZW+r8D2yaDuN9gjEK/5bYLfDhkENjByEqPFCXb+9ysuNmr/VsXKkTQ1a0bSzURFXhxVxOwqYJCVVGPrNdl91fW9/0hTfwvJBZaxfa/+KnEC9RSFWZHLYxLU8Y13zlAKkHBjg3iUWfC3E6KhzrSCM1eRz1YzzfdMq5D0SIqeuIfzsG9h+r9hGC/vwSMa2Oyelohi7QYzdHho3xUSIYaRzdqoIV+gkFxTs7/yTvW/TAOJsU6vWvaGYIWnlFuX6QgdnKU6SD7qTX+UGsbYmznVD5g1HfW2dPAoqbgQpERQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ PH7PR11MB8455.namprd11.prod.outlook.com (2603:10b6:510:30d::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 23:03:26 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 23:03:26 +0000
+Message-ID: <fdbe32b9-2de9-45d5-b3e7-ba031c3e6f00@intel.com>
+Date: Tue, 8 Sep 2026 16:03:23 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
+ GNR systems
+To: Sohil Mehta <sohil.mehta@intel.com>, <linux-kernel@vger.kernel.org>
+CC: <x86@kernel.org>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <andrew.cooper3@citrix.com>,
+	<arjan.van.de.ven@intel.com>, <stable@vger.kernel.org>
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
+ <20260901231634.714144-2-chang.seok.bae@intel.com>
+ <d035139c-6b37-46f3-baff-a27d0f1a082e@intel.com>
+Content-Language: en-US
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <d035139c-6b37-46f3-baff-a27d0f1a082e@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0094.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::9) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PQW7DIBAF0KtErEs0DHaArHKPqAsDQ02lmggcq
- 1HkuxenihpVLL/0533NnRXKkQo77u4s0xJLTFMN/duOuXGYPohHXzNDwAMo6PjFRZ7JDpnnlGZ
- ur4UHKVAGEhCcYvXwkinE7wd6fv/N5Wo/yc2btDXGWOaUb4/VRWy950DfGlgEF7zvfVDgrPdan
- 8Y00c2lL7uPiW0bC74oApsKVmUQ1ghQg0bvGop8UaRoKrIqByWRUMrgjGko3Z9iQDeVriqoNJB
- xiAT/P1rX9QcRazMsmwEAAA==
-X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9707; i=lizf@honeycomb.io;
- s=gpg; h=from:subject:message-id;
- bh=D2YuvcUAHUFJza8GC6Kjwm7Grr/7KVf6tU/jjasoRfQ=;
- b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqoJQmvh3lUFWQGVYTBoKHHX13qVQYZ3v7VoOhm
- MAY4oF2oJ+JATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCaqCUJgAKCRClztTjl62v
- woNNCAC7e2YMkWiEwxf06fN7i9NVJXM5svGmCdIM1YrGjKHfi3h8cQ4AQh7YmjOsvl76vFkXtKZ
- HlLiw2+wg0gjqPBcI5iuFAabcMFZ1ZeuVuR1GMSCPvyK/s1AOWTMqKEOEEKDtgsPnJdL52B709o
- 939hyQ0C39fEM5KE2ltuP8gSLYg/TypRp/gXLtQ1PxrvlMqatt83dl1bWLYhPUNCDXzYrYNNmM/
- NodQxzZJseiO0XSSpXdZZk09/f22Y1QiHIcgQaeQ6mufPz0AIc2KNhujJzqVEXxjRQXa+ymjKza
- 5naF6Do8hSMPQ0X2SuRWw07KWzMYiL2NT8WQDGaxgin9o5sf
-X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
- fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmef43UvCFff4x?=
- =?us-ascii?Q?hVKLca=2FKLaJQz5Z7IxcROrl0PkkesuNkUt9DEJC?=
- =?us-ascii?Q?jF7OMyVM7olLWpf+j2dZZewHV8XYQ005O1Y+gK5?=
- =?us-ascii?Q?rFjnG8jUu7h8YOQfKA8meNKWbrcoZx6LzR31=2FNe?=
- =?us-ascii?Q?tkmlUEdqhAiUoMtKCW8Yg=2FJ0rOeVJKDnhwasIUa?= =?us-ascii?Q?haPQ?=
-To: Bjorn Helgaas <bhelgaas@google.com>, Ilpo =?iso-8859-1?q?J=E4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
-	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
-	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
-	stable@vger.kernel.org, Liz Fong-Jones <lizf@honeycomb.io>
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|PH7PR11MB8455:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbe4ca05-49cc-4b0e-4938-08df0dfd63a3
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: emRzV600QHOW/qu4z77O8plC0rI+YhKv6imkyqxCBnN8Kn312d/sxH2fUvJWtW6G9EvyQnXjf8uQSi7LWxaCHHkigI8cYcHiEA7Y8tCI54Ex/4r99vCgDu5GBRdgexI3tR9RBhAal6UHPj+7RJXno5g8IYDp3PJS0Zs/HEGaB4ko0YZbQnC09kMl2G+Yv1RYoqPAx6eaAlg4qwzOQ6/afRtdpy85KKHMWGeqHCOGjWJXraLgB1XAbZ9ZphuWo/oP2ImN8OVM5LrAK4nfDQgpxCaWpA3cyJjtI0u7QFPrVKMabOJlFwgzZqY7qdGCeZl8xhP3wQSBtprVlS6lZyvmOM3R3TqSeD2Py8xZt4OJHSjGAue+Eu9dnmCt4iYSdXN4nKlYtKHQ/JvSobUwpH87Tbv5OCLjMknz42jvdWdKQBUd+hc0iiOLVe8RbJRPrH2WUaGtMmIVd6BsvUcJAw2MgB96gFKLf5B3WRdfKijNDCTiU4ML1EZ0c+QVEKYLyzFfP6e5xmYZX3467aze7fNtY9xrhegvFp2d78Zj8j7mcLh2tWps3Lqi0jzZLOwwh258ZAwD/Rl9YdPEdrcGf7mIR3j5wvfif3HKCJ+bLSf3xkCC4Wy1g+Fu6fQfg5WSqVfDOXkY6KqRKrmwoAtkNHQ7gkrNmsOzQOIvGnyTau7cMxU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmF6TDFpMjd5ZUtFN1Vja3FCK2RaVG1iUndXQ2I2aWV0SXpQb1dyNEVERDNB?=
+ =?utf-8?B?VWY1TFVOTGN5YXVBK2lXdXFKR1IvaUx4dGhkeGZWRStSbFoyMVRqMGFSVXBn?=
+ =?utf-8?B?OFF4LzlveXZxeVoxTnBSUnJlS0hlWk9BMmVUUEFoVWVTdXZVdGhILzJlQ2Jj?=
+ =?utf-8?B?THNXcE1CV0Q4cFlEdTVXeCszWWdrdzVwd1F0L2pzWW1zbGR3ckM3RUQ4cS9K?=
+ =?utf-8?B?anhBUURZYk9PeDNZRjdMWm95YWxMY1dhOFBmemIyMkJPdkQ5Qm45REx3MTNF?=
+ =?utf-8?B?RHFHc3pNOVE5WDA1RlBRR2k0MlFqVnB5T0FLUHBmeXpYY0tZOFdsQ2JrRGRB?=
+ =?utf-8?B?UTlLaTEzRjdESENKNm1veTJGV2hPZFFIMXkzNTFwSWFOdkdvek5jYXBQcUJE?=
+ =?utf-8?B?eFllVDJQM0p5VXNzelF6T0xhVGlhZUFzUlpxaCtaakhUaElkcnZvZ2FXbnlr?=
+ =?utf-8?B?SDJTT0RqZVl3eHlWMlVIUkVSVFhhTzg4aVZlMFpSdHhBNjhLcDV3bmJWZDdp?=
+ =?utf-8?B?dktpZVllRnhhYnpoaHdRZnI5NFJ6ZnpJZHpzMHZPckFxcDl5M3B2V1hVLzBI?=
+ =?utf-8?B?VVo2K3F1eFByelRkdFlnWU9xK1BUak9WVUVhaG9ZWTU3dDNoNkdEVVFiTjhs?=
+ =?utf-8?B?UXlKQzAxWFUwbkFmelVMbGpTamhubkd6VE9TbWl2Q0JGMGJKSWZzQ1dvemZZ?=
+ =?utf-8?B?UVFtZjZ2VnErWGJxQnRsTGJHZWtWQ0FCeTNLekMvVTA4QkJpQkFIWG1rQkVX?=
+ =?utf-8?B?NzFldzZiaDRvS3NLa0lONUF3TmRESjhEZmtMK0FkUU9GUVFPQWk5SExZMVdu?=
+ =?utf-8?B?OERUOG9nc0toV3JmRnFaS0dyb3dEZXhCR09sSFd0T3hXRjc0UEh3eDQyOFVj?=
+ =?utf-8?B?Uzlud1hpSEs1NDBYWWp3Y3loK0VZUXdNOXl1Q3NGZVlZV2tQajJXaS9xL2hD?=
+ =?utf-8?B?VjFnV3hScjdiVFpVYTA3TXhCWVA2QWxRemUvUkNnVFdTSVByWXlWVkRlOTJq?=
+ =?utf-8?B?SXFNZzkzUGh0Z3YvR2crTUd5TkRCdWxGRGxLS2M2a3l0bGdGU3l4QjdBT2kv?=
+ =?utf-8?B?R0xkWXoydjV4cHhFbXJ6bmFtcFpidGRtd2xJT3VxTnNndW5YYkZxMzNWajBr?=
+ =?utf-8?B?dEN2NEh2dDlpMW91YWRXZGxIYmRtd3cvUXd1RGwzZ2VZb1dyYWRiR0k1ZXgz?=
+ =?utf-8?B?L2Q0SkxjSi8zTkVFeis1Y3R6ejE4Sk43RnMvMGFpbEg4KzR2Q29YS2Zkd0JZ?=
+ =?utf-8?B?WDQrS05wL1FJTzdIV1lIdlNzTzBibER2dlp3SkVKUWdpREJFMVFMZmhwVDdQ?=
+ =?utf-8?B?cDhqeStDRXhBYUFURlZ0QlpSamVhcUVsd2FYaWs0WDNSMGdubEhUOEVYdWsr?=
+ =?utf-8?B?ZjZNZTVRU1VjYS9wRG5xSGNpS1Q3bWpzOUlBUUlsN3pncEJ5NWdtb0N0WnVt?=
+ =?utf-8?B?QWpmYnFnQ1pQYUt5WjI4VnA5cDQ3aEVuSkNSZjJNbGkvQVRvQmZCdTJoeDY5?=
+ =?utf-8?B?UkdzWXBpWnAwOFFKVHVTaWpwdmtOUlRQZm1aZjlBNGxjTVVKZUo2NlFBUVJ1?=
+ =?utf-8?B?L0VpT0NwbmdQZnlVZDg2V1VnSXd2dzlBUTAxM1BSSnh6R1QreTRxNThKa29C?=
+ =?utf-8?B?RUNhSEdPbTFmTmhhY2wwR0lrWWVBbGVNMEZPOTJ0UmNKSWpVVW5QS2I2T0FG?=
+ =?utf-8?B?THpEMEF4b1JieUdZNUh2VnVDRHFUZXowSVN2ZE4vQU92SUh4NURHQkRER2J5?=
+ =?utf-8?B?UitLajgva0NPNlhIRGdLeVNOMlVQTVZjYzdxNitQRHJLMDN2cEhNb3dYTmlv?=
+ =?utf-8?B?M2N5R0htVnZaRStKeU1uZ0FoM3RvZlJLOUNBNEZnSDIveTVwa0RrK1pvbVRq?=
+ =?utf-8?B?LzRwSTRlQSt5VVFDQ0ZoeU5EMExpVXU2V0VuQWNNTXVUOVBMNFRyKy9jek90?=
+ =?utf-8?B?dXp2c0dxa2s4SjB3cHZPUmhYd3dxQzNqMTlCc1UzZXFPYktDRk4yRWlMYXBx?=
+ =?utf-8?B?Z0JFTXdlOW5ITDFJU1J5Vkk4REtZYzd4QVV1WDkzcWp0YUtSNHlJSXRmMTlT?=
+ =?utf-8?B?VjYrZUQvMW5JMmxIU3YwV3VzMVJPc1AzbnFuQVBJVUdMRWdnelV0M21iZ1dW?=
+ =?utf-8?B?WFkvbG0wR3pOWUIraGdZTzk4dzNkd3pxTUxsTFoyYjFXY3B4VlorMjNWR0FT?=
+ =?utf-8?B?VDZQdFBFL1VSY1hmSnZrTEV1aExFdnordW9GdkdMaGxrazRhaXNHUXUyWWds?=
+ =?utf-8?B?dDQ2U01Bbng0MEMyYUhCMDZvYVBEOTYvWlFEK3lkeExvbWV4a3IxQjQ4dkx6?=
+ =?utf-8?B?Q0FCb3MzNjMvOTdaQ2c4bzkzc0dVUGlkNi9TK1FxM3AwN0MwTElqdz09?=
+X-Exchange-RoutingPolicyChecked: g6L0bquVFatV/Gj80Naw1GnOTxmrb96O1sWkoVbjr+x6zma5c2bNtzQkzohA+/xRSzWJ71quv5BaoIEhkuUqy/ykTyRsHU+/oBkbcGWYJVU9xw96Yr7k41PdjyUqaPwvoHC6SV4aFLeNpMu8cflXyRosELuVtHLC2qYjtuy2ATOznfILtDB0ez0V27leINKOJS7Akan+coBwCbkc9jJHc6H9cgR28yoH7MzmRh/RaeOBI3+jffQwN8RnOUR05KirySN0r9Mzv/8nh/Mrj+pnLcipGpqJUIYtbep3kPmqsRdBTJlDORpt/elpHgkne3JOLJvtcOVnIsu/2RTOywCmHg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbe4ca05-49cc-4b0e-4938-08df0dfd63a3
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 23:03:26.3185
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sNr04wARQ7fESR7yvdoPGaEGZtEMwK1cXxSVyMWOPc7WiIbEpeBqItHDjqE28ZzzbuDlTTGwr6mufEMLOcIibEERbVk1m6f1KcJNiFP0IwM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8455
+X-OriginatorOrg: intel.com
 
-pci_do_resource_release_and_resize() releases the device BARs that
-share a bridge window with the BAR being resized, but when the device
-sits directly on a root bus (pdev->bus->self == NULL) it then skips
-resource assignment entirely and returns success, leaving the BARs it
-just released unassigned (IORESOURCE_UNSET).
+On 9/2/2026 6:11 AM, Sohil Mehta wrote:
+> On 9/1/2026 4:16 PM, Chang S. Bae wrote:
+>> Revision 0x1000405 contains internal microcode changes that are required
+>> by subsequent revisions to avoid #MC during loading.
+> 
+> Before going to the solution space, can we add some more
+> context/background here?
+> 
+> For example:
+> 
+> GNR revision 0x1000405 introduces a breaking change that causes a #MC
+> when the OS updates the microcode from any version older than 0x1000405
+> to a newer version. This is applicable to late load as well as early
+> loading during boot.
+> 
+> A BIOS or firmware update is required to update the revision to
+> 0x1000405 or newer before any OS updates can be safely loaded.
+> This dependency ...
 
-Skipping pbus_reassign_bridge_resources() is correct in that case --
-there is no bridge window to adjust -- but the device BARs still have
-to be reassigned. Before the BAR release was consolidated into the PCI
-core, this case worked for amdgpu because the driver released the BARs
-itself and then called pci_assign_unassigned_bus_resources()
-unconditionally after the resize, which assigns unassigned device BARs
-also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-side BAR release before resize") removed that call, so nothing assigns
-the released BARs anymore.
+Thanks. I ended up taking Dave's version for V2.
 
-This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-on the root bus of its segment (there is no root port device, so
-pdev->bus->self is NULL):
 
-  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
-  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
-  amdgpu 0004:01:00.0: Fatal error during GPU init
+>> Prevent loading 0x1000405 or later when the system has not yet been
+>> updated to 0x1000405 or later.
+> 
+> This is a bit confusing. Should it say jumping from any anything older
+> than 0x1000405 to anything newer?
 
-No error is logged because the resize path reports success; amdgpu
-then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+I tweaked it in V2 to:
+  "Prevent loading 0x1000405 or later unless the running revision is
+   already at least 0x1000405."
 
-When there is no upstream bridge, call pci_bus_assign_resources() on
-the root bus to place the BARs released above, using the same
-alignment-sorted algorithm as normal enumeration instead of a manual
-per-BAR loop. This also walks the rest of the hierarchy under the
-root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
-before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
-release before resize") removed that call -- the core-side fix that
-commit asked for ("such a problem should be fixed inside
-pci_resize_resource() instead").
 
-pci_bus_assign_resources() returns void, so failure is detected by
-checking whether the released BARs are still assigned afterward; if
-not, roll back as in the bridged case. This is stricter than the
-bridged path -- it fails on any unplaced resource, not just required
-ones -- since a root bus typically has one shared window, and failing
-loudly seemed better than leaving something silently unassigned.
+>> +	if (vfm == INTEL_GRANITERAPIDS_X &&
+>> +	    x86_stepping(sig->sig) == 1 &&
+>> +	    sig->pf & 0x95 &&
+>> +	    sig->rev < 0x1000405 &&
+>> +	    rev >= 0x1000405) {
+> 
+> I don't think we have a helper that can be used here directly. Also,
+> this is tagged for stable so adding a new one probably doesn't make sense.
+> 
+> But, 0x1000405 is repeated way too many times in this function :)
+> At a minimum, can we add something like this?
+> 
+> #define GNR98_UCODE_MIN_REV 	0x1000405
+> 
+> Maybe add defines for the PF as well?
 
-The root bus path also had a locking bug that any fix here necessarily
-touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-matching down_read() (as does the "goto restore" taken when
-pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-before the BAR release loop so every path through the function holds
-it exactly once.
 
-Use pci_upstream_bridge() rather than testing pdev->bus->self
-directly. The two are usually equivalent, but pci_upstream_bridge()
-is the canonical test -- pci_is_root_bus(), which it's built on,
-warns that bus->self == NULL doesn't necessarily mean a root bus
-(SR-IOV virtual buses from virtfn_add_bus() are the same).
+I saw exactly the same suggestion from AI, but I was not sure much value 
+beyond more cosmetic. The revision is a one-off specific to the blocking 
+check, so putting the revision value directly instead of a new define.
 
-Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-Cc: stable@vger.kernel.org
-Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Assisted-by: Claude:claude-fable-5 checkpatch
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
----
-#regzbot introduced: 337b1b566db0
 
-Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
-linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
-carries this code unmodified, and the affected function is identical
-to current mainline. By source inspection the regression window is
-v6.18 (old code paths) to v6.19 (consolidation). Workaround for
-affected users: amdgpu.rebar=0.
+> 
+> 
+>> +		if (rev == 0x1000405)
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is not loadable.\n");
+> 
+> 						   ^ revision
 
-On the topology question raised in review: this is physical hardware,
-not a virtualized guest, running the UEFI/ACPI firmware variant of
-this board (SolidRun also ships a U-Boot/devicetree variant of the
-same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
-exact root complex wiring; see the hardware manual's block diagram:
-https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-manual#block-diagram
----
-Changes in v5:
-- Per Ilpo Järvinen's review of v4: use pci_bus_assign_resources()
-  instead of a manual per-BAR pci_assign_resource() loop in the
-  root-bus branch. Same outcome for the bug being fixed, but reuses
-  the core's alignment-sorted placement algorithm and matches the
-  design intent stated in db92e3fef53e's commit message, rather than
-  reimplementing assignment ad hoc.
-- Drop Reviewed-by from Krzysztof Wilczyński: this revision changes
-  what the root-bus branch actually does (not just a predicate, as
-  in v3's pci_upstream_bridge() change), so his v2 review doesn't
-  carry over. Add Suggested-by for Ilpo instead.
-- Add Suggested-by for Bjorn Helgaas too: overdue credit for the
-  pci_upstream_bridge() suggestion from v3 review, which only ever
-  made it into the cover letter's changelog, not the actual commit
-  trailers.
-- Link to v4: https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io
+Let me add `revision` in the message. Thanks.
 
-Changes in v4:
-- No functional changes. Resending per Thorsten Leemhuis (regressions
-  tracking) -- this looked to have fallen through the cracks after
-  v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
-  (stable): pci_do_resource_release_and_resize() still has the
-  original "if (!bus->self) goto out;" with no reassignment on that
-  path.
-- Rebase onto current mainline.
-- Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io
+> 
+> With early load, his is probably one of the first messages that folks
+> will see but it will only be displayed on platforms that have the issue
+> until they update their microcode. Should we be more verbose here?
+> 
+> 
+>> +		else
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is required before 0x%x.\n", rev);
+> 
+> "Erratum GNR98: revision 0x1000405 is required before revision 0x%x can
+> be loaded. \n"
+> 
+> Should this be 0x1000405 *or later* ? We don't want common users to
+> specifically try to find the revision 0x1000405 and load it, right?
 
-Changes in v3:
-- Add Reviewed-by from Krzysztof Wilczyński, received on v2.
-- Use pci_upstream_bridge() instead of testing pdev->bus->self
-  directly, per Bjorn Helgaas's review: bus->self == NULL doesn't
-  necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
-  same), and this function is reachable for VF BAR resizes elsewhere
-  in this file. Doesn't affect the bug being fixed here (not a VF)
-  but is more correct in general. Reviewed-by kept from v2 -- this is
-  a narrow, mechanical change to a path this device doesn't exercise,
-  not a substantive rework of what was reviewed.
-- Rebase onto current mainline.
-- Add Jacob Martin to Cc: he independently triaged and accepted the
-  corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
-  team, so he has direct interest in this landing.
-- Move Ilpo Järvinen to To: for final review, per Bjorn.
-- Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io
 
-Changes in v2:
-- Add Assisted-by tags (missing from v1; required per
-  Documentation/process/coding-assistants.rst)
-- Add Link: to the corresponding Ubuntu bug report
-- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
-  given the Fixes: tag already lets the stable team derive applicable
-  versions (per stable-kernel-rules.rst)
-- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+For the error messages, `GNR98` needs to be decoded anyway, since the 
+full context of the erratum is needed to understand for the next step. 
+The message then is intended to point the erratum with a brief 
+explanation. So I don't think it is too terse.
 
-To: Bjorn Helgaas <bhelgaas@google.com>
-To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: regressions@lists.linux.dev
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Jon Nettleton <jon@solid-run.com>
-Cc: Jon Nettleton <jon.nettleton@gmail.com>
-Cc: Jacob Martin <jacob.martin@canonical.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>
----
- drivers/pci/setup-bus.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+> 
+> I am wondering what is the use of the if-else? Is that intended to guide
+> the late loading users? I think for other users the second message would
+> be confusing.
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e8c94aa1d3c12..ed16ef7c26fa7 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	struct resource *res = pci_resource_n(pdev, resno);
- 	struct pci_dev_resource *dev_res;
- 	struct pci_bus *bus = pdev->bus;
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
- 	struct resource *b_win, *r;
- 	LIST_HEAD(saved);
- 	unsigned int i;
-@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
- 
-+	down_read(&pci_bus_sem);
-+
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
- 			break;
-@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 
- 	pci_resize_resource_set_size(pdev, resno, size);
- 
--	if (!bus->self)
--		goto out;
-+	if (bridge) {
-+		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+		if (ret)
-+			goto restore;
-+	} else {
-+		/* No bridge window to adjust; let the core reassign the bus. */
-+		pci_bus_assign_resources(bus);
- 
--	down_read(&pci_bus_sem);
--	ret = pbus_reassign_bridge_resources(bus, res, &saved);
--	if (ret)
--		goto restore;
-+		list_for_each_entry(dev_res, &saved, list) {
-+			if (!resource_assigned(dev_res->res)) {
-+				ret = -ENOSPC;
-+				goto restore;
-+			}
-+		}
-+	}
- 
- out:
- 	up_read(&pci_bus_sem);
+When the incoming revision is exactly 0x1000405, saying "revision 
+0x1000405 is required" doesn't make any sense. For the later revisions, 
+the second message can explain more directly too. So I split the two cases.
 
----
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
-
-Best regards,
---  
-Liz Fong-Jones <lizf@honeycomb.io>
-
+Thanks,
+Chang
