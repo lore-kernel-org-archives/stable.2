@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E611E2BFC8F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 01:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F442EC0A7
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 01:22:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830479; cv=none; b=eO0eNbKWdHFa2biSjZUOA7qT7Zh1uN4Gd0raHHzU0jCTVsLkUU3u4TfzCsOZayEgeqvqWgRk1rIdF17mqn5zMR6f4sttQiRO3uMFHflGo1Iz6TbdyB7v8H95FEsUcUZCyjJPX1F1voKqYtecRyPo6aoZy8Za4UNHncISFxVuyPM=
+	t=1788830581; cv=none; b=gFu+AMkiv1wQ+VRQboq1ZrBHr0Dt4RLIG1+zaulExrX7xlXq16Mc0tXiNYzTGN78sneZbnTYGh0Bm3ZzsaQh22pQm6KfCNj1VNl39GOiAKsIdG/e4boXHQdwcVeD1zSOi/udw/AC55iPsKsvudfvNH5YGvXbKBZgXuBQfXg+IcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830479; c=relaxed/simple;
-	bh=ef+LQOUiovXh16TT0A7UIVYSHwBR9kiSg0MxQ8T4O7w=;
+	s=arc-20240116; t=1788830581; c=relaxed/simple;
+	bh=/QsPImSXPCIKdJtSZSG6rFk3GFoSb40BF+cIiP4KVQ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V8ZmFouYiIjCk/1pvecOJye9STL1m9tD0/bwvBs+dGVYFIEptSJ5sDgkzFp6NVjbTOe227vpItboprodi+tTrwZUMWH8fc+fIKc0I6VKWL3hrSrEifnL6QmrYoIEdyoyBIJx9k1CJ82U2p/9c2PjyHn1fu+dYGvEgumzsTi1BUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjWsssKM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eT9ELbXfhBLvxY5Sxr44XFIRr+3Xm4b3KO36dRs9y//LtgxPn5AEsJjYFNGBandTHoWsOkto8rS6BuBv7D5vsmG907ertUNKvpmUR1YjfkiohZXxotF0IMSsz5hk3jML9R61U47RisOYkBSsrotJoW8SEXkJn6Ctn9GpTH2STVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myCZ6cc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjWsssKM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48D61F00A3F;
-	Tue,  8 Sep 2026 01:21:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myCZ6cc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7031A1F00AC4;
+	Tue,  8 Sep 2026 01:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788830472;
-	bh=KVxKtqSDkEvY/7Fosaeh4s0cAkB+X8kSVCmCUUlWcA4=;
+	s=k20260515; t=1788830575;
+	bh=zFfrWGI6hQNbflnnU5sIDJbpxvvgHel3r31ceJPkA9Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LjWsssKMbb7TF7phkQv6w0gmZEitOWROTMz30sLvnYHNzbM5dYQ883PZbCoj57QOv
-	 qb57iwpHKN90KhofAVYQAq/igWJCWRL8ZDXg6JCvfwuFdftRo22n6PrEhcEGsPfa0G
-	 dPyyt2CKBXMWcHNp3BxlQTS7QYChME3y/HxNQc3TWoD7sbH22wAsvp0o4FC4pjdt0i
-	 KkoWEMBr0J9fjFgkb/klrs5KYgOwNsND/MwbvdrKnb6+tlSDmUheRU8pw0AgoOB+S2
-	 fzF5blUSHdyMgmnKmhf1jFzLUsil938ejb3CjikO5Y9UZrTvBxiCg7IrLyA53ZCytj
-	 KdeEU+oLo+KmQ==
+	b=myCZ6cc9BU+W8/Uob7d265OKDrkq4cXOPRk3GcDFE7GcNKJYXywbgKPi7I8CA2XRN
+	 JpRvkT45fMQj8DY3nnXUdQdhS6jIsOHkqjBePXKBSUNkcv2f2qfikSdlhpqII/+fdB
+	 IHF5MuxcxcBZwmpQqHikfvElq2eRW7hcCdZTqnRmIXegaPe0Z7DrxIJprGrlYN3AYq
+	 ViqjtC9YeQUunS9LfmLU1Hxv0M2vy0yKr+RSfvyIou9dJrkVdDRXJtL2uYfpLTcdMe
+	 TZu15IUbhYRgrlpcq6ECEyHz86gMv0a4HRopswmy4OgEEJgu0UL4nuvBnpxrTIP4am
+	 kYqogNNPshRCA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Terry Bowman <terry.bowman@amd.com>,
-	Sashiko <sashiko@linuxfoundation.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>,
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] acpi/apei/ghes: Use raw_spinlock_t for CXL CPER work locks
-Date: Mon,  7 Sep 2026 21:21:07 -0400
-Message-ID: <20260908012108.1757370-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/5] entry: Remove syscall_enter_from_user_mode_prepare()
+Date: Mon,  7 Sep 2026 21:22:48 -0400
+Message-ID: <20260908012250.1760990-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908012108.1757370-1-sashal@kernel.org>
-References: <2026090335-waking-roundworm-32ca@gregkh>
- <20260908012108.1757370-1-sashal@kernel.org>
+In-Reply-To: <20260908012250.1760990-1-sashal@kernel.org>
+References: <2026090330-squeak-freehand-d54a@gregkh>
+ <20260908012250.1760990-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,134 +48,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Terry Bowman <terry.bowman@amd.com>
+From: Thomas Gleixner <tglx@linutronix.de>
 
-[ Upstream commit 6625ca499c3131ef63be3215f8f942d7a097ea3a ]
+[ Upstream commit 54a5ab56242f96555999aaa41228f77b4a76e386 ]
 
-The CXL CPER work registration and unregistration helpers acquire
-cxl_cper_work_lock and cxl_cper_prot_err_work_lock with a spinlock
-guard(), which leaves local interrupts enabled. The corresponding post
-paths (cxl_cper_post_event(), cxl_cper_post_prot_err()) execute in hard
-IRQ context (they are called from the GHES error notification path) and
-acquire the same locks with an irqsave guard().
+Open code the only user in the x86 syscall code and reduce the zoo of
+functions.
 
-If a CPU is holding one of these locks via a spinlock guard() when a GHES
-interrupt arrives on the same CPU, the IRQ handler spins on the held lock
-waiting for it to release, while the lock holder is preempted by the IRQ.
-The result is a deadlock.
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Link: https://patch.msgid.link/20251027084306.652839989@linutronix.de
 
-Convert both locks from spinlock_t to raw_spinlock_t and use guard() at
-all call sites. On PREEMPT_RT kernels spinlock_t is backed by rt_mutex and
-sleeping from hard IRQ context is not permitted; raw_spinlock_t is safe in
-both contexts.
+[ sashal: Reduced backport -- upstream 54a5ab56242f9 touches 3 file(s), this
+  backport carries 3. Not backported here:
+  arch/x86/entry/syscall_32.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
 
-Add WARN_ONCE to both register functions to surface double-registration
-bugs at runtime.
-
-Restructure both unregister functions to clear the global work pointer
-under the lock before calling cancel_work_sync(), closing the window
-where a CPER interrupt could schedule work on a pointer about to be
-freed. Add kfifo_reset() after cancel_work_sync() so stale entries
-are not replayed on next module load.
-
-Both kfifos are single-consumer: only one work_struct is registered at
-a time, enforced by the WARN_ONCE guard in the register functions.
-kfifo_reset() is safe outside the lock because cancel_work_sync() has
-already quiesced the consumer, and no new consumer can register until
-the current module exit completes and a fresh module init runs.
-
-Remove the redundant cancel_work_sync() call from cxl_ras_exit() and
-cxl_pci_driver_exit(). The CPER unregister functions now quiesce
-the work internally.
-
-Reported-by: Sashiko <sashiko@linuxfoundation.org>
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Fixes: 5e4a264bf8b5 ("acpi/ghes: Process CXL Component Events")
-Fixes: 36f257e3b0ba ("acpi/ghes, cxl/pci: Process CXL CPER Protocol Errors")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/20260803221810.3685703-4-terry.bowman@amd.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-[ omitted protocol-error changes because the corresponding consumer infrastructure is absent in 6.12 ]
+Stable-dep-of: 4a3591287fb7 ("entry: Fix seccomp bypass after ptrace with TSYNC")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/apei/ghes.c | 24 ++++++++++++++++--------
- drivers/cxl/pci.c        |  1 -
- 2 files changed, 16 insertions(+), 9 deletions(-)
+ arch/x86/entry/common.c       |  3 ++-
+ include/linux/entry-common.h  | 26 +++++---------------------
+ kernel/entry/syscall-common.c |  8 --------
+ 3 files changed, 7 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 25163eb9b8053..e1cbc35919cbf 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -710,7 +710,7 @@ static void ghes_defer_non_standard_event(struct acpi_hest_generic_data *gdata,
- DEFINE_KFIFO(cxl_cper_fifo, struct cxl_cper_work_data, CXL_CPER_FIFO_DEPTH);
+diff --git a/arch/x86/entry/common.c b/arch/x86/entry/common.c
+index 3c88bdf96e7a5..cbc335c61df1d 100644
+--- a/arch/x86/entry/common.c
++++ b/arch/x86/entry/common.c
+@@ -236,9 +236,10 @@ static noinstr bool __do_fast_syscall_32(struct pt_regs *regs)
+ 	 * fetch EBP before invoking any of the syscall entry work
+ 	 * functions.
+ 	 */
+-	syscall_enter_from_user_mode_prepare(regs);
++	enter_from_user_mode(regs);
  
- /* Synchronize schedule_work() with cxl_cper_work changes */
--static DEFINE_SPINLOCK(cxl_cper_work_lock);
-+static DEFINE_RAW_SPINLOCK(cxl_cper_work_lock);
- struct work_struct *cxl_cper_work;
- 
- static void cxl_cper_post_event(enum cxl_event_type event_type,
-@@ -730,7 +730,7 @@ static void cxl_cper_post_event(enum cxl_event_type event_type,
- 		return;
- 	}
- 
--	guard(spinlock_irqsave)(&cxl_cper_work_lock);
-+	guard(raw_spinlock_irqsave)(&cxl_cper_work_lock);
- 
- 	if (!cxl_cper_work)
- 		return;
-@@ -748,10 +748,11 @@ static void cxl_cper_post_event(enum cxl_event_type event_type,
- 
- int cxl_cper_register_work(struct work_struct *work)
- {
--	if (cxl_cper_work)
-+	guard(raw_spinlock_irqsave)(&cxl_cper_work_lock);
-+	if (WARN_ONCE(cxl_cper_work,
-+		      "CXL CPER kfifo consumer already registered\n"))
- 		return -EINVAL;
- 
--	guard(spinlock)(&cxl_cper_work_lock);
- 	cxl_cper_work = work;
- 	return 0;
- }
-@@ -759,11 +760,18 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_register_work, CXL);
- 
- int cxl_cper_unregister_work(struct work_struct *work)
- {
--	if (cxl_cper_work != work)
--		return -EINVAL;
-+	scoped_guard(raw_spinlock_irqsave, &cxl_cper_work_lock) {
-+		if (WARN_ONCE(cxl_cper_work != work,
-+			      "CXL CPER kfifo consumer mismatch on unregister\n"))
-+			return -EINVAL;
-+		cxl_cper_work = NULL;
-+	}
-+
-+	cancel_work_sync(work);
-+
-+	/* Discard stale entries so they are not replayed on next module load */
-+	kfifo_reset(&cxl_cper_fifo);
- 
--	guard(spinlock)(&cxl_cper_work_lock);
--	cxl_cper_work = NULL;
- 	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(cxl_cper_unregister_work, CXL);
-diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-index 09a2bc817d645..4c307ee6cd28e 100644
---- a/drivers/cxl/pci.c
-+++ b/drivers/cxl/pci.c
-@@ -1087,7 +1087,6 @@ static int __init cxl_pci_driver_init(void)
- static void __exit cxl_pci_driver_exit(void)
- {
- 	cxl_cper_unregister_work(&cxl_cper_work);
--	cancel_work_sync(&cxl_cper_work);
- 	pci_unregister_driver(&cxl_pci_driver);
+ 	instrumentation_begin();
++	local_irq_enable();
+ 	/* Fetch EBP from where the vDSO stashed it. */
+ 	if (IS_ENABLED(CONFIG_X86_64)) {
+ 		/*
+diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
+index 047983310291f..7f05293bf8ee1 100644
+--- a/include/linux/entry-common.h
++++ b/include/linux/entry-common.h
+@@ -89,23 +89,6 @@ static __always_inline long syscall_trace_enter(struct pt_regs *regs, long sysca
+ 	return syscall_enter_audit(regs, syscall, work);
  }
  
+-/**
+- * syscall_enter_from_user_mode_prepare - Establish state and enable interrupts
+- * @regs:	Pointer to currents pt_regs
+- *
+- * Invoked from architecture specific syscall entry code with interrupts
+- * disabled. The calling code has to be non-instrumentable. When the
+- * function returns all state is correct, interrupts are enabled and the
+- * subsequent functions can be instrumented.
+- *
+- * This handles lockdep, RCU (context tracking) and tracing state, i.e.
+- * the functionality provided by enter_from_user_mode().
+- *
+- * This is invoked when there is extra architecture specific functionality
+- * to be done between establishing state and handling user mode entry work.
+- */
+-void syscall_enter_from_user_mode_prepare(struct pt_regs *regs);
+-
+ /**
+  * syscall_enter_from_user_mode_work - Check and handle work before invoking
+  *				       a syscall
+@@ -113,8 +96,8 @@ void syscall_enter_from_user_mode_prepare(struct pt_regs *regs);
+  * @syscall:	The syscall number
+  *
+  * Invoked from architecture specific syscall entry code with interrupts
+- * enabled after invoking syscall_enter_from_user_mode_prepare() and extra
+- * architecture specific work.
++ * enabled after invoking enter_from_user_mode(), enabling interrupts and
++ * extra architecture specific work.
+  *
+  * Returns: The original or a modified syscall number
+  *
+@@ -150,8 +133,9 @@ static __always_inline long syscall_enter_from_user_mode_work(struct pt_regs *re
+  * function returns all state is correct, interrupts are enabled and the
+  * subsequent functions can be instrumented.
+  *
+- * This is combination of syscall_enter_from_user_mode_prepare() and
+- * syscall_enter_from_user_mode_work().
++ * This is the combination of enter_from_user_mode() and
++ * syscall_enter_from_user_mode_work() to be used when there is no
++ * architecture specific work to be done between the two.
+  *
+  * Returns: The original or a modified syscall number. See
+  * syscall_enter_from_user_mode_work() for further explanation.
+diff --git a/kernel/entry/syscall-common.c b/kernel/entry/syscall-common.c
+index 27a523eb85058..5bb8f47ee7859 100644
+--- a/kernel/entry/syscall-common.c
++++ b/kernel/entry/syscall-common.c
+@@ -29,14 +29,6 @@ long syscall_enter_audit(struct pt_regs *regs, long syscall,
+ 	return syscall;
+ }
+ 
+-noinstr void syscall_enter_from_user_mode_prepare(struct pt_regs *regs)
+-{
+-	enter_from_user_mode(regs);
+-	instrumentation_begin();
+-	local_irq_enable();
+-	instrumentation_end();
+-}
+-
+ /*
+  * If SYSCALL_EMU is set, then the only reason to report is when
+  * SINGLESTEP is set (i.e. PTRACE_SYSEMU_SINGLESTEP).  This syscall
 -- 
 2.53.0
 
