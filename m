@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC79E25A2A2;
-	Tue,  8 Sep 2026 00:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2140B2472A6;
+	Tue,  8 Sep 2026 00:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828846; cv=none; b=Vq4GgcBfGLGB8895GUok2TUIT/42vpgQ1GzMq0rrGbdFWxOZ1Irj3kcJIRHa1QFWgvHKvs0mvCHOXFxfqSVul705f59JylYcy0Z6/z7OdxpI+xthnUaHu3jmXHepK9SsiE6ngNK2mahpGTcmTOtMtRxolXtQdk71apC2YDwaYl4=
+	t=1788828848; cv=none; b=UZf9Wi+HbF9iBDF+acz/G5wCUH9LzeP5E44cjo7E0kPlv7hEomefHg0MwY+TIwU4eY9caqwob7uHoghzAY2bzt1N7p4lEgCckqYwsDF52oLn3o8P//wty2Mop4O0hMEzBMBjJSohxq9cIzGK7IbE5a21SoanMDd7hVO9eFsivXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788828846; c=relaxed/simple;
-	bh=vPBPdY5ZVzbOFIiOWz7tFlWubmBnhlbiLGaAUAm2L80=;
+	s=arc-20240116; t=1788828848; c=relaxed/simple;
+	bh=oEVAJT7Rms/zK1FBNPVdP2B63nHgLDx9qjMY0xru9i0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MuwvwOx6iP6uN7ADoAEki/8ll5ZmE8oNMp/CSXzS4fBfTXpAZ3c5DBT6z4mtapwIfmx5oEguO80MOFpkDP6E+jKsWVEypUwT/9aSXloNnmB2D07XGOeus1wEcUWoL6DJhLehqDUUgGI8nNU3fWntGjJNKrOgfAzUIvS517clVIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MAltkNjW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=IWeICOpHeqhSv8phXmWkfow+0jIZFbtMI7bkW79NzUAehB3e1CejGK4Ea0IUOauJdjjh9Gcu+VZlwQldL7VtSwaOhxexirSMoQo86mtCoNsON+xYbVY2TwQN011xXQvE404ywCMs3z5lA8HWNhXpgjh0mFxWNRVm4q5rsdn2HVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6SS3R+e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MAltkNjW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CC031F00A3E;
-	Tue,  8 Sep 2026 00:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6SS3R+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2441F00A3A;
+	Tue,  8 Sep 2026 00:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788828845;
-	bh=8g3NwxpV/H4Drded0VobBO1yE0qmKUmxXk/527MjbVI=;
+	s=k20260515; t=1788828846;
+	bh=ezFAhvlLNXRJMYF0BusyoobUQ/NrQkNcePRif8khHJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MAltkNjWBxQf3/PSyL+8ZQHAfKa7gzgWTlyPvr5NUkm2uNZ8+p2oV99RcJ7OpfD+C
-	 t3tt1+XmyniDghzQurMKqK8eYai5C8iTjoqizgvdXWLwL6HpNYsr+kMgFesalNL10n
-	 nfb9b3iM2Rc8xmKhfU/+RlgqQY+/TfK4SV6gg9jDiPgxoCy6u72xq644xXmnkzZGpi
-	 bIk80t5+rHXyRLnLB1N9rltkrMCtRcGjmtgTKm2tbvYpLD2qDh1A7/mdfF0ofYcM2v
-	 a8cuXvu2mNzMV4l6p5q7JYPJ16AKSeytwBm5fFjutxkZeARbxrWk0nLEjM3luJ5m2w
-	 E/XC2Jh8TcShQ==
+	b=K6SS3R+eYR/sZ/dRNUocuFE4jgsUbr1UzB0/fvmMJfNPZ4HoAgB/kTVObKsfX1n02
+	 sX/tmnVoo9xKVZYMpdVvo+dZy7e0Tkq5xifwceVX/TEgX4pkLyUPTpIQeASGIhpG7O
+	 yMBjP16e4tB1mP7VPRJ7jq3zl+7R0gla/LOwJskkUQQuFCnzuYlT55OJePAU+R6Td9
+	 L6MTm1nd5wmGgHFBi4+aqHFas9c/Tkq2G/xH+d+/TU9Xsr+IljWSBykWuLhrM+oL1W
+	 B50X2GH7bjcAm/VjSr9ES7jjv3pKRv5bv8JBOmvjIfI5+PptD9sc4Hr+d2FqGAUTG0
+	 ocxJNj6W+HUPw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Alexander Martyniuk <alexevgmart@gmail.com>,
-	lvc-project@linuxtesting.org,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Eric Paris <eparis@parisplace.org>,
-	selinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.10/5.15/6.1 0/2] selinux: reject an unclaimed class value in security_get_classes()
-Date: Mon,  7 Sep 2026 20:53:41 -0400
-Message-ID: <2026-09-07-daily-reply-0002-selinux-classes@kernel.org>
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	zdi-disclosures@trendmicro.com,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Breno Leitao <leitao@debian.org>,
+	Steffen Klassert <steffen.klassert@secunet.com>
+Subject: Re: [PATCH 5.10 28/43] xfrm: espintcp: fix UAF during close
+Date: Mon,  7 Sep 2026 20:53:42 -0400
+Message-ID: <2026-09-07-daily-reply-0003-espintcp-prereq@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907144009.162239-1-alexevgmart@gmail.com>
-References: <20260907144009.162239-1-alexevgmart@gmail.com>
+In-Reply-To: <20260905101704.GA47841@j66a10360.sqa.eu95>
+References: <20260905101704.GA47841@j66a10360.sqa.eu95>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,15 +51,19 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Backport fix for CVE-2026-80912.
+> The fix actually has two prerequisite dependencies:
 >
-> Bryam Vargas (1):
->   selinux: reject an unclaimed class value in security_get_classes()
->
-> Christian Göttsche (1):
->   selinux: avoid implicit conversions in services code
+> Commit 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"), as mentioned earlier.
+> Commit e1512c1db9e8 ("espintcp: Fix race condition in espintcp_close()"), which relies on disable_work_sync() — an API that
+> does not exist in the 5.10 tree.
 
-Queued for 6.1, 5.15 and 5.10, thanks.
+028363685bd0 is now queued for 5.15 and 5.10 alongside the original fix,
+thanks for catching the gap.
+
+e1512c1db9e8 is a separate issue and is still open. disable_work_sync()
+isn't available on 6.6/6.1/5.15/5.10 either, so it needs its own
+resolution rather than a straight cherry-pick. Still looking at options
+there.
 
 -- 
 Thanks,
