@@ -1,42 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833135328CA;
-	Tue,  8 Sep 2026 13:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B493530E15
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875279; cv=none; b=uy36lTl4/RnPB2AdREecwBYiO0QjhiSIS+5eOlaTLMKBT1UiUFIcBSSf6R6P1DG8N2NWNiCoHr3wDCbnKL+fWm8dGUYwkf+MzRcsqjOMc4oqwswYLKSk3T/1hC80MMe3v/CRtgARoFWR0lJHQX2FZ3D8zO0lCdrurUuL6DAJtkc=
+	t=1788875422; cv=none; b=QVGgAiJHCIiIj1yELim2h4vZCCXk2vmuvi3iysVefwafEnIg2r44o4D7rGwoEPy0RGcxQt8En3Wz5n9Br8kOPZ+jbadizGgPnrxPPfgwZscXdejvuOAfdshHnAXkXDwVGNRiuauTctin82MP63jJTEFPChPkbPcQ24CHnr2DGB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875279; c=relaxed/simple;
-	bh=zg+ku0v8xf8FI+6NLadCu8VySTs0P3c+ycaKmGYmKyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ahqifRxyea9v4i2HFNjhXjQiBmdE0AHBNOVTe/qjumRvT3Kht0zFXogZSjxL1/pROWuWK+lHiW+U7auHY8mejMmd2oMi8siBnAhE9LdJro2jlVaTK1KYcrC+PzkQXAcV2P7O3BfiHErYKDwdNDdNP39kA9vMJYV8FPCRuw4fTXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEm1mdvU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875422; c=relaxed/simple;
+	bh=ar+43dOz2VmIYxEzbU/l1wzEmSyVzI2Ez00niz1s1oQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUjdJSawDZ+g+W2qV4/Y7MLSwLDBSJkHT8lhph4WDloPbESQJKygIW8rzLyRP+SPfbVWPDoEXAJZk+xoClugT2zY85JqODZ8QFYed21py3Mcpy3PCCChCr4ZpBZgWFcU1amxweohjl4QfAqp1qTypt4hi89JnNumY8/8+1TRcsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BY6rLeTc; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEm1mdvU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7C51F00A3A;
-	Tue,  8 Sep 2026 13:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788875268;
-	bh=A0+1vx5ssYACbosB5yRUtT7K9nBFjhQE+WMx9lniBm8=;
-	h=From:To:Cc:Subject:Date;
-	b=FEm1mdvUsgl8JbaTjjjXn4ngQWgIsDJ3WlnaMSAqxVKqgSnG7Zq2/bhxpaSfntSxh
-	 DXisyx9vnI26ygC2pzU0jYMrWh1Y5CAljaY7Fg7FWr7YUC56AmYoL7AqguQluP/0EH
-	 Tz6W2kk2AvP2uxMTz1dbgqsgK98Pvb71PEp3id/q/8ix53CNS+oz3BtzMTKVB3PiTv
-	 KXi/ecHyHZKN+aBMxAMTMiqqS6Lg2e0tBhY8Oglm9I10opPeGcQaTCxSe8CQhoCVIB
-	 XXu8TiHbpx/4rwgdyf2qhb9iLhYSBSUj5MzRXg28dMljsBkKHCY114h17Qx0YMuDfm
-	 ZgetKviUSsrtA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Liew Rui Yan <aethernet65535@gmail.com>,
-	stable@vger.kernel.org,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v3] mm/damon/core: fix unconditionally skip last region
-Date: Tue,  8 Sep 2026 06:47:38 -0700
-Message-ID: <20260908134739.96919-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BY6rLeTc"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so38044345e9.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:50:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788875399; x=1789480199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CwxOcnlvcy9U0HQiJwkZMzbvB1txUIVhCVffQoriU+0=;
+        b=BY6rLeTcGX80rOeajVwyXLN41Xcnj81oMvb07r1CEN0QEnEYwATqX0MbTe7zL2He2k
+         2niDN40DprTmDlPtcrOk+mVu14M/RTb9jiY6JMR08b2xqIrFqyjmvHFoTwNMA2HEcWsE
+         CBHKTFz+n2bJS/EExgqTJYNQ+JcUKuW+COCupeU3CWOvLjDxMHR5C3cAKV4TxjAzJjIR
+         udra7JtfL4l+d46U09DxwFYzg/y+uYnS3JUIBVVxgjP+dap1dA0YNn8waUZFuwyI3uLS
+         tMRU+98AHGtubjM9sqySAw17VQn+kKrOhqpGAJ2EFdVEktHCBf5GnLT/ia2soq++dx65
+         Dkfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788875399; x=1789480199;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CwxOcnlvcy9U0HQiJwkZMzbvB1txUIVhCVffQoriU+0=;
+        b=qpAtcttZ09TJOWlQZvg2j06TA5+78Gr54u/rmv8gv5zF7yZgUcoXG5FQVx6GTpGRj9
+         YHPe9WESmyhYRJTtSsLmR4cwepfjXDS5SYAMANQe5/SuVzapkjg3A8Pe0tX8Fg1Y+iS0
+         +NGOmP2O7Ut2H6U8L7u77c9pHw/skpjgkhAb31fz/qMBZiGgHTXpeMOpsUvqAEABoWFV
+         cssRoN6nxSZwYLmj10Z0ugpY4kP6vxCwA8HyED0mj1PVwRVNx1qQqLuYANcG6/9VNN2w
+         TQ6+GVIkuANd8skNrBnnzRhwplJyNoBJAfJDkpI4R0ksCgiYGQp7HNr0SdurnDzKDrjC
+         zGYw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpmGjy0hULGv4Lxt2ujtokJMTSnYwcLwc3iVz0y9AfLVgPmFu56s8lTI5aRhPjDoiGIj05JOU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9RmXSFEBnytdyxpV6jOra6o+8IiyG3N/e+peVE6IxoNWZjv04
+	fq2V+s9LElEnut1Xltgs3nsEHSxrNhcAzV95TIGrh/KAJzHHu3L8VoTJ
+X-Gm-Gg: AYBFou0bPCtS8Xmy+tpgd/AF90qmef5y3QOD2Y6jBlcHzwvIYHY9ouj+b5swVA6Khrt
+	/BVDE2cDEnjsmb+HL0hOVDQeu9eg2wrA5ctMQ6yFUQI3v4JkcP4cSraV4iXbW6XuIpiykXbFz6R
+	7Bw8q83UgB2vB5TNg/x5eSNTHmErvZbSufJR6siKn/Nk+dDmBvhCDQmIYjVBVHNFETVW5dZ9nkN
+	qQ9iTpuZBpu0Ekh/t8hQWbR6zdiD8v1woLMT/w8Uu5IajJnv2GFo+ukntb1R6QzeYs5aiiYNGTZ
+	gQpyJo8MsuBaRm87xlfvIKNJm1Aglrock2YwlbpWKXTAppIO/fOVHM2PUCNBw38/Q/Meic47z5g
+	tncCg+LT5j1JmDkXNQB3X1X+9PTucCxn1O7HoeVotFfQS76gYuN5SIeVjEmLOFCKeRlk0u3cBqq
+	4Iwg+/FqKkjPTioltRw8qBxntrzGB+vCqeZ5Xh/Rpc1pGcApoOKC129oKCps648xHjwXY5ECP83
+	Y52+4kBguSL88NiOO0/a6XsA979Cs0W
+X-Received: by 2002:a7b:cc91:0:b0:49c:ff9f:f6b6 with SMTP id 5b1f17b1804b1-49cffa00196mr188444915e9.6.1788875399076;
+        Tue, 08 Sep 2026 06:49:59 -0700 (PDT)
+Received: from LS-Tayyab-Farooq.dreambig.corp ([125.209.88.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm389144795e9.12.2026.09.08.06.49.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:49:58 -0700 (PDT)
+From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+To: Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Hongren Zheng <i@zenithal.me>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nobuo Iwata <nobuo.iwata@fujixerox.co.jp>,
+	linux-usb@vger.kernel.org (open list:USB OVER IP DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>,
+	syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] usbip: fix use-after-free in usbip_stop_eh()
+Date: Tue,  8 Sep 2026 18:49:02 +0500
+Message-ID: <20260908134914.3169-1-syedtayyabfarooq08@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,120 +80,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+During device teardown (e.g. when unbinding a device), vhci_stop()
+calls usbip_stop_eh() to wait for the event_handler workqueue to
+finish processing shutdown events. usbip_stop_eh() uses
+wait_event_interruptible(), so if the user-space process triggering
+the teardown receives a signal, the wait is aborted immediately.
 
-Once quota set, the charge_{target,addr}_from unconditionally skips and
-resets at the last region of the tracked target, so the last region can
-be skipped even when it has not been processed.
+Since the return value is ignored, the teardown path proceeds to
+free the vhci_hcd (and the embedded usbip_device) while the
+event_handler is still actively using it, resulting in a
+use-after-free:
 
-Example:
+  BUG: KASAN: slab-use-after-free in vhci_shutdown_connection
 
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
+Fix this by switching to the uninterruptible wait_event(), so the
+wait cannot be short-circuited by a signal and always completes
+after the event handler has finished processing pending events for
+this device.
 
-    Result: R2 is permanently skipped even though it has never been
-    processed.
-
-However, it is important to note that this is a very minor issue.  This
-is because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except
-the last region were skipped by damos_skip_charged_region().
-
-Fix this by only resets the charge_{target,addr}_from when last region
-is reached, only skips when it applied or cannot split.
-
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Cc: <stable@vger.kernel.org> # v5.16.x
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Reported-by: syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=31117fde582fe6a0cd62
+Fixes: bb7871ad99ea ("usbip: event handler as one thread")
+Cc: stable@vger.kernel.org
+Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
 ---
-Changes from v2:
-- v2: https://lore.kernel.org/20260830063159.6347-1-aethernet65535@gmail.com
-- Collect R-b: from SJ.
+ drivers/usb/usbip/usbip_event.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes from v1:
-- Simplify example in commit message.
-- Add clarification regarding the severity of the bug to avoid causing
-  users unnecessary afraid.
-- Modify the patch code, each time the last region is reached, only
-  charge_{target,addr}_from is reset, but the return value depends on
-  the situation.
-- Modify patch's title from 'mm/damon' to 'mm/damon/core', since it only
-  changes core.c.
-- v1: https://lore.kernel.org/damon/20260828084737.290024-1-aethernet65535@gmail.com
-
-Changes from RFC v1:
-- Minimal fix, only fixes the issue where the last-region is skipped.
-- Add an example to the commit message to demonstrate that this error
-  occurs very rarely.
-- RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
-
- mm/damon/core.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index a360c41cda89c..7e6cd405161d4 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2452,36 +2452,39 @@ static bool damos_skip_charged_region(struct damon_target *t,
- {
- 	struct damos_quota *quota = &s->quota;
- 	unsigned long sz_to_skip;
-+	bool skip = false;
+diff --git a/drivers/usb/usbip/usbip_event.c b/drivers/usb/usbip/usbip_event.c
+index 0e00c2d000f8..81d761891184 100644
+--- a/drivers/usb/usbip/usbip_event.c
++++ b/drivers/usb/usbip/usbip_event.c
+@@ -115,7 +115,7 @@ void usbip_stop_eh(struct usbip_device *ud)
+ 	if (pending)
+ 		usbip_dbg_eh("usbip_eh waiting completion %lx\n", pending);
  
- 	/* Skip previously charged regions */
- 	if (quota->charge_target_from) {
- 		if (t != quota->charge_target_from)
- 			return true;
--		if (r == damon_last_region(t)) {
--			quota->charge_target_from = NULL;
--			quota->charge_addr_from = 0;
--			return true;
--		}
- 		if (quota->charge_addr_from &&
--				r->ar.end <= quota->charge_addr_from)
--			return true;
-+				r->ar.end <= quota->charge_addr_from) {
-+			skip = true;
-+			goto out;
-+		}
- 
- 		if (quota->charge_addr_from && r->ar.start <
- 				quota->charge_addr_from) {
- 			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
- 					r->ar.start, min_region_sz);
- 			if (!sz_to_skip) {
--				if (damon_sz_region(r) <= min_region_sz)
--					return true;
-+				if (damon_sz_region(r) <= min_region_sz) {
-+					skip = true;
-+					goto out;
-+				}
- 				sz_to_skip = min_region_sz;
- 			}
- 			damon_split_region_at(t, r, sz_to_skip);
--			return true;
-+			skip = true;
- 		}
-+	}
-+out:
-+	if (r == damon_last_region(t)) {
- 		quota->charge_target_from = NULL;
- 		quota->charge_addr_from = 0;
- 	}
--	return false;
-+	return skip;
+-	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
++	wait_event(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
+ 	usbip_dbg_eh("usbip_eh has stopped\n");
  }
- 
- static void damos_update_stat(struct damos *s,
-
-base-commit: ab263dd200a7a9101ce3c1374fd23139f29cdac4
+ EXPORT_SYMBOL_GPL(usbip_stop_eh);
 -- 
-2.47.3
+2.43.0
+
