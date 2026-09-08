@@ -1,66 +1,65 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F33955F7;
-	Tue,  8 Sep 2026 07:21:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689D639E9CB;
+	Tue,  8 Sep 2026 07:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852097; cv=none; b=Gas4zgqTMxCPEPMECq2VN1XKDql3P3qqxRhG5YIqCPlJuZxi7yWUUZizJb3ryMw4Ko3/qUr6IssHQcIU7spgm83TFgFkIylfuumt4MAbMR+qO/g2qNCJ+4AU2WZy+FtgdyX/g8/nIP8Seosw8Uc2nCiNmVdgiHtwvGolcl/uKyw=
+	t=1788852103; cv=none; b=qgLhEDtn+1IQpN/0K3npr4W6tcdWYNgsrhEBM/fsd1WzHiFdwpXZR9w1bIbsKjg1yBbyiUM/dx6WajY8Qvn/9uDhbmKienAx6OIPCXM6N4kPlBj9tba+egRgFUwcj81xf2xWvCDpIYDC2JlA6rrf8YSxl3V1+DLbEiJF0SqAiaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852097; c=relaxed/simple;
-	bh=9VjWwdaIjWKwCkmjMMQ+TiQIgYPbHdrq7cTFbjUOUhI=;
+	s=arc-20240116; t=1788852103; c=relaxed/simple;
+	bh=+y+Mvp9YDtLyMZyMqZnhvyOTfA/a6LoW0rL1dtwdgPg=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=T9bKoKONZ7IA9CZeb79GoL135Ut4i196X+KPutimKvWbhZdk4oMHwnOairYGTbllhcpgxQpysA1In3+OauTJhIuFBtj++XVRd178CpuyVCo0WZ35osg21EIcxs9iyN0vG8H+FnXPxajwDxfwOtm8GFDhMbpdBeg+Viw12xj6ovA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=U/Bm+qPd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gtyRdzEe; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=FsurglZFKhSWMS6Yt7XBYaxaUbIeeARw5jaUgXllXnTYDsFRYTheXF0v13c5dUIV4IAdNPmtgV3EN1Y5qCM41iYHueoj6HfSTCrAmQSqajYX2Ap08NwdPKH9w5+O9qEBYkDhx5YW+Ay1pi+pEMpe+bWmfs87+U/U/B8kZjqw3mA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BxH/NcI7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l3Y4TsGZ; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="U/Bm+qPd";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gtyRdzEe"
-Date: Tue, 08 Sep 2026 07:21:32 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BxH/NcI7";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l3Y4TsGZ"
+Date: Tue, 08 Sep 2026 07:21:37 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788852093;
+	s=2020; t=1788852099;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Es93h0JzaYMyLYuYmNaYPWTMoEitkI+BgJ0PO45OFrk=;
-	b=U/Bm+qPdhWUwEjZKMr7mlIrAPWAtrWIIaRdiMJuN3wU5L5OkD9Mqb2cq4TYLF0BIbo7Y5k
-	B4RSAjP8/ykP7YfZ4W3OdBE5PnRn967lnWzD2TQx3itGts7ZU59nFgMVmQm97mlbrDhjMr
-	w90eJRoV13fWwvhOd+S60QpizdxrXA/I1qvZiIICj9O9SOeX540wnp3YCUf2f+ybnW121v
-	BoaftdstlS60MSUtIShEVMDG2jqpS44gYxJK8CESyTpxlqTnJ9X2xsKRjHEITUGkOfQjsO
-	LId6QjpK3AzkYxNIv+tHMrV1eTEDstySHMFzNn4kjK/3I9xLS9sDwp3ZxBmDGA==
+	bh=KP3m+nBUO4RrI4kn9l9CDUo1AcdXhxkdA6Z9wzHx74Q=;
+	b=BxH/NcI72uSvinl25hbsGIz3To/8u/KB68hixK8UgNuHrbEE9CwWiTBJWCSN7cokPG4pRw
+	OMT7iKwzHHcC8MlD/r+9Qf1zScLLi6hFYCfbmJRGRBTeOYpI+yilokSP/W4IWD7VV4Dvpf
+	GukAI3noYpIMrHqvXT9nA8W++V+Kl+MdhOHIdYnrBaIp+y4q8hfBmZSw9RrW0Z4pDHpH8A
+	A5RoMcDqLq4wOTPxRXmG79yQ3FxQAkC1jrMpSpXG9gUvtv+f9m0Su3ASAlSMnLGdMLwlgC
+	ageOcd5Dc0I6VbLJTcOvblK7tbtHsi0SzNayIg3mGITSMzqMfPVCMzIJnyOysA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788852093;
+	s=2020e; t=1788852099;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Es93h0JzaYMyLYuYmNaYPWTMoEitkI+BgJ0PO45OFrk=;
-	b=gtyRdzEegjH/djqKRwRRLIs+17kZgz7N29NXQuRsuyQFbTYdXzESCDlolCWeCTvIu6abPS
-	cTtXHFusAucLKiDQ==
-From: "tip-bot2 for Jason Andryuk" <tip-bot2@linutronix.de>
+	bh=KP3m+nBUO4RrI4kn9l9CDUo1AcdXhxkdA6Z9wzHx74Q=;
+	b=l3Y4TsGZ/Xami72TSypoWWe8KHNKOLpYe/cCeLC1xvhr0x2p5NlXmoiLIAyAcBBSnUDV0B
+	2+zIdl9W3qTD3pAw==
+From: "tip-bot2 for Vernon Yang" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/amd_node: Fix potential NULL pointer dereference
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo Molnar <mingo@kernel.org>,
- Yazen Ghannam <yazen.ghannam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>, stable@vger.kernel.org,
+Subject: [tip: x86/mm] x86/mm: Fix user-space data loss with MADV_FREE and THP
+Cc: Orson Peters <orsonpeters@gmail.com>,
+ Vernon Yang <yanglincheng@kylinos.cn>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260825214805.39148-3-jason.andryuk@amd.com>
-References: <20260825214805.39148-3-jason.andryuk@amd.com>
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178885209203.623050.9436256911569173251.tip-bot2@tip-bot2>
+Message-ID: <178885209782.623050.11961390492267984979.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,97 +67,84 @@ Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/urgent branch of tip:
+The following commit has been merged into the x86/mm branch of tip:
 
-Commit-ID:     aefdbd574a362dcf7569bada6d72f64a006b9fb9
-Gitweb:        https://git.kernel.org/tip/aefdbd574a362dcf7569bada6d72f64a006=
-b9fb9
-Author:        Jason Andryuk <jason.andryuk@amd.com>
-AuthorDate:    Tue, 25 Aug 2026 17:48:03 -04:00
+Commit-ID:     18d6b3df5aa910b8e3bad889f2658e6a4c8f6a0d
+Gitweb:        https://git.kernel.org/tip/18d6b3df5aa910b8e3bad889f2658e6a4c8=
+f6a0d
+Author:        Vernon Yang <yanglincheng@kylinos.cn>
+AuthorDate:    Thu, 03 Sep 2026 11:16:08 +08:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Tue, 08 Sep 2026 09:16:22 +02:00
+CommitterDate: Tue, 08 Sep 2026 09:15:12 +02:00
 
-x86/amd_node: Fix potential NULL pointer dereference
+x86/mm: Fix user-space data loss with MADV_FREE and THP
 
-amd_smn_read/write() are exported functions around __amd_smn_rw(), so
-they are always available even if amd_smn_init() fails. In that case,
-'amd_roots' is NULL and __amd_smn_rw() will access uninitialized memory.
+Some of users of Polars (a data analytics library) have lost production
+data from this bug. They seem to have just the right combination of
+huge pages, MADV_FREE and heavy reclaim pressure.
 
-Then, commit:
+pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+silently discarding the hardware dirty bit.  The subsequent
+pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+stripped from the value, so there is nothing left to transfer.
 
-  83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+the dirty state.
 
-added the 'smn_exclusive' flag, which indicated the calls to
-pci_request_config_region_exclusive() succeeded, to prevent
-concurrent userspace access.
+One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
 
-Commit:
+    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+                                      // folio marked lazyfree
+    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+    mprotect(buf, size, PROT_READ|PROT_WRITE);
+    // ... memory pressure ...
 
-  0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+no dirty bit set anywhere and frees it in
+__discard_anon_folio_pmd_locked(), even though the data was rewritten
+after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+restores the PMD through pmd_modify() as well.
 
-re-ordered initialization so pci_request_config_region_exclusive() is
-called earlier and a failure exits amd_smn_init() before allocating
-'amd_roots'. The setting of 'smn_exclusive' moved to the end of
-amd_smn_init(), after 'amd_roots' is allocated. It became redundant
-and can be removed.
+PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+the dirty bit means rewritten data is never written back.
 
-Replace 'smn_exclusive' with directly checking 'amd_roots', to fix a
-potential NULL pointer dereference and to simplify the logic.
+Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+pte_modify() and pud_modify() do.  The existing
+pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+hardware-dirty <-> saved-dirty transition based on the write bit,
+preserving the shadow-stack encoding rules.
 
-  [ bp: Reorg commit message, touchup comment. ]
-  [ mingo: Rebase & further touchups. ]
-
-Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=3DcNbNApCWqdthRj=
+d76LThtSPg@mail.gmail.com/
+Reported-by: Orson Peters <orsonpeters@gmail.com>
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260825214805.39148-3-jason.andryuk@amd.com
+Link: https://patch.msgid.link/20260903031608.1194238-1-vernon2gm@gmail.com
 ---
- arch/x86/kernel/amd_node.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ arch/x86/include/asm/pgtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 408b9fd..7625857 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index d5f4917..d551120 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newpro=
+t)
+ 	pmdval_t val =3D pmd_val(pmd), oldval =3D val;
+ 	pmd_t pmd_result;
 =20
- /* Protect the PCI config register pairs used for SMN. */
- static DEFINE_MUTEX(smn_mutex);
--static bool smn_exclusive;
-=20
- #define SMN_INDEX_OFFSET	0x60
- #define SMN_DATA_OFFSET		0x64
-@@ -91,11 +90,16 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32=
- address, u32 *value, b
- 	if (node >=3D amd_num_nodes())
- 		return err;
-=20
--	root =3D amd_roots[node];
--	if (!root)
-+	/*
-+	 * Uninitialized amd_roots indicates pci_request_config_region_exclusive()
-+	 * didn't run or failed and thus the kernel cannot rely on having
-+	 * exclusive access to SMN registers so prevent that.
-+	 */
-+	if (!amd_roots)
- 		return err;
-=20
--	if (!smn_exclusive)
-+	root =3D amd_roots[node];
-+	if (!root)
- 		return err;
-=20
- 	guard(mutex)(&smn_mutex);
-@@ -313,8 +317,6 @@ static int __init amd_smn_init(void)
- 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
- 	}
-=20
--	smn_exclusive =3D true;
--
- 	return 0;
- }
+-	val &=3D (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
++	val &=3D _HPAGE_CHG_MASK;
+ 	val |=3D check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
+ 	val =3D flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
 =20
