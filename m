@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5A423C4F3
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFBA5437FD
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872145; cv=none; b=rAWsge+2t7NohNRJEj9Yk8s/jQJFIw29IQot2i0iw74R+vg3t88d9tjyxNkOWPBlV2kz75gxTF6sHCB856/r0+1JEUItikLPRWr2gFHEs5Oh/EkY59UHeA0CnD/N7nMNNSUPi2GsOey+t0YT3AGFNdkEzv4F03sIy7R3yd5lrf8=
+	t=1788872149; cv=none; b=bvzQF5L+dlHui0+MGEzMHOXVK3jN09zVVeVbLVmymRsyhglDPpsQzXWkoFPi+6HDX7onj4hNnKUVcI6lzbqrJoeW8pNuRqLK1+T/taTyjRROqSaxX3hvjYDT8g4sr6L4q38HjuDvFhXFYtCdpjkJtImv8gr3ywGu24mKTks0O/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872145; c=relaxed/simple;
-	bh=c7wUhgLmcG066jO4MbFk7TxbouJrRfmyESLmstolrrc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CJeuvFQ7qiFzRSOnFYUlTR2Yn9yPdYeiPy/JdiWsmFPyrAewLTrDKSS+bd6peCG2IT4fdZbVJjL+00E8yFG94/1RhyooEph3NVdnbO99yBMKI4LsfRvpcSPdNyh0q8WYSTap1anFv2P+GFVfkfcYLLFSDtVvCzeecJRkXkNnQlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HpuRq+NB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HpuRq+NB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10BF11F00A3A;
-	Tue,  8 Sep 2026 12:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872143;
-	bh=hXx0qbp8TeT1J3H4ne3vFF9dPyvbM688IUET3viN7Hw=;
-	h=Subject:To:Cc:From:Date;
-	b=HpuRq+NBp55XZjiLgPuf3hAiiXnsYP8XeVghfGmT21hAaFpGl6mCiZzzA8EuUEf14
-	 /EimJAaJMh67BwHSwntH2c3U1rl8tBACTt2z/CsQGITSGU2IaoxXt+5Gpo5Miamc/s
-	 gVu7eq1xGfnZeUiaKbfX1pPf8mFjv03VD4bLgNQg=
-Subject: FAILED: patch "[PATCH] scsi: sg: Report request-table problems when any status is" failed to apply to 7.2-stable tree
+	s=arc-20240116; t=1788872149; c=relaxed/simple;
+	bh=Qs7zDkAsZzQ+JqlBjys/lc6aJpoSRr4E8caePNPOPnw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WilDS5UDh2s7Y5dEL7mrdjLTa3EOFQlr7kK6It7Zg7potS8D+1lDB4SiEhZTnReutSG2q29AB4yinbBO+vP1NAcZ4HPb3h6KRqRh8TCGpXVLs197Vw5xXIpIV+aobV5VMevLV2C9Uz0wR/eFzbA5vZCFyE5utmxwupRE7Mg8ESs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED8D1F00A3A;
+	Tue,  8 Sep 2026 12:55:46 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] scsi: sg: Report request-table problems when any status is" failed to apply to 6.1-stable tree
 To: raoxu@uniontech.com,bvanassche@acm.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:47:28 +0200
-Message-ID: <2026090828-unhitched-spoils-5071@gregkh>
+Date: Tue, 08 Sep 2026 14:47:29 +0200
+Message-ID: <2026090829-trodden-joining-7426@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 11300f8ddee301dca9914561f24bea4168de076d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090828-unhitched-spoils-5071@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090829-trodden-joining-7426@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
