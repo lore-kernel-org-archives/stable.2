@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080964B4873
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E1F5908BE
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907016; cv=none; b=g1h8qG62+Z//DdLsNW6tU3k5t6JwHEIgxeWE9NjyLowFfdPNbj6aGi7KHdAbKWfig2cTD8MNo/lO/LwtAVHu1XN9nfEc+zkI+KsDHIAGmHVZyuMsQDMBG45UowIXXchf4s9NzgQkllpxLNtOUZf41UJJkPAClnRKQsojPB9rc+U=
+	t=1788907016; cv=none; b=UOt3R5hnn1lzrkDa1tt/zKRChj2AMjWup3j/z1yw8VXaP2l8YzbZo60LOpJGJaYbWUt1nbfc1DTG5HJTPjnmD1y2QWk6u4eOjf3EAr/o/8Q1bZBwsQITT9qKD8+z14FhAuoyoa99L95siFUimtYYNJ4WCK9TGpTHm1SFpPcRdjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788907016; c=relaxed/simple;
-	bh=cblmYlIppXYv1w4skBY3NgFS1FQH6uC1E4D6FnxV+wE=;
+	bh=0c9jl79FowH1eiwLrDXpgp6lY/YWlYCZ5NnuCFC2ghE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HYKbPo6fU41NVPniCDdOO4LSk5iodO5PRgkGexS4hxp3rQvl0bg+lX6NNDDM+aduuWhzJH1q62oTiJS8AaaZckvw9sZsjcOzZJDxcWGPUzW5WZw4fexPGk4orO53yZY7jS6uQAXZb/SEpYrWR+oTmO4Eai49tdNV3brBpX7RIe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKvPXeB1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gaYVrx/ZdwcVPqxCHWK7L67aQemLKlpUaJQKmS3PUfItEka/yHwwmVrE9UKChsqmuBkLYuA9rqYE+yJH0I5ip8hkWJ+nHn8I17SAuMlm5aw5iIm3U9OJGjylwOI+0qZJukP4O9jmzjR5o8c4dQRzUEc32As4B6V37CmYHTwAvoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WYGrKHk0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKvPXeB1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CE11F00A3E;
-	Tue,  8 Sep 2026 22:36:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WYGrKHk0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7972E1F00A3D;
+	Tue,  8 Sep 2026 22:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788907013;
-	bh=HZ98ADxZ0VZzQj4JKeIGHUfJqGn8l7XFcxbVo23QWGE=;
+	bh=BEsQjlA6ctJNh3+quMoPC/q4qfTP2SZZpm0GwPCCIP0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hKvPXeB1QAR5RtVOX3IvqDCFbKk8Jl63MiNAcAs0FPDhPEqM3Ii7nUhIc9L5zNbI+
-	 2GgHKHMTdeqkXvcUtrZE+1eaC8TDUcat/L0B9+XYueIaJDslEw/IP+PNp5OKfDjNpL
-	 O1nxRBh98bFUCJ9Ts2LanoJz6SB4r7umuTQO4xkiz4X5GqOMFJ+Yc8s9fhwlY/wnww
-	 +RTEsHFmobtQiMTBV28DoFELgwSkXIH86X2K/RvbOL1k/GdHcdGG8U96NMFgHPnl1d
-	 RbzBOxBPYcdDzmE8RwFY2KWZzKyiESC7vqDCbTwjmp8G7YGtw5ef6d2Mjd2AxW0+Qt
-	 Hxs6r8YQ1yeEA==
+	b=WYGrKHk0uT8yv6pKVDPSfdNrIFicUpYxDft/i9yjgZfeW5isB9vOFirvYEHzHdN/P
+	 Tok9ZE+OCbqHtl1Vnsvs3T5fthcBy7PweAdEmw7gjvt+qGmqTogQ8UJrT2M/2yAezW
+	 x7ZevJTl0V6PRaQ8YOGa1NnJ83VTP/HJ7Yz15dsI3gyrT/YdXZe5OoFR6QUHwFl1qj
+	 YKj5djGpfA3HOAjtxTFcaM5f42yvJjlbOqxliTx0IY4aJq8KV9V3Hp362qXnJxv8oK
+	 OvAQUfcasRwN2eieZc0Lwt9PD92jYxUsUozBhOBQq50f54iMC9jyCZCQeGqphtF2ts
+	 +qdm7rKucLflQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: NeilBrown <neilb@suse.de>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/7] SUNRPC: Add a server-side API for retrieving an RPC's pseudoflavor
-Date: Tue,  8 Sep 2026 18:36:45 -0400
-Message-ID: <20260908223651.501880-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/7] SUNRPC: move all of xprt handling into svc_xprt_handle()
+Date: Tue,  8 Sep 2026 18:36:44 -0400
+Message-ID: <20260908223651.501880-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908223651.501880-1-sashal@kernel.org>
+In-Reply-To: <2026090350-breeze-repugnant-70de@gregkh>
 References: <2026090350-breeze-repugnant-70de@gregkh>
- <20260908223651.501880-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,106 +45,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: NeilBrown <neilb@suse.de>
 
-[ Upstream commit deb704281f076097b0347116a82edeba96697db1 ]
+[ Upstream commit e3274026e2ec69eec6ab51bc499e14bb548548d0 ]
 
-NFSD will use this new API to determine whether nfsd_splice_read is
-safe to use. This avoids the need to add a dependency to NFSD for
-CONFIG_SUNRPC_GSS.
+svc_xprt_handle() does lots of things itself, but leaves some to the
+caller - svc_recv().  This isn't elegant.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Move that code out of svc_recv() into svc_xprt_handle()
+
+Move the calls to svc_xprt_release() from svc_send() and svc_drop()
+(the two possible final steps in svc_process()) and from svc_recv() (in
+the case where svc_process() wasn't called) into svc_xprt_handle().
+
+Signed-off-by: NeilBrown <neilb@suse.de>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svcauth.h    |  7 ++++++-
- net/sunrpc/auth_gss/svcauth_gss.c |  6 ++++++
- net/sunrpc/svcauth.c              | 16 ++++++++++++++++
- 3 files changed, 28 insertions(+), 1 deletion(-)
+ net/sunrpc/svc_xprt.c | 53 ++++++++++++++++---------------------------
+ 1 file changed, 20 insertions(+), 33 deletions(-)
 
-diff --git a/include/linux/sunrpc/svcauth.h b/include/linux/sunrpc/svcauth.h
-index 6f90203edbf8d..61c455f1e1f50 100644
---- a/include/linux/sunrpc/svcauth.h
-+++ b/include/linux/sunrpc/svcauth.h
-@@ -131,8 +131,11 @@ enum svc_auth_status {
-  *   This call releases a domain.
-  *
-  * set_client()
-- *   Givens a pending request (struct svc_rqst), finds and assigns
-+ *   Given a pending request (struct svc_rqst), finds and assigns
-  *   an appropriate 'auth_domain' as the client.
-+ *
-+ * pseudoflavor()
-+ *   Returns RPC_AUTH pseudoflavor in use by @rqstp.
-  */
- struct auth_ops {
- 	char *	name;
-@@ -143,11 +146,13 @@ struct auth_ops {
- 	int			(*release)(struct svc_rqst *rqstp);
- 	void			(*domain_release)(struct auth_domain *dom);
- 	enum svc_auth_status	(*set_client)(struct svc_rqst *rqstp);
-+	rpc_authflavor_t	(*pseudoflavor)(struct svc_rqst *rqstp);
- };
- 
- struct svc_xprt;
- 
- extern enum svc_auth_status svc_authenticate(struct svc_rqst *rqstp);
-+extern rpc_authflavor_t svc_auth_flavor(struct svc_rqst *rqstp);
- extern int	svc_authorise(struct svc_rqst *rqstp);
- extern enum svc_auth_status svc_set_client(struct svc_rqst *rqstp);
- extern int	svc_auth_register(rpc_authflavor_t flavor, struct auth_ops *aops);
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 49a8623cc1d57..3015839da877f 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -2009,6 +2009,11 @@ svcauth_gss_domain_release(struct auth_domain *dom)
- 	call_rcu(&dom->rcu_head, svcauth_gss_domain_release_rcu);
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index 5cfe5c7408b74..5440d6b50efa5 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -784,7 +784,7 @@ static void svc_add_new_temp_xprt(struct svc_serv *serv, struct svc_xprt *newxpt
+ 	svc_xprt_received(newxpt);
  }
  
-+static rpc_authflavor_t svcauth_gss_pseudoflavor(struct svc_rqst *rqstp)
-+{
-+	return svcauth_gss_flavor(rqstp->rq_gssclient);
-+}
+-static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
++static void svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ {
+ 	struct svc_serv *serv = rqstp->rq_server;
+ 	int len = 0;
+@@ -825,11 +825,26 @@ static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ 			len = xprt->xpt_ops->xpo_recvfrom(rqstp);
+ 		rqstp->rq_reserved = serv->sv_max_mesg;
+ 		atomic_add(rqstp->rq_reserved, &xprt->xpt_reserved);
++		if (len <= 0)
++			goto out;
 +
- static struct auth_ops svcauthops_gss = {
- 	.name		= "rpcsec_gss",
- 	.owner		= THIS_MODULE,
-@@ -2017,6 +2022,7 @@ static struct auth_ops svcauthops_gss = {
- 	.release	= svcauth_gss_release,
- 	.domain_release = svcauth_gss_domain_release,
- 	.set_client	= svcauth_gss_set_client,
-+	.pseudoflavor	= svcauth_gss_pseudoflavor,
- };
++		trace_svc_xdr_recvfrom(&rqstp->rq_arg);
++
++		clear_bit(XPT_OLD, &xprt->xpt_flags);
++
++		rqstp->rq_chandle.defer = svc_defer;
++
++		if (serv->sv_stats)
++			serv->sv_stats->netcnt++;
++		percpu_counter_inc(&rqstp->rq_pool->sp_messages_arrived);
++		rqstp->rq_stime = ktime_get();
++		svc_process(rqstp);
+ 	} else
+ 		svc_xprt_received(xprt);
  
- static int rsi_cache_create_net(struct net *net)
-diff --git a/net/sunrpc/svcauth.c b/net/sunrpc/svcauth.c
-index aa4429d0b8106..1619211f0960a 100644
---- a/net/sunrpc/svcauth.c
-+++ b/net/sunrpc/svcauth.c
-@@ -160,6 +160,22 @@ svc_auth_unregister(rpc_authflavor_t flavor)
+ out:
+-	return len;
++	rqstp->rq_res.len = 0;
++	svc_xprt_release(rqstp);
  }
- EXPORT_SYMBOL_GPL(svc_auth_unregister);
  
-+/**
-+ * svc_auth_flavor - return RPC transaction's RPC_AUTH flavor
-+ * @rqstp: RPC transaction context
-+ *
-+ * Returns an RPC flavor or GSS pseudoflavor.
-+ */
-+rpc_authflavor_t svc_auth_flavor(struct svc_rqst *rqstp)
-+{
-+	struct auth_ops *aops = rqstp->rq_authop;
-+
-+	if (!aops->pseudoflavor)
-+		return aops->flavour;
-+	return aops->pseudoflavor(rqstp);
-+}
-+EXPORT_SYMBOL_GPL(svc_auth_flavor);
-+
- /**************************************************
-  * 'auth_domains' are stored in a hash table indexed by name.
-  * When the last reference to an 'auth_domain' is dropped,
+ /**
+@@ -843,11 +858,9 @@ static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ void svc_recv(struct svc_rqst *rqstp)
+ {
+ 	struct svc_xprt		*xprt = NULL;
+-	struct svc_serv		*serv = rqstp->rq_server;
+-	int			len;
+ 
+ 	if (!svc_alloc_arg(rqstp))
+-		goto out;
++		return;
+ 
+ 	try_to_freeze();
+ 	cond_resched();
+@@ -855,31 +868,9 @@ void svc_recv(struct svc_rqst *rqstp)
+ 		goto out;
+ 
+ 	xprt = svc_get_next_xprt(rqstp);
+-	if (!xprt)
+-		goto out;
+-
+-	len = svc_handle_xprt(rqstp, xprt);
+-
+-	/* No data, incomplete (TCP) read, or accept() */
+-	if (len <= 0)
+-		goto out_release;
+-
+-	trace_svc_xdr_recvfrom(&rqstp->rq_arg);
+-
+-	clear_bit(XPT_OLD, &xprt->xpt_flags);
+-
+-	rqstp->rq_chandle.defer = svc_defer;
+-
+-	if (serv->sv_stats)
+-		serv->sv_stats->netcnt++;
+-	percpu_counter_inc(&rqstp->rq_pool->sp_messages_arrived);
+-	rqstp->rq_stime = ktime_get();
+-	svc_process(rqstp);
++	if (xprt)
++		svc_handle_xprt(rqstp, xprt);
+ out:
+-	return;
+-out_release:
+-	rqstp->rq_res.len = 0;
+-	svc_xprt_release(rqstp);
+ }
+ EXPORT_SYMBOL_GPL(svc_recv);
+ 
+@@ -889,7 +880,6 @@ EXPORT_SYMBOL_GPL(svc_recv);
+ void svc_drop(struct svc_rqst *rqstp)
+ {
+ 	trace_svc_drop(rqstp);
+-	svc_xprt_release(rqstp);
+ }
+ EXPORT_SYMBOL_GPL(svc_drop);
+ 
+@@ -905,8 +895,6 @@ void svc_send(struct svc_rqst *rqstp)
+ 	int status;
+ 
+ 	xprt = rqstp->rq_xprt;
+-	if (!xprt)
+-		return;
+ 
+ 	/* calculate over-all length */
+ 	xb = &rqstp->rq_res;
+@@ -919,7 +907,6 @@ void svc_send(struct svc_rqst *rqstp)
+ 	status = xprt->xpt_ops->xpo_sendto(rqstp);
+ 
+ 	trace_svc_send(rqstp, status);
+-	svc_xprt_release(rqstp);
+ }
+ 
+ /*
 -- 
 2.53.0
 
