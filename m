@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6FD5616A8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A05538D9E
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883847; cv=none; b=UI/NODmcS2ObgFkyPrF6p8zKHURsw0H7pFDcPtRBtx5Q3UAQtsa6GQkw19hdhIv0bBx3D7m7EuqsOg8O6L8Xd9ryGRwo9BxxG+RNaMBj5S9q8IUAr9/x6McTR1tLzbk/OyCk7cNicJKZg3uQ3WtxspqtqO6beKM1wqSEPPwfuG8=
+	t=1788883847; cv=none; b=QvBc2vLQAqMM3l5QZKSjjI/2EV9s4OdZDW0ku4/li7uP4dOU28lPLcekOPsPvEhrTlNLPEHnCwTtZBAxoRRdaYjPGSRckhXqOeiL+wFCCndUtkXN7atJSjx6LGnfIH/uc0Ksk5B2zyT4PNQxl8QavgVXfKK0cz38SfoNtMhMhN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788883847; c=relaxed/simple;
-	bh=r/cAYN9YwgYiAlL7Ub6ZNmun338MVI7W0xK2yeJ56N0=;
+	bh=JSujCaC06RA1yHRYtqKF1wiV2QG6XRQ+4bdg7FzS/sY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f0Bw1slOQj6Fq1cr6aSALmGoTzHkv5C4pZXMC5rer+v0UpLYuQQq8Rjw33yNEtaVEBMz1VouOceME4EQtn3+z39btiBUShWt8VV1X2jyOSamddvdWcRZV4g+xJEDFxdNIGCxQgYllCeWJ5wQE13wCpehBVcsBVAok03TJ4cB6FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAM7Czdx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gsKYvMfs3unW20Gr2tfYFlkaLMr+6ZYklLP0BOM6eMH/tODbMsOX0k6JlLSkFmBE64Tcig4vV0PA90zUPHtYG7fxysYZbvSzVzNYmn+Snk0n5clg8SW/pExvZ9i1SRiraK9hpi0orVaRoM5nduhrSSrTLH98+eygzPZNln3g5gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+lDHIvX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAM7Czdx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B090B1F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+lDHIvX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307C31F00A3F;
 	Tue,  8 Sep 2026 16:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883845;
-	bh=5r9KXPvUXy5RbUj9cf/sl3LVuZ3c9xNsih9aM0pQwKI=;
+	s=k20260515; t=1788883844;
+	bh=DkyTmT/aHRN0NyezK4B8JxLyqO/bkd8K6uetKDkMyeI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YAM7Czdxi+MEzgUAw0IAB3yvs4RUWaDUL648No7m6pc/SYVEbxzqpoe5Z9VzthVWM
-	 Pa/DPmPxxVtoGQhIwVOraegnTQy4RtD28IT9UJ8yquB1BsUgCn00Zbj4+STgaOf34c
-	 eIkz+EqQ5V0FKYB9riHs3P6vYHybEsVXnmM/anizdCrx4X6X72uwfIJS6A4Fe6Sbzv
-	 SflxMQE2i0oKIaIAhTdpMbfIsB7GdXdQJle/5ZxcGYP8I32uEChdIzPBrpBm9AE5cR
-	 bhMVDr8qu85MI5OK5xojx2AUlKoimN1zwIV3VQx1czb+tKarLRNoqG9wjQflN/uKuu
-	 ttkua02I6wC+A==
+	b=N+lDHIvXw5Zq/vRfa/8yT1MAKLZ0WSHDHTDTdANymFbgvMPbfxDDZZxlnAsW7+fR1
+	 szECtcyWo1foKWQgiTtTxP9liu840TI+uh68cCP2GgQ8MqDSwnsOfzRowKb1TY+jKW
+	 vcOX80PguTHkYbLPJvSQAKETT9TBqbsFc2M9BJUWNRaCiaJ34fzRNoIUMlHDhXXJ7u
+	 rHsfZ60dQidMvchQfPjZQ2uvfWGpWRAvRc5puJNjvZ0Pzu+68jMtQca0Kfc2ww4Pq9
+	 kx0s9HtrAA6xqIOJhbYTtznSs5mqdEXMt6Iu4zQ35yGDinLcujUA4pY/TyfrAsm3tO
+	 v0IL4kww1D2jA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Valentin Kindschi <valentin.kindschi@fiveco.ch>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] Bluetooth: hci_conn: re-enable advertising only for peripheral role
-Date: Tue,  8 Sep 2026 12:10:42 -0400
-Message-ID: <20260908161042.2593360-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] jbd2: bound shrinker scans by examined checkpoint buffers
+Date: Tue,  8 Sep 2026 12:10:40 -0400
+Message-ID: <20260908161040.2593291-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908161042.2593360-1-sashal@kernel.org>
-References: <2026090318-staring-emphases-67af@gregkh>
- <20260908161042.2593360-1-sashal@kernel.org>
+In-Reply-To: <20260908161040.2593291-1-sashal@kernel.org>
+References: <2026090324-scorer-unbutton-3de6@gregkh>
+ <20260908161040.2593291-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,97 +48,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit ed5fb41d3b6b6e665e7f97fd54bd1f9531c7477f ]
+[ Upstream commit 15cb16496446b94e67f7abcb049b8e2c75cd3d02 ]
 
-hci_le_conn_failed() unconditionally calls hci_enable_advertising(),
-although its own comment states advertising should be re-enabled only
-when the failed attempt was made as a peripheral.
+The jbd2 shrinker currently accounts only checkpoint buffers that it
+successfully releases against nr_to_scan.  Busy buffers therefore do not
+consume the scan budget.
 
-hci_le_conn_failed() is reached from hci_conn_failed() for every failed
-LE connection, including outgoing central connections. For a central
-attempt this enable is redundant: hci_le_create_conn_sync() already
-restores advertising via hci_resume_advertising_sync() in its done:
-block. Because hci_enable_advertising() only queues the work on
-cmd_sync_work, it runs *after* that resume has already succeeded and
-set HCI_LE_ADV.
+If a checkpoint transaction contains mostly busy buffers, the shrinker
+can scan its entire checkpoint list while holding journal->j_list_lock.
+Large checkpoint lists can result in excessive lock hold times and leave
+other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
 
-The resulting HCI sequence, captured on a BCM43455 (no LE Extended
-Advertising, so legacy advertising is used):
+Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
+every buffer examined, including busy buffers.  Pass NULL from checkpoint
+cleanup paths so their existing full-list behavior is preserved.
 
-  LE Create Connection                     Status Success
-  ... 13.8 s, peer never answers ...
-  LE Set Advertising Parameters (0x2006)   Success   <- done: resume,
-  LE Set Advertising Enable     (0x200a)   Success      HCI_LE_ADV set
-  LE Create Connection Cancel   (0x200e)   Success
-  LE Connection Complete                   Unknown Conn Id
-  LE Set Advertising Parameters (0x2006)   Command Disallowed (0x0c)
+This restores the scan-budget semantics that existed before
+journal_shrink_one_cp_list() was changed to always scan a complete
+checkpoint list.
 
-The last command is the queued enable from hci_le_conn_failed() running
-as a second hci_enable_advertising_sync() pass. It clears HCI_LE_ADV
-(hci_sync.c, "Clear the HCI_LE_ADV bit temporarily"), then sends
-LE Set Advertising Parameters while the controller is still advertising,
-which the controller correctly rejects with Command Disallowed.
-
-The disable-first call at the top of hci_enable_advertising_sync()
-cannot prevent this: hci_disable_advertising_sync() returns early
-without sending anything when HCI_LE_ADV is clear, so it is a no-op
-exactly when the flag is wrong.
-
-hci_enable_advertising_sync() then returns without sending LE Set
-Advertising Enable, so HCI_LE_ADV is never set again. The legacy
-software rotation loop re-arms hci_schedule_adv_instance_sync() every
-HCI_DEFAULT_ADV_DURATION (2 s), and its "already advertising" shortcut
-tests HCI_LE_ADV, which can no longer become true. The command is
-therefore retried every 2 s indefinitely:
-
-  Bluetooth: hci0: Opcode 0x2006 failed: -16
-
-Observed on a gateway as 5326 occurrences over 3 hours, ending only when
-bluetoothd was restarted. Connection attempts that succeed do not call
-hci_le_conn_failed() and never trigger this.
-
-Add the role test the comment already describes. Both other
-hci_enable_advertising() call sites reached from a failed/closed LE
-connection (hci_cs_disconnect() and hci_disconn_complete_evt()) already
-guard on conn->role == HCI_ROLE_SLAVE; this one was missed.
-
-Reproducing needs legacy advertising (ext_adv_capable() false, so the
-software rotation loop is used), simultaneous peripheral advertising and
-outgoing central connects, and a central connect that times out rather
-than failing fast.
-
-The Fixes tag points at the commit that introduced the advertising
-restart into this path for the directed-advertising (peripheral) case;
-the role test that the later commit 0b1db38ca26b ("Bluetooth: Fix check
-for direct advertising") added to the sibling paths was never applied
-here.
-
-Fixes: 3c857757ef6e ("Bluetooth: Add directed advertising support through connect()")
+Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_conn.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/jbd2/checkpoint.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index fcbeb508a3e76..6ba3463195390 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -747,7 +747,8 @@ void hci_le_conn_failed(struct hci_conn *conn, u8 status)
- 	/* Enable advertising in case this was a failed connection
- 	 * attempt as a peripheral.
- 	 */
--	hci_enable_advertising(hdev);
-+	if (conn->role == HCI_ROLE_SLAVE)
-+		hci_enable_advertising(hdev);
- }
+diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+index 36c64cf44e005..724a6ff505089 100644
+--- a/fs/jbd2/checkpoint.c
++++ b/fs/jbd2/checkpoint.c
+@@ -370,15 +370,16 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ /*
+  * journal_shrink_one_cp_list
+  *
+- * Find all the written-back checkpoint buffers in the given list
+- * and try to release them. If the whole transaction is released, set
+- * the 'released' parameter. Return the number of released checkpointed
+- * buffers.
++ * Find written-back checkpoint buffers in the given list and try to release
++ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
++ * transaction is released, set the 'released' parameter. Return the number of
++ * released checkpointed buffers.
+  *
+  * Called with j_list_lock held.
+  */
+ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 						enum jbd2_shrink_type type,
++						unsigned long *nr_to_scan,
+ 						bool *released)
+ {
+ 	struct journal_head *last_jh;
+@@ -387,13 +388,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 	int ret;
  
- static void create_le_conn_complete(struct hci_dev *hdev, u8 status, u16 opcode)
+ 	*released = false;
+-	if (!jh)
++	if (!jh || (nr_to_scan && !*nr_to_scan))
+ 		return 0;
+ 
+ 	last_jh = jh->b_cpprev;
+ 	do {
+ 		jh = next_jh;
+ 		next_jh = jh->b_cpnext;
++		if (nr_to_scan)
++			(*nr_to_scan)--;
+ 
+ 		if (type == JBD2_SHRINK_DESTROY) {
+ 			ret = __jbd2_journal_remove_checkpoint(jh);
+@@ -414,7 +417,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 
+ 		if (need_resched())
+ 			break;
+-	} while (jh != last_jh);
++	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
+ 
+ 	return nr_freed;
+ }
+@@ -436,7 +439,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
+ 	tid_t tid = 0;
+ 	unsigned long nr_freed = 0;
+-	unsigned long freed;
+ 	bool first_set = false;
+ 
+ again:
+@@ -469,10 +471,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 		next_transaction = transaction->t_cpnext;
+ 		tid = transaction->t_tid;
+ 
+-		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-						   JBD2_SHRINK_BUSY_SKIP, &released);
+-		nr_freed += freed;
+-		(*nr_to_scan) -= min(*nr_to_scan, freed);
++		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
++						       JBD2_SHRINK_BUSY_SKIP,
++						       nr_to_scan, &released);
+ 		if (*nr_to_scan == 0)
+ 			break;
+ 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
+@@ -528,7 +529,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
+ 		transaction = next_transaction;
+ 		next_transaction = transaction->t_cpnext;
+ 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-					   type, &released);
++					   type, NULL, &released);
+ 		/*
+ 		 * This function only frees up some memory if possible so we
+ 		 * dont have an obligation to finish processing. Bail out if
 -- 
 2.53.0
 
