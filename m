@@ -1,127 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64DD396579;
-	Tue,  8 Sep 2026 07:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09AE23D7DF;
+	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852374; cv=none; b=sXC+2Fzr5GimOqWTkKZZ18lcePUV4oqApTjhIK574KuDwLBhxz4eEujPhko+yAM3ZShlHob3FmEZUfV6dWDVA7gt97Iezf3sFYJWc/eL1Supt7CeaehIq36HSUjXRSQQz0mYFMvz180wD1ZxMqqjVQUFFh+RKajU+lSMJukSpPQ=
+	t=1788852443; cv=none; b=oAZkGWe2S1TPw+LEqZP+ucb2+TYfCCPYXw9ykSklZOvb1K4btVA4wB1aPhszBvD8aBjCBc2QUwE+jlNGK7UwcP4XupWiChasrCAsHtStmsdTj5eOJSnwR787kuvdRm0L14JaPVijM78Bc5Mfz+SLrD6W7qwKfawcOIDqPYk/Q6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852374; c=relaxed/simple;
-	bh=RNj8bNDPoqgTZww4eSXoFwemv1jGmr8fMaku4epod3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZuoRIi/3w3HGCdgQ1W19TTV6VaugZ5vGM4EZC5h0AmskayNPrTM+6ibGPTPcR2GwTHmfimBd1LnCKJrMKQNSRVgmLFPVaP5C2qERsimOQTHJiMM/UrCzQcEOMf7SDX9AFGYUKnVNVV5IyEWgdPd1nF4E68ba4TNdPC3MbPdaO/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCZO/LBs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788852443; c=relaxed/simple;
+	bh=Vt+6gXucuoioWVk58j7Utdta0numUj2daXjLDlo3WJY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UZpUOgTac/bcdQst8Oktst1kl4UbAgbsDR9nOvz/As5LQPqgQ4hY9DWT36dKfG9mL5gLVVNmncmnZ4oBzddxRDVxQgsHlDDdF7ybbuzXsv+YdPAG778wqU47mYHVv9n9Cjk87vTmVGWSq8z0GASP3P6bg4sItufuerDGgc/6gu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNpnUXwD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCZO/LBs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0151F00A3A;
-	Tue,  8 Sep 2026 07:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788852372;
-	bh=jTFa7o85HfsRzNBfV4MGb2LKxXfcZbC4WkrPTKuc/Tk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cCZO/LBsTF7qo7/DvrIev+rF/sK81D2iKzd4UD/f3GE2/q8/+nB1SnTgQJJaJbx1M
-	 NQ7ui5/MyViW9IdA75KqRP/78HkvqZaJIKAJf+nQNNbu1DpqALHHLmiWapeoWGPN5V
-	 5lgwhjDUTepgJGGDJLdIIKZXAXxCT5LcUBuq7CKBGoaYf5/PKJlOluHU56pfwGevZa
-	 Ey2w9m2HzErqfxp5rNFAy8fKV+NisFnZCdxkAP1kPLB9/1YqGRCbW5RBAoSZSaWlQa
-	 rqcM8md/0gZkA4MZ9BKTs/+pJVO3dtGsZPknpUg+qyAOtBeIcFUTYlAZj8WxwMjWY8
-	 /QYg3iUcp7+QQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3qDa-00000000spI-0krx;
-	Tue, 08 Sep 2026 09:26:10 +0200
-Date: Tue, 8 Sep 2026 09:26:10 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
-Message-ID: <ap-4khETBju3X8-T@hovoldconsulting.com>
-References: <20260907151428.643841-1-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNpnUXwD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56EB5C2BCB8;
+	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788852443;
+	bh=Vt+6gXucuoioWVk58j7Utdta0numUj2daXjLDlo3WJY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=CNpnUXwDZhrcNfnmQn+pqsW47mOZBckKg6WDNS2WyVyUO4of+nDuf1aPGcy/8LGsB
+	 f4SBDNKdqU0aewI17flrrq+YMjvvj8OcL++QTqbIpqd/TwrKkPI8jXCD4Tlu+UZ/ru
+	 epaMJlUDfbvQYyeRQBf5Xbb2jz5ZEbOFrOQCXBTnxOctXozKgHugi82GcL7U+p4GiJ
+	 00jBUrEQNCAksQTzFMoSPUP3fT9DivkGBu0sNINofuF5C6+2X/qRwSkWTJD/d7dcL7
+	 ORRE0A4QFonsYH13OH0GZDe812Xal4heRTeSVYze5CUn/g0e+59DlJ2qKUU0mpXtdX
+	 IDZszU4CXOY0Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32547C79F82;
+	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Tue, 08 Sep 2026 15:27:21 +0800
+Subject: [PATCH v2] media: vicodec: zero-initialize stateful decoder heap
+ buffers
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907151428.643841-1-adrianox@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-fixes-v2-1-4775af868cda@outlook.com>
+X-B4-Tracking: v=1; b=H4sIANi4n2oC/y2MwQ6CMBBEf4Xs2Zq2CKWe/A/DAcoiG5U1LTYa0
+ n+3opnTm5m8FQJ6wgDHYgWPkQLxnEHvCnBTN19Q0JAZtNS1tLIRI70wiO5QldqaURqnIX8fHrc
+ hX89t5onCwv69aaP6tj9Do0oRyfGA7m+KSuSU0pi+6mun7Ymfy435und8hzal9AHTugV7pAAAA
+ A==
+X-Change-ID: 20260908-fixes-a453297f07c2
+To: Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Keiichi Watanabe <keiichiw@chromium.org>, 
+ Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
+ Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2104;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=H8Q/kdKbBfEfe7vkpaLiMv4vI0tAEFtnxHDHcSar3uw=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrPk7bl6ZsZOtY/HZomVM2zZUxDuza7fpufFsKrHUF
+ OOr2Gr98kpHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATGRuBMNf8RvpN3fUaptp
+ Prxf3VGisZDp97uQqxNYEsP906Iv7pNIZ/hfbnu1KPsHs7qvyKTT2ofP7mb7+8ncu1evzqrj4sw
+ f7nO5AYPrS4g=
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
-> Do not dereference mmc/vub300/udev after the final kref_put, because
-> it can release them via mmc_free_host()/usb_put_dev().
-> 
-> Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
+From: Junrui Luo <moonafterrain@outlook.com>
 
-This commit reverted a buggy change so if anything is broken here, this
-isn't the commit to blame.
+The stateful decoder leaks uninitialized kernel heap memory to userspace.
+A process that can open the decoder video node gets it back in the CAPTURE
+buffers it dequeues.
 
-> Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+The reference frame and the compressed frame buffer are allocated with
+kvmalloc() in vicodec_start_streaming(), and the decoder can read them
+before they have been written. The first frame is allowed to be a P-frame,
+in which case it is decoded against a reference frame that was never
+produced, and the padding rows below the visible area are never written
+for any frame.
 
-Are you missing an Assisted-by tag?
+Use kvzalloc() for both allocations.
 
-> ---
->  drivers/mmc/host/vub300.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-> index 2dae474dcd06..a1a6aa1aafdb 100644
-> --- a/drivers/mmc/host/vub300.c
-> +++ b/drivers/mmc/host/vub300.c
-> @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
->  {				/* kref callback - softirq */
->  	struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
->  	struct mmc_host *mmc = vub300->mmc;
-> +	struct usb_device *udev = vub300->udev;
->  
->  	usb_free_urb(vub300->command_out_urb);
->  	vub300->command_out_urb = NULL;
->  	usb_free_urb(vub300->command_res_urb);
->  	vub300->command_res_urb = NULL;
-> -	usb_put_dev(vub300->udev);
->  	mmc_free_host(mmc);
-> +	usb_put_dev(udev);
+Fixes: 256bf813ba39 ("media: vicodec: add the virtual codec driver")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+Changes in v2:
+- Rewrite the commit message per Nicolas' review.
+- Link to v1: https://lore.kernel.org/r/20260813-vicodec-fixes-v1-1-13077b5b6c29@outlook.com
+---
+ drivers/media/test-drivers/vicodec/vicodec-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This makes no sense at all as the driver data is freed by
-mmc_free_host().
+diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
+index ff9d50fb05fd..0b898ed5801f 100644
+--- a/drivers/media/test-drivers/vicodec/vicodec-core.c
++++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+@@ -1595,9 +1595,9 @@ static int vicodec_start_streaming(struct vb2_queue *q,
+ 	}
+ 	state->ref_stride = q_data->coded_width * info->luma_alpha_step;
+ 
+-	state->ref_frame.buf = kvmalloc(total_planes_size, GFP_KERNEL);
++	state->ref_frame.buf = kvzalloc(total_planes_size, GFP_KERNEL);
+ 	state->ref_frame.luma = state->ref_frame.buf;
+-	new_comp_frame = kvmalloc(ctx->comp_max_size, GFP_KERNEL);
++	new_comp_frame = kvzalloc(ctx->comp_max_size, GFP_KERNEL);
+ 
+ 	if (!state->ref_frame.luma || !new_comp_frame) {
+ 		kvfree(state->ref_frame.luma);
 
->  	/*
->  	 * and hence also frees vub300
->  	 * which is contained at the end of struct mmc
-> @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
->  			construct_request_response(vub300, cmd);
->  			vub300->resp_len = 0;
->  			mutex_unlock(&vub300->cmd_mutex);
-> -			kref_put(&vub300->kref, vub300_delete);
->  			mmc_request_done(vub300->mmc, req);
-> +			kref_put(&vub300->kref, vub300_delete);
+---
+base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+change-id: 20260908-fixes-a453297f07c2
 
-This order has been here since the driver was merged.
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
 
->  			return;
->  		}
->  	}
-> @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
->  		    satisfy_request_from_offloaded_data(vub300, cmd)) {
->  			cmd->error = 0;
->  			mutex_unlock(&vub300->cmd_mutex);
-> -			kref_put(&vub300->kref, vub300_delete);
->  			mmc_request_done(mmc, req);
-> +			kref_put(&vub300->kref, vub300_delete);
 
-Same here.
-
-So if this is wrong (it does look suspicious, but this driver is just a
-mess) then that's the commit to blame.
-
->  			return;
->  		} else {
->  			vub300->cmd = cmd;
-
-Johan
