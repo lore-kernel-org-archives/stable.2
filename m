@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3111D48E0C3
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A213491591
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895731; cv=none; b=EA6rYvb6m2IMrHiXbQ1LRwXntULSDsY1igqwmhWUIBG/Mac5KCrh4Te89yUwbG+4ZQEx6VESBNuWuGBHvYbOvNqxl5QOccI9rUPoOETgRylU0Pji179bxySQ2g4XmR50KWGT7kaxw2aMtXxj2bEYTUaZ782t0ONLwJ0EGZzaX8M=
+	t=1788895937; cv=none; b=KQwwMY1OY2hqHDmzJ5xGJwojzdeQAYPdDGb0h7RbW8NVrsyrq7xE54q+iQzy3up3fcSuz/hSWSc+fmwoPBb9bYvdgWfey5VSJBtOnQtC4JV/q/9yPUS2riJ84Ykoo1t5VDwbSIWaABT5anRD8lkdrORyn/A2E+bUth8vKyubcDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895731; c=relaxed/simple;
-	bh=FNN81jhznOf5dCPnxtAl5ESEIO1tdfrM8iDtg51A+Hw=;
+	s=arc-20240116; t=1788895937; c=relaxed/simple;
+	bh=4q/aop8ZHnEf1Flqj4ZBWAo10IHwe/SR/HTvXB5JB3Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GFmVw5RmETIQBXsecxDiuz4Bo0Ixs2g0EoMk8fD3mXZy6M1RGuP9lEX96R0iNFzGiXgh8S3w56QP5nV+Jf4PHTEPYWl5QiSbPum7a+mndorFGM9JMTeUmGkm4sw94TpZm2D4ItfQWlYVep+AKrWOOXgpbJxF+Ua8XpQ8H9CB6ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgMm5zLl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hUU47gZLlyYVdmwMfencRULLN8mOJLSEXpgp7QDTfVYcspRE4wtCCUvfcrd5LWIfd0uCpRHS72zWzb8X31YBTwQWDlIBKDiknLEQaNIq2dmU4cu7Sw0AMM9kNlY9l7O8R6qV4DEUfNz3Kw6zdLNzQmG1jooTEc5NSa6tVsYscbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q37Qhshx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgMm5zLl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 173371F00A3A;
-	Tue,  8 Sep 2026 19:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q37Qhshx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7328E1F00A3A;
+	Tue,  8 Sep 2026 19:32:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788895720;
-	bh=OnCRGoJU6nqQq3eEQ5UwUB/EAA7x3By0g0YL8dGT8WY=;
+	s=k20260515; t=1788895936;
+	bh=JTF3Q5lniNpzTjat/WenrDrAZJC06pssMIDP7aWrUy8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FgMm5zLloFjO99++EUsesCxCZ3QWDM75jbjHF/6eBm3VPGaPx10HW3QeXuoD2S3L9
-	 hhuPz97QcKimG3OuCuOUfMz9EeVq+4SJhrrZ7utoDqJRWYg/hSA1BwtAZXB35GfwM9
-	 Q2CId0lAV5htnkPB2ZadnFntzJ7bFktOn7qwCSAZj0L/wa+I73hCLOhELFozWspxaW
-	 9nlotT+QbyP2Q/gdWDwmz8iNrHuPoS8Y0PZXP6cKen/QmVd7GFH2/wU+g9U2uh8SYY
-	 nQjscasA6DuyO0COT/aSsy3tiDu75cPOfZK2fCNl5fk362FngEjg7JUWeDAYj55ChE
-	 +ZTebYQ/P+L4A==
+	b=Q37QhshxmgECIQsuRXIV72T7uUGNnGiavup2BSeyXWd02xkYVTAq2meqy6Bx6bU7t
+	 cVGtXPrEqa/Fby1O1lmsY1XXIaCcGBbpSGI6icJoSMWkym8sOnYrWZDIAdQA9mFlR3
+	 sSa0uxCxoqjLdZMtMyp6li1abziITBx/upbC/++6Uwvrw/nBetQoJwI4/038KicNbk
+	 8H4q2tZVZJYIduU55Q921D8xyuJ8JIggKowfh7EGSc2SIlnuHiIPXaI0YZaMa4bjbv
+	 WADaxvL2+mef2jTmDkT3HMZGa1fWQ5mqoPveTHV9L+H7ZaaGtFyQO4fiFOdh6h/CTW
+	 zP/Hh69tXGl+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
-Date: Tue,  8 Sep 2026 15:28:38 -0400
-Message-ID: <20260908192838.297280-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] SUNRPC: fix gssx_dec_option_array error path bugs
+Date: Tue,  8 Sep 2026 15:32:13 -0400
+Message-ID: <20260908193213.325621-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090350-camcorder-skillful-ef4f@gregkh>
-References: <2026090350-camcorder-skillful-ef4f@gregkh>
+In-Reply-To: <2026090300-canal-untrained-96f2@gregkh>
+References: <2026090300-canal-untrained-96f2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,142 +46,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+Four coupled defects in the gssx XDR option-array decoder make the
+error paths unsafe: a NULL deref in the caller, a refcount leak on
+the decoded group_info, and a latent use-after-free that the leak
+fix would otherwise expose.
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
+gssx_dec_option_array() sets oa->count = 1 before allocating
+oa->data.  If that allocation fails, -ENOMEM is returned with
+oa->count == 1 and oa->data == NULL.  All other error paths jump
+to free_oa: which frees oa->data and NULLs it but also leaves
+oa->count == 1.  The caller trusts the count:
 
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
+    gssp_accept_sec_context_upcall()
+      gssx_dec_accept_sec_context()
+        gssx_dec_option_array()        /* fails, count=1 data=NULL */
+      data = res.options.data[0].value /* NULL deref */
 
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
+Independently, free_creds: releases the partially decoded svc_cred
+with a bare kfree(creds).  gssx_dec_linux_creds() installs a
+groups_alloc() result into creds->cr_group_info; that object is
+kvmalloc-backed and refcounted, and only put_group_info() reaches
+kvfree().  A plain kfree(creds) drops the wrapper and leaks the
+group_info allocation.
 
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
+The natural fix for the leak is to call free_svc_cred(creds) before
+kfree(creds), but free_svc_cred() invokes put_group_info() on
+creds->cr_group_info unconditionally when non-NULL.  The existing
+out_free_groups: path in gssx_dec_linux_creds() already called
+groups_free() on that pointer without clearing it, so once
+free_svc_cred() is wired in, the subsequent put_group_info() would
+touch freed memory.
 
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
+Fix all four together:
 
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
+  - Move the oa->count = 1 assignment below the oa->data allocation
+    so it is never set when oa->data is NULL.
+  - Reset oa->count to 0 at free_oa: so count and data stay
+    coherent and the caller sees an empty option array.
+  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
+    so the refcounted cr_group_info is released.  free_svc_cred()
+    either NULL-guards each field explicitly (cr_group_info has
+    an if() check) or delegates to a helper that is NULL-safe
+    itself (kfree for the string fields, gss_mech_put() which
+    guards with if(gm) at gss_mech_switch.c:342), so it is safe
+    to call on a partially decoded svc_cred where only
+    cr_uid/cr_gid/cr_group_info have been written and everything
+    else is zero from kzalloc.
+  - In gssx_dec_linux_creds()'s out_free_groups: path, release
+    cr_group_info with put_group_info() rather than groups_free()
+    so the teardown matches free_svc_cred()'s refcount-aware path,
+    and clear the pointer so a later free_svc_cred() on the same
+    creds does not release it a second time.
 
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
+Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted configuration reads to the existing explicit comparison logic while passing the existing idev pointer to handlers ]
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 823d405069b7d..e3210d3662a04 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -373,23 +373,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
+diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+index 30f19298c6911..967943ae61c62 100644
+--- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
++++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+ 
+ 	return 0;
+ out_free_groups:
+-	groups_free(creds->cr_group_info);
++	put_group_info(creds->cr_group_info);
++	creds->cr_group_info = NULL;
+ 	return err;
  }
  
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
+@@ -243,12 +244,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 		return 0;
  
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
+ 	/* we recognize only 1 currently: CREDS_VALUE */
+-	oa->count = 1;
 -
- 	accept_seg6 = net->ipv6.devconf_all->seg6_enabled;
- 	if (accept_seg6 > idev->cnf.seg6_enabled)
- 		accept_seg6 = idev->cnf.seg6_enabled;
-@@ -497,12 +490,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
- }
+ 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
+ 	if (!oa->data)
+ 		return -ENOMEM;
  
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	unsigned int chdr_len;
- 	unsigned char *buf;
-@@ -511,8 +503,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = net->ipv6.devconf_all->rpl_seg_enabled;
- 	if (accept_rpl_seg > idev->cnf.rpl_seg_enabled)
- 		accept_rpl_seg = idev->cnf.rpl_seg_enabled;
-@@ -719,10 +709,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
- 		break;
- 	}
-@@ -870,6 +864,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
++	oa->count = 1;
 +
-+disabled:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
-+	return -1;
- }
+ 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
+ 	if (!creds) {
+ 		err = -ENOMEM;
+@@ -300,8 +301,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 	return 0;
  
- static const struct inet6_protocol rthdr_protocol = {
+ free_creds:
++	free_svc_cred(creds);
+ 	kfree(creds);
+ free_oa:
++	oa->count = 0;
+ 	kfree(oa->data);
+ 	oa->data = NULL;
+ 	return err;
 -- 
 2.53.0
 
