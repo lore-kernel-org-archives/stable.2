@@ -1,218 +1,162 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B82364941;
-	Tue,  8 Sep 2026 07:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB4A378D8E
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 08:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853748; cv=none; b=r2w/4zXVdDz/tFoa4AgT6TFOZIpiJ89XTiHyjMnMeCEOxbSmuRFXIoaS27GcObnd3YnLCv5gbtvVR09+xdJWiw/iaHdGQ3Gch/bdEx02GxbumwW9IkqX3kxDEPyeaAaI25NfKCYdubAcl30hw+dGSAvMNdtY37EpBx2GIbrOYxw=
+	t=1788854446; cv=none; b=dXCbyXbMK2eEHLR1qpfu8gy/YXeyPTA0caxtYjR+63M6oGS3cWPnda7j7iKthhfEvPqekBKqRoLtyh0H22nfRoUecO57CTZ/H/53yinhqJno7ABTMt5iUHOvPuMHuP882nxQCR71ANY5nrdJqjLG4YcITQtXe30kMbzqW+REpYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853748; c=relaxed/simple;
-	bh=p7KKfNbQHDA9TMhkh4HGWycQ0upWV6GuCcLhH+0Hoyc=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=h91egdW5YBBxVZ8E8hkmndZK0G1l9EW+okDyUnwH3J+eIB+rIuaUL0Iw+UNrDVAQOWVp/GwDqXfelj3hIrfNgsCVazKwVpsd8Vl5q3JrfmIEfG1xUmgxx3PCh46lNRwF6u50vyXUUYQnU8AznXwOW+tVYJkMxgMcfiH9vRQuh00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=R0T9YyWb; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1788854446; c=relaxed/simple;
+	bh=d3+dSVc+d1QajUTVYCFzTEXO5nx+Cf3F8uVePoP+3hM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WVTPPG0Uv+7p2wEzeMU5h0RQs2o7CBfheIMJq4x2k9r/ZDPZPSYzc9u4hjj7cowhQjt117GQWg79Z0KeY5nKyFiiWtBNb0OHTiq+YxRsUbpo2idZYLkqKJ20wD0XkklhmR6XgikWEc4/h1l0ZYThaIbHyXz7Jz5AzoqC9oZySyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NkCXs8g1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NDSx8l+A; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="R0T9YyWb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=v2zIrl4sOz2DaazRXSoeXRnhKCIbghOPb8UjiV3YSHA=;
-	b=R0T9YyWbqOlbTZtLB4G992fyARTwuP/+AQsrTL6rCnP6Xa6f9sVtXpA/eOGVmH
-	+ZtQ1FcMivWQpjzXQ5fK6qt4W+AwCecmFjwPwpQMtenr4CbhDBpaG5hEKeoedxSX
-	H9S+t41XY2VNjrHbl4xKeoBucMr7s81EmOTjEe9mIbA+g=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDHz77SvZ9q0Rc8Aw--.6326S2;
-	Tue, 08 Sep 2026 15:48:34 +0800 (CST)
-Message-ID: <6A9FBDB3.20705@126.com>
-Date: Tue, 08 Sep 2026 15:48:03 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NkCXs8g1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDSx8l+A"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886LqL72172782
+	for <stable@vger.kernel.org>; Tue, 8 Sep 2026 08:00:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=; b=NkCXs8g1T6e/kcQ8
+	3LCq7wK7GG90UQimigTvNwffh8vfCx9bH5IXT8VvYqBGWLlRhlp2uUQjPK0AZHEW
+	6xicy/3Q2e2pj214fgikSy45UByEJg33BFmlgPBzjKlqX934DdDxkye/k9VAdNur
+	GxDfq5I5gogRGvJ4Wi88bb/cldgCOemfnalTGKWjqwZnlyg9WGqCGQZnIR4IvffQ
+	Ji9X8q4pMqGsyn9qQCvqMf+YI1KTySNeRBKrupw2kjyZU46sRizOV8ncNFHxqU+P
+	/amaHRs/7z4d6ONFWV2OFz24PLKVJaJ+Gxd+SF+v674qfUAKN6WP9evKAYnu+ZFc
+	CU/BLw==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rrjcq7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 08 Sep 2026 08:00:42 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bfc08e95ebso100806e0c.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 01:00:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788854441; x=1789459241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=;
+        b=NDSx8l+AF70Tbh+RV/5hbGKfs+uHY61PUEWdGbvzhx+zlXW0BWYYD682bpwWXV+ii9
+         AKhwg9dVY6qr5Lp9eE7pqer9enPlKWqG68Z2RteKgJkXPFOB4Wf5YJjmeXqMwEQzOmVe
+         Ro8seiZFqymF3Gi8SJCSrX+uQy2WWom6t+Uw1/pOxlZLW5bq+fqP6w30UusBZZnIJ+fr
+         9uuZM8SNgJ5nfPPpLObbQg7OZVCoeBg0H7jBbYBPjGs1I2cdS/4zvc8239PoypB7cRUj
+         QgFjScFdyvUC1aBecG6LuOiCATJkqKqvE30CWKjfazALwhVfc2piAkQHQVm8KqlxbX1F
+         tIwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788854441; x=1789459241;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=;
+        b=mP9Mw4+WOCNYtm6ghgqPJHR9rZjJLu3JzHcHpYfwNoaSlE+ykpahLxZidQyoEs+Mx0
+         kgTIdp2QREY28MsfOqgyq2sLPZQCDjexL8bnEUjkc74R1ri+QlVGxgCgMvg4lKu29jP1
+         Ed1iHNmoH0VbMsTdSVXMobbvUvOQSrMzaxWBVKvn5D5TSwaeTgkgYHP5sOTzrr8DZsui
+         Lnn5fxAQFI76e90FukfRY5MFbp/SSwJDzclRa7wLK6K6HvakvXTJ+F3t7QkLfF/lxLCF
+         Dn+aVzutd1MR9jGuxOH9ze1/2yuAkAA6w3Qg05RQNKs0KZV2z2j0Z0UNlk8ZNw5FDxsu
+         PlZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLCiKqF57+70SDj42Axhyb5iffy4DxYboeqVZ5tkJn2Kzmcbqw70GFvfXu2QI2l9zI5gktipE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0ga6jXnN1CaKZFE0H13RzjltcOHUdNiCsApqnv9f30NQl1LG9
+	CatRKr/CokFJnm4KiEucpEeKSSqgVyYF3bQd9KmDjdlwNaZqBqyAi2MySYHVv6ZMOQe2JWmW47t
+	flsG2VF7Kgws33sJ8+9VS1dLGqUR4jx5BXF0fsCFVfo8WoQ+nunAd2RvsxM8=
+X-Gm-Gg: AYBFou1drsmJ7CEpmVgoKMUxXT5YTpfW0TTLKBziiFv6TBhr3pLArszo12tkq8IGaHu
+	/KweDnezTDo83/hcS37wZJ62JmUW8GTL0y8J8xUFObHm+ir6YLTeJwKuoWYaotMP6vut25tyVzQ
+	bzPbq4mSVmFVkEaoeOcdYvAFx3C3r+J2UqxoC2Y/+NVQi3xd5FusTkeUcp6WLdzZPtdG2kAyiSZ
+	SDYDv81COqdcCZLX6dJcHzK3+D/XlvwybyEWO1L27LeyGPbB+IlEaKgUQ4703OKcyXgjCg0C7zE
+	JaEAV9WrTdDFZwILFEnUGRzG6txYLwjyEh/+xlitwYlebBmAP6oZIr9FfTmGneF+3p9kPpdW9rQ
+	j3E5BJVzwqFHbOFfeWmFiOw==
+X-Received: by 2002:ac5:c88e:0:b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c7fb54d026mr2461865e0c.0.1788854441543;
+        Tue, 08 Sep 2026 01:00:41 -0700 (PDT)
+X-Received: by 2002:ac5:c88e:0:b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c7fb54d026mr2461861e0c.0.1788854441099;
+        Tue, 08 Sep 2026 01:00:41 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669ae43sm2831689e87.3.2026.09.08.01.00.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 01:00:40 -0700 (PDT)
+Message-ID: <7faefff1-5aa4-4277-a250-add84a880a19@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 10:00:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Dave Chinner <dgc@kernel.org>
-CC: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org, 
- darrick.wong@oracle.com, chandanrlinux@gmail.com, 
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer recovery
-References: <20260907080450.314067-1-zenghongling@kylinos.cn> <ap8ucHIw-pKLhh9c@dread> <6A9F7022.6020206@126.com> <ap-sV2Cc5U5fNMmo@dread>
-In-Reply-To: <ap-sV2Cc5U5fNMmo@dread>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHz77SvZ9q0Rc8Aw--.6326S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtFWxKw1UAr48tr43XryftFb_yoW3XrW5pF
-	Z3KFWj9r1kJrWIyrn2yw4UXayFvrZ3tay5Wrn8J3s5CFn8Kw1ftFW8ta1jgF9rurnYqF4j
-	vr4jv3srWa4jva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-GYdUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhIm9mqfvdL3rwAA3u
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
+ cleanup order in post_disable
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
+ <20260908-drm-msm-hdmi-fixes-before-eliza-v3-3-dcf8956878ca@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-3-dcf8956878ca@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfX3m/A23JuTI+E
+ R4jQesX3cZrndSZeBfqr+Tzh3RD74QaSuPxEHFHa0YAllLdM04CcbVI+FjX4dXaC/f8Kw3kBRa3
+ FnxLoresT0sIHNFyH1ctMsp1uvHDVL8=
+X-Proofpoint-GUID: MSuiVAVzczA1rEYKWLPKtwDJ5t2Rh-Ey
+X-Authority-Analysis: v=2.4 cv=NsjhtcdJ c=1 sm=1 tr=0 ts=6a9fc0aa cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1VKk1TRdkn99K7eK9r0A:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfXy2RT/eCmt37w
+ heJCQ2fD14jC4wX34PhX2bHZAupwf+kgmOJ8vsdZre2IMKb72xzGb+rBIgBRjCjoL3iCjPBek3H
+ ApOEEF9l7D7VCs+zhfXD89qjy/DInTA0D7wgzKfQMzKJYDL9qFn52IOlbuY3UutQe/fxRtikW1N
+ V0HoR2dbp5pusQj7hY15Tv5tP7szlFNbWy1YK7k6Ucm0nChAmt3rBWrgrRx1njwVmtqKnQZFgNz
+ MqTkpiB4rUYmM+r39P/wWJ7gqpTqeThBshTAp7oxR5h2PMv4Tynnc79XX/5lwsmmZW22GUPbHYU
+ Q048QmMVl0f9djpr+vh/ehRnte/H81pMKEGqFcMzMkv2S3A+L+ji+8IMT9zIubY8+WIO/UX73+N
+ 32glqY5RcPt/WMHZXWRmE9xl1AuNgLdbo50yV4wHkLG4NZXrfl0WCdUTXM8G5OsvQmHzJ5uPtKt
+ Snu2Q7ZtOXZ9/WnY4Qg==
+X-Proofpoint-ORIG-GUID: MSuiVAVzczA1rEYKWLPKtwDJ5t2Rh-Ey
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080082
 
+On 9/8/26 9:10 AM, Krzysztof Kozlowski wrote:
+> Turning off the power in msm_hdmi_bridge_atomic_post_disable() should
+> follow reverse order of powering up, not only because it is logical, but
+> also because msm_hdmi_audio_update() accesses registers thus block
+> should still be powered on.
+> 
+> Depending on specific timing, existing code could have accesses to MMIO
+> of powered off block.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: c0c0d9eeeb8d ("drm/msm: hdmi audio support")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-在 2026年09月08日 14:33, Dave Chinner 写道:
-> On Tue, Sep 08, 2026 at 10:17:06AM +0800, Hongling Zeng wrote:
->> 在 2026年09月08日 05:36, Dave Chinner 写道:
->>> On Mon, Sep 07, 2026 at 04:04:50PM +0800, Hongling Zeng wrote:
->>>> xlog_recover_do_inode_buffer() reads the logged di_next_unlinked field
->>>> from a log record buffer at a computed offset:
->>>>
->>>>           logged_nextp = item->ri_buf[item_index].iov_base +
->>>>                           next_unlinked_offset - reg_buf_offset;
->>>>           *buffer_nextp = *logged_nextp;
->>>>
->>>> The only protection against reading past the log record buffer are
->>>> ASSERT()s, which compile away on non-DEBUG kernels.  The existing
->>>> XFS_IS_CORRUPT(*logged_nextp == 0) check also dereferences the pointer
->>>> before validating that the computed offset lies within the logged region.
->>>>
->>>> A crafted log record can make the computed offset exceed iov_len, causing
->>>> an out-of-bounds read from the log record buffer during inode buffer
->>>> recovery.
->>>>
->>>> Convert the relevant ASSERT-only checks into runtime corruption checks and
->>>> verify that the logged di_next_unlinked field lies entirely within the log
->>>> iovec before dereferencing it.
->>>>
->>>> Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->>> <sigh>
->>>
->>> I'm going to say what I've said before again here, and it applies to
->>> the BLF bitmap range checks patches you posted yesterday, too:
->>>
->>> Hacking the same types of region size and range checks into every
->>> log item type in an ad-hoc manner is not the right way to address
->>> these log item verification issues.
->>>
->>> We need to add a robust verification layer to the journal to verify
->>> all the journal level metadata (e.g. ophdrs, transaction headers,
->>> initial log item regions, per-log item type verification, etc) so
->>> that we check *all* the journal items for sanity before we use them.
->>>
->>> This is the same architecture we use for metadata (the verifier
->>> layer) and it applies to the journal for the same reasons and
->>> provides the same benefits (i.e. validate at first access, rest of
->>> the code can assume validity and not have to clutter logic with
->>> random validity checks to prevent bad behaviour.)
->>>
->>> The high level design doc and rough plan I put together last time I
->>> brought this up is in the patch below. If you're not willing or able
->>> to spent time and tokens on fixing this entire class of problems for
->>> everyone, then let please let me know ASAP.
->>>
->>> -Dave.
->>    Hi Dave,
->>
->>    Thanks for the detailed feedback. I understand the concern: the ad-hoc
->>    region checks I posted don't address log recovery validation
->>    systematically.
->>
->>    I'll withdraw the inode buffer and BLF bitmap patches and switch to
->>    the design-driven approach. I'll post your patch 5 first (the
->>    unchecked ri_buf[ri_cnt-1] in add_to_cont_trans(), the unbounded
->>    kvrealloc() there, the missing oh_len alignment check in
->>    process_data() - all reachable bugs, no restructuring), then work
->>    through the rest of Phase 1.
->>
->>    Three points to confirm before coding:
-> Don't take the design doc as being complete or correct - it's a
-> working document and really only serves as the initial high level
-> plan I fleshed out.
->
-> Indeed, I implemented a chunk of it yesterday afternoon (i.e.
-> before I saw your patch this morning) and my findings change quite a
-> bit of the generic infrastructure to make it handle the transaction
-> header without having to special case it. So from that perspective,
-> it's already out of date...
->
-> I'll post what I have in the series later this afternoon so you can
-> get up to speed.
->
->>    1. I don't see a write-side guarantee that a region is split at most
->>       once - xlog_write_partial() can emit multiple continuations. So
->>       beyond your patch 2 treating the header as a normal accumulated
->>       region, note that today a third fragment walks into
->>       ri_buf[ri_cnt-1] with ri_cnt == 0 / ri_buf == NULL. Correct?
-> The iterator structure behind the item decoding should handle
-> decoding regions split into an arbitrary number of ophdr regions
-> without issue.
->
-> That's kinda the point of it; ensure the region is
-> fully extracted from the journal before we try to decode any of it.
-> Hence we have to handle CONTINUE/WAS_CONT regions as partial
-> additives until we get to the final WAS_CONT region that closes off
-> the region as a whole.
->
->>    2. For the zero-length first fragment: if this is old-log
->>       compatibility only,
-> Real thing, go look at xlog_write_get_iclog_space() and
-> consider what happens when the lv_chain passed to xlog_write() gets
-> it's first iclog with only space for two ophdrs left in it....
->
->>       I'd document it that way and keep the special
->>       handling as narrow as possible rather than introducing a generic
->>       anonymous item state. Note the doc's ri_in_continuation has no
->>       owner at that point since no item exists yet - narrow handling
->>       avoids that entirely.
-> The special case handling for it is awful, and IMO needs to go away
-> because it is actually buggy and makes it much harder to reason
-> about what is a valid item in a transaction....
->
->>    3. For testing I'll cover each phase with crafted-log images and run
->>       xfstests.
-> This is why I have been rewriting xfs_logprint in rust: so it has
-> the same capabilities as xfs_db in terms of being able to walk,
-> parse and modify individual items in the journal. i.e. to be able to
-> explicitly fuzz the journal in a systematic, programmable and
-> reproducable way and hence avoid the need for hundreds of corrupted
-> images to test all the corner cases....
->
-> And, FWIW, the iterator + generic item handling design of the
-> validator for the kernel code is a fairly close translation of the
-> layered generic item type verification my new rust logprint code
-> already uses.
->
->>       My bigger worry is over-strict validation rejecting valid
->>       logs, which only shows up replaying real crash logs - what
->>       coverage do you expect there? And should the design doc go in
->>       first so the series can reference it?
-> We have extensive journal recovery stress and validity tests in
-> fstests (e.g. the recoveryloop group), and so I'm really not worried
-> about structure verification being too strict. I'd much prefer to
-> err on the "extremely strict" side right now, and loosen if needed.
-> I don't think it will be an issue, because if the journal
-> verification comes across improperly formatted items then it points
-> to a runtime bug that needs to be fixed, not a journal recovery
-> issue.
->
-> i.e. I'd much prefer we have strict verification because that finds
-> logic bugs on both sides during testing, that way they do not end up
-> in production systems...
->
-> -Dave.
->
-  Hi Dave,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-  Understood - I'll treat the doc as a working draft and wait for your 
-series rather than building on the plan as posted.
-
-Thanks for the answers. On Q2 I mis-derived "old-log only" from
-xlog_write_partial()'s refill check - the start record being its own
-empty ophdr in xlog_cil_build_trans_hdr() makes the point, and the
-pre-refactor writer could emit the zero-length trans header fragment
-at the iclog boundary outright. Accepted, and agreed that special
-case needs to go.
-
-Once your series is posted I'll start with review and the
-recoveryloop / logprint-based testing, then take the per-type
-validate_region() / validate_item() implementations on top of your
-iterator.
-
-Thanks,
-Hongling
-
+Konrad
