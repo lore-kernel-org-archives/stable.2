@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D829B32D0E3
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88EC330328
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883280; cv=none; b=imdQWcQ19fHfFZgMkpKO4DAX9P0Bkfv7os07BL+ZW1KpsngSNOx+Da+oeZ1Gw1eHBLfdRco9mPQonGKv0OvgHjMAAWuJWX1YTOUg1MM50gN0Pe7hYM+5B+nBQKlJq5hLY+cp+MmXCJl83l/v+gDS11EqpJn6zVbVRQM1RAsvRoQ=
+	t=1788883282; cv=none; b=L2Tz6lLlcR/4L6VmG01aUIl0hnxs62elxm2RYH534HOxvdBG0d5jlFApTKUhuQrmc0ui6Z+5fKCoKD7/K6R8OCpiHWJFV7wKNzzdj9yVBsUSUJi3OhvQTtu3dNaypljFkj8BnoU4hPGA2m0m+o5wMsPrX+7QVqQCVb/zUODKgLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883280; c=relaxed/simple;
-	bh=RpNnVzV6RRDDQmAbgg9M6Lir+a8+2tyCKX42A1o13ho=;
+	s=arc-20240116; t=1788883282; c=relaxed/simple;
+	bh=V/Ui34i5VcHhQ/iiyuPWIu/+9Lc/x3+flpKIsCussEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fFfJ66xdqV/qOUGm6ehYGh5BkGrMsTfml+3HcKdMM9N/8hbaQgcxp3/XdHlUn+ZS3opmvu1LixM1DFlyn7ewLZ3YnF23bY2jA2d906qRfGiKPHBHhsvYhlYeWlVry0kmzJbqnMeNxHo1+8VNwOr1q+KudzwSEz8W8HjENfy2htI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEhRSpWr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZclfKw1gzEeBvSFWV8tZ75acAo75O/NIq9KkDcTyhuMKHg49aKYfLYugxZxsJXb1homdvNLPkE2yHxkObzoxHpB7+km4gm6E2TWK3FBTi+BQWfFxWEN9yRbdPpCn0Ky0DUW1QFIQ4W+HRIKoj7AhplEsQSWnET3Uiijsyj/BM9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQj/uZYI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEhRSpWr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BC91F00A3F;
-	Tue,  8 Sep 2026 16:01:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQj/uZYI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19831F00A3A;
+	Tue,  8 Sep 2026 16:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883278;
-	bh=XOHhyYqQjHB6hHtuiZRTzbHPJV1mpOxl22p/Ut6MK0M=;
+	s=k20260515; t=1788883280;
+	bh=1mDfQ0fVX77y6P9bKCW1PbOr5oeqSem6IO36i6sRml4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PEhRSpWrvYqRYABsQhKDMbJzcJyU+pz1yhYkCJM/hcvwFNtFj290eXEaSlArv5en0
-	 RKqVH+qCQ8rb20Wgl3uP25n+NZHCElbL12sAOdk0J9QVRxbx7vjx+ssomuRS0lExnV
-	 iqGJoJbWqRG3W/wGLxv/tifY7mcNx9rwduPg5CoGdqRsJ1EnVv4Cha0awa/IvVVJLu
-	 Z/jML1FrK3h/ajBZ71C7xIooly3PPVcZQKMyIR1BsGhikSAR2Yb7M0/Pg2j0iDLZwT
-	 PDqzK2dglahFHD+jDhw+oO78qntUx823xp/QHEHB6RDLRCfpjzXdJC7kry62Q6u8d0
-	 PrLY1aiM3FB8g==
+	b=ZQj/uZYIlAztDoIuURY8bGcSHpt3sHuBi6viYBmKggwchORHJNzW6hG3bfB9IPjzl
+	 s/WCdjx1fWyiY2qJ01tY34hLYBaPKVzQOafJM1s89U5mC1YGtH2x+Dzr5eAnbj+4kc
+	 fVLTkv7ORAOXGkqac62VCYEwe6Pf5Zc3bMDpwa3AaOcS6dZ9BT+sKkdwn5upp15Le1
+	 VUek4j8SMGFrhvwYWn7VPD40Km96WhIKlaNxCpptE5Z5w5u9OcdT3/M9gCzoF46FFp
+	 ctU/ddAuP4V0YQq3iu62WICOQ3pZqjSV1zRuwNdHqVPo6j/bqwDuKTOz55UccuyooG
+	 Ghc+W04RI0vqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] jbd2: check need_resched() when skipping busy checkpoint buffers
-Date: Tue,  8 Sep 2026 12:01:14 -0400
-Message-ID: <20260908160114.2547081-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] Bluetooth: hci_sync: Convert MGMT_OP_START_DISCOVERY
+Date: Tue,  8 Sep 2026 12:01:17 -0400
+Message-ID: <20260908160118.2547266-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908160114.2547081-1-sashal@kernel.org>
-References: <2026090337-idiocy-unfocused-cf1f@gregkh>
- <20260908160114.2547081-1-sashal@kernel.org>
+In-Reply-To: <2026090318-moodiness-majorette-1570@gregkh>
+References: <2026090318-moodiness-majorette-1570@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,58 +45,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Max Kellermann <max.kellermann@ionos.com>
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit f213e12ff5c9590b1034ae8da0e6d09665c772d0 ]
+[ Upstream commit abfeea476c68afea54c9c050a2d3b19d5d2ee873 ]
 
-journal_shrink_one_cp_list() skips busy checkpoint buffers when called
-with JBD2_SHRINK_BUSY_SKIP.  The continue statement on this path also
-skips the need_resched() check at the end of the loop body.
+This make use of hci_cmd_sync_queue for MGMT_OP_START_DISCOVERY,
+MGMT_OP_START_SERVICE_DISCOVERY and MGMT_OP_STOP_DISCOVERY to use
+hci_cmd_sync_queue so they no longer depend on hdev->discov_update work
+to send any commands.
 
-Consequently, when a checkpoint list contains mostly busy buffers, the
-shrinker can walk the entire list while holding journal->j_list_lock,
-even when a reschedule has been requested.  Large checkpoint lists under
-memory pressure can therefore cause long lock hold times and leave other
-CPUs spinning on j_list_lock, resulting in soft lockups or RCU stalls.
+Tested with:
 
-Route the busy-buffer path through the need_resched() check so that the
-shrinker can release j_list_lock and reschedule promptly, restoring
-parity with the clean-buffer path, which already checks need_resched().
-This does not change which checkpoint buffers are eligible for removal.
+tools/mgmt-tester -s "Start Discovery"
 
-Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260713102229.1598812-2-max.kellermann@ionos.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Test Summary
+------------
+Start Discovery - Not powered 1                      Passed
+Start Discovery - Invalid parameters 1               Passed
+Start Discovery - Not supported 1                    Passed
+Start Discovery - Success 1                          Passed
+Start Discovery - Success 2                          Passed
+Start Discovery - Power Off 1                        Passed
+Start Discovery BREDR LE - (Ext Scan Enable)         Passed
+Start Discovery LE - (Ext Scan Enable)               Passed
+Start Discovery LE - (Ext Scan Param)                Passed
+Start Discovery - (2m, Scan Param)                   Passed
+Start Discovery - (coded, Scan Param)                Passed
+Start Discovery - (1m, 2m, coded, Scan Param)        Passed
+LL Privacy - Start Discovery 1 (Disable RL)          Passed
+LL Privacy - Start Discovery 2 (Disable RL)          Passed
+Total: 14, Passed: 14 (100.0%), Failed: 0, Not Run: 0
+
+tools/mgmt-tester -s "Start Service"
+
+Test Summary
+------------
+Start Service Discovery - Not powered 1              Passed
+Start Service Discovery - Invalid parameters 1       Passed
+Start Service Discovery - Not supported 1            Passed
+Start Service Discovery - Success 1                  Passed
+Start Service Discovery - Success 2                  Passed
+Total: 5, Passed: 5 (100.0%), Failed: 0, Not Run: 0
+
+tools/mgmt-tester -s "Stop Discovery"
+
+Test Summary
+------------
+Stop Discovery - Success 1                           Passed
+Stop Discovery - BR/EDR (Inquiry) Success 1          Passed
+Stop Discovery - Rejected 1                          Passed
+Stop Discovery - Invalid parameters 1                Passed
+Stop Discovery - (Ext Scan Disable)                  Passed
+Total: 5, Passed: 5 (100.0%), Failed: 0, Not Run: 0
+
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+
+[ sashal: Reduced backport -- upstream abfeea476c68a touches 5 file(s), this
+  backport carries 2. Not backported here:
+  include/net/bluetooth/hci_sync.h
+  net/bluetooth/hci_event.c
+  net/bluetooth/hci_sync.c
+  net/bluetooth/mgmt.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: ed5fb41d3b6b ("Bluetooth: hci_conn: re-enable advertising only for peripheral role")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/jbd2/checkpoint.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/bluetooth/hci_conn.c    | 4 ++--
+ net/bluetooth/hci_request.h | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 36c64cf44e005..a888357a29964 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -401,7 +401,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 			ret = jbd2_journal_try_remove_checkpoint(jh);
- 			if (ret < 0) {
- 				if (type == JBD2_SHRINK_BUSY_SKIP)
--					continue;
-+					goto next;
- 				break;
- 			}
- 		}
-@@ -412,6 +412,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 			break;
- 		}
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index a9ba288afe0ee..0bbf025626902 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -787,10 +787,10 @@ void hci_le_conn_failed(struct hci_conn *conn, u8 status)
+ 	 */
+ 	hci_update_background_scan(hdev);
  
-+next:
- 		if (need_resched())
- 			break;
- 	} while (jh != last_jh);
+-	/* Re-enable advertising in case this was a failed connection
++	/* Enable advertising in case this was a failed connection
+ 	 * attempt as a peripheral.
+ 	 */
+-	hci_req_reenable_advertising(hdev);
++	hci_enable_advertising(hdev);
+ }
+ 
+ static void create_le_conn_complete(struct hci_dev *hdev, u8 status, u16 opcode)
+diff --git a/net/bluetooth/hci_request.h b/net/bluetooth/hci_request.h
+index 39ee8a18087a2..33054088c8aa0 100644
+--- a/net/bluetooth/hci_request.h
++++ b/net/bluetooth/hci_request.h
+@@ -74,6 +74,7 @@ void hci_req_disable_address_resolution(struct hci_dev *hdev);
+ void __hci_req_pause_adv_instances(struct hci_request *req);
+ int hci_req_resume_adv_instances(struct hci_dev *hdev);
+ void hci_req_reenable_advertising(struct hci_dev *hdev);
++#define hci_enable_advertising hci_req_reenable_advertising
+ void __hci_req_enable_advertising(struct hci_request *req);
+ void __hci_req_disable_advertising(struct hci_request *req);
+ void __hci_req_update_adv_data(struct hci_request *req, u8 instance);
 -- 
 2.53.0
 
