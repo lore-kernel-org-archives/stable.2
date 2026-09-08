@@ -1,88 +1,131 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCA4554096
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 14:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D119752ED42
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 14:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877346; cv=none; b=AYSTy4D70bbsTG8rkGHJYeTX/2Ze+pPJ5AIlyYJg3lUVlv/R2OIavUbpMBH8TvRZ3MGUxTr9a08YP6ekOmZAk+Tia4uzPAxxuUVwBdTG11TVFp9YPO4rlD5xJcAbJllbRmeMsY5jJoINqE85wNVilAQu6LihXhH9mw6rtR7Mh6o=
+	t=1788877427; cv=none; b=doiON/437wHnfll1G/DMZEt6h68/0p8/dnh9dtOHoKQmIQn2VFliZXKvBanDit5RGG4rMqH2/AgaIQ3Rb2QOyUSqjoZsrVV+fZhqCdIgqYQVik6su+UrRyTNHbDkYyxiCYrj55B9iVlhq356Gt998er06Kk8DPP2ctXH9VVKqMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877346; c=relaxed/simple;
-	bh=0mysyToHvqP5e5DKgMHPszVepF4tISUWsYxbAjeL4oI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g0Mfub+y7RRjkpS0mbkGXhnHrWmlvr0lOft5urA8BZBt17K1+q8hhRvjrlh+QPrMM6OTbbQuHsHeB8moIL07an0UnEgvDriyLs07VonIraM9Lxg8VlCmP6viaIv49KhpWejfiSIFh6q1JNyHapunhbvCKsNo+hOPbkyDBqOn460=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=zhncPP0D; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788877427; c=relaxed/simple;
+	bh=NKSLcc0XWVLl32spztk7XP02BhHOIHp87F6EtVuddIc=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j8085YpkWxFmB7Nz1MDL+tRxTuJZ9AaH7OMchWKcPqNYVe4JZ24RVGhDNsE8GamiAROQtYTrix90EAF8IQO69UYZ+i2VZrPPxyq7zzY0bOpeHQAwEvrskq5sifd4vmywOsTAl7FSVVxNvuVkyLUHUh++bTjHqbHH3MmcKPZorG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k9CpbJC5; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="zhncPP0D"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=r8ssry16M5aSeT7xlvXOax7jov1McZIxliOAZ/6MYRg=;
-	b=zhncPP0DXgoXlFYqhkL73/0wmOk1FS/Q5s7y7X58cfAeYDqfYyOPrIFZf1l2msvt7ItAh/0eF
-	sUStN6gVcgENxjiKpTVdk280TfBT41G+US9EJWDhLJvJqSC3fC1FWIPsLdyYXyRwgTZFp5NJ1gX
-	q2bkwJ6zmLzaHGfUEZt4rco=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hfQpH1LBMzmV8g
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:11:03 +0800 (CST)
-Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3493D40586
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:21:57 +0800 (CST)
-Received: from dggphicprd10024.huawei.com (10.243.6.112) by
- kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 22:21:56 +0800
-From: Abbott Liu <liuwenliang@huawei.com>
-To: <patchwork@huawei.com>, <liuwenliang@huawei.com>
-CC: <stable@vger.kernel.org>
-Subject: [PATCH v3 1/3] RAS: Fix inverted context info bounds check in ARM processor errors
-Date: Tue, 8 Sep 2026 22:21:35 +0800
-Message-ID: <20260908142137.45919-2-liuwenliang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908142137.45919-1-liuwenliang@huawei.com>
-References: <20260908142137.45919-1-liuwenliang@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k9CpbJC5"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-853f8c34ba4so5534530b3a.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 07:23:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788877417; x=1789482217; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SnF7FxdLIEQlswE9xvoQ5sUHHcQzYgPIRrMFvodMtWw=;
+        b=k9CpbJC59T/ItxFXqXOfQlo8l+W0og/JCj0dh1uf7UVGMP9xBqViRBa3uTRcY0jywx
+         6yJqa/qXixbI/0BpZEBmO/czC5Y5elR+8fErfRubGiGmWKpdZh8E8GZ33nexZE3oWJbl
+         utdlEo8c3CreWGs8kOMTOXV9Bo/l7eD6CJaDzqKfZSjX5mUzCx7JrOCgT3XylIRPxbpH
+         XGh8onrhNVC0eyTOXRlYqGgZ3vuiC9Go5hJ1MOJNoiqW2Z3G28p+F7b8T6lOR7QqG8UO
+         43NP1rsBiQJuEfgMsZsg8MG1OQ6y4NKvYSg9cNrE7YZv7uYY3KotNJlCmbBgSp+fPOMw
+         jbpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788877417; x=1789482217;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SnF7FxdLIEQlswE9xvoQ5sUHHcQzYgPIRrMFvodMtWw=;
+        b=fuKqFMCtnsWlZncjSGBYWEJevUbJe0B2nGRhLmUPFO4IzUXZFMqfVxGZ+l1I6yfcj4
+         1dFuAwavSToqhOlSsdYZRspVDi6GI29ABp/tA902ND49BxLrlYrThxHvVj1Nrn5A599C
+         NJtzUkYM4stnomVlOgraoaUyqQ66lSs8fPt0Uhm0rSlXew1dwEYdBBGdFPRgpYMTHjww
+         9NHmJFwj+3lK6RkaQCfYufQ8JeaJubLfHK5/1eWP33pHHEhWDZj73h7FvflBWVfeoyho
+         zTXmEg52wQFiVsU6vEkqLFjbexD68xxCpBn7mnuPYVq8wGARoUuDbScw3qIDxQ4s86zq
+         hsVg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAaqPSfGj65wmGDgDW7Vl1Nt70trM1C5dVQbijXEwqNvl6moVwPCBSvXByq+koobMlMt0DrY8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWeXLFlFZPVMv3lfd9p30E6Lmc2g0xLOQSyr1uign5uwGnQHPs
+	mxKwTA2cCxINGhQG6CDi5PEH+FpQKjxmwICMY7kRXSsGdWBL5P5d7RR3
+X-Gm-Gg: AYBFou1BQWWBRXY8csIk86MGJ31DOBhhqEYdBY/FJXj5gZkIt7n6RaT/dIDygJikLLD
+	37PjTNrp1E297p984NFVHYetoRf/LbCN9G6pIoZix4BJiC+/yYN2UY2j6mSJNT159rJ63btKIsq
+	I+0rZX7uYe3PP7CeITJKtaEc8kwWTALRHyJRL6aC3wtagWoIdCMca2XitNfoe4JhzpA1RI7HbbH
+	YWTpB9V/cf4L6p1Vyxoo5pKitexNQI0hialwV6GX055bOLtGK/H8TrKn5Ghqk2MGFwHMQ6Mo8NE
+	isfChav4xRYpTZA8C3EueMgElt9Ubk4ch4KI1rnbuoxar4cZhFpGfF73PR1c58jCWn/OA2nMK56
+	PHQTKgkeMqnXWbYwuunH/KqYILvYODbz4YCPvnA/dPUelI/mD7/8EfQhJBYBSlBH8EbGZHKFlVi
+	oaNH45FvyUc1AHyp5JhEfeZy706M6dYBJdi7zKIFS8BA==
+X-Received: by 2002:a05:6a00:1702:b0:857:726d:270c with SMTP id d2e1a72fcca58-8616dd51063mr41868561b3a.24.1788877416550;
+        Tue, 08 Sep 2026 07:23:36 -0700 (PDT)
+Received: from pc636 ([125.29.25.186])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615404876fsm5590951b3a.59.2026.09.08.07.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 07:23:36 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Tue, 8 Sep 2026 16:23:30 +0200
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>, linux-mm@kvack.org,
+	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org, Dev Jain <dev.jain@arm.com>,
+	Ye Liu <ye.liu@linux.dev>, lirongqing <lirongqing@baidu.com>
+Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
+ vmap drain
+Message-ID: <aqAaYhLcyzscOCxb@pc636>
+References: <20260905152717.11711-1-urezki@gmail.com>
+ <20260905153704.e7fe650d0226c3e20c1c8449@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemf100015.china.huawei.com (7.202.181.14)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905153704.e7fe650d0226c3e20c1c8449@linux-foundation.org>
 
-Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-allocated memory") added bounds checks for malformed ARM processor
-error records but contained a bug:
+On Sat, Sep 05, 2026 at 03:37:04PM -0700, Andrew Morton wrote:
+> On Sat,  5 Sep 2026 17:27:17 +0200 "Uladzislau Rezki (Sony)" <urezki@gmail.com> wrote:
+> 
+> > drain_vmap_area_work() function can take >10ms to complete
+> > when there are many accumulated vmap areas in a system with
+> > high CPU count, causing workqueue watchdog warnings when run
+> > via schedule_work():
+> > 
+> >   workqueue: drain_vmap_area_work hogged CPU for >10000us
+> > 
+> > Move the top-level drain work to a dedicated WQ_UNBOUND
+> > workqueue so the scheduler can run this background work
+> > on any available CPU, improving responsiveness. Use the
+> > WQ_MEM_RECLAIM to ensure forward progress under memory
+> > pressure.
+> > 
+> > Move purge helpers to separate WQ_UNBOUND | WQ_MEM_RECLAIM
+> > workqueue. This allows drain_vmap_work to wait for helpers
+> > completion without creating dependency on the same rescuer
+> > thread and avoid a potential parent/child deadlock.
+> > 
+> > Simplify purge helper scheduling by removing cpumask-based
+> > iteration to iterating directly over vmap nodes checking
+> > work_queued state.
+> 
+> Thanks.
+> 
+> > Cc: stable@vger.kernel.org
+> > Cc: Dev Jain <dev.jain@arm.com>
+> > Cc: Ye Liu <ye.liu@linux.dev>
+> > Cc: lirongqing <lirongqing@baidu.com>
+> > Fixes: 72210662c5a2 ("mm: vmalloc: offload free_vmap_area_lock lock")
+> > Link: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
+> > Reviewed-by: Baoquan He <bhe@redhat.com>
+> > Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> 
+> I think what we wanted here was
+> 
+> Reported-by: Li RongQing <lirongqing@baidu.com>
+> Closes: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
+> 
+> so I made that change.
+> 
+Yep :) Thank you!
 
-  In log_arm_hw_error(), the ctx_info bounds check is inverted. The
-  condition "sz + (long)ctx_info - (long)err >= err->section_length"
-  adds ctx_info->size when the context header is already past the end
-  of the section instead of when it is within bounds. So change the
-  comparison to <=.
-
-Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
----
- drivers/ras/ras.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
-index 03df3db62334..2540538a16a8 100644
---- a/drivers/ras/ras.c
-+++ b/drivers/ras/ras.c
-@@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
- 	for (n = 0; n < err->context_info_num; n++) {
- 		sz = sizeof(struct cper_arm_ctx_info);
- 
--		if (sz + (long)ctx_info - (long)err >= err->section_length)
-+		if (sz + (long)ctx_info - (long)err <= err->section_length)
- 			sz += ctx_info->size;
- 
- 		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
--- 
-2.43.0
-
+--
+Uladzislau Rezki
