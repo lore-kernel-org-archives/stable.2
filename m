@@ -1,113 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDB554936E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA45592F5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907040; cv=none; b=hn8L+xDvq1P7yZ5rX1IHaMC4nx54ukok5gEXm6UjS0lpfxDO9iv4ADh0+By2LJytadfL8ITlxcwVilT74xZx1mUNSestn7qLIjXi8/mVvHa+DNx+Gty7/gYYCK8/AwwQt8MmpqvkI5LCizlpjss0A/nX0uQjfG17kgkGOmN2ch8=
+	t=1788907041; cv=none; b=EEpt9cL4ga8hhYoBQep8+S0VsRH9QtFhGP5GX12pbFygQ3qsx/gx6H2ESaaJdUxh9urRKUsS9ML4b+V1zmLjDhWehrKzcr/mnZBuyjRKPII1+ExUX5Hz8Usv8dP+GVNfULo8Q6uJ+VR2MFo/LE9pq1uZ45DyIVQ9WX3/u0sHq10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907040; c=relaxed/simple;
-	bh=dX7lG/ioxdPdqrKib+rCIYvMSEmaHpSZY20/epeE6yQ=;
+	s=arc-20240116; t=1788907041; c=relaxed/simple;
+	bh=olTPT+kqZ81Q3CGkvdEA1CPWtUC+1vjUfFEPqgYJWP4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lAhUYhZ70qie1xpTz9jZphFhpor8zb501EICJri3N75E76TgkoDWGiR2IJVzEBr9kNpLPAm45rgMWmprQnWC8jOawupf57O9w0/vL4cLL9F3ta6OWSw7ug50qGBKWPo4D2tQ+ZzhO1nWlKe2ztVhOhx3sCOm1DdUrt9tiy8XTl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dllVxjv6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PxTY9YbU8r2kRUkqLlIQUuFrnRwHJlC9QoZ4m5+IRWp16U3x2K4NmxkrbcNNo5JGzkwAq55YiTxUcBOOO8bczc/bYrHc+LKDJ+hfIMFBYKoS8eR8rrcag+wQ2+STR+5Fdm4Ph9LcK0A3UqwYMSXuQ4o154nLfbB4A1JP0trkLUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xx/x9FgK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dllVxjv6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9A21F00ACA;
-	Tue,  8 Sep 2026 22:37:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xx/x9FgK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB151F00ACF;
+	Tue,  8 Sep 2026 22:37:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907035;
-	bh=agVfxgLIJ6GBmBtE/CE4KWWkQYK71YXiUfrd8eNbrrI=;
+	s=k20260515; t=1788907038;
+	bh=WMVXXWvPX1mbYhaXPBTiFZN/BQfaPqGI8F2Q7LWaINs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dllVxjv6YbnpZDTDuoFtN968QbYqOvTZxlQq4yxm0x7sVa2jwBULfPsqd0I0hx/2M
-	 40RrH67flGdT9/W2WA2RU1HHFNiIBqtXu7FvodyB59jHnEDGFuNm1ecvdQlykaoMKu
-	 hq0NsDxwESZMsO/J9fGd5kSgXo/PJ41sHNYm3r0fgEdkEN9/yFgGOsStkD91CqssVR
-	 4/Xo6menLINrk96WDDC/dzgG1Ks/J/+XawKESR+kiCx+mvatOOo+FVw9t0Np6y8E+5
-	 GOFRBiuKagYMzIqlZe3L8IVTkqmtwCYMrJnvzY2jUPoMA7H7ZBrSLC7Y/MxVlriURu
-	 L1gsfoVB3uYGw==
+	b=Xx/x9FgKOFaRYsgyEmF/ZFhVbkCjoGF3PuoBSu8HD448MobmpbRnwPaoAY9nNU61l
+	 sbb7yO9cf2SP3vVAu46wFqE4XQzIhPDG7LGAf3qbvZ5uJR89eGwCzcWFYtZJWOmSrd
+	 jN3itgHG7cnbPJ4Of7vg1aO5exovSAJgehUV+BxFPTQaxveorYXq+1o6YCCklaFRqo
+	 YHrLlwTT6WqYI6tSysPPZyco77dG6YZSx80cSiqbej01G+v9oLRb3hfhu15rm9yrzQ
+	 jPqjhNASEQuS0XUlvdDIG4zhAUomaVmma3zw1GNICClYJiTFcedLjFXgUagWwXkmUm
+	 6MCDD6TsJUpqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] sunrpc: defer rq_argp and rq_resp free until after RCU grace period
-Date: Tue,  8 Sep 2026 18:37:10 -0400
-Message-ID: <20260908223710.506600-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] rpc_pipe: don't overdo directory locking
+Date: Tue,  8 Sep 2026 18:37:14 -0400
+Message-ID: <20260908223715.507115-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908223710.506600-1-sashal@kernel.org>
-References: <2026090350-breeze-repugnant-70de@gregkh>
- <20260908223710.506600-1-sashal@kernel.org>
+In-Reply-To: <20260908223715.507115-1-sashal@kernel.org>
+References: <2026090317-curled-track-17d1@gregkh>
+ <20260908223715.507115-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit c479bde671cbe2f9e152834a8b0eb7c3c295bbaf ]
+[ Upstream commit 41a6b9e52b21544c334830bfe68fb78d6677caa0 ]
 
-svc_rqst_free() frees rqstp->rq_argp and rqstp->rq_resp synchronously
-via kfree(), but defers the rqstp struct free via kfree_rcu().  After
-svc_exit_thread() calls list_del_rcu() and svc_rqst_free(), there is
-a window where RCU readers that started before list_del_rcu() can still
-traverse the thread list and find the rqstp.  These readers (e.g.
-nfsd_nl_rpc_status_get_dumpit()) dereference rqstp->rq_argp, which has
-already been freed — a use-after-free.
+Don't try to hold directories locked more than VFS requires;
+lock just before getting a child to be made positive (using
+simple_start_creating()) and unlock as soon as the child is
+created.  There's no benefit in keeping the parent locked
+while populating the child - it won't stop dcache lookups anyway.
 
-Fix this by moving the kfree of rq_argp and rq_resp into an explicit
-call_rcu() callback alongside the struct free.  Resources not accessed
-by RCU readers (bvec, buffer pages, scratch folio, auth_data) remain
-synchronously freed.
-
-Fixes: 812443865c5f ("sunrpc: add a rcu_head to svc_rqst and use kfree_rcu to free it")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-4-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ placed the RCU callback beside the older exported svc_rqst_free() while retaining page-based synchronous cleanup. ]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/svc.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ net/sunrpc/rpc_pipe.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-index bf88a955920f2..ca0a854c9fdcf 100644
---- a/net/sunrpc/svc.c
-+++ b/net/sunrpc/svc.c
-@@ -946,6 +946,15 @@ void svc_rqst_release_pages(struct svc_rqst *rqstp)
+diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
+index 5556e25ffc35a..76a9d86ab8ac7 100644
+--- a/net/sunrpc/rpc_pipe.c
++++ b/net/sunrpc/rpc_pipe.c
+@@ -698,12 +698,14 @@ static int rpc_populate(struct dentry *parent,
+ 	struct dentry *dentry;
+ 	int i, err;
+ 
+-	inode_lock(dir);
+ 	for (i = start; i < eof; i++) {
++		inode_lock(dir);
+ 		dentry = __rpc_lookup_create_exclusive(parent, files[i].name);
+ 		err = PTR_ERR(dentry);
+-		if (IS_ERR(dentry))
++		if (IS_ERR(dentry)) {
++			inode_unlock(dir);
+ 			goto out_bad;
++		}
+ 		switch (files[i].mode & S_IFMT) {
+ 			default:
+ 				BUG();
+@@ -712,20 +714,20 @@ static int rpc_populate(struct dentry *parent,
+ 						files[i].mode,
+ 						files[i].i_fop,
+ 						private);
++				inode_unlock(dir);
+ 				break;
+ 			case S_IFDIR:
+ 				err = __rpc_mkdir(dir, dentry,
+ 						files[i].mode,
+ 						NULL,
+ 						private);
++				inode_unlock(dir);
+ 		}
+ 		if (err != 0)
+ 			goto out_bad;
  	}
+-	inode_unlock(dir);
+ 	return 0;
+ out_bad:
+-	inode_unlock(dir);
+ 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
+ 			__FILE__, __func__, parent);
+ 	return err;
+@@ -741,25 +743,22 @@ static struct dentry *rpc_mkdir_populate(struct dentry *parent,
+ 
+ 	inode_lock_nested(dir, I_MUTEX_PARENT);
+ 	dentry = __rpc_lookup_create_exclusive(parent, name);
+-	if (IS_ERR(dentry))
+-		goto out;
++	if (IS_ERR(dentry)) {
++		inode_unlock(dir);
++		return dentry;
++	}
+ 	error = __rpc_mkdir(dir, dentry, mode, NULL, private);
++	inode_unlock(dir);
+ 	if (error != 0)
+-		goto out_err;
++		return ERR_PTR(error);
+ 	if (populate != NULL) {
+ 		error = populate(dentry, args_populate);
+ 		if (error) {
+-			inode_unlock(dir);
+ 			simple_recursive_removal(dentry, NULL);
+ 			return ERR_PTR(error);
+ 		}
+ 	}
+-out:
+-	inode_unlock(dir);
+ 	return dentry;
+-out_err:
+-	dentry = ERR_PTR(error);
+-	goto out;
  }
  
-+static void svc_rqst_free_rcu(struct rcu_head *head)
-+{
-+	struct svc_rqst *rqstp = container_of(head, struct svc_rqst, rq_rcu_head);
-+
-+	kfree(rqstp->rq_resp);
-+	kfree(rqstp->rq_argp);
-+	kfree(rqstp);
-+}
-+
- /*
-  * Called from a server thread as it's exiting. Caller must hold the "service
-  * mutex" for the service.
-@@ -957,10 +966,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
- 	svc_release_buffer(rqstp);
- 	if (rqstp->rq_scratch_page)
- 		put_page(rqstp->rq_scratch_page);
--	kfree(rqstp->rq_resp);
--	kfree(rqstp->rq_argp);
- 	kfree(rqstp->rq_auth_data);
--	kfree_rcu(rqstp, rq_rcu_head);
-+	call_rcu(&rqstp->rq_rcu_head, svc_rqst_free_rcu);
- }
- EXPORT_SYMBOL_GPL(svc_rqst_free);
- 
+ static int rpc_rmdir_depopulate(struct dentry *dentry,
 -- 
 2.53.0
 
