@@ -1,121 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75034A014C;
-	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147154488D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871504; cv=none; b=Xfdp6VU8+C7WYzM9kJZHTnCE6/1KwVA2eVrzdOmtf/sG4pspkhjWn5nqLFBL37+TwvTgtyv5cH+c5QOXan4jZdkEUns1p0Ed5tUYDF0wNU+g1UgInOmDQM4m9RpiO5wTRDAvTxE4pnmO16Ua/+2dbt/2tU5BXbu3ls0DV+uQ7P0=
+	t=1788871519; cv=none; b=mxWvRgKH7lE1Gucc4Nq1bf2BbrA6egqg3mnQNum1/phEVadnmThkJEfjgbBn/kNBDwlbZJANMrJ2Jawv8/PbwG+NflmEMQ8P40dfWTbXtSGi7S8bLhWXr1XEMKug8cQ11U5pffjr+NliROQ+JHzsREV81DEmw3lzauZMV8ThPiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871504; c=relaxed/simple;
-	bh=VFryqqzhM6lSSy4pdb+U7EIAsRSleqEPMNVWVeCSDEY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p0H02Cyg0+L0H9di74AzsLFO53J7M2dPxyx6LC7Ay4FKpWhdS8q6ps5HONHQd/nfNmQKCd4t6//QmsLHC43VoUYguCLP1SEuQefBMBP8b/XctWiIyCMr65WbkH20xUuXDHN8oQ65dnMNWuUwjGn7QpY4LxqQN/gSTbfZ8bom2Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afWsrmjO; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afWsrmjO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 751A3C2BCB8;
-	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788871504;
-	bh=VFryqqzhM6lSSy4pdb+U7EIAsRSleqEPMNVWVeCSDEY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=afWsrmjOmN2spwI9V5Gq+ptION1ON4GzIJVcRHD+Gys4Qp0aQyyRyGpDNhGNTMe3K
-	 Cep5LswnJcUhNv0B3ipisWUwcyjYZeUQpx7TvpUXLNkqVLIvF3j7Atqg8XCCNe9K3U
-	 SK1WA7giHIz07OQj4BCggJb7xg68BdQmOVmo4zoC+PJkQt7aeU1TBXcLlpS9SylVI9
-	 flsVO29m70PUCXj57E8vaAPjiUU1vJXeo3iOhDWzGwG5NIxgPc6nc37xlEKHwMy50j
-	 3oLe2VCifwBMvw/rvWdh/bkezFom4CeULKobni32lN+6HhRqchvRl0+Few02bF88LE
-	 h21ZlIebIsHpQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51AC2C79F9E;
-	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 08 Sep 2026 14:45:02 +0200
-Subject: [PATCH v2 1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
+	s=arc-20240116; t=1788871519; c=relaxed/simple;
+	bh=2mx/ryQ5Wdqi7vP+BbtEbTj/frKpzGOYpBvigs1Swq8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Mz3kB7OCE711qX5fTlaU21RkYKxvcGbAS+1vTXCpC30MnnAvusF+E753v1JWXId75OF5XMMOrwNCInch+41k5L0Lv0iVcsG7iVzbLS+8iKHk04Bsob1wzSg0P83b2fb+FEDkRjdL2EMo+uJfPr8GeSxn8fPJfIFSWROhz/fziS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEED91F00A3F;
+	Tue,  8 Sep 2026 12:45:17 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix anon_stack check for unnamed bitfields in" failed to apply to 6.18-stable tree
+To: mhiramat@kernel.org,rostedt@goodmis.org,sashiko-bot@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 14:45:10 +0200
+Message-ID: <2026090810-jasmine-divided-a4e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ebbg-ft8719-fixups-v2-1-5454ae1f5581@ixit.cz>
-References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
-In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
-To: Joel Selvaraj <foss@joelselvaraj.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- Linus Walleij <linusw@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1322; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=rkKe1B3w8nfJnM/PyCVxhpwlE8OgOguOydHVF4lcyVc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANOWhebknUywxD5wXoUqrrutGzcfC1TSC2Mq
- SrOYSEh9xOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
- crXcD/43mQI7xN9miQgoykM1OpJnWuQGafBFybMVjDZFyfkt7CTMOwFv5FpL1r4/pFWXQodJnWe
- sPpd67/FfM+fcYokvSJE5a8ntXH1Byy+ydbTCtGN025m2+RPndkBKuthCOvRR/zDc9eCQ0mZmbs
- EbfNd2X6f1GwpAahLHoHLJ4lblEDTTal3aoXEjn5NzMYFGlKhmDsRp2Pt1o3l4rnEjNnS/r/ckC
- 163s/4qNMyRcqmJ+zxpxXcyXb+t29j+Yxgg2AjIwQ5+Nbx4m/gwIRdABebKIzgBlpNC8Y4geGHp
- Zm+uRAw4udaFkIkquEyJe0ac31M6fcV6RE2iNjYgZQ7NKwS1qvLPGTDuVd0/6XrFXyKzFecAgxR
- HadSlAnvPzRIVKSuvKqlfAGbetGQf0NxEFzbG50EP9wq0EPP1g7/R+mWKX5AdmB+90RU8vewyLO
- 8pR/tpihVs2uZUR5h6au9GZVkFVBQz6HpJf8Z5155L2MGVOYWQ6sqkGU1bwMWUnfyiz+FofwBqU
- IVtrIm3ctSVzz9elUXCVL3MfOLkiYO0cwlvoFxSzcSl+dYLogNjyXsLH6fKnGYLK4Cwr30EMDcm
- qMFs7q6aGhxI3ovBV7iBbBNVLvwY8Z62oxyCoG9076APn23uEN2/VsRcjarLkez9nRak5RwU5uV
- IWn6n4jI+fzGF6A==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: Casey Connolly <casey.connolly@linaro.org>
 
-This corrects the host initialisation sequence so that we can send
-DSI/DCS commands in prepare().
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x f36d94a20ca185bcadef3a10b980cd2cfd72d53a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090810-jasmine-divided-a4e9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f36d94a20ca185bcadef3a10b980cd2cfd72d53a Mon Sep 17 00:00:00 2001
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Date: Tue, 1 Sep 2026 23:21:37 +0900
+Subject: [PATCH] tracing/probes: Fix anon_stack check for unnamed bitfields in
+ btf_find_struct_member
+
+btf_find_struct_member() traverses into nested anonymous structures
+and unions by pushing members with !member->name_off onto anon_stack.
+However, it does not consider the unnamed bitfields (e.g. `int : 5`
+or `unsigned int : 0`) which also have member->name_off == 0.
+
+If such an unnamed bitfield is pushed to anon_stack, the
+btf_find_struct_member() return an error even if there are other
+valid entries in anon_stack.
+
+To fix this, only push unnamed struct/union members to anon_stack.
+Also move the btf_type_is_struct() check to the entry of this function
+because now it is sure only struct/union are pushed to anon_stack.
+
+Link: https://lore.kernel.org/all/178827249775.123716.7813217688423513612.stgit@devnote2/
+
+Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
 Cc: stable@vger.kernel.org
-Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
-Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-Tested-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
- 1 file changed, 2 insertions(+)
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index fb9f9f42be4f2..1ab09c50a6306 100644
---- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-+++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -193,16 +193,18 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
- 	ctx->dsi = dsi;
- 	mipi_dsi_set_drvdata(dsi, ctx);
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index 00172f301f25..d3ba356d5503 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -74,24 +74,24 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ {
+ 	struct btf_anon_stack *anon_stack;
+ 	const struct btf_member *member;
++	const struct btf_type *mtype;
+ 	u32 tid, cur_offset = 0;
+ 	const char *name;
+ 	int i, top = 0;
  
- 	dsi->lanes = 4;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
- 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
- 
-+	ctx->panel.prepare_prev_first = true;
++	if (!btf_type_is_struct(type))
++		return ERR_PTR(-EINVAL);
 +
- 	ret = drm_panel_of_backlight(&ctx->panel);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 	anon_stack = kzalloc_objs(*anon_stack, BTF_ANON_STACK_MAX);
+ 	if (!anon_stack)
+ 		return ERR_PTR(-ENOMEM);
  
- 	drm_panel_add(&ctx->panel);
- 
- 	ret = mipi_dsi_attach(dsi);
- 	if (ret < 0) {
-
--- 
-2.55.0
-
+ retry:
+-	if (!btf_type_is_struct(type)) {
+-		member = ERR_PTR(-EINVAL);
+-		goto out;
+-	}
+-
+ 	for_each_member(i, type, member) {
+ 		if (!member->name_off) {
+ 			/* Anonymous union/struct: push it for later use */
+-			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
++			mtype = btf_type_skip_modifiers(btf, member->type, &tid);
++			if (mtype && btf_type_is_struct(mtype) &&
+ 			    top < BTF_ANON_STACK_MAX) {
+ 				anon_stack[top].tid = tid;
+ 				anon_stack[top++].offset =
 
