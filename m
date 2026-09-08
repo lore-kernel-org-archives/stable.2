@@ -1,224 +1,114 @@
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC89152941A
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78B0525A76;
+	Tue,  8 Sep 2026 11:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865659; cv=none; b=H574LhIp/eX0xpU2KLOW6syE1DIGNzxyx+cfwR9kVSqmM11hKtt8tX4XXqeXs43T1olI/8wf8FX22/QFNcCVkBbdgVkX60NbQt5y6J/rD+hmoNu70nan6gtnm3t0D8mjvCu+MZWIX48KUJmyZMWYP390HkxFT8fHLB5GtICLB3w=
+	t=1788865685; cv=none; b=Bn7ibTHbpw30I/YJhaAjo540Zo/6gYsvEoxSQttw2drPwBFNG+2Har5kg80nZwtseS1eOn+Y/JNyxzLTfHKKig1WibDXas+ox+5tYByRUgZeExKQnZm7aXJpyAjSj7qiQk//tyzK58w6YNG7Hy2kxvO51NWp6ByiQsm7DQ4sTyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865659; c=relaxed/simple;
-	bh=n+vTJUIvsDxI7yNE//7ETqP96fI8JsmTAhqvehLBjCw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g/5URdzdjMz2GqwcoOo0A5iFDrzMSRNwZIXgOgjGlDQCQSkVWlCa0Z4DDe/u1xACHV3JDhbuyLZJiH7XzRHn+VU7NqhEy3dKcpDnKuHwFZRCXPnEgtaEu9nMhkSZqKd2DM3GkV9iSAjV4Bc1MMyRLBnXh0MmeGpd7lnfuIqICYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fw9nXrdr; arc=none smtp.client-ip=91.218.175.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788865685; c=relaxed/simple;
+	bh=6JP+yF/l59rk+xEN9cUvDQiQ+4zMT1Y2YqxDsIm5cLA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iVXHHmoEM+BAa97iZf7xmzvenk3wnVRntib3fjXVQQSMlx8OTZsBZYj4COFaiYBRW9a6iUkfjZGfmPhmocriRiwD4oZ9/fuhqyRbMLWzyH5ZboWYRpJ08i5TfKLlyjinAGEIi8aTyMzDZE7uN51r5t9T4qWqFY42qDqPTzny/Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GwfEaMs2; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fw9nXrdr"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n+vTJUIvsDxI7yNE//7ETqP96fI8JsmTAhqvehLBjCw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788865654; v=1; x=1789470454;
- b=Fw9nXrdrrkkKWAhzydgvKtfzedI2UdLMt6vCEmBAHhH9Z4/NCbrhcVPjLyNIkqJj2r5nGM+0
- 491VgUcPWtwtCkSNTxhBJ2ofBbWhVaTiRj95lOsSH9VXguZpBtkdTo/qCnL7PrI/qLsQDRTgljq
- LwI6xy4ImfumwNednqaCJXSg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5f1e715ccda4b9bd;
-	Tue, 08 Sep 2026 11:07:34 +0000
-X-Mizu-Trace-ID: 5f1e715ccda4b9bd
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Keir Fraser <keirf@google.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Hiroyuki Katsura <hk590@cam.ac.uk>,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] KVM: arm64: Check every private mapping is hyp-owned at pKVM init
-Date: Tue,  8 Sep 2026 12:07:13 +0100
-Message-Id: <20260908110713.1540304-5-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260908110713.1540304-1-fuad.tabba@linux.dev>
-References: <20260908110713.1540304-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GwfEaMs2"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hfLkw2XVqzMlGk;
+	Tue, 08 Sep 2026 13:07:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788865672; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w7Bt62xe+5MP6LLxYlu1Io9gYViozGYzljouWDKNZL8=;
+	b=GwfEaMs2ZM1KbNLWf04twW9UZAKtrk0RzznFK26PlgE4yglGKlDk5BpM/6qdagCJOhOxIF
+	1OrmtaKx9AByJsVFBEopM2td8IPz/U+Jn30LRY+a4ZYNsC12euOZfKG/wH31g++r4kzWiE
+	ksw6/sIEYPhS8Ab8E8hKIZKEwcKxb99/dQpaRI3RzQbc9XqkezdUYyObXpq7WJqMYbUD6E
+	aGLm3yt1N/shapBejM+R8wNQNoTsRv24DdQSKpkfez3+es5VQPtAdkdQT6Ta+mWbEx5JKx
+	Flz48oLJdi5FS0h1DZcgd76fwWEIdYF81WrEbyMDSe2R7P3Igi0lSrR4Ig/JIQ==
+Message-ID: <909f7ed1b2688fb2f727afb879642cda5cad9e5e.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
+ 	phasta@kernel.org, tursulin@ursulin.net, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ 	stable@vger.kernel.org
+Date: Tue, 08 Sep 2026 13:07:46 +0200
+In-Reply-To: <20260908104910.183638-1-malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+	 <20260904080618.2098450-2-malhyuk97@gmail.com>
+	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+	 <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+	 <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
+	 <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
+	 <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
+	 <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
+	 <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
+	 <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
+	 <20260908104910.183638-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: o1s5duoqc8bbq7toip8p36w6dz5a93e9
+X-MBO-RS-ID: 63113cdb2f871110c03
 
-fix_host_ownership() transfers only what it walks, so a hyp mapping
-outside the linear map is not manipulated by the walk.
+On Tue, 2026-09-08 at 19:49 +0900, Jonghyuk Kim(MalHyuk) wrote:
+> Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+>=20
+> Two things it doesn't cover: it's x86 only, so nothing about the load ord=
+ering
+> you discussed;
 
-Walk the quarter of the VA space holding the private range and the
-vmemmap once the transfer is done, and fail init unless every valid
-leaf is hyp-owned: in the vmemmap when the page is memory, and in the
-host stage-2, where hyp text may instead be mapped without write
-access. A leaf that is not memory has no vmemmap entry and is checked
-against the host stage-2 alone. Hyp text is matched by physical
-address, since the only executable mapping in the range is the
-Spectre-v3a vectors, whose VA is a private allocation, and an
-executable mapping of anything else must not be host-readable. The
-vmemmap can be block-mapped, so the walker checks each page of a leaf.
+Christian and I think that it shouldn't be an issue anymore. Both
+values are loaded and the ops pointer cannot become invalid until an
+RCU grace period has passed. Similarly, sched must not be cleaned up
+before that.
 
-Suggested-by: Will Deacon <will@kernel.org>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/hyp/include/nvhe/mem_protect.h |  1 +
- arch/arm64/kvm/hyp/include/nvhe/mm.h          |  1 +
- arch/arm64/kvm/hyp/nvhe/mem_protect.c         | 12 ++++
- arch/arm64/kvm/hyp/nvhe/mm.c                  | 59 +++++++++++++++++++
- arch/arm64/kvm/hyp/nvhe/setup.c               |  4 ++
- 5 files changed, 77 insertions(+)
 
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h b/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-index cab27f7bd423a..ec85a95471207 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-@@ -55,6 +55,7 @@ bool addr_is_memory(phys_addr_t phys);
- bool addr_is_hyp_text(phys_addr_t phys);
- int host_stage2_idmap_locked(phys_addr_t addr, u64 size, enum kvm_pgtable_prot prot);
- int host_stage2_set_owner_locked(phys_addr_t addr, u64 size, u8 owner_id);
-+bool host_stage2_pte_is_hyp_owned(kvm_pte_t pte);
- int kvm_host_prepare_stage2(void *pgt_pool_base);
- int kvm_guest_prepare_stage2(struct pkvm_hyp_vm *vm, void *pgd);
- void kvm_guest_destroy_stage2(struct pkvm_hyp_vm *vm);
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/mm.h b/arch/arm64/kvm/hyp/include/nvhe/mm.h
-index 6e83ce35c2f2e..31cae95ddb716 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/mm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/mm.h
-@@ -29,6 +29,7 @@ int __pkvm_create_private_mapping(phys_addr_t phys, size_t size,
- 				  enum kvm_pgtable_prot prot,
- 				  unsigned long *haddr);
- int pkvm_create_stack(phys_addr_t phys, unsigned long *haddr);
-+int pkvm_check_host_ownership(void);
- int pkvm_alloc_private_va_range(size_t size, unsigned long *haddr);
- 
- #endif /* __KVM_HYP_MM_H */
-diff --git a/arch/arm64/kvm/hyp/nvhe/mem_protect.c b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-index d026f446bd8ef..a6a47c1e058b3 100644
---- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-@@ -641,6 +641,18 @@ int host_stage2_set_owner_locked(phys_addr_t addr, u64 size, u8 owner_id)
- 	return ret;
- }
- 
-+bool host_stage2_pte_is_hyp_owned(kvm_pte_t pte)
-+{
-+	if (kvm_pte_valid(pte))
-+		return false;
-+
-+	if (FIELD_GET(KVM_INVALID_PTE_TYPE_MASK, pte) !=
-+	    KVM_HOST_INVALID_PTE_TYPE_DONATION)
-+		return false;
-+
-+	return FIELD_GET(KVM_HOST_DONATION_PTE_OWNER_MASK, pte) == PKVM_ID_HYP;
-+}
-+
- #define KVM_HOST_PTE_OWNER_GUEST_HANDLE_MASK	GENMASK(15, 0)
- /* We need 40 bits for the GFN to cover a 52-bit IPA with 4k pages and LPA2 */
- #define KVM_HOST_PTE_OWNER_GUEST_GFN_MASK	GENMASK(55, 16)
-diff --git a/arch/arm64/kvm/hyp/nvhe/mm.c b/arch/arm64/kvm/hyp/nvhe/mm.c
-index 422ee57be9560..29ab5ee9d57fc 100644
---- a/arch/arm64/kvm/hyp/nvhe/mm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mm.c
-@@ -472,6 +472,65 @@ int pkvm_create_stack(phys_addr_t phys, unsigned long *haddr)
- 	return ret;
- }
- 
-+static int check_page_ownership(phys_addr_t phys)
-+{
-+	kvm_pte_t pte;
-+	bool host_ok;
-+	int ret;
-+
-+	if (addr_is_memory(phys)) {
-+		struct hyp_page *page = hyp_phys_to_page(phys);
-+
-+		if (get_hyp_state(page) != PKVM_PAGE_OWNED ||
-+		    get_host_state(page) != PKVM_NOPAGE)
-+			return -EPERM;
-+	}
-+
-+	ret = kvm_pgtable_get_leaf(&host_mmu.pgt, phys, &pte, NULL);
-+	if (ret)
-+		return ret;
-+
-+	/* Hyp text may stay host-readable, see fix_host_ownership_walker(). */
-+	if (kvm_pte_valid(pte) && addr_is_hyp_text(phys))
-+		host_ok = !(kvm_pgtable_stage2_pte_prot(pte) & KVM_PGTABLE_PROT_W);
-+	else
-+		host_ok = host_stage2_pte_is_hyp_owned(pte);
-+
-+	return host_ok ? 0 : -EPERM;
-+}
-+
-+static int check_host_ownership_walker(const struct kvm_pgtable_visit_ctx *ctx,
-+				       enum kvm_pgtable_walk_flags visit)
-+{
-+	phys_addr_t phys, end;
-+	int ret;
-+
-+	if (!kvm_pte_valid(ctx->old))
-+		return 0;
-+
-+	phys = kvm_pte_to_phys(ctx->old);
-+	end = phys + kvm_granule_size(ctx->level);
-+	for (; phys < end; phys += PAGE_SIZE) {
-+		ret = check_page_ownership(phys);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int pkvm_check_host_ownership(void)
-+{
-+	struct kvm_pgtable_walker walker = {
-+		.cb	= check_host_ownership_walker,
-+		.flags	= KVM_PGTABLE_WALK_LEAF,
-+	};
-+
-+	/* The private range and the vmemmap share one quarter of the VA space. */
-+	return kvm_pgtable_walk(&pkvm_pgtable, __io_map_base,
-+				BIT(pkvm_pgtable.ia_bits - 2), &walker);
-+}
-+
- static void *admit_host_page(void *arg)
- {
- 	struct kvm_hyp_memcache *host_mc = arg;
-diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/setup.c
-index bb667cd7080b4..45ac5f2ba4f7a 100644
---- a/arch/arm64/kvm/hyp/nvhe/setup.c
-+++ b/arch/arm64/kvm/hyp/nvhe/setup.c
-@@ -334,6 +334,10 @@ void __noreturn __pkvm_init_finalise(void)
- 	if (ret)
- 		goto out;
- 
-+	ret = pkvm_check_host_ownership();
-+	if (ret)
-+		goto out;
-+
- 	ret = hyp_ffa_init(ffa_proxy_pages);
- 	if (ret)
- 		goto out;
--- 
-2.39.5
+>  and only the signaled case - for a fence exported before it
+> signals, get_timeline_name() is still reached and reads fence->sched->nam=
+e.
 
+Is this an issue? A fence can only be exported if the scheduler exists.
+
+The hard rule with dma_fence is that all drivers must signal all of
+them before they tear down the scheduler and clean up driver resources.
+This then does the decoupling.
+
+I think that rule is really the only chance we have to get things
+right.
+
+> I haven't tried to build that case.
+>=20
+> Could you add a Reported-by for me when you post it? I'm happy to drop my
+> v4 1/3 in favour of this, and can respin the KUnit test standalone so the
+> fix lands with a regression test.
+
++1
+I think since it's @Christian's patch he'll take care of it
+
+
+Thanks
+P.
