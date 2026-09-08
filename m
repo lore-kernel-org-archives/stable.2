@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23684854F6
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795DE51123E
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908047; cv=none; b=LqpvOWuezW7quLOUrSsozl1dJvRzfMTljQBLyurGBndlpQfTRRbT4XLK8EOtumMN3D/6gelSU21wEBWACEXKyIlDkuPH116jHysv+TOPxwFVOlQGkjepG0y44LOtZ8+Ujs+xXRcJ4GrzDbnnCfi7ZOIQvsI7X+7nRPSvP/DXKSg=
+	t=1788908049; cv=none; b=nXMj2+tsIb8XYSqeib6KKD+fkNvLBG6QC8pl1CllFgV/hgwtPjx2uioKOtDBqM6wr5hcbUYYMStYX/yRdyzVQsdOa3Ybk0wuow4J3htSzqm4Y3tTDngG8wa2S6HBV597QcOgiu28y9JjoCWwhITD+xYr6xw9ruMgkFjaaU8GTp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908047; c=relaxed/simple;
-	bh=mQ/MoC96/gYtvtlsm26R4ObjM0FA7CPk/rr/6pUfyw8=;
+	s=arc-20240116; t=1788908049; c=relaxed/simple;
+	bh=sm6tEmq94JzedGtH8LB8n9Bn5hN6IgO6JCGaQE3J6aM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E8/W2kIcBphVkaGm5Z80fEOS5yRPX9pm5bz///7ag/NmDsy3RoNODXAMhKHDJyz6HrcTPcRPgebWDTqM6BYl87DqppR/EXrMzbLJYhBKMdi6yUDimAcnvdJ6JcgtiyU0AO4n8k9Gr2v3+gwlSK32YAz7O4KvLL8mQ+k2jqomF2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLRAktZx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i2/8Jf6InikDXIVF7wfaIFAeCBelTY0CgvIL/VcMS/EFioWAQG2zwqP8I6kyOy/C6KYkcnYWD3TZrwCzyQd60lay5KT314/uChOOZLXkTCbmuJjnUT9VLsXJK4ag2Yt/CRVYMVFJbyEIlqMwYfMVLA0y6OMrXKGF/HnLR1WOGIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtvVjdGd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLRAktZx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C49A91F00A3A;
-	Tue,  8 Sep 2026 22:54:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtvVjdGd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857271F00A3D;
+	Tue,  8 Sep 2026 22:54:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788908046;
-	bh=kjqr+DbiTfNtzU/eV+cPXkxxGRbKXya9ypK1pNLmU/Y=;
+	s=k20260515; t=1788908048;
+	bh=flU3or7KN9ZAXt2N8RcmwMUxyDaOBXqGCmEG+3NowwA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kLRAktZxHfL8BSShkqaGmjortFYYJybRbpWiMYxIeQWbB9rokEq9OiJeG+Gsb14kC
-	 vDlz+ECxj8GRmgbci+y5M6Bmmv7zU3K5vi96vxKifYhbTx5xgUkNeCgh/sYWYvgyhC
-	 2l/EjwuM9pU+d+Jp4ictKKI8p6Sx1SbGVN3XJ+Ym8OSMPeCZiohE/xeV0EqFO+sy6M
-	 3S61ehRJY8Ndk15OfPWoM/zU7NOUgZ8wQP4sDmep99PzCopq1ecdx5LJFAbKgnBeQg
-	 zEufHJ0mmKqGs9V5bLwjqx/XiFAdvtM+TCy+oxLMKtt5RJpQ5W5LJpFb+zqCB9MdiH
-	 RFdFY2cTJPhpQ==
+	b=LtvVjdGd7pprm8/0kCMOEnFOCGDgS/VPTUrQP8xLY9QziP4Zyu5EpmbybEcinIbj5
+	 gfr/qKjqnqcyHJuD4DT9kEkJu3+wSAN/oiWJw9t4xRMtj+G4B6Nvp4o+ObrGZJcz3y
+	 4cRcUs+LxYGvAqVUe8AumQOro9HYUIPbe/o6aFupv5gM/A76XiauAXlkdIsEf8vNFZ
+	 RyCZa5nusqmQSuh/39sxj7rD/5KYN96tRAhft0pDnpTrqH00idX3FC6AZ+TwtOJ97P
+	 sVXxeaZgUzCXT4zcyZDHYOinxWsQqh7M/E+ffX/bEZtA7427OdHbjRWKj1hVrHb+Kn
+	 6tDz13uvPnwCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] SUNRPC: fix gssx_dec_option_array error path bugs
-Date: Tue,  8 Sep 2026 18:54:03 -0400
-Message-ID: <20260908225403.538655-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] inet: frags: add inet_frag_putn() helper
+Date: Tue,  8 Sep 2026 18:54:04 -0400
+Message-ID: <20260908225406.538697-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-aloe-vitamins-c1af@gregkh>
-References: <2026090303-aloe-vitamins-c1af@gregkh>
+In-Reply-To: <2026090319-antiques-palm-c286@gregkh>
+References: <2026090319-antiques-palm-c286@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,114 +45,176 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
+[ Upstream commit ae2d90355aa5592b0e99c8bbb4c3fa1d8e205f1b ]
 
-Four coupled defects in the gssx XDR option-array decoder make the
-error paths unsafe: a NULL deref in the caller, a refcount leak on
-the decoded group_info, and a latent use-after-free that the leak
-fix would otherwise expose.
+inet_frag_putn() can release multiple references
+in one step.
 
-gssx_dec_option_array() sets oa->count = 1 before allocating
-oa->data.  If that allocation fails, -ENOMEM is returned with
-oa->count == 1 and oa->data == NULL.  All other error paths jump
-to free_oa: which frees oa->data and NULLs it but also leaves
-oa->count == 1.  The caller trusts the count:
+Use it in inet_frags_free_cb().
 
-    gssp_accept_sec_context_upcall()
-      gssx_dec_accept_sec_context()
-        gssx_dec_option_array()        /* fails, count=1 data=NULL */
-      data = res.options.data[0].value /* NULL deref */
+Replace inet_frag_put(X) with inet_frag_putn(X, 1)
 
-Independently, free_creds: releases the partially decoded svc_cred
-with a bare kfree(creds).  gssx_dec_linux_creds() installs a
-groups_alloc() result into creds->cr_group_info; that object is
-kvmalloc-backed and refcounted, and only put_group_info() reaches
-kvfree().  A plain kfree(creds) drops the wrapper and leaks the
-group_info allocation.
-
-The natural fix for the leak is to call free_svc_cred(creds) before
-kfree(creds), but free_svc_cred() invokes put_group_info() on
-creds->cr_group_info unconditionally when non-NULL.  The existing
-out_free_groups: path in gssx_dec_linux_creds() already called
-groups_free() on that pointer without clearing it, so once
-free_svc_cred() is wired in, the subsequent put_group_info() would
-touch freed memory.
-
-Fix all four together:
-
-  - Move the oa->count = 1 assignment below the oa->data allocation
-    so it is never set when oa->data is NULL.
-  - Reset oa->count to 0 at free_oa: so count and data stay
-    coherent and the caller sees an empty option array.
-  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
-    so the refcounted cr_group_info is released.  free_svc_cred()
-    either NULL-guards each field explicitly (cr_group_info has
-    an if() check) or delegates to a helper that is NULL-safe
-    itself (kfree for the string fields, gss_mech_put() which
-    guards with if(gm) at gss_mech_switch.c:342), so it is safe
-    to call on a partially decoded svc_cred where only
-    cr_uid/cr_gid/cr_group_info have been written and everything
-    else is zero from kzalloc.
-  - In gssx_dec_linux_creds()'s out_free_groups: path, release
-    cr_group_info with put_group_info() rather than groups_free()
-    so the teardown matches free_svc_cred()'s refcount-aware path,
-    and clear the pointer so a later free_svc_cred() on the same
-    creds does not release it a second time.
-
-Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
-Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20250312082250.1803501-2-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: e36ce6e78fe3 ("ip: orphan prefetched skbs before multicast forwarding")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ include/net/inet_frag.h                 | 4 ++--
+ include/net/ipv6_frag.h                 | 3 ++-
+ net/ieee802154/6lowpan/reassembly.c     | 7 ++++---
+ net/ipv4/inet_fragment.c                | 3 +--
+ net/ipv4/ip_fragment.c                  | 2 +-
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 3 ++-
+ net/ipv6/reassembly.c                   | 4 ++--
+ 7 files changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-index ee91f4d641e6f..ac9ae42a69762 100644
---- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
-+++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index 63540be0fc34a..5c782c1feb5a1 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -136,9 +136,9 @@ struct inet_frag_queue *inet_frag_find(struct fqdir *fqdir, void *key);
+ /* Free all skbs in the queue; return the sum of their truesizes. */
+ unsigned int inet_frag_rbtree_purge(struct rb_root *root);
  
- 	return 0;
- out_free_groups:
--	groups_free(creds->cr_group_info);
-+	put_group_info(creds->cr_group_info);
-+	creds->cr_group_info = NULL;
- 	return err;
+-static inline void inet_frag_put(struct inet_frag_queue *q)
++static inline void inet_frag_putn(struct inet_frag_queue *q, int refs)
+ {
+-	if (refcount_dec_and_test(&q->refcnt))
++	if (refs && refcount_sub_and_test(refs, &q->refcnt))
+ 		inet_frag_destroy(q);
  }
  
-@@ -242,12 +243,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 		return 0;
+diff --git a/include/net/ipv6_frag.h b/include/net/ipv6_frag.h
+index 0a4779175a523..3443c7905b785 100644
+--- a/include/net/ipv6_frag.h
++++ b/include/net/ipv6_frag.h
+@@ -65,6 +65,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ {
+ 	struct net_device *dev = NULL;
+ 	struct sk_buff *head;
++	int refs = 1;
  
- 	/* we recognize only 1 currently: CREDS_VALUE */
--	oa->count = 1;
--
- 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
- 	if (!oa->data)
- 		return -ENOMEM;
+ 	rcu_read_lock();
+ 	/* Paired with the WRITE_ONCE() in fqdir_pre_exit(). */
+@@ -107,7 +108,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ 	spin_unlock(&fq->q.lock);
+ out_rcu_unlock:
+ 	rcu_read_unlock();
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ }
  
-+	oa->count = 1;
-+
- 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
- 	if (!creds) {
- 		err = -ENOMEM;
-@@ -294,8 +295,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 	return 0;
+ /* Check if the upper layer header is truncated in the first fragment. */
+diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
+index be6f06adefe0a..f5b554894d024 100644
+--- a/net/ieee802154/6lowpan/reassembly.c
++++ b/net/ieee802154/6lowpan/reassembly.c
+@@ -45,6 +45,7 @@ static void lowpan_frag_expire(struct timer_list *t)
+ {
+ 	struct inet_frag_queue *frag = from_timer(frag, t, timer);
+ 	struct frag_queue *fq;
++	int refs = 1;
  
- free_creds:
-+	free_svc_cred(creds);
- 	kfree(creds);
- free_oa:
-+	oa->count = 0;
- 	kfree(oa->data);
- 	oa->data = NULL;
- 	return err;
+ 	fq = container_of(frag, struct frag_queue, q);
+ 
+@@ -56,7 +57,7 @@ static void lowpan_frag_expire(struct timer_list *t)
+ 	inet_frag_kill(&fq->q);
+ out:
+ 	spin_unlock(&fq->q.lock);
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ }
+ 
+ static inline struct lowpan_frag_queue *
+@@ -301,13 +302,13 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
+ 
+ 	fq = fq_find(net, cb, &hdr.source, &hdr.dest);
+ 	if (fq != NULL) {
+-		int ret;
++		int ret, refs = 1;
+ 
+ 		spin_lock(&fq->q.lock);
+ 		ret = lowpan_frag_queue(fq, skb, frag_type);
+ 		spin_unlock(&fq->q.lock);
+ 
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		return ret;
+ 	}
+ 
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 6e6b46ebfc407..4de79ee66a1cb 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -144,8 +144,7 @@ static void inet_frags_free_cb(void *ptr, void *arg)
+ 	}
+ 	spin_unlock_bh(&fq->lock);
+ 
+-	if (refcount_sub_and_test(count, &fq->refcnt))
+-		inet_frag_destroy(fq);
++	inet_frag_putn(fq, count);
+ }
+ 
+ static LLIST_HEAD(fqdir_free_list);
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index 23312d028af28..11dedc82b98da 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -107,7 +107,7 @@ static void ip4_frag_free(struct inet_frag_queue *q)
+ 
+ static void ipq_put(struct ipq *ipq)
+ {
+-	inet_frag_put(&ipq->q);
++	inet_frag_putn(&ipq->q, 1);
+ }
+ 
+ /* Kill ipq entry. It is not destroyed immediately,
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index d3b728771737a..dea2ed5f9f5aa 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -448,6 +448,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	struct frag_hdr *fhdr;
+ 	struct frag_queue *fq;
+ 	struct ipv6hdr *hdr;
++	int refs = 1;
+ 	u8 prevhdr;
+ 
+ 	/* Jumbo payload inhibits frag. header */
+@@ -490,7 +491,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	}
+ 
+ 	spin_unlock_bh(&fq->q.lock);
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_frag6_gather);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index 6993675171556..31bfc7932378a 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -374,7 +374,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 	fq = fq_find(net, fhdr->identification, hdr, iif);
+ 	if (fq) {
+ 		u32 prob_offset = 0;
+-		int ret;
++		int ret, refs = 1;
+ 
+ 		spin_lock(&fq->q.lock);
+ 
+@@ -383,7 +383,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 				     &prob_offset);
+ 
+ 		spin_unlock(&fq->q.lock);
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		if (prob_offset) {
+ 			__IP6_INC_STATS(net, __in6_dev_get_safely(skb->dev),
+ 					IPSTATS_MIB_INHDRERRORS);
 -- 
 2.53.0
 
