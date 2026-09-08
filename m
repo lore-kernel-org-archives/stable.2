@@ -1,269 +1,151 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F42554087
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873775; cv=pass; b=iiA0xMc6tS+IOKY/RnoQ4FME68DURyMI8uHFoDzG92qVTEZkXe2WPlXYfmKb5GTZh3Jp4aUvZqFayFqN/Z38DaG+PNNH2FHuHFa1CQSODwgI/bCwOt22Lx/uc8+t5BipQsQvuFZ+S9v0H0933m6d5vRyTeaOIk5mrJALZopHQeo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873775; c=relaxed/simple;
-	bh=A7SfgZQR67JkHs4RtZ5PrBDPAkQ3dc73TAafXDV/A8s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pyos4H5D6YRKKaajVGeo4OygjJVLF1yWCyxkPvZOrdzCxKiRA8gBu91skecUQtaUeKJ1ctgSDiglJ3N/IZ/Z3/Br0SlLhhFw2nrFkN/Bdpca5bqZ0aotqalqGsWp1n/DEgyHRDE1SPmhEdMhVn3N8vjLqKUWx4OrhXtSOD0bGgI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gx4Q8uXk; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A041D5448A8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788874004; cv=none; b=P9HF9rzR11I3Q5JVHKJ0GLkZ7EXJdv0ZuAaD4/YL43LZQMMNKhk+EJtWfqNObz8GBnSADAddQkfIpx0JHWHuV925K8MppHwAR6s2mrDVjJr34KCGVjVFuzX5tPxHA0bMLb+4NiiSFOiRg452ExK6r8C6jRKgvVp475qWSUn1U30=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788874004; c=relaxed/simple;
+	bh=GlT1F6AnEeOtxYba1bH7mWMfB7x1Du/8fEsuy97PXxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nODB+Sg0Cm565w1WIEsp/MASJjFqmreMw6H9p1xIx/waiPl9DAtiM3z/SCJoEt7vyyt+gNznfBQVEhmOAyuL5mWZbv+pgeKgOJVKtNkakiY1g3MwLfSAUgckDJ0KheM6SOBPd6uqhgSjWCgE8yc8WJ2QWylNtAMvQZVFu7AxP2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amODu+1O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gx4Q8uXk"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c252c7270faso679108566b.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:22:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788873767; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KWjkXN5gjewwtmpYNewNPFArAdVMvwgHagHIMzVHicplnKxNa6c8E7PqyeYwtI8bqQ
-         wWqrglkxsxGae+ISybuB4nDaKEt6CS5/SNApEO0OYgdglhaFjeZ4Tfk7v1D1jwzxdLkj
-         fdwwi4+yISyqBTaMxTYK/vveFYF/xVwNXtrPO6M8Eata2fXcW8HsU3I3zlsSKprE98MJ
-         LOBXa4C6NCXPz/D4txnGPq6XF5X2NyVNETsu4dhU/hMPjhlYyIILpYDr+MEWST/tX2xv
-         VW2725D/7swTkVEu5OgvVu0FHOmuWht3zFWFkYTRycVaQYbzrUKj8qyRZ33yANGuMWYO
-         j+Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dHBGY2kA/rw8G86NktdRbSCOC4KbfeB6+f4Od1S5INw=;
-        fh=HBHM0eodzmVwR8vO3JqVyfNUEdO3Q9Ezgmln1d+gb+c=;
-        b=Nna+IFQ5NCzHjFasJbG5fDQXUM8RueMTfrJjQQpAR3ls6tecqxvbjFABPaWQfwnxtP
-         n3uTOAmsK+uokR8gT+RIatm8zb4wNG5v/KHdINgOD6QNK9GyedEL0K4JcojuYYecGxVA
-         3+BtcgpEF9quQnJCWzBv066P/xSnA4H12ZIpwiUWTTWhJsCxudLPoV9kBdOk1ty2rOFV
-         CLFXYxxFhD4fCfCArXEKc/KcchUU42cuGeGgicw5GY1JNZ//Bi4kym8EmTyUZBeleMNw
-         9OJddjdaiU2bHIs4CVkpjbJS76N989No/N/d/GBJgaeh6bXI3Uko1oGUIFO/KMWqi5G6
-         c16g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788873767; x=1789478567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dHBGY2kA/rw8G86NktdRbSCOC4KbfeB6+f4Od1S5INw=;
-        b=gx4Q8uXkyOmUVZKhzbF5mvFtvjRldZuZ+LBIQ51Ukb1Xp6/mvHxbzuuXYg/1J607ss
-         A2sPkk5zZf1RiJ83RKArKJVMyD6InZLqvz/FrGnN3sL4NSbN3+7kN8gXG9W/CuOLgpYH
-         re3UVSRFmCNUluAcNrH7C9qrStCcvIIUZFjyTfGmQ5LQCsrNJ0GgvwTmfte2G1mMUD8D
-         nEyuxQAPeD20V1i4kUx948EkqcB9F3HAryVlppwiuC9EIstqsqZpLFadO4kN4j111Ig0
-         MdIhngc25fZXRANz6CXR7VYsoAwYbfnbQzoQ8QaHVpsPtoggXvSEAPjLXEkGTcQSVDfi
-         WXiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873767; x=1789478567;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dHBGY2kA/rw8G86NktdRbSCOC4KbfeB6+f4Od1S5INw=;
-        b=aGInERiBLWTy8JtuXcr5a55loJNsQ9LzAW/G0NDCc4krh2eS7Sc+weaOfRYHsq4ijD
-         G9jOGwrUrueyAlt9CuEy+iKf6eBQ+zCaTIXUbZXIFJBMXsMgSd2kHjNtnObB4nOK9Jiw
-         bLcqDM7p3VVTv83QDWjD7R6EL/G4uKCpzMlBboxTQZcJzwNqkHyg6Zh7/3zJzixiD5ex
-         yheGyp4tCLXzBL4VNZzt3NSJDhsml3OVr0qeh/1xk11YLu1A2TwYHV/l/BhIAESPnKG5
-         XM1iZJSieRyePSP+9FGLpGixRjSUTEFfvZiOlcQzlf1r00io75EcR7Ekp3V6RM5yjKK7
-         b8sA==
-X-Forwarded-Encrypted: i=1; AKwUvByHHiUd8t4BRg0r+RbxB/GhwaX/dxvgQWCTn4lGP11qiBzhsm5jBHFv92DdsS1799UNZ55YRtk=@vger.kernel.org
-X-Gm-Message-State: AFuF++meR8FEuS//6Tm6MwGO/y/lhs0+j3RZaA5KkTDV2Qm0TFNWWKzB
-	2q/kJ3QAwmZiZWnPkq6fdFRVKyJQ410ogZzYMLKtannyctrAz/lQdnuJlERdPKIbfIdspRrHPKM
-	C2YrHF2hHMUuhc7pyYl6dFH6JeTATle0=
-X-Gm-Gg: AYBFou0ykpvBEP3kfaXyji67q3aez+GjT9HVzOpky3XTz/gsLfjGBMWt8m5/fw4jY8O
-	NpMqhebUiWloY8ZLNlytWOPRH9eVcIWw7uXtLBXMtsM4Mct3WxVR5YZJxdUKZy0DbwAYNHRWpoj
-	Ty9kWxVDxg+PkQUXi+Nbkj2V8lCHNrMoDz/2o4nJtofi+WiDel4tLCi0dlmpuJhGNkW0nNXiUWX
-	D+GVktrHpUZCJJZSFMftS56t32xXO2W6LlZ+DCuGOombBhL/grr6T0fbaTS+qA486k9ZCP3JP+H
-	X1ElgB8kgBcB9EpTM1QUU4SZyNETCRlWC6ILTrkP/A==
-X-Received: by 2002:a17:907:3e1a:b0:c24:87e5:6491 with SMTP id
- a640c23a62f3a-c260c971f12mr1992348866b.2.1788873767245; Tue, 08 Sep 2026
- 06:22:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amODu+1O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD3C1F00A3D;
+	Tue,  8 Sep 2026 13:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788873990;
+	bh=pcR7REBbouoXGiBC3T3w+NZkQLkOUOW7Lowfln4Y48Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=amODu+1OjY1eAQY2VGEy2U4y9ldxtueV6ufqJavax6/N1vq/W8TVE0cq7FYyqA4Nm
+	 tankYekZmMnI/uxS84QW5KRsr8QmCiUr8r2+OVJw19mgbLsSrUNMi2wIkhl+k4rTqE
+	 tk+OFm6xYrxiDqGn7+OmhUjAYEI+RDUdYJuyFdMFY+4YbNCqzCIBxIPzm5jVZgVsXL
+	 muXh9BoqkVTxyiFe3+1ia/G2kFrE2G0404dkIYTLB3cBDjYKWPzojdko1tAYWT5bdf
+	 HeE6P/pG5ZjncdR5AfIQUPmBLnhsco9jMyuY5WuKKhrqx1TexzG6GD3l1Q3iZMYZ94
+	 LtqYrgDeg40Vw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Ming-Hung Tsai <mtsai@redhat.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm array: validate array block headers on read
+Date: Tue,  8 Sep 2026 09:26:27 -0400
+Message-ID: <20260908132627.2302699-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090304-edging-moonrise-e655@gregkh>
+References: <2026090304-edging-moonrise-e655@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
-In-Reply-To: <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
-From: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-Date: Tue, 8 Sep 2026 09:22:10 -0400
-X-Gm-Features: AcwNN1WsRJreg-ZsABv9wLtOKN98BlTKw209GAXhviOOfU8RHEZMXLmVgvJqFLc
-Message-ID: <CADAM+B2jgDiyShSSXYoUG36C7yVpjx2NrhP6tOHeDjB0h+GvTA@mail.gmail.com>
-Subject: Re: [PATCH] x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 10:49=E2=80=AFAM Soheil Hassas Yeganeh
-<soheil.kdev@gmail.com> wrote:
->
-> The switch of the FineIBT preamble from "subl $hash, %r10d" to the
-> shorter "subl $hash, %eax" moved the hash immediate from offset 7 to
-> offset 5 of the preamble. fineibt_preamble_hash was updated to match,
-> but the open-coded offset in cfi_get_func_hash() was missed and it
-> still reads the hash at offset 7.
->
-> cfi_get_func_hash() is used by the BPF JIT to give a struct_ops
-> trampoline the CFI hash of the stub function it stands in for. With
-> FineIBT the trampoline now gets the upper half of the real hash
-> followed by the first two bytes of the next instruction, so the first
-> indirect call from the kernel into a struct_ops program,
-> tcp_init_congestion_control() calling ->init() of a BPF congestion
-> control for example, fails the FineIBT check and the kernel dies with
-> a CFI failure.
->
-> Move the FineIBT preamble template and its offset defines above
-> cfi_get_func_hash() and use fineibt_preamble_hash there, so every
-> reader of the preamble shares one definition of its layout. The
-> CFI_FINEIBT arm is only built with CONFIG_FINEIBT, the only
-> configuration in which cfi_mode can take that value.
-> cfi_get_func_arity() does not need the same treatment: the __bhi_args
-> call whose displacement it reads still ends at the function address.
->
-> Fixes: 85a2d4a890dc ("x86,ibt: Use UDB instead of 0xEA")
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Gentle ping on this one. To recap: since 85a2d4a890dc the FineIBT preamble
-stores the hash at +5, but cfi_get_func_hash() still reads it at +7, so BPF
-struct_ops trampolines are emitted with a wrong hash and the first indirect=
- call
-through them (e.g. a bpf tcp_congestion_ops .cong_control) hits a FineIBT #=
-CP.
+[ Upstream commit 2965787723084835b18dfe993cd450ebf5bd4540 ]
 
-We have large scale panics when we use BPF congestion control.
-Happy to respin if a different shape is preferred (e.g. moving the
-offset next to
-the preamble definition), but this seemed like the best way to fix the issu=
-e.
+array_block_check() validates blocknr and csum and nothing else, while
+node_check(), next to it, has bounded the structural fields since both
+were written. dm_array_cursor_next() takes its loop bound from the
+on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
+a count larger than the block holds keeps the cursor in one block while
+the index grows past it and the read walks off the dm-bufio buffer --
+dm_cache_load_mappings() drives it once per cache block at activation.
 
-Thanks,
-Soheil
+Check the header against itself: reject a zero value_size, require
+max_entries to equal calc_max_entries() for that value_size and block
+size, and require nr_entries to fit. Equality rather than an upper bound,
+since a count below the real capacity trips BUG_ON() in fill_ablock() and
+trim_ablock(). Metadata dm-array writes satisfies all three.
 
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Alexei Starovoitov <ast@kernel.org>
-> Cc: Daniel Borkmann <daniel@iogearbox.net>
-> Cc: stable@vger.kernel.org # 6.18+
-> Assisted-by: LLM
-> Signed-off-by: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-> ---
->  arch/x86/kernel/alternative.c | 72 +++++++++++++++++++++++--------------=
-------
->  1 file changed, 38 insertions(+), 34 deletions(-)
->
-> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.=
-c
-> index 91b1cdd16569..1b22062cabfe 100644
-> --- a/arch/x86/kernel/alternative.c
-> +++ b/arch/x86/kernel/alternative.c
-> @@ -1198,6 +1198,41 @@ static bool cfi_debug __ro_after_init;
->  bool cfi_bhi __ro_after_init =3D false;
->  #endif
->
-> +#ifdef CONFIG_FINEIBT
-> +/*
-> + * <fineibt_preamble_start>:
-> + *  0:   f3 0f 1e fa             endbr64
-> + *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-> + *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-> + * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-> + *
-> + * Note that the JNE target is the 0xD6 byte inside the NOPL, this decod=
-es as
-> + * UDB on x86_64 and raises #UD.
-> + */
-> +asm(   ".pushsection .rodata                           \n"
-> +       "fineibt_preamble_start:                        \n"
-> +       "       endbr64                                 \n"
-> +       "       subl    $0x12345678, %eax               \n"
-> +       "fineibt_preamble_bhi:                          \n"
-> +       "       cs jne.d32 fineibt_preamble_start+0x13  \n"
-> +       "#fineibt_func:                                 \n"
-> +       "       nopl    -42(%rax)                       \n"
-> +       "fineibt_preamble_end:                          \n"
-> +       ".popsection\n"
-> +);
-> +
-> +extern u8 fineibt_preamble_start[];
-> +extern u8 fineibt_preamble_bhi[];
-> +extern u8 fineibt_preamble_end[];
-> +
-> +#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_s=
-tart)
-> +#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_s=
-tart)
-> +#define fineibt_preamble_ud   0x13
-> +#define fineibt_preamble_hash 5
-> +
-> +#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
-> +#endif /* CONFIG_FINEIBT */
-> +
->  #ifdef CONFIG_CFI
->  u32 cfi_get_func_hash(void *func)
->  {
-> @@ -1205,9 +1240,11 @@ u32 cfi_get_func_hash(void *func)
->
->         func -=3D cfi_get_offset();
->         switch (cfi_mode) {
-> +#ifdef CONFIG_FINEIBT
->         case CFI_FINEIBT:
-> -               func +=3D 7;
-> +               func +=3D fineibt_preamble_hash;
->                 break;
-> +#endif
->         case CFI_KCFI:
->                 func +=3D 1;
->                 break;
-> @@ -1363,39 +1400,6 @@ early_param("cfi", cfi_parse_cmdline);
->   * anyway.
->   */
->
-> -/*
-> - * <fineibt_preamble_start>:
-> - *  0:   f3 0f 1e fa             endbr64
-> - *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-> - *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-> - * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-> - *
-> - * Note that the JNE target is the 0xD6 byte inside the NOPL, this decod=
-es as
-> - * UDB on x86_64 and raises #UD.
-> - */
-> -asm(   ".pushsection .rodata                           \n"
-> -       "fineibt_preamble_start:                        \n"
-> -       "       endbr64                                 \n"
-> -       "       subl    $0x12345678, %eax               \n"
-> -       "fineibt_preamble_bhi:                          \n"
-> -       "       cs jne.d32 fineibt_preamble_start+0x13  \n"
-> -       "#fineibt_func:                                 \n"
-> -       "       nopl    -42(%rax)                       \n"
-> -       "fineibt_preamble_end:                          \n"
-> -       ".popsection\n"
-> -);
-> -
-> -extern u8 fineibt_preamble_start[];
-> -extern u8 fineibt_preamble_bhi[];
-> -extern u8 fineibt_preamble_end[];
-> -
-> -#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_s=
-tart)
-> -#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_s=
-tart)
-> -#define fineibt_preamble_ud   0x13
-> -#define fineibt_preamble_hash 5
-> -
-> -#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
-> -
->  /*
->   * <fineibt_caller_start>:
->   *  0:   b8 78 56 34 12          mov    $0x12345678, %eax
->
-> ---
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-> change-id: 20260831-b4-x86-cfi-fineibt-func-hash-e160f6eee02c
->
-> Best regards,
-> --
-> Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
->
+Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
+Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ retained Linux 6.6’s non-const validator callback signature due to the missing constification commit. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/md/persistent-data/dm-array.c | 37 +++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
+index 4d434d89eadde..e0cb991c8a635 100644
+--- a/drivers/md/persistent-data/dm-array.c
++++ b/drivers/md/persistent-data/dm-array.c
+@@ -37,6 +37,14 @@ struct array_block {
+  */
+ #define CSUM_XOR 595846735
+ 
++/*
++ * Each array block can hold this many values.
++ */
++static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
++{
++	return (size_of_block - sizeof(struct array_block)) / value_size;
++}
++
+ static void array_block_prepare_for_write(struct dm_block_validator *v,
+ 					  struct dm_block *b,
+ 					  size_t size_of_block)
+@@ -54,6 +62,7 @@ static int array_block_check(struct dm_block_validator *v,
+ 			     size_t size_of_block)
+ {
+ 	struct array_block *bh_le = dm_block_data(b);
++	uint32_t nr_entries, max_entries, value_size;
+ 	__le32 csum_disk;
+ 
+ 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
+@@ -73,6 +82,26 @@ static int array_block_check(struct dm_block_validator *v,
+ 		return -EILSEQ;
+ 	}
+ 
++	nr_entries = le32_to_cpu(bh_le->nr_entries);
++	max_entries = le32_to_cpu(bh_le->max_entries);
++	value_size = le32_to_cpu(bh_le->value_size);
++
++	if (!value_size) {
++		DMERR_LIMIT("%s failed: value_size is zero", __func__);
++		return -EILSEQ;
++	}
++
++	if (max_entries != calc_max_entries(value_size, size_of_block)) {
++		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
++			    __func__, max_entries, value_size);
++		return -EILSEQ;
++	}
++
++	if (nr_entries > max_entries) {
++		DMERR_LIMIT("%s failed: too many entries", __func__);
++		return -EILSEQ;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
+ 		on_entries(info, ab, vt->dec);
+ }
+ 
+-/*
+- * Each array block can hold this many values.
+- */
+-static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
+-{
+-	return (size_of_block - sizeof(struct array_block)) / value_size;
+-}
+-
+ /*
+  * Allocate a new array block.  The caller will need to unlock block.
+  */
+-- 
+2.53.0
+
