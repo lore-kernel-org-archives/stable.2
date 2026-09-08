@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB46153A8AC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D5C3FAE09
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870013; cv=none; b=JLFSijjvntZ5tpWDyEESKbkCOch6xTHrFscQyyHeJ5G/tlmqsYDOJ309thm4KK0tKLvqXCWRwISqgAgUjq5NPsabVk7iD4Ig9lJj+H7ZdFcKaqY+xvEmlJTI43vsUK/YIDIPqG9MkAL3CdFOhdImtPtu3BB6PWMJ7BM/Rr3Bdpk=
+	t=1788870015; cv=none; b=C4FA1b1b4M8YZsrgNmE566Mqk+bp/gs8B1Iw84CErQnkNgIOwA5jDQgMBR9qjy57AE9ItTm7ZfY0iMgSU50dsOiOtoS4DZfF/Y7/F8WnJl9zWFKTAE8/t5LTbviZFSPqNsHm22kJ9pnRjtRfgB+6284uVCOSKhCVZU5S8/WaFu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870013; c=relaxed/simple;
-	bh=sakJK3vwvTOIZwVSxqO05+Z7ILn5WCwggNK3qApicsE=;
+	s=arc-20240116; t=1788870015; c=relaxed/simple;
+	bh=+Rng1H8Ztej0vKL0j2+pO7dqlUhnPUMEq7DsZDgm8Mo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VQRbr9dCuTXHdoEAHSquzeqAJugo9hAmD4P8Jb1BwyqEjywxhr/0E0y/v5de21DMxrWpm+0/FedO1X3+EwrCFYMic19Lijb442wEn1Bsec0uJWMnnt2SJxzP7WQTSYGC/N3YMCi6gxHACAAfw922u/ZkOdqQ7d6x7/4xZ8b1s80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpccBqyK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OOfezxzKyRJSkuoy5n7eF5dniKIbFjXPz/XUbX3N9aupStuAwtr3RqwdYF8mAR5dj1dAKXuRcM/r0ws79g7TN4K8gnfnhiTrrQiZgUU3GyVL3+CQGddre+dUooelYbcOeiGyAG5Ne4iOXu4w+ezvv+o0tkrAv9ypmdHecJZQRtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6i5MjFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpccBqyK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A420D1F00A3A;
-	Tue,  8 Sep 2026 12:20:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6i5MjFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F4A1F00ACA;
+	Tue,  8 Sep 2026 12:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870008;
-	bh=nrIJQ7BBGzk7SyqwI07ugN61x0ctoqoTxJjLJCR6wyk=;
+	s=k20260515; t=1788870010;
+	bh=jEQk72Eqky2zFF3aogCq6CtMgzuBKVV5/ZK6ljcIe3w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UpccBqyK08Hrw+J4Xq6vOBKgBzjLA2nbyFOZ3mJqLMlZZWixmuiI9QI/8bSbGj1nv
-	 PjTOcLR+a9JqRYG17fNUeh41RAVbZ15wtL57MaMD1VdEnXuBGW6IeuQ/w6SkWXyEwr
-	 wIiFWT8auBs/16FCYmiXI9H24uH1LG3MIY2PV9qyo9AneYsz6BpHv43HmJKb2xoQSm
-	 1zGcJt1ZYu1nYycxbhaulwkyCa9s62vT5/wWg6QvfGGm0Py4qyYEQvSmPDeDMESvAF
-	 5e7hEv5khW2QKk4/ZedZba4Q1GC8t5rrWgmKZElX3vCVkNtXuC22XOZiVWpuMMoREQ
-	 UB8nlcZgD3BuQ==
+	b=g6i5MjFEnFFD1HtkrRrHKKNpqN5HgfyV0qnDDjXgpjc7hb2BfKaCFZN5cFA/YQckt
+	 +JMys4fu3KOVAUFzhP7q5TTq6OfE2fgRl6T60MCwIiAdxkEKOPtMIZwPa/4B9zfH+Z
+	 g7s1IFOSQENSYAhva46Th1mU5TObRvEHr4fFoKXNMwJQROGRr3sFHbjoNBl8k8fOzP
+	 5Iy0bTndvVAhRb62xkR0vLgZz1EdIjQHTapgQraWVbBseu2utumttH4f4z7aAVmKku
+	 Zm0xUsaFi+I55qij+FJIeHWXAFeZz1n/xL6cRsnRRVDBwV6TCusR+qXpbZ4JvKDeKz
+	 Ky5yZFd6jHIhw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/4] ACPI: x86: cmos_rtc: Create a CMOS RTC platform device
-Date: Tue,  8 Sep 2026 08:20:01 -0400
-Message-ID: <20260908122004.2049483-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] ACPI: TAD: Add locking around AML evaluations
+Date: Tue,  8 Sep 2026 08:20:04 -0400
+Message-ID: <20260908122004.2049483-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090331-quartered-robe-d833@gregkh>
+In-Reply-To: <20260908122004.2049483-1-sashal@kernel.org>
 References: <2026090331-quartered-robe-d833@gregkh>
+ <20260908122004.2049483-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,94 +47,146 @@ Content-Transfer-Encoding: 8bit
 
 From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-[ Upstream commit 1ae2f435350ec05224a39995c3a680aa6fdae5a5 ]
+[ Upstream commit a3df8bbe0a704fa5c1609b9666b594f350558fe0 ]
 
-Make the CMOS RTC ACPI scan handler create a platform device that will
-be used subsequently by rtc-cmos for driver binding on x86 systems with
-ACPI and update add_rtc_cmos() to skip registering a fallback platform
-device for the CMOS RTC when the above one has been registered.
+In the ACPI TAD driver, there are hidden assumptions that the ACPI
+control methods used by it will not be evaluated concurrently due
+to ACPICA namespace and interpreter locking.
 
+However, that may not be the case since ACPICA may drop and re-acquire
+the namespace and interpreter locks during the evaluation of a given
+object in a few cases, including the one in which the AML in question
+sleeps causing acpi_ex_system_do_sleep() to be called.  In that case,
+the evaluation of one control method may be started while the
+evaluation of another one is still in progress.
+
+For this reason, add a global lock to the ACPI TAD driver and
+acquire it every time before evaluating an ACPI control method,
+except for the initial evaluation of _GCP in acpi_tad_probe().
+
+Fixes: 95c513ec84f7 ("ACPI: Add Time and Alarm Device (TAD) driver")
+Cc: All applicable <stable@vger.kernel.org>
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Acked-by: Dave Hansen <dave.hansen@linux.intel.com> # x86
-Link: https://patch.msgid.link/1962427.tdWV9SEqCh@rafael.j.wysocki
-Stable-dep-of: a3df8bbe0a70 ("ACPI: TAD: Add locking around AML evaluations")
+Link: https://patch.msgid.link/12951141.O9o76ZdvQC@rafael.j.wysocki
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/rtc.c       | 4 ++++
- drivers/acpi/x86/cmos_rtc.c | 8 ++++++++
- include/linux/acpi.h        | 4 ++++
- 3 files changed, 16 insertions(+)
+ drivers/acpi/acpi_tad.c | 50 ++++++++++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 20 deletions(-)
 
-diff --git a/arch/x86/kernel/rtc.c b/arch/x86/kernel/rtc.c
-index 51a849a79c985..b112178e81850 100644
---- a/arch/x86/kernel/rtc.c
-+++ b/arch/x86/kernel/rtc.c
-@@ -2,6 +2,7 @@
- /*
-  * RTC related functions
-  */
-+#include <linux/acpi.h>
+diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
+index 65f0a1c91d6f5..0d62a75a4b920 100644
+--- a/drivers/acpi/acpi_tad.c
++++ b/drivers/acpi/acpi_tad.c
+@@ -23,6 +23,7 @@
+ #include <linux/acpi.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
  #include <linux/platform_device.h>
- #include <linux/mc146818rtc.h>
- #include <linux/export.h>
-@@ -146,6 +147,9 @@ static __init int add_rtc_cmos(void)
- 		}
- 	}
- #endif
-+	if (cmos_rtc_platform_device_present)
-+		return 0;
+ #include <linux/pm_runtime.h>
+ #include <linux/suspend.h>
+@@ -80,6 +81,8 @@ static bool acpi_tad_rt_is_invalid(struct acpi_tad_rt *rt)
+ 	    rt->daylight > 3;
+ }
+ 
++static DEFINE_MUTEX(acpi_tad_aml_lock);
 +
- 	if (!x86_platform.legacy.rtc)
- 		return -ENODEV;
+ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
+ {
+ 	acpi_handle handle = ACPI_HANDLE(dev);
+@@ -101,6 +104,8 @@ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
  
-diff --git a/drivers/acpi/x86/cmos_rtc.c b/drivers/acpi/x86/cmos_rtc.c
-index 45db7e51cbe60..bdd66dfd4a441 100644
---- a/drivers/acpi/x86/cmos_rtc.c
-+++ b/drivers/acpi/x86/cmos_rtc.c
-@@ -24,6 +24,8 @@ static const struct acpi_device_id acpi_cmos_rtc_ids[] = {
- 	{}
- };
+ 	pm_runtime_get_sync(dev);
  
-+bool cmos_rtc_platform_device_present;
++	guard(mutex)(&acpi_tad_aml_lock);
 +
- static bool cmos_rtc_space_handler_present __read_mostly;
+ 	status = acpi_evaluate_integer(handle, "_SRT", &arg_list, &retval);
  
- static acpi_status acpi_cmos_rtc_space_handler(u32 function,
-@@ -103,6 +105,12 @@ static int acpi_cmos_rtc_attach(struct acpi_device *adev,
- 	if (ret < 0)
- 		return ret;
+ 	pm_runtime_put_sync(dev);
+@@ -115,30 +120,27 @@ static int acpi_tad_evaluate_grt(struct device *dev, struct acpi_tad_rt *rt)
+ {
+ 	acpi_handle handle = ACPI_HANDLE(dev);
+ 	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER };
+-	union acpi_object *out_obj;
+-	struct acpi_tad_rt *data;
+ 	acpi_status status;
+ 	int ret = -EIO;
  
-+	if (IS_ERR_OR_NULL(acpi_create_platform_device(adev, NULL))) {
-+		pr_err("Failed to create CMOS-RTC platform device\n");
-+		return 0;
-+	} else {
-+		cmos_rtc_platform_device_present = true;
+-	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
+-	if (ACPI_FAILURE(status))
+-		goto out_free;
+-
+-	out_obj = output.pointer;
+-	if (out_obj->type != ACPI_TYPE_BUFFER)
+-		goto out_free;
++	guard(mutex)(&acpi_tad_aml_lock);
+ 
+-	if (out_obj->buffer.length != sizeof(*rt))
+-		goto out_free;
+-
+-	data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
+-	if (!data->valid)
+-		goto out_free;
+-
+-	memcpy(rt, data, sizeof(*rt));
+-	ret = 0;
+-
+-out_free:
++	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
++	if (ACPI_SUCCESS(status)) {
++		union acpi_object *out_obj;
++
++		out_obj = output.pointer;
++		if (out_obj->type == ACPI_TYPE_BUFFER &&
++		    out_obj->buffer.length == sizeof(*rt)) {
++			struct acpi_tad_rt *data;
++
++			data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
++			if (data->valid) {
++				memcpy(rt, data, sizeof(*rt));
++				ret = 0;
++			}
++		}
 +	}
- 	return 1;
+ 	ACPI_FREE(output.pointer);
+ 	return ret;
  }
+@@ -188,6 +190,8 @@ static int __acpi_tad_wake_set(struct device *dev, char *method, u32 timer_id,
+ 	args[0].integer.value = timer_id;
+ 	args[1].integer.value = value;
  
-diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-index 5ff5d99f6ead5..7d3a48f6425be 100644
---- a/include/linux/acpi.h
-+++ b/include/linux/acpi.h
-@@ -779,6 +779,8 @@ const char *acpi_get_subsystem_id(acpi_handle handle);
- int acpi_mrrm_max_mem_region(void);
- #endif
- 
-+extern bool cmos_rtc_platform_device_present;
++	guard(mutex)(&acpi_tad_aml_lock);
 +
- #else	/* !CONFIG_ACPI */
+ 	status = acpi_evaluate_integer(handle, method, &arg_list, &retval);
+ 	if (ACPI_FAILURE(status) || retval)
+ 		return -EIO;
+@@ -210,6 +214,8 @@ static int __acpi_tad_wake_read(struct device *dev, char *method, u32 timer_id,
  
- #define acpi_disabled 1
-@@ -1104,6 +1106,8 @@ static inline int acpi_mrrm_max_mem_region(void)
- 	return 1;
- }
+ 	args[0].integer.value = timer_id;
  
-+#define cmos_rtc_platform_device_present	false
++	guard(mutex)(&acpi_tad_aml_lock);
 +
- #endif	/* !CONFIG_ACPI */
+ 	status = acpi_evaluate_integer(handle, method, &arg_list, retval);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+@@ -424,6 +430,8 @@ static int acpi_tad_clear_status(struct device *dev, u32 timer_id)
  
- #ifdef CONFIG_ACPI_HMAT
+ 	pm_runtime_get_sync(dev);
+ 
++	guard(mutex)(&acpi_tad_aml_lock);
++
+ 	status = acpi_evaluate_integer(handle, "_CWS", &arg_list, &retval);
+ 
+ 	pm_runtime_put_sync(dev);
+@@ -465,6 +473,8 @@ static ssize_t acpi_tad_status_read(struct device *dev, char *buf, u32 timer_id)
+ 
+ 	pm_runtime_get_sync(dev);
+ 
++	guard(mutex)(&acpi_tad_aml_lock);
++
+ 	status = acpi_evaluate_integer(handle, "_GWS", &arg_list, &retval);
+ 
+ 	pm_runtime_put_sync(dev);
 -- 
 2.53.0
 
