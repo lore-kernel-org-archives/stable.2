@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EDD2D0C7E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35722D0C64
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 01:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830306; cv=none; b=F0HQyZ0iSINH98zW+o5C8WFwmRUiXNhlvqyl9gpHYsqNhd1FPisUcm+3CqsUtklIAcHBSM1L1r5rv5MzyQFQE2gFfSN1/f3/cXbTUUAWMPP7G5rrAE7rSDeGgu93frpk1YeMusHxnZs2FiRKXq3Qjkh8TCg4FufKN0pDT5lVKC0=
+	t=1788830305; cv=none; b=AAvx9CIGNJ2rCxg2hroO8FTsYT1OFgJtTA/P8qAH2H95qulEfPJEJ72cel8ZujQQ9lvYidXxncgTNKkdw0HgxQrI/9sOsUb8JwEOBc7N4+CbAu0iLtNZRgR9E51Xxg1zQy2yYbver9wUwXmo+PIDCe/d6r0qE3XOTq6SECbWVy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830306; c=relaxed/simple;
-	bh=20JsNqo+/HmaRF1Ch/oVYuCe2UmQFRTwAMZJ+UU48Uk=;
+	s=arc-20240116; t=1788830305; c=relaxed/simple;
+	bh=J7VUZfghbQ0pPyYe/HkyYf9qzWlVPOAbBBYgZtVKI+4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HZvYg55r8fArFl7gDBhPQxjTqwc/i+lKPH8NeFOuvR9Or3DLblNqf9PkI30JHzbsCtIXW+3i7VVRIqh1r/GE4BEi0pJgfPXrM7eXawS0laTAqxjPY1jkbuU/J/AEl24vyyU9AQSpvde8C5GfuLoGw/ndK9f+H3auf0fpRvlJbUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kd2fwtTY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qLpC3Rpt5CNGRAKhfxnmSRnKRxjJaQyXM2ogTr5bm1vLRFs8ZlqT2UEX3CamdrCIyW8Joq9ZOXCDl/L9kPEL1Vng4W+mgzQElxBRujkaqRQ6pU4WHtGBBRM5zzXgNRJrolkWfEIDU/nfNLmQTrdkWhg2/dx29g0FN7iN2zeyx7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRPDeDbK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kd2fwtTY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0B41F00A3D;
-	Tue,  8 Sep 2026 01:18:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRPDeDbK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051A71F00A3A;
+	Tue,  8 Sep 2026 01:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788830299;
-	bh=79Ei4E06ygwOO87qgbAj018i0vMCu3PFYIJ6wOke5Fs=;
+	s=k20260515; t=1788830297;
+	bh=4mCNjS2CBfQL80uj7T8rZ1kk93qb7WS4Adjq5QC8PMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kd2fwtTYuenY1V+3aWLPsEzbxT8UraPrezd6Rd4Uh2gJOnaNTJnLbKvmXbvtSk5e/
-	 qs1jhErPiVtcEARzNARjgMnjZtSj8fsJDrP4NlQS5sTUOXIgTgxAp91BS/QN9sPjpZ
-	 V5VN/QHE4lz0mbRhPG12LH5kEmyFr5Tva+xZOjwEFvTN593hIv7nxk2zVvatusc08l
-	 eLIGlW5M9llpYdUk49Co6tTpXZWULaEAYxGlatiGqZfbuskWqOg0J8TwX/7nLBLHMk
-	 x2PW0V0W0rG73XqWPsnCBV5wFyM4rv7BMa02lLp/c9NwFOkuGiDkaAuobj/ZV/mK4F
-	 Na5qqnmoBemkw==
+	b=cRPDeDbKYQGeTvsROw73q69JANaGjgLNlMt8/c+Lnu9sZMEPLRQ3Pk5vtwxAudMmD
+	 d9i0X9z1uM1uf6BJpmJwMNQHiJiMNu8Y15/RP/ZMnPvnrsuioa/k2TH+BLp5JMrQcN
+	 61OtEQ0JIwQ+uME5iUw1zfPcKdoxy53lowfZs2rLxRkOavdQshb7WzVVlHaIi+j2+W
+	 9qRmx8Ad2wE3aYwg+8SN/a83U9zdYvbX/rPeMyMjNwtwlSchgs/CWN34Mjc9yTmTi6
+	 JEfRHWYcDwtZxk4CrlUWOQ5g2vozMUKuyzJeMauVsbaPsl6H4PLBo6sCvRXDrNSc16
+	 C7oDXIDAQqgGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
 	Javier Martinez Canillas <javierm@redhat.com>,
-	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/6] fbdev: Validate info->screen_{base, buffer} in fb_ops implementations
-Date: Mon,  7 Sep 2026 21:18:12 -0400
-Message-ID: <20260908011815.1729727-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/6] fbdev: Put mmap for deferred I/O into drivers
+Date: Mon,  7 Sep 2026 21:18:10 -0400
+Message-ID: <20260908011815.1729727-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908011815.1729727-1-sashal@kernel.org>
+In-Reply-To: <2026090351-mantra-reunion-82ab@gregkh>
 References: <2026090351-mantra-reunion-82ab@gregkh>
- <20260908011815.1729727-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,253 +47,284 @@ Content-Transfer-Encoding: 8bit
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 3f8974f68f408f4983443b745a3cf95b06112469 ]
+[ Upstream commit 5905585103276b7c14bb9a7de4b575216cb6dac4 ]
 
-Push the test for info->screen_base from fb_read() and fb_write() into
-the implementations of struct fb_ops.{fb_read,fb_write}. In cases where
-the driver operates on info->screen_buffer, test this field instead.
+The fbdev mmap function fb_mmap() unconditionally overrides the
+driver's implementation if deferred I/O has been activated. This
+makes it hard to implement mmap with anything but a vmalloc()'ed
+software buffer. That is specifically a problem for DRM, where
+video memory is maintained by a memory manager.
 
-While bothi fields, screen_base and screen_buffer, are stored in the
-same location, they refer to different address spaces. For correctness,
-we want to test each field in exactly the code that uses it.
+Leave the mmap handling to drivers and expect them to call the
+helper for deferred I/O by thmeselves.
 
+v4:
+	* unlock mm_lock in fb_mmap() error path (Dan)
+v3:
+	* fix warning if fb_mmap is missing (kernel test robot)
 v2:
-	* also test screen_base in pvr2fb (Geert)
-	* also test screen_buffer in ivtvfb, arcfb, broadsheetfb,
-	  hecubafb, metronomefb and ssd1307fb (Geert)
-	* give a rational for the change (Geert)
+	* print a helpful error message if the defio setup is
+	  incorrect (Javier)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Tested-by: Sui Jingfeng <suijingfeng@loongson.cn>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Helge Deller <deller@gmx.de>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230428122452.4856-18-tzimmermann@suse.de
+Link: https://patchwork.freedesktop.org/patch/msgid/20220429100834.18898-2-tzimmermann@suse.de
 Stable-dep-of: 9ad709afdfa3 ("fbdev: ssd1307fb: defer I2C transfers from damage callbacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/ivtv/ivtvfb.c        |  3 +++
- drivers/video/fbdev/arcfb.c            |  3 +++
- drivers/video/fbdev/broadsheetfb.c     |  3 +++
- drivers/video/fbdev/cobalt_lcdfb.c     |  6 ++++++
- drivers/video/fbdev/core/fb_sys_fops.c |  6 ++++++
- drivers/video/fbdev/core/fbmem.c       | 10 ++++++++--
- drivers/video/fbdev/hecubafb.c         |  3 +++
- drivers/video/fbdev/metronomefb.c      |  3 +++
- drivers/video/fbdev/pvr2fb.c           |  3 +++
- drivers/video/fbdev/sm712fb.c          |  4 ++--
- drivers/video/fbdev/ssd1307fb.c        |  3 +++
- 11 files changed, 43 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c        |  4 +++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fb.c     |  1 +
+ drivers/hid/hid-picolcd_fb.c           |  1 +
+ drivers/staging/fbtft/fbtft-core.c     |  1 +
+ drivers/video/fbdev/broadsheetfb.c     |  1 +
+ drivers/video/fbdev/core/fb_defio.c    |  1 +
+ drivers/video/fbdev/core/fbmem.c       | 22 ++++++++++++----------
+ drivers/video/fbdev/hecubafb.c         |  1 +
+ drivers/video/fbdev/hyperv_fb.c        |  1 +
+ drivers/video/fbdev/metronomefb.c      |  1 +
+ drivers/video/fbdev/sh_mobile_lcdcfb.c |  6 ++++++
+ drivers/video/fbdev/smscufx.c          |  3 +++
+ drivers/video/fbdev/ssd1307fb.c        |  1 +
+ drivers/video/fbdev/udlfb.c            |  3 +++
+ drivers/video/fbdev/xen-fbfront.c      |  1 +
+ 15 files changed, 37 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/pci/ivtv/ivtvfb.c b/drivers/media/pci/ivtv/ivtvfb.c
-index 96be1612d1f85..302a8a6bdeb0f 100644
---- a/drivers/media/pci/ivtv/ivtvfb.c
-+++ b/drivers/media/pci/ivtv/ivtvfb.c
-@@ -378,6 +378,9 @@ static ssize_t ivtvfb_write(struct fb_info *info, const char __user *buf,
- 	unsigned long dma_size;
- 	u16 lead = 0, tail = 0;
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index bc265aa0f692b..7dc10cb90d4e5 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -2090,7 +2090,9 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	struct drm_fb_helper *fb_helper = info->par;
  
-+	if (!info->screen_base)
-+		return -ENODEV;
-+
- 	total_size = info->screen_size;
+-	if (fb_helper->dev->driver->gem_prime_mmap)
++	if (drm_fbdev_use_shadow_fb(fb_helper))
++		return fb_deferred_io_mmap(info, vma);
++	else if (fb_helper->dev->driver->gem_prime_mmap)
+ 		return fb_helper->dev->driver->gem_prime_mmap(fb_helper->buffer->gem, vma);
+ 	else
+ 		return -ENODEV;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
+index 79b08e927f769..8c1e9205937d1 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
+@@ -626,6 +626,7 @@ static const struct fb_ops vmw_fb_ops = {
+ 	.fb_imageblit = vmw_fb_imageblit,
+ 	.fb_pan_display = vmw_fb_pan_display,
+ 	.fb_blank = vmw_fb_blank,
++	.fb_mmap = fb_deferred_io_mmap,
+ };
  
- 	if (total_size == 0)
-diff --git a/drivers/video/fbdev/arcfb.c b/drivers/video/fbdev/arcfb.c
-index 024d0ee4f04f9..69a6cda61cebe 100644
---- a/drivers/video/fbdev/arcfb.c
-+++ b/drivers/video/fbdev/arcfb.c
-@@ -451,6 +451,9 @@ static ssize_t arcfb_write(struct fb_info *info, const char __user *buf,
- 	struct arcfb_par *par;
- 	unsigned int xres;
+ int vmw_fb_init(struct vmw_private *vmw_priv)
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index 8a0d1365cd723..de61c08fabea9 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -428,6 +428,7 @@ static const struct fb_ops picolcdfb_ops = {
+ 	.fb_imageblit = picolcd_fb_imageblit,
+ 	.fb_check_var = picolcd_fb_check_var,
+ 	.fb_set_par   = picolcd_set_par,
++	.fb_mmap      = fb_deferred_io_mmap,
+ };
  
-+	if (!info->screen_buffer)
-+		return -ENODEV;
-+
- 	p = *ppos;
- 	par = info->par;
- 	xres = info->var.xres;
+ 
+diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+index 67604a4d9a39f..0e5b3f627fff2 100644
+--- a/drivers/staging/fbtft/fbtft-core.c
++++ b/drivers/staging/fbtft/fbtft-core.c
+@@ -653,6 +653,7 @@ struct fb_info *fbtft_framebuffer_alloc(struct fbtft_display *display,
+ 	fbops->fb_imageblit =      fbtft_fb_imageblit;
+ 	fbops->fb_setcolreg =      fbtft_fb_setcolreg;
+ 	fbops->fb_blank     =      fbtft_fb_blank;
++	fbops->fb_mmap      =      fb_deferred_io_mmap;
+ 
+ 	fbdefio->delay =            HZ / fps;
+ 	fbdefio->sort_pagereflist = true;
 diff --git a/drivers/video/fbdev/broadsheetfb.c b/drivers/video/fbdev/broadsheetfb.c
-index 31fc7f76af772..277d24bc5d3da 100644
+index 786fe6116405b..fd66e18fd58a5 100644
 --- a/drivers/video/fbdev/broadsheetfb.c
 +++ b/drivers/video/fbdev/broadsheetfb.c
-@@ -1014,6 +1014,9 @@ static ssize_t broadsheetfb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
+@@ -1054,6 +1054,7 @@ static const struct fb_ops broadsheetfb_ops = {
+ 	.fb_fillrect	= broadsheetfb_fillrect,
+ 	.fb_copyarea	= broadsheetfb_copyarea,
+ 	.fb_imageblit	= broadsheetfb_imageblit,
++	.fb_mmap	= fb_deferred_io_mmap,
+ };
  
-+	if (!info->screen_buffer)
-+		return -ENODEV;
-+
- 	total_size = info->fix.smem_len;
+ static struct fb_deferred_io broadsheetfb_defio = {
+diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
+index e348f4c15d81a..20f3f9c5242b1 100644
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -321,6 +321,7 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
  
- 	if (p > total_size)
-diff --git a/drivers/video/fbdev/cobalt_lcdfb.c b/drivers/video/fbdev/cobalt_lcdfb.c
-index 5f8b6324d2e8c..26dbd1c78195c 100644
---- a/drivers/video/fbdev/cobalt_lcdfb.c
-+++ b/drivers/video/fbdev/cobalt_lcdfb.c
-@@ -129,6 +129,9 @@ static ssize_t cobalt_lcdfb_read(struct fb_info *info, char __user *buf,
- 	unsigned long pos;
- 	int len, retval = 0;
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
  
-+	if (!info->screen_base)
-+		return -ENODEV;
-+
- 	pos = *ppos;
- 	if (pos >= LCD_CHARS_MAX || count == 0)
- 		return 0;
-@@ -175,6 +178,9 @@ static ssize_t cobalt_lcdfb_write(struct fb_info *info, const char __user *buf,
- 	unsigned long pos;
- 	int len, retval = 0;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
-+
- 	pos = *ppos;
- 	if (pos >= LCD_CHARS_MAX || count == 0)
- 		return 0;
-diff --git a/drivers/video/fbdev/core/fb_sys_fops.c b/drivers/video/fbdev/core/fb_sys_fops.c
-index facf47a69483c..432fa3fa7fa13 100644
---- a/drivers/video/fbdev/core/fb_sys_fops.c
-+++ b/drivers/video/fbdev/core/fb_sys_fops.c
-@@ -21,6 +21,9 @@ ssize_t fb_sys_read(struct fb_info *info, char __user *buf, size_t count,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
-+
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
-@@ -58,6 +61,9 @@ ssize_t fb_sys_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
-+
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
+ /* workqueue callback */
+ static void fb_deferred_io_work(struct work_struct *work)
 diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 78303cf740701..30edc0bee60cb 100644
+index 130fa827eee32..78303cf740701 100644
 --- a/drivers/video/fbdev/core/fbmem.c
 +++ b/drivers/video/fbdev/core/fbmem.c
-@@ -770,7 +770,7 @@ fb_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	int c, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || ! info->screen_base)
-+	if (!info)
+@@ -1352,7 +1352,6 @@ static int
+ fb_mmap(struct file *file, struct vm_area_struct * vma)
+ {
+ 	struct fb_info *info = file_fb_info(file);
+-	int (*fb_mmap_fn)(struct fb_info *info, struct vm_area_struct *vma);
+ 	unsigned long mmio_pgoff;
+ 	unsigned long start;
+ 	u32 len;
+@@ -1361,14 +1360,7 @@ fb_mmap(struct file *file, struct vm_area_struct * vma)
  		return -ENODEV;
+ 	mutex_lock(&info->mm_lock);
  
- 	if (info->state != FBINFO_STATE_RUNNING)
-@@ -779,6 +779,9 @@ fb_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	if (info->fbops->fb_read)
- 		return info->fbops->fb_read(info, buf, count, ppos);
+-	fb_mmap_fn = info->fbops->fb_mmap;
+-
+-#if IS_ENABLED(CONFIG_FB_DEFERRED_IO)
+-	if (info->fbdefio)
+-		fb_mmap_fn = fb_deferred_io_mmap;
+-#endif
+-
+-	if (fb_mmap_fn) {
++	if (info->fbops->fb_mmap) {
+ 		int res;
  
-+	if (!info->screen_base)
+ 		/*
+@@ -1376,9 +1368,19 @@ fb_mmap(struct file *file, struct vm_area_struct * vma)
+ 		 * SME protection is removed ahead of the call
+ 		 */
+ 		vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+-		res = fb_mmap_fn(info, vma);
++		res = info->fbops->fb_mmap(info, vma);
+ 		mutex_unlock(&info->mm_lock);
+ 		return res;
++#if IS_ENABLED(CONFIG_FB_DEFERRED_IO)
++	} else if (info->fbdefio) {
++		/*
++		 * FB deferred I/O wants you to handle mmap in your drivers. At a
++		 * minimum, point struct fb_ops.fb_mmap to fb_deferred_io_mmap().
++		 */
++		dev_warn_once(info->dev, "fbdev mmap not set up for deferred I/O.\n");
++		mutex_unlock(&info->mm_lock);
 +		return -ENODEV;
-+
- 	total_size = info->screen_size;
++#endif
+ 	}
  
- 	if (total_size == 0)
-@@ -835,7 +838,7 @@ fb_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
- 	int c, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info)
- 		return -ENODEV;
- 
- 	if (info->state != FBINFO_STATE_RUNNING)
-@@ -844,6 +847,9 @@ fb_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
- 	if (info->fbops->fb_write)
- 		return info->fbops->fb_write(info, buf, count, ppos);
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
-+
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
+ 	/*
 diff --git a/drivers/video/fbdev/hecubafb.c b/drivers/video/fbdev/hecubafb.c
-index f6be62ed42c5a..98e224a9641c7 100644
+index 3c3cd45c1908f..962a155a5b3d0 100644
 --- a/drivers/video/fbdev/hecubafb.c
 +++ b/drivers/video/fbdev/hecubafb.c
-@@ -163,6 +163,9 @@ static ssize_t hecubafb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
+@@ -203,6 +203,7 @@ static const struct fb_ops hecubafb_ops = {
+ 	.fb_fillrect	= hecubafb_fillrect,
+ 	.fb_copyarea	= hecubafb_copyarea,
+ 	.fb_imageblit	= hecubafb_imageblit,
++	.fb_mmap	= fb_deferred_io_mmap,
+ };
  
-+	if (!info->screen_buffer)
-+		return -ENODEV;
-+
- 	total_size = info->fix.smem_len;
+ static struct fb_deferred_io hecubafb_defio = {
+diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
+index 5fd1b33d11238..ccc2e41275dd0 100644
+--- a/drivers/video/fbdev/hyperv_fb.c
++++ b/drivers/video/fbdev/hyperv_fb.c
+@@ -915,6 +915,7 @@ static const struct fb_ops hvfb_ops = {
+ 	.fb_copyarea = hvfb_cfb_copyarea,
+ 	.fb_imageblit = hvfb_cfb_imageblit,
+ 	.fb_blank = hvfb_blank,
++	.fb_mmap = fb_deferred_io_mmap,
+ };
  
- 	if (p > total_size)
+ 
 diff --git a/drivers/video/fbdev/metronomefb.c b/drivers/video/fbdev/metronomefb.c
-index 23a3388880e79..417371de6b23e 100644
+index f79f8cc41f33b..ed73769f2ecdb 100644
 --- a/drivers/video/fbdev/metronomefb.c
 +++ b/drivers/video/fbdev/metronomefb.c
-@@ -524,6 +524,9 @@ static ssize_t metronomefb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
+@@ -563,6 +563,7 @@ static const struct fb_ops metronomefb_ops = {
+ 	.fb_fillrect	= metronomefb_fillrect,
+ 	.fb_copyarea	= metronomefb_copyarea,
+ 	.fb_imageblit	= metronomefb_imageblit,
++	.fb_mmap	= fb_deferred_io_mmap,
+ };
  
-+	if (!info->screen_buffer)
-+		return -ENODEV;
+ static struct fb_deferred_io metronomefb_defio = {
+diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+index 74a013c398b14..91a5803b2ebde 100644
+--- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
++++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+@@ -1483,6 +1483,9 @@ sh_mobile_lcdc_overlay_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	struct sh_mobile_lcdc_overlay *ovl = info->par;
+ 
++	if (info->fbdefio)
++		return fb_deferred_io_mmap(info, vma);
 +
- 	total_size = info->fix.smem_len;
+ 	return dma_mmap_coherent(ovl->channel->lcdc->dev, vma, ovl->fb_mem,
+ 				 ovl->dma_handle, ovl->fb_size);
+ }
+@@ -1957,6 +1960,9 @@ sh_mobile_lcdc_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	struct sh_mobile_lcdc_chan *ch = info->par;
  
- 	if (p > total_size)
-diff --git a/drivers/video/fbdev/pvr2fb.c b/drivers/video/fbdev/pvr2fb.c
-index 3622254349120..0a27a980524c2 100644
---- a/drivers/video/fbdev/pvr2fb.c
-+++ b/drivers/video/fbdev/pvr2fb.c
-@@ -646,6 +646,9 @@ static ssize_t pvr2fb_write(struct fb_info *info, const char *buf,
- 	struct page **pages;
- 	int ret, i;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++	if (info->fbdefio)
++		return fb_deferred_io_mmap(info, vma);
 +
- 	nr_pages = (count + PAGE_SIZE - 1) >> PAGE_SHIFT;
+ 	return dma_mmap_coherent(ch->lcdc->dev, vma, ch->fb_mem,
+ 				 ch->dma_handle, ch->fb_size);
+ }
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 071448eba2465..61c1556bf7c5f 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -780,6 +780,9 @@ static int ufx_ops_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ 	unsigned long offset = vma->vm_pgoff << PAGE_SHIFT;
+ 	unsigned long page, pos;
  
- 	pages = kmalloc_array(nr_pages, sizeof(struct page *), GFP_KERNEL);
-diff --git a/drivers/video/fbdev/sm712fb.c b/drivers/video/fbdev/sm712fb.c
-index 41107d216b625..efaec92ed71fb 100644
---- a/drivers/video/fbdev/sm712fb.c
-+++ b/drivers/video/fbdev/sm712fb.c
-@@ -1027,7 +1027,7 @@ static ssize_t smtcfb_read(struct fb_info *info, char __user *buf,
- 	int c, i, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info->screen_base)
- 		return -ENODEV;
- 
- 	total_size = info->screen_size;
-@@ -1090,7 +1090,7 @@ static ssize_t smtcfb_write(struct fb_info *info, const char __user *buf,
- 	int c, i, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info->screen_base)
- 		return -ENODEV;
- 
- 	total_size = info->screen_size;
++	if (info->fbdefio)
++		return fb_deferred_io_mmap(info, vma);
++
+ 	if (vma->vm_pgoff > (~0UL >> PAGE_SHIFT))
+ 		return -EINVAL;
+ 	if (size > info->fix.smem_len)
 diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index 1604529a565d9..82f41770ca205 100644
+index 212494b0a4ba8..1604529a565d9 100644
 --- a/drivers/video/fbdev/ssd1307fb.c
 +++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -301,6 +301,9 @@ static ssize_t ssd1307fb_write(struct fb_info *info, const char __user *buf,
- 	void *dst;
- 	int ret;
+@@ -368,6 +368,7 @@ static const struct fb_ops ssd1307fb_ops = {
+ 	.fb_fillrect	= ssd1307fb_fillrect,
+ 	.fb_copyarea	= ssd1307fb_copyarea,
+ 	.fb_imageblit	= ssd1307fb_imageblit,
++	.fb_mmap	= fb_deferred_io_mmap,
+ };
  
-+	if (!info->screen_buffer)
-+		return -ENODEV;
+ static void ssd1307fb_deferred_io(struct fb_info *info, struct list_head *pagereflist)
+diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
+index 3c17049de9540..a16cf3bd6a9a4 100644
+--- a/drivers/video/fbdev/udlfb.c
++++ b/drivers/video/fbdev/udlfb.c
+@@ -348,6 +348,9 @@ static int dlfb_ops_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ 	unsigned long page, pos;
+ 	struct dlfb_data *dlfb = info->par;
+ 
++	if (info->fbdefio)
++		return fb_deferred_io_mmap(info, vma);
 +
- 	total_size = info->fix.smem_len;
+ 	if (vma->vm_pgoff > (~0UL >> PAGE_SHIFT))
+ 		return -EINVAL;
+ 	if (size > info->fix.smem_len)
+diff --git a/drivers/video/fbdev/xen-fbfront.c b/drivers/video/fbdev/xen-fbfront.c
+index 37e3f226f78ce..91f0a9ceede1a 100644
+--- a/drivers/video/fbdev/xen-fbfront.c
++++ b/drivers/video/fbdev/xen-fbfront.c
+@@ -338,6 +338,7 @@ static const struct fb_ops xenfb_fb_ops = {
+ 	.fb_imageblit	= xenfb_imageblit,
+ 	.fb_check_var	= xenfb_check_var,
+ 	.fb_set_par     = xenfb_set_par,
++	.fb_mmap	= fb_deferred_io_mmap,
+ };
  
- 	if (p > total_size)
+ static irqreturn_t xenfb_event_handler(int rq, void *dev_id)
 -- 
 2.53.0
 
