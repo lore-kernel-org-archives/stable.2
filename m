@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B375237AE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:42:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63FD525A71
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:42:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950523; cv=none; b=NpYh4rphNRaosLwDwVjssVg6TgZNsrNyjNmv0gRGlNhf/jwrnqoIamEV4vzorLe5A57g2b67BdkdRKTZmmwow2qqAH0aDJZqzaTtoj58YAsG/ciYIQKddxlpRhr77cOVSAtMywxjc959GTyGhwiMtDRo6obbcmfnoLuPlwFWWwM=
+	t=1788950524; cv=none; b=EY+sPNdNZ44nL5l5lc3H+YIQW/jPC0G3SFBl1mgtz6OGHl9Qgal7yIFeYI0vcMz+0VkmjexfJr4DOQrZGd0FhJ3tq6VbSFBLT/dJ0nbXJIaFapAEaY9SCF+dRWrFAIHJPIQqWQHjq3DTC/ylsEnu0/ZWg1aRX24WHU+4/7xzpd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950523; c=relaxed/simple;
-	bh=1vcisorHnDGTdxgrZI4EW+5CrEz+sHoHWjNwE69IOBQ=;
+	s=arc-20240116; t=1788950524; c=relaxed/simple;
+	bh=HmKMCuY15qI2c6M5+JKrsBWSINpQd/iFhWWESXPqC28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QS4HQmur8av++sScRJUUq/YnFmkL80YH0tiCTqqXgPvehhiJcxCeQQBIGeK7zUbEqGFJ3IXla0UeLRdk75I0CB9KDnrd1Q69JEcNfTxon+lMAluIlb4mkROt8s0xm326WEoEkd7pfF1i/ZW/uKa/LoVYdpns4NPGwAapCNPMp3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnEsDyy4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G/Ch0+4Bs8jc3PL4hlfBEK984N+EkVSm3J67YxPFOWDsGbKOvHJV1p8j8X5LJ2b5jkaaJ1TprBflT65Yw+9RC33OFyFdCjpMKid2WusYzuaz/Db7Mz4TnQ0HyMFmAn2p11CRC4vjmo5CT5VaCLNzgAxEEUMy/k/s94IWNt6bj18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BO75wVKm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnEsDyy4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74AB1F00A3E;
-	Wed,  9 Sep 2026 10:42:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BO75wVKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B20B1F00A3A;
+	Wed,  9 Sep 2026 10:42:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950521;
-	bh=/UXvp7ILtq5yHIdx75CTq5Y0kvSiPGcDNwlcOAxuk1U=;
+	s=k20260515; t=1788950522;
+	bh=o6zCbaNUoDGGgN7hIuJeVAgggfdsfBS7+FxiX6HRw2s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lnEsDyy4bM+bZAzsSzidYE8YVgPSzBxG+So5woIJpXzy1jn8PHqQT0k66pBSGtc9m
-	 wZ3bdYo8o1jQhcNxqyPqLv6ZETtJCTeT83sELzczLQuScjnKIQ6krlcBUQRZinjr17
-	 jXRR0uRn2gMFMqU1lhJ+VNSRQC6xn2zxxVPfW/v5PAcVKEZceQsfHWRXBHrxDKKrMF
-	 dJRuqXx61pbhgOZoEwEhECuiuOx3Akh4iTd+zZ468klEzR2g5cn70DncZ5leQnnxSh
-	 v2mDsGDL2vXAlJ1YLFx7sMwMNi05nxexUJykIs2Wj7GBN623Og64RvG7XFN7C4kDy/
-	 lUWcI4HCJ3pXg==
+	b=BO75wVKm1lW9w9lOZLFcPLG6oHtJrkM6yoql4+qyTpQOU9V6TSlCP8Ve2W9AwHYxg
+	 CqjZnmIQiTt9L84Uh4MAqoFh8Jgypw15py9u7cEHivDDZstl73TApMZlJNznoEUp2b
+	 SV7j6Xzke7KjO1LKnlMcMIAkaP1b16Fy8h893ZRlG70PNmVvYDlQ0aEpFHIQCGm2OU
+	 Hf1QIMnuSCcBTDXkhi5ezrsUlj4Q1/oln/jP/rHCMzlmOPn4XbQYzCMZ+lqHSavSwg
+	 FnlR/DbvoY426H4An+yiXeEGYfkz4VgZwPx97eKXdJZqrwJfDi+EKaHO42Bgu+xE1g
+	 pdfW7ikDzoyUQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/5] svcrdma: Move the svc_rdma_cc_init() call
-Date: Wed,  9 Sep 2026 06:41:55 -0400
-Message-ID: <20260909104158.1554268-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/5] svcrdma: Add back svcxprt_rdma::sc_read_complete_q
+Date: Wed,  9 Sep 2026 06:41:57 -0400
+Message-ID: <20260909104158.1554268-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909104158.1554268-1-sashal@kernel.org>
 References: <2026090310-onto-impotence-7944@gregkh>
@@ -47,93 +47,120 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 018f34051bc9f4908336b3fe9e52931bb8410ced ]
+[ Upstream commit a937693a82fd2211c5e52b638959d1486a77d16a ]
 
-Now that the chunk_ctxt for Reads is no longer dynamically allocated
-it can be initialized once for the life of the object that contains
-it (struct svc_rdma_recv_ctxt).
+Having an nfsd thread waiting for an RDMA Read completion is
+problematic if the Read responder (ie, the client) stops responding.
+We need to go back to handling RDMA Reads by allowing the nfsd
+thread to return to the svc scheduler, then waking a second thread
+finish the RPC message once the Read completion fires.
+
+As a next step, add a list_head upon which completed Reads are queued.
+A subsequent patch will make use of this queue.
 
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-
-[Stable 6.1 dependency adaptation]
-Keep rc_temp initialization in svc_rdma_recv_ctxt_alloc(), since this
-stable tree still distinguishes temporary receive contexts. Initialize
-the embedded rc_cc alongside it using the existing svc_rdma_cc_init(),
-retaining cc_rdma for the stable completion and cleanup paths.
-
-Replace per-Read chunk-context initialization with a cc_sqecount reset,
-keeping the existing Read counter initialization order and synchronous
-completion/release path. The release path drains cc_rwctxts before a
-receive context is reused, so its list and transport can be initialized
-once at allocation. No functions are added.
-
-Preserve the preceding dependency's reconstruction changes and saved
-inline argument. All hunks of target 3779b7b9e7d1 apply cleanly to this
-adapted tree.
-
 Stable-dep-of: 3779b7b9e7d1 ("svcrdma: Validate Read chunk positions before reconstruction")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svc_rdma.h         |  2 ++
- net/sunrpc/xprtrdma/svc_rdma_recvfrom.c |  1 +
- net/sunrpc/xprtrdma/svc_rdma_rw.c       | 11 ++++++++---
- 3 files changed, 11 insertions(+), 3 deletions(-)
+ include/linux/sunrpc/svc_rdma.h          |  1 +
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c  | 37 +++++++++++++++++++++++-
+ net/sunrpc/xprtrdma/svc_rdma_transport.c |  1 +
+ 3 files changed, 38 insertions(+), 1 deletion(-)
 
 diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
-index 536b95e28a8e2..edf6955295fc8 100644
+index 7f75c3a652c28..7bdec8bf1c0ba 100644
 --- a/include/linux/sunrpc/svc_rdma.h
 +++ b/include/linux/sunrpc/svc_rdma.h
-@@ -203,6 +203,8 @@ extern int svc_rdma_recvfrom(struct svc_rqst *);
- 
- /* svc_rdma_rw.c */
- extern void svc_rdma_destroy_rw_ctxts(struct svcxprt_rdma *rdma);
-+extern void svc_rdma_cc_init(struct svcxprt_rdma *rdma,
-+			     struct svc_rdma_chunk_ctxt *cc);
- extern int svc_rdma_send_write_chunk(struct svcxprt_rdma *rdma,
- 				     const struct svc_rdma_chunk *chunk,
- 				     const struct xdr_buf *xdr);
+@@ -97,6 +97,7 @@ struct svcxprt_rdma {
+ 	u32		     sc_pending_recvs;
+ 	u32		     sc_recv_batch;
+ 	struct list_head     sc_rq_dto_q;
++	struct list_head     sc_read_complete_q;
+ 	spinlock_t	     sc_rq_dto_lock;
+ 	struct ib_qp         *sc_qp;
+ 	struct ib_cq         *sc_rq_cq;
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index 186c9c12432b1..29bfbd8b72089 100644
+index 020573c0f8e7e..a3416f855a2fa 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -156,6 +156,7 @@ svc_rdma_recv_ctxt_alloc(struct svcxprt_rdma *rdma)
- 	ctxt->rc_recv_sge.lkey = rdma->sc_pd->local_dma_lkey;
- 	ctxt->rc_recv_buf = buffer;
- 	ctxt->rc_temp = false;
-+	svc_rdma_cc_init(rdma, &ctxt->rc_cc);
- 	return ctxt;
+@@ -383,6 +383,10 @@ void svc_rdma_flush_recv_queues(struct svcxprt_rdma *rdma)
+ {
+ 	struct svc_rdma_recv_ctxt *ctxt;
  
- fail2:
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-index f32635d0f5216..ffe7d4a54d5f0 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -149,8 +149,13 @@ static void svc_rdma_cc_cid_init(struct svcxprt_rdma *rdma,
- 	cid->ci_completion_id = atomic_inc_return(&rdma->sc_completion_ids);
++	while ((ctxt = svc_rdma_next_recv_ctxt(&rdma->sc_read_complete_q))) {
++		list_del(&ctxt->rc_list);
++		svc_rdma_recv_ctxt_put(rdma, ctxt);
++	}
+ 	while ((ctxt = svc_rdma_next_recv_ctxt(&rdma->sc_rq_dto_q))) {
+ 		list_del(&ctxt->rc_list);
+ 		svc_rdma_recv_ctxt_put(rdma, ctxt);
+@@ -770,6 +774,30 @@ static bool svc_rdma_is_reverse_direction_reply(struct svc_xprt *xprt,
+ 	return true;
  }
  
--static void svc_rdma_cc_init(struct svcxprt_rdma *rdma,
--			     struct svc_rdma_chunk_ctxt *cc)
-+/**
-+ * svc_rdma_cc_init - Initialize an svc_rdma_chunk_ctxt
-+ * @rdma: controlling transport instance
-+ * @cc: svc_rdma_chunk_ctxt to be initialized
-+ */
-+void svc_rdma_cc_init(struct svcxprt_rdma *rdma,
-+		      struct svc_rdma_chunk_ctxt *cc)
- {
- 	svc_rdma_cc_cid_init(rdma, &cc->cc_cid);
- 	cc->cc_rdma = rdma;
-@@ -1023,8 +1028,8 @@ int svc_rdma_process_read_list(struct svcxprt_rdma *rdma,
- 	struct xdr_buf *buf = &rqstp->rq_arg;
- 	int ret;
++static noinline void svc_rdma_read_complete(struct svc_rqst *rqstp,
++					    struct svc_rdma_recv_ctxt *ctxt)
++{
++	int i;
++
++	/* Transfer the Read chunk pages into @rqstp.rq_pages, replacing
++	 * the rq_pages that were already allocated for this rqstp.
++	 */
++	release_pages(rqstp->rq_respages, ctxt->rc_page_count);
++	for (i = 0; i < ctxt->rc_page_count; i++)
++		rqstp->rq_pages[i] = ctxt->rc_pages[i];
++
++	/* Update @rqstp's result send buffer to start after the
++	 * last page in the RDMA Read payload.
++	 */
++	rqstp->rq_respages = &rqstp->rq_pages[ctxt->rc_page_count];
++	rqstp->rq_next_page = rqstp->rq_respages + 1;
++
++	/* Prevent svc_rdma_recv_ctxt_put() from releasing the
++	 * pages in ctxt::rc_pages a second time.
++	 */
++	ctxt->rc_page_count = 0;
++}
++
+ /**
+  * svc_rdma_recvfrom - Receive an RPC call
+  * @rqstp: request structure into which to receive an RPC Call
+@@ -816,8 +844,14 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
  
--	svc_rdma_cc_init(rdma, cc);
- 	cc->cc_cqe.done = svc_rdma_wc_read_done;
-+	cc->cc_sqecount = 0;
- 	head->rc_curpage = 0;
- 	head->rc_pageoff = 0;
- 	head->rc_readbytes = 0;
+ 	rqstp->rq_xprt_ctxt = NULL;
+ 
+-	ctxt = NULL;
+ 	spin_lock(&rdma_xprt->sc_rq_dto_lock);
++	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_read_complete_q);
++	if (ctxt) {
++		list_del(&ctxt->rc_list);
++		spin_unlock_bh(&rdma_xprt->sc_rq_dto_lock);
++		svc_rdma_read_complete(rqstp, ctxt);
++		goto complete;
++	}
+ 	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_rq_dto_q);
+ 	if (ctxt)
+ 		list_del(&ctxt->rc_list);
+@@ -855,6 +889,7 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
+ 			goto out_readfail;
+ 	}
+ 
++complete:
+ 	rqstp->rq_xprt_ctxt = ctxt;
+ 	rqstp->rq_prot = IPPROTO_MAX;
+ 	svc_xprt_copy_addrs(rqstp, xprt);
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+index 45b0fef0b5e26..4c758a7ef60a9 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+@@ -136,6 +136,7 @@ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+ 	svc_xprt_init(net, &svc_rdma_class, &cma_xprt->sc_xprt, serv);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_accept_q);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_rq_dto_q);
++	INIT_LIST_HEAD(&cma_xprt->sc_read_complete_q);
+ 	init_llist_head(&cma_xprt->sc_send_ctxts);
+ 	init_llist_head(&cma_xprt->sc_recv_ctxts);
+ 	init_llist_head(&cma_xprt->sc_rw_ctxts);
 -- 
 2.53.0
 
