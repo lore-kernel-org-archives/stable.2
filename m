@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A891B5540AB;
-	Wed,  9 Sep 2026 13:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B30A55D864;
+	Wed,  9 Sep 2026 13:13:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959591; cv=none; b=M8cjE/0ID9ACUEHw7WEEqrYHmOpRezWD7OIgdoBJiF3BFtODHvDk05qafqLYiJXre484aXuX0OP8PGR7x6KxTjpO2BXAKjuj6x7BnRIazX61Xn9OhUW4G+3TCweDyqHuSYaYry0ONUmf/mmGGmtn4Ovkk4qrI8nttzkSoiYzfIA=
+	t=1788959592; cv=none; b=kTtGOYgtUGD+ywrW94eor3CPthUAJtQaO14KRgGN+8+drLiH7nMrbl4fLmfVmEBi2c/0G2UO+m+gps6j9QYbKy6e0JBW1mpwhQyu75PN3g6AnH8ua0u38Zk5lBJb7fB3nTUHoVFC1y7UPZzTsUm3hzwHa0vn5L5SCKSUchgvPTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959591; c=relaxed/simple;
-	bh=Cco0eLYO5xHXTcrEHeQMkw1fFhGetnR/HOL25tY05Hc=;
+	s=arc-20240116; t=1788959592; c=relaxed/simple;
+	bh=wLRsMKY8OEFYi/qpDoXeA9FEh4qReWhoZVAfNrO7wJ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C7aJlc1lgzUZp6Qmj2vLsz4BPHaWp4RlBgZEqtYLbjTgbqugNDW7kRCM2FnYlhQE1h1cNvngkHGoJQjnWW1AX6KrCSQkuiXVTcsjRnxLhhoByXu1r/puFr3IB02LzzqhIVDRfnY9dKu6XLjTSDQgbG0C8TS5ao5cBdVHQIre5+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OabBCNAE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qxS3AEZ3qO12uBJF6II+193HCABxe7hI9vQkKiOfh6taknCI70TEe3QasKzQ920I+ASw02NMEOk7rjl+HWqhEFNF/RZQKgRP8f8euYowSxPveGbxzbfyGVMIfs25CrlSSfI4iw+lrWjUTLDGWMm6/4cYQyg4+8V6T47crQfYuVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REV+ikR6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OabBCNAE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0FA1F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REV+ikR6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19DB1F00A3E;
 	Wed,  9 Sep 2026 13:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788959590;
-	bh=exrp9sOpIrw8gCLYhyGLzFm16RZmIHh9nMD7AtHeshY=;
+	s=k20260515; t=1788959591;
+	bh=8TPPTfwBtiaYCUK4EzlWzn+yAl6kg3Gs5FBkRSt9/E8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OabBCNAEx8zSE+TP2oDCidL0efN3Oy7t7e7v9T4Azc3+UhgIwGKm6KxJKZwVGqHi1
-	 5I+8gQ9CHwYydhf0Ix6bPUzni23iNb8iDirKCHPs9MIIHyZOl9lz5nJgTuTy7dbIGF
-	 prauwfrLO68//1scK40MV1dmX+x7Z+YcjrTR+7h07B2HvE8Eu2cOaPB5Jn7oO5zA/u
-	 77lLXzkUC2iXwj+YS8LqdnuMwJNuezTRFbYNv89ZgMnEwpopKtd1yrftippGhvnzZb
-	 gFtq3gI/jkVfWCrRFR54USf13QSZMWV1n0RcJM2Rtgrg6NW76FHFrxDEp1dUzJSlRt
-	 TV2Wj3RHQIQjw==
+	b=REV+ikR695iv2Yn/vw+epDqUgyGHmoYlVz0kqEn2itk/fygs3bHLYnJdB3UlJCx1L
+	 SEFjW9t/CFKB2i1UBl6VbYJFjQFqTJolkv4XK2NCX8nywN2EEljtwuGnKri3VKnXEI
+	 gNIpd+GddSWt8eUTO7J6YvtfyoF1h/TW93IRvu+BORgXLdsB6u41dk9bGzu44Dejcw
+	 bcg2iutKc7CMTIDwIiWf35l+3FcecZVizTK6nTwtr+HLQxLWsz3zmMwGBu/zSMVaoN
+	 k/p2jff80ToxGHKThbAMV86ysT8JNqvGW/JbqqWhunGIEHr0sDB2yGmKs/G7kSz7ca
+	 8Ey2zpQfyjxkw==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -34,9 +34,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCHv4 1/4] EDAC/altera: Do not allow driver unbinding
-Date: Wed,  9 Sep 2026 08:12:50 -0500
-Message-ID: <20260909131253.2158486-2-dinguyen@kernel.org>
+Subject: [PATCHv4 2/4] EDAC/altera: Drop __init from ECC setup paths for re-probe safety
+Date: Wed,  9 Sep 2026 08:12:51 -0500
+Message-ID: <20260909131253.2158486-3-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260909131253.2158486-1-dinguyen@kernel.org>
 References: <20260909131253.2158486-1-dinguyen@kernel.org>
@@ -48,97 +48,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EDAC driver must remain bound; unbinding and re-binding it would erase
-active system memory.
+sashiko reports: Does suppressing sysfs unbinding fully prevent the
+execution of freed __init memory? If altr_sysmgr_regmap_lookup_by_phandle()
+returns -EPROBE_DEFER, the probe is deferred until after __init memory is
+freed.
 
-Remove the .remove functions because they will not ever get used.
+The a10 EDAC .setup callbacks (sdmmc, ethernet, nand, dma, usb, qspi)
+and their helpers (altr_init_a10_ecc_device_type,
+altr_init_a10_ecc_block) were marked __init. These run from the probe
+path, which may execute after init memory is freed -- e.g. a probe
+deferred via -EPROBE_DEFER that only succeeds once a late/module
+dependency appears, or a manual unbind/rebind. Calling __init code then
+dereferences freed memory. Remove __init so these functions remain
+valid at runtime.
 
-Fixes: 588cb03ea208 ("EDAC, altera: Add Arria10 L2 Cache ECC handling")
+Assisted-by: Cursor:claude-4.8-opus
+Fixes: 788586efd116 ("EDAC/altera: Initialize peripheral FIFOs in probe())
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
 v4: rebased to edac-urgent
-v3: simplify commit messsage
+v3: no changes
 v2: reworked v1 to include only true sashiko hits
 ---
- drivers/edac/altera_edac.c | 25 ++++---------------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+ drivers/edac/altera_edac.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index 68846f583eeef..fe501c89dd0dc 100644
+index fe501c89dd0dc..d8a3438fb5f44 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -453,15 +453,6 @@ static int altr_sdram_probe(struct platform_device *pdev)
- 	return res;
+@@ -926,7 +926,7 @@ static int __maybe_unused altr_init_memory_port(void __iomem *ioaddr, int port)
+ 	return ret;
  }
  
--static void altr_sdram_remove(struct platform_device *pdev)
--{
--	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
--
--	edac_mc_del_mc(&pdev->dev);
--	edac_mc_free(mci);
--	platform_set_drvdata(pdev, NULL);
--}
--
- /*
-  * If you want to suspend, need to disable EDAC by removing it
-  * from the device tree or defconfig.
-@@ -481,13 +472,13 @@ static const struct dev_pm_ops altr_sdram_pm_ops = {
+-static __init int __maybe_unused
++static int __maybe_unused
+ altr_init_a10_ecc_block(struct device_node *np, u32 irq_mask,
+ 			u32 ecc_ctrl_en_mask, bool dual_port)
+ {
+@@ -1001,7 +1001,7 @@ altr_init_a10_ecc_block(struct device_node *np, u32 irq_mask,
  
- static struct platform_driver altr_sdram_edac_driver = {
- 	.probe = altr_sdram_probe,
--	.remove = altr_sdram_remove,
- 	.driver = {
- 		.name = "altr_sdram_edac",
- #ifdef CONFIG_PM
- 		.pm = &altr_sdram_pm_ops,
- #endif
- 		.of_match_table = altr_sdram_ctrl_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
+ static int validate_parent_available(struct device_node *np);
+ static const struct of_device_id altr_edac_a10_device_of_match[];
+-static int __init __maybe_unused altr_init_a10_ecc_device_type(char *compat)
++static int __maybe_unused altr_init_a10_ecc_device_type(char *compat)
+ {
+ 	int irq;
+ 	struct device_node *child, *np;
+@@ -1330,7 +1330,7 @@ static const struct edac_device_prv_data a10_l2ecc_data = {
  
-@@ -517,6 +508,7 @@ static struct platform_driver altr_edac_driver = {
- 	.driver = {
- 		.name = "socfpga_ecc_manager",
- 		.of_match_table = altr_edac_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_driver);
-@@ -803,22 +795,12 @@ static int altr_edac_device_probe(struct platform_device *pdev)
- 	return res;
+ #ifdef CONFIG_EDAC_ALTERA_ETHERNET
+ 
+-static int __init socfpga_init_ethernet_ecc(struct altr_edac_device_dev *dev)
++static int socfpga_init_ethernet_ecc(struct altr_edac_device_dev *dev)
+ {
+ 	int ret;
+ 
+@@ -1360,7 +1360,7 @@ static const struct edac_device_prv_data a10_enetecc_data = {
+ 
+ #ifdef CONFIG_EDAC_ALTERA_NAND
+ 
+-static int __init socfpga_init_nand_ecc(struct altr_edac_device_dev *device)
++static int socfpga_init_nand_ecc(struct altr_edac_device_dev *device)
+ {
+ 	int ret;
+ 
+@@ -1390,7 +1390,7 @@ static const struct edac_device_prv_data a10_nandecc_data = {
+ 
+ #ifdef CONFIG_EDAC_ALTERA_DMA
+ 
+-static int __init socfpga_init_dma_ecc(struct altr_edac_device_dev *device)
++static int socfpga_init_dma_ecc(struct altr_edac_device_dev *device)
+ {
+ 	int ret;
+ 
+@@ -1420,7 +1420,7 @@ static const struct edac_device_prv_data a10_dmaecc_data = {
+ 
+ #ifdef CONFIG_EDAC_ALTERA_USB
+ 
+-static int __init socfpga_init_usb_ecc(struct altr_edac_device_dev *device)
++static int socfpga_init_usb_ecc(struct altr_edac_device_dev *device)
+ {
+ 	int ret;
+ 
+@@ -1450,7 +1450,7 @@ static const struct edac_device_prv_data a10_usbecc_data = {
+ 
+ #ifdef CONFIG_EDAC_ALTERA_QSPI
+ 
+-static int __init socfpga_init_qspi_ecc(struct altr_edac_device_dev *device)
++static int socfpga_init_qspi_ecc(struct altr_edac_device_dev *device)
+ {
+ 	int ret;
+ 
+@@ -1598,7 +1598,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	return rc;
  }
  
--static void altr_edac_device_remove(struct platform_device *pdev)
--{
--	struct edac_device_ctl_info *dci = platform_get_drvdata(pdev);
--	struct altr_edac_device_dev *drvdata = dci->pvt_info;
--
--	debugfs_remove_recursive(drvdata->debugfs_dir);
--	edac_device_del_device(&pdev->dev);
--	edac_device_free_ctl_info(dci);
--}
--
- static struct platform_driver altr_edac_device_driver = {
- 	.probe =  altr_edac_device_probe,
--	.remove = altr_edac_device_remove,
- 	.driver = {
- 		.name = "altr_edac_device",
- 		.of_match_table = altr_edac_device_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_device_driver);
-@@ -2214,6 +2196,7 @@ static struct platform_driver altr_edac_a10_driver = {
- 	.driver = {
- 		.name = "socfpga_a10_ecc_manager",
- 		.of_match_table = altr_edac_a10_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_a10_driver);
+-static int __init socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
++static int socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
+ {
+ 	int rc = -ENODEV;
+ 	struct device_node *child;
 -- 
 2.42.0.411.g813d9a9188
 
