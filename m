@@ -1,60 +1,87 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC11572691;
-	Wed,  9 Sep 2026 15:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C37577E4B
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969210; cv=none; b=cDMgNYR5aRltzqYYUbyyqo3miiCm+GnTTTTkbvyu+PqPQaS3u4+aUN7ps14THaevJ8059GdSbPiZCwm54A+CfT9zoZIK1OuhfP3sgJjVWCmBB5KR9Dip+o/QRLui70JqmAPLHttskYLCyUAiD4I+5lf+AYPCHbLCSnanOgTQ/Xk=
+	t=1788969291; cv=none; b=sNT7RKKkASO0WRqxm+6O81fgzTqVoNZ5yurdW5I9Ya6vg+Fz1wbv+pT6fzIqTc4H/pMZIY/KZJST0Bru8fbr/KJK7NSmOcpgtixRgYOwDdhMzMRSc7wUfhjeAHIQMFAX/OoHUVZwfzpxDXIUQ7WwZ/TxOUQi/ymxGN/ecATfLhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969210; c=relaxed/simple;
-	bh=E1LLvx81Fp2lHIylGQqgI3n8PbouPt0bAXhD54slBh4=;
+	s=arc-20240116; t=1788969291; c=relaxed/simple;
+	bh=ZS57qCJaJZzvLtWT5rb+UsgkBAE6cq2kv5Ow6zPtdvU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AIzIwQ/d6BfW5xPmhm2Zn+alr2miGMYiCWToRG/pxlxX7dy9dY+CP1D8WwuL2UxlPu8OrV1ScHYT2t49tyQ+uVwlhDNrTSwcZi6kWgtaV08MguKI40x2ocTwo2FUnOX+ybZ3LjL/Id+7Tv63J7zRJe25pqKGC7+rpITi39B3q4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=b2jD6ieE; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=RbAF12X7SMzKhKNUpfOxS5WWAiJVoX0TJAaAGhFD2XvRY+ug5Hcntcw1IShm/QSviFbjaYw0H3hYQSeJ1Sfe+UW712L6VgX6hKY+j6OfIY0eMH9id3hUcV8ESsU/RpWcDxkdNcViQexL+WB07f2V1HA888biF6yKQE6pKlDBTZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SWHZ1BnS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fa5g7st3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="b2jD6ieE"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1aW83839613;
-	Wed, 9 Sep 2026 15:52:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=aJQ3f9
-	xbjxMwuiEJ1zAsToahe8kVJn3m9fPpmaehrMQ=; b=b2jD6ieEKr5a47fTeuPlQn
-	sG2l2XYvTfMvncOLggdaCSR7xbtyEqqicTLk+J/qKKkTfPAjBJngsJgiCJzcpR7h
-	oSoGobuJP9zkOKRDReLcUdhm+2MYx5/1Uo/99uE9ekSsPWYp1Q9iBTfsjOD1to0g
-	aTBwqXF6o0KWcoK8vxOba7M1IQp/NsOVCU5qJnqaT3SvbC2GTesKTonbf2p6KXX+
-	M/J8nZ8lcoe5xnOPAtAocGZiPS3wVsxi0QNv/BFhG3XCHohMggZOgU4BvLnAf6tW
-	KU0sC1dY2f0eUZgzIQj96TdbGd+PlQKVJ3qknHj3MT+acj2qeGtV0JBTiltFvqWw
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SWHZ1BnS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fa5g7st3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788969288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+	b=SWHZ1BnSahpqXgpTF7i7H/PTQo0nLq1uwhbktvZ9cj5tdSfuJ2LprNS4RDKmyi/mAmSPYT
+	uqQ5EiJRB/1yUWwAWx8XaaKOhliqHDyHsmt3vnB/Ic2zi3PRYT62aqWHMe2+tWUz4GTLb6
+	OkMN53mibvOMAadu+D4dkAq1Xu5ZI/M=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-330-a3n4YG5ZO5Kcup_CBMWSQw-1; Wed, 09 Sep 2026 11:54:46 -0400
+X-MC-Unique: a3n4YG5ZO5Kcup_CBMWSQw-1
+X-Mimecast-MFC-AGG-ID: a3n4YG5ZO5Kcup_CBMWSQw_1788969286
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so5174833f8f.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 08:54:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788969285; x=1789574085; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+        b=Fa5g7st3Z0sZ6+TymEI5E+NzBfphSSlY768Rw+F3Ax22kVyCGETd+Rx7hiWsf5LZVH
+         nv9HOHh1Wzuix3zuyc17XHy/pbkGAYY7QYu3FIIMLzwlNXmVcKE15YxNFAQQ75N8XdGR
+         yq40Ix6JJqU745NMY0Fbjq7ZSENafV/1TO5OFBdYwIkWY+b6/PM9Z10iP0FqYc1GSVLQ
+         cpBb9guDxJuAu1lxNrGfbv6Pz8FJ74FifvR9IsCcN8gTjL9knYG5eQvO9cS8gCBpAarZ
+         VxLsBQDERPkFDkJQfApUgK3akRqd1CFf7JVQhfy5C+sQFYHNyS+CT7RzvhmoSph462Yd
+         Oytw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969285; x=1789574085;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+        b=grYjfSlBfdBdDG/47hOsKma5Au2m17wbxWYrZxCbgbVRjz7EhLBxcURUxxwrkhUNZg
+         pJLfLWqPdHVW697/aeWi/w/O677nEGAcqGx8q2xHwqlvOfiAXwqC9h3HeRgZ+r3RYfaR
+         cCqCeztitOLFnKlh3Ps8mHBhNQH9Zp3irlU+XjOuTHDESrTnxISlOYTFwoEldJ6vrAdT
+         NAnlMBb9sSlTqSkje/jCO+4ZEPjsn6WdbvNCiWk02YIaEr1gJI86boip4zJuOjZSRcKo
+         dBSTPnI8YxFwEIiZJioyOztO1VQI8PyoUTvUlQVlrzCU6vkPlrnYNpslPnPlAE+lL0R2
+         REIg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4sVQzXFP1Z4Fkg+8zIR1WtFsp2GPrmAU1kQA3p6wm71XtGWiXNJEkx6dJGo7TKLmOwoO0vYs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK7emp59g17BpJ7Vj20doAPPxkkKYpIITtzwf+4p67TmDz3HHF
+	6kqYr8nL8N/DPy6eI/Pe+hgixSN0hbVgqbO9YyTyFmptG4zrkFu8Dh+BeApLcYS/nmaodsVAAGP
+	F9AAsTeNpN3038HmJi7L5TQygM6aO9vUoSxqtv1yD9Fb4J3t0alaQXJluwQ==
+X-Gm-Gg: AYBFou234maKX+jqFLQbSrWP/izVsY6n4MTJj+uV3S9ez3CNgb/9tJjsI09Mw/DS77T
+	ZI3aUlZbApmOho5ZNflQVyz6l+6Z/Koci4FPeZ0FoR+re3VZgsYGGIrylcmD4+5F0rnJEb+xXyy
+	KAA8JcgJi5m5gj2KOpX8imjGYDfkulFKhg5b4swK2I/IJrCgKf/KsisTgiP+aSZvRxjgUfyXoNp
+	ePk7XGZD81mVB5XDPWDWq87877efMVdFCUko03HJDkE4FaVnKBdF3YeQ4Y9yMI4b3I3gknqjkKo
+	LoXgqaZ7b33hczpUrGmSF/8zqGQgZjkgvMRAu1/GAYWcCiB0eqzTy3tQxZH9GFK9CzkHnrHfpTV
+	2cGVQQ8odgXcK2hgWwvIJzPnODpCFKFzeIdv17muNfDouEeJg82IJkmgL1FyycXncj0etpmUexw
 	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf6hcp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 15:52:56 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfD4g030374;
-	Wed, 9 Sep 2026 15:52:55 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqk94x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 15:52:55 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689Fqpt649283520
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 15:52:52 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CCB8A20040;
-	Wed,  9 Sep 2026 15:52:51 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 80F0A2004D;
-	Wed,  9 Sep 2026 15:52:41 +0000 (GMT)
-Received: from [9.61.255.18] (unknown [9.61.255.18])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 15:52:41 +0000 (GMT)
-Message-ID: <371e950e-8d05-452e-b81f-57b120c370df@linux.ibm.com>
-Date: Wed, 9 Sep 2026 21:22:37 +0530
+X-Received: by 2002:a05:6000:288e:b0:485:8c16:a33f with SMTP id ffacd0b85a97d-4858c16a5d0mr33596612f8f.52.1788969285577;
+        Wed, 09 Sep 2026 08:54:45 -0700 (PDT)
+X-Received: by 2002:a05:6000:288e:b0:485:8c16:a33f with SMTP id ffacd0b85a97d-4858c16a5d0mr33596570f8f.52.1788969285051;
+        Wed, 09 Sep 2026 08:54:45 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm44531453f8f.21.2026.09.09.08.54.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:54:43 -0700 (PDT)
+Message-ID: <03f37b1f-a115-4c63-bdb1-7467ae8b165d@redhat.com>
+Date: Wed, 9 Sep 2026 17:54:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,160 +89,33 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/22] powerpc/spufs: don't dump more than the note
- supports
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
-        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
-        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
-        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
-References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
- <20260820-work-coredump-sparse-v2-1-ba32dd718c51@kernel.org>
+Subject: Re: [PATCH net v2 06/15] mptcp: prevent race between disconnect() and
+ rtx
+To: netdev-bot+sashiko@kernel.org, matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-6-df1de70348b6@kernel.org>
+ <178896537655.219967.3201901026877077910@kernel.org>
 Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260820-work-coredump-sparse-v2-1-ba32dd718c51@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: Vpz_JMlA2xDilx_mOxqxkGzGaeHwxFvX
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa180d8 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=eMoGHGNclBrxslJz7JwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX34hiaNYn2Z+S
- hgBtQiTobuQYrHJX6gsJIJBIG4ahe7XHwTJ42oLWMaT0s8cf1B+YuF/mpXEJLBqkdp/2SFe9j84
- Pi8F6lti/HQLUiGCf6P9l52iforvejg=
-X-Proofpoint-ORIG-GUID: LzRG8kMh5H0DvZ9UWi0BCwao6ubK88PV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXz1c7miAXQplM
- bOIrKaACTzAPfh71wupQgNaUEJC1w4GSNp9qOunmjMij39MUwS7W3Tcyx0TSbCNk/gXRlznMPUz
- PhO0hpBGJdx35LI4z9D91L4uQv52BOffXpZWFXzAUhUO08mwVtQh6BFPe1yTLfvBeSyTGab2HJh
- zB2bThp33YnKXUubwGq1nX+vH3Hs6fqqbKE8EPnZBqRKY8tadMqacKispmzsFlM9+juxOsqWlrW
- lgXPIVziPYwJyQUdsRJjjfFntZkqMeRtz5LIMW6MWHUncY1OCec3GvSl8muQVkLC1gpiD+c42LX
- 6fpAXL78yIcJfiBqovqLeSlXzhcuJTUgCPlbEmZDuGdx8+lX0M7Ps2wK28IcED1FS/HfudXbTcB
- OiRsBxWuBXRJQQy8VskXVlXrttCU2CrIR/z8HCBhqwhKE8dY7pam8bXQ3aW97GLjZfehIjzV8Q2
- nkd3BjPMPT4mXtPAEfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178896537655.219967.3201901026877077910@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 9/9/26 4:49 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 2
+> 
+> - [Low] The commit message of "mptcp: prevent race between disconnect()
+>   and rtx" describes the change as only "Prevent the race using the…
+> - [Low] The commit carries "Fixes: b29fcfb54cd7 (\"mptcp: full disconnect
+>   implementation\")" (v5.18) for a real race that can leave a reused msk…
 
-On 20.08.2026 4:39 AM, Christian Brauner wrote:
-> The spufs_arch_write_note() function puts notes in the header and uses
-> them to fin where the next note starts. The spufs_coredump_read[] array
-> provides the sizes of the notes:
->
-> 	dump_skip_to(cprm, roundup(cprm->pos - ret + sz, 4));
->
-> In this call @ret is the amount of data the dump callback wrote. @sz is
-> the declared size. So the position moves backwards if the callback
-> wrote more data than the declared size.
->
-> For three note sizes that is the case:
->
-> (1) signal1 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[3])
-> (2) signal2 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[4])
-> (3) ibox_info sets sizeof(u32) and dumps a u64 via puint_mb_R
->
-> The note is 4 byte aligned. The dump_emit() call wrote the dump_align(4)
-> just before the note. So if @ret is 8 and @sz is 4 the position ends up
-> 4 bytes before the current position which means cprm->to_skip is now
-> negative.
->
-> For __dump_skip() with size_t that means the pipe or socket gets 2^52
-> PAGE_SIZE zeroes. This also means a file seeks backwards and overwrites
-> the four bytes that it just wrote.
->
-> Before commit 5456ffdee666 ("powerpc/spufs: simplify spufs core
-> dumping") this was benign because this truncated (on purpose, I
-> presume):
->
-> 	u32 data;
->
-> 	data = ctx->csa.spu_chnldata_RW[3];
-> 	...
-> 	copy_to_user(buf, &data, 4)
->
-> and after said commit things became fscked. So let's truncate this
-> again. Not truncation means the wrong bits will be picked on big endian.
->
-> Afaict, spufs is effectively dead so the fix probably doesn't matter in
-> the grand scheme of things.
->
-> Fixes: 5456ffdee666 ("powerpc/spufs: simplify spufs core dumping")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Here the code is actually just fine and sashiko don't like much my prose.
 
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
->   arch/powerpc/platforms/cell/spufs/file.c | 18 ++++++++++++------
->   1 file changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
-> index de7494748fec..6f86d87e3749 100644
-> --- a/arch/powerpc/platforms/cell/spufs/file.c
-> +++ b/arch/powerpc/platforms/cell/spufs/file.c
-> @@ -956,10 +956,12 @@ spufs_signal1_release(struct inode *inode, struct file *file)
->   static ssize_t spufs_signal1_dump(struct spu_context *ctx,
->   		struct coredump_params *cprm)
->   {
-> +	u32 data;
-> +
->   	if (!ctx->csa.spu_chnlcnt_RW[3])
->   		return 0;
-> -	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[3],
-> -			       sizeof(ctx->csa.spu_chnldata_RW[3]));
-> +	data = ctx->csa.spu_chnldata_RW[3];
-> +	return spufs_dump_emit(cprm, &data, sizeof(data));
->   }
->   
->   static ssize_t __spufs_signal1_read(struct spu_context *ctx, char __user *buf,
-> @@ -1089,10 +1091,12 @@ spufs_signal2_release(struct inode *inode, struct file *file)
->   static ssize_t spufs_signal2_dump(struct spu_context *ctx,
->   		struct coredump_params *cprm)
->   {
-> +	u32 data;
-> +
->   	if (!ctx->csa.spu_chnlcnt_RW[4])
->   		return 0;
-> -	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[4],
-> -			       sizeof(ctx->csa.spu_chnldata_RW[4]));
-> +	data = ctx->csa.spu_chnldata_RW[4];
-> +	return spufs_dump_emit(cprm, &data, sizeof(data));
->   }
->   
->   static ssize_t __spufs_signal2_read(struct spu_context *ctx, char __user *buf,
-> @@ -1965,10 +1969,12 @@ static const struct file_operations spufs_mbox_info_fops = {
->   static ssize_t spufs_ibox_info_dump(struct spu_context *ctx,
->   		struct coredump_params *cprm)
->   {
-> +	u32 data;
-> +
->   	if (!(ctx->csa.prob.mb_stat_R & 0xff0000))
->   		return 0;
-> -	return spufs_dump_emit(cprm, &ctx->csa.priv2.puint_mb_R,
-> -			       sizeof(ctx->csa.priv2.puint_mb_R));
-> +	data = ctx->csa.priv2.puint_mb_R;
-> +	return spufs_dump_emit(cprm, &data, sizeof(data));
->   }
->   
->   static ssize_t spufs_ibox_info_read(struct file *file, char __user *buf,
->
--- 
-Thanks and Regards
-R.Nageswara Sastry
+/P
 
