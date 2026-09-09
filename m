@@ -1,192 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0D348C402;
-	Wed,  9 Sep 2026 09:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B701491589;
+	Wed,  9 Sep 2026 09:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944916; cv=none; b=KnxydVshxtfW2IB0mVKH0Ogf9oUbUgE4Lhob7Yy2eyfRQpYAc+zQiaQoQ/jzTULIK45ukTseWlPqfgbr6JnR4DgVr7ksqoNjZ5+u1nFTjC3mKVL5FrJp64fP03307vt/gHGp6pofKojpt/TNoIpKkQImDsZvB75MNEZrDBf6vkU=
+	t=1788945065; cv=none; b=hOnP5sMAC9m/WOWuLE1Hebis7z3yPIXmMm7O7+mgmocTJ8iz5tn8bJR5FNdLnILLb7P4TgjPyIGHIwhC8bW7XRE5DxwTZ8itEjNKQWpJwSYZrKmnYHL4EG36Si6elm/jgLLFdC7um3EM6D5DniZhTiTgO28+HOjh6n7zpXRcxMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944916; c=relaxed/simple;
-	bh=4EFFBgRF1Ln+SQ3SXXVLN+LEdKbDyIsZFmNprV8uEew=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ToVHRyLqnwffpjkZxrWjHukrl+WjSIrNRKLlclZFDx+X0RNMgPH4l5Oer79pW8n+GS3XA23i7PRgc4ZTRQJYCIaZIrpW+OV1a586tEEk082qfeZgrAuFAU7OWkl61jGp1vgQhk4TrsLwFIk7FI6G42xuIgK4Q3WSYIXZSaWGMlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=masU3CVl; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="masU3CVl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A74E1F00A3D;
-	Wed,  9 Sep 2026 09:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944915;
-	bh=9WmWAiR+ErcC3dQcXoDnGK6eZwpnpPVg1IU0OrzRFuQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=masU3CVliFA6CbjIjmTOOvcqq/8lVt3GxALrqVm3MC0QKCTXFQbi7d6maA7NiSNmd
-	 kuKYVHA1ztsEPPg8y3ytWJQznJAqWOpvWYMSiNFlz/ACLOIJ8W1LZn1Msq3JNp8h9z
-	 Xi8gXe0RNhpZbEZ4TYxKtofx2TT7hYLuwMVu5IJYn7NY5lK6FpNHnKYf5oO3uX+mw9
-	 XhB1cXzVhiv45DB8dqKV9ggX2obw7u1Dw0mAQhdtEuyVInVy9EMYtuTNsepH9IYhJv
-	 b6shnqQF+0oP4CCEM8/jhzYsYnfzOd8Ygu2PbMl1sTTC/AW8Gdea1hpTE2JVLvKdbK
-	 6H8A+NxodCYcg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>, Frederic Weisbecker
- <frederic@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
- <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
- <brauner@kernel.org>, John Stultz <jstultz@google.com>, Ingo Molnar
- <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W.
- Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-In-Reply-To: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
- <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
-Date: Wed, 09 Sep 2026 11:08:31 +0200
-Message-ID: <87ecf223n4.ffs@fw13>
+	s=arc-20240116; t=1788945065; c=relaxed/simple;
+	bh=1eLOnwow/djpmHX7VdGdO1rAK4zqVtvR3BsezklmFPM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dq6cSCg1dEKEtp3vLeVRqRKylACh+BdpzqhUcxVsPcC7u7dM8yo6WhLdKiT7zniLzdO0mFDGirW9d1LcF8iGY2IatV5IPs9ENejKs+MsYc1sUKHBDtv8JnWJBP7gb837PI/mwhrndTzXCTVtor6TDDQgTQJ9T7q2KEyD5zTke68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5e11b42cac2e11f19a56ed5b684f684d-20260909
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6f44844b-feb2-4c53-9db4-ed89df11a73d,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:29845bf6d6b3d58d4973fbc1687e65af,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5e11b42cac2e11f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2088097676; Wed, 09 Sep 2026 17:10:57 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 5 1/4] ntfs: fix volume flag update races
+Date: Wed,  9 Sep 2026 17:10:49 +0800
+Message-Id: <20260909091052.1217728-2-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909091052.1217728-1-zenghongling@kylinos.cn>
+References: <20260909091052.1217728-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
-> Let me try and have a go :-)
->
->
-> do_exit()				de_thread() 			posix_timer_fn()
->   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
->     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
->     tsk->flags |= PF_EXITING; 						    LOCK siglock
->     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
->     					    LOCK tasklist_lock
->     flush_sigqueue_list();		    if (leader->exit_state)
-> 					      break;
->   ...                                       transfer_pid()
-> 					    UNLOCK tasklist_lock
->   exit_notify()
->     LOCK tasklist_lock
->     tsk->exit_state = EXIT_ZOMBIE;
->     UNLOCK tasklist_lock
->
->
->
-> Then there is indeed nothing that makes sure posix_timer_fn() sees
-> sigqueue updates done by do_exit(), because those are ordered by
-> tasklist_lock, but posix_timer_fn() doesn't care about that.
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-That's irrelevant because in the above scenario posix_timer_fn() 't'
-points to the exiting old leader (on the left) because the PID store has
-not happened yet and it therefore observes PF_EXITING on it so it won't
-touch the sigqueue. Note, that setting and checking PF_EXITING is
-serialized by sighand lock, so this is fine.
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
- do_exit()
-   exit_signals()
-     LOCK siglock
-     tsk->flags |= PF_EXITING
-     UNLOCK siglock
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 18 deletions(-)
 
-So after this point anything which looks at tsk->flags under siglock
-will observe PF_EXITING and not touch the sigqueue. Nothing to see here.
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..6ba19986a598 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1858,8 +1886,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (!NVolErrors(vol) &&
+-	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+-- 
+2.25.1
 
-> The easy solution would probably be to do transfer_pid() while holding
-> siglock?
-
-That'd be only relevant for the situation Frederic is concerned about,
-i.e. the case where the third party observes the TID swap.
-
-Because with that visible 't' in posix_timer_send_sigqueue() won't be
-old_leader, which has PF_EXITING set, it will be new_leader which has it
-not set.
-
-So Frederic is concerned that posix_timer_send_sigqueue() can observe
-the PID store but not observe the sigqueue stores.
-
-I argue that's not possible:
-
-A:  sigqueue stores
-
-B:   AQUIRE tasklist
-
-C:   exit_state store
-
-D:   RELEASE tasklist
-     // sigqueue and exit_state stores become globally visible
- ------------------------------------------------------------------------
-
-E                               ACQUIRE tasklist
- ------------------------------------------------------------------------
-F                                if (exit_state)
-				   swap_pid()
-G                                     STORE_PID
-
-				// The PID store can become visible in the
-				// system right here so F can observe them before
-				// RELEASE tasklist
-
-H                                                             READ PID
-							      ....
-I                                		              ACQUIRE siglock
-
-After #A the sigqueue stores are maybe visible
-
-After #C the exit_state store is maybe visible
-
-After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
-the system and cannot become magically become invisible after that
-point.
-
-The new leader cannot swap PIDs before acquiring task list lock and
-before it observed exit_state != 0 under it. That's fully serialized
-against the old leader as both hold task list lock for their operations.
-
-#F creates a control dependency, so if the new leader acquires task list
-   lock before the old it will observe 0, drop the lock and wait. No PID
-   store obviously.
-
-#G can be come visible immediately but is only guaranteed to be visible
-   globally at the RELEASE of tasklist lock.
-
-#H can only observe the PID store after the store actually happened in
-   #G. So it either reads the original PID or the swapped PID.
-
-#I is not really relevant for this. It's only relevant for PF_EXITING
-   and other stuff which is directly protected by it. And it does not
-   matter whether it locks the old or the new sighand.
-
-Now let's look at the full chain and what can possibly be visible or not
-and when:
-
-#A can trickle into the tasklist held section, but not after #D.
-
-#C cannot be reordered against #B and #D
-
-#A is therefore guaranteed to be globally visible _before_ new leader
-   observes exit_state != 0 in #F under task list lock
-
-#G cannot be reordered against #F and obviously not against #E either.
-
-   It can become visible at any point after the store, but as argued
-   above that visibility can't be reordered before #A (sigqueue stores)
-   became visible.
-
-The important part is that the visibility of #A (sigqueue stores) and #G
-(PID store) is fully ordered through task list lock.
-
-So #H _cannot_ observe #G without observing #A - not even on PowerPC or
-similar insanities.
-
-No?
-
-Also doing the PID swap under sighand lock is not solving anything
-either because posix_timer_send_sigqueue() does the lookup without the
-lock simply because it does not know which task it is upfront. So it
-would have to redo and validate the lookup with the lock held.
-
-Thanks,
-
-        tglx
