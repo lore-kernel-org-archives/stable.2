@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F3E492E5D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B9B23A9BD
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913527; cv=none; b=RmnDpReY4EWUNYkcl4akAb7alsaVdpW6tiZ6C6oHWNPuegvGJ4TTzVOaVOsnpD7Ec/ZCEB2YTp70mbNtq5BqGr1RMvoF+GrlYhpDxvI1gu/GD9aNjn7N0GyLwDF2B3iVWg160yIeaEv65fORoSc6sprMuX/mwJfH4zbLmc8SUKk=
+	t=1788913530; cv=none; b=bZ9eolM9gtxEDuIx8i8w4Xsha1WW8jm1/sz4TmVWokBEpwUx1Q7l8gAJ11ge5HFEddTVg2JFmijuETkR6pkYcl596VlAkmCkuNRQreP6i4mXxsoHfmVbk/lGaPh/peSFDBKnphXJgEXSQXlUcz8TbhF0olmWFyl6me3du+dKEsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913527; c=relaxed/simple;
-	bh=my4DyLk/D/HqBCTzcta7yv8Sm7udV5G65e8S/z9ip8w=;
+	s=arc-20240116; t=1788913530; c=relaxed/simple;
+	bh=ZQ/pLM5kc8WnOUh9wjlAx2nWbepieMMiycOjOjF8LgQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZpmVBO9LKQFut2EbUikoymlqt9XWcxlNP+NOxc3rEkkzIaWJn2v7OWWNcBCUeUc9sJoeFRrLOEcJfQKBZJllFXXqZqLCtUT0P+nwSQihMeArzVxRNcnRF8LoELZZ2vMe4dvNUL3O1pgFTs8Vu2efQNVhdZ+Ki3mIDHDzQfuIBGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzqJ5Jb7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gSr0PstvZ0iCVNvf0vUjzWeuT14YVnyKZAW64HPD5y4+j2F2qe7NkixPpJD4dC4ISBeB2BUnDO8Z8vplWlKLG8eE5SNJxLHq7wVX1H9dyGNvQ0mw09s1ZKoB0F6Af64k+m1NBx1vK0OwoQGVqJMVboq/+UKBNIx/I2GI5zm93j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWruWliO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzqJ5Jb7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69321F00A3D;
-	Wed,  9 Sep 2026 00:25:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWruWliO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D51A1F00A3A;
+	Wed,  9 Sep 2026 00:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913526;
-	bh=LZjy5nriTes8qIxQJlFNXCEVFGkmgT5iB4LlW2xaYCQ=;
+	s=k20260515; t=1788913528;
+	bh=7KpWfTA6isyUE2yyo4wzt/G98Hb94vtm7MzLQx7JjBA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BzqJ5Jb7VLxhsodNiEgb1/NInWHKjE6+5M5086fUc7B70LUXIl/rsX6vhl8GjJuYY
-	 9XcnkMsOOGzsWBCFfq3+eIVP32qzliRiTtilpLHBTDFuQoRPGhKDxGb99Q/UL5qhAK
-	 IyIuKayDGPXkrvRew2TQdpCK/Wtw+c2o2nTKVt/d3IVTnOOAypenR9nOnOqZ+HWq2W
-	 znPpWHGUKK1MeqhDwamDSYBh5rv8r87FEKePWO78gv3SmeU4t+3yqq1BYQvx8mj3Hq
-	 xwdAu1GPwRhAc2Ku0fJ9KAmRahD1huS2Dzjf06S3P5VvWFNtgyVaJ9p2Hj954LiMe9
-	 J7p8oiQbW6yuA==
+	b=KWruWliOMrLqxS8VVzSAPhCPzMudGXiTNKrvF4ljN40RxeimkU6n8kpMdQa9lqZ1J
+	 j5CnuumJDkJSU0nNjgmTKsPYyE663iNX2b4UPQjRRW05baYkJp3jBkuKTdCxrbAS3b
+	 bxG8YUZ46DjT7IfnyVdNlpghPIeq6T7sUoQqBtGujQjqiv0+5FsploXtXh+fbTlXG8
+	 31Nv756zb+JrABzw6SJ4Snd0CA/zQKuzTNIENaCMcArA9bybgX6cqsWylmRhJ5jWlt
+	 i+iKw82kHoRel3x8rPGbzCrp/R6rGAnWU2m/bKm2mY/fnKcUR5OVyRXtt10yMjaRPn
+	 TP5bZBXGCcQQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
-Date: Tue,  8 Sep 2026 20:25:23 -0400
-Message-ID: <20260909002523.727517-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] rpc_populate(): lift cleanup into callers
+Date: Tue,  8 Sep 2026 20:25:24 -0400
+Message-ID: <20260909002527.728386-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909002523.727517-1-sashal@kernel.org>
-References: <2026090351-marbling-tiny-a334@gregkh>
- <20260909002523.727517-1-sashal@kernel.org>
+In-Reply-To: <2026090317-fame-salami-c28b@gregkh>
+References: <2026090317-fame-salami-c28b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,142 +45,151 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+[ Upstream commit 8be22c49646e47452e74aa0b97ea50fb04c271ed ]
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+rpc_populate() is called either from fill_super (where we don't
+need to remove any files on failure - rpc_kill_sb() will take
+them all out anyway) or from rpc_mkdir_populate(), where we need
+to remove the directory we'd been trying to populate along with
+whatever we'd put into it before we failed.  Simpler to combine
+that into simple_recursive_removal() there.
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
+Note that rpc_pipe is overlocking directories quite a bit -
+locked parent is no obstacle to finding a child in dcache, so
+keeping it locked won't prevent userland observing a partially
+built subtree.
 
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
+All we need is to follow minimal VFS requirements; it's not
+as if clients used directory locking for exclusion - tree
+changes are serialized, but that's done on ->pipefs_sb_lock.
 
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
-
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
-
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
-
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
-
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Replaced kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED) with kfree_skb(skb) for 5.10 compatibility. ]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ net/sunrpc/clnt.c     | 35 +++++++++++++++--------------------
+ net/sunrpc/rpc_pipe.c | 10 +++++-----
+ 2 files changed, 20 insertions(+), 25 deletions(-)
 
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index bc01761844194..5584d3cf43742 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -351,23 +351,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index 85cfd7b7c212a..c7243d26c190d 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -117,47 +117,49 @@ static void rpc_clnt_remove_pipedir(struct rpc_clnt *clnt)
+ 	}
  }
  
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+-static struct dentry *rpc_setup_pipedir_sb(struct super_block *sb,
++static int rpc_setup_pipedir_sb(struct super_block *sb,
+ 				    struct rpc_clnt *clnt)
  {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
+ 	static uint32_t clntid;
+ 	const char *dir_name = clnt->cl_program->pipe_dir_name;
+ 	char name[15];
+ 	struct dentry *dir, *dentry;
++	int err;
  
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
--
- 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
- 			  READ_ONCE(idev->cnf.seg6_enabled));
- 
-@@ -473,12 +466,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
- }
- 
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	struct in6_addr addr;
- 	unsigned int chdr_len;
-@@ -488,8 +480,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
- 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
- 
-@@ -700,10 +690,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
+ 	dir = rpc_d_lookup_sb(sb, dir_name);
+ 	if (dir == NULL) {
+ 		pr_info("RPC: pipefs directory doesn't exist: %s\n", dir_name);
+-		return dir;
++		return -ENOENT;
+ 	}
+ 	for (;;) {
+ 		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
+ 		name[sizeof(name) - 1] = '\0';
+ 		dentry = rpc_create_client_dir(dir, name, clnt);
+-		if (!IS_ERR(dentry))
++		if (!IS_ERR(dentry)) {
++			err = 0;
+ 			break;
+-		if (dentry == ERR_PTR(-EEXIST))
++		}
++		err = PTR_ERR(dentry);
++		if (err == -EEXIST)
+ 			continue;
+ 		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
+-				" %s/%s, error %ld\n",
+-				dir_name, name, PTR_ERR(dentry));
++				" %s/%s, error %d\n",
++				dir_name, name, err);
  		break;
  	}
-@@ -851,6 +845,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
-+
-+disabled:
-+	kfree_skb(skb);
-+	return -1;
+ 	dput(dir);
+-	return dentry;
++	return err;
  }
  
- static const struct inet6_protocol rthdr_protocol = {
+ static int
+ rpc_setup_pipedir(struct super_block *pipefs_sb, struct rpc_clnt *clnt)
+ {
+-	struct dentry *dentry;
+-
+ 	clnt->pipefs_sb = pipefs_sb;
+ 
+ 	if (clnt->cl_program->pipe_dir_name != NULL) {
+-		dentry = rpc_setup_pipedir_sb(pipefs_sb, clnt);
+-		if (IS_ERR(dentry))
+-			return PTR_ERR(dentry);
++		int err = rpc_setup_pipedir_sb(pipefs_sb, clnt);
++		if (err && err != -ENOENT)
++			return err;
+ 	}
+ 	return 0;
+ }
+@@ -185,16 +187,9 @@ static int rpc_clnt_skip_event(struct rpc_clnt *clnt, unsigned long event)
+ static int __rpc_clnt_handle_event(struct rpc_clnt *clnt, unsigned long event,
+ 				   struct super_block *sb)
+ {
+-	struct dentry *dentry;
+-
+ 	switch (event) {
+ 	case RPC_PIPEFS_MOUNT:
+-		dentry = rpc_setup_pipedir_sb(sb, clnt);
+-		if (!dentry)
+-			return -ENOENT;
+-		if (IS_ERR(dentry))
+-			return PTR_ERR(dentry);
+-		break;
++		return rpc_setup_pipedir_sb(sb, clnt);
+ 	case RPC_PIPEFS_UMOUNT:
+ 		__rpc_clnt_remove_pipedir(clnt);
+ 		break;
+diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
+index f420d84573451..d54ca4b1599be 100644
+--- a/net/sunrpc/rpc_pipe.c
++++ b/net/sunrpc/rpc_pipe.c
+@@ -726,7 +726,6 @@ static int rpc_populate(struct dentry *parent,
+ 	inode_unlock(dir);
+ 	return 0;
+ out_bad:
+-	__rpc_depopulate(parent, files, start, eof);
+ 	inode_unlock(dir);
+ 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
+ 			__FILE__, __func__, parent);
+@@ -750,14 +749,15 @@ static struct dentry *rpc_mkdir_populate(struct dentry *parent,
+ 		goto out_err;
+ 	if (populate != NULL) {
+ 		error = populate(dentry, args_populate);
+-		if (error)
+-			goto err_rmdir;
++		if (error) {
++			inode_unlock(dir);
++			simple_recursive_removal(dentry, NULL);
++			return ERR_PTR(error);
++		}
+ 	}
+ out:
+ 	inode_unlock(dir);
+ 	return dentry;
+-err_rmdir:
+-	__rpc_rmdir(dir, dentry);
+ out_err:
+ 	dentry = ERR_PTR(error);
+ 	goto out;
 -- 
 2.53.0
 
