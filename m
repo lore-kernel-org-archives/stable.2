@@ -1,63 +1,63 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CF258E2B3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E260656E06A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965949; cv=none; b=gPYN8rEQCwCSCAc2I+P2AAxkXrNxlm4f39CpMDUWTqytfsH5YgHq7RqQy/fcFMkW9Gfv2bk4FYIwv7clPO7R477M2xJzbezqJLeOiB2U+DORbnzNIexYy01QsYTc0moBIfuhHBdVxpPutAChgqkA+1AGONos+rv5DrqIGH69A2k=
+	t=1788965949; cv=none; b=BbhCvXvUtkrINWwhM2pW0KoG4dc2C5J8H2a+nO6Xd53EuYo9QclUtEesVnEa8QLpM+A3jSxIIs58AGYSD2LG+gCA5yimJJmGf1JBpKLfdEA1IX2ciDVlNyS5QvP2cczVB5B7ZvB2H5zHwH6el4SP98yTls5FfzD7Yl/hUw3/HOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788965949; c=relaxed/simple;
-	bh=K+OBkKSCu2GnnPkaZgMd3UDeUXOqmpA7tFD8NPHqPpw=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=a3sa08yz1K6yhdld1N0Xa9nbJPILXFOFX5O2qs6lJLmvdQpp7ZMmdNb7fTyl0DQ471H7pdiHNoHbZLB4P7dhAkYyAPoASxcMmgWSxp9/Y7OKY/aHigRHede/nf21+3/5BZ8nSH7bPDM0a01alPCGOkX/OPZPxFSwceOXJaJJBMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Vg8Ga8/f; arc=none smtp.client-ip=209.85.215.175
+	bh=Dirj4iBugy8XyBCZEgf7nM754iFc3uQ6mJhu1T26A2s=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=oLU3z2RLByYxdWYH/IRqDTS1xxvNjkX5+awnY5jyaul/5MYQ7pHxwdMKYTI63BiiedxHwTsVCYNuwiKTxmxYcMqUmwt8aIzLSS6M+m/jKU8lFf9EHB7bwLnEe9wz7vYtyC+nnAtgwJKpvftev7nVwg0OxZKTUbksQhaQcVe1XEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=KY+HqyZa; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Vg8Ga8/f"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so4604317a12.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="KY+HqyZa"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398b3c37877so5615617a91.0
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1788965945; x=1789570745; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1788965947; x=1789570747; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=j4FQ1Lf4wgSUbGxEvksGHs9TGcHkApy5kyDYT44Rr0s=;
-        b=Vg8Ga8/fk3gDGqc1pK7wPiMOMnBmAegsRMLPsnfCrpaz3TMFsrLbMpS/fSa7y3+iGF
-         78V2GhszqtzaIpBo8Tpp2PVkYoBD/Eo6pTYsobuLcwai8UoWgdjarrdwNUjQPy3ap720
-         EA+8f+SIOZh3ihrqGsrgvIHI3t6TiPqXBnuoX9KWQcWQ88vAWLUU5mBHhcbsDzKLQNGB
-         jmQ5pGGv2mcUJiukSogdlewB6jye3/rsfnuTV1TVEmhKq9F+AJXoRPZZFfdCkdhvakXB
-         U4CrlOgvmtqQvwjkglMMihKYRVmLK/8RSoeGYz0dKhXtlPUtJPlXx2UU6RTUonejRKdV
-         P3Ew==
+        bh=us9ik9rh6SHjIh/pKE1zxa+8Uu7d5v0RcD2yQ5s9OKE=;
+        b=KY+HqyZaEnwo52vqiIWaEHH2snidQEiGNw9P+PjmOx/VWKAp+ID/0zUR2xbRErGaOE
+         1fRhB4aDpqIpwnBcWnFQ+/JSVu6dF8aVHrdSIVf8y1AdDaCjFrG/8Qj3AuN1w0V/EN6O
+         ZfG9A/p8atdGK02ZXsQ/PY2D3dqERVXMASA8mziEGKfk8TtvT+eLHtZdcyQFv9/cCldc
+         t5y52h2nMMxQtIiiMWa4RkvT0ld0SWZf7sCaIt3fXSu2Rhknjl+jDSl7fGsPDI+qprvG
+         9X3+57FWhsZ66zn9pQ3M0mFn0wnSDQjMPJ7cOatqDQMr7sV1shSzBjnSfujIuOZfoPxl
+         NUMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788965945; x=1789570745;
+        d=1e100.net; s=20251104; t=1788965947; x=1789570747;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j4FQ1Lf4wgSUbGxEvksGHs9TGcHkApy5kyDYT44Rr0s=;
-        b=h+YIFQJ4rBHw5KXh990fO6Krc9CtIM1/dZcB7jGK8IXz/06piyRn9nZm8iVzuW08yy
-         v/qK8xu2ecJ9Evqb2zkfV8i0HmzV+NJQtIU0pKbBM3egs/XAmDnZ0sD50xfcxeiooNC8
-         xtaQQ+vlhd+ytPM95Oos5p7/D1vEOyKs9ihzlQv+1eQcZGmPm5foVFqVFTGKshnBP4fo
-         fpT14UIdjRcxqlJ3uHqNmG6eKjWtumIGr+hkCXG+VnTembHo7p37yC18w0Xbc9deEAH+
-         5YYSVn1nTDzoMbE7kTB/C6gXVAPEsZKRD4VPr7ENf1fT2oFGqd6nCHCqdmmyH+Fypzzh
-         CyiA==
-X-Gm-Message-State: AFuF++nGnyfXK/nb0ymg63uSHYDuUSMpbzoLbKW8XomJ1zc6BtTn/BP/
-	JYmv7ZKDhrj1ZYAcU8H9yi5m+bsP/AWy5ARtBou5QPCgsUYHxdimt0FhVYYcwTJZcmrhuN3Lyf3
-	cC+yd
-X-Gm-Gg: AYBFou3Zaak3T70tBi0PHGfrdnJW7DcstCwkKOlMj5cgkimq5atL/T00ZZlga4s4lgi
-	jRirM0ZwW2DeAD8OBQ30IyX6ghaMUiZjUJ7+zf3XWele8mP9fI5jt71GbwtFGikhGJSHAscR1m/
-	M2mbUURMpq5sAX0erEFWoAo4oC4he1OR4GafqbuV6StrjMGij9s/MhSELWeiv4gWTFVurKNTtdg
-	DsWB4QLkXId2x/+CJCwfq9k9wOASZoZGjTaPWH8Fb9C6DDkKfGZgeaUaTxOsoy4Q0KWEj43DzoF
-	YBzqcUSXJEBAB2sX4P/bc7SG/dtpgKVYc3awUmjLGuYKfTXCQTAXWHB0/R3J/vJ1oIIDuWbQwJT
-	MsU+JihgF65jBb4Ln1HRJO/7f0VO6J9NiVOiobG4sjvizwjHiL1/BrH+7Muo0JF/Eb8O5Tu7Duw
-	ryFFeTlRyr71wVlEPkl9MW4I0p9FWvetn+XcYmw1Fc9VBsrJMaAt65WCri+mzYC+Dk
-X-Received: by 2002:a05:6a20:3ca8:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3da39cf4744mr54804587637.9.1788965945030;
-        Wed, 09 Sep 2026 07:59:05 -0700 (PDT)
+        bh=us9ik9rh6SHjIh/pKE1zxa+8Uu7d5v0RcD2yQ5s9OKE=;
+        b=VHqTfO5MUTLiwVGzl+jZmZVpICERtDh9KZCtT4F6e2bfilQtw0Mf7UG0V3gaz+k9FT
+         Nw6UCQ8uzWiw9+xinOqkV02zj/5FBmPDhZRib+wtclLyuKOytlPFBfvK6h5kThn3O6FB
+         jjxEQ0Lq5eVEZGjfmd/Qq3H7yhlzldwa5hUKVXU7I/36K1jBsOCdmBd6TREOvE3sG8xl
+         aJkpq5RU6BGc6sgNyPs8nZye6LXOITq6tXcF7pXJM0Dki0PP/Lxh199OK9p+XS6qESa2
+         MVzn89px0hLmmuT73fGIpy2EKev+VG8DlZwYeEAuUVEUWkm2M0y2IPCPotl/YCP+vQwU
+         pJDg==
+X-Gm-Message-State: AFuF++lkPHCLq97uvOwtAWjeab29czICiw3tvfvssNEfcD9y7GfJFLkT
+	ZWMw0DbJ5TTcJKTJ95QRR4M6c55DgxrVBDduYrOW7y5xez1XJzDWrnS5krgaGjWvK0QiAnhviZu
+	OOgDf
+X-Gm-Gg: AYBFou1bWd8MTvnFIubSmZK07+CCLV9XKHOvceexvL91WeGlyWoAsBdr2xs5AAEMPrU
+	59YbCCLKqDvq+c+RkkPhrKu3hCzqy6KU3WREmZePm5cf02n2DMx+OnJzRaYyhNdcJxqTpS337t2
+	vnR7GMIxCY6E9hvCYJIFNtCmsh792JF1PRZmwxOrEZhgecN7XvTN9XkhijzCQVD3Fq+Is2FLSFl
+	gU7uJ9iL4gXrVkZndJ83rT8SkvHmyHlui9VrNXV9Kv60fd8ItmPlM6zdfO26Fd1Kr8+Rz9E6XNG
+	gFmsSHmd1ztdedMLedbjvmgph2qWQI66ovjUiTN9xOno+Vg6lYZp6bOJml6/qG39DehtIUAVEk0
+	C7tSBDe+DanJqk33zZrMmYxhO7IByV3nHzqbiUcnnXAIPerVFVrZVR7kAkEI5LITjFPToeNJGP3
+	fXzLQviiDM6EzDeO0tbJjQCvWBhaJGIH6Eqmdp4DJb2s/ojoB/S8Uy9BxQ9LJ39ks=
+X-Received: by 2002:a17:90a:d2c6:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39b260d2f07mr53882315a91.3.1788965946724;
+        Wed, 09 Sep 2026 07:59:06 -0700 (PDT)
 Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm51791291eec.7.2026.09.09.07.59.03
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm44860843eec.19.2026.09.09.07.59.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 07:59:03 -0700 (PDT)
+        Wed, 09 Sep 2026 07:59:06 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -67,34 +67,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E6=2Ey=3A_=28build=29=E2=80=98?=
- =?utf-8?q?index=E2=80=99_undeclared_=28first_use_in_this_function=29_in_arc?=
- =?utf-8?q?h/arm64/kvm/v=2E=2E=2E?=
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E12=2Ey=3A_=28build=29passing_?=
+ =?utf-8?q?argument_2_of_=E2=80=98vgic=5Fget=5Firq=E2=80=99_makes_pointer_fr?=
+ =?utf-8?q?om_integer_wit=2E=2E=2E?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 09 Sep 2026 14:59:03 -0000
-Message-ID: <178896594310.3462.14164357826786854060@kernelci.org>
+Date: Wed, 09 Sep 2026 14:59:05 -0000
+Message-ID: <178896594524.3462.12406575323642365551@kernelci.org>
 
-New build issue found on stable-rc/linux-6.6.y:
+New build issue found on stable-rc/linux-6.12.y:
 
 ---
-‘index’ undeclared (first use in this function) in arch/arm64/kvm/vgic/vgic-v3.o (arch/arm64/kvm/vgic/vgic-v3.c) [logspec:kbuild,kbuild.compiler.error]
+passing argument 2 of ‘vgic_get_irq’ makes pointer from integer without a cast [-Wint-conversion] in arch/arm64/kvm/vgic/vgic-v3.o (arch/arm64/kvm/vgic/vgic-v3.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:41: error: ‘index’ undeclared (first use in this function)
-  406 |                 irq = vgic_get_irq(kvm, index);
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:419:41: error: passing argument 2 of ‘vgic_get_irq’ makes pointer from integer without a cast [-Wint-conversion]
+  419 |                 irq = vgic_get_irq(kvm, index);
       |                                         ^~~~~
-/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:41: note: each undeclared identifier is reported only once for each function it appears in
-/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:23: error: too few arguments to function ‘vgic_get_irq’; expected 3, have 2
-  406 |                 irq = vgic_get_irq(kvm, index);
-      |                       ^~~~~~~~~~~~
+      |                                         |
+      |                                         long unsigned int
 In file included from /tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:14:
-/tmp/kci/linux/arch/arm64/kvm/vgic/vgic.h:204:18: note: declared here
-  204 | struct vgic_irq *vgic_get_irq(struct kvm *kvm, struct kvm_vcpu *vcpu,
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic.h:205:65: note: expected ‘struct kvm_vcpu *’ but argument is of type ‘long unsigned int’
+  205 | struct vgic_irq *vgic_get_irq(struct kvm *kvm, struct kvm_vcpu *vcpu,
+      |                                                ~~~~~~~~~~~~~~~~~^~~~
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:419:23: error: too few arguments to function ‘vgic_get_irq’
+  419 |                 irq = vgic_get_irq(kvm, index);
+      |                       ^~~~~~~~~~~~
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic.h:205:18: note: declared here
+  205 | struct vgic_irq *vgic_get_irq(struct kvm *kvm, struct kvm_vcpu *vcpu,
       |                  ^~~~~~~~~~~~
 
 =====================================================
@@ -107,28 +111,28 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:0e0aae90fead98c0782263a4a2ae2b01cdf0363d
+- dashboard: https://d.kernelci.org/i/maestro:e559f72e88347198a2cfd9c9c88a749433094738
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  f372d2b0a4d6679d02035fc0619f569c8404982d
+- commit HEAD:  cd6b5cb26a00de8e1d2e7f19be729928388441ae
 
 # Builds where the incident occurred:
 
-## defconfig+arm64-chromebook+kselftest on (arm64):
+## defconfig+arm64-chromebook+kcidebug+kcidebug-arm64+lab-setup on (arm64):
 - compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa16befe41d7f97d61b2499
+- dashboard: https://d.kernelci.org/build/maestro:6aa16cafe41d7f97d61b293e
 
-## defconfig+aws-ec2 on (arm64):
+## defconfig+lab-setup+kselftest on (arm64):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aa16c94e41d7f97d61b288b
+
+## defconfig+lab-setup+kselftest on (arm64):
 - compiler: gcc-15
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa16bdee41d7f97d61b2483
+- dashboard: https://d.kernelci.org/build/maestro:6aa16c99e41d7f97d61b28e3
 
-## defconfig+netdev+nfs-root-boot+kselftest on (arm64):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arm64-nfsboot-6aa16be2e41d7f97d61b2486/.config
-- dashboard: https://d.kernelci.org/build/maestro:6aa16be2e41d7f97d61b2486
-
-#kernelci issue maestro:0e0aae90fead98c0782263a4a2ae2b01cdf0363d
+#kernelci issue maestro:e559f72e88347198a2cfd9c9c88a749433094738
 
 --
 This is an experimental report format. Please send feedback in!
