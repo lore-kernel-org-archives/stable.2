@@ -1,81 +1,53 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4E92D3EEB
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81AA1397;
+	Wed,  9 Sep 2026 02:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922006; cv=none; b=G95CyExpfAQf0CjDzqg6gkTP3L0Nb0KDZbskYkrNQif3sBDhT3qHQxcjOzIkDL77vRHa1zw/W/A7pDCfv2NFoeCAIxtscPjP2S4cHJMHz0uhwwuj8uhSSiUjVYv6+ELG4q4oaACfGPKCswJxW8wHuxy5hW0JVi0YAi6k32vH49w=
+	t=1788922100; cv=none; b=fSVdEnVnoKpuFf/5ASS05QIyjL7PJO/LTVfEY5B5UMi88pZ+7JzDAoNa+EDUQfS5608NVjGwh5o0AyC/upMQ3pcujocPVgbHhmZUHGtjgRhl+yvRfrYiR4MSqPLitGtI4rZ0p5TJhTNL8YXGSzNKMcwgt9eKqWVUrgk0NQ728FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922006; c=relaxed/simple;
-	bh=FaMuIMu7x2D3aJYKdS2ouRjVT1y2n3u88iUjSdpGrRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hr4ub+rJVnJ0oAjnWgJfQQNaAIFUsqWJZeQa+6482/TSLkzc76X5Lcp0tYGlxNTPgOknXJFha+uKBuP0ur4dTCt43pkUcZXekKMksceFNw1NMXb963H7u6Fo9dGhszUVrtVzGmvP0Iqg6k+ltfHrSOd7lJc4JSJIvtfdwXjNwJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WR6/7I4V; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WR6/7I4V"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-868b3248b2cso174174b3a.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 19:46:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788922004; x=1789526804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZO7tbb4HSzx3MW7qh3I4JqZjxCZe9pXRQ8RRhmehi7c=;
-        b=WR6/7I4Vi0fVIYRfp6HF5e67IBBWtRGM8m0XsYWT18d0KF8DgXZGbu8/xz+pALbQ+T
-         vCR951JMJHfo14q69GTiM9+Lo5F94xKeA2UlZ6OuVuTfLzl2ZMcnMLnwVyl8D4zM0bfA
-         KJnbDEoxANms1VHEUfccJmXNqzoYCeREvQ3qhzSphhIJZHZmzOvPqpLuo9deyK+Da7lT
-         0hBLy8Z1XwoGGz5JWWht614yFm4odVliMPtQ5QtzgxcbzPdpH7DNgaJR1xZKJlsD5P1V
-         J3AXQSbpPK4faNA4D6mLeLUy/QCxTK9NvnybOrqxohlaHDWb/qhfIfyltRQM6/sbYOhG
-         gY0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788922004; x=1789526804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZO7tbb4HSzx3MW7qh3I4JqZjxCZe9pXRQ8RRhmehi7c=;
-        b=VorEpEYSwCAC16DPgBV0vNz+0zFJHbtz/IWW9QCGQWn72N+9irA2Jj7nUbNzsa/UK/
-         BrZPSY8PjaARLhYo7qor9/PMF0aEQLuv7EaA5WU6eJrgwmhfDJmYU+cCr/kX8mc8V/+f
-         2AsU25XgJisxLWlj9FvPDCbBRq0kQ/gqIjotytTPZhhQkCJEPLB1DrSMC9jlnxtxikg3
-         1gXHqM5VB19wTsh5JdV031kGnBmX6Af3kCOY/mjRGnAJTWPLkndNved1QcA5LcjVaN3W
-         AF0UkFpH69w7Yf4Y9Hfzca7hxySOFSfJhZunM3F8n6B7f2HX/4iAupYyV7PfK2XqKG56
-         6S8g==
-X-Forwarded-Encrypted: i=1; AKwUvBynnlO7FQzObIyxOSBkWxRZ9eyNvaHo60nVshS1E/jhMoGmryMiuWLLk5huKwaztlgVdhEw8Oo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7dJVbSVe4xBauTYd2P3aMQL4ttFc2pi72l7p1Pah1Tzw+XYlW
-	pGRBxRfOKAI7pprElzHwFqiqkrUf6hCati5k/gZAwSn/+jUKX+6t0aS1oPKtN374c6Q=
-X-Gm-Gg: AYBFou2Lx1RR1wIREM8SLNXkpBOmsNogXMvxRWNe7CNpgPMo/BGPfO6wnyIMZVKMyiI
-	36WpP3aKaJJrygGBCwzJF5eivc5+J+Q/Twi2+iYcxTwn/r4+BkKHcxdzroDV8vbsdbpm59oycYN
-	uGqbyga06uQe0XLulooQuRomAFj7HSnsbfahLyG9IsDEoybBFwSnRQ9XQ4NMD11rqINvZJ4juSq
-	Y69OqPrSNjy7/s1vF2mmL5yuiUfrlBZ/+MBAzasVshQ9jC8Trph92pBMhYHuH5+Tm7Tbx6I73cj
-	KMgez9oBteGN5niSpLPxUkLZnnp9MZrZ3hmCR0oC8gY+TMcStLUNHOYxX4CGCELl0dggdyD2Tkh
-	FDfATACKUCwAosI9gAUgI0bnFmaFAl61dCWuoC1xkCowav1Sg1s6/08/RDImsF1mfiveQnuyqB1
-	vChS4HUIbezDW6izg9QmQ49JSauGZe5gHJXZOdW5eYxAJ8wH55N/PEu/vtqLG+gPT5w1+JGrxUs
-	A==
-X-Received: by 2002:a05:6a21:6f12:b0:398:8870:b58f with SMTP id adf61e73a8af0-3da3a03ef42mr48516402637.14.1788922003934;
-        Tue, 08 Sep 2026 19:46:43 -0700 (PDT)
-Received: from TENCENT64.site ([103.7.29.106])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554a98fesm5977157a12.30.2026.09.08.19.46.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:46:43 -0700 (PDT)
-From: Jun Yang <littleddfu@gmail.com>
-X-Google-Original-From: Jun Yang <junvyyang@tencent.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1788922100; c=relaxed/simple;
+	bh=1eLOnwow/djpmHX7VdGdO1rAK4zqVtvR3BsezklmFPM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KRm22eQhYakxU67DVCl77zpPObc4D7U0P0ZIPaaI9uP90ADPu48M5eClbTfHopqZAeMqBHs2WjLZ2uAXCyRU3lxIKv4hv8M3Wn21SHmGvCatbsyLete6mtSUFf3jUAqaIvsSwMlHfabJI7yNMNBvGZViWKNa9now1w+lTaIp1fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: e48c3616abf811f19a56ed5b684f684d-20260909
+X-CID-CACHE: Type:Local,Time:202609091026+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5922e288-1aba-498b-9b53-801769c02e63,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9562b420330683b6bf297dd09904b3b0,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e48c3616abf811f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1466248043; Wed, 09 Sep 2026 10:48:09 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Jun Yang <junvyyang@tencent.com>,
-	stable@vger.kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>
-Subject: [PATCH net] sctp: check asoc->base.dead before the RCV_SHUTDOWN break in sctp_wait_for_connect()
-Date: Wed,  9 Sep 2026 10:46:23 +0800
-Message-ID: <20260909024626.3494588-1-junvyyang@tencent.com>
-X-Mailer: git-send-email 2.43.7
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/4] ntfs: fix volume flag update races
+Date: Wed,  9 Sep 2026 10:48:01 +0800
+Message-Id: <20260909024803.810556-2-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909024803.810556-1-zenghongling@kylinos.cn>
+References: <20260909024803.810556-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,82 +56,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sctp_wait_for_connect() sleeps with the socket lock dropped, so the
-association can be destroyed underneath it: an out-of-the-blue ABORT
-answering the INIT is drained from the backlog by that release_sock() and
-ends in sctp_association_free().  The loop does revalidate the association
-after waking, but the (sk->sk_shutdown & RCV_SHUTDOWN) break is evaluated
-before all of those checks and leaves the loop with err == 0.  A concurrent
-shutdown(fd, SHUT_RD) - inert on a one-to-many socket, where it only sets
-the flag - therefore makes the function report a dead association as
-connected, and the sctp_association_put() on the way out drops the last
-reference.
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-sctp_sendmsg_to_asoc() trusts that 0.  Commit c863850ce22e ("sctp: not free
-the new asoc when sctp_wait_for_connect returns err") turns a failure into
--ESRCH to stop exactly this double free, but it only covers err != 0.  The
-freed association is then used by sctp_datamsg_from_user() and
-sctp_set_owner_w(), and destroyed a second time by sctp_sendmsg().
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
-Test asoc->base.dead at the top of the loop, as commit ca3af4dd28cf ("sctp:
-do not free asoc when it is already dead in sctp_sendmsg") already does in
-sctp_wait_for_sndbuf(), so a destroyed association always leaves via
-do_error.  Keep the existing return values rather than adding an -ESRCH
-escape, since sctp_wait_for_connect() is also the return value of connect().
-base.dead is false on the first iteration in both callers - the socket lock
-is held until the first release_sock() - so nothing changes for a live
-association.
-
-Reproduced on v7.3-rc2.
-
-  refcount_t: addition on 0; use-after-free.
-  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xf5/0x110
-  CPU: 0 UID: 1000 PID: 261 Comm: poc 7.3.0-rc2 #1
-   sctp_association_hold+0x96/0xa0
-   sctp_sendmsg_to_asoc+0xc76/0x1c60
-   sctp_sendmsg+0x11c0/0x1ee0
-   __sys_sendto+0x3e7/0x470
-
-  list_del corruption, ff11000104fa2070->next is LIST_POISON1
-  kernel BUG at lib/list_debug.c:56!
-   sctp_association_free+0x80/0x7c0
-   sctp_sendmsg+0x199f/0x1ee0
-   __sys_sendto+0x3e7/0x470
-
-Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
 Cc: stable@vger.kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Assisted-by: tencentos-corvus-ai:hy4-preview
-Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
-A reproducer for this issue is available if requested.
+ fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 18 deletions(-)
 
- net/sctp/socket.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index c7b9e325ec1c..de4bae94c9fa 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -9400,12 +9400,16 @@ static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
- 	for (;;) {
- 		prepare_to_wait_exclusive(&asoc->wait, &wait,
- 					  TASK_INTERRUPTIBLE);
-+		/* The asoc can be destroyed while sleeping below, and the
-+		 * RCV_SHUTDOWN break reports success, so check it first.
-+		 */
-+		if (asoc->base.dead)
-+			goto do_error;
- 		if (!*timeo_p)
- 			goto do_nonblock;
- 		if (sk->sk_shutdown & RCV_SHUTDOWN)
- 			break;
--		if (sk->sk_err || asoc->state >= SCTP_STATE_SHUTDOWN_PENDING ||
--		    asoc->base.dead)
-+		if (sk->sk_err || asoc->state >= SCTP_STATE_SHUTDOWN_PENDING)
- 			goto do_error;
- 		if (signal_pending(current))
- 			goto do_interrupted;
---
-2.43.7
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..6ba19986a598 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1858,8 +1886,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (!NVolErrors(vol) &&
+-	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+-- 
+2.25.1
 
