@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EB64C8FE6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FF4531AE8
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:25:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953128; cv=none; b=IPXZ8D8mSyfr4HhOCVNBgpCE85e9osLOZNgy7fCAA5zrvUhxL5R8Q1yqstsWl4hIX5ZIAK9iP2J08YVS/9Q87WGBWd29/q1V/96oc9BTvRjonkve929Xm/ZGBRzgMP8D+2LxuN4J6DVsT4G7L08y13KiykKy4ROMtDaLuPflltw=
+	t=1788953130; cv=none; b=s07VCroWk7abnvSx2BwAk5cdpqG3L8xXynMU5rrn39p6iEJaQnlovyowByWelu8wmDGc1A5ParkQ2f/jevPCFNLrKTH4185kN0EnJg3Zet52xWeoMBmZ4WOmHrKuIbZmyGie7RO1qphMmhWFbAsX1rUcyTn3S3tiEBb93386Vl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953128; c=relaxed/simple;
-	bh=lnK8YrWlwc9l1DV1whaRQx/C5OzXifKBSBuOV4rh+LU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ApmQrc3H+3V4NUR8S7fyFsQHBk6b1QOZ2Bh7pv8/3SyxexirUXvXI5Y8Zgq9ZFFAfypZHKlEEy7u0voGCkff18gsf/ZTZ+MA1HGerQRvNS8zFsonYM/QG0cSrytx6/wWPByIPhs3vqjDcFi1f2YWP6QGxAkWGYXlJSLJEjlCvGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DGfplQZn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953130; c=relaxed/simple;
+	bh=KJkLPzrBxGun1B1pOvkjhGSJa/wlFIx1q/DiEi9LduM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=He9x/4NfkjuvXY6ClmXRKutBhqK1xMk0WxhYuMfgm9XpWMK/DlfFI+uNlbJTDMmbO4dt9dT17kUhThxgRqVkr09Rjy2rHmfmq+u3L/mWaUycCqL9IjH8ieX8urP/0lC1wCdYyycWTOlx0xlWxcTaEZhLW7aUZJwMEl4Zu5qM9WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IpggH2L+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DGfplQZn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA321F00A3A;
-	Wed,  9 Sep 2026 11:25:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IpggH2L+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17461F00A3A;
+	Wed,  9 Sep 2026 11:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953126;
-	bh=pSbPUv4T9RYFYEOQid00OebrB3hRWQF8cFs9Cdg6b7U=;
+	s=korg; t=1788953129;
+	bh=fLYyKHMIrdFVevN1+2FchtlCtAL2S4DXlCliciByMhg=;
 	h=Subject:To:Cc:From:Date;
-	b=DGfplQZn74ipk3j4ihtWkuCa6o7XQQwnwpVzkJeiYmZclyzrTEFv4NJc9w+ehxrWJ
-	 DZ6pdejf1HNA9PECNhIsdl0BUR5/KvLJr/WH0xYHMA4h7MX8Elr1iTJhpDFjCfhbD0
-	 ea36eIoxmF6cMKaXE6FaPje1UFJ2f0HihL18gBRg=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Fix use-after-free of qpair work on queue" failed to apply to 5.10-stable tree
+	b=IpggH2L+IvfTU7SU4Be0ZZk4OOeiLQa0bKs9RtOISI3ybZFpNOYAJGJI9ENJCR0Kj
+	 FFi/+sgi9VnPPUqo3IPzOxccncRnrSt4mDZ/vlzlMrDDHORYsps7N8VX9/Go2n2ux3
+	 5DaiaY4W73UmzhB5BAurv17WzqxYFyJHztvZQyHg=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring" failed to apply to 7.2-stable tree
 To: njavali@marvell.com,mkp@kernel.org,sashiko-dev@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:17:21 +0200
-Message-ID: <2026090921-foe-those-b6a7@gregkh>
+Date: Wed, 09 Sep 2026 13:17:48 +0200
+Message-ID: <2026090948-repeater-dealing-222e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 19788a55cab61d78e33e0914a5a31d27843e8a4a
+git cherry-pick -x 626e44f3d8a924a97a3848a9fd45833947e081e9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090921-foe-those-b6a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090948-repeater-dealing-222e@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,52 +62,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 19788a55cab61d78e33e0914a5a31d27843e8a4a Mon Sep 17 00:00:00 2001
+From 626e44f3d8a924a97a3848a9fd45833947e081e9 Mon Sep 17 00:00:00 2001
 From: Nilesh Javali <njavali@marvell.com>
-Date: Thu, 30 Jul 2026 21:28:09 +0530
-Subject: [PATCH] scsi: qla2xxx: Fix use-after-free of qpair work on queue
- teardown
+Date: Thu, 30 Jul 2026 21:28:16 +0530
+Subject: [PATCH] scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring
+ slot
 
-The response queue MSI-X handler qla2xxx_msix_rsp_q() schedules
-qla_do_work() via queue_work(ha->wq, &qpair->q_work). qla_do_work()
-dereferences the qpair (vha, rsp) and takes qpair->qp_lock.
+For QLAFX00 the request ring is ioremapped device I/O memory
+(ha->iobase + req_que_off), not DMA-coherent RAM, which is why the rest
+of the FX00 path accesses it through memcpy_toio() and the wrt_reg_*
+helpers. __qla2x00_alloc_iocbs() however zeroed the producer slot with a
+plain memset(). On architectures such as ARM64 a regular memset() may
+emit unaligned or block-zeroing instructions (e.g. DC ZVA) that are
+invalid on Device memory, leading to a synchronous external abort.
 
-During teardown, qla2xxx_delete_qpair() deletes the response queue, which
-calls free_irq() in qla25xx_free_rsp_que(), and then frees the queue and
-the qpair. free_irq() waits for running hardirq handlers but does not
-cancel work already placed on ha->wq. A still-pending q_work then runs
-qla_do_work() against the freed qpair and response queue, causing a
-use-after-free. This is especially likely during full adapter teardown,
-where destroy_workqueue(ha->wq) forces pending work to run after the queue
-pairs have been freed.
+Use memset_io() to clear the slot for QLAFX00, matching the I/O
+accessors used elsewhere on this ring. Other adapters keep the plain
+memset() on their DMA-coherent rings. The zero-fill is retained for FX00
+because its IOCB builders (e.g. qlafx00_fxdisc_iocb()) copy only part of
+the entry and rely on the unused tail being pre-zeroed.
 
-Flush the work item with cancel_work_sync() in qla25xx_free_rsp_que()
-after free_irq() has released the interrupt (so no new work can be
-queued) and before the response queue and qpair memory are freed (so the
-flushed handler still sees valid memory). Guard on rsp->qpair and ha->wq
-to match the INIT_WORK() condition and avoid operating on an
-uninitialized work_struct.
-
-Fixes: 68ca949cdb04 ("[SCSI] qla2xxx: Add CPU affinity support.")
-Reported-by: Sashiko <sashiko-dev@google.com>
+Fixes: 8ae6d9c7eb10 ("[SCSI] qla2xxx: Enhancements to support ISPFx00.")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-5-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-12-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
-index b7d9c1a53f3c..33bfc61d8165 100644
---- a/drivers/scsi/qla2xxx/qla_mid.c
-+++ b/drivers/scsi/qla2xxx/qla_mid.c
-@@ -606,6 +606,10 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
- 		rsp->msix->handle = NULL;
+diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
+index c4595626c16b..88bae1166a24 100644
+--- a/drivers/scsi/qla2xxx/qla_iocb.c
++++ b/drivers/scsi/qla2xxx/qla_iocb.c
+@@ -2530,11 +2530,13 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
+ 	 */
+ 	req->cnt -= req_cnt;
+ 	pkt = qla_req_ring_slot(ha, req);
+-	memset(pkt, 0, qla_req_entry_size(ha));
+ 	if (IS_QLAFX00(ha)) {
++		memset_io((void __iomem __force *)pkt, 0,
++			  qla_req_entry_size(ha));
+ 		wrt_reg_byte((u8 __force __iomem *)&pkt->entry_count, req_cnt);
+ 		wrt_reg_dword((__le32 __force __iomem *)&pkt->handle, handle);
+ 	} else {
++		memset(pkt, 0, qla_req_entry_size(ha));
+ 		pkt->entry_count = req_cnt;
+ 		pkt->handle = handle;
  	}
- 
-+	/* Flush any queued response work before freeing the queue/qpair. */
-+	if (rsp->qpair && ha->wq)
-+		cancel_work_sync(&rsp->qpair->q_work);
-+
- 	if (rsp->ring)
- 		dma_free_coherent(&ha->pdev->dev,
- 				  (rsp->length + 1) * rsp_entry_size,
 
