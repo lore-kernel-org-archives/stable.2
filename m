@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983695437FF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE15534443
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953060; cv=none; b=LcoW/2uDSsB6Kny2OZqxMzIKiqLckDsd9CR4wKu0mhgrq5H88aA8T4l7pm9Q81M/DEzhhsg3BhfVlxB5FOcFpnuHTGruDdOHZWZO5ozr4iwIm68co2+JV3PKTQYtq6wGSSXRnC9lIrZ/XuV3gaHyo4hDf8PMR7snkWeoVK1bXws=
+	t=1788953062; cv=none; b=LQ2doBZlo0k/Md/4Dg5BcykTEl6bmnupYVIxooKEt8yx3AahnLVsp9IrAHNHA/QzNEuaPd4L1d43yVy5bmVN2sdCMNrJE55lZREGaJcX8giHTawWCVJRxwJUpfc+gHCxTn/bQHZpQobQZfUjSKd+QIOFcbqPGUlymZ8/S41aMzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953060; c=relaxed/simple;
-	bh=jiKNH53R1YofTXVocQhcs436AaCGNDAyPlzgZE3tV8M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Z4UeW35T4Kgc1Bazyyb1CCwdLM2zzpp8lvfTxtOsW5PRYhDjk8KnXxvTyyjf5sla1linhFla9VKrpxB8NzKP3oJoQHJ834qeYHjZJYodeN5NxsUo6+PWJqVTbu1Dl0UtKeJgB2m3VrmQ8Uzmd3ffR+6hf2e5Cx1G7OZAQDWMFdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HEdTfWmK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953062; c=relaxed/simple;
+	bh=PQHr+BnqmQEUjMclPcEamTgKSCxtQeEFmyycY5JTkvc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=R3AJv8iaTJXZbhyFaI0W6ZkgtqbJD9NAyVIsIfuoG0nKBd5faGVJxTjc3j+rg5JlBLIQUxTJ2QA6Ji+pg0SFU1NxmFjkK35T0gqgTBBZpfr6W22WgTq0UNXGzgpvYPRxbf+LrYVa7/y/otNkTI9OEe38Z42/QUNAW+a+/ZXtMmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WfwX1vBe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HEdTfWmK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70F11F00A3D;
-	Wed,  9 Sep 2026 11:24:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WfwX1vBe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC731F00A3A;
+	Wed,  9 Sep 2026 11:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953058;
-	bh=jgkDtvl3W8GIrRrRr+7uvnvqfMN+/54AWKqLYQvjhDo=;
+	s=korg; t=1788953061;
+	bh=3cM0T8fND0ZTKXx5nDmmrpwFPeY6mGIpLTcb5ajIHfA=;
 	h=Subject:To:Cc:From:Date;
-	b=HEdTfWmKiU6i4Q0GT8d5rPduNtGaWXT01oXxmp7Hg1xSgapkvOVFaM6AywPr82yU0
-	 jDTsoR/t+I25n3AuZlGOYkRt8G1DXoV+us7StCWWLDVUyO8t2B/oWGVhgTkFr6aXTL
-	 rcZa2EASipeDbB1qZGSXiEAZaVemY4NpqSdQ+f8s=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap" failed to apply to 6.6-stable tree
+	b=WfwX1vBepc28H2zYEGEXJPakO6HITA0leNJEa09d4ZjH3ggwRnG95+Si3d/3PMqSO
+	 QPr9wnDZSBgp4fH5hk0qspMISrI/anR4v8zvc1HlZdj7ZbqNnHkzfVx2mbT105umKi
+	 a/X1JfMcuXsit0DDeiano8ekOdtEBuwCPbkQrvoU=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap" failed to apply to 5.10-stable tree
 To: njavali@marvell.com,hare@kernel.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:15:13 +0200
-Message-ID: <2026090913-sizably-compile-6580@gregkh>
+Date: Wed, 09 Sep 2026 13:15:14 +0200
+Message-ID: <2026090914-reflux-composer-ee32@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 878613ecb5a36db26859c4fd83daf9283a334fa2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090913-sizably-compile-6580@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090914-reflux-composer-ee32@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
