@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA9054EEC6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC01F54EECF
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955098; cv=none; b=AKC+Rjgk5/Gtht5Ud+jGQwnP+nolKBGw6WcS9aigswNhWvhq0Q2QaDSYkLikYdqOHrtImIBrSx5QdkBc5p3PCrNbR1tppyvCadt6gcuCV+a4tIjdqAnMpor489XyZjasXg1YJ2dxJj/ZgTXEL01kKw8tfOnkmtmd45mIDF06224=
+	t=1788955099; cv=none; b=RWksfaDKHijr8yNU41CPEYyiCA9XWXmVsk3IvZe8At7b55bdf85Jo5ea30ofe2MywuCocy577Xccq3Owv11ir/Wi9agxhD/PYiaHzxcoWCrPu/Ka+7BFDgVcPYX7rBZOJnGH1XcNQpExkDx5Ho5wg8cCHg3UlPwMtyXGlLBEqPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955098; c=relaxed/simple;
-	bh=vtzJfxoVd2j0QHRBO3/CH2SG0NCJnTGAS0yR6sGcO5M=;
+	s=arc-20240116; t=1788955099; c=relaxed/simple;
+	bh=JKdVzDkQ4L0AW9jMAfNcGmsl1ym4w7KIUfckvzMZ3zY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ozIplvS7Zj8NZmaPmAiptLBhLWD8fbkXrgPNovV9IJ/4j5MhDa26MslaLwe2r40cfhPbF3kifY7ShQEgcadFD/ImskMeIHgQZuL0Ns5ugTTcylnyElMkYphhZ4ixxyDJcSxIhvR41/0P9oZmLlYppBlNzwUuCUEgHWBirxfaW0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SaFptSiy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MyfobI6s9rPgB1BJ3GtoN+4H/RvYwJ/DsdC+c9XLPXulqKTlZ5Cpf5W084fBuAfcTOGgNk/J7MuYpB/hMZgmob0EEXggjsQ5cvHH3KlDstBtoPSFWwPN06q47BsTSFi5qquZruyOvRMQ9yu2H4au/Mpdvj6SGKSP53S4y+tgxy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffAvxHTk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SaFptSiy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F701F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffAvxHTk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3DD91F00A3F;
 	Wed,  9 Sep 2026 11:58:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788955096;
-	bh=HPgd0ZKbdw9n5I72Rp2IgogNln8lcPG+ou5lJ8S3qCA=;
+	s=k20260515; t=1788955097;
+	bh=Qa5aDAAvMNW7SGkdStteXXlSyl2a0EE12BGOlRMJ12g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SaFptSiyh1Qzx84MC5gB70CuoCeTy0wsjAiOWDY5ts7h25ylmrAzf5wkXsXDTnGyk
-	 dZH3UOlvO5R/aXzqizZ3t2OAXS7tMSf4RRCJ0w4JQyAMzNy7pWvyP/tMuiOO/7bDr8
-	 m/p8JY+1P90P4omuv7Mcng4ouaM6nZxnvwn0Nm+0VtrzLR/g2abq7xeeI9g8DVzl56
-	 RKBmhzsAFsZ8tkl4VAr7x5ClQcMYv4O63yetaorvuK3LGOhY3+3XMQKqKAfyNL0Yot
-	 i7leA1tV3OhNdR1stNIcqMH/gBb1sjR1lvRcinrXVq+HxkcG5J+MNHokEvyLxOD/XQ
-	 IpmSVq9kqypmw==
+	b=ffAvxHTkloTVY407GK1lt0GTvrI83Ve52htGq3JvBxvjoafO92C2iTV7pWp7fPtI8
+	 Zq0mnRMoA7JVHjxHsRW5s3FH0lDhFsYO9q7Gv4OERm6Va/zl0Crh8WG+aR3oHLtf2+
+	 Afo+e4VRtMFOLA13o3yCJ7+08MzSL74Vt9ebyo40LI/VrVd1D1RzIfxvX8W5/WKInN
+	 k9944jZtVYREf4HgCQVqS/CcsSrSfbcF0l7wFpX7hZuk1jCYpPe8102Lwotv8TvmB5
+	 CHlYmlaUM/oLHyBMsPSJC2tIN+HJOtopZwNUUKl/+x1pLJVQHwv/KxbCckfj/a5Nf+
+	 Q+VUU1QNYC/0w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Hans de Goede <hdegoede@redhat.com>,
+Cc: Ivan Abramov <i.abramov@mt-integration.ru>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/4] power: supply: max17040: extend help/description
-Date: Wed,  9 Sep 2026 07:58:11 -0400
-Message-ID: <20260909115813.2181976-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/4] power: supply: max17040: Check iio_read_channel_processed() return code
+Date: Wed,  9 Sep 2026 07:58:12 -0400
+Message-ID: <20260909115813.2181976-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909115813.2181976-1-sashal@kernel.org>
 References: <2026090352-handyman-delegate-c138@gregkh>
@@ -47,52 +46,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+From: Ivan Abramov <i.abramov@mt-integration.ru>
 
-[ Upstream commit 82ab575eb89e4d8c07ab8e693e0b31603a0d202d ]
+[ Upstream commit 2c68ac48c52ad146523f32b01d70009622bf81aa ]
 
-Reorganize the Kconfig driver description and mention all supported
-models.  This helps when choosing drivers for given system.
+Since iio_read_channel_processed() may fail, return its exit code on error.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 814755c48f8b ("power: max17040: get thermal data from adc if available")
+Signed-off-by: Ivan Abramov <i.abramov@mt-integration.ru>
+Link: https://patch.msgid.link/20251008133648.559286-1-i.abramov@mt-integration.ru
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+[Stable dependency adaptation]
+The 5.10 driver has no IIO temperature channel or TEMP property, so omit
+the temperature-read hunk and its unavailable supplier-status context.
+Retain the local ret variable required by 659cc3d8d5ef ("power: supply:
+max17040: propagate register read errors"), which uses it without adding
+a declaration in max17040_get_property().
+
+Initialize ret to -EINVAL and use it for the existing unsupported-property
+return. This avoids an unused-variable warning before the target is
+applied, while keeping successful callbacks returning zero even after
+the target stores positive voltage or capacity values in ret. No driver
+functions or new properties are added.
+
 Stable-dep-of: 659cc3d8d5ef ("power: supply: max17040: propagate register read errors")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/Kconfig | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/power/supply/max17040_battery.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 0aa46b4510177..dea1f0c32a0f7 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -366,18 +366,20 @@ config AXP288_FUEL_GAUGE
- 	  over/under temperature.
+diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
+index 8b2f0726ef0c0..fad244a73c8ea 100644
+--- a/drivers/power/supply/max17040_battery.c
++++ b/drivers/power/supply/max17040_battery.c
+@@ -392,6 +392,7 @@ static int max17040_get_property(struct power_supply *psy,
+ 			    union power_supply_propval *val)
+ {
+ 	struct max17040_chip *chip = power_supply_get_drvdata(psy);
++	int ret = -EINVAL;
  
- config BATTERY_MAX17040
--	tristate "Maxim MAX17040 Fuel Gauge"
-+	tristate "Maxim MAX17040/17041/17043 family Fuel Gauge"
- 	depends on I2C
- 	select REGMAP_I2C
- 	help
--	  Maxim models with ModelGauge are fuel-gauge systems for lithium-ion
--	  (Li+) batteries in handheld and portable equipment, including
--	  max17040, max17041, max17043, max17044, max17048, max17049, max17058,
--	  max17059. It is also included in some batteries like max77836.
-+	  Driver supports Maxim fuel-gauge systems for lithium-ion (Li+)
-+	  batteries used mainly in handheld and portable equipment.
-+	  Supported devices: max17040, max17041, max17043, max17044, max17048,
-+	  max17049, max17058, max17059, max77836.
- 
- 	  Driver supports reporting SOC (State of Charge, i.e capacity),
- 	  voltage and configurable low-SOC wakeup interrupt.
- 
-+	  Driver can be build as a module (max17040_battery).
-+
- config BATTERY_MAX17042
- 	tristate "Maxim MAX17042/17047/17050/8997/8966 Fuel Gauge"
- 	depends on I2C
+ 	switch (psp) {
+ 	case POWER_SUPPLY_PROP_ONLINE:
+@@ -407,7 +408,7 @@ static int max17040_get_property(struct power_supply *psy,
+ 		val->intval = chip->low_soc_alert;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		return ret;
+ 	}
+ 	return 0;
+ }
 -- 
 2.53.0
 
