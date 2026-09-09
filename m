@@ -1,105 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A25530E06
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BF353B61A
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950720; cv=none; b=T1TWI8BkpufNFbeb8JqiIKblI0+kvVd1lMj1wSkuyj0Hd3WKt597PpuwNI8+XmImxpy4yCuFpXKFke3qAAclVVm+7qRHKmUylT3dczs8OpcEcnlkf55pz1XX5sUz/fOPGcCCsWkvDzIOR91P4/Z3VDzrSJRNHPZqibx8Cje9/ng=
+	t=1788950720; cv=none; b=VPOmKCZZqkVWeY+OQ5kHuQv9DYgljvNzVC0kTdLks0jVvZLJB7pgNdkaG3Bq/qJMZOEYh5HiccSSnCTrDhBJNXp+z5MqBAHFvHZKUEQbF/QfvikHV2+8PPx3+WneW1yhHgqO8yYFopxFKuP9qRo2uUqznxlwCYnTtufu6mhgvvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788950720; c=relaxed/simple;
-	bh=1wl/i6ANso5agq5tE1c7CC6r30mRzxel4V3XoV6gMYI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PoYgMUJgvUhKq/WZ/WxrVHjUrBXZXf6gBYJdM4TdfRDa6RYMrXGgqaCZOqRzB8//a8rIQOs9ytIvKwpN9VGtlhO4YQvUbsZ2mTLjliwDkPd8GctXDd/1EnUT0c7hUeP4q1+U8Sh/2rDjte07cId/lqGCrb5P5f3SsOxEFilaX5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=117PkCV3; arc=none smtp.client-ip=100.103.45.18
+	bh=4Jx6SExSECoesgi5NE14tPnd4MyloKGzk/ktNEHkvUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hVuobPt53fxaDWnbSqyxaShaExjc3MhJjSqVPaBd43mf4S39yIR9/ZFNhG+Rnduk+OvDwOkeGVqeYJm1m2VFpW+TcHBw5lHPnP9cf3BOhhdXz7h4gjMyzgWIWvCwzrvBQ513A4aTeP4XZMcyOG1ttqLWsLfOKU5OZujLZLolSc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkBnj3wD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="117PkCV3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E8D1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkBnj3wD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82CA1F00A3D;
 	Wed,  9 Sep 2026 10:45:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950719;
-	bh=4wLMJef2ZNTMv+QLJP/78pmpMM0IS/kMe1AlFPvkXtA=;
-	h=Subject:To:Cc:From:Date;
-	b=117PkCV3ADypXwWMIYAllXoaHczPMCt8PF+pmijnDQR8avFF/EB/slMaUJzJGH4Ux
-	 NByh5DdW3e1w0WZw0Usx3uZvB8hEHN7uKxN/FcHAzEgSa3UTcEegmsC3OZJnNqsVcU
-	 iG8XQtp3e34+Few8RbkvU6vvcv6iAYuUV+gUVkCM=
-Subject: FAILED: patch "[PATCH] KVM: s390: Zero initialize data structures for" failed to apply to 5.10-stable tree
-To: borntraeger@linux.ibm.com,imbrenda@linux.ibm.com,mjrosato@linux.ibm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:35:24 +0200
-Message-ID: <2026090924-animator-theme-7c73@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950719;
+	bh=M5m48214VJgCO4iL8iu1bI1kKcgZLTiDg8+LlfBpLOE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PkBnj3wDSaMk7mZR+aYCD6nGOJnlwPA6KsmxahamxT01KongDt+rSgJ4K4zh5AJ1V
+	 cN4Nfugz7aSXGhY+NXgDDFp2moJkeKamj/3qiHjx2T8wDXZ1Ftnnn986yrhDEqpzHO
+	 C2PXpNMoB2Q10L6+h0It5CIDpreSuhwYaQ8IaQh6MdBiNMhG32eWBZ7+ZjdeRDs9uO
+	 ur5Mzq7LpjEcZppg5oXgIbvwE+ieaW92ccZ8MI90N122qhCUuGVv4g4BBmm/u/NIP3
+	 +Ou2xkCXySZ1Ym2h+OvdG7v9nI/oOYbqChgqBpQPGXCuC34A3EJEUKxRTxFTq4lWqb
+	 CuN+buX8dY14A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] sched/core: Make core-sched flips wait for in-flight selections
+Date: Wed,  9 Sep 2026 06:45:17 -0400
+Message-ID: <20260909104517.1560988-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090311-paramedic-jaybird-0ada@gregkh>
+References: <2026090311-paramedic-jaybird-0ada@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Tejun Heo <tj@kernel.org>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Core scheduling's pick_next_task() operates on all sibling rqs under one
+acquisition of the shared core-wide lock. A ->pick_task() that releases the
+rq lock leaves every sibling __lock momentarily free, letting
+__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
+it. The selection resumes on the split locks, touching sibling state it no
+longer protects, and __schedule() finally releases a lock that was never
+taken while leaking the one that was.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 4e2c7f7cbc27418f9a290399b986c1b85ff93b90
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090924-animator-theme-7c73@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
+and make __sched_core_flip() wait for the count to drain. The count only
+changes under the shared lock, which the flip holds while sampling, so no
+other ordering is needed. The wait can repeat while selections overlap, but
+the flip backs off between samples and flips are rare cookie-lifetime
+events.
 
-Possible dependencies:
+sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
+left behind would bias it forever if that CPU later returns as its own
+leader.
 
+Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+[ Moved the counter decrement from out_set_next to out to accommodate 6.6’s cached-selection path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/sched/core.c  | 22 ++++++++++++++++++++++
+ kernel/sched/sched.h |  1 +
+ 2 files changed, 23 insertions(+)
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 Mon Sep 17 00:00:00 2001
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-Date: Wed, 5 Aug 2026 13:04:49 +0200
-Subject: [PATCH] KVM: s390: Zero initialize data structures for
- inject_pfault_token
-
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
-
-Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
-but a host user can use the migration ioctls to get to the data.
-
-Fix by zero-initializing the irq struct.
-Do the same for the inti data structure.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
-
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 518a69c55e85..611dcb534210 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4474,8 +4474,8 @@ int kvm_s390_try_set_tod_clock(struct kvm *kvm, const struct kvm_s390_vm_tod_clo
- static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				     unsigned long token)
- {
--	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_interrupt inti = {};
-+	struct kvm_s390_irq irq = {};
- 	struct kvm_s390_interrupt_info *inti_mem = NULL;
- 	int ret = 0;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 797b81dcf69ab..9051ce93d730b 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -366,6 +366,17 @@ static void __sched_core_flip(bool enabled)
  
+ 		sched_core_lock(cpu, &flags);
+ 
++		/*
++		 * A core-wide selection may have the shared rq lock temporarily
++		 * released by a lock-dropping ->pick_task(). Flipping would
++		 * rebind rq_lockp() under it. Wait it out.
++		 */
++		while (cpu_rq(cpu)->core->core_pick_in_flight) {
++			sched_core_unlock(cpu, &flags);
++			cpu_relax();
++			sched_core_lock(cpu, &flags);
++		}
++
+ 		for_each_cpu(t, smt_mask)
+ 			cpu_rq(t)->core_enabled = enabled;
+ 
+@@ -6094,6 +6105,8 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 		return __pick_next_task(rq, prev, rf);
+ 	}
+ 
++	rq->core->core_pick_in_flight++;
++
+ 	/*
+ 	 * If there were no {en,de}queues since we picked (IOW, the task
+ 	 * pointers are all still valid), and we haven't scheduled the last
+@@ -6287,6 +6300,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ out_set_next:
+ 	set_next_task(rq, next);
+ out:
++	rq->core->core_pick_in_flight--;
+ 	if (rq->core->core_forceidle_count && next == rq->idle)
+ 		queue_core_balance(rq);
+ 
+@@ -6483,6 +6497,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
+ 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
+ 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
+ 
++	/*
++	 * A stale leftover would bias the count forever if this CPU later
++	 * returns as its own leader. Move, don't copy.
++	 */
++	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
++	rq->core_pick_in_flight            = 0;
++
+ 	/*
+ 	 * Accounting edge for forced idle is handled in pick_next_task().
+ 	 * Don't need another one here, since the hotplug thread shouldn't
+@@ -10074,6 +10095,7 @@ void __init sched_init(void)
+ 		rq->core_forceidle_count = 0;
+ 		rq->core_forceidle_occupation = 0;
+ 		rq->core_forceidle_start = 0;
++		rq->core_pick_in_flight = 0;
+ 
+ 		rq->core_cookie = 0UL;
+ #endif
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 65ff0254659ac..47aebf155c3a0 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1158,6 +1158,7 @@ struct rq {
+ 	unsigned int		core_forceidle_seq;
+ 	unsigned int		core_forceidle_occupation;
+ 	u64			core_forceidle_start;
++	unsigned int		core_pick_in_flight;
+ #endif
+ 
+ 	/* Scratch cpumask to be temporarily used under rq_lock */
+-- 
+2.53.0
 
