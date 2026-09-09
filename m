@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D3652E043
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B7252E069
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951655; cv=none; b=AH6C47ixfZ4JaGtmjBw/wc/IxFouCyT8doqMTdfdrp5HQSQKSjVvFzfgRFlBpr8uwFi4IbsCtHeMwRSKS/9mGyzjUqFeyK6CQchCth1K88uY3wtx0tj3/6Cpsa99PwcXW3uhKRlQsSe82KvvBQX2ZthbdM2He4SJziuD9rFIXK4=
+	t=1788951659; cv=none; b=qN3Jqke3zvZffT4+sSGrVhdpsdHo06xjAzNn2v/VFr3gRqTYcZgCic+q0lCaKjlNG/gbt/8u3NL5hAxyFwR3IdtPBJj3NBigYP0JcL+MBJHibs7qVGCMCt1aT0dMLf6wZyqH9lVnEq3hQr5MnUjXANTQE7tHkLil2q82jzul92k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951655; c=relaxed/simple;
-	bh=M0hP2hsAfGdeNDkrMphnof8ZH1mak44iDs1dRC9AZ7E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D92bEFyebUfMKtCrdGBLrAJbMoYaUt9lH66ToHGVVTr0vbMDjFG2wp4MzpuMZj0UjD+6eaiAicPe5NYbU5LKMqWTGQvtHXnYvBrvdaTBBkG1gWmb9OLIC06eVx8BXQfpoUFDkUuUwOQmmFuQQDbMLpFMMLdPlPxDtHolX0EUirI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N8YudTr4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951659; c=relaxed/simple;
+	bh=mhY+/CjJvFrvSG/WDIHOwa/gM4FADRNkj1MVRbTOKDo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PItOhejPxyeiUIDHhb0nuW++y5TAgMfOGHnp4dsINYUa+ZyS+V4ZYUJHXZN1CVeIus0PLwkS9UtC1+fvib0J4VkIcUBhNZ++pxxAj7kKCCP4fGUBP8Ltm2U3rUj4V/bZmufuuWe0yrDCEshQ8wWjD+MnTkxIuqYLkM9LhCAtqL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R3wdmgE7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N8YudTr4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3551F00A3D;
-	Wed,  9 Sep 2026 11:00:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R3wdmgE7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31F21F00A3A;
+	Wed,  9 Sep 2026 11:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951654;
-	bh=dayCt2YR0Len1REvSo1MkIoMmoL5kw3qOgtcZ4BQpbw=;
+	s=korg; t=1788951657;
+	bh=IOou2BZwh8gQcjPHbFMWPAHZylDhqAzkOPqGC5beSDs=;
 	h=Subject:To:Cc:From:Date;
-	b=N8YudTr415hsQ97mh7izsErYLXyoHQ0kDvHxCRQjv8Wn1Un5Zu6BN4sZnzWP3/fa0
-	 3TqY9IngMVrJ8KXuZ3DbatpfQzsJgir5I5L/YLtP3MZZduktOzFUvU9X54ORTF9Eku
-	 a655m8/ueK/izFDkWdEf7CbQFiDodg9veMfpqoME=
-Subject: FAILED: patch "[PATCH] media: qcom: iris: fix runtime PM reference leaks" failed to apply to 6.18-stable tree
+	b=R3wdmgE7enbEV4pNGi3KBzjKrgUkvI2UyfGvc+iwO2r6xxjpyXjgI0oMn2vkCUpwj
+	 aLKD4Rn759kDyecwjP4hSHdbwPGln+ktvG2+nFyK+6Q1s98mOFiDxtEtMip+I2vMRX
+	 uv05uCSrCwtEmtaElzASjuBDuyri1UcrHPOhB5Kc=
+Subject: FAILED: patch "[PATCH] media: qcom: iris: fix runtime PM reference leaks" failed to apply to 7.2-stable tree
 To: dennylin0707@gmail.com,bod@kernel.org,dmitry.baryshkov@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 09 Sep 2026 12:53:08 +0200
-Message-ID: <2026090908-wobbly-comply-f1b3@gregkh>
+Message-ID: <2026090908-modulator-ascent-3261@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x f87d7eda07fca21efe4b96169ae59007db46e60e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090908-wobbly-comply-f1b3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090908-modulator-ascent-3261@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
