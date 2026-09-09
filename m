@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B884A2064
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:10:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25024B2CD7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:10:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948649; cv=none; b=uxCiYQIaG97YaTxw0XKkOqEuaDqPrRaTxcCCbtUZ3NxunDLsRAj4QTXAWesPx//SVSiHgQgpf06BT5k/utDfiDWHG9y4M8CJnF7sIYZQZUUVSBAPQJG4sVDENVXu9UDL0awcslNyG48NhCe22laYA7k5Umgcy5jXGSmUiYDtb3A=
+	t=1788948660; cv=none; b=XPf9bTqQExtnFUC6nCP3brUAfmYChzwJsI5r5Ysq9svM0Ququ0vLwZ6WH3PTie6CwtTNtT0/WJJ44GPL4tSeQWzTkaArQM1d/ZbMFgF3HYoZbBFozpkYyrujpsVZ9S6R9Wj0kIHRcE2cWy60Wkswzdi3wj6pAGxwpDWPDz3WOOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948649; c=relaxed/simple;
-	bh=j3uySCeV0qDUJYOs7wisNzDLRjxzSjznQi/UQB/hhUA=;
+	s=arc-20240116; t=1788948660; c=relaxed/simple;
+	bh=4qmDKuAXYySunjZlxjN5zGlU+PVOlIM650i+EPq0cBo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VOrr07RC0LYfPb/O95ly0BM2dmylRTgjvP7T5A4BbdN8UyDD0LM5mIgXZSbcQgBfK7UcdI9qwfb0tciXnoIXV00oFUHi5VrIwRZiKKsOfEiDM/wl42E5vtTJXBZ9vVyzxA9X6fQ2fLedbfCgEcIfwr+E8e3iX1xPk+IBuJOFWkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfBVpDTk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CB4fnxRuw6XZ9K619ioYuwM5uq5KXqhxkvsSOAkAFUO/Tt2L2Qa84CDr5wuzKMu0eo0jc312jU/8bsJnOMOukuyfpI/vDc/QWToRo8DGx+AvVWma8ZZppXYetnqyLKssAWokUja1roEinClKtptwThLX0HEbPRXHPeLQXN1Oo3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIgQbtn0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfBVpDTk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104ED1F00A3D;
-	Wed,  9 Sep 2026 10:10:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIgQbtn0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D322B1F00A3D;
+	Wed,  9 Sep 2026 10:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948646;
-	bh=KXZIuTE+XZ+JyIQKME8h/Kjngkp4iLtIJRbXkfq+a2w=;
+	s=k20260515; t=1788948658;
+	bh=PWu2bhsbGiHibmXVSnLMyI00ddh+5tmKg5j5PMFzyZY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NfBVpDTkRPoQq4whojxrk1+JBvpBQHAS84TnSIA+8ZEGNpxjPZAZrIqEcwNE2DyQi
-	 LhJR20TijybtG3vH730sGHc5zNFD35/H8WsPqC8L1S/44tq9ngtZ+wyJIl2bDvm/9d
-	 jA5XgMbW3Px8lHWEmu7KDItQvFdO/AzJYUSEZw2295mLSGi6umBbrMSC9y1XH9zo3z
-	 STGwx+svOnNcxDJJU5+NVp/xjTg6f/s+Snw0aSoF4qXHDGmqd5gHw92TSfOlLRa1ub
-	 sVRaM6udYNDTs5W2eK4citHHFRQeZbqx4JDhe0Sgsi476zL9a1W55XpjJWtvamWcXg
-	 uEH5fr3Fs076w==
+	b=kIgQbtn0M4nYARYlBhngjo5F9TWZXAG3toRg9TLYIMCaPNLWmXkd6d0/AQCuCxtZU
+	 EN4U/IzSgw1M4fQC9VOB1yNh5pw6d5GqyOgDHkGpTdnRz7yWJNkFg4AfkkXtO4Ah92
+	 FO+Vn/B0liT7p/uk2pxZ5I9oGBfTebJGHVY9BRFNRW8nMoVoGeCPQaDY7kHfkydftW
+	 d0vivpxVwSD1pfUdzFzepVkGTaH9XcXFVyGDCxrW801yzEMiOY5QScw9Q63zC7XBDV
+	 U9krmFgBEmTZaAsP3viyL3isJk+pnWGThyY7lA5Hyy4nHudkp8dzBP8l/FkiuWNR2D
+	 YGiQcoKT4IyXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] ring-buffer: Add helper functions for allocations
-Date: Wed,  9 Sep 2026 06:10:43 -0400
-Message-ID: <20260909101044.1457737-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] firmware: qcom_scm: Rename peripheral as pas_id
+Date: Wed,  9 Sep 2026 06:10:55 -0400
+Message-ID: <20260909101056.1457982-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090352-announcer-magnify-98b4@gregkh>
-References: <2026090352-announcer-magnify-98b4@gregkh>
+In-Reply-To: <2026090336-enticing-sandstone-d55c@gregkh>
+References: <2026090336-enticing-sandstone-d55c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,187 +47,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-[ Upstream commit b1e7a590a0133606d3efd41aee38cdeac630b52f ]
+[ Upstream commit 69054348cc1c2d87acad90aec5e6e0d191012aff ]
 
-The allocation of the per CPU buffer descriptor, the buffer page
-descriptors and the buffer page data itself can be pretty ugly:
+Peripheral and pas_id refers to unique id for a subsystem and used only
+when peripheral authentication service from secure world is utilized.
 
-  kzalloc_node(ALIGN(sizeof(struct buffer_page), cache_line_size()),
-               GFP_KERNEL, cpu_to_node(cpu));
+Lets rename peripheral to pas_id to reflect closer to its meaning.
 
-And the data pages:
-
-  page = alloc_pages_node(cpu_to_node(cpu),
-                          GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO, order);
-  if (!page)
-	return NULL;
-  bpage->page = page_address(page);
-  rb_init_page(bpage->page);
-
-Add helper functions to make the code easier to read.
-
-This does make all allocations of the data page (bpage->page) allocated
-with the __GFP_RETRY_MAYFAIL flag (and not just the bulk allocator). Which
-is actually better, as allocating the data page for the ring buffer tracing
-should try hard but not trigger the OOM killer.
-
-Link: https://lore.kernel.org/all/CAHk-=wjMMSAaqTjBSfYenfuzE1bMjLj+2DLtLWJuGt07UGCH_Q@mail.gmail.com/
-
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Link: https://patch.msgid.link/20251125121153.35c07461@gandalf.local.home
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-
-Stable backport adjustment for e743527c5bfd:
-
-Keep only the read-page allocation refactor needed by the target. Express
-alloc_cpu_data as a statement-expression macro instead of adding a C
-function, retaining NUMA allocation, __GFP_RETRY_MAYFAIL, compound/zeroed
-pages, NULL failure handling, and data-page initialization.
-
-Rename the existing rb_init_page initializer to rb_init_data_page, without
-changing its implementation, and update its callers. This supplies the
-context expected by the target without importing the unrelated cleanup
-from 7cf02d0aa6bd or introducing additional functions.
-
-Drop the CPU-buffer and buffer-page descriptor refactors and the bulk and
-internal reader-page allocator conversions. These are not needed by the
-target; leaving them intact preserves this tree's ring_buffer_meta type,
-__GFP_RETRY_MAYFAIL descriptor allocations, and the existing bpage->order
-and resize-disabled fixes. Only newly allocated external read pages switch
-from __GFP_NORETRY to __GFP_RETRY_MAYFAIL in this backport.
-
-The target's change to allocate using the saved bpage->order is deliberately
-left for e743527c5bfd itself.
-
-Stable-dep-of: e743527c5bfd ("ring-buffer: Fix subbuf resize race with ring_buffer_alloc_read_page()")
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260105-kvmrprocv10-v10-3-022e96815380@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Stable-dep-of: c06c5ab49453 ("remoteproc: qcom: pas: Guard dtb metadata release with dtb_pas_id check")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/ring_buffer.c | 50 ++++++++++++++++++++++----------------
- 1 file changed, 29 insertions(+), 21 deletions(-)
+ drivers/firmware/qcom/qcom_scm.c       | 30 +++++++++++++-------------
+ include/linux/firmware/qcom/qcom_scm.h | 10 ++++-----
+ 2 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 47e6e1088e428..dafcf77b3d78e 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -382,7 +382,7 @@ struct buffer_page {
- #define RB_WRITE_MASK		0xfffff
- #define RB_WRITE_INTCNT		(1 << 20)
- 
--static void rb_init_page(struct buffer_data_page *bpage)
-+static void rb_init_data_page(struct buffer_data_page *bpage)
- {
- 	local_set(&bpage->commit, 0);
- }
-@@ -411,6 +411,21 @@ static void free_buffer_page(struct buffer_page *bpage)
- 	kfree(bpage);
- }
- 
-+/* Try hard to allocate data pages without invoking the OOM killer. */
-+#define alloc_cpu_data(cpu, order) ({						\
-+	struct buffer_data_page *__rb_data = NULL;				\
-+	struct page *__rb_page;							\
-+										\
-+	__rb_page = alloc_pages_node(cpu_to_node(cpu),				\
-+		GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO,	\
-+		(order));							\
-+	if (__rb_page) {							\
-+		__rb_data = page_address(__rb_page);				\
-+		rb_init_data_page(__rb_data);					\
-+	}									\
-+	__rb_data;								\
-+})
-+
- /*
-  * We need to fit the time_stamp delta into 27 bits.
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index e777b7cb9b127..3379607eaf94f 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -562,7 +562,7 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
+  * qcom_scm_pas_init_image() - Initialize peripheral authentication service
+  *			       state machine for a given peripheral, using the
+  *			       metadata
+- * @peripheral: peripheral id
++ * @pas_id:	peripheral authentication service id
+  * @metadata:	pointer to memory containing ELF header, program header table
+  *		and optional blob of data used for authenticating the metadata
+  *		and the rest of the firmware
+@@ -575,7 +575,7 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
+  * track the metadata allocation, this needs to be released by invoking
+  * qcom_scm_pas_metadata_release() by the caller.
   */
-@@ -2013,7 +2028,7 @@ static void rb_range_meta_init(struct trace_buffer *buffer, int nr_pages)
- 		 */
- 		for (i = 0; i < meta->nr_subbufs; i++) {
- 			meta->buffers[i] = i;
--			rb_init_page(subbuf);
-+			rb_init_data_page(subbuf);
- 			subbuf += meta->subbuf_size;
- 		}
- 	}
-@@ -2184,7 +2199,7 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 			if (!page)
- 				goto free_pages;
- 			bpage->page = page_address(page);
--			rb_init_page(bpage->page);
-+			rb_init_data_page(bpage->page);
- 		}
- 		bpage->order = cpu_buffer->buffer->subbuf_order;
- 
-@@ -2290,7 +2305,7 @@ rb_allocate_cpu_buffer(struct trace_buffer *buffer, long nr_pages, int cpu)
- 		if (!page)
- 			goto fail_free_reader;
- 		bpage->page = page_address(page);
--		rb_init_page(bpage->page);
-+		rb_init_data_page(bpage->page);
- 	}
- 
- 	INIT_LIST_HEAD(&cpu_buffer->reader_page->list);
-@@ -6006,7 +6021,7 @@ static void rb_clear_buffer_page(struct buffer_page *page)
+-int qcom_scm_pas_init_image(u32 peripheral, const void *metadata, size_t size,
++int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+ 			    struct qcom_scm_pas_metadata *ctx)
  {
- 	local_set(&page->write, 0);
- 	local_set(&page->entries, 0);
--	rb_init_page(page->page);
-+	rb_init_data_page(page->page);
- 	page->read = 0;
- }
+ 	dma_addr_t mdata_phys;
+@@ -585,7 +585,7 @@ int qcom_scm_pas_init_image(u32 peripheral, const void *metadata, size_t size,
+ 		.svc = QCOM_SCM_SVC_PIL,
+ 		.cmd = QCOM_SCM_PIL_PAS_INIT_IMAGE,
+ 		.arginfo = QCOM_SCM_ARGS(2, QCOM_SCM_VAL, QCOM_SCM_RW),
+-		.args[0] = peripheral,
++		.args[0] = pas_id,
+ 		.owner = ARM_SMCCC_OWNER_SIP,
+ 	};
+ 	struct qcom_scm_res res;
+@@ -658,20 +658,20 @@ EXPORT_SYMBOL_GPL(qcom_scm_pas_metadata_release);
+ /**
+  * qcom_scm_pas_mem_setup() - Prepare the memory related to a given peripheral
+  *			      for firmware loading
+- * @peripheral:	peripheral id
++ * @pas_id:	peripheral authentication service id
+  * @addr:	start address of memory area to prepare
+  * @size:	size of the memory area to prepare
+  *
+  * Returns 0 on success.
+  */
+-int qcom_scm_pas_mem_setup(u32 peripheral, phys_addr_t addr, phys_addr_t size)
++int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
+ {
+ 	int ret;
+ 	struct qcom_scm_desc desc = {
+ 		.svc = QCOM_SCM_SVC_PIL,
+ 		.cmd = QCOM_SCM_PIL_PAS_MEM_SETUP,
+ 		.arginfo = QCOM_SCM_ARGS(3),
+-		.args[0] = peripheral,
++		.args[0] = pas_id,
+ 		.args[1] = addr,
+ 		.args[2] = size,
+ 		.owner = ARM_SMCCC_OWNER_SIP,
+@@ -699,18 +699,18 @@ EXPORT_SYMBOL_GPL(qcom_scm_pas_mem_setup);
+ /**
+  * qcom_scm_pas_auth_and_reset() - Authenticate the given peripheral firmware
+  *				   and reset the remote processor
+- * @peripheral:	peripheral id
++ * @pas_id:	peripheral authentication service id
+  *
+  * Return 0 on success.
+  */
+-int qcom_scm_pas_auth_and_reset(u32 peripheral)
++int qcom_scm_pas_auth_and_reset(u32 pas_id)
+ {
+ 	int ret;
+ 	struct qcom_scm_desc desc = {
+ 		.svc = QCOM_SCM_SVC_PIL,
+ 		.cmd = QCOM_SCM_PIL_PAS_AUTH_AND_RESET,
+ 		.arginfo = QCOM_SCM_ARGS(1),
+-		.args[0] = peripheral,
++		.args[0] = pas_id,
+ 		.owner = ARM_SMCCC_OWNER_SIP,
+ 	};
+ 	struct qcom_scm_res res;
+@@ -735,18 +735,18 @@ EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
  
-@@ -6392,7 +6407,6 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct buffer_data_read_page *bpage = NULL;
- 	unsigned long flags;
--	struct page *page;
+ /**
+  * qcom_scm_pas_shutdown() - Shut down the remote processor
+- * @peripheral: peripheral id
++ * @pas_id:	peripheral authentication service id
+  *
+  * Returns 0 on success.
+  */
+-int qcom_scm_pas_shutdown(u32 peripheral)
++int qcom_scm_pas_shutdown(u32 pas_id)
+ {
+ 	int ret;
+ 	struct qcom_scm_desc desc = {
+ 		.svc = QCOM_SCM_SVC_PIL,
+ 		.cmd = QCOM_SCM_PIL_PAS_SHUTDOWN,
+ 		.arginfo = QCOM_SCM_ARGS(1),
+-		.args[0] = peripheral,
++		.args[0] = pas_id,
+ 		.owner = ARM_SMCCC_OWNER_SIP,
+ 	};
+ 	struct qcom_scm_res res;
+@@ -772,18 +772,18 @@ EXPORT_SYMBOL_GPL(qcom_scm_pas_shutdown);
+ /**
+  * qcom_scm_pas_supported() - Check if the peripheral authentication service is
+  *			      available for the given peripherial
+- * @peripheral:	peripheral id
++ * @pas_id:	peripheral authentication service id
+  *
+  * Returns true if PAS is supported for this peripheral, otherwise false.
+  */
+-bool qcom_scm_pas_supported(u32 peripheral)
++bool qcom_scm_pas_supported(u32 pas_id)
+ {
+ 	int ret;
+ 	struct qcom_scm_desc desc = {
+ 		.svc = QCOM_SCM_SVC_PIL,
+ 		.cmd = QCOM_SCM_PIL_PAS_IS_SUPPORTED,
+ 		.arginfo = QCOM_SCM_ARGS(1),
+-		.args[0] = peripheral,
++		.args[0] = pas_id,
+ 		.owner = ARM_SMCCC_OWNER_SIP,
+ 	};
+ 	struct qcom_scm_res res;
+diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
+index a55ca771286bf..a13f703b16cd4 100644
+--- a/include/linux/firmware/qcom/qcom_scm.h
++++ b/include/linux/firmware/qcom/qcom_scm.h
+@@ -72,13 +72,13 @@ struct qcom_scm_pas_metadata {
+ 	ssize_t size;
+ };
  
- 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 		return ERR_PTR(-ENODEV);
-@@ -6414,22 +6428,16 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
- 	arch_spin_unlock(&cpu_buffer->lock);
- 	local_irq_restore(flags);
+-int qcom_scm_pas_init_image(u32 peripheral, const void *metadata, size_t size,
++int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+ 			    struct qcom_scm_pas_metadata *ctx);
+ void qcom_scm_pas_metadata_release(struct qcom_scm_pas_metadata *ctx);
+-int qcom_scm_pas_mem_setup(u32 peripheral, phys_addr_t addr, phys_addr_t size);
+-int qcom_scm_pas_auth_and_reset(u32 peripheral);
+-int qcom_scm_pas_shutdown(u32 peripheral);
+-bool qcom_scm_pas_supported(u32 peripheral);
++int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
++int qcom_scm_pas_auth_and_reset(u32 pas_id);
++int qcom_scm_pas_shutdown(u32 pas_id);
++bool qcom_scm_pas_supported(u32 pas_id);
  
--	if (bpage->data)
--		goto out;
--
--	page = alloc_pages_node(cpu_to_node(cpu),
--				GFP_KERNEL | __GFP_NORETRY | __GFP_COMP | __GFP_ZERO,
--				cpu_buffer->buffer->subbuf_order);
--	if (!page) {
--		kfree(bpage);
--		return ERR_PTR(-ENOMEM);
-+	if (bpage->data) {
-+		rb_init_data_page(bpage->data);
-+	} else {
-+		bpage->data = alloc_cpu_data(cpu, cpu_buffer->buffer->subbuf_order);
-+		if (!bpage->data) {
-+			kfree(bpage);
-+			return ERR_PTR(-ENOMEM);
-+		}
- 	}
- 
--	bpage->data = page_address(page);
--
-- out:
--	rb_init_page(bpage->data);
--
- 	return bpage;
- }
- EXPORT_SYMBOL_GPL(ring_buffer_alloc_read_page);
-@@ -6638,7 +6646,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 		cpu_buffer->read_bytes += rb_page_size(reader);
- 
- 		/* swap the pages */
--		rb_init_page(bpage);
-+		rb_init_data_page(bpage);
- 		bpage = reader->page;
- 		reader->page = data_page->data;
- 		local_set(&reader->write, 0);
+ int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val);
+ int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
 -- 
 2.53.0
 
