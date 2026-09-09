@@ -1,112 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199A23C5848
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7FA3C6606
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983271; cv=none; b=cjEkaZOBdgg1VuaAJJulCmRn2eOTl7JPlSxgPxhuKQ6Gs0e+HSKy/xh9BZY2nr8VE/156aC2+HBoPxlB5rToJVMq/DwAokC/OSAvGQ+uZ1izLKaUzjJK2qmwETz8/7aY41a91foeldg5XWJP/JrIPiSwH8N8Rass1YMuZyId9ms=
+	t=1788983311; cv=none; b=jkmUcXK0FvSX+k30hePeBJB3XjDA6+oz1B3CGzDnuak7pd1NAKvdY2lCi7SmYA/IQxgXHlTP9RSqFpuMDuIX7LRO2RQlKk9deY8SM5sAd+BSQ9lDa2GEFMi8jDtR3PAdgtGGmzglAWp9CLSouMGG9DBeERMrbkzwlegjYJintGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983271; c=relaxed/simple;
-	bh=VEi36kcMdDUPgux9i8Uwx/yAEsgo/Se8mPCzAnM1VFk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AlnTA6ZV6BM9EBC5WX+GlpqWa9GVS1N9723cbE7YZ6xdBjoX1Bl+/anyYg/qqzQWJX2qekK6UUOEsot8jkcCfC3C5lLDDGYyYRHygZpgZ56gM/j8/2hKo0yyKAzbNUVvC/1Oqt0Vo92EqjIEZscmY/WU4A67tl/Wy+xACAZNJpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahsbDZ8W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788983311; c=relaxed/simple;
+	bh=bIHnFJeIR8NCizBam5bSpQWNUrltT1kv2ZZq+/mblJQ=;
+	h=From:Subject:Cc:Content-Disposition:Content-Type:Mime-Version:
+	 Date:Message-Id:References:In-Reply-To:To; b=IyQZs2043Rofwl+mgJuUaSW76tn/x5RxhU308VQBZ0Kn/haBl+NrTgqZ9+zZsLmlcsH66yTaQOePyWxgrnylfYhjX27+28vlWii829Ir58sbFjQUFGAiQYqOYQXaw2DoV3S5axzmYBSLVVhZPSYakQ7lqcSqCPonqTz1vQIzmvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=IHW3e2mQ; arc=none smtp.client-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahsbDZ8W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111781F000FF;
-	Wed,  9 Sep 2026 19:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788983269;
-	bh=Ot6Mq2rLqnNlt035lSYV6+sA6Opkce73M/SDRsaozXE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ahsbDZ8WkuZHh6xMLO4FfBQmAmblniG+U9oQm2EBGszGPgaxBLSHBz98YtPaXQbtK
-	 d00bf7Lz0/opOmeRcsXtParS3awzNPibDa04qUTcTaL3uD1hs7FobnDbs0eQqMl2Oq
-	 E6cCpE3QiYjOb47WA5/CxOkVS0xKdOvxyX9C7/HFV+XxgyYn7N79ElnPs64WPzzY6c
-	 /INdmlqsFMydSZNaqmsDX3Mxh6Lf1GANdr2HXf5RFsb7Vm+TwSB8aH2CAE4TRmq+LP
-	 za4YOs2spROLe06UpK4Rnp254ZTMNAp6wpgFd+QIMO233+a7HctoyMnnli1V78RLJY
-	 BfA/OZTrPBiqA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Can Peng <pengcan@kylinos.cn>,
-	Linus Walleij <linusw@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hwrng: stm32 - Fix runtime PM cleanup on registration failure
-Date: Wed,  9 Sep 2026 15:47:47 -0400
-Message-ID: <20260909194747.3582884-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090319-throng-sprain-3ab3@gregkh>
-References: <2026090319-throng-sprain-3ab3@gregkh>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="IHW3e2mQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788983296; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=VWXdC+EiFgKXDk4rNFutmJw52+1YadomDGamPq9rKuI=;
+ b=IHW3e2mQi6/o4orGzclZk1XIgRsFPdaWkn5bD5vJvp9vNlWhYsuJegb9BlmzDA2ZYMAGfC
+ HfqumZKKN90TLdO642EJJy1s/01ti7hz/QZhwPjEzvNEst3IbKYjpNR1C8kyd4lEs7cPKz
+ jZET06kpwF3br5pxxYFHHIjsQGrR2GCzruD1yzc5L4VdXirNs8pVx7IH3iN3Y5flydGusi
+ jkp5BvUMHxDT/2x0fKxx3ZSbFBPDp2TyCKpnNgbZypIO0LtvqqK7xrVo6WqzM22CeEyU82
+ NZoU4AMJpJ0pyiWpugMXumuYmO8q6Lc1QHMPPDbsj6TcmSYX6rJbsUckjSMGCw==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
+Received: from nobug ([111.42.148.144]) by smtp.feishu.cn with ESMTPS; Thu, 10 Sep 2026 03:48:13 +0800
+Content-Transfer-Encoding: 7bit
+Cc: "Shengzhuo Wei" <me@cherr.cc>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>, 
+	"Simon Horman" <horms@kernel.org>, <imx@lists.linux.dev>, 
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Content-Disposition: inline
+X-Lms-Return-Path: <lba+26aa1b7fe+00e492+vger.kernel.org+me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Date: Thu, 10 Sep 2026 03:48:11 +0800
+Message-Id: <aqG3-ySw1AecQVkD@nobug>
+References: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc> <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc> <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
+In-Reply-To: <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
+To: "Bui Duc Phuc" <phucduc.bui@gmail.com>, "Wei Fang" <wei.fang@nxp.com>
 
-From: Can Peng <pengcan@kylinos.cn>
+> > +
+> > +       if (fep->pps_irq >= 0) {
+> > +               free_irq(fep->pps_irq, ndev);
+> > +               fep->pps_irq = -1;
+> > +       }
+> > +
+> 
+> I think fep->pps_irq > 0 would be more appropriate here,
+> since the IRQ returned by platform_get_irq_byname_optional() or
+> platform_get_irq_optional() cannot be 0.
 
-[ Upstream commit 1163a476a568f6c0f852d469c8e4c5a5f805adac ]
+Hi Phuc,
 
-stm32_rng_probe() enables autosuspend and runtime PM before registering the
-hwrng. If devm_hwrng_register() fails, probe returns with runtime PM left
-enabled and autosuspend still selected.
+You're right. I hadn't checked whether these helpers could return
+IRQ 0.
 
-The remove callback also only disables runtime PM and does not undo
-pm_runtime_use_autosuspend().
+I saw the existing irq >= 0 check in the request path and wanted
+the release path to match it. I used -1 to distinguish "no IRQ
+requested" from a possible IRQ 0, recording the IRQ only after
+request_irq() succeeded.
 
-Use devm_pm_runtime_enable() so runtime PM is unwound automatically on
-probe failure and driver detach. Since the managed cleanup also disables
-runtime PM,drop the remove callback.
+Since both helpers reject IRQ 0, that extra handling is unnecessary.
+Keeping pps_irq at its initial value of 0 and checking > 0 before
+free_irq() is sufficient.
 
-Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ adapted to the older driver’s relocated int-returning remove callback and existing err variable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/char/hw_random/stm32-rng.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+Wei, I plan to drop the -1 initialization, use > 0 for the release
+check, and reset pps_irq to 0 after freeing it. Do you have any
+concerns with that change?
 
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index efb6a9f9a11b5..fcfb0c4cea236 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -159,18 +159,13 @@ static int stm32_rng_probe(struct platform_device *ofdev)
- 
- 	pm_runtime_set_autosuspend_delay(dev, 100);
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_enable(dev);
-+	err = devm_pm_runtime_enable(dev);
-+	if (err)
-+		return err;
- 
- 	return devm_hwrng_register(dev, &priv->rng);
- }
- 
--static int stm32_rng_remove(struct platform_device *ofdev)
--{
--	pm_runtime_disable(&ofdev->dev);
--
--	return 0;
--}
--
- #ifdef CONFIG_PM
- static int stm32_rng_runtime_suspend(struct device *dev)
- {
-@@ -212,7 +207,6 @@ static struct platform_driver stm32_rng_driver = {
- 		.of_match_table = stm32_rng_match,
- 	},
- 	.probe = stm32_rng_probe,
--	.remove = stm32_rng_remove,
- };
- 
- module_platform_driver(stm32_rng_driver);
--- 
-2.53.0
+Thanks for pointing this out.
 
+Best regards,
+Shengzhuo
