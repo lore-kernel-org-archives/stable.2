@@ -1,111 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB712EEE8A;
-	Wed,  9 Sep 2026 01:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF23A2E62A9
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788918894; cv=none; b=HFDeMvvxC0tNpleZ8f/TRTinVxSPA2F0GQwO+BIgicZ4ZMf93lmTLoYACtSCoWF7qvKElNbZGpTG45gimN9Y9BEFRIny2tKz2vuXI/WmQ2Yj8yDX2wWMgk1ssJsctImyjSGQ/TUkHo2/iIEV3f8WEozlFSjuBlV/7AsXsq9akRo=
+	t=1788918925; cv=none; b=hCAb5aKkFwteq3ErTUnXoTuzq19wapMaxqkVS3ZF6vVLhoI+Lr8iHxcI508e+f2KSwsq/qE3G5gOE1FgGNhf8f5C6xAQtiL/+oekY+lSybWF0J/AU+d0g+/N5ATzNHP3arCZ3xTuVIXFYXm+yr7hHLn9L2mX12pkGHL2IhE83+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788918894; c=relaxed/simple;
-	bh=u3q67zwEWNpxcLR9UzJLGgQXapS+iQ8jZZnWpcsAoZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tnhWhGKi4Cce9nSzW6aASO+80ly1cY6gIJw4DS2JwRLaPt+KT82+eek0D8+TpY9oDmDQUWZbqjZl65QBtdNLjFJB0Q8MW+kvwC6gl5+XaPSJ3NP6ZxL655HXRguxbQRAzohnFbpdUAiEhx9gQPSydHMvoTrcEN47ZlYZSxW4gHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmmDVkPP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788918925; c=relaxed/simple;
+	bh=GAgLelBQ2PnGdb1XFmzW3CkEy8pKLGj7wNMA812HVRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JiY5Ad2chRxM+kenfUCCH/SGjHPb12YrYcPC2E8/rc6VBwpq6E8W4Cwcrhn4/DkE/QmC7yb4BiWLcqnmloldFFqpemHpwVlEEC/a4hbDenRO8SLhryOfwL65+Xornzzvp+jOJeNTgTOXDma9BEpmP4DqtbIdSalUqqVRq37PMyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrdBnxcO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmmDVkPP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1B91F00A3A;
-	Wed,  9 Sep 2026 01:54:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrdBnxcO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4641F00A3A;
+	Wed,  9 Sep 2026 01:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788918892;
-	bh=bAb3Ny8bot1GqTJl3eZl5xMko6ZykxPClD8Vw7YzPag=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JmmDVkPPPiohw8z1U2yvO5rdEWirlppecRQ+65VZ3VTEzYatr8MHDfdzWBlQPKZSx
-	 wHpDQRDFUyknzlV29ODaVULZpTdX1xnrbpL+MsofGF3Tzxqg9+vDj49W0m3XrPzixL
-	 vp2mxHf161XNj8fWMdfo/X1GxSonutZjL/pAlIiybqt56kJY25DHu/1v/twvFP8TlS
-	 pa4KedreJwFt8tOjVmIlMrAW7FkNgOviL1mf8WEJo1b5RE+yugjc/GnafgnCNuLbBZ
-	 5slJU3hGddZ3Du7fRoGeMzEEqad7YVEOIGEZsYS4DYTTz7NpgYziER0UjlOixNgbIL
-	 S0BOxhI97jTxQ==
-Date: Tue, 8 Sep 2026 18:54:51 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Subject: Re: [PATCH net 1/1] net: fix linkwatch UAF on uninitialized netdev
-Message-ID: <20260908185451.73a49bbd@kernel.org>
-In-Reply-To: <eeaeddc20bf5382336eaf704b5b15e3780dbb768.1788500348.git.zihanx@nebusec.ai>
-References: <cover.1788500348.git.zihanx@nebusec.ai>
-	<eeaeddc20bf5382336eaf704b5b15e3780dbb768.1788500348.git.zihanx@nebusec.ai>
+	s=k20260515; t=1788918924;
+	bh=pfxrBoAx/XyyOZSDBcLC3cHvODx1F3VuHeDUleI5d7Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WrdBnxcOqa/I7IG6LzhKAdZTeU9YSly4owSpt72j42TcKozCKGE9OOEjSoEETOJbN
+	 Ozhs/lx9vKRLky0GrRCqwCN2CAW/vWqqXwiRB6J1jwJNg82+ammV23EuPHk0evYYBv
+	 WzM1d9TvIzYgFawSLxu1+RGL05vDWp/SPut1hTk9NT74OQ2EqQDGXs91I6BCt+yna6
+	 u0b4dIbZ/XMidOqvBqLJT5v7yepc77nswcA5MPm9Fj9SQHTStohh/sj4xMV8rwEUf6
+	 Zb6Y9CU0ZfoS2wkYCULmLQ5m0ACuHwQzC7Tm4luPzB1u7JG920OIlP+5JnUrT39XGA
+	 VE6hcSpTt2k0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] svcrdma: Allocate new transports on device's NUMA node
+Date: Tue,  8 Sep 2026 21:55:19 -0400
+Message-ID: <20260909015522.954712-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090356-dehydrate-probe-c315@gregkh>
+References: <2026090356-dehydrate-probe-c315@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri,  4 Sep 2026 06:46:44 +0000 Zihan Xi wrote:
-> linkwatch_fire_event() queues a net_device onto lweventlist and takes a
-> netdev_hold() even when the device has never been registered.
-> 
-> netif_carrier_on(), netif_carrier_off() and netif_carrier_event() already
-> skip NETREG_UNINITIALIZED. netif_dormant_*() and netif_testing_*() do
-> not. Pre-registration operstate changes are meant to stay local and be
-> consumed later by linkwatch_init_dev() in register_netdevice().
-> 
-> If a driver fires a dormant or testing event before register_netdevice()
-> and registration then fails, rtnl_newlink_create() calls free_netdev().
-> For NETREG_UNINITIALIZED devices, free_netdev() immediately kvfree()s
-> the object without draining linkwatch. The later linkwatch worker
-> dereferences the stale list entry and use-after-frees the device.
-> 
-> The same path is reachable from an unprivileged user who can unshare
-> user and net namespaces, because only netns-local CAP_NET_ADMIN is
-> required.
-> 
-> linkwatch_fire_event() has never rejected NETREG_UNINITIALIZED devices.
-> That goes back to commit 1da177e4c3f4 ("Linux-2.6.12-rc2"), the root of
-> this tree. Later changes only altered callers or were reverted.
-> 
-> commit b47300168e77 ("net: Do not fire linkwatch events
-> until the device is registered.")
-> skipped uninitialized devices in the carrier helpers only.
-> 
-> commit 22604c866889 ("net: Fix for initial link state in 2.6.28")
-> briefly added a NETREG_UNINITIALIZED return in the helper after calling
-> rfc2863_policy().
-> 
-> commit c276e098d3ee ("Revert "net: Fix for initial link state in 2.6.28"")
-> removed it again because that rfc2863_policy() call could take
-> dev_base_lock in software-interrupt context.
-> 
-> Fix this in linkwatch_fire_event() by ignoring NETREG_UNINITIALIZED
-> devices so they cannot be queued, without calling rfc2863_policy().
-> Pre-registration flags remain on the device and are still applied by
-> linkwatch_init_dev() if registration succeeds.
+From: Chuck Lever <chuck.lever@oracle.com>
 
-This commit message seems to be quite low quality.
-It reads like the LLM was following some check box list rather than
-allowed to think. From the bug report in cover letter the problem
-seems to be that one caller (wifi test harness device) fires a
-linkwatch even too early. And you think that the fix is to change 
-the core helper to silently ignore this event? Just fix the buggy
-driver?? Or if you think there's more than one such driver please
-provide more info.
+[ Upstream commit fe2b401e55482cf90a0056209c8a232b2d39056c ]
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The physical device's NUMA node ID is available when allocating an
+svc_xprt for an incoming connection. Use that value to ensure the
+svc_xprt structure is allocated on the NUMA node closest to the
+device.
 
-Since your trigger didn't exist in 2.6.12 I'm not sure why you're
-pointing at that commit.
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: e346ef7bcb13 ("svcrdma: Use svc_xprt_put to free listener on create failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-FTR, the quality of the repro is also looking like a year+ old model
-following a checklist:
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+index 1041ea72b3613..575de045b465e 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+@@ -64,7 +64,7 @@
+ #define RPCDBG_FACILITY	RPCDBG_SVCXPRT
+ 
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+-						 struct net *net);
++						 struct net *net, int node);
+ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 					struct net *net,
+ 					struct sockaddr *sa, int salen,
+@@ -126,14 +126,14 @@ static void qp_event_handler(struct ib_event *event, void *context)
+ }
+ 
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+-						 struct net *net)
++						 struct net *net, int node)
+ {
+-	struct svcxprt_rdma *cma_xprt = kzalloc(sizeof *cma_xprt, GFP_KERNEL);
++	struct svcxprt_rdma *cma_xprt;
+ 
+-	if (!cma_xprt) {
+-		dprintk("svcrdma: failed to create new transport\n");
++	cma_xprt = kzalloc_node(sizeof(*cma_xprt), GFP_KERNEL, node);
++	if (!cma_xprt)
+ 		return NULL;
+-	}
++
+ 	svc_xprt_init(net, &svc_rdma_class, &cma_xprt->sc_xprt, serv);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_accept_q);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_rq_dto_q);
+@@ -197,9 +197,9 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
+ 	struct svcxprt_rdma *newxprt;
+ 	struct sockaddr *sa;
+ 
+-	/* Create a new transport */
+ 	newxprt = svc_rdma_create_xprt(listen_xprt->sc_xprt.xpt_server,
+-				       listen_xprt->sc_xprt.xpt_net);
++				       listen_xprt->sc_xprt.xpt_net,
++				       ibdev_to_node(new_cma_id->device));
+ 	if (!newxprt)
+ 		return;
+ 	newxprt->sc_cm_id = new_cma_id;
+@@ -306,7 +306,7 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 
+ 	if (sa->sa_family != AF_INET && sa->sa_family != AF_INET6)
+ 		return ERR_PTR(-EAFNOSUPPORT);
+-	cma_xprt = svc_rdma_create_xprt(serv, net);
++	cma_xprt = svc_rdma_create_xprt(serv, net, NUMA_NO_NODE);
+ 	if (!cma_xprt)
+ 		return ERR_PTR(-ENOMEM);
+ 	set_bit(XPT_LISTENER, &cma_xprt->sc_xprt.xpt_flags);
+-- 
+2.53.0
 
-  This is an rtnetlink RTM_NEWLINK creation path, not a packet-sequence
-  or protocol-state trigger. packetdrill cannot express creating a dummy
-  lower device...
-
-Please get a better model.
