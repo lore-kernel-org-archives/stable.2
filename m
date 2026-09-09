@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903994FDE6C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB2F313531
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965551; cv=none; b=QAEXKOZ0S3Qc9PseRpUXHLvABOUOUfuabYg3gn9HP91LU79gaTJNRS1aZG8M2C8skTQ957UKX7rPYy6FAmJesfCFvtM/uMFstRG1B98eZWbeCE6xxoGwFgCTukDmJUd8oyvQneBfNDznXaBUHkgnGzBPyfwZNVAuzJcWejLjvSg=
+	t=1788965616; cv=none; b=Q/XajPqq6g48BpYTVgJnsdgDzSi3VC/TPpBqoZgOh7/IrHn8CLph5p/lBDrpYTSQOXEGpPUh+9zSLzwY236hkVxurw+Aoq628HnMYPJ9Qzo5LZYax2f5PT2KyJYM171Lf1pxsKHRQqfPoX2pWUn1ba41gQdST+i37t77Z/l2mK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965551; c=relaxed/simple;
-	bh=7gV1cvbYvXCQSwaYqZscp6R1wU3m6zw7g9pHhPDp+iE=;
+	s=arc-20240116; t=1788965616; c=relaxed/simple;
+	bh=P0dv7ZgLLLxKvwZ8Ow6mespyF/CzK4a1CuYfs9SscMA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QxoffJzafZNK/BbrZYc538CJNCmN1REX5mTWHoM5kB7sBE6Zrkxk5+HoTKqbMKHZDT52hhmXAd0w6Jqzgq2q+PtbneSKxikDf4IZZeZXjAtd4r7IzMbp4webqJgByqyEA4TPsKq/Cp+kCW0QWPBuGdXJI9R2XkW6M4KPaazfNmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itVMmBZW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=c/m9lBN/KUpTBk/UhjjnrjgFcewrYpksEhpwk5LUWWjrT1yEyxVYkPd5n5LZuKIlj1RMgtWwo+pm7jXf0LcZ0mGsn7kOP7FSUTpjvSPA1PhvFXHHAwqQe8qTgIJ6t6CftZmzgrGfoTP205EGQLsu3Iy2NVvfg4KG/vioJ/4G5Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3cUEqtO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itVMmBZW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDBC1F00A3A;
-	Wed,  9 Sep 2026 14:52:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3cUEqtO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824491F00A3E;
+	Wed,  9 Sep 2026 14:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965550;
-	bh=9ZUbRWq4Pir/qb7Da6Vc6VmllLJ/Xal1s2Bnl2uWxzQ=;
+	s=k20260515; t=1788965615;
+	bh=8VviPkyMinJ+3RNKAzYaPf0XsEuJ7LjsGtD88PAGt5U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=itVMmBZW94GoFt9VqiVcp6K0OS6pFltx7dXN20I3+6xOFGexGHZ5aUgL+Vv+R5yEc
-	 B8uMsxnDfE7OIlC4kCbr9uxpat+6fXTtS42IKVBYMS6yy02W6xv3TFeZuJmc25gdvT
-	 S75DTrI5GqKDllUGMnIdL8M5zsJHe0m2bvwf68LDV0ihpMyqcG7Fgud3Zz+lmGIUh9
-	 Non7qiOZNKZzHxUn1ljLtMeYzWxs7DAyLfX7DuYLlCXmUyjINgZngGgIX57IcswFtS
-	 9ZdTcDppjT/2t7+ZzF7TtHEGfD98sFFgrupZh6s2FxK+EV2JYk8TXFQ6euqX0t92oa
-	 g4qyk7i0p4wzg==
+	b=h3cUEqtOIF6Trd0PK2bKlCTYHzyx1517qSTs5+dvSRcu/MvZC1O0VQH5sLx80W/Vx
+	 E3VlZGT+Rij6g2c8wzvLhM1x7WokeG89FPL0mwgb1j0Q0fc3In3w8NngWDSwasQvUG
+	 BNA/S0NHsQx4JUjFDBly5Ery0zgBNJA9nASj8SOd8gGIlbWcERm7bCbzKEcsVs/uty
+	 aDa1kQtYdR1mV2Bw8+lZB55lLX/7fUZijhvV+thS7r4DpjkqgM3Yc3aEydV5qc8fNw
+	 omZx6s7DuIRxgpYE0jAdxXLReeV/2a9QKlserUJA2Z+y7rjhpb2Hcd5TgKNrI7/fjB
+	 2ZqckJ7LK1RyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] platform/x86: think-lmi: Fix certificate thumbprint sysfs output
-Date: Wed,  9 Sep 2026 10:52:27 -0400
-Message-ID: <20260909145227.2687665-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] PCI/sysfs: Rely on lengths from scnprintf(), dsm_label_utf16s_to_utf8s()
+Date: Wed,  9 Sep 2026 10:53:30 -0400
+Message-ID: <20260909145332.2696721-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909145227.2687665-1-sashal@kernel.org>
-References: <2026090326-stilt-refined-4e17@gregkh>
- <20260909145227.2687665-1-sashal@kernel.org>
+In-Reply-To: <2026090357-freeness-pelvis-28aa@gregkh>
+References: <2026090357-freeness-pelvis-28aa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,57 +47,86 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Krzysztof Wilczyński <kw@linux.com>
 
-[ Upstream commit 4f3183f5ae9b8ddfe338d79a96146a05342bbe50 ]
+[ Upstream commit 316ae33051215f92c72fe13bc1bfc4e513a26700 ]
 
-cert_thumbprint() already returns the accumulated output length, but
-certificate_thumbprint_show() adds that value to count again, making the
-next line use the wrong offset. Errors returned by cert_thumbprint() are
-also ignored and their negative values added to count.
+scnprintf() returns the number of bytes written into the buffer.  Change
+dsm_label_utf16s_to_utf8s() to do the same.  Rely on those values instead
+of using strlen() to compute the buffer length.
 
-Assign the total length to count instead and propagate errors correctly.
+No functional change intended.
 
-Fixes: b49f72e7f96d ("platform/x86: think-lmi: Certificate authentication support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Link: https://patch.msgid.link/20260810120556.149416-2-thorsten.blum@linux.dev
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-[ adapted upstream loop changes to the older driver's three direct cert_thumbprint() calls. ]
+[bhelgaas: reorder patch in series, len++ to include newline added by
+dsm_label_utf16s_to_utf8s(), commit log]
+Link: https://lore.kernel.org/r/20210603000112.703037-3-kw@linux.com
+Signed-off-by: Krzysztof Wilczyński <kw@linux.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Stable-dep-of: dcc5bec09e23 ("PCI: Allow per function PCI slots to fix slot reset on s390")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/think-lmi.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/pci/pci-label.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
-index f6f76418ecdea..e43b329e685e5 100644
---- a/drivers/platform/x86/think-lmi.c
-+++ b/drivers/platform/x86/think-lmi.c
-@@ -672,14 +672,18 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
- 			 char *buf)
+diff --git a/drivers/pci/pci-label.c b/drivers/pci/pci-label.c
+index 6c406453b49f4..a24d28414f3a2 100644
+--- a/drivers/pci/pci-label.c
++++ b/drivers/pci/pci-label.c
+@@ -154,14 +154,17 @@ enum acpi_attr_enum {
+ 	ACPI_ATTR_INDEX_SHOW,
+ };
+ 
+-static void dsm_label_utf16s_to_utf8s(union acpi_object *obj, char *buf)
++static int dsm_label_utf16s_to_utf8s(union acpi_object *obj, char *buf)
  {
- 	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
--	int count = 0;
-+	ssize_t count = 0;
- 
- 	if (!tlmi_priv.certificate_support || !setting->cert_installed)
- 		return -EOPNOTSUPP;
- 
--	count += cert_thumbprint(buf, "Md5", count);
--	count += cert_thumbprint(buf, "Sha1", count);
--	count += cert_thumbprint(buf, "Sha256", count);
-+	count = cert_thumbprint(buf, "Md5", count);
-+	if (count < 0)
-+		return count;
-+	count = cert_thumbprint(buf, "Sha1", count);
-+	if (count < 0)
-+		return count;
-+	count = cert_thumbprint(buf, "Sha256", count);
- 	return count;
+ 	int len;
++
+ 	len = utf16s_to_utf8s((const wchar_t *)obj->buffer.pointer,
+ 			      obj->buffer.length,
+ 			      UTF16_LITTLE_ENDIAN,
+ 			      buf, PAGE_SIZE - 1);
+-	buf[len] = '\n';
++	buf[len++] = '\n';
++
++	return len;
  }
  
+ static int dsm_get_label(struct device *dev, char *buf,
+@@ -169,7 +172,7 @@ static int dsm_get_label(struct device *dev, char *buf,
+ {
+ 	acpi_handle handle;
+ 	union acpi_object *obj, *tmp;
+-	int len = -1;
++	int len = 0;
+ 
+ 	handle = ACPI_HANDLE(dev);
+ 	if (!handle)
+@@ -191,20 +194,19 @@ static int dsm_get_label(struct device *dev, char *buf,
+ 		 * this entry must return a null string.
+ 		 */
+ 		if (attr == ACPI_ATTR_INDEX_SHOW) {
+-			scnprintf(buf, PAGE_SIZE, "%llu\n", tmp->integer.value);
++			len = scnprintf(buf, PAGE_SIZE, "%llu\n", tmp->integer.value);
+ 		} else if (attr == ACPI_ATTR_LABEL_SHOW) {
+ 			if (tmp[1].type == ACPI_TYPE_STRING)
+-				scnprintf(buf, PAGE_SIZE, "%s\n",
++				len = scnprintf(buf, PAGE_SIZE, "%s\n",
+ 					  tmp[1].string.pointer);
+ 			else if (tmp[1].type == ACPI_TYPE_BUFFER)
+-				dsm_label_utf16s_to_utf8s(tmp + 1, buf);
++				len = dsm_label_utf16s_to_utf8s(tmp + 1, buf);
+ 		}
+-		len = strlen(buf) > 0 ? strlen(buf) : -1;
+ 	}
+ 
+ 	ACPI_FREE(obj);
+ 
+-	return len;
++	return len > 0 ? len : -1;
+ }
+ 
+ static bool device_has_dsm(struct device *dev)
 -- 
 2.53.0
 
