@@ -1,41 +1,60 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD53E563297;
-	Wed,  9 Sep 2026 15:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC11572691;
+	Wed,  9 Sep 2026 15:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969142; cv=none; b=hxIw3TYWRp3NUs+pw3cnx7Agv1lsZ2S817VuINiIRGILuVM7xwHWXfcVktP4IHhLCEqDKX47tu4d2Mgb27SWWlqF6I8ahk3qE1cF5gPBzKoF7jdCDFXckXqBhLaUUbgpB2fUxqPbE56+v6QnU0TbGP9bw/5UVrmP3CTrmbwl+eQ=
+	t=1788969210; cv=none; b=cDMgNYR5aRltzqYYUbyyqo3miiCm+GnTTTTkbvyu+PqPQaS3u4+aUN7ps14THaevJ8059GdSbPiZCwm54A+CfT9zoZIK1OuhfP3sgJjVWCmBB5KR9Dip+o/QRLui70JqmAPLHttskYLCyUAiD4I+5lf+AYPCHbLCSnanOgTQ/Xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969142; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	s=arc-20240116; t=1788969210; c=relaxed/simple;
+	bh=E1LLvx81Fp2lHIylGQqgI3n8PbouPt0bAXhD54slBh4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BgSUV7RE987LC6eM1lc4aoagqpRVkyVGzGelNuQ8JsuujFcscmCEm6lRlpHGZJkAr/9VVHJJao9ADKyrrtfEiODlMHTWRIV08CtCp98kgG5oe8K6wCekq3M3Sa1lGNx4C8tpPrMUtFHw2piMvpRYj5fZ2p/DnANrk9OVvGNrYCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=ZCJfA6QM; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	 In-Reply-To:Content-Type; b=AIzIwQ/d6BfW5xPmhm2Zn+alr2miGMYiCWToRG/pxlxX7dy9dY+CP1D8WwuL2UxlPu8OrV1ScHYT2t49tyQ+uVwlhDNrTSwcZi6kWgtaV08MguKI40x2ocTwo2FUnOX+ybZ3LjL/Id+7Tv63J7zRJe25pqKGC7+rpITi39B3q4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=b2jD6ieE; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="ZCJfA6QM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1788969120; x=1789573920; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=ZCJfA6QMO/uxLPYoMc3J/jPyu/ecO007BVbArew0SxSP5g8Nxgta4Ac19lxMJ5Yt
-	 V0u8HGdAiXyKBrdBzQ86S9i15RFJD4W1AvvETLtSiL/6/zyJGNnTHXojKM02/ykU+
-	 97HPNwWdLiOWRnUFgr6uiMLnygLTHSJw3F9jFZUeXGVLH4fQkwyDng3pzQgPhKYpv
-	 0D0+KXPXubMDEYQjuAJkQLSxMOp/SUYpkqtjEKvjpavU53IuA0q7W6Ri5dbyxXuBQ
-	 oTURnQOIFrHAwecV3ztty85POO5z778FByl2B5EhtlxjjIbbTrRGbmN4psZr//kEO
-	 XeVRoUV8nD/f+uJYbg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVeI8-1xEL2B2qm4-00Y3G8; Wed, 09
- Sep 2026 17:51:59 +0200
-Message-ID: <510dc2b8-175a-4606-a36b-df46ae4fd6e4@gmx.de>
-Date: Wed, 9 Sep 2026 17:51:57 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="b2jD6ieE"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1aW83839613;
+	Wed, 9 Sep 2026 15:52:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=aJQ3f9
+	xbjxMwuiEJ1zAsToahe8kVJn3m9fPpmaehrMQ=; b=b2jD6ieEKr5a47fTeuPlQn
+	sG2l2XYvTfMvncOLggdaCSR7xbtyEqqicTLk+J/qKKkTfPAjBJngsJgiCJzcpR7h
+	oSoGobuJP9zkOKRDReLcUdhm+2MYx5/1Uo/99uE9ekSsPWYp1Q9iBTfsjOD1to0g
+	aTBwqXF6o0KWcoK8vxOba7M1IQp/NsOVCU5qJnqaT3SvbC2GTesKTonbf2p6KXX+
+	M/J8nZ8lcoe5xnOPAtAocGZiPS3wVsxi0QNv/BFhG3XCHohMggZOgU4BvLnAf6tW
+	KU0sC1dY2f0eUZgzIQj96TdbGd+PlQKVJ3qknHj3MT+acj2qeGtV0JBTiltFvqWw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf6hcp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:52:56 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfD4g030374;
+	Wed, 9 Sep 2026 15:52:55 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqk94x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:52:55 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689Fqpt649283520
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 15:52:52 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CCB8A20040;
+	Wed,  9 Sep 2026 15:52:51 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 80F0A2004D;
+	Wed,  9 Sep 2026 15:52:41 +0000 (GMT)
+Received: from [9.61.255.18] (unknown [9.61.255.18])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 15:52:41 +0000 (GMT)
+Message-ID: <371e950e-8d05-452e-b81f-57b120c370df@linux.ibm.com>
+Date: Wed, 9 Sep 2026 21:22:37 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,120 +62,160 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260909134230.441546314@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+Subject: Re: [PATCH v2 01/22] powerpc/spufs: don't dump more than the note
+ supports
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
+        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+ <20260820-work-coredump-sparse-v2-1-ba32dd718c51@kernel.org>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260820-work-coredump-sparse-v2-1-ba32dd718c51@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:ubfoJgG5xRkXvMIXBAmulopwWI84MGSDrGxSdG6/y1GrvtpE/F0
- chcT6bLULSHlFQ8WezCsSjtY9Mb6SlyW1lNYqwYcqGIWdrVgVa0RVawxok7n0a8h+xKYhVz
- fnCsfApfq72eKFbX6InxBJXBGljMgQqpc1uixHB78QhUXc9NKriM56Z0YNkS59yiMzr8skf
- Zn82xeGnPSRJ2SMNQxfAA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:AUr6VetZ5FQ=;bWFfuvahG9lD4Jbh+088CsddyOW
- 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
- LqAkYvnNzsWtGCR3EqY=
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Vpz_JMlA2xDilx_mOxqxkGzGaeHwxFvX
+X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa180d8 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=eMoGHGNclBrxslJz7JwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX34hiaNYn2Z+S
+ hgBtQiTobuQYrHJX6gsJIJBIG4ahe7XHwTJ42oLWMaT0s8cf1B+YuF/mpXEJLBqkdp/2SFe9j84
+ Pi8F6lti/HQLUiGCf6P9l52iforvejg=
+X-Proofpoint-ORIG-GUID: LzRG8kMh5H0DvZ9UWi0BCwao6ubK88PV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXz1c7miAXQplM
+ bOIrKaACTzAPfh71wupQgNaUEJC1w4GSNp9qOunmjMij39MUwS7W3Tcyx0TSbCNk/gXRlznMPUz
+ PhO0hpBGJdx35LI4z9D91L4uQv52BOffXpZWFXzAUhUO08mwVtQh6BFPe1yTLfvBeSyTGab2HJh
+ zB2bThp33YnKXUubwGq1nX+vH3Hs6fqqbKE8EPnZBqRKY8tadMqacKispmzsFlM9+juxOsqWlrW
+ lgXPIVziPYwJyQUdsRJjjfFntZkqMeRtz5LIMW6MWHUncY1OCec3GvSl8muQVkLC1gpiD+c42LX
+ 6fpAXL78yIcJfiBqovqLeSlXzhcuJTUgCPlbEmZDuGdx8+lX0M7Ps2wK28IcED1FS/HfudXbTcB
+ OiRsBxWuBXRJQQy8VskXVlXrttCU2CrIR/z8HCBhqwhKE8dY7pam8bXQ3aW97GLjZfehIjzV8Q2
+ nkd3BjPMPT4mXtPAEfw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 phishscore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
 
-Hi
 
-kernel build / boot test on x86_64 (Intel).
+On 20.08.2026 4:39 AM, Christian Brauner wrote:
+> The spufs_arch_write_note() function puts notes in the header and uses
+> them to fin where the next note starts. The spufs_coredump_read[] array
+> provides the sizes of the notes:
+>
+> 	dump_skip_to(cprm, roundup(cprm->pos - ret + sz, 4));
+>
+> In this call @ret is the amount of data the dump callback wrote. @sz is
+> the declared size. So the position moves backwards if the callback
+> wrote more data than the declared size.
+>
+> For three note sizes that is the case:
+>
+> (1) signal1 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[3])
+> (2) signal2 sets sizeof(u32) and dumps u64 via sizeof(ctx->csa.spu_chnldata_RW[4])
+> (3) ibox_info sets sizeof(u32) and dumps a u64 via puint_mb_R
+>
+> The note is 4 byte aligned. The dump_emit() call wrote the dump_align(4)
+> just before the note. So if @ret is 8 and @sz is 4 the position ends up
+> 4 bytes before the current position which means cprm->to_skip is now
+> negative.
+>
+> For __dump_skip() with size_t that means the pipe or socket gets 2^52
+> PAGE_SIZE zeroes. This also means a file seeks backwards and overwrites
+> the four bytes that it just wrote.
+>
+> Before commit 5456ffdee666 ("powerpc/spufs: simplify spufs core
+> dumping") this was benign because this truncated (on purpose, I
+> presume):
+>
+> 	u32 data;
+>
+> 	data = ctx->csa.spu_chnldata_RW[3];
+> 	...
+> 	copy_to_user(buf, &data, 4)
+>
+> and after said commit things became fscked. So let's truncate this
+> again. Not truncation means the wrong bits will be picked on big endian.
+>
+> Afaict, spufs is effectively dead so the fix probably doesn't matter in
+> the grand scheme of things.
+>
+> Fixes: 5456ffdee666 ("powerpc/spufs: simplify spufs core dumping")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-No regressions here.
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+> ---
+>   arch/powerpc/platforms/cell/spufs/file.c | 18 ++++++++++++------
+>   1 file changed, 12 insertions(+), 6 deletions(-)
+>
+> diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
+> index de7494748fec..6f86d87e3749 100644
+> --- a/arch/powerpc/platforms/cell/spufs/file.c
+> +++ b/arch/powerpc/platforms/cell/spufs/file.c
+> @@ -956,10 +956,12 @@ spufs_signal1_release(struct inode *inode, struct file *file)
+>   static ssize_t spufs_signal1_dump(struct spu_context *ctx,
+>   		struct coredump_params *cprm)
+>   {
+> +	u32 data;
+> +
+>   	if (!ctx->csa.spu_chnlcnt_RW[3])
+>   		return 0;
+> -	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[3],
+> -			       sizeof(ctx->csa.spu_chnldata_RW[3]));
+> +	data = ctx->csa.spu_chnldata_RW[3];
+> +	return spufs_dump_emit(cprm, &data, sizeof(data));
+>   }
+>   
+>   static ssize_t __spufs_signal1_read(struct spu_context *ctx, char __user *buf,
+> @@ -1089,10 +1091,12 @@ spufs_signal2_release(struct inode *inode, struct file *file)
+>   static ssize_t spufs_signal2_dump(struct spu_context *ctx,
+>   		struct coredump_params *cprm)
+>   {
+> +	u32 data;
+> +
+>   	if (!ctx->csa.spu_chnlcnt_RW[4])
+>   		return 0;
+> -	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[4],
+> -			       sizeof(ctx->csa.spu_chnldata_RW[4]));
+> +	data = ctx->csa.spu_chnldata_RW[4];
+> +	return spufs_dump_emit(cprm, &data, sizeof(data));
+>   }
+>   
+>   static ssize_t __spufs_signal2_read(struct spu_context *ctx, char __user *buf,
+> @@ -1965,10 +1969,12 @@ static const struct file_operations spufs_mbox_info_fops = {
+>   static ssize_t spufs_ibox_info_dump(struct spu_context *ctx,
+>   		struct coredump_params *cprm)
+>   {
+> +	u32 data;
+> +
+>   	if (!(ctx->csa.prob.mb_stat_R & 0xff0000))
+>   		return 0;
+> -	return spufs_dump_emit(cprm, &ctx->csa.priv2.puint_mb_R,
+> -			       sizeof(ctx->csa.priv2.puint_mb_R));
+> +	data = ctx->csa.priv2.puint_mb_R;
+> +	return spufs_dump_emit(cprm, &data, sizeof(data));
+>   }
+>   
+>   static ssize_t spufs_ibox_info_read(struct file *file, char __user *buf,
+>
+-- 
+Thanks and Regards
+R.Nageswara Sastry
 
-Thanks
-
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
