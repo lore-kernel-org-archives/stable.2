@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A5F1D5146
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0123379C4A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:46:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975995; cv=none; b=CXMx/7URemhh75KoFCMTn0D3e67nHzzRNf/bJHf1yG24zmKqSRZMG4uCIdPs7pwem2mJeecQVZKaJxEH8Ihn55hJ0CMQbiJd03JeVNO0iXrgJi849AnnoIGHsVqEQQqfnbZlm+zZ7tMoVFulpjOPorhJx4GB6Wjxmpi1F2L280c=
+	t=1788976014; cv=none; b=mEw2sxRyFRFQYG8U66aNdE04n5zRpo9SX/9Maw+tFvuwOKEeVMCt+oO2q3pbdadeTbPCd4iEkPqrZ99z8AoUvWxyXYFBHlyQXmMeg8NiDQNLIyoK1yTsS2Nz0DswKDkjMHZfnOTL+mxbp82H22Gg6pe8x+adu2l5FRvqoZzyO3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975995; c=relaxed/simple;
-	bh=58lX8aPUuBxOO+Vd0ZfWIk0FE3iBil28diYXYD+w/yU=;
+	s=arc-20240116; t=1788976014; c=relaxed/simple;
+	bh=mmoEGWe0nb0kbqk0J5Z1IHJwfQN9OctEU4uc8u4uT8g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZE/gIordzFVw/4S5vNCVxPh5IR5HWvlC9Wfeidfz+SPHdWvpzgyyE1ZXBRh1osRk0RvZfHHdvk0IPZTzVuGRNR7WfAMlsQ4Q8QmIKC5xUJB9k62vlBVIe5yG32VEm9PKCzfYEwvViruSdvuviP0MdYfxr0pyNibSw5Ikv1qNIcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUuxUUMx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jc222pwNX3W1bsJbFJlYFZT46TVA4mHIaHpzwRr9Pd+k9t2eozfotvdhLwq6hJc+ZTqqED4+hezvWBMKNnHipsPfotWbR4euoIjtx+LeBytfZoSYnoMXldlWf+ShpErX6ueC9hLo807DhieWeB8voOfw44TCXlUf1BK4FvIWSTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qt1dviEq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUuxUUMx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B591F000FF;
-	Wed,  9 Sep 2026 17:46:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qt1dviEq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92391F000FF;
+	Wed,  9 Sep 2026 17:46:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975993;
-	bh=AzkGSZmJzU+1AWVEN89CIkKpxKER7Its5gFaFC2i7VM=;
+	s=k20260515; t=1788976012;
+	bh=ii9+3T4sEeTGj1lPdPdPVGt84+ctov1jpJMiMLz1s0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IUuxUUMxhY0hiUpfuiTw4fx2TUBIxHcXciqWSvilM18tlXjFcHjzibPLFg4zs3no6
-	 TXw7a6PesS0vNpLcffPfSsjTJtp8NXOa89tGdw11igV2rgT31rRmPKffNtxiITRnO3
-	 l1sfpLMuXmJyLMuk/iJ0h0NpvLOVjge2gEDvSQFCyJdNXcZTmmwuQzndR6TCm41tCe
-	 tpDQjGwghzZZOXdlwPf+VSott6kjuzlY6+Ogyt44YvCsrjjic5MgnpmUkS9/lige/P
-	 jtFt+NKsvOBK1aKrdKpnCPL9BAjtmC7g7rqxiExYrfPcsRwRc1iwvBGLJwrK0kYd+k
-	 br9V8QbIXZdUA==
+	b=Qt1dviEqgi0/J6F6ZyDdoUJKp1HWaryDRxuQRNZV8l08iP7JM2NlgVpYdYRIbCIx0
+	 H7REX8WyvCOqdDGb0PGOKZFICxqFC+9Yt63NbzfLqDcmCwCFLELweozjka4hNFCd48
+	 bmnaQRnt3QlYyw03OcNzeDplhv/dZdTADXwkx9rjmJkv0AFASewZsHds6onIO6yqR6
+	 di3vi+zNWFEy07UzyS5pbYTkNaHWCNvHADFRf+8+h1wAAeiTvlkPfePzqmPDSUJuzM
+	 2KMp4NeF1w+QGLIXnEJf5Oft1tF0jhAKzW8ad9CYawUI1Iz9e6ljLQ/X4RreOIeNqK
+	 IhnRT5pJogDrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Glenn Judd <gmj@meta.com>,
+Cc: Dragos Tatulea <dtatulea@nvidia.com>,
 	Tariq Toukan <tariqt@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] net/mlx5e: do not HW-GRO coalesce small frames
-Date: Wed,  9 Sep 2026 13:46:29 -0400
-Message-ID: <20260909174629.3343707-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] net/mlx5e: SHAMPO, Specialize mlx5e_fill_skb_data()
+Date: Wed,  9 Sep 2026 13:46:47 -0400
+Message-ID: <20260909174650.3344905-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909174629.3343707-1-sashal@kernel.org>
+In-Reply-To: <2026090309-herbicide-eaten-1f09@gregkh>
 References: <2026090309-herbicide-eaten-1f09@gregkh>
- <20260909174629.3343707-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,60 +46,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Glenn Judd <gmj@meta.com>
+From: Dragos Tatulea <dtatulea@nvidia.com>
 
-[ Upstream commit e2466392a0b8496000e12181cb1ee1535eb0da25 ]
+[ Upstream commit d34d7d1973c4d1125c430a9612d97bfc10cf6382 ]
 
-When hardware GRO (SHAMPO) coalesces a small IPv4/TCP segment that was
-padded up to the 60-byte minimum Ethernet frame, the trailing padding is
-folded into the merged payload causing padding to be delivered
-to the user as payload.
+mlx5e_fill_skb_data() used to have multiple callers. But after the XDP
+multibuf refactoring from commit 2cb0e27d43b4 ("net/mlx5e: RX, Prepare
+non-linear striding RQ for XDP multi-buffer support") the SHAMPO code
+path is the only caller.
 
-Detecting and reproducing the issue: the selftest
-tools/testing/selftests/drivers/net/gro.py subtest
-hw_ipv4_data_lrg_1byte sends {100, 1} expecting to receive {101}.
-In current code, it receives {106} (100 + 1 payload + 5 pad) instead.
+Take advantage of this and specialize the function:
+- Drop the redundant check.
+- Assume that data_bcnt is > 0. This is needed in a downstream patch.
 
-This patch avoids giving the user padding as payload by simply not
-coalescing small packets (which fails the subtest; the same approach
-and behavior as sw gro). This gains code simplicity at the cost of
-more computation (passing an extra skb up the stack) for small packets
-that could be coalesced.
+Rename the function as well to make things clear.
 
-The threshold is chosen as ETH_ZLEN + 2 * VLAN_HLEN. This is the largest
-frame that may still contain minimum-frame padding (+ 2 VLAN tags), so
-anything larger is safe to consider for coalesce. (We do not include
-ETH_FCS_LEN in that threshold computation as netdev_fix_features()
-drops NETIF_F_GRO_HW whenever NETIF_F_RXFCS is set, so retained FCS
-can't reach this path.)
-
-Fixes: 92552d3abd32 ("net/mlx5e: HW_GRO cqe handler implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Glenn Judd <gmj@meta.com>
+Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+Suggested-by: Tariq Toukan <tariqt@nvidia.com>
 Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260816064259.3279548-1-tariqt@nvidia.com
+Link: https://lore.kernel.org/r/20240603212219.1037656-8-tariqt@nvidia.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: e2466392a0b8 ("net/mlx5e: do not HW-GRO coalesce small frames")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 25 ++++++++-----------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 19dc7ccfdcb7b..e923081995662 100644
+index 1d586451900b8..962531e9d5ec3 100644
 --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
 +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2378,6 +2378,11 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+@@ -1985,21 +1985,16 @@ const struct mlx5e_rx_handlers mlx5e_rx_handlers_rep = {
+ #endif
  
- 	data_offset = wqe_offset & (page_size - 1);
- 	page_idx = wqe_offset >> rq->mpwqe.page_shift;
-+	if (unlikely(cqe_bcnt <= ETH_ZLEN + 2 * VLAN_HLEN)) {
-+		match = false;
-+		flush = true;
-+	}
-+
- 	if (*skb &&
- 	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
- 							 page_size))) {
+ static void
+-mlx5e_fill_skb_data(struct sk_buff *skb, struct mlx5e_rq *rq,
+-		    struct mlx5e_frag_page *frag_page,
+-		    u32 data_bcnt, u32 data_offset)
++mlx5e_shampo_fill_skb_data(struct sk_buff *skb, struct mlx5e_rq *rq,
++			   struct mlx5e_frag_page *frag_page,
++			   u32 data_bcnt, u32 data_offset)
+ {
+ 	net_prefetchw(skb->data);
+ 
+-	while (data_bcnt) {
++	do {
+ 		/* Non-linear mode, hence non-XSK, which always uses PAGE_SIZE. */
+ 		u32 pg_consumed_bytes = min_t(u32, PAGE_SIZE - data_offset, data_bcnt);
+-		unsigned int truesize;
+-
+-		if (test_bit(MLX5E_RQ_STATE_SHAMPO, &rq->state))
+-			truesize = pg_consumed_bytes;
+-		else
+-			truesize = ALIGN(pg_consumed_bytes, BIT(rq->mpwqe.log_stride_sz));
++		unsigned int truesize = pg_consumed_bytes;
+ 
+ 		frag_page->frags++;
+ 		mlx5e_add_skb_frag(rq, skb, frag_page->page, data_offset,
+@@ -2008,7 +2003,7 @@ mlx5e_fill_skb_data(struct sk_buff *skb, struct mlx5e_rq *rq,
+ 		data_bcnt -= pg_consumed_bytes;
+ 		data_offset = 0;
+ 		frag_page++;
+-	}
++	} while (data_bcnt);
+ }
+ 
+ static struct sk_buff *
+@@ -2407,10 +2402,12 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+ 	}
+ 
+ 	if (likely(head_size)) {
+-		struct mlx5e_frag_page *frag_page;
++		if (data_bcnt) {
++			struct mlx5e_frag_page *frag_page;
+ 
+-		frag_page = &wi->alloc_units.frag_pages[page_idx];
+-		mlx5e_fill_skb_data(*skb, rq, frag_page, data_bcnt, data_offset);
++			frag_page = &wi->alloc_units.frag_pages[page_idx];
++			mlx5e_shampo_fill_skb_data(*skb, rq, frag_page, data_bcnt, data_offset);
++		}
+ 	}
+ 
+ 	mlx5e_shampo_complete_rx_cqe(rq, cqe, cqe_bcnt, *skb);
 -- 
 2.53.0
 
