@@ -1,48 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FAC5328A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED5549F138
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951276; cv=none; b=sPeEZi3gD054FNVn/W14eQbeIIPl+gyEPtgqkL5UGHo+xOw6pjOIyCD6tROOlzBhe5R8OGqbRhg/lnk2MenjSsZ6wxEv/ykBZY0JdIm/7P+ktnygHHRR8pInOxFnXvVMBbhHF3Ix4RN37DcoB11CzXJcE3MzsS2zmnbw8iTwads=
+	t=1788951277; cv=none; b=VsspE1/HcmuzEA6+amz439D2OthX7b4Dr1s855adhHaCi3u3g1/AIPbKYZ6r/duV5VABuiYaJCHO2VY0qUI/GawmQKRR24UpcLeQuOMjCN6QdjVljtqabtkHfuabmx9i1FGlZLym7hHZziJxbFgPsF9pcbnnto0bMUU1pl3WyCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951276; c=relaxed/simple;
-	bh=nJOPZtRQO8nQR4wn9a/tAaKw1aCXBhCNuy0r49ne6nc=;
+	s=arc-20240116; t=1788951277; c=relaxed/simple;
+	bh=3b6bi45vmRV4CqLNPc0VyEMFgnhe6nRGutLBSEL4Who=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N0OtaYhsGctwzgzTak6w1+NQkj+TJoRP33X/g+rhZN5XTReeQPIrBc44J5zf6zNPODsE2jdOM77m4Zn9uYW6yULX5NQobv6KwBC7aaH1pX4t9ZIKkGgDk3B6E1a8giIaSe156eUkyF8d+V+BwGfaglNJ3a1jECUKSUt2diSVToA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtLjAZrd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fowPrTOCcx5tt4RhgBG2kxOe67AA+Tvv7dcQQniQeV7r7quk7PXjLtsAFC7TyINLBcV0JOf/VlfsuvpEIG9Dwj5bIp80QnsZSBeYbBRkRgYeBsXVGeARNZw4sa4KXBc4qJVtvgZwamza9dikvyEQTG6IXaSeNipw2dKWcWsxN+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AURZiukN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtLjAZrd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CFBA1F00A3D;
-	Wed,  9 Sep 2026 10:54:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AURZiukN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 261901F00ACA;
+	Wed,  9 Sep 2026 10:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951270;
-	bh=UGUYspmAs2ezDx511DEKs/V5N/gkX7ULZuO+z3qwTdk=;
+	s=k20260515; t=1788951271;
+	bh=TLgQlocaScL9Poam9TXJWLl57wIdueVrgC/XEOiAwV8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MtLjAZrdekx4aW/d6xIjB/kLEStXi2YBWpPLuEP07AIGS/Pzgg5awZx7d10mxwIy+
-	 K+aObCSmvRqgc+k4OzyHk2lnz+qTOZWpSvXbxK8BqsVdRCP+DfKdHG+pl+EPXRw7VW
-	 ukGP98ZYFfsQDWeZ4mCy5/03Kc8qoIvKfFagO5CQ4zCW7y9alTAKDsEXFbbsj0GV3s
-	 eHHvzVRNAQ7Fr7amh7dkbocYfhdgDXrDoyq4yjv0VKdYcbeoEjZzTYEfSA/adKkFx8
-	 CTGpjGe45Bi7dKZcDdX9S9BNZHXJoVU6QGhQBwjbC6cY+B5JlljmMvcwwjMLUl7+9q
-	 JX248fxA4lvuQ==
+	b=AURZiukNZtWYRxsKoRYZ4gUYDjkM+RRY2l61MdXruOHQewGNIABoXAAAdgzgrorw0
+	 BRfY9DqFFXCNkvP6DoxPVvctLAjQigLfmjr89CSOwGWUgmGiqqTquyoJmQ+/8gacrN
+	 Rk+LhLxj2xVUXKzPtobQCIuL4AnITj+Teez6c0e71DaKmigfy1CJwSWnzCSDGeDgWc
+	 Dq8C45ZFKQNUfwmF9slCC7puXIwdktA/qAZhRciytcP1IbmEWNp6JLOOTWvw9v9M/E
+	 mJCGJNbWrn4DPposcr4x24zsiYz0egkpxddrD1Q3qgaZPYwFLD5Y1qVIt1uEdYCrPi
+	 Hlxbg5vjZg2Lw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Oscar Ou <oscarou@synology.com>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] ocfs2: validate dx_root extent list fields during block read
-Date: Wed,  9 Sep 2026 06:54:27 -0400
-Message-ID: <20260909105428.1621457-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] lockd: fix swapped arguments in nlmsvc_match_ip()
+Date: Wed,  9 Sep 2026 06:54:29 -0400
+Message-ID: <20260909105429.1621578-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090342-superbowl-automated-9228@gregkh>
-References: <2026090342-superbowl-automated-9228@gregkh>
+In-Reply-To: <2026090302-deskbound-enviably-4bc8@gregkh>
+References: <2026090302-deskbound-enviably-4bc8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,96 +45,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: Oscar Ou <oscarou@synology.com>
 
-[ Upstream commit 775c17386a6fd695f999d4cda90e3931386570dd ]
+[ Upstream commit b9060689f49dc663e9a3d069c4a65ff63a836e66 ]
 
-Patch series "ocfs2: consolidate extent list validation into block read
-callbacks".
+When releasing locks by server IP address via /proc/fs/nfsd/unlock_ip,
+nlmsvc_unlock_all_by_ip() calls nlm_traverse_files() with the server
+sockaddr as the opaque @data argument:
 
-ocfs2 validates extent list fields (l_count, l_next_free_rec) at various
-points during extent tree traversal.  This is fragile because each caller
-must remember to check for corrupted on-disk data before using it.
+	nlm_traverse_files(server_addr, nlmsvc_match_ip, NULL);
 
-This series moves those checks into the block read validation callbacks
-(ocfs2_validate_dx_root and ocfs2_validate_extent_block), so corrupted
-fields are caught early at block read time.  Redundant post-read checks
-are then removed.
+The match callback is later invoked from nlm_traverse_locks() as:
 
-This patch (of 4):
+	match(lockhost, host);
 
-Move the extent list l_count validation from ocfs2_dx_dir_lookup_rec()
-into ocfs2_validate_dx_root(), so that corrupted on-disk fields are caught
-early at block read time rather than during directory lookups.
+where the first argument is the nlm_host that owns the lock, and the
+second argument is the @data that was originally passed down (here the
+server sockaddr).  This is the convention every other match callback
+relies on (nlmsvc_mark_host(), nlmsvc_same_host(), nlmsvc_is_client()):
+arg1 is the real nlm_host, arg2 is the caller-supplied reference value.
 
-Additionally, add a l_next_free_rec <= l_count check to prevent
-out-of-bounds access when iterating over extent records.
+nlmsvc_match_ip() has had these two arguments reversed ever since the
+unlock-by-IP feature was introduced in commit 4373ea84c84d ("lockd:
+unlock lockd locks associated with a given server ip"):
 
-Both checks are skipped for inline dx roots (OCFS2_DX_FLAG_INLINE), which
-use dr_entries instead of dr_list.
+	return rpc_cmp_addr(nlm_srcaddr(host), datap);
 
-Link: https://lkml.kernel.org/r/20260403090803.3860971-1-joseph.qi@linux.alibaba.com
-Link: https://lkml.kernel.org/r/20260403090803.3860971-2-joseph.qi@linux.alibaba.com
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: bc70726ddad5 ("ocfs2: validate directory-index entry counts when reading metadata")
+Here @host is actually the server sockaddr, so nlm_srcaddr(host)
+dereferences a struct sockaddr as a struct nlm_host and reads garbage
+at the offset of h_srcaddr; meanwhile @datap is actually the lock
+owner's nlm_host but is compared as a sockaddr.  As a result the
+comparison practically never matches and locks are not released for the
+requested IP.
+
+Swap the arguments so the lock owner's source address is compared
+against the requested server address:
+
+	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
+
+Fixes: 4373ea84c84d ("lockd: unlock lockd locks associated with a given server ip")
+Cc: stable@vger.kernel.org
+Signed-off-by: Oscar Ou <oscarou@synology.com>
+[ cel: fix the misleading typedef parameter names too ]
+Link: https://patch.msgid.link/20260617075738.1151797-1-oscarou@synology.com
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/dir.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ fs/lockd/svcsubs.c          | 2 +-
+ include/linux/lockd/lockd.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index ae96e58ba5399..5a7dee683418b 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -582,7 +582,7 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 		mlog(ML_ERROR,
- 		     "Checksum failed for dir index root block %llu\n",
- 		     (unsigned long long)bh->b_blocknr);
--		return ret;
-+		goto bail;
- 	}
- 
- 	if (!OCFS2_IS_VALID_DX_ROOT(dx_root)) {
-@@ -590,8 +590,32 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 				  "Dir Index Root # %llu has bad signature %.*s\n",
- 				  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
- 				  7, dx_root->dr_signature);
-+		goto bail;
-+	}
-+
-+	if (!(dx_root->dr_flags & OCFS2_DX_FLAG_INLINE)) {
-+		struct ocfs2_extent_list *el = &dx_root->dr_list;
-+
-+		if (le16_to_cpu(el->l_count) != ocfs2_extent_recs_per_dx_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid l_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(el->l_count),
-+					  ocfs2_extent_recs_per_dx_root(sb));
-+			goto bail;
-+		}
-+
-+		if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid l_next_free_rec %u (l_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(el->l_next_free_rec),
-+					  le16_to_cpu(el->l_count));
-+			goto bail;
-+		}
- 	}
- 
-+bail:
- 	return ret;
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index e64e0110f66b5..a967fcdd195f4 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -486,7 +486,7 @@ EXPORT_SYMBOL_GPL(nlmsvc_unlock_all_by_sb);
+ static int
+ nlmsvc_match_ip(void *datap, struct nlm_host *host)
+ {
+-	return rpc_cmp_addr(nlm_srcaddr(host), datap);
++	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
  }
  
+ /**
+diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
+index 70ce419e27093..d6034b8bbb7dc 100644
+--- a/include/linux/lockd/lockd.h
++++ b/include/linux/lockd/lockd.h
+@@ -265,7 +265,7 @@ void		  nsm_release(struct nsm_handle *nsm);
+  * This is used in garbage collection and resource reclaim
+  * A return value != 0 means destroy the lock/block/share
+  */
+-typedef int	  (*nlm_host_match_fn_t)(void *cur, struct nlm_host *ref);
++typedef int	  (*nlm_host_match_fn_t)(void *owner, struct nlm_host *ref);
+ 
+ /*
+  * Server-side lock handling
 -- 
 2.53.0
 
