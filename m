@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A810A576EB5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:14:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A8C56E075
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:14:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963279; cv=none; b=ltpseI/7wmIyJUJwDY4gvE8Pknvj0+WM6EstD4Cx561lrk+3KSrDr0PVCpOE1gErzpzWNqY7cQI3un8q5se8XdeZ04JLoVSQMdIQdHurwXm9f16R/RgreGXqrG4Uyp3PJNpPCIUFUECVqqAcDEoyGsk5MjsaRmaS11L4E0ubKiY=
+	t=1788963279; cv=none; b=EhRPiNbFcPEIa9RtNnYcEJAmJdlfO7qqpfMwkUvy4IKjQcpD2XeU2V47dr/C0sHBEP+5z5e/D+ucehwIsMSEnEFVfusQbvJR3CWeVYPj06dEZuCYgpJzD3c9NFN7QjGY/lkfb4a6u3vvNNiVxs3HZmVGPWtZSj5H1eH8YIEIySU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963279; c=relaxed/simple;
-	bh=zOOLkq6mYkULt7FUGG0SR4j+Firz6NGeM4BSj/jcwlM=;
+	bh=pNnAp3m2GiHdtRN6FQno3LI/4DdEunomHEOxSBPi/oI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vA2rIukrdR1kQI4EGgnn7logMqd7UBA48bPtHXknpCDQcqjl0oeWq+cw2nkZDuzLH1USkeHXNN2UtYu/WSENrz6LJ1V1jUvtNcK05PMfAwuCo3jAoJJCnqUsiK6tw7imP/rcajtDIe/aUe80Z8nBb7Eh83wbZ3xS4w9+0xshyXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DhwmpffQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=boYb2yKQ4m4xfu+F/kOpG52l1qmqPe/W6wbHBX249s1KwRwRZ+SM5fyhT9jCLKBQIygimjS7qnM4BuJ9d/2K5s8VtNjT2p7pMrSd20Jhbl8CLRZs7LHtmRI6GlPmy0ZbWEhnjoHSQLWOF6EbUD5SPoeweXz1IyO+T31AJpI/8SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSxh0Kwq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DhwmpffQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4F51F00A3E;
-	Wed,  9 Sep 2026 14:14:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSxh0Kwq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4EB1F00ACA;
+	Wed,  9 Sep 2026 14:14:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963277;
-	bh=D6NmhKjCEhzsc7XESy681ai1HBrvvKN1frAnK42wUSs=;
+	s=k20260515; t=1788963278;
+	bh=ZeNjUbzSMGZoXgBndnJC0B2k+NODl5TxDLmCu534prc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DhwmpffQfPGhW5+CjoDx4TYxrvdUi6tqwKrGk5Bqx7RV5+DQj0MmCrIOAUdxgPrkR
-	 6afZcoyQqVRFurkGOMQR68j+6YdPqWxaExD9yjSEP8TmovCRGkMpw2bgljjlTe1g98
-	 zAuSjFFQG4Y8F+SD6c6ZdM7viY1rURVxL+YEsekk+WFyMi6AhC1zk1/DVdW1U/aLJe
-	 o68RnRWURkDhDsR0wS7a096Jg7QU4QA7pOfWq+Mszl7pYSTlyr6uUjKGW/71XNBm7t
-	 E/xvIG+yO3orkvY/vCUz7+L9PzFk3b6xYbYKGaPkzwlGnROFonq2Ruk1zDoxEIh4mH
-	 GsTO7HmXGcW3Q==
+	b=FSxh0KwqTH/WIvTd+MdWB14xPhLEETzM36XuMQW2eHH8tnXVvsuEBD7FbretKP0gZ
+	 gjdtMHCsXfCC9AlsrbrCUOLAPshhzNYfq9DwgB379vZB6TEY9H3MJlG3nO47muS1zS
+	 MtA70KP4jtTlSahbTVQo2zJtrRlbQcL9z5bJGxftJspW6yKF6W1XeY+/UbuAPP2xbX
+	 oKxtmnF2+mqzLuthNVldEhx6lzAKnUzgQq565fGgGtscqRB77012hLy9IvQdfLKuR8
+	 jKlhk4CC+ttC+m9L4G1eyiYwxaZxeV7u01ikPfuSiFjijBg8iBOIjAwW2oS4gRjfu7
+	 qiJkdIn/Vyy5A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Farhan Ali <alifm@linux.ibm.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Zhang Heng <zhangheng@kylinos.cn>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Joerg Roedel <jroedel@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] PCI: Allow per function PCI slots to fix slot reset on s390
-Date: Wed,  9 Sep 2026 10:14:34 -0400
-Message-ID: <20260909141434.2391408-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] iommu/msm: Use helper function devm_clk_get_prepared()
+Date: Wed,  9 Sep 2026 10:14:35 -0400
+Message-ID: <20260909141436.2391480-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141434.2391408-1-sashal@kernel.org>
-References: <2026090354-granular-yam-34d7@gregkh>
- <20260909141434.2391408-1-sashal@kernel.org>
+In-Reply-To: <2026090342-cost-opposing-2086@gregkh>
+References: <2026090342-cost-opposing-2086@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,160 +46,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Farhan Ali <alifm@linux.ibm.com>
+From: Zhang Heng <zhangheng@kylinos.cn>
 
-[ Upstream commit dcc5bec09e23bbc4f9de055a11fce9937244f2c8 ]
+[ Upstream commit afc0cbc6e25b37dc9ba11d415ea6858902a7f04b ]
 
-On s390 systems, which use a machine level hypervisor, PCI devices are
-always accessed through a form of PCI pass-through which fundamentally
-operates on a per PCI function granularity. This is also reflected in the
-s390 PCI hotplug driver which creates hotplug slots for individual PCI
-functions. Its reset_slot() function, which is a wrapper for
-zpci_hot_reset_device(), thus also resets individual functions.
+Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
+and enabled clocks"), devm_clk_get() and clk_prepare() can now be replaced
+by devm_clk_get_prepared() when driver prepares the clocks for the whole
+lifetime of the device. Moreover, it is no longer necessary to unprepare
+the clocks explicitly.
 
-Currently, the pci_create_slot() assigns the same pci_slot object to
-multifunction devices. This approach worked fine on s390 systems that only
-exposed virtual functions as individual PCI domains to the operating
-system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-s390 supports exposing the topology of multifunction PCI devices by
-grouping them in a shared PCI domain. This creates a problem when resetting
-a function through the hotplug driver's slot_reset() interface.
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20250103113059.463033-1-zhangheng@kylinos.cn
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
 
-When attempting to reset a function through the hotplug driver, the shared
-slot assignment causes the wrong function to be reset instead of the
-intended one. It also leaks memory as we do create a pci_slot object for
-the function, but don't correctly free it in pci_slot_release().
+Backport to 6.12: remove the .remove_new callback entry used by this
+stable tree instead of the upstream .remove entry. The callback only
+unprepares clocks, which devm_clk_get_prepared() now handles. Keep
+the remaining upstream changes to prepare the probe error paths for
+535a200220ca ("iommu/msm: Unwind probe state on registration failure").
 
-Add a flag for struct pci_slot to allow per function PCI slots for
-functions managed through a hypervisor, which exposes individual PCI
-functions while retaining the topology. Since we can use all 8 bits for
-slot 'number' (for ARI devices), change slot 'number' u16 to account for
-special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
-
-Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
+Stable-dep-of: 535a200220ca ("iommu/msm: Unwind probe state on registration failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pci.c   |  5 +++--
- drivers/pci/slot.c  | 29 +++++++++++++++++++++++------
- include/linux/pci.h |  7 ++++---
- 3 files changed, 30 insertions(+), 11 deletions(-)
+ drivers/iommu/msm_iommu.c | 51 +++++++++------------------------------
+ 1 file changed, 11 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 439045ab69319..2259b9855f622 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4828,8 +4828,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
+diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
+index 79d89bad5132b..d6526908f1504 100644
+--- a/drivers/iommu/msm_iommu.c
++++ b/drivers/iommu/msm_iommu.c
+@@ -712,47 +712,32 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 	iommu->dev = &pdev->dev;
+ 	INIT_LIST_HEAD(&iommu->ctx_list);
  
- static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
- {
--	if (dev->multifunction || dev->subordinate || !dev->slot ||
--	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
-+	if (dev->subordinate || !dev->slot ||
-+	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
-+	    (dev->multifunction && !dev->slot->per_func_slot))
- 		return -ENOTTY;
+-	iommu->pclk = devm_clk_get(iommu->dev, "smmu_pclk");
++	iommu->pclk = devm_clk_get_prepared(iommu->dev, "smmu_pclk");
+ 	if (IS_ERR(iommu->pclk))
+ 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->pclk),
+ 				     "could not get smmu_pclk\n");
  
- 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-index b5fbf2709fbd3..179aa68612539 100644
---- a/drivers/pci/slot.c
-+++ b/drivers/pci/slot.c
-@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
- 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
+-	ret = clk_prepare(iommu->pclk);
+-	if (ret)
+-		return dev_err_probe(iommu->dev, ret,
+-				     "could not prepare smmu_pclk\n");
+-
+-	iommu->clk = devm_clk_get(iommu->dev, "iommu_clk");
+-	if (IS_ERR(iommu->clk)) {
+-		clk_unprepare(iommu->pclk);
++	iommu->clk = devm_clk_get_prepared(iommu->dev, "iommu_clk");
++	if (IS_ERR(iommu->clk))
+ 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->clk),
+ 				     "could not get iommu_clk\n");
+-	}
+-
+-	ret = clk_prepare(iommu->clk);
+-	if (ret) {
+-		clk_unprepare(iommu->pclk);
+-		return dev_err_probe(iommu->dev, ret, "could not prepare iommu_clk\n");
+-	}
+ 
+ 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	iommu->base = devm_ioremap_resource(iommu->dev, r);
+ 	if (IS_ERR(iommu->base)) {
+ 		ret = dev_err_probe(iommu->dev, PTR_ERR(iommu->base), "could not get iommu base\n");
+-		goto fail;
++		return ret;
+ 	}
+ 	ioaddr = r->start;
+ 
+ 	iommu->irq = platform_get_irq(pdev, 0);
+-	if (iommu->irq < 0) {
+-		ret = -ENODEV;
+-		goto fail;
+-	}
++	if (iommu->irq < 0)
++		return -ENODEV;
+ 
+ 	ret = of_property_read_u32(iommu->dev->of_node, "qcom,ncb", &val);
+ 	if (ret) {
+ 		dev_err(iommu->dev, "could not get ncb\n");
+-		goto fail;
++		return ret;
+ 	}
+ 	iommu->ncb = val;
+ 
+@@ -767,8 +752,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 
+ 	if (!par) {
+ 		pr_err("Invalid PAR value detected\n");
+-		ret = -ENODEV;
+-		goto fail;
++		return -ENODEV;
+ 	}
+ 
+ 	ret = devm_request_threaded_irq(iommu->dev, iommu->irq, NULL,
+@@ -778,7 +762,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 					iommu);
+ 	if (ret) {
+ 		pr_err("Request IRQ %d failed with ret=%d\n", iommu->irq, ret);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	list_add(&iommu->dev_node, &qcom_iommu_devices);
+@@ -787,23 +771,19 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 				     "msm-smmu.%pa", &ioaddr);
+ 	if (ret) {
+ 		pr_err("Could not add msm-smmu at %pa to sysfs\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	ret = iommu_device_register(&iommu->iommu, &msm_iommu_ops, &pdev->dev);
+ 	if (ret) {
+ 		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	pr_info("device mapped at %p, irq %d with %d ctx banks\n",
+ 		iommu->base, iommu->irq, iommu->ncb);
+ 
+ 	return ret;
+-fail:
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-	return ret;
  }
  
-+static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
-+{
-+	if (slot->per_func_slot)
-+		return dev->devfn == slot->number;
-+
-+	return slot->number == PCI_SLOT_ALL_DEVICES ||
-+		PCI_SLOT(dev->devfn) == slot->number;
-+}
-+
-+static bool pci_slot_enabled_per_func(void)
-+{
-+	if (IS_ENABLED(CONFIG_S390))
-+		return true;
-+
-+	return false;
-+}
-+
- static void pci_slot_release(struct kobject *kobj)
- {
- 	struct pci_dev *dev;
-@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = NULL;
- 	up_read(&pci_bus_sem);
- 
-@@ -176,8 +192,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
- 
- 	mutex_lock(&pci_slot_mutex);
- 	list_for_each_entry(slot, &dev->bus->slots, list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	mutex_unlock(&pci_slot_mutex);
- }
-@@ -288,6 +303,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 	slot->bus = pci_bus_get(parent);
- 	slot->number = slot_nr;
- 
-+	if (pci_slot_enabled_per_func())
-+		slot->per_func_slot = 1;
-+
- 	slot->kobj.kset = pci_slots_kset;
- 
- 	slot_name = make_slot_name(name);
-@@ -308,8 +326,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &parent->devices, bus_list)
--		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot_nr)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	up_read(&pci_bus_sem);
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 5e80ab9dff2fb..148b71af80b32 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -78,17 +78,18 @@
-  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
-  * devices.
-  */
--#define PCI_SLOT_ALL_DEVICES	0xfe
-+#define PCI_SLOT_ALL_DEVICES	0xfeff
- 
- /* Used to identify a slot as a placeholder */
--#define PCI_SLOT_PLACEHOLDER	0xff
-+#define PCI_SLOT_PLACEHOLDER	0xffff
- 
- /* pci_slot represents a physical slot */
- struct pci_slot {
- 	struct pci_bus		*bus;		/* Bus this slot is on */
- 	struct list_head	list;		/* Node in list of slots */
- 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
--	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	unsigned int		per_func_slot:1; /* Allow per function slot */
- 	struct kobject		kobj;
+ static const struct of_device_id msm_iommu_dt_match[] = {
+@@ -811,20 +791,11 @@ static const struct of_device_id msm_iommu_dt_match[] = {
+ 	{}
  };
  
+-static void msm_iommu_remove(struct platform_device *pdev)
+-{
+-	struct msm_iommu_dev *iommu = platform_get_drvdata(pdev);
+-
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-}
+-
+ static struct platform_driver msm_iommu_driver = {
+ 	.driver = {
+ 		.name	= "msm_iommu",
+ 		.of_match_table = msm_iommu_dt_match,
+ 	},
+ 	.probe		= msm_iommu_probe,
+-	.remove_new	= msm_iommu_remove,
+ };
+ builtin_platform_driver(msm_iommu_driver);
 -- 
 2.53.0
 
