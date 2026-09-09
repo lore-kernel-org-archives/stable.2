@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7429D51A73E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:34:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE20E51357F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:34:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950073; cv=none; b=TOZFncBQW8dxEaCaifIVUd8mDOfa/L2HcEoWc7SM0PTMezgG+4qs1nvVO7nWBFzKT7LZ6UO8ABh3tE0YnLNbvlru3TYmaeOCoR6EwNQiKFizDfKoZid/3UmjyYbDvVoaTDVhyTETYu0YxsdKDFa6gNoMPxuCVbSQLfZSaQMLAGg=
+	t=1788950075; cv=none; b=TUmCLeGINQMsjQ38JAjKINcSemvz92+Q+3NP38n0n6l4BdjH7LuHBXABLGM1IAZYLmMNCOnThaZkMfDDlH6WT5ZiTpNAtW10i0eoxjav2trUTVWrlmcqt9GgL67EQTvvnGbmnohssm/r9wcnCjXXGBBdFxzpZVxGCWavlVKiX9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950073; c=relaxed/simple;
-	bh=BBsyBCbuFikMhgMelhK7bBZdPI66lCZxx1TpnMhewiA=;
+	s=arc-20240116; t=1788950075; c=relaxed/simple;
+	bh=cZx+uZiIuFsZk6tCHSQtItB4+f2cMD8GFoU88JBumm8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LMgVdNpImdLZFE2HQh67usMdEywZh9OYp3cpwLOyA52vGH2DAb/ZZslvp1RSC6h5PaHOfWtkEqIRXnFwpB1dSfyztykcS8h/knivemm3zYvi/xLFsapsnD51e6QkQAA+35d26azdQYZzXvWeSi274PRCuZlSfh6+QjuALyWpmgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gak4+l7m; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q8C99ddo8jvxohqU2JfMaiLDKKmWtU3RBQi9mjRR3gLHPtpYkA6/hXJZWZV27zMNqquoIWyygzvStYCXENIsHSZWJShQhPj4VmDM9DZZVCk6JaaSmAQ4ZEydilWeX+BXwYb+OQCFcZugn5ocydTJwQn9XzDoRmKPZv1VpgT58i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqIvomiS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gak4+l7m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB3D1F00A3D;
-	Wed,  9 Sep 2026 10:34:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqIvomiS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B1D1F00A3F;
+	Wed,  9 Sep 2026 10:34:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950072;
-	bh=rTM9g0Zm1BvvOdVRpxRrSfbjjJVumUOXL0wrllU7ki4=;
+	s=k20260515; t=1788950073;
+	bh=cAknlqRwwstuFzZlz0yL94UQEdmEDIPt5ZisLLFUl+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gak4+l7m8fcEwAakny8ZfOXggPzBnhE3MVSH+1EyieP1ZRCC72l454J/obcVTBaeD
-	 MUOmq3leBck7avPu5+GAqrN2b4vNk9T9UlaWmRchZK8Ey5tsVLrAOEiauF5M4Igqab
-	 Qcio6P52XpPJmV3F/9rScB6ZH2ODTme5dwpGYhap9KdYRlPo+gteYCRNRYYkqTjiN8
-	 OsfWLbf3fGANuvlo5/JYT2tcPBRCVudGrJ3XfjqeGxeGU3Ti9QHi5M4bMcv/1wosFX
-	 fWRKjyoODsmKpz3SKOM9jtp1V6B+t/rUe1YvZizggCYK24fCC/9Ta8IiNpwP1PnLEC
-	 26RJhXxKyiOsA==
+	b=EqIvomiSRFO6Ww5U6HwJasozBL9jNMQdVdq5lYLJVrtpiHo6o1h98481igmkZZBg8
+	 EAhAvxeWqECS/x1FwhwaF+8r0n60Di38RJAXsIMgO6WrcgdsXV+elSNnMGXg6KKZdn
+	 BgE3s5FeKahkm9LEeUfS38Y7dIJ0L2qp5EavxMgMg01+B2+UGP79vqjZEq//IFOPQc
+	 EsfRHurYlCP+AI5o/0AM5/4n/T1B/IM05W8zXJXWwTruuDjKh3Sd8DCcYEFioHwfAC
+	 aJjEPfx83Lblodj5/y/+dqBgOmUM6qqQGUd26c04KGFWXTKwd7/OImwhAL+//aoCcE
+	 Y4ywOM47c8nCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Oscar Ou <oscarou@synology.com>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ASoC: codecs: aw88261: only check PLL and clock state at power-up
-Date: Wed,  9 Sep 2026 06:34:29 -0400
-Message-ID: <20260909103429.1544487-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] lockd: fix swapped arguments in nlmsvc_match_ip()
+Date: Wed,  9 Sep 2026 06:34:31 -0400
+Message-ID: <20260909103431.1544654-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909103429.1544487-1-sashal@kernel.org>
-References: <2026090348-garment-snowdrift-7618@gregkh>
- <20260909103429.1544487-1-sashal@kernel.org>
+In-Reply-To: <2026090300-isolation-small-467e@gregkh>
+References: <2026090300-isolation-small-467e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,79 +45,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+From: Oscar Ou <oscarou@synology.com>
 
-[ Upstream commit 06b6f1245567a4be862c3e1cc74577922ceb05fb ]
+[ Upstream commit b9060689f49dc663e9a3d069c4a65ff63a836e66 ]
 
-The SYSST check performed during device start requires SWS (amplifier
-switching, bit 8) and BSTS (boost finished, bit 9) on top of PLL lock
-and clock stability. Those bits cannot be asserted at this point in the
-sequence: the check runs after amppd release but before the
-hmute/ULS-hmute release, and the amplifier neither switches nor
-finishes ramping its boost converter while it is still muted. With the
-Fairphone (Gen. 6) firmware profile, aw88261_dev_start() therefore
-always fails with
+When releasing locks by server IP address via /proc/fs/nfsd/unlock_ip,
+nlmsvc_unlock_all_by_ip() calls nlm_traverse_files() with the server
+sockaddr as the opaque @data argument:
 
-  check sysst fail, reg_val=0x0011, check:0x311
+	nlm_traverse_files(server_addr, nlmsvc_match_ip, NULL);
 
-and playback aborts, even though the amplifier is fine and PLL lock
-and stable clocks are present.
+The match callback is later invoked from nlm_traverse_locks() as:
 
-Check only PLL lock and clock stability, for which a definition
-already exists; this still re-validates the clocks after amppd release
-(aw88261_dev_check_syspll() checked them before it). This matches the
-vendor aw882xx driver, which only validates PLL lock and clock
-stability at this stage, and the in-tree aw88399 driver, which skips
-the SWS check whenever the amplifier may legitimately not be switching
-(AW88399_BIT_SYSST_NOSWS_CHECK).
+	match(lockhost, host);
 
-Fixes: 028a2ae25691 ("ASoC: codecs: Add aw88261 amplifier driver")
+where the first argument is the nlm_host that owns the lock, and the
+second argument is the @data that was originally passed down (here the
+server sockaddr).  This is the convention every other match callback
+relies on (nlmsvc_mark_host(), nlmsvc_same_host(), nlmsvc_is_client()):
+arg1 is the real nlm_host, arg2 is the caller-supplied reference value.
+
+nlmsvc_match_ip() has had these two arguments reversed ever since the
+unlock-by-IP feature was introduced in commit 4373ea84c84d ("lockd:
+unlock lockd locks associated with a given server ip"):
+
+	return rpc_cmp_addr(nlm_srcaddr(host), datap);
+
+Here @host is actually the server sockaddr, so nlm_srcaddr(host)
+dereferences a struct sockaddr as a struct nlm_host and reads garbage
+at the offset of h_srcaddr; meanwhile @datap is actually the lock
+owner's nlm_host but is compared as a sockaddr.  As a result the
+comparison practically never matches and locks are not released for the
+requested IP.
+
+Swap the arguments so the lock owner's source address is compared
+against the requested server address:
+
+	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
+
+Fixes: 4373ea84c84d ("lockd: unlock lockd locks associated with a given server ip")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Link: https://patch.msgid.link/20260704192857.88366-1-jorijnvdgraaf@catcrafts.net
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Oscar Ou <oscarou@synology.com>
+[ cel: fix the misleading typedef parameter names too ]
+Link: https://patch.msgid.link/20260617075738.1151797-1-oscarou@synology.com
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/aw88261.c | 6 +++---
- sound/soc/codecs/aw88261.h | 6 ------
- 2 files changed, 3 insertions(+), 9 deletions(-)
+ fs/lockd/svcsubs.c          | 2 +-
+ include/linux/lockd/lockd.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 9019a12cd0f03..7fe486b707b2b 100644
---- a/sound/soc/codecs/aw88261.c
-+++ b/sound/soc/codecs/aw88261.c
-@@ -254,10 +254,10 @@ static int aw88261_dev_check_sysst(struct aw_device *aw_dev)
- 			return ret;
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index 91a4c22c86ff2..4075d0eab263f 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -508,7 +508,7 @@ EXPORT_SYMBOL_GPL(nlmsvc_unlock_all_by_sb);
+ static int
+ nlmsvc_match_ip(void *datap, struct nlm_host *host)
+ {
+-	return rpc_cmp_addr(nlm_srcaddr(host), datap);
++	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
+ }
  
- 		check_val = reg_val & (~AW88261_BIT_SYSST_CHECK_MASK)
--							& AW88261_BIT_SYSST_CHECK;
--		if (check_val != AW88261_BIT_SYSST_CHECK) {
-+							& AW88261_BIT_PLL_CHECK;
-+		if (check_val != AW88261_BIT_PLL_CHECK) {
- 			dev_dbg(aw_dev->dev, "check sysst fail, reg_val=0x%04x, check:0x%x",
--				reg_val, AW88261_BIT_SYSST_CHECK);
-+				reg_val, AW88261_BIT_PLL_CHECK);
- 			usleep_range(AW88261_2000_US, AW88261_2000_US + 10);
- 		} else {
- 			return 0;
-diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
-index 4f3dbf438510d..79ce52f602838 100644
---- a/sound/soc/codecs/aw88261.h
-+++ b/sound/soc/codecs/aw88261.h
-@@ -181,12 +181,6 @@
- 		AW88261_OTHS_OT_VALUE | \
- 		AW88261_PLLS_LOCKED_VALUE))
+ /**
+diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
+index d9930fc43ca54..ba838f529056c 100644
+--- a/include/linux/lockd/lockd.h
++++ b/include/linux/lockd/lockd.h
+@@ -268,7 +268,7 @@ void		  nsm_release(struct nsm_handle *nsm);
+  * This is used in garbage collection and resource reclaim
+  * A return value != 0 means destroy the lock/block/share
+  */
+-typedef int	  (*nlm_host_match_fn_t)(void *cur, struct nlm_host *ref);
++typedef int	  (*nlm_host_match_fn_t)(void *owner, struct nlm_host *ref);
  
--#define AW88261_BIT_SYSST_CHECK \
--		(AW88261_BSTS_FINISHED_VALUE | \
--		AW88261_SWS_SWITCHING_VALUE | \
--		AW88261_CLKS_STABLE_VALUE | \
--		AW88261_PLLS_LOCKED_VALUE)
--
- #define AW88261_ULS_HMUTE_START_BIT	(14)
- #define AW88261_ULS_HMUTE_BITS_LEN	(1)
- #define AW88261_ULS_HMUTE_MASK		\
+ /*
+  * Server-side lock handling
 -- 
 2.53.0
 
