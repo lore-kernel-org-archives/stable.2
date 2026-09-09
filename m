@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5DD45FFDF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BAC471D14
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946702; cv=none; b=TM+eSM4/0j2sYeIs75THFGoGYES7fLvzG0t4X2Ml1JalMu8copldVUBIgwc5AtJhuPpMiDluyWqEdk6MTKP52Y2R8iFnyM5Gyt8D/aHc0Lz+x3Mvdy9v363dw1zuXRPk+vRvO56383SD/ZBruQYqQzQAxiPazm7uxMZH/5czz80=
+	t=1788946755; cv=none; b=RWH/lFR58d4G5HmO/PMiq8XNafBn9J67qpyr/cx0TSfoz3P9Msx7yhVt6ZFeGCbh8PH7fCenzuvVHrgOd8nwJt63La4Inh7Sk75nRkJTAZfpUhu+WvjHwssJ76ojAtQ+4+vghyeo7X4M3rzNhZq/2JQqJR2OEgbYRfMKsbGcRlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946702; c=relaxed/simple;
-	bh=w5pLg7tulFHuQp8YvoCP80znR9qZxuCHG+zeBVYpqJ8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HTWWcfL6VzKBEMIa2OdGo2Lk7U13Thib9tX/8P/vLXp2x1sxQKM5HSFXeJcV0yzM2UA03bPqPR+LK2SdQIXvYwIe6Fptc5prVzlPc/e4UfmT+LqbTcAxJIuF9Opd+Wxhunt6JMCfCwMNnz83NrJ5T+e7V8Cz/4TpLEPBvRaNNS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R9AoV+cj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788946755; c=relaxed/simple;
+	bh=wguqrkVM6J8CGNgu8YHUhDwikrHXt9U41o9NuSxPmI4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NaFHFl1fTKFympnQaldiW5QP8W2y2I8y6d0/BHCB9R3GDn9ddnU6pCZ1D/ZbrGNyx0Jm9ppG2YL1GUsdW0U6SWjn9KNJz+MADrzH2+kJrifcnRwlV8tlRgwo3UqZUOsE+J0c644ljDWrc1RvJlbDG0WYh1n6SLvY+IFEcjHqgYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yzn+kp57; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R9AoV+cj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307051F00A3D;
-	Wed,  9 Sep 2026 09:38:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yzn+kp57"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1651F00A3A;
+	Wed,  9 Sep 2026 09:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788946698;
-	bh=OmGACsSC/pLn+NdcC130vh/Zt6X1gkxrbLGcF9sD/jI=;
+	s=korg; t=1788946747;
+	bh=LKKaozefppKyEMVj4p4AtdJcJg8CfqqEg5S/CQvdFdQ=;
 	h=Subject:To:Cc:From:Date;
-	b=R9AoV+cja86zmHF9ul3nvoji2C5Zc0LvfW7hgTr1+cycu1sxUfSoQLFTLWBitz2Rt
-	 MIVSa3tDiFCVavVNYZTZLtBLaPA+L6hYq5hcpcASg6mT2lA4xIE/6N+DKIZxOX0YrT
-	 hkDlYkEwQHcu2LkO8YqJRPFXwOmMnwOCq5CiTOGQ=
-Subject: FAILED: patch "[PATCH] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm" failed to apply to 6.1-stable tree
-To: prabhakar.mahadev-lad.rj@bp.renesas.com,alexandre.belloni@bootlin.com,wsa+renesas@sang-engineering.com
+	b=yzn+kp57yi54Cj99JlnMGHH2rEFQbCK9N/TlC+WyS9rHXwHQ0MyjeRwkvz1pOADWl
+	 /XYibxeh9QAcbByVL7JVftLikD04Gka1zG0Iqvb1oytchH3yJL19jU7U2thTdb1CoB
+	 8n1pHODROLTkWOGUB3QZF2LEE4KJ60cDB+Khz6EA=
+Subject: FAILED: patch "[PATCH] perf/x86/intel: Remove anythread_deprecated bit from" failed to apply to 6.18-stable tree
+To: dapeng1.mi@linux.intel.com,namhyung@kernel.org,peterz@infradead.org,thomas.falcon@intel.com,zide.chen@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:38:00 +0200
-Message-ID: <2026090900-washout-open-1097@gregkh>
+Date: Wed, 09 Sep 2026 11:38:58 +0200
+Message-ID: <2026090958-hunchback-occupy-6ab0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 457b5dbce31209e65e1184716ed3af59cb1c0372
+git cherry-pick -x 8767b4d73018bd3143f4c55b672064fad292f11b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090900-washout-open-1097@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090958-hunchback-occupy-6ab0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,86 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 457b5dbce31209e65e1184716ed3af59cb1c0372 Mon Sep 17 00:00:00 2001
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Date: Fri, 21 Aug 2026 22:10:19 +0100
-Subject: [PATCH] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
+From 8767b4d73018bd3143f4c55b672064fad292f11b Mon Sep 17 00:00:00 2001
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Date: Tue, 16 Jun 2026 12:46:47 +0800
+Subject: [PATCH] perf/x86/intel: Remove anythread_deprecated bit from
+ perf_capabilities
 
-RZN1_RTC_ALW is a weekday bitmask where bit N represents weekday N.
-When no alarm has been configured, the register has its power-on-reset
-value of zero.
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
 
-rzn1_rtc_read_alarm() uses fls() to convert the weekday bitmask into a
-weekday number. When RZN1_RTC_ALW is zero, fls(0) returns zero and
-fls(wday) - 1 evaluates to -1. This invalid weekday is then used to
-calculate the alarm date and can either leave tm_wday set to -1 or
-produce a fabricated alarm date.
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
+}
 
-Treat a zero RZN1_RTC_ALW value as an unset alarm weekday and return
-without calculating the alarm date. Move reading RZN1_RTC_CTL1 before
-this check so that alrm->enabled is updated for both configured and
-unconfigured alarms.
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
 
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
+$ grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
+
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
+
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Link: https://patch.msgid.link/20260821211032.13554-5-prabhakar.mahadev-lad.rj@bp.renesas.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.intel.com
 
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 56284a4320ae..d4cba0d415b6 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -235,13 +235,24 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	if (ret)
- 		return ret;
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 2b35483e2b70..465c414f145d 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -7947,12 +7947,6 @@ __init int intel_pmu_init(void)
  
-+	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
-+	alrm->enabled = !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE));
-+
- 	min = readl(rtc->base + RZN1_RTC_ALM);
- 	hour = readl(rtc->base + RZN1_RTC_ALH);
--	wday = readl(rtc->base + RZN1_RTC_ALW);
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
  
- 	tm->tm_sec = 0;
- 	tm->tm_min = bcd2bin(min);
- 	tm->tm_hour = bcd2bin(hour);
-+
-+	/*
-+	 * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
-+	 * register's power-on reset value.
-+	 */
-+	wday = readl(rtc->base + RZN1_RTC_ALW);
-+	if (!wday)
-+		return 0;
-+
- 	delta_days = ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
- 	tm->tm_wday = fls(wday) - 1;
- 
-@@ -250,9 +261,6 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 		rtc_time64_to_tm(alarm, tm);
- 	}
- 
--	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
--	alrm->enabled = !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE));
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
 -
- 	return 0;
- }
+ 	/* The perf side of core PMU is ready to support the mediated vPMU. */
+ 	x86_get_pmu(smp_processor_id())->capabilities |= PERF_PMU_CAP_MEDIATED_VPMU;
  
+@@ -8829,8 +8823,10 @@ __init int intel_pmu_init(void)
+ 				      &x86_pmu.intel_ctrl);
+ 
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
+ 
+ 	intel_pmu_check_event_constraints_all(NULL);
+ 
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index eae24bb35dc1..5902a297daa1 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -668,7 +668,7 @@ union perf_capabilities {
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+ 		u64	pebs_timing_info:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 		u64	rdpmc_metrics_clear:1;
+ 	};
+ 	u64	capabilities;
 
