@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54E8582B99
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DAA582BAD
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971221; cv=none; b=MhstbXx8Iy7cWqI8PYpwqg+Xdx0qmdSU1DrBN/DUbvc3QQREBp6CxSqj906aGYFSINoq2nSu+amWfUxQ7Z+SKqqJcAMUUC3pDqF6b8qqguhTQ3o4SxFTjGV5yKzJy+E9zDBNqgtEfs5oFr2B8TPq8Jnmnotvz3oRNNuKwBMHgkE=
+	t=1788971227; cv=none; b=JmsiS97ViQusW1ARCHHq+MOp2IpQJ3KR5AWzw99PzjXr/VVIsAj8jTV3PkiDUmPvNikA/txBvGqq3rwAvTrPyhxrYxf5jSW/u3tpuMgyIwrhwZqoe6xOgTVwA52xIoK4s1git/K/hHoHJcbMlogrkxcd8YAk+39vPpxMaC361Ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971221; c=relaxed/simple;
-	bh=25t8/NfPzq0GgBSJ0tPQNkdmFE+An+qGzI8Mdi+feDU=;
+	s=arc-20240116; t=1788971227; c=relaxed/simple;
+	bh=5JBc2/hCMR/rOPuYanL40Amdu2tAvF5ulVAqbRxVlUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rs1llPVkVeJsviWuArA0/yeJEtdnZsS4OOdjatOlC9cvjEPQdA25c3cKwUR/l6jxWisACysZ89RR/oBYQL6NUX69kGc+fcP9dTp/tWuaoNOVprTz3n3/QpgUfSMgAQVku6W0zqbC5+wV/FYTGwkkH3h0WJUxh5h2ntGhuzw8kzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNHcewS8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=nMDy5SOMrZ4fTU12nl0YtleQwBddEJuwS1TLf7XXsEk6ktAyYa6xhZLz2iUy9fGKb4cQp1BT8f6TRgKvrlCe54RC/LuM12ofYroEQ819arw91tc9GM30K5q6XoflC+Ukv8UOVzF/R6ypUciIUDstAk382q5Th9R56Iv4rg5DTh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVE+xuTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNHcewS8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C425D1F00898;
-	Wed,  9 Sep 2026 16:26:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVE+xuTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C95C1F000FF;
+	Wed,  9 Sep 2026 16:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971219;
-	bh=o4UjUxO5I1tV9DimlBltzNW3MKE16kIqqwBzvi3ps7o=;
+	s=k20260515; t=1788971226;
+	bh=EK6TJ7VzTUZqO0A8Wd5WjEptTXeThGTa1IbjCDdIC2I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BNHcewS8Y0zV3aU9M1zt3RzqXWM4EhKT5FVZPdlEOvSzKrMJ0yBhsTzwxvT62B13a
-	 0pp+VTuxhxfwpVsSV2z+OQ3k2jzHKESPDekhcDW9gxJq8l5kVoJYKOGcQIFXyfopjf
-	 dscu8AQFQ4raxLNGIycJF2gsJD1pZBdm5oc9YriwJTDdLaztnQ7zozRlnMS68TKiHz
-	 gkBf+dLpnyGB+jQIGoT7PyVm5lG3AbuEmpxUEWz13DIYLUO2vlzEYmDksst063oov0
-	 UCuVJ+IWKmclfcK8D/Y4FkgzgOqYp67NpkpgbBkwAPDosqhzP6nQeFqeJ/7vjU/H7/
-	 q9+3sSXQua/RQ==
+	b=WVE+xuTwoCCCVVQeq3RJhs4sKybuvqhGYlamLQfK/poUXZP2n90CipvHA74/2vB6b
+	 DIFK+N18nfc3aO8MrCdxJhHsZI3dmXwEvALA4d0pDuyRvjnixiohMt6RlI/mlCcD3b
+	 AG2hJ4OrZ6P9EUc2t7gZCHJYXJFz5qdclShP8C2iMwL18KIPHj+KXzysTYQrKprfOn
+	 P/1fRG7v6+fVwPw1VCMqIoeyGKbmSS8x133Bd23mdXqPH2cJJFbNuw5Dgq6DXa7EVc
+	 i9RKlHzcl9dORphyG/dI7GnCNLaD6RRDvpiCTdNLGDKs0XxclmlK6f5W0ZzrmSkEbx
+	 wEp+FPD9fgbCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] platform/x86/amd/pmc: Restore msg_port on amd_stb_s2d_init() error paths
-Date: Wed,  9 Sep 2026 12:26:55 -0400
-Message-ID: <20260909162655.2981787-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] platform/x86: think-lmi: Fix certificate thumbprint sysfs output
+Date: Wed,  9 Sep 2026 12:27:03 -0400
+Message-ID: <20260909162703.2982330-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162655.2981787-1-sashal@kernel.org>
-References: <2026090307-duly-earmark-1628@gregkh>
- <20260909162655.2981787-1-sashal@kernel.org>
+In-Reply-To: <2026090327-banknote-slogan-6f7e@gregkh>
+References: <2026090327-banknote-slogan-6f7e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,79 +47,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 9cef693bce96bb4c6952f48d855284cf7fa4f367 ]
+[ Upstream commit 4f3183f5ae9b8ddfe338d79a96146a05342bbe50 ]
 
-dev->msg_port is switched to MSG_PORT_S2D before issuing the S2D SMU
-commands but is only restored to MSG_PORT_PMC on the success path.  The
-early "return -EIO" and "return -ENOMEM" leave the port stuck on
-MSG_PORT_S2D, so all subsequent SMU communication - including the s2idle
-prepare/restore handlers - is directed at the wrong mailbox.
+cert_thumbprint() already returns the accumulated output length, but
+certificate_thumbprint_show() adds that value to count again, making the
+next line use the wrong offset. Errors returned by cert_thumbprint() are
+also ignored and their negative values added to count.
 
-Consolidate the exit path through a single label so the message port is
-always restored.
+Assign the total length to count instead and propagate errors correctly.
 
-Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
+Fixes: b49f72e7f96d ("platform/x86: think-lmi: Certificate authentication support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260721181756.143084-2-mario.limonciello@amd.com
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://patch.msgid.link/20260810120556.149416-2-thorsten.blum@linux.dev
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[ Adapted upstream loop changes to the older driver’s three explicit cert_thumbprint() calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/amd/pmc/mp1_stb.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/platform/x86/think-lmi.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 40ec048ff9eca..5b83b306f444c 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -21,7 +21,7 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	u32 phys_addr_low, phys_addr_hi;
- 	u64 stb_phys_addr;
- 	u32 size = 0;
--	int ret;
-+	int ret = 0;
+diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
+index e7605bc97f2b0..31f545a2f0a58 100644
+--- a/drivers/platform/x86/think-lmi.c
++++ b/drivers/platform/x86/think-lmi.c
+@@ -681,9 +681,15 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
+ 	if (!tlmi_priv.certificate_support || !setting->cert_installed)
+ 		return -EOPNOTSUPP;
  
- 	if (!enable_stb)
- 		return 0;
-@@ -30,8 +30,10 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	dev->msg_port = MSG_PORT_S2D;
- 
- 	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
--	if (size != S2D_TELEMETRY_BYTES_MAX)
--		return -EIO;
-+	if (size != S2D_TELEMETRY_BYTES_MAX) {
-+		ret = -EIO;
-+		goto out;
-+	}
- 
- 	/* Get DRAM size */
- 	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
-@@ -50,12 +52,16 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 
- 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
- 
--	/* Clear msg_port for other SMU operation */
--	dev->msg_port = MSG_PORT_PMC;
--
- 	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
--	if (!dev->stb_virt_addr)
--		return -ENOMEM;
-+	if (!dev->stb_virt_addr) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
+-	count += cert_thumbprint(buf, "Md5", count);
+-	count += cert_thumbprint(buf, "Sha1", count);
+-	count += cert_thumbprint(buf, "Sha256", count);
++	count = cert_thumbprint(buf, "Md5", count);
++	if (count < 0)
++		return count;
 +
-+	ret = 0;
- 
--	return 0;
-+out:
-+	/* Restore the default message port for subsequent SMU operations */
-+	dev->msg_port = MSG_PORT_PMC;
-+	return ret;
++	count = cert_thumbprint(buf, "Sha1", count);
++	if (count < 0)
++		return count;
++
++	count = cert_thumbprint(buf, "Sha256", count);
+ 	return count;
  }
+ 
 -- 
 2.53.0
 
