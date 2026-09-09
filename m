@@ -1,76 +1,142 @@
-Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867B539B97E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641F93914FF;
+	Wed,  9 Sep 2026 18:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978324; cv=none; b=BelD/LTOgLqFV96U3pd1XwmZQCy48/HyPihOkHarPkgAm/M4GzfKYWB68ME8pM10jiF8RI1wXS/qiIby3Gu6KDFXaUuzYexGzqoDxrHPSICGWJbdzrYNS48Bw/dz3LcMwUe8artV0JA7xhbr56TRQcVf3i2K/5f/wjCJFd8Cac4=
+	t=1788978766; cv=none; b=XiyJ/TywOJpeaGto2aWt5I6JZNq6rhJa0juax9xWpKfZiD2oJ5yuJHeBGAQUabWV6Kt/VNsCgbXoXxEYi0f6x76tWOgWE8xPqU8MYuIZxuUDrv1bmCJznGTjBBkIs/R3chdMyna895MD6k7JDbyCYfdrFa7XSGs4HHOhUPzioTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978324; c=relaxed/simple;
-	bh=WQygSbcyx2B7tQLKe69QRsO6hKdxbRbuwyqNBvNytC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u2wvaaJZvNqS5BSCC8ywmwXItvvnDuliBs2kX6BEU5TdwxHks0w0RtLY4oiQv77yMVFEuP5vgF0a9vkrm3Uo0fO0ByxuiulSo7GXO/K5AKS3YmRweZEcJRe96O5fBRNIVfAW6nzG6Vuv2qoQypRz51UtYhpfkaWLisjyXwYc0zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=X/A9A1CJ; arc=none smtp.client-ip=83.166.143.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1788978766; c=relaxed/simple;
+	bh=UyA4gwJfNBtYA72mFz5c1xNj6vmnsqYQs1s1F0ZHQvo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TCgizkLaP58X1nQC6yy/h1WyJdm9v/dEEogGEIR8CPTJwSwRw5lZrx0gp+omhEexmOC40ub517ZNhyZbEmMBh9LIBOdeMQ4RSEQz+l0n9B2O7MZmxfIfTwC7kLXaFEAilED3Hsf5QHtDcgtvH5W2Es89tHUAS0q9YoHLKbKIHSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3FYq64m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="X/A9A1CJ"
-Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hg8G41lq0z3Cb;
-	Wed,  9 Sep 2026 20:19:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1788977948;
-	bh=e/ySDyuMb+hF+2ti4wzPq97smHKiwAsXDqy32m4tBCU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X/A9A1CJA5BHM9o/ewLgtyXaDEyKyRBgcF8NxeCB3GlhOtDXO5QEmzeQd5WNaGKX3
-	 X3JWGsQxJbGVi7iym0p0XJ3MYD459bSRwvxz99MadqVvWjsMSZu/EY+oK4qkPcKYqo
-	 fNq3UgRemjXPGp6Y/iYLqJ7wNPIiL/i+i+cnVKxw=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hg8G347Trz5LH;
-	Wed,  9 Sep 2026 20:19:07 +0200 (CEST)
-Date: Wed, 9 Sep 2026 20:18:53 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, Christian Brauner <brauner@kernel.org>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Subject: Re: [PATCH 6.1.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for
- whiteout creation
-Message-ID: <20260909.Co6Phai8aKoh@digikod.net>
-References: <20260904185816.343078-2-gnoack3000@gmail.com>
- <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3FYq64m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863091F000FF;
+	Wed,  9 Sep 2026 18:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788978765;
+	bh=HiSTiY4oBPBZl2QbXfv+J4fnrrSwcXXY5KIB8y912DA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=K3FYq64mJdHOqsEEAK8pnGGzjfSFc5jNwDL02w4hp1WQVwJpNqukKoA5YsFCmKpAE
+	 HY9d71MKnz0XIvZdBe3R10joRit5JCommqzvi986cIwrGLW/1J+e7K6OrRMbUNuJtr
+	 440Wl1ol8pQ7YgbiTz8CGMk2w8A/xzgKh6yvXd0bCgTX0zLrzS891rhAMIeJW/n6C4
+	 38azY53pe+v1bmXHJ+TQZIWCyX1Foa6aapZYOs0PU5LRBO0vsEe6ul1ES83ExYUZqZ
+	 eC70jqY4/HoB/QVVewHrfB+1kssNdn5TU581ibvTa5wCjAIy2i96SvIoDCABTnl473
+	 Z1R3DWgO936TA==
+Subject:
+ Re: [PATCH] netfilter: nf_conntrack_h323: fix OOB read in decode_enum()
+From: netdev-bot+sashiko@kernel.org
+To: elb12345@hotmail.co.uk
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Wed, 09 Sep 2026 18:32:44 +0000
+Message-ID: <178897876404.219967.5503826011910199741@kernel.org>
+In-Reply-To: =?utf-8?q?=3CAS8P251MB00011EEAA381DC17852BA37CC8B22=40AS8P251MB?=
+ =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+References: =?utf-8?q?=3CAS8P251MB00011EEAA381DC17852BA37CC8B22=40AS8P251MB0?=
+ =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
-X-Infomaniak-Routing: alpha
 
-On Sun, Sep 06, 2026 at 09:32:50AM -0400, Sasha Levin wrote:
-> > Whiteout objects are used in the upper layer of an OverlayFS to
-> > indicate that the file with this name does not exist in the unified
-> > view, even if it is present in one of the lower layer file systems.
-> >
-> > For the userspace implementations of OverlayFS (fuse-overlayfs),
-> > whiteout objects can be created from userspace as well:
-> 
-> Queued for 6.1, thanks. Note: 6.1 is missing 49c9e09d9610 ("landlock: Fix
-> handling of disconnected directories"), one of the two prerequisites this
-> commit's own message names -- 6.12 and 6.6 already carry it. The whiteout
-> check itself is still correct and worth having, but if a disconnected/
-> bind-mounted directory is involved on 6.1 specifically the enforcement may
-> not be reliable yet. Could you send 49c9e09d9610 as a follow-up for 6.1.y?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Hi Sasha,
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-These dependencies are indeed required to properly apply the patch, and
-they are in fact fixes too (that failed to apply without changes).  I'm
-preparing a few backported patches (including these dependencies) that
-I'll send this week.
+- [Medium] get_bitmap() dereferences one byte more than
+  nf_h323_error_boundary() validates whenever l = bs->bit + b is an…
 
- Mickaël
+--
+
+netfilter: nf_conntrack_h323: fix OOB read in decode_enum()
+
+This adds a nf_h323_error_boundary(bs, 0, 1) check in decode_enum() before
+the extension marker bit is read with get_bit(), matching what decode_seq()
+and decode_choice() already do.  Without it, a truncated H.323 message can
+cause a one-byte read past bs->end.
+
+> diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
+> index 6830c9da3507c..ba6ce1f04e1ed 100644
+> --- a/net/netfilter/nf_conntrack_h323_asn1.c
+> +++ b/net/netfilter/nf_conntrack_h323_asn1.c
+> @@ -363,6 +363,8 @@ static int decode_enum(struct bitstr *bs, const struct field_t *f,
+>  {
+>  	PRINT("%*s%s\n", level * TAB_SIZE, " ", f->name);
+>  
+> +	if (nf_h323_error_boundary(bs, 0, 1))
+> +		return H323_ERROR_BOUND;
+>  	if ((f->attr & EXT) && get_bit(bs)) {
+>  		INC_BITS(bs, 7);
+>  	} else {
+
+[Severity: Medium]
+The check added here closes the decode_enum() case, but does the same
+one-byte over-read remain reachable through get_bitmap()?
+
+nf_h323_error_boundary() only rounds up when there is a partial byte:
+
+	bits += bs->bit;
+	bytes += bits / BITS_PER_BYTE;
+	if (bits % BITS_PER_BYTE > 0)
+		bytes++;
+
+	if (bs->cur + bytes > bs->end)
+		return 1;
+
+So for bits + bs->bit == 16 it only requires bs->cur + 2 <= bs->end.
+
+get_bitmap() with l == bs->bit + b == 16 consumes two bytes in the loop and
+then dereferences a third:
+
+	for (bytes = l >> 3, shift = 24, v = 0; bytes;
+	     bytes--, shift -= 8)
+		v |= (unsigned int)(*bs->cur++) << shift;
+
+	if (l < 32) {
+		v |= (unsigned int)(*bs->cur) << shift;
+		v <<= bs->bit;
+	}
+
+The third byte is at bs->end.  The same holds for l == 24, where the loop
+reads three bytes and the l < 32 branch reads a fourth.
+
+The width is attacker controlled at the extension bitmap in decode_seq():
+
+	bmp2_len = get_bits(bs, 7) + 1;
+	if (nf_h323_error_boundary(bs, 0, bmp2_len))
+		return H323_ERROR_BOUND;
+	if (bmp2_len > 32)
+		return H323_ERROR_RANGE;
+	bmp2 = get_bitmap(bs, bmp2_len);
+
+Picking bmp2_len = 16 - bs->bit keeps bmp2_len within 1..32 while making l
+exactly 16, so the boundary check asks for two remaining bytes and
+get_bitmap() touches a third.  The earlier bmp = get_bitmap(bs, f->sz) call
+in decode_seq() has the same property whenever bs->bit + f->sz is 16 or 24,
+with the width coming from the static field table.
+
+The stray byte is masked off afterwards by:
+
+	v &= 0xffffffff << (32 - b);
+
+and bs->end stays inside h323_buffer or inside the skb linear area, so
+nothing is corrupted or leaked, but it is the same class of read past the
+intended end of the bitstream that the subject line describes.
+
+Would it make sense to respin this covering the
+nf_h323_error_boundary()/get_bitmap() accounting as well, so that the
+decoder family is consistent?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB00011EEAA381DC17852BA37CC8B22%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
