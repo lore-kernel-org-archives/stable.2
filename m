@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B282DC32E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B854585983
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:50:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987062; cv=none; b=b6XWNhNpWsroy4+VMqTRXszUUMqCYHHlaE5pMfKuOcmshNL7hyPUHapKHNblWthFA3QbrTxFlHyTUa7K227+ID2ibyTSMawSRuhYF7sarrgCoHcsY7KxN0dcWQeZmGdqZgZ9G/qEIeUxCoQ1xUbu+PdrKi7w69aTgIkWsXWcKbk=
+	t=1788987062; cv=none; b=laXiVW6yNg2AlsOYF2hYceB4qeh+dV176qGCsKQNcgi6xj5gALNz+Ve7OzxbHjYQy6oGXRvys+yJeie4flYRLGseEn9uahs7GPpgPty1A6ZOleZWe5MIuAaNzddwUYT704Wax+zVEN31DH/8agJZi/lxSDOSyP4riZTDjVmAX8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788987062; c=relaxed/simple;
-	bh=XdTlHssqusNZF02mkffkL5kzzuPIDZm/B14FQt9qt3E=;
+	bh=B/tpWxQfJkQ9UmgAcLQm521RiS/zf1dhD0YeXIim/TQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VFk+gDMF/Hr7Uw8wj+kQ5vLgKbIp3VAGSWG/IVl2hmAgCfXfUBa+pC5of7KFYvnaXdrkd7BKuJnxGyhBspaNS7dxxnq46Ohphh7FCOARK1vhcvLrLK2uFbgRRC2FCUn277DIarARn8YzZxc6MyQlSo6B44ckBbfrVe+xr0m77LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnbxn3bR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d8691l2tKWsNfkGtYm7r/6RIgG4lQ78gif5Fs0FgVE/Rp8bIsc5U1qrn1as1PIzewxdNi6Ge+gSk7zzey2fk1XyoC4sd/zfNuuI21miUS1rK5Y9b7hbT2ZXGB8gBqEar4QSBBriXS9XHJ2Lc2kML1ge5XBahkhm0G3n5gYjifkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZn3ilYW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnbxn3bR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7AB1F00898;
-	Wed,  9 Sep 2026 20:50:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZn3ilYW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBE71F0089A;
+	Wed,  9 Sep 2026 20:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788987050;
-	bh=GgFaqUSy6W4NCKcZ46yxPskNv34M5+T+NxGVH0Qix58=;
+	s=k20260515; t=1788987055;
+	bh=w41V7neKDkYvAEPxUGj39qJyvLoWQAnMzlrtD7yDSes=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dnbxn3bR8+n50+xHD7TevJMj8pLba2KlgDni1lyHl65Ts8gPnb6IQ+FWtxjdztrr7
-	 ejaSIIDrfavghysS5TO5epLl8xFLC6T61jc1EdSGGAbsqyGr9PYcDUBjJVCY293qNe
-	 +xCpSLMKwRFJWRNcdo71rxE9MFj84hztezW/Cz0RSuiGOKUmZenKk4KmLzQeETLxIS
-	 czZvUH4Ffcjbqbx2YWj+BRjBuRaPQmJ8W0gXkp9xarc6gVPKMS7WzGvBl+Rb6Nm0te
-	 TaMu0fuDXmnpR/Vg/HiTB5+waujbbHxDKlRpQZY6xzzZeSIwsBqENSKmcmW5nQXjMs
-	 P2j8H89OtKALQ==
+	b=LZn3ilYW1uHYYqK8YpvNRb6Co+x881lbUWsXnCFtFrXVS/qwlHcDbHlpzJtxwaypK
+	 2aKmHsBUARnFM/68NDt32uBy0DdAE7R8CnpcT7FgRrRNdtC4prF2DNcuPLFITCjBqp
+	 bW0ohPjOgcxoHsEEA8zPSbImQooKAhm9W9NWrQBVEaV8utYZ94palGynb/yQwREg5f
+	 4TnnNpm0sd2ymNAZoC/wMfQwfvht8gzIYIrpFmVTBRLE8doYC9e7bSQbbASpeJdB7p
+	 aShYKbC4P1fy2vYvd/f1qBSmXPnwfJJWu0lIexC0hjSAZYkEbzzBA5djbijVSTTx9b
+	 vJZUnkZEGtcAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] i3c: master: Fix recursive locking during device registration
-Date: Wed,  9 Sep 2026 16:50:47 -0400
-Message-ID: <20260909205047.3699690-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
+Date: Wed,  9 Sep 2026 16:50:52 -0400
+Message-ID: <20260909205052.3699858-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909205047.3699690-1-sashal@kernel.org>
-References: <2026090418-debug-slicing-96e1@gregkh>
- <20260909205047.3699690-1-sashal@kernel.org>
+In-Reply-To: <2026090419-deputize-unseeing-2a37@gregkh>
+References: <2026090419-deputize-unseeing-2a37@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +45,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 ]
+[ Upstream commit 6c080026ecc17eecb103f8927c64ea73a74bb818 ]
 
-i3c_master_register_new_i3c_devs() registers newly discovered devices
-while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
-can immediately probe the device, and probe callbacks typically invoke
-I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
-recursive acquisition of the same rwsem.  rwsems do not support recursive
-read locking and can deadlock when a writer is waiting.  See the
-"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
+rtl8xxxu arms rx_urb_wq from the RX completion path:
+rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
+queues it on rx_urb_pending_list and, once the list grows past
+RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
+rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
+container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
+which anchors it on rx_anchor and dereferences priv->udev.
 
-For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
-  WARNING: possible recursive locking detected
-  kworker/5:1/94 is trying to acquire lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
-  but task is already holding lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
+rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
+update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
+the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
+rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
+producing a use-after-free.  The window opens under active RX traffic
+(pending count above the watermark) followed by a disconnect.
 
-Fix this by separating device creation from device registration.
-Populate desc->dev under the maintenance lock, collect the devices that
-still need registration into a local list, then release the lock before
-calling device_register().  Finally retake the lock and clean up any
-devices that failed to register.
+There are two teardown races to close:
 
-Use the maintenance lock rather than the normal-use lock while adding
-device objects.  A write-side maintenance lock prevents readers from
-observing a partially initialized desc->dev during initial device
-population, or desc->dev disappearing if registration fails.
+  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
+    but called schedule_work() after dropping the lock.  A completion
+    that observed shutdown == false and released the lock could then call
+    schedule_work() after rtl8xxxu_stop() had set shutdown and
+    cancel_work_sync() had already returned, arming the worker to run
+    after the teardown.  Move schedule_work() under the same !shutdown
+    branch so the arming decision is atomic with the shutdown check.
 
-The local list requires a list node, so add a list node member to struct
-i3c_device.
+  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
+    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
+    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
+    URB that escaped the kill.  In rtl8xxxu_stop(), call
+    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
+    drained first.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+After priv->shutdown is set under rx_urb_lock, completions can no longer
+queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
+worker, and the following usb_kill_anchored_urbs() kills the URBs it may
+have submitted.
+
+rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
+guarantees .stop() runs for a live interface before ieee80211_free_hw()
+frees priv.  The probe error path needs no cancel: rx_urb_wq is
+INIT_WORK()'d there but cannot have been scheduled, since no URB is
+submitted before ieee80211_register_hw() succeeds.
+
+This bug was found by static analysis.
+
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260630033117.3377-1-fanwu01@zju.edu.cn
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c       | 45 ++++++++++++++++++++++++++++----------
- include/linux/i3c/master.h |  3 +++
- 2 files changed, 36 insertions(+), 12 deletions(-)
+ .../wireless/realtek/rtl8xxxu/rtl8xxxu_core.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 0166490c3da58..e84615a45a1a7 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1787,12 +1787,21 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
- static void
- i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c
+index 9bcc137da20f8..526491b1ec082 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c
+@@ -5171,14 +5171,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  {
-+	struct i3c_device *i3cdev, *tmp;
- 	struct i3c_dev_desc *desc;
-+	LIST_HEAD(i3c_unreg_devs);
- 	int ret;
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+-	int pending = 0;
  
- 	if (!master->init_done)
- 		return;
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
  
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	if (master->shutting_down) {
-+		i3c_bus_maintenance_unlock(&master->bus);
-+		return;
-+	}
-+
- 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
- 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
- 			continue;
-@@ -1813,25 +1822,37 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (desc->boardinfo)
- 			desc->dev->dev.of_node = desc->boardinfo->of_node;
- 
--		ret = device_register(&desc->dev->dev);
--		if (ret) {
--			dev_err(&master->dev,
--				"Failed to add I3C device (err = %d)\n", ret);
--			desc->dev->desc = NULL;
--			put_device(&desc->dev->dev);
--			desc->dev = NULL;
--		}
-+		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		ret = device_register(&i3cdev->dev);
-+		if (ret)
-+			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
-+		else
-+			list_del_init(&i3cdev->node);
-+	}
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		list_del(&i3cdev->node);
-+		desc = i3cdev->desc;
-+		i3cdev->desc = NULL;
-+		put_device(&i3cdev->dev);
-+		desc->dev = NULL;
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		pending = priv->rx_urb_pending_count;
++		/*
++		 * Arm the worker under rx_urb_lock so this is atomic with the
++		 * shutdown check: moving it out of the lock would let a
++		 * completion arm the work after rtl8xxxu_stop() canceled it.
++		 */
++		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			schedule_work(&priv->rx_urb_wq);
+ 	} else {
+ 		skb = (struct sk_buff *)rx_urb->urb.context;
+ 		dev_kfree_skb_irq(skb);
+@@ -5186,9 +5191,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  	}
+ 
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+-
+-	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
+-		schedule_work(&priv->rx_urb_wq);
+ }
+ 
+ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+@@ -6465,6 +6467,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw)
+ 	priv->shutdown = true;
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ 
++	/*
++	 * Cancel before killing rx_anchor: the worker re-anchors every URB
++	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
++	 * after the kill could submit a URB that escapes it.
++	 */
++	cancel_work_sync(&priv->rx_urb_wq);
 +
-+	i3c_bus_maintenance_unlock(&master->bus);
- }
- 
- static void i3c_master_reg_work_fn(struct work_struct *work)
- {
- 	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
- 
--	i3c_bus_normaluse_lock(&master->bus);
--	if (!master->shutting_down)
--		i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	i3c_master_register_new_i3c_devs(master);
- }
- 
- /**
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 1aa1efd835b86..df0132048a102 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -228,6 +228,8 @@ struct i3c_dev_desc {
-  *	  every time the I3C device is rediscovered with a different dynamic
-  *	  address assigned
-  * @bus: I3C bus this device is attached to
-+ * @node: unregistered device list node, only for use by
-+ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
-  *
-  * I3C device object exposed to I3C device drivers. The takes care of linking
-  * this object to the relevant &struct_i3c_dev_desc one.
-@@ -238,6 +240,7 @@ struct i3c_device {
- 	struct device dev;
- 	struct i3c_dev_desc *desc;
- 	struct i3c_bus *bus;
-+	struct list_head node;
- };
- 
- /*
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+ 	if (priv->usb_interrupts)
 -- 
 2.53.0
 
