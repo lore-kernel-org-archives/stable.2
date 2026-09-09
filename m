@@ -1,126 +1,180 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E73FF55409C;
-	Wed,  9 Sep 2026 15:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967685; cv=none; b=clDMbyLzY39XQ8peGGHeUVsvI7+WG+WE9koDi0y1NJVciwzTYuklAoS9MieRQYyD+yzUHcXIc5sFp6iFRc0Ph9QExZm1gMRS8Q+tRbVyfXXqDBqkvfXdwhypKRejiNxPTWVhgZz45JvTpVejLMikAjKwxoYa0cJeOtQlXd8OxRk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967685; c=relaxed/simple;
-	bh=GbQE/C5EL3goLl9+Xf5dk6SfdFav9LFstn5nK7k2Z0E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BTr+jDWOKs0m0at+o4TCYNjWEfVCXmf1P0bdD/Zfj8Fl2enxuBCOHBnjcS2Tc+2hTLm8b995J+dkz2PNDWGdZourl564uWTlcvXZ4OhUxUu1+LlCPryX7z68eQv3KYxllsrhVYLH+NIrP30kfkrsOa4iVQ9Wqr7jA4LUOuGm3io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDn7zf5eqFqsqUDAQ--.35929S3;
-	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgCHUXX5eqFqcvgLBQ--.14715S2;
-	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: alexandre.belloni@bootlin.com,
-	cl634@andestech.com
-Cc: linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] rtc: atcrtc100: cancel alarm work on remove
-Date: Wed,  9 Sep 2026 15:26:51 +0000
-Message-Id: <20260909152651.712614-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012028.outbound.protection.outlook.com [40.107.200.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0254233722;
+	Wed,  9 Sep 2026 15:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788967724; cv=fail; b=OQmPdsvnPCfRe/eGQ2l+tMmd2g2QBeuH2bZ/91gHQgjw7/8T/1aw3pDeZtR+v/6LoB72w86ySHIMwDH+jG5GvV8M+BQJSF6KrBrehwWzH6A0Ys3iwSGELePN78N/tVGf9xusSZzLjT19ShC7St4opf9c0+Q/gtdAYlwQAaE4w9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788967724; c=relaxed/simple;
+	bh=jhjjkYbsDkqvmQFP8SfjCKqYmNFtespNuqes781xpA4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nxsjol+IMRLYjKauC6y7HPw7DCyVz8iQVLRzddUsDIFMSnvWhJROm6/pEQjEB2EIzXoKgQWcOr/I7Y8J988zxAtqRK5uYufcaizEscDrsVoGfdbT7rpA7nx9433GAlSi3DYTl5RFhecPRr0KCgI4ncWHh7zu8Xs1mVLNCJx+5Yo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JHIUZs0K; arc=fail smtp.client-ip=40.107.200.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JHIUZs0K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lt2uIYy92+j0etZVJ8Fl3s6zwgUZAF1Jd/0Dhveiwnp63l9l537aiOXa/cKzqd4y71c/0h/IlFGCqt4Pl06/Y0RQQEVmcEzGbMHQYbWXWLqFcBBUz78OJ3tzphVuYhm5RJ0+GvtsUuXhgyVLQr4H+0nu1n87SsJ7Xy9yX139tEYSOMumG9t6eCaiksP27Yc2/RvLQwAO/Yx5iuFV1gMxWf/wKDDo5Gs9n9dJwx6Xg9ktOIQV8+o/iWq0t6168H1oidACRWVWZHVsUbFZ6+HV37sh3dQnLa1XuW3dQqKCM53zeVroti13ecKIuG12uDddXKDhZNCm4fUGjoR7VUju0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+oaabMC6KuoXRcUbk2Vz6G3WiDfcnM0FpmgUEi6OobY=;
+ b=bAbk+rH9L33pC/1dpwr1RfiSON/ZtkdvXe0d0dsEBGVBc6M0iib92JlOa35O4XC1/wT9ucgyVjbOn5SB4UJoEIEBW78VduJF1akdcg1pYovb5NRxP27ZRFSfDCMcJXy6dnpOXusxpUHlfKrjMhvZ6ypZA4IMBdOBDzVi7CJSZx74fcJYP2LZhbLCCIXjIknXPWfIupPFxBRkM6PR4o1wCVHkIFRx3fQd6ePa8hv4nJBN3N2shRZDNxeK2ReZUKg+RTQAlI51ixJD/wn6Tkm6AKHjAhqK1OlC1MkJUqXnKXW0c9FvBC5GayrO8OdbewsZnKNO6by70Jk+YvbBvvWPkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+oaabMC6KuoXRcUbk2Vz6G3WiDfcnM0FpmgUEi6OobY=;
+ b=JHIUZs0KP8nVDJRMx8MIUKGg1YOoed5FizuEq/UjJQ06NG+ocdgUa4cuMcR5jWXesB9VAXldx8cmUR1KVp9pHO+n8mhSMRbazRTFlsKHCqJEkz/mdG2TpoNgVOu+UOobBErllbX5BOjfgKK0BQ9nDC729fEdCPOAIbYtxlyj0YIifWMfczQO0dYRB2m2AhT6Tuk7uVIUnE+7MkBql57ZzmDxEEMhF0Yd1/pt+LYzjrjj8oDcLtLzISBRFKOYPJ8DuOY+GhsMTnKj0dGQClC8ek3zzcLvNqFB0cL+8CGfLTBYc4Fqf1aseO0bVXzR6Jvi6j+FZk9ezzV+Nytu03trzQ==
+Received: from SJ2P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::8)
+ by IA0PR12MB8086.namprd12.prod.outlook.com (2603:10b6:208:403::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Wed, 9 Sep 2026
+ 15:28:38 +0000
+Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
+ (2603:10b6:a03:5da:cafe::58) by SJ2P220CA0009.outlook.office365.com
+ (2603:10b6:a03:5da::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Wed, 9
+ Sep 2026 15:28:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 15:28:38 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 08:28:12 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 08:28:11 -0700
+Received: from waynec-Precision-5760.nvidia.com (10.127.8.13) by
+ mail.nvidia.com (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.46 via
+ Frontend Transport; Wed, 9 Sep 2026 08:28:09 -0700
+From: Wayne Chang <waynec@nvidia.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Jon Hunter <jonathanh@nvidia.com>, "Thierry
+ Reding" <thierry.reding@gmail.com>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Wayne Chang
+	<waynec@nvidia.com>, <stable@vger.kernel.org>
+Subject: [PATCH] usb: typec: ucsi_ccg: Add retry mechanism in ccg_read
+Date: Wed, 9 Sep 2026 23:28:05 +0800
+Message-ID: <20260909152805.6254-1-waynec@nvidia.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgCHUXX5eqFqcvgLBQ--.14715S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?1GNiTgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WPkJOV2rqO1KNC8oE4y/Lr6IwZ8o0fuNPjhcAwmE/jJ3xxa
-	GkfmUcmsO0hiCFspzh+p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxWw17ArW7Ar45Cr45KFy8JFc_yoW5XFyfpF
-	WfXF98WrWDKr4aqw42vr4jvF1UCw1Sq3y5GF1xZwna93s5JF9xZFyrZFW8W398JrZ5Ga1a
-	yFWjy3y5CFWUCFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
-	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUcXo2UUUUU
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|IA0PR12MB8086:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5ed4e1b-dc37-4dfc-24f1-08df0e870544
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|10067099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	kcrEm7rZLwI6rVK72HmGoJ45cH3vFG2NP/EiUxDwILYhtRorZNoI5hVm5zG+9USivsmskmwpWAqMXQo1ESfrDYqkT4cO7FgneWvw/dJXp6ccpuRfH93TknYR96LFxEQ3QWkr9/ghhTtUdSFglNbNQqwDJxhEI/EgZj4P2cMbvmchlgf/oAA0M6gbT8VfUx6Ml90ihOQ2PGrr5+VryQ64XUOYBV+37qugFVtnTePk2FUvtl1FNLd4672hcR5di+nmVGiqrksIK6mXS+dNWABw9+eAKutvad3TcN/fGbd8GXKY/4TvNNnm4qzFkq97W30kF6ygirxl7V1KeVJ57OmakA4GFr4TJbbWwEGzkBEjEpq+tTteLOH4ZohPEJQJ0OrV2ow4F/df1VZDjkRKcHPbfOkVWxL+4wa+ncnXGWenwiFZrfR7wyL4XVeithIHhWTtVw9FOjd5ksXimu7AG0VPpnO1ghnbLptJq3AaB2NQ8tVwPUlktGjX1tKG76MTVoaaB5tqYAV9jhPWiIbpfnmoaDCUYqBB9XMQw41n3xLY2SHXP0VCOZFOUKrhk/NvDTOcVlLsoC5xXykCeA6bkyIQZN461o+hhh4bk0ANKCPL6xo/FClTF+7rh0PWLR4EFK8FvMJs6VehpV06xkYjvc2mEowjBpo3YYhdNx87XUZLJiwauwDYPA7HtRH7/f5BDFyA6G+qbhM4bchvmjEkPDVuag==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0UeEb5zlEjcWEhAHU4zmVDalcFgA27+mnc7+P4iIKIBFiGKIs5EZm4riz6T6Czq/Jz9EscbkdLCVFK6g55kDZPTC9jTHpUF3jgBpr9xQUOGeNpfNyMwtfaTHsVfLQtK2mujNhkI9P/fd66gVm9k0+dCD/Z14Jy22+UlgegOUTchmkBibihtWewJMh34v10gD7HEFFASfR3GxiF32lp+fMRPNV+jtw8h0gJKym6lyOBlecUw4bukFs2YW48Zf8tDwDL8f210PfsjgMS2nbEMhNrRA/hPzX2F7DsF6dU4HMwnqbAhyGyENVuwtuVF4Tp/jk91zatghdhj/7cGfdWny6R5xOamMaoEWApygp2SsfCwfD37/MV9vABdRzU43AW7UpDIdBs6yhzmF1py0JseIUloMXpxNRXIeP75SZHhlX/tvHWGFn76A6fQ79AK3OkIl
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 15:28:38.0241
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5ed4e1b-dc37-4dfc-24f1-08df0e870544
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8086
 
-The alarm interrupt handler atcrtc_alarm_isr() queues rtc_work on the
-system workqueue to clear the alarm. The handler atcrtc_alarm_clear()
-dereferences the devm-managed atcrtc_dev through container_of(), takes
-rtc_lock() on the RTC device and writes the regmap.
+CCG4 firmware occasionally fails to respond to I2C read requests,
+especially when reading cci and intr_reg from the ISR path. In these
+cases, i2c_transfer() returns -EREMOTEIO.
 
-The driver has no remove callback, and the devres cleanup only frees
-the interrupt before the remaining resources. free_irq() waits for the
-interrupt handler, but it does not cancel work the handler already
-queued. A pending atcrtc_alarm_clear() can therefore run after the
-regmap, the I/O mapping and finally the device structure have been
-released, and dereference freed memory.
+The CCG4 is EOL, and Infineon no longer supports firmware updates, so
+a software workaround is necessary.
 
-Add a remove callback that frees the interrupt first, so no new work
-can be queued, and then cancels the alarm work, following the same
-pattern as rtc-ds1374 and rtc-ds1305.
+Retry the read operation up to three times (four attempts total)
+when -EREMOTEIO is returned, with a 1-2 ms sleep between retries.
+This allows recovery from transient I2C failures without affecting
+other error paths.
 
-It also clears the wake IRQ and disables the wakeup source configured
-in probe. These are not devres-managed, and the driver core only
-releases them when the device itself is removed, not on unbind.
-Without this cleanup, a later bind would fail probe with -EEXIST:
-device_wakeup_attach() rejects a second wakeup source for the same
-device, and the leftover wake IRQ would make dev_pm_set_wake_irq()
-fail with -EEXIST and a WARN as well.
+The sleep is safe because ccg_read() is called both from process
+context and from ccg_irq_handler(), which runs in threaded IRQ
+context (registered via request_threaded_irq() with a NULL hard-IRQ
+handler), so sleeping is allowed in both cases.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 7adca706fe16 ("rtc: atcrtc100: Add ATCRTC100 RTC driver")
+Fixes: 247c554a14aa ("usb: typec: ucsi: add support for Cypress CCGx")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Wayne Chang <waynec@nvidia.com>
 ---
- drivers/rtc/rtc-atcrtc100.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-diff --git a/drivers/rtc/rtc-atcrtc100.c b/drivers/rtc/rtc-atcrtc100.c
-index 9808fc2c5a49..3c7313218da5 100644
---- a/drivers/rtc/rtc-atcrtc100.c
-+++ b/drivers/rtc/rtc-atcrtc100.c
-@@ -337,6 +337,16 @@ static int atcrtc_probe(struct platform_device *pdev)
- 	return devm_rtc_register_device(atcrtc_dev->rtc_dev);
- }
+ drivers/usb/typec/ucsi/ucsi_ccg.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index 91c2958a708c..da8beb14d84c 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -135,6 +135,8 @@ struct version_format {
+ #define NVIDIA_FTB_DP_OFFSET	(2)
+ #define NVIDIA_FTB_DBG_OFFSET	(3)
  
-+static void atcrtc_remove(struct platform_device *pdev)
-+{
-+	struct atcrtc_dev *atcrtc_dev = platform_get_drvdata(pdev);
++#define CCG_READ_MAX_RETRIES	3
 +
-+	dev_pm_clear_wake_irq(&pdev->dev);
-+	device_init_wakeup(&pdev->dev, false);
-+	devm_free_irq(&pdev->dev, atcrtc_dev->alarm_irq, atcrtc_dev);
-+	cancel_work_sync(&atcrtc_dev->rtc_work);
-+}
-+
- static int atcrtc_resume(struct device *dev)
- {
- 	struct atcrtc_dev *rtc = dev_get_drvdata(dev);
-@@ -372,6 +382,7 @@ static struct platform_driver atcrtc_platform_driver = {
- 		.pm = pm_sleep_ptr(&atcrtc_pm_ops),
- 	},
- 	.probe = atcrtc_probe,
-+	.remove = atcrtc_remove,
- };
+ struct version_info {
+ 	struct version_format base;
+ 	struct version_format app;
+@@ -255,6 +257,7 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+ 	};
+ 	u32 rlen, rem_len = len, max_read_len = len;
+ 	int status;
++	int retry_count;
  
- module_platform_driver(atcrtc_platform_driver);
+ 	/* check any max_read_len limitation on i2c adapter */
+ 	if (quirks && quirks->max_read_len)
+@@ -266,7 +269,17 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+ 		rlen = min_t(u16, rem_len, max_read_len);
+ 		msgs[1].len = rlen;
+ 		put_unaligned_le16(rab, buf);
+-		status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
++
++		for (retry_count = 0; retry_count <= CCG_READ_MAX_RETRIES; retry_count++) {
++			status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
++
++			/* Only retry on -EREMOTEIO, and not after the last attempt */
++			if (status != -EREMOTEIO || retry_count == CCG_READ_MAX_RETRIES)
++				break;
++
++			usleep_range(1000, 2000);
++		}
++
+ 		if (status < 0) {
+ 			dev_err(uc->dev, "i2c_transfer failed %d\n", status);
+ 			pm_runtime_put_sync(uc->dev);
+
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+-- 
+2.25.1
 
