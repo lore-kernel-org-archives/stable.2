@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0D721FF2E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ADB4AEBDB
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951360; cv=none; b=Tby9WGD+ynFeaE81uR2elJKey9RCHSiqbd2HcO2YCpQmlsydM2eMGOVO74ImGS66Rx7j5qPuf62cfEgzsu82KHoim2zhWFwlgklanJJrxKRPy9hqEs4Fz4Kubv34oZezbGc9eSEGz4QZ2PFo/DGdVzJAf5R7/cmGEMNgIVH8tNM=
+	t=1788951362; cv=none; b=R6UP3eZfF7e21w8rXN+yEsT8CJwPYz88iwDOhzYmH5JjD35H/bdTirhQAm6RyAnfHYeTYLVxypUx/Y9ZubR7KG87u6XFmOV+DMSH8BXHgskBKMbVKq1M+UKSFlmhNTOlIutMXhv1TzLGnTCcx4VN8hJsVnY8ehki64ULEEoa6WY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951360; c=relaxed/simple;
-	bh=RHD+C6EW9bO1yExgkvo5pMuaBliUg1K7yVEoYwCFCKg=;
+	s=arc-20240116; t=1788951362; c=relaxed/simple;
+	bh=2heZ7EswTcFNgYFR/uYDyK/GUiAaU+aOf/TReVW6Wn8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ivkTAMmUIVFZ4Awllg/RMNQTKNV1m1EFad6P7Pt8KcgQmsMgU49CK/3ZmCL4UKodiw9RaeenPReA94+XU8vloZ7jsx6y+x24Z1QP5vCgV9I8lboB6eqCZar85AyuKaSKklUkCkv0v586/Yfn55HJZjV6WWQs6tVZC9DWCJZkx+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fynebS4U; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eExKy3wi+329eu7i5e+jXh1+RDPbjHcKEPu9xDfMLFtoU945LtaDs39Q50WwUoSnp146GFqq6VqnayxfRdk4LOISc0y2N1c1LGz5KC/XfMLzXN/+6228Q5z48aZar0hGdzlQiz4ARXqSqLTJsvnQH3R/PnGYTkCyScqmBFBfs6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/HS4QLO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fynebS4U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE741F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/HS4QLO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2121F00A3E;
 	Wed,  9 Sep 2026 10:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951357;
-	bh=3ITnxAdohqRzHvUSxbdLy8lVcL0F7SFSqPL7/coWPc8=;
+	s=k20260515; t=1788951358;
+	bh=mTE2YoKRqrcniUzusawLkJkgH7H17oYujw+rDh1Ppe0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fynebS4UZ8+7kMMsqUzewuMTK6kKB/cdmptDgryNC7wrErGTKjBlhjae9T8NqyMOH
-	 N/IGXw2hmMxKFIILqz5J5TUvzBkyBVV5eVDdlNqRKJxtK9L5QPDnJHoovYaJ6T+u+2
-	 kbD1MzH8QnXX0LBVDLv6O6AB6ZQFNiASH0I0j3W3n56dLX/bTrRHWB7+RT5UKT2qnw
-	 5PlaSFFEEL+E0eJz6KTv6eHn52OJxHwpZZvodas/em2GuV1GByXpw9vXPL7hl4tNZf
-	 zHdfeEIbtZUX0cQfJDiQtimMSxRCJPzcEDxGtLku72ZRoTM9b3HsMF2vPLnVxlu0Jg
-	 tlCfONVzh5Z4w==
+	b=J/HS4QLOWzwoFI510KRirVyUnjW2IwZLpBDfbqZDul1JD/lYlANn6OYahEvF0HFkF
+	 AfywtJ71YYJZT9vgoF+R8zxMJ8gMX7LXoq61hnFMzht0sEfHjTHMn5UfyNBFLB4Tgu
+	 ai7+mQsOokb3f2HUcllBmJMhj1UuLSD7S7h6Paj0EwFF6ofSUvDnY7doL2MsZX+MB0
+	 Bbdw9kneqT43e/hKsr3K/yemdcVrPLcL7edCC0xZvSB+8ALZ3ouqp2yEKh1p7ryoiZ
+	 E36ihrcBPUXW3JvsCW1GzhAGrlbMkK/ivoJ9/y3k1xMTE8mUenkevs8w4Qqx1+r5DU
+	 yxlnQcnjhw1ew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrew Davis <afd@ti.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] power: supply: lp8788: Use devm_power_supply_register() helper
-Date: Wed,  9 Sep 2026 06:55:53 -0400
-Message-ID: <20260909105554.1634698-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] power: supply: lp8788-charger: fix use-after-free on remove
+Date: Wed,  9 Sep 2026 06:55:54 -0400
+Message-ID: <20260909105554.1634698-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909105554.1634698-1-sashal@kernel.org>
 References: <2026090352-math-comrade-6046@gregkh>
@@ -46,70 +46,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrew Davis <afd@ti.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 2abb571143c39f581df9951d263948726db42d86 ]
+[ Upstream commit 831c29a12d560f8a3225f43050b3fbb5dfd79c66 ]
 
-Use the device lifecycle managed register function. This helps prevent
-mistakes like unregistering out of order in cleanup functions and
-forgetting to unregister on error paths.
+lp8788_charger_remove() flushes charger_work before unregistering the
+IRQs. An IRQ thread can queue charger_work after flush_work() has
+returned. The work can then run after devres frees pchg and dereference
+it in lp8788_charger_event().
 
-Signed-off-by: Andrew Davis <afd@ti.com>
-Link: https://lore.kernel.org/r/20240123163653.384385-7-afd@ti.com
+Unregister the IRQs first. free_irq() waits for any running threaded
+handler, so no handler can queue more work afterwards. Then use
+cancel_work_sync() to cancel pending work or wait for running work to
+finish.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 98a276649358 ("power_supply: Add new lp8788 charger driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260802035442.421697-1-fanwu01@zju.edu.cn
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Stable-dep-of: 831c29a12d56 ("power: supply: lp8788-charger: fix use-after-free on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/lp8788-charger.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+ drivers/power/supply/lp8788-charger.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
-index 2c81be82a41a4..72b170b4ac46a 100644
+index 72b170b4ac46a..8d9a60d2f7da3 100644
 --- a/drivers/power/supply/lp8788-charger.c
 +++ b/drivers/power/supply/lp8788-charger.c
-@@ -406,12 +406,6 @@ static const struct power_supply_desc lp8788_psy_battery_desc = {
- 	.get_property	= lp8788_battery_get_property,
- };
- 
--static void lp8788_psy_unregister(struct lp8788_charger *pchg)
--{
--	power_supply_unregister(pchg->battery);
--	power_supply_unregister(pchg->charger);
--}
--
- static void lp8788_charger_event(struct work_struct *work)
+@@ -710,8 +710,8 @@ static void lp8788_charger_remove(struct platform_device *pdev)
  {
- 	struct lp8788_charger *pchg =
-@@ -666,18 +660,16 @@ static int lp8788_psy_register(struct platform_device *pdev,
- 	charger_cfg.supplied_to = battery_supplied_to;
- 	charger_cfg.num_supplicants = ARRAY_SIZE(battery_supplied_to);
+ 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
  
--	pchg->charger = power_supply_register(&pdev->dev,
--					      &lp8788_psy_charger_desc,
--					      &charger_cfg);
-+	pchg->charger = devm_power_supply_register(&pdev->dev,
-+						   &lp8788_psy_charger_desc,
-+						   &charger_cfg);
- 	if (IS_ERR(pchg->charger))
- 		return -EPERM;
- 
--	pchg->battery = power_supply_register(&pdev->dev,
--					      &lp8788_psy_battery_desc, NULL);
--	if (IS_ERR(pchg->battery)) {
--		power_supply_unregister(pchg->charger);
-+	pchg->battery = devm_power_supply_register(&pdev->dev,
-+						   &lp8788_psy_battery_desc, NULL);
-+	if (IS_ERR(pchg->battery))
- 		return -EPERM;
--	}
- 
- 	return 0;
- }
-@@ -720,7 +712,6 @@ static void lp8788_charger_remove(struct platform_device *pdev)
- 
- 	flush_work(&pchg->charger_work);
+-	flush_work(&pchg->charger_work);
  	lp8788_irq_unregister(pdev, pchg);
--	lp8788_psy_unregister(pchg);
++	cancel_work_sync(&pchg->charger_work);
  }
  
  static struct platform_driver lp8788_charger_driver = {
