@@ -1,98 +1,225 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-32.mta1.migadu.com [95.215.58.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CD5111B9;
-	Wed,  9 Sep 2026 12:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA9A53ECFA
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958083; cv=none; b=hqsuXP5g9waByv59loAyoSTg9CNPiufP3aA0+t2enMy7A9KwxmR9V9HkYKhXRi853ei2DX0ZL+kFHVTMHoruAOjafrh1yrLpAN3E3dQm0WgTi/u9W1sfqPMr8DgqgTJlQhzBhtApo/sW479WSmH/5yXIe48/7LHAauSWt58p57E=
+	t=1788958089; cv=none; b=WqNMg4GN9Pxq+jjsUF28RoZNvAuOjMnuQQA4AeHRW8V9ZUjDMoDBDq6HO0deA6MiB8tEjBlBX4uP5nUZY347yPsfGlWmGad8AqTsyQkvhy7EaGyE6bHH8hXdgYW0P/b8YrhBZcPln2ZO/cdisao0fM4qOIe75kruFzUmrGmrmGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958083; c=relaxed/simple;
-	bh=UH6njIIyQR9OD67VxOrA7ozK5cAuBO8Er8TuNdULDmc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ec2/gKAaWTT8ZSzgi89GZVcZVdSI2nXoVvD13AnodoP6g+Hc7nByfqtcyLpVn4d6W639mMyLcS76LUmzHqJlXSxyAmOfppdF4JbTyySfGon8BpDPukp117JBmdU1CdqNwXf+Buf/g/rIvDDyD4p3RKI6qihmFtx0GXtw7RjfGgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ADDLMYnF; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788958089; c=relaxed/simple;
+	bh=y53Xk9bhjBTIXj1qHAyuohp/PrZA0avTM6UpmR+cniQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L29q86BYZnTRyCT9STR6O0Ph4kRsbuTUvaEL35qZWTGpuGBMsXJwAV4yTtSvoqDEvTfyN/ASUW4LRm9vBjAqNu2Ycsny0ufJGl5P5/INrGgpDyc2olSRfyk/NyzfE9s7dU8k2gAAOC3BiNRtV9EP6E8rg8sstnJgRzHOL9jWd8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W0yCmiDX; arc=none smtp.client-ip=95.215.58.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ADDLMYnF"
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 4C8ADA0202;
-	Wed,  9 Sep 2026 12:47:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 2ED5B80015;
-	Wed,  9 Sep 2026 12:47:50 +0000 (UTC)
-Date: Wed, 9 Sep 2026 08:49:06 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ran Hongyun <ranhongyun1@huawei.com>
-Cc: <florian.bezdeka@siemens.com>, <axboe@kernel.dk>,
- <bigeasy@linutronix.de>, <brauner@kernel.org>, <chengzhihao1@huawei.com>,
- <clrkwllms@kernel.org>, <frederic@kernel.org>, <jack@suse.cz>,
- <jdamato@fastly.com>, <john.ogness@linutronix.de>,
- <kprateek.nayak@amd.com>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>,
- <linux-rt-users@vger.kernel.org>, <mkarsten@uwaterloo.ca>,
- <namcao@linutronix.de>, <stable@vger.kernel.org>,
- <torvalds@linux-foundation.org>, <viro@zeniv.linux.org.uk>,
- <vschneid@redhat.com>, <wozizhi@huawei.com>, <xry111@xry111.site>,
- <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: Re: [QUESTION] Are these issues PREEMPT_RT-specific?
-Message-ID: <20260909084906.75ebe0ea@gandalf.local.home>
-In-Reply-To: <20260909030506.344667-1-ranhongyun1@huawei.com>
-References: <63d5cd58e9b85acccdaaac9aed4a8c550cc7b868.camel@siemens.com>
-	<20260909030506.344667-1-ranhongyun1@huawei.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W0yCmiDX"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y53Xk9bhjBTIXj1qHAyuohp/PrZA0avTM6UpmR+cniQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788958081; v=1; x=1789562881;
+ b=W0yCmiDX9lZ45zMFQBltGBMWSA+Wryts6ERBRLO/S6rNbILU07JYXG0mSScxOEwveWmFUXWl
+ h2FLXjkSnA5y7uOzHkU6zU4pG9zylucwtXGALfVv4BNWXlGUoykT3rkGEihrVyZHi3zpJESRE+w
+ /ESESswo9dN7Mf3vU/iLB38A=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cd2dbaa2e085f090;
+	Wed, 09 Sep 2026 12:48:01 +0000
+X-Mizu-Trace-ID: cd2dbaa2e085f090
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+Date: Wed, 9 Sep 2026 20:47:52 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Queue-Id: 2ED5B80015
-X-Stat-Signature: o3fwibtfheyjf6uxcieed6spah8gf4o6
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19Xhy7OK4OBMc93k3sLXpaXbNrFBmTU+H4=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=2JZIG0evn7FRLH7buEDQNvcDz4SWp2iw0ronrwwEllg=; b=ADDLMYnF3uDGdfsjFF0AU4mcXm38KNdi8JQJqfv2s53fOhf4+RXiDVgvjxqa2qfF+eWgYXqLtvVi2r6E08M1MGNT+fqqwDF52gB0YKtOpd7t4QfDjaEHj1AhZqNh9XZiz5cv79QyyIa6+fo1PJChOsle7nl88pcyxnhjlfRkMhU=
-X-HE-Tag: 1788958070-860100
-X-HE-Meta: U2FsdGVkX197gq9AYxmfVVmX8SBppYiJWxnth8UqyGIuz6uN3lbwz0pQN7siOw3O4K0M7d4v3vNtgdpSjudf8Q3H833uzaqs1ZB9LiXp/7l6WMYMfifkrHrWiG3iE4YpahG4qYMB/z74IxWPawDwy+le3fYdPgQZIBe6+TktybcVJeTH3KS9TtSQJiWLN4Rf3I9iLhilR9Uhgnch0QOvP7kUktj5KHGRuGz+rEHhAL14UZZkhrroFB52+2Oo2d1S8Z/IMYhj1hfDgtrfuPTvugC5o0UhmQzs+HeDWnndpf6D8+/C80z7YhEhGTv8oy4mQQIn7yLB4nr8YGUvVuOZDrUBMKR44PXZ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/4] module: introduce SH_ENTSIZE_STANDALONE for
+ separately allocated sections
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-4-hao.ge@linux.dev>
+ <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 9 Sep 2026 11:05:05 +0800
-Ran Hongyun <ranhongyun1@huawei.com> wrote:
+Hi Petr
 
-> Florian,
->=20
-> Thank you for your reply.
->=20
-> Now I understand that the issues are particularly critical on PREEMPT_RT.=
-=20
-> However, I=E2=80=99m still not entirely clear about the "performance or t=
-hroughput
-> drop" you mentioned for !RT systems. Since !RT kernels are
-> non-preemptible, unbounded priority inversion and stalls should not occur.
 
-That is incorrect. !RT kernels have been preemptible for decades. There are
-different levels:
+On 9/9/26 19:30, Petr Pavlu wrote:
+> On 9/8/26 11:24 AM, Hao Ge wrote:
+>> SHF_ALLOC means, per the ELF spec, that a section occupies memory
+>> during process execution. Some module sections occupy memory
+>> outside the regular module layout, for example the percpu section
+>> with its per-CPU allocations. The loader currently excludes such
+>> a section from the layout by clearing its SHF_ALLOC, which
+>> overloads the flag with a loader-internal meaning.
+>> apply_relocations() needs a special case for the section, and
+>> find_sec(".data..percpu") returns different results before and
+>> after layout_and_allocate().
+>>
+>> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+>> allocation. The percpu section is its first user. layout_sections()
+>> and move_module() skip marked sections, and apply_relocations() goes
+>> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+>>
+>> .data..percpu keeps SHF_ALLOC, so it would now show up under
+>> /sys/module/*/sections/. The section has one instance per CPU and no
+>> single address to report, and the entry never existed before, so
+>> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+>> array and skips it too. No functional change otherwise.
+>>
+>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>> [...]
+>> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+>> index 0fc11e45df9b..49190deae61e 100644
+>> --- a/kernel/module/kallsyms.c
+>> +++ b/kernel/module/kallsyms.c
+>> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
+>>   }
+>>   
+>>   static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>> -			   unsigned int shnum, unsigned int pcpundx)
+>> +			   unsigned int shnum)
+>>   {
+>>   	const Elf_Shdr *sec;
+>>   	enum mod_mem_type type;
+>> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>>   	    !src->st_name)
+>>   		return false;
+>>   
+>> -#ifdef CONFIG_KALLSYMS_ALL
+>> -	if (src->st_shndx == pcpundx)
+>> -		return true;
+>> -#endif
+>> -
+>>   	sec = sechdrs + src->st_shndx;
+>>   	type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+>>   	if (!(sec->sh_flags & SHF_ALLOC)
+>> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
+>>   	/* Compute total space required for the core symbols' strtab. */
+>>   	for (ndst = i = 0; i < nsrc; i++) {
+>>   		if (i == 0 || is_livepatch_module(mod) ||
+>> -		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>> -				   info->index.pcpu)) {
+>> +		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>   			strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+>>   			ndst++;
+>>   		}
+>> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
+>>   	for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+>>   		kallsyms->typetab[i] = elf_type(src + i, info);
+>>   		if (i == 0 || is_livepatch_module(mod) ||
+>> -		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>> -				   info->index.pcpu)) {
+>> +		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>   			ssize_t ret;
+>>   
+>>   			mod->core_kallsyms.typetab[ndst] =
+> FTR These changes in kernel/module/kallsyms.c have a conflict with the
+> series "Ignore local labels and mapping symbols during module load" [1],
+> which is currently queued on modules-next, but it should be
+> straightforward to resolve.
+>
+>> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+>> index 01c65d608873..f64170344e69 100644
+>> --- a/kernel/module/sysfs.c
+>> +++ b/kernel/module/sysfs.c
+>> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
+>>   	kfree(sect_attrs);
+>>   }
+>>   
+>> +/*
+>> + * .data..percpu has a separate allocation per CPU and no single
+>> + * address to report.
+>> + */
+>> +static bool sect_visible(const struct load_info *info, unsigned int i)
+>> +{
+>> +	return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
+>> +}
+>> +
+>>   static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>   {
+>>   	struct module_sect_attrs *sect_attrs;
+>> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>   
+>>   	/* Count loaded sections and allocate structures */
+>>   	for (i = 0; i < info->hdr->e_shnum; i++)
+>> -		if (!sect_empty(&info->sechdrs[i]))
+>> +		if (sect_visible(info, i))
+>>   			nloaded++;
+>>   	sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+>>   	if (!sect_attrs)
+>> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>   	for (i = 0; i < info->hdr->e_shnum; i++) {
+>>   		Elf_Shdr *sec = &info->sechdrs[i];
+>>   
+>> -		if (sect_empty(sec))
+>> +		if (!sect_visible(info, i))
+>>   			continue;
+>>   		sysfs_bin_attr_init(sattr);
+>>   		sattr->attr.name =
+>> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+>>   
+>>   	nattr = &notes_attrs->attrs[0];
+>>   	for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+>> -		if (sect_empty(&info->sechdrs[i]))
+>> +		if (!sect_visible(info, i))
+>>   			continue;
+>>   		if (info->sechdrs[i].sh_type == SHT_NOTE) {
+>>   			sysfs_bin_attr_init(nattr);
+> add_notes_attrs() has two sect_empty() calls. Both should be changed to
+> sect_visible().
 
-  SERVER - non preemptible (but no distributions use that)
-  VOLUNTARY - Has preemptible points in the kernel (might_sleep()) - most d=
-istros used this
-  FULL - Preempts everywhere that doesn't turn off preemption
-  RT - Turns spin locks into mutexes and preempts there too
 
-Regardless of that, unbound priority inversion can happen even in SERVER
-mode. All it takes is three tasks sharing a mutex. Only RT implements
-priority inheritance (for all locks but reader locks) in the kernel which
-would prevent unbounded priority inversion with normal locks.
+I kept this part unmodified to preserve the loop's original intent.
 
-> Are there any other factors that could still cause such a performance or
-> throughput drop?
->=20
-> In other words, if I am running a !RT system, what benefit can I actually
-> expect from switching from rwlock to spinlock?
+This loop counts SHT_NOTE sections.
 
-Lack of priority inheritance is true for both RT and !RT in rwlocks. Hence
-that does affect both of them.
+SHT_NOTE refers to ELF note sections, which hold non-executable
 
--- Steve
+metadata such as build ID and ABI info.
+
+I wonder if we could keep the current implementation.
+
+As noted in the comment above, the top part counts SHT_NOTE sections
+
+and allocates structures, while the lower logic handles control of node 
+attributes.
+
+
+WDYT?
+
+
+Thanks
+
+Best Regards
+
+Hao
+
+>
+> With this fixed, the patch looks ok to me. Feel free to add:
+>
+> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+>
+> [1] https://lore.kernel.org/linux-modules/20260820125007.22943-1-yangtiezhu@loongson.cn/
+>
