@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0EB37F313
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EAC37F33E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975993; cv=none; b=McO9R5uQkpqBmIYmsrEF/XN8poxjs0JbeyqKrBIYFH40rffLnrkN4fXQi5Tf1JSnAVFzZ9BfIsZFnzY7Ws+Q49pLzm4ISO9n6m4HoAKUEU3nlpBJAQGK8Yd5zRt0FRYb1733EWQqPvTTC+loZEuEtHrWnYZazY3WKMxjOBVROAA=
+	t=1788975994; cv=none; b=NZxaAU2b1XmF8DDN53TRjExZqFxZ5Ls1IQItvpS1HYRrs8dnOIk6ehtkJZpNdhBvTlJ/gqHHYjuSqYLV2YPVvrnT/PqVETeecVLz2kL2wza59j3xfVd19AP4KFblcQpoG23i/gCZ+EltD0r1aRfcamNeo6tn8ENs+zb6xwpeS5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975993; c=relaxed/simple;
-	bh=KilJEYecFtlqVu/E5PIAyaS3TY/NPu0t284VHtj1eMw=;
+	s=arc-20240116; t=1788975994; c=relaxed/simple;
+	bh=VnYL33m8cHCPyyRDU/odRgMqj6kRvyIMHn19kOfWx1E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oUmADGzI6SPIZvtk1LoGW76X+mI54v81Mg1A0JxTbCh1dXBMUpTdAuL7m6Z4WvWrXFRiQHCyVpHGhAhZ8jZR5ZxHhg6ZLPzjiizpG4XtfMFQ84zP1JoOwSgC3nhLwxhY586L0G07h8KaEwiTF1xaziSo6V/Q4DB3xDq0N0VQ0/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HKbnq4vq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EZoFQDqvfL9S/I920krXEjyrYyuvUm6lZcyI3S00ZRzBi2rn58HbmBokjl0DJU9npQLqf+pc1M9eJL/bmaKUmA5QY/pdbf5I9HYsiDS+vnJNfhqW+GT5PVdk5Khfxt8y/dDSWskmgAkfUb4276P+DNTD/nFbNzboQP5NXl2vHCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQC0YJD/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HKbnq4vq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADF31F00893;
-	Wed,  9 Sep 2026 17:46:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQC0YJD/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9A51F00898;
+	Wed,  9 Sep 2026 17:46:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975992;
-	bh=CGWjVTSU3vjsx5A7tG9KHDXDrpN1rjixlBQOpo/Cepg=;
+	s=k20260515; t=1788975993;
+	bh=5aC9qH5DQkd9LS1CR9JDcvMjnz1hJuZVxKYmHjanoYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HKbnq4vqx7Biz9wJhgh/J90G59OrR4VgmC8sicXD7tFt0rbT7vNFarouXKtOLjCtn
-	 xdWALEifBAUhqUGtSj1PJhETRSyQ7Og3gVJizCK7ezNxO0VvWVPKU+Uw0thyiUnuCe
-	 Ndy5o54l69ku6GKRp6IMti7Z3buoRAYuVMXpjQgMuxIUa4R7JJw338Tm3OonrcW2ty
-	 ccT76H1A3j5i7HS5vfLuYiSdO+WSVhixf8FIlhgqcdE2+CajlMSNP4Y90o4HA33tTG
-	 HSsnacGS5T58/U842GD103FwVl+qST6eQMMke/xzeWOTlm+K3ntOSnfFSiVbjjRYvj
-	 gI3BjrgpqLfkw==
+	b=TQC0YJD/0vZ+rs8pS90EIk+jfzwt/FgTmFEnHJOwvFARzi0V3ZHSb4TW5YDYdB1IT
+	 iW7gXeKoh+fwTd742LnWC5hK/S60hb9r7q4qI2Y4ANZX0U4ImdZMhpgmJtXhE0Td8e
+	 ZlzEYuYWEu5qSc6zZeiBju5xudnHbQSM2qvzH2SYnjnShjOXc4bIDIxEZiz4CPX++y
+	 iefaxyiS/nHdbPJCBkc0BcyJTKXpZ2TwZmYsIXjaSHsboGJ10lt/ya6lVdgRinxew4
+	 +Kvq4uGFZukUPDP7foho6fSWe0P5SVRWZnRu8eBnfSvZRANDxZDUjkq+FUHhjxAWU4
+	 srjqD0KLsxlhg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Dragos Tatulea <dtatulea@nvidia.com>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
 	Tariq Toukan <tariqt@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] net/mlx5e: SHAMPO, Drop rx_gro_match_packets counter
-Date: Wed,  9 Sep 2026 13:46:27 -0400
-Message-ID: <20260909174629.3343707-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] net/mlx5e: SHAMPO, Always calculate page size
+Date: Wed,  9 Sep 2026 13:46:28 -0400
+Message-ID: <20260909174629.3343707-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909174629.3343707-1-sashal@kernel.org>
 References: <2026090309-herbicide-eaten-1f09@gregkh>
@@ -49,101 +50,141 @@ Content-Transfer-Encoding: 8bit
 
 From: Dragos Tatulea <dtatulea@nvidia.com>
 
-[ Upstream commit 16f448d47a86825a421fc1211336454c42c5254f ]
+[ Upstream commit dff1c3164a69284ac9fedb1c25d4c008139e9fb8 ]
 
-After modifying rx_gro_packets to be more accurate, the
-rx_gro_match_packets counter is redundant.
+Adapt the rx path in SHAMPO mode to calculate page size based on
+configured page_shift when dealing with payload data.
+
+This is necessary as an upcoming patch will add support for using
+different page sizes.
+
+This change has no functional changes.
 
 Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
 Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://lore.kernel.org/r/20240603212219.1037656-11-tariqt@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://patch.msgid.link/20260223204155.1783580-9-tariqt@nvidia.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Stable-dep-of: e2466392a0b8 ("net/mlx5e: do not HW-GRO coalesce small frames")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../device_drivers/ethernet/mellanox/mlx5/counters.rst       | 5 -----
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c              | 2 --
- drivers/net/ethernet/mellanox/mlx5/core/en_stats.c           | 3 ---
- drivers/net/ethernet/mellanox/mlx5/core/en_stats.h           | 2 --
- 4 files changed, 12 deletions(-)
+ .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 34 ++++++++++++-------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/networking/device_drivers/ethernet/mellanox/mlx5/counters.rst b/Documentation/networking/device_drivers/ethernet/mellanox/mlx5/counters.rst
-index f69ee1ebee010..b7fbdabca9e9c 100644
---- a/Documentation/networking/device_drivers/ethernet/mellanox/mlx5/counters.rst
-+++ b/Documentation/networking/device_drivers/ethernet/mellanox/mlx5/counters.rst
-@@ -202,11 +202,6 @@ the software port.
-        hardware-accelerated GRO.
-      - Informative
- 
--   * - `rx[i]_gro_match_packets`
--     - Number of received packets processed using hardware-accelerated GRO that
--       met the flow table match criteria.
--     - Informative
--
-    * - `rx[i]_gro_large_hds`
-      - Number of receive packets using hardware-accelerated GRO that have large
-        headers that require additional memory to be allocated.
 diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 962531e9d5ec3..4ec68388fe7cd 100644
+index 4ec68388fe7cd..19dc7ccfdcb7b 100644
 --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
 +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2370,8 +2370,6 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+@@ -1989,11 +1989,14 @@ mlx5e_shampo_fill_skb_data(struct sk_buff *skb, struct mlx5e_rq *rq,
+ 			   struct mlx5e_frag_page *frag_page,
+ 			   u32 data_bcnt, u32 data_offset)
+ {
++	u32 page_size = BIT(rq->mpwqe.page_shift);
++
+ 	net_prefetchw(skb->data);
+ 
+ 	do {
+ 		/* Non-linear mode, hence non-XSK, which always uses PAGE_SIZE. */
+-		u32 pg_consumed_bytes = min_t(u32, PAGE_SIZE - data_offset, data_bcnt);
++		u32 pg_consumed_bytes = min_t(u32, page_size - data_offset,
++					      data_bcnt);
+ 		unsigned int truesize = pg_consumed_bytes;
+ 
+ 		frag_page->frags++;
+@@ -2015,6 +2018,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 	u16 headlen = min_t(u16, MLX5E_RX_MAX_HEAD, cqe_bcnt);
+ 	struct mlx5e_frag_page *head_page = frag_page;
+ 	struct mlx5e_xdp_buff *mxbuf = &rq->mxbuf;
++	u32 page_size = BIT(rq->mpwqe.page_shift);
+ 	u32 frag_offset    = head_offset;
+ 	u32 byte_cnt       = cqe_bcnt;
+ 	struct skb_shared_info *sinfo;
+@@ -2058,9 +2062,9 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 		linear_hr = skb_headroom(skb);
+ 		linear_data_len = headlen;
+ 		linear_frame_sz = MLX5_SKB_FRAG_SZ(skb_end_offset(skb));
+-		if (unlikely(frag_offset >= PAGE_SIZE)) {
++		if (unlikely(frag_offset >= page_size)) {
+ 			frag_page++;
+-			frag_offset -= PAGE_SIZE;
++			frag_offset -= page_size;
+ 		}
+ 	}
+ 
+@@ -2072,7 +2076,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 	while (byte_cnt) {
+ 		/* Non-linear mode, hence non-XSK, which always uses PAGE_SIZE. */
+ 		pg_consumed_bytes =
+-			min_t(u32, PAGE_SIZE - frag_offset, byte_cnt);
++			min_t(u32, page_size - frag_offset, byte_cnt);
+ 
+ 		if (test_bit(MLX5E_RQ_STATE_SHAMPO, &rq->state))
+ 			truesize += pg_consumed_bytes;
+@@ -2109,7 +2113,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 		nr_frags_free = old_nr_frags - sinfo->nr_frags;
+ 		if (unlikely(nr_frags_free)) {
+ 			frag_page -= nr_frags_free;
+-			truesize -= (nr_frags_free - 1) * PAGE_SIZE +
++			truesize -= (nr_frags_free - 1) * page_size +
+ 				ALIGN(pg_consumed_bytes,
+ 				      BIT(rq->mpwqe.log_stride_sz));
+ 		}
+@@ -2311,15 +2315,16 @@ mlx5e_shampo_flush_skb(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe, bool match)
+ 	rq->hw_gro_data->skb = NULL;
+ }
+ 
+-static bool
+-mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb, u16 data_bcnt)
++static bool mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb,
++					      u16 data_bcnt,
++					      u32 page_size)
+ {
+ 	int nr_frags = skb_shinfo(skb)->nr_frags;
+ 
+-	if (PAGE_SIZE >= GRO_LEGACY_MAX_SIZE)
++	if (page_size >= GRO_LEGACY_MAX_SIZE)
+ 		return skb->len + data_bcnt <= GRO_LEGACY_MAX_SIZE;
+ 	else
+-		return PAGE_SIZE * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
++		return page_size * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
+ }
+ 
+ static void
+@@ -2343,18 +2348,19 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+ 	u16 header_index	= mlx5e_shampo_get_cqe_header_index(rq, cqe);
+ 	u32 wqe_offset		= be32_to_cpu(cqe->shampo.data_offset);
+ 	u16 cstrides		= mpwrq_get_cqe_consumed_strides(cqe);
+-	u32 data_offset		= wqe_offset & (PAGE_SIZE - 1);
+ 	u32 cqe_bcnt		= mpwrq_get_cqe_byte_cnt(cqe);
+ 	u16 wqe_id		= be16_to_cpu(cqe->wqe_id);
+-	u32 page_idx		= wqe_offset >> PAGE_SHIFT;
+ 	u16 head_size		= cqe->shampo.header_size;
+ 	struct sk_buff **skb	= &rq->hw_gro_data->skb;
+ 	bool flush		= cqe->shampo.flush;
+ 	bool match		= cqe->shampo.match;
++	u32 page_size = BIT(rq->mpwqe.page_shift);
+ 	struct mlx5e_rq_stats *stats = rq->stats;
+ 	struct mlx5e_rx_wqe_ll *wqe;
+ 	struct mlx5e_mpw_info *wi;
+ 	struct mlx5_wq_ll *wq;
++	u32 data_offset;
++	u32 page_idx;
+ 
+ 	wi = mlx5e_get_mpw_info(rq, wqe_id);
+ 	wi->consumed_strides += cstrides;
+@@ -2370,7 +2376,11 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
  		goto mpwrq_cqe_out;
  	}
  
--	stats->gro_match_packets += match;
--
- 	if (*skb && (!match || !(mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt)))) {
+-	if (*skb && (!match || !(mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt)))) {
++	data_offset = wqe_offset & (page_size - 1);
++	page_idx = wqe_offset >> rq->mpwqe.page_shift;
++	if (*skb &&
++	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
++							 page_size))) {
  		match = false;
  		mlx5e_shampo_flush_skb(rq, cqe, match);
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_stats.c b/drivers/net/ethernet/mellanox/mlx5/core/en_stats.c
-index 1c69244e00d75..22040ef1c5f84 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_stats.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_stats.c
-@@ -136,7 +136,6 @@ static const struct counter_desc sw_stats_desc[] = {
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_gro_packets) },
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_gro_bytes) },
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_gro_skbs) },
--	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_gro_match_packets) },
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_gro_large_hds) },
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_ecn_mark) },
- 	{ MLX5E_DECLARE_STAT(struct mlx5e_sw_stats, rx_removed_vlan_packets) },
-@@ -338,7 +337,6 @@ static void mlx5e_stats_grp_sw_update_stats_rq_stats(struct mlx5e_sw_stats *s,
- 	s->rx_gro_packets             += rq_stats->gro_packets;
- 	s->rx_gro_bytes               += rq_stats->gro_bytes;
- 	s->rx_gro_skbs                += rq_stats->gro_skbs;
--	s->rx_gro_match_packets       += rq_stats->gro_match_packets;
- 	s->rx_gro_large_hds           += rq_stats->gro_large_hds;
- 	s->rx_ecn_mark                += rq_stats->ecn_mark;
- 	s->rx_removed_vlan_packets    += rq_stats->removed_vlan_packets;
-@@ -1988,7 +1986,6 @@ static const struct counter_desc rq_stats_desc[] = {
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, gro_packets) },
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, gro_bytes) },
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, gro_skbs) },
--	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, gro_match_packets) },
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, gro_large_hds) },
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, ecn_mark) },
- 	{ MLX5E_DECLARE_RX_STAT(struct mlx5e_rq_stats, removed_vlan_packets) },
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_stats.h b/drivers/net/ethernet/mellanox/mlx5/core/en_stats.h
-index 477c547dcc04a..c2397871c5dbf 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_stats.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_stats.h
-@@ -149,7 +149,6 @@ struct mlx5e_sw_stats {
- 	u64 rx_gro_packets;
- 	u64 rx_gro_bytes;
- 	u64 rx_gro_skbs;
--	u64 rx_gro_match_packets;
- 	u64 rx_gro_large_hds;
- 	u64 rx_mcast_packets;
- 	u64 rx_ecn_mark;
-@@ -348,7 +347,6 @@ struct mlx5e_rq_stats {
- 	u64 gro_packets;
- 	u64 gro_bytes;
- 	u64 gro_skbs;
--	u64 gro_match_packets;
- 	u64 gro_large_hds;
- 	u64 mcast_packets;
- 	u64 ecn_mark;
+ 	}
 -- 
 2.53.0
 
