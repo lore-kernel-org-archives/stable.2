@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8044053B614
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E27353FD34
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:18:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952696; cv=none; b=RHiJEE3Mpq19Mh6Mnq87u0fybL2L8flfi93os1+RIE+TyZYLNu0/WaZ8U8PrHFv5Kvl1Ts3q58JjPJtz1YbBo5cTsQZfiYG1BGt8tdsq6Qtv2dhx3vd6Nz6zok25/ebcN2nujhdBjQ0OhuY9E77N6AcdK4g2DEYwsuOwlK1SlRU=
+	t=1788952698; cv=none; b=L5aAf6pfIAJSRfN8U06T4a5oDF4fD/nQ2YaHRBh0+x18wylrB12fYt0idlBYLB0L8WkxQK7uwnZDDkKQOo/UFtK3hezSZkya5ayDDo2TTvO62Bg9r5cCXjVuiRkSBjVQR5DiVO3WlGN0oUoeJi1ngieln/umCRtpKfE1che6TFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952696; c=relaxed/simple;
-	bh=Bj74HruAsByYW3s4+cp7cFXyoC1XGQZ6tQ+mL92+6rg=;
+	s=arc-20240116; t=1788952698; c=relaxed/simple;
+	bh=0gHy5JO4+ILTsX6zj3ToHy8N3nYWqn1R/HOfvrXJhLw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jpDZgW48BWYSJsiJgRymrcOU4YpEugvwvNksnuETad22kTyZkv0PtXPXxMmC0AVqQRhEQkAjXxGj6R/ooHSIwLgO6JdNUrwPLghDtpHrn+Shk2yzUYQmM6MxXGCR7wSPkzNg4pl6DDxmdZX1baHX4H3Lp/umUolh4mWKxmlyAek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SwwD80S9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=q94jw1V4MxxU1PMOGx8CoKX/vi9e57k/9QFF1GdfT1k/exo5/Edzer9tmvAJTPCmUjvtvXfjHvR2Un+RwSFDVLwGc4j1nAO87JMPvsY/85Tm1hO1DJ5hC7jE7UTUpItyrLVf7NkNFA6Shure1SKUmowWicC5bOzFTX9QJFFE1ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwgJlVO9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SwwD80S9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303891F00A3F;
-	Wed,  9 Sep 2026 11:18:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwgJlVO9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458551F00A3E;
+	Wed,  9 Sep 2026 11:18:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788952688;
-	bh=V+rZ0lwtXiof/rB/VnD+yDanqpZl7rKGLPn2jE5nC0k=;
+	s=k20260515; t=1788952691;
+	bh=0wb0a+RxITSiab3eSuAisW+gLiYbijcXK6vHSDYRD2I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SwwD80S9cCG8ijt3qd6VnDJSICFAsm+41LnSdAmgsNkqxNrByWO9xtxUyNlRd2SRa
-	 LMbrzJdDi+MRWTkYDy53QxIg6knF9erIra9DvBQxKYfz5chMCCFsEU2rIaVjp399FA
-	 aWMuqaLuXIhUPJbqLFw6slG+3ZfJd0Bdh8lTL/vM31q+LVDNKXTDbN5OWH71MS7ZgH
-	 LjcBUDf5do7lmwG1LkWKY9QahK9zw3MDzb11fka5etxLjbGTBcoDou6iJsYXq4vXE4
-	 14L+lL8hUybxZBWJwgaINs2vTpGXxLBVunskoekgrt8xBhNMix1Vq2W4PNg8m5sXBt
-	 F9gXYMRcmgj3A==
+	b=KwgJlVO9kYTsGbq5EjXT/V2lZjwHZC+a1jS/DgpJwqWheVzw/NlIzy1m23ABb7YFu
+	 Ucwo4BkSxq4dU6PnMsbCLTnfAQb4vuvNfwBEmYrf6dHsIeOvVJPkYUdSTvE0xDn6Au
+	 WrM8WR4AZvtOYf8YK+1vmkgER62wd+OEaZRClXMxi7nr33j8mNiuSR1NH9M585nZ+C
+	 dBy9jsi+2k8iTyFUweBYqkhYTLmA0/9uC0rj1dk6za2Dzeh4A8/YSVFz+Ho3YBuvtd
+	 wi505RdsXw/Q7u3FdkfV13XdQYVNSnWTEBsTSuhABwKywGtyDCovqtwaxccRpl4Gba
+	 6MuIBX9vmDX6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/7] driver core: platform: change logic implementing platform_driver_probe
-Date: Wed,  9 Sep 2026 07:18:00 -0400
-Message-ID: <20260909111805.1804682-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 6/7] power: supply: charger-manager: Convert to platform remove callback returning void
+Date: Wed,  9 Sep 2026 07:18:04 -0400
+Message-ID: <20260909111805.1804682-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909111805.1804682-1-sashal@kernel.org>
 References: <2026090322-humbling-ninth-d3ad@gregkh>
@@ -49,75 +49,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 16085668eacdc56c46652d0f3bfef81ecace57de ]
+[ Upstream commit 403eebf95c38302cacc48c127e575461f0e798be ]
 
-Instead of overwriting the core driver's probe function handle probing
-devices for drivers loaded by platform_driver_probe() in the platform
-driver probe function.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() is renamed to .remove().
 
-The intended goal is to not have to change the probe function to
-simplify converting the platform bus to use bus functions.
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Link: https://lore.kernel.org/r/20201119124611.2573057-2-u.kleine-koenig@pengutronix.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/r/20230918133700.1254499-8-u.kleine-koenig@pengutronix.de
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Stable-dep-of: c57cb36f76eb ("power: supply: charger-manager: register regulators before exposing sysfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/platform.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/power/supply/charger-manager.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index fa023cf80dc48..16426eb934632 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -743,12 +743,25 @@ struct platform_device *platform_device_register_full(
+diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
+index fa13f54849090..a5b8b5de06215 100644
+--- a/drivers/power/supply/charger-manager.c
++++ b/drivers/power/supply/charger-manager.c
+@@ -1633,7 +1633,7 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	return ret;
  }
- EXPORT_SYMBOL_GPL(platform_device_register_full);
  
-+static int platform_probe_fail(struct platform_device *pdev);
-+
- static int platform_drv_probe(struct device *_dev)
+-static int charger_manager_remove(struct platform_device *pdev)
++static void charger_manager_remove(struct platform_device *pdev)
  {
- 	struct platform_driver *drv = to_platform_driver(_dev->driver);
- 	struct platform_device *dev = to_platform_device(_dev);
- 	int ret;
+ 	struct charger_manager *cm = platform_get_drvdata(pdev);
+ 	struct charger_desc *desc = cm->desc;
+@@ -1653,8 +1653,6 @@ static int charger_manager_remove(struct platform_device *pdev)
+ 	power_supply_unregister(cm->charger_psy);
  
-+	/*
-+	 * A driver registered using platform_driver_probe() cannot be bound
-+	 * again later because the probe function usually lives in __init code
-+	 * and so is gone. For these drivers .probe is set to
-+	 * platform_probe_fail in __platform_driver_probe(). Don't even
-+	 * prepare clocks and PM domains for these to match the traditional
-+	 * behaviour.
-+	 */
-+	if (unlikely(drv->probe == platform_probe_fail))
-+		return -ENXIO;
-+
- 	ret = of_clk_set_defaults(_dev->of_node, false);
- 	if (ret < 0)
- 		return ret;
-@@ -822,7 +835,7 @@ void platform_driver_unregister(struct platform_driver *drv)
+ 	try_charger_enable(cm, false);
+-
+-	return 0;
  }
- EXPORT_SYMBOL_GPL(platform_driver_unregister);
  
--static int platform_drv_probe_fail(struct device *_dev)
-+static int platform_probe_fail(struct platform_device *pdev)
- {
- 	return -ENXIO;
- }
-@@ -887,10 +900,9 @@ int __init_or_module __platform_driver_probe(struct platform_driver *drv,
- 	 * new devices fail.
- 	 */
- 	spin_lock(&drv->driver.bus->p->klist_drivers.k_lock);
--	drv->probe = NULL;
-+	drv->probe = platform_probe_fail;
- 	if (code == 0 && list_empty(&drv->driver.p->klist_devices.k_list))
- 		retval = -ENODEV;
--	drv->driver.probe = platform_drv_probe_fail;
- 	spin_unlock(&drv->driver.bus->p->klist_drivers.k_lock);
+ static const struct platform_device_id charger_manager_id[] = {
+@@ -1745,7 +1743,7 @@ static struct platform_driver charger_manager_driver = {
+ 		.of_match_table = charger_manager_match,
+ 	},
+ 	.probe = charger_manager_probe,
+-	.remove = charger_manager_remove,
++	.remove_new = charger_manager_remove,
+ 	.id_table = charger_manager_id,
+ };
  
- 	if (code != retval)
 -- 
 2.53.0
 
