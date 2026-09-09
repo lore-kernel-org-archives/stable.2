@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625484C8FE6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2225335A0
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953076; cv=none; b=OucEnP4Pq7lWo6m6REcQW+IyvrSVLTA5c9b5ndEh/dWj6p/JczyXLwxvhHbaSbANRy/IgBPVLF+3OuXZuvUuyhBp7j9Ryeagppm/uP2EWZQbu5zZQPMdMAxM3zg3dFaDUHjNuWA2W79g8Zk9UgSOo4XSrgqmTpXtSYfBJ24WM4Q=
+	t=1788953079; cv=none; b=TNONumZbCa1XyNi+0HOA4kCuioCYnPvFidQLi/o+zurYsbK2q2+jLhVVCJ8i+h/Cma7qUlTMZiZqRTAAbV+nAtl+Vczz3G8CXMknLzGK4t4qs9KqkGf6bjBWjbYbwUH9SLIE5GOA2fR1hyrUYX6w2mZz6nmAJv+Z1Fk62blN4sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953076; c=relaxed/simple;
-	bh=2Qk/3B//5oWgBKDDACqVDSAf/9XcNuKUv0c5wm7ok70=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EbS7uk6gHd5opn3ALxMvf5E9Au2bPBhIziY0o8XaeLVb7C6Qf2m+1tHhiBv7vO4LQGQ1ymw6uYoebL8YiS4hdpEAej6nk4eCbKEv57qlx8wjwygkZ5QNdFTnWwKs/Bb0ExUGSosa6518+7nCAYfUdTwWMJpYfXKTbuqSNq3zu+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TAd7dcuw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953079; c=relaxed/simple;
+	bh=USMRYl6aCb99IGmbKxs1raNBO/exD1gmQy3ZMxGc1CU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IctPkoPqYU2mBb/1Pjmm337/sNC8ZC3j2aSrfYjE2StA+P/GIWDNYI4BcSUs2gKfry88FQ92PIoCGT4M3e8R8+mJRPuoC28EvqWTSfqZyVCPU/hIHhKI15J8q9wd8e1aDJgDlUQqMu8WxW4Z+OpOS/DrHQH+pzJJSuEh95LhiVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qE7UE+HA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TAd7dcuw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3A31F00A3A;
-	Wed,  9 Sep 2026 11:24:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qE7UE+HA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99CFB1F00A3A;
+	Wed,  9 Sep 2026 11:24:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953075;
-	bh=WzQWF8qRTanVDX1bBWvlutoraLvc1vmSw3zRREx90D4=;
+	s=korg; t=1788953078;
+	bh=Lc3EG5UN54dtfZVvk31YXL/5fCDmSsZl/MxIF35k/s4=;
 	h=Subject:To:Cc:From:Date;
-	b=TAd7dcuwVltWzz/EYIHSRtWpsMLNr5qmuL+/+a2pyc3fBsS4LduognoA59XzHIOh+
-	 UJKUCyp3ftciKHtQ18OdTXJKrFgamSoH+G00kCvG++iSwnkFxebIh1B6c0ex0uhlx0
-	 RLKhQLE6G0Zo1YWomnW5HcFt46pNdxq/eHU7oL14=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Fix BSG job leak on validate flash image error" failed to apply to 6.6-stable tree
+	b=qE7UE+HAO2sxKibHS2064Pu+h+mPXZByLgVBRBmYzbKRLmhPF3aWjHJZwWyArVkgk
+	 fKFbxoSi1X1qXIW7LbxIcxWTW8C5dCo7An2eGnTVKut2qBMmJ+nUhDHoCNZvTv0VhJ
+	 VKCt1aqUe3X/KqnsFT3S5RxA3cJaDdgqEmrJRbxg=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Fix BSG job leak on validate flash image error" failed to apply to 5.10-stable tree
 To: njavali@marvell.com,hare@kernel.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:15:46 +0200
-Message-ID: <2026090946-fridge-thermos-3acf@gregkh>
+Date: Wed, 09 Sep 2026 13:15:47 +0200
+Message-ID: <2026090947-vicinity-pleading-96b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0fb52cc632464b0cd07f970341330466d772efe1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090946-fridge-thermos-3acf@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090947-vicinity-pleading-96b9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
