@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF5C56C63B;
-	Wed,  9 Sep 2026 14:49:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1477E56E064;
+	Wed,  9 Sep 2026 14:49:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965379; cv=none; b=pmjb2Fg7242t7G770hEUV6ZbcSZf+q9xuZmiotrhVbkDeP7Lt5v1uUFtg9OH/azqP7fBW5RlCThDcK35m8FJ6xfUg+LddxwYeYtIocTVoFYIV6wMhnwhU0pcywYdZkH9RzTpCiuh3KDPdrc15DdfY/lTBi1aUnrM/ElmHaxcqgc=
+	t=1788965380; cv=none; b=e9PInqc0qsMvfULHPkS9dzpTT4FIqobBm26dPXJUbObhSk+GolIcl68dUR2rBztC71jL9gbCwRzL9UbN6VGRfcgsp4dsL45lFusAgpoJHNSQs5mgVlism/Oe4ck/QfN2b4Fw/bq3ne9bkNU8IOI0rcrFHX35ibSOOo20ldSn7tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965379; c=relaxed/simple;
-	bh=cFB8RVVy5cgD840Xmo/6V22yDAA/8kq7daif1EovzRg=;
+	s=arc-20240116; t=1788965380; c=relaxed/simple;
+	bh=dcNwO1TYVpK5SNRrKzs9DWCDwgPxaNcw92EdPFzLX+g=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ys50Dh1VTdfgz4SxPuCQAcw6b+oLGF4SsIiwZljKstWK7YVJUR7rZiqWV7FPPZlubTJv5re6csop7WxqUmMWZRkeM3y2kVIR0gtzlpdQVQGRNnMCQPINlfTHnLOIadyggMPAK+lDcv4+9Nsktqz1FpyZrZikNZEfDTUzx10Iomg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cww3rYjv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=Gq4pYeEY7dDMO4revFKJ4fKNa8PmGULDkExz0zNy09y92/68W1iwvc8O1v53/qkG314db1udxrP/dwvQ5Jpjmd1jXrsw04J/yb3MX/4gXwA7//P8aBbXi80WqYIGaAkxQi5EPV3E0WfIsW7AeHxId/FTGq9ctFYrp75VvrtAJKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1qx79m4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cww3rYjv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D081F00A3D;
-	Wed,  9 Sep 2026 14:49:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1qx79m4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB951F00A3A;
+	Wed,  9 Sep 2026 14:49:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965377;
-	bh=q/I33cz2PMyse7XTrTfmsFNdoyHp2PL+ZwacZmjYNUc=;
+	s=k20260515; t=1788965379;
+	bh=suKghUytwOCgojehO3dIizfwMN4e7CnlgjHO63gS76c=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cww3rYjvLMQA7Cp2rMwMD4sEqOWbL1oXu/v88Ale/Ck59uHWoiQveI9w1qzxT84Lb
-	 s1QtcFBd9l/OP5Tsskvp9Y8d25QW0nbiCbbTQOVMAUN6PhCGDam6caVqKRcHa1zemd
-	 6WOZfMkad8lyGw3TB0JWOhuxNihJ62OiYpxH1pjqaXrmDE4DxVrtlll0pejNXHBgvx
-	 +atWkln2w5AyFcLErPz/Tf/bFyKYUtinT3kG80lQ4w77dIups4zdA75QZAJpZNBukJ
-	 8vOrDC9dM/eIcavW4FnZ264lpgHiO598cHO3tTmZ19IBOzhpPuXhLi9iatczenG1Z6
-	 Po4IJvFi8PQVw==
-Subject:
- Re: [PATCH net v2 06/15] mptcp: prevent race between disconnect() and rtx
+	b=K1qx79m4vmpGT2FgBXpZBUXCPkVtB7fIW79mllIVB2oa31NsUhqD0FVdO1MXLcm36
+	 NQYLy8FNT6JXYWTrwTPZTSDOBSR/RTClcznZFqnro9sx75HWuo66tSfapWvv8/YYI0
+	 AoX8lJ/pRWB2S4oovMfOMRfoairQsWMhw9MSTG+1Uj0rONJeowqIhSmmwcxB09sUYS
+	 +35sm0IIvJszHF7hXODc3R5B1+ZNSksgg0+d4G8smQWXEocNsL+H+o4mxGPImHLP0C
+	 9fwwvvan3aSKfPEID/SYlGZfuyc6vTG9j6SxDSsniDRinpyOkqRAOv3yuTVRi76hqW
+	 HKQXKziT6Ih8w==
+Subject: Re: [PATCH net v2 15/15] mptcp: avoid pruning for OoW data
 From: netdev-bot+sashiko@kernel.org
 To: matttbe@kernel.org
 Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
  netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Date: Wed, 09 Sep 2026 14:49:36 +0000
-Message-ID: <178896537655.219967.3201901026877077910@kernel.org>
+Date: Wed, 09 Sep 2026 14:49:37 +0000
+Message-ID: <178896537782.219967.1022060629733006428@kernel.org>
 In-Reply-To:
- <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-6-df1de70348b6@kernel.org>
+ <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
 References:
- <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-6-df1de70348b6@kernel.org>
-X-sashiko-severity: Low
+ <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -50,111 +49,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 2
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] The commit message of "mptcp: prevent race between disconnect()
-  and rtx" describes the change as only "Prevent the race using the…
-- [Low] The commit carries "Fixes: b29fcfb54cd7 (\"mptcp: full disconnect
-  implementation\")" (v5.18) for a real race that can leave a reused msk…
+- [Medium] Incomplete realization of the patch's stated principle ("do it
+  only when we expect to accept the skb triggering the cleanup"): after…
 
 --
 
-mptcp: prevent race between disconnect() and rtx
+mptcp: avoid pruning for OoW data
 
-This replaces the mptcp_stop_rtx_timer() and mptcp_stop_tout_timer() calls in
-mptcp_disconnect() with open-coded sk_stop_timer_sync() calls, so a
-concurrently running retransmit timer cannot resurrect state after the
-disconnect path has reset it.  No Link: or Closes: tags are present in the
-commit header.
-
-A couple of questions below, one about the changelog and one about the tags.
-
->     mptcp: prevent race between disconnect() and rtx
->     
->     Sashiko noted that the two event can race, leading to inconsistent
->     status. Prevent the race using the synchronous timer stop operation.
->     
->     Fixes: b29fcfb54cd7 ("mptcp: full disconnect implementation")
->     Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-[Severity: Low]
-The Fixes: tag points at b29fcfb54cd7, which went in during v5.18, and the
-race described can leave a reused msk with MPTCP_RETRANSMIT / MPTCP_WORK_RTX
-set after mptcp_disconnect() has already cleared msk->flags and msk->cb_flags.
-
-Should this also carry Cc: stable@vger.kernel.org?  Most of the other fixes in
-this series do, including "mptcp: do not reschedule the RTX timer for fallback
-sockets", whose MPTCP_RTX_ENABLED bit this change relies on so the timer cannot
-be re-armed once the socket is in TCP_CLOSE.
-
-Also, the report is credited to "Sashiko" in prose only.  Would it be possible
-to add the matching Closes: or Link: tag, the way the sibling commits in the
-series do?
+This moves the mptcp_try_rmem_schedule() call in mptcp_data_queue_ofo()
+so that it runs after the out-of-window check instead of before it, which
+avoids running the destructive OoO queue pruning for skbs that are going
+to be dropped as out of window.
 
 > diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-> index be59651e708e..d611af2eb74f 100644
+> index 4309fca6b119..0098e2830931 100644
 > --- a/net/mptcp/protocol.c
 > +++ b/net/mptcp/protocol.c
-> @@ -3588,6 +3588,7 @@ static void mptcp_destroy_common(struct mptcp_sock *msk)
+> @@ -313,12 +313,6 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+>  	u64 seq, end_seq, max_seq;
+>  	struct sk_buff *skb1;
 >  
->  static int mptcp_disconnect(struct sock *sk, int flags)
->  {
-> +	struct inet_connection_sock *icsk = inet_csk(sk);
->  	struct mptcp_sock *msk = mptcp_sk(sk);
+> -	if (!mptcp_try_rmem_schedule(sk, skb)) {
+> -		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+> -		mptcp_drop(sk, skb);
+> -		return;
+> -	}
+> -
+>  	seq = MPTCP_SKB_CB(skb)->map_seq;
+>  	end_seq = MPTCP_SKB_CB(skb)->end_seq;
+>  	max_seq = atomic64_read(&msk->rcv_wnd_sent);
+> @@ -335,6 +329,12 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+>  		return;
+>  	}
 >  
->  	/* We are on the fastopen error path. We can't call straight into the
-> @@ -3600,8 +3601,13 @@ static int mptcp_disconnect(struct sock *sk, int flags)
->  	mptcp_check_listen_stop(sk);
->  	mptcp_set_state(sk, TCP_CLOSE);
->  
-> -	mptcp_stop_rtx_timer(sk);
-> -	mptcp_stop_tout_timer(sk);
-> +	/* The later subflow close can not kick again the tout timer,
-> +	 * as the msk is already in closed status.
-> +	 */
-> +	msk->timer_ival = icsk->icsk_rto_min;
-> +	sk_stop_timer_sync(sk, &sk->mptcp_retransmit_timer);
-> +	icsk->icsk_mtup.probe_timestamp = 0;
-> +	sk_stop_timer_sync(sk, &icsk->mptcp_tout_timer);
+> +	if (!mptcp_try_rmem_schedule(sk, skb)) {
+> +		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+> +		mptcp_drop(sk, skb);
+> +		return;
+> +	}
+> +
 
-[Severity: Low]
-The changelog says the race is prevented "using the synchronous timer stop
-operation", which reads like a straight sk_stop_timer() to sk_stop_timer_sync()
-swap, but the open-coded version in mptcp_disconnect() also changes two other
-pieces of state.  Could the message mention them?
+[Severity: Medium]
+The commit message says pruning should be done "only when we expect
+to accept the skb triggering the cleanup".  Does the new placement
+fully match that, given the duplicate-data check still happens later in
+the rbtree walk of mptcp_data_queue_ofo()?
 
-First, msk->timer_ival now ends up as icsk->icsk_rto_min, while the helper it
-replaces sets it to zero:
+Consider an OoO queue holding A (map_seq 1000, end_seq 2000), B (2000,
+3000), C (3000, 4000) with ooo_last_skb == C, and an in-window skb
+(map_seq 1200, end_seq 1500) arriving while sk_rmem_alloc exceeds
+sk_rcvbuf.  mptcp_prune_ofo_queue() walks back from ooo_last_skb:
 
-net/mptcp/protocol.c:mptcp_stop_rtx_timer() {
-	sk_stop_timer(sk, &sk->mptcp_retransmit_timer);
-	mptcp_sk(sk)->timer_ival = 0;
+net/mptcp/protocol.c:mptcp_prune_ofo_queue() {
+	...
+		/* Stop pruning if the incoming skb would land in OoO tail. */
+		if (after64(MPTCP_SKB_CB(in_skb)->map_seq,
+			    MPTCP_SKB_CB(skb)->map_seq))
+			break;
+
+		pruned = true;
+		prev = rb_prev(node);
+		rb_erase(node, &msk->out_of_order_queue);
+		mptcp_drop(sk, skb);
+	...
 }
 
-The new value is what __mptcp_init_sock() seeds, so it looks intentional and
-harmless, and the only reader, mptcp_reset_rtx_timer(), is gated on
-MPTCP_RTX_ENABLED which mptcp_set_state(TCP_CLOSE) has just cleared.  Is that
-the reasoning?
+after64(1200, 3000) and after64(1200, 2000) are both false, so C and
+then B are erased and freed; the loop only breaks at A.
 
-Second, the tout timer is now stopped and probe_timestamp cleared
-unconditionally, whereas the replaced helper bailed out early when
-probe_timestamp was already zero:
+mptcp_can_ingest() then succeeds, and the tree walk reaches:
 
-net/mptcp/protocol.h:mptcp_stop_tout_timer() {
-	if (!inet_csk(sk)->icsk_mtup.probe_timestamp)
-		return;
+			if (!after64(end_seq, MPTCP_SKB_CB(skb1)->end_seq)) {
+				/* All the bits are present. Drop. */
+				mptcp_drop(sk, skb);
+				MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_DUPDATA);
+				return;
+			}
 
-	sk_stop_timer(sk, &inet_csk(sk)->mptcp_tout_timer);
-	inet_csk(sk)->icsk_mtup.probe_timestamp = 0;
-}
-
-That early return means a tout timer armed only for an MP_FAIL timeout, where
-mptcp_reset_tout_timer() left probe_timestamp at zero, stayed pending across
-disconnect().  Is that a separate fix folded in here, and would it be worth
-calling out in the changelog so stable backporters can see it?
+so the incoming skb is discarded as duplicate after two already queued
+segments were destroyed for it.  Since neither the rbtree walk nor
+rb_link_node()/rb_insert_color() allocates memory, would it work to move
+the mptcp_try_rmem_schedule() call below the duplicate and coalesce
+classification instead of only below the out-of-window test?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6%40kernel.org
