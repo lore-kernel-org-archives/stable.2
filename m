@@ -1,147 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB58453D0DA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:46:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB7153D0C2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:46:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950763; cv=none; b=T+UQoglkWmF+FPQYYDBBDH5osuvo4HDE9ZRdVi/IU3Ag0+KuZZq+jNH4KS6kiN/tyeQD1TsmAjDdq27aPEDpBUFX6//a0bDqzosp2XMqJuCn6knRxTDaQAxM1vv11A35COb+LWmiHPiuBvifPZISq92Kt1gvkIWsXP5MVkv/wwU=
+	t=1788950763; cv=none; b=lTESewYuC+wnDw3eGDsIZvtQkEM2z4K3tyY0tEjz8hncA9AsGToclDWe4uFw9wMNGJqjs2svwhK3exs2ehst8dInsHu0KQEMLozU06RKRTmXdUH/E9AHxuT00L/Fp/Og7RBnlZ4zV8OW4xgnTW+1UGf8PJ906rGVSkrlrsXTg8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788950763; c=relaxed/simple;
-	bh=UyJQisMfj4TWH0FE7kcTw/zJc3MBhGTXHlFFQjJTVmk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q+VGn9r5zD1HzQ8sWMtF495DBv39/EiVtBx7mpJ4Dxx7Ym2LBbZIvV84PmZasLpaAvUbRPU2tJQQDkPpvnN9GqVssKzMcF32CP0RTWieUuIbUD1+CXN3JgyoBCy1T/DA1d/ovHBrlKDWIxwc2bkhYFApS790va2VgDUCXREEgrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UpO0CZS+; arc=none smtp.client-ip=100.103.45.18
+	bh=e/tbaX4KAdW+JVQ/vhUtmh1/+9aQ6XyXCc8bEYPIdrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FcUGoSHP2LV5gLhCMc9HIKwURSsj6eYIEypaVNZYQky23i9mY4vhylA3kM+hhzcmnzrigOiYfJCnd6z4Ux7wG/47X18hbtqeduKLc74Nv9zrGxkyUbcnzrqU4MtrxQsSypQ0FpRZmFH7mOjHPaQu49UPeBEjImo2x4jpF+6Z3Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLvlOi9M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UpO0CZS+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19421F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLvlOi9M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B60DA1F00A3A;
 	Wed,  9 Sep 2026 10:46:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950761;
-	bh=PyNwCLdGLGCqSXAmZXhDhzWcJRUPvDngKZMqD1xMv8c=;
-	h=Subject:To:Cc:From:Date;
-	b=UpO0CZS+D15BrG2XIB5I98MLZYi5ToOZuCgN2R8XSPVh2mP5QUzLPcIy60+8Fz3DE
-	 6wsFjp7d3bM/1huqDEfgNAB1NVcou9OG6sJD6jFiRXiQ7vWkulE9hlca3QLrAwgRcY
-	 PFOIFGOxR1izrN+NxVcYBkPklFW3MTR1PY29Q9zw=
-Subject: FAILED: patch "[PATCH] LoongArch: BPF: Refactor jump offset calculation in tail call" failed to apply to 6.6-stable tree
-To: yangtiezhu@loongson.cn,chenhuacai@loongson.cn
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:39:34 +0200
-Message-ID: <2026090934-greyhound-constant-1448@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950762;
+	bh=ccVhX8Y20b3XMePdGA+b+fd0pJrYGT8UGyv8LBQH3Dw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LLvlOi9MffpBSDg4dRD+PYJWPHY6Zm7fwHet7Qxq5Sf+acbnSt+29rjnuFO+InHT3
+	 Tc0/LDX7eEdS9qTXPseyjRlS8/Uwr3uTHCx4gdESR6j+jGxjHbd7qT8E7QAPj308ZK
+	 K7KFO7Jtx8/XQppeqxhxXmkkghDpROEXQcJcguaO8iMDaGmS8bbNrixvlACYfqUkuX
+	 k2F90HPE71dVoXQQ68c1eZTPJVsWoZeu/hp80LyvmVFkKPa6i7VehuWLdo/f2Aoglx
+	 jFDiA41r7+kNSWsgyqUIFLMIrW8Lapu0gpiII4POxcfpVpRlc+QUAeJBXKCqfnYwDM
+	 Tso/RbquhqOpw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Kees Cook <kees@kernel.org>,
+	Mark Fasheh <mark@fasheh.com>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] ocfs2: validate directory-index entry counts when reading metadata
+Date: Wed,  9 Sep 2026 06:45:57 -0400
+Message-ID: <20260909104557.1564171-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909104557.1564171-1-sashal@kernel.org>
+References: <2026090341-gurgling-unison-81ab@gregkh>
+ <20260909104557.1564171-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
+signature of an indexed-directory block before it reaches higher-level
+callers, but neither validator bounds the ocfs2_dx_entry_list counts
+against the capacity of the block that holds them.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 37d545d12f21c4d50612ecaebd7ae1e5bf91b2d8
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090934-greyhound-constant-1448@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+ocfs2_dx_dir_search() then walks
 
-Possible dependencies:
+	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
+		dx_entry = &entry_list->de_entries[i];
 
+over de_num_used entries with no bounds check.  entry_list is either
+dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
+dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
+de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
+and make the walk read far past the end of the 4KB metadata block, giving
+a slab out-of-bounds read reachable from any path lookup, stat() or open()
+on an indexed directory once the image is mounted.
 
+Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
+block read") already bounds dr_list for the non-inline dx_root, but left
+the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
+same read-time validation for both entry lists: de_count must equal the
+capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
+de_num_used must not exceed de_count, rejecting corrupted metadata with
+-EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
+array.
 
-thanks,
+de_count is always written as exactly the block capacity when a leaf or
+inline root is formatted, so the equality check does not reject any valid
+image.
 
-greg k-h
+Found by 0sec automated security-research tooling (https://0sec.ai).
 
------------------- original commit in Linus's tree ------------------
+Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
+Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
+Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/dir.c | 45 +++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 41 insertions(+), 4 deletions(-)
 
-From 37d545d12f21c4d50612ecaebd7ae1e5bf91b2d8 Mon Sep 17 00:00:00 2001
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Date: Mon, 17 Aug 2026 22:07:23 +0800
-Subject: [PATCH] LoongArch: BPF: Refactor jump offset calculation in tail call
-
-The old macro-based jmp_offset calculation derives the jump distance
-from a stale prior-pass code stride, which can lead to wrong branch
-offsets and soft lockups under extra JIT passes.
-
-Fix this by calculating the offset directly on the absolute target:
-"ctx->offset[insn + 1] - ctx->idx".
-
-To avoid a false 16-bit range check abort during size estimation, add
-a "ctx->image == NULL" guard to inject a safe dummy offset.
-
-Cc: stable@vger.kernel.org
-Fixes: cd39d9e6b7e4 ("LoongArch: BPF: Fix jump offset calculation in tailcall")
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index fd5f8c4e5360..846d652b0d22 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -290,17 +290,13 @@ bool bpf_jit_supports_far_kfunc_call(void)
+diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+index 6b199ddab1d99..a492478cac7a3 100644
+--- a/fs/ocfs2/dir.c
++++ b/fs/ocfs2/dir.c
+@@ -611,6 +611,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
+ 					  le16_to_cpu(el->l_count));
+ 			goto bail;
+ 		}
++	} else {
++		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
++
++		if (le16_to_cpu(dl_list->de_count) !=
++		    ocfs2_dx_entries_per_root(sb)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(dl_list->de_count),
++					  ocfs2_dx_entries_per_root(sb));
++			goto bail;
++		}
++
++		if (le16_to_cpu(dl_list->de_num_used) >
++		    le16_to_cpu(dl_list->de_count)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(dl_list->de_num_used),
++					  le16_to_cpu(dl_list->de_count));
++			goto bail;
++		}
+ 	}
  
- static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- {
--	int off, tc_ninsn = 0;
-+	int off, jmp_offset;
- 	int tcc_ptr_off = BPF_TAIL_CALL_CNT_PTR_STACK_OFF(ctx->stack_size);
- 	u8 a1 = LOONGARCH_GPR_A1;
- 	u8 a2 = LOONGARCH_GPR_A2;
- 	u8 t1 = LOONGARCH_GPR_T1;
- 	u8 t2 = LOONGARCH_GPR_T2;
- 	u8 t3 = LOONGARCH_GPR_T3;
--	const int idx0 = ctx->idx;
--
--#define cur_offset (ctx->idx - idx0)
--#define jmp_offset (tc_ninsn - (cur_offset))
+ bail:
+@@ -650,10 +672,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+ 		return ret;
+ 	}
  
- 	/*
- 	 * a0: &ctx
-@@ -310,12 +306,12 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- 	 * if (index >= array->map.max_entries)
- 	 *	 goto out;
- 	 */
--	tc_ninsn = insn ? ctx->offset[insn+1] - ctx->offset[insn] : ctx->offset[0];
- 	emit_zext_32(ctx, a2, true);
+-	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
+-		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
+-				  7, dx_leaf->dl_signature);
+-	}
++	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
++		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
++				   7, dx_leaf->dl_signature);
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
++	    ocfs2_dx_entries_per_leaf(sb))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_count),
++				   ocfs2_dx_entries_per_leaf(sb));
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
++	    le16_to_cpu(dx_leaf->dl_list.de_count))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
++				   le16_to_cpu(dx_leaf->dl_list.de_count));
  
- 	off = offsetof(struct bpf_array, map.max_entries);
- 	emit_insn(ctx, ldwu, t1, a1, off);
- 	/* bgeu $a2, $t1, jmp_offset */
-+	jmp_offset = ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : 0;
- 	if (emit_tailcall_jmp(ctx, BPF_JGE, a2, t1, jmp_offset) < 0)
- 		goto toofar;
- 
-@@ -326,6 +322,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- 	emit_insn(ctx, ldd, REG_TCC, LOONGARCH_GPR_SP, tcc_ptr_off);
- 	emit_insn(ctx, ldd, t3, REG_TCC, 0);
- 	emit_insn(ctx, addid, t2, LOONGARCH_GPR_ZERO, MAX_TAIL_CALL_CNT);
-+	jmp_offset = ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : 0;
- 	if (emit_tailcall_jmp(ctx, BPF_JSGE, t3, t2, jmp_offset) < 0)
- 		goto toofar;
- 
-@@ -340,6 +337,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- 	off = offsetof(struct bpf_array, ptrs);
- 	emit_insn(ctx, ldd, t2, t2, off);
- 	/* beq $t2, $zero, jmp_offset */
-+	jmp_offset = ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : 0;
- 	if (emit_tailcall_jmp(ctx, BPF_JEQ, t2, LOONGARCH_GPR_ZERO, jmp_offset) < 0)
- 		goto toofar;
- 
-@@ -355,8 +353,6 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
- toofar:
- 	pr_info_once("tail_call: jump too far\n");
- 	return -1;
--#undef cur_offset
--#undef jmp_offset
+ 	return ret;
  }
- 
- static void emit_store_stack_imm64(struct jit_ctx *ctx, int reg, int stack_off, u64 imm64)
+-- 
+2.53.0
 
