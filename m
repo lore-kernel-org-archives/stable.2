@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E903558E2AC
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538B958E2C3;
+	Wed,  9 Sep 2026 14:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963527; cv=none; b=Z/zjINtD8XYtnO6taE4sjLnaSc9y/7dfq7Lqad9lT5mdIfHTOBkckh426x5kZ4KcnI+vrKX2S35e/naAIrgH+cwkCK8NfLP7dUOF4E7ltv1tFNas2brIUCsCHoKRmPrWs0sxbV2ijJYBX5incQKD0wmiOrS5SRLFE9Mq8KvWyO4=
+	t=1788963527; cv=none; b=aN2CbaBGZmJPHJOP3APKlCVpcqgGG5hktWXM6HW5MtRWhiTsTyw6R8bEwvWcOFRI664Qq3TJ3ojy8D7DA1PE1a7+sm5I/WZr+SG8n+EH7bEZaPfl7xqcGVOvg6zVNIjNmAdgfYQr5yfgVBV0phqh9aAtsqKoB8Bvjx56hUpFnRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963527; c=relaxed/simple;
-	bh=DT7djPtWLJtZWFHLfUr2iNMwugRvIYpfSf6hf8kx0IQ=;
+	bh=KjjOD6mw6mv5+43jWyJ4s3PRIJDWI89tPePx8nQUghE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ivhR7oTEm7rFJvCaBXw0dku/90jKy1T9mg55XpEiwS5pUSJF5W9wYXrPNbTzAMq+H1ncX2VKnL7VrFfjcxOQL+bGcRsIAmZiM/BPhF5w/OMe7OIU4VXJ0Sf5pMdp+lWm+gp+O8W7GLgZUxcqlkxZ9gLpEWNvuMaxCHGWWzneSms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEsDTjG9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e7KFfMog3IEsYPn7ddXfCtw8gSLOPtpDDN3LLJ0EXNWc+m+4x69Uysec0ZopYW9hOxvvkXT4rUV4FthHKEW837z5eK6zpcXWXJQlAWI/XEMIkbjj17VGUfTLUiI4CNDqizg6vA+2dqWxvHgeck3CFMStk+yI13AHiwAH7SRbOXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SsaIOW9d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEsDTjG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D5F1F00A3F;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SsaIOW9d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4B91F00A3A;
 	Wed,  9 Sep 2026 14:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963525;
-	bh=HbSpiF8EALlESm9PvKZ5hZ0HGOaeoOR5Z4DTrKLoelk=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963525;
+	bh=rC773LbDhKQpK+fjZLqaYvCK2DctYtxAksTR2bXGeVI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hEsDTjG9WsP/1IZn/e1dC0Ln25NHgu+4xmo9gZx9aR78z5jSd6jQSxXPJwoh8zlSr
-	 dSJSD9v+AB+BTmSJSLE0fNdsIfDFjcJbwxxgXVYVwlWy/EK9V2zjQ+G/7oXNqUT1wd
-	 Gbb9HNUeAf23gt3VLWZSKOqVVHTM/+3NJaiAqZY2sw4Zd8A/3swnGKI5ZuMu485wkc
-	 267crMPclsAeWf+DHQC8MX2c/eg7a3Njqq+HfhcIYjoCz0CRfItEPSCuTsvz1+4Gss
-	 ijhPxsQYHk32xRPQuEDQjqextCJHqj6Cgu3JjDK9zgxovf8JMDiL8DnL6DNpEWW2mn
-	 /9WoQyLAPXu+w==
-From: Sasha Levin <sashal@kernel.org>
+	b=SsaIOW9defWIavCk5gcWYnQq2gqkHuI/H3F0OHB0BiZGw2Shcz7aMt7yZS5v/Xqja
+	 XdfLzx4epLyepaoYPuVH5RJz3Sckz1XaT1rwnGBIKorW+32URg9yEbRLR0+8mOLmgI
+	 DFh0+86Z56km9I2CeOhtJsnT6yx2gVp5Gwem2p7I=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Farhan Ali <alifm@linux.ibm.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] PCI: Allow per function PCI slots to fix slot reset on s390
-Date: Wed,  9 Sep 2026 10:18:42 -0400
-Message-ID: <20260909141842.2422116-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141842.2422116-1-sashal@kernel.org>
-References: <2026090355-script-eleven-4176@gregkh>
- <20260909141842.2422116-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 6.18 108/583] nvme-tcp: check the data direction of a C2HData PDU
+Date: Wed,  9 Sep 2026 15:36:33 +0200
+Message-ID: <20260909134241.868280671@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,160 +47,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Farhan Ali <alifm@linux.ibm.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit dcc5bec09e23bbc4f9de055a11fce9937244f2c8 ]
+------------------
 
-On s390 systems, which use a machine level hypervisor, PCI devices are
-always accessed through a form of PCI pass-through which fundamentally
-operates on a per PCI function granularity. This is also reflected in the
-s390 PCI hotplug driver which creates hotplug slots for individual PCI
-functions. Its reset_slot() function, which is a wrapper for
-zpci_hot_reset_device(), thus also resets individual functions.
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-Currently, the pci_create_slot() assigns the same pci_slot object to
-multifunction devices. This approach worked fine on s390 systems that only
-exposed virtual functions as individual PCI domains to the operating
-system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-s390 supports exposing the topology of multifunction PCI devices by
-grouping them in a shared PCI domain. This creates a problem when resetting
-a function through the hotplug driver's slot_reset() interface.
+commit f83af377c148f6ad94b41c0e8313f12adf45e1c1 upstream.
 
-When attempting to reset a function through the hotplug driver, the shared
-slot assignment causes the wrong function to be reset instead of the
-intended one. It also leaks memory as we do create a pci_slot object for
-the function, but don't correctly free it in pci_slot_release().
+nvme_tcp_handle_c2h_data() finds the request by command id and checks
+that it has a payload, but it does not check that the command asked for
+data to be read.  A controller that answers a write command with C2HData
+therefore reaches nvme_tcp_recv_data(), where _copy_to_iter() hits
+WARN_ON_ONCE(i->data_source) and returns 0.  The receive path turns that
+into -EFAULT and resets the controller.
 
-Add a flag for struct pci_slot to allow per function PCI slots for
-functions managed through a hypervisor, which exposes individual PCI
-functions while retaining the topology. Since we can use all 8 bits for
-slot 'number' (for ARI devices), change slot 'number' u16 to account for
-special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
+No data is copied, so this is not memory corruption.  What a controller
+gets is a kernel warning it can raise at will, which is fatal on a host
+booted with panic_on_warn.
 
-Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+The send path already knows the direction - it consults rq_data_dir()
+when it builds a command - and nvme_tcp_handle_r2t() checks the length
+and the offset of the request it names.  The C2HData path does not check
+the direction at all.
+
+Reject a C2HData PDU whose command is not a read.  Rejecting it fails
+the command and resets the controller, as the neighbouring check in this
+function does; what goes away is the warning.
+
+  [    6.885580] ------------[ cut here ]------------
+  [    6.886457] WARNING: lib/iov_iter.c:193 at _copy_to_iter+0x289/0x1330, CPU#0: kworker/0:1H/71
+  [    6.888137] CPU: 0 UID: 0 PID: 71 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMETCP-gf5098b6bae76 #1 PREEMPT(lazy)
+  [    6.891165] Workqueue: nvme_tcp_wq nvme_tcp_io_work
+  [    6.891875] RIP: 0010:_copy_to_iter+0x289/0x1330
+  [    6.903739] Call Trace:
+  [    6.904085]  <TASK>
+  [    6.909254]  __skb_datagram_iter+0x433/0x820
+  [    6.911026]  skb_copy_datagram_iter+0x37/0x120
+  [    6.911622]  nvme_tcp_recv_skb+0xa07/0x4320
+  [    6.913378]  __tcp_read_sock+0x1ab/0x810
+  [    6.915788]  nvme_tcp_try_recv+0x152/0x1e0
+  [    6.918222]  nvme_tcp_io_work+0x1e4/0x6c0
+  [    6.926906]  </TASK>
+  [    6.927226] ---[ end trace 0000000000000000 ]---
+  [    6.927878] nvme nvme0: queue 1 failed to copy request 0x71 data
+  [    6.928709] nvme nvme0: receive failed:  -14
+
+Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/pci/pci.c   |  5 +++--
- drivers/pci/slot.c  | 29 +++++++++++++++++++++++------
- include/linux/pci.h |  7 ++++---
- 3 files changed, 30 insertions(+), 11 deletions(-)
+ drivers/nvme/host/tcp.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 451ee220f9541..dfb2509ffdaf9 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4899,8 +4899,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -688,6 +688,13 @@ static int nvme_tcp_handle_c2h_data(stru
+ 		return -ENOENT;
+ 	}
  
- static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
- {
--	if (dev->multifunction || dev->subordinate || !dev->slot ||
--	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
-+	if (dev->subordinate || !dev->slot ||
-+	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
-+	    (dev->multifunction && !dev->slot->per_func_slot))
- 		return -ENOTTY;
- 
- 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-index 4cdef17152779..bd536f30c5280 100644
---- a/drivers/pci/slot.c
-+++ b/drivers/pci/slot.c
-@@ -73,6 +73,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
- 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
- }
- 
-+static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
-+{
-+	if (slot->per_func_slot)
-+		return dev->devfn == slot->number;
++	if (rq_data_dir(rq) != READ) {
++		dev_err(queue->ctrl->ctrl.device,
++			"queue %d tag %#x unexpected data for a write\n",
++			nvme_tcp_queue_id(queue), rq->tag);
++		return -EIO;
++	}
 +
-+	return slot->number == PCI_SLOT_ALL_DEVICES ||
-+		PCI_SLOT(dev->devfn) == slot->number;
-+}
-+
-+static bool pci_slot_enabled_per_func(void)
-+{
-+	if (IS_ENABLED(CONFIG_S390))
-+		return true;
-+
-+	return false;
-+}
-+
- static void pci_slot_release(struct kobject *kobj)
- {
- 	struct pci_dev *dev;
-@@ -83,8 +100,7 @@ static void pci_slot_release(struct kobject *kobj)
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = NULL;
- 	up_read(&pci_bus_sem);
- 
-@@ -177,8 +193,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
- 
- 	mutex_lock(&pci_slot_mutex);
- 	list_for_each_entry(slot, &dev->bus->slots, list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	mutex_unlock(&pci_slot_mutex);
- }
-@@ -288,6 +303,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 	slot->bus = pci_bus_get(parent);
- 	slot->number = slot_nr;
- 
-+	if (pci_slot_enabled_per_func())
-+		slot->per_func_slot = 1;
-+
- 	slot->kobj.kset = pci_slots_kset;
- 
- 	slot_name = make_slot_name(name);
-@@ -310,8 +328,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &parent->devices, bus_list)
--		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot_nr)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	up_read(&pci_bus_sem);
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index f4ec39d5add44..32357dd88005d 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -78,17 +78,18 @@
-  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
-  * devices.
-  */
--#define PCI_SLOT_ALL_DEVICES	0xfe
-+#define PCI_SLOT_ALL_DEVICES	0xfeff
- 
- /* Used to identify a slot as a placeholder */
--#define PCI_SLOT_PLACEHOLDER	0xff
-+#define PCI_SLOT_PLACEHOLDER	0xffff
- 
- /* pci_slot represents a physical slot */
- struct pci_slot {
- 	struct pci_bus		*bus;		/* Bus this slot is on */
- 	struct list_head	list;		/* Node in list of slots */
- 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
--	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	unsigned int		per_func_slot:1; /* Allow per function slot */
- 	struct kobject		kobj;
- };
- 
--- 
-2.53.0
+ 	req = blk_mq_rq_to_pdu(rq);
+ 	if (!blk_rq_payload_bytes(rq) || !req->curr_bio || !req->data_len) {
+ 		dev_err(queue->ctrl->ctrl.device,
+
 
