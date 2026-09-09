@@ -1,136 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24AA5476DF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4B85476D9
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:42:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954052; cv=none; b=PKO6JkkxuGU3E/FYPGvPTTon+g9gMBvTGqc6NG9VsGg3vRWIUaWolL55gDlwt37GIKrLG04EtQxxMtdw2e0xmZcZjkUsSrLkxwXI4S28OhBpaO83CCGJOaANOu5P+sK8rN/1ydvh1HNlIaH43qAncMpVkc/hn3VrTmZYYZqYioc=
+	t=1788954147; cv=none; b=hfhuQ/R7qUrNx6cS+Of2pvD/9czd3025lT4AkkQSt/yj3SLrXK7JTQc35d9iYIWJeWMwyGJSNkdWlHp5tluGeO+Es2hg3nVjlk2XpdtU7kkqqPVNbZt48cN8IPiwijTheL80EHfeFFRxLzRHTxA8ts/DjoHhp3iO97GwHSf8wXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954052; c=relaxed/simple;
-	bh=O0UsgYXzvFML8jffIZP15V3Z8VumDVCiZ3v82Mv99bM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cC5WWnFuY6TTGBaWu6TnuqAc52znmmsgpmvP0DILEg1TMrmz/3xsciw79sMAw3D8ma3aeQKlfzIQyLVqFFmxkPvy4ihI13331dbsTzvCpZPeY8lYbXnoiSQlK3gpyT4SiQuR35Ksq3L1zdKomGQPrAf6ngtwmT3hgyJHbotilHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eki/KqZu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954147; c=relaxed/simple;
+	bh=LOg/1bv3KPEh9gB+JXuKQNZJNsSMIHNOdCFgq+O/ft0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eNOxkHjIh9xIZDi3n6TjC4/Y4GWQoVqdgycmTbIpYiOX4Hp8R53hI0/dMbsWmM/CmCLxiF1gPM2rGG4Jtq4zaCWLxm0UoSc8qTWa5Q+yyaMC1RlMenrllyYdxKvJwT4CsMw114KRjdXcNxv6SpA2S26otTyw4A0uVEpUxOFDk6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J4D/zA/x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eki/KqZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA4D1F00A3D;
-	Wed,  9 Sep 2026 11:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954051;
-	bh=1AXGHq0rEZM+YoJ2qlq316RAZyYzUQjeRA9ZperhHyo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eki/KqZukvcceSCqoDOcSNFDW2qEuTdQT33cQI24LKi4wwDBrzLAX6npbTkjRkvZj
-	 wXXMPf8c8ylb9DFLNGqItje3EHNVJtNnmdk1q5P8vM7Li9NvzBqeXvsS7B+bPMW94K
-	 WIXo7zRup460NmWXSf+EpX7N85kjjp4ifQX/iRoOLlZTGLo/vU/ynQo6h86eSo5QSh
-	 /tPpIRqcGz3vLaRng7Tb7PKgAuvmThZ09yBLbVZUDamrCu5PhFue5Pmgqtd3XhL+6W
-	 LrLhQ89jtCNTN4gHfbynychjUJ35b5KdQlhV8TvPKm4jIwk4R++wza8mujdsXFbN7D
-	 8NqKm2CVWD9wg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jianing Li <m13940358460@163.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] power: supply: max17040: propagate register read errors
-Date: Wed,  9 Sep 2026 07:40:48 -0400
-Message-ID: <20260909114048.1917822-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909114048.1917822-1-sashal@kernel.org>
-References: <2026090315-stimulate-nanny-a782@gregkh>
- <20260909114048.1917822-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J4D/zA/x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFA71F00A3A;
+	Wed,  9 Sep 2026 11:42:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788954145;
+	bh=z+e9+zw/mqVWX2Mf4ev9KsuRWWW2mmJZCaAjav7Nlsw=;
+	h=Subject:To:Cc:From:Date;
+	b=J4D/zA/xnJHi/qdbiHtguNVFhAUMQWeVTYbmtq90F0OOzonOtRq80y0qPyLb3oFkW
+	 /rzf4oMMbuflR16sMrY/7UPiuyhsmUY+P4DBtzTx7tA0iwxLDVi3NJDqNeQyPLQZ68
+	 uB8q7Vy2+IsdkV2F71y3YSCMtguxvorY+UIv24TI=
+Subject: FAILED: patch "[PATCH] f2fs: validate MOVE_RANGE destination size" failed to apply to 6.12-stable tree
+To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 13:24:31 +0200
+Message-ID: <2026090931-net-monotone-74ea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Jianing Li <m13940358460@163.com>
 
-[ Upstream commit 659cc3d8d5ef246263873fce72c8cadeeed073cc ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-max17040_get_vcell() and max17040_get_soc() ignore errors returned by
-regmap_read().  When an I2C transfer fails, the uninitialized register
-value is converted and reported to userspace as a valid voltage or state
-of charge.  The polling worker can also replace the cached state of charge
-with the bogus value and emit a spurious change event.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Propagate read errors through the power supply get_property callback and
-keep the last valid cached state of charge when polling fails.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x e533889fc26aea0cd83c90327063f272061dd820
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090931-net-monotone-74ea@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Fixes: c6f4a42de60b ("Add MAX17040 Fuel Gauge driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jianing Li <m13940358460@163.com>
-Link: https://patch.msgid.link/20260727064825.948-1-m13940358460@163.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/power/supply/max17040_battery.c | 26 ++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+Possible dependencies:
 
-diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
-index 13e82a1ab2aee..f82c26ebb33aa 100644
---- a/drivers/power/supply/max17040_battery.c
-+++ b/drivers/power/supply/max17040_battery.c
-@@ -190,8 +190,11 @@ static int max17040_raw_vcell_to_uvolts(struct max17040_chip *chip, u16 vcell)
- static int max17040_get_vcell(struct max17040_chip *chip)
- {
- 	u32 vcell;
-+	int ret;
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e533889fc26aea0cd83c90327063f272061dd820 Mon Sep 17 00:00:00 2001
+From: Wenjie Qi <qwjhust@gmail.com>
+Date: Tue, 30 Jun 2026 11:17:00 +0800
+Subject: [PATCH] f2fs: validate MOVE_RANGE destination size
+
+F2FS_IOC_MOVE_RANGE checks the source range, but not the destination end
+before updating i_size. A source hole can expose this: __clone_blkaddrs()
+skips NULL_ADDR entries and returns success, so the caller can still extend
+the destination inode with unchecked pos_out + len.
+
+Reject destination overflow and use inode_newsize_ok() before extending
+the destination inode.
+
+Fixes: 4dd6f977fc77 ("f2fs: support an ioctl to move a range of data blocks")
+Cc: stable@kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index c54897a25981..170c485eafaa 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -3127,8 +3127,9 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
+ 	struct inode *dst = file_inode(file_out);
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(src);
+ 	struct f2fs_lock_context lc;
+-	size_t olen = len, dst_max_i_size = 0;
+-	size_t dst_osize;
++	size_t olen = len;
++	loff_t dst_max_i_size = 0;
++	loff_t dst_osize, dst_end;
+ 	int ret;
  
--	regmap_read(chip->regmap, MAX17040_VCELL, &vcell);
-+	ret = regmap_read(chip->regmap, MAX17040_VCELL, &vcell);
-+	if (ret)
-+		return ret;
+ 	if (file_in->f_path.mnt != file_out->f_path.mnt ||
+@@ -3185,8 +3186,15 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
+ 	}
  
- 	return max17040_raw_vcell_to_uvolts(chip, vcell);
- }
-@@ -199,8 +202,11 @@ static int max17040_get_vcell(struct max17040_chip *chip)
- static int max17040_get_soc(struct max17040_chip *chip)
- {
- 	u32 soc;
-+	int ret;
+ 	dst_osize = dst->i_size;
+-	if (pos_out + olen > dst->i_size)
+-		dst_max_i_size = pos_out + olen;
++	if (olen > LLONG_MAX - pos_out)
++		goto out_unlock;
++	dst_end = pos_out + olen;
++	if (dst_end > dst->i_size) {
++		ret = inode_newsize_ok(dst, dst_end);
++		if (ret)
++			goto out_unlock;
++		dst_max_i_size = dst_end;
++	}
  
--	regmap_read(chip->regmap, MAX17040_SOC, &soc);
-+	ret = regmap_read(chip->regmap, MAX17040_SOC, &soc);
-+	if (ret)
-+		return ret;
- 
- 	return soc >> (chip->quirk_double_soc ? 9 : 8);
- }
-@@ -259,7 +265,11 @@ static int max17040_get_of_data(struct max17040_chip *chip)
- 
- static void max17040_check_changes(struct max17040_chip *chip)
- {
--	chip->soc = max17040_get_soc(chip);
-+	int soc;
-+
-+	soc = max17040_get_soc(chip);
-+	if (soc >= 0)
-+		chip->soc = soc;
- }
- 
- static void max17040_queue_work(struct max17040_chip *chip)
-@@ -393,10 +403,16 @@ static int max17040_get_property(struct power_supply *psy,
- 		val->intval = max17040_get_online(chip);
- 		break;
- 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
--		val->intval = max17040_get_vcell(chip);
-+		ret = max17040_get_vcell(chip);
-+		if (ret < 0)
-+			return ret;
-+		val->intval = ret;
- 		break;
- 	case POWER_SUPPLY_PROP_CAPACITY:
--		val->intval = max17040_get_soc(chip);
-+		ret = max17040_get_soc(chip);
-+		if (ret < 0)
-+			return ret;
-+		val->intval = ret;
- 		break;
- 	case POWER_SUPPLY_PROP_CAPACITY_ALERT_MIN:
- 		val->intval = chip->low_soc_alert;
--- 
-2.53.0
+ 	/* verify the end result is block aligned */
+ 	if (!IS_ALIGNED(pos_in, F2FS_BLKSIZE) ||
 
