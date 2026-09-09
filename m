@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0736454A7E3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:42:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBB15328DE
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:42:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954161; cv=none; b=lQliNEZFynJZycnhs4Fv1Qy2POKFesRU4/WwzNi+3gXgkG5hY8+BfeGRrq2X+nb0YEZxtoHk2/TmYziY81wS6DgZ4fWf7ZWI1PJgEhq4ixhBMQ7QQeHqN6QEWrpgP5sqeyzlPWz5v2Id15F6cN6zZXnjo6IUpErdqxWonmWdUPM=
+	t=1788954165; cv=none; b=an+DJo2cTJZcx3g8GqgR6yWTQXJS6G6Zewlns3R47/mPcvEia8mNtUn6ZTo5uWgyUCnvkEymR4mNPMzA/5uMoujxiuCWpt7tdFHTOAN72fF8/8R92/7eH0AioFiVXN/35q6SDe2dlbhELyUpvFQSfRczNOR2+AFHI4KkYju/WO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954161; c=relaxed/simple;
-	bh=+XYkoNyhsjYNxJUBhCEcJHbOljptcf/SaMlYv+28IMU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EHZXz7xtmg3WIklzXF6eMk7FjuElkmDghZRQNkm30S0YmUgNNTXcWDKzi6KCBDV0+jN/CAojxmbQWSmBAo81N8+7lq6TkSp7Lo1q/uV6Y02KRCM0Mwy+KcBcalxvYVe4BwsK9wbJAi8GnLVO/VARMHcMuekx5jw0rKOZaouxhCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r7IBkwtI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954165; c=relaxed/simple;
+	bh=yj0OBM/ayyaAbKZHfX5JCPx77/o/2tQZgWJgzqmDXBg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WMC01+LNfKR6iec1sanoS8CIF0WTpVmeAWcZwk5/2Kje5kSw/g+OsXG13fUvaHGoJ5Z5dn9KjN+wqlWAzlnrCakHWweLKASmWnYD6kwCxGLTcrKzVQ2xrm5UPZ/afhjmX+mY2N5crCXmjNPijEAhK4ILRHkiB09cjQ4DwEypem8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FYIYICJc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r7IBkwtI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3794A1F00A3A;
-	Wed,  9 Sep 2026 11:42:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FYIYICJc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13ED31F00A3A;
+	Wed,  9 Sep 2026 11:42:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954159;
-	bh=5gdENoPTXjOye/bEfNr5Z/UmbJkP/7kVTOPltNV5CFg=;
+	s=korg; t=1788954162;
+	bh=cmLx7r6X3MwzEwuQVsU+CBiAol8m2LuTiLOmfDd0A3M=;
 	h=Subject:To:Cc:From:Date;
-	b=r7IBkwtIrMzqGse7vziScu6lMTpzNnr2iY7oqhGQ4gScZwpYbITOlE3gI0PCP4x/O
-	 KqCyVzGhMnyO2D/3QcnwTEz3g0YlOZHp6KzRln7HRVd6OA8iyMDWoP0QyzWacME/L6
-	 UGfvoqTyh+KIR7+YWrvNpdmj9rmFzOYtTSLOHBoM=
-Subject: FAILED: patch "[PATCH] f2fs: validate MOVE_RANGE destination size" failed to apply to 5.10-stable tree
-To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
+	b=FYIYICJcYpg4cSglNLWjsgqV0BsIcpRUEttCVAOIIHfHMA+KxoLfsP8Kbzd7ZyHzx
+	 7AC14hPiWhnldxmahJ21eCTgc47/TGN3+u4CoDdG0wtu1p50VrZMznGA5UoEPZN/Rg
+	 2avI3APlYmTp56Ktr0cyjBC5xGKJrtT8O1x6j3fs=
+Subject: FAILED: patch "[PATCH] f2fs: dirty directory inodes on mtime/ctime update" failed to apply to 6.6-stable tree
+To: joannechien@google.com,chao@kernel.org,jaegeuk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:24:33 +0200
-Message-ID: <2026090933-statute-flanked-3d6c@gregkh>
+Date: Wed, 09 Sep 2026 13:24:49 +0200
+Message-ID: <2026090949-surpass-emphases-308c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e533889fc26aea0cd83c90327063f272061dd820
+git cherry-pick -x 9ec09d5f4b317a417c8655c14056f70cbe71eb6c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090933-statute-flanked-3d6c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090949-surpass-emphases-308c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,58 +62,105 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e533889fc26aea0cd83c90327063f272061dd820 Mon Sep 17 00:00:00 2001
-From: Wenjie Qi <qwjhust@gmail.com>
-Date: Tue, 30 Jun 2026 11:17:00 +0800
-Subject: [PATCH] f2fs: validate MOVE_RANGE destination size
+From 9ec09d5f4b317a417c8655c14056f70cbe71eb6c Mon Sep 17 00:00:00 2001
+From: Joanne Chang <joannechien@google.com>
+Date: Tue, 23 Jun 2026 06:34:28 +0000
+Subject: [PATCH] f2fs: dirty directory inodes on mtime/ctime update
 
-F2FS_IOC_MOVE_RANGE checks the source range, but not the destination end
-before updating i_size. A source hole can expose this: __clone_blkaddrs()
-skips NULL_ADDR entries and returns success, so the caller can still extend
-the destination inode with unchecked pos_out + len.
+Xfstests generic/547 sometimes fail with mismatched directory metadata
+before and after a power failure. This happens because when a directory
+entry is added, renamed, or deleted, its mtime and ctime are updated and
+the inode is marked dirty via
+f2fs_mark_inode_dirty_sync(dir, sync=false). The sync=false flag means
+the dirty inode is not added to the global DIRTY_META list. Therefore,
+subsequent checkpoints skip flushing these updated directory blocks,
+causing directory timestamps to revert to stale values after a sudden
+power failure.
 
-Reject destination overflow and use inode_newsize_ok() before extending
-the destination inode.
+Address this by changing the dirtying parameter to sync=true during
+directory entry mutations and renames. This forces F2FS to immediately
+queue the updated directory blocks on the global DIRTY_META list,
+ensuring timestamps are committed to checkpoints.
 
-Fixes: 4dd6f977fc77 ("f2fs: support an ioctl to move a range of data blocks")
-Cc: stable@kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoint")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joanne Chang <joannechien@google.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index c54897a25981..170c485eafaa 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3127,8 +3127,9 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
- 	struct inode *dst = file_inode(file_out);
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(src);
- 	struct f2fs_lock_context lc;
--	size_t olen = len, dst_max_i_size = 0;
--	size_t dst_osize;
-+	size_t olen = len;
-+	loff_t dst_max_i_size = 0;
-+	loff_t dst_osize, dst_end;
- 	int ret;
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index 0562ad211351..fd0e2cd31a81 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -461,7 +461,7 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+ 	folio_mark_dirty(folio);
  
- 	if (file_in->f_path.mnt != file_out->f_path.mnt ||
-@@ -3185,8 +3186,15 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 	f2fs_folio_put(folio, true);
+ }
+ 
+@@ -616,7 +616,7 @@ void f2fs_update_parent_metadata(struct inode *dir, struct inode *inode,
+ 		clear_inode_flag(inode, FI_NEW_INODE);
  	}
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
  
- 	dst_osize = dst->i_size;
--	if (pos_out + olen > dst->i_size)
--		dst_max_i_size = pos_out + olen;
-+	if (olen > LLONG_MAX - pos_out)
-+		goto out_unlock;
-+	dst_end = pos_out + olen;
-+	if (dst_end > dst->i_size) {
-+		ret = inode_newsize_ok(dst, dst_end);
-+		if (ret)
-+			goto out_unlock;
-+		dst_max_i_size = dst_end;
-+	}
+ 	if (F2FS_I(dir)->i_current_depth != current_depth)
+ 		f2fs_i_depth_write(dir, current_depth);
+@@ -928,7 +928,7 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, struct folio *folio,
+ 	f2fs_folio_put(folio, true);
  
- 	/* verify the end result is block aligned */
- 	if (!IS_ALIGNED(pos_in, F2FS_BLKSIZE) ||
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index e2f7bedf1552..aec06fb4fd76 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -732,7 +732,7 @@ void f2fs_delete_inline_entry(struct f2fs_dir_entry *dentry,
+ 	f2fs_folio_put(folio, true);
+ 
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index cac03b8e91a1..7ffdf23cea5e 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -1076,7 +1076,7 @@ static int f2fs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 	f2fs_up_write(&F2FS_I(old_inode)->i_sem);
+ 
+ 	inode_set_ctime_current(old_inode);
+-	f2fs_mark_inode_dirty_sync(old_inode, false);
++	f2fs_mark_inode_dirty_sync(old_inode, true);
+ 
+ 	f2fs_delete_entry(old_entry, old_folio, old_dir, NULL);
+ 	old_folio = NULL;
+@@ -1246,7 +1246,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(old_dir, old_nlink > 0);
+ 		f2fs_up_write(&F2FS_I(old_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(old_dir, false);
++	f2fs_mark_inode_dirty_sync(old_dir, true);
+ 
+ 	/* update directory entry info of new dir inode */
+ 	f2fs_set_link(new_dir, new_entry, new_folio, old_inode);
+@@ -1265,7 +1265,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(new_dir, new_nlink > 0);
+ 		f2fs_up_write(&F2FS_I(new_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(new_dir, false);
++	f2fs_mark_inode_dirty_sync(new_dir, true);
+ 
+ 	if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT) {
+ 		f2fs_add_ino_entry(sbi, old_dir->i_ino, TRANS_DIR_INO);
 
