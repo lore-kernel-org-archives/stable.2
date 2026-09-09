@@ -1,118 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C2F34041B;
-	Wed,  9 Sep 2026 06:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A8F242D70;
+	Wed,  9 Sep 2026 06:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935329; cv=none; b=jI3HBgqRVYRz4N715f18JI0ihxqBrMajnH+6MUxOOteX51ryejfPMkrbydIXHDnP1cRRXKjtD93QaRcNW94bj4WYXpe/2n2Pgo2yKdqoqARJQcBfeYXL5LftqnpWUh+5aZkPf//i6h15aggt1p+WtvJD2OaXCsfj/tXWhuogJho=
+	t=1788935528; cv=none; b=oceGJX+BahEBkOdIHfVAzCaktH7k4q7OTsfP9fCuyienzT/KHNs/N0WXbwJO0jwdqa+/RaRBQ1PUNf242h7lMx2D0V8cfG/9Hh4R7AHmhGvUbMiG+O0nSPerfjxkS8he/kUqIyGQLO0fltxynMe6kp6xu+iPAKB1j5N89/He4QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935329; c=relaxed/simple;
-	bh=/YBVqqCwlG/Y4qiqYDB9YF4ISlUJYzsCVg2EbmPnp2g=;
-	h=Date:To:From:Subject:Message-Id; b=jmJOTXEYJodZqHdk4qTLpNrVlZhNhoX4quaOubYsVdZb3HVbrk8rP82W88QJBo5oPhVWkm+Udj4QP6YTmfvrP+9NEIRiyU7vFqXuSua1VRmNRfZGsW/no9/sCeR9i1Obc/tD/rC5rMWkO61ZSE69mGCFeHWWkvVIyVCZNQbgnU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gfpVwsnb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788935528; c=relaxed/simple;
+	bh=yELPdQF+Omw0vXyXjLn6OVDxsNcoeiFYUd60ADXbfWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k4xXctG8uvzpv9K9Q5COgEXm/IORGU/KAEA0pAQL1XdiDwFxjH8dFoBLjjJuQSBHYXdJwl3y52IqOfqL1YyxmvncPF0Q5PmejvfkSYcwGacl6ewQxDuIngMJ+sicsOrNGmoQcZbClIo+ga6Dy2Nmi6bBY63ak1B2lTCuPH+/xfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exmYd2tN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gfpVwsnb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C460A1F00A3D;
-	Wed,  9 Sep 2026 06:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788935327;
-	bh=TQ7whNqDQHLlkHRvY/G7kN+8iaXJTi9neRVI+YvtObA=;
-	h=Date:To:From:Subject;
-	b=gfpVwsnb4klgy37b8AH+qL64ETgO6ftY2+YRlNtBcA76jfgPImlQSSdLzMZb9rH52
-	 Bq/3vdZwR1zSYXh2sDfvMVI14KsQ/bIFBr0JuJQEgDPdTKTEPFHwez9MWPuzMSEnUM
-	 q/rJSRf1cF6Y8xFY+67b27pBoKWiNzFiUqFZw6j0=
-Date: Tue, 08 Sep 2026 23:28:47 -0700
-To: mm-commits@vger.kernel.org,usama.arif@linux.dev,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,kasong@tencent.com,hannes@cmpxchg.org,david@fromorbit.com,jiayuan.chen@linux.dev,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch removed from -mm tree
-Message-Id: <20260909062847.C460A1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exmYd2tN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52A91F00A3A;
+	Wed,  9 Sep 2026 06:32:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788935527;
+	bh=2Vx7xmWYbur/vutWySXxlaNJStJPVrPK1WxT4I2dRPw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=exmYd2tNjEbrS1XtaMLE9kNLuT8VBUKX5uE/hqET+uGz5dPFE2QkTf8nqtc7S8OE3
+	 K9OooDSh+Bb3k0z5ogSsd7JXJcfAYSwZwSFomq686AFHxnf1l7mopqD8EtUrsQ8DaS
+	 bvCUyLcnpHC0CQyq6HFmzhgJXnlLgbZk6RBTrFm4J8sLk7FTWA7YtycTlCGD1ndlTt
+	 17rb40gbipT05Bl7C+e/2te/j5UAixCG/5IP8hLv4/Mq+R1IjossXU59N3mTxqhPQh
+	 KiS5fTod8ahSOhzIJHVewyLI3KTQRsUKa22igQG2wjIQRsMF1kJKon/j/WLsw9TSZn
+	 59G9DipAm4qQg==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.18.y] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
+Date: Tue,  8 Sep 2026 23:31:59 -0700
+Message-ID: <20260909063159.63420-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090808-phoniness-repaying-46f0@gregkh>
+References: <2026090808-phoniness-repaying-46f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+KUNIT_EXPECT_EQ() does not abort the execution of test code when the
+expectation is not met.  But damon_test_merge_regions_of() code after its
+initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It does a
+per-region test with a hard-coded number of regions that is correct only
+if the expectation was met.  As a result, __nth_region_of() could return
+NULL, and the test code can dereference NULL pointers.  Fix the issue by
+catching the expectation failure and skip the per-region tests.
 
-The quilt patch titled
-     Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
-has been removed from the -mm tree.  Its filename was
-     mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
+The user impact on realistic setups should be negligible, as it is a unit
+test.
 
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+The issue was discovered [1] by Sashiko.
 
-------------------------------------------------------
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
-Date: Wed, 2 Sep 2026 15:37:59 +0800
-
-With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
-never allocates an id, so shrinker->id keeps the 0 it got from the
-kzalloc() in shrinker_alloc().  __list_lru_init() then copies that 0 into
-lru->shrinker_id, where it looks like a valid bit index.
-
-Nothing calls expand_shrinker_info() on nokmem either, so shrinker_nr_max
-stays 0 and every memcg ends up with an empty map (map_nr_max == 0).
-
-deferred_split_folio() hands a real memcg to __list_lru_add() regardless
-of whether the lru is memcg aware, so the first THP queued in a cgroup
-does set_shrinker_bit(memcg, nid, 0) and trips the bounds check:
-
-WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
-Call Trace:
- <TASK>
- deferred_split_folio+0x18c/0x220
- map_anon_folio_pmd_nopf+0xdd/0x130
- map_anon_folio_pmd_pf+0x14/0xb0
- do_huge_pmd_anonymous_page+0x1a1/0x620
- __handle_mm_fault+0xea9/0x10d0
- handle_mm_fault+0xe5/0x320
- do_user_addr_fault+0x1cc/0x870
- exc_page_fault+0x81/0x1b0
- asm_exc_page_fault+0x27/0x30
- </TASK>
-
-Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[] read
-from happening, but the id should not look valid in the first place. 
-Clear it before returning.
-
-Two other spots could paper over this: drop the id in __list_lru_init()
-when nokmem turns memcg_aware off, or make deferred_split_folio() pass
-NULL like list_lru_add_obj() does.  Both leave shrinker->id lying around
-for the next caller, so fix it where the id is handed out.
-
-Link: https://lore.kernel.org/20260902073800.305481-1-jiayuan.chen@linux.dev
-Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/20260715031002.108504-3-sj@kernel.org
+Link: https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org [1]
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit b640708929aa956235866bf7717d89018c661083)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
+ mm/damon/tests/core-kunit.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
- mm/shrinker.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/mm/shrinker.c~mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem
-+++ a/mm/shrinker.c
-@@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct s
- {
- 	int id;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 6687778752728..7a3a923dec7cf 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -264,11 +264,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 	damon_merge_regions_of(t, 9, 9999);
+ 	/* 0-112, 114-130, 130-156, 156-170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
++	if (damon_nr_regions(t) != 5)
++		goto out;
+ 	for (i = 0; i < 5; i++) {
+ 		r = __nth_region_of(t, i);
+ 		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
+ 		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
+ 	}
++out:
+ 	damon_free_target(t);
+ }
  
-+	shrinker->id = -1;
-+
- 	if (mem_cgroup_disabled())
- 		return -ENOSYS;
- 	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
-_
-
-Patches currently in -mm which might be from jiayuan.chen@linux.dev are
-
-mm-memcontrol-fix-data-race-on-reading-jiffies_64.patch
+-- 
+2.47.3
 
