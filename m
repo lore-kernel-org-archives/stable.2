@@ -1,87 +1,41 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB15576EB3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD53E563297;
+	Wed,  9 Sep 2026 15:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969012; cv=none; b=WWgdq7EYEThkXZ7SeUJkU2g0FUZLIuZsaYmnSFitDX6XaT+0I+UVfxl9rvDuOeh2yjoFoXMlP7SAF261QkBdIOwA+ojZnhbMt1qxcQkhqgjjZQ70w4U1SPTOId+C/smz6SSqFITX1zwb3dyKs2AGBSKAAI53uweExhlVbgRa6wY=
+	t=1788969142; cv=none; b=hxIw3TYWRp3NUs+pw3cnx7Agv1lsZ2S817VuINiIRGILuVM7xwHWXfcVktP4IHhLCEqDKX47tu4d2Mgb27SWWlqF6I8ahk3qE1cF5gPBzKoF7jdCDFXckXqBhLaUUbgpB2fUxqPbE56+v6QnU0TbGP9bw/5UVrmP3CTrmbwl+eQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969012; c=relaxed/simple;
-	bh=nFE1mVHqzRhOWK279L/SKUnOy2Ov3lQzrqja+W6JOSU=;
+	s=arc-20240116; t=1788969142; c=relaxed/simple;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a+wHouxxyCiS3tynvMYvKrcDrunLPv0TMAJA4zMoJBcyJPXxmntbYCXpfpvJ3p9lgEYIQzsFAqQTNyXLZdMMNufik/xzca/zIRPyjcy/hctVsLEv/frA3rUqlyClak+7zZtffQVx5SCsfxpaFSbpumeq2ii4V2N2DrYDVSR/fHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ve3AZSzP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dQx7zpw7; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=BgSUV7RE987LC6eM1lc4aoagqpRVkyVGzGelNuQ8JsuujFcscmCEm6lRlpHGZJkAr/9VVHJJao9ADKyrrtfEiODlMHTWRIV08CtCp98kgG5oe8K6wCekq3M3Sa1lGNx4C8tpPrMUtFHw2piMvpRYj5fZ2p/DnANrk9OVvGNrYCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=ZCJfA6QM; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ve3AZSzP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dQx7zpw7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788969010;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-	b=Ve3AZSzP/PvAdO45GrZz5AsQhxKDF6dUhPUHSG1tYtoZBLQWcDSnYgkBml5+VIFt2Fm9i8
-	oTudTzIm0ZMBStz7bQTl6JBibHojCy85ULFjpTzlOtpRYD0471vxc9nTzp9ectooqoXvHI
-	RvM5ZbbjKjnsfpsUWM6RUURulT3YZwA=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-62-dLl9ESIMOaqMFvm1vIMGcQ-1; Wed, 09 Sep 2026 11:50:05 -0400
-X-MC-Unique: dLl9ESIMOaqMFvm1vIMGcQ-1
-X-Mimecast-MFC-AGG-ID: dLl9ESIMOaqMFvm1vIMGcQ_1788969005
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49cc9f5bee2so49653305e9.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 08:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788969004; x=1789573804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-        b=dQx7zpw7sCZcpIlpbI1XuxMa78BUOcZL8yRmkqSSTlZisc927/IWi6xLwrflR7pP1D
-         qRvdWgrihWAKV6vGjfBLuJg0oIg58zuFWB5EccMn1dDc1mGZvMiKj26KNHRwTMJs4dZ6
-         Bcfxph64UqcY6OIz27UCB9g4N+RGmCzoIYXonkhsfkdcM3kdaEQymthlVOhSrrdBRvkt
-         OdXcLCPPb6haSxnDrtLVpQmwd90cxp0TiHcFNi622DHavSTgwGHXOA760B/btZMbOTpn
-         S39JJQPjb2Xs9DWZ9a+lhDF85FOtAf6POoMwwISoLt2LLrfHNgJLFjSq9qnB1lz6vqeT
-         aySQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788969004; x=1789573804;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-        b=Nk2RHB3dI13cD3IP6F+OBeRxocfqgA5fqCtF9LmftzpCqAova2H/IqqwOra7b30WEL
-         JiwkHlwfkJ0FmfjrklD5ghwbtmZoAe++jUvr3rGzYR0baUzVUlWOPGoV9b1aqKKZK0dw
-         iw1LX9gF5xsJ8/ve5T1I2PKxUUjp2eU4a4ZdINB7CZpafElvoAIKn2HXLDxDTNWazAvz
-         snC2fAKZzHlHpgW6HgHCuC2EboHvni5bGPPbqzdCMoXqu3wYu40Jzxpqn1UFXBtAKCS/
-         73YEw76IJ6obMabRMYpPYwScVDwJnSSqqKK0YFycoDf5ETO6GFLMBtEMZYwzh/RFHedZ
-         dzXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByc7fytfamf2mWsYef5KyRQjOdXZgsf1RQH3R1Xf7fo9Zkrhtuu/CxR55vIyNMCtH8SukUyE/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpnQgXzcz92iq0pmGKM6iy1at24G1lxAeEeIJQm/NVtHdBY2Ul
-	ANJ5lInvo9sGjGefC1lzJFP1g9RutZsFqdgHxnGSxYLfoKjO8iyM6fwxXNo+J1NkUzHyrVAaKYQ
-	x6TXXBd828GGDyJX2ZpLfAFBcRO1hYVc5PDe5gaT/hnJS23lcnNqDeqOK9A==
-X-Gm-Gg: AYBFou35TZqJ1dkU2/2Cq+Z3rR67dOlCt8LItp28sgU09wfw9fbIAjubYfYhtXhycQ/
-	KdMrNIeZ6qYqyXqCiKUJkA4Wvzb7+Us6cg7DFRxzty1x8ar9SAlJKDv7JrXqHfimhG0aJjYyG/x
-	+FfImGd3UkqWw2qeLBn2zBMjNp4oXEf2rUl1fH2ZLdsux4fBvK5EKpjegSTiaiWpbLHHF4NWjWd
-	50JfXCx3cfPAjBJT5/oOsMayFlO/LrXdvpj3sUsXlQVgXpUaQePtdpSU6tSqtV2oCE2dcpcmP+Y
-	kpv0XU7vJIQPwqDdlL4RnfGCWjD/a71NjHakRw7kiANybwsrvj8HUTLoE80ovOSL0+oyCfyML+h
-	+k88IJl7rWAW8OdOQ6AK3NAEFo+pfvtUwLwvziOtrKYUKJjEVYFDlxJC/0KJdEBq/rzpkojqxfg
-	==
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387804185e9.6.1788969004575;
-        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387803645e9.6.1788969004052;
-        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm137463835e9.4.2026.09.09.08.50.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 08:50:02 -0700 (PDT)
-Message-ID: <121f90e5-a19c-4066-af03-8cf5594bb30f@redhat.com>
-Date: Wed, 9 Sep 2026 17:50:01 +0200
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="ZCJfA6QM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788969120; x=1789573920; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=ZCJfA6QMO/uxLPYoMc3J/jPyu/ecO007BVbArew0SxSP5g8Nxgta4Ac19lxMJ5Yt
+	 V0u8HGdAiXyKBrdBzQ86S9i15RFJD4W1AvvETLtSiL/6/zyJGNnTHXojKM02/ykU+
+	 97HPNwWdLiOWRnUFgr6uiMLnygLTHSJw3F9jFZUeXGVLH4fQkwyDng3pzQgPhKYpv
+	 0D0+KXPXubMDEYQjuAJkQLSxMOp/SUYpkqtjEKvjpavU53IuA0q7W6Ri5dbyxXuBQ
+	 oTURnQOIFrHAwecV3ztty85POO5z778FByl2B5EhtlxjjIbbTrRGbmN4psZr//kEO
+	 XeVRoUV8nD/f+uJYbg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVeI8-1xEL2B2qm4-00Y3G8; Wed, 09
+ Sep 2026 17:51:59 +0200
+Message-ID: <510dc2b8-175a-4606-a36b-df46ae4fd6e4@gmx.de>
+Date: Wed, 9 Sep 2026 17:51:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,76 +43,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 15/15] mptcp: avoid pruning for OoW data
-To: netdev-bot+sashiko@kernel.org, matttbe@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
- <178896537782.219967.1022060629733006428@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178896537782.219967.1022060629733006428@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260909134230.441546314@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:ubfoJgG5xRkXvMIXBAmulopwWI84MGSDrGxSdG6/y1GrvtpE/F0
+ chcT6bLULSHlFQ8WezCsSjtY9Mb6SlyW1lNYqwYcqGIWdrVgVa0RVawxok7n0a8h+xKYhVz
+ fnCsfApfq72eKFbX6InxBJXBGljMgQqpc1uixHB78QhUXc9NKriM56Z0YNkS59yiMzr8skf
+ Zn82xeGnPSRJ2SMNQxfAA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:AUr6VetZ5FQ=;bWFfuvahG9lD4Jbh+088CsddyOW
+ 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
+ LqAkYvnNzsWtGCR3EqY=
 
-On 9/9/26 4:49 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> - [Medium] Incomplete realization of the patch's stated principle ("do it
->   only when we expect to accept the skb triggering the cleanup"): after…
-> 
-> --
-> 
-> mptcp: avoid pruning for OoW data
-> 
-> This moves the mptcp_try_rmem_schedule() call in mptcp_data_queue_ofo()
-> so that it runs after the out-of-window check instead of before it, which
-> avoids running the destructive OoO queue pruning for skbs that are going
-> to be dropped as out of window.
-> 
->> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
->> index 4309fca6b119..0098e2830931 100644
->> --- a/net/mptcp/protocol.c
->> +++ b/net/mptcp/protocol.c
->> @@ -313,12 +313,6 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
->>  	u64 seq, end_seq, max_seq;
->>  	struct sk_buff *skb1;
->>  
->> -	if (!mptcp_try_rmem_schedule(sk, skb)) {
->> -		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
->> -		mptcp_drop(sk, skb);
->> -		return;
->> -	}
->> -
->>  	seq = MPTCP_SKB_CB(skb)->map_seq;
->>  	end_seq = MPTCP_SKB_CB(skb)->end_seq;
->>  	max_seq = atomic64_read(&msk->rcv_wnd_sent);
->> @@ -335,6 +329,12 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
->>  		return;
->>  	}
->>  
->> +	if (!mptcp_try_rmem_schedule(sk, skb)) {
->> +		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
->> +		mptcp_drop(sk, skb);
->> +		return;
->> +	}
->> +
-> 
-> [Severity: Medium]
-> The commit message says pruning should be done "only when we expect
-> to accept the skb triggering the cleanup".  Does the new placement
-> fully match that, given the duplicate-data check still happens later in
-> the rbtree walk of mptcp_data_queue_ofo()?
+Hi
 
-The change suggested here would add quite a bit of complexity for little
-gain, and would diverge MPTCP behavior from TCP. We learned the lesson
-the hard way we need very good reasons to do the latter. I'm pretty sure
-we are better off with the proposed code.
+kernel build / boot test on x86_64 (Intel).
 
-/P
+No regressions here.
 
+Thanks
+
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
