@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C5822A4F1
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10E3384250
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945997; cv=none; b=JE2WIl66WoIgpDMwMeGeYOLKZsvVf9T0El4yDA/G33NitQkEY7Y2XnWwQCp1R6iuzJLCHoKGONkSjvDZ+7qwOp1YzZqqC6H27nzchSp1uF6DesltxlvVanzyt9S1FCbXpq9DPatjJ2/pjxo0QHHmj/kSlyPPXv2KCiSEfHMaNss=
+	t=1788946000; cv=none; b=Pf+WpqBY5G0hG77hnhwQYKf4LWq23XJnJ0mnxPDpkBar4PyoWNDPCsJUklM/jggNoCqkxD+IhQ5FUBKsdpTuXtakTT6iq3XC1TVBtGEiAISrNrp8s1UGN3c3nTEucxLdcs9XoFanNYgARHMB3X8VT9e05Vc+cw1E3Ix7QZ6OW9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945997; c=relaxed/simple;
-	bh=P3dMgojgQ7u7bj5n3GBi8x339a3ksZV8AvHRgPtk4y4=;
+	s=arc-20240116; t=1788946000; c=relaxed/simple;
+	bh=Afh5DBjD6LGu2Wkde8l1RcEglqDrGY7qFDij/VFJym8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EHN/J078Wr1rttcpYzMGvU/i2IwEfh8kmkEBopAkJjl7vPW6sarkPL4b6my6eWfxw87G+C//ILqkFZYkBJRkLXkKBgVcprXRtdB9n2Brhfau5nmZACFH4PzDQyXVxNekHoaGI86+XpVqANp0quBiceOt8fj/c9+3GecC3+2wn+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBRRh/8f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XhtPCQt+sB9s1m7C7kfB4fQchN/H3JljKVNaiAHCGH6EwzrTGIHzNVxwJMQTSR8Uehim7QTB5F2h8Umc8IGBTruywIGcYH5JylU5pHhOaFy1i7r9BUkU1eIF24ohTOOzBC3aRv5lTuXSUegiaGeoD8xpPGUhNdOL39BZymQgHvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MuEk6itP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBRRh/8f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F21E1F00A3F;
-	Wed,  9 Sep 2026 09:26:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MuEk6itP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F711F00A3A;
+	Wed,  9 Sep 2026 09:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788945995;
-	bh=7ABxt+6vKGT2MM3ejrRYmFcbIm3JuMk0FbbxLb4NiJw=;
+	s=k20260515; t=1788945998;
+	bh=dSBbLm1bidNgngVN6SuBew5orb6rJn5SFv7ERS8wZpo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JBRRh/8fsMaMyu+a/O5ex1eARI40JHAgqeHQSwbaeLmA6wxgnNvyvzcKfE32lkddV
-	 0VTJPYsf7MVT3IXy961XotZaMSuc87U73Oe0emOE3WEXYXFAvzAjDyn/OM/DqVAaVY
-	 YSm0k/iAZ/IhOOb+QxG/67zkcYA7oemifwbIRDo1NW/xKyYJ/sXnVnMgHN77R8gzuk
-	 yRUbZu1pJ09k1tknVWFhFhncaBoV1FjSc215+/cTDzJv+Lh/JJmd1fgGu1E7u2JPYO
-	 6mp1U1Wni8sSZr9gPi2cmwII+d2z705YV+tFQDhnN7BaE467Q02l8bmKIrgshgV86o
-	 XLw5fxVCJPlsA==
+	b=MuEk6itPHqBGrH/55/3MmgH50MG478IydNC6eDXMpA0anQfwMNSDUTdsXxWY/Dq/5
+	 7WRmvb6GLYOpQvUP9rsctVCH5DCkjnYFKpAUbS0yOR7jVreHjP5vtHvVq4Ab3TDXpp
+	 tqA55Qn/+cwbYs0EcYpKYun8qTLLBc3ubLLUj7cs4n5kL2fQ7Suslo2x0s2wcMt2y4
+	 fpYOzhPacHDsbaQFr1bi7YOmE3tMYNeZ58vTBimw5rGdQIF5RriBe9PPLRVIjflUsj
+	 KjcoeR+NAhC72QhTgj3oSVjOguEkyhKTp33e3rCnIMwfHLaoB3WDhaYBehVmAa/bpU
+	 NOvnM/xjMS25g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] sched/core: Make core-sched flips wait for in-flight selections
-Date: Wed,  9 Sep 2026 05:26:31 -0400
-Message-ID: <20260909092631.1296773-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] svcrdma: Add back svc_rdma_recv_ctxt::rc_pages
+Date: Wed,  9 Sep 2026 05:26:34 -0400
+Message-ID: <20260909092636.1296906-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909092631.1296773-1-sashal@kernel.org>
-References: <2026090310-surround-endnote-4269@gregkh>
- <20260909092631.1296773-1-sashal@kernel.org>
+In-Reply-To: <2026090343-runway-amaretto-1501@gregkh>
+References: <2026090343-runway-amaretto-1501@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,112 +44,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
+[ Upstream commit 4d9d69db898d05bd063548eee65d16a020676fec ]
 
-Core scheduling's pick_next_task() operates on all sibling rqs under one
-acquisition of the shared core-wide lock. A ->pick_task() that releases the
-rq lock leaves every sibling __lock momentarily free, letting
-__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
-it. The selection resumes on the split locks, touching sibling state it no
-longer protects, and __schedule() finally releases a lock that was never
-taken while leaking the one that was.
+Having an nfsd thread waiting for an RDMA Read completion is
+problematic if the Read responder (the client) stops responding. We
+need to go back to handling RDMA Reads by allowing the nfsd thread
+to return to the svc scheduler, then waking a second thread finish
+the RPC message once the Read completion fires.
 
-Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
-and make __sched_core_flip() wait for the count to drain. The count only
-changes under the shared lock, which the flip holds while sampling, so no
-other ordering is needed. The wait can repeat while selections overlap, but
-the flip backs off between samples and flips are rare cookie-lifetime
-events.
+To start with, restore the rc_pages field so that RDMA Read pages
+can be managed across calls to svc_rdma_recvfrom().
 
-sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
-left behind would bias it forever if that CPU later returns as its own
-leader.
-
-Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: 9808eb765666 ("svcrdma: Reject Write/Reply chunks with segcount 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 22 ++++++++++++++++++++++
- kernel/sched/sched.h |  1 +
- 2 files changed, 23 insertions(+)
+ include/linux/sunrpc/svc_rdma.h         | 4 +++-
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 5 +++++
+ net/sunrpc/xprtrdma/svc_rdma_rw.c       | 4 +++-
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 940c4d8a9d223..08ac7da783a69 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -434,6 +434,17 @@ static void __sched_core_flip(bool enabled)
+diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
+index fbc4bd423b355..2bfc32337bc2e 100644
+--- a/include/linux/sunrpc/svc_rdma.h
++++ b/include/linux/sunrpc/svc_rdma.h
+@@ -137,7 +137,6 @@ struct svc_rdma_recv_ctxt {
+ 	struct xdr_stream	rc_stream;
+ 	bool			rc_temp;
+ 	u32			rc_byte_len;
+-	unsigned int		rc_page_count;
+ 	u32			rc_inv_rkey;
+ 	__be32			rc_msgtype;
  
- 		sched_core_lock(cpu, &flags);
- 
-+		/*
-+		 * A core-wide selection may have the shared rq lock temporarily
-+		 * released by a lock-dropping ->pick_task(). Flipping would
-+		 * rebind rq_lockp() under it. Wait it out.
-+		 */
-+		while (cpu_rq(cpu)->core->core_pick_in_flight) {
-+			sched_core_unlock(cpu, &flags);
-+			cpu_relax();
-+			sched_core_lock(cpu, &flags);
-+		}
+@@ -147,6 +146,9 @@ struct svc_rdma_recv_ctxt {
+ 	struct svc_rdma_chunk	*rc_cur_result_payload;
+ 	struct svc_rdma_pcl	rc_write_pcl;
+ 	struct svc_rdma_pcl	rc_reply_pcl;
 +
- 		for_each_cpu(t, smt_mask)
- 			cpu_rq(t)->core_enabled = enabled;
++	unsigned int		rc_page_count;
++	struct page		*rc_pages[RPCSVC_MAXPAGES];
+ };
  
-@@ -6079,6 +6090,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 		return __pick_next_task(rq, rf);
- 	}
- 
-+	rq->core->core_pick_in_flight++;
-+
- 	/*
- 	 * If there were no {en,de}queues since we picked (IOW, the task
- 	 * pointers are all still valid), and we haven't scheduled the last
-@@ -6273,6 +6286,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	}
- 
- out_set_next:
-+	rq->core->core_pick_in_flight--;
- 	put_prev_set_next_task(rq, rq->donor, next);
- 	if (rq->core->core_forceidle_count && next == rq->idle)
- 		queue_core_balance(rq);
-@@ -6466,6 +6480,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
- 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
- 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
- 
-+	/*
-+	 * A stale leftover would bias the count forever if this CPU later
-+	 * returns as its own leader. Move, don't copy.
+ struct svc_rdma_send_ctxt {
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+index 186c9c12432b1..ec759cfecbcde 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+@@ -227,6 +227,11 @@ struct svc_rdma_recv_ctxt *svc_rdma_recv_ctxt_get(struct svcxprt_rdma *rdma)
+ void svc_rdma_recv_ctxt_put(struct svcxprt_rdma *rdma,
+ 			    struct svc_rdma_recv_ctxt *ctxt)
+ {
++	/* @rc_page_count is normally zero here, but error flows
++	 * can leave pages in @rc_pages.
 +	 */
-+	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
-+	rq->core_pick_in_flight            = 0;
++	release_pages(ctxt->rc_pages, ctxt->rc_page_count);
 +
- 	/*
- 	 * Accounting edge for forced idle is handled in pick_next_task().
- 	 * Don't need another one here, since the hotplug thread shouldn't
-@@ -8774,6 +8795,7 @@ void __init sched_init(void)
- 		rq->core_forceidle_count = 0;
- 		rq->core_forceidle_occupation = 0;
- 		rq->core_forceidle_start = 0;
-+		rq->core_pick_in_flight = 0;
+ 	pcl_free(&ctxt->rc_call_pcl);
+ 	pcl_free(&ctxt->rc_read_pcl);
+ 	pcl_free(&ctxt->rc_write_pcl);
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index ed581c183f7c8..ec15f526ed2da 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -1156,7 +1156,9 @@ int svc_rdma_process_read_list(struct svcxprt_rdma *rdma,
+ 	rqstp->rq_respages = &rqstp->rq_pages[head->rc_page_count];
+ 	rqstp->rq_next_page = rqstp->rq_respages + 1;
  
- 		rq->core_cookie = 0UL;
- #endif
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 15c5b11d2a665..97dddc148d711 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1310,6 +1310,7 @@ struct rq {
- 	unsigned int		core_forceidle_seq;
- 	unsigned int		core_forceidle_occupation;
- 	u64			core_forceidle_start;
-+	unsigned int		core_pick_in_flight;
- #endif /* CONFIG_SCHED_CORE */
+-	/* Ensure svc_rdma_recv_ctxt_put() does not try to release pages */
++	/* Ensure svc_rdma_recv_ctxt_put() does not release pages
++	 * left in @rc_pages while I/O proceeds.
++	 */
+ 	head->rc_page_count = 0;
  
- 	/* Scratch cpumask to be temporarily used under rq_lock */
+ out_err:
 -- 
 2.53.0
 
