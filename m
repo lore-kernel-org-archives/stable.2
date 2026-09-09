@@ -1,112 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336D32FBDE0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1E513D53C
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788918927; cv=none; b=bJ9r2lEh+q7xvAA7d1cJ4T/zB0eYn45eFKzZK/qHYMIYRdMb16MOY4LeYUJwsK8ZZ7sc7xYiHuMFzglUKnGtrhQl2SZ9bqaUW1uqGpiMWwgaT4QR71eZe1h11xFnK528WqvxwqTS7G7Xk79wTWiMSMmplQngWoVZ/sYgN2jsuWY=
+	t=1788918928; cv=none; b=nUyV6Sh/56ZyirY2q5ke1ErCVknwTFSOg3qbEUriLIhlj+3TlKeq5ET10n8HE2lIDnCOGEVUdg9pFUFCzNEXHLbHM+xgq4g15PlVFkPMixlrslxrxYNPU9nWkeneP1bPckoxcB8hJw701D6qFo3KzdgbxsudLRpPFOTREp1CI6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788918927; c=relaxed/simple;
-	bh=5eXdY1FAluQboaiS7d/12eBIDSu0pVkDz7AQePI4qm8=;
+	s=arc-20240116; t=1788918928; c=relaxed/simple;
+	bh=wL5NY2y2hL3tB8BwilkAbibR2NaRGBUS3TU8csISBNo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ENDXM4C5QpMkbFpF3BjvXCJXy+W9InlzWHpcqCDSdCTw+rWK4S/aeGDnwdftp3APH0mxyfjGuj2DVMeVVVIropWn0K/B5t1nZVbfB7uegNlh+w/+d/LWhWWZMyOmc2dGDZEffEJkys1URNRqDrNex2vkFPOcte1X63L3/WaUqy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vka5+C0g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nMDfFpwj3G6gnR9H5HhMhgS5hc4NCTBRpnVonDcA7PyMNUIoVlEAN3WunQyTYHokgGrfbZSCg4zPwPOf4GGwAFwdsk1PgvxRXfhX9yzyL0wc9IUpsYTjl/YgQeuoZQHUTqaNXzJlfsksyQ+MC4++uhKirg5SzPf1RbhuWl8UONk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjK4VkrV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vka5+C0g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956E91F00A3E;
-	Wed,  9 Sep 2026 01:55:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjK4VkrV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2091F1F00AC4;
+	Wed,  9 Sep 2026 01:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788918926;
-	bh=mHy6lu9vUwyx0cE+UZA19589XWq5kxSR7zoNplvQ8Tg=;
+	bh=72hdon0SSOTPxg4Z4qFlEkStheSkLYFhP/vCzrRz8qI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vka5+C0gV8PRlcDGAg4bx7LoFofhO+HrqBcmLDHswj8Hl9PDSGDN6fqE7CxGYpI4k
-	 9QSzW80ni6/W49Xr9dr99nRPzUQ7OMcNBupfVFn3EPt8MAFlm2fMNdfQU8z75SfLQz
-	 /VFUhBQ7clnuofzH0dPHP+zChpthiY1wdPLeTO+nxnZub02FIihBxfEsaKsYJBkfY9
-	 hyTktSwZtSYA5xNGV6IIt3mjF9Lj0azeNHp5J7W9obvzQa3M37ntmao/NyAj9Wz05/
-	 ysS1YAgqHuMiKdK4R6GMcMnb5nwSHtZ0Jd+9Cie5DPF+zrRevi98MsFt2MlaAN5zTS
-	 z3uVzSP/3waNA==
+	b=YjK4VkrVLRWiCh8g7qoOPyqMmkxA9vb1XlxttzFA843Yn/JQRQVShQbVpPYZV4fkf
+	 57QVXrLpRGQR+bgO3p+WEQ548ot9b/l4AfT5fAwc3SL6xxf4bGXJEHV2P9hTw1Uc7A
+	 V5V92WTlGR07ZlG6JX4fI6CCoyORteZVFPPcqBgjDYLLzXlFZO/GzZMIgyZRsDV9Zi
+	 omFjQAO5IoqEicoCcPPU7m06WtMlPNHOA3aW4NTGMIiZ0YFZdvIxn0jWkukPCuuFol
+	 75pwQFSsXL/TdS1mNGVDvip1QIY+KQXDPJOsJnEwkmI66z9fMTLFMEmMdc76oUDOPy
+	 UsPX7mVXG8e5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] sunrpc: defer rq_argp and rq_resp free until after RCU grace period
-Date: Tue,  8 Sep 2026 21:55:24 -0400
-Message-ID: <20260909015524.954830-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/4] svcrdma: Use svc_xprt_put to free listener on create failure
+Date: Tue,  8 Sep 2026 21:55:22 -0400
+Message-ID: <20260909015522.954712-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090351-divinely-underpay-2e28@gregkh>
-References: <2026090351-divinely-underpay-2e28@gregkh>
+In-Reply-To: <20260909015522.954712-1-sashal@kernel.org>
+References: <2026090356-dehydrate-probe-c315@gregkh>
+ <20260909015522.954712-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit c479bde671cbe2f9e152834a8b0eb7c3c295bbaf ]
+[ Upstream commit e346ef7bcb137f50c49f969330ab7dcf64ea1654 ]
 
-svc_rqst_free() frees rqstp->rq_argp and rqstp->rq_resp synchronously
-via kfree(), but defers the rqstp struct free via kfree_rcu().  After
-svc_exit_thread() calls list_del_rcu() and svc_rqst_free(), there is
-a window where RCU readers that started before list_del_rcu() can still
-traverse the thread list and find the rqstp.  These readers (e.g.
-nfsd_nl_rpc_status_get_dumpit()) dereference rqstp->rq_argp, which has
-already been freed — a use-after-free.
+svc_rdma_create() calls kfree(cma_xprt) when
+svc_rdma_create_listen_id() fails. svc_xprt_init() has already
+acquired a net namespace reference via get_net_track(); kfree
+bypasses svc_xprt_free() which releases it.
 
-Fix this by moving the kfree of rq_argp and rq_resp into an explicit
-call_rcu() callback alongside the struct free.  Resources not accessed
-by RCU readers (bvec, buffer pages, scratch folio, auth_data) remain
-synchronously freed.
+Replace the kfree() with svc_xprt_put() so the kref_init birth
+reference drops to zero and svc_xprt_free() dispatches
+svc_rdma_free() to clean up properly. sc_cm_id is still NULL
+at that point; the preceding patch added the necessary NULL
+guard in svc_rdma_free().
 
-Fixes: 812443865c5f ("sunrpc: add a rcu_head to svc_rqst and use kfree_rcu to free it")
+svc_xprt_free() also drops the module reference via
+module_put(), but the caller _svc_xprt_create() does the same
+on xpo_create failure, double-putting the single
+try_module_get() it acquired. Take a compensating
+__module_get() before the svc_xprt_put() to keep the count
+balanced, matching the convention in svc_rdma_accept()'s error
+path.
+
+Fixes: 4fb8518bdac8 ("sunrpc: Tag svc_xprt with net")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-4-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ adjusted context around svc_rqst_free() to match the older exported function with page-based cleanup. ]
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-3-1b09bd87b6cd@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/svc.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-index 4212fb1c3d887..4eda1ac73481a 100644
---- a/net/sunrpc/svc.c
-+++ b/net/sunrpc/svc.c
-@@ -839,6 +839,15 @@ void svc_rqst_replace_page(struct svc_rqst *rqstp, struct page *page)
- }
- EXPORT_SYMBOL_GPL(svc_rqst_replace_page);
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+index f7f764508a2ea..ea2c008eb67fe 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+@@ -350,7 +350,13 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
  
-+static void svc_rqst_free_rcu(struct rcu_head *head)
-+{
-+	struct svc_rqst *rqstp = container_of(head, struct svc_rqst, rq_rcu_head);
-+
-+	kfree(rqstp->rq_resp);
-+	kfree(rqstp->rq_argp);
-+	kfree(rqstp);
-+}
-+
- /*
-  * Called from a server thread as it's exiting. Caller must hold the "service
-  * mutex" for the service.
-@@ -849,10 +858,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
- 	svc_release_buffer(rqstp);
- 	if (rqstp->rq_scratch_page)
- 		put_page(rqstp->rq_scratch_page);
--	kfree(rqstp->rq_resp);
--	kfree(rqstp->rq_argp);
- 	kfree(rqstp->rq_auth_data);
--	kfree_rcu(rqstp, rq_rcu_head);
-+	call_rcu(&rqstp->rq_rcu_head, svc_rqst_free_rcu);
- }
- EXPORT_SYMBOL_GPL(svc_rqst_free);
- 
+ 	listen_id = svc_rdma_create_listen_id(net, sa, cma_xprt);
+ 	if (IS_ERR(listen_id)) {
+-		kfree(cma_xprt);
++		/* _svc_xprt_create() acquired one module reference and
++		 * puts it on xpo_create failure.  svc_xprt_free() puts
++		 * a second one when the kref drops to zero.  Take a
++		 * compensating reference so both puts are balanced.
++		 */
++		__module_get(cma_xprt->sc_xprt.xpt_class->xcl_owner);
++		svc_xprt_put(&cma_xprt->sc_xprt);
+ 		return ERR_CAST(listen_id);
+ 	}
+ 	cma_xprt->sc_cm_id = listen_id;
 -- 
 2.53.0
 
