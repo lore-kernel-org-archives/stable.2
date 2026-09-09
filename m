@@ -1,45 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out198-12.us.a.mail.aliyun.com (out198-12.us.a.mail.aliyun.com [47.90.198.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E7638655E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F28379C42;
+	Wed,  9 Sep 2026 17:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975303; cv=none; b=sw+GqhPFxb8sF2qyCkBAYobrzACLAcES6DSE6abXvCJVA81iVJFXY9yNCefDlhWVCe+HOzwiWuD8gKmZDmqLanF+eEs7pe+zZi6zgoKvU9doKmX42+JAA30tG9DPHi47J2xuXZt1vejQo+Q/Rm4tv2MHVXmQjlbiD4JeISx7TlQ=
+	t=1788975420; cv=none; b=Ake0YTPe1U4van96lMOTmv87m0qswtXOoPoc/sHupst9xRVrFtVUmBYb+tzUyJ2Cpbk69ZTUxmphWU4s/zkMmcbBGjYhL76VmYpw9kpK+AJePreH3adFigtfIP1FfMe7ZLoul72MqcIIVl27IQqB6W8XsUdUyYMtLIZX6eXjz+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975303; c=relaxed/simple;
-	bh=X8n/uoYvx/8YjcHiugo4sOTEA62BTjUr9POQ85xTZPM=;
+	s=arc-20240116; t=1788975420; c=relaxed/simple;
+	bh=5Lm49B6zVwyaOVGoSVRUBFwcAtXY6GIRbIOPfFalVKc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=djW4hWxh0M2PaUrY5JjidSlmBArx07pvB0MFE6aU5EJLwgA8U4b7L/2idA/DHCMht/SZPAh6oeFLJqKUn089BFNWLLvkJ2XzDuAX/8edHR2zThIOtiDSa1o9NYa0ZI4r1ckZpWZzLVl5qBdSHZ1v5ptrwKoJ7Nc1FTb/6I/lKCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iG38lM5N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=E6JkenICRotEbmt3bHLKMesy/DCnYdWnkJqr6yFvDL5Px6898R1CpLbERipV8Oh8w6IaZWnwBu7MIB6xHXmtJ9TB1eEokeVI7BVBpHeZH7wYHrcF5dc+bVoSzd7hqbj6IAmsBuF4OUhcIEeoPyx1GyLIOZtMHzqeV+ueu/1Hwk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=jqd5bT9v; arc=none smtp.client-ip=47.90.198.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iG38lM5N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D8B1F00893;
-	Wed,  9 Sep 2026 17:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975302;
-	bh=nsf5tCcNHVjgRC/tjFEZLJncNHjj3xdjc15WaQonMoc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iG38lM5NuzJOb5TXm3e9euie90e0NOv0U8E7loW6Gg7KDgv9oxZ2A2k3Pj9FT1sHA
-	 mY8i8O0BaGCvSox/j7q5nbPOtSvZYyxNXAGalkg4KpF4/u5UhxsLXjoHZHkE+OCs1T
-	 Jxi2N9i7+U+1szEI4XFJ43qrkBo6xtWIpE5QRzzraLGxHw8DeHB7y6MwDW/s3+Qmq5
-	 XzqwI2htP4RMOcFZ6KM51jpqakv1PpIIDDtUosw0bw50skW62V5bg0FUmphbMmz47M
-	 3mCUBi6eafEd4Vn9LDamCRii9SoNCHcWpkFc9m59G0/4VBe1KcqLXwITfiuOku4dhS
-	 w4KGHP39NmeAg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hidayath Khan <hidayath@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] net/smc: stop killed, freed and out_of_sync sharing a byte
-Date: Wed,  9 Sep 2026 13:34:59 -0400
-Message-ID: <20260909173459.3308094-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909173459.3308094-1-sashal@kernel.org>
-References: <2026090312-cedar-failing-0a11@gregkh>
- <20260909173459.3308094-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="jqd5bT9v"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1788975398; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=IqWNJurljz2sEYQNlRb5yGZBxJR2ATuvv3gT2h+LMz8=;
+	b=jqd5bT9vPAsUQou7K569Px2/bWNzna8gXQJTXMuFFTVDLGQSoy7SW0iBVbr+d3N0zDsXa4AhiWG8XQ6p/Hm0R1+wL7bRaBNqpk5Rc892RD2Nz5NyGPUxIZOlrfJmXvDHcfl+0/ZsVEQdZgh8b7fuUCDZJyYtq9TQNrifCWTDWLo=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438226|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0952803-0.00463008-0.90009;FP=14473300978445122994|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.j9p79vc_1788975072;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j9p79vc_1788975072 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 10 Sep 2026 01:31:15 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: Robin van der Gracht <robin@protonic.nl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: kernel@pengutronix.de,
+	linux-can@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH net v2 2/2] can: j1939: check received packet count before completing session
+Date: Thu, 10 Sep 2026 01:31:04 +0800
+Message-ID: <20260909173105.158202-3-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260909173105.158202-1-liuc63@xiaopeng.com>
+References: <20260909173105.158202-1-liuc63@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,57 +50,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hidayath Khan <hidayath@linux.ibm.com>
+j1939_xtp_rx_eoma_one() marks a session complete as soon as it sees
+an EOMA without verifying that all data packets arrived.  Add a pkt.rx
+check so a session with missing packets gets aborted instead of
+delivering a short message to userspace.
 
-[ Upstream commit db51a8658c11a82432b64999519a269c3aabb447 ]
+Also tighten the existing EOMA size-mismatch warning to actually abort
+for receive sessions instead of just logging.  The warning itself is
+kept for both rx and tx paths so transmitter-side protocol violations
+are still logged.
 
-The three connection state flags are single-bit bitfields, so they occupy
-one byte of struct smc_connection and every store to one is a
-read-modify-write of the other two:
+Only unicast receive sessions are gated:
 
-    u8  killed : 1;
-    u8  freed : 1;
-    u8  out_of_sync : 1;
+ - Transmitter sessions track pkt.rx via loopback confirmations which
+   may legitimately lag behind the real transmit count, so the check
+   would cause false aborts on the tx path.
 
-They are not written under a common lock. smc_cdc_msg_validate() sets
-out_of_sync from the receive tasklet, while smc_conn_kill() sets killed
-from process context under lock_sock(), and the receive path does not defer
-to the backlog when the socket is owned -- smc_cdc_msg_recv() takes only
-bh_lock_sock().
+ - BAM (broadcast) sessions never go through EOMA -- they complete via
+   the final flag in j1939_xtp_rx_dat_one() when pkt.rx reaches
+   pkt.total directly.
 
-Give each flag its own byte so a store no longer touches its neighbours.
-All readers test them as booleans and are unchanged. struct smc_connection
-grows by two bytes.
+The error path skips sessions already in J1939_SESSION_WAITING_ABORT:
+cancelling the deactivation timer there would leave the session on
+active_session_list forever, since j1939_session_cancel() only re-arms
+that timer for sessions which are not yet aborting.  The same failure
+mode was previously fixed for the second-RTS path by 1809c82aa073
+("net: can: j1939: j1939_xtp_rx_rts_session_active(): deactivate
+session upon receiving the second rts").
 
-Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation message")
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
 Cc: stable@vger.kernel.org
-Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260820074642.966856-2-hidayath@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- net/smc/smc.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/can/j1939/transport.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/net/smc/smc.h b/net/smc/smc.h
-index 366cd1a0b950e..b19f41e7e1171 100644
---- a/net/smc/smc.h
-+++ b/net/smc/smc.h
-@@ -238,9 +238,9 @@ struct smc_connection {
- 						 * 0 for SMC-R, 32 for SMC-D
- 						 */
- 	u64			peer_token;	/* SMC-D token of peer */
--	u8			killed : 1;	/* abnormal termination */
--	u8			freed : 1;	/* normal termination */
--	u8			out_of_sync : 1; /* out of sync with peer */
-+	u8			killed;		/* abnormal termination */
-+	u8			freed;		/* normal termination */
-+	u8			out_of_sync;	/* out of sync with peer */
- };
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index c40db4337..fe447077b 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1396,6 +1396,7 @@ static void
+ j1939_xtp_rx_eoma_one(struct j1939_session *session, struct sk_buff *skb)
+ {
+ 	struct j1939_sk_buff_cb *skcb = j1939_skb_to_cb(skb);
++	unsigned int expected_total;
+ 	const u8 *dat;
+ 	int len;
  
- struct smc_sock {				/* smc sock container */
+@@ -1411,9 +1412,22 @@ j1939_xtp_rx_eoma_one(struct j1939_session *session, struct sk_buff *skb)
+ 
+ 	if (session->total_message_size != len) {
+ 		netdev_warn_once(session->priv->ndev,
+-				 "%s: 0x%p: Incorrect size. Expected: %i; got: %i.\n",
++				 "%s: 0x%p: EOMA size mismatch, expected %u got %d\n",
+ 				 __func__, session, session->total_message_size,
+ 				 len);
++		if (!session->transmission)
++			goto out_session_cancel;
++	}
++
++	if (!session->transmission) {
++		expected_total = (session->total_message_size + 6) / 7;
++		if (session->pkt.rx < expected_total) {
++			netdev_warn_once(session->priv->ndev,
++					 "%s: 0x%p: EOMA but only %u/%u data packets rx'd\n",
++					 __func__, session,
++					 session->pkt.rx, expected_total);
++			goto out_session_cancel;
++		}
+ 	}
+ 
+ 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
+@@ -1422,6 +1436,16 @@ j1939_xtp_rx_eoma_one(struct j1939_session *session, struct sk_buff *skb)
+ 	j1939_session_timers_cancel(session);
+ 	/* transmitted without problems */
+ 	j1939_session_completed(session);
++	return;
++
++ out_session_cancel:
++	/* Don't touch timers if the session is already aborting;
++	 * cancelling the deactivation timer here would leak the session.
++	 */
++	if (session->state >= J1939_SESSION_WAITING_ABORT)
++		return;
++	j1939_session_timers_cancel(session);
++	j1939_session_cancel(session, J1939_XTP_ABORT_FAULT);
+ }
+ 
+ static void
 -- 
-2.53.0
+2.50.1
 
