@@ -1,147 +1,124 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD9D58E2C5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:33:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F009B576EB5;
+	Wed,  9 Sep 2026 14:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964399; cv=none; b=FWH/LSUC2WNvvlliZ+7cnahdLLTBV9vX1Bf3Lhb2vRiobWi28qJvnwCyimPqUlCkGUocFh/3Sb3P72kkZCPT1HlsS9hwDlpIPbM0AW5lj9c+YdZSJo5viQ1y2Gi5RJfyJyTxUHncOuzn+crxY2VQFak2v0KdK45PF7V/TqMXWlE=
+	t=1788964400; cv=none; b=P9VbGgbq8Q/PDJ0MegrxoF3pbSkR/Zs4XB5FvpYSaonazmSDD8wcDSQ34eaIOipnv7UkOzxnzqU/mjf98f6HPceIe/akMhtijuIYb4bFS8z9v6QbaR2KxgkvyHfKyDAOwv3e2enllumohVOREDFuiT/yKY5K1dHc4OuV4zaH5Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964399; c=relaxed/simple;
-	bh=fntJjqdG2j+yL6RVAB6nKW7v01eU7mQiMAgAsay0h1M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ph8pISxWmbi+1zofJq+w7iMg0swBCCLF3VzBCOexcbqOfGRKE1Tl21AxSMG7OVTiycvT7WzMhcReU2MXDi/DeRi5tw09oCo9cLrEwaN/oJH0JnLnYL8ffcDK8/o8ACPRh77hTTNqQ2tax2cbE0FtAixYK54Si8JgPPyRn7qhQCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=BohNoRLH; arc=none smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788964400; c=relaxed/simple;
+	bh=ZFNhCQ1YFrFwr1CQ5pQLjqIaa3nHBLMrZy+qEyo7QdM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DOn3MDhmfzd8SIAxdzKCnk6wsLlGS9yrAMzAvYUi6fzoTlp/y8m5kYlFwQYi5tsjMO7Hh6JuXu4IoP7gV1YpppUHgJFY/Kk6cDG4SXbVmPvOqTT0HH0OWb2ia7dxMEYqURdlYednG/mY9b9pu0R6DTsBdpUHGrlrIs6fTltSQwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2BVGTebF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="BohNoRLH"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66fa10f35caso5621426d50.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:33:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788964397; x=1789569197; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d0bOlfBpQTbQFgfmthpzay0FO8NJ5huTnd0J4hBWl4w=;
-        b=BohNoRLHOGPYLbAvslIJAj4o5LgrV6pt+LILH+usEb4XVgKbFTMSPrDCqCnkpa18JG
-         vLPDir4wVI9+AhvC6r20JVK9IteSk+HJzAl5f/eUkjLQd1MN/3OUAX79c9r6AiP7W7H7
-         RDLOui3vgihdH/RWDMUNYGvY6kT2TwXZ2XGaNzUfmeKUfSPdcytzHoiGtjgXWR74t2mL
-         Rgfi+g/gPsgXOHEvHb5nwBde28MkgTFZ9zSnJwcyOIwHfht9czLaIFUtPFsBTUheFcde
-         3Dw5jEn28X7fTE32tGra3HYbaXbz9GqqQ4VSO90n4HvjDau/VNmmUE6ZKLZmm3yw33qs
-         Uo5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788964397; x=1789569197;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d0bOlfBpQTbQFgfmthpzay0FO8NJ5huTnd0J4hBWl4w=;
-        b=Dbuj2HaPpKUtp1w2DNg01XdkuiC9t2/neNdVbYF7OqLIzfI8tCErV8Zdxk7PTu2rra
-         4YEciyMnKbGfyG2X1kyoPN6ZyH/D+tjcooOp3eYB7fBLcUwXtZvOUroFmonuPEaYJ0qa
-         rVGezVjCLEokRa/tXfaC2JjzeP+RU6c07diUbAtPT1D6FiiWKuFr/044Yyu0xZBTEO1v
-         MONj8PBVx2hEHVrzSMXvQzkIFACsEPhQVPD/n1d4UTrXKCxbCH3IGPyBTQqbXC1B6zfN
-         LXeXT+aL0PDcUfj4FzTbf428ZJAVeFbbWZn2vUsjGJnBNXPXV+P37NIAg0pb6OVXrpW2
-         iEzA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4aAT28mVzK5oYdRcgB+lqXFb2vnXWnaLGhBeyGOQFo95dzuS43R8yByBKdDGwJfRmLNW8/PY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYh+DW27GjOdsYpIWM56pI8jvwu3Q0SaV7QshBZf1vptaUqoR8
-	BJrug1epQXojQK+i5mC3nxXLjbiS69WvuamYyxljgboLzp99RTcZVU1K6ZfUchUciQ==
-X-Gm-Gg: AYBFou29zC5ftc8g5Tv/f2pLuCG+BIySlqRanznhdF9nImPsr37NtJY6oYa7+M4faHH
-	vlQ+Ul9XcqsP4SpOVAfVXS4Aoyq/vMxbvA8twtUxQousJj8sGRDwm5gM6xapWLnA/1JoBJhuSiB
-	HMoWhznpLhH3s2Bch1lYEsBPtg4zrm/Y2rPzjMfktqQUhEmP16z+zqjBOsfGL3oOPhedh8bzkx1
-	Ole87EkMzVrzm6MwtMQTGeudHwRLqeJ7GXMDd9bK1UJrxbwgLutnp83njakeMoDubnDEd+/60Kj
-	+OkYU9AqML9U+MSLyAV5xh69aZwOeO4EewyBMIfWXQOUg+fuqjTdKFmbORFBjVmIf69YsgfDv93
-	eCaEgzZn+qoBrefiLO71KgeIm9wVgYKuUa+Bps8JH6294mQFgxBhfxMYehFRaAKzphmEt031XOg
-	bfm48nCF2FtA727UC/jV3fj3LeRhGA5/KXfXG9LVOji/HI3idhPxpAs2WEzjjTrm5Jz7up74Fpu
-	HXI0diGQKKqAn2lgw==
-X-Received: by 2002:a05:690e:488c:20b0:671:27a:df14 with SMTP id 956f58d0204a3-671027ae48fmr1087364d50.20.1788964396777;
-        Wed, 09 Sep 2026 07:33:16 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040679e13sm145160216d6.26.2026.09.09.07.33.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 07:33:16 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:33:13 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>, boqun@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <285fa0e6-0ca5-4cd8-b0f5-819d44583fc9@rowland.harvard.edu>
-References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2BVGTebF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AD51F00ACF;
+	Wed,  9 Sep 2026 14:33:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788964398;
+	bh=QcEPlbVQX4cTNF3mfcFlJPkLgXanSosi+IZLzP/U5VU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=2BVGTebFM/b8G84MW2kVrVYIHyhCiON0nxZkyXIiOO0C+B5/YC+T4pXcUQ+MHtByb
+	 JzGnPWfnhhOVAvIr6eIxHOtV/yolxF+XQYQdUtPvebvJrTEft5em8EnMVMs0x85JTl
+	 wIzko3bDqg8nYWEAnEfD/Q30xGnKV7KLD1uyjPXg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Marek Czernohous <marek@czernohous.de>,
+	Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 6.18 410/583] drm/nouveau: unsubscribe the channel-kill event before the fence context
+Date: Wed,  9 Sep 2026 15:41:35 +0200
+Message-ID: <20260909134252.182477570@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra wrote:
-> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
-> > I didn't know about all those UNLOCK+LOCK properties. Well,
-> > I know that UNLOCK+LOCK on the same lock, or on different locks
-> > but the same CPU, equals smp_mb() except on powerpc. Which is why
-> > we have smp_mb__after_unlock_lock(). But what you describe is quite
-> > different.
-> > 
-> > Is this something that we should expect litmus to modelize?
-> 
-> IIRC these commits:
-> 
-> 6e89e831a901 ("tools/memory-model: Add extra ordering for locks and remove it for ordinary release/acquire")
-> ddfe12944e84 ("tools/memory-model: Provide extra ordering for unlock+lock pair on the same CPU")
-> 
-> Were supposed to handle:
-> 
-> 	CPU0		CPU1
-> 
-> 	UNLOCK(A)
-> 			LOCK(A)
-> 
-> and
-> 
-> 	CPU0
-> 
-> 	UNLOCK(A)
-> 	LOCK(B)
-> 
-> respectively. I'm forever confused by the actual CAT stuff, nor am I
-> particularly adept at these litmus things. Boqun, Alan?
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-You got it right.  The required ordering is that instructions before 
-(and on the same CPU as) the unlock are ordered before instructions 
-after (and on the same CPU as) the lock for read->read, read->write, and 
-write->write cases, but not for write->read cases.  Furthermore, this 
-ordering requirement applies from the point of view of all CPUs, whether 
-they access the lock variables or not.  In other words, the ordering is 
-required to be RCtso.
+------------------
 
-This ordering is weaker than full smp_mb() in two respects:
+From: Marek Czernohous <marek@czernohous.de>
 
-	As mentioned above, it doesn't order earlier writes against
-	later reads;
+commit 511585987d27d8cb668acebd399fc4deda23404c upstream.
 
-	In the WRITE->WRITE case, the guarantee is only that each CPU
-	will observe the first write before it observes the second.
-	There is no guarantee that _every_ CPU will observe the first
-	write before _any_ of them observe the second.
+nouveau_channel_del() tears the fence context down first and only drops
+the channel-kill subscription later, in the middle of the nvif object
+teardown:
 
-Alan Stern
+	if (chan->fence)
+		nouveau_fence(chan->cli->drm)->context_del(chan);
+	...
+	nvif_object_dtor(&chan->vram);
+	nvif_event_dtor(&chan->kill);
+
+The subscribed handler is nouveau_channel_killed(), which calls
+nouveau_channel_kill() and from there nouveau_fence_context_kill() on
+chan->fence. A kill event delivered in that window takes fctx->lock and
+walks fctx->pending on a fence context that context_del() has already
+freed.
+
+Nothing reaches this below Fermi today, because the subscription is
+gated on FERMI_CHANNEL_GPFIFO and nothing kills a channel there. On
+Fermi and newer the window is real but narrow, since a kill has to land
+exactly while the channel is being destroyed. That is reason enough on
+its own, which is why this carries a Fixes: tag. The last patch in this
+series subscribes Tesla channels as well; nothing kills those today, so
+it does not widen the exposure now, but it is the groundwork for a
+recovery path that would, and the ordering is better fixed before that
+lands than alongside it.
+
+Drop the subscription before anything it depends on is torn down.
+
+Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260812231330.705425-2-mczernohous@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/nouveau/nouveau_chan.c |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/nouveau/nouveau_chan.c
++++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+@@ -90,6 +90,14 @@ nouveau_channel_del(struct nouveau_chann
+ {
+ 	struct nouveau_channel *chan = *pchan;
+ 	if (chan) {
++		/*
++		 * Drop the kill-event subscription first.  Its handler
++		 * dereferences chan->fence, which the fence context teardown
++		 * below frees, so leaving it armed across the teardown leaves
++		 * a window for a use-after-free.
++		 */
++		nvif_event_dtor(&chan->kill);
++
+ 		if (chan->fence)
+ 			nouveau_fence(chan->cli->drm)->context_del(chan);
+ 
+@@ -100,7 +108,6 @@ nouveau_channel_del(struct nouveau_chann
+ 		nvif_object_dtor(&chan->nvsw);
+ 		nvif_object_dtor(&chan->gart);
+ 		nvif_object_dtor(&chan->vram);
+-		nvif_event_dtor(&chan->kill);
+ 		nvif_object_dtor(&chan->user);
+ 		nvif_mem_dtor(&chan->mem_userd);
+ 		nouveau_vma_del(&chan->sema.vma);
+
+
