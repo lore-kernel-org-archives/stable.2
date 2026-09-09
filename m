@@ -1,39 +1,43 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 175F65437F7;
-	Wed,  9 Sep 2026 11:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAF75452B5
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953910; cv=none; b=iDCSLzed5u00T2ScJXpP5xKXVmanL9tpA9ZyAwWgqh3cq/OFwB2s2jucnmadv1a7+B74H8L/d/Pex3Y7jD2MaocOgQaLt6UoxG+iLV6rRPniNpbFAwPSfJt8LMBK5isG6o3Beu03Ijz/IDrRBao34Mvt3Zmdzvr/TASDBYZpjrQ=
+	t=1788954041; cv=none; b=u4bl2xoTKmWtO4xl0UzMqubTehMsnbGRdEoZj4ofIFfM05vb1WFvK7VYmT3DrryfvEhDJLdio42zIGDrmCVPz8kPQ8/5J8rH+IB75RYfVDH1VfHz8c1i6Mjfga3mDOc16cXvp9ozVJF8cJ8xMgRAApkSzGchxakfKCpwkuBwXi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953910; c=relaxed/simple;
-	bh=U+9X/a/Q3cvpmAgFmGTelD3t+Kqk1ZK5Jvg5E874iX4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cXDomnv9yGMu7Y7KFe55CXK6WSu0/fyvqNYKoHq2Zew88V/KUVhCcDk8qtxWnBXeGn+ndQFVblviT/yV4HwxEVKvwe8vY5rOWOYHmjiWgSd2nkgSZh57tovPKRIV9ropjal5IQ1Fvsq6spGr7mpnYk4/a6OTXO176Pg3rt6Ah9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDn7zcYRaFqQxMDAQ--.34631S3;
-	Wed, 09 Sep 2026 19:38:01 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDnedAWRaFqjdhmBA--.25001S2;
-	Wed, 09 Sep 2026 19:37:58 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH v3] ext4: fix discard work use-after-free on failed mount
-Date: Wed,  9 Sep 2026 11:37:03 +0000
-Message-Id: <20260909113703.698544-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788954041; c=relaxed/simple;
+	bh=y2h8mfjv2GrsqRktQjJcOl1Os6kMU6PJ1YjyISa8Xy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QDDJFWXlNl4dz8987e+j628qFh4hOxDw5SjFV77gA7l2BH0OU0vn8kW04k8spuIR3S24Pxx2YraqtIQpQcUOXzzRpisr9W1cVUN5TLPM2jp290doeGR8juz6FdDXz8nNOG2V/CPq3Rst6tOTvunmC11lL4dU9M9Dyt1lqtw3Ehg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2lU+oM6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2lU+oM6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6D91F00A3A;
+	Wed,  9 Sep 2026 11:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788954040;
+	bh=NIbrjWZfY8gvqRfWAQfix0Pgougig3OF4hl2r0kmhKo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=X2lU+oM6mz1lHh0utickj7KfEn4UkNb8aMEDsWB+V2JZBtJOcDXLnbV3Hnxx+FD6k
+	 afKeVDap3+r6y/MJIwoBy1HqJPzjIk/sLB1TuMA8c5VQSpFs8yyLF2es9tgv+sclHd
+	 l8XA4qjjmIOy+iVjU4mYBqxVPeOb8mi7pkIo+CPyNYqOXqgOX9z+d+CKga1C/UhFjE
+	 us0OQTU5GGa54oDDfxDpleUXWs59IJYuFSl4pC/eDf5+poSPUJ6FoYsPoKwHzaUT+w
+	 jUGFr75mLEK5ZO3kwLAIk5E15uFMQpfVamuirT7uVUWzRHWwAD5aqqulbEb73u+n0q
+	 uEeKqFwduoOWg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neilb@suse.de>,
+	Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] filelock: split common fields into struct file_lock_core
+Date: Wed,  9 Sep 2026 07:40:37 -0400
+Message-ID: <20260909114038.1915471-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090351-huskiness-ecosphere-5753@gregkh>
+References: <2026090351-huskiness-ecosphere-5753@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,116 +45,148 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDnedAWRaFqjdhmBA--.25001S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?vx2W+wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1k4dmeOS3OpjqUz8I0yaYTVcD3I9J1X63PfSqexTU06tE1
-	bOoQkt5yl/qIxVUiZo2p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF1fCr1fXr17WFyfXryUXFc_yoWrAF4fpr
-	sxAF17KryDXry0kw47ua1xXFy8Ka1ruay7Wryxur4Uu39IqryfAFZrtF1Y9F4jkrWkCa1a
-	vF1DK347WFW5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeAp5UUUUU=
 
-ext4_put_super() shuts the journal down before it releases the mballoc
-structures, but the failure unwind of __ext4_fill_super() runs the two
-steps in the opposite order: failed_mount6 calls ext4_mb_release(),
-which flushes sbi->s_discard_work, and the journal is destroyed only
-later, just above failed_mount3a.
+From: Jeff Layton <jlayton@kernel.org>
 
-With -o discard, that journal destroy re-arms the work after the flush:
-ext4_journal_destroy() calls ext4_force_commit(), and the commit
-callback, registered once mballoc is initialized, queues s_discard_work
-whenever the discard option is set, even with an empty freed-data list.
-A running transaction can be live at that point: replaying the orphan
-list is the easiest way to get one, and the quota paths on
-failed_mount8/failed_mount9 can leave one too. The final force commit
-is not necessarily a no-op.
+[ Upstream commit a69ce85ec9af6bdc0b3511959a7dc1a324e5e16a ]
 
-Nothing drains s_discard_work after that point: failed_mount3 flushes
-only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
-then frees sbi with a plain kfree() through ext4_free_sbi(). If the
-system_dfl_wq worker is delayed across the rest of the unwind,
-ext4_discard_work() then accesses the freed sbi, first through
-sbi->s_sb and then while taking sbi->s_md_lock.
+In a future patch, we're going to split file leases into their own
+structure. Since a lot of the underlying machinery uses the same fields
+move those into a new file_lock_core, and embed that inside struct
+file_lock.
 
-This is the pattern fixed for the s_err_report timer in commit
-0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
-async state armed after the unwind's last drain point.
+For now, add some macros to ensure that we can continue to build while
+the conversion is in progress.
 
-Force the commit at failed_mount6, before ext4_mb_release(), so that
-the discard work its commit callback queues is normally already
-pending when the flush_work() in ext4_mb_release() runs.
-disable_work_sync() there then makes this airtight: it also drains an
-instance the flush missed, and no later commit, including the force
-commit inside the journal destroy further down the unwind, can
-requeue the work. The journal destroy stays at its existing position.
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://lore.kernel.org/r/20240131-flsplit-v3-17-c6129007ee8d@kernel.org
+Reviewed-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
 
-This issue was found by an in-house static analysis tool.
+[6.1 dependency adaptation]
+The stable tree still defines struct file_lock in include/linux/fs.h and
+has neither the separate filelock.h header nor the later locking helpers.
+Define file_lock_core in the existing header, retaining the stable tree's
+unsigned fl_pid type. Embed the core in an anonymous union with matching
+legacy fields so existing users and trace-event field names continue to
+work without global field-name macros or a tree-wide conversion.
 
-Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
-Cc: stable@vger.kernel.org # v6.10+
-Reviewed-by: Jan Kara <jack@suse.cz>
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Use c.flc_owner in nlmclnt_locks_init_private(), with upstream formatting,
+to prepare the exact context required by 4c7fc129db061 ("lockd: fix NULL
+dereference on lockowner allocation failure"). Leave that fix itself to
+the target commit. Drop the unused macro-enabling includes, conversions
+of absent helpers, and unrelated whitespace changes. No functions are
+added.
+
+[ sashal: Reduced backport -- upstream a69ce85ec9af6 touches 24 file(s), this
+  backport carries 2. Not backported here:
+  fs/9p/vfs_file.c
+  fs/afs/internal.h
+  fs/ceph/locks.c
+  fs/dlm/plock.c
+  fs/fuse/file.c
+  fs/gfs2/file.c
+  fs/locks.c
+  fs/nfsd/netns.h
+  ... and 15 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 4c7fc129db06 ("lockd: fix NULL dereference on lockowner allocation failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v3: address review nits from Jan Kara: simplify the failed_mount6
-    comment and drop the redundant sbi->s_journal check in
-    ext4_force_commit()'s callers. Reviewed-by was obtained on v2.
-v2: keep the journal shutdown at its existing point instead of
-    destroying the journal at failed_mount6, per review from Jan Kara:
-    force the outstanding transaction there so the re-arm happens
-    before the ext4_mb_release() flush, and disable_work_sync() the
-    discard work after the flush.
-    https://lore.kernel.org/linux-ext4/20260909054124.657782-1-fanwu01@zju.edu.cn/
-v1: https://lore.kernel.org/linux-ext4/20260820052102.4616-1-fanwu01@zju.edu.cn/
----
- fs/ext4/mballoc.c | 2 ++
- fs/ext4/super.c   | 6 ++++++
- 2 files changed, 8 insertions(+)
+ fs/lockd/clntproc.c |  3 ++-
+ include/linux/fs.h  | 56 ++++++++++++++++++++++++++++++++-------------
+ 2 files changed, 42 insertions(+), 17 deletions(-)
 
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index ed1bd00e11cd..874b71931ab6 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -3897,6 +3897,8 @@ void ext4_mb_release(struct super_block *sb)
- 	 * wait the discard work to drain all of ext4_free_data
- 	 */
- 	flush_work(&sbi->s_discard_work);
-+	/* Prevent the later journal teardown from requeueing discard work. */
-+	disable_work_sync(&sbi->s_discard_work);
- 	WARN_ON_ONCE(!list_empty(&sbi->s_discard_list));
+diff --git a/fs/lockd/clntproc.c b/fs/lockd/clntproc.c
+index b11f2afa84f1f..a00729a9acd58 100644
+--- a/fs/lockd/clntproc.c
++++ b/fs/lockd/clntproc.c
+@@ -479,7 +479,8 @@ static const struct file_lock_operations nlmclnt_lock_ops = {
+ static void nlmclnt_locks_init_private(struct file_lock *fl, struct nlm_host *host)
+ {
+ 	fl->fl_u.nfs_fl.state = 0;
+-	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host, fl->fl_owner);
++	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host,
++						       fl->c.flc_owner);
+ 	INIT_LIST_HEAD(&fl->fl_u.nfs_fl.list);
+ 	fl->fl_ops = &nlmclnt_lock_ops;
+ }
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 41b3ebe4e8e71..39da769c80e0f 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1101,6 +1101,25 @@ bool opens_in_grace(struct net *);
+ /* that will die - we need it for nfs_lock_info */
+ #include <linux/nfs_fs_i.h>
  
- 	group_info = rcu_access_pointer(sbi->s_group_info);
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 4b6112e5d6c5..37dc6b5f20c6 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5761,6 +5761,12 @@ failed_mount8: __maybe_unused
- failed_mount7:
- 	ext4_unregister_li_request(sb);
- failed_mount6:
-+	/*
-+	 * We can have a running transaction from orphan replay or quota
-+	 * setup. Commit it so that discard work after commit runs before
-+	 * we shutdown mballoc.
-+	 */
-+	ext4_force_commit(sb);
- 	ext4_mb_release(sb);
- 	ext4_flex_groups_free(sbi);
- failed_mount5:
++struct file_lock_core {
++	struct file_lock *flc_blocker;	/* The lock that is blocking us */
++	struct list_head flc_list;	/* link into file_lock_context */
++	struct hlist_node flc_link;	/* node in global lists */
++	struct list_head flc_blocked_requests;	/* list of requests with
++						 * ->fl_blocker pointing here
++						 */
++	struct list_head flc_blocked_member;	/* node in
++						 * ->fl_blocker->fl_blocked_requests
++						 */
++	fl_owner_t flc_owner;
++	unsigned int flc_flags;
++	unsigned char flc_type;
++	unsigned int flc_pid;
++	int flc_link_cpu;		/* what cpu's list is this on? */
++	wait_queue_head_t flc_wait;
++	struct file *flc_file;
++};
++
+ /*
+  * struct file_lock represents a generic "file lock". It's used to represent
+  * POSIX byte range locks, BSD (flock) locks, and leases. It's important to
+@@ -1119,22 +1138,27 @@ bool opens_in_grace(struct net *);
+  * Obviously, the last two criteria only matter for POSIX locks.
+  */
+ struct file_lock {
+-	struct file_lock *fl_blocker;	/* The lock, that is blocking us */
+-	struct list_head fl_list;	/* link into file_lock_context */
+-	struct hlist_node fl_link;	/* node in global lists */
+-	struct list_head fl_blocked_requests;	/* list of requests with
+-						 * ->fl_blocker pointing here
+-						 */
+-	struct list_head fl_blocked_member;	/* node in
+-						 * ->fl_blocker->fl_blocked_requests
+-						 */
+-	fl_owner_t fl_owner;
+-	unsigned int fl_flags;
+-	unsigned char fl_type;
+-	unsigned int fl_pid;
+-	int fl_link_cpu;		/* what cpu's list is this on? */
+-	wait_queue_head_t fl_wait;
+-	struct file *fl_file;
++	union {
++		struct file_lock_core c;
++		/*
++		 * Legacy aliases for the common core. Keep this layout in sync
++		 * with struct file_lock_core.
++		 */
++		struct {
++			struct file_lock *fl_blocker;
++			struct list_head fl_list;
++			struct hlist_node fl_link;
++			struct list_head fl_blocked_requests;
++			struct list_head fl_blocked_member;
++			fl_owner_t fl_owner;
++			unsigned int fl_flags;
++			unsigned char fl_type;
++			unsigned int fl_pid;
++			int fl_link_cpu;
++			wait_queue_head_t fl_wait;
++			struct file *fl_file;
++		};
++	};
+ 	loff_t fl_start;
+ 	loff_t fl_end;
+ 
+-- 
+2.53.0
 
