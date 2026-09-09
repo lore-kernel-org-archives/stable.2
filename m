@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F13E37F006
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855BC3D669D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945971; cv=none; b=kPCSX4WM+zfXdBgvRPpRuPgELp7M1weHDGnDukS2MQKE4OFqIp5baiOSN+utS/sABwhJ5ToaXocY9wCCXdkBBE8V6mQRYNBwP7WM9felJIwG7p8/iNNw4/S/hAbbAzD+0qBRkUoeRHZuIAdC/EVxdbX5dlnxvr6ow4xqREfJF34=
+	t=1788945971; cv=none; b=obZ6SIAPQPE9m5Lu9MaM/UVYqh1J7vafNUV5oMDlwihZEYj7mux/NSxOu/oxuFQIhJMR1jLNvvDlada89TFjMc7tBV0gJ4dakXKFjwPmglMFbzk1C8UqfBHeUK2eQeT4GEB4D1baaa9tOzWPVrtyTGiD9cEP6Jl2Y42DzUEZ6UU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788945971; c=relaxed/simple;
-	bh=kDklEb3HmZ8B0IdW2kViAHKSJvuDYjEbKDAE55vLld0=;
+	bh=IWJpRKhaCb2+epJ7n+DEv4xLmao7oJUoLK3MTjVeD8A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U+Z+g29OHZ3fMu7Mbi29bFb45FnrT3k1lfQ0J2oq+vIOFloCcoNKUZCv23miQy9xfhwDMgMhTwNf5yGuHYK9T6Qv3BlekZ+O+rndH99fZv6kgWAklI/7/9qNyF99dOdBr9RoLiJw+ynKfYjQOB1kcQWAX7xfUkEOPTOOr/yWB90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lROWlM8i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ii06nQf4GVE4DJbEK6KoT8/HMLLq2J5rapXHsqeNXgGB3ML8ib8Fae/618WKhcbRrBKcyYb73tsnnGlor1owMsGIlxFXQ2JIuJ669ITHmr8YRR8Iig19D0JDopY6uaPHwAdad86ZQ/1ckqmxIlS9hzSyoyoQnervVghUKf/sPiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nef29YXL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lROWlM8i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA2B1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nef29YXL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E028D1F00A3F;
 	Wed,  9 Sep 2026 09:26:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788945969;
-	bh=3s/6LmBBB6L11FNxPFQZ/NbiM7eyX25elB+SqnDRU2Y=;
+	s=k20260515; t=1788945970;
+	bh=LQNaC8C739AmcSDQHlUJ+4I92WR4iUOwKeWxzWkyrpw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lROWlM8iHwoWBIz4ZOEzDDM7PiBm605fvitQnyGFU4bLmzwPByLs6jfyCkNpsWhy8
-	 mhkm1FD/wUoiM+xq5ifzxP5S1bdwp6t5+GP0j1xriGWvAY9Z9KZMEVXmE2kbmAKzvq
-	 Eh1gBwyWGJlVvPQ0snRWWAJpxCxVoAs12dVSgcMOttqJHOjYefHblGlDZieC3ov3NY
-	 aWTpwbCcLUSHVF9pV7FXBqgW/iBluQJZM9Bz+WXkpt5KHzAR/YkNCOGrPN0qPOUuOs
-	 LEGrqlWWLTYhL9M6sY3oyNEtUjmLWjo0QmqsG5nMiTLmjz4OIjHWKBvykk1GNjj3Ie
-	 YdMWIvHcGC+dQ==
+	b=nef29YXLbvg5PLk4uvIW4rY7yEugtntb2D5KqbEn2mzb9vyREtQmdWCul/J7ZBcwo
+	 4UDhNXnNZYUIMXbH+IRdmxfM6z+EgL5iEeR9GpByyY+EztUGhAvUzoFYUyTBZvVUPz
+	 nj3HMqe9cbqxuhG3H2uUmcO6Ey1vnAw0+i5RllcwGe64LVe0rCV9oDOuHrX33CqGQT
+	 Otn/3q4wltEazIWLN9BdoSX3vC6BA1QS9UuE02u9dN4qqq+QTfjYNDv1TbtBuqnZeH
+	 V2j6MkTFRfBPOtMVdRN8pK/bxAtAHOaxhL7RXjdLPrPn8ExperyUvW7e32hbgafww2
+	 ztF9ncJPdlw4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] svcrdma: Add back svcxprt_rdma::sc_read_complete_q
-Date: Wed,  9 Sep 2026 05:26:05 -0400
-Message-ID: <20260909092606.1293505-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] svcrdma: Validate Read chunk positions before reconstruction
+Date: Wed,  9 Sep 2026 05:26:06 -0400
+Message-ID: <20260909092606.1293505-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909092606.1293505-1-sashal@kernel.org>
 References: <2026090309-wooing-reassign-9ecf@gregkh>
@@ -47,120 +48,159 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit a937693a82fd2211c5e52b638959d1486a77d16a ]
+[ Upstream commit 3779b7b9e7d1c8ba4738f9d327de3b0288cefe9b ]
 
-Having an nfsd thread waiting for an RDMA Read completion is
-problematic if the Read responder (ie, the client) stops responding.
-We need to go back to handling RDMA Reads by allowing the nfsd
-thread to return to the svc scheduler, then waking a second thread
-finish the RPC message once the Read completion fires.
+The RPC/RDMA Read chunk position field is supplied by the remote
+client and stored verbatim in the parsed chunk list.
+xdr_count_read_segments() checks only 4-byte alignment; it never
+compares the position against the received inline body length.
 
-As a next step, add a list_head upon which completed Reads are queued.
-A subsequent patch will make use of this queue.
+In the single-chunk path, svc_rdma_read_complete_one() splits the
+head and tail kvecs at ch_position. A position past the inline
+body underflows the tail length, exposing adjacent slab memory to
+the upper XDR decoder.
 
+In the multi-chunk path, svc_rdma_read_multiple_chunks() computes
+gap lengths between chunks as unsigned subtractions from
+ch_position. Overlapping Read chunks cause these subtractions to
+underflow. A final position past the inline body likewise
+underflows the trailing gap length. svc_rdma_copy_inline_range()
+then copies past the receive buffer into request pages that are
+returned to the client through the Reply channel.
+
+Bound inline-range copies in svc_rdma_copy_inline_range() against
+the decoded inline RPC body saved in rc_saved_arg. Reject a
+single Read chunk positioned beyond that body, and reject
+multi-chunk lists where accumulated read bytes exceed the next
+chunk's position. Apply the same position and overlap checks in
+the call-chunk interleaving path.
+
+Fixes: d96962e6d0e2 ("svcrdma: Use the new parsed chunk list when pulling Read chunks")
+Cc: stable@vger.kernel.org
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-1-e251306ccca9@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 3779b7b9e7d1 ("svcrdma: Validate Read chunk positions before reconstruction")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svc_rdma.h          |  1 +
- net/sunrpc/xprtrdma/svc_rdma_recvfrom.c  | 37 +++++++++++++++++++++++-
- net/sunrpc/xprtrdma/svc_rdma_transport.c |  1 +
- 3 files changed, 38 insertions(+), 1 deletion(-)
+ net/sunrpc/xprtrdma/svc_rdma_rw.c | 38 ++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
-index 12ffe6d43b9dc..a702a6cb2a035 100644
---- a/include/linux/sunrpc/svc_rdma.h
-+++ b/include/linux/sunrpc/svc_rdma.h
-@@ -97,6 +97,7 @@ struct svcxprt_rdma {
- 	u32		     sc_pending_recvs;
- 	u32		     sc_recv_batch;
- 	struct list_head     sc_rq_dto_q;
-+	struct list_head     sc_read_complete_q;
- 	spinlock_t	     sc_rq_dto_lock;
- 	struct ib_qp         *sc_qp;
- 	struct ib_cq         *sc_rq_cq;
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index a6eecdc592412..fd8e1a3b86837 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -378,6 +378,10 @@ void svc_rdma_flush_recv_queues(struct svcxprt_rdma *rdma)
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index e2d64fffb9011..d69ead353b8fc 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -792,7 +792,7 @@ static int svc_rdma_build_read_chunk(struct svc_rqst *rqstp,
+  * svc_rdma_copy_inline_range - Copy part of the inline content into pages
+  * @rqstp: RPC transaction context
+  * @head: context for ongoing I/O
+- * @offset: offset into the Receive buffer of region to copy
++ * @offset: offset into the inline content of region to copy
+  * @remaining: length of region to copy
+  *
+  * Take a page at a time from rqstp->rq_pages and copy the inline
+@@ -809,9 +809,13 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
+ 				      unsigned int offset,
+ 				      unsigned int remaining)
  {
- 	struct svc_rdma_recv_ctxt *ctxt;
+-	unsigned char *dst, *src = head->rc_recv_buf;
++	unsigned char *dst, *src = head->rc_saved_arg.head[0].iov_base;
++	unsigned int inline_len = head->rc_saved_arg.head[0].iov_len;
+ 	unsigned int page_no, numpages;
  
-+	while ((ctxt = svc_rdma_next_recv_ctxt(&rdma->sc_read_complete_q))) {
-+		list_del(&ctxt->rc_list);
-+		svc_rdma_recv_ctxt_put(rdma, ctxt);
-+	}
- 	while ((ctxt = svc_rdma_next_recv_ctxt(&rdma->sc_rq_dto_q))) {
- 		list_del(&ctxt->rc_list);
- 		svc_rdma_recv_ctxt_put(rdma, ctxt);
-@@ -765,6 +769,30 @@ static bool svc_rdma_is_reverse_direction_reply(struct svc_xprt *xprt,
- 	return true;
- }
++	if (offset > inline_len || remaining > inline_len - offset)
++		return -EINVAL;
++
+ 	numpages = PAGE_ALIGN(head->rc_pageoff + remaining) >> PAGE_SHIFT;
+ 	for (page_no = 0; page_no < numpages; page_no++) {
+ 		unsigned int page_len;
+@@ -862,9 +866,10 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
+ {
+ 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
+ 	struct svc_rdma_chunk *chunk, *next;
+-	unsigned int start, length;
++	unsigned int inline_len, start, length;
+ 	int ret;
  
-+static noinline void svc_rdma_read_complete(struct svc_rqst *rqstp,
-+					    struct svc_rdma_recv_ctxt *ctxt)
-+{
-+	int i;
-+
-+	/* Transfer the Read chunk pages into @rqstp.rq_pages, replacing
-+	 * the rq_pages that were already allocated for this rqstp.
-+	 */
-+	release_pages(rqstp->rq_respages, ctxt->rc_page_count);
-+	for (i = 0; i < ctxt->rc_page_count; i++)
-+		rqstp->rq_pages[i] = ctxt->rc_pages[i];
-+
-+	/* Update @rqstp's result send buffer to start after the
-+	 * last page in the RDMA Read payload.
-+	 */
-+	rqstp->rq_respages = &rqstp->rq_pages[ctxt->rc_page_count];
-+	rqstp->rq_next_page = rqstp->rq_respages + 1;
-+
-+	/* Prevent svc_rdma_recv_ctxt_put() from releasing the
-+	 * pages in ctxt::rc_pages a second time.
-+	 */
-+	ctxt->rc_page_count = 0;
-+}
-+
- /**
-  * svc_rdma_recvfrom - Receive an RPC call
-  * @rqstp: request structure into which to receive an RPC Call
-@@ -809,8 +837,14 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
++	inline_len = head->rc_saved_arg.head[0].iov_len;
+ 	start = 0;
+ 	chunk = pcl_first_chunk(pcl);
+ 	length = chunk->ch_position;
+@@ -882,6 +887,8 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
+ 			break;
  
- 	rqstp->rq_xprt_ctxt = NULL;
- 
--	ctxt = NULL;
- 	spin_lock(&rdma_xprt->sc_rq_dto_lock);
-+	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_read_complete_q);
-+	if (ctxt) {
-+		list_del(&ctxt->rc_list);
-+		spin_unlock_bh(&rdma_xprt->sc_rq_dto_lock);
-+		svc_rdma_read_complete(rqstp, ctxt);
-+		goto complete;
-+	}
- 	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_rq_dto_q);
- 	if (ctxt)
- 		list_del(&ctxt->rc_list);
-@@ -848,6 +882,7 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
- 			goto out_readfail;
+ 		start += length;
++		if (head->rc_readbytes > next->ch_position)
++			return -EINVAL;
+ 		length = next->ch_position - head->rc_readbytes;
+ 		ret = svc_rdma_copy_inline_range(rqstp, head, start, length);
+ 		if (ret < 0)
+@@ -889,7 +896,9 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
  	}
  
-+complete:
- 	rqstp->rq_xprt_ctxt = ctxt;
- 	rqstp->rq_prot = IPPROTO_MAX;
- 	svc_xprt_copy_addrs(rqstp, xprt);
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index b8d13b522298b..90eeddc5c95f6 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -134,6 +134,7 @@ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
- 	svc_xprt_init(net, &svc_rdma_class, &cma_xprt->sc_xprt, serv);
- 	INIT_LIST_HEAD(&cma_xprt->sc_accept_q);
- 	INIT_LIST_HEAD(&cma_xprt->sc_rq_dto_q);
-+	INIT_LIST_HEAD(&cma_xprt->sc_read_complete_q);
- 	init_llist_head(&cma_xprt->sc_send_ctxts);
- 	init_llist_head(&cma_xprt->sc_recv_ctxts);
- 	init_llist_head(&cma_xprt->sc_rw_ctxts);
+ 	start += length;
+-	length = head->rc_byte_len - start;
++	if (start > inline_len)
++		return -EINVAL;
++	length = inline_len - start;
+ 	return svc_rdma_copy_inline_range(rqstp, head, start, length);
+ }
+ 
+@@ -914,8 +923,12 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
+ static int svc_rdma_read_data_item(struct svc_rqst *rqstp,
+ 				   struct svc_rdma_recv_ctxt *head)
+ {
+-	return svc_rdma_build_read_chunk(rqstp, head,
+-					 pcl_first_chunk(&head->rc_read_pcl));
++	struct svc_rdma_chunk *chunk = pcl_first_chunk(&head->rc_read_pcl);
++
++	if (chunk->ch_position > head->rc_saved_arg.head[0].iov_len)
++		return -EINVAL;
++
++	return svc_rdma_build_read_chunk(rqstp, head, chunk);
+ }
+ 
+ /**
+@@ -984,14 +997,17 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
+ 			pcl_first_chunk(&head->rc_call_pcl);
+ 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
+ 	struct svc_rdma_chunk *chunk, *next;
+-	unsigned int start, length;
++	unsigned int call_len, start, length;
+ 	int ret;
+ 
+ 	if (pcl_is_empty(pcl))
+ 		return svc_rdma_build_read_chunk(rqstp, head, call_chunk);
+ 
++	call_len = call_chunk->ch_length;
+ 	start = 0;
+ 	chunk = pcl_first_chunk(pcl);
++	if (chunk->ch_position > call_len)
++		return -EINVAL;
+ 	length = chunk->ch_position;
+ 	ret = svc_rdma_read_chunk_range(rqstp, head, call_chunk,
+ 					start, length);
+@@ -1008,6 +1024,10 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
+ 			break;
+ 
+ 		start += length;
++		if (next->ch_position > call_len)
++			return -EINVAL;
++		if (head->rc_readbytes > next->ch_position)
++			return -EINVAL;
+ 		length = next->ch_position - head->rc_readbytes;
+ 		ret = svc_rdma_read_chunk_range(rqstp, head, call_chunk,
+ 						start, length);
+@@ -1016,7 +1036,9 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
+ 	}
+ 
+ 	start += length;
+-	length = call_chunk->ch_length - start;
++	if (start > call_len)
++		return -EINVAL;
++	length = call_len - start;
+ 	return svc_rdma_read_chunk_range(rqstp, head, call_chunk,
+ 					 start, length);
+ }
 -- 
 2.53.0
 
