@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6F8319871;
-	Wed,  9 Sep 2026 05:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EAB2931FE;
+	Wed,  9 Sep 2026 05:08:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788930330; cv=none; b=Cs27tj3lspmb2uCbTZSywzVfEK+OxsK0PknZ9Yo7SveAAPEjBkVDuboYvHPDK08dGfAkbjkzSo/2/iWOKqZyFTIf/skilP4VidT1pCgocQ+6an8zhRUyj1044OaURrcLYsfmoqnHBbPPnatkeO+4waS3DU2GMy+WT+BvTTAfwMs=
+	t=1788930482; cv=none; b=R39+DizK5CeEgLejRaoQrGVPsiuy7mv3LBNLyvXc99U/oEl+k68EoL/WbhVknofLNK/bVWCEgZR52uz0rW71wHaV6TID0WJgEa4pyJ0iVjpv7kxPjydGFUuCFeXFD9kvEr3Gl78cbhaFIzIZwPRt7d4SzpA58/5deI+9enmJU4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788930330; c=relaxed/simple;
-	bh=2m3RnXggoutYyElQ44Y+SOEfADJnIcP67/KCPmQ69c4=;
+	s=arc-20240116; t=1788930482; c=relaxed/simple;
+	bh=yxyCtlXZryrpANBaTXHTQ7JagPYx9B118GCuMkERp/k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HV4HrfCg2NqbSvDJee1DyE+1Ni06QFWqGbOqagA9tglsxfXWWjw792vg/FS6RziRCkHp+GGR/6TqboZfH389AYyYGk6XVr1s/WyQ0mILz+of882URm3jLkODGhJXtK/bPA6OZNfqUBQIwyirjvhz8NXhcGzK9d4ccFDNrVl8y8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLk+orVU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s17pA/TZsK+boCokv/osh/ho0QjBRbHH1f/v/4TxsOu73X7UKKuC61VFxuUNqSK26zWl7x9xz6pLjgPtFZnmrfoU4QUz3HxyfAZQCAGljAmrNsdAaaG+wT1g1e6kHNt8Reqv3tkXezt7hD2OqNnVtRk237I88UBCBqrip/t7Zxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JJEmE1Bo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLk+orVU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20461F00A3A;
-	Wed,  9 Sep 2026 05:05:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JJEmE1Bo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87471F00A3A;
+	Wed,  9 Sep 2026 05:08:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788930329;
-	bh=VHUvPRGtcMv4bUblSInyXoucW0/pTM/YvtBuq9gWU6w=;
+	s=k20260515; t=1788930480;
+	bh=seXS5XTS+FPlWs6Hrjlu5q9H7f9qaWnrbuwB3zY33Vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OLk+orVUXnvABUe50CRiMYsR8a0/qU0+FdbLID0TJetBaXqzCb3lBDGc/NJAtiTdF
-	 wj3OgaeKBXGunS1u4ML/kblbVDamAUQiHjyw9Fju+fTAws1BijpejcS392jsObj2it
-	 RFcXTIw2nT0mhM8ZDbzAcepZFpmmsb/ufyTdBNBywkRjjqTsAbKEvGWUOo7nt8CfZn
-	 hmYebxBKUZYY7g+rr3vEJFuXv8ZLbS/sNbIVssUZq/V44+WvzHpO4uicIgb8KHkhrF
-	 aiCkcx2me8xVPZWfL+7ubWEhXpgufLf3BS3achULGzU8MsYcP5nIPPOuObDnN3UARC
-	 Q4lEGAzHM9VwQ==
+	b=JJEmE1Bo0GTSzcE+r1bK4jkE/VF84XZ3LVu2Abs8HZf/4RrWiOqj3/YqiYstNV1Ik
+	 lEWkU9PcfOnFxVP0vUzIKbIWqkVnpSyOcAr8OCLgwiRkb2Hck53Fgwnrp7aqCAfvbB
+	 lK5M4gk/3DVd19/r2g/v0lsrrvHakJ5x/UEmdK6uC+ZZ9hEHatLGwS2OLxtPLDDB+3
+	 SDAGk+17JGktPB8o6lxWK1JGIoJpeP0dFT1LEuI55+zNSuYwyuKVbBEPsdrPd7VFzg
+	 JLacEO6BTQk+OLsJa2s9moUdD+xekLggy768ooDNXnFUTf0EHih+2GNj+chEXr/B+v
+	 SzMeAcc0kbTww==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/damon/ops-common: use nr_accesses moving sum for quota score
-Date: Tue,  8 Sep 2026 22:05:21 -0700
-Message-ID: <20260909050521.225965-1-sj@kernel.org>
+Subject: [PATCH 7.2.y] mm/damon/ops-common: use nr_accesses moving sum for quota score
+Date: Tue,  8 Sep 2026 22:07:53 -0700
+Message-ID: <20260909050753.232078-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090846-defendant-neglector-22c4@gregkh>
-References: <2026090846-defendant-neglector-22c4@gregkh>
+In-Reply-To: <2026090846-diffusive-headfirst-c45d@gregkh>
+References: <2026090846-diffusive-headfirst-c45d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,10 +72,10 @@ Signed-off-by: SJ Park <sj@kernel.org>
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index ceaa2a6e1c9a3..929aab600c745 100644
+index 0bcad6b1e5b9e..6a969b1d29871 100644
 --- a/mm/damon/ops-common.c
 +++ b/mm/damon/ops-common.c
-@@ -101,8 +101,9 @@ int damon_hot_score(struct damon_ctx *c, struct damon_region *r,
+@@ -111,8 +111,9 @@ int damon_hot_score(struct damon_ctx *c, struct damon_region *r,
  	unsigned int age_weight = s->quota.weight_age;
  	int hotness;
  
@@ -86,7 +86,7 @@ index ceaa2a6e1c9a3..929aab600c745 100644
 +			damon_max_nr_accesses(&c->attrs));
  
  	age_in_sec = (unsigned long)r->age * c->attrs.aggr_interval / 1000000;
- 	for (age_in_log = 0; age_in_log < DAMON_MAX_AGE_IN_LOG && age_in_sec;
+ 	if (age_in_sec)
 -- 
 2.47.3
 
