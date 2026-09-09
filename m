@@ -1,88 +1,83 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBF545FFBB;
-	Wed,  9 Sep 2026 08:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F184915BA
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940966; cv=none; b=g93k7FkDsBxu2qTDR494RAHfQIjlYm8H4E3R3Z/hD935ckFDEMe1Kh9Ex/viR5tlUt6QejslZyWB2KobinmsNkZWYdYa4PNwhQHvwlmCQbc7aQ7RzLqLQRSm8w6pU9VSkLSY/UX8vjIjIWIiAsu+u0aajfyDMNYs5sCWMXd4vyc=
+	t=1788940969; cv=none; b=uTDTMKGChRpVmNXS75veW+Bt3P/wYXzsswPXkGQDldrmtAt8NxT9iCOyvxo0jiU0cNdJSpyBp07FnEs9bWLCQvycMDN9hGAx+V4FknT5HOnRfgsjhMiIt4CNq6qnWe1dR8arfMDGENsCKOOf7nMahcEDQhELk2NSOHr6/S7uoTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940966; c=relaxed/simple;
-	bh=JyaYp74hyva8mz2RggMjk+t8RJI4RaB768yDtXt9oRA=;
+	s=arc-20240116; t=1788940969; c=relaxed/simple;
+	bh=3YWAA8EyyaWQvHYB9+jEx8sguYC1c/Rk/Ek41SB4zvI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SG9PZoyii8b3Vt2uvh07jjt7dH4hHEd1sr5noLmbXuE/4HOHIVUeTIuWGEZ/zmkyKf7LlkOt7VYmNO4GHWFEoEjb6ZJCWIvcvC67YuvEjBX5FO9GjSi4ixXBRWv5iump8cw47aGiLBhw93vr//7ML/nVaYx557uel7VOy++nkjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sq8SzsJp; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version; b=MQgP3zCB81LL5upFsEtMXrmIBfwJ+iZhuWaOX1+4uEz0AkurNI9TDsoaW5rUOe2seq+eGX6TZSMtkSM00LdYDk6Sz68DSIbGMoAfBdgE7ZZemdFXPzh0mk2fvv6pi7b2FmkKvQMthTWoUhBNeetzSiWmSd0/hp8PXi1v9pza+Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dggHf89A; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sq8SzsJp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 640384E415A9;
-	Wed,  9 Sep 2026 08:02:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3448660448;
-	Wed,  9 Sep 2026 08:02:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DA92D11C7AF66;
-	Wed,  9 Sep 2026 10:02:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788940960; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=I1e0hByJo0lwlUNMu1e3zjHq/L3qiW6+OWE+PPvPOK4=;
-	b=sq8SzsJpHrK3MC8xReqdKMdZsPs43TAZUcH/qjqvzq9zyQ1i14UKA+gjWHNFFb9UWn0G28
-	+bpG+7IV8uGXjVwHKZKoEWKjCXWXwSjE0PaxoxziUry24bCSLIAOUgPpkSLMOb22ssZ8VV
-	TYoK5HxlWspRs4mTVGL+kKZPTO0/jE5mGyIPDEK8gswLDG7N2DWuMH8qO7oghD/xWNAbjB
-	8jmIYCWfsHfKBnX0IQtq/fbSvBytzxs+NE3jhpsQWdo/pzmfTXYp5QvqNYiQ+PQNhOp4OQ
-	zBx5ajOhrZ61s4I59SK3wSWvyh54gS1mwE/r9lJuKLnylSVXilF1PA7fXQMstQ==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Richard Cheng <icheng@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: driver-core@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dggHf89A"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so44632445e9.1
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 01:02:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788940966; x=1789545766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Jd2hOXWzwdajH7bsxCOPjKpFxW9C26uWvrA4X8i4LE=;
+        b=dggHf89A2JAE2QQ/qf6oSrxat+CBfyJ8yFSB6k/DwX/c1wsjXuDV7wtflWSSx1TPHu
+         mGT2HBnMXVWZwwWGfHWnbOQCBItXzl0pNb+Ch3FKGuDyO+UUgO0Bhg78ysuWFWqW8duR
+         6aXpl1Zff7OZQnCOtuZwQy3eTJo8TxVS5v8Q3yWJ8lYIItCgVDhc8f5s1IhtCYs69fIz
+         VYSM3/LQ+oiwtRJsssfPvjkLrQK2wEv4SY5fZDABXtZyHPxS8ZkqVOz+7hl3v8d5Gqal
+         0fH9IFJjeI3gsluv+T9NhqysT6HSGlQnZIBbmPvv6oXejuMI/fqN1ajmwbQUHWaXEsa2
+         CQoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788940966; x=1789545766;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Jd2hOXWzwdajH7bsxCOPjKpFxW9C26uWvrA4X8i4LE=;
+        b=Jo8CtgcmcGzQA2td8bHTeFhHLfiaPVVKEuAKcedqvlzkN8k0v2egKlAi1YNEBRVxGz
+         cccxzgMOhSt8h+Yr2IN7vmzgfqBrrm60MTBvwrJ74K6Txr6zwf48aWYkgDHjR0p0ji6K
+         qp7Qb41bIvBInc1eT15b+Ti04TiT5kj0iZTUJZ4Em4vhATd6ObcEbcNhr/3TC4c9hfJC
+         /77bWVerrspM3Y3Y0Cbp1zfjffIclTtkmMNRylWCgg6sTHHnZfihuj8OO36/jMWx7xK0
+         VOJLmcbro21ksV9BBjsaTX+4kDBIm5mEK3GveGdhHUnRyV2UUmfOi3hDe/NE/f6QkHMm
+         BJMw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+5JgRQ5ZEEfW4C4TrQbQz/qKCg21eA8E4vxvVXgUu/6Md58mh4nGM+uubaUUQHDXUJaFwi9A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMUvzQGbIZCVMTN0JmYwBOqtSwM2kdpUmSocDckm24duLur0Ni
+	Z8NDvU9MigmsfkXnWK1/l3hGSbldLExrY3VunWk4c+lmGqa91O0S8vIa
+X-Gm-Gg: AYBFou0tCrt+RJM2ftciadr17XG7sM8APBYo47EIWM09Y0FZn0qHb132R6dCyetmW+6
+	XLofrKi6zUImuBvjyothhrya/Vk2rH7j3M7MYZ8dyzzte0C5BItXnobH6LvfkLl1U9G3+JRVCba
+	NfXlCTSXaIeT2K1eqBpYHyoUIVZTFCKhOrx/+PDjFaUk3GBA79k8XdP2sGxlj4Dx0YrZCoa4PHK
+	uvmOSdehv4AW/er6V/GroSziQRcRT6FyJw2LD+kbcn3oFHJC+nYx9R0QU6bJ2/CWtxH3wOcBNFX
+	NeuVFnspGd3sCSpR5zJfLhHZ5zBUmxdcjl0CRiz95rxJyALK1oepXAhyA3OTNbaipkp82Nsp2pE
+	OoB+Awj95p32j+SxHDeU1U2GBFuCJPjRBtpYLq2p+tp1fl6YvaEfkvHsLuri9sJK9cHd9XVe1ud
+	lNVnqdeCBwaKn+c4EfOc+yE46ZUW8D0taMkHnrcCJLq4RUo6OIIbMAuoRDRAo3SXumubPuqUlGn
+	M9oe2oDBYb9CTN/8hRC+TU8laXAM2Y=
+X-Received: by 2002:a05:600c:1986:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49cf825cef5mr288664255e9.14.1788940966012;
+        Wed, 09 Sep 2026 01:02:46 -0700 (PDT)
+Received: from chubuchnyi-ThinkPad-P1-Gen-4i.lan ([158.173.155.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm412817125e9.3.2026.09.09.01.02.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 01:02:45 -0700 (PDT)
+From: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org,
+	mani@kernel.org,
+	michael.riesch@collabora.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	benjamin.mugnier@foss.st.com,
+	sylvain.petinot@foss.st.com
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v11 09/10] PCI: of: Remove fwnode_dev_initialized() call for a PCI root bridge node
-Date: Wed,  9 Sep 2026 10:01:08 +0200
-Message-ID: <20260909080114.591938-10-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909080114.591938-1-herve.codina@bootlin.com>
-References: <20260909080114.591938-1-herve.codina@bootlin.com>
+Subject: [PATCH 2/5] media: i2c: imx415: Add missing v4l2_subdev_cleanup() call
+Date: Wed,  9 Sep 2026 11:02:24 +0300
+Message-ID: <6a7bc243c8cab077de57fc9c3d6a3d005c110f64.1788940469.git.chubuchnyi@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788940469.git.chubuchnyi@gmail.com>
+References: <cover.1788940469.git.chubuchnyi@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,59 +85,29 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-During the instantiation of devices described by a device-tree overlay
-applied on a PCI device, devlink displays the following kind of debug
-messages instead of creating the expected links:
-   'Not linking xxxx - might never become dev'
+The subdev active state allocated by v4l2_subdev_init_finalize() is leaked
+on unbind.
 
-Without those expected links, the device removal order cannot be
-correct.
-
-Those debug traces are printed by fw_devlink_create_devlink(). In our
-use case, they are all printed because the supplier of the link has at
-least one of its ancestor with its fwnode flag FWNODE_FLAG_INITIALIZED
-set.
-
-The culprit ancestor is the PCI root bridge.
-
-The fwnode related to the PCI root bridge is created dynamically by the
-of_pci_make_host_bridge_node() function. During this creation
-fwnode_dev_initialized() is called which set the FWNODE_FLAG_INITIALIZED
-flag.
-
-Calling fwnode_dev_initialized() tells devlink that the device related
-to this node is handled out of the driver core. This is not correct in
-our case. Indeed the device related to this firmware node is handled
-using driver core mechanisms and is fully compliant devlink
-expectations.
-
-Simply remove the fwnode_dev_initialized() call. With that done, the
-devlink debug messages are no more displayed and links that were missing
-are correctly created.
-
-Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
+Fixes: 14cd15e7a1e2 ("media: i2c: add imx415 cmos image sensor driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
+Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
 ---
- drivers/pci/of.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/media/i2c/imx415.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 8914bfa25dc1..0a5797652e18 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -894,7 +894,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
- 	 */
- 	of_node_set_flag(np, OF_POPULATED);
- 	fw_devlink_set_device(&np->fwnode, &bridge->dev);
--	fwnode_dev_initialized(&np->fwnode, true);
+diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+index c3b22b238..12c2f3df6 100644
+--- a/drivers/media/i2c/imx415.c
++++ b/drivers/media/i2c/imx415.c
+@@ -1125,6 +1125,7 @@ static int imx415_subdev_init(struct imx415 *sensor)
  
- 	ret = of_changeset_apply(cset);
- 	if (ret)
+ static void imx415_subdev_cleanup(struct imx415 *sensor)
+ {
++	v4l2_subdev_cleanup(&sensor->subdev);
+ 	media_entity_cleanup(&sensor->subdev.entity);
+ 	v4l2_ctrl_handler_free(&sensor->ctrls);
+ }
 -- 
-2.55.0
+2.43.0
 
