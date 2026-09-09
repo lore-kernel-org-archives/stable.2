@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD61526A84
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62E5476D9
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953464; cv=none; b=u4e62Ymwdg33HSMRa/OAs6iD4gOWQmZupPDRmcU1mvvMjAjDjHZzAv8oLSMyeka1kcbhZBWbfUhMM4o5oG79CoySwYdlcNwo/v0TSmx+CM0jb2dpN4FQuw/oL+sXCGUS44eEKNwZgD9DBSjNEfhv6SNiVgANk68bPKB2eEtKPTY=
+	t=1788953464; cv=none; b=icg9Zf+ggurQVzFPj6gmy5Rd7zCo7V+sWYjj326K6fIQ/f1LPgUuZ91OYbeyI2TtH3n/Mx8jQiQUSWejYVkMSWp3CZd9I+jW3giGH/QEHYlvjgphbn3Ins77F6Jciai/P5aEg4+yHRQIsOiVKBO3KrGpVBHoYl2DwBP7mRQasHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788953464; c=relaxed/simple;
-	bh=pUBttt/D0G8NQ88FcbilNxcCESx3c1Fz+d7phoXC1tE=;
+	bh=3lL6PtbTI6e+Yn9k1Nv5F5iJXhVGmBCcUMFBnuSKYNk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sGyFoxaw8/tYBBlI9p1a2t1Q4FV26IAqJFcBx/eQCO+EHT/7k35515PSYJZaKMmH7HMaROMuNHAkQnVPvZOCbs9lTIStLE6wgrDQHlPVRsPlqISwHICNbP28+EphYgy63B2r0fd9TKf/kyE+5ZRlJUksAar33tBIZVJiKelYigs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzkUcvp4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pc7OonTsM0+XUV7TD10RlzqrEAhKSzauWvCLxyUkv6k6Lbl++xsGZ1VcJGR2g/Sj6pAvulSWuuirxFUbZDX8EgPkzrjKMCjD/NgOg4NjqtcvZvtHQmgH8APBs3AU0sPn6RNuuCZN6OGcS/xF3s67C7HTO2cuPE7lyYkGHnPC3sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXl6oGYy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzkUcvp4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C364C1F00A3A;
-	Wed,  9 Sep 2026 11:31:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXl6oGYy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8C11F00A3E;
+	Wed,  9 Sep 2026 11:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953462;
-	bh=NZq2FTL1fUJKWFb2kQMLyfHpVlclVR7e66ZtTsVqCWo=;
+	s=k20260515; t=1788953463;
+	bh=psk+RY2uFzA9kj3TLXwA5d7nT/Eknu2nVDDf2XEwAoQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FzkUcvp41TXfPa/7mqMeaeGJZZtM2kfdo+qrfBsBlOPQaVopF2u9jbkYa855Zbf2h
-	 DZUNVg3X1wg+nj3AbpKNvYaFYLytZhw0T62q6Bq0JYJwnOJHszGmelOudt7EDdLVFG
-	 I54yWlroHXk/PJj1fxaWGi70it5uHSOhFwx1nQoLA3rNNevD6HQy+IxbCnhudMWhP8
-	 A2lS47QygMLwJpjwjqZRTralmQ/k3lkPVDDKYxXENBNdKFRyoOpcPX0qpAEBtuLUo7
-	 7GEX6RLSqdK4btxkQ44Znm8Sv/4CpQNvjLVeLbEmKEfkC5FAGzXqWo4qOqF2braNLo
-	 M4jZuRKDmoZlw==
+	b=AXl6oGYyPSP8qQgGWQIm2GSPn5lg7AMOgvv0LMqPBBJlCKow/+cqG462z97w8U2QC
+	 6JFcxPR6acm/1atXitKxq+RWEUIKKnsdK3CLeoM2YB4Mf8hURvfcQ1cpV0e0KG6mWC
+	 ZRNmEFSkCg0tj1qFkNvKrvrVh03iaG6pmuGnfgcJxoLdVdAaiWwyGnivsQ56nedwIH
+	 Q+Xkhrp9nEUIO6ZApwTR3QgZ809hfNlxyyp/rXZUi1ogalaWO67KLcCYP+PAMQhICo
+	 c98q00Vyl9fWrVsmw4yn8eKrgeRfgAdUW++uMXVI+pAA1HaynO0pA/XnCl/XQAlrBB
+	 Qm+zgHxTqMzCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neilb@suse.de>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] filelock: split common fields into struct file_lock_core
-Date: Wed,  9 Sep 2026 07:30:59 -0400
-Message-ID: <20260909113100.1863001-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] lockd: fix NULL dereference on lockowner allocation failure
+Date: Wed,  9 Sep 2026 07:31:00 -0400
+Message-ID: <20260909113100.1863001-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090351-duplex-next-aca8@gregkh>
+In-Reply-To: <20260909113100.1863001-1-sashal@kernel.org>
 References: <2026090351-duplex-next-aca8@gregkh>
+ <20260909113100.1863001-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,146 +46,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-[ Upstream commit a69ce85ec9af6bdc0b3511959a7dc1a324e5e16a ]
+[ Upstream commit 4c7fc129db061c7daab841c4f3c342d894832362 ]
 
-In a future patch, we're going to split file leases into their own
-structure. Since a lot of the underlying machinery uses the same fields
-move those into a new file_lock_core, and embed that inside struct
-file_lock.
+nlmclnt_locks_init_private() installs NLM file lock operations even when
+nlmclnt_find_lockowner() fails to allocate a lockowner. nlmclnt_proc()
+then returns -ENOMEM, but the VFS still tears down the partially
+initialized file_lock and calls locks_release_private().
 
-For now, add some macros to ensure that we can continue to build while
-the conversion is in progress.
+That invokes nlmclnt_locks_release_private(), which dereferences
+fl->fl_u.nfs_fl.owner and crashes because the owner was never installed.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://lore.kernel.org/r/20240131-flsplit-v3-17-c6129007ee8d@kernel.org
-Reviewed-by: NeilBrown <neilb@suse.de>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
+Clear fl_ops before attempting to initialize the NLM private state, and
+install the NLM lock operations only after a lockowner has been allocated
+successfully.
 
-[6.1 dependency adaptation]
-The stable tree still defines struct file_lock in include/linux/fs.h and
-has neither the separate filelock.h header nor the later locking helpers.
-Define file_lock_core in the existing header, retaining the stable tree's
-unsigned fl_pid type. Embed the core in an anonymous union with matching
-legacy fields so existing users and trace-event field names continue to
-work without global field-name macros or a tree-wide conversion.
-
-Use c.flc_owner in nlmclnt_locks_init_private(), with upstream formatting,
-to prepare the exact context required by 4c7fc129db061 ("lockd: fix NULL
-dereference on lockowner allocation failure"). Leave that fix itself to
-the target commit. Drop the unused macro-enabling includes, conversions
-of absent helpers, and unrelated whitespace changes. No functions are
-added.
-
-[ sashal: Reduced backport -- upstream a69ce85ec9af6 touches 24 file(s), this
-  backport carries 2. Not backported here:
-  fs/9p/vfs_file.c
-  fs/afs/internal.h
-  fs/ceph/locks.c
-  fs/dlm/plock.c
-  fs/fuse/file.c
-  fs/gfs2/file.c
-  fs/locks.c
-  fs/nfsd/netns.h
-  ... and 15 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 4c7fc129db06 ("lockd: fix NULL dereference on lockowner allocation failure")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/lockd/clntproc.c |  3 ++-
- include/linux/fs.h  | 56 ++++++++++++++++++++++++++++++++-------------
- 2 files changed, 42 insertions(+), 17 deletions(-)
+ fs/lockd/clntproc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/fs/lockd/clntproc.c b/fs/lockd/clntproc.c
-index 99fffc9cb9585..32790a57351a5 100644
+index 32790a57351a5..bae25519771d1 100644
 --- a/fs/lockd/clntproc.c
 +++ b/fs/lockd/clntproc.c
-@@ -479,7 +479,8 @@ static const struct file_lock_operations nlmclnt_lock_ops = {
+@@ -479,9 +479,12 @@ static const struct file_lock_operations nlmclnt_lock_ops = {
  static void nlmclnt_locks_init_private(struct file_lock *fl, struct nlm_host *host)
  {
  	fl->fl_u.nfs_fl.state = 0;
--	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host, fl->fl_owner);
-+	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host,
-+						       fl->c.flc_owner);
++	fl->fl_ops = NULL;
+ 	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host,
+ 						       fl->c.flc_owner);
  	INIT_LIST_HEAD(&fl->fl_u.nfs_fl.list);
++	if (!fl->fl_u.nfs_fl.owner)
++		return;
  	fl->fl_ops = &nlmclnt_lock_ops;
  }
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 264381ae06e26..40086076e6051 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1075,6 +1075,25 @@ bool opens_in_grace(struct net *);
- /* that will die - we need it for nfs_lock_info */
- #include <linux/nfs_fs_i.h>
- 
-+struct file_lock_core {
-+	struct file_lock *flc_blocker;	/* The lock that is blocking us */
-+	struct list_head flc_list;	/* link into file_lock_context */
-+	struct hlist_node flc_link;	/* node in global lists */
-+	struct list_head flc_blocked_requests;	/* list of requests with
-+						 * ->fl_blocker pointing here
-+						 */
-+	struct list_head flc_blocked_member;	/* node in
-+						 * ->fl_blocker->fl_blocked_requests
-+						 */
-+	fl_owner_t flc_owner;
-+	unsigned int flc_flags;
-+	unsigned char flc_type;
-+	unsigned int flc_pid;
-+	int flc_link_cpu;		/* what cpu's list is this on? */
-+	wait_queue_head_t flc_wait;
-+	struct file *flc_file;
-+};
-+
- /*
-  * struct file_lock represents a generic "file lock". It's used to represent
-  * POSIX byte range locks, BSD (flock) locks, and leases. It's important to
-@@ -1093,22 +1112,27 @@ bool opens_in_grace(struct net *);
-  * Obviously, the last two criteria only matter for POSIX locks.
-  */
- struct file_lock {
--	struct file_lock *fl_blocker;	/* The lock, that is blocking us */
--	struct list_head fl_list;	/* link into file_lock_context */
--	struct hlist_node fl_link;	/* node in global lists */
--	struct list_head fl_blocked_requests;	/* list of requests with
--						 * ->fl_blocker pointing here
--						 */
--	struct list_head fl_blocked_member;	/* node in
--						 * ->fl_blocker->fl_blocked_requests
--						 */
--	fl_owner_t fl_owner;
--	unsigned int fl_flags;
--	unsigned char fl_type;
--	unsigned int fl_pid;
--	int fl_link_cpu;		/* what cpu's list is this on? */
--	wait_queue_head_t fl_wait;
--	struct file *fl_file;
-+	union {
-+		struct file_lock_core c;
-+		/*
-+		 * Legacy aliases for the common core. Keep this layout in sync
-+		 * with struct file_lock_core.
-+		 */
-+		struct {
-+			struct file_lock *fl_blocker;
-+			struct list_head fl_list;
-+			struct hlist_node fl_link;
-+			struct list_head fl_blocked_requests;
-+			struct list_head fl_blocked_member;
-+			fl_owner_t fl_owner;
-+			unsigned int fl_flags;
-+			unsigned char fl_type;
-+			unsigned int fl_pid;
-+			int fl_link_cpu;
-+			wait_queue_head_t fl_wait;
-+			struct file *fl_file;
-+		};
-+	};
- 	loff_t fl_start;
- 	loff_t fl_end;
  
 -- 
 2.53.0
