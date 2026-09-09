@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E174A492E4C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D9F64A91
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913512; cv=none; b=IxZtP7numXtNfREAyqofcw+3Q/CzCx1UGYLLuh4OVeuxR1oBofxHModu+v6NwwMm8rFZdQ9N+EKsY5142AvLICfWf4EYvXOKHXdtF4xAPdcMVBnpZagkuwVKwdJnzM2uKN9qfKfaFwDrCx2hanC6ra/wya8tebWl822+Y39/WEU=
+	t=1788913515; cv=none; b=udWTYh2HTRlE1bBa4STDXtQoJC6W7LnIr2iEJ59covKUSiyuk1VX2wfvtNW+f4dEt5e+TWaV4LnCf/0r7fo92gIJd0TzobR3Bi58XkvNbg+zNZi44TKEmPVFDCeTyBEBxP387XG3OdRijrr1tC5Vv4TtDzxAI5fNsSPB1CQH/5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913512; c=relaxed/simple;
-	bh=z3G8Nw6VVnxOYLoNkCwjJxVgmU3VpshTaIw7SjBDkCQ=;
+	s=arc-20240116; t=1788913515; c=relaxed/simple;
+	bh=YeTXCZofo+4Lkgrhi6sj5Tavb17sY+LmXi/nQIqdo98=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qMPDfQAerG/WNElWhQlp/HNdvhjsj9QTThnO4tS2CDZws6O4F0nUujDPsQ2GNIm7Eok94wwW1e8VFTQSwtxPNzmfy/tCVlGUIuUM5tqNQrVEUkhx//ZwItmOJla5j8kFF4IMQEw7e1o16RYbSepWmjPWV0M5GnI79M+FJwhU7Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKFq0VzQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SviOJr4SJyZiGOucmdvs1UjLXxkHx1UF1A5mFNIegpB9y005tRJxMaRmX7MiCda48Yl/Ahz41Vd/9C6kcFApdTtg9SBPbLCHOzJoeW2WRSkyW93PzCy7ekN+9G/L6r9jcyZgvIFv2n6PkeXO90VzSo479wmDCEGH9JLU25FJBsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juAks0Yi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKFq0VzQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9091F00A3D;
-	Wed,  9 Sep 2026 00:25:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juAks0Yi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300401F00A3A;
+	Wed,  9 Sep 2026 00:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913510;
-	bh=kEm7p2N+b9y1xwTCJI2enuJry1oy4QQ24IEmZFi093w=;
+	s=k20260515; t=1788913513;
+	bh=B50cgzh6xa4+103vjmhyZxgPc7SFXqBiUFL77CuTwuo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TKFq0VzQCvPVtGuJbKYFHkevu3jE/XcLzhbzEzRI2qwNDXNxMaJFFLM5hE9HKt92i
-	 8zEfKGVdvm4nju6mQ1hHYjgiyABolybG+uOU7z/qH67D4yD75cqMw41h70xuaPeAJa
-	 usQQJ1PHK1oP+BSVMviAtLWXA6tezqBDaTmL/YhTXmzhDbMDkqsbj4Qdy4XnG5sjCD
-	 aAoMjwm/LN/QcGNN9i1tbAQTotAknDf0ULXEKOqU6l+65HG0m3UrjhzEGd2DREN56A
-	 YyAaZcr2wtzW4ZtsoEUSpBzcslor+Ld6XqgRDas+YXtZzIqE45fqX7QSB3xiCEXErn
-	 gx3/Sp0T6yJ6Q==
+	b=juAks0Yi+o++o4uSGAeetI1W+tv5aYFM/ZfDxruuJpU7pdtltlABEaVcE36qAcsqR
+	 HKA/YLE+W/80AlwZPSJU62qY7lOhfPxEnYeg8NEb1U7O1OmxcvziwjyPu/S3na2nAv
+	 wtOu9+nXReGNH6HQSZ+rb0mjaoxf436k5i/jtVSIQwRjRtpXFoBFJjUaDfTLOSuodV
+	 5jfedy/iB2a5WvJzsafN7b2239hP7E4icXYT0BSHz8HW0OJI0usAkOhuftR7SBhEaM
+	 ZIMmLDBzQ1TRD7bW7v+0Yz+e1N/3RrMi5Bg0VaTn95I0psfgR660ukOsA/kCzJY74F
+	 VEoKbbc1kHRsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: NeilBrown <neilb@suse.de>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
+Subject: [PATCH 6.1.y 1/5] SUNRPC: remove timeout arg from svc_recv()
 Date: Tue,  8 Sep 2026 20:25:07 -0400
-Message-ID: <20260909002507.725158-2-sashal@kernel.org>
+Message-ID: <20260909002511.725380-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909002507.725158-1-sashal@kernel.org>
-References: <2026090351-sagging-obliged-3e7b@gregkh>
- <20260909002507.725158-1-sashal@kernel.org>
+In-Reply-To: <2026090350-comment-projector-6988@gregkh>
+References: <2026090350-comment-projector-6988@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,141 +45,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
+From: NeilBrown <neilb@suse.de>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+[ Upstream commit c743b4259c3af2c0637c307f08a062d25fa3c99f ]
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+Most svc threads have no interest in a timeout.
+nfsd sets it to 1 hour, but this is a wart of no significance.
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
+lockd uses the timeout so that it can call nlmsvc_retry_blocked().
+It also sometimes calls svc_wake_up() to ensure this is called.
 
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
+So change lockd to be consistent and always use svc_wake_up() to trigger
+nlmsvc_retry_blocked() - using a timer instead of a timeout to
+svc_recv().
 
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
+And change svc_recv() to not take a timeout arg.
 
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
+This makes the sp_threads_timedout counter always zero.
 
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
+Signed-off-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
+[ Stable backport note: The svc_recv timeout cleanup is unrelated to the
+follow-up fix and does not fit the older lockd service loop. Drop those
+hunks. Instead, make the existing svc request allocation/free helpers
+private, move svc_rqst_free() before its first use, and convert the
+scratch page to a folio. This aligns the lifetime-management context so
+the follow-up fix applies cleanly. ]
 
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Reduced backport -- upstream c743b4259c3af touches 9 file(s), this
+  backport carries 2. Not backported here:
+  fs/lockd/svc.c
+  fs/lockd/svclock.c
+  fs/nfs/callback.c
+  fs/nfsd/nfssvc.c
+  include/linux/lockd/lockd.h
+  include/linux/sunrpc/svcsock.h
+  net/sunrpc/svc_xprt.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ include/linux/sunrpc/svc.h |  7 ++-----
+ net/sunrpc/svc.c           | 38 +++++++++++++++++---------------------
+ 2 files changed, 19 insertions(+), 26 deletions(-)
 
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 3bfe826c3134f..259340357a389 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -365,23 +365,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
+diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
+index 49621cc4e01bd..d26e01c63dde0 100644
+--- a/include/linux/sunrpc/svc.h
++++ b/include/linux/sunrpc/svc.h
+@@ -247,7 +247,7 @@ struct svc_rqst {
+ 	struct xdr_buf		rq_arg;
+ 	struct xdr_stream	rq_arg_stream;
+ 	struct xdr_stream	rq_res_stream;
+-	struct page		*rq_scratch_page;
++	struct folio		*rq_scratch_folio;
+ 	struct xdr_buf		rq_res;
+ 	struct page		*rq_pages[RPCSVC_MAXPAGES + 1];
+ 	struct page *		*rq_respages;	/* points into rq_pages */
+@@ -473,11 +473,8 @@ void svc_rpcb_cleanup(struct svc_serv *serv, struct net *net);
+ int svc_bind(struct svc_serv *serv, struct net *net);
+ struct svc_serv *svc_create(struct svc_program *, unsigned int,
+ 			    int (*threadfn)(void *data));
+-struct svc_rqst *svc_rqst_alloc(struct svc_serv *serv,
+-					struct svc_pool *pool, int node);
+ void		   svc_rqst_replace_page(struct svc_rqst *rqstp,
+ 					 struct page *page);
+-void		   svc_rqst_free(struct svc_rqst *);
+ void		   svc_exit_thread(struct svc_rqst *);
+ struct svc_serv *  svc_create_pooled(struct svc_program *prog,
+ 				     struct svc_stat *stats,
+@@ -554,7 +551,7 @@ static inline void svcxdr_init_decode(struct svc_rqst *rqstp)
+ 	buf->len = buf->head->iov_len + buf->page_len + buf->tail->iov_len;
+ 
+ 	xdr_init_decode(xdr, buf, argv->iov_base, NULL);
+-	xdr_set_scratch_page(xdr, rqstp->rq_scratch_page);
++	xdr_set_scratch_page(xdr, folio_page(rqstp->rq_scratch_folio, 0));
  }
  
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
- 
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
--
- 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
- 			  READ_ONCE(idev->cnf.seg6_enabled));
- 
-@@ -488,12 +481,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
+ /**
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index 9ae85347ab397..faa5193231240 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -630,7 +630,19 @@ svc_release_buffer(struct svc_rqst *rqstp)
+ 			put_page(rqstp->rq_pages[i]);
  }
  
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	unsigned int chdr_len;
- 	unsigned char *buf;
-@@ -502,8 +494,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
- 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
- 	if (!accept_rpl_seg) {
-@@ -711,10 +701,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
- 		break;
- 	}
-@@ -862,6 +856,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
+-struct svc_rqst *
++static void
++svc_rqst_free(struct svc_rqst *rqstp)
++{
++	svc_release_buffer(rqstp);
++	if (rqstp->rq_scratch_folio)
++		folio_put(rqstp->rq_scratch_folio);
++	kfree(rqstp->rq_resp);
++	kfree(rqstp->rq_argp);
++	kfree(rqstp->rq_auth_data);
++	kfree_rcu(rqstp, rq_rcu_head);
++}
 +
-+disabled:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
-+	return -1;
- }
++static struct svc_rqst *
+ svc_rqst_alloc(struct svc_serv *serv, struct svc_pool *pool, int node)
+ {
+ 	struct svc_rqst	*rqstp;
+@@ -644,8 +656,10 @@ svc_rqst_alloc(struct svc_serv *serv, struct svc_pool *pool, int node)
+ 	rqstp->rq_server = serv;
+ 	rqstp->rq_pool = pool;
  
- static const struct inet6_protocol rthdr_protocol = {
+-	rqstp->rq_scratch_page = alloc_pages_node(node, GFP_KERNEL, 0);
+-	if (!rqstp->rq_scratch_page)
++	if (node == NUMA_NO_NODE)
++		node = numa_mem_id();
++	rqstp->rq_scratch_folio = __folio_alloc_node(GFP_KERNEL, 0, node);
++	if (!rqstp->rq_scratch_folio)
+ 		goto out_enomem;
+ 
+ 	rqstp->rq_argp = kmalloc_node(serv->sv_xdrsize, GFP_KERNEL, node);
+@@ -664,7 +678,6 @@ svc_rqst_alloc(struct svc_serv *serv, struct svc_pool *pool, int node)
+ 	svc_rqst_free(rqstp);
+ 	return NULL;
+ }
+-EXPORT_SYMBOL_GPL(svc_rqst_alloc);
+ 
+ static struct svc_rqst *
+ svc_prepare_thread(struct svc_serv *serv, struct svc_pool *pool, int node)
+@@ -847,23 +860,6 @@ void svc_rqst_replace_page(struct svc_rqst *rqstp, struct page *page)
+ }
+ EXPORT_SYMBOL_GPL(svc_rqst_replace_page);
+ 
+-/*
+- * Called from a server thread as it's exiting. Caller must hold the "service
+- * mutex" for the service.
+- */
+-void
+-svc_rqst_free(struct svc_rqst *rqstp)
+-{
+-	svc_release_buffer(rqstp);
+-	if (rqstp->rq_scratch_page)
+-		put_page(rqstp->rq_scratch_page);
+-	kfree(rqstp->rq_resp);
+-	kfree(rqstp->rq_argp);
+-	kfree(rqstp->rq_auth_data);
+-	kfree_rcu(rqstp, rq_rcu_head);
+-}
+-EXPORT_SYMBOL_GPL(svc_rqst_free);
+-
+ void
+ svc_exit_thread(struct svc_rqst *rqstp)
+ {
 -- 
 2.53.0
 
