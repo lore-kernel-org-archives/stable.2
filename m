@@ -1,44 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5129B568FB9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169F3568FDC;
+	Wed,  9 Sep 2026 14:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964540; cv=none; b=K/KsxGHOeNZWtyNOfN9B9swp2zYxsokwCSexn/7jhfgLy8tuyv/vDZtlLT08euGdBqrjxRz24MDfJVcd0uFjMA44AO9ZPE6irspXQHLzhzBEchfyBuEypAfdVrb+P8y5EFd7y6ONv9ElVfv9hvSyHvpezfzk/nnBEpf4t5qOXQA=
+	t=1788964541; cv=none; b=A+Id4rFwnsf8HSg0nNvI0PNXdJ3lotY/jQJYZntSSsiVFVZnDNNxHgXXyBFz2Kq79fT0zjZARCS/nDXo5IvVcw0TKvmfcmamn/mwYlwvQhZg3BwwvcGNborRjlRKp3R4j9rNVnRrxH7/N+pgH92tN9hxpDBQu4pkX4BiVqM+17Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964540; c=relaxed/simple;
-	bh=d0IXjGOhMnxyzxoWNj62qm1/xiDRv6+5wNBbON9eVRQ=;
+	s=arc-20240116; t=1788964541; c=relaxed/simple;
+	bh=/0Wnf3oB9njGTbMrNZvRbhJPtVQEkOIdJlOGUsY7raM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GD3umIR4nlJLOs0YnkNvhnu92/b7Dj1KLc6DdyJR/565I+wo+T/rVVhEfCQ4kt0Nfbs9GyplBI2ci/bahpzFYUeh7uwr2jlD2IZWsDtu5beZjxVmFWqYdMtXh0Lony1OJq2Ajq6l1YJRco9DaIyDpbZDzyxtIqvVbV6Zm7C2tns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mPWyMI4N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S22Y06IGQOj6CxrXvqPCFNwU3Ldkh4pCjHXOeezt8DbNZErg1F2QM0MOb2odYE0+zbdR+lqCSvRf89VuYlnZasNz11YY/Q55kB9asghGe517FZywKEoikQQIEVMv5dN+Bj+U7quVW7iJLdK1J+ndmg1t0dm8CqtguElmPvk8iJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JKTL07Bd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mPWyMI4N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715521F00A3A;
-	Wed,  9 Sep 2026 14:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964539;
-	bh=VRny8wZfujdp+tLjw+AZ+dPTWokhbR+5nJQsyXBqOO0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JKTL07Bd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4DA1F00A3F;
+	Wed,  9 Sep 2026 14:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788964540;
+	bh=iuIh2NeI87EQX1TZjDbJUpUyFNjkauJNOKiehjP056s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mPWyMI4N03yegkWuBbdhxX0sWu5pBMaLMavP4sSXQ/XnOlhlN776jHbAZjfh2tjDZ
-	 d5epKfAEjENjjQ5vlul0et15AORoW3SaYXkm/8REygqKjOEgmebpxsiQcOIn/PHmyR
-	 lw//kfUZzTThJOnvaxipuEuOEeuKaqHW8mxw0WyUVvTdcJFjQyCG8jJ6HApHcA2RmT
-	 ontCSiKMYftutYRAyfYdAgrs2FW24x4mQgDTR6NvKFS5gwN0HVfXluj4g5RVYPqZ2L
-	 5VNPcdhuzwyuEkBOZJF8iAEHKxHAyfmlup/iY2+gitPB+pcfhcq2RIiUrMYMJpQRED
-	 V2Oex8vs3DyJw==
-From: Sasha Levin <sashal@kernel.org>
+	b=JKTL07Bd5JoLUeSMhHZX9TKExRmsACMMHk0Kxr2vI+0roWAS7r/ljQJIqNlTpeAp9
+	 d2fd9+Cawa6XLInUJBKtaTAOnKabtqnB4vJoBWTQqMla+PozvG3KnSQMBaj9dfgNK9
+	 dCI8k+QbwvLjDoY3FRbFIlFjMWbBWxCvcbfw4MSs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Weimin Xiong <xiongwm2026@163.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Brendan Jackman <jackmanb@google.com>,
+	sashiko-bot@kernel.org,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] iommu/msm: Unwind probe state on registration failure
-Date: Wed,  9 Sep 2026 10:35:35 -0400
-Message-ID: <20260909143535.2525461-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909143535.2525461-1-sashal@kernel.org>
-References: <2026090342-rising-affidavit-4103@gregkh>
- <20260909143535.2525461-1-sashal@kernel.org>
+Subject: [PATCH 6.18 458/583] mm/page_alloc: dont spin_trylock() in NMI on UP
+Date: Wed,  9 Sep 2026 15:42:23 +0200
+Message-ID: <20260909134253.792955180@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,66 +59,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weimin Xiong <xiongwm2026@163.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 535a200220ca2c83bc8bf54bd2cbe045d6ee70c4 ]
+------------------
 
-msm_iommu_probe() adds its devm-managed IOMMU object to
-qcom_iommu_devices before adding the IOMMU sysfs device and registering
-it with the IOMMU core.
+From: Brendan Jackman <jackmanb@google.com>
 
-If iommu_device_sysfs_add() fails, probe returns with the object still on
-qcom_iommu_devices. The driver core then releases the devm allocation,
-leaving a dangling list entry that later list walks may dereference.
+[ Upstream commit 3105ae628fb785d48b49256468be4f21a7b3cfc0 ]
 
-If iommu_device_register() fails, the same dangling list entry remains
-and the sysfs device is left registered as well.
+Patch series "mm/page_alloc: fixes for free_pages_nolock() on RT/UP".
 
-Unwind the sysfs device and global list entry in reverse setup order on
-the corresponding failure paths.
+Pre-existing bugs found by Sashiko during review of this other series:
+https://lore.kernel.org/all/20260703-alloc-trylock-v5-0-c87b714e19d3@google.com/
 
-Fixes: 42df43b36163 ("iommu/msm: Make use of iommu_device_register interface")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Weimin Xiong <xiongwm2026@163.com>
-Signed-off-by: Will Deacon <will@kernel.org>
+I have not reproduced these bugs, and I suspect there is no real-world
+user that is affected by them.
+
+This patch (of 2):
+
+As noted in can_spin_trylock(), using this is unsafe in this context.
+commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
+alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side
+but missed the free side.
+
+Impact: If BPF programs using these features in NMI (probably tracing) are
+present on non-SMP builds this might crash the kernel and is probably
+exploitable by local attackers for privilege escalation.
+
+Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com
+Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com
+Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+Signed-off-by: Brendan Jackman <jackmanb@google.com>
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b714e19d3%40google.com?part=18
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iommu/msm_iommu.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ mm/page_alloc.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-index 90c7cbabaace3..9e37dce5bf114 100644
---- a/drivers/iommu/msm_iommu.c
-+++ b/drivers/iommu/msm_iommu.c
-@@ -767,19 +767,25 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 				     "msm-smmu.%pa", &ioaddr);
- 	if (ret) {
- 		pr_err("Could not add msm-smmu at %pa to sysfs\n", &ioaddr);
--		return ret;
-+		goto err_remove_list;
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -2965,8 +2965,10 @@ static void __free_frozen_pages(struct p
+ 		migratetype = MIGRATE_MOVABLE;
  	}
  
- 	ret = iommu_device_register(&iommu->iommu, &msm_iommu_ops, &pdev->dev);
- 	if (ret) {
- 		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
--		return ret;
-+		goto err_remove_sysfs;
+-	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT_RT)
+-		     && (in_nmi() || in_hardirq()))) {
++	if (unlikely((fpi_flags & FPI_TRYLOCK) &&
++		     ((IS_ENABLED(CONFIG_PREEMPT_RT) &&
++		       (in_nmi() || in_hardirq())) ||
++		      (!IS_ENABLED(CONFIG_SMP) && in_nmi())))) {
+ 		add_page_to_zone_llist(zone, page, order);
+ 		return;
  	}
- 
- 	pr_info("device mapped at %p, irq %d with %d ctx banks\n",
- 		iommu->base, iommu->irq, iommu->ncb);
- 
- 	return ret;
-+
-+err_remove_sysfs:
-+	iommu_device_sysfs_remove(&iommu->iommu);
-+err_remove_list:
-+	list_del(&iommu->dev_node);
-+	return ret;
- }
- 
- static const struct of_device_id msm_iommu_dt_match[] = {
--- 
-2.53.0
+
 
