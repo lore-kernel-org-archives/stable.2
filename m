@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C049923D7FB
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:52:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF971283FE5
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788915127; cv=none; b=uZOo2ZBX0samT5Rd+PR60LzPzmUNz1m/SwZ1lQHwaYfi25zhCY2S3f8jDcVO+OXe0A02N23iE626RqHNnxHdhZzLkQ6+5HNYvWsexWYKkw2W1zsyTLAdWwNFM2yc+hdB47XgYVTVsTD4/DzHurF/WJU3r+1kE9nQkTbpV6WhNcc=
+	t=1788915129; cv=none; b=q15041vn3jdU8OnhZ8flve3oqPyOoNR1wW90Yq9Mz5dGoC+B4gXroUOzPFb0xWUIEan3y5eUxqJkpUzoHMHb8eK4GwQPu8wjV9QdV1qFlyf92CE2g4hb3hKx8QCSQkdh4huUKD95WRAKedTMGnNIyOTBzLSDSxtxmvdJyaYQm+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788915127; c=relaxed/simple;
-	bh=VKIYuzxhDWwaZ4ZL6U1k+FkWBwvAk2jZ+7l6+Tqo6PQ=;
+	s=arc-20240116; t=1788915129; c=relaxed/simple;
+	bh=sKH5vjWlLt/fVCj6wH2a+xEuqqSrlI0e1dEFnpC27Do=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AKb2UXowoWmErDezXJMmh5LRPmvZcCkx7nrHrlN/BADtLBS4kXCG2WcyqaL3s45NII0qQJV0YMgcDRnUz8hfjCmWptwgwVAH8sKGOXEvji960sdokjyLE3K+ou5TgmY3L/ah54ahCSWCvHfkeu4OF36M01752zzW4k2+FjKjAqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=INTp3NXx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tqe3It02WkCMxz2MAx8sKZ/qj8FaEYa2s8/hu7mUU8lM1RRGWUBIIh+rNwwmLP0zF5KSFYMQ9PGDhGE5feyfZxiUWuEaeV9ujnprksiVob53NjiHIL41LNtluAaVlag/GQMX7I4zlwgQeRVHgDmovOUzrStZF9QmBKp1Q9MnEHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJ9WjoMh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="INTp3NXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD591F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJ9WjoMh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10F41F00A3D;
 	Wed,  9 Sep 2026 00:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788915126;
-	bh=k76mPwzWieVoRSWO/eOppnYrwvosVME59TSnfv6t0Eg=;
+	s=k20260515; t=1788915127;
+	bh=wlLgnLhKjZVP6rgQe+X5rOLiI3Ri7yJSm0mJTOz53l8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=INTp3NXxDwVdmyL+ZHxQjDH9NomQFZ68B41PkHWf3s5USfpcv9QNN5AzhrFheBXuH
-	 JlBs5n3xN6XvgW593bPZLO+xXYjLkPfzFtjoGq+Gb6kkmauuBit/HEwK05VPSdnu76
-	 wktf6JW/KMEsuEEnX1D9zfla4xWzcaOtRWtL5josuIWZdykWLgjplULUvzzT2e8Rrj
-	 1o18tMrw4XWlmYEBMM55JDLLRzTobjtWlATnTY+aZC9hN1+JZM1+qtSIdLKaML5+5+
-	 BfrqFywc9PCDBVkHYIQ3RcSDCbHrjUWxXgrID/I83lXkhI2S2SB/uorjujaobV3r41
-	 Fh60QbF8V4/yw==
+	b=QJ9WjoMhaPhEgXXVkzL6MVdbponc++Ptq4J2W8heUNc/yshWSpYvQ5ZqltO4fprWb
+	 0Hh+QS3CElk6KEry+me56ahgma1jtmFRXPqeHmLVwFHoc7y5Fzy+W92GQu82/QH3IN
+	 +/ORcB5xwJEgq9iW93stuRYjLlbDTqJm5Aqy/CoG2Vwva6L3Au1oObeEYzs1O6+g8X
+	 h0qAZSZCWVM39jmo2yP/ZsdbqsINZzPWFycyabArnX2dDbFZpariDd+4Smlyou82SC
+	 pbs1ZBXOoPsRP6ifNcZaeDQk3mT0B0vnyH4/Z8/L8AcCrjRWbDB33aHtEyQDHvWaRw
+	 3g7Q9gCnsGapA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] svcrdma: Allocate new transports on device's NUMA node
-Date: Tue,  8 Sep 2026 20:52:01 -0400
-Message-ID: <20260909005204.805051-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/4] svcrdma: Refactor the creation of listener CMA ID
+Date: Tue,  8 Sep 2026 20:52:02 -0400
+Message-ID: <20260909005204.805051-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-zoning-shimmer-544a@gregkh>
+In-Reply-To: <20260909005204.805051-1-sashal@kernel.org>
 References: <2026090303-zoning-shimmer-544a@gregkh>
+ <20260909005204.805051-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,74 +48,129 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit fe2b401e55482cf90a0056209c8a232b2d39056c ]
+[ Upstream commit 283d28546234b1764a0a37cb3df30cc3321c75b4 ]
 
-The physical device's NUMA node ID is available when allocating an
-svc_xprt for an incoming connection. Use that value to ensure the
-svc_xprt structure is allocated on the NUMA node closest to the
-device.
+In a moment, I will add a second consumer of CMA ID creation in
+svcrdma. Refactor so this code can be reused.
 
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: 0944462247dc ("svcrdma: Reject connection when transport allocation fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 67 ++++++++++++++----------
+ 1 file changed, 40 insertions(+), 27 deletions(-)
 
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index 45b0fef0b5e26..9c4cd4caa0c1c 100644
+index 9c4cd4caa0c1c..c84343fbf2d2f 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -64,7 +64,7 @@
- #define RPCDBG_FACILITY	RPCDBG_SVCXPRT
+@@ -65,6 +65,8 @@
  
  static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
--						 struct net *net);
-+						 struct net *net, int node);
+ 						 struct net *net, int node);
++static int svc_rdma_listen_handler(struct rdma_cm_id *cma_id,
++				   struct rdma_cm_event *event);
  static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
  					struct net *net,
  					struct sockaddr *sa, int salen,
-@@ -125,14 +125,14 @@ static void qp_event_handler(struct ib_event *event, void *context)
+@@ -124,6 +126,41 @@ static void qp_event_handler(struct ib_event *event, void *context)
+ 	}
  }
  
- static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
--						 struct net *net)
-+						 struct net *net, int node)
- {
--	struct svcxprt_rdma *cma_xprt = kzalloc(sizeof *cma_xprt, GFP_KERNEL);
-+	struct svcxprt_rdma *cma_xprt;
- 
--	if (!cma_xprt) {
--		dprintk("svcrdma: failed to create new transport\n");
-+	cma_xprt = kzalloc_node(sizeof(*cma_xprt), GFP_KERNEL, node);
-+	if (!cma_xprt)
- 		return NULL;
--	}
++static struct rdma_cm_id *
++svc_rdma_create_listen_id(struct net *net, struct sockaddr *sap,
++			  void *context)
++{
++	struct rdma_cm_id *listen_id;
++	int ret;
 +
- 	svc_xprt_init(net, &svc_rdma_class, &cma_xprt->sc_xprt, serv);
- 	INIT_LIST_HEAD(&cma_xprt->sc_accept_q);
- 	INIT_LIST_HEAD(&cma_xprt->sc_rq_dto_q);
-@@ -195,9 +195,9 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
- 	struct svcxprt_rdma *newxprt;
- 	struct sockaddr *sa;
- 
--	/* Create a new transport */
- 	newxprt = svc_rdma_create_xprt(listen_xprt->sc_xprt.xpt_server,
--				       listen_xprt->sc_xprt.xpt_net);
-+				       listen_xprt->sc_xprt.xpt_net,
-+				       ibdev_to_node(new_cma_id->device));
- 	if (!newxprt)
- 		return;
- 	newxprt->sc_cm_id = new_cma_id;
-@@ -306,7 +306,7 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
++	listen_id = rdma_create_id(net, svc_rdma_listen_handler, context,
++				   RDMA_PS_TCP, IB_QPT_RC);
++	if (IS_ERR(listen_id))
++		return listen_id;
++
++	/* Allow both IPv4 and IPv6 sockets to bind a single port
++	 * at the same time.
++	 */
++#if IS_ENABLED(CONFIG_IPV6)
++	ret = rdma_set_afonly(listen_id, 1);
++	if (ret)
++		goto out_destroy;
++#endif
++	ret = rdma_bind_addr(listen_id, sap);
++	if (ret)
++		goto out_destroy;
++
++	ret = rdma_listen(listen_id, RPCRDMA_LISTEN_BACKLOG);
++	if (ret)
++		goto out_destroy;
++
++	return listen_id;
++
++out_destroy:
++	rdma_destroy_id(listen_id);
++	return ERR_PTR(ret);
++}
++
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+ 						 struct net *net, int node)
+ {
+@@ -302,7 +339,6 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ {
+ 	struct rdma_cm_id *listen_id;
+ 	struct svcxprt_rdma *cma_xprt;
+-	int ret;
  
  	if (sa->sa_family != AF_INET && sa->sa_family != AF_INET6)
  		return ERR_PTR(-EAFNOSUPPORT);
--	cma_xprt = svc_rdma_create_xprt(serv, net);
-+	cma_xprt = svc_rdma_create_xprt(serv, net, NUMA_NO_NODE);
- 	if (!cma_xprt)
- 		return ERR_PTR(-ENOMEM);
+@@ -312,30 +348,13 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
  	set_bit(XPT_LISTENER, &cma_xprt->sc_xprt.xpt_flags);
+ 	strcpy(cma_xprt->sc_xprt.xpt_remotebuf, "listener");
+ 
+-	listen_id = rdma_create_id(net, svc_rdma_listen_handler, cma_xprt,
+-				   RDMA_PS_TCP, IB_QPT_RC);
++	listen_id = svc_rdma_create_listen_id(net, sa, cma_xprt);
+ 	if (IS_ERR(listen_id)) {
+-		ret = PTR_ERR(listen_id);
+-		goto err0;
++		kfree(cma_xprt);
++		return (struct svc_xprt *)listen_id;
+ 	}
+-
+-	/* Allow both IPv4 and IPv6 sockets to bind a single port
+-	 * at the same time.
+-	 */
+-#if IS_ENABLED(CONFIG_IPV6)
+-	ret = rdma_set_afonly(listen_id, 1);
+-	if (ret)
+-		goto err1;
+-#endif
+-	ret = rdma_bind_addr(listen_id, sa);
+-	if (ret)
+-		goto err1;
+ 	cma_xprt->sc_cm_id = listen_id;
+ 
+-	ret = rdma_listen(listen_id, RPCRDMA_LISTEN_BACKLOG);
+-	if (ret)
+-		goto err1;
+-
+ 	/*
+ 	 * We need to use the address from the cm_id in case the
+ 	 * caller specified 0 for the port number.
+@@ -344,12 +363,6 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 	svc_xprt_set_local(&cma_xprt->sc_xprt, sa, salen);
+ 
+ 	return &cma_xprt->sc_xprt;
+-
+- err1:
+-	rdma_destroy_id(listen_id);
+- err0:
+-	kfree(cma_xprt);
+-	return ERR_PTR(ret);
+ }
+ 
+ /*
 -- 
 2.53.0
 
