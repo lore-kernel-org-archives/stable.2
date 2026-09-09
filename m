@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB0458FD26;
-	Wed,  9 Sep 2026 14:34:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF6D58FD26
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964457; cv=none; b=llWa0yF19vGpTl4SjUA28OVrEDRVhqISmNIQb6M3eHCKuRJ/jlS+d10Jd1vcn2oEx8hBC0OT5ARaFcartfeCM2WnsH+sHxLX8K9KDHVuua0irFpOF34JM7UYqW4iH9utctYwoD6nzuR3HTj242BZOgByyXdvvMvzB7+TrCVCCtk=
+	t=1788964460; cv=none; b=Ze3GYfljkYrdQItht6JJKKDxPIWzX4w+/sXMUQzCnZmfBkBwBxDBYxD7Fdkg50nqIS8/67mEobuLHZfQolSxnFDTe75DdBeDcPTN2H4YlvLEngmNxbvW9cOkH/dZdoUUnqQEKC5qT46V5VRgWkOTVaHYb8aUz6h0f7Mudbcocjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964457; c=relaxed/simple;
-	bh=qO8osLg3/qGZdkNlEsEgjZuxVd7kNikH49auNbjbSGg=;
+	s=arc-20240116; t=1788964460; c=relaxed/simple;
+	bh=aRUsT3b+1e8Es2P98l11DBdDCDro9vxTnvEsZRV+hzk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W8ngld1dwlLydojeDlUMdlA6hG10caqd0YjV4F+v4SEiQj2ECgLweGIY+oKe4qKbaR3Tq/qrHWlqwAVg6zHswfqjrz9tIJGopFOnLXzKVIxo9V1KnzIeKqonYC/7BXnt3O52VLn2FH9Xv5p87tWCVVC9NQnOP1th/WpnUVv01/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ETHetn45; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G7yHLMY86h2vsC54aATLMgz8bv/vmd1ZBtZLpIR0iXeoQBAnmwQgK7FESUejAkOS8RU0fmxx2++B5KIs31vHRjpkZw0zklyl/x17G76xvLg73oP8CcX/ivRylVVC6TtTGzuRI3P12xWG6XXsNULsA+A4fvRKRdtd5ecaqt94EsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQmQI/7m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ETHetn45"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B9F1F00A3D;
-	Wed,  9 Sep 2026 14:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788964456;
-	bh=I4HWcPBq2mgZhac0BlzVo+Q/bBpe5O+TtlOdD2O3ZZQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQmQI/7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89441F00A3E;
+	Wed,  9 Sep 2026 14:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788964458;
+	bh=Y2Yc0pfZKYvfQWDm9kg246nevpfMBgYLgoRaxQDuEfw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ETHetn45Z55bfggL3DiL/CalZbNtqZOwofpsuwX8Rc7hqm5NO0yAkvbyzw9FEhfvJ
-	 JkxfEU20CsPZ0uSiAs+8xSoi09GyWqzhi9jiCUCck6F8OTqkZVCRPytGId77cfIW/T
-	 UTbUKJvDsk9zi5/YOLUIdq38A+E0Mcu2DbaqA44c=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=mQmQI/7mF+y6sVihFK+2DJwZAOjb6ZS1g3jwhSk0xn4cRIwOBqY/vGYabN+RIX2iE
+	 FaPzsI5V9YnDej3m6G8T/Czu0EGHN032I4CBsNC5tHtPQcq3r3PoIqtPvyw9aKGE5Y
+	 K4ekB57CodYo81nY9uKgqi0jDpldWts2uIzQ3jSFo0knoCAzXyhuwDf4c1GqUMQCXV
+	 R9ZYUIq4nHs5xgHKwsivOo74EButZf1Gk1dj50feufwIWsoeNVPy6kO/bIRn040SsP
+	 GoEYyFGutRPKU714e4E0GiG2ofkm7mIUa8gWGBPz1mTt1jLAtyn09tpNQ8JiWML1Tf
+	 dhUhEJTazHP1A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Niklas Neronin <niklas.neronin@linux.intel.com>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 428/583] usb: xhci: use cached HCSPARAMS1 value
-Date: Wed,  9 Sep 2026 15:41:53 +0200
-Message-ID: <20260909134252.817876406@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] mmc: via-sdmmc: cancel card-detect work on remove
+Date: Wed,  9 Sep 2026 10:34:16 -0400
+Message-ID: <20260909143416.2509945-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090309-gerbil-rickety-e7f6@gregkh>
+References: <2026090309-gerbil-rickety-e7f6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +45,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-------------------
+[ Upstream commit 57e5d877f898d5e5c9d672a77bb6bdd24f0d9bf5 ]
 
-From: Niklas Neronin <niklas.neronin@linux.intel.com>
+Disabling the device interrupt and freeing the IRQ prevents new card-detect
+work from being queued, but carddet_work already queued by the handler can
+still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
+host through container_of() and dereferences its MMIO base; once remove()
+returns the host can be freed, so that work would touch freed memory.
 
-[ Upstream commit 70651cc3f5a4c7cec529f121e36ea3b45ea84778 ]
+Cancel carddet_work after freeing the IRQ and before cancelling
+finish_bh_work, which the card-detect handler can also queue. carddet_work
+can re-enable the interrupt through via_reset_pcictrl(); mask it again
+afterwards.
 
-The Structural Parameters 1 (HCSPARAMS1) register is read and cached in
-'xhci->hcs_params1' during host controller initialization. Since this
-register is read-only and its value remains constant for the lifetime of
-the controller, re-reading it later is unnecessary.
+This issue was found by an in-house static analysis tool and confirmed by
+manual code review.
 
-Replace subsequent register reads with the cached 'xhci->hcs_params1'
-value to avoid redundant MMIO access.
-
-Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20251119142417.2820519-15-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 78203d5b54a4 ("usb: xhci: bail out of setup if the controller is inaccessible")
+Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ adjusted context to retain del_timer_sync() instead of timer_delete_sync(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/host/xhci.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/mmc/host/via-sdmmc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4253,8 +4253,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd,
- 		xhci_err(xhci, "Error while assigning device slot ID: %s\n",
- 			 xhci_trb_comp_code_string(command->status));
- 		xhci_err(xhci, "Max number of devices this xHCI host supports is %u.\n",
--				HCS_MAX_SLOTS(
--					readl(&xhci->cap_regs->hcs_params1)));
-+			 HCS_MAX_SLOTS(xhci->hcs_params1));
- 		xhci_free_command(xhci, command);
- 		return 0;
- 	}
-
+diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
+index f6b525fb5c0ed..b75bd01422038 100644
+--- a/drivers/mmc/host/via-sdmmc.c
++++ b/drivers/mmc/host/via-sdmmc.c
+@@ -1205,6 +1205,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
+ 
+ 	free_irq(pcidev->irq, sdhost);
+ 
++	cancel_work_sync(&sdhost->carddet_work);
++	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
++	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
++
+ 	del_timer_sync(&sdhost->timer);
+ 
+ 	tasklet_kill(&sdhost->finish_tasklet);
+-- 
+2.53.0
 
