@@ -1,45 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC18857F752;
-	Wed,  9 Sep 2026 14:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E5157F759
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964636; cv=none; b=MXVli6MwaC6It48ioBhTVYJxfNDjAQJw/A3fzjx5jLeiqOtp8rOvZzc8vmOoyuckcTbIZ7HP/9t6DdYhbH15t4vHMw+C45K9i04TTnU/PiTIfTacJ2jizr089Gsmhb/kzBON6FGY+1nNHuFq3EnxXFdewCeAah4XH1++xroS1B0=
+	t=1788964637; cv=none; b=j7MbjVqgl08APK7bFcvpxXdcu7QCTBJri8YXVGTL/VuPyw/lQb7/5HLEpCmg9jGzh4PPDsNP5hZc+h6MZSsbDSALqeaWqjHROAxcGNSzXaVYW6EUeoBkvQL67RfV8st/ae9TdlkFo9rlvNYScHIQUFArGpWEbLt+Q5sV9O18DsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964636; c=relaxed/simple;
-	bh=gzjqNY1fx/cIpkOMU9lVVgtrmkUwiIKWUmNl5VsVYEQ=;
+	s=arc-20240116; t=1788964637; c=relaxed/simple;
+	bh=XAeMdlYimKGJc3ti1ha2/ZiCzFnirh7Ki5zeO+6i5EA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nY2Mh4AhR7x8H0YpE2JUAp6WeHeeq4vuFqxszM9cottKx1Kc9hnKALD8Z4sHCthSjcvGS5QusYxr9yvslc1MgyVx7zQvRtlzokTWjojgPojDK2hKqvGf2t8ENQ5NLBsrRkQecIPVBBYZIej61HjjpBBq+tcjG6/6KxIqqPu5Hew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UTKKZT9Z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W0TZod1hkddDK90lt++gqKo52/UPFm77vpvX+6GQWZSY2DjyQQ0E3F3Zfi6Z6VjjjGpk9Zdh4IhwcDwUVczpTFYiR6mEps4x7H6phon2WGCh9WOnC7nm15HPBzDLv3vGbVBsS3mjArI7LPhUD3fvtdAxlt6MsDGsd0rNARIt7qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=deNyLPCn; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UTKKZT9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300351F00A3D;
-	Wed,  9 Sep 2026 14:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788964634;
-	bh=M5AAuTHUuNzfiG3WzTqjNxLPD1A16L327zQdcDaVDwc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UTKKZT9ZCwSvgSaxtCq77n20UoXERPLqtCTsfcR6x+u8vz/XlAXkPMAlpRjQBxggZ
-	 pZrrvN3fyW3s7yPu8cIAcEopnK8jYqKpLIRV5rIVL7PHbO+yRp9xzoZ1MLE+mo41oH
-	 GmFJQZfAvqB6zPcr1XINwL8PikOAR1vujP7VVhFE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	NeilBrown <neil@brown.name>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 492/583] svcrdma: Release transport resources synchronously
-Date: Wed,  9 Sep 2026 15:42:57 +0200
-Message-ID: <20260909134254.843879983@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="deNyLPCn"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-86927f9ba4dso552530b3a.1
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:37:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788964635; x=1789569435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AnZ/fPcgKjflxJLFmbxeWbpyuVjiHN/0svFus5OARoM=;
+        b=deNyLPCnVC45lXwiavvPNs8bP4zE7WZrH3r+8kHERiqCqLVAo+C1oKVQG1fTtOJfYH
+         iFKzXg52EgmSmmU/Y9lW/+5N4U64GKbKnzzClpu0W5o9AS+DYexqK8eDR7EMFekMFu4d
+         P9SS8IBe8q4hgD2yrcgQ/ZwOpRbsC6nPIsr6biaqW5r3bqNIkAm0/d7PU/OhubnNzeaf
+         R+P82BIFPo8r75nlsqoEwT1qVXWP9asgjyyusblRGF7pnJ9d+aorhLnbzHu9082vPUz3
+         7m/g4qCBorig7B24GN6yMFr9ojFZEQCQRZUzv1YDnA8g+qaLl20UrdZAzi/X96f3Mse2
+         sNng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788964635; x=1789569435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AnZ/fPcgKjflxJLFmbxeWbpyuVjiHN/0svFus5OARoM=;
+        b=OnYLvt7UVT33L9BaTOSxgMkdNQTfc9ZtM6RpFEK9t8rHrTZMLQKDmpAz9zeuES5OEm
+         1C3fs9jFO48vP8EPun2OwhKKsR0g1g1Hz4XoXuqmboZ9GzxQwzsd0WyWTvuRFa1mw2Lj
+         gSrhHAPwdz6guubdJAodBvbHF79tCGD0V95smQUhnZgb0KbbU5AwazebjnlO8JtCo1c9
+         fJ5XAE6AP9gJKdaf1lqzA0eFz/IlY6ooizP1HaQbOMpd4BLyZeHzW/TgfSdWEQzf0n91
+         06cyfXuxRGXvBu+YkHJZByGcJrH73MrA5qc8IjZFWjMsD5A4Wj167Y6qXwzgd7suA+wW
+         mwqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw20vjokW9Zv4Rp4r2VNUBVyHmgz9SRFnOIkEmlHAtAdJvvUhMhMxfupYUQHbymny5r3TxTQsg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mD93Kx+Mudh/Kht26mtUG8+fcI+f9dK/1zon4bL1sZcENvahA3
+	XlRlwSwKqKuPh2tRQE05s9P464nhRbZEwZM0BP8jZzqvVqzxABU4LNwbBPMyNcF9XH0l
+X-Gm-Gg: AYBFou2lSls8caU/fjTxFzcgYKLY+pBXWE6o/XJOT+SZIwgf/Zcihk/XP8+WZnRoIyL
+	MFO06u2vwSfYlgNASIW0iFmVqrFIJKwqbl6xGcSiQYKowujc1rNML9mMUmOmv6p3klfTy3NcaLN
+	TZ/k91Pwh0hpYyy7MHXPDscFqEHkrgUrZe53xbqCrzqEWNg2OSY9PAjy2xKs8MplesDW4o0/9qG
+	CsRLqZfn1wdkhNNRq31XykxxGrZsfeugVQ66VLrqZHUWTZ/EJ1HITF/M/EdgW5Gyal1lu2rUh8d
+	rrxqQa8cRmLN57z84ZLqUw3DK5EAJWIChcTAKc5Au/Wlc9nmspVfyPeEiwCKpWxvlz9AG5UeoLy
+	IF0Yt5jdX33fI2Qm3HdGuQOOOhzCWdKfG0yHrvPxOBOzIV+VFAZHyX9Y6gZk9OTeAOcqYi057oM
+	ezhRHVWBpXdkh0LKNtNIF++pe4snt5mg4RwYH066OyRda2Cd6qAEk/6GSM9Zwauj4nWVxFq5hGE
+	6hygHxSdexrj0tzOMz1ZdAEfec4Gg==
+X-Received: by 2002:a05:6300:6cc3:10b0:3da:755f:a031 with SMTP id adf61e73a8af0-3da755fa627mr22358075637.12.1788964635053;
+        Wed, 09 Sep 2026 07:37:15 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455451b46sm6784762a12.18.2026.09.09.07.37.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:37:14 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH nf v2 1/1] netfilter: x_tables: avoid holding mutex over faultable user copies
+Date: Wed,  9 Sep 2026 14:36:58 +0000
+Message-ID: <bef677757277dc3c29f503eddc74cf1fbc5fb5fd.1788961415.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788961415.git.zihanx@nebusec.ai>
+References: <cover.1788961415.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,93 +89,412 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+The legacy IPv4, IPv6 and ARP table GET_INFO and GET_ENTRIES paths hold
+the per-family xtables mutexes while copying table data to userspace. A
+faultable destination can therefore sleep indefinitely with the mutex held,
+blocking unrelated table and registry operations.
 
-------------------
+Disable page faults during the locked copy, release the lock, fault in the
+output range, and retry once. Move GET_INFO's fixed-size copy outside the
+table locks and apply the same retry handling to the remaining IPv4/IPv6
+compat GET_ENTRIES paths.
 
-From: Chuck Lever <chuck.lever@oracle.com>
-
-[ Upstream commit bf94dea7fd4e6708d1a784be23db65eff84d82f1 ]
-
-NFSD has always supported added network listeners. The new netlink
-protocol now enables the removal of listeners.
-
-Olga noticed that if an RDMA listener is removed and immediately
-re-added, the deferred __svc_rdma_free() function might not have
-run yet, so some or all of the old listener's RDMA resources
-linger, which prevents a new listener on the same address from
-being created.
-
-Also, svc_xprt_free() does a module_put() just after calling
-->xpo_free(). That means if there is deferred work going on, the
-module could be unloaded before that work is even started,
-resulting in a UAF.
-
-Neil asks:
-> What particular part of __svc_rdma_free() needs to run in order for a
-> subsequent registration to succeed?
-> Can that bit be run directory from svc_rdma_free() rather than be
-> delayed?
-> (I know almost nothing about rdma so forgive me if the answers to these
-> questions seems obvious)
-
-The reasons I can recall are:
-
- - Some of the transport tear-down work can sleep
- - Releasing a cm_id is tricky and can deadlock
-
-We might be able to mitigate the second issue with judicious
-application of transport reference counting.
-
-Reported-by: Olga Kornievskaia <okorniev@redhat.com>
-Closes: https://lore.kernel.org/linux-nfs/20250821204328.89218-1-okorniev@redhat.com/
-Suggested-by: NeilBrown <neil@brown.name>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 4488e9129737 ("svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c |   19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+changes in v2:
+  - Rebase onto current nf.git after 0bd7ed1a3263c ("netfilter:
+    arp_tables: remove the 32bit compat interface"). ARP GET_INFO
+    and GET_ENTRIES are updated on the native paths only. IPv4 and
+    IPv6 still include the compat GET_ENTRIES retry.
+  - Drop hung_task_panic and the 10-second hung_task timeout from the
+    reproducer, as pointed out by Pablo Neira Ayuso. Observe the stall
+    through holder/waiter wchan instead.
+  - v1 Link: https://lore.kernel.org/all/cover.1788244146.git.zihanx@nebusec.ai/
 
---- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -613,12 +613,18 @@ static void svc_rdma_detach(struct svc_x
- 	rdma_disconnect(rdma->sc_cm_id);
+ net/ipv4/netfilter/arp_tables.c | 22 +++++++++++++++++-----
+ net/ipv4/netfilter/ip_tables.c  | 33 ++++++++++++++++++++++++++++-----
+ net/ipv6/netfilter/ip6_tables.c | 33 ++++++++++++++++++++++++++++-----
+ 3 files changed, 73 insertions(+), 15 deletions(-)
+
+diff --git a/net/ipv4/netfilter/arp_tables.c b/net/ipv4/netfilter/arp_tables.c
+index db307fa49f3f6..7b43269aa6b21 100644
+--- a/net/ipv4/netfilter/arp_tables.c
++++ b/net/ipv4/netfilter/arp_tables.c
+@@ -23,6 +23,7 @@
+ #include <linux/init.h>
+ #include <linux/mutex.h>
+ #include <linux/err.h>
++#include <linux/pagemap.h>
+ #include <net/sock.h>
+ #include <linux/uaccess.h>
+ 
+@@ -695,6 +696,7 @@ static int copy_entries_to_user(unsigned int total_size,
+ 
+ 	loc_cpu_entry = private->entries;
+ 
++	pagefault_disable();
+ 	/* FIXME: use iterator macros --RR */
+ 	/* ... then go back and fix counters and names */
+ 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
+@@ -719,12 +721,14 @@ static int copy_entries_to_user(unsigned int total_size,
+ 	}
+ 
+  free_counters:
++	pagefault_enable();
+ 	vfree(counters);
+ 	return ret;
  }
  
--static void __svc_rdma_free(struct work_struct *work)
-+/**
-+ * svc_rdma_free - Release class-specific transport resources
-+ * @xprt: Generic svc transport object
-+ */
-+static void svc_rdma_free(struct svc_xprt *xprt)
+ static int get_info(struct net *net, void __user *user, const int *len)
  {
- 	struct svcxprt_rdma *rdma =
--		container_of(work, struct svcxprt_rdma, sc_work);
-+		container_of(xprt, struct svcxprt_rdma, sc_xprt);
- 	struct ib_device *device = rdma->sc_cm_id->device;
++	struct arpt_getinfo info;
+ 	char name[XT_TABLE_MAXNAMELEN];
+ 	struct xt_table *t;
+ 	int ret;
+@@ -738,7 +742,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 	name[XT_TABLE_MAXNAMELEN-1] = '\0';
+ 	t = xt_request_find_table_lock(net, NFPROTO_ARP, name);
+ 	if (!IS_ERR(t)) {
+-		struct arpt_getinfo info;
+ 		const struct xt_table_info *private = t->private;
  
-+	might_sleep();
+ 		memset(&info, 0, sizeof(info));
+@@ -751,15 +754,14 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 		info.size = private->size;
+ 		strscpy(info.name, name);
+ 
+-		if (copy_to_user(user, &info, *len) != 0)
+-			ret = -EFAULT;
+-		else
+-			ret = 0;
++		ret = 0;
+ 		xt_table_unlock(t);
+ 		module_put(t->me);
+ 	} else
+ 		ret = PTR_ERR(t);
+ 
++	if (!ret && copy_to_user(user, &info, *len) != 0)
++		ret = -EFAULT;
+ 	return ret;
+ }
+ 
+@@ -769,6 +771,7 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
+ 	int ret;
+ 	struct arpt_get_entries get;
+ 	struct xt_table *t;
++	bool faulted = false;
+ 
+ 	if (*len < sizeof(get))
+ 		return -EINVAL;
+@@ -779,6 +782,7 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
+ 
+ 	get.name[sizeof(get.name) - 1] = '\0';
+ 
++ retry:
+ 	t = xt_find_table_lock(net, NFPROTO_ARP, get.name);
+ 	if (!IS_ERR(t)) {
+ 		const struct xt_table_info *private = t->private;
+@@ -794,6 +798,14 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
+ 	} else
+ 		ret = PTR_ERR(t);
+ 
++	if (ret == -EFAULT && !faulted) {
++		faulted = true;
++		if (fault_in_writeable((char __user *)uptr->entrytable,
++				       get.size))
++			return -EFAULT;
++		goto retry;
++	}
 +
- 	/* This blocks until the Completion Queues are empty */
- 	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
- 		ib_drain_qp(rdma->sc_qp);
-@@ -651,15 +657,6 @@ static void __svc_rdma_free(struct work_
- 	kfree(rdma);
+ 	return ret;
  }
  
--static void svc_rdma_free(struct svc_xprt *xprt)
--{
--	struct svcxprt_rdma *rdma =
--		container_of(xprt, struct svcxprt_rdma, sc_xprt);
--
--	INIT_WORK(&rdma->sc_work, __svc_rdma_free);
--	schedule_work(&rdma->sc_work);
--}
--
- static int svc_rdma_has_wspace(struct svc_xprt *xprt)
+diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
+index 809441cedcedc..e029072b07501 100644
+--- a/net/ipv4/netfilter/ip_tables.c
++++ b/net/ipv4/netfilter/ip_tables.c
+@@ -21,6 +21,7 @@
+ #include <linux/proc_fs.h>
+ #include <linux/err.h>
+ #include <linux/cpumask.h>
++#include <linux/pagemap.h>
+ 
+ #include <linux/netfilter/x_tables.h>
+ #include <linux/netfilter_ipv4/ip_tables.h>
+@@ -824,6 +825,7 @@ copy_entries_to_user(unsigned int total_size,
+ 
+ 	loc_cpu_entry = private->entries;
+ 
++	pagefault_disable();
+ 	/* FIXME: use iterator macros --RR */
+ 	/* ... then go back and fix counters and names */
+ 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
+@@ -861,6 +863,7 @@ copy_entries_to_user(unsigned int total_size,
+ 	}
+ 
+  free_counters:
++	pagefault_enable();
+ 	vfree(counters);
+ 	return ret;
+ }
+@@ -943,6 +946,7 @@ static int compat_table_info(const struct xt_table_info *info,
+ 
+ static int get_info(struct net *net, void __user *user, const int *len)
  {
- 	struct svcxprt_rdma *rdma =
-
++	struct ipt_getinfo info;
+ 	char name[XT_TABLE_MAXNAMELEN];
+ 	struct xt_table *t;
+ 	int ret;
+@@ -960,7 +964,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ #endif
+ 	t = xt_request_find_table_lock(net, AF_INET, name);
+ 	if (!IS_ERR(t)) {
+-		struct ipt_getinfo info;
+ 		const struct xt_table_info *private = t->private;
+ #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
+ 		struct xt_table_info tmp;
+@@ -981,10 +984,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 		info.size = private->size;
+ 		strscpy(info.name, name);
+ 
+-		if (copy_to_user(user, &info, *len) != 0)
+-			ret = -EFAULT;
+-		else
+-			ret = 0;
++		ret = 0;
+ 
+ 		xt_table_unlock(t);
+ 		module_put(t->me);
+@@ -994,6 +994,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 	if (in_compat_syscall())
+ 		xt_compat_unlock(AF_INET);
+ #endif
++	if (!ret && copy_to_user(user, &info, *len) != 0)
++		ret = -EFAULT;
+ 	return ret;
+ }
+ 
+@@ -1004,6 +1006,7 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
+ 	int ret;
+ 	struct ipt_get_entries get;
+ 	struct xt_table *t;
++	bool faulted = false;
+ 
+ 	if (*len < sizeof(get))
+ 		return -EINVAL;
+@@ -1013,6 +1016,7 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
+ 		return -EINVAL;
+ 	get.name[sizeof(get.name) - 1] = '\0';
+ 
++ retry:
+ 	t = xt_find_table_lock(net, AF_INET, get.name);
+ 	if (!IS_ERR(t)) {
+ 		const struct xt_table_info *private = t->private;
+@@ -1027,6 +1031,14 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
+ 	} else
+ 		ret = PTR_ERR(t);
+ 
++	if (ret == -EFAULT && !faulted) {
++		faulted = true;
++		if (fault_in_writeable((char __user *)uptr->entrytable,
++				       get.size))
++			return -EFAULT;
++		goto retry;
++	}
++
+ 	return ret;
+ }
+ 
+@@ -1561,12 +1573,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
+ 
+ 	pos = userptr;
+ 	size = total_size;
++	pagefault_disable();
+ 	xt_entry_foreach(iter, private->entries, total_size) {
+ 		ret = compat_copy_entry_to_user(iter, &pos,
+ 						&size, counters, i++);
+ 		if (ret != 0)
+ 			break;
+ 	}
++	pagefault_enable();
+ 
+ 	vfree(counters);
+ 	return ret;
+@@ -1579,6 +1593,7 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
+ 	int ret;
+ 	struct compat_ipt_get_entries get;
+ 	struct xt_table *t;
++	bool faulted = false;
+ 
+ 	if (*len < sizeof(get))
+ 		return -EINVAL;
+@@ -1591,6 +1606,7 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
+ 
+ 	get.name[sizeof(get.name) - 1] = '\0';
+ 
++ retry:
+ 	xt_compat_lock(AF_INET);
+ 	t = xt_find_table_lock(net, AF_INET, get.name);
+ 	if (!IS_ERR(t)) {
+@@ -1610,6 +1626,13 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
+ 		ret = PTR_ERR(t);
+ 
+ 	xt_compat_unlock(AF_INET);
++	if (ret == -EFAULT && !faulted) {
++		faulted = true;
++		if (fault_in_writeable((char __user *)uptr->entrytable,
++				       get.size))
++			return -EFAULT;
++		goto retry;
++	}
+ 	return ret;
+ }
+ #endif
+diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
+index 313c4aac377aa..a64fcd3a9948c 100644
+--- a/net/ipv6/netfilter/ip6_tables.c
++++ b/net/ipv6/netfilter/ip6_tables.c
+@@ -25,6 +25,7 @@
+ #include <linux/proc_fs.h>
+ #include <linux/err.h>
+ #include <linux/cpumask.h>
++#include <linux/pagemap.h>
+ 
+ #include <linux/netfilter_ipv6/ip6_tables.h>
+ #include <linux/netfilter/x_tables.h>
+@@ -845,6 +846,7 @@ copy_entries_to_user(unsigned int total_size,
+ 
+ 	loc_cpu_entry = private->entries;
+ 
++	pagefault_disable();
+ 	/* FIXME: use iterator macros --RR */
+ 	/* ... then go back and fix counters and names */
+ 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
+@@ -882,6 +884,7 @@ copy_entries_to_user(unsigned int total_size,
+ 	}
+ 
+  free_counters:
++	pagefault_enable();
+ 	vfree(counters);
+ 	return ret;
+ }
+@@ -964,6 +967,7 @@ static int compat_table_info(const struct xt_table_info *info,
+ 
+ static int get_info(struct net *net, void __user *user, const int *len)
+ {
++	struct ip6t_getinfo info;
+ 	char name[XT_TABLE_MAXNAMELEN];
+ 	struct xt_table *t;
+ 	int ret;
+@@ -981,7 +985,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ #endif
+ 	t = xt_request_find_table_lock(net, AF_INET6, name);
+ 	if (!IS_ERR(t)) {
+-		struct ip6t_getinfo info;
+ 		const struct xt_table_info *private = t->private;
+ #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
+ 		struct xt_table_info tmp;
+@@ -1002,10 +1005,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 		info.size = private->size;
+ 		strcpy(info.name, name);
+ 
+-		if (copy_to_user(user, &info, *len) != 0)
+-			ret = -EFAULT;
+-		else
+-			ret = 0;
++		ret = 0;
+ 
+ 		xt_table_unlock(t);
+ 		module_put(t->me);
+@@ -1015,6 +1015,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
+ 	if (in_compat_syscall())
+ 		xt_compat_unlock(AF_INET6);
+ #endif
++	if (!ret && copy_to_user(user, &info, *len) != 0)
++		ret = -EFAULT;
+ 	return ret;
+ }
+ 
+@@ -1025,6 +1027,7 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
+ 	int ret;
+ 	struct ip6t_get_entries get;
+ 	struct xt_table *t;
++	bool faulted = false;
+ 
+ 	if (*len < sizeof(get))
+ 		return -EINVAL;
+@@ -1035,6 +1038,7 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
+ 
+ 	get.name[sizeof(get.name) - 1] = '\0';
+ 
++ retry:
+ 	t = xt_find_table_lock(net, AF_INET6, get.name);
+ 	if (!IS_ERR(t)) {
+ 		struct xt_table_info *private = t->private;
+@@ -1049,6 +1053,14 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
+ 	} else
+ 		ret = PTR_ERR(t);
+ 
++	if (ret == -EFAULT && !faulted) {
++		faulted = true;
++		if (fault_in_writeable((char __user *)uptr->entrytable,
++				       get.size))
++			return -EFAULT;
++		goto retry;
++	}
++
+ 	return ret;
+ }
+ 
+@@ -1575,12 +1587,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
+ 
+ 	pos = userptr;
+ 	size = total_size;
++	pagefault_disable();
+ 	xt_entry_foreach(iter, private->entries, total_size) {
+ 		ret = compat_copy_entry_to_user(iter, &pos,
+ 						&size, counters, i++);
+ 		if (ret != 0)
+ 			break;
+ 	}
++	pagefault_enable();
+ 
+ 	vfree(counters);
+ 	return ret;
+@@ -1593,6 +1607,7 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
+ 	int ret;
+ 	struct compat_ip6t_get_entries get;
+ 	struct xt_table *t;
++	bool faulted = false;
+ 
+ 	if (*len < sizeof(get))
+ 		return -EINVAL;
+@@ -1605,6 +1620,7 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
+ 
+ 	get.name[sizeof(get.name) - 1] = '\0';
+ 
++ retry:
+ 	xt_compat_lock(AF_INET6);
+ 	t = xt_find_table_lock(net, AF_INET6, get.name);
+ 	if (!IS_ERR(t)) {
+@@ -1624,6 +1640,13 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
+ 		ret = PTR_ERR(t);
+ 
+ 	xt_compat_unlock(AF_INET6);
++	if (ret == -EFAULT && !faulted) {
++		faulted = true;
++		if (fault_in_writeable((char __user *)uptr->entrytable,
++				       get.size))
++			return -EFAULT;
++		goto retry;
++	}
+ 	return ret;
+ }
+ #endif
+-- 
+2.43.0
 
