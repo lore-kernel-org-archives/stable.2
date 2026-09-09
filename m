@@ -1,106 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D7837C11F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE283403ED
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975522; cv=none; b=pddyGoSSJCYDXhR53lXG5f3FhQe6QT3ML/jBr3Ontjsr5bsyhaicDN0GFFM4AXyYssbN9UVUBfrfXZuiHeOvDqRXDeqVvYkXlQZ73P/lccplUS2zu2JtEKNIDrSNALK1AE5wf6RR92fTBv+y0UmZ0URzNdCHskm2okKoSDrYYmc=
+	t=1788975524; cv=none; b=SJgkBAIG85LFXsLHgKHNFsY5a5hTCTmJSrdzcT3+NPrKxeB/c1OR/6Ko6NVDMKzt8tc+FYm9k5NYqwpg0ZOwSJTygSQZRnl9Oe9QDu/MVr7SjAiu508jls+7LMfUrDsaI86y+FcaxImQUNdO0XCh2+6gDShfB8HbCA8VSZ+rYmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975522; c=relaxed/simple;
-	bh=8ezstaecmio+1s9pNOIMGuxBQMoAGxgj42kj+0ifVQY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ReOVfsp9KuKNnPZotO63wGYbdxHpQbD4ZPaTyDhvkxoDCzNllijlkXV8wb/+zjwcfuNcOZh/sts1f7kCsTYgvqVP3NLVM/64lf93fDNrOsXNLuPdNZT1Zfgppl2Mc1Q/cmmRgacPWDfDtNVfmbn+gBtZiISaBSce+uJHDNIBwFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7cjPvA5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788975524; c=relaxed/simple;
+	bh=CjKaIa/iJ4VYI30C8aabovI3O3H91VbS/IgqSrHz7mc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=NdG7quhUe4uPHOxsetG5XPcZ8m2QpammUhswNBJkYUakUyX3lTAQXGX0w/hMS2gBOvNnNDdAqguidC7J/p1LDoavJLVhK1SQ4F6wyreIce2tZ1HdEkkAEU1VvGbwuUUyPQJB5Tiw/gbnMzi3h/Vw7vVbS3jGIRuRWoZbp5DAztE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QelM13Mr; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7cjPvA5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399EF1F00898;
-	Wed,  9 Sep 2026 17:38:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975520;
-	bh=2XGaAYGD5lXfb3QuGDRD6R1asWZvuuJ9FKDZNNTtaGo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V7cjPvA5esCbj2RJlaAUgZtWdJPRwzpTiACjNSwNaa+jrpKBzwubk1z+6vFs4ltX1
-	 1OoFDbPZhCpKKu2oGdmvHLpJHF9WN3EpG3ujJgvvyEe8iqMa19wZwPTpxpiqvC4p+/
-	 z+xb/VGQDXddbEl0IEbwRbHm5xD7x+1W64VaQdykDLmRwB5pDCCNXbjRqTFon0aDcW
-	 5OaiY8NTR/ukxT4/ZyOagDDW3xSHGdVatjdOUW8h414Z/QXQX60Q5vc702tAp3ce+f
-	 jpOtlhaQW5vYzhMUZHTJ9wRZQx67+/8uBW/GBeZTykGnstWo+V73HWLJgtDnnKtxC2
-	 bCcssaERi9EWg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Glenn Judd <gmj@meta.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] net/mlx5e: do not HW-GRO coalesce small frames
-Date: Wed,  9 Sep 2026 13:38:37 -0400
-Message-ID: <20260909173837.3321389-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909173837.3321389-1-sashal@kernel.org>
-References: <2026090309-detergent-handgrip-7f4e@gregkh>
- <20260909173837.3321389-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QelM13Mr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2EB9B1A1A7F;
+	Wed,  9 Sep 2026 17:38:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EFE9660448;
+	Wed,  9 Sep 2026 17:38:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2FA4011C7918E;
+	Wed,  9 Sep 2026 19:38:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788975517; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XF4mJSC2uWSHASV0wNm363y2tu47XHGouTpCiJXXoCQ=;
+	b=QelM13MrQPE67bZtAJY3b3bIccIgUfM1qnEk8SdqSH4X17df4R/qRzz6oX83xdfHBC46ab
+	2F2QXrbhsDUF+cE1vCf0VfWez++s2zsOcnmYVG5Cvo1mppSOTrMogh7fhBCXPUD8hIeEXT
+	yHvjj42WAZ64rLzbXpB5XO7NVwdwptl5+VADUX4Rk4lUuLmVEaTWQm9WJaZ6S8znoKbH6P
+	wHEudmnOn2uMDSowz4JAI0ww+uENcqL/8Mw1Q5TnkwvyPI/Hs51365XwX07HaBerikfMxP
+	Rtfqj9SP+RHpH90EfZ2xzESzEObrgQmgg5Mcv5oy4khi873q91hAnXDTj/9miA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Esben Haabendal <esben@geanix.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+Subject: Re: (subset) [PATCH v5 0/2] drm/bridge: ti-sn65dsi83: Various
+ fixes
+Message-Id: <178897551198.1624291.16259294756475360270.b4-ty@b4>
+Date: Wed, 09 Sep 2026 19:38:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Glenn Judd <gmj@meta.com>
 
-[ Upstream commit e2466392a0b8496000e12181cb1ee1535eb0da25 ]
+On Mon, 31 Aug 2026 14:21:31 +0200, Esben Haabendal wrote:
+> This small series adds support for using SN65DSI84 in single-link mode with
+> output to LVDS channel B, and provides a fix for an error-handling
+> regression in sn65dsi83_reset_pipe()/sn65dsi83_reset_work().
 
-When hardware GRO (SHAMPO) coalesces a small IPv4/TCP segment that was
-padded up to the 60-byte minimum Ethernet frame, the trailing padding is
-folded into the merged payload causing padding to be delivered
-to the user as payload.
+Applied, thanks!
 
-Detecting and reproducing the issue: the selftest
-tools/testing/selftests/drivers/net/gro.py subtest
-hw_ipv4_data_lrg_1byte sends {100, 1} expecting to receive {101}.
-In current code, it receives {106} (100 + 1 payload + 5 pad) instead.
+[2/2] drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
+      commit: 0878e6053d01d87c75bb1d00b0187e8a2e105ead
 
-This patch avoids giving the user padding as payload by simply not
-coalescing small packets (which fails the subtest; the same approach
-and behavior as sw gro). This gains code simplicity at the cost of
-more computation (passing an extra skb up the stack) for small packets
-that could be coalesced.
-
-The threshold is chosen as ETH_ZLEN + 2 * VLAN_HLEN. This is the largest
-frame that may still contain minimum-frame padding (+ 2 VLAN tags), so
-anything larger is safe to consider for coalesce. (We do not include
-ETH_FCS_LEN in that threshold computation as netdev_fix_features()
-drops NETIF_F_GRO_HW whenever NETIF_F_RXFCS is set, so retained FCS
-can't reach this path.)
-
-Fixes: 92552d3abd32 ("net/mlx5e: HW_GRO cqe handler implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Glenn Judd <gmj@meta.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260816064259.3279548-1-tariqt@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 74a93d82de17e..eaa5d6c83a828 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2363,6 +2363,11 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
- 
- 	data_offset = wqe_offset & (page_size - 1);
- 	page_idx = wqe_offset >> rq->mpwqe.page_shift;
-+	if (unlikely(cqe_bcnt <= ETH_ZLEN + 2 * VLAN_HLEN)) {
-+		match = false;
-+		flush = true;
-+	}
-+
- 	if (*skb &&
- 	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
- 							 page_size))) {
+Best regards,
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
