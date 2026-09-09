@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B601D3101B2;
-	Wed,  9 Sep 2026 20:26:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D153EA959
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985605; cv=none; b=uQt5llsjGGgoZl5VH31JiOBYEH4A+HrcOrleRNmt9kFLvM3C45A19P1x8DRHBXNHfc8DKb7MOhuMXrzlJCfrur8nXhOBL+iWOvZNabVd2tQnSUVii3qhAuZ7DNcBLtAqeLxpyDittEdEG95sJ5bIKHMTlrjCvqgjg/v85rf2T2E=
+	t=1788985606; cv=none; b=mg3vFQZ4rOiMc64ZwiM9wcaMjVk/3ZUlzFKscd+IDa0QxzR3Bjkh+dGgFnm0PcS1W31fj4zP8jDELCnPR+ArbKzU+6iegbWuV/kUjbafzuUvyWLQ2YCXkekGyFLO19SOKOO/RgaXmXp9TSaJYAXmf2JJB4GPFE4Wqe0eaTir0VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985605; c=relaxed/simple;
-	bh=ktN7tNdoYP43KwvGUyiKmOWRIyjxMh3OptPBEmbhk2o=;
+	s=arc-20240116; t=1788985606; c=relaxed/simple;
+	bh=8UZ/7HoYtMvv+3PoXes6ZAF+MALsc02w+H/abmlqk2I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hGly0xXgQLuJGotl9RYhONcEGvG7z/DRB+HejbyEexe6lbNv0kvPJdSiVpVMdRC19TAS/JkjBRPsoP/8XXY3kLTyUXjRhP3qKpwXG4ALCr/ocZ2me4VKFz955W3dNlRNSSJ6b5HImWeoYtK8FzwyB0GmPQU1ANv/FwIk5UWLgqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lc7BsVSK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d9MD1P5wBNBmapH3sS0wVst1R+ol0EdHWrVScJR7b3oq2Pi8+mP7i6hgcE73EkEQrvQGRja+QXeNx9PQkCdcn3jYD2y9M/7ZdfKfAAnbed93OF/Rf0AnSvFtnW0vTEVw1T2Vz+yN28KBA9n6/t2dmOzGUs/341tSjsyafgFsNYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hclkvXb0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lc7BsVSK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400BC1F00899;
-	Wed,  9 Sep 2026 20:26:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hclkvXb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920D71F000FF;
+	Wed,  9 Sep 2026 20:26:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788985598;
-	bh=tX/kkO+6nAZ2yk4srIwlhYDMW0iyNqDX3IR530S8N1A=;
+	s=k20260515; t=1788985601;
+	bh=oZvt146HY5/cYP95yCuAv5EVB+E1dVG2k3fsP5i5FE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lc7BsVSKX0Hc7DizsmuXfY4Gaot0S4Cx5Tkjxo/TKSM397DF7itQO4IQCY02LgPwY
-	 rrLC/WhA0M67fnl1T7jsvCkgFylUFauKVXgzwja5wXcACbcSpRXP+qqPBK2Z27HCV7
-	 +1pw8ThEq3/yu4iCrw+GA75jwMtJYh/YlcSnBkVdlOGLcVIHSZbXaJsZn9qbVku2mK
-	 254UnwKIXHHPUDth9aTsvMOWzr2LI2sboyPTQ+ruYzEGD0E6PzmumFDoAuB/nPkfel
-	 /MRg1ojXj/8N1i1LhBa1tVV1WDkyLn1uyCD7jTDZbTKtR4jB/9mP+ymwCiI73orvsy
-	 LHm/v3p4MdyDg==
+	b=hclkvXb0QOGac1ZkTUjUB/WyJExmI8dQXuj9DL516E0XYWplvjzpFKHn/LmGsGXgl
+	 MX2mWF+4ppdD3UmQ7KV5Y12pAR5j9Zaataemo9FbnyBN9adYEbyh2S+kb7w1QsPMWY
+	 LO6ImevfLf8FX2tTvU5wxYelL2sdXqmzmJ9dSbWq/6YuBtWKI/LtIF/KLalmc2TLVr
+	 5dKuqdHvjIdSgxqhmTRXJc5Py0qFiZpSbxJoGOhJhwsCxaVMS/MXgQnd1Hv5gCavvy
+	 6PG726EIMx7B5rJqShG1CKNJa4JJB7GMpHOukyj0hj+1RuSQXn99set2CuyI37B7xK
+	 KqnNjzDDkFGHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	saeedm@nvidia.com,
-	netdev@vger.kernel.org,
-	phaddad@nvidia.com,
-	Dragos Tatulea <dtatulea@nvidia.com>,
-	Paul Saab <ps@mu.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH v2 6.1.y 6.6.y 6.12.y 6.18.y] net/mlx5e: xsk: Fix unlocked writing to ICOSQ
-Date: Wed,  9 Sep 2026 16:26:01 -0400
-Message-ID: <2026-09-09-daily-reply-0003-mlx5e-xsk-icosq@kernel.org>
+	Kazuki Hanai <hnkz.64@gmail.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>
+Subject: Re: [PATCH 6.6.y] nvmet-auth: Synchronize timeout work during SQ teardown
+Date: Wed,  9 Sep 2026 16:26:04 -0400
+Message-ID: <2026-09-09-daily-reply-0006-nvmet-auth-sq-teardown-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141332.2297825-2-dtatulea@nvidia.com>
-References: <20260909141332.2297825-2-dtatulea@nvidia.com>
+In-Reply-To: <20260909125209.1798946-1-hnkz.64@gmail.com>
+References: <20260909125209.1798946-1-hnkz.64@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,11 +47,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> During napi poll, when the affinity changes and there's still XSK work
-> to be done, we trigger an ICOSQ interrupt on the new CPU. However, this
-> triggering on the ICOSQ is done unprotected.
+> nvmet_auth_sq_free() cancels auth_expired_work with
+> cancel_delayed_work(). If the work has already started, cancellation does
+> not wait for the callback. Transport teardown can consequently free or
+> reuse the queue containing struct nvmet_sq while
+> nvmet_auth_expired_work() still accesses that SQ.
 
-Queued for 6.18, 6.12, 6.6 and 6.1, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
