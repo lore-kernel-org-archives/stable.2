@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D923752D2DB
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196CE52B1DF
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:42:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950562; cv=none; b=PdQvwmKS+BF6zXiNvNpYGqjvOuLQz9FKqhMCNX2XxqLFI80XFhxV9GjcZNnsr2bUL0fnpoIhrJR1XcWY03gXjy4ZAHR96RHtZf04EYuvIjPqF6lrJjdrKbJFdz2TlHmNl+quIFAbgqfZ1kChybnJL8MzCMyQJho3o+19+4c4km4=
+	t=1788950565; cv=none; b=LV8GApmfeX56BtJ/uciYwlJ0wz+k7nHy1A6LOkQSTlb+3TpQ6sumznyc5CVcHNkjpPawU/MXHU48elH3C/bsq3XtlqkP+AHXKbGJ7HvHMysn151L+51AFlXucsI8ijTV485l6Ru4LXiR/GQiov63ScVa3y+yDlJ60/KdPUY6guc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950562; c=relaxed/simple;
-	bh=F8u7tef5Ypb49FDk0g7xdKRA8UIi7hjaLky1mNJlsC0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hqiNjdI3a2fjpCwSI5AucNYFnkvSjw8bRDsQ8R05zpHSRovCZpwm3k5QyrWQ1xiereWZmNrxbLP8JchYGD9W4++hSudUFjyNOVeBBKEyXDNLVl2/lbKeRpi7YsiQVMFACCTg9HhButDvWfvTqBW6EPe+Y9VIAEN7Wm5hNgX64KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FMpqrzHE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950565; c=relaxed/simple;
+	bh=FCF7kymS241RkTiM5ki7ioP5fdCibbw2v5U6fpYB6qo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MVliFLZ7RIAKp2c02AuM7yb0MtmSauQDaAqm83vlISCr1qFcdJ0Ra71+enSjGNnVB98XvrVI0wJeyjVu67SOVBsJW4VLzrXepINHsa6LQj1GLbNEOrjpStqHbi1lYzpJUw8dxVT2OP5tku0odS6k1jmFgIqiGfiObeuCp8477cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K6Vqpneo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FMpqrzHE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4F61F00A3A;
-	Wed,  9 Sep 2026 10:42:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K6Vqpneo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183701F00A3A;
+	Wed,  9 Sep 2026 10:42:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950560;
-	bh=s0BV0iDG8drUMaXVUd/AiUPQNhg2hsK8HBJTrPTX0Iw=;
+	s=korg; t=1788950563;
+	bh=fXsa+z4yBTv315arol6Wgnca9npwA7Jz8a/+cpXS8xs=;
 	h=Subject:To:Cc:From:Date;
-	b=FMpqrzHEAjk7WBcSDf22KnEmJcQbL9NmjV6EjSpWKUc4begPv9+OgmqmfgmW5Mdrb
-	 fPXAoUO7wBJYDTauzdLaTEAXIzZsQVVmKUBbstxKw6vykkYlWuL0sG9ewanpLBdNb3
-	 dPjErZ+PyMM/LIJbyt1GEyFPykS61G+JOfHuLXC8=
-Subject: FAILED: patch "[PATCH] KVM: x86: Check EFER validity on KVM_SET_SREGS*" failed to apply to 6.18-stable tree
+	b=K6VqpneoyygHrSS0mE2ALDOpfOINsTMqDFh1CIwdHh3PZrpqMaHUnaZg7/RRIOrWU
+	 DWnyPYFHwIfVUUcM0WHYvD3KQcsR4OeKfJGbxIOJVwhNlzD6AI+MT+AKzkwCW4kv38
+	 2LjfvnVRXv2BFbwquAVEmqOGVmNiDaVtsJ43Oakw=
+Subject: FAILED: patch "[PATCH] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not" failed to apply to 6.18-stable tree
 To: yosry@kernel.org,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:32:11 +0200
-Message-ID: <2026090911-unvented-professed-4dc0@gregkh>
+Date: Wed, 09 Sep 2026 12:32:14 +0200
+Message-ID: <2026090914-replace-unpleased-ddd4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 184bd464bdb66daa9173670904f24c29c7b7f7d4
+git cherry-pick -x e62392bf39ebfdf60d1d082799397fe1cbf8dfc5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090911-unvented-professed-4dc0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090914-replace-unpleased-ddd4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,43 +62,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 184bd464bdb66daa9173670904f24c29c7b7f7d4 Mon Sep 17 00:00:00 2001
+From e62392bf39ebfdf60d1d082799397fe1cbf8dfc5 Mon Sep 17 00:00:00 2001
 From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 13 Jul 2026 18:01:52 +0000
-Subject: [PATCH] KVM: x86: Check EFER validity on KVM_SET_SREGS*
+Date: Mon, 13 Jul 2026 18:10:17 +0000
+Subject: [PATCH] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not
+ supported
 
-When handling userspace SREGS writes, check the validity of EFER (i.e.
-allowed bits) before writing the new value of EFER through the
-per-vendor set_efer callbacks. This prevents userspace from writing
-bogus values (e.g. EFER.SVME=1 with nested=0).
+Remove EFER.LME and EFER.LMA from EFER reserved bits only if long mode
+is actually supported. KVM does check long-mode support before allowing
+the bits for guest writes and userspace writes through KVM_SET_SREGS*
+(in __kvm_valid_efer()), but userspace writes through KVM_SET_MSRS only
+check reserved bits.
 
-Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
-caps, not guest caps, so it is possible to set EFER bits that are
-supported by KVM but not by the guest CPUID. Potentially allowing
-userspace to set msrs before CPUID.
-
-However, for KVM_SET_SREGS*, check the validity of the set bits against
-both KVM and guest caps. This is consistent with other validity checks
-(e.g. for CR4) that check validity against guest caps, which already
-imposes the need to set CPUID before SREGS.
+In practice, this doesn't really matter. The true motiviation is getting
+rid of the #ifdeffery when initializing efer_reserved_bits.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Link: https://patch.msgid.link/20260713180153.2728382-2-yosry@kernel.org
+Link: https://patch.msgid.link/20260713181020.2735367-3-yosry@kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index bd8147798cc3..8f66438989e4 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -564,7 +564,8 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
- 	}
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index c230b18d87e3..67481429ad6b 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -19,16 +19,8 @@ bool __read_mostly report_ignored_msrs = true;
+ module_param(report_ignored_msrs, bool, 0644);
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(report_ignored_msrs);
  
- 	return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
--	       kvm_is_valid_cr0(vcpu, sregs->cr0);
-+	       kvm_is_valid_cr0(vcpu, sregs->cr0) &&
-+	       kvm_valid_efer(vcpu, sregs->efer);
- }
+-/* EFER defaults:
+- * - enable syscall per default because its emulated by KVM
+- * - enable LME and LMA per default on 64 bit KVM
+- */
+-#ifdef CONFIG_X86_64
+-static
+-u64 __read_mostly efer_reserved_bits = ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
+-#else
++/* Enable syscall by default because its emulated by KVM */
+ static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
+-#endif
  
- static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
+ #define MAX_IO_MSRS 256
+ 
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index a4216b858194..0845551c6cab 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6910,6 +6910,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
+ 
+ static void kvm_setup_efer_caps(void)
+ {
++	if (kvm_cpu_cap_has(X86_FEATURE_LM))
++		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
++
+ 	if (kvm_cpu_cap_has(X86_FEATURE_NX))
+ 		kvm_enable_efer_bits(EFER_NX);
+ 
 
