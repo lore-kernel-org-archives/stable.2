@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A92C353A82
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338D53A9DA2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:45:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954316; cv=none; b=l2TmLtHPms0svAS9KtVIxW9RsJ4R9dP3i7ffFSxcXzGbTxv0TQICMaOuzF0B4yVpoUG1R3JEYpRArJ/4H0rApCkMQ7X3BJBVPQdl6OmQtKeM9cOmjE/gZvtbkYTiEIGnFEE5iMT3ScVOetrdFLdIVniwGI82Wtpae3RaBQsrZcg=
+	t=1788954319; cv=none; b=TRTigC2Mtx9Cvxuy/dCUn8kXQEDusmWZaAYgQth3rKzezatsxntFs3x4wOmg0FxjkcO+d72QRh0RAmQL1IC40X22REa3JQxNqNUxOTRoJhc0TBg+mr5gi/tpC/wpJ49lW9lXRz/KDXQI5U2o/yUPRRByHPrAWu/6oFuE9zvG8Ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954316; c=relaxed/simple;
-	bh=q70WrijYS2prk6RwyAYctpFZs1RP/8MzVJzE+bawlgo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lBzalIBIMkF9fVzzdlqNQ6yKvwSPw+J8bs9YMJH51KH7BS00UhMq7z/wa24uqmv3QTu4Lmn9rnd8fV0aN2TMrZvRGtm7c1csxSR6mA7BxtsECb41nVuPBvGCN3hT2IsDDihihY7xOAjTtNj4moRCT1J5QUQgv03ZO4sy/tqU7ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FHV50H29; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954319; c=relaxed/simple;
+	bh=ED+vTb8sLzg8crIa+x0c3jN4S+nvvnsn1GyoTA760xo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LopXzEuxykWGoKNfCIMhF1bhofg+do715ytEJywG+L1VJA088RuCSx/UR+eLK38opZtKSWYw2DAI8QWx+0NM6vBLBG2O03mcHgcnmMC1G2RD2RRv5QnceLo2wuAdkxYEBXYTzsgySDgnajBtrxPnM2fdFdFlYDTOS3ff4yYNHK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VJRsVHtl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FHV50H29"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E88E1F00A3A;
-	Wed,  9 Sep 2026 11:45:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VJRsVHtl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D2C1F00A3A;
+	Wed,  9 Sep 2026 11:45:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954315;
-	bh=aNdQxLyIRlDJX2o2K25dF/m3kgitTPX2HBU3IQu3a/M=;
+	s=korg; t=1788954318;
+	bh=dMqA1khHta3yoiOkr6EPJdjYsWp5IwVsA3AT6N+vYoI=;
 	h=Subject:To:Cc:From:Date;
-	b=FHV50H29rJW35uuCdD/eVK3Z9NpwLDHn020tIhjIy70+Oj8pYhY9W+L482gO/q16D
-	 3EDbExpRqe5JqfuXRrx30BD7rPULZLsDeC29VjqxwTNWD+QNY1WOIYfe3UyDghQWp5
-	 Uj+qQA1sfsuUNm/+TlybHIR6KcWpzxloW1Eo2jT4=
-Subject: FAILED: patch "[PATCH] f2fs: accurately adjust free_sections during" failed to apply to 5.10-stable tree
-To: daehojeong@google.com,chao@kernel.org,jaegeuk@kernel.org,s_min.jeong@samsung.com
+	b=VJRsVHtlWVok86yqShYAfPUadudY4h7XUwt3OmKOVkzHZCvUFt+PIu3uu4qvh6IrW
+	 gpfsHyLTTUxPs0h52fF1V38or1RFfW0ML5b4/Vo0LymO5aqA0oWkgGXAPWpdv9Fy5x
+	 aXWmFhEeQQoOhq+ZCvGVTc+0539ZT3Ta2U3KoFDY=
+Subject: FAILED: patch "[PATCH] f2fs: fix to reset all pinned status during fggc" failed to apply to 6.18-stable tree
+To: chao@kernel.org,daehojeong@google.com,jaegeuk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:28:38 +0200
-Message-ID: <2026090938-stress-gallery-d468@gregkh>
+Date: Wed, 09 Sep 2026 13:28:44 +0200
+Message-ID: <2026090944-reprint-spruce-0599@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8c963d1738fdca400082ff5f9d99e083de4f4e70
+git cherry-pick -x 2b8704b6a8b2896ccad1f5941d9a3e2c5031a470
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090938-stress-gallery-d468@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090944-reprint-spruce-0599@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,77 +62,31 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8c963d1738fdca400082ff5f9d99e083de4f4e70 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Mon, 24 Aug 2026 18:53:03 -0700
-Subject: [PATCH] f2fs: accurately adjust free_sections during
- free_segment_range
+From 2b8704b6a8b2896ccad1f5941d9a3e2c5031a470 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 17 Aug 2026 02:39:27 +0000
+Subject: [PATCH] f2fs: fix to reset all pinned status during fggc
 
-In free_segment_range(), MAIN_SECS(sbi) is temporarily reduced by `secs`
-to restrict block allocation to the safe remaining main area while valid
-blocks in the truncated range are evacuated by GC.
+Otherwise, the pinned status may affect latter flow of fggc.
 
-However, FREE_I(sbi)->free_sections tracks the total number of free
-sections across the whole filesystem. If any sections within the
-truncated range were already free upon entering free_segment_range(),
-failing to deduct them from free_sections causes the filesystem to
-overestimate available free sections in the active, reduced main area.
-This leads to inconsistent free section accounting during GC data
-migration and can trigger unexpected allocation failures or assertion
-errors when space is tight.
-
-Fix this by calculating the number of already-free sections in the
-truncated range, deducting them from free_sections upon entering
-free_segment_range(), and restoring them on exit.
-
-Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Cc: stable@kernel.org
+Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
+Cc: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
 diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 0c17038fcfd7..0a00180c21dc 100644
+index 5917ee917d87..0c17038fcfd7 100644
 --- a/fs/f2fs/gc.c
 +++ b/fs/f2fs/gc.c
-@@ -2231,17 +2231,27 @@ void f2fs_reset_gc_victim_resource(struct f2fs_sb_info *sbi,
- static int free_segment_range(struct f2fs_sb_info *sbi,
- 				unsigned int secs, bool dry_run)
- {
--	unsigned int next_inuse, start, end;
-+	unsigned int secno, next_inuse, start, end, end_secno;
- 	struct cp_control cpc = { CP_RESIZE, 0, 0, 0 };
-+	unsigned int freed_secs = 0;
- 	int err = 0;
- 	int type;
+@@ -2183,6 +2183,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ 		do_garbage_collect(sbi, segno, &gc_list, FG_GC, true, false);
+ 		put_gc_inode(&gc_list);
  
- 	MAIN_SECS(sbi) -= secs;
- 	start = MAIN_SECS(sbi) * SEGS_PER_SEC(sbi);
- 	end = MAIN_SEGS(sbi) - 1;
-+	end_secno = GET_SEC_FROM_SEG(sbi, end);
- 
- 	f2fs_reset_gc_victim_resource(sbi, start, end);
- 
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	for (secno = MAIN_SECS(sbi); secno <= end_secno; secno++) {
-+		if (!test_bit(secno, FREE_I(sbi)->free_secmap))
-+			freed_secs++;
-+	}
-+	FREE_I(sbi)->free_sections -= freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
++		/* reset all pinned status during fggc */
++		f2fs_unpin_all_sections(sbi, true);
 +
- 	/* Move out cursegs from the target range */
- 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_TYPE; type++) {
- 		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
-@@ -2266,6 +2276,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 		f2fs_bug_on(sbi, 1);
- 	}
- out:
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	FREE_I(sbi)->free_sections += freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 	MAIN_SECS(sbi) += secs;
- 	return err;
- }
+ 		if (!dry_run && get_valid_blocks(sbi, segno, true)) {
+ 			err = -EAGAIN;
+ 			goto next;
 
