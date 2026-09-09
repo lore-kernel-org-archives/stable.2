@@ -1,154 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D355335B3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B93D56B85E;
+	Wed,  9 Sep 2026 14:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965622; cv=none; b=WxLJ1xrWBqPFTbSWz4dF3DY2OSDR7plakEOsc8Th8l0M+4E0Eip+T48g+eQJj98rJ+Q/Pm2YenLsDU1cdXtOuCA9be6bYiiNnEvfZYFthToA/RGEQNbAmwdLbqTLbycy7TvHczeXFzDnbgO2Phkt8Yd4GmcGej7vluB7FYwfP1w=
+	t=1788965822; cv=none; b=nJ146JxNq0JpHaCEsvuJylp5k6SDWH+6QKhkdHQTOwHPhzxCmaXDWENFYvUoeD1UTN/qsOYku7mY+EPuTMK6eluHia0OTS3xvssFboOouAHHMQ5v6suD3Yc/A1V5kacuckMS5NqLv5lSORQvotqP6ITkEARQoMkPBiUzTi/9pkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965622; c=relaxed/simple;
-	bh=7urVkxJ5yAVQCCgrqBnJch6kponWRL2EW8+0s8gm9HI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f+367Z7Zkq3QHsmYeZoli9sHFSqRr6iUXlEPMtQVz/X7299zYpz60NikPgGbf81T/9jdjQJwrVH+fkmhis5TkObFNMpdlQTd2jazwyReIE9hZ5UwDBLunYCLZyGd7XcVZhFHIWXUyzvoQiovceEYmMJCd+jO72VMN2Nf7cop1eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lm+8l/cE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lm+8l/cE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00591F00AC4;
-	Wed,  9 Sep 2026 14:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965621;
-	bh=AmHRTwQawwObpJaXrtV89IptD/6uUpwmoctMroyFrG4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lm+8l/cE3fnRmidZBXE9LzFTpVpPMT4PsUabqI74Stis3IEsZq7mvVJIOmFyr3Kfz
-	 kp/y4u6o9e7NWCaX12euyloIuUPDcyttk019AcOlK4VWLD8z4/hl5IIGqQn6Qt+oTt
-	 EBj4lSDGiX3PVgyEuCq+uFSYGyKRfP+pdesfv81oxoNdBRGLURJuM6pH3kkyfOj9dE
-	 TWq2gGavht2JwnZGAn1vfsoYIoK+W628MJazweQg+xJfvRgyOteZZWmHNCsjmqqkpm
-	 N+pZ7pniNrfPwEuJ++JLRl2T+z5A+FG2Ou2kV/E1lYnMAHP02pnPxJqXdmzK+5qN7B
-	 WTPZ07mgon/dQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] platform/x86: int1092: Fix potential memory leak in sar_probe()
-Date: Wed,  9 Sep 2026 10:53:38 -0400
-Message-ID: <20260909145338.2698768-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909145338.2698768-1-sashal@kernel.org>
-References: <2026090357-daylong-strangle-f0da@gregkh>
- <20260909145338.2698768-1-sashal@kernel.org>
+	s=arc-20240116; t=1788965822; c=relaxed/simple;
+	bh=h96uvAJIcFvW/gvc9/E2ZoaxXrEGFbZ0wNVkmbqJy2E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AthJndVlvWFLkXX3fVZ8m6tWJ7oncFqhkQ3WIRHTU6PGq27aoDmtDFmjH6p4yQ0nqyNjvtdH+oMFPcbiuYZ4WxhNiyS249HN2aW6xFOQ/aImQ69bt3+i9gusYuQwRR2Sv5uaMsSbnZ+eN325yMzcEyLCG0UXg2w4E7WohOMFXa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAn0zy0c6FqOpEDAQ--.3218S3;
+	Wed, 09 Sep 2026 22:56:53 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBnMXW0c6Fq1tELBQ--.36455S2;
+	Wed, 09 Sep 2026 22:56:52 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: jdmason@kudzu.us,
+	dave.jiang@intel.com,
+	allenbh@gmail.com
+Cc: logang@deltatee.com,
+	ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] NTB: ntb_msi_test: Cancel setup work on remove
+Date: Wed,  9 Sep 2026 14:55:54 +0000
+Message-Id: <20260909145554.704036-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgBnMXW0c6Fq1tELBQ--.36455S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?EAMcSAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WMlFP4rfsrrQsG96E5DvaxSA7dPZChY0xT5almqjCaBI1yD
+	kB8etoL/Q+m8BNffQ+ep9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7WF17Gry8Ww45ZrWfCryDJwc_yoW8uFy3pr
+	15ZryY9ayktanrAanrXayjv3WFyws3AFWxGryfGwnrZF15AFyUKa43tayayr48JrW8ZFn3
+	Aw4Uta18Za98CFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU2EoXUUUUU
 
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+The MSI test client queues setup_work from the link event callback
+ntb_msit_link_event(), which the NTB core dispatches whenever the link
+comes up. The work handler ntb_msit_setup_work() recovers the client
+context with container_of() and programs memory windows, scratchpad
+registers and MSI interrupts through it.
 
-[ Upstream commit 30c906cff490c3601ee9ff110fe8115fabe75fd4 ]
+ntb_msit_remove() never cancels the work. ntb_clear_ctx() stops new
+link event callbacks from being dispatched, but it does not drain a
+setup_work that was already queued. After the remove callback returns,
+the NTB device's devm eventually releases the context, and a
+still-pending setup work can then run and dereference freed memory.
 
-The memory allocated for device_mode_info in parse_package() called by
-sar_get_data() is not freed in some of the error paths in sar_probe().
-Fix that by converting to use device managed allocations.
+Quiesce the callbacks and drain the work before tearing down the
+resources the work programs. Cancel the work after ntb_clear_ctx(),
+which guarantees no new instance can be queued: link events are
+dispatched under the same ctx_lock that ntb_clear_ctx() holds. Do this
+before ntb_msi_clear_mws(), so a late setup work cannot re-program
+memory windows that remove() has already cleared.
 
-Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
+This issue was found by an in-house static analysis tool.
+
+Fixes: a6bed7a54165 ("NTB: Introduce NTB MSI Test Client")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Link: https://patch.msgid.link/20260723-platx86-v4-1-93b4a178b595@cse.iitm.ac.in
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- .../platform/x86/intel/int1092/intel_sar.c    | 32 ++++++-------------
- 1 file changed, 10 insertions(+), 22 deletions(-)
+ drivers/ntb/test/ntb_msi_test.c | 3 +++
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
-index af4c127d33f4d..1cfb268f6b71f 100644
---- a/drivers/platform/x86/intel/int1092/intel_sar.c
-+++ b/drivers/platform/x86/intel/int1092/intel_sar.c
-@@ -91,8 +91,10 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
- 	    item->package.count <= data->total_dev_mode)
- 		return AE_ERROR;
+diff --git a/drivers/ntb/test/ntb_msi_test.c b/drivers/ntb/test/ntb_msi_test.c
+index 4e18e08..290c2b3 100644
+--- a/drivers/ntb/test/ntb_msi_test.c
++++ b/drivers/ntb/test/ntb_msi_test.c
+@@ -391,13 +391,15 @@ static void ntb_msit_remove(struct ntb_client *client, struct ntb_dev *ntb)
+ 	int i;
  
--	data->device_mode_info = kmalloc_objs(struct wwan_device_mode_info,
--					      data->total_dev_mode);
-+	data->device_mode_info = devm_kmalloc_array(&context->sar_device->dev,
-+						    data->total_dev_mode,
-+						    sizeof(*data->device_mode_info),
-+						    GFP_KERNEL);
- 	if (!data->device_mode_info)
- 		return AE_ERROR;
+ 	ntb_link_disable(ntb);
++	ntb_clear_ctx(ntb);
++	cancel_work_sync(&nm->setup_work);
++
+ 	ntb_db_set_mask(ntb, ntb_db_valid_mask(ntb));
+ 	ntb_msi_clear_mws(ntb);
  
-@@ -253,7 +255,7 @@ static int sar_probe(struct platform_device *device)
- 	if (!handle)
- 		return -ENODEV;
+ 	for (i = 0; i < ntb_peer_port_count(ntb); i++)
+ 		kfree(nm->peers[i].msi_desc);
  
--	context = kzalloc_obj(*context);
-+	context = devm_kzalloc(&device->dev, sizeof(*context), GFP_KERNEL);
- 	if (!context)
- 		return -ENOMEM;
- 
-@@ -264,7 +266,7 @@ static int sar_probe(struct platform_device *device)
- 	result = guid_parse(SAR_DSM_UUID, &context->guid);
- 	if (result) {
- 		dev_err(&device->dev, "SAR UUID parse error: %d\n", result);
--		goto r_free;
-+		return result;
- 	}
- 
- 	for (reg = 0; reg < MAX_REGULATORY; reg++)
-@@ -272,43 +274,29 @@ static int sar_probe(struct platform_device *device)
- 
- 	if (sar_get_device_mode(device) != AE_OK) {
- 		dev_err(&device->dev, "Failed to get device mode\n");
--		result = -EIO;
--		goto r_free;
-+		return -EIO;
- 	}
- 
- 	result = sysfs_create_group(&device->dev.kobj, &intcsar_group);
- 	if (result) {
- 		dev_err(&device->dev, "sysfs creation failed\n");
--		goto r_free;
-+		return result;
- 	}
- 
- 	if (acpi_install_notify_handler(ACPI_HANDLE(&device->dev), ACPI_DEVICE_NOTIFY,
- 					sar_notify, (void *)device) != AE_OK) {
- 		dev_err(&device->dev, "Failed acpi_install_notify_handler\n");
--		result = -EIO;
--		goto r_sys;
-+		sysfs_remove_group(&device->dev.kobj, &intcsar_group);
-+		return -EIO;
- 	}
- 	return 0;
--
--r_sys:
--	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
--r_free:
--	kfree(context);
--	return result;
+-	ntb_clear_ctx(ntb);
+ 	ntb_msit_remove_dbgfs(nm);
  }
  
- static void sar_remove(struct platform_device *device)
- {
--	struct wwan_sar_context *context = dev_get_drvdata(&device->dev);
--	int reg;
--
- 	acpi_remove_notify_handler(ACPI_HANDLE(&device->dev),
- 				   ACPI_DEVICE_NOTIFY, sar_notify);
- 	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
--	for (reg = 0; reg < MAX_REGULATORY; reg++)
--		kfree(context->config_data[reg].device_mode_info);
--
--	kfree(context);
- }
- 
- static struct platform_driver sar_driver = {
--- 
-2.53.0
 
