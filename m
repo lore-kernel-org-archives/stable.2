@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9664CC29A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF95853ED0E
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952918; cv=none; b=fDKBSFDwETKrUkrdyp2CsbvWVsX0JHZoq3LFiWWxYcvkVShwlREgn4kOrplq9teJLSk8vN8Y02T2pzdsxZydIDHEzXQGQlljLUQ0dSmxktafWGVuvG/M4/VN+s6uwZ98aLFdPxccnf6mEs+9wxDfa98GSmyqsc9q5QJmi0BpTD8=
+	t=1788952919; cv=none; b=rpZwEc5dAMdkUGubNgv3EnV6mJJRlVTWu2kpqvAWGl7G5ibFBgdgYLQ7t9/Se9jUgujt2iKyBtCWWCpchoKi/GVt6mK3Wga1r2p5+hVH8C1QfCj5NDVaeQ92CztmsrUPtTARvC7YmkuEr2yMymzmoXBmFXM0/Vsv5tN7prjH3Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952918; c=relaxed/simple;
-	bh=dV/KZIGwDZk8Ph9oX2jGWOhP34iZ59YjAVRtqo0lD1w=;
+	s=arc-20240116; t=1788952919; c=relaxed/simple;
+	bh=ptbK9ACAPN4Ub3nyse1u/YuLeOtB6UY0p6gzR0RMKVM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JCLxx7ngxINDCF2PA/5EKBpLhFP3mcOFwscA78nBIbfPf8jgXQhgC+kCnHs5g8ohUa8qG4IMxp8YFtW0XI/Al2OEKrCjtYAZ285iyyDm4wQk2VQyP8npUp/BQBleoCM1aHjSNqDgruq1MNUE+47vNbc+Pj+M8C0td6PjKwi1Zzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doZH985e; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dTWSVR5XaGPoATsOsR6P8iGsYP+kCR+Jhq2vN3K86seAYbeJlFTy70K98oRqiErVwuLqzlY2okSlZvT9Xlw7mXtxmWq5jChJHF6aFR5NRFeY4BhzyjiE8iXmukhksalRgP1VOgY2TSvYJJLL5aUkKM+b7qORDojFRWSJguzOypY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7eRusz4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doZH985e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93F111F00A3E;
-	Wed,  9 Sep 2026 11:21:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7eRusz4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B94F1F00A3F;
+	Wed,  9 Sep 2026 11:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788952917;
-	bh=03EsSXCXsqdlHbuRsvzBeG59cp61p7OkdFesNhrPCas=;
+	bh=GIYuvzhr0612RNK6oyav4ePZ7PMZreIwc+gakjmaf5w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=doZH985enYYe8upKzfgldiZTmyTg+4aGAlXQEDUYTk+6CO2c9s2HtRvI4hqrtItDi
-	 9VwujhrYx5wxylYnHiS1zQNKLfuIZBpouvdaG11x0Q/18aNyC9EjPnVXmoIJ9Ktk65
-	 j+fsd1Q9OfDPKEbtdK0cYuLzkLSuPvEDM5NoDydQQT5vLB70j9PuTbHAXHCfjdBDpz
-	 WjgkUwrPq0zBmPlzZmGzMKgSFvufA8cbBSjdtgR05rHx+O7zb2gzXSSjLczavgrMhF
-	 9Y9YmuN8iKEc/Uha5DaqiyltdJhvbFXSLAyC4utXCt40HelTa3z51cNdqFBVXuQZ+c
-	 O3608+Vx1SAbg==
+	b=h7eRusz4JvVM/YGCB/tfZ1kVPt2EQQF5ro/oGj72HgDUYEQUSV9A6beeJt18ZWRaQ
+	 jK+wTuK31jybkARDNAmviKw/LkuA4+7E57jN3y4SB2+u0F5Z6l3WcgfeHswuSU/0xF
+	 5irtB4bUAaB5dyYzOLKsHRLViMxjYTBB9A7mwn//KAwnhT0ewnJD7Ign1+qxNDo2wI
+	 ye1jC/G6C3QQpzgvM4V0ilTnIvsV/ig1vWYMT6qhwsxJ0VcV6SKew87+QWWxBBJB0M
+	 g2F6Ud1Nue3bOb/tMnu/60FpFdoGL//Cc6jAfucyjowK5x+T0y4MaAjmKoLaxaDXdD
+	 iwM84/pqzcrNg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/8] driver core: platform: use bus_type functions
-Date: Wed,  9 Sep 2026 07:21:48 -0400
-Message-ID: <20260909112153.1816689-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/8] driver core: platform: Emit a warning if a remove callback returned non-zero
+Date: Wed,  9 Sep 2026 07:21:49 -0400
+Message-ID: <20260909112153.1816689-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909112153.1816689-1-sashal@kernel.org>
 References: <2026090353-unadorned-buffed-09ad@gregkh>
@@ -47,189 +47,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Uwe Kleine-König <uwe@kleine-koenig.org>
 
-[ Upstream commit 9c30921fe7994907e0b3e0637b2c8c0fc4b5171f ]
+[ Upstream commit e5e1c209788138f33ca6558bf9f572f6904f486d ]
 
-This works towards the goal mentioned in 2006 in commit 594c8281f905
-("[PATCH] Add bus_type probe, remove, shutdown methods.").
+The driver core ignores the return value of a bus' remove callback. However
+a driver returning an error code is a hint that there is a problem,
+probably a driver author who expects that returning e.g. -EBUSY has any
+effect.
 
-The functions are moved to where the other bus_type functions are
-defined and renamed to match the already established naming scheme.
+The right thing to do would be to make struct platform_driver::remove()
+return void. With the immense number of platform drivers this is however a
+big quest and I hope to prevent at least a few new drivers that return an
+error code here.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Link: https://lore.kernel.org/r/20201119124611.2573057-3-u.kleine-koenig@pengutronix.de
+Signed-off-by: Uwe Kleine-König <uwe@kleine-koenig.org>
+Link: https://lore.kernel.org/r/20210207211537.19992-1-uwe@kleine-koenig.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 831c29a12d56 ("power: supply: lp8788-charger: fix use-after-free on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/platform.c | 132 ++++++++++++++++++++--------------------
- 1 file changed, 65 insertions(+), 67 deletions(-)
+ drivers/base/platform.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 16426eb934632..90166535a5c05 100644
+index 90166535a5c05..d0b15cbab0ff0 100644
 --- a/drivers/base/platform.c
 +++ b/drivers/base/platform.c
-@@ -743,70 +743,6 @@ struct platform_device *platform_device_register_full(
- }
- EXPORT_SYMBOL_GPL(platform_device_register_full);
- 
--static int platform_probe_fail(struct platform_device *pdev);
--
--static int platform_drv_probe(struct device *_dev)
--{
--	struct platform_driver *drv = to_platform_driver(_dev->driver);
--	struct platform_device *dev = to_platform_device(_dev);
--	int ret;
--
--	/*
--	 * A driver registered using platform_driver_probe() cannot be bound
--	 * again later because the probe function usually lives in __init code
--	 * and so is gone. For these drivers .probe is set to
--	 * platform_probe_fail in __platform_driver_probe(). Don't even
--	 * prepare clocks and PM domains for these to match the traditional
--	 * behaviour.
--	 */
--	if (unlikely(drv->probe == platform_probe_fail))
--		return -ENXIO;
--
--	ret = of_clk_set_defaults(_dev->of_node, false);
--	if (ret < 0)
--		return ret;
--
--	ret = dev_pm_domain_attach(_dev, true);
--	if (ret)
--		goto out;
--
--	if (drv->probe) {
--		ret = drv->probe(dev);
--		if (ret)
--			dev_pm_domain_detach(_dev, true);
--	}
--
--out:
--	if (drv->prevent_deferred_probe && ret == -EPROBE_DEFER) {
--		dev_warn(_dev, "probe deferral not supported\n");
--		ret = -ENXIO;
--	}
--
--	return ret;
--}
--
--static int platform_drv_remove(struct device *_dev)
--{
--	struct platform_driver *drv = to_platform_driver(_dev->driver);
--	struct platform_device *dev = to_platform_device(_dev);
+@@ -1305,13 +1305,16 @@ static int platform_remove(struct device *_dev)
+ {
+ 	struct platform_driver *drv = to_platform_driver(_dev->driver);
+ 	struct platform_device *dev = to_platform_device(_dev);
 -	int ret = 0;
--
+ 
 -	if (drv->remove)
 -		ret = drv->remove(dev);
--	dev_pm_domain_detach(_dev, true);
--
--	return ret;
--}
--
--static void platform_drv_shutdown(struct device *_dev)
--{
--	struct platform_driver *drv = to_platform_driver(_dev->driver);
--	struct platform_device *dev = to_platform_device(_dev);
--
--	if (drv->shutdown)
--		drv->shutdown(dev);
--}
--
- /**
-  * __platform_driver_register - register a driver for platform-level devices
-  * @drv: platform driver structure
-@@ -817,9 +753,6 @@ int __platform_driver_register(struct platform_driver *drv,
- {
- 	drv->driver.owner = owner;
- 	drv->driver.bus = &platform_bus_type;
--	drv->driver.probe = platform_drv_probe;
--	drv->driver.remove = platform_drv_remove;
--	drv->driver.shutdown = platform_drv_shutdown;
- 
- 	return driver_register(&drv->driver);
- }
-@@ -1329,6 +1262,68 @@ static int platform_uevent(struct device *dev, struct kobj_uevent_env *env)
- 	return 0;
- }
- 
-+static int platform_probe(struct device *_dev)
-+{
-+	struct platform_driver *drv = to_platform_driver(_dev->driver);
-+	struct platform_device *dev = to_platform_device(_dev);
-+	int ret;
++	if (drv->remove) {
++		int ret = drv->remove(dev);
 +
-+	/*
-+	 * A driver registered using platform_driver_probe() cannot be bound
-+	 * again later because the probe function usually lives in __init code
-+	 * and so is gone. For these drivers .probe is set to
-+	 * platform_probe_fail in __platform_driver_probe(). Don't even prepare
-+	 * clocks and PM domains for these to match the traditional behaviour.
-+	 */
-+	if (unlikely(drv->probe == platform_probe_fail))
-+		return -ENXIO;
-+
-+	ret = of_clk_set_defaults(_dev->of_node, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = dev_pm_domain_attach(_dev, true);
-+	if (ret)
-+		goto out;
-+
-+	if (drv->probe) {
-+		ret = drv->probe(dev);
 +		if (ret)
-+			dev_pm_domain_detach(_dev, true);
++			dev_warn(_dev, "remove callback returned a non-zero value. This will be ignored.\n");
 +	}
-+
-+out:
-+	if (drv->prevent_deferred_probe && ret == -EPROBE_DEFER) {
-+		dev_warn(_dev, "probe deferral not supported\n");
-+		ret = -ENXIO;
-+	}
-+
-+	return ret;
-+}
-+
-+static int platform_remove(struct device *_dev)
-+{
-+	struct platform_driver *drv = to_platform_driver(_dev->driver);
-+	struct platform_device *dev = to_platform_device(_dev);
-+	int ret = 0;
-+
-+	if (drv->remove)
-+		ret = drv->remove(dev);
-+	dev_pm_domain_detach(_dev, true);
-+
-+	return ret;
-+}
-+
-+static void platform_shutdown(struct device *_dev)
-+{
-+	struct platform_driver *drv = to_platform_driver(_dev->driver);
-+	struct platform_device *dev = to_platform_device(_dev);
-+
-+	if (drv->shutdown)
-+		drv->shutdown(dev);
-+}
-+
-+
- int platform_dma_configure(struct device *dev)
- {
- 	enum dev_dma_attr attr;
-@@ -1355,6 +1350,9 @@ struct bus_type platform_bus_type = {
- 	.dev_groups	= platform_dev_groups,
- 	.match		= platform_match,
- 	.uevent		= platform_uevent,
-+	.probe		= platform_probe,
-+	.remove		= platform_remove,
-+	.shutdown	= platform_shutdown,
- 	.dma_configure	= platform_dma_configure,
- 	.pm		= &platform_dev_pm_ops,
- };
+ 	dev_pm_domain_detach(_dev, true);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static void platform_shutdown(struct device *_dev)
 -- 
 2.53.0
 
