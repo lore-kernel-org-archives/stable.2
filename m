@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28E92D7386
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C6B2E764D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917477; cv=none; b=LAiCLjNey0ylVBFbVk7ao+rsNA0EkCluOzsDfsE14roBjdCyMZcLnY2Zsbrwwl18L/MrGXaePAWAVfR/G7aA+CYfusG45YXLE3HLuolWUoU4Iy61tbtaJtUyuaFJx0FDm4vUoApvfxNYy0sOIvmp+pUYem+NvAIEwXMTvva4r2c=
+	t=1788917479; cv=none; b=TfSyt2U7ZgoiMdPRk/CXj9xL58/L8PziOGWjT1+KS47Op9FBgUjOtQ70mGb8plfvcnWmJWGn+vckyLvRgLfBKVx6UA6PTILoMV8fGVP0NiYrtxsR86n6E5QSPWA6B/dMl2mkDt0eLgqiZaogLZLrxVvJ2KP16pK/hI22IEWUCpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917477; c=relaxed/simple;
-	bh=CCez9l/fq1zW83eT7AQ7/y8q4MUiuSnSxuPJrmrjW40=;
+	s=arc-20240116; t=1788917479; c=relaxed/simple;
+	bh=MOn74a7U/0dAGvm/TcwXj+2/DQyAl41pW3ieet+GX74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y8qR5yz5CxS/fF2TbZ6Wv87fEJ+62b4mJZV4oE6siWyfPF9RPzKAXGPPRnhvzFMUWA7A/rGxO6vs3XVnKDu9hBrEqPDTQtzGRN+ZR2Obfpo0rx8U5Pxi5I0bWAK4BvD1aLFCgubi3H94AQjy+TNBBNa6SA8bK4+qozOwf2tHmaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWSozJ4G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=l4RqxNTOwxzpGbtSr+PV+xhY0QCDplPZQDY/tzbDTrQKv+cwmrXolQtb9Y5uiQJSRrSZs3VPhYRcCBPPkP5ZfOc3XFIkzs++n1bTsqntXnW6Al4VVA3hAXe27xQrny1crpagijKqYsIk3p7U9tBZeiBLR4XZEuVaS8wlg8E5jZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdWcWw40; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWSozJ4G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D8E1F00A3E;
-	Wed,  9 Sep 2026 01:31:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdWcWw40"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC0E1F00A3A;
+	Wed,  9 Sep 2026 01:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917475;
-	bh=0RGydFHBByhL49l5l9E4dyFmXJraU4MaiGciOfvDPcI=;
+	s=k20260515; t=1788917478;
+	bh=5BFR8mYAZD2o/iv8ItC83D5srmk4yQsJ520vdaipQ/M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RWSozJ4GneuDMaI3Lti+KS+HX5xx+lwFr/fnum4+4CUx53Bth1VlrPC/BfJTkIF0X
-	 fiAL87kZwujyMSiJlqH1dB5+tVurKXGKBpIbJ27RikkOcrCJPvSu5VPhGDbMulRPz/
-	 bwh2FezDUV6dJz2oh3x0+oqdMRLkSzcZJZvblmPW+s7QbM9eBiNMRscZHmIhe8KTQ6
-	 ZU6TYRePAXMg5WmpFii/5UfLZYpqy8YENPKWA7wDqjsxlPyno/0Wfk0iWqeA7vz3Xr
-	 naRzXsdV/30XYq1ZxVWVyKrUcpQKUDV7eBwYKc941owWVg8jycUlBufXJNGRLqZvSJ
-	 VDjsXvTpl3adA==
+	b=DdWcWw40As/2PUX6r+t9eSk4CWGilofCMD2bvLGE6x3dVmNXnQk3zGM3UzkyrsC5Y
+	 8DATp99ZBB6FBcroJ3wnio9/p0WwfrWIUBNWgjuDeHsYE0oX3CCzDQp7qWAoGWEaEp
+	 aUTke/7wzYhdjIC8meH2d2eWxiX9DFs/e1ynyLhCfWMJKD6TPj82Nay2oNlAcChert
+	 3oRT5OHZSs5/M4YGVU/bPZdSMcM94yr7eNA7Rk0BoQTzcfYYbPQoqen7ANCSwZ1G8s
+	 /AunTmCPtZOMmasK7guBktZI6pud4YtLx7RNgmbbQEMuPeLv1wmjsoU8spA/H/6kaB
+	 Dv3oFUpFzmblQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
-Date: Tue,  8 Sep 2026 21:31:12 -0400
-Message-ID: <20260909013112.887941-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] svcrdma: Add back svc_rdma_recv_ctxt::rc_pages
+Date: Tue,  8 Sep 2026 21:31:13 -0400
+Message-ID: <20260909013116.888180-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909013112.887941-1-sashal@kernel.org>
-References: <2026090351-marbling-tiny-a334@gregkh>
- <20260909013112.887941-1-sashal@kernel.org>
+In-Reply-To: <2026090343-customize-gorgeous-909c@gregkh>
+References: <2026090343-customize-gorgeous-909c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,141 +44,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+[ Upstream commit 4d9d69db898d05bd063548eee65d16a020676fec ]
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+Having an nfsd thread waiting for an RDMA Read completion is
+problematic if the Read responder (the client) stops responding. We
+need to go back to handling RDMA Reads by allowing the nfsd thread
+to return to the svc scheduler, then waking a second thread finish
+the RPC message once the Read completion fires.
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
+To start with, restore the rc_pages field so that RDMA Read pages
+can be managed across calls to svc_rdma_recvfrom().
 
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
-
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
-
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
-
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
-
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
-
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: 9808eb765666 ("svcrdma: Reject Write/Reply chunks with segcount 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ include/linux/sunrpc/svc_rdma.h         | 4 +++-
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 5 +++++
+ net/sunrpc/xprtrdma/svc_rdma_rw.c       | 4 +++-
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 8099715a08a5d..83d2b6515aa41 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -351,23 +351,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
- }
+diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
+index a5ee0af2a3103..4ba48bccb7993 100644
+--- a/include/linux/sunrpc/svc_rdma.h
++++ b/include/linux/sunrpc/svc_rdma.h
+@@ -136,7 +136,6 @@ struct svc_rdma_recv_ctxt {
+ 	void			*rc_recv_buf;
+ 	struct xdr_stream	rc_stream;
+ 	u32			rc_byte_len;
+-	unsigned int		rc_page_count;
+ 	u32			rc_inv_rkey;
+ 	__be32			rc_msgtype;
  
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
- 
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
--
- 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
- 			  READ_ONCE(idev->cnf.seg6_enabled));
- 
-@@ -473,12 +466,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
- }
- 
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	unsigned int chdr_len;
- 	unsigned char *buf;
-@@ -487,8 +479,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
- 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
- 	if (!accept_rpl_seg) {
-@@ -699,10 +689,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
- 		break;
- 	}
-@@ -850,6 +844,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
+@@ -146,6 +145,9 @@ struct svc_rdma_recv_ctxt {
+ 	struct svc_rdma_chunk	*rc_cur_result_payload;
+ 	struct svc_rdma_pcl	rc_write_pcl;
+ 	struct svc_rdma_pcl	rc_reply_pcl;
 +
-+disabled:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
-+	return -1;
- }
++	unsigned int		rc_page_count;
++	struct page		*rc_pages[RPCSVC_MAXPAGES];
+ };
  
- static const struct inet6_protocol rthdr_protocol = {
+ struct svc_rdma_send_ctxt {
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+index 9cec7bcb8a976..a6eecdc592412 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+@@ -227,6 +227,11 @@ struct svc_rdma_recv_ctxt *svc_rdma_recv_ctxt_get(struct svcxprt_rdma *rdma)
+ void svc_rdma_recv_ctxt_put(struct svcxprt_rdma *rdma,
+ 			    struct svc_rdma_recv_ctxt *ctxt)
+ {
++	/* @rc_page_count is normally zero here, but error flows
++	 * can leave pages in @rc_pages.
++	 */
++	release_pages(ctxt->rc_pages, ctxt->rc_page_count);
++
+ 	pcl_free(&ctxt->rc_call_pcl);
+ 	pcl_free(&ctxt->rc_read_pcl);
+ 	pcl_free(&ctxt->rc_write_pcl);
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index 82c4202fa3c15..1f54465404c01 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -1163,7 +1163,9 @@ int svc_rdma_process_read_list(struct svcxprt_rdma *rdma,
+ 	rqstp->rq_respages = &rqstp->rq_pages[head->rc_page_count];
+ 	rqstp->rq_next_page = rqstp->rq_respages + 1;
+ 
+-	/* Ensure svc_rdma_recv_ctxt_put() does not try to release pages */
++	/* Ensure svc_rdma_recv_ctxt_put() does not release pages
++	 * left in @rc_pages while I/O proceeds.
++	 */
+ 	head->rc_page_count = 0;
+ 
+ out_err:
 -- 
 2.53.0
 
