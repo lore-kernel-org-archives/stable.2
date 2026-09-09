@@ -1,148 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F338339395
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39377298CAF;
+	Wed,  9 Sep 2026 17:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973633; cv=none; b=V5jIBQWflkqKYxAil1Mh4kg9GXvzMz1aK1JOgSOg+sgyiBEU1SC3KoMWwdH8cUIOfuB5b6sMQgmewDWiOEpDTveWeMgSq05LHJbwPmNqg+W2wNgT+wHK6Xh/rzKw4wGQWO7pmWkHdX447Bc+89q66hUz89Srdx6d0qX9ZNB6saQ=
+	t=1788973869; cv=none; b=Ajr6Ma+d72wfee257KRpv2iFhErvJ3JP70mc1RQKzEum+ZM+I38Y3WfzS/s5y9l+y9Te/MLRVDafHOoHb7p97jx+roNQ5hiySdUnAtXO5B6Yn/ETREhKp3zV4bAzeQ+ynCtTNpCm/Kr8asGRZwcWt6iMnDdwR9JEBhbl7Xxus24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973633; c=relaxed/simple;
-	bh=OeIWVz0FBUMMNilMHGSqbM55aTmErnEf8TwXHESb2cw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WoUUaP4j1BvUQZ+ruLrjjyO/OFUaxQGUWW4bIb5ghXOoZSaCNbVjNm7G5yDa5thaEgUicEXfLlEk7CZW9H+VcCapIse7RtUBcWh+Av9ZWBnljh42Z3TYmXP/LDtFTIUNxYV6GGz4G29WVu9mS4CMW3S6thLJi4zJLUB9G1BLJ1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmJKsBd6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788973869; c=relaxed/simple;
+	bh=5nP3SABh7khN0k7YsgDDCUFgWm+k/354IDRR6uf5BpY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZqPeMc9h+1Lt4mWCeiUmVyNH65vFqGw5WOz32bOlg0YOHdEAC2clSKkDM8E/1t3VZkDqGdx92lI3vHy3gEw9CRTK3lW88sH+N2Um1OWhf81y92MwWMHvf5rbNVX3A0s3Xi661dOPM/wXnHRLs94rpqi3zetVs/MpsiQ4elNk59I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmAksmPa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmJKsBd6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB491F00898;
-	Wed,  9 Sep 2026 17:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973632;
-	bh=ObWaDUuHe+qVQlPZ17gy6S8/q6/YUyr/3cY3TLBDRkQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HmJKsBd6ex0jXFJYy3flZ/ak/w3xH6F0ygj2j3s6FF8q+F+HfLIuaiJXSKizDjdwb
-	 /22vMG87P38qp3V4DBi9Z1uaztEl1GhUidxXTUs6v44TDCKk/7YspiC++A98/ff0Br
-	 n8K+B5gXqTGpnI4vUb39LFekFkonm22rJDCVOyqUT5kZIS4t+sIwN1Uyg1ETM9QuEL
-	 OhE67Ga6rMdXTLrvxgslj/srIQzXFj++/R+ESxD097qjRDyR4y6F7Kmj09uqgdE6e4
-	 JJnyw8bWx6JDE51QY5gbDsLHcscFrrVc2AIHpmPq2x6bkeUfXltD4++C4VWAN2n/oe
-	 cJM11txgzO26Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] net: ravb: avoid dereferencing an invalid PTP clock
-Date: Wed,  9 Sep 2026 13:07:01 -0400
-Message-ID: <20260909170701.3189413-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909170701.3189413-1-sashal@kernel.org>
-References: <2026090322-boss-emu-7014@gregkh>
- <20260909170701.3189413-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmAksmPa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 109AFC2BCFD;
+	Wed,  9 Sep 2026 17:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788973869;
+	bh=5nP3SABh7khN0k7YsgDDCUFgWm+k/354IDRR6uf5BpY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=VmAksmPaODm6zzhe9HR1j4cII72lhpikhFZxWcW/l60t9hnfbxjdgPSMyR425+YyY
+	 RFLityF9xzDPGTya3J3lhi8BZqxxY3POBFMjUXKz6jBzdntVwlpPCxwdWyytdlklqz
+	 aH731ahR6rjt7XR4sWl5JIfKAbMcnwFL296V599iAMbwUNsGshp5d5DPPANSCZN/wt
+	 KpG8OXysJllfLLf8h3a1kogIxyOGiqvu+xEm2mmqxDZhtpEyzMtXalfKvghWSfseJg
+	 0BeMjeWgbx+s6Ok5l29qjezQFysz2zeUNdwPCkNJv2O0uAFVit3MNihZ0NAQ7kpvfq
+	 BKHmXiqFAjnwQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E47E9C79FBF;
+	Wed,  9 Sep 2026 17:11:08 +0000 (UTC)
+From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Date: Wed, 09 Sep 2026 10:11:01 -0700
+Subject: [PATCH v2 2/2] mm: hugetlb: Drop refcount before freeing on memcg
+ charge failure
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-2-4b4a8a19a7f7@google.com>
+References: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-0-4b4a8a19a7f7@google.com>
+In-Reply-To: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-0-4b4a8a19a7f7@google.com>
+To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Hongxiang Lou <louhongxiang@huawei.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Peter Xu <peterx@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, 
+ fvdl@google.com, rientjes@google.com, vannapurve@google.com, 
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Ackerley Tng <ackerleytng@google.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788973868; l=1354;
+ i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
+ bh=RCk4FUhHtfR9+WkuFadogmxvoeEME9GEkAvOLYp7r3U=;
+ b=gBpcMiO0hmn63lrRPn7N0MR5W2dOzYOn5xT2nETVl+UJrZXPV8t92Dbe0aMohlnvWSzSzqKO6
+ Lcdbw5LVxr6DJq6Hl54+GpzcN4ODPHZbPRq6605zAFWp8ctP3310CTf
+X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
+ pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
+X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
+ auth_id=649
+X-Original-From: Ackerley Tng <ackerleytng@google.com>
+Reply-To: ackerleytng@google.com
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+From: Ackerley Tng <ackerleytng@google.com>
 
-[ Upstream commit 1f77af0aaf277413ff32f6ff8c2c4282bd64c897 ]
+When mem_cgroup_charge_hugetlb(folio, gfp) returns -ENOMEM, the folio has
+its refcount set to 1 via folio_ref_unfreeze(folio, 1).
 
-The PTP clock is unavailable before the first open, so querying its
-index can dereference a NULL pointer. Registration failures can also
-leave an error pointer in priv->ptp.clock.
+The error path calls free_huge_folio(folio) directly, which expects a
+refcount of 0. Hence, VM_BUG_ON_FOLIO(folio_ref_count(folio), folio) is
+triggered.
 
-Cache the PHC index separately and report -1 while no clock is
-registered. Normalize registration errors to NULL and preserve the
-static timestamping capabilities.
+Even with CONFIG_DEBUG_VM disabled, returning a folio with refcount 1 to
+the freelist can corrupt allocator state later.
 
-Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+Use folio_put(folio) instead of free_huge_folio(folio) to properly drop the
+reference before freeing it.
+
+Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Link: https://patch.msgid.link/20260811103733.62599-2-xuanqiang.luo@linux.dev
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/renesas/ravb.h      |  1 +
- drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
- drivers/net/ethernet/renesas/ravb_ptp.c  | 15 +++++++++++++--
- 3 files changed, 16 insertions(+), 3 deletions(-)
+ mm/hugetlb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index a475f54a6b63c..33486234c1218 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -973,6 +973,7 @@ struct ravb_ptp_perout {
- struct ravb_ptp {
- 	struct ptp_clock *clock;
- 	struct ptp_clock_info info;
-+	int phc_index;
- 	u32 default_addend;
- 	u32 current_addend;
- 	int extts[N_EXT_TS];
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 2e36be812945a..9b7b66fcfce8d 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -1334,7 +1334,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
- 			(1 << HWTSTAMP_FILTER_NONE) |
- 			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
- 			(1 << HWTSTAMP_FILTER_ALL);
--		info->phc_index = ptp_clock_index(priv->ptp.clock);
-+		info->phc_index = READ_ONCE(priv->ptp.phc_index);
- 	}
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 522487d341841..f5b853a5377c2 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2891,7 +2891,7 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 	lruvec_stat_mod_folio(folio, NR_HUGETLB, nr_pages);
  
- 	return 0;
-@@ -2247,6 +2247,7 @@ static int ravb_probe(struct platform_device *pdev)
- 	priv->rstc = rstc;
- 	priv->ndev = ndev;
- 	priv->pdev = pdev;
-+	priv->ptp.phc_index = -1;
- 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
- 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
- 	priv->num_tx_ring[RAVB_NC] = NC_TX_RING_SIZE;
-diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-index c099656dd75b6..ac73ca2a98f8d 100644
---- a/drivers/net/ethernet/renesas/ravb_ptp.c
-+++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-@@ -332,6 +332,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
- void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
- {
- 	struct ravb_private *priv = netdev_priv(ndev);
-+	struct ptp_clock *clock;
- 	unsigned long flags;
- 
- 	priv->ptp.info = ravb_ptp_info;
-@@ -344,7 +345,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
- 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
- 	spin_unlock_irqrestore(&priv->lock, flags);
- 
--	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
-+	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
-+	if (IS_ERR(clock)) {
-+		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
-+		clock = NULL;
-+	}
-+
-+	priv->ptp.clock = clock;
-+	if (clock)
-+		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
- }
- 
- void ravb_ptp_stop(struct net_device *ndev)
-@@ -354,5 +363,7 @@ void ravb_ptp_stop(struct net_device *ndev)
- 	ravb_write(ndev, 0, GIC);
- 	ravb_write(ndev, 0, GIS);
- 
--	ptp_clock_unregister(priv->ptp.clock);
-+	WRITE_ONCE(priv->ptp.phc_index, -1);
-+	if (priv->ptp.clock)
-+		ptp_clock_unregister(priv->ptp.clock);
- }
+ 	if (ret == -ENOMEM) {
+-		free_huge_folio(folio);
++		folio_put(folio);
+ 		/*
+ 		 * Skip uncharging hugetlb_cgroup since the charges
+ 		 * were committed to the folio and freeing the folio
+
 -- 
-2.53.0
+2.55.0.1007.g17ff1f9808-goog
+
 
