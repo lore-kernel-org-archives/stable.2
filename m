@@ -1,100 +1,123 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169A3538D75;
-	Wed,  9 Sep 2026 11:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690983D5666
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952899; cv=none; b=eOSx2cFSIvmCt0GuVVYLi2FhlVABjHkAoKgUaaabgcwH028ZmkEAfAbrHbXMHhW2jQ3eJqsiH51NJ/VrcYHKA14xumlRLrSxWwDMG/QXJED7A4zdg3k//MHBmU6oQ602n1JBj6hmGyQBGTn4Sk3r2ZPiEHhsWcn2NGb0LLCaC+c=
+	t=1788952917; cv=none; b=ulRZfFTPk0EP/4MS6JIs2crJGG1H7s6nl6rN5isd3zCUzXG/0c9R5afRArXn2k7asJlRCo9P1osUTXvPFR9mxNKQ/4jVQE/lsSl0+VbvvWO0idIJa54VpGWlwMItjeqETRc/vf2c3JRakCb7EXoN7mtqg9qJQrltxF+wYBlIU6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952899; c=relaxed/simple;
-	bh=LccrGawWBuzW+2QVK7YGzRTxrUOE/8qKgI05s8orjOc=;
+	s=arc-20240116; t=1788952917; c=relaxed/simple;
+	bh=vvg+uhJ1QG61/nO3pNepF1KPt3FmLrU/BFzYqpFdkVc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=apIi5HfyxOAU1abTmfPJ1R64ZBvauKYbghrlzelgIAdN+87/in5Py6tNUJNDz0E3FPIL4SXbeaGK1qp3CWkwKkk2/H9bLMnUXfgCGMXvf6DXzrgfNDxw8IPeIXyEdTuIgHib8qsXGKdLxZH6Okr9N0G99HG9UPUr89UIrSWlQ30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LUr8XyeN; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 MIME-Version:Content-Type; b=JgS+DpAEbwSyxbV0RI9lXFCfFM5tI6tioEu+m0OKq5LwvcjdEHfA9rXw3Cz2y7iGv0PCZVPdW07uDDlBQEEKBtiF+Bq+voMaOoTf79bOowwZTThjpiFUNb0mPS9jWru8Tq7YX7WlK3lXNy2fwB9lG6XPYCFnjuytUN8nEMz1qRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4kLHZJQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LUr8XyeN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=OI
-	Ayl4+9WuxFicDuaMQcuZ5CFN1J9J/6GS7zLNL6wDw=; b=LUr8XyeNZQnXdaBAn4
-	py8csMlVVOPLVrPhKvVaywjrnbeERNTOd/cdN1SzyWeKf23M84GWv3CUimsuxb36
-	cTJefsk47jpFDWX6gnpir8AzuoKMwBY+HV4nieEuhqbJjSHHZ3tFl1EPZLMPI1Q3
-	FvY5ehT/PjxeNdcetLDZqCkEc=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnESERQaFqJi3hQg--.17578S2;
-	Wed, 09 Sep 2026 19:20:50 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Zhi Wang <ziy@nvidia.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gourry <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alex Popple <apopple@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for compound folios
-Date: Wed,  9 Sep 2026 20:20:49 +0900
-Message-ID: <20260909112049.3202956-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5ae7a11c-1db4-44cd-bf67-a98cfd5ca08b@kernel.org>
-References: <20260817120758.669807-3-sh_def@163.com> <4ead5df7-f000-4087-83e4-13aae036e0b7@kernel.org> <apESOAPVzggWmbcJ@gsse-cloud1.jf.intel.com> <5ae7a11c-1db4-44cd-bf67-a98cfd5ca08b@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4kLHZJQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2711F00A3A;
+	Wed,  9 Sep 2026 11:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788952916;
+	bh=Dol3uI5jFpQ1rqJ1/J0mguD8ss43Xbrf1v6s6m3Tznw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e4kLHZJQn4MROQsVTIjMH+PQtMDZ+fzP4F2bRGB85RiKAa9XyqcUn6H3GJrv24Z6M
+	 9Zh1h66W6z6kpgEN95wGDXOy3ZjPFcsP01jR2bDt70enwqMWYDEuYb2Vq+oq2lpTgS
+	 etFyYZ78j787IGMWPrSecMVzLt0FiQGUHO12aLUOrxfO8BgArovmcuZidv5PBO0yWV
+	 8wCMzGoMbOPe0SfZz7Clhh8b111AR1OSLS3I26Y3SDVlHOe4Zj2kNjcBZo2g6VWIxp
+	 HORTaXb17wkakac40iyyCTO01BTK0l3WqbqV15UeZjq5s8x1IkPmk9ct7tP82hpanF
+	 6iE8JmYI0ghHA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/8] driver core: platform: change logic implementing platform_driver_probe
+Date: Wed,  9 Sep 2026 07:21:47 -0400
+Message-ID: <20260909112153.1816689-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909112153.1816689-1-sashal@kernel.org>
+References: <2026090353-unadorned-buffed-09ad@gregkh>
+ <20260909112153.1816689-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCnESERQaFqJi3hQg--.17578S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWUGF1kWryUCrWDKF18AFb_yoW8Gw4Dpa
-	4SgrZIyFsxWFWYkFnF9F48Xw1rWrsxJa4Yq3Z5Gr90ka1rJryFya40g3yDur17W3yIvrW8
-	X3y2q34UCF15Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U5KsbUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hJXtmqhQRJoxwAA3u
 
-On Mon, Sep 07, 2026 at 02:23:33PM +0200, David Hildenbrand (Arm) wrote:
-> That's what I was thinking: because how should we partially migrate folios?
-> Doesn't make sense :)
->
-> If this cannot be triggered today, neither Fixes: nor CC: stable is appropriate.
->
-> Agreed that we should just warn.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Hi David, Matthew,
+[ Upstream commit 16085668eacdc56c46652d0f3bfef81ecace57de ]
 
-Sorry, I missed this earlier.
+Instead of overwriting the core driver's probe function handle probing
+devices for drivers loaded by platform_driver_probe() in the platform
+driver probe function.
 
-This fix has already landed in mainline, but I agree that the API semantics
-should be clarified. Partially migrating a compound folio does not make
-sense. If the intended contract is that callers must not provide a range
-that cuts through a compound folio, then treating such input as caller
-misuse with an explicit WARN/error path sounds reasonable.
+The intended goal is to not have to change the probe function to
+simplify converting the platform bus to use bus functions.
 
-The reason I added the Fixes tag and Cc'd stable was that I observed an
-actual KASAN out-of-bounds write with the HMM migrate_anon_huge_zero
-selftest. The path was:
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20201119124611.2573057-2-u.kleine-koenig@pengutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 831c29a12d56 ("power: supply: lp8788-charger: fix use-after-free on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/base/platform.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-  dmirror_fops_release()
-    -> dmirror_device_evict_chunk()
-      -> migrate_device_range()
-
-My intent was to prevent migrate_device_range() from writing past the
-caller-provided src_pfns array when such an input is observed. That said,
-silently stopping the collection is not necessarily the best API semantics
-if this should be treated as caller misuse.
-
-I will rerun the reproducer on current mainline and report back with the
-result. If the preferred direction is to make this an explicit WARN/error
-path instead, I can send a follow-up patch on top of mainline.
-
-Thanks,
-Hui
+diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+index fa023cf80dc48..16426eb934632 100644
+--- a/drivers/base/platform.c
++++ b/drivers/base/platform.c
+@@ -743,12 +743,25 @@ struct platform_device *platform_device_register_full(
+ }
+ EXPORT_SYMBOL_GPL(platform_device_register_full);
+ 
++static int platform_probe_fail(struct platform_device *pdev);
++
+ static int platform_drv_probe(struct device *_dev)
+ {
+ 	struct platform_driver *drv = to_platform_driver(_dev->driver);
+ 	struct platform_device *dev = to_platform_device(_dev);
+ 	int ret;
+ 
++	/*
++	 * A driver registered using platform_driver_probe() cannot be bound
++	 * again later because the probe function usually lives in __init code
++	 * and so is gone. For these drivers .probe is set to
++	 * platform_probe_fail in __platform_driver_probe(). Don't even
++	 * prepare clocks and PM domains for these to match the traditional
++	 * behaviour.
++	 */
++	if (unlikely(drv->probe == platform_probe_fail))
++		return -ENXIO;
++
+ 	ret = of_clk_set_defaults(_dev->of_node, false);
+ 	if (ret < 0)
+ 		return ret;
+@@ -822,7 +835,7 @@ void platform_driver_unregister(struct platform_driver *drv)
+ }
+ EXPORT_SYMBOL_GPL(platform_driver_unregister);
+ 
+-static int platform_drv_probe_fail(struct device *_dev)
++static int platform_probe_fail(struct platform_device *pdev)
+ {
+ 	return -ENXIO;
+ }
+@@ -887,10 +900,9 @@ int __init_or_module __platform_driver_probe(struct platform_driver *drv,
+ 	 * new devices fail.
+ 	 */
+ 	spin_lock(&drv->driver.bus->p->klist_drivers.k_lock);
+-	drv->probe = NULL;
++	drv->probe = platform_probe_fail;
+ 	if (code == 0 && list_empty(&drv->driver.p->klist_devices.k_list))
+ 		retval = -ENODEV;
+-	drv->driver.probe = platform_drv_probe_fail;
+ 	spin_unlock(&drv->driver.bus->p->klist_drivers.k_lock);
+ 
+ 	if (code != retval)
+-- 
+2.53.0
 
