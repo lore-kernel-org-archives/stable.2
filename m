@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E692F7EE8;
-	Wed,  9 Sep 2026 04:15:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416771D7E5C;
+	Wed,  9 Sep 2026 04:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788927311; cv=none; b=oyE87uuFdydW7TwQFnn6mgTV9/YGI/aVsLkKkrq5enE74t1ARNkGznL+aGY8/cCeYhQSkKyL4/dbWJVMYebqKTttgAR2SpNm9Rq3uPZ6JWmASizXXSSR502MU6qW9L1HyjlwCSfSOwNgw+eiMgCjsDY8bdOyV6/8aqY/ucTC25E=
+	t=1788927441; cv=none; b=XGN9Yo+oysBp4Cc6/6r5LeTv0XwcwOS6b3PLcvuiuoL4r6SIsLesferKR376yM9WcqEajJ7CZvmxGc9mTi3MpWDbvxSstkMAr3o4Npkn95nv21rgTNNwgFpyB+vK9DrCWFgqt8odwopOSBzZHC2S5OuHeppkCuJszXCKgKyJJ7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788927311; c=relaxed/simple;
-	bh=cvduMeCSuX68HLteENhF+JJnVHHsGVY3zCTLUNEk8jg=;
+	s=arc-20240116; t=1788927441; c=relaxed/simple;
+	bh=8Pby1kvw9akP5PPzg/O/K6yuhfmpmlu3tayGeARsFKk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ielOiMOpkzZF53sNvgVm9oBi9guoQ97HuFyNYo9P10YkoDkg0gU/+HG7FGxYhji20ChZR2HRjpO+/RlVrYYD1kYBvwCliRSaP3Z4xTunIQGpT5xmfp8zEiTsUvHoo4GJ5St2IrqLsmKXzu06eqQ1vvuPG81JJ448dt4pOPcNF/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HedjJWqf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vnr2NP2KoCS+tm9K92mqTnSnQ4Wft8VTt/iPeE6YLe7Vutky7hPzn8eKr883dvW86WpG2HzVTljdCi8Hh+Vr15M3TBTv2neAeQLEMDG9QKK/0+G9gW+nZGvY9UOOyigkVC4R2645EPkDfzZCp2uQ8bXHz402N4k4PLIy/NVUONs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONySlsQ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HedjJWqf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87CB1F00A3A;
-	Wed,  9 Sep 2026 04:15:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONySlsQ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C471F00A3A;
+	Wed,  9 Sep 2026 04:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788927309;
-	bh=tB9AqynwLIZcLjyxTxqmLGsufWdE74G7ALeDVkj7a3A=;
+	s=k20260515; t=1788927439;
+	bh=4rW3Q15MXsW3EhYQRCKgMroiHZhdeMnsPauQR18anGU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HedjJWqfGMAIJ5Ez951QiFu+z976J6pvLedX+ETnzY3I/JCDyLMaIa7KAyodYPQ6z
-	 0s0tCcDO45/364e1wiBNr2Xa92JsHjpiQcAIfYUxPEE8kp5xcJsjQU6rPNm9kEUgN8
-	 ZIARkNSto20Pf/9iw40HOx5GSJ22ZifRO6SG10YkyxUZNj78sHguRuUZRjEabtqTG7
-	 J8fMyI+YOQmlqZRcHuvrNCJtwGOcGC6tyFdHPGXExRW/OW2+c1CdneKK/RGF/6LE+n
-	 LTXZK2PSJ1qBwPkDGWUJokCLZoirMRWn/IGcq7uicwu7itgn/A8ZjpgXKD65j5jqlh
-	 V0iInQeFUIbpg==
+	b=ONySlsQ0o5TwbyjYOqowXm69iXsL27wqxHBHJi4RxQUMkd8HoasRMroaFy2S/m5Um
+	 E0Siek0M5U+aW1HvrLKpIgBBhSRHg85Ltx4wh3KOpN6o13X9a+1Bwi9c/mTvH9m7w0
+	 xRXTn7ZBJWwngdmcLwpFlVZXcKqbJq8qroOinwV4PI+pVJqXe1/piCl+Z+kWgd/tSf
+	 MxuXLY6a5V2tTXKov+a3RSwwvhHIaCRsDQMXlm7LlMGm2QG7UdAJMN74l+WpWIDAIQ
+	 godozKwSRYBLd5s7wvOZWEKwtbBvD2jFnqgvh7Tb5NozNZ4pCakv60PAyGlYygmdlc
+	 F03ShWDYpmLrg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
-Date: Tue,  8 Sep 2026 21:15:02 -0700
-Message-ID: <20260909041502.181947-1-sj@kernel.org>
+Subject: [PATCH 7.2.y] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Tue,  8 Sep 2026 21:17:12 -0700
+Message-ID: <20260909041712.186196-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090831-drinkable-maybe-5e01@gregkh>
-References: <2026090831-drinkable-maybe-5e01@gregkh>
+In-Reply-To: <2026090831-desecrate-cheddar-be5a@gregkh>
+References: <2026090831-desecrate-cheddar-be5a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,10 +100,10 @@ Signed-off-by: SJ Park <sj@kernel.org>
  1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 70ac1f08753d1..08e527efd6883 100644
+index cff932b3317d0..135ede06039c2 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2411,15 +2411,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+@@ -3163,15 +3163,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
  
  	max_thres = c->attrs.aggr_interval /
  		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
@@ -127,7 +127,7 @@ index 70ac1f08753d1..08e527efd6883 100644
 +	}
  }
  
- /*
+ #ifdef CONFIG_DAMON_DEBUG_SANITY
 -- 
 2.47.3
 
