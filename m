@@ -1,111 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922213AA9E2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B99D52D2DF;
+	Wed,  9 Sep 2026 10:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950755; cv=none; b=Zfs/Jc0BISb37W/tW4wKQ9XpqLafi5veHHhnz2Tqb9h0Tf/D3eIgizNd6awzTh2T3zSSCnEoKFRDnucEKSrX+oyU4DhaQDQhoKTCbvOVM9qDe4TijLPu6B99bUO6KUH0cimEMysJDwKp6jCWQOv+G545T6Qzwk6vRuj7jCOTiX0=
+	t=1788950757; cv=none; b=hP/NKagRyMIOSv5FKD7AmSQD30Bq4mkdDcwLQB/yMUUC+rgdC/LCnK4g7Z+lw0g9Qg33pO1Y0uic6tQJs4bD0DnhB/Q0f0akeKWSWmO2fwmQkOFJhMZqL0spVDLT3Cw1PsBmT9+aZLQ5fNsIu3phDuQ9TZSe4XhRwyt1qIrNZ0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950755; c=relaxed/simple;
-	bh=KhgO520HssDdJ5B4MsQ+4mMfie7Fg+V76uPiBFiFkbw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ocCFKU/8r1kDDdzFP5jvyhroDSk5v+malJwym8mhihGdMx9+G5nXFhT4axKWWlWwwhzsVGdDOmkyiMFcUWBWms/KiLkc7H2KiMvAJOQiiMzz5Z5s1iu6D9hQZIqYMWak9WqBN6VWa0IRsUzTs1s1MH+ds35SNJGHMXs+0fNWleE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KkEzwM8Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950757; c=relaxed/simple;
+	bh=SW7cLgojHrcUYXKcjEEu0ONNrq/wW4d4yuppKQ28Jf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pfNLnSUjjDXfweVOGYO+RmdgQ8TGeFLVku+iCXDVY691XsoOXRgEfSdcBgu+MWkZsYJ+NU18JwJdVqDMqtbbXotrenBTLGP0ysfw4Boa5vW6NUoqC9+gS6bE4Yxsk5xXnVuDaCYTYTeV+aGWWd74ELKCA1LvW6TIbHevfi31djQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wZgrh7oK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XjpjIQVP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vjJehZzv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bYv4a894; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KkEzwM8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA311F00A3D;
-	Wed,  9 Sep 2026 10:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950753;
-	bh=ot4MkM3Kfsk4Xs0jpG270RL63rte1Ko6WdHJV6s97YY=;
-	h=Subject:To:Cc:From:Date;
-	b=KkEzwM8ZtsoXV/OmMPQk2wgUouQfJ4g0yg7J3ppYZ3y6/GTErkNLoO05muTFvs8pd
-	 kClDSXSJJlCIO/Sjq7TIYLz6GZ9Rtp63Kk0TFdzZBUZF68m0t47b+8biQ16AHP6/XY
-	 a5gMssjcDzNH4fudQp13DrCjPPrUfc8Jw7g7+dwM=
-Subject: FAILED: patch "[PATCH] LoongArch: KVM: Validate MSI data before routing it to" failed to apply to 6.18-stable tree
-To: zengchi@kylinos.cn,chenhuacai@loongson.cn,cuitao@kylinos.cn,maobibo@loongson.cn,sashiko-bot@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:38:55 +0200
-Message-ID: <2026090955-troubling-exposure-3a3b@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wZgrh7oK";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XjpjIQVP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vjJehZzv";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bYv4a894"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id EDE321FB94;
+	Wed,  9 Sep 2026 10:45:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788950748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
+	b=wZgrh7oKi8hZUx7nwG1ZyXsH4zeQ+R57NtJrI7AuJoFRAYtnhcTGUxsDip373OrgGnkPMf
+	kOh0AIIhzE1eQ13LPb4edWvOLAaq8RZSKzZkQ4TerMusCiWkY00TlkZCqsmvNqZ9AL2lUh
+	+zwWJpYBM8yg3yx0b9MUILL7TpnFUhA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788950748;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
+	b=XjpjIQVPER7klngKkoKX6dl73PnYd5HPHKSXemlioT+835uqhfJwaoRIydhafAcwo7IfUt
+	eV/2bQO7Ocp0KACg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vjJehZzv;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=bYv4a894
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788950743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
+	b=vjJehZzvgePVEh21qvW9xKptgBmpAzeSyUIqr5baRoBDZgfLATM5wrInmlIpuwwHdvYiJD
+	ZiP9pbszyaAz3OengjRc4FGx6nANRKPMF9UaGp9AxcEeEZ/ltbmnzjHC2ktm1usI5R0MTc
+	KSwdVPmNo1BOmPMbXSJYtGbaZZV5baQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788950743;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
+	b=bYv4a894oFIomDN7P7MKdZJozbClCezL3uISMMevPmLYxIu2mbQ+8b/905tKthqX2r7evd
+	dbSk2/puRZAJFhAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5FDA1352C;
+	Wed,  9 Sep 2026 10:45:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lr9PMNc4oWpHQAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 09 Sep 2026 10:45:43 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 5958DA1341; Wed, 09 Sep 2026 12:45:39 +0200 (CEST)
+Date: Wed, 9 Sep 2026 12:45:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: fix discard work use-after-free on failed mount
+Message-ID: <yk63qkcutb7znlrsiwtrc6ijkjtptfxaj73oclyx5px24wka2t@4s4wjofmlnwm>
+References: <20260909054124.657782-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909054124.657782-1-fanwu01@zju.edu.cn>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: EDE321FB94
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,zju.edu.cn:email,suse.com:email,suse.cz:dkim,suse.cz:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
+On Wed 09-09-26 05:41:24, Fan Wu wrote:
+> ext4_put_super() shuts the journal down before it releases the mballoc
+> structures, but the failure unwind of __ext4_fill_super() runs the two
+> steps in the opposite order: failed_mount6 calls ext4_mb_release(),
+> which flushes sbi->s_discard_work, and the journal is destroyed only
+> later, just above failed_mount3a.
+> 
+> With -o discard, that journal destroy re-arms the work after the flush:
+> ext4_journal_destroy() calls ext4_force_commit(), and the commit
+> callback, registered once mballoc is initialized, queues s_discard_work
+> whenever the discard option is set, even with an empty freed-data list.
+> A running transaction can be live at that point: replaying the orphan
+> list is the easiest way to get one, and the quota paths on
+> failed_mount8/failed_mount9 can leave one too. The final force commit
+> is not necessarily a no-op.
+> 
+> Nothing drains s_discard_work after that point: failed_mount3 flushes
+> only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
+> then frees sbi with a plain kfree() through ext4_free_sbi(). If the
+> system_dfl_wq worker is delayed across the rest of the unwind,
+> ext4_discard_work() then accesses the freed sbi, first through
+> sbi->s_sb and then while taking sbi->s_md_lock.
+> 
+> This is the pattern fixed for the s_err_report timer in commit
+> 0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
+> async state armed after the unwind's last drain point.
+> 
+> Force the commit at failed_mount6, before ext4_mb_release(), so that
+> the discard work its commit callback queues is normally already
+> pending when the flush_work() in ext4_mb_release() runs.
+> disable_work_sync() there then makes this airtight: it also drains an
+> instance the flush missed, and no later commit, including the force
+> commit inside the journal destroy further down the unwind, can
+> requeue the work. The journal destroy stays at its existing position.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
+> Cc: stable@vger.kernel.org # v6.10+
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Looks good to me. Just two nits below. After fixing them feel free to add:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 501514d6ebd2111c353a1296f25dbe22fbd64657
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090955-troubling-exposure-3a3b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+>  failed_mount6:
+> +	/*
+> +	 * Flush any running transaction: its commit callback may queue
+> +	 * s_discard_work, which the flush_work() in ext4_mb_release()
+> +	 * below drains; disable_work_sync() there also drains an
+> +	 * instance queued after that, and keeps the journal destroy
+> +	 * further down the unwind from requeueing the work.
+> +	 */
 
-Possible dependencies:
+I think this comment is a bit too detailed. Maybe just:
+	/*
+	 * We can have a running transaction from orphan replay or quota
+	 * setup. Commit it so that discard work after commit runs before
+	 * we shutdown mballoc.
+	 */
 
+> +	if (sbi->s_journal)
 
+No need for this check. ext4_force_commit() -> ext4_journal_force_commit()
+does it on its own.
 
-thanks,
+> +		ext4_force_commit(sb);
+>  	ext4_mb_release(sb);
+>  	ext4_flex_groups_free(sbi);
+>  failed_mount5:
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 501514d6ebd2111c353a1296f25dbe22fbd64657 Mon Sep 17 00:00:00 2001
-From: Zeng Chi <zengchi@kylinos.cn>
-Date: Fri, 4 Sep 2026 21:45:13 +0800
-Subject: [PATCH] LoongArch: KVM: Validate MSI data before routing it to
- EIOINTC
-
-pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
-the irq number. The MSI data comes from userspace, that either via a
-KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
-and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
-against EIOINTC_IRQS.
-
-eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
-256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
-the per-cpu coreisr/sw_coreisr bitmaps with it. Therefore a data value
->= 256 reads and writes memory past the end of those arrays, i.e. any
-process holding a VM fd can corrupt kernel memory beyond the allocation
-of loongarch_eiointc.
-
-Reject MSI data that doesn't fit in the EIOINTC irq space. The DMSINTC
-path is unaffected as it decodes the vector from the address and masks
-it.
-
-Cc: stable@vger.kernel.org
-Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
-Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-
-diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index 83fa2386cf81..2b63b0c2c7ce 100644
---- a/arch/loongarch/kvm/intc/pch_pic.c
-+++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
- 		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
- 	}
- 
-+	if (e->msi.data >= EIOINTC_IRQS)
-+		return -EINVAL;
-+
- 	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
- 
- 	return 0;
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
