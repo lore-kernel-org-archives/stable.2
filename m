@@ -1,130 +1,146 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09965650F1
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 13:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169445678C1;
+	Wed,  9 Sep 2026 13:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962326; cv=none; b=Dab3AXmw7O5O0FXghhSnZjejCGbx4rnhfaaddgT6KUIpAP1+ZSD6fn+Di5YSpUYhlwnzkQ/xh9G0wTjTJ/SMUBoXGSMconseNm9t4MkCukETI0RcUULcP62bvW4YvNhu5hFV2RLTLJzcvzc2OLfF8jI2jLXkj7lmv6hSQnsMrXE=
+	t=1788962326; cv=none; b=KRRmHISiaEquSyqMLPTZfLJCAYZfGBF5C4JzK++NP3/G7IEFEDhhHYaXeyXsOmIqkcCEjiMh43V4awRNRS0hr8dd1dWSFtRqjHmp5ioA20P+CM616YQ65HiAxLwZKGOXs6KGPZNnz4/QtwupNj+6qsIaO08xffCUBHRxV8RzQWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788962326; c=relaxed/simple;
-	bh=jmqMHMNI4kIvkiva5qeH52u8nLKPUrEYABXD2f5/ChQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=WnllYJficUPyCNd8Y2Af7eEBtSbItny986jCWXqm+37ABJpkNjOJ7pRat3nzkFqMBH/6rHZ1oEzfGRK7y7vM5sM4cb8K71fOJwAygncj/0iGBgII1gJFPwub7TKttG5LFV56Ow57eMYFLwI6zZ9OGQ4Nuv+KoSPn3XrT1dxb06k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=nR+/wmub; arc=none smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	bh=/pMwdNqXHNy8yZOG9UkJWNGqNhbt7RTi5pVoK6KRGSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LecJqnntCHK9eL9PmVH0imn1A5G+Znlc20YPlXUzqR+ofPiWEZCdiQ0XHbBAJ9cQd9OCmhOGmEQj/TylfqPMklr5QPhtDvxLr2vln/L00OIEIwTM5TObdOauQsKapedWSM0BTNmcsPKgBP2BhCjN/nuoMrS5MTpIebtmiGt6/E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S9regXs4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="nR+/wmub"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b2ff8ca537so4293714b6e.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 06:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1788962322; x=1789567122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=61jm5fS/qMWPqQz9qs7og23C0CzXjbMZv233Vy2zenI=;
-        b=nR+/wmub1HCVmjAmCx7T4Pvug3Td64JUBeV9Lg2ZYmSee+HQeyxQNe7udJSRljShDf
-         CtjpuqrgS0Aj4HRTpPD6qMGdAXCYCTNGGYfCCa4VmVxKUuZic0nVOs5KxW8vQrK9/P4u
-         +zLROZZO96tkm9DSvHAjHoqapFfg2ikHgvfZdOX7cLKc7uZJIbY3jUMCO0S3ZBnTMFLy
-         U+PKZ0EhbC3TrgiwMSlN9HpAqR54CwhvpdcxcsLwLUfLNKquJxqYjhQlbpNjWfYd9cjH
-         s+5jyZ91FAOEVavqBqcZbVfaykjmZu5KKaopNaM6J4hZGhpv6HtwGrt88QuGLZ2eTZxq
-         dt6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788962322; x=1789567122;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=61jm5fS/qMWPqQz9qs7og23C0CzXjbMZv233Vy2zenI=;
-        b=GxhHziipYwH7pTRZattLv2Afug1/7T48z5uEA1a/dA7e/v6IWVR4xm9f6HnKv9n49s
-         qBj0Cb4kbr/Lvq4nFSWazyWzepoey7gRcs1oY8XfxlUqSPtkZKQXpEex1TySWA9JwDES
-         Tl07A3cxa9Z5mtoV+aAiM6pNw2SciEpY0IXp5Ei9ezNYjhgg6d3VrJuEdpURBzE9A5sC
-         a3X7PAOlzFu0M076CIvcMwix47MO7xydiXcu/Zi7pTlLLdIKxf9ZK+v3FV+UF2cK0RE7
-         r4jI4kpVjtG3JfgCcFR1hG3Ucz+R4jhVMU3r6/7Vq10mCyXL3l9MOtGnKGa2u/qxVvuo
-         wP5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxZPp3yq4nPIou0Eh0idcz/C2IUHX+IS4Faaza0qPI8ebAqad5JCXgs9jyWNrjOAaGJ0J1IEEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqvQXpqXLz7Rr5A8RGa0FgjOMOLXJwUGZmv9SMhqA1bqJZjVJJ
-	fJn6VlBq5UwLVVccZwcgFaf7Ae32wMbEhe9a4j++W+L3rUVV8JLBxpttvbfZSU3IrP8=
-X-Gm-Gg: AYBFou16nMrFH29G6kvyUr9bAyMYapci0rjb+WXmC5n1EjgMouwAi90iqMlEGJ9X6Xy
-	hxA4rzYHuOwZWRLMZrL2NcMFlAvf1WOSHA5RDLCbm1j3zvIsCDSKf7UxVd+TsvbG18erRMRRC0w
-	qlcLELRfyrbFPJ1EQhT6pkg6s/SF0q4BRipV5sHz3OV9XXR8Jc0KT5u/PmAIIENk9fPjXkECCp8
-	bhkEUiCejkjpQ3irnmZ7sxHNq3+E2rad8Pm1lZf9VfmeQTNfeasAGZuzEffz1HXUbxBhNKQW5aO
-	1JdwQ86jt+AfqbsJAElf+HeMM0Q38UEtozoM8PCtxzJnB4BlFjmSDL46gdiDq225MYir5OMnVxQ
-	Zh1J9N1cMPREwJBRufMFpiv9v+BPbNhAfC7SHi5qeonuT7MIRhjij8dkiIchtHwiD8ieRfLgwsU
-	Pdi7DmIJLFjWYOXt2zv1FlZW4Kp0f7qBWneloeFXRzL9ct2/AC7y9zZIXDSfhBmna3wA77BN+s2
-	1lhEBQ7OXuv6s5eKRlon4kA0IU5bAe75x2T8xnALIj2SUjflZVi4htXnA==
-X-Received: by 2002:a05:6808:ec3:b0:4c0:a03e:59f5 with SMTP id 5614622812f47-4c0a03e6380mr2114531b6e.37.1788962322440;
-        Wed, 09 Sep 2026 06:58:42 -0700 (PDT)
-Received: from [192.168.1.150] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47989a71ebbsm7049860fac.17.2026.09.09.06.58.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 06:58:41 -0700 (PDT)
-Message-ID: <01c58aa2-005c-49be-9d18-64d56d6fbb4b@kernel.dk>
-Date: Wed, 9 Sep 2026 07:58:41 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S9regXs4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9911F00A3A;
+	Wed,  9 Sep 2026 13:58:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788962323;
+	bh=EpFc18eQNIxquHQ44+BWBtuQETVQCc5VF6vbHTxNcG4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S9regXs4F4Z1yL60kEaB3DT60G7akx1nG1pXx3bRcAKcphzjgh0m9WGCfoRm6buCx
+	 FHAkTToXY5dovoF9vZ7vxTPfcqzSyhYWNRKg0bP1uO5W0+nZ43GAR64VepF3xKemPr
+	 pY+n31Gka9oL2xMhivO/YNDUYGLYyJIhrx6XWMKo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 7.2 249/556] ASoC: rt715: sort the register default table
+Date: Wed,  9 Sep 2026 15:38:49 +0200
+Message-ID: <20260909134239.239017332@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] io_uring/net: don't overconsume buffers when using
- MSG_TRUNC
-From: Jens Axboe <axboe@kernel.dk>
-To: Gabriel Krisman Bertazi <krisman@suse.de>
-Cc: io-uring@vger.kernel.org, stable@vger.kernel.org
-References: <20260902230041.1320658-1-krisman@suse.de>
- <20260902230041.1320658-3-krisman@suse.de>
- <0f5e8693-dcba-4fa8-87d1-570ac08e2d83@kernel.dk>
-Content-Language: en-US
-In-Reply-To: <0f5e8693-dcba-4fa8-87d1-570ac08e2d83@kernel.dk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 7:56 AM, Jens Axboe wrote:
->> When a recv/recvmsg is issued with MSG_TRUNC and the incoming packet is
->> larger than the provided buffer, the net layer returns the full length
->> of the packet rather than the number of bytes actually copied into the
->> buffer.  As a result, io_uring advances more of the provided buffer ring
->> than was actually filled.  Use the actual filled region size to consume
->> the buffer, but still return the full size to preserve MSG_TRUNC
->> semantics.
->>
->> Take care with multishot, because that seems to already truncate the
->> consumption based on the available payload size.
->>
->> This was reported in https://github.com/axboe/liburing/issues/1619.
->>
->> Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
->> Cc: stable@vger.kernel.org
->> Link: https://patch.msgid.link/20260728191454.1850326-1-krisman@suse.de
->> Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
->> ---
->>  io_uring/net.c | 38 +++++++++++++++++++++++++++++++-------
->>  1 file changed, 31 insertions(+), 7 deletions(-)
->>
->> diff --git a/io_uring/net.c b/io_uring/net.c
->> index 647156c9331a..f8110dc9f860 100644
->> --- a/io_uring/net.c
->> +++ b/io_uring/net.c
->> @@ -853,7 +853,7 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
->>  static inline bool io_recv_finish(struct io_kiocb *req,
->>                                   struct io_async_msghdr *kmsg,
->>                                   struct io_br_sel *sel, bool mshot_finished,
->> -                                 unsigned issue_flags)
->> +                                 unsigned issue_flags, size_t consumed)
->>  {
-> 
-> Not sure this is correct. If consumed is a size_t, then the comparison
-> between ret > len is an unsigned comparison, and every error will then
-> get clamped?
-> 
-> Will need something like this folded in.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Can you check the current io_uring-7.3 or for-next tree and see if it
-still fixes the issue?
+------------------
 
--- 
-Jens Axboe
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
+commit d729804a92dc4e74b8fb69da162f74660ea64385 upstream.
+
+reg_defaults must be sorted by ascending register address, as
+regcache_lookup_reg() locates entries in it with bsearch().  See commit
+fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
+
+At the end of rt715_reg_defaults[] the 0x82xx and 0x83xx entries are
+interleaved with the 0x72xx and 0x73xx entries they belong to, and 0x385e
+is listed before 0x3859.  This leaves 25 of the 323 entries unreachable for
+the binary search.  regcache_reg_needs_sync() then cannot compare them
+against their default and reports that a sync is needed, so they are
+written to the device on every regcache_sync() even when they were never
+touched.
+
+Sort the table by register address.
+
+Fixes: d1ede0641b05 ("ASoC: rt715: add RT715 codec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20260805090240.16991-11-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ sound/soc/codecs/rt715-sdw.h |   32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+--- a/sound/soc/codecs/rt715-sdw.h
++++ b/sound/soc/codecs/rt715-sdw.h
+@@ -281,8 +281,8 @@ static const struct reg_default rt715_re
+ 	{ 0x371b, 0x00 },
+ 	{ 0x371d, 0x00 },
+ 	{ 0x3729, 0x00 },
+-	{ 0x385e, 0x00 },
+ 	{ 0x3859, 0x00 },
++	{ 0x385e, 0x00 },
+ 	{ 0x4c12, 0x411111f0 },
+ 	{ 0x4c13, 0x411111f0 },
+ 	{ 0x4c1d, 0x411111f0 },
+@@ -300,36 +300,36 @@ static const struct reg_default rt715_re
+ 	{ 0x4f1d, 0x411111f0 },
+ 	{ 0x4f29, 0x411111f0 },
+ 	{ 0x7207, 0x00 },
+-	{ 0x8287, 0x00 },
+ 	{ 0x7208, 0x00 },
+-	{ 0x8288, 0x00 },
+ 	{ 0x7209, 0x00 },
+-	{ 0x8289, 0x00 },
+ 	{ 0x7227, 0x00 },
+-	{ 0x82a7, 0x00 },
+ 	{ 0x7307, 0x97 },
+-	{ 0x8387, 0x97 },
+ 	{ 0x7308, 0x97 },
+-	{ 0x8388, 0x97 },
+ 	{ 0x7309, 0x97 },
+-	{ 0x8389, 0x97 },
+ 	{ 0x7312, 0x00 },
+-	{ 0x8392, 0x00 },
+ 	{ 0x7313, 0x00 },
+-	{ 0x8393, 0x00 },
+ 	{ 0x7318, 0x00 },
+-	{ 0x8398, 0x00 },
+ 	{ 0x7319, 0x00 },
+-	{ 0x8399, 0x00 },
+ 	{ 0x731a, 0x00 },
+-	{ 0x839a, 0x00 },
+ 	{ 0x731b, 0x00 },
+-	{ 0x839b, 0x00 },
+ 	{ 0x731d, 0x00 },
+-	{ 0x839d, 0x00 },
+ 	{ 0x7327, 0x97 },
+-	{ 0x83a7, 0x97 },
+ 	{ 0x7329, 0x00 },
++	{ 0x8287, 0x00 },
++	{ 0x8288, 0x00 },
++	{ 0x8289, 0x00 },
++	{ 0x82a7, 0x00 },
++	{ 0x8387, 0x97 },
++	{ 0x8388, 0x97 },
++	{ 0x8389, 0x97 },
++	{ 0x8392, 0x00 },
++	{ 0x8393, 0x00 },
++	{ 0x8398, 0x00 },
++	{ 0x8399, 0x00 },
++	{ 0x839a, 0x00 },
++	{ 0x839b, 0x00 },
++	{ 0x839d, 0x00 },
++	{ 0x83a7, 0x97 },
+ 	{ 0x83a9, 0x00 },
+ 	{ 0x752039, 0xa500 },
+ };
+
 
