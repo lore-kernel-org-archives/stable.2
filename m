@@ -1,64 +1,66 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012034.outbound.protection.outlook.com [40.107.209.34])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010011.outbound.protection.outlook.com [40.93.198.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6E553ECF1
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DD1556BBF;
+	Wed,  9 Sep 2026 12:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958006; cv=fail; b=V8b9siqiyzqXzJFOUvub2VRZASN3F+eE6W/UyuZ5LguNxZUt+gDiAwfIRDqJw7+lQ99jX2ozGfzFawUs1iq40Qk+7fF+RJywZy1TsaPnQwVZnB3ZIfzQYqtbJWIWyzh7jpLghd2vyynBqspIHtIu8e7rXmSZ+5EjGjx8ekZn6B8=
+	t=1788958048; cv=fail; b=ICBLeMkpmF5WHD25gGP2EWCxH4A2RiMbNzK4f8pqLkIQuRMT1veGG7uZf7izeGpP2+VGCAsJVZnaz2jQcV3vzR3QHixMdYg6+MhJiJKpvQX73YukFLo673LDMwx32iktmdltmIpcYP3pLiUWHCSjC+m6IU3V9HMbETcdMKEkdzU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958006; c=relaxed/simple;
-	bh=kVoK3A9sWI2yllRyHihjbpNKZLL3D7IYrx7NAf0dN4g=;
+	s=arc-20240116; t=1788958048; c=relaxed/simple;
+	bh=1cWgm4Fekf8L/+veOFwBI9+wcD8bO+PDbtPsuY1+6TA=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=hRN5AGWQdfc4p8ZdNf4QAkoXRuFXnwXtnDOW8c5gjpbAJy9Lfgo/pPBFNvoioNdt7iazO1Y4rAjqCKtY1L/KNH1C3dUyejg+OwKZ2reFCLjVVIG5qjeVRlKig9N2vion1HqORY59h5wPIyfwNLnvvQGqNcBkOZbrlPWPzH3j/pQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=L+dcn1uS; arc=fail smtp.client-ip=40.107.209.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	 Content-Type:MIME-Version; b=Bh5inbODuTfEwd5AeXdpqA6dC8deZXB5tE8xQOddNaQap1xXQvqo4FJD3SAf/eIBjGk7mYSTr+EgnfAxuKEHxD/pPekewkwvoikDMkTiZLWIn+2YzKch+aHNw2uuvIEpGV3bXIFBh7+8Sxj0wgIqdeCwhBUdoIH03NDqiIWQ74Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=k2UiGHS/; arc=fail smtp.client-ip=40.93.198.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="L+dcn1uS"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="k2UiGHS/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V22dYnH/tIfXn19WNLbWwmETVQuhP1yoFQK+Wd2IsIXkoTYeMRfa1ilVEA9UASXCQj8HzWG12eD0QC+wc+Ci+WSp1pp3oNHDXjiQvPZJXOHrC96xvbiTegnBYT5S2rPpSCKg6xYgsPBhZm+J1LiYU4/GC+Y8jKipNQOP1I+rCvteQsImvbpmdFQYF2umPbgeuCRFzWqYvQsoRnWd+QtUlBclBfJxQ+eGfcQOeIP0qrmfCKO7bHCPEX6dTEirjWG4Xvg8oOpmSIaPfzgXwg7vMP5pwMCJata5w3JXLW8qAouW1Jrbv4zELbuyVMXHDQbH+W+KMOQ5wf4tt/SCzLYY3A==
+ b=kSvVcQg718x65/jdCaGyY4a7auI106xse8oa8gDnKaHvuprGA9QMsUHQISuvLZZOYKRqf3Yor+7wB6vWV13Un1seWSN3o2EY1OjYxc8yxhyz2i5RI4DStMWNt4yY6R7kYhVGjayMMaWH6ztuKfZpUt8/vMY7Hr+L59I1zjlHlPrtsCgNdC9YU04anVC2gA1mo92QykquRtB0QfiLuaembZ992xuApuf2MpNwjcrK2EFJ5teKQo1f38OPLfmxEqKi0JgzjvA8u7zzZMnFK3quR8F17MalGBgYRBIvKDQrAa8VwcMK1z9wGU1CdCAJ3o6jyMgDfuSUToiNSa9mxQvYxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3oGIQMo+WLd9zVt7lebo274xJIUgWrS6sG44LNEij6E=;
- b=Ffk/cM7uESAgxXmtpFlyr8U64uN5y45WdwPykRi0HU44ZGmU380MoD3LF5WbRsfemHy5o6p1NHB5sdGzXmcufEU0RKr3+LIra2+/YLQAWaaeDDhFHGjbfFex3eO79sgxOmhF+0gCwFASggj/BHOiw500RNvmvQ+Qhrvqt6ER1o9soSAtgZXYYfED5aOSI1ZYMZZlMCxdODGV13CsHNmiNS4+mageqo4GeSzQ1l1y7pfGr3szpiZlEtyubmDA5bS2o67K7B6ZjT5aM4FIUvsiNa4jb49892F3Ausit9JRVV9IDoKvcWvDAH5P5iNWwS7DF16CRDx7FC0/IunzVUgJBQ==
+ bh=uKPUCnTDnE7MsNRnTEJWqd/k3R0DpObTpblSDGshSUI=;
+ b=xYBBG8e8wLzMSx8z97zL/MwMce+D0hc+GlqGAnOrQNsKy0pAIFACe911NIhBqqd4/iOg/hIh+xZzLThUk87o/pKpEfNuYX+WLdmaShFziqWqmIxmN6YWy1ka/VxPR0oGfX20WFGLFzFYR6O+cOYKOUurkLetHHIyPucV8VbXqNSnpexUn/im3vmef1aUgIaQwL17VQxNHPPIObmVNCbM/sEMNC1Jfurs7uTwQMSmWv17oYV3ju6WOksL1YNW7etLGAZuRIGk97ijSFnj8b+QvHt30+8TN82eRYTR72UhzBGjVSMEd+cyHDqGSRaiNTTE5mLoH+nX5AobJsXedsFtAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3oGIQMo+WLd9zVt7lebo274xJIUgWrS6sG44LNEij6E=;
- b=L+dcn1uS5Duivu/zAhdK1kxCQx/sdrb8WnKdyKBdU1mhmBxZO8dk72Lf7lwwFtruQ5516nnTh4w0cVlO3MNT3G8r7p1p1qQIzPCJEnZPZLtH34N0r4o56MjsYp1GzQpjmp8rkhIIKbW2v1TssaADOlX4FB4sriQ93M3gsjKC3UE=
+ bh=uKPUCnTDnE7MsNRnTEJWqd/k3R0DpObTpblSDGshSUI=;
+ b=k2UiGHS/eOsFO6c45IS7wg3j2/n/Az1J5Wwn9QeDbgngMwW2BTM5Hrf9go2C5ZeJvFZqRLyLTr2/68jc9m1jLroMOaEbn0xLuVMrODCa8i2x3fudskQ5XLoYBHTuM46+h7UjRwUw9mVv/3n8I7l7mu1ICuF9f442Vndt7IWIhvANm9QVtgtnzj6sX/mV6hhWxpMwEKn27t8WP31jHKY/oObyMxjBT+DnqaTuz9Stl7MXaePf64b+Zgkkeyuk7a3QPzp4pfkU6evPUBnLkxz6akfrw7ges+85Ivi2XnZ4b8P/XlEpxtEPB0cLWRKnVNpNlt73Nu+qqetLq51uVyZZ1g==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12)
+ by MW3PR12MB4473.namprd12.prod.outlook.com (2603:10b6:303:56::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 12:46:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 12:46:35 +0000
-Message-ID: <e63d8ae9-f102-424f-88a5-0fd6837d79d4@amd.com>
-Date: Wed, 9 Sep 2026 14:46:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
- runtime suspended
-To: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, kevinyang.wang@amd.com,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <20260909020854.58462-1-mike@fireburn.co.uk>
- <20260909094609.1541-1-mike@fireburn.co.uk>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Wed, 9 Sep 2026
+ 12:47:21 +0000
+Received: from CH3PR12MB8728.namprd12.prod.outlook.com
+ ([fe80::2641:1046:bdf3:93d7]) by CH3PR12MB8728.namprd12.prod.outlook.com
+ ([fe80::2641:1046:bdf3:93d7%6]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 12:47:21 +0000
+Message-ID: <6a430d55-72e8-4333-b369-af215c9f0c3a@nvidia.com>
+Date: Wed, 9 Sep 2026 14:47:16 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 6.1.y 6.6.y 6.12.y 6.18.y] net/mlx5e: xsk: Fix unlocked
+ writing to ICOSQ
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
+ netdev@vger.kernel.org, phaddad@nvidia.com, Paul Saab <ps@mu.org>,
+ Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>
+References: <20260909100310.1941561-2-dtatulea@nvidia.com>
+ <2026090925-myspace-precision-c68e@gregkh>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260909094609.1541-1-mike@fireburn.co.uk>
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <2026090925-myspace-precision-c68e@gregkh>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR07CA0023.namprd07.prod.outlook.com
- (2603:10b6:208:1a0::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: FR3P281CA0035.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::8) To CH3PR12MB8728.namprd12.prod.outlook.com
+ (2603:10b6:610:171::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,195 +68,146 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85a77297-0deb-446e-b913-08df0e706217
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8728:EE_|MW3PR12MB4473:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7ea4ea9-6337-496d-ac99-08df0e707d24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	8dx7JiS0nh5XbzNZL3VjzCOsE8DMYagnUJLBTNzRRSd3v2mNko7I8+i02K2CdBBK1U9ltXXJJtxxNz65qic35vQhKRf0y3Uld2WzlLLZJEgzCnYCE2KJwNrWWSvostixxwkzKVSu6+//JFPCEbqel3TQhBzqguyN6LtQPr+yFbzzA3DJmDHWy8dO3dbV7fJY7cdcT+CmwERWxM7R7U6d9OZlMXcXS9MZhRMtHuPt3IS1pvTy/yR4qu4Nvjue0ECUfkSUY4SaJ8lEvSJL4cn1s+O0x7nt1OMusnO1WwYbRZTB6ZyQ26J6/Z+w3f4Sv+6mUJf7TmlCFVVEKqzt2iJbqtjkjtYlRuk5Xlv0kfV+OacLRVn3SUiyEF7SE4g5qo3RuomDhCIda/kgFgyceh2bKGzOA/sR+BHxBiEZh6131Z7FiUfGD4l+HYLNwL/t+3cRa1MMNvqlft/LX3eMGw13dV2hypkKN3OVol9alnhGYgzujd9HFSkRbA/vG9TUIwXMYgXvY0gWe2NHK0L6/IazTwQ+DwX+kzg85ObkylrvnIPgn7n8oe3fXabc/Mhsvxnp3Cg6yGCKjSD6ikFtWB5oY39c1Z8NuaLnz1Qc1+FHqDydWSv2VVnLYazyNu3a3jiLUQ0+VhvgpzvyzawTMgnvLmHzBlWwmOWPOeSEnraknzE=
+	koE0pvQY/ZaWlodKwL0vDnhPP1kZa5/NtN03wMbBEppo0KRnrQ5yEKlISyAy2f/eBktiN7eaz5Ya0kjMF7yxZPcXaPOxNUWBhddGa1gaSq+4W7BDofGorlT1qcptHjioO8pBtGhLLMe0Y2k3RIJcDk6ZRbRkIEyUkFkaPnif0SqOHMwKyynim86eptu452bnbZx6X5Vi5I27p97HXvxxJEC4NLCXstCy315s/Pa6B8LYHCSV9OcHvIMzMmeH+EYJIdbMHIIpMihlSXRitmLChzKEMdL+Ptd/aR6UEkNmRtC3Qk4OEyEojYs4cFzb5EZEz4mtMzWaCYauyxrRXZlsW1UYqoCGlQb6ZnsCTTep5/FF/6kdFjXNpyUeh4VEs9pzc3RMDtoDQTX7EQbe2L+FTTaaaXt9ha1/nDbWXtNrhxLzr238ecsU7JsqzQPr/7FdnUtxHEbrl04R3Ao/2+cxPdphCcUJKXYFcS27B+cd7AataE3ybZTcGOnOYW7Yl6FEQKfNO4uwFDZfsyE8Vod/WFXx64Vwm6bxlM1XDj5xv1p1YlkA9giLj51IZJ85I9mvs3xy9qL0tpdyghf0FEE0N8SSMk2R5x73CTQdPh61kMt1iWJmfF4y2FanXEYe4LSPFCLDnoSwIxTwNOKc5j6sLGAiY5DAiE3e+CUcc/zIBvs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8728.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QW95UFd2SkhkQ24vRTJXOXRlSkx6R0luL2NCeWJ2alFXMi9oMW1xT3RHMDZC?=
- =?utf-8?B?Ly9HOUE2Nm90bU0xZXRDOWNzc2pNL2ZiVGpBS2prekV4OHlmZnExeVBWd2Ra?=
- =?utf-8?B?ZVR4OUhYYUtWeW84LzVRQ3M4OXRxNmdaWVg0eFdzM0hIWmlxWEJVL1prcWVS?=
- =?utf-8?B?S3crTnVJS1NobmI3WXZoZ3FDdkNMY21pQTRnMnZEMEdsWC8zMUFLaDNtTFZM?=
- =?utf-8?B?SEpYZVd0OTJ4bEpocWtsZnIvZkxnTHZTNU02M21JUitQbWVaWHVhVUxMOHNG?=
- =?utf-8?B?VE9FekVCQlRrUVVyUnlyK09JNTUxYzk1U3RsTFhwSGlmandRNWpaU3lWeVF0?=
- =?utf-8?B?QmhDdGV4QXZFUmpOaERWVjROa0EwMU5LdUdtOTFaRnozb0hEMGtnK3NQc01H?=
- =?utf-8?B?TVpMMzh3RWNadFNiTnEvZE5PUXI4WGh1Z1h0b0c1aEcwcHZZNm9DKytaM2lD?=
- =?utf-8?B?TWlLdzhhclBUMTZGQ2lwa0RvNlJJUlFtd3FtcGZaK09CVXhMOFhnVW5zSDEz?=
- =?utf-8?B?TzMxZUt3TmhRbTF5cUIwRnRDYklsZWNXNU5lMDBwSWN5dFpSRjFyUkdDVCs0?=
- =?utf-8?B?emVEMVdNVWJvY0JzbmUzNlhYU2dyNCtDdnBzNXdqQm5malo4WmFLYmJ0Rmln?=
- =?utf-8?B?NURrdUtnT1d6ekhvWXNNcDMvK2w3YjZqSDJmMll5RnJvM2FVemc0OWhldkVx?=
- =?utf-8?B?MnVDWEdCTmRBemtWWFczTnp5dk9TWVpJSkRSWEVzR3kyM1c5ZHlMY2M5c28x?=
- =?utf-8?B?T3AwTmpJWlByOHFMMnA2dG1TaDlJQXdldlQwNndORUtISjZDSUxMZzVOcTRU?=
- =?utf-8?B?b1M5YXhpWlZPWnExOFQydEx0a0orRDM4cVZ5L0FrQlpiaTNkeGVmNHgvRDdu?=
- =?utf-8?B?NVlTbTN3YzhaZVY0NXQ3OGt1ZHAwVGxucHovUWpOL2ZNRjBpZ1ZSdUc3bDBa?=
- =?utf-8?B?TndRaFFoU3ZEMzFINWowbExwOGp4YkQ2OFpDdHZueU9TMmF5aFczSFRxTGJl?=
- =?utf-8?B?VTR1VE1lTjltV3JWajhUaGZLNXJWbzRmLzZUMVVtYjdpTFN0ZzZIV0RnWThr?=
- =?utf-8?B?Q0xibWhIUlVlelNFaGxpby9zemk3SU50QXZqbDZQMDduZ3JDZ0tIUGJZNldn?=
- =?utf-8?B?MHFGckZmekVZWlBDVDA1L01rNXRHUkJSeVVqR2NKVUordXprdzhBclY0bSty?=
- =?utf-8?B?eitmN3BsRjFCeXMxYTNhK3FHY3RMVjVrTFJTSS90eGxDaXBFRGdITUloeS9m?=
- =?utf-8?B?Z3MySm1xeTREYXFMcVpHeVlUdEhiY2QzczI2eFA1THpFZDhvZ2MxZ0dhbFll?=
- =?utf-8?B?aE1hRmhtelllUVo3UkNWNXprVUJEN1Qyay8wRlBaeEJOVXZGMU5NSDk0V0Fp?=
- =?utf-8?B?ZmJYbldGRXB3emZSRDZ3N2ZMTVZHWjVpVmlHRUduSFp2TGgvUXYxSnpOZjdN?=
- =?utf-8?B?dDRuMkU1SE8xVDI4M2ZocFVoclR2cjJDZlN5UDBpSFp1RzBSVUY0OVIxUzI2?=
- =?utf-8?B?NnB6Nzg1MHJuNHlhRy9MaUMrYkdhdzc1c2laaGs2c1ZieVdPd3BXRm5SQXJi?=
- =?utf-8?B?b09XeSt3RXdwTXNPWXVwNDR3dlV6cDliaHZvSzBDRzQrNVhLWkV4SWNsc1do?=
- =?utf-8?B?TTZiS2tUbi9KZXR5U2Q1ZzdvWk5JVVp5V2dPb0tSeVc3TzB6Ni9uN2lLK1lu?=
- =?utf-8?B?K3c5dXdiL282cGJpRmFMVVJJZ2huMGt0MjV1Qm9pR05EK1AzbFMvaCsySENW?=
- =?utf-8?B?aVN0UzFha2ZieUw0SnU2NGpUNzB1dmVVMVhVYnV5M0lMeVFEVW1GWEpLdDdI?=
- =?utf-8?B?RnZyUEFhc0xXNTliQk9adjhqblRpWXRWUHpndTVhMXh2RWFmKzYySmI1OHc3?=
- =?utf-8?B?N0JpMjdFQ0RRMm0wL0M1Ym5xQ0JoTDB5M3ZROEI3aityTUJqR2ZHblQ5SkpS?=
- =?utf-8?B?S2VRd1JoR25mZHBYNTRIYzd1SXdMK2JDUUZPM21nMHFUNUJ5R3BiaWJ5OVdp?=
- =?utf-8?B?ZGMwTjh3MWtCc25wbVJiek5ZYThTdE9zVnU3cGtNTTYwRTVmQXQ0dDZQUkly?=
- =?utf-8?B?RGNDQXVHTEZBMVZYblhZU2hNb0w4OEJLek5xUm1MS1JxZU5EdXlubEpBTENj?=
- =?utf-8?B?LytvOS96eEQ1R1FkT0JvVUx6czV2Tm1OdW5GendFTlc1czNvcmhMenF4R3cx?=
- =?utf-8?B?NjBDTVlTV0I5SUpLbzhZbWJzZWVlcDlwcHNMSnNhUzl6U0JFZkZscmlBdEU0?=
- =?utf-8?B?YkpiRTlTNDlTc01hcTI0cDUvcXl5a0NDLzRjSWZ6MTF1RmVtZStycmFLNFRG?=
- =?utf-8?Q?QUrGlz8pu+i5yQRiKy?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85a77297-0deb-446e-b913-08df0e706217
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+	=?utf-8?B?S0RQbHg2KytYVjBXU1YwYUFTcTk2UHFjS1FMUHNRcTZtZEVaWDB0aXZ3ZzJD?=
+ =?utf-8?B?NUEyTzZzcmNHYTNaaTBsZG4xNEtxL1ZjdU9YcktlZzFRZUd3TklTZnpiellx?=
+ =?utf-8?B?ckJFWlZKSG8ra1ZBQTFyMUtqYnVqNzl5alI0VTNoSUtSRTZxV1NyWTlSM1d2?=
+ =?utf-8?B?TVFrR0I1Vi93Nm95dUNDYXpWRUlld2Z5Q3N0eUxjbnYxa2VxQzRvYjdHU2Rn?=
+ =?utf-8?B?ZW5qMXI1bXYyM3RBRHdBelRHamlVbGNxRUJwUWFnY3YxekZ4TWpSWHUyMW1Z?=
+ =?utf-8?B?c1VDZHRVVDdPaHBEazM3MFV1ZVJCTS9nZXArcTVWREV6Z0pFWlU4bWRhRWVQ?=
+ =?utf-8?B?bFM5NnNFSm1vVXdGUW5tY2Y5K0ZEOVcxTlg2MnhZYUg5NjNrMjBXUlR2c25Q?=
+ =?utf-8?B?U0tMQmVmdTVFQkF1NWhlZkNrdnJIWlhxYytzcERRVmJCakI5OTFnYWJHVEsw?=
+ =?utf-8?B?VnYxQ2VmR0RSSDQxZm1rSHJZZEJFM0J1ZDNkYVcvYmh5Tksyck5ybWNZMXpq?=
+ =?utf-8?B?eVUxQVl0cnJIcGh5WHdlaEdwR3V0cjNISDd4bytvdUZpdkFFVGRJbUFYTEZp?=
+ =?utf-8?B?U2F3dEcyNWg5cnZWN0hlci95NDlpOXVpSDIxWmhVS3dQdzE0dzFZUWVlUDlx?=
+ =?utf-8?B?RS9LckJENU1Kc1JobW5nVXBtRER0eTFFazdVc3JJUktHTFcvSzdiQmJTQ1Ny?=
+ =?utf-8?B?SGhQVUx4TXB0T1F6blVIVi9QSVJlY09NbUVaOG1rbVR3RjJBNkhXTHVLeFJ2?=
+ =?utf-8?B?NHZmbENPMlFNcWozT1E3Yzg3RXg0RmtJdWw2OGo3VFN1VFVoWU0xTDFYMkpv?=
+ =?utf-8?B?Q0dDR3oyUWJJcEVhWXBvWDhIMEhobG00ZDZyTGJ4UGtpa2tHT254dE5ldDdm?=
+ =?utf-8?B?R3dDVFJ4LzRoNlR3ZFVmeFFCemUzdlM4dmZ6d2YrZjMzZXZtZnZoMEwxTFNs?=
+ =?utf-8?B?YnpWQTNWV3VVbzhKT3JSK2RtRXE2Vm4vazQ5ZTBWZHFvdjRyT1ZjWXV1QitC?=
+ =?utf-8?B?YVVGa0R0c0tRSlgyeVdoa0JCaTBXSjNyNzB6R09tR3RySnptRVRkNWJSL2kw?=
+ =?utf-8?B?a1ZQc0xIYndhaUw4N1lQWkxCdGJlZnpHbndHQXZNbzFjME12SU1JdmhzYjIy?=
+ =?utf-8?B?VHF5T0RlQ2tBTTBSRkFacWMvSzRweUZmcndNV09OYi9iOGdDZE9sZmRuN3RN?=
+ =?utf-8?B?eTFYT21NdUxtYURueDN1VmFTblJUY28vOFNGL2NielBuM2pDa0VFM0ZQWDVh?=
+ =?utf-8?B?eFUxYm5BelVoN2dXZ1ZneWRMNHhqc3U5VGNJWG1qcDA5dThMU1JRbnhKV1F1?=
+ =?utf-8?B?bVU4TGhwbytRK0pMWFpoMDhKM21QQ09aakJMa256b2ZZWEd0ZUFxNlF1RGJD?=
+ =?utf-8?B?ZnR0ck9UUzBQcDl6UzE0MWV6Vkp6cmc0K2tmK0ZuRHBoRFJFaVRZSG5SM3ha?=
+ =?utf-8?B?N1NHb3BpK3RuN1JSd2VnNE1wR3FXVXk2cVR3bzI1RFhSYUFTZy9qSDlzMUlC?=
+ =?utf-8?B?S3VRbnU2cU4yOTg2RE9lNjNkTXcxQTB3YkhhajR5L3dKL1l0Ui9aTUZ5MFdK?=
+ =?utf-8?B?M0F5NEp3V0pmYnRoeHVweGNsay80MkFxYW1NNkNEUlFBYVFCM0ppTkxpYWE5?=
+ =?utf-8?B?OTFNM0tIb2dRbC9HWGg3Z09kd0kyZ1R6MmRLZkRzcko1aGNzdGxQYzNCZm1k?=
+ =?utf-8?B?b0ZicnRweU95QUdVWnk5SEwrRUZYcXRMd3U2aVBQUXQvcFhuV0FUR3BYTm55?=
+ =?utf-8?B?Y003T0szUExFWFZ0N09mTWIxRXdnSDhYTDZYSTV5bVJzeXdnYU5qVENXU3lV?=
+ =?utf-8?B?T1RlNUVaa0U3UnpzRHpuVEV1ODdxM05aUU5yRDRBVkg0Uy9qMFFnSEs4MzJV?=
+ =?utf-8?B?UzVTQW1ZTnBtUENhM3NaVmlUK1kwaHhJSm5pb1VCK3lUZGlSZ2llTy9XQ2o1?=
+ =?utf-8?B?d0Q3RHJsTllrNFdYM09Hb092TG04NElyaU96dFBWc0hWekFtQThsczYxNUk2?=
+ =?utf-8?B?YU9YeGUvNkp0TFJFN2gyNHFmeDZLbHRPZlJIcmZzdVFMWnFLelBGZnFWczNv?=
+ =?utf-8?B?a2FWY1pLM3l0aVd2Zlh5c1FRaTliT2NnVElWNkhMOTUva2h5TjcvOWpBb0pR?=
+ =?utf-8?B?MG5pdHd2cExqaTBpaWoxQUlrVGJoMlpsMGdtK2JSYmNJVDdKSWR3bmp6eTRC?=
+ =?utf-8?B?ZGhVd1VZb3BudW8rM2RjclVFbjEwcVp5bzJwNFRzdGo0cTNxbXZ6SGY1RUZD?=
+ =?utf-8?B?aGlEOTUzTVZqMTlONnJzTHRFeGRuMzdFNklFMUhyUmZJcHVsMm45M3o3NHVC?=
+ =?utf-8?B?YkVlbmJqOEZWb2ZydlZ5K2ZQOXp0MWlDSGpxWEtmakxLaEZjeFdWQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7ea4ea9-6337-496d-ac99-08df0e707d24
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8728.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 12:46:35.6534
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 12:47:21.0492
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S25PH1aPPAh6RWIACR9KotoEXzsEn2OlPWdRZJk5m7ugqjtWKHpoIBunHCS7wnR5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6486
+X-MS-Exchange-CrossTenant-UserPrincipalName: cEjFQcvcZRHRGgjD0ydGoOoJPklH9N9YsMKGu/D0ZH2LeXxu/d7oRbxB8SKQmQdyUcrIQu+Vdwsg1coXvxh76w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4473
 
-On 9/9/26 11:46, Mike Lothian wrote:
-> amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-> attachment, so ttm_bo_validate() can migrate the buffer from GTT into
-> VRAM.  While the exporting device is runtime suspended its SDMA rings
-> are down and the move fails:
+
+
+On 09.09.26 14:21, Greg KH wrote:
+> On Wed, Sep 09, 2026 at 10:03:10AM +0000, Dragos Tatulea wrote:
+>> commit c326f9c68921e2f14dfcecb2f6b4216313d50248 upstream.
+>>
+>> During napi poll, when the affinity changes and there's still XSK work
+>> to be done, we trigger an ICOSQ interrupt on the new CPU. However, this
+>> triggering on the ICOSQ is done unprotected.
+>>
+>> mlx5e_trigger_irq() is called while mlx5e_xsk_alloc_rx_mpwqe() is
+>> running from a different CPU due to affinity change. This can happen
+>> because IRQ triggering is done after napi_complete_done(). At this point
+>> the NAPI can be scheduled on a different CPU. Like this:
+>>
+>>   CPU A (old affinity, NAPI tail)    CPU B (new affinity, fresh NAPI)
+>>   -------------------------------    --------------------------------
+>>   napi_complete_done()  clears SCHED
+>>   mlx5e_cq_arm(...)
+>>                                      napi_schedule_prep() sets SCHED
+>>                                      mlx5e_napi_poll()
+>>                                        mlx5e_xsk_alloc_rx_mpwqe()
+>>                                          memcpy 640 B UMR body
+>>                                          advance sq->pc by 10
+>>   mlx5e_trigger_irq(&c->icosq)
+>>     wqe_info[pi] = {NOP, 1}
+>>     mlx5e_post_nop() advances sq->pc
+>>
+>> The obvious fix would be to lock the ICOSQ. But the ICOSQ is expected to
+>> be accessed only from the channel's NAPI and has no locking. Kick the
+>> async ICOSQ instead which is always locked.
+>>
+>> This issue was noticed in the wild with the following splat:
+>>
+>>   netdevice: ge-0-0-1: Bad OP in ICOSQ CQE: 0xd
+>>   WARNING: drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:826 [...]
+>>   [...]
+>>   Call Trace:
+>>    <IRQ>
+>>    mlx5e_napi_poll+0x11d/0x7f0 [mlx5_core]
+>>    __napi_poll+0x30/0x200
+>>    ? skb_defer_free_flush+0x9c/0xc0
+>>    net_rx_action+0x2fe/0x3f0
+>>    handle_softirqs+0xd8/0x340
+>>    __irq_exit_rcu+0xbc/0xe0
+>>    common_interrupt+0x85/0xa0
+>>    </IRQ>
+>>    <TASK>
+>>    asm_common_interrupt+0x26/0x40
+>>   [...]
+>>   ---[ end trace 0000000000000000 ]---
+>>   mlx5_core 0000:08:00.0 ge-0-0-1: Error cqe on cqn 0x548, ci 0x2022, qn 0x8f4,
+>>   opcode 0xd, syndrome 0x2, vendor syndrome 0x68
 > 
->   amdgpu: Move buffer fallback to memcpy unavailable
+> Why does the changelog here differ from what is in Linus's tree?
 > 
-> An importer on a second GPU reaches this holding no runtime PM
-> reference on the exporter, e.g. a compositor on the APU submitting a
-> frame that references a buffer exported by an idle dGPU:
+> Please don't do that :(
 > 
->   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
->     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
->       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
+Apologies. Will fix.
+
+>> [ Backport to 6.18.y and older: upstream commit calls
+>>   mlx5e_trigger_napi_async_icosq(), which was introduced by commit
+>>   0da1dba72616 ("net/mlx5e: XSK, Fix unintended ICOSQ change") and is not
+>>   present here. In these trees mlx5e_trigger_napi_icosq() is the
+>>   equivalent helper: it takes c->async_icosq_lock and triggers
+>>   c->async_icosq, which is unconditionally opened, activated, polled and
+>>   armed for every channel. Race B of the upstream commit message does not
+>>   apply, as it concerns the sync-ICOSQ variant of
+>>   mlx5e_trigger_napi_icosq() that only exists upstream. ]
 > 
-> Only migrate into VRAM while holding the exporter awake.
-> pm_runtime_get_if_active() takes a reference only when the device is
-> already active and never resumes it, so it cannot deadlock against the
-> reservation held across these callbacks.  That deadlock is why
-> commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-> when we attach a buffer" v2") removed the pm_runtime_get_sync() from
-> the attach callback.
+> That part is ok, but changing the overall changelog text for no obvious
+> reson isn't ok.
 > 
-> If the device is suspended or suspending the buffer stays in GTT, which
-> remains accessible while the GPU is powered down.  A negative return
-> means runtime PM is disabled, so the device cannot suspend and VRAM
-> stays usable.
+Do you prefer that I drop it in v2.
 
-That is a good catch, but your bug explanation as well as the solution still look a bit questionable to me.
-> Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> Assisted-by: Claude:Opus-5 [Claude Code]
-> ---
-> 
-> v2: hold the exporter with pm_runtime_get_if_active() across the
->     validate instead of testing adev->mman.buffer_funcs_enabled.  The
->     v1 check was racy - the device could suspend between the test and
->     ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
->     torn down.  Reported by Sashiko AI review.
-> 
-> Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
-> runtime PM for externally attached dGPUs") was working around?  That
-> commit explains how to detect external attachment but not what breaks,
-> so I can't tell which.
-> 
-> If it is the same thing, could the pci_is_thunderbolt_attached() ||
-> dev_is_removable() check there be narrowed or dropped on top of this,
-> so eGPU users keep runtime PM?
-> 
-> I can't test that here: this box hits the bug by missing that check.
-> The dGPU is on an oculink port off a native AMD root port, so
-> pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
-> and runtime PM stays enabled.
-> 
-> Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-> Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-> offload.  Without the patch kwin_wayland hits the call chain above
-> within a minute of the dGPU autosuspending and the desktop stops
-> repainting until it resumes.
+Also, should I prefix the next patch with v2? (First time sending a stable
+patch like this)
 
-That sounds like there is also a bug in kwin as well.
-
-The GPU can only go into suspend when the rendering application closes it driver connection and that usually only happens when it terminates.
-
-So question is here why is kwin still having that imported DMA-buf as necessary resource for the rendering?
-
-But we still need to fix this properly in the kernel anyway to avoid having a deny of service.
-
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index b33c300e26e2..c89846f266d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -43,6 +43,7 @@
->  #include <linux/dma-buf.h>
->  #include <linux/dma-fence-array.h>
->  #include <linux/pci-p2pdma.h>
-> +#include <linux/pm_runtime.h>
->  
->  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
->  
-> @@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->  		/* move buffer into GTT or VRAM */
->  		struct ttm_operation_ctx ctx = { false, false };
->  		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
-> +		int pm_ref = 0;
->  
->  		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
->  		    attach->peer2peer) {
-> -			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> -			domains |= AMDGPU_GEM_DOMAIN_VRAM;
-> +			/*
-> +			 * Only migrate into VRAM while the exporter is held
-> +			 * awake.  A negative return means runtime PM is
-> +			 * disabled, so it cannot suspend either.
-> +			 */
-
-Setting AMDGPU_GEM_DOMAIN_VRAM doesn't automatically migrate the BO, it just sets this as possible placement.
-
-BO migration is only triggered if the BO is swapped out or similar. What most likely happens instead is that we suspend while something is still ongoing.
-
-But anyway the problem goes deeper than just the amdgpu_dma_buf_map() callback.
-
-We have picked up pinning DMA-buf to VRAM for RDMA without ODP (e.g. exactly the feature I mention in the commit message of c52feb436539), but failed to correctly fix the PM handling.
-
-So we really need to call pm_runtime_get_if_active() in amdgpu_dma_buf_attach() and fail to let some other driver attach if the device is already suspended.
-
-Regards,
-Christian.
-
-> +			pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
-> +			if (pm_ref) {
-> +				bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +				domains |= AMDGPU_GEM_DOMAIN_VRAM;
-> +			}
->  		}
->  		amdgpu_bo_placement_from_domain(bo, domains);
->  		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> +		if (pm_ref > 0)
-> +			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->  		if (r)
->  			return ERR_PTR(r);
->  	}
-
+Thanks,
+Dragos
