@@ -1,131 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B21E3E3156
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99203C3F4B;
+	Wed,  9 Sep 2026 20:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984416; cv=none; b=m7jo4pFIFKNfiCgdJcqnT02A52kISrjVWd/A3fhwBPQ1nHu8Q4TQPaE1vg9O98DiAReylQoqU+rx4BQxz49A7XqZ6rGSrIscciP7kVzKJDWvwyBKHYyq1vQWJnCNaBl+9hYq+oShfDN85iQwfUWYLHbVeO3ajYKtXjwzONikqZo=
+	t=1788984788; cv=none; b=CvAfmHbHNzaPvqzfL3g53L4aWeo1p1h9omZjiELC9PTp0cnGrQFmob1E0D1cr0/H/rIZfjl63hfnfQh9MzDBG8UT6zm8FYmOIE+5oohg0hh4FagI32qNGuh+YH9NBZWFjzPN0niqwPPZQRATahTc5YK3kPsp+mxhxS/f2aoc5wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984416; c=relaxed/simple;
-	bh=oXdnJJByE6mj0qPKzgNYnjN6KvHmdNlyToWxStD8JLQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JiPwb8j2AAj/A+6NptnBsVoW5OsJgfMHIt0tYCHpM/qycmVkjKI9RCb+ASg/kBJOEvl6jiq4Kf6Yuy/pwYKdOlKB7E2HSSoH8n+5lP3CAdv8cYAz737z9p6ZIZOc6wumfyJpZfzBy8svBgoH70WhCJp1txmWkWuGyWZOVDiVj34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEG/OZgs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788984788; c=relaxed/simple;
+	bh=V+GgSlP8m9eZsYUDYB3PmRKoBSh4/ncBCklgpWvTtzk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TZxm/5PZCMXT6GhPOYAnUZjtDVlEhBsRyOybseLnzy54fbCKGnCkUVKyxFWW3TBf0zdCH/YhsZDitCCWyGswWwQbEpq2TNI+jONBO/9i6eyA8muccpRsiGMw//HK8M2GRt38d68PvDLW/xJSJdubivwhT8myMgckmc3Q21Ccjac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ysd/kTgA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEG/OZgs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3501F00893;
-	Wed,  9 Sep 2026 20:06:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ysd/kTgA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE741F000FF;
+	Wed,  9 Sep 2026 20:12:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788984415;
-	bh=zQ2T9ULSCx9/lNqNpRjCxeRlyXWmddCutsEXsg8sZ6Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IEG/OZgsLjd1fvjd7Oqrhr4S3areDYbb9ID/qISvFqWu6l0uFcUHMkeSSXaAW3kNP
-	 i9U3HgE1eluVCZbqG7I+rd5oaAyugPndslMyqnPnXgMtzpmD4OIKfaIx+Ef7p6AmYR
-	 BRtPO2GAXH/70OMdB0F2Fsvp7jK7kIhWvGXosWsjTosGLrjcR6WiA9G1USyHRay8iF
-	 lsdPooHM6uilCVU+mLj3QSicSLy5X5XSGeYgCytS9q7VnU9kq5lIK8bfon8sHtMwyB
-	 d/Wf7VlnzIWtlcxSAl9CbFDcvIMUrWFrKlR5p21Txow6sbjeag7q+5NPX1gmirYSvS
-	 92ohmD0lm3MTA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: l2tp: do not propagate multicast notification errors
-Date: Wed,  9 Sep 2026 16:06:52 -0400
-Message-ID: <20260909200652.3597187-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090342-wasp-unplowed-934c@gregkh>
-References: <2026090342-wasp-unplowed-934c@gregkh>
+	s=k20260515; t=1788984779;
+	bh=nkCROJGmCSID5J3EY7M78lHWx0S0ZOsvo3WsTjTa2PE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Ysd/kTgAgLyUrOsMKu6uj6c92r8HOe4mmu5KgvdKGgbuUHS8sjrYbrGofEYKTiPVx
+	 xUtHICG9VeB11il5KfTzApgWiMDhYNTCQR/p1tfAzXsQxwKn38pDWcLCmFXphnHCst
+	 atPLvH/Y2hQFwhHzDJCBHNUWO8obouQ5v/bSiJC4rLphPzLQTeUr93cUaxZDT2YSRR
+	 4OudDUbPP3S+Jk9WF7Ei0lU2inuVYtYS7KplVE93iQ9McLs3/4uFBRopyan2SdTUSj
+	 YlKGcGFieO1QmAn/ktA4ObWl7Q5vLMS995+JKQnPl7G9Uj34wBP/7afR5QjSC847we
+	 EAubBzM3qBKCg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 04BCFCE086B; Wed,  9 Sep 2026 13:12:59 -0700 (PDT)
+Date: Wed, 9 Sep 2026 13:12:58 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Dennis Zhou <dennis@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
+ drain pass
+Message-ID: <d49bd6cd-0670-47ba-b8ef-e3e8c0d49830@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
+ <aqGilhgcEd0qaHjI@slm.duckdns.org>
+ <16d13239-8911-4597-bfd6-18aa02135137@paulmck-laptop>
+ <aqGv7R4LTmlrW6QI@slm.duckdns.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqGv7R4LTmlrW6QI@slm.duckdns.org>
 
-From: Zihan Xi <zihanx@nebusec.ai>
+On Wed, Sep 09, 2026 at 09:13:49AM -1000, Tejun Heo wrote:
+> Hello,
+> 
+> On Wed, Sep 09, 2026 at 12:03:20PM -0700, Paul E. McKenney wrote:
+> > > The patch looks fine but this overall seems fragile. cond_resched() was
+> > > already marking "stuff that can take too long" but we need to use
+> > > cond_resched_tasks_rcu_qs() if it can take *really* long. There gotta be a
+> > > way to make this more maintainable. If always doing tasks_rcu_qs from
+> > > cond_resched() is too expensive, can it be be gated behind something cheaper
+> > > e.g. some tick based test?
+> > 
+> > This is the business end of cond_resched_tasks_rcu_qs() in preemptible
+> > kernels (in which cond_resched() is nothingness):
+> > 
+> > # define rcu_tasks_classic_qs(t, preempt)				\
+> > 	do {								\
+> > 		if (!(preempt) && READ_ONCE((t)->rcu_tasks_holdout))	\
+> > 			WRITE_ONCE((t)->rcu_tasks_holdout, false);	\
+> > 	} while (0)
+> > 
+> > This is pretty lightweight.  Adding a jiffies check would likely make
+> > it more expensive.
+> > 
+> > Or am I missing your point?
+> 
+> I found the following thread for why there is a separate variant for
+> cond_resched_tasks_rcu_qs():
+> 
+>   https://lkml.kernel.org/r/20180224151240.0d63a059@vmware.local.home
 
-[ Upstream commit af20e269f7459d2ce69887fdf2fad7caf986c865 ]
+Well, that was nine years ago.  ;-)
 
-The tunnel create, tunnel modify, session create, and session modify
-netlink handlers send multicast notifications through helpers that can fail
-while allocating or encoding a message, or while multicasting it.
+> The rationale was that it'd make cond_resched() expensive, so I assumed it
+> was relatively heavy. If it already comes down to a single test, I'm not
+> sure having a separate interface makes a lot of sense. There isn't some
+> semantical difference between the two, right? Anything which takes long
+> enough needs to do the tasks rcu qs, and that is what we mark with
+> cond_resched().
 
-For tunnel and session create/modify, a notification is sent after the live
-operation has completed. Returning a best-effort notification error as the
-command result can therefore report failure for an operation that already
-committed and can cause callers to retry and accumulate live objects.
+And nine years later, I am still good with cond_resched() implying
+cond_resched_tasks_rcu_qs().
 
-Keep sending notifications for listener visibility, but do not propagate
-their best-effort status as the command result. This also keeps the tunnel
-modify command consistent with the other notification-only paths.
+The people wanting to get rid of cond_resched() might have a different
+opinion, though.
 
-Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/54f48e812ca0424c47ffdb9a8182180921f7e6b2.1787247008.git.zihanx@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adjusted context for Linux 5.15’s older reference-release and session lookup APIs. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/l2tp/l2tp_netlink.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index f34ca225c2199..9481707176b37 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -247,8 +247,8 @@ static int l2tp_nl_cmd_tunnel_create(struct sk_buff *skb, struct genl_info *info
- 		kfree(tunnel);
- 		goto out;
- 	}
--	ret = l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
--				 L2TP_CMD_TUNNEL_CREATE);
-+	l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
-+			   L2TP_CMD_TUNNEL_CREATE);
- 	l2tp_tunnel_dec_refcount(tunnel);
- 
- out:
-@@ -304,8 +304,8 @@ static int l2tp_nl_cmd_tunnel_modify(struct sk_buff *skb, struct genl_info *info
- 		goto out;
- 	}
- 
--	ret = l2tp_tunnel_notify(&l2tp_nl_family, info,
--				 tunnel, L2TP_CMD_TUNNEL_MODIFY);
-+	l2tp_tunnel_notify(&l2tp_nl_family, info,
-+			   tunnel, L2TP_CMD_TUNNEL_MODIFY);
- 
- 	l2tp_tunnel_dec_refcount(tunnel);
- 
-@@ -637,8 +637,8 @@ static int l2tp_nl_cmd_session_create(struct sk_buff *skb, struct genl_info *inf
- 	if (ret >= 0) {
- 		session = l2tp_tunnel_get_session(tunnel, session_id);
- 		if (session) {
--			ret = l2tp_session_notify(&l2tp_nl_family, info, session,
--						  L2TP_CMD_SESSION_CREATE);
-+			l2tp_session_notify(&l2tp_nl_family, info, session,
-+					    L2TP_CMD_SESSION_CREATE);
- 			l2tp_session_dec_refcount(session);
- 		}
- 	}
-@@ -700,8 +700,8 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	if (info->attrs[L2TP_ATTR_RECV_TIMEOUT])
- 		session->reorder_timeout = nla_get_msecs(info->attrs[L2TP_ATTR_RECV_TIMEOUT]);
- 
--	ret = l2tp_session_notify(&l2tp_nl_family, info,
--				  session, L2TP_CMD_SESSION_MODIFY);
-+	l2tp_session_notify(&l2tp_nl_family, info,
-+			    session, L2TP_CMD_SESSION_MODIFY);
- 
- 	l2tp_session_dec_refcount(session);
- 
--- 
-2.53.0
-
+							Thanx, Paul
