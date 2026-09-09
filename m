@@ -1,84 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262D3345EDD;
-	Wed,  9 Sep 2026 06:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CB3AC0CD;
+	Wed,  9 Sep 2026 06:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936051; cv=none; b=Jw5mAxRiCaFi7ewuHXVFEBOXlfYz5idkV9YIHkXSoo0QA9QTDnpSiQdDnjlxB+vfpcvFAKfwc85Vgsk5H7dwaq864N0WAQGeUivfxsrg14Kt1m4g+aTpmKXsPHT3RcNvKlx2/HfIlkTDGVA85n9G9DF0wcV8SN1qhh2MvP3fyLY=
+	t=1788936285; cv=none; b=n/g++QDzdqomYIdmCucFTwwhD/p4wUeSm2tdRruxD4Vs8I8YhNbF1NfnhhhSTDBbDt26/rW52WTEuPpwUaLR7RBdS6upRArOCy89WQk5W9uBOzjcVP0M8kmXqeS+J646qvJ/KD+00dR6Nag2ZTToTj7y1loHuBkkNEqY9Qr1KBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936051; c=relaxed/simple;
-	bh=kZl2kjwLaJpUo96A2seUiHTzsLR07/A3fr3+6N0EzpI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o3brfvlXrRZUlPYrutnixoEWOPwQpYFTqn9YOHJ1jjKDzz7c5Cd4NpVaxEYkkvWGdqBuvUv1nr8/9I9RhLbdTCNdOUgF4LTgqVNfLdhXyAn9jgEpj72VIhGYv/7UkAtA3x4+fSHPzO6Ea3oGg8VCuH8LoYf3oE7TECSjmwi7dp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RckfC3Bk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788936285; c=relaxed/simple;
+	bh=5jt7oTM4/Ju94W9eSpLqE/p9XWrl/t+y9vL3pq6qmr4=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=fFPVi6jGzqVwSzERD/0ze9hmA2PKSTHwbqygzN+BeTeTlpSMjIXu3n6jtYiGkIxKNLTfnC9SEYnvkNuLGjZ5cksgFnoSRD+smE9UZdIHnKi+CqJvEugkCy0i3QhS6zNR1wzxcet79wC2TOAnWYBs3SQfpWCrseqhqadh9Ak8Clk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rF3TQDJ/; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Kb35zW20; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RckfC3Bk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC301F00A3A;
-	Wed,  9 Sep 2026 06:40:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788936049;
-	bh=/5nTPdl7HnDlhHuu9VYhe8/uvbST2awhkc+EjwlnlUo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RckfC3BkCeUJOkZwYsTt7g5r7rIm3AMg4fQMOpvZE1brFvNVQKPaaM82WKO2JRpFc
-	 1iLfc+xcsg+E+EL7eYm9Bziq9oGJwa9LJVoecIe5INBJ91Etj2TzoUxU78P/pzkCF3
-	 vBZcjluhLqyYFkx9uYaDq5X0codtOeC3Vbl7Rt5T1M3s4n8RrSTciewORY4kc3NKbg
-	 ox/x+IsBPqWCY+Lo9ncAKujL/fzX7b/6jT9BpPePDr37Q8lLC6JpXBehpaS8VMpq2M
-	 o4XeBAZfKphoevyB/jqYGeSkBeOLt0hxhIx9RM+cYYr3ISgsS9dn9tgWxT4Bqa2UCa
-	 nMf2mTHn1EVHw==
-Date: Wed, 9 Sep 2026 08:40:42 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Will Deacon <will@kernel.org>, David Carlier <devnexen@gmail.com>,
-	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
-	stable@vger.kernel.org, x86@kernel.org
-Subject: Re: Update on CPA fixes, x86/urgent and x86/mm
-Message-ID: <aqD_asyNQgzSQBy3@gmail.com>
-References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
- <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
- <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org>
- <apZ52DKlJIrpX6qq@gremlin>
- <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
- <ap_WIZwCPKB07nAf@kernel.org>
- <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
- <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
- <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
- <3d7152ba-5e41-4cff-9c96-08f77f60ede5@intel.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rF3TQDJ/";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Kb35zW20"
+Date: Wed, 09 Sep 2026 06:44:39 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788936282;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c7vWj2VEYLG0eNfa+Xm2hiEIYrw7vomuafqPseJgX6U=;
+	b=rF3TQDJ/UDyDb6NMI3OhgcFF7iLvSZAIo+tokzQTwR+1kj50RPiCXOnEgYo+CZ3rg6bcaa
+	ukvIGmtS05Ef8UlyKuvz7PHTmHAqo/yeJirXJtznIEkSG/XyPYxNAZAndyycVhO0ieIpkI
+	qx5Crq8e2m/Hz3p64mDTy2tpRMGgv9rstBE9nateMomyll8R4FW91wevyn4WovnhMZqiT7
+	IKl9eDJzhyOXBczcCk99aLQRLKayOapZ1qGwe1SISCONmYJSlPQEDgyRxGrLVlXPGWT1Qw
+	iSfYT/YnoJevngDdUVh44TniNlmL/HsT9AEI7mxq2agGHU4y7Kc0j/NFRoQP5Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788936282;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c7vWj2VEYLG0eNfa+Xm2hiEIYrw7vomuafqPseJgX6U=;
+	b=Kb35zW20MOUGIbwNDqKALufGAKT2+Tu4Uqpoz79caP4vnz648xk91XQhUYtApXb4bp7jfj
+	dPwyG0V/hNkXTFCQ==
+From: "tip-bot2 for Vernon Yang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/mm: Fix user-space data loss with MADV_FREE and THP
+Cc: Orson Peters <orsonpeters@gmail.com>,
+ Vernon Yang <yanglincheng@kylinos.cn>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3d7152ba-5e41-4cff-9c96-08f77f60ede5@intel.com>
+Message-ID: <178893628000.623050.17168431831484670222.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the x86/urgent branch of tip:
 
-* Dave Hansen <dave.hansen@intel.com> wrote:
+Commit-ID:     f7491d7c81db0e7c304a7bd757a76d2fbeaff80e
+Gitweb:        https://git.kernel.org/tip/f7491d7c81db0e7c304a7bd757a76d2fbea=
+ff80e
+Author:        Vernon Yang <yanglincheng@kylinos.cn>
+AuthorDate:    Thu, 03 Sep 2026 11:16:08 +08:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Wed, 09 Sep 2026 08:39:12 +02:00
 
-> OK, so Linus pulled the x86/urgent fixes I sent earlier today. I've
-> staged everything else. Here's an explanation for where that leaves the
-> other x86 fixes.
->
-> ==== x86/urgent ====
-> 
-> x86/urgent has 5 urgent fixes in it. There are 4 that are CPA-related.
+x86/mm: Fix user-space data loss with MADV_FREE and THP
 
-Note that the rebase you did of x86/mm onto x86/urgent added the
-5 MM fixes with an incorrect SOB chain - I've rebased x86/urgent
-to fix this up. No other changes, so if there are no other issues
-I this we can send this to Linus later today, and thus give it
-an additional 2-3 days of testing in upstream until -rc3.
+Some of users of Polars (a data analytics library) have lost production
+data from this bug. They seem to have just the right combination of
+huge pages, MADV_FREE and heavy reclaim pressure.
 
-Thanks,
+pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+silently discarding the hardware dirty bit.  The subsequent
+pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+stripped from the value, so there is nothing left to transfer.
 
-	Ingo
+Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+the dirty state.
+
+One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+
+    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+                                      // folio marked lazyfree
+    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+    mprotect(buf, size, PROT_READ|PROT_WRITE);
+    // ... memory pressure ...
+
+Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+no dirty bit set anywhere and frees it in
+__discard_anon_folio_pmd_locked(), even though the data was rewritten
+after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+restores the PMD through pmd_modify() as well.
+
+PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+the dirty bit means rewritten data is never written back.
+
+Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+pte_modify() and pud_modify() do.  The existing
+pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+hardware-dirty <-> saved-dirty transition based on the write bit,
+preserving the shadow-stack encoding rules.
+
+Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=3DcNbNApCWqdthRj=
+d76LThtSPg@mail.gmail.com/
+Reported-by: Orson Peters <orsonpeters@gmail.com>
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260903031608.1194238-1-vernon2gm@gmail.com
+---
+ arch/x86/include/asm/pgtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index d5f4917..d551120 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newpro=
+t)
+ 	pmdval_t val =3D pmd_val(pmd), oldval =3D val;
+ 	pmd_t pmd_result;
+=20
+-	val &=3D (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
++	val &=3D _HPAGE_CHG_MASK;
+ 	val |=3D check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
+ 	val =3D flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
+=20
