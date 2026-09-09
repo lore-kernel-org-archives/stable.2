@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCF04A1E00
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC48352B1C4
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953193; cv=none; b=sQgLdh4gpwyhyj8BTy+waCm/GPuQGj1lhnMqDptcjSYbcc9YtDyDLRFZ1ZQvnYMZXwd17ngBcYUifmjKd/AHSrcwoqIrHeKwtjJrVxdcsmRfwyEcibwXNiXaonC0kyilPCgb46N8+qpGHsp4eWd4/DE66FKJLZ2Ttqk1au4AZYU=
+	t=1788953196; cv=none; b=OZ3pnTSBMNRZ16qSP1UupH1ZakHwQzMsstMdt4huqozZFXSx2Yc3lI1lveTHz3mT39Yf+HIlEx/ziQLlEvr9mN989YwobMSJmvB6VP3ySTIqg3VrRkpMVxJLQFTYfj2xXpRhrMUM7+MYz65vF2S4Ko+IPY39YPQc1n07JBHN+pA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953193; c=relaxed/simple;
-	bh=nrzNIRAqZHSfhxsGkABg1NjhR+u/ImBiz7Zd4R30p4E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SBBxK7pDQ8O92I0MIfYC+dnmr6cLQi99EyP+ErBpqeclTyxi2KVlu7Anm435dqnIUbOmo971Eth8/TY4zs69bPcybyueA7sQDtqH9ZaI/wzmwDRqiKLP7CSv5LLvYyINAmKgmQoIipF6gt0DF0kK2sgwwmBV7GUUzpjo7RDmBNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PwpAlbht; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953196; c=relaxed/simple;
+	bh=RX6RWBxL0s29DjtxyoyCsj0++9G4+A2rxgfEhQmPCew=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=f61QPjP1C7OARJ2SwFBBYgnsCcWFuqMWhFuN7fE7V/uZcfkwdYBUPhiqUIny2UxZb/uXsi8Yb0r3iAN4WFJ3YzjFeayrw2SvCas7uUXEwGZz4J+7I6N0N2OEBE5WfNw+ZxTx9/9kLTSXHoKlZ5LkpP3waa0fiDQDDisC8HAyFuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MV1Zp1L/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PwpAlbht"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC151F00A3D;
-	Wed,  9 Sep 2026 11:26:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MV1Zp1L/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139E51F00A3A;
+	Wed,  9 Sep 2026 11:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953191;
-	bh=HOMHEFgqhVKK8MmEGAyygHwlB9xHD9g6c1OoVH27ubw=;
+	s=korg; t=1788953194;
+	bh=vYO1G4m+4+bQ2Fh+AoJ5zuJ3iutrg4Asl2U15TX0ogk=;
 	h=Subject:To:Cc:From:Date;
-	b=PwpAlbhtXCKhCCmfoVzVXSVVt/zw2+86KYB3eJZNnYK68SjCopj1y5fQ3HWudQ1JX
-	 FEHjYeqa5WB4XjVCFnjdnvmaSbux2+BlGSD3DxvNNWcsx3u7QYEBrAH2cufabaIs04
-	 lfFGM/9HilcGqqq1DRYMSgo44OE83QN/AvlxWGvo=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap" failed to apply to 7.2-stable tree
+	b=MV1Zp1L/jSd6dOzxy4vy/E9i7Kd9JZQtRzxquMQa99N832b6ML+fVnLdHHDe3C3B9
+	 CCgnESizafJ6zAKtKOO9JNfSRg72xJI/KLtjI44TsSyMdttqv5nLN0YIAs96bFv0H7
+	 XjxHrtPMK9Llt3LWEr8Qr6Zp+7QiBCYLknfZT55g=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap" failed to apply to 6.6-stable tree
 To: njavali@marvell.com,mkp@kernel.org,sashiko-dev@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:19:01 +0200
-Message-ID: <2026090901-accompany-unwired-0196@gregkh>
+Date: Wed, 09 Sep 2026 13:19:02 +0200
+Message-ID: <2026090902-filtrate-overeager-c2b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2ac6a829843cf3df522d19e091276109b94c4c7a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090901-accompany-unwired-0196@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090902-filtrate-overeager-c2b9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
