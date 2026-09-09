@@ -1,111 +1,304 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71AA3346B4
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:14:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984856; cv=none; b=QvgkUYbSkZcpkAi022/u3Bh4Y1b3lP/3fNvOqC1MGW3lQqHnYgISbMkQqjtILln5a44kNmdSlVZOS/+SlUMgYnK//9huxcyi+F97nx+aqgJbh4Pu8BLaa8F+z4t18C71X9IoA5G348O9Mbjpp/EV6+ouQUf9TkQQ5KHCxH68GbI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984856; c=relaxed/simple;
-	bh=yqTSMl5xbJ6/XG2x9GkVPg9AXda0FBBM50TD5AsO1tg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MpRbCnSH74qkSAO+afOAiR+5KTxe3+A29RcVAFfELF919WCcOzvDkiR6biWjuJo3oP697udq8AAWcIqB0T/UWazIfOIf4zNwhG5d6g08bWkrNlmm1ujsNwjWwW9YZXzy7NID/Icrlk94U8L1cWR7gOsTk5pIS8YnR51NHMU6PNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sr7tBiF8; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE9E429803
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788985519; cv=pass; b=DJyq/c43ozTqb60LpLmhaAv85f7zWsm9eS429nZ1VclkWQR0AUQiGc+bmyylvGoJRqE5ZBNxhyzCymezAmT3RLohtITAnVZR5yCL/1mcmOXzews4CXwmtTCX3hOGiBr1spkxj5BB7+AEMrI6drldWj27VN+AnhlDOqnL8256h4M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788985519; c=relaxed/simple;
+	bh=QoW7AnyixuM599yTqpXsOt8aI1xn2JRyg2Xq5kcrCwI=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XfAm88JTELQGdmaxkLi4Q+8hdWwYm5QBxod6JTBJ5WsU26qInM2KI97qO36QW/LfhLHRW3fr8ftcGWdUddgZqTz0YiIsdhBrNWvwr99KfROrXqpe7tCrtpLMwwWfhARN7bETyReMNL3S0j0mvTq4Ig7wQBNzV3Pr4hQVy9IFx/U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qURk5P93; arc=pass smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sr7tBiF8"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so5327045a91.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 13:14:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qURk5P93"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-9106ffe17e9so11626786d6.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 13:25:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788985510; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VzB7MC6z8sx/m0AP5ZJT7fsCue/TN0JxOGDBTQfLawwoq6l5IA3kqtVcFSIQQCSU4n
+         Y7SctpNgssUczFqtjoO+FjYAPESlPxauot3fDnnCuGH4ADHv353+igeABJErARaANDaf
+         3/6KYjU7QKF6yvqCDZOJM/a+jNvyyU+/xdkPXf1NnDd+8vh5Y0ziz5jA0lUJyMT+nYur
+         Y4YSwLQNorAZd3lLxqPwkRW4WtMzpsBiyzOPZSNr8L/USob0uoSV9oo4OIh5ybBuP8b3
+         Z8yg7WneFE46coW0XuqOwcgXVxL1tMa374RGLjwoVZZKYEd1yT9pkyIIkxH5PGpEm5W+
+         0sVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=sAJgjokaArCH/jUJWMU61BMeLKssOx+oevwPJuJSlB4=;
+        fh=U5IL7J+kkiCbSntHzW669ZdiovePXvEuGPQZ745rDGA=;
+        b=F0RYDUexQdRrs37cdfxZGFbjrT23H4Md71aAWQ1aKseWHgeK6JfiDb1SOboFUxxwQp
+         ns+KiFWXvd3g8B5ptqBIiRxyCl5sWa8fJIXR9pVkEKawgljfe5WRlkXSZoEQOuPzhc+Z
+         x/5V4/cs39EVjq/z1Wce6kRTmhChlY73Lmr0yQRaD5OpShtEUFJWtFVHHa+QxkUvU16l
+         WO7cuIlDdURttnrGP0BZ1XXcb3nanrdn0OHxC2KiHtp6xvdOeWhET8WZ202v/TFLEvZI
+         IgDcyZwRAZT5iLxEDhn+u5vskaiG+wMJIcqx4gpTOIa7YlZqtLHzzpxpca52IBDOWDaT
+         JrbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788984854; x=1789589654; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=guZfSRNKXMdPmVg1h6Pr0fhBzdAopq3h34A4o0fDPKo=;
-        b=sr7tBiF88RtiMjGuOoCP4kTTzsWICTImlq5hJtF6YfGVGNxP/cDQorBgHRWP5Lv0p9
-         uCAz4gwcWFs1ARc6YDWGN3wgCxorTg3GxPnWH4/q1uNHnRw3VbLQLv4pkS+lHMkHWYYR
-         3PeFSz40aCdEyWhwqAFscPf2hEcOTvZVKznahICweiEZWZk5bNZgEob6chmAZrFn5HzG
-         9xugdS6qcqbXC/6LwbqWY5ceKJzVamR5ZYk0m0UAJCoLddqjfDE4gEZKAvJ5LhFd1Unu
-         4SgHtqeuDSVc35YscTaGimCAF3ureb+f/RdMDssK8CPrrGw5UubZKAy74Co+eMVCx8Lo
-         C8jg==
+        d=google.com; s=20251104; t=1788985510; x=1789590310; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sAJgjokaArCH/jUJWMU61BMeLKssOx+oevwPJuJSlB4=;
+        b=qURk5P93NaTtt5trLDbmc1BUPFr6x0gCMMduokoE3cnwaIvRpYlj1jHU2jfkX04ZZV
+         IjmUKbODrxIHTMwc2xqWpO+XpkI221Fe/HEVbMyG6yV4a4xCB4ehvS5Ql3vvSOGIcx/i
+         WW3MAsBkFyCvPBDTJxnuGl43uWah6KrhZHLD87lv80j5xL/cR46XqWvERDWjyuG9Chf5
+         NabDWspzgakCSj8oBmZuuGRXtbRy9z7N/j9vzPhViK6Smilf25fEUMzDGF3vkviviEyT
+         oXUKtSNK98SLRWm+OmhfzoszLZrlmo5+rBWLZTkedbvCpZNWpqLgWCjsR0jflmW1JHm/
+         ciAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788984854; x=1789589654;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788985510; x=1789590310;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=guZfSRNKXMdPmVg1h6Pr0fhBzdAopq3h34A4o0fDPKo=;
-        b=QRjxeOR8nb4hxf8xch3WRP7v1f6sgu0Te3IHWFpCTgxv2KfB3+YyzmtQRIrvI5eh0q
-         AAEwLPywa3OuI26oAGsTGEMfIcoPMqlrourgBNB4nNAhnJzog8t9HakxSJpan6oxz/uw
-         dyYG3QommH+4GQJ0RsbWHW886TcmV8+QEYlPy2cBEFjV9roejuFDxWc+3Yz81RO1THd1
-         oIfGWMAAWzxTT7OOBnpT6V1faXDgu5eQumx1f6X+xsYcaNK6X5pLJePT5uaBYADPh7PJ
-         vC4TWxG4vERJPtd52/LrN9d3CN+QBAjL8tz+R35T7Z5LycG01iIy2tGt2pfNYhX+r+E1
-         7ZoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUp/yLu5Z3uv6fARMYdQpJ5KyLkwiC8wjUNAFllZH9WbY4MBhxxMFadk9frq1wcigCRzt+PVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRziWN0kdNyr+r12Gx2R+jIqJKJavyLXk/F3lupk3yCDmYVETw
-	vf480xlnZkfUR2S8kSDdj/iHjbLezoNRv1FXxFClHCaZqWHb/Ibn4cCU
-X-Gm-Gg: AYBFou0QoUKwkfNC+ge3WapyIhosmM0SrVL7JMO0YKlfaDXv/rQqs3JKHbxt+KA5Ujw
-	ZsN0psiWCUimpqs47cvXgg1+lYWplhDzX6F+MKul0ZSdWIXJpAD8z8urTcfN/fE8W75vnlhglsw
-	fOyGmqmsixcv4WfnJR2EZbmflErEcvQgexayVEYwQXu89aWOJwsghF5/2GD/opmE3bXrjMTdUof
-	ZiPFir6wyAw1mDdi7g7/CW7rb4Acg/1kdsm6T35oqISbQQ+tULtfZhSKJmuJJVcLpxaIGcyO7kJ
-	PRfUGVP+XRJKcPwj5li7hbAM9Jj00FtM8rV5CsPE7TCbwS+fyCf7XCz+WQXdB7lR5CRuO888vbp
-	ZThy5SCASEw35jgPsc75FM3GnEhGB+ouKnFcc5J+k6GKGXYC1MOdP2AStw8xpd/Etx23gSA5gBI
-	WWTEkRN9XgzPCkJhqpPDTbeuM6i4LSYGV1g+TAutz0ZWWAcJJvJ5okHcgCp+QTafBh629IWaJRU
-	U5ioMEWYuTzmwYXRGMaou49GfBWsOQT3jS0LyrbRWpt7BFG
-X-Received: by 2002:a17:90b:4e8f:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39b261ba63bmr56325924a91.11.1788984853726;
-        Wed, 09 Sep 2026 13:14:13 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a803:6c49:659c:692c:9416:2f0d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm46840513eec.26.2026.09.09.13.14.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:14:12 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: jesszhan0024@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	Fabio Estevam <festevam@nabladev.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable delay
-Date: Wed,  9 Sep 2026 17:13:46 -0300
-Message-ID: <20260909201346.937343-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=sAJgjokaArCH/jUJWMU61BMeLKssOx+oevwPJuJSlB4=;
+        b=VEuu72H/mzN07eupL+PIk9AigqbQ9zreFrlG0xM8Y2nMJvMpxAPQ3FsmidN3cjMOgV
+         0Ua3V1w2y+5QJoUnA0WJ1wTM7W7Sspnrk4y93eGT8OkiLPRlooELLBTDDmuzZxoFkuQk
+         Hg5e7/mZIrV+k5jGfhmFaZXZrSNnF4s+JeTPAnrde3o9DR1erKJW1WHl0bdVkrWZ/IY0
+         iSzXXWqyELHt+3JG0i+tdupaCZ1bISDaw5BsFijYomIcRZwGYk85yDyV+plHxmdpz6Hp
+         Hnhqk3N6SYP3z2NHyltaVcVS0RYoHizWm9id89N22quYMRKZ2etlviBfmJ6exW9NqAKc
+         jY/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxF5eXqwBHnYlWxPJjPmtJwkVua+eJl8m1UEWGrFah8ANWKeu1cOzIO+HLRIvb3jE0d8Q2Xrg8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVI9mcMa89eoj/hvHcK8HvKyU1YwS/9MnXJdnTkp3Dqy2oapqi
+	0iDraPV5B51lLeUxY6d+mzIqS/eJPFfbuzHTGybSNsvcSpf9Sv1pn3i0Zu+pco9wWEMIksYqWmW
+	qnslxLqCESNHIgR3nw+VhPCzFQ9u5AZiz/WBvp2rW
+X-Gm-Gg: AYBFou1avALe758KOkFz9zYSv1F8PMhL/Zyrv7mydwnbJEikv7WOZfPhvdhs16H61Rl
+	Ut6lgSo18I8L3cOWntM4K8tF2//wW2zw2rbFHcUPyYBx7B8IH2KpKFThX0xovs9DV/SAUiG2oUp
+	end17/W5ZtDS35IRD5Em+jo8Kji+Cu3IbgeksxwsLNY9nOHWyiaQWrXcQurx3wfzgp0t4swJpZN
+	kB8I828bKGSzfkNi3U3Or5xhpq6f83tV8iuFtFrj1Pb/xMISXZi2deokwY4WzkQIofvBhLAJCFl
+	9m1pwaYc2RID4sK5d2RLZIsNHWPQWJFgYUnp9RM9cCXxAdmMw0JtFjtOGD9mnt7eUJekJoEpty+
+	2ZHDj2yrBlBt+tYQ6tQnba8vzGYDQcKr9T+leSCtc
+X-Received: by 2002:a05:6214:2028:b0:910:70e1:e73e with SMTP id
+ 6a1803df08f44-91070e1e8eemr54547936d6.36.1788985508825; Wed, 09 Sep 2026
+ 13:25:08 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 13:25:08 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 13:25:07 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260902-hugetlb-subpool-always-track-used-v1-2-de1cd14bd713@google.com>
+References: <20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com>
+ <20260902-hugetlb-subpool-always-track-used-v1-2-de1cd14bd713@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 9 Sep 2026 13:25:07 -0700
+X-Gm-Features: AcwNN1WKF_ytLnZvmqYqok7fCFO9k5UkC6wmjaHMYmOMsaT-t0wpYlqa0Qxgl0M
+Message-ID: <CAEvNRgGGW+D2GWwjUj5A_L69aeUaaWFn4vx6FE7Q5gkd278+nA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] mm: hugetlb: Fix out_put_pages subpool reserve calculation
+To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>, Alex Shi <alexs@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
+	rientjes@google.com, vannapurve@google.com
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Fabio Estevam <festevam@nabladev.com>
+Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+writes:
 
-The RFF500F-AWH-DNN datasheet requires a minimum delay of 250 ms
-between display signal output and backlight power-on.
+Copying Sashiko's comments here for discussion :)
 
-Without this delay, the backlight can expose unsettled panel contents
-during display startup, resulting in a brief bright flash.
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> When reserving pages for a mapping fails during global accounting, the
+> error path rolls back the adjustments made to the subpool.
+>
+> Currently, this rollback was performed in two separate steps:
+>
+> 1. Returning only the portion of reservations originally satisfied from the
+>    subpool
+> 2. Separately adjusting the subpool used pages counter for the portion that
+>    was requested from the global pool.
+>
+> In (1.), because the used pages counter had not yet been decremented for
+> the global portion, the subpool observed an inflated used pages count. If
+> the mount was configured with both a minimum size and a maximum size, this
+> inflated count prevented the subpool from recognizing that usage fell below
+> the minimum size guarantee.
+>
+> As a result, the subpool failed to restore its reserved pages counter and
+> instead returned that a global reservation should be dropped. The
+> mount-time reservation is permanently destroyed, leaving global reservation
+> counts depleted and causing an underflow when the filesystem is eventually
+> unmounted.
+>
+> Additionally, if concurrent threads modified subpool usage during the
+> reservation attempt, calculating the rollback amount using stale local
+> variables could cause global reservation counts to diverge.
+>
+> Now that used pages are always tracked within the subpool, return the
+> entire requested page count to the subpool in a single call. Global
+> reservations are then adjusted using the difference between the
+> reservations originally requested and those returned, fixing the issues
+> described above.
+>
+> Fixes: 1d3f9bb4c8af ("mm/hugetlb: restore failed global reservations to subpool")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> ---
+>  mm/hugetlb.c | 49 +++++++++++++++++++++++--------------------------
+>  1 file changed, 23 insertions(+), 26 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 66b6601abb069..d84ef044d1346 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -6674,12 +6674,14 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  		struct vm_area_struct *vma,
+>  		vma_flags_t vma_flags)
+>  {
+> -	long chg = -1, add = -1, spool_resv, gbl_resv;
+> +	long chg = -1, add = -1;
+>  	struct hstate *h = hstate_inode(inode);
+>  	struct hugepage_subpool *spool = subpool_inode(inode);
+>  	struct resv_map *resv_map;
+>  	struct hugetlb_cgroup *h_cg = NULL;
+> -	long gbl_reserve, regions_needed = 0;
+> +	long regions_needed = 0;
+> +	long gbl_resv_get;
+> +	long gbl_resv_put;
+>  	int err;
+>
+>  	/* This should never happen */
+> @@ -6754,9 +6756,9 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	 * the subpool has a minimum size, there may be some global
+>  	 * reservations already in place (gbl_reserve).
+>  	 */
+> -	gbl_reserve = hugepage_subpool_get_pages(spool, chg);
+> -	if (gbl_reserve < 0) {
+> -		err = gbl_reserve;
+> +	gbl_resv_get = hugepage_subpool_get_pages(spool, chg);
+> +	if (gbl_resv_get < 0) {
+> +		err = gbl_resv_get;
+>  		goto out_uncharge_cgroup;
+>  	}
+>
+> @@ -6764,7 +6766,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	 * Check enough hugepages are available for the reservation.
+>  	 * Hand the pages back to the subpool if there are not
+>  	 */
+> -	err = hugetlb_acct_memory(h, gbl_reserve);
+> +	err = hugetlb_acct_memory(h, gbl_resv_get);
 
-Set the panel enable delay to the datasheet-specified minimum.
+[GLOBAL ACCOUNTING]
 
-Cc: stable@vger.kernel.org
-Fixes: 1b2a9ec82099 ("drm/panel: simple: Add Raystar RFF500F-AWH-DNN panel entry")
-Signed-off-by: Fabio Estevam <festevam@nabladev.com>
----
- drivers/gpu/drm/panel/panel-simple.c | 3 +++
- 1 file changed, 3 insertions(+)
+>  	if (err < 0)
+>  		goto out_put_pages;
+>
+> @@ -6783,7 +6785,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  		add = region_add(resv_map, from, to, regions_needed, h, h_cg);
+>
+>  		if (unlikely(add < 0)) {
+> -			hugetlb_acct_memory(h, -gbl_reserve);
+> +			hugetlb_acct_memory(h, -gbl_resv_get);
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..70e37ff12c9e 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -4354,6 +4354,9 @@ static const struct panel_desc raystar_rff500f_awh_dnn = {
- 		.width = 108,
- 		.height = 65,
- 	},
-+	.delay = {
-+		.enable = 250,
-+	},
- 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
- 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
- };
--- 
-2.43.0
+Sashiko:
 
+Does this error path complicate the rollback logic? By explicitly freeing the
+previously held global reservations here, it guarantees that out_put_pages
+will need to re-allocate them from scratch if the subpool absorbs them. Does
+this increase the likelihood of the subsequent hugetlb_acct_memory() allocation
+failing?
+
+Ackerley:
+
+Yes, it does. Restoring gbl_resv_get here is the correct thing to do, to
+undo the [GLOBAL ACCOUNTING] (see above). It does look weird that
+hugetlb_acct_memory() is called twice, but the hugetlb_acct_memory() in
+out_put_pages is actually purely meant to follow up after
+hugetlb_subpool_put_pages().
+
+Everything is mathematically correct. Sashiko is also right that this
+could result in allocation within out_put_pages.
+
+I'll add another patch to clean this up, see next revision!
+
+>  			err = add;
+>  			goto out_put_pages;
+>  		} else if (unlikely(chg > add)) {
+> @@ -6819,26 +6821,21 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	}
+>  	return chg;
+>
+> -out_put_pages:
+> -	spool_resv = chg - gbl_reserve;
+> -	if (spool_resv) {
+> -		/* put sub pool's reservation back, chg - gbl_reserve */
+> -		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
+> -		/*
+> -		 * subpool's reserved pages can not be put back due to race,
+> -		 * return to hstate.
+> -		 */
+> -		hugetlb_acct_memory(h, -gbl_resv);
+> -	}
+> -	/* Restore used_hpages for pages that failed global reservation */
+> -	if (gbl_reserve && spool) {
+> -		unsigned long flags;
+> + out_put_pages:
+> +	/*
+> +	 * Return all that was requested from the subpool, let subpool
+> +	 * tell us the new number of reservations that need to be
+> +	 * returned to the global pool.
+> +	 */
+> +	gbl_resv_put = hugepage_subpool_put_pages(spool, chg);
+> +	/*
+> +	 * There may be a difference between the number of
+> +	 * reservations to consume and the number to restore now if
+> +	 * there are multiple threads interacting with the subpool -
+> +	 * restore the difference.
+> +	 */
+> +	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
+
+Sashiko:
+
+Does ignoring the return value of hugetlb_acct_memory() here lead to accounting
+divergence? If gbl_resv_get > gbl_resv_put, this attempts to allocate global
+pages. If this allocation fails (e.g. out of memory), the failure is silently
+ignored.
+
+Could this lead to the global resv_huge_pages counter diverging from the
+subpool's rsv_hpages counter? If a concurrent operation drops the subpool's
+used_hpages below min_hpages, hugepage_subpool_put_pages() would absorb the
+returned pages into rsv_hpages to satisfy the minimum size constraint. If the
+re-allocation then fails and the subpool is later unmounted, could this
+divergence cause resv_huge_pages to underflow, inflating available_huge_pages
+and potentially enabling a system-wide OOM denial of service?
+
+Ackerley:
+
+Yes I agree that ignoring the return value of hugepage_acct_memory()
+could result in issues, but this isn't unique to this code path. The
+return value of hugepage_acct_memory() is ignored in similar cleanup
+paths.
+
+>
+> -		spin_lock_irqsave(&spool->lock, flags);
+> -		if (spool->max_hpages != -1)
+> -			spool->used_hpages -= gbl_reserve;
+> -		unlock_or_release_subpool(spool, flags);
+> -	}
+>  out_uncharge_cgroup:
+>  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+>  					    chg * pages_per_huge_page(h), h_cg);
+>
+> --
+> 2.55.0.970.g62bdec98f9-goog
