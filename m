@@ -1,33 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3901453A28;
-	Wed,  9 Sep 2026 20:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8DC559CB3;
+	Wed,  9 Sep 2026 20:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986990; cv=none; b=P6mV+LRSwx0n5FjOd+p1OxhfzfiMTTqZDNDbYOZIIYrsQVBOXqMWnyy3bui4WSAQppbOxjbFQJjW7ssZOv6SRA8FFaoOSWDhlgCRpu4m3gwOjiRaGQeMosUvNH4bYv12Y5JccOfxaKrycIjoUhhIpPvdFX5XtE8DKe0n/XWGjB8=
+	t=1788986994; cv=none; b=jU++mOTvmHjWmPIjAeB1OpHwhapJzUnUYb8Cplhn/3V3x07uJGPF2+q7T/3EJeMRuNrOqgZNidFlIKDsi6sx+t2cD0ZDWd1K+RkKhRmE0Z9JQscIIDrYDuhIO/ic9BTTTQrrQoSH6w3SUDHWUEuxCoCb4R1LTKHyvL3z4E0ID94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986990; c=relaxed/simple;
-	bh=SOSKQ6DMWsIzF51ySe3ch/gTAqxI796K8SC3BfvFJxk=;
+	s=arc-20240116; t=1788986994; c=relaxed/simple;
+	bh=+/c27T920kBCdmxGv5fLETrRsiIAYcQsxC/xLBTVVI0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SdyqRCBv/qNIp/hfYLSPPrsWJ/O4fFpramlgIKyWKaepP6vLJoCt9w6smgiQpH3Lx0POidU5ybLM23ux42b6xmjdhaEeGZ0VbxcHPJ6Qzq+X0e/cXDQewj/K39s/Mmb6UVPWIrM5NpdmGAE/XSsTLWi6WrMLdT/8FftCJjWwwYo=
+	 MIME-Version:Content-Type; b=QDGa4jFl6OME2H5nuITz/A0P8E/qFVkdhIyIenb3jf85sfas7SS1p/8Hk/q3fcCXrVMjK2VrSmlN26u/8fc/svB+rTTxQMYDq2KzzG6TGu/4OkfrdeIbjxsiwjY071mqNPnpROVQT4BKCKYnyK/3KkzouzzPO0FlwHRGySUHdAc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770531F0089D;
-	Wed,  9 Sep 2026 20:49:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1CC1F008A1;
+	Wed,  9 Sep 2026 20:49:35 +0000 (UTC)
 Received: by venus (Postfix, from userid 1000)
-	id EEBD518337B; Wed, 09 Sep 2026 22:49:31 +0200 (CEST)
+	id 15319183380; Wed, 09 Sep 2026 22:49:32 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Marek Vasut <marex@denx.de>, Shengzhuo Wei <me@cherr.cc>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260827-bq27xxx-suspend-cancel-sync-v1-1-77a67711cbc3@cherr.cc>
-References: <20260827-bq27xxx-suspend-cancel-sync-v1-1-77a67711cbc3@cherr.cc>
-Subject: Re: [PATCH] power: supply: bq27xxx: synchronize work cancellation
- on suspend
-Message-Id: <178898697196.883277.12662329036916141963.b4-ty@b4>
-Date: Wed, 09 Sep 2026 22:49:31 +0200
+To: linux-pm@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
+Cc: sre@kernel.org, pali@kernel.org, songl@zju.edu.cn, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260903081312.225535-1-fanwu01@zju.edu.cn>
+References: <20260903081312.225535-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled
+ on remove
+Message-Id: <178898697207.883277.5505684330129247481.b4-ty@b4>
+Date: Wed, 09 Sep 2026 22:49:32 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,22 +37,25 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Thu, 27 Aug 2026 05:22:29 +0800, Shengzhuo Wei wrote:
-> The poll work requeues itself via mod_delayed_work() while the device
-> is not removed. cancel_delayed_work() does not wait for a callback
-> that is already running, so a poll racing with suspend can keep
-> issuing I2C transfers after suspend returns and requeue itself into
-> early resume.
+On Thu, 03 Sep 2026 08:13:12 +0000, Fan Wu wrote:
+> The di->work poll work is queued from the poll callback itself and from
+> bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
+> bq27xxx_battery_teardown() runs while the power_supply is still
+> registered, so external_power_changed() can re-arm the work after the
+> cancel, and it runs after the driver data has been freed.
 > 
-> Use cancel_delayed_work_sync() to quiesce polling before suspend
-> completes, as the teardown path already does.
+> Register a devm_delayed_work_autocancel() before
+> devm_power_supply_register(), so on unwind the power_supply is
+> unregistered first, after which no new external_power_changed()
+> callback can be dispatched, and the poll work is cancelled only then.
+> Drop the now-redundant cancel from bq27xxx_battery_teardown().
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] power: supply: bq27xxx: synchronize work cancellation on suspend
-      commit: 5fa10f61bbe255011ca9368b8bd6352b7d724bd3
+[1/1] power: supply: bq27xxx: Ensure poll work is cancelled on remove
+      commit: b90fd101324ca12494a65bd8d2e749883551962d
 
 Best regards,
 -- 
