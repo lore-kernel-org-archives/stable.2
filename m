@@ -1,113 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE9A560ADA;
-	Wed,  9 Sep 2026 13:13:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC455D896
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 13:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959594; cv=none; b=eiHGVr2M9+UxajYeWoNzSwXPnk+lzZNZln3B6hmlWzw1lWHaAZuhG2DrvbhjfSlPJuDmZ4BUeQMT9aIfWCfDL2kjr9xViNKoGkbaQWjxoCdjTeBFSV0OsOjUtU5UgNmtbLf0aXqnaCdvGAvM7qOhGlEtBkLqFH6rrfD1a37p348=
+	t=1788959668; cv=none; b=uVsgFxIedvli/Uk6OBe+kqSRs3qut8Dsprqyj3SuiX/4mB2DujoCCVOzbYA35MKYJM1Ld/OnND0N07/MotetIbrz9YJALbnTg68tHeszPz1C3N7bPUrPZFFVZoyGJ9UOB4EU2tqdBrttDAH+QEPKazYXWoaRiGUlWAvcQRXuC0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959594; c=relaxed/simple;
-	bh=vdfy9W8DpRTIzGtNaxE8tSbHUeibs9uxNTU1sWMs7ug=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MbAPBBa07nwQ/798WOmrWgt8Ygz2F+d5ORoeI0KusBQPYcHP+ndlwHsKhCVUMjLE5J6GTKL5feCRkOCdk2Y1KEoCvrckaUC87u8nyGCkPz4nMx5Dt1LkkFa3LbbE0AkMQkqhuCcLg0PRgUaYJGpXOHfHsJc8FwyQXJC81trLE7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hblcrCH9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788959668; c=relaxed/simple;
+	bh=C8RvZeFI+cGsHoc+IhP8F9e2YLd7vBJr6uLrc4K1O5w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p+vhVYufOwO1Io5sKFjI3GMLp/2XYTMIY4rLwreYuGZ/L2b/gxeUFzPRrTsospemThbTQlslzxyQKQKLbw22H2E+ZZm9hSBy5oDVw/d5KL1hzWaPFTFvJ5QKyNoyydfRrb5z/1Dvx3JMFaVwF3u0PImhzpHrMJ2lUOPWJ7wfR2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oSAhCzAI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hblcrCH9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225361F00A3D;
-	Wed,  9 Sep 2026 13:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788959592;
-	bh=nXgz50FbWhpnvfTGySvPlnSPlStDRwK/0Rn8bC0H3lY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hblcrCH9Mt8nGVJpJ+OQCzPMVu19eV+r6Yz2hkYYC9bkcKrjvG/V7T+0CnU4k4wD0
-	 nFjFWNECuD7rkN6VvEVQ3GGYYM6zftlEuoSzBnqT0IoJ/06aItyxmUQttMM1ZkosCT
-	 cadwTWIvWda4o7KV+m6bOtMmsrA1HwIlAbD/54e8m+wQ+AGqimq4urc9F/B9SPoePR
-	 eP0rtXGHeb8KfPTflwJMlnsO9u0TC7WviojVy65Tqm5lt1xykpxvLG9AZFiz7IZMj0
-	 3ZZnuUliyE01JX+2k1UhYnKcztrnwpPK8iptuufWJPPkwNnE38OP9COeJI696oRLEc
-	 qW5V+u3ziC/mg==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: bp@alien8.de,
-	tony.luck@intel.com
-Cc: dinguyen@kernel.org,
-	rounakdas2025@gmail.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCHv4 4/4] EDAC/altera: Fix use-after-free in error paths
-Date: Wed,  9 Sep 2026 08:12:53 -0500
-Message-ID: <20260909131253.2158486-5-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
-In-Reply-To: <20260909131253.2158486-1-dinguyen@kernel.org>
-References: <20260909131253.2158486-1-dinguyen@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oSAhCzAI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D831F00A3D;
+	Wed,  9 Sep 2026 13:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788959666;
+	bh=PfVzujmKryF1ZElA/u50d4RzcFtIAI4pKfSl7YFPfAQ=;
+	h=Subject:To:Cc:From:Date;
+	b=oSAhCzAIYTv8e3GBR+NUwDChekxvMgoDOS+ooyfVAmMG+GGDwMtrxi26c5d/Toc99
+	 6lecHl+Oqyv1LmEh0/hzymnyYduFhUsjssRYcz1saJYlB9gwdFe++IqfVtZc7Y/cOw
+	 qlGgHA3l8P1iQPWMwscy0+TdMLWi4w+zLqY5SQfw=
+Subject: FAILED: patch "[PATCH] rust: devres: ensure revocation is complete before device" failed to apply to 6.18-stable tree
+To: dakr@kernel.org,aliceryhl@google.com,gary@garyguo.net
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 15:10:50 +0200
+Message-ID: <2026090950-monetary-spookily-8bf1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-In both altr_edac_a10_device_add() and altr_portb_setup(), the error path
-freed the dci structure before releasing the devres group. Since the managed
-single and double bit IRQ handlers use altdev(dci->pvt_info) as their data, an
-IRQ firing between freeing dci and unregistering the IRQs could dereference
-the freed memory.
 
-Release the devres group first so the managed IRQs are unregistered
-before the dci structure is freed.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Assisted-by: Cursor:claude-4.8-opus
-Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
-Fixes: 588cb03ea208 ("EDAC, altera: Add Arria10 L2 Cache ECC handling")
-Closes: https://sashiko.dev/#/patchset/20260719211238.589402-1-rosenp%40gmail.com
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x a10639966fd72fff8f7fbf3c8e733307daabd38f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090950-monetary-spookily-8bf1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a10639966fd72fff8f7fbf3c8e733307daabd38f Mon Sep 17 00:00:00 2001
+From: Danilo Krummrich <dakr@kernel.org>
+Date: Sun, 28 Jun 2026 22:02:53 +0200
+Subject: [PATCH] rust: devres: ensure revocation is complete before device
+ finishes unbinding
+
+Now that the revocation Completion is in place, also address the
+symmetric case. When Devres::drop() wins the is_available swap and the
+devres callback loses, the callback returns to devres_release_all()
+without waiting. This means device unbinding can complete while
+Devres::drop() is still executing drop_in_place() on another CPU, which
+is a problem if T's destructor accesses device state.
+
+Make the synchronization bidirectional. Whichever side performs
+drop_in_place() signals the Completion, and the other side waits.
+
+This does not reintroduce the nested Devres deadlock fixed by commit
+ba268514ea14 ("rust: devres: fix race condition due to nesting"),
+because that deadlock was caused by drop waiting for the release
+callback to return (the old 'devm' Completion). Here, both sides only
+wait for drop_in_place() to finish, which completes within the current
+call chain. The Arc<Inner<T>> keeps the Inner allocation alive
+independently.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
-v4: rebased to edac-urgent
-v3: No changes
-v2: reworked v1 to include only true sashiko hits
----
- drivers/edac/altera_edac.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+Fixes: ba268514ea14 ("rust: devres: fix race condition due to nesting")
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260628200304.2365598-1-dakr@kernel.org
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index 4b289b90186f9..6fc474ec3811d 100644
---- a/drivers/edac/altera_edac.c
-+++ b/drivers/edac/altera_edac.c
-@@ -1593,8 +1593,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	return 0;
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index 4a1e5eec78ab..ebb5c19e851e 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -269,6 +269,11 @@ fn data(&self) -> &Revocable<T> {
  
- err_release_group_1:
--	edac_device_free_ctl_info(dci);
-+	/*
-+	 * Release the devres group first so the managed IRQs are
-+	 * unregistered before dci (which contains the IRQ handler's
-+	 * data via dci->pvt_info) is freed, avoiding a use-after-free.
-+	 */
- 	devres_release_group(device->edac->dev, altr_portb_setup);
-+	edac_device_free_ctl_info(dci);
- 	edac_printk(KERN_ERR, EDAC_DEVICE,
- 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
- 	return rc;
-@@ -1997,9 +2002,17 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
- 	return 0;
+         if inner.data.revoke() {
+             inner.revocation.complete_all();
++        } else {
++            // Devres::drop() is concurrently revoking; wait for it to finish `drop_in_place()`
++            // before returning to `devres_release_all()`, ensuring `T` is fully torn down before
++            // the device finishes unbinding.
++            inner.revocation.wait_for_completion();
+         }
+     }
  
- err_release_group1:
-+	/*
-+	 * Release the devres group first so the managed IRQs are
-+	 * unregistered before dci (which contains the IRQ handler's
-+	 * data via dci->pvt_info) is freed, avoiding a use-after-free.
-+	 */
-+	devres_release_group(edac->dev, NULL);
- 	edac_device_free_ctl_info(dci);
-+	goto err_print;
- err_release_group:
- 	devres_release_group(edac->dev, NULL);
-+err_print:
- 	edac_printk(KERN_ERR, EDAC_DEVICE,
- 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
- 
--- 
-2.42.0.411.g813d9a9188
+@@ -366,6 +371,8 @@ fn drop(&mut self) {
+         // SAFETY: When `drop` runs, it is guaranteed that nobody is accessing the revocable data
+         // anymore, hence it is safe not to wait for the grace period to finish.
+         if unsafe { self.data().revoke_nosync() } {
++            self.inner.revocation.complete_all();
++
+             // We revoked `self.data` before devres did, hence try to remove it.
+             if self.remove_node() {
+                 // SAFETY: In `Self::new` we have taken an additional reference count of `self.data`
 
