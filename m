@@ -1,164 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCFB4F646C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D817D52B1FF
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954487; cv=none; b=Kw5AGqdzYkBOb3UFoRbY7JxoNapfzaLPfqYgnZyVtDXVE03m92TMcks8dHmYrU0zMfkToeUnMnz/Yxq19nCnFMfS/IHL1d1Z+ZZrANCHtN+IZof7Tl2Vq8fwxy5hmUbzLjR1UtOMEfyHqwLq3Ye9XhTgKuf5OUdCKCbRdnTIPH0=
+	t=1788954559; cv=none; b=hJvnskwWJjjuI0V8BIKl97FKAUcqMp5X5LmOXS4MFy1L21W1N8YGBT9g2Ppj7fvDU7s3GSaNTpfEkLzCaxWZUo6EdpDhnhWzRZgpyLgbwgZr6kyQOHD5HbtTsd/vq2D4IeYICbDBf/51nWtdQlp+Ce6s/ZWMOgAschqV050qVaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954487; c=relaxed/simple;
-	bh=J1t92bwRP/1rqMRe4yolK5OT/1jUD5oWYflu1lHnPv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e0lzPv6CFxMODYgvb4zRD2KMtuagg7jX50+Pec1kFhG2+Gw9V508w/5UaY8Cdpds2zznlj1VvjzxW4rib4gy7yIVdln9n44Dxx6x+ZVCqt41hiF5uxfa1q0Eq5Q9OCJuzqCXEOvA7wgnr+7NoWwAQbkr9Hu3N5k4xU9WRFgu5WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KbhW1XvE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954559; c=relaxed/simple;
+	bh=F2WRBWG7JjcVoketDxNB1HdPtW2cWC+BdO/I36Fe3Ps=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ANCz+qXEMSWTyY2ibab32SBmTsBbxuzsX2LkLHbNUbpzD97j90f8/8HesCx+EHWXWKZXSYJLsNXe+AgnZ7QVVqpF/Phc0wcr5BtnGgvp/Ws0mXBaSEgLa5Bnw2vILc97I2i6APmC4OUP0Cy1RVZL3HLX9Jpi6Bm+zp6m9k+pPtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z9eEG7zB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KbhW1XvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CC01F00A3D;
-	Wed,  9 Sep 2026 11:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954486;
-	bh=XzEUG4p9zHSoAM2Vz+WXnSA7dQA3ypj4gkiMQw2T5II=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KbhW1XvEF5j4H60sgE95Njol7jWhUKA3+TKe+YxzrkzKvWa+/u5nsPNWJmMf0ujRP
-	 55nNyJDbiyH6krzltj+TiOMcQvKiN9PZMd8C0esCkr6Ppx8VkFs0AKpiUvwuvjOBSc
-	 RUMaKJQs4xHFLvuW1fI+SvzEADOEFM5hNsI3/jtsGiRwzMpF57zYTfJtk2yI7/tCF/
-	 vW4O+D2Ca6+/W2i1sJ5SGvPtjsk38gtXCnZrCYbFrfns/ka86cOaEHHIukpYu9NaDW
-	 WR5TShicCMaqngCe+U1JVqPW2IXdk/b23TF2BR933HzG7sC4UHzFGVwW2j//3qlDh8
-	 5LeRzJ6p5HaVw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Will Deacon <will@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] iommu/arm-smmu-v3: Add HAFT support for SVA
-Date: Wed,  9 Sep 2026 07:48:02 -0400
-Message-ID: <20260909114802.2019315-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090308-zit-anaerobic-0133@gregkh>
-References: <2026090308-zit-anaerobic-0133@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z9eEG7zB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E021F00A3D;
+	Wed,  9 Sep 2026 11:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788954557;
+	bh=wXRV/069y99ijBRrpC35F7f36guHauXwMphipLCrEaE=;
+	h=Subject:To:Cc:From:Date;
+	b=z9eEG7zBwV1BiW1+CqlHO4iiI/roHrm9btm35wtKAmMlXrLsZ0sJwHZH3zJsKsNRW
+	 fNewL3o0r9mfacdG0sY28AWzF/M/ICWJuGPa2NbvQknsbOhJ10DfV11NcbFjKB7MML
+	 sJhPH0JVE/gNmJg11CXsXtMAptV8I+lvM/sJgJnY=
+Subject: FAILED: patch "[PATCH] drm/xe: Fix xe_device_probe() failure" failed to apply to 7.2-stable tree
+To: raag.jadav@intel.com,matthew.d.roper@intel.com,rodrigo.vivi@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 13:34:05 +0200
+Message-ID: <2026090905-crabbing-lubricant-6c64@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Robin Murphy <robin.murphy@arm.com>
 
-[ Upstream commit f99d3b4bb095c4966cf58154077e8bb69ee4827f ]
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Since table access flags cannot be software-managed, if process
-pagetables are using HAFT then SVA must require the SMMU to support and
-enable it too, otherwise page aging is liable to get out of whack.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-For unbinding, we can't disable HAFT atomically with HA as might be
-desired, but luckily we can get away with just not disabling HA either.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x f8152179882a57e62a07dbf25ec95321c44e6b23
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090905-crabbing-lubricant-6c64@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f8152179882a57e62a07dbf25ec95321c44e6b23 Mon Sep 17 00:00:00 2001
+From: Raag Jadav <raag.jadav@intel.com>
+Date: Mon, 10 Aug 2026 18:08:20 +0530
+Subject: [PATCH] drm/xe: Fix xe_device_probe() failure
+
+Currently, xe_device_probe() jumps to err_unregister_display label in case
+of failure except for its last call, which directly returns the error
+without required cleanup handling. This results in stale drm device that
+isn't cleaned up on unwind. Fix it.
+
+[  810.194180] sysfs: cannot create duplicate filename '/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/renderD128'
+[  810.194183] CPU: 9 UID: 0 PID: 5616 Comm: modprobe Kdump: loaded Tainted: G S   U      E       7.2.0-rc2-xe #382 PREEMPT(full)
+[  810.194185] Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER, [E]=UNSIGNED_MODULE
+[  810.194186] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 1805 10/30/2024
+[  810.194186] Call Trace:
+[  810.194187]  <TASK>
+[  810.194188]  dump_stack_lvl+0xe0/0x100
+[  810.194195]  dump_stack+0x14/0x20
+[  810.194197]  sysfs_warn_dup+0x5f/0x80
+[  810.194204]  sysfs_create_dir_ns+0xbe/0xd0
+[  810.194210]  kobject_add_internal+0xbc/0x2b0
+[  810.194215]  kobject_add+0x7c/0xe0
+[  810.194220]  ? get_device_parent+0xcf/0x1e0
+[  810.194227]  device_add+0xe3/0x870
+[  810.194231]  ? __pfx_drm_gem_name_info+0x10/0x10 [drm]
+[  810.194280]  drm_minor_register+0x73/0x130 [drm]
+[  810.194322]  drm_dev_register+0x76/0x2a0 [drm]
 
 Cc: stable@vger.kernel.org
-Fixes: 62df5870ebf7 ("arm64: Enable ARCH_HAS_NONLEAF_PMD_YOUNG")
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c | 14 ++++++++++++++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c     |  9 ++++++++-
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h     |  3 +++
- 3 files changed, 25 insertions(+), 1 deletion(-)
+Fixes: da3799c97572 ("drm/xe: Use GuC to do GGTT invalidations for the GuC firmware")
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Link: https://patch.msgid.link/20260810123821.105605-1-raag.jadav@intel.com
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+(cherry picked from commit 5ce3042c67c539480882567137ff8d56118885d6)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-index 59a480974d80f..80b56d1501b14 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-@@ -104,6 +104,17 @@ void arm_smmu_make_sva_cd(struct arm_smmu_cd *target,
- 			target->data[0] &=
- 				cpu_to_le64(~(CTXDESC_CD_0_S | CTXDESC_CD_0_R));
- 	}
-+	/*
-+	 * Enable Hardware Access and Dirty updates (DBM) if supported. This is
-+	 * safe to enable by default, as PTE_WRITE and PTE_DBM share the same bit,
-+	 * while the EPD0 config can't get as far as fetching any PTEs anyway.
-+	 */
-+	if (master->smmu->features & ARM_SMMU_FEAT_HA)
-+		target->data[0] |= cpu_to_le64(CTXDESC_CD_0_TCR_HA);
-+	if (master->smmu->features & ARM_SMMU_FEAT_HD)
-+		target->data[0] |= cpu_to_le64(CTXDESC_CD_0_TCR_HD);
-+	if (master->smmu->features & ARM_SMMU_FEAT_HAFT && system_supports_haft())
-+		target->data[1] |= cpu_to_le64(CTXDESC_CD_1_HAFT);
- 
- 	/*
- 	 * MAIR value is pretty much constant and global, so we can just get it
-@@ -223,6 +234,9 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
- 	if (system_supports_bbml2_noabort())
- 		feat_mask |= ARM_SMMU_FEAT_BBML2;
- 
-+	if (system_supports_haft())
-+		feat_mask |= ARM_SMMU_FEAT_HAFT;
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index d25d02b24898..71ce153737ab 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -1147,7 +1147,12 @@ int xe_device_probe(struct xe_device *xe)
+ 	 * xe_device_wedged_fini() is registered.
+ 	 */
+ 	xe_ras_process_errors(xe);
+-	return devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
 +
- 	if ((smmu->features & feat_mask) != feat_mask)
- 		return false;
++	err = devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
++	if (err)
++		goto err_unregister_display;
++
++	return 0;
  
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index daf8b87fdf086..01f448acd8dce 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -4379,10 +4379,14 @@ static void arm_smmu_device_iidr_probe(struct arm_smmu_device *smmu)
- 
- static void arm_smmu_get_httu(struct arm_smmu_device *smmu, u32 reg)
- {
--	u32 fw_features = smmu->features & (ARM_SMMU_FEAT_HA | ARM_SMMU_FEAT_HD);
-+	u32 fw_features = smmu->features & (ARM_SMMU_FEAT_HA | ARM_SMMU_FEAT_HD |
-+					    ARM_SMMU_FEAT_HAFT);
- 	u32 hw_features = 0;
- 
- 	switch (FIELD_GET(IDR0_HTTU, reg)) {
-+	case IDR0_HTTU_ACCESS_DIRTY_HAFT:
-+		hw_features |= ARM_SMMU_FEAT_HAFT;
-+		fallthrough;
- 	case IDR0_HTTU_ACCESS_DIRTY:
- 		hw_features |= ARM_SMMU_FEAT_HD;
- 		fallthrough;
-@@ -4692,6 +4696,9 @@ static int arm_smmu_device_acpi_probe(struct platform_device *pdev,
- 		smmu->features |= ARM_SMMU_FEAT_COHERENCY;
- 
- 	switch (FIELD_GET(ACPI_IORT_SMMU_V3_HTTU_OVERRIDE, iort_smmu->flags)) {
-+	case IDR0_HTTU_ACCESS_DIRTY_HAFT:
-+		smmu->features |= ARM_SMMU_FEAT_HAFT;
-+		fallthrough;
- 	case IDR0_HTTU_ACCESS_DIRTY:
- 		smmu->features |= ARM_SMMU_FEAT_HD;
- 		fallthrough;
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-index 081236c0d4a6a..d65bbda8aac3b 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-@@ -40,6 +40,7 @@ struct arm_vsmmu;
- #define IDR0_HTTU			GENMASK(7, 6)
- #define IDR0_HTTU_ACCESS		1
- #define IDR0_HTTU_ACCESS_DIRTY		2
-+#define IDR0_HTTU_ACCESS_DIRTY_HAFT	3
- #define IDR0_COHACC			(1 << 4)
- #define IDR0_TTF			GENMASK(3, 2)
- #define IDR0_TTF_AARCH64		2
-@@ -370,6 +371,7 @@ static inline unsigned int arm_smmu_cdtab_l2_idx(unsigned int ssid)
- #define CTXDESC_CD_0_ASET		(1UL << 47)
- #define CTXDESC_CD_0_ASID		GENMASK_ULL(63, 48)
- 
-+#define CTXDESC_CD_1_HAFT		(1UL << 3)
- #define CTXDESC_CD_1_TTB0_MASK		GENMASK_ULL(51, 4)
- 
- /*
-@@ -769,6 +771,7 @@ struct arm_smmu_device {
- #define ARM_SMMU_FEAT_HD		(1 << 22)
- #define ARM_SMMU_FEAT_S2FWB		(1 << 23)
- #define ARM_SMMU_FEAT_BBML2		(1 << 24)
-+#define ARM_SMMU_FEAT_HAFT		(1 << 25)
- 	u32				features;
- 
- #define ARM_SMMU_OPT_SKIP_PREFETCH	(1 << 0)
--- 
-2.53.0
+ err_unregister_display:
+ 	xe_display_unregister(xe);
 
