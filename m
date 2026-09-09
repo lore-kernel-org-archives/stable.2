@@ -1,43 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C093D54A7FD
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE57545DA9;
+	Wed,  9 Sep 2026 11:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953507; cv=none; b=QJg64ylUs8ZGwf23Y3V/WiOa4fHo6O5iCW/Mv8A3zaMqzXgr9ncnQFnV7xETNb7Qd1R9QR8XOPU39/0TK2jCXUkIJGmstm2COxHgDq4QZ1mahEpIMmsP5qwBvk/sdZg7vLyedWeNN/Lnbncpcor5SnSSUOgUTZt/IV1uUmm4haE=
+	t=1788953687; cv=none; b=CqaAG98I3tRWiXbpf1NyqqnmZ3E5YoyxUk/Zjss8xqUUIgxfVmuvQLWu4jND3v9PjPC7rPJPJ8Qxb8kZGZQGxCHHAnVOq3GmIh9k0SqLVUho9iSkrosj0puqjByJ8lLkqhgDJF0LBLVetAboQTttpD3RGeeI70aTIWGhuMj87Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953507; c=relaxed/simple;
-	bh=O0UsgYXzvFML8jffIZP15V3Z8VumDVCiZ3v82Mv99bM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=li+f9FL7HViQ1AA/YOfw6fSSmWat4vWuRGNik5hnR6weL3n7LXW4nXCZRjg/m6AwZ5e7vJXpwOekMlfLT19SFf1/IN0YVre7cNyqtpfE9GYSMAAS9K0uTNqAh6xAyq1X18Surhugr0nbGgH08KXyIretoS4ykkgQDErPXSEizgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQEVyFzW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQEVyFzW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4491F00A3A;
-	Wed,  9 Sep 2026 11:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953505;
-	bh=1AXGHq0rEZM+YoJ2qlq316RAZyYzUQjeRA9ZperhHyo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bQEVyFzWu98pdki8SVHbLivzluPqYDENIDr5Guxb6gNcVKdJGz9aklIVfWgnSmcr5
-	 D71PAiz1b8bDKEtWcf/T/5hBTCiI10J0GYMz+lMtvy6S0KMVoiElUkw331V+2qqh/f
-	 LwsMP3i5KP6huPyXlJA1hgGQBawDAYDzwvAGosrCtcGTP9qTmybkZRLqvniHcXxXVW
-	 /edsdsJyLgCv1IrFHbGel6JaOH+NsltrXgvpQ2tpTAoYaoK3CvPApo0W9Oa1lK7HZz
-	 2rqJYUI+cG9D2IWFtTR9hZJrz38QZk28vh2cT4xQf/D1lwiIipXejSb6ImT5rvaX5Z
-	 NDSjRe3YrcE4g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jianing Li <m13940358460@163.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] power: supply: max17040: propagate register read errors
-Date: Wed,  9 Sep 2026 07:31:42 -0400
-Message-ID: <20260909113142.1868881-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909113142.1868881-1-sashal@kernel.org>
-References: <2026090314-unplowed-trance-1ff3@gregkh>
- <20260909113142.1868881-1-sashal@kernel.org>
+	s=arc-20240116; t=1788953687; c=relaxed/simple;
+	bh=7jWTrN7p2PthpHeS4Rmtj7mWhr5j0+jYw5jh5OLkoOg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=BI1FRpwrzi3zKJDVoWdLqLy7Q8axbVnI1MOeCJ2GGGZoxc9uor0TKC7z4vXYcvGaNoaySHpeo4BYo/eGWhEN3C5ohLLtZ6HF1+cCoQHcKCY0x0XsUBNX0cvkrsloZhMZuedPsXDeMtJkdYwftYMuDYUaxOCNJz0CIrY6Azbtm1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 71f60984ac4211f19a56ed5b684f684d-20260909
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4e9c3541-075b-4229-a75c-24090aca1d47,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:79fa69263b627d5718ec32f951583d2e,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
+	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 71f60984ac4211f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 658264266; Wed, 09 Sep 2026 19:34:40 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	johan@kernel.org,
+	kishon@kernel.org,
+	rogerq@ti.com
+Cc: linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org,
+	Sashiko AI <sashiko@kernel.org>
+Subject: [PATCH v7 4/4] phy: ti-pipe3: Fix clock leak in init error path
+Date: Wed,  9 Sep 2026 19:34:33 +0800
+Message-Id: <20260909113433.1287454-5-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909113433.1287454-1-zenghongling@kylinos.cn>
+References: <20260909113433.1287454-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,91 +59,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianing Li <m13940358460@163.com>
+When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
+the function returns the error without calling ti_pipe3_disable_clocks().
+This leaves the clocks permanently enabled since the PHY framework won't
+invoke the .exit callback on init failure.
 
-[ Upstream commit 659cc3d8d5ef246263873fce72c8cadeeed073cc ]
+Fix this by adding proper clock cleanup in the PCIe error path, consistent
+with how the DPLL program error path handles cleanup.
 
-max17040_get_vcell() and max17040_get_soc() ignore errors returned by
-regmap_read().  When an I2C transfer fails, the uninitialized register
-value is converted and reported to userspace as a valid voltage or state
-of charge.  The polling worker can also replace the cached state of charge
-with the bogus value and emit a spurious change event.
-
-Propagate read errors through the power supply get_property callback and
-keep the last valid cached state of charge when polling fails.
-
-Fixes: c6f4a42de60b ("Add MAX17040 Fuel Gauge driver")
+Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jianing Li <m13940358460@163.com>
-Link: https://patch.msgid.link/20260727064825.948-1-m13940358460@163.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Sashiko AI <sashiko@kernel.org>
+Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- drivers/power/supply/max17040_battery.c | 26 ++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+Change in v7:
+ -Restore the original `return ret` in the SATA PLL-locked init path.
+---
+ drivers/phy/ti/phy-ti-pipe3.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
-index 13e82a1ab2aee..f82c26ebb33aa 100644
---- a/drivers/power/supply/max17040_battery.c
-+++ b/drivers/power/supply/max17040_battery.c
-@@ -190,8 +190,11 @@ static int max17040_raw_vcell_to_uvolts(struct max17040_chip *chip, u16 vcell)
- static int max17040_get_vcell(struct max17040_chip *chip)
- {
- 	u32 vcell;
-+	int ret;
+diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+index a67f5da43c83..fea64db93da5 100644
+--- a/drivers/phy/ti/phy-ti-pipe3.c
++++ b/drivers/phy/ti/phy-ti-pipe3.c
+@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
+ 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
+ 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
+ 					 PCIE_PCS_MASK, val);
++		if (ret)
++			ti_pipe3_disable_clocks(phy);
+ 		return ret;
+ 	}
  
--	regmap_read(chip->regmap, MAX17040_VCELL, &vcell);
-+	ret = regmap_read(chip->regmap, MAX17040_VCELL, &vcell);
-+	if (ret)
-+		return ret;
+@@ -555,8 +557,10 @@ static int ti_pipe3_exit(struct phy *x)
+ 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
+ 	 * due to Errata i783
+ 	 */
+-	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
++	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
++		ti_pipe3_disable_clocks(phy);
+ 		return 0;
++	}
  
- 	return max17040_raw_vcell_to_uvolts(chip, vcell);
- }
-@@ -199,8 +202,11 @@ static int max17040_get_vcell(struct max17040_chip *chip)
- static int max17040_get_soc(struct max17040_chip *chip)
- {
- 	u32 soc;
-+	int ret;
- 
--	regmap_read(chip->regmap, MAX17040_SOC, &soc);
-+	ret = regmap_read(chip->regmap, MAX17040_SOC, &soc);
-+	if (ret)
-+		return ret;
- 
- 	return soc >> (chip->quirk_double_soc ? 9 : 8);
- }
-@@ -259,7 +265,11 @@ static int max17040_get_of_data(struct max17040_chip *chip)
- 
- static void max17040_check_changes(struct max17040_chip *chip)
- {
--	chip->soc = max17040_get_soc(chip);
-+	int soc;
-+
-+	soc = max17040_get_soc(chip);
-+	if (soc >= 0)
-+		chip->soc = soc;
- }
- 
- static void max17040_queue_work(struct max17040_chip *chip)
-@@ -393,10 +403,16 @@ static int max17040_get_property(struct power_supply *psy,
- 		val->intval = max17040_get_online(chip);
- 		break;
- 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
--		val->intval = max17040_get_vcell(chip);
-+		ret = max17040_get_vcell(chip);
-+		if (ret < 0)
-+			return ret;
-+		val->intval = ret;
- 		break;
- 	case POWER_SUPPLY_PROP_CAPACITY:
--		val->intval = max17040_get_soc(chip);
-+		ret = max17040_get_soc(chip);
-+		if (ret < 0)
-+			return ret;
-+		val->intval = ret;
- 		break;
- 	case POWER_SUPPLY_PROP_CAPACITY_ALERT_MIN:
- 		val->intval = chip->low_soc_alert;
+ 	/* PCIe doesn't have internal DPLL */
+ 	if (phy->mode != PIPE3_MODE_PCIE) {
 -- 
-2.53.0
+2.25.1
 
