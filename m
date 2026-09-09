@@ -1,144 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4E557EDAD
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58EC582BBE;
+	Wed,  9 Sep 2026 14:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963071; cv=none; b=S0SbyjqBM8qWxTC5XL/las3K3t1l+Bzbfor87W5In8NumTStzXUfkCSC/yGlNpuQTyUno4lmY/ned3DRVGSJt1HWIBNn4CWZqYi0SfUQFezh5SRonVXqKivYCi0c5zcUb6Idm+JdIdCvxV8LvJXUJd5ETeD5LSouWxJCWGjgHJ8=
+	t=1788963071; cv=none; b=WWFjyxRdw190ufUTuAclDpblr822O9Wt9/Qul73KtZ3jch966ufZ5vCu2Sz1AzBqAhkwrp9aXsil9MHrRJfkfPhL6E58T4Hg8g9Pww0iidurgi4VeW7X/t48K4M7YL21avcXxp/Tqst7BNFlNXMIcSzFc5fzZsi1t0XufC9zAZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963071; c=relaxed/simple;
-	bh=CWmxUvTyVXGXRGwb26WkqnIPws+4IHspQp2kkDUPfJA=;
+	bh=P4GRNfRJD5m+RrQKw68m0cyiQJN+3vtw7gz5OPk+4YM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r/GfspRju1W3Uf5+D1AHv5PnVNBxuoVDSB+sy1PpOc3pRrII/QyJVy4begCP47EwkjNCw1JjRrSk8/Gs/2O6izJwzhfqbTU/7KzRXMWDcb6HV51dzVR9fm2BZdGQvHF4URWOcswkvRekwc+29sKQPa0e4Si/PUQBPE0aRtxXtwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFVA76YO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OQrQHPrcbURYcCFKtHuWAw5X0Jt9UgcuF911wze/K0HxWGv63gRGaHWciNjB4EA6ya/XMteInvrIt3rFntA+bCE7NxkmRwkAmzwhFcPkHWLdiLJAsP3aDi1JfayUbp6EQ6QME4sgUKPvaTloLmcgLWAQ6UguJNLbQ/dr7QuIo+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LJ67DNsW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFVA76YO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78A91F00A3F;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LJ67DNsW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B151F00A3E;
 	Wed,  9 Sep 2026 14:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963069;
-	bh=Su40MurkCpawXcgKuRwMSL+uagMKgif64Be7RW1LTWs=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963069;
+	bh=Qk7tkAMLwoPOJn9TmI6XEikCpxwEp2NrtBrYfZWuuWc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PFVA76YO17g2XNytQwRy/RYar+u3Agvj1mrb/h0ieQu1CDu8UtFzMLXe5XgJc4vnG
-	 oT6hwN1e9qkSNbX1cvhqcoV5xkxTnzcI6QsWmJHse4ClQ5yx77dgXqeo7nd9B2vl/f
-	 r+BJGuKgXFNcLOgwrvN7Bq33bCmu/qcQHlnoo8Q17wOlI4mo4a1E27PHXIg9f5YBPo
-	 dvatYD7WhZAJ6A0nqsn8EebFIdePfy/WnOqL5JKAnNfECoaFiSIupbD/CHnZFwc6W9
-	 PNo7HM8LHW92s3dN6BxDIqfHivbl82S73jzVMX0IZ78KXoN+35xPEbyhBLr4k7qUhb
-	 DugQ0hzKl1JVA==
-From: Sasha Levin <sashal@kernel.org>
+	b=LJ67DNsWEY3Dz0VIsmEGaW5aHcZVU0PJDGCfRDvBV1qVgir9HoXMyJ88rRU/AwyR/
+	 OqW2I2Dh/cN/YtmG2zqxpCpiTM11FCvZPP2uDHV99tMG12DS11iH6VJGY8TbCJ/w80
+	 b4qI9OQnDQ1iDUQIztyrwwwZlza7w8V9x4Fr10gc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/7] platform/x86: ISST: Shorten the assignments for power_domain_info
-Date: Wed,  9 Sep 2026 10:11:01 -0400
-Message-ID: <20260909141102.2383363-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141102.2383363-1-sashal@kernel.org>
-References: <2026090334-lumber-underfoot-3bf9@gregkh>
- <20260909141102.2383363-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH 7.2 508/556] drm/amdgpu: force complete the KIQ ring fences on reset
+Date: Wed,  9 Sep 2026 15:43:08 +0200
+Message-ID: <20260909134248.331509115@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit fe4211d21fee3672b251f9a535eaf0a0cf0b51e1 ]
+------------------
 
-Instead of long lines for assignment to tpmi_sst->power_domain_info, use
-a local variable pd_info and assign later. Also move the assignment
-of number of resources after the assignment of pd_info.
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-No functional change is expected.
+commit fd65d1742992361fc2201ecb4e43411e6e417fcb upstream.
 
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Link: https://lore.kernel.org/r/20240423204619.3946901-7-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Stable-dep-of: 3de2776e9d70 ("platform/x86: ISST: Add a NULL check for sst_inst[]")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Like the MES scheduler ring, the KIQ ring sets no_scheduler = true and uses a
+polling fence, so it is skipped by the force-completion loop in
+amdgpu_device_pre_asic_reset(). Its hw fence value lives in wb (GTT) memory and
+survives a MODE1 reset while fence_drv.sync_seq keeps advancing, so after a
+reset the first KIQ submission can poll forever on a seq that is never written
+back.
+
+Force complete the KIQ ring fences too so their hw fence is realigned to
+sync_seq.
+
+Cc: stable@vger.kernel.org
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../intel/speed_select_if/isst_tpmi_core.c    | 33 +++++++++----------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index c41c9a6fe3378..b6cd0ab38a7ec 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -1267,6 +1267,7 @@ static long isst_if_def_ioctl(struct file *file, unsigned int cmd,
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5219,6 +5219,18 @@ int amdgpu_device_pre_asic_reset(struct
+ 		amdgpu_fence_driver_force_completion(ring, fence);
+ 	}
  
- int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- {
-+	struct tpmi_per_power_domain_info *pd_info;
- 	bool read_blocked = 0, write_blocked = 0;
- 	struct intel_tpmi_plat_info *plat_info;
- 	struct device *dev = &auxdev->dev;
-@@ -1307,35 +1308,31 @@ int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- 	if (!tpmi_sst)
- 		return -ENOMEM;
++	/*
++	 * KIQ rings are polling-fence/no_scheduler like MES, so realign their
++	 * fence too (one ring per XCC), otherwise the first post-reset KIQ
++	 * submission polls forever on a stale seq.
++	 */
++	for (i = 0; i < AMDGPU_MAX_GC_INSTANCES; i++) {
++		struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[i].ring;
++
++		if (kiq_ring->fence_drv.initialized && kiq_ring->sched.ready)
++			amdgpu_fence_driver_force_completion(kiq_ring, fence);
++	}
++
+ 	amdgpu_fence_driver_isr_toggle(adev, false);
  
--	tpmi_sst->power_domain_info = devm_kcalloc(dev, num_resources,
--						   sizeof(*tpmi_sst->power_domain_info),
--						   GFP_KERNEL);
--	if (!tpmi_sst->power_domain_info)
-+	pd_info = devm_kcalloc(dev, num_resources, sizeof(*pd_info), GFP_KERNEL);
-+	if (!pd_info)
- 		return -ENOMEM;
- 
--	tpmi_sst->number_of_power_domains = num_resources;
--
- 	for (i = 0; i < num_resources; ++i) {
- 		struct resource *res;
- 
- 		res = tpmi_get_resource_at_index(auxdev, i);
- 		if (!res) {
--			tpmi_sst->power_domain_info[i].sst_base = NULL;
-+			pd_info[i].sst_base = NULL;
- 			continue;
- 		}
- 
--		tpmi_sst->power_domain_info[i].package_id = pkg;
--		tpmi_sst->power_domain_info[i].power_domain_id = i;
--		tpmi_sst->power_domain_info[i].auxdev = auxdev;
--		tpmi_sst->power_domain_info[i].write_blocked = write_blocked;
--		tpmi_sst->power_domain_info[i].sst_base = devm_ioremap_resource(dev, res);
--		if (IS_ERR(tpmi_sst->power_domain_info[i].sst_base))
--			return PTR_ERR(tpmi_sst->power_domain_info[i].sst_base);
-+		pd_info[i].package_id = pkg;
-+		pd_info[i].power_domain_id = i;
-+		pd_info[i].auxdev = auxdev;
-+		pd_info[i].write_blocked = write_blocked;
-+		pd_info[i].sst_base = devm_ioremap_resource(dev, res);
-+		if (IS_ERR(pd_info[i].sst_base))
-+			return PTR_ERR(pd_info[i].sst_base);
- 
--		ret = sst_main(auxdev, &tpmi_sst->power_domain_info[i]);
-+		ret = sst_main(auxdev, &pd_info[i]);
- 		if (ret) {
--			devm_iounmap(dev, tpmi_sst->power_domain_info[i].sst_base);
--			tpmi_sst->power_domain_info[i].sst_base =  NULL;
-+			devm_iounmap(dev, pd_info[i].sst_base);
-+			pd_info[i].sst_base = NULL;
- 			continue;
- 		}
- 
-@@ -1346,6 +1343,8 @@ int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- 		return -ENODEV;
- 
- 	tpmi_sst->package_id = pkg;
-+	tpmi_sst->power_domain_info = pd_info;
-+	tpmi_sst->number_of_power_domains = num_resources;
- 	auxiliary_set_drvdata(auxdev, tpmi_sst);
- 
- 	mutex_lock(&isst_tpmi_dev_lock);
--- 
-2.53.0
+ 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
+
 
