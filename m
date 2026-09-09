@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A164E5437C0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175934CC27C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953046; cv=none; b=dcOcWPdgs4p78mTigtxu3xH9QrvmdI9h5XjdCdmRN+jCxVCvbOY/zFLrBPb89EFdrw4FMAYlyvnBjnfma0mzeFrGN0wBq1pEy9lpt4vRk6c5nVTF4Fsz8L2Fazoj/pCtg7B3+8m/GyN+CdHflR2wFisM5rBP7cQUKOXwHxxG9ZY=
+	t=1788953048; cv=none; b=IFvX5AnBdSW6DFQrv/LdTZueGhR/WG5ZVjzJfH+6C4MDj7EzOF26EYJMIMtg98ta8hRHmLLyDNImmmdeQu8rVqWn2QW6H9q3x4UlNIi3r8pSG1+8Zv/L+Cwc39GYpUsQHLX7ZiWRvZHLbbp0ocDCO22jUcFK5Pzk21sbph5Pr98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953046; c=relaxed/simple;
-	bh=MxAtaMOJWXcXeWCX6aiEhdbMMEXCix3nHBE3/TfIRE4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Dfy5KvH2BX3AD2/lmyfPcAn+odPuunDbh49S+tRiw0vcwd7jyLPffUD+ySXaXYqOLAJrefkG5dJ+chOCKnm3hesKSW2Z98fWBbX9gg5CxMa+GC0vOt9cNqKh5BTHcT+XgYjH33MsJUTS0yhkfAud8ZKKvycEaUndZ3D6ZJLIp0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lK4TgBbk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953048; c=relaxed/simple;
+	bh=8YH/hYbRDykl8pBVuy4NrKjAA6tsHz0xp8J4OePLR/0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sR+MzDN3WnHPijl2FCK4L7zRxyovO9B4mdwMshNNQeg/j101QYXTescSRKkxAqtIEiH0RznYhA5HXcHt0g16jqpLvuo9emPVO5RIYIRJkVz0dSr39BnoMSGGNmOHK+4KIVy+62boTMlHJlxc7BIMvKygdLEm1ZcY/t91Zm1BkiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ssnSApLS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lK4TgBbk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EAD1F00A3A;
-	Wed,  9 Sep 2026 11:24:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ssnSApLS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0D21F00A3A;
+	Wed,  9 Sep 2026 11:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953044;
-	bh=oQtz3DsFkJZF7DLYwIAFVk03hwY53XCYKVoe8fPJrQw=;
+	s=korg; t=1788953047;
+	bh=b0JI2cT5PN+hZZlftdib0G5VqlSgfXns3cKl8D2fKsQ=;
 	h=Subject:To:Cc:From:Date;
-	b=lK4TgBbkzEOvrJwf3k33LfWBFRAH5WREDW4bjI8At4HtXrxC0/kJ63TXo1lw72GCt
-	 x0mW8JxSdCLRCaXC/11jNlAg7SLkwTIhJMXjhYabRW1wmw7p6xYZBWQ+BXca+a+HT+
-	 lO3FmPs0cpUmaw5p/mnMTN/imGoyS9a65SBxk1FU=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Fix 64G link speed reporting in get_data_rate" failed to apply to 5.15-stable tree
+	b=ssnSApLS6Yop7HrpBvY5bCgbslRA4iqSPCEIZNsd43d7Qs4pvWdWSFG6pgLTt/Ewr
+	 RlmZbj0FwDXBnQung72eGMCCFJ4JnkBpR6SxU9P90nfJd631d+D9HMDQbWgYHFBo3Y
+	 jwC64aCO+IK+hF0yQbQMMpOyLYT1ZHxxt9awwRQA=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap" failed to apply to 7.2-stable tree
 To: njavali@marvell.com,hare@kernel.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:15:00 +0200
-Message-ID: <2026090900-spyglass-amnesty-95b8@gregkh>
+Date: Wed, 09 Sep 2026 13:15:11 +0200
+Message-ID: <2026090911-blush-chaffing-3a1b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 52fba32317ee631faa878725b2f7cd5c08acacd3
+git cherry-pick -x 878613ecb5a36db26859c4fd83daf9283a334fa2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090900-spyglass-amnesty-95b8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090911-blush-chaffing-3a1b@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,71 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 52fba32317ee631faa878725b2f7cd5c08acacd3 Mon Sep 17 00:00:00 2001
+From 878613ecb5a36db26859c4fd83daf9283a334fa2 Mon Sep 17 00:00:00 2001
 From: Nilesh Javali <njavali@marvell.com>
-Date: Thu, 23 Jul 2026 10:34:02 +0530
-Subject: [PATCH] scsi: qla2xxx: Fix 64G link speed reporting in get_data_rate
+Date: Thu, 23 Jul 2026 10:34:05 +0530
+Subject: [PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap
+ size
 
-qla2x00_get_data_rate() skips updating ha->link_data_rate when the
-firmware returns mcp->mb[1] == 0x7.  That value was a legacy sentinel
-from before 64G hardware existed, but PORT_SPEED_64GB is now defined as
-0x07 and ha->link_data_rate is decoded with the PORT_SPEED_* encoding.
-On a 64G-capable adapter a genuine 64G link is therefore dropped, and
-the port speed is misreported (port_speed sysfs, fc_host speed, FDMI).
+The VP control IOCB selects its target virtual port by setting one bit
+in vp_idx_map, a fixed 16-byte (128-bit) array in both
+vp_ctrl_entry_24xx and vp_ctrl_entry_24xx_ext. qla25xx_ctrlvp_iocb()
+computes map = (vp_index - 1) / 8 and writes vce->vp_idx_map[map]
+without checking that map stays within the array.
 
-Only 28xx and 29xx support 64G, so accept 0x07 on those adapters while
-keeping the legacy filter for older ones.  Also drop the duplicate copy
-of the check at the end of the success branch; it repeated the first
-assignment with no intervening change.
+max_npiv_vports is taken from firmware and only sanitized to a
+MIN_MULTI_ID_FABRIC-aligned boundary, so it can legitimately be 191 or
+255, and qla24xx_control_vp() only rejects vp_index >= max_npiv_vports.
+A vp_index above 128 therefore yields map >= 16 and an out-of-bounds
+write of up to 16 bytes past vp_idx_map, corrupting the trailing IOCB
+fields (or the adjacent request-ring slot on the 64-byte layout).
 
-Fixes: ecc89f25e225 ("scsi: qla2xxx: Add Device ID for ISP28XX")
+Reject a vp_index that cannot be represented in the IOCB bitmap in
+qla24xx_control_vp(), and add a defensive ARRAY_SIZE() guard in
+qla25xx_ctrlvp_iocb() before the write. Adapters that report the usual
+63 or 127 NPIV vports are unaffected.
+
+Fixes: 2853192e154b ("scsi: qla2xxx: Use IOCB path to submit Control VP MBX command")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
 Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-46-njavali@marvell.com
+Link: https://patch.msgid.link/20260723050413.3897522-49-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
-index ba822c196894..b32ca8ed274d 100644
---- a/drivers/scsi/qla2xxx/qla_mbx.c
-+++ b/drivers/scsi/qla2xxx/qla_mbx.c
-@@ -5785,10 +5785,11 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
- 		ql_dbg(ql_dbg_mbx, vha, 0x1107,
- 		    "Failed=%x mb[0]=%x.\n", rval, mcp->mb[0]);
- 	} else {
--		if (mcp->mb[1] != 0x7)
-+		if (mcp->mb[1] != 0x7 || IS_QLA28XX(ha) || IS_QLA29XX(ha))
- 			ha->link_data_rate = mcp->mb[1];
+diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
+index 8bd7c94d7c7c..c4595626c16b 100644
+--- a/drivers/scsi/qla2xxx/qla_iocb.c
++++ b/drivers/scsi/qla2xxx/qla_iocb.c
+@@ -4126,6 +4126,12 @@ qla25xx_ctrlvp_iocb(srb_t *sp, void *pkt)
+ 	vce->entry_count = 1;
+ 	vce->command = cpu_to_le16(sp->u.iocb_cmd.u.ctrlvp.cmd);
+ 	vce->vp_count = cpu_to_le16(1);
++	if (map >= ARRAY_SIZE(vce->vp_idx_map)) {
++		ql_log(ql_log_warn, sp->vha, 0x307c,
++		       "ctrlvp: vp_index %u exceeds vp_idx_map capacity\n",
++		       sp->u.iocb_cmd.u.ctrlvp.vp_index);
++		return;
++	}
+ 	vce->vp_idx_map[map] |= 1 << pos;
+ }
  
--		if (IS_QLA83XX(ha) || IS_QLA27XX(ha) || IS_QLA28XX(ha) || IS_QLA29XX(ha)) {
-+		if (IS_QLA83XX(ha) || IS_QLA27XX(ha) || IS_QLA28XX(ha) ||
-+		    IS_QLA29XX(ha)) {
- 			if (mcp->mb[4] & BIT_0)
- 				ql_log(ql_log_info, vha, 0x11a2,
- 				    "FEC=enabled (data rate).\n");
-@@ -5796,8 +5797,6 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 7072af5b4217..b7d9c1a53f3c 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -987,6 +987,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
+ 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
+ 		return QLA_PARAMETER_ERROR;
  
- 		ql_dbg(ql_dbg_mbx + ql_dbg_verbose, vha, 0x1108,
- 		    "Done %s.\n", __func__);
--		if (mcp->mb[1] != 0x7)
--			ha->link_data_rate = mcp->mb[1];
- 	}
- 
- 	return rval;
++	/*
++	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
++	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
++	 * if firmware advertises more NPIV vports.
++	 */
++	if (vp_index > sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
++		return QLA_PARAMETER_ERROR;
++
+ 	/* ref: INIT */
+ 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
+ 	if (!sp)
 
