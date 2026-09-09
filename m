@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3AA4C8FE6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFAF4C8FE6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953065; cv=none; b=t1/vbvnO5WlIWpIbDqVvDdHqVQVDoe/krh6sP2i9+kFaljMSgceKSZw294v0TrCxeiW1IksM+P8cgBDye+1MvzCsSNRbysMNVIgfwsFbRT9sVVTL+yw8xeEZ1IpTCjOvGbI0yctbQpjpzCl/9JHhNXHXl5j/xT+kliLWpbBTlKo=
+	t=1788953068; cv=none; b=YdDpazpttNJDWOZRrGnv2Yn30yrzIE9bRLe4Wnm2+Fc90/+YipfRdilJTi2D2oaPHJQZ4zwMOaTwJYARUNTcSTgXKKIMv9OjlV6BMttwRoctUKXk7mmyRbAWkzl4hrlUZm4hqVd/DHbt45Xh8FDEJnDrufcwjJoPJ8gTAt4kADs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953065; c=relaxed/simple;
-	bh=uQV4M0cGZrS8R7bOV2ATPtC8DNvaRxSkVF++QTsHEhs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MQeCZlhe7KROEy/9U6xImmpOtrHy8WNgzHoG1OM3UZewcepLzrhn8f3EwXNtTg/G0R7W6vZoMCT5w1GFT5WEV2EdwTH5zqETyJgDHbJ8TvSNB9CBBHhX08Kx/gnWiO0vH/flw1BQOKIhjSmgUUzPAfFKv5DANG+O1d7iR0ZQbTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QPe+2gCX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953068; c=relaxed/simple;
+	bh=xqL0iNlp24sk4KNN1sMtJz6ds0PGN4YT2QzqRm7Btps=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fzlo9avNE6WqeoipVSmw04CrbAtXGqk5GM4ch/8znhSshf92Yh0G6EpuqSc2rAEJS8XTwFseE3st1Y8nTZ4X5evtn6sEmIfRi2ADEicbHukoTCL0k2WePQCSG9puT6yDEwm0YcKI2UYUCXWwf8DX/nWEQ0vvdzFD38CS82AJueE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W0pgv9X1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QPe+2gCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DEF1F00A3A;
-	Wed,  9 Sep 2026 11:24:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W0pgv9X1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CBE1F00A3A;
+	Wed,  9 Sep 2026 11:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953063;
-	bh=kE7Eydbkw5XPPkra04g8AtbiXSJEaKKj2fVGfvThGBE=;
+	s=korg; t=1788953066;
+	bh=4ifHAZ57wATCenqpc/nqF7FTyOtxeW2rCvc4DMXyyvU=;
 	h=Subject:To:Cc:From:Date;
-	b=QPe+2gCXRESNSQSd1zXs6qO+ySp5vdfH4WYZ4JzCXXLFS5z+XK/qMhuuqm9AHc7mo
-	 kDbJnMmZvI1vgn8O3cbvE07UaNKxT8UpAzYQ8dkAuZq4JYic0IvY/0eUWmmkfLB1Qn
-	 l3ruKwDhiZVd4/TxSOiMP/LOSrYi7CbXRVnlK9JQ=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap" failed to apply to 5.15-stable tree
+	b=W0pgv9X1Yh/hIbn5+PLAu3ysi/4zgpNJGmtNzaF/O3FLLQbw+/HM0x7yPKy4E/mz1
+	 HpqM4St/1p2zFoUMlLGEuLvk6xyIVX+/OPx+GGInlMfLbeaNOB2ZxGnHiMhkjKrrKg
+	 pzFZQ273zYXtC9RTSAH9PrKpPb7WAxavxIzAjhYU=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Fix BSG job leak on validate flash image error" failed to apply to 6.12-stable tree
 To: njavali@marvell.com,hare@kernel.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:15:14 +0200
-Message-ID: <2026090914-purist-moonbeam-8dfd@gregkh>
+Date: Wed, 09 Sep 2026 13:15:45 +0200
+Message-ID: <2026090945-scoop-equator-81a3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 878613ecb5a36db26859c4fd83daf9283a334fa2
+git cherry-pick -x 0fb52cc632464b0cd07f970341330466d772efe1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090914-purist-moonbeam-8dfd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090945-scoop-equator-81a3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,71 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 878613ecb5a36db26859c4fd83daf9283a334fa2 Mon Sep 17 00:00:00 2001
+From 0fb52cc632464b0cd07f970341330466d772efe1 Mon Sep 17 00:00:00 2001
 From: Nilesh Javali <njavali@marvell.com>
-Date: Thu, 23 Jul 2026 10:34:05 +0530
-Subject: [PATCH] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap
- size
+Date: Thu, 23 Jul 2026 10:34:11 +0530
+Subject: [PATCH] scsi: qla2xxx: Fix BSG job leak on validate flash image error
+ path
 
-The VP control IOCB selects its target virtual port by setting one bit
-in vp_idx_map, a fixed 16-byte (128-bit) array in both
-vp_ctrl_entry_24xx and vp_ctrl_entry_24xx_ext. qla25xx_ctrlvp_iocb()
-computes map = (vp_index - 1) / 8 and writes vce->vp_idx_map[map]
-without checking that map stays within the array.
+qla28xx_validate_flash_image() returns QLA_SUCCESS (0) unconditionally,
+telling the FC BSG transport (fc_bsg_host_dispatch()) that the driver
+owns and will complete the request. But bsg_job_done() is guarded by "if
+(!rval)", so on the error path (rval == -EINVAL) neither the driver nor
+the transport completes the job. The request dangles until it times out,
+leaking block layer resources.
 
-max_npiv_vports is taken from firmware and only sanitized to a
-MIN_MULTI_ID_FABRIC-aligned boundary, so it can legitimately be 191 or
-255, and qla24xx_control_vp() only rejects vp_index >= max_npiv_vports.
-A vp_index above 128 therefore yields map >= 16 and an out-of-bounds
-write of up to 16 bytes past vp_idx_map, corrupting the trailing IOCB
-fields (or the adjacent request-ring slot on the 64-byte layout).
+Commit c2c68225b145 ("scsi: qla2xxx: Fix bsg_done() causing double
+free") added the "if (!rval)" guard to a batch of BSG handlers. That is
+correct for handlers that also return the error code (the transport then
+completes the job once via fail_host_msg), but this function returns
+QLA_SUCCESS unconditionally, so the guard turned a correct single
+completion into a leak.
 
-Reject a vp_index that cannot be represented in the IOCB bitmap in
-qla24xx_control_vp(), and add a defensive ARRAY_SIZE() guard in
-qla25xx_ctrlvp_iocb() before the write. Adapters that report the usual
-63 or 127 NPIV vports are unaffected.
+Always call bsg_job_done(): bsg_reply->result is DID_OK and the error is
+reported in vendor_rsp[0], and since the function returns 0 the
+transport will not complete the job a second time.
 
-Fixes: 2853192e154b ("scsi: qla2xxx: Use IOCB path to submit Control VP MBX command")
+Fixes: c2c68225b145 ("scsi: qla2xxx: Fix bsg_done() causing double free")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
 Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-49-njavali@marvell.com
+Link: https://patch.msgid.link/20260723050413.3897522-55-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
-index 8bd7c94d7c7c..c4595626c16b 100644
---- a/drivers/scsi/qla2xxx/qla_iocb.c
-+++ b/drivers/scsi/qla2xxx/qla_iocb.c
-@@ -4126,6 +4126,12 @@ qla25xx_ctrlvp_iocb(srb_t *sp, void *pkt)
- 	vce->entry_count = 1;
- 	vce->command = cpu_to_le16(sp->u.iocb_cmd.u.ctrlvp.cmd);
- 	vce->vp_count = cpu_to_le16(1);
-+	if (map >= ARRAY_SIZE(vce->vp_idx_map)) {
-+		ql_log(ql_log_warn, sp->vha, 0x307c,
-+		       "ctrlvp: vp_index %u exceeds vp_idx_map capacity\n",
-+		       sp->u.iocb_cmd.u.ctrlvp.vp_index);
-+		return;
-+	}
- 	vce->vp_idx_map[map] |= 1 << pos;
+diff --git a/drivers/scsi/qla2xxx/qla_bsg.c b/drivers/scsi/qla2xxx/qla_bsg.c
+index 4a9cf8da67a6..76c57e574c22 100644
+--- a/drivers/scsi/qla2xxx/qla_bsg.c
++++ b/drivers/scsi/qla2xxx/qla_bsg.c
+@@ -3796,9 +3796,8 @@ static int qla28xx_validate_flash_image(struct bsg_job *bsg_job)
+ 	bsg_reply->result = DID_OK << 16;
+ 	bsg_reply->reply_payload_rcv_len = 0;
+ 	bsg_job->reply_len = sizeof(struct fc_bsg_reply);
+-	if (!rval)
+-		bsg_job_done(bsg_job, bsg_reply->result,
+-			     bsg_reply->reply_payload_rcv_len);
++	bsg_job_done(bsg_job, bsg_reply->result,
++		     bsg_reply->reply_payload_rcv_len);
+ 
+ 	return QLA_SUCCESS;
  }
- 
-diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
-index 7072af5b4217..b7d9c1a53f3c 100644
---- a/drivers/scsi/qla2xxx/qla_mid.c
-+++ b/drivers/scsi/qla2xxx/qla_mid.c
-@@ -987,6 +987,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
- 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
- 		return QLA_PARAMETER_ERROR;
- 
-+	/*
-+	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
-+	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
-+	 * if firmware advertises more NPIV vports.
-+	 */
-+	if (vp_index > sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
-+		return QLA_PARAMETER_ERROR;
-+
- 	/* ref: INIT */
- 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
- 	if (!sp)
 
