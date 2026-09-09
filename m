@@ -1,225 +1,138 @@
-Received: from mta1.migadu.com (out-32.mta1.migadu.com [95.215.58.32])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA9A53ECFA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1774BD10B
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958089; cv=none; b=WqNMg4GN9Pxq+jjsUF28RoZNvAuOjMnuQQA4AeHRW8V9ZUjDMoDBDq6HO0deA6MiB8tEjBlBX4uP5nUZY347yPsfGlWmGad8AqTsyQkvhy7EaGyE6bHH8hXdgYW0P/b8YrhBZcPln2ZO/cdisao0fM4qOIe75kruFzUmrGmrmGE=
+	t=1788958147; cv=none; b=Q4rELiVIcVYLPNZKRmq64ZV9DpowtqpTz8fg5ZNhwnLR7ZcjMdSNEYgHokuYQEj7haeNAX4PR8HlRQm4Ky7BujQOTAl9Q4N5QQTVjEgWkPFHMQg3fseGfrgKdoxGuNyy+3358k9RIApphuiyJHMirzvPL+7/EsdhfIQnUGPTzf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958089; c=relaxed/simple;
-	bh=y53Xk9bhjBTIXj1qHAyuohp/PrZA0avTM6UpmR+cniQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L29q86BYZnTRyCT9STR6O0Ph4kRsbuTUvaEL35qZWTGpuGBMsXJwAV4yTtSvoqDEvTfyN/ASUW4LRm9vBjAqNu2Ycsny0ufJGl5P5/INrGgpDyc2olSRfyk/NyzfE9s7dU8k2gAAOC3BiNRtV9EP6E8rg8sstnJgRzHOL9jWd8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W0yCmiDX; arc=none smtp.client-ip=95.215.58.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788958147; c=relaxed/simple;
+	bh=hN5YqIuRrbX9JeIHbZFR38P+bgEjxMdH+mpTAANDP9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WmuEwKCih8pSaGBl2HZRBx396dDEKAEMXgl0iu3GSPm26dU2HmA+7I+mWmOJOFbXOWrmXXewwh38S/CId7QiGOcobUi+iXGEShpUt+Nomcn8PFQ8vU2tCUmcNGktolxkDfD1mC3DGhdRfbaOXutA2BGcwlnrySeBfAZTz40HwjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrdC8CoM; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W0yCmiDX"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y53Xk9bhjBTIXj1qHAyuohp/PrZA0avTM6UpmR+cniQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788958081; v=1; x=1789562881;
- b=W0yCmiDX9lZ45zMFQBltGBMWSA+Wryts6ERBRLO/S6rNbILU07JYXG0mSScxOEwveWmFUXWl
- h2FLXjkSnA5y7uOzHkU6zU4pG9zylucwtXGALfVv4BNWXlGUoykT3rkGEihrVyZHi3zpJESRE+w
- /ESESswo9dN7Mf3vU/iLB38A=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cd2dbaa2e085f090;
-	Wed, 09 Sep 2026 12:48:01 +0000
-X-Mizu-Trace-ID: cd2dbaa2e085f090
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
-Date: Wed, 9 Sep 2026 20:47:52 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrdC8CoM"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so1548335ad.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 05:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788958145; x=1789562945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
+        b=LrdC8CoMLsopAHoHE1L8k24Ga6u437GaG/VGCV5grvG20frR83PdjoSOPLwt2r0Anp
+         JvpwqpSDapbkrLoH2zLvmv5l3iyYKWjoPIkNzDEwJWnzIJ2iOJEMy9+m5Hhj7yZlsY9R
+         EBnHI5vplQNQB+fBnVSfZIwrHT1LR+6D3rTMcm9UPn9P0MKv/R2J2U6fYXXtrftH0r1d
+         tItr0PfgXVh8toj2IGW3Qg1TfaaQaiM8iS3dNXBAZTb/gh/25JwKBdzaIS97l6vp71Zu
+         FRxIvOgw8GzbPzOrzpG0bo9IBXTdnmMQcufqcmNy0lOI/7ZxUyyd25s0QU/VJuKoB8ZE
+         kn+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958145; x=1789562945;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
+        b=GjL491x53LG83/+3dxnZMikIlQYWsYrEqCEipLud+CFp8Biki/FRRyhf7U0df1yfbF
+         Adl/ySQvlj7QOZEvr9gkIT4m/RtgH4iPrsV5KEGuEnhGr+Fr7LUf7RPIWg8mQ6Eecs8A
+         kOZVBbxcMVN0TsbZ5eN3DKj6nGV3wdhX2Jv4DGyPs3d7v6vmsLeT993rRffNjLm2KUIY
+         8bwepvip7BmsENuhwwTumaxka5mqGecGp2OnwF8WGEW62F/d2X7AZvo+ioWJAj9pTI0f
+         ZyKSIL96dHmm35CnscIfdJ/y9nShFJuPwMej5/edukOUssWLq8l4v0lO+g2SML5nhZJ0
+         B0zg==
+X-Forwarded-Encrypted: i=1; AKwUvBx/0q1LO1I5g1D7FSdduAFMpT9VvOx2rdAzHgBG8zZqmyfEUgoocPzce1jCAx1QdhY3OGg63nE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGdO5SM5v98Ubce+xaHPw+k0OmeyerYNtdeG6/2ZtlBDvjknsP
+	K/KC0X4bTeNH+ARzXJ9z8XJEi8h3aNVa4OSHh91Ib2To4jpoY18chRZHyQhRpJrp
+X-Gm-Gg: AYBFou1nSd58t0ycEkcO+XCYIOWdwZSN0l4Was4wmDq6nce+wP1Zx+kvPJLpdT/xl56
+	W2tzt+k3TRZNeCEf1K1FOJIcrsxHkRq9yhjtWDbqaT5IYDcVCn2c247BkgaSzgnfZW9moYviUFx
+	cXPQf3cs+HAqqT1ZyJL0xhrqofTv7J+YeW0l3oTriJojKy3AJ/mnxNbFIjYyn1Pku4kKQLJl65T
+	MDQyUDdxUmywu68br7b2xX1Kw9wkxRgedKOBZsvZSUqx1yTsWQPWDGRDJDffaWfDGcrRQ978mkW
+	Rk/Kg7eCjYPfRnNT2TszO+kr7J/7R+UxHVUM0Q5jg96l4Rjy8In1EDYi6f/lPXU4tMeR6cHbP7D
+	wvjeIAw1EI7TjAlyS1+o2zVmS8+fM0/rTMULtrCth4piNReLbKiIHz+elEFFVa4iJ3YSl4OgtPe
+	X+6DnPy5xetMnakx9l58M2YQzZtGMer5M25wN0wntMQqf3o8JafqL3WH73qdLvhDPpY5WP0fTNT
+	Q==
+X-Received: by 2002:a17:903:350c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2dd07ccc33bmr14553335ad.17.1788958144625;
+        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
+Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm50266670eec.1.2026.09.09.05.49.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Pierrick Hascoet <pierrick.hascoet@abilis.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: as102: initialize mutexes before registering frontend
+Date: Wed,  9 Sep 2026 09:48:58 -0300
+Message-ID: <20260909124858.213790-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/4] module: introduce SH_ENTSIZE_STANDALONE for
- separately allocated sections
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260908092412.115953-1-hao.ge@linux.dev>
- <20260908092412.115953-4-hao.ge@linux.dev>
- <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Petr
+The bus adapter mutex and the stream mutex are initialized after the
+frontend has been registered, but the frontend's stream control
+callback as102_stream_ctrl() takes the bus adapter mutex, which can be
+used before it is initialized:
 
+	INFO: trying to register non-static key.
+	...
+	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-On 9/9/26 19:30, Petr Pavlu wrote:
-> On 9/8/26 11:24 AM, Hao Ge wrote:
->> SHF_ALLOC means, per the ELF spec, that a section occupies memory
->> during process execution. Some module sections occupy memory
->> outside the regular module layout, for example the percpu section
->> with its per-CPU allocations. The loader currently excludes such
->> a section from the layout by clearing its SHF_ALLOC, which
->> overloads the flag with a loader-internal meaning.
->> apply_relocations() needs a special case for the section, and
->> find_sec(".data..percpu") returns different results before and
->> after layout_and_allocate().
->>
->> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
->> allocation. The percpu section is its first user. layout_sections()
->> and move_module() skip marked sections, and apply_relocations() goes
->> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
->>
->> .data..percpu keeps SHF_ALLOC, so it would now show up under
->> /sys/module/*/sections/. The section has one instance per CPU and no
->> single address to report, and the entry never existed before, so
->> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
->> array and skips it too. No functional change otherwise.
->>
->> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
->> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->> [...]
->> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
->> index 0fc11e45df9b..49190deae61e 100644
->> --- a/kernel/module/kallsyms.c
->> +++ b/kernel/module/kallsyms.c
->> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
->>   }
->>   
->>   static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
->> -			   unsigned int shnum, unsigned int pcpundx)
->> +			   unsigned int shnum)
->>   {
->>   	const Elf_Shdr *sec;
->>   	enum mod_mem_type type;
->> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
->>   	    !src->st_name)
->>   		return false;
->>   
->> -#ifdef CONFIG_KALLSYMS_ALL
->> -	if (src->st_shndx == pcpundx)
->> -		return true;
->> -#endif
->> -
->>   	sec = sechdrs + src->st_shndx;
->>   	type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
->>   	if (!(sec->sh_flags & SHF_ALLOC)
->> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
->>   	/* Compute total space required for the core symbols' strtab. */
->>   	for (ndst = i = 0; i < nsrc; i++) {
->>   		if (i == 0 || is_livepatch_module(mod) ||
->> -		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
->> -				   info->index.pcpu)) {
->> +		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
->>   			strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
->>   			ndst++;
->>   		}
->> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
->>   	for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
->>   		kallsyms->typetab[i] = elf_type(src + i, info);
->>   		if (i == 0 || is_livepatch_module(mod) ||
->> -		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
->> -				   info->index.pcpu)) {
->> +		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
->>   			ssize_t ret;
->>   
->>   			mod->core_kallsyms.typetab[ndst] =
-> FTR These changes in kernel/module/kallsyms.c have a conflict with the
-> series "Ignore local labels and mapping symbols during module load" [1],
-> which is currently queued on modules-next, but it should be
-> straightforward to resolve.
->
->> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
->> index 01c65d608873..f64170344e69 100644
->> --- a/kernel/module/sysfs.c
->> +++ b/kernel/module/sysfs.c
->> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
->>   	kfree(sect_attrs);
->>   }
->>   
->> +/*
->> + * .data..percpu has a separate allocation per CPU and no single
->> + * address to report.
->> + */
->> +static bool sect_visible(const struct load_info *info, unsigned int i)
->> +{
->> +	return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
->> +}
->> +
->>   static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>   {
->>   	struct module_sect_attrs *sect_attrs;
->> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>   
->>   	/* Count loaded sections and allocate structures */
->>   	for (i = 0; i < info->hdr->e_shnum; i++)
->> -		if (!sect_empty(&info->sechdrs[i]))
->> +		if (sect_visible(info, i))
->>   			nloaded++;
->>   	sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
->>   	if (!sect_attrs)
->> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>   	for (i = 0; i < info->hdr->e_shnum; i++) {
->>   		Elf_Shdr *sec = &info->sechdrs[i];
->>   
->> -		if (sect_empty(sec))
->> +		if (!sect_visible(info, i))
->>   			continue;
->>   		sysfs_bin_attr_init(sattr);
->>   		sattr->attr.name =
->> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
->>   
->>   	nattr = &notes_attrs->attrs[0];
->>   	for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
->> -		if (sect_empty(&info->sechdrs[i]))
->> +		if (!sect_visible(info, i))
->>   			continue;
->>   		if (info->sechdrs[i].sh_type == SHT_NOTE) {
->>   			sysfs_bin_attr_init(nattr);
-> add_notes_attrs() has two sect_empty() calls. Both should be changed to
-> sect_visible().
+Initialize the mutexes before registering the adapter and frontend.
 
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Tested-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
+Cc: stable@vger.kernel.org
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+Changes since v1:
+	- Succesfully tested agains new repro. Added 'Tested-by' tag
 
-I kept this part unmodified to preserve the loop's original intent.
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-This loop counts SHT_NOTE sections.
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
+ 
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
++
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
+ 	}
+ 
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
+-- 
+2.51.0
 
-SHT_NOTE refers to ELF note sections, which hold non-executable
-
-metadata such as build ID and ABI info.
-
-I wonder if we could keep the current implementation.
-
-As noted in the comment above, the top part counts SHT_NOTE sections
-
-and allocates structures, while the lower logic handles control of node 
-attributes.
-
-
-WDYT?
-
-
-Thanks
-
-Best Regards
-
-Hao
-
->
-> With this fixed, the patch looks ok to me. Feel free to add:
->
-> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
->
-> [1] https://lore.kernel.org/linux-modules/20260820125007.22943-1-yangtiezhu@loongson.cn/
->
