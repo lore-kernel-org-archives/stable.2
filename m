@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8842512C8
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4C0270575
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913531; cv=none; b=Vz5HNGxlhWqlxb3GMgJnwow9HHB4FzTuE7Wl0yFgBgYWEzbSCxvJR62SHLd3a+GzCUTwki41TUdli3LI8C3GBTZDXw72dpHzk2kxp8nM6sHKxLfk9cYroJz5T/WCVjsH85uP65qtJNPZjdJdLnxh19g0cQwNOB/EFbH6w6+FhBc=
+	t=1788913532; cv=none; b=frXVLzVdq3OalE3gJMMB3Ju4Y1vl5C4cf1LQkz9JUpmcEPzUf8M22bb2YShmZAQhV1wgLCwf4ud1xN88mOvZsFCVbZi3+dnVEiW9z1nTK0xxOcYUDirqT7dpd2tZsQh8ATNSCk6/QJChfM1iTmBafCGhue0iCagh7Q8mmojO4nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913531; c=relaxed/simple;
-	bh=nO4Bcb/93LGKrjTG+zvTvnbRxjABS2PGLgoDjp0wLlA=;
+	s=arc-20240116; t=1788913532; c=relaxed/simple;
+	bh=ozmJkrVnb+wrGhtzRMP+mUtHBB3raE8Jrl7DopY9Apk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KHBDl6MEQnycx1w6KMCXQzFAiU9t1E3271cDWs2vc6iS3/eFRnr9rha//gWNnlAuWgG9zawuNJ79sSOWuOWlZofcGL+l/Yn4+W+WIWwwjyQYcg/hg9e91GCETv0ZZQaaei7/3r2oLYb5z7nfYDYZ1gK/7OlWbC7KVStbsNaQTNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1SP+sf2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Dm6TbapL12mEL5VmMDLeOxImwlr9X0hRAaQoV492OCfxzKenwTzyhKjsX/mALZtBnI106/2P5dOA4Xk3fFZvnv6v8Eb8vxBFI83AFxvD5kancv53PZ1FXqIaPbGUGdsTkbZ3eVUNAuXEHBxR1urvPeXYzxGoNY96S1V14YJXg5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R67uQfJG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1SP+sf2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2019D1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R67uQfJG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EDC1F00AC4;
 	Wed,  9 Sep 2026 00:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913529;
-	bh=s0ddX1I7f6jiCe/PcJILQ5s61GmJB2pp8TuGzXLJcr0=;
+	s=k20260515; t=1788913530;
+	bh=yNap/spK0bQamtkFmgnsMNxrLnYRr6g+7faWWvpayHc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y1SP+sf2XW/wL83qnEpz1It/li+eyaOVxneJe5dsZn/6spPCa0J3rDMFdn6uksois
-	 MR0Basnau1bp1gd9u7zVRHHkC4kVdu/+w9mtxiNS5cbaCPBLeYFYNi7fBWu2lgX6/i
-	 O1oKG6YdZvRp095y28uZ1B3JM+b+PcgqNurdQQd90B4GIQQJTZUvrsB0ldi2+bkJZp
-	 Q1ycftQfqQTG9J0gEFHq3tQA9IiVGWZ3fobZ1uy+1VG3Q8q00t8LvwD562PIVFk/0g
-	 fXZJvjm4VMYMZOLF0YsgDgoBi5HDr+ZJkIgraBKpR8Jo2uYezWNhO5Ozrq0cwtmi9y
-	 ghuRXSdHgejgQ==
+	b=R67uQfJG2yrwX+HbLC2gA6aIXE/O6/5HdbJ7fI1/duk5PiNQsI1kL4wpk3YsLBvE1
+	 LrVIaVUiQCWPuRhRLLUDMD9c+xk7mWOSiJtZ6brmowXwIDxs0MJpQ+wmHnjZRrBkq2
+	 3vppIvZnDSWhEpEDb1pVKWZ5iqKVryTOTixhod1an2npxLkgVkp5WDeUn4xae7Dt3Y
+	 RnqNVjjKFXi9FcaeYe77dazT8b8DA2nc80LyqQdloHd5AY6XS7xJRb3AHUruzqy4hI
+	 kGXym6qZQnRe9VOcBAAdjzDbrLH0bdiq4dh0RqBLgtMOLgeDdAwQWp93pL6XLSr/dX
+	 W5DxlqYCzbIsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Al Viro <viro@zeniv.linux.org.uk>,
 	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] rpc_unlink(): saner calling conventions
-Date: Tue,  8 Sep 2026 20:25:25 -0400
-Message-ID: <20260909002527.728386-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] rpc_create_client_dir(): return 0 or -E...
+Date: Tue,  8 Sep 2026 20:25:26 -0400
+Message-ID: <20260909002527.728386-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909002527.728386-1-sashal@kernel.org>
 References: <2026090317-fame-salami-c28b@gregkh>
@@ -48,192 +48,108 @@ Content-Transfer-Encoding: 8bit
 
 From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit bccea4ed060f1f6476ac7a0649ffa73f77d6e94c ]
+[ Upstream commit 350db61fbeb940502a16e74153ee5954d03622e9 ]
 
-1) pass it pipe instead of pipe->dentry
-2) zero pipe->dentry afterwards
-3) it always returns 0; why bother?
+Callers couldn't care less which dentry did we get - anything
+valid is treated as success.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
 
-For the 6.6 backport, retain the existing explicit parent inode locking and
-__rpc_rmpipe() removal path.  The latter reaches rpc_close_pipes(), which
-already clears pipe->dentry under pipe->lock.
+For the 6.6 backport, retain rpc_mkdir_populate() and its existing
+rpc_clntdir_populate() callback instead of depending on the newer
+rpc_new_dir()/rpc_new_file() helpers. Convert the returned error pointer
+to an integer error and return zero after recording the directory and
+creating its pipe objects. Directory locking and failure cleanup remain
+in the existing helpers.
+
+An earlier dependency backport already converted rpc_setup_pipedir_sb()
+and its callers to integer status. Keep those changes and simplify the
+remaining rpc_create_client_dir() call to use its new return type,
+including the existing -EEXIST retry. No functions are added. This leaves
+target 932a8cf6abb2 applicable without conflicts.
 
 Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/blocklayout/rpc_pipefs.c    | 12 ++----------
- fs/nfs/nfs4idmap.c                 |  6 +-----
- fs/nfsd/nfs4recover.c              | 12 ++----------
  include/linux/sunrpc/rpc_pipe_fs.h |  2 +-
- net/sunrpc/auth_gss/auth_gss.c     |  6 +-----
- net/sunrpc/rpc_pipe.c              | 14 ++++++++------
- 6 files changed, 15 insertions(+), 37 deletions(-)
+ net/sunrpc/clnt.c                  |  9 +++------
+ net/sunrpc/rpc_pipe.c              | 16 ++++++++--------
+ 3 files changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/fs/nfs/blocklayout/rpc_pipefs.c b/fs/nfs/blocklayout/rpc_pipefs.c
-index 6c977288cc288..9f3155f40ce71 100644
---- a/fs/nfs/blocklayout/rpc_pipefs.c
-+++ b/fs/nfs/blocklayout/rpc_pipefs.c
-@@ -154,13 +154,6 @@ static struct dentry *nfs4blocklayout_register_sb(struct super_block *sb,
- 	return dentry;
- }
- 
--static void nfs4blocklayout_unregister_sb(struct super_block *sb,
--					  struct rpc_pipe *pipe)
--{
--	if (pipe->dentry)
--		rpc_unlink(pipe->dentry);
--}
--
- static int rpc_pipefs_event(struct notifier_block *nb, unsigned long event,
- 			   void *ptr)
- {
-@@ -188,8 +181,7 @@ static int rpc_pipefs_event(struct notifier_block *nb, unsigned long event,
- 		nn->bl_device_pipe->dentry = dentry;
- 		break;
- 	case RPC_PIPEFS_UMOUNT:
--		if (nn->bl_device_pipe->dentry)
--			nfs4blocklayout_unregister_sb(sb, nn->bl_device_pipe);
-+		rpc_unlink(nn->bl_device_pipe);
- 		break;
- 	default:
- 		ret = -ENOTSUPP;
-@@ -224,7 +216,7 @@ static void nfs4blocklayout_unregister_net(struct net *net,
- 
- 	pipefs_sb = rpc_get_sb_net(net);
- 	if (pipefs_sb) {
--		nfs4blocklayout_unregister_sb(pipefs_sb, pipe);
-+		rpc_unlink(pipe);
- 		rpc_put_sb_net(net);
- 	}
- }
-diff --git a/fs/nfs/nfs4idmap.c b/fs/nfs/nfs4idmap.c
-index 25a7c771cfd89..adc03232b8515 100644
---- a/fs/nfs/nfs4idmap.c
-+++ b/fs/nfs/nfs4idmap.c
-@@ -424,12 +424,8 @@ static void nfs_idmap_pipe_destroy(struct dentry *dir,
- 		struct rpc_pipe_dir_object *pdo)
- {
- 	struct idmap *idmap = pdo->pdo_data;
--	struct rpc_pipe *pipe = idmap->idmap_pipe;
- 
--	if (pipe->dentry) {
--		rpc_unlink(pipe->dentry);
--		pipe->dentry = NULL;
--	}
-+	rpc_unlink(idmap->idmap_pipe);
- }
- 
- static int nfs_idmap_pipe_create(struct dentry *dir,
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index f4060d0cec8a5..0ba2276be9ab8 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -934,13 +934,6 @@ nfsd4_cld_register_sb(struct super_block *sb, struct rpc_pipe *pipe)
- 	return dentry;
- }
- 
--static void
--nfsd4_cld_unregister_sb(struct rpc_pipe *pipe)
--{
--	if (pipe->dentry)
--		rpc_unlink(pipe->dentry);
--}
--
- static struct dentry *
- nfsd4_cld_register_net(struct net *net, struct rpc_pipe *pipe)
- {
-@@ -962,7 +955,7 @@ nfsd4_cld_unregister_net(struct net *net, struct rpc_pipe *pipe)
- 
- 	sb = rpc_get_sb_net(net);
- 	if (sb) {
--		nfsd4_cld_unregister_sb(pipe);
-+		rpc_unlink(pipe);
- 		rpc_put_sb_net(net);
- 	}
- }
-@@ -2130,8 +2123,7 @@ rpc_pipefs_event(struct notifier_block *nb, unsigned long event, void *ptr)
- 		cn->cn_pipe->dentry = dentry;
- 		break;
- 	case RPC_PIPEFS_UMOUNT:
--		if (cn->cn_pipe->dentry)
--			nfsd4_cld_unregister_sb(cn->cn_pipe);
-+		rpc_unlink(cn->cn_pipe);
- 		break;
- 	default:
- 		ret = -ENOTSUPP;
 diff --git a/include/linux/sunrpc/rpc_pipe_fs.h b/include/linux/sunrpc/rpc_pipe_fs.h
-index 3b35b6f6533aa..a8c0a500d55c0 100644
+index a8c0a500d55c0..571020651817e 100644
 --- a/include/linux/sunrpc/rpc_pipe_fs.h
 +++ b/include/linux/sunrpc/rpc_pipe_fs.h
-@@ -129,7 +129,7 @@ struct rpc_pipe *rpc_mkpipe_data(const struct rpc_pipe_ops *ops, int flags);
- void rpc_destroy_pipe_data(struct rpc_pipe *pipe);
- extern struct dentry *rpc_mkpipe_dentry(struct dentry *, const char *, void *,
- 					struct rpc_pipe *);
--extern int rpc_unlink(struct dentry *);
-+extern void rpc_unlink(struct rpc_pipe *);
- extern int register_rpc_pipefs(void);
- extern void unregister_rpc_pipefs(void);
- 
-diff --git a/net/sunrpc/auth_gss/auth_gss.c b/net/sunrpc/auth_gss/auth_gss.c
-index 13a948e2f83d4..be38b982bd6ad 100644
---- a/net/sunrpc/auth_gss/auth_gss.c
-+++ b/net/sunrpc/auth_gss/auth_gss.c
-@@ -890,12 +890,8 @@ static void gss_pipe_dentry_destroy(struct dentry *dir,
- 		struct rpc_pipe_dir_object *pdo)
- {
- 	struct gss_pipe *gss_pipe = pdo->pdo_data;
--	struct rpc_pipe *pipe = gss_pipe->pipe;
- 
--	if (pipe->dentry != NULL) {
--		rpc_unlink(pipe->dentry);
--		pipe->dentry = NULL;
--	}
-+	rpc_unlink(gss_pipe->pipe);
+@@ -98,7 +98,7 @@ static inline bool rpc_msg_is_inflight(const struct rpc_pipe_msg *msg) {
  }
  
- static int gss_pipe_dentry_create(struct dentry *dir,
+ struct rpc_clnt;
+-extern struct dentry *rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
++extern int rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
+ extern int rpc_remove_client_dir(struct rpc_clnt *);
+ 
+ extern void rpc_init_pipe_dir_head(struct rpc_pipe_dir_head *pdh);
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index c7243d26c190d..5ccf04cdfd483 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -123,7 +123,7 @@ static int rpc_setup_pipedir_sb(struct super_block *sb,
+ 	static uint32_t clntid;
+ 	const char *dir_name = clnt->cl_program->pipe_dir_name;
+ 	char name[15];
+-	struct dentry *dir, *dentry;
++	struct dentry *dir;
+ 	int err;
+ 
+ 	dir = rpc_d_lookup_sb(sb, dir_name);
+@@ -134,12 +134,9 @@ static int rpc_setup_pipedir_sb(struct super_block *sb,
+ 	for (;;) {
+ 		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
+ 		name[sizeof(name) - 1] = '\0';
+-		dentry = rpc_create_client_dir(dir, name, clnt);
+-		if (!IS_ERR(dentry)) {
+-			err = 0;
++		err = rpc_create_client_dir(dir, name, clnt);
++		if (!err)
+ 			break;
+-		}
+-		err = PTR_ERR(dentry);
+ 		if (err == -EEXIST)
+ 			continue;
+ 		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
 diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
-index d54ca4b1599be..0badbe3f25d08 100644
+index 0badbe3f25d08..0363dfb2d15c7 100644
 --- a/net/sunrpc/rpc_pipe.c
 +++ b/net/sunrpc/rpc_pipe.c
-@@ -835,26 +835,28 @@ EXPORT_SYMBOL_GPL(rpc_mkpipe_dentry);
+@@ -1049,19 +1049,19 @@ static void rpc_clntdir_depopulate(struct dentry *dentry)
+  * information about the client, together with any "pipes" that may
+  * later be created using rpc_mkpipe().
+  */
+-struct dentry *rpc_create_client_dir(struct dentry *dentry,
+-				   const char *name,
+-				   struct rpc_clnt *rpc_client)
++int rpc_create_client_dir(struct dentry *dentry,
++			   const char *name,
++			   struct rpc_clnt *rpc_client)
+ {
+ 	struct dentry *ret;
+ 
+ 	ret = rpc_mkdir_populate(dentry, name, 0555, NULL,
+ 				 rpc_clntdir_populate, rpc_client);
+-	if (!IS_ERR(ret)) {
+-		rpc_client->cl_pipedir_objects.pdh_dentry = ret;
+-		rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
+-	}
+-	return ret;
++	if (IS_ERR(ret))
++		return PTR_ERR(ret);
++	rpc_client->cl_pipedir_objects.pdh_dentry = ret;
++	rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
++	return 0;
+ }
  
  /**
-  * rpc_unlink - remove a pipe
-- * @dentry: dentry for the pipe, as returned from rpc_mkpipe
-+ * @pipe: the pipe to be removed
-  *
-  * After this call, lookups will no longer find the pipe, and any
-  * attempts to read or write using preexisting opens of the pipe will
-  * return -EPIPE.
-  */
--int
--rpc_unlink(struct dentry *dentry)
-+void
-+rpc_unlink(struct rpc_pipe *pipe)
- {
-+	struct dentry *dentry = pipe->dentry;
- 	struct dentry *parent;
- 	struct inode *dir;
--	int error = 0;
-+
-+	if (!dentry)
-+		return;
- 
- 	parent = dget_parent(dentry);
- 	dir = d_inode(parent);
- 	inode_lock_nested(dir, I_MUTEX_PARENT);
--	error = __rpc_rmpipe(dir, dentry);
-+	__rpc_rmpipe(dir, dentry);
- 	inode_unlock(dir);
- 	dput(parent);
--	return error;
- }
- EXPORT_SYMBOL_GPL(rpc_unlink);
- 
 -- 
 2.53.0
 
