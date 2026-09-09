@@ -1,83 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE0D4A0900
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B1A476CD5;
+	Wed,  9 Sep 2026 08:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940981; cv=none; b=nVN1Tgr2VzANUfUcgfi6Qi0Du/2CkWL4p6x+Qw2uOmok234AdQ91Hx5CzA488G5Hbz4lrLXASnkD6vY9cdRkf2HZjntmOgul4mGOnEN0U0WJeLSVGXUXz+mZCJgBsb4VM34iFNKhz/TbA+uHzHsk+0fEDtQAgmVkUyVXbMzDCGk=
+	t=1788940993; cv=none; b=i1AB7LWk3P28T0EsRC8gHEahhBB+5wlEB0wdFoyGdDuB957QR7uUm6nAPXBKFf5XZCs81nJ/FUnV36KkGuPS4125UXbjGlfBEMzEw3mW98V6lKoE9vF4fo3MB28R8YuGdpq9lygr7772/tA+lM7GOTm/UfRkpk+0ApF4rk6N+zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940981; c=relaxed/simple;
-	bh=kJZh6y94i6h+wIueUxNoBcL4CgBSHgSQrOmgm0f33jw=;
+	s=arc-20240116; t=1788940993; c=relaxed/simple;
+	bh=/nE+REOqy9M2IpNzvnk2Ic0a9WthxFdNejXS8EPSm94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y560EpSIEkKsMxqEBZKPKjnwRSMm0MvWTSnvQvn7UDXFRB/KfmDBQzDRehFJ9seHqNf8VNZatKalkGwW/AvnnNYDLp+6nMpo/uLuFLDhGXI6qwUuPYmY5nk02XwS3ZEfatVgiK4tlVDO2Fr6dPiAFVfE7NN3zDG9NPBJ2htern4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZMsAcUIi; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Nb9Ed6/Vi4EBHL5bVJdJvOse2FGHtEzKJ4wWjH/ZLzQkJpneH+AgDTW2j3T4e4B/9B4UstH0EDZwHkXG+PWa1ezJL2h+9yH77mKv4RMNwigVF1/27lXwOkxbxtmSkkryeThNVKpm/10CpHtu9i1RlgfKnch0DyHLZozxu16uVBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nAG1d2HH; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZMsAcUIi"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so32285575e9.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 01:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940978; x=1789545778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E0ImWj6rAclHhabuY+hCcTXmlRAswzPkBoaFWxuqP+A=;
-        b=ZMsAcUIiUF6C3BHL1mLewfKZAyI0WyMqrU0VOXcxtvCPQSC6e2HxnaC7fv182denl0
-         G9lzp8fA/qFbq6ODMUCulMDRXtTgvLdRnGvy9ojjw9XutRty9ICE8r3lt3Um28XyZbYt
-         U5JLXAQyfooNdvGYI04ssVoY25M/M+Q1b4nUEFjRTA8v94JYKez90eXjSwuipGzZWwdJ
-         KQ6XF4CCY3VCKdinF5aMeghd0fQQJxseUz2QXZJMJxlUdv98G6q/S01dwnqCb60FAFeG
-         rE90MH094RudPzF9BizB6UY7VkjeVEw6cXN3XWBo1o7CR78DaLzqTLyPFVQS++cX6wru
-         1tcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940978; x=1789545778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E0ImWj6rAclHhabuY+hCcTXmlRAswzPkBoaFWxuqP+A=;
-        b=a1vLLlTvT2LNMtAwRKPB6kJxoJeoD/b2EfgqzNif/p0pgJ1NCj9JVrgxgqwNBHaYPB
-         SaVZfzpvM3W2eRxLOdHiQbsRT1Es0z6U/WePlJkb0lJDsujn2wHJlrsWKNBGVOn7R80H
-         erKXxt7QVWmZOYidY5goh4T6OgRBQHsVeaCk7wcylS5Xo8NT9lDxhFQbLbszcB6MRwlS
-         g9PTpnYkf2DOnuNBEp7BsOkn0hvaSLqQrATv9BWikmUYubA9+kifECdW+g+Wo2khht44
-         aPbfxCFbbswZdytKbS031BCXyrDVyDEKd2f5q3Vb5fd6x+5MrQ51gef27bHkCUUBjTFM
-         1EhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzEI1BUasprhIfS4Uw6KSUJT3ARvkdHOZahWS3Ey//B+D4bAKvhFAZBRFr/4wYOBMRQdQbaFew=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJKfPMiWiCCh1XGYoVKUftKU+fOnTT7XH4k1x0q723d7n54d8X
-	A4kGajEb1ywCrNIhFzAj/j+49cXRXMzUjNFDO5RjbV+jGFPdfTKJSbqI
-X-Gm-Gg: AYBFou0yMRstXXsC9QEkmNhETarVywZJ00vlq1bMcdmbyatjBaqGRLAIs9ZP26i7x2k
-	GerNVmicB+OsNhtnvJK2JogYgep6NnLk0i4NTE3mSxkZrUMnrbOIi2HuW/j8N3eXuS+KURZ35bQ
-	WFcOSqZGSGw4DtFdzYvw0m0BWZvrJmqMI0M4brVWCLc69mYF7FYUPA+lIJHFO/73qJpe+DWEzX2
-	VTbInnNPnRyt38wnqeK4d55bOBsng2EDtEpXFXfrRacwdKwVe4sdO2LJDqS307mYZTE0djAxwvq
-	GROHTGxaonq+t21CdVq/INZTlGvyRniia/C3yYG9LaxIeMtlcKUBVK8c/kDRrbeV4iEt+xFZ+c8
-	WfR4QQnIqKzRUun90RgcR6WOyGsvdswVETyZiP7w7QcC19zFg/w8XW4+H0Bo8cMDko0gkKLRWWu
-	Ntja10YJT8IwdiSwQTjbedTM3cGhCmkfrZcDFmbsrDjLThuO4HZE7Y/3n/MhWXjKRJFhDXYq/RE
-	P56m+wAQ7PLSG0ssXiJ28ZXYOCAByAjBfvqAZWyLw==
-X-Received: by 2002:a05:600c:c3cc:10b0:49d:1d6a:4cfb with SMTP id 5b1f17b1804b1-49d1d6a4d7emr53938015e9.1.1788940977612;
-        Wed, 09 Sep 2026 01:02:57 -0700 (PDT)
-Received: from chubuchnyi-ThinkPad-P1-Gen-4i.lan ([158.173.155.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm412817125e9.3.2026.09.09.01.02.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:02:57 -0700 (PDT)
-From: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	laurent.pinchart@ideasonboard.com,
-	mchehab@kernel.org,
-	mani@kernel.org,
-	michael.riesch@collabora.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	benjamin.mugnier@foss.st.com,
-	sylvain.petinot@foss.st.com
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nAG1d2HH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788940993; x=1820476993;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=/nE+REOqy9M2IpNzvnk2Ic0a9WthxFdNejXS8EPSm94=;
+  b=nAG1d2HH9weZChH8LQISuE6SDSXM6Yl6x9QHyvOLHETmR5P+/5mORr06
+   qx4oCtg+M4cYrPSPtDIQX7YqQ35DSIeQl3qVO7W0bPicNIsLrm8aolaHv
+   mJlU+cxyeRNXuxJ0nqB6mplFvkAsepkiDIsjSBW+w+FcekgYpNwWmF/sX
+   7WbwRWMnvME1z3Zv7TdL45ODiiAdvT/sL5wl5HCjwjq92PobP4IkxMjej
+   dBVRn+nif9+nzSVOgKYxqmfqkdeE8cbfuGZe1ToQkIdBsvNIAjYZ1GZVp
+   /q4Sit+YhOa96anlh714hyENi8t1W/OWp+1OD+X0UdFevpiEC+tdEcttX
+   w==;
+X-CSE-ConnectionGUID: 6Se2GvrtTfGg+RwrJGUxWQ==
+X-CSE-MsgGUID: soHA3Ko6Q7i4OV43U4ELkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106726453"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="106726453"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:03:13 -0700
+X-CSE-ConnectionGUID: ST6kraoGTkmCc0JkTC/pog==
+X-CSE-MsgGUID: wCwfUJhSS66+LVsNf5f+EQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="301119244"
+Received: from allen-box.sh.intel.com ([10.239.48.101])
+  by orviesa002.jf.intel.com with ESMTP; 09 Sep 2026 01:03:10 -0700
+From: Lu Baolu <baolu.lu@linux.intel.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 5/5] media: i2c: st-mipid02: Add missing v4l2_subdev_cleanup() call
-Date: Wed,  9 Sep 2026 11:02:27 +0300
-Message-ID: <12ac971583eaf4775a0242a58a6ed0a1fd08cdb3.1788940469.git.chubuchnyi@gmail.com>
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 1/7] iommu/vt-d: Avoid out-of-range shift in qi_desc_dev_iotlb_pasid()
+Date: Wed,  9 Sep 2026 15:51:00 +0800
+Message-ID: <20260909075106.738691-2-baolu.lu@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1788940469.git.chubuchnyi@gmail.com>
-References: <cover.1788940469.git.chubuchnyi@gmail.com>
+In-Reply-To: <20260909075106.738691-1-baolu.lu@linux.intel.com>
+References: <20260909075106.738691-1-baolu.lu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,36 +68,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The subdev active state allocated by v4l2_subdev_init_finalize() is leaked
-on unbind. The driver has no common cleanup helper, so update both sites.
+Callers request a full Device-TLB flush by passing MAX_AGAW_PFN_WIDTH
+(64 - VTD_PAGE_SHIFT == 52) as @size_order.  Two expressions in
+qi_desc_dev_iotlb_pasid() are not prepared for a value that large:
 
-Fixes: 04d170b288b3 ("media: i2c: st-mipid02: use active state to store pad formats")
+  unsigned long mask = 1UL << (VTD_PAGE_SHIFT + size_order - 1);
+  ...
+  if (!IS_ALIGNED(addr, VTD_PAGE_SIZE << size_order))
+
+The second evaluates to 1UL << 64, which is undefined on all
+architectures.  On x86_64 the shift count masks to zero, IS_ALIGNED(addr,
+1) is trivially true, and the alignment sanity check silently degrades
+into a no-op.
+
+The first evaluates to 1UL << 63.  That is well defined on 64-bit builds,
+where unsigned long is 64 bits wide, but is undefined on 32-bit ones.  In
+practice x86 masks the shift count to five bits, so the expression yields
+1UL << 31 and ~mask becomes 0x7fffffff.  That value is zero-extended when
+applied to the 64-bit descriptor, so
+
+  desc->qw1 &= ~mask;
+
+clears qw1[63:32] as well as bit 31, collapsing the ADDR field that had
+just been filled with ones.  Reaching that requires a scalable-mode PASID
+configuration on 32-bit x86, which is not a realistic deployment, but the
+construct is wrong regardless.
+
+Compute the mask with BIT_ULL() so that it is 64-bit on every
+architecture, and skip the alignment check for a full flush, where it is
+both meaningless and the source of the out-of-range shift.
+
+Note that @size_order must not be clamped below 64 - VTD_PAGE_SHIFT.  With
+S set, hardware derives the invalidation range from the least significant
+zero bit N of ADDR and matches bits [63:N+1] of the incoming address.  For
+size_order 52 the descriptor sets ADDR[63:12] and clears bit 63, making
+N = 63 and the comparison range empty, so everything is invalidated.
+Reducing @size_order to 51 would instead leave N = 62 and cause hardware
+to compare address bit 63; since callers pass an address of 0, only the
+lower half of the address space would be invalidated.  Bound @size_order
+at 64 - VTD_PAGE_SHIFT so that a bogus caller cannot reintroduce an
+out-of-range shift, without altering the full-flush encoding.
+
+The non-PASID variant qi_desc_dev_iotlb() already uses 1ULL and is
+unaffected.
+
+Fixes: f701c9f36bcb7 ("iommu/vt-d: Factor out invalidation descriptor composition")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260623060122.3796325-1-guanghuifeng%40linux.alibaba.com
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
 ---
- drivers/media/i2c/st-mipid02.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/iommu/intel/iommu.h | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/i2c/st-mipid02.c b/drivers/media/i2c/st-mipid02.c
-index 4675181af..b2f275129 100644
---- a/drivers/media/i2c/st-mipid02.c
-+++ b/drivers/media/i2c/st-mipid02.c
-@@ -919,6 +919,7 @@ static int mipid02_probe(struct i2c_client *client)
- power_off:
- 	mipid02_set_power_off(&client->dev);
- entity_cleanup:
-+	v4l2_subdev_cleanup(&bridge->sd);
- 	media_entity_cleanup(&bridge->sd.entity);
+diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+index 23dbe6c24439..5b3d234ae265 100644
+--- a/drivers/iommu/intel/iommu.h
++++ b/drivers/iommu/intel/iommu.h
+@@ -1105,12 +1105,20 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
+ 					   unsigned int size_order,
+ 					   struct qi_desc *desc)
+ {
+-	unsigned long mask = 1UL << (VTD_PAGE_SHIFT + size_order - 1);
+-
+ 	desc->qw0 = QI_DEV_EIOTLB_PASID(pasid) | QI_DEV_EIOTLB_SID(sid) |
+ 		QI_DEV_EIOTLB_QDEP(qdep) | QI_DEIOTLB_TYPE |
+ 		QI_DEV_IOTLB_PFSID(pfsid);
  
- 	return ret;
-@@ -937,6 +938,7 @@ static void mipid02_remove(struct i2c_client *client)
- 	if (!pm_runtime_status_suspended(&client->dev))
- 		mipid02_set_power_off(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
-+	v4l2_subdev_cleanup(&bridge->sd);
- 	media_entity_cleanup(&bridge->sd.entity);
- }
++	/*
++	 * The widest range the descriptor can express is a full flush, encoded
++	 * by making bit 63 the least significant zero bit of ADDR, that is
++	 * @size_order == 64 - VTD_PAGE_SHIFT.  Bound @size_order there so that
++	 * a caller passing something larger cannot produce an out-of-range
++	 * shift below.
++	 */
++	if (size_order > 64 - VTD_PAGE_SHIFT)
++		size_order = 64 - VTD_PAGE_SHIFT;
++
+ 	/*
+ 	 * If S bit is 0, we only flush a single page. If S bit is set,
+ 	 * The least significant zero bit indicates the invalidation address
+@@ -1120,7 +1128,8 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
+ 	 * Max Invs Pending (MIP) is set to 0 for now until we have DIT in
+ 	 * ECAP.
+ 	 */
+-	if (!IS_ALIGNED(addr, VTD_PAGE_SIZE << size_order))
++	if (size_order < 64 - VTD_PAGE_SHIFT &&
++	    !IS_ALIGNED(addr, BIT_ULL(VTD_PAGE_SHIFT + size_order)))
+ 		pr_warn_ratelimited("Invalidate non-aligned address %llx, order %d\n",
+ 				    addr, size_order);
  
+@@ -1136,7 +1145,7 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
+ 		desc->qw1 |= GENMASK_ULL(size_order + VTD_PAGE_SHIFT - 1,
+ 					VTD_PAGE_SHIFT);
+ 		/* Clear size_order bit to indicate size */
+-		desc->qw1 &= ~mask;
++		desc->qw1 &= ~BIT_ULL(VTD_PAGE_SHIFT + size_order - 1);
+ 		/* Set the S bit to indicate flushing more than 1 page */
+ 		desc->qw1 |= QI_DEV_EIOTLB_SIZE;
+ 	}
 -- 
 2.43.0
 
