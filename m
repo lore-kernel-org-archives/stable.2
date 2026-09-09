@@ -1,106 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2F255C329;
-	Wed,  9 Sep 2026 14:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7840D572679;
+	Wed,  9 Sep 2026 14:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962824; cv=none; b=FJKWfvc5auMfombXF1av4YAwN13z2BlrsFDZcXXU1+O3Qc+x+/oCwV6Iop0H5k0VU2boO/pXr20dnDhRL6Kwy7wgEeIuoCYGpt83TrYayc/U+H03mQGQafj3aT6kzZMVjFL5olOk9vrp6h+dUwW9ugvSyHe5tMR9XkMMYlnxxyQ=
+	t=1788962824; cv=none; b=omBnNaIbbsBVPDXQvtyMP3Q6wLoTB02Ciimx3z/so1wMDO876WPC1OPd5pShbOtB69ABTuUYDlxkMjbzXaLEx7h8JW0pipl5fP+e5+DoM4QYmMTn1m0pE/W8y4aOeUomUJ+9ffLAlbfNj6w2reTNwsVj9LYehWarrqYFnzHWzhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788962824; c=relaxed/simple;
-	bh=B3R3XmC6SH+JhTMAarkjpGwPDzWHrvcZ17/Vqk8hZyk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqBZDlTxd47lol4B0WJ3VMRDhvCXicthWy5V91M9oTNuZVQGH4LN/8bdq+IrfAxhn9yBwn6finUNxUTZETbjph5z7nrL+j2bIC5BStGPaBWIWMvnoqXg1cg3mDQAJp+Jk+6/qoeiSlG1VjXFj/vyJo9uHn3Q4rasyao7P86hH2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OLTj5muQ; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=NpgF5UmfaImzsXvowe9Yan/xHxyndC06wWYH/QaQjck=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lgTqTYdUBt6lJJLeSSePrEf7+8r8f2HysDjPP/GOJB6vdN3k4DWxqv9F963DoRPXga+ip/3+OJLRuBNixISZopvLHdlRRLeZcUmmLMoOzZtO8WCkYSM9/H2PBnh76z4F0pufKZe3i3EtQFJlOTRknmEn1P+6da8BrnfLEvC6Uos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AZ6z+KlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OLTj5muQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788962822; x=1820498822;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=B3R3XmC6SH+JhTMAarkjpGwPDzWHrvcZ17/Vqk8hZyk=;
-  b=OLTj5muQMpCYDvg9v/+68tVP/NWMKsTNKD0KYf57uULJpbNSj8B31kBX
-   MGmQ5jc9vu98al5kaQgCxL8Ip/MPqOTl3BDFI+nDNVUfdR5akGA7a587b
-   bUy6Z9XV/hwSfcTsm7kiEOYZ3duS+jETq2VSU2z7Y7sbTtcENjbhp+q1S
-   9Fq9qP3RtbjWhFznjBQBvEOXzCrsqlDWlT2Pe7Gbairhbv9rhcFUWe/jX
-   cs4rrbnZ3tTTzuFcz5daiXR5TKNdpAooyFwRtHT5Ei+1d+85/a/pxkX0+
-   eYf+NnhWcHPLaAyEo4fbiRU9CWw218/Iv1N3wzbI9N71xDQLsqocqWxhP
-   A==;
-X-CSE-ConnectionGUID: 0TGk5Xr+Qzq7brgof3q6+w==
-X-CSE-MsgGUID: kM5oQ9ZkREKw3znEyC/OAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89259003"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89259003"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 07:06:05 -0700
-X-CSE-ConnectionGUID: IaAKWW0jTlmg9q+DvdwSSA==
-X-CSE-MsgGUID: YQFnG5fgTzG/WPPOtDdvVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="269563313"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.249])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 07:05:54 -0700
-Date: Wed, 9 Sep 2026 17:05:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Kim Seer Paller <kimseer.paller@analog.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
- macro
-Message-ID: <aqFnvoGj1ZNEUlUw@ashevche-desk.local>
-References: <20260909130304.1395-1-joshua.crofts1@gmail.com>
- <aqFhagdhM4Z57eqh@ashevche-desk.local>
- <20260909154526.00002640@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AZ6z+KlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B5B1F00A3D;
+	Wed,  9 Sep 2026 14:07:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788962823;
+	bh=FEPoYNodn6hwu7Dsp9Rxzxd7RtLmKAfHo12mJX0gX0w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AZ6z+KlD3Vm0+GTs8/KGnEUTlROI1T3wFMbd3/20jtz9IsA5goNnqu7FAYgWxXbeQ
+	 R6NHzp3GE5Tq8sBpC0DAfMQwFVuW0TleXCsvsjpkxV7bInGWNxru+d2FCbl874VvnF
+	 0agSe7KBeVKh1v0DD+TPVAaehZLnzhVJxBG3REzw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
+Subject: [PATCH 7.2 423/556] scsi: qla2xxx: Check entry_status in qla24xx_modify_vp_config()
+Date: Wed,  9 Sep 2026 15:41:43 +0200
+Message-ID: <20260909134245.478114055@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909154526.00002640@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 03:45:26PM +0200, Joshua Crofts wrote:
-> On Wed, 9 Sep 2026 16:38:50 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> 
-> > On Wed, Sep 09, 2026 at 01:03:04PM +0000, Joshua Crofts wrote:
-> > > The MAX14001 has an SPI ID table, but does not export it with the
-> > > MODULE_DEVICE_TABLE(spi, ...) macro. Because of this, SPI-based module
-> > > autoloading fails on systems that don't use devicetree (e.g. via
-> > > spi_board_info).
-> > > 
-> > > Add the missing macro to export the alias information.
-> > > 
-> > > Fixes: 59795109fa67 ("iio: adc: max14001: New driver")
-> > > Cc: <stable@vger.kernel.org>
-> > > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> > > ---  
-> > 
-> > Changelog?
-> 
-> God, I should start using AI to check my patches before sending.
-> Appending below.
-> 
-> Changes in v2:
-> - edit commit message (expand on module autoloading and SPI)
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+------------------
 
--- 
-With Best Regards,
-Andy Shevchenko
+From: Nilesh Javali <njavali@marvell.com>
+
+commit 9101c51649f5b6773a97bf5271785c948589ea1d upstream.
+
+The Modify VP Config completion handler labelled its first error branch
+"error status" but tested vpmod->comp_status instead of
+vpmod->entry_status. Because CS_COMPLETE is 0, the following
+"comp_status != CS_COMPLETE" branch duplicated that test and was dead
+code, and entry_status was never examined at all.
+
+When firmware rejects the IOCB early it sets entry_status while leaving
+comp_status zero. As the IOCB is allocated with dma_pool_zalloc(), both
+comp_status branches evaluate false and the handler falls through to the
+success path, calling fc_vport_set_state(FC_VPORT_INITIALIZING) for a
+configuration the firmware never accepted. This can leave the virtual
+port enabled on top of an invalid config and surface later as login
+timeouts or follow-on firmware errors.
+
+Test entry_status in the first branch, matching qla_ctrlvp_completed()
+and the login/logout/abort/reset IOCB handlers; the comp_status branch
+then becomes the live completion-status check.
+
+Fixes: 2c3dfe3f6ad8 ("[SCSI] qla2xxx: add support for NPIV")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-50-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/scsi/qla2xxx/qla_mbx.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -4333,10 +4333,10 @@ qla24xx_modify_vp_config(scsi_qla_host_t
+ 	if (rval != QLA_SUCCESS) {
+ 		ql_dbg(ql_dbg_mbx, vha, 0x10bd,
+ 		    "Failed to issue VP config IOCB (%x).\n", rval);
+-	} else if (vpmod->comp_status != 0) {
++	} else if (vpmod->entry_status != 0) {
+ 		ql_dbg(ql_dbg_mbx, vha, 0x10be,
+ 		    "Failed to complete IOCB -- error status (%x).\n",
+-		    vpmod->comp_status);
++		    vpmod->entry_status);
+ 		rval = QLA_FUNCTION_FAILED;
+ 	} else if (vpmod->comp_status != cpu_to_le16(CS_COMPLETE)) {
+ 		ql_dbg(ql_dbg_mbx, vha, 0x10bf,
 
 
