@@ -1,44 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F8B3B3BFE;
-	Tue,  8 Sep 2026 23:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D90EACD
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788910627; cv=none; b=Xj/W3m0ZQBUGto48ickVTUwWWyLS/XghjymZW5NCpDLT6TtyWNaxShYXILWXSSOetfZvkZaSR2U7IhsHXoEIxkqlfdg1JUfAazDyfnTe1pDB9n9o986kEaV/6teZLOW9pOpoM8+L/dAvzXdjruAArSqddIUREJQ/uHzXKsRaAUA=
+	t=1788912236; cv=none; b=I9idlg0QiV9eEiTY5+DX0oOk2Hs/qOKL0U/J/1nr4dfftb2TucCHM+2uoJIuh94Dxysj2AViH+E4ZYUDXZbQtr/nw4+TTGp8QW3rUXL8ewb3yLE1y1ELilbaF8vUEafGRjMsQW3RTAncX4P1D/20T45qgf4VspJamA0EVUaQdcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788910627; c=relaxed/simple;
-	bh=PmI5JYqDAr6kqZUNDONtc9Bkd3a2Pp+lpXvkLMJQeKc=;
+	s=arc-20240116; t=1788912236; c=relaxed/simple;
+	bh=CwPTlr76puzr5ZS0xZM6k38sY+FZTelUS8ByfQVPVC8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o93vmKjP4EN27u5n7BPb2xhFa7j6TlboVIllD1XsPf5OScfflUyM5DS+O3Ffnrm7pVqc3hzz7LM+PsYOXzt8ZBAV6gD0pmZcaRu56wX+/NtSgJ6ZzOrI3ZctABXJTyebNa2AXlos3sapmWLIJZJh1nYz10ncKhZex7PyStb2tIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oN2w7uZ4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hmpgkjqvo+A/0LUJi3/0s4CTKc41z2Np9GfFSHCnKBHciPwcojcYOgp3mWMfKhMUOUC4og39J3eQwFpyVidsHv7bMRN8BW6mZL4R8N5A+t9yTbwmSbEJ4gqIAuNUkYvq4c6HYoUf0qtUsldP6BhsqmON1vohDB09dD7aBiSrmZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C7dASMif; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oN2w7uZ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06201F00A3A;
-	Tue,  8 Sep 2026 23:37:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788910625;
-	bh=NIND0ZuAk7r7GYUUeAEPwFBj/DONkZ4qN7mVygC9p7k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oN2w7uZ4bZ9BL+HKcS8ScXRPFPke59x+bPP21lyXGXJgpoCJlkSUYGVvBg61tPu9z
-	 /RSjkJNaOd5JMApP2UHiF5OgeiLu/zBTKzA9JEqJq2+B2iTo9/An4bIBtcckJ6PBqS
-	 aCEzbTXofkCOfM5tfIInbL+/8xEmQBohzfXM4YHiVc6lpk7S9s+CKrDyKRZQskyO8M
-	 7xJ+7pwDaWDe4qCCZGzDPtLx1Qk0DlH92TuIJTFLmtC1YjF6Mvujr9dDcND9qPUIi/
-	 GrdfH0nvhsaMTXQAkZulIhvVfWOcDumNOXV3yR0yvr31trK4g6ZyhPEoC5ofNK3IaX
-	 7EKbSn3HAHVhQ==
-Date: Tue, 8 Sep 2026 16:37:01 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nicolas Schier <n.schier@fritz.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scripts/sorttable: Mark long_size as __maybe_unused
-Message-ID: <20260908233701.GA2981326@ax162>
-References: <20260831-sorttable-long_size-unused-but-set-global-v1-1-8a96b88697e5@kernel.org>
- <20260904-dancing-cobalt-ibex-8a039c@l-nschier-aarch64>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C7dASMif"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788912233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1cLrURbixXtlb2wRM1cT/S3Lx6AO9OF0zqWiE6UKxos=;
+	b=C7dASMifL4kKE1iaSTzGO18mrtViLYZCJclaJrOOKqxu1kZlwj9JriFVBuKPXXNlcSSkxw
+	fXWpgHUmycdOrWDEs3sKBqnfZFS+tTz5aVOIUczkTDp3qEWlgMYAyKil+qfbql5AoFXNsZ
+	IYd9GNMfYGqWJwsnWuz6mQEbjf43U/s=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-569-Yldw-_4gMreCKkUxrKSRrg-1; Tue,
+ 08 Sep 2026 20:03:49 -0400
+X-MC-Unique: Yldw-_4gMreCKkUxrKSRrg-1
+X-Mimecast-MFC-AGG-ID: Yldw-_4gMreCKkUxrKSRrg_1788912228
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E9B1B1955F1D;
+	Wed,  9 Sep 2026 00:03:47 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 03CAB1800347;
+	Wed,  9 Sep 2026 00:03:43 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Wed,  9 Sep 2026 02:03:47 +0200 (CEST)
+Date: Wed, 9 Sep 2026 02:03:42 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqCiXo-h1F5jsp_N@redhat.com>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +70,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904-dancing-cobalt-ibex-8a039c@l-nschier-aarch64>
+In-Reply-To: <ap_gOSWtPNjwWS1e@localhost.localdomain>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Fri, Sep 04, 2026 at 09:34:10PM +0200, Nicolas Schier wrote:
-> On Mon, Aug 31, 2026 at 06:46:31PM -0700, Nathan Chancellor wrote:
-> > When building in a kernel tree prior to commit b055f4c431e3 ("sorttable:
-> > Move ELF parsing into scripts/elf-parse.[ch]") with clang-23 or newer,
-> > which implements a new warning under -Wunused-but-set-variable for
-> > static global variable, there is a warning from sorttable because
-> > long_size is unused when MCOUNT_SORT_ENABLED is not set:
-> > 
-> >   scripts/sorttable.c:452:12: error: variable 'long_size' set but not used [-Werror,-Wunused-but-set-global]
-> >     452 | static int long_size;
-> >         |            ^
-> > 
-> > Mark long_size as __maybe_unused to avoid inserting more ugly #ifdef
-> > directives while insuring the warning does not reappear, as the
-> > aforementioned change does not alter the uses of long_size, so it
-> > appears to be coincidence that the warning disappears after this
-> > refactoring.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> > ---
-> > This is breaking our builds on stable:
-> > 
-> >   https://github.com/ClangBuiltLinux/continuous-integration2/actions/runs/33143924291
-> > 
-> > There was a previous patch sent for this issue
-> > 
-> >   https://lore.kernel.org/20260603191708.27241-1-beakthoven@gmail.com/
-> > 
-> > but it was marked as stable only. I think this should be taken via
-> > mainline and backported the normal way, as it appears to be coincidence
-> > that the warning is not present in mainline. It does not look like
-> > scripts/sorttable.c has a formal owner according to MAINTAINERS so this
-> > could either go through one of Steve's trees or the kbuild tree.
-> > ---
-> >  scripts/sorttable.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> 
-> Thanks!
-> 
-> Tested-by: Nicolas Schier <n.schier@fritz.com>
+On 09/08, Frederic Weisbecker wrote:
+>
+> Old leader                           Exec'ing New leader     CPU 2
+> -----                                -----                   -----
+>
+> WRITE q->next = q
+> WRITE q->prev = q
 
-Thanks. Given how trivial this is and since it needs to go to stable,
-could you take this via kbuild-fixes?
+Damn ;) I am shy to suggest this again, but if we have _any_
+concerns about the races with list_del_init()...
 
--- 
-Cheers,
-Nathan
+The lockless flush_sigqueue_list() doesn't need to it, right?
+So perhaps something like below (on top of this series) to avoid
+the (potential) race explicitly?
+
+Most probably this change is wrong. And in any case we can do better.
+Just to explain what I mean.
+
+In short, I mean that exit_signals() -> flush path can do
+__sigqueue_free(q) without list_del_init(&q->list).
+
+Yes! I agree in advance that if this change can fix something,
+then it fixes the symptom.
+
+But at the same time, why does flush_sigqueue_list(head) need
+list_del_init() before __sigqueue_free() ? AFAICS only to make
+list_empty(head) == true. This looks confusing to me.
+
+Oh, I am sure I missed something again ;)
+
+Oleg.
+---
+
+diff --git a/kernel/signal.c b/kernel/signal.c
+index f93d8f77ec1a..32c344ee4769 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -457,14 +457,19 @@ static void __sigqueue_free(struct sigqueue *q)
+ 	kmem_cache_free(sigqueue_cachep, q);
+ }
+ 
+-static void flush_sigqueue_list(struct list_head *head)
++static void __flush_sigqueue_list(struct list_head *head)
+ {
+ 	struct sigqueue *q, *tmp;
+ 
+-	list_for_each_entry_safe(q, tmp, head, list) {
+-		list_del_init(&q->list);
++	list_for_each_entry_safe(q, tmp, head, list)
+ 		__sigqueue_free(q);
+-	}
++}
++
++static void flush_sigqueue_list(struct list_head *head)
++{
++	LIST_HEAD(flush);
++	list_splice_init(head, &flush);
++	__flush_sigqueue_list(&flush);
+ }
+ 
+ void flush_sigqueue(struct sigpending *queue)
+@@ -3196,7 +3201,7 @@ void exit_signals(struct task_struct *tsk)
+ 
+ 	cgroup_threadgroup_change_end(tsk);
+ 
+-	flush_sigqueue_list(&sigq_list);
++	__flush_sigqueue_list(&sigq_list);
+ 
+ 	/*
+ 	 * If group stop has completed, deliver the notification.  This
+
