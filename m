@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69132E7397
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136B82E7F39
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917475; cv=none; b=a0NGyVzfgdwVS1jlBx5G7Sjvm60jE2Iu0eLWLgW0AVH2Rq+sHvL9q+QGmkdQ583ZIAJpEFxUH9UvgopHztb2Y3ZktneK+8pY37zrfkJ1NThg47kbNo1kQCPSWxijTrWWlIzVYQfIfKWzVlscJjqz/wCN/0ZBQuaD1yxQcdk/dUk=
+	t=1788917476; cv=none; b=WwgTnL8K5gpXKWMyZ5UYZ1RA7k9Lu6w+MVv3rqHPZ8zo0Xxa1irfq8IDTz4aDwCAH9XB73QxkrtVG6yzYUp3QZRKQcmn7qQTQpG6b0TEtEZP47jFntlw4u4iBcJK9dD+ULupNppmE9uGtan0aoM9C4BxaTGb7wJQ4Ujb4aingIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917475; c=relaxed/simple;
-	bh=fYyBlx1Xtqp+dpx+TEi1k2MsovTolm7s31ikyjJwBWg=;
+	s=arc-20240116; t=1788917476; c=relaxed/simple;
+	bh=TKH0PVoyUmctdFFISiNWbUyYkB93PkADRbBPGArIfpc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZgKy7xhCUtXQf89N3axPcAGdHqUfGzpqjxkV+vYJXHoJZvtnrKpOgvjdpDryPWxe3Ic4WIL5hmY2f3rpus2SuZmh2YvTImDmlL86vsGU8FfZQc8IC3+Atw0uLgvJqqTZxsm2K2cGLn0BnxgSpVdSgPpXj0poFT1j7sfVMz/wYMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGqO2gTl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZlpfP23Dw3+R+Nu5SSUn2EZlN86Iw73S+tBDiTcbYIn5XYBfQ3Wxr/DiZADpNn2tiynKBTATUjqq3tYT/6WudnKLa/OirQPBC1kJzE1bMKHgAYxVRGVhzxqNOkvPT0yX2nvEQsIjfTtvNHck8rKXBwCttIi/9PKeIsXRryacGwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTebgHkE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGqO2gTl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5CD1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTebgHkE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6AE1F00A3F;
 	Wed,  9 Sep 2026 01:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917473;
-	bh=se8xM0el4THg19diSlAWDlEpM2OOFXIWqUoVjGH+NpA=;
+	s=k20260515; t=1788917474;
+	bh=GYVGysDi72IxPQZ7CE2G7ciBeGBYRVNpUIY5N161KGE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fGqO2gTl3h6yKzMeWCqDgVSeohKCANjdkF0KExrAKKrkufBpk6aWOBhYn9/iaRda/
-	 esJo0kn//svJzuH4nbJMhF5z4XRTfsfc8//N7nACgbx/vl/siaFeA1Kaqy8vDWDVuM
-	 mqaCS5CYED9/Z6o9hWsEOkV8A25BoE6d+vzJTxi7HPw9O6KhePKAUcTp0WlD/8Qq0W
-	 8ENa5h07K3PSH+7+9Q9h8OssQmZ4iQZ14M1gJFabDOFxjz8Y78s6lFL92TcyUC08zi
-	 94BgjzV2FKx8MPCkU9hAD5MNHrVghEyMYEYZe/uqKnSLrkqTDiKEV5tce5mwYj28Qn
-	 oUBegsXUKW74w==
+	b=GTebgHkEcZxyYIro3vxK/ogKAMMxsyPmtRa096EkupIWPJtCWvLzlU7UrD8c3YB9o
+	 rpFe64mJg6HYu4gP9xTWaOmwj5jgU+Lh/d1Qyhox8rptQ4FGdlhJJ3YOZeSRSo3K/n
+	 1AStYf0UwNCak1gFTiZbTlPSGK9+EAPPRhZkiakBNykknkAgwgU6T33YUsAmO4Etba
+	 34MX1louSAuHqM4/DCSSdzbDhSi04mxxLCuzqVOQY+7B2Ls9423gZtu+Oevy6/ZYho
+	 qVF0LUcnFGGbZMZQHVBWvp2bt2gRRmwBuago52G099mbJMJ3h0CWhq1+hkfmN7eFvt
+	 reZ5hWoMXVCvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Jiri Pirko <jiri@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] svcrdma: Reject connection when transport allocation fails
-Date: Tue,  8 Sep 2026 21:31:09 -0400
-Message-ID: <20260909013109.887545-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] ipv6/addrconf: annotate data-races around devconf fields (II)
+Date: Tue,  8 Sep 2026 21:31:11 -0400
+Message-ID: <20260909013112.887941-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909013109.887545-1-sashal@kernel.org>
-References: <2026090304-coroner-snowfall-f3c0@gregkh>
- <20260909013109.887545-1-sashal@kernel.org>
+In-Reply-To: <2026090351-marbling-tiny-a334@gregkh>
+References: <2026090351-marbling-tiny-a334@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,82 +46,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 0944462247dcb7de7622cdaaadf5f05c52707dab ]
+[ Upstream commit 2f0ff05a44302c91af54a5f9efe1b65b7681540e ]
 
-handle_connect_req() returns without action when
-svc_rdma_create_xprt() fails to allocate the new transport.
-The CM core returns 0 for CONNECT_REQUEST events, so it does
-not destroy the new rdma_cm_id. Each allocation failure under
-memory pressure leaks one rdma_cm_id, and a remote peer driving
-connection attempts can amplify this.
+Final (?) round of this series.
 
-Reject the connection by returning a non-zero status from the
-CM event handler, which tells the CM core to destroy the
-orphaned cm_id.
+Annotate lockless reads on following devconf fields,
+because they be changed concurrently from /proc/net/ipv6/conf.
 
-Fixes: 377f9b2f4529 ("rdma: SVCRDMA Core Transport Services")
-Cc: stable@vger.kernel.org
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-4-1b09bd87b6cd@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+- accept_dad
+- optimistic_dad
+- use_optimistic
+- use_oif_addrs_only
+- ra_honor_pio_life
+- keep_addr_on_down
+- ndisc_notify
+- ndisc_evict_nocarrier
+- suppress_frag_ndisc
+- addr_gen_mode
+- seg6_enabled
+- ioam6_enabled
+- ioam6_id
+- ioam6_id_wide
+- drop_unicast_in_l2_multicast
+- mldv[12]_unsolicited_report_interval
+- force_mld_version
+- force_tllao
+- accept_untracked_na
+- drop_unsolicited_na
+- accept_source_route
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+
+Backport notes for Linux 5.10:
+
+Keep only the routing-header annotations in net/ipv6/exthdrs.c. The
+addrconf, input, multicast, neighbour-discovery, HMAC and IOAM hunks are
+not needed by f826df95332c07380206dbd54178b6eefb311aba. In particular,
+this tree lacks IOAM and several newer devconf fields and drop reasons.
+
+Also annotate rpl_seg_enabled with READ_ONCE() and min(), and use swap()
+for the existing RPL address exchange, eliminating its temporary address.
+These changes supply the exact RPL context expected by the target without
+adding functions or importing unrelated receive-path refactors. Keep the
+existing SRv6 NULL check for the target to move to the common caller.
+
+Remove the redundant second idev lookup in ipv6_rthdr_rcv() while adapting
+the accept_source_route annotation. Use the already acquired RCU pointer.
+
+Provide a macro local to the routing-header section mapping
+kfree_skb_reason(skb, reason) to kfree_skb(skb). Linux 5.10 has no skb drop
+reason API; this permits the unchanged target to build while retaining
+this branch's existing packet-freeing semantics. No reason enum or new
+function is introduced.
+
+[ sashal: Reduced backport -- upstream 2f0ff05a44302 touches 7 file(s), this
+  backport carries 1. Not backported here:
+  net/ipv6/addrconf.c
+  net/ipv6/ioam6.c
+  net/ipv6/ip6_input.c
+  net/ipv6/mcast.c
+  net/ipv6/ndisc.c
+  net/ipv6/seg6_hmac.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: f826df95332c ("ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ net/ipv6/exthdrs.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index de28aae30a409..0961973606bcf 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -221,12 +221,16 @@ svc_rdma_parse_connect_private(struct svcxprt_rdma *newxprt,
-  * structure for the listening endpoint.
-  *
-  * This function creates a new xprt for the new connection and enqueues it on
-- * the accept queue for the listent xprt. When the listen thread is kicked, it
-+ * the accept queue for the listen xprt. When the listen thread is kicked, it
-  * will call the recvfrom method on the listen xprt which will accept the new
-  * connection.
-+ *
-+ * Return values:
-+ *     %0: Do not destroy @new_cma_id
-+ *     %1: Destroy @new_cma_id (allocation failure)
-  */
--static void handle_connect_req(struct rdma_cm_id *new_cma_id,
--			       struct rdma_conn_param *param)
-+static int handle_connect_req(struct rdma_cm_id *new_cma_id,
-+			      struct rdma_conn_param *param)
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index 0230fa98a3482..8099715a08a5d 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -368,9 +368,8 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
+ 		return -1;
+ 	}
+ 
+-	accept_seg6 = net->ipv6.devconf_all->seg6_enabled;
+-	if (accept_seg6 > idev->cnf.seg6_enabled)
+-		accept_seg6 = idev->cnf.seg6_enabled;
++	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
++			  READ_ONCE(idev->cnf.seg6_enabled));
+ 
+ 	if (!accept_seg6) {
+ 		kfree_skb(skb);
+@@ -481,7 +480,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 	struct net *net = dev_net(skb->dev);
+ 	struct inet6_dev *idev;
+ 	struct ipv6hdr *oldhdr;
+-	struct in6_addr addr;
+ 	unsigned int chdr_len;
+ 	unsigned char *buf;
+ 	int accept_rpl_seg;
+@@ -491,10 +489,8 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 
+ 	idev = __in6_dev_get(skb->dev);
+ 
+-	accept_rpl_seg = net->ipv6.devconf_all->rpl_seg_enabled;
+-	if (accept_rpl_seg > idev->cnf.rpl_seg_enabled)
+-		accept_rpl_seg = idev->cnf.rpl_seg_enabled;
+-
++	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
++			     READ_ONCE(idev->cnf.rpl_seg_enabled));
+ 	if (!accept_rpl_seg) {
+ 		kfree_skb(skb);
+ 		return -1;
+@@ -593,9 +589,7 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 		return -1;
+ 	}
+ 
+-	addr = ipv6_hdr(skb)->daddr;
+-	ipv6_hdr(skb)->daddr = ohdr->rpl_segaddr[i];
+-	ohdr->rpl_segaddr[i] = addr;
++	swap(ipv6_hdr(skb)->daddr, ohdr->rpl_segaddr[i]);
+ 
+ 	ipv6_rpl_srh_compress(chdr, ohdr, &ipv6_hdr(skb)->daddr, n);
+ 
+@@ -663,6 +657,9 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+   Routing header.
+  ********************************/
+ 
++/* This stable tree has no skb drop-reason accounting. */
++#define kfree_skb_reason(skb, reason) kfree_skb(skb)
++
+ /* called with rcu_read_lock() */
+ static int ipv6_rthdr_rcv(struct sk_buff *skb)
  {
- 	struct svcxprt_rdma *listen_xprt = new_cma_id->context;
- 	struct svcxprt_rdma *newxprt;
-@@ -236,7 +240,7 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
- 				       listen_xprt->sc_xprt.xpt_net,
- 				       ibdev_to_node(new_cma_id->device));
- 	if (!newxprt)
--		return;
-+		return 1;
- 	newxprt->sc_cm_id = new_cma_id;
- 	new_cma_id->context = newxprt;
- 	svc_rdma_parse_connect_private(newxprt, param);
-@@ -270,6 +274,7 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
+@@ -674,11 +671,13 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	struct ipv6_rt_hdr *hdr;
+ 	struct rt0_hdr *rthdr;
+ 	struct net *net = dev_net(skb->dev);
+-	int accept_source_route = net->ipv6.devconf_all->accept_source_route;
++	int accept_source_route;
  
- 	set_bit(XPT_CONN, &listen_xprt->sc_xprt.xpt_flags);
- 	svc_xprt_enqueue(&listen_xprt->sc_xprt);
-+	return 0;
- }
+-	idev = __in6_dev_get(skb->dev);
+-	if (idev && accept_source_route > idev->cnf.accept_source_route)
+-		accept_source_route = idev->cnf.accept_source_route;
++	accept_source_route = READ_ONCE(net->ipv6.devconf_all->accept_source_route);
++
++	if (idev)
++		accept_source_route = min(accept_source_route,
++					  READ_ONCE(idev->cnf.accept_source_route));
  
- /**
-@@ -293,8 +298,7 @@ static int svc_rdma_listen_handler(struct rdma_cm_id *cma_id,
+ 	if (!pskb_may_pull(skb, skb_transport_offset(skb) + 8) ||
+ 	    !pskb_may_pull(skb, (skb_transport_offset(skb) +
+@@ -858,6 +857,8 @@ static const struct inet6_protocol rthdr_protocol = {
+ 	.flags		=	INET6_PROTO_NOPOLICY,
+ };
  
- 	switch (event->event) {
- 	case RDMA_CM_EVENT_CONNECT_REQUEST:
--		handle_connect_req(cma_id, &event->param.conn);
--		break;
-+		return handle_connect_req(cma_id, &event->param.conn);
- 	case RDMA_CM_EVENT_ADDR_CHANGE:
- 		listen_id = svc_rdma_create_listen_id(cma_rdma->xpt_net,
- 						      sap, cma_xprt);
++#undef kfree_skb_reason
++
+ static const struct inet6_protocol destopt_protocol = {
+ 	.handler	=	ipv6_destopt_rcv,
+ 	.flags		=	INET6_PROTO_NOPOLICY,
 -- 
 2.53.0
 
