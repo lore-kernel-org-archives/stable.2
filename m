@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2608852E043
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D3652E043
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951653; cv=none; b=mc22k4vo+Fcdpz8oMbj35swB4OW4bkGNRxWjrxcvTP9THscBXR7RrFxG7ZjAfAQKqEezr9QxIp4CtdYDR0Kf66o8WdabtocoN2Skrn2DF3A0dPmIhdnqXxZCCKz50Jf8O636mGQoiUbWebwTstxWUjqr1hJWmXC5TOda/v6un2A=
+	t=1788951655; cv=none; b=AH6C47ixfZ4JaGtmjBw/wc/IxFouCyT8doqMTdfdrp5HQSQKSjVvFzfgRFlBpr8uwFi4IbsCtHeMwRSKS/9mGyzjUqFeyK6CQchCth1K88uY3wtx0tj3/6Cpsa99PwcXW3uhKRlQsSe82KvvBQX2ZthbdM2He4SJziuD9rFIXK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951653; c=relaxed/simple;
-	bh=MWTVjt7jhYyePQbYLT7ac6Ecfqadhgpz+Ka5+pm/iMk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qQQ4VlrGQOaW+kZuBUKgSdFYR3Y6ZzKh98kZ9czpJNDNwexOOWDOW10fstEAeihv87SJnHi7ge0WbEZINnzCQcIz2j9uhvfLKatYghQVw5dMb42IHqsaMqID7naca8P890K5MiCO/LWOlX/aFk+zzSVmKcvFchjbmr78FE/Lug8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P8TTipfx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951655; c=relaxed/simple;
+	bh=M0hP2hsAfGdeNDkrMphnof8ZH1mak44iDs1dRC9AZ7E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D92bEFyebUfMKtCrdGBLrAJbMoYaUt9lH66ToHGVVTr0vbMDjFG2wp4MzpuMZj0UjD+6eaiAicPe5NYbU5LKMqWTGQvtHXnYvBrvdaTBBkG1gWmb9OLIC06eVx8BXQfpoUFDkUuUwOQmmFuQQDbMLpFMMLdPlPxDtHolX0EUirI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N8YudTr4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P8TTipfx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E54A1F00A3D;
-	Wed,  9 Sep 2026 11:00:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N8YudTr4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3551F00A3D;
+	Wed,  9 Sep 2026 11:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951651;
-	bh=sw1U37gV/NIZrZVgzCFlT3TGRffQzyfFDUz2sq3WA2s=;
+	s=korg; t=1788951654;
+	bh=dayCt2YR0Len1REvSo1MkIoMmoL5kw3qOgtcZ4BQpbw=;
 	h=Subject:To:Cc:From:Date;
-	b=P8TTipfxOLZTIQgGuo6YsYUW0NIhNahhdYbl65150yW7kVsmxST2/C2aLgk+LXziM
-	 4cpJwVRi7PVjuQfr16KHzR7YUV2qBfbJC5m4PdK5nEOSCe+znMF3n/3aoGZWtbljoC
-	 0TQYjLl7AbpvSX22eBcKFbmZOVGdGAkXvQa0f4xQ=
-Subject: FAILED: patch "[PATCH] media: qcom: iris: fix missing hfi_id in gen1 GOP_SIZE cap" failed to apply to 6.18-stable tree
-To: wangao.wang@oss.qualcomm.com,bod@kernel.org,busanna.reddy@oss.qualcomm.com,vikash.garodia@oss.qualcomm.com
+	b=N8YudTr415hsQ97mh7izsErYLXyoHQ0kDvHxCRQjv8Wn1Un5Zu6BN4sZnzWP3/fa0
+	 3TqY9IngMVrJ8KXuZ3DbatpfQzsJgir5I5L/YLtP3MZZduktOzFUvU9X54ORTF9Eku
+	 a655m8/ueK/izFDkWdEf7CbQFiDodg9veMfpqoME=
+Subject: FAILED: patch "[PATCH] media: qcom: iris: fix runtime PM reference leaks" failed to apply to 6.18-stable tree
+To: dennylin0707@gmail.com,bod@kernel.org,dmitry.baryshkov@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:52:57 +0200
-Message-ID: <2026090957-mandarin-lurk-07db@gregkh>
+Date: Wed, 09 Sep 2026 12:53:08 +0200
+Message-ID: <2026090908-wobbly-comply-f1b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5eebacbc9a38e1019854ea5f86e367a4d5116387
+git cherry-pick -x f87d7eda07fca21efe4b96169ae59007db46e60e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090957-mandarin-lurk-07db@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090908-wobbly-comply-f1b3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,86 +62,53 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5eebacbc9a38e1019854ea5f86e367a4d5116387 Mon Sep 17 00:00:00 2001
-From: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 10:55:54 +0800
-Subject: [PATCH] media: qcom: iris: fix missing hfi_id in gen1 GOP_SIZE cap
+From f87d7eda07fca21efe4b96169ae59007db46e60e Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Mon, 8 Jun 2026 08:17:20 +0000
+Subject: [PATCH] media: qcom: iris: fix runtime PM reference leaks
 
-Add hfi_id to gen1 encoder GOP_SIZE cap and replace the set function,
-remove the redundant INTRA_PERIOD cap.
+Use pm_runtime_resume_and_get() in iris_enable_power_domains()
+to avoid leaking a runtime PM usage count on failure.
 
-Fixes: d22037f3fd33 ("media: iris: Set platform capabilities to firmware for encoder video device")
+Also ensure pm_runtime_put_sync() is always called in
+iris_disable_power_domains(), even when iris_opp_set_rate()
+fails, so runtime PM references remain balanced.
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Fixes: bb8a95aa038e ("media: iris: implement power management")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index 10e33b8a73f6..391e1fc5f6e2 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -1293,7 +1293,7 @@ int iris_set_use_and_mark_ltr(struct iris_inst *inst, enum platform_inst_fw_cap_
- int iris_set_intra_period(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
+diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
+index 872bd09656b1..6d3339423eec 100644
+--- a/drivers/media/platform/qcom/iris/iris_resources.c
++++ b/drivers/media/platform/qcom/iris/iris_resources.c
+@@ -78,20 +78,21 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
+ 	if (ret)
+ 		return ret;
+ 
+-	return pm_runtime_get_sync(pd_dev);
++	return pm_runtime_resume_and_get(pd_dev);
+ }
+ 
+ int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
  {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
--	u32 gop_size = inst->fw_caps[GOP_SIZE].value;
-+	u32 gop_size = inst->fw_caps[cap_id].value;
- 	u32 b_frame = inst->fw_caps[B_FRAME].value;
- 	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
- 	struct hfi_intra_period intra_period;
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-index ca1545d28b53..eff9216bb501 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-@@ -171,7 +171,9 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8250_enc[] = {
- 		.max = (1 << 16) - 1,
- 		.step_or_mask = 1,
- 		.value = 30,
--		.set = iris_set_u32
-+		.hfi_id = HFI_PROPERTY_CONFIG_VENC_INTRA_PERIOD,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+		.set = iris_set_intra_period,
- 	},
- 	{
- 		.cap_id = ENTROPY_MODE,
-@@ -240,7 +242,7 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8250_enc[] = {
- 		.step_or_mask = 1,
- 		.value = 0,
- 		.hfi_id = HFI_PROPERTY_PARAM_VENC_INTRA_REFRESH,
--		.flags = CAP_FLAG_OUTPUT_PORT,
-+		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
- 		.set = iris_set_ir_period_gen1,
- 	},
- 	{
-@@ -281,16 +283,6 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8250_enc[] = {
- 		.value = 0,
- 		.flags = CAP_FLAG_OUTPUT_PORT,
- 	},
--	{
--		.cap_id = INTRA_PERIOD,
--		.min = 0,
--		.max = 1,
--		.step_or_mask = 1,
--		.value = 0,
--		.hfi_id = HFI_PROPERTY_CONFIG_VENC_INTRA_PERIOD,
--		.flags = CAP_FLAG_OUTPUT_PORT,
--		.set = iris_set_intra_period,
--	},
- 	{
- 		.cap_id = LAYER_ENABLE,
- 		.min = 0,
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index c9256f2323dc..ff48333ad089 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -165,7 +165,6 @@ enum platform_inst_fw_cap_type {
- 	USE_LTR,
- 	MARK_LTR,
- 	B_FRAME,
--	INTRA_PERIOD,
- 	LAYER_ENABLE,
- 	LAYER_TYPE_H264,
- 	LAYER_TYPE_HEVC,
+ 	int ret;
++	int pm_ret;
+ 
+ 	ret = iris_opp_set_rate(core->dev, 0);
+-	if (ret)
+-		return ret;
+ 
+-	pm_runtime_put_sync(pd_dev);
++	pm_ret = pm_runtime_put_sync(pd_dev);
++	if (!ret)
++		ret = pm_ret;
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static struct clk *iris_get_clk_by_type(struct iris_core *core, enum platform_clk_type clk_type)
 
