@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4687239D3DA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCFB4F646C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:48:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954469; cv=none; b=lOcjj1G3M3oMxyunJYxww2h9rjP3hYvSFPYQX0Xfa/xVo36K0STb3hY0LTUhD/+OOERDpVFdFk4SfTdnmjmdjUwFNpRLgwU0raA/3rDBooDGvtdT7KlGxexrImWWU86GR8QVYbTq0+FhwcJ9yZo5/euS5DYWdvTrzCFUswwnpTM=
+	t=1788954487; cv=none; b=Kw5AGqdzYkBOb3UFoRbY7JxoNapfzaLPfqYgnZyVtDXVE03m92TMcks8dHmYrU0zMfkToeUnMnz/Yxq19nCnFMfS/IHL1d1Z+ZZrANCHtN+IZof7Tl2Vq8fwxy5hmUbzLjR1UtOMEfyHqwLq3Ye9XhTgKuf5OUdCKCbRdnTIPH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954469; c=relaxed/simple;
-	bh=81F8zjV4kfj6f5XhafRoP7ZYTK5pQ2Z7I5fCwj3HAGs=;
+	s=arc-20240116; t=1788954487; c=relaxed/simple;
+	bh=J1t92bwRP/1rqMRe4yolK5OT/1jUD5oWYflu1lHnPv4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m0TCkNMQ9Gv5252hwnyR+fpksW5PsWTUCmm/45yKOPoHAqxLFbn/WTR5fnAW6CowAUrFrJ0jkcsxCGJ7JkTzzkbaH9NrcqhdkSDzpcBsTrS7QTb91VI10fINUpz8r/9H4qjf/jP04LFdIMk/bUHXOjadXxlzRvyRq1pcNJrGoKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2MSrp7t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e0lzPv6CFxMODYgvb4zRD2KMtuagg7jX50+Pec1kFhG2+Gw9V508w/5UaY8Cdpds2zznlj1VvjzxW4rib4gy7yIVdln9n44Dxx6x+ZVCqt41hiF5uxfa1q0Eq5Q9OCJuzqCXEOvA7wgnr+7NoWwAQbkr9Hu3N5k4xU9WRFgu5WE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KbhW1XvE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2MSrp7t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD341F00A3F;
-	Wed,  9 Sep 2026 11:47:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KbhW1XvE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CC01F00A3D;
+	Wed,  9 Sep 2026 11:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954468;
-	bh=i1DVRnZRBEV9+LmtZ13g/dTEG8/TjOrQuCnA+hEPrBM=;
+	s=k20260515; t=1788954486;
+	bh=XzEUG4p9zHSoAM2Vz+WXnSA7dQA3ypj4gkiMQw2T5II=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F2MSrp7tfvbJDTBIFzPlbsncrIZLAOi/ja9Xwn1yKxoQbbHV0nQr18WiJd7AFRXeE
-	 LiracVN6OzOzyj5hZY1v1r+jJCHJwK/9B0nMwNc0SkJ/VgY21EsDt8VhJJfyWeen7N
-	 ydjpf9eXPyR+U2v0mdXeCa/lbDB491FnQFEESVY5qLgrGepxXIReQcx4uNhmKOtjaW
-	 iqdxovLVJiGJapqhjp9kO4BJo9Lred8rWhDkK0wLGTLnyBFGAwkTuIUn9peS7CQPeV
-	 FbdrYVpLaLnCAegz+5JjjZkhdxFr354yKPmFlFX3Z6ver2i8R2LZMqbVxxF4yGekjQ
-	 zkbVcJdH7fSHw==
+	b=KbhW1XvEF5j4H60sgE95Njol7jWhUKA3+TKe+YxzrkzKvWa+/u5nsPNWJmMf0ujRP
+	 55nNyJDbiyH6krzltj+TiOMcQvKiN9PZMd8C0esCkr6Ppx8VkFs0AKpiUvwuvjOBSc
+	 RUMaKJQs4xHFLvuW1fI+SvzEADOEFM5hNsI3/jtsGiRwzMpF57zYTfJtk2yI7/tCF/
+	 vW4O+D2Ca6+/W2i1sJ5SGvPtjsk38gtXCnZrCYbFrfns/ka86cOaEHHIukpYu9NaDW
+	 WR5TShicCMaqngCe+U1JVqPW2IXdk/b23TF2BR933HzG7sC4UHzFGVwW2j//3qlDh8
+	 5LeRzJ6p5HaVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Farhan Ali <alifm@linux.ibm.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] PCI: Allow per function PCI slots to fix slot reset on s390
-Date: Wed,  9 Sep 2026 07:47:44 -0400
-Message-ID: <20260909114744.2013430-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] iommu/arm-smmu-v3: Add HAFT support for SVA
+Date: Wed,  9 Sep 2026 07:48:02 -0400
+Message-ID: <20260909114802.2019315-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909114744.2013430-1-sashal@kernel.org>
-References: <2026090354-paralyses-labored-e273@gregkh>
- <20260909114744.2013430-1-sashal@kernel.org>
+In-Reply-To: <2026090308-zit-anaerobic-0133@gregkh>
+References: <2026090308-zit-anaerobic-0133@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,160 +46,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Farhan Ali <alifm@linux.ibm.com>
+From: Robin Murphy <robin.murphy@arm.com>
 
-[ Upstream commit dcc5bec09e23bbc4f9de055a11fce9937244f2c8 ]
+[ Upstream commit f99d3b4bb095c4966cf58154077e8bb69ee4827f ]
 
-On s390 systems, which use a machine level hypervisor, PCI devices are
-always accessed through a form of PCI pass-through which fundamentally
-operates on a per PCI function granularity. This is also reflected in the
-s390 PCI hotplug driver which creates hotplug slots for individual PCI
-functions. Its reset_slot() function, which is a wrapper for
-zpci_hot_reset_device(), thus also resets individual functions.
+Since table access flags cannot be software-managed, if process
+pagetables are using HAFT then SVA must require the SMMU to support and
+enable it too, otherwise page aging is liable to get out of whack.
 
-Currently, the pci_create_slot() assigns the same pci_slot object to
-multifunction devices. This approach worked fine on s390 systems that only
-exposed virtual functions as individual PCI domains to the operating
-system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-s390 supports exposing the topology of multifunction PCI devices by
-grouping them in a shared PCI domain. This creates a problem when resetting
-a function through the hotplug driver's slot_reset() interface.
+For unbinding, we can't disable HAFT atomically with HA as might be
+desired, but luckily we can get away with just not disabling HA either.
 
-When attempting to reset a function through the hotplug driver, the shared
-slot assignment causes the wrong function to be reset instead of the
-intended one. It also leaks memory as we do create a pci_slot object for
-the function, but don't correctly free it in pci_slot_release().
-
-Add a flag for struct pci_slot to allow per function PCI slots for
-functions managed through a hypervisor, which exposes individual PCI
-functions while retaining the topology. Since we can use all 8 bits for
-slot 'number' (for ARI devices), change slot 'number' u16 to account for
-special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
-
-Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
+Fixes: 62df5870ebf7 ("arm64: Enable ARCH_HAS_NONLEAF_PMD_YOUNG")
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pci.c   |  5 +++--
- drivers/pci/slot.c  | 29 +++++++++++++++++++++++------
- include/linux/pci.h |  7 ++++---
- 3 files changed, 30 insertions(+), 11 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c | 14 ++++++++++++++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c     |  9 ++++++++-
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h     |  3 +++
+ 3 files changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 77b17b13ee615..350bae907ebf8 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+index 59a480974d80f..80b56d1501b14 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+@@ -104,6 +104,17 @@ void arm_smmu_make_sva_cd(struct arm_smmu_cd *target,
+ 			target->data[0] &=
+ 				cpu_to_le64(~(CTXDESC_CD_0_S | CTXDESC_CD_0_R));
+ 	}
++	/*
++	 * Enable Hardware Access and Dirty updates (DBM) if supported. This is
++	 * safe to enable by default, as PTE_WRITE and PTE_DBM share the same bit,
++	 * while the EPD0 config can't get as far as fetching any PTEs anyway.
++	 */
++	if (master->smmu->features & ARM_SMMU_FEAT_HA)
++		target->data[0] |= cpu_to_le64(CTXDESC_CD_0_TCR_HA);
++	if (master->smmu->features & ARM_SMMU_FEAT_HD)
++		target->data[0] |= cpu_to_le64(CTXDESC_CD_0_TCR_HD);
++	if (master->smmu->features & ARM_SMMU_FEAT_HAFT && system_supports_haft())
++		target->data[1] |= cpu_to_le64(CTXDESC_CD_1_HAFT);
  
- static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
+ 	/*
+ 	 * MAIR value is pretty much constant and global, so we can just get it
+@@ -223,6 +234,9 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
+ 	if (system_supports_bbml2_noabort())
+ 		feat_mask |= ARM_SMMU_FEAT_BBML2;
+ 
++	if (system_supports_haft())
++		feat_mask |= ARM_SMMU_FEAT_HAFT;
++
+ 	if ((smmu->features & feat_mask) != feat_mask)
+ 		return false;
+ 
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index daf8b87fdf086..01f448acd8dce 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -4379,10 +4379,14 @@ static void arm_smmu_device_iidr_probe(struct arm_smmu_device *smmu)
+ 
+ static void arm_smmu_get_httu(struct arm_smmu_device *smmu, u32 reg)
  {
--	if (dev->multifunction || dev->subordinate || !dev->slot ||
--	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
-+	if (dev->subordinate || !dev->slot ||
-+	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
-+	    (dev->multifunction && !dev->slot->per_func_slot))
- 		return -ENOTTY;
+-	u32 fw_features = smmu->features & (ARM_SMMU_FEAT_HA | ARM_SMMU_FEAT_HD);
++	u32 fw_features = smmu->features & (ARM_SMMU_FEAT_HA | ARM_SMMU_FEAT_HD |
++					    ARM_SMMU_FEAT_HAFT);
+ 	u32 hw_features = 0;
  
- 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-index 42ff66461f74a..897223f01f6ac 100644
---- a/drivers/pci/slot.c
-+++ b/drivers/pci/slot.c
-@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
- 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
- }
+ 	switch (FIELD_GET(IDR0_HTTU, reg)) {
++	case IDR0_HTTU_ACCESS_DIRTY_HAFT:
++		hw_features |= ARM_SMMU_FEAT_HAFT;
++		fallthrough;
+ 	case IDR0_HTTU_ACCESS_DIRTY:
+ 		hw_features |= ARM_SMMU_FEAT_HD;
+ 		fallthrough;
+@@ -4692,6 +4696,9 @@ static int arm_smmu_device_acpi_probe(struct platform_device *pdev,
+ 		smmu->features |= ARM_SMMU_FEAT_COHERENCY;
  
-+static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
-+{
-+	if (slot->per_func_slot)
-+		return dev->devfn == slot->number;
-+
-+	return slot->number == PCI_SLOT_ALL_DEVICES ||
-+		PCI_SLOT(dev->devfn) == slot->number;
-+}
-+
-+static bool pci_slot_enabled_per_func(void)
-+{
-+	if (IS_ENABLED(CONFIG_S390))
-+		return true;
-+
-+	return false;
-+}
-+
- static void pci_slot_release(struct kobject *kobj)
- {
- 	struct pci_dev *dev;
-@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
+ 	switch (FIELD_GET(ACPI_IORT_SMMU_V3_HTTU_OVERRIDE, iort_smmu->flags)) {
++	case IDR0_HTTU_ACCESS_DIRTY_HAFT:
++		smmu->features |= ARM_SMMU_FEAT_HAFT;
++		fallthrough;
+ 	case IDR0_HTTU_ACCESS_DIRTY:
+ 		smmu->features |= ARM_SMMU_FEAT_HD;
+ 		fallthrough;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index 081236c0d4a6a..d65bbda8aac3b 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -40,6 +40,7 @@ struct arm_vsmmu;
+ #define IDR0_HTTU			GENMASK(7, 6)
+ #define IDR0_HTTU_ACCESS		1
+ #define IDR0_HTTU_ACCESS_DIRTY		2
++#define IDR0_HTTU_ACCESS_DIRTY_HAFT	3
+ #define IDR0_COHACC			(1 << 4)
+ #define IDR0_TTF			GENMASK(3, 2)
+ #define IDR0_TTF_AARCH64		2
+@@ -370,6 +371,7 @@ static inline unsigned int arm_smmu_cdtab_l2_idx(unsigned int ssid)
+ #define CTXDESC_CD_0_ASET		(1UL << 47)
+ #define CTXDESC_CD_0_ASID		GENMASK_ULL(63, 48)
  
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = NULL;
- 	up_read(&pci_bus_sem);
++#define CTXDESC_CD_1_HAFT		(1UL << 3)
+ #define CTXDESC_CD_1_TTB0_MASK		GENMASK_ULL(51, 4)
  
-@@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
+ /*
+@@ -769,6 +771,7 @@ struct arm_smmu_device {
+ #define ARM_SMMU_FEAT_HD		(1 << 22)
+ #define ARM_SMMU_FEAT_S2FWB		(1 << 23)
+ #define ARM_SMMU_FEAT_BBML2		(1 << 24)
++#define ARM_SMMU_FEAT_HAFT		(1 << 25)
+ 	u32				features;
  
- 	mutex_lock(&pci_slot_mutex);
- 	list_for_each_entry(slot, &dev->bus->slots, list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	mutex_unlock(&pci_slot_mutex);
- }
-@@ -299,6 +314,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 	slot->bus = pci_bus_get(parent);
- 	slot->number = slot_nr;
- 
-+	if (pci_slot_enabled_per_func())
-+		slot->per_func_slot = 1;
-+
- 	slot->kobj.kset = pci_slots_kset;
- 
- 	slot_name = make_slot_name(name);
-@@ -319,8 +337,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &parent->devices, bus_list)
--		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot_nr)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	up_read(&pci_bus_sem);
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index b628787e9485c..43f80d6189a7d 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -79,17 +79,18 @@
-  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
-  * devices.
-  */
--#define PCI_SLOT_ALL_DEVICES	0xfe
-+#define PCI_SLOT_ALL_DEVICES	0xfeff
- 
- /* Used to identify a slot as a placeholder */
--#define PCI_SLOT_PLACEHOLDER	0xff
-+#define PCI_SLOT_PLACEHOLDER	0xffff
- 
- /* pci_slot represents a physical slot */
- struct pci_slot {
- 	struct pci_bus		*bus;		/* Bus this slot is on */
- 	struct list_head	list;		/* Node in list of slots */
- 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
--	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	unsigned int		per_func_slot:1; /* Allow per function slot */
- 	struct kobject		kobj;
- };
- 
+ #define ARM_SMMU_OPT_SKIP_PREFETCH	(1 << 0)
 -- 
 2.53.0
 
