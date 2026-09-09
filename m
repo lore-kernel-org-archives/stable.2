@@ -1,162 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF3D2D2394;
-	Wed,  9 Sep 2026 14:35:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6871E568FB6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:35:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964538; cv=none; b=k0opTGVTedNIuh/l0z+D6BPNvz5FFnauDaMe+i6SpQKuUeEpksbdi3PWs6/MWgAfPXrJFBhXvyl1rMNRoAt5jGvJ9b2xu/ygiRs78C/GHfEMabu1hwnjhHXVwRNr8Af8q+zX5XnDVD2Lra+D1aJmXpexp/uuGjqz6dFtVhD0iJE=
+	t=1788964539; cv=none; b=gZK4AXhuRHSqDan1k1uysChNtfbgD0tuuAL/enwV5b2f9buS93zWnTbTd/N23E5pHdpdgDfVyPnhOVdv9Toj9axddAZkaDZcuVNrYzD+5+xSjGRnSEVkfDxuUbHLlqPFhC3JMjZrTzvbBPtyIneYbYeW7q56Saogg2jPdceQ/B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964538; c=relaxed/simple;
-	bh=S1c4Sv6Z7dALZMufAg1L8w0AAT5vJbressR6m5CFo2M=;
+	s=arc-20240116; t=1788964539; c=relaxed/simple;
+	bh=suGlSXrI0xjiwaB+TFxM0LNXOkwfoc3YnjxlVx8ATY0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N2cePEQ7Z/obqJTbJ59CKimsChrIPWybIGMF/+Sigys2H3TXfevY0cbLErcl3jwBWtZ59I1j8YjftWbfoSyweyZ0O71dhLLcWmAboqyIQSql/22vUA5hyTd2xIftWuXMYW85Lh4aQLoZ81Kd3KPYYnHFN5wmJR3HmQTMLENztYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lxhq9w58; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hv3K/2d4CsSQgs1lwqcNssVtxvuIl37U8V/NRrR4OdkSJUqLNv1ybNIZKlHoo3JM0PUaMdV+KOTKWPapXWMlg6jbkB2v0uk4yZefF6OvP6hM3kP8ICcg/TA3WzhDaBHbDFdzQYaQyDuf+9BeGlsI5ZrHwhLZs/iZnBW8O4vg+/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhVjQrgC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lxhq9w58"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9842D1F00A3E;
-	Wed,  9 Sep 2026 14:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788964537;
-	bh=j07Wu2jMeLBwbq0GyS6Z7lEk9fE3FHa6LKHsiJ6bOAc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhVjQrgC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2271F00ACA;
+	Wed,  9 Sep 2026 14:35:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788964538;
+	bh=WxmePzXqD2/5hULkFy74khiV8u3K68QXvGgrra8NNF0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lxhq9w58hJl5F3+WvLbntwtRHjfJidVD8OjcYy0kgMdDXWNuqsfDn7foCUFCM9yUm
-	 ucZUMPCL+t8DmBWkrl/OIiVw8SvOd3O6PxZrtCoL9P6EjZC0jDzixlw+hN0BcID4WG
-	 A4XljOWYT2nv4+hqINzbigfer9UE8KunScGRJfWc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=UhVjQrgCvJ+N1/+9CpKBHjovabZ4ypGapu/SuqZmfDWcNQ6jyMBiGscYUrpekEggX
+	 1fq1H7Jxiifj612deyFydHWcJe8FiItWmwU4s4NcAMyoEFBOeH7xHRjd1fizG/j++P
+	 tHIngIwEx1k1jpRmdFTQcUH2YzMiN+UBYP65zYQP4A7nwJEzJ+6oIRkITCp3g40XPk
+	 DvHqQV9nGwF+dSvy7AZBk+NGFd8flquUQ+o0O0o7FZg0XknKRCNbglboqQXjrM2aks
+	 NJxnglQurCnSDpdbFcyE5pxhC8MJS/dczGo/D9E5q8en1tkxGItNkiWhzFJUmVdWQd
+	 E9sfg5lC+Qh8g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Matthias Goergens <matthias.goergens@gmail.com>,
+Cc: Zhang Heng <zhangheng@kylinos.cn>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Joerg Roedel <jroedel@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 457/583] x86/xen: fix init of balloon stats again
-Date: Wed,  9 Sep 2026 15:42:22 +0200
-Message-ID: <20260909134253.762341789@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y 1/2] iommu/msm: Use helper function devm_clk_get_prepared()
+Date: Wed,  9 Sep 2026 10:35:34 -0400
+Message-ID: <20260909143535.2525461-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090342-rising-affidavit-4103@gregkh>
+References: <2026090342-rising-affidavit-4103@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Zhang Heng <zhangheng@kylinos.cn>
 
-------------------
+[ Upstream commit afc0cbc6e25b37dc9ba11d415ea6858902a7f04b ]
 
-From: Roger Pau Monne <roger@xenproject.org>
+Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
+and enabled clocks"), devm_clk_get() and clk_prepare() can now be replaced
+by devm_clk_get_prepared() when driver prepares the clocks for the whole
+lifetime of the device. Moreover, it is no longer necessary to unprepare
+the clocks explicitly.
 
-[ Upstream commit 5d00a11d484e7b31a358cd81afebccb4602dbe8c ]
-
-The handling of extra memory regions done in balloon_add_regions() is not
-correct for PV guests, since the initial target is set to reflect the real
-memory the system has, not what's described on the memory map, which can be
-higher if memory != maxmem.
-
-Introduce separate logic for addition vs subtraction in
-balloon_add_regions() and handle extra regions correctly by adding them to
-the total amount of pages, instead of subtracting from the current and
-target pages amounts.
-
-In the common case PV domU/dom0 and PVH dom0 will use the addition path,
-since the initial target reflects the real assigned memory.  HVM and PVH
-domUs use the subtraction path, since the target is set based on the amount
-of memory reported in the memory map, without accounting for released
-regions.
-
-Fixes: 87af633689ce ("x86/xen: fix balloon target initialization for PVH dom0")
-Fixes: 0949c646d646 ("Partial revert "x86/xen: fix balloon target initialization for PVH dom0"")
-Signed-off-by: Roger Pau Monné <roger@xenproject.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260805094008.95778-1-roger@xenproject.org>
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20250103113059.463033-1-zhangheng@kylinos.cn
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
+Stable-dep-of: 535a200220ca ("iommu/msm: Unwind probe state on registration failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/xen/balloon.c |   29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+ drivers/iommu/msm_iommu.c | 52 +++++++++------------------------------
+ 1 file changed, 11 insertions(+), 41 deletions(-)
 
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -679,7 +679,7 @@ void xen_free_ballooned_pages(unsigned i
- }
- EXPORT_SYMBOL(xen_free_ballooned_pages);
+diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
+index 16179a9a72830..90c7cbabaace3 100644
+--- a/drivers/iommu/msm_iommu.c
++++ b/drivers/iommu/msm_iommu.c
+@@ -708,47 +708,32 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 	iommu->dev = &pdev->dev;
+ 	INIT_LIST_HEAD(&iommu->ctx_list);
  
--static int __init balloon_add_regions(void)
-+static int __init balloon_add_regions(bool append)
- {
- 	unsigned long start_pfn, pages;
- 	unsigned long pfn, extra_pfn_end;
-@@ -703,19 +703,26 @@ static int __init balloon_add_regions(vo
- 			balloon_append(pfn_to_page(pfn));
+-	iommu->pclk = devm_clk_get(iommu->dev, "smmu_pclk");
++	iommu->pclk = devm_clk_get_prepared(iommu->dev, "smmu_pclk");
+ 	if (IS_ERR(iommu->pclk))
+ 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->pclk),
+ 				     "could not get smmu_pclk\n");
  
- 		/*
--		 * Extra regions are accounted for in the physmap, but need
--		 * decreasing from current_pages and target_pages to balloon
--		 * down the initial allocation, because they are already
--		 * accounted for in total_pages.
-+		 * There are two different use-cases depending on how the
-+		 * initial memory target is fetched.  For PVH dom0 and PV the
-+		 * target is usually set to reflect the domain assigned memory,
-+		 * and hence extra regions need adding.
-+		 *
-+		 * OTOH for HVM and PVH domU the target is set to the amount of
-+		 * RAM reported in the memory map, and hence extra regions need
-+		 * subtracting to reflect the real memory usage.
- 		 */
- 		pages = extra_pfn_end - start_pfn;
--		if (pages >= balloon_stats.current_pages ||
--		    pages >= balloon_stats.target_pages) {
-+		if (append) {
-+			balloon_stats.total_pages += pages;
-+		} else if (pages >= balloon_stats.current_pages ||
-+		           pages >= balloon_stats.target_pages) {
- 			WARN(1, "Extra pages underflow current target");
- 			return -ERANGE;
-+		} else {
-+			balloon_stats.current_pages -= pages;
-+			balloon_stats.target_pages -= pages;
- 		}
--		balloon_stats.current_pages -= pages;
--		balloon_stats.target_pages -= pages;
+-	ret = clk_prepare(iommu->pclk);
+-	if (ret)
+-		return dev_err_probe(iommu->dev, ret,
+-				     "could not prepare smmu_pclk\n");
+-
+-	iommu->clk = devm_clk_get(iommu->dev, "iommu_clk");
+-	if (IS_ERR(iommu->clk)) {
+-		clk_unprepare(iommu->pclk);
++	iommu->clk = devm_clk_get_prepared(iommu->dev, "iommu_clk");
++	if (IS_ERR(iommu->clk))
+ 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->clk),
+ 				     "could not get iommu_clk\n");
+-	}
+-
+-	ret = clk_prepare(iommu->clk);
+-	if (ret) {
+-		clk_unprepare(iommu->pclk);
+-		return dev_err_probe(iommu->dev, ret, "could not prepare iommu_clk\n");
+-	}
+ 
+ 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	iommu->base = devm_ioremap_resource(iommu->dev, r);
+ 	if (IS_ERR(iommu->base)) {
+ 		ret = dev_err_probe(iommu->dev, PTR_ERR(iommu->base), "could not get iommu base\n");
+-		goto fail;
++		return ret;
+ 	}
+ 	ioaddr = r->start;
+ 
+ 	iommu->irq = platform_get_irq(pdev, 0);
+-	if (iommu->irq < 0) {
+-		ret = -ENODEV;
+-		goto fail;
+-	}
++	if (iommu->irq < 0)
++		return -ENODEV;
+ 
+ 	ret = of_property_read_u32(iommu->dev->of_node, "qcom,ncb", &val);
+ 	if (ret) {
+ 		dev_err(iommu->dev, "could not get ncb\n");
+-		goto fail;
++		return ret;
+ 	}
+ 	iommu->ncb = val;
+ 
+@@ -763,8 +748,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 
+ 	if (!par) {
+ 		pr_err("Invalid PAR value detected\n");
+-		ret = -ENODEV;
+-		goto fail;
++		return -ENODEV;
  	}
  
- 	return 0;
-@@ -726,6 +733,7 @@ static int __init balloon_init(void)
- 	struct task_struct *task;
- 	long current_pages = 0;
- 	domid_t domid = DOMID_SELF;
-+	bool append = true;
- 	int rc;
+ 	ret = devm_request_threaded_irq(iommu->dev, iommu->irq, NULL,
+@@ -774,7 +758,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 					iommu);
+ 	if (ret) {
+ 		pr_err("Request IRQ %d failed with ret=%d\n", iommu->irq, ret);
+-		goto fail;
++		return ret;
+ 	}
  
- 	if (!xen_domain())
-@@ -745,6 +753,7 @@ static int __init balloon_init(void)
- 		} else {
- 			if (xen_unpopulated_pages >= get_num_physpages())
- 				goto underflow;
-+			append = false;
- 			current_pages = get_num_physpages() -
- 			                xen_unpopulated_pages;
- 		}
-@@ -767,7 +776,7 @@ static int __init balloon_init(void)
- 	register_sysctl_init("xen/balloon", balloon_table);
- #endif
+ 	list_add(&iommu->dev_node, &qcom_iommu_devices);
+@@ -783,23 +767,19 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 				     "msm-smmu.%pa", &ioaddr);
+ 	if (ret) {
+ 		pr_err("Could not add msm-smmu at %pa to sysfs\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
  
--	rc = balloon_add_regions();
-+	rc = balloon_add_regions(append);
- 	if (rc)
- 		return rc;
+ 	ret = iommu_device_register(&iommu->iommu, &msm_iommu_ops, &pdev->dev);
+ 	if (ret) {
+ 		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
  
-
+ 	pr_info("device mapped at %p, irq %d with %d ctx banks\n",
+ 		iommu->base, iommu->irq, iommu->ncb);
+ 
+ 	return ret;
+-fail:
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-	return ret;
+ }
+ 
+ static const struct of_device_id msm_iommu_dt_match[] = {
+@@ -807,21 +787,11 @@ static const struct of_device_id msm_iommu_dt_match[] = {
+ 	{}
+ };
+ 
+-static int msm_iommu_remove(struct platform_device *pdev)
+-{
+-	struct msm_iommu_dev *iommu = platform_get_drvdata(pdev);
+-
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-	return 0;
+-}
+-
+ static struct platform_driver msm_iommu_driver = {
+ 	.driver = {
+ 		.name	= "msm_iommu",
+ 		.of_match_table = msm_iommu_dt_match,
+ 	},
+ 	.probe		= msm_iommu_probe,
+-	.remove		= msm_iommu_remove,
+ };
+ builtin_platform_driver(msm_iommu_driver);
+-- 
+2.53.0
 
