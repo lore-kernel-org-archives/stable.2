@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC7C4A0149
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B76547125E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947911; cv=none; b=lVeLnI35VVcvg6/Vvf7fDo0f05vW7uEL8khczltnit/JmQr/HsJWWOmrVKHAf7LUsUyrojWE4O0qVpzKv/AB6Z6CxLMVuQCtlyKX8a/H7Sc0WyTxgXXmyVilvnnNS7vLYe8vw4mSzqKQzH6qXYBo3P/iZ+LdAuJ1ryCBW65VO/I=
+	t=1788947915; cv=none; b=ejns8HLAs39zmL7B3ceAccB5JPGIdTpfqPhhCr/Qgi0mXfcDyRYFu3NfqFN8+AJmk0epp8ETr//VqhjIf3oy/rlNQR/fEzL/Sd1I+8M4lWfcgS7ff5h4A1vQkMx95O6kDl05Pg34eWUnWZcZjPWo3h9oxt8iXyJkUwvRgry8aw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947911; c=relaxed/simple;
-	bh=vTo2g02JbEE48vQadnc1AagwFS44KWz9d6GGpZxblRk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=II2SDN+EeclFcdY8yDtotCi2LnZEPuJgCUHwRzWsSm5wBJc74wCpWgjLidpZ1sgWLZcHxi66VdMPOB8NzebXGAqP9Aurkc5huXaI0NOynlK5Ldx61ZN+dDE9XE8P0oIBd2XmXzmsGHaZj4y9SjKYhb2TrxS+5XKqHrehcF8DvMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YbYntvxg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947915; c=relaxed/simple;
+	bh=KCZaWqbgUSI5l0MumrVfAUF5LdQvw9ItS3I1oCHnt3A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AO3Aaf5DIm/CYHIf9B2UiBoMNT+0ZlmYBOs6B9pMF1zSkcO1wxn0NkeG4h/CVCVzJMj4XkR8J5/5L85xds5NziouzBYfJjkXMAhkykYi1QmbIs2phlMhr7EbfDk2vAbOc94b0wzGh38vxuh2fZNaCSq3yd4R5lKsruu0C3lho1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p1SgdpI4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YbYntvxg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E470C1F00A3A;
-	Wed,  9 Sep 2026 09:58:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p1SgdpI4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673681F00A3E;
+	Wed,  9 Sep 2026 09:58:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947903;
-	bh=5nYmfJkcwizDzHmuYCgGX8ZNYa3aMO03O+/DOwF8Akg=;
+	s=korg; t=1788947911;
+	bh=/aFOYk8lTUcpHsTSfHYJ3tsvQyOdtugxavX2qRPU2Ow=;
 	h=Subject:To:Cc:From:Date;
-	b=YbYntvxg8v+WqsGE7xKos3S7UwNozq0Q7hzrGhQ9A5NlmNxMVtg0U8Owuz7pJfrUR
-	 krrNrvuVCYeKo9moWGrDU7s6du6jO2KxafWVJgua/7ufZd1hXlkJyKrMQfeCrjW9+G
-	 Tx4eIBdg/5Z4N5wsjLHYVkJxn8fJNpXbtzALXbSM=
-Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 6.1-stable tree
-To: ruanjinjie@huawei.com,maddy@linux.ibm.com,sourabhjain@linux.ibm.com
+	b=p1SgdpI4BO8NDUREmrWphA2lZu7ksM7r4DGE+lluihZqtLZvtGwEG10MiJWXCHY3f
+	 1FoCeeKSDxv3a77cJvpleayiGRUUNYgH6nzNhyJPGoDjogAV50McRP8sFrOrlau2FZ
+	 4Saus9F7aPIqbqOAXYWbXSJ14n/8MpgDFftyUZrg=
+Subject: FAILED: patch "[PATCH] s390/vfio-ap: fix stale pqap_hook pointer on error in" failed to apply to 5.15-stable tree
+To: akrowiak@linux.ibm.com,borntraeger@linux.ibm.com,imbrenda@linux.ibm.com,mjrosato@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:52:25 +0200
-Message-ID: <2026090925-speech-sitting-aadd@gregkh>
+Date: Wed, 09 Sep 2026 11:53:29 +0200
+Message-ID: <2026090929-rubbed-ransack-ead1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x fa40f9dbdd4af53e7445d9135b5b207eb8adf372
+git cherry-pick -x 4400270ec0348d05dc0439d8f0130853ce7f9e20
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090925-speech-sitting-aadd@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090929-rubbed-ransack-ead1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,90 +62,161 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From fa40f9dbdd4af53e7445d9135b5b207eb8adf372 Mon Sep 17 00:00:00 2001
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-Date: Wed, 29 Jul 2026 09:29:48 +0800
-Subject: [PATCH] powerpc/kexec_file: Prevent kexec range truncation
+From 4400270ec0348d05dc0439d8f0130853ce7f9e20 Mon Sep 17 00:00:00 2001
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+Date: Thu, 6 Aug 2026 13:34:35 -0400
+Subject: [PATCH] s390/vfio-ap: fix stale pqap_hook pointer on error in
+ vfio_ap_mdev_set_kvm()
 
-Sashiko AI review pointed out the following issue.
+In vfio_ap_mdev_set_kvm(), kvm->arch.crypto.pqap_hook is set to
+&matrix_mdev->pqap_hook before the update locks are acquired and the
+mdev list is checked for a conflicting assignment. If another mdev is
+already attached to the same KVM instance, the function returns -EPERM
+without restoring the hook pointer, leaving kvm->arch.crypto.pqap_hook
+pointing at the failing matrix_mdev instead of the mdev that legitimately
+owns the KVM.
 
-The __merge_memory_ranges() function incorrectly handles overlapping
-memory ranges when merging them. Although sort_memory_ranges() sorts all
-ranges by their start address in ascending order beforehand, the merge
-logic remains defective in two ways:
+Since matrix_mdev->kvm is never set on this error path,
+vfio_ap_mdev_unset_kvm() will not clean up the hook when matrix_mdev
+is later closed. If matrix_mdev is subsequently freed, any PQAP
+instruction executed by the guest will dereference the stale pointer
+through pqap_hook_rwsem, resulting in a use-after-free.
 
-1. It compares the current range's start against the previous element (i-1)
-   instead of the running target index (idx)
+Since kvm->arch.crypto.pqap_hook is only set in the vfio_ap_mdev_set_kvm()
+function and is cleared in the vfio_ap_mdev_unset_kvm() function, a check
+for 'kvm->arch.crypto.pqap_hook != NULL' is all that is needed to determine
+whether it belongs to another mdev. This will alleviate the need to iterate
+the matrix_dev->mdev_list list to see if the kvm object is assigned to
+another mdev.This was introduced in v3 to alleviate the need to take the
+mdevs_lock while iterating the list; however, this did not prevent a
+potential race condition.
 
-2. It unconditionally overwrites 'ranges[idx].end' with 'ranges[i].end'.
+The pqap_hook_rwsem(write) is now performed inside
+get_update_locks_for_kvm(), which is updated to acquire
+pqap_hook_rwsem(write) between kvm->lock and mdevs_lock. This ordering
+is consistent with the PQAP intercept path, which acquires pqap_hook_rwsem
+in read mode while srcu is held under vcpu->mutex, establishing the
+dependency: kvm->lock -> vcpu->mutex -> srcu -> pqap_hook_rwsem(read).
 
-This logic flaw leads to critical memory truncation when a larger memory
-range completely subsumes subsequent smaller ranges.
+The pqap_hook_rwsem is now released inside the
+release_update_locks_for_kvm(), which is updated to release
+pqap_hook_rwsem(write) between mdevs_lock and kvm->lock.
 
-For example, consider a sorted input array with three ranges:
-  Range A (idx=0): [0x1000 - 0x9000]
-  Range B (i=1):   [0x2000 - 0x5000] (completely inside Range A)
-  Range C (i=2):   [0x6000 - 0x8000] (completely inside Range A)
+Additionally, kvm_put_kvm() in vfio_ap_mdev_unset_kvm() is moved
+after release_update_locks_for_kvm(). Previously it was called while
+kvm->lock was held; if it were ever the last reference, kvm_destroy_vm()
+would run under kvm->lock, which would deadlock.
 
-1. When i=1 (Range B):
-   ranges[1].start (0x2000) <= ranges[0].end + 1 (0x9001) is TRUE.
-   The code executes: ranges[0].end = ranges[1].end, which erroneously
-   shrinks Range A's end from 0x9000 down to 0x5000.
-
-2. When i=2 (Range C):
-   ranges[2].start (0x6000) <= ranges[1].end + 1 (0x5001) is FALSE.
-   The code falls into the else block, creating a broken new range.
-
-As a result, valid memory fragments [0x5001 - 0x5fff] and [0x8001 - 0x9000]
-are completely lost from the kexec exclude lists, potentially allowing
-the crash kernel to overwrite active memory, causing data corruption
-or crashes.
-
-Fix this by ensuring the start of the current range is compared against the
-end of the active merged range (idx), and use max() to safely prevent the
-outer boundary from being truncated.
-
+Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
 Cc: stable@vger.kernel.org
-Fixes: 180adfc532a8 ("powerpc/kexec_file: Add helper functions for getting memory ranges")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260729012948.2797865-4-ruanjinjie@huawei.com
+Co-developed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Acked-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260806173435.105044-1-akrowiak@linux.ibm.com>
 
-diff --git a/arch/powerpc/kexec/ranges.c b/arch/powerpc/kexec/ranges.c
-index 867135560e5c..eb45e89502ca 100644
---- a/arch/powerpc/kexec/ranges.c
-+++ b/arch/powerpc/kexec/ranges.c
-@@ -21,6 +21,7 @@
- #include <linux/of.h>
- #include <linux/slab.h>
- #include <linux/memblock.h>
-+#include <linux/minmax.h>
- #include <linux/crash_core.h>
- #include <asm/sections.h>
- #include <asm/kexec_ranges.h>
-@@ -105,19 +106,16 @@ static void __merge_memory_ranges(struct crash_mem *mem_rngs)
- 	struct range *ranges;
- 	int i, idx;
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 44b3a1dcc1b3..99a0efd999ef 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -48,15 +48,19 @@ static void vfio_ap_mdev_reset_queue(struct vfio_ap_queue *q);
+  * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
+  *			       guest's APCB.
+  * 2. kvm->lock:	       required to update a guest's APCB
+- * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
++ * 3. kvm->arch.crypto.pqap_hook_rwsem: required to update pqap_hook and
++ *					serialize against PQAP intercepts
++ * 4. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
+  *
+- * Note: If @kvm is NULL, the KVM lock will not be taken.
++ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be taken.
+  */
+ static inline void get_update_locks_for_kvm(struct kvm *kvm)
+ {
+ 	mutex_lock(&matrix_dev->guests_lock);
+-	if (kvm)
++	if (kvm) {
+ 		mutex_lock(&kvm->lock);
++		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
++	}
+ 	mutex_lock(&matrix_dev->mdevs_lock);
+ }
  
--	if (!mem_rngs)
-+	if (!mem_rngs || mem_rngs->nr_ranges <= 1)
- 		return;
+@@ -68,16 +72,19 @@ static inline void get_update_locks_for_kvm(struct kvm *kvm)
+  *
+  * The proper unlocking order is:
+  * 1. matrix_dev->mdevs_lock
+- * 2. kvm->lock
+- * 3. matrix_dev->guests_lock
++ * 2. kvm->arch.crypto.pqap_hook_rwsem
++ * 3. kvm->lock
++ * 4. matrix_dev->guests_lock
+  *
+- * Note: If @kvm is NULL, the KVM lock will not be released.
++ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be released.
+  */
+ static inline void release_update_locks_for_kvm(struct kvm *kvm)
+ {
+ 	mutex_unlock(&matrix_dev->mdevs_lock);
+-	if (kvm)
++	if (kvm) {
++		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+ 		mutex_unlock(&kvm->lock);
++	}
+ 	mutex_unlock(&matrix_dev->guests_lock);
+ }
  
- 	idx = 0;
--	ranges = &(mem_rngs->ranges[0]);
-+	ranges = mem_rngs->ranges;
- 	for (i = 1; i < mem_rngs->nr_ranges; i++) {
--		if (ranges[i].start <= (ranges[i-1].end + 1))
--			ranges[idx].end = ranges[i].end;
-+		if (ranges[i].start <= (ranges[idx].end + 1))
-+			ranges[idx].end = max(ranges[idx].end, ranges[i].end);
- 		else {
- 			idx++;
--			if (i == idx)
--				continue;
+@@ -1821,26 +1828,17 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
+ static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
+ 				struct kvm *kvm)
+ {
+-	struct ap_matrix_mdev *m;
 -
- 			ranges[idx] = ranges[i];
+ 	if (kvm->arch.crypto.crycbd) {
+-		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
+-		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-
+ 		get_update_locks_for_kvm(kvm);
+-
+-		list_for_each_entry(m, &matrix_dev->mdev_list, node) {
+-			if (m != matrix_mdev && m->kvm == kvm) {
+-				release_update_locks_for_kvm(kvm);
+-				return -EPERM;
+-			}
++		if (kvm->arch.crypto.pqap_hook) {
++			release_update_locks_for_kvm(kvm);
++			return -EPERM;
  		}
++		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
+ 
+ 		kvm_get_kvm(kvm);
+ 		matrix_mdev->kvm = kvm;
+ 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
+-
+ 		release_update_locks_for_kvm(kvm);
  	}
+ 
+@@ -1883,18 +1881,15 @@ static void vfio_ap_mdev_unset_kvm(struct ap_matrix_mdev *matrix_mdev)
+ 	struct kvm *kvm = matrix_mdev->kvm;
+ 
+ 	if (kvm && kvm->arch.crypto.crycbd) {
+-		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-		kvm->arch.crypto.pqap_hook = NULL;
+-		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-
+ 		get_update_locks_for_kvm(kvm);
++		kvm->arch.crypto.pqap_hook = NULL;
+ 
+ 		kvm_arch_crypto_clear_masks(kvm);
+ 		vfio_ap_mdev_reset_queues(matrix_mdev);
+-		kvm_put_kvm(kvm);
+ 		matrix_mdev->kvm = NULL;
+ 
+ 		release_update_locks_for_kvm(kvm);
++		kvm_put_kvm(kvm);
+ 	}
+ }
+ 
 
