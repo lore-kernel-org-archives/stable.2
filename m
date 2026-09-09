@@ -1,223 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A7F49C4A6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39385374E74;
+	Wed,  9 Sep 2026 09:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947893; cv=none; b=Ql+dqNlY/b0Uaw3k5VUzuM/JRHJDu5/rZMnM0VDyF19GASNauyUMPAUkwuZLPMVF//Srt11RYSLUe0noddulbZCTCjiRnIRg40B1YJmIFjzuhH4aAZSv621LBu+glwDTsNv7PIpPRajQ78JQK53erG1Uk2zXAEFAAq3qpRQ8LYw=
+	t=1788947892; cv=none; b=oS2mMkhII9cs5b3kIHF0PDPKYfNUNmgcTPPS49EO6JxLNX3pSa6ip/dvRy/4ZYb3G1tV+D8gDsXAYnTmzhzW+AHph5xtbzyEFY7vwmmebLD7XLirEJ8ggPLYh5giagVlhzQBRpXA0N48CyAXeWjB++s2Hl6raVTrVA6f9PV5OqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947893; c=relaxed/simple;
-	bh=e29okG4iWn7r/tlH/M37cCHMA091pOvWUV+216/LtwQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DLDxpiBMhd6rhVXdzkQ9jnRH+h7RR8l77bSx8sNv8Axo9Xh7nrZg3D3J/nBNwLp063o6kzcNAJ99X7GkhQKYbxXWCX8rcya1diUagsk9vG8g+Y8ueCuKkoKc3mhDUXnzVyyVtQW8UqKUca92W1wvQlg4IziU1sF67RdcL/jyFIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F5GpIdeO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F5GpIdeO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8741F00A3A;
-	Wed,  9 Sep 2026 09:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947889;
-	bh=R5N9pDkXy5a/KwVHTEWQEWCYQWURvYkZVmRE7ivoxrk=;
-	h=Subject:To:Cc:From:Date;
-	b=F5GpIdeOQ03YZlqkAs06YfJZYZDcqpZL0JepidwWLQaH9GNK+jUIbZG2ApyjHEoIC
-	 eXdK31mAipGef4hIb/bTByxJn3EGebZrottdSZGNd6SGoRKqBHsiZ/8PzZeXV2hKES
-	 Jv5dMGzir93//BZtTiAKhvVxSOkECJ6BrCbXtVBw=
-Subject: FAILED: patch "[PATCH] nvdimm: virtio_pmem: refcount requests for token lifetime" failed to apply to 5.15-stable tree
-To: me@linux.beauty,mst@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:51:40 +0200
-Message-ID: <2026090940-devious-fetal-559f@gregkh>
+	s=arc-20240116; t=1788947892; c=relaxed/simple;
+	bh=Nj3EVXKwlfNLDYegToFfkspo4D9W2IFkM1BJ90/B/9U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G5+sSfPCkIZxU3Vl55DGUhZ/dXAIb3TYNvPDMMp7RbIlGJU1IvIJOGqWl0pdQ0liCVTzF23BlSaBfNzFhfmr5qAOH4kO55MRUL+US0dAqgEQ7ej6KDvKbazGwhs5+AUBKZYlW4lwEZ7HafSCuyfTi7evCCl537DxG//AC2vXQK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXkAujLaFq49ECAQ--.1695S3;
+	Wed, 09 Sep 2026 17:57:56 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgD3DnGhLaFqkkoKBQ--.60073S2;
+	Wed, 09 Sep 2026 17:57:53 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-usb@vger.kernel.org
+Cc: Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>,
+	Sicong Huang <congei42@163.com>,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
+Date: Wed,  9 Sep 2026 09:56:55 +0000
+Message-Id: <20260909095655.694527-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgD3DnGhLaFqkkoKBQ--.60073S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?gMQ6AAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WOJf1TmBfj9V/FX62qiNmpj7C/rZCZO5Px88A8M3Vc63aFF
+	qyiUrJk52N752BmG4h6p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7uFWUtF4DWw4UKFy7JF1rXwc_yoW8ZFyrpa
+	95KFW5AFWkJrZ8t3WqywsrurW5Ww4Yya42krZ2y39xZFsxAF15KryakrWjgF4UAFykuF4j
+	yrn8W3Wv9F4YyFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
+cdns3_gadget_start() arms two works on system_freezable_wq:
+pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
+for realigned request buffers. Both handlers use the cdns3_device the
+works are embedded in, and cdns3_pending_setup_status_handler() also
+calls the ep0 request completion.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+cdns3_gadget_exit() does not wait for these works. It frees all
+endpoints and aligned buffers and drops the last reference to the
+gadget device, which frees priv_dev, so a work queued before the exit
+can run after the free.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fix this by waiting for both works after the gadget driver is unbound
+and the IRQ is freed, when no new work can be queued, and before the
+endpoints and buffers are released.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x e57140944b5a47a7fd5a142faab29a02af040bc8
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090940-devious-fetal-559f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+This issue was found by an in-house static analysis tool.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e57140944b5a47a7fd5a142faab29a02af040bc8 Mon Sep 17 00:00:00 2001
-From: Li Chen <me@linux.beauty>
-Date: Tue, 30 Jun 2026 17:23:33 +0800
-Subject: [PATCH] nvdimm: virtio_pmem: refcount requests for token lifetime
-
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
-
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
-
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
-
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
-
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
-
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260630092338.2094628-9-me@linux.beauty>
+Reported-by: Sicong Huang <congei42@163.com>
+Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
+Suggested-by: Sicong Huang <congei42@163.com>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/usb/cdns3/cdns3-gadget.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index 8c0d4347938a..1cf53f75b128 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -15,6 +15,14 @@ struct virtio_pmem_flush_work {
- 	struct bio *bio;
- };
+diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+index 42311c1bf..0d272e9c5 100644
+--- a/drivers/usb/cdns3/cdns3-gadget.c
++++ b/drivers/usb/cdns3/cdns3-gadget.c
+@@ -3269,6 +3269,10 @@ static void cdns3_gadget_exit(struct cdns *cdns)
+ 	usb_del_gadget(&priv_dev->gadget);
+ 	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
  
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
++	/* The works can still be queued until the IRQ is freed. */
++	cancel_work_sync(&priv_dev->pending_status_wq);
++	cancel_work_sync(&priv_dev->aligned_buf_wq);
 +
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
-+
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
- {
- 	struct virtio_pmem_request *req_buf;
-@@ -42,6 +50,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
- 	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- }
-@@ -72,6 +81,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
+ 	cdns3_free_all_eps(priv_dev);
  
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -89,10 +99,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
- 
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -101,6 +124,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -116,7 +140,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
- 	return err;
- };
- 
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index e6dfc10ce076..3af92588bd9d 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,12 +12,14 @@
- 
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
- 
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
- 
+ 	while (!list_empty(&priv_dev->aligned_buf_list)) {
 
