@@ -1,159 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083D3559314
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CD5111B9;
+	Wed,  9 Sep 2026 12:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958061; cv=none; b=aqFGZ+rUReP55sxFnz9OF8NgCl5dkTOJ4HAnHz8+qpIbTQWTsFD/i0Da9Z0sqPk1LP9N3W6UJXD+HJrKxI2JbXyuOcVkBniM8d0D06FGi8etbAB9CvAZmD03r7clctc1QZausF+o3J4kWfqYqvKN1QhDtbyduN6gk5IabaaQIN4=
+	t=1788958083; cv=none; b=hqsuXP5g9waByv59loAyoSTg9CNPiufP3aA0+t2enMy7A9KwxmR9V9HkYKhXRi853ei2DX0ZL+kFHVTMHoruAOjafrh1yrLpAN3E3dQm0WgTi/u9W1sfqPMr8DgqgTJlQhzBhtApo/sW479WSmH/5yXIe48/7LHAauSWt58p57E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958061; c=relaxed/simple;
-	bh=yjnnbPi5TkP2uaGhDEtr0coS2a5EbD9dVJtNej0SVAQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOtuE9H5xNf/ZfUlrVLi5o2e+nMFEWBYx+yUmGd8pa29SyDTLPPu0uaLVz8Y3qhz/ZWwkoPSzUAIcThyh9ncx5U3tmdf5D6UQ1jhTlAuJX5suyG3Cjpb1bF+8GDh89XeraumIkRkp/vWzxloyYFgSFhV+WzqPNfCPtnRpCRQJFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VI7e9WBF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788958083; c=relaxed/simple;
+	bh=UH6njIIyQR9OD67VxOrA7ozK5cAuBO8Er8TuNdULDmc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ec2/gKAaWTT8ZSzgi89GZVcZVdSI2nXoVvD13AnodoP6g+Hc7nByfqtcyLpVn4d6W639mMyLcS76LUmzHqJlXSxyAmOfppdF4JbTyySfGon8BpDPukp117JBmdU1CdqNwXf+Buf/g/rIvDDyD4p3RKI6qihmFtx0GXtw7RjfGgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ADDLMYnF; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VI7e9WBF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A811F00A3A;
-	Wed,  9 Sep 2026 12:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788958058;
-	bh=JBkkvY+WJG3TYSpRbn9ebg7B3luGI39GMVqvlk9sfyY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VI7e9WBFnMoV7LO6ThueXNe2jD8nFc2R2nKlmGxf5w2RpWucwbxpTuLQeR7RWqmTq
-	 yxnDNJaHuFkoW+J8KzmTnICEw0BcQQxbKXV/grCDx9nnux9uJttr/b09FwIaz3JaFH
-	 Hu4Sv0teOjT0FN00n2xjJPIqmNznGxs83Js3E69E=
-Date: Wed, 9 Sep 2026 14:44:26 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, NeilBrown <neil@brown.name>,
-	Li Lingfeng <lilingfeng3@huawei.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>
-Subject: Re: [PATCH 6.18.y 1/3] nfsd: use workqueue enable/disable APIs for
- v4_end_grace sync
-Message-ID: <2026090920-chef-unsealed-26d9@gregkh>
-References: <2026090325-overpass-emoticon-993a@gregkh>
- <20260905032834.1915305-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ADDLMYnF"
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 4C8ADA0202;
+	Wed,  9 Sep 2026 12:47:55 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 2ED5B80015;
+	Wed,  9 Sep 2026 12:47:50 +0000 (UTC)
+Date: Wed, 9 Sep 2026 08:49:06 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Ran Hongyun <ranhongyun1@huawei.com>
+Cc: <florian.bezdeka@siemens.com>, <axboe@kernel.dk>,
+ <bigeasy@linutronix.de>, <brauner@kernel.org>, <chengzhihao1@huawei.com>,
+ <clrkwllms@kernel.org>, <frederic@kernel.org>, <jack@suse.cz>,
+ <jdamato@fastly.com>, <john.ogness@linutronix.de>,
+ <kprateek.nayak@amd.com>, <linux-fsdevel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>,
+ <linux-rt-users@vger.kernel.org>, <mkarsten@uwaterloo.ca>,
+ <namcao@linutronix.de>, <stable@vger.kernel.org>,
+ <torvalds@linux-foundation.org>, <viro@zeniv.linux.org.uk>,
+ <vschneid@redhat.com>, <wozizhi@huawei.com>, <xry111@xry111.site>,
+ <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: Re: [QUESTION] Are these issues PREEMPT_RT-specific?
+Message-ID: <20260909084906.75ebe0ea@gandalf.local.home>
+In-Reply-To: <20260909030506.344667-1-ranhongyun1@huawei.com>
+References: <63d5cd58e9b85acccdaaac9aed4a8c550cc7b868.camel@siemens.com>
+	<20260909030506.344667-1-ranhongyun1@huawei.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905032834.1915305-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 2ED5B80015
+X-Stat-Signature: o3fwibtfheyjf6uxcieed6spah8gf4o6
+X-Rspamd-Server: rspamout03
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19Xhy7OK4OBMc93k3sLXpaXbNrFBmTU+H4=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=2JZIG0evn7FRLH7buEDQNvcDz4SWp2iw0ronrwwEllg=; b=ADDLMYnF3uDGdfsjFF0AU4mcXm38KNdi8JQJqfv2s53fOhf4+RXiDVgvjxqa2qfF+eWgYXqLtvVi2r6E08M1MGNT+fqqwDF52gB0YKtOpd7t4QfDjaEHj1AhZqNh9XZiz5cv79QyyIa6+fo1PJChOsle7nl88pcyxnhjlfRkMhU=
+X-HE-Tag: 1788958070-860100
+X-HE-Meta: U2FsdGVkX197gq9AYxmfVVmX8SBppYiJWxnth8UqyGIuz6uN3lbwz0pQN7siOw3O4K0M7d4v3vNtgdpSjudf8Q3H833uzaqs1ZB9LiXp/7l6WMYMfifkrHrWiG3iE4YpahG4qYMB/z74IxWPawDwy+le3fYdPgQZIBe6+TktybcVJeTH3KS9TtSQJiWLN4Rf3I9iLhilR9Uhgnch0QOvP7kUktj5KHGRuGz+rEHhAL14UZZkhrroFB52+2Oo2d1S8Z/IMYhj1hfDgtrfuPTvugC5o0UhmQzs+HeDWnndpf6D8+/C80z7YhEhGTv8oy4mQQIn7yLB4nr8YGUvVuOZDrUBMKR44PXZ
 
-On Fri, Sep 04, 2026 at 11:28:32PM -0400, Sasha Levin wrote:
-> From: NeilBrown <neil@brown.name>
-> 
-> [ Upstream commit 27e383ddeb3c88e20874c545285f2dce1a98f56a ]
-> 
-> "nfsd: provide locking for v4_end_grace" introduced a
-> client_tracking_active flag protected by nn->client_lock to prevent
-> the laundromat from being scheduled before client tracking
-> initialization or after shutdown begins. That commit is suitable for
-> backporting to LTS kernels that predate commit 86898fa6b8cd
-> ("workqueue: Implement disable/enable for (delayed) work items").
-> 
-> However, the workqueue subsystem in recent kernels provides
-> enable_delayed_work() and disable_delayed_work_sync() for this
-> purpose. Using this mechanism enable us to remove the
-> client_tracking_active flag and associated spinlock operations
-> while preserving the same synchronization guarantees, which is
-> a cleaner long-term approach.
-> 
-> Signed-off-by: NeilBrown <neil@brown.name>
-> Tested-by: Li Lingfeng <lilingfeng3@huawei.com>
-> Reviewed-by: Jeff Layton <jlayton@kernel.org>
-> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-> Stable-dep-of: 9b57793863f6 ("nfsd: dedup nfs4_client_to_reclaim inserts")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  fs/nfsd/netns.h     |  1 -
->  fs/nfsd/nfs4state.c | 22 +++++++++-------------
->  2 files changed, 9 insertions(+), 14 deletions(-)
-> 
-> diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-> index fe8338735e7cc..d83c68872c4c3 100644
-> --- a/fs/nfsd/netns.h
-> +++ b/fs/nfsd/netns.h
-> @@ -67,7 +67,6 @@ struct nfsd_net {
->  	struct lock_manager nfsd4_manager;
->  	bool grace_ended;
->  	bool grace_end_forced;
-> -	bool client_tracking_active;
->  	time64_t boot_time;
->  
->  	struct dentry *nfsd_client_dir;
-> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-> index c9d9a7d46e7b2..8c47c7fbd6a34 100644
-> --- a/fs/nfsd/nfs4state.c
-> +++ b/fs/nfsd/nfs4state.c
-> @@ -6653,14 +6653,14 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
->  {
->  	if (!nn->client_tracking_ops)
->  		return false;
-> -	spin_lock(&nn->client_lock);
-> -	if (nn->grace_ended || !nn->client_tracking_active) {
-> -		spin_unlock(&nn->client_lock);
-> +	if (READ_ONCE(nn->grace_ended))
->  		return false;
-> -	}
-> +	/* laundromat_work must be initialised now, though it might be disabled */
->  	WRITE_ONCE(nn->grace_end_forced, true);
-> +	/* mod_delayed_work() doesn't queue work after
-> +	 * nfs4_state_shutdown_net() has called disable_delayed_work_sync()
-> +	 */
->  	mod_delayed_work(laundry_wq, &nn->laundromat_work, 0);
-> -	spin_unlock(&nn->client_lock);
->  	return true;
->  }
->  
-> @@ -8995,7 +8995,6 @@ static int nfs4_state_create_net(struct net *net)
->  	nn->boot_time = ktime_get_real_seconds();
->  	nn->grace_ended = false;
->  	nn->grace_end_forced = false;
-> -	nn->client_tracking_active = false;
->  	nn->nfsd4_manager.block_opens = true;
->  	INIT_LIST_HEAD(&nn->nfsd4_manager.list);
->  	INIT_LIST_HEAD(&nn->client_lru);
-> @@ -9010,6 +9009,8 @@ static int nfs4_state_create_net(struct net *net)
->  	INIT_LIST_HEAD(&nn->blocked_locks_lru);
->  
->  	INIT_DELAYED_WORK(&nn->laundromat_work, laundromat_main);
-> +	/* Make sure this cannot run until client tracking is initialised */
-> +	disable_delayed_work(&nn->laundromat_work);
->  	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
->  	get_net(net);
->  
-> @@ -9077,9 +9078,7 @@ nfs4_state_start_net(struct net *net)
->  	locks_start_grace(net, &nn->nfsd4_manager);
->  	nfsd4_client_tracking_init(net);
->  	/* safe for laundromat to run now */
-> -	spin_lock(&nn->client_lock);
-> -	nn->client_tracking_active = true;
-> -	spin_unlock(&nn->client_lock);
-> +	enable_delayed_work(&nn->laundromat_work);
->  	if (nn->track_reclaim_completes && nn->reclaim_str_hashtbl_size == 0)
->  		goto skip_grace;
->  	printk(KERN_INFO "NFSD: starting %lld-second grace period (net %x)\n",
-> @@ -9128,10 +9127,7 @@ nfs4_state_shutdown_net(struct net *net)
->  
->  	shrinker_free(nn->nfsd_client_shrinker);
->  	cancel_work_sync(&nn->nfsd_shrinker_work);
-> -	spin_lock(&nn->client_lock);
-> -	nn->client_tracking_active = false;
-> -	spin_unlock(&nn->client_lock);
-> -	cancel_delayed_work_sync(&nn->laundromat_work);
-> +	disable_delayed_work_sync(&nn->laundromat_work);
->  	locks_end_grace(&nn->nfsd4_manager);
->  
->  	INIT_LIST_HEAD(&reaplist);
-> -- 
-> 2.53.0
-> 
-> 
+On Wed, 9 Sep 2026 11:05:05 +0800
+Ran Hongyun <ranhongyun1@huawei.com> wrote:
 
-This series breaks the build :(
+> Florian,
+>=20
+> Thank you for your reply.
+>=20
+> Now I understand that the issues are particularly critical on PREEMPT_RT.=
+=20
+> However, I=E2=80=99m still not entirely clear about the "performance or t=
+hroughput
+> drop" you mentioned for !RT systems. Since !RT kernels are
+> non-preemptible, unbounded priority inversion and stalls should not occur.
+
+That is incorrect. !RT kernels have been preemptible for decades. There are
+different levels:
+
+  SERVER - non preemptible (but no distributions use that)
+  VOLUNTARY - Has preemptible points in the kernel (might_sleep()) - most d=
+istros used this
+  FULL - Preempts everywhere that doesn't turn off preemption
+  RT - Turns spin locks into mutexes and preempts there too
+
+Regardless of that, unbound priority inversion can happen even in SERVER
+mode. All it takes is three tasks sharing a mutex. Only RT implements
+priority inheritance (for all locks but reader locks) in the kernel which
+would prevent unbounded priority inversion with normal locks.
+
+> Are there any other factors that could still cause such a performance or
+> throughput drop?
+>=20
+> In other words, if I am running a !RT system, what benefit can I actually
+> expect from switching from rwlock to spinlock?
+
+Lack of priority inheritance is true for both RT and !RT in rwlocks. Hence
+that does affect both of them.
+
+-- Steve
