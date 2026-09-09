@@ -1,147 +1,249 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE07B188CC9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D798C49893A;
+	Wed,  9 Sep 2026 09:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947285; cv=none; b=CfwMT1oNnefx7XpbQjT8OvAGcyKi1L9is4EUuYC7bRwwg/eyIPHJwZqda/sLT9nqEmizgmtB4w4lvq3qSMtlah1FlZZLjwv7kXj9+ZJSYiH5tMczLRJjWNZ6BEijcEj6ekQivE+I7L/DLtixfub674gM0S6dAFYcgdr77YbJ4vY=
+	t=1788947734; cv=none; b=moeCjr8/dDhqEHAjWIOXD2rJZGpzLz581N0CWkIyuyE1YzD1JR+CMC9epE8IB+1yxHR878xVqYMjBV8LPhIdZ70Xi95Tbt1aHNsXB/NxJoXZs35dcU1yDqqbUOuP1651xRjmRYZUGdsbYoOYb/q28nRGH/+cPJpb1S/julXxgao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947285; c=relaxed/simple;
-	bh=9YnSkGV5xot8x/9vsT+M0pfZ4f1n7pX1cnSiwpb6HIo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XrqYjp27k3MxGd0ywcIwHITcqAY7TuEGKBN/q3EPb3XIO33Fa39QIx/LqIeN7apAmW8Uirfl3k8wMspvkChR6BzgUKJsKCt7knFNe7NWyhdJ4y+j1tpQ+E6df5PyyeUxzsFlNsJl4/j0LNtO+9g6tj3lYr09QwLBvTauLAWTFJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2eF8s5dZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947734; c=relaxed/simple;
+	bh=bmb7F/KmHSolAVosZ3/3evD9wdGrdLkhhTytnse9zzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bWCKRcLD9rmWKAgc22I20aUkDfKBkbA5WqVE9XAq6u8gv71YUBySgSqh93TShdO3lQEH79xgMXxlua7WlctyDYgJ1cTeYmB4QkESmkChnOTO+TcAKD/wVo18tz2/Cm+cqKUPzvOTc+dPpk4WK0z8+63/BX8wyLJnMCrTQBXET94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EESciEDl; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2eF8s5dZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14DDD1F00A3A;
-	Wed,  9 Sep 2026 09:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947284;
-	bh=tKpSxCf0T8pcOi3WggLVUaj7mnQ5ZX1OAa8GDlzAdhY=;
-	h=Subject:To:Cc:From:Date;
-	b=2eF8s5dZBOTOXUgJMqfXoz/QxCTSWGigHFFqHmRYpYmXXprxxTbwcC37TE1G2ll0V
-	 lQdi99ru71sJVphdCC39CHDBllgs1YCa7sGPIiX9RM5oWGTJu2w6tNciMvQcBh9tjy
-	 1m0B6DKlv4ElVH0YviDsfWa5f3L9K0iIX5i+j+zo=
-Subject: FAILED: patch "[PATCH] mm/mremap: reset unfaulted VMA page offset for" failed to apply to 5.10-stable tree
-To: ljs@kernel.org,akpm@linux-foundation.org,jannh@google.com,kunwu.chan@gmail.com,liam@infradead.org,lixinhai.lxh@gmail.com,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:45:59 +0200
-Message-ID: <2026090959-reuse-exhume-d04a@gregkh>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EESciEDl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=r5XQn9SuvKZL4DTuoGdXOdgvz47Ewuz3TXXvq+vUgwo=; b=EESciEDlQ+xy8dwFvNTaXVYvjH
+	r/fYBv2OR8M3Fc/UYGG6H8n/TyMsO1jBQEf5eL15O/v6X5dgYRxUx/AcfdqlXbApM/wiEDdFD14XY
+	8c/s17Ts7fPtA79hc+zmeCeEmV46ohXVAdjJmxfIbU2lZDcG2M6Jr3XupaGqslzi8cwh8fg16DJDz
+	LUxMU4nMSsIwsUIoQEA3OoP2L4NMSZiAHGJCKj3hCY+dOMPHRjpexqCoPr7XOyeJYrh54ra4n2HAz
+	iRl62mwuk0DK5GNH87SFSlD/ZYXJUJhrIimRmmBTwi8S1cJcoG8kU5HXi3SZ+izbiAjTllOLb8SK2
+	jsscZ/Og==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4F1U-00000003gfr-0SNO;
+	Wed, 09 Sep 2026 09:55:20 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 02DC23005AF; Wed, 09 Sep 2026 11:55:19 +0200 (CEST)
+Date: Wed, 9 Sep 2026 11:55:18 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ecf223n4.ffs@fw13>
 
+On Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner wrote:
+> On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> > On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> > Let me try and have a go :-)
+> >
+> >
+> > do_exit()				de_thread() 			posix_timer_fn()
+> >   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+> >     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+> >     tsk->flags |= PF_EXITING; 						    LOCK siglock
+> >     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+> >     					    LOCK tasklist_lock
+> >     flush_sigqueue_list();		    if (leader->exit_state)
+> > 					      break;
+> >   ...                                       transfer_pid()
+> > 					    UNLOCK tasklist_lock
+> >   exit_notify()
+> >     LOCK tasklist_lock
+> >     tsk->exit_state = EXIT_ZOMBIE;
+> >     UNLOCK tasklist_lock
+> >
+> >
+> >
+> > Then there is indeed nothing that makes sure posix_timer_fn() sees
+> > sigqueue updates done by do_exit(), because those are ordered by
+> > tasklist_lock, but posix_timer_fn() doesn't care about that.
+> 
+> That's irrelevant because in the above scenario posix_timer_fn() 't'
+> points to the exiting old leader (on the left) because the PID store has
+> not happened yet and it therefore observes PF_EXITING on it so it won't
+> touch the sigqueue. Note, that setting and checking PF_EXITING is
+> serialized by sighand lock, so this is fine.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+There is nothing that constraints the 3rd column from happening before,
+it could happen after transfer_pid().
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> > The easy solution would probably be to do transfer_pid() while holding
+> > siglock?
+> 
+> That'd be only relevant for the situation Frederic is concerned about,
+> i.e. the case where the third party observes the TID swap.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 35b0fb391b0df57383bc15985bb769f4555c97ba
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090959-reuse-exhume-d04a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+That is the case I was aiming at.
 
-Possible dependencies:
+> Because with that visible 't' in posix_timer_send_sigqueue() won't be
+> old_leader, which has PF_EXITING set, it will be new_leader which has it
+> not set.
 
+Same as above, there is nothing constraining the 3rd column from sliding
+up or down. If it manages to see the new_leader, I don't see why it
+would see the sigqueue flush.
 
+> So Frederic is concerned that posix_timer_send_sigqueue() can observe
+> the PID store but not observe the sigqueue stores.
+> 
+> I argue that's not possible:
+> 
+> A:  sigqueue stores
+> 
+> B:   AQUIRE tasklist
+> 
+> C:   exit_state store
+> 
+> D:   RELEASE tasklist
+>      // sigqueue and exit_state stores become globally visible
+>  ------------------------------------------------------------------------
+> 
+> E                               ACQUIRE tasklist
+>  ------------------------------------------------------------------------
+> F                                if (exit_state)
+> 				   swap_pid()
+> G                                     STORE_PID
+> 
+> 				// The PID store can become visible in the
+> 				// system right here so F can observe them before
+> 				// RELEASE tasklist
 
-thanks,
+The STORE_PID is not a STORE_RELEASE.
 
-greg k-h
+> H                                                             READ PID
 
------------------- original commit in Linus's tree ------------------
+And this READ is not LOAD_AQUIRE; although the LOCK siglock is probably
+sufficient here. The READ MUST happen before LOCK siglock by means of
+data dependency, and then the LOCK will constrain later loads.
 
-From 35b0fb391b0df57383bc15985bb769f4555c97ba Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 25 Aug 2026 08:55:26 +0100
-Subject: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
+> 							      ....
+> I                                		              ACQUIRE siglock
+> 
+> After #A the sigqueue stores are maybe visible
+> 
+> After #C the exit_state store is maybe visible
+> 
+> After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+> the system and cannot become magically become invisible after that
+> point.
 
-Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-a faulted VMA into an unfaulted one.
+No, that is not in fact how Power (or ARM) works AFAICT. Memory ordering
+is not global. It is entirely possible some CPUs see a store while
+others do not.
 
-It does so after the page tables have been moved to the copied VMA with
-MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-as the page tables it had are no longer present.
+The only guarantee here is that IF you acquire tasklist_lock (you
+observe the store that unlocked it), you will also observe preceding
+stores.  But since the posix_timer_fn() column does not in fact observe
+or care about tasklist_lock, there is no ordering.
 
-However, in doing so, it violates the invariant that the anonymous page
-offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
+> The new leader cannot swap PIDs before acquiring task list lock and
+> before it observed exit_state != 0 under it. That's fully serialized
+> against the old leader as both hold task list lock for their operations.
+> 
+> #F creates a control dependency, so if the new leader acquires task list
+>    lock before the old it will observe 0, drop the lock and wait. No PID
+>    store obviously.
 
-This is because a VMA may have been faulted in, mremap()'d (causing a
-delta between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
+A control dependency only ensure *that* CPU will complete the exit_state
+load before the store, it is a local LOAD->STORE ordering.
 
-This condition is a violation of a fundamental assumption in mm, but now
-also triggers an assert in assert_sane_pgoff() which explicitly checks for
-this condition.
+> #G can be come visible immediately but is only guaranteed to be visible
+>    globally at the RELEASE of tasklist lock.
 
-Correct it by resetting the VMA's page offset at the point of completing
-the MREMAP_DONTUNMAP operation.
+Nope, not at all. Can be randomly visible to random sets of CPUs.
 
-Link: https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-Tested-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Li Xinhai <lixinhai.lxh@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> #H can only observe the PID store after the store actually happened in
+>    #G. So it either reads the original PID or the swapped PID.
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index e8df5cdb0ac9..2b4b523a86b8 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- {
- 	unsigned long start = vrm->addr;
- 	unsigned long end = vrm->addr + vrm->old_len;
--	unsigned long old_start = vrm->vma->vm_start;
--	unsigned long old_end = vrm->vma->vm_end;
-+	struct vm_area_struct *vma = vrm->vma;
-+	unsigned long old_start = vma->vm_start;
-+	unsigned long old_end = vma->vm_end;
- 
- 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
--	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-+	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 
- 	/*
- 	 * anon_vma links of the old vma is no longer needed after its page
- 	 * table has been moved.
- 	 */
--	if (new_vma != vrm->vma && start == old_start && end == old_end)
--		unlink_anon_vmas(vrm->vma);
-+	if (new_vma != vma && start == old_start && end == old_end) {
-+		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-+
-+		unlink_anon_vmas(vma);
-+		/*
-+		 * The VMA is now unfaulted and it is an invariant that
-+		 * unfaulted anonymous VMAs have page offset equal to
-+		 * vma->vm_start >> PAGE_SHIFT.
-+		 */
-+		vma_set_anon_pgoff(vma, pgoff_unfaulted);
-+		if (vma_is_anonymous(vma) && !vma->vm_file)
-+			vma_set_pgoff(vma, pgoff_unfaulted);
-+	}
- 
- 	/* Because we won't unmap we don't need to touch locked_vm. */
- }
+Sure. But that has no bearing on if it sees the sigqueue stores at A.
+
+> #I is not really relevant for this. It's only relevant for PF_EXITING
+>    and other stuff which is directly protected by it. And it does not
+>    matter whether it locks the old or the new sighand.
+> 
+> Now let's look at the full chain and what can possibly be visible or not
+> and when:
+> 
+> #A can trickle into the tasklist held section, but not after #D.
+
+Yup.
+
+> #C cannot be reordered against #B and #D
+
+Agreed.
+
+> #A is therefore guaranteed to be globally visible _before_ new leader
+>    observes exit_state != 0 in #F under task list lock
+
+Nope, A is therefore visible if you acquire tasklist_lock, specifically,
+when you observe the store from D. And only if that matching LOAD is a
+LOAD-ACQUIRE, such that subsequent loads are forced to be later.
+
+> #G cannot be reordered against #F and obviously not against #E either.
+
+Indeed.
+
+>    It can become visible at any point after the store, but as argued
+>    above that visibility can't be reordered before #A (sigqueue stores)
+>    became visible.
+
+Let G' be the unnamed RELEASE after G.
+
+Now, I have deleted and rewritten this tail end at least twice now. And
+I *think* I'm agreeing with you. Let me explain:
+
+It all hinges on D-E and H-I.
+
+D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+RELEASE+ACQUIRE. Specifically, we have:
+
+  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+
+So while earlier I was arguing with RCpc in mind, in which case D-E
+completely goes away and we can consider B-G' to be one big critical
+section from the PoV of a third CPU (our posix_timer_fn() one). In this
+case we can push A down and G up and have them cross.
+
+*However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
+which is RCtso and that *does* impose store order, so A stores must
+happen before G stores
+
+Combine with H-I, which has a data dependency from the LOAD to the LOCK
+and thereby constraints later LOADs, those sigqueue loads that come
+after I must in fact observe the A stores.
+
 
