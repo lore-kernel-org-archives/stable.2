@@ -1,249 +1,153 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839833AB272
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981605; cv=pass; b=AB/OY0sEyWkmmPifWL5L85w6CdD1XrisIMye9w13RhtdjzOEcTtWoZF1wAHVbYpfvs0BsO1edF18UQIEWbiEC82EasyCVBLKh1zMDuQZd0oGdChr+ECNlZKpWv2bbnnwpDdT6XgENnDw/Ns7oNhfRr2S7U+62xzJO1bqz/Hi2yQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981605; c=relaxed/simple;
-	bh=Ajiydw3L25W781rT08oBIgJWAfLm/lQwQ3vUJDLb5Dg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l5qMCjGT10M8JJMYBe/qOwS3qpB5Btfll8MQsrd+jEkZ+17DdL7Epkafz7KV07kqhjPfuixMFJI5SF8nF5V60BUWux5itvb87B8kZcbLNsnv77hUz0oRio8bzKNGNaGbcNcrMpwy1gXV0gxLPixmNRm6aeqSFtdHmRjtCLdmNuE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mcz+yyym; arc=pass smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CC75519AA
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788982091; cv=none; b=cUUH6+RKziPMuurHh5+5T+NPiYEEQDrufVXabSIsp6sZaBvVx5fRxHYg2tVSWawUk+/NRyYJILttHmAkmYxrbcV4JIsJZ+cS5SEO4eHaR3fE33ExNPPUnLnlM14aeWLDRlwdDJTRLXcoV4l9IrjizP/bQNMteTNWUB+MI5msY8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788982091; c=relaxed/simple;
+	bh=fGd2gQvYjHPd/S46Z42N0Jlf7DxGps2/byqPup1ks4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AWsZ1TjdMZjTQJSTXdBeptYId23/GxiieUaTCieI0kfJ1mSVBinKSU73pyIl7bgpy9U36L+LmCBgYnz7yIOcn3DwyWYg2HYHLMCrYVEMxSEUYzeOhtf6wD58yTkflvwPFkH0Jofg4mzlc7bDXVY/esa7w/MVt7gaj6vTYMcalMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=rMX1htfu; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mcz+yyym"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48441fa5c37so4546667f8f.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 12:20:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788981601; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o2L+ed6qfDGRi+0c8vYCVeUkKxojF6cJm3711306Bhwt5AsjQE3Tpt2aTb4zDNJ5Tu
-         75dvcrLXoFpp8vDTbCfEWnS4Gn9vZda/IJgdptam0e1Xe7aL1n7iKjmA0hfOF2m/Aipv
-         J9ETag+PWH7VD05FX+j79jwfIMH8y3r3lOXc7xs78wPQmssMa7PEE2szNj29YbZGbJD0
-         AwP9b4Ngz5uZlJaV5m4gl0CW53oUUf45cY9lwcBPrLkqKGc1Y3P+mYR9kc5QaUVrUQyS
-         P3R3YatmxziUzz+FPwLtIbOrLW5Tkt4Ic7q4tgTEPkri8aVe1lDIDUgLFXxUeGVVbpXR
-         CjKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5FRm+Wk/CzcgkkZNM6le/ovLDE/1ge45ZLQJ5VGLwHc=;
-        fh=gQJdDc730k+uqAH/jYqt+5L1ggKVwqRF7Itvb8mua3c=;
-        b=ThvbyLQqFc6xPGiKSc1o049v5VJ1wlJvt8UG+Mc8ZtOZxRiyZ7du8Z72EfWLEtsPhM
-         U1kEopw8t+dNRJDFHynoKAZhFFKmjdEPQsX8Amgl5/ob3EMLbUIZ1gR6dpbZVVom2KTY
-         YnG/LSuoAkgSb56QJfZFvGlaIxS/vvWyk2BhRfVw006sHXQnMGCs2Jz6kmlqTcvRBcfK
-         sU7oG78bmK2bAPRwLoJQ7GwgEHD06IN43wMZOs4F1CS81po4qrk0Na2JmFfCEdK+8s5l
-         NT44wOAqt3nyjiYkaGF+2ASlMQ75kMMXvSYcTgZqW5ndIF0dKyL00WEliv6zzYlLBL08
-         fvRw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="rMX1htfu"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91058dd77a2so18393416d6.3
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 12:28:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981601; x=1789586401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1788982089; x=1789586889; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5FRm+Wk/CzcgkkZNM6le/ovLDE/1ge45ZLQJ5VGLwHc=;
-        b=Mcz+yyymtajFDKDJK/Y42w2jiYBaeGNxNF50vBrQ0l+gnNfMW0J+sioh8S9eHQEyAM
-         /J3tVAcv4iadezS1FOpbZyLGgujj3DnG0KPjndUNOetidOXvoYVeEuLjgKAn97956jXD
-         n2s+kCFofFWr2k66eOrbE3mAocYTpZPqmx5gtTJgj1T4sUU2Mp1XuuhSrhHhliSUJxnB
-         B5jao7RU/xbEfVZFQfCgR9mjEyQ0m2QIWCe4jWf4AFUnhLkKV8feYzSd/ktsZMCMoeE3
-         WN8BYBfY0ueUZxWG5OT/BFfX+ypBqsaNSKTPvmd+mLojpL14u3WzGjs6iuZjOFwAiROR
-         9WVA==
+        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
+        b=rMX1htfuWqOVOyHKThlge7fRi+3bgREEkZqDPVLFI0UDuDJ0Q/UFnoxVg1QRjkKV39
+         diYTyxPY7B9jPIU7dOkCSNqCZYEVsep6B0jy//NWrVf9qmvx2nmYl0f8epfLDh2w2w33
+         9V/RghEAboYAd3tG40NdpMvcpypfe608uIZ8VQ2yupJeXmN1amypDPMjpmgqwPEczE7y
+         NmcUh4ijwesOB2uT3cEqQywWZ/iSvHL/ATgk0jiyQ9QUcZDr0C8gMJjWiVKxt006cH9U
+         LyYtLwW3QML6ya6kvqpF/aNXDNr0gO5mNtn1xbCASqZyd7pyqyrE/3at65Js/t1YFxfQ
+         Dkvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981601; x=1789586401;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788982089; x=1789586889;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5FRm+Wk/CzcgkkZNM6le/ovLDE/1ge45ZLQJ5VGLwHc=;
-        b=SWAknrNcs0SRBDF4pLf6gOH9ccmw7VhBuqWKoLJLI0b2GPktd9mQ42wr5P/lS4fgYV
-         igPmR3Xw18lzrTv7ZgOxbJBa9jrSp5TON5zpPBU9PVRq6CE42+9jyPwgQ8axO0n9aziV
-         oyQvlBkJnKhp7eWm/YP7xq0TvW3I5gKqL03KVo5CWPHOkIvq9lumA5MYjAUiMkyMrMAE
-         N+zBEgUNZcOzojjYwW36O3ueMIqiQNDQ+6toap0L9n0qQ0d+nRQaVVgpuSpSw8Di++2e
-         +gMnx34pYV7OiXUrY2nsbFrVttSPvDYoiAJvtlkpWhA90u87LBTDJ8xKMBzOHGzeyUzv
-         jASw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlznbP+DpOXP2vWqm50C4oOc5jbWx5JGeWttT+jC5yJAuoZsY9KgU8Sedf8idtnt/2C+xeLjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAReZBiM5+e84m4lRq1IEkNnbQRTSo1OgLUDV2pKYAHOPAk+hp
-	G9H3ZRwjQYm92lmhQXDKtRI9yFOGwX776HIya5nbH1pCXChAw76zn+ZP4mhLndL9uzJ4zYQxqcb
-	Dv2Kj/6H+Xr3dTcvqyjCnALbQ4iK1KxY=
-X-Gm-Gg: AYBFou2JN2Wy5VEMdhieVexCFXW7Lq4umHCuA90jsE7uLUUQBmTFDKnBv1hlgvctP64
-	ib3qKROqSC63706pW6FStzN3myWnHzxU9+U/SdJtAu5mq3UQjXGK2lWS20O+h4i+9AY3HnYOOor
-	HdujqqVnKcLacreJmI87vNV9LK0n3jo7Wq3uBsiWrXnXStlTkk3n+pQSkTy11DvuUKWzQqyxx5n
-	Zmz8Y5VndyRqRIoqJImqvwZGv23z0yHVlZCadz9SQGLbBBDsmfH4ssl3ipeNEhLq/+XCQzieAeh
-	Xzgj9RfvxLqVZTa4sL7D1Y7gI+07w0krZsUAvseICW1i903Z0F8szAGJFVunxS0WoagxVEm+wKr
-	+8DWkHMX5Dck3dDbHsgCdvQMTdo2aPMelx30fBwS1OEP1M0bs
-X-Received: by 2002:a5d:588b:0:b0:485:ac96:7263 with SMTP id
- ffacd0b85a97d-485ac9673b3mr6592105f8f.12.1788981600320; Wed, 09 Sep 2026
- 12:20:00 -0700 (PDT)
+        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
+        b=Obf2FhgrE0ZZlC3RHvl7pDZ24iHtD2gjEOkNSBQ3/rD7o548hKmmOOX+BJDWsspQS6
+         m7sRPaMJXyeNAojpu40MiqtQLmr3Po/eMWKeFZnIrKW21CLgx4J3s2WwYJgWHecvEFRj
+         3qZFU34GbXTtimiXsCbR27+PlQ+jE/dlXqJti6plPX9iHQBmPybY/xR8P8/XJLmpRLd1
+         Z1vf0Vy5unsmy0D1qCVa+Vy6d3Z34Rr+wsD/hipLtb+wehLkd0SN6S+aeLw835JZH+Vx
+         PMtjSLKiKzXTQF1IV45SZPnRRV2YlwCLgtNH88Tn4ZUNNa3wPbOzNm8ka6Y7nl2UqSEd
+         jJDA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6ea1HeoQmiZe7bx6vUW9Z3vwGTrvGmx6R+osdA+D9vS5wGN4genFrHdxZsd10LEGUFPEIdZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kn7V2En/4zlm6XuJUACCrOqbOUfpjybxivJ8HyEaISBjBK3ghO
+	SuH16ItIDwDi/vqb1JXNMR7gJB5akvbjvCFgRaRRbFSgOM97fVVraa4mIukTxNiPBQ==
+X-Gm-Gg: AYBFou2XWpnw45k5iNURDPNcS73D+3L2pTHnsujN0sNZBk1gaCiq3PgUQCM4SCyWuZY
+	Q3dKdP+ArIhSTEnAPfq9bjGcuDYbKp64nuKy6XZYgnQxjrS7PzOlCjF8bwTLQH8oy5S+MbgrGRJ
+	Y+vmcSqJJFIOBlsE4cpx3/zuA8lC1JnJRMGL8BqGW4iRcnIgTfZAvHczD7mtMm8c/OKIdtKSaOa
+	7iXcErvKCBqfr+4Ey69knhUNW36E4+CAcP9Pt3j5W+mGoKmo47myWcvutukfs7ndTgY7oGHNLhh
+	hhJDX2ylNqlMfYIHL2S0wTGuEC9uT6oNLf0tZUyklUvw8oiloCQJ4/CxKNei7v/qXwrJX7CCeYP
+	sGN5YJ2G8dSwe0eAiFxpgSSck+D0w0jorhH+gj36k4cxDUcKHdtxev+fkKMnHzRGJM35paHWjST
+	UVS1+OcecnKJ7molVBo8h4gRbhbsHjDLB+K3gMr7RFfaa+2yTq0F1EAspeOjihCOHD3R/DQU5DL
+	X77Z7B0r/B2MMM7hwqOqxhqDcMnJhSwYy+HW/8LM2p6RwamNj3zDw==
+X-Received: by 2002:a05:622a:53c5:b0:530:4deb:9801 with SMTP id d75a77b69052e-530a2e093b6mr129633651cf.49.1788982089079;
+        Wed, 09 Sep 2026 12:28:09 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305418950fsm146682361cf.20.2026.09.09.12.28.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:28:08 -0700 (PDT)
+Date: Wed, 9 Sep 2026 15:28:05 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+References: <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906012924.1928316-1-xmei5@asu.edu>
-In-Reply-To: <20260906012924.1928316-1-xmei5@asu.edu>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Wed, 9 Sep 2026 12:19:47 -0700
-X-Gm-Features: AcwNN1UbD6k4LeCepkUvjqBr96R-weQxM4XVCQGN4UqRnGUCJVeyGH44lDLJG20
-Message-ID: <CAJnrk1aXL9QuW+USSbx2La9qgNYU8jybqqpoSSRo6wEAAZqxAw@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] fuse: bound io-uring payload copies to the
- registered buffer size
-To: Xiang Mei <xmei5@asu.edu>
-Cc: Bernd Schubert <bernd@bsbernd.com>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>, fuse-devel@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, bestswngs@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqFw--VfXWz-yZt8@localhost.localdomain>
 
-On Sat, Sep 5, 2026 at 6:29=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
->
-> The fuse-io-uring copy paths do not check that the data they copy fits
-> in the ring entry's payload buffer.  fuse_uring_copy_from_ring() passes
-> the server-supplied payload_sz straight to fuse_copy_out_args(), and
-> fuse_uring_args_to_ring() copies the request in-args without comparing
-> them against the buffer.  Either can exhaust the imported iterator and
-> hit fuse_copy_fill()'s BUG_ON(!err).
->
-> An unprivileged user can trigger the request side by mounting a FUSE
-> filesystem that registers small payload buffers and then issuing a
-> setxattr() whose value exceeds them:
->
->   kernel BUG at fs/fuse/dev.c:1064!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   CPU: 1 UID: 0 PID: 148 Comm: exploit Not tainted 7.3.0-rc1 #2
->   RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1033)
->   Call Trace:
->    <TASK>
->    fuse_copy_args (fs/fuse/dev.c:1354 fs/fuse/dev.c:1380)
->    fuse_uring_args_to_ring (fs/fuse/dev_uring.c:891)
->    fuse_uring_prepare_send (fs/fuse/dev_uring.c:940 fs/fuse/dev_uring.c:1=
-057)
->    fuse_uring_send_in_task (fs/fuse/dev_uring.c:1745)
->    tctx_task_work_run (io_uring/tw.c:96)
->    tctx_task_work (io_uring/tw.c:133)
->    task_work_run (kernel/task_work.c:233)
->    io_run_task_work (io_uring/tw.h:84)
->    io_cqring_wait (io_uring/wait.c:278)
->    __do_sys_io_uring_enter (io_uring/io_uring.c:2676)
->    do_syscall_64 (arch/x86/entry/syscall_64.c:61)
->    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->    </TASK>
->
-> Bound both directions against ent->payload.iov_len, the length the
-> server registered, so an oversized reply is rejected with -EINVAL and an
-> oversized request with -E2BIG/-EIO, matching fuse_dev_do_read().
->
-> On a zero-copied request the last page-backed argument is handed to the
-> server as registered pages rather than copied into the payload buffer,
-> so exclude it from the request-side sum to avoid rejecting valid
-> zero-copy reads and writes.
->
-> Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Weiming Shi <bestswngs@gmail.com>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
-> ---
-> v2: add: Cc stable and Reviewed-by tags
-> v3: propose the patch fixing another issue found by Bernd by Joanne sugge=
-sted way
-> v4: no context change as v3; add Reviewed-by: Joanne Koong ...
-> v5: no change
-> v6: rebase on fuse.git#for-next.  The ring entry already keeps the payloa=
-d
->     iovec and imports it at iov_len, so only the two bounds checks are le=
-ft.
->     Skip the page-backed arg on a zero-copied request, it does not consum=
-e
->     the payload buffer.
->
->  fs/fuse/dev_uring.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-> index c6dd420c4034..981b7c295e5e 100644
-> --- a/fs/fuse/dev_uring.c
-> +++ b/fs/fuse/dev_uring.c
-> @@ -775,6 +775,9 @@ static int fuse_uring_copy_from_ring(struct fuse_req =
-*req,
->         if (err)
->                 return err;
->
-> +       if (ring_in_out.payload_sz > ent->payload.iov_len)
-> +               return -EINVAL;
-> +
+On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
+> I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
 
-This logic will break fuse zero-copy reads (ent->payload.iov_len is zero).
+I don't know what that means.  Regardless, LOCK doesn't pair with 
+smp_load_acquire().  UNLOCK does, but only to the extent that acts as a 
+release.
 
-imo I think the cleanest fix for this bug in general would be to just
-remove the BUG_ON in fuse_copy_fill() and return back the error, eg
+> But unlock+lock doesn't pair with unlock+lock on different CPU.
+> 
+> C MP+polocks
+> 
+> {}
+> 
+> P0(int *A, int *B, spinlock_t *mylock)
+> {
+> 	spin_lock(mylock);
+> 	WRITE_ONCE(*A, 1);
+> 	spin_unlock(mylock);
+> 	spin_lock(mylock);
+> 	WRITE_ONCE(*B, 1);
+> 	spin_unlock(mylock);
+> }
+> 
+> P1(int *A, int *B, spinlock_t *otherlock)
+> {
+> 	int r0;
+> 	int r1;
+> 
+> 	r0 = READ_ONCE(*B);
+> 	spin_lock(otherlock);
+> 	r1 = READ_ONCE(*A);
+> 	spin_unlock(otherlock);
+> }
+> 
+> exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
 
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ static int fuse_copy_fill(struct fuse_copy_state *cs)
-              err =3D iov_iter_get_pages2(cs->iter, &page, PAGE_SIZE, 1, &o=
-ff);
-              if (err < 0)
-                      return err;
--             BUG_ON(!err);
-+             if (!err)
-+                     return -EIO;
-              cs->len =3D err;
+I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
+in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
+litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
+the reads are executed in the opposite order, you can see how P1 might 
+get r0=1 and r1=0.
 
-This would cover both the request and reply side and get rid of the
-special logic here and below. It'd also make backporting to stable a
-lot easier. I think it would still be worth having the FUSE_SETXATTR
-errno fix (eg returning -E2BIG instead of -EIO)
+If P1 had done this instead:
 
-    if (fuse_len_args(num_args, (struct fuse_arg *)in_args) >
-          ent->payload.iov_len)
-              return args->opcode =3D=3D FUSE_SETXATTR ? -E2BIG : -EIO;
+P1(int *A, int *B)
+{
+	int r0;
+	int r1;
 
-as its own patch, where that check is only about picking the right
-errno, not about preventing the BUG.
+	r0 = READ_ONCE(*B);
+	smp_rmb();
+	r1 = READ_ONCE(*A);
+}
 
-WDYT?
+then r0=1 and r1=0 would be impossible.
 
-Thanks,
-Joanne
-
->         err =3D setup_fuse_copy_state(&cs, req, ent, ITER_SOURCE, &iter,
->                                     issue_flags);
->         if (err)
-> @@ -854,6 +857,7 @@ static int fuse_uring_args_to_ring(struct fuse_req *r=
-eq,
->         int num_args =3D args->in_numargs;
->         int err;
->         struct iov_iter iter;
-> +       size_t copy_size;
->         struct fuse_uring_ent_in_out ent_in_out =3D {
->                 .flags =3D 0,
->                 .commit_id =3D req->in.h.unique,
-> @@ -887,6 +891,16 @@ static int fuse_uring_args_to_ring(struct fuse_req *=
-req,
->                 num_args--;
->         }
->
-> +       copy_size =3D fuse_len_args(num_args, (struct fuse_arg *)in_args)=
-;
-> +       /* a zero-copied page arg does not consume the payload buffer */
-> +       if (cs.skip_folio_copy && args->in_pages && num_args)
-> +               copy_size -=3D in_args[num_args - 1].size;
-> +
-> +       if (copy_size > ent->payload.iov_len) {
-> +               fuse_copy_finish(&cs);
-> +               return args->opcode =3D=3D FUSE_SETXATTR ? -E2BIG : -EIO;
-> +       }
-> +
->         /* copy the payload */
->         err =3D fuse_copy_args(&cs, num_args, args->in_pages,
->                              (struct fuse_arg *)in_args, 0);
-> --
-> 2.43.0
->
+Alan Stern
