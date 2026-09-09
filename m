@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC471530DE5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:14:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83DC577E38;
+	Wed,  9 Sep 2026 14:14:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963282; cv=none; b=MaaSKKceTnf9x6xWDs5o/xVC5gbdXbeShVLwxxHwds7bpKklPr2JOhgrQlwFDbYkAIa8QHBS8l1uikD3APSvTPhjkizFtHMnK3j6c5oFwuyLRq+zfxVgey33kN3/9Y8GwI1EwogJkYV/2F1r+Rkpz/oKVpoL5fE3tQz5EIyLNQY=
+	t=1788963283; cv=none; b=PlBs9xgZi2AnIHCWBhdwupsN+mKp1ZR61gCCmFYtJiy2WSRCtexEeU4AIOlVWO+3jcNoFLiwZPYIaGWPOkgPr7S0osCwnwyCO9sOyqWD20kO4f8XxtLlaCpvAbGTeY+5mLR0iQJ6uprz9ZvcWkeL2FT8rvHqtfxyp5UFeNGwKJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963282; c=relaxed/simple;
-	bh=g4MhVxw3pDl9D7N4Sz5287BTs1otJklNetJsKvK1PV0=;
+	s=arc-20240116; t=1788963283; c=relaxed/simple;
+	bh=sdkCgeRpiyeuDdCrf0TF3xHzU9p8aS7M6Z/jvKmUFyA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gH6fhFJFzsXBCm578IYYhp8xavN5h2Z/wXeX3K3I0mbXGtoeBBTN6PDttI7iHqBhn18/He5LhbFII01b9Bw3/rgSOmQzbjMaRSr6dpJbSz6QX7Mio3BVURivuPdb1Y+xlxZ/urLarW+JUe/s/Bueuk8WzHOh59ct4dRxZu/NzHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esnjcpWY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iIRIG1Es7zU600tnx2Ek3SmDCfIX3MR47fGeT4dCQYoBWY0DjlNxgFTXn7bfqaJXYbQtatu+Uz6YPgQnaxTztaG91mLq9dSmk8SlwzApL/FseRwgfXiCGUi797GJy0T1SX6lonXW5nqYLnHmxUmWtfy0frr9V92pboBtkN9QhYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tUJxf+Va; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esnjcpWY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 180601F00A3A;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tUJxf+Va"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491371F00A3D;
 	Wed,  9 Sep 2026 14:14:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963281;
-	bh=g7COKPLzM8HhL9Bbx9XqRaUVVO1hG5GtTNV2VGqIi1U=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963281;
+	bh=8TvlXaguOPt/BsKNLLHTA2EUk0ERRPASycA/Vo3ny9w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=esnjcpWYi7m5dZ+P4ArJGTaBHKtURuotdRshQAqeHerjvtW1qqAEat3nZ/jm2VWDa
-	 CLy8Ysi4sRjBiwkduTXia3sQa06rCVnW9cLMVdiSG2bjAKupOdyZym/dr0Z7+0c0C9
-	 FsIlF4/292wmU/Uoqytge8thHOar7MWesTvNd9jkdOmJ2Ez5ZBFKV4VgqeO89H7ZWf
-	 aaoNMdZSXH0Cd91eARlzkS7SzXiiE2Lr6pSWARr/Bivh4YlbtRw3PEunV7kihtl2sL
-	 NDurx7B406oFFabnK9E/cKYBpUN9ZjbnPezM+cgF5Z2Z45n01Ml4DSfjW8NV2e0Fp0
-	 m4mxOOXOATsUw==
-From: Sasha Levin <sashal@kernel.org>
+	b=tUJxf+Va/gNsj7qprqLTABTbof2ljpQexOvqsp1YuOv28e6fqgIIeAlIA2XvHQW3P
+	 +icH2/j9squJ1tn/AlrcoGkzkVMKkAdPKWAt6G8mZLa5WAhuSnfba6vvjhVtvsJIHD
+	 4aXctCvNU9/Iv8OLtXJeXXD7Mo0FhG6k7tptjNOg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mmc: via-sdmmc: cancel card-detect work on remove
-Date: Wed,  9 Sep 2026 10:14:39 -0400
-Message-ID: <20260909141439.2391707-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090307-unvented-prologue-a046@gregkh>
-References: <2026090307-unvented-prologue-a046@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable <stable@kernel.org>,
+	Sven Peter <sven@kernel.org>,
+	Rafay <ahmedrafay888@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Subject: [PATCH 6.18 025/583] usb: typec: tipd: Fix Thunderbolt altmode VDOs for cd321x
+Date: Wed,  9 Sep 2026 15:35:10 +0200
+Message-ID: <20260909134238.695069234@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,50 +48,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 57e5d877f898d5e5c9d672a77bb6bdd24f0d9bf5 ]
+------------------
 
-Disabling the device interrupt and freeing the IRQ prevents new card-detect
-work from being queued, but carddet_work already queued by the handler can
-still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
-host through container_of() and dereferences its MMIO base; once remove()
-returns the host can be freed, so that work would touch freed memory.
+From: Sven Peter <sven@kernel.org>
 
-Cancel carddet_work after freeing the IRQ and before cancelling
-finish_bh_work, which the card-detect handler can also queue. carddet_work
-can re-enable the interrupt through via_reset_pcictrl(); mask it again
-afterwards.
+commit e24e3370356bddb65d667985a332b5f8aeeb5f97 upstream.
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
+The Intel VID status register is actually 9 bytes long and doesn't
+contain the raw VDOs but only the upper 16bits for device mode and enter
+mode. Shift those two fields into place and reconstruct the cable
+discover mode VDO from the data status register instead since it's not
+directly accessible. With this fixed now the correct VDOs are forwarded
+to the PHY and the to-be-submitted Thunderbolt/USB4 native host interface
+so that the right mode can be negotiated and the link actually comes up.
 
-Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ adjusted context to retain del_timer_sync() instead of timer_delete_sync(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://www.ti.com/lit/ug/slvubh2b/slvubh2b.pdf
+Fixes: 0b31c978935f ("usb: typec: tipd: Read USB4, Thunderbolt and DisplayPort status for cd321x")
+Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Sven Peter <sven@kernel.org>
+Tested-by: Rafay <ahmedrafay888@gmail.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260813-b4-tipd-vdo-fix-v1-1-70317f2cd554@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/mmc/host/via-sdmmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/typec/tipd/core.c     |   17 +++++++++++++----
+ drivers/usb/typec/tipd/tps6598x.h |    4 ++--
+ 2 files changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
-index db1feeff0faf7..5f7f2e087397a 100644
---- a/drivers/mmc/host/via-sdmmc.c
-+++ b/drivers/mmc/host/via-sdmmc.c
-@@ -1208,6 +1208,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -114,7 +114,6 @@ struct tps6598x_intel_vid_status_reg {
+ 	__le32 attention_vdo;
+ 	__le16 enter_vdo;
+ 	__le16 device_mode;
+-	__le16 cable_mode;
+ } __packed;
  
- 	free_irq(pcidev->irq, sdhost);
+ /* Standard Task return codes */
+@@ -694,9 +693,19 @@ static void cd321x_typec_update_mode(str
+ 		   cd321x->state.mode == TYPEC_TBT_MODE)
+ 			return;
  
-+	cancel_work_sync(&sdhost->carddet_work);
-+	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
-+	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
-+
- 	del_timer_sync(&sdhost->timer);
+-		tbt_data.cable_mode = le16_to_cpu(st->intel_vid_status.cable_mode);
+-		tbt_data.device_mode = le16_to_cpu(st->intel_vid_status.device_mode);
+-		tbt_data.enter_vdo = le16_to_cpu(st->intel_vid_status.enter_vdo);
++		tbt_data.cable_mode = TBT_MODE |
++			TBT_SET_CABLE_SPEED(TPS_DATA_STATUS_TBT_CABLE_SPEED(st->data_status)) |
++			TBT_SET_CABLE_ROUNDED(TPS_DATA_STATUS_TBT_CABLE_GEN(st->data_status));
++		if (st->data_status & TPS_DATA_STATUS_OPTICAL_CABLE)
++			tbt_data.cable_mode |= TBT_CABLE_OPTICAL;
++		if (st->data_status & TPS_DATA_STATUS_ACTIVE_LINK_TRAIN)
++			tbt_data.cable_mode |= TBT_CABLE_LINK_TRAINING;
++		if (st->data_status & TPS_DATA_STATUS_ACTIVE_CABLE)
++			tbt_data.cable_mode |= TBT_CABLE_ACTIVE_PASSIVE;
++		tbt_data.device_mode = TBT_MODE |
++			(u32)le16_to_cpu(st->intel_vid_status.device_mode) << 16;
++		tbt_data.enter_vdo =
++			(u32)le16_to_cpu(st->intel_vid_status.enter_vdo) << 16;
+ 		cd321x->state.alt = cd321x->port_altmode_tbt;
+ 		cd321x->state.mode = TYPEC_TBT_MODE;
+ 		cd321x->state.data = &tbt_data;
+--- a/drivers/usb/typec/tipd/tps6598x.h
++++ b/drivers/usb/typec/tipd/tps6598x.h
+@@ -206,10 +206,10 @@
+ #define TPS_DATA_STATUS_DP_PIN_ASSIGNMENT(x) \
+ 	TPS_FIELD_GET(TPS_DATA_STATUS_DP_PIN_ASSIGNMENT_MASK, (x))
+ #define TPS_DATA_STATUS_TBT_CABLE_SPEED_MASK   GENMASK(27, 25)
+-#define TPS_DATA_STATUS_TBT_CABLE_SPEED \
++#define TPS_DATA_STATUS_TBT_CABLE_SPEED(x) \
+ 	TPS_FIELD_GET(TPS_DATA_STATUS_TBT_CABLE_SPEED_MASK, (x))
+ #define TPS_DATA_STATUS_TBT_CABLE_GEN_MASK     GENMASK(29, 28)
+-#define TPS_DATA_STATUS_TBT_CABLE_GEN \
++#define TPS_DATA_STATUS_TBT_CABLE_GEN(x) \
+ 	TPS_FIELD_GET(TPS_DATA_STATUS_TBT_CABLE_GEN_MASK, (x))
  
- 	cancel_work_sync(&sdhost->finish_bh_work);
--- 
-2.53.0
+ /* Map data status to DP spec assignments */
+
 
