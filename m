@@ -1,93 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16EF3BA236;
-	Wed,  9 Sep 2026 20:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71AA3346B4
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984829; cv=none; b=gt7fKzRQdOmNY0d4rNbCZoq0riBWCPF+chLydkBC89XK9rx/EBA14KRPOnZXWPcFR7OxWNyQneQsQscHADi+MBJVxuZab2GHUY2DCn3/bCpF9AsSXsdBVJ6XAMjIe7z3O/ZmRcxfwbJIQo0qfeNCxi08tDoqINMI0w4xblJ/lO8=
+	t=1788984856; cv=none; b=QvgkUYbSkZcpkAi022/u3Bh4Y1b3lP/3fNvOqC1MGW3lQqHnYgISbMkQqjtILln5a44kNmdSlVZOS/+SlUMgYnK//9huxcyi+F97nx+aqgJbh4Pu8BLaa8F+z4t18C71X9IoA5G348O9Mbjpp/EV6+ouQUf9TkQQ5KHCxH68GbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984829; c=relaxed/simple;
-	bh=w9dYimdKZoRENbfro1IP0xAzH0jL5XQd8wQ6nCnILGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uN/cZymBFVaRD/JutqBVBlcP0s9nyKX+0yGTcd76ff0pK5do8WOpG5fnbqLqLfzsZmgEe9fUQHQs5S9bbhzFdIzfnhfr/1YmUfxB0sxNEQ2XxEpZlpU1xCf7f3F8rfsnh1TWezaq9K6l+dYlbH0L+RLEiS1XI6BdaYZrxF5wQlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juCmX3GX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788984856; c=relaxed/simple;
+	bh=yqTSMl5xbJ6/XG2x9GkVPg9AXda0FBBM50TD5AsO1tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MpRbCnSH74qkSAO+afOAiR+5KTxe3+A29RcVAFfELF919WCcOzvDkiR6biWjuJo3oP697udq8AAWcIqB0T/UWazIfOIf4zNwhG5d6g08bWkrNlmm1ujsNwjWwW9YZXzy7NID/Icrlk94U8L1cWR7gOsTk5pIS8YnR51NHMU6PNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sr7tBiF8; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juCmX3GX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C171F000FF;
-	Wed,  9 Sep 2026 20:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788984828;
-	bh=MQv84SOaC1a4xRlHxd7KhcwiZ2JQHsHJb8U+J0I2g0I=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=juCmX3GXvi8gIcx9x1MqG0xHSRRFzOMy8j7taPhO0tbXRINSpeYHoyx3DvxXaGnlX
-	 wqfo1OeB5lKOS4RDH4yrNYtQ1wVY/vrDlELptYhLFIiiafuhqzwg6j2KqCAVzA5Wzi
-	 oy9k45btmuQT+ifPsLG8iPkCIOHZ4jzntrmTDY2Sg9I3VWVQGOotJML075qjZrmTuf
-	 +djMyNK12BEtbJTOuA8s2E36bZZGfdsKyYXZzza5W0Z1BZOqjILooMvwlLu5kUPU9e
-	 U4mmiccNQi7ixtQFukkHPRKfh7E9+QHCgKUc06cDEpvCDAMjN8KdGxoUBWQNiT/Qn6
-	 vHB572M1U95wQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1DE61CE086B; Wed,  9 Sep 2026 13:13:48 -0700 (PDT)
-Date: Wed, 9 Sep 2026 13:13:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Dennis Zhou <dennis@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sr7tBiF8"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so5327045a91.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 13:14:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788984854; x=1789589654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=guZfSRNKXMdPmVg1h6Pr0fhBzdAopq3h34A4o0fDPKo=;
+        b=sr7tBiF88RtiMjGuOoCP4kTTzsWICTImlq5hJtF6YfGVGNxP/cDQorBgHRWP5Lv0p9
+         uCAz4gwcWFs1ARc6YDWGN3wgCxorTg3GxPnWH4/q1uNHnRw3VbLQLv4pkS+lHMkHWYYR
+         3PeFSz40aCdEyWhwqAFscPf2hEcOTvZVKznahICweiEZWZk5bNZgEob6chmAZrFn5HzG
+         9xugdS6qcqbXC/6LwbqWY5ceKJzVamR5ZYk0m0UAJCoLddqjfDE4gEZKAvJ5LhFd1Unu
+         4SgHtqeuDSVc35YscTaGimCAF3ureb+f/RdMDssK8CPrrGw5UubZKAy74Co+eMVCx8Lo
+         C8jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788984854; x=1789589654;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=guZfSRNKXMdPmVg1h6Pr0fhBzdAopq3h34A4o0fDPKo=;
+        b=QRjxeOR8nb4hxf8xch3WRP7v1f6sgu0Te3IHWFpCTgxv2KfB3+YyzmtQRIrvI5eh0q
+         AAEwLPywa3OuI26oAGsTGEMfIcoPMqlrourgBNB4nNAhnJzog8t9HakxSJpan6oxz/uw
+         dyYG3QommH+4GQJ0RsbWHW886TcmV8+QEYlPy2cBEFjV9roejuFDxWc+3Yz81RO1THd1
+         oIfGWMAAWzxTT7OOBnpT6V1faXDgu5eQumx1f6X+xsYcaNK6X5pLJePT5uaBYADPh7PJ
+         vC4TWxG4vERJPtd52/LrN9d3CN+QBAjL8tz+R35T7Z5LycG01iIy2tGt2pfNYhX+r+E1
+         7ZoA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUp/yLu5Z3uv6fARMYdQpJ5KyLkwiC8wjUNAFllZH9WbY4MBhxxMFadk9frq1wcigCRzt+PVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRziWN0kdNyr+r12Gx2R+jIqJKJavyLXk/F3lupk3yCDmYVETw
+	vf480xlnZkfUR2S8kSDdj/iHjbLezoNRv1FXxFClHCaZqWHb/Ibn4cCU
+X-Gm-Gg: AYBFou0QoUKwkfNC+ge3WapyIhosmM0SrVL7JMO0YKlfaDXv/rQqs3JKHbxt+KA5Ujw
+	ZsN0psiWCUimpqs47cvXgg1+lYWplhDzX6F+MKul0ZSdWIXJpAD8z8urTcfN/fE8W75vnlhglsw
+	fOyGmqmsixcv4WfnJR2EZbmflErEcvQgexayVEYwQXu89aWOJwsghF5/2GD/opmE3bXrjMTdUof
+	ZiPFir6wyAw1mDdi7g7/CW7rb4Acg/1kdsm6T35oqISbQQ+tULtfZhSKJmuJJVcLpxaIGcyO7kJ
+	PRfUGVP+XRJKcPwj5li7hbAM9Jj00FtM8rV5CsPE7TCbwS+fyCf7XCz+WQXdB7lR5CRuO888vbp
+	ZThy5SCASEw35jgPsc75FM3GnEhGB+ouKnFcc5J+k6GKGXYC1MOdP2AStw8xpd/Etx23gSA5gBI
+	WWTEkRN9XgzPCkJhqpPDTbeuM6i4LSYGV1g+TAutz0ZWWAcJJvJ5okHcgCp+QTafBh629IWaJRU
+	U5ioMEWYuTzmwYXRGMaou49GfBWsOQT3jS0LyrbRWpt7BFG
+X-Received: by 2002:a17:90b:4e8f:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39b261ba63bmr56325924a91.11.1788984853726;
+        Wed, 09 Sep 2026 13:14:13 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a803:6c49:659c:692c:9416:2f0d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm46840513eec.26.2026.09.09.13.14.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 13:14:12 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: neil.armstrong@linaro.org
+Cc: jesszhan0024@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	Fabio Estevam <festevam@nabladev.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
- drain pass
-Message-ID: <004abd0b-7ded-4b2d-87ab-7f8fd6f6cc8e@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
- <aqGilhgcEd0qaHjI@slm.duckdns.org>
- <20260909193820.9aac7888ba9d@toxicpanda.com>
+Subject: [PATCH] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable delay
+Date: Wed,  9 Sep 2026 17:13:46 -0300
+Message-ID: <20260909201346.937343-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909193820.9aac7888ba9d@toxicpanda.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 07:38:20PM +0000, Josef Bacik wrote:
-> On Wed, Sep 09, 2026 at 08:16:54AM -1000, Tejun Heo wrote:
-> > On Wed, Sep 09, 2026 at 06:01:07PM +0000, Josef Bacik wrote:
-> > > +		do {
-> > > +			cond_resched_tasks_rcu_qs();
-> > > +		} while (cleanup_offline_cgwb(wb));
-> > 
-> > The patch looks fine but this overall seems fragile. cond_resched() was
-> > already marking "stuff that can take too long" but we need to use
-> > cond_resched_tasks_rcu_qs() if it can take *really* long. There gotta be a
-> > way to make this more maintainable. If always doing tasks_rcu_qs from
-> > cond_resched() is too expensive, can it be be gated behind something cheaper
-> > e.g. some tick based test?
-> 
-> Yeah I agree, it is fragile.  Every long running loop in the kernel that
-> only does cond_resched() is a potential multi-minute synchronize_rcu_tasks()
-> stall now that cond_resched() is a no-op on the preemption models most
-> people actually run, and playing whack-a-mole with
-> cond_resched_tasks_rcu_qs() at each site as we trip over them isn't a great
-> long term answer.
-> 
-> I'm working on something more general so we don't have to sprinkle
-> cond_resched_tasks_rcu_qs() everywhere, but I expect it to be controversial
-> and it's going to take a while to shake out.  In the meantime these are real
-> bugs that are taking machines down today, so I'd like to get the targeted
-> fixes in and to stable while the broader discussion happens separately.
+From: Fabio Estevam <festevam@nabladev.com>
 
-Looking forward to seeing what you come up with.
+The RFF500F-AWH-DNN datasheet requires a minimum delay of 250 ms
+between display signal output and backlight power-on.
 
-							Thanx, Paul
+Without this delay, the backlight can expose unsettled panel contents
+during display startup, resulting in a brief bright flash.
+
+Set the panel enable delay to the datasheet-specified minimum.
+
+Cc: stable@vger.kernel.org
+Fixes: 1b2a9ec82099 ("drm/panel: simple: Add Raystar RFF500F-AWH-DNN panel entry")
+Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+---
+ drivers/gpu/drm/panel/panel-simple.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c95964ba25a9..70e37ff12c9e 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -4354,6 +4354,9 @@ static const struct panel_desc raystar_rff500f_awh_dnn = {
+ 		.width = 108,
+ 		.height = 65,
+ 	},
++	.delay = {
++		.enable = 250,
++	},
+ 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+ 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+ };
+-- 
+2.43.0
+
