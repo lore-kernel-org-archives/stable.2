@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5836F916
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0DC3AEF44
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947249; cv=none; b=bkfrEYpgr+t6tkhj5GJde6SZaK50znA9MZQouL6ZDK4Uzy2s16BMapthqdjduyWe6LVzhF7vQpXyJUzw45R6StuFrwYxAL1hWaUWMbzZFzkfdhLNhvdpt6MIPVvjDuO44gY/4OsYOqJLx6oK6QO2LE8kgvPY1hl/I00pq9/owec=
+	t=1788947252; cv=none; b=pzyI0ZycLobB2GiKFIfqGsXr/BdQGMdBe4/3Ga21HGTC3KM/uYzXnlxB1EBH2ofoe8w2KE/VtdKp02SOQxkgSaJENTJ/aswloK3f/E/Cii77+KFA+z1L0fnuv4UpX2YrPJcylpRyvgokQ6mrmgAoQB8qe7YhMdm4uURTFxmCquo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947249; c=relaxed/simple;
-	bh=REqZJ9ArakYHWJY1wKscCj8sL9upG811rLgamS+GjE0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dP4sG1PAifKZd/PBFKRjh39tGxtecPUMlE99m5Y0uKmWK6Sm6b2JSxY/QZG3WwZeh8pxncnlN1m1qKzOOev2KjXtv91HPpWVnIQJ5316uT8SuDQJ4n5NX8TV20PJtz0oS54+TeTVPNH+RSQNIZmOHPMzUa2+z4y0LUED3wwCd7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ob4nrZx/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947252; c=relaxed/simple;
+	bh=YmjZ4wJFZDvG003Ac29QtM72W7Yb8DXoh1YFHTCBrq8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CWfwIO0DsoFjPPDkZyUecR9hQ23tbhm21rcjqJqKHj/FUmm6GReCE27wJ85LqNgpgX9LNtfi1Os4lAEEZsYVW+vKI5r4AMD+g3uWYVJ2FHA2zf9oVP31Grv4IaC7ibihFsLdrp/1bFOugAiyhkQZSW3YUGF9ZPM8WWPOvP68J8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RdGOl6bN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ob4nrZx/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 849281F00A3A;
-	Wed,  9 Sep 2026 09:47:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RdGOl6bN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6090C1F00A3A;
+	Wed,  9 Sep 2026 09:47:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947248;
-	bh=D044dT186Mqbi9TaeWmbNz1ixU09tzv/nYcqyJHX69Y=;
+	s=korg; t=1788947250;
+	bh=U0IPM4sUsbBLxXHoT783SNPajK5LfN6VnawDhoiCD64=;
 	h=Subject:To:Cc:From:Date;
-	b=ob4nrZx/sUV7Ksm5OeLVOQN8PipOme6jfLKcKdX58+clhb1/yYG5iDre2Il3r9j5q
-	 mwu+iu+NRwGdDWDoPqk1+mTSUWqQ3gnPcCkEc78quvsLLdvqkxZNVf305hgxp5dK4S
-	 qNuZPfYHmLxbBrJ0NgXFYzpWQvwI7MCCFEYLoCnI=
-Subject: FAILED: patch "[PATCH] nvme: skip the zoned limits update if the zone info query" failed to apply to 6.12-stable tree
+	b=RdGOl6bN6o4mf81smsmS4zQiAIHx1pMGVlgpCzNUitZlfC9ID6xhzr1AtXbajrSiO
+	 llCzUaQqsfJmzQ0eD6eSyYdNZkiZGZxT6/f+8kSbzlNGhJOgATemZIcjyWx9mBL2tq
+	 mPpddRLHMHUJJWQ89ickx6w59KY9vWVlqSAOdY1A=
+Subject: FAILED: patch "[PATCH] nvme: skip the zoned limits update if the zone info query" failed to apply to 6.18-stable tree
 To: coshi036@gmail.com,hch@lst.de,kbusch@kernel.org,weizhu@fiu.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 09 Sep 2026 11:43:51 +0200
-Message-ID: <2026090951-hardhead-splashing-d9e8@gregkh>
+Message-ID: <2026090951-pusher-problem-219d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3838e80fcfb32e62baffb63c6dc0a60153665a4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090951-hardhead-splashing-d9e8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090951-pusher-problem-219d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
