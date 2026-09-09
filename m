@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78318468C2A
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D268E3A3816
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947218; cv=none; b=NVtWZLS+RvYmU0HXyTn92YDh5b/UG+81vKOXlLru7ZWpn5Mtf6AkVOPSN1f6FXIQWlReNZGMGy7S6NJx87gAQn4LfVWMjVetz733Pk2pTApJQ5DP69rv2AycJBXrl7/2Ky9R+FxQsK+WC8OswPAC2R0G43d1Q1ALi6xguH/gNZw=
+	t=1788947221; cv=none; b=hSsuQJJrAyJcGEYx08UuaBrOUdJsq/wWvJ7SJId8+TuLzfNKX1GoTy/fEp+4jz6vr6GYtSN4ziCenhl2Or9N+/sUPsJwxCWTBGqJXbrLstgutNiIDTD1LgJJ5VHdgtuhll4j3vt6H/E2HuNZ5jpfp6WHN1CgrwSdgLkKVBSUTqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947218; c=relaxed/simple;
-	bh=SID+DdiRaZmFGp1JAtcS/Kgpy3sBTqZqXmwbQ+bSrz8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G7aMgBBn80hJDLWplr6YaHjKfzCLFOMF8lNSwxAT9gnFNQwO5quL+TrOZhKoEu/Qq0S4QnFWOnnhjpYfjKRUU10F3nF/FFNH2MeXKZ0yaU9MaJAxSP+LJ8l854F3JM8aptoyKlL4yxn7iMw4BMtal8jp8eOSxxPl78L55lfI7F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LMhF8ieH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947221; c=relaxed/simple;
+	bh=X82eMPHmy/7v3mGHvtdQlNBQpCO+vghTm9zm4cGx9P0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UaNHcL28J21/31VDdKLgu+qtDgi6eQFg7gnv6r5LO3+U7xdDNTrVxcJ6YjZYQrqsyPIvLgyhlbWUKZ0D4SUZMYPkUDMtX81WzYcRklVyjICSxw5CKVxS2dJyLeZmtKaUO6GvCi2gJdV2jvQwq11t46iNNb9h8rvOEeT+KPIVils=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dnx4rfOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LMhF8ieH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F79B1F00A3A;
-	Wed,  9 Sep 2026 09:46:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dnx4rfOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324C81F00A3A;
+	Wed,  9 Sep 2026 09:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947216;
-	bh=yIyomHY+GaTvcU+1b4mOzZst4PsHTk+eN6T5ByCpYCE=;
+	s=korg; t=1788947219;
+	bh=MFnI7ynMZaXMmmguT3gr9wfYzY+kKCSQJqC1EL+CHxI=;
 	h=Subject:To:Cc:From:Date;
-	b=LMhF8ieHWAMv7iTcOvWsaPiyOO7kGy/C39qzqXmm5bWac8aFFa/wcjzrllAh4y9vU
-	 5gqdJrl2jVxS8kFvPOvMp0MHER0c1ma2gQ1pCoFLPaG8YzZHKfxgOXx3mfiG3U+x1V
-	 uLIwFFtxvxWQyO3XeLzaQ3chIMSvx2JVrLeljmC8=
-Subject: FAILED: patch "[PATCH] ALSA: harmony: initialize locks before requesting IRQ" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,tiwai@suse.de
+	b=Dnx4rfOnczDJGjDkRFNnsIx93WpeD7vY/TuClmigZh8b1f4y4zDEomRuCwylnKypQ
+	 juMlsBOc/TmmbWjR4XPe4eCDGzoKgGkL3a07nhn4UXYUShoVzE5w3VxspJdKOk/PDV
+	 xP0twCQsdCEoA6cHDMKw5U9amXDWM+ySbEBUeSkQ=
+Subject: FAILED: patch "[PATCH] ring-buffer: Allow splice reads on static buffers" failed to apply to 6.18-stable tree
+To: vdonnefort@google.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:42:15 +0200
-Message-ID: <2026090915-crucial-humpback-b546@gregkh>
+Date: Wed, 09 Sep 2026 11:42:38 +0200
+Message-ID: <2026090938-botanist-exceeding-0112@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 33abb7491e89285a41565670945293dda841afc4
+git cherry-pick -x 6365c44a824ff138e7926413932bb5c2e28a4c8c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090915-crucial-humpback-b546@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090938-botanist-exceeding-0112@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,47 +62,45 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 33abb7491e89285a41565670945293dda841afc4 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Sun, 30 Aug 2026 14:34:11 +0800
-Subject: [PATCH] ALSA: harmony: initialize locks before requesting IRQ
+From 6365c44a824ff138e7926413932bb5c2e28a4c8c Mon Sep 17 00:00:00 2001
+From: Vincent Donnefort <vdonnefort@google.com>
+Date: Tue, 1 Sep 2026 16:54:42 +0100
+Subject: [PATCH] ring-buffer: Allow splice reads on static buffers
 
-snd_harmony_create() registers the IRQ before initializing h->lock and
-h->mixer_lock. A pending interrupt can invoke the handler while these
-locks are uninitialized.
+ring_buffer_read_page() rejects splice (full=1) reads on static buffers
+(that is user-mapped, persistent or remote) because !read check assumes
+unread pages must be swapped. However for those buffers we have no other
+choice than memcpy the data.
 
-Initialize both locks before requesting the IRQ so the handler always
-sees valid lock state.
+For the memcpy case, only return an error when the writer is still on
+the reader page for the splice interface to wait.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260830063411.2215691-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260901155445.1475405-2-vdonnefort@google.com
+Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/sound/parisc/harmony.c b/sound/parisc/harmony.c
-index fb40476c6c91..a9625aedf2a4 100644
---- a/sound/parisc/harmony.c
-+++ b/sound/parisc/harmony.c
-@@ -868,6 +868,9 @@ snd_harmony_create(struct snd_card *card,
- 		goto free_and_ret;
- 	}
- 		
-+	spin_lock_init(&h->mixer_lock);
-+	spin_lock_init(&h->lock);
-+
- 	err = request_irq(padev->irq, snd_harmony_interrupt, 0,
- 			  "harmony", h);
- 	if (err) {
-@@ -877,9 +880,6 @@ snd_harmony_create(struct snd_card *card,
- 	}
- 	h->irq = padev->irq;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index b0963ac6fd16..84fd4cdd486f 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7193,15 +7193,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		unsigned int event_size;
+ 		unsigned int flags = 0;
  
--	spin_lock_init(&h->mixer_lock);
--	spin_lock_init(&h->lock);
--
- 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, h, &ops);
- 	if (err < 0)
- 		goto free_and_ret;
+-		/*
+-		 * If a full page is expected, this can still be returned
+-		 * if there's been a previous partial read and the
+-		 * rest of the page can be read and the commit page is off
+-		 * the reader page.
+-		 */
+-		if (full &&
+-		    (!read || (len < (size - read)) ||
+-		     cpu_buffer->reader_page == cpu_buffer->commit_page))
++		/* If a full page is requested, it cannot be the commit page */
++		if (full && cpu_buffer->reader_page == cpu_buffer->commit_page)
+ 			return -1;
+ 
+ 		if (len > (size - read))
 
