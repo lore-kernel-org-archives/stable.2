@@ -1,149 +1,137 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AF737BE7E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2153396D13;
+	Wed,  9 Sep 2026 18:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976909; cv=none; b=dq00qJ9Iz3vUUoy/InHapErmAKaE/YSEshrQrbPidPBbtPjYAPtGlzRbzpodrzxAwUs6vwGfP5lN+o4ZOcuPaB/PggIgTJ0mu5fFnosKP0k85HC9O0pZTKt0Z01YfyNmmfmLXd0H70Sqkrxf2XU7/dQnRs4GkJki8raXyKjOlRM=
+	t=1788977010; cv=none; b=EtrSQpZe6Vj48pK3cZ8wi/+CYgGYoFp6avoxCqQeOWAYmb+u3XcD0lVVBg16Q5wnioSgsT9oQsOaezXqLAejnYa9rVG/ONchI0/0k1PNMnnSis/SiUlCpegntdk+C5ztDFtX/OrUI04OIz0awoIegVyFtkNZGRCEOrsrvIeSUw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976909; c=relaxed/simple;
-	bh=GG8pFvCYlju27mE7uNA7NfAlddJXiZpGOvkluyIkBMM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d40c3r/DcmFfWdk2ugOHJJhkUvOS+OqJFGG2eVGxJlpqydoeyMklBxopCg5cxLxAsr+vTyYV/1ySVnKjotVpmeQweIMDfcHBqBLFnga44Sye7Y79sbVR4MOvPhn6Jer10JOYxFaHzeoeFUshXc1cNThPWyzXA1/egxkgl2PYLrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Npby1FB1; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1788977010; c=relaxed/simple;
+	bh=Las9w7VEmzQZwGkpCFsvWgiGoM0T0keae01SaXpx4ME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Magjg4ex3a/e8r6w5iLFZNagHE3uRA0lQlZMsWajVkSkxBFg/r8drPD39Kjc3D0Meod5LC7pmTCHqmbEMvIyQySxzWmrurKHryZUKBMQBJZ34KAxgJ0u7zZ5v8LzlcgEWfhPOaDtY2pVvI+j1vM0hK0VLtS5N6dLSkq8uBcWZyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmlnNDid; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Npby1FB1"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa7so58832685a.1
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 11:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1788976906; x=1789581706; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ViCBkdbLW7JdXmtrQtir0eAwLk4ivWB6Xk+gL7SNqv4=;
-        b=Npby1FB1feUrqqGhVK5Jden+msFFDuJUEaGOr7CAmN+XghUrw5D4mA+XIMv1A6dFkn
-         O7+2rhV2wGGmgnWI7bQXKrV7h+qHWICV8a4XkJiENExh4hqyuZzYT5DRoQWYHf9WEIpd
-         A9d4uCPUnyFTE2qi/Kun3dIU53rjqyXal7tYLn8Ef9miLIgjnGr55ikHs0Uu77zoTteB
-         KGfUB4FnxYzBF4HU4aMMDBRc545HOQz2m1zJgJgESbZDZZOxI7awnWhS9mlObB00sGfj
-         REQqJ3Rs+6W0wYDOhPa5oB0oN51+TVgtqQhw9oq2GGjn9QeFghrCfy+G8J91TFtkV1rK
-         dv8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976906; x=1789581706;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ViCBkdbLW7JdXmtrQtir0eAwLk4ivWB6Xk+gL7SNqv4=;
-        b=peBfgOXpPUWmebfGpYUXvHBfhhYKl0Tf7XLXjFzYr4Do3uTJsfA1//ZTO/gxcxsXFb
-         hMVMaYyA9vWwTWVoHMFo2ZCYIynoan1VTdDfS1W9ZLU2jwctPLJ8HppzajfN/QupxqrG
-         ZuzSzhKrP+NS0sgVZxMqWfRpeucxDB26LU9T25Hl4jOuDrzx/W1+Rrg1swTk+rffSVdT
-         J8UOU4Qs1A11XLUTALVqLWW5jQ1+51skXCR1A9rCo/ss/hnZTMEzdPndXP0g5guTZQ1z
-         i7SEhGp/5zlHhDIZSOsZDkVnnAS0MZmsQVUUZIoNv8mStitdQMQja8yEZmrDDkiG2xcR
-         ET7A==
-X-Forwarded-Encrypted: i=1; AKwUvBz2qGTsqhNSkseyVxEkBcdhPjdp+DP2VkjNX5kGzYtBPxlLsJ2oHC/HAhzz2R/Khw8CLnUvAWE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCVhsWmQ3nUcbWlmSaHjYeGG/yLs5K6GEY3+Y8TQRGEN45/U3m
-	dvbl8NsxmJwRQzpYxKyopie9jAAThT2qd93gRVvBiTFXc9e61GBNhdPFH78EDS5RzyA=
-X-Gm-Gg: AYBFou03a1pfRfikPEDRw477tNnqNkybFaZU4bAl5BHTOJxHJi5SLoJcLIomG/pEaJX
-	EzhcSUSqJikTesrObTBEMI3gP2ePIGeVXkP0lHdByscFGI+Uk6QGULCpLiFzO+OdEf9yQ0BoiLh
-	NwDSzioOxFnPzkcwU1Xpn0UfG1kH2Xjs/PJYh+zY/4v5drsaQqASJrKzVyEwiszz2TcnHa2qIof
-	RzOqtBUKEuvY0pny7VWfOlq//M8+Xf/pAGUzTlTXDd3HN9eikv0+xdp3tLw7Umu+jRS7f6/47Ue
-	/scxGAXnvWtAE6ahRk703AFZj6TOS8B+8mFk5DtpDibFQf8QHTknZflhsIkwKa7b2sCO7WD4gp6
-	yoGCTa3fIX88RItHGLG/hgX6GOcNHhfx8Ne6m8pB5MDX/iGzdaDYjyi5hDjtZXFn3uJnqViGxmY
-	nkECi0phUNKg4njt0cNxfsi0VlMbdOFc2eDErBjy662JBkbNJFs4GrGl/jy18xbp/7Ct5wrqL7A
-	4qzVAqJXDMpvc7yw//PhwbZ3WqsslO3QL0XgpKbubs57CyJSMxduzRW
-X-Received: by 2002:a05:620a:3941:b0:92e:4927:2002 with SMTP id af79cd13be357-939d4a8ebb0mr452910285a.39.1788976906226;
-        Wed, 09 Sep 2026 11:01:46 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9398c498610sm1295435685a.43.2026.09.09.11.01.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:01:45 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 09 Sep 2026 18:01:07 +0000
-Subject: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
- drain pass
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmlnNDid"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8641F00893;
+	Wed,  9 Sep 2026 18:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788977009;
+	bh=KnDHX9M1i8YbIvHyQzXuOKvuaUqriDDBknhvO0sB8QE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cmlnNDidZblxlV5/VzdIsPp8MS9wHhh7DzVGRE+vQFXyP+piyEBMYBdDHCwljqDQX
+	 a3oskIjFjUp1la2tk19iHQBPwuUfUJYsLkmljf9AbqIXJH5j+tWS3ePvpWhwRsOQrK
+	 Ao/zSc46p04/qK6UkVj5QcfKzdqdK7OTl4N7Lr0nQpNIcqXodXYqL+JBxIc8AEdXFA
+	 cUk1S7nYgAOiqyOALV0yRJV19HoqNHebVOyVsQBiMBpOekHo5Nh/piATDBlxHlZKPY
+	 hwdCnZvppyxOSnWM9nc/langm5LWe7xV0Ig2ZZjn61edbX15WCTrqH4ZJiQww8ldx3
+	 BU1pJUfrjwvDg==
+Message-ID: <bc937549-d004-4d31-bf05-ddbdeea519bc@kernel.org>
+Date: Wed, 9 Sep 2026 20:03:24 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
-X-B4-Tracking: v=1; b=H4sIAOKeoWoC/yWMTQ6CMBBGr0Jm7SRtISZ4FeNiWgaoxqozRUkId
- 7fV5ft+3gbKElnh1Gwg/I4aH6mAPTQQZkoTYxwKgzPuaHrTY5g+HjPpTVHCgi/FzrWdLeXYsoX
- yewqPcf05z5c/6+KvHHIV1YUnZfRCKcw1upNmFtj3L1UhlqWOAAAA
-X-Change-ID: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
- Tejun Heo <tj@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Dennis Zhou <dennis@kernel.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH net v2 05/15] mptcp: options: handle MPC data + csum reqd
+ + no csum
+Content-Language: fr
+To: netdev-bot+sashiko@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-5-df1de70348b6@kernel.org>
+ <178896537514.219967.16760487622956837996@kernel.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <178896537514.219967.16760487622956837996@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-cleanup_offline_cgwbs_workfn() drains a dying cgwb by calling
-cleanup_offline_cgwb() until it returns false, with a cond_resched()
-between passes.  On a CONFIG_PREEMPTION kernel that cond_resched() does
-nothing: _cond_resched() is a plain "return 0", and under
-PREEMPT_DYNAMIC the full and lazy modes disable it.  Since commit
-7dadeaa6e851 ("sched: Further restrict the preemption modes") those are
-the only two models on the architectures with PREEMPT_LAZY support,
-arm64 and x86 among them, so the drain loop never reports a Tasks-RCU
-quiescent state.
+Hello,
 
-A worker draining a cgwb with millions of attached inodes runs for
-minutes.  On a 6.18 arm64 host in lazy mode the cgwb worker drained one
-dying cgroup's writeback domain for over 11 minutes.  A BPF program
-unlink (bpf_trampoline_unlink_prog -> bpf_trampoline_update ->
-unregister_ftrace_direct -> ftrace_shutdown -> synchronize_rcu_tasks())
-waited on that grace period while holding the trampoline mutex, 42
-tasks queued behind it in D state, and the hung task detector fired at
-614 s and panicked the host.  Any BPF or ftrace detach during a long
-drain inherits the drain's length.
+On 09/09/2026 16:49, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 1 (1)
+> 
+> - [Low] Residual uninitialised read of `mp_opt->csum`: the patch closes
+>   the functional consumer of the uninitialised checksum…
 
-Fix this by calling cond_resched_tasks_rcu_qs() so we do not stall out
-anybody who calls sycnrhonize_rcu_tasks().  We put this in a do { } while
-loop because if we have many small cgroups cleanup_offline_cgwb() will
-return false and we will never call cond_resched_tasks_rcu_qs(), creating
-the same problem.
+There is a pr_debug() reading mp_opt->csum. Harmless, but should be
+fixed to silence such report. A follow-up patch will follow:
 
-Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- mm/backing-dev.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+https://lore.kernel.org/20260908-mptcp-opt-read-debug-v1-2-b3e74549b6f6@kernel.org
 
-diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-index cecbcf9060a6..18e999053bae 100644
---- a/mm/backing-dev.c
-+++ b/mm/backing-dev.c
-@@ -910,8 +910,9 @@ static void cleanup_offline_cgwbs_workfn(struct work_struct *work)
- 			continue;
- 
- 		spin_unlock_irq(&cgwb_lock);
--		while (cleanup_offline_cgwb(wb))
--			cond_resched();
-+		do {
-+			cond_resched_tasks_rcu_qs();
-+		} while (cleanup_offline_cgwb(wb));
- 		spin_lock_irq(&cgwb_lock);
- 
- 		wb_put(wb);
+> Pre-existing issues:
+> - [Low] Reported concern (assessed as an intentional, documented
+>   behaviour change): a passive endpoint whose local checksum sysctl is…
 
----
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-change-id: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
+(...)
 
-Best regards,
---  
-Josef Bacik <josef@toxicpanda.com>
+> The commit message already
+> covers that trade-off.  The gap where the peer's SYN A bit is never
+> stored in subflow_req is pre-existing and unchanged here.
+
+Indeed ...
+
+> Would it be worth a short note in the commit message that the passive
+> side's only source for the peer's A bit is the third ACK, so the new
+> condition also drops that signal for a data-bearing third ACK?
+
+... but there is already a note about that. Maybe the note is not clear
+enough, or my English is not good enough, but I don't think we need to
+add an even longer text.
+
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
 
