@@ -1,167 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4414039E6FC
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F805427FD;
+	Wed,  9 Sep 2026 11:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953469; cv=none; b=Q6ZSwPIVCvZ7C9Zh7YMYE5JIPJHl//XYID61pWYCTFlKT32WgBRGz90yT+0+33AFZriL4X+Yz0bOuBQlyOvtfoZwpUieinlcY9LVSX/wpuLW2aEYLq3BEPFvLIu5sYE1snd1s3CM0JfMVtWbaYoUs8FSWmlOLmd1mBbfdEUrZq0=
+	t=1788953482; cv=none; b=Vh2HVgwAVNCKW611S+81PKjXLMcF7SNz3BDswEywijmRozH6r0b+9Y6MBMNwGBUYxP4VQEqs9CA9S7RPpkyVGu5707t/jmSdq6QRxbamz7YBFS56s8fOatSmY3hoQYZHRoPzhyaIII/EHqhMJBrtgVDZBw5X9efQ2sBbMSfRTzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953469; c=relaxed/simple;
-	bh=2XM29T9GazC6fllqM6n2ZiOhkw1VphllxAyzhu1ieM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iXL74SIsWK5gTw19xPhb6rJHCmBY0FGulSeu1NP2IeuYTJ5w2aLNBkv74+hk+9jSb7NeA5N0cspchrXD1X6JPQxF/5SVeTsAdccVBUj46SRQZPhybVa97X9WZVOkyZOUN5hXJ6qtkbd48WyA2Wp0MX3cBskEnWyHOk8h0jKLiM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfKsofP9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953482; c=relaxed/simple;
+	bh=CXSTc4aPWBj1nAoQ++08gguReR4HielAKPMJkcyXlSo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YQPq5R5wTp/y2GgPoZLSHuWRPntdQYenJinlLcp6+E2CU2sOV8C/ap4ixcbgnEIXQeW6ktzlBFv06avpKAKUd8RDGYHEi6HMDk58FzpdZuwi7rdYZlYK/eBrm8CW1i2LxrxFWArsjkCw0bGiSFagojyd04Ehip8/sYCZnzhuIU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmSUhMv0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfKsofP9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8C71F00A3D;
-	Wed,  9 Sep 2026 11:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmSUhMv0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7531F00A3D;
+	Wed,  9 Sep 2026 11:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953464;
-	bh=6+CiRt7JYdK9PAo6HmT3DQWtxamOLi/zZ8j/BmweQ0M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AfKsofP988CT1QpCMXVZEMb9DR3OjvmUrfPr9QnEq+Pm8+Iu6BVO5boxKKxMTVHRf
-	 sswg9CqIk+XjkVdH9oA5h+3VQYQF4JZT13GK5pXa5G1RU3eJvtyVrciNk+X1zDN5LG
-	 cmjznxLEf1/SlHwP0xzwdrvw4zz6JHnoV0whyOCWDAEI0QdxO/NUABZYNYSD4YklFl
-	 Rc/rc+UHiIUP/dXeInrxM7WeNFNy9z6zUUVShFiLbFXvRsSHrnbrS4rMSgvEI8ZYBE
-	 tUFLfjrQZmXHZL4Tu8JBIFBKDjavl6BOhyeoRW8ctA0bmW574iPZSay8M/Ltj+GRjk
-	 vv49xwPA8kyfg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Linus Walleij <linusw@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] power: supply: ab8500_fg: fix use-after-free on remove
-Date: Wed,  9 Sep 2026 07:31:01 -0400
-Message-ID: <20260909113101.1863047-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909113101.1863047-1-sashal@kernel.org>
-References: <2026090321-blissful-lily-9edf@gregkh>
- <20260909113101.1863047-1-sashal@kernel.org>
+	s=k20260515; t=1788953480;
+	bh=Y3K94U6nWZUzIFTjfoB84YzsIYwmTnR5/k0fa7b89sQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=LmSUhMv02BaNN+e9O5o8ioXxKCSy7LH7FYMsv/aN/DzfsHY1OvWHTVveihWz+nlb/
+	 JJXoFTrGu/cW7sOadUQdQaoQc0E+8fvL9EnfbB6YCQz3Bs/ZRX1Omyj+kpNNCL1tAw
+	 MSjNdAI3JZbYqQXHQ3Rj4OIiiKwAu2aWFif3JqfJqddzkNyXIy1wL1ICME0A3fZwgP
+	 MhizTnWxTorTxyvWTFmqUBmE9Nry91LnJnjwjCe3xxTb34EAwsmgHj8Jvf7YePbmM1
+	 l1K7rcs682iEQwZu9vhLYGONdiwMRGJDZTnOhPInhYLjUpNqujfmEzuyxmvSpL8BpG
+	 RdzKM93/amsgQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>, LKML
+ <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
+ John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W. Biederman"
+ <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+Date: Wed, 09 Sep 2026 13:31:17 +0200
+Message-ID: <871pb21x16.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On Wed, Sep 09 2026 at 11:55, Peter Zijlstra wrote:
+> On Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner wrote:
+> Now, I have deleted and rewritten this tail end at least twice now. And
+> I *think* I'm agreeing with you. Let me explain:
+>
+> It all hinges on D-E and H-I.
+>
+> D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+> RELEASE+ACQUIRE. Specifically, we have:
+>
+>   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+>   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
 
-[ Upstream commit 75b1e88d34254f4fb7753345e21bfee47abddd7f ]
+Yes. I should have argued with UNLOCK+LOCK instead. My bad.
 
-ab8500_fg_remove() destroys the driver workqueue while the threaded
-interrupt handlers are still armed; they are devm-managed and freed
-only after ->remove() returns, so a handler that fires in that
-window queues work on the freed workqueue.
+> So while earlier I was arguing with RCpc in mind, in which case D-E
+> completely goes away and we can consider B-G' to be one big critical
+> section from the PoV of a third CPU (our posix_timer_fn() one). In this
+> case we can push A down and G up and have them cross.
 
-Tear the workqueue down through devm instead, registering its cleanup
-after the power supply and before the interrupt requests.  devm then
-frees the interrupts first, so the handlers can no longer queue work,
-before disabling the delayed and plain work items and destroying the
-workqueue.  Disabling the items, rather than cancelling them, keeps
-them disabled so no producer (including the power-supply
-external_power_changed callback) can requeue them.
+Correct.
 
-Found by an in-house static analysis tool.
+> *However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
+> which is RCtso and that *does* impose store order, so A stores must
+> happen before G stores
 
-Fixes: 13151631b5bd ("ab8500-fg: A8500 fuel gauge driver")
-Cc: stable@vger.kernel.org # v6.10+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260802020316.417757-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/power/supply/ab8500_fg.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+Yes. That was my thinking, but I obviously expressed it incorrectly.
 
-diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
-index d7d402e6a407f..969a75f4c016d 100644
---- a/drivers/power/supply/ab8500_fg.c
-+++ b/drivers/power/supply/ab8500_fg.c
-@@ -3054,6 +3054,20 @@ static void ab8500_fg_unbind(struct device *dev, struct device *master,
- 	flush_workqueue(di->fg_wq);
- }
- 
-+/* Disable, not cancel: works stay disabled so nothing can re-arm them. */
-+static void ab8500_fg_destroy_workqueue(void *data)
-+{
-+	struct ab8500_fg *di = data;
-+
-+	disable_work_sync(&di->fg_acc_cur_work);
-+	disable_work_sync(&di->fg_work);
-+	disable_delayed_work_sync(&di->fg_reinit_work);
-+	disable_delayed_work_sync(&di->fg_low_bat_work);
-+	disable_delayed_work_sync(&di->fg_check_hw_failure_work);
-+	disable_delayed_work_sync(&di->fg_periodic_work);
-+	destroy_workqueue(di->fg_wq);
-+}
-+
- static const struct component_ops ab8500_fg_component_ops = {
- 	.bind = ab8500_fg_bind,
- 	.unbind = ab8500_fg_unbind,
-@@ -3155,6 +3169,11 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 		return PTR_ERR(di->fg_psy);
- 	}
- 
-+	/* Registered after fg_psy, before the IRQs: devm frees IRQ -> workqueue -> fg_psy. */
-+	ret = devm_add_action_or_reset(dev, ab8500_fg_destroy_workqueue, di);
-+	if (ret)
-+		return ret;
-+
- 	di->fg_samples = SEC_TO_SAMPLE(di->bm->fg_params->init_timer);
- 
- 	/*
-@@ -3167,20 +3186,16 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	/* Register primary interrupt handlers */
- 	for (i = 0; i < ARRAY_SIZE(ab8500_fg_irq); i++) {
- 		irq = platform_get_irq_byname(pdev, ab8500_fg_irq[i].name);
--		if (irq < 0) {
--			destroy_workqueue(di->fg_wq);
-+		if (irq < 0)
- 			return irq;
--		}
- 
- 		ret = devm_request_threaded_irq(dev, irq, NULL,
- 				  ab8500_fg_irq[i].isr,
- 				  IRQF_SHARED | IRQF_NO_SUSPEND | IRQF_ONESHOT,
- 				  ab8500_fg_irq[i].name, di);
- 
--		if (ret != 0) {
--			destroy_workqueue(di->fg_wq);
-+		if (ret != 0)
- 			return ret;
--		}
- 		dev_dbg(dev, "Requested %s IRQ %d: %d\n",
- 			ab8500_fg_irq[i].name, irq, ret);
- 	}
-@@ -3194,7 +3209,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	ret = ab8500_fg_sysfs_init(di);
- 	if (ret) {
- 		dev_err(dev, "failed to create sysfs entry\n");
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3202,7 +3216,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_err(dev, "failed to create FG psy\n");
- 		ab8500_fg_sysfs_exit(di);
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3222,7 +3235,6 @@ static void ab8500_fg_remove(struct platform_device *pdev)
- {
- 	struct ab8500_fg *di = platform_get_drvdata(pdev);
- 
--	destroy_workqueue(di->fg_wq);
- 	component_del(&pdev->dev, &ab8500_fg_component_ops);
- 	list_del(&di->node);
- 	ab8500_fg_sysfs_exit(di);
--- 
-2.53.0
+> Combine with H-I, which has a data dependency from the LOAD to the LOCK
+> and thereby constraints later LOADs, those sigqueue loads that come
+> after I must in fact observe the A stores.
 
+Right. I guess it's worth to document that somewhere at least in the
+change log of this patch.
