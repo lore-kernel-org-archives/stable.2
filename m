@@ -1,170 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314F14854F6;
-	Wed,  9 Sep 2026 09:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0D348C402;
+	Wed,  9 Sep 2026 09:08:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944614; cv=none; b=XnE8I1mmUYGGBnvlcvM4Dcb4SDHg8FwBipRmbtbq/QWepnjiitGk0Yfc9rXy8rBjOEz0ik0sh7htyaYTuv3TLBopiQTiMYmq55SAy0I7q5tgNKE30eXeFl9s0nF3sfOephUlJEu42er3hXWQUpft5XbMh9sndfeT9zc1/X38z08=
+	t=1788944916; cv=none; b=KnxydVshxtfW2IB0mVKH0Ogf9oUbUgE4Lhob7Yy2eyfRQpYAc+zQiaQoQ/jzTULIK45ukTseWlPqfgbr6JnR4DgVr7ksqoNjZ5+u1nFTjC3mKVL5FrJp64fP03307vt/gHGp6pofKojpt/TNoIpKkQImDsZvB75MNEZrDBf6vkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944614; c=relaxed/simple;
-	bh=dAW4XFaHnXuRRusbMK+XhLRVSHDX62pvCW3fTPDkR5k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dnHNHfhhQf9yahdacaNuHP12VPumampaz04rWx7qifJ/vI9Jr6+8OuPj4xKpPLSLkZQofcVCd1KupG30MfcAZu4g/tm0dLLDnwdkQ3+5Z/vdHSyBW5a7HfrxyU0lc/vjh1HugxCz67DeKTZ/kNKeVTlIFqYzEo53hqvh4z3AQmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HaDw5ez+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944916; c=relaxed/simple;
+	bh=4EFFBgRF1Ln+SQ3SXXVLN+LEdKbDyIsZFmNprV8uEew=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ToVHRyLqnwffpjkZxrWjHukrl+WjSIrNRKLlclZFDx+X0RNMgPH4l5Oer79pW8n+GS3XA23i7PRgc4ZTRQJYCIaZIrpW+OV1a586tEEk082qfeZgrAuFAU7OWkl61jGp1vgQhk4TrsLwFIk7FI6G42xuIgK4Q3WSYIXZSaWGMlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=masU3CVl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HaDw5ez+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95341F00A3A;
-	Wed,  9 Sep 2026 09:03:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="masU3CVl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A74E1F00A3D;
+	Wed,  9 Sep 2026 09:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944612;
-	bh=ad/uP/9BUaKeqL2yxjxogEEVcG1H43vsLZmR0rGjAt0=;
-	h=From:Date:Subject:To:Cc;
-	b=HaDw5ez+b3XDVV1tsv1rTrXGgu6ItNNHZ8tcUgGcAwWdpRhMeb4e3XmIUx5LK56bR
-	 jOhxSv+JWhRrp9IvCp4urd7bzztMmsnoY1gL1kKanHFAFxIhgMH/JUIda1MxwYq6qd
-	 aL703p8YlTOtOq2yNIrxGxyBP5xJi9b73ySNRvelwqfNG2GRHAL7MQ+9u717rNSYpV
-	 6JhHZSarC7WTW99XV6CGeu+XnkwT/BVqVe8kpjQBE4o2iNUDpLTrQ2Gh7uXluXPLyG
-	 9xLVFLSoaVtukFd29sQjsFgh9AE3T+rbmQPWCwBdsguRw5k+GxJgDbL5s8Ucz3507+
-	 OP7CWwQulK8kg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 09 Sep 2026 11:03:18 +0200
-Subject: [PATCH] fs/ntfs3: use d_instantiate_new() in ntfs_create_inode()
- and murder syzbot's "WARNING in do_new_mount" saga
+	s=k20260515; t=1788944915;
+	bh=9WmWAiR+ErcC3dQcXoDnGK6eZwpnpPVg1IU0OrzRFuQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=masU3CVliFA6CbjIjmTOOvcqq/8lVt3GxALrqVm3MC0QKCTXFQbi7d6maA7NiSNmd
+	 kuKYVHA1ztsEPPg8y3ytWJQznJAqWOpvWYMSiNFlz/ACLOIJ8W1LZn1Msq3JNp8h9z
+	 Xi8gXe0RNhpZbEZ4TYxKtofx2TT7hYLuwMVu5IJYn7NY5lK6FpNHnKYf5oO3uX+mw9
+	 XhB1cXzVhiv45DB8dqKV9ggX2obw7u1Dw0mAQhdtEuyVInVy9EMYtuTNsepH9IYhJv
+	 b6shnqQF+0oP4CCEM8/jhzYsYnfzOd8Ygu2PbMl1sTTC/AW8Gdea1hpTE2JVLvKdbK
+	 6H8A+NxodCYcg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>, Frederic Weisbecker
+ <frederic@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
+ <brauner@kernel.org>, John Stultz <jstultz@google.com>, Ingo Molnar
+ <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W.
+ Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+Date: Wed, 09 Sep 2026 11:08:31 +0200
+Message-ID: <87ecf223n4.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-work-ntfs3-d_instantiate_new-v1-1-2db697162ce8@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XM0QqCQBCF4VeRuW5F1wjtVSJk3B1zCsbY2TIQ3
- 71du+zyPxy+FZQCk8K5WCHQm5VnSVEfCnATyo0M+9RgK3uquqozyxweRuKojfE9i0aUyBipF1p
- MWx/RN7UnbC0k4hlo5M/OX66/1tdwJxezmR8DKpkhoLgpT1kvd73808v8hW37AiUt2920AAAA
-X-Change-ID: 20260909-work-ntfs3-d_instantiate_new-814ad31dea82
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>, jack@suse.cz, 
- syzkaller-bugs@googlegroups.com, viro@zeniv.linux.org.uk, 
- ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, stable@vger.kernel.org, 
- syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4049; i=brauner@kernel.org;
- h=from:subject:message-id; bh=dAW4XFaHnXuRRusbMK+XhLRVSHDX62pvCW3fTPDkR5k=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQtVLj/9sFvEWUe4bbrxud3z5gYcdVcXign9IOE/pfOQ
- l25evZ1HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMJOsHwh9+b+cCqz9xKuzVv
- qPk66T2+kX/bVFqmz3GfiJF8fFauFcP/qM1fX/P+80gvnrja76j4olk7dqamLzEV+NFkINWZo+r
- MBwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain
 
-ntfs_create_inode() creates a new inode via ntfs_new_inode(). It hashes
-it with insert_inode_locked() and so it's marked as I_NEW until
-unlock_new_inode().
+On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> Let me try and have a go :-)
+>
+>
+> do_exit()				de_thread() 			posix_timer_fn()
+>   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+>     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+>     tsk->flags |= PF_EXITING; 						    LOCK siglock
+>     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+>     					    LOCK tasklist_lock
+>     flush_sigqueue_list();		    if (leader->exit_state)
+> 					      break;
+>   ...                                       transfer_pid()
+> 					    UNLOCK tasklist_lock
+>   exit_notify()
+>     LOCK tasklist_lock
+>     tsk->exit_state = EXIT_ZOMBIE;
+>     UNLOCK tasklist_lock
+>
+>
+>
+> Then there is indeed nothing that makes sure posix_timer_fn() sees
+> sigqueue updates done by do_exit(), because those are ordered by
+> tasklist_lock, but posix_timer_fn() doesn't care about that.
 
-ntfs 3 calls d_instantiate() in between though... Since the dentry was
-already hashed by the lookup before the create any path walk finds it
-without touching the parent's i_rwsem and so can lock the inode.
+That's irrelevant because in the above scenario posix_timer_fn() 't'
+points to the exiting old leader (on the left) because the PID store has
+not happened yet and it therefore observes PF_EXITING on it so it won't
+touch the sigqueue. Note, that setting and checking PF_EXITING is
+serialized by sighand lock, so this is fine.
 
-If the inode is a directory unlock_new_inode() calls
-lockdep_annotate_inode_mutex_key() and marks i_rwsem with the
-i_mutex_dir_key class.
+ do_exit()
+   exit_signals()
+     LOCK siglock
+     tsk->flags |= PF_EXITING
+     UNLOCK siglock
 
-That resets the count and the owner of a lock somebody else may already
-hold by now...
+So after this point anything which looks at tsk->flags under siglock
+will observe PF_EXITING and not touch the sigqueue. Nothing to see here.
 
-syzbot has been spamming us with the same godforsaken bug
+> The easy solution would probably be to do transfer_pid() while holding
+> siglock?
 
-  "WARNING in do_new_mount"
+That'd be only relevant for the situation Frederic is concerned about,
+i.e. the case where the third party observes the TID swap.
 
-since 2023. I can't take it anymore so I went looking. Afaict, syzbot's
-executor chdirs into a freshly mounted ntfs3 image, creates a
-directory and then mounts some pseudofs on it. Everytime the mkdir()
-takes longer than syzbot waits mount() runs concurrently:
+Because with that visible 't' in posix_timer_send_sigqueue() won't be
+old_leader, which has PF_EXITING set, it will be new_leader which has it
+not set.
 
-  mkdir("./sys")                        mount(NULL, "./sys", "sysfs")
-  ntfs_create_inode()
-    d_instantiate()
-                                        user_path_at() finds the dentry
-                                        do_lock_mount()
-                                          inode_lock(inode)
-                                          namespace_lock()
-    unlock_new_inode()
-      lockdep_annotate_inode_mutex_key()
-        init_rwsem(&inode->i_rwsem)
-                                        unlock_mount()
-                                          inode_unlock(inode)
+So Frederic is concerned that posix_timer_send_sigqueue() can observe
+the PID store but not observe the sigqueue stores.
 
-The mount side then releases a lock that according to the rwsem nobody
-holds:
+I argue that's not possible:
 
-  DEBUG_RWSEMS_WARN_ON((rwsem_owner(sem) != current) && ...):
-  count = 0x0, magic = 0xffff888043a854e8, owner = 0x0,
-  curr 0xffff888000244880, list empty
-  WARNING: CPU: 0 PID: 5346 at kernel/locking/rwsem.c:1368 __up_write
-  Call Trace:
-   inode_unlock include/linux/fs.h:877 [inline]
-   unlock_mount fs/namespace.c:2892 [inline]
-   do_new_mount_fc fs/namespace.c:3828 [inline]
-   do_new_mount+0x777/0xa40 fs/namespace.c:3887
+A:  sigqueue stores
 
-On PREEMPT_RT the same thing shows up as
+B:   AQUIRE tasklist
 
-  DEBUG_LOCKS_WARN_ON(rt_mutex_owner(lock) != current)
-  WARNING: kernel/locking/rtmutex_common.h:193 at rt_mutex_slowunlock
+C:   exit_state store
 
-The up_write() underflows the reset count. A following inode_lock() on
-that directory then never returns. A path walk into the new directory
-racing with the mkdir() corrupts the lock the same way via
-inode_lock_shared() in lookup_slow().
+D:   RELEASE tasklist
+     // sigqueue and exit_state stores become globally visible
+ ------------------------------------------------------------------------
 
-Switch to d_instantiate_new() and drop the trailing unlock_new_inode().
-All error paths bail out before that point with I_NEW still set and
-keep using discard_new_inode().
+E                               ACQUIRE tasklist
+ ------------------------------------------------------------------------
+F                                if (exit_state)
+				   swap_pid()
+G                                     STORE_PID
 
-May we never see this fscking bug report again.
+				// The PID store can become visible in the
+				// system right here so F can observe them before
+				// RELEASE tasklist
 
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Cc: stable@vger.kernel.org # v5.15+
-Reported-by: syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/6a9beced.a5e650b3.26d8a.000b.GAE@google.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/ntfs3/inode.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+H                                                             READ PID
+							      ....
+I                                		              ACQUIRE siglock
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 56b4f6469a28..4ac26c80bd34 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1866,10 +1866,10 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
- 		goto out6;
- 
- 	/*
--	 * Call 'd_instantiate' after inode->i_op is set
-+	 * Call 'd_instantiate_new' after inode->i_op is set
- 	 * but before finish_open.
- 	 */
--	d_instantiate(dentry, inode);
-+	d_instantiate_new(dentry, inode);
- 
- 	/* Set original time. inode times (i_ctime) may be changed in ntfs_init_acl. */
- 	inode_set_atime_to_ts(inode, ni->i_crtime);
-@@ -1917,9 +1917,6 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
- 	if (!fnd)
- 		ni_unlock(dir_ni);
- 
--	if (!err)
--		unlock_new_inode(inode);
--
- 	return err;
- }
- 
+After #A the sigqueue stores are maybe visible
 
----
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-change-id: 20260909-work-ntfs3-d_instantiate_new-814ad31dea82
+After #C the exit_state store is maybe visible
 
+After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+the system and cannot become magically become invisible after that
+point.
+
+The new leader cannot swap PIDs before acquiring task list lock and
+before it observed exit_state != 0 under it. That's fully serialized
+against the old leader as both hold task list lock for their operations.
+
+#F creates a control dependency, so if the new leader acquires task list
+   lock before the old it will observe 0, drop the lock and wait. No PID
+   store obviously.
+
+#G can be come visible immediately but is only guaranteed to be visible
+   globally at the RELEASE of tasklist lock.
+
+#H can only observe the PID store after the store actually happened in
+   #G. So it either reads the original PID or the swapped PID.
+
+#I is not really relevant for this. It's only relevant for PF_EXITING
+   and other stuff which is directly protected by it. And it does not
+   matter whether it locks the old or the new sighand.
+
+Now let's look at the full chain and what can possibly be visible or not
+and when:
+
+#A can trickle into the tasklist held section, but not after #D.
+
+#C cannot be reordered against #B and #D
+
+#A is therefore guaranteed to be globally visible _before_ new leader
+   observes exit_state != 0 in #F under task list lock
+
+#G cannot be reordered against #F and obviously not against #E either.
+
+   It can become visible at any point after the store, but as argued
+   above that visibility can't be reordered before #A (sigqueue stores)
+   became visible.
+
+The important part is that the visibility of #A (sigqueue stores) and #G
+(PID store) is fully ordered through task list lock.
+
+So #H _cannot_ observe #G without observing #A - not even on PowerPC or
+similar insanities.
+
+No?
+
+Also doing the PID swap under sighand lock is not solving anything
+either because posix_timer_send_sigqueue() does the lookup without the
+lock simply because it does not know which task it is upfront. So it
+would have to redo and validate the lookup with the lock held.
+
+Thanks,
+
+        tglx
