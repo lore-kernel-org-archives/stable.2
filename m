@@ -1,43 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FC1179A3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A8D2F7ACE;
+	Wed,  9 Sep 2026 02:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919777; cv=none; b=UmVsMl251i3tj7FgH9BbjzslHlGLGFzGwwunKmKQ95LqFoWmAITSy4piaNi//rvrHdXx3yYrMt9dEEOtdTt9Y+Vk3RM48Rf4Yq6VLDYcnXmVULfO/vd5rLC5iRoRZyRbJN49SnaMVVK8OdKyYVPmRR+yDcdVeHEAVPDWQETTzD8=
+	t=1788920828; cv=none; b=glfa145yb/1J/WyY6YO5P8FiExgOYlqC2LK42Oh1rtGkzvS/WK/IySnQ3FoGKyNmE1Gchx3UKA9hGL6hRWCbKsL2mePqE+iBlsSCu+7cWobkjHZKXukgPoY11R0capQbMAeHTP0qVDiN+zgLZPxTc1xPXOgLB+xZRwfdKp4St9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788919777; c=relaxed/simple;
-	bh=X5BoQ9krKI+efTo6KmxdLFP3DSVtzN8w2CsEV5uZETw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q7tupRl3dyD7WNTIS03tgEFDj/aqoVjw3M+92QIzgVPS/I65Ebm0n+GlfIfiH4N1dPLYyiCf+sqdNQVS9c4WRKggFieKy1G9lq9EWpy5jSZ6M/yVGJTrpa9MJ2NM4zCbApHacuWajsGegwWNHsqGPjZHYo7lLCY2w8wEOb2eeDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyME/N8T; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyME/N8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045821F00A3F;
-	Wed,  9 Sep 2026 02:09:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788919775;
-	bh=OTTv6XSggu3uGv0rzvuWrnMSYS65vLMbdP0zEUBLjLM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YyME/N8TZoqmvu9q41ZO8btL42v9PyhvamS1ICNx2HHVIttouLTR6KmwE0GmVhUgQ
-	 IYbdodF5soH0vl9KVTDpHgfF0HMmPMm0RtgtXa0oH0rAfxHkyThtcDkAKJWN0t6TXd
-	 L2Gmo/M1TupeDVXHErnT6iyGWBCE6cJxDki+pw89tfAEmmiJekt70XerdJJcRtRLTk
-	 NvmhX4VLb3t2GYNSiLpL18tHr+eg8w4G233cqX4TB1aCvmhdyPDcrkkLH2zaAwk3jX
-	 cDvFUYCMv80aS1aaLhP+HVkwrtwABQ65q0F1jqK2DjVRu+thNwYIvTwXsQuadrSCuq
-	 n/cuhdYWNmv/g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Chris Mason <clm@meta.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] svcrdma: Reject inline replies that overflow the pull-up buffer
-Date: Tue,  8 Sep 2026 22:09:31 -0400
-Message-ID: <20260909020931.1057969-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909020931.1057969-1-sashal@kernel.org>
-References: <2026090318-fretted-breach-0806@gregkh>
- <20260909020931.1057969-1-sashal@kernel.org>
+	s=arc-20240116; t=1788920828; c=relaxed/simple;
+	bh=qRdnLdE0DA+eUojmXr3DF79IQNc3CWqUjZYdGQoRxtM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=n5rmXuilPnyWQd1GMqhMjAluFbj4wiZFxOZhu8J6RlPQ6zNN5rwe4emG9143dveywvfMSyXgSTNaA3ZtvQEV5NOSkyX5wS/fE5KBnXBGaHkk6Z8fGY8x531nMN0nmv1kgzNc6vipQhG0tHGu0cJtXxN0mzdH/uUjxBRcufVeza8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ee29a30aabf511f19a56ed5b684f684d-20260909
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e0bb490f-9348-439d-807e-fec815e9fb0b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9562b420330683b6bf297dd09904b3b0,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ee29a30aabf511f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 903135012; Wed, 09 Sep 2026 10:26:57 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/4] ntfs: fix volume flag update races
+Date: Wed,  9 Sep 2026 10:26:49 +0800
+Message-Id: <20260909022652.798691-2-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909022652.798691-1-zenghongling@kylinos.cn>
+References: <20260909022652.798691-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,166 +55,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-[ Upstream commit 0fbe20dfe74b783d255bf389a6ea77aa25dc7860 ]
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
-An RPC-over-RDMA client can request a reply, such as an NFS READ
-payload, without providing a Write list or a Reply chunk to carry
-it. When such a reply needs more scatter/gather entries than the
-device's Send Queue supports, svc_rdma_pull_up_needed() selects
-pull-up and svc_rdma_pull_up_reply_msg() linearizes the whole
-reply into sctxt->sc_xprt_buf. That buffer is only sc_max_req_size
-bytes, while the reply on this path is bounded only by the client's
-request, so svc_rdma_xb_linearize() copies past the end of the
-buffer and corrupts adjacent slab memory. The oversized length is
-then stored in sc_sges[0].length and posted, so the device also
-reads beyond the mapped region.
-
-The SGE-exhaustion branch is the only pull-up path that can exceed
-the buffer: the threshold branch pulls up only replies smaller
-than RPCRDMA_PULLUP_THRESH, and replies that fit the device's SGE
-budget are sent directly without linearization. Make
-svc_rdma_pull_up_needed() report -E2BIG when the reply it would
-pull up cannot fit sc_max_req_size, and fail the request with
-ERR_CHUNK as RFC 8166 Section 4.5.3 directs rather than dropping
-the connection.
-
-The helper no longer answers a simple yes/no question: it now
-reports pull-up, no pull-up, or -E2BIG for a reply too large to
-linearize. Rename svc_rdma_pull_up_needed() to
-svc_rdma_check_pull_up() so its name no longer implies a boolean
-predicate.
-
-Fixes: e248aa7be86e ("svcrdma: Remove max_sge check at connect time")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <clm@meta.com>
-Assisted-by: kres:claude-opus-4-7
-Link: https://patch.msgid.link/20260623014728.826032-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- net/sunrpc/xprtrdma/svc_rdma_sendto.c | 47 ++++++++++++++++++---------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 18 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_sendto.c b/net/sunrpc/xprtrdma/svc_rdma_sendto.c
-index fe3369f5c75a6..e91539203ff10 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_sendto.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_sendto.c
-@@ -643,20 +643,21 @@ static int svc_rdma_xb_count_sges(const struct xdr_buf *xdr,
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 60d43339c590..ce159ae8169a 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
  }
  
- /**
-- * svc_rdma_pull_up_needed - Determine whether to use pull-up
-+ * svc_rdma_check_pull_up - Determine whether to use pull-up
-  * @rdma: controlling transport
-  * @sctxt: send_ctxt for the Send WR
-  * @write_pcl: Write chunk list provided by client
-  * @xdr: xdr_buf containing RPC message to transmit
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
   *
-  * Returns:
-- *   %true if pull-up must be used
-- *   %false otherwise
-+ *   %1 if pull-up must be used
-+ *   %0 if pull-up is not needed
-+ *   %-E2BIG if the reply is too large to be pulled up
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
   */
--static bool svc_rdma_pull_up_needed(const struct svcxprt_rdma *rdma,
--				    const struct svc_rdma_send_ctxt *sctxt,
--				    const struct svc_rdma_pcl *write_pcl,
--				    const struct xdr_buf *xdr)
-+static int svc_rdma_check_pull_up(const struct svcxprt_rdma *rdma,
-+				   const struct svc_rdma_send_ctxt *sctxt,
-+				   const struct svc_rdma_pcl *write_pcl,
-+				   const struct xdr_buf *xdr)
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
  {
- 	/* Resources needed for the transport header */
- 	struct svc_rdma_pullup_data args = {
-@@ -668,11 +669,22 @@ static bool svc_rdma_pull_up_needed(const struct svcxprt_rdma *rdma,
- 	ret = pcl_process_nonpayloads(write_pcl, xdr,
- 				      svc_rdma_xb_count_sges, &args);
- 	if (ret < 0)
--		return false;
-+		return 0;
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
  
- 	if (args.pd_length < RPCRDMA_PULLUP_THRESH)
--		return true;
--	return args.pd_num_sges >= rdma->sc_max_send_sges;
-+		return 1;
-+	if (args.pd_num_sges < rdma->sc_max_send_sges)
-+		return 0;
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
 +
-+	/*
-+	 * The reply has too many SGEs to Send inline, so it has to be
-+	 * linearized into sc_xprt_buf. That buffer holds only
-+	 * sc_max_req_size bytes, so a larger reply cannot be pulled up.
-+	 * RFC 8166 Section 4.5.3 requires responding with ERR_CHUNK.
-+	 */
-+	if (args.pd_length > rdma->sc_max_req_size)
-+		return -E2BIG;
-+	return 1;
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
  }
  
- /**
-@@ -728,7 +740,7 @@ static int svc_rdma_xb_linearize(const struct xdr_buf *xdr,
-  * Assemble the elements of @xdr into the transport header buffer.
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
   *
-  * Assumptions:
-- *  pull_up_needed has determined that @xdr will fit in the buffer.
-+ *  check_pull_up has determined that @xdr will fit in the buffer.
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
   *
-  * Returns:
-  *   %0 if pull-up was successful
-@@ -762,6 +774,7 @@ static int svc_rdma_pull_up_reply_msg(const struct svcxprt_rdma *rdma,
-  *
-  * Returns:
-  *   %0 if DMA mapping was successful.
-+ *   %-E2BIG if the reply is too large to be pulled up
-  *   %-EMSGSIZE if a buffer manipulation problem occurred
-  *   %-EIO if DMA mapping failed
-  *
-@@ -777,6 +790,7 @@ int svc_rdma_map_reply_msg(struct svcxprt_rdma *rdma,
- 		.md_rdma	= rdma,
- 		.md_ctxt	= sctxt,
- 	};
-+	int ret;
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
  
- 	/* Set up the (persistently-mapped) transport header SGE. */
- 	sctxt->sc_send_wr.num_sge = 1;
-@@ -791,7 +805,10 @@ int svc_rdma_map_reply_msg(struct svcxprt_rdma *rdma,
- 	/* For pull-up, svc_rdma_send() will sync the transport header.
- 	 * No additional DMA mapping is necessary.
- 	 */
--	if (svc_rdma_pull_up_needed(rdma, sctxt, write_pcl, xdr))
-+	ret = svc_rdma_check_pull_up(rdma, sctxt, write_pcl, xdr);
-+	if (ret < 0)
-+		return ret;
-+	if (ret)
- 		return svc_rdma_pull_up_reply_msg(rdma, sctxt, write_pcl, xdr);
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1862,8 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
  
- 	return pcl_process_nonpayloads(write_pcl, xdr,
-@@ -962,7 +979,7 @@ int svc_rdma_sendto(struct svc_rqst *rqstp)
- 	if (!pcl_is_empty(&rctxt->rc_reply_pcl)) {
- 		ret = svc_rdma_send_reply_chunk(rdma, rctxt, &rqstp->rq_res);
- 		if (ret < 0)
--			goto reply_chunk;
-+			goto send_err;
- 		rc_size = ret;
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (!NVolErrors(vol) &&
+-	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
  	}
- 
-@@ -983,10 +1000,10 @@ int svc_rdma_sendto(struct svc_rqst *rqstp)
- 
- 	ret = svc_rdma_send_reply_msg(rdma, sctxt, rctxt, rqstp);
- 	if (ret < 0)
--		goto put_ctxt;
-+		goto send_err;
- 	return 0;
- 
--reply_chunk:
-+send_err:
- 	if (ret != -E2BIG && ret != -EINVAL)
- 		goto put_ctxt;
- 
 -- 
-2.53.0
+2.25.1
 
