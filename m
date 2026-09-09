@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66D1526A89
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:44:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2D452B1E4
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950647; cv=none; b=DPQWxXUey8qB6cFa5awjxA3iGwGine+JGXZMH53a9zQvrFIODtXSwEgtjU9VKHtNueOV/bImJMhLorB1pL70wG6OwxNIEAzxSzcc1/4zimJPuWN2WyIcDrjLbm5HIa350G/jPM9R8am6WpQR/4lorlktv+0of6327ZEaUZUP8aU=
+	t=1788950649; cv=none; b=Sn8cY+D8k+J2+dCOcjh/5XR620kZWscs6Sw8UShDWuOe54IWSahXDE10RfvZytNUU+w0vl6TT2Te+VSWSRrTaOeJ8KSDJ9NUAnoxcJIRHME0EM+ze53nYjREPT8nblSbMujJ42zwR6wy4Eqak9Ghx6warTbr9jRDoZj0P0ldIjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950647; c=relaxed/simple;
-	bh=1Dpw6CWc9t3y1aL+EQtiXI/OfT88fmRT2nvK15fDac8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=og3Wzqdr62uk0e4B+pR6YLcT0u/JyGeJGDMbJOaFdBTNcPd45xMq/xUE4F9ccQh03++tWPytalyAF4ZazpyJgLSChyfzG6aeyC6MhL0G9txi5ojw6x3ObYxsxN+Cw+1KNJD1qo/aWGi8aOx0IcTZu32PkIpuLqgskOsXN+A6SVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PM/8LLHL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950649; c=relaxed/simple;
+	bh=x8EA86TpRr9zYO4fO4wQtSvyuaX48hEbriWlDCWCVtk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KMXXtuysh+1tSiTEM6r65qp8E18HQQHrD4KddgzD4yWaiij/z+3he87j0i5PEfO+ym4DQFVXK6bdi/1TWRVsTv6znoaFrI+UDRhVbatt4mIJBrHBiH9IvT3tUVOTe+JcG6Pmvdo38aoOmMChWO1c0FzMiPlnu7PhcysIYXtBzk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tzSrjb7B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PM/8LLHL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C501F00A3D;
-	Wed,  9 Sep 2026 10:44:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tzSrjb7B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012951F00A3A;
+	Wed,  9 Sep 2026 10:44:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950645;
-	bh=w9WdZlrGzIWHZtZVT/fa9iGL4pXEjjGvuzezjlHiWPY=;
+	s=korg; t=1788950648;
+	bh=fk18NM4fNcFdWoiAUDZBK8a3hLwU+Sc1vYZdbiD2C18=;
 	h=Subject:To:Cc:From:Date;
-	b=PM/8LLHL2/NPQlnFBCkhfHSEpiAjjU8AsDYvMZ32f0J3Cv5DA1+KCjK7UmyU5bnzf
-	 5+gtA+ou3f2ma6k84e7cjXWNGkSVSsY7wAEpAdOCiVv3b+nD5dEc9myWfZcpwpP+r1
-	 ZIUPzfMrz+riP4L/dJ4uZycJnUs9SJvO7Yki2QUk=
-Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Use split "zap all fast" helpers when" failed to apply to 6.12-stable tree
-To: seanjc@google.com,michael.roth@amd.com
+	b=tzSrjb7ByDMUkstuDqSUds74RGshYEII9FAjQ/0KyFJZquapNfFB2KM2z5SnQ4YVd
+	 IBytUBexbMxJhUH38bQlRDzmraziRMvpRWCZq0KBxbDnIAVBi//5qVQQAYnpaM03rd
+	 VYzBftadkSrtoacKUYBFXsCnukLO4ToNIG4H6Eq0=
+Subject: FAILED: patch "[PATCH] KVM: nVMX: Service local TLB flushes on failed nested" failed to apply to 5.10-stable tree
+To: yosry@kernel.org,sashiko-bot@kernel.org,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:33:23 +0200
-Message-ID: <2026090923-sleep-shore-e015@gregkh>
+Date: Wed, 09 Sep 2026 12:33:53 +0200
+Message-ID: <2026090953-storage-unbent-4b4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x db095727ff5739f4f46ee641ee6ef450032886db
+git cherry-pick -x 05a0b701d1089fb57beeb8982f23c3bbafe0fa8b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090923-sleep-shore-e015@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-storage-unbent-4b4f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,75 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From db095727ff5739f4f46ee641ee6ef450032886db Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 9 Jul 2026 13:49:39 -0700
-Subject: [PATCH] KVM: x86/mmu: Use split "zap all fast" helpers when
- invalidating memslot
+From 05a0b701d1089fb57beeb8982f23c3bbafe0fa8b Mon Sep 17 00:00:00 2001
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 22 Jul 2026 23:01:28 +0000
+Subject: [PATCH] KVM: nVMX: Service local TLB flushes on failed nested
+ VM-Enter
 
-Manually invoke the front half and back half of the "zap all fast" flow
-when invalidating a memslot so that mmu_lock is acquired at function scope
-in kvm_arch_flush_shadow_memslot().   This will allow putting more code
-inside the critical section without having to take mmu_lock twice in quick
-succession.
+KVM services local TLB flushes on "full" nested VM-Exits (through
+__nested_vmx_vmexit()), but not if a nested VM-Enter fails (e.g. due to
+failed VMCS checks in nested_vmx_enter_non_root_mode()).
 
-Opportunistically open code checking whether or not to do the fast zap, to
-discourage removing the local "zap_all" in a future cleanup, i.e. to ensure
-the SLOT_ZAP_ALL quirk is queried exactly once.  Processing the front half
-but not the back half of the fast zap (if SLOT_ZAP_ALL were disabled
-concurrently) would result in KVM unnecessarily keeping invalid TDP MMU
-roots until the VM is destroyed.
+However, it is possible that KVM had queued TLB flushes that need to be
+performed, even if the nested VM-Enter was not successful. For example,
+if VPID is disabled for L2 (via nested_vmx_transition_tlb_flush(), or if
+via the MSR load lists, as the SDM says:
 
-No functional change intended.
+  If any MSR is being loaded in such a way that would architecturally
+  require a TLB flush, the TLBs are updated so that, after VM entry, the
+  logical processor will not use any translations that were cached before
+  the transition.
 
-Cc: stable@vger.kernel.org # 6.12.x
-Reviewed-by: Michael Roth <michael.roth@amd.com>
-Link: https://patch.msgid.link/20260709204948.1988414-10-seanjc@google.com
+The SDM is unclear about when the TLB flush should occur, and whether or
+not a failed VM entry would flush the TLB, so it is safer to always
+do the TLB flush in this case.
+
+More concretely, KVM also updates the last VPID L1 used for L2 in
+nested_vmx_transition_tlb_flush() (i.e. last_vpid), even if the VM entry
+ultimately fails. With the current code, KVM could miss a TLB flush if
+L1 changes L2's VPID, then does a failed VM entry followed by a
+successful one, as the failed VM entry would update last_vpid but not
+actually flush the TLB. Servicing local TLB flushes on failed VM entries
+makes sure that the TLB is always flushed when last_vpid is updated.
+
+Fixes: 5c614b3583e7 ("KVM: nVMX: nested VPID emulation")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org> # Internal review
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260722230128.1587363-1-yosry@kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index a5c2a560a88a..3eb1f86593b1 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -7573,12 +7573,6 @@ static void kvm_mmu_zap_memslot_pages_and_flush(struct kvm *kvm,
- 	kvm_mmu_remote_flush_or_zap(kvm, &invalid_list, flush);
- }
- 
--static inline bool kvm_memslot_flush_zap_all(struct kvm *kvm)
--{
--	return kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
--	       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
--}
--
- void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
- 				   struct kvm_memory_slot *slot)
- {
-@@ -7589,16 +7583,23 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
- 		.may_block = true,
- 		.attr_filter = KVM_FILTER_PRIVATE | KVM_FILTER_SHARED,
- 	};
-+	bool zap_all = kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
-+		       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
- 	bool flush;
- 
--	if (kvm_memslot_flush_zap_all(kvm)) {
--		kvm_mmu_zap_all_fast(kvm);
-+	write_lock(&kvm->mmu_lock);
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 0635e92471c8..5d5b5022438d 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3765,6 +3765,14 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+ vmentry_fail_vmexit_guest_mode:
+ 	if (vmcs12->cpu_based_vm_exec_control & CPU_BASED_USE_TSC_OFFSETTING)
+ 		vcpu->arch.tsc_offset -= vmcs12->tsc_offset;
 +
-+	if (zap_all) {
-+		__kvm_mmu_zap_all_fast_front_half(kvm);
- 	} else {
--		write_lock(&kvm->mmu_lock);
- 		flush = kvm_unmap_gfn_range(kvm, &range);
- 		kvm_mmu_zap_memslot_pages_and_flush(kvm, slot, flush);
--		write_unlock(&kvm->mmu_lock);
- 	}
++	/*
++	 * Handle any TLB flush requests that were queued for L2 if KVM made it
++	 * far enough along to switch to L2 context.  Note, loading host state
++	 * will generate any flushes for L1 required by VM-Exit.
++	 */
++	kvm_service_local_tlb_flush_requests(vcpu);
 +
-+	write_unlock(&kvm->mmu_lock);
-+
-+	if (zap_all)
-+		__kvm_mmu_zap_all_fast_back_half(kvm);
- }
+ 	leave_guest_mode(vcpu);
  
- void kvm_mmu_invalidate_mmio_sptes(struct kvm *kvm, u64 gen)
+ vmentry_fail_vmexit:
 
