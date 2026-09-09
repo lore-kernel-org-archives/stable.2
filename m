@@ -1,42 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8C657C735
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:10:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A56957D20A;
+	Wed,  9 Sep 2026 14:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963044; cv=none; b=pycT1WCKxSEZl+znntKKnm+mfp7Pl1y+3HvNLp5HFcIULZKB0iQ83dXcm3l8eWFtebka2mk9xGXmlB+vMCyOsOnga9D5mMPEplsNJzUe1+XSTIKoRHXo4Aeij+tK+lIzCal9A06OdDEAuYilYm57jmUFyuo7LvtGWUsRfIMCW4Y=
+	t=1788963045; cv=none; b=XXnSTjxYEiK8qx+kp2rLXoBz1udiZ29J9IICQCNjQMjVFOu2qN6bx9rpkNUyjv131ZGsnTKTh3j36/Wzk15ng77hZP5jldXO3163xot2XDfDfPUIVogd+gl9X7srG8xBaXhpAwFCDkWEyu/5sqiyx5BTEkOcBBxGaVoLjRjXLKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963044; c=relaxed/simple;
-	bh=Beo9ObEad9s3iZPBJU+t3oGP7BSgtK3hdf1KkbQ78io=;
+	s=arc-20240116; t=1788963045; c=relaxed/simple;
+	bh=ADKPIg9Qc5tiOnUgIOaR68IvonuL9sYUsoGi6oZQzPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UmdYAs4Q/HFb1blSBAURTm89QiV86yram7/fUzk6ol+qlZmdhSVTpDol0C8N8pqL/Lp1GMLCWR9nBaHDjdDE1yzNXnrepXzUP7uJ0up8mE8nT0mbw/VEDFKPeobSpTM/8oWLXcNNkzgsIKuWVOjeBChpd9ru1G0yoFk2v/0W4kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oH2og/EM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KD+NKfLtCQGzxotwVcD7R1AI4okRidt6ecAOhvwurmEMf5Oz8kT5KoPr8Dl7pnHqGeXNt4ygxpePCXvUId5y/7Cd/PJLGQcW5SU2Oni1uTMMaI4AmzapUviDVfG7GUe0lXBq+PSGy4leXf8e1lGiJFSvDk10isE1QimMCOFycmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ynrTM7wA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oH2og/EM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09121F00A3A;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ynrTM7wA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDEC1F00A3E;
 	Wed,  9 Sep 2026 14:10:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963043;
-	bh=BN+iboPILznTxMllliS/NnD3fT4KDqUoiARbI/ePGHo=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963043;
+	bh=rbshUT+P6xp+6YeR8BeijHusYdIc4HL5hNOykrA5Z0U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oH2og/EMy7f1UHgQffXEMFiHZxgkW0XYsGNCrtHzyrae+0l8BdLj7yXJuNOx7szVt
-	 YmDR9qqYAVNyr8OuvDuMG2fm5BZUH6UhXuDqgBSoVqStU/xyUuII7FHCy3XCyaSNgR
-	 dD0vYvLpSURz4Juve0ROV78100V0x2xUZ18RbvvzmzGlF7I1zH4hGyTGJaMZR8B1Kp
-	 oiNMeKHp4UeU7fxv5qRKXaUHlQtvMDWbAB53sUMDihF+rbDIkDA9JJFlHfRGbaybk2
-	 IxVArPl0kuNCL6xGWsmWFcfVF4XfXWqqXpBaoDbNiVk7ewN1SNophl/75D44hda5f1
-	 kwG2m6PJi+q0Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=ynrTM7wArUjMSE7bYsjMRP7JVfqRK3Vlmiuzkmdlhq2/qqApwa0L66gR4omIXz5IJ
+	 RBMl5I3RI5uhShBYEQgkh1pIkl/nNU/csH5iEeC16iBdSMFjYctCmBKYUrZLYvR8uE
+	 naFH6GT921ySf66+EhffKBZmBVkIMzUMztOnzIr8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] platform/x86: ISST: Check for admin capability for write commands
-Date: Wed,  9 Sep 2026 10:10:40 -0400
-Message-ID: <20260909141041.2381301-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090310-gawk-vivacious-d6f7@gregkh>
-References: <2026090310-gawk-vivacious-d6f7@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH 7.2 500/556] drm/ttm: Drop tt->restore after successful restore
+Date: Wed,  9 Sep 2026 15:43:00 +0200
+Message-ID: <20260909134248.062400026@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,79 +57,118 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 69cd1ca440a96c85dcedcddfa5e0af6012f60b8b ]
+------------------
 
-In some SST deployments, administrators want to allow reading SST
-capabilities for non-root users. This can be achieved by changing file
-permissions for "/dev/isst_interface", but they still want to prevent
-any changes to the SST configuration by non-root users.
+From: Matthew Brost <matthew.brost@intel.com>
 
-This capability was available before for non-TPMI SST. Extend the same
-capability for TPMI SST by adding a check for CAP_SYS_ADMIN for all
-write commands.
+commit 941ac10529b3be5965a88d432a161ab459672ba8 upstream.
 
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260107060729.1634420-1-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Stable-dep-of: e45d6b847286 ("platform/x86: ISST: Validate max level for set feature")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+ttm_pool_restore_and_alloc() can successfully complete the restore
+process via ttm_pool_restore_commit(), but tt->restore is not dropped
+afterward. As a result, subsequent backup/restore flows observe what
+appears to be a completed restore, while in reality shmem handles are
+still installed in tt->pages, leading to the stack trace below.
+
+Fix this by freeing and dropping tt->restore in
+ttm_pool_restore_and_alloc() upon successful completion of the restore.
+
+20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
+20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
+20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
+20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
+20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
+20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
+20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
+20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
+20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
+20556 [  309.871678] PKRU: 55555558
+20557 [  309.874403] Call Trace:
+20558 [  309.876866]  <TASK>
+20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
+20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
+20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
+20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
+20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
+20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
+20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
+20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
+20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
+20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
+20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
+20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
+20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
+20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
+20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
+20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
+20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
+20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
+20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
+20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
+20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
+20580 [  309.975209]  drm_ioctl+0x213/0x440
+20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
+20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
+20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../x86/intel/speed_select_if/isst_tpmi_core.c        | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c |   15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 2e2e168d301c3..317738d5b0668 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -625,7 +625,7 @@ static long isst_if_core_power_state(void __user *argp)
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -917,6 +917,7 @@ int ttm_pool_restore_and_alloc(struct tt
+ {
+ 	struct ttm_pool_tt_restore *restore = tt->restore;
+ 	struct ttm_pool_alloc_state alloc;
++	int ret;
+ 
+ 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
  		return -EINVAL;
+@@ -940,14 +941,22 @@ int ttm_pool_restore_and_alloc(struct tt
+ 	} else {
+ 		alloc = restore->snapshot_alloc;
+ 		if (ttm_pool_restore_valid(restore)) {
+-			int ret = ttm_pool_restore_commit(restore, tt->backup,
+-							  ctx, &alloc);
++			ret = ttm_pool_restore_commit(restore, tt->backup,
++						      ctx, &alloc);
  
- 	if (core_power.get_set) {
--		if (power_domain_info->write_blocked)
-+		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 			return -EPERM;
+ 			if (ret)
+ 				return ret;
+ 		}
+-		if (!alloc.remaining_pages)
++		if (!alloc.remaining_pages) {
++			ret = ttm_pool_apply_caching(&alloc);
++			if (ret)
++				return ret;
++
++			kfree(tt->restore);
++			tt->restore = NULL;
++
+ 			return 0;
++		}
+ 	}
  
- 		if (core_power.enable > SST_CP_MAX_ENABLE ||
-@@ -684,7 +684,7 @@ static long isst_if_clos_param(void __user *argp)
- 		return -EINVAL;
- 
- 	if (clos_param.get_set) {
--		if (power_domain_info->write_blocked)
-+		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 			return -EPERM;
- 
- 		if (!in_range(clos_param.min_freq_mhz / SST_MUL_FACTOR_FREQ, 0, SST_MAX_FREQ + 1))
-@@ -795,7 +795,8 @@ static long isst_if_clos_assoc(void __user *argp)
- 
- 		power_domain_info = &sst_inst->power_domain_info[part][punit_id];
- 
--		if (assoc_cmds.get_set && power_domain_info->write_blocked)
-+		if (assoc_cmds.get_set && (power_domain_info->write_blocked ||
-+					   !capable(CAP_SYS_ADMIN)))
- 			return -EPERM;
- 
- 		offset = SST_CLOS_ASSOC_0_OFFSET +
-@@ -973,7 +974,7 @@ static int isst_if_set_perf_level(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
- 
--	if (power_domain_info->write_blocked)
-+	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
- 
- 	if (!(power_domain_info->pp_header.allowed_level_mask & BIT(perf_level.level)))
-@@ -1033,7 +1034,7 @@ static int isst_if_set_perf_feature(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
- 
--	if (power_domain_info->write_blocked)
-+	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
- 
- 	if (perf_feature.feature & ~SST_PP_FEATURE_STATE_VALID_MASK)
--- 
-2.53.0
+ 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+
 
