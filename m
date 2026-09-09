@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABCF3845B3
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FAE5328A1
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951278; cv=none; b=dgSK2gK+AN8C8JyKc3Ndu0UzifB3kgYPYeB7IAsC082y0r/umEQauuj9YTAAgVjRTGREL/aqAderuQPq8I9yM6qXVg0hYDjn25CpwOYWsbOw7Xjz7F1N6GbVKUN3VxJ4iCK/Gu+1Y0wgsNByoV9B0ZXMq8Fy4IwmKbhDkxUmd6k=
+	t=1788951280; cv=none; b=XiibKS3yMxWNEMjtw6sxj8OlI19Zy/iAIYYihfnpEQrTgzUqfd61tW81ZUXooDZ49zN6Nm1jM0aDOmNJdEnr8Q/PrbpogPKX8H1+5wcZnYzyI5UmK+LpO5I+XOWXsPkCPxfa6JihV/+2pQFJFRNuU51Y5MiH9w7PdLJUAz38KKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951278; c=relaxed/simple;
-	bh=roN27aybi5JLlteX0ds4dQJ3+qMMl4CZi2532tn9GO0=;
+	s=arc-20240116; t=1788951280; c=relaxed/simple;
+	bh=rJvIK3kj6V04eeN8HoPVZYoCchlUTtXzAPr+T2fhHPY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o0MFrl3BiMOz2asRvnV6Fb8MFaZ7qsucDQpI7DYsoA9fwzc1rq63/IvBx3eXrWBbicGoBUxLEE8r02LDxarLs1ze+gyXHucQTBnH5w04o6DxdrUkxQouRqD4zYtfC6Z8I3+izV1j/7NftUyC7m5Lr6K0IeNoEkad9Hh9LG1xB9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bg/xIMOT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rDch+xck9KeV6/RvZOQFXPQVHS8LPL9TlKIxqeP+lMCzOLkfBmZwslLA+6RYPhAlhyg6iLNvgYSCcVfeKtboOdUNvy8V7J+37IEcmcSFFtkZWMz7qc+WbJDTiP1tqjDVY5QmBNQygOMKkuuJP8JnyK+Xc5F7n3HR3mofG+/Kpmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYJOL5+k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bg/xIMOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB551F00A3A;
-	Wed,  9 Sep 2026 10:54:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYJOL5+k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3001F00A3E;
+	Wed,  9 Sep 2026 10:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951273;
-	bh=LpNv4BGSfEQ3zhCQqCfM954YRMRr69biRYUte9Y2hH8=;
+	s=k20260515; t=1788951275;
+	bh=rSfJja/v1WRQEA60s8RcjGSCb5F7wON/+VizKLYBYvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bg/xIMOTDa8u8kgN0Wqcv5O3ruVZpqPXSm/cR24dNZKuQnQ9cfBMtlWBJCed7HsAM
-	 z3HnbYeRZR3AYsM9TtbGCpO5hNb1UvDkJyAUsY4luZ6K39yDjC1DIWx3ZSgtLQRO9Y
-	 hQ00bV2nhhqX+RgTzjY1q7/BBOWYutci1i3tMPqSbVgR6TrO3pG/Kn8T+c5cKePLEL
-	 Z48l/11qKQ0JAJbVZq0/viJboT/4LTeg8vl3JkrlkAT0fcTWXgbg9ltm92ewSYeqZK
-	 mmPe+HQOxSBOYwgUU7PX/AiMleWhuo6A0uA3u9hvl67ci0yBsc/woIgxer4OdisGxT
-	 58gmCs1hSzKqA==
+	b=TYJOL5+kgc41wmkaBnxOrObYFic30yon45bNBJYijT07s+d7y2rrmKNBHIMNZTrZ3
+	 J9wrPF4AVvmvhexB7cLle/hGcw986k4TiTqgu46cZAPY8yYsnYJwaicBGTqEegTRBB
+	 pSwBtL7BOrBAeOlRKRwhTUh3V/kAgjzhVZsGgnl62QmHbZG0GVOFMuwUe/gUJ4PBKg
+	 vCO6JSdB6wycniRfh6/POgNC/0ZdtVsEtH2xc+Fcal4CpHVEfvTK+VrHFSpYf/qFwg
+	 N4hxw57pnDx0AEvHpb7Ngn5XhVz3XygqcRM3P/ty/rRL7BRwub44yA0cQMrWv+DeY2
+	 +39jHDcKWgVMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <csokas.bence@prolan.hu>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] sched/core: Make core-sched flips wait for in-flight selections
-Date: Wed,  9 Sep 2026 06:54:31 -0400
-Message-ID: <20260909105431.1621812-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] dmaengine: Add devm_dma_request_chan()
+Date: Wed,  9 Sep 2026 06:54:32 -0400
+Message-ID: <20260909105433.1622090-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090311-expediter-squire-a01e@gregkh>
-References: <2026090311-expediter-squire-a01e@gregkh>
+In-Reply-To: <2026090301-rope-disprove-ff1d@gregkh>
+References: <2026090301-rope-disprove-ff1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,113 +46,89 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Bence Csókás <csokas.bence@prolan.hu>
 
-[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
+[ Upstream commit 08bf1663c21a3e815eda28fa242d84c945ca3b94 ]
 
-Core scheduling's pick_next_task() operates on all sibling rqs under one
-acquisition of the shared core-wide lock. A ->pick_task() that releases the
-rq lock leaves every sibling __lock momentarily free, letting
-__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
-it. The selection resumes on the split locks, touching sibling state it no
-longer protects, and __schedule() finally releases a lock that was never
-taken while leaking the one that was.
+Expand the arsenal of devm functions for DMA devices, this time for
+requesting channels.
 
-Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
-and make __sched_core_flip() wait for the count to drain. The count only
-changes under the shared lock, which the flip holds while sampling, so no
-other ordering is needed. The wait can repeat while selections overlap, but
-the flip backs off between samples and flips are rare cookie-lifetime
-events.
-
-sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
-left behind would bias it forever if that CPU later returns as its own
-leader.
-
-Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-[ Moved the counter decrement from out_set_next to out to accommodate 6.6’s cached-selection path. ]
+Signed-off-by: Bence Csókás <csokas.bence@prolan.hu>
+Link: https://lore.kernel.org/r/20250610082256.400492-2-csokas.bence@prolan.hu
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 777979e62711 ("i2c: mxs: fix DMA channel leak on probe error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 22 ++++++++++++++++++++++
- kernel/sched/sched.h |  1 +
- 2 files changed, 23 insertions(+)
+ drivers/dma/dmaengine.c   | 30 ++++++++++++++++++++++++++++++
+ include/linux/dmaengine.h |  7 +++++++
+ 2 files changed, 37 insertions(+)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index fa9008e5d8bd6..6c7759dae216f 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -345,6 +345,17 @@ static void __sched_core_flip(bool enabled)
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index d89827d0927e4..9fb312cebe7dd 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -927,6 +927,36 @@ void dma_release_channel(struct dma_chan *chan)
+ }
+ EXPORT_SYMBOL_GPL(dma_release_channel);
  
- 		sched_core_lock(cpu, &flags);
- 
-+		/*
-+		 * A core-wide selection may have the shared rq lock temporarily
-+		 * released by a lock-dropping ->pick_task(). Flipping would
-+		 * rebind rq_lockp() under it. Wait it out.
-+		 */
-+		while (cpu_rq(cpu)->core->core_pick_in_flight) {
-+			sched_core_unlock(cpu, &flags);
-+			cpu_relax();
-+			sched_core_lock(cpu, &flags);
-+		}
++static void dmaenginem_release_channel(void *chan)
++{
++	dma_release_channel(chan);
++}
 +
- 		for_each_cpu(t, smt_mask)
- 			cpu_rq(t)->core_enabled = enabled;
- 
-@@ -5959,6 +5970,8 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		return __pick_next_task(rq, prev, rf);
- 	}
- 
-+	rq->core->core_pick_in_flight++;
++/**
++ * devm_dma_request_chan - try to allocate an exclusive slave channel
++ * @dev:	pointer to client device structure
++ * @name:	slave channel name
++ *
++ * Returns pointer to appropriate DMA channel on success or an error pointer.
++ *
++ * The operation is managed and will be undone on driver detach.
++ */
 +
- 	/*
- 	 * If there were no {en,de}queues since we picked (IOW, the task
- 	 * pointers are all still valid), and we haven't scheduled the last
-@@ -6152,6 +6165,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- out_set_next:
- 	set_next_task(rq, next);
- out:
-+	rq->core->core_pick_in_flight--;
- 	if (rq->core->core_forceidle_count && next == rq->idle)
- 		queue_core_balance(rq);
- 
-@@ -6344,6 +6358,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
- 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
- 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
- 
-+	/*
-+	 * A stale leftover would bias the count forever if this CPU later
-+	 * returns as its own leader. Move, don't copy.
-+	 */
-+	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
-+	rq->core_pick_in_flight            = 0;
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	struct dma_chan *chan = dma_request_chan(dev, name);
++	int ret = 0;
 +
- 	/*
- 	 * Accounting edge for forced idle is handled in pick_next_task().
- 	 * Don't need another one here, since the hotplug thread shouldn't
-@@ -9834,6 +9855,7 @@ void __init sched_init(void)
- 		rq->core_forceidle_count = 0;
- 		rq->core_forceidle_occupation = 0;
- 		rq->core_forceidle_start = 0;
-+		rq->core_pick_in_flight = 0;
++	if (!IS_ERR(chan))
++		ret = devm_add_action_or_reset(dev, dmaenginem_release_channel, chan);
++
++	if (ret)
++		return ERR_PTR(ret);
++
++	return chan;
++}
++EXPORT_SYMBOL_GPL(devm_dma_request_chan);
++
+ /**
+  * dmaengine_get - register interest in dma_channels
+  */
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index 3576c6e89fea4..368a03920c928 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -1489,6 +1489,7 @@ struct dma_chan *__dma_request_channel(const dma_cap_mask_t *mask,
  
- 		rq->core_cookie = 0UL;
- #endif
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index a6c2b8f3045ee..accff24e091e4 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1151,6 +1151,7 @@ struct rq {
- 	unsigned int		core_forceidle_seq;
- 	unsigned int		core_forceidle_occupation;
- 	u64			core_forceidle_start;
-+	unsigned int		core_pick_in_flight;
- #endif
- };
+ struct dma_chan *dma_request_chan(struct device *dev, const char *name);
+ struct dma_chan *dma_request_chan_by_mask(const dma_cap_mask_t *mask);
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name);
  
+ void dma_release_channel(struct dma_chan *chan);
+ int dma_get_slave_caps(struct dma_chan *chan, struct dma_slave_caps *caps);
+@@ -1525,6 +1526,12 @@ static inline struct dma_chan *dma_request_chan_by_mask(
+ {
+ 	return ERR_PTR(-ENODEV);
+ }
++
++static inline struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	return ERR_PTR(-ENODEV);
++}
++
+ static inline void dma_release_channel(struct dma_chan *chan)
+ {
+ }
 -- 
 2.53.0
 
