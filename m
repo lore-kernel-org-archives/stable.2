@@ -1,90 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE58357D19
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:07:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14DF3AFAFA
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980841; cv=none; b=tQewAoMyue3HVdyV5pib/kZntj0eYtAdIaSdH413lHGBe35GLhy+ChuFnd6KrRNU9jbmEuFJacqYt1GVo+2NLvdBkEG+Y8gcmmHlBMkCABZplfKfkZX4c/KMbckT8JVfmp1/ni9s4TQJc0Et805qhvfpEiHUUT049eqBLQlO9zM=
+	t=1788980842; cv=none; b=XQe/4zXKc9qpmG4qWJoWjQGa0BonCPvyXdgocV/FvNxRwE7NR35ftKtqO0OnJJejSCA5oxyHTDd8LCuGhuM4leyYwoH+NnU9i5eE/ULGwwZbrl3dDHF+Jh+8juYCcyxdlLh9W03eFAd0Z8niXtSVEkM2JdyzdKLTObGEqYHgupk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980841; c=relaxed/simple;
-	bh=GxgaoHTEeWKtl4HhY3E7gUCh50JHl3GhPmpQC6tVBXU=;
+	s=arc-20240116; t=1788980842; c=relaxed/simple;
+	bh=PSdgWHc3aNgfBVO7Od2dy6R3CJAHR0UCkRRXGRuwLfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z0jZMF7XbeNW/kZRAN1fdJNd8WPHGL/Uzq7cp+c7tcNANoN8Z5swkmXSj9Dvqurd+ycFh/EZqFnpuXBd73SM2/TQmJsmw7JR8B/MNR+CrPFT5lIylAA1QYYuI4qazF2SOf/k/A4a6wiD85HxOn+RgKNneFyO0Yj/hq1r95UGDMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvTgQiOB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=M7DoHT79/U7sTLR8d+SC87dWvdDR0ZBgzE/x+mEH3LAqskXIet4IC/3vYUHtcLKEEPxbnJKA2SnfeZt1FthHDQzDsMj+nhh8c8TpOdhKUq7MRNYq2TFSMBBCSDM58UCb4OH+rDZqyp2gSCZy2J4XFun1djd+CE3GRgCBJCdIfaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6pATztH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvTgQiOB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2363E1F00893;
-	Wed,  9 Sep 2026 19:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6pATztH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66DB1F000FF;
+	Wed,  9 Sep 2026 19:07:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788980839;
-	bh=RjrvZDuZgejp9ene+v7H+B3N9Gg+MYyes4vnc3ACOIU=;
+	s=k20260515; t=1788980841;
+	bh=8Mymiu+kudGNo4J4LdgLS6qBD8gZoQx7hw7tRRRhmcA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VvTgQiOB4kSAUQV36BPnCUWkzrbhbw7QmXI9wgNVws3wysQMp5zttdHQ+PyOqRdn+
-	 aKCegzDQ+Ss1WGCON6lHn0FFzgmiVGoxWyc4BMj08Ii3CGrlt5oEQFat+xg1Zp8WuG
-	 51vAi/Sqb4ccvAZ91eSiaoeX5cRBNJF8H0x+yjRlorCSx8Xn2WtBAUWKq0T0iDrBFP
-	 zdBFtSaNQHNbq0ehin17YvCWOXedyez/SQzfd03YvvFNI+sPDx3nOSYTTCSmgvAYsP
-	 nb2k6x6BsXgtUaF0HrbXBZH+xhT6ZichI2YivG2Sv1ki4HvRIqj8uzMGGuD90ZLtpq
-	 FiO4DJSjKL5zQ==
+	b=Z6pATztHXHtJQa+P3x4pD7sS5WEKEeGMcKAEii5M58xZBeew01WOrPXQwnhVnwN4G
+	 K+14KHWAHSDCIMGhoypHZToVxg+Pqm4WKGF+imLE1HzNKkA41SK1Do/9/t5z/T+4Px
+	 l1mHS6wgP4DOq4wXDe8OTl2PvLzUMc9MW6K+QvnZMpMH+bRubg/M7U4P/1eBr8htPy
+	 yB6c4y721s2avX0kprd0fKVl9Zs355R07cdaWMPnG2sHyDTyHZCPCfgAfJ6UuFeQiL
+	 9cnaySjOCR+YNizJb7aeigPK0d0WbzlLa/svXH5LgwfaRsnTeWZKTQSw7XLEEMoJdU
+	 8yLS26dOr2tvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Lee Jones <lee@kernel.org>,
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] mfd: sm501: Fix potential memory leaks during remove
-Date: Wed,  9 Sep 2026 15:07:15 -0400
-Message-ID: <20260909190715.3536119-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] PCI/AER: Simplify pci_print_aer()
+Date: Wed,  9 Sep 2026 15:07:14 -0400
+Message-ID: <20260909190718.3536304-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909190715.3536119-1-sashal@kernel.org>
-References: <2026090352-reptile-skyline-e58f@gregkh>
- <20260909190715.3536119-1-sashal@kernel.org>
+In-Reply-To: <2026090327-unfair-disagree-3067@gregkh>
+References: <2026090327-unfair-disagree-3067@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-[ Upstream commit 83feedd9d83c0c5199f98c72df0a6196b4aefb4d ]
+[ Upstream commit ad9839137cf9fb0f0c2d531bd04bc4382e6f2de9 ]
 
-The memory allocated for struct sm501_devdata in sm501_pci_probe() and
-sm501_plat_probe() is not freed by the corresponding remove functions
-sm501_pci_remove() and sm501_plat_remove(). Fix that by adding a call to
-kfree().
+Simplify pci_print_aer() by initializing the struct aer_err_info "info"
+with a designated initializer list (it was previously initialized with
+memset()) and using pci_name().
 
-Fixes: b6d6454fdb66 ("[PATCH] mfd: SM501 core driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Link: https://patch.msgid.link/20260720113836.73133-1-nihaal@cse.iitm.ac.in
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Link: https://patch.msgid.link/20250522232339.1525671-10-helgaas@kernel.org
+Stable-dep-of: a8bf2dd750de ("PCI/AER: Emit TLP Log only for unmasked errors")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/sm501.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/pci/pcie/aer.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mfd/sm501.c b/drivers/mfd/sm501.c
-index 06e796883189e..5752099683eb4 100644
---- a/drivers/mfd/sm501.c
-+++ b/drivers/mfd/sm501.c
-@@ -1667,6 +1667,7 @@ static void sm501_pci_remove(struct pci_dev *dev)
- 	release_mem_region(sm->io_res->start, 0x100);
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index 6b9a06bf8fc3f..94117449e300a 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -766,7 +766,10 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ {
+ 	int layer, agent, tlp_header_valid = 0;
+ 	u32 status, mask;
+-	struct aer_err_info info;
++	struct aer_err_info info = {
++		.severity = aer_severity,
++		.first_error = PCI_ERR_CAP_FEP(aer->cap_control),
++	};
  
- 	pci_disable_device(dev);
-+	kfree(sm);
+ 	if (aer_severity == AER_CORRECTABLE) {
+ 		status = aer->cor_status;
+@@ -777,14 +780,11 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ 		tlp_header_valid = status & AER_LOG_TLP_MASKS;
+ 	}
+ 
+-	layer = AER_GET_LAYER_ERROR(aer_severity, status);
+-	agent = AER_GET_AGENT(aer_severity, status);
+-
+-	memset(&info, 0, sizeof(info));
+-	info.severity = aer_severity;
+ 	info.status = status;
+ 	info.mask = mask;
+-	info.first_error = PCI_ERR_CAP_FEP(aer->cap_control);
++
++	layer = AER_GET_LAYER_ERROR(aer_severity, status);
++	agent = AER_GET_AGENT(aer_severity, status);
+ 
+ 	pci_err(dev, "aer_status: 0x%08x, aer_mask: 0x%08x\n", status, mask);
+ 	__aer_print_error(dev, &info);
+@@ -798,7 +798,7 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ 	if (tlp_header_valid)
+ 		__print_tlp_header(dev, &aer->header_log);
+ 
+-	trace_aer_event(dev_name(&dev->dev), (status & ~mask),
++	trace_aer_event(pci_name(dev), (status & ~mask),
+ 			aer_severity, tlp_header_valid, &aer->header_log);
  }
- 
- static void sm501_plat_remove(struct platform_device *dev)
-@@ -1677,6 +1678,7 @@ static void sm501_plat_remove(struct platform_device *dev)
- 	iounmap(sm->regs);
- 
- 	release_mem_region(sm->io_res->start, 0x100);
-+	kfree(sm);
- }
- 
- static const struct pci_device_id sm501_pci_tbl[] = {
+ #endif
 -- 
 2.53.0
 
