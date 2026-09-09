@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FEA51120E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868D93CC327
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951313; cv=none; b=DVgSu4+PsyiYMZeztDU9ih938msh2CiNLf3cV1TvbY5knsXjLpM08u6oS0B5vi9rNXYhu/Yv8FHC4fnc7ooKcyilNLHcfq8aWzBVKDEmobtbBBTixteAlGwvK4TVcIRBv0nQieYK33+T0TYTEeBI7gqq3OQ4rpCS6nJyP15cw1Y=
+	t=1788951317; cv=none; b=IaRbQuHgO9vA8x9s/m4s7KT7GKBjYbOuuZuyYAlxZ9saf5kp38Hj5mJwcxL+K8jmW7mo/A1k9bHf2Gv9KfsU+KtqRnb9ZPG/OrYje9gjW7u9MrpHiEMPiOvr4HNYT0vFeHxgSDPjb4Qn4McCaYf3wDYBMGUsc2Yq52PifXmY7JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951313; c=relaxed/simple;
-	bh=/lA8Y2n9nuklr94cUBP+KKDEvQuOElU7is+YMK74gRA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Mck0GgsOxqY2EePt9Hz4zUfsJqJWdUaKa5CErb930M2hcUwpbI1voRNFYO6eHT/zKt4lFpPyFHKoVjVGyYIZqe33ZbLjFjWRiU12Zy7a0Ukw0mOCOAAcaiJFjwTDUkgHV78aFmpPFUKrkTJcNljaBx/esRRDaagZf6Wgv2KbnPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IYUZPW0S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951317; c=relaxed/simple;
+	bh=55ldDWfENmRnHBDQeYbfSK45GaMaSKal51fpojoGsto=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sJ57cg2G1ulPfBHSOm14j+DZuilatz0x5NNs7vG+1HiKxfmT0wTP/DNvoJdFsScKXZEuUH+HFmXCdllfT7hF6nrtQsoZjdbXR/QNVBnMuLzqOR/v1xbepBC5egVrx4MLK/gWb7SbfluKKnci0zDU7G/RY1+UhMyJy32JxzWFjn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rGGNwaZt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IYUZPW0S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D471B1F00A3A;
-	Wed,  9 Sep 2026 10:55:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rGGNwaZt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52781F00A3A;
+	Wed,  9 Sep 2026 10:55:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951312;
-	bh=z2EFZGiHWWnrX/Ir6s1xwyJRLnTYUIF22rk1joww6SY=;
+	s=korg; t=1788951315;
+	bh=I3z1B0gAOt3CpStLJzxXi0PEF6+pYBfW7c4HAzsih0k=;
 	h=Subject:To:Cc:From:Date;
-	b=IYUZPW0Se2svCkOA4v59jpkobg1QRdC4w2e4UNeY+qjGhf9EFN/rOLOcr4AYRLwFS
-	 3BG0MoA+7NFylB7c9Del9RYhVotQYncTV9dbYVwNAAPzRNxYfevXkv8D4up+lDRHR7
-	 o7l66Xi019fDDL+7iTXI+ggE3cDRkzztWE++dW2g=
-Subject: FAILED: patch "[PATCH] media: platform: mtk-mdp3: fix NULL deref on failed SCP" failed to apply to 6.6-stable tree
-To: johan@kernel.org,hverkuil+cisco@kernel.org,moudy.ho@mediatek.com,nicolas.dufresne@collabora.com
+	b=rGGNwaZtTrqHAo+cyx3Pybj1XrFssG5pxceLpNjI3n67KLiBw/khYZynV0KGoFYB9
+	 vggSevAXmPneEDNNLRMuuxxDCYiCGnM9QZ0sXlTk4rQzvrSZr9ExvAEDd1atYgMk3O
+	 Cqct2G3BbZMHJ/9lq070/Kpcum2+gcg3z9lmuiGM=
+Subject: FAILED: patch "[PATCH] media: rc: sunxi-cir: Unregister rc device on probe failure" failed to apply to 5.10-stable tree
+To: mhun512@gmail.com,ae878000@gmail.com,sean@mess.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:47:02 +0200
-Message-ID: <2026090902-childlike-retreat-8753@gregkh>
+Date: Wed, 09 Sep 2026 12:48:10 +0200
+Message-ID: <2026090910-petal-cupcake-2b81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90368323fb244da0504e3da37a182f8e89bcc3b9
+git cherry-pick -x 479aa6fa8c50f1052f1451326ef7d4d586d340c3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090902-childlike-retreat-8753@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090910-petal-cupcake-2b81@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,36 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90368323fb244da0504e3da37a182f8e89bcc3b9 Mon Sep 17 00:00:00 2001
-From: Johan Hovold <johan@kernel.org>
-Date: Mon, 6 Jul 2026 08:59:27 +0200
-Subject: [PATCH] media: platform: mtk-mdp3: fix NULL deref on failed SCP
- lookup
+From 479aa6fa8c50f1052f1451326ef7d4d586d340c3 Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Wed, 13 May 2026 16:11:03 +0900
+Subject: [PATCH] media: rc: sunxi-cir: Unregister rc device on probe failure
 
-Add the missing sanity check after looking up the SCP to avoid
-dereferencing a NULL-pointer in case its driver has not yet been bound.
+After rc_register_device() succeeds, later probe failures must undo the
+registration with rc_unregister_device(). The current error path jumps to
+the allocation cleanup label and only calls rc_free_device(), leaving the
+rc device registration and resources created by rc_register_device()
+behind.
 
-Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver")
-Cc: stable@vger.kernel.org	# 6.1
-Cc: Moudy Ho <moudy.ho@mediatek.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Add a registered-device unwind label for the IRQ lookup, IRQ request, and
+hardware initialization failure paths. Keep rc_free_device() for failures
+before rc_register_device() succeeds.
 
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-index 121b1006ffdc..f412aadb5996 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-@@ -296,6 +296,11 @@ static int mdp_probe(struct platform_device *pdev)
- 		mdp->scp = platform_get_drvdata(mm_pdev);
+Fixes: b4e3e59fb59c ("[media] rc: add sunxi-ir driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Sean Young <sean@mess.org>
+
+diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
+index cb4c56bf0752..28e840a7e5b8 100644
+--- a/drivers/media/rc/sunxi-cir.c
++++ b/drivers/media/rc/sunxi-cir.c
+@@ -344,22 +344,25 @@ static int sunxi_ir_probe(struct platform_device *pdev)
+ 	ir->irq = platform_get_irq(pdev, 0);
+ 	if (ir->irq < 0) {
+ 		ret = ir->irq;
+-		goto exit_free_dev;
++		goto exit_unregister_dev;
  	}
  
-+	if (!mdp->scp) {
-+		ret = -EPROBE_DEFER;
-+		goto err_destroy_clock_wq;
-+	}
+ 	ret = devm_request_irq(dev, ir->irq, sunxi_ir_irq, 0, SUNXI_IR_DEV, ir);
+ 	if (ret) {
+ 		dev_err(dev, "failed request irq\n");
+-		goto exit_free_dev;
++		goto exit_unregister_dev;
+ 	}
+ 
+ 	ret = sunxi_ir_hw_init(dev);
+ 	if (ret)
+-		goto exit_free_dev;
++		goto exit_unregister_dev;
+ 
+ 	dev_info(dev, "initialized sunXi IR driver\n");
+ 	return 0;
+ 
++exit_unregister_dev:
++	rc_unregister_device(ir->rc);
 +
- 	mdp->rproc_handle = scp_get_rproc(mdp->scp);
- 	dev_dbg(&pdev->dev, "MDP rproc_handle: %p", mdp->rproc_handle);
+ exit_free_dev:
+ 	rc_free_device(ir->rc);
  
 
