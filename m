@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855BC3D669D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8001C3D5C26
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945971; cv=none; b=obZ6SIAPQPE9m5Lu9MaM/UVYqh1J7vafNUV5oMDlwihZEYj7mux/NSxOu/oxuFQIhJMR1jLNvvDlada89TFjMc7tBV0gJ4dakXKFjwPmglMFbzk1C8UqfBHeUK2eQeT4GEB4D1baaa9tOzWPVrtyTGiD9cEP6Jl2Y42DzUEZ6UU=
+	t=1788945974; cv=none; b=Bn2lXwflL3rNtVsSSmtGOVkv+F+GleW+7I2N0xVKtj30JzzW1fpaAZxcMiLQWpHZPkGVGZ8oMh0msMhHenafeGCleU0jE5ZRgTLMyw9BqxqNk/BNI3B3PnHTGjAJ6PIH68+jXmuh/Oktj07bfya9HORTGZ8BytMhGp7pHKPWOo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945971; c=relaxed/simple;
-	bh=IWJpRKhaCb2+epJ7n+DEv4xLmao7oJUoLK3MTjVeD8A=;
+	s=arc-20240116; t=1788945974; c=relaxed/simple;
+	bh=melWLkCuf2kqUkkcKAdsE32vTrMM4BRZv4D04t5AoVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ii06nQf4GVE4DJbEK6KoT8/HMLLq2J5rapXHsqeNXgGB3ML8ib8Fae/618WKhcbRrBKcyYb73tsnnGlor1owMsGIlxFXQ2JIuJ669ITHmr8YRR8Iig19D0JDopY6uaPHwAdad86ZQ/1ckqmxIlS9hzSyoyoQnervVghUKf/sPiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nef29YXL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JQZII5ha6//OJPIW4aVp3qIf92xty/t7pT4BhTV2idZvGGCJ/EMNpG+qJV4pJEvgMwyu80+XUCYKQVne34Qqa6TTBIyjuetlFg3+Zc/MRveR0MBosh9MDLKUvz7auEv7kPPMSi9AQI/cs8WQnkeGwZyCI1mapr3GdHeW8u2xaxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLhwgSPS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nef29YXL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E028D1F00A3F;
-	Wed,  9 Sep 2026 09:26:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLhwgSPS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A792D1F00A3D;
+	Wed,  9 Sep 2026 09:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788945970;
-	bh=LQNaC8C739AmcSDQHlUJ+4I92WR4iUOwKeWxzWkyrpw=;
+	s=k20260515; t=1788945973;
+	bh=/F74M9plKMcOYXior4ER3ymGV1tXRWaFLzGsDC5KfNI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nef29YXLbvg5PLk4uvIW4rY7yEugtntb2D5KqbEn2mzb9vyREtQmdWCul/J7ZBcwo
-	 4UDhNXnNZYUIMXbH+IRdmxfM6z+EgL5iEeR9GpByyY+EztUGhAvUzoFYUyTBZvVUPz
-	 nj3HMqe9cbqxuhG3H2uUmcO6Ey1vnAw0+i5RllcwGe64LVe0rCV9oDOuHrX33CqGQT
-	 Otn/3q4wltEazIWLN9BdoSX3vC6BA1QS9UuE02u9dN4qqq+QTfjYNDv1TbtBuqnZeH
-	 V2j6MkTFRfBPOtMVdRN8pK/bxAtAHOaxhL7RXjdLPrPn8ExperyUvW7e32hbgafww2
-	 ztF9ncJPdlw4Q==
+	b=KLhwgSPSPRBI3DGRTEziXsFgaLNQOt5LLv/1umiiQRK7oz7vTy7y/pckiytakFXE1
+	 QWbRffejVzmkiaPJy+aln73ITvDgKKepvo1P4/yTbqVUfCnk8Eq+n6U8TlvW3ASBl0
+	 SEHJta7rl9LEVXcGDN/dmzSUJDpMIfA3MDXmIIRIDYrR3NZCN9QbOcl787VpKutdUI
+	 CsDJwlmbcZQpTb7VaNFoOoXjA3F3lAwZMHpcofLcbZBwwh9hHp9/atgb4jLap0iqNd
+	 IftPeXg/TiINSA09prUAo7npPhSqAun2vNOAG/g0w582MguKmdEnRVmvSdE7JD53Gm
+	 ZmaFV8pp3gaHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Linkai Gong <gonglinkai@kylinos.cn>,
+	Karan Tilak Kumar <kartilak@cisco.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] svcrdma: Validate Read chunk positions before reconstruction
-Date: Wed,  9 Sep 2026 05:26:06 -0400
-Message-ID: <20260909092606.1293505-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y] scsi: fnic: Use GFP_ATOMIC for VLAN alloc under spinlock
+Date: Wed,  9 Sep 2026 05:26:10 -0400
+Message-ID: <20260909092611.1293600-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909092606.1293505-1-sashal@kernel.org>
-References: <2026090309-wooing-reassign-9ecf@gregkh>
- <20260909092606.1293505-1-sashal@kernel.org>
+In-Reply-To: <2026090300-shirt-frown-80ad@gregkh>
+References: <2026090300-shirt-frown-80ad@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,161 +46,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Linkai Gong <gonglinkai@kylinos.cn>
 
-[ Upstream commit 3779b7b9e7d1c8ba4738f9d327de3b0288cefe9b ]
+[ Upstream commit 9639c6324524ea3f934908bd51f02430000954ab ]
 
-The RPC/RDMA Read chunk position field is supplied by the remote
-client and stored verbatim in the parsed chunk list.
-xdr_count_read_segments() checks only 4-byte alignment; it never
-compares the position against the received inline body length.
+fnic_fcoe_process_vlan_resp() allocates a VLAN descriptor with
+kzalloc_obj() (default GFP_KERNEL) while holding vlans_lock via
+spin_lock_irqsave(). GFP_KERNEL may sleep, which is not allowed in this
+atomic context and can trigger a sleeping-from-invalid-context warning
+or deadlock.
 
-In the single-chunk path, svc_rdma_read_complete_one() splits the
-head and tail kvecs at ch_position. A position past the inline
-body underflows the tail length, exposing adjacent slab memory to
-the upper XDR decoder.
+Pass GFP_ATOMIC so the allocation is safe under the IRQ-safe spinlock.
 
-In the multi-chunk path, svc_rdma_read_multiple_chunks() computes
-gap lengths between chunks as unsigned subtractions from
-ch_position. Overlapping Read chunks cause these subtractions to
-underflow. A final position past the inline body likewise
-underflows the trailing gap length. svc_rdma_copy_inline_range()
-then copies past the receive buffer into request pages that are
-returned to the client through the Reply channel.
-
-Bound inline-range copies in svc_rdma_copy_inline_range() against
-the decoded inline RPC body saved in rc_saved_arg. Reject a
-single Read chunk positioned beyond that body, and reject
-multi-chunk lists where accumulated read bytes exceed the next
-chunk's position. Apply the same position and overlap checks in
-the call-chunk interleaving path.
-
-Fixes: d96962e6d0e2 ("svcrdma: Use the new parsed chunk list when pulling Read chunks")
+Fixes: 098585aa8aca ("scsi: fnic: Add and integrate support for FIP")
 Cc: stable@vger.kernel.org
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-1-e251306ccca9@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+Reviewed-by: Karan Tilak Kumar <kartilak@cisco.com>
+Link: https://patch.msgid.link/20260731073820.16449-1-gonglinkai@kylinos.cn
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ adapted kzalloc_obj(*vlan, GFP_ATOMIC) to kzalloc(sizeof(*vlan), GFP_ATOMIC). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_rw.c | 38 ++++++++++++++++++++++++-------
- 1 file changed, 30 insertions(+), 8 deletions(-)
+ drivers/scsi/fnic/fip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-index e2d64fffb9011..d69ead353b8fc 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -792,7 +792,7 @@ static int svc_rdma_build_read_chunk(struct svc_rqst *rqstp,
-  * svc_rdma_copy_inline_range - Copy part of the inline content into pages
-  * @rqstp: RPC transaction context
-  * @head: context for ongoing I/O
-- * @offset: offset into the Receive buffer of region to copy
-+ * @offset: offset into the inline content of region to copy
-  * @remaining: length of region to copy
-  *
-  * Take a page at a time from rqstp->rq_pages and copy the inline
-@@ -809,9 +809,13 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
- 				      unsigned int offset,
- 				      unsigned int remaining)
- {
--	unsigned char *dst, *src = head->rc_recv_buf;
-+	unsigned char *dst, *src = head->rc_saved_arg.head[0].iov_base;
-+	unsigned int inline_len = head->rc_saved_arg.head[0].iov_len;
- 	unsigned int page_no, numpages;
+diff --git a/drivers/scsi/fnic/fip.c b/drivers/scsi/fnic/fip.c
+index ce62ab1180bd7..e08a4f5ac2176 100644
+--- a/drivers/scsi/fnic/fip.c
++++ b/drivers/scsi/fnic/fip.c
+@@ -139,7 +139,7 @@ void fnic_fcoe_process_vlan_resp(struct fnic *fnic, struct fip_header *fiph)
+ 			FNIC_FIP_DBG(KERN_INFO, fnic->host,
+ 				     fnic->fnic_num,
+ 				     "process_vlan_resp: FIP VLAN %d\n", vid);
+-			vlan = kzalloc(sizeof(*vlan), GFP_KERNEL);
++			vlan = kzalloc(sizeof(*vlan), GFP_ATOMIC);
  
-+	if (offset > inline_len || remaining > inline_len - offset)
-+		return -EINVAL;
-+
- 	numpages = PAGE_ALIGN(head->rc_pageoff + remaining) >> PAGE_SHIFT;
- 	for (page_no = 0; page_no < numpages; page_no++) {
- 		unsigned int page_len;
-@@ -862,9 +866,10 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
- {
- 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
- 	struct svc_rdma_chunk *chunk, *next;
--	unsigned int start, length;
-+	unsigned int inline_len, start, length;
- 	int ret;
- 
-+	inline_len = head->rc_saved_arg.head[0].iov_len;
- 	start = 0;
- 	chunk = pcl_first_chunk(pcl);
- 	length = chunk->ch_position;
-@@ -882,6 +887,8 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
- 			break;
- 
- 		start += length;
-+		if (head->rc_readbytes > next->ch_position)
-+			return -EINVAL;
- 		length = next->ch_position - head->rc_readbytes;
- 		ret = svc_rdma_copy_inline_range(rqstp, head, start, length);
- 		if (ret < 0)
-@@ -889,7 +896,9 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
- 	}
- 
- 	start += length;
--	length = head->rc_byte_len - start;
-+	if (start > inline_len)
-+		return -EINVAL;
-+	length = inline_len - start;
- 	return svc_rdma_copy_inline_range(rqstp, head, start, length);
- }
- 
-@@ -914,8 +923,12 @@ svc_rdma_read_multiple_chunks(struct svc_rqst *rqstp,
- static int svc_rdma_read_data_item(struct svc_rqst *rqstp,
- 				   struct svc_rdma_recv_ctxt *head)
- {
--	return svc_rdma_build_read_chunk(rqstp, head,
--					 pcl_first_chunk(&head->rc_read_pcl));
-+	struct svc_rdma_chunk *chunk = pcl_first_chunk(&head->rc_read_pcl);
-+
-+	if (chunk->ch_position > head->rc_saved_arg.head[0].iov_len)
-+		return -EINVAL;
-+
-+	return svc_rdma_build_read_chunk(rqstp, head, chunk);
- }
- 
- /**
-@@ -984,14 +997,17 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
- 			pcl_first_chunk(&head->rc_call_pcl);
- 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
- 	struct svc_rdma_chunk *chunk, *next;
--	unsigned int start, length;
-+	unsigned int call_len, start, length;
- 	int ret;
- 
- 	if (pcl_is_empty(pcl))
- 		return svc_rdma_build_read_chunk(rqstp, head, call_chunk);
- 
-+	call_len = call_chunk->ch_length;
- 	start = 0;
- 	chunk = pcl_first_chunk(pcl);
-+	if (chunk->ch_position > call_len)
-+		return -EINVAL;
- 	length = chunk->ch_position;
- 	ret = svc_rdma_read_chunk_range(rqstp, head, call_chunk,
- 					start, length);
-@@ -1008,6 +1024,10 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
- 			break;
- 
- 		start += length;
-+		if (next->ch_position > call_len)
-+			return -EINVAL;
-+		if (head->rc_readbytes > next->ch_position)
-+			return -EINVAL;
- 		length = next->ch_position - head->rc_readbytes;
- 		ret = svc_rdma_read_chunk_range(rqstp, head, call_chunk,
- 						start, length);
-@@ -1016,7 +1036,9 @@ static int svc_rdma_read_call_chunk(struct svc_rqst *rqstp,
- 	}
- 
- 	start += length;
--	length = call_chunk->ch_length - start;
-+	if (start > call_len)
-+		return -EINVAL;
-+	length = call_len - start;
- 	return svc_rdma_read_chunk_range(rqstp, head, call_chunk,
- 					 start, length);
- }
+ 			if (!vlan) {
+ 				/* retry from timer */
 -- 
 2.53.0
 
