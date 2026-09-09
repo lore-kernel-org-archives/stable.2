@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D817D52B1FF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:49:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3344F4741
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:49:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954559; cv=none; b=hJvnskwWJjjuI0V8BIKl97FKAUcqMp5X5LmOXS4MFy1L21W1N8YGBT9g2Ppj7fvDU7s3GSaNTpfEkLzCaxWZUo6EdpDhnhWzRZgpyLgbwgZr6kyQOHD5HbtTsd/vq2D4IeYICbDBf/51nWtdQlp+Ce6s/ZWMOgAschqV050qVaU=
+	t=1788954562; cv=none; b=Oie53yUSvR4Q4byytmOp5zXPPcFH2QXL42gwWkkYVloMDRDVhAi73OddHikX4lXoaszKKzcTysCcV399Go0BGmUXtK8qNUf5pACp4nftpypMFAWJR7nZgkn1MNXcpT7EQfLEnFbAGFkKWtCz7Vs0jkOZd0V8q1dBFeLESr90i50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954559; c=relaxed/simple;
-	bh=F2WRBWG7JjcVoketDxNB1HdPtW2cWC+BdO/I36Fe3Ps=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ANCz+qXEMSWTyY2ibab32SBmTsBbxuzsX2LkLHbNUbpzD97j90f8/8HesCx+EHWXWKZXSYJLsNXe+AgnZ7QVVqpF/Phc0wcr5BtnGgvp/Ws0mXBaSEgLa5Bnw2vILc97I2i6APmC4OUP0Cy1RVZL3HLX9Jpi6Bm+zp6m9k+pPtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z9eEG7zB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954562; c=relaxed/simple;
+	bh=roO70FNCDPm5joG4V5D7DKVOlKTR2fNwePG3KIiVE40=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pRTc+tOe5CUBaPkk8J1RAVYPXBU4C0z0d/OE2zzhp05QhfqzImhGMlYnIZU8PmYV9NK3ucttMRx5HxM7vpL6a1qfB9RPGMdkiZAzCcoaMHEL0RwzPVwHKj5gIZpGlqxuLE58Y1fu/iFwqDAr2oibMFKzg1yQ8TV/TorOS7IP5sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R1gRNPCl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z9eEG7zB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E021F00A3D;
-	Wed,  9 Sep 2026 11:49:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R1gRNPCl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FB51F00A3A;
+	Wed,  9 Sep 2026 11:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954557;
-	bh=wXRV/069y99ijBRrpC35F7f36guHauXwMphipLCrEaE=;
+	s=korg; t=1788954560;
+	bh=DEN2HHaRarzMpfSgydb2B//wYy6lkYAPYmfV+lMK9iw=;
 	h=Subject:To:Cc:From:Date;
-	b=z9eEG7zBwV1BiW1+CqlHO4iiI/roHrm9btm35wtKAmMlXrLsZ0sJwHZH3zJsKsNRW
-	 fNewL3o0r9mfacdG0sY28AWzF/M/ICWJuGPa2NbvQknsbOhJ10DfV11NcbFjKB7MML
-	 sJhPH0JVE/gNmJg11CXsXtMAptV8I+lvM/sJgJnY=
-Subject: FAILED: patch "[PATCH] drm/xe: Fix xe_device_probe() failure" failed to apply to 7.2-stable tree
+	b=R1gRNPClhwy2m3CmFiQAvXD3q6Ie65sju+6qQ60X1N55J8BINbSN64+Ef0WnXAKvK
+	 WBE53wmJf9gpRhKx/6JPT5UYcUma96f9TOL6EzLwyBELlYZ/yRhdPM1UALHr8NaRD1
+	 0ixpwE555m5qhpGCR8I7E96ww0NnkwkkZm5FgpUA=
+Subject: FAILED: patch "[PATCH] drm/xe: Fix xe_device_probe() failure" failed to apply to 6.12-stable tree
 To: raag.jadav@intel.com,matthew.d.roper@intel.com,rodrigo.vivi@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:34:05 +0200
-Message-ID: <2026090905-crabbing-lubricant-6c64@gregkh>
+Date: Wed, 09 Sep 2026 13:34:06 +0200
+Message-ID: <2026090906-slacker-entrench-a4b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8152179882a57e62a07dbf25ec95321c44e6b23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090905-crabbing-lubricant-6c64@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090906-slacker-entrench-a4b6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
