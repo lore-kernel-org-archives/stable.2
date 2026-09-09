@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4B4424D48;
-	Wed,  9 Sep 2026 14:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5976357ED91
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963065; cv=none; b=AvZ1jiSlfGGiTUQotWTyWpQVywEO62nzyZKfywQw5Q12idIa9HzOKzVhFB4L2uZX62Df1MHPNq7iy4EQsrT2YIAxkpweGuCuPNo4IcHaK+I3IX77p7VaMLYU+rcg9qssehAgaVLumCNurVYcvxLli+SBm53L6bj3qmqLWRN0jb8=
+	t=1788963066; cv=none; b=TaghD+1lCTf91AbH/yMLDcnw2T5yMYoNmnaw9zMr9jxMdBuL1PPOaXbg9sLP96siV+4rL8dJN8RMsxij3AjiiB2Sylk2xXPEr1PRsc8hkqx6McOSPYI+mbeVOO1Kx5lfkJLx5XhXSLwYmIRvLuV6i4r3SMsPMyf7/aLy48Bsn0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963065; c=relaxed/simple;
-	bh=ZlGJcgWHG045bzYq0zCoAQR4+GXs2QYLIUXiU/JpUn4=;
+	s=arc-20240116; t=1788963066; c=relaxed/simple;
+	bh=Jl2CbzTVs0oG8QbjtDsyjoHuf8hGqsUZGabAgTuH3So=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dmKCN5Z0i9WWTo2Ypbt3NywUeb3k4yVy1hE/NDECgdLdQrANS/k2JJjs18+wLS8pRx3W0SeHtHnsP8kHs5eaQkjCVbI37fWZRE5e/9FzA+tO/45yivaz+efvK3C6zQWx6CYJcQg3h1Ehco0R7bNhnVl6g3/E43kwhY2XV2POyyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ToSjGno7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=lKpiJ4DZQCR7RHnJgXzcQGjnwx2zuldR3hFWd9Q2u7grVVMzPS2q7pjpSHyzSVWaTmF0Vrn5DbFqIEY5C0Vxma5oT53cZ+1kef+9TyFRGUVSkicW8pFY/8fpuSZNHF2+EIj2XCQApLgtGfr6AcvZcQdayB0uDs1yOzb9UcIEhrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cc8BusAw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ToSjGno7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51EE51F00A3A;
-	Wed,  9 Sep 2026 14:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788963063;
-	bh=/SQLhPnPKlI13qOWTMbO5es7wAXz/pHTVFw67Xp9kDE=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cc8BusAw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4E71F00A3D;
+	Wed,  9 Sep 2026 14:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963065;
+	bh=8n66xC8F8XO+RQ0mkrNq588KUOQqQ6w9R1DrapavYQY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ToSjGno7tXtBX5nmpdhPTJ9kyeKCTBASBOCFnwq/5kj46X6ScQrySpH+BSgFvtdUR
-	 BCxIxxMk2ZcpEnH2rYEtbAeH7I4HgwDR99Abedlq4A3cOPG+HiI5O8f7fn1leZw9Z6
-	 I3lNVM/RRmubCqJwir7EDdz9SXvaKF5CTb+q3BTk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Cc8BusAw/yRI5YRqU9j4nENYYO/17bxOMjPXPYG124TNqoiODX+1lQ3KXYJpt1Kw2
+	 /x8xK4IcvxjUdOubLgtsB885dKTCekeR+JIh1b4I9f34aum03/QFRBMuisQGz2GVb7
+	 siq3bxOe1wrQMQsY1KiG1+gKakVBFUbqkt/AinjapI5aZmgVrsRKUEItpEfHpbllzQ
+	 gark5zbrSnkG8jG9hwangmvro7apLDlCgwNwpnQk5SR/NOPS6cslLtpeT5WfCD0+B3
+	 UxJtMZ3s0Z1S/GEv0egBaer6kGekwdZwYEqiRfx0DTe2A6pJRop2FvandywpaMeqsv
+	 pfbqxTT4v60mQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nemesa Garg <nemesa.garg@intel.com>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Animesh Manna <animesh.manna@intel.com>,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 7.2 480/556] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-Date: Wed,  9 Sep 2026 15:42:40 +0200
-Message-ID: <20260909134247.417551454@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-References: <20260909134230.441546314@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/7] platform/x86/intel/tpmi: Move TPMI ID definition
+Date: Wed,  9 Sep 2026 10:10:56 -0400
+Message-ID: <20260909141102.2383363-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090334-lumber-underfoot-3bf9@gregkh>
+References: <2026090334-lumber-underfoot-3bf9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,127 +47,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-------------------
+[ Upstream commit 046d7be6210e7f870e53eb38fd410237e9d1d88f ]
 
-From: Nemesa Garg <nemesa.garg@intel.com>
+Move TPMI ID definitions to common include file. In this way other
+feature drivers don't have to redefine.
 
-commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a upstream.
-
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
-
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
-
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
-
-v2: Add same check for cursor also. [sashiko]
-
-Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
-(cherry picked from commit 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Link: https://lore.kernel.org/r/20231204221740.3645130-4-srinivas.pandruvada@linux.intel.com
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Stable-dep-of: 3de2776e9d70 ("platform/x86: ISST: Add a NULL check for sst_inst[]")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c        |   15 ++++++++++-----
- drivers/gpu/drm/i915/display/skl_universal_plane.c |   15 ++++++++++-----
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/platform/x86/intel/tpmi.c | 13 -------------
+ include/linux/intel_tpmi.h        | 13 +++++++++++++
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct inte
- }
+diff --git a/drivers/platform/x86/intel/tpmi.c b/drivers/platform/x86/intel/tpmi.c
+index 4c42c28bdd3d4..021e56f52ac12 100644
+--- a/drivers/platform/x86/intel/tpmi.c
++++ b/drivers/platform/x86/intel/tpmi.c
+@@ -143,19 +143,6 @@ struct tpmi_info_header {
+ 	u64 lock:1;
+ } __packed;
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
+-/*
+- * List of supported TMPI IDs.
+- * Some TMPI IDs are not used by Linux, so the numbers are not consecutive.
+- */
+-enum intel_tpmi_id {
+-	TPMI_ID_RAPL = 0, /* Running Average Power Limit */
+-	TPMI_ID_PEM = 1, /* Power and Perf excursion Monitor */
+-	TPMI_ID_UNCORE = 2, /* Uncore Frequency Scaling */
+-	TPMI_ID_SST = 5, /* Speed Select Technology */
+-	TPMI_CONTROL_ID = 0x80, /* Special ID for getting feature status */
+-	TPMI_INFO_ID = 0x81, /* Special ID for PCI BDF and Package ID information */
+-};
+-
+ /*
+  * The size from hardware is in u32 units. This size is from a trusted hardware,
+  * but better to verify for pre silicon platforms. Set size to 0, when invalid.
+diff --git a/include/linux/intel_tpmi.h b/include/linux/intel_tpmi.h
+index ee07393445f9f..fdcebb8c30e98 100644
+--- a/include/linux/intel_tpmi.h
++++ b/include/linux/intel_tpmi.h
+@@ -12,6 +12,19 @@
+ #define TPMI_MINOR_VERSION(val)	FIELD_GET(GENMASK(4, 0), val)
+ #define TPMI_MAJOR_VERSION(val)	FIELD_GET(GENMASK(7, 5), val)
  
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 	}
- }
- 
-@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struc
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_a
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
- }
- 
- static void
-
++/*
++ * List of supported TMPI IDs.
++ * Some TMPI IDs are not used by Linux, so the numbers are not consecutive.
++ */
++enum intel_tpmi_id {
++	TPMI_ID_RAPL = 0,	/* Running Average Power Limit */
++	TPMI_ID_PEM = 1,	/* Power and Perf excursion Monitor */
++	TPMI_ID_UNCORE = 2,	/* Uncore Frequency Scaling */
++	TPMI_ID_SST = 5,	/* Speed Select Technology */
++	TPMI_CONTROL_ID = 0x80,	/* Special ID for getting feature status */
++	TPMI_INFO_ID = 0x81,	/* Special ID for PCI BDF and Package ID information */
++};
++
+ /**
+  * struct intel_tpmi_plat_info - Platform information for a TPMI device instance
+  * @package_id:	CPU Package id
+-- 
+2.53.0
 
