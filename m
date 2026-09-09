@@ -1,121 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D510357CEA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F157D4F4741
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954339; cv=none; b=pfaqzWQR1FfraOTi/+cbGuc+yKBjZHc8MPahVqSH52RpsNyXnP8SysZ8usqjKMXJ+tjeBJlzVDLHS1tFOihMnLn64iR/BWgtJrva3QteYSrF9Gn6oHY81N2rRmYe+3XYuvZHCwLqJP/Ou/qfdyAvF/K6VkZGtfrvUlKsR+nzoCw=
+	t=1788954458; cv=none; b=GEAdLBOZqX+21ZJmaIzjrLouwAUfx1f27qy3WcKwNPm/jt3xAXXHs0oLuGojnmxBkmzGcDZyHA4EM3hGJMU86NSSul/EPGj2GBaXXJriXyLbqFrnjjCyuXWnjc4Slowc2jS1eBewMdKNh8+xeYqPVPvacKowin1YFjVsJCLwsR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954339; c=relaxed/simple;
-	bh=aXAKhmqugpOEvFPFlxSc7SkZn0OuELpAb98m9VJBORk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rkbm5caBM3GSjwNNa7wWDVHkhegUqZsP820edKN1kSD9W9LsoiKraSBf86POs41Oc8pSTnUtLELc6XzbUoSua5R3PoFvfLpGbkodOxjKJfvBRcbU6FtYcYMTPWwmbZwjExVqt3KOWbLtwyhkQmlRyqRvYM8AVq3wfgBkPNrTzBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvR6V8Bt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954458; c=relaxed/simple;
+	bh=9H9sRGfp1ZaqJ3S1urVyd0m8mUDJ79HN5v6laHL1394=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pc1YVXM2DH92ldGi58Np+WlUSQtb+IQIi5H5BqH9m6l9Riz+BcAWCQRet7HB92eWFJ0wENOV9/pNNasa2/vRLfJKcfSgUk2t7HkpfEwhzdlSA8WPJ3wazxQAAbcTWTK03cWeuSmxgAgy/8CjwF1kUKHeKWb6ET6A+8OGSvvAe08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=O4pxxQMO; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvR6V8Bt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757331F00ACA;
-	Wed,  9 Sep 2026 11:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954338;
-	bh=Amc8IcEUAx3shZSY9HTWNfoQNv+PlU0N0ppqrsXJijk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZvR6V8BtJHmtjgM3w4xaFnma8iTvG+9F93KYbpFknZaq+702TQ2HCSv6hCTSCpixD
-	 h+EBOFWgJ9aEBW+/89B6jq9YtqSAN/HViPzw7axZs6cgYDdwg0pROtrbDu9vRdLNP3
-	 qWHtQ4qWL21xvB4RWzPpBcRDmP5WW6ukINNmpe1FjfTt4mY2vXSPkynn7LHWJwI7RJ
-	 GucxY3Y3xhPGtFEVNbcF/NNhwAE1aev+igPLMWbIkTQzwRtFOcsSUY9OyOaA8eptIz
-	 f8okm61MxZm5OeBvqfkr82+3g9jiEZ83m1XYaZAaAjp5Bps3DPXNxbPjUUirtxRhyp
-	 X5VaoU+Wyh/Ug==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ali Tariq <alitariq45892@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] PCI: starfive: Fix resource leaks on error paths in host_init()
-Date: Wed,  9 Sep 2026 07:45:35 -0400
-Message-ID: <20260909114535.1984399-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909114535.1984399-1-sashal@kernel.org>
-References: <2026090319-aground-reaffirm-2ce7@gregkh>
- <20260909114535.1984399-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="O4pxxQMO"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso1416725e9.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 04:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788954454; x=1789559254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TIfeIpZ4OJ7Fe6X5EWfuqkVso3+rNzjQrB57cPZXMxU=;
+        b=O4pxxQMO41+iz3VtN/jJVBbJttTgikeiSsv4Ggre72YYrMJ/tDXZ7mOeUN6dOkq6/E
+         E7K0POFY+g45BGV0o17tEoN6NdZr10gTj6YAMXZIuOIPudeASHrRG+J16oT9fCt53AcH
+         gzUqXV4qixX9YI8unNjt9tgolDR5HE8ZvF9XlGYcReqGQQRNMp9DS+Kre8P60QrAnSWE
+         PnauPaWZ9WjN+FEHpxU5nlP4rx3EqBNsD26OKsTY4dJ4fpwMWRI0VflSIbEdmqLEgJge
+         ycZ4y7DuqRIty1H8x1gArtr5vLmagNSOvd+HWjf0sykbdAw9LWjGMbySmEfvU/QWZof2
+         ff6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954454; x=1789559254;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TIfeIpZ4OJ7Fe6X5EWfuqkVso3+rNzjQrB57cPZXMxU=;
+        b=Py7gmW64Oa/uwYbJRw0s3hFu3Czms42E6RnBdvc3GMjA3+LLQg9q+kVu6iDwba2QzE
+         mOY95PIkrJncBOD2x4A761K3U44lrDxs8h77xUidsfF9o8LOZCgDxRj0dv08u/h0uaPO
+         Vvo7sC9n1+hR/KjLyhVNDe1CdmAhL+1bqylZQn8qsk+RJNaU9ee2IsnkbSGOM7i3QjNl
+         jnZ1dFfZDGaoNOgHebavxj2t4XChkMlrDYzWdOxdWRGybVyWtq6cmcFOsust1DA0agSe
+         E6FmltCLTj8QYhZMQeOPxeRuyfSrb2aJNXX5vDr0+lnSou+m0dGIJTERLeaMn2aLlhxn
+         2m8w==
+X-Forwarded-Encrypted: i=1; AKwUvBzwIL499Ycrl2bSNM9IZzw6x+C4nsVQsQOxgj+dzuty0JmZ4bWrDdFAJyFNhXlr6qGNrI+t8e0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ki2zD4XueFhHeHt6pMho2XLTDbFw849f5f26rUKjcEzfjRbn1b
+	WCErU6ej/UYsI4faea++XYrt0mUA0LdeqNdt2p/mTpzsKNikn3eAblUd9U1bAunyHmU=
+X-Gm-Gg: AYBFou1MPNeFpmwPpZ9zSp2ySjSVgs5CSPmowrgW793WFO+hTUP1tMMi0DWwc++Pssh
+	iqX4UutcM3u2UoDFJF2Q+IUN4oHwQFQMlkF3pc9PRk29yYPtYPqI3Tv4R0h3fW+a+BLM5qL/hml
+	V2I3kpG5jlgiaPMzDt2q1X8PA6RiM7u0NpdFJotQ/jAAs4DuWUQCabkSSNK+NbwVXJApEXq9Cz3
+	PH1xGoTv743CPgv7hdxtdRtI16dJnYQ3OVtYUQI8WOhRNB0bPUIxln9cDeEaJr7uOB8YM1mHk+W
+	tly/hf3vXpUE8/8GNTzcCc03J2WC+QSJVM27yihBcRs4eGWNHtdcfxz3cwQ5JLfmIibAtTmiLQa
+	kddv6euS4RTsZ0S03FO/H7wEOUA8r108nDFy1o2SOicNEuUtxFqr5OBtUesP67cWdEFlMEIndxQ
+	jTSB2g57+n6WVQ+bD8zSaG+e9TzbWP20V8/80Fyn0Ax257cJHvSrTRgUrcFSvsB/5SjdZWIXwQ3
+	6tcd3UAfgYv2icaYKOmLO8dDEBstBMhLBA=
+X-Received: by 2002:a05:600c:5307:b0:49c:f617:7cf with SMTP id 5b1f17b1804b1-49d25871d73mr12852825e9.0.1788954454028;
+        Wed, 09 Sep 2026 04:47:34 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm1017732865e9.15.2026.09.09.04.47.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:47:33 -0700 (PDT)
+Message-ID: <eef32841-26f1-4ea3-9915-67a60ec2752c@suse.com>
+Date: Wed, 9 Sep 2026 13:47:32 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/4] module: allocate codetag sections before the
+ regular module layout
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-5-hao.ge@linux.dev>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260908092412.115953-5-hao.ge@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ali Tariq <alitariq45892@gmail.com>
+On 9/8/26 11:24 AM, Hao Ge wrote:
+> Whether a codetag section goes to the codetag region is decided by
+> layout_sections() and asked again in move_module(). A concurrent
+> load can shut profiling down in between, and move_module() then
+> copies the section to offset 0 of its regular destination,
+> overwriting whatever is there.
+> 
+> Decide and allocate in one pass, before the layout. Allocation
+> errors fail the load. On a tag area overflow profiling is already
+> disabled, so -EAGAIN makes the section fall back to regular module
+> data and the module still loads. The reservation is released and
+> module_tags.size rolled back, so a concurrent load which already
+> passed needs_section_mem() does not skip vm_module_tags_populate()
+> 
+> An SHT_NOBITS codetag section is zeroed explicitly, the tag area
+> pages are not zeroed on allocation.
+> 
+> When profiling was toggled off the overflow check did not run, a
+> module could load with more tags than the page flags can address,
+> and re-enabling profiling then silently corrupted /proc/allocinfo.
+> The check no longer depends on mem_alloc_profiling_enabled().
+> 
+> Based on a patch by Petr Pavlu [1].
+> 
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-[ Upstream commit 22877a061f81c5d58041e384b3131684bec636b9 ]
+This looks ok to me from the module loader's perspective.
 
-starfive_pcie_host_init() acquires the PHY, clocks/resets, and an
-optional regulator in sequence, but does not correctly unwind these
-resources when a later step fails.
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 
-If starfive_pcie_clk_rst_init() fails after the PHY has already been
-successfully enabled, the function returns directly without disabling
-the PHY, leaking it and leaving it powered.
-
-If regulator_enable() fails for the optional vpcie3v3 regulator, the
-failure is only logged; the function falls through and returns
-success, leaving the driver believing the regulator is enabled while
-continuing to configure PCIe hardware that may be unpowered. This
-also leaves the clocks and PHY enabled with nothing to clean them up.
-
-Disable the PHY on the clk/reset failure path, and disable the
-clocks/resets and PHY, then return the error, if the regulator fails
-to enable.
-
-Build-tested and boot-tested on StarFive VisionFive 2 v1.2A
-
-Fixes: 05a75df4182e ("PCI: starfive: Use regulator APIs to control the 3v3 power supply of PCIe slots")
-Fixes: 39b91eb40c6a ("PCI: starfive: Add JH7110 PCIe controller")
-Signed-off-by: Ali Tariq <alitariq45892@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260716102053.185276-1-alitariq45892@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pci/controller/plda/pcie-starfive.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/controller/plda/pcie-starfive.c b/drivers/pci/controller/plda/pcie-starfive.c
-index 3234151a29702..70db6168ce603 100644
---- a/drivers/pci/controller/plda/pcie-starfive.c
-+++ b/drivers/pci/controller/plda/pcie-starfive.c
-@@ -304,12 +304,14 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
- 
- 	ret = starfive_pcie_clk_rst_init(pcie);
- 	if (ret)
--		return ret;
-+		goto err_disable_phy;
- 
- 	if (pcie->vpcie3v3) {
- 		ret = regulator_enable(pcie->vpcie3v3);
--		if (ret)
-+		if (ret) {
- 			dev_err_probe(dev, ret, "failed to enable vpcie3v3 regulator\n");
-+			goto err_clk_rst;
-+		}
- 	}
- 
- 	if (pcie->reset_gpio)
-@@ -379,6 +381,13 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
- 		dev_info(dev, "port link down\n");
- 
- 	return 0;
-+
-+err_clk_rst:
-+	starfive_pcie_clk_rst_deinit(pcie);
-+err_disable_phy:
-+	starfive_pcie_disable_phy(pcie);
-+
-+	return ret;
- }
- 
- static const struct plda_pcie_host_ops sf_host_ops = {
 -- 
-2.53.0
-
+Thanks,
+Petr
