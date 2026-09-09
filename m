@@ -1,205 +1,76 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999F61A3AB0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867B539B97E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978198; cv=none; b=TmHMpTWlmko6IAcxv5BsYhl2p6gEur1NHn917pCu+vOZnnuOUD2fMfUMj4QKUJaVHPJo2PpZ2o8pFyQqIQveEkeIRjpIhe7yoZZj+ntK4IeZr/YiyXwfcW4YmbbiUxbXbPz5e2qOCvild+zE0cu/DK8q2DgHm2AZyZ8m3FE6ojM=
+	t=1788978324; cv=none; b=BelD/LTOgLqFV96U3pd1XwmZQCy48/HyPihOkHarPkgAm/M4GzfKYWB68ME8pM10jiF8RI1wXS/qiIby3Gu6KDFXaUuzYexGzqoDxrHPSICGWJbdzrYNS48Bw/dz3LcMwUe8artV0JA7xhbr56TRQcVf3i2K/5f/wjCJFd8Cac4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978198; c=relaxed/simple;
-	bh=5LndQnJB8yvfuXX6iW1SZuaLZUZFuOYeCpoc07R8U+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LPpgwK56aztQ5Q42i2WEz+vBHcTTKmvc0sgWm2WSC4Ii1RQbQy7yn5zTlmk7MGUCrXg6LRPXsrPpqbHphI3LbXkSu3hbPYOWA2BsGs3TkqdNjqeTl+7NWtqv9g1Gku7cXdT2SPtqAxoFM8bW1lKlpWK2xRS+MM9e42OfwIDPrZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=V12elv6A; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1788978324; c=relaxed/simple;
+	bh=WQygSbcyx2B7tQLKe69QRsO6hKdxbRbuwyqNBvNytC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u2wvaaJZvNqS5BSCC8ywmwXItvvnDuliBs2kX6BEU5TdwxHks0w0RtLY4oiQv77yMVFEuP5vgF0a9vkrm3Uo0fO0ByxuiulSo7GXO/K5AKS3YmRweZEcJRe96O5fBRNIVfAW6nzG6Vuv2qoQypRz51UtYhpfkaWLisjyXwYc0zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=X/A9A1CJ; arc=none smtp.client-ip=83.166.143.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="V12elv6A"
-Received: by dvalin.narfation.org (Postfix) id 1B51520131;
-	Wed, 09 Sep 2026 18:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1788978194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bOBZAGGcqcXn3vFpEwi0QjyU4f2A8hWewoa+2WhwcQ=;
-	b=V12elv6AL+PAPaDuVaDqwsYsdqJfKYELyuPm/b0+/xu4ogb8LtA6FQ7C7JH/6x8HrUMSyN
-	sDwODKtfJRzAmIC7c6BFrmWIWfIiHFc2s91p87xn+/0vaF15t/EW1wxCnyR4/6ltdGPyEn
-	tzdHJdyyJsdd4QP5ljVBZbymuqsZEzQ=
-From: Sven Eckelmann <sven@narfation.org>
-To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 7.2.y] batman-adv: bla: avoid CRC corruption due to parallel claim add
-Date: Wed,  9 Sep 2026 20:23:02 +0200
-Message-ID: <20260909182302.917636-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090939-escalate-surely-1aaa@gregkh>
-References: <2026090939-escalate-surely-1aaa@gregkh>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="X/A9A1CJ"
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hg8G41lq0z3Cb;
+	Wed,  9 Sep 2026 20:19:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1788977948;
+	bh=e/ySDyuMb+hF+2ti4wzPq97smHKiwAsXDqy32m4tBCU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=X/A9A1CJA5BHM9o/ewLgtyXaDEyKyRBgcF8NxeCB3GlhOtDXO5QEmzeQd5WNaGKX3
+	 X3JWGsQxJbGVi7iym0p0XJ3MYD459bSRwvxz99MadqVvWjsMSZu/EY+oK4qkPcKYqo
+	 fNq3UgRemjXPGp6Y/iYLqJ7wNPIiL/i+i+cnVKxw=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hg8G347Trz5LH;
+	Wed,  9 Sep 2026 20:19:07 +0200 (CEST)
+Date: Wed, 9 Sep 2026 20:18:53 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, Christian Brauner <brauner@kernel.org>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Subject: Re: [PATCH 6.1.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for
+ whiteout creation
+Message-ID: <20260909.Co6Phai8aKoh@digikod.net>
+References: <20260904185816.343078-2-gnoack3000@gmail.com>
+ <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
+X-Infomaniak-Routing: alpha
 
-commit 08645ab95768b88e2ff85a89211994651710465b upstream.
+On Sun, Sep 06, 2026 at 09:32:50AM -0400, Sasha Levin wrote:
+> > Whiteout objects are used in the upper layer of an OverlayFS to
+> > indicate that the file with this name does not exist in the unified
+> > view, even if it is present in one of the lower layer file systems.
+> >
+> > For the userspace implementations of OverlayFS (fuse-overlayfs),
+> > whiteout objects can be created from userspace as well:
+> 
+> Queued for 6.1, thanks. Note: 6.1 is missing 49c9e09d9610 ("landlock: Fix
+> handling of disconnected directories"), one of the two prerequisites this
+> commit's own message names -- 6.12 and 6.6 already carry it. The whiteout
+> check itself is still correct and worth having, but if a disconnected/
+> bind-mounted directory is involved on 6.1 specifically the enforcement may
+> not be reliable yet. Could you send 49c9e09d9610 as a follow-up for 6.1.y?
 
-batadv_bla_add_claim() is used to add claims and modify the backbone of
-claims for CLAIM frames from remote backbones and local packets. When it
-handles a claim, it needs to either
+Hi Sasha,
 
-* add the new claim's CRC to the backbone CRC
-* remove the already existing claim's CRC from the old backbone and add it
-  to the new backbone
+These dependencies are indeed required to properly apply the patch, and
+they are in fact fixes too (that failed to apply without changes).  I'm
+preparing a few backported patches (including these dependencies) that
+I'll send this week.
 
-But when the "new" claim code was running in parallel to the "change
-backbone" code, it can happen that the CRC was invalid because the
-backbone_gw of the claim was changed twice in the "new" claim code path:
-
-* CPU0 creates the claim for gateway A and publishes it in the claim
-  hash. The crc16 of the address has not yet been added to A's crc at
-  this point.
-
-* CPU1 processes a claim frame of gateway B for the same client, finds
-  the just published claim, and performs the ownership change: it
-  switches the pointer to B, removes the crc16 from A's crc - which
-  never contained it - and adds it to B's crc.
-
-* CPU0 continues behind the creation branch, unconditionally switches
-  the pointer back to A without compensating B's crc (its remove_crc
-  is false for the creation path), and finally adds the crc16 to A's
-  crc
-
-The CRC is then wrong for both:
-
-* claim belongs to A: but CRC is not part of backbone A's CRC
-* claim doesn't belong to B: CRC is still part of backbone B's CRC
-
-This wrong CRC is never recomputated from the stored claims. For local
-backbone claims, this can also not recovered using syncs.
-
-To avoid this, split the functionality in clear separate parts:
-
-* new claim which always adds claim CRC to the backbone CRC (but never
-  changes the already set backbone_gw of the claim back)
-
-* update of existing claim which automatically changes the backbone_gw
-  entry and only updates both backbone CRCs when there was an actual change
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
----
- net/batman-adv/bridge_loop_avoidance.c | 65 ++++++++++++++++----------
- 1 file changed, 40 insertions(+), 25 deletions(-)
-
-diff --git a/net/batman-adv/bridge_loop_avoidance.c b/net/batman-adv/bridge_loop_avoidance.c
-index 5c73f6ba16cff..34eb8daa3ace6 100644
---- a/net/batman-adv/bridge_loop_avoidance.c
-+++ b/net/batman-adv/bridge_loop_avoidance.c
-@@ -699,12 +699,14 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 	struct batadv_bla_backbone_gw *old_backbone_gw;
- 	struct batadv_bla_claim *claim;
- 	struct batadv_bla_claim search_claim;
--	bool remove_crc = false;
- 	int hash_added;
-+	u16 claim_crc;
-+	bool changed;
- 
- 	ether_addr_copy(search_claim.addr, mac);
- 	search_claim.vid = vid;
- 	claim = batadv_claim_hash_find(bat_priv, &search_claim);
-+	claim_crc = crc16(0, mac, ETH_ALEN);
- 
- 	/* create a new claim entry if it does not exist yet. */
- 	if (!claim) {
-@@ -736,43 +738,56 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 			kfree(claim);
- 			return;
- 		}
--	} else {
--		WRITE_ONCE(claim->lasttime, jiffies);
--		if (claim->backbone_gw == backbone_gw)
--			/* no need to register a new backbone */
--			goto claim_free_ref;
- 
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
-+
-+		WRITE_ONCE(backbone_gw->lasttime, jiffies);
-+
-+		batadv_claim_put(claim);
-+		return;
-+	}
-+
-+	WRITE_ONCE(claim->lasttime, jiffies);
-+
-+	/* replace backbone_gw atomically and adjust reference counters */
-+	spin_lock_bh(&claim->backbone_lock);
-+	if (claim->backbone_gw != backbone_gw) {
-+		changed = true;
-+
-+		old_backbone_gw = claim->backbone_gw;
-+		kref_get(&backbone_gw->refcount);
-+		claim->backbone_gw = backbone_gw;
-+	} else {
-+		old_backbone_gw = NULL;
-+		changed = false;
-+	}
-+	spin_unlock_bh(&claim->backbone_lock);
-+
-+	if (changed) {
- 		batadv_dbg(BATADV_DBG_BLA, bat_priv,
- 			   "%s(): changing ownership for %pM, vid %d to gw %pM\n",
- 			   __func__, mac, batadv_print_vid(vid),
- 			   backbone_gw->orig);
- 
--		remove_crc = true;
-+		/* add claim address to new backbone_gw */
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
-+
-+		WRITE_ONCE(backbone_gw->lasttime, jiffies);
- 	}
- 
--	/* replace backbone_gw atomically and adjust reference counters */
--	spin_lock_bh(&claim->backbone_lock);
--	old_backbone_gw = claim->backbone_gw;
--	kref_get(&backbone_gw->refcount);
--	claim->backbone_gw = backbone_gw;
--	spin_unlock_bh(&claim->backbone_lock);
--
--	if (remove_crc) {
-+	if (old_backbone_gw) {
- 		/* remove claim address from old backbone_gw */
- 		spin_lock_bh(&old_backbone_gw->crc_lock);
--		old_backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
-+		old_backbone_gw->crc ^= claim_crc;
- 		spin_unlock_bh(&old_backbone_gw->crc_lock);
-+
-+		batadv_backbone_gw_put(old_backbone_gw);
- 	}
- 
--	batadv_backbone_gw_put(old_backbone_gw);
--
--	/* add claim address to new backbone_gw */
--	spin_lock_bh(&backbone_gw->crc_lock);
--	backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
--	spin_unlock_bh(&backbone_gw->crc_lock);
--	WRITE_ONCE(backbone_gw->lasttime, jiffies);
--
--claim_free_ref:
- 	batadv_claim_put(claim);
- }
- 
--- 
-2.47.3
-
+ Mickaël
