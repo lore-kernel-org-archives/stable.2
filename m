@@ -1,42 +1,42 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD38F36F8EA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E6A39CCEB
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788979758; cv=none; b=oe9PUDplkKdKqS2zfka7AgIO39T9bc/QuuxLVCxxQV9KKIAAZjo/XuaY5NjDeLOKrbqENSkbWa6Owm9fswmS3sBd4uc3LwCrz4Lngq/9zr+OmB2FVdjY5P1fGWi9roUKyT0TXCs7y2oohBdmam5luDiTSuGdcwnpbadUwgmWl2A=
+	t=1788979794; cv=none; b=dXfTj6yPBPhOxC2dAJXDK8zt2ydOBxAADFu0SUV9KGfgQBiCwlhEwq/JC9YKiL7xGRMyHi6W81XNX8ofhcR8d31TubnFj4WpKWFJu63GG3bycEbGUbqMIzxPzAsfqdbuPDmrjusL89oQUDfabOwQTjJ5fzsveNk1/gzga668niA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788979758; c=relaxed/simple;
-	bh=s0oFyhgfaKKoY3F1nOGmM2SF/wfxUjDT8xTC0A68DxU=;
+	s=arc-20240116; t=1788979794; c=relaxed/simple;
+	bh=wCSzarYsS7MIbAFazRTnBBvBH4uPOR6pOYnM8S2bzQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YGA9vhsVAXB2477U7X0RuZMdkOcgD0KfFHp6g/fVohDDkoVuh8bilmY3ZQqqLmkmgniz/WtTEm9jrw5zPCo4gKVXQ6EIqI7NAvrTp7xuT1KSExoycdgxMhppiLvVZXFTrSreQAcgkIOhuSWbcrocgSCp6PAuemKZJXrSpkfcHq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=MR8C6vZg; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	 MIME-Version; b=VOf/eFYnrGJgdlG4AJMtoyXQP/bhsS3m7H/QyRX/5GyPpTUjve8/BjOnkb5YSyAHVz7DOs5R4jMUfQECSdlo+gvomtYXyy2/CeYm3PMFhacC0cuZipZ1DBaGp99ZPNOIoipzN+Bl5GuxHtMFkUgiQ+IYwOqkkDwvT94Mzlg93pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfXWn9aF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="MR8C6vZg"
-Received: by dvalin.narfation.org (Postfix) id 4D786203EB;
-	Wed, 09 Sep 2026 18:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1788979754;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KIttLBlSzPiCs2f3cDpX18HiiWT3SFH1kcr4Fzw5JrY=;
-	b=MR8C6vZguMRpaHsbzA6LkUjOCdFJ3ulMRLWLkNkGGPQ4b4uX0IJtVyd/CutXt8VqKNI7ue
-	FE8WWXHx3zXxdjGz9YAAvUenJ2J7FwV9pvYAb5eG5EODS72lEts9fH7MaFNmoRapWuyz51
-	VLRrHM4YlE9tnGZDRBT5VyktkKHN+YM=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfXWn9aF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B95F1F000FF;
+	Wed,  9 Sep 2026 18:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788979793;
+	bh=gpvofhMHWQ4lsJQY0G4Vn3HHvGkMAw369ygVlgc1uQM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BfXWn9aFpdpJzo/RkjGj3q4tljp97TR18WfMEMM3dgasCJ0Eo66j9aMWrbCtgvTkq
+	 VASh65MFZh6KhawZbw+/1jTT1SL4nPa4mdoxZ5Ydp0G1yS7uo0wv7FN8YGRHYXheEU
+	 kfApXA8Gdd1C1JcnjK7qSXv2rR+IOGbh0VFRk42+HYDYVTuwZxeltUNceBLReqDLTg
+	 Cl/uttknkXKLFOxwlOvvhz46J/4kteDMu0xC2DubhhPNpOdmqe9vhYjsop3MPZ7iUs
+	 R1vb6nsJplsrCSwwzKnhfLSvPei7uoiEtwQCAUm57isNkjcI6g44D4b7pWIGD4XKtB
+	 LvCTkPi5YVq/A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.18.y] batman-adv: fix TX priority extraction for BATADV_FORW_MCAST
-Date: Wed,  9 Sep 2026 20:49:10 +0200
-Message-ID: <20260909184910.948787-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090932-implant-idealness-8a1e@gregkh>
-References: <2026090932-implant-idealness-8a1e@gregkh>
+Cc: Xu Rao <raoxu@uniontech.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: hda/ext: preserve PPLCCTL bits when clearing reset
+Date: Wed,  9 Sep 2026 14:49:50 -0400
+Message-ID: <20260909184950.3474376-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090343-sincere-deputy-aa5c@gregkh>
+References: <2026090343-sincere-deputy-aa5c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,57 +45,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 7aedb59b80993c912ab45ce24386a2775150962b upstream.
+From: Xu Rao <raoxu@uniontech.com>
 
-batadv_mcast_forw_mode_by_count() pushs the skb->data for BATADV_FORW_MCAST
-forwarding via batadv_mcast_forw_mcsend(). But the
-batadv_skb_set_priority() expects the ethernet header directly before
-(skb->data + offset). With the moved skb->data, just some random data would
-be accessed to get the priority data.
+[ Upstream commit 36aa66de481d29edd63cbad9b5c4dc18c340fdf6 ]
 
-Move the batadv_skb_set_priority() before the decision about the handling
-multicast packets and potential header modifications.
+snd_hdac_ext_stream_reset() polls PPLCCTL for STRST by masking the
+register value with AZX_PPLCCTL_STRST:
 
+	val = readl(...) & AZX_PPLCCTL_STRST;
+
+The same masked value is then used when clearing STRST. Since val
+contains no bits other than STRST, clearing STRST from it always
+produces zero. The subsequent writel() therefore writes zero to the
+entire PPLCCTL register instead of clearing only the reset bit.
+
+PPLCCTL contains other stream control fields, including the stream tag
+in AZX_PPLCCTL_STRM_MASK. Those fields must not be modified as a side
+effect of clearing stream reset.
+
+Use snd_hdac_updatel() to clear STRST, matching the existing set-reset
+path and preserving all unrelated PPLCCTL bits.
+
+Fixes: df203a4e46f4 ("ALSA: hdac_ext: add extended stream capabilities")
 Cc: stable@vger.kernel.org
-Fixes: 90039133221e ("batman-adv: mcast: implement multicast packet generation")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Link: https://patch.msgid.link/43BB7930B0F07C09+20260813065524.1955696-1-raoxu@uniontech.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/mesh-interface.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ sound/hda/ext/hdac_ext_stream.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
-index 0d598bf39bfc2..3d49fd7ef3e62 100644
---- a/net/batman-adv/mesh-interface.c
-+++ b/net/batman-adv/mesh-interface.c
-@@ -258,6 +258,8 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
- 	if (batadv_compare_eth(ethhdr->h_dest, ectp_addr))
- 		goto dropped;
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index a3ac738f1130b..f19cdc1194f1b 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -212,8 +212,8 @@ void snd_hdac_ext_stream_reset(struct hdac_ext_stream *hext_stream)
+ 			break;
+ 		udelay(3);
+ 	} while (--timeout);
+-	val &= ~AZX_PPLCCTL_STRST;
+-	writel(val, hext_stream->pplc_addr + AZX_REG_PPLCCTL);
++	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL,
++			 AZX_PPLCCTL_STRST, 0);
+ 	udelay(3);
  
-+	batadv_skb_set_priority(skb, 0);
-+
- 	gw_mode = atomic_read(&bat_priv->gw.mode);
- 	if (is_multicast_ether_addr(ethhdr->h_dest)) {
- 		/* if gw mode is off, broadcast every packet */
-@@ -291,6 +293,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
- 
- send:
- 		if (do_bcast && !is_broadcast_ether_addr(ethhdr->h_dest)) {
-+			/* WARNING batadv_mcast_forw_mode might add more headers
-+			 * in front of the skb. and might even reallocate the skb
-+			 */
- 			forw_mode = batadv_mcast_forw_mode(bat_priv, skb, vid,
- 							   &mcast_is_routable);
- 			switch (forw_mode) {
-@@ -308,8 +313,6 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
- 		}
- 	}
- 
--	batadv_skb_set_priority(skb, 0);
--
- 	/* ethernet packet should be broadcasted */
- 	if (do_bcast) {
- 		primary_if = batadv_primary_if_get_selected(bat_priv);
+ 	timeout = 50;
 -- 
-2.47.3
+2.53.0
 
