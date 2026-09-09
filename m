@@ -1,216 +1,132 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD60C23A9BD
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973231; cv=fail; b=lhSp4GiZyqD88XIyAPjAvY/S6gXxr6RFffw6IDSBOcvW4qd9IG5sEIzIsNkV5GoKy68xIf/KoFzH91Xg4t+PDji2wCwilwYYkAzn7Yrgo9+y3QSrfh1WjMIBSYYoMXXIN9KvjPlMhJzM2/5yZLvRglysPGL6SqMzd0dnrAs6faw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973231; c=relaxed/simple;
-	bh=kFKvIyM/s7ja+o6CkP/BzR7aBiEX9Lj1vS0B0GMY6gE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gWx8ShVnisrUVa2ngvGqrubqev3Ogra3CxLq3+E/5zZmgIPhGoav2qCP+gracw1itFjYPcRuH0u9BBdCWofbGkkTstPqVJWpJ1mJfy3lZ5GypnKKLpkKU3h5dnICVDmsxwlgUJrjF12ilm38J082XK5AVcWpRa6q/mvB+se2mFg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JWN0X95n; arc=fail smtp.client-ip=52.101.46.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764EB333439
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788973435; cv=none; b=MtWGP/vuJYRgWf3fyyNnwbv54RnBHdkMqhSdHINGdeNXSLKDNHaGWhRRb//ELiftU+T/MH89zsFCBDYN4IUiZc5bm3OlQQgai2buGbDpUKHdM38nItp0Vw3vhugBhqMVT9C5R1DRIvhsUFFSNxIk4kAAi8Kloqpehtt6DY9XZbw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788973435; c=relaxed/simple;
+	bh=PZKdJcW+fyAImtHFIdlN16bRWjD7OOym5Ha+Upj5qkk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ge3jJpW9YP8Vx5g/DOR8ghGbViiNM7bt7qkW1ZIndl4JTtRRo5sO8sGa9B0DKkiI5+xEgc5QMbeBpszhBFCNNZdfqRdZBYbwQH6bt8fpLyYHleRKvuZNw9Uo/Re8S9sQJqxwvPuOKfkxwmwf7HqU3CLLBG39fhbEjmBcRcQHZeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvCZ/QPU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JWN0X95n"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SaS83gpabi87YQMC3qIaTzDXNj4I54yxkfXSHwMtD8K8iAmRPZeQNoaXBmXAzLvuubHOB1TF6QCWoh1X2w56mp9sYf3NGgqzV2zxWtMrbqGcGOxA01EU0EctuVWn/9G/AfsbP+tAELXuc3eHn150unbup8YAq8cEaPAQERwBO/Ju0e8a+WcLpIJepCcvUxCVFaLZwL2T+Q34rrFqJ/fr4kBSKhAKd/K4uEk8akIvz0M5fUzJU7+9gJMN3Zl/q7Gf4X7jU8+g5PCrgV/VQE1TUTcqYoBPB812crNwwFPVqw23owohy+lqkIBaODEHTubDE76oiWTdC24at3tJSECbLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8knhCNiUIyuBWCq3LEnXi+Papl5+cxPg4jf6mY194qc=;
- b=bdKJ+JJJngtcSaRcf5oGtMiULyonI4l3diTZcpuG/ha1/LIlTAknvRRoYElB0N2jxeMEV/r3KyY0SKYZzGA44DIvGbT8x3aIGCmoHe3yXiqebOy/sGDe1wnezxQFieeRq59bVz+eOnNrlUkaNETgsT6Nhiy/9Kgvdw5Bf/jSQbQ6Qm2N1TN5TaXOx2yWk2ecYvcvN8f4fryyb12/CVa2oci95W8CmvH0XJm3sDEy/pelp1kWfM+XCzEvMf38J7SwCETNsm587gtYB8qV4yumczfY99exPaxN5Ykt+oVoB3fzM2iOIi9/bRtIa0VCbITOYBTQ11LWXI8GQ4JuKz9qig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8knhCNiUIyuBWCq3LEnXi+Papl5+cxPg4jf6mY194qc=;
- b=JWN0X95nOsMFPlLrLORJ5InSGfEdsS3AoJhtwSIZpWUhiG2TWNzJsudrE4dQRLVPrkf9CxXqBGLXCf7dQUuePSzJtibo8td34mBi7Ev6WFyLNpbaJa3n2jLVqhe7M1oWQJWzEX/zWrDeUm5miLCmxm6Zh4t2zWsysaKeG2ZuZmk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by PH7PR12MB7282.namprd12.prod.outlook.com (2603:10b6:510:209::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 17:00:24 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 17:00:24 +0000
-Message-ID: <b2f45802-99cb-42ae-9da8-93b36c6dcc9c@amd.com>
-Date: Wed, 9 Sep 2026 12:00:21 -0500
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: FAILED: patch "[PATCH] drm/amd/display: Set gpuvm min page size
- to 4K on dcn35/36" failed to apply to 6.18-stable tree
-Content-Language: en-US
-To: gregkh@linuxfoundation.org, Roman.Li@amd.com, alex.hung@amd.com,
- alexander.deucher@amd.com, daniel.wheeler@amd.com
-Cc: stable@vger.kernel.org
-References: <2026090953-attire-untidy-c602@gregkh>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <2026090953-attire-untidy-c602@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7P220CA0111.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:8:25d::15) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvCZ/QPU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742271F00893;
+	Wed,  9 Sep 2026 17:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788973433;
+	bh=pNuuy/naX4ppW4HuS/zPVFAlBuGUhOn8QhooY0QEr5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZvCZ/QPUoE/k2yiQ+CgA4w4Ap/MsjaI+/Bl3gPBHwpfCW4kooc1Mbp9xVjydkxTKn
+	 KtxDIs99rL0qADgTpOhbhTQncXHtlZApN7bIg1H4hhw1SpVmm9YcenxegSyf5xxBHe
+	 3715WWLNk6rmjVSHDyRY9cerdLTAUYESKVziqWC+Bz6SMqaD0HF2TEe+mGVCldiBy5
+	 bCQLUlb9OM+6he18OoNuqgtmfV1q1npyAQMbj1uM9me52s+dKTmAGUsuO4B1YwywEV
+	 zXb5wPdtb6kQbzMkmQl8qC9NuXPnSPWFtQ/xbmef7Q/uHtflldBmzKuYFbwTUmTdYU
+	 /DrqIe2Es+gKQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] workqueue: Add resource managed version of delayed work init
+Date: Wed,  9 Sep 2026 13:03:49 -0400
+Message-ID: <20260909170350.3177206-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090327-abiding-enamel-2481@gregkh>
+References: <2026090327-abiding-enamel-2481@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|PH7PR12MB7282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e63e266-ed13-4ac3-635a-08df0e93d6b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|11063799006|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	7NUstmcLFkXzo/zH4RrFTrkEf6+fWlGDGR7CMnq3zob3U3A7PTH/+epqmx131yMBpTDAPfiHoYdIFRLJ7g4BnCnFiY5rPBKZYqJVTg99+DPPiQk03NYbpIjSWhm2tEmjsuRCOMzmUdhVYTuoB8+Ls6xsFWiL+heWLooQX4TAuzq8qWlc3AVD6v47aVPyqWBUCGXlvHCQACRD+2eZkO+ZTO1gdbFc+QVqo8IhWz3/7+CBdSNVyve/HRdhc4P1GyHUPZWCkblJOX3fl7WeGvFoioNsi0rwvO+iyPNXhiPsouJsVzelB6W3PndY9FX/nHk89IVJ8NoGGd9ev0dYNywINEYLEilMn/NF/dTzP5BIvzQJc4b6e5K24Y90t8fwi10HeecassiWNHvCID/pUincZZ2McgI6fAQRv4ohC5hSchM4znAkWqgfTWAAdgtIE7vnmyPj9J61JEV3nP6PYq7pnpta6s/G+6eqqfck7kRd1hlb6Y5v2GIyiwhh0bzw9Kf/Tv0n7O3P+nAaSigWaxE6WFS8ISKQtkUyF189dNydDx5XBH47ELGwWzyG9x2FVTDpcM4Y9kNspGH2M2+su+z7qL9UIuLkwKZeqYeAOzsnzJ88ejB+UXnev4+UYCphk9vWPeTxwQsXR9U8dZLOXhxv1g7anbNVnAEa3r/IMOJWI7U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M0xUbUpUZDZMM2RKUVhPdUZOUFFKamFrRHZldGlNNGNqUEZQc29GczJxckxN?=
- =?utf-8?B?R1dxL1dwVXJya2VnMC96Tzc4YTJlVzB5R0dqYmc5cmY0ejUzSVZCN25jRjBE?=
- =?utf-8?B?V3N2dFc3bjhXWWNxVXJTSHQxN2JIcUtHWGs4ajNhaWQ4VmtFUzlBR2kzYnp3?=
- =?utf-8?B?cmsvRE82bnl5R0cvbG13dGFLc3dhcmg5VmpycGFNN0pmZHA2ZzZtOGtlS1pq?=
- =?utf-8?B?RjJwTzlNNHNZOHprc1U2Rjc2WFdXbUowSUZJdkFzMXU3STlLVVBoM1RNdjlB?=
- =?utf-8?B?RkpId0dJUWxOcm16ODRWVmhBVlp5RkZwZmFNZlFlTSt2SlBkV0pUMVVNclNB?=
- =?utf-8?B?aVZpbjRBRE8ybVRWK2pGRVpmWlBBZHV6cXpGKzh6WVNYRmxWbWVLQ01OZWxL?=
- =?utf-8?B?dC9SSC95N3Bqdi8ycHRNeE1CSmh4ZDlnZmVyb1QzUmt6eEhMK2p0VHFPNXcv?=
- =?utf-8?B?TU1pYXlrV0E5ZFNjaTBsM2ZCWTgwdTlQNkNJRndJSFRoajBIbVRQZEdVRXlv?=
- =?utf-8?B?Y1Mrc3NiMHV3cW9rQ043ZjlzWStGdERYMDJpSktnNk1PSjc3TnN1NTlocmdH?=
- =?utf-8?B?bW9FK3cwU2FKd0ppVVpiR2hrL1ZadEtzMWFsWGljNFE0M1VRUFk3dzNMMHp6?=
- =?utf-8?B?aDdnV2dvdnNtaUlDa0M5RDZSd1pyNjRRS1IzYmMybXhlT3JIVTI2dDd1QURY?=
- =?utf-8?B?dzNrVWoxRGdOdVg3cktmU0JnQjMxT0dBL2VTNmd3bEdid01ISHZRQzhNUHRl?=
- =?utf-8?B?NjNYdWVvdnc0Tkp3TUNhS1R1Z3ArTVpLV0dlZ3l1OXBqdzlHZnFxRlJvMGQv?=
- =?utf-8?B?bS9WczN3Tmo1dHJKRmNoQTVMTFVjWWFuM0gzU1NwL0Rac1ZKTWFkUzRoOUFV?=
- =?utf-8?B?OUo5NkRubkRxU3JWTVNWVFZVVFBYUjUyazc4ekNBVE9mUmR3ay9KTFpISjFa?=
- =?utf-8?B?WUxqZ1JMT29HTytFRFd3Q29UdlNvclNmOHJtblFUVnpWVFlQcDdYZDV2T1c0?=
- =?utf-8?B?WUR6ampzUURpcUtJWFlxMEpxR2MvQnh3dUdrdmNHMmxBVk5hbS9WVXQ3QjF4?=
- =?utf-8?B?b2QxWk4yOW81VUhPY1NlQ1JOVU5CSURMenpkQ05YdFlNVURsTWVVb2pxQ0Vj?=
- =?utf-8?B?VXE2Y1hxKy9jYTVuQXBhU3NYbWQ4MmlJRnF1cEhheGhtWHVoZjZpVHlSNk5Q?=
- =?utf-8?B?WHhxVUgvS3lEOVVEaGt3VXg2aHZPejJHV0dwSGVkN2RoOG50UkdCVVczVFYw?=
- =?utf-8?B?a1hKekxueTdvWDRlejdBNmRJSGYzTk1xZjNWMG5HU29uemRTem80ZlZKT2xI?=
- =?utf-8?B?djdZeDRkb2RoU0xuLytCdHB1aXpZeUFjWE1GV3dMeDJNVDlnbEVMQ2pLdmRu?=
- =?utf-8?B?Z20xZ2lBVHg5TS8vSDcrRERoMFVnNWZveUlaSW91cVdqV3VKTU1PMFNyY3Av?=
- =?utf-8?B?N3BEOEMwVlhiTGhMdWlUMWZseVNmaEE3M281NWIyc3d4dEdSMEhVVzZDQ1Rj?=
- =?utf-8?B?bzN2NW1udmI0QXR2SGJJcUd5MlNjQkU3REJYSFJVNjVaYnVUOGVaYUpiZ0Vt?=
- =?utf-8?B?OTF1ZFpPaTFYSXlhSGNMbDFvdjNydytpQSt0U3JneHErN20yamphMlhENzds?=
- =?utf-8?B?aGhJTWZKcHI3YnVzMm9aVXB2MDJrY2JJMjlkVndxUnZxTmxaZ1hWaGYybmJZ?=
- =?utf-8?B?U1ljMjFITVpCSDZjVlRTc1NMek1OckR6K0FjemYxTm5jTUU2SE9na3ozT3Fv?=
- =?utf-8?B?M1h4VjdtK2hrMld3YmdVNGNLWVpTT2RBemRvaWFBNEVFMUFqV3h5OVY2MWVq?=
- =?utf-8?B?aFNjYXVuc0dpRVF2OGhLQW92ZVNBVlRjSUVPTE51dzdxYkF6VHpMWFlEMkFS?=
- =?utf-8?B?YWVLOHZ4djN5ZkxwY3Nra3MxMEQ2VExWSkRpMyszNFVPRHFaSGFjY2I4aExV?=
- =?utf-8?B?MkR2ay9LajR2YXhQMGpWbkh4cXZ4dW0xc3BqY3BUbmNhY2cyQlU2OXNNL0lZ?=
- =?utf-8?B?ajR2aG41dk81endYSldZdVgvYkxrWjdHTHRuOUU2N1NnL2RMeUpNTk9haHV4?=
- =?utf-8?B?K0JxY2o4VGtReE1XMlI5eEJuZjJhOFBvTVFGNjBndEpyeXQ1TFVKRXdMM3Jt?=
- =?utf-8?B?SFRqQmhHS0Y1VFZpeGttdnRyWEZQN3NST2c2c2gwemkvMlBLejVqRkR6c09E?=
- =?utf-8?B?VXFMZVRGcC84MVZZUThWaVo0Y2ZRUEJzQ0xoU3ZEc0RqUTNJMUpsbFhvTnBl?=
- =?utf-8?B?d0xCMjFOYUw4dVFkMWJOeXdOdFlqelpEQTY5S2RKeE9WaklOaVVvSm5XM21B?=
- =?utf-8?Q?GV3Q2c8VGMeFOMgcEj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e63e266-ed13-4ac3-635a-08df0e93d6b4
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 17:00:23.9703
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZysM/UruSCrxFTVn6nfPw/0xQbdlNQkjjR7xeulMRgnstlME5zyJVMST8T6EaN23fd9Jd9awA0hQsYQpr2LZXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7282
+Content-Transfer-Encoding: 8bit
 
+From: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
 
+[ Upstream commit 0341ce5443949588e93581b49b934cdde2befbf8 ]
 
-On 9/9/26 06:52, gregkh@linuxfoundation.org wrote:
-> 
-> The patch below does not apply to the 6.18-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-attire-untidy-c602@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
+A few drivers which need a delayed work-queue must cancel work at driver
+detach. Some of those implement remove() solely for this purpose. Help
+drivers to avoid unnecessary remove and error-branch implementation by
+adding managed verision of delayed work initialization. This will also
+help drivers to avoid mixing manual and devm based unwinding when other
+resources are handled by devm.
 
-I'm not sure why this fails to cherry pick here.  I just tried on my 
-side and it works:
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+Link: https://lore.kernel.org/r/51769ea4668198deb798fe47fcfb5f5288d61586.1616506559.git.matti.vaittinen@fi.rohmeurope.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 609af0ceeaef ("power: supply: ucs1002: fix use-after-free on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/devm-helpers.h | 53 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+ create mode 100644 include/linux/devm-helpers.h
 
-╰─❯ git reset --hard
-HEAD is now at 1c732c6b94f0f Linux 6.18.49
-╰─❯ git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
-Auto-merging drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-[linux-6.18.y 40ba5915f3a5f] drm/amd/display: Set gpuvm min page size to 
-4K on dcn35/36
-  Author: Roman Li <Roman.Li@amd.com>
-  Date: Fri Aug 14 18:03:17 2026 -0400
-  1 file changed, 1 insertion(+)
-╰─❯ git log --oneline -3
-40ba5915f3a5f (HEAD -> linux-6.18.y) drm/amd/display: Set gpuvm min page 
-size to 4K on dcn35/36
-1c732c6b94f0f (tag: v6.18.49, gregkh/linux-6.18.y) Linux 6.18.49
-5f08c45bdcfd2 usb: usbfs: fix use-after-free of usb_device in 
-usbdev_release()
-
-And then I tried to compile amdgpu.ko and it compiled just fine.
-
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
->  From 9ce3169430f1db035d491481086e2fae2552569c Mon Sep 17 00:00:00 2001
-> From: Roman Li <Roman.Li@amd.com>
-> Date: Fri, 14 Aug 2026 18:03:17 -0400
-> Subject: [PATCH] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
-> 
-> [WHY]
-> Splash screen corruption on some 8K monitors.
-> 
-> [HOW]
-> Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
-> calculations, avoiding the corruption path observed during splash.
-> 
-> Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Roman Li <Roman.Li@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> (cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
-> Cc: stable@vger.kernel.org
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> index 166f10b8862f..c82886323a51 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> @@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
->   		out->smn_latency_us = 2;
->   		out->dispclk_dppclk_vco_speed_mhz = 3600;
->   		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
-> +		out->gpuvm_min_page_size_kbytes = 4;
->   		break;
->   
->   
+diff --git a/include/linux/devm-helpers.h b/include/linux/devm-helpers.h
+new file mode 100644
+index 0000000000000..f64e0c9f3763c
+--- /dev/null
++++ b/include/linux/devm-helpers.h
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __LINUX_DEVM_HELPERS_H
++#define __LINUX_DEVM_HELPERS_H
++
++/*
++ * Functions which do automatically cancel operations or release resources upon
++ * driver detach.
++ *
++ * These should be helpful to avoid mixing the manual and devm-based resource
++ * management which can be source of annoying, rarely occurring,
++ * hard-to-reproduce bugs.
++ *
++ * Please take into account that devm based cancellation may be performed some
++ * time after the remove() is ran.
++ *
++ * Thus mixing devm and manual resource management can easily cause problems
++ * when unwinding operations with dependencies. IRQ scheduling a work in a queue
++ * is typical example where IRQs are often devm-managed and WQs are manually
++ * cleaned at remove(). If IRQs are not manually freed at remove() (and this is
++ * often the case when we use devm for IRQs) we have a period of time after
++ * remove() - and before devm managed IRQs are freed - where new IRQ may fire
++ * and schedule a work item which won't be cancelled because remove() was
++ * already ran.
++ */
++
++#include <linux/device.h>
++#include <linux/workqueue.h>
++
++static inline void devm_delayed_work_drop(void *res)
++{
++	cancel_delayed_work_sync(res);
++}
++
++/**
++ * devm_delayed_work_autocancel - Resource-managed work allocation
++ * @dev: Device which lifetime work is bound to
++ * @pdata: work to be cancelled when driver is detached
++ *
++ * Initialize work which is automatically cancelled when driver is detached.
++ * A few drivers need delayed work which must be cancelled before driver
++ * is detached to avoid accessing removed resources.
++ * devm_delayed_work_autocancel() can be used to omit the explicit
++ * cancelleation when driver is detached.
++ */
++static inline int devm_delayed_work_autocancel(struct device *dev,
++					       struct delayed_work *w,
++					       work_func_t worker)
++{
++	INIT_DELAYED_WORK(w, worker);
++	return devm_add_action(dev, devm_delayed_work_drop, w);
++}
++
++#endif
+-- 
+2.53.0
 
