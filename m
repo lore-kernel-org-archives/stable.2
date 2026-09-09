@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8663D52D2A0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3354A0902
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:00:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951649; cv=none; b=lUFZrB5WZQdFeCtHFZCx2YLaIQFKPHrIK95i0vletrJErm0vp17uPfjXXRPNbIl8QabNjihtdPNv+kRWwj62JJrEj3BDlRXlh35FsQ6wzQcVh2iFb6f+hB2qQfmhJnoSIcn1vOscwKmltA9lTL3c3UJMCjR23hkpGOXqTW/5Gnw=
+	t=1788951652; cv=none; b=pLv8SkbM0TNB7eWw1tKFKPT9PClMQ2zAolbSUuaGlIG+3qTv+Q1C4wZ9CliV9DJ8qgoft+6GFuQy/bUGzHE84/UiGi+zhosyf4kOPWAprYga0deg+MvOgiEa1i91b/vgITLzwjZbBeKNm6nj5hYE8fOAfmatQPg1rSQLf6L3uCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951649; c=relaxed/simple;
-	bh=v//YMrz0o9uyIH7F6msPXnKQfaQ0vd2O6kp/ztebChU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T1hKCODjmS+S83sxcESwvWF2ahz3ZcBbMa6ejvJYbJ28DGEWurkbWc81Jazv65yOxuMpIzYydL511uhLwoc3izTkXQEcmHXrfU4WpAa7D5tZGTu2M+FeAN+iBtyssipDZcgCpcYqWXC+MqLT4Dt8QzZWXRl/x10FqRV0oDwenuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bCyCZAje; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951652; c=relaxed/simple;
+	bh=Pw0l7s5H1hh7h6Z7jGa7Fl5cZ/p98eU3EuqoExXrAic=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UkAb3jpi2McB9SgrJY/AsWNW2b1W6yyWfn/18cSV5YF7omSyBxcWQJanZvgrxXBkHmr8fb7JAAJlbz25oXy7fWatfqRBVFIxXpG6K62LzaSBnKmmIpYp/BoBN+bxf90Lc1CtPplyKWmHdvjK7c1N1grbOztrynjmumNSqYvvQ1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e22qdCa7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bCyCZAje"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6818C1F00A3D;
-	Wed,  9 Sep 2026 11:00:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e22qdCa7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3611F00A3E;
+	Wed,  9 Sep 2026 11:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951645;
-	bh=LLSrZ81RihwhZ/kNDXQUBJfnNp1BO6CgL+ty6M59cz4=;
+	s=korg; t=1788951648;
+	bh=joBsbsth789rUlikHfCz9JfCJ4eYEe1GkL58PU+p5Xw=;
 	h=Subject:To:Cc:From:Date;
-	b=bCyCZAje1/H8a/1oV+0RydVw44fNT4n0kVKp85Rdtgh+aQl5+0gCnSd0e9YoBaxEi
-	 U4E0PGCm84Rtgmml1v1mRwORszux6JJzRGaVNGUQBxLdA+P7yShfYIXa6S4++Wkq8f
-	 1qrqbo4dJoZvHnCl+1Pcjkqq4/kDEdmMx48ftgBc=
-Subject: FAILED: patch "[PATCH] media: zoran: Avoid freeing a registered video_device twice" failed to apply to 5.15-stable tree
+	b=e22qdCa7BhpyfYVYU+QCo25DcKbpXQLWOHNQqVvubymJLGe56t73crSCXHlEksjEn
+	 XG47ti+qCfDfmvAIIt5Z4L4TTBQWdwTxDeRmQLaYRQ6hd6ipSy60wtb4gcTDZxW2H/
+	 VIqLCy9MJt5IDUZTStyPsp33elzEnVVaw5rPBawk=
+Subject: FAILED: patch "[PATCH] media: zoran: Avoid freeing a registered video_device twice" failed to apply to 5.10-stable tree
 To: ruoyuw560@gmail.com,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:52:19 +0200
-Message-ID: <2026090919-ricotta-twitter-442e@gregkh>
+Date: Wed, 09 Sep 2026 12:52:20 +0200
+Message-ID: <2026090920-computing-favored-d2a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0735e0b5a96761a9ce277a238e834008ad92a0a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090919-ricotta-twitter-442e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090920-computing-favored-d2a1@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
