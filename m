@@ -1,134 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FAE5328A1
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC454D2ED7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951280; cv=none; b=XiibKS3yMxWNEMjtw6sxj8OlI19Zy/iAIYYihfnpEQrTgzUqfd61tW81ZUXooDZ49zN6Nm1jM0aDOmNJdEnr8Q/PrbpogPKX8H1+5wcZnYzyI5UmK+LpO5I+XOWXsPkCPxfa6JihV/+2pQFJFRNuU51Y5MiH9w7PdLJUAz38KKI=
+	t=1788951297; cv=none; b=mAdZ7LDsJbnidCWSjEvG0driIMUyqhiKS1hGJE3ikoNNG7U+Nou/r+yhglVEXyfA06PhMD57rc9QIfdjMIm7KxIAYWMYr9BCrYdwV9M6qO8Pzok8KJqyScDsfVmY/Xle29q7mQ0WzaZyUb9xlUN/YimcuCyfARvrtNut9Vi09PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951280; c=relaxed/simple;
-	bh=rJvIK3kj6V04eeN8HoPVZYoCchlUTtXzAPr+T2fhHPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rDch+xck9KeV6/RvZOQFXPQVHS8LPL9TlKIxqeP+lMCzOLkfBmZwslLA+6RYPhAlhyg6iLNvgYSCcVfeKtboOdUNvy8V7J+37IEcmcSFFtkZWMz7qc+WbJDTiP1tqjDVY5QmBNQygOMKkuuJP8JnyK+Xc5F7n3HR3mofG+/Kpmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYJOL5+k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951297; c=relaxed/simple;
+	bh=B41rE4kgLlkW76ekx3G3CeuHfSPSLnnp2PU+4Pf3IS4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FOlnoYvt9emB5iEhNi8EllQhZ91yN39hu4FtWrI0IXWmpZkte04498nwhTKmP5NbsT1Wh5UzF0OIwGCYk30lr/qynKXk4DO/Hw4Frw9AcX4Le9BOF9Mk6vm0zRkXV/ZN7ewEnYy4sng/ev2u4uu5twCIc6Q9ztX22TX/NKV2kyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x+ihhtPc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYJOL5+k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3001F00A3E;
-	Wed,  9 Sep 2026 10:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951275;
-	bh=rSfJja/v1WRQEA60s8RcjGSCb5F7wON/+VizKLYBYvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TYJOL5+kgc41wmkaBnxOrObYFic30yon45bNBJYijT07s+d7y2rrmKNBHIMNZTrZ3
-	 J9wrPF4AVvmvhexB7cLle/hGcw986k4TiTqgu46cZAPY8yYsnYJwaicBGTqEegTRBB
-	 pSwBtL7BOrBAeOlRKRwhTUh3V/kAgjzhVZsGgnl62QmHbZG0GVOFMuwUe/gUJ4PBKg
-	 vCO6JSdB6wycniRfh6/POgNC/0ZdtVsEtH2xc+Fcal4CpHVEfvTK+VrHFSpYf/qFwg
-	 N4hxw57pnDx0AEvHpb7Ngn5XhVz3XygqcRM3P/ty/rRL7BRwub44yA0cQMrWv+DeY2
-	 +39jHDcKWgVMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <csokas.bence@prolan.hu>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] dmaengine: Add devm_dma_request_chan()
-Date: Wed,  9 Sep 2026 06:54:32 -0400
-Message-ID: <20260909105433.1622090-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090301-rope-disprove-ff1d@gregkh>
-References: <2026090301-rope-disprove-ff1d@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x+ihhtPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFA91F00A3A;
+	Wed,  9 Sep 2026 10:54:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788951295;
+	bh=a8Y6xz4YkBi0bK852d1v/6WY2PnQzQUcPd3Z9gwU45Y=;
+	h=Subject:To:Cc:From:Date;
+	b=x+ihhtPclYvDFj9qExsW6ref0DGzg5LikRmE49egcUI87h6riBYrng7zz+48CRSr8
+	 bHBe0q4ADCeso17qSi1W5/u84GUjEbCa8YGCV3Fg8dWs8+2jBL5U3fmI98HhI6s1hQ
+	 giGDdN02o5d2PcaFv6nrbI/bKzWRPXWLE+fX2JcQ=
+Subject: FAILED: patch "[PATCH] media: dt-bindings: nxp,imx8-isi: Drop fsl,blk-ctrl" failed to apply to 6.18-stable tree
+To: guoniu.zhou@oss.nxp.com,conor.dooley@microchip.com,hverkuil+cisco@kernel.org,laurent.pinchart@ideasonboard.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 12:44:53 +0200
+Message-ID: <2026090953-widely-numbing-ac50@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Bence Csókás <csokas.bence@prolan.hu>
 
-[ Upstream commit 08bf1663c21a3e815eda28fa242d84c945ca3b94 ]
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Expand the arsenal of devm functions for DMA devices, this time for
-requesting channels.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Signed-off-by: Bence Csókás <csokas.bence@prolan.hu>
-Link: https://lore.kernel.org/r/20250610082256.400492-2-csokas.bence@prolan.hu
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Stable-dep-of: 777979e62711 ("i2c: mxs: fix DMA channel leak on probe error")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/dma/dmaengine.c   | 30 ++++++++++++++++++++++++++++++
- include/linux/dmaengine.h |  7 +++++++
- 2 files changed, 37 insertions(+)
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x fc312f830d8df6c082bd6f7250aa5c0ff063eea4
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-widely-numbing-ac50@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index d89827d0927e4..9fb312cebe7dd 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -927,6 +927,36 @@ void dma_release_channel(struct dma_chan *chan)
- }
- EXPORT_SYMBOL_GPL(dma_release_channel);
- 
-+static void dmaenginem_release_channel(void *chan)
-+{
-+	dma_release_channel(chan);
-+}
-+
-+/**
-+ * devm_dma_request_chan - try to allocate an exclusive slave channel
-+ * @dev:	pointer to client device structure
-+ * @name:	slave channel name
-+ *
-+ * Returns pointer to appropriate DMA channel on success or an error pointer.
-+ *
-+ * The operation is managed and will be undone on driver detach.
-+ */
-+
-+struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
-+{
-+	struct dma_chan *chan = dma_request_chan(dev, name);
-+	int ret = 0;
-+
-+	if (!IS_ERR(chan))
-+		ret = devm_add_action_or_reset(dev, dmaenginem_release_channel, chan);
-+
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return chan;
-+}
-+EXPORT_SYMBOL_GPL(devm_dma_request_chan);
-+
- /**
-  * dmaengine_get - register interest in dma_channels
-  */
-diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-index 3576c6e89fea4..368a03920c928 100644
---- a/include/linux/dmaengine.h
-+++ b/include/linux/dmaengine.h
-@@ -1489,6 +1489,7 @@ struct dma_chan *__dma_request_channel(const dma_cap_mask_t *mask,
- 
- struct dma_chan *dma_request_chan(struct device *dev, const char *name);
- struct dma_chan *dma_request_chan_by_mask(const dma_cap_mask_t *mask);
-+struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name);
- 
- void dma_release_channel(struct dma_chan *chan);
- int dma_get_slave_caps(struct dma_chan *chan, struct dma_slave_caps *caps);
-@@ -1525,6 +1526,12 @@ static inline struct dma_chan *dma_request_chan_by_mask(
- {
- 	return ERR_PTR(-ENODEV);
- }
-+
-+static inline struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+
- static inline void dma_release_channel(struct dma_chan *chan)
- {
- }
--- 
-2.53.0
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From fc312f830d8df6c082bd6f7250aa5c0ff063eea4 Mon Sep 17 00:00:00 2001
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Date: Fri, 24 Apr 2026 14:49:50 +0800
+Subject: [PATCH] media: dt-bindings: nxp,imx8-isi: Drop fsl,blk-ctrl
+ requirement for i.MX8ULP
+
+The i.MX8ULP variant does not require the fsl,blk-ctrl property. Add
+fsl,imx8ulp-isi to the exception list alongside fsl,imx91-isi.
+
+Fixes: 288517a3c6c9 ("dt-bindings: media: nxp,imx8-isi: Add i.MX8ULP ISI compatible string")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Link: https://patch.msgid.link/20260424-csi2_imx8ulp-v12-1-da148eabc035@oss.nxp.com
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+
+diff --git a/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml b/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
+index b59c4ce30b8b..279c9cd3034a 100644
+--- a/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
++++ b/Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
+@@ -117,7 +117,9 @@ allOf:
+         compatible:
+           not:
+             contains:
+-              const: fsl,imx91-isi
++              enum:
++                - fsl,imx8ulp-isi
++                - fsl,imx91-isi
+     then:
+       required:
+         - fsl,blk-ctrl
 
