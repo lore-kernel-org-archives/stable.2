@@ -1,142 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B7E3955E2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977693; cv=pass; b=Fr/ujATRdLimrpH8DccLVRchBRshp7dWY/fQ/BRDItoKDcmyHow93jsD7J732GQZmZFvRCKEqHKOo1BrvKsJimxB529CrMYRfg6yYliEF8Dd84Zef9/hSiiomTTz2qQLRCchSCnnzclFypaJWVjMv8twSK1aCFXXGzUmUx3UV7A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977693; c=relaxed/simple;
-	bh=8Rbwum/U7LCRDIoamxX4vkzVMHdBBlYCRplQYltoFwY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OkPuUCYSvTsMasonDrykw2bJ421D9p0cRDpEP6+SMGF1WQ8Ky3gc31rn+LRwCoyVPldscTW4zSSK5zrSSfeNiabE77xALp2LsoNDLwyziWi4yBWen+0swS8tps8n1BhJAnxwoPqqaLCqOeDq4GceZj+Mqyps0E9izpjnS7G/Hk0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WN95Zj4o; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517A239A057;
+	Wed,  9 Sep 2026 18:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788977820; cv=none; b=rKC3vj+aT/AhpFz7cDJ80JR3BikmVoo270lzLu841rCEc+uPcBZ+rUx1FUibbZnmW0ePqtwWiJGp0Tye45gAwxZRo83cBcPTtiZJKvCArILEd4WkYhvMF+4WJDU45N1wF5ZjqOI5LkIZNiJaOzVGIPBT3AE9aTaOESIuut/tqqw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788977820; c=relaxed/simple;
+	bh=kXOctfXUltwhqjTzoFtLL3gVUi//FVz1XuWVTcVuNN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ewZXILoY6r8KJmLlmqVafpOlv1VoQ7ZkpESMAO0ZRL6l1WfOBigkd3vCvYJIshsWySu1g1qPslAy8r1hAw8vw8dRI0J3vzfvVm2Smuhq9qXvbuNnLV15DEbMx4gLC1722Mq0jNGHnhak8Bh9/NzqS6X/pg1xYn/oqBV4WE+YhUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F84p0yyr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WN95Zj4o"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so938981f8f.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 11:14:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788977689; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TQmQQHHZ6m1v6G5rkGNM07UuQ6T/nAJK/aaE3qTGki6zWjodLwGwTnewQlIAxzi3xi
-         JNtxddotewe32pJCFzwg+yRRiEP+AK/S/r4eoXQ/EpiHCefpoHFVRNGSMfdRzfoZR42C
-         TezQOiQUwZY0w+z5PfhI63h9ZF6UXpWcqEOIG+KFAwwXmxL58UgFU7YAoajd7lZWCODK
-         WrgLvpZpL1GIfcoFRQsSutI/HXfeADPnaJMRKOOmQvgnA55qK6DKbamuEQEvAzqZybmq
-         aEVaYFro9TOOjwS0edrX6lKyhnfMC6gJNCzlQ2LkZBAibPMHaZwY/8XuUBwzepMbmDFc
-         eyUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
-        fh=PSQGUuHuiuDna2kVgY1EhwUibJbXOL8z5fGJF+rau3A=;
-        b=KQVtPkvd+g8KiogyXbtOhyiSlKF7VRt38PigMgfoUdtrwIyi3O/LPomYMoGjs16ja0
-         KqW1WAO/XQC3pt2ZFJCoDRO5cyNURfFwx3IB8BxddvhUNGSbbAFMf7jC8tu3V84L+ECr
-         3Dsc9irTkduwVWD11putCDiDYS2N6V4Kob69BpgZGStIcWGIi+qvMFgjYdZYVZow3FqQ
-         td3OevhB5sKxSlNqswagBQKfB7s2XCJtrubo3eG+HF3o6CLktfJkPZgdqDVrP4Vb40FZ
-         U6wZKQ36hQjb3BmW4AQQ4blDIPQqI9WdDfDpSRONm5/bMAi3nAJQer8URbe60qJjm0gL
-         4ljQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788977689; x=1789582489; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
-        b=WN95Zj4oHPDimCRJ23gIbpFry0UwEXlhDdqIy7oXlIOXscy9lcHC4y65WXj4efS/0u
-         aCl/y60hye6neCwBzOYsFFOQnw+oO0Gx7+a/lZdC7gkZy5YcFwb9nBiXh1lCxEzPqtlJ
-         17KfwWxd5uCV+Fy8qmDe5PW5NJj40kMmgdKJ+FM8M5O4iH4scT+pwyCX3LbAsGyyvyF7
-         0JdhkGfFZMOcJKjOWEK9IBYc4Sx9mSVlKsBlUKJIdUHH52ZqBvesmxKG0kcy7/1PF4Dx
-         2xMRUJCPA1nfRzY5D3uM9zMFW9pNuQ47u7fWcGDc2uBwa8CGANtZMjjGrLj3KSbIK8qG
-         7iQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788977689; x=1789582489;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
-        b=hdVN1GdT56MpjwlZhdCanfogE51ojEY41sf9No88XbW1pHTm2eK9qTYA7hy1VWbPMD
-         phCzDZkFFYmemSTl5uaM47Nf1CrqRtioqj0LfIY8gzasGeQqjDSK0vGfgTOMrjZNPanq
-         WqZUx8z+enz5++FTJ4Na7tPDRdg36T/coUhJ14ZlRspS3hzC5N4OUa+JWveoprBCd6Sj
-         ZpiA75ECAHk+HP0NUKbHXef8hjal4R6WqX6WpiHOYez8StsKaZ8kKtuY1dw4aDtzGbsZ
-         v97gn82Gcr7UeaEIZXMW5Y5TcIIvFPRzWt8/83WsPmDn70l3sKCXx0V2eWmCUzfb1M+H
-         Iobw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4IH2sxrW9D48HplAFvC/i/jVlvQpRNAyDTWBtvzqh01Lty6INGPep8qxCb1xxQHawcJdH+N4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5gNQ/i3RrhlqPE7byv1tDobGzQRzNroRBaAmgV9UIiauhrJBh
-	kiQHT7Ioep912B3FHc7k4fN7JK9YHJAIXpZjTm1G13Def/bQTKh+JzrzWoXac4CJnWQODDWQcUV
-	W9bB1w5NSQY8T6OZ8DGX5cfZqtaNTZV4=
-X-Gm-Gg: AYBFou1ZD3e7yuU7IMGgH/YMFMlYPyWHSLGOTkBaFXLNXzrQxIQZLGBORTYGvOsFF+j
-	KZA/HvPWT0Nw3r9KUyRv0V+QDbRFPpR/CudCIPc+0qY0jhfkRJsRVOeRJ8KVsPX8+23xldnwVQJ
-	VtdlegN9smODHdJ7Nu9YqryGl4hn8LGEwKEXNZpVtoQkOuKSaHrGAwkhOQv6ONqLLNrpL+oWddA
-	gL+P5P+3VrtYL4JXPSrd5py1h2PjxG5Pg+u8WMu0M+kT+8tiBmtTrYIIQYmBggWdBM53tonTrp3
-	r0JQzjhFZC7I4ig6o6iMjbRwP6/q5lY2Q6MRfS1OamrobxpWS/c2kpDi3WHW4xvoLKmf6Xdi273
-	4tZ0N6rLyeV0=
-X-Received: by 2002:a05:6000:1a87:b0:485:8ddf:7a5e with SMTP id
- ffacd0b85a97d-486e0f6c965mr825042f8f.11.1788977689104; Wed, 09 Sep 2026
- 11:14:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F84p0yyr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962401F00893;
+	Wed,  9 Sep 2026 18:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788977815;
+	bh=rmS7BNxOqmi+BeNsZ4oZ5oXHisCR+XOxA/iRVryaknE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F84p0yyrHbvT3bpXj+VWGL3evahoR6zG0wTE9+bL32gjOuuHYOcp5jRBCTbBmoesc
+	 nUKlyiNo9zgpaA1uQE+puCh0ulCe9TAqCoBisChJDtgib1rgRlKWc7+knS+n4fuz4S
+	 7nSvSwwxqSBsjpa10PXbYDQrFUAV4uGXkFkb2cegO3tPzaqvJNFR9GsDup3MBJdb/o
+	 fei0wlIm+cnIeuSWoNfnkZ1S+pAZI84YMz6dsergpXxLlscYpxsi9ZysTp12TVyTtQ
+	 b3Y46Ko+oZeGMBiX61KqHlpy4oI7w2IMj6zZPs5hTSlM2IzjYjJGpK1FxVMWDoLj8y
+	 b9Pscs7SP3o2A==
+Date: Wed, 9 Sep 2026 08:16:54 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Dennis Zhou <dennis@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
+ drain pass
+Message-ID: <aqGilhgcEd0qaHjI@slm.duckdns.org>
+References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907161938.1932355-1-usama.arif@linux.dev>
-In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 9 Sep 2026 11:14:37 -0700
-X-Gm-Features: AcwNN1X__zB3pEsdnxmwwgsAIlWtg2QfI_AHwOPpV_fdj1oiSItGXQAyV9ijLiw
-Message-ID: <CAKEwX=PDTPk3d-e7z2GYka33jatuqxy-ES3uSfyg=-L65YMaLw@mail.gmail.com>
-Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
- not in zswap
-To: Usama Arif <usama.arif@linux.dev>
-Cc: yosry@kernel.org, Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, 
-	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
 
-On Mon, Sep 7, 2026 at 9:20=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
-ote:
->
-> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
-> zswap_never_enabled() to decide whether a swapin may use a large folio.
-> zswap_load() samples the same one-way static key again once the read
-> reaches it.  Nothing serialises the two reads, and in between the task
-> allocates and pins a high-order folio, which can sleep.
->
-> If zswap is enabled for the first time in that window, a large folio that
-> was correctly permitted reaches zswap_load(), which rejects every large
-> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
-> as "zswap handled it" and skips the backing-device read, so the folio
-> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
-> for shmem.  The data is intact on the swap device - it was written there
-> before zswap was ever enabled - and the not-uptodate folio stays in the
-> swap cache, so every retry of the fault fails the same way.  With
-> panic_on_warn the WARN takes the machine down rather than the task.
->
-> Scan the range instead of rejecting the folio.  The caller has pinned
-> every slot before issuing the read, so zswap cannot start a store or a
-> writeback into the range and the scan is stable.  If nothing in the range
-> is in zswap it is all on the backing device: return -ENOENT and let
-> swap_read_folio() read it.
->
-> A range that does have a slot in zswap is still refused, because zswap
-> stores large folios as order-0 entries and cannot reconstruct one.  That
-> stays reachable - a slot shared with another task can be stored inside
-> the same window - and refusing is correct, since the alternative is
-> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
-> the request is valid, zswap just cannot serve it.  The only caller
-> distinguishes -ENOENT from everything else, so that part is a
-> documentation fix.
->
-> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
-s")
+(cc'ing Paul)
+
+On Wed, Sep 09, 2026 at 06:01:07PM +0000, Josef Bacik wrote:
+> cleanup_offline_cgwbs_workfn() drains a dying cgwb by calling
+> cleanup_offline_cgwb() until it returns false, with a cond_resched()
+> between passes.  On a CONFIG_PREEMPTION kernel that cond_resched() does
+> nothing: _cond_resched() is a plain "return 0", and under
+> PREEMPT_DYNAMIC the full and lazy modes disable it.  Since commit
+> 7dadeaa6e851 ("sched: Further restrict the preemption modes") those are
+> the only two models on the architectures with PREEMPT_LAZY support,
+> arm64 and x86 among them, so the drain loop never reports a Tasks-RCU
+> quiescent state.
+> 
+> A worker draining a cgwb with millions of attached inodes runs for
+> minutes.  On a 6.18 arm64 host in lazy mode the cgwb worker drained one
+> dying cgroup's writeback domain for over 11 minutes.  A BPF program
+> unlink (bpf_trampoline_unlink_prog -> bpf_trampoline_update ->
+> unregister_ftrace_direct -> ftrace_shutdown -> synchronize_rcu_tasks())
+> waited on that grace period while holding the trampoline mutex, 42
+> tasks queued behind it in D state, and the hung task detector fired at
+> 614 s and panicked the host.  Any BPF or ftrace detach during a long
+> drain inherits the drain's length.
+> 
+> Fix this by calling cond_resched_tasks_rcu_qs() so we do not stall out
+> anybody who calls sycnrhonize_rcu_tasks().  We put this in a do { } while
+> loop because if we have many small cgroups cleanup_offline_cgwb() will
+> return false and we will never call cond_resched_tasks_rcu_qs(), creating
+> the same problem.
+> 
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Acked-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Tejun Heo <tj@kernel.org>
+
+> ---
+>  mm/backing-dev.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+> index cecbcf9060a6..18e999053bae 100644
+> --- a/mm/backing-dev.c
+> +++ b/mm/backing-dev.c
+> @@ -910,8 +910,9 @@ static void cleanup_offline_cgwbs_workfn(struct work_struct *work)
+>  			continue;
+>  
+>  		spin_unlock_irq(&cgwb_lock);
+> -		while (cleanup_offline_cgwb(wb))
+> -			cond_resched();
+> +		do {
+> +			cond_resched_tasks_rcu_qs();
+> +		} while (cleanup_offline_cgwb(wb));
+
+The patch looks fine but this overall seems fragile. cond_resched() was
+already marking "stuff that can take too long" but we need to use
+cond_resched_tasks_rcu_qs() if it can take *really* long. There gotta be a
+way to make this more maintainable. If always doing tasks_rcu_qs from
+cond_resched() is too expensive, can it be be gated behind something cheaper
+e.g. some tick based test?
+
+Thanks.
+
+-- 
+tejun
