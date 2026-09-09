@@ -1,92 +1,81 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB080328B5E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4E92D3EEB
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788921628; cv=none; b=htSnFwG/cFIqc5dzNPSodJURjR1sg16PkAsqaXzz0CyDkhPUUIshmcaVKUZbQnbXpqPBq5h2Oc8WT2iFo5t8vvaHhAIqE8hUG+H9HEFLaGv71NXFW3zNYga3EdMDdYMCw6HoPiqpMwEu0f6dmFa3NZ2IEkt3An/MEJUFHILZpTA=
+	t=1788922006; cv=none; b=G95CyExpfAQf0CjDzqg6gkTP3L0Nb0KDZbskYkrNQif3sBDhT3qHQxcjOzIkDL77vRHa1zw/W/A7pDCfv2NFoeCAIxtscPjP2S4cHJMHz0uhwwuj8uhSSiUjVYv6+ELG4q4oaACfGPKCswJxW8wHuxy5hW0JVi0YAi6k32vH49w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788921628; c=relaxed/simple;
-	bh=X1Xh75puVEIf2AgK7qiR8Iu8yQ2Qw0GXyTIhKX5ee8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H59e9mtN3JD8nuom6oo09+Hl/8UnyHfSNKdGfMwAXLOJeT9boqXhWoPMopOvb5Jc61XYzcSLVDp2gU8MiOLzbiEiac8eqljt77j6aZIV5iIRsl1dNN6otJKX30akTsMQqQSEYC7dtzZzuvHCqHBYRAyzE96cZnY+uMZe4m4XSSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HlGPVekw; arc=none smtp.client-ip=209.85.210.182
+	s=arc-20240116; t=1788922006; c=relaxed/simple;
+	bh=FaMuIMu7x2D3aJYKdS2ouRjVT1y2n3u88iUjSdpGrRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hr4ub+rJVnJ0oAjnWgJfQQNaAIFUsqWJZeQa+6482/TSLkzc76X5Lcp0tYGlxNTPgOknXJFha+uKBuP0ur4dTCt43pkUcZXekKMksceFNw1NMXb963H7u6Fo9dGhszUVrtVzGmvP0Iqg6k+ltfHrSOd7lJc4JSJIvtfdwXjNwJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WR6/7I4V; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HlGPVekw"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-851cbd64814so2628430b3a.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 19:40:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WR6/7I4V"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-868b3248b2cso174174b3a.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 19:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788921626; x=1789526426; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788922004; x=1789526804; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
-        b=HlGPVekw2RyG3wytO5zN/19Es33hbLKy0WSnXvb1Q841eId/oLFiGJPDTt+RZzssg+
-         YOzXaI2NVXX+kGMo2yyL7i8SpFHfD87TYNEfV+wlalWYmn3I682+KqJXaLK+gCBGrvn0
-         zM5OwWEtjYNyRu2WgFO7wuMjqnwPZAdVEDI56k4C8JiJfCMjVxb07qzjQ1a0AlaodsKk
-         7J8tUnu9CIdi0P6bd0c4p5AssSA9+OkTxOmRqi5cAOqt2IiVLQ1358AxqzM9usZVaCLE
-         ohSFyh3LRXqnHqLWAYnz0CkuuyXEdSTDh858WaPgf3UPeS49bysVo7zk9PAa08/MFDi2
-         ZYQw==
+        bh=ZO7tbb4HSzx3MW7qh3I4JqZjxCZe9pXRQ8RRhmehi7c=;
+        b=WR6/7I4Vi0fVIYRfp6HF5e67IBBWtRGM8m0XsYWT18d0KF8DgXZGbu8/xz+pALbQ+T
+         vCR951JMJHfo14q69GTiM9+Lo5F94xKeA2UlZ6OuVuTfLzl2ZMcnMLnwVyl8D4zM0bfA
+         KJnbDEoxANms1VHEUfccJmXNqzoYCeREvQ3qhzSphhIJZHZmzOvPqpLuo9deyK+Da7lT
+         0hBLy8Z1XwoGGz5JWWht614yFm4odVliMPtQ5QtzgxcbzPdpH7DNgaJR1xZKJlsD5P1V
+         J3AXQSbpPK4faNA4D6mLeLUy/QCxTK9NvnybOrqxohlaHDWb/qhfIfyltRQM6/sbYOhG
+         gY0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788921626; x=1789526426;
+        d=1e100.net; s=20251104; t=1788922004; x=1789526804;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
-        b=XN98565xxZQ+n45DFD2dN32rXV/OVSS4NRYkBCJPX3LLXfdrNf2npcIl8TCSUZn+mk
-         deE46C5D+LIZZsA++jm8TnWvzfP+9vDCZoNRAFI6jjqz9f0fHbg+xMCnZplYQP2xnd2h
-         PyqtnVK7dVzPqiVtfSoDbUZFi5FXSvzJfJnqsVhN4tCZyzDnL3f60DF5CZAEJmbmF59i
-         kpJAZCct6HW+H2DXOCLGrdvq574yXNqi45wUMyEuBvSc0wLh7Mk/7I1X3av/JjCtSa0J
-         fOKbJMz7RrWtwpHmJsIOTPdx7JAhBrhIP6HXcmJpXWCQOiRfbrJnZCdFz267KG+JwnMI
-         zrvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxo4+FD89d7gXqNOcAZItLxR5RPUMxpJtGBzrKywtgMEUwPhnWeKiyjA58e+anhsgkp5VfAENc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF8r2lk7vx8obudT2td5WPotO/mfJ+sx7eEkEnpYeYbndoxmiY
-	ssAfGzBIrcrflJPw1NRfEjh6EOPuaOlBIuiKfxO3/thX8YenJ9zbChCo
-X-Gm-Gg: AYBFou0bH1/gN6Q9N6OpFwxzIppKqBvTWJ/nSCL7GHYt2nduJBYLOsXKK2dJgxCsLsa
-	t7738V7577zYosW5OngzXNQe65asMMjDxU0Omy/swLSG5CSNIkqSxSCgEtNwTKrk6OYTYqeqM3B
-	X5Z5LTixs91Z9+LweMKGXj51cdqD4PQaBwqjXLJKdPAGFLg55GYfSLhhFNkDieVu1RRw6nMiGpR
-	Qp6VwlBjeTkJ4JGcFlSbhIPTkm21ZgsvsMeyeruLPX9BZgJzYpFA0KSLXxCV3zrlWNa+eftlpWf
-	0XdqK31JQZOSl+Ceh418KPMTFE5AiIApD7CEKxt4rY47aGNx12K2JMxR1HmL9LvZrMTWGis6MuN
-	33GrKDkD6nqAxIVgnjxr3ht/eHafOvKBisyi81TtUhDb+C0K4nEfLuY3E3YhCSYuW9cb3CebKsS
-	UtPQqqDlwJaCpH0XkmdtDA1CqlFQul8ExwhMEe9dB7gCXqaVZKbSQS6h2nL/wqEoEz+5/DsJKu8
-	kG13aSsmofqAWS+9PFWkHq8aGrevvgJdvmB6vNCYWJwIbZRp5kQPIcO72n/8XxgbEkSOxyNuGi+
-	TEnOZoaZIi7MIO8htKX3aZ/7vMCbwV4/7340k5TX7iqDvHQZssqmHSPzy554Gd24QU1OG9teRXR
-	FZwPNnnXCCkBD
-X-Received: by 2002:a05:6a00:f0e:b0:847:770f:da4c with SMTP id d2e1a72fcca58-8616b17644bmr44258694b3a.16.1788921625629;
-        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
-Received: from bad.. ([43.227.225.58])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045f74sm6270814b3a.10.2026.09.08.19.40.19
+        bh=ZO7tbb4HSzx3MW7qh3I4JqZjxCZe9pXRQ8RRhmehi7c=;
+        b=VorEpEYSwCAC16DPgBV0vNz+0zFJHbtz/IWW9QCGQWn72N+9irA2Jj7nUbNzsa/UK/
+         BrZPSY8PjaARLhYo7qor9/PMF0aEQLuv7EaA5WU6eJrgwmhfDJmYU+cCr/kX8mc8V/+f
+         2AsU25XgJisxLWlj9FvPDCbBRq0kQ/gqIjotytTPZhhQkCJEPLB1DrSMC9jlnxtxikg3
+         1gXHqM5VB19wTsh5JdV031kGnBmX6Af3kCOY/mjRGnAJTWPLkndNved1QcA5LcjVaN3W
+         AF0UkFpH69w7Yf4Y9Hfzca7hxySOFSfJhZunM3F8n6B7f2HX/4iAupYyV7PfK2XqKG56
+         6S8g==
+X-Forwarded-Encrypted: i=1; AKwUvBynnlO7FQzObIyxOSBkWxRZ9eyNvaHo60nVshS1E/jhMoGmryMiuWLLk5huKwaztlgVdhEw8Oo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7dJVbSVe4xBauTYd2P3aMQL4ttFc2pi72l7p1Pah1Tzw+XYlW
+	pGRBxRfOKAI7pprElzHwFqiqkrUf6hCati5k/gZAwSn/+jUKX+6t0aS1oPKtN374c6Q=
+X-Gm-Gg: AYBFou2Lx1RR1wIREM8SLNXkpBOmsNogXMvxRWNe7CNpgPMo/BGPfO6wnyIMZVKMyiI
+	36WpP3aKaJJrygGBCwzJF5eivc5+J+Q/Twi2+iYcxTwn/r4+BkKHcxdzroDV8vbsdbpm59oycYN
+	uGqbyga06uQe0XLulooQuRomAFj7HSnsbfahLyG9IsDEoybBFwSnRQ9XQ4NMD11rqINvZJ4juSq
+	Y69OqPrSNjy7/s1vF2mmL5yuiUfrlBZ/+MBAzasVshQ9jC8Trph92pBMhYHuH5+Tm7Tbx6I73cj
+	KMgez9oBteGN5niSpLPxUkLZnnp9MZrZ3hmCR0oC8gY+TMcStLUNHOYxX4CGCELl0dggdyD2Tkh
+	FDfATACKUCwAosI9gAUgI0bnFmaFAl61dCWuoC1xkCowav1Sg1s6/08/RDImsF1mfiveQnuyqB1
+	vChS4HUIbezDW6izg9QmQ49JSauGZe5gHJXZOdW5eYxAJ8wH55N/PEu/vtqLG+gPT5w1+JGrxUs
+	A==
+X-Received: by 2002:a05:6a21:6f12:b0:398:8870:b58f with SMTP id adf61e73a8af0-3da3a03ef42mr48516402637.14.1788922003934;
+        Tue, 08 Sep 2026 19:46:43 -0700 (PDT)
+Received: from TENCENT64.site ([103.7.29.106])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554a98fesm5977157a12.30.2026.09.08.19.46.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
-From: Nikhil <nikhilljatt@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	horms@kernel.org,
-	dsahern@gmail.com,
-	hawk@kernel.org,
-	razor@blackwall.org,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
+        Tue, 08 Sep 2026 19:46:43 -0700 (PDT)
+From: Jun Yang <littleddfu@gmail.com>
+X-Google-Original-From: Jun Yang <junvyyang@tencent.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
-Date: Wed,  9 Sep 2026 08:10:11 +0530
-Message-ID: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-kernel@vger.kernel.org,
+	Jun Yang <junvyyang@tencent.com>,
+	stable@vger.kernel.org,
+	TencentOS Corvus AI <corvus@tencent.com>
+Subject: [PATCH net] sctp: check asoc->base.dead before the RCV_SHUTDOWN break in sctp_wait_for_connect()
+Date: Wed,  9 Sep 2026 10:46:23 +0800
+Message-ID: <20260909024626.3494588-1-junvyyang@tencent.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -95,81 +84,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bpf_ipv4_fib_lookup() and bpf_ipv6_fib_lookup() copy the neighbour's
-link layer address into params->dmac without any synchronisation, but
-neigh_update() writes neigh->ha under write_seqlock(&neigh->ha_lock)
-exactly because there are lockless readers.  A BPF program calling
-bpf_fib_lookup() while the neighbour is being updated can therefore be
-handed a torn address, and XDP/tc then forwards the packet to a bogus
-L2 destination.
+sctp_wait_for_connect() sleeps with the socket lock dropped, so the
+association can be destroyed underneath it: an out-of-the-blue ABORT
+answering the INIT is drained from the backlog by that release_sock() and
+ends in sctp_association_free().  The loop does revalidate the association
+after waking, but the (sk->sk_shutdown & RCV_SHUTDOWN) break is evaluated
+before all of those checks and leaves the loop with err == 0.  A concurrent
+shutdown(fd, SHUT_RD) - inert on a one-to-many socket, where it only sets
+the flag - therefore makes the function report a dead association as
+connected, and the sctp_association_put() on the way out drops the last
+reference.
 
-neigh_ha_snapshot() cannot be used here because it copies dev->addr_len
-bytes while params->dmac is only ETH_ALEN long (an IPoIB egress device
-has addr_len 20 and would overflow into params->smac), so open-code the
-seqlock loop around the ETH_ALEN copy.
+sctp_sendmsg_to_asoc() trusts that 0.  Commit c863850ce22e ("sctp: not free
+the new asoc when sctp_wait_for_connect returns err") turns a failure into
+-ESRCH to stop exactly this double free, but it only covers err != 0.  The
+freed association is then used by sctp_datamsg_from_user() and
+sctp_set_owner_w(), and destroyed a second time by sctp_sendmsg().
 
-Same problem and same fix as commit 57549ab90791 ("net: bridge: arp/nd
-proxy: fix reading neigh ha") and commit b824059a673b ("vxlan: fix
-reading neigh ha").
+Test asoc->base.dead at the top of the loop, as commit ca3af4dd28cf ("sctp:
+do not free asoc when it is already dead in sctp_sendmsg") already does in
+sctp_wait_for_sndbuf(), so a destroyed association always leaves via
+do_error.  Keep the existing return values rather than adding an -ESRCH
+escape, since sctp_wait_for_connect() is also the return value of connect().
+base.dead is false on the first iteration in both callers - the socket lock
+is held until the first release_sock() - so nothing changes for a live
+association.
 
-Reproduced on x86_64 under qemu: a dummy device holds a permanent
-neighbour whose lladdr is flipped between aa:aa:aa:aa:aa:aa and
-bb:bb:bb:bb:bb:bb with RTM_NEWNEIGH, while an XDP program driven by
-BPF_PROG_TEST_RUN calls bpf_fib_lookup() in a loop and checks that all
-six bytes of the returned dmac are equal.  Before this patch: 211 torn
-addresses out of 16300000 lookups (last one aa:aa:aa:aa:bb:bb).  After
-this patch: 0 out of 38060000 lookups.
+Reproduced on v7.3-rc2.
 
-Fixes: 87f5fc7e48dd ("bpf: Provide helper to do forwarding lookups in kernel FIB table")
+  refcount_t: addition on 0; use-after-free.
+  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xf5/0x110
+  CPU: 0 UID: 1000 PID: 261 Comm: poc 7.3.0-rc2 #1
+   sctp_association_hold+0x96/0xa0
+   sctp_sendmsg_to_asoc+0xc76/0x1c60
+   sctp_sendmsg+0x11c0/0x1ee0
+   __sys_sendto+0x3e7/0x470
+
+  list_del corruption, ff11000104fa2070->next is LIST_POISON1
+  kernel BUG at lib/list_debug.c:56!
+   sctp_association_free+0x80/0x7c0
+   sctp_sendmsg+0x199f/0x1ee0
+   __sys_sendto+0x3e7/0x470
+
+Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikhil <nikhilljatt@gmail.com>
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Assisted-by: tencentos-corvus-ai:hy4-preview
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
 ---
- net/core/filter.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+A reproducer for this issue is available if requested.
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e753552..6fdb85c9af44 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -6298,6 +6298,20 @@ static const struct bpf_func_proto bpf_skb_get_xfrm_state_proto = {
- #endif
- 
- #if IS_ENABLED(CONFIG_INET) || IS_ENABLED(CONFIG_IPV6)
-+/* Take a stable snapshot of the neighbour's link layer address.
-+ * neigh_ha_snapshot() can not be used here because it copies dev->addr_len
-+ * bytes while params->dmac is only ETH_ALEN long.
-+ */
-+static void bpf_fib_dmac_snapshot(u8 *dmac, const struct neighbour *neigh)
-+{
-+	unsigned int seq;
-+
-+	do {
-+		seq = read_seqbegin(&neigh->ha_lock);
-+		memcpy(dmac, neigh->ha, ETH_ALEN);
-+	} while (read_seqretry(&neigh->ha_lock, seq));
-+}
-+
- static int bpf_fib_set_fwd_params(struct net_device *dev,
- 				  struct bpf_fib_lookup *params,
- 				  u32 flags, u32 mtu, u32 in_ifindex)
-@@ -6491,7 +6505,7 @@ static int bpf_ipv4_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
- 
- 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
- 		return BPF_FIB_LKUP_RET_NO_NEIGH;
--	memcpy(params->dmac, neigh->ha, ETH_ALEN);
-+	bpf_fib_dmac_snapshot(params->dmac, neigh);
- 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
- 
- set_fwd_params:
-@@ -6644,7 +6658,7 @@ static int bpf_ipv6_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
- 	neigh = __ipv6_neigh_lookup_noref(dev, dst);
- 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
- 		return BPF_FIB_LKUP_RET_NO_NEIGH;
--	memcpy(params->dmac, neigh->ha, ETH_ALEN);
-+	bpf_fib_dmac_snapshot(params->dmac, neigh);
- 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
- 
- set_fwd_params:
--- 
-2.43.0
+ net/sctp/socket.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index c7b9e325ec1c..de4bae94c9fa 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -9400,12 +9400,16 @@ static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
+ 	for (;;) {
+ 		prepare_to_wait_exclusive(&asoc->wait, &wait,
+ 					  TASK_INTERRUPTIBLE);
++		/* The asoc can be destroyed while sleeping below, and the
++		 * RCV_SHUTDOWN break reports success, so check it first.
++		 */
++		if (asoc->base.dead)
++			goto do_error;
+ 		if (!*timeo_p)
+ 			goto do_nonblock;
+ 		if (sk->sk_shutdown & RCV_SHUTDOWN)
+ 			break;
+-		if (sk->sk_err || asoc->state >= SCTP_STATE_SHUTDOWN_PENDING ||
+-		    asoc->base.dead)
++		if (sk->sk_err || asoc->state >= SCTP_STATE_SHUTDOWN_PENDING)
+ 			goto do_error;
+ 		if (signal_pending(current))
+ 			goto do_interrupted;
+--
+2.43.7
 
