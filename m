@@ -1,100 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14244583AB0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6995583ACC
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971241; cv=none; b=O2CWsSqvgVif6tL5MeDBAsA2eDFt2RQ3AODDQy/nEv2SdRuuDZz7R7WFlK1lcQrbkOyPdK9hGg3oSrAR7ixWGvAj9dZg2KgMJSBkqXOcNrpU/01xbU7J/qw7xe/Jo4glgjTZuwCkNplUKwu6T6jJyym3XGYHGNco9cyN9dY6tgY=
+	t=1788971245; cv=none; b=YrhPhXwDtDipWe6TlsjUc6w2kHSKwpK03c7sZdHXG3rqqEoYTtksiwNcjYbDV+uJrQT5fipTKV2Yr7XVWAql3MjlK3H6y9vI0FIx2D0wH11uBjJOKJKglvAy04xUuTqD0/U8jBzgTSuCUuEpnb7B9+ctRZMqGf/xMYb9I/Yhrxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971241; c=relaxed/simple;
-	bh=qmoWL/i1Jmbnv3Mgx6J9OgPuk1tl4XWeeAkiuOYi+O8=;
+	s=arc-20240116; t=1788971245; c=relaxed/simple;
+	bh=cbcI4Hp4G7WGfGKZnFXvY9MwIk5RVvWi/juN/NHxSXQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ciulD4Pgaw7ZMZG5egsxueWD8WP6OIP+Q3gqNAhVm682OZSVSVkpkTgq7l/5ooLRNdP2pSNhiVyDq4hjI7AHYhUyoaXkL19btCxNv3mEr5vDZJ46F1hqhOQBszjiJeOR6uJGIJlU3gmHF7GuZ36Vp8BiZyIewCXP3XiV12f9GGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIEddecy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=auU7zvyZ5yiDKrgHy/774eU/NPJOvBR3n2xRJuv1L+kkmc9nJX6rOF+JJxxiHaCMBVF2SypBF+TESN3/Nso15WFQHKTEkTT3zszZ3HMNpiVnE5m/QDdTpW56VxNPI4dJltaz7QlYUctYvfMJ50zvcvHA+8e2HWuazCk3dIOWjUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ar6I1yu8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIEddecy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5B71F00899;
-	Wed,  9 Sep 2026 16:27:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ar6I1yu8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6280C1F000FF;
+	Wed,  9 Sep 2026 16:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971239;
-	bh=WkVLNwEgK4drLIxQck4PKH90kklvGjyfhiHOrDaLVLk=;
+	s=k20260515; t=1788971243;
+	bh=8DRCJYCck/byZ6rqft/vATUH7nkmi5Vb2kAm9tsNY1c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BIEddecyiFlp+CCSEIQGKaEVLWPwEKe02+W6GDb2yyyJKxF5b9sEKdyGcJbkA63oE
-	 X3vW0wrYYVVXeRuf1TEIAKltZjph3v93R4HB7+RfnMXEwE3Q4VwLIpTmCCTQPUUqYX
-	 W/5paxuwv70QsGQryZ6+4+t+jtq1VMjWVdbLiVCgmxtwj0Xv+FJtn/8CKMyCnn/Y0g
-	 ViCr4wIHRWU/STeVCN89DQtWBrYqMEwXKK3p2jsQfdOKOxy8Ix1pf6d+FLHU+kJyWn
-	 6fyf2xk322Ym9r5fN/3g5x5dcDzpXEJ9fd0ZcyZSgwhbfl8Bba5z48jrrv1q7wABxE
-	 NjnZhr5xpeX2g==
+	b=Ar6I1yu8PNvmrzOfLcRyHZ6uUPbpGTnLlKJuFeoRryVvZSBAqCnGkQX4tHZb8sBXb
+	 K8t3neOzjTrXXUKopfWJmdUTwFfjqMjw0R4q2+N9B7SEJC50kBJdlrsLoZu09jVJBM
+	 kZqrxsUhixh9txHTEf4/y45/sJ/QLz28JzkPEuP/yQdCS4tiUXQLmihRkzyXokcHKV
+	 buyq66uG6oHdoKFL4lTjfMv78JNrTmXrhtruWHjMIGDptEZbUQMTPQLzyihPszvmBT
+	 sqe2JbYQGiYK4Abfilk75ri8lX42Z1VkbGROJpzT6wvziR3gK55UaH2/oryrq+YZlR
+	 xuVs9CAF0wFIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] platform/x86: think-lmi: Fix current password length check
-Date: Wed,  9 Sep 2026 12:27:14 -0400
-Message-ID: <20260909162714.2984324-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] io_uring/waitid: have io_waitid_complete() remove wait queue entry
+Date: Wed,  9 Sep 2026 12:27:17 -0400
+Message-ID: <20260909162719.2984896-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162714.2984324-1-sashal@kernel.org>
-References: <2026090342-duct-salutary-5524@gregkh>
- <20260909162714.2984324-1-sashal@kernel.org>
+In-Reply-To: <2026090345-dolly-jolliness-3485@gregkh>
+References: <2026090345-dolly-jolliness-3485@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit 54745d563114b74f6fecebce68cd020d06c1772b ]
+[ Upstream commit a48c0cbf28c03f6c590a14ceb31bf6e619c2f6da ]
 
-current_password_store() checks the password length before removing the
-trailing newline, which can reject valid passwords that are exactly
-->maxlen bytes long.
+Both callers of this need the entry potentially removed, so shift the
+removal into the completion side and kill it from the two callers.
 
-It also passes ->maxlen to strscpy(), which truncates passwords without
-a newline.
+While at it, add a helper for removing the wait_queue_entry based
+on the passed in io_kiocb.
 
-Use strchrnul() to measure the password length up to the newline, then
-copy that many bytes and add a trailing NUL terminator using strscpy().
-
-Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Link: https://patch.msgid.link/20260818151635.37094-2-thorsten.blum@linux.dev
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 14572de82e50 ("io_uring/waitid: honor task_work cancellation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/think-lmi.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ io_uring/waitid.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
-index 00d0cf34196d4..e3faed0565266 100644
---- a/drivers/platform/x86/think-lmi.c
-+++ b/drivers/platform/x86/think-lmi.c
-@@ -396,14 +396,13 @@ static ssize_t current_password_store(struct kobject *kobj,
- 	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
- 	size_t pwdlen;
- 
--	pwdlen = strlen(buf);
-+	/* Strip newline; setting password won't work if one is present. */
-+	pwdlen = strchrnul(buf, '\n') - buf;
- 	/* pwdlen == 0 is allowed to clear the password */
- 	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
- 		return -EINVAL;
- 
--	strscpy(setting->password, buf, setting->maxlen);
--	/* Strip out CR if one is present, setting password won't work if it is present */
--	strreplace(setting->password, '\n', '\0');
-+	strscpy(setting->password, buf, pwdlen + 1);
- 	return count;
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index ef2283728c2b3..b67b6d5bc6830 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -115,6 +115,22 @@ static int io_waitid_finish(struct io_kiocb *req, int ret)
+ 	return ret;
  }
+ 
++static void io_waitid_remove_wq(struct io_kiocb *req)
++{
++	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
++	struct wait_queue_head *head;
++
++	head = READ_ONCE(iw->head);
++	if (head) {
++		struct io_waitid_async *iwa = req->async_data;
++
++		iw->head = NULL;
++		spin_lock_irq(&head->lock);
++		list_del_init(&iwa->wo.child_wait.entry);
++		spin_unlock_irq(&head->lock);
++	}
++}
++
+ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+@@ -125,6 +141,7 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ 	lockdep_assert_held(&req->ctx->uring_lock);
+ 
+ 	hlist_del_init(&req->hash_node);
++	io_waitid_remove_wq(req);
+ 
+ 	ret = io_waitid_finish(req, ret);
+ 	if (ret < 0)
+@@ -135,7 +152,8 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+-	struct io_waitid_async *iwa = req->async_data;
++
++	lockdep_assert_held(&req->ctx->uring_lock);
+ 
+ 	/*
+ 	 * Mark us canceled regardless of ownership. This will prevent a
+@@ -147,9 +165,6 @@ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
+ 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
+ 		return false;
+ 
+-	spin_lock_irq(&iw->head->lock);
+-	list_del_init(&iwa->wo.child_wait.entry);
+-	spin_unlock_irq(&iw->head->lock);
+ 	io_waitid_complete(req, -ECANCELED);
+ 	io_req_queue_tw_complete(req, -ECANCELED);
+ 	return true;
+@@ -251,8 +266,7 @@ static void io_waitid_cb(struct io_kiocb *req, struct io_tw_state *ts)
+ 				io_waitid_drop_issue_ref(req);
+ 				return;
+ 			}
+-
+-			remove_wait_queue(iw->head, &iwa->wo.child_wait);
++			/* fall through to complete, will kill waitqueue */
+ 		}
+ 	}
  
 -- 
 2.53.0
