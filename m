@@ -1,150 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FB9584974
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:44:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24656585984
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972295; cv=none; b=JEDOXnpHMkaK36a246asjRnpdnqok0lrU5N/5ENSsW0TyOuf6zNxT0QwvIKFs35K2ljE6IDQlc9LWXGA5gvm/DwUOA2br/14XhJxTZiIGESOiqqX96sG8TUvr1bpSeKOocCubzBSQU6cjUYFok1yI4oyNsdUmSOfblEPrcHNWSQ=
+	t=1788972297; cv=none; b=Li8nBE8AUMfnUQcjC8JcQyB1C7pL5tk8cLBKKNQ/EdeXsFX1NWGfe+2nRVznR+lCgKqNc67GnNeH6CJpSolAACdmrnKjmwuAFKZhtfEJ3WJfqKxI+kdlz003tcmSqDMTvzTs+Lu7D0qJyn4NJQaJTnMS3WgKfLVQ75jHmpso4Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972295; c=relaxed/simple;
-	bh=pS7ic5ek8Lg2WdUNYNRhYKt/TNqvEruXunN3d5+Ot3E=;
+	s=arc-20240116; t=1788972297; c=relaxed/simple;
+	bh=A8bkpc4tlvG7w6+g4OFI7L2LTr82kMSVNzuKCYlCWCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=byLURdpOErCmq/EP1Y8g3Wr7MqePXR9VcEIFGFDO2Cnsa0+9AYc8HXuUWfbrHuMwBxxz2wGxZ3igIQHGNGjoTZjhGcSTpHcPQx/1RiYV3C+oKzGODGe7Oni9vw3Pd9P6QWh/tvU6+Wmp9J2VT8ZVQjggpeoZMgtXFAg3BaFgFlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAD7ngz5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=I+A7oLzCwJeU2RVFbSJIkLcqReQDReCU5GFsPeQahCZQ4mk4Itu1hObwpqPpvSysvRen+ySkYv93UuObip6KcV+x3EXO1C11YSgHGXZTI9EpU2BWxDTEl7KZGbv/u/EQMtQTVt4pPfNQXMDc1moM1UDxXkB5lqH12lZKXmPB+Q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fb2/YViG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAD7ngz5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5F61F000FF;
-	Wed,  9 Sep 2026 16:44:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fb2/YViG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78611F00893;
+	Wed,  9 Sep 2026 16:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972293;
-	bh=/y1EdMv5Lnq0HugeNmj6hI24cHt1wegSRJ9dP+YOi5M=;
+	s=k20260515; t=1788972294;
+	bh=G++3ZAaoaoz+6pOHi2HZj8zqEZPud+dr3tkeBAs66xo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IAD7ngz5ge4DzLiWMAvZoQBpKhHB3zuFZxHSTZwosNt7umjxPkt5k7mVKgimQLQGm
-	 Xe6wt5BBEpg4xFLRQjyIACLuF1EJ7AMn62/RzTnDKbaIWG0q9vA9oN8hM2EQRaYZDx
-	 LlHXEvF7uscovO52mDyTF52G1vu5GgKDZsKGqzk+ThEADwr5iNPRcWR98SuJWXactj
-	 EHUSNVSXVXc22oW9pKdlyzAwTvMgvG7bgRAm60Gv/8rci1w9KwtLkiGRKprEdd95a/
-	 wM7/wHFGd7BSUhN1vMEgpZcPF+oBestnP0lV0VKFGeU20+Xj811spX7OzeGG1E6oAR
-	 dddgZGXMi5u9Q==
+	b=fb2/YViGpQs3fKdk/JnTXlaSHVQQV9p7TyDH6RNliwicHD9iiVx6l25x0POx3NBeA
+	 OkqcxKIROwBBsSip0rdSUi4Ia0bQ20itCazVjh3Ys/uSp1XXYzLCXTUGhsGi4EKOJz
+	 NEJTneEakS5YY7+MSWoEHtnQiTVP/mjzKu/TQAuqttPjyNQ7B2zPQ00b0fFdWlg0Ty
+	 insIViLdaIlF2jokah777n6zicRNpmYV6vS7YWKoXyWjlbzUWQ0EhV7A5UdK4VjP6Y
+	 r8hc+wDbAtDxnSVmtQOmBgS0Oo42V5UBxub1c0V7HRiHqDnEN2rZmCk1eSJEmTipvP
+	 2KFhEd2JZvf9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] net: dsa: realtek: keep variant reference in realtek_priv
-Date: Wed,  9 Sep 2026 12:44:48 -0400
-Message-ID: <20260909164449.3071383-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] net: dsa: realtek: use gpiod_set_value_cansleep for reset GPIO
+Date: Wed,  9 Sep 2026 12:44:49 -0400
+Message-ID: <20260909164449.3071383-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090350-cucumber-busload-765a@gregkh>
+In-Reply-To: <20260909164449.3071383-1-sashal@kernel.org>
 References: <2026090350-cucumber-busload-765a@gregkh>
+ <20260909164449.3071383-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
 
-[ Upstream commit 4667a1db2f550d23e01ba655fce331196ead6e92 ]
+[ Upstream commit fb58b6a696b30bcbfbe0cfc0a91b19c816a955fc ]
 
-Instead of copying values from the variant, we can keep a reference in
-realtek_priv.
+rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
+the probe path, which may sleep and is not timing-critical.  When the
+reset GPIO is provided by a sleeping controller such as an I2C I/O
+expander, gpiod_set_value() warns:
 
-This is a preliminary change for sharing code betwen interfaces. It will
-allow to move most of the probe into a common module while still allow
-code specific to each interface to read variant fields.
+  WARNING: drivers/gpio/gpiolib.c:4030 at gpiod_set_value+0x44/0x80, CPU#1: kworker/u16:4/61
+  Hardware name: B&O MAP CA33 Rev f (UNKNOWN) (DT)
+  Workqueue: events_unbound deferred_probe_work_func
+  pc : gpiod_set_value+0x44/0x80
+  lr : rtl83xx_probe+0x1d8/0x3a0
+  Call trace:
+   gpiod_set_value+0x44/0x80 (P)
+   rtl83xx_probe+0x1d8/0x3a0
+   realtek_mdio_probe+0x24/0xa0
+   mdio_probe+0x38/0x78
+   really_probe+0xc4/0x3e0
+   __driver_probe_device+0x15c/0x1b8
+   driver_probe_device+0xb4/0x120
+   __device_attach_driver+0xb8/0x1a0
+   bus_for_each_drv+0x88/0xf0
+   __device_attach+0xa0/0x1d8
+   device_initial_probe+0x54/0x68
+   bus_probe_device+0x38/0xa0
+   deferred_probe_work_func+0xb8/0x120
+   process_one_work+0x184/0x4e8
+   worker_thread+0x188/0x308
+   kthread+0x130/0x150
+   ret_from_fork+0x10/0x20
 
-Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: fb58b6a696b3 ("net: dsa: realtek: use gpiod_set_value_cansleep for reset GPIO")
+Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO can
+be used without triggering the warning.
+
+The reset GPIO has been driven with the non-sleeping gpiod_set_value()
+since the driver was added in v4.19.  The call has since been refactored
+across several files - from realtek-smi.c / realtek-mdio.c into the common
+rtl83xx.c module and then into the rtl83xx_reset_assert() and
+rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
+applies as-is only to kernels that carry those helpers (v6.9+); older
+stable kernels need the same gpiod_set_value_cansleep() conversion at the
+corresponding open-coded call sites.
+
+Fixes: d8652956cf37 ("net: dsa: realtek-smi: Add Realtek SMI driver")
+Cc: <stable@vger.kernel.org> # 6.9.x
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Link: https://patch.msgid.link/20260814110102.2362246-1-o.rempel@pengutronix.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/dsa/realtek/realtek-mdio.c |  4 +---
- drivers/net/dsa/realtek/realtek-smi.c  | 10 ++++------
- drivers/net/dsa/realtek/realtek.h      |  5 ++---
- 3 files changed, 7 insertions(+), 12 deletions(-)
+ drivers/net/dsa/realtek/realtek-mdio.c | 4 ++--
+ drivers/net/dsa/realtek/realtek-smi.c  | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/dsa/realtek/realtek-mdio.c b/drivers/net/dsa/realtek/realtek-mdio.c
-index 5a8fe707ca25e..aefb734e6f006 100644
+index aefb734e6f006..fc0559d02f1e6 100644
 --- a/drivers/net/dsa/realtek/realtek-mdio.c
 +++ b/drivers/net/dsa/realtek/realtek-mdio.c
-@@ -183,9 +183,7 @@ static int realtek_mdio_probe(struct mdio_device *mdiodev)
- 	priv->dev = &mdiodev->dev;
- 	priv->chip_data = (void *)priv + sizeof(*priv);
+@@ -202,10 +202,10 @@ static int realtek_mdio_probe(struct mdio_device *mdiodev)
+ 	}
  
--	priv->clk_delay = var->clk_delay;
--	priv->cmd_read = var->cmd_read;
--	priv->cmd_write = var->cmd_write;
-+	priv->variant = var;
- 	priv->ops = var->ops;
- 
- 	priv->write_reg_noack = realtek_mdio_write;
+ 	if (priv->reset) {
+-		gpiod_set_value(priv->reset, 1);
++		gpiod_set_value_cansleep(priv->reset, 1);
+ 		dev_dbg(dev, "asserted RESET\n");
+ 		msleep(REALTEK_HW_STOP_DELAY);
+-		gpiod_set_value(priv->reset, 0);
++		gpiod_set_value_cansleep(priv->reset, 0);
+ 		msleep(REALTEK_HW_START_DELAY);
+ 		dev_dbg(dev, "deasserted RESET\n");
+ 	}
 diff --git a/drivers/net/dsa/realtek/realtek-smi.c b/drivers/net/dsa/realtek/realtek-smi.c
-index 1b447d96b9c46..c07c99bf1cd1e 100644
+index c07c99bf1cd1e..11ae9fe6fa68e 100644
 --- a/drivers/net/dsa/realtek/realtek-smi.c
 +++ b/drivers/net/dsa/realtek/realtek-smi.c
-@@ -46,7 +46,7 @@
- 
- static inline void realtek_smi_clk_delay(struct realtek_priv *priv)
- {
--	ndelay(priv->clk_delay);
-+	ndelay(priv->variant->clk_delay);
- }
- 
- static void realtek_smi_start(struct realtek_priv *priv)
-@@ -209,7 +209,7 @@ static int realtek_smi_read_reg(struct realtek_priv *priv, u32 addr, u32 *data)
- 	realtek_smi_start(priv);
- 
- 	/* Send READ command */
--	ret = realtek_smi_write_byte(priv, priv->cmd_read);
-+	ret = realtek_smi_write_byte(priv, priv->variant->cmd_read);
- 	if (ret)
- 		goto out;
- 
-@@ -250,7 +250,7 @@ static int realtek_smi_write_reg(struct realtek_priv *priv,
- 	realtek_smi_start(priv);
- 
- 	/* Send WRITE command */
--	ret = realtek_smi_write_byte(priv, priv->cmd_write);
-+	ret = realtek_smi_write_byte(priv, priv->variant->cmd_write);
- 	if (ret)
- 		goto out;
- 
-@@ -447,9 +447,7 @@ static int realtek_smi_probe(struct platform_device *pdev)
- 
- 	/* Link forward and backward */
- 	priv->dev = dev;
--	priv->clk_delay = var->clk_delay;
--	priv->cmd_read = var->cmd_read;
--	priv->cmd_write = var->cmd_write;
-+	priv->variant = var;
- 	priv->ops = var->ops;
- 
- 	priv->setup_interface = realtek_smi_setup_mdio;
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index 4fa7c6ba874a5..0cf66b97c0e64 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -58,9 +58,8 @@ struct realtek_priv {
- 	struct mii_bus		*bus;
- 	int			mdio_addr;
- 
--	unsigned int		clk_delay;
--	u8			cmd_read;
--	u8			cmd_write;
-+	const struct realtek_variant *variant;
-+
- 	spinlock_t		lock; /* Locks around command writes */
- 	struct dsa_switch	*ds;
- 	struct irq_domain	*irqdomain;
+@@ -464,10 +464,10 @@ static int realtek_smi_probe(struct platform_device *pdev)
+ 		return PTR_ERR(priv->reset);
+ 	}
+ 	if (priv->reset) {
+-		gpiod_set_value(priv->reset, 1);
++		gpiod_set_value_cansleep(priv->reset, 1);
+ 		dev_dbg(dev, "asserted RESET\n");
+ 		msleep(REALTEK_HW_STOP_DELAY);
+-		gpiod_set_value(priv->reset, 0);
++		gpiod_set_value_cansleep(priv->reset, 0);
+ 		msleep(REALTEK_HW_START_DELAY);
+ 		dev_dbg(dev, "deasserted RESET\n");
+ 	}
 -- 
 2.53.0
 
