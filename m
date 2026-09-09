@@ -1,99 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931C841E6D9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 20:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986780; cv=none; b=ZL1xTfO1szajwguF9KqwPTvtw9DlH0oHY9mPwccNL6xEWnzrHOCiCQdueGL2yTeAJm7Dbj22j0j8P+0AxrInwnh+kk/RJLbr7OhR7xPKSldg7lT1D8QymwmWlV0qpEmQG3xBQ9vhZcsCeBsbsqEMfEs4WOh96UtGGYtA/6cUlO4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986780; c=relaxed/simple;
-	bh=5vVUPYKPtpjlnd9FTWykDsk1acCTltGJpiIPClWIgbs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGZShREGy0bnyGoYj+M719ud3OQ29IfOwLVZYGxlPJo0meqLbo+ANGOZ44+MfOQODAO1Xur33sTkWmJCpSpZ4T5sGid4OTnR3dvMx8YPlhgleqqGWSl+2Hgd0i+KK1X9/ro3dov+qgSd9th1K+/MOg69i8dZWoEw/zeBiVHqSoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lBtoqXeG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B685455168;
+	Wed,  9 Sep 2026 20:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788986890; cv=pass; b=AAHMDv1sixzzzFQKCe5zeDhJgyYi0uXuLVpwzrnzqL8zKRiUsKSb/cQQdvgyjgl8oWH2fc1XtSSCU+S5owqkvicilhRpxJajvxs+wIm50cdKkyI7L1SwF1aio7u8qIFbEwe6AcqTmuytvJggCNb0vDZS/5hrViQXVxJTPDwgb0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788986890; c=relaxed/simple;
+	bh=pHtG0m8Je8BRoRwqJyRinhzByYeDiQyntG8bh5dq2Q0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6NiaewGDjJsW6ETV8VGLlXlEXVBdNxwjZk2Xx0kr4+mDJPxQxQ1mNLhzurmMPwNG7SNU4RKCUKG1qPqXpPZxNsNT8ik4qOjuMXWwN4qcipOeX2FR9kHMP2dVu1IMO6QR/2+Lngv/BfxUZrEYL1WGJYbenOa2JlA1c7igskcGF0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=ICk7Z8SM; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lBtoqXeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F4D1F00898;
-	Wed,  9 Sep 2026 20:46:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788986763;
-	bh=JQrdcwBY318ET1K4fch3etuDu11hWGHs3wiN1h+WA2M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lBtoqXeGt3WeCxolbs/9u9ajtqJ1ICEo4kCkOedLQ00QHFMmLc7hGVIQNuWXjo7eV
-	 Q+/8E6z39rm2L0F4x3Lvbn7J4fqRnfaiMOet/AmN7hL7o43ZDEcA+kjJZc/IeXY8qn
-	 0AG8mFqXEwG6yuBk68PaSwsM/8wvWQrWiDWEhGLX5d+508i3u4wHL8ZtwuIEPEBUfy
-	 zeXr6fCJd6ku0A0EgWuucXlhwlBlmrpYTNxyHG4IkDmgrw4CrRlZWQjYdEkFOAvuF4
-	 MKWspzrlwo274MbtLj4bCt+svjRQtUUfxAn5/CpGqcHNQ2RkKRUUDNWwtPw4z10MYt
-	 VSd7gBLMaLhqA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	sashiko-bot@kernel.org,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/2] i3c: master: Fix device_register() error path
-Date: Wed,  9 Sep 2026 16:46:00 -0400
-Message-ID: <20260909204601.3679694-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090417-elevating-aging-a57d@gregkh>
-References: <2026090417-elevating-aging-a57d@gregkh>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ICk7Z8SM"
+ARC-Seal: i=1; a=rsa-sha256; t=1788986871; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=drae9vsfOfgkeLGIQ7LpxvdwOxbXFRRAdfXrK4Xvsfb7nuBLTWKEXp/NVQB0Mf7sVVVbc1kJiEUpHWbr1fXnxwIugfYGxM5fi5N5GRno+9yFzgdZGePKgVN6ShhF4PjE2ZFIo2jWQwVdRMX9lXH27RkJIaybNZVbk1fa7v5Ljf8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788986871; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ihk8jq0E6v1GzqxnoCZD7Cb65oa33zaHTJ4K81BNNBk=; 
+	b=EW1mghZ/811Oe2FgtTr35iKdBzx4M440ZLH/i3QcFE7Af733YRQgX1x0dJoOYmOwJ/jAd63IQW5xLApIdoUMtuw2Wo2VCkKZ/0a8GjbntlTW0QNeLW0qUiKVuGnFFkCFFBk1r3rk6zvetcDXzCKacmjZsQoVcLQociyjkMVud6k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788986871;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Ihk8jq0E6v1GzqxnoCZD7Cb65oa33zaHTJ4K81BNNBk=;
+	b=ICk7Z8SM8ezCStVpMLuJX9cuqt1TSAiB9stwOsm/zls8pSc25OyBgoPHP2Nkni9m
+	jSVmkOyyWukbtHbqKMsSo8IacbwBPo4+DpqU4KEFskjCZKLeAt3TACq4aGqw3WM2fQ8
+	aYdMY3w1ZbWjJ9Ksh8Sba5AFFXiKfJ7ReGPsLNqs=
+Received: by mx.zohomail.com with SMTPS id 1788986869418187.2155406658627;
+	Wed, 9 Sep 2026 13:47:49 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id A790C183377; Wed, 09 Sep 2026 22:47:46 +0200 (CEST)
+Date: Wed, 9 Sep 2026 22:47:46 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+Message-ID: <aqHFUSdrYUR1DJ6L@venus>
+References: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
+ <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
+ <CAO7O_xi-BYfGb428q1TO4ERp059-BOq78PZR5Ad-bs1ikVkmZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eym42znvk5xrfmaw"
+Content-Disposition: inline
+In-Reply-To: <CAO7O_xi-BYfGb428q1TO4ERp059-BOq78PZR5Ad-bs1ikVkmZQ@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+X-ZohoMailClient: External
 
-From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 74be657d98a8d684c0475f3cbd450ef2a30ffc73 ]
+--eym42znvk5xrfmaw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+MIME-Version: 1.0
 
-When device_register() fails in i3c_master_register_new_i3c_devs(),
-put_device() is called to drop the reference taken by
-device_register().  That drops the last reference, so the device's
-release callback i3c_device_release() runs and frees the i3c_device.
+Hi,
 
-Two problems follow from that:
+On Tue, Sep 01, 2026 at 07:04:28PM +0200, Maurizio Casciano wrote:
+> Thank you for the review.
+>=20
+> I agree that firmware-node references should retain priority over the
+> legacy name-based mechanism. The "supplied-from" property should only be
+> used as a fallback when no "power-supplies" references are present,
+> including the case where the consumer has no firmware node.
+>=20
+> For v2 I will preserve the existing order as follows:
+>=20
+> 1. honor an explicitly pre-populated supplied_from list;
+> 2. resolve "power-supplies" firmware-node references when present;
+> 3. fall back to the name-based "supplied-from" property only when no
+>    references were specified.
+>=20
+> Errors while resolving specified references, including -EPROBE_DEFER,
+> will still be propagated rather than triggering the fallback.
+>=20
+> I will wait for Sebastian's opinion before posting v2.
 
-i3c_device_release() does WARN_ON(i3cdev->desc), so it warns because
-desc->dev->desc still points back at the descriptor.  Clear it before
-calling put_device().
+Ack.
 
-After put_device() frees the i3c_device, desc->dev is left pointing at
-freed memory, so clear desc->dev as well.  That prevents, for example,
-i3c_master_unregister_i3c_devs() seeing desc->dev as non-NULL and
-dereferencing it.
+Also FWIW the power-supply core has been migrated to be fully fwnode
+based, so the CONFIG_OF is not really correct anymore anyways. Let's
+have a single implementation for power_supply_check_supplies().
 
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/linux-i3c/20260701203053.8F3971F000E9@smtp.kernel.org/
-Fixes: cab63f6488761 ("i3c: Fix potential refcount leak in i3c_master_register_new_i3c_devs")
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260702183644.60827-1-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Stable-dep-of: 456f832e5fc2 ("i3c: master: Fix recursive locking during device registration")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i3c/master.c | 2 ++
- 1 file changed, 2 insertions(+)
+Greetings,
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index b51b159fadeed..5485bebb54dc4 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1928,7 +1928,9 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (ret) {
- 			dev_err(&master->dev,
- 				"Failed to add I3C device (err = %d)\n", ret);
-+			desc->dev->desc = NULL;
- 			put_device(&desc->dev->dev);
-+			desc->dev = NULL;
- 		}
- 	}
- }
--- 
-2.53.0
+-- Sebastian
 
+--eym42znvk5xrfmaw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhxecACgkQ2O7X88g7
++prbzg/+PXQ8TLG3HiJHwMJe0m4xar9ZomTdZsXalWCRJH1Nq+A4AYxa91+tBh0a
+vT9lPkpfRojtlxggiKnew7FjD84aPr9/PwYPCybfWzAuzgy+eF/ukHKKLQHqYejT
+b7z/TTp5ImIS/8HB1PBds5Xp8h1qr3hi40puJvjdF4eqfMVHMqCPpSECMDpWkAdL
+c7LSz+8Rw4u/GiXhaE1WSXxD7pQRwvy6sRYkMNo5i9y/cZry96ZVYZomp5BdHr6L
+psyLyhVA30yhCFFeE/skyxiW6YMOZn/oVxMviATpTTVHQMIyiL4VI0GmlbXDj6gm
+W+v5cqAPi+0ug8oOTXFknQ2zhqKCdCJLHphxkY+gDJZsKQCeJNDjzINSVay7LI/J
+GUl+t3t/8TlITvu8UIC1bLtKHVk+5otWc7dwvdJiZQClPZFcmK5EP8WEWFFshcya
+UztPc8Pke5I5eACKacsYaRbK/NZzkoKj3SdYW7DHtNzDefmYCjDk781UeCcYYr5J
+Xh2vQRZ158CD4IhlRYMzaaRCZKP0BKyywG5Nkweb962xjxTsrZNMMrHVVWVAJ22d
+ePrLA5NWv/KmvjB7h/WqcEQ0KWXDCXCPE79rIa+ES6a/MITSHSjQXXGmrQLrqWbc
+l1gGyDpX8cfl+wXHuglrzQtyenl+STakzYUJialH9oZJREU8/PI=
+=ojYG
+-----END PGP SIGNATURE-----
+
+--eym42znvk5xrfmaw--
