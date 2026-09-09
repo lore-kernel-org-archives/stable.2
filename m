@@ -1,105 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B2E53CA8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B300530DF3
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950718; cv=none; b=qD1AAsjph0SPsIsyes7RfbE+7kqqvPfrFFI/QhTMt5xAllukBzEkFd4Bhqut8lFvJG+S2HK1J31hHDeqwkZB9E1Q4IEfpRsrrXMA4QINQ9c8+Oppy89dnsw2HLCPG30RIOIqf8yvd4BReMQyx/srl/O6PTwHmWqP3v7By5RWJIw=
+	t=1788950718; cv=none; b=E3YZobOHXGGl1YvCz6+FxC37wmpQzZH7Fcx9u4l3SQ1yEKvLd/D97IrOn+GV0MDSlIffJAIUAuZPQCmguRTwBfBefg8/VGpl6YVGGyj+JKZuUaGpsK6sP10zYQQdOmg4dLkzrUfreQx6Zt1w1Kr9kNL8j2xsV61yt6rh4hLcMnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788950718; c=relaxed/simple;
-	bh=sC/habipsc8ThGOOn4kBvkb9Wj0BDGy6ojIqPYttNUA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Zxf5kK97xMd3/QecupTtsUGZVKqcI+MBlrbfRCwIsjPM0+O9tLIGYAuxuoZpfJI0RQJ2y73EhgaVsj2UOBl1bbPOJD9qXLkN2ZyUbgBmQoWyWGivacNY2dWSkPkjkjzPlqI6h9LFAhnOkRPXHgH+easrlrf+F9PAbGyiDBWlfCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aYQ59tCg; arc=none smtp.client-ip=100.103.45.18
+	bh=m+75uo7h9xTjQl10/pog+MjP5sUWYugqoPoiIQ4Xgqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JfPdP1IsA5KnoUmXzckKUOcEBLwAJl6r83TZPLLeS6JQTg1RHb2iEOt7rgbqu/hemhEPe+VCDPJtJ/pd6hf7A/DL+e6Oi9QMwyV6fLgNYo1oIXuu1ALEwmew9fl1McIYZE9qxeucHz652Bh92R/LxCnOCJ63njzwSvpnOn5VPnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPiEByIF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aYQ59tCg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16A51F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPiEByIF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94C661F00A3A;
 	Wed,  9 Sep 2026 10:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950716;
-	bh=Pydsgred6+PSTMf5vq/o0/wbl7UAF1CIUwpWHcb7wzQ=;
-	h=Subject:To:Cc:From:Date;
-	b=aYQ59tCg8AeIz7B/vayzmxwg0NbLXFI2I7/yfwqRKBBcfoxi//jqOT8LWb3b0mTBd
-	 53lpqHz/ItVVU7zSyauFrt9SPGICO10ygE/ql225ctyGKL4Me0wAwslhq11Ix64lYf
-	 JcEXdujooWXCY/PONHX8ZQV7ZZkWfU5jgTo2+ZOg=
-Subject: FAILED: patch "[PATCH] KVM: s390: Zero initialize data structures for" failed to apply to 5.15-stable tree
-To: borntraeger@linux.ibm.com,imbrenda@linux.ibm.com,mjrosato@linux.ibm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:35:24 +0200
-Message-ID: <2026090924-apple-leotard-1a9f@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950716;
+	bh=a+dO0xnnHMPFNi1zGrQlkJ8dZiPhkekpwYOUA5Y0YZ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kPiEByIFU5GK4E+kg2w2zT1lAJvDPNn1xsdGS+W1txxrT0/9CNBCl3UA2I44X8FWc
+	 Kwf7MC2CIFZkRfbiYcZZWDjQXn9nWNh1GgvxKIzR51aTp1W7KeHS9w1eRJ+ah4xsbe
+	 D+pVfNM1MjP4dkM0yDWK7Y2eS+c/VJEEnMoUUJotKWU6IwE2agBB/epVikG7MIxIuL
+	 Yr7fvxsFtlRtx29V8KPuCovv6mK40i76youBYz6urbfIE+weWJGEf1mx2Lfh70MfXX
+	 bmSzEunTIDUVI2anGqgwKp7qBV0APls/as+ItvuMRjIbTETwZ/TMdXxe2V83qq8swY
+	 bEuzLWRgnSLqg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Varun Prakash <varun@chelsio.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Christoph Hellwig <hch@lst.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] nvme-tcp: validate R2T PDU in nvme_tcp_handle_r2t()
+Date: Wed,  9 Sep 2026 06:45:12 -0400
+Message-ID: <20260909104513.1560898-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090304-lazily-cauterize-57c7@gregkh>
+References: <2026090304-lazily-cauterize-57c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Varun Prakash <varun@chelsio.com>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 1d3ef9c3a39e04be31155c27ebf80342350c3abf ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+If maxh2cdata < r2t_length then driver will form multiple
+H2CData PDUs, validate R2T PDU in nvme_tcp_handle_r2t() to
+reuse nvme_tcp_setup_h2c_data_pdu().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 4e2c7f7cbc27418f9a290399b986c1b85ff93b90
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090924-apple-leotard-1a9f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Also set req->state to NVME_TCP_SEND_H2C_PDU in
+nvme_tcp_setup_h2c_data_pdu().
 
-Possible dependencies:
+Signed-off-by: Varun Prakash <varun@chelsio.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Stable-dep-of: 6efbc52237fa ("nvme-tcp: fix host memory disclosure on R2T for a read command")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/nvme/host/tcp.c | 55 ++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 31 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 Mon Sep 17 00:00:00 2001
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-Date: Wed, 5 Aug 2026 13:04:49 +0200
-Subject: [PATCH] KVM: s390: Zero initialize data structures for
- inject_pfault_token
-
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
-
-Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
-but a host user can use the migration ioctls to get to the data.
-
-Fix by zero-initializing the irq struct.
-Do the same for the inti data structure.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
-
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 518a69c55e85..611dcb534210 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4474,8 +4474,8 @@ int kvm_s390_try_set_tod_clock(struct kvm *kvm, const struct kvm_s390_vm_tod_clo
- static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				     unsigned long token)
- {
--	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_interrupt inti = {};
-+	struct kvm_s390_irq irq = {};
- 	struct kvm_s390_interrupt_info *inti_mem = NULL;
- 	int ret = 0;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 7d9ebd4f7947b..01d42b854be2d 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -598,7 +598,7 @@ static int nvme_tcp_handle_comp(struct nvme_tcp_queue *queue,
+ 	return ret;
+ }
  
+-static int nvme_tcp_setup_h2c_data_pdu(struct nvme_tcp_request *req,
++static void nvme_tcp_setup_h2c_data_pdu(struct nvme_tcp_request *req,
+ 		struct nvme_tcp_r2t_pdu *pdu)
+ {
+ 	struct nvme_tcp_data_pdu *data = req->pdu;
+@@ -607,32 +607,11 @@ static int nvme_tcp_setup_h2c_data_pdu(struct nvme_tcp_request *req,
+ 	u8 hdgst = nvme_tcp_hdgst_len(queue);
+ 	u8 ddgst = nvme_tcp_ddgst_len(queue);
+ 
++	req->state = NVME_TCP_SEND_H2C_PDU;
++	req->offset = 0;
+ 	req->pdu_len = le32_to_cpu(pdu->r2t_length);
+ 	req->pdu_sent = 0;
+ 
+-	if (unlikely(!req->pdu_len)) {
+-		dev_err(queue->ctrl->ctrl.device,
+-			"req %d r2t len is %u, probably a bug...\n",
+-			rq->tag, req->pdu_len);
+-		return -EPROTO;
+-	}
+-
+-	if (unlikely(req->data_sent + req->pdu_len > req->data_len)) {
+-		dev_err(queue->ctrl->ctrl.device,
+-			"req %d r2t len %u exceeded data len %u (%zu sent)\n",
+-			rq->tag, req->pdu_len, req->data_len,
+-			req->data_sent);
+-		return -EPROTO;
+-	}
+-
+-	if (unlikely(le32_to_cpu(pdu->r2t_offset) < req->data_sent)) {
+-		dev_err(queue->ctrl->ctrl.device,
+-			"req %d unexpected r2t offset %u (expected %zu)\n",
+-			rq->tag, le32_to_cpu(pdu->r2t_offset),
+-			req->data_sent);
+-		return -EPROTO;
+-	}
+-
+ 	memset(data, 0, sizeof(*data));
+ 	data->hdr.type = nvme_tcp_h2c_data;
+ 	data->hdr.flags = NVME_TCP_F_DATA_LAST;
+@@ -648,7 +627,6 @@ static int nvme_tcp_setup_h2c_data_pdu(struct nvme_tcp_request *req,
+ 	data->command_id = nvme_cid(rq);
+ 	data->data_offset = pdu->r2t_offset;
+ 	data->data_length = cpu_to_le32(req->pdu_len);
+-	return 0;
+ }
+ 
+ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+@@ -656,7 +634,7 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+ {
+ 	struct nvme_tcp_request *req;
+ 	struct request *rq;
+-	int ret;
++	u32 r2t_length = le32_to_cpu(pdu->r2t_length);
+ 
+ 	rq = nvme_find_rq(nvme_tcp_tagset(queue), pdu->command_id);
+ 	if (!rq) {
+@@ -667,13 +645,28 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+ 	}
+ 	req = blk_mq_rq_to_pdu(rq);
+ 
+-	ret = nvme_tcp_setup_h2c_data_pdu(req, pdu);
+-	if (unlikely(ret))
+-		return ret;
++	if (unlikely(!r2t_length)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"req %d r2t len is %u, probably a bug...\n",
++			rq->tag, r2t_length);
++		return -EPROTO;
++	}
+ 
+-	req->state = NVME_TCP_SEND_H2C_PDU;
+-	req->offset = 0;
++	if (unlikely(req->data_sent + r2t_length > req->data_len)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"req %d r2t len %u exceeded data len %u (%zu sent)\n",
++			rq->tag, r2t_length, req->data_len, req->data_sent);
++		return -EPROTO;
++	}
++
++	if (unlikely(le32_to_cpu(pdu->r2t_offset) < req->data_sent)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"req %d unexpected r2t offset %u (expected %zu)\n",
++			rq->tag, le32_to_cpu(pdu->r2t_offset), req->data_sent);
++		return -EPROTO;
++	}
+ 
++	nvme_tcp_setup_h2c_data_pdu(req, pdu);
+ 	nvme_tcp_queue_request(req, false, true);
+ 
+ 	return 0;
+-- 
+2.53.0
 
