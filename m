@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D1A3F6C27
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2023236F916
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947261; cv=none; b=gCvq1rza93wkqSlOCRnfC8kjoDvGHH6hvFwzXGbFsbYgfndrn6HfQ1W2Ec1juDhdWRlGg4+iOQIxl2JzjMtLxUqje1Q6/LvYp8DnImJmjYBH/x/pZxctvrinbdLtCijbCW15HfhdqzF+5Rknl18xbqEamgmeWNPRI1uQGqp1Mmg=
+	t=1788947263; cv=none; b=jQ7rD9FUR1/ET4utTfgr1REWB7qVl6VXSnwO+qopBdHnCY3+EMVg2WwAE8AtLKVlH/oOWMPSaHkt1r9dSQNj5unfY+RNvm8Tj9QH+M7LnlwxtVT6n7/7LJ9XAOIfLKkGAuTGovaq40N4fmxbd/aL1ADG6OjAEli6d2DeTVKCWfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947261; c=relaxed/simple;
-	bh=c1c9xl3T7UxTG5k26Md2FEMgVuh8PBqo8MvgDB9XZAk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C37Q39U3z8C2Q3tW9kqdzBgPN57Fe0UtSYfUtt012ZaXrmWoYdGLjik7/B6Hv0P4beMcteYnFrEiUkBBBUduEfuO9Fa7CY3bk7DH6v2S8muJRA+EaQOxgxbeE+9IRMQvIEd+i0gO5zU8ytaSLwwYzUN+CoLEKyunusiShHpbJ1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jdfQILxX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947263; c=relaxed/simple;
+	bh=0blmMXbZYXx5KgzaS5baybo2K2+UKr+QNwkFbL2dfvk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c7UPvw8n0DBQg2B9Yyrd5ubP5BGljBxAeC61RrhYLYhHsp4ouu5x9B4GqQbX43DO0ZcNHC+QcKGCdSHcjtApYsNmr/xnJQWhUrBMAhT+jIJ5ApfusAPTABszQ33Gw7kI/GbQUmv5N/xbL+dXEdZ4qvyrGW/t1mLCfYs2/OqgW0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yuVo38pp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jdfQILxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC4A1F00A3A;
-	Wed,  9 Sep 2026 09:47:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yuVo38pp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C28D1F00A3A;
+	Wed,  9 Sep 2026 09:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947259;
-	bh=61ofypHduoMp0qSRz1u28tNYnfmVe5y211DBYjTFUR4=;
+	s=korg; t=1788947262;
+	bh=j5A74eWkmkFpFp69ghoNfTdv/p2klom3WAr1O0i4XC0=;
 	h=Subject:To:Cc:From:Date;
-	b=jdfQILxXfgF1PEjHgqWFzcsW5MN/r3m+Nka6KfrvqInqth1G48ficN7AsY0tb31B3
-	 L0t2/EdK0O+A2aWlm1ULT/tHO5cfvbmclGHAZQI36F6huA8bWAF7T5mskXFLIjIuK5
-	 09wZ8MbWkQBDsfQHryZyTOxhBabePnEQ0rLMUri8=
-Subject: FAILED: patch "[PATCH] nvmet-auth: Synchronize timeout work during SQ teardown" failed to apply to 6.6-stable tree
-To: hnkz.64@gmail.com,hch@lst.de,kbusch@kernel.org,sagi@grimberg.me
+	b=yuVo38ppFy5n8iDYFfTv8HQY09cCuUd0V0WhHTCwo8kxTZDUu77P4b5fae5Vz8bIC
+	 SHVu3yq6EPF7O3HWkHZyOfHd9j7w27C0ig2xapJhO1Bj6tO8fSJP5WEgXiWUuhyQ1V
+	 1iGKwNdCJxlQf1LbSp2rxGNxRuePKUtQz8dZaWHA=
+Subject: FAILED: patch "[PATCH] mm: fix incorrect vm_flags usage when checking allowable" failed to apply to 6.12-stable tree
+To: baolin.wang@linux.alibaba.com,akpm@linux-foundation.org,baohua@kernel.org,david@kernel.org,dev.jain@arm.com,hughd@google.com,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,ryan.roberts@arm.com,stable@vger.kernel.org,vbabka@kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:44:05 +0200
-Message-ID: <2026090904-demeaning-untidy-b054@gregkh>
+Date: Wed, 09 Sep 2026 11:45:05 +0200
+Message-ID: <2026090905-parole-radiated-b379@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x eaa948c0e19b1bb2d93262207bca0c3d19cc3406
+git cherry-pick -x 2fd4e7693674b17807a6d082feb01a3fbf86f5f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090904-demeaning-untidy-b054@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090905-parole-radiated-b379@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,77 +62,81 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From eaa948c0e19b1bb2d93262207bca0c3d19cc3406 Mon Sep 17 00:00:00 2001
-From: Kazuki Hanai <hnkz.64@gmail.com>
-Date: Sun, 30 Aug 2026 22:11:05 +0900
-Subject: [PATCH] nvmet-auth: Synchronize timeout work during SQ teardown
+From 2fd4e7693674b17807a6d082feb01a3fbf86f5f8 Mon Sep 17 00:00:00 2001
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+Date: Tue, 18 Aug 2026 10:47:26 +0800
+Subject: [PATCH] mm: fix incorrect vm_flags usage when checking allowable
+ orders for tmpfs
 
-nvmet_auth_sq_free() cancels auth_expired_work with
-cancel_delayed_work(). If the work has already started, cancellation does
-not wait for the callback. Transport teardown can consequently free or
-reuse the queue containing struct nvmet_sq while
-nvmet_auth_expired_work() still accesses that SQ.
+Lance reported that when nothing else causes the mm to be considered for
+khugepaged collapse, an MADV_HUGEPAGE-advised tmpfs VMA alone does not
+trigger scanning.
 
-Add a teardown-specific helper that synchronously drains the delayed work
-before freeing authentication state, and use it from nvmet_sq_destroy().
-Keep the non-synchronous helper for in-band authentication state cleanup,
-where the SQ owner remains alive.
+After commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
+into shmem_allowable_huge_orders()"), the shmem/tmpfs allowable order
+check reads vma->flags directly.  However, when MADV_HUGEPAGE is handled,
+khugepaged_enter_vma() is called before the VMA's flags have been updated,
+so the check uses stale flags and incorrectly rejects the VMA for
+collapse.  As a result, khugepaged does not collapse the tmpfs file into
+PMD order in time.
 
-Fixes: 1a70200f404a ("nvmet-auth: expire authentication sessions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Fix this by calling khugepaged_enter_vma() with the new VMA flags in
+madvise_update_vma().  Meanwhile we can remove the khugepaged_enter_vma()
+in hugepage_madvise().
 
-diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
-index edb9627d97b0..a55319bcdbd1 100644
---- a/drivers/nvme/target/auth.c
-+++ b/drivers/nvme/target/auth.c
-@@ -238,6 +238,12 @@ void nvmet_auth_sq_free(struct nvmet_sq *sq)
- 	sq->dhchap_skey = NULL;
- }
- 
-+void nvmet_auth_sq_destroy(struct nvmet_sq *sq)
-+{
-+	cancel_delayed_work_sync(&sq->auth_expired_work);
-+	nvmet_auth_sq_free(sq);
-+}
+Link: https://lore.kernel.org/7d5b5eb27be798f89d563b06254c947ff53db0b2.1787020910.git.baolin.wang@linux.alibaba.com
+Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reported-by: Lance Yang <lance.yang@linux.dev>
+Closes: https://lore.kernel.org/all/20260815181632.21453-1-lance.yang@linux.dev/
+Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 11ff98d55c76..75639298efc2 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -454,12 +454,6 @@ int hugepage_madvise(struct vm_area_struct *vma,
+ 	case MADV_HUGEPAGE:
+ 		*vm_flags &= ~VM_NOHUGEPAGE;
+ 		*vm_flags |= VM_HUGEPAGE;
+-		/*
+-		 * If the vma become good for khugepaged to scan,
+-		 * register it here without waiting a page fault that
+-		 * may not happen any time soon.
+-		 */
+-		khugepaged_enter_vma(vma, *vm_flags);
+ 		break;
+ 	case MADV_NOHUGEPAGE:
+ 		*vm_flags &= ~VM_HUGEPAGE;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 96f2387b2f46..eeee82cf2b3f 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -178,6 +178,14 @@ static int madvise_update_vma(vm_flags_t new_flags,
+ 	/* vm_flags is protected by the mmap_lock held in write mode. */
+ 	vma_start_write(vma);
+ 	vma->flags = new_vma_flags;
++	/*
++	 * If the vma become good for khugepaged to scan,
++	 * register it here without waiting a page fault that
++	 * may not happen any time soon.
++	 */
++	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
++		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
 +
- void nvmet_destroy_auth(struct nvmet_ctrl *ctrl)
- {
- 	ctrl->shash_id = 0;
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index ad60b91ced6c..1663ab7ac607 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -980,7 +980,7 @@ void nvmet_sq_destroy(struct nvmet_sq *sq)
- 	wait_for_completion(&sq->confirm_done);
- 	wait_for_completion(&sq->free_done);
- 	percpu_ref_exit(&sq->ref);
--	nvmet_auth_sq_free(sq);
-+	nvmet_auth_sq_destroy(sq);
- 	nvmet_cq_put(sq->cq);
+ 	if (set_new_anon_name)
+ 		return replace_anon_vma_name(vma, anon_name);
  
- 	/*
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index e362d7913a38..dbda55895f4f 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -924,6 +924,7 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq, bool reset);
- void nvmet_auth_sq_init(struct nvmet_sq *sq);
- void nvmet_destroy_auth(struct nvmet_ctrl *ctrl);
- void nvmet_auth_sq_free(struct nvmet_sq *sq);
-+void nvmet_auth_sq_destroy(struct nvmet_sq *sq);
- int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id);
- bool nvmet_check_auth_status(struct nvmet_req *req);
- int nvmet_auth_host_hash(struct nvmet_req *req, u8 *response,
-@@ -950,6 +951,7 @@ static inline void nvmet_auth_sq_init(struct nvmet_sq *sq)
- }
- static inline void nvmet_destroy_auth(struct nvmet_ctrl *ctrl) {};
- static inline void nvmet_auth_sq_free(struct nvmet_sq *sq) {};
-+static inline void nvmet_auth_sq_destroy(struct nvmet_sq *sq) {};
- static inline bool nvmet_check_auth_status(struct nvmet_req *req)
- {
- 	return true;
 
