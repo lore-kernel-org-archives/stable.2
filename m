@@ -1,186 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F6F3E5ED6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A04F4741
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954652; cv=none; b=RPLoiZ5TnoVy1G9scZV/f0WWmYy6333pFE1UPGK5j5w1Uyi2x7ipL+QOEEOr9shbc0GwOw/y5YPoMBCN/H6SIGvJFm9rHrDWV1XYtSUSbj+b6kXWygMEbLK81Mjb1jQaoyoqfKYiustFu8fJ5zCw0+qQSHjOyE+C43nt1xQN8dk=
+	t=1788954675; cv=none; b=SuWKWNekDetoWXdyQijCQYSJZkECtHinV8s6uXpqjr5Y6Cz/VOszX3bhft01PywtiaYVfkZk5T9juFTa+EnUc9NbxphbXC52IGHIyMMdFPgiuQ4m9bmPvmDD4ClwHw7Gz+pf/J1cdaCaq3uf6pEhNgxTUzy11NJed5Le0XgHJqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954652; c=relaxed/simple;
-	bh=34FiJrLTPFQx8bi5xpiYIHUA1/5p3G80SkrNarqDb1g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pSGPJLjq5kbDjVjUIBgU6csHOZ4X1BxnTbwKCnLRuoqNrowx8RmBcVzoVH+7WiKt2R6KsHS2/k4/Y6h9oht+mxc8uEA8FFz935Vh1jLA1oEykn2+AZz+jHP1R/k6yQGS2LmX38E44TRGSsNKQeSAQLqzpACtd4pdrW4FaeZZf/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=enZ8waG6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954675; c=relaxed/simple;
+	bh=Lk7VPCqFWFJfXhdAd5V0s8VGEqm7eap/qNG8n6V2vPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lrvMa2g9Sk8GXb0Iwx7iPhfsye8Q9PKlDjxaQAY7KckGPE0xqTQhieSdHiiOYVW/4Bv81xWtctq6pmBnuw7o9rSkkYjSJ5kKyCoM5kqlYSGmoebuiyk7IUtAGtABDs0xCiHEb8CY3JYCjX48ejXwaTna552x7K6oQId2BEFBWPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gY8n57Ys; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="enZ8waG6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B9F1F00A3A;
-	Wed,  9 Sep 2026 11:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954651;
-	bh=GBN4pjglNozkMOQEWf4rebPTzHLR6fRYq4fR0hHGRoA=;
-	h=Subject:To:Cc:From:Date;
-	b=enZ8waG6q8c4/tKO4iFF2PyhM38I/HohOW+8cQjSka3Yea6fsiLSKo8Z8YmDMxf77
-	 RoIgd1CdySmErUcnk49WAVLlCLfAOJGFVT6Zyf+ueh+YolphZbYoef/TLnTtQo2oOR
-	 Ax99IK7wVST9+BPi9uWrpiXI6A14f8s0OU5ODViU=
-Subject: FAILED: patch "[PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable" failed to apply to 6.18-stable tree
-To: nemesa.garg@intel.com,animesh.manna@intel.com,jani.nikula@intel.com,jouni.hogander@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:40:53 +0200
-Message-ID: <2026090953-dander-coat-86af@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gY8n57Ys"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C101F00A3A;
+	Wed,  9 Sep 2026 11:51:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788954674;
+	bh=5LDigATfl70zOzr+ZTqDHJ0Lkdw7iKjLHgXCRYPeT0A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gY8n57YsRBKuLBCeI/naiKji85cmQKY6CXTacxOWzqiji0VhxFWake8pi7HGGxBWx
+	 qaoeIr/Fm9Yvfm12ULtZfB3xE5Sao0Yyyyd25q9/SoBuLiaaSopgeR72szrexXGl+5
+	 bTWD+3IpaT3nVQ3dAJKjqkZJT0Rt6GrIx0lz288XFcWyjrfEn9QdprFhAJ+wQ2pK7D
+	 JQDYMch+PaLANaCFqjE8Ia3aCYXeTTZSPVlhFI4EfnaupZUnKg3Ia2rnY5uiY7meSb
+	 bJUZyBv7m9bXRz2QQIRTlr+FOUr+SiggxqSqfqoJVv0AhMgtTyRIM3Xi4P1WMyLwRp
+	 2a7+N8vT4vGmg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shuai Xue <xueshuai@linux.alibaba.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] iommu/sva: Set handle->dev before the SVA handle is visible
+Date: Wed,  9 Sep 2026 07:51:11 -0400
+Message-ID: <20260909115111.2085593-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090353-deck-monument-5171@gregkh>
+References: <2026090353-deck-monument-5171@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Shuai Xue <xueshuai@linux.alibaba.com>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 530f8f9c3546cb3ebee1b135375aaee08a073ebb ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+iommu_attach_device_pasid() installs the new SVA attach handle in the
+group PASID lookup before iommu_sva_bind_device() returns. A concurrent
+bind can therefore find and reuse the same handle after iommu_sva_lock is
+dropped.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7f1172a2ac0d7e50850785e2e65789c8aac8411a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-dander-coat-86af@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+handle->dev was initialized after dropping iommu_sva_lock. This leaves a
+window where a racing bind can return a handle whose dev pointer is still
+NULL. A subsequent iommu_sva_unbind_device() can then dereference it via
+handle->dev->iommu_group.
 
-Possible dependencies:
+Initialize handle->dev before releasing iommu_sva_lock so any visible SVA
+handle is fully initialized.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 7f1172a2ac0d7e50850785e2e65789c8aac8411a Mon Sep 17 00:00:00 2001
-From: Nemesa Garg <nemesa.garg@intel.com>
-Date: Tue, 18 Aug 2026 15:21:49 +0530
-Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
-
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
-
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
-
-v2: Add same check for cursor also. [sashiko]
-
+Fixes: be51b1d6bbff ("iommu/sva: Refactoring iommu_sva_bind/unbind_device()")
 Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
-(cherry picked from commit 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Assisted-by: Qoder:Qwen-3.8-MAX-Preview
+Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+[ Adjusted context for per-bind SVA handles lacking handle->users reference counting. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iommu/iommu-sva.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 0673f16f6fd0..86bb96ac449b 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
- }
+diff --git a/drivers/iommu/iommu-sva.c b/drivers/iommu/iommu-sva.c
+index a340b805b82b7..4605304410be1 100644
+--- a/drivers/iommu/iommu-sva.c
++++ b/drivers/iommu/iommu-sva.c
+@@ -100,8 +100,8 @@ struct iommu_sva *iommu_sva_bind_device(struct device *dev, struct mm_struct *mm
+ 		goto out_free_domain;
+ 	domain->users = 1;
+ out:
+-	mutex_unlock(&iommu_sva_lock);
+ 	handle->dev = dev;
++	mutex_unlock(&iommu_sva_lock);
+ 	handle->domain = domain;
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 	}
- }
- 
-@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a683293352..5cda1ab90e40 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
- }
- 
- static void
+ 	return handle;
+-- 
+2.53.0
 
