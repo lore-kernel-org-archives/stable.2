@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C70582BB6
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14244583AB0
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971240; cv=none; b=XtSpX9brdkawtun9J/8wt9dfaihBhRpnqlwD9erjudBjoAz41aau3OsbA7i7wXhdixUvd2isYyebgfchCezuBDxhIGzIWxemCNHtPXkX6Hdn0LEMSNEERBwlgFs7nlHAc8Crc1u1HxIbwbGAWaQP+p6s0JGl3ulPycHQHQ3l24k=
+	t=1788971241; cv=none; b=O2CWsSqvgVif6tL5MeDBAsA2eDFt2RQ3AODDQy/nEv2SdRuuDZz7R7WFlK1lcQrbkOyPdK9hGg3oSrAR7ixWGvAj9dZg2KgMJSBkqXOcNrpU/01xbU7J/qw7xe/Jo4glgjTZuwCkNplUKwu6T6jJyym3XGYHGNco9cyN9dY6tgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971240; c=relaxed/simple;
-	bh=QyMu6quOOA5WlZ8FsnkYuNCoXoZDBzHeULc3dlgCQXg=;
+	s=arc-20240116; t=1788971241; c=relaxed/simple;
+	bh=qmoWL/i1Jmbnv3Mgx6J9OgPuk1tl4XWeeAkiuOYi+O8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G313a8XjKwF+Nxw8joWT1SWDHmT8T1NTfH08DhtIF9XFAlC1DNERuFO/92skD7i4rcRX4A510R3CQ2p/5AwViwUBxM/L3JUldh6LmozRRmj4TfcqPUE6lWQ7vkT9cbOh6GARDiyFu5K87PSeoSy5UYXnXpNy1a67RSIRu52pKyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9tEYIPw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ciulD4Pgaw7ZMZG5egsxueWD8WP6OIP+Q3gqNAhVm682OZSVSVkpkTgq7l/5ooLRNdP2pSNhiVyDq4hjI7AHYhUyoaXkL19btCxNv3mEr5vDZJ46F1hqhOQBszjiJeOR6uJGIJlU3gmHF7GuZ36Vp8BiZyIewCXP3XiV12f9GGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIEddecy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9tEYIPw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4FB1F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIEddecy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5B71F00899;
 	Wed,  9 Sep 2026 16:27:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971238;
-	bh=YWCh3B6c+D5Y9L0eCmJeXemS2Yfh/rl8qgTI5/N+ctU=;
+	s=k20260515; t=1788971239;
+	bh=WkVLNwEgK4drLIxQck4PKH90kklvGjyfhiHOrDaLVLk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G9tEYIPwSbofnnfcSobjLDUoxEQTZvCEFotlt3uTcsBo8fjtWSUjR9vzov3qggmi9
-	 Vbj4xEKnyhBlHEKdwg5tF4oZLkO7Qc/XAYfCE+IsNsPnnYjKncpK8g8YwG1gfoisQI
-	 iepobm3/OfIq2xct1fmfyY5xv7OpwvHrfClXAPqh71mPeE9UmQU+EQLdtIj39/cvYC
-	 WEtcjFDeWEoYPCMzx3JgmcIzETi+VK2PYLX35RseDgoj+L58jrAa1b6cRJV8O3Vhcn
-	 na33tUEf9iZOQySJ9tn+jtn/hQIRtGbrX0hXOoNCecH1kqlIA1xmwpNHEgDsjx9Eoq
-	 5hs8pIUAHnaDg==
+	b=BIEddecyiFlp+CCSEIQGKaEVLWPwEKe02+W6GDb2yyyJKxF5b9sEKdyGcJbkA63oE
+	 X3vW0wrYYVVXeRuf1TEIAKltZjph3v93R4HB7+RfnMXEwE3Q4VwLIpTmCCTQPUUqYX
+	 W/5paxuwv70QsGQryZ6+4+t+jtq1VMjWVdbLiVCgmxtwj0Xv+FJtn/8CKMyCnn/Y0g
+	 ViCr4wIHRWU/STeVCN89DQtWBrYqMEwXKK3p2jsQfdOKOxy8Ix1pf6d+FLHU+kJyWn
+	 6fyf2xk322Ym9r5fN/3g5x5dcDzpXEJ9fd0ZcyZSgwhbfl8Bba5z48jrrv1q7wABxE
+	 NjnZhr5xpeX2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] platform/x86: think-lmi: Use strreplace() to replace a character by nul
-Date: Wed,  9 Sep 2026 12:27:13 -0400
-Message-ID: <20260909162714.2984324-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] platform/x86: think-lmi: Fix current password length check
+Date: Wed,  9 Sep 2026 12:27:14 -0400
+Message-ID: <20260909162714.2984324-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909162714.2984324-1-sashal@kernel.org>
 References: <2026090342-duct-salutary-5524@gregkh>
@@ -48,69 +48,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 6cb9c8637c672584d4915559001020237840acba ]
+[ Upstream commit 54745d563114b74f6fecebce68cd020d06c1772b ]
 
-We can replace
-	p = strchrnul(str, '$OLD');
-	*p = '\0';
-with
-	strreplace(str, '$OLD', '\0');
-that does the compatible modification without a need of the temporary variable.
+current_password_store() checks the password length before removing the
+trailing newline, which can reject valid passwords that are exactly
+->maxlen bytes long.
 
+It also passes ->maxlen to strscpy(), which truncates passwords without
+a newline.
+
+Use strchrnul() to measure the password length up to the newline, then
+copy that many bytes and add a trailing NUL terminator using strscpy().
+
+Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Link: https://patch.msgid.link/20260818151635.37094-2-thorsten.blum@linux.dev
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://lore.kernel.org/r/20230918135116.1248560-2-andriy.shevchenko@linux.intel.com
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Stable-dep-of: 54745d563114 ("platform/x86: think-lmi: Fix current password length check")
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/think-lmi.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/platform/x86/think-lmi.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
-index 58c070198e59f..00d0cf34196d4 100644
+index 00d0cf34196d4..e3faed0565266 100644
 --- a/drivers/platform/x86/think-lmi.c
 +++ b/drivers/platform/x86/think-lmi.c
-@@ -909,7 +909,7 @@ static ssize_t display_name_show(struct kobject *kobj, struct kobj_attribute *at
- static ssize_t current_value_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
- {
- 	struct tlmi_attr_setting *setting = to_tlmi_attr_setting(kobj);
--	char *item, *value, *p;
-+	char *item, *value;
- 	int ret;
+@@ -396,14 +396,13 @@ static ssize_t current_password_store(struct kobject *kobj,
+ 	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
+ 	size_t pwdlen;
  
- 	ret = tlmi_setting(setting->index, &item, LENOVO_BIOS_SETTING_GUID);
-@@ -922,8 +922,7 @@ static ssize_t current_value_show(struct kobject *kobj, struct kobj_attribute *a
- 		ret = -EINVAL;
- 	else {
- 		/* On Workstations remove the Options part after the value */
--		p = strchrnul(value, ';');
--		*p = '\0';
-+		strreplace(value, ';', '\0');
- 		ret = sysfs_emit(buf, "%s\n", value + 1);
- 	}
- 	kfree(item);
-@@ -1430,7 +1429,6 @@ static int tlmi_analyze(void)
- 	for (i = 0; i < TLMI_SETTINGS_COUNT; ++i) {
- 		struct tlmi_attr_setting *setting;
- 		char *item = NULL;
--		char *p;
+-	pwdlen = strlen(buf);
++	/* Strip newline; setting password won't work if one is present. */
++	pwdlen = strchrnul(buf, '\n') - buf;
+ 	/* pwdlen == 0 is allowed to clear the password */
+ 	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
+ 		return -EINVAL;
  
- 		tlmi_priv.setting[i] = NULL;
- 		status = tlmi_setting(i, &item, LENOVO_BIOS_SETTING_GUID);
-@@ -1447,8 +1445,7 @@ static int tlmi_analyze(void)
- 		strreplace(item, '/', '\\');
+-	strscpy(setting->password, buf, setting->maxlen);
+-	/* Strip out CR if one is present, setting password won't work if it is present */
+-	strreplace(setting->password, '\n', '\0');
++	strscpy(setting->password, buf, pwdlen + 1);
+ 	return count;
+ }
  
- 		/* Remove the value part */
--		p = strchrnul(item, ',');
--		*p = '\0';
-+		strreplace(item, ',', '\0');
- 
- 		/* Create a setting entry */
- 		setting = kzalloc(sizeof(*setting), GFP_KERNEL);
 -- 
 2.53.0
 
