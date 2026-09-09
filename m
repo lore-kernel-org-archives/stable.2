@@ -1,165 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C2557C735;
-	Wed,  9 Sep 2026 14:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D736A3E315F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965120; cv=none; b=pC6Us5y4cf+Pb/2shNlZbotpU8lfADwi8coxLEe2TXyTSAv8aXEtaNVNoOSppLN7YNV9JIMW+/VLbRRQOUEoDH6Dq0TMXaX+MTOy9vQbP61jchE6cfv0ltaLzGblZHCacuWueybRPaZtIRHOy6KVJcGzMd3GxJBJvUdJdiqxQUY=
+	t=1788965193; cv=none; b=cFVhudWhzJk7QmzYE9uzflxtJ/APGFb2iaRtBThU8dtXcp1+gqo++sLYu7bgj85Qz0KXsYsXMeN6J2TtWt06JvncEQ5v8njklfIA6W+KXmKN+nGHdOH9NgC1H5nY+tm3MDQbsw1+Bx3KFRrr7fTmWAkSmO6uCQKJmgM/RIOdDfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965120; c=relaxed/simple;
-	bh=Ypon59CrcL/GClEUgoItVwKRy5h97oyDAyIzwKQTKL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FARKpujQ2YLThZ0wRtJRA8RpMdXtWJJvY25DTDwN2593sKZKbmYiuwXyjKTo7Dk9637n7nTPlVnwIOB9WcfSJs9LjvmlTT/TNr4789sBGYrzJ73ry8eLihwkOEZkHKSBl/PVy3qnPrk0oClZ2CSSbZMPE5pOh6BSJoFf2bxZEKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xhxx0khW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965193; c=relaxed/simple;
+	bh=hzzwyfl1yUEB1ilUqWoeF4bo3c+suoZMfPBMndec+SM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FBg1zqR+uv5oKo7kcvIpbcrAUHFZt6UqVRc9CDb83kOTUVdVtxf8FN033LKyL7/WgF2wW82rKxuQhdEAOTEJVhwpQUn1k9JuGF6NYBaPmuce1MkwusdJFd6no/DtaN3iCXk1SYCANP7+eRqbgkdF57z+9wcTmXugpejG4alaep0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GurlPpXX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xhxx0khW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AC91F00A3A;
-	Wed,  9 Sep 2026 14:45:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GurlPpXX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335F71F00A3D;
+	Wed,  9 Sep 2026 14:46:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965119;
-	bh=K58cKHulWym61Yate6t1pTnTXRuBWGGv6yostO13qNY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xhxx0khW2G/5/4vxzFifVxHhB1Hj4/gJYWj9vH7PrAXbsF+QcjQEQFAH3W56oAvks
-	 lqXDwUoQLaUur3E2tolLS49mfx+b4Ze9yl+QcE2iE6tNyafSE1MmimNmOnbH4iHt22
-	 GgB1BEZ0QSxF3Um43IZKLjYOP+ljAj6AhBy2muVtNsqtgjRmj227JPG9fiVwV/8j/2
-	 YCBDrmVUjfAGL7zfOEmaojeuER2qxydaEdPEC4Ryl79Ez1o4FF1U567vSCgnkTKRG4
-	 XJ6kAJFdjD02KG4GJqMWNLaNBWrmKpq6XB4Mz9mnfCWxvS7o1jLLrg5In2OL84xomV
-	 rgiDsoDXb0k9A==
-Date: Wed, 9 Sep 2026 16:45:15 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: stern@rowland.harvard.edu, boqun@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <aqFw--VfXWz-yZt8@localhost.localdomain>
-References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+	s=k20260515; t=1788965191;
+	bh=UDGVFj/2B7seiyy8IkwvpIKr2u32AhNe+lh0nyG72vI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GurlPpXXcj4hknGd7DM2HcP8g+vSM6lhxRkySyaE0DUJgLAEr7Vxu6MuBHsu4/TzF
+	 owgVS80+FaSWlhKzm3iaGKYuSfR5heYlAr5VPTwpqOlqRmTQGBHn/7atRCej2b2fy4
+	 ywQmBDptHa6jemfef+BDTjmhqOMXvJjpGX/SHj074d5sv4UOpXjM9CkAsBynLLLcVb
+	 A+Gfjvl89zNTRIh0Jr8igQhn18bJRuy6zBzWlq9052XlvroZrjCs2ddbhpvDu1I/jZ
+	 eX/hB2VzKBwrnuLO6x9vWf0Tzcn/4AMh+C0T2rL8ybo4HgyiPzOczx9kn9CZRORmgh
+	 BTyMeYvE7dQeg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kevin Tian <kevin.tian@intel.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] iommu/vt-d: Force requesting ACS when tboot is enabled
+Date: Wed,  9 Sep 2026 10:46:27 -0400
+Message-ID: <20260909144628.2652039-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909144628.2652039-1-sashal@kernel.org>
+References: <2026090351-finlike-grumbling-0d17@gregkh>
+ <20260909144628.2652039-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 
-Le Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra a écrit :
-> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
-> 
-> > > > I argue that's not possible:
-> > > > 
-> > > > A:   sigqueue stores
-> > > > 
-> > > > B:   AQUIRE tasklist
-> > > > 
-> > > > C:   exit_state store
-> > > > 
-> > > > D:   RELEASE tasklist
-> > > > 
-> > > > E                               ACQUIRE tasklist
-> 
-> > > > F                               if (exit_state)
-> > > > 				    	swap_pid()
-> > > > G                                   STORE_PID
-> > > > 
-> > > > 				      RELEASE tasklist
-> > > > 
-> > > > H                                                       READ PID
-> > > > 							      ....
-> > > > I                                		              ACQUIRE siglock
-> 
-> > > Let G' be the unnamed RELEASE after G.
-> > > 
-> > > Now, I have deleted and rewritten this tail end at least twice now. And
-> > > I *think* I'm agreeing with you. Let me explain:
-> > > 
-> > > It all hinges on D-E and H-I.
-> > > 
-> > > D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
-> > > RELEASE+ACQUIRE. Specifically, we have:
-> > > 
-> > >   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
-> > >   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
-> > > 
-> > > So while earlier I was arguing with RCpc in mind, in which case D-E
-> > > completely goes away and we can consider B-G' to be one big critical
-> > > section from the PoV of a third CPU (our posix_timer_fn() one). In this
-> > > case we can push A down and G up and have them cross.
-> > > 
-> > > *However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
-> > > which is RCtso and that *does* impose store order, so A stores must
-> > > happen before G stores
-> > > 
-> > > Combine with H-I, which has a data dependency from the LOAD to the LOCK
-> > > and thereby constraints later LOADs, those sigqueue loads that come
-> > > after I must in fact observe the A stores.
-> > 
-> > I didn't know about all those UNLOCK+LOCK properties. Well,
-> > I know that UNLOCK+LOCK on the same lock, or on different locks
-> > but the same CPU, equals smp_mb() except on powerpc. Which is why
-> > we have smp_mb__after_unlock_lock(). But what you describe is quite
-> > different.
-> > 
-> > Is this something that we should expect litmus to modelize?
-> 
-> IIRC these commits:
-> 
-> 6e89e831a901 ("tools/memory-model: Add extra ordering for locks and remove it for ordinary release/acquire")
-> ddfe12944e84 ("tools/memory-model: Provide extra ordering for unlock+lock pair
-> on the same CPU")
+From: Kevin Tian <kevin.tian@intel.com>
 
-I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
+[ Upstream commit 607432b2618b61df81134be0ef2562b8300c1216 ]
 
-But unlock+lock doesn't pair with unlock+lock on different CPU.
+Currently the conditions of requesting ACS in detect_intel_iommu()
+don't include tboot, leading to a possible misconfiguration with ACS
+disabled (e.g. due to user opts) while iommu is later forced on by
+tboot_force_iommu().
 
-C MP+polocks
+Fix it by checking tboot in detect_intel_iommu().
 
-{}
+Fixes: 5d990b627537 ("PCI: add pci_request_acs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iommu/intel/dmar.c  | 15 +++++++++++++--
+ drivers/iommu/intel/iommu.c |  2 +-
+ drivers/iommu/intel/iommu.h |  2 ++
+ 3 files changed, 16 insertions(+), 3 deletions(-)
 
-P0(int *A, int *B, spinlock_t *mylock)
-{
-	spin_lock(mylock);
-	WRITE_ONCE(*A, 1);
-	spin_unlock(mylock);
-	spin_lock(mylock);
-	WRITE_ONCE(*B, 1);
-	spin_unlock(mylock);
-}
-
-P1(int *A, int *B, spinlock_t *otherlock)
-{
-	int r0;
-	int r1;
-
-	r0 = READ_ONCE(*B);
-	spin_lock(otherlock);
-	r1 = READ_ONCE(*A);
-	spin_unlock(otherlock);
-}
-
-exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
-
-But yeah there is no data dependency involved. Let me answer to
-that to tglx.
-
+diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+index 8e9b5a0b6202e..ab7c03ce5166d 100644
+--- a/drivers/iommu/intel/dmar.c
++++ b/drivers/iommu/intel/dmar.c
+@@ -907,6 +907,18 @@ dmar_validate_one_drhd(struct acpi_dmar_header *entry, void *arg)
+ 	return 0;
+ }
+ 
++static bool dmar_required(void)
++{
++	/* tboot supersedes any user/platform opt */
++	if (!intel_iommu_tboot_noforce && tboot_enabled())
++		return true;
++
++	if (!no_iommu && (!dmar_disabled || dmar_platform_optin()))
++		return true;
++
++	return false;
++}
++
+ void __init detect_intel_iommu(void)
+ {
+ 	int ret;
+@@ -920,8 +932,7 @@ void __init detect_intel_iommu(void)
+ 	if (!ret)
+ 		ret = dmar_walk_dmar_table((struct acpi_table_dmar *)dmar_tbl,
+ 					   &validate_drhd_cb);
+-	if (!ret && !no_iommu && !iommu_detected &&
+-	    (!dmar_disabled || dmar_platform_optin())) {
++	if (!ret && !iommu_detected && dmar_required()) {
+ 		iommu_detected = 1;
+ 		/* Make sure ACS will be enabled */
+ 		pci_request_acs();
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index b9a01ef44e0a3..045b47cd7a972 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -179,7 +179,7 @@ static int rwbf_quirk;
+  * (used when kernel is launched w/ TXT)
+  */
+ static int force_on = 0;
+-static int intel_iommu_tboot_noforce;
++int intel_iommu_tboot_noforce;
+ static int no_platform_optin;
+ 
+ #define ROOT_ENTRY_NR (VTD_PAGE_SIZE/sizeof(struct root_entry))
+diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+index a5efdb0c6657c..6db0b8b1e33c2 100644
+--- a/drivers/iommu/intel/iommu.h
++++ b/drivers/iommu/intel/iommu.h
+@@ -803,6 +803,7 @@ extern int intel_iommu_gfx_mapped;
+ 
+ extern int dmar_disabled;
+ extern int intel_iommu_enabled;
++extern int intel_iommu_tboot_noforce;
+ #else
+ static inline int iommu_calculate_agaw(struct intel_iommu *iommu)
+ {
+@@ -815,6 +816,7 @@ static inline int iommu_calculate_max_sagaw(struct intel_iommu *iommu)
+ #define dmar_disabled	(1)
+ #define intel_iommu_enabled (0)
+ #define intel_iommu_sm (0)
++#define intel_iommu_tboot_noforce (0)
+ #endif
+ 
+ #endif
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.53.0
+
