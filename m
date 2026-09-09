@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C4C4B515E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700014B4864
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948704; cv=none; b=H6PwGorJeTuq4YQJlL0/Rk1/vM28cZ55QxvB9uS8YUDUtuqsKyejjxto4vz1ZNP2KZdF087jYr1yOLu/aelHCdZ0WiHjxnaloRBmOQ7ZipIZ5SkNIjooyEEW5Z4AHDWvHHtqG3mGI/rb5xnMny5VkJ18LyZsdRmbBOFaZEGIS98=
+	t=1788948706; cv=none; b=kMnzj0kbFxH+gGXjrjBRYmeqvH/BikLOIewcHlbzif2wOWrlDVkbgzvMEVBFKNz4qYSK+uuGTmKMxDyrvr2gU8o/9nFOhn98c/4udYRmVaAidayjsmk7z78nG981R+RYfulPfNTZeP4SFV9j14bIx560Bu0sTmDn6JPc0o3hIMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948704; c=relaxed/simple;
-	bh=UBMUAsEU4h4X5xVAAcnM6s4xHLT2ao0ejXGVkYxcOAA=;
+	s=arc-20240116; t=1788948706; c=relaxed/simple;
+	bh=vHEqCQk7l054SLRaQnd/WgsTXRC1xS9TIJGyyf9KnpI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CVMuOg4Pr5MvyB1Etbi3pL/+C4E1rFb75KPO30nSBXz3OoI5b60tRaOQUD42QvyYYhEw5Fro8C/ckGavXC3IGbxmN/ENYFseA6aW0XaS6D9RhrlxLFFmFfV6df61QtArkgIdNHYmBajFAaOuHjzrp8CJBfBKS6bw0FG7CXKvz60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjJprR5i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vazm5Qii48XhFSF/dcsbQiIQJYKPPODtz80brSpYNr8dj2y9mUf44iZeblX+rxAY03AkHDLK6y6rH93PcUkrcipReR0nYQjpUMvN+ZUb4yt99oaM1TjfTuvLJrEwpDb726uMpsOSpfhhjA2obIDfYq2h0jluMeUjItn60smWgk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWZ4IrJK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjJprR5i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D891F00A3D;
-	Wed,  9 Sep 2026 10:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWZ4IrJK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE321F00A3F;
+	Wed,  9 Sep 2026 10:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788948702;
-	bh=bESg2aQPmRaPtngiNcXBpw7AJ17dO8dP1cfo+/hBWwY=;
+	bh=M/qjUvFQnOAJe5/leBtPTRhu4FpRxJi5UHyP3ZAW35Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UjJprR5i+3VSDD1+v4E/DwXISCD0Ulx71cPEXHukJ0cwxYglWPPyxUNkcTaMQq/R8
-	 i4y9SsCKHw8yFsk5ZloNgWOKFMfLrjKUIqzRCgVPg5yFipGAZlBcbAmpNmawj25x+n
-	 yUneh0wqvTuzg7/5voqpsu7N6lJYQjTgSXcbxHFnCuByl2mucJagUr1OLrn4Xn/iaS
-	 RdytamNBcz9TwXKwgXLR7C4i8xmmtjpBHan8p2sKYq1LkAsbXqg00eSQjzFEb3Lg3p
-	 Lf/OaKYd21C9N34Z2AxxfPEb0HegwYvYMwINqJHNS5phn06+76WIkSt66VWmRLobIs
-	 r0J6h+ednrTfA==
+	b=DWZ4IrJKkjpW792L220RFFxDUVyOTLRi2z7CKdZB8s+QzZjnEbJ1CWSbW9NKJmgip
+	 ZNVm5mNA983lBmHKGco1mvst+RHE0ZI3XacHN88kGcli18NNZsbjvRM6JeNdW+ATTh
+	 eKMeCgCO6ZQfI9k1H2f7G2xdjOAc3pl+Fee6aQNu+CXGKA1soGuSMCuPAc4OP5MYSQ
+	 cmwgccXmv5I9ii79sJkegf+Jvc6XYvzO4Y/uclVOUqdC89itN7R7eo+SqBQeH/2G4t
+	 HJgpHef+BVNj4L2jdMqFAdKfVlBfnTf8h88m/yR8VnCO9MTB8Y0mMREyFqHjovV7MK
+	 uxj6neAC0t1cQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: John Stultz <jstultz@google.com>,
+Cc: Tejun Heo <tj@kernel.org>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] sched: Rework prev_balance() to avoid stale prev references
-Date: Wed,  9 Sep 2026 06:11:39 -0400
-Message-ID: <20260909101140.1462154-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] sched/core: Make core-sched flips wait for in-flight selections
+Date: Wed,  9 Sep 2026 06:11:40 -0400
+Message-ID: <20260909101140.1462154-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090310-heftiness-overbite-2cac@gregkh>
+In-Reply-To: <20260909101140.1462154-1-sashal@kernel.org>
 References: <2026090310-heftiness-overbite-2cac@gregkh>
+ <20260909101140.1462154-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,255 +46,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: John Stultz <jstultz@google.com>
+From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit 7a3a6bfbd62a2ba3e0ef1e92d6b71abb66890825 ]
+[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
 
-Historically, the prev value from __schedule() was the rq->curr.
-This prev value is passed down through numerous functions, and
-used in the class scheduler implementations. The fact that
-prev was on_cpu until the end of __schedule(), meant it was
-stable across the rq lock drops that the class->balance()
-implementations often do.
+Core scheduling's pick_next_task() operates on all sibling rqs under one
+acquisition of the shared core-wide lock. A ->pick_task() that releases the
+rq lock leaves every sibling __lock momentarily free, letting
+__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
+it. The selection resumes on the split locks, touching sibling state it no
+longer protects, and __schedule() finally releases a lock that was never
+taken while leaking the one that was.
 
-However, with proxy-exec, the prev passed to functions called
-by __schedule() is rq->donor, which may not be the same as
-rq->curr and may not be on_cpu, this makes the prev value
-potentially unstable across rq lock drops.
+Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
+and make __sched_core_flip() wait for the count to drain. The count only
+changes under the shared lock, which the flip holds while sampling, so no
+other ordering is needed. The wait can repeat while selections overlap, but
+the flip backs off between samples and flips are rare cookie-lifetime
+events.
 
-A recently found issue with proxy-exec, is when we begin doing
-return migration from try_to_wake_up(), its possible we may be
-waking up the rq->donor.  When we do this, we proxy_resched_idle()
-to put_prev_set_next() setting the rq->donor to rq->idle, allowing
-the rq->donor to be return migrated and allowed to run.
+sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
+left behind would bias it forever if that CPU later returns as its own
+leader.
 
-This however runs into trouble, as on another cpu we might be in
-the middle of calling __schedule(). Conceptually the rq lock is
-held for the majority of the time, but in calling prev_balance()
-its possible the class->balance() handler call may briefly drop the rq lock.
-This opens a window for try_to_wake_up() to wake and return migrate the
-rq->donor before the class logic reacquires the rq lock.
-
-Unfortunately prev_balance() pass in a prev argument, to which we pass
-rq->donor. However this prev value can now become stale and incorrect across a
-rq lock drop.
-
-So, to correct this, rework the prev_balance() call so that it does not take a
-"prev" argument.
-
-Signed-off-by: John Stultz <jstultz@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260512025635.2840817-2-jstultz@google.com
-
-Backport adaptation for Linux 6.12, as a dependency of f3629c63a4af
-("sched/core: Make core-sched flips wait for in-flight selections"):
-
-This tree has no proxy execution. Alias rq->donor and rq->curr in a union,
-as upstream does without CONFIG_SCHED_PROXY_EXEC, so the existing curr
-updates also provide the scheduling context without separate state.
-Remove the prev parameter from prev_balance(), __pick_next_task(), and
-both pick_next_task() variants, and read rq->donor at their call sites.
-
-Keep the stable sched_class balance and pick_next_task interfaces and the
-fair and sched_ext selection paths. Pass rq->donor to these existing
-callbacks; it aliases the on-CPU current task and remains stable across
-lock drops here. Drop the upstream deadline, RT, idle, and stop callback
-signature changes, along with assumptions about newer selection APIs,
-proxy execution, and lock annotations. No functions are added.
-
-Label the CONFIG_SCHED_CORE closing directive in struct rq to match the
-target's patch context. The unmodified target patch applies cleanly after
-this adaptation. The core-selection counter fix remains in the target.
-
-[ sashal: Reduced backport -- upstream 7a3a6bfbd62a2 touches 6 file(s), this
-  backport carries 2. Not backported here:
-  kernel/sched/deadline.c
-  kernel/sched/idle.c
-  kernel/sched/rt.c
-  kernel/sched/stop_task.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: f3629c63a4af ("sched/core: Make core-sched flips wait for in-flight selections")
+Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 39 +++++++++++++++++++--------------------
- kernel/sched/sched.h |  8 ++++++--
- 2 files changed, 25 insertions(+), 22 deletions(-)
+ kernel/sched/core.c  | 22 ++++++++++++++++++++++
+ kernel/sched/sched.h |  1 +
+ 2 files changed, 23 insertions(+)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ea106403abd86..10206603f6ae8 100644
+index 10206603f6ae8..1a173f7f5053f 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -5936,10 +5936,9 @@ static inline void schedule_debug(struct task_struct *prev, bool preempt)
- 	schedstat_inc(this_rq()->sched_count);
- }
+@@ -401,6 +401,17 @@ static void __sched_core_flip(bool enabled)
  
--static void prev_balance(struct rq *rq, struct task_struct *prev,
--			 struct rq_flags *rf)
-+static void prev_balance(struct rq *rq, struct rq_flags *rf)
- {
--	const struct sched_class *start_class = prev->sched_class;
-+	const struct sched_class *start_class = rq->donor->sched_class;
- 	const struct sched_class *class;
+ 		sched_core_lock(cpu, &flags);
  
- #ifdef CONFIG_SCHED_CLASS_EXT
-@@ -5964,7 +5963,7 @@ static void prev_balance(struct rq *rq, struct task_struct *prev,
- 	 * a runnable task of @class priority or higher.
- 	 */
- 	for_active_class_range(class, start_class, &idle_sched_class) {
--		if (class->balance && class->balance(rq, prev, rf))
-+		if (class->balance && class->balance(rq, rq->donor, rf))
- 			break;
++		/*
++		 * A core-wide selection may have the shared rq lock temporarily
++		 * released by a lock-dropping ->pick_task(). Flipping would
++		 * rebind rq_lockp() under it. Wait it out.
++		 */
++		while (cpu_rq(cpu)->core->core_pick_in_flight) {
++			sched_core_unlock(cpu, &flags);
++			cpu_relax();
++			sched_core_lock(cpu, &flags);
++		}
++
+ 		for_each_cpu(t, smt_mask)
+ 			cpu_rq(t)->core_enabled = enabled;
+ 
+@@ -6092,6 +6103,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 		return __pick_next_task(rq, rf);
  	}
- }
-@@ -5973,7 +5972,7 @@ static void prev_balance(struct rq *rq, struct task_struct *prev,
-  * Pick up the highest-prio task:
-  */
- static inline struct task_struct *
--__pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
-+__pick_next_task(struct rq *rq, struct rq_flags *rf)
- {
- 	const struct sched_class *class;
- 	struct task_struct *p;
-@@ -5985,38 +5984,38 @@ __pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
  
++	rq->core->core_pick_in_flight++;
++
  	/*
- 	 * Optimization: we know that if all tasks are in the fair class we can
--	 * call that function directly, but only if the @prev task wasn't of a
-+	 * call that function directly, but only if the current task wasn't of a
- 	 * higher scheduling class, because otherwise those lose the
- 	 * opportunity to pull in more work from other CPUs.
- 	 */
--	if (likely(!sched_class_above(prev->sched_class, &fair_sched_class) &&
-+	if (likely(!sched_class_above(rq->donor->sched_class, &fair_sched_class) &&
- 		   rq->nr_running == rq->cfs.h_nr_queued)) {
- 
--		p = pick_next_task_fair(rq, prev, rf);
-+		p = pick_next_task_fair(rq, rq->donor, rf);
- 		if (unlikely(p == RETRY_TASK))
- 			goto restart;
- 
- 		/* Assume the next prioritized class is idle_sched_class */
- 		if (!p) {
- 			p = pick_task_idle(rq);
--			put_prev_set_next_task(rq, prev, p);
-+			put_prev_set_next_task(rq, rq->donor, p);
- 		}
- 
- 		return p;
- 	}
- 
- restart:
--	prev_balance(rq, prev, rf);
-+	prev_balance(rq, rf);
- 
- 	for_each_active_class(class) {
- 		if (class->pick_next_task) {
--			p = class->pick_next_task(rq, prev);
-+			p = class->pick_next_task(rq, rq->donor);
- 			if (p)
- 				return p;
- 		} else {
- 			p = class->pick_task(rq);
- 			if (p) {
--				put_prev_set_next_task(rq, prev, p);
-+				put_prev_set_next_task(rq, rq->donor, p);
- 				return p;
- 			}
- 		}
-@@ -6065,7 +6064,7 @@ extern void task_vruntime_update(struct rq *rq, struct task_struct *p, bool in_f
- static void queue_core_balance(struct rq *rq);
- 
- static struct task_struct *
--pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
-+pick_next_task(struct rq *rq, struct rq_flags *rf)
- {
- 	struct task_struct *next, *p, *max = NULL;
- 	const struct cpumask *smt_mask;
-@@ -6077,7 +6076,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	bool need_sync;
- 
- 	if (!sched_core_enabled(rq))
--		return __pick_next_task(rq, prev, rf);
-+		return __pick_next_task(rq, rf);
- 
- 	cpu = cpu_of(rq);
- 
-@@ -6090,7 +6089,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		 */
- 		rq->core_pick = NULL;
- 		rq->core_dl_server = NULL;
--		return __pick_next_task(rq, prev, rf);
-+		return __pick_next_task(rq, rf);
- 	}
- 
- 	/*
-@@ -6114,7 +6113,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		goto out_set_next;
- 	}
- 
--	prev_balance(rq, prev, rf);
-+	prev_balance(rq, rf);
- 
- 	smt_mask = cpu_smt_mask(cpu);
- 	need_sync = !!rq->core->core_cookie;
-@@ -6287,7 +6286,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 	 * If there were no {en,de}queues since we picked (IOW, the task
+ 	 * pointers are all still valid), and we haven't scheduled the last
+@@ -6286,6 +6299,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
  	}
  
  out_set_next:
--	put_prev_set_next_task(rq, prev, next);
-+	put_prev_set_next_task(rq, rq->donor, next);
++	rq->core->core_pick_in_flight--;
+ 	put_prev_set_next_task(rq, rq->donor, next);
  	if (rq->core->core_forceidle_count && next == rq->idle)
  		queue_core_balance(rq);
+@@ -6482,6 +6496,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
+ 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
+ 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
  
-@@ -6512,9 +6511,9 @@ static inline void sched_core_cpu_deactivate(unsigned int cpu) {}
- static inline void sched_core_cpu_dying(unsigned int cpu) {}
++	/*
++	 * A stale leftover would bias the count forever if this CPU later
++	 * returns as its own leader. Move, don't copy.
++	 */
++	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
++	rq->core_pick_in_flight            = 0;
++
+ 	/*
+ 	 * Accounting edge for forced idle is handled in pick_next_task().
+ 	 * Don't need another one here, since the hotplug thread shouldn't
+@@ -8553,6 +8574,7 @@ void __init sched_init(void)
+ 		rq->core_forceidle_count = 0;
+ 		rq->core_forceidle_occupation = 0;
+ 		rq->core_forceidle_start = 0;
++		rq->core_pick_in_flight = 0;
  
- static struct task_struct *
--pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
-+pick_next_task(struct rq *rq, struct rq_flags *rf)
- {
--	return __pick_next_task(rq, prev, rf);
-+	return __pick_next_task(rq, rf);
- }
- 
- #endif /* CONFIG_SCHED_CORE */
-@@ -6682,7 +6681,7 @@ static void __sched notrace __schedule(int sched_mode)
- 		switch_count = &prev->nvcsw;
- 	}
- 
--	next = pick_next_task(rq, prev, &rf);
-+	next = pick_next_task(rq, &rf);
- picked:
- 	clear_tsk_need_resched(prev);
- 	clear_preempt_need_resched();
+ 		rq->core_cookie = 0UL;
+ #endif
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 7956abeb9154e..620d0e347ed88 100644
+index 620d0e347ed88..0073c5b7d07a3 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -1184,7 +1184,11 @@ struct rq {
- 	 */
- 	unsigned long 		nr_uninterruptible;
- 
--	struct task_struct __rcu	*curr;
-+	/* Scheduling and execution contexts coincide without proxy execution. */
-+	union {
-+		struct task_struct __rcu *donor;
-+		struct task_struct __rcu *curr;
-+	};
- 	struct sched_dl_entity	*dl_server;
- 	struct task_struct	*idle;
- 	struct task_struct	*stop;
-@@ -1326,7 +1330,7 @@ struct rq {
+@@ -1330,6 +1330,7 @@ struct rq {
  	unsigned int		core_forceidle_seq;
  	unsigned int		core_forceidle_occupation;
  	u64			core_forceidle_start;
--#endif
-+#endif /* CONFIG_SCHED_CORE */
++	unsigned int		core_pick_in_flight;
+ #endif /* CONFIG_SCHED_CORE */
  
  	/* Scratch cpumask to be temporarily used under rq_lock */
- 	cpumask_var_t		scratch_mask;
 -- 
 2.53.0
 
