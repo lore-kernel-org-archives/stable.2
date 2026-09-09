@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26AB3D9DDB
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:15:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0E948F019
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948955; cv=none; b=guRl2Koi1hNDtg0/AeMkbQUG/aXIXqGZFat/WXhSoOXBd9fA2+fy0qDY8UBWOtCjU8n4FT1ekAvXR1vAvncmV76Jla9RMBJUILTzDRQIfz3R7SD8u29iDuuwpJjYydyvpke/Ldo/dxYHhpDkAD7B9OnQn7iaVClEGAdxSsY9XiA=
+	t=1788948963; cv=none; b=eoFDSngEESx5XWnThtt+vCXFYT8q7Pn8S5hM3+14PH/pxDljNLQ8m6NfIe2tnfOKkJ9PnDpRbpaaWzvtQp85DtxpsO1Znu1xol5B0PU9wmq3yTcC0CICgund0MJrj/8zea1Qv2cQ3q9cvfEHspxPDEu3k35WPT2cK3SfqJkXQrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948955; c=relaxed/simple;
-	bh=nL35mhJuXAbWLnWtkbIK9IXbyFYEo6A8liarO3nAY0o=;
+	s=arc-20240116; t=1788948963; c=relaxed/simple;
+	bh=7urkJzsU4LTRSYoLVFsnO3/KroBQgh3N6Ja5FedHPys=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uWQcpwc9MIBb9ucczdIPMtPdqArqhrmm7TwGhz9QCajWRdSN38F/y8oKs32cQmpRlqdLfBBHvHiFQQQHDw3yXVdXwcl1LhFvY1kXctX/rXM9O6zxqQomd/JhYXcew9/JZn3vSvpoOW7xwqfs9OSLJQdCPkL+7m/JICZMvv9TcEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+4bFO+S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=T1VEhwYyRQ9m8u0WEetMmyfGfHBHt67jZemHwHF64/ST4/HqH7PfcJ1o4m7FnQA2xnBW7pwCCqp6aU3fEr1Go60Aksc7OOpSrq+OqXHM/Iuk3fbEOrx0RsL/nDR2RjEc16UkDfkHAsBTnCELGUusFJoqldEWB1OCxRIAEJCZiWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2/xUy/o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+4bFO+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3741F00ADF;
-	Wed,  9 Sep 2026 10:15:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2/xUy/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B0DF1F00ADE;
+	Wed,  9 Sep 2026 10:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948939;
-	bh=fXXyPSeTWSyIlMSHPjUfnqkpwNji04He5JmziYpqHNg=;
+	s=k20260515; t=1788948957;
+	bh=7lxmFxehbwoXqg9fa/wxl0Z77GYWZbzO6dj40eLhnVA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D+4bFO+S5GkUbYhABgcy3nOho/h+DXOFVZc0U0fdGUeeFpmfHMjULOxbneT61nWzv
-	 2+3RoPO0r5tIscDApP8tyIv9sKmyRSq/fAztyfUiZGf4Z+rbMsl+BX9MRw50tIQxRC
-	 DHsoD7UBlTAR6WL+PBTkevND7v3CNBuX7UE7kAFuGuuNH9OkZnBsfzXLH012xDUrbB
-	 3mdME3+m/ie3SfGF6Ovy2MdiG8/mT9VHhjYQjo1mA81Q0PqyHx420Nyxn7WAZ8kugC
-	 GYZhzm2L/bfUb0QkYqvmVVq1z/NOqFuXQFsEhGZ7cqYgFR9uBCIejP9ZsQKzHHrydc
-	 XHfIioS91R/tg==
+	b=b2/xUy/o5RtXylt6r/y6NInP2DhoJMjs3BkhwCBLzKrJGa+S9S3vYcPqYr3zYGBau
+	 DOEYkhlXHkImvssj2ijqY8OJ06EXzakEAIWjdhh0D4rJywDF7KDRj5w87DlE9n54s6
+	 i2CJf7ItG9XgDTdHW8TMNrcayM3tHxeuBSXmR58LYs01/yN/xBVThaJ4zrdvEKDfIF
+	 JQXOmN6VeJK2czLSLCLT66krsoBqdckEXxXsPvnngGWWERdIYwSp47fB1wQ1jzuLdd
+	 zYero5vPIV/JS6fCrCHl4+GnYQd2kuGTvKjAAgFRYGPupazebZgEcARD/ULjPco1fu
+	 2LH+V/pLCKJuA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] svcrdma: Reject Write/Reply chunks with segcount 0
-Date: Wed,  9 Sep 2026 06:15:36 -0400
-Message-ID: <20260909101536.1481226-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] ASoC: codecs: aw88261: only check PLL and clock state at power-up
+Date: Wed,  9 Sep 2026 06:15:54 -0400
+Message-ID: <20260909101554.1482003-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909101536.1481226-1-sashal@kernel.org>
-References: <2026090344-perfume-python-398c@gregkh>
- <20260909101536.1481226-1-sashal@kernel.org>
+In-Reply-To: <20260909101554.1482003-1-sashal@kernel.org>
+References: <2026090347-flagstick-stinger-0d57@gregkh>
+ <20260909101554.1482003-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +46,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-[ Upstream commit 9808eb7656666acc7291bae9ab6b987bd16e47e0 ]
+[ Upstream commit 06b6f1245567a4be862c3e1cc74577922ceb05fb ]
 
-A peer can send a Write or Reply chunk whose segcount field is zero.
-xdr_check_write_chunk() only rejects segcount > rc_maxpages, so zero
-passes the range check, and xdr_inline_decode(stream, 0) returns the
-current (non-NULL) cursor without advancing. The function returns
-true and pcl_alloc_write() then links a struct svc_rdma_chunk with
-ch_segcount == 0 onto rc_write_pcl or rc_reply_pcl.
+The SYSST check performed during device start requires SWS (amplifier
+switching, bit 8) and BSTS (boost finished, bit 9) on top of PLL lock
+and clock stability. Those bits cannot be asserted at this point in the
+sequence: the check runs after amppd release but before the
+hmute/ULS-hmute release, and the amplifier neither switches nor
+finishes ramping its boost converter while it is still muted. With the
+Fairphone (Gen. 6) firmware profile, aw88261_dev_start() therefore
+always fails with
 
-An earlier patch in this series made pcl_for_each_segment() safe for
-ch_segcount == 0, so this no longer drives the memory walk it used
-to. Rejecting the malformed frame at the decode boundary is still
-worthwhile as defense in depth: it keeps degenerate zero-segment
-chunks off the parsed chunk lists entirely, so any future consumer
-that walks ch_segments directly cannot observe one, and it makes the
-zero-floor easy to backport to trees where the macro change is more
-intrusive. RFC 8166 has no meaning for a Write/Reply chunk that
-describes no remote buffer, so no legitimate client is affected.
+  check sysst fail, reg_val=0x0011, check:0x311
 
-xdr_check_reply_chunk() funnels Reply chunks through
-xdr_check_write_chunk() and inherits the same rejection.
+and playback aborts, even though the amplifier is fine and PLL lock
+and stable clocks are present.
 
-pcl_alloc_write() also links each chunk onto the parsed chunk list
-before filling its segment array. If a future change weakens the
-segcount-0 rejection, an incomplete chunk is visible to consumers
-during the fill loop. Reorder so that list_add_tail() follows the
-segment fill loop, ensuring only fully-populated chunks appear on
-the list.
+Check only PLL lock and clock stability, for which a definition
+already exists; this still re-validates the clocks after amppd release
+(aw88261_dev_check_syspll() checked them before it). This matches the
+vendor aw882xx driver, which only validates PLL lock and clock
+stability at this stage, and the in-tree aw88399 driver, which skips
+the SWS check whenever the amplifier may legitimately not be switching
+(AW88399_BIT_SYSST_NOSWS_CHECK).
 
-Fixes: 78147ca8b4a9 ("svcrdma: Add a "parsed chunk list" data structure")
+Fixes: 028a2ae25691 ("ASoC: codecs: Add aw88261 amplifier driver")
 Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-5-e251306ccca9@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Link: https://patch.msgid.link/20260704192857.88366-1-jorijnvdgraaf@catcrafts.net
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_pcl.c      | 2 +-
- net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 9 ++++++---
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ sound/soc/codecs/aw88261.c | 6 +++---
+ sound/soc/codecs/aw88261.h | 6 ------
+ 2 files changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-index b63cfeaa29234..a1c61311714da 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-@@ -213,7 +213,6 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
- 		chunk = pcl_alloc_chunk(segcount, 0);
- 		if (!chunk)
- 			return false;
--		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
+diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+index 66a46b42d521f..71ce374fd1df8 100644
+--- a/sound/soc/codecs/aw88261.c
++++ b/sound/soc/codecs/aw88261.c
+@@ -253,10 +253,10 @@ static int aw88261_dev_check_sysst(struct aw_device *aw_dev)
+ 			return ret;
  
- 		for (j = 0; j < segcount; j++) {
- 			segment = &chunk->ch_segments[j];
-@@ -225,6 +224,7 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
- 			chunk->ch_length += segment->rs_length;
- 			chunk->ch_segcount++;
- 		}
-+		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
- 	}
- 	return true;
- }
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index 7d3b8fea9c682..e59336a2b4042 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -487,10 +487,13 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
- 		return false;
+ 		check_val = reg_val & (~AW88261_BIT_SYSST_CHECK_MASK)
+-							& AW88261_BIT_SYSST_CHECK;
+-		if (check_val != AW88261_BIT_SYSST_CHECK) {
++							& AW88261_BIT_PLL_CHECK;
++		if (check_val != AW88261_BIT_PLL_CHECK) {
+ 			dev_dbg(aw_dev->dev, "check sysst fail, reg_val=0x%04x, check:0x%x",
+-				reg_val, AW88261_BIT_SYSST_CHECK);
++				reg_val, AW88261_BIT_PLL_CHECK);
+ 			usleep_range(AW88261_2000_US, AW88261_2000_US + 10);
+ 		} else {
+ 			return 0;
+diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
+index 734d0f93ced9f..7863501086746 100644
+--- a/sound/soc/codecs/aw88261.h
++++ b/sound/soc/codecs/aw88261.h
+@@ -181,12 +181,6 @@
+ 		AW88261_OTHS_OT_VALUE | \
+ 		AW88261_PLLS_LOCKED_VALUE))
  
- 	/* Before trusting the segcount value enough to use it in
--	 * a computation, perform a simple range check. This is an
--	 * arbitrary but sensible limit (ie, not architectural).
-+	 * a computation, perform a simple range check. A zero
-+	 * segcount describes no remote buffer and is rejected so
-+	 * downstream consumers never see a degenerate ch_segcount==0
-+	 * chunk. The upper bound is an arbitrary but sensible limit
-+	 * (ie, not architectural).
- 	 */
--	if (unlikely(segcount > rctxt->rc_maxpages))
-+	if (segcount == 0 || unlikely(segcount > rctxt->rc_maxpages))
- 		return false;
- 
- 	p = xdr_inline_decode(&rctxt->rc_stream,
+-#define AW88261_BIT_SYSST_CHECK \
+-		(AW88261_BSTS_FINISHED_VALUE | \
+-		AW88261_SWS_SWITCHING_VALUE | \
+-		AW88261_CLKS_STABLE_VALUE | \
+-		AW88261_PLLS_LOCKED_VALUE)
+-
+ #define AW88261_ULS_HMUTE_START_BIT	(14)
+ #define AW88261_ULS_HMUTE_BITS_LEN	(1)
+ #define AW88261_ULS_HMUTE_MASK		\
 -- 
 2.53.0
 
