@@ -1,86 +1,122 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887A3921D5;
-	Wed,  9 Sep 2026 09:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AD2331ED7;
+	Wed,  9 Sep 2026 09:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945340; cv=none; b=MPPSHUcmXye8KHml1FrMEpIZ8WNeVoL23uE4bkKz/A9D0ziRkkF1SI7OeyvTaGqqv6ISk5P5VdM4JtR7etHctPd7XTeGl7l6HeQKXiCrDxKwP+kR5GIetjhr++zvKdQOTaebr5hNq40cfwJtmWVvu4VtzeXcWmyuyfPeUDRX2vI=
+	t=1788945460; cv=none; b=hVXpCiCNlJ1JSi6zK+AvOxGlooj1WcPT/bsQ/eN/wcOOR6Qw+xa6iu+eq8Rp7CzStnzFdM+WvKeZ7OPoEX8Gws9R0Q9KNTXa88SheVJ753MHBHpdVFXz9biDngc2sxfAYF2Fhl0JPdm42eDOn2r66M0+RSPjb7webxvMaMEyYXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945340; c=relaxed/simple;
-	bh=Tp545e+vZhGG09eqJxZ3JJ9psJ5PrcqizN1ltjgOeQ0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TEduEJjiTmQZxKxLnCXTNXxVIKrRyu/n/a4e8ykBZ4RxRRvrBk+ntCAbQntb606lTnphaEzozput7KhyQ31f9rox3A3yUjzS5IS/zd6oJKajftAN2P93U7mR5AWETzy9DQsUdWu/OtHzbMJAxp7x32ijm1R6J1SjlCPkpe5vy7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kyvXj7KG; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788945460; c=relaxed/simple;
+	bh=fdat5G0UKfo0865WfoyMWaKXr1CyLEBx4K/hS4yL7pI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jE6JfXIlrTnUnzV5gpL3IXBPLThB45bs3y/3hP3IdSQ1xVJlAHuWvf3dexfvYZuk08qMBvLDl2tUaht0bPn/KFAVpQwlPH/Lq4lLoJyo9vJ82pa7NUHV5KHTUaz7DxhS2pTiYDGWoJ1XxCQr4qJU/tGqBe/OQ5EX51jw5Nf4AR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOqVPZsV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kyvXj7KG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8E0DC4E415A5;
-	Wed,  9 Sep 2026 09:15:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 557E060448;
-	Wed,  9 Sep 2026 09:15:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62D6711C7AF75;
-	Wed,  9 Sep 2026 11:15:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788945335; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Be9teADg7Yx/fENXWg5y5jLFgv5ZSSIpuEqGiq03lCw=;
-	b=kyvXj7KG8eWIRinyWnysk6EGxzkgWFKQ0d+sTkM2Mm6daaVeadIMazmqvW6LteYPu4zNUw
-	S6v32JXbMU0ZLqTMz7V1UFfzC7u9F2SpzNQ9iYnUwKK5dRnhDOcziOxxg2CBhLZ/f8kW/S
-	to86epEqkDEgYJKg2fJ+zlG7HMZl9+c4Lm2YTHlqJf6QLgV7xzSakHiIr7pHk6J+jv/YHP
-	OYQZPEuZBTNDO/Og/xAU7kHJ2IVw6OJftF3jdWv+JG4qmyv8OgvrNPqrPR55daKQGuEh/Y
-	1MSRO5Uc46+poXDvFYIpcUORqASk5eyc5o+pEy4bei2WdxgWa1UEzQ1Uz12YdQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- Leonardo Costa <leoreis.costa@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- tomi.valkeinen@ideasonboard.com, francesco@dolcini.it, 
- leonardo.costa@toradex.com, stable@vger.kernel.org
-In-Reply-To: <20260706132440.1594239-1-leoreis.costa@gmail.com>
-References: <20260706132440.1594239-1-leoreis.costa@gmail.com>
-Subject: Re: [PATCH RESEND] drm/bridge: tc358768: Enforce input bus flags
- via atomic_check
-Message-Id: <178894533018.1178686.9521893040126546313.b4-ty@b4>
-Date: Wed, 09 Sep 2026 11:15:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOqVPZsV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C781F00A3A;
+	Wed,  9 Sep 2026 09:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788945458;
+	bh=rn74IMaN/HWP1QctutB5rG3DczPHZb1e58WwrVMGWrI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gOqVPZsVM/oS17LtXDP3P5+968btKsf0w4WSKIK1JpVB20efKuiY9NivPwpwOfBDx
+	 gIfMeaUOFFo5OPaWJh+ftOkfWvCWw/XgAa+lv1nGzGtN+o7FRBCkuWSpBYjjDcIzjT
+	 lvJPUAEj4JWDemFxvdj0AEsvUqtMKSP2jmDUwG2D+mApsFQSWnuz+L9Tz7n/V6Xo+P
+	 S67BRERqZks4sYy5KjGWgiRCCUxe2zIbLkMgU19zT/4xr3pnrwExoSu00yAeseQldR
+	 nwb1OjC62mnmic3bNLpuwasXlPuqFRq+YIqhF1VXM+JwcnEImUJR7FPBmchAblN/g3
+	 80ZsJ/2eRaBMQ==
+Date: Wed, 9 Sep 2026 11:17:35 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqEkL15HuEzl34nz@pavilion.home>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <aqCiXo-h1F5jsp_N@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqCiXo-h1F5jsp_N@redhat.com>
 
-
-On Mon, 06 Jul 2026 10:24:17 -0300, Leonardo Costa wrote:
-> The tc358768 declares static bridge timings requiring pixel data to be
-> sampled on the positive clock edge.
+Le Wed, Sep 09, 2026 at 02:03:42AM +0200, Oleg Nesterov a écrit :
+> On 09/08, Frederic Weisbecker wrote:
+> >
+> > Old leader                           Exec'ing New leader     CPU 2
+> > -----                                -----                   -----
+> >
+> > WRITE q->next = q
+> > WRITE q->prev = q
 > 
-> However, the DRM core default propagation simply copies the output-side
-> bus flags, coming from the next bridge, connector or panel, to the
-> input side. If the propagated flags are incompatible with the bridge
-> ones, the data is wrongly sampled, typically resulting in visual
-> artifacts on the panel.
+> Damn ;) I am shy to suggest this again, but if we have _any_
+> concerns about the races with list_del_init()...
 > 
-> [...]
+> The lockless flush_sigqueue_list() doesn't need to it, right?
+> So perhaps something like below (on top of this series) to avoid
+> the (potential) race explicitly?
+> 
+> Most probably this change is wrong. And in any case we can do better.
+> Just to explain what I mean.
+> 
+> In short, I mean that exit_signals() -> flush path can do
+> __sigqueue_free(q) without list_del_init(&q->list).
+> 
+> Yes! I agree in advance that if this change can fix something,
+> then it fixes the symptom.
+> 
+> But at the same time, why does flush_sigqueue_list(head) need
+> list_del_init() before __sigqueue_free() ? AFAICS only to make
+> list_empty(head) == true. This looks confusing to me.
+> 
+> Oh, I am sure I missed something again ;)
+> 
+> Oleg.
+> ---
+> 
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index f93d8f77ec1a..32c344ee4769 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -457,14 +457,19 @@ static void __sigqueue_free(struct sigqueue *q)
+>  	kmem_cache_free(sigqueue_cachep, q);
+>  }
+>  
+> -static void flush_sigqueue_list(struct list_head *head)
+> +static void __flush_sigqueue_list(struct list_head *head)
+>  {
+>  	struct sigqueue *q, *tmp;
+>  
+> -	list_for_each_entry_safe(q, tmp, head, list) {
+> -		list_del_init(&q->list);
+> +	list_for_each_entry_safe(q, tmp, head, list)
+>  		__sigqueue_free(q);
+> -	}
+> +}
 
-Applied, thanks!
+I must confess that leaves me an uncomfortable taste :-)
 
-[1/1] drm/bridge: tc358768: Enforce input bus flags via atomic_check
-      commit: ed761e0693950fcb4f6b0f60387a3961b972adf3
+What do you think about Peter's solution?
 
-Best regards,
+Thanks.
+
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+Frederic Weisbecker
+SUSE Labs
