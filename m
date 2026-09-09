@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96284492E5D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C52492E5D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913505; cv=none; b=cEtZuib8fN4iMhqSeOVIw+EQXCGPFp9zJN9OrqFCp14iEDuzOwkzPvUeKy17N5thwlDewNV0SLtJxvzERxU2ZgP1QQ1iCsGvsvrz/viefizoCaJNk21DQzC0tUCR8M3L1chUwDsowkDx7ttOH6Rvtr7AJgStrGjjKqBJFEjLvP8=
+	t=1788913507; cv=none; b=Lly/MuOT7+eWE7ECKkmJ04+NEMkcpDPnIM4lrq1VYX8AGOpJyBm0e/b7iyC8w9QZwRf9VvGRXtR49SGfJKrNm/52niIW0OC5KxHP9egJxBlsrArjoMz5ppDJf8KHK3fW5cBr3hIiFIgi6/KtbV6Z7DSp4+7p12IO7rG8MSZr+a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913505; c=relaxed/simple;
-	bh=3kdmV5os1VhnoJklLtuD5YisGNo2xTP0uIkQT1hkFnw=;
+	s=arc-20240116; t=1788913507; c=relaxed/simple;
+	bh=iBKcsZrPiOTwOUR3lZzrhHuK7G9TyBOK5Z+7/OiBZZY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H4wP7mjFes4Z2Rs5nIRFyXgQbDZIXpEx9xmzZ4utSyBp/FmNYA8fEltTSDvD8Gd8KCxQw9irUNU3QfcwA0nX1qdrlHTfXf2t/DYj3DdPg8rvocuMIkzjLUTXmZrJl+72snApzFcAP/5m5JB0xnqcH76U9PrXVRNmcwGLY0rdSU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g2R3bIAd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HHfvjAv7cIqcql+4Xe95BKrE1HCTW1CB53QjfX8jnmllqzNpHAi5GEd/o0ecATsAOIL7gI/xWQz58W11QhGcj1AGwIB9oy/ytZVHIi03m2ExtvoN1xbQUjJgqHrSK9hFHCjyqYmLl8uyBZ0isAakiqh9Un6uUdtRmUJGEA6iiN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDcrVEg2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g2R3bIAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6801F00A3E;
-	Wed,  9 Sep 2026 00:25:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDcrVEg2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11ADB1F00A3A;
+	Wed,  9 Sep 2026 00:25:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913504;
-	bh=m+FXUuZ0vxh/2g3eT0sc8WaGIf2FQn73+mmvxrY+G0A=;
+	s=k20260515; t=1788913506;
+	bh=MOs2JG9yeSxf51E3Ra7racH+O0Mdcb4OJcW82qPU7bM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g2R3bIAdlyHdnYYv1xGuksZG6J8vncS+t8oAFfToj5Ixb+7kUMehQJoahGbQrZ6cW
-	 4B6HOM62acRUr1YcpPx4CwjnwHmvuDVDwEKDCdF5Zi2KsRMPAE5En5rwGo5OEs2S/0
-	 9sRnsg2RzPEcSWipb/CRq6gUMox8eCDIrL8bgcmObgZfP8Y7XJ2thajrd9zXrj7Hl3
-	 4fvKlVGgNrDmsUWM0zHhh76+dupWq+UgSTdWHQoy4tqALuTiHxMoaAmOjLL/cM2M4g
-	 LHUQr+pBZ4Cld6+6yw3x+HfwWHye9WtsGB8HaPeV1RlUEgph5KWkstkJCKXdzB09m4
-	 cVUiPaj/2VTog==
+	b=JDcrVEg2nRlN6H9kj91gVBAOyNgFM4f+GyB0PPLdF7LIB0N32bnKx9UXEsRCIyh8C
+	 cLzYd3Bv0/cfYuW56QGT6OoR1BEbyWFgZ9L2x7Y8kArCXXDiQnRgEHK98Q4XjPw2wQ
+	 6Pe/KTFnOLq0Ab/4xwl+s+iEZGsG4f2ZFjmHfd47MyzvZ/hDhY8CRTMdoTaMDPACRw
+	 8EzUgWKQpxykKyyVueBQCraOx+5WN6hliyPuAY/LdJeSAgxI43F7nDp2uTjO5z3JpG
+	 nbczPiS3dh9Lskegxyhe1yMwmilKj0AMuPf2yyEP4UEvTumtUJt3oXCU3hkY/+5D9/
+	 6Uk/2+pAKvtZA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Tao Chen <chen.dylane@linux.dev>,
-	Andrii Nakryiko <andrii@kernel.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] bpf: Disable preemption in bpf_get_stackid
-Date: Tue,  8 Sep 2026 20:25:01 -0400
-Message-ID: <20260909002501.724832-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] svcrdma: Refactor the creation of listener CMA ID
+Date: Tue,  8 Sep 2026 20:25:02 -0400
+Message-ID: <20260909002504.725024-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909002501.724832-1-sashal@kernel.org>
-References: <2026090359-enhance-frostbite-43b5@gregkh>
- <20260909002501.724832-1-sashal@kernel.org>
+In-Reply-To: <2026090303-catcall-blinked-014b@gregkh>
+References: <2026090303-catcall-blinked-014b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,63 +45,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiri Olsa <jolsa@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d ]
+[ Upstream commit 283d28546234b1764a0a37cb3df30cc3321c75b4 ]
 
-The get_perf_callchain call needs disabled preemption plus we need
-it disabled as long as we access its returned trace entries buffer.
+In a moment, I will add a second consumer of CMA ID creation in
+svcrdma. Refactor so this code can be reused.
 
-Note the bpf_get_stackid_pe function is executed already with
-preemption disabled.
-
-Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
-Reported-by: Tao Chen <chen.dylane@linux.dev>
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/20260803210149.296496-6-jolsa@kernel.org
-
-Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
-[ Replaced scoped_guard(preempt) with explicit preempt_disable()/preempt_enable() calls for GNU89 compatibility. ]
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: 0944462247dc ("svcrdma: Reject connection when transport allocation fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/stackmap.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 67 ++++++++++++++----------
+ 1 file changed, 40 insertions(+), 27 deletions(-)
 
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 2373b7e3b222a..42bd187ca3182 100644
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -500,6 +500,7 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 	struct perf_callchain_entry *trace;
- 	struct stackid stackid;
- 	bool kernel = !user;
-+	long err = -EFAULT;
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+index b8d13b522298b..c01685223973c 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+@@ -65,6 +65,8 @@
  
- 	if (unlikely(flags & ~(BPF_F_SKIP_FIELD_MASK | BPF_F_USER_STACK |
- 			       BPF_F_FAST_STACK_CMP | BPF_F_REUSE_STACKID)))
-@@ -509,14 +510,18 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 	if (max_depth > sysctl_perf_event_max_stack)
- 		max_depth = sysctl_perf_event_max_stack;
- 
-+	preempt_disable();
- 	trace = get_perf_callchain(regs, 0, kernel, user, max_depth,
- 				   false, false);
- 
- 	if (unlikely(!trace))
- 		/* couldn't fetch the stack trace */
--		return -EFAULT;
-+		goto out;
- 
--	return __bpf_get_stackid(&stackid, map, trace, flags);
-+	err = __bpf_get_stackid(&stackid, map, trace, flags);
-+out:
-+	preempt_enable();
-+	return err;
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+ 						 struct net *net, int node);
++static int svc_rdma_listen_handler(struct rdma_cm_id *cma_id,
++				   struct rdma_cm_event *event);
+ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 					struct net *net,
+ 					struct sockaddr *sa, int salen,
+@@ -122,6 +124,41 @@ static void qp_event_handler(struct ib_event *event, void *context)
+ 	}
  }
  
- const struct bpf_func_proto bpf_get_stackid_proto = {
++static struct rdma_cm_id *
++svc_rdma_create_listen_id(struct net *net, struct sockaddr *sap,
++			  void *context)
++{
++	struct rdma_cm_id *listen_id;
++	int ret;
++
++	listen_id = rdma_create_id(net, svc_rdma_listen_handler, context,
++				   RDMA_PS_TCP, IB_QPT_RC);
++	if (IS_ERR(listen_id))
++		return listen_id;
++
++	/* Allow both IPv4 and IPv6 sockets to bind a single port
++	 * at the same time.
++	 */
++#if IS_ENABLED(CONFIG_IPV6)
++	ret = rdma_set_afonly(listen_id, 1);
++	if (ret)
++		goto out_destroy;
++#endif
++	ret = rdma_bind_addr(listen_id, sap);
++	if (ret)
++		goto out_destroy;
++
++	ret = rdma_listen(listen_id, RPCRDMA_LISTEN_BACKLOG);
++	if (ret)
++		goto out_destroy;
++
++	return listen_id;
++
++out_destroy:
++	rdma_destroy_id(listen_id);
++	return ERR_PTR(ret);
++}
++
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+ 						 struct net *net, int node)
+ {
+@@ -300,7 +337,6 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ {
+ 	struct rdma_cm_id *listen_id;
+ 	struct svcxprt_rdma *cma_xprt;
+-	int ret;
+ 
+ 	if (sa->sa_family != AF_INET && sa->sa_family != AF_INET6)
+ 		return ERR_PTR(-EAFNOSUPPORT);
+@@ -310,30 +346,13 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 	set_bit(XPT_LISTENER, &cma_xprt->sc_xprt.xpt_flags);
+ 	strcpy(cma_xprt->sc_xprt.xpt_remotebuf, "listener");
+ 
+-	listen_id = rdma_create_id(net, svc_rdma_listen_handler, cma_xprt,
+-				   RDMA_PS_TCP, IB_QPT_RC);
++	listen_id = svc_rdma_create_listen_id(net, sa, cma_xprt);
+ 	if (IS_ERR(listen_id)) {
+-		ret = PTR_ERR(listen_id);
+-		goto err0;
++		kfree(cma_xprt);
++		return (struct svc_xprt *)listen_id;
+ 	}
+-
+-	/* Allow both IPv4 and IPv6 sockets to bind a single port
+-	 * at the same time.
+-	 */
+-#if IS_ENABLED(CONFIG_IPV6)
+-	ret = rdma_set_afonly(listen_id, 1);
+-	if (ret)
+-		goto err1;
+-#endif
+-	ret = rdma_bind_addr(listen_id, sa);
+-	if (ret)
+-		goto err1;
+ 	cma_xprt->sc_cm_id = listen_id;
+ 
+-	ret = rdma_listen(listen_id, RPCRDMA_LISTEN_BACKLOG);
+-	if (ret)
+-		goto err1;
+-
+ 	/*
+ 	 * We need to use the address from the cm_id in case the
+ 	 * caller specified 0 for the port number.
+@@ -342,12 +361,6 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 	svc_xprt_set_local(&cma_xprt->sc_xprt, sa, salen);
+ 
+ 	return &cma_xprt->sc_xprt;
+-
+- err1:
+-	rdma_destroy_id(listen_id);
+- err0:
+-	kfree(cma_xprt);
+-	return ERR_PTR(ret);
+ }
+ 
+ /*
 -- 
 2.53.0
 
