@@ -1,42 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4733730648C;
-	Wed,  9 Sep 2026 05:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922AC34F483;
+	Wed,  9 Sep 2026 05:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932584; cv=none; b=TgEYOlwk5jH4ldE8xe6o0I/NeTHLpJqSKxK9+xZYb1CXwqpDMUfL5K0BLGacJQ/RTGoV9wnWdZUkVk9MvgbpmrooKYMJT2TxImcgXTPTQWywk9nsSykk+/21Ayh9u8wt8pit0aJ9LKFafWgj4a1oSeFNU9UuUMRis7QfSZiyzao=
+	t=1788932656; cv=none; b=mBLmMMbt+U2KInT49VD9nHPYabvGpmS6wJy0f4SNX6cZa6LtMTszVWYXvEk/0ysNg/aGViH7J3pJUk/+qaH3NHadLbhXQF7pSOjadJ9pa0aBMLXdsPUFIC7h4JrfgYRAr/MERQ8chQDxfVGq62KEgNaaMQE1NeRPKeul5MmULIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932584; c=relaxed/simple;
-	bh=rr3hEOzS6wNnpn7JbL58jpSP0MguAL6pqxYWDazAArU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eukbSKdykPWDjYAPNgo4magJyySavRycQ4NYJar/xqtpmS4yNW2NnFzFHdPoptXLNBeBMTF/fIrVvREKFbSaLswJBSWYkGQjwXIEwbBKwBe9XTgQpk3aMgcUpNv/ue2meqbGMz52PWD4GiWlbdxRF2HBgY/z6Ld82i9+2lRRv5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGuqOTOk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788932656; c=relaxed/simple;
+	bh=ncL1TZaUvrafoNmevXZ2l6gNwmK0Gf7X0LneI3k+DaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KjHOd0WfunI26lCWXjfho6Sdt/l5ZnU5IX4FlcHOJ3feKNDQK9c7V1cXnqR415p2KkiNGeusXubc/KiUjdf6pM5natqWJvQJDpKkJ/8DufK1V0Mkc80mN8/caFLTp8VFPlaQUbeE57V4fjBa0T2qRR//wbQyXwpv5EdXR63zoGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=sUOy8V56; arc=none smtp.client-ip=115.124.28.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGuqOTOk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F831F00A3E;
-	Wed,  9 Sep 2026 05:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788932582;
-	bh=zf7x3TbXalEJF2sMMhkyWdw4YMTc1v08MJk4nc1HYGk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZGuqOTOkY5Ye+gQ2NavGARPwZJ4AviIjC/FUBAtdyx8hiD0jg6U4jIL2RQLlRmRFg
-	 q/KOQgrFtvPOAA4KUc3JsWjwbQFwomgGq2FbM0DdkUbrUQNtmjOsrKxo/4KmpRiOi7
-	 fHV/W2yB2gpxXH6wnPfksr+AhGx9GxD1Z+rgdT53uB6FxTa1nltLq9pY0aEOOu7uMH
-	 DB8TqOzDXvjBrToV+XztpWPy4iXIThX5OlWgriTH2N/0qFT3wiDsb4RRyZRMj2sQs/
-	 Sx9xtn+/zYEzfvEfRJMSCXAiDJfAGCub2nR+m+q93FpZXsxNfRBSmFbCNRIfwuQVye
-	 mHjTKZ6kjKX+A==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y] mm/damon/paddr: drop last same folio access check reuse optimization
-Date: Tue,  8 Sep 2026 22:42:54 -0700
-Message-ID: <20260909054255.253652-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090853-handoff-bootlace-9e07@gregkh>
-References: <2026090853-handoff-bootlace-9e07@gregkh>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="sUOy8V56"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1788932643; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=clFMEoaK0/ropSvPOKmrmoJ/NX3PTGHrk1ZEqEfZ2Gw=;
+	b=sUOy8V56Hts7+VMLHZRqB5ibeq5aDMG9g4bwT5VUOaBhh+0Ife+pQpYrjTALIdeWFjxA9db+7/bYt1sOZWmcWu3cCsV7hceTvyfBmxeotXeQHOWmsC6G+BYqlGNdivqcV5tuzImwTl65EASjXUoar6a/+BLkFGNmBsOD1w4tgXE=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.169033|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00438728-0.000974205-0.994639;FP=11404490654595305044|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.j9ME9Bu_1788932641;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.j9ME9Bu_1788932641 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 09 Sep 2026 13:44:02 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Liu Haijun <haijun.liu@mediatek.com>,
+	Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] net: wwan: t7xx: validate the HS2 message data length
+Date: Wed,  9 Sep 2026 13:44:01 +0800
+Message-ID: <20260909054401.718959-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,76 +51,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-It can race when multiple kdamonds are being used.  The problem from the
-race is doubtful, but the gain from the optimization is also doubtful.
-Simply drop the optimization in favor of code simplicity.
+control_msg_handler() passes the modem-supplied data_length field of a
+CTL_ID_HS2_MSG message straight to t7xx_fsm_append_event(), which
+memcpy()s that many bytes out of the skb.  Nothing compares the field
+with the actual length of the message, so a modem reporting a larger
+data_length makes the driver read past the end of the skb and store
+kernel heap memory in the FSM event.
 
-The user impact is doubtfully trivial.  After all, this kind of
-interference can happen only by intentional user setup.  Even if it
-happens, it will be rare, and the consequence is degradation of the
-best-effort monitoring results.  No critical consequences like kernel
-panic or memory corruption happen.
+0e7c074cfcd9 ("net: wwan: t7xx: validate port_count against message
+length in t7xx_port_enum_msg_handler") added this kind of check for
+the port enumeration path but missed the handshake path.
 
-The race was discovered [1] by Sashiko.
+Reject the message when data_length does not fit into the skb.
 
-Link: https://lore.kernel.org/20260715031002.108504-5-sj@kernel.org
-Link: https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org [1]
-Fixes: a28397beb55b ("mm/damon: implement primitives for physical address space monitoring")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit f23f0aa62b2f32c2b12f95959fc4603ef81678b2)
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: da45d2566a1d ("net: wwan: t7xx: Add control port")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
- mm/damon/paddr.c | 21 ++++-----------------
- 1 file changed, 4 insertions(+), 17 deletions(-)
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 7bc8d79c7fa07..d1d047f494aed 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -120,7 +120,7 @@ static bool __damon_pa_young(struct folio *folio, struct vm_area_struct *vma,
- 	return !result->accessed;
- }
+Verified in a QEMU guest with a fault injector feeding the driver's
+control port thread a handshake message whose data_length exceeds the
+skb: the unpatched driver trips KASAN on a read of 8192 bytes past a
+500-byte payload, and the extra bytes land in the FSM event.  With
+this check the message is rejected, and well-formed handshakes are
+unaffected.
+ drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
+index f869e4ed9..0f2ead8a7 100644
+--- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
++++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
+@@ -178,22 +178,32 @@ static int control_msg_handler(struct t7xx_port *port, struct sk_buff *skb)
  
--static bool damon_pa_young(unsigned long paddr, unsigned long *page_sz)
-+static bool damon_pa_young(unsigned long paddr)
- {
- 	struct folio *folio;
- 	struct page *page = damon_get_page(PHYS_PFN(paddr));
-@@ -161,29 +161,16 @@ static bool damon_pa_young(unsigned long paddr, unsigned long *page_sz)
- 	folio_put(folio);
+ 	ctrl_msg_h = (struct ctrl_msg_header *)skb->data;
+ 	switch (le32_to_cpu(ctrl_msg_h->ctrl_msg_id)) {
+-	case CTL_ID_HS2_MSG:
++	case CTL_ID_HS2_MSG: {
++		u32 data_length;
++
+ 		skb_pull(skb, sizeof(*ctrl_msg_h));
++		data_length = le32_to_cpu(ctrl_msg_h->data_length);
  
- out:
--	*page_sz = result.page_sz;
- 	return result.accessed;
- }
+ 		if (port_conf->rx_ch == PORT_CH_CONTROL_RX ||
+ 		    port_conf->rx_ch == PORT_CH_AP_CONTROL_RX) {
+ 			int event = port_conf->rx_ch == PORT_CH_CONTROL_RX ?
+ 				    FSM_EVENT_MD_HS2 : FSM_EVENT_AP_HS2;
  
- static void __damon_pa_check_access(struct damon_region *r)
- {
--	static unsigned long last_addr;
--	static unsigned long last_page_sz = PAGE_SIZE;
--	static bool last_accessed;
--
--	/* If the region is in the last checked page, reuse the result */
--	if (ALIGN_DOWN(last_addr, last_page_sz) ==
--				ALIGN_DOWN(r->sampling_addr, last_page_sz)) {
--		if (last_accessed)
--			r->nr_accesses++;
--		return;
--	}
-+	bool accessed;
+-			ret = t7xx_fsm_append_event(ctl, event, skb->data,
+-						    le32_to_cpu(ctrl_msg_h->data_length));
+-			if (ret)
+-				dev_err(port->dev, "Failed to append Handshake 2 event");
++			if (data_length > skb->len) {
++				dev_err(port->dev, "Invalid HS2 message length %u\n",
++					data_length);
++				ret = -EINVAL;
++			} else {
++				ret = t7xx_fsm_append_event(ctl, event, skb->data,
++							    data_length);
++				if (ret)
++					dev_err(port->dev, "Failed to append Handshake 2 event");
++			}
+ 		}
  
--	last_accessed = damon_pa_young(r->sampling_addr, &last_page_sz);
--	if (last_accessed)
-+	accessed = damon_pa_young(r->sampling_addr);
-+	if (accessed)
- 		r->nr_accesses++;
--
--	last_addr = r->sampling_addr;
- }
+ 		dev_kfree_skb_any(skb);
+ 		break;
++	}
  
- static unsigned int damon_pa_check_accesses(struct damon_ctx *ctx)
+ 	case CTL_ID_MD_EX:
+ 	case CTL_ID_MD_EX_ACK:
 -- 
-2.47.3
+2.43.0
 
