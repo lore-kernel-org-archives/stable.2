@@ -1,138 +1,466 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABE756C621
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BBA313293;
+	Wed,  9 Sep 2026 15:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966435; cv=none; b=DWGBb5XpfZWw5oTer4vamRqsfxX0d5ZywFQxuSIbc6LA8y3JwzSNtQenA5VSOQrJkW127fD7I2XBfSr0nlJ0lmtwsGP50ci+AYB4TgJaE/xKFxty0GhYwdy+c8h5b+NfzG5y150AUC9iMe9304OyyIuFViAYN/gqljHe3J1VhHg=
+	t=1788966555; cv=none; b=P1IBc4I1DJYEE7xrxleZqDhwk74Ao8HFS9/3uMpM6RZOuxBXYzM5LWnpFfkdu1S0VB7G9qKqGAhu54fRQldcCFRBfyq7W4V1BnJYVF3gXBGqeLSMVAGvy7cQ7OZS8x9k47/wubUoDAjd9G4AkWjRrQI1ZFelChq7N8h6O2ghxQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966435; c=relaxed/simple;
-	bh=Z2au/zKMsNaHmguNeaqh+iFtHuoMEhLideBKGSi0+Y0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fNEvkOpfeQPnYkV7CWT2jWQC5CDXhWsnAOZmlIs2vwrWDMA6+34KyO1ECYc6a3gae89SyfarKRcM8IT7pEINWe8phTvGmiOGY8oMgUdjMDTCGhbIyuiFh9PlaaX76CmohFwbhNuAdLRpeinhBSq60JoqtmdCCGPx1vaCYle6xbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=peBvJebl; arc=none smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788966555; c=relaxed/simple;
+	bh=bpDVWqm4+VVzatSkBSi14m9f1ihulJCAA1Sa60EcEt0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jt1J8MFcHDZYr9mBRJL0TtalXq0vm1y+4D1up3DTFeLXSrkLxpIrmxQqcx4uiFOwoJXL7f2h9DBiXg+DvA439C/d3n5S9HaK+xSv6tXKC0YQ7j+YmNv2GXoPUrFwKYMNN1gzytIYAONsNWZgw6C0kgTjrrfgHwwrWDsnH0We4v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SVFDo0o4; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="peBvJebl"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-871c8a36fe3so67746277b3.1
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 08:07:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788966432; x=1789571232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0bL+hQaKHbTQh2MApIdEHF5AP7KIOzy8y9uYEIbPJE4=;
-        b=peBvJebl0rb3bjqoBZ1FH1L0iwy4UIG2/vcPDfbQ5Ni2GtO0WWDLwqHlt7Vbor8dMm
-         4Ba/JylNbxjHSMzHjxFXQYHv5LPTn1rH8FOr2qO1FsoEQtYHOTvhtK9WNfdmIjJRFNw3
-         aioKXndWrJCkani+4L5XZ3c54XrhZkyTKUgeTcr1zdtAd+ntAeproiluRm7eTHIBJQYq
-         UCAJE+B7L/kUgOrDHyJub4IAGpd2LSyUfy9vSg+wekfOkb0gWMsDyfyrR1sZVYZ/bFvj
-         HsTgPdSz/WQmwMw1xFinuZc7ydhRBgu+OYCGsno7e75mjsHkWfsPMJAR7SZ7yPB33pxo
-         Ba0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788966432; x=1789571232;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0bL+hQaKHbTQh2MApIdEHF5AP7KIOzy8y9uYEIbPJE4=;
-        b=PAmX+Si9S9NpRuMwTv/r0qBwFGHcZg007Q3JJcIkS6SLUzONBVwsCUiF/IuHmux3K9
-         wvOQeTU+8Aa7yE5TG6ghQkMv2OzVQa5jQFHsMA0tNenbWI6bSe5zy7pes311Cxv+jnAq
-         RD944rjZ9YCUpkTAML3NKYiJNY9dtHox4wTbC2tiDbHNGSjABsrrgr3VY9xQBMs7o57h
-         wHVUzmTGeLthf8XJSFWMm+o4bsdWBsffkqRBnXvAF5PX01mFzuN7aLWyb+Okz9ckCTUz
-         Hdg5eMJB/n6kGhfjec7e6mgQuMh9KJRIJNzYQ52GXN7/MbYZvrdi/uiPCWIUXu7wFDnP
-         ketg==
-X-Forwarded-Encrypted: i=1; AKwUvByyEjQmlWE37XBoVQa6x1u6XRcF+Id7dNOvzQNrIoTJtj+Lt2E49GIsFn2AuH9uPdHjklnj+qo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNgQTa4hfgPen1Wiyb/pd7mfCO8jxrNMVP0bEhauFuEf/A//Zz
-	wV/WjqZcmFTJZtE1dJfmttivPAtm6IpysWgL7x3/VDskeRwxbD29JLu/
-X-Gm-Gg: AYBFou3PIlNP3cmhpNqxLvVI7qTGY+lVRt1ALnuS99Y/C0Ncyht56g8KZzZ4izesexR
-	jYiPUgYz3Hyg4La5pn2DuAPkE4KpNnaSnWESpvzEOEHPrpZYOJYxf3RIekaYBoAgu7kn9a3G+E/
-	cKNC6LkKgFxe3bSyjGQJsbWuvO5/Qgtf7dOzgenHX7aHnO9cOqCO+dhpECv84b0/6wSn/RpLePi
-	TtEMOEUpRe6TGG+MjYwncveM0SRj+3EM9QcIdWGH2wEUxATcJGtC4oP8C6ot9hB33CJn5hcLpW2
-	1/Bke/EH4h8ZVm7yjc19o//ui5ck1eGDo77taf+aW3joFVEEzCNSJ3HysDpniybCXYS/pU6YBTF
-	GSZuaaMOGqhtwAXg8y4k24Dop1NKu9sTW1SJyAN/d8M9TxoGgNKmNyV8vx1QT9y1J3UPCLjQnOY
-	DLPFUOzt5+8H8bpc7H/bXqmgPQfjIVj9PSS85wsdSpF61T6fnKbsk0nb01NFb7cb7rV2wPjpuA
-X-Received: by 2002:a05:690c:c00f:b0:833:f9bd:b289 with SMTP id 00721157ae682-8712c90aaf9mr108547867b3.31.1788966431841;
-        Wed, 09 Sep 2026 08:07:11 -0700 (PDT)
-Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054207c16sm141409421cf.28.2026.09.09.08.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:07:11 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3] media: as102: initialize mutexes before registering frontend
-Date: Wed,  9 Sep 2026 12:06:44 -0300
-Message-ID: <20260909150644.232424-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SVFDo0o4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=08pCYz9qeWuPC8LYrEp70FO3fJ/vlEE6PlOEv50UwTU=;
+	b=SVFDo0o4Io7csTxr3TeJVeei+vDuf8iHfqkLNt1cOceXZ6Dw3GMrOd8HqRdD0J
+	94qlGbbRiJADEYpnOeNDy8dcHcdQGSs61M+tQoRZg6SznN0HOFAZDu02iL5IiVrf
+	en9RKBHX+9vQp2IFHSV94jQM0Dc8WJzNuPuPHSZVZTO/Y=
+Message-ID: <5061b516-9804-4972-9e48-b854ac9696a0@163.com>
+Date: Wed, 9 Sep 2026 23:08:42 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5 2/4] ntfs: set the volume dirty bit unconditionally on
+ metadata changes
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260909091052.1217728-1-zenghongling@kylinos.cn>
+ <20260909091052.1217728-3-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260909091052.1217728-3-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3ZkR7dqFqATCmBg--.34576S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3trW5Wr48AF48ur1Uuw4fAFb_yoW8WFW5Go
+	WFk3ZIvanYkr15Aryvk3y8Jasxua98GrW8JFW5ur1DZasYgw1qkry29wsrWa43W3WrKF4D
+	K34xJ34rZrZ8AFyUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU0mhwUUUUU
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hy-imqhdnwlbQAA3K
 
-The bus adapter mutex and the stream mutex are initialized after the
-frontend has been registered, but the frontend's stream control
-callback as102_stream_ctrl() takes the bus adapter mutex, which can be
-used before it is initialized:
 
-	INFO: trying to register non-static key.
-	...
-	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
-	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-Initialize the mutexes before registering the adapter and frontend.
+在 2026/9/9 17:10, Hongling Zeng 写道:
+> The callers in file.c and namei.c skip ntfs_set_volume_flags() when
+> the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
+> runs without any lock: if it observes the bit set and ntfs_sync_fs()
+> clears it under the mrec_lock before the caller's metadata update
+> completes, the set is skipped and the volume can end up clean on disk
+> despite the modification, so chkdsk will not run on the next mount.
+> 
+> Drop the caller-side checks and call ntfs_set_volume_flags()
+> unconditionally: ntfs_write_volume_flags() already skips the write
+> under the mrec_lock when the combined value is unchanged.  That
+> unconditional call costs one mrec_lock acquisition per metadata
+> operation even in the already-dirty steady state; it cannot be
+> avoided, because deciding to skip the call without the lock is itself
+> what allows a concurrent ntfs_sync_fs() clear to lose the set.
+> 
+> The IOCB_NOWAIT path in ntfs_file_write_iter() must not sleep (it
+> takes the inode lock with inode_trylock() for exactly that reason),
+> so it uses ntfs_set_volume_flags_nowait(): the mrec_lock is acquired
+> with mutex_trylock(), the search context is allocated with GFP_ATOMIC,
+> and a $Volume inode carrying an attribute list, whose extent mapping
+> could block, is rejected; each of those failures returns -EAGAIN.
+> Any failure of the marking fails the NOWAIT request itself, so the
+> write can no longer proceed on a volume whose dirty bit could not be
+> set.
+> 
+> The sleeping callers keep the pre-existing behavior of proceeding
+> when the marking fails, so the dirty bit remains best-effort there;
+> the NOWAIT write path is the exception in that it fails the request.
+> 
+> This closes the variant where the set is skipped outright.  A clear
+> for a concurrent, error-free sync can still land between the set and
+> the end of the metadata operation; that mark-at-start lifecycle is
+> pre-existing and is not changed by this patch.
+> 
+> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/attrib.c | 30 +++++++++++++++++-----
+>   fs/ntfs/attrib.h |  2 ++
+>   fs/ntfs/file.c   | 29 +++++++++++++++------
+>   fs/ntfs/namei.c  | 24 ++++++------------
+>   fs/ntfs/ntfs.h   |  1 +
+>   fs/ntfs/super.c  | 66 ++++++++++++++++++++++++++++++++++++++++++------
+>   6 files changed, 114 insertions(+), 38 deletions(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index c7c09a751c6a..b51f8abeaacf 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -1678,20 +1678,24 @@ void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx)
+>   }
+>   
+>   /*
+> - * ntfs_attr_get_search_ctx - allocate/initialize a new attribute search context
+> + * ntfs_attr_get_search_ctx_gfp - allocate/initialize a new attribute search
+> + * context using the given allocation flags
+>    * @ni:		ntfs inode with which to initialize the search context
+>    * @mrec:	mft record with which to initialize the search context
+> + * @gfp:	allocation flags for the search context
+>    *
+> - * Allocate a new attribute search context, initialize it with @ni and @mrec,
+> - * and return it. Return NULL if allocation failed.
+> + * Allocate a new attribute search context with kmem_cache_alloc(@gfp),
+> + * initialize it with @ni and @mrec, and return it. Return NULL if allocation
+> + * failed.  Callers that must not sleep, e.g. those servicing an IOCB_NOWAIT
+> + * request, pass GFP_ATOMIC so the allocation cannot enter direct reclaim.
+>    */
+> -struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+> -		struct mft_record *mrec)
+> +struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx_gfp(
+> +		struct ntfs_inode *ni, struct mft_record *mrec, gfp_t gfp)
+>   {
+>   	struct ntfs_attr_search_ctx *ctx;
+>   	bool init;
+>   
+> -	ctx = kmem_cache_alloc(ntfs_attr_ctx_cache, GFP_NOFS);
+> +	ctx = kmem_cache_alloc(ntfs_attr_ctx_cache, gfp);
+>   	if (ctx) {
+>   		init = ntfs_attr_init_search_ctx(ctx, ni, mrec);
+>   		if (init == false) {
+> @@ -1703,6 +1707,20 @@ struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+>   	return ctx;
+>   }
+>   
+> +/*
+> + * ntfs_attr_get_search_ctx - allocate/initialize a new attribute search context
+> + * @ni:		ntfs inode with which to initialize the search context
+> + * @mrec:	mft record with which to initialize the search context
+> + *
+> + * Allocate a new attribute search context, initialize it with @ni and @mrec,
+> + * and return it. Return NULL if allocation failed.
+> + */
+> +struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(
+> +		struct ntfs_inode *ni, struct mft_record *mrec)
+> +{
+> +	return ntfs_attr_get_search_ctx_gfp(ni, mrec, GFP_NOFS);
+> +}
+> +
+>   /*
+>    * ntfs_attr_put_search_ctx - release an attribute search context
+>    * @ctx:	attribute search context to free
+> diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+> index 6b4fa9f57640..dd3c39668eff 100644
+> --- a/fs/ntfs/attrib.h
+> +++ b/fs/ntfs/attrib.h
+> @@ -88,6 +88,8 @@ static inline s64 ntfs_attr_size(const struct attr_record *a)
+>   void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx);
+>   struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+>   		struct mft_record *mrec);
+> +struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx_gfp(
+> +		struct ntfs_inode *ni, struct mft_record *mrec, gfp_t gfp);
+>   void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx);
+>   int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol,
+>   		const __le32 type, const s64 size);
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 007d1614b9ac..32a644ff21b6 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+>   		goto out;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	if (ia_valid & ATTR_SIZE) {
+>   		err = ntfs_setattr_size(vi, attr);
+> @@ -620,8 +619,24 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		goto out_lock;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> +	/*
+> +	 * The volume must be marked dirty before the modification is made,
+> +	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
+> +	 * can clear the bit concurrently and the modification would then
+> +	 * land on a volume that is clean on disk.  In the IOCB_NOWAIT case
+> +	 * the marking must not sleep, so it uses the nowait variant, and
+> +	 * any failure of the marking fails the request instead of letting
+> +	 * the write proceed on a volume that may be clean on disk.
+> +	 */
+> +	if (iocb->ki_flags & IOCB_NOWAIT) {
+> +		err = ntfs_set_volume_flags_nowait(vol, VOLUME_IS_DIRTY);
+> +		if (err) {
+> +			ret = err;
+> +			goto out_lock;
+> +		}
+> +	} else {
+>   		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	}
+>   
+>   	pos = iocb->ki_pos;
+>   	count = ret;
+> @@ -1153,11 +1168,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+>   			return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+> -		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> -		if (err)
+> -			return err;
+> -	}
+> +	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	if (err)
+> +		return err;
+>   
+>   	old_size = i_size_read(vi);
+>   
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index fdf52fac4329..3e0adb9a0ea4 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+>   	kmem_cache_free(ntfs_name_cache, uname);
+> @@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+>   	if (err)
+> @@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+>   		return ERR_PTR(err);
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+>   	kmem_cache_free(ntfs_name_cache, uname);
+> @@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+>   	if (err)
+> @@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+>   		new_dir_first = is_subdir(new_dentry->d_parent,
+>   					  old_dentry->d_parent);
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+>   	if (new_ni)
+> @@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+>   		goto out;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+>   			   symname, symlen);
+> @@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	switch (mode & S_IFMT) {
+>   	case S_IFCHR:
+> @@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+>   		return -ENOMEM;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ihold(vi);
+>   	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+> index 45f77848a9cf..b76501a91143 100644
+> --- a/fs/ntfs/ntfs.h
+> +++ b/fs/ntfs/ntfs.h
+> @@ -219,6 +219,7 @@ struct option_t {
+>   };
+>   extern const struct option_t on_errors_arr[];
+>   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags);
+> +int ntfs_set_volume_flags_nowait(struct ntfs_volume *vol, __le16 flags);
+>   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags);
+>   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label);
+>   
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index 6ba19986a598..fbed0ecd9250 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -357,6 +357,7 @@ void ntfs_handle_error(struct super_block *sb)
+>    * @vol:	ntfs volume on which to modify the flags
+>    * @set_bits:	bits to set in the volume information flags
+>    * @clear_bits:	bits to clear in the volume information flags
+> + * @nowait:	do not wait for the $Volume mrec_lock
+>    *
+>    * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+>    * instead (see below).
+> @@ -368,19 +369,33 @@ void ntfs_handle_error(struct super_block *sb)
+>    * All bit manipulation is done on CPU-endian values, and the result is
+>    * converted back to little-endian before storing it.
+>    *
+> + * When @nowait is set, the call must not sleep: the mrec_lock is acquired
+> + * with mutex_trylock() and a contended lock fails with -EAGAIN, the search
+> + * context is allocated with GFP_ATOMIC and exhausted memory fails with
+> + * -EAGAIN, and a $Volume inode carrying an attribute list, whose extent
+> + * mapping could block, is rejected with -EAGAIN as well.  The remaining
+> + * transition work is non-blocking: the mft record of $Volume stays mapped
+> + * for the lifetime of the mount, so the attribute lookup is an in-memory
+> + * scan, and marking the record dirty does not submit I/O.
+> + *
+>    * Return 0 on success and -errno on error.
+>    */
+>   static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+>   		const __le16 set_bits, const __le16 clear_bits,
+> -		const bool skip_if_errors)
+> +		const bool skip_if_errors, const bool nowait)
+>   {
+>   	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+>   	struct volume_information *vi;
+> -	struct ntfs_attr_search_ctx *ctx;
+> +	struct ntfs_attr_search_ctx *ctx = NULL;
+>   	u16 flags;
+>   	int err;
+>   
+> -	mutex_lock(&ni->mrec_lock);
+> +	if (nowait) {
+> +		if (!mutex_trylock(&ni->mrec_lock))
+> +			return -EAGAIN;
+> +	} else {
+> +		mutex_lock(&ni->mrec_lock);
+> +	}
+>   
+>   	if (skip_if_errors && NVolErrors(vol))
+>   		goto done;
+> @@ -394,9 +409,21 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+>   	if (le16_to_cpu(vol->vol_flags) == flags)
+>   		goto done;
+>   
+> -	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+> +	/*
+> +	 * The nowait path must not sleep past this point either.  An
+> +	 * attribute list on $Volume would make ntfs_attr_lookup() map
+> +	 * extent mft records, which can block; sane volumes never have
+> +	 * one, so refuse such a volume instead of risking the sleep.
+> +	 */
+> +	if (nowait && NInoAttrList(ni)) {
+> +		err = -EAGAIN;
+> +		goto put_unm_err_out;
+> +	}
+Hi Hongling,
+    This should not go through put_unm_err_out. Both this case and the 
+NOWAIT allocation failure below return -EAGAIN for conditions where the 
+operation cannot be completed without blocking, but put_unm_err_out 
+calls ntfs_error(). That turns an expected NOWAIT failure into a 
+filesystem error and may trigger errors=remount-ro or errors=panic.
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
-Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
-Tested-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
-Changes since v1:
-		- Succesfully passed available repo. Added Tested-by tag.
-Changes since v2:
-		- Reorder commit tags to fix warning.
+   Please use a separate exit that only drops the search context, 
+unlocks mrec_lock and returns the error. The mrec_lock contention case 
+already returns directly.
 
- drivers/media/usb/as102/as102_drv.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Thanks,
+Baolin.
 
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a0a7..a6dd675689f5 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
- 
-+	/* init bus mutex for token locking */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+
-+	/* init start / stop stream mutex */
-+	mutex_init(&as102_dev->sem);
-+
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
- 	}
- 
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
--- 
-2.51.0
+> +
+> +	ctx = ntfs_attr_get_search_ctx_gfp(ni, NULL,
+> +			nowait ? GFP_ATOMIC | __GFP_NOWARN : GFP_NOFS);
+
+Also, GFP_NOWAIT should be sufficient for the search-context allocation. 
+This is process context and the operation only needs to avoid reclaim, 
+so using GFP_ATOMIC unnecessarily consumes the atomic allocation reserves.
+
+>   	if (!ctx) {
+> -		err = -ENOMEM;
+> +		err = nowait ? -EAGAIN : -ENOMEM;
+>   		goto put_unm_err_out;
+>   	}
+>   
+> @@ -435,7 +462,30 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+>    */
+>   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>   {
+> -	return ntfs_write_volume_flags(vol, flags, 0, false);
+> +	return ntfs_write_volume_flags(vol, flags, 0, false, false);
+> +}
+> +
+> +/*
+> + * ntfs_set_volume_flags_nowait - set bits without sleeping
+> + * @vol:	ntfs volume on which to modify the flags
+> + * @flags:	flags to set on the volume
+> + *
+> + * Same as ntfs_set_volume_flags(), except that the call does not sleep.
+> + * Contended mrec_lock, exhausted atomic memory and an attribute list on
+> + * $Volume (whose extent mapping could block) each fail with -EAGAIN; see
+> + * ntfs_write_volume_flags() for why the remaining path is non-blocking.
+> + * For callers servicing an IOCB_NOWAIT request, which must fail with
+> + * -EAGAIN rather than sleep.
+> + *
+> + * A failure means the flags were NOT set; such callers should fail the
+> + * request rather than proceed with the modification.
+> + *
+> + * Return 0 on success, -EAGAIN when the operation would have to sleep and
+> + * -errno on other errors.
+> + */
+> +int ntfs_set_volume_flags_nowait(struct ntfs_volume *vol, __le16 flags)
+> +{
+> +	return ntfs_write_volume_flags(vol, flags, 0, false, true);
+>   }
+>   
+>   /*
+> @@ -451,7 +501,7 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>    */
+>   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>   {
+> -	return ntfs_write_volume_flags(vol, 0, flags, false);
+> +	return ntfs_write_volume_flags(vol, 0, flags, false, false);
+>   }
+>   
+>   /*
+> @@ -464,7 +514,7 @@ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>    */
+>   static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
+>   {
+> -	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+> +	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true, false);
+>   }
+>   
+>   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
 
