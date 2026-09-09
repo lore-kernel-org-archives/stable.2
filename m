@@ -1,107 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B9335C695;
-	Wed,  9 Sep 2026 06:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4068035C695;
+	Wed,  9 Sep 2026 06:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935304; cv=none; b=MLhUFoToFAViT8F3YghdGEy8vH97Ywf4sG1UyaDGpB0EXlXX5eCg8dpso8stJpF8R1TbqvOt9ZfJPOGXxXl3tCFOWDivgKKG6UW4fd788S3n8zul/SgbltdTAyVyXJCMdZejIxshY1QTG8J/Aax1DzorM12DuOUdYa7DdhDyF9A=
+	t=1788935328; cv=none; b=q2mXhqNXJyTCIUlyL5i0iaTlCXqfZ+965Epw5vUH79EKFHVep9kFVDfpiNhR9CPlw+qN0QXrP6EFu8WTz+XTSwwJJKnOSDh1L/8NKNdTTcG2jobRTJZ0Om7OsiG/XYIV9B2Y/k0sE0Cf2JvYZnAyMHgK70oKQgfZoYJri7GEj6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935304; c=relaxed/simple;
-	bh=zqkdrlLQG6cKcYa6GejJtZVgSfIg2Txq0yW8gXUO380=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=evwBaQI4G7AQ06KmkOYgco8kntbRclFoTXoG/09MXVFRtLM895jabt6mv37DwSDya8ifQeWkU+T58+LJHSSZ5m0ZaEYixJYSVRwaFSiREdaMfFuicasn8WHHu4mHwVmZj7PsLtapdbuqIEVWVUKjX5ng1NNQM7OPT51MtKA0jw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4glpN84; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788935328; c=relaxed/simple;
+	bh=gLHIkh9BpZwcVrEU6pQDyK+XKjaOp6d+OUll/Tehm/g=;
+	h=Date:To:From:Subject:Message-Id; b=O7EldpnBfefyIH0T1eGa8CKpl8rmfFgTsFmRnxwwQejCWU9dK/Vjc2m8rLoqFicqndjyjkRZEWkDFbJiuAhk/C+CLD5xhEabsZOQ3WZiDk9V25UOA6kPPavrHV28R/8ysCNhU1BGE9KrpAtlKK09nXHuZh+aMzJzCUlu26jQobw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wO0UVm6V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4glpN84"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8841F00A3D;
-	Wed,  9 Sep 2026 06:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788935303;
-	bh=Hv6bPUikw/0ByI6pTLFl4Ni5u+TBEJppPMIVSYIDOLw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J4glpN84OJ44+l9JO21mBpU96YtrfIn1Md/Xn56uv0UljoNchR5x7kGJrUsAX8END
-	 lfyCQJ9B6iY7V4+LhS28fFZ8H+vi6iT7YtUfd3/VlCQIruuBZbcYzBNIsiEn/Wq8Sm
-	 17pjOXn3/VBSyM724LnlW/chcFPXNuDnm4AfZANVtMqZ9KiL4r32NHbyLI9FnIZj3S
-	 s/z++WOifBFm94x0jaQ9XaawTjE9FZbFye39u7HmfEF+7gw2yVFFQRFCHDav4hzoh7
-	 Ja/qvk10/OG3yr68qbTJOq5h9eb0Qh2BJFNjy7SsDsjO0PjBw6xUMCkweMgJaB7Vou
-	 P1uEkosXyiuaA==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: stable@vger.kernel.org,
-	damon@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.18.y] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
-Date: Tue,  8 Sep 2026 23:28:14 -0700
-Message-ID: <20260909062815.25299-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260909033832.132107-1-sj@kernel.org>
-References: 
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wO0UVm6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FED1F00A3A;
+	Wed,  9 Sep 2026 06:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788935326;
+	bh=eYwi4tNpzrN8Y09NVGaTLmbUE4I536ciMBM9HR2Amfw=;
+	h=Date:To:From:Subject;
+	b=wO0UVm6VWFzVWSUzmSEYG6QJIlq+9QeywZGiwgNf5gw4d3f6tYbsI/9r02Xha1CXM
+	 0W0X2nmmhJid9fG7V+tiVEsSbmcztmUzhiSGPcrYJE7rlDcHW8t+5PWoMt4HU+q4y8
+	 Yb7TOkpCWPlGDh1JB1aXGXgIoMmfr7dUdBjMvPDw=
+Date: Tue, 08 Sep 2026 23:28:46 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,liam@infradead.org,jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-hotfixes-stable] mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch removed from -mm tree
+Message-Id: <20260909062846.84FED1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-On Tue,  8 Sep 2026 20:38:32 -0700 SJ Park <sj@kernel.org> wrote:
-
-> KUNIT_EXPECT_EQ() does not abort the execution of test code when the
-> expectation is not met.  But damon_test_merge_regions_of() code after its
-> initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It does a
-> per-region test with a hard-coded number of regions that is correct only
-> if the expectation was met.  As a result, __nth_region_of() could return
-> NULL, and the test code can dereference NULL pointers.  Fix the issue by
-> catching the expectation failure and skip the per-region tests.
-> 
-> The user impact on realistic setups should be negligible, as it is a unit
-> test.
-> 
-> The issue was discovered [1] by Sashiko.
-> 
-> Link: https://lore.kernel.org/20260715031002.108504-3-sj@kernel.org
-> Link: https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org [1]
-> Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
-> Signed-off-by: SJ Park <sj@kernel.org>
-> Cc: <stable@vger.kernel.org> # 5.15.x
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> (cherry picked from commit b640708929aa956235866bf7717d89018c661083)
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/tests/core-kunit.h | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index 6687778752728..c1f0be6746abd 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -264,11 +264,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
->  	damon_merge_regions_of(t, 9, 9999);
->  	/* 0-112, 114-130, 130-156, 156-170 */
->  	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
-> +	if (damon_nr_regions(t) != 6)
-> +		goto out;
-
-Sashiko found the above if condition is wrong.  It should 's/6/5/'.  Please
-ignore this patch.  I will post fixed one as another reply.
-
-[1] https://lore.kernel.org/20260909034527.D29C71F00A3A@smtp.kernel.org
-
->  	for (i = 0; i < 5; i++) {
->  		r = __nth_region_of(t, i);
->  		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
->  		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
->  	}
-> +out:
->  	damon_free_target(t);
->  }
->  
-> -- 
-> 2.47.3
-> 
-> 
 
 
-Thanks,
-SJ
+The quilt patch titled
+     Subject: mm/vma: correctly unaccount on mmap_prepare() failure
+has been removed from the -mm tree.  Its filename was
+     mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch
+
+This patch was dropped because it was merged into the mm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: correctly unaccount on mmap_prepare() failure
+Date: Wed, 02 Sep 2026 19:08:08 +0100
+
+__mmap_setup() accounts memory for relevant mappings via:
+
+security_vm_enough_memory_mm()
+  -> __vm_enough_memory()
+    -> vm_acct_memory()
+
+If __mmap_setup() fails, this indicates that this accounting did not take
+place, and thus it's appropriate for __mmap_region() to jump to
+abort_munmap.
+
+However if call_mmap_prepare() fails, it also jumps there and any accounted
+memory is not correctly unaccounted.
+
+Fix this by handling each error separately.
+
+Link: https://lore.kernel.org/20260902-fix-unaccount-mmap_prepare-v1-1-ea070189fdfb@kernel.org
+Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/vma.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+--- a/mm/vma.c~mm-vma-correctly-unaccount-on-mmap_prepare-failure
++++ a/mm/vma.c
+@@ -2859,10 +2859,12 @@ static unsigned long __mmap_region(struc
+ 	map.check_ksm_early = can_set_ksm_flags_early(&map);
+ 
+ 	error = __mmap_setup(&map, &desc, uf);
+-	if (!error && have_mmap_prepare)
+-		error = call_mmap_prepare(&map, &desc);
+ 	if (error)
+ 		goto abort_munmap;
++	if (have_mmap_prepare)
++		error = call_mmap_prepare(&map, &desc);
++	if (error)
++		goto unacct_error;
+ 
+ 	if (map.check_ksm_early)
+ 		update_ksm_flags(&map);
+_
+
+Patches currently in -mm which might be from ljs@kernel.org are
+
+mm-vmpressure-remove-window-size-todo.patch
+tools-testing-selftests-mm-add-missing-gitignore-entries.patch
+mm-move-drivers-char-memc-to-mm-char-memc.patch
+mm-implement-file_is_dev_zero-to-uniquely-identify-dev-zero.patch
+mm-vma-only-permit-map_private-dev-zero-to-be-mapped-anonymous.patch
+mm-vma-make-map_private-mapped-dev-zero-mappings-truly-anonymous.patch
+tools-testing-vma-add-test-to-assert-map_private-dev-zero-is-anon.patch
+tools-testing-selftests-mm-add-map_private-dev-zero-merge-tests.patch
+mm-madvise-swap-in-cowd-map_private-file-mappings-on-madv_willneed.patch
+mm-huge_memory-zap-deposited-page-tables-after-an-rcu-grace-period.patch
+mm-enable-mmu_gather_rcu_table_free-for-most-2-level-architectures.patch
+mm-enable-mmu_gather_rcu_table_free-for-mmu-riscv.patch
+mm-enable-mmu_gather_rcu_table_free-for-mmu-arm.patch
+mm-enable-mmu_gather_rcu_table_free-for-arc-microblaze-xtensa.patch
+mm-enable-mmu_gather_rcu_table_free-for-sparc64.patch
+mm-enable-mmu_gather_rcu_table_free-for-m68k-coldfire.patch
+mm-enable-mmu_gather_rcu_table_free-for-sh-x2.patch
+mm-enable-mmu_gather_rcu_table_free-for-m68k-motorola.patch
+mm-enable-mmu_gather_rcu_table_free-for-sparc32.patch
+mm-make-userland-page-table-freeing-rcu-safe.patch
+mm-change-the-contract-for-free_pgtables-update-docs.patch
+
