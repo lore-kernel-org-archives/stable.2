@@ -1,37 +1,42 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4787C3587A2;
-	Wed,  9 Sep 2026 05:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C091A680B;
+	Wed,  9 Sep 2026 05:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931518; cv=none; b=YZADRxkkkqTdxEjydBk4Hl5FMfd+kEZNlzFYBGJJuFBEO7lvapVbjpXKSzhcPzqE67RaW3bjtGhm086w5Jr/LTokQ3Tk7LxHruszT1y4mZpHzk2HPivsYwNMzveQJRBaMvmfrdc9cKtn+ldd4DWu+VaXnR5/DWl/oN/2zL88c1I=
+	t=1788931630; cv=none; b=rMQiDZJILAzFUFYsy/H3H9f3jZOIFA+DcgMFAa7xLZn7qJ9+HmcoPpZR8uIRdI4Pxet6pZtcPoBmcMoOcJmAMjArFelvpDztkikZPnbDdE5bZSjLMGCiJMvZ/s0PfvI/WWcjLu4enXLw/y+YtfDeLMRvYb18+689CI/iWKe86ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931518; c=relaxed/simple;
-	bh=z1IMR72Jm/OXNjztBA3wGKpKghlaUl7Iv2sZZOJYPU0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FKxogttiVhOW+cO7F7sX2ddKUFAzpdbyb4PkjNr0Wpt3an8CaPxVYpY4/V7Tth6XTlv8582ZkK8DLGr18xYd6bRuSyYdVRjc6VqWQ6W5zQITead6gQXdCKE+SVOKp4yXOQxswVzYYXQDj0CA18c1qkjTbuRsFuOHEARdFF02pkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBHIX6w7aBq6uoBAQ--.7104S3;
-	Wed, 09 Sep 2026 13:25:05 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAHnKaw7aBqbcFoBA--.45453S2;
-	Wed, 09 Sep 2026 13:25:04 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: lucas.demarchi@intel.com
-Cc: thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] drm/xe/i2c: cancel the client work on remove
-Date: Wed,  9 Sep 2026 05:23:28 +0000
-Message-Id: <20260909052328.654682-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788931630; c=relaxed/simple;
+	bh=mxpYAIqJU62gIW3z9AhRv6JgDEi6ZowNVkkPPI5vGpM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ACNdkojoELAPKhN6WO62r6sXeTQN4Ula/kDikZIDGwY52V/0KbxA4Llgb32oWA+VieWUWpqVeEPNOECfu6pVD4YPHYsg4hUEop8TcXrSSl6cjLxuilnJasMcBb5XPl3arualSey0p+Mp9+GK8vYnyaRyNDvhIdQRhTGYVqURdPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPPlUIYL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPPlUIYL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34361F00A3A;
+	Wed,  9 Sep 2026 05:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788931629;
+	bh=WptrNirdhbP3mEMN+HhcAmKhx4WSuBEH9nP59iAD7pU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VPPlUIYL4ElTn+jg6HcGJ3yXosZLnoRg3sZLspkH+EJCUTgHiNNvf1xpi1dp/1RnA
+	 eQqkQtkBSYWVkHcYkOJfY7NYKqVk3zTj7r7LTwXKM2G/snxbmdbQIxiHfKa93BbFvx
+	 Uy4xK5PeubaI6iF3HUqXGydGcdNQLbtVnFp4s0y+bBknySI3tGt/IuO/d/93/nG76X
+	 z1iZaIpmhmfWSJeaDPXv3YfcctFzJw+2RgCHTR2prlPGXVyULrGB6nJgj+MSxsP2ti
+	 78FMa7Os4vMkhh+9DXEuPNtg+dFbi2ICRHvjpf5hIgcQ7bG7Dtt630wEVBx0fXhY4c
+	 ELGo4rpTxW2Zg==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.12.y] mm/damon/ops-common: use nr_accesses moving sum for quota score
+Date: Tue,  8 Sep 2026 22:27:00 -0700
+Message-ID: <20260909052700.238595-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090847-penknife-trout-eb12@gregkh>
+References: <2026090847-penknife-trout-eb12@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,69 +44,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAHnKaw7aBqbcFoBA--.45453S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?YhfASgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFzIrCNcQHfV2ckOR5KAS8rZcN3Zc9b3RzG5I2YoyNUuUXV
-	JaRR6vAqtJ69vbf58Vip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4Dtr47KFW8Kry7Kw1UXFc_yoW8CF17pr
-	sxWrW5GrZF9F42gw47Za1xAFyUCr4fArWSkr17J343WwsxKry8Zr98tayUJFyjyayrZa4j
-	yrn0q3y3urW5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+Since commit 42f994b71404 ("mm/damon/core: implement scheme-specific apply
+interval"), DAMOS scheme can be applied at any time.  At that time,
+nr_accesses may not be fully aggregated.  But the quota prioritization
+score is calculated using the not fully aggregated count.  As a result,
+the performance of DAMOS could be degraded.  Fix by using
+damon_nr_accesses_mvsum() instead.
 
-xe_i2c_remove() unregisters the client devices, the bus notifier and
-the adapter platform device, but it never drains i2c->work. A work
-item that is still queued or running when the adapter is unregistered
-dereferences i2c->adapter in i2c_new_client_device() after
-platform_device_unregister() has released the adapter. The work item
-is also embedded in the devm-allocated struct xe_i2c, so a work item
-still queued after the drm device devm unwind frees that allocation
-runs its callback on freed memory.
+The user impact of the issue is suboptimum DAMOS performance under certain
+setups.  Nonetheless, the bug was there from the beginning of the setup
+availability.  In other words, the suboptimum performance is the baseline
+of the setup and hence it didn't cause regression.  Also the extent of the
+suboptimality was not big enough to be found from users and testers.
+Still, this is a clear bug that is better to be fixed, and can be easily
+fixed.
 
-Cancel the work in xe_i2c_remove(), after bus_unregister_notifier()
-so that no new instance can be scheduled, and before the adapter is
-unregistered so that a running instance still finds a live adapter.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://lore.kernel.org/20260719161136.90191-1-sj@kernel.org
+Fixes: 42f994b71404 ("mm/damon/core: implement scheme-specific apply interval")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.7.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 6c25083f7ae7e2660d766169e5b4d3e96010503f)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/damon/ops-common.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 706783863d07..5a176d78193b 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -311,6 +311,7 @@ static void xe_i2c_remove(void *data)
- 		i2c_unregister_device(i2c->client[i]);
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 4b5638bbe0614..dea662a6747ce 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -80,8 +80,9 @@ int damon_hot_score(struct damon_ctx *c, struct damon_region *r,
+ 	unsigned int age_weight = s->quota.weight_age;
+ 	int hotness;
  
- 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe_i2c_remove_irq(i2c);
- }
+-	freq_subscore = r->nr_accesses * DAMON_MAX_SUBSCORE /
+-		damon_max_nr_accesses(&c->attrs);
++	freq_subscore = mult_frac(r->nr_accesses_bp / 10000,
++			DAMON_MAX_SUBSCORE,
++			damon_max_nr_accesses(&c->attrs));
+ 
+ 	age_in_sec = (unsigned long)r->age * c->attrs.aggr_interval / 1000000;
+ 	for (age_in_log = 0; age_in_log < DAMON_MAX_AGE_IN_LOG && age_in_sec;
+-- 
+2.47.3
 
