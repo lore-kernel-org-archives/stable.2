@@ -1,249 +1,217 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E96582BB9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FBF582BBA
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:58:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965910; cv=none; b=sf3rJOuLubEI5UHXDtI3SLcrkTcAf6DIeBAVBQwkt+i41TATI3DMB4/2m27/g6W4hjwUt9FFKHTdGojeffH/+wyuoIwkAV4tuNX0neFjsZyGraen+NU2ek2Qlc3vQObzJ12j6PAHSe+1uP9/Jyxdm9fy8tnS5olTPzTFqpEWvH0=
+	t=1788965910; cv=none; b=pSwA9n2nAQ9QBLF6EZCfRJjjqIhivDM9iO+InawJ6YWiUqVyDmF6g1Rx4gYoGoPuLcRSYGWH/I1NlhPkjEDB4ohPYaw2otZnjlOaFUnbCJIWopHqf1Q5gRdECx66ZYi1jWBpLQ6uWBP3S8+UbDy8NcpS0VWF2V+0xITkhy+OHFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788965910; c=relaxed/simple;
-	bh=K5fT6BG7wGPnC/IEmo/8lZ517eDS54Ge2uKxH0GbEjs=;
+	bh=3/zJy5Of400ngSCVj63yH4HZNjNIVMN9I38F4lEu58g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dO7zwz/1KBRNmM4X/+XhCyowXPwgWr2bIA4P4YB8g5nCmgjPx916BCdtFcCUY5pWqij1n4h4zjuWLnV4XW9Tl/beF1AbeW4aPdBasZrw6wotQUgZ8cc5ToFz5HUVv7Nho2WBBMpDYoJs3PiqDrLIsDYZkX97FgTJ71RDV7Yualo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ec6Vm1mR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oP8cmNucqCtnzi7pOi/arALyGfQ9r3eOt6pxWauIHs/+MesqRbHM3NVjmqO1RzHzOmbPYQHtCNM4zxKBUS6Bv34oS9X3H/dbf7VPsLzvKz9C0o2TCtkc6xecsdFKHUHX/5m0+IbdCmjNDGdjOtzpm+ffVFed8GHR8tkUdziXbuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZLGorRE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ec6Vm1mR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528BB1F00ACF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZLGorRE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366751F00A3F;
 	Wed,  9 Sep 2026 14:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788965908;
-	bh=gg8/LKl6Ig9JuKhKKb7Jixw07oXQ2dn58zBSdIg4ya0=;
+	bh=wTGJVbKHs6f7wcpdV679Jrd8EwuL7N2EUQpk2gQaQAE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ec6Vm1mRKJz6/DV6Cz+tS3di94nRjv82+Hjx7t9PdDkVvfqwUpQ2j646gT9/w9woE
-	 RRCtucU0WRK7/Bl5sXhjfDGIcS9/6Wz9DC0aJp40/Pp6hS3ExoiHF3LqW6qVpC7HCL
-	 vJF0FJ3QiSDtq89Lf0kMbxsGjgbL90fLjKeLotYSGq7yJM4qBewDm5dCdatp/RwlKr
-	 UeoaaFBxWVGCyr4o+crjg5Gi/w2lxdgnr2W//5xczFzZtgxJUQ33QdDenfDr/jufbQ
-	 h9j77T/I7ZwQLeIIyK/U0BWmds7W9bTneOGjiQnkyIxvQOdaGKQLFiBK6ie3zG5skL
-	 efyt46YpYcBFQ==
+	b=UZLGorREV7ALTbamC70HPzxBgMzolvK6Opff0qSoCy/2DPtihWck5lZIq5S4/SOQe
+	 HQJ9tw5qAXL5+Zlp5PXCa6unY0O3eS/V7XS7j9q7kRhHUkrzCHcBtmYfa3/RYeN7CR
+	 ENaRPlnwSnwn8+CpFOVm4MOwh7lZXY6Q+x9aEexl5mNe2s7X4VC0qwAaowsgZlIfbN
+	 Cw/UZhBtHjBbN9dSBWxNtjMNQ77ZZeTsS7JNF4KpZCgdV0wAkTWoeFpYcGz9Ki9u4v
+	 Jo0WubFXMLkJZjamGEEU7c32Sf2zSRguLpUPhOalIshlTHf3ocNmIZsjtIO4H3f8i8
+	 QUsoSbUJs90aA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Zhang Heng <zhangheng@kylinos.cn>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Joerg Roedel <jroedel@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/7] platform/x86: ISST: Use PP level enable mask
-Date: Wed,  9 Sep 2026 10:58:21 -0400
-Message-ID: <20260909145822.2742457-6-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] iommu/msm: Use helper function devm_clk_get_prepared()
+Date: Wed,  9 Sep 2026 10:58:25 -0400
+Message-ID: <20260909145826.2742978-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909145822.2742457-1-sashal@kernel.org>
-References: <2026090339-boxcar-confused-152e@gregkh>
- <20260909145822.2742457-1-sashal@kernel.org>
+In-Reply-To: <2026090343-awkward-washcloth-0722@gregkh>
+References: <2026090343-awkward-washcloth-0722@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+From: Zhang Heng <zhangheng@kylinos.cn>
 
-[ Upstream commit 9b9026943b19d06ebf520b1f4786621947cf43c8 ]
+[ Upstream commit afc0cbc6e25b37dc9ba11d415ea6858902a7f04b ]
 
-Add check for enabled levels only when reading MMIO. Some levels can be
-disabled by BIOS. If the level is not enabled, return an error.
+Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
+and enabled clocks"), devm_clk_get() and clk_prepare() can now be replaced
+by devm_clk_get_prepared() when driver prepares the clocks for the whole
+lifetime of the device. Moreover, it is no longer necessary to unprepare
+the clocks explicitly.
 
-Reset the enable and allowed level masks if there is a failure to add a
-perf level.
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20250103113059.463033-1-zhangheng@kylinos.cn
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
 
-Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260811221514.3905817-6-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[5.15 dependency adaptation]
+Retain this branch's dev_err() diagnostics, bus_set_iommu() call and
+subsys_initcall() registration. Convert both clocks to the already
+available devm_clk_get_prepared() helper, return directly from probe
+failures, and remove the obsolete int-returning remove callback and
+manual clk_unprepare() calls. No new functions are introduced.
 
-Stable adaptation: omit the enabled-mask filtering of the per-level
-BF/TF support loops. This tree predates 76f09e22027fc ("platform/x86:
-ISST: Support SST-BF and SST-TF per level") and still reads support only
-for level 0, which sst_main() forces enabled. Keep those existing reads
-instead of importing the unrelated per-level reporting change.
+This preserves the managed clock cleanup required by the registration
+failure unwind in 535a200220ca2c83bc8bf54bd2cbe045d6ee70c4. That target
+applies cleanly with a three-way merge while retaining the stable bus
+registration.
 
-Retain the allocation-failure mask clearing and the disabled-level checks
-in the BF information, BF CPU-mask, and TF information ioctls. The mask
-clearing supplies the context needed by f9a647cb8d90 ("platform/x86: ISST:
-Return error during profile addition") to return -ENOMEM and propagate
-the failure through sst_main(). No functions are added.
-
-Build testing exposed an API mismatch inherited from the earlier
-8bed9ff7dbcce backport: ISST requests bool read/write-blocked outputs,
-but the stable TPMI core still returns int locked/disabled outputs.
-Include the required status plumbing from 8df012a7f5131 and
-72dd14d241e1c in this dependency. Return the raw feature-state word from
-the existing internal helper and decode read-blocked bit 5 and
-write-blocked bit 4 in tpmi_get_feature_status(), with matching bool
-outputs in the header. Preserve the existing locked/disabled debugfs
-output. This avoids importing unrelated debugfs and enumeration changes.
-
-Stable-dep-of: f9a647cb8d90 ("platform/x86: ISST: Return error during profile addition")
+Stable-dep-of: 535a200220ca ("iommu/msm: Unwind probe state on registration failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../intel/speed_select_if/isst_tpmi_core.c    | 14 ++++++-
- drivers/platform/x86/intel/tpmi.c             | 38 ++++++++++---------
- include/linux/intel_tpmi.h                    |  4 +-
- 3 files changed, 35 insertions(+), 21 deletions(-)
+ drivers/iommu/msm_iommu.c | 52 ++++++++-------------------------------
+ 1 file changed, 10 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 1220ce4e3b970..8382974f31027 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -318,8 +318,11 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
- 	int i;
+diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
+index 149f2e53b39d4..5c83cebbf49a7 100644
+--- a/drivers/iommu/msm_iommu.c
++++ b/drivers/iommu/msm_iommu.c
+@@ -712,51 +712,34 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 	iommu->dev = &pdev->dev;
+ 	INIT_LIST_HEAD(&iommu->ctx_list);
  
- 	pd_info->perf_levels = devm_kcalloc(dev, levels, sizeof(struct perf_level), GFP_KERNEL);
--	if (!pd_info->perf_levels)
-+	if (!pd_info->perf_levels) {
-+		pd_info->pp_header.allowed_level_mask = 0;
-+		pd_info->pp_header.level_en_mask = 0;
- 		return 0;
-+	}
+-	iommu->pclk = devm_clk_get(iommu->dev, "smmu_pclk");
++	iommu->pclk = devm_clk_get_prepared(iommu->dev, "smmu_pclk");
+ 	if (IS_ERR(iommu->pclk)) {
+ 		dev_err(iommu->dev, "could not get smmu_pclk\n");
+ 		return PTR_ERR(iommu->pclk);
+ 	}
  
- 	pd_info->ratio_unit = pd_info->pp_header.ratio_unit;
- 	pd_info->avx_levels = SST_MAX_AVX_LEVELS;
-@@ -1080,6 +1083,9 @@ static int isst_if_get_base_freq_info(void __user *argp)
- 	if (base_freq.level > power_domain_info->max_level)
- 		return -EINVAL;
- 
-+	if (!(power_domain_info->pp_header.level_en_mask & BIT(base_freq.level)))
-+		return -EINVAL;
-+
- 	_read_bf_level_info("p1_high", base_freq.high_base_freq_mhz, base_freq.level,
- 			    SST_BF_INFO_0_OFFSET, SST_BF_P1_HIGH_START, SST_BF_P1_HIGH_WIDTH,
- 			    SST_MUL_FACTOR_FREQ)
-@@ -1119,6 +1125,9 @@ static int isst_if_get_base_freq_mask(void __user *argp)
- 	if (cpumask.level > power_domain_info->max_level)
- 		return -EINVAL;
- 
-+	if (!(power_domain_info->pp_header.level_en_mask & BIT(cpumask.level)))
-+		return -EINVAL;
-+
- 	_read_bf_level_info("BF-cpumask", mask, cpumask.level, SST_BF_INFO_1_OFFSET,
- 			    P1_HI_CORE_MASK_START, P1_HI_CORE_MASK_WIDTH,
- 			    SST_MUL_FACTOR_NONE)
-@@ -1195,6 +1204,9 @@ static int isst_if_get_turbo_freq_info(void __user *argp)
- 	if (turbo_freq.level > power_domain_info->max_level)
- 		return -EINVAL;
- 
-+	if (!(power_domain_info->pp_header.level_en_mask & BIT(turbo_freq.level)))
-+		return -EINVAL;
-+
- 	turbo_freq.max_buckets = TRL_MAX_BUCKETS;
- 	turbo_freq.max_trl_levels = TRL_MAX_LEVELS;
- 	turbo_freq.max_clip_freqs = SST_TF_MAX_LP_CLIP_RATIOS;
-diff --git a/drivers/platform/x86/intel/tpmi.c b/drivers/platform/x86/intel/tpmi.c
-index 021e56f52ac12..e5738b304e5ba 100644
---- a/drivers/platform/x86/intel/tpmi.c
-+++ b/drivers/platform/x86/intel/tpmi.c
-@@ -228,6 +228,8 @@ EXPORT_SYMBOL_NS_GPL(tpmi_get_resource_at_index, INTEL_TPMI);
- #define TPMI_CMD_LEN_MASK		GENMASK_ULL(18, 16)
- 
- #define TPMI_STATE_DISABLED		BIT_ULL(0)
-+#define TPMI_STATE_WRITE_BLOCKED		BIT_ULL(4)
-+#define TPMI_STATE_READ_BLOCKED		BIT_ULL(5)
- #define TPMI_STATE_LOCKED		BIT_ULL(31)
- 
- /* Mutex to complete get feature status without interruption */
-@@ -243,7 +245,7 @@ static int tpmi_wait_for_owner(struct intel_tpmi_info *tpmi_info, u8 owner)
- }
- 
- static int tpmi_read_feature_status(struct intel_tpmi_info *tpmi_info, int feature_id,
--				    int *locked, int *disabled)
-+				    u64 *feature_state)
- {
- 	u64 control, data;
- 	int ret;
-@@ -294,16 +296,7 @@ static int tpmi_read_feature_status(struct intel_tpmi_info *tpmi_info, int featu
- 
- 	/* Response is ready */
- 	data = readq(tpmi_info->tpmi_control_mem + TPMI_COMMAND_OFFSET);
--	data = FIELD_GET(TMPI_CONTROL_DATA_VAL, data);
+-	ret = clk_prepare(iommu->pclk);
+-	if (ret) {
+-		dev_err(iommu->dev, "could not prepare smmu_pclk\n");
+-		return ret;
+-	}
 -
--	*disabled = 0;
--	*locked = 0;
+-	iommu->clk = devm_clk_get(iommu->dev, "iommu_clk");
++	iommu->clk = devm_clk_get_prepared(iommu->dev, "iommu_clk");
+ 	if (IS_ERR(iommu->clk)) {
+ 		dev_err(iommu->dev, "could not get iommu_clk\n");
+-		clk_unprepare(iommu->pclk);
+ 		return PTR_ERR(iommu->clk);
+ 	}
+ 
+-	ret = clk_prepare(iommu->clk);
+-	if (ret) {
+-		dev_err(iommu->dev, "could not prepare iommu_clk\n");
+-		clk_unprepare(iommu->pclk);
+-		return ret;
+-	}
 -
--	if (!(data & TPMI_STATE_DISABLED))
--		*disabled = 1;
--
--	if (data & TPMI_STATE_LOCKED)
--		*locked = 1;
-+	*feature_state = FIELD_GET(TMPI_CONTROL_DATA_VAL, data);
+ 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	iommu->base = devm_ioremap_resource(iommu->dev, r);
+ 	if (IS_ERR(iommu->base)) {
+ 		dev_err(iommu->dev, "could not get iommu base\n");
+-		ret = PTR_ERR(iommu->base);
+-		goto fail;
++		return PTR_ERR(iommu->base);
+ 	}
+ 	ioaddr = r->start;
  
- 	ret = 0;
+ 	iommu->irq = platform_get_irq(pdev, 0);
+-	if (iommu->irq < 0) {
+-		ret = -ENODEV;
+-		goto fail;
+-	}
++	if (iommu->irq < 0)
++		return -ENODEV;
  
-@@ -317,13 +310,22 @@ static int tpmi_read_feature_status(struct intel_tpmi_info *tpmi_info, int featu
- 	return ret;
- }
- 
--int tpmi_get_feature_status(struct auxiliary_device *auxdev, int feature_id,
--			    int *locked, int *disabled)
-+int tpmi_get_feature_status(struct auxiliary_device *auxdev,
-+			    int feature_id, bool *read_blocked, bool *write_blocked)
- {
- 	struct intel_vsec_device *intel_vsec_dev = dev_to_ivdev(auxdev->dev.parent);
- 	struct intel_tpmi_info *tpmi_info = auxiliary_get_drvdata(&intel_vsec_dev->auxdev);
-+	u64 feature_state;
-+	int ret;
- 
--	return tpmi_read_feature_status(tpmi_info, feature_id, locked, disabled);
-+	ret = tpmi_read_feature_status(tpmi_info, feature_id, &feature_state);
-+	if (ret)
+ 	ret = of_property_read_u32(iommu->dev->of_node, "qcom,ncb", &val);
+ 	if (ret) {
+ 		dev_err(iommu->dev, "could not get ncb\n");
+-		goto fail;
 +		return ret;
-+
-+	*read_blocked = !!(feature_state & TPMI_STATE_READ_BLOCKED);
-+	*write_blocked = !!(feature_state & TPMI_STATE_WRITE_BLOCKED);
-+
-+	return 0;
+ 	}
+ 	iommu->ncb = val;
+ 
+@@ -771,8 +754,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 
+ 	if (!par) {
+ 		pr_err("Invalid PAR value detected\n");
+-		ret = -ENODEV;
+-		goto fail;
++		return -ENODEV;
+ 	}
+ 
+ 	ret = devm_request_threaded_irq(iommu->dev, iommu->irq, NULL,
+@@ -782,7 +764,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 					iommu);
+ 	if (ret) {
+ 		pr_err("Request IRQ %d failed with ret=%d\n", iommu->irq, ret);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	list_add(&iommu->dev_node, &qcom_iommu_devices);
+@@ -791,7 +773,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 				     "msm-smmu.%pa", &ioaddr);
+ 	if (ret) {
+ 		pr_err("Could not add msm-smmu at %pa to sysfs\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	iommu_device_set_ops(&iommu->iommu, &msm_iommu_ops);
+@@ -800,7 +782,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 	ret = iommu_device_register(&iommu->iommu);
+ 	if (ret) {
+ 		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
+-		goto fail;
++		return ret;
+ 	}
+ 
+ 	bus_set_iommu(&platform_bus_type, &msm_iommu_ops);
+@@ -809,10 +791,6 @@ static int msm_iommu_probe(struct platform_device *pdev)
+ 		iommu->base, iommu->irq, iommu->ncb);
+ 
+ 	return ret;
+-fail:
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-	return ret;
  }
- EXPORT_SYMBOL_NS_GPL(tpmi_get_feature_status, INTEL_TPMI);
  
-@@ -332,19 +334,19 @@ static int tpmi_pfs_dbg_show(struct seq_file *s, void *unused)
- 	struct intel_tpmi_info *tpmi_info = s->private;
- 	struct intel_tpmi_pm_feature *pfs;
- 	int locked, disabled, ret, i;
-+	u64 feature_state;
+ static const struct of_device_id msm_iommu_dt_match[] = {
+@@ -820,22 +798,12 @@ static const struct of_device_id msm_iommu_dt_match[] = {
+ 	{}
+ };
  
- 	seq_printf(s, "tpmi PFS start offset 0x:%llx\n", tpmi_info->pfs_start);
- 	seq_puts(s, "tpmi_id\t\tentries\t\tsize\t\tcap_offset\tattribute\tvsec_offset\tlocked\tdisabled\n");
- 	for (i = 0; i < tpmi_info->feature_count; ++i) {
- 		pfs = &tpmi_info->tpmi_features[i];
--		ret = tpmi_read_feature_status(tpmi_info, pfs->pfs_header.tpmi_id, &locked,
--					       &disabled);
-+		ret = tpmi_read_feature_status(tpmi_info, pfs->pfs_header.tpmi_id, &feature_state);
- 		if (ret) {
- 			locked = 'U';
- 			disabled = 'U';
- 		} else {
--			disabled = disabled ? 'Y' : 'N';
--			locked = locked ? 'Y' : 'N';
-+			disabled = feature_state & TPMI_STATE_DISABLED ? 'N' : 'Y';
-+			locked = feature_state & TPMI_STATE_LOCKED ? 'Y' : 'N';
- 		}
- 		seq_printf(s, "0x%02x\t\t0x%02x\t\t0x%04x\t\t0x%04x\t\t0x%02x\t\t0x%016llx\t%c\t%c\n",
- 			   pfs->pfs_header.tpmi_id, pfs->pfs_header.num_entries,
-diff --git a/include/linux/intel_tpmi.h b/include/linux/intel_tpmi.h
-index fdcebb8c30e98..541d17b8b90d5 100644
---- a/include/linux/intel_tpmi.h
-+++ b/include/linux/intel_tpmi.h
-@@ -46,6 +46,6 @@ struct intel_tpmi_plat_info *tpmi_get_platform_data(struct auxiliary_device *aux
- struct resource *tpmi_get_resource_at_index(struct auxiliary_device *auxdev, int index);
- int tpmi_get_resource_count(struct auxiliary_device *auxdev);
+-static int msm_iommu_remove(struct platform_device *pdev)
+-{
+-	struct msm_iommu_dev *iommu = platform_get_drvdata(pdev);
+-
+-	clk_unprepare(iommu->clk);
+-	clk_unprepare(iommu->pclk);
+-	return 0;
+-}
+-
+ static struct platform_driver msm_iommu_driver = {
+ 	.driver = {
+ 		.name	= "msm_iommu",
+ 		.of_match_table = msm_iommu_dt_match,
+ 	},
+ 	.probe		= msm_iommu_probe,
+-	.remove		= msm_iommu_remove,
+ };
  
--int tpmi_get_feature_status(struct auxiliary_device *auxdev, int feature_id, int *locked,
--			    int *disabled);
-+int tpmi_get_feature_status(struct auxiliary_device *auxdev, int feature_id, bool *read_blocked,
-+			    bool *write_blocked);
- #endif
+ static int __init msm_iommu_driver_init(void)
 -- 
 2.53.0
 
