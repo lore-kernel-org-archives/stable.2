@@ -1,108 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AF4560ADE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A4F568FA6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980128; cv=none; b=NPHfuQBibJUtmgHiJ0WXP6Maaq7xXW+0EnlPmsBedmtcysTeGfMn6JyYHa8KoO+aCQuLkBxbYrJ6fHbKmo0RDAxVupJYOrGXmL9KtjuRy3ghVrfwK/5OCMEh0poYZfect7bI7KFCyPsBSr+xBytUeWfVVSoIE7qPaBmSEBaL/R4=
+	t=1788980130; cv=none; b=Kc7dMGqqmcCphixgjPDfw9g189mzpfoPvp7flAMiTD9RhYuYtOgeBSNoKtv3lNEcYliI8ZjWHNGLRgUEky/qgduU8Un/DsnrP4ErTKDi+NQeWcPBCABxH2i30LgEbhEputpNXswNhEpI1gtA48Ko5Z06sTNEmyYURCNYxiK7NAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980128; c=relaxed/simple;
-	bh=cNH1ahMNCjYsZqs+0X4zCW0mAttDul7xHLGIbrZ57LA=;
+	s=arc-20240116; t=1788980130; c=relaxed/simple;
+	bh=GxgaoHTEeWKtl4HhY3E7gUCh50JHl3GhPmpQC6tVBXU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ywc3RPUiPyTqYlIPbneZn59u/EUrelsZc0B8U3YunJXGcwt2bmdLmo5Ro8dWTrdU4t+EclLIec5pktADx/0uHm3+UwDrgUerC/YHN9gyFXTSV2LYndb2s7xNg2ajyhmftLpx2ljAx3OUj+X+gVe0X6T3Tj8naz26u0Smo0rEhoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlrWe228; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fNkVtNN/alu1O0Q7iKN1ewJinuxyG8+aTLulcGXB5vJ7NMnX7lQXO8ThtEn1UsIx11bPMJ/iIhBqeO3Wll8JVZBWr5JtqGbXE3NCLkKY2bVRpmMaldMC10sAyisVPzu5D6gBgr0fjXsRe8IhTXuwjGRDcebw752q+VEXX11MYUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0Tq7Hk5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlrWe228"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C701F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0Tq7Hk5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0326F1F00899;
 	Wed,  9 Sep 2026 18:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788980122;
-	bh=OyEH2eN/d5fMg146P31WmEB7i0thwilUzrzra80Ur2Q=;
+	s=k20260515; t=1788980123;
+	bh=RjrvZDuZgejp9ene+v7H+B3N9Gg+MYyes4vnc3ACOIU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WlrWe228AtfxXSb6GLoogaN5UeJ8T8xQsNfZJnOJx/KzTGJyERkcvS82SrHjRpyS4
-	 3WSUUsxQOauZFReHYu31G6pL4GoB4XqzPuWE+AjX2rfkiTbaxxfsSa9dt9kwawRXZr
-	 0SQyoz5jTKO9Fo77bcLDDA2YlgUqqmW3VE7cmrUZI4DwV43TTmnR2SIqpgVfeffYE4
-	 7Q17GfCF3f+vvnLx7kS5sZmf5mbc0mRGZ+IMHDjrNpiALv8UZgRsI1oT5u12ADxlce
-	 jhhj79iJiGHVgAWaD/V/jlIuc3vJ5cuiwe1jGjv55qbP2U93CjazqZGf55XMA0CZem
-	 sSqeVr4kSb64Q==
+	b=I0Tq7Hk5sWKE1h5pv6Ay+BBcl7Wl86DWdZWVwXUpH00/HoUIWiINzU4CIhSFKC6Xf
+	 4qIEn5la7DgDzmLdQ2JMR0cBRt/Lb6Kw6rhk7HJy/eSyjDRw9WD5X/mFSo1OGMsO2o
+	 AoWtRF/pKtchtXqHmbh6OpJeaXbX5GNn4AQpnb81oKnoI/dpsfCD8A6i3D5YckxjjB
+	 s0vw8QlMzzGWBjrTzM64+nRd/ToX0lSg0PIT9A7o8Es7sPjffpvkjXqN5I59zbXRjv
+	 zihdDQerk8hFJCqSfAIiLjdm/SbNRDCe4qb3t0EYF5B+99UOhIIpc1Cfn1X94Qr4RD
+	 ojLg8hRjgVFFA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
 	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] mfd: sm501: Convert to platform remove callback returning void
-Date: Wed,  9 Sep 2026 14:55:19 -0400
-Message-ID: <20260909185520.3489928-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] mfd: sm501: Fix potential memory leaks during remove
+Date: Wed,  9 Sep 2026 14:55:20 -0400
+Message-ID: <20260909185520.3489928-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090351-moistness-unmoral-5211@gregkh>
+In-Reply-To: <20260909185520.3489928-1-sashal@kernel.org>
 References: <2026090351-moistness-unmoral-5211@gregkh>
+ <20260909185520.3489928-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 
-[ Upstream commit c20fddf7acfb54d856c34208926701d32c25eb18 ]
+[ Upstream commit 83feedd9d83c0c5199f98c72df0a6196b4aefb4d ]
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+The memory allocated for struct sm501_devdata in sm501_pci_probe() and
+sm501_plat_probe() is not freed by the corresponding remove functions
+sm501_pci_remove() and sm501_plat_remove(). Fix that by adding a call to
+kfree().
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
-
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
-
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Link: https://lore.kernel.org/r/20231123165627.492259-15-u.kleine-koenig@pengutronix.de
+Fixes: b6d6454fdb66 ("[PATCH] mfd: SM501 core driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Link: https://patch.msgid.link/20260720113836.73133-1-nihaal@cse.iitm.ac.in
 Signed-off-by: Lee Jones <lee@kernel.org>
-Stable-dep-of: 83feedd9d83c ("mfd: sm501: Fix potential memory leaks during remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/sm501.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/mfd/sm501.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/mfd/sm501.c b/drivers/mfd/sm501.c
-index 1865621d62f27..06e796883189e 100644
+index 06e796883189e..5752099683eb4 100644
 --- a/drivers/mfd/sm501.c
 +++ b/drivers/mfd/sm501.c
-@@ -1669,7 +1669,7 @@ static void sm501_pci_remove(struct pci_dev *dev)
+@@ -1667,6 +1667,7 @@ static void sm501_pci_remove(struct pci_dev *dev)
+ 	release_mem_region(sm->io_res->start, 0x100);
+ 
  	pci_disable_device(dev);
++	kfree(sm);
  }
  
--static int sm501_plat_remove(struct platform_device *dev)
-+static void sm501_plat_remove(struct platform_device *dev)
- {
- 	struct sm501_devdata *sm = platform_get_drvdata(dev);
- 
-@@ -1677,8 +1677,6 @@ static int sm501_plat_remove(struct platform_device *dev)
+ static void sm501_plat_remove(struct platform_device *dev)
+@@ -1677,6 +1678,7 @@ static void sm501_plat_remove(struct platform_device *dev)
  	iounmap(sm->regs);
  
  	release_mem_region(sm->io_res->start, 0x100);
--
--	return 0;
++	kfree(sm);
  }
  
  static const struct pci_device_id sm501_pci_tbl[] = {
-@@ -1709,7 +1707,7 @@ static struct platform_driver sm501_plat_driver = {
- 		.of_match_table = of_sm501_match_tbl,
- 	},
- 	.probe		= sm501_plat_probe,
--	.remove		= sm501_plat_remove,
-+	.remove_new	= sm501_plat_remove,
- 	.suspend	= pm_sleep_ptr(sm501_plat_suspend),
- 	.resume		= pm_sleep_ptr(sm501_plat_resume),
- };
 -- 
 2.53.0
 
