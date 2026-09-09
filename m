@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786293E4111
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A7349DB8C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947981; cv=none; b=Xeojiljs/YpLfOPjyV5CwSaEaMlURLSu/nTUe4P8IB0/XKYvLX3mK1eK5oGkH1DwLgNyVZ8s8QSL22wAwjPSwxz9veJXTFMeo20Yxc4oMMBsqxcqNsGiGhMV+lnI/r5F7a3INtdA/FNa9MFLciw41tct9pV8XF5c4eBdj03ST7M=
+	t=1788947986; cv=none; b=m6R8nsnjYZ7OnIgOsPsTaJRD52/Mh+v2mbsf8LgeE/Q4R+udEfUO3oraODZgU0QqiDXvcafDi9mtErbYX9l/soTywLsrEJ+vDaKbOsaN5r7B55KkO8JMR1X6eoALMhFc4d2xo9MtVucNSHfwIFBZ/Tr9szDzWqAAFhpofzbMMXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947981; c=relaxed/simple;
-	bh=PxPSP9rXoaK+gAb2Hn/AM1YA9HwEEJgWDfwuHK2znIM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sSUBt91s+RSe6RlMpFspG7JYUcivZIn5fiZtSoff5L/p/dSHbPWHRv3jp1YgGRnYNQt+W2HaTUmac+QAaMYdujWWjhLrjLN9nsc74ugMxt6GoVc6wmCEG93vRmflTkXJizn4pNES7KbZXcaiwonkyC6PVeYN5kFhln9cV+VQP3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N+/U8cQC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947986; c=relaxed/simple;
+	bh=Ca0iw2H5DiN+sWs4mb3Wbn0jBrkoRkx8gYjR0L5g2ko=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cxMAUksJ7ZphPkjrP8lGkargqQyeQT/Qfce9rJLDRpqrjFNv3mwoKZNaHYCX1QMxgYlVzOHe6HJpgk7H/D+hyL9HJXrRmJ7PmlLKB+sOkqLjpTggzz/t5SN2V09TNZqKy/938Dha6sqcj/kYyMWmWwLKYVReTp1G3XGlADxCy70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xGLrB9di; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N+/U8cQC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E1B1F00A3D;
-	Wed,  9 Sep 2026 09:59:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xGLrB9di"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DD71F00A3A;
+	Wed,  9 Sep 2026 09:59:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947979;
-	bh=B/TTkFisQuAbC7WKLW1aZnBsdzsbAZiOSf6pfcdvTM0=;
+	s=korg; t=1788947982;
+	bh=gLPnRp9HcUplD3/fdtYuB3BZMSPr2tNSF6Uc5xezxHs=;
 	h=Subject:To:Cc:From:Date;
-	b=N+/U8cQC6Y1ZdeXg4EM4HksCmI8TIBzGt/P0Mz6KRQPWrpfSNYV7xVbPfSF72ZiGV
-	 aAKjsXP3aneeE+geeRf3iHYGkzVniJRlJrOnxUxbSfQtOucAxpc6aFAsW059fk4VK+
-	 9MBVF5A6uLrg6pgr5XRATluXLp2ei1d4Pu7jp8A4=
-Subject: FAILED: patch "[PATCH] batman-adv: bla: avoid CRC corruption due to parallel claim" failed to apply to 6.1-stable tree
+	b=xGLrB9di2P9BHMw5vKWsnU+tRRAofDKqIO4rR2zQORZrQsPc4oGdc1YHFn6z8vGwS
+	 mkCXXUBBdr7TGsek2ho7xfNsquS4yQQ/DNzTYco12AAryLKOS6gbYHHGUglBVxFzXx
+	 RjVXizj2ZEBwPzagYuguWYt6vVWARca7pMwZXc+c=
+Subject: FAILED: patch "[PATCH] batman-adv: bla: avoid CRC corruption due to parallel claim" failed to apply to 5.15-stable tree
 To: sven@narfation.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:57:44 +0200
-Message-ID: <2026090943-monogamy-stoppage-de69@gregkh>
+Date: Wed, 09 Sep 2026 11:57:45 +0200
+Message-ID: <2026090945-freeload-cold-0300@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 08645ab95768b88e2ff85a89211994651710465b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090943-monogamy-stoppage-de69@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090945-freeload-cold-0300@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
