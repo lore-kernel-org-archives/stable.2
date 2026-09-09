@@ -1,99 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58EC582BBE;
-	Wed,  9 Sep 2026 14:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA29568FD3
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:11:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963071; cv=none; b=WWFjyxRdw190ufUTuAclDpblr822O9Wt9/Qul73KtZ3jch966ufZ5vCu2Sz1AzBqAhkwrp9aXsil9MHrRJfkfPhL6E58T4Hg8g9Pww0iidurgi4VeW7X/t48K4M7YL21avcXxp/Tqst7BNFlNXMIcSzFc5fzZsi1t0XufC9zAZA=
+	t=1788963071; cv=none; b=JLhcnakUHw3b3+ziXcGUymLx+/vmxx2EkgiLLIYqcWDmnWRBoscftqkEfO/hNtMmgwOCkaOH6XtUv7LpzkWrmhSIn17Iw/Iv7Ln8dBfgEU2oVrHJrLEKHIDZprGuR0ykIn8RM5zzV+mvOljN2qnAqnrxtp3r+E1+5IcMb5cfCFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963071; c=relaxed/simple;
-	bh=P4GRNfRJD5m+RrQKw68m0cyiQJN+3vtw7gz5OPk+4YM=;
+	bh=EL3hgMWEBY6T72CYljdiC6F9zm7DHbuyTbFxn6fO/0Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OQrQHPrcbURYcCFKtHuWAw5X0Jt9UgcuF911wze/K0HxWGv63gRGaHWciNjB4EA6ya/XMteInvrIt3rFntA+bCE7NxkmRwkAmzwhFcPkHWLdiLJAsP3aDi1JfayUbp6EQ6QME4sgUKPvaTloLmcgLWAQ6UguJNLbQ/dr7QuIo+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LJ67DNsW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=A62SZNFa/NYgAzgzAreAnbPnfn1ej9ktMrY/auK3zGoMVxHnVVxzzSnsTzMgeVMAaTyAN7K9q7lX3IR4youpe9s/ctKY2t56kBJSwCjyIyscS/Y4MzEd46d24mQnEYJCvggpRrJYsmlH993BEgsgepns9+1aQLhjOU0DX9kShFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mShJIXL9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LJ67DNsW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B151F00A3E;
-	Wed,  9 Sep 2026 14:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788963069;
-	bh=Qk7tkAMLwoPOJn9TmI6XEikCpxwEp2NrtBrYfZWuuWc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mShJIXL9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1E1A1F00AC4;
+	Wed,  9 Sep 2026 14:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963070;
+	bh=jDtfXPuC7orxn4+nFacD7HVyE51IeL2FtZoXela0Uiw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LJ67DNsWEY3Dz0VIsmEGaW5aHcZVU0PJDGCfRDvBV1qVgir9HoXMyJ88rRU/AwyR/
-	 OqW2I2Dh/cN/YtmG2zqxpCpiTM11FCvZPP2uDHV99tMG12DS11iH6VJGY8TbCJ/w80
-	 b4qI9OQnDQ1iDUQIztyrwwwZlza7w8V9x4Fr10gc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=mShJIXL9B5oiBekG2WzoB8K6DAHOLi7QI2L6/thVd8QX3eCRnPTWxUyBtePV0Wpza
+	 Y24idADN0aKW6czLqxeCcVGv8qgsC4sv0hhErV7+u7p4vL0M/8QivEzmc7ILA8UERi
+	 Uxh2AGcdErFfPFAhfxD7WPMIwhJqcJp8n6RvKM+ottZ/tmSy6xYJnpJuK5O+LN95DM
+	 pVqq8zVx28IIGdFuZadqmDyHjEECraGPYhTIZT15T7IOOGlTNjL3LEZuN4tB6ctcc+
+	 uDNpIt1xDBQRm8dMwy4FZ2PMONMDmOfY2aPsnp1ENddc3DJUgW6llsRMy4yXEx6G8y
+	 9qEs4pUp+8nbw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 7.2 508/556] drm/amdgpu: force complete the KIQ ring fences on reset
-Date: Wed,  9 Sep 2026 15:43:08 +0200
-Message-ID: <20260909134248.331509115@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-References: <20260909134230.441546314@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 7/7] platform/x86: ISST: Add a NULL check for sst_inst[]
+Date: Wed,  9 Sep 2026 10:11:02 -0400
+Message-ID: <20260909141102.2383363-7-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909141102.2383363-1-sashal@kernel.org>
+References: <2026090334-lumber-underfoot-3bf9@gregkh>
+ <20260909141102.2383363-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-------------------
+[ Upstream commit 3de2776e9d7073765c10c2326c2bda5926811ea6 ]
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+To be consistent with other places, add a NULL check for failed socket
+loading by checking isst_common.sst_inst[].
 
-commit fd65d1742992361fc2201ecb4e43411e6e417fcb upstream.
-
-Like the MES scheduler ring, the KIQ ring sets no_scheduler = true and uses a
-polling fence, so it is skipped by the force-completion loop in
-amdgpu_device_pre_asic_reset(). Its hw fence value lives in wb (GTT) memory and
-survives a MODE1 reset while fence_drv.sync_seq keeps advancing, so after a
-reset the first KIQ submission can poll forever on a seq that is never written
-back.
-
-Force complete the KIQ ring fences too so their hw fence is realigned to
-sync_seq.
-
+Fixes: d805456c712f ("platform/x86: ISST: Enumerate TPMI SST and create framework")
 Cc: stable@vger.kernel.org
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Link: https://patch.msgid.link/20260811222134.3912626-3-srinivas.pandruvada@linux.intel.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5219,6 +5219,18 @@ int amdgpu_device_pre_asic_reset(struct
- 		amdgpu_fence_driver_force_completion(ring, fence);
- 	}
+diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+index b6cd0ab38a7ec..a605a0ba18f64 100644
+--- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
++++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+@@ -1130,6 +1130,8 @@ static int isst_if_get_tpmi_instance_count(void __user *argp)
+ 		return -EINVAL;
  
-+	/*
-+	 * KIQ rings are polling-fence/no_scheduler like MES, so realign their
-+	 * fence too (one ring per XCC), otherwise the first post-reset KIQ
-+	 * submission polls forever on a stale seq.
-+	 */
-+	for (i = 0; i < AMDGPU_MAX_GC_INSTANCES; i++) {
-+		struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[i].ring;
-+
-+		if (kiq_ring->fence_drv.initialized && kiq_ring->sched.ready)
-+			amdgpu_fence_driver_force_completion(kiq_ring, fence);
-+	}
-+
- 	amdgpu_fence_driver_isr_toggle(adev, false);
+ 	sst_inst = isst_common.sst_inst[tpmi_inst.socket_id];
++	if (!sst_inst)
++		return -EINVAL;
  
- 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
-
+ 	tpmi_inst.count = sst_inst->number_of_power_domains;
+ 
+-- 
+2.53.0
 
