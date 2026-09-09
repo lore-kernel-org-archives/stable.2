@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608E83FCB2C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA70C3EDE63
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:02:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947990; cv=none; b=Aj3XuyDBlPepiYU/pgNjAuuvlnuFeE6skEVpg12zeUifn+X4Bi/9Ih4IczHLxHjWDEqAtq509jjhhDkQg9DhXYZCOooI3JcjYbevo45l3tJmvLJT1PgYxbVujaXiSIePYpGHTALMNHC5AbB2IrPtBUljWLPlRFxn96xQv03rnjw=
+	t=1788948122; cv=none; b=Y9TgME7D079KsH0/+hFNohvGRtP1SL1QHmT0VjzE8X+nkMbzztQ+KNhLYqabOwG1MYcZsLzK6eUhaKmJfc7qKEH8kI3lhlVFjW9BUBTrAIAnmD7cnQRGOe8lTVbGRhl7gLfs8o67Df3hEecI7A/kSQm1ngAB4QncBvEEuYurJuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947990; c=relaxed/simple;
-	bh=U2gxLvCHssW8G1H+ABwiEwCpC3RJyYYvT0gO9hHSxfo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kKr33LlimvkdrKyoi/B8E3ujxfn1vbZLVdfGJKKvuSiZOt6hMvv1AzYr/oG4BJ0d15tsl2M6wNoNBGXdT3/ao6wtg/QgYJOwHccBtOBj7rA/erWXjM1yuSPsvTc7ASzDRH4THvMDH5akpnMC1TCYG8VzlIhQ1pKPXxbap5pm+7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XZ7b1MvF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788948122; c=relaxed/simple;
+	bh=iJL2zqroMGavLV23Bt/oahVsRYGp42H9Lrciq2NnYgI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VmG0dgkX926f/trFsfX2GquYAEm/iNld2jy7O2+CGHtsitJlOG55vi576O1o9oYNPbw3OIutnwQShmgsQgbVHWpJuzvMQuyLR36CJWmV1qlb9/Bl3PjE50AahY8/uRWUHdWkxpAqoEnCz503NjDb7U8zRkgSeQFnCWzUvwyTlKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d72VHFFI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XZ7b1MvF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4FD1F00A3D;
-	Wed,  9 Sep 2026 09:59:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d72VHFFI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D421F00A3A;
+	Wed,  9 Sep 2026 10:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947985;
-	bh=K7/5geGxdCw5Tum1gg99yAwWlnnB9lJlStaHRyiKsBw=;
+	s=korg; t=1788948120;
+	bh=esslhIHP+L+CvRhepQMmcgQ5Flt7CswU7Ag3UaAMVAk=;
 	h=Subject:To:Cc:From:Date;
-	b=XZ7b1MvFf9U8VY++elTWc7zb21U1TZ/FWsH4St4P2DukIdnEX30jcSLslXUlTnSIp
-	 of85WHlOGb/5naL7quUs7X5rO5YCLnoZmjK/7g5OgyPtyu5Zl/DEyBuyXV7K7Z4RZJ
-	 uU1zicIJdC8odqKybKRP7AMzGhvjYfnh4JQX+Fes=
-Subject: FAILED: patch "[PATCH] batman-adv: bla: avoid CRC corruption due to parallel claim" failed to apply to 5.10-stable tree
-To: sven@narfation.org,sashiko-bot@kernel.org
+	b=d72VHFFIcEVoVBvQS3wEfcblw9Obp+Ylf6X+P2mmqA0fuxSunhmI9b2B4bH2DsZ/d
+	 xU0/urz5Oy6yvGmXA33KmDFfhj50J5r7TQ5H6aw2FO4LV1ZbmaL96XPYqyYFdxcrS6
+	 h+TG43pOtrGhzEzcaqQ9aInvDoH1W1rh+p9xIdNw=
+Subject: FAILED: patch "[PATCH] clk: meson: align gxbb_32k_clk_sel number of parents with" failed to apply to 6.6-stable tree
+To: martin.blumenstingl@googlemail.com,christianshewitt@gmail.com,jbrunet@baylibre.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:57:46 +0200
-Message-ID: <2026090946-palm-mortify-dc6d@gregkh>
+Date: Wed, 09 Sep 2026 11:58:28 +0200
+Message-ID: <2026090928-playmate-skating-2109@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 08645ab95768b88e2ff85a89211994651710465b
+git cherry-pick -x 628b6fee9fca292f12d07f0f1bcf1edefa949d81
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090946-palm-mortify-dc6d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090928-playmate-skating-2109@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,158 +62,86 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 08645ab95768b88e2ff85a89211994651710465b Mon Sep 17 00:00:00 2001
-From: Sven Eckelmann <sven@narfation.org>
-Date: Fri, 3 Jul 2026 00:30:53 +0200
-Subject: [PATCH] batman-adv: bla: avoid CRC corruption due to parallel claim
- add
+From 628b6fee9fca292f12d07f0f1bcf1edefa949d81 Mon Sep 17 00:00:00 2001
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 23 Jun 2026 22:19:56 +0200
+Subject: [PATCH] clk: meson: align gxbb_32k_clk_sel number of parents with
+ actual count
 
-batadv_bla_add_claim() is used to add claims and modify the backbone of
-claims for CLAIM frames from remote backbones and local packets. When it
-handles a claim, it needs to either
+The following out-of-bounds read has been observed by Christian on a
+GXBB WeTek Hub:
+==================================================================
+BUG: KASAN: global-out-of-bounds in __clk_register+0x1b70/0x2418
+Read of size 8 at addr ffffd66320cf88e0 by task swapper/0/1
 
-* add the new claim's CRC to the backbone CRC
-* remove the already existing claim's CRC from the old backbone and add it
-  to the new backbone
+CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.0.0-rc5 #1 PREEMPT
+Hardware name: WeTek Hub (DT)
+Call trace:
+ show_stack+0x14/0x20 (C)
+ dump_stack_lvl+0x74/0x94
+ print_report+0x164/0x4b0
+ kasan_report+0x98/0xd8
+ __asan_report_load8_noabort+0x1c/0x24
+ __clk_register+0x1b70/0x2418
+ devm_clk_hw_register+0x74/0x15c
+ meson_clkc_init+0xd4/0x20c
+ meson_clkc_syscon_probe+0x5c/0x94
+ platform_probe+0xbc/0x17c
+ really_probe+0x184/0x844
+ __driver_probe_device+0x154/0x35c
+ driver_probe_device+0x60/0x188
+ __driver_attach+0x168/0x4a0
+ bus_for_each_dev+0xec/0x180
+ driver_attach+0x38/0x58
+ bus_add_driver+0x238/0x4c0
+ driver_register+0x150/0x388
+ __platform_driver_register+0x54/0x7c
+ gxbb_clkc_driver_init+0x18/0x20
+ do_one_initcall+0xb8/0x340
+ kernel_init_freeable+0x49c/0x52c
+ kernel_init+0x24/0x148
+ ret_from_fork+0x10/0x20
 
-But when the "new" claim code was running in parallel to the "change
-backbone" code, it can happen that the CRC was invalid because the
-backbone_gw of the claim was changed twice in the "new" claim code path:
+The buggy address belongs to the variable:
+ gxbb_32k_clk_parents+0x60/0x400
 
-* CPU0 creates the claim for gateway A and publishes it in the claim
-  hash. The crc16 of the address has not yet been added to A's crc at
-  this point.
+The buggy address belongs to a vmalloc virtual mapping
+The buggy address belongs to the physical page:
 
-* CPU1 processes a claim frame of gateway B for the same client, finds
-  the just published claim, and performs the ownership change: it
-  switches the pointer to B, removes the crc16 from A's crc - which
-  never contained it - and adds it to B's crc.
+Memory state around the buggy address:
+ ffffd66320cf8780: 00 00 00 00 f9 f9 f9 f9 00 f9 f9 f9 f9 f9 f9 f9
+ ffffd66320cf8800: 00 04 f9 f9 f9 f9 f9 f9 00 04 f9 f9 f9 f9 f9 f9
+>ffffd66320cf8880: 00 00 00 00 00 00 00 00 00 00 00 00 f9 f9 f9 f9
+                                                       ^
+ ffffd66320cf8900: 00 01 f9 f9 f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9
+ ffffd66320cf8980: 00 00 02 f9 f9 f9 f9 f9 00 00 02 f9 f9 f9 f9 f9
+==================================================================
 
-* CPU0 continues behind the creation branch, unconditionally switches
-  the pointer back to A without compensating B's crc (its remove_crc
-  is false for the creation path), and finally adds the crc16 to A's
-  crc
+Commit 7915d7d5407c ("clk: amlogic: gxbb: drop non existing 32k clock
+parent") dropped a non-existing clock parent from the gxbb_32k_clk_sel
+mux but didn't adjust the hard-coded num_parents field. Fix the actual
+number of parents of that mux by using ARRAY_SIZE instead (avoiding
+similar problems in future).
 
-The CRC is then wrong for both:
-
-* claim belongs to A: but CRC is not part of backbone A's CRC
-* claim doesn't belong to B: CRC is still part of backbone B's CRC
-
-This wrong CRC is never recomputated from the stored claims. For local
-backbone claims, this can also not recovered using syncs.
-
-To avoid this, split the functionality in clear separate parts:
-
-* new claim which always adds claim CRC to the backbone CRC (but never
-  changes the already set backbone_gw of the claim back)
-
-* update of existing claim which automatically changes the backbone_gw
-  entry and only updates both backbone CRCs when there was an actual change
-
+Fixes: 7915d7d5407c ("clk: amlogic: gxbb: drop non existing 32k clock parent")
+Reported-by: Christian Hewitt <christianshewitt@gmail.com>
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Tested-by: Christian Hewitt <christianshewitt@gmail.com>
+Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Link: https://patch.msgid.link/20260623201956.1324992-1-martin.blumenstingl@googlemail.com
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
-diff --git a/net/batman-adv/bridge_loop_avoidance.c b/net/batman-adv/bridge_loop_avoidance.c
-index 94e074235e15..a3530cc90c95 100644
---- a/net/batman-adv/bridge_loop_avoidance.c
-+++ b/net/batman-adv/bridge_loop_avoidance.c
-@@ -695,12 +695,14 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 	struct batadv_bla_backbone_gw *old_backbone_gw;
- 	struct batadv_bla_claim search_claim;
- 	struct batadv_bla_claim *claim;
--	bool remove_crc = false;
- 	int hash_added;
-+	u16 claim_crc;
-+	bool changed;
- 
- 	ether_addr_copy(search_claim.addr, mac);
- 	search_claim.vid = vid;
- 	claim = batadv_claim_hash_find(bat_priv, &search_claim);
-+	claim_crc = crc16(0, mac, ETH_ALEN);
- 
- 	/* create a new claim entry if it does not exist yet. */
- 	if (!claim) {
-@@ -732,43 +734,56 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 			kfree(claim);
- 			return;
- 		}
--	} else {
--		WRITE_ONCE(claim->lasttime, jiffies);
--		if (claim->backbone_gw == backbone_gw)
--			/* no need to register a new backbone */
--			goto claim_free_ref;
- 
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
-+
-+		WRITE_ONCE(backbone_gw->lasttime, jiffies);
-+
-+		batadv_claim_put(claim);
-+		return;
-+	}
-+
-+	WRITE_ONCE(claim->lasttime, jiffies);
-+
-+	/* replace backbone_gw atomically and adjust reference counters */
-+	spin_lock_bh(&claim->backbone_lock);
-+	if (claim->backbone_gw != backbone_gw) {
-+		changed = true;
-+
-+		old_backbone_gw = claim->backbone_gw;
-+		kref_get(&backbone_gw->refcount);
-+		claim->backbone_gw = backbone_gw;
-+	} else {
-+		old_backbone_gw = NULL;
-+		changed = false;
-+	}
-+	spin_unlock_bh(&claim->backbone_lock);
-+
-+	if (changed) {
- 		batadv_dbg(BATADV_DBG_BLA, bat_priv,
- 			   "%s(): changing ownership for %pM, vid %d to gw %pM\n",
- 			   __func__, mac, batadv_print_vid(vid),
- 			   backbone_gw->orig);
- 
--		remove_crc = true;
-+		/* add claim address to new backbone_gw */
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
-+
-+		WRITE_ONCE(backbone_gw->lasttime, jiffies);
- 	}
- 
--	/* replace backbone_gw atomically and adjust reference counters */
--	spin_lock_bh(&claim->backbone_lock);
--	old_backbone_gw = claim->backbone_gw;
--	kref_get(&backbone_gw->refcount);
--	claim->backbone_gw = backbone_gw;
--	spin_unlock_bh(&claim->backbone_lock);
--
--	if (remove_crc) {
-+	if (old_backbone_gw) {
- 		/* remove claim address from old backbone_gw */
- 		spin_lock_bh(&old_backbone_gw->crc_lock);
--		old_backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
-+		old_backbone_gw->crc ^= claim_crc;
- 		spin_unlock_bh(&old_backbone_gw->crc_lock);
-+
-+		batadv_backbone_gw_put(old_backbone_gw);
- 	}
- 
--	batadv_backbone_gw_put(old_backbone_gw);
--
--	/* add claim address to new backbone_gw */
--	spin_lock_bh(&backbone_gw->crc_lock);
--	backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
--	spin_unlock_bh(&backbone_gw->crc_lock);
--	WRITE_ONCE(backbone_gw->lasttime, jiffies);
--
--claim_free_ref:
- 	batadv_claim_put(claim);
- }
- 
+diff --git a/drivers/clk/meson/gxbb.c b/drivers/clk/meson/gxbb.c
+index f9131d014ef4..d432e08d1777 100644
+--- a/drivers/clk/meson/gxbb.c
++++ b/drivers/clk/meson/gxbb.c
+@@ -1394,7 +1394,7 @@ static struct clk_regmap gxbb_32k_clk_sel = {
+ 		.name = "32k_clk_sel",
+ 		.ops = &clk_regmap_mux_ops,
+ 		.parent_data = gxbb_32k_clk_parents,
+-		.num_parents = 4,
++		.num_parents = ARRAY_SIZE(gxbb_32k_clk_parents),
+ 		.flags = CLK_SET_RATE_PARENT,
+ 	},
+ };
 
