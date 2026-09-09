@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF3753A881
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:26:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A2B53D0DE
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953167; cv=none; b=rxHRoNytvW8YIHTMgV7ScNT/3p2JFSyenjHwwqglIS/P9uuP3UajbbfTWx6bOnBK+aiyCfL/QC2JZqp/+f3uPF1Ccsh6+FNi2O+boBFtB+FlSIwSCMxEZaRl+dF/+ArEVbCvs4CKPeQkiDX7meoaOhWAbSMjmTmnESIftF3VtfA=
+	t=1788953170; cv=none; b=bcXGS1TLQGNmN175e7n+9mCemURmzq6LscFRuMpxjoBg0h89lzbZHX8guxd/Qq1jicx+ruMp765X/EkJ0B4AxJBNZXYu387cFZ59U/K040hF777hkFvzvbeVBIucVBWRu+j36/UWIpnknloYTMtWvtXtuV4x/kyzknPhMSEqYJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953167; c=relaxed/simple;
-	bh=LbQF2diqMpzImrf6vnVCWFB/g0DfnpcyxrtBVyGnE5s=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OcEdLZQcO4/3bBeANfCpl8W2AG3q2K5L6oPrwpdFdKzaOITcCMA3rZE7mJ6uE3CSgXR3xdnCVUpBb0QWOCYLI+QinY/aRVAtRftA4e79noIMYMfnDLggbbGMLkGee+XgkdPlr84OrB6E0F2uaidc+M1PvxJj+Tfl81jjbKzCJYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Il9joGui; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953170; c=relaxed/simple;
+	bh=WSDhYg+9p2XQ0iHLQQDV3hDgToVznRUL7V681pIAGn0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sJcPN/5SCSxzCrCruLNj0eSJZCvaREN81Vik/6vCMzYJpehKhhOLm6hOhIn+jb9Yu3u+YrkuDZvjJJH/zV2lF+/ELkybse94ZF08rErpnFL7FOuCKtUX8sUQhpxtYOFMsqAGhDKShyIL0TBNxvAtRqicvtLTeJbQmbbKjOJficM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OW4kqyjw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Il9joGui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B646B1F00A3A;
-	Wed,  9 Sep 2026 11:26:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OW4kqyjw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959B51F00A3A;
+	Wed,  9 Sep 2026 11:26:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953166;
-	bh=dtJSka05Jmp3sXoKQFbSYhzQZH3l5PQIOSMOY24pQZE=;
+	s=korg; t=1788953169;
+	bh=lhzJP0sjKTxkXMXBjvEL1pTYx8HUNaAXGCB+mHvSwYA=;
 	h=Subject:To:Cc:From:Date;
-	b=Il9joGuivUXqsXDdnwdq6/BoRmNsQ9xb159MizfZ8LIweKh+yekblJtiaHO7umAT+
-	 q+cvypvlLla20tzEQkbrXfZrGWcR6cLC15mowYdGa1aaylJFSqtAA5hED2TzWs6cQ1
-	 fRVV47upJYW137FJkmyn56qOwDc6Je0sU3L9hJjQ=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc()" failed to apply to 5.15-stable tree
+	b=OW4kqyjw/meDcDdrbEKQiB189vQ/6/wHKqAZ/KrKHFWrCo/xjc33zWk6KjYqF1fYv
+	 AuEgE0L+4gboRQPRrAnJA+MGZg9tZl2uJ/viJsNpLviJx0TJ6byUUUxlCOqKiFKA3q
+	 PO29nBP4c8GcOzA/oxWfJPv7hfByad8s7GdwWYkI=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Skip vport under deletion in report ID" failed to apply to 7.2-stable tree
 To: njavali@marvell.com,mkp@kernel.org,sashiko-dev@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:18:00 +0200
-Message-ID: <2026090900-plot-uninvited-75a9@gregkh>
+Date: Wed, 09 Sep 2026 13:18:49 +0200
+Message-ID: <2026090949-dipper-unlucky-6791@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d90f0feb929f6c0f3010f9af4747c7230b75993
+git cherry-pick -x 23582731afa35031c94fadb71a4f3b4afd094649
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090900-plot-uninvited-75a9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090949-dipper-unlucky-6791@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,76 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d90f0feb929f6c0f3010f9af4747c7230b75993 Mon Sep 17 00:00:00 2001
+From 23582731afa35031c94fadb71a4f3b4afd094649 Mon Sep 17 00:00:00 2001
 From: Nilesh Javali <njavali@marvell.com>
-Date: Thu, 30 Jul 2026 21:28:17 +0530
-Subject: [PATCH] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc()
- error path
+Date: Thu, 30 Jul 2026 21:28:26 +0530
+Subject: [PATCH] scsi: qla2xxx: Skip vport under deletion in report ID
+ acquisition
 
-When qla2x00_mem_alloc() fails, qla2x00_probe_one() jumps to
-probe_hw_failed and calls qla2x00_mem_free(). Several error labels in
-qla2x00_mem_alloc() freed adapter members (elsrej.c, purex_dma_pool,
-flt, sfp_data, loop_id_map, async_pd, sf_init_cb, ex_init_cb, npiv_info)
-but left the pointers dangling. qla2x00_mem_free() then freed them a
-second time. Worse, for the dma_pool members it issued
-dma_pool_free(ha->s_dma_pool, ...) after s_dma_pool had already been
-destroyed and set to NULL at fail_s_dma_pool, dereferencing a NULL pool.
+qla24xx_report_id_acquisition() format-1 handling walks ha->vp_list under
+vport_slock, takes a vref_count on the matching vport and calls
+qla_update_host_map() to register its port id.
 
-Clear each freed pointer (and its DMA handle) in the error labels so the
-subsequent qla2x00_mem_free() skips them.
+A vport teardown via qla24xx_vport_delete() sets VPORT_DELETE, then
+qla24xx_disable_vp() removes the vport from the host_map btree and zeroes
+vha->d_id (RESET_AL_PA). The vport is only unlinked from vp_list later,
+in qla24xx_deallocate_vp_id(), which clears vp_map[idx] (RESET_VP_IDX)
+but does not touch host_map. In the window in between, report ID
+acquisition can still find the vport on vp_list and call
+qla_update_host_map(); with d_id already zeroed it takes the
+btree_insert32() path and re-inserts the dying vport into host_map.
+Nothing cleans that entry afterwards, so once scsi_host_put() frees the
+vha a later host_map lookup dereferences freed memory.
 
+Skip a vport that has VPORT_DELETE set before taking the reference, so it
+is neither re-registered nor scheduled for DPC re-registration. This
+mirrors the existing guard in qla2x00_alert_all_vps().
+
+Fixes: 41dc529a4602 ("qla2xxx: Improve RSCN handling in driver")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-13-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-22-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index 4f485e4acf4a..918b00aed8b8 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -4619,28 +4619,43 @@ qla2x00_mem_alloc(struct qla_hw_data *ha, uint16_t req_len, uint16_t rsp_len,
- fail_lsrjt:
- 	dma_free_coherent(&ha->pdev->dev, ha->elsrej.size,
- 			  ha->elsrej.c, ha->elsrej.cdma);
-+	ha->elsrej.c = NULL;
-+	ha->elsrej.cdma = 0;
- fail_elsrej:
- 	dma_pool_destroy(ha->purex_dma_pool);
-+	ha->purex_dma_pool = NULL;
- fail_flt_data:
- 	vfree(ha->flt_data);
- 	ha->flt_data = NULL;
- fail_flt:
- 	dma_free_coherent(&ha->pdev->dev, sizeof(struct qla_flt_header) + FLT_REGIONS_SIZE,
- 	    ha->flt, ha->flt_dma);
-+	ha->flt = NULL;
-+	ha->flt_dma = 0;
- 
- fail_flt_buffer:
- 	dma_free_coherent(&ha->pdev->dev, SFP_DEV_SIZE,
- 	    ha->sfp_data, ha->sfp_data_dma);
-+	ha->sfp_data = NULL;
-+	ha->sfp_data_dma = 0;
- fail_sfp_data:
- 	kfree(ha->loop_id_map);
-+	ha->loop_id_map = NULL;
- fail_loop_id_map:
- 	dma_pool_free(ha->s_dma_pool, ha->async_pd, ha->async_pd_dma);
-+	ha->async_pd = NULL;
-+	ha->async_pd_dma = 0;
- fail_async_pd:
- 	dma_pool_free(ha->s_dma_pool, ha->sf_init_cb, ha->sf_init_cb_dma);
-+	ha->sf_init_cb = NULL;
-+	ha->sf_init_cb_dma = 0;
- fail_sf_init_cb:
- 	dma_pool_free(ha->s_dma_pool, ha->ex_init_cb, ha->ex_init_cb_dma);
-+	ha->ex_init_cb = NULL;
-+	ha->ex_init_cb_dma = 0;
- fail_ex_init_cb:
- 	kfree(ha->npiv_info);
-+	ha->npiv_info = NULL;
- fail_npiv_info:
- 	dma_free_coherent(&ha->pdev->dev,
- 		((*rsp)->length + 1) * rsp_entry_size,
+diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
+index ab5648eb5f20..affcd87893cd 100644
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -4268,6 +4268,8 @@ qla24xx_report_id_acquisition(scsi_qla_host_t *vha, void *pkt)
+ 			spin_lock_irqsave(&ha->vport_slock, flags);
+ 			list_for_each_entry(vp, &ha->vp_list, list) {
+ 				if (vp_idx == vp->vp_idx) {
++					if (test_bit(VPORT_DELETE, &vp->dpc_flags))
++						break;
+ 					found = 1;
+ 					atomic_inc(&vp->vref_count);
+ 					break;
 
