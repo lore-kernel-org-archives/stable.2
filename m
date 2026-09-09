@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F0952BE36
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719EF52BE36
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954467; cv=none; b=G5gm4Tsp2aoh9EH9d1uQ7o43dAckrRrSJz6LqO1yY6KFmNv2SZsxKgc1RgC6J48BcBF8goy/vKnkhrmgfhS3/MhIs8G2Q9yUVpulvfRZOc5VRKVQSn2D9kz//qb4y2eiLXCnH3g/9/22FumRR18J2q8a/eRbbYY0smwEJRqiPVI=
+	t=1788954468; cv=none; b=ELuIykXzEQ2ahbwGTMHygs6DRAeQSoHKR4tR450dYKwKx1EG2VgtWIdMRYdQhGobpgWTrJo06/XRrA9/6ngQHdIIcPLSJKG6k5gVzpCcdSvyythewke4U2IuB+S04mzX+wAOXxBkd9x2NDE3CTm9YlvxMDGZYmmsX88c5zudvbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954467; c=relaxed/simple;
-	bh=28BseIwsVssx6gY49+br4YluAT9k7cwvRiB3vevVS/k=;
+	s=arc-20240116; t=1788954468; c=relaxed/simple;
+	bh=p6fBFpgp7Ui6dwWWjnhpkauHz9MdRNBdn0rHlmde1tA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RPbo9oNHquYez+yV+wzNLpcl7dFceogOfE8N3suRUas/H/IVfGTjZas0lXLlKJVl3NCNi5wE9JaK9EoibGOW434AL1avCVTZEMB9guNBYZTzAbmWgXGfMDz/zdBvyO/rifts1UHH9ixaft0nUPFDW+kl50LaNchd9R1hyLt2u6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+R1YqrS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FAEvZbrmWt6LOGLzwqBNc2pXhVzGVUSUSbwUY2Up0TjHPRZyrAa/oJJ3mWMqVzUlMGjFt//vkfbk7axF564kCer1wi6MfDQIb68pXHih0hROxvvlu9k12Hi/LfpSx15BBOGrB2zig2KmeZ78sNmLJXCdSfrDnt8EWi2jOxdI03U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMx9+ExY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+R1YqrS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6FC1F00A3D;
-	Wed,  9 Sep 2026 11:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMx9+ExY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1F51F00A3E;
+	Wed,  9 Sep 2026 11:47:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954464;
-	bh=WwKwMgjTTc7bBUxG7mRUm6psM9RUK1XAHvzPe7BAiV8=;
+	s=k20260515; t=1788954467;
+	bh=4FMJhvapdKKb6WzklF//rh87WqjKfpkS9BGEshCeZEk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E+R1YqrSMgZPQwuJviTawl7bgi5UFeU8J0O4QlPmeoTGGJTAG0bnlHvje9WrnyVPg
-	 mtWeNUR2AdcK5YXjqdcQ3KqTudB8hpiZHOOVQs9n6+AuocliQ8ikyx3KvVRgOU7P52
-	 +ToGoUiAgwUHnlRzGJqznZzgCzM4FxxwCVabWGYExFFMs112MNwDk9vlrI0cOfocm/
-	 Fdeails7hMGa6KQ1FLw9pNCefoVSBjBukN7kPV7Y0881KcMKmFnwtTpQrtN988Faxg
-	 J6Y6ynIXOUgekqEdhcEoTo+6LgB5jEwf0o5xax+JkIH6RSnX3Bi33ERNvxgtrz9rFB
-	 xfzayJBP9ok3A==
+	b=cMx9+ExYccTVx8E1lRhBkZh1KPuspwWazNE8Bco00DiwmrFiINRLoyeiYjKX5aYxm
+	 0FwWD7ediBHBMxrtmsBbMvnjlzv42CfDmibiwuD0t0p4fP+VsogteUlRmXaTMFFg2o
+	 lPFH6LyNzn8rGQ1czHNX8Beq0gN4gqd/FdxmVmMzq1s+5C2xMk3Cdj/Br7JCrPDGNc
+	 D9g2atKCleW8WJEVPj/tDuB0PNGAYHJ+DMYS7A0SyoYfhRwqq3K5R1uPLrs4FCVg/1
+	 aZcQO/+TMDOAYN+bgzvpGfvILf4Ncxd9JbashLnfBZlI3omdPmRh/fZyw0NlzrFLDo
+	 kfxB6sdQ6+how==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Linus Walleij <linusw@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Farhan Ali <alifm@linux.ibm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Tyrel Datwyler <tyreld@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] power: supply: ab8500_fg: fix use-after-free on remove
-Date: Wed,  9 Sep 2026 07:47:41 -0400
-Message-ID: <20260909114741.2012696-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] PCI: Introduce PCI_SLOT_PLACEHOLDER constant for slot_nr placeholder value
+Date: Wed,  9 Sep 2026 07:47:43 -0400
+Message-ID: <20260909114744.2013430-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909114741.2012696-1-sashal@kernel.org>
-References: <2026090322-cradling-finance-beb1@gregkh>
- <20260909114741.2012696-1-sashal@kernel.org>
+In-Reply-To: <2026090354-paralyses-labored-e273@gregkh>
+References: <2026090354-paralyses-labored-e273@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,121 +48,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Farhan Ali <alifm@linux.ibm.com>
 
-[ Upstream commit 75b1e88d34254f4fb7753345e21bfee47abddd7f ]
+[ Upstream commit c243e6c470c4695965cc8287767925bc1d9a7867 ]
 
-ab8500_fg_remove() destroys the driver workqueue while the threaded
-interrupt handlers are still armed; they are devm-managed and freed
-only after ->remove() returns, so a handler that fires in that
-window queues work on the freed workqueue.
+Introduce a constant for placeholder value and update the kerneldoc for
+pci_create_slot() to reference PCI_SLOT_PLACEHOLDER instead of -1
+throughout. No functional change.
 
-Tear the workqueue down through devm instead, registering its cleanup
-after the power supply and before the interrupt requests.  devm then
-frees the interrupts first, so the handlers can no longer queue work,
-before disabling the delayed and plain work items and destroying the
-workqueue.  Disabling the items, rather than cancelling them, keeps
-them disabled so no producer (including the power-supply
-external_power_changed callback) can requeue them.
-
-Found by an in-house static analysis tool.
-
-Fixes: 13151631b5bd ("ab8500-fg: A8500 fuel gauge driver")
-Cc: stable@vger.kernel.org # v6.10+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260802020316.417757-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Tyrel Datwyler <tyreld@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org
+Link: https://patch.msgid.link/20260805165518.794-2-alifm@linux.ibm.com
+Stable-dep-of: dcc5bec09e23 ("PCI: Allow per function PCI slots to fix slot reset on s390")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/ab8500_fg.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ drivers/pci/hotplug/pnv_php.c     |  2 +-
+ drivers/pci/hotplug/rpaphp_slot.c |  2 +-
+ drivers/pci/slot.c                | 21 +++++++++++----------
+ include/linux/pci.h               |  3 +++
+ 4 files changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
-index bb4ad449391f0..366de6b2decce 100644
---- a/drivers/power/supply/ab8500_fg.c
-+++ b/drivers/power/supply/ab8500_fg.c
-@@ -3061,6 +3061,20 @@ static void ab8500_fg_unbind(struct device *dev, struct device *master,
- 	flush_workqueue(di->fg_wq);
- }
+diff --git a/drivers/pci/hotplug/pnv_php.c b/drivers/pci/hotplug/pnv_php.c
+index ff92a5c301b81..37299d59f906f 100644
+--- a/drivers/pci/hotplug/pnv_php.c
++++ b/drivers/pci/hotplug/pnv_php.c
+@@ -808,7 +808,7 @@ static struct pnv_php_slot *pnv_php_alloc_slot(struct device_node *dn)
+ 	if (dn->child && PCI_DN(dn->child))
+ 		php_slot->slot_no = PCI_SLOT(PCI_DN(dn->child)->devfn);
+ 	else
+-		php_slot->slot_no = -1;   /* Placeholder slot */
++		php_slot->slot_no = PCI_SLOT_PLACEHOLDER;   /* Placeholder slot */
  
-+/* Disable, not cancel: works stay disabled so nothing can re-arm them. */
-+static void ab8500_fg_destroy_workqueue(void *data)
-+{
-+	struct ab8500_fg *di = data;
-+
-+	disable_work_sync(&di->fg_acc_cur_work);
-+	disable_work_sync(&di->fg_work);
-+	disable_delayed_work_sync(&di->fg_reinit_work);
-+	disable_delayed_work_sync(&di->fg_low_bat_work);
-+	disable_delayed_work_sync(&di->fg_check_hw_failure_work);
-+	disable_delayed_work_sync(&di->fg_periodic_work);
-+	destroy_workqueue(di->fg_wq);
-+}
-+
- static const struct component_ops ab8500_fg_component_ops = {
- 	.bind = ab8500_fg_bind,
- 	.unbind = ab8500_fg_unbind,
-@@ -3162,6 +3176,11 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 		return PTR_ERR(di->fg_psy);
- 	}
+ 	kref_init(&php_slot->kref);
+ 	php_slot->state	                = PNV_PHP_STATE_INITIALIZED;
+diff --git a/drivers/pci/hotplug/rpaphp_slot.c b/drivers/pci/hotplug/rpaphp_slot.c
+index 67362e5b99719..92eabf5f61b9c 100644
+--- a/drivers/pci/hotplug/rpaphp_slot.c
++++ b/drivers/pci/hotplug/rpaphp_slot.c
+@@ -84,7 +84,7 @@ int rpaphp_register_slot(struct slot *slot)
+ 	struct hotplug_slot *php_slot = &slot->hotplug_slot;
+ 	u32 my_index;
+ 	int retval;
+-	int slotno = -1;
++	int slotno = PCI_SLOT_PLACEHOLDER;
  
-+	/* Registered after fg_psy, before the IRQs: devm frees IRQ -> workqueue -> fg_psy. */
-+	ret = devm_add_action_or_reset(dev, ab8500_fg_destroy_workqueue, di);
-+	if (ret)
-+		return ret;
-+
- 	di->fg_samples = SEC_TO_SAMPLE(di->bm->fg_params->init_timer);
+ 	dbg("%s registering slot:path[%pOF] index[%x], name[%s] pdomain[%x] type[%d]\n",
+ 		__func__, slot->dn, slot->index, slot->name,
+diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
+index 6d5cd37bfb1e7..42ff66461f74a 100644
+--- a/drivers/pci/slot.c
++++ b/drivers/pci/slot.c
+@@ -37,7 +37,7 @@ static const struct sysfs_ops pci_slot_sysfs_ops = {
+ 
+ static ssize_t address_read_file(struct pci_slot *slot, char *buf)
+ {
+-	if (slot->number == 0xff)
++	if (slot->number == PCI_SLOT_PLACEHOLDER)
+ 		return sysfs_emit(buf, "%04x:%02x\n",
+ 				  pci_domain_nr(slot->bus),
+ 				  slot->bus->number);
+@@ -210,7 +210,7 @@ static struct pci_slot *get_slot(struct pci_bus *parent, int slot_nr)
+ /**
+  * pci_create_slot - create or increment refcount for physical PCI slot
+  * @parent: struct pci_bus of parent bridge
+- * @slot_nr: PCI_SLOT(pci_dev->devfn), -1 for placeholder, or
++ * @slot_nr: PCI_SLOT(pci_dev->devfn), PCI_SLOT_PLACEHOLDER for placeholder, or
+  *	PCI_SLOT_ALL_DEVICES
+  * @name: user visible string presented in /sys/bus/pci/slots/<name>
+  * @hotplug: set if caller is hotplug driver, NULL otherwise
+@@ -236,15 +236,16 @@ static struct pci_slot *get_slot(struct pci_bus *parent, int slot_nr)
+  * In most cases, @pci_bus, @slot_nr will be sufficient to uniquely identify
+  * a slot. There is one notable exception - pSeries (rpaphp), where the
+  * @slot_nr cannot be determined until a device is actually inserted into
+- * the slot. In this scenario, the caller may pass -1 for @slot_nr.
++ * the slot. In this scenario, the caller may pass PCI_SLOT_PLACEHOLDER for @slot_nr.
+  *
+  * The following semantics are imposed when the caller passes @slot_nr ==
+- * -1. First, we no longer check for an existing %struct pci_slot, as there
+- * may be many slots with @slot_nr of -1.  The other change in semantics is
+- * user-visible, which is the 'address' parameter presented in sysfs will
+- * consist solely of a dddd:bb tuple, where dddd is the PCI domain of the
+- * %struct pci_bus and bb is the bus number. In other words, the devfn of
+- * the 'placeholder' slot will not be displayed.
++ * PCI_SLOT_PLACEHOLDER. First, we no longer check for an existing %struct
++ * pci_slot, as there may be many slots with @slot_nr of
++ * PCI_SLOT_PLACEHOLDER. The other change in semantics is user-visible,
++ * which is the 'address' parameter presented in sysfs will consist solely
++ * of a dddd:bb tuple, where dddd is the PCI domain of the %struct pci_bus
++ * and bb is the bus number. In other words, the devfn of the 'placeholder'
++ * slot will not be displayed.
+  *
+  * Bus-wide slots:
+  * For PCIe hotplug, the physical slot encompasses the entire secondary
+@@ -267,7 +268,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 
+ 	mutex_lock(&pci_slot_mutex);
+ 
+-	if (slot_nr == -1)
++	if (slot_nr == PCI_SLOT_PLACEHOLDER)
+ 		goto placeholder;
  
  	/*
-@@ -3174,20 +3193,16 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	/* Register primary interrupt handlers */
- 	for (i = 0; i < ARRAY_SIZE(ab8500_fg_irq); i++) {
- 		irq = platform_get_irq_byname(pdev, ab8500_fg_irq[i].name);
--		if (irq < 0) {
--			destroy_workqueue(di->fg_wq);
-+		if (irq < 0)
- 			return irq;
--		}
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 64b308b6e61c1..b628787e9485c 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -81,6 +81,9 @@
+  */
+ #define PCI_SLOT_ALL_DEVICES	0xfe
  
- 		ret = devm_request_threaded_irq(dev, irq, NULL,
- 				  ab8500_fg_irq[i].isr,
- 				  IRQF_SHARED | IRQF_NO_SUSPEND | IRQF_ONESHOT,
- 				  ab8500_fg_irq[i].name, di);
- 
--		if (ret != 0) {
--			destroy_workqueue(di->fg_wq);
-+		if (ret != 0)
- 			return ret;
--		}
- 		dev_dbg(dev, "Requested %s IRQ %d: %d\n",
- 			ab8500_fg_irq[i].name, irq, ret);
- 	}
-@@ -3201,7 +3216,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	ret = ab8500_fg_sysfs_init(di);
- 	if (ret) {
- 		dev_err(dev, "failed to create sysfs entry\n");
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3209,7 +3223,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_err(dev, "failed to create FG psy\n");
- 		ab8500_fg_sysfs_exit(di);
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3229,7 +3242,6 @@ static int ab8500_fg_remove(struct platform_device *pdev)
- {
- 	struct ab8500_fg *di = platform_get_drvdata(pdev);
- 
--	destroy_workqueue(di->fg_wq);
- 	component_del(&pdev->dev, &ab8500_fg_component_ops);
- 	list_del(&di->node);
- 	ab8500_fg_sysfs_exit(di);
++/* Used to identify a slot as a placeholder */
++#define PCI_SLOT_PLACEHOLDER	0xff
++
+ /* pci_slot represents a physical slot */
+ struct pci_slot {
+ 	struct pci_bus		*bus;		/* Bus this slot is on */
 -- 
 2.53.0
 
