@@ -1,134 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F9E530DEC
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCED52ED3D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950725; cv=none; b=C60mrNyWaXkTwNGIaeIJKrzzZfuVzR5FcidArm4a49ISL4apjSQo4/oJTaHs+sWL/EhW0ADtazSKNMnpRrMhj04SGo4kqI5wNxPt+R+4VDhvrdnBUuT79SHL6BLPhXH7SCjV28YPetg0PoCEpDdbsOfLVqthIJ4uF9kuHtVwkpk=
+	t=1788950726; cv=none; b=EhZw7acuDfLcbHClPW1QNhqj5orkoSm37JawxQcAOHo0CW0P84Kwz7eWlFgyNX541Tzd155t8dYfAs8HDQzna2K/t92KVpMEKrRS8sEJLTksLBFkoxIUuN3MM51wmB+i0xk2JjNqaD3sW5pxyI4lkQaeqbIjgvR7q8NG0vmawEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950725; c=relaxed/simple;
-	bh=wpscjhLHShuwilUgf5sf+EJsZDPfuVat+Cx+eMm5A+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RZg7cMKaLPxRdWu69B03HNzYaPslHVcql5XAELEwjEcXzbdhVLqSxwE2F+bc5g2Dxmj1/Aak1M6rMtGkqQN0p7r8D6oMtiqhiXsjkTZ0pTkjenfATe0jFRbME6i+B36pZLknHnlasmJser4VXbXLbaLmbQd39kXrr7goUGeg7S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IANHaZjn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950726; c=relaxed/simple;
+	bh=Ur+pnX3hkr9dwmPHFfqjMBbXKt0HgberTGsaKN9qmhg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FdFpS+/6DKno45oTIb5w46XPMSqL2Ea2J642D2QhXtozB4JCKGFh51N2aRbo2MRnHLIUUPSvXEPE/eOw439eao/3yBh+Tayy+3AON8COiLqeIczR/L++QxlPg70pgxsE2WjPZ2+7Z/4EWsAr0W59rkDRZcGkhf2RWTnK4TMI3TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xu2Pkq7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IANHaZjn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C121F00A3D;
-	Wed,  9 Sep 2026 10:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950722;
-	bh=lmCA/LwkBP52y2wIsxzkF6RN0Wlb4enyMufQDTETJ4I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IANHaZjnNqMgdrloai+kE5bqc04UytXxdHM4w1P6uVwZOix5BXJC1gaD2DOazSTp8
-	 bD4z8S1R38SLiiPj8L/AItkgG+bm2GtJLk1BjfRUjcUf2xY34Em72am9PfyQMX1QAw
-	 YJfWaBOC5UfB7MYkPSr7+BIdEIqKNVfIELo5NZbejU/ISKJqm0Cf5y+KDk9FuGR8Re
-	 uNI4mXh+mLN8AShVCgXpRn/oeXvBW1tDTCasatRdsYuMY5s2WvPx0Qu0EcSZljXcOR
-	 6KnThmlJmW1ywMHsZr0U062U95dQn3cEjL0GrZf0Yqk5+PEj3ETNxcaKktDCMC8f68
-	 90Iw4UQE/4nJQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <csokas.bence@prolan.hu>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] dmaengine: Add devm_dma_request_chan()
-Date: Wed,  9 Sep 2026 06:45:19 -0400
-Message-ID: <20260909104520.1561085-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090301-luncheon-compactly-c5cc@gregkh>
-References: <2026090301-luncheon-compactly-c5cc@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xu2Pkq7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E32F1F00A3A;
+	Wed,  9 Sep 2026 10:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788950724;
+	bh=LyYMjjAYac6LI2vwM1H+FzWHNDqn+7rdj163dN+SJEU=;
+	h=Subject:To:Cc:From:Date;
+	b=Xu2Pkq7qY1mnTR1sBfqgrFWTLNCfsfUN3cdZsp4+hzyTgfiRS2qEQOSCwuSzmZY6w
+	 43bJ/AzawltRN+0j0HG5b6zuOewKAgczouLet38/3/Py9wx+W3c5kxyeEKQ7YuXbW4
+	 9VPfs/cyddvg7TO7jnReXzrhNaRvx23t+sokIDLI=
+Subject: FAILED: patch "[PATCH] KVM: s390: Fix memory corruption by not reinjecting CK" failed to apply to 6.12-stable tree
+To: borntraeger@linux.ibm.com,hca@linux.ibm.com,imbrenda@linux.ibm.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 12:35:44 +0200
+Message-ID: <2026090944-either-skid-8b36@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Bence Csókás <csokas.bence@prolan.hu>
 
-[ Upstream commit 08bf1663c21a3e815eda28fa242d84c945ca3b94 ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Expand the arsenal of devm functions for DMA devices, this time for
-requesting channels.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Signed-off-by: Bence Csókás <csokas.bence@prolan.hu>
-Link: https://lore.kernel.org/r/20250610082256.400492-2-csokas.bence@prolan.hu
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Stable-dep-of: 777979e62711 ("i2c: mxs: fix DMA channel leak on probe error")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/dma/dmaengine.c   | 30 ++++++++++++++++++++++++++++++
- include/linux/dmaengine.h |  7 +++++++
- 2 files changed, 37 insertions(+)
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 546dde823a36d7283dcf46127c2f3d093443860f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090944-either-skid-8b36@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index b1c9187602d53..8f221a407fc04 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -927,6 +927,36 @@ void dma_release_channel(struct dma_chan *chan)
- }
- EXPORT_SYMBOL_GPL(dma_release_channel);
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 546dde823a36d7283dcf46127c2f3d093443860f Mon Sep 17 00:00:00 2001
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+Date: Thu, 6 Aug 2026 16:58:35 +0200
+Subject: [PATCH] KVM: s390: Fix memory corruption by not reinjecting CK
+ machine checks
+
+Channel-subsystem damage machine checks are for the host channel
+subsystem. The guest channel subsystem is emulated in the userspace VMM.
+There is no point in forwarding such machine checks into the guest.
+
+This also simplifies the machine check reinjection and avoids kfree of a
+stack variable as reported by sashiko.  There might be still machine
+checks that have the ck bit set with another bit (like instruction
+damage), mask out the CK bit in s390_backup_mcck_info(), like the CP and
+ED bits already are.
+
+Fixes: 4d62fcc0b692 ("KVM: s390: Inject machine check into the guest")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Acked-by: Heiko Carstens <hca@linux.ibm.com>
+Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260806145835.31818-1-borntraeger@linux.ibm.com>
+
+diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
+index 6454c1531854..7919b2b9ac9c 100644
+--- a/arch/s390/include/asm/nmi.h
++++ b/arch/s390/include/asm/nmi.h
+@@ -22,6 +22,7 @@
+ #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
+ #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
+ #define MCCK_CODE_CP			BIT(63 - 9)
++#define MCCK_CODE_CK			BIT(63 - 11)
+ #define MCCK_CODE_STG_ERROR		BIT(63 - 16)
+ #define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
+ #define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
+@@ -33,6 +34,8 @@
+ #define MCCK_CODE_FC_VALID		BIT(63 - 43)
+ #define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
  
-+static void dmaenginem_release_channel(void *chan)
-+{
-+	dma_release_channel(chan);
-+}
++#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE | MCCK_CODE_CK)
 +
-+/**
-+ * devm_dma_request_chan - try to allocate an exclusive slave channel
-+ * @dev:	pointer to client device structure
-+ * @name:	slave channel name
-+ *
-+ * Returns pointer to appropriate DMA channel on success or an error pointer.
-+ *
-+ * The operation is managed and will be undone on driver detach.
-+ */
-+
-+struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
-+{
-+	struct dma_chan *chan = dma_request_chan(dev, name);
-+	int ret = 0;
-+
-+	if (!IS_ERR(chan))
-+		ret = devm_add_action_or_reset(dev, dmaenginem_release_channel, chan);
-+
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return chan;
-+}
-+EXPORT_SYMBOL_GPL(devm_dma_request_chan);
-+
- /**
-  * dmaengine_get - register interest in dma_channels
+ #ifndef __ASSEMBLER__
+ 
+ union mci {
+diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
+index e17a59d4d5a4..17297a8b63d9 100644
+--- a/arch/s390/kernel/nmi.c
++++ b/arch/s390/kernel/nmi.c
+@@ -344,8 +344,7 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
+ 
+ 	sie_page = container_of(sie_block, struct sie_page, sie_block);
+ 	mcck_backup = &sie_page->mcck_info;
+-	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
+-				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
++	mcck_backup->mcic = get_lowcore()->mcck_interruption_code & ~MCCK_CODE_NO_GUEST;
+ 	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
+ 	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
+ }
+@@ -357,8 +356,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
+ #define ED_STP_ISLAND	6	/* External damage STP island check */
+ #define ED_STP_SYNC	7	/* External damage STP sync check */
+ 
+-#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE)
+-
+ /*
+  * machine check handler.
   */
-diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-index cff3dba658209..ea476ea79f767 100644
---- a/include/linux/dmaengine.h
-+++ b/include/linux/dmaengine.h
-@@ -1490,6 +1490,7 @@ struct dma_chan *__dma_request_channel(const dma_cap_mask_t *mask,
- 
- struct dma_chan *dma_request_chan(struct device *dev, const char *name);
- struct dma_chan *dma_request_chan_by_mask(const dma_cap_mask_t *mask);
-+struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name);
- 
- void dma_release_channel(struct dma_chan *chan);
- int dma_get_slave_caps(struct dma_chan *chan, struct dma_slave_caps *caps);
-@@ -1526,6 +1527,12 @@ static inline struct dma_chan *dma_request_chan_by_mask(
+diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
+index 009d6a845d59..0d9fbe75dc66 100644
+--- a/arch/s390/kvm/interrupt.c
++++ b/arch/s390/kvm/interrupt.c
+@@ -3108,9 +3108,7 @@ static int set_adapter_int(struct kvm_kernel_irq_routing_entry *e,
+ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
+ 				     struct mcck_volatile_info *mcck_info)
  {
- 	return ERR_PTR(-ENODEV);
- }
+-	struct kvm_s390_interrupt_info inti;
+ 	struct kvm_s390_irq irq = {};
+-	struct kvm_s390_mchk_info *mchk;
+ 	union mci mci;
+ 	__u64 cr14 = 0;         /* upper bits are not used */
+ 	int rc;
+@@ -3129,20 +3127,14 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
+ 	if (mci.w)
+ 		cr14 |= CR14_WARNING_SUBMASK;
+ 
+-	mchk = mci.ck ? &inti.mchk : &irq.u.mchk;
+-	mchk->cr14 = cr14;
+-	mchk->mcic = mcck_info->mcic;
+-	mchk->ext_damage_code = mcck_info->ext_damage_code;
+-	mchk->failing_storage_address = mcck_info->failing_storage_address;
+-	if (mci.ck) {
+-		/* Inject the floating machine check */
+-		inti.type = KVM_S390_MCHK;
+-		rc = __inject_vm(vcpu->kvm, &inti);
+-	} else {
+-		/* Inject the machine check to specified vcpu */
+-		irq.type = KVM_S390_MCHK;
+-		rc = kvm_s390_inject_vcpu(vcpu, &irq);
+-	}
++	irq.u.mchk.cr14 = cr14;
++	irq.u.mchk.mcic = mcck_info->mcic;
++	irq.u.mchk.ext_damage_code = mcck_info->ext_damage_code;
++	irq.u.mchk.failing_storage_address = mcck_info->failing_storage_address;
 +
-+static inline struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+
- static inline void dma_release_channel(struct dma_chan *chan)
- {
++	/* Inject the machine check to specified vcpu */
++	irq.type = KVM_S390_MCHK;
++	rc = kvm_s390_inject_vcpu(vcpu, &irq);
+ 	WARN_ON_ONCE(rc);
  }
--- 
-2.53.0
+ 
 
