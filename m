@@ -1,120 +1,158 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D3B54CF7D;
-	Wed,  9 Sep 2026 12:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9198437F31D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958302; cv=none; b=mzGW+3Q3xZUASOEU9Lf/oMtZJzujZ16NX25lwE1hH8EETGeJiPOZdWJb/4tfwemp0HfI+W2iJriUjcqOmCc/Ojgyt1I+M+B3TYJU3AnfXezVBociywl1vLAcAZsWUuUQhsA+Cn9wHR1fTHvN/CxuBMYB9H07mEgIOstd7+t40H0=
+	t=1788958345; cv=none; b=UOEwbagFg64IiODFuKVf97aV0kIQjujLZ6WaAMiChLmqSSlV82CJG41xy221qWGI4+div6hsOTAy15oFP648Ts1ElGDPWhsCBSBTNUhrjw+EpFJOa/VbREiJFANfc2DQLlJ7hyCk58GfBPQMzDb1zy8e9aJug9pDHi/Qer3ZuoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958302; c=relaxed/simple;
-	bh=CHOwUTuLU9dYXLzl8B9ejeZKp39G3sNwKHan6EqRP20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OobgJNVzfUTcm54ymD+0krU6kBZoLf8eoLKHzg8TKJfKQtu4eN0yooFqVKzpUR/aLgxptWVeJyveC7/Y4tDP4n/Y+2SnxPojdqtDReYapU79wyxR90/GEkpKqKJMJva+W2/MzGuT3fwnFrTAqbctVA32Ml8J1t8NwNyO3D6GZwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rYWnme0B; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788958345; c=relaxed/simple;
+	bh=VJX5d9VOEJkpqrZkc7WBtPOG/1CToeK5Y8sJFVR6QhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q2yX3rpbfEQk8XR1xpOL++xDNYHppP24++D0xvOo60wfwqlKsgJrIyuWIiwplUMtUwMzQEa9dUEm15bpWGLSMcVOdaeuVx14jpxT77CM7MwnLNICwKu6rrccan1yTx+SexH7+T4Sh6w5SgKVQO1dCAPtNJGJEZYREWNVwQbzMp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qulba2go; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rYWnme0B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Mq137E/3icYTvBbUxpFvEmd0A5s/IR/Eke1OJBWVN8w=; b=rYWnme0BMotsfiebauujysdoqO
-	pJ5+Y23GgW10q6PCK82nIALbCAO+YsQhj4ezgVibIEJ7heNhberTNugfcFM7xVARoT38tgFx/jU9T
-	2SZfH71/8lzmeRpls/IURdrJGAvelRXBNKiU98+3DSL10CHgJZ2MQE7Xkwtn/w8EiHyC05e/zVWcL
-	92CUWeEjY9rDNQSrcjLxNMAyKNs8V2K6+lT6QFxusSc05Hzl+n8+jWfHDVcvU37i9Bggds6XfIEqE
-	YLQHjkFxTj5VWNRWQLVlW+5NvjP90sUhGign6p5cRjbkOwf9w5ueut4lja2nAO5VlvU2iV5Q2jTcM
-	6BfWQrJg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4Hm1-00000005Rvo-3Ug1;
-	Wed, 09 Sep 2026 12:51:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C4751300A9A; Wed, 09 Sep 2026 14:51:32 +0200 (CEST)
-Date: Wed, 9 Sep 2026 14:51:32 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>, stern@rowland.harvard.edu,
-	boqun@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <20260909125132.GR788244@noisy.programming.kicks-ass.net>
-References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qulba2go"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so514800a12.0
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 05:52:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788958344; x=1789563144; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=McDZE6BMTiPzOebjG4AUmwI9Osg+271QF+wG2H9Onp0=;
+        b=qulba2goUwNPaLPwaglqtOVNp+O5mFS3I95eWB19wm2n48oC3oM6QmjUe0NkkyhAXQ
+         fBOSCJMgD0oUU/Lhc5XMkKYixM/1UEZugcyIomosaY4B25R2DLGXTpwRAXVPR0qgu+DV
+         MKIkrj913nDNTmpWevWiyvmhDGP4xQPmSWJsVy2kyEaJ2R+C+iP6Zhc8srTTT90ZZRUa
+         HPJAPrYIJPeRHshu9c4CHnUuRvm7oztAHNFTp6Krz73ymr1LXsWvBMAhE/yXTrCwCtnD
+         b+RJUYB7YAewPt0sAECaquSNnKm9JdYuRrskfXIZEhtzy7pEJWgbd/iRutDl0nmi0Qiu
+         jLRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958344; x=1789563144;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=McDZE6BMTiPzOebjG4AUmwI9Osg+271QF+wG2H9Onp0=;
+        b=maHnCiN+7Efx0pfVF9ywoigcqZrKjFKO7Gkhz1q3qSVBkg9FPBemr4SeFSfIDwToNV
+         xrpKiwvCbhT+wanDGxMvkV5tOrec0emZNQL7RfxUcqJPh8PwD8sbRyAoJaaN5VeFwQ+y
+         fDDHzShmt0QLg35YXM6dEuQkQrnbuKJ1bFv0HH/lNj+q8ZDU6S2PEkO7tkYwZNdmd2UN
+         XjyKWsPGLltc56iuI27IRdUAiJ50OD8aQ3yuTl6ANlm+tmORilIT+jFnvga3+ehU90bw
+         5kZhMSJQBihn+HudvtLw5VzNdJhc7XNY7+ypfK0OBO3AcvRClqg8nbVd7T5zwn+STpt5
+         2V8A==
+X-Gm-Message-State: AFuF++mm3VANdcPtL8yIErisFBW1e56ONav3+M5VTzL30cPajQl+PLPL
+	G+4Szw2Aj3CFgOEEUtqIPlKrzRSeEiT1ZZ0jZuVfs+NPzE6hk5yQpA1ChM+r+g==
+X-Gm-Gg: AYBFou1p6pA8vDitKjoWEC8ev9YIStfE1wsIPGgtkeMGadJ4NN8utoVuNpbHCILJv+N
+	pfPuB4bZrQUvyXszUgsbMeJMA6OLi1K1Qdfgty3pg+Q8D3wMeyk8rIxq8OfLdj17ErDWl3tKB2X
+	qyEUUoWTjY4OLEQ3f8HVZlvRFMhtN4/xpZQksDBZeuFgBKug9NHKhXuA5Gadh2g9/wToD6wlfk4
+	F9jvxXN9M+w3dHdpQF2/AnY9mKU/2tcj2iSoign095mcFK6zk0BXDLaLTVZq2UxOZy+uzjIGolc
+	yuOLeSAF6ESQHo3LivFN19AxaJsRlsxuosDdsrOdeOdVhRNNVu0porqFHzB9FP2fRAVsatzPwsx
+	ZWrFm5x7l1ndPHM7iS+pz9/4kh5adqgXZD2HPFKqHSNFgrGzdaVQwi0CeXBPC9RaJilLB3Tgk8c
+	IyvKABTcnEf7qKZC7GBpH9yh3RycZohfvXpjdGehD3t7jwWTChS5yJnEfOPkn9amxCZWKWieRCE
+	o5BLzVV
+X-Received: by 2002:a17:90b:2e0c:b0:38e:7297:a92e with SMTP id 98e67ed59e1d1-39b8be7ba4amr9281199a91.9.1788958343664;
+        Wed, 09 Sep 2026 05:52:23 -0700 (PDT)
+Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d086adsm39326455a91.15.2026.09.09.05.52.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 05:52:23 -0700 (PDT)
+From: Kazuki Hanai <hnkz.64@gmail.com>
+To: stable@vger.kernel.org
+Cc: Kazuki Hanai <hnkz.64@gmail.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 6.6.y] nvmet-auth: Synchronize timeout work during SQ teardown
+Date: Wed,  9 Sep 2026 21:52:09 +0900
+Message-ID: <20260909125209.1798946-1-hnkz.64@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090904-demeaning-untidy-b054@gregkh>
+References: <2026090904-demeaning-untidy-b054@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra wrote:
-> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
+nvmet_auth_sq_free() cancels auth_expired_work with
+cancel_delayed_work(). If the work has already started, cancellation does
+not wait for the callback. Transport teardown can consequently free or
+reuse the queue containing struct nvmet_sq while
+nvmet_auth_expired_work() still accesses that SQ.
 
-> > Because the following doesn't verify that:
-> > ---
-> > C MP+farfetched
-> > 
-> > {}
-> > 
-> > P0(int *next, int *prev, int *exit_state, spinlock_t *tasklist_lock)
-> > {
-> > 	// list_del_init()
-> > 	WRITE_ONCE(*next, 1);
-> > 	WRITE_ONCE(*prev, 1);
-> > 	// exit_notify()
-> > 	spin_lock(tasklist_lock);
-> > 	WRITE_ONCE(*exit_state, 1);
-> > 	spin_unlock(tasklist_lock);
-> > }
-> > 
-> > P1(int *exit_state, int *pid, spinlock_t *tasklist_lock)
-> > {
-> > 	int r0;
-> > 
-> > 	// de_thread()
-> > 	spin_lock(tasklist_lock);
-> > 	r0 = READ_ONCE(*exit_state);
-> > 	if (r0 == 1) {
-> > 		// exchange_tids()
-> > 		WRITE_ONCE(*pid, 1);
-> > 	}
-> > 	spin_unlock(tasklist_lock);
-> > }
-> > 
-> > P2(int *next, int *prev, int *pid, spinlock_t *sighand)
-> > {
-> > 	int r0;
-> > 	int r1;
-> > 	// get target
-> > 	r0 = READ_ONCE(*pid);
-> > 	spin_lock(sighand);
+Add a teardown-specific helper that synchronously drains the delayed work
+before freeing authentication state, and use it from nvmet_sq_destroy().
+Keep the non-synchronous helper for in-band authentication state cleanup,
+where the SQ owner remains alive.
 
-There is no dependency between r0 and sighand. While I think there is in
-posixtimer_send_sigqueue(). Does making it smp_load_acquire() help?
+Fixes: 1a70200f404a ("nvmet-auth: expire authentication sessions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+(cherry picked from commit eaa948c0e19b1bb2d93262207bca0c3d19cc3406)
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+---
+ drivers/nvme/target/auth.c  | 6 ++++++
+ drivers/nvme/target/core.c  | 2 +-
+ drivers/nvme/target/nvmet.h | 2 ++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-> > 	// queue signal
-> > 	r1 = READ_ONCE(*next);
-> > 	if (r1 == 0)
-> > 		WRITE_ONCE(*prev, 2);
-> > 	spin_unlock(sighand);
-> > }
-> > 
-> > exists (prev=1 /\ 2:r0=1) (* Bad outcome. *)
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index 9fe6ad89bf83..b3a0e1946453 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -227,6 +227,12 @@ void nvmet_auth_sq_free(struct nvmet_sq *sq)
+ 	sq->dhchap_skey = NULL;
+ }
+ 
++void nvmet_auth_sq_destroy(struct nvmet_sq *sq)
++{
++	cancel_delayed_work_sync(&sq->auth_expired_work);
++	nvmet_auth_sq_free(sq);
++}
++
+ void nvmet_destroy_auth(struct nvmet_ctrl *ctrl)
+ {
+ 	ctrl->shash_id = 0;
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index e435996c5537..3b1b72022a97 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -804,7 +804,7 @@ void nvmet_sq_destroy(struct nvmet_sq *sq)
+ 	wait_for_completion(&sq->confirm_done);
+ 	wait_for_completion(&sq->free_done);
+ 	percpu_ref_exit(&sq->ref);
+-	nvmet_auth_sq_free(sq);
++	nvmet_auth_sq_destroy(sq);
+ 
+ 	/*
+ 	 * we must reference the ctrl again after waiting for inflight IO
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index c0648216b9e4..c037d1daf94d 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -704,6 +704,7 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl);
+ void nvmet_auth_sq_init(struct nvmet_sq *sq);
+ void nvmet_destroy_auth(struct nvmet_ctrl *ctrl);
+ void nvmet_auth_sq_free(struct nvmet_sq *sq);
++void nvmet_auth_sq_destroy(struct nvmet_sq *sq);
+ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id);
+ bool nvmet_check_auth_status(struct nvmet_req *req);
+ int nvmet_auth_host_hash(struct nvmet_req *req, u8 *response,
+@@ -728,6 +729,7 @@ static inline void nvmet_auth_sq_init(struct nvmet_sq *sq)
+ }
+ static inline void nvmet_destroy_auth(struct nvmet_ctrl *ctrl) {};
+ static inline void nvmet_auth_sq_free(struct nvmet_sq *sq) {};
++static inline void nvmet_auth_sq_destroy(struct nvmet_sq *sq) {};
+ static inline bool nvmet_check_auth_status(struct nvmet_req *req)
+ {
+ 	return true;
+-- 
+2.53.0
+
