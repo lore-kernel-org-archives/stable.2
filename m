@@ -1,47 +1,44 @@
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE9039CD14;
-	Wed,  9 Sep 2026 17:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A693367F26
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975082; cv=none; b=X8wuazN8rzBBUko4CPjKNE+7UNNbywWypWq8HZbfxgUIF2wT0IeIJea9ffqxbXPz1bhUPnpy+MlyEEi57tuBZIugwuFlaD+zgjsnpJyVuxbInFMOFuMQC9E9PPLQJ8NjZ7j2+36OhGujdNawx7Jy64aiPr6ta9uAneqZDseYyJ4=
+	t=1788975138; cv=none; b=Wo3qWCJK9IFuIaTc4VWHz6EK1K6NY1JOK/2kH1mR68uSVPwH3C9YDd4PuxAvWQu9GeXJnby1Qx/6AgrF9yVT4lCizKyk2l+/1y8DgtqhsQMa5eCqBBa0UYvRfoEj6o6YKVWNcuGlyzNYSL758M4Fd2qIZYUS1JaSC2qmAFlJa2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975082; c=relaxed/simple;
-	bh=fOLMYKi+nbgaU8spr87cltPjB56CXayMVROFNlqZH/o=;
+	s=arc-20240116; t=1788975138; c=relaxed/simple;
+	bh=xY17ys+BWqbxoppvfYJ6r+p33q1DMAvUoapsTye9PxM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qsf7IJTCT2y5mhZ2CNAkjrKe7/RV0jVFrnPHtRZCJ+Fr/XNv3ZhtXpDACvvFmJxo8rc+XiVhIfx95Y14cuqq4+IeolDfR54qx0CV42Y53DjnJVsVwbRXvYa0mjHCFPus8jP4aFs2KacQ9NAinC571ciAEIYH8HxOpl3NirLFRDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=ptwxU3jS; arc=none smtp.client-ip=115.124.28.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	 MIME-Version; b=ZCrjfzO8sURNTCsi8eQCyju0IRtUAX0N5eSrBmuAKWhju2fUai8whw61xs0BzadcLPC81xS5E8tE0SdhjqiwmYM0H4OjDNQYnIOwCpMaBEmjAhDBadHfNwctUKGwdIC7bVWIcupSwxadoznPDCBghho/Y0oFZLpzDE8gQcka50Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3hwjhqz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="ptwxU3jS"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1788975072; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=aOQCNzihXEftM2gN4JZ6DNSjPsRK5i/nabKuwuh9rR4=;
-	b=ptwxU3jSs4btt9eLyxk81TB8kpTVz8u7VJ2yfUbSvh6V8IPwXb5rnmq11NR0s3rxeUJqQpxHqA2bZdmLPZ83HfCHZKZ2dJ0/V+nywCb5qhDRBzSxUz2RzS0lxoa23zROWWodYPGOWhMLjUt6YDEbOHZaJHBttDYAy/KpvuIM01Q=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07544608|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00433042-0.00078299-0.994887;FP=9821315156926840689|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.j9p79sU_1788975069;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j9p79sU_1788975069 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 01:31:11 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH net v2 1/2] can: j1939: reject TP RTS with wrong packet count
-Date: Thu, 10 Sep 2026 01:31:03 +0800
-Message-ID: <20260909173105.158202-2-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260909173105.158202-1-liuc63@xiaopeng.com>
-References: <20260909173105.158202-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3hwjhqz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00AED1F000FF;
+	Wed,  9 Sep 2026 17:32:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788975136;
+	bh=iUDkWEyY4xA6PF7iKL0/4+G+15kvAvTXAPWp5oe5HRE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=H3hwjhqzQ2TU0HqRnNT6e2tBT7Y7pJJTtakyWe9pjrn8DrMwPKE45U1wZ6kbariN7
+	 ukfXXvuLleprl3Y+t5OgfzCRi8qwsFN+gNmD9SNUL56pGlh3jGArnKGGkrEU1GjauM
+	 Abo71Lii2+J1h2gx51X0dvpC3G6FHAsoJuWbhYZmqeerImYtwv7oAtsglk+AXvzujO
+	 mJMC4j/g2nyTHLw7M+JZ02LYwginFTj2N4KEkx7VQXd0d7Gc4YKBnUgW3doGan+CRm
+	 LyITXd1W89xoHLtctptMGtg8Fy1DQoXbmrbay+z8vIFs7TPEvd28/WiZd9/3pl7mQw
+	 PxIj/DWfkLPpg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dragos Tatulea <dtatulea@nvidia.com>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] net/mlx5e: SHAMPO, Always calculate page size
+Date: Wed,  9 Sep 2026 13:32:13 -0400
+Message-ID: <20260909173214.3296617-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090308-macarena-speckled-769c@gregkh>
+References: <2026090308-macarena-speckled-769c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,64 +47,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-j1939_xtp_rx_rts_session_new() computes the expected packet count as
-(len + 6) / 7, then unconditionally overwrites it with dat[3] from
-the incoming RTS, even when the two disagree.  When dat[3] is smaller,
-the session completes after fewer packets than the buffer was sized
-for, delivering a short (zero-padded) message to userspace.
+From: Dragos Tatulea <dtatulea@nvidia.com>
 
-Neither direction of mismatch works today: a smaller dat[3] completes
-the session early and hands a truncated message to userspace, while a
-larger one makes j1939_session_skb_get_by_offset() fail once the
-offset runs past the buffer, aborting the session anyway.  Rejecting
-the RTS up front does not break any transfer that currently works.
+[ Upstream commit dff1c3164a69284ac9fedb1c25d4c008139e9fb8 ]
 
-Abort the session when dat[3] doesn't match, similar to how
-a4fbe70c5cb7 ("can: j1939: j1939_xtp_rx_rts_session_new(): abort
-TP less than 9 bytes") rejects out-of-range message sizes.
+Adapt the rx path in SHAMPO mode to calculate page size based on
+configured page_shift when dealing with payload data.
 
-An alternative would be to silently keep the computed value and ignore
-dat[3], but that doesn't actually work: the sender only transmits
-dat[3] packets, so the receiver would never collect enough to complete
-and would hang until the rx timeout fires -- a worse failure mode than
-a clean abort with a clear log message.
+This is necessary as an upcoming patch will add support for using
+different page sizes.
 
-  # RTS: len=100 (dat[1..2]=0x0064) but dat[3]=1 (should be 15)
-  cansend vcan0 18EC8090#1064000103002301
+This change has no functional changes.
 
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20260223204155.1783580-9-tariqt@nvidia.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+Backport to 6.18: preserve the XDP fragment accounting fix from
+7d7342a18fadc ("net/mlx5e: RX, Fix XDP multi-buf frag counting for
+striding RQ"). Keep new_nr_frags and the original frag_page endpoint;
+only replace PAGE_SIZE with page_size in the truesize adjustment.
+Reintroducing the old frag_page rewind would break page reference
+accounting for fragments consumed by XDP.
+
+Retain the page-size calculations and SHAMPO space-check changes so
+e2466392a0b8496000e12181cb1ee1535eb0da25 ("net/mlx5e: do not HW-GRO
+coalesce small frames") applies without modification. No functions
+are added.
+
+Stable-dep-of: e2466392a0b8 ("net/mlx5e: do not HW-GRO coalesce small frames")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/can/j1939/transport.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 34 ++++++++++++-------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5..c40db4337 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -1672,11 +1672,16 @@ j1939_session *j1939_xtp_rx_rts_session_new(struct j1939_priv *priv,
- 	session->pkt.total = (len + 6) / 7;
- 	session->pkt.block = 0xff;
- 	if (skcb.addr.type != J1939_ETP) {
--		if (dat[3] != session->pkt.total)
--			netdev_alert(priv->ndev, "%s: 0x%p: strange total, %u != %u\n",
--				     __func__, session, session->pkt.total,
--				     dat[3]);
--		session->pkt.total = dat[3];
-+		if (dat[3] != session->pkt.total) {
-+			netdev_warn_once(priv->ndev,
-+					 "%s: 0x%p: packet count mismatch, calc %u != RTS %u, abort\n",
-+					 __func__, session,
-+					 session->pkt.total, dat[3]);
-+			j1939_xtp_tx_abort(priv, &skcb, true,
-+					   J1939_XTP_ABORT_FAULT, pgn);
-+			j1939_session_put(session);
-+			return NULL;
-+		}
- 		session->pkt.block = min(dat[3], dat[4]);
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+index 2ffa4e6b8c373..8a61c958c5679 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+@@ -2014,11 +2014,14 @@ mlx5e_shampo_fill_skb_data(struct sk_buff *skb, struct mlx5e_rq *rq,
+ 			   struct mlx5e_frag_page *frag_page,
+ 			   u32 data_bcnt, u32 data_offset)
+ {
++	u32 page_size = BIT(rq->mpwqe.page_shift);
++
+ 	net_prefetchw(skb->data);
+ 
+ 	do {
+ 		/* Non-linear mode, hence non-XSK, which always uses PAGE_SIZE. */
+-		u32 pg_consumed_bytes = min_t(u32, PAGE_SIZE - data_offset, data_bcnt);
++		u32 pg_consumed_bytes = min_t(u32, page_size - data_offset,
++					      data_bcnt);
+ 		unsigned int truesize = pg_consumed_bytes;
+ 
+ 		mlx5e_add_skb_frag(rq, skb, frag_page, data_offset,
+@@ -2039,6 +2042,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 	u16 headlen = min_t(u16, MLX5E_RX_MAX_HEAD, cqe_bcnt);
+ 	struct mlx5e_frag_page *head_page = frag_page;
+ 	struct mlx5e_xdp_buff *mxbuf = &rq->mxbuf;
++	u32 page_size = BIT(rq->mpwqe.page_shift);
+ 	u32 frag_offset    = head_offset;
+ 	u32 byte_cnt       = cqe_bcnt;
+ 	struct skb_shared_info *sinfo;
+@@ -2084,9 +2088,9 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 		linear_hr = skb_headroom(skb);
+ 		linear_data_len = headlen;
+ 		linear_frame_sz = MLX5_SKB_FRAG_SZ(skb_end_offset(skb));
+-		if (unlikely(frag_offset >= PAGE_SIZE)) {
++		if (unlikely(frag_offset >= page_size)) {
+ 			frag_page++;
+-			frag_offset -= PAGE_SIZE;
++			frag_offset -= page_size;
+ 		}
  	}
  
+@@ -2098,7 +2102,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 	while (byte_cnt) {
+ 		/* Non-linear mode, hence non-XSK, which always uses PAGE_SIZE. */
+ 		pg_consumed_bytes =
+-			min_t(u32, PAGE_SIZE - frag_offset, byte_cnt);
++			min_t(u32, page_size - frag_offset, byte_cnt);
+ 
+ 		if (test_bit(MLX5E_RQ_STATE_SHAMPO, &rq->state))
+ 			truesize += pg_consumed_bytes;
+@@ -2135,7 +2139,7 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+ 		new_nr_frags = sinfo->nr_frags;
+ 		nr_frags_free = old_nr_frags - new_nr_frags;
+ 		if (unlikely(nr_frags_free))
+-			truesize -= (nr_frags_free - 1) * PAGE_SIZE +
++			truesize -= (nr_frags_free - 1) * page_size +
+ 				ALIGN(pg_consumed_bytes,
+ 				      BIT(rq->mpwqe.log_stride_sz));
+ 
+@@ -2349,15 +2353,16 @@ mlx5e_shampo_flush_skb(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe, bool match)
+ 	rq->hw_gro_data->skb = NULL;
+ }
+ 
+-static bool
+-mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb, u16 data_bcnt)
++static bool mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb,
++					      u16 data_bcnt,
++					      u32 page_size)
+ {
+ 	int nr_frags = skb_shinfo(skb)->nr_frags;
+ 
+-	if (PAGE_SIZE >= GRO_LEGACY_MAX_SIZE)
++	if (page_size >= GRO_LEGACY_MAX_SIZE)
+ 		return skb->len + data_bcnt <= GRO_LEGACY_MAX_SIZE;
+ 	else
+-		return PAGE_SIZE * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
++		return page_size * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
+ }
+ 
+ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe)
+@@ -2366,18 +2371,19 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+ 	u16 header_index	= mlx5e_shampo_get_cqe_header_index(rq, cqe);
+ 	u32 wqe_offset		= be32_to_cpu(cqe->shampo.data_offset);
+ 	u16 cstrides		= mpwrq_get_cqe_consumed_strides(cqe);
+-	u32 data_offset		= wqe_offset & (PAGE_SIZE - 1);
+ 	u32 cqe_bcnt		= mpwrq_get_cqe_byte_cnt(cqe);
+ 	u16 wqe_id		= be16_to_cpu(cqe->wqe_id);
+-	u32 page_idx		= wqe_offset >> PAGE_SHIFT;
+ 	u16 head_size		= cqe->shampo.header_size;
+ 	struct sk_buff **skb	= &rq->hw_gro_data->skb;
+ 	bool flush		= cqe->shampo.flush;
+ 	bool match		= cqe->shampo.match;
++	u32 page_size = BIT(rq->mpwqe.page_shift);
+ 	struct mlx5e_rq_stats *stats = rq->stats;
+ 	struct mlx5e_rx_wqe_ll *wqe;
+ 	struct mlx5e_mpw_info *wi;
+ 	struct mlx5_wq_ll *wq;
++	u32 data_offset;
++	u32 page_idx;
+ 
+ 	wi = mlx5e_get_mpw_info(rq, wqe_id);
+ 	wi->consumed_strides += cstrides;
+@@ -2393,7 +2399,11 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+ 		goto mpwrq_cqe_out;
+ 	}
+ 
+-	if (*skb && (!match || !(mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt)))) {
++	data_offset = wqe_offset & (page_size - 1);
++	page_idx = wqe_offset >> rq->mpwqe.page_shift;
++	if (*skb &&
++	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
++							 page_size))) {
+ 		match = false;
+ 		mlx5e_shampo_flush_skb(rq, cqe, match);
+ 	}
 -- 
-2.50.1
+2.53.0
 
