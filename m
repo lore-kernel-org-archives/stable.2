@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724962EACF2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7DB2E7F39
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917481; cv=none; b=kjzih7opLBaDeW48PgSx5DZk9OL69HtE2qaLGCUYsOvO3la/rpkydwD885aR7yPgB5IJfv5t87AW5PAC6e2ozoibmT/0nQ43ajf75E8oDuCbPVKdfuWHlRO6tIzXSA5MCfM0MXES8qjM7Q0hIO1RRUFSj9pq5V5tXjdWSTYa9xo=
+	t=1788917482; cv=none; b=FwvRIOHZ0cSZRSDt8At8dmHAWRD9jT6p9cRN/ueJryOzACvvftuwlzij1xg5Ildsf38iwKukEp93bdNv3vgR8z/PHpffiouK5Qlv1SS5FwjEwd3aCJ3CT6JNSsUMjzjyJO0mNfIr8jW3AfU+zpeYVovfbH5EzQX4W1p6AzyZwAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917481; c=relaxed/simple;
-	bh=Uxra+Aqiaz+VDsa4bc8ZVHickUs2eh227M/JZFfBjcs=;
+	s=arc-20240116; t=1788917482; c=relaxed/simple;
+	bh=p6I/chCTruzzPD+X6JooA2jYoTcUV906LNP/+wB/HMY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xj1OvXdFPP7mBAfvfw2WrO0lD35AKLY2lKSuHqLzvnpSpIBaj7o6/pEAmBZNGsHYNwvrYPrUwKht57/f5hqVkzCRCpJFeTw85jDa1strn6GWCb5rIzr3rj+MV9+zyj2biFzMEStNpl6dGSG+B7ZLs+wokkXku8vdnr3zlBfp8ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVphd0Hk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UOqh3M1ksEOP2f7Yqa7/MvB3XX/LyR6+8uo3Fq1JoI/94K/lmerzLPLbmiOKAMY5li81Qo0sw6qkXurd13xlZOeH5diov20Vc3Wn6FUlx6FDDjqe3zknd3o0PWeQFPyKz1OkeuyrJHWFV45J0hjqztWU82JquHQ4dLOcX/qwyoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NClad9rX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVphd0Hk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FEA1F00A3F;
-	Wed,  9 Sep 2026 01:31:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NClad9rX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D211F00AC4;
+	Wed,  9 Sep 2026 01:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788917480;
-	bh=IkJPq+22NdJLJFRLuqWC5WNzJ/WSym+c4Yuf97ATQQs=;
+	bh=sL/nhLJQBzfp1HBDn6QI/yF1qOBPDRPvfzb9A0xbnO0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fVphd0HkGZaEBlhTeilyTAcPB6+s5/MzV00PDGAVpU/rVP2QuwjkVFT8Yl7ekJAlU
-	 ESQdBpzzsmwRD5WfRlClPCDbdP/R4qdqkTAF6rcOWzu3lWih6hQXsk7kd/+s5LaR58
-	 OtlBuBuFbVNv3SyPqN3HgwJCvGoVo5OmAFb/GoXp5uesFkgote6i+wRAYp6D4guzT0
-	 tznSEExbz90kBJqZfb9hJCOa60AYNlTxfYLhkYxOttTsngJ+kWbsZdbuJOzjz/CQRf
-	 1VR8pTwolPp21MdSFaZpch4OZ2HKf2EjzKMrMw3rPWp9E7dELYWDufcAkEwnm6N0y5
-	 zvQ6nKMuusMAw==
+	b=NClad9rX3IFC+bHmVYGYwolXMzz5AFB/oudp1y9QF6K4Ba0K1M381wmTOft2gesNm
+	 fp+kDbOJ1Bf+fCBoHRCBFQi3914PMwi2aGO2Lc4qCj6zn6oec8AivfIgUOvYZ5THxZ
+	 k/p+1rRwlVLXhC/J8Xn6wZSQEwBbAgaxYDwx7LAF2rgLY4lJ2WkAiSaJfcccHPKggi
+	 qgzFSIrc3fWq0HEumaUDJMD+CqgmkZQ7HpcrpCOkrU6TLiepKYwkeCJ8k5bC9scHH4
+	 PyZ7BCS3pV6vAk89K9bfffqc5ukN2juNA65f3S/HLnXCZ+GQiJboF94fyenihLgEU2
+	 7po+ZzQ8//+uQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Chris Mason <clm@meta.com>,
 	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/4] rpc_populate(): lift cleanup into callers
-Date: Tue,  8 Sep 2026 21:31:15 -0400
-Message-ID: <20260909013118.888220-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] svcrdma: Reject Write/Reply chunks with segcount 0
+Date: Tue,  8 Sep 2026 21:31:16 -0400
+Message-ID: <20260909013116.888180-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090318-cardiac-animation-cfbb@gregkh>
-References: <2026090318-cardiac-animation-cfbb@gregkh>
+In-Reply-To: <20260909013116.888180-1-sashal@kernel.org>
+References: <2026090343-customize-gorgeous-909c@gregkh>
+ <20260909013116.888180-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,151 +47,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit 8be22c49646e47452e74aa0b97ea50fb04c271ed ]
+[ Upstream commit 9808eb7656666acc7291bae9ab6b987bd16e47e0 ]
 
-rpc_populate() is called either from fill_super (where we don't
-need to remove any files on failure - rpc_kill_sb() will take
-them all out anyway) or from rpc_mkdir_populate(), where we need
-to remove the directory we'd been trying to populate along with
-whatever we'd put into it before we failed.  Simpler to combine
-that into simple_recursive_removal() there.
+A peer can send a Write or Reply chunk whose segcount field is zero.
+xdr_check_write_chunk() only rejects segcount > rc_maxpages, so zero
+passes the range check, and xdr_inline_decode(stream, 0) returns the
+current (non-NULL) cursor without advancing. The function returns
+true and pcl_alloc_write() then links a struct svc_rdma_chunk with
+ch_segcount == 0 onto rc_write_pcl or rc_reply_pcl.
 
-Note that rpc_pipe is overlocking directories quite a bit -
-locked parent is no obstacle to finding a child in dcache, so
-keeping it locked won't prevent userland observing a partially
-built subtree.
+An earlier patch in this series made pcl_for_each_segment() safe for
+ch_segcount == 0, so this no longer drives the memory walk it used
+to. Rejecting the malformed frame at the decode boundary is still
+worthwhile as defense in depth: it keeps degenerate zero-segment
+chunks off the parsed chunk lists entirely, so any future consumer
+that walks ch_segments directly cannot observe one, and it makes the
+zero-floor easy to backport to trees where the macro change is more
+intrusive. RFC 8166 has no meaning for a Write/Reply chunk that
+describes no remote buffer, so no legitimate client is affected.
 
-All we need is to follow minimal VFS requirements; it's not
-as if clients used directory locking for exclusion - tree
-changes are serialized, but that's done on ->pipefs_sb_lock.
+xdr_check_reply_chunk() funnels Reply chunks through
+xdr_check_write_chunk() and inherits the same rejection.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
+pcl_alloc_write() also links each chunk onto the parsed chunk list
+before filling its segment array. If a future change weakens the
+segcount-0 rejection, an incomplete chunk is visible to consumers
+during the fill loop. Reorder so that list_add_tail() follows the
+segment fill loop, ensuring only fully-populated chunks appear on
+the list.
+
+Fixes: 78147ca8b4a9 ("svcrdma: Add a "parsed chunk list" data structure")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-5-e251306ccca9@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/clnt.c     | 35 +++++++++++++++--------------------
- net/sunrpc/rpc_pipe.c | 10 +++++-----
- 2 files changed, 20 insertions(+), 25 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_pcl.c      | 2 +-
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 9 ++++++---
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
-index 0a4b4870c4d99..23536d3826bb3 100644
---- a/net/sunrpc/clnt.c
-+++ b/net/sunrpc/clnt.c
-@@ -115,47 +115,49 @@ static void rpc_clnt_remove_pipedir(struct rpc_clnt *clnt)
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+index b63cfeaa29234..a1c61311714da 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+@@ -213,7 +213,6 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+ 		chunk = pcl_alloc_chunk(segcount, 0);
+ 		if (!chunk)
+ 			return false;
+-		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
+ 
+ 		for (j = 0; j < segcount; j++) {
+ 			segment = &chunk->ch_segments[j];
+@@ -225,6 +224,7 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+ 			chunk->ch_length += segment->rs_length;
+ 			chunk->ch_segcount++;
+ 		}
++		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
  	}
+ 	return true;
  }
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+index 7214a3a7e1b83..f2a21bc1701ce 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+@@ -488,10 +488,13 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
+ 		return false;
  
--static struct dentry *rpc_setup_pipedir_sb(struct super_block *sb,
-+static int rpc_setup_pipedir_sb(struct super_block *sb,
- 				    struct rpc_clnt *clnt)
- {
- 	static uint32_t clntid;
- 	const char *dir_name = clnt->cl_program->pipe_dir_name;
- 	char name[15];
- 	struct dentry *dir, *dentry;
-+	int err;
+ 	/* Before trusting the segcount value enough to use it in
+-	 * a computation, perform a simple range check. This is an
+-	 * arbitrary but sensible limit (ie, not architectural).
++	 * a computation, perform a simple range check. A zero
++	 * segcount describes no remote buffer and is rejected so
++	 * downstream consumers never see a degenerate ch_segcount==0
++	 * chunk. The upper bound is an arbitrary but sensible limit
++	 * (ie, not architectural).
+ 	 */
+-	if (unlikely(segcount > rctxt->rc_maxpages))
++	if (segcount == 0 || unlikely(segcount > rctxt->rc_maxpages))
+ 		return false;
  
- 	dir = rpc_d_lookup_sb(sb, dir_name);
- 	if (dir == NULL) {
- 		pr_info("RPC: pipefs directory doesn't exist: %s\n", dir_name);
--		return dir;
-+		return -ENOENT;
- 	}
- 	for (;;) {
- 		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
- 		name[sizeof(name) - 1] = '\0';
- 		dentry = rpc_create_client_dir(dir, name, clnt);
--		if (!IS_ERR(dentry))
-+		if (!IS_ERR(dentry)) {
-+			err = 0;
- 			break;
--		if (dentry == ERR_PTR(-EEXIST))
-+		}
-+		err = PTR_ERR(dentry);
-+		if (err == -EEXIST)
- 			continue;
- 		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
--				" %s/%s, error %ld\n",
--				dir_name, name, PTR_ERR(dentry));
-+				" %s/%s, error %d\n",
-+				dir_name, name, err);
- 		break;
- 	}
- 	dput(dir);
--	return dentry;
-+	return err;
- }
- 
- static int
- rpc_setup_pipedir(struct super_block *pipefs_sb, struct rpc_clnt *clnt)
- {
--	struct dentry *dentry;
--
- 	clnt->pipefs_sb = pipefs_sb;
- 
- 	if (clnt->cl_program->pipe_dir_name != NULL) {
--		dentry = rpc_setup_pipedir_sb(pipefs_sb, clnt);
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
-+		int err = rpc_setup_pipedir_sb(pipefs_sb, clnt);
-+		if (err && err != -ENOENT)
-+			return err;
- 	}
- 	return 0;
- }
-@@ -183,16 +185,9 @@ static int rpc_clnt_skip_event(struct rpc_clnt *clnt, unsigned long event)
- static int __rpc_clnt_handle_event(struct rpc_clnt *clnt, unsigned long event,
- 				   struct super_block *sb)
- {
--	struct dentry *dentry;
--
- 	switch (event) {
- 	case RPC_PIPEFS_MOUNT:
--		dentry = rpc_setup_pipedir_sb(sb, clnt);
--		if (!dentry)
--			return -ENOENT;
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
--		break;
-+		return rpc_setup_pipedir_sb(sb, clnt);
- 	case RPC_PIPEFS_UMOUNT:
- 		__rpc_clnt_remove_pipedir(clnt);
- 		break;
-diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
-index a3545ecf9a6e5..e726821983f24 100644
---- a/net/sunrpc/rpc_pipe.c
-+++ b/net/sunrpc/rpc_pipe.c
-@@ -726,7 +726,6 @@ static int rpc_populate(struct dentry *parent,
- 	inode_unlock(dir);
- 	return 0;
- out_bad:
--	__rpc_depopulate(parent, files, start, eof);
- 	inode_unlock(dir);
- 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
- 			__FILE__, __func__, parent);
-@@ -750,14 +749,15 @@ static struct dentry *rpc_mkdir_populate(struct dentry *parent,
- 		goto out_err;
- 	if (populate != NULL) {
- 		error = populate(dentry, args_populate);
--		if (error)
--			goto err_rmdir;
-+		if (error) {
-+			inode_unlock(dir);
-+			simple_recursive_removal(dentry, NULL);
-+			return ERR_PTR(error);
-+		}
- 	}
- out:
- 	inode_unlock(dir);
- 	return dentry;
--err_rmdir:
--	__rpc_rmdir(dir, dentry);
- out_err:
- 	dentry = ERR_PTR(error);
- 	goto out;
+ 	p = xdr_inline_decode(&rctxt->rc_stream,
 -- 
 2.53.0
 
