@@ -1,85 +1,54 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2160633556D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A2027A462;
+	Wed,  9 Sep 2026 02:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922715; cv=none; b=qLD/5oL0yEpTguK8BkgR9Z698xXxTj+9kPV8vUV8kBpBqjcUFqsFew9n4rIqSafMdbePfUFXwZ1ITwgMyN3JARFzJKn4qVQFez7rSgXORqLXNZ0xFHmSOifTcwhminlKfqwL9jhzlTJ1lJsIkkzY9fQUZFq7spJg4qjFoB9HNC8=
+	t=1788922717; cv=none; b=WNPllSbCYmGKK9IRC4+HVl5aXT/ZvMjPX17werf3xl6zxFcXEflWZR+LwLkk9uF0dTSxIZ6VMtkme4R5Mu5hFCk3S80shc3rkhTxdQ4QGsQpz9tiY3Vq29FkyBVqbtzKrXkv4BmKM1thIXOB7tzN8+el8Oy/iBv+RBj4dVKbB0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922715; c=relaxed/simple;
-	bh=K7uQcMj7z4luXqRDBQtVBqzLIiGA/6p1ooKeTvkbEwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JLXhCoGszXB/320MgMSNQGl/XxgBXaZMFPiLLC8csI496JZ/28D6krdou/DcqbEyHPAkbnPpW8tlSosBtaWR6ufqxUcTGTSYXxLMGYdtQzTT6SX7h7isAHHTQ3twfGAWyFHP4wWWF3PdzmY65dtsB2WzKgbKIws/NRxLRolUItM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YWgCeAsz; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YWgCeAsz"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d942c7cc2fso45914475ad.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 19:58:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788922713; x=1789527513; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sdv4IQZIJENY7PTBs1f5yW/iQydimvcyHFBLXl2Ap5U=;
-        b=YWgCeAszWD58jLr8cMamtsH+7cPpBLTa4b3yW3RqNvZLwdRwF+HWW5hroYGTy0ngQQ
-         4jr5bB0OjCnxsw+taUOZOuoG8H8prvbIC5NJEvTrZY4B5Ze9SRYhDTunq809zvJz6XyU
-         Q5CCOzV5DZuuE2edPLOrgBNbaYx1B3reIvvF6cyA5673Wg3uP39wGGBUd+1eXyUUwojO
-         LQLXod0ZmEQfi8uYYmUb5sSO9FeOHach9nG7Wv+blF407x59KCGl+mBLadunxusFQTrS
-         t6GEQk0LTAHQMZhBB3vg7/1YP5YqEU4tA9LC3ZgnKWm+BxHxlJy49bPBEPYjWvhmYj1v
-         5dhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788922713; x=1789527513;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sdv4IQZIJENY7PTBs1f5yW/iQydimvcyHFBLXl2Ap5U=;
-        b=Je/lSvHos1BbwmitrsW1UT2sF/BrvAH3Qi0jD57op+HG3OtgD2bFaZxTDxwWgLA925
-         h9Mn6HpjstjDP76xqxP8OGbvsp0A6d+PX6TODWecZkyo/9N5ODHfQ/rZJKKSUDfPl43r
-         3u0j8gSl6IHmbqLUxV/8/yrWt11368ok/AMmBppXeZZIC/1Yu0NMHqHiS0j50iO8aclX
-         2jDQ6zamrijnmBCJ096ZSeh+WK+C+7kyZeojleXMCYMcF/i8oFm7II/bpRzRtlnBbL8A
-         y2wsM82v6NnamSWjzWaEupk35cKHwAb29F/rhPIOfQBlU3VQue009VxBjqshz0/pNO/n
-         1LlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmWGieYuceHlBLXQV5til5qGTKQ/KRC0PijMR/1MZG0MMnMlEjh1HptHXXGjjfy79g0PDnoBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGIjjXQ8patUREYyPtcfCjhzkrcBZHkuwvHf3maVyGwWymgU+G
-	jAHU0pvscjuQPuRT6vxZRNW1SkEjWgQYAq5MDwwpZ/gEKr53IjhfuAuO
-X-Gm-Gg: AYBFou1jq+zr8xFqCVaMXatWxb+/gjHfxfhcCGMIw7WWPCx4OcNBDiqO+tAH88JMrAR
-	PlwZ4duaP2unHx36nLRdX0aXNgM+33rjJ/xTStOJWNjTA9XUXIzDIfHx3JAli0sOJ2U7BQFOS8H
-	Ot1ixRRrdC1R5+DwRZsvQUfGfSaFJu8G9c1i+78TFbDuauMEGneQy9n6u8ofmSr7vaY/ZUVDR3Q
-	nB0zN0duNQIc84QlrSnMid99USiRFCbnnkmdXOYm7e0y9r1byDJ/lEu2qHPUcs6y1RKCLnUV5Nu
-	Sr0idDB4KLSbnGfc58dZOnq5VLBTTA9v7Ej2kNnKZqJPOZ8axV+2a6rRtaTi2mi4ao5fhhyYrYQ
-	ZdlesveFEg+iKo5ZhA138237n8EhAcZy+CnO3sCmXVJWRJtlp+gDqIIMTEiiPMWUWV1UpT+qFvq
-	WURl7iq0pooUJQ/CfOK39PwnCHYdnUlQwx8olfTGYopdQYJ95kfON0BksfRS6YeMVfslnSnQcF0
-	yyw3MXhjhyG2g==
-X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39b2612eaa4mr45424270a91.10.1788922713364;
-        Tue, 08 Sep 2026 19:58:33 -0700 (PDT)
-Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39451sm35077172a91.7.2026.09.08.19.58.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:58:32 -0700 (PDT)
-From: Vernon Yang <vernon2gm@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org
-Cc: nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	zokeefe@google.com,
+	s=arc-20240116; t=1788922717; c=relaxed/simple;
+	bh=FjDOqkOR1/IPwWoEq15bNJAZqE9/5DXa6iaqkRhXC+M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=d/qYdPIMxOPSOLVedKD/3X2MmGXD32JPcnH2zT/EVl0fchW4IWg/72hKTogoBTtqaa3zUN6dmDZRiKy/VdyQxBgZ7Yc4cgF9jFpWFyJqFnNyjt+FINY7Sw+fJ/w6bzkMc+NXC9wnbCwGPsarpwR52ViLPZv/3OW2ESxrfyg4UlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 55499b9aabfa11f19a56ed5b684f684d-20260909
+X-CID-CACHE: Type:Local,Time:202609091026+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a9642e7d-5d61-4694-a42f-8cdbe9144fd8,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9ea5a351dd5e99f600e4a975dcb72101,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 55499b9aabfa11f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 367425135; Wed, 09 Sep 2026 10:58:28 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: [PATCH v5 1/3] mm: khugepaged: fix swap entry value to folio_pfn()
-Date: Wed,  9 Sep 2026 10:58:01 +0800
-Message-ID: <20260909025804.3233645-2-vernon2gm@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
-References: <20260909025804.3233645-1-vernon2gm@gmail.com>
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 2/4] ntfs: set the volume dirty bit unconditionally on metadata changes
+Date: Wed,  9 Sep 2026 10:58:21 +0800
+Message-Id: <20260909025823.815495-3-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909025823.815495-1-zenghongling@kylinos.cn>
+References: <20260909025823.815495-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,114 +57,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+The callers in file.c and namei.c skip ntfs_set_volume_flags() when
+the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
+runs without any lock: if it observes the bit set and ntfs_sync_fs()
+clears it under the mrec_lock before the caller's metadata update
+completes, the set is skipped and the volume can end up clean on disk
+despite the modification, so chkdsk will not run on the next mount.
 
-When the swap entries found exceed max_ptes_swap, the loop is left via
-break with folio still holding the xarray value that encodes the swap
-entry, not valid folio pointer.
+Drop the caller-side checks and call ntfs_set_volume_flags()
+unconditionally: ntfs_write_volume_flags() already skips the write
+under the mrec_lock when the combined value is unchanged.  That
+unconditional call costs one mrec_lock acquisition per metadata
+operation even in the already-dirty steady state; it cannot be
+avoided, because deciding to skip the call without the lock is itself
+what allows a concurrent ntfs_sync_fs() clear to lose the set.
 
-That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
-to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
-plain pointer arithmetic, so the trace event merely prints bogus
-scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
-dereferencing the tiny encoded integer and oopsing khugepaged whenever
-the trace event is enabled.
+This closes the variant where the set is skipped outright.  A clear
+for a concurrent, error-free sync can still land between the set and
+the end of the metadata operation; that mark-at-start lifecycle is
+pre-existing and is not changed by this patch.
 
-So when folio is the swap entry value, simply set pfn to -1, just like
-exhausted scan naturally.
-
-And the folio_put() has maybe dropped the last reference of folio. The
-trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.
-so using the folio_pfn() before dropping the reference, closing
-use-after-free window.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+Reported-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- include/trace/events/huge_memory.h | 6 +++---
- mm/khugepaged.c                    | 7 ++++++-
- 2 files changed, 9 insertions(+), 4 deletions(-)
+ fs/ntfs/file.c  | 14 +++++---------
+ fs/ntfs/namei.c | 24 ++++++++----------------
+ 2 files changed, 13 insertions(+), 25 deletions(-)
 
-diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-index 5a48c5406cce..7b526528f85b 100644
---- a/include/trace/events/huge_memory.h
-+++ b/include/trace/events/huge_memory.h
-@@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
- 
- TRACE_EVENT(mm_khugepaged_scan_file,
- 
--	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
-+	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
- 		 int present, int swap, int result),
- 
--	TP_ARGS(mm, folio, file, present, swap, result),
-+	TP_ARGS(mm, pfn, file, present, swap, result),
- 
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
-@@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->pfn = folio ? folio_pfn(folio) : -1;
-+		__entry->pfn = pfn;
- 		__assign_str(filename);
- 		__entry->present = present;
- 		__entry->swap = swap;
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index e6947fe142ee..6ee0ad13a31f 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2690,6 +2690,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 	int present, swap;
- 	int node = NUMA_NO_NODE;
- 	enum scan_result result = SCAN_SUCCEED;
-+	unsigned long failed_pfn = -1;
- 
- 	present = 0;
- 	swap = 0;
-@@ -2722,6 +2723,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 
- 		if (is_pmd_order(folio_order(folio))) {
- 			result = SCAN_PTE_MAPPED_HUGEPAGE;
-+			failed_pfn = folio_pfn(folio);
- 			/*
- 			 * PMD-sized THP implies that we can only try
- 			 * retracting the PTE table.
-@@ -2733,6 +2735,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 		node = folio_nid(folio);
- 		if (collapse_scan_abort(node, cc)) {
- 			result = SCAN_SCAN_ABORT;
-+			failed_pfn = folio_pfn(folio);
- 			folio_put(folio);
- 			break;
- 		}
-@@ -2740,12 +2743,14 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 
- 		if (!folio_test_lru(folio)) {
- 			result = SCAN_PAGE_LRU;
-+			failed_pfn = folio_pfn(folio);
- 			folio_put(folio);
- 			break;
- 		}
- 
- 		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
- 			result = SCAN_PAGE_COUNT;
-+			failed_pfn = folio_pfn(folio);
- 			folio_put(folio);
- 			break;
- 		}
-@@ -2780,7 +2785,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 		}
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 007d1614b9ac..5909c230fde9 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		goto out;
  	}
  
--	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
-+	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
- 	return result;
- }
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
  
+ 	if (ia_valid & ATTR_SIZE) {
+ 		err = ntfs_setattr_size(vi, attr);
+@@ -620,8 +619,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		goto out_lock;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	pos = iocb->ki_pos;
+ 	count = ret;
+@@ -1153,11 +1151,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 			return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+-		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+-		if (err)
+-			return err;
+-	}
++	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	if (err)
++		return err;
+ 
+ 	old_size = i_size_read(vi);
+ 
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index fdf52fac4329..3e0adb9a0ea4 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 		new_dir_first = is_subdir(new_dentry->d_parent,
+ 					  old_dentry->d_parent);
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	if (new_ni)
+@@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		goto out;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+ 			   symname, symlen);
+@@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	switch (mode & S_IFMT) {
+ 	case S_IFCHR:
+@@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ihold(vi);
+ 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
 -- 
-2.53.0
+2.25.1
 
