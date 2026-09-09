@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AAD2F7ADE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4372F7ADE
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954564; cv=none; b=lWWoZMNBvaESfcu5BP86dMU0F5lls+9UKzcMldGBR3VMNtPmwMMRZ6rnCfUN7dWpLoU1l0MHBHLQ4z3zfvpeshsEIddKquNxeRoYz+KOaiGOkmlpGusVeK7yMiBf3VwcIS2scMBKSmlSph2Q10hRAFLTGNWGJl2r0/PjzO72EDQ=
+	t=1788954567; cv=none; b=EiAuyfw9XHGg3DPmoFRo2YIWqJ/4dhtfUi5jBCQwwDTVf+q9kI+jnEGENQq0pCoF9nlhkrOgXJgq594FESsM5AXSL8B1CCHcPON4o/EvySPQp0eDxHAwMEl+jt4tfi8Bq27PBxKKw4yXURWGI0NoMWxWs2oZIwvWxJbpe1l9JEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954564; c=relaxed/simple;
-	bh=AE98VHJt0FINWx8YUHg2e2MvHpKiMUNU4ydaX58mHsU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JnSMiEl+6laXb56eTJ66WxFGTJdhyVmMK7t3IdJsvzKWfUfA8tmSTnYY4lBi1MGN1RXsxNdBwuhtfp8wATH40up6ndQ5lN2ulA6og+QFsgA4MdBcz2jbgzhr79+qDEdEtH3cnoKMI3ZwEAP3B2+aKme795hw/kA1NfBROipgqaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tbz00PRU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954567; c=relaxed/simple;
+	bh=FoqDKna/Mq1duXhIhFYEN6qKuUzxh4lEQRkRjyqIbjI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pVBFObexihYAp64Kv2HiSEU2afzwJcvm8pryWjBmdmU1koFWb+PY0+a1A726BlDlsyJ592JvCZ0K2VbQ1F8y+h3TRAPsSqkQSfI5t6L+0Zw6/iZ4BJ/eY20oyA4+5uS154cGHQRtDbgvrP1j+4panRTa8XHQYMsaHSbHWtGJQFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JGzbzlnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tbz00PRU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB3E1F00A3F;
-	Wed,  9 Sep 2026 11:49:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JGzbzlnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5B21F00A3A;
+	Wed,  9 Sep 2026 11:49:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954563;
-	bh=Z3ADa2ocjbMTUHs1qNnP0AczuchVYzsTHQDZXojbf8U=;
+	s=korg; t=1788954566;
+	bh=+JxLhe1lcUyeX4b/zJmmBKrhpgVL2plrR/OBdeIfM6c=;
 	h=Subject:To:Cc:From:Date;
-	b=tbz00PRULpXhQKDRNhU3MoULQ026YfaPyYPoPz/aaqHDxBHt5kf/MEFnmt5VNmiKs
-	 gyWcm1SLnfx5gCN35auTsPwHl6ARTmAlnEicmo14ba2weGPkv7SQbMOTsufbxHNFCf
-	 DMLDst01CMex5R35DWV1/Bzq4MjMx6Pdm4W+ooIw=
-Subject: FAILED: patch "[PATCH] drm/xe: Fix xe_device_probe() failure" failed to apply to 6.18-stable tree
-To: raag.jadav@intel.com,matthew.d.roper@intel.com,rodrigo.vivi@intel.com
+	b=JGzbzlnTjuQcRs5Co14ze4mnnDPAS+s7hSAYKGdKIR5JMkShpgvAPigr/EE8/jB2z
+	 SiBnimdTS+ILTJT4DEbMC+v3W1YE1G5acPB2QrwcNp2HdQH7CSEgDNtatR/k5IFy5K
+	 w3rDfkIHEdVI6qeTI+rmfjzlxUgVoqU/ZS9io6Qg=
+Subject: FAILED: patch "[PATCH] drm/xe/rtp: Generalize whitelist_apply_to_hwe" failed to apply to 6.18-stable tree
+To: ashutosh.dixit@intel.com,umesh.nerlige.ramappa@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:34:06 +0200
-Message-ID: <2026090906-unknotted-shrink-a815@gregkh>
+Date: Wed, 09 Sep 2026 13:36:40 +0200
+Message-ID: <2026090940-jolt-episode-d7e3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f8152179882a57e62a07dbf25ec95321c44e6b23
+git cherry-pick -x c3ff77d7235ccef7a0883c2fd981f70ef3aafd21
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090906-unknotted-shrink-a815@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090940-jolt-episode-d7e3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,62 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f8152179882a57e62a07dbf25ec95321c44e6b23 Mon Sep 17 00:00:00 2001
-From: Raag Jadav <raag.jadav@intel.com>
-Date: Mon, 10 Aug 2026 18:08:20 +0530
-Subject: [PATCH] drm/xe: Fix xe_device_probe() failure
+From c3ff77d7235ccef7a0883c2fd981f70ef3aafd21 Mon Sep 17 00:00:00 2001
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Date: Mon, 15 Jun 2026 15:42:22 -0700
+Subject: [PATCH] drm/xe/rtp: Generalize whitelist_apply_to_hwe
 
-Currently, xe_device_probe() jumps to err_unregister_display label in case
-of failure except for its last call, which directly returns the error
-without required cleanup handling. This results in stale drm device that
-isn't cleaned up on unwind. Fix it.
+Generalize whitelist_apply_to_hwe to construct both non-OA and OA
+whitelist nonpriv registers.
 
-[  810.194180] sysfs: cannot create duplicate filename '/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/renderD128'
-[  810.194183] CPU: 9 UID: 0 PID: 5616 Comm: modprobe Kdump: loaded Tainted: G S   U      E       7.2.0-rc2-xe #382 PREEMPT(full)
-[  810.194185] Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER, [E]=UNSIGNED_MODULE
-[  810.194186] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 1805 10/30/2024
-[  810.194186] Call Trace:
-[  810.194187]  <TASK>
-[  810.194188]  dump_stack_lvl+0xe0/0x100
-[  810.194195]  dump_stack+0x14/0x20
-[  810.194197]  sysfs_warn_dup+0x5f/0x80
-[  810.194204]  sysfs_create_dir_ns+0xbe/0xd0
-[  810.194210]  kobject_add_internal+0xbc/0x2b0
-[  810.194215]  kobject_add+0x7c/0xe0
-[  810.194220]  ? get_device_parent+0xcf/0x1e0
-[  810.194227]  device_add+0xe3/0x870
-[  810.194231]  ? __pfx_drm_gem_name_info+0x10/0x10 [drm]
-[  810.194280]  drm_minor_register+0x73/0x130 [drm]
-[  810.194322]  drm_dev_register+0x76/0x2a0 [drm]
+Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
+Cc: stable@vger.kernel.org # v6.12+
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Link: https://patch.msgid.link/20260615224227.34880-5-ashutosh.dixit@intel.com
 
-Cc: stable@vger.kernel.org
-Fixes: da3799c97572 ("drm/xe: Use GuC to do GGTT invalidations for the GuC firmware")
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Link: https://patch.msgid.link/20260810123821.105605-1-raag.jadav@intel.com
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-(cherry picked from commit 5ce3042c67c539480882567137ff8d56118885d6)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index d25d02b24898..71ce153737ab 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -1147,7 +1147,12 @@ int xe_device_probe(struct xe_device *xe)
- 	 * xe_device_wedged_fini() is registered.
- 	 */
- 	xe_ras_process_errors(xe);
--	return devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
-+
-+	err = devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
-+	if (err)
-+		goto err_unregister_display;
-+
-+	return 0;
+diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+index b5ae7d26e5ba..e9d0a0b82527 100644
+--- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
++++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+@@ -161,9 +161,10 @@ static const struct xe_rtp_table_sr oa_whitelist = XE_RTP_TABLE_SR(
+ 	},
+ );
  
- err_unregister_display:
- 	xe_display_unregister(xe);
+-static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
++static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe, struct xe_reg_sr *in,
++				  struct xe_reg_sr *out, int first_slot)
+ {
+-	struct xe_reg_sr *sr = &hwe->reg_whitelist;
++	struct xe_reg_sr *sr = in;
+ 	struct xe_reg_sr_entry *entry;
+ 	struct drm_printer p;
+ 	unsigned long reg;
+@@ -172,7 +173,7 @@ static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
+ 	xe_gt_dbg(hwe->gt, "Add %s whitelist to engine\n", sr->name);
+ 	p = xe_gt_dbg_printer(hwe->gt);
+ 
+-	slot = 0;
++	slot = first_slot;
+ 	xa_for_each(&sr->xa, reg, entry) {
+ 		struct xe_reg_sr_entry hwe_entry = {
+ 			.reg = RING_FORCE_TO_NONPRIV(hwe->mmio_base, slot),
+@@ -189,7 +190,7 @@ static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
+ 		}
+ 
+ 		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
+-		xe_reg_sr_add(&hwe->reg_sr, &hwe_entry, hwe->gt);
++		xe_reg_sr_add(out, &hwe_entry, hwe->gt);
+ 
+ 		slot++;
+ 	}
+@@ -211,7 +212,7 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 	int first_oa_slot;
+ 
+ 	xe_rtp_process_to_sr(&ctx, &register_whitelist, &hwe->reg_whitelist, false);
+-	first_oa_slot = whitelist_apply_to_hwe(hwe);
++	first_oa_slot = whitelist_apply_to_hwe(hwe, &hwe->reg_whitelist, &hwe->reg_sr, 0);
+ 
+ 	xe_rtp_process_to_sr(&ctx, &oa_whitelist, &hwe->oa_whitelist, false);
+ }
 
