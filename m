@@ -1,65 +1,137 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1921E36EAAC;
-	Wed,  9 Sep 2026 17:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0810367285
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974120; cv=none; b=hbQO+N0jH4FcRa+AY32a6a6SwyofXlIaoeW2s9XMiMOoqkbn8APWghUCp/7TwQjr39jwPu1CvAAeJ6nGHmvNWWOvbRG5svnQPVzjtI4bruAp1ntaBnEtGRkKFBXS62NUVapwmaKcY/M3ZyHyxh3N0Z0iBn7fVYs78xffWiv6TN4=
+	t=1788974266; cv=none; b=hs+yhu+L/jk9KmZzfyo/GgwK1LPTC95V8s7vf2vQgT3aIzAo+iP+tfzZCqBEl/3/yiFnTEcCnDTuX87muu9grDKMR5ZFwiwejIq8xyws9B4QbJjQFdEwwoE7bi4t7GggHpR+/z1BGe8Dd8Pv+fyPSOhvM8Smyu9fHv6Dc9gwRDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974120; c=relaxed/simple;
-	bh=qaB8n/2tB9PayzHYwghB8f7/R2ZA90wu80TMmFuzgu8=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=NvwuHjrQrCHpLuKM49v106MEknhRuqUlA77o2dReAx3VcOTkHs98NyFsCpFEApwZ34z9TUAEwE+G6eiAaa6bo7LnrFeZNrbV/L5saqaDeraXCURI8Yim6GFiOYGsHzyrtBZk9+4+3VPoSDqyMrpEj1JwPr5hn/kpWPeMFl0a0zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=aY7uk/pP; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788974266; c=relaxed/simple;
+	bh=+D4CAuWID6UqoOH763g4Jq8xn0m38kuD6UzkeNIqcuM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BID3Qu7gILYHolvfYtcBNqPh+/qIhppd6zRm0ZVRb2BiPj/r0rlquUsjmagrUgmuthF/NMJoavwu6ErgEW3RArMbfENXgMSIRFT7q7oXEdzW89+J1Sdoe+RD2JiGDHyGHrV7dJXwnLnvNVNxc9HlGrzLSScimJzidZxv7qyLhrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mILvcDP3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="aY7uk/pP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JXEySazt3f1vkqM2P+npsV9sxhLigvHk2NE8j0svovM=; b=aY7uk/pPpxpwF/tXX1SjCQ4CDm
-	BskVJm5/BlnYUS05jlRw+4CNIOC0WHVXg0b4tCBDtn0yD3kVynZ6G4UPbsUwmZwQTWjFiF1IogI8K
-	tCoyYgOLe6SwASynrWGypN+Jshk0V9ETgnVRC89587jC9xZMnN1nKl90mmVb/SdZXxA1nuusdIp0p
-	rCp/PzzZY0P9pQAUwqsKM+ax878m8vnz00e7UPSws4qSVWpGF21at0fBzwwXm+U5x727Atkoq/Hxm
-	4AHZ40NdfbuvdWtx/FauiMQXdxoalYVb1/rlvXjX2gLOsJ7TlJFfsafbzv9+mc4A87y7WsEUkeczY
-	gzKweyow==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x4LtC-00000001370-2h1Z;
-	Wed, 09 Sep 2026 14:15:14 -0300
-Message-ID: <c7ed5817f3eb7d7b2b6430f47638193e@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Bjoern Doebel <doebel@amazon.de>, linux-cifs@vger.kernel.org
-Cc: linkinjeon@kernel.org, pc@manguebit.com, stable@vger.kernel.org, Bjoern
- Doebel <doebel@amazon.de>
-Subject: Re: [PATCH v3 0/2] smb: client: fix DACL rewrite overflows
-In-Reply-To: <20260908161001.2603610-1-doebel@amazon.de>
-References: <20260904125844.1803343-1-doebel@amazon.de>
- <20260908161001.2603610-1-doebel@amazon.de>
-Date: Wed, 09 Sep 2026 14:15:14 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mILvcDP3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9E71F000FF;
+	Wed,  9 Sep 2026 17:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788974265;
+	bh=/LFpWzKwtfLE5dhw3ibBaeypdzWyXBieb1CXaiVjTgc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mILvcDP3RfH59hlfvFDMS5raqwKGWjfKhHD/yib/iADRDHfxK8qZrSzTIMA/kDIzO
+	 6Jp2z0HdmI5dxDYBBl1iVAm+oZ4WYjzGmwSEds5bgZNJbsyHxiJ+2KREGwGhhUnqUY
+	 L6YMxR8PKxkClFQr42sEVmmQ7b6EBNRH9rJJmu9DV8+lTYjJM88/DgLGCkgQVTeP/C
+	 gGuHuk8mRsV5omwEkGa0JGcoMYScRoWH/SKvvmhKj0UYv59FuzhP2/UTt0EEwF4hfY
+	 7L4u9yGpJUCC7KFs16jLXMrJEdwF5g9FLqcf5dCZwGbZo9G4id5BC6GgDJb0iJJgaB
+	 pe+rJ43+/W1iA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/7] net: ravb: Rely on PM domain to enable gptp_clk
+Date: Wed,  9 Sep 2026 13:17:37 -0400
+Message-ID: <20260909171743.3248398-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090333-magnolia-munchkin-24b0@gregkh>
+References: <2026090333-magnolia-munchkin-24b0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Bjoern Doebel <doebel@amazon.de> writes:
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-> Two overflow fixes in the CIFS DACL owner/group rewrite path:
->
-> 1. Patch 1 fixes a heap overflow when copying ACEs whose total size
->    exceeds what kmalloc() allocated. The allocation used the old
->    (pre-rewrite) ACE count, but the copy loop iterated over the new
->    count.
->
-> 2. Patch 2 fixes a u16 accumulator overflow in the size calculation
->    that could wrap around for DACLs with 800+ ACEs, causing the
->    check in patch 1 to pass despite the actual size exceeding 64KB.
->    Returns -EOVERFLOW when this would occur.
-> ...
+[ Upstream commit e1da043f2b2d956818728ca74c8eacd17feccf5c ]
 
-Applied.
+ravb_rzv2m_hw_info::gptp_ref_clk is enabled only for RZ/V2M. RZ/V2M
+is an ARM64-based device which selects power domains by default and
+CONFIG_PM. The RZ/V2M Ethernet DT node has proper power-domain binding
+available in device tree from the commit that added the Ethernet node.
+(4872ca1f92b0 ("arm64: dts: renesas: r9a09g011: Add ethernet nodes")).
+
+Power domain support was available in the rzg2l-cpg.c driver when the
+Ethernet DT node has been enabled in RZ/V2M device tree.
+(ef3c613ccd68 ("clk: renesas: Add CPG core wrapper for RZ/G2L SoC")).
+
+Thus, remove the explicit clock enable for gptp_clk (and treat it as the
+other clocks are treated) as it is not needed and removing it doesn't
+break the ABI according to the above explanations.
+
+By removing the enable/disable operation from the driver we can add
+runtime PM support (which operates on clocks) w/o the need to handle
+the gptp_clk in the Ethernet driver functions like ravb_runtime_nop().
+PM domain does all that is needed.
+
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 1cb9663789c5 ("net: ravb: serialize PTP clock teardown")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/renesas/ravb_main.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index fe9d1461f6ea6..bc893fd6eb023 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -2819,7 +2819,6 @@ static int ravb_probe(struct platform_device *pdev)
+ 			error = PTR_ERR(priv->gptp_clk);
+ 			goto out_disable_refclk;
+ 		}
+-		clk_prepare_enable(priv->gptp_clk);
+ 	}
+ 
+ 	ndev->max_mtu = info->rx_max_buf_size - (ETH_HLEN + VLAN_HLEN + ETH_FCS_LEN);
+@@ -2839,13 +2838,13 @@ static int ravb_probe(struct platform_device *pdev)
+ 	/* Set AVB config mode */
+ 	error = ravb_set_config_mode(ndev);
+ 	if (error)
+-		goto out_disable_gptp_clk;
++		goto out_disable_refclk;
+ 
+ 	if (info->gptp || info->ccc_gac) {
+ 		/* Set GTI value */
+ 		error = ravb_set_gti(ndev);
+ 		if (error)
+-			goto out_disable_gptp_clk;
++			goto out_disable_refclk;
+ 
+ 		/* Request GTI loading */
+ 		ravb_modify(ndev, GCCR, GCCR_LTI, GCCR_LTI);
+@@ -2865,7 +2864,7 @@ static int ravb_probe(struct platform_device *pdev)
+ 			"Cannot allocate desc base address table (size %d bytes)\n",
+ 			priv->desc_bat_size);
+ 		error = -ENOMEM;
+-		goto out_disable_gptp_clk;
++		goto out_disable_refclk;
+ 	}
+ 	for (q = RAVB_BE; q < DBAT_ENTRY_NUM; q++)
+ 		priv->desc_bat[q].die_dt = DT_EOS;
+@@ -2928,8 +2927,6 @@ static int ravb_probe(struct platform_device *pdev)
+ 	/* Stop PTP Clock driver */
+ 	if (info->ccc_gac)
+ 		ravb_ptp_stop(ndev);
+-out_disable_gptp_clk:
+-	clk_disable_unprepare(priv->gptp_clk);
+ out_disable_refclk:
+ 	clk_disable_unprepare(priv->refclk);
+ out_release:
+@@ -2964,7 +2961,6 @@ static int ravb_remove(struct platform_device *pdev)
+ 
+ 	ravb_set_opmode(ndev, CCC_OPC_RESET);
+ 
+-	clk_disable_unprepare(priv->gptp_clk);
+ 	clk_disable_unprepare(priv->refclk);
+ 
+ 	pm_runtime_put_sync(&pdev->dev);
+-- 
+2.53.0
+
