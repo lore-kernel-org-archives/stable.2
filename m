@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9089638736F;
-	Wed,  9 Sep 2026 04:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4B33655E7;
+	Wed,  9 Sep 2026 04:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928866; cv=none; b=Qzxm27qiMJgeBD09XcsdaXEDELvFcK5Jlwb4ciDm8APCepUsd6JuuDyBUxsg7umwrLKH++NMgAOM9iqkX8gTLVl0HY5I9lo9Z3kErIbX7eqRynrYeGmtbocmeOlTu+EJprHAul7x45DUKstNpN/SinizXIdUpNeNZBcPOwQ43GE=
+	t=1788929084; cv=none; b=i39jf92XQMR99sLsXdizitZVURrja7Q+tbfquaZKkMwVMvFjbc88ArzwK54eOHtypOf0Eiz57n6j2Be/kln1E7NTUsckV8f6f8FplczxenEr5ZxhB4S8+nXMotnPo8hTEeDnieoL335zOLm0RM48l4FkW7BMqxuDG8CIKxXU+oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928866; c=relaxed/simple;
-	bh=byZhMLfKxBGjxD0VBKwPC/GwsXnX9exJwA0EkIpf92Y=;
+	s=arc-20240116; t=1788929084; c=relaxed/simple;
+	bh=8dS+prIEtN9CDe1iAXydgJcfJkl+5lMz995kk0lHXxU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pn3clMu+zG0lO/OkOuYxTPrCIlIXgoLQEMiWrVnfBNoAgPmV+LDv2aS8RcFyfT7Ik4zCv5bmqYZmDifE88+KiMT6VEztW59u6cQNFTsmNb3EJWrpgZLmbNctZnPIgNeHBCr8feb0IxNbY3PqvyfxsU905VmQKvQ58XKr2eJ+WWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoDqkSuY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=szfGuKvHDbdshUB01m2Zn5sCB5eQfcInIEOR3Hs1R71ipmPChenHkAsmc4/dTpfOaHzWMRsWhU0L6H2Q8m3afGnUAfaATElLcMwOLZ3JwaJ0RyW2hPG4EHegBogIg1PhD8S7WnfMBG2GiwntEvxtfBtL+NnMmJdO4Rc9S4zBQTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSJi3wzO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoDqkSuY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A151F00A3A;
-	Wed,  9 Sep 2026 04:41:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSJi3wzO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C411F00A3A;
+	Wed,  9 Sep 2026 04:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788928862;
-	bh=RppHdJ069L4RLGMx76xnjPu/gB00fphi6UNzE0iIqGM=;
+	s=k20260515; t=1788929080;
+	bh=hf3KYGpwtphOc8lYhgZtMc8MBCdolbyCriTMGo1y7oY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YoDqkSuY+Xk1xkH/DAA7iRQE2ygIKWlvlE75a5TgM918YE43deUmGxr23dF2L3jqw
-	 QMaVScPyvhxjhQqhg579rzVfpFiYy3FpFkD0CeGU3fnd1j10LGh65H6l9i/8SLZ2YH
-	 h5IWzBiR40MsQQqpCtlH/a/RfiXEDU0NYvebzQj7lDlKhTT/uHOLNhZYre7R45QHu3
-	 HZ5NHxzoO+BOpRogbQlxGP/YeUgv2viAWmvPj3W1toWTe9yJ6ROLVdc2B0K8iwVItg
-	 INvyPIMXkIvc+G47xOCG0gNWTgDFmlRLhHQExL/m+NmntjWzhc11siaBv16Ok/eR8m
-	 rC6CgcNW7xgBg==
+	b=jSJi3wzOaYVOUc9hh6587tWyAaqfoCwJcIQj+Q5f+PvTJVMQi+6EciN/Vil0ZSk7x
+	 K+oNiTp6inSoOOZNnppaXMLpIN2UR7DDR0DLEEcykzWYs4FhkxmTlMuQs0iaOX1CpO
+	 0QPmVXTQW/aWpHlguXOgBcfQOUqAvzYoBXoowsuHUaYX7ab1cYGI0y9ESKnu+058uM
+	 AoMChYCAs6FiZbQBQnEY1WamoILS3jxhiIHBUSyuH3tpKdYvXgXd64FiuyPfpk5Lb8
+	 mc/wX6MFjbxaurhK7stMyhws9quR6D9i9RbFgTmCNJZusrJ+zVkS9v2QYBimorI36d
+	 qLJO0+ztaqUpw==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/damon/core: skip aging from repeated aggressive merging
-Date: Tue,  8 Sep 2026 21:40:55 -0700
-Message-ID: <20260909044055.213060-1-sj@kernel.org>
+Subject: [PATCH 6.1.y] mm/damon/core: skip aging from repeated aggressive merging
+Date: Tue,  8 Sep 2026 21:44:33 -0700
+Message-ID: <20260909044433.218263-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090840-shifter-galvanize-450f@gregkh>
-References: <2026090840-shifter-galvanize-450f@gregkh>
+In-Reply-To: <2026090841-catfight-alkalize-108d@gregkh>
+References: <2026090841-catfight-alkalize-108d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,15 +69,28 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 (cherry picked from commit 0250dbe08c730d003ef9f484da56ae09a1ea0c4c)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c             | 21 +++++++++++++--------
- mm/damon/tests/core-kunit.h |  2 +-
- 2 files changed, 14 insertions(+), 9 deletions(-)
+ mm/damon/core-test.h |  2 +-
+ mm/damon/core.c      | 17 +++++++++++------
+ 2 files changed, 12 insertions(+), 7 deletions(-)
 
+diff --git a/mm/damon/core-test.h b/mm/damon/core-test.h
+index d8fef225930a5..cbdf3c8e45c75 100644
+--- a/mm/damon/core-test.h
++++ b/mm/damon/core-test.h
+@@ -250,7 +250,7 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 		damon_add_region(r, t);
+ 	}
+ 
+-	damon_merge_regions_of(t, 9, 9999);
++	damon_merge_regions_of(t, 9, 9999, true);
+ 	/* 0-112, 114-130, 130-156, 156-170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
+ 	for (i = 0; i < 5; i++) {
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 70ac1f08753d1..c98539efd2a56 100644
+index dd4eafe8b9611..859a6a636ab0e 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2364,17 +2364,19 @@ static void damon_merge_two_regions(struct damon_target *t,
+@@ -940,15 +940,17 @@ static void damon_merge_two_regions(struct damon_target *t,
   * sz_limit	size upper limit of each region
   */
  static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
@@ -89,14 +102,10 @@ index 70ac1f08753d1..c98539efd2a56 100644
  	damon_for_each_region_safe(r, next, t) {
 -		if (abs(r->nr_accesses - r->last_nr_accesses) > thres)
 -			r->age = 0;
--		else if ((r->nr_accesses == 0) != (r->last_nr_accesses == 0))
--			r->age = 0;
 -		else
 -			r->age++;
 +		if (count_age) {
 +			if (abs(r->nr_accesses - r->last_nr_accesses) > thres)
-+				r->age = 0;
-+			else if ((r->nr_accesses == 0) != (r->last_nr_accesses == 0))
 +				r->age = 0;
 +			else
 +				r->age++;
@@ -104,7 +113,7 @@ index 70ac1f08753d1..c98539efd2a56 100644
  
  		if (prev && prev->ar.end == r->ar.start &&
  		    abs(prev->nr_accesses - r->nr_accesses) <= thres &&
-@@ -2408,15 +2410,18 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+@@ -982,15 +984,18 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
  	struct damon_target *t;
  	unsigned int nr_regions;
  	unsigned int max_thres;
@@ -124,19 +133,6 @@ index 70ac1f08753d1..c98539efd2a56 100644
  		threshold = max(1, threshold * 2);
  	} while (nr_regions > c->attrs.max_nr_regions &&
  			threshold / 2 < max_thres);
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 6687778752728..80dcf1d641e07 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -261,7 +261,7 @@ static void damon_test_merge_regions_of(struct kunit *test)
- 		damon_add_region(r, t);
- 	}
- 
--	damon_merge_regions_of(t, 9, 9999);
-+	damon_merge_regions_of(t, 9, 9999, true);
- 	/* 0-112, 114-130, 130-156, 156-170 */
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
- 	for (i = 0; i < 5; i++) {
 -- 
 2.47.3
 
