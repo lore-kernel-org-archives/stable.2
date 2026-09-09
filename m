@@ -1,51 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB7153D0C2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EC953359E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950763; cv=none; b=lTESewYuC+wnDw3eGDsIZvtQkEM2z4K3tyY0tEjz8hncA9AsGToclDWe4uFw9wMNGJqjs2svwhK3exs2ehst8dInsHu0KQEMLozU06RKRTmXdUH/E9AHxuT00L/Fp/Og7RBnlZ4zV8OW4xgnTW+1UGf8PJ906rGVSkrlrsXTg8w=
+	t=1788951001; cv=none; b=EkIH8oKrYmHclImvos92KVP0A83uYzYbL0bSaj5x+sST+BryjQKGhgK4prXHAiHXa2dDni4WFPKn91GD7M8muJghkNVkV9Ole+ACV/Kd457q7seyb59/JlbB8G2M8/Eix75cPqImBKPsuAm/rJxTIKXGHdKMnc8Jdd1DS5UU09Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950763; c=relaxed/simple;
-	bh=e/tbaX4KAdW+JVQ/vhUtmh1/+9aQ6XyXCc8bEYPIdrw=;
+	s=arc-20240116; t=1788951001; c=relaxed/simple;
+	bh=fDhDdMCMLPrR//sPpoCOwH35D7v3h3lxuyyRn6BEong=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FcUGoSHP2LV5gLhCMc9HIKwURSsj6eYIEypaVNZYQky23i9mY4vhylA3kM+hhzcmnzrigOiYfJCnd6z4Ux7wG/47X18hbtqeduKLc74Nv9zrGxkyUbcnzrqU4MtrxQsSypQ0FpRZmFH7mOjHPaQu49UPeBEjImo2x4jpF+6Z3Hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLvlOi9M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aKFl14NsZRPF8fSnTVTl9lyW3/JNiNvNPcm2xsIbRTJ7fp3a/sXCadFdUFQHBFAVnWw6DxwsBE4wnT+/gw8S8u77ZIBOstNpJ4D1AZlzZZ68k4Cb/8qpWze+145PsJzHaLo96pWoteRenwHZDjCiXmD+ThmbiPtXskiY2XcVn2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJKWVX1Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLvlOi9M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B60DA1F00A3A;
-	Wed,  9 Sep 2026 10:46:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJKWVX1Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992901F00A3D;
+	Wed,  9 Sep 2026 10:49:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950762;
-	bh=ccVhX8Y20b3XMePdGA+b+fd0pJrYGT8UGyv8LBQH3Dw=;
+	s=k20260515; t=1788950999;
+	bh=iXJhIYYItEIhwATRH/oqWDKIJWlNu39yrHX5aoYadPE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LLvlOi9MffpBSDg4dRD+PYJWPHY6Zm7fwHet7Qxq5Sf+acbnSt+29rjnuFO+InHT3
-	 Tc0/LDX7eEdS9qTXPseyjRlS8/Uwr3uTHCx4gdESR6j+jGxjHbd7qT8E7QAPj308ZK
-	 K7KFO7Jtx8/XQppeqxhxXmkkghDpROEXQcJcguaO8iMDaGmS8bbNrixvlACYfqUkuX
-	 k2F90HPE71dVoXQQ68c1eZTPJVsWoZeu/hp80LyvmVFkKPa6i7VehuWLdo/f2Aoglx
-	 jFDiA41r7+kNSWsgyqUIFLMIrW8Lapu0gpiII4POxcfpVpRlc+QUAeJBXKCqfnYwDM
-	 Tso/RbquhqOpw==
+	b=MJKWVX1ZWjdvU/zIEt5sqZ6KJOKbxchJQ27P1VxOKMt+A47N/D0Uixtq6X8VShe0Z
+	 Nq/yapGwWZ5riajlbRGOKT49fpJX8TLtBEV7/t/4K/BPwDRacT9TDjjlqOGjiIIvd+
+	 ZwRyOlB94hxxeaK7/HH1zpQxVRYFcxClEOJVzdYu+6aDe6C1/CI4KYCMs3TC0dLGj6
+	 TcC+cbhrEFLXNsofesy0VxBCfWEk7PtAqhQbrh6Nmy/no834JRMg1ZmVLyOjO7BeAp
+	 7BzNMld9k8KGL1GNkQFfATki/w2T8iZKbv7gZeCU8v4nwg6LM5RQrxscgLBMzmxDn7
+	 WCD4UR6INP7Dw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Kees Cook <kees@kernel.org>,
-	Mark Fasheh <mark@fasheh.com>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Daniel Wagner <dwagner@suse.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Hannes Reinecke <hare@suse.de>,
+	Christoph Hellwig <hch@lst.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] ocfs2: validate directory-index entry counts when reading metadata
-Date: Wed,  9 Sep 2026 06:45:57 -0400
-Message-ID: <20260909104557.1564171-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] nvme-tcp: Do not reset transport on data digest errors
+Date: Wed,  9 Sep 2026 06:49:56 -0400
+Message-ID: <20260909104957.1579361-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909104557.1564171-1-sashal@kernel.org>
-References: <2026090341-gurgling-unison-81ab@gregkh>
- <20260909104557.1564171-1-sashal@kernel.org>
+In-Reply-To: <2026090316-lying-divisive-d066@gregkh>
+References: <2026090316-lying-divisive-d066@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,126 +47,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Daniel Wagner <dwagner@suse.de>
 
-[ Upstream commit bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 ]
+[ Upstream commit 1ba2e507f55c5b0cbde8c0fbfe0d9e39612a3e52 ]
 
-ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
-signature of an indexed-directory block before it reaches higher-level
-callers, but neither validator bounds the ocfs2_dx_entry_list counts
-against the capacity of the block that holds them.
+The spec says
 
-ocfs2_dx_dir_search() then walks
+  7.4.6.1 Digest Error handling
 
-	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
-		dx_entry = &entry_list->de_entries[i];
+  When a host detects a data digest error in a C2HData PDU, that host
+  shall continue processing C2HData PDUs associated with the command and
+  when the command processing has completed, if a successful status was
+  returned by the controller, the host shall fail the command with a
+  non-fatal transport error.
 
-over de_num_used entries with no bounds check.  entry_list is either
-dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
-dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
-de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
-and make the walk read far past the end of the 4KB metadata block, giving
-a slab out-of-bounds read reachable from any path lookup, stat() or open()
-on an indexed directory once the image is mounted.
+Currently the transport is reseted when a data digest error is
+detected. Instead, when a digest error is detected, mark the final
+status as NVME_SC_DATA_XFER_ERROR and let the upper layer handle
+the error.
 
-Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
-block read") already bounds dr_list for the non-inline dx_root, but left
-the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
-same read-time validation for both entry lists: de_count must equal the
-capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
-de_num_used must not exceed de_count, rejecting corrupted metadata with
--EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
-array.
+In order to keep track of the final result maintain a status field in
+nvme_tcp_request object and use it to overwrite the completion queue
+status (which might be successful even though a digest error has been
+detected) when completing the request.
 
-de_count is always written as exactly the block capacity when a leaf or
-inline root is formatted, so the equality check does not reject any valid
-image.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
-Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
-Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Daniel Wagner <dwagner@suse.de>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Stable-dep-of: 7fa3f73f6c8d ("nvme-tcp: reject a read that transferred too few bytes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/dir.c | 45 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 4 deletions(-)
+ drivers/nvme/host/tcp.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 6b199ddab1d99..a492478cac7a3 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -611,6 +611,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 					  le16_to_cpu(el->l_count));
- 			goto bail;
- 		}
-+	} else {
-+		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
-+
-+		if (le16_to_cpu(dl_list->de_count) !=
-+		    ocfs2_dx_entries_per_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_count),
-+					  ocfs2_dx_entries_per_root(sb));
-+			goto bail;
-+		}
-+
-+		if (le16_to_cpu(dl_list->de_num_used) >
-+		    le16_to_cpu(dl_list->de_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_num_used),
-+					  le16_to_cpu(dl_list->de_count));
-+			goto bail;
-+		}
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 7d9ebd4f7947b..7e25bfa001c59 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -83,6 +83,7 @@ struct nvme_tcp_request {
+ 	u32			pdu_len;
+ 	u32			pdu_sent;
+ 	u16			ttag;
++	__le16			status;
+ 	struct list_head	entry;
+ 	struct llist_node	lentry;
+ 	__le32			ddgst;
+@@ -524,6 +525,7 @@ static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
+ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ 		struct nvme_completion *cqe)
+ {
++	struct nvme_tcp_request *req;
+ 	struct request *rq;
+ 
+ 	rq = nvme_find_rq(nvme_tcp_tagset(queue), cqe->command_id);
+@@ -535,7 +537,11 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ 		return -EINVAL;
  	}
  
- bail:
-@@ -650,10 +672,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+-	if (!nvme_try_complete_req(rq, cqe->status, cqe->result))
++	req = blk_mq_rq_to_pdu(rq);
++	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
++		req->status = cqe->status;
++
++	if (!nvme_try_complete_req(rq, req->status, cqe->result))
+ 		nvme_complete_rq(rq);
+ 	queue->nr_cqe++;
+ 
+@@ -797,7 +803,8 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
+ 			queue->ddgst_remaining = NVME_TCP_DIGEST_LENGTH;
+ 		} else {
+ 			if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
+-				nvme_tcp_end_request(rq, NVME_SC_SUCCESS);
++				nvme_tcp_end_request(rq,
++						le16_to_cpu(req->status));
+ 				queue->nr_cqe++;
+ 			}
+ 			nvme_tcp_init_recv_ctx(queue);
+@@ -827,18 +834,24 @@ static int nvme_tcp_recv_ddgst(struct nvme_tcp_queue *queue,
+ 		return 0;
+ 
+ 	if (queue->recv_ddgst != queue->exp_ddgst) {
++		struct request *rq = nvme_cid_to_rq(nvme_tcp_tagset(queue),
++					pdu->command_id);
++		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
++
++		req->status = cpu_to_le16(NVME_SC_DATA_XFER_ERROR);
++
+ 		dev_err(queue->ctrl->ctrl.device,
+ 			"data digest error: recv %#x expected %#x\n",
+ 			le32_to_cpu(queue->recv_ddgst),
+ 			le32_to_cpu(queue->exp_ddgst));
+-		return -EIO;
+ 	}
+ 
+ 	if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
+ 		struct request *rq = nvme_cid_to_rq(nvme_tcp_tagset(queue),
+ 					pdu->command_id);
++		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
+ 
+-		nvme_tcp_end_request(rq, NVME_SC_SUCCESS);
++		nvme_tcp_end_request(rq, le16_to_cpu(req->status));
+ 		queue->nr_cqe++;
+ 	}
+ 
+@@ -2370,6 +2383,7 @@ static blk_status_t nvme_tcp_setup_cmd_pdu(struct nvme_ns *ns,
  		return ret;
- 	}
  
--	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
--		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
--				  7, dx_leaf->dl_signature);
--	}
-+	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
-+		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
-+				   7, dx_leaf->dl_signature);
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
-+	    ocfs2_dx_entries_per_leaf(sb))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count),
-+				   ocfs2_dx_entries_per_leaf(sb));
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
-+	    le16_to_cpu(dx_leaf->dl_list.de_count))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count));
- 
- 	return ret;
- }
+ 	req->state = NVME_TCP_SEND_CMD_PDU;
++	req->status = cpu_to_le16(NVME_SC_SUCCESS);
+ 	req->offset = 0;
+ 	req->data_sent = 0;
+ 	req->pdu_len = 0;
 -- 
 2.53.0
 
