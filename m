@@ -1,84 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD7357C72A
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896F957D22A;
+	Wed,  9 Sep 2026 14:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963045; cv=none; b=qdEd4j8YGrY5II6pcgICXUvR8UGQwpF4N0kQqmJUOaPvTYWLhBasM7BrG+cqRXO+3TXnCmbGkDSTegK5CvIAGlOQpehhAgkx+nRY9EDprbXRWR182rEY/EV47W4N55162JeEowue19N9abtmvLGti3jegY5MQR31IRRb4zZ+moM=
+	t=1788963047; cv=none; b=Bnu95mSrfU5DQE+UyRKdVhkDKVKw7oXX8jwoLdhDR3Pv2KXtL1txns+TaM0FGSmgWW9Q7vyYROanRPeCZihyrhGV7DvNNuExL1Q4ZgpAD3QdV+PR0AvfwPzCJxBn4eF00TMIyDLo+rrzX2tVA+iN40CSnpurJnhcSjtJwL3NoM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963045; c=relaxed/simple;
-	bh=FqeUdctmlmlYB132HhbLaeGXxzj/gaibPK9uYuEwAQw=;
+	s=arc-20240116; t=1788963047; c=relaxed/simple;
+	bh=8sFVcTXi3ByRL+YA9GCrlCbF5RcNDiZ15nCeHnKWfZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pWwaqLc5xdxPDdIsvYrvCqsM+72f2guLaSIJPStO41O8/hnK7qAsNox8JMGQ2WyCZFEzcu62QWev6hbjsisWjpyQo0WwL/WOqr88ESIWt5Oz6y0Yh2gAU+FtMDFL+lXEVzEMW9sM1FEEZ3fzWsM8jFFXuiPZrx1QQ2+E5YQ/HdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nliJmGs3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CZBfTi0x3WeQ/CovC3+k0Jc3EiGusxw6199Q4tIvoAOFwXKLxB1w+WhWFDjMn8SL0nsYQ9O/HNgYNSc/8KzGENmu9evNmBYQiIo9ZEQ6soyNlc8Jcsx0Qj2+qp9QFlFGCTQ2zDMHmrPrb+SZtgyKle9tjmlbLtayHjyzOSxYBgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uSXuEZOY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nliJmGs3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AAC1F00AC4;
-	Wed,  9 Sep 2026 14:10:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963044;
-	bh=ctJHt1IajnKGVn6VSWUNrFr2kxdSqstQQH1R4PzQRns=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uSXuEZOY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E093F1F00A3A;
+	Wed,  9 Sep 2026 14:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963046;
+	bh=+0enUyR56MV6LntttF3JYe/g39ugaR3zqWHT4sHC8XQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nliJmGs3ae8HvBp6vfcDyYb6F1VQfb8Jg2Mz5F+q61Knm8yJisXwEVi2GglW3JnjV
-	 4UtyUtRyUq09JnhfsCmPXpLNTpR1867a1NpmoSiHH4zD/NWX3lYOVI4lenyTZd9mQm
-	 adA9Z78KaM3PtbRYOwYz61Gg2rRP/Y93tWWIMwvzSU9XJZYZ4lh6GuGvEs4d1Aa2vn
-	 DDhq8oy/aH3FkRtfQCY5NaTbCHXGMCOxnF9Ce43pgZU3dMVeREyqTdoKU1oessL/sW
-	 bWgO0hK0lUOzqsiJ3eri6B0h8yQ8BoRq8gKGU6gRx42u7t9qoQtTVPlPcpM42n2CGK
-	 3FD/OxhwITNjg==
-From: Sasha Levin <sashal@kernel.org>
+	b=uSXuEZOYgCXfaTY9+DGWnxdvxLqbzeMt8wtVsQXZyC/f8CSK1xlgM4x0kGwQmaeh0
+	 +vtO0MELQVKkZ9rfyaf1SLXYfG18G+Y4fDDili9HgQSrswBvkPAkIKT5yM0xGOO75k
+	 BAue7rIzl56X7YDjXPq1I5sZYhJNKknGtYGplmx4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] platform/x86: ISST: Validate max level for set feature
-Date: Wed,  9 Sep 2026 10:10:41 -0400
-Message-ID: <20260909141041.2381301-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141041.2381301-1-sashal@kernel.org>
-References: <2026090310-gawk-vivacious-d6f7@gregkh>
- <20260909141041.2381301-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yang Wang <kevinyang.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 7.2 501/556] drm/amdgpu: check thunderbolt before switcheroo registration
+Date: Wed,  9 Sep 2026 15:43:01 +0200
+Message-ID: <20260909134248.097398123@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e45d6b8472861d3bac86bb37f8556a7c5aca3266 ]
+------------------
 
-Validate the level before setting, so that it fails early instead of
-failing later when checking the bit mask for allowed levels.
+From: Yang Wang <kevinyang.wang@amd.com>
 
-Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
+commit 8587d48d694da5aca580f92461658ec14470592b upstream.
+
+Introduce a helper to consolidate the vga_switcheroo registration condition
+used by the init and fini paths.
+
+Keep the explicit pci_is_thunderbolt_attached() check, as dev_is_removable()
+does not provide equivalent coverage for Thunderbolt-attached GPUs.
+This ensures such devices remain excluded from switcheroo registration while
+preserving the existing PX and Apple gmux handling.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260811221514.3905817-3-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 317738d5b0668..7c45b05190f3c 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -974,6 +974,9 @@ static int isst_if_set_perf_level(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3745,6 +3745,14 @@ static void amdgpu_device_sys_interface_
+ 	amdgpu_ptl_sysfs_fini(adev);
+ }
  
-+	if (perf_level.level > power_domain_info->max_level)
-+		return -EINVAL;
++static bool
++amdgpu_device_should_register_switcheroo(struct amdgpu_device *adev, bool px)
++{
++	return !pci_is_thunderbolt_attached(adev->pdev) &&
++	       (px || (!dev_is_removable(&adev->pdev->dev) &&
++		       apple_gmux_detect(NULL, NULL)));
++}
 +
- 	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
+ /**
+  * amdgpu_device_init - initialize the driver
+  *
+@@ -4194,8 +4202,7 @@ fence_driver_init:
  
--- 
-2.53.0
+ 	px = amdgpu_device_supports_px(adev);
+ 
+-	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+-				apple_gmux_detect(NULL, NULL)))
++	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_register_client(adev->pdev,
+ 					       &amdgpu_switcheroo_ops, px);
+ 
+@@ -4359,8 +4366,7 @@ void amdgpu_device_fini_sw(struct amdgpu
+ 
+ 	px = amdgpu_device_supports_px(adev);
+ 
+-	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+-				apple_gmux_detect(NULL, NULL)))
++	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_unregister_client(adev->pdev);
+ 
+ 	if (px)
+
 
