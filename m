@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7398D313293
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2DF2D2394
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:09:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966597; cv=none; b=ZwFBqX2X+5UBvbjecDll/6ebopI1LnH6NdG8VCc30c7u1X4LXiY/8MMndAcs372DrJb+bKPHERh+CYVayuotR9TS6bwCU4H9j7LGO0LMKNkAJRFSvuiW1aRAEUZHC7gKyZr4cXtCJh/jTpFl0TVKMv+o7A/ir2H4lz4i34vKkco=
+	t=1788966598; cv=none; b=VrORuXH9RSBaayQByAvUvbQUwPpQ2GnPjmhoG3wwlF5lf7TQDfcI22uaLlFYWVpvjH8qnUR6/RlkgSPlsytyeTEseHfC58A3Dy3zsM3QTyzEtbECp/aXXUEN4+4bqrEC/XFlPS22oJx2otfbimn7Rc/e49qxQ0VYnHpHSmTH83k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966597; c=relaxed/simple;
-	bh=LFovl66p2SqK2vlKwaUvLocUt0RPIUTtpcjXxJSJwys=;
+	s=arc-20240116; t=1788966598; c=relaxed/simple;
+	bh=2tZmHhhSaV2G4eeftbMwI+6gcv80QMmA9GwTA2WycA0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RGaEeL5B7gpFQpsB8bVUYTxZm775T2qCXxQzP283YZHjLpFe0Z4Q0jbuQhY9qcqv8YZt7sWsYyx7rTgJDYP88T1PPva3k5w+vbSjJt/CK4z4xMe7FmDDto+n6ZZRN9lCvP0v9VezhXjGWTcHhBaiyNDRIgSit0r3N9g1jswRuuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4PDmwqv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nR2eRcx763tSXyQ3k+ZOebO7DTQlB0D/rX8+kRrh+cPUx4ypRf0mPOFq3LqKRiXog7+AphsVyNpyW+khsP2mgaufEwyMWYDs2B+mfhCLnD2+8pF3FmLrHa4a34lX2qrF2h8oaADXM9gomnQyg0dgC76cHXOHyh4NhEo4xonxlM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQBtgFNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4PDmwqv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF4D1F00A3A;
-	Wed,  9 Sep 2026 15:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQBtgFNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB271F00A3D;
+	Wed,  9 Sep 2026 15:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788966596;
-	bh=VmUPoNa78f1qPXonW8kqQH8LSVFHY00Bg0peeEgmXVU=;
+	bh=+jSIxT9x6T3ldtjHAUqSOcGbGjqv7s5hiQStulYlOOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J4PDmwqvqCkmTl1y3yrD2RTEhUHZ+NBj49BQxbhIcuIp7yhqYtQLUNlvDGvplzaNZ
-	 qxTLOUlNAfMrO2QPti3Zir9t+86DGmd9v/yBpjqXL8+ynmUwbwxMfFJlYVK9ETpZwI
-	 GZmxGiXkdqgPJb8GL3e5zajwmmzJeOh1hiYQj4+bLIAE7+P0LFCk/W28/TkToR3Nkf
-	 bLUzi/Vgw4OFsc3V8KFl7KGY3puuq9XxlA3uOOgU+2B+rx2Wolx2KQYEN4ka317E/W
-	 z5NMyarudtZNVI9vStjRS5qxH5Li88kt+kvpRRZi5BwWWA8XnabWM1Nz7L+YvI+vjt
-	 bICeKSJB/4AcQ==
+	b=IQBtgFNJUBjX8qfH/fHBR6QEgSaj3xvXEH8uYaLVFp2Gauildy3cnKRQTYMeeDhS8
+	 l7CYB6VwrtxU3v9yanKDSOvXbiWO33JV5af2g5fZZHsagU8mQBBPjmUfV14EO622Mp
+	 EDXaZD86gJZTAdsMRDGXg8vF6x5r9AQnzgQPuU3rg8UXFikTEPADuRDwdtk1WS/Qf0
+	 N3zbUmKg5YgCqJEbF5ZVwEA9eUJZ7vtfX80j1wjuc4HBGxB8SEOmq2fn1KHWz7glbC
+	 BydphbRw0xu95c3J0OQ2DONygY21qbmTKDbSJfVOaMvI8+QifK1SS1LC3FrrOgtO1U
+	 r3DsJ4BWRdUpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/5] io_uring: unify task_work cancelation checks
-Date: Wed,  9 Sep 2026 11:09:50 -0400
-Message-ID: <20260909150954.2816677-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/5] io_uring/waitid: have io_waitid_complete() remove wait queue entry
+Date: Wed,  9 Sep 2026 11:09:51 -0400
+Message-ID: <20260909150954.2816677-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090344-mooned-reconfirm-9822@gregkh>
+In-Reply-To: <20260909150954.2816677-1-sashal@kernel.org>
 References: <2026090344-mooned-reconfirm-9822@gregkh>
+ <20260909150954.2816677-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,179 +47,86 @@ Content-Transfer-Encoding: 8bit
 
 From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit 7be20254a743be4f02414b9d56cc3fe5f84e6500 ]
+[ Upstream commit a48c0cbf28c03f6c590a14ceb31bf6e619c2f6da ]
 
-Rather than do per-tw checking, which needs to dip into the task_struct
-for checking flags, do it upfront before running task_work. This places
-a 'cancel' member in io_tw_token_t, which is assigned before running
-task_work for that given ctx.
+Both callers of this need the entry potentially removed, so shift the
+removal into the completion side and kill it from the two callers.
 
-This is both more efficient in doing it upfront rather than for every
-task_work, and it means that io_should_terminate_tw() can be made
-private in io_uring.c rather than need to be called by various
-callbacks of task_work.
+While at it, add a helper for removing the wait_queue_entry based
+on the passed in io_kiocb.
 
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Stable-dep-of: 14572de82e50 ("io_uring/waitid: honor task_work cancellation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/io_uring_types.h |  1 +
- io_uring/io_uring.c            | 27 ++++++++++++++++++++-------
- io_uring/io_uring.h            | 13 -------------
- io_uring/poll.c                |  2 +-
- io_uring/timeout.c             |  2 +-
- io_uring/uring_cmd.c           |  2 +-
- 6 files changed, 24 insertions(+), 23 deletions(-)
+ io_uring/waitid.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index d73556f10733c..e9609c433120e 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -482,6 +482,7 @@ struct io_ring_ctx {
-  * ONLY core io_uring.c should instantiate this struct.
-  */
- struct io_tw_state {
-+	bool cancel;
- };
- /* Alias to use in code that doesn't instantiate struct io_tw_state */
- typedef struct io_tw_state io_tw_token_t;
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 9784463fb718d..d59a750e5e89c 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -268,6 +268,20 @@ static __cold void io_ring_ctx_ref_free(struct percpu_ref *ref)
- 	complete(&ctx->ref_comp);
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index 97cce0bd2d50e..ecd60ade08c8b 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -109,6 +109,22 @@ static int io_waitid_finish(struct io_kiocb *req, int ret)
+ 	return ret;
  }
  
-+/*
-+ * Terminate the request if either of these conditions are true:
-+ *
-+ * 1) It's being executed by the original task, but that task is marked
-+ *    with PF_EXITING as it's exiting.
-+ * 2) PF_KTHREAD is set, in which case the invoker of the task_work is
-+ *    our fallback task_work.
-+ * 3) The ring has been closed and is going away.
-+ */
-+static inline bool io_should_terminate_tw(struct io_ring_ctx *ctx)
++static void io_waitid_remove_wq(struct io_kiocb *req)
 +{
-+	return (current->flags & (PF_EXITING | PF_KTHREAD)) || percpu_ref_is_dying(&ctx->refs);
++	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
++	struct wait_queue_head *head;
++
++	head = READ_ONCE(iw->head);
++	if (head) {
++		struct io_waitid_async *iwa = req->async_data;
++
++		iw->head = NULL;
++		spin_lock_irq(&head->lock);
++		list_del_init(&iwa->wo.child_wait.entry);
++		spin_unlock_irq(&head->lock);
++	}
 +}
 +
- static __cold void io_fallback_req_func(struct work_struct *work)
+ static void io_waitid_complete(struct io_kiocb *req, int ret)
  {
- 	struct io_ring_ctx *ctx = container_of(work, struct io_ring_ctx,
-@@ -278,8 +292,10 @@ static __cold void io_fallback_req_func(struct work_struct *work)
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+@@ -119,6 +135,7 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ 	lockdep_assert_held(&req->ctx->uring_lock);
  
- 	percpu_ref_get(&ctx->refs);
- 	mutex_lock(&ctx->uring_lock);
--	llist_for_each_entry_safe(req, tmp, node, io_task_work.node)
-+	llist_for_each_entry_safe(req, tmp, node, io_task_work.node) {
-+		ts.cancel = io_should_terminate_tw(req->ctx);
- 		req->io_task_work.func(req, ts);
-+	}
- 	io_submit_flush_completions(ctx);
- 	mutex_unlock(&ctx->uring_lock);
- 	percpu_ref_put(&ctx->refs);
-@@ -1152,6 +1168,7 @@ struct llist_node *io_handle_tw_list(struct llist_node *node,
- 			ctx = req->ctx;
- 			mutex_lock(&ctx->uring_lock);
- 			percpu_ref_get(&ctx->refs);
-+			ts.cancel = io_should_terminate_tw(ctx);
+ 	hlist_del_init(&req->hash_node);
++	io_waitid_remove_wq(req);
+ 
+ 	ret = io_waitid_finish(req, ret);
+ 	if (ret < 0)
+@@ -129,7 +146,8 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ static bool __io_waitid_cancel(struct io_kiocb *req)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+-	struct io_waitid_async *iwa = req->async_data;
++
++	lockdep_assert_held(&req->ctx->uring_lock);
+ 
+ 	/*
+ 	 * Mark us canceled regardless of ownership. This will prevent a
+@@ -141,9 +159,6 @@ static bool __io_waitid_cancel(struct io_kiocb *req)
+ 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
+ 		return false;
+ 
+-	spin_lock_irq(&iw->head->lock);
+-	list_del_init(&iwa->wo.child_wait.entry);
+-	spin_unlock_irq(&iw->head->lock);
+ 	io_waitid_complete(req, -ECANCELED);
+ 	io_req_queue_tw_complete(req, -ECANCELED);
+ 	return true;
+@@ -209,8 +224,7 @@ static void io_waitid_cb(struct io_kiocb *req, io_tw_token_t tw)
+ 				io_waitid_drop_issue_ref(req);
+ 				return;
+ 			}
+-
+-			remove_wait_queue(iw->head, &iwa->wo.child_wait);
++			/* fall through to complete, will kill waitqueue */
  		}
- 		INDIRECT_CALL_2(req->io_task_work.func,
- 				io_poll_task_func, io_req_rw_complete,
-@@ -1210,11 +1227,6 @@ struct llist_node *tctx_task_work_run(struct io_uring_task *tctx,
- {
- 	struct llist_node *node;
+ 	}
  
--	if (unlikely(current->flags & PF_EXITING)) {
--		io_fallback_tw(tctx, true);
--		return NULL;
--	}
--
- 	node = llist_del_all(&tctx->task_list);
- 	if (node) {
- 		node = llist_reverse_order(node);
-@@ -1432,6 +1444,7 @@ static int __io_run_local_work(struct io_ring_ctx *ctx, io_tw_token_t tw,
- 	if (ctx->flags & IORING_SETUP_TASKRUN_FLAG)
- 		atomic_andnot(IORING_SQ_TASKRUN, &ctx->rings->sq_flags);
- again:
-+	tw.cancel = io_should_terminate_tw(ctx);
- 	min_events -= ret;
- 	ret = __io_run_local_work_loop(&ctx->retry_llist.first, tw, max_events);
- 	if (ctx->retry_llist.first)
-@@ -1491,7 +1504,7 @@ void io_req_task_submit(struct io_kiocb *req, io_tw_token_t tw)
- 	struct io_ring_ctx *ctx = req->ctx;
- 
- 	io_tw_lock(ctx, tw);
--	if (unlikely(io_should_terminate_tw(ctx)))
-+	if (unlikely(tw.cancel))
- 		io_req_defer_failed(req, -EFAULT);
- 	else if (req->flags & REQ_F_FORCE_ASYNC)
- 		io_queue_iowq(req);
-diff --git a/io_uring/io_uring.h b/io_uring/io_uring.h
-index 05702288465b7..39fc7609f24f3 100644
---- a/io_uring/io_uring.h
-+++ b/io_uring/io_uring.h
-@@ -582,19 +582,6 @@ static inline bool io_allowed_run_tw(struct io_ring_ctx *ctx)
- 		      ctx->submitter_task == current);
- }
- 
--/*
-- * Terminate the request if either of these conditions are true:
-- *
-- * 1) It's being executed by the original task, but that task is marked
-- *    with PF_EXITING as it's exiting.
-- * 2) PF_KTHREAD is set, in which case the invoker of the task_work is
-- *    our fallback task_work.
-- */
--static inline bool io_should_terminate_tw(struct io_ring_ctx *ctx)
--{
--	return (current->flags & (PF_KTHREAD | PF_EXITING)) || percpu_ref_is_dying(&ctx->refs);
--}
--
- static inline void io_req_queue_tw_complete(struct io_kiocb *req, s32 res)
- {
- 	io_req_set_res(req, res, 0);
-diff --git a/io_uring/poll.c b/io_uring/poll.c
-index 6745bbc963286..264f8584789fa 100644
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -225,7 +225,7 @@ static int io_poll_check_events(struct io_kiocb *req, io_tw_token_t tw)
- {
- 	int v;
- 
--	if (unlikely(io_should_terminate_tw(req->ctx)))
-+	if (unlikely(tw.cancel))
- 		return -ECANCELED;
- 
- 	do {
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index dec1d13ca4207..8a3844de9ceb4 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -324,7 +324,7 @@ static void io_req_task_link_timeout(struct io_kiocb *req, io_tw_token_t tw)
- 	int ret;
- 
- 	if (prev) {
--		if (!io_should_terminate_tw(req->ctx)) {
-+		if (!tw.cancel) {
- 			struct io_cancel_data cd = {
- 				.ctx		= req->ctx,
- 				.data		= prev->cqe.user_data,
-diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-index df521ce10b0a4..26044357d649b 100644
---- a/io_uring/uring_cmd.c
-+++ b/io_uring/uring_cmd.c
-@@ -120,7 +120,7 @@ static void io_uring_cmd_work(struct io_kiocb *req, io_tw_token_t tw)
- 	struct io_uring_cmd *ioucmd = io_kiocb_to_cmd(req, struct io_uring_cmd);
- 	unsigned int flags = IO_URING_F_COMPLETE_DEFER;
- 
--	if (io_should_terminate_tw(req->ctx))
-+	if (unlikely(tw.cancel))
- 		flags |= IO_URING_F_TASK_DEAD;
- 
- 	/* task_work executor checks the deffered list completion */
 -- 
 2.53.0
 
