@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05E14EBAE5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C565D43553A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949690; cv=none; b=klXvb2OlVdX4/5Td4BQm6I7WyBL6FydamO+9qPmuE9Q6rb4T3kZDUyEju6MUGn+jTogn3ruZ9V/fdlklQ2NjmrU+PEfJW6btGOxIpV32xdLVipE2Hq69XgZCJqlSvHNjnvms0komvnQjbKspboh1mFDdvbvi6pz7ytuv+g6P0UE=
+	t=1788949693; cv=none; b=ONGF3cpb1zLzAZSETqK5ZBElTCtVN3bnlYiY+zf0kn2c6FXvPFR49FSHI+jVXe2ToUJGRsim7Eph2WB5CULtiUF/AJcvZ2YgN5C0HqpgnpwtEg1ghaJpSifLsCKpYtao1fBKkItQYVETwX34EmHswcHOmvvYnAh/PPteW9+NILE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949690; c=relaxed/simple;
-	bh=GHh9N97rH4bQo7PuMqKD206DYDFCHOwx0D4uFWKfqpA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oXmS06D+F7rJ1oQ6cOOXE005XuoQ/zJtwzgoycv0pdCsK3RF4nEv+o6D/w9LoldeaKqrUOJVcdCxaAbSzzZtsoeFXxnwhbJCXRr4N8CN9r62slcmm4VegiurRIv2bYZBT0HTvNY30G4A1gOCXBjoDDL0J8A6jB8xWSO2wcAdKHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mGBNHfU6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949693; c=relaxed/simple;
+	bh=vuAJMXiI2pqKMYcgmVegygw147EBegB9CZOHXS+c9nk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e2vXPyPUfPvjQQgFdgV1mybKoT/69ydO/QoytmRTO1I4hGS5u9BozfjewlEVGWGORQP0l0qT1gtNY5Gg209yDp0ZYPba8qpOeAOmVVcf7Kc2s+09STpMSxNSczcwGJnpPGPFrr4NXOuB8plYW6BF3B8oyhdmnHVL1hMFR4pQQCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VHljdyRf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mGBNHfU6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572151F00A3A;
-	Wed,  9 Sep 2026 10:28:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VHljdyRf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231911F00A3A;
+	Wed,  9 Sep 2026 10:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788949688;
-	bh=AlT26Aez2GYhLG3gX/LkfwIH87vOBmEmZFrPJsWtJA0=;
+	s=korg; t=1788949691;
+	bh=oOGneVsTf0x+ZzJBEGjb8xiAT+UyKs3CSjyrByKEWmc=;
 	h=Subject:To:Cc:From:Date;
-	b=mGBNHfU6Es3GbNMU3a3rB6W5y4cLzhEkit9BFBkeRsKf5zQZaDnm4n5YS8ANVxN7R
-	 4ZlZDOuuD+qssq0tf25g/OnGLFghDtT9g4JFmswP0ErpsgzzVZ1Eh5jC3PPAjTFmjb
-	 pVPsuftb1HzQH4Cgxduzia4ckMDHBflM4wtIablE=
-Subject: FAILED: patch "[PATCH] ASoC: tas2764: sort the register default table" failed to apply to 5.10-stable tree
-To: peter.ujfalusi@linux.intel.com,broonie@kernel.org
+	b=VHljdyRfOB3Qb/y25Qi8lxjBkC3mdDNnTloRe31MubyAprEo4ph2fSD1p01eJjgMJ
+	 iLDW4qQl7+SkjCS1zi9XhpcKNQ1Qc35opDBWoPgSab/02v1+ClD+3LGRdc+DQfG6Ma
+	 l2XJT7F6BijD8z57r4G62+VEnS9kAALOCBakIU7o=
+Subject: FAILED: patch "[PATCH] ASoC: tegra: Sort MBDRC register defaults" failed to apply to 6.12-stable tree
+To: jonathanh@nvidia.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:16:27 +0200
-Message-ID: <2026090927-landscape-subsoil-644d@gregkh>
+Date: Wed, 09 Sep 2026 12:17:31 +0200
+Message-ID: <2026090931-conduit-bloated-55c2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e7643c3f7eb3292f8a98c2ddbf46ba78d848b83d
+git cherry-pick -x abb5bed6f48d54d3b82724a430fd462579ecd876
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090927-landscape-subsoil-644d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090931-conduit-bloated-55c2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,45 +62,88 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e7643c3f7eb3292f8a98c2ddbf46ba78d848b83d Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Wed, 5 Aug 2026 13:41:47 +0300
-Subject: [PATCH] ASoC: tas2764: sort the register default table
+From abb5bed6f48d54d3b82724a430fd462579ecd876 Mon Sep 17 00:00:00 2001
+From: Jon Hunter <jonathanh@nvidia.com>
+Date: Fri, 21 Aug 2026 16:37:34 +0100
+Subject: [PATCH] ASoC: tegra: Sort MBDRC register defaults
 
-reg_defaults must be sorted by ascending register address, as
-regcache_lookup_reg() locates entries in it with bsearch().  See commit
-fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
+Commit 4b05ccb17f92 ("regcache: Sort the local copy of an unsorted
+reg_defaults array") exposed an issue with the Tegra MBDRC driver and
+now the following warning is observed:
 
-TAS2764_DVC (0x1a) is listed before TAS2764_CHNL_0 (0x03), which makes
-it unreachable.  regcache_reg_needs_sync() then cannot compare it
-against its default and reports that a sync is needed, so it is written
-to the device on every regcache_sync() even when it was never touched.
+ tegra210-ope 2908000.processing-engine: Driver needs fixing: Unsorted
+  reg_defaults, sorting the copy
 
-Sort the table by register address.
+This warning occurs because register defaults in the structure
+tegra210_mbdrc_reg_defaults are not specified in ascending order which
+is required by regmap. Fix this by sorting the register defaults
+according to their address. Note that in order to do this it is
+necessary to replace the macro MBDRC_FILTER_REG_DEFAULTS with a per
+register macro MBDRC_FILTER_PARAM_REG_DEFAULTS.
 
-Fixes: 827ed8a0fa50 ("ASoC: tas2764: Add the driver for the TAS2764")
+Fixes: 7358a803c778 ("ASoC: tegra: Add Tegra210 based OPE driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20260805104149.9795-4-peter.ujfalusi@linux.intel.com
+Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+Link: https://patch.msgid.link/20260821153734.158426-5-jonathanh@nvidia.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
-index b11b998aa32a..f9c65c9f6d0a 100644
---- a/sound/soc/codecs/tas2764.c
-+++ b/sound/soc/codecs/tas2764.c
-@@ -897,13 +897,13 @@ static const struct reg_default tas2764_reg_defaults[] = {
- 	{ TAS2764_PAGE, 0x00 },
- 	{ TAS2764_SW_RST, 0x00 },
- 	{ TAS2764_PWR_CTRL, 0x1a },
--	{ TAS2764_DVC, 0x00 },
- 	{ TAS2764_CHNL_0, 0x28 },
- 	{ TAS2764_TDM_CFG0, 0x09 },
- 	{ TAS2764_TDM_CFG1, 0x02 },
- 	{ TAS2764_TDM_CFG2, 0x0a },
- 	{ TAS2764_TDM_CFG3, 0x10 },
- 	{ TAS2764_TDM_CFG5, 0x42 },
-+	{ TAS2764_DVC, 0x00 },
- 	{ TAS2764_INT_CLK_CFG, 0x19 },
+diff --git a/sound/soc/tegra/tegra210_mbdrc.c b/sound/soc/tegra/tegra210_mbdrc.c
+index f5d4a93dd6f1..1d78b4c1cc88 100644
+--- a/sound/soc/tegra/tegra210_mbdrc.c
++++ b/sound/soc/tegra/tegra210_mbdrc.c
+@@ -20,33 +20,33 @@
+ #define MBDRC_FILTER_REG(reg, id)					    \
+ 	((reg) + ((id) * TEGRA210_MBDRC_FILTER_PARAM_STRIDE))
+ 
+-#define MBDRC_FILTER_REG_DEFAULTS(id)					    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IIR_CFG, id), 0x00000005},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_ATTACK, id), 0x3e48590c},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_RELEASE, id), 0x08414e9f},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_FAST_ATTACK, id), 0x7fffffff},    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_THRESHOLD, id), 0x06145082},   \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_OUT_THRESHOLD, id), 0x060d379b},  \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_1ST, id), 0x0000a000},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_2ND, id), 0x00002000},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_3RD, id), 0x00000b33},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_4TH, id), 0x00000800},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_5TH, id), 0x0000019a},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_MAKEUP_GAIN, id), 0x00000002},    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_INIT_GAIN, id), 0x00066666},	    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_GAIN_ATTACK, id), 0x00d9ba0e},    \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_GAIN_RELEASE, id), 0x3e48590c},   \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_FAST_RELEASE, id), 0x7ffff26a},   \
+-	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_CFG_RAM_CTRL, id), 0x4000}
++#define MBDRC_FILTER_PARAM_REG_DEFAULTS(reg, val)			    \
++	{ MBDRC_FILTER_REG(reg, 0), val},				    \
++	{ MBDRC_FILTER_REG(reg, 1), val},				    \
++	{ MBDRC_FILTER_REG(reg, 2), val}
+ 
+ static const struct reg_default tegra210_mbdrc_reg_defaults[] = {
+ 	{ TEGRA210_MBDRC_CFG, 0x0030de51},
+ 	{ TEGRA210_MBDRC_CHANNEL_MASK, 0x00000003},
+ 	{ TEGRA210_MBDRC_FAST_FACTOR, 0x30000800},
+ 
+-	MBDRC_FILTER_REG_DEFAULTS(0),
+-	MBDRC_FILTER_REG_DEFAULTS(1),
+-	MBDRC_FILTER_REG_DEFAULTS(2),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IIR_CFG, 0x00000005),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_ATTACK, 0x3e48590c),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_RELEASE, 0x08414e9f),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_FAST_ATTACK, 0x7fffffff),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_THRESHOLD, 0x06145082),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_OUT_THRESHOLD, 0x060d379b),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_1ST, 0x0000a000),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_2ND, 0x00002000),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_3RD, 0x00000b33),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_4TH, 0x00000800),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_5TH, 0x0000019a),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_MAKEUP_GAIN, 0x00000002),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_INIT_GAIN, 0x00066666),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_GAIN_ATTACK, 0x00d9ba0e),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_GAIN_RELEASE, 0x3e48590c),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_FAST_RELEASE, 0x7ffff26a),
++	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_CFG_RAM_CTRL, 0x4000),
  };
  
+ /* Default MBDRC parameters */
 
