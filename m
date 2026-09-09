@@ -1,42 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C684854CF7D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F4554EEA2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955091; cv=none; b=pPJtLNjeM6TEqJrTlfYTL7zWugDD83wIA8P+n9UGhoXsKRym3r61xWhMfn0Za1rk6X68+T+YFUdw61lK/WzhF81zOxycmSO6RIBkKcE8n1XqV9egf6NpMxXufBXpGs5X58bhX9MI1Jefa1GPT8NmlWEDfIvhGPks0gvsy+yKJyM=
+	t=1788955095; cv=none; b=tuDHk7BjOptPML0nSz0WJBCZ1xNCmV8DZgR1z25hDOjTxZAFS5+iDKOFgq4BM2fZNydFkm8eoGCIGS5vZEIpeom+JfYLGKsscANX/F5b5ajn50jrlRg9qGWgUeHI9keVtUCCn6kruJnSsPfN7BNc52eqSdjJSt2UTovsaJ8Tm0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955091; c=relaxed/simple;
-	bh=GXoiFN/BTq3TDwgopOnO3CzAf5xOH9k5PpytRHc5q10=;
+	s=arc-20240116; t=1788955095; c=relaxed/simple;
+	bh=/7g8qeqkjXft4wv9tqN/2PT5lSrwnZCVhpKlhh+aiiA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OXCuUI0bCSFaQZfpFXXJWajmS1zXRIX1HksnHitYmZtmjZABU7DGX2f7S7rX6+UKaIpcFLsf3Waa98Zt1G3MMG0y8XV1/KI/02kJKK8tnSAetFjFex7JZuTn6ZYLDQmbHKSZogX/woY1H1+og/8dKIo6ibjQF3x2sNfhRcwZbts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JI7ONdDz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cylDXSAiTsYqOCxJD4uj7/+T/XZBLqFvxgy4KJYu1U2AUkcvrx4XwX2qxn04RrcPTU4CsVXheZ80D7tMsuwFnFdOcy+qsutOk/Zvlt6TgTl/sXx+Mn9aJge7srOuefNMqsf8+XtJxieUQLmpzxz90JdvE03Shv4NADQ85bFC0ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdNIHb0H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JI7ONdDz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3BD1F00A3E;
-	Wed,  9 Sep 2026 11:58:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdNIHb0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132F91F00A3D;
+	Wed,  9 Sep 2026 11:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788955089;
-	bh=eTSGwHsdn6ZJrQzdHCpIl5aWia//FmBucpAVPpwdPcU=;
+	s=k20260515; t=1788955093;
+	bh=WThcMroFitPUMmGqRz9QRab492Wz35cgY148ibw/TKc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JI7ONdDz6HP/wuaDTiUg58wJYMuhxUNKPZhnrkqcBrBurPjqDCWnkzOJXDOsNBUdG
-	 BuIdL+Ftf3lLnOYTbD1iOjnGKbOL9iLgWtIAwCPnkRMrv3hVxPFCqFwzPdJAMp+R3c
-	 s8DUIDD/8BFtukykz8ThmiX2rnIYXQBc/qQavzT7CXe+vEuTs0VEW73m1qOqaft+q5
-	 GWha308r4zTDw16G1CjHdwI4AGs8VQz/jgXUK01btXltzWfrAuLdahF2vqt2H+QP1V
-	 zbWAhV1BpM9fCftos9DgCskYH1YNoSgixlkQkqC4RMZArzkscREqRCOzLAGuusStVX
-	 Imnv0DsGOBhkw==
+	b=MdNIHb0HHs5prRyrdXpo7MlQrIkAVLc3OJ3vVceTI6EBaJVGsrtfe4UkNSWQGhdvY
+	 U7mUI5ppEuHMnzinis1NV0T2Xl+l6UZyMvuqz86nuXoig7lE/oy8MftqGpfb/BU3iL
+	 jKnvTaJTlbLhWNZkpHkvazuIwM1+5HPuulhOpAZgQ8I4UY7BE5H6fy5ZkiXBAYKIG4
+	 bWzUIZjyJS6z3IF4DwrF6kc/zBaUCvLD5OiHRsyCnj+oDKWRA1D5NtP/MDURM9lVHi
+	 Bx0T4ipT7MSvS1LrPbPRMqL2iFaQyYUuNFDRH+U4YW+ILMAWTNwBqXNYB1Dl9MKNXj
+	 KJDvo6jGD/SGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Lu Baolu <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>,
+	Tony Zhu <tony.zhu@intel.com>,
+	Joerg Roedel <jroedel@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] svcrdma: Validate Read chunk positions before reconstruction
-Date: Wed,  9 Sep 2026 07:58:07 -0400
-Message-ID: <20260909115807.2180995-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] iommu: Add max_pasids field in struct iommu_device
+Date: Wed,  9 Sep 2026 07:58:09 -0400
+Message-ID: <20260909115810.2181247-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090310-smell-askew-3d0b@gregkh>
-References: <2026090310-smell-askew-3d0b@gregkh>
+In-Reply-To: <2026090350-unpleased-sandbag-2584@gregkh>
+References: <2026090350-unpleased-sandbag-2584@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,158 +51,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Lu Baolu <baolu.lu@linux.intel.com>
 
-[ Upstream commit 3779b7b9e7d1c8ba4738f9d327de3b0288cefe9b ]
+[ Upstream commit 1adf3cc20d693569ebee90fd91fa34b0570fcd6f ]
 
-The RPC/RDMA Read chunk position field is supplied by the remote
-client and stored verbatim in the parsed chunk list.
-xdr_count_read_segments() checks only 4-byte alignment; it never
-compares the position against the received inline body length.
+Use this field to keep the number of supported PASIDs that an IOMMU
+hardware is able to support. This is a generic attribute of an IOMMU
+and lifting it into the per-IOMMU device structure makes it possible
+to allocate a PASID for device without calls into the IOMMU drivers.
+Any iommu driver that supports PASID related features should set this
+field before enabling them on the devices.
 
-In the single-chunk path, svc_rdma_read_complete_one() splits the
-head and tail kvecs at ch_position. A position past the inline
-body underflows the tail length, exposing adjacent slab memory to
-the upper XDR decoder.
+In the Intel IOMMU driver, intel_iommu_sm is moved to CONFIG_INTEL_IOMMU
+enclave so that the pasid_supported() helper could be used in dmar.c
+without compilation errors.
 
-In the multi-chunk path, svc_rdma_read_multiple_chunks() computes
-gap lengths between chunks as unsigned subtractions from
-ch_position. Overlapping Read chunks cause these subtractions to
-underflow. A final position past the inline body likewise
-underflows the trailing gap length. svc_rdma_copy_inline_range()
-then copies past the receive buffer into request pages that are
-returned to the client through the Reply channel.
-
-Bound inline-range copies in svc_rdma_copy_inline_range() against
-the decoded inline RPC body saved in rc_saved_arg. Reject a
-single Read chunk positioned beyond that body, and reject
-multi-chunk lists where accumulated read bytes exceed the next
-chunk's position. Apply the same position and overlap checks in
-the call-chunk interleaving path.
-
-Fixes: d96962e6d0e2 ("svcrdma: Use the new parsed chunk list when pulling Read chunks")
-Cc: stable@vger.kernel.org
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-1-e251306ccca9@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ Adapted head->rc_saved_arg and head->rc_readbytes accesses to rqstp->rq_arg and info->ri_totalbytes. ]
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+Reviewed-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Yi Liu <yi.l.liu@intel.com>
+Tested-by: Zhangfei Gao <zhangfei.gao@linaro.org>
+Tested-by: Tony Zhu <tony.zhu@intel.com>
+Link: https://lore.kernel.org/r/20221031005917.45690-2-baolu.lu@linux.intel.com
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
+Stable-dep-of: 607432b2618b ("iommu/vt-d: Force requesting ACS when tboot is enabled")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_rw.c | 33 +++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 1 +
+ drivers/iommu/intel/dmar.c                  | 7 +++++++
+ drivers/iommu/intel/iommu.h                 | 4 ++--
+ include/linux/iommu.h                       | 2 ++
+ 4 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-index 5791c26cd916b..68116eeceedcb 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -764,7 +764,7 @@ static int svc_rdma_build_read_chunk(struct svc_rdma_read_info *info,
- /**
-  * svc_rdma_copy_inline_range - Copy part of the inline content into pages
-  * @info: context for RDMA Reads
-- * @offset: offset into the Receive buffer of region to copy
-+ * @offset: offset into the inline content of region to copy
-  * @remaining: length of region to copy
-  *
-  * Take a page at a time from rqstp->rq_pages and copy the inline
-@@ -781,10 +781,14 @@ static int svc_rdma_copy_inline_range(struct svc_rdma_read_info *info,
- 				      unsigned int remaining)
- {
- 	struct svc_rdma_recv_ctxt *head = info->ri_readctxt;
--	unsigned char *dst, *src = head->rc_recv_buf;
- 	struct svc_rqst *rqstp = info->ri_rqst;
-+	unsigned char *dst, *src = rqstp->rq_arg.head[0].iov_base;
-+	unsigned int inline_len = rqstp->rq_arg.head[0].iov_len;
- 	unsigned int page_no, numpages;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index eba2b2e2da0b9..ab03f1789d2af 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -3622,6 +3622,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+ 	/* SID/SSID sizes */
+ 	smmu->ssid_bits = FIELD_GET(IDR1_SSIDSIZE, reg);
+ 	smmu->sid_bits = FIELD_GET(IDR1_SIDSIZE, reg);
++	smmu->iommu.max_pasids = 1UL << smmu->ssid_bits;
  
-+	if (offset > inline_len || remaining > inline_len - offset)
-+		return -EINVAL;
+ 	/*
+ 	 * If the SMMU supports fewer bits than would fill a single L2 stream
+diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+index 47ac10fb76db3..75eb4bd5ebb74 100644
+--- a/drivers/iommu/intel/dmar.c
++++ b/drivers/iommu/intel/dmar.c
+@@ -1106,6 +1106,13 @@ static int alloc_iommu(struct dmar_drhd_unit *drhd)
+ 
+ 	raw_spin_lock_init(&iommu->register_lock);
+ 
++	/*
++	 * A value of N in PSS field of eCap register indicates hardware
++	 * supports PASID field of N+1 bits.
++	 */
++	if (pasid_supported(iommu))
++		iommu->iommu.max_pasids = 2UL << ecap_pss(iommu->ecap);
 +
- 	numpages = PAGE_ALIGN(info->ri_pageoff + remaining) >> PAGE_SHIFT;
- 	for (page_no = 0; page_no < numpages; page_no++) {
- 		unsigned int page_len;
-@@ -834,9 +838,10 @@ static noinline int svc_rdma_read_multiple_chunks(struct svc_rdma_read_info *inf
- 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
- 	struct xdr_buf *buf = &info->ri_rqst->rq_arg;
- 	struct svc_rdma_chunk *chunk, *next;
--	unsigned int start, length;
-+	unsigned int inline_len, start, length;
- 	int ret;
+ 	/*
+ 	 * This is only for hotplug; at boot time intel_iommu_enabled won't
+ 	 * be set yet. When intel_iommu_init() runs, it registers the units
+diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+index c99cb715bd9a2..5116105671727 100644
+--- a/drivers/iommu/intel/iommu.h
++++ b/drivers/iommu/intel/iommu.h
+@@ -480,8 +480,6 @@ enum {
+ #define VTD_FLAG_IRQ_REMAP_PRE_ENABLED	(1 << 1)
+ #define VTD_FLAG_SVM_CAPABLE		(1 << 2)
  
-+	inline_len = buf->head[0].iov_len;
- 	start = 0;
- 	chunk = pcl_first_chunk(pcl);
- 	length = chunk->ch_position;
-@@ -854,6 +859,8 @@ static noinline int svc_rdma_read_multiple_chunks(struct svc_rdma_read_info *inf
- 			break;
+-extern int intel_iommu_sm;
+-
+ #define sm_supported(iommu)	(intel_iommu_sm && ecap_smts((iommu)->ecap))
+ #define pasid_supported(iommu)	(sm_supported(iommu) &&			\
+ 				 ecap_pasid((iommu)->ecap))
+@@ -799,6 +797,7 @@ struct context_entry *iommu_context_addr(struct intel_iommu *iommu, u8 bus,
+ extern const struct iommu_ops intel_iommu_ops;
  
- 		start += length;
-+		if (info->ri_totalbytes > next->ch_position)
-+			return -EINVAL;
- 		length = next->ch_position - info->ri_totalbytes;
- 		ret = svc_rdma_copy_inline_range(info, start, length);
- 		if (ret < 0)
-@@ -861,7 +868,9 @@ static noinline int svc_rdma_read_multiple_chunks(struct svc_rdma_read_info *inf
- 	}
- 
- 	start += length;
--	length = head->rc_byte_len - start;
-+	if (start > inline_len)
-+		return -EINVAL;
-+	length = inline_len - start;
- 	ret = svc_rdma_copy_inline_range(info, start, length);
- 	if (ret < 0)
- 		return ret;
-@@ -902,6 +911,9 @@ static int svc_rdma_read_data_item(struct svc_rdma_read_info *info)
- 	int ret;
- 
- 	chunk = pcl_first_chunk(&head->rc_read_pcl);
-+	if (chunk->ch_position > buf->head[0].iov_len)
-+		return -EINVAL;
-+
- 	ret = svc_rdma_build_read_chunk(info, chunk);
- 	if (ret < 0)
- 		goto out;
-@@ -997,14 +1009,17 @@ static int svc_rdma_read_call_chunk(struct svc_rdma_read_info *info)
- 			pcl_first_chunk(&head->rc_call_pcl);
- 	const struct svc_rdma_pcl *pcl = &head->rc_read_pcl;
- 	struct svc_rdma_chunk *chunk, *next;
--	unsigned int start, length;
-+	unsigned int call_len, start, length;
- 	int ret;
- 
- 	if (pcl_is_empty(pcl))
- 		return svc_rdma_build_read_chunk(info, call_chunk);
- 
-+	call_len = call_chunk->ch_length;
- 	start = 0;
- 	chunk = pcl_first_chunk(pcl);
-+	if (chunk->ch_position > call_len)
-+		return -EINVAL;
- 	length = chunk->ch_position;
- 	ret = svc_rdma_read_chunk_range(info, call_chunk, start, length);
- 	if (ret < 0)
-@@ -1020,6 +1035,10 @@ static int svc_rdma_read_call_chunk(struct svc_rdma_read_info *info)
- 			break;
- 
- 		start += length;
-+		if (next->ch_position > call_len)
-+			return -EINVAL;
-+		if (info->ri_totalbytes > next->ch_position)
-+			return -EINVAL;
- 		length = next->ch_position - info->ri_totalbytes;
- 		ret = svc_rdma_read_chunk_range(info, call_chunk,
- 						start, length);
-@@ -1028,7 +1047,9 @@ static int svc_rdma_read_call_chunk(struct svc_rdma_read_info *info)
- 	}
- 
- 	start += length;
--	length = call_chunk->ch_length - start;
-+	if (start > call_len)
-+		return -EINVAL;
-+	length = call_len - start;
- 	return svc_rdma_read_chunk_range(info, call_chunk, start, length);
+ #ifdef CONFIG_INTEL_IOMMU
++extern int intel_iommu_sm;
+ extern int iommu_calculate_agaw(struct intel_iommu *iommu);
+ extern int iommu_calculate_max_sagaw(struct intel_iommu *iommu);
+ extern int dmar_disabled;
+@@ -814,6 +813,7 @@ static inline int iommu_calculate_max_sagaw(struct intel_iommu *iommu)
  }
+ #define dmar_disabled	(1)
+ #define intel_iommu_enabled (0)
++#define intel_iommu_sm (0)
+ #endif
  
+ static inline const char *decode_prq_descriptor(char *str, size_t size,
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index 2bfa9611be672..780b688e4e043 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -322,12 +322,14 @@ struct iommu_domain_ops {
+  * @list: Used by the iommu-core to keep a list of registered iommus
+  * @ops: iommu-ops for talking to this iommu
+  * @dev: struct device for sysfs handling
++ * @max_pasids: number of supported PASIDs
+  */
+ struct iommu_device {
+ 	struct list_head list;
+ 	const struct iommu_ops *ops;
+ 	struct fwnode_handle *fwnode;
+ 	struct device *dev;
++	u32 max_pasids;
+ };
+ 
+ /**
 -- 
 2.53.0
 
