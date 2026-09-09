@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719EF52BE36
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4687239D3DA
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:47:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954468; cv=none; b=ELuIykXzEQ2ahbwGTMHygs6DRAeQSoHKR4tR450dYKwKx1EG2VgtWIdMRYdQhGobpgWTrJo06/XRrA9/6ngQHdIIcPLSJKG6k5gVzpCcdSvyythewke4U2IuB+S04mzX+wAOXxBkd9x2NDE3CTm9YlvxMDGZYmmsX88c5zudvbQ=
+	t=1788954469; cv=none; b=lOcjj1G3M3oMxyunJYxww2h9rjP3hYvSFPYQX0Xfa/xVo36K0STb3hY0LTUhD/+OOERDpVFdFk4SfTdnmjmdjUwFNpRLgwU0raA/3rDBooDGvtdT7KlGxexrImWWU86GR8QVYbTq0+FhwcJ9yZo5/euS5DYWdvTrzCFUswwnpTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954468; c=relaxed/simple;
-	bh=p6fBFpgp7Ui6dwWWjnhpkauHz9MdRNBdn0rHlmde1tA=;
+	s=arc-20240116; t=1788954469; c=relaxed/simple;
+	bh=81F8zjV4kfj6f5XhafRoP7ZYTK5pQ2Z7I5fCwj3HAGs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FAEvZbrmWt6LOGLzwqBNc2pXhVzGVUSUSbwUY2Up0TjHPRZyrAa/oJJ3mWMqVzUlMGjFt//vkfbk7axF564kCer1wi6MfDQIb68pXHih0hROxvvlu9k12Hi/LfpSx15BBOGrB2zig2KmeZ78sNmLJXCdSfrDnt8EWi2jOxdI03U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMx9+ExY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=m0TCkNMQ9Gv5252hwnyR+fpksW5PsWTUCmm/45yKOPoHAqxLFbn/WTR5fnAW6CowAUrFrJ0jkcsxCGJ7JkTzzkbaH9NrcqhdkSDzpcBsTrS7QTb91VI10fINUpz8r/9H4qjf/jP04LFdIMk/bUHXOjadXxlzRvyRq1pcNJrGoKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2MSrp7t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMx9+ExY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1F51F00A3E;
-	Wed,  9 Sep 2026 11:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2MSrp7t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD341F00A3F;
+	Wed,  9 Sep 2026 11:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954467;
-	bh=4FMJhvapdKKb6WzklF//rh87WqjKfpkS9BGEshCeZEk=;
+	s=k20260515; t=1788954468;
+	bh=i1DVRnZRBEV9+LmtZ13g/dTEG8/TjOrQuCnA+hEPrBM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cMx9+ExYccTVx8E1lRhBkZh1KPuspwWazNE8Bco00DiwmrFiINRLoyeiYjKX5aYxm
-	 0FwWD7ediBHBMxrtmsBbMvnjlzv42CfDmibiwuD0t0p4fP+VsogteUlRmXaTMFFg2o
-	 lPFH6LyNzn8rGQ1czHNX8Beq0gN4gqd/FdxmVmMzq1s+5C2xMk3Cdj/Br7JCrPDGNc
-	 D9g2atKCleW8WJEVPj/tDuB0PNGAYHJ+DMYS7A0SyoYfhRwqq3K5R1uPLrs4FCVg/1
-	 aZcQO/+TMDOAYN+bgzvpGfvILf4Ncxd9JbashLnfBZlI3omdPmRh/fZyw0NlzrFLDo
-	 kfxB6sdQ6+how==
+	b=F2MSrp7tfvbJDTBIFzPlbsncrIZLAOi/ja9Xwn1yKxoQbbHV0nQr18WiJd7AFRXeE
+	 LiracVN6OzOzyj5hZY1v1r+jJCHJwK/9B0nMwNc0SkJ/VgY21EsDt8VhJJfyWeen7N
+	 ydjpf9eXPyR+U2v0mdXeCa/lbDB491FnQFEESVY5qLgrGepxXIReQcx4uNhmKOtjaW
+	 iqdxovLVJiGJapqhjp9kO4BJo9Lred8rWhDkK0wLGTLnyBFGAwkTuIUn9peS7CQPeV
+	 FbdrYVpLaLnCAegz+5JjjZkhdxFr354yKPmFlFX3Z6ver2i8R2LZMqbVxxF4yGekjQ
+	 zkbVcJdH7fSHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Farhan Ali <alifm@linux.ibm.com>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Tyrel Datwyler <tyreld@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/2] PCI: Introduce PCI_SLOT_PLACEHOLDER constant for slot_nr placeholder value
-Date: Wed,  9 Sep 2026 07:47:43 -0400
-Message-ID: <20260909114744.2013430-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/2] PCI: Allow per function PCI slots to fix slot reset on s390
+Date: Wed,  9 Sep 2026 07:47:44 -0400
+Message-ID: <20260909114744.2013430-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090354-paralyses-labored-e273@gregkh>
+In-Reply-To: <20260909114744.2013430-1-sashal@kernel.org>
 References: <2026090354-paralyses-labored-e273@gregkh>
+ <20260909114744.2013430-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,123 +49,158 @@ Content-Transfer-Encoding: 8bit
 
 From: Farhan Ali <alifm@linux.ibm.com>
 
-[ Upstream commit c243e6c470c4695965cc8287767925bc1d9a7867 ]
+[ Upstream commit dcc5bec09e23bbc4f9de055a11fce9937244f2c8 ]
 
-Introduce a constant for placeholder value and update the kerneldoc for
-pci_create_slot() to reference PCI_SLOT_PLACEHOLDER instead of -1
-throughout. No functional change.
+On s390 systems, which use a machine level hypervisor, PCI devices are
+always accessed through a form of PCI pass-through which fundamentally
+operates on a per PCI function granularity. This is also reflected in the
+s390 PCI hotplug driver which creates hotplug slots for individual PCI
+functions. Its reset_slot() function, which is a wrapper for
+zpci_hot_reset_device(), thus also resets individual functions.
 
-Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Currently, the pci_create_slot() assigns the same pci_slot object to
+multifunction devices. This approach worked fine on s390 systems that only
+exposed virtual functions as individual PCI domains to the operating
+system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
+s390 supports exposing the topology of multifunction PCI devices by
+grouping them in a shared PCI domain. This creates a problem when resetting
+a function through the hotplug driver's slot_reset() interface.
+
+When attempting to reset a function through the hotplug driver, the shared
+slot assignment causes the wrong function to be reset instead of the
+intended one. It also leaks memory as we do create a pci_slot object for
+the function, but don't correctly free it in pci_slot_release().
+
+Add a flag for struct pci_slot to allow per function PCI slots for
+functions managed through a hypervisor, which exposes individual PCI
+functions while retaining the topology. Since we can use all 8 bits for
+slot 'number' (for ARI devices), change slot 'number' u16 to account for
+special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
+
+Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
+Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
 Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: linuxppc-dev@lists.ozlabs.org
-Link: https://patch.msgid.link/20260805165518.794-2-alifm@linux.ibm.com
-Stable-dep-of: dcc5bec09e23 ("PCI: Allow per function PCI slots to fix slot reset on s390")
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/hotplug/pnv_php.c     |  2 +-
- drivers/pci/hotplug/rpaphp_slot.c |  2 +-
- drivers/pci/slot.c                | 21 +++++++++++----------
- include/linux/pci.h               |  3 +++
- 4 files changed, 16 insertions(+), 12 deletions(-)
+ drivers/pci/pci.c   |  5 +++--
+ drivers/pci/slot.c  | 29 +++++++++++++++++++++++------
+ include/linux/pci.h |  7 ++++---
+ 3 files changed, 30 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/pci/hotplug/pnv_php.c b/drivers/pci/hotplug/pnv_php.c
-index ff92a5c301b81..37299d59f906f 100644
---- a/drivers/pci/hotplug/pnv_php.c
-+++ b/drivers/pci/hotplug/pnv_php.c
-@@ -808,7 +808,7 @@ static struct pnv_php_slot *pnv_php_alloc_slot(struct device_node *dn)
- 	if (dn->child && PCI_DN(dn->child))
- 		php_slot->slot_no = PCI_SLOT(PCI_DN(dn->child)->devfn);
- 	else
--		php_slot->slot_no = -1;   /* Placeholder slot */
-+		php_slot->slot_no = PCI_SLOT_PLACEHOLDER;   /* Placeholder slot */
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 77b17b13ee615..350bae907ebf8 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
  
- 	kref_init(&php_slot->kref);
- 	php_slot->state	                = PNV_PHP_STATE_INITIALIZED;
-diff --git a/drivers/pci/hotplug/rpaphp_slot.c b/drivers/pci/hotplug/rpaphp_slot.c
-index 67362e5b99719..92eabf5f61b9c 100644
---- a/drivers/pci/hotplug/rpaphp_slot.c
-+++ b/drivers/pci/hotplug/rpaphp_slot.c
-@@ -84,7 +84,7 @@ int rpaphp_register_slot(struct slot *slot)
- 	struct hotplug_slot *php_slot = &slot->hotplug_slot;
- 	u32 my_index;
- 	int retval;
--	int slotno = -1;
-+	int slotno = PCI_SLOT_PLACEHOLDER;
+ static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
+ {
+-	if (dev->multifunction || dev->subordinate || !dev->slot ||
+-	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
++	if (dev->subordinate || !dev->slot ||
++	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
++	    (dev->multifunction && !dev->slot->per_func_slot))
+ 		return -ENOTTY;
  
- 	dbg("%s registering slot:path[%pOF] index[%x], name[%s] pdomain[%x] type[%d]\n",
- 		__func__, slot->dn, slot->index, slot->name,
+ 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
 diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-index 6d5cd37bfb1e7..42ff66461f74a 100644
+index 42ff66461f74a..897223f01f6ac 100644
 --- a/drivers/pci/slot.c
 +++ b/drivers/pci/slot.c
-@@ -37,7 +37,7 @@ static const struct sysfs_ops pci_slot_sysfs_ops = {
+@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
+ 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
+ }
  
- static ssize_t address_read_file(struct pci_slot *slot, char *buf)
++static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
++{
++	if (slot->per_func_slot)
++		return dev->devfn == slot->number;
++
++	return slot->number == PCI_SLOT_ALL_DEVICES ||
++		PCI_SLOT(dev->devfn) == slot->number;
++}
++
++static bool pci_slot_enabled_per_func(void)
++{
++	if (IS_ENABLED(CONFIG_S390))
++		return true;
++
++	return false;
++}
++
+ static void pci_slot_release(struct kobject *kobj)
  {
--	if (slot->number == 0xff)
-+	if (slot->number == PCI_SLOT_PLACEHOLDER)
- 		return sysfs_emit(buf, "%04x:%02x\n",
- 				  pci_domain_nr(slot->bus),
- 				  slot->bus->number);
-@@ -210,7 +210,7 @@ static struct pci_slot *get_slot(struct pci_bus *parent, int slot_nr)
- /**
-  * pci_create_slot - create or increment refcount for physical PCI slot
-  * @parent: struct pci_bus of parent bridge
-- * @slot_nr: PCI_SLOT(pci_dev->devfn), -1 for placeholder, or
-+ * @slot_nr: PCI_SLOT(pci_dev->devfn), PCI_SLOT_PLACEHOLDER for placeholder, or
-  *	PCI_SLOT_ALL_DEVICES
-  * @name: user visible string presented in /sys/bus/pci/slots/<name>
-  * @hotplug: set if caller is hotplug driver, NULL otherwise
-@@ -236,15 +236,16 @@ static struct pci_slot *get_slot(struct pci_bus *parent, int slot_nr)
-  * In most cases, @pci_bus, @slot_nr will be sufficient to uniquely identify
-  * a slot. There is one notable exception - pSeries (rpaphp), where the
-  * @slot_nr cannot be determined until a device is actually inserted into
-- * the slot. In this scenario, the caller may pass -1 for @slot_nr.
-+ * the slot. In this scenario, the caller may pass PCI_SLOT_PLACEHOLDER for @slot_nr.
-  *
-  * The following semantics are imposed when the caller passes @slot_nr ==
-- * -1. First, we no longer check for an existing %struct pci_slot, as there
-- * may be many slots with @slot_nr of -1.  The other change in semantics is
-- * user-visible, which is the 'address' parameter presented in sysfs will
-- * consist solely of a dddd:bb tuple, where dddd is the PCI domain of the
-- * %struct pci_bus and bb is the bus number. In other words, the devfn of
-- * the 'placeholder' slot will not be displayed.
-+ * PCI_SLOT_PLACEHOLDER. First, we no longer check for an existing %struct
-+ * pci_slot, as there may be many slots with @slot_nr of
-+ * PCI_SLOT_PLACEHOLDER. The other change in semantics is user-visible,
-+ * which is the 'address' parameter presented in sysfs will consist solely
-+ * of a dddd:bb tuple, where dddd is the PCI domain of the %struct pci_bus
-+ * and bb is the bus number. In other words, the devfn of the 'placeholder'
-+ * slot will not be displayed.
-  *
-  * Bus-wide slots:
-  * For PCIe hotplug, the physical slot encompasses the entire secondary
-@@ -267,7 +268,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 	struct pci_dev *dev;
+@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
+ 
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = NULL;
+ 	up_read(&pci_bus_sem);
+ 
+@@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
  
  	mutex_lock(&pci_slot_mutex);
+ 	list_for_each_entry(slot, &dev->bus->slots, list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	mutex_unlock(&pci_slot_mutex);
+ }
+@@ -299,6 +314,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 	slot->bus = pci_bus_get(parent);
+ 	slot->number = slot_nr;
  
--	if (slot_nr == -1)
-+	if (slot_nr == PCI_SLOT_PLACEHOLDER)
- 		goto placeholder;
++	if (pci_slot_enabled_per_func())
++		slot->per_func_slot = 1;
++
+ 	slot->kobj.kset = pci_slots_kset;
  
- 	/*
+ 	slot_name = make_slot_name(name);
+@@ -319,8 +337,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &parent->devices, bus_list)
+-		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot_nr)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	up_read(&pci_bus_sem);
+ 
 diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 64b308b6e61c1..b628787e9485c 100644
+index b628787e9485c..43f80d6189a7d 100644
 --- a/include/linux/pci.h
 +++ b/include/linux/pci.h
-@@ -81,6 +81,9 @@
+@@ -79,17 +79,18 @@
+  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
+  * devices.
   */
- #define PCI_SLOT_ALL_DEVICES	0xfe
+-#define PCI_SLOT_ALL_DEVICES	0xfe
++#define PCI_SLOT_ALL_DEVICES	0xfeff
  
-+/* Used to identify a slot as a placeholder */
-+#define PCI_SLOT_PLACEHOLDER	0xff
-+
+ /* Used to identify a slot as a placeholder */
+-#define PCI_SLOT_PLACEHOLDER	0xff
++#define PCI_SLOT_PLACEHOLDER	0xffff
+ 
  /* pci_slot represents a physical slot */
  struct pci_slot {
  	struct pci_bus		*bus;		/* Bus this slot is on */
+ 	struct list_head	list;		/* Node in list of slots */
+ 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
+-	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	unsigned int		per_func_slot:1; /* Allow per function slot */
+ 	struct kobject		kobj;
+ };
+ 
 -- 
 2.53.0
 
