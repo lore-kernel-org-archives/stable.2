@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E725427ED
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548B454529C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955005; cv=none; b=FTeUJkzi/+grDKYEF1ZKRjGrHXx06HQ2Zm5FuMpJjp4sLR0ggfuxlTzG7IH8B29ndm+lSjG2GX2uPnVy19lTD0HU75NZzr+WQSeinaCgc09cGeX93BKQJL58LStLPcJ1TKB8GxQ9elmfr+FPxD6dGtx6VyFz6b8JKScaYm+zL2U=
+	t=1788955008; cv=none; b=er3nLgVnwoAUdtYQy4m4cIr3+JcmO/b7ZE2vIbomd5Fd64jK/ic5/mFQoUP9ogh4MjWhnCBswC3G+q34TFmWl2E+Tx7H5BK2eGk0t/dAQHzMC5b3TgN288W8RubIVLnIP0XXKaTkRFCwao2cy4ogFdIvuOkgq0t/zoCVpmHQs2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955005; c=relaxed/simple;
-	bh=TlwHV13d/OiowqVv+Ia4pSRv/P/NfOgB/N6qS6OQLBI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=K6r9JKzqiP9mj/2gEnRE47Z0aD/oKd67cvOeQE6xvyT0tyxgDGaniyyy6mhZhobDGRqnQIbvfJyBo8vmYrTLX1nPYbenZ9m2UOeyJxEJNvYKgCMxO+SC0hBt9YeL+VNO82lFpSVF4FMTUk2MwjdcEL6etd1ZW5kSeWtS8W+cy+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0/4R7DAX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788955008; c=relaxed/simple;
+	bh=9/WY8FD/R55qc+sNeOwqCDY0+5Nhq6HAb+NAADV6Sc8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QG7lYGw0+vThi/Cubz1k2VLn+w4MQrjy1lhV1r2B7QpCthkAcnPz8bdtoujchc9UmawfqbIYmsvxgn+1TkXHwU/LmbFVaAzf5J/IEJd8YeVXUZbOpHKhTVzLBVDLJmFSq541ZD9DyItSRdsaTI8u2Ufcxo2mK+T3GfwO8oygD7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vQ2gYIZS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0/4R7DAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F601F00A3A;
-	Wed,  9 Sep 2026 11:56:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vQ2gYIZS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7235F1F00A3A;
+	Wed,  9 Sep 2026 11:56:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788955004;
-	bh=GeJpZm/0fcZOcxldBJaGEfVOg+x+DGm+x3S+k2IH4Uo=;
+	s=korg; t=1788955007;
+	bh=CG3G7r+ewnkDYG5FUu/1MGpuyixJcWCj11r8aV+Jg7g=;
 	h=Subject:To:Cc:From:Date;
-	b=0/4R7DAXi1GwI5FiZ7szxRSu7qF7/OYiPmbRNOX1QWQSn2MLvQSU6wEMSGqfJL9Re
-	 bQHE9meXKVyGg88sR41L11eDTSCQoNMJV4x9L9TXqVW8HGBpv+8A3mDPjhISSXHjCS
-	 6fMkDKI4t6RU/nCjQGFRcpINgMUryUdfYg4ncKGo=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Scale custom brightness curve from full" failed to apply to 6.18-stable tree
+	b=vQ2gYIZSiBq5cprgztRg9+cASQW8aBqYS1ZfWh4FvpRyA/83F+xMiLTjsduT1znI0
+	 C5Nnn13hucZPIrsDY3FgciIgLbXhsoAj0/6zmbN1SEsvltcq75rnAyAPaolAoAOY+R
+	 zv4AIvyDN65llOK2sqY1wN9vVdwc7FJ7uN8/S9hk=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Scale custom brightness curve from full" failed to apply to 7.2-stable tree
 To: zhitaevakh@gmail.com,alexander.deucher@amd.com,mario.limonciello@amd.com,superm1@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 09 Sep 2026 13:53:00 +0200
-Message-ID: <2026090900-lip-ribbon-1726@gregkh>
+Message-ID: <2026090900-astrology-gallery-8428@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6fd83a1c2cdea48c396f600795217fbdfb8124f6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090900-lip-ribbon-1726@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090900-astrology-gallery-8428@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
