@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DD849CF46
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80FF49F120
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947901; cv=none; b=b0TU8zCqlHwcCW3Q7CHr5cK1zqlQ/VmBR4zT23qTHmIqfDtSRz7T2/bWWWj0l7GSNCHV3FJYjdr/YPjbFQWRkzDzuYZeazxBMd5XV5KF08xmyzRSlUHYsALqBjeLAZUzyrHvdSqTsVxqXQ4mE9EAy0T9nfakAYRpa7ozo/Na7zg=
+	t=1788947906; cv=none; b=mfXQof+IUpP4TWCI9NFSbJ+BDh/35ar9j+zfHFD6X2byK9k1x8vGpE5vpE/AXVndpOw2C0zsRuPlvTaICaQ6XRu/cDegU5W7gmc2izvdPu74AFrhC+gxn1hO7y4mn7bwsTa2YWQbB2yf3HAx1J6Vxg/WS7Nb2RheJqCbhgUE1tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947901; c=relaxed/simple;
-	bh=01eQ+Vy85SeN+Zfh3+gmw8hAuTjm1ob2d2h0qwQmXUo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PwuNP0LoU5b028i8bQ4F71FghKkt2s+96Xmrx5Dudga7/MbUI62/PD882DBdno5dijiPEF0OOb3Nj9isZw2KDj+aVAyFTRfvtFpfsFZ/NPrADZVPjlocz/4rVXMEcxZXd91BGvTF1DjflNdelxS8ykrK5iWvjZsnoAyA2k2RZ2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qb8YLwEs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947906; c=relaxed/simple;
+	bh=eE0HPbQV5iCSgq/KFPIo5p/AlQUi7p104Fu+vOFhky8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H+8S1LjLpDy8ViNWAlvGqKBk8TvyMWzkKPyK0I0SewQZgqrgZUxA1wMEc9HzGaaJaeW+ZkDH1yAfX0dHjwTtm0EzIExbhZddB3uDaHzrmOqL+TQ5deNjGGa/un86lb3pn/AbYFCofFNOP7lYLkbMOfCAno2TeRQ8mb2P28RJbac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t6/zfgHe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qb8YLwEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806951F00A3A;
-	Wed,  9 Sep 2026 09:58:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t6/zfgHe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DBF1F00A3D;
+	Wed,  9 Sep 2026 09:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947895;
-	bh=MU4fTXajEpohfWsbxAQCgmAaaL40R1YEOvn3X5OU3Tk=;
+	s=korg; t=1788947897;
+	bh=soO6WA66lIjYyDguDCPdPLg0FfI2D5S+6HE795/P5hY=;
 	h=Subject:To:Cc:From:Date;
-	b=Qb8YLwEsIkE3V1vV3d7W320OeGiTsN/b0JRlv4Cu5aduFpa5lf0bUSfgKkZVzwuAC
-	 pCs9zFbhMoco/v2EFmzq0RQ8gE/dJ/0AsVpGzngg+kNV5j2xSufunsQok2zXSlPaol
-	 fc3U+1+4XngLPcIYiogf4n5xiVYoN/N48uLZJSrM=
-Subject: FAILED: patch "[PATCH] nvdimm: virtio_pmem: refcount requests for token lifetime" failed to apply to 5.10-stable tree
-To: me@linux.beauty,mst@redhat.com
+	b=t6/zfgHeIkaNL5Fe+Q3K4GEwMk6Ias8OHqUsSECtm8j/1PkyVgacxretKXcCUoh1U
+	 HJj45I3h/eN7E41KKsswlIqUzxgVg046+WNbjgC+edC/XoSS0cHLA5qCBdf/IFbLW+
+	 V4Qqaho1MEFcSwk/KNYMknAOFK79ipVWnC+jvB8s=
+Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 6.6-stable tree
+To: ruanjinjie@huawei.com,maddy@linux.ibm.com,sourabhjain@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:51:41 +0200
-Message-ID: <2026090941-patience-cymbal-1387@gregkh>
+Date: Wed, 09 Sep 2026 11:52:24 +0200
+Message-ID: <2026090924-deskwork-unvocal-d17e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e57140944b5a47a7fd5a142faab29a02af040bc8
+git cherry-pick -x fa40f9dbdd4af53e7445d9135b5b207eb8adf372
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090941-patience-cymbal-1387@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090924-deskwork-unvocal-d17e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,162 +62,90 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e57140944b5a47a7fd5a142faab29a02af040bc8 Mon Sep 17 00:00:00 2001
-From: Li Chen <me@linux.beauty>
-Date: Tue, 30 Jun 2026 17:23:33 +0800
-Subject: [PATCH] nvdimm: virtio_pmem: refcount requests for token lifetime
+From fa40f9dbdd4af53e7445d9135b5b207eb8adf372 Mon Sep 17 00:00:00 2001
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+Date: Wed, 29 Jul 2026 09:29:48 +0800
+Subject: [PATCH] powerpc/kexec_file: Prevent kexec range truncation
 
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
+Sashiko AI review pointed out the following issue.
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
+The __merge_memory_ranges() function incorrectly handles overlapping
+memory ranges when merging them. Although sort_memory_ranges() sorts all
+ranges by their start address in ascending order beforehand, the merge
+logic remains defective in two ways:
 
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
+1. It compares the current range's start against the previous element (i-1)
+   instead of the running target index (idx)
 
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
+2. It unconditionally overwrites 'ranges[idx].end' with 'ranges[i].end'.
 
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
+This logic flaw leads to critical memory truncation when a larger memory
+range completely subsumes subsequent smaller ranges.
 
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+For example, consider a sorted input array with three ranges:
+  Range A (idx=0): [0x1000 - 0x9000]
+  Range B (i=1):   [0x2000 - 0x5000] (completely inside Range A)
+  Range C (i=2):   [0x6000 - 0x8000] (completely inside Range A)
+
+1. When i=1 (Range B):
+   ranges[1].start (0x2000) <= ranges[0].end + 1 (0x9001) is TRUE.
+   The code executes: ranges[0].end = ranges[1].end, which erroneously
+   shrinks Range A's end from 0x9000 down to 0x5000.
+
+2. When i=2 (Range C):
+   ranges[2].start (0x6000) <= ranges[1].end + 1 (0x5001) is FALSE.
+   The code falls into the else block, creating a broken new range.
+
+As a result, valid memory fragments [0x5001 - 0x5fff] and [0x8001 - 0x9000]
+are completely lost from the kexec exclude lists, potentially allowing
+the crash kernel to overwrite active memory, causing data corruption
+or crashes.
+
+Fix this by ensuring the start of the current range is compared against the
+end of the active merged range (idx), and use max() to safely prevent the
+outer boundary from being truncated.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260630092338.2094628-9-me@linux.beauty>
+Fixes: 180adfc532a8 ("powerpc/kexec_file: Add helper functions for getting memory ranges")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260729012948.2797865-4-ruanjinjie@huawei.com
 
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index 8c0d4347938a..1cf53f75b128 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -15,6 +15,14 @@ struct virtio_pmem_flush_work {
- 	struct bio *bio;
- };
+diff --git a/arch/powerpc/kexec/ranges.c b/arch/powerpc/kexec/ranges.c
+index 867135560e5c..eb45e89502ca 100644
+--- a/arch/powerpc/kexec/ranges.c
++++ b/arch/powerpc/kexec/ranges.c
+@@ -21,6 +21,7 @@
+ #include <linux/of.h>
+ #include <linux/slab.h>
+ #include <linux/memblock.h>
++#include <linux/minmax.h>
+ #include <linux/crash_core.h>
+ #include <asm/sections.h>
+ #include <asm/kexec_ranges.h>
+@@ -105,19 +106,16 @@ static void __merge_memory_ranges(struct crash_mem *mem_rngs)
+ 	struct range *ranges;
+ 	int i, idx;
  
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
-+
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
-+
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
- {
- 	struct virtio_pmem_request *req_buf;
-@@ -42,6 +50,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
+-	if (!mem_rngs)
++	if (!mem_rngs || mem_rngs->nr_ranges <= 1)
+ 		return;
+ 
+ 	idx = 0;
+-	ranges = &(mem_rngs->ranges[0]);
++	ranges = mem_rngs->ranges;
+ 	for (i = 1; i < mem_rngs->nr_ranges; i++) {
+-		if (ranges[i].start <= (ranges[i-1].end + 1))
+-			ranges[idx].end = ranges[i].end;
++		if (ranges[i].start <= (ranges[idx].end + 1))
++			ranges[idx].end = max(ranges[idx].end, ranges[i].end);
+ 		else {
+ 			idx++;
+-			if (i == idx)
+-				continue;
+-
+ 			ranges[idx] = ranges[i];
+ 		}
  	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- }
-@@ -72,6 +81,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
- 
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -89,10 +99,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
- 
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -101,6 +124,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -116,7 +140,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
- 	return err;
- };
- 
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index e6dfc10ce076..3af92588bd9d 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,12 +12,14 @@
- 
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
- 
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
- 
 
