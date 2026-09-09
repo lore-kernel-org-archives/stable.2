@@ -1,110 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E0A4E8DF9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2FB51357F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949922; cv=none; b=mWeTpLGcaqPH5240+kawAw0UDSjYL3cTzQ+7WuiE/UPEwJBIQcRxerFQDgxWxeODLkoSSM5vRjBpeWSKVjLw4O+oUgqV+dAFo9Z1N3CUKUiMmWKYkVsaLMn2YJSahyH0umv6RhZsMI52ZrbRZt3qGEcqrB2CKroaXbcV4YYbSPg=
+	t=1788950068; cv=none; b=RTuFNpozp63ByR1DNxK9XmQQtHAQeyAAI3PjpBPd/Jv6BdrjQ9WkS821QfiiM9UyEZgvlMMKPuvGK30bCTGDLzT005tL6DMtsxlbv11ayfKSSkhzt1uJRrySUACsxESmQ7FAuXJxL/Z2vkDldjtOznzlHG6vOX6fWQ3j7qHcrTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949922; c=relaxed/simple;
-	bh=1Waiwpe/rYVjejQ48qn05RoVwjsQxj4H8ak68hrq+bI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SikyurrVXY0lq4O8VuzXz1bs4wUogN+KIgaae6+2a0gMN9455o2ZXRgwRtCT+h5Bbife0A+DSBVdAwuehens0fbVBzfM2H2i+UffNzEFkgQRrEmGQyEwNzkUnh3IIhoHpWjaY4i126D/BpfcxCUzTz30m62X5l5NfRZrqAbIXxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CJOgfegc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950068; c=relaxed/simple;
+	bh=DOQq/G9wVa7oKShUNyib3jfSnZxSEVn85VYQ3SHvkhA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ivCCFtkvbFA9N/2gFAAJqOp2w30n1yOmciQB4o4C0wMVne+bSO8dbe20cayNNV/fEVKsLX46X8wl2SQkwhE6nepQYc6C+E8kcsfhE6ZYzvN/96Z7lAu6IoopNirZm7ALn7qcreC9VKCi7HbzATNPVemFiTewJC6wXqDqVFuFkX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKVFs22e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CJOgfegc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CAD1F00A3A;
-	Wed,  9 Sep 2026 10:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788949920;
-	bh=VYLBa5L5oTKRNPKlfU5fkIm0yZLOlPFAKCMxRVEXsus=;
-	h=Subject:To:Cc:From:Date;
-	b=CJOgfegcTZgEX5rWhKhzr46PCavRN2Hf6zvTjd91i056z4dnKp4kgag3L2Z1Sjuwp
-	 xxHOQiUYb3BIAvS0E9jvZLzvMntTJHBYCcT7duXusiUjZf6n3fLC5V6nGELrKYUMnc
-	 Le8c7egxdP1u3dyyxEwmeh6U/+CPOwdk9wBO9EHY=
-Subject: FAILED: patch "[PATCH] iio: light: apds9306: fix PM reference leak in" failed to apply to 6.18-stable tree
-To: mokshpanicker.7@gmail.com,jonathan.cameron@oss.qualcomm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:26:02 +0200
-Message-ID: <2026090902-spruce-sleeve-2bcf@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKVFs22e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0ED1F00A3D;
+	Wed,  9 Sep 2026 10:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950067;
+	bh=X/IWgLhpC9nPrkDO10sh+Z51ym2L5gLy9OHeZVjHeGA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CKVFs22eqefJcKU7pcBuRhpkjKvmYQCU5AMBKiSSDdLvwuw1onF4PUgAPHrfjeewN
+	 2zzJnK3MwOHRJS9Qx/uhvHhbm+Uvo85z6PVkn/bSnJHcgOQaeOFURIch3ztJhtI7x6
+	 K2tviu/Ia7WSSsQXFZHNqfQPYpOzUArgo6uSd2ubHAay/lcvMHKjZi7M5x7oYLoI6q
+	 1638GUzA4oHQ/e2TFZFwjq/xWhB+QG4wCFDtVvl9bIqvj8zuo/yvDbdL7Bsw6U5av6
+	 sANSrX8t/dJwzzb9yYB3UNzKZHFs3dAYcNbgthSXO4qGByUs3oIBC+kjRHfepqlmv4
+	 pb833jU8WzD/g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] ocfs2: validate dx_root extent list fields during block read
+Date: Wed,  9 Sep 2026 06:34:23 -0400
+Message-ID: <20260909103424.1543919-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090340-lecturer-unwashed-3c35@gregkh>
+References: <2026090340-lecturer-unwashed-3c35@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 775c17386a6fd695f999d4cda90e3931386570dd ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Patch series "ocfs2: consolidate extent list validation into block read
+callbacks".
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x d378fceaafd79e0dc59d3546bda251a3058062c0
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090902-spruce-sleeve-2bcf@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+ocfs2 validates extent list fields (l_count, l_next_free_rec) at various
+points during extent tree traversal.  This is fragile because each caller
+must remember to check for corrupted on-disk data before using it.
 
-Possible dependencies:
+This series moves those checks into the block read validation callbacks
+(ocfs2_validate_dx_root and ocfs2_validate_extent_block), so corrupted
+fields are caught early at block read time.  Redundant post-read checks
+are then removed.
 
+This patch (of 4):
 
+Move the extent list l_count validation from ocfs2_dx_dir_lookup_rec()
+into ocfs2_validate_dx_root(), so that corrupted on-disk fields are caught
+early at block read time rather than during directory lookups.
 
-thanks,
+Additionally, add a l_next_free_rec <= l_count check to prevent
+out-of-bounds access when iterating over extent records.
 
-greg k-h
+Both checks are skipped for inline dx roots (OCFS2_DX_FLAG_INLINE), which
+use dr_entries instead of dr_list.
 
------------------- original commit in Linus's tree ------------------
+Link: https://lkml.kernel.org/r/20260403090803.3860971-1-joseph.qi@linux.alibaba.com
+Link: https://lkml.kernel.org/r/20260403090803.3860971-2-joseph.qi@linux.alibaba.com
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: bc70726ddad5 ("ocfs2: validate directory-index entry counts when reading metadata")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/dir.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-From d378fceaafd79e0dc59d3546bda251a3058062c0 Mon Sep 17 00:00:00 2001
-From: Moksh Panicker <mokshpanicker.7@gmail.com>
-Date: Sun, 2 Aug 2026 19:07:01 +0000
-Subject: [PATCH] iio: light: apds9306: fix PM reference leak in
- apds9306_read_data()
-
-apds9306_read_data() calls pm_runtime_resume_and_get() but several
-error paths return directly without calling pm_runtime_put_autosuspend(),
-leaking the runtime PM reference and preventing the device from
-autosuspending.
-
-Use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() and PM_RUNTIME_ACQUIRE_ERR() to
-automatically handle runtime PM reference release on all return paths.
-
-Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-Signed-off-by: Moksh Panicker <mokshpanicker.7@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
-index 5ca4c87524fe..d582bda4d847 100644
---- a/drivers/iio/light/apds9306.c
-+++ b/drivers/iio/light/apds9306.c
-@@ -469,9 +469,9 @@ static int apds9306_read_data(struct apds9306_data *data, int *val, int reg)
- 	int status = 0;
- 	u8 buff[3];
- 
--	ret = pm_runtime_resume_and_get(data->dev);
--	if (ret)
+diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+index da1ab3282c181..b706092c0c1b4 100644
+--- a/fs/ocfs2/dir.c
++++ b/fs/ocfs2/dir.c
+@@ -580,7 +580,7 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
+ 		mlog(ML_ERROR,
+ 		     "Checksum failed for dir index root block %llu\n",
+ 		     (unsigned long long)bh->b_blocknr);
 -		return ret;
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return PM_RUNTIME_ACQUIRE_ERR(&pm);
++		goto bail;
+ 	}
  
- 	ret = regmap_field_read(rf->intg_time, &intg_time_idx);
- 	if (ret)
-@@ -535,8 +535,6 @@ static int apds9306_read_data(struct apds9306_data *data, int *val, int reg)
+ 	if (!OCFS2_IS_VALID_DX_ROOT(dx_root)) {
+@@ -588,8 +588,32 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
+ 				  "Dir Index Root # %llu has bad signature %.*s\n",
+ 				  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
+ 				  7, dx_root->dr_signature);
++		goto bail;
++	}
++
++	if (!(dx_root->dr_flags & OCFS2_DX_FLAG_INLINE)) {
++		struct ocfs2_extent_list *el = &dx_root->dr_list;
++
++		if (le16_to_cpu(el->l_count) != ocfs2_extent_recs_per_dx_root(sb)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid l_count %u (expected %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(el->l_count),
++					  ocfs2_extent_recs_per_dx_root(sb));
++			goto bail;
++		}
++
++		if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid l_next_free_rec %u (l_count %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(el->l_next_free_rec),
++					  le16_to_cpu(el->l_count));
++			goto bail;
++		}
+ 	}
  
- 	*val = get_unaligned_le24(&buff);
- 
--	pm_runtime_put_autosuspend(data->dev);
--
- 	return 0;
++bail:
+ 	return ret;
  }
  
+-- 
+2.53.0
 
