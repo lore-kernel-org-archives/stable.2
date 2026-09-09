@@ -1,103 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8344A3E315F
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CA1241CB7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966761; cv=none; b=VlA6gch/gzLOeAKFAdaBgXpSEf2s2z4j3SsoPAVoe9MdX/82NMOqUvSY0bYkPSO9jDBcuGtkWkDe/xtkGdQeUcnCo3jKAimPeLflqzydbDCYOIe95Sudx2lSIBAY7OUG1MGuNgEUrc/CRjz+lXvr1ExND3lykWxrLHbs9uSmTLM=
+	t=1788967097; cv=none; b=BUei5nPysPQHmpYUU/sevsxrfqZ9lfdG09UxB0IG2U00E8H/cY47SrFQQ8f3khRPT1K+8cQouorPOTIAu+QnmpBa0SmIKJl40e9RsHfF39H4oz4eOlsOrKqlfhvGD9vRfd8SQOgBOnPrLfJBiDA+DBKx1oMgFFTxM2Cr68VmAzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966761; c=relaxed/simple;
-	bh=fkkUAa9A++hqWlQSw31xiG+t/DN74CvgOmHLfIwBEh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QloKVCcaefnV3hpHBsXDSqdoqieBfkresW2/3ctx0RdhZpTzhMdFaP3r05XGyOIaQVGui1g7lu2R44olM+fRSHEoTZtKzDo71hQz1DMlXq9Zlqa4049j9NmjZgpeCUDUVOggkGfcXtlaBXiQ9x3WkOvdSmU9rqJszOk+n+S6GTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKsVH+ch; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788967097; c=relaxed/simple;
+	bh=3wuqr9vNRklNGYAqPGea42KPfC57cwb22htpaSCXS3k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HKdzwkoBwaH69YQmWWO7vINCPbozsWW81KRRWPkQ2PhnhjPM6O+0r8/hOXy/g8gyY306qwrjalrzdwGuDvfHAzACuKtT+bmvgWs0Mc73cTVHHCrqNtdWghftAcGLvL7yz1U8qfTPgfNtQOkoYDj4m2GqFeftSZuUNEXlKkbUaNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=q1l8UyG/; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKsVH+ch"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E31C1F00A3D;
-	Wed,  9 Sep 2026 15:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966760;
-	bh=LVUA9+DgeqXB25Jk4nXarcLYU8dvL158mQQdfbOEwPw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FKsVH+ch9I9QlIgCucWGH8LbVtwhiFbqX3ngYuSSgUxEY7t1ubc4ju878jNRwX21g
-	 OsEhaWTpm3sUVfeBeViBmn3IA9++W0IwIG33aqk0Oc6z2LPtBJXG9BpM55UC3CUSAr
-	 4nSsB0kiL4nU1yO4M6M6Kfgey25W3yF0yBn7oXA/fldGyy7LTSFQ+XAUJef59bpyFG
-	 xu+FL0S6F6IcC6njPFXsYPr+HsUSSP3kyi5UlEdg6R7acO8BO5q3du3wUnJ0sRxY3t
-	 aa/L0vfsTdH6CJqY6S+otolgfShbM+rv+D+N4rqGAZauzV3fycdCK940PAsccUK6g8
-	 qpXc1vR5A8N1g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] platform/x86: think-lmi: Fix certificate thumbprint sysfs output
-Date: Wed,  9 Sep 2026 11:12:37 -0400
-Message-ID: <20260909151237.2839173-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909151237.2839173-1-sashal@kernel.org>
-References: <2026090326-unmixable-concur-5982@gregkh>
- <20260909151237.2839173-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="q1l8UyG/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0BE921A1A65;
+	Wed,  9 Sep 2026 15:18:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C7BCF60448;
+	Wed,  9 Sep 2026 15:18:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E950E11C7AF57;
+	Wed,  9 Sep 2026 17:18:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788967091; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1PCBbAvhCAgCgY+6h0CZ532jsXluV759Iw7EiPk//jc=;
+	b=q1l8UyG/4i2A1VqF6jsr24XAGtNTldS2doiPZJVGJC7X/2lsIWTMx1PNu0Ph79uYVyjrl6
+	jZDIaZNBtMLurEdYZ278cgt8aHoCU63TtuUD1UWG7OxbOknWxfmw56NheSp2q77PzMzXNB
+	+pbU1F+2Rg3J5HTQ/NJvmwE/VWZWAQxH2YgRnAhgOO1e5KrZcR74g8VAVGD4r3gaGuXMuq
+	i9f4ye9wZXvwx3FTOXo4+jMyvW90gmfj68KbMCyaYP8+4TmusKmCF2Sjik+y5r96Ka5M/Z
+	E3oyzPWc+CCtDmWDi165mXyKnX2h61p3P+xK19+XyUi2U1MzWUheT5VYpjEd9g==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Esben Haabendal <esben@geanix.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+Subject: Re: (subset) [PATCH v5 0/2] drm/bridge: ti-sn65dsi83: Various
+ fixes
+Message-Id: <178896708574.1558311.11016151891645500704.b4-ty@b4>
+Date: Wed, 09 Sep 2026 17:18:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 4f3183f5ae9b8ddfe338d79a96146a05342bbe50 ]
+On Mon, 31 Aug 2026 14:21:31 +0200, Esben Haabendal wrote:
+> This small series adds support for using SN65DSI84 in single-link mode with
+> output to LVDS channel B, and provides a fix for an error-handling
+> regression in sn65dsi83_reset_pipe()/sn65dsi83_reset_work().
 
-cert_thumbprint() already returns the accumulated output length, but
-certificate_thumbprint_show() adds that value to count again, making the
-next line use the wrong offset. Errors returned by cert_thumbprint() are
-also ignored and their negative values added to count.
+Applied, thanks!
 
-Assign the total length to count instead and propagate errors correctly.
+[1/2] drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
+      commit: 4600b4d1a9ee730d03ddac5ce409cd2730ce8c0c
 
-Fixes: b49f72e7f96d ("platform/x86: think-lmi: Certificate authentication support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Link: https://patch.msgid.link/20260810120556.149416-2-thorsten.blum@linux.dev
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/platform/x86/think-lmi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
-index 9b048ca18d006..a5dac28ced2f5 100644
---- a/drivers/platform/x86/think-lmi.c
-+++ b/drivers/platform/x86/think-lmi.c
-@@ -686,6 +686,8 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
- 		return -EOPNOTSUPP;
- 
- 	for (i = 0; i < ARRAY_SIZE(thumbtypes); i++) {
-+		ssize_t ret;
-+
- 		if (tlmi_priv.pwdcfg.core.password_mode >= TLMI_PWDCFG_MODE_MULTICERT) {
- 			/* Format: 'SVC | SMC, Thumbtype' */
- 			wmistr = kasprintf(GFP_KERNEL, "%s,%s",
-@@ -697,8 +699,12 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
- 		}
- 		if (!wmistr)
- 			return -ENOMEM;
--		count += cert_thumbprint(buf, wmistr, count);
-+
-+		ret = cert_thumbprint(buf, wmistr, count);
- 		kfree(wmistr);
-+		if (ret < 0)
-+			return ret;
-+		count = ret;
- 	}
- 
- 	return count;
+Best regards,
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
