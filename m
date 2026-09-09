@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C407A492E4C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F3E492E5D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:25:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913527; cv=none; b=aW3rh5XZnL8Mx9aUlxQB5jYy9Nl2KQoigJGKzlG+q0iUij973kmQ+E61Wy5eeM2V0IdYCTKGeuqiCLIUYcIkauacDl7dq7p+NmC0g8CKlCMp93O439omBZ9YlNPAfN56tW7mdhOl8XaO9pabiPwNbrIN4QI/lvfSMJtPjLpWlAs=
+	t=1788913527; cv=none; b=RmnDpReY4EWUNYkcl4akAb7alsaVdpW6tiZ6C6oHWNPuegvGJ4TTzVOaVOsnpD7Ec/ZCEB2YTp70mbNtq5BqGr1RMvoF+GrlYhpDxvI1gu/GD9aNjn7N0GyLwDF2B3iVWg160yIeaEv65fORoSc6sprMuX/mwJfH4zbLmc8SUKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788913527; c=relaxed/simple;
-	bh=AVMg0+AVli0e4pWzEt0tWVZSesPONuKv9mDeych1PMI=;
+	bh=my4DyLk/D/HqBCTzcta7yv8Sm7udV5G65e8S/z9ip8w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MtHi27z34NAW0q8m2xN/gc12ccJJ1yQlKiWrt+pZoMGFkpsI5x+GyslZu0pbKBKMb2NXjHCEmFDg5yFRGGjXUnXG+lCJ0sMpDiHAvXqAhlobMJUqXavM9SGe+jx5DCKG3PWRbDNtdjesSgbher3sM0ywlEGuu/RCXkZ27oQCp6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVhmZ8pt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZpmVBO9LKQFut2EbUikoymlqt9XWcxlNP+NOxc3rEkkzIaWJn2v7OWWNcBCUeUc9sJoeFRrLOEcJfQKBZJllFXXqZqLCtUT0P+nwSQihMeArzVxRNcnRF8LoELZZ2vMe4dvNUL3O1pgFTs8Vu2efQNVhdZ+Ki3mIDHDzQfuIBGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzqJ5Jb7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVhmZ8pt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38421F00A3A;
-	Wed,  9 Sep 2026 00:25:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzqJ5Jb7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69321F00A3D;
+	Wed,  9 Sep 2026 00:25:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913525;
-	bh=PX7lFQKPLWz3sYF8UK2gXtabA43cn3FemkcrZDPaZKc=;
+	s=k20260515; t=1788913526;
+	bh=LZjy5nriTes8qIxQJlFNXCEVFGkmgT5iB4LlW2xaYCQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YVhmZ8ptVBb7xcpJxeKwl/UyaLYe/IxGfwuBPNiT1PPN3g0LhUEKNTZhY1AZueMcS
-	 yoJRpUFVaj60Uybin60a5CgUJSCUB7pn1Z01IvxSN8vAbR9KLezfDwjIDBYc9DFiye
-	 rYgbUDR4Ppv+g6My+jFVtnu02ZsF0D0KDxIQkD4RmjCx82qflipZEpiWtifJWRSfYz
-	 XpNyEedF0N2EifGMUd7ru87ZTLP185VSrxrs6189NyNmHkGPbmu30MGRSFsxgAXwhl
-	 btEiFgJIprrfkLCPlr2aon1hOumcWSyMWY/FkIyNmzX1H8tsGj7msPuxc0Me6GTnn4
-	 I68w3ekCAX2BA==
+	b=BzqJ5Jb7VLxhsodNiEgb1/NInWHKjE6+5M5086fUc7B70LUXIl/rsX6vhl8GjJuYY
+	 9XcnkMsOOGzsWBCFfq3+eIVP32qzliRiTtilpLHBTDFuQoRPGhKDxGb99Q/UL5qhAK
+	 IyIuKayDGPXkrvRew2TQdpCK/Wtw+c2o2nTKVt/d3IVTnOOAypenR9nOnOqZ+HWq2W
+	 znPpWHGUKK1MeqhDwamDSYBh5rv8r87FEKePWO78gv3SmeU4t+3yqq1BYQvx8mj3Hq
+	 xwdAu1GPwRhAc2Ku0fJ9KAmRahD1huS2Dzjf06S3P5VvWFNtgyVaJ9p2Hj954LiMe9
+	 J7p8oiQbW6yuA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jiri Pirko <jiri@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	Xiang Mei <xmei5@asu.edu>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] ipv6/addrconf: annotate data-races around devconf fields (II)
-Date: Tue,  8 Sep 2026 20:25:22 -0400
-Message-ID: <20260909002523.727517-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
+Date: Tue,  8 Sep 2026 20:25:23 -0400
+Message-ID: <20260909002523.727517-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090351-marbling-tiny-a334@gregkh>
+In-Reply-To: <20260909002523.727517-1-sashal@kernel.org>
 References: <2026090351-marbling-tiny-a334@gregkh>
+ <20260909002523.727517-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,382 +48,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
 
-[ Upstream commit 2f0ff05a44302c91af54a5f9efe1b65b7681540e ]
+[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
 
-Final (?) round of this series.
+ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
+check when reading idev->cnf.rpl_seg_enabled.
 
-Annotate lockless reads on following devconf fields,
-because they be changed concurrently from /proc/net/ipv6/conf.
+When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
+dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
+check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
+dev->ip6_ptr already NULL.
 
-- accept_dad
-- optimistic_dad
-- use_optimistic
-- use_oif_addrs_only
-- ra_honor_pio_life
-- keep_addr_on_down
-- ndisc_notify
-- ndisc_evict_nocarrier
-- suppress_frag_ndisc
-- addr_gen_mode
-- seg6_enabled
-- ioam6_enabled
-- ioam6_id
-- ioam6_id_wide
-- drop_unicast_in_l2_multicast
-- mldv[12]_unsolicited_report_interval
-- force_mld_version
-- force_tllao
-- accept_untracked_na
-- drop_unsolicited_na
-- accept_source_route
+Reproduced by flooding the receiving interface with ping6 traffic while
+flapping its MTU between 1500 and 1200:
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Jiri Pirko <jiri@nvidia.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
+ BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
+ Read of size 4 at addr 00000000000006b4 by task ping6/394
 
-[ Backport to 5.10: omit ioam6.c and annotations for fields and control
-  flow only present in newer kernels. Preserve the applicable data-race
-  annotations, and annotate rpl_seg_enabled as well so the dependent IPv6
-  RPL fix applies against its expected context. ]
+ CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
+ Call Trace:
+  <IRQ>
+  kasan_report+0xc6/0x100
+  ipv6_rpl_srh_rcv+0xb3/0x1070
+  ip6_protocol_deliver_rcu+0x759/0x9a0
+  ip6_input_finish+0xa8/0x1b0
+  ip6_input+0xe1/0x490
+  ipv6_rcv+0x33d/0x460
+  __netif_receive_skb_one_core+0xd6/0x130
+  process_backlog+0x2cc/0xa00
+  __napi_poll.constprop.0+0x56/0x270
+  net_rx_action+0x327/0x730
+  handle_softirqs+0x11e/0x630
+  do_softirq+0xb3/0xf0
+  </IRQ>
 
-[ sashal: Reduced backport -- upstream 2f0ff05a44302 touches 7 file(s), this
-  backport carries 6. Not backported here:
-  net/ipv6/ioam6.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
+ipv6_rthdr_rcv(), which already has an idev lookup.
 
-Stable-dep-of: f826df95332c ("ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()")
+Fix the NULL dereference on the RPL path by checking idev in
+ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
+an argument and no longer call __in6_dev_get(), so the packet is now
+dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
+
+Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Replaced kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED) with kfree_skb(skb) for 5.10 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/addrconf.c  | 47 +++++++++++++++++++++++---------------------
- net/ipv6/exthdrs.c   | 20 +++++++++----------
- net/ipv6/ip6_input.c |  2 +-
- net/ipv6/mcast.c     | 14 ++++++-------
- net/ipv6/ndisc.c     | 12 +++++------
- net/ipv6/seg6_hmac.c |  8 +++++---
- 6 files changed, 54 insertions(+), 49 deletions(-)
+ net/ipv6/exthdrs.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 3bb1855cdcb87..6d5a4a7fb18fe 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -1492,15 +1492,17 @@ static inline int ipv6_saddr_preferred(int type)
- 	return 0;
- }
- 
--static bool ipv6_use_optimistic_addr(struct net *net,
--				     struct inet6_dev *idev)
-+static bool ipv6_use_optimistic_addr(const struct net *net,
-+				     const struct inet6_dev *idev)
- {
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
- 	if (!idev)
- 		return false;
--	if (!net->ipv6.devconf_all->optimistic_dad && !idev->cnf.optimistic_dad)
-+	if (!READ_ONCE(net->ipv6.devconf_all->optimistic_dad) &&
-+	    !READ_ONCE(idev->cnf.optimistic_dad))
- 		return false;
--	if (!net->ipv6.devconf_all->use_optimistic && !idev->cnf.use_optimistic)
-+	if (!READ_ONCE(net->ipv6.devconf_all->use_optimistic) &&
-+	    !READ_ONCE(idev->cnf.use_optimistic))
- 		return false;
- 
- 	return true;
-@@ -1509,13 +1511,14 @@ static bool ipv6_use_optimistic_addr(struct net *net,
- #endif
- }
- 
--static bool ipv6_allow_optimistic_dad(struct net *net,
--				      struct inet6_dev *idev)
-+static bool ipv6_allow_optimistic_dad(const struct net *net,
-+				      const struct inet6_dev *idev)
- {
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
- 	if (!idev)
- 		return false;
--	if (!net->ipv6.devconf_all->optimistic_dad && !idev->cnf.optimistic_dad)
-+	if (!READ_ONCE(net->ipv6.devconf_all->optimistic_dad) &&
-+	    !READ_ONCE(idev->cnf.optimistic_dad))
- 		return false;
- 
- 	return true;
-@@ -1797,7 +1800,7 @@ int ipv6_dev_get_saddr(struct net *net, const struct net_device *dst_dev,
- 		idev = __in6_dev_get(dst_dev);
- 		if ((dst_type & IPV6_ADDR_MULTICAST) ||
- 		    dst.scope <= IPV6_ADDR_SCOPE_LINKLOCAL ||
--		    (idev && idev->cnf.use_oif_addrs_only)) {
-+		    (idev && READ_ONCE(idev->cnf.use_oif_addrs_only))) {
- 			use_oif_addr = true;
- 		}
- 	}
-@@ -2628,8 +2631,8 @@ int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
- 		};
- 
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
--		if ((net->ipv6.devconf_all->optimistic_dad ||
--		     in6_dev->cnf.optimistic_dad) &&
-+		if ((READ_ONCE(net->ipv6.devconf_all->optimistic_dad) ||
-+		     READ_ONCE(in6_dev->cnf.optimistic_dad)) &&
- 		    !net->ipv6.devconf_all->forwarding && sllao)
- 			cfg.ifa_flags |= IFA_F_OPTIMISTIC;
- #endif
-@@ -3226,8 +3229,8 @@ void addrconf_add_linklocal(struct inet6_dev *idev,
- 	struct inet6_ifaddr *ifp;
- 
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
--	if ((dev_net(idev->dev)->ipv6.devconf_all->optimistic_dad ||
--	     idev->cnf.optimistic_dad) &&
-+	if ((READ_ONCE(dev_net(idev->dev)->ipv6.devconf_all->optimistic_dad) ||
-+	     READ_ONCE(idev->cnf.optimistic_dad)) &&
- 	    !dev_net(idev->dev)->ipv6.devconf_all->forwarding)
- 		cfg.ifa_flags |= IFA_F_OPTIMISTIC;
- #endif
-@@ -3784,10 +3787,10 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
- 	 */
- 	if (!unregister && !idev->cnf.disable_ipv6) {
- 		/* aggregate the system setting and interface setting */
--		int _keep_addr = net->ipv6.devconf_all->keep_addr_on_down;
-+		int _keep_addr = READ_ONCE(net->ipv6.devconf_all->keep_addr_on_down);
- 
- 		if (!_keep_addr)
--			_keep_addr = idev->cnf.keep_addr_on_down;
-+			_keep_addr = READ_ONCE(idev->cnf.keep_addr_on_down);
- 
- 		keep_addr = (_keep_addr > 0);
- 	}
-@@ -4009,8 +4012,8 @@ static void addrconf_dad_begin(struct inet6_ifaddr *ifp)
- 
- 	net = dev_net(dev);
- 	if (dev->flags&(IFF_NOARP|IFF_LOOPBACK) ||
--	    (net->ipv6.devconf_all->accept_dad < 1 &&
--	     idev->cnf.accept_dad < 1) ||
-+	    (READ_ONCE(net->ipv6.devconf_all->accept_dad) < 1 &&
-+	     READ_ONCE(idev->cnf.accept_dad) < 1) ||
- 	    !(ifp->flags&IFA_F_TENTATIVE) ||
- 	    ifp->flags & IFA_F_NODAD) {
- 		bool send_na = false;
-@@ -4102,8 +4105,8 @@ static void addrconf_dad_work(struct work_struct *w)
- 		action = DAD_ABORT;
- 		ifp->state = INET6_IFADDR_STATE_POSTDAD;
- 
--		if ((dev_net(idev->dev)->ipv6.devconf_all->accept_dad > 1 ||
--		     idev->cnf.accept_dad > 1) &&
-+		if ((READ_ONCE(dev_net(idev->dev)->ipv6.devconf_all->accept_dad) > 1 ||
-+		     READ_ONCE(idev->cnf.accept_dad) > 1) &&
- 		    !idev->cnf.disable_ipv6 &&
- 		    !(ifp->flags & IFA_F_STABLE_PRIVACY)) {
- 			struct in6_addr addr;
-@@ -4241,8 +4244,8 @@ static void addrconf_dad_completed(struct inet6_ifaddr *ifp, bool bump_id,
- 
- 	/* send unsolicited NA if enabled */
- 	if (send_na &&
--	    (ifp->idev->cnf.ndisc_notify ||
--	     dev_net(dev)->ipv6.devconf_all->ndisc_notify)) {
-+	    (READ_ONCE(ifp->idev->cnf.ndisc_notify) ||
-+	     READ_ONCE(dev_net(dev)->ipv6.devconf_all->ndisc_notify))) {
- 		ndisc_send_na(dev, &in6addr_linklocal_allnodes, &ifp->addr,
- 			      /*router=*/ !!ifp->idev->cnf.forwarding,
- 			      /*solicited=*/ false, /*override=*/ true,
-@@ -6389,7 +6392,7 @@ static int addrconf_sysctl_addr_gen_mode(struct ctl_table *ctl, int write,
- 		} else if (&net->ipv6.devconf_all->addr_gen_mode == ctl->data) {
- 			struct net_device *dev;
- 
--			net->ipv6.devconf_dflt->addr_gen_mode = new_val;
-+			WRITE_ONCE(net->ipv6.devconf_dflt->addr_gen_mode, new_val);
- 			for_each_netdev(net, dev) {
- 				idev = __in6_dev_get(dev);
- 				if (idev &&
-@@ -6400,7 +6403,7 @@ static int addrconf_sysctl_addr_gen_mode(struct ctl_table *ctl, int write,
- 			}
- 		}
- 
--		*((u32 *)ctl->data) = new_val;
-+		WRITE_ONCE(*((u32 *)ctl->data), new_val);
- 	}
- 
- out:
 diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 0230fa98a3482..bc01761844194 100644
+index bc01761844194..5584d3cf43742 100644
 --- a/net/ipv6/exthdrs.c
 +++ b/net/ipv6/exthdrs.c
-@@ -368,9 +368,8 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 		return -1;
- 	}
+@@ -351,23 +351,16 @@ static void seg6_update_csum(struct sk_buff *skb)
+ 			   (__be32 *)addr);
+ }
  
--	accept_seg6 = net->ipv6.devconf_all->seg6_enabled;
--	if (accept_seg6 > idev->cnf.seg6_enabled)
--		accept_seg6 = idev->cnf.seg6_enabled;
-+	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
-+			  READ_ONCE(idev->cnf.seg6_enabled));
- 
- 	if (!accept_seg6) {
- 		kfree_skb(skb);
-@@ -491,9 +490,8 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 
- 	idev = __in6_dev_get(skb->dev);
- 
--	accept_rpl_seg = net->ipv6.devconf_all->rpl_seg_enabled;
--	if (accept_rpl_seg > idev->cnf.rpl_seg_enabled)
--		accept_rpl_seg = idev->cnf.rpl_seg_enabled;
-+	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
-+			     READ_ONCE(idev->cnf.rpl_seg_enabled));
- 
- 	if (!accept_rpl_seg) {
- 		kfree_skb(skb);
-@@ -674,11 +672,13 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	struct ipv6_rt_hdr *hdr;
- 	struct rt0_hdr *rthdr;
+-static int ipv6_srh_rcv(struct sk_buff *skb)
++static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
  	struct net *net = dev_net(skb->dev);
--	int accept_source_route = net->ipv6.devconf_all->accept_source_route;
-+	int accept_source_route;
+ 	struct ipv6_sr_hdr *hdr;
+-	struct inet6_dev *idev;
+ 	struct in6_addr *addr;
+ 	int accept_seg6;
+ 
+ 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
  
 -	idev = __in6_dev_get(skb->dev);
--	if (idev && accept_source_route > idev->cnf.accept_source_route)
--		accept_source_route = idev->cnf.accept_source_route;
-+	accept_source_route = READ_ONCE(net->ipv6.devconf_all->accept_source_route);
-+
-+	if (idev)
-+		accept_source_route = min(accept_source_route,
-+					  READ_ONCE(idev->cnf.accept_source_route));
- 
- 	if (!pskb_may_pull(skb, skb_transport_offset(skb) + 8) ||
- 	    !pskb_may_pull(skb, (skb_transport_offset(skb) +
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 8cf5b10eee695..85e14f9df3a63 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -229,7 +229,7 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
- 	if (!ipv6_addr_is_multicast(&hdr->daddr) &&
- 	    (skb->pkt_type == PACKET_BROADCAST ||
- 	     skb->pkt_type == PACKET_MULTICAST) &&
--	    idev->cnf.drop_unicast_in_l2_multicast)
-+	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast))
- 		goto err;
- 
- 	/* RFC4291 2.7
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index c4a9866ea45b6..cdbff3dc89ced 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -162,9 +162,9 @@ static int unsolicited_report_interval(struct inet6_dev *idev)
- 	int iv;
- 
- 	if (mld_in_v1_mode(idev))
--		iv = idev->cnf.mldv1_unsolicited_report_interval;
-+		iv = READ_ONCE(idev->cnf.mldv1_unsolicited_report_interval);
- 	else
--		iv = idev->cnf.mldv2_unsolicited_report_interval;
-+		iv = READ_ONCE(idev->cnf.mldv2_unsolicited_report_interval);
- 
- 	return iv > 0 ? iv : 1;
- }
-@@ -1218,15 +1218,15 @@ static bool mld_marksources(struct ifmcaddr6 *pmc, int nsrcs,
- 
- static int mld_force_mld_version(const struct inet6_dev *idev)
- {
-+	const struct net *net = dev_net(idev->dev);
-+	int all_force;
-+
-+	all_force = READ_ONCE(net->ipv6.devconf_all->force_mld_version);
- 	/* Normally, both are 0 here. If enforcement to a particular is
- 	 * being used, individual device enforcement will have a lower
- 	 * precedence over 'all' device (.../conf/all/force_mld_version).
- 	 */
+-	if (!idev) {
+-		kfree_skb(skb);
+-		return -1;
+-	}
 -
--	if (dev_net(idev->dev)->ipv6.devconf_all->force_mld_version != 0)
--		return dev_net(idev->dev)->ipv6.devconf_all->force_mld_version;
--	else
--		return idev->cnf.force_mld_version;
-+	return all_force ?: READ_ONCE(idev->cnf.force_mld_version);
+ 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
+ 			  READ_ONCE(idev->cnf.seg6_enabled));
+ 
+@@ -473,12 +466,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
+ 	return -1;
  }
  
- static bool mld_in_v2_mode_only(const struct inet6_dev *idev)
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index de389b519700d..e8e3ea61e0623 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -450,7 +450,7 @@ static void ip6_nd_hdr(struct sk_buff *skb,
+-static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
++static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
+ 	struct net *net = dev_net(skb->dev);
+-	struct inet6_dev *idev;
+ 	struct ipv6hdr *oldhdr;
+ 	struct in6_addr addr;
+ 	unsigned int chdr_len;
+@@ -488,8 +480,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 	u64 n = 0;
+ 	u32 r;
  
- 	rcu_read_lock();
- 	idev = __in6_dev_get(skb->dev);
--	tclass = idev ? idev->cnf.ndisc_tclass : 0;
-+	tclass = idev ? READ_ONCE(idev->cnf.ndisc_tclass) : 0;
- 	rcu_read_unlock();
+-	idev = __in6_dev_get(skb->dev);
+-
+ 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
+ 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
  
- 	skb_push(skb, sizeof(*hdr));
-@@ -538,7 +538,7 @@ void ndisc_send_na(struct net_device *dev, const struct in6_addr *daddr,
- 		src_addr = solicited_addr;
- 		if (ifp->flags & IFA_F_OPTIMISTIC)
- 			override = false;
--		inc_opt |= ifp->idev->cnf.force_tllao;
-+		inc_opt |= READ_ONCE(ifp->idev->cnf.force_tllao);
- 		in6_ifa_put(ifp);
- 	} else {
- 		if (ipv6_dev_get_saddr(dev_net(dev), dev, daddr,
-@@ -991,7 +991,7 @@ static void ndisc_recv_na(struct sk_buff *skb)
- 	 * and thus should not be accepted.
- 	 */
- 	if (!msg->icmph.icmp6_solicited && idev &&
--	    idev->cnf.drop_unsolicited_na)
-+	    READ_ONCE(idev->cnf.drop_unsolicited_na))
- 		return;
- 
- 	if (!ndisc_parse_options(dev, msg->opt, ndoptlen, &ndopts)) {
-@@ -1737,7 +1737,7 @@ static bool ndisc_suppress_frag_ndisc(struct sk_buff *skb)
- 	if (!idev)
- 		return true;
- 	if (IP6CB(skb)->flags & IP6SKB_FRAGMENTED &&
--	    idev->cnf.suppress_frag_ndisc) {
-+	    READ_ONCE(idev->cnf.suppress_frag_ndisc)) {
- 		net_warn_ratelimited("Received fragmented ndisc packet. Carefully consider disabling suppress_frag_ndisc.\n");
- 		return true;
- 	}
-@@ -1812,8 +1812,8 @@ static int ndisc_netdev_event(struct notifier_block *this, unsigned long event,
- 		idev = in6_dev_get(dev);
- 		if (!idev)
- 			break;
--		if (idev->cnf.ndisc_notify ||
--		    net->ipv6.devconf_all->ndisc_notify)
-+		if (READ_ONCE(idev->cnf.ndisc_notify) ||
-+		    READ_ONCE(net->ipv6.devconf_all->ndisc_notify))
- 			ndisc_send_unsol_na(dev);
- 		in6_dev_put(idev);
+@@ -700,10 +690,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	switch (hdr->type) {
+ 	case IPV6_SRCRT_TYPE_4:
+ 		/* segment routing */
+-		return ipv6_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_srh_rcv(skb, idev);
+ 	case IPV6_SRCRT_TYPE_3:
+ 		/* rpl segment routing */
+-		return ipv6_rpl_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_rpl_srh_rcv(skb, idev);
+ 	default:
  		break;
-diff --git a/net/ipv6/seg6_hmac.c b/net/ipv6/seg6_hmac.c
-index b52985c867c29..abccc86990c1a 100644
---- a/net/ipv6/seg6_hmac.c
-+++ b/net/ipv6/seg6_hmac.c
-@@ -243,6 +243,7 @@ bool seg6_hmac_validate_skb(struct sk_buff *skb)
- 	struct sr6_tlv_hmac *tlv;
- 	struct ipv6_sr_hdr *srh;
- 	struct inet6_dev *idev;
-+	int require_hmac;
+ 	}
+@@ -851,6 +845,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
+ 			  (&hdr->type) - skb_network_header(skb));
+ 	return -1;
++
++disabled:
++	kfree_skb(skb);
++	return -1;
+ }
  
- 	idev = __in6_dev_get(skb->dev);
- 	if (!idev)
-@@ -252,16 +253,17 @@ bool seg6_hmac_validate_skb(struct sk_buff *skb)
- 
- 	tlv = seg6_get_tlv_hmac(srh);
- 
-+	require_hmac = READ_ONCE(idev->cnf.seg6_require_hmac);
- 	/* mandatory check but no tlv */
--	if (idev->cnf.seg6_require_hmac > 0 && !tlv)
-+	if (require_hmac > 0 && !tlv)
- 		return false;
- 
- 	/* no check */
--	if (idev->cnf.seg6_require_hmac < 0)
-+	if (require_hmac < 0)
- 		return true;
- 
- 	/* check only if present */
--	if (idev->cnf.seg6_require_hmac == 0 && !tlv)
-+	if (require_hmac == 0 && !tlv)
- 		return true;
- 
- 	/* now, seg6_require_hmac >= 0 && tlv */
+ static const struct inet6_protocol rthdr_protocol = {
 -- 
 2.53.0
 
