@@ -1,177 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F6B55C1AC;
-	Wed,  9 Sep 2026 12:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA662559CBF
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 13:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958761; cv=none; b=pnWsgDsrCHNFObZVdko++We5aPawor0kKnwbjh6yFWhOaSaO8SUNeWmhlQxczNS8CxptsdwfUc/qzP2+1r25Be8ws1/zVQSYot5uDJ+oddpNihd04NBx1Yz2FkYTAchm4YoAAvT6sqlYBrauwPlk4um0gtRYMysQYcdzsWn1Kp8=
+	t=1788958992; cv=none; b=GowQKSSOJsFDzPZkQbuD30ehoQ197YFSWP49JAGRbXLXLkKHqd/HnXOG9o/XSbupBEKZudB+KVrkgDLQUoxi+E3A8JnOhonuqPKb2x5Ruzp2SnvjK7qhMoB6o0GC64GD+oihWOMWhR6fadSee2efSJVz/9Mjt4z7OpBDLRfcsG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958761; c=relaxed/simple;
-	bh=1FjpME9nqPv2jh1pfO7XrUbw2ySnLrpuNV6qg4RbEAM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m9OR/fWfbEji76c1DUnC6B+43JGKS2KVH4dFSOufrXsTC8hZSr24KMNEkFzxXagSYKoijvgEQePp7736RAHWl/V6FAKgbEgPwqStOFnQA8tfOnEPsGCQmnGcI5EAZ1nEfGYMOhKEdF2r5kpoVEbalWBHNlPD+MBv4QU77mAbM6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mvSpfOyk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788958992; c=relaxed/simple;
+	bh=8aRTU8lVGgUweHEo4N2lqmZpdLeCLEASyfjPi1iOJ0E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TucpD7eOmivl8ve0tz9QY3Rj47cblfGkOMhRm8kvc0TZ3jvby5Mq836Hpe807dDb2QFhyVl8c6o4t/6G08XN+6cgdDNf3WyxqJNv2mXR8RG2ESutaNmM80n3EZDWupVJT4pZOU0d3ErGGodw+tbalf9xpDtXxnGHVfKGBw151BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JnujjKsz; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mvSpfOyk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32A41F00A3A;
-	Wed,  9 Sep 2026 12:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788958758;
-	bh=mVIT4/S/hBxlRSbceZNZx3VhxRueTx3pYksgzqtiV3M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mvSpfOykZqsotkHI27EIOnByR7ggnAgICrGw1X/nTuPsWw1sxr5yJaBrdLrIxOMdU
-	 pK/UmFPKk0pt/EgV/wy+MYYt0/yxrWIqWjSALfABDnvV9UKN/WexVyhBL7rR3nkcsl
-	 s69bXtG7iqiDZqwfSXnANQFn/ACH6O6fDiRhyhmLbl+Fp6fe6AIKHmxxkihq7HC9CR
-	 ss9fSYXUY06rimGc61cuC/6M4V8kt+80EHQCG+WnWYwb7/d5HxH/AFx8AYhapC7kIV
-	 CFJO2DSLU8WC77NGbDShRNyia9tw8+XB78TcbnfDrA9bGrIsIGg19gG07xiaNg2/15
-	 aVHZs51W/tT7w==
-Subject:
- Re: [PATCH net] net/tcp-ao: transfer tcp_ao_info to the TIME_WAIT socket
-From: netdev-bot+sashiko@kernel.org
-To: xmei5@asu.edu
-Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 0x7f454c46@gmail.com,
- noureddine@arista.com, fruggeri@arista.com, dsahern@kernel.org,
- co+2c72469dbbec34af@bugs.sh, stable@vger.kernel.org
-Date: Wed, 09 Sep 2026 12:59:17 +0000
-Message-ID: <178895875743.219967.5657866655676380504@kernel.org>
-In-Reply-To: <20260904005851.149071-1-xmei5@asu.edu>
-References: <20260904005851.149071-1-xmei5@asu.edu>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JnujjKsz"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so9355669a12.3
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 06:03:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788958989; x=1789563789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9ODTOke9WBLLFCAtlr6DbY54kUxk8UUHwnHp/PHXh6k=;
+        b=JnujjKszf80hjdJW8mAw+V3sOnMfW77+6TQ/VlE7CZs9IgjQfdXJbI7eqt9qxY83eA
+         hodaQGOTNSQpyAkFbTbVCRRetGh/YHzE9UoU/G80SPI1Oa2SPV8jWG1iP8oXedswgBgt
+         0Y8pExycguvz9mw4bIMHOFfgVOClbSPckyFxUnMD2uhT4P0PzkYufzQTJkqUVXugOJag
+         OvO/llZRU9yJdX0N5p8w6pPZ2WTGx+JnKt33eClCAHrcR3KSQ9ubOA73EzJsgfLU2qP6
+         ZQNno9FyP6okHXZWWvw4L95dX7svyMZExXdGc5gWHxcfZcvljRQFZhvT8/KGMqt36tP/
+         u1rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958989; x=1789563789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9ODTOke9WBLLFCAtlr6DbY54kUxk8UUHwnHp/PHXh6k=;
+        b=H2Fs9+2SdSB+2aQtCZ6wpuVwoq1ckWq8eMvH2KUYtDsfJBV288r2MKgn2eXPuC5u03
+         e6P882DFM/i9XE4iA82Idox/t4Xvw3Vr+HmMkdOtun1ynSUgfQx5LP8cvLsdFEGTHlSv
+         AurmS+9BC5bK7otRCsvt+Bi50vPLPYZklhySutGgh/zZ1Df1t+a5q3u7c7z1A6cJ0WFF
+         SBFaaDwZAfrqRL9YV1LcL6xGDKHHH5Pk4/Z6OtoZuIPh1R05H3YaPkTpU+eYRpfh+sQ4
+         eW/+/vDi9oXoYcy0N0M791r4+VO4HxVUSKo+rHpfxX+MFoJ+xwetdCI8Z0Oqms6jFPKk
+         aQ0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxh5LjbrhZtlukD8pBAEhLyotHIg45mxSTPMEoaITnAeuvdEychBV6g8yfPUik3TsZMPxlBPYI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB6bKMcgcZ3ZEuXrEdzpR4H6yBHXg4rfKbi4Z3mYtO8Lv4K9ot
+	KxpF7Dige++8zeMro5pnx3t1HHgeGEiM9v8Xz3bNJlDma8EeXt06UynE
+X-Gm-Gg: AYBFou1UcWb1+NXPovqs5My0Tc0fICjBSJ1T9udpLK74pJSULQqVyTtoy4TB6JvaSn+
+	HvqEwUKsWuzpAEBU9aQkvD5RSO+pk2rbnDRRadlPgzju2DfA0yVC3yScpIsHX6ZndyC2VLCv0n3
+	GPtQldgpMfTJ+cFT/cdXxJW6uRcSM343UWvFg00iGPv97dZMszEFrveKB+RR/IxjIPqci4GtMP/
+	zw9OOMZ3Q0FGxh1eho+SdyG6EHlp6mK2FegNylOWOJeR7LVaDlHFndXecWjVs3GyEAegaJoRoB+
+	uYJigdL3xH+ZExjKogRyCgp20XPb9bk8RLQ9Ud+RzkDHOlKTQrO5fm/UZUx/mKctNWiZKXKpSed
+	Cvwg7cUT4nWPEjk7OYsoAjr/hlXeSkg8KGXO5rB3S+JydfUTR1O332o/pKcsq87Mk1CbtRk/txQ
+	/dEcKEAReQHKfZ64ReqIYCmahRFLDadoWevFJXh75XxyU7bOPJxGQCZkNenbza/s+zH8CaQLZnq
+	GFk1ub8thO+Pt7LsXKeC9rqgmkvROXR9H2DgYhQHkbmofphzamJ+ySuqHqFr+xRcT1G/TN+ma5e
+	+5Ljdvw5YXSuQESIluKykHQXclwDoVLLWyKb7W3TqWhjqs7NbBguDPtG98qo4tF+wHlKm07FPzZ
+	VvptaUZWNloTkwvD/tHAF+W4wn8kVt/h7pJxzDZywQhJEMs2S0MtgqzhlR2/23+jbr4HuyMMsuW
+	98GI5ok67rydkmx2HwqQE8EIFWvqRhHpXl71buqhsdTiFoZCf2LOC3IVyGvOcXxuR0/tdnk5KCT
+	XnA9sNw4pEG794=
+X-Received: by 2002:a17:907:94c7:b0:c1c:3b06:ed03 with SMTP id a640c23a62f3a-c260cb54617mr1419558766b.23.1788958988471;
+        Wed, 09 Sep 2026 06:03:08 -0700 (PDT)
+Received: from cs-280612103108-default.europe-west4-b.c.oa7bb030819b2a894-tp.internal (158.54.90.34.bc.googleusercontent.com. [34.90.54.158])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c28e4579395sm506159166b.48.2026.09.09.06.03.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 06:03:08 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>,
+	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] iio: adc: max14001: add missing MODULE_DEVICE_TABLE macro
+Date: Wed,  9 Sep 2026 13:03:04 +0000
+Message-ID: <20260909130304.1395-1-joshua.crofts1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+The MAX14001 has an SPI ID table, but does not export it with the
+MODULE_DEVICE_TABLE(spi, ...) macro. Because of this, SPI-based module
+autoloading fails on systems that don't use devicetree (e.g. via
+spi_board_info).
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Add the missing macro to export the alias information.
 
-- [High] tcp_ao_time_wait() (net/ipv4/tcp_ao.c:431) now unconditionally
-  clears tp->ao_info, but two of the three callers of tcp_time_wait()…
+Fixes: 59795109fa67 ("iio: adc: max14001: New driver")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/iio/adc/max14001.c | 1 +
+ 1 file changed, 1 insertion(+)
 
---
-
-net/tcp-ao: transfer tcp_ao_info to the TIME_WAIT socket
-
-tcp_ao_time_wait() used to hand the TIME_WAIT socket a second reference to
-the full socket's tcp_ao_info while leaving tp->ao_info pointing at the same
-object. This patch turns that into a handover by clearing tp->ao_info so the
-TIME_WAIT socket becomes the sole owner.
-
-Closes: https://lore.kernel.org/all/YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA57%40bugs.sh/
-
-> diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-> index bb7bbc20ba3fa..27525f90398b3 100644
-> --- a/net/ipv4/tcp_ao.c
-> +++ b/net/ipv4/tcp_ao.c
-> @@ -428,7 +428,7 @@ void tcp_ao_time_wait(struct tcp_timewait_sock *tcptw, struct tcp_sock *tp)
->  			omem += tcp_ao_sizeof_key(key);
->  		}
->  
-> -		refcount_inc(&ao_info->refcnt);
-> +		rcu_assign_pointer(tp->ao_info, NULL);
-
-[Severity: High]
-
-Is the clear here safe on the paths where the full socket survives?  The
-commit message says this transition happens when "the full socket is going
-away", but tcp_ao_time_wait() is reached from tcp_time_wait() which ends in
-tcp_done(), and tcp_done() only destroys the socket when SOCK_DEAD is set:
-
-net/ipv4/tcp.c:tcp_done() {
-	...
-	if (!sock_flag(sk, SOCK_DEAD))
-		sk->sk_state_change(sk);
-	else
-		inet_csk_destroy_sock(sk);
-}
-
-The same FIN_WAIT2 path the changelog describes is one such caller:
-
-net/ipv4/tcp_input.c:tcp_fin() {
-	...
-	case TCP_FIN_WAIT2:
-		/* Received a FIN -- send ACK and enter TIME_WAIT. */
-		tcp_send_ack(sk);
-		tcp_time_wait(sk, TCP_TIME_WAIT, 0);
-}
-
-So after shutdown(fd, SHUT_WR) with the fd still open, the peer's FIN drives
-tcp_fin() -> tcp_time_wait() -> tcp_ao_time_wait(), and the full socket is
-left alive in TCP_CLOSE with tp->ao_info NULL.
-
-Does that drop the whole AO association from a socket the application can
-still use?  ao_info holds all the MKTs plus current_key, rnext_key and
-ao_required, and nothing appears to rebuild it: tcp_disconnect() never
-touches ao_info, and tcp_ao_connect_init() bails out immediately:
-
-net/ipv4/tcp_ao.c:tcp_ao_connect_init() {
-	ao_info = rcu_dereference_protected(tp->ao_info,
-					    lockdep_sock_is_held(sk));
-	if (!ao_info)
-		return;
-	...
-}
-
-Can a subsequent connect() on that fd then establish an unauthenticated
-connection with no error?  The guard in tcp_connect() is keyed off
-tp->ao_info, so it becomes a no-op once ao_info is NULL:
-
-net/ipv4/tcp_output.c:tcp_connect() {
-	...
-	if (unlikely(rcu_dereference_protected(tp->ao_info, ...))) {
-		/* Don't allow connecting if ao is configured but no
-		 * matching key is found.
-		 */
-		if (!tp->af_specific->ao_lookup(sk, sk, -1, -1))
-			return -EKEYREJECTED;
-	...
-}
-
-The md5/ao arbitration and ao_required enforcement just above it in
-tcp_connect() are keyed off the same pointer.
-
-Similarly, if the application calls listen() on the surviving fd, does
-tcp_ao_required() now report that no authentication is needed?
-
-include/net/tcp.h:tcp_ao_required() {
-	ao_info = rcu_dereference_check(tcp_sk(sk)->ao_info, ...);
-	if (!ao_info)
-		return false;
-	...
-}
-
-Since the transition is driven by the peer's FIN, the remote side chooses
-when the local socket's AO configuration is discarded, and no privilege is
-needed on the local side.
-
-Would copying the state into the twsk work better here, matching what the
-MD5 sibling does in the same transition?
-
-net/ipv4/tcp_minisocks.c:tcp_time_wait_init() {
-	...
-		tcptw->tw_md5_key = kmemdup(key, sizeof(*key), GFP_ATOMIC);
-	...
-}
-
-That keeps the surviving full socket authenticated.  Alternatively, clearing
-tp->ao_info only when the socket is really being destroyed, or adding
-explicit AO teardown in tcp_disconnect(), would avoid the AO-less-but-usable
-socket.
-
-One more note on the changelog: it states that such a socket "no longer
-exposes TCP-AO state (TCP_AO_INFO and TCP_AO_DEL_KEY return -ENOENT)".
-TCP_AO_GET_KEYS and TCP_AO_REPAIR also start returning -ENOENT, and the loss
-of the key material and ao_required on a still-usable socket isn't mentioned
-at all.  Could the changelog spell out that consequence?
-
+diff --git a/drivers/iio/adc/max14001.c b/drivers/iio/adc/max14001.c
+index 58adeac62dde..7694fbb6a9fd 100644
+--- a/drivers/iio/adc/max14001.c
++++ b/drivers/iio/adc/max14001.c
+@@ -366,6 +366,7 @@ static const struct spi_device_id max14001_id_table[] = {
+ 	{ .name = "max14002", .driver_data = (kernel_ulong_t)&max14002_chip_info },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(spi, max14001_id_table);
+ 
+ static const struct of_device_id max14001_of_match[] = {
+ 	{ .compatible = "adi,max14001", .data = &max14001_chip_info },
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904005851.149071-1-xmei5%40asu.edu
+2.47.3
+
