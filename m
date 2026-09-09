@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10E342EEC4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA9142F6F8;
 	Wed,  9 Sep 2026 20:26:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985613; cv=none; b=lpXQT11Egrl8zSyORb7VURjxd/PPhuT8TRaabL8FGTZAmcymBXSkudKFgq1+JN03Vj1lapWRy5jr2MqAPSAprmC4Sh9bdAXacGvfyQ/erWdOcff4yXzWDtUGybGPtbuGmwT9xj1ev24/9eGwi/ZdTrUfVqC60k5GYIJ22lzgcUI=
+	t=1788985614; cv=none; b=NcoEc/3vs2sN1CIznvhHloEluFuktNO+Xmf1rPCCqlMq3e++YwaOsfOkTqBk7Yu9ioFU4UYv3tLm9IXEu1CI81Pq+uMaCQ9Dj9cEcG6Njckqg86UZoR9c/3GiG75hA1D/5HE2VH37j6Cz+ZhWKjoU1WqZTVV0i/djzNeySNWs/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985613; c=relaxed/simple;
-	bh=goa2z8ykxWk/qcRzspCMmXGXkmS7VhcC4MjHalKWLeg=;
+	s=arc-20240116; t=1788985614; c=relaxed/simple;
+	bh=1vVq7fGyrdyHuECwd+lq1BuRtFz4Trl342l9QfR2wEQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tyZqanN1+F/MiaC+ec7laX4M2kMRIFqGwZDsLudEh6JjXZaFSmlv1ejQiwDAofD/M/zfHW5XHqKaVACcctDQIG8nvl1Q7CEeI/JugGxqEc2slVbLyWy+NP4DZVWT9zOt0OM0FTOIRDbmLCgWFkEGWtPkVRwdqN+dyEzM9r7RsaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LCyQR8O1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cQSOZE/h/huM5y/ZjQZ2EF98Myjdz4mJlPq2igxuN729pl4YOCXAHfyoJHBD1lYa2Fc4vptvkLH7aXbSmxlAmyHHu1Sh3TG2bTe6rkC5DWfNXLqQWOLB0mz8sYTQHfdyJojHaJT+pGesbzv95jnE1X3fqMSo1J5lCHqYHMd08Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5cEw1iy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LCyQR8O1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A991F00898;
-	Wed,  9 Sep 2026 20:26:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5cEw1iy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8C31F0089A;
+	Wed,  9 Sep 2026 20:26:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788985607;
-	bh=dybODAoFvtgg/GvfpwOhpk4/9NatfXxArR1eDHx7APE=;
+	s=k20260515; t=1788985609;
+	bh=+e5DWdfh9HYfIAFxLqp1TH7jfUo/hYZd9pfg6dgNWLw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LCyQR8O1UqxdBduBkTBBb3EbcX/IK/WQrTrnqZR8/doq2nJTVhFDwX1N6L6Rb7pB/
-	 iaNAwLCSIZ4yJUzOrwKDc5obMYtNDcldoX2MADLr9MwoIRfxnDuESCgvfFYb31MlUq
-	 uJT7EWRUUxQW3TMyVwZEiz3zyhXaGEzPtc8K70SjUZJ/jYq8pBEtdJaIxz4UY0KU4d
-	 PNk69mrVPrmh/+wdkPCpBufhtTadm7kk94yGhJI7DlpZNiJYuvGfbNP8Fex5gmFNJH
-	 cBmte/3eEsV4XDxstXUFi4LZwslC2EKZsy/wvYWDrctnT7ht6ezCUnWCHbQJss6EHY
-	 +U8AxSTkq2ksg==
+	b=A5cEw1iyZSCNRY1Suk/fEyX1DRAkOYYixDMG5u5lnMX64cdaZjF4+liKa7Lp/N7Fv
+	 cjhOHGZIjCxuw0N8CSdyuB0UmmQ3I+FQ4P9sw+Qr9T54e+PXLNlvm8NhWPdPRtBSQb
+	 ZcuK66L4EoWnTvr2KB/3ZMvcmEjbV8o+udNvvyXmHYhePo/v4MriUUuURigpFA8fXH
+	 kXIm/P/uFp5yiH6eE9B2o/eviL+3oCYCXuI6D8fMQEhEbah25EtBqHlTJT/MVl4Nsc
+	 k4kXyx6QH1HAIgDH7ZteHA2/BIECbWGxSHPO+O+ZIBtTYqHdhvM4a0q/W8+RujlAvt
+	 OTatQ1eK+hkLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.1.y] mm/damon/vaddr: drop last same folio access check optimization
-Date: Wed,  9 Sep 2026 16:26:11 -0400
-Message-ID: <2026-09-09-daily-reply-0013-damon-vaddr-drop-optim-6-1@kernel.org>
+Subject: Re: [PATCH 6.12.y] mm/damon/paddr: drop last same folio access check reuse optimization
+Date: Wed,  9 Sep 2026 16:26:13 -0400
+Message-ID: <2026-09-09-daily-reply-0015-damon-paddr-drop-optim-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909061152.278678-1-sj@kernel.org>
-References: <20260909061152.278678-1-sj@kernel.org>
+In-Reply-To: <20260909053646.245843-1-sj@kernel.org>
+References: <20260909053646.245843-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,10 +46,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The optimization can race when multiple kdamonds are running.  Meanwhile,
-> the impact of the optimization is quite doubtful.  Just remove it.
+> It can race when multiple kdamonds are being used.  The problem from the
+> race is doubtful, but the gain from the optimization is also doubtful.
+> Simply drop the optimization in favor of code simplicity.
 
-Queued for 6.1, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
