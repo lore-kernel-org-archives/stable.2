@@ -1,178 +1,262 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-141.mta1.migadu.com [95.215.58.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AD655D867
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 13:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D71239E6C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 13:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959104; cv=none; b=ah8ioGBXluwD1ukS2u4fJdM0mel7GMeXHo1IAmCEaaUWiWlV70ajHcQXphajXKCP7eLS+lCKNYdkBQy+dT6jKWJ8Co9hO2dZJKP7BEEQHQW+vYLQVPgpTJgVKBJ/OgxSEP3k14n5m7wPKiJ9cN6xSKBPt/k4qnHF9z1uYhUkYOA=
+	t=1788959308; cv=none; b=qnd6Nt9jukeZq/964Olmvgy/nXLBt6+Ijco6wVOSQv7TAnBtx+8KIzYN8KcOLrRkQ95nlle+uBupBRcuOFqQddmr16t5O5NyHx9ME4MsJ5uPckHJmJNkKXa5zOPRtF56BkiuI1y4RR1D6cHxq3wglG+ch+1GkowZVZ7YdGIKuaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959104; c=relaxed/simple;
-	bh=oew2TJDg1zkNZx4Dr9VMSga+Pt4/90M/JdnppyyROuw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LYDHdssMU3Ru/CoZhJudd5Y8h+lkeMJsvnqwrY2w1sGeGPExFSaSHAOnfKz6+tMsGuuLILa1cpq+VMheWNxpvo5s1q4sFjtVXWaID81XjqRqMRkykNvj7UD+Q0iB7P00InkBvs87XE66/6cE/z3HP7e/uE6/wKQlqbYrUa87gRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=WtqjUox2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=b9IqY1mM; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1788959308; c=relaxed/simple;
+	bh=VhlFjNAgQI2Jtqxdp11XUFniGZMKsYGwyqeIsjbkGdA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=AfeazdvtNKWTKvDfx+IpjmeSTxugdW3cVhHGWqUuNiFQFbVojmqd9aQIR8HSZG+jiMieuNcOsGZYugY0xG6/DfX1sLw/euVOvebQzkN5+fXq8sGUluuv+xIA1ddelZvcvLaaDoPVcVw79mikf7iU7ojkj4Ol0q290gnuiKLEy/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SqpWv98C; arc=none smtp.client-ip=95.215.58.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="WtqjUox2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="b9IqY1mM"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.phl.internal (Postfix) with ESMTP id 38E84EC00A9;
-	Wed,  9 Sep 2026 09:04:59 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Wed, 09 Sep 2026 09:04:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1788959099; x=1789045499; bh=1IlRNQPZCH
-	s4pdzApz5SMI4z/Vi1xSBLrgowqYtqct4=; b=WtqjUox2p969sdHUgZD90NqgjZ
-	83JbujvEz5AGRdLEW3BFqWvxmJDvaK9/jJFDZFQAeo5bHdJtA+HQ15aCfbmw5mey
-	v3/A0i0nBVDeI4KhxVzZ1fBz/g4s6sXC4fOhi0cdp7fHFaYJBHcClJh8hH7xnpN2
-	VIl5BXQnz/dWPl/uPJp4amCW5/IgSj4V/3ZS4emCt0MIMxyFTGNS8squPxU3D5a2
-	39gtsjpSWOQ9UMEi5lLURzSzSfbiyTwvDtxUB2s2h0vWSGjQiay5qMaE4gDRYbnU
-	Tu1k2o39UXWnoa/B6g27DsWoF4vOI6KkrgPpTKlXpYaWVTsHQGvx0fZA24lQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788959099; x=1789045499; bh=1IlRNQPZCHs4pdzApz5SMI4z/Vi1xSBLrgo
-	wqYtqct4=; b=b9IqY1mMCBTlbkYvgBiiY9I2H8r4thWaEW3tSM3UTzhiRuFan/5
-	lAEJuXu+7EcQDld4W+YN1LhgFHfNm3Yr0xaCW4ueuRaL+ZQtqpO9ewGjN4T+1Wze
-	xImg+KKoUFJxdnTzQAeLx0XYicVuYQrECBCVg7R+ugEqAfdz7HJzuZ7f7cpIkk2i
-	H5hjlHe5+pfjYB9rhoeKrA32XGO/tBnwSAZe+Isjv0FEbA0cz7XekBmgU69lfJkv
-	uwQG1VHZtMq62P4eypCeD1RfLJitscrbnu3oQ4GzQeJKwyeT9Cp+AbyE1MINVKbw
-	iIdFXbX4wIWMuPkpKVr+0WUbWakndSuSTpg==
-X-ME-Sender: <xms:e1mhasF4RNSF8Lx8_91Lg8RRhdhgpHKzQKUcTjdezPr1EolCuYD3nw>
-    <xme:e1mhaiOlrhyLnGBSL0aQwpITTsgu8r1KWSb_3jmIRJFq_Xz7dxhnZ-L-n0ARaT-5v
-    pEq5W9ocWX2ZPnbAFHq3fBQj1I7tFfiCWxIbcnnNEa47altmA>
-X-ME-Received: <xmr:e1mhal53isLmzGEQdqriOeUJsK65DdkVecgZrxug7CKDOkgauivgaTou-SpSFbFC_dkLM1Rr2BUPdckJmbseFpYUMRxzXS9vqBa0PIEinHc>
-X-ME-Proxy-Cause: dmFkZTFUAlHWxkVO1J61JLpWbDSbii2sO9CttWTMEvNhQkG9pcuWqy1ocIVeyVbt25vnjt
-    wigLE5jlmmP5rhaPzoZJhj1SvD8mFco3aYi6YDm+G5StT0X9aCQVWfwojDVa8eiAOAjoJm
-    8FDpLEUgLa9JUv36oS74a7vp7+24uyFwyM3S/SuTeLuWWxFw7wgTj6TyNZxz36RJh3jTLX
-    8DYl5fjLfI32ZOsvAK6MWTWKFBG+wOwOzTU1os02zTMi387h6tKJuQP2hsR64u9PDLQgbj
-    U++nZW4r+5W+aNqNctxpG/R2ozapFzWG4Aq/jzsjDcGlPGbMM8KMwJ4uVFrOIXPsh29Ba9
-    5Cq8SSjBNqWMX+AR+cG1+N1b0l8a2K16ahSaHLtH2+tqo7MNu7Vh5k5MlhjHwltDluYIXL
-    fZYrd0IoHWOcozzrjNE56wsH7IbHHWPlZKDLMen3p+FufBIU6P9OaZvRMcJ8ARBQw3cw5F
-    Zi5BkW6X7f4sR7o2bBgKjoqOaiWAe6iNR3I8Vj3tau0fB9Ic11HxQnzl+2kOR5FPMd3Ich
-    GTUrktuykdEDHks+wf4GL8byzuFk1x4ceaHT9ntJXeTTO7YXQ+wR5kaZQ0RtSGIDVz1Gle
-    /ZdF82DeyMzOxN6Q//hM+imDphOfuA+mouXwcJ4/5QOBawbxO47cV+qq1aIA
-X-ME-Proxy: <xmx:e1mhath2W0wxiA4-9WKuos2jkPx5zx_mbME9f-2cEqgGjShJteaCpg>
-    <xmx:e1mhaidgeaAsjGpm9cZNCtdO5Ox60haoGcLhoXJ0LQRgArSdBuzBrQ>
-    <xmx:e1mhatz2C5-554_gwwS_zk3y8qTGspemj3oq-TfEXat5lhumGTUP-A>
-    <xmx:e1mhap2qfUqJNrqIsG8YyV9c-dw1E9RdExqlO6mzPjw2exzS42OU9w>
-    <xmx:e1mhaspB-8xQSYiZhKsMgSotsrbVYj87UuQfcUB0b9OMbK7nsyix9Yom>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 09:04:58 -0400 (EDT)
-Date: Wed, 9 Sep 2026 15:03:16 +0200
-From: Greg KH <greg@kroah.com>
-To: SJ Park <sj@kernel.org>
-Cc: stable@vger.kernel.org, damon@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.18.y] mm/damon/core: avoid infinite
- kdamond_merge_regions() internal loop
-Message-ID: <2026090910-flypaper-elixir-5106@gregkh>
-References: <2026090831-drinkable-maybe-5e01@gregkh>
- <20260909041502.181947-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SqpWv98C"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VhlFjNAgQI2Jtqxdp11XUFniGZMKsYGwyqeIsjbkGdA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788959301; v=1; x=1789564101;
+ b=SqpWv98C61R76bJ0zUrMa/dUYoDYli14Cu7Sz2NGtXopPX3r0MU39mdYsfsxVAcN0nIXkHZB
+ iDpYgU6xxC+1nMXUk9M4EJPCHIPpCUSVYrqxdZ4RPhIqRh0+meNClDCpRd33JuUrmJn0ZAzk0IJ
+ KsweRhAgxCuHVDoM9FQKa/ME=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 25b253702b94a6c9;
+	Wed, 09 Sep 2026 13:08:21 +0000
+X-Mizu-Trace-ID: 25b253702b94a6c9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7dbba23e-5530-43c4-9c44-20108cd0cef5@linux.dev>
+Date: Wed, 9 Sep 2026 21:08:09 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909041502.181947-1-sj@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/4] module: introduce SH_ENTSIZE_STANDALONE for
+ separately allocated sections
+From: Hao Ge <hao.ge@linux.dev>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-4-hao.ge@linux.dev>
+ <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
+ <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+Content-Language: en-US
+In-Reply-To: <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 09:15:02PM -0700, SJ Park wrote:
-> Patch series "mm/damon: unurgent fixes for infinite loop, NULL de-ref and
-> races", v1.1.
-> 
-> Sashiko found a few issues in DAMON that could cause infinite loop, NULL
-> dereference and monitoring results degradation.  The first two sounds
-> scary but the infinite loop happens only under unreasonable user setup.
-> The NULL dereference is only in a unit test.  Monitoring results
-> degradation is trivial since it is only best-effort, and those happens
-> from only unlikely races.  Still those are bugs that better to fix if
-> possible.  Fix those.
-> 
-> This patch (of 6):
-> 
-> Due to online parameter update like events, the number of DAMON regions
-> could be higher than the user-set upper limit.  kdamond_merge_regions()
-> repeats merge regions until the number meets the limit, while doubling the
-> merge threshold up to the theoretical maximum threshold.  It is tried only
-> up to the theoretical maximum threshold because even the aggressive
-> merging can fail from reducing the number of regions under the
-> user-defined upper limit.  For example, there could be many user-defined
-> non-contiguous regions that cannot be merged.
-> 
-> The threshold based loop break condition is evaluated by comparing the
-> threshold for the next merging try against the theoretical maximum
-> threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
-> threshold could make it overflow, and bypass the loop break condition.  In
-> the case, if the number of regions cannot be reduced under the upper limit
-> like explained above, the loop will run infinitely.
-> 
-> Prevent the case by doing the break condition check before doubling the
-> threshold.  Also, prevent the threshold exceeding the maximum threshold,
-> as it could overflow and apply the wrong merge threshold.
-> 
-> This issue is unlikely to occur in real world, since having the max_thres
-> higher than UINT_MAX / 2 require unrealistically large aggregation
-> intervals compared to the sampling interval.  Also, it requires an
-> unrealistically large number of uncontiguous regions setup.  Nonetheless,
-> the consequence is bad and the fix is simple.
-> 
-> The issue was discovered [1] by Sashiko.
-> 
-> Link: https://lore.kernel.org/20260715031002.108504-1-sj@kernel.org
-> Link: https://lore.kernel.org/20260715031002.108504-2-sj@kernel.org
-> Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [1]
-> Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
-> Signed-off-by: SJ Park <sj@kernel.org>
-> Cc: <stable@vger.kernel.org> # 6.10.x
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> (cherry picked from commit 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd)
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/core.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 70ac1f08753d1..08e527efd6883 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2411,15 +2411,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
->  
->  	max_thres = c->attrs.aggr_interval /
->  		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
-> -	do {
-> +	while (true) {
->  		nr_regions = 0;
->  		damon_for_each_target(t, c) {
->  			damon_merge_regions_of(t, threshold, sz_limit);
->  			nr_regions += damon_nr_regions(t);
->  		}
-> -		threshold = max(1, threshold * 2);
-> -	} while (nr_regions > c->attrs.max_nr_regions &&
-> -			threshold / 2 < max_thres);
-> +		if (nr_regions <= c->attrs.max_nr_regions ||
-> +				max_thres <= threshold)
-> +			break;
-> +		if (threshold < max_thres / 2)
-> +			threshold = max(1, threshold * 2);
-> +		else
-> +			threshold = max_thres;
-> +	}
->  }
->  
->  /*
-> -- 
-> 2.47.3
-> 
-> 
 
-Does not apply :(
+On 9/9/26 20:47, Hao Ge wrote:
+> Hi Petr
+>
+>
+> On 9/9/26 19:30, Petr Pavlu wrote:
+>> On 9/8/26 11:24 AM, Hao Ge wrote:
+>>> SHF_ALLOC means, per the ELF spec, that a section occupies memory
+>>> during process execution. Some module sections occupy memory
+>>> outside the regular module layout, for example the percpu section
+>>> with its per-CPU allocations. The loader currently excludes such
+>>> a section from the layout by clearing its SHF_ALLOC, which
+>>> overloads the flag with a loader-internal meaning.
+>>> apply_relocations() needs a special case for the section, and
+>>> find_sec(".data..percpu") returns different results before and
+>>> after layout_and_allocate().
+>>>
+>>> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+>>> allocation. The percpu section is its first user. layout_sections()
+>>> and move_module() skip marked sections, and apply_relocations() goes
+>>> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+>>>
+>>> .data..percpu keeps SHF_ALLOC, so it would now show up under
+>>> /sys/module/*/sections/. The section has one instance per CPU and no
+>>> single address to report, and the entry never existed before, so
+>>> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+>>> array and skips it too. No functional change otherwise.
+>>>
+>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag 
+>>> compression")
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Link: 
+>>> https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ 
+>>> [1]
+>>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>> [...]
+>>> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+>>> index 0fc11e45df9b..49190deae61e 100644
+>>> --- a/kernel/module/kallsyms.c
+>>> +++ b/kernel/module/kallsyms.c
+>>> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const 
+>>> struct load_info *info)
+>>>   }
+>>>     static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr 
+>>> *sechdrs,
+>>> -               unsigned int shnum, unsigned int pcpundx)
+>>> +               unsigned int shnum)
+>>>   {
+>>>       const Elf_Shdr *sec;
+>>>       enum mod_mem_type type;
+>>> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, 
+>>> const Elf_Shdr *sechdrs,
+>>>           !src->st_name)
+>>>           return false;
+>>>   -#ifdef CONFIG_KALLSYMS_ALL
+>>> -    if (src->st_shndx == pcpundx)
+>>> -        return true;
+>>> -#endif
+>>> -
+>>>       sec = sechdrs + src->st_shndx;
+>>>       type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+>>>       if (!(sec->sh_flags & SHF_ALLOC)
+>>> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct 
+>>> load_info *info)
+>>>       /* Compute total space required for the core symbols' strtab. */
+>>>       for (ndst = i = 0; i < nsrc; i++) {
+>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>> -                   info->index.pcpu)) {
+>>> +            is_core_symbol(src + i, info->sechdrs, 
+>>> info->hdr->e_shnum)) {
+>>>               strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+>>>               ndst++;
+>>>           }
+>>> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const 
+>>> struct load_info *info)
+>>>       for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+>>>           kallsyms->typetab[i] = elf_type(src + i, info);
+>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>> -                   info->index.pcpu)) {
+>>> +            is_core_symbol(src + i, info->sechdrs, 
+>>> info->hdr->e_shnum)) {
+>>>               ssize_t ret;
+>>>                 mod->core_kallsyms.typetab[ndst] =
+>> FTR These changes in kernel/module/kallsyms.c have a conflict with the
+>> series "Ignore local labels and mapping symbols during module load" [1],
+>> which is currently queued on modules-next, but it should be
+>> straightforward to resolve.
+>>
+>>> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+>>> index 01c65d608873..f64170344e69 100644
+>>> --- a/kernel/module/sysfs.c
+>>> +++ b/kernel/module/sysfs.c
+>>> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct 
+>>> module_sect_attrs *sect_attrs)
+>>>       kfree(sect_attrs);
+>>>   }
+>>>   +/*
+>>> + * .data..percpu has a separate allocation per CPU and no single
+>>> + * address to report.
+>>> + */
+>>> +static bool sect_visible(const struct load_info *info, unsigned int i)
+>>> +{
+>>> +    return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
+>>> +}
+>>> +
+>>>   static int add_sect_attrs(struct module *mod, const struct 
+>>> load_info *info)
+>>>   {
+>>>       struct module_sect_attrs *sect_attrs;
+>>> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>         /* Count loaded sections and allocate structures */
+>>>       for (i = 0; i < info->hdr->e_shnum; i++)
+>>> -        if (!sect_empty(&info->sechdrs[i]))
+>>> +        if (sect_visible(info, i))
+>>>               nloaded++;
+>>>       sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+>>>       if (!sect_attrs)
+>>> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>       for (i = 0; i < info->hdr->e_shnum; i++) {
+>>>           Elf_Shdr *sec = &info->sechdrs[i];
+>>>   -        if (sect_empty(sec))
+>>> +        if (!sect_visible(info, i))
+>>>               continue;
+>>>           sysfs_bin_attr_init(sattr);
+>>>           sattr->attr.name =
+>>> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>         nattr = &notes_attrs->attrs[0];
+>>>       for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+>>> -        if (sect_empty(&info->sechdrs[i]))
+>>> +        if (!sect_visible(info, i))
+>>>               continue;
+>>>           if (info->sechdrs[i].sh_type == SHT_NOTE) {
+>>>               sysfs_bin_attr_init(nattr);
+>> add_notes_attrs() has two sect_empty() calls. Both should be changed to
+>> sect_visible().
+>
+>
+> I kept this part unmodified to preserve the loop's original intent.
+>
+> This loop counts SHT_NOTE sections.
+>
+> SHT_NOTE refers to ELF note sections, which hold non-executable
+>
+> metadata such as build ID and ABI info.
+>
+> I wonder if we could keep the current implementation.
+>
+> As noted in the comment above, the top part counts SHT_NOTE sections
+>
+> and allocates structures, while the lower logic handles control of 
+> node attributes.
+>
+>
+> WDYT?
+>
+>
+
+Sorry, I've reconsidered this. I think changing it to sect_visible would 
+be better.
+
+sect_visible stands for the count of externally visible note attributes, 
+so the code
+
+above and below can align with each other.
+
+
+Sorry for the noise.
+
+
+I'll rebase onto modules-next, apply this change and push a new revision.
+
+I'll also add your Reviewed-by tag.
+
+
+Thanks
+
+Best Regards
+
+Hao
+
+
+> Thanks
+>
+> Best Regards
+>
+> Hao
+>
+>>
+>> With this fixed, the patch looks ok to me. Feel free to add:
+>>
+>> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+>>
+>> [1] 
+>> https://lore.kernel.org/linux-modules/20260820125007.22943-1-yangtiezhu@loongson.cn/
+>>
