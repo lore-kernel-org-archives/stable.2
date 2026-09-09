@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804E7212550
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:36:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5668E3C465
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914197; cv=none; b=aFXjAQ9954W6PcM9SYq7ayZx+ORUZx37xiQhNrGdZBWvUaET6q3dwTIX1NiDC6eH0oRPBlPNBXGF8NkGrOVbX/YvEFNqEsTJXOaB7pPT02C9pmRtjGear6iA9i4q6HySMd9LOOSBvWVy2i2PosgGvEsBUH34Y8RL89bv0xSjasE=
+	t=1788914198; cv=none; b=AI0HdaSIeArsTVbGTl3ydRo4Cmsaz/zkxPidsmMOrGciyrwQHw/NIh0Hm3xl/iA2bdg52999/Up8GCZBhGUf39s9AlCNWbo40ZsG0489rvlya/3oViXDT4cAu9mcNk2RLgvnpYWN6P43iEkXGT3//h9oKndAUoCzuBde3vVxC6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914197; c=relaxed/simple;
-	bh=srg8NpiV0bv6WJF3si+o7rtSSXCcPPS3ne/WjN90teg=;
+	s=arc-20240116; t=1788914198; c=relaxed/simple;
+	bh=b4H9aigMkl7k3XJRIGpQ/OGj9WvRlBtkAOHctCj1Jpo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZaVxCsstHTAxmj4oyOjSrqUcYO/I35UgdKzBry/pdaYxkjHDGICPVonsEYvHwZfRSEq8v40RsVQgw0pRUfXwsEmn84NOzyN7iGl4UlOJfJ/kSt46QOh5QRvtU3DLq2OXrANAOlQMVp0LGy0cALRE9iQtAQmA0Y8Da2KDbtooOu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGcEv5hL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Iz9d1QD8S08YSN0uC+fAMZqd6/WyHR22VQRpEkGWOOkJRVW+7Pgzn25anuDpvQYmrNrtsIEytyYB7kUzpUppevQzn9/AD1TA7JBVjGsOtdpIbuHndtWrS8p+JWKzE1OJ/mhmN18TYEzbaK8PxW1GvPiopjp5aEdldzXJxYY5Fjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Econah6E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGcEv5hL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2ECF1F00A3F;
-	Wed,  9 Sep 2026 00:36:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Econah6E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8041F00A3E;
+	Wed,  9 Sep 2026 00:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788914196;
-	bh=RFaqGhRnkVy48D1nLmozKVhZDnrqwxFhgnfjL2WiLiQ=;
+	s=k20260515; t=1788914197;
+	bh=6RSLWAffYqHhK7SbCP62ROZNi5MvBEg4cJMmHv52lWI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dGcEv5hLnIbOVWoR3FxTC4x4oND1ifesXI5JEvGyauf0ZRiUQKeIlaF0K7+1MkiIU
-	 A3K9Y/hN1G1Sncr+oePUCy3RY69zAawQgf+nt7dV0ivBRuFZ9+c2wQyaXgVZlWUZ5v
-	 o5PQnqGEwlGny4LLPbCjJmHznqImN5XiS60JQulRN/trvg//dWmcsNj2RqPBd6sVe9
-	 1qqxVHMSNl48Dms5OlIB2UvXpiV5eo65MeWzO6S+vl+F4kqAI2ZNfWS9fBjULiac3f
-	 hzUp5ABpd0lzT5h3JzcxANyllGbfUknSFgNvuiao7sD5QvbVKAvw67szqP6CXAguil
-	 LDCgUFFwvOpjA==
+	b=Econah6ENt3sjpdCo4I1C5xPQ35r1a+KXhCES/k/nFbEmkGcjtmRui9jRqy6iAJP2
+	 DlXgLkvkJ2PRQjLDOFu0mbPy3UAXpYvaOAVVgIghViiKKhQWPg0GnKpS3qcaan8cWv
+	 ZUR5OYn1z0hNoJkc12812faRGi0X+43RmwMgxsx9iiBTEwGfVHHdBeF6o5Ug+nOQb5
+	 m8xxF3Nxor7BR300OA5SJxeFtclV5nQzawq4Ote4mLax7GU21VcvzB4mmNPzFhZ+1N
+	 vsCT2aDKutlguziKgQ+Si09LXx2MsiwzEoAwBYCxISnK684u/1kBsyLzc0VzgKi1Qa
+	 ejoClXQxYCr/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
+Cc: Chris Mason <clm@meta.com>,
 	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] svcrdma: Adjust the number of entries in svc_rdma_recv_ctxt::rc_pages
-Date: Tue,  8 Sep 2026 20:36:32 -0400
-Message-ID: <20260909003633.747471-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] svcrdma: Reject Write/Reply chunks with segcount 0
+Date: Tue,  8 Sep 2026 20:36:33 -0400
+Message-ID: <20260909003633.747471-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909003633.747471-1-sashal@kernel.org>
 References: <2026090342-canary-synopses-a220@gregkh>
@@ -47,65 +47,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit 81381d1a90dea186ce4585d9bd3cdc40b50e9c48 ]
+[ Upstream commit 9808eb7656666acc7291bae9ab6b987bd16e47e0 ]
 
-Allow allocation of more entries in the rc_pages[] array when the
-maximum size of an RPC message is increased.
+A peer can send a Write or Reply chunk whose segcount field is zero.
+xdr_check_write_chunk() only rejects segcount > rc_maxpages, so zero
+passes the range check, and xdr_inline_decode(stream, 0) returns the
+current (non-NULL) cursor without advancing. The function returns
+true and pcl_alloc_write() then links a struct svc_rdma_chunk with
+ch_segcount == 0 onto rc_write_pcl or rc_reply_pcl.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: NeilBrown <neil@brown.name>
+An earlier patch in this series made pcl_for_each_segment() safe for
+ch_segcount == 0, so this no longer drives the memory walk it used
+to. Rejecting the malformed frame at the decode boundary is still
+worthwhile as defense in depth: it keeps degenerate zero-segment
+chunks off the parsed chunk lists entirely, so any future consumer
+that walks ch_segments directly cannot observe one, and it makes the
+zero-floor easy to backport to trees where the macro change is more
+intrusive. RFC 8166 has no meaning for a Write/Reply chunk that
+describes no remote buffer, so no legitimate client is affected.
+
+xdr_check_reply_chunk() funnels Reply chunks through
+xdr_check_write_chunk() and inherits the same rejection.
+
+pcl_alloc_write() also links each chunk onto the parsed chunk list
+before filling its segment array. If a future change weakens the
+segcount-0 rejection, an incomplete chunk is visible to consumers
+during the fill loop. Reorder so that list_add_tail() follows the
+segment fill loop, ensuring only fully-populated chunks appear on
+the list.
+
+Fixes: 78147ca8b4a9 ("svcrdma: Add a "parsed chunk list" data structure")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-5-e251306ccca9@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 9808eb765666 ("svcrdma: Reject Write/Reply chunks with segcount 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svc_rdma.h         | 3 ++-
- net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 8 ++++++--
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_pcl.c      | 2 +-
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 9 ++++++---
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
-index 619fc0bd837a8..1016f2feddc4b 100644
---- a/include/linux/sunrpc/svc_rdma.h
-+++ b/include/linux/sunrpc/svc_rdma.h
-@@ -202,7 +202,8 @@ struct svc_rdma_recv_ctxt {
- 	struct svc_rdma_pcl	rc_reply_pcl;
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+index b63cfeaa29234..a1c61311714da 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+@@ -213,7 +213,6 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+ 		chunk = pcl_alloc_chunk(segcount, 0);
+ 		if (!chunk)
+ 			return false;
+-		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
  
- 	unsigned int		rc_page_count;
--	struct page		*rc_pages[RPCSVC_MAXPAGES];
-+	unsigned long		rc_maxpages;
-+	struct page		*rc_pages[] __counted_by(rc_maxpages);
- };
- 
- /*
+ 		for (j = 0; j < segcount; j++) {
+ 			segment = &chunk->ch_segments[j];
+@@ -225,6 +224,7 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+ 			chunk->ch_length += segment->rs_length;
+ 			chunk->ch_segcount++;
+ 		}
++		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
+ 	}
+ 	return true;
+ }
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index 292022f0976e1..e7e4a39ca6c65 100644
+index e7e4a39ca6c65..68a0aa627455d 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -120,12 +120,16 @@ svc_rdma_recv_ctxt_alloc(struct svcxprt_rdma *rdma)
- {
- 	int node = ibdev_to_node(rdma->sc_cm_id->device);
- 	struct svc_rdma_recv_ctxt *ctxt;
-+	unsigned long pages;
- 	dma_addr_t addr;
- 	void *buffer;
+@@ -498,10 +498,13 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
+ 		return false;
  
--	ctxt = kzalloc_node(sizeof(*ctxt), GFP_KERNEL, node);
-+	pages = svc_serv_maxpages(rdma->sc_xprt.xpt_server);
-+	ctxt = kzalloc_node(struct_size(ctxt, rc_pages, pages),
-+			    GFP_KERNEL, node);
- 	if (!ctxt)
- 		goto fail0;
-+	ctxt->rc_maxpages = pages;
- 	buffer = kmalloc_node(rdma->sc_max_req_size, GFP_KERNEL, node);
- 	if (!buffer)
- 		goto fail1;
-@@ -497,7 +501,7 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
- 	 * a computation, perform a simple range check. This is an
- 	 * arbitrary but sensible limit (ie, not architectural).
+ 	/* Before trusting the segcount value enough to use it in
+-	 * a computation, perform a simple range check. This is an
+-	 * arbitrary but sensible limit (ie, not architectural).
++	 * a computation, perform a simple range check. A zero
++	 * segcount describes no remote buffer and is rejected so
++	 * downstream consumers never see a degenerate ch_segcount==0
++	 * chunk. The upper bound is an arbitrary but sensible limit
++	 * (ie, not architectural).
  	 */
--	if (unlikely(segcount > RPCSVC_MAXPAGES))
-+	if (unlikely(segcount > rctxt->rc_maxpages))
+-	if (unlikely(segcount > rctxt->rc_maxpages))
++	if (segcount == 0 || unlikely(segcount > rctxt->rc_maxpages))
  		return false;
  
  	p = xdr_inline_decode(&rctxt->rc_stream,
