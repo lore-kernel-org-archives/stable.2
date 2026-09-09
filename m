@@ -1,161 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A023932E3;
-	Wed,  9 Sep 2026 17:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513F4233932
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976669; cv=none; b=syg8sZmTld+sEWxVdnsRbGXcVXLSR+vTul50A824DeSxlKV1pPnFxbXuMqRMXXhLphWHuxWIngPzMcUKSOVUzQ0ybvWb56wKj4PntjLCvBq0AVmui8LFqSx6y9gPSpFosyT9k4uL2iM6qEa7Ne0ER2ppMOt02ohAvA15uB85Npk=
+	t=1788976751; cv=none; b=oQyKqUXqev1/rSVRSY7rTpyVV+3E1iIlYWG31HfpmeZiYYjWOY8gQ9vXwJqnaBC0OH/dsoTvqimZrPmUfc2cxx64degz/GjTYC6UCgQix8dmoSN3BpJ/p0Xe/a5N8JByjiHC8fWpe1ms+79O/TKknyWqXEDIAqClkKX0jYyhALY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976669; c=relaxed/simple;
-	bh=RDcZ1N2of0hE/KEQ6YmRibGweUEaHd7NGJ3Ngz3ILKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KOGtGuWidHVQu3Mi3b9+BHduVng0nYnkfzWOjeBNDVhOE9qwD4OF5L+nd0pSdi6WQlGHlIXbTxAgPuE8c/0Am/EM4Y4m1jjcs+AiadmEEUFVv8wyakOle3wo8+HC+EYye9sws/FHkcb36TrYkDYY5dkWP+85+AhM686KCUrnb1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0M7TaBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788976751; c=relaxed/simple;
+	bh=JbAfRA7CvUqmboA/QL3IDJhEsjBbiI+q5Ia+kJu1K0A=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=PfvZ5FJkIotoo7hSwSK48O0RPR5pggehduc3q+nfxi5B5sXkNHoLZ0rENSano7XG89jKrRT0J6we5ZZG/BvfF6msnZwjsLl9hPIw3VUe5minwNf198ISly5l+lTCIUVs8ap6rOd+zIbkd48b3/Ct/tA9xkCz5e3kAunRI1BcWBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=RLVjYNtk; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0M7TaBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADE81F000FF;
-	Wed,  9 Sep 2026 17:57:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788976667;
-	bh=bedgQLEmoSjapKQJt0LsEmsD0KkdBrnumX6yghAqwSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O0M7TaBuuIqeIHUOZyRrnOQaqBQIdb11hRbifgvv3Oo04KEluIYkgIs5eNKIyCmk7
-	 9R7sajMx7heh8mCNAlr8RBlvRhDVgv/ApQbDZbjKY+OqD+i05Zv4ux3UaJmXKqraJp
-	 flQtBNyvmsjjSXGs0lA9e2MmMC3bUvQVYCc9qhxiDbLFuR11YQxa2K2Wm1MJIPnsZa
-	 FLYqKRwkKLx/NpPlcLF2jqG6dFCtiCgQ1rdnD1plb8QSiKxKVkMIatuH7vDg1VLVXF
-	 NB2z0caRV5lW/50dI3O3wFbCaVZgGZVP/y5D3+A7d/cuaEGA2zgjklsKsQi6Lbl+jb
-	 Y1AnG5Tjd8MhQ==
-Message-ID: <8118ffe2-635f-40dc-98a6-d0bd1878e29e@kernel.org>
-Date: Wed, 9 Sep 2026 19:57:41 +0200
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="RLVjYNtk"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39b9a99469fso2169083a91.3
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 10:59:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1788976748; x=1789581548; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9eNd9Lwk53MMreXwJmBAdkr2qB5dQavls6/lmYhi3P0=;
+        b=RLVjYNtk9MuIGR4StilYbjgj1Y+yjalJAzbFcMnrmfPTJUyahI722mwCk6n3BozRrH
+         dSYUvKLpIAk+SDmnVHDumq4+HhEpQweHk6+aVDy5yj4rkyuXQNAQGraXIbAki9Xj1wej
+         vSvaC7t6xPEL5r//1JHVhkXJVncDzVfjkhAkRciIVQzatWaMiDOLLgFVZJ9UMnUa1oWg
+         NjUTNAuYNPmkL9FOjmnv0pbeAYVvhSQuMq74eM3wC0/e3kqF7kD0HgzQEh480Hx3ZTk2
+         mts5ofUSXUHzw+is94rggd1g9Tdw0Y10wM6dsyIRwmYZdHZaq6+sqLTGfObwBLVH2mhS
+         G/Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788976748; x=1789581548;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9eNd9Lwk53MMreXwJmBAdkr2qB5dQavls6/lmYhi3P0=;
+        b=GauGfKS1dFb/aHglA3Q7QVH1kD1ijafGJHEYjZWGlCHcirBGF/pOybN4qjvzXwN17a
+         omsz3bcVh0LRzbESOSnVQvHnlxwRYh2RlD+YhzGRF/iahr15rBT7A+XWHg03Xy9NUaIY
+         tW6L6QD0fCqF+a82snohb/c8w63on6regSZKVoQQr4ReJZJ+eH2CkuOM4wAEhl8GHlkq
+         rBar9Zd2S5/l7K1mOxYOgDcHEgGz47vUoGpilrhD0p/jB1uUxMP2A1zEEvoYQegZW9A6
+         BtNVczG0K2BuzOSN8elK1v6HUD7DjYPN/FZjVTYXu0fFqZNcM1RFZ8cGEuza1vlpQzgO
+         19+A==
+X-Gm-Message-State: AFuF++l5f6QiWyKEOKCsvnqMMgr+m75PYy8FpJaJjh6ikk4XyEt738+B
+	cQpLdbqvS4TsGJq64n3kPKaNPVmqdPtPNrgx2Pnnm1miFQKeQbNontUdEmh+YxjYe4Vfhxag8dQ
+	YsHj8
+X-Gm-Gg: AYBFou28NWKir97Y1aQnRg9F3bOVaDz6Df/JRyQWwLEiqegwAifoky4jgHIZJjLcjHz
+	QW/EJ6SA3Ldx5lzm79R2Lce/K+Pkb+xfrwaFGigPBsVlI8ZgylDh61ILbOPFFzrHmK883r7JtRH
+	nka+QPPEXyz1p2Kk/o3Yq4sCXUT0/hAlim4lk3teK3m+TLseFEUeEVRnn8zixI1nO8juldVbk4u
+	rrOHKgc96HWk9WjF2eD/l16jEdk7AesnZodzCMen3BCffCHVe324TT+JEM2QJ2XA/DCKEMhSJhe
+	kZoPpBJpgFD/R8ClueYM5AmTs/u/HDDXo7x2wCuuOQIVfXMz/i8NZ0tPBY3mVYz6F2S2W5iGfPP
+	RivBAzy8ozW1SIPa8cEDiW8Rv030wRPe3sbfA5GC8Dg+sVxvvfQy4gKqluFsiIZd1suqQX0dYt2
+	ClTTq9qH+gy8iBeyrTO9SZguBWuf0b9bPvxdB6GvggUhQCVLogs/33wLlQ0kBkX+c=
+X-Received: by 2002:a17:90b:4fd1:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-39b261cfd8cmr54371587a91.12.1788976746861;
+        Wed, 09 Sep 2026 10:59:06 -0700 (PDT)
+Received: from 41049dfc76e5 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-334fbd5e6f6sm38478071eec.23.2026.09.09.10.59.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:59:05 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH net v2 04/15] mptcp: pm: kernel: drop pending ADD_ADDR
- when removing ID0
-Content-Language: fr
-To: netdev-bot+sashiko@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-4-df1de70348b6@kernel.org>
- <178896537388.219967.5173915953995910937@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <178896537388.219967.5173915953995910937@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.6.y: (build)call to undeclared library
+ function
+ 'index' with type 'char *(const...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 09 Sep 2026 17:59:05 -0000
+Message-ID: <178897674444.3516.14489542062715635576@kernelci.org>
 
-Hello,
+New build issue found on stable-rc/linux-6.6.y:
 
-On 09/09/2026 16:49, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
-> 
-> - [High] Incomplete fix: in mptcp_nl_remove_id_zero_address()
->   (net/mptcp/pm_kernel.c) the new cleanup forces `anno_addr.port = 0`…
-> - [Medium] Newly introduced wrong-entry teardown in
->   mptcp_nl_remove_id_zero_address() (net/mptcp/pm_kernel.c:1152-1157):…
-> 
-> --
-> 
-> mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
-> 
-> This makes the in-kernel path manager's id 0 removal path symmetric with the
-> non-zero id path by dropping a pending ADD_ADDR announcement and decrementing
-> add_addr_signaled before queuing the RM_ADDR.  The lookup key is the msk local
-> address with the port forced to 0.
-> 
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/620
-> 
->> diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
->> index 424f1a7f9248..1a7750813235 100644
->> --- a/net/mptcp/pm_kernel.c
->> +++ b/net/mptcp/pm_kernel.c
->> @@ -1137,6 +1137,8 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
->>  	while ((msk = mptcp_token_iter_next(net, &s_slot, &s_num)) != NULL) {
->>  		struct sock *sk = (struct sock *)msk;
->>  		struct mptcp_addr_info msk_local;
->> +		struct mptcp_addr_info anno_addr;
->> +		bool announced;
->>  
->>  		if (list_empty(&msk->conn_list) || mptcp_pm_is_userspace(msk))
->>  			goto next;
->> @@ -1146,7 +1148,13 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
->>  			goto next;
->>  
->>  		lock_sock(sk);
->> +		/* Drop a possibly pending ADD_ADDR for this address. */
->> +		anno_addr = msk_local;
->> +		anno_addr.port = 0;
->> +		announced = mptcp_pm_announced_remove(msk, &anno_addr);
-> 
-> [Severity: High]
-> Does zeroing the port here make the lookup miss the announcements this
-> patch is meant to remove?
-> 
-> The commit message says:
-> 
->     Subtle detail: signal endpoints are stored in anno_list with port 0, but
->     msk_local carries the connection's local port. In other words, entries
->     linked to ID0 paths should have port == 0. A follow-up patch will ensure
->     that.
-As mentioned, a follow-up patch to fix this non-directly related issue
-is in preparation. The series was already 15 patches long, it has not
-been included and will be sent later on.
+---
+call to undeclared library function 'index' with type 'char *(const char *, int)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in arch/arm64/kvm/vgic/vgic-v3.o (arch/arm64/kvm/vgic/vgic-v3.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+Log excerpt:
+=====================================================
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:27: error: call to undeclared library function 'index' with type 'char *(const char *, int)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  406 |                 irq = vgic_get_irq(kvm, index);
+      |                                         ^
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:27: note: include the header <strings.h> or explicitly provide a declaration for 'index'
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic-v3.c:406:32: error: too few arguments to function call, expected 3, have 2
+  406 |                 irq = vgic_get_irq(kvm, index);
+      |                       ~~~~~~~~~~~~           ^
+/tmp/kci/linux/arch/arm64/kvm/vgic/vgic.h:204:18: note: 'vgic_get_irq' declared here
+  204 | struct vgic_irq *vgic_get_irq(struct kvm *kvm, struct kvm_vcpu *vcpu,
+      |                  ^            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  205 |                               u32 intid);
+      |                               ~~~~~~~~~
+2 errors generated.
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:4b4fc4c671572137da420351e118576fc7266d54
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  f372d2b0a4d6679d02035fc0619f569c8404982d
+
+# Builds where the incident occurred:
+
+## defconfig+allmodconfig on (arm64):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aa16b98e41d7f97d61b225c
+
+#kernelci issue maestro:4b4fc4c671572137da420351e118576fc7266d54
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
