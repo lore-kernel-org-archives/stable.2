@@ -1,189 +1,125 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA08C54EEDC
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF5955199C;
+	Wed,  9 Sep 2026 12:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956411; cv=none; b=XCqBV0JTLZxxh/8Lm7a+uHtS7BDRbxxpJVoJqkmsyc56h8l9xa2IbzWURRFWWqMgK0SGwQGSHlpsdvLhDlC/cE+HaZuoap7NcwasUrO/TEZWMEacDiMW+1i4cDa0+rNN5zMkRgQdeiyXaP2lO244NhS+J156qjNxO2BV+z0j/Wo=
+	t=1788956806; cv=none; b=oss+Dw0FhMrfxg6zj7slrMGCXj7VebEnMWxRuEimXvAwAhXadIKYNIweicsl97wYZ9Jq9Tw77pJOSlcVsxZnFcSTJJj95teklRHeMM4XidnfLw6+5Mex78VOkdw9iD4EZ6DjOURKjbro9eHPT0smiDUkDvHPxerOyptUlLNe1VM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956411; c=relaxed/simple;
-	bh=dLoENm/5dHcwLHwJ6/geeKDZfEa5bk/MeVe3uFzrjsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KmW1brYGbtBYGcee3GHdzf2bwlwuS7wRLcPMCPJ9QDGNJcMyOEboWuTU/6AmmRt5sMkl8XlZ3qcS1g7fZtECbGphcxDzRzdS/ZmAqNflrhtdpXxCGTZvZntuimJeNhg/3WicAPmGmEvhK3cOBe5+BIdi4pPavLzMNrHfo7yQp0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=jFHIssvo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jf6ZZJQH; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="jFHIssvo";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jf6ZZJQH"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id B7795EC00BB;
-	Wed,  9 Sep 2026 08:20:08 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 09 Sep 2026 08:20:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1788956408; x=1789042808; bh=LxTePqthyS
-	ekJGVkxNn8lrAT6VrBneOK7CqtEDy0JiQ=; b=jFHIssvoYEC2RKRoux+fznDIfj
-	hrV6Tk/a4ONOix2kncSNmc82pEbxZUCp8ceOtm7lGoIHDw+5voud+on2tEMV0dS6
-	WwLeUxeE2yI9Tf/mgRAbnwTzz8jdo9fUPU/I8cyEW6vcrqEH+HrHjfCwgLdfZCkx
-	1+iKBylmOFk1XMXnkdO2Q5zjpPBYUrFoWzWeZ8gPplqJZMHvN2QWdq4uIblNzfma
-	T5ip3lgWEor3MZdgSaVYg165jxIpwIXMKTLKBTN1HxFRcR6GErms+qC8n39VuuIk
-	mn6KDydmT0s4qZ7rJwGpQeGHVJcZEnSaWztA2s8lyeVHub9asShOzevLFdyQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788956408; x=1789042808; bh=LxTePqthySekJGVkxNn8lrAT6VrBneOK7Cq
-	tEDy0JiQ=; b=jf6ZZJQHxH7T8+z4XkpHe+zKmoO81p+7VDo4bRl3zYgvRMHEuXf
-	vacHu54f1hABr2LgCPoMPKdZmhvXt/a8kraVUMA2n7PeO8hIkMII4bkHxvsLjAIv
-	Iw6Lv8TtBB7bCMWGLOuS66LoiamIjKIesdWJ+1bgjcW43yliLlpPJR0pH3EAIuOb
-	2uYkWsqDy92G5l0mc2e3b+I2Wou3PZQqHAjoMmmorPtLpzEOdXkOEK0YbmgVrA3q
-	i/2PdeImiqVij7mYNj0JENCBuAjD7NyO9dE5T3ETeEtiD3pSQ5pvHtFrbejpx6bQ
-	ZVW59b078qUjCYs/cWeG5xCcYIW01/EA+nw==
-X-ME-Sender: <xms:-E6halLm2dCm-AfxKAy2kuwFvl9fnPdtRxkWDDVJvXD12jgyMgao4A>
-    <xme:-E6hajudAFRPVrOvQ00nxJ5hC_RpJIw66NY_VsHPniVUyCvSzmvZavR0owyEQcWjz
-    eHr1I3bNzTnWRykkIrdsJH94HNOFSaqfVrwU62jO-E6_ci1jQ>
-X-ME-Received: <xmr:-E6hahXJB_W2qHCtHpkwo-mix85nowlmQAnvq-TTi-yJuFdEHlVTfbPv5ROisBZYahSJIIXaTehMBZ1Xge1pfninJLPrNTVLUHXZTwE8MWY>
-X-ME-Proxy-Cause: dmFkZTEdRzn9ALU2TlM/TWPVd3IwwHDV5EiJ9wBW9t4yilh7yskSpuYImTEvo+pcVSFbpn
-    KVRR+RrqTIqTKoFvwGzRiRmNbbP20uejyrsPvEvlkWg507nQDDOZ3m7SvvkxYKOb40JoO1
-    86lVvCII628EKhs71WCUtbaTAMzWj8PHKfD/pbdtRA2sIlNKK4NL9B7tqkvLLIozTh/zcx
-    yA2TCHxo16EPUsiwWNN7NFxgnOSAwUUMZwOioFdjbvVtx6GlUoZnL04Do6xxHL5A6MB0YZ
-    uZYIBjKmq8xR3zH/kCILRgTmA5KQ1xTeJLSkNtuUjdCBUHCjhpLM9on65AlhAlxKGxJYON
-    Vl9BiynAn6O4M4+KWORo9TP2atHF7MQGA5Xu0dQfWsQmL89KuuASmMPeiE7MsA7bBdBB2L
-    aGNRRiwsxGTzQ8QWaGkMuz3LaTYzIq7ETg+ea0hqulrZYNDgjnRX1oJwhu9Y+nVgmIwAVQ
-    WRMk1sbTAhjfFjTmh1sKg8PNx1F8fAR0C+e5VWnlufQEcqnuW/1wR5yWURuVK7JFLQEVY7
-    5zvokdGp8PWUFmZvJ/XF8bhJN5mVp2YL0BJ+fMjjOE5Cyocca4MsV38X8+UBoI2wM/+5I6
-    YAEBEJV7Xd3745njHT7VP3kfEazcL7BO4ntssCreWsXO3xwong0tdEKOLMRA
-X-ME-Proxy: <xmx:-E6hamgx4vWDm4K4PoS4E-ZvBGO7lFxJMbNLIG_SCviyLF5dowR-uA>
-    <xmx:-E6hahqpEicFwzD__gG4sKaOZATyhnh6sFut7SjpOllV27S0iRe-FA>
-    <xmx:-E6hakESeejfg-PkQC2AgBJgIN_9ptNC3zjA87cPch_aK0IR5S6DNg>
-    <xmx:-E6hau4n5rxNiWVackjHaZSzG1haL0TmS8WpNsOwvhEH-Fnci-ZL4A>
-    <xmx:-E6haiaS1LiM0cPIJnNXrSJf6ONvZvyPVihzqLCZK6UrrY7Lo82W0wKg>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 08:20:07 -0400 (EDT)
-Date: Wed, 9 Sep 2026 14:19:27 +0200
-From: Greg KH <greg@kroah.com>
-To: SJ Park <sj@kernel.org>
-Cc: stable@vger.kernel.org, damon@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 7.2.y] mm/damon/core: skip aging from repeated aggressive
- merging
-Message-ID: <2026090918-relic-padded-3b25@gregkh>
-References: <2026090839-reoccupy-dizzy-a7bd@gregkh>
- <20260909043419.207354-1-sj@kernel.org>
+	s=arc-20240116; t=1788956806; c=relaxed/simple;
+	bh=y3lSA3IhCYhkLJm1MSnCaKvTETLjGuZ8D8uJaECxeVE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mavlVpnjkNPjBxvLnr7RZGHsM3gUuEu3wvwFMoe7Ej/JyipNOhfDcWczQzmHGj5gSP50kK2TqeeMfCxnSrakwHGVVaGirKPahjnsMdgiL4I9W0R2mvvaLSvWYxAjwcGA4pl1cplglh5GD0yqgXsdeqW0e8+V378B8Szvk/HPjZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b35a1e40ac4911f19a56ed5b684f684d-20260909
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:23ec3722-2854-4ea7-a4a3-c6430c267843,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:05c413f575a779ab3ac88967b656a50f,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
+	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b35a1e40ac4911f19a56ed5b684f684d-20260909
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 516042360; Wed, 09 Sep 2026 20:26:36 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	johan@kernel.org,
+	kishon@kernel.org,
+	rogerq@ti.com
+Cc: linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org,
+	Sashiko AI <sashiko@kernel.org>
+Subject: [PATCH v8 4/4] phy: ti-pipe3: Fix clock leaks in init/exit error paths
+Date: Wed,  9 Sep 2026 20:26:30 +0800
+Message-Id: <20260909122630.1313205-5-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260909122630.1313205-1-zenghongling@kylinos.cn>
+References: <20260909122630.1313205-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909043419.207354-1-sj@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 09:34:19PM -0700, SJ Park wrote:
-> The number of DAMON regions could temporarily exceed the user-defined
-> maximum number of regions limit for corner cases.  For example, users
-> could lower the limit via runtime parameters update.  For such a case,
-> kdamond_merge_regions() repeats merging regions in the case doubling the
-> merge threshold.  The repeated merge operation could update the age of
-> regions multiple times.  This corrupts the monitoring results.  Fix the
-> issue by asking the merge operation to skip aging for the corner case.
-> 
-> The user impact is degradation of the monitoring quality.  The impact
-> should be mild, since the degradation is only temporal, and it is not
-> common to happen in realistic setups.
-> 
-> The issue was discovered [1,2] by Sashiko.
-> 
-> Link: https://lore.kernel.org/20260712165432.87609-1-sj@kernel.org
-> Link: https://lore.kernel.org/20260621203548.10718-1-sj@kernel.org [1]
-> Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [2]
-> Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
-> Signed-off-by: SJ Park <sj@kernel.org>
-> Cc: <stable@vger.kernel.org> # 6.10
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> (cherry picked from commit 0250dbe08c730d003ef9f484da56ae09a1ea0c4c)
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/core.c             | 21 +++++++++++++--------
->  mm/damon/tests/core-kunit.h |  2 +-
->  2 files changed, 14 insertions(+), 9 deletions(-)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index cff932b3317d0..024a3a185bfe8 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -3115,18 +3115,20 @@ static void damon_verify_merge_regions_of(struct damon_region *r)
->   * sz_limit	size upper limit of each region
->   */
->  static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
-> -				   unsigned long sz_limit)
-> +		unsigned long sz_limit, bool count_age)
->  {
->  	struct damon_region *r, *prev = NULL, *next;
->  
->  	damon_for_each_region_safe(r, next, t) {
->  		damon_verify_merge_regions_of(r);
-> -		if (abs(r->nr_accesses - r->last_nr_accesses) > thres)
-> -			r->age = 0;
-> -		else if ((r->nr_accesses == 0) != (r->last_nr_accesses == 0))
-> -			r->age = 0;
-> -		else
-> -			r->age++;
-> +		if (count_age) {
-> +			if (abs(r->nr_accesses - r->last_nr_accesses) > thres)
-> +				r->age = 0;
-> +			else if ((r->nr_accesses == 0) != (r->last_nr_accesses == 0))
-> +				r->age = 0;
-> +			else
-> +				r->age++;
-> +		}
->  
->  		if (prev && prev->ar.end == r->ar.start &&
->  		    abs(prev->nr_accesses - r->nr_accesses) <= thres &&
-> @@ -3160,15 +3162,18 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
->  	struct damon_target *t;
->  	unsigned int nr_regions;
->  	unsigned int max_thres;
-> +	bool count_age = true;
->  
->  	max_thres = c->attrs.aggr_interval /
->  		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
->  	do {
->  		nr_regions = 0;
->  		damon_for_each_target(t, c) {
-> -			damon_merge_regions_of(t, threshold, sz_limit);
-> +			damon_merge_regions_of(t, threshold, sz_limit,
-> +					count_age);
->  			nr_regions += damon_nr_regions(t);
->  		}
-> +		count_age = false;
->  		threshold = max(1, threshold * 2);
->  	} while (nr_regions > c->attrs.max_nr_regions &&
->  			threshold / 2 < max_thres);
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index fcf7c7fadb5fe..59bba0552d88c 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -256,7 +256,7 @@ static void damon_test_merge_regions_of(struct kunit *test)
->  		damon_add_region(r, t);
->  	}
->  
-> -	damon_merge_regions_of(t, 9, 9999);
-> +	damon_merge_regions_of(t, 9, 9999, true);
->  	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
->  	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
->  	for (i = 0; i < 6; i++) {
-> -- 
-> 2.47.3
-> 
-> 
+Two paths return without disabling the clocks that ti_pipe3_init()
+has just enabled, leaking clock enable references:
 
-Does not apply to the latest 7.2.y queue :(
+1. In ti_pipe3_init(), when regmap_update_bits() fails for PCIe mode,
+   the function returns the error without calling
+   ti_pipe3_disable_clocks(). The clocks stay permanently enabled
+   since the PHY framework won't invoke the .exit callback on init
+   failure.
+
+2. In ti_pipe3_exit(), when the PHY is in SATA mode without
+   dpll_reset_syscon, the function returns 0 early to avoid powering
+   down the SATA DPLL (Errata i783), which also skips the
+   ti_pipe3_disable_clocks() at the end of the function. Every
+   init/exit cycle therefore leaks the clock enable reference taken
+   in ti_pipe3_init().
+
+Fix both by adding the missing ti_pipe3_disable_clocks() calls,
+consistent with how the DPLL program error path handles cleanup.
+
+Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
+Fixes: 0a0830feb2ad ("phy: ti-pipe3: fix suspend")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko AI <sashiko@kernel.org>
+Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v8:
+ - Expand commit message to document the SATA exit-path clock leak
+   and add its own Fixes tag.
+
+Change in v7:
+ -Restore the original `return ret` in the SATA PLL-locked init path.
+---
+ drivers/phy/ti/phy-ti-pipe3.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+index fdd81c935e5f..0d4a49a3f0c7 100644
+--- a/drivers/phy/ti/phy-ti-pipe3.c
++++ b/drivers/phy/ti/phy-ti-pipe3.c
+@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
+ 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
+ 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
+ 					 PCIE_PCS_MASK, val);
++		if (ret)
++			ti_pipe3_disable_clocks(phy);
+ 		return ret;
+ 	}
+ 
+@@ -555,8 +557,10 @@ static int ti_pipe3_exit(struct phy *x)
+ 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
+ 	 * due to Errata i783
+ 	 */
+-	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
++	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
++		ti_pipe3_disable_clocks(phy);
+ 		return 0;
++	}
+ 
+ 	/* PCIe doesn't have internal DPLL */
+ 	if (phy->mode != PIPE3_MODE_PCIE) {
+-- 
+2.25.1
 
