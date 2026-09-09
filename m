@@ -1,29 +1,29 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C102242D65;
-	Wed,  9 Sep 2026 12:57:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D35E559C98;
+	Wed,  9 Sep 2026 12:57:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958661; cv=none; b=QwaO3Ele6ywywHOTbwBc8kkMX86hlh0fWj3ZYriCHbUpYV21INXRVSRlfmzqFkkkWG21p+SMvfVK1PCI3mVxe74/u/1zdPnUQLk3f+2P1mmytgodPLJtwm2dIbQiVJyQTG5EEzwmqb1jy+P7FrhvmAyUtHnze9hPjdrK3AR7jco=
+	t=1788958664; cv=none; b=X31Akpt7BQCV3ULesFhSlae++oq4CY1JgS+h6pVlvZiQ40tEUNbZ8YyTrQSCUhv0Mn95HCFB7hlAdKVXchyHWoZ4sGE/TLQZ6JCrnIUDKq5sIhjcs4awZgiF2rweCb+Vs6zO8giF70i6k9PmG75MwlyH0LbDW9Y+TSxKU7CYvNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958661; c=relaxed/simple;
-	bh=Qlkui76DdvdKUmIEz/J8LDWRTkrA7J4SKBRFaRESGbg=;
+	s=arc-20240116; t=1788958664; c=relaxed/simple;
+	bh=HtrJiuO9uCS7o0/8fb1jVedRJFYPQIQOiTtqCJOco64=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KU593rDbD6ArLu/bVw21IBh4FeX+JeDmBJ9sOfmHBsNiC1yOVK5CwcwuQiYSwKaOn0xxMC8ZXQ5l2ODXYu2h/4eq+MFHFdkWdrGJBM0GKtvQ6jMpQkrIOBzmSQASnBQUlRLPCDC9YH2WgpH/m5HuT8shnaa4pIy1Ij8sOXWdnpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sJklwq/S; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HlR4pnq74l8B4INGvLwpowBRj/aPCE+96VeMzkZz8Cx5XhACKAE8q5WjK+ouvvGza3A4aFpKkmMqZSXJ1n3m9h/UstzWJKd5nOPnnplfqaFU8yl9tHfpbSULFVMMo5Md55kTNH0qnXNqUDSZYAA5lMfAYnKzGxa06ZPC/VI3Emo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CsD5Se8m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sJklwq/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D771F00A3A;
-	Wed,  9 Sep 2026 12:57:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CsD5Se8m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F351F00A3A;
+	Wed,  9 Sep 2026 12:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788958659;
-	bh=qzKQKkJEhRRbqPcCHs8W9Y3hAQ32Cr+Nkf+ZaWQ1xbc=;
+	s=korg; t=1788958662;
+	bh=mS9s8n6FRlFBWbu8GsvJSTIhWvNlo+LzthB+eG2OI+0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=sJklwq/SpH4su261gDpvQPuTKIjrlak5AhEHoHNGQOlboGsRiQg59zRzIXl49vtFe
-	 loOqEu+f6/G7OXFY6YBKh+Of9B3BbwIDa4Nfkury5gQ0NJppFFAqQv6jBq/QvUq16y
-	 +IXPTnMPpSHm05SVKvLsF81kxvQb/64dKaELGFHs=
-Date: Wed, 9 Sep 2026 14:55:37 +0200
+	b=CsD5Se8mXuzH5BWRqnf4Y9lI1fB3rJVfHrmCnNPPwdpNQrotAdjx6/gw1M+DVPxVM
+	 6rzxZj0cbBVtbN5HpUBwUgicIqO/i1gbvv7rtcEVc71jbUDxnYUUEFFhk7kMA0nuxA
+	 4sYCsQ3Ks6D1/iN5J9yS3BjGHeO3SDM+1NwC3cRE=
+Date: Wed, 9 Sep 2026 14:55:50 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Dragos Tatulea <dtatulea@nvidia.com>
 Cc: stable@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
@@ -31,7 +31,7 @@ Cc: stable@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
 	Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>
 Subject: Re: [PATCH 6.1.y 6.6.y 6.12.y 6.18.y] net/mlx5e: xsk: Fix unlocked
  writing to ICOSQ
-Message-ID: <2026090928-unviable-idealness-7e52@gregkh>
+Message-ID: <2026090941-starting-coveting-d93a@gregkh>
 References: <20260909100310.1941561-2-dtatulea@nvidia.com>
  <2026090925-myspace-precision-c68e@gregkh>
  <6a430d55-72e8-4333-b369-af215c9f0c3a@nvidia.com>
@@ -120,12 +120,7 @@ On Wed, Sep 09, 2026 at 02:47:16PM +0200, Dragos Tatulea wrote:
 > > reson isn't ok.
 > > 
 > Do you prefer that I drop it in v2.
-> 
-> Also, should I prefix the next patch with v2? (First time sending a stable
-> patch like this)
 
-Yes please, v2 would be great.
-
-thanks,
+No, that's ok, it's great to have, thanks for that.
 
 greg k-h
