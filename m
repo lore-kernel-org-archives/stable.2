@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62E5476D9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C19D5476E0
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953464; cv=none; b=icg9Zf+ggurQVzFPj6gmy5Rd7zCo7V+sWYjj326K6fIQ/f1LPgUuZ91OYbeyI2TtH3n/Mx8jQiQUSWejYVkMSWp3CZd9I+jW3giGH/QEHYlvjgphbn3Ins77F6Jciai/P5aEg4+yHRQIsOiVKBO3KrGpVBHoYl2DwBP7mRQasHo=
+	t=1788953465; cv=none; b=HT23XFYk9QIGDFZB/pipW65Ig8D80EddNdsRbe2yrK/1inILEmfmfbPm2GpmfyehqRrIs2GfoCaM1p062k7/HjhNaAqn8R5f2scDgrT+CZAq+JoljuRx3WCO3kucTQ+3rNuIFRdnZ9cPqIuq793eN4Jg7hfdKcs61K4FnXZRtv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953464; c=relaxed/simple;
-	bh=3lL6PtbTI6e+Yn9k1Nv5F5iJXhVGmBCcUMFBnuSKYNk=;
+	s=arc-20240116; t=1788953465; c=relaxed/simple;
+	bh=h/4IPZtOVxD8JDAoh/PFCeSkSjA05tN6PZ9/B1Y69jA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pc7OonTsM0+XUV7TD10RlzqrEAhKSzauWvCLxyUkv6k6Lbl++xsGZ1VcJGR2g/Sj6pAvulSWuuirxFUbZDX8EgPkzrjKMCjD/NgOg4NjqtcvZvtHQmgH8APBs3AU0sPn6RNuuCZN6OGcS/xF3s67C7HTO2cuPE7lyYkGHnPC3sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXl6oGYy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iGjvw00W5xW+A4jnYZWgRt6f7iF+jwqVL2zOLFL4UeZcG6SlGtXXRDa5Kelcl8ryzJpXw6iefTS1ceZmNZczNp85GONwu6toh5HaHemORufKbCYnTpPpil4mlB09n35OXnTIaLlp8/v/Jvw5NXu7Qtzo5cy406Rv1FoulLOrco8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3TXGGHQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXl6oGYy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8C11F00A3E;
-	Wed,  9 Sep 2026 11:31:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3TXGGHQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A581F00ADB;
+	Wed,  9 Sep 2026 11:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953463;
-	bh=psk+RY2uFzA9kj3TLXwA5d7nT/Eknu2nVDDf2XEwAoQ=;
+	s=k20260515; t=1788953464;
+	bh=xlLunvNwrBcDR+UJ0Vloh86Pf64mAtJmFWljqZmq3pw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AXl6oGYyPSP8qQgGWQIm2GSPn5lg7AMOgvv0LMqPBBJlCKow/+cqG462z97w8U2QC
-	 6JFcxPR6acm/1atXitKxq+RWEUIKKnsdK3CLeoM2YB4Mf8hURvfcQ1cpV0e0KG6mWC
-	 ZRNmEFSkCg0tj1qFkNvKrvrVh03iaG6pmuGnfgcJxoLdVdAaiWwyGnivsQ56nedwIH
-	 Q+Xkhrp9nEUIO6ZApwTR3QgZ809hfNlxyyp/rXZUi1ogalaWO67KLcCYP+PAMQhICo
-	 c98q00Vyl9fWrVsmw4yn8eKrgeRfgAdUW++uMXVI+pAA1HaynO0pA/XnCl/XQAlrBB
-	 Qm+zgHxTqMzCQ==
+	b=C3TXGGHQfsM3zx3PZpJvDhaMV24ZlHD7pXfG01RBgAFVGCK/LkFQIA9N02TVbiZNC
+	 TGSWuFcHCV/VgBpWL6JhUr12/EDDfM3PTXMabsLdAmbF+Svb76R+L5KAIRE7lVvVhM
+	 8vAORisR5AWAo8jGC01Z9X7tVvpbNAifSFbPfwJ/t6lBGrC7t8PyzuD9kdwe5H3HKv
+	 GU+1vER2GfM+vFgu+y/XGBGV0OAYLuiibbidLyxaNrTDKIdoq9rSYoHmd/xKyWkeWz
+	 ItnMJ0REN9zOyaClBoPMq9Ext+pa85O47tNtQYnAICcBsX3iNLkBsFVgvJT0mtdWmb
+	 YfsleQt6mp9mw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
+Cc: Pan Chuang <panchuang@vivo.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] lockd: fix NULL dereference on lockowner allocation failure
+Subject: [PATCH 6.18.y 1/2] power: supply: ab8500_fg: Remove redundant dev_err()/dev_err_probe()
 Date: Wed,  9 Sep 2026 07:31:00 -0400
-Message-ID: <20260909113100.1863001-2-sashal@kernel.org>
+Message-ID: <20260909113101.1863047-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909113100.1863001-1-sashal@kernel.org>
-References: <2026090351-duplex-next-aca8@gregkh>
- <20260909113100.1863001-1-sashal@kernel.org>
+In-Reply-To: <2026090321-blissful-lily-9edf@gregkh>
+References: <2026090321-blissful-lily-9edf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +46,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+From: Pan Chuang <panchuang@vivo.com>
 
-[ Upstream commit 4c7fc129db061c7daab841c4f3c342d894832362 ]
+[ Upstream commit aa5f4decedfb4fc5cd0fe49ab256ad4304d192e4 ]
 
-nlmclnt_locks_init_private() installs NLM file lock operations even when
-nlmclnt_find_lockowner() fails to allocate a lockowner. nlmclnt_proc()
-then returns -ENOMEM, but the VFS still tears down the partially
-initialized file_lock and calls locks_release_private().
+The devm_request_threaded_irq() and devm_request_irq() now automatically
+log detailed error messages on failure. This eliminates the need for
+driver-specific dev_err() and dev_err_probe() calls that previously
+printed generic messages.
 
-That invokes nlmclnt_locks_release_private(), which dereferences
-fl->fl_u.nfs_fl.owner and crashes because the owner was never installed.
-
-Clear fl_ops before attempting to initialize the NLM private state, and
-install the NLM lock operations only after a lockowner has been allocated
-successfully.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+Signed-off-by: Pan Chuang <panchuang@vivo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260709033428.362970-7-panchuang@vivo.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Stable-dep-of: 75b1e88d3425 ("power: supply: ab8500_fg: fix use-after-free on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/lockd/clntproc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/power/supply/ab8500_fg.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/fs/lockd/clntproc.c b/fs/lockd/clntproc.c
-index 32790a57351a5..bae25519771d1 100644
---- a/fs/lockd/clntproc.c
-+++ b/fs/lockd/clntproc.c
-@@ -479,9 +479,12 @@ static const struct file_lock_operations nlmclnt_lock_ops = {
- static void nlmclnt_locks_init_private(struct file_lock *fl, struct nlm_host *host)
- {
- 	fl->fl_u.nfs_fl.state = 0;
-+	fl->fl_ops = NULL;
- 	fl->fl_u.nfs_fl.owner = nlmclnt_find_lockowner(host,
- 						       fl->c.flc_owner);
- 	INIT_LIST_HEAD(&fl->fl_u.nfs_fl.list);
-+	if (!fl->fl_u.nfs_fl.owner)
-+		return;
- 	fl->fl_ops = &nlmclnt_lock_ops;
- }
+diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
+index 9dd99722667ae..d7d402e6a407f 100644
+--- a/drivers/power/supply/ab8500_fg.c
++++ b/drivers/power/supply/ab8500_fg.c
+@@ -3178,8 +3178,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
+ 				  ab8500_fg_irq[i].name, di);
  
+ 		if (ret != 0) {
+-			dev_err(dev, "failed to request %s IRQ %d: %d\n",
+-				ab8500_fg_irq[i].name, irq, ret);
+ 			destroy_workqueue(di->fg_wq);
+ 			return ret;
+ 		}
 -- 
 2.53.0
 
