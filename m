@@ -1,159 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890423E7BB4;
-	Wed,  9 Sep 2026 09:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D68A4746C1
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946773; cv=none; b=lSoA1AigVz/SwydhPmiT2CQBKENrfyukifqIR0H+LCFojVeIteHLK9LWMa0SzXzFpNak+pQ/Z/CS73ESrFADQUvD129YeApNaG1EwQYFRhh8LWjbE0atrolCvrgFE+3W7ZwzfqkUUH+CXpeprFIIoHL2qFLmYh1uwfvu5s4Zr2Q=
+	t=1788946775; cv=none; b=Kr4q8JQOtF1LQInRClTmu2EfRsCF5EoPoz/kgAdMcP0PV1Ry1z54b9t2V+4d+V9xrfB93iVSZf/7T5WywHo9Kp7qKx4OovTL57eyytI+h5D6nfGZNq71SgrAjzEBH/AlzrSVPiFOOv4tty4r2fJhp8rWkdQIjv4qLtZ+chR6kmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946773; c=relaxed/simple;
-	bh=fjKhVmcr/EyK4vU6sArnT209Vzr1k4r+UlW7jCrishk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MZY2QTKttm0Lcj72otXDkzn2KuWKFvt4BbFG2k3d0XOuzv/hcV9v1QjmR2V1qOfhqtaHgumWWxTZSLLIl6HaRr4XRu3Ngt5j4VrR1NU25uzbUdMn0KELeehbmcT/gnXAqciKRSGXkij/+/ORC2IedCaIId0tMQgeJeRW8MC3asE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiZItjS6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788946775; c=relaxed/simple;
+	bh=pO0VcLlfejhskDPWN8QcBLvo640yAeszZ5EvfLk+5vw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pNEqDc6pmiVfta4To/7van3PK3jaaHtenmJVO4X+30xZ0T4C3mRVxFjQv0hcFzURGD7iUetTyDPJSkxTVbn8Lphc3igQ9lm8hEbSGegwdPDQCCFDKHmROm0aF2IztWJLXlxP0CW9stxE4792GsxwWaxbk6ZvDSASGxP7P33Gn6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ssxvBAye; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiZItjS6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 506081F00A3F;
-	Wed,  9 Sep 2026 09:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788946763;
-	bh=N3lXI2lCWgiKvFN9Nv+hgXcmmvBtqm5fZVQQwl0WoDM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WiZItjS6ZXCBi++sMU+hy7N9lVH9ifMOX5REnYAb91AF2Cn1jrQjNUOhykxucZnFP
-	 WMU9ijSCWyGbhtO0SNMmFscgqYkBr+XDo4T/s7T134wIkXiFJK/M6rZvuUinSm27ms
-	 LEprg2QDdAnYV678w90vUt1T/xNxeG4kzxz92K11oRPBiZin4icdz6u4e9Txmqie39
-	 kYPeqNqm1zLGxPgtYnQ18LMNmSltVyIHxOcv3+1zq6s8DvxsEl0vsrb3eMwnxTul+2
-	 ahRBKWzdOkkUjWjv0q8YI0MvB/zCroVNlxepPZ19RdksBcqdvFduLzUFy2O/zs6yT0
-	 77vtOfHDwosig==
-Subject: Re: [PATCH] netfilter: conntrack_amanda: fix port value truncation
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: pablo@netfilter.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Wed, 09 Sep 2026 09:39:22 +0000
-Message-ID: <178894676277.219967.1844924383954861310@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB0001CCFE2A0F40637E5A366CC8B32=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB0001CCFE2A0F40637E5A366CC8B32=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ssxvBAye"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23EE1F00A3A;
+	Wed,  9 Sep 2026 09:39:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788946766;
+	bh=wQ/C93lOm+GQ/2FLltjLKMcKhe2ppl7f8mQSZznJjWM=;
+	h=Subject:To:Cc:From:Date;
+	b=ssxvBAyef3KHm6aA6Nfm2BJ2yiQa6Mz6nVRBE5A6G0eOAiQGY3bAsmqpaGXpAlNor
+	 sayoT+qeEZ0Hs0BfZR82wdLp/2ZfgqMeEm3bS1EksN3xf+RnAscLWBRmraRruMXtp3
+	 WVqWxvdaTeM5tooT8x/LA3KW6TShqUZ7SGaRgXJM=
+Subject: FAILED: patch "[PATCH] perf/x86/intel: Remove anythread_deprecated bit from" failed to apply to 5.15-stable tree
+To: dapeng1.mi@linux.intel.com,namhyung@kernel.org,peterz@infradead.org,thomas.falcon@intel.com,zide.chen@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 11:39:01 +0200
+Message-ID: <2026090901-cuddle-vixen-0e19@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-- [High] net/netfilter/nf_conntrack_amanda.c:amanda_help() — the new
-  range check closes only the htons() truncation window for numbers that…
+To reproduce the conflict and resubmit, you may use the following commands:
 
---
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8767b4d73018bd3143f4c55b672064fad292f11b
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090901-cuddle-vixen-0e19@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-netfilter: conntrack_amanda: fix port value truncation
+Possible dependencies:
 
-The patch parses the Amanda CONNECT port into an unsigned long and rejects
-values above 65535 before the htons() conversion, instead of relying on the
-old "port == 0 || len > 5" test.  A new tmp_port variable holds the
-simple_strtoul() result.
 
-> diff --git a/net/netfilter/nf_conntrack_amanda.c b/net/netfilter/nf_conntrack_amanda.c
-> index 14ae660491f36..057cef7e2a7ed 100644
-> --- a/net/netfilter/nf_conntrack_amanda.c
-> +++ b/net/netfilter/nf_conntrack_amanda.c
-> @@ -91,6 +91,7 @@ static int amanda_help(struct sk_buff *skb,
->  	char pbuf[sizeof("65535")], *tmp;
->  	u16 len;
->  	__be16 port;
-> +	unsigned long tmp_port;
->  	int ret = NF_ACCEPT;
->  	nf_nat_amanda_hook_fn *nf_nat_amanda;
->  
-> @@ -132,10 +133,11 @@ static int amanda_help(struct sk_buff *skb,
->  			break;
->  		pbuf[len] = '\0';
->  
-> -		port = htons(simple_strtoul(pbuf, &tmp, 10));
-> +		tmp_port = simple_strtoul(pbuf, &tmp, 10);
->  		len = tmp - pbuf;
-> -		if (port == 0 || len > 5)
-> +		if (tmp_port == 0 || tmp_port > 65535 || len > 5)
->  			break;
-> +		port = htons(tmp_port);
 
-[Severity: High]
-Can the new tmp_port > 65535 test ever fire, and does it close the case
-described in the changelog?
+thanks,
 
-In amanda_help(), the digit string is copied into a 6-byte buffer and the
-copy length is clamped before parsing:
+greg k-h
 
-net/netfilter/nf_conntrack_amanda.c:amanda_help() {
-	char pbuf[sizeof("65535")], *tmp;
-	...
-		len = min_t(unsigned int, sizeof(pbuf) - 1, stop - off);
-		if (skb_copy_bits(skb, off, pbuf, len))
-			break;
-		pbuf[len] = '\0';
+------------------ original commit in Linus's tree ------------------
+
+From 8767b4d73018bd3143f4c55b672064fad292f11b Mon Sep 17 00:00:00 2001
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Date: Tue, 16 Jun 2026 12:46:47 +0800
+Subject: [PATCH] perf/x86/intel: Remove anythread_deprecated bit from
+ perf_capabilities
+
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
+
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
 }
 
-So simple_strtoul() sees at most 5 characters, which bounds tmp_port at
-99999 and bounds len = tmp - pbuf at 5.
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
 
-For a reply payload of "CONNECT DATA 123456\n", pbuf becomes "12345",
-tmp_port becomes 12345 and len becomes 5, so all three clauses of
+$ grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
 
-		if (tmp_port == 0 || tmp_port > 65535 || len > 5)
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
 
-pass and an expectation is installed for TCP port 12345 even though the
-advertised value was 123456.  Isn't that the same "conntrack expectation
-for an unintended port" the changelog is trying to eliminate, just via the
-fixed-size copy rather than the u16 narrowing?
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.intel.com
 
-Would it make sense to also reject the token when the digit run is not
-terminated inside the examined region, for example bailing out when
-stop - off > sizeof(pbuf) - 1, or when the character following the parsed
-digits is still a digit, the way the FTP helper's parsers require an
-explicit terminator?
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 2b35483e2b70..465c414f145d 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -7947,12 +7947,6 @@ __init int intel_pmu_init(void)
+ 
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
+ 
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
+-
+ 	/* The perf side of core PMU is ready to support the mediated vPMU. */
+ 	x86_get_pmu(smp_processor_id())->capabilities |= PERF_PMU_CAP_MEDIATED_VPMU;
+ 
+@@ -8829,8 +8823,10 @@ __init int intel_pmu_init(void)
+ 				      &x86_pmu.intel_ctrl);
+ 
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
+ 
+ 	intel_pmu_check_event_constraints_all(NULL);
+ 
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index eae24bb35dc1..5902a297daa1 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -668,7 +668,7 @@ union perf_capabilities {
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+ 		u64	pebs_timing_info:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 		u64	rdpmc_metrics_clear:1;
+ 	};
+ 	u64	capabilities;
 
-There is also a NAT-side effect of the clamp.  amanda_help() hands len to
-the NAT hook as matchlen:
-
-			ret = nf_nat_amanda(skb, ct, ctinfo, protoff,
-					    off - dataoff, len, exp);
-
-and net/netfilter/nf_nat_amanda.c:help() replaces exactly matchlen bytes:
-
-	if (!nf_nat_mangle_udp_packet(skb, ct, ctinfo,
-				      protoff, matchoff, matchlen,
-				      buffer, strlen(buffer))) {
-
-With a 6-digit advertisement, matchlen is 5, so only 5 of the 6 digit bytes
-are rewritten and a trailing digit stays in the forwarded payload.  Should
-the over-long digit run be rejected before reaching the NAT hook?
-
-> +
->  		exp = nf_ct_expect_alloc(ct);
->  		if (exp == NULL) {
-
-Separately, the changelog states:
-
-  "The existing check "port == 0 || len > 5" is insufficient: it
-   catches values that truncate to zero (e.g. 65536) and strings longer
-   than 5 digits"
-
-Given the min_t() clamp above, len can never exceed 5, so the len > 5
-clause looks like it was already unreachable and cannot catch strings
-longer than 5 digits.  Could that sentence be reworded, and should the
-now-dead len > 5 clause be dropped or replaced by a real over-long check?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB0001CCFE2A0F40637E5A366CC8B32%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
