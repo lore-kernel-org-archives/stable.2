@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9817A388E72
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5104938B7D2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976563; cv=none; b=ZsPaAJx9lSarPfcyReuV1PhxiHiirf/h0XwR0Ky4Xk/Q7Bg9UYpHQJzjRsb1tcqAZxzXV4BHl9lTHeG3eUw2qp4lC9EfSbuPducULpzx9u4TukX7ltCBNEsOJ3TP1whc40SoB7lpxGaZzkaLReYQ9QcHGz5FTJQpcjsCkz1KOiE=
+	t=1788976564; cv=none; b=dAmtDdIOjuiVI9S9ljUdd7VRLPcrJCK7MK8vqFR9xN39QPdyhpk4Tpg4iGxS5KtlmQecOnvGTz/1LcWRuerFNiZniHV9j994Y6P8JBpm1pq1XrMWMJjgNWxeryh8D/NLF2LK8b13fjMBLu5nO6AV40kTpU4jielOZBYacybao5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976563; c=relaxed/simple;
-	bh=IQX1A5PIklqd8XbXxAAwHFB6AzXaU4Ix0rmmWJrlYuU=;
+	s=arc-20240116; t=1788976564; c=relaxed/simple;
+	bh=cEimnMv4hoZp2MhSHY/Jxyv3iuPmwq9qNjBAy2Ohm4E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jw6u0duHSRYcnRIuTdxKssCowV2NA2ZvSbgNr4n4hJ6yd9tdnxAM7NHdO+Gl2M4VsHlR+G/UMa1LZy+PPejPErNrrlZ4wM7WuasFSN92IsNnbP9WGM7uyv+b9sfr6q8jCs/sFQBfR2MdbjzIg0W/5hboesKIdIrxlm8oMnVatwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJS+ly7F; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JLRjsNK9g5SfEwSwTKK6ZvxP0yVKqyVustrHIS8O4Eg6ZNMsKFdIo1oOK5Q38d9L8Q6rRKHTk6nHUgbdDhbywlG/wfxGOsV0ximlPHMqTfLyJ4tFX4yFP/yGYms7Y5AwolutI3qhrMUV+ugJu3C53R+tDLi8hGE2HPk5TufAN6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGm3Uieg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJS+ly7F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9791F00893;
-	Wed,  9 Sep 2026 17:56:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGm3Uieg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1AD1F00899;
+	Wed,  9 Sep 2026 17:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788976562;
-	bh=TqZUqp2TRPNA7I0kzOsjUKDpUGgDYP64Dv4v/hQ7soM=;
+	s=k20260515; t=1788976563;
+	bh=8lKZhvAPukz2f8voiSptmNjJM4v+dywsgSIfBuOVOuo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GJS+ly7F7hH6Ltc8xUHP1c87DnkNF/IxXW1PIySSs9jNfipk6x251OFQgxRhiXQmL
-	 V3MjDfL57+uvePilzxyCV+Xp6a0sFEuLf6YrZ1rQjXjf/IU/pZvMi5cVYD8BRcmQmW
-	 PELkZxNVP1jIRON81RevZFIs83T/P1vqAucwoYBqvWiLN6FR3xRHJghn4fL/cj9hlU
-	 DWYRdw0APt1G1Y9HvUeB6kjCvtXMOQYDb5zSUtkwKh+9LpjIOj3ig2XREPxLimxTPq
-	 B36e/81fZd0zxuQykJLtC/KeplQARnh9ybjIlJF+Far/k95t2J1eeZRNsCGBkERALH
-	 t4KhcyD6OBJmg==
+	b=nGm3UiegRXEKXZXxs3o2/4akqayI38kQy2uic10GTopgm0IwY+9RmQ5M1EIiGyPTj
+	 k8kQQK+T85rFu+0f4ZRtWPw7WK5/+WEN02vg4FD00NtvV8/lhyhweXmyVSz+ngAFc2
+	 5z/oaTIZiPPgbG+VLWuNCuEioo+b+OUhNboG3hOL0FOb+vnXev0k0n4E2+D38dMwFa
+	 N8DiUoF5pSQ5E+d7vRKlwivH+PcNU8omH9hFz5rkw0uidvw8SHJbrLLCubxByvIsDC
+	 tp4jzQqtpKJdB+YS+FVxluki9IdsuTzK11DO3MkYeC5hLyM91c4EgBkEnrkWUfnDPh
+	 ncrEp8YDaHUsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10.y 2/4] net: ravb: avoid dereferencing an invalid PTP clock
-Date: Wed,  9 Sep 2026 13:55:57 -0400
-Message-ID: <20260909175559.3436094-2-sashal@kernel.org>
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/4] net: ravb: serialize PTP clock teardown
+Date: Wed,  9 Sep 2026 13:55:58 -0400
+Message-ID: <20260909175559.3436094-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909175559.3436094-1-sashal@kernel.org>
 References: <2026090334-visor-renewed-f29f@gregkh>
@@ -48,96 +48,82 @@ Content-Transfer-Encoding: 8bit
 
 From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-The PTP clock is unavailable before the first open, so querying its
-index can dereference a NULL pointer. Registration failures can also
-leave an error pointer in priv->ptp.clock.
+[ Upstream commit 1cb9663789c5b7a12fcd419fcca6d6254c398252 ]
 
-Cache the PHC index separately and report -1 while no clock is
-registered. Normalize registration errors to NULL and preserve the
-static timestamping capabilities.
+ravb_ptp_interrupt() can race with ravb_ptp_stop() and pass the clock to
+ptp_clock_event() while ptp_clock_unregister() is freeing it. This can
+lead to a use-after-free.
+
+Use READ_ONCE() and WRITE_ONCE() for lockless access to the clock pointer.
+Atomically detach it with xchg() before disabling PTP interrupts, then
+synchronize all IRQs which can invoke ravb_ptp_interrupt() before
+unregistering the detached clock.
+
+A handler which read the old pointer completes before the clock is
+unregistered, while later handlers read NULL and skip the event.
 
 Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
 Cc: stable@vger.kernel.org
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
 Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Link: https://patch.msgid.link/20260811103733.62599-2-xuanqiang.luo@linux.dev
+Link: https://patch.msgid.link/20260811103733.62599-3-xuanqiang.luo@linux.dev
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adapted IRQ synchronization to use only ndev->irq within the existing ravb_ptp_stop(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/renesas/ravb.h      |  1 +
- drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
- drivers/net/ethernet/renesas/ravb_ptp.c  | 15 +++++++++++++--
- 3 files changed, 16 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/renesas/ravb_ptp.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index 7453b17a37a2c..e41e25cdbffea 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -978,6 +978,7 @@ struct ravb_ptp_perout {
- struct ravb_ptp {
- 	struct ptp_clock *clock;
- 	struct ptp_clock_info info;
-+	int phc_index;
- 	u32 default_addend;
- 	u32 current_addend;
- 	int extts[N_EXT_TS];
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 172b05b7f594b..0cb339359f995 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -1270,7 +1270,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
- 		(1 << HWTSTAMP_FILTER_NONE) |
- 		(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
- 		(1 << HWTSTAMP_FILTER_ALL);
--	info->phc_index = ptp_clock_index(priv->ptp.clock);
-+	info->phc_index = READ_ONCE(priv->ptp.phc_index);
- 
- 	return 0;
- }
-@@ -2119,6 +2119,7 @@ static int ravb_probe(struct platform_device *pdev)
- 	priv = netdev_priv(ndev);
- 	priv->ndev = ndev;
- 	priv->pdev = pdev;
-+	priv->ptp.phc_index = -1;
- 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
- 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
- 	priv->num_tx_ring[RAVB_NC] = NC_TX_RING_SIZE;
 diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-index 6984bd5b7da91..66cd690af54b0 100644
+index 66cd690af54b0..bcbcce4a0ee5f 100644
 --- a/drivers/net/ethernet/renesas/ravb_ptp.c
 +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-@@ -330,6 +330,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
- void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+@@ -304,16 +304,17 @@ static const struct ptp_clock_info ravb_ptp_info = {
+ void ravb_ptp_interrupt(struct net_device *ndev)
+ {
+ 	struct ravb_private *priv = netdev_priv(ndev);
++	struct ptp_clock *clock = READ_ONCE(priv->ptp.clock);
+ 	u32 gis = ravb_read(ndev, GIS);
+ 
+ 	gis &= ravb_read(ndev, GIC);
+-	if (gis & GIS_PTCF) {
++	if ((gis & GIS_PTCF) && clock) {
+ 		struct ptp_clock_event event;
+ 
+ 		event.type = PTP_CLOCK_EXTTS;
+ 		event.index = 0;
+ 		event.timestamp = ravb_read(ndev, GCPT);
+-		ptp_clock_event(priv->ptp.clock, &event);
++		ptp_clock_event(clock, &event);
+ 	}
+ 	if (gis & GIS_PTMF) {
+ 		struct ravb_ptp_perout *perout = priv->ptp.perout;
+@@ -349,7 +350,7 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ 		clock = NULL;
+ 	}
+ 
+-	priv->ptp.clock = clock;
++	WRITE_ONCE(priv->ptp.clock, clock);
+ 	if (clock)
+ 		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
+ }
+@@ -357,11 +358,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ void ravb_ptp_stop(struct net_device *ndev)
  {
  	struct ravb_private *priv = netdev_priv(ndev);
 +	struct ptp_clock *clock;
- 	unsigned long flags;
- 
- 	priv->ptp.info = ravb_ptp_info;
-@@ -342,7 +343,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
- 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
- 	spin_unlock_irqrestore(&priv->lock, flags);
- 
--	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
-+	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
-+	if (IS_ERR(clock)) {
-+		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
-+		clock = NULL;
-+	}
 +
-+	priv->ptp.clock = clock;
-+	if (clock)
-+		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
- }
++	WRITE_ONCE(priv->ptp.phc_index, -1);
++	clock = xchg(&priv->ptp.clock, NULL);
  
- void ravb_ptp_stop(struct net_device *ndev)
-@@ -352,5 +361,7 @@ void ravb_ptp_stop(struct net_device *ndev)
  	ravb_write(ndev, 0, GIC);
  	ravb_write(ndev, 0, GIS);
++	synchronize_irq(ndev->irq);
  
--	ptp_clock_unregister(priv->ptp.clock);
-+	WRITE_ONCE(priv->ptp.phc_index, -1);
-+	if (priv->ptp.clock)
-+		ptp_clock_unregister(priv->ptp.clock);
+-	WRITE_ONCE(priv->ptp.phc_index, -1);
+-	if (priv->ptp.clock)
+-		ptp_clock_unregister(priv->ptp.clock);
++	if (clock)
++		ptp_clock_unregister(clock);
  }
 -- 
 2.53.0
