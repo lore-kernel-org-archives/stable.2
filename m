@@ -1,161 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B903B7B83;
-	Wed,  9 Sep 2026 23:34:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4263D3B42C4;
+	Wed,  9 Sep 2026 23:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788996887; cv=none; b=qoQ+whsmYjfWwpsllh/+ol+8FwlT6dLTlkmJ7bgd52X3mFlpKKe1pGm0OE1KlySvH4JeDeGQ2e/GxcYdQNOx4Oa4tOiVdAEyL+lB4AdRzjXyfto4eA2lcFhj3GBpP/Isinu+ohr9dpSdn9bgOHoUcC0BD+jsDDqArKSl89eDi+Y=
+	t=1788997249; cv=none; b=X/gVOaydCyIklUaUTGttZnfyXWpw7hoG//nzarMUsZ2niOSiW6oltqp3jGSCAeFWIFf+tqziPFmQHlFufhzJMBaB+hQNVXd3suWJ/MhoswwM9JkaCU5ZwsMKUo4S1jxcqZXAyS1/35MRuDTbBzQtdYRtfhMLAcAjjOHTDn39/yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788996887; c=relaxed/simple;
-	bh=vkjff3u+/BYFRzHeF1tw/HRswIUOSNvB/lfFuVNbVmY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eKaw55a/iLhW3l/rCUxyzwYXlLTFsOxC3Y6A4FuLq7EB8ti50yeLLv1Rggvjk2/evCwYUlMXik0R92uUiBTZUldVmwi5q1A9RqVptmYWStl+giu1heJq+o8W78OchIO4oa3G7ebIhubfwD0MiZx7ROTB5fxSacWWJ6IrwpW5ZNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ikZWL/P8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788997249; c=relaxed/simple;
+	bh=pQ2hvIBJ7r7iLugleg/hyDooi3Ia5TyFoTIhtFAkIq8=;
+	h=Date:To:From:Subject:Message-Id; b=NKANaE/jRLPpnhULqx3201y8nitcxHue2fdiNrsDDqdO2EHuvouY3i2LuzmN0G9U9HBWF4yBs5EGlrak4ti9HFa4wUYwDcsRMMsBh+twLUxkuQGo+mdFdmuI83uU4aIOvcShZOmMKfVTobRopc+U9bUaojIA5PSFdFN3GQ9TMx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=j+8n/MlX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ikZWL/P8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F1C1F000FF;
-	Wed,  9 Sep 2026 23:34:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788996886;
-	bh=aQ2+QobUCEMWvg/09vvO7l8pVw231Ta9gbRBr+//V9M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ikZWL/P8qduQQngPfdmhvfs/UL3mkexPEEjOI9vL2zy0mVttHfcAQmyD4xMqmCS9z
-	 PQsOBvqu896Z2/XFB6K/7RTaCaP6l21qZ4HptzJ3SG5Gg+orLrAkjrRoMRBUro7H+V
-	 diDpVNUp9e43b493UsZsckfvDjeoC/c983M/ne+8yriSMfDqdZzLkWX2KmpJFtEHA9
-	 O247kNqqVwQrcZSeiYcKMG6opj9yED1/uPPH1lyH4WjeNfB/Y/CpTX1Vxcx9NIISC+
-	 6iv8A+qXIp78OakqOXjAuQkLieMxvOutdyytQ5o8RmoMudWq4C9E5DCC1BayzCZ+rx
-	 XueuFdCUcXU9A==
-Subject: Re: [PATCH] net: usb: net1080: fix out-of-bounds access in rx_fixup()
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, xmei5@asu.edu, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 09 Sep 2026 23:34:45 +0000
-Message-ID: <178899688516.219967.6073178823130755671@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB0001E8B611B22B19AA882542C8B22=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB0001E8B611B22B19AA882542C8B22=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="j+8n/MlX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37521F000FF;
+	Wed,  9 Sep 2026 23:40:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788997247;
+	bh=ylzxcwrCMzhtS5T660JDDDgW7skGgyEiHYIa8sch4so=;
+	h=Date:To:From:Subject;
+	b=j+8n/MlX3fcv83puqbQ97f/c2+q4kMVhGvsFTxcQdpVxXnXmHlc0UQgNn541ZM0eX
+	 k8IBbmBrXqGVEgpU4/kLzXMwUfiSg0VU4PIiBFjr1GQsJ66+p40xRryThwi60ueNC5
+	 aZIsoWnJaBc7FadH5U/Z6JCffptWPVGwjg4a1wC8=
+Date: Wed, 09 Sep 2026 16:40:47 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,vannapurve@google.com,surenb@google.com,stable@vger.kernel.org,si.yanteng@linux.dev,shakeel.butt@linux.dev,rppt@kernel.org,roman.gushchin@linux.dev,rientjes@google.com,peterx@redhat.com,osalvador@suse.de,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,mawupeng1@huawei.com,louhongxiang@huawei.com,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,jthoughton@google.com,joshua.hahnjy@gmail.com,hannes@cmpxchg.org,fvdl@google.com,dzm91@hust.edu.cn,david@kernel.org,corbet@lwn.net,alexs@kernel.org,ackerleytng@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-return-enospc-on-memcg-charge-failure.patch added to mm-unstable branch
+Message-Id: <20260909234047.A37521F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+The patch titled
+     Subject: mm: hugetlb: return -ENOSPC on memcg charge failure
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-hugetlb-return-enospc-on-memcg-charge-failure.patch
 
-- [Medium] The commit message for net1080_rx_fixup()
-  (drivers/net/usb/net1080.c) misdescribes the bug it claims to fix.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-return-enospc-on-memcg-charge-failure.patch
 
---
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-net: usb: net1080: fix out-of-bounds access in rx_fixup()
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-This adds a length check in net1080_rx_fixup() so that frames whose
-device-supplied hdr_len does not leave room for the two byte nc_trailer
-are rejected before skb_pull() is called. The change is described as a
-fix for an out-of-bounds read reachable from a malicious USB device, and
-carries a Fixes: tag and Cc: stable.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-> diff --git a/drivers/net/usb/net1080.c b/drivers/net/usb/net1080.c
-> index 19f6e1222d931..64477a4caa07b 100644
-> --- a/drivers/net/usb/net1080.c
-> +++ b/drivers/net/usb/net1080.c
-> @@ -374,6 +374,13 @@ static int net1080_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
->  		nc_ensure_sync(dev);
->  		// switch (vendor/product ids) { ... }
->  	}
-> +	if (hdr_len + sizeof(*trailer) > skb->len) {
-> +		dev->net->stats.rx_frame_errors++;
-> +		netdev_dbg(dev->net, "header too long for frame, %d\n",
-> +			   hdr_len);
-> +		nc_ensure_sync(dev);
-> +		return 0;
-> +	}
->  	skb_pull(skb, hdr_len);
->  
->  	trailer = (struct nc_trailer *)
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-[Severity: Medium]
-Does the out-of-bounds read described in the changelog actually exist?
-The commit message says:
+------------------------------------------------------
+From: Ackerley Tng <ackerleytng@google.com>
+Subject: mm: hugetlb: return -ENOSPC on memcg charge failure
+Date: Wed, 09 Sep 2026 10:11:00 -0700
 
-  "the pointer arithmetic underflows, pointing before skb->data. The
-   subsequent read of trailer->packet_id accesses memory outside the skb
-   buffer."
+Patch series "Fix bugs in HugeTLB allocation when
+mem_cgroup_charge_hugetlb() fails", v2.
 
-skb_pull() subtracts from skb->len exactly what it adds to skb->data:
+In hugetlb_alloc_folio(), when mem_cgroup_charge_hugetlb() fails, there
+are 2 issues:
 
-include/linux/skbuff.h:__skb_pull() {
-	skb->len -= len;
-	...
-	skb->data += len;
-}
+1. free_huge_folio() expects a non-refcounted folio and will
+   VM_BUG_ON_FOLIO().
 
-So the sum skb->data + skb->len is unchanged by the pull, and in
-net1080_rx_fixup():
+2. -ENOMEM is returned, causing an infinite loop retrying the fault.
 
-	trailer = (struct nc_trailer *)
-		(skb->data + skb->len - sizeof *trailer);
 
-always resolves to the last two bytes of the frame as it was received,
-regardless of hdr_len. The pointer can land inside the just-stripped
-header bytes, which is before the post-pull skb->data, but not before
-skb->head.
+This patch (of 2):
 
-The entry guard also bounds the minimum frame size:
+When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
+currently propagates this error.  This results in the page fault handler
+returning VM_FAULT_OOM.
 
-	/* This check is no longer done by usbnet */
-	if (skb->len < dev->net->hard_header_len)
-		return 0;
+Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
+they bypass the OOM killer.  Returning VM_FAULT_OOM to the #PF handler
+without triggering the OOM killer (or having it make progress) leads to an
+infinite loop of retrying the fault.
 
-with net1080_bind() setting
+Avoid this loop by returning -ENOSPC when charging fails, which maps to
+VM_FAULT_SIGBUS, terminating the process cleanly.
 
-	unsigned	extra = sizeof (struct nc_header)
-				+ 1
-				+ sizeof (struct nc_trailer);
+Make mem_cgroup_charge_hugetlb() fault handling use a common error
+handling path, the same handling used for
+hugetlb_cgroup_uncharge_cgroup{,_rsvd}(), which also don't trigger the OOM
+killer and hence opt to terminate the process with a SIGBUS.
 
-	dev->net->hard_header_len += extra;
+Link: https://lore.kernel.org/20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-1-4b4a8a19a7f7@google.com
+Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David Rientjes <rientjes@google.com>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Hongxiang Lou <louhongxiang@huawei.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ma Wupeng <mawupeng1@huawei.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vishal Annapurve <vannapurve@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
-which gives hard_header_len = ETH_HLEN + 6 + 1 + 2 = 23, so skb->len is
-at least 23 whenever the trailer arithmetic runs and data + len - 2 stays
-well inside the linear area.
+ mm/hugetlb.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-For the hdr_len > skb->len case, skb_pull() returns NULL and leaves
-skb->data and skb->len untouched, so the trailer computation is again in
-bounds. And the following
+--- a/mm/hugetlb.c~mm-hugetlb-return-enospc-on-memcg-charge-failure
++++ a/mm/hugetlb.c
+@@ -2851,7 +2851,6 @@ void wait_for_freed_hugetlb_folios(void)
+  *
+  * Return: A pointer to the allocated folio, or an ERR_PTR on failure.
+  *         -ENOSPC if cgroup charging fails or no folio is available.
+- *         -ENOMEM if mem cgroup charging fails.
+  */
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
+@@ -2924,7 +2923,11 @@ struct folio *hugetlb_alloc_folio(struct
+ 		 * were committed to the folio and freeing the folio
+ 		 * would have cleared those up.
+ 		 */
+-		return ERR_PTR(ret);
++		/*
++		 * Return -ENOSPC, since retrying the fault is futile:
++		 * the OOM killer is not triggered for HugeTLB.
++		 */
++		return ERR_PTR(-ENOSPC);
+ 	}
+ 
+ 	return folio;
+_
 
-	skb_trim(skb, skb->len - sizeof *trailer);
+Patches currently in -mm which might be from ackerleytng@google.com are
 
-does wrap the unsigned argument when the post-pull skb->len is 0 or 1,
-but skb_trim() only shrinks:
+mm-hugetlb-return-enospc-on-memcg-charge-failure.patch
+mm-hugetlb-drop-refcount-before-freeing-on-memcg-charge-failure.patch
 
-net/core/skbuff.c:skb_trim() {
-	if (skb->len > len)
-		__skb_trim(skb, len);
-}
-
-so that is a no-op rather than an overread.
-
-What the new check does change is that frames whose declared hdr_len
-leaves less than sizeof(nc_trailer) of payload are now rejected, which
-also covers the previously ignored NULL return from skb_pull() where the
-nc_header stayed un-stripped and a malformed frame could be passed up if
-packet_len and packet_id happened to match. That looks like a reasonable
-hardening, and real devices report hdr_len == MIN_HEADER == 6.
-
-Given that, could the subject and changelog be reworded to describe the
-robustness fix instead of an out-of-bounds access, and could the
-Fixes: tag and Cc: stable be re-evaluated on that basis?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB0001E8B611B22B19AA882542C8B22%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
