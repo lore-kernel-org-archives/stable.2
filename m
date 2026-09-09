@@ -1,171 +1,102 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0AD3C98B5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EC359C96C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988293; cv=none; b=LPoX5tRKlAGDw61qyi5Oryp2UEI7b/r6iIDr9MC3/xm6Ycrz3d5AJAYgvP8lXyo+vnjE+WeteDdkr7X2c68WJ4yF38yvgvVARKrUTSo186dnq8zIHVNC6XXTRhoH6yth1OW4pxcrWA4KdZujvXEhBP6zqR8kFysFLsm78BeCv/o=
+	t=1788988785; cv=none; b=s9zUBxTlyfCJKbwssB4x++MPfibI57xKth4adHLIJvpSOdcP6rRAZpDFFDE1fgvp4KFdyF3hkas/P+zcaSB6st0ko6Fl4EGasqbHlHrCMlqck4AnsHkLVsgH0aYFbbyFemhW1vyivCveafviklRZzMmCLpks9/Tkyz8HOcjyrR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988293; c=relaxed/simple;
-	bh=2JNeQ04IMcKNTxofpXfLMMlWn+o2rMxFXN3X10QNLJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g6fvY76gq5FsjbOyx0VCAWNHuIpqW0EuxD8DfRxSvGg3JRrFhaiPSRsng5AeS7r7uBYABYqivgNoZqhPK5fxKhEbY17zqsYYrgGwsquriX1Eu07mdyx4K2U8UUsvnR6BhG4YoNWSHr/3tnNmiyDx38Rx0M/cFNoninofyQut2uM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=dHL29DPq; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788988785; c=relaxed/simple;
+	bh=XRX7D5+qIu+nyobBVV27AMpjipKGZgLW7iTQSvfvVK8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EOXPEZ3y6BAdkEJ2SfypsAA8sWQO5V82DU4jsa+rYrpahiXROGc53EdSm4kiMm322MWeEvCmjK3pgEFTe5EcQhkPsov3Fzt4ty9Opta45fPaE/sCp0CHNTEacbSdQUZTfJ1feH8FBZlhBOiIyNo4EkZ3F31gyy1w7WwgEDav1hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pxaL5xD9; arc=none smtp.client-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="dHL29DPq"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52e2d1bdbc0so41513601cf.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 14:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788988291; x=1789593091; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NcvcU2ZyDvNJc/uxVV4o6h0SAHgq94jw2tNDLTGmzOk=;
-        b=dHL29DPqONYxt2qOFJzoHcVTMk5Dy4ovl81mIpkIyvJVY5Ji/WPD5/R+Dv7/bzRMrp
-         J7K314wpz7OZcLNxH8ojE1pfq5WDF5pyTi6MPYW9N4sQccUmKcYKABtyQkOX60l3+qqQ
-         L7+WdFNQSvQtpkwmfrY6nDmrmBp8Rqr68kCjQkI8A3i7NXnSZL7NMUiEPXZTiiyB0kAv
-         ikDAelVSxeO7MFk/koaHGrCg+wGvRdSgO+zlVDb633xbwNRnbRyDJGRP15fwivUM5Sp9
-         JMBrL4R2Zl2agrj+Qz6O9BZ6M9xYRwBgaP2EtJiHtdqOvx1jMl4dbz0IRkvygopVUcCR
-         /RrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788988291; x=1789593091;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NcvcU2ZyDvNJc/uxVV4o6h0SAHgq94jw2tNDLTGmzOk=;
-        b=p8C9a3CX4T9JcVxieyPYliuluO1arT5MtYQ47Uao1Yg5r46Bo1+PpnF/u0T1l2916R
-         ryT/tcGjd6pgn5gxVJOkLNhUHsRvtAWOSZoMfaVG1/Fm4mxBPJGxC6V6R48cAP9MHyH/
-         AZLuMIWRA1+akwZw9/oUDAsIVY6Hp8DD8lUrgMHPrl0wOOKcqT+zP2xM3lO6APzHo0XW
-         ZwFMhpf7kC4r+DmyAfPGUfjnfDdRMTLL5cT0EuL+CdgmAzOZz/JCcK3zI1G9kqJyBsGA
-         JU6ijcVCM4dsDgGAxirtXxQ3fzHDqJDt33r4zTwwdIJQLDQztfmN75H53WAbWmapEseZ
-         9HMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZIAHBzfS2FYFDw8zyim4NKpCGUp7ECJx75APJPGHYWLd0HnmrvFh9+AcacEYwoz65GxgbjxM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBvowfsOS1MU1TjlG7I4u2kfdTe4ThWlSM6aTmU0xf2ret2F8A
-	MFK31OIkYU3/VGUAVt5bKwQufVgoWweMQmiOjCXdib9cxb5aGc5gKHissbhaR4EC1Q==
-X-Gm-Gg: AYBFou2HyQk02Jlw9ngRMp0hwSkRTPYE5IIxVKgK8eWas+Z4AIVAFPVE/YRcFxtNmCB
-	3/DxdhVr47xyurv4cYCpZbK52Bld4ByV1ptXdKkOzX7W+zB5S/diCs4Nj/+bdzt7N6cmnTTq2nf
-	ZfJsIM+tvY3iTmvRD6smm/VG6jWQwWfvbqKUcLAF961L/DuAEKtVhPjD/xwpOQQ3cuV9FmAWQPj
-	QUCBOOqr+NGH8O/gbpB682YvDfTrzEoiMctnPP3TtbR/aQeXE1SfBQbEbUOT9Hc8aadR+4VYejN
-	RqAA9WqHQh/QPtr5rHxAA54wdyQSrc8k1I79o7zKEu7gEtdtwrwFFa/o8m7rIAzoXpgSEkPOSZs
-	T6Ux4IuztclX0JcZxohXvf0zwMeVLRi07DjPGr5MWcHvtannFL/LDnd/1/SEUPMNXw0z8gkfrV9
-	cDB9tF+VljL6c7807TzRhFJj2y1BFAJd9l4GJIJH/i9JFnZ+U6z9LnLAbQ2y23lzOrBSwMmiam
-X-Received: by 2002:a05:622a:1dcb:b0:530:aa4a:993a with SMTP id d75a77b69052e-530aa4a9cc4mr64563791cf.41.1788988290773;
-        Wed, 09 Sep 2026 14:11:30 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054116466sm150525631cf.6.2026.09.09.14.11.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:11:30 -0700 (PDT)
-Date: Wed, 9 Sep 2026 17:11:27 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
-References: <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pxaL5xD9"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XRX7D5+qIu+nyobBVV27AMpjipKGZgLW7iTQSvfvVK8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788988777; v=1; x=1789593577;
+ b=pxaL5xD9gMBAgNYTB82yeEaVP3wKhFUtns/5HVPHNdEvFLHlO5THESLYSBze5Yd8MMa5FPsc
+ u5Rj8X+2DudVrnoboNOMTdLIVUDTRDO9oIvaA2tnZg5KwLf14XfxGdqkL8wtUR0qVWTsouFfLXw
+ EJmbTkI3Z2LYRSIrw3+dbnOU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 809fffd4d1b542f4;
+	Wed, 09 Sep 2026 21:19:37 +0000
+X-Mizu-Trace-ID: 809fffd4d1b542f4
+X-Migadu-Flow: FLOW_OUT
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,  Christian Brauner
+ <brauner@kernel.org>,  Jan Kara <jack@suse.cz>,  Tejun Heo
+ <tj@kernel.org>,  "Matthew Wilcox (Oracle)" <willy@infradead.org>,  Andrew
+ Morton <akpm@linux-foundation.org>,  Dennis Zhou <dennis@kernel.org>,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
+ rotating b_attached
+In-Reply-To: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com> (Patrick
+	Lu's message of "Wed, 09 Sep 2026 18:50:27 +0000")
+References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+User-Agent: mu4e 1.12.15; emacs 30.2
+Date: Wed, 09 Sep 2026 21:19:32 +0000
+Message-ID: <7ia4fqzijf6j.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87pkymywth.ffs@fw13>
+Content-Type: text/plain
 
-On Wed, Sep 09, 2026 at 10:49:30PM +0200, Thomas Gleixner wrote:
-> On Wed, Sep 09 2026 at 15:28, Alan Stern wrote:
-> > On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
-> > I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
-> > in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
-> > litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
-> > the reads are executed in the opposite order, you can see how P1 might 
-> > get r0=1 and r1=0.
-> 
-> The problem we are debating is:
-> 
->     C = VAL1
-> 
->     CPU0                    CPU1		CPU2
->     
->     STORE(A0, 0)
->     STORE(A1, 0)
-> 
->     LOCK(TLOCK)
->     STORE(B, 1) // 0 -> 1
->     UNLOCK(TLOCK)
-> 
->                            LOCK(TLOCK)
->                            b = LOAD(B)
->                            if (b)
->                               STORE(C, VAL0)
-> 
->                                                 c = LOAD(C)
->                                                 LOCK(c->lock)
->                                                   a0 = LOAD(A0)
->                                                   if (!a0)
->                                                      STORE(A0, X1)
->                                                      STORE(A1, X2)
-> 
-> The question is whether CPU2 can observe C == VAL0 and A0 == NULL before
-> A1 has completed.
-> 
-> My and Peter's argument is that the sequence
-> 
->    UNLOCK(TLOCK) on CPU0   -> LOCK(TLOCK) on CPU1
-> 
-> implies RCtso and therefore the stores to A0 and A1 on CPU0 must be
-> before the store to C on CPU1.
-> 
-> Now because the LOAD(C) on CPU2 depends on that STORE(C) the
-> LOCK(c->lock) ensures that LOAD(A0) can't be reordered and because of
-> that STORE(A1, 0) has completed before that.
-> 
-> CPU2 LOAD(C) observing VAL0 has a data dependency on the STORE(C, VAL0)
-> on CPU1, which as argued above can only happen after the UNLOCK/LOCK
-> sequence CPU1 observes the STORE(B).
-> 
-> Subsequently LOCK(c->lock) has a data dependency on LOAD(C) and the LOCK
-> operation prevents that LOAD(A0) can be reordered before LOCK(c->lock).
-> 
-> So despite the fact that c->lock != TLOCK the UNLOCK(TLOCK)/LOCK(TLOCK)
-> sequence, which implies RCtso, the following takes care of it:
-> 
->     1) the data dependency between the STORE(C, VAL0) on CPU1 and the
->        c = LOAD(C) on CPU2 observing VAL0
->    
->     2) the data dependency of LOCK(c->lock) on #1
-> 
->     3) due to LOCK() in #2 LOAD(A0) cannot observe the STORE(A0, 0) on
->        CPU0 without the STORE(A1, 0) on CPU0 has completed.
-> 
-> If #3 can happen then that would obviously cause undebuggable data
-> corruption.
-> 
-> I hope this is understandable enough despite my brain having melted
-> several times by now while writing it up.
+"Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com> writes:
 
-I see.  Yes, your analysis is right.  And Frederic's latest LKML litmus 
-test confirms the result.
+> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
+> per call and is called again until the dying wb is drained, but every
+> call walks wb->b_attached from the head. Inodes already prepared (they
+> stay on the list with I_WB_SWITCH set until the switch worker runs) and
+> inodes that cannot be switched (I_FREEING, I_WILL_FREE, !SB_ACTIVE,
+> DAX, already on the target wb) stay at the head, so each pass rescans a
+> growing prefix under wb->list_lock and a full drain is quadratic in the
+> number of attached inodes. With ~17M inodes attached to one dying cgwb
+> we have seen this end in soft lockups, with CPUs reported stuck for
+> 21-48s.
+>
+> Move every scanned inode to the tail of b_attached, so the next pass
+> starts where the previous one stopped and the drain becomes linear.
+> b_attached is unordered and isw_prepare_wbs_switch() is its only
+> walker, so nobody else sees the reorder. b_dirty_time is ordered by
+> expiry for move_expired_inodes() and keeps its current scan.
+>
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
+> ---
+> Seen in production on a 6.18-based kernel: with ~17M inodes attached
+> to one dying cgwb, a node spent 36 minutes in back-to-back
+> wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
+> time, starving writeback on that wb); with this patch the same workload
+> drains in ~30 seconds. Also seen on stock Amazon Linux 2023 6.12.68 as
+> isw workers spinning on the list_lock in inode_switch_wbs_work_fn()
+> while cleanup_offline_cgwbs_workfn() runs.
+>
+> Tested with a QEMU A/B setup at 100k attached inodes and patched vs
+> unpatched on production-class hardware at ~17M attached inodes.
+>
+> Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
+> state [1] fixes BPF/ftrace detach stalls behind the same drain; this
+> patch bounds the walk itself. The two are independent.
+>
+> [1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
+> ---
+>  fs/fs-writeback.c | 39 ++++++++++++++++++++++++++++-----------
+>  1 file changed, 28 insertions(+), 11 deletions(-)
 
-Alan Stern
+Acked-by: Roman Gushchin <roman.gushchin@linux.dev>
+
+Thanks
