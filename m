@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EB83AD501
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F283AEB2C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947190; cv=none; b=ZrB8Q4tX74oUgu5k2OF6s1rAAdt8Vwyo4rMFRwY2HWtOY6FrZ74mbJs4JRrnhRtmEQQ9Lfu9hwRRSIkuS25pBIqcBg2lWl62y5A/eHtXT50pjXYTX/MY1RzDwEIsoZgb36DtD02LbmzwEe9pS3JsvWh0+rusP1n2WztGXxjqYHs=
+	t=1788947192; cv=none; b=lE/fGOOSh2ILmnL7rGkqhic9n3PYnFEnkQvjRq3xaZjm2+LBtkUT4MUPUjivPYf0pvskBOVyCiHB0iBuxDkTYy30+BbcU4/1UBJb2ybBVUcbA3ojGlaCV4TtZIAwqKfPKm9+yZMcCfbdfS9OOO3KlO29VOnBYSk7Mnza180m2yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947190; c=relaxed/simple;
-	bh=eGhxg8v3S0dk4vuBBGWSdGyl7SSld4ou8tNWDTiaBF4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mG+7P3D6fw7zRPS2D5uz7GHdhcfLPwU2hpU2j5cTCoh22suUA/2RGUUt+SJVK+H61ncOSWjaGVZYWdqeEexV+g5cBCYM41AK1FeCQXU42wmvPFMmzK8liFyEYm25FPgKjlnaWDFr8pglCnsJuLnjCD4vl2aCFYeRl/yF99cK2F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hjFmewsR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947192; c=relaxed/simple;
+	bh=xDXWoJ6R2pPxm0vHjocAwK1kpPzwnDd646iQnKDny0Q=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lCntVEyYuCI5UUaEFUFKQCqaRAAfJQqvLr1YNHX/AwSAjAzqimixq288QQHW/aLhX1j5Z+jx7blD8VL1EhuXgJxs3pqVE2tGexh/rX5uCm9raQnSchla6TEW1wTNMu/J7pQpptNFAN8dAm0doH7VuIoHtiHYPADLrU8M35ZKBCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d5z7ukub; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hjFmewsR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A88091F00A3D;
-	Wed,  9 Sep 2026 09:46:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d5z7ukub"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA351F00A3E;
+	Wed,  9 Sep 2026 09:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947188;
-	bh=Dbv4a1UN8vEzbAbG8S1eJvHqJIkvKeVaYct7FPpOPI4=;
+	s=korg; t=1788947191;
+	bh=bfeL/SN6j4GiOsPPTKkmggphmHM5EmFQq08rRVhVCjw=;
 	h=Subject:To:Cc:From:Date;
-	b=hjFmewsR5NJQSaEb4Wx+Vqh3Kfz4TTVtXyTHhpiuJWX0bfiTIDSf80j0lcc85OXXS
-	 Kl+OkGyyHRUWS51HDPd2Id38yR7XKixjVsioo4x3UyXulxGJeo0C8E1Er2vYip6g1t
-	 ejwhHheGTOT4pDZDC3Wg0jqnKIwRId9x1kzzdePg=
-Subject: FAILED: patch "[PATCH] perf: Fix use-after-free when perf mmap() revival races with" failed to apply to 6.18-stable tree
-To: yilinzhang@moonshot.ai,bug-report@moonshot.ai,peterz@infradead.org,shiweiming@moonshot.ai,stable@vger.kernel.org
+	b=d5z7ukub89kdzWjRKzgbFLmeRvBLvvSzMzk7m03DdJbRt0fUeym72FzT3+cyOvqHq
+	 NdHeSAdwRcNNZkQPxDI7yRpWE5fRo8lItQY+MnrSwTQa8sEOOl4RbKWTuP9YpisaQs
+	 9h0d+7HAT56ubhdDFGBFdh1ATi50FGpeCx9UTsNc=
+Subject: FAILED: patch "[PATCH] i2c: qcom-cci: fix autosuspend cleanup" failed to apply to 6.12-stable tree
+To: lgs201920130244@gmail.com,andi.shyti@kernel.org,loic.poulain@oss.qualcomm.com,stable@vger.kernel.org,vladimir.zapolskiy@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:39:47 +0200
-Message-ID: <2026090946-pacify-trodden-af31@gregkh>
+Date: Wed, 09 Sep 2026 11:41:08 +0200
+Message-ID: <2026090908-irritable-errant-ac6f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 58a8108bc73de0740d5b88150465d6690ea5f85f
+git cherry-pick -x f98d4986482151a835b521a734722fe8dc5ca37d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090946-pacify-trodden-af31@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090908-irritable-errant-ac6f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,98 +62,71 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 58a8108bc73de0740d5b88150465d6690ea5f85f Mon Sep 17 00:00:00 2001
-From: Yilin Zhang <yilinzhang@moonshot.ai>
-Date: Tue, 1 Sep 2026 00:21:55 +0800
-Subject: [PATCH] perf: Fix use-after-free when perf mmap() revival races with
- the last munmap()
+From f98d4986482151a835b521a734722fe8dc5ca37d Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 12 Aug 2026 17:44:25 +0800
+Subject: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
 
-perf_mmap_close() drops rb->mmap_count *without* holding
-event->mmap_mutex (the refcount_dec_and_test() right before the
-refcount_dec_and_mutex_lock() of event->mmap_count). A concurrent
-perf_mmap_rb() can slot its entire "revival" path into that window
-(perf_mmap holds event->mmap_mutex for its whole duration, including
-rb_alloc):
+cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
+does not call the matching pm_runtime_dont_use_autosuspend() before
+disabling runtime PM.
 
-  munmap side (perf_mmap_close)          mmap side (perf_mmap_rb)
-  -----------------------------------    --------------------------------
-  rb->mmap_count 1 -> 0   (no lock)      (holds event->mmap_mutex)
-                                         inc_not_zero(rb->mmap_count) fails
-                                         ring_buffer_attach(event, NULL)
-                                         rb_alloc() + attach new rb
-                                         refcount_set(&event->mmap_count, 1)
-  lock; event->mmap_count 1 -> 0
-  ring_buffer_attach(event, NULL)
-  ring_buffer_put() -> frees the *new* rb
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without undoing the autosuspend setting during
+teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
-The revival's refcount_set(&event->mmap_count, 1) is an invisible
-1 -> 1 write: the close frees the just-revived buffer although the
-other process still has it mapped -- a page-level use-after-free
-allowing local privilege escalation to root by any unprivileged user
-(default kernel.perf_event_paranoid=2).
+Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
+state. Its managed cleanup disables autosuspend and runtime PM and
+restores the suspended state on probe failure and driver removal.
+Remove the now redundant manual runtime PM cleanup.
 
-Swap the order of the two counter updates: event->mmap_count is
-dropped first via refcount_dec_and_mutex_lock(), so its 1 -> 0
-transition and the ring_buffer_attach() stay serialized with
-perf_mmap(). rb->mmap_count == 0 then implies every event using the
-buffer is detached already, so the result of the rb->mmap_count drop
-can gate the remaining teardown directly and detach_rest is no longer
-needed.
+This issue was found by manual code inspection.
 
-An earlier fix for this race from Kyle Zeng and David Lee takes
-event->mmap_mutex around both counter updates [0]; here the not-last
-close stays lockless.
+Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: <stable@vger.kernel.org> # v5.8+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260812094425.3515179-1-lgs201920130244@gmail.com
 
-Fixes: 59741451b49c ("perf: Identify the 0->1 transition for event::mmap_count")
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Co-developed-by: Weiming Shi <shiweiming@moonshot.ai>
-Signed-off-by: Weiming Shi <shiweiming@moonshot.ai>
-Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://lore.kernel.org/linux-perf-users/20260804060931.711308-1-david.lee@trailofbits.com/ [0]
-Cc: <stable@vger.kernel.org>
-Cc: stable@vger.kernel.org # 6.18+
-Link: https://patch.msgid.link/20260831162155.1437652-1-yilinzhang@moonshot.ai
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a6c8e38a3110..f02780529b43 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7029,7 +7029,6 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 	mapped_f unmapped = get_mapped(event, event_unmapped);
- 	struct perf_buffer *rb = ring_buffer_get(event);
- 	struct user_struct *mmap_user = rb->mmap_user;
--	bool detach_rest = false;
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index bdeda3979c48..25b6e4e9e3fa 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -595,9 +595,11 @@ static int cci_probe(struct platform_device *pdev)
+ 		goto disable_clocks;
  
- 	/* FIXIES vs perf_pmu_unregister() */
- 	if (unmapped)
-@@ -7060,17 +7059,18 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 		mutex_unlock(&rb->aux_mutex);
+ 	pm_runtime_set_autosuspend_delay(dev, MSEC_PER_SEC);
++	ret = devm_pm_runtime_set_active_enabled(dev);
++	if (ret)
++		goto disable_clocks;
++
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_set_active(dev);
+-	pm_runtime_enable(dev);
+ 
+ 	for (i = 0; i < cci->data->num_masters; i++) {
+ 		if (!cci->master[i].cci)
+@@ -613,8 +615,6 @@ static int cci_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ error_i2c:
+-	pm_runtime_disable(dev);
+-	pm_runtime_dont_use_autosuspend(dev);
+ 
+ 	for (--i ; i >= 0; i--) {
+ 		if (cci->master[i].cci) {
+@@ -640,9 +640,6 @@ static void cci_remove(struct platform_device *pdev)
+ 			cci_halt(cci, i);
+ 		}
  	}
- 
--	if (refcount_dec_and_test(&rb->mmap_count))
--		detach_rest = true;
 -
--	if (!refcount_dec_and_mutex_lock(&event->mmap_count, &event->mmap_mutex))
--		goto out_put;
--
--	ring_buffer_attach(event, NULL);
--	mutex_unlock(&event->mmap_mutex);
-+	/*
-+	 * Drop references in reverse order of perf_mmap() to prevent
-+	 * rb revival after rb->mmap_count reaches zero.
-+	 */
-+	if (refcount_dec_and_mutex_lock(&event->mmap_count,
-+					&event->mmap_mutex)) {
-+		ring_buffer_attach(event, NULL);
-+		mutex_unlock(&event->mmap_mutex);
-+	}
+-	pm_runtime_disable(&pdev->dev);
+-	pm_runtime_set_suspended(&pdev->dev);
+ }
  
- 	/* If there's still other mmap()s of this buffer, we're done. */
--	if (!detach_rest)
-+	if (!refcount_dec_and_test(&rb->mmap_count))
- 		goto out_put;
- 
- 	/*
+ static const struct cci_data cci_v1_data = {
 
