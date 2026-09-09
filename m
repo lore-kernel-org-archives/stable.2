@@ -1,150 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D07533582
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9313533582
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953304; cv=none; b=eJH0UQDS1vxkflPnoJm/xaNAFVA5DkoTk8WATKhoY+/5xAMn55GVE/7wdTSrlGhz56cAxv5HF+aqjtloA11u7DpJjzzOf5kumDDrUrdxibrrOIXEDSZ46COqO8PwJexJq673RSj2BYdpxtViBYR3Bwsx9l5YbpfaZwh28DeNc8U=
+	t=1788953306; cv=none; b=HEWYy2mhlnnl869Ckk6Ps6ASGCkYVSaXUakhNBCyecm1r9j5f3nlPEIi8uYiU2P51JZpceRXPRCOAMcNws7dNbL8kxTf/A4pqPvVVhXs78tVMCvCQPym2LZli+8I7d+X8rtZiuoFiOtAMxH1nimdJtAZPzkMmZwqsOYFYZvye+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953304; c=relaxed/simple;
-	bh=C6ff9KcyqOndaRsGzyeVcjE1aS8hBY1J6uCvEO7yFsI=;
+	s=arc-20240116; t=1788953306; c=relaxed/simple;
+	bh=sZMHv0e49pJRdP60nRckR5SzKPHt04B+l9NjX1BrgTk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SEsb4Fpuj/kJ8uzWOOPU6koxMdWxfXuqBLPQFOa15jPueGlWzF5p88Ua1rS+3ghlCzjep1V96Hen8Edn5YojzM+0CDpOB1K5YUVeNtuf3ZB+wM4ZFCAAIgwTKmbsffXOPqdLNwPD+0/0JTxp3mfKrGq5R62tutRc49akRGHlGX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wq3cTbc3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IUpZ4293WLAYdP8tQ8xiEU5fga0itR9OOTUw0E9uqUyRVqqXW5ivS2HTab/jgdwvZfKeJd5N4NXuqwCpfjQOuvz+f9ww1cZOlx1Ov3Tf8+yCos69knwTmg1gVQymdBrrzHjBdBMo+sZdumj6tMsA1DYiebClrjeHMXKW7bPspEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUf6sCM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wq3cTbc3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD851F00A3E;
-	Wed,  9 Sep 2026 11:28:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUf6sCM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6BF1F00A3A;
+	Wed,  9 Sep 2026 11:28:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953301;
-	bh=1OGMkGaKi4WvelAN3MNA1pHz6jf0IvkJHdkNzFaqspo=;
+	s=k20260515; t=1788953304;
+	bh=aoOFJpYnbMmYnCrVzk2adZZdZBwCN4Akhp3EY6TGDJA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wq3cTbc33prC5/h9nZx4q0QJIry3q1PbTlPG1DQzUrvS8umLkOJob2Aok7sElBt2N
-	 l50m8Sw2c8y6bqOSOIvsykNU/5eEtv1PN4VU/fGmZBDYw4ur9Sg3viWUoOaTLzpfcT
-	 LdF06AOCSabb1QtfnyH82jwq4jQTCkgmraXUuuKR8LNw4y3Ohts996V5kyKnW4TPgi
-	 AyTRdhUJeVCaGLKY6IzBmmQA3BK7pt6YKdWJVlHijZ07j8kbtGskBD3skb70TyW+Vg
-	 9VdwK9NSDqDLWZCvZ1JgkowwolfEfkv+j/m6ElA53bUwTvWqFWLF3sNhpnTMuUrhs2
-	 KB4WTO0j1lryA==
+	b=EUf6sCM0nxvtTOk7DxfjiC9qEqTCIiierCSOftliNUh+fF6CZDlHiox0ZX4ByQlQB
+	 zD3KdG1DqmW+wNU9QHqGBYBOcpAE7c5TrIXr+cgagSIA6CjRdJ8QjFGBH+VQ9O/+Ds
+	 exS/qkNaT089RER/hO6vswKEOSxp4j5IgdzlNopGo7rx3zUN1dVdYylHmgutYTOh1j
+	 DYJManM86ru28/xyvBo/3nWFarjZxRLSEVyNynCsX4KblRd7O0i+yvNNxGgjeuH5dN
+	 +Z9WiFPnM7xRK077s8oPQQVEkRBV6BUB0iRgnPvHS0jXl0Rk/3Rtrp1jNZIpCk4hbR
+	 5WGHsq7bKjtIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
+Cc: Ivan Abramov <i.abramov@mt-integration.ru>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] power: supply: rt9455: quiesce delayed work before teardown
-Date: Wed,  9 Sep 2026 07:28:18 -0400
-Message-ID: <20260909112818.1847669-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] power: supply: max17040: Check iio_read_channel_processed() return code
+Date: Wed,  9 Sep 2026 07:28:21 -0400
+Message-ID: <20260909112822.1848327-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909112818.1847669-1-sashal@kernel.org>
-References: <2026090322-effort-tinderbox-8526@gregkh>
- <20260909112818.1847669-1-sashal@kernel.org>
+In-Reply-To: <2026090314-oncoming-condition-a40f@gregkh>
+References: <2026090314-oncoming-condition-a40f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Ivan Abramov <i.abramov@mt-integration.ru>
 
-[ Upstream commit 3e7a1ebc32fad5a558254a478efd401c17a24381 ]
+[ Upstream commit 2c68ac48c52ad146523f32b01d70009622bf81aa ]
 
-The threaded IRQ handler can queue pwr_rdy_work,
-max_charging_time_work and batt_presence_work.  pwr_rdy_work and
-batt_presence_work can also queue max_charging_time_work, while
-batt_presence_work can requeue itself.
+Since iio_read_channel_processed() may fail, return its exit code on error.
 
-rt9455_remove() cancels max_charging_time_work before
-batt_presence_work.  The latter can therefore queue
-max_charging_time_work after it has already been cancelled:
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-  rt9455_remove()                   workqueue
-    cancel pwr_rdy_work
-    cancel max_charging_time_work
-                                      batt_presence_work queues
-                                        max_charging_time_work
-    cancel batt_presence_work
-    return
-    devres frees rt9455_info
-                                      max_charging_time_work dereferences
-                                        rt9455_info
-
-The IRQ also remains registered until devres cleanup and can queue more
-work after any of the cancellation calls.  If rt9455_hw_init() fails
-after the IRQ has been requested, probe returns without cancelling work
-that may already have been queued.  A pending callback can then access
-rt9455_info after it has been freed.
-
-Register rt9455_cancel_all_delayed_works() through
-devm_add_action_or_reset() right after devm_power_supply_register().
-devres invokes the action in reverse registration order, after the
-managed IRQ has been freed and before rt9455_info is released, so the
-delayed works are drained in both rt9455_remove() and the probe error
-path.  Cancel pwr_rdy_work and batt_presence_work before
-max_charging_time_work because both can queue the latter.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: e86d69dd786e ("power_supply: Add support for Richtek RT9455 battery charger")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260723225310.12663-1-fanwu01@zju.edu.cn
+Fixes: 814755c48f8b ("power: max17040: get thermal data from adc if available")
+Signed-off-by: Ivan Abramov <i.abramov@mt-integration.ru>
+Link: https://patch.msgid.link/20251008133648.559286-1-i.abramov@mt-integration.ru
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ retained the int-returning rt9455_remove() callback required by the older I²C interface. ]
+
+[Stable dependency adaptation]
+Linux 6.6 does not contain the optional IIO temperature support introduced
+by 814755c48f8b, so omit the temperature-read error-checking hunk and the
+unavailable status/temperature context.
+
+Retain the local ret declaration: target 659cc3d8d5ef uses it to propagate
+voltage and capacity read errors without adding a declaration of its own.
+Use ret for the existing -EINVAL default case so this dependency builds
+without an unused-variable warning before the target is applied. Keep the
+successful return as zero; the target stores positive readings in ret.
+
+This is a prerequisite-only adaptation with unchanged driver behavior and
+no added functions.
+
+Stable-dep-of: 659cc3d8d5ef ("power: supply: max17040: propagate register read errors")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/rt9455_charger.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ drivers/power/supply/max17040_battery.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/rt9455_charger.c b/drivers/power/supply/rt9455_charger.c
-index 6f6adc7446a6d..310cae3f61f09 100644
---- a/drivers/power/supply/rt9455_charger.c
-+++ b/drivers/power/supply/rt9455_charger.c
-@@ -1583,6 +1583,19 @@ static const struct regmap_config rt9455_regmap_config = {
- 	.cache_type	= REGCACHE_RBTREE,
- };
- 
-+static void rt9455_cancel_all_delayed_works(void *data)
-+{
-+	struct rt9455_info *info = data;
-+
-+	/*
-+	 * Both pwr_rdy_work and batt_presence_work can queue
-+	 * max_charging_time_work, so cancel them first.
-+	 */
-+	cancel_delayed_work_sync(&info->pwr_rdy_work);
-+	cancel_delayed_work_sync(&info->batt_presence_work);
-+	cancel_delayed_work_sync(&info->max_charging_time_work);
-+}
-+
- static int rt9455_probe(struct i2c_client *client)
+diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
+index ff42db6728991..28c66c1fe6e43 100644
+--- a/drivers/power/supply/max17040_battery.c
++++ b/drivers/power/supply/max17040_battery.c
+@@ -386,6 +386,7 @@ static int max17040_get_property(struct power_supply *psy,
+ 			    union power_supply_propval *val)
  {
- 	struct i2c_adapter *adapter = client->adapter;
-@@ -1673,6 +1686,10 @@ static int rt9455_probe(struct i2c_client *client)
- 		goto put_usb_notifier;
+ 	struct max17040_chip *chip = power_supply_get_drvdata(psy);
++	int ret;
+ 
+ 	switch (psp) {
+ 	case POWER_SUPPLY_PROP_ONLINE:
+@@ -401,7 +402,8 @@ static int max17040_get_property(struct power_supply *psy,
+ 		val->intval = chip->low_soc_alert;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		ret = -EINVAL;
++		return ret;
  	}
- 
-+	ret = devm_add_action_or_reset(dev, rt9455_cancel_all_delayed_works, info);
-+	if (ret)
-+		goto put_usb_notifier;
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					rt9455_irq_handler_thread,
- 					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-@@ -1714,10 +1731,6 @@ static int rt9455_remove(struct i2c_client *client)
- 		usb_unregister_notifier(info->usb_phy, &info->nb);
- #endif
- 
--	cancel_delayed_work_sync(&info->pwr_rdy_work);
--	cancel_delayed_work_sync(&info->max_charging_time_work);
--	cancel_delayed_work_sync(&info->batt_presence_work);
--
- 	return ret;
+ 	return 0;
  }
- 
 -- 
 2.53.0
 
