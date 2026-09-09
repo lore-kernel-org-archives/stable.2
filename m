@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BE934D3B2;
-	Wed,  9 Sep 2026 04:11:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E692F7EE8;
+	Wed,  9 Sep 2026 04:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788927092; cv=none; b=UuHsUiU7fFkSL4UOvUckUUuC7vVbkzQk4nlU0PpZH9+SaYahGRFzrov3dyK69SYBB/r9NGjhzmKXjNFyLr3HlJDsmAI6sDhCpAGmf+BuboUjbht+O4RfTDVmgmczd7xeI2aHcqejgM6rrZQi6HZJaRWlGmXcbwaAiuVnfgU43Qk=
+	t=1788927311; cv=none; b=oyE87uuFdydW7TwQFnn6mgTV9/YGI/aVsLkKkrq5enE74t1ARNkGznL+aGY8/cCeYhQSkKyL4/dbWJVMYebqKTttgAR2SpNm9Rq3uPZ6JWmASizXXSSR502MU6qW9L1HyjlwCSfSOwNgw+eiMgCjsDY8bdOyV6/8aqY/ucTC25E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788927092; c=relaxed/simple;
-	bh=cfxBESO+NQDgLPD6ZCftkntInERsAv/ZFMhKqQb6kXY=;
+	s=arc-20240116; t=1788927311; c=relaxed/simple;
+	bh=cvduMeCSuX68HLteENhF+JJnVHHsGVY3zCTLUNEk8jg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E7Ml349M18WauoYwCoN4v8Y9MtpmpqmdLkgTtYBPzwMqwdkVSLe/dcB7mG70dqXrKMCOTwL+jdyipA1jB6tHt3z8FzbXhi5M4B96Yu2rW8R80HMOSCf7005WKmVTdl3UcVVCc/DK7nW/dLOjP+0506B/FKl6HXpVr9ZzHkBBn4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXuolGJP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ielOiMOpkzZF53sNvgVm9oBi9guoQ97HuFyNYo9P10YkoDkg0gU/+HG7FGxYhji20ChZR2HRjpO+/RlVrYYD1kYBvwCliRSaP3Z4xTunIQGpT5xmfp8zEiTsUvHoo4GJ5St2IrqLsmKXzu06eqQ1vvuPG81JJ448dt4pOPcNF/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HedjJWqf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXuolGJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA881F00A3A;
-	Wed,  9 Sep 2026 04:11:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HedjJWqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87CB1F00A3A;
+	Wed,  9 Sep 2026 04:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788927089;
-	bh=IdiNhjuOFT3hKSr1ASzf37Xn8tlWY2qq5j/sRaXGm/Y=;
+	s=k20260515; t=1788927309;
+	bh=tB9AqynwLIZcLjyxTxqmLGsufWdE74G7ALeDVkj7a3A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YXuolGJPqBeAlRwABkApdqswW5xPkpvIkCbw3j887zz0PDZSsbm5Y8FVhD9bTxhIB
-	 0gecUQRlckJQC+TjiX1E3nFxnTnJOnZEu42u1XyUC/5bH2fayoUIeWJCHReZoWS8xr
-	 voNrUtS0cvExCcQFiLX1UI0A8aQMI1yrb7+UkdsbraOUQ+LQSsdPov8tS9hsIXUubP
-	 TTxsY6vi8sCJgjuDUOcLIXY0KwXE3SHD2uB+rI0soexYIF1TRhva7mCoMhIzrBu7fX
-	 le+jxdF9zgWNf31Dc8CpNP142aq6dEHq6I4SYo0O7m11e3Hmwu11U5GJ19MJYBXsYO
-	 fV4ZoUwwVmXJA==
+	b=HedjJWqfGMAIJ5Ez951QiFu+z976J6pvLedX+ETnzY3I/JCDyLMaIa7KAyodYPQ6z
+	 0s0tCcDO45/364e1wiBNr2Xa92JsHjpiQcAIfYUxPEE8kp5xcJsjQU6rPNm9kEUgN8
+	 ZIARkNSto20Pf/9iw40HOx5GSJ22ZifRO6SG10YkyxUZNj78sHguRuUZRjEabtqTG7
+	 J8fMyI+YOQmlqZRcHuvrNCJtwGOcGC6tyFdHPGXExRW/OW2+c1CdneKK/RGF/6LE+n
+	 LTXZK2PSJ1qBwPkDGWUJokCLZoirMRWn/IGcq7uicwu7itgn/A8ZjpgXKD65j5jqlh
+	 V0iInQeFUIbpg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/damon/core: initialize damos->last_applied
-Date: Tue,  8 Sep 2026 21:11:22 -0700
-Message-ID: <20260909041122.180644-1-sj@kernel.org>
+Subject: [PATCH 6.18.y] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Tue,  8 Sep 2026 21:15:02 -0700
+Message-ID: <20260909041502.181947-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090805-evoke-tiring-a0dd@gregkh>
-References: <2026090805-evoke-tiring-a0dd@gregkh>
+In-Reply-To: <2026090831-drinkable-maybe-5e01@gregkh>
+References: <2026090831-drinkable-maybe-5e01@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,68 +45,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch series "mm/damon: fix uninitialized DAMOS field and kunit exec
-expectation bugs".
+Patch series "mm/damon: unurgent fixes for infinite loop, NULL de-ref and
+races", v1.1.
 
-Fix a few Sashiko-found unurgent bugs.  Patch 1 fixes use of uninitialized
-damos->last_applied field.  Patches 2-7 fix DAMON kunit tests that do
-invalid memory access under test failures.
+Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+dereference and monitoring results degradation.  The first two sounds
+scary but the infinite loop happens only under unreasonable user setup.
+The NULL dereference is only in a unit test.  Monitoring results
+degradation is trivial since it is only best-effort, and those happens
+from only unlikely races.  Still those are bugs that better to fix if
+possible.  Fix those.
 
-The bugs are better to be fixed and eventually merged into stable@ kernel.
-That said, the fixes are arguably not urgent.  Patch 1 only introduces
-negligible DAMOS efficiency degradation in occasional cases.  Kunit fixes
-could introduce quite bad consequences but those are test code that affect
-only test run setups.
+This patch (of 6):
 
-This patch (of 7):
+Due to online parameter update like events, the number of DAMON regions
+could be higher than the user-set upper limit.  kdamond_merge_regions()
+repeats merge regions until the number meets the limit, while doubling the
+merge threshold up to the theoretical maximum threshold.  It is tried only
+up to the theoretical maximum threshold because even the aggressive
+merging can fail from reducing the number of regions under the
+user-defined upper limit.  For example, there could be many user-defined
+non-contiguous regions that cannot be merged.
 
-Multiple DAMON regions could exist across a folio.  If they fulfill the
-condition to apply a DAMOS scheme, the scheme could be applied multiple
-times to the folio.  To avoid this, each DAMOS scheme stores the folio
-that the scheme was applied to last time in the damos->last_applied field
-and skips repeatedly applying the same scheme to the same folio.
+The threshold based loop break condition is evaluated by comparing the
+threshold for the next merging try against the theoretical maximum
+threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
+threshold could make it overflow, and bypass the loop break condition.  In
+the case, if the number of regions cannot be reduced under the upper limit
+like explained above, the loop will run infinitely.
 
-The field is being used without initialization, though.  Hence, the
-mechanism could wrongly skip applying a scheme to a folio at the very
-first time of DAMOS run.
+Prevent the case by doing the break condition check before doubling the
+threshold.  Also, prevent the threshold exceeding the maximum threshold,
+as it could overflow and apply the wrong merge threshold.
 
-The user impact is trivial.  DAMON might unexpectedly skip applying DAMOS
-action for one folio for the first time per scheme.  In the DAMON's
-best-effort world, this is never a real problem.  No critical consequences
-such as kernel panic or memory corruption happen.
-
-It is a clear bug, though, and the fix is straightforward.  Fix the issue
-by initializing the field in DAMOS scheme creation function,
-damon_new_scheme().
+This issue is unlikely to occur in real world, since having the max_thres
+higher than UINT_MAX / 2 require unrealistically large aggregation
+intervals compared to the sampling interval.  Also, it requires an
+unrealistically large number of uncontiguous regions setup.  Nonetheless,
+the consequence is bad and the fix is simple.
 
 The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260718001442.87129-1-sj@kernel.org
-Link: https://lore.kernel.org/20260718001442.87129-2-sj@kernel.org
-Link: https://lore.kernel.org/20260714055436.120034-1-sj@kernel.org [1]
-Fixes: 94ba17adaba0 ("mm/damon: avoid applying DAMOS action to same entity multiple times")
+Link: https://lore.kernel.org/20260715031002.108504-1-sj@kernel.org
+Link: https://lore.kernel.org/20260715031002.108504-2-sj@kernel.org
+Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [1]
+Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: <stable@vger.kernel.org> # 6.15.x
+Cc: <stable@vger.kernel.org> # 6.10.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit af5f76aeb9c9aa9c77d5e1d94e0ee4618c805239)
+(cherry picked from commit 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/damon/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 70ac1f08753d1..02aebbc5d98e3 100644
+index 70ac1f08753d1..08e527efd6883 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -412,6 +412,7 @@ struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
- 	INIT_LIST_HEAD(&scheme->filters);
- 	INIT_LIST_HEAD(&scheme->ops_filters);
- 	scheme->stat = (struct damos_stat){};
-+	scheme->last_applied = NULL;
- 	INIT_LIST_HEAD(&scheme->list);
+@@ -2411,15 +2411,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
  
- 	scheme->quota = *(damos_quota_init(quota));
+ 	max_thres = c->attrs.aggr_interval /
+ 		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
+-	do {
++	while (true) {
+ 		nr_regions = 0;
+ 		damon_for_each_target(t, c) {
+ 			damon_merge_regions_of(t, threshold, sz_limit);
+ 			nr_regions += damon_nr_regions(t);
+ 		}
+-		threshold = max(1, threshold * 2);
+-	} while (nr_regions > c->attrs.max_nr_regions &&
+-			threshold / 2 < max_thres);
++		if (nr_regions <= c->attrs.max_nr_regions ||
++				max_thres <= threshold)
++			break;
++		if (threshold < max_thres / 2)
++			threshold = max(1, threshold * 2);
++		else
++			threshold = max_thres;
++	}
+ }
+ 
+ /*
 -- 
 2.47.3
 
