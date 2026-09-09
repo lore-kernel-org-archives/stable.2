@@ -1,92 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ADB4AEBDB
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC3837F8C6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:57:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951362; cv=none; b=R6UP3eZfF7e21w8rXN+yEsT8CJwPYz88iwDOhzYmH5JjD35H/bdTirhQAm6RyAnfHYeTYLVxypUx/Y9ZubR7KG87u6XFmOV+DMSH8BXHgskBKMbVKq1M+UKSFlmhNTOlIutMXhv1TzLGnTCcx4VN8hJsVnY8ehki64ULEEoa6WY=
+	t=1788951445; cv=none; b=X91MZEZ5OTPMhvE5DobC6RimukIOo22CS7F2pScBeAXnriDxB/H4Ah3zFy00Ea9eFOrqYQyGfzDPAZ+XszIzsNeptK/zKWNov6FeN1SUZecp8d+M/qUXTNL98ScWoG4CCbhc3Pyqc8UbQP6G9rAJNLiSjjbwGwheLgsHMZTdE9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951362; c=relaxed/simple;
-	bh=2heZ7EswTcFNgYFR/uYDyK/GUiAaU+aOf/TReVW6Wn8=;
+	s=arc-20240116; t=1788951445; c=relaxed/simple;
+	bh=JmpHa1XEGHXion+AfCJkbcsKAKfHx9mHhcUAt5dpDUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eExKy3wi+329eu7i5e+jXh1+RDPbjHcKEPu9xDfMLFtoU945LtaDs39Q50WwUoSnp146GFqq6VqnayxfRdk4LOISc0y2N1c1LGz5KC/XfMLzXN/+6228Q5z48aZar0hGdzlQiz4ARXqSqLTJsvnQH3R/PnGYTkCyScqmBFBfs6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/HS4QLO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jWZ9ahglJcOrzRvNIopIssXTtFFih/TFKQ5u40MjpT1H4cmUH3LJ5k89CUwFdiuad9kD/9GPzHQl+UgM0Mg5YNJORNe65NvvsQrSLOQTXRkmtim2afoFPp7YAmF2x5Jrywisg6Fw89tT6CGgtOk3xo0nkSY+INWam921NtUzk+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ik0efii+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/HS4QLO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2121F00A3E;
-	Wed,  9 Sep 2026 10:55:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ik0efii+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEF11F00AC4;
+	Wed,  9 Sep 2026 10:57:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951358;
-	bh=mTE2YoKRqrcniUzusawLkJkgH7H17oYujw+rDh1Ppe0=;
+	s=k20260515; t=1788951443;
+	bh=3V6Xbc+aaQWWkqwTW1ipdVJJgGGGpYw+4nOaYsJ3Nug=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J/HS4QLOWzwoFI510KRirVyUnjW2IwZLpBDfbqZDul1JD/lYlANn6OYahEvF0HFkF
-	 AfywtJ71YYJZT9vgoF+R8zxMJ8gMX7LXoq61hnFMzht0sEfHjTHMn5UfyNBFLB4Tgu
-	 ai7+mQsOokb3f2HUcllBmJMhj1UuLSD7S7h6Paj0EwFF6ofSUvDnY7doL2MsZX+MB0
-	 Bbdw9kneqT43e/hKsr3K/yemdcVrPLcL7edCC0xZvSB+8ALZ3ouqp2yEKh1p7ryoiZ
-	 E36ihrcBPUXW3JvsCW1GzhAGrlbMkK/ivoJ9/y3k1xMTE8mUenkevs8w4Qqx1+r5DU
-	 yxlnQcnjhw1ew==
+	b=Ik0efii+rbhA5Znkek/KB2l+1mk5ZyR6I6jN1LGMSLxChNx8bF2F9xovHp3h3LSFY
+	 K2FZNPeEm9x6iaQ7Gqt5BPNAV79ampyu/3ACcZGxNG332XXzFf2MeDeeMENDkSropM
+	 yBdm/A2u+770aT+DAUA5PVGiD3xiluBlETO1/iucMNdy1VWf9vcpiuSms09orv4vtL
+	 5yD2kyzGrho1Y7FAJYkXGZNNevjq8AjQGgQDcNlggao7iWgme7Ggj8cp9PuMnsofCj
+	 BkjCSwBZiZjDUv44b4fPl6gDLgUjxt5247XUlPs6SQxBDmAPPZQbADvQV+C8He+RgB
+	 ZmwkWeRsodrzA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <csokas.bence@prolan.hu>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] power: supply: lp8788-charger: fix use-after-free on remove
-Date: Wed,  9 Sep 2026 06:55:54 -0400
-Message-ID: <20260909105554.1634698-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] dmaengine: Add devm_dma_request_chan()
+Date: Wed,  9 Sep 2026 06:57:20 -0400
+Message-ID: <20260909105721.1641676-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909105554.1634698-1-sashal@kernel.org>
-References: <2026090352-math-comrade-6046@gregkh>
- <20260909105554.1634698-1-sashal@kernel.org>
+In-Reply-To: <2026090302-showgirl-ongoing-e7b7@gregkh>
+References: <2026090302-showgirl-ongoing-e7b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Bence Csókás <csokas.bence@prolan.hu>
 
-[ Upstream commit 831c29a12d560f8a3225f43050b3fbb5dfd79c66 ]
+[ Upstream commit 08bf1663c21a3e815eda28fa242d84c945ca3b94 ]
 
-lp8788_charger_remove() flushes charger_work before unregistering the
-IRQs. An IRQ thread can queue charger_work after flush_work() has
-returned. The work can then run after devres frees pchg and dereference
-it in lp8788_charger_event().
+Expand the arsenal of devm functions for DMA devices, this time for
+requesting channels.
 
-Unregister the IRQs first. free_irq() waits for any running threaded
-handler, so no handler can queue more work afterwards. Then use
-cancel_work_sync() to cancel pending work or wait for running work to
-finish.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 98a276649358 ("power_supply: Add new lp8788 charger driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260802035442.421697-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Bence Csókás <csokas.bence@prolan.hu>
+Link: https://lore.kernel.org/r/20250610082256.400492-2-csokas.bence@prolan.hu
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 777979e62711 ("i2c: mxs: fix DMA channel leak on probe error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/lp8788-charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/dmaengine.c   | 30 ++++++++++++++++++++++++++++++
+ include/linux/dmaengine.h |  7 +++++++
+ 2 files changed, 37 insertions(+)
 
-diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
-index 72b170b4ac46a..8d9a60d2f7da3 100644
---- a/drivers/power/supply/lp8788-charger.c
-+++ b/drivers/power/supply/lp8788-charger.c
-@@ -710,8 +710,8 @@ static void lp8788_charger_remove(struct platform_device *pdev)
- {
- 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
- 
--	flush_work(&pchg->charger_work);
- 	lp8788_irq_unregister(pdev, pchg);
-+	cancel_work_sync(&pchg->charger_work);
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index 68078e83d5756..66b5db511601b 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -928,6 +928,36 @@ void dma_release_channel(struct dma_chan *chan)
  }
+ EXPORT_SYMBOL_GPL(dma_release_channel);
  
- static struct platform_driver lp8788_charger_driver = {
++static void dmaenginem_release_channel(void *chan)
++{
++	dma_release_channel(chan);
++}
++
++/**
++ * devm_dma_request_chan - try to allocate an exclusive slave channel
++ * @dev:	pointer to client device structure
++ * @name:	slave channel name
++ *
++ * Returns pointer to appropriate DMA channel on success or an error pointer.
++ *
++ * The operation is managed and will be undone on driver detach.
++ */
++
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	struct dma_chan *chan = dma_request_chan(dev, name);
++	int ret = 0;
++
++	if (!IS_ERR(chan))
++		ret = devm_add_action_or_reset(dev, dmaenginem_release_channel, chan);
++
++	if (ret)
++		return ERR_PTR(ret);
++
++	return chan;
++}
++EXPORT_SYMBOL_GPL(devm_dma_request_chan);
++
+ /**
+  * dmaengine_get - register interest in dma_channels
+  */
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index 04826a7930392..e4f4838f3b7b6 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -1486,6 +1486,7 @@ struct dma_chan *__dma_request_channel(const dma_cap_mask_t *mask,
+ 
+ struct dma_chan *dma_request_chan(struct device *dev, const char *name);
+ struct dma_chan *dma_request_chan_by_mask(const dma_cap_mask_t *mask);
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name);
+ 
+ void dma_release_channel(struct dma_chan *chan);
+ int dma_get_slave_caps(struct dma_chan *chan, struct dma_slave_caps *caps);
+@@ -1522,6 +1523,12 @@ static inline struct dma_chan *dma_request_chan_by_mask(
+ {
+ 	return ERR_PTR(-ENODEV);
+ }
++
++static inline struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	return ERR_PTR(-ENODEV);
++}
++
+ static inline void dma_release_channel(struct dma_chan *chan)
+ {
+ }
 -- 
 2.53.0
 
