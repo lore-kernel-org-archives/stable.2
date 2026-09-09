@@ -1,73 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC0B566C73;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84F1566C70;
 	Wed,  9 Sep 2026 14:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964566; cv=none; b=MrSQJ5k5PA68ge1ZsAS/q5cmuKdOkrAk61mS8dXKzFDXM7QhChJEmLiD9hgkQuVad6xj3mx8Hol+Y6aZLwqyiywXDrxUnxNht1bjdrWzZADAvMz9qrQLlwRcoBmMCB1bhCe0t/iQEhfMKFahh2UBuEsAV0mSnsa1VZlPXklY4pg=
+	t=1788964567; cv=none; b=tJAiGK/aGLlCqDq1YjsBBpbQtHM1+j4DyDJGAGzQ9KLkUkW4QVeA5/WYlsCV/wMjHauf6WNCxE5uXaK64rc0X11mptpNnBrqdtJ0OhTaVkp4uGIaHInhed8MB3TI5dS8cYt4GdzWqO9GpLKgTbw4cXwWIfOPSZWp1eaaHjyQH5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964566; c=relaxed/simple;
-	bh=KQsUz0Q48iI4QqBuwniL5ZKJ1EiPmWHH/qogE948XLk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eE+OqHToBTFr9KqvYiRirQAKQItCNq/bdgsIYepT4OQwwu9wckS8q2qTDk9I/Bp554uoXhYcA1xpO2VMckPf7tF2ZtNI6pZTeztlZGdLY7pPRuc9WDYylqpuhFnfYjdFj9KfwSbAc73gxeOKToyn/B4zCgy2hsSOYf4uiJ3wmRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nawkzZRp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788964567; c=relaxed/simple;
+	bh=GM/TpJ8jsQRn/QnWKcIHguPO81UhlrxQhCXTODKNcX8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p74q/RScbNd4L/obxXkaj1q6GbFqvgPL1BfvLzw8m9v6zAFxgJwPCknHlYQKKyqcxLG5TXypVibv53pdlIaDdiRUYvbhHgtfX3bMY+wjwW7yDcpIbZyg3kQvJbO+kuRH5qwXkbyrqKXxsXdLVBHhPF0tgjds1qmryeY16mqfVTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Tbw3CvJ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nawkzZRp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C4C1F00A3A;
-	Wed,  9 Sep 2026 14:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964565;
-	bh=8SbYVSCe/btcutH19VdtAjOgi/PS9+UH2+WikgQoAl0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nawkzZRpFu1Yhjt7CKjvrpZZ3OvlIMzFjKnIVfkfJ1E4wU81COokXtmvrtCDZ8lnq
-	 v5ULK+YrQnHiqgwxnnb9mBHFEt+McOnua2XlKIDpCr0kCxz75dsDzjNH70eI8ZtV4U
-	 ErmO37HRQzuSrEaYfH8I/Aq0Z+5enqN3UWpOC+zV26DnqkcPtkFMirLuff2LeObKap
-	 PyCCahkMrJo7gB9hd55PtDDispBLQ6sgr1RpHrfBvrAuxDh1r3vLEJhx+c7Ba3CBlw
-	 4QbUXvsZR+3MQjDi3+8UEyd4NCIHPIID78RKRYCR4GuMLJ+KLMd9NHrIWDrVB4gLfE
-	 ajCLMcgYPNnVg==
-Message-ID: <f5636589-1d1b-4b64-9e82-cf4b249ebef8@kernel.org>
-Date: Wed, 9 Sep 2026 09:36:03 -0500
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Tbw3CvJ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5091F1F00A3D;
+	Wed,  9 Sep 2026 14:36:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788964565;
+	bh=s3SLhifb15FDNO8kH64gI9l24d+ne4wBEqoO5Vtb0P4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Tbw3CvJ6nt3M8gNk5m3KQ8MOBSDeozRzFTGDyo5ACxx/uHqMEhbojl8pWMQQCmX6N
+	 78ExbBcCStX4n6FKoeyhLl8urk5p/KirUW+pzIfInafVhQElPscFce+DpwXpJHPdym
+	 4GS7NL4fiX0yUgl7TfHOL/2mqUtfGLxIuw7AWKD4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sam Edwards <CFSworks@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 466/583] ceph: properly decrypt filenames in vmalloc() buffers
+Date: Wed,  9 Sep 2026 15:42:31 +0200
+Message-ID: <20260909134254.038669674@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCHv4 3/4] EDAC/altera: Fix code leak on dci allocation
- failure
-Content-Language: en-US
-To: Rounak Das <rounakdas2025@gmail.com>
-Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260909131253.2158486-1-dinguyen@kernel.org>
- <20260909131253.2158486-4-dinguyen@kernel.org>
- <CAPYTKoOmFpCzw5EydwxRdq3LhKP6p+osY=gxvy+KOZWQsXu-qg@mail.gmail.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <CAPYTKoOmFpCzw5EydwxRdq3LhKP6p+osY=gxvy+KOZWQsXu-qg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+6.18-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Sam Edwards <cfsworks@gmail.com>
+
+[ Upstream commit e939fc6a7bd969a58a150b7f188c1047138403e3 ]
+
+The fscrypt subsystem uses the scatterlist crypto API, inheriting its
+requirement that any buffers are in the linear mapping region. However,
+the messenger client uses kvmalloc() to create buffers for messages,
+which will occasionally place those buffers in the vmalloc() region when
+physical memory fragmentation doesn't permit a large enough kmalloc().
+The various callers of ceph_fname_to_usr() directly pass (slices of) raw
+messages from the MDS without considering that the messages may be in
+vmalloc() buffers, resulting in oopses especially on non-x86 platforms
+(see 'Closes:' for more details and a reproducer).
+
+Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
+fname->ctext, fname->name, and/or oname->name buffers, using `tname`
+(which, when non-null, must be a linear address; when null, is briefly
+allocated as necessary) as a bounce buffer to avoid passing any
+inappropriate addresses to fscrypt_fname_disk_to_usr().
+
+Additionally change parse_reply_info_readdir() -- the only function to
+supply its own `tname` -- to follow the new "tname must never come from
+vmalloc()" rule by passing NULL when the message is not in the linear
+region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
+exists only when processing the minority of messages that spill into
+vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
+messages. Still, if the overhead proves unreasonable in the future, it
+is easy enough to mitigate: a future change could allocate a bounce
+buffer in parse_reply_info_readdir() and use that as `tname` instead.
+
+Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
+Cc: stable@vger.kernel.org
+Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
+Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ adapted raw tname buffer accesses to the legacy tname->name interface ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/ceph/crypto.c     |   46 +++++++++++++++++++++++++++++++++++++---------
+ fs/ceph/mds_client.c |    8 ++++++--
+ 2 files changed, 43 insertions(+), 11 deletions(-)
+
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -351,6 +351,11 @@ out:
+  * Otherwise, base64 decode the string, and then ask fscrypt to format it
+  * for userland presentation.
+  *
++ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
++ * linear-mapped region, this function slightly relaxes those requirements:
++ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not
++ * tname->name.
++ *
+  * Returns 0 on success or negative error code on error.
+  */
+ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -358,11 +363,15 @@ int ceph_fname_to_usr(const struct ceph_
+ {
+ 	struct inode *dir = fname->dir;
+ 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
++	struct fscrypt_str _oname;
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
+ 	int ret;
+ 
++	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
++		return -EIO;
++
+ 	/* Sanity check that the resulting name will fit in the buffer */
+ 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
+ 		return -EIO;
+@@ -403,16 +412,19 @@ int ceph_fname_to_usr(const struct ceph_
+ 		goto out_inode;
+ 	}
+ 
++	if ((!tname || !tname->name) &&
++	    (fname->ctext_len == 0 ||
++	     unlikely(is_vmalloc_addr(fname->ctext)) ||
++	     unlikely(is_vmalloc_addr(oname->name)))) {
++		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
++		if (ret)
++			goto out_inode;
++		tname = &_tname;
++	}
++
+ 	if (fname->ctext_len == 0) {
+ 		int declen;
+ 
+-		if (!tname) {
+-			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
+-			if (ret)
+-				goto out_inode;
+-			tname = &_tname;
+-		}
+-
+ 		declen = ceph_base64_decode(name, name_len, tname->name);
+ 		if (declen <= 0) {
+ 			ret = -EIO;
+@@ -420,13 +432,29 @@ int ceph_fname_to_usr(const struct ceph_
+ 		}
+ 		iname.name = tname->name;
+ 		iname.len = declen;
++	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
++		memcpy(tname->name, fname->ctext, fname->ctext_len);
++
++		iname.name = tname->name;
++		iname.len = fname->ctext_len;
+ 	} else {
+ 		iname.name = fname->ctext;
+ 		iname.len = fname->ctext_len;
+ 	}
+ 
+-	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
+-	if (!ret && (dir != fname->dir)) {
++	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
++			tname->name : oname->name;
++	_oname.len = oname->len;
++
++	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
++	if (ret)
++		goto out;
++
++	if (unlikely(is_vmalloc_addr(oname->name)))
++		memcpy(oname->name, _oname.name, _oname.len);
++	oname->len = _oname.len;
++
++	if (dir != fname->dir) {
+ 		char tmp_buf[CEPH_BASE64_CHARS(NAME_MAX)];
+ 
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -496,9 +496,13 @@ static int parse_reply_info_readdir(void
+ 			 * to do the base64_decode in-place. It's
+ 			 * safe because the decoded string should
+ 			 * always be shorter, which is 3/4 of origin
+-			 * string.
++			 * string. If this message was allocated with
++			 * vmalloc() (happens, but rarely), leave it
++			 * NULL and let ceph_fname_to_usr() allocate
++			 * suitable temporary working space instead.
+ 			 */
+-			tname.name = _name;
++			if (likely(!is_vmalloc_addr(_name)))
++				tname.name = _name;
+ 
+ 			/*
+ 			 * Set oname to _name too, and this will be
 
 
-
-On 9/9/26 09:33, Rounak Das wrote:
-> Hi Dinh,
-> 
->>          if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
->> +               edac_device_free_ctl_info(dci);
->>                  return -ENOMEM;
->> +       }
-> 
-> This file will not compile since the braces are wrong, there is no starting {.
-> 
-> Also, another thing that I noticed is that 2/4's Fixes tag is missing
-> its closing
-> quote after "probe()".
-
-Argh..Thank you for catching that!
-
-> 
-> I will rebase and resend my of_node_put fix once this series lands.
-> 
-Dinh
