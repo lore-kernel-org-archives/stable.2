@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF5B32A3D7
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BF2582BB7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971216; cv=none; b=gJQK8l5ue7Pura13iF4ZNNELqWm5DKSsz8IUcIN0rJE/epIJtehQ8rveLt+EYLhngbSAGhiI9kX+QjAofgpGXJOLYnYYnXAieryjIkuse8AxEMteieVCmruFhsCsAMdcTl0AjGkZGFZ3NcjvGfhGSIBbjoIXbeOZ0uXMshZAUns=
+	t=1788971216; cv=none; b=oz8I5pTTK0ZOT/2w5zu/y43PL/hhALZmJ0hEl1HBNbr8a994Sux78hZOXOwYgfuOJ2VVURzHUEtRwb6OuwISDFe73aaCechXLyTVM1xHXtotDPt6kvaXrfjCX88DiWLiY7ih1nRGNeSedN00svvhjfUBCAxDd//LTZp0LQ4KJMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788971216; c=relaxed/simple;
-	bh=If3efuHEztmN1XfCj12NWrIZr95/MO/3x8KuW38oK1w=;
+	bh=qoCsfnPogew1EnrQ9xU7Wc3fdqMBpP9sPBo2N4c9ooo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n4JtMf0RdU+TOQi0H7DL4P9fgWEX/o8wV1gx0wNF9Fsf3uIDQ5iVsHePHe0CLTkcreGaasW9oE2ALad9zk1X/1vqkdoXPi1fHPy4+aGTZr4fvMHh3ta5nP75PnS+exhpqPDgvBfAXn0D5J8Vf49PVzrHXxbsW9U79YdM0i47rWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZUcaIfO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=vD+HDA4hUgE+zhze/8yLRIssCHudYRHocnwfN1W7985FgtFKafxPhUEF/U0UbVz+hDVESsAbayZ/5skcumM54GMSkyMQ/XfzYyJJfqxd0OvYGE+/v2JOjWR2pBqfHKTFxP3bRreN+inYKrndJcEi1kqugI0FqEZPrCrVn/n5uMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=do5v1pyA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZUcaIfO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D741F00893;
-	Wed,  9 Sep 2026 16:26:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="do5v1pyA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B861F000FF;
+	Wed,  9 Sep 2026 16:26:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971214;
-	bh=Gyh8b3JIzCC0hiGO6ckMAk+OVJcOQj4ewweVAKPPUf8=;
+	s=k20260515; t=1788971213;
+	bh=fBpuqVlNn9S2JS1t2EqMTNmu5qeigPCZWQebS6qAeuc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nZUcaIfOu9Z8AYAnkDd7Iyc7sU4yZgXaa2W2vOB8VrHoyJeNaM7Jfg0yebZiJsaxt
-	 FBaxkET+U97w/o9DZa02JrpOIT29kJgg4yl2OpMenTXnNFvCUFRE3t5ooyCnnr1sMW
-	 PP5NXIAl5FUxF5n8fuseBLJz81YGTqWabfwwh9VwkAKtB/5ZaJk0W9CAh3qpCAQPC1
-	 RiakXkhEzs2V3pMWYnswuMSC//2ZMUoETU0yUiDOWF15pjN0gOUUubBuCFvoMMDDU/
-	 FEiQRawLgXfmMJHsP806wx4x4RazxiiR6xRER1Cbj43sfmhkq4NgUUi9NpP1tSL54k
-	 tHIodpfTRcqTQ==
+	b=do5v1pyAyuQXTQLK4IkcU4gM+MVFbzkoLSrfZ5b6H++UAe4J3zyiJrZxlgIZ/dSTO
+	 zHcC4+u3AZJGOyEpOXsEG9Za7IXCSiUbv4uQb+0qVbHOCRciqNHwe7plWmiZf7I2Jj
+	 j2KskX8TtLW+46QTgVtjZ89N3OzlFXg0w06os7pHQdzks2U13N80eHERAVLkTjqpwS
+	 dgvTUAhQFN7KWI9NkGC4qThl0xSYd1fWtYU2U+DjrjGv9uOW+3bw3yXWCCBBFJLDUY
+	 ymZyI+h5pUXWxciYOJYGhn0C0+aqv1INKw7I+UuxvWioSDxf/Oyf9WC6RABqthHaGj
+	 7YWbVIa/r1ADQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] [AUTOMATED CONFLICT RESOLUTION] Documentation for 2cf20c4e0f72d523b8673053e7120d092ff1f074
-Date: Wed,  9 Sep 2026 12:26:50 -0400
-Message-ID: <20260909162650.2981584-3-sashal@kernel.org>
+Cc: Hui Su <sh_def@163.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] io_uring/waitid: avoid siginfo copy during ring teardown
+Date: Wed,  9 Sep 2026 12:26:49 -0400
+Message-ID: <20260909162650.2981584-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909162650.2981584-1-sashal@kernel.org>
 References: <2026090355-lavish-nimbly-617c@gregkh>
@@ -42,129 +44,109 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This commit documents the automated conflict resolution performed by codex
-for upstream commit 2cf20c4e0f72d523b8673053e7120d092ff1f074.
+From: Hui Su <sh_def@163.com>
 
-codex's resolution process:
-================================================================================
-Resolved and committed as `52c757d6eca3d` — `io_uring/waitid: avoid siginfo copy during ring teardown`.
+[ Upstream commit 2cf20c4e0f72d523b8673053e7120d092ff1f074 ]
 
-The original patch failed because this branch uses older cancellation interfaces: cancellation calls the helper directly, `io_waitid_remove_all()` receives a `task_struct` pointer, and `io_waitid_complete()` lacks upstream’s `copy_si` argument.
+During ring teardown, io_ring_exit_work() cancels outstanding requests
+from a kworker with a NULL tctx. The waitid cancellation path eventually
+reaches io_waitid_finish(), which copies the stored siginfo to the
+userspace pointer supplied with the request.
 
-The resolution changes only [io_uring/waitid.c](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/waitid.c:134), with 11 insertions and 7 deletions:
+Ring-wide teardown does not run in the task context that submitted the
+request, so it must not access that task's userspace pointer. Depending
+on the address and mm state, the copy may fail with -EFAULT, but the
+uaccess itself is inappropriate from the teardown kworker.
 
-- Added the `copy_si` argument to existing completion and cancellation helpers.
-- Used `task != NULL` to preserve copying during task-scoped cancellation and disable it during ring teardown.
-- Preserved copying for explicit cancellation and normal completion.
-- Kept teardown’s waitqueue removal, state cleanup, and `-ECANCELED` completion.
+Use a no-copy cancellation callback when io_waitid_remove_all() is
+called without an owning task context. Complete the request with
+-ECANCELED while releasing the waitid state without touching siginfo.
 
-No functions were added. The original commit message, author, and author date are preserved exactly. Only the resolved commit was created, and the working tree is clean.
+Keep the existing siginfo handling for explicit async cancellation and
+task-scoped cancellation.
 
-`stable build log` ran **after committing** and completed without interruption. Both **x86 and ARM64 passed with zero warnings and zero errors**. Whitespace and checkpatch checks also passed.
+Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+Link: https://patch.msgid.link/20260818103336.1922818-3-sh_def@163.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ adapted copy_si handling to older direct cancellation helpers using task instead of tctx. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ io_uring/waitid.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-[Build log](/tmp/stable-parse-fail-6.12-2cf20c4-build.log)
-================================================================================
-
-Backport verification analysis (via codex):
-================================================================================
-**The backport correctly implements the direct ring-teardown fix in `2cf20c4e0f72`. I found no defect in the added cancellation arguments or cleanup logic. There is, however, a substantive remaining concern: upstream’s companion fix for fallback task work was explicitly skipped, leaving another path that can still access siginfo from a kworker.**
-
-This distinction matters for the review record: the requested commit is faithfully adapted, but HEAD does not provide all the related protection present in upstream at that commit.
-
-The direct teardown path is correct. In this branch, [io_ring_exit_work()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/io_uring.c:2877) calls:
-
-```text
-io_uring_try_cancel_requests(ctx, NULL, true)
-  → io_waitid_remove_all(ctx, NULL, true)
-  → __io_waitid_cancel(ctx, req, false)
-  → io_waitid_complete(req, -ECANCELED, false)
-```
-
-The final two calls occur when cancellation successfully claims ownership of the request. Passing `false` bypasses `io_waitid_finish()`, which otherwise attempts the userspace siginfo copy even when its input result is negative.
-
-The backport preserves the intended behavior across the other paths:
-
-| Path | Backport behavior | Assessment |
-|---|---|---|
-| Direct ring-wide cancellation, `task == NULL` | Skip siginfo copy | Matches upstream’s NULL-`tctx` selection |
-| Task-scoped cancellation, `task != NULL` | Preserve siginfo copy | Matches upstream |
-| Explicit asynchronous cancellation | Pass `true` | Preserves existing behavior |
-| Ordinary callback completion | Pass `true` | Preserves existing behavior |
-| Immediate completion during submission | Continue calling `io_waitid_finish()` | Unchanged |
-
-Using `task != NULL` is justified by the actual callers, rather than merely by similarity between parameter names. Task-scoped cancellation passes `current`; ring teardown passes NULL. The older matching helper also checks the supplied task against the request’s submitting task.
-
-The no-copy path retains the required cleanup. [io_waitid_complete()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/waitid.c:134) still checks the ownership reference and ring lock, removes the request from the cancellation list, and removes its waitqueue entry before releasing the async state. [io_waitid_free()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/waitid.c:35) drops the PID reference, frees `async_data`, clears its pointer, and clears `REQ_F_ASYNC_DATA`. Consequently, bypassing `io_waitid_finish()` does not omit resource release or introduce a second async-data free.
-
-The negative result still sets the request’s failure flag, and cancellation still queues completion with `-ECANCELED`. Skipping `io_waitid_finish()` also skips its positive-result normalization, but that is harmless here: every new no-copy invocation supplies `-ECANCELED`.
-
-Both native and compat siginfo copies are bypassed, because the conditional sits above their common entry point.
-
-The differences from the upstream patch are appropriate for the older interfaces:
-
-| Difference | Reason and assessment |
-|---|---|
-| The backport adds `copy_si` to `io_waitid_complete()` | Upstream already obtained this interface from companion commit `14572de82e502`. The backport needs that portion to implement the requested fix. I verified that the resulting completion function is textually identical to upstream’s. |
-| The backport passes booleans directly instead of adding two callback wrappers | This branch contains its own cancellation loops. Upstream’s wrappers satisfy the generic cancellation helpers’ callback signature; they are unnecessary here. |
-| `task_struct *task` replaces upstream’s `io_uring_task *tctx` discriminator | Correct adaptation to the branch’s cancellation interface and callers. |
-| `__io_waitid_cancel()` retains its existing `ctx` argument | Harmless preservation of the older signature. |
-| The ordinary callback gains an explicit `true` argument | Required by the new completion signature and preserves its previous behavior. |
-
-The older cancellation loops also retain some pre-existing differences from upstream’s generic helpers. In particular, local `io_waitid_remove_all()` reports `found = true` after removing a matching request even when the cancellation helper cannot claim ownership; upstream’s generic helper conditions that result on the callback succeeding. This patch does not introduce that difference. Because the local loop removes the entry before reporting progress, the retained behavior does not itself create an endless rediscovery loop.
-
-I found no new locking, reference-ownership, ABI, or cancellation-matching change in the reviewed diff. The repeated `hlist_del_init()` between removal and completion is safe and pre-existing.
-
-**The remaining issue is the skipped fallback-task-work fix.** Upstream commit `14572de82e502`—`io_uring/waitid: honor task_work cancellation`—introduced two related changes before the requested commit:
-
-- The optional-copy completion interface.
-- A cancellation check at the start of `io_waitid_cb()`, before `__do_wait()`, completing canceled task work with `-ECANCELED` and no siginfo copy.
-
-The backport incorporates the first part but lacks the second. The dependency-preparation commit `b003e5c572cf6` explicitly records `14572de82e502` as `SKIP_RSLV`.
-
-This is relevant to the target branch because its fallback executor really can invoke this callback. [io_fallback_req_func()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/io_uring.c:244) runs queued callbacks from workqueue context without automatically replacing them with cancellation completions. Task work is routed there when the originating task is exiting or when adding task work fails.
-
-A problematic sequence supported by the source is:
-
-1. A child wakeup takes ownership of the waitid request and queues `io_waitid_cb()`.
-2. The submitting task exits, causing pending task work to use the fallback worker.
-3. Cancellation encounters the already-owned request. `__io_waitid_cancel()` sets the cancellation flag but returns before reaching `io_waitid_complete(..., false)`.
-4. The fallback worker executes [io_waitid_cb()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/waitid.c:243), which calls `__do_wait()` and eventually `io_waitid_complete(req, ret, true)`.
-
-Thus, the no-copy choice does not protect a callback that already owns the request. `__do_wait()` operates relative to `current`, and the subsequent completion can still attempt the userspace copy from the worker.
-
-**This is a pre-existing bug left unresolved by the dependency selection, not a regression introduced by the new boolean argument.** It nevertheless prevents an unconditional conclusion that this HEAD has eliminated waitid’s teardown/fallback context problems.
-
-I recommend backporting `14572de82e502` as a companion change. This branch already exposes [io_should_terminate_tw()](/home/sasha/tmp/stable-parse-fail-6.12-1788966592/io_uring/io_uring.h:431), so its existing interface can express the missing check without importing upstream’s task-work interface refactoring. The corresponding logic, immediately after `io_tw_lock(ctx, ts)` and before `__do_wait()`, would be:
-
-```c
-if (unlikely(io_should_terminate_tw(ctx))) {
-	io_waitid_complete(req, -ECANCELED, false);
-	io_req_task_complete(req, ts);
-	return;
-}
-```
-
-That is a recommended follow-up; I did not modify the source during this review.
-
-The conflict-resolution report is largely supported by the repository, with a few qualifications:
-
-- HEAD is the requested `3e4a65037355c9c14b1f16196bedcababe2261fc`.
-- The reported intermediate commit, `52c757d6eca3d`, exists. **Both commits have the same parent and identical source trees.** Their different hashes do not indicate different conflict resolutions.
-- The patch changes only `io_uring/waitid.c`, with 11 insertions and 7 deletions, and adds no functions.
-- The author and author date match upstream. HEAD’s message preserves upstream’s text while adding the upstream-commit marker and stable sign-off.
-- The current working tree contains an untracked `tmp.cmt`; therefore, “the working tree is clean” is not true of the present snapshot. This does not affect the committed patch.
-
-I independently reran the whitespace check and checkpatch; both passed, with checkpatch reporting zero errors and zero warnings. The [available build log](/tmp/stable-parse-fail-6.12-2cf20c4-build.log) reports successful x86 and ARM64 builds with zero warnings. Its timestamp precedes the final metadata rewrite, and the identical source trees support applying those results to HEAD’s code. The log identifies the build as `HEAD` without recording an immutable commit ID or detailed configuration.
-
-I did not rerun the kernel builds or execute runtime race tests. The remaining fallback issue is established by source tracing; the reported build successes cannot validate that execution-context behavior.
-
-**My assessment is that the conflict resolution is a sound, minimal backport of the requested direct-cancellation fix.** I would retain it and add the adapted companion fix. For future documentation, record the targeted fix as correctly backported and the fallback-task-work protection as still outstanding.
-================================================================================
-
-This is an empty commit for documentation purposes only.
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index b67b6d5bc6830..e0f049ce5280a 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -131,7 +131,7 @@ static void io_waitid_remove_wq(struct io_kiocb *req)
+ 	}
+ }
+ 
+-static void io_waitid_complete(struct io_kiocb *req, int ret)
++static void io_waitid_complete(struct io_kiocb *req, int ret, bool copy_si)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+ 
+@@ -143,13 +143,17 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ 	hlist_del_init(&req->hash_node);
+ 	io_waitid_remove_wq(req);
+ 
+-	ret = io_waitid_finish(req, ret);
++	if (copy_si)
++		ret = io_waitid_finish(req, ret);
++	else
++		io_waitid_free(req);
+ 	if (ret < 0)
+ 		req_set_fail(req);
+ 	io_req_set_res(req, ret, 0);
+ }
+ 
+-static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
++static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req,
++			       bool copy_si)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+ 
+@@ -165,7 +169,7 @@ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
+ 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
+ 		return false;
+ 
+-	io_waitid_complete(req, -ECANCELED);
++	io_waitid_complete(req, -ECANCELED, copy_si);
+ 	io_req_queue_tw_complete(req, -ECANCELED);
+ 	return true;
+ }
+@@ -185,7 +189,7 @@ int io_waitid_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd,
+ 		if (req->cqe.user_data != cd->data &&
+ 		    !(cd->flags & IORING_ASYNC_CANCEL_ANY))
+ 			continue;
+-		if (__io_waitid_cancel(ctx, req))
++		if (__io_waitid_cancel(ctx, req, true))
+ 			nr++;
+ 		if (!(cd->flags & IORING_ASYNC_CANCEL_ALL))
+ 			break;
+@@ -211,7 +215,7 @@ bool io_waitid_remove_all(struct io_ring_ctx *ctx, struct task_struct *task,
+ 		if (!io_match_task_safe(req, task, cancel_all))
+ 			continue;
+ 		hlist_del_init(&req->hash_node);
+-		__io_waitid_cancel(ctx, req);
++		__io_waitid_cancel(ctx, req, task != NULL);
+ 		found = true;
+ 	}
+ 
+@@ -270,7 +274,7 @@ static void io_waitid_cb(struct io_kiocb *req, struct io_tw_state *ts)
+ 		}
+ 	}
+ 
+-	io_waitid_complete(req, ret);
++	io_waitid_complete(req, ret, true);
+ 	io_req_task_complete(req, ts);
+ }
+ 
 -- 
 2.53.0
 
