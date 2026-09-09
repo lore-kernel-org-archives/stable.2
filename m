@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5265C2BE7BA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17862931E9
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 00:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788915137; cv=none; b=J06qmtEU7PkmcF2qxfZcmmilEkAEEe8D6Tcm42PwVT7DlpDiH1QD2OV1GZFpWc8OXTvKWTdOCQj0xM8ORr5gooOPbMpB1EoWm+K5zCcMANGwXVgKEr5c3LJi3azEKR0iuXmYZ2/Oa8TKhdLkv1EkXf5yW7pcnSMsCH51+MLA3Bk=
+	t=1788915137; cv=none; b=WAPUrTQl9Zom7i54W9dND/o7E6p8hUKzLIQT0EbYKxH1RD6YxjMpW8w30BCjU3b/66OBSFbP++vHsiQ/RSacqTeWmHhz1fBTefvS2cYa6a7mtltoc8N5Q0O0elvCPqxo/fsnLjdiKk42abzN9xmQ6E/CWmBk1ulJFs+WOYCSGvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788915137; c=relaxed/simple;
-	bh=JMYJ/aEAb6LuM4CWYhQp4/nVB4BxLkqDZsDO+kJUWq8=;
+	bh=AqHWVAj+1D3e2Dw0LcO5rqv8DR0KiPxjOZPeb2DBoeY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QDDdnaFcn+btnjuTZsZ2IXl11yHgouAvUF1Owc2EcLigI6CHt4ATkoBJ/NXuFW8Ug/mF6se1/v5pk1JzPzBWO3V8kAnIEHO8Nl0b2ZzI3jX2tnaG9GUf9X+XAiYUAzSQEibGcrPZF2UnHllPUPjRHHsn4nxXchXfxOvnNWdjC0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdKAqmeu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p1EFvp1kwfrYbbJxF4yRSm8HfW+bU0rHO8nQ3Qu6Dtq909tDnHR6OmtExUSlEh5aMAcEUsjObQy+qwDpELEYnyAAEE+H5cN3+KAwHCjhRJCZ5HS6X9WNE5p8Oep1jV5IrlkSNlGmoAt6Lo2zgqeqYIbfSQW0KwonYxMaU/OjLVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ejgvaqzN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdKAqmeu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9471F00A3D;
-	Wed,  9 Sep 2026 00:52:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ejgvaqzN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18071F00A3F;
+	Wed,  9 Sep 2026 00:52:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788915132;
-	bh=v4X/GHsWQX11gHvuUs+QZQANqGpUz/Y8MIB0osXYWA4=;
+	s=k20260515; t=1788915134;
+	bh=xpvTA6tE6RJE0npD//qCDla4gSbRdcNLhbeEYfKmWhQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hdKAqmeuLjvtvznGjLSs2vdeekOQlf0G+l4HGYyh5VYlU1W0erxMEmspHBWl7TM3d
-	 4fokrmGT8Rrbf0/Qka15zOZ76pKnz36tSI1w4edEgg51gzYSmoVgs7L5iHXwrdCjf9
-	 10RT4nRkRKijdTPmpAILJuW0MBLX/ESE33pPjY/r+N/mu/3V8biG/NRRcCgO9+Jqau
-	 h9rgpFmrHTtMcAY6EpuJGkhktmXDHO4ELRlWbMNqsFd5J04fI/B0j+ikSsZF45LcAQ
-	 Jm52yIGXokI71aRpZMv6Rj5Pe1Idi+jHQzeByjzDSU4TMApyccuhcGFnO1pC7fCAii
-	 Fjd5i981r513A==
+	b=ejgvaqzN7iLi4Qq+anUeBevAgM2YyIQp5AxdB5k/8bEcUSR5TosoKlF6UPaw/86tC
+	 Sas76sWo5Y8kwaXzbsIAzgARHVYdIw0oyfM2MJvDlC+xWm+EFrEgY6BFApwCgCn5jJ
+	 ZHNHvtMhkcQByFbel9yHDJ63rpFh9xFt96BDOpXuMu6ym4G6A6aRGPy0TKR1XRrk1Y
+	 lUB+OW5Fim/vciEKRVKlo6D5HONtSaWz7XLGcORWSaneFBGskprcwRKRCQOZuRUo1X
+	 4hkn8mxVbH3nea2+Czlknt4u+6GBeyoxVxw86pdVCUaeVpIDumqKAaodIhFEW9ojY8
+	 kp5YJffmf3MFg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Al Viro <viro@zeniv.linux.org.uk>,
 	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/4] rpc_populate(): lift cleanup into callers
-Date: Tue,  8 Sep 2026 20:52:07 -0400
-Message-ID: <20260909005210.805789-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/4] rpc_create_client_dir(): return 0 or -E...
+Date: Tue,  8 Sep 2026 20:52:09 -0400
+Message-ID: <20260909005210.805789-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090318-squad-abnormal-f798@gregkh>
+In-Reply-To: <20260909005210.805789-1-sashal@kernel.org>
 References: <2026090318-squad-abnormal-f798@gregkh>
+ <20260909005210.805789-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,149 +48,108 @@ Content-Transfer-Encoding: 8bit
 
 From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit 8be22c49646e47452e74aa0b97ea50fb04c271ed ]
+[ Upstream commit 350db61fbeb940502a16e74153ee5954d03622e9 ]
 
-rpc_populate() is called either from fill_super (where we don't
-need to remove any files on failure - rpc_kill_sb() will take
-them all out anyway) or from rpc_mkdir_populate(), where we need
-to remove the directory we'd been trying to populate along with
-whatever we'd put into it before we failed.  Simpler to combine
-that into simple_recursive_removal() there.
-
-Note that rpc_pipe is overlocking directories quite a bit -
-locked parent is no obstacle to finding a child in dcache, so
-keeping it locked won't prevent userland observing a partially
-built subtree.
-
-All we need is to follow minimal VFS requirements; it's not
-as if clients used directory locking for exclusion - tree
-changes are serialized, but that's done on ->pipefs_sb_lock.
+Callers couldn't care less which dentry did we get - anything
+valid is treated as success.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+
+For the 6.6 backport, retain rpc_mkdir_populate() and its existing
+rpc_clntdir_populate() callback instead of depending on the newer
+rpc_new_dir()/rpc_new_file() helpers. Convert the returned error pointer
+to an integer error and return zero after recording the directory and
+creating its pipe objects. Directory locking and failure cleanup remain
+in the existing helpers.
+
+An earlier dependency backport already converted rpc_setup_pipedir_sb()
+and its callers to integer status. Keep those changes and simplify the
+remaining rpc_create_client_dir() call to use its new return type,
+including the existing -EEXIST retry. No functions are added. This leaves
+target 932a8cf6abb2 applicable without conflicts.
+
 Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/clnt.c     | 35 +++++++++++++++--------------------
- net/sunrpc/rpc_pipe.c | 10 +++++-----
- 2 files changed, 20 insertions(+), 25 deletions(-)
+ include/linux/sunrpc/rpc_pipe_fs.h |  2 +-
+ net/sunrpc/clnt.c                  |  9 +++------
+ net/sunrpc/rpc_pipe.c              | 16 ++++++++--------
+ 3 files changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
-index 48ffdd4192538..48c372c676b5e 100644
---- a/net/sunrpc/clnt.c
-+++ b/net/sunrpc/clnt.c
-@@ -117,47 +117,49 @@ static void rpc_clnt_remove_pipedir(struct rpc_clnt *clnt)
- 	}
+diff --git a/include/linux/sunrpc/rpc_pipe_fs.h b/include/linux/sunrpc/rpc_pipe_fs.h
+index a8c0a500d55c0..571020651817e 100644
+--- a/include/linux/sunrpc/rpc_pipe_fs.h
++++ b/include/linux/sunrpc/rpc_pipe_fs.h
+@@ -98,7 +98,7 @@ static inline bool rpc_msg_is_inflight(const struct rpc_pipe_msg *msg) {
  }
  
--static struct dentry *rpc_setup_pipedir_sb(struct super_block *sb,
-+static int rpc_setup_pipedir_sb(struct super_block *sb,
- 				    struct rpc_clnt *clnt)
- {
+ struct rpc_clnt;
+-extern struct dentry *rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
++extern int rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
+ extern int rpc_remove_client_dir(struct rpc_clnt *);
+ 
+ extern void rpc_init_pipe_dir_head(struct rpc_pipe_dir_head *pdh);
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index 48c372c676b5e..458c0eb9fa52e 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -123,7 +123,7 @@ static int rpc_setup_pipedir_sb(struct super_block *sb,
  	static uint32_t clntid;
  	const char *dir_name = clnt->cl_program->pipe_dir_name;
  	char name[15];
- 	struct dentry *dir, *dentry;
-+	int err;
+-	struct dentry *dir, *dentry;
++	struct dentry *dir;
+ 	int err;
  
  	dir = rpc_d_lookup_sb(sb, dir_name);
- 	if (dir == NULL) {
- 		pr_info("RPC: pipefs directory doesn't exist: %s\n", dir_name);
--		return dir;
-+		return -ENOENT;
- 	}
+@@ -134,12 +134,9 @@ static int rpc_setup_pipedir_sb(struct super_block *sb,
  	for (;;) {
  		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
  		name[sizeof(name) - 1] = '\0';
- 		dentry = rpc_create_client_dir(dir, name, clnt);
--		if (!IS_ERR(dentry))
-+		if (!IS_ERR(dentry)) {
-+			err = 0;
+-		dentry = rpc_create_client_dir(dir, name, clnt);
+-		if (!IS_ERR(dentry)) {
+-			err = 0;
++		err = rpc_create_client_dir(dir, name, clnt);
++		if (!err)
  			break;
--		if (dentry == ERR_PTR(-EEXIST))
-+		}
-+		err = PTR_ERR(dentry);
-+		if (err == -EEXIST)
+-		}
+-		err = PTR_ERR(dentry);
+ 		if (err == -EEXIST)
  			continue;
  		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
--				" %s/%s, error %ld\n",
--				dir_name, name, PTR_ERR(dentry));
-+				" %s/%s, error %d\n",
-+				dir_name, name, err);
- 		break;
- 	}
- 	dput(dir);
--	return dentry;
-+	return err;
- }
- 
- static int
- rpc_setup_pipedir(struct super_block *pipefs_sb, struct rpc_clnt *clnt)
- {
--	struct dentry *dentry;
--
- 	clnt->pipefs_sb = pipefs_sb;
- 
- 	if (clnt->cl_program->pipe_dir_name != NULL) {
--		dentry = rpc_setup_pipedir_sb(pipefs_sb, clnt);
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
-+		int err = rpc_setup_pipedir_sb(pipefs_sb, clnt);
-+		if (err && err != -ENOENT)
-+			return err;
- 	}
- 	return 0;
- }
-@@ -185,16 +187,9 @@ static int rpc_clnt_skip_event(struct rpc_clnt *clnt, unsigned long event)
- static int __rpc_clnt_handle_event(struct rpc_clnt *clnt, unsigned long event,
- 				   struct super_block *sb)
- {
--	struct dentry *dentry;
--
- 	switch (event) {
- 	case RPC_PIPEFS_MOUNT:
--		dentry = rpc_setup_pipedir_sb(sb, clnt);
--		if (!dentry)
--			return -ENOENT;
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
--		break;
-+		return rpc_setup_pipedir_sb(sb, clnt);
- 	case RPC_PIPEFS_UMOUNT:
- 		__rpc_clnt_remove_pipedir(clnt);
- 		break;
 diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
-index 35588f0afa864..7f31ed28c8d3e 100644
+index d436ba5370d8b..e40e6d0cee7b0 100644
 --- a/net/sunrpc/rpc_pipe.c
 +++ b/net/sunrpc/rpc_pipe.c
-@@ -726,7 +726,6 @@ static int rpc_populate(struct dentry *parent,
- 	inode_unlock(dir);
- 	return 0;
- out_bad:
--	__rpc_depopulate(parent, files, start, eof);
- 	inode_unlock(dir);
- 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
- 			__FILE__, __func__, parent);
-@@ -750,14 +749,15 @@ static struct dentry *rpc_mkdir_populate(struct dentry *parent,
- 		goto out_err;
- 	if (populate != NULL) {
- 		error = populate(dentry, args_populate);
--		if (error)
--			goto err_rmdir;
-+		if (error) {
-+			inode_unlock(dir);
-+			simple_recursive_removal(dentry, NULL);
-+			return ERR_PTR(error);
-+		}
- 	}
- out:
- 	inode_unlock(dir);
- 	return dentry;
--err_rmdir:
--	__rpc_rmdir(dir, dentry);
- out_err:
- 	dentry = ERR_PTR(error);
- 	goto out;
+@@ -1049,19 +1049,19 @@ static void rpc_clntdir_depopulate(struct dentry *dentry)
+  * information about the client, together with any "pipes" that may
+  * later be created using rpc_mkpipe().
+  */
+-struct dentry *rpc_create_client_dir(struct dentry *dentry,
+-				   const char *name,
+-				   struct rpc_clnt *rpc_client)
++int rpc_create_client_dir(struct dentry *dentry,
++			   const char *name,
++			   struct rpc_clnt *rpc_client)
+ {
+ 	struct dentry *ret;
+ 
+ 	ret = rpc_mkdir_populate(dentry, name, 0555, NULL,
+ 				 rpc_clntdir_populate, rpc_client);
+-	if (!IS_ERR(ret)) {
+-		rpc_client->cl_pipedir_objects.pdh_dentry = ret;
+-		rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
+-	}
+-	return ret;
++	if (IS_ERR(ret))
++		return PTR_ERR(ret);
++	rpc_client->cl_pipedir_objects.pdh_dentry = ret;
++	rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
++	return 0;
+ }
+ 
+ /**
 -- 
 2.53.0
 
