@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032A25328AF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20D653D0C2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950758; cv=none; b=QHSvSmeJTPaU04VII3GqfeQWNrZdbNLLSIzEMak3x28iRjzs3l7QxeEKLsKwWa/z1FPr5dGiEfwTXnFH65N9jZPW3K/TRr/kDmDfFBh0Ftx68viVkJHVQ8kPD4UDqwZAVaenFID3cKYDvUVQslnEQO+IG+A7BBKBkRgMHI87l1M=
+	t=1788950760; cv=none; b=hVRo9ziA11QCVD1KUsvjKR9JPHuk4ulJ0BPkh0C5UiqJdA4Pls7QcUmsZlkeV1cB4ox8/R0TanQqaIUw+NlJLwv3Bx6UX8Fn+2uEbR/GfqBZuejo/CsxOtwHD5mM/qYWv7rp+I3Byoxymzm7xg4+TJO6BjjhFA0dbhLbLxmYhuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950758; c=relaxed/simple;
-	bh=/xMIKYtGQwEYd2bruNTX+wGflXX0z2b8da2UQcI1if0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XceXJ2dJ9NwJYN3aF3EtYTxCcmWOksCLFvBdMEwOXwghhGPIKsx03iFkjs/Q0w4XyVIaE5akeB/B2LJzYhIYGqW4mUUYv16fXVNy0Umslbxm692+mF2o9BkT39nn2ki24FFJ8PG/lj3R4alDreJw9n9vfEqRqPbKLz1eyaZpr1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SLY7wyPH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950760; c=relaxed/simple;
+	bh=VE61CnsI1pLd5s+ECAnbItqNfZ9bLxrcL0n3sXsQyhU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HArlVRJshR12rq/MztylzwC7xw8QS9WR+r1VAcI/7HZ2xvsN97SAFRiQetgY1QqqxTTo3N7IMQWF2H7S2qYG+xXYtF9secnOKIPpNQl4Y6kFEg3y1x0mT04rBySs14HR0T6+AuP066xPzH+pbWD9a5dawWxBVdTS6FMZNdJ2xxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fGz2vtzG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SLY7wyPH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F971F00A3E;
-	Wed,  9 Sep 2026 10:45:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fGz2vtzG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EFA11F00A3F;
+	Wed,  9 Sep 2026 10:45:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950755;
-	bh=1YDA/N//TPooHHcXilqaebTI1+We92whErCO05Z69ek=;
+	s=korg; t=1788950758;
+	bh=gILqKHfRxmwEGIOUdSvi8oKnelAsJDdMHO1nPCS0zEI=;
 	h=Subject:To:Cc:From:Date;
-	b=SLY7wyPH/iNGQW/PK0K8+68MyuCrViJNvIbZJLmBoezz96VRQ/RaucQHtCHXLGogL
-	 Hpvv5V2ioMK7RoFfoL6Ft4AZ8V0YyU+OtMGmNhEGttBxDlYwf4J8oWlk2Gc3mYLdBf
-	 5UEMtYZLmr8fQWizeT7F6IOxQnJcT/PLrqXzkZBc=
-Subject: FAILED: patch "[PATCH] LoongArch: BPF: Refactor jump offset calculation in tail call" failed to apply to 6.12-stable tree
+	b=fGz2vtzGmJhI8YJCd/9oGVzsC3b1NBHIH7gcSdd/0zLjsAKoTfTTxZeZo97T1wNR6
+	 7L2bHKdCxVrqKSc7MSpuwK+oJEQWDlozuUGQ5RI3l55xJSAuqKRlaWglnFCNmF4ekF
+	 6cIkLIjIsYE6C/SLHmTgxTMGaJbPwB0RNB9QIYAQ=
+Subject: FAILED: patch "[PATCH] LoongArch: BPF: Refactor jump offset calculation in tail call" failed to apply to 6.1-stable tree
 To: yangtiezhu@loongson.cn,chenhuacai@loongson.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:39:33 +0200
-Message-ID: <2026090933-flatware-pardon-6fc1@gregkh>
+Date: Wed, 09 Sep 2026 12:39:34 +0200
+Message-ID: <2026090934-securely-thirsting-7bb2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 37d545d12f21c4d50612ecaebd7ae1e5bf91b2d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090933-flatware-pardon-6fc1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090934-securely-thirsting-7bb2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
