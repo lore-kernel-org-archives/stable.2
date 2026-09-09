@@ -1,149 +1,172 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5BC5616C9
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238645592E7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957466; cv=none; b=ZQ+hwSjuPYCr7QCgtCmvq1v4k+9jj32zcXuWDh0Mw8iaSUbEZP2Zq/xQYO0BSvOQPuOUAvRJRVdRPCoNsCJfDE4BnT90u70Ef+l6/b7/n8Jtn+TtltmsVS20Whgc7gODWYcLkzLjQTrnnYZTZVnPe5GlRS8iY4b3DP/tf16QfNk=
+	t=1788957644; cv=none; b=ps1YphRe74Ed5J6brzCmKipDBwtIC5Fb2IHoTGFlmQ3xivLqqCX+RB/S2nIyyA3imiL2dGrVLyH1YtazVTZAFCrVAT6f9R7gUaKtluue9ZRh+aqRLOIXJMJk/AEdgTBeDFi4qGeUzwimmadgtx/vxxbW+TDP/DSVzW/5E18PqAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957466; c=relaxed/simple;
-	bh=3+ese/BC7ABQtPNeXTWrPYUi2tWpSVRo5ACoFFtlpsQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HqkH8M0auResG0CPdipQnOpP2lovolvgGMLA3shW95KzrZmy72hSRd/KuSHtnNy7A2sw1kQ7VRqxXIXjfc4A+gh90XSQGKt9+kvmE+sRRWBconK90nKJOWbLysgBc85JtgtiNiJxv6bTDHPmW7A6oqx9DJLlAgmJ9KmsyyaV2o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=bk6wRSPB; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1788957644; c=relaxed/simple;
+	bh=6FoWX/xdQbqVgm09EhLVDGfoFUUqZopSBryYtbOVmnQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F8mk7gXZbgoV3nv68OVX73AkZqRJqulGztZ7r+2w55I7ZLGixLApq5+/6l/LpW7W8l9AQt0sTSjx/Lc8EIln7mYNaIXi6gmIyHfuFFPOQ3H8v1iccZIY+yZ3+JO8ORoPPjxR5ANKli24Vv4nffKHX7+CE6sAuI5PyYUbJNlJEtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RTB4HGQl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="bk6wRSPB"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868cfc5c244so100520b3a.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 05:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788957462; x=1789562262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lVbHlHnf4CwWKZF41ARDlFSQjSg4eEO9OdDQSzP1YhU=;
-        b=bk6wRSPBMtx6Jo1Qm6kkuv9oSKbxX9A4Siz2pZnLbU+5AD01yi86DncZVKmeWooNJq
-         h7muHQD8ccwflhAxDqmdRvVcdiTGT997sQWf1nc0yzwFNwj+W8VNki+uhFbwAMYmwQfu
-         g+kXFVamRKEq82nc2/JmySfFHgU4ItBKEKP/I9iO4T5ysMHG4fdR5b4WKq5iE/G+IvhA
-         pFSO4AX8CDrLkXIS0uzXZgRdsmrlmT6DBUZK1mXvDmqJBP/GAq/qGDEQjZZSS5eshW86
-         T8XrUG5f8skQNzP9AIgnx5Sm+eVhh6pBzcy98t0mlgWvD1UF3ZyZ/S/p41iVWKnltxpc
-         xYfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788957462; x=1789562262;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lVbHlHnf4CwWKZF41ARDlFSQjSg4eEO9OdDQSzP1YhU=;
-        b=ADtipCC0sMAeb5K9PedKnpQfZHuns3aMSNM8aWIvYpR0EfDeu3US5KE/xlnW0DaWKw
-         TsZK5iCTeouDFxnwyQ52Eq7hLQqHcQ7/Q9IY+cMM+oNC9NhG4DattcJHB2Ew9XmSYAs2
-         lp0jslwFPcqLg2HaiKTXweAuVrpYyEwrSVnF/dgr8kyJsb6Ms5BBThZeGa6LV+cpOpcg
-         8zW/q94wUZF5zW90765B7y7hw4FVLgopVM3xuEe4Z9jHNT/sLoVlFPjz768EF4BPY2VO
-         0VbMQqtzS/GqBFg4S/o2QtI21r/Ulizov+Vzrl/TVla3HEJpT/N0I7G1osjNwsuzvqNe
-         vs6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwmMNBcbBf/n+YBZLijUPmqxDTLNSlclkDzNuRDDPOBenTn/sSAwG32xkNo3JHFdcDoG5Dsu7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ms5lw1kotuf8Z08pSQFEuAE5dwnbJDcrIff/W8GnQoLBdtZq9e
-	6cDVGgvkOMCmX04Ic1M6C0DFfz+6x75efIQRald6bobW6ErhxtA7RzVSsxpuyaKjkM3YfgVldpH
-	xoqZCTX60qdo=
-X-Gm-Gg: AYBFou13Zai99Tc5xDuPAlReYbBM4D3ibjgab3N20xdq4tOrzki4EVCXl7u3oxsEXfP
-	oXC6zrztb3x0MdS0AJTnTZ5Oh1qQV86f4PeTvRQB9GUsCrQVTwWZZDlma2AGjkoRmA16yxRhsbJ
-	b1FzaaeHYxrCrL3pgkRqA9iiFE7QTqbqFpBhDrqKRJTfa13GKKH9MiEdQXIzYTOC/UUEnPFIGOw
-	MESgC9DhGuN7JXpqxl/o7nkfUjV/aZvF8blvCY9wtlSPrXDz9lK9wBKvU2lmv530iYxfRPjSPT+
-	7naGqiJe/5dmZO0YyK+pkFQr2jMBX54T9o0zfPXsjNO/OI5gK2qaOifY8Q+dRcnL067Iu5LBlWd
-	0JaEmb6GQ088sn9SqjsDAA1InEQDm2SngyPYkKTuFyF3D9fbA5/PAPl0wDPLMm7WOTOm4wGuKzg
-	mBJfA77Hvvq+PKw6J9bMaoVDCgQKZ1HOVTxlt0p3clFFKUYKR0cGqwf0oj1iKtW8bvV5cC7+V1V
-	fGQku6OU9Bi8xtObp0jKTdRNk5lIA==
-X-Received: by 2002:a05:6a00:985:b0:857:7384:b5fc with SMTP id d2e1a72fcca58-86948d28ecamr1113151b3a.24.1788957462456;
-        Wed, 09 Sep 2026 05:37:42 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153027951sm6828614b3a.40.2026.09.09.05.37.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:37:41 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mariano Baragiola <mbaragiola@linux.com>,
-	James Guan <guan_yufei@163.com>,
-	Kees Cook <kees@kernel.org>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Popov <alex.popov@linux.com>,
-	Breno Leitao <leitao@debian.org>,
-	Alistair Strachan <astrachan@google.com>,
-	Tristan Muntsinger <muntsinger@google.com>,
-	Cody Schuffelen <schuffelen@google.com>,
-	Greg Hartman <ghartman@google.com>,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH v2 1/1] wifi: virt_wifi: don't transfer operstate before register
-Date: Wed,  9 Sep 2026 12:37:18 +0000
-Message-ID: <f5a832fb0ab228ce6e2b5a91fba4ca8b79198a2f.1788948455.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788948455.git.zihanx@nebusec.ai>
-References: <cover.1788948455.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RTB4HGQl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1E81F00A3A;
+	Wed,  9 Sep 2026 12:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788957641;
+	bh=ZLGz7qcCcAldP7WsXSpvwlxG/C40C8HCJfizXJ+53Dw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RTB4HGQl6Q2qlL8p1xJQm/2C46oX+V7jsK69sP4Rg3wNOeZjhTKU0tpscSSMAXxNT
+	 KN70YYNLHWd9P9MUfwpIJn9n43/N5LAYklb15EINjhElGQ/xz+wcBpue+amDOt0b0C
+	 r9IKFZ6ziSR+y0aeUdeDWTmJERmdDY3Nxlmhzoq0=
+Date: Wed, 9 Sep 2026 14:35:42 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Breno Leitao <leitao@debian.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>, SJ Park <sj@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.18.y 2/2] mm/kmemleak: report RCU-tasks quiescent
+ states during the scan
+Message-ID: <2026090934-starlet-arrive-6f08@gregkh>
+References: <2026090344-parted-gnarly-5282@gregkh>
+ <20260903182658.1452185-1-sashal@kernel.org>
+ <20260903182658.1452185-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903182658.1452185-2-sashal@kernel.org>
 
-virt_wifi_newlink() calls netif_stacked_transfer_operstate() before
-register_netdevice(). If the lower device is dormant, that queues the
-new netdev on lweventlist while it is still uninitialized. If
-registration fails after that, for example because of an invalid name
-such as "bad/name", free_netdev() immediately frees the object. A
-later linkwatch_fire_event() then use-after-frees the list entry.
+On Thu, Sep 03, 2026 at 02:26:58PM -0400, Sasha Levin wrote:
+> From: Breno Leitao <leitao@debian.org>
+> 
+> [ Upstream commit 3541a2b06ecd78ba333188df04368dcf97273d6a ]
+> 
+> kmemleak_scan() can run for ages on large debug kernels. It was
+> causing some soft-lockups which I got fixed with commit
+> 3175fcfec8b16baeb ("mm/kmemleak: avoid soft lockup when scanning task
+> stacks") with our beloved cond_resched().
+> 
+> I've got the fix above deployed in the Meta fleet, and now I am seeing:
+> 
+>   INFO: rcu_tasks detected stalls on tasks:
+>     task:kmemleak state:R ... nvcsw: 274/274 holdout: 1 idle_cpu: -1/3
+>      scan_block
+>      scan_gray_list
+>      kmemleak_scan
+> 
+> and, worse, blocks the callers waiting on that grace period.  Here a BPF
+> struct_ops map free, which waits via synchronize_rcu_mult(call_rcu,
+> call_rcu_tasks), is stuck long enough to also trip the hung task check:
+> 
+>   INFO: task kworker/...:bpf_map_free_deferred blocked for 122 seconds
+>      __wait_rcu_gp
+>      bpf_struct_ops_map_free
+> 
+> Then I've learned that cond_resched() is not an RCU-tasks quiescent
+> state, so, we need to use stronger primitives.
+> 
+> Use cond_resched_tasks_rcu_qs() at the scan reschedule points so the scan
+> reports an RCU-tasks quiescent state as it proceeds.
+> 
+> Inspired by commit b96285e10aad ("tracing: Have osnoise_main() add a
+> quiescent state for task rcu").
+> 
+> Link: https://lore.kernel.org/20260720-kmemleak_rcu_task-v1-1-5b460ade777d@debian.org
+> Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> Reviewed-by: SJ Park <sj@kernel.org>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Breno Leitao <leitao@debian.org>
+> Cc: Puranjay Mohan <puranjay@kernel.org>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  mm/kmemleak.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+> index 5109a9f84ea50..b4a7ed2116353 100644
+> --- a/mm/kmemleak.c
+> +++ b/mm/kmemleak.c
+> @@ -1564,7 +1564,7 @@ static int scan_large_block(void *start, void *end)
+>  		if (scan_block(start, next, NULL))
+>  			return 1;
+>  		start = next;
+> -		cond_resched();
+> +		cond_resched_tasks_rcu_qs();
+>  	}
+>  
+>  	return 0;
+> @@ -1601,7 +1601,7 @@ static void scan_object(struct kmemleak_object *object)
+>  			scan_block(start, end, object);
+>  
+>  			raw_spin_unlock_irqrestore(&object->lock, flags);
+> -			cond_resched();
+> +			cond_resched_tasks_rcu_qs();
+>  			raw_spin_lock_irqsave(&object->lock, flags);
+>  			if (!(object->flags & OBJECT_ALLOCATED))
+>  				break;
+> @@ -1623,7 +1623,7 @@ static void scan_object(struct kmemleak_object *object)
+>  				break;
+>  
+>  			raw_spin_unlock_irqrestore(&object->lock, flags);
+> -			cond_resched();
+> +			cond_resched_tasks_rcu_qs();
+>  			raw_spin_lock_irqsave(&object->lock, flags);
+>  		} while (object->flags & OBJECT_ALLOCATED);
+>  	} else {
+> @@ -1651,7 +1651,7 @@ static void scan_gray_list(void)
+>  	 */
+>  	object = list_entry(gray_list.next, typeof(*object), gray_list);
+>  	while (&object->gray_list != &gray_list) {
+> -		cond_resched();
+> +		cond_resched_tasks_rcu_qs();
+>  
+>  		/* may add new objects to the list */
+>  		if (!scan_should_stop())
+> @@ -1686,7 +1686,7 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+>  	raw_spin_unlock_irq(&kmemleak_lock);
+>  
+>  	rcu_read_unlock();
+> -	cond_resched();
+> +	cond_resched_tasks_rcu_qs();
+>  	rcu_read_lock();
+>  
+>  	raw_spin_lock_irq(&kmemleak_lock);
+> @@ -1731,7 +1731,7 @@ static void kmemleak_scan_task_stacks(void)
+>  			}
+>  			put_task_struct(p);
+>  		}
+> -		cond_resched();
+> +		cond_resched_tasks_rcu_qs();
+>  	} while (pid && !stop);
+>  }
+>  
+> @@ -1810,7 +1810,7 @@ static void kmemleak_scan(void)
+>  			struct page *page = pfn_to_online_page(pfn);
+>  
+>  			if (!(pfn & 63))
+> -				cond_resched();
+> +				cond_resched_tasks_rcu_qs();
+>  
+>  			if (!page)
+>  				continue;
+> -- 
+> 2.53.0
+> 
+> 
 
-Move the transfer to after netdev_upper_dev_link(), as macvlan and
-ipvlan already do.
-
-Fixes: c7cdba31ed8b ("mac80211-next: rtnetlink wifi simulation device")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v2:
-  - Fix virt_wifi_newlink() instead of dropping events in
-    linkwatch_fire_event().
-  - Fixes: c7cdba31ed8b, the commit that added virt_wifi.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1788500348.git.zihanx@nebusec.ai/
-
- drivers/net/wireless/virtual/virt_wifi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/virtual/virt_wifi.c b/drivers/net/wireless/virtual/virt_wifi.c
-index b69a4650fba85..48afc2432f93a 100644
---- a/drivers/net/wireless/virtual/virt_wifi.c
-+++ b/drivers/net/wireless/virtual/virt_wifi.c
-@@ -558,7 +558,6 @@ static int virt_wifi_newlink(struct net_device *dev,
- 	}
- 
- 	eth_hw_addr_inherit(dev, priv->lowerdev);
--	netif_stacked_transfer_operstate(priv->lowerdev, dev);
- 
- 	dev->ieee80211_ptr = kzalloc_obj(*dev->ieee80211_ptr);
- 
-@@ -584,6 +583,8 @@ static int virt_wifi_newlink(struct net_device *dev,
- 		goto unregister_netdev;
- 	}
- 
-+	netif_stacked_transfer_operstate(priv->lowerdev, dev);
-+
- 	dev->priv_destructor = virt_wifi_net_device_destructor;
- 	priv->being_deleted = false;
- 	priv->is_connected = false;
--- 
-2.43.0
-
+Does not apply cleanly :(
