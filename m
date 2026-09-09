@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EC03B9949
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310493B0AE2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981229; cv=none; b=VSGnbMAWr2uEMQcLcYLjqC/Bf4XA9NgOXd3r9DK6M1K05YuYU8eXBNm/jiUVyuBh6gAAU1zAr5ZPXlWBxolqxm7qyd2qBzZNg9I4/YMw4SuUJMKOIkrEf5N3szyGGtJbW3e7mhbUnIwM7cJBV552Qst5td5wgESzjzSRM+PVLrk=
+	t=1788981230; cv=none; b=WoA4Q6pa17qInZNYtkieiIeCY5q+Tu2JUpfV2UdCG+jZDnBGl4lwXvpoR9OkjyIScZg8kMvcJn9lovFKaEjc7re1euXREK/qE/0/EXT8be5cJmCRqN3JvNFhYaPHtekaQuO+auuh7BpYlZ4TGrPBFD1TBwe2sixOeouC7IkJxL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981229; c=relaxed/simple;
-	bh=WcbAWn471YvftKFgomAc/D6mFIvWJKFV+SMDVH0TGtw=;
+	s=arc-20240116; t=1788981230; c=relaxed/simple;
+	bh=favPHhVYVt4mLEsWNumCMxQZrde/3z0ED2pIhO+EszA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cPJlT6v2yCbZcOoNPhaI8KKQf3HpMyPij16sygLJgpFzL/9KQlOqFBCC3TBm4yl6ChpmCvsCDzmXHZJOv+NenjXnJvW2rc1Buf/cYtDk4WYAVZIKgpV1Vzuk2+5ZBtgkQnD+hqe4CU+hIf5gDuPi5177UdgqgyuYmRUpB34ZOSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9Sg6cYi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BpDMJt5VW5QpV0cbFbJW16zTveuos90CwTyht5GpABbiTQIcYGFv9MxZpFUQuPPcUY1iuReqi+9VNqIHVo/lfDNPloAOhTCZ+Vs3VKyC2UYtTTtlGelII1iG6gnPZn4RzG9ZKgbmLmCNavOIp5yd4Ky12a78lPemof8cgAHRRxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mp9D3FUE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9Sg6cYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82EC1F00893;
-	Wed,  9 Sep 2026 19:13:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mp9D3FUE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029EE1F00899;
+	Wed,  9 Sep 2026 19:13:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981227;
-	bh=zFIXJOwhZPFl4DfYg3iWnA/N2X/k99FvAS8oearNHzY=;
+	s=k20260515; t=1788981228;
+	bh=7nGRJw4bGDYG4J+nC8kiTUtM0e5GPGPYM/9tSHRnw3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J9Sg6cYiHW0QXiEh/XPIH75nh0AQptHsQAFcxcab5BwSG3uMlz2G1VpaU3K3VouIG
-	 r34K5Gb0rPBt44AXklIJaCGVRKvv6YQRga8diu0HNV3UUSuWvy1yDXobquuJLfQnXi
-	 kFUR0DbdnBcDgPjkdMJ0nLs5xLk0BiIfcO0wekV4ytzcbPfkGLdNSq9nXYNAGauE50
-	 SXJdWqizwLNG4aCjQvp9oAUx9CY8Cj+LFD9VBOpTtA17p7U8ZBBAAF59CmtxTB3SNI
-	 zyDwVzxfVK8ZCiOwqIlPO9z18AsDJwQ8Q9jJ/+G7/rJOb5ead4MchWneHcvMjzSwZJ
-	 dZd14zHyB+GOQ==
+	b=mp9D3FUEDQks5sbaXgzafvErHLfeJv9sjT+nYAzwP1wZ1A/GWZg+HdCxKvsnYmEQa
+	 68brUPQeiBJSzhpZmJOfcFKcMX5+MLgFTAvdB3T/U17scv2QGeGyC13K6IAy4sB65w
+	 /ZlY7CI4I7lRPoMnj1/+ZUvBI6g5WGw2GwVxGsKQfLrN6DZGF6MPnj/JuUW5W7kgej
+	 Vgp1YjfLG+2nVkMG0kObBiITBaLo8xweWyHslvNhCdf1Hs3PtP06IbCI7mwnqLDdd6
+	 vAyDrDI1Ll+bjrkzGsyLgukvzGsnZgwKtFUsgJcP9AX5A2gJ0fmv0XEThjNp/dkXTJ
+	 EBqopLCFsoTrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Simon Horman <horms@kernel.org>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Guangguan Wang <guangguan.wang@linux.alibaba.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Wenjia Zhang <wenjia@linux.ibm.com>,
+Cc: Hidayath Khan <hidayath@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Simon Horman <horms@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] net/smc: Address spelling errors
-Date: Wed,  9 Sep 2026 15:13:43 -0400
-Message-ID: <20260909191344.3552138-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] net/smc: stop killed, freed and out_of_sync sharing a byte
+Date: Wed,  9 Sep 2026 15:13:44 -0400
+Message-ID: <20260909191344.3552138-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090314-stumble-payback-2ef5@gregkh>
+In-Reply-To: <20260909191344.3552138-1-sashal@kernel.org>
 References: <2026090314-stumble-payback-2ef5@gregkh>
+ <20260909191344.3552138-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,76 +48,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Simon Horman <horms@kernel.org>
+From: Hidayath Khan <hidayath@linux.ibm.com>
 
-[ Upstream commit cd959bf7c3bbaf64a29750c5e36776078a18a8fe ]
+[ Upstream commit db51a8658c11a82432b64999519a269c3aabb447 ]
 
-Address spelling errors flagged by codespell.
+The three connection state flags are single-bit bitfields, so they occupy
+one byte of struct smc_connection and every store to one is a
+read-modify-write of the other two:
 
-This patch is intended to cover all files under drivers/smc
+    u8  killed : 1;
+    u8  freed : 1;
+    u8  out_of_sync : 1;
 
-Signed-off-by: Simon Horman <horms@kernel.org>
-Reviewed-by: D. Wythe <alibuda@linux.alibaba.com>
-Reviewed-by: Guangguan Wang <guangguan.wang@linux.alibaba.com>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Wenjia Zhang <wenjia@linux.ibm.com>
-Link: https://patch.msgid.link/20241009-smc-starspell-v1-1-b8b395bbaf82@kernel.org
+They are not written under a common lock. smc_cdc_msg_validate() sets
+out_of_sync from the receive tasklet, while smc_conn_kill() sets killed
+from process context under lock_sock(), and the receive path does not defer
+to the backlog when the socket is owned -- smc_cdc_msg_recv() takes only
+bh_lock_sock().
+
+Give each flag its own byte so a store no longer touches its neighbours.
+All readers test them as booleans and are unchanged. struct smc_connection
+grows by two bytes.
+
+Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation message")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260820074642.966856-2-hidayath@linux.ibm.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-Backport notes for 5.15:
-
-The freed member is absent because this tree does not contain
-61f434b0280ed ("net/smc: Resolve the race between link group access and
-termination"). Add only its bitfield declaration, with the corrected
-comment, so db51a8658c11 ("net/smc: stop killed, freed and out_of_sync
-sharing a byte") applies unchanged. The field has no readers or writers
-in this tree; socket allocation already zero-initializes the connection.
-Do not import the newer connection lifetime or link group refcount code.
-
-Keep the requester spelling correction in smc_clc.h. Drop the smc_core.c
-and smc_core.h hunks because the virtually contiguous buffer modes and
-SMC-R v2.1 negotiation definitions they annotate do not exist in 5.15.
-No functions are added or changed.
-
-[ sashal: Reduced backport -- upstream cd959bf7c3bba touches 4 file(s), this
-  backport carries 2. Not backported here:
-  net/smc/smc_core.c
-  net/smc/smc_core.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: db51a8658c11 ("net/smc: stop killed, freed and out_of_sync sharing a byte")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/smc/smc.h     | 1 +
- net/smc/smc_clc.h | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ net/smc/smc.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/net/smc/smc.h b/net/smc/smc.h
-index 1eee40ec1d969..50c2b0ecf9dc5 100644
+index 50c2b0ecf9dc5..14d22bfe7df9f 100644
 --- a/net/smc/smc.h
 +++ b/net/smc/smc.h
-@@ -211,6 +211,7 @@ struct smc_connection {
+@@ -210,9 +210,9 @@ struct smc_connection {
+ 						 * 0 for SMC-R, 32 for SMC-D
  						 */
  	u64			peer_token;	/* SMC-D token of peer */
- 	u8			killed : 1;	/* abnormal termination */
-+	u8			freed : 1;	/* normal termination */
- 	u8			out_of_sync : 1; /* out of sync with peer */
+-	u8			killed : 1;	/* abnormal termination */
+-	u8			freed : 1;	/* normal termination */
+-	u8			out_of_sync : 1; /* out of sync with peer */
++	u8			killed;		/* abnormal termination */
++	u8			freed;		/* normal termination */
++	u8			out_of_sync;	/* out of sync with peer */
  };
  
-diff --git a/net/smc/smc_clc.h b/net/smc/smc_clc.h
-index a57a3489df4ae..5255e64abb46c 100644
---- a/net/smc/smc_clc.h
-+++ b/net/smc/smc_clc.h
-@@ -135,7 +135,7 @@ struct smc_clc_msg_proposal_prefix {	/* prefix part of clc proposal message*/
- } __aligned(4);
- 
- struct smc_clc_msg_smcd {	/* SMC-D GID information */
--	struct smc_clc_smcd_gid_chid ism; /* ISM native GID+CHID of requestor */
-+	struct smc_clc_smcd_gid_chid ism; /* ISM native GID+CHID of requester */
- 	__be16 v2_ext_offset;	/* SMC Version 2 Extension Offset */
- 	u8 reserved[28];
- };
+ struct smc_sock {				/* smc sock container */
 -- 
 2.53.0
 
