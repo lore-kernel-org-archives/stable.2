@@ -1,298 +1,172 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2CA331EB9;
-	Wed,  9 Sep 2026 16:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970033; cv=none; b=KU3xtqJW5rDeHjhGqMl8t85maiaXu1HYaY2ToH4xuwJV+yS1F27QU8G85ie0D6U1s3vCZV6CQ3zZH2+E6Nas/FF3IITrnYeH/QpgXwM1BYJ264+HHecFAHkKswBt4GCzvH2dOFBVzDeeBzm80+M8m9Dg6sTNTtqB33n/oqP0K2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970033; c=relaxed/simple;
-	bh=chkZXiKbmRUxmJLFCqdgiCv0uwoikp1MINdnSfGtSLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3DViH9z/9thyaZyU3g7U0Kix4WeE/olNQYVGi3QWu28MKzRRDFhHcHW2lfBUva1YkDj6b9MF+VW7OLVAZGwBINKsXPQ0+q1Ho+l3LuzV4Zxp+pG6OaB817/QewJ92X3TAwb5ctK1H5DtiWJqWbOLkdvNSNFjobks5ktdxQ4mU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=QHkWkn3V; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DDA57F725;
+	Wed,  9 Sep 2026 16:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788970165; cv=pass; b=sFwxKkRqKz6nGg4RSbvzNE4AWK+jxp7753H8cW/LoE63soJyZIHTEaSVu6owe5BrXkxtlIJdT63rEXupjOBHdczDjWiiAZTb9/DxKNOqYRWXohqBIJBAIIB1tTGGeh8ve+8LW7RO8c4Ce2rzSDCzxn8JBbCfEBBD+7Qe+XTJ3DY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788970165; c=relaxed/simple;
+	bh=tOK6V83U7ctJDujtL27OtlLg4IBqs7pHG2c7SK8LIr4=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=L6KQr5v3RS+qfBcIP6i5VRLUMkP3lehpuKCwK2dQcrJmtgwmatEl9fBCXQXcrbd+JqN7KT2GYsI2Mv++/xo/WRuYgo9neebSFx5TTvWOtPU8Uf+xZ7kThOPFub2anyBWxlA0GXWzYR+tRo6QvQjVbOlkQnG8BtV+5IBdYSgzui0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=WoYQAnWY; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QHkWkn3V"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788970023; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=tEiGMgkz1gfUIAip5YKwtlSoH3nUyI3YdbxlmBU5qEE=;
-	b=QHkWkn3VOdceJznPpf/Fq5GscbFeMQwBW/4F+smJZuqJV2AvaWjQo88O7Y9uQB44qDRKMmBax/iXdScxfOL1J6CKNPuQHviDHYyVE/A7yhpXIGIMSYR3Wq5uqPaaaFdkmr9oHnJQR1rJAC+eobCzjcMw68tTx0+O9Z3/i5aQ77Q=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R941e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAfGm61_1788970021;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XAfGm61_1788970021 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 00:07:02 +0800
-Date: Thu, 10 Sep 2026 00:07:01 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Hidayath Khan <hidayath@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com
-Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com, stable@vger.kernel.org,
-	netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v2 0/2] net/smc: fix diag dump lifetime races
-Message-ID: <aqGEJRP_hZotdoNu@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20260828065439.3582783-1-mjambigi@linux.ibm.com>
- <apWEzobrZ3QR3IfN@linux.alibaba.com>
- <4f303f9f-fd20-475a-8004-1a670dfd34df@linux.ibm.com>
- <apbMyLc0IhLMKwwA@linux.alibaba.com>
- <85fa9f02-7516-4595-b5a8-4ae4ca845121@linux.ibm.com>
- <apgTu9dRGIQE6tm3@linux.alibaba.com>
- <899816c9-c908-4d64-8f5c-ba35619f78f2@linux.ibm.com>
- <apriDec7yHBkQgNv@linux.alibaba.com>
- <3803428a-2edc-4a5c-88e8-025f2f3322f4@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="WoYQAnWY"
+ARC-Seal: i=1; a=rsa-sha256; t=1788970121; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KJhr14BZFjEIh92U3YJK1CLq4tNvcQKvAhd8OzooercMW1ET4xnigMt4xld8IVCK6eF99wTkYdhxAznprH5zFSK1izZTab09T8hPzjusoRyOpjNzh68/Gkk6Bj0acP1PFelxgYtuO/h7nUcM+GpAhz2DMJaV3KNaruyE+Istl5Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788970121; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tOK6V83U7ctJDujtL27OtlLg4IBqs7pHG2c7SK8LIr4=; 
+	b=edhdy6sJYhpLSAMVp5SBpKcppMD0ohQ7Ed7NzyYNdIgpflP1MO6Nr4M+3n45pOkR2EpvLJLI3G0MqWW+8GQAZf9Z1SxWg9kEyWxIIscZaXzu0ID2PVfwsIUtukVzy4DzjeAQtldUUg0HTPc+LXoKsG/kfWeWzzRNu1jXrYqBkAE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788970121;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=tOK6V83U7ctJDujtL27OtlLg4IBqs7pHG2c7SK8LIr4=;
+	b=WoYQAnWYUQ5UR32HgB+DwQ3d5aBpBwkj/CiDb7pJZdIMsYnM3GRNWLCcckdpEXRL
+	5Mik73lEsmA+lmeVDjdfsijeVUow8tU8nL4znFia0tvN5Wt+z6n0oI1eD0IgjPL5JTf
+	j0mID+I/zokol19s1rVp83NEMKW0jjBxVj0jwYbzjl8Qz/Fg9OP0vCbOrfa2b3VUz7O
+	YYPQFfw4vwS9l9+WBEcwaHCq4ilYF1whZMPSFQblkbFvheTJwTw+abhkT2nMnl+2hh6
+	RRgBaQpRMJDeQb17Vu1gbmUUoC6f06Q/qgdz9Jl6tfDoVTBN8hsnGXjn2OZNpe9Aesf
+	LqgjZEKztA==
+Received: by mx.zohomail.com with SMTPS id 1788970118815714.682859229956;
+	Wed, 9 Sep 2026 09:08:38 -0700 (PDT)
+Message-ID: <f62d0ac12ba51c29a9bcf33305f3363c99dc1a96.camel@rong.moe>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+From: Rong Zhang <i@rong.moe>
+To: Marek Vasut <marek.vasut@mailbox.org>, Bjorn Helgaas
+ <helgaas@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org, 
+	stable@vger.kernel.org, Krzysztof =?gb2312?Q?Wilczy=A8=BDski?=	
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Koichiro Den <den@valinux.co.jp>,
+ Lorenzo Pieralisi	 <lpieralisi@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Yoshihiro Shimoda	
+ <yoshihiro.shimoda.uh@renesas.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Ziyao Li <liziyao@uniontech.com>, Huacai
+ Chen	 <chenhuacai@loongson.cn>, Richard Zhu <hongxing.zhu@nxp.com>
+In-Reply-To: <e563766f-359e-4133-9960-1b691bc0c774@mailbox.org>
+References: <20260903202706.GA2234456@bhelgaas>
+	 <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
+	 <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
+	 <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
+	 <e563766f-359e-4133-9960-1b691bc0c774@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 00:03:30 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3803428a-2edc-4a5c-88e8-025f2f3322f4@linux.ibm.com>
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-On 2026-09-08 21:53:14, Hidayath Khan wrote:
->
->On 04/09/26 8:51 pm, Dust Li wrote:
->> On 2026-09-03 13:26:30, Mahanta Jambigi wrote:
->> > On 02/09/26 5:46 pm, Dust Li wrote:
->> > > I think we can close this window by holding the SMC hash table lock in
->> > > smcr_link_clear()? [...]
->> > Hi Dust,
->> > 
->> > After debugging further, I believe that __smcr_link_clear() cannot be
->> > called from smc_switch_link_and_count() because
->> > refcount_dec_and_test(&lnk->refcnt) is always false on that path — the
->> > initial ref (set in smcr_link_init(), released only in
->> > smcr_link_clear()) is always held while the switch executes. So there is
->> > no UAF from that path. The only consequence is that the diag reader may
->> > observe a stale conn->lnk pointer value — pointing to the old link which
->> > is still fully live — and read the old link's ibport/link_id/ibname from it.
->> Hi Mahanta,
->> 
->> Sorry for the late reply. I've done some more thinking on this topic.
->> 
->> That's true, but strictly I think there is still a small gap. The old link is
->> memset later, in smcr_link_clear() after all connections have migrated, so a
->> reader that loaded conn->lnk just before its own connection was switched has a
->> few-instruction window before it dereferences. In practice this window is
->> really narrow: the clear path runs the whole switch + LLC + QP teardown, orders
->> of magnitude longer than the reader's load+deref.
->> 
->> > The real UAF is via smc_conn_free(): it drops both the connection-owned
->> > conn->lnk reference via smcr_link_put() and the connection-owned
->> > conn->lgr reference via smc_lgr_put(), while the socket is still visible
->> > in the hash table. [...] The current patch tries to fix this using
->> > lgr_lnk_lock. Since you suggested we fix it with *unhash-before-free*, I
->> > thought about it and here is my proposal.
->> > 
->> > Proposed fix (high level):
->> > 
->> > Introduce a smc_conn_unhash() helper with a per-connection unhashed flag
->> > that ensures the socket is removed from the hash table exactly once.
->> > Call it at the top of smc_conn_free(), before any lgr/lnk references are
->> > dropped.
->> > 
->> > This establishes the invariant: any socket still visible to the diag
->> > reader under read_lock(hash->lock) has valid conn->lgr and conn->lnk
->> > pointers. [...]
->> > 
->> > Does this design look reasonable to you?
->> Yes, I think it's the right fix and we can go ahead and fix it this way first.
->> 
->> > There is a separate minor issue — smc_switch_link_and_count() updates
->> > conn->lnk under send_lock while the diag reader loads it without any
->> > lock, which can cause stale ibport/link_id/ibname in *smcss -R* during a
->> > failover event. This is a data race but not a safety issue since the
->> > link struct is always live at that point.
->> > 
->> > This race is very rare in practice [...] Even when it occurs, the effect
->> > is transient: one dump may show the old link's ibport/link_id/ibname, and
->> > the next dump will show the correct values.
->> I think this is acceptable.
->> 
->> ---
->> 
->> I've been re-thinking this a bit more. We've been plagued by SMC's tangled
->> locks and ad-hoc lifetime handling for years — every fix adds another lock or
->> another ordering rule. I think it's time to step back and refactor this area as
->> a whole, and set up some rules for how we use locks/refcounts in SMC, instead of
->> keeping patching individual races. Below are some rough thoughts.
->> 
->> 1. Object layering
->> 
->> SMC really has three lifetime tiers, and the top one has to be split the way
->> TCP splits struct socket from struct sock:
->> 
->> - the file (struct socket) — lifetime tied to fput;
->> - the connection sock (smc_sock, with conn embedded) — lifetime tied to
->>    sk_refcnt; like a TCP sock it can be orphaned and outlive the file. On an
->>    active close, close(fd) orphans it first, but it stays alive — still bound to
->>    the transport — to finish the close handshake;
->> - the shared transport (lgr / link / device) — lifetime by refcount, multiplexed
->>    across connections.
->> 
->> It's the socket/sock split, plus one more tier because our transport is shared
->> (TCP's sock is 1:1, our lgr/link is not). Today smc_conn_free() mixes all three
->> and is called from the transport layer while the socket is still hashed —
->> that's exactly where these races come from.
->> 
->> With the tiers separated, teardown becomes two independent, idempotent steps
->> rather than one:
->> 
->> - orphan (file <-> sock): at fput, via sock_orphan();
->> - transport-detach (sock <-> transport): the connection drops its lgr/link
->>    refs. On an active close this happens later, after the handshake completes;
->>    on a transport fault it happens immediately.
->> 
->> The sock is freed only once it is orphaned, transport-detached, and the last
->> sock_put lands; the order of the two steps just depends on who initiates
->> teardown (app close vs. transport fault).
->> 
->> 2. Lifetime & boundary contract
->> 
->> Give each tier the right tool, and a clear boundary between them:
->> 
->> - ownership by kref; traversal by RCU (conn->lgr / conn->lnk become RCU
->>    pointers, the lgr is freed with kfree_rcu); fd-visible objects (clcsock)
->>    released only after the last fput; and no in-place mutation of a published
->>    object (stop memset()ing a link — mark it dead and reclaim it with the lgr
->>    after a grace period);
->> 
->> - boundary rule: on a transport fault the lower layer only signals and
->>    transport-detaches; it never orphans, unhashes, or frees the sock.
->>    - signal = wake the app with an error (sk_err + wakeup);
->>    - transport-detach = publish rcu_assign_pointer(conn->lgr/lnk, NULL), then
->>      drop the usage references (smc_lgr_put / smcr_link_put). The transport
->>      object itself is reclaimed later by its own refcount + kfree_rcu; the sock
->>      is left untouched.
->>    Handle-side teardown (orphan, unhash, clcsock release, final sock_put)
->>    belongs to the connection/file side and is driven by close — never by the
->>    transport layer.
->> 
->> With that, a diag reader under rcu_read_lock is guaranteed the link/lgr
->> outlives its critical section, so the per-connection lgr_lnk_lock is no longer
->> needed and smc_conn_unhash() can be retired too. (clcsock_release_lock goes
->> away separately, via the clcsock lifetime series.) It's a larger, mostly
->> mechanical change and would take a lot of careful rework, so I'd do it as a
->> follow-up. Your smc_conn_unhash() is the right fix to take now (and for
->> stable); the rework, if we agree on this direction, would retire it afterwards.
->Hi Dust,
->
->Thanks for writing this up and for the pointer from my abort_work patch.
->
->You describe three tiers, with lgr, link and device as the transport one.
->I was not sure where the buffer descriptor fits. It does not seem to
->follow the lgr: smc_buf_unuse() returns conn->rmb_desc to lgr->rmbs, and
->smc_buf_get_slot() can then hand it to another connection while the lgr is
->still alive.
->
->Two places look like they can outlive it:
->
->- a splice reader still holding pipe pages, since smc_buf_unuse() does not
->  consult conn->splice_pending;
->
->- smc_cdc_msg_recv_action() and smc_cdc_handle_urg_data_arrival(), which
->  read conn->rmb_desc after smc_cdc_rx_handler() has already left
->  conns_lock. On the is_reg_err path smcr_buf_unuse() frees the
->  descriptor rather than recycling it.
->
->Have you already considered the descriptor in this model? Would it need
->its own kref, or is it meant to sit inside the transport tier? I may be
->missing something here.
+Hi Marek,
 
-Hi Hidayath,
+On Wed, 2026-09-09 at 04:34 +0200, Marek Vasut wrote:
+> On 9/6/26 7:07 PM, Rong Zhang wrote:
+>=20
+> Hello Rong,
+>=20
+> I apologize for my delayed reply.
+>=20
+> > > > If you need more information I can do some more experiments with th=
+e PCIe
+> > > > switch card.
+> > >=20
+> > > Please look at the commit message [1] , that lists the exact test and
+> > > the PCIe NVMe SSD which triggers the data corruption (let me know if
+> > > something is unclear). I think any PCIe NVMe SSD which is non-HMB wit=
+h
+> > > MRRS on the SSD size that is > MRRS on the controller side will trigg=
+er
+> > > this issue too.
+> > >=20
+> >=20
+> > Unfortunately I don't have any non-HMB NVMe SSD, and it's unlikely I'll
+> > get one anytime soon due to the crazy price. Before the AI supply chain
+> > crisis, I bought several NVMe SSDs, but I chose HMB ones as they genera=
+te
+> > less heat and consume less electricity.
+>=20
+> Maybe this could be reproduced even with another PCIe device with=20
+> MRRS=3D512 or more, which posts MRd to the PCIe controller with MRRS=3D12=
+8=20
+> or 256. The AHCI controller might be capable of that. I only have the=20
+> SSD as a reproducer, but there could easily be more.
+>=20
+> > > If you could reproduce it on the Loongson, then yes, it
+> > > is affected. You might have to disable the current MRRS workaround in
+> > > the Loongson PCIe driver though as it might hide the issue.
+> >=20
+> > Due to the lack of non-HMB NVMe SSDs, I can't reproduce the exact same
+> > issue. Theoretically I may try to mess around with the AHCI controller
+> > (see the mentioned commit below) by manually overriding MRRS, as my
+> > device's firmware already clamps it. We will see...
+>=20
+> Does the AHCI controller have MRRS higher than the PCIe controller ?
 
-I didn't think much about the descriptor before and thanks for point this out.
-In this model, it belongs to the transport tier (it lives in the lgr buffer
-pool, multiplexed across connections), and the conn->rmb_desc / sndbuf_desc
-binding is a usage reference just like conn->lnk.
+Oh, I meant "a" controller, not "the" controller. Sorry for the typo.
 
-So buf_desc should get a kref: the pool holds one reference for existence,
-and every user holds one -- the bound connection, each outstanding splice
-pipe buffer, and an in-flight rx reader. A descriptor may return to the
-pool (->used cleared, eligible to be re-handed by smc_buf_get_slot()) only
-once *all* of them are dropped, not just when the owning conn detaches --
-otherwise a lingering reader sees zeroed or another connection's data,
-since the same memory gets recycled.
+I don't have the exact same controller as the report, but I do have a
+quite modern one. It's from an AMD Promontory 21 chipset add-in card, see
+https://oshwhub.com/wesd/b650
 
-That should cover your two cases:
+I haven't done any MRRS experiment yet. I will find some time this week
+or the next. As I've said, you don't need to wait for my result :-)
 
-- splice: get_page() pins the physical page, but nothing stops
-  smc_buf_unuse() from zeroing the buffer and returning the slot to the
-  pool while a pipe still references it (and it never consults
-  splice_pending). With the kref, each splice pipe buffer holds a
-  reference, so the slot is recycled only after the last page is
-  released.
+>=20
+> > The firmware of many Loongson devices (except for some MIPS-based ones,
+> > see the commit message of commit ef61a0405742 ("PCI: loongson: Limit MR=
+RS
+> > to 256")) already clamps MRRS for most PCIe devices, which has proven
+> > that the 7A1000/7A2000 chipset does need the MRRS quirk.
+>=20
+> This still only applies the MRRS limit to the PCIe controller, not to=20
+> all devices on the bus, correct ?
 
-- rx after conns_lock: the receive action reads conn->rmb_desc holding
-  only a sock reference, racing smc_conn_free() -> smc_buf_unuse() (and
-  on the is_reg_err path smcr_buf_unuse() frees the descriptor outright).
-  Making conn->rmb_desc an RCU pointer, read under rcu_read_lock in the
-  receive path, closes this: a late reader either sees NULL (detached) or
-  a descriptor that outlives its read-side section.
+This applies to all devices that are the downstream (direct or behind
+another bridge) of any root ports (i.e., internal bridges). In detail,
+pci_match_id(loongson_internal_bridge_devids, *bridge*) matches the root
+port but pcie_set_readrq(*pdev*, 256) sets the downstream PCIe device.
 
->
->One smaller question, on the boundary rule. The SMC-D side already looks
->close to what you describe: smcd_handle_irq() holds smcd->lock across both
->the lookup and the tasklet_schedule(), and smc_ism_unset_conn() clears the
->slot under the same lock. The SMC-R receive path drops conns_lock between
->the lookup and the action. Is that difference something the refactor
->would make uniform, or is there a reason the receive path cannot hold the
->lock that long?
+This essentially sets all PCIe devices on the bus (unless firmware has
+selected a smaller MRRS), since any other internal endpoints of the
+chipset have no PCIe capability (i.e., they are legacy PCI or HT
+devices). IOW, only the root ports (i.e.,
+loongson_internal_bridge_devids) and their downstream PCIe devices have
+MRRS, and they are covered by loongson_set_min_mrrs_quirk().
 
-There is a real reason they differ today: SMC-R does the receive inline in
-the completion softirq, and holding conns_lock (a bh rwlock) across that
-would invert against the teardown/migration paths that take it for write
-under lock_sock. SMC-D only schedules a tasklet under smcd->lock, which is
-cheap, and defers the work.
+>=20
+> I would like to find out whether all the devices (not only the=20
+> controller) on the PCIe bus on Loongson must have MRRS limited or not.
+> -> If yes, then I should start preparing core patches
+> -> If no, then this quirk might specific to this controller
 
-But I'd rather not unify them by holding a lock longer -- that is the same
-"use a lock for lifetime" pattern I'd like to move away from. The refactor
-unifies the mechanism instead: both sides bridge the lookup -> action gap
-with a reference + RCU, not with a lock or a drain.
+My answer is yes.
 
-For SMC-D the tasklet is the subtle part. RCU does not span the tasklet
-boundary: smcd_handle_irq()'s read-side section ends when the IRQ returns,
-and the tasklet runs later, possibly after a grace period. So a reference,
-not RCU, has to carry the connection across that gap:
+>=20
+> > Therefore, you
+> > can just go ahead with preparing the core patches without the need of
+> > waiting for my test result. It seems that your approach is not going to
+> > change the current fixup effects in a significant way, so it should be
+> > fine.
+>=20
+> [...]
+>=20
+> Thank you for your help !
 
-- smcd_handle_irq() takes a sock reference under smcd->lock before
-  tasklet_schedule(), and the tasklet drops it at the end -- exactly
-  what the SMC-R rx handler already does;
-- the tasklet reads conn->rmb_desc under its own rcu_read_lock();
-- smcd->lock stays as the state lock for the dmbno -> conn slot table,
-  and smc_ism_unset_conn() keeps clearing the slot, but its job becomes
-  "stop scheduling new work" rather than "keep the tasklet off freed
-  memory";
-
-So yes, the refactor makes the two uniform -- through references + RCU,
-not by extending conns_lock.
-
-More generally, the discipline I'd like us to adopt: don't use locks (or
-drains, or ad-hoc flags) to manage object lifetime -- use a kref for ownership
-plus RCU for traversal. A lock only covers the paths that remember to take it,
-so it always leaves one uncovered; a reference + RCU makes "can't be reclaimed
-while observed" structural.
-
-
->
->If it would be useful, I can write up the lifetime assumptions I have run
->into while working through the teardown paths. Please tell me if that
->helps, or if it would only repeat what you already have.
-
-Please do -- I'd frame it as stress-testing the model rather than just
-documenting it. buf_desc is exactly the kind of gap I want to shake out
-before we commit to this direction: an object my write-up missed, which
-you found by walking the teardown paths. So it wouldn't be a repeat of
-what I have.
-
-Best regards,
-Dust
+Thanks,
+Rong
