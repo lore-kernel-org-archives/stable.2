@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F258125F
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB16952B1D2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971204; cv=none; b=ev2cRzmDZyO2PT7MIHdpTcVd6TVcqDCT1FlYh35WUUJgfipEqrE5/pXVez0+4VYevcIbcr3SJOYpfo/X0B0+x4wYQ+XJq6lF7mW4o8bi6bycXSyPAAAUAeQWLZGFmIyvkOnI21Eoif1+3bIaN+Nleceftut7HecFxJCyDZfkoQY=
+	t=1788971209; cv=none; b=TA31vIsgoreK6TaBi0y19IYMSIhmRjfC8z3ZzfU6XbgEV6iYMl5I2YW7oBWrPjcL6ygDZY+8W+HkElIgFzJJhWeVJ51egg0IH3KBkRREi8ckRkWYInIH75itEyWLlaq5dfPDyuM+AQedcQ4WFMXhKhExeUZIWPGniWNt7QN4R1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971204; c=relaxed/simple;
-	bh=gKOnLuS1vcKw0qV0LxusW6JC/9StGFg+lsiBqIBJuV8=;
+	s=arc-20240116; t=1788971209; c=relaxed/simple;
+	bh=WBj1SpGSiKokT2TwZisfvHkSww7wPAZzhSBuDR8AGVM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ao8VD6L5rvj183N9mN19RQ0HuwI+mMYg630baU2wHwq1gEeqYIQoW264M5z315LL5AKCH8j9kDPov1QfcdrEFkV11qYgvG3uOH+uEPbPbI8nMMaGFjzdOKzTpaPybmubZIB6LHkC9LeZiOW9+b+Dngncrrc+iNaFCsswA0x/QpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KsheHlqv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NSrWbcOHkNU6pm7xNTzUHqVYxErQz+HLSvZ7aLshdNFfRI/TjANZqLzXZyskXBszl3BuU6jg2Kout0cAcigogF4a0YeQv6i47uINMRXSHLUuYZLFMUURs8e/exnVqpq+PHD5t37KZpiiUDxQ3FPk00Ohs+Y54haqyuWjN7HIx3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mVcwrCee; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KsheHlqv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9C21F00898;
-	Wed,  9 Sep 2026 16:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mVcwrCee"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5491F000FF;
+	Wed,  9 Sep 2026 16:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971203;
-	bh=4NHGlEzBVxhv5Jz86mzM33SCgOhJFd9YFIEJn9BErjg=;
+	s=k20260515; t=1788971207;
+	bh=rVZdhZHZbwX/nlTafcCfonfYFMs0mlrRBGndjLXHOeA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KsheHlqvj2XGYZnE1pF9NE6UsTveCkoephN5PxYQjYdrZWewJrtBonL3qhIqR/Q6+
-	 JLKub6E2U6pC5kVG6v0dOyK3jFVq/6Cj8eRmWx+JrMSAneASjlNr8tid2vxUEbN6TP
-	 eFdSFI8gwxLm+xpurCmwuu5Rxochx8e2T7EdNjdKN5IMfdg8YE7OPa19Mqiduz0L+o
-	 FubZybFdOXrE37keu5nh/1ix8PzyXHdveaxZI0Haj9cz9lA2/f4UZHJU5gDpnINWWy
-	 gPf89YQg15p/br8EhskI+4vuXRGNhn4RQKIHi82MG4Fq5o/bD4f9ROr1+jIvleKdQL
-	 OemOiJvw0ZOGQ==
+	b=mVcwrCeejciEMYe4Pb0hfi+YNwnEb2OfxghcOqovMAIpADxGCHoG0wvJaSDrVcYEW
+	 rVxCeSO17GPTr8tsNYk9uFD95+NPOwmt0SpECjRRDRNG/rZITJqn3s27eKx8wtuRtt
+	 V0YU9Q56R9Zhq8ANX4K8B/6bpvKU+uCEJFwe/5YDzgsuNMGsolE13FIkVCsObyKFIp
+	 IGZF3Q/S0gEPvruNDtTqS9TGAHmwwlW+ZoQDQPI9IXuuiYStC3d/E83ajG9I0l2ha4
+	 Ga7hNWTVcu76xOS32hsvJ9CATfHa0/VnG297+qIf7vASEZ5jJ+xbO0jQ9i523N3qMx
+	 WdL6XBzTJFyvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
-	Francis De Brabandere <francisdb@gmail.com>,
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] platform/x86/amd/pmc: Propagate SMU errors and validate S2D address
-Date: Wed,  9 Sep 2026 12:26:37 -0400
-Message-ID: <20260909162637.2981292-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/6] PCI/AER: Simplify pci_print_aer()
+Date: Wed,  9 Sep 2026 12:26:39 -0400
+Message-ID: <20260909162644.2981443-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162637.2981292-1-sashal@kernel.org>
-References: <2026090316-rogue-eggnog-a086@gregkh>
- <20260909162637.2981292-1-sashal@kernel.org>
+In-Reply-To: <2026090327-shy-dealmaker-b70c@gregkh>
+References: <2026090327-shy-dealmaker-b70c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,73 +49,69 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-[ Upstream commit 0225c1d637687b03726f00ac65b6def843d2c464 ]
+[ Upstream commit ad9839137cf9fb0f0c2d531bd04bc4382e6f2de9 ]
 
-amd_stb_s2d_init() discards the return value of several S2D SMU commands.
-When the SMU refuses a command (e.g. "SMU cmd failed. err: 0xff") the
-failure is only noticed indirectly - if at all - and reported as -EIO,
-masking the real error.
+Simplify pci_print_aer() by initializing the struct aer_err_info "info"
+with a designated initializer list (it was previously initialized with
+memset()) and using pci_name().
 
-More seriously, the S2D_PHYS_ADDR_LOW/HIGH return values are ignored, so
-on failure phys_addr_low/hi are left uninitialised and the assembled
-address is passed straight to devm_ioremap().  When the SMU leaves them at
-zero this maps physical address 0 and trips the ioremap-on-RAM warning:
-
-  amd_pmc AMDI000B:00: SMU cmd failed. err: 0xff
-  ioremap on RAM at 0x0000000000000000 - 0x0000000000ffffff
-  WARNING: CPU: 13 PID: 4592 at arch/x86/mm/ioremap.c:...
-
-Check the return value of each SMU command and propagate it, and reject a
-zero physical address before calling devm_ioremap().
-
-Reported-by: Francis De Brabandere <francisdb@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-Tested-by: Francis De Brabandere <francisdb@gmail.com>
-Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260721181756.143084-4-mario.limonciello@amd.com
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Link: https://patch.msgid.link/20250522232339.1525671-10-helgaas@kernel.org
+Stable-dep-of: a8bf2dd750de ("PCI/AER: Emit TLP Log only for unmasked errors")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/amd/pmc/mp1_stb.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ drivers/pci/pcie/aer.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 0eeec64df259d..7af8ec7d76531 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -281,7 +281,9 @@ int amd_pmc_s2d_init(struct amd_pmc_dev *dev)
- 	/* Spill to DRAM feature uses separate SMU message port */
- 	dev->msg_port = MSG_PORT_S2D;
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index 608908552daf3..e4be458fb9575 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -763,7 +763,10 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ {
+ 	int layer, agent, tlp_header_valid = 0;
+ 	u32 status, mask;
+-	struct aer_err_info info;
++	struct aer_err_info info = {
++		.severity = aer_severity,
++		.first_error = PCI_ERR_CAP_FEP(aer->cap_control),
++	};
  
--	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
- 	if (size != S2D_TELEMETRY_BYTES_MAX) {
- 		ret = -EIO;
- 		goto out;
-@@ -293,8 +295,14 @@ int amd_pmc_s2d_init(struct amd_pmc_dev *dev)
- 		dev->dram_size = S2D_TELEMETRY_DRAMBYTES_MAX;
+ 	if (aer_severity == AER_CORRECTABLE) {
+ 		status = aer->cor_status;
+@@ -774,14 +777,11 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ 		tlp_header_valid = status & AER_LOG_TLP_MASKS;
+ 	}
  
- 	/* Get STB DRAM address */
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low, dev->stb_arg.s2d_msg_id, true);
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
+-	layer = AER_GET_LAYER_ERROR(aer_severity, status);
+-	agent = AER_GET_AGENT(aer_severity, status);
+-
+-	memset(&info, 0, sizeof(info));
+-	info.severity = aer_severity;
+ 	info.status = status;
+ 	info.mask = mask;
+-	info.first_error = PCI_ERR_CAP_FEP(aer->cap_control);
++
++	layer = AER_GET_LAYER_ERROR(aer_severity, status);
++	agent = AER_GET_AGENT(aer_severity, status);
  
- 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
- 	if (!stb_phys_addr) {
+ 	pci_err(dev, "aer_status: 0x%08x, aer_mask: 0x%08x\n", status, mask);
+ 	__aer_print_error(dev, &info);
+@@ -795,7 +795,7 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
+ 	if (tlp_header_valid)
+ 		__print_tlp_header(dev, &aer->header_log);
+ 
+-	trace_aer_event(dev_name(&dev->dev), (status & ~mask),
++	trace_aer_event(pci_name(dev), (status & ~mask),
+ 			aer_severity, tlp_header_valid, &aer->header_log);
+ }
+ #endif
 -- 
 2.53.0
 
