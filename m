@@ -1,204 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2D1577E4D;
-	Wed,  9 Sep 2026 14:42:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C2557C735;
+	Wed,  9 Sep 2026 14:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964927; cv=none; b=A4mSxo3ypkM9NYYqeEyQpenBEjO5eOihvr8Cw3qEKHndcl2CRQgaK4z2GRpdLD+8YnwfLH3+rHSCrbdsQjPtSZBFuXBZiroE+egVQwEHIsQycM40lyxY/NobuVI70SSESnmjE6U0idAFyazex+KJ+WS1OERnKEopKh8zAEfPGLg=
+	t=1788965120; cv=none; b=pC6Us5y4cf+Pb/2shNlZbotpU8lfADwi8coxLEe2TXyTSAv8aXEtaNVNoOSppLN7YNV9JIMW+/VLbRRQOUEoDH6Dq0TMXaX+MTOy9vQbP61jchE6cfv0ltaLzGblZHCacuWueybRPaZtIRHOy6KVJcGzMd3GxJBJvUdJdiqxQUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964927; c=relaxed/simple;
-	bh=Kz+IlSivsTxnMJ9tBZX8wCZO6m9fqThUOsJounmNTWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=peV+C1qnaV5KkVfI0hoDfxLpwcc7FZ87JO8cdylJahiptiEWlvo9lK6Dca5qZoLdUUDzPqRoxfPvx2yH1FZjS6xUF7hDVWfMsML1zU5uawx+KyyW6XCuF7X5LkCRqoprZzqY5CSdV77HGmQ9sBtS3u55KZMtaQpBauMWuOt3NhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZvjfnC/S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965120; c=relaxed/simple;
+	bh=Ypon59CrcL/GClEUgoItVwKRy5h97oyDAyIzwKQTKL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FARKpujQ2YLThZ0wRtJRA8RpMdXtWJJvY25DTDwN2593sKZKbmYiuwXyjKTo7Dk9637n7nTPlVnwIOB9WcfSJs9LjvmlTT/TNr4789sBGYrzJ73ry8eLihwkOEZkHKSBl/PVy3qnPrk0oClZ2CSSbZMPE5pOh6BSJoFf2bxZEKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xhxx0khW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZvjfnC/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8491F00A3A;
-	Wed,  9 Sep 2026 14:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788964926;
-	bh=Ir4x5RfeMqxOUhmiG1Wtv5fK9/G5rseOGNtVL3pvTGc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZvjfnC/Sd9WOtznz84rKFrpg77gGOF0XuYDjq/jzx2N+ODv+8eKtkcGb+nwJkXEXe
-	 n52eaM14K0U008GBG6E/YWwW4A2BMXTu32bEJ7owUzTJxvk1rFbIhTEG7qK+dtV7R7
-	 MneuR0ddrX0DKJPLKjz/o8M0XxUgBwm562xU0RYc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Brian Geffon <bgeffon@google.com>,
-	Minchan Kim <minchan@google.com>,
-	Richard Chang <richardycc@google.com>,
-	Yuwen Chen <ywen.chen@foxmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 556/583] zram: drop wb_limit_lock
-Date: Wed,  9 Sep 2026 15:44:01 +0200
-Message-ID: <20260909134256.960069822@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xhxx0khW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AC91F00A3A;
+	Wed,  9 Sep 2026 14:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965119;
+	bh=K58cKHulWym61Yate6t1pTnTXRuBWGGv6yostO13qNY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xhxx0khW2G/5/4vxzFifVxHhB1Hj4/gJYWj9vH7PrAXbsF+QcjQEQFAH3W56oAvks
+	 lqXDwUoQLaUur3E2tolLS49mfx+b4Ze9yl+QcE2iE6tNyafSE1MmimNmOnbH4iHt22
+	 GgB1BEZ0QSxF3Um43IZKLjYOP+ljAj6AhBy2muVtNsqtgjRmj227JPG9fiVwV/8j/2
+	 YCBDrmVUjfAGL7zfOEmaojeuER2qxydaEdPEC4Ryl79Ez1o4FF1U567vSCgnkTKRG4
+	 XJ6kAJFdjD02KG4GJqMWNLaNBWrmKpq6XB4Mz9mnfCWxvS7o1jLLrg5In2OL84xomV
+	 rgiDsoDXb0k9A==
+Date: Wed, 9 Sep 2026 16:45:15 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: stern@rowland.harvard.edu, boqun@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqFw--VfXWz-yZt8@localhost.localdomain>
+References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Le Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra a écrit :
+> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
+> 
+> > > > I argue that's not possible:
+> > > > 
+> > > > A:   sigqueue stores
+> > > > 
+> > > > B:   AQUIRE tasklist
+> > > > 
+> > > > C:   exit_state store
+> > > > 
+> > > > D:   RELEASE tasklist
+> > > > 
+> > > > E                               ACQUIRE tasklist
+> 
+> > > > F                               if (exit_state)
+> > > > 				    	swap_pid()
+> > > > G                                   STORE_PID
+> > > > 
+> > > > 				      RELEASE tasklist
+> > > > 
+> > > > H                                                       READ PID
+> > > > 							      ....
+> > > > I                                		              ACQUIRE siglock
+> 
+> > > Let G' be the unnamed RELEASE after G.
+> > > 
+> > > Now, I have deleted and rewritten this tail end at least twice now. And
+> > > I *think* I'm agreeing with you. Let me explain:
+> > > 
+> > > It all hinges on D-E and H-I.
+> > > 
+> > > D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+> > > RELEASE+ACQUIRE. Specifically, we have:
+> > > 
+> > >   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+> > >   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+> > > 
+> > > So while earlier I was arguing with RCpc in mind, in which case D-E
+> > > completely goes away and we can consider B-G' to be one big critical
+> > > section from the PoV of a third CPU (our posix_timer_fn() one). In this
+> > > case we can push A down and G up and have them cross.
+> > > 
+> > > *However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
+> > > which is RCtso and that *does* impose store order, so A stores must
+> > > happen before G stores
+> > > 
+> > > Combine with H-I, which has a data dependency from the LOAD to the LOCK
+> > > and thereby constraints later LOADs, those sigqueue loads that come
+> > > after I must in fact observe the A stores.
+> > 
+> > I didn't know about all those UNLOCK+LOCK properties. Well,
+> > I know that UNLOCK+LOCK on the same lock, or on different locks
+> > but the same CPU, equals smp_mb() except on powerpc. Which is why
+> > we have smp_mb__after_unlock_lock(). But what you describe is quite
+> > different.
+> > 
+> > Is this something that we should expect litmus to modelize?
+> 
+> IIRC these commits:
+> 
+> 6e89e831a901 ("tools/memory-model: Add extra ordering for locks and remove it for ordinary release/acquire")
+> ddfe12944e84 ("tools/memory-model: Provide extra ordering for unlock+lock pair
+> on the same CPU")
 
-------------------
+I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+But unlock+lock doesn't pair with unlock+lock on different CPU.
 
-[ Upstream commit a4f506c569e1320c2db4a32955e47961fcf02b05 ]
+C MP+polocks
 
-We don't need wb_limit_lock.  Writeback limit setters take an exclusive
-write zram init_lock, while wb_limit modifications happen only from a
-single task and under zram read init_lock.  No concurrent wb_limit
-modifications are possible (we permit only one post-processing task at a
-time).  Add lockdep assertions to wb_limit mutators.
+{}
 
-While at it, fixup coding styles.
+P0(int *A, int *B, spinlock_t *mylock)
+{
+	spin_lock(mylock);
+	WRITE_ONCE(*A, 1);
+	spin_unlock(mylock);
+	spin_lock(mylock);
+	WRITE_ONCE(*B, 1);
+	spin_unlock(mylock);
+}
 
-Link: https://lkml.kernel.org/r/20251122074029.3948921-5-senozhatsky@chromium.org
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Brian Geffon <bgeffon@google.com>
-Cc: Minchan Kim <minchan@google.com>
-Cc: Richard Chang <richardycc@google.com>
-Cc: Yuwen Chen <ywen.chen@foxmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: dde75313eed0 ("zram: set default primary compressor in zram_destroy_comps()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/block/zram/zram_drv.c |   23 ++++-------------------
- drivers/block/zram/zram_drv.h |    1 -
- 2 files changed, 4 insertions(+), 20 deletions(-)
+P1(int *A, int *B, spinlock_t *otherlock)
+{
+	int r0;
+	int r1;
 
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -512,9 +512,7 @@ static ssize_t writeback_limit_enable_st
- 		return ret;
- 
- 	down_write(&zram->init_lock);
--	spin_lock(&zram->wb_limit_lock);
- 	zram->wb_limit_enable = val;
--	spin_unlock(&zram->wb_limit_lock);
- 	up_write(&zram->init_lock);
- 	ret = len;
- 
-@@ -529,9 +527,7 @@ static ssize_t writeback_limit_enable_sh
- 	struct zram *zram = dev_to_zram(dev);
- 
- 	down_read(&zram->init_lock);
--	spin_lock(&zram->wb_limit_lock);
- 	val = zram->wb_limit_enable;
--	spin_unlock(&zram->wb_limit_lock);
- 	up_read(&zram->init_lock);
- 
- 	return sysfs_emit(buf, "%d\n", val);
-@@ -549,9 +545,7 @@ static ssize_t writeback_limit_store(str
- 		return ret;
- 
- 	down_write(&zram->init_lock);
--	spin_lock(&zram->wb_limit_lock);
- 	zram->bd_wb_limit = val;
--	spin_unlock(&zram->wb_limit_lock);
- 	up_write(&zram->init_lock);
- 	ret = len;
- 
-@@ -559,15 +553,13 @@ static ssize_t writeback_limit_store(str
- }
- 
- static ssize_t writeback_limit_show(struct device *dev,
--		struct device_attribute *attr, char *buf)
-+				    struct device_attribute *attr, char *buf)
- {
- 	u64 val;
- 	struct zram *zram = dev_to_zram(dev);
- 
- 	down_read(&zram->init_lock);
--	spin_lock(&zram->wb_limit_lock);
- 	val = zram->bd_wb_limit;
--	spin_unlock(&zram->wb_limit_lock);
- 	up_read(&zram->init_lock);
- 
- 	return sysfs_emit(buf, "%llu\n", val);
-@@ -747,18 +739,17 @@ static int zram_writeback_slots(struct z
- 	int ret = 0, err;
- 	u32 index;
- 
-+	lockdep_assert_held_read(&zram->init_lock);
-+
- 	page = alloc_page(GFP_KERNEL);
- 	if (!page)
- 		return -ENOMEM;
- 
- 	while ((pps = select_pp_slot(ctl))) {
--		spin_lock(&zram->wb_limit_lock);
- 		if (zram->wb_limit_enable && !zram->bd_wb_limit) {
--			spin_unlock(&zram->wb_limit_lock);
- 			ret = -EIO;
- 			break;
- 		}
--		spin_unlock(&zram->wb_limit_lock);
- 
- 		if (!blk_idx) {
- 			blk_idx = alloc_block_bdev(zram);
-@@ -824,10 +815,8 @@ static int zram_writeback_slots(struct z
- 		zram_set_handle(zram, index, blk_idx);
- 		blk_idx = 0;
- 		atomic64_inc(&zram->stats.pages_stored);
--		spin_lock(&zram->wb_limit_lock);
- 		if (zram->wb_limit_enable && zram->bd_wb_limit > 0)
- 			zram->bd_wb_limit -=  1UL << (PAGE_SHIFT - 12);
--		spin_unlock(&zram->wb_limit_lock);
- next:
- 		zram_slot_unlock(zram, index);
- 		release_pp_slot(zram, pps);
-@@ -2469,7 +2458,7 @@ static void zram_destroy_comps(struct zr
- 
- static void zram_reset_device(struct zram *zram)
- {
--	down_write(&zram->init_lock);
-+	guard(rwsem_write)(&zram->init_lock);
- 
- 	zram->limit_pages = 0;
- 
-@@ -2485,7 +2474,6 @@ static void zram_reset_device(struct zra
- 	reset_bdev(zram);
- 
- 	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
--	up_write(&zram->init_lock);
- }
- 
- static ssize_t disksize_store(struct device *dev,
-@@ -2697,9 +2685,6 @@ static int zram_add(void)
- 	device_id = ret;
- 
- 	init_rwsem(&zram->init_lock);
--#ifdef CONFIG_ZRAM_WRITEBACK
--	spin_lock_init(&zram->wb_limit_lock);
--#endif
- 
- 	/* gendisk structure */
- 	zram->disk = blk_alloc_disk(&lim, NUMA_NO_NODE);
---- a/drivers/block/zram/zram_drv.h
-+++ b/drivers/block/zram/zram_drv.h
-@@ -127,7 +127,6 @@ struct zram {
- 	bool claim; /* Protected by disk->open_mutex */
- #ifdef CONFIG_ZRAM_WRITEBACK
- 	struct file *backing_dev;
--	spinlock_t wb_limit_lock;
- 	bool wb_limit_enable;
- 	u64 bd_wb_limit;
- 	struct block_device *bdev;
+	r0 = READ_ONCE(*B);
+	spin_lock(otherlock);
+	r1 = READ_ONCE(*A);
+	spin_unlock(otherlock);
+}
 
+exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
 
+But yeah there is no data dependency involved. Let me answer to
+that to tglx.
+
+-- 
+Frederic Weisbecker
+SUSE Labs
