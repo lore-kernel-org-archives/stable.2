@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9083DCD8D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABE33B895D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981459; cv=none; b=n1Oag2o7pbv6HDXqzCqX11MELZvTf7FyL/dtpkqYZb8nYz+Kul8EGgNOlHYGOK+eZ62xz8tOg71QKLT9Ea2vQ+K5wPSjLq+5VSq/+4LDfpdSR2OJwp7H4munevG7YunHCJaUwSxlC7sPCQ4gneBeNzyFffN555nrAxctsFqZwPM=
+	t=1788981459; cv=none; b=BBVhugvpPc1SjXCQCEpzzLquClg6onWS7/fJVESp4zzoBHDKiNt9ngnzxXEFrsERN6MOxcES1kGET3uhf5ZO3zpNSjpnUp2wzkygaPqiYa6QGRVc7Mw3jsuxkc+VgGZDdezHmhM2fwx/1y1bSml3lQbFqPinIFQfARhbWxCVTR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788981459; c=relaxed/simple;
-	bh=EP55ndzS7bpTsyaBOc/BPvi+EK/5o3t3pEJTKtigtAo=;
+	bh=lWtZW9B64jITIrIEBwKcj02m/YKU3hTT28o3FXTJ248=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZhkYrjbwaGsyXc8+MF+p3kx+1/i4VMKXAkgd7UqJyIR0puiCkis8VoiwfS2f9PG+0VdveQAdyLNB5Qv2xAhxyKzPuwUcgIpuVaA3bhfRJhiZPxfeDV1kVu6r5+6Lhgh7E2+rntmpPWrTm3JQ7R/wTUMa2IbxWa/4oLmBg6H0YtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sz89eGlW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZlFjyucrtMIfmW+oqIJ2vb0VnQmO3l4PHiBKAShCAlwQcIs44t7b2PTIMteos+lt2FFuky+3+GFuNPFJGgozbVtJW1ymjsvMCe2LceSvfPlHXssWtWP+Ek7zaAZ94j8XurEX3q99T3ZRimlkJTR9fF3dGEsJTqndbu8GApLHYW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SabstMEA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sz89eGlW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87131F00893;
-	Wed,  9 Sep 2026 19:17:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SabstMEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A268A1F00898;
+	Wed,  9 Sep 2026 19:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981456;
-	bh=lYdbaZiY7JTEOzPzDPiWPvBqByBNQ3UjcFWQOx7ht48=;
+	s=k20260515; t=1788981457;
+	bh=z73KKqtNdsm0CxB/s5N9+4ogA9mU4Zg9yzX8B604+GE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sz89eGlWHmb7XAVj6jZ0OEBRYb3F1TFHSJSum3bDNVsTWd+9e5ngv9nf53jXkch82
-	 ZvqJQT6+CSh+AoP362sWOSaEECXFK8Aticz9yoyHuzftZepdJCHyv35VVMMNl3EnnS
-	 8pthPhsHagLL8/L4Bhf9wqkPSlUgkgfsgEz9wdxwOkGzsaGvOqMgg/LXz9ggNEV2+e
-	 0owTHNxmKv/hKlJ1ldSdNxfHCsJLXv15R4R8xLRwwIc2aAapOaPa9jRIWC85OFJ2KF
-	 7+KhAkAA2cEDZf2a56UKwMZhKdhXvP8WmlsdUpgmg6V0mGHjvbIkrjY8pK8/OEZ4bM
-	 3Xknj6GBBDKgQ==
+	b=SabstMEAgUtvn99R1gUKmiZEqHnJV8nfkKKjcCLJ4gLozlpQqpRwHL9oDJ1Z9sOiR
+	 ohgkuez7mtn5RgmZFIUQJRrtpJAZ+7aXujbveSeOElS9pvKDDQqyQKnG3mAsevFpA5
+	 +3LLKfk7VqLx1PTg3fcMrr3RL6RiNPEncUvJ81Y25xJVvnG0Q2qgmwlmLd5m1/ofqW
+	 GATAWcXYYIpGgXPja3Dp3W1Ne7ZvnIDfxIlbxwzWU4mTH6mJBF0PFPgiRvju6Dg6Ut
+	 HgWGl/wRIzgd9YGbIdvlhbfe5DaU72MNCwa4qwpRBzI/qLwVTZ3S2lkPSTD4pvhIU3
+	 N3yPUYFHoKQpA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
+Cc: Xu Rao <raoxu@uniontech.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] ALSA: HDA: hdac_ext_stream: use consistent prefixes for variables
-Date: Wed,  9 Sep 2026 15:17:31 -0400
-Message-ID: <20260909191732.3557673-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] ALSA: hda/ext: preserve PPLCCTL bits when clearing reset
+Date: Wed,  9 Sep 2026 15:17:32 -0400
+Message-ID: <20260909191732.3557673-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909191732.3557673-1-sashal@kernel.org>
 References: <2026090345-hangnail-getup-f661@gregkh>
@@ -48,583 +46,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit 0f7e5ee62f4c24ca9db58351c86653cc3ee0bd0e ]
+[ Upstream commit 36aa66de481d29edd63cbad9b5c4dc18c340fdf6 ]
 
-The existing code maximizes confusion by using 'stream' and 'hstream'
-variables of different types. Examples:
+snd_hdac_ext_stream_reset() polls PPLCCTL for STRST by masking the
+register value with AZX_PPLCCTL_STRST:
 
-struct hdac_stream *stream;
-struct hdac_ext_stream *stream;
-struct hdac_stream *hstream;
-struct hdac_ext_stream *hstream;
+	val = readl(...) & AZX_PPLCCTL_STRST;
 
-with some additional copy/paste remains:
-struct hdac_ext_stream *azx_dev;
+The same masked value is then used when clearing STRST. Since val
+contains no bits other than STRST, clearing STRST from it always
+produces zero. The subsequent writel() therefore writes zero to the
+entire PPLCCTL register instead of clearing only the reset bit.
 
-This patch suggests a consistent naming across all 'hdac_ext_stream'
-functions. The convention is:
+PPLCCTL contains other stream control fields, including the stream tag
+in AZX_PPLCCTL_STRM_MASK. Those fields must not be modified as a side
+effect of clearing stream reset.
 
-struct hdac_stream *hstream;
-struct hdac_ext_stream *hext_stream;
+Use snd_hdac_updatel() to clear STRST, matching the existing set-reset
+path and preserving all unrelated PPLCCTL bits.
 
-No functionality change - just renaming of variables and more
-consistent indentation.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Link: https://lore.kernel.org/r/20211216231128.344321-3-pierre-louis.bossart@linux.intel.com
+Fixes: df203a4e46f4 ("ALSA: hdac_ext: add extended stream capabilities")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Link: https://patch.msgid.link/43BB7930B0F07C09+20260813065524.1955696-1-raoxu@uniontech.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 36aa66de481d ("ALSA: hda/ext: preserve PPLCCTL bits when clearing reset")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/hdaudio_ext.h     |  26 ++---
- sound/hda/ext/hdac_ext_stream.c | 199 ++++++++++++++++----------------
- 2 files changed, 113 insertions(+), 112 deletions(-)
+ sound/hda/ext/hdac_ext_stream.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-index ddcb5b2f0a8e2..1c10043586828 100644
---- a/include/sound/hdaudio_ext.h
-+++ b/include/sound/hdaudio_ext.h
-@@ -78,35 +78,35 @@ struct hdac_ext_stream {
- 	container_of(s, struct hdac_ext_stream, hstream)
- 
- void snd_hdac_ext_stream_init(struct hdac_bus *bus,
--				struct hdac_ext_stream *stream, int idx,
--				int direction, int tag);
-+			      struct hdac_ext_stream *hext_stream, int idx,
-+			      int direction, int tag);
- int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
--		int num_stream, int dir);
-+				 int num_stream, int dir);
- void snd_hdac_stream_free_all(struct hdac_bus *bus);
- void snd_hdac_link_free_all(struct hdac_bus *bus);
- struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
- 					   struct snd_pcm_substream *substream,
- 					   int type);
--void snd_hdac_ext_stream_release(struct hdac_ext_stream *azx_dev, int type);
-+void snd_hdac_ext_stream_release(struct hdac_ext_stream *hext_stream, int type);
- void snd_hdac_ext_stream_decouple_locked(struct hdac_bus *bus,
--				  struct hdac_ext_stream *azx_dev, bool decouple);
-+					 struct hdac_ext_stream *hext_stream, bool decouple);
- void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
- 				struct hdac_ext_stream *azx_dev, bool decouple);
- 
- int snd_hdac_ext_stream_set_spib(struct hdac_bus *bus,
--				 struct hdac_ext_stream *stream, u32 value);
-+				 struct hdac_ext_stream *hext_stream, u32 value);
- int snd_hdac_ext_stream_get_spbmaxfifo(struct hdac_bus *bus,
--				 struct hdac_ext_stream *stream);
-+				       struct hdac_ext_stream *hext_stream);
- void snd_hdac_ext_stream_drsm_enable(struct hdac_bus *bus,
- 				bool enable, int index);
- int snd_hdac_ext_stream_set_dpibr(struct hdac_bus *bus,
--				struct hdac_ext_stream *stream, u32 value);
--int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *stream, u32 value);
-+				struct hdac_ext_stream *hext_stream, u32 value);
-+int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *hext_stream, u32 value);
- 
--void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *hstream);
--void snd_hdac_ext_link_stream_clear(struct hdac_ext_stream *hstream);
--void snd_hdac_ext_link_stream_reset(struct hdac_ext_stream *hstream);
--int snd_hdac_ext_link_stream_setup(struct hdac_ext_stream *stream, int fmt);
-+void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *hext_stream);
-+void snd_hdac_ext_link_stream_clear(struct hdac_ext_stream *hext_stream);
-+void snd_hdac_ext_link_stream_reset(struct hdac_ext_stream *hext_stream);
-+int snd_hdac_ext_link_stream_setup(struct hdac_ext_stream *hext_stream, int fmt);
- 
- struct hdac_ext_link {
- 	struct hdac_bus *bus;
 diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
-index c09652da43ffd..d2b5724b463ff 100644
+index d2b5724b463ff..ae9228d52da0e 100644
 --- a/sound/hda/ext/hdac_ext_stream.c
 +++ b/sound/hda/ext/hdac_ext_stream.c
-@@ -18,7 +18,7 @@
- /**
-  * snd_hdac_ext_stream_init - initialize each stream (aka device)
-  * @bus: HD-audio core bus
-- * @stream: HD-audio ext core stream object to initialize
-+ * @hext_stream: HD-audio ext core stream object to initialize
-  * @idx: stream index number
-  * @direction: stream direction (SNDRV_PCM_STREAM_PLAYBACK or SNDRV_PCM_STREAM_CAPTURE)
-  * @tag: the tag id to assign
-@@ -27,34 +27,34 @@
-  * invoke hdac stream initialization routine
-  */
- void snd_hdac_ext_stream_init(struct hdac_bus *bus,
--				struct hdac_ext_stream *stream,
--				int idx, int direction, int tag)
-+			      struct hdac_ext_stream *hext_stream,
-+			      int idx, int direction, int tag)
- {
- 	if (bus->ppcap) {
--		stream->pphc_addr = bus->ppcap + AZX_PPHC_BASE +
-+		hext_stream->pphc_addr = bus->ppcap + AZX_PPHC_BASE +
- 				AZX_PPHC_INTERVAL * idx;
- 
--		stream->pplc_addr = bus->ppcap + AZX_PPLC_BASE +
-+		hext_stream->pplc_addr = bus->ppcap + AZX_PPLC_BASE +
- 				AZX_PPLC_MULTI * bus->num_streams +
- 				AZX_PPLC_INTERVAL * idx;
- 	}
- 
- 	if (bus->spbcap) {
--		stream->spib_addr = bus->spbcap + AZX_SPB_BASE +
-+		hext_stream->spib_addr = bus->spbcap + AZX_SPB_BASE +
- 					AZX_SPB_INTERVAL * idx +
- 					AZX_SPB_SPIB;
- 
--		stream->fifo_addr = bus->spbcap + AZX_SPB_BASE +
-+		hext_stream->fifo_addr = bus->spbcap + AZX_SPB_BASE +
- 					AZX_SPB_INTERVAL * idx +
- 					AZX_SPB_MAXFIFO;
- 	}
- 
- 	if (bus->drsmcap)
--		stream->dpibr_addr = bus->drsmcap + AZX_DRSM_BASE +
-+		hext_stream->dpibr_addr = bus->drsmcap + AZX_DRSM_BASE +
- 					AZX_DRSM_INTERVAL * idx;
- 
--	stream->decoupled = false;
--	snd_hdac_stream_init(bus, &stream->hstream, idx, direction, tag);
-+	hext_stream->decoupled = false;
-+	snd_hdac_stream_init(bus, &hext_stream->hstream, idx, direction, tag);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_init);
- 
-@@ -67,18 +67,18 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_init);
-  * @dir: direction of streams
-  */
- int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
--		int num_stream, int dir)
-+				 int num_stream, int dir)
- {
- 	int stream_tag = 0;
- 	int i, tag, idx = start_idx;
- 
- 	for (i = 0; i < num_stream; i++) {
--		struct hdac_ext_stream *stream =
--				kzalloc(sizeof(*stream), GFP_KERNEL);
--		if (!stream)
-+		struct hdac_ext_stream *hext_stream =
-+				kzalloc(sizeof(*hext_stream), GFP_KERNEL);
-+		if (!hext_stream)
- 			return -ENOMEM;
- 		tag = ++stream_tag;
--		snd_hdac_ext_stream_init(bus, stream, idx, dir, tag);
-+		snd_hdac_ext_stream_init(bus, hext_stream, idx, dir, tag);
- 		idx++;
- 	}
- 
-@@ -95,22 +95,22 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_init_all);
- void snd_hdac_stream_free_all(struct hdac_bus *bus)
- {
- 	struct hdac_stream *s, *_s;
--	struct hdac_ext_stream *stream;
-+	struct hdac_ext_stream *hext_stream;
- 
- 	list_for_each_entry_safe(s, _s, &bus->stream_list, list) {
--		stream = stream_to_hdac_ext_stream(s);
--		snd_hdac_ext_stream_decouple(bus, stream, false);
-+		hext_stream = stream_to_hdac_ext_stream(s);
-+		snd_hdac_ext_stream_decouple(bus, hext_stream, false);
- 		list_del(&s->list);
--		kfree(stream);
-+		kfree(hext_stream);
- 	}
- }
- EXPORT_SYMBOL_GPL(snd_hdac_stream_free_all);
- 
- void snd_hdac_ext_stream_decouple_locked(struct hdac_bus *bus,
--					 struct hdac_ext_stream *stream,
-+					 struct hdac_ext_stream *hext_stream,
- 					 bool decouple)
- {
--	struct hdac_stream *hstream = &stream->hstream;
-+	struct hdac_stream *hstream = &hext_stream->hstream;
- 	u32 val;
- 	int mask = AZX_PPCTL_PROCEN(hstream->index);
- 
-@@ -121,76 +121,76 @@ void snd_hdac_ext_stream_decouple_locked(struct hdac_bus *bus,
- 	else if (!decouple && val)
- 		snd_hdac_updatel(bus->ppcap, AZX_REG_PP_PPCTL, mask, 0);
- 
--	stream->decoupled = decouple;
-+	hext_stream->decoupled = decouple;
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_decouple_locked);
- 
- /**
-  * snd_hdac_ext_stream_decouple - decouple the hdac stream
-  * @bus: HD-audio core bus
-- * @stream: HD-audio ext core stream object to initialize
-+ * @hext_stream: HD-audio ext core stream object to initialize
-  * @decouple: flag to decouple
-  */
- void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
--				  struct hdac_ext_stream *stream, bool decouple)
-+				  struct hdac_ext_stream *hext_stream, bool decouple)
- {
- 	spin_lock_irq(&bus->reg_lock);
--	snd_hdac_ext_stream_decouple_locked(bus, stream, decouple);
-+	snd_hdac_ext_stream_decouple_locked(bus, hext_stream, decouple);
- 	spin_unlock_irq(&bus->reg_lock);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_decouple);
- 
- /**
-  * snd_hdac_ext_link_stream_start - start a stream
-- * @stream: HD-audio ext core stream to start
-+ * @hext_stream: HD-audio ext core stream to start
-  */
--void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *stream)
-+void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *hext_stream)
- {
--	snd_hdac_updatel(stream->pplc_addr, AZX_REG_PPLCCTL,
-+	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL,
- 			 AZX_PPLCCTL_RUN, AZX_PPLCCTL_RUN);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_link_stream_start);
- 
- /**
-  * snd_hdac_ext_link_stream_clear - stop a stream DMA
-- * @stream: HD-audio ext core stream to stop
-+ * @hext_stream: HD-audio ext core stream to stop
-  */
--void snd_hdac_ext_link_stream_clear(struct hdac_ext_stream *stream)
-+void snd_hdac_ext_link_stream_clear(struct hdac_ext_stream *hext_stream)
- {
--	snd_hdac_updatel(stream->pplc_addr, AZX_REG_PPLCCTL, AZX_PPLCCTL_RUN, 0);
-+	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL, AZX_PPLCCTL_RUN, 0);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_link_stream_clear);
- 
- /**
-  * snd_hdac_ext_link_stream_reset - reset a stream
-- * @stream: HD-audio ext core stream to reset
-+ * @hext_stream: HD-audio ext core stream to reset
-  */
--void snd_hdac_ext_link_stream_reset(struct hdac_ext_stream *stream)
-+void snd_hdac_ext_link_stream_reset(struct hdac_ext_stream *hext_stream)
- {
- 	unsigned char val;
- 	int timeout;
- 
--	snd_hdac_ext_link_stream_clear(stream);
-+	snd_hdac_ext_link_stream_clear(hext_stream);
- 
--	snd_hdac_updatel(stream->pplc_addr, AZX_REG_PPLCCTL,
-+	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL,
- 			 AZX_PPLCCTL_STRST, AZX_PPLCCTL_STRST);
- 	udelay(3);
- 	timeout = 50;
- 	do {
--		val = readl(stream->pplc_addr + AZX_REG_PPLCCTL) &
-+		val = readl(hext_stream->pplc_addr + AZX_REG_PPLCCTL) &
- 				AZX_PPLCCTL_STRST;
- 		if (val)
+@@ -183,8 +183,8 @@ void snd_hdac_ext_link_stream_reset(struct hdac_ext_stream *hext_stream)
  			break;
  		udelay(3);
  	} while (--timeout);
- 	val &= ~AZX_PPLCCTL_STRST;
--	writel(val, stream->pplc_addr + AZX_REG_PPLCCTL);
-+	writel(val, hext_stream->pplc_addr + AZX_REG_PPLCCTL);
+-	val &= ~AZX_PPLCCTL_STRST;
+-	writel(val, hext_stream->pplc_addr + AZX_REG_PPLCCTL);
++	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL,
++			 AZX_PPLCCTL_STRST, 0);
  	udelay(3);
  
  	timeout = 50;
- 	/* waiting for hardware to report that the stream is out of reset */
- 	do {
--		val = readl(stream->pplc_addr + AZX_REG_PPLCCTL) & AZX_PPLCCTL_STRST;
-+		val = readl(hext_stream->pplc_addr + AZX_REG_PPLCCTL) & AZX_PPLCCTL_STRST;
- 		if (!val)
- 			break;
- 		udelay(3);
-@@ -201,24 +201,24 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_link_stream_reset);
- 
- /**
-  * snd_hdac_ext_link_stream_setup -  set up the SD for streaming
-- * @stream: HD-audio ext core stream to set up
-+ * @hext_stream: HD-audio ext core stream to set up
-  * @fmt: stream format
-  */
--int snd_hdac_ext_link_stream_setup(struct hdac_ext_stream *stream, int fmt)
-+int snd_hdac_ext_link_stream_setup(struct hdac_ext_stream *hext_stream, int fmt)
- {
--	struct hdac_stream *hstream = &stream->hstream;
-+	struct hdac_stream *hstream = &hext_stream->hstream;
- 	unsigned int val;
- 
- 	/* make sure the run bit is zero for SD */
--	snd_hdac_ext_link_stream_clear(stream);
-+	snd_hdac_ext_link_stream_clear(hext_stream);
- 	/* program the stream_tag */
--	val = readl(stream->pplc_addr + AZX_REG_PPLCCTL);
-+	val = readl(hext_stream->pplc_addr + AZX_REG_PPLCCTL);
- 	val = (val & ~AZX_PPLCCTL_STRM_MASK) |
- 		(hstream->stream_tag << AZX_PPLCCTL_STRM_SHIFT);
--	writel(val, stream->pplc_addr + AZX_REG_PPLCCTL);
-+	writel(val, hext_stream->pplc_addr + AZX_REG_PPLCCTL);
- 
- 	/* program the stream format */
--	writew(fmt, stream->pplc_addr + AZX_REG_PPLCFMT);
-+	writew(fmt, hext_stream->pplc_addr + AZX_REG_PPLCFMT);
- 
- 	return 0;
- }
-@@ -230,7 +230,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_link_stream_setup);
-  * @stream: stream id
-  */
- void snd_hdac_ext_link_set_stream_id(struct hdac_ext_link *link,
--				 int stream)
-+				     int stream)
- {
- 	snd_hdac_updatew(link->ml_addr, AZX_REG_ML_LOSIDV, (1 << stream), 1 << stream);
- }
-@@ -250,10 +250,10 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_link_clear_stream_id);
- 
- static struct hdac_ext_stream *
- hdac_ext_link_stream_assign(struct hdac_bus *bus,
--				struct snd_pcm_substream *substream)
-+			    struct snd_pcm_substream *substream)
- {
- 	struct hdac_ext_stream *res = NULL;
--	struct hdac_stream *stream = NULL;
-+	struct hdac_stream *hstream = NULL;
- 
- 	if (!bus->ppcap) {
- 		dev_err(bus->dev, "stream type not supported\n");
-@@ -261,22 +261,22 @@ hdac_ext_link_stream_assign(struct hdac_bus *bus,
- 	}
- 
- 	spin_lock_irq(&bus->reg_lock);
--	list_for_each_entry(stream, &bus->stream_list, list) {
--		struct hdac_ext_stream *hstream = container_of(stream,
--						struct hdac_ext_stream,
--						hstream);
--		if (stream->direction != substream->stream)
-+	list_for_each_entry(hstream, &bus->stream_list, list) {
-+		struct hdac_ext_stream *hext_stream = container_of(hstream,
-+								 struct hdac_ext_stream,
-+								 hstream);
-+		if (hstream->direction != substream->stream)
- 			continue;
- 
- 		/* check if decoupled stream and not in use is available */
--		if (hstream->decoupled && !hstream->link_locked) {
--			res = hstream;
-+		if (hext_stream->decoupled && !hext_stream->link_locked) {
-+			res = hext_stream;
- 			break;
- 		}
- 
--		if (!hstream->link_locked) {
--			snd_hdac_ext_stream_decouple_locked(bus, hstream, true);
--			res = hstream;
-+		if (!hext_stream->link_locked) {
-+			snd_hdac_ext_stream_decouple_locked(bus, hext_stream, true);
-+			res = hext_stream;
- 			break;
- 		}
- 	}
-@@ -290,10 +290,10 @@ hdac_ext_link_stream_assign(struct hdac_bus *bus,
- 
- static struct hdac_ext_stream *
- hdac_ext_host_stream_assign(struct hdac_bus *bus,
--				struct snd_pcm_substream *substream)
-+			    struct snd_pcm_substream *substream)
- {
- 	struct hdac_ext_stream *res = NULL;
--	struct hdac_stream *stream = NULL;
-+	struct hdac_stream *hstream = NULL;
- 
- 	if (!bus->ppcap) {
- 		dev_err(bus->dev, "stream type not supported\n");
-@@ -301,17 +301,17 @@ hdac_ext_host_stream_assign(struct hdac_bus *bus,
- 	}
- 
- 	spin_lock_irq(&bus->reg_lock);
--	list_for_each_entry(stream, &bus->stream_list, list) {
--		struct hdac_ext_stream *hstream = container_of(stream,
--						struct hdac_ext_stream,
--						hstream);
--		if (stream->direction != substream->stream)
-+	list_for_each_entry(hstream, &bus->stream_list, list) {
-+		struct hdac_ext_stream *hext_stream = container_of(hstream,
-+								 struct hdac_ext_stream,
-+								 hstream);
-+		if (hstream->direction != substream->stream)
- 			continue;
- 
--		if (!stream->opened) {
--			if (!hstream->decoupled)
--				snd_hdac_ext_stream_decouple_locked(bus, hstream, true);
--			res = hstream;
-+		if (!hstream->opened) {
-+			if (!hext_stream->decoupled)
-+				snd_hdac_ext_stream_decouple_locked(bus, hext_stream, true);
-+			res = hext_stream;
- 			break;
- 		}
- 	}
-@@ -346,16 +346,17 @@ struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
- 					   struct snd_pcm_substream *substream,
- 					   int type)
- {
--	struct hdac_ext_stream *hstream = NULL;
--	struct hdac_stream *stream = NULL;
-+	struct hdac_ext_stream *hext_stream = NULL;
-+	struct hdac_stream *hstream = NULL;
- 
- 	switch (type) {
- 	case HDAC_EXT_STREAM_TYPE_COUPLED:
--		stream = snd_hdac_stream_assign(bus, substream);
--		if (stream)
--			hstream = container_of(stream,
--					struct hdac_ext_stream, hstream);
--		return hstream;
-+		hstream = snd_hdac_stream_assign(bus, substream);
-+		if (hstream)
-+			hext_stream = container_of(hstream,
-+						   struct hdac_ext_stream,
-+						   hstream);
-+		return hext_stream;
- 
- 	case HDAC_EXT_STREAM_TYPE_HOST:
- 		return hdac_ext_host_stream_assign(bus, substream);
-@@ -371,34 +372,34 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_assign);
- 
- /**
-  * snd_hdac_ext_stream_release - release the assigned stream
-- * @stream: HD-audio ext core stream to release
-+ * @hext_stream: HD-audio ext core stream to release
-  * @type: type of stream (coupled, host or link stream)
-  *
-  * Release the stream that has been assigned by snd_hdac_ext_stream_assign().
-  */
--void snd_hdac_ext_stream_release(struct hdac_ext_stream *stream, int type)
-+void snd_hdac_ext_stream_release(struct hdac_ext_stream *hext_stream, int type)
- {
--	struct hdac_bus *bus = stream->hstream.bus;
-+	struct hdac_bus *bus = hext_stream->hstream.bus;
- 
- 	switch (type) {
- 	case HDAC_EXT_STREAM_TYPE_COUPLED:
--		snd_hdac_stream_release(&stream->hstream);
-+		snd_hdac_stream_release(&hext_stream->hstream);
- 		break;
- 
- 	case HDAC_EXT_STREAM_TYPE_HOST:
- 		spin_lock_irq(&bus->reg_lock);
--		if (stream->decoupled && !stream->link_locked)
--			snd_hdac_ext_stream_decouple_locked(bus, stream, false);
-+		if (hext_stream->decoupled && !hext_stream->link_locked)
-+			snd_hdac_ext_stream_decouple_locked(bus, hext_stream, false);
- 		spin_unlock_irq(&bus->reg_lock);
--		snd_hdac_stream_release(&stream->hstream);
-+		snd_hdac_stream_release(&hext_stream->hstream);
- 		break;
- 
- 	case HDAC_EXT_STREAM_TYPE_LINK:
- 		spin_lock_irq(&bus->reg_lock);
--		if (stream->decoupled && !stream->hstream.opened)
--			snd_hdac_ext_stream_decouple_locked(bus, stream, false);
--		stream->link_locked = 0;
--		stream->link_substream = NULL;
-+		if (hext_stream->decoupled && !hext_stream->hstream.opened)
-+			snd_hdac_ext_stream_decouple_locked(bus, hext_stream, false);
-+		hext_stream->link_locked = 0;
-+		hext_stream->link_substream = NULL;
- 		spin_unlock_irq(&bus->reg_lock);
- 		break;
- 
-@@ -437,11 +438,11 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_spbcap_enable);
- /**
-  * snd_hdac_ext_stream_set_spib - sets the spib value of a stream
-  * @bus: HD-audio core bus
-- * @stream: hdac_ext_stream
-+ * @hext_stream: hdac_ext_stream
-  * @value: spib value to set
-  */
- int snd_hdac_ext_stream_set_spib(struct hdac_bus *bus,
--				 struct hdac_ext_stream *stream, u32 value)
-+				 struct hdac_ext_stream *hext_stream, u32 value)
- {
- 
- 	if (!bus->spbcap) {
-@@ -449,7 +450,7 @@ int snd_hdac_ext_stream_set_spib(struct hdac_bus *bus,
- 		return -EINVAL;
- 	}
- 
--	writel(value, stream->spib_addr);
-+	writel(value, hext_stream->spib_addr);
- 
- 	return 0;
- }
-@@ -458,12 +459,12 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_set_spib);
- /**
-  * snd_hdac_ext_stream_get_spbmaxfifo - gets the spib value of a stream
-  * @bus: HD-audio core bus
-- * @stream: hdac_ext_stream
-+ * @hext_stream: hdac_ext_stream
-  *
-  * Return maxfifo for the stream
-  */
- int snd_hdac_ext_stream_get_spbmaxfifo(struct hdac_bus *bus,
--				 struct hdac_ext_stream *stream)
-+				 struct hdac_ext_stream *hext_stream)
- {
- 
- 	if (!bus->spbcap) {
-@@ -471,7 +472,7 @@ int snd_hdac_ext_stream_get_spbmaxfifo(struct hdac_bus *bus,
- 		return -EINVAL;
- 	}
- 
--	return readl(stream->fifo_addr);
-+	return readl(hext_stream->fifo_addr);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_get_spbmaxfifo);
- 
-@@ -503,11 +504,11 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_drsm_enable);
- /**
-  * snd_hdac_ext_stream_set_dpibr - sets the dpibr value of a stream
-  * @bus: HD-audio core bus
-- * @stream: hdac_ext_stream
-+ * @hext_stream: hdac_ext_stream
-  * @value: dpib value to set
-  */
- int snd_hdac_ext_stream_set_dpibr(struct hdac_bus *bus,
--				 struct hdac_ext_stream *stream, u32 value)
-+				  struct hdac_ext_stream *hext_stream, u32 value)
- {
- 
- 	if (!bus->drsmcap) {
-@@ -515,7 +516,7 @@ int snd_hdac_ext_stream_set_dpibr(struct hdac_bus *bus,
- 		return -EINVAL;
- 	}
- 
--	writel(value, stream->dpibr_addr);
-+	writel(value, hext_stream->dpibr_addr);
- 
- 	return 0;
- }
-@@ -523,12 +524,12 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_set_dpibr);
- 
- /**
-  * snd_hdac_ext_stream_set_lpib - sets the lpib value of a stream
-- * @stream: hdac_ext_stream
-+ * @hext_stream: hdac_ext_stream
-  * @value: lpib value to set
-  */
--int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *stream, u32 value)
-+int snd_hdac_ext_stream_set_lpib(struct hdac_ext_stream *hext_stream, u32 value)
- {
--	snd_hdac_stream_writel(&stream->hstream, SD_LPIB, value);
-+	snd_hdac_stream_writel(&hext_stream->hstream, SD_LPIB, value);
- 
- 	return 0;
- }
 -- 
 2.53.0
 
