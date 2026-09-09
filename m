@@ -1,84 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D87256C624
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4887456E075;
+	Wed,  9 Sep 2026 14:14:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963274; cv=none; b=rJs2bAaiu2eyXggvze45iZss62UD6zRN57dUCfLiG8CrnNWHfl7k19mBh2xWkCcZdj2rTlDbwCFC9TOedTC497Xb0W+PtwmbgOqnuPysO6H5q7gTl8u6FO5dlmTj3BT5pn2X36d5aYENt3Z14NgwxpMEEImPr1fYZZNmgyouucI=
+	t=1788963274; cv=none; b=tkr21imOX7XCoO7GA/5pR1Hh5QarBCcncOhClnlnFQ9ycNajdwvDmJGOVUoTl1cx6SiP4vswzS9OeNvaxLirNet0wBy1g5e2ZXEULbkTQyvjbbjkzWS/DFs9ynUx32nRxgLT/2mr5z1FggRyQF1G7ygRzCc7MIJ0G0Bo0qRoerM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963274; c=relaxed/simple;
-	bh=t0iLNaIX5wRq+gf9Z9nAE0WMx0OvHbkY2L2hJ1Lm+0c=;
+	bh=NpyU+kVEmgq1guDhqlifp2Mid+7ia6wt84yALfMULG4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b0vpEhc9FGvQa1HQu1uQZceHE9OJYmYGBDpBE5j2cZnhj1Nohs4Qd7Kh/QC5xejPhbYEcSgCd29wC/Lxlaf+8ttLsgt2d7/+ylVZNJjYlS5En04UPeexkC+ztr2HgohDClpKe0XK8zo3aXOtup8T57EJZj/6okZL81HrBnd7Qps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVMUgmuc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PZicm1k2ppbK6Ud5WjFuCsmyjim2c3N8En0NmfyB8/cQToY5o0etkm0vvx9o6CvIzuBeoJK4UUjKmwaCJzidfpEgToEUHOcQmaIjluM1WRfN9xHMvY7jQrrvxJjbBNj4RuD+28pLvtFPzrJUW1GFf7XSbthMSrmMv3v95kQ0pkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VdFi8AYt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVMUgmuc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7456C1F00ADF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VdFi8AYt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CEA91F00A3D;
 	Wed,  9 Sep 2026 14:14:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963273;
-	bh=aKOlHnqY7jsLDFcReZPqgT7L/y1YarRiySnpdPhFeDY=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963273;
+	bh=1WtQJdDGNEfGTS76I2ws/Is9kFlO4LEVxgGzxu/oFAo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SVMUgmucVzImwSDvg6wnCmZ2N0lUm057t7j6PQDZ/DRo/Wd3CfWLVCwjCmhYUIopM
-	 A3U4PluppFOMw2mbe5uya6IR8CLoAdHbH4BLQAlnb8Q/iCsbW2uqHuZW6NGo61kYyl
-	 LZXSt9+uGHcGSZdW8NOnXz1pczoyuSWoksAgt5O/7pMgpXxGhyk//z73XCHqzoljqV
-	 jbcvg4RGES0pf/Tr22JFGfnPVO5QsP0YRkaBMUSV7TV0D4ZfcDrMNaz7QLoTt+n/Gr
-	 j4D3ORSFRIm1Gi3RBS8TUXGAmUm6yFmhkSF0i+hkrxnri2MKoXOUdr1H4PS7LoNaL0
-	 OUW/NSdHhDc/g==
-From: Sasha Levin <sashal@kernel.org>
+	b=VdFi8AYtoxJrwMjGrpwsQC0tFIQ/WDho5B78iX2pf3NtWC6hkG31lmqkNFVeS3Ijz
+	 p6ZojV7XVwSuN5DuYyNTI+mcGhZfoVZp7v5N/I7ksG+fqzpiHdU6DLXMb9CLP2gAQZ
+	 Ynwq7Rua4H27VNPafRIGD9fpe868WOMQy0hmxCH4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] platform/x86: ISST: Validate max level for set feature
-Date: Wed,  9 Sep 2026 10:14:30 -0400
-Message-ID: <20260909141430.2391220-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909141430.2391220-1-sashal@kernel.org>
-References: <2026090311-unboxed-worrier-de27@gregkh>
- <20260909141430.2391220-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bryan ODonoghue <bryan.odonoghue@linaro.org>,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	stable <stable@kernel.org>
+Subject: [PATCH 6.18 022/583] usb: typec: qcom-pmic-typec: drain cc_debounce_dwork if port_start() fails
+Date: Wed,  9 Sep 2026 15:35:07 +0200
+Message-ID: <20260909134238.590289845@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e45d6b8472861d3bac86bb37f8556a7c5aca3266 ]
+------------------
 
-Validate the level before setting, so that it fails early instead of
-failing later when checking the bit mask for allowed levels.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260811221514.3905817-3-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+commit c9273c83885835dbd1e8835d5665dfb8503d65e0 upstream.
+
+cc_debounce_dwork can be queued before port_start() fails:
+tcpm_register_port() runs first, and its state machine may invoke
+set_cc() or start_toggling() from the TCPM worker.  The error path then
+calls tcpm_unregister_port(), whose worker flush may queue the delayed
+work before devres frees pmic_typec_port.
+
+Disable and drain the delayed work directly at port_start()'s error
+exit.  Do not use port_stop() for this path: its IRQs use IRQF_NO_AUTOEN
+and are enabled only after a successful port_start().
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: a4422ff22142 ("usb: typec: qcom: Add Qualcomm PMIC Type-C driver")
+Cc: stable <stable@kernel.org>  # v6.10+
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260820135307.153773-3-fanwu01@zju.edu.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c | 3 +++
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c |    3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 3c8fda948b651..7f1885fb4a34b 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -969,6 +969,9 @@ static int isst_if_set_perf_level(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+--- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
++++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+@@ -683,6 +683,9 @@ static int qcom_pmic_typec_port_start(st
+ 		enable_irq(pmic_typec_port->irq_data[i].irq);
  
-+	if (perf_level.level > power_domain_info->max_level)
-+		return -EINVAL;
+ done:
++	if (ret)
++		disable_delayed_work_sync(&pmic_typec_port->cc_debounce_dwork);
 +
- 	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
+ 	return ret;
+ }
  
--- 
-2.53.0
+
 
