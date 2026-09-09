@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF6D58FD26
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:34:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7E0579814;
+	Wed,  9 Sep 2026 14:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964460; cv=none; b=Ze3GYfljkYrdQItht6JJKKDxPIWzX4w+/sXMUQzCnZmfBkBwBxDBYxD7Fdkg50nqIS8/67mEobuLHZfQolSxnFDTe75DdBeDcPTN2H4YlvLEngmNxbvW9cOkH/dZdoUUnqQEKC5qT46V5VRgWkOTVaHYb8aUz6h0f7Mudbcocjg=
+	t=1788964461; cv=none; b=OVu7W3uIB1yT88QGtZqvYOJc5HAUdcUG3k3t/s2WrwkpULXR5MmrmCUwytgcqaV84KTeob17ZAR0n0RdhlnIivoGI/qhsTOPTrRLc62fUdidVg6TFHQYKxmqQMeni3DpaY8Nbcavd/bz0tdeQJ632Bvaqri3SHH4i0M+OEzW90U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964460; c=relaxed/simple;
-	bh=aRUsT3b+1e8Es2P98l11DBdDCDro9vxTnvEsZRV+hzk=;
+	s=arc-20240116; t=1788964461; c=relaxed/simple;
+	bh=qjel9UTKbzRgnO4Bwuj0iBE9OuwVcEpbs5xX/4ULafc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7yHLMY86h2vsC54aATLMgz8bv/vmd1ZBtZLpIR0iXeoQBAnmwQgK7FESUejAkOS8RU0fmxx2++B5KIs31vHRjpkZw0zklyl/x17G76xvLg73oP8CcX/ivRylVVC6TtTGzuRI3P12xWG6XXsNULsA+A4fvRKRdtd5ecaqt94EsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQmQI/7m; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BNZ9HI1kcQNKEIVFCTj2szr3Q5KzMROnAoyvFPiVzax9dLt5DvTuQOdGpPmH4Mu8rLHFn+s2xQ7JD2d8WCnqHbNKb3eYDvTOAsDrXb+IVBe1H3A69qc+p/nQ0BvGh6dv7UTCF6bw86gymhO1CiY/IUqwt/gW0kHqmhYZfAtK6mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ht+NP8Kq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQmQI/7m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89441F00A3E;
-	Wed,  9 Sep 2026 14:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964458;
-	bh=Y2Yc0pfZKYvfQWDm9kg246nevpfMBgYLgoRaxQDuEfw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ht+NP8Kq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3E01F00A3A;
+	Wed,  9 Sep 2026 14:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788964459;
+	bh=+X7ZHrX3/eZvZAkdNJizO1EbqQJS2oS7ThOhF3dikIg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mQmQI/7mF+y6sVihFK+2DJwZAOjb6ZS1g3jwhSk0xn4cRIwOBqY/vGYabN+RIX2iE
-	 FaPzsI5V9YnDej3m6G8T/Czu0EGHN032I4CBsNC5tHtPQcq3r3PoIqtPvyw9aKGE5Y
-	 K4ekB57CodYo81nY9uKgqi0jDpldWts2uIzQ3jSFo0knoCAzXyhuwDf4c1GqUMQCXV
-	 R9ZYUIq4nHs5xgHKwsivOo74EButZf1Gk1dj50feufwIWsoeNVPy6kO/bIRn040SsP
-	 GoEYyFGutRPKU714e4E0GiG2ofkm7mIUa8gWGBPz1mTt1jLAtyn09tpNQ8JiWML1Tf
-	 dhUhEJTazHP1A==
-From: Sasha Levin <sashal@kernel.org>
+	b=ht+NP8KqxYjh0L8AO7utO28fEKaci26G5cwMvbsP/EXsThCJgYwUv9RJu0ZZaEHVK
+	 /INgYGAEa6lAiK4sApJOAOZ24SCQj8DbShQ0+ULgP1/ob+oTxUat31v5CkqM6qOzgT
+	 HnJIBuGaE2AtjWQW3RTMQ54SBbEABfLlQHl/72KM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Niklas Neronin <niklas.neronin@linux.intel.com>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mmc: via-sdmmc: cancel card-detect work on remove
-Date: Wed,  9 Sep 2026 10:34:16 -0400
-Message-ID: <20260909143416.2509945-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090309-gerbil-rickety-e7f6@gregkh>
-References: <2026090309-gerbil-rickety-e7f6@gregkh>
+Subject: [PATCH 6.18 429/583] usb: xhci: simplify handling of Structural Parameters 1 values
+Date: Wed,  9 Sep 2026 15:41:54 +0200
+Message-ID: <20260909134252.853062097@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,50 +47,358 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 57e5d877f898d5e5c9d672a77bb6bdd24f0d9bf5 ]
+------------------
 
-Disabling the device interrupt and freeing the IRQ prevents new card-detect
-work from being queued, but carddet_work already queued by the handler can
-still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
-host through container_of() and dereferences its MMIO base; once remove()
-returns the host can be freed, so that work would touch freed memory.
+From: Niklas Neronin <niklas.neronin@linux.intel.com>
 
-Cancel carddet_work after freeing the IRQ and before cancelling
-finish_bh_work, which the card-detect handler can also queue. carddet_work
-can re-enable the interrupt through via_reset_pcictrl(); mask it again
-afterwards.
+[ Upstream commit df08973556851b29bd78e79db696d992ed1b43f0 ]
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
+The 32-bit read-only HCSPARAMS1 register contains the following fields:
+ Bits  7:0   - Number of Device Slots (MaxSlots)
+ Bits 18:8   - Number of Interrupters (MaxIntrs)
+ Bits 23:19  - Reserved
+ Bits 31:24  - Number of Ports (MaxPorts)
 
-Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ adjusted context to retain del_timer_sync() instead of timer_delete_sync(). ]
+Since the register value is constant for the lifetime of the controller,
+it is cached in 'xhci->hcs_params1'. However, platform drivers may
+override the number of interrupters through a separate variable,
+'xhci->max_interrupters', leaving only the maximum slots and ports values
+still derived from the cached register.
+
+To simplify the code and improve readability, replace 'xhci->hcs_params1'
+with two dedicated 'u8' fields: 'xhci->max_slots' and 'xhci->max_ports'.
+These values are initialized once and used directly instead of calling
+'HCS_MAX_SLOTS()' and 'HCS_MAX_PORTS()' macros.
+
+This change reduces code clutter without increasing memory usage.
+
+Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20251119142417.2820519-16-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[ Sasha: context conflict in xhci_gen_setup() only. 6.18.y carries
+  fe7892d46921 ("usb: xhci-pci: Limit VIA VL805 DMA addressing to 36
+  bits") out of order -- it landed upstream after this commit -- so the
+  "xhci->dma_mask_bits = 64;" line sits exactly where the new max_slots
+  and max_ports assignments are inserted. Kept both, with dma_mask_bits
+  first, which matches the resulting upstream ordering. No functional
+  change; every other hunk is verbatim. ]
+
+Stable-dep-of: 78203d5b54a4 ("usb: xhci: bail out of setup if the controller is inaccessible")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/mmc/host/via-sdmmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/host/xhci-debugfs.c |   15 ++++-----------
+ drivers/usb/host/xhci-hub.c     |    2 +-
+ drivers/usb/host/xhci-mem.c     |   31 +++++++++++++------------------
+ drivers/usb/host/xhci-pci.c     |    2 +-
+ drivers/usb/host/xhci-ring.c    |    6 ++----
+ drivers/usb/host/xhci.c         |   21 ++++++++++-----------
+ drivers/usb/host/xhci.h         |    3 ++-
+ 7 files changed, 33 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
-index f6b525fb5c0ed..b75bd01422038 100644
---- a/drivers/mmc/host/via-sdmmc.c
-+++ b/drivers/mmc/host/via-sdmmc.c
-@@ -1205,6 +1205,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
+--- a/drivers/usb/host/xhci-debugfs.c
++++ b/drivers/usb/host/xhci-debugfs.c
+@@ -613,20 +613,16 @@ void xhci_debugfs_remove_slot(struct xhc
+ static void xhci_debugfs_create_ports(struct xhci_hcd *xhci,
+ 				      struct dentry *parent)
+ {
+-	unsigned int		num_ports;
+ 	char			port_name[8];
+ 	struct xhci_port	*port;
+ 	struct dentry		*dir;
  
- 	free_irq(pcidev->irq, sdhost);
+-	num_ports = HCS_MAX_PORTS(xhci->hcs_params1);
+-
+ 	parent = debugfs_create_dir("ports", parent);
  
-+	cancel_work_sync(&sdhost->carddet_work);
-+	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
-+	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
-+
- 	del_timer_sync(&sdhost->timer);
+-	while (num_ports--) {
+-		scnprintf(port_name, sizeof(port_name), "port%02d",
+-			  num_ports + 1);
++	for (int i = 0; i < xhci->max_ports; i++) {
++		scnprintf(port_name, sizeof(port_name), "port%02d", i + 1);
+ 		dir = debugfs_create_dir(port_name, parent);
+-		port = &xhci->hw_ports[num_ports];
++		port = &xhci->hw_ports[i];
+ 		debugfs_create_file("portsc", 0644, dir, port, &port_fops);
+ 	}
+ }
+@@ -634,7 +630,6 @@ static void xhci_debugfs_create_ports(st
+ static int xhci_port_bw_show(struct xhci_hcd *xhci, u8 dev_speed,
+ 				struct seq_file *s)
+ {
+-	unsigned int			num_ports;
+ 	unsigned int			i;
+ 	int				ret;
+ 	struct xhci_container_ctx	*ctx;
+@@ -645,8 +640,6 @@ static int xhci_port_bw_show(struct xhci
+ 	if (ret < 0)
+ 		return ret;
  
- 	tasklet_kill(&sdhost->finish_tasklet);
--- 
-2.53.0
+-	num_ports = HCS_MAX_PORTS(xhci->hcs_params1);
+-
+ 	ctx = xhci_alloc_port_bw_ctx(xhci, 0);
+ 	if (!ctx) {
+ 		pm_runtime_put_sync(dev);
+@@ -661,7 +654,7 @@ static int xhci_port_bw_show(struct xhci
+ 	/* print all roothub ports available bandwidth
+ 	 * refer to xhci rev1_2 protocol 6.2.6 , byte 0 is reserved
+ 	 */
+-	for (i = 1; i < num_ports+1; i++)
++	for (i = 1; i <= xhci->max_ports; i++)
+ 		seq_printf(s, "port[%d] available bw: %d%%.\n", i,
+ 				ctx->bytes[i]);
+ err_out:
+--- a/drivers/usb/host/xhci-hub.c
++++ b/drivers/usb/host/xhci-hub.c
+@@ -700,7 +700,7 @@ static int xhci_enter_test_mode(struct x
+ 	/* Disable all Device Slots */
+ 	xhci_dbg(xhci, "Disable all slots\n");
+ 	spin_unlock_irqrestore(&xhci->lock, *flags);
+-	for (i = 1; i <= HCS_MAX_SLOTS(xhci->hcs_params1); i++) {
++	for (i = 1; i <= xhci->max_slots; i++) {
+ 		if (!xhci->devs[i])
+ 			continue;
+ 
+--- a/drivers/usb/host/xhci-mem.c
++++ b/drivers/usb/host/xhci-mem.c
+@@ -951,7 +951,7 @@ static void xhci_free_virt_devices_depth
+ 		/* is this a hub device that added a tt_info to the tts list */
+ 		if (tt_info->slot_id == slot_id) {
+ 			/* are any devices using this tt_info? */
+-			for (i = 1; i < HCS_MAX_SLOTS(xhci->hcs_params1); i++) {
++			for (i = 1; i < xhci->max_slots; i++) {
+ 				vdev = xhci->devs[i];
+ 				if (vdev && (vdev->tt_info == tt_info))
+ 					xhci_free_virt_devices_depth_first(
+@@ -1899,7 +1899,7 @@ EXPORT_SYMBOL_GPL(xhci_remove_secondary_
+ void xhci_mem_cleanup(struct xhci_hcd *xhci)
+ {
+ 	struct device	*dev = xhci_to_hcd(xhci)->self.sysdev;
+-	int i, j, num_ports;
++	int i, j;
+ 
+ 	cancel_delayed_work_sync(&xhci->cmd_timer);
+ 
+@@ -1918,8 +1918,7 @@ void xhci_mem_cleanup(struct xhci_hcd *x
+ 	xhci_dbg_trace(xhci, trace_xhci_dbg_init, "Freed command ring");
+ 	xhci_cleanup_command_queue(xhci);
+ 
+-	num_ports = HCS_MAX_PORTS(xhci->hcs_params1);
+-	for (i = 0; i < num_ports && xhci->rh_bw; i++) {
++	for (i = 0; i < xhci->max_ports && xhci->rh_bw; i++) {
+ 		struct xhci_interval_bw_table *bwt = &xhci->rh_bw[i].bw_table;
+ 		for (j = 0; j < XHCI_MAX_INTERVAL; j++) {
+ 			struct list_head *ep = &bwt->interval_bw[j].endpoints;
+@@ -1928,7 +1927,7 @@ void xhci_mem_cleanup(struct xhci_hcd *x
+ 		}
+ 	}
+ 
+-	for (i = HCS_MAX_SLOTS(xhci->hcs_params1); i > 0; i--)
++	for (i = xhci->max_slots; i > 0; i--)
+ 		xhci_free_virt_devices_depth_first(xhci, i);
+ 
+ 	dma_pool_destroy(xhci->segment_pool);
+@@ -1964,7 +1963,7 @@ void xhci_mem_cleanup(struct xhci_hcd *x
+ 	if (!xhci->rh_bw)
+ 		goto no_bw;
+ 
+-	for (i = 0; i < num_ports; i++) {
++	for (i = 0; i < xhci->max_ports; i++) {
+ 		struct xhci_tt_bw_info *tt, *n;
+ 		list_for_each_entry_safe(tt, n, &xhci->rh_bw[i].tts, tt_list) {
+ 			list_del(&tt->tt_list);
+@@ -2165,7 +2164,7 @@ static void xhci_create_rhub_port_array(
+ 	if (!rhub->ports)
+ 		return;
+ 
+-	for (i = 0; i < HCS_MAX_PORTS(xhci->hcs_params1); i++) {
++	for (i = 0; i < xhci->max_ports; i++) {
+ 		if (xhci->hw_ports[i].rhub != rhub ||
+ 		    xhci->hw_ports[i].hcd_portnum == DUPLICATE_ENTRY)
+ 			continue;
+@@ -2188,19 +2187,17 @@ static int xhci_setup_port_arrays(struct
+ {
+ 	void __iomem *base;
+ 	u32 offset;
+-	unsigned int num_ports;
+ 	int i, j;
+ 	int cap_count = 0;
+ 	u32 cap_start;
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+ 
+-	num_ports = HCS_MAX_PORTS(xhci->hcs_params1);
+-	xhci->hw_ports = kcalloc_node(num_ports, sizeof(*xhci->hw_ports),
+-				flags, dev_to_node(dev));
++	xhci->hw_ports = kcalloc_node(xhci->max_ports, sizeof(*xhci->hw_ports),
++				      flags, dev_to_node(dev));
+ 	if (!xhci->hw_ports)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < num_ports; i++) {
++	for (i = 0; i < xhci->max_ports; i++) {
+ 		xhci->hw_ports[i].port_reg = &xhci->op_regs->port_regs[i];
+ 		xhci->hw_ports[i].hw_portnum = i;
+ 
+@@ -2208,11 +2205,10 @@ static int xhci_setup_port_arrays(struct
+ 		init_completion(&xhci->hw_ports[i].u3exit_done);
+ 	}
+ 
+-	xhci->rh_bw = kcalloc_node(num_ports, sizeof(*xhci->rh_bw), flags,
+-				   dev_to_node(dev));
++	xhci->rh_bw = kcalloc_node(xhci->max_ports, sizeof(*xhci->rh_bw), flags, dev_to_node(dev));
+ 	if (!xhci->rh_bw)
+ 		return -ENOMEM;
+-	for (i = 0; i < num_ports; i++) {
++	for (i = 0; i < xhci->max_ports; i++) {
+ 		struct xhci_interval_bw_table *bw_table;
+ 
+ 		INIT_LIST_HEAD(&xhci->rh_bw[i].tts);
+@@ -2244,9 +2240,8 @@ static int xhci_setup_port_arrays(struct
+ 	offset = cap_start;
+ 
+ 	while (offset) {
+-		xhci_add_in_port(xhci, num_ports, base + offset, cap_count);
+-		if (xhci->usb2_rhub.num_ports + xhci->usb3_rhub.num_ports ==
+-		    num_ports)
++		xhci_add_in_port(xhci, xhci->max_ports, base + offset, cap_count);
++		if (xhci->usb2_rhub.num_ports + xhci->usb3_rhub.num_ports == xhci->max_ports)
+ 			break;
+ 		offset = xhci_find_next_ext_cap(base, offset,
+ 						XHCI_EXT_CAPS_PROTOCOL);
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -897,7 +897,7 @@ static int xhci_pci_poweroff_late(struct
+ 	if (!(xhci->quirks & XHCI_RESET_TO_DEFAULT))
+ 		return 0;
+ 
+-	for (i = 0; i < HCS_MAX_PORTS(xhci->hcs_params1); i++) {
++	for (i = 0; i < xhci->max_ports; i++) {
+ 		port = &xhci->hw_ports[i];
+ 		portsc = xhci_portsc_readl(port);
+ 
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -1409,7 +1409,7 @@ void xhci_hc_died(struct xhci_hcd *xhci)
+ 	xhci_cleanup_command_queue(xhci);
+ 
+ 	/* return any pending urbs, remove may be waiting for them */
+-	for (i = 0; i <= HCS_MAX_SLOTS(xhci->hcs_params1); i++) {
++	for (i = 0; i <= xhci->max_slots; i++) {
+ 		if (!xhci->devs[i])
+ 			continue;
+ 		for (j = 0; j < 31; j++)
+@@ -2010,7 +2010,6 @@ static void handle_port_status(struct xh
+ 	struct usb_hcd *hcd;
+ 	u32 port_id;
+ 	u32 portsc, cmd_reg;
+-	int max_ports;
+ 	unsigned int hcd_portnum;
+ 	struct xhci_bus_state *bus_state;
+ 	bool bogus_port_status = false;
+@@ -2022,9 +2021,8 @@ static void handle_port_status(struct xh
+ 			  "WARN: xHC returned failed port status event\n");
+ 
+ 	port_id = GET_PORT_ID(le32_to_cpu(event->generic.field[0]));
+-	max_ports = HCS_MAX_PORTS(xhci->hcs_params1);
+ 
+-	if ((port_id <= 0) || (port_id > max_ports)) {
++	if ((port_id <= 0) || (port_id > xhci->max_ports)) {
+ 		xhci_warn(xhci, "Port change event with invalid port ID %d\n",
+ 			  port_id);
+ 		return;
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -291,8 +291,7 @@ static void xhci_zero_64b_regs(struct xh
+ 	if (upper_32_bits(val))
+ 		xhci_write_64(xhci, 0, &xhci->op_regs->cmd_ring);
+ 
+-	intrs = min_t(u32, HCS_MAX_INTRS(xhci->hcs_params1),
+-		      ARRAY_SIZE(xhci->run_regs->ir_set));
++	intrs = min_t(u32, xhci->max_interrupters, ARRAY_SIZE(xhci->run_regs->ir_set));
+ 
+ 	for (i = 0; i < intrs; i++) {
+ 		struct xhci_intr_reg __iomem *ir;
+@@ -484,15 +483,13 @@ static void xhci_hcd_page_size(struct xh
+ static void xhci_enable_max_dev_slots(struct xhci_hcd *xhci)
+ {
+ 	u32 config_reg;
+-	u32 max_slots;
+ 
+-	max_slots = HCS_MAX_SLOTS(xhci->hcs_params1);
+ 	xhci_dbg_trace(xhci, trace_xhci_dbg_init, "xHC can handle at most %d device slots",
+-		       max_slots);
++		       xhci->max_slots);
+ 
+ 	config_reg = readl(&xhci->op_regs->config_reg);
+ 	config_reg &= ~HCS_SLOTS_MASK;
+-	config_reg |= max_slots;
++	config_reg |= xhci->max_slots;
+ 
+ 	xhci_dbg_trace(xhci, trace_xhci_dbg_init, "Setting Max device slots reg = 0x%x",
+ 		       config_reg);
+@@ -4253,7 +4250,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd,
+ 		xhci_err(xhci, "Error while assigning device slot ID: %s\n",
+ 			 xhci_trb_comp_code_string(command->status));
+ 		xhci_err(xhci, "Max number of devices this xHCI host supports is %u.\n",
+-			 HCS_MAX_SLOTS(xhci->hcs_params1));
++			 xhci->max_slots);
+ 		xhci_free_command(xhci, command);
+ 		return 0;
+ 	}
+@@ -5437,6 +5434,7 @@ int xhci_gen_setup(struct usb_hcd *hcd,
+ 	 */
+ 	struct device		*dev = hcd->self.sysdev;
+ 	int			retval;
++	u32			hcs_params1;
+ 
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5462,7 +5460,7 @@ int xhci_gen_setup(struct usb_hcd *hcd,
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+-	xhci->hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
++	hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+ 	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
+@@ -5471,10 +5469,11 @@ int xhci_gen_setup(struct usb_hcd *hcd,
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
+ 
+ 	xhci->dma_mask_bits = 64;
++	xhci->max_slots = HCS_MAX_SLOTS(hcs_params1);
++	xhci->max_ports = HCS_MAX_PORTS(hcs_params1);
+ 	/* xhci-plat or xhci-pci might have set max_interrupters already */
+-	if ((!xhci->max_interrupters) ||
+-	    xhci->max_interrupters > HCS_MAX_INTRS(xhci->hcs_params1))
+-		xhci->max_interrupters = HCS_MAX_INTRS(xhci->hcs_params1);
++	if ((!xhci->max_interrupters) || xhci->max_interrupters > HCS_MAX_INTRS(hcs_params1))
++		xhci->max_interrupters = HCS_MAX_INTRS(hcs_params1);
+ 
+ 	xhci->quirks |= quirks;
+ 
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -1501,7 +1501,6 @@ struct xhci_hcd {
+ 	struct xhci_doorbell_array __iomem *dba;
+ 
+ 	/* Cached register copies of read-only HC data */
+-	__u32		hcs_params1;
+ 	__u32		hcs_params2;
+ 	__u32		hcs_params3;
+ 	__u32		hcc_params;
+@@ -1512,6 +1511,8 @@ struct xhci_hcd {
+ 	/* packed release number */
+ 	u16		hci_version;
+ 	u16		max_interrupters;
++	u8		max_slots;
++	u8		max_ports;
+ 	/* imod_interval in ns (I * 250ns) */
+ 	u32		imod_interval;
+ 	u32		page_size;
+
 
