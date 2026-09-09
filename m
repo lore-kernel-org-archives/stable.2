@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BB7492E34;
-	Wed,  9 Sep 2026 03:45:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20489492E34;
+	Wed,  9 Sep 2026 03:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788925518; cv=none; b=eZL66w3ImErzMenHrRDxODTujzwNq/DBragzaztXuqo1sHI510U1C9AhfGJMzHEhQwjZU6nxASJKcrX1ncuDpAlrOxb/QDf0vAcr9bdNzeSj9k932TOfYzJI67NDxexpqod4swy2l2PtqCEIKAf4PppO3zBEavKf+TdYJ3MHGUQ=
+	t=1788925631; cv=none; b=jwa22iNUpUer6l8E2P5EZ2gCCJkIPOvxr33gJLClcyS6GaocWRMNopmCMtNlCP0xjZvF2EVKV8E0CPgmNLe2gsUMHl3pozm7vfWeGerZtsN3BRJ2bydeJsJ0Kzeu/3MxyQ+6Ml/ZQOW+g97Taf18iLSk91RVLBcbPWs+GxSNi6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788925518; c=relaxed/simple;
-	bh=OgBdTMiOSO4mWM0NMai55l/3o3ESJIjHRlBT0NFiQeE=;
+	s=arc-20240116; t=1788925631; c=relaxed/simple;
+	bh=Tq1CZh79u121R46oMDK2BmnZ9E5vFTRyu4DxZV+3rsw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rnZfyCaOP8jX024B0F/56wgnensAElO8p0Azjqb7Okf+YLykuQ7nLvjNFch3EkenaB+ABa/4DKzzzZI1mf8J/3/QszPBiVEh0fAFJwx0FshJQUDoGy8jV2lG/mhX2ilwvmm26bI3z01k0exmAKB6DBrkUfL2bg8T4nnQF6pa/Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNv+1JOP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ckuWQLweiP9t8E3Ii73GfJtF02/8mhYHhDdvmj93RK7mftTR+HhNseKNmwcpWb72csmf6MhWPYLRh1CEJu6GQo27+CjjbZaUIvK/NqaEWSilUlKx6+sR04roREqz7TK28Shr2g7Gu8vOIzBGpYpXnnI2FmyCb6K6GM+VMj8N2Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEDn7J0a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNv+1JOP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752111F00A3A;
-	Wed,  9 Sep 2026 03:45:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEDn7J0a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93DD91F00A3A;
+	Wed,  9 Sep 2026 03:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788925516;
-	bh=sgl4dOjid3ViaesF0HbPp1/4EKDbGxPZqbY+ws8lPS0=;
+	s=k20260515; t=1788925629;
+	bh=BFnUsL64K4Z0Kps8b70WtN7VjB1InEm9DU2/SnjETWs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oNv+1JOPCzl6RLHCgd3x9J0sdTPuirk2eoXGZ2p0A+n1wJr3MFV64go1Prw3+U+Jg
-	 o5FQkP0BB04agobr7dAkpshMvT0QIYlpnu+H0vjL4F2MEQqgJg512X0bd9ZB98l5xZ
-	 eNBW5PMPbg6OXJHiZtzjOMLfREft8Q6gTav37UWGTKJeOv3m+gSt7eWhWph9xQxuSf
-	 YEmUHSAY6nItBJfJYkfQQnQmI7ZJ9Q3ean4c+j43F3LPpyuAajKqDSeeUb8W9pT+JV
-	 V2hN0/06wiOblpIc6LujWF0mWJW9bz4sORgImR/Pj1fr6yv+Koa9wpa+6z8DbgwF5X
-	 iZj/swqzGTW2w==
+	b=VEDn7J0a3X7s2d76edMpHjyhBBa9/UiGekxuoEJIfHZ1wNBwM/280XwhPcFrJCGC1
+	 463V6dj6/jayBg01ykJXXfCopVywUVe9gfH5m8e4dKbdxJrztmZdeuq8/KpcxfdPdt
+	 yObAYNeR2JtpoDuVplq4Lb2oRSYRvB0FAyNY6EaAUOyG4jw1xGGNKpbNNAFSH5MziZ
+	 q/RhR0ui6VsiDBpypvDyt/K5q9V9a2ehWDh9fXqUx3KjHiCQ6IFPzw6lSt5krajQVc
+	 ASjFCEBbqEKBwB22DxMsc/xHOGCWYCmvVlQk3pzJD7eI4KwZjeknPLL8GBXKSIGYkr
+	 QuiYsh0klozag==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SJ Park <sj@kernel.org>,
 	Brendan Higgins <brendan.higgins@linux.dev>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.12.y] mm/damon/vaddr-kunit: check region count in three_regions test
-Date: Tue,  8 Sep 2026 20:45:09 -0700
-Message-ID: <20260909034509.142303-1-sj@kernel.org>
+Subject: [PATCH 6.1.y] mm/damon/vaddr-kunit: check region count in three_regions test
+Date: Tue,  8 Sep 2026 20:47:02 -0700
+Message-ID: <20260909034702.147367-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090819-haiku-machinist-83fa@gregkh>
-References: <2026090819-haiku-machinist-83fa@gregkh>
+In-Reply-To: <2026090820-flakily-douche-e51f@gregkh>
+References: <2026090820-flakily-douche-e51f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,14 +71,14 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 (cherry picked from commit 5fea07e460874c8c7cf00f728efbe22abc62c8d8)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/tests/vaddr-kunit.h | 5 +++++
+ mm/damon/vaddr-test.h | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/mm/damon/tests/vaddr-kunit.h b/mm/damon/tests/vaddr-kunit.h
-index ed2845d9f9a95..9eead9882dcce 100644
---- a/mm/damon/tests/vaddr-kunit.h
-+++ b/mm/damon/tests/vaddr-kunit.h
-@@ -149,12 +149,17 @@ static void damon_do_test_apply_three_regions(struct kunit *test,
+diff --git a/mm/damon/vaddr-test.h b/mm/damon/vaddr-test.h
+index dda3c186ffefe..bed92599e9782 100644
+--- a/mm/damon/vaddr-test.h
++++ b/mm/damon/vaddr-test.h
+@@ -141,12 +141,17 @@ static void damon_do_test_apply_three_regions(struct kunit *test,
  
  	damon_set_regions(t, three_regions, 3);
  
