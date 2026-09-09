@@ -1,112 +1,89 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B246A45D935
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 22:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7504825A0;
+	Wed,  9 Sep 2026 22:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992624; cv=none; b=I0YYF9aF6LOpPcEIzNMqcZ7GYk8x6fQ7NVjEP3loWSL3DuQM2MeAmtO8H6lowFsNTB8bfKlRwZcVffg+q17C2BIN9jU69W9IV6mevFzM9OSWrjPABN2XCUuyQPntvhZE9NPLtoOCkLxY9mdn96hxNC8UbS8C9AvqPhnPV7quqBA=
+	t=1788993627; cv=none; b=W7mnIYNVCYXjIlScihmYmMmJWJsRpcLGJPv3Si/MXu2arL6oPoEVARQq4sxvgjGmGyJu8jfnq1ha6xKUs2ZCAVUwoB9BRbOvqVF1wqIwandYHPP5QFOB/A7ycdaudHLHOHsCj9/R940lFvJ3lj62g9xuLvaMXO5hS1ZdK71+9mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992624; c=relaxed/simple;
-	bh=jyZXnNk97yXcYJ3VFSCOyUv/maueSIIrc4Yrg9UCJBg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WeVNYdbGk+DDNjdZDSNuw5krmSlnboBmdqhqlUYJWcCrh8JojHfQ1hixTNAKi+MD9xyp2vc7xR0NzN5a57HymWqD3j8e12lWF9WCZQwcyrTuYeUOquUamlvw0PR6RbvFg7AcJ0/eRBbBMZu4PKqBSNSTBe4jvgYsBPIel2R+Jdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SbZNK0tG; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788993627; c=relaxed/simple;
+	bh=2woDYYmqyLDmG6WZhX/y6RAT7b2JBzjj5L8L+GW7rcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZH3nem5Cq2P5+5WeFv+mW534Zr6R2OKSOhovuLyxScBMzyXIQ4eRL5CtWJhOVzSOKEEHR6jy881AA3529M4Yu9cK4xmUqQzSj3ySelwBcx9lcJBHj66YLnxIm34e4iZs+LfZpiLuUK87gRFvSFc5tI3H6z59VjGSf4yTIcRk0K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfDICusj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SbZNK0tG"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4f0c89e34so572172a34.1
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 15:23:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788992620; x=1789597420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ij5mdruxx0QOfzgtgcdh5/VG5w9myB0k3AU4Kebg3MY=;
-        b=SbZNK0tGOr0mkEihQpUVT551NacfPI2gDSI8ecrr4zsgIfOBwhTUhsMBGdceq7dRVu
-         y3SDnmipxj5OTZyf5hNH/WTVxETgAhdOnaDi/ojJCv4vSF6XpRHVFuJIOsUlBYRu094Z
-         /XJFjuTksuwGMM/HHsrqvlN1Q4bZljZaNpeqI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788992620; x=1789597420;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ij5mdruxx0QOfzgtgcdh5/VG5w9myB0k3AU4Kebg3MY=;
-        b=JbQQMk8gnq44MRL4t824d/oa8vvxe89BJFGLrpi7vDX1nUgiITiX/iB/19pzKm98dS
-         CGaklBUzoMuomFl/ytxtaHeq9BedlFQsQdaHojuUmez3RiCwmUUnJS5GchqDNl2Tx0kS
-         38nXg69AE5X7buYE1nLEUBcT+tytGIos6qGOdrJFd6U8ksg0ylWaLwDUjQxFDbICM4me
-         NPF8AwemMBDgOY+hWGJ0HPUNCHL8q01qg4xc2aMxj4Zm/XS0FeabZMJ4aVejQZbf+IFl
-         /3Z7Ki8bvADVDGCUw55ZZCVVobHApXHWwmaxFoK0CfCybrryEBY6YegiuioAX1RTAZ/R
-         osCQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqB7o/GoClQH5LvyfPkBBi9SglwIXvqnOSHT47U5cs5bj8NLI7N/Na2BA/IXgdnbsa0xajZOU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVoUOxbCJ5I1Tt1GLm6pv7Mcca1WzeStvNLC/nXnFsMbI4Zdqm
-	NXE0f7a0izZtRGXykhbOWp3RisjIuWbw+N3CKGknXxPT3mJcBx26isOXlzxJ62AePTI=
-X-Gm-Gg: AYBFou3h1YNGurP36BAUrlJ6QO8A9BJZzQv2uez6fKx6/wu0+Un+Is9Mfg7ngGOvS8A
-	4CdceQcIo+4NNEyNdNLYqtrx9kSiBb/3dCe2JQ3h+E4jiG+4Jr6ppVAF9msXtm8y7EU2wkEZfBZ
-	gBYFzSL8RiyoOXJc1kp0AbaRrn2NTNVfXcDeG7W29ephvCc/gP3oYV+Lxu12aFq0f6g08CB7wm6
-	f2O7iaqk7x+icKWvZMyhz4cHArR7A9TU5hfZS2hNIhXDb/+5S443mS1PlNZ+YLcOx4esTf3R6d1
-	el45GNDxi2CdrAqKpz6rmZ2npu+xMyGYwqJtKLvmy1kwP6ZDb+nzWtHCBTtNirbgBP+DjRkt5cp
-	e2wBRgonBgaYo2r2Fs14vkVTFBZkrm3p8jSlHJ1uR3rl1Zdc9vA8YReeXZaw8DIXc5me+mR/LEj
-	nmiLT8O0L+vXIjiOrmO1EqpoJrkIiOBELk+QoC+IbuTPTAjOzk1jpuHht3VEEmFWKbN+XY9G44/
-	PftEiSU
-X-Received: by 2002:a05:6830:6404:b0:7eb:3af8:8c09 with SMTP id 46e09a7af769-8020daad7b4mr3472081a34.3.1788992620614;
-        Wed, 09 Sep 2026 15:23:40 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fcef193dc2sm12594318a34.19.2026.09.09.15.23.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 15:23:40 -0700 (PDT)
-Message-ID: <8b138fb3-a5c6-45b9-b881-1c4d76bd1921@linuxfoundation.org>
-Date: Wed, 9 Sep 2026 16:23:36 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfDICusj"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C5D141F000FF;
+	Wed,  9 Sep 2026 22:40:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788993618;
+	bh=4wym2Ay+ABh3JkqnlJQRx+Kvb/QLEFiuk5lup2Jk0bg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZfDICusj2b6iCI+ynglqOYENV1qEufTbbJQY0hQJH4UhxcbaAkR/jKV3DBDIdOJOw
+	 MSwPjK2gIIrD6iZUjw/Ahb8mECI9+I7rerYdPM2w3XPSN3xZdxp26mOZ2AO9/u7kE+
+	 64pU7bmk2//JTH2Bn59fvXcaLKDyAZUAkagogvYCJxtHy1Joc7X+/jdMadqGBWj2ht
+	 9ZSEZGVblpwq0t67139zwUcgEYesEGrXjFtvFWH4upPrStNeZdd/DPpU6/oE5/FpLP
+	 FvVkZI2hyBqxQ2ODTtSZ5yf//qgUZVASXs5PTGJw8AuTzy6e3cjrcU+0rXV/dmkvI/
+	 zsjWzbAc5SN1g==
+Date: Thu, 10 Sep 2026 01:40:14 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: peterhuewe@gmx.de, jgg@ziepe.ca, James.Bottomley@hansenpartnership.com,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	13667453960@163.com, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: fix off-by-four bounds check in tpm2_get_random()
+Message-ID: <aqHgTqQQDQhUFFno@kernel.org>
+References: <20260903035837.219284-1-yijiangshan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903035837.219284-1-yijiangshan@kylinos.cn>
 
-On 9/9/26 07:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.51 release.
-> There are 583 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Sep 03, 2026 at 11:58:37AM +0800, Jiangshan Yi wrote:
+> When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
+> skips the 4-byte parameter size field before locating the random data,
+> but the bounds check still validates the response length against
+> TPM_HEADER_SIZE.  A truncated response can pass the check and make
+> memcpy() read up to 4 bytes past the response end, so stale buffer
+> contents end up in the caller's random bytes.
 > 
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
+> Fix this by checking the response length against 'offset', which
+> already includes the skipped parameter size field.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
+> Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> ---
+>  drivers/char/tpm/tpm2-cmd.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> thanks,
-> 
-> greg k-h
+> diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+> index 48cec39995fe..d74df7808a3f 100644
+> --- a/drivers/char/tpm/tpm2-cmd.c
+> +++ b/drivers/char/tpm/tpm2-cmd.c
+> @@ -305,7 +305,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
+>  		out = (struct tpm2_get_random_out *)&buf->data[offset];
+>  		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
+>  		if (tpm_buf_length(buf) <
+> -		    TPM_HEADER_SIZE +
+> +		    offset +
+>  		    offsetof(struct tpm2_get_random_out, buffer) +
+>  		    recd) {
+>  			tpm2_end_auth_session(chip);
+> -- 
+> 2.25.1
 > 
 
-Compiled and booted on my test system. No dmesg regressions.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-thanks,
--- Shuah
+BR, Jarkko
