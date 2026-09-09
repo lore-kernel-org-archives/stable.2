@@ -1,105 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFC2526A96
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5CC525A9B
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950723; cv=none; b=jmhzSWxX9wPAbtDHgwI9svJSfjjHkYfU7nqO44qAxosncuuaSYE1VcjEjT5XExLh4jrnIf/xJ6KAXeMhCAn7oYR/TwVa5Se7ySfN0JgUY3Npivt7dQm3Pd4CtMpTfn1qPcj7E/n4BUnXw+P5hZzGmh7a+H81yJAF/kh699onCKk=
+	t=1788950725; cv=none; b=Pzm+4ypa7pk/5tDdbP85flJXfQ0qPpzUw4nb0T83Yyeuu/X2tuHhuAExxNuWkxbjjQD63PR7qjrIWXsxArB5yG0SLyVKhnkcvp++201ECW+J8ghVrWPzQv7bcNwac00gP61/y4Mwz8G6UyX5VyGl+cGEXPS8Mp4sYBkmuh9czf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950723; c=relaxed/simple;
-	bh=EW3L8DEYwfHqiz0WTaiUFp+BFsBnZxhXEjDZVTEnnzs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ucUcQqOnOHN8A/oW1KDWdIt0p7vkQtpKA1sXtheKCp/JOqhocZIDNDLGYn/7Ppyd+6oAcECnKkpwhB5vr1Zia96KI733ftcNFZrSkA5ZMtKhxrjvZ/NpVt3mSzp2loyh5xFgsL0bnde19Xr9TTEkMSB4sAU2YP0lUZZFGCo9Imc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g6mUxNlK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950725; c=relaxed/simple;
+	bh=qYA88KjL6fFhBG7cKw7LV3/HPQ7PqGFgt2DnFNU8vo8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dG3ADI3ia4KM5vmJvIPtZc8xBNiAbkYHRjHU7kpK2NP1iyRdOp3AF7m0LLBdYvTxwtScsL66r2EAugW6D24I+8HbG4oIGNk/6iM9qozg0qqrl6fb0iEl/PXG8IzBliCK0p3e1G+2wSQPimy73BFicizSqUMuGJtGVEobiyp6kS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atVP/PV9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g6mUxNlK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514CA1F00A3A;
-	Wed,  9 Sep 2026 10:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950721;
-	bh=d+y6n1eXLqmOdKoProfkia6W/No+9Af+WHL6L9SrH3c=;
-	h=Subject:To:Cc:From:Date;
-	b=g6mUxNlK883YU9I+FnKiNnsW5Ua7mVTOrzWxlWhDBQGFxtEO1H00Ac1Y3ocKd+DQn
-	 ds0BUrJ95/syuESNh6R7pCeuoKHfYgULzw6ZIOcWLz+W6focEgm5eLs83hGWKTZRz7
-	 uNMJxNsA/XvbefgtgKjbbq7xN+4yX4Bp81WHwaUs=
-Subject: FAILED: patch "[PATCH] KVM: s390: Zero initialize data structures for" failed to apply to 6.1-stable tree
-To: borntraeger@linux.ibm.com,imbrenda@linux.ibm.com,mjrosato@linux.ibm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:35:24 +0200
-Message-ID: <2026090924-endurable-recharger-fa78@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atVP/PV9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1910E1F00AC4;
+	Wed,  9 Sep 2026 10:45:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950723;
+	bh=DALTojoFhUYlD0gxMW48dMg9SBqGbNcAmYC98f8lN9w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=atVP/PV90ozGBAHChGAGRvhpzNdIRYRC20Pf80GeFSJLWNpf3pL/yH/dbdrvICoca
+	 ayfqgvvp654YC/dtQmSrP3eKf+M12j9A0YHO/SLd8GF+J6H5AFQwExyewjW8JHhAgZ
+	 D+xyDbisfFjGlu/MAk2RC2pbNupUO4dLp72yyjV59VPyBZb86ym4rSFAOwB/Q2It6V
+	 H7/6mLUqSAEBro+8EaADJpYl6f8wIYoCGSXBLsfLOMYuy2WGLtEFGghg2PZilx2T/L
+	 eoeDuIL3dIw3iZcj1jObbr7m3RfKCBRdRjsmqEcfDCKhoeSufaueM4bFXFkV41GsVH
+	 p+9FtUffHbcQA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ruoyu Wang <ruoyuw560@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] i2c: mxs: fix DMA channel leak on probe error
+Date: Wed,  9 Sep 2026 06:45:20 -0400
+Message-ID: <20260909104520.1561085-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909104520.1561085-1-sashal@kernel.org>
+References: <2026090301-luncheon-compactly-c5cc@gregkh>
+ <20260909104520.1561085-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Ruoyu Wang <ruoyuw560@gmail.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 777979e627115734052b323d2721cdb500e81dcf ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+mxs_i2c_probe() requests an exclusive DMA channel before resetting the
+controller and registering the I2C adapter. If either later operation
+fails, probe returns without releasing the channel because the remove
+callback is not invoked after a failed probe.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 4e2c7f7cbc27418f9a290399b986c1b85ff93b90
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090924-endurable-recharger-fa78@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Use devm_dma_request_chan() so the device core releases the channel on
+probe failure and driver detach. Remove the manual release from the
+remove callback because the channel is now device-managed.
 
-Possible dependencies:
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
+Fixes: 62885f59a261 ("MXS: Implement DMA support into mxs-i2c")
+Assisted-by: unnamed:claude-opus-4.8 typestate
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Cc: <stable@vger.kernel.org> # v3.7+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260815151720.3757460-1-ruoyuw560@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-mxs.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 Mon Sep 17 00:00:00 2001
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-Date: Wed, 5 Aug 2026 13:04:49 +0200
-Subject: [PATCH] KVM: s390: Zero initialize data structures for
- inject_pfault_token
-
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
-
-Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
-but a host user can use the migration ioctls to get to the data.
-
-Fix by zero-initializing the irq struct.
-Do the same for the inti data structure.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
-
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 518a69c55e85..611dcb534210 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4474,8 +4474,8 @@ int kvm_s390_try_set_tod_clock(struct kvm *kvm, const struct kvm_s390_vm_tod_clo
- static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				     unsigned long token)
- {
--	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_interrupt inti = {};
-+	struct kvm_s390_irq irq = {};
- 	struct kvm_s390_interrupt_info *inti_mem = NULL;
- 	int ret = 0;
+diff --git a/drivers/i2c/busses/i2c-mxs.c b/drivers/i2c/busses/i2c-mxs.c
+index 36def0a9c95c4..e3b1ee4c4195f 100644
+--- a/drivers/i2c/busses/i2c-mxs.c
++++ b/drivers/i2c/busses/i2c-mxs.c
+@@ -831,7 +831,7 @@ static int mxs_i2c_probe(struct platform_device *pdev)
+ 	}
  
+ 	/* Setup the DMA */
+-	i2c->dmach = dma_request_chan(dev, "rx-tx");
++	i2c->dmach = devm_dma_request_chan(dev, "rx-tx");
+ 	if (IS_ERR(i2c->dmach)) {
+ 		return dev_err_probe(dev, PTR_ERR(i2c->dmach),
+ 				     "Failed to request dma\n");
+@@ -869,9 +869,6 @@ static void mxs_i2c_remove(struct platform_device *pdev)
+ 
+ 	i2c_del_adapter(&i2c->adapter);
+ 
+-	if (i2c->dmach)
+-		dma_release_channel(i2c->dmach);
+-
+ 	writel(MXS_I2C_CTRL0_SFTRST, i2c->regs + MXS_I2C_CTRL0_SET);
+ }
+ 
+-- 
+2.53.0
 
