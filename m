@@ -1,133 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6175D35C6AD;
-	Wed,  9 Sep 2026 17:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82A83624B3
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:12:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973869; cv=none; b=gMcBCPHgiA+QIy//rFvQhzDiH0hY2em3QOVt9i2sry4rAf3l08eg2dMBr49F0GpLYLEtocfnAtVo9sokf+4shqFqkp9ogcpqwNF2W3pZqcvqk6xparfY0pnE6TdlP/Cp2JOx/rkxK2O5Xdu9Uzgnbuszbba5yuzVMJWH9cShFb8=
+	t=1788973940; cv=none; b=hJHvxtvrDPDIbUdNlYQSXg+XqRFRrB/UwK8awWdLPHr/mIEMjuwJFjHqCFlgm8KYWfIqlk1KI9s3yuh4Fg0E6tp8cytN4h6SHmIDH3GAYV0/aFqkCSiP2Gv62s7K+5ZbaN/SM4sh2t1vcM+YDVyNZd4yBAqmofm0T9JXdQ8fxEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973869; c=relaxed/simple;
-	bh=BHXEO/5ApGc8onZolC3w/bocqaSCrODRqIh7iaYmj5M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hkjn/JD6KPsdVi89FO7vBYYoGNOMm2VgACPwXdF1g/8yHuk+jSsy2Abtk9RgpJNRV4I/PM+Ndsk7iYVZFkcelB0VFj0+AR+BMoFO5XOO29QAO7F5hgjt15qcPJCZLI9UhUVZRLr1PseHjMLj2ajyRYMAlXVdw9bl0MOoP9Mb+yQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKGrHxS1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788973940; c=relaxed/simple;
+	bh=2ReD6nudCFkSuE9EJUw8yyt/PkMJ37vTziw7vZWJpP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l58UGV6Atgb9wqsaB1KYzqxsrAt+pnMB7nmRCNKQkr9Z/x65SYOVTWvL8uZT27mkNmb4SE220wBJn2dP8MMdOmirBz/CAP/CBAlm2gq8nyea7Ma5au5peMC01u4AkE2T7AamUxgXAxhTtX2iFg2xABj7uEzYPhO7jonUxdyH5KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ehc6DwOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKGrHxS1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 02402C2BCB9;
-	Wed,  9 Sep 2026 17:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788973869;
-	bh=BHXEO/5ApGc8onZolC3w/bocqaSCrODRqIh7iaYmj5M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=NKGrHxS1UroPb5TIhDI3V+HA2cKcmATt/ptd/6h0S05YwRQeG6yCVM7ZgxEp2aPQW
-	 rMldgq7YcPws1UsQ0pYMiLf73YoGVHt/R7yjrsCcXfyy96gDI7B9HGyk4xOr6EOqMg
-	 d14kGmVVkCfLgMliF9JSFjcafMStrQqbqJWxSy4ffquEzlUZhotTK+IfDmsV5ToJ03
-	 43lIbWygXQbdXy3rZaWptnNKd/wqYrZUYEXiFJK6g25BfBp1Hwbe2FVsFjkjy+JA4m
-	 ti3alMa16YLFwrya6ccZyMaN0agsrHavAmrbj4cpUpudi6G1RK167m7JP41PSdPno8
-	 rhkfZpXVGJ3sg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D077CC79FBD;
-	Wed,  9 Sep 2026 17:11:08 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 09 Sep 2026 10:11:00 -0700
-Subject: [PATCH v2 1/2] mm: hugetlb: Return -ENOSPC on memcg charge failure
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ehc6DwOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CD81F000FF;
+	Wed,  9 Sep 2026 17:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788973935;
+	bh=qlImpJih/cZeWdbW3k0Mpt4jvkxi2Xl7ktljistCnto=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ehc6DwOyXMkHKkzqp/XnyDDUgPcOQsxD4PalLEv2w01z/VFEviTuoLyuEIuPQJbKt
+	 XN3fgL8k9qsdIasxDV5GK6DsD+9sJoA/KE5s76SlkP9eiVH3hJXNsmI4ZhJc81mqsK
+	 LMisQQYqHcnQgz8CcJ0Xr8E57hCm7gCxhGUmnleX2WjlYBCrPUemWqExbaAROuUovF
+	 aKbUfKX01UTUntkA8+VnfAa8f4RER2/yERSct6Tvsf2CnsRZAVNfYxkJ4qB0uk2iCX
+	 pdRZYSd9tP8RKvETrCEehL8Jblxc0Jt+En1LnqCMXf53h6WHoAea/a4kRQE38vzZ+f
+	 MCR0jGCB2jseA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] net: dsa: realtek: use gpiod_set_value_cansleep for reset GPIO
+Date: Wed,  9 Sep 2026 13:12:12 -0400
+Message-ID: <20260909171212.3227229-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090351-frail-oil-2778@gregkh>
+References: <2026090351-frail-oil-2778@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-1-4b4a8a19a7f7@google.com>
-References: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-0-4b4a8a19a7f7@google.com>
-In-Reply-To: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-0-4b4a8a19a7f7@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, 
- fvdl@google.com, rientjes@google.com, vannapurve@google.com, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Ackerley Tng <ackerleytng@google.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788973868; l=2084;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=wQGY2NqfleEKP3GcsIVv3hSYGK81wAt8iMtpppoPYIU=;
- b=ow2acPS/0lBc9uXTMEil/vfmmYchZdQPHwRPGUjyngNjaKdtya97UdQiXuHsJi/izJCrBL90Q
- x1jKApeeIl+A9bXU7EeN28MfQNXGvQh+Hma84jQ/IKEgnDjk7aUriCZ
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
 
-When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
-currently propagates this error. This results in the page fault handler
-returning VM_FAULT_OOM.
+[ Upstream commit fb58b6a696b30bcbfbe0cfc0a91b19c816a955fc ]
 
-Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
-they bypass the OOM killer. Returning VM_FAULT_OOM to the #PF handler
-without triggering the OOM killer (or having it make progress) leads to
-an infinite loop of retrying the fault.
+rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
+the probe path, which may sleep and is not timing-critical.  When the
+reset GPIO is provided by a sleeping controller such as an I2C I/O
+expander, gpiod_set_value() warns:
 
-Avoid this loop by returning -ENOSPC when charging fails, which maps to
-VM_FAULT_SIGBUS, terminating the process cleanly.
+  WARNING: drivers/gpio/gpiolib.c:4030 at gpiod_set_value+0x44/0x80, CPU#1: kworker/u16:4/61
+  Hardware name: B&O MAP CA33 Rev f (UNKNOWN) (DT)
+  Workqueue: events_unbound deferred_probe_work_func
+  pc : gpiod_set_value+0x44/0x80
+  lr : rtl83xx_probe+0x1d8/0x3a0
+  Call trace:
+   gpiod_set_value+0x44/0x80 (P)
+   rtl83xx_probe+0x1d8/0x3a0
+   realtek_mdio_probe+0x24/0xa0
+   mdio_probe+0x38/0x78
+   really_probe+0xc4/0x3e0
+   __driver_probe_device+0x15c/0x1b8
+   driver_probe_device+0xb4/0x120
+   __device_attach_driver+0xb8/0x1a0
+   bus_for_each_drv+0x88/0xf0
+   __device_attach+0xa0/0x1d8
+   device_initial_probe+0x54/0x68
+   bus_probe_device+0x38/0xa0
+   deferred_probe_work_func+0xb8/0x120
+   process_one_work+0x184/0x4e8
+   worker_thread+0x188/0x308
+   kthread+0x130/0x150
+   ret_from_fork+0x10/0x20
 
-Make mem_cgroup_charge_hugetlb() fault handling use a common error handling
-path, the same handling used for hugetlb_cgroup_uncharge_cgroup{,_rsvd}(),
-which also don't trigger the OOM killer and hence opt to terminate the
-process with a SIGBUS.
+Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO can
+be used without triggering the warning.
 
-Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: stable@vger.kernel.org
+The reset GPIO has been driven with the non-sleeping gpiod_set_value()
+since the driver was added in v4.19.  The call has since been refactored
+across several files - from realtek-smi.c / realtek-mdio.c into the common
+rtl83xx.c module and then into the rtl83xx_reset_assert() and
+rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
+applies as-is only to kernels that carry those helpers (v6.9+); older
+stable kernels need the same gpiod_set_value_cansleep() conversion at the
+corresponding open-coded call sites.
+
+Fixes: d8652956cf37 ("net: dsa: realtek-smi: Add Realtek SMI driver")
+Cc: <stable@vger.kernel.org> # 6.9.x
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Link: https://patch.msgid.link/20260814110102.2362246-1-o.rempel@pengutronix.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adapted rtl83xx.c reset helper changes to direct GPIO calls in realtek-smi-core.c probe and remove callbacks. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/dsa/realtek-smi-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4f6f58bf3db6c..522487d341841 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2825,7 +2825,6 @@ void wait_for_freed_hugetlb_folios(void)
-  *
-  * Return: A pointer to the allocated folio, or an ERR_PTR on failure.
-  *         -ENOSPC if cgroup charging fails or no folio is available.
-- *         -ENOMEM if mem cgroup charging fails.
-  */
- struct folio *hugetlb_alloc_folio(struct hstate *h,
- 		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
-@@ -2898,7 +2897,11 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
- 		 * were committed to the folio and freeing the folio
- 		 * would have cleared those up.
- 		 */
--		return ERR_PTR(ret);
-+		/*
-+		 * Return -ENOSPC, since retrying the fault is futile:
-+		 * the OOM killer is not triggered for HugeTLB.
-+		 */
-+		return ERR_PTR(-ENOSPC);
+diff --git a/drivers/net/dsa/realtek-smi-core.c b/drivers/net/dsa/realtek-smi-core.c
+index 2fcfd917b876b..f84d4772e946e 100644
+--- a/drivers/net/dsa/realtek-smi-core.c
++++ b/drivers/net/dsa/realtek-smi-core.c
+@@ -425,7 +425,7 @@ static int realtek_smi_probe(struct platform_device *pdev)
+ 		return PTR_ERR(smi->reset);
  	}
+ 	msleep(REALTEK_SMI_HW_STOP_DELAY);
+-	gpiod_set_value(smi->reset, 0);
++	gpiod_set_value_cansleep(smi->reset, 0);
+ 	msleep(REALTEK_SMI_HW_START_DELAY);
+ 	dev_info(dev, "deasserted RESET\n");
  
- 	return folio;
-
+@@ -472,7 +472,7 @@ static int realtek_smi_remove(struct platform_device *pdev)
+ 	dsa_unregister_switch(smi->ds);
+ 	if (smi->slave_mii_bus)
+ 		of_node_put(smi->slave_mii_bus->dev.of_node);
+-	gpiod_set_value(smi->reset, 1);
++	gpiod_set_value_cansleep(smi->reset, 1);
+ 
+ 	platform_set_drvdata(pdev, NULL);
+ 
 -- 
-2.55.0.1007.g17ff1f9808-goog
-
+2.53.0
 
