@@ -1,164 +1,200 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B88A3E4C90
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C1D3C584A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987768; cv=none; b=AFE1HiWB/7YguAce+v/motgy9oS9eDq3+k2E3iSo9QV3gO7P4GUohX3BRFZJB8EGb1xDO4YUPSwpkjlW31ULYrumPh4uhaSCBLtqZT9apGEVQnEmejVzrOmgWxtFSZXERXv622SosrtHJemscdMKOxNSLfhYJaQkP69qxu5OhoI=
+	t=1788987921; cv=none; b=ArSP9RUy1oxHEoxYAEfCP315jjl7iQMz0oIpRaM7yLSAG/rYkbf7Dd2777SQ9umfaWGOBpHfNqIdSWbyr8UsXpH0JTW3pBm0vFOTlPY2wqBKn7n+nMI0pVlcMMaeetcG5g7WFvaDB+gtOUjxOr2it7oTSPr13XMQaTVGAoFfgLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987768; c=relaxed/simple;
-	bh=URW732EQx7Ne/f01+x4cxIvdq8e3brW7+hVxha4kXYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QDS51cwtIEWQuEGS0gtItKBo80Zg1C2J+hAAV15rT5c32ePGADOMj8LIcJ4uKICjSsWRPYdr2x7tHnczqfVoOotXzCxjizk32tLeUGXrfgx8vKEAI3hdESsmy7J3Jai3WwS0M6rps8hu2GizIl9Ysp9s+7CIvx4jhkavwvsO+is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g/4o2YYg; arc=none smtp.client-ip=209.85.217.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788987921; c=relaxed/simple;
+	bh=aYtbOV9TWdZBdE+mBF9zbY12lM9MnV4Q2Tp7N6nxdxA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bUaMg9YoFzEmEo7XtKvI9qbrQcAO6+4IagZpc/A+XEz3oyHZBx7VvI328XuHHo0ip+v49Ld1t1vS4w56PeE6jL3EFNIJGXf5mZamCk/J0LAztE3UTAGNHlD/IVG5LWbRVdOsHTCV0WMH0IWMuscy+4UAnMjJtJ0wKFglCHlTdH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=Lb9LHdRK; arc=none smtp.client-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g/4o2YYg"
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-785d603efdeso2349915137.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 14:02:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="Lb9LHdRK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788987765; x=1789592565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q46w9/u2wpQp5QGB3PuR+xp/kUloMNPv1YY/PPVAfY4=;
-        b=g/4o2YYgxyatFKJ4/tZejSoWlK4jwYlOxHkfu8cEjZL8s9Zzchpm9GheNwNwX6zp36
-         qfTEmOF3mhxnABDOWeJcsuOuw9OPm21r5ovvYAirSYuiE2rSYxOe8N4uWR8FflbUR/HJ
-         ZYdKhzk83oso1ooi8FebhOXK4JJYvISd5A6R+PXlebJcrNJN1srK0jUTNCBBiLQrsAeo
-         S25WtE1fq+UZTRVaynm/ACYMD33bkmyuovpgTR8boVpB7vicd7MrhygKUwOmbRR004lV
-         SlB7HR4JPEOQeAGSTZo9bhKDdEU7d3CcLx2W0iX9HV1QEDCIvvSxBP850e32IXnghI2S
-         RwBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788987765; x=1789592565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q46w9/u2wpQp5QGB3PuR+xp/kUloMNPv1YY/PPVAfY4=;
-        b=azIjdxJIS1OyE4FDEoK4dQ/nnKZimvIpIUEPoMBYQOy0Hvyvyk/xueihmjwnB2PuDT
-         OsWbJMjwbEvzijwDEvZ+qbN8WrjHnN82/g649KmXoc8wEQjN/OREYM5+2Q1AZkKOq1Zy
-         5wUMA6x2ZlNFYwZHHjZyyYJL8Uxix+wTh5Czn+dVTEfrdz1OYAwZ6r4ioKBTUvIqwvFm
-         YEFxLujiPDn8tDOabwaYz2nBVG0BpfO+Pn/bpM2QfVpJ+kO6jLeALUw2/cp+PphwtK9h
-         nS8YI4GjqJVgD35Q/ZrUgTtf2tRlR5QIFzUnK3uYDZY4fZzEoTRxfhN1jMyBnuiZoOl6
-         zqUw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Jozei17JDO/iCwudoi5vPbEOl30/seN0LUJFLg8iJglQwpDGwRHuQATGhHRR5BAW+Jcxgqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE2sdNSoNaQuYD8eTvHgIPy1qxiLcxydyq8rOXM+YZ5o38iz6N
-	0NKWYn8QTdcvEuDW/g+0X0Q8SPU0H3VsVb7s+dwlNrkURNXGIuHliRYE
-X-Gm-Gg: AYBFou3Q1CXmOd7JRnMVOY4Nvo7Z+Z2q1yjPJPJTE/y7K1DUzLSDCR51FCNeQxY+ELf
-	sfGrsfVPiOmQ+/LLWfYEgaQPrhBR1qYLYLsEt0qxfk38F28DyNyR8dgEyVFLD5PoIfbZ2phO6dX
-	kWsy/CK7vZOl3WQY0xhjleS4NaW/y7jlqxkM3qBJcLBTQk4CsU7a6nOcIYGNs9muEKh5fNgkYMO
-	6KcTeyQ5piC8GGQDBCaQeE9hoRJvpVIvfjTH2WH2j85Cliy5QikNdv3Tl3MzvGUrasTRjBNYRyQ
-	aVVsXSrAP5/Ka5G6n9U5QmHZ/LT1fAgqitEUJPjeyTRd20VZ/aN5chrW6On7+QV/YMzm5L+pJTj
-	BsV+wCr4paA6Eg8oUR1Vq5GMiiGaeRIFiaATFKoYFnSt/qzr4lqcVLg4qDEUXimLIQ6wwgG/Q31
-	HDE2ma6uXfeCBd60xwwpPJ33KTM+T2Ou1KzYeM0oPNvuPbFx1VxYVuIATa+16YnqRnszX7dWKmA
-	v1VSPQ0AGMNQbLOB+EvUPD0xOe+GMPEAOhVZBm1cZfAoNrk
-X-Received: by 2002:a05:6102:2d03:b0:786:77e2:d8fa with SMTP id ada2fe7eead31-78a4a943a32mr14848382137.5.1788987763467;
-        Wed, 09 Sep 2026 14:02:43 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a803:6c49:659c:692c:9416:2f0d])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a4764e321sm12434590137.0.2026.09.09.14.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:02:41 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: marex@denx.de
-Cc: mripard@kernel.org,
-	imx@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	Fabio Estevam <festevam@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/mxsfb: lcdif: Fix use-after-free on unbind
-Date: Wed,  9 Sep 2026 18:02:13 -0300
-Message-ID: <20260909210213.946159-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1788987920; x=1820523920;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1YQCcxcOrNN4lNpumJNNZlouCYqarXID5h9vk1zAlSs=;
+  b=Lb9LHdRKKmc19sZ/FSeFvOBUkb380LPNNJESQJ6HEXDiIu/69aj5QqJ/
+   kwnimz4PXU7qSbkqigDGW12Oe0rOB8dgyVO2FzcMrFwoTEHRN3D2Y/O/m
+   ETl4fovURkBAY9i+OnYojuz9a4zNjiC5yZ6HCVmREESJRCXDHY13JOQGN
+   yVhTY3EeOeaWkHl2I/31rLpiCAJzgFQ7yU/zodV04ae9gZ5a8GGoc8ny3
+   bYzfkfUgyIMm9fSDwCzxS2HkhG2imy2UkAGBa6ZSb3Y5OeHDnCVsDH2mK
+   LufQXEeX+DPKMk4wmwMJ6rML9Xz6+Yqj79WYjbiwucPf/tZTgr1ZOM/X4
+   g==;
+X-CSE-ConnectionGUID: Zcb70jhxQwy/PzPvMNNzmg==
+X-CSE-MsgGUID: T/KhFYXlSqaUYNLrOSWxwQ==
+X-IronPort-AV: E=Sophos;i="6.25,271,1779148800"; 
+   d="scan'208";a="28045604"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:05:16 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:8133]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.160:2525] with esmtp (Farcaster)
+ id 53a96411-a890-493c-87fb-c6524f0e3cc8; Wed, 9 Sep 2026 21:05:16 +0000 (UTC)
+X-Farcaster-Flow-ID: 53a96411-a890-493c-87fb-c6524f0e3cc8
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Wed, 9 Sep 2026 21:05:16 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 9 Sep 2026 21:05:15 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Arnaldo Carvalho de Melo <acme@redhat.com>, <doebel@amazon.de>
+Subject: [PATCH 5.15.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
+Date: Wed, 9 Sep 2026 21:05:00 +0000
+Message-ID: <20260909210503.199459-2-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX19D037UWC002.ant.amazon.com (10.13.139.250) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-lcdif allocates its private data, which embeds the CRTC and primary
-plane, and its encoders using devres. These DRM objects are linked into
-the mode_config lists.
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Since mode_config cleanup is DRM-managed, it is deferred until the DRM
-device is released. An open DRM file can keep the DRM device alive after
-the platform device has been unbound and devres has freed those objects.
-The later mode_config cleanup then dereferences freed memory.
+commit 5949d339f5ec98752d56dcd4e36f619a59d513a5 upstream.
 
-Allocate the private data with drmm before initializing mode_config so
-that it remains alive until mode_config cleanup has completed. Allocate
-encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
-and removes it from the mode_config list before freeing its memory.
+register_pid() has several issues when processing untrusted perf.data:
 
-This can be reproduced on i.MX8MP by keeping the DRM card open across an
-LCDIF unbind and closing it afterwards.
+1. Integer overflow: (pid + 1) * sizeof(struct task_desc *) can wrap
+   to a small value on 32-bit systems when pid is large (e.g.
+   0x40000000), causing realloc to return a tiny buffer followed by
+   out-of-bounds writes in the initialization loop.
 
-Cc: stable@vger.kernel.org
-Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
+2. Heap buffer overflow: strcpy(task->comm, comm) copies the
+   untrusted comm string into a fixed 20-byte COMM_LEN buffer with
+   no length check.
+
+3. BUG_ON on allocation failure: perf.data is untrusted input, so
+   allocation failures should be handled gracefully rather than
+   killing the process.
+
+4. Realloc of sched->tasks assigned directly back, leaking the old
+   pointer on failure; nr_tasks incremented before the realloc,
+   leaving corrupted state on failure.
+
+Cap pid at PID_MAX_LIMIT (4194304, matching the kernel's maximum
+on 64-bit), replace strcpy with strlcpy, guard against NULL comm,
+replace BUG_ON with NULL returns using safe realloc patterns, and
+add NULL checks in callers that dereference the result.
+
+Fixes: ec156764d424 ("perf sched: Import schedbench.c")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: Ingo Molnar <mingo@elte.hu>
+Assisted-by: Claude:claude-opus-4.6
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+[doebel: context adjustment for 5.15]
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+
 ---
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index e2173c4d6fc2..7e9f3b205a45 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -24,6 +24,7 @@
- #include <drm/drm_fbdev_dma.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_module.h>
- #include <drm/drm_of.h>
-@@ -43,10 +44,6 @@ static const struct drm_mode_config_helper_funcs lcdif_mode_config_helpers = {
- 	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
- };
+diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+index 95a549fdabe0..ecf2e01ab4e7 100644
+--- a/tools/perf/builtin-sched.c
++++ b/tools/perf/builtin-sched.c
+@@ -50,6 +50,7 @@
+ #define COMM_LEN		20
+ #define SYM_LEN			129
+ #define MAX_PID			1024000
++#define PID_MAX_LIMIT		4194304 /* kernel limit on 64-bit */
  
--static const struct drm_encoder_funcs lcdif_encoder_funcs = {
--	.destroy = drm_encoder_cleanup,
--};
--
- static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+ static const char *cpu_list;
+ static DECLARE_BITMAP(cpu_bitmap, MAX_NR_CPUS);
+@@ -446,17 +447,28 @@ static void add_sched_event_sleep(struct perf_sched *sched, struct task_desc *ta
+ static struct task_desc *register_pid(struct perf_sched *sched,
+ 				      unsigned long pid, const char *comm)
  {
- 	struct device *dev = lcdif->drm->dev;
-@@ -74,19 +71,16 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 					     "Failed to get bridge for endpoint%u\n",
- 					     of_ep.id);
+-	struct task_desc *task;
++	struct task_desc *task, **tasks_p;
+ 	static int pid_max;
  
--		encoder = devm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
--		if (!encoder)
--			return dev_err_probe(dev, -ENOMEM,
--					     "Failed to allocate encoder for endpoint%u\n",
--					     of_ep.id);
--
--		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
--		ret = drm_encoder_init(lcdif->drm, encoder, &lcdif_encoder_funcs,
--				       DRM_MODE_ENCODER_NONE, NULL);
--		if (ret)
-+		encoder = drmm_plain_encoder_alloc(lcdif->drm, NULL,
-+						   DRM_MODE_ENCODER_NONE, NULL);
-+		if (IS_ERR(encoder)) {
-+			ret = PTR_ERR(encoder);
- 			return dev_err_probe(dev, ret,
- 					     "Failed to initialize encoder for endpoint%u\n",
- 					     of_ep.id);
-+		}
++	/* perf.data is untrusted — cap pid to prevent overflow in size calculations */
++	if (pid >= PID_MAX_LIMIT) {
++		pr_err("pid %lu exceeds limit %d, skipping\n", pid, PID_MAX_LIMIT);
++		return NULL;
++	}
 +
-+		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
+ 	if (sched->pid_to_task == NULL) {
+ 		if (sysctl__read_int("kernel/pid_max", &pid_max) < 0)
+ 			pid_max = MAX_PID;
+-		BUG_ON((sched->pid_to_task = calloc(pid_max, sizeof(struct task_desc *))) == NULL);
++		sched->pid_to_task = calloc(pid_max, sizeof(struct task_desc *));
++		if (sched->pid_to_task == NULL)
++			return NULL;
+ 	}
+ 	if (pid >= (unsigned long)pid_max) {
+-		BUG_ON((sched->pid_to_task = realloc(sched->pid_to_task, (pid + 1) *
+-			sizeof(struct task_desc *))) == NULL);
++		void *p = realloc(sched->pid_to_task, (pid + 1) * sizeof(struct task_desc *));
++
++		if (p == NULL)
++			return NULL;
++		sched->pid_to_task = p;
+ 		while (pid >= (unsigned long)pid_max)
+ 			sched->pid_to_task[pid_max++] = NULL;
+ 	}
+@@ -467,9 +479,11 @@ static struct task_desc *register_pid(struct perf_sched *sched,
+ 		return task;
  
- 		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
-@@ -131,7 +125,7 @@ static int lcdif_load(struct drm_device *drm)
- 	struct lcdif_drm_private *lcdif;
- 	int ret;
+ 	task = zalloc(sizeof(*task));
++	if (task == NULL)
++		return NULL;
+ 	task->pid = pid;
+-	task->nr = sched->nr_tasks;
+-	strcpy(task->comm, comm);
++	if (comm)
++		strlcpy(task->comm, comm, sizeof(task->comm));
+ 	/*
+ 	 * every task starts in sleeping state - this gets ignored
+ 	 * if there's no wakeup pointing to this sleep state:
+@@ -477,10 +491,12 @@ static struct task_desc *register_pid(struct perf_sched *sched,
+ 	add_sched_event_sleep(sched, task, 0, 0);
  
--	lcdif = devm_kzalloc(&pdev->dev, sizeof(*lcdif), GFP_KERNEL);
-+	lcdif = drmm_kzalloc(drm, sizeof(*lcdif), GFP_KERNEL);
- 	if (!lcdif)
- 		return -ENOMEM;
+ 	sched->pid_to_task[pid] = task;
+-	sched->nr_tasks++;
+-	sched->tasks = realloc(sched->tasks, sched->nr_tasks * sizeof(struct task_desc *));
+-	BUG_ON(!sched->tasks);
+-	sched->tasks[task->nr] = task;
++	tasks_p = realloc(sched->tasks, (sched->nr_tasks + 1) * sizeof(struct task_desc *));
++	if (!tasks_p)
++		return NULL;
++	sched->tasks = tasks_p;
++	sched->tasks[sched->nr_tasks] = task;
++	task->nr = sched->nr_tasks++;
+ 
+ 	if (verbose > 0)
+ 		printf("registered task #%ld, PID %ld (%s)\n", sched->nr_tasks, pid, comm);
+@@ -824,6 +840,8 @@ replay_wakeup_event(struct perf_sched *sched,
+ 
+ 	waker = register_pid(sched, sample->tid, "<unknown>");
+ 	wakee = register_pid(sched, pid, comm);
++	if (waker == NULL || wakee == NULL)
++		return -1;
+ 
+ 	add_sched_event_wakeup(sched, waker, sample->time, wakee);
+ 	return 0;
+@@ -866,6 +884,8 @@ static int replay_switch_event(struct perf_sched *sched,
+ 
+ 	prev = register_pid(sched, prev_pid, prev_comm);
+ 	next = register_pid(sched, next_pid, next_comm);
++	if (prev == NULL || next == NULL)
++		return -1;
+ 
+ 	sched->cpu_last_switched[cpu] = timestamp;
  
 -- 
-2.43.0
+2.50.1
 
