@@ -1,200 +1,173 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85627489889
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C4B47208E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:59:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944217; cv=none; b=oih1oJX9NCqpV8bTWssNOrsgqvSs0judk1jwSBF1fJeGijZrKpVgvtr/ftHU/0P9HBX7jVW3rH7e6jQtmoPu073U8qu+uMRwHioLwQEJem6Mf9gxyoES5N6v2JOCg6nm0fuWkX3GF8kETwc6gZ4xGlg8ZKtLnnFOQK+EXHEwN14=
+	t=1788944359; cv=none; b=cvur82XDZyKdsT+MHMQw+NZHaLh64jywfPtFloUcoOQGRISKL9OFDyw6zQTNBTRhbTNhoDApY7nvZX917aK9arEeOqSLYWjiQwyCDbXZ0p9klLreYkFOd6WjvycyvmL3ppyA9fDL055fQSNjwQni7E3ZVY678c/4Fp4jmqi0k5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944217; c=relaxed/simple;
-	bh=JF3O1B0ruS2aFRTkmaSYRWic/aeA8sb9k9jvcclJdP4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=P0eZwx4zXKqgXMHLgfIbhn+ZWPU/JPngbRUW0AAKEj6bClRV2UzH4BabGVoTmJSgqU8kiMM23HnfmCUoSH0fpw2JkurR0mG+hmX1tWKEfv7fExMZPLN9R+PtB+6PpnVoOqdVHrNqMeWgSgRc76ySR5NscUy+5ILqmnHTDkWgsD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CDwauWnB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788944359; c=relaxed/simple;
+	bh=R9L/eTaXmKcO3hBnU98W/9G77TNfUeBGNOLDd6WiCkE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YQBK2iXl4UGPoiSk9rwqsRgjLS6NfxTPR7FFf6dgTsOXBX5nIKoGwnEm+869OcJSZDrY1+xqjIihbwWBNn/V6MYfBanFGWCqUnEDd1YmJLlaD3J8GtdSZr5/C2Po/L7CIQCsaJGpqQ6V7pUTbN4bmj1STKBB4prjaRbJr8qOh3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eHI8rs+7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kmjkCeN0; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Lj87H7LD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CpSLXLHb; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CDwauWnB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 051431A1A78;
-	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CC74860448;
-	Wed,  9 Sep 2026 08:56:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15E4811C7AF3D;
-	Wed,  9 Sep 2026 10:56:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788944212; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=jhoGSO/XD6PN/mlAWTDEsoUz7/QkmzABQbv+weCnPbQ=;
-	b=CDwauWnBz/mg4WpauvZGTQIf9scebzssIXSfVY7H7aezZ8D4uWVbghayq85ua+HO12bjoV
-	ILLXuawZB+4SqB5jPgw8oKhUXgz9hVoXq1qle3uPVw1RKAdyPvJkZy8gpS3s+lEpuMya/F
-	1THW21vDMtY6iKQpn1DJUi4Q2B9NJINF18IzvxzSw/uf/jFwGxp8j4GNAup1asq1V+FUJ7
-	uZv+d33uOCVDFe+ReKNHBJR9sSeP+0EdTz3fJiRlFlGxDwhHs2xS+WN/z5wWg8iy8xxz3G
-	sXU5Arq2nT+68v6vamDU83SWddQDW96Vf8ULLMnFuDMgwwXOKh85cO/f2TDT8A==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Wed, 09 Sep 2026 10:56:45 +0200
-Subject: [PATCH 5.10.y] tcp: clear sock_ops cb flags before force-closing a
- child socket
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eHI8rs+7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kmjkCeN0";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Lj87H7LD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CpSLXLHb"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 06D0F21A97;
+	Wed,  9 Sep 2026 08:58:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788944317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
+	b=eHI8rs+776GMDBzJ34a5bdZlnsjvjcs0lF+5ZVLctnLggWCfDZ+ex0AxwTy138kvqWwLgr
+	CqoxgqtR2L5T5MPUr2VlB0siOZFDJAjOErY3S7X3qi+oDvTbfXXitidyeFXRRtNZMi/IS5
+	ZzoIqlPQidms3WVns+WL/909+IsdDbc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788944317;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
+	b=kmjkCeN0ruu7nPIN6juiaryA4ErrW7Vm+oIFm23UsKil7+/vqH8wSxUaodYNa42l7WVP+5
+	V7bB5GPOFrXQC2Cg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788944313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
+	b=Lj87H7LDBVZ2NsyWCPLpoy96i+bQJ3cWgQujlaWN+It6Q1lPrxe1e4zKP45rVJqwpc15t0
+	Jg4BB5B3i8U9oAnvQapXao0AH5Gc+PupGE3htySCpHs61h+EDCSgNfXMAkIi9qS7PGfXxa
+	mqxtYW7bjSQ37KOW/sDBpZlT+hXIe5Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788944313;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
+	b=CpSLXLHbGRLPeTML/GpXxwz56/9Wbv/Y6VvySDrUq7EnJTdeIi+8f4XVPJyjdRAfrrD4gv
+	NWW8c+Gj2Z3AFJAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 376751365E;
+	Wed,  9 Sep 2026 08:58:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6DhBDLgfoWoVUQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:58:32 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com,
+	javierm@redhat.com,
+	airlied@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	geert@linux-m68k.org,
+	rdunlap@infradead.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	nouveau@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 01/14] drm/panic: Do not use un-escaped URL as format string
+Date: Wed,  9 Sep 2026 10:55:16 +0200
+Message-ID: <20260909085826.64529-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909085826.64529-1-tzimmermann@suse.de>
+References: <20260909085826.64529-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-cve-2026-74268-5-10-v1-1-374ebc121b6d@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTtk2tg69SrGBZYBxgWaFomGc
- HcLLL+XvH+BLEklw7VaIMmsWV9jgTlVEIdm7AW1LQZL1lMgxjgLbsDL2XpGh4bQ+YZDYGcCWyj
- Pd5JOv3v1Bq42VP/gfuz583hKnLYkrOsfX3KpH38AAAA=
-X-Change-ID: 20260908-cve-2026-74268-5-10-56a899851982
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
- Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <kafai@fb.com>, 
- Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
- John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>, 
- Lawrence Brakmo <brakmo@fb.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Sechang Lim <rhkrqnwk98@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944205; l=4820;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=gfGs0ll/D/LmEzDWS0zeRunUGoOktjRYi4+zsANwh50=;
- b=RBJcJEeBsIokH9FWwAkHCPsE3jyGoCSdaKFJ6Z3FrnEfYoWKanpbyghHUJduIpbEGea5Ad3tN
- xIWjh1o9dj1Bu+CaL1CfwKDn/c7ETxpUcqAmRrsWrnUuS3eyE+5OTnv
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[redhat.com,gmail.com,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,lists.freedesktop.org:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLhthb38qh1ntkuzcrgoc19dwi)];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
 
-From: Sechang Lim <rhkrqnwk98@gmail.com>
+Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
+with a %s conversion specifier. Avoids a possible vulnerabilty from
+a crafted URL string.
 
-[ Upstream commit 990348e5bb457697c2f1f7f7b65154a3334d9d2b ]
+As the attacker needs to control the kernel at the Kconfig level, the
+potential for an exploit is likely low.
 
-A child socket inherits the listener's bpf_sock_ops_cb_flags via
-sk_clone_lock(). If its setup fails in tcp_v4_syn_recv_sock() /
-tcp_v6_syn_recv_sock(), the child is freed through put_and_exit, where
-inet_csk_prepare_forced_close() drops the socket lock and tcp_done() runs
-without it.
-
-If BPF_SOCK_OPS_STATE_CB_FLAG was inherited, tcp_done() -> tcp_set_state()
-calls tcp_call_bpf(), which expects the lock and trips sock_owned_by_me():
-
-  WARNING: include/net/sock.h:1799 at tcp_set_state+0x433/0x550
-  RIP: 0010:tcp_set_state+0x433/0x550 include/net/sock.h:1799
-  Call Trace:
-   <IRQ>
-   tcp_done+0xba/0x250 net/ipv4/tcp.c:5095
-   tcp_v4_syn_recv_sock+0x850/0xa50 net/ipv4/tcp_ipv4.c:1787
-   tcp_check_req+0xf30/0x1360 net/ipv4/tcp_minisocks.c:926
-   tcp_v4_rcv+0x1047/0x1b50 net/ipv4/tcp_ipv4.c:2164
-   </IRQ>
-
-The child is freed before it is ever established, so it should run no
-sock_ops callback. Clear its cb flags in inet_csk_prepare_for_destroy_sock(),
-the common point for the IPv4, IPv6 and chtls forced-close paths and for the
-MPTCP ->syn_recv_sock() failure path (dispose_child), which reaches tcp_done()
-on a child that was never established too.
-
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Fixes: d44874910a26 ("bpf: Add BPF_SOCK_OPS_STATE_CB")
-Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260611092923.1895982-1-rhkrqnwk98@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-[ Moved inet_csk_prepare_for_destroy_sock() to inet_connection_sock.c due to header dependency,
-  Added a guard arount the call to tcp_clear_sock_ops_cb_flags to avoid
-  calling it for DDCP sockets.]
-
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.12+
 ---
- include/net/inet_connection_sock.h | 7 +------
- include/net/tcp.h                  | 9 +++++++++
- net/ipv4/inet_connection_sock.c    | 9 +++++++++
- 3 files changed, 19 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_panic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index cfb66f5a5076..5cc2b9658142 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -288,14 +288,9 @@ static inline int inet_csk_reqsk_queue_is_full(const struct sock *sk)
- bool inet_csk_reqsk_queue_drop(struct sock *sk, struct request_sock *req);
- void inet_csk_reqsk_queue_drop_and_put(struct sock *sk, struct request_sock *req);
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index e576c4791861..ba21df4be338 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -658,7 +658,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
+ 	char *kmsg;
+ 	int max_qr_data_size, url_len;
  
--static inline void inet_csk_prepare_for_destroy_sock(struct sock *sk)
--{
--	/* The below has to be done to allow calling inet_csk_destroy_sock */
--	sock_set_flag(sk, SOCK_DEAD);
--	this_cpu_inc(*sk->sk_prot->orphan_count);
--}
+-	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&z=",
++	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&z=",
++			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
+ 			   utsname()->machine, utsname()->release);
  
- void inet_csk_destroy_sock(struct sock *sk);
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk);
- void inet_csk_prepare_forced_close(struct sock *sk);
- 
- /*
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 4c87936a33d6..f7a61e6f5ebd 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -2356,6 +2356,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return tcp_call_bpf(sk, op, 3, args);
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+	tcp_sk(sk)->bpf_sock_ops_cb_flags = 0;
-+}
-+
- #else
- static inline int tcp_call_bpf(struct sock *sk, int op, u32 nargs, u32 *args)
- {
-@@ -2373,6 +2378,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return -EPERM;
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+}
-+
- #endif
- 
- static inline u32 tcp_timeout_init(struct sock *sk)
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 723aab818b52..3d5816a8894f 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -933,6 +933,15 @@ void inet_csk_destroy_sock(struct sock *sk)
- }
- EXPORT_SYMBOL(inet_csk_destroy_sock);
- 
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk)
-+{
-+	/* The below has to be done to allow calling inet_csk_destroy_sock */
-+	if (sk->sk_protocol == IPPROTO_TCP)
-+		tcp_clear_sock_ops_cb_flags(sk);
-+	sock_set_flag(sk, SOCK_DEAD);
-+	this_cpu_inc(*sk->sk_prot->orphan_count);
-+}
-+
- /* This function allows to force a closure of a socket after the call to
-  * tcp/dccp_create_openreq_child().
-  */
-
----
-base-commit: be0af8204173441616d0775a54a95ca612a84ba8
-change-id: 20260908-cve-2026-74268-5-10-56a899851982
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+ 	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
+-- 
+2.55.0
 
