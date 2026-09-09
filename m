@@ -1,43 +1,42 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D892739DBD0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D894F3B8945
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981420; cv=none; b=VVFyvCUBmsi9QqJjiNz965a4N6E/2yPT8OFNW2sJdw8uJacJsrNR+o3YRqRfb4Xbanqpu6R/ypZdENsJ3Pi0Bvw9yI5NgB45Wed6LZMP6aKGo98+KTY4jXN8mRYqEaVBn1Fcmh2z4+/pqpvxQRZPVOax7ADfCqs7rPqJyDFHQhA=
+	t=1788981457; cv=none; b=dVuEgQFAAHJdpiF+s1cTJZ7/gXImLiXXYlPRAOZutGPSqzz1quzHA6qLMwAnwafjTwH2RqlXe9NDWpywlVgAb/AidXxjkV3Qvhgq9xCCDoXNGNM265+TNI2BsyrZWIA3R6LHNLeaRxOLjRJNJP4vDCjc7IflnuPwOpcOWY1mGzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981420; c=relaxed/simple;
-	bh=HcyzVnfOO/4/298uMSVDLIB2g3xt11+zwSUpyLsHgOg=;
+	s=arc-20240116; t=1788981457; c=relaxed/simple;
+	bh=kEg6zsOG+39c6Hardax7MtyqcEXBsXRE9cKzo1UCw5w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tIIB3px9Nx5v1oL969ww+hLfyNhpi9zfrMSPLdybeRa9TymrFWQkfTFAMs0xH9IILMyaDNcBYgGdezzsPAk0xurckEvBwA9kusc3eUHekdi987UbOBfdcutXI7qk2SG9C1772NcsWtDmUfwmcApoFc+3rb5rPcBmP95OPocH7x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=gimguyZD; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	 MIME-Version; b=pEDg6w6YkyLgh1z9nArhnKmc0yQi7w60RGKOPf0lYdrOmR0rfUqT7j9Vt5jxzm/ooutVncY1Otp5FhCJS7a/9GFV+4WBCEC39er/FNYyDNT4HyW+cSDsyL1tmEhRDGm72iznWYrGuKPlxZedAQwObPqapyt9/ZFnGKMgGagt7PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wk8NRnMJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="gimguyZD"
-Received: by dvalin.narfation.org (Postfix) id D3128200A3;
-	Wed, 09 Sep 2026 19:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1788981416;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aUJccs1YOBQKykxsx+rpfvaTAGZTmTK7ntiI1NJ/uh0=;
-	b=gimguyZD/KLayVbrFOXOft3AfeFmLQJsaSAzHndvMa4n5Km2QePmmKcBo7YqoF5k0RrMsB
-	0DagObATs+e0i6my7e4fbTr1l8D9D2SOqDp5RdwJZ7Q/Egn0MpRkMBjJno74AinB/Gl+PF
-	RmKxFX/vey8dQZm1PDbsF707xUULvM8=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wk8NRnMJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026E41F000FF;
+	Wed,  9 Sep 2026 19:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788981455;
+	bh=sdH/WEOMjXFL7Xof2fZcDspHUP/IrHflOBGYBDm9/9o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wk8NRnMJFIyofE+HuYi1iqs46QMKS8j05T7rzUsxkyf/8pFJ2f61DtFFIf692H5dm
+	 oMheiJ7tlCApfJXKZAe0H+Wx0f6qaX5FuUrT5xGC2kiFHM4HYbKDLXtOFn7dVdznlX
+	 YLjvYdEsQWKcsssfbCsi1pNCyH3AWbRddz2aa4K5h8Zoq77wv1b/c898Q/nvzvWJhY
+	 dyu/Y4V1kd3Kl0h4dB7WX3Vofi1bhWhFz9NT1Fa11359vz2s4sEdpUARzZ6mMsYkpx
+	 vCHBInzVmpcEKQMoeLeljkuk20AGyz9Kb4VeHTuKmAW82dxC8kDu6HraapS6cUo6bi
+	 yKthos5K043mQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 5.10.y] batman-adv: dat: atomically update mac addresses
-Date: Wed,  9 Sep 2026 21:16:52 +0200
-Message-ID: <20260909191652.1174815-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090934-jarring-washstand-3211@gregkh>
-References: <2026090934-jarring-washstand-3211@gregkh>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] ALSA: hda: fix kernel-doc warnings
+Date: Wed,  9 Sep 2026 15:17:30 -0400
+Message-ID: <20260909191732.3557673-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090345-hangnail-getup-f661@gregkh>
+References: <2026090345-hangnail-getup-f661@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,214 +45,238 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit e6de568d3eda3e3c01c868fabd7a9535d5ee4a73 upstream.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-When a MAC address is updated in batadv_dat_entry_add(), it is done using a
-simple copy function. A parallel reader might only see parts of this
-update. In worst case, the reader is transporting the half updated MAC
-address over the network or is creating an ARP response using it -
-poisoning the ARP cache.
+[ Upstream commit 3531ba21f5520d0865004e7d75b6f505d08589f2 ]
 
-atomic64_t can be used to store the 48 bit of a mac address. A reader will
-then either see the old mac address or the new one - never a mixture of
-both.
+v5.12-rc1 flags new warnings with make W=1, fix missing or broken
+function descriptors.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 2f1dfbe18507 ("batman-adv: Distributed ARP Table - implement local storage")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+sound/pci/hda/hda_codec.c:3492: warning: expecting prototype for
+snd_hda_input_mux_info_info(). Prototype was for
+snd_hda_input_mux_info() instead
+
+sound/pci/hda/hda_codec.c:3521: warning: expecting prototype for
+snd_hda_input_mux_info_put(). Prototype was for
+snd_hda_input_mux_put() instead
+
+sound/pci/hda/hda_codec.c:3958: warning: expecting prototype for
+_snd_hda_pin_ctl(). Prototype was for _snd_hda_set_pin_ctl() instead
+
+sound/pci/hda/hda_jack.c:223: warning: expecting prototype for
+snd_hda_set_dirty_all(). Prototype was for
+snd_hda_jack_set_dirty_all() instead
+
+sound/pci/hda/hda_jack.c:309: warning: expecting prototype for
+snd_hda_jack_detect_enable_mst(). Prototype was for
+snd_hda_jack_detect_enable_callback_mst() instead
+
+sound/pci/hda/hda_generic.c:3933: warning: expecting prototype for
+snd_dha_gen_add_mute_led_cdev(). Prototype was for
+snd_hda_gen_add_mute_led_cdev() instead
+
+sound/pci/hda/hda_generic.c:4093: warning: expecting prototype for
+snd_dha_gen_add_micmute_led_cdev(). Prototype was for
+snd_hda_gen_add_micmute_led_cdev() instead
+
+sound/pci/hda/patch_ca0132.c:2357: warning: expecting prototype for
+Prepare and send the SCP message to DSP(). Prototype was for
+dspio_scp() instead
+
+sound/pci/hda/patch_ca0132.c:2883: warning: expecting prototype for
+Allocate router ports(). Prototype was for dsp_allocate_router_ports()
+instead
+
+sound/pci/hda/patch_ca0132.c:3202: warning: expecting prototype for
+Write a block of data into DSP code or data RAM using pre(). Prototype
+was for dspxfr_one_seg() instead
+
+sound/pci/hda/patch_ca0132.c:3397: warning: expecting prototype for
+data overlay to DSP memories(). Prototype was for dspxfr_image()
+instead
+
+sound/hda/hdac_regmap.c:393: warning: expecting prototype for
+snd_hdac_regmap_init(). Prototype was for snd_hdac_regmap_exit()
+instead
+
+sound/hda/ext/hdac_ext_controller.c:142: warning: expecting prototype
+for snd_hdac_ext_bus_get_link_index(). Prototype was for
+snd_hdac_ext_bus_get_link() instead
+
+sound/hda/ext/hdac_ext_stream.c:140: warning: expecting prototype for
+snd_hdac_ext_linkstream_start(). Prototype was for
+snd_hdac_ext_link_stream_start() instead
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20210301174617.116960-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 36aa66de481d ("ALSA: hda/ext: preserve PPLCCTL bits when clearing reset")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/distributed-arp-table.c | 58 +++++++++++++++++---------
- net/batman-adv/types.h                 |  2 +-
- 2 files changed, 40 insertions(+), 20 deletions(-)
+ sound/hda/ext/hdac_ext_controller.c | 2 +-
+ sound/hda/ext/hdac_ext_stream.c     | 2 +-
+ sound/hda/hdac_regmap.c             | 2 +-
+ sound/pci/hda/hda_codec.c           | 6 +++---
+ sound/pci/hda/hda_generic.c         | 4 ++--
+ sound/pci/hda/hda_jack.c            | 4 ++--
+ sound/pci/hda/patch_ca0132.c        | 9 ++++-----
+ 7 files changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
-index 5b63048fbfbcd..49168027ffd15 100644
---- a/net/batman-adv/distributed-arp-table.c
-+++ b/net/batman-adv/distributed-arp-table.c
-@@ -373,18 +373,19 @@ batadv_dat_entry_hash_find(struct batadv_priv *bat_priv, __be32 ip,
- static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
- 				 u8 *mac_addr, unsigned short vid)
- {
-+	u64 u64_mac = ether_addr_to_u64(mac_addr);
- 	struct batadv_dat_entry *dat_entry;
- 	int hash_added;
+diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
+index b0c0ef824d7d9..a7cf900a21c32 100644
+--- a/sound/hda/ext/hdac_ext_controller.c
++++ b/sound/hda/ext/hdac_ext_controller.c
+@@ -133,7 +133,7 @@ void snd_hdac_link_free_all(struct hdac_bus *bus)
+ EXPORT_SYMBOL_GPL(snd_hdac_link_free_all);
  
- 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip, vid);
- 	/* if this entry is already known, just update it */
- 	if (dat_entry) {
--		if (!batadv_compare_eth(dat_entry->mac_addr, mac_addr))
--			ether_addr_copy(dat_entry->mac_addr, mac_addr);
-+		atomic64_set(&dat_entry->mac_addr, u64_mac);
-+
- 		dat_entry->last_update = jiffies;
- 		batadv_dbg(BATADV_DBG_DAT, bat_priv,
- 			   "Entry updated: %pI4 %pM (vid: %d)\n",
--			   &dat_entry->ip, dat_entry->mac_addr,
-+			   &dat_entry->ip, mac_addr,
- 			   batadv_print_vid(vid));
- 		goto out;
- 	}
-@@ -395,7 +396,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ /**
+- * snd_hdac_ext_bus_get_link_index - get link based on codec name
++ * snd_hdac_ext_bus_get_link - get link based on codec name
+  * @bus: the pointer to HDAC bus object
+  * @codec_name: codec name
+  */
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index 4276dae2e00af..c09652da43ffd 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -141,7 +141,7 @@ void snd_hdac_ext_stream_decouple(struct hdac_bus *bus,
+ EXPORT_SYMBOL_GPL(snd_hdac_ext_stream_decouple);
  
- 	dat_entry->ip = ip;
- 	dat_entry->vid = vid;
--	ether_addr_copy(dat_entry->mac_addr, mac_addr);
-+	atomic64_set(&dat_entry->mac_addr, u64_mac);
- 	dat_entry->last_update = jiffies;
- 	kref_init(&dat_entry->refcount);
+ /**
+- * snd_hdac_ext_linkstream_start - start a stream
++ * snd_hdac_ext_link_stream_start - start a stream
+  * @stream: HD-audio ext core stream to start
+  */
+ void snd_hdac_ext_link_stream_start(struct hdac_ext_stream *stream)
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index 5c7ac8e8de0da..9b786cec8f1e1 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -386,7 +386,7 @@ int snd_hdac_regmap_init(struct hdac_device *codec)
+ EXPORT_SYMBOL_GPL(snd_hdac_regmap_init);
  
-@@ -411,7 +412,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
- 	}
+ /**
+- * snd_hdac_regmap_init - Release the regmap from HDA codec
++ * snd_hdac_regmap_exit - Release the regmap from HDA codec
+  * @codec: the codec object
+  */
+ void snd_hdac_regmap_exit(struct hdac_device *codec)
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index fc4a64a83ff2f..3fa0aa63dd127 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -3491,7 +3491,7 @@ EXPORT_SYMBOL_GPL(snd_hda_check_amp_list_power);
+  */
  
- 	batadv_dbg(BATADV_DBG_DAT, bat_priv, "New entry added: %pI4 %pM (vid: %d)\n",
--		   &dat_entry->ip, dat_entry->mac_addr, batadv_print_vid(vid));
-+		   &dat_entry->ip, mac_addr, batadv_print_vid(vid));
+ /**
+- * snd_hda_input_mux_info_info - Info callback helper for the input-mux enum
++ * snd_hda_input_mux_info - Info callback helper for the input-mux enum
+  * @imux: imux helper object
+  * @uinfo: pointer to get/store the data
+  */
+@@ -3514,7 +3514,7 @@ int snd_hda_input_mux_info(const struct hda_input_mux *imux,
+ EXPORT_SYMBOL_GPL(snd_hda_input_mux_info);
  
- out:
- 	if (dat_entry)
-@@ -923,6 +924,8 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
- 			    struct netlink_callback *cb,
- 			    struct batadv_dat_entry *dat_entry)
- {
-+	u8 mac[ETH_ALEN];
-+	u64 u64_mac;
- 	int msecs;
- 	void *hdr;
+ /**
+- * snd_hda_input_mux_info_put - Put callback helper for the input-mux enum
++ * snd_hda_input_mux_put - Put callback helper for the input-mux enum
+  * @codec: the HDA codec
+  * @imux: imux helper object
+  * @ucontrol: pointer to get/store the data
+@@ -3949,7 +3949,7 @@ unsigned int snd_hda_correct_pin_ctl(struct hda_codec *codec,
+ EXPORT_SYMBOL_GPL(snd_hda_correct_pin_ctl);
  
-@@ -935,11 +938,12 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
- 	genl_dump_check_consistent(cb, hdr);
+ /**
+- * _snd_hda_pin_ctl - Helper to set pin ctl value
++ * _snd_hda_set_pin_ctl - Helper to set pin ctl value
+  * @codec: the HDA codec
+  * @pin: referred pin NID
+  * @val: pin control value to set
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index d697041a8529a..0fce21d13ea2c 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -3947,7 +3947,7 @@ static void vmaster_update_mute_led(void *private_data, int enabled)
+ }
  
- 	msecs = jiffies_to_msecs(jiffies - dat_entry->last_update);
-+	u64_mac = atomic64_read(&dat_entry->mac_addr);
-+	u64_to_ether_addr(u64_mac, mac);
+ /**
+- * snd_dha_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
++ * snd_hda_gen_add_mute_led_cdev - Create a LED classdev and enable as vmaster mute LED
+  * @codec: the HDA codec
+  * @callback: the callback for LED classdev brightness_set_blocking
+  */
+@@ -4098,7 +4098,7 @@ static int add_micmute_led_hook(struct hda_codec *codec)
+ }
  
- 	if (nla_put_in_addr(msg, BATADV_ATTR_DAT_CACHE_IP4ADDRESS,
- 			    dat_entry->ip) ||
--	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN,
--		    dat_entry->mac_addr) ||
-+	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN, mac) ||
- 	    nla_put_u16(msg, BATADV_ATTR_DAT_CACHE_VID, dat_entry->vid) ||
- 	    nla_put_u32(msg, BATADV_ATTR_LAST_SEEN_MSECS, msecs)) {
- 		genlmsg_cancel(msg, hdr);
-@@ -1216,6 +1220,8 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
- 	struct net_device *soft_iface = bat_priv->soft_iface;
- 	int hdr_size = 0;
- 	unsigned short vid;
-+	u8 mac[ETH_ALEN];
-+	u64 u64_mac;
+ /**
+- * snd_dha_gen_add_micmute_led_cdev - Create a LED classdev and enable as mic-mute LED
++ * snd_hda_gen_add_micmute_led_cdev - Create a LED classdev and enable as mic-mute LED
+  * @codec: the HDA codec
+  * @callback: the callback for LED classdev brightness_set_blocking
+  *
+diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
+index 588059428d8f5..46bf294269b70 100644
+--- a/sound/pci/hda/hda_jack.c
++++ b/sound/pci/hda/hda_jack.c
+@@ -213,7 +213,7 @@ static void jack_detect_update(struct hda_codec *codec,
+ }
  
- 	if (!atomic_read(&bat_priv->distributed_arp_table))
- 		goto out;
-@@ -1243,6 +1249,9 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ /**
+- * snd_hda_set_dirty_all - Mark all the cached as dirty
++ * snd_hda_jack_set_dirty_all - Mark all the cached as dirty
+  * @codec: the HDA codec
+  *
+  * This function sets the dirty flag to all entries of jack table.
+@@ -293,7 +293,7 @@ find_callback_from_list(struct hda_jack_tbl *jack,
+ }
  
- 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_dst, vid);
- 	if (dat_entry) {
-+		u64_mac = atomic64_read(&dat_entry->mac_addr);
-+		u64_to_ether_addr(u64_mac, mac);
-+
- 		/* If the ARP request is destined for a local client the local
- 		 * client will answer itself. DAT would only generate a
- 		 * duplicate packet.
-@@ -1251,7 +1260,7 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
- 		 * additional DAT answer may trigger kernel warnings about
- 		 * a packet coming from the wrong port.
- 		 */
--		if (batadv_is_my_client(bat_priv, dat_entry->mac_addr, vid)) {
-+		if (batadv_is_my_client(bat_priv, mac, vid)) {
- 			ret = true;
- 			goto out;
- 		}
-@@ -1261,18 +1270,16 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
- 		 * the backbone gws belonging to our backbone has claimed the
- 		 * destination.
- 		 */
--		if (!batadv_bla_check_claim(bat_priv,
--					    dat_entry->mac_addr, vid)) {
-+		if (!batadv_bla_check_claim(bat_priv, mac, vid)) {
- 			batadv_dbg(BATADV_DBG_DAT, bat_priv,
- 				   "Device %pM claimed by another backbone gw. Don't send ARP reply!",
--				   dat_entry->mac_addr);
-+				   mac);
- 			ret = true;
- 			goto out;
- 		}
+ /**
+- * snd_hda_jack_detect_enable_mst - enable the jack-detection
++ * snd_hda_jack_detect_enable_callback_mst - enable the jack-detection
+  * @codec: the HDA codec
+  * @nid: pin NID to enable
+  * @func: callback function to register
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 3acb4066b5eac..699de1b246efe 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -2210,7 +2210,7 @@ static int dspio_send_scp_message(struct hda_codec *codec,
+ }
  
- 		skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
--						      dat_entry->mac_addr,
--						      hw_src, vid);
-+						      mac, hw_src, vid);
- 		if (!skb_new)
- 			goto out;
+ /**
+- * Prepare and send the SCP message to DSP
++ * dspio_scp - Prepare and send the SCP message to DSP
+  * @codec: the HDA codec
+  * @mod_id: ID of the DSP module to send the command
+  * @src_id: ID of the source
+@@ -2744,7 +2744,7 @@ static int dsp_dma_stop(struct hda_codec *codec,
+ }
  
-@@ -1315,6 +1322,8 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
- 	struct batadv_dat_entry *dat_entry = NULL;
- 	bool ret = false;
- 	unsigned short vid;
-+	u8 mac[ETH_ALEN];
-+	u64 u64_mac;
- 	int err;
+ /**
+- * Allocate router ports
++ * dsp_allocate_router_ports - Allocate router ports
+  *
+  * @codec: the HDA codec
+  * @num_chans: number of channels in the stream
+@@ -3057,8 +3057,7 @@ static int dspxfr_hci_write(struct hda_codec *codec,
+ }
  
- 	if (!atomic_read(&bat_priv->distributed_arp_table))
-@@ -1342,8 +1351,11 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
- 	if (!dat_entry)
- 		goto out;
+ /**
+- * Write a block of data into DSP code or data RAM using pre-allocated
+- * DMA engine.
++ * dspxfr_one_seg - Write a block of data into DSP code or data RAM using pre-allocated DMA engine.
+  *
+  * @codec: the HDA codec
+  * @fls: pointer to a fast load image
+@@ -3255,7 +3254,7 @@ static int dspxfr_one_seg(struct hda_codec *codec,
+ }
  
-+	u64_mac = atomic64_read(&dat_entry->mac_addr);
-+	u64_to_ether_addr(u64_mac, mac);
-+
- 	skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
--					      dat_entry->mac_addr, hw_src, vid);
-+					      mac, hw_src, vid);
- 	if (!skb_new)
- 		goto out;
- 
-@@ -1435,6 +1447,8 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
- 	u8 *hw_src, *hw_dst;
- 	bool dropped = false;
- 	unsigned short vid;
-+	u8 mac[ETH_ALEN];
-+	u64 u64_mac;
- 
- 	if (!atomic_read(&bat_priv->distributed_arp_table))
- 		goto out;
-@@ -1463,11 +1477,17 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
- 	 * this frame would lead to doubled receive of an ARP reply.
- 	 */
- 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_src, vid);
--	if (dat_entry && batadv_compare_eth(hw_src, dat_entry->mac_addr)) {
--		batadv_dbg(BATADV_DBG_DAT, bat_priv, "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
--			   hw_src, &ip_src, hw_dst, &ip_dst,
--			   dat_entry->mac_addr,	&dat_entry->ip);
--		dropped = true;
-+	if (dat_entry) {
-+		u64_mac = atomic64_read(&dat_entry->mac_addr);
-+		u64_to_ether_addr(u64_mac, mac);
-+
-+		if (batadv_compare_eth(hw_src, mac)) {
-+			batadv_dbg(BATADV_DBG_DAT, bat_priv,
-+				   "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
-+				   hw_src, &ip_src, hw_dst, &ip_dst,
-+				   mac, &dat_entry->ip);
-+			dropped = true;
-+		}
- 	}
- 
- 	/* Update our internal cache with both the IP addresses the node got
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index 790f62abfe030..49cef1a85639a 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2387,7 +2387,7 @@ struct batadv_dat_entry {
- 	__be32 ip;
- 
- 	/** @mac_addr: the MAC address associated to the stored IPv4 */
--	u8 mac_addr[ETH_ALEN];
-+	atomic64_t mac_addr;
- 
- 	/** @vid: the vlan ID associated to this entry */
- 	unsigned short vid;
+ /**
+- * Write the entire DSP image of a DSP code/data overlay to DSP memories
++ * dspxfr_image - Write the entire DSP image of a DSP code/data overlay to DSP memories
+  *
+  * @codec: the HDA codec
+  * @fls_data: pointer to a fast load image
 -- 
-2.47.3
+2.53.0
 
