@@ -1,172 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE567322C88;
-	Wed,  9 Sep 2026 06:06:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F32137C903;
+	Wed,  9 Sep 2026 06:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788933970; cv=none; b=Ay/GcEd+3J4RLKo78M+CfRaTcPZe+sLqme3Wbi8rGV69itZzcM5ERuXAi/PyW+MCn9sY+zs907eMXKW/8hLn1/126Ansh4Hgq0Mz/CqGPxJzPS6lQW+M5myY+hxLU5/HsNmGGZkiPNiG8efkYM5YyzvUFm1JFgSMuPV+XgXM3b8=
+	t=1788934068; cv=none; b=pDIA9S/bzS4pYIZKE8F0OobGyq+S+IOFu2bljiLsHOnNpbhqkFGzmNuXjeACjsTlv0VAYig4Ed5jPVOZJX6bjHHepVr4Gfpc4ZzXjxR5JRkbNDKOt2lVjHTN0ij8TFfsrQQnbO5u5HTerj+21ER7Zmdc1zRJho8Heizow+k6Uy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788933970; c=relaxed/simple;
-	bh=aL8rpkoEU9fOUiyqKYzqoHGlaRSiFoW2zdGgPdLQCpA=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OpfhpWo/crQ+oQhUcx9qhjF4vbbaR9k1cUR83lXllRmb9IIiP5Dj+oWPR4MmNW5YeWBjUT4RCejrhCgHyIukvlWcumBQvu7u9ev7Nh5rzSokbgZHR0YcJOnx0VsAzwGGiMbg2wHfjxIHSLHIhxpkbngkKiOfeweYxCjn6ngKpd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYq4lNys; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788934068; c=relaxed/simple;
+	bh=JaqAVT8uiO+uUJmrwFi+DvTd3youR/rV7wQFMvfnpWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rFdZ5w+7JiL1lrb5VMJAR/z/Utetk3RexaMY1KQ1HF5z1UEmVWJjoVnTletZVc9utcoEfOQIq0lOSPqvmeDMbDC2Z5i5u78C2LoX9UzoAmZO1XYR2G4DB2/r3qy/utR2OOZoCv4Fnr1hO/mibf3OewVloznvE8WsKeNdF9dpwpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZAC1NBv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYq4lNys"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C6EA41F00A3A;
-	Wed,  9 Sep 2026 06:06:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZAC1NBv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2D41F00A3A;
+	Wed,  9 Sep 2026 06:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788933968;
-	bh=w8Ac5wV+HERXZzBn8+QrFf0k0XNqyegEFbjjUICntXo=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=EYq4lNyslaTHDN7mrG77hACRwq0swBvsjMJ6zcc40r2Qyius5LCD2wFIJzdW6Svx6
-	 b6xpybLV5dujC6eA7YQEOW94nWeez9Pskpv3BwG2WV506zcn8klHwZ/8rk+7X9FQea
-	 V0l41fIZlzdYXJQQYtlUROCekfP7ALc4shtCKDd2XeWfQjrNgG95gedcy8WqFOFIot
-	 6CmL9aaDDb+sLTekP+GSqGtfzCxvUriScktNY/aLtjNfE7sAK81Kysnwi0UP5nP8Lf
-	 iAto+oz6eMabbCHyINvCsy4U2xdNeRQ0M8tmVhJkSJlI9Ki2OMo5viZEjoftqru8o4
-	 dn4d5FfJD38UQ==
-Date: Tue, 08 Sep 2026 23:06:08 -0700
-Subject: [PATCH 7/7] xfs: advance the findparent inode scan cursor while
- holding ILOCK
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: hch@lst.de, cem@kernel.org, djwong@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178892936771.4057962.16778990010632981835.stgit@frogsfrogsfrogs>
-In-Reply-To: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
-References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
+	s=k20260515; t=1788934063;
+	bh=vISV3w6p3Ty1DjJ3WJ54PARHMW95Q4BJMOnSjVnq/XQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mZAC1NBvuryO5d6uCVwomv+5OjC8Hx+zpPmyhoRkSnA8k6yH/l+qxCrZuEBB/HcsE
+	 PynqwHufR+AJ+wJN41PfP3PH8Cl/8DTnbCQq9Zi40a71cGy0rxnBoy1r0eTX6SatW3
+	 ZRvsohCUsbugbAX+dMNn8u8ZP/af/wVsFnWOk1A+zz9SFpDe+kG1/sCJg9X7Ddzosq
+	 K7M0hNTjEIaP6F7IhC9gdQtkEjbDTAOVgXz6ijSQ7q+/8AOO7GRh0JKGOXDsQeh3ha
+	 86vR1450p9thOL3ryMq+s6TlVqpA28++vulN1BtkumWPnAJ7HTQtKdkQZ+M3cCz2XN
+	 a/jN0Nk2wS3JQ==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 5.15.y] mm/damon/vaddr: drop last same folio access check optimization
+Date: Tue,  8 Sep 2026 23:07:36 -0700
+Message-ID: <20260909060736.273661-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090859-trouble-fanatic-b990@gregkh>
+References: <2026090859-trouble-fanatic-b990@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Darrick J. Wong <djwong@kernel.org>
+The optimization can race when multiple kdamonds are running.  Meanwhile,
+the impact of the optimization is quite doubtful.  Just remove it.
 
-LOLLM pointed out a race condition in xrep_findparent_scan -- the
-directory live update hook holds the directory ILOCK when it calls the
-xchk_iscan_want_live_update predicate to figure out if it needs to
-remember the live update, but xrep_findparent_scan drops the directory
-ILOCK before advancing the cursor.  Therefore, it's possible for a live
-update to check the scan cursor after the scan drops the ILOCK but
-before the scan updates its cursor.  If this happens, we'll fail to
-record the live update.  Fix this by moving the cursor update logic
-inside xrep_findparent_walk_directory.
+The user impact of the issue should be quite trivial.  After all, the race
+can happen only when the user intentionally setup DAMON in the way.  Even
+if it happens, it would be rare and only degrade the best-effort
+monitoring results.  No critical consequences like kernel panic or memory
+corruption happen.
 
-Note that for non-directories it's ok to advance the cursor without
-holding any ILOCK because the findparent scan only cares about directory
-parents, not the children.
+The race possibility was discovered [1] by Sashiko.
 
-Cc: <stable@vger.kernel.org> # v6.10
-Fixes: a07b45576264e7 ("xfs: scan the filesystem to repair a directory dotdot entry")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
+Link: https://lore.kernel.org/20260715031002.108504-4-sj@kernel.org
+Link: https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org [1]
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 5.15.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 831846078caa14b7d00b2ccca8b8fe522afe3204)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- fs/xfs/scrub/findparent.c |   54 ++++++++++++++++++++++++++++++---------------
- 1 file changed, 36 insertions(+), 18 deletions(-)
+ mm/damon/vaddr.c | 33 ++++++---------------------------
+ 1 file changed, 6 insertions(+), 27 deletions(-)
 
-
-diff --git a/fs/xfs/scrub/findparent.c b/fs/xfs/scrub/findparent.c
-index 04b6b96b0a30ed..eab3ac2704befe 100644
---- a/fs/xfs/scrub/findparent.c
-+++ b/fs/xfs/scrub/findparent.c
-@@ -139,32 +139,52 @@ xrep_findparent_dirent(
- 	return 0;
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index dbb0f0fb2e598..bc0034b235d83 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -516,7 +516,6 @@ void damon_va_prepare_access_checks(struct damon_ctx *ctx)
  }
  
--/*
-- * If this is a directory, walk the dirents looking for any that point to the
-- * scrub target inode.
-- */
--STATIC int
--xrep_findparent_walk_directory(
--	struct xrep_findparent_info	*fpi)
-+static inline bool
-+xrep_findparent_want_scan_file(
-+	const struct xrep_findparent_info	*fpi)
+ struct damon_young_walk_private {
+-	unsigned long *page_sz;
+ 	bool young;
+ };
+ 
+@@ -545,10 +544,8 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 			goto huge_out;
+ 		if (pmd_young(*pmd) || !page_is_idle(page) ||
+ 					mmu_notifier_test_young(walk->mm,
+-						addr)) {
+-			*priv->page_sz = ((1UL) << HPAGE_PMD_SHIFT);
++						addr))
+ 			priv->young = true;
+-		}
+ 		put_page(page);
+ huge_out:
+ 		spin_unlock(ptl);
+@@ -567,10 +564,8 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	if (!page)
+ 		goto out;
+ 	if (pte_young(*pte) || !page_is_idle(page) ||
+-			mmu_notifier_test_young(walk->mm, addr)) {
+-		*priv->page_sz = PAGE_SIZE;
++			mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	}
+ 	put_page(page);
+ out:
+ 	pte_unmap_unlock(pte, ptl);
+@@ -581,11 +576,9 @@ static struct mm_walk_ops damon_young_ops = {
+ 	.pmd_entry = damon_young_pmd_entry,
+ };
+ 
+-static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+-		unsigned long *page_sz)
++static bool damon_va_young(struct mm_struct *mm, unsigned long addr)
  {
--	struct xfs_scrub		*sc = fpi->sc;
--	struct xfs_inode		*dp = fpi->dp;
--	unsigned int			lock_mode;
--	int				error = 0;
-+	const struct xfs_scrub			*sc = fpi->sc;
-+	const struct xfs_inode			*dp = fpi->dp;
-+
-+	/* Only directories can be parents */
-+	if (!S_ISDIR(VFS_IC(dp)->i_mode))
-+		return false;
+ 	struct damon_young_walk_private arg = {
+-		.page_sz = page_sz,
+ 		.young = false,
+ 	};
  
- 	/*
- 	 * The inode being scanned cannot be its own parent, nor can any
- 	 * temporary directory we created to stage this repair.
- 	 */
- 	if (dp == sc->ip || dp == sc->tempip)
--		return 0;
-+		return false;
+@@ -604,25 +597,11 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+ static void damon_va_check_access(struct damon_ctx *ctx,
+ 			       struct mm_struct *mm, struct damon_region *r)
+ {
+-	static struct mm_struct *last_mm;
+-	static unsigned long last_addr;
+-	static unsigned long last_page_sz = PAGE_SIZE;
+-	static bool last_accessed;
+-
+-	/* If the region is in the last checked page, reuse the result */
+-	if (mm == last_mm && (ALIGN_DOWN(last_addr, last_page_sz) ==
+-				ALIGN_DOWN(r->sampling_addr, last_page_sz))) {
+-		if (last_accessed)
+-			r->nr_accesses++;
+-		return;
+-	}
++	bool accessed;
  
- 	/*
- 	 * Similarly, temporary files created to stage a repair cannot be the
- 	 * parent of this inode.
- 	 */
- 	if (xrep_is_tempfile(dp))
-+		return false;
-+
-+	return true;
-+}
-+
-+/*
-+ * If this is a directory, walk the dirents looking for any that point to the
-+ * scrub target inode.
-+ */
-+STATIC int
-+xrep_findparent_walk_file(
-+	struct xrep_findparent_info	*fpi)
-+{
-+	struct xfs_scrub		*sc = fpi->sc;
-+	struct xfs_inode		*dp = fpi->dp;
-+	unsigned int			lock_mode;
-+	int				error = 0;
-+
-+	if (!xrep_findparent_want_scan_file(fpi)) {
-+		if (fpi->parent_scan)
-+			xchk_iscan_mark_visited(&fpi->parent_scan->iscan, dp);
- 		return 0;
-+	}
- 
- 	/*
- 	 * Scan the directory to see if there it contains an entry pointing to
-@@ -201,6 +221,8 @@ xrep_findparent_walk_directory(
- 		goto out_unlock;
- 
- out_unlock:
-+	if (fpi->parent_scan)
-+		xchk_iscan_mark_visited(&fpi->parent_scan->iscan, dp);
- 	xfs_iunlock(dp, lock_mode);
- 	return error;
+-	last_accessed = damon_va_young(mm, r->sampling_addr, &last_page_sz);
+-	if (last_accessed)
++	accessed = damon_va_young(mm, r->sampling_addr);
++	if (accessed)
+ 		r->nr_accesses++;
+-
+-	last_mm = mm;
+-	last_addr = r->sampling_addr;
  }
-@@ -308,11 +330,7 @@ xrep_findparent_scan(
- 	ASSERT(S_ISDIR(VFS_IC(sc->ip)->i_mode));
  
- 	while ((ret = xchk_iscan_iter(&pscan->iscan, &fpi.dp)) == 1) {
--		if (S_ISDIR(VFS_I(fpi.dp)->i_mode))
--			ret = xrep_findparent_walk_directory(&fpi);
--		else
--			ret = 0;
--		xchk_iscan_mark_visited(&pscan->iscan, fpi.dp);
-+		ret = xrep_findparent_walk_file(&fpi);
- 		xchk_irele(sc, fpi.dp);
- 		if (ret)
- 			break;
-@@ -401,7 +419,7 @@ xrep_findparent_confirm(
- 		goto out_rele;
- 	}
- 
--	error = xrep_findparent_walk_directory(&fpi);
-+	error = xrep_findparent_walk_file(&fpi);
- 	if (error)
- 		goto out_rele;
- 
+ unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+-- 
+2.47.3
 
