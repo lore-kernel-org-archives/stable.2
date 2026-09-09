@@ -1,42 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539C7482D4;
-	Wed,  9 Sep 2026 05:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A061738E8BF;
+	Wed,  9 Sep 2026 05:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931920; cv=none; b=ZTfNGPEO0zl6m6ODfIpj7W9R5bYvCgxZJP0tfwjFwK6BaqXezZqWVPuWERzlUdCCIAa/xN62Fv8Ji7P96wRVnva+pzngY7deMQOO/HTry/N7Lwp2QPBZhCze7iFtL3v8e1Rj6yHdieJzd4JG5kSH/tXfoXcuaayniwRU6+psmJQ=
+	t=1788932198; cv=none; b=R1UB4tLuo7RNvQru3fL5gamPBtYPQLYpfXY5Sw3cWKfsVJiMIcLxcubCoEMHLtL3K3YTtYBkXkg9iJyB9Fy4XQWMcMsoG8Bi2JhHngg93YMmE4OGyY8yhD0kx8xacsdllry2JENAzVLlNUEBgpUPuFZgSIwu1x6ss8+REAhsyYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931920; c=relaxed/simple;
-	bh=cqdjiDTVIsx6IF8bjeZK+OtT1PMRLkdsl+pm2e3hleI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cz2/MEFecRdstNSwd7DW3bsCFLlAm6eyT8W8d0Kpnf4+ixxZfmlyY0P/qVQPImWac57XPClo5bTv/kMYCcJpakOG9dpXblbuJ1XqlXipCUNVr70sjhLA1TKiBCYiYbQzGsZgZPVjr0IkO0AOGUyxzwltEInje3IovtFWhBPF06g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2JtgsPl; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2JtgsPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A65C1F00A3A;
-	Wed,  9 Sep 2026 05:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788931919;
-	bh=QN/fsFMxm8cPo+Tfo2o1aH0Vp6Rc2SCZ8s5U2niKkes=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a2JtgsPlmHw2EckbC6qdJIaZMsmOdcwlGFDgDJPSfCfMkzfDtI6aTTPK2cBB0KDhy
-	 bK4hwYnj5Bc+ChlKLhGPjguWIsJ16MXHvye8tSpHHokSe+ZiTT0twk6k+w4XWfDYEN
-	 lYyTFFj3FFOWg0M6wd8JjdfVXkQTA2rc0alwRZlgXsxvec8FecFM7me5m1pFSs5oOr
-	 wT+NOd7VapDB9/PQ/Gzb9B79L1djLaa8CDSet9mXvz74rZgYn94zA8b1uY0yI0Q9Ks
-	 E9/ICkHJty5zLokeF0zdsdPjWBDz1EajYHPKdFZccS68yKeujBQ1rnTWCSUxyZjmFo
-	 dbc/SRUwZ+UxQ==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 7.2.y] mm/damon/paddr: drop last same folio access check reuse optimization
-Date: Tue,  8 Sep 2026 22:31:51 -0700
-Message-ID: <20260909053151.242944-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090851-hulk-tutor-8154@gregkh>
-References: <2026090851-hulk-tutor-8154@gregkh>
+	s=arc-20240116; t=1788932198; c=relaxed/simple;
+	bh=rgGWLedxe/mWsnYMx03SHV/cfBhLegC5cNoIFhI+uac=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djnFWP506EY+Sp+AiRj/WEoGWpuzyA8Jl7ZqPqSQf1dlGgG4Lt75zd0/sqsSxHUDhXsyfTWctP8i0Sjs/frrDQXfgriMOPdU7/iwdvgWZNyDf2LddWMuCCjgzZWYEWEFEaHaX/9xSc8Kzernns2DCA/gwYJ0Omhl6lXIo673us8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAH4X1L8KBqy_MBAQ--.32620S3;
+	Wed, 09 Sep 2026 13:36:12 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgDnGDBK8KBq8CGoAw--.35214S2;
+	Wed, 09 Sep 2026 13:36:10 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com,
+	mcanal@igalia.com,
+	kernel-list@raspberrypi.com,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	eric@anholt.net,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Wed,  9 Sep 2026 05:35:09 +0000
+Message-Id: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,79 +42,87 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgDnGDBK8KBq8CGoAw--.35214S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?/TeuFgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZwfdQ11pk717IchTpzFSURcVSijrRuNKLDtryceijmISBFH
+	tRa/3CMSLNfM+754Feup9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cr1rCrW3Aw48JFW3CrW5XFc_yoW5Jr17pF
+	sxCFZ0qrWkWFW3t3sxZ3Z7ZFyrAw4rtry7GFy29w42kwnIyryrKFyqk34YgFyDJayDWrW3
+	tFsxJ3909Fy5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-It can race when multiple kdamonds are being used.  The problem from the
-race is doubtful, but the gain from the optimization is also doubtful.
-Simply drop the optimization in favor of code simplicity.
+The hangcheck timer, which every submitted job arms and which queues
+reset_work once a job stops making progress, and the job_done_work,
+which the render-done interrupt queues to release completed jobs, are
+never drained at teardown: vc4_irq_disable() cancels only
+overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
+release, after vc4_v3d_unbind() has already uninstalled the V3D
+interrupt and cleared vc4->v3d.
 
-The user impact is doubtfully trivial.  After all, this kind of
-interference can happen only by intentional user setup.  Even if it
-happens, it will be rare, and the consequence is degradation of the
-best-effort monitoring results.  No critical consequences like kernel
-panic or memory corruption happen.
+A timer still armed by then reads V3D registers through the NULL
+vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
+them after it has been freed.
 
-The race was discovered [1] by Sashiko.
+Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
+cancel reset_work before the interrupt is taken down, because
+vc4_irq_reset() in a straggler reset re-enables it, then cancel
+job_done_work once no source is left, before vc4->v3d is cleared.
 
-Link: https://lore.kernel.org/20260715031002.108504-5-sj@kernel.org
-Link: https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org [1]
-Fixes: a28397beb55b ("mm/damon: implement primitives for physical address space monitoring")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit f23f0aa62b2f32c2b12f95959fc4603ef81678b2)
-Signed-off-by: SJ Park <sj@kernel.org>
+This issue was found by an in-house static analysis tool.
+
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- mm/damon/paddr.c | 20 ++++----------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index f7613ce279a24..b3507b1f62499 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -65,7 +65,7 @@ static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
- 	}
- }
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..11d4df3164b4 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
  
--static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
-+static bool damon_pa_young(phys_addr_t paddr)
- {
- 	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
- 	bool accessed;
-@@ -74,7 +74,6 @@ static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
- 		return false;
+ #include <drm/drm_print.h>
  
- 	accessed = damon_folio_young(folio);
--	*folio_sz = folio_size(folio);
- 	folio_put(folio);
- 	return accessed;
- }
-@@ -82,23 +81,12 @@ static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
- static void __damon_pa_check_access(struct damon_region *r,
- 		struct damon_attrs *attrs, unsigned long addr_unit)
- {
--	static phys_addr_t last_addr;
--	static unsigned long last_folio_sz = PAGE_SIZE;
--	static bool last_accessed;
-+	bool accessed;
- 	phys_addr_t sampling_addr = damon_pa_phys_addr(
- 			r->sampling_addr, addr_unit);
+@@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
  
--	/* If the region is in the last checked page, reuse the result */
--	if (ALIGN_DOWN(last_addr, last_folio_sz) ==
--				ALIGN_DOWN(sampling_addr, last_folio_sz)) {
--		damon_update_region_access_rate(r, last_accessed, attrs);
--		return;
--	}
--
--	last_accessed = damon_pa_young(sampling_addr, &last_folio_sz);
--	damon_update_region_access_rate(r, last_accessed, attrs);
--
--	last_addr = sampling_addr;
-+	accessed = damon_pa_young(sampling_addr);
-+	damon_update_region_access_rate(r, accessed, attrs);
- }
++	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
++	if (vc4->gen == VC4_GEN_4) {
++		timer_shutdown_sync(&vc4->hangcheck.timer);
++		cancel_work_sync(&vc4->hangcheck.reset_work);
++	}
++
+ 	vc4_irq_uninstall(drm);
  
- static unsigned int damon_pa_check_accesses(struct damon_ctx *ctx)
--- 
-2.47.3
++	/* Nothing can queue job_done_work any more; drain it. */
++	if (vc4->gen == VC4_GEN_4)
++		cancel_work_sync(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
 
