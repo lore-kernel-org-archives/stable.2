@@ -1,179 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C398526A9C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66D1526A89
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950590; cv=none; b=t8W/hV4e/RnZESQYGFgEh9zIekaLJVnnaTA5c+Y4AUUgkHedgyqTEr6c/Fs6FwVJh/ezSFYYCU8PYxoOoWQ9EckZd1wg69Aelu+1vA929F9sxfL/zrPD/WsU7vUmfypDxuBvZTwdCjbB8/3WK2UBg0CBlvwIU3VzGCyMEdq682I=
+	t=1788950647; cv=none; b=DPQWxXUey8qB6cFa5awjxA3iGwGine+JGXZMH53a9zQvrFIODtXSwEgtjU9VKHtNueOV/bImJMhLorB1pL70wG6OwxNIEAzxSzcc1/4zimJPuWN2WyIcDrjLbm5HIa350G/jPM9R8am6WpQR/4lorlktv+0of6327ZEaUZUP8aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950590; c=relaxed/simple;
-	bh=UMzUyz0R+INtkTZWxZ2NzXIQm/jo7nTsvfa71JWys38=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZlTeUfq8dZG/bxMfvMydIzB3B6UVg6tJNAp/fa5Yz8Hkbty10HzyhZIScVo6lVkwpnkl1p8WMDyB+HKVLjpC1EliqkvHT4f9nUcCgv4XvE3GSMJpnD1zBZKu6to5Ann7rUE7bm+5UbwQfoRfB+3OTaGUstww0UAj5B4Om8FQrfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpUfZjMz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950647; c=relaxed/simple;
+	bh=1Dpw6CWc9t3y1aL+EQtiXI/OfT88fmRT2nvK15fDac8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=og3Wzqdr62uk0e4B+pR6YLcT0u/JyGeJGDMbJOaFdBTNcPd45xMq/xUE4F9ccQh03++tWPytalyAF4ZazpyJgLSChyfzG6aeyC6MhL0G9txi5ojw6x3ObYxsxN+Cw+1KNJD1qo/aWGi8aOx0IcTZu32PkIpuLqgskOsXN+A6SVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PM/8LLHL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpUfZjMz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D196F1F00A3E;
-	Wed,  9 Sep 2026 10:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950588;
-	bh=sT9VdK20oW5HGwoFUasSDrVpDi2t6N+qgmMre0AD2Es=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DpUfZjMzfc4h0Pdta6QljpetYhyWt/5j/8u1J0FA2alINEO45gjM9HpPR7x2zhKB6
-	 5Eq7JQbNhM0E5jyGJN8MuetGuQACheI6A+qii/RqopYjcwK7Hatrk4EYlOz6eghv5J
-	 W+sTNU85sqOj5ROoe2HZ2TGj/jEGSd3OBF/7kltiEyLSyo4Q9uAX1HoS3L4uS3gvrg
-	 IoCpsl7nNDxXw+Vkntt9oLq8q6dwQTMg7qRpG6X6njtDSF0oFvHNkp6BwTta+hppbv
-	 KeVimkHUPSokBYmFlW2rvQZUwRwBrLShU3Ep1CB+lpQOBWK8US0vCWhrYij1bj5wiX
-	 Urd1/Uqk+EniQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Kees Cook <kees@kernel.org>,
-	Mark Fasheh <mark@fasheh.com>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] ocfs2: validate directory-index entry counts when reading metadata
-Date: Wed,  9 Sep 2026 06:43:04 -0400
-Message-ID: <20260909104304.1557880-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909104304.1557880-1-sashal@kernel.org>
-References: <2026090341-laundry-deceiving-d857@gregkh>
- <20260909104304.1557880-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PM/8LLHL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C501F00A3D;
+	Wed,  9 Sep 2026 10:44:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788950645;
+	bh=w9WdZlrGzIWHZtZVT/fa9iGL4pXEjjGvuzezjlHiWPY=;
+	h=Subject:To:Cc:From:Date;
+	b=PM/8LLHL2/NPQlnFBCkhfHSEpiAjjU8AsDYvMZ32f0J3Cv5DA1+KCjK7UmyU5bnzf
+	 5+gtA+ou3f2ma6k84e7cjXWNGkSVSsY7wAEpAdOCiVv3b+nD5dEc9myWfZcpwpP+r1
+	 ZIUPzfMrz+riP4L/dJ4uZycJnUs9SJvO7Yki2QUk=
+Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Use split "zap all fast" helpers when" failed to apply to 6.12-stable tree
+To: seanjc@google.com,michael.roth@amd.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 12:33:23 +0200
+Message-ID: <2026090923-sleep-shore-e015@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-[ Upstream commit bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
-signature of an indexed-directory block before it reaches higher-level
-callers, but neither validator bounds the ocfs2_dx_entry_list counts
-against the capacity of the block that holds them.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-ocfs2_dx_dir_search() then walks
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x db095727ff5739f4f46ee641ee6ef450032886db
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090923-sleep-shore-e015@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
-		dx_entry = &entry_list->de_entries[i];
+Possible dependencies:
 
-over de_num_used entries with no bounds check.  entry_list is either
-dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
-dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
-de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
-and make the walk read far past the end of the 4KB metadata block, giving
-a slab out-of-bounds read reachable from any path lookup, stat() or open()
-on an indexed directory once the image is mounted.
 
-Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
-block read") already bounds dr_list for the non-inline dx_root, but left
-the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
-same read-time validation for both entry lists: de_count must equal the
-capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
-de_num_used must not exceed de_count, rejecting corrupted metadata with
--EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
-array.
 
-de_count is always written as exactly the block capacity when a leaf or
-inline root is formatted, so the equality check does not reject any valid
-image.
+thanks,
 
-Found by 0sec automated security-research tooling (https://0sec.ai).
+greg k-h
 
-Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
-Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
-Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ocfs2/dir.c | 45 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 4 deletions(-)
+------------------ original commit in Linus's tree ------------------
 
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index bf2a523a357b2..372dbd33875a3 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -611,6 +611,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 					  le16_to_cpu(el->l_count));
- 			goto bail;
- 		}
-+	} else {
-+		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
-+
-+		if (le16_to_cpu(dl_list->de_count) !=
-+		    ocfs2_dx_entries_per_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_count),
-+					  ocfs2_dx_entries_per_root(sb));
-+			goto bail;
-+		}
-+
-+		if (le16_to_cpu(dl_list->de_num_used) >
-+		    le16_to_cpu(dl_list->de_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_num_used),
-+					  le16_to_cpu(dl_list->de_count));
-+			goto bail;
-+		}
- 	}
- 
- bail:
-@@ -650,10 +672,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
- 		return ret;
- 	}
- 
--	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
--		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
--				  7, dx_leaf->dl_signature);
--	}
-+	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
-+		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
-+				   7, dx_leaf->dl_signature);
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
-+	    ocfs2_dx_entries_per_leaf(sb))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count),
-+				   ocfs2_dx_entries_per_leaf(sb));
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
-+	    le16_to_cpu(dx_leaf->dl_list.de_count))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count));
- 
- 	return ret;
+From db095727ff5739f4f46ee641ee6ef450032886db Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 9 Jul 2026 13:49:39 -0700
+Subject: [PATCH] KVM: x86/mmu: Use split "zap all fast" helpers when
+ invalidating memslot
+
+Manually invoke the front half and back half of the "zap all fast" flow
+when invalidating a memslot so that mmu_lock is acquired at function scope
+in kvm_arch_flush_shadow_memslot().   This will allow putting more code
+inside the critical section without having to take mmu_lock twice in quick
+succession.
+
+Opportunistically open code checking whether or not to do the fast zap, to
+discourage removing the local "zap_all" in a future cleanup, i.e. to ensure
+the SLOT_ZAP_ALL quirk is queried exactly once.  Processing the front half
+but not the back half of the fast zap (if SLOT_ZAP_ALL were disabled
+concurrently) would result in KVM unnecessarily keeping invalid TDP MMU
+roots until the VM is destroyed.
+
+No functional change intended.
+
+Cc: stable@vger.kernel.org # 6.12.x
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Link: https://patch.msgid.link/20260709204948.1988414-10-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index a5c2a560a88a..3eb1f86593b1 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -7573,12 +7573,6 @@ static void kvm_mmu_zap_memslot_pages_and_flush(struct kvm *kvm,
+ 	kvm_mmu_remote_flush_or_zap(kvm, &invalid_list, flush);
  }
--- 
-2.53.0
+ 
+-static inline bool kvm_memslot_flush_zap_all(struct kvm *kvm)
+-{
+-	return kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
+-	       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
+-}
+-
+ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 				   struct kvm_memory_slot *slot)
+ {
+@@ -7589,16 +7583,23 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 		.may_block = true,
+ 		.attr_filter = KVM_FILTER_PRIVATE | KVM_FILTER_SHARED,
+ 	};
++	bool zap_all = kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
++		       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
+ 	bool flush;
+ 
+-	if (kvm_memslot_flush_zap_all(kvm)) {
+-		kvm_mmu_zap_all_fast(kvm);
++	write_lock(&kvm->mmu_lock);
++
++	if (zap_all) {
++		__kvm_mmu_zap_all_fast_front_half(kvm);
+ 	} else {
+-		write_lock(&kvm->mmu_lock);
+ 		flush = kvm_unmap_gfn_range(kvm, &range);
+ 		kvm_mmu_zap_memslot_pages_and_flush(kvm, slot, flush);
+-		write_unlock(&kvm->mmu_lock);
+ 	}
++
++	write_unlock(&kvm->mmu_lock);
++
++	if (zap_all)
++		__kvm_mmu_zap_all_fast_back_half(kvm);
+ }
+ 
+ void kvm_mmu_invalidate_mmio_sptes(struct kvm *kvm, u64 gen)
 
