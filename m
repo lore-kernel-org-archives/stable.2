@@ -1,94 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E50658E2AE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE81E58E2B8
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963523; cv=none; b=RX8HEHlQtoXG05N6amFWj5vUdx1geRhZ25rghpJcd1zqDV7m+aC8ArYCg+y87fROZn4hP4CbgEbff08+zrsw4edvcWhEbDXxBUFHubC6A0BWEpssUq4QpL6AkCNOrtc0Z+0ZOw8FNnn91XC0FjRez1MGwKeB9XnAqBcB+l/1Wxk=
+	t=1788963523; cv=none; b=KAXNSsCAhNPzM783EctTSr6FYpxobK2q4Nnvebk1KPqPHPHgLmec66p4wkmo16Jwdk5gWYXUtoAFiPF+A7Mw7icabVKNEcdH8Qor9BDm6q19kqyWvJzeBl0moUzuKAkEc4ngoZCB80OlABvm1DyXAoM0aQPYFg/ps+to2exu6mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963523; c=relaxed/simple;
-	bh=VmvwiFSfBkcjbCA/Tt4eu7VAkimEo3fx/G38I5iQmmo=;
+	bh=aA0igMpSHfh98ck5uVlFnOSq03LNeL8dR76qNxNQ2dA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h6AyZEuopC9r6iTXi6iHDOHfTGC84HMCtsMBLiIlqL/LaB8BkQIc3/gSpqcI0DpyWzY0Igu3ZDbT33o9nV3kBhpSEqGPnz23Igas4tGC/AvqFll+irZ6CLZ78WsFFAo4XdgU/esie7IZQR6AWTdkU1OzCBn9kdFfrlSmb/lldZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJ9qN9Xu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oreVcVZg0vDAu8ztjAjtrh3RPExyTwgD8H4Jlt9mJQxJZPnvEl/0xIWyTjkT/Eo5ZRk5aDrOcDxTbojeiXwxzYvEqT5bDWKPeblcnEnm+fUfdo62e6Ef+mI8jmujBFKN1icWShy+7Jy1IHtp3+I9ku/bB/FXQLTDCPy4HaSYMVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1LIDnpy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJ9qN9Xu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A54551F00A3D;
-	Wed,  9 Sep 2026 14:18:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1LIDnpy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4791F00A3E;
+	Wed,  9 Sep 2026 14:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963521;
-	bh=W2gZtNGLmg/jVsOoZ2RGwLH5d7avrz59X5NW0DNtaFE=;
+	s=k20260515; t=1788963522;
+	bh=ho1U4zi45ieRIWZFeA+cjpTs1qkRPuEEQ+0f0+8vsL4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fJ9qN9XuSyZs3w4tQhWUrDuj3DoKcp2zZh57eEPFe0uPKSIWEjf+goA/F8Msimr9N
-	 Xdd3q8y0jg4T5/qiNL+HG/xo2VjgUctWkwpz674rJiFw6aTOLVMwYN1X+1Ps3Tnx1a
-	 c7V3E3hEOmwndvDXps2Qg6REjeHKnO5Z0Oo4X2Hf+qR31ladDhVNlJ7bFe9pt9l3kZ
-	 fB2efPPd1OYy2Yx8VFr9QUZ+K5H4MHNClSpgbYCzVTLKwijGbYwY4392ZGzoWXVt6G
-	 ZpU/5CvcHqzhMk8FeudgX69GQoIF09IdHO3Jq1Ri62wFFli1Dcuvjl/T0ZWDumVuov
-	 A69yXqS/oMdqw==
+	b=a1LIDnpyaxgUw5XO0aQ0ESfr0poZmNu0qp3yS8Oq9s16EvXnhgutaICleErXxup94
+	 f1udv7HbNutoeSD4j3tTc/kbwdCwNc45FnK/nqippR9JmOkbyfVRIbH15Wj08IXMI1
+	 zkqfQyNHYi275zEY9MM1yyQ20tlFJ/lRa/OTSUOcVYC43YIpB+9/SiY5oh3+TwfYkD
+	 0bgYNCzMgtGxEOc+wfiXf91XaKaXVEFwEeyTuScN91xv0dsdBbawFJXtOKMr5bobfI
+	 aaORec6vb2PHHCLCOw+Q0ES9oRhbw17DOj8L8u5J9Mr3EDho8g6mqz0J8C9zfUTQ6d
+	 wDT4fsZo2kLkQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mmc: via-sdmmc: cancel card-detect work on remove
+Subject: [PATCH 6.12.y 1/2] platform/x86: ISST: Check for admin capability for write commands
 Date: Wed,  9 Sep 2026 10:18:39 -0400
-Message-ID: <20260909141839.2421623-1-sashal@kernel.org>
+Message-ID: <20260909141840.2422032-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090308-drainage-dandruff-6985@gregkh>
-References: <2026090308-drainage-dandruff-6985@gregkh>
+In-Reply-To: <2026090311-unboxed-worrier-de27@gregkh>
+References: <2026090311-unboxed-worrier-de27@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-[ Upstream commit 57e5d877f898d5e5c9d672a77bb6bdd24f0d9bf5 ]
+[ Upstream commit 69cd1ca440a96c85dcedcddfa5e0af6012f60b8b ]
 
-Disabling the device interrupt and freeing the IRQ prevents new card-detect
-work from being queued, but carddet_work already queued by the handler can
-still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
-host through container_of() and dereferences its MMIO base; once remove()
-returns the host can be freed, so that work would touch freed memory.
+In some SST deployments, administrators want to allow reading SST
+capabilities for non-root users. This can be achieved by changing file
+permissions for "/dev/isst_interface", but they still want to prevent
+any changes to the SST configuration by non-root users.
 
-Cancel carddet_work after freeing the IRQ and before cancelling
-finish_bh_work, which the card-detect handler can also queue. carddet_work
-can re-enable the interrupt through via_reset_pcictrl(); mask it again
-afterwards.
+This capability was available before for non-TPMI SST. Extend the same
+capability for TPMI SST by adding a check for CAP_SYS_ADMIN for all
+write commands.
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
-
-Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ adjusted context to retain del_timer_sync() instead of timer_delete_sync(). ]
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Link: https://patch.msgid.link/20260107060729.1634420-1-srinivas.pandruvada@linux.intel.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: e45d6b847286 ("platform/x86: ISST: Validate max level for set feature")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/via-sdmmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../x86/intel/speed_select_if/isst_tpmi_core.c        | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
-index ba6044b16e07a..cef9f42c26d4d 100644
---- a/drivers/mmc/host/via-sdmmc.c
-+++ b/drivers/mmc/host/via-sdmmc.c
-@@ -1201,6 +1201,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
+diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+index 9d376306e1e23..3c8fda948b651 100644
+--- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
++++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+@@ -620,7 +620,7 @@ static long isst_if_core_power_state(void __user *argp)
+ 		return -EINVAL;
  
- 	free_irq(pcidev->irq, sdhost);
+ 	if (core_power.get_set) {
+-		if (power_domain_info->write_blocked)
++		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
+ 			return -EPERM;
  
-+	cancel_work_sync(&sdhost->carddet_work);
-+	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
-+	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
-+
- 	del_timer_sync(&sdhost->timer);
+ 		if (core_power.enable > SST_CP_MAX_ENABLE ||
+@@ -679,7 +679,7 @@ static long isst_if_clos_param(void __user *argp)
+ 		return -EINVAL;
  
- 	tasklet_kill(&sdhost->finish_tasklet);
+ 	if (clos_param.get_set) {
+-		if (power_domain_info->write_blocked)
++		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
+ 			return -EPERM;
+ 
+ 		if (!in_range(clos_param.min_freq_mhz / SST_MUL_FACTOR_FREQ, 0, SST_MAX_FREQ + 1))
+@@ -790,7 +790,8 @@ static long isst_if_clos_assoc(void __user *argp)
+ 
+ 		power_domain_info = &sst_inst->power_domain_info[part][punit_id];
+ 
+-		if (assoc_cmds.get_set && power_domain_info->write_blocked)
++		if (assoc_cmds.get_set && (power_domain_info->write_blocked ||
++					   !capable(CAP_SYS_ADMIN)))
+ 			return -EPERM;
+ 
+ 		offset = SST_CLOS_ASSOC_0_OFFSET +
+@@ -968,7 +969,7 @@ static int isst_if_set_perf_level(void __user *argp)
+ 	if (!power_domain_info)
+ 		return -EINVAL;
+ 
+-	if (power_domain_info->write_blocked)
++	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
+ 	if (!(power_domain_info->pp_header.allowed_level_mask & BIT(perf_level.level)))
+@@ -1028,7 +1029,7 @@ static int isst_if_set_perf_feature(void __user *argp)
+ 	if (!power_domain_info)
+ 		return -EINVAL;
+ 
+-	if (power_domain_info->write_blocked)
++	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
+ 	if (perf_feature.feature & ~SST_PP_FEATURE_STATE_VALID_MASK)
 -- 
 2.53.0
 
