@@ -1,186 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64B0572691;
-	Wed,  9 Sep 2026 14:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F45572691;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963263; cv=none; b=SJqAw/72ghKO7YsTLTcm/gq0zIpbhGp6p4atQt0nIKNjovGKbWeATgY5jPWzMmQaxjn2ElYQ7mVzcXhfdmjz9r6bCMnvKhBm2jWzC+sXO24s/NSNKfY4It+aLvAYP6cen70hJRkqn9l6VvJl2B4DGS8VTu91ZBQJMbsEjG9jBEI=
+	t=1788963263; cv=none; b=o/lkTw5PZQ3DezccZxgWDhor3ZjK9xyOezw5OMECJ8X5gswhs7xfcUonLsiEXrU7c1PZVswe9dv8pgYCC70sQufQoI/qLg4M7a8ivcGt1qQaePs2olL6bVE99ym6sDqFjJXg3m8bVL2LlPEYIz0P+eO9Ej2TFtqYXqexUr0TH08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788963263; c=relaxed/simple;
-	bh=RIarHmsOhr4N5i8mlieK4lTBjeJEqVP+0zrN5wwTMJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GiLTm6MplkA/Lsb+11+k+opNJJh9bhO5GMiSeYrm8/3Hhsule3n4CF+BLlaJSsRSXv4xe32vaqLzC0CfvRu4MHI3Egitzntcs2A5o3maUaO/8FI/Pmqu4pA7AD8m98lsB2eBzIILEQkKfd2h+ZZMNMsqeLdWqu0eNhMW7kcTUtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dlhCGELi; arc=none smtp.client-ip=100.103.45.18
+	bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WcOF4GIOAVJqkq2HJaSIakQMfKfoZqdoaZUWrSsp0ii0BaYQOuclc6E57u+1rpOilV1ZkXuV6Lr+NRp7+r4xza7jmlHjurBrWgxPabSlJq5vGOLT14vuAAESbGx/do7rLyBqfuiPlmeJ6qPc3Rny3dYGOB1EyqQQbtBdWGkAlRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cldoZ0+P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dlhCGELi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCB81F00A3A;
-	Wed,  9 Sep 2026 14:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788963261;
-	bh=Cb6HQcKJZV51rQBzhUuelZAnuo0iBjdSRaoRBpFTPio=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dlhCGELiEXi/bg499tkPzFmdjhrWQTrWHraNNT3NDaNP7gZynostonfCUhYN92Z9h
-	 Maq9V/kmHDGqs66cYTxcbkfU/SEpIwZLSMI6YStuAhxazGG9z0X/C3JPhUNNbnPiMS
-	 /hbWRhajRc3OAEZmFOhhwjpRgT7wreyI93YGqQiI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Elson Serrao <elson.serrao@oss.qualcomm.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Subject: [PATCH 6.18 019/583] usb: dwc3: clear forceRM when issuing EndTransfer
-Date: Wed,  9 Sep 2026 15:35:04 +0200
-Message-ID: <20260909134238.489950965@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cldoZ0+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2BDE4C2BCF4;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788963263;
+	bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=cldoZ0+Pddf03c+LoY8QiT/xygNIojZxyh/GWSqBk/xNVRl4zlyQ9r6eSdFrHmjzc
+	 vD1h24w13vhlgzpyvz30f7TwljokUtF8thBRG1nA36FPwbkewbWzApRLJyWRTpO74r
+	 i0/OizuDDryXBV9c+ff3bzNJjvMjNqj422Ja74fUN7bQYIjb3F6zrm7G/VrG1bvwmW
+	 iS5nSl52yoGonsHCAw0YIcb6BnVAztyYTwJhLBRVse6L1Bs6p6PfTVXIA9XHuyiKG8
+	 glyDA2evfuhwEoOlSghEGCX+iEWkaelwHfk9X6+rWZIxZyaSd1m1rR+e+LeqqjVLOY
+	 +JlxYE4gIbS3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02E8AC79FBF;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH 0/3] iommu/mediatek-v1: fix the driver + mt6572 support
+Date: Wed, 09 Sep 2026 17:14:04 +0300
+Message-Id: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWhoRVXEYvRDkbiJ62KRNxds
+ fwW713gyTF5qJMLHB3seV0i8jQBM+IykGAbDTKTKtOyEKrUUvA6z0FYJF2hRVSlgRhsjno+v1n
+ T/vahm8js7wHu+wGvI8UlbgAAAA==
+X-Change-ID: 20260724-6572-iommu-dae78adaa65c
+To: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: iommu@lists.linux.dev, linux-mediatek@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788963261; l=1496;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+ b=i0i1FiCTJpC+cIW9dxpYnEDhoPKkkIOIjFygBYU4F309XWXCI9cmMfZ1jrIWHFPCUslryK9Ut
+ AV1kpB08YqGA78ZvP3n0xfS1XDtxBw7CPzbjyAHi27A+9Ls0LDEO6in
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+This patch series fixes silently broken IOMMU v1 driver and adds mt6572
+SoC support.
 
-------------------
+It appears that currently the driver is not working at all... IOMMU core
+will silently reject the component bind unless there's of_xlate callback.
+The fix is pretty straightforward - provide of_xlate callback (based on
+mtk_iommu gen 2 driver) to let IOMMU attach devices.
 
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+This makes DRM subsystem use IOMMU like all gen 2 SoCs do.
+It can be verified by reading overlay engine input address.
+Before:
+~ # devmem 0x14007040 32
+0xBB900000
 
-commit b58e6200450d350314db0ecda7d6d1bde3281e80 upstream.
+After:
+~ # devmem 0x14007040 32
+0x00000000
 
-The forceRM bit of the DEPCMD register controls the behavior of the
-EndTransfer command used to stop an active transfer. Older DWC3
-programming guide revisions recommended setting forceRM=1 when
-issuing EndTransfer. Newer programming guide revisions recommend
-issuing EndTransfer with forceRM cleared.
+Note the changes weren't tested on mt2701, because I don't have such
+hardware.
 
-With forceRM=1 on DWC_usb31 v2.00a and v2.10a controllers, a transfer
-aborted through the ep_dequeue path was observed to remain active
-after EndTransfer completion. A subsequent StartTransfer issued on the
-same endpoint triggered writes associated with the aborted transfer.
-This resulted in an SMMU fault because the transfer buffer had already
-been unmapped during EndTransfer command-completion cleanup.
+It's worth mentioning that some bits may apply to mt6582 and 6589,
+however, they seem to have L2 cache for IOMMU, therefore patch 3 has
+MT6572 IOMMU type, and not MT65XX.
 
-Using forceRM=0 eliminates the issue. Although older DWC3 programming
-guide revisions recommended setting forceRM=1, no issues are known
-from using forceRM=0. Clear forceRM when issuing EndTransfer to provide
-consistent EndTransfer behavior and align with newer programming guide
-recommendations.
-
-Fixes: 1e43c86d84fb ("usb: dwc3: core: Add DWC31 version 2.00a controller")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260813151456.867008-1-elson.serrao@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- drivers/usb/dwc3/ep0.c    |    2 +-
- drivers/usb/dwc3/gadget.c |   21 +++++++++++++--------
- 2 files changed, 14 insertions(+), 9 deletions(-)
+Roman Vivchar (3):
+      dt-bindings: iommu: mediatek: add mt6572
+      iommu/mediatek-v1: fix IOMMU device binding
+      iommu/mediatek-v1: add mt6572 support
 
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -304,7 +304,7 @@ void dwc3_ep0_out_start(struct dwc3 *dwc
- 
- 		dwc3_ep->flags &= ~DWC3_EP_DELAY_STOP;
- 		if (dwc->connected)
--			dwc3_stop_active_transfer(dwc3_ep, true, true);
-+			dwc3_stop_active_transfer(dwc3_ep, false, true);
- 		else
- 			dwc3_remove_requests(dwc, dwc3_ep, -ESHUTDOWN);
- 	}
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1004,7 +1004,7 @@ static int __dwc3_gadget_ep_enable(struc
- 			 * controller to generate an ERDY to initiate the
- 			 * stream.
- 			 */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 
- 			/*
- 			 * All stream eps will reinitiate stream on NoStream
-@@ -1032,7 +1032,7 @@ void dwc3_remove_requests(struct dwc3 *d
- {
- 	struct dwc3_request		*req;
- 
--	dwc3_stop_active_transfer(dep, true, false);
-+	dwc3_stop_active_transfer(dep, false, false);
- 
- 	/* If endxfer is delayed, avoid unmapping requests */
- 	if (dep->flags & DWC3_EP_DELAY_STOP)
-@@ -1720,7 +1720,7 @@ static int __dwc3_gadget_kick_transfer(s
- 		if (ret == -EAGAIN)
- 			return ret;
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_DEQUEUED);
-@@ -1757,6 +1757,11 @@ static int __dwc3_gadget_get_frame(struc
-  * the controller won't update the TRB progress on command
-  * completion. It also won't clear the HWO bit in the TRB.
-  * The command will also not complete immediately in that case.
-+ *
-+ * Older programming guide revisions recommended setting ForceRM to 1
-+ * when ending a transfer. Newer programming guide revisions now
-+ * recommend keeping ForceRM cleared, and TRBs are properly updated
-+ * on command completion.
-  */
- static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool interrupt)
- {
-@@ -1882,7 +1887,7 @@ static int dwc3_gadget_start_isoc_quirk(
- 		 * to wait for the next XferNotReady to test the command again
- 		 */
- 		if (cmd_status == 0) {
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 			return 0;
- 		}
- 	}
-@@ -2165,7 +2170,7 @@ static int dwc3_gadget_ep_dequeue(struct
- 			struct dwc3_request *t;
- 
- 			/* wait until it is processed */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 
- 			/*
- 			 * Remove any started request if the transfer is
-@@ -2242,7 +2247,7 @@ int __dwc3_gadget_ep_set_halt(struct dwc
- 			return 0;
- 		}
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_STALLED);
-@@ -3357,7 +3362,7 @@ static void dwc3_nostream_work(struct wo
- 		dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
- 	} else {
- 		dep->flags |= DWC3_EP_DELAY_START;
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 		spin_unlock_irqrestore(&dwc->lock, flags);
- 		return;
- 	}
-@@ -3715,7 +3720,7 @@ static bool dwc3_gadget_endpoint_trbs_co
- 	if (usb_endpoint_xfer_isoc(dep->endpoint.desc) &&
- 		list_empty(&dep->started_list) &&
- 		(list_empty(&dep->pending_list) || status == -EXDEV))
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 	else if (dwc3_gadget_ep_should_continue(dep))
- 		if (__dwc3_gadget_kick_transfer(dep) == 0)
- 			no_started_trb = false;
+ .../devicetree/bindings/iommu/mediatek,iommu.yaml  |   3 +
+ drivers/iommu/mtk_iommu_v1.c                       | 158 ++++++++++++---------
+ .../memory/mediatek,mt6572-memory-port.h           |  26 ++++
+ 3 files changed, 123 insertions(+), 64 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260724-6572-iommu-dae78adaa65c
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
 
 
