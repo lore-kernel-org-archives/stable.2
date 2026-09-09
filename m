@@ -1,122 +1,205 @@
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C2852ED47
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951677; cv=pass; b=JuMo66i2KnuLnYMBLzRwuoXzDenuzOq2gsEepN/wa3P2gvSCzCaWRYBlHP5BVKgee0McjJMMFPGtpExpPvMtF7LqZ7tKV/Ub7DR0JyceAlPcHhoG6yk1zdsXcyPMtZY93tzUcEWh3jn9+dF4ZOQnlEc07fQLbYSqa++clj1ymuo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951677; c=relaxed/simple;
-	bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qmWACG9FlZEEASogI5Z6GkLJ8X0Ti1Z1mWWxshwGRMvMKFDF06jMxuHqEn/80JU/JMq31nKvg79ApLyYCeIzChs5oeetW7b+t1C24j8f1Sd946dycAxuRf3Xj3QBJIrT7LvRkBMpZBIdHQUwLYu1ioX0k0shAvKCxkZRIIE3QPI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLuiy9lH; arc=pass smtp.client-ip=209.85.221.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D8A538D68
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788951843; cv=none; b=sFZDPSP2iDQv4qD9VS8Z1Kmsh3njZoIWD7MIjJnQk+i3f3PaAoA/nRpCtLI4zG7k8Wwfw7zxCmRduDBO3oV257bchBPNWExwSd21YDrNvfKiyGxJsqvoRj6T5kleTiYC0uIGNCrB0qkVRG8qqHe4tH8vn3MDzvws2H8Y+ldcBmA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788951843; c=relaxed/simple;
+	bh=ekOmJ/Pxpor6drkFOY8VwP8zxQ+suVgbLtDAJ2TEic8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n0HeH+Y652a6YbyZn9PqV7H/gH1I+HlvURYuFE+RJHZ/MmFbtLR7GzmkL/4/v4eAf8c7yxr9O7ID4RLqhG+IE74v2yOc4q93NdHPxpA2OmlOhJKria0oqAYrOpBPBcJCGauQfjLBC9BStc6nZJ0MB638I+VtIjhlyn9SaIwc/XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsyVCrLZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLuiy9lH"
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5c65093556aso4415479e0c.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 04:01:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788951673; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ESCJ7h0DS6ewtpSk83NwXd8w01d0lomOsHH0QbDUUGH7YE6WKJq41/QXbKLyndw07C
-         VQ4YrGoSelQm50vcSGELmJymeUpn1MEaEDch+RTvH8aKaAh4P7roau3aWvmMvDxHIeBa
-         gPF3M/b9e+XeoczhkSlPzKhgKbPpjzeuaoOpGQx4i+dnATIXFmAxus188iK4kLk0fEZP
-         h7yAWFlQTL9zMShG1yIKJfO6svBnVDv6vv2cbcIvHQ+FGlPNnF4T/YudjNH/aG43MjZ3
-         o6DH7uCH/ds08QVOpI59ZbCBmos2HpLBiYyZuQ/pEDG8/N6kyNc5jetawUdGupupEMvo
-         wTIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
-        fh=aOhFyKi/b5S57K0Z/sGdbXTUUsS6bz6D9gBda7P5gO8=;
-        b=KdnJNenhYy358sbK4EuYbqd2cLsOJirVMvRxep2s2mpNvTtBqUlemNxAJq1U+8JRr2
-         qv9lBn7I6MZrkP+rFtoe+RHDguTxXMfw0SRJ/a+mjCjkvUBdPnKUWsWtSpNoE07rLFSn
-         WGk7CgfdGmkPwLSP0brbjqmilImVSJe+zABvGEPwOFpE1Yz5psL9018HGPKlcN5PlVPa
-         V9D/VBHdzIYYTxF9zAZlIbT8YLlXz949KwC8/G61y+ZlSz85Jy28BtWik45GtIxTgzu/
-         GJZoip/zUKIH7y7zL1/IkhCjFGQkSyPgzV65kGjDrDAzOwBFX19QdESoGpD1ZdaNfMGC
-         YhLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788951673; x=1789556473; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
-        b=KLuiy9lHElUSQVyCGNhQ2N/Vy2L+WHxPwRqOwGLYJIauKAZkkT1R8DDgsI4jTIxX+t
-         BqFn4kd8nO5aJkD5qFTrsjKIFniUfsvQFSr5vK0rWiIgQCU/zV+hXIIdGRPLlW1XRhJd
-         +z+/WTUKvjgHlN9CKzW52/ouSEl3GxTYM3N8QUn2FaZg/R3QAAqcKVdx5JMbthxX4oLw
-         r8JkANzWiZOStrI3gg8MC2OAzQ5vvcBi3gl/ooF/c0hEPSZ4kH9wpccm6ac8Ijhv0zp1
-         aut1dlZ5CpwdlHaBfS7pHaCdIKN/+bRo0ltIvcGw+zXaUTjsw65AYSjO1TlJrS7hQwhx
-         RvKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788951673; x=1789556473;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
-        b=bpl+2MrBkxXbAeIBsGDW04ZGnJMYjuumjHdIuCEfxYfFSlVj2gm48DoKPepwMpekDm
-         bTwyJO/ynxR9Rj0k8Hs34av698a37acl9aV6fie3Ypv9dv6fyJHbaL0Qvp6kw3U7gk8s
-         +L2N5YucPBiQVJIsDx3J8cX+DyfDGJ6gZhktkxrpf1QBQxlSIN0IqAlpdbfIgqhUgTIr
-         m8cspE8Hlt5iMeG5+MFRTsGDl31Ke1d+5Kk0gKT5hjrfbpRTuwVnNN+P8UynasI/J4VL
-         8WPg+sl9jKW14YKp/oLX06/XMBnVnrPC/VWw3IulWQPfFPkmaZbDm8323vIMDUJhklmk
-         UQyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMZmFOEy5myRSrQO2tpy01Mg9S/Skbx/JylM27cKuwe2hFRXJWOfmeIxCuHc22jmyy4UIAaZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldBtdPRO3GjS7VBKW8KOZiupGdjCx/KvGzj7T0oAH/c9vBD9pp
-	qpaRxYtvr4S//uhY1/DGMJDejbmYNMV64LTZ8KzSIp0uUtT65f8Ehzs9fN/aB4+BjSnlX3KNVMS
-	a3fRbLxC9iuq6OLcZl3dZ5D/TLpSY8/I=
-X-Gm-Gg: AYBFou0/mk1kdoH/+ZwKu4bhzTNCQwJp1v3VtLvouIQ3vTZ4Ge3bFmY3gCJj0H6v6E4
-	WUOkZ3GIlRPbWfij6YuK1qvJIkypVt1aAwBc2+bd2GnctKmF8j8PBN00WgoqgZz9iiIqhv91QDE
-	LdSthfO5jE6MumxphYFGmHGud+jXrfeCcwM6kPx7aoVcelwQLUaapepnj/rkoG7s9FljWNw+qnf
-	za4sTS3OPbCe7DzGS09kNxrLe+5At7wlFkrEYUy//6XiC6Xm0EIGxecSFWOZ5NP2sQzmev458US
-	ajZ9fLA42uXrjBcAad1BmCVe5Si4ohqRzo9L7kynQ9feOw/PmiK/nKDqRhvIkGoPn+WLJPaJAQE
-	k0A3MFC+evEugezBotzdmKdCRe316dDTXr41ELUA=
-X-Received: by 2002:a05:6122:d90:b0:5c8:2c83:9cb with SMTP id
- 71dfb90a1353d-5c82c830f80mr1746396e0c.2.1788951672620; Wed, 09 Sep 2026
- 04:01:12 -0700 (PDT)
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 04:01:11 -0700
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 03:56:23 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsyVCrLZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A451F00A3A;
+	Wed,  9 Sep 2026 11:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788951835;
+	bh=p6Jauh7qjFjMT3oDR8EeQ5p3ozQD3EHpynZckpJY6nA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GsyVCrLZaqgVOwj6nr20ryorPVX6HUyO8xVO+FOj+nxotbyhiqTxm3+Ca09u3h03H
+	 7eMApRP7Qrj3pPmHXq5j8xjeD07echK95/QjWmE090jH6gRLOmGs51JgLYJzP3hoik
+	 OupZyliuRO16E0dXK67Ra3xWx1dfSjEjxSG+tvDywfmcKdeCUXP2JoHtxFtrSo1bIY
+	 sw8av3dloelzC+49XSXa1lcgZ6vjnHnUC9NzNPae4Scr1zJMdGWa70mAvpzUw71icE
+	 EXRfqKb72K23mtfswKc7pRiRO0V3c4JnBU1zAa2W1w5jnKoWfCR+Rs5vPBr2slUw38
+	 HVqZKOm9LGRyA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] power: supply: charger-manager: register regulators before exposing sysfs
+Date: Wed,  9 Sep 2026 07:03:52 -0400
+Message-ID: <20260909110352.1705903-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909110352.1705903-1-sashal@kernel.org>
+References: <2026090321-dosage-uproar-b130@gregkh>
+ <20260909110352.1705903-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260823120039.A7B3B1F000E9@smtp.kernel.org>
-References: <20260823120039.A7B3B1F000E9@smtp.kernel.org>
-From: Julien Le Bourg <julien.lebourg8@gmail.com>
-Date: Wed, 9 Sep 2026 04:01:11 -0700
-X-Gm-Features: AcwNN1XvXL1SjFRBtFvxbHrfryC6LwXZDTu3lMkv6bOZrarcI4At3uMGcycC3NQ
-Message-ID: <CAAK4M4VkRxnG9eYZWSiwqBKCMeWbF6XCGxekZLc-+8gt_R4hVw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Restore self-refresh fallback in
- DCN21 bandwidth validation
-To: amd-gfx@lists.freedesktop.org
-Cc: sashiko-bot@kernel.org, Wayne.Lin@amd.com, nicholas.kazlauskas@amd.com, 
-	stable@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 23, 2026 at 12:00:39PM +0000, sashiko-bot@kernel.org wrote:
-> This isn't a bug introduced by this patch, but since the stutter latency
-> leak is explicitly left unpatched for DCN 3.01, will it remain vulnerable
-> to MPO flip_done timeouts?
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Yes. dcn301_fpu.c has the same calculate_wm_set_for_vlevel() helper and
-only restores dram_clock_change_latency_us. DCN 3.01 also still calls
-dcn30_internal_validate_bw() with allow_self_refresh_only true, and
-watermarks run only for DC_VALIDATE_MODE_AND_PROGRAMMING, so the check
-vs commit_tail mismatch is the same shape as on DCN 2.1.
+[ Upstream commit c57cb36f76eb7ced45f57af1a890d8f3a6d76342 ]
 
-I left it out of this patch on purpose: this is the DCN 2.1 regression
-(360 Hz eDP dropped after b96150a70696), I have no DCN 3.01 hardware,
-and I would rather not touch Van Gogh watermarks untested. Happy to
-send a follow-up if someone with DCN 3.01 can try it.
+charger_manager_remove() and the err_reg_extcon probe error path free each
+charger regulator with regulator_put() before tearing down the power_supply
+sysfs entries (power_supply_unregister()). charger_manager_remove() also
+calls try_charger_enable(cm, false) after the regulator_put() loop. A
+concurrent write to a charger's externally_control sysfs attribute that
+lands between regulator_put() and power_supply_unregister() can run
+charger_externally_control_store() and call try_charger_enable(), which,
+when charging is enabled, dereferences the already-freed consumer handle.
+When charging is enabled, try_charger_enable(cm, false) in .remove() also
+dereferences the freed handles directly. Both leave use-after-free windows.
+Symmetrically, probe registers the sysfs entries (power_supply_register)
+before acquiring the regulators (regulator_get, inside
+charger_manager_register_extcon), so userspace can reach externally_control
+before the regulators are available.
 
-v2 is otherwise unchanged. 1920x1080@360 is in daily use here on
-Cezanne with this applied. A human look would be very welcome.
+Split charger_manager_register_extcon() on the sync/async boundary:
+charger_manager_get_regulators() (regulator_get only, no async producer)
+now runs before power_supply_register() so sysfs is not live before
+regulators are available, and charger_manager_register_extcon() keeps only
+the extcon notifier/work setup, still after power_supply_register() so a
+power_supply_register() failure cannot reach extcon setup. This keeps the
+sysfs setup/teardown ordering symmetric without introducing an asynchronous
+producer on the earlier probe-error path.
 
-Thanks,
-Julien
+Move power_supply_unregister() and try_charger_enable(cm, false) ahead of
+the regulator_put() loop on both teardown paths, and adjust err_reg_extcon
+(power_supply_unregister() then fall through err_regulator for
+regulator_put(); get_regulators self-rolls back on its own failure).
+
+This does not address the separate extcon-notifier-driven deref of the same
+handles, which needs its own synchronization design.
+
+Found by an in-house static analysis tool.
+
+Fixes: 3950c7865cd7 ("charger-manager: Add support sysfs entry for charger")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260728030123.230202-1-fanwu01@zju.edu.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/power/supply/charger-manager.c | 54 +++++++++++++++++++-------
+ 1 file changed, 39 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
+index a20e7aaffbaa8..7f7ddecf2250b 100644
+--- a/drivers/power/supply/charger-manager.c
++++ b/drivers/power/supply/charger-manager.c
+@@ -1017,6 +1017,29 @@ static int charger_extcon_init(struct charger_manager *cm,
+ 	return 0;
+ }
+ 
++static int charger_manager_get_regulators(struct charger_manager *cm)
++{
++	struct charger_desc *desc = cm->desc;
++	struct charger_regulator *charger;
++	int i, ret;
++
++	for (i = 0; i < desc->num_charger_regulators; i++) {
++		charger = &desc->charger_regulators[i];
++		charger->consumer = regulator_get(cm->dev,
++						  charger->regulator_name);
++		if (IS_ERR(charger->consumer)) {
++			dev_err(cm->dev, "Cannot find charger(%s)\n",
++				charger->regulator_name);
++			ret = PTR_ERR(charger->consumer);
++			while (i-- > 0)
++				regulator_put(desc->charger_regulators[i].consumer);
++			return ret;
++		}
++		charger->cm = cm;
++	}
++	return 0;
++}
++
+ /**
+  * charger_manager_register_extcon - Register extcon device to receive state
+  *				     of charger cable.
+@@ -1039,15 +1062,6 @@ static int charger_manager_register_extcon(struct charger_manager *cm)
+ 	for (i = 0; i < desc->num_charger_regulators; i++) {
+ 		charger = &desc->charger_regulators[i];
+ 
+-		charger->consumer = regulator_get(cm->dev,
+-					charger->regulator_name);
+-		if (IS_ERR(charger->consumer)) {
+-			dev_err(cm->dev, "Cannot find charger(%s)\n",
+-				charger->regulator_name);
+-			return PTR_ERR(charger->consumer);
+-		}
+-		charger->cm = cm;
+-
+ 		for (j = 0; j < charger->num_cables; j++) {
+ 			struct charger_cable *cable = &charger->cables[j];
+ 
+@@ -1582,13 +1596,23 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	}
+ 	psy_cfg.attr_grp = desc->sysfs_groups;
+ 
++	/*
++	 * Acquire charger regulators before exposing the sysfs entries, so
++	 * userspace cannot reach externally_control before the regulators
++	 * (and charger->cm) are available.  Mirrors the order in remove().
++	 */
++	ret = charger_manager_get_regulators(cm);
++	if (ret < 0)
++		return ret;
++
+ 	cm->charger_psy = power_supply_register(&pdev->dev,
+ 						&cm->charger_psy_desc,
+ 						&psy_cfg);
+ 	if (IS_ERR(cm->charger_psy)) {
+ 		dev_err(&pdev->dev, "Cannot register charger-manager with name \"%s\"\n",
+ 			cm->charger_psy_desc.name);
+-		return PTR_ERR(cm->charger_psy);
++		ret = PTR_ERR(cm->charger_psy);
++		goto err_regulator;
+ 	}
+ 
+ 	/* Register extcon device for charger cable */
+@@ -1622,11 +1646,11 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_reg_extcon:
++	power_supply_unregister(cm->charger_psy);
++err_regulator:
+ 	for (i = 0; i < desc->num_charger_regulators; i++)
+ 		regulator_put(desc->charger_regulators[i].consumer);
+ 
+-	power_supply_unregister(cm->charger_psy);
+-
+ 	return ret;
+ }
+ 
+@@ -1644,12 +1668,12 @@ static void charger_manager_remove(struct platform_device *pdev)
+ 	cancel_work_sync(&setup_polling);
+ 	cancel_delayed_work_sync(&cm_monitor_work);
+ 
+-	for (i = 0 ; i < desc->num_charger_regulators ; i++)
+-		regulator_put(desc->charger_regulators[i].consumer);
++	try_charger_enable(cm, false);
+ 
+ 	power_supply_unregister(cm->charger_psy);
+ 
+-	try_charger_enable(cm, false);
++	for (i = 0 ; i < desc->num_charger_regulators ; i++)
++		regulator_put(desc->charger_regulators[i].consumer);
+ }
+ 
+ static const struct platform_device_id charger_manager_id[] = {
+-- 
+2.53.0
+
