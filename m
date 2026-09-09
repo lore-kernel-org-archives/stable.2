@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE6349DB9C
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:50:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BDD49DB9C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:50:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954641; cv=none; b=M5o3uROcgvYqKozNy5DwCImEqb5pGoWyFk/GBYeEtZWlSviRKroJFiG+NGDz4IwKrlZ8Kz1Mq2X2ymhilIwmJzJ9/mHCT2J8ryNHBLUmntmkugeCk84Y3bqCqbVeQ7bGOuR5slADYZkIUwWGLh1cLEywg0mIsBQoHaZqy00OUpM=
+	t=1788954644; cv=none; b=LOZ6NgoxN4MMq1MyMVkaLl3Jp+KqerrJflQ36shdiM3k6GH6ustigcHhym1TymQyIpMNSXEEDKEY8g4ErZ5Nppq99EnSPBYn3NZNJp21ezkU3JJvvGwZyY+kCL6uZCAu9pHCoap7+z3ayqg7JIYk5olXWL0tv7msLKjEo0fAi9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954641; c=relaxed/simple;
-	bh=fsUvkmIYw5yf6Nzf4xaCuBjPMP9H48JxhWrJwxKwohk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rhmybc0dfi5JSD0vc5AajKRyt1nnNEw7VktCc8jqh+Ou2zizaMZqH7ynJbYmA6NYdvL8PHrkkoEEPvCRyukaiZw/1L0+UVVyFPdUyheOgPZIIPMs6WxSiUk/3rovo0RbysvDJOPIxORhIDKTL/rxVtmmZpojoKhlRyCUeNpyNc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I7QCwsDf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954644; c=relaxed/simple;
+	bh=rKVmF5XPcO5dKsf050FHG2su2bpQUSihDzZPUj8NEHI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G0oNDUxCOwGDBfbYqt97iRU40zB1n+C/JNNs3SUwpwYY9OX3IrLC7Rf9o1znA+O+56CDo5ypYoRblTgGRKXPeA1cqMIkdAYR/C75AIOXFT/pLI9RzD37N8dN6XOZZkC+grIxN6PhI9ruO4aSMKZLdIAaPdS6Hlxs6sp77CrYMzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KjpZNu5M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I7QCwsDf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81DD41F00A3A;
-	Wed,  9 Sep 2026 11:50:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KjpZNu5M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BF31F00A3A;
+	Wed,  9 Sep 2026 11:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954640;
-	bh=AVzWGupg4iig6Qo/i66jAmSyn2KpYDVCEmunfAGh7ko=;
+	s=korg; t=1788954642;
+	bh=vaxMQRfhv6kY6Ik6Ct4VT4EIRJrfHQ8vLOy5yZFUgys=;
 	h=Subject:To:Cc:From:Date;
-	b=I7QCwsDfrYOnns81apbvSlRB9UKaf9bLbUVU6A92TPErQfd3E2+YnD9hvcvsxWq5r
-	 h5tGA/2LWPLJAPC16gJtO6Cqy1Uw2Xymexv4Hy4VkuQGBPeqpjFaY/FI6Y0JmA8w4B
-	 flqGMh3XhShqG5/qy9bXUFqsP/7t4Jjb/iKgbH84=
-Subject: FAILED: patch "[PATCH] drm/panthor: harden firmware build-info bounds checks" failed to apply to 6.12-stable tree
-To: osama.abdelkader@gmail.com,steven.price@arm.com
+	b=KjpZNu5MWoNjVvme6Eht5A7BZL+oV2wuLYLTzOMYMFD+pUXHFm+rUEJIj1fRVrwnB
+	 FBZwXtcN9FV6KI795SywBQMpEwOCts/h++eznXfok4GSqzIeTKzT1KE/zGgPx7CnSS
+	 +MS+MB2hexHQculKUWJELgHXn3wUqcZsEdMOZFVw=
+Subject: FAILED: patch "[PATCH] drm/panel-edp: fix i2c adapter leak on probe failure" failed to apply to 5.15-stable tree
+To: johan@kernel.org,dianders@chromium.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:38:38 +0200
-Message-ID: <2026090938-backlog-baton-1bbc@gregkh>
+Date: Wed, 09 Sep 2026 13:39:12 +0200
+Message-ID: <2026090912-bulginess-yearning-759f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8321b093fa6c297b80586460ce6914d9655df170
+git cherry-pick -x e2a9e291275a74e309a21cbb1def6296a72d6aed
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090938-backlog-baton-1bbc@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090912-bulginess-yearning-759f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,41 +62,80 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8321b093fa6c297b80586460ce6914d9655df170 Mon Sep 17 00:00:00 2001
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-Date: Mon, 20 Jul 2026 13:32:11 +0200
-Subject: [PATCH] drm/panthor: harden firmware build-info bounds checks
+From e2a9e291275a74e309a21cbb1def6296a72d6aed Mon Sep 17 00:00:00 2001
+From: Johan Hovold <johan@kernel.org>
+Date: Fri, 17 Jul 2026 16:31:18 +0200
+Subject: [PATCH] drm/panel-edp: fix i2c adapter leak on probe failure
 
-panthor_fw_read_build_info() checks whether the metadata range fits in the
-firmware image with hdr.meta_start + hdr.meta_size. Both fields are u32, so
-the addition can wrap and let an out-of-bounds range pass validation.
+Make sure to drop the i2c adapter reference on probe failure (e.g.
+probe deferral) and on driver unbind also if a devicetree redundantly
+uses the 'ddc-i2c-bus' property to point to the aux ddc bus.
 
-The function also reads the "git_sha: " prefix without first checking that
-the metadata is long enough, and meta_size == 0 can underflow the NULL
-terminator index.
+Fixes: cc5a3fc041f0 ("drm/panel: panel-simple: Stash DP AUX bus; allow using it for DDC")
+Cc: stable@vger.kernel.org	# 5.15
+Reported-by: Douglas Anderson <dianders@chromium.org>
+Link: https://lore.kernel.org/r/CAD=FV=VZPhzHU+Pet2m3L+Pqc7mOPfZC-f5p0OuNL79wNZPxRg@mail.gmail.com
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260717143119.1815106-2-johan@kernel.org
 
-Use subtraction-based bounds checking and reject metadata that is too short
-to contain the expected prefix and trailing NULL byte.
-
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Steven Price <steven.price@arm.com>
-Link: https://patch.msgid.link/20260720113212.11981-1-osama.abdelkader@gmail.com
-
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index de8e6689a869..6a6f014d63e8 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -697,7 +697,8 @@ static int panthor_fw_read_build_info(struct panthor_device *ptdev,
- 		return ret;
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index df7286679446..ff99fa3d0b59 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -832,6 +832,13 @@ static int generic_edp_panel_probe(struct device *dev, struct panel_edp *panel)
+ 	return 0;
+ }
  
- 	if (hdr.meta_start > fw->size ||
--	    hdr.meta_start + hdr.meta_size > fw->size) {
-+	    hdr.meta_size > fw->size - hdr.meta_start ||
-+	    hdr.meta_size <= header_len) {
- 		drm_err(&ptdev->base, "Firmware build info corrupt\n");
- 		/* We don't need the build info, so continue */
- 		return 0;
++static void panel_edp_put_adapter(void *_adap)
++{
++	struct i2c_adapter *adap = _adap;
++
++	put_device(&adap->dev);
++}
++
+ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
+ 			   struct drm_dp_aux *aux)
+ {
+@@ -879,6 +886,11 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
+ 
+ 		if (!panel->ddc)
+ 			return -EPROBE_DEFER;
++
++		err = devm_add_action_or_reset(dev, panel_edp_put_adapter,
++					       panel->ddc);
++		if (err)
++			return err;
+ 	} else if (aux) {
+ 		panel->ddc = &aux->ddc;
+ 	}
+@@ -890,7 +902,7 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
+ 
+ 	err = drm_panel_of_backlight(&panel->base);
+ 	if (err)
+-		goto err_finished_ddc_init;
++		return err;
+ 
+ 	/*
+ 	 * We use runtime PM for prepare / unprepare since those power the panel
+@@ -937,9 +949,6 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
+ err_finished_pm_runtime:
+ 	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_disable(dev);
+-err_finished_ddc_init:
+-	if (panel->ddc && (!panel->aux || panel->ddc != &panel->aux->ddc))
+-		put_device(&panel->ddc->dev);
+ 
+ 	return err;
+ }
+@@ -983,8 +992,6 @@ static void panel_edp_remove(struct device *dev)
+ 
+ 	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_disable(dev);
+-	if (panel->ddc && (!panel->aux || panel->ddc != &panel->aux->ddc))
+-		put_device(&panel->ddc->dev);
+ 
+ 	drm_edid_free(panel->drm_edid);
+ 	panel->drm_edid = NULL;
 
