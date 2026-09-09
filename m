@@ -1,57 +1,57 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587AD46C4B7
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390503D6CC7
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987924; cv=none; b=dw6+Xh/Iue8BqdMSO5cI9updQBY6ynalm0Ye2q4JhW03S0am3Wz24OLwZKoZqXt9YW5yMKmDlE4P0aCCQPGqyfKhluuUDVXsBDOG287vTDB+0AZEp9jot5dWwgJRC+izyFA6PCPFvOnr6cwyRx7MYSRzRTt/1ncv6UwkS97D8Cs=
+	t=1788987924; cv=none; b=LgD4oOeXkpslcUMS2xFszELH60IT4c5hpzschz7j2iYE/lb2cnZOjHTLCKQmzPYeOVpgZAiW5TkMc5Eqhw//G2MG4xa3ylg8Ms/mdWaCHD3kYm4nPSYmnz61mqIdwj0/hvzNUjgoWI6XVDgmvLPdVD+J1I+nrLuKIvciYSPlLLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788987924; c=relaxed/simple;
-	bh=An5sjr701+uTZSAKiGE4zuzp7oK+BAyHsWNQv6ZsanA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P85pIZIngzqr7pSDmwk3ZczA9xRyjQqcpoq7UD6jygFDMTZPS+I1t10QzO2/WcLyNunknj5A2C0os088SfvsbHbhAG9SUSudRhqqf6weL2xINIvrI1BGnmX8Krp34dTL2Wk0FV/i1zXduIwsoyV9EwSricCWMqz8iSFhsCFYHSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=H80HpOxS; arc=none smtp.client-ip=34.218.115.239
+	bh=ao7dKolbZ6qXnPUSmaqhX11LGp8pi938B7OnaVmn/O8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eKPqIDOGV7vGaqThJG6m+VTLHysRsHZeSCF1OiGXZZOqaqzIMaaBvkypuVu0IU/ISFnSjwnQfT40C68ZrmzwaLIT6EEru1RbYpmmBDTL0J/T+RIC0wxmGEEfKjl0V3GiN4X+E5t0tHxli3PGb/S4Xtg9YPO5pD4QZpHkizN+PtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=mbme/ztp; arc=none smtp.client-ip=52.35.192.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="H80HpOxS"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="mbme/ztp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1788987922; x=1820523922;
+  t=1788987923; x=1820523923;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=eaRmQcL2It+j1Zjlr68r3jfT1FdckQXYGCXK4ZRcMrA=;
-  b=H80HpOxSs4WvYGzFe4JB1BvGWBtsd71O8/rypAQDc7ljaN2yLoc+nD2O
-   4/6LU5LaxNWfezE3DIsdGpzhEGi0JjcMnVOSFnJpTHYOEIC9ay/OLgBZs
-   JQLu7Ps0zxByRK1UoDx7X78WOdse2oU/DhCTPDHtm1/wNnQJHICazaonR
-   CtA2j6Uqupm0jLB5MJuj4f6QUsjhgfMtyNp3PAY6yPMMkYirMaA34UXoi
-   myMwCijokXhRXITCFA66KxfeD/IpKKu3hWpRXkIJE/dval6t0FIrbWkPC
-   bHIHGPgZ/ThxtS+dpVbZwjFo4kvSrOjbetDwEhIVtpNQIfkiv4wStaL+e
+  bh=z4T+0YL6hWySmQqDGr3K1NPC3AYLcovoOVJ8gbh96fQ=;
+  b=mbme/ztpogCQNx69VcXFZz1tUe7RJbTsHBMmz6Exd5OE7skHNSVRIs23
+   b8E0zGCRXNBFAXLtktx5lOkFkB5EhGQIyYhtkYVzC2iDVMEneglua4pNI
+   qPKlecm7lIP85W++meWcKRWRvBPOKoRfxUluA/B5zpAevHOR9qiMq53NX
+   IWZt4aDKseBGmLaZMtbwbSomEmp14Wi5d3zruZJucM97KSBEwsSEOudZH
+   N/PjUm39T5FgA547yiYK9hHqP4gt4vudn9m0aD8UfSZocngMeesMQYuBP
+   CMJnTH6zBzoecjuSR4x8lkHpBi/h7A030tqWXeJj7qKGunKNq3qM+spqX
    w==;
-X-CSE-ConnectionGUID: XiuaNPfZRg60h/NAkn5pXg==
-X-CSE-MsgGUID: eGlxVDMCQ42eqEIpD7zwng==
+X-CSE-ConnectionGUID: DctiwVuiSzSBGCfoErG72g==
+X-CSE-MsgGUID: +SCDFzGtS7maXkxHcDXcIg==
 X-IronPort-AV: E=Sophos;i="6.25,271,1779148800"; 
-   d="scan'208";a="28052927"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:05:19 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:25980]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
- id 7e17ead4-b25a-44ea-8f49-d5ffea9e9cbe; Wed, 9 Sep 2026 21:05:15 +0000 (UTC)
-X-Farcaster-Flow-ID: 7e17ead4-b25a-44ea-8f49-d5ffea9e9cbe
+   d="scan'208";a="28028577"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:05:18 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:11981]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.57.27:2525] with esmtp (Farcaster)
+ id 95daa51d-97e9-4be5-bb59-c44273fc22d0; Wed, 9 Sep 2026 21:05:17 +0000 (UTC)
+X-Farcaster-Flow-ID: 95daa51d-97e9-4be5-bb59-c44273fc22d0
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Wed, 9 Sep 2026 21:05:15 +0000
+ Wed, 9 Sep 2026 21:05:17 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 9 Sep 2026 21:05:14 +0000
+ Wed, 9 Sep 2026 21:05:16 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Arnaldo Carvalho de Melo <acme@redhat.com>, <doebel@amazon.de>
-Subject: [PATCH 5.10.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
-Date: Wed, 9 Sep 2026 21:04:59 +0000
-Message-ID: <20260909210503.199459-1-doebel@amazon.de>
+Subject: [PATCH 6.12.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
+Date: Wed, 9 Sep 2026 21:05:02 +0000
+Message-ID: <20260909210503.199459-4-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -97,23 +97,23 @@ Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Cc: Ingo Molnar <mingo@elte.hu>
 Assisted-by: Claude:claude-opus-4.6
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-[doebel: context adjustment for 5.10]
+[doebel: cherry-pick for 6.12]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 
 ---
 diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
-index 4f8658f5f9de..c57df485cc91 100644
+index 64bf3ac237f2..57ef161e9b52 100644
 --- a/tools/perf/builtin-sched.c
 +++ b/tools/perf/builtin-sched.c
-@@ -50,6 +50,7 @@
+@@ -51,6 +51,7 @@
  #define COMM_LEN		20
  #define SYM_LEN			129
  #define MAX_PID			1024000
 +#define PID_MAX_LIMIT		4194304 /* kernel limit on 64-bit */
+ #define MAX_PRIO		140
  
  static const char *cpu_list;
- static DECLARE_BITMAP(cpu_bitmap, MAX_NR_CPUS);
-@@ -446,17 +447,28 @@ static void add_sched_event_sleep(struct perf_sched *sched, struct task_desc *ta
+@@ -440,17 +441,28 @@ static void add_sched_event_sleep(struct perf_sched *sched, struct task_desc *ta
  static struct task_desc *register_pid(struct perf_sched *sched,
  				      unsigned long pid, const char *comm)
  {
@@ -146,7 +146,7 @@ index 4f8658f5f9de..c57df485cc91 100644
  		while (pid >= (unsigned long)pid_max)
  			sched->pid_to_task[pid_max++] = NULL;
  	}
-@@ -467,9 +479,11 @@ static struct task_desc *register_pid(struct perf_sched *sched,
+@@ -461,9 +473,11 @@ static struct task_desc *register_pid(struct perf_sched *sched,
  		return task;
  
  	task = zalloc(sizeof(*task));
@@ -160,7 +160,7 @@ index 4f8658f5f9de..c57df485cc91 100644
  	/*
  	 * every task starts in sleeping state - this gets ignored
  	 * if there's no wakeup pointing to this sleep state:
-@@ -477,10 +491,12 @@ static struct task_desc *register_pid(struct perf_sched *sched,
+@@ -471,10 +485,12 @@ static struct task_desc *register_pid(struct perf_sched *sched,
  	add_sched_event_sleep(sched, task, 0, 0);
  
  	sched->pid_to_task[pid] = task;
@@ -177,7 +177,7 @@ index 4f8658f5f9de..c57df485cc91 100644
  
  	if (verbose > 0)
  		printf("registered task #%ld, PID %ld (%s)\n", sched->nr_tasks, pid, comm);
-@@ -824,6 +840,8 @@ replay_wakeup_event(struct perf_sched *sched,
+@@ -838,6 +854,8 @@ replay_wakeup_event(struct perf_sched *sched,
  
  	waker = register_pid(sched, sample->tid, "<unknown>");
  	wakee = register_pid(sched, pid, comm);
@@ -186,7 +186,7 @@ index 4f8658f5f9de..c57df485cc91 100644
  
  	add_sched_event_wakeup(sched, waker, sample->time, wakee);
  	return 0;
-@@ -866,6 +884,8 @@ static int replay_switch_event(struct perf_sched *sched,
+@@ -880,6 +898,8 @@ static int replay_switch_event(struct perf_sched *sched,
  
  	prev = register_pid(sched, prev_pid, prev_comm);
  	next = register_pid(sched, next_pid, next_comm);
