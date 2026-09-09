@@ -1,59 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6BD23D7F0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 06:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B9335C695;
+	Wed,  9 Sep 2026 06:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935292; cv=none; b=pt9Gn5frXPuqz9Z1sVgYz5lUtmnl4DGX9YegsZQev1FaUbGY8QxA16sx+AuziX6kkZYtzlgmUUwwHTT7sEh8e+BPF1nLUlaX6pK0DeddYKLfrtkEjuIiqXAd/m/dB900VtFA22PryPNP3oOnvUSY6sgBQHPHBfhfpjxxFCwFKO4=
+	t=1788935304; cv=none; b=MLhUFoToFAViT8F3YghdGEy8vH97Ywf4sG1UyaDGpB0EXlXX5eCg8dpso8stJpF8R1TbqvOt9ZfJPOGXxXl3tCFOWDivgKKG6UW4fd788S3n8zul/SgbltdTAyVyXJCMdZejIxshY1QTG8J/Aax1DzorM12DuOUdYa7DdhDyF9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935292; c=relaxed/simple;
-	bh=TcvbyMdW0HxnhKWSnTfcEa+NbQEkAKefPCmL57vi13I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=u3g1nU5utDuW8HhFtuXVXKXCZSfEyPxgC43mw1AnzMmnc9+wQHx7AxYWu2fGEq5e5I8l647vLNBoJzyBahWT0FwKs/MoKAfS/0jgiVZ3qQsn4ilweyicjASoZhiF7M5ceb3/NQNaNhaRH6tpx3+HaXdY9JqboGFNpIAV/whkIlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gv9u7pl/; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788935304; c=relaxed/simple;
+	bh=zqkdrlLQG6cKcYa6GejJtZVgSfIg2Txq0yW8gXUO380=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=evwBaQI4G7AQ06KmkOYgco8kntbRclFoTXoG/09MXVFRtLM895jabt6mv37DwSDya8ifQeWkU+T58+LJHSSZ5m0ZaEYixJYSVRwaFSiREdaMfFuicasn8WHHu4mHwVmZj7PsLtapdbuqIEVWVUKjX5ng1NNQM7OPT51MtKA0jw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4glpN84; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gv9u7pl/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788935291; x=1820471291;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=TcvbyMdW0HxnhKWSnTfcEa+NbQEkAKefPCmL57vi13I=;
-  b=gv9u7pl/NlaRFJc0Qk2jYxAqzThNKq9gjPBJKoJVnF3H+poHp20OGSCY
-   CM62WNScqNgYumDswSrfEY176zqJm2xs0FvzmhIv1kWIORiwR9mI6Giwg
-   99chaMFbB4sAOvt8oUrQqSZ3ivNFNxcwWB66OJQZMgf4s8Gt2JCySWcZP
-   KGCObKuLZKgwPyiirabywtgqREBe8bxIFs9ufLEx+SUW3aG/s7F+PE/bU
-   yqzDgW0ITVyWmrHRbiOYrYE01c5KUwOVZXNCoPCvXa+YamDYWgtzTc2DT
-   bhii0SieWciXN7ZqwFSBn/SEKAh89NZhoVRSieYIeT4PKy8JAH6Ry9qXD
-   w==;
-X-CSE-ConnectionGUID: OhxgVOqQSfCSzEQTZUAaiw==
-X-CSE-MsgGUID: DUWI1YfFRVqrBu54Ni9ulg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88499434"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="88499434"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 23:28:10 -0700
-X-CSE-ConnectionGUID: ZrNjyXTfQfiXsiuEtxQNqw==
-X-CSE-MsgGUID: cY0VyaU+TS6LMFEXkTInfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="275005630"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
-  by orviesa004.jf.intel.com with ESMTP; 08 Sep 2026 23:28:08 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable"
-Date: Wed,  9 Sep 2026 11:55:22 +0530
-Message-Id: <20260909062523.3516962-2-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260909062523.3516962-1-nemesa.garg@intel.com>
-References: <20260909062523.3516962-1-nemesa.garg@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4glpN84"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8841F00A3D;
+	Wed,  9 Sep 2026 06:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788935303;
+	bh=Hv6bPUikw/0ByI6pTLFl4Ni5u+TBEJppPMIVSYIDOLw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J4glpN84OJ44+l9JO21mBpU96YtrfIn1Md/Xn56uv0UljoNchR5x7kGJrUsAX8END
+	 lfyCQJ9B6iY7V4+LhS28fFZ8H+vi6iT7YtUfd3/VlCQIruuBZbcYzBNIsiEn/Wq8Sm
+	 17pjOXn3/VBSyM724LnlW/chcFPXNuDnm4AfZANVtMqZ9KiL4r32NHbyLI9FnIZj3S
+	 s/z++WOifBFm94x0jaQ9XaawTjE9FZbFye39u7HmfEF+7gw2yVFFQRFCHDav4hzoh7
+	 Ja/qvk10/OG3yr68qbTJOq5h9eb0Qh2BJFNjy7SsDsjO0PjBw6xUMCkweMgJaB7Vou
+	 P1uEkosXyiuaA==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.18.y] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
+Date: Tue,  8 Sep 2026 23:28:14 -0700
+Message-ID: <20260909062815.25299-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260909033832.132107-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,117 +45,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a.
+On Tue,  8 Sep 2026 20:38:32 -0700 SJ Park <sj@kernel.org> wrote:
 
-This commit replaced the crtc_state->enable_psr2_sel_fetch guard in
-icl_plane_disable_sel_fetch_arm() and i9xx_cursor_disable_sel_fetch_arm()
-with HAS_PSR2_SEL_FETCH(). This is a display version check and
-says nothing about the pipe, so every plane and cursor disable on a
-display 12+ platform started writing SEL_FETCH_PLANE_CTL() /
-SEL_FETCH_CUR_CTL(), including on pipes that do not implement them.
-It shows up as an unclaimed register access on pipes driving HDMI where
-selective fetch was never enabled.
+> KUNIT_EXPECT_EQ() does not abort the execution of test code when the
+> expectation is not met.  But damon_test_merge_regions_of() code after its
+> initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It does a
+> per-region test with a hard-coded number of regions that is correct only
+> if the expectation was met.  As a result, __nth_region_of() could return
+> NULL, and the test code can dereference NULL pointers.  Fix the issue by
+> catching the expectation failure and skip the per-region tests.
+> 
+> The user impact on realistic setups should be negligible, as it is a unit
+> test.
+> 
+> The issue was discovered [1] by Sashiko.
+> 
+> Link: https://lore.kernel.org/20260715031002.108504-3-sj@kernel.org
+> Link: https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org [1]
+> Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+> Signed-off-by: SJ Park <sj@kernel.org>
+> Cc: <stable@vger.kernel.org> # 5.15.x
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> (cherry picked from commit b640708929aa956235866bf7717d89018c661083)
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  mm/damon/tests/core-kunit.h | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+> index 6687778752728..c1f0be6746abd 100644
+> --- a/mm/damon/tests/core-kunit.h
+> +++ b/mm/damon/tests/core-kunit.h
+> @@ -264,11 +264,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
+>  	damon_merge_regions_of(t, 9, 9999);
+>  	/* 0-112, 114-130, 130-156, 156-170 */
+>  	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
+> +	if (damon_nr_regions(t) != 6)
+> +		goto out;
 
-The stale selective fetch enable bit that commit addressed is handled
-in the next patch.
+Sashiko found the above if condition is wrong.  It should 's/6/5/'.  Please
+ignore this patch.  I will post fixed one as another reply.
 
-Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
-Cc: stable@vger.kernel.org
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 +++++----------
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 +++++----------
- 2 files changed, 10 insertions(+), 20 deletions(-)
+[1] https://lore.kernel.org/20260909034527.D29C71F00A3A@smtp.kernel.org
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index cce041e1da51..90173040d825 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -531,18 +531,13 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
- }
- 
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane)
-+					      struct intel_plane *plane,
-+					      const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The cursor may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -592,7 +587,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 	}
- }
- 
-@@ -701,7 +696,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 5cda1ab90e40..07a683293352 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,18 +879,13 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane)
-+					    struct intel_plane *plane,
-+					    const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The plane may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -926,7 +921,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1646,7 +1641,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- }
- 
- static void
--- 
-2.25.1
+>  	for (i = 0; i < 5; i++) {
+>  		r = __nth_region_of(t, i);
+>  		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
+>  		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
+>  	}
+> +out:
+>  	damon_free_target(t);
+>  }
+>  
+> -- 
+> 2.47.3
+> 
+> 
 
+
+Thanks,
+SJ
