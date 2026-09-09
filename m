@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C6F582BBE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317D3566C71
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:58:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965908; cv=none; b=s7SYz6WVKTgAwycfZwAm9fJrmEu4qNAgwbEA+45suR7mFK0zsAI3hMKdHBlWO9D7fTHyFUTuz0vQlJd+8OSuyENLxBOr+AXVykPksoriwTu3Gc4IiwDA4hvVwpT3c9+d53l+NcpERuFVKS5DQqqz3zR5EOBEootTd2CqPGsBtPI=
+	t=1788965909; cv=none; b=LFKkPJPMTSZW1mQaizwOHY39/jdvV6PkJBESAK1hpD8EKd1SxSnV0UFBaq5Sv4Fl6eZSY0IVpVtFG0lEA+0gtmNBJeSUbD2FFq3jHNTlH/BtZaMpdj1OIIAAaPaeEc/SD6AY5jcb+eRM5QwePfhuHdIkIVXUXnnmjI5diGfKujw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965908; c=relaxed/simple;
-	bh=lFOAOTJrWOjO7D+3+hbSqoZpbW9o9p3nMvMeTXuslIk=;
+	s=arc-20240116; t=1788965909; c=relaxed/simple;
+	bh=3EW1rmzTvXNJtlWcor9Tbr5/G22k46713b/zUvo3ezE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qf5q9QDEacG2CCs04vcqoX+lCjhAZFoyFbR4IXrwgSTXm1SSWBJs8YcHBXQ3kcwT0LaNiwATzyYela501FvHT0ErgfOogTSxIKvAqvfo4SqLP0zKELxxOCQlGV0a5ufbguYuT3SB5aXFkKNLHrPWGBY8YhaS2d9r5ECRnVG6L5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cv3zQX1w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=meQyQMhqPrKL/y9U29zuyzPPX5l8Liyck5jyM81ttIqRJfJwhPaIATAeNPFEIf0R9tlIbELHtMD/tX9QUiXNJ6ZljP7wpEEcw/qaLnIG4pCf7FkRUvZjXoZu6gwgGjp7hX62jnFhz4aYWIpNsx4O1KngQKBJCzuhwJ9IKNFNldQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwDMO1Q+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cv3zQX1w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926B71F00AC4;
-	Wed,  9 Sep 2026 14:58:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwDMO1Q+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8CB1F00ACA;
+	Wed,  9 Sep 2026 14:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965907;
-	bh=GjdVJ/yHKyI8Uaynr+feJZo/6Wr2Wik5j0DP9WhAngA=;
+	s=k20260515; t=1788965908;
+	bh=Ov3QjG2AIis2xCxTZF7KdFmRgU/kt+sIXsN61NtH/bM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cv3zQX1wvJsMJv0AMPRJqrSHtb+SPK8MQaaB/knsqydRHmnyvyUdTTuY7vWS5ACM3
-	 q6gKVQIMlIVgTrXesAtg1HA3EBURs8yefWtubxZcpp6REUT6/L0k9h4oaC/M5pZrKY
-	 0SJNbWxE53WT+0fpGzaknwabgjQDfXsZ4ClhVtZAwiEd5ptRIZRdg+0wT3RTGU238W
-	 I32ySevluy0KpNr9yyBdeSvGHufroKl5Kwim9z98f/uUEz5VwMAhuCino1Oo+M3MZz
-	 nnHbFxyyQxirbD+CVANQyiTvQMmvCItzVbliXe0Iag7ltHlhYdrlMPGuB22NIDE7Qq
-	 Em2y6vmh/oiuw==
+	b=NwDMO1Q+rGdiooAkXgEeB51zVc1kB0QcHQA+UNV6Ncem/ZyG/6Lj/b7iaK7qUD77A
+	 3xTBQC/v9KU2aR+PstT/I92QMq492+hQJKTlYS/nfNI6RlBiZ4B6u4mpCH6qf5/HWN
+	 dUkCLT0eDtFWB4CeSyKoJsOiYFibu9XABocbX44yjKXFCMFW2v9r+emqNlktHfPEhf
+	 QiZGboRQ+w8GDeZRtD2+X4KlArZceEJWCBYGmYnrD12aN2WH5Qpnm2z53bxj1nGVxZ
+	 pikidwjS8zmQBnKZ+YbriGk49KcddaH+PIvGiL7Pz0L6B7+bKotS0Ca9hEaNPbvWGl
+	 hNE24q9KcuBaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+Cc: HyeongJun An <sammiee5311@gmail.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/7] platform/x86: ISST: Use local variable for auxdev->dev
-Date: Wed,  9 Sep 2026 10:58:19 -0400
-Message-ID: <20260909145822.2742457-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 5/7] platform/x86: ISST: Validate level in perf mask ioctls
+Date: Wed,  9 Sep 2026 10:58:20 -0400
+Message-ID: <20260909145822.2742457-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909145822.2742457-1-sashal@kernel.org>
 References: <2026090339-boxcar-confused-152e@gregkh>
@@ -49,132 +48,65 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-[ Upstream commit 8c5a689eef5b1c1eaddd17b0b1f2609d3f66c5b0 ]
+[ Upstream commit 80e0d353c86a9a168ad6d213f494796294381538 ]
 
-Define a local variable for &auxdev->dev and use to shorten length of
-lines. No functional change is done.
+isst_if_get_perf_level_mask() and isst_if_get_base_freq_mask() use the
+user-provided level as an index into perf_levels[] via
+_read_pp_level_info() and _read_bf_level_info(), but neither helper
+validates it first.
 
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+The adjacent level-info helpers reject levels above max_level before
+reading the same per-level register block. Add the same bounds checks to
+the mask helpers, and reject disabled SST-PP levels in
+isst_if_get_perf_level_mask() to match isst_if_get_perf_level_info().
+
+This prevents out-of-bounds reads from the per-level offset table on
+invalid ioctl input.
+
+Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
+Fixes: 06a61df83209 ("platform/x86: ISST: Add SST-BF support via TPMI")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Link: https://patch.msgid.link/20260807144003.3498972-3-sammiee5311@gmail.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Link: https://lore.kernel.org/r/20240423204619.3946901-6-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Stable-dep-of: f9a647cb8d90 ("platform/x86: ISST: Return error during profile addition")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../intel/speed_select_if/isst_tpmi_core.c    | 27 ++++++++++---------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+ .../platform/x86/intel/speed_select_if/isst_tpmi_core.c  | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 0d0c88b9095b9..a73d425cf0410 100644
+index a73d425cf0410..1220ce4e3b970 100644
 --- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
 +++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -313,12 +313,11 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
- 				 struct tpmi_per_power_domain_info *pd_info,
- 				 int levels)
- {
-+	struct device *dev = &auxdev->dev;
- 	u64 perf_level_offsets;
- 	int i;
- 
--	pd_info->perf_levels = devm_kcalloc(&auxdev->dev, levels,
--					    sizeof(struct perf_level),
--					    GFP_KERNEL);
-+	pd_info->perf_levels = devm_kcalloc(dev, levels, sizeof(struct perf_level), GFP_KERNEL);
- 	if (!pd_info->perf_levels)
- 		return 0;
- 
-@@ -349,6 +348,7 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
- 
- static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domain_info *pd_info)
- {
-+	struct device *dev = &auxdev->dev;
- 	int i, mask, levels;
- 
- 	*((u64 *)&pd_info->sst_header) = readq(pd_info->sst_base);
-@@ -359,13 +359,13 @@ static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domai
- 		return -ENODEV;
- 
- 	if (TPMI_MAJOR_VERSION(pd_info->sst_header.interface_version) != ISST_MAJOR_VERSION) {
--		dev_err(&auxdev->dev, "SST: Unsupported major version:%lx\n",
-+		dev_err(dev, "SST: Unsupported major version:%lx\n",
- 			TPMI_MAJOR_VERSION(pd_info->sst_header.interface_version));
- 		return -ENODEV;
- 	}
- 
- 	if (TPMI_MINOR_VERSION(pd_info->sst_header.interface_version) != ISST_MINOR_VERSION)
--		dev_info(&auxdev->dev, "SST: Ignore: Unsupported minor version:%lx\n",
-+		dev_info(dev, "SST: Ignore: Unsupported minor version:%lx\n",
- 			 TPMI_MINOR_VERSION(pd_info->sst_header.interface_version));
- 
- 	/* Read SST CP Header */
-@@ -1276,28 +1276,29 @@ int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- {
- 	bool read_blocked = 0, write_blocked = 0;
- 	struct intel_tpmi_plat_info *plat_info;
-+	struct device *dev = &auxdev->dev;
- 	struct tpmi_sst_struct *tpmi_sst;
- 	int i, ret, pkg = 0, inst = 0;
- 	int num_resources;
- 
- 	ret = tpmi_get_feature_status(auxdev, TPMI_ID_SST, &read_blocked, &write_blocked);
- 	if (ret)
--		dev_info(&auxdev->dev, "Can't read feature status: ignoring read/write blocked status\n");
-+		dev_info(dev, "Can't read feature status: ignoring read/write blocked status\n");
- 
- 	if (read_blocked) {
--		dev_info(&auxdev->dev, "Firmware has blocked reads, exiting\n");
-+		dev_info(dev, "Firmware has blocked reads, exiting\n");
- 		return -ENODEV;
- 	}
- 
- 	plat_info = tpmi_get_platform_data(auxdev);
- 	if (!plat_info) {
--		dev_err(&auxdev->dev, "No platform info\n");
-+		dev_err(dev, "No platform info\n");
- 		return -EINVAL;
- 	}
- 
- 	pkg = plat_info->package_id;
- 	if (pkg >= topology_max_packages()) {
--		dev_err(&auxdev->dev, "Invalid package id :%x\n", pkg);
-+		dev_err(dev, "Invalid package id :%x\n", pkg);
- 		return -EINVAL;
- 	}
- 
-@@ -1309,11 +1310,11 @@ int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- 	if (!num_resources)
+@@ -1029,6 +1029,12 @@ static int isst_if_get_perf_level_mask(void __user *argp)
+ 	if (!power_domain_info)
  		return -EINVAL;
  
--	tpmi_sst = devm_kzalloc(&auxdev->dev, sizeof(*tpmi_sst), GFP_KERNEL);
-+	tpmi_sst = devm_kzalloc(dev, sizeof(*tpmi_sst), GFP_KERNEL);
- 	if (!tpmi_sst)
- 		return -ENOMEM;
++	if (cpumask.level > power_domain_info->max_level)
++		return -EINVAL;
++
++	if (!(power_domain_info->pp_header.level_en_mask & BIT(cpumask.level)))
++		return -EINVAL;
++
+ 	_read_pp_level_info("mask", mask, cpumask.level, SST_PP_INFO_2_OFFSET,
+ 			    SST_PP_RSLVD_CORE_MASK_START, SST_PP_RSLVD_CORE_MASK_WIDTH,
+ 			    SST_MUL_FACTOR_NONE)
+@@ -1110,6 +1116,9 @@ static int isst_if_get_base_freq_mask(void __user *argp)
+ 	if (!power_domain_info)
+ 		return -EINVAL;
  
--	tpmi_sst->power_domain_info = devm_kcalloc(&auxdev->dev, num_resources,
-+	tpmi_sst->power_domain_info = devm_kcalloc(dev, num_resources,
- 						   sizeof(*tpmi_sst->power_domain_info),
- 						   GFP_KERNEL);
- 	if (!tpmi_sst->power_domain_info)
-@@ -1334,13 +1335,13 @@ int tpmi_sst_dev_add(struct auxiliary_device *auxdev)
- 		tpmi_sst->power_domain_info[i].power_domain_id = i;
- 		tpmi_sst->power_domain_info[i].auxdev = auxdev;
- 		tpmi_sst->power_domain_info[i].write_blocked = write_blocked;
--		tpmi_sst->power_domain_info[i].sst_base = devm_ioremap_resource(&auxdev->dev, res);
-+		tpmi_sst->power_domain_info[i].sst_base = devm_ioremap_resource(dev, res);
- 		if (IS_ERR(tpmi_sst->power_domain_info[i].sst_base))
- 			return PTR_ERR(tpmi_sst->power_domain_info[i].sst_base);
- 
- 		ret = sst_main(auxdev, &tpmi_sst->power_domain_info[i]);
- 		if (ret) {
--			devm_iounmap(&auxdev->dev, tpmi_sst->power_domain_info[i].sst_base);
-+			devm_iounmap(dev, tpmi_sst->power_domain_info[i].sst_base);
- 			tpmi_sst->power_domain_info[i].sst_base =  NULL;
- 			continue;
- 		}
++	if (cpumask.level > power_domain_info->max_level)
++		return -EINVAL;
++
+ 	_read_bf_level_info("BF-cpumask", mask, cpumask.level, SST_BF_INFO_1_OFFSET,
+ 			    P1_HI_CORE_MASK_START, P1_HI_CORE_MASK_WIDTH,
+ 			    SST_MUL_FACTOR_NONE)
 -- 
 2.53.0
 
