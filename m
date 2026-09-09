@@ -1,103 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D271B534448
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABCF3845B3
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951280; cv=none; b=fe4TPLBQduiMjqxkbICfxeJC0/9nifGjGarMgC3/TLES6UbGIW4NIHCLASwmKabZ4CO+X0ikbmzwyPc0ZVo3CiFlZIJhwwaxQyS4uESoeOEL8sRNE9PlBnR31uYm00AGNzRWkEBBNM+cuK/zsr/VhWMCKJYs9oY9chqnqiMeUg8=
+	t=1788951278; cv=none; b=dgSK2gK+AN8C8JyKc3Ndu0UzifB3kgYPYeB7IAsC082y0r/umEQauuj9YTAAgVjRTGREL/aqAderuQPq8I9yM6qXVg0hYDjn25CpwOYWsbOw7Xjz7F1N6GbVKUN3VxJ4iCK/Gu+1Y0wgsNByoV9B0ZXMq8Fy4IwmKbhDkxUmd6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951280; c=relaxed/simple;
-	bh=cjoN3kyHUHGx822g9bmA7BJePDL9NT96IX2f7CZsdoE=;
+	s=arc-20240116; t=1788951278; c=relaxed/simple;
+	bh=roN27aybi5JLlteX0ds4dQJ3+qMMl4CZi2532tn9GO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ThHUprw6lYCmZ2xsb6Mfyca8wJG7H7F6ZM8MjDb0n1hniCroRcNHoqUdFkxVC9+ZXYz/bY5rzad2OxfpDCgs2kjxRVeRMl7WX8Q6/6qChd0RFYkPV2vzstnE4CxYQUGNn0tUirOSP09eEKHMStwQ0HZfJtxTIFiVGLtVIlz/odo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPJkNX+j; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=o0MFrl3BiMOz2asRvnV6Fb8MFaZ7qsucDQpI7DYsoA9fwzc1rq63/IvBx3eXrWBbicGoBUxLEE8r02LDxarLs1ze+gyXHucQTBnH5w04o6DxdrUkxQouRqD4zYtfC6Z8I3+izV1j/7NftUyC7m5Lr6K0IeNoEkad9Hh9LG1xB9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bg/xIMOT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPJkNX+j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29141F00ADB;
-	Wed,  9 Sep 2026 10:54:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bg/xIMOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB551F00A3A;
+	Wed,  9 Sep 2026 10:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951276;
-	bh=oEhpOoFoJq/bpWDPGu9r/3efVsNQ8HFiimAskACphzs=;
+	s=k20260515; t=1788951273;
+	bh=LpNv4BGSfEQ3zhCQqCfM954YRMRr69biRYUte9Y2hH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LPJkNX+jArFR9tfRiuhu1nQH2CyaYmWMMU7pUPasDEksgFxqBntJoZcbxrzbhFATP
-	 9U2CtlUUtep5P5D3wlAccvjSkuGX85Sa6dNo/vDjcg+qTyBOL6CF2MQQP4SwVT8vD/
-	 bKwlMjVPvPGQn46yaVqJxiDejyE/UuokjvDKdQxST7zrpYLXdGiF1QaC3MHjZrqlAJ
-	 zmmswfprNzawCBjbSCBRAT19CPv1rAQNkz/xbMjVaOLDIlQJFpzPXh6dK5YHgdt2hK
-	 X5b7ZdOgkmSxIb5zG0+0t46LWn58Gfw0c44mGta58QdQUDh3U+cwg28gUFYK4JdjSC
-	 NmS3M1XqSdsng==
+	b=bg/xIMOTDa8u8kgN0Wqcv5O3ruVZpqPXSm/cR24dNZKuQnQ9cfBMtlWBJCed7HsAM
+	 z3HnbYeRZR3AYsM9TtbGCpO5hNb1UvDkJyAUsY4luZ6K39yDjC1DIWx3ZSgtLQRO9Y
+	 hQ00bV2nhhqX+RgTzjY1q7/BBOWYutci1i3tMPqSbVgR6TrO3pG/Kn8T+c5cKePLEL
+	 Z48l/11qKQ0JAJbVZq0/viJboT/4LTeg8vl3JkrlkAT0fcTWXgbg9ltm92ewSYeqZK
+	 mmPe+HQOxSBOYwgUU7PX/AiMleWhuo6A0uA3u9hvl67ci0yBsc/woIgxer4OdisGxT
+	 58gmCs1hSzKqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ruoyu Wang <ruoyuw560@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Tejun Heo <tj@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] i2c: mxs: fix DMA channel leak on probe error
-Date: Wed,  9 Sep 2026 06:54:33 -0400
-Message-ID: <20260909105433.1622090-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] sched/core: Make core-sched flips wait for in-flight selections
+Date: Wed,  9 Sep 2026 06:54:31 -0400
+Message-ID: <20260909105431.1621812-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909105433.1622090-1-sashal@kernel.org>
-References: <2026090301-rope-disprove-ff1d@gregkh>
- <20260909105433.1622090-1-sashal@kernel.org>
+In-Reply-To: <2026090311-expediter-squire-a01e@gregkh>
+References: <2026090311-expediter-squire-a01e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ruoyu Wang <ruoyuw560@gmail.com>
+From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit 777979e627115734052b323d2721cdb500e81dcf ]
+[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
 
-mxs_i2c_probe() requests an exclusive DMA channel before resetting the
-controller and registering the I2C adapter. If either later operation
-fails, probe returns without releasing the channel because the remove
-callback is not invoked after a failed probe.
+Core scheduling's pick_next_task() operates on all sibling rqs under one
+acquisition of the shared core-wide lock. A ->pick_task() that releases the
+rq lock leaves every sibling __lock momentarily free, letting
+__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
+it. The selection resumes on the split locks, touching sibling state it no
+longer protects, and __schedule() finally releases a lock that was never
+taken while leaking the one that was.
 
-Use devm_dma_request_chan() so the device core releases the channel on
-probe failure and driver detach. Remove the manual release from the
-remove callback because the channel is now device-managed.
+Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
+and make __sched_core_flip() wait for the count to drain. The count only
+changes under the shared lock, which the flip holds while sampling, so no
+other ordering is needed. The wait can repeat while selections overlap, but
+the flip backs off between samples and flips are rare cookie-lifetime
+events.
 
-This issue was found by a static analysis checker and confirmed by
-manual source review.
+sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
+left behind would bias it forever if that CPU later returns as its own
+leader.
 
-Fixes: 62885f59a261 ("MXS: Implement DMA support into mxs-i2c")
-Assisted-by: unnamed:claude-opus-4.8 typestate
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
-Cc: <stable@vger.kernel.org> # v3.7+
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260815151720.3757460-1-ruoyuw560@gmail.com
+Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+[ Moved the counter decrement from out_set_next to out to accommodate 6.6’s cached-selection path. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-mxs.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ kernel/sched/core.c  | 22 ++++++++++++++++++++++
+ kernel/sched/sched.h |  1 +
+ 2 files changed, 23 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-mxs.c b/drivers/i2c/busses/i2c-mxs.c
-index e0f3b3545cfe4..d792bcc11a895 100644
---- a/drivers/i2c/busses/i2c-mxs.c
-+++ b/drivers/i2c/busses/i2c-mxs.c
-@@ -832,7 +832,7 @@ static int mxs_i2c_probe(struct platform_device *pdev)
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index fa9008e5d8bd6..6c7759dae216f 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -345,6 +345,17 @@ static void __sched_core_flip(bool enabled)
+ 
+ 		sched_core_lock(cpu, &flags);
+ 
++		/*
++		 * A core-wide selection may have the shared rq lock temporarily
++		 * released by a lock-dropping ->pick_task(). Flipping would
++		 * rebind rq_lockp() under it. Wait it out.
++		 */
++		while (cpu_rq(cpu)->core->core_pick_in_flight) {
++			sched_core_unlock(cpu, &flags);
++			cpu_relax();
++			sched_core_lock(cpu, &flags);
++		}
++
+ 		for_each_cpu(t, smt_mask)
+ 			cpu_rq(t)->core_enabled = enabled;
+ 
+@@ -5959,6 +5970,8 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 		return __pick_next_task(rq, prev, rf);
  	}
  
- 	/* Setup the DMA */
--	i2c->dmach = dma_request_chan(dev, "rx-tx");
-+	i2c->dmach = devm_dma_request_chan(dev, "rx-tx");
- 	if (IS_ERR(i2c->dmach)) {
- 		return dev_err_probe(dev, PTR_ERR(i2c->dmach),
- 				     "Failed to request dma\n");
-@@ -870,9 +870,6 @@ static int mxs_i2c_remove(struct platform_device *pdev)
++	rq->core->core_pick_in_flight++;
++
+ 	/*
+ 	 * If there were no {en,de}queues since we picked (IOW, the task
+ 	 * pointers are all still valid), and we haven't scheduled the last
+@@ -6152,6 +6165,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ out_set_next:
+ 	set_next_task(rq, next);
+ out:
++	rq->core->core_pick_in_flight--;
+ 	if (rq->core->core_forceidle_count && next == rq->idle)
+ 		queue_core_balance(rq);
  
- 	i2c_del_adapter(&i2c->adapter);
+@@ -6344,6 +6358,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
+ 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
+ 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
  
--	if (i2c->dmach)
--		dma_release_channel(i2c->dmach);
--
- 	writel(MXS_I2C_CTRL0_SFTRST, i2c->regs + MXS_I2C_CTRL0_SET);
++	/*
++	 * A stale leftover would bias the count forever if this CPU later
++	 * returns as its own leader. Move, don't copy.
++	 */
++	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
++	rq->core_pick_in_flight            = 0;
++
+ 	/*
+ 	 * Accounting edge for forced idle is handled in pick_next_task().
+ 	 * Don't need another one here, since the hotplug thread shouldn't
+@@ -9834,6 +9855,7 @@ void __init sched_init(void)
+ 		rq->core_forceidle_count = 0;
+ 		rq->core_forceidle_occupation = 0;
+ 		rq->core_forceidle_start = 0;
++		rq->core_pick_in_flight = 0;
  
- 	return 0;
+ 		rq->core_cookie = 0UL;
+ #endif
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index a6c2b8f3045ee..accff24e091e4 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1151,6 +1151,7 @@ struct rq {
+ 	unsigned int		core_forceidle_seq;
+ 	unsigned int		core_forceidle_occupation;
+ 	u64			core_forceidle_start;
++	unsigned int		core_pick_in_flight;
+ #endif
+ };
+ 
 -- 
 2.53.0
 
