@@ -1,94 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BC92D73BC;
-	Wed,  9 Sep 2026 14:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C3D57ED96
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965411; cv=none; b=giyX6Ys7bRntXYhxis9fkdujeQBkKKUopRtFD+MahFYMazaUbsGDQLNznilFbbbETrwpeqyDthQqnuhJq+hUK8mbRu/R3RPyRIOrWVa+sTyB5OkNp11tY/lnulA0ZAQGhWVtqDG/qnJaL3Yqu2PGvvNN3RiUfkFn7Dbkp+XSbwU=
+	t=1788965436; cv=none; b=fn5FEsUclxVek7R8UgEwHgMqEavKFWX0mY8Z73ltHlqcJ+qw5otZSuELB9nMtacjnea4kq5mnNMkKE0vBWP4Y2dq45tNPE1rwmKArva8nVTdv6sMyZuWjNizE+5qWWOHkeH8WcSBuuKZW8868ivs0XLIMlL0q6lLNYawpxVX1Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965411; c=relaxed/simple;
-	bh=65/Tclw+6SxUKfCYRbMf+RpwqrWmbCMLTUwSVGHPSTc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aDQJu3fiuQ7xnFGXRV9KqVMeaSYefgMgI0oqUR3dLd8ABTZ2wCHWfgvar3tJ6cCGIztIIygdD97zJ+KBKPrXMxCHkCp380rT+iQ5Vk/7ltyajAQv9m56ESQkjGQmLMMexL05qb/c98xqDkSDgIL1O2xe2bvWeKmlDRkq8WBjDYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXY6CUJx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965436; c=relaxed/simple;
+	bh=sT5TsU169p7be6ktit5hYOtwBV17qt4/xA0cjUiMGsk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fYHEZX4XId15glVIFhmSdUt2JR1NYptGLqsv1UIw8yn72mHRArQaABIdFMy/gvMcJASAY0o2FlhHH9cz+tIW0vVVnHvAJP282jWabq826w0zXCKWFi0SsFVnf6DBawpPS4V5HoWmtWiuSPmwkyDY2eO1fq1VCNo6P0rWs8lnboo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RD57b2RI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXY6CUJx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0AE1F00A3A;
-	Wed,  9 Sep 2026 14:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RD57b2RI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5761F00AC4;
+	Wed,  9 Sep 2026 14:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965409;
-	bh=hj53gg4ff9DCPpubSP+QVQemVjU+gS+apEWWkxqCqWs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PXY6CUJxcNuepuXUdiOhOYV0+aUvtPS8ELf+WI/LU0tGbsvJxhEI5YI0FFhTX9UNd
-	 DbGmOtFyWqezaBnF6xU9vid0tAG1CIP5eGJJhoS+SWkDFVZdgYukaCAoiOnQGDE8zR
-	 MgCTAYAQjW/X1d7uFh99X8QxATiaVRr48pmLv2aMXnmvr4PMg5m31hptIWyv5UkOxv
-	 p9hZLf3yDo0mq6qj/jEeTBBUd4Ci0VZjQUK7rKh4wn1iR0w1JsHVcX6vTMCkoLygpF
-	 +ZI0OLTpB/qEGDkC1ntbrJhk2uupwnVjD1hzTdCKB8ttMPXXmL66Cag32C1Pl3k1v2
-	 uyII/snvxTwsQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x4Jcl-00000006jrE-39Qu;
-	Wed, 09 Sep 2026 14:50:07 +0000
-Date: Wed, 09 Sep 2026 15:50:07 +0100
-Message-ID: <86y0da7a3k.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3 and ITS drivers
-In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788965434;
+	bh=gwwg3zeV6NfWNNHPGol5KArR/pVLcdmVwWS/ZiKMbzI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RD57b2RIYBK7D3mjYAvK/4zkMa4XXe5ql2iJXbBE/E0OZVB3aTlPNOgsLjn/04nAk
+	 3Cq3+na+aKEeBymNxnkBQoBJ5wDQIs9Y3qHI1A8SoSdoPwZTLZPdW+MaNvIQ6BjHKW
+	 973lJ2HA28lWRw3U3QZ6JWl7Z58R73THbB0QlyAfdavEr3Ft7Id+Pg0lnA8gF0Xsgm
+	 zifwFkZhq8t+E0Q1+rBlBejgZBnpqrlJ0E1RURoOVwHAOQV+KkEgcZmIp9cWKAWvlL
+	 Kghe2rQVqYMxI5dMVaPAlJC/c51BGHKF+0tetmCbUPO38rsKPG3IPcOTTNzalvGCok
+	 FJcqmAn+6YltQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] platform/x86: intel_sar: Check ACPI_HANDLE() against NULL
+Date: Wed,  9 Sep 2026 10:50:31 -0400
+Message-ID: <20260909145032.2673759-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090357-antennae-prong-732d@gregkh>
+References: <2026090357-antennae-prong-732d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, shikemeng@huaweicloud.com, will@kernel.org, tabba@google.com, stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 08 Sep 2026 15:26:29 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> Hi folks,
-> 
-> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
-> floating around and chasing down Sashiko's reports.
-> 
-> The first releases the partition node that gic_irq_get_fwspec_info()
-> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
-> on an of/irq patch of mine, and I said a fix was forthcoming [1].
-> 
-> The second widens the per-device MSI clamp, which truncates to zero when
-> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
-> ITS. I couldn't find an implementation that reports that maximum, so
-> this is one value at the edge rather than something anyone is hitting.
-> It carries Cc: stable because the commit it fixes was itself
-> backported, so drop the tag if you'd rather.
-> 
-> The third clears vpt_page once its_vpe_teardown() has freed it, so the
-> NULL guard holds if teardown runs again on the same vPE.
-> 
-> Based on Linux 7.3-rc2 (df2908090cda3).
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+[ Upstream commit 2765f16c12af7c2533763e46b8113b727354012d ]
 
-	M.
+Every platform driver can be forced to match a device that doesn't match
+its list of device IDs because of device_match_driver_override(), so
+platform drivers that rely on the existence of a device's ACPI companion
+object need to verify its presence.
 
+Accordingly, add a requisite ACPI_HANDLE() check against NULL to the
+platform/x86 intel_sar driver.
+
+Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://patch.msgid.link/14023870.uLZWGnKmhe@rafael.j.wysocki
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+
+For this stable dependency, also convert the existing allocations in
+parse_package() and sar_probe() to kmalloc_objs() and kzalloc_obj().
+Both helpers are already available in this tree and retain the same
+allocation sizes and GFP_KERNEL flags. This makes intel_sar.c match
+the parent of 30c906cff490 ("platform/x86: int1092: Fix potential
+memory leak in sar_probe()"), allowing that target to apply unchanged.
+No new functions or allocation helpers are introduced.
+
+Stable-dep-of: 30c906cff490 ("platform/x86: int1092: Fix potential memory leak in sar_probe()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/platform/x86/intel/int1092/intel_sar.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
+index e526841aff603..849f7b415c1e5 100644
+--- a/drivers/platform/x86/intel/int1092/intel_sar.c
++++ b/drivers/platform/x86/intel/int1092/intel_sar.c
+@@ -91,8 +91,8 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
+ 	    item->package.count <= data->total_dev_mode)
+ 		return AE_ERROR;
+ 
+-	data->device_mode_info = kmalloc_array(data->total_dev_mode,
+-					       sizeof(struct wwan_device_mode_info), GFP_KERNEL);
++	data->device_mode_info = kmalloc_objs(struct wwan_device_mode_info,
++					      data->total_dev_mode);
+ 	if (!data->device_mode_info)
+ 		return AE_ERROR;
+ 
+@@ -245,15 +245,20 @@ static void sar_get_data(int reg, struct wwan_sar_context *context)
+ static int sar_probe(struct platform_device *device)
+ {
+ 	struct wwan_sar_context *context;
++	acpi_handle handle;
+ 	int reg;
+ 	int result;
+ 
+-	context = kzalloc(sizeof(*context), GFP_KERNEL);
++	handle = ACPI_HANDLE(&device->dev);
++	if (!handle)
++		return -ENODEV;
++
++	context = kzalloc_obj(*context);
+ 	if (!context)
+ 		return -ENOMEM;
+ 
+ 	context->sar_device = device;
+-	context->handle = ACPI_HANDLE(&device->dev);
++	context->handle = handle;
+ 	dev_set_drvdata(&device->dev, context);
+ 
+ 	result = guid_parse(SAR_DSM_UUID, &context->guid);
 -- 
-Without deviation from the norm, progress is not possible.
+2.53.0
+
