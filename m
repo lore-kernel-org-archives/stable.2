@@ -1,53 +1,85 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D076F33D4E4;
-	Wed,  9 Sep 2026 02:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2805934107F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922719; cv=none; b=e7pZzWWQhctEeBFyrv4W9uT+OzNXiMHVQBa7jFoN8730vgTEZIvxdlEGExGXUK+EiMjHDbbue+6rxh/QLr0Ej4kuzE5Pp3Kii6VJW0FE0lPabwu6Os+xjUutqdTQVGU2MzSeDNrmAL7BnWIA94smw+BdzZdspczG0R8kb6vmnVs=
+	t=1788922720; cv=none; b=M8qD44zIfacv6uHLQspD6KvL4fgUFPeNBwiSTHicXn0/TyO3Z0sDPL4YqDgfYA9WMEnPsrJQEdD0DDpA+hvFI2xSQG1wLUbCFzgMTD+PRKnIZ3HJXzcx0/CpvHe/qPAk9wRXGyezbuZReLP8P57nlNZJjgNe9xAw4Kr/Yec1R98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922719; c=relaxed/simple;
-	bh=1eLOnwow/djpmHX7VdGdO1rAK4zqVtvR3BsezklmFPM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=A7uBgUdTiKGIYr+87M33Ght401vu/Thw/rhPEN0m0I9ZbTl+aTuc9nvJo8YirGBLRvqijB2Za7Z33QCqoXt6Ad1xyuWygiY1EfT67kJ05xBwMquJYYx60K9GRTukiU8JkpFjjm44LjrnHLJJHifRzsUxZxXorxi+G3uevXKT0yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 54f73436abfa11f19a56ed5b684f684d-20260909
-X-CID-CACHE: Type:Local,Time:202609091026+08,HitQuantity:2
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:4b4abda1-48c1-4c0a-822d-92a3a5f3c2a7,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:9562b420330683b6bf297dd09904b3b0,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 54f73436abfa11f19a56ed5b684f684d-20260909
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 892614707; Wed, 09 Sep 2026 10:58:28 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1788922720; c=relaxed/simple;
+	bh=LXlsTApBrqoiuYStPAwfG+fUQJZVGG67zHShaS1Y7Jo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IU+xurUZ/9c5whlqwvNpxx+mXfnlFx14c70m+Hsz9Ip8I4Pojkh5x+MVdJjGWY/Vzv5VprpXbQn23LbC2UpZ2APhIpv1++IDSpMsDkFc5V9EirjY7FgmzxFVG6NnkJM+SGiI8KLqHC6cNnrWEAOan5N7NnSWYqq4iCR4rIVSUTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F31EtvlQ; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F31EtvlQ"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398a5aad413so4267344a91.3
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 19:58:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788922717; x=1789527517; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+CrA+cvlGJlbJCNYzltiXcEC/SgR4IipKiqObnP/BdA=;
+        b=F31EtvlQdHqbNTjE2jPVwVCi56lpwAjxECZtcS/Oy/421ZU7FhvcuYy6c9IMx+sqno
+         ZoKwCB2/lDSQXC/vw6UUgB5V9mYjrb7Uh3pQbrquwjx9tx9flNpKfmuSLQJCthGPeAh3
+         IBkgcFW0p8lNSKiTrCPHTNTqCb52+kqINKnsIxKsT3mlmGJv/EP56bNaSKoSvMn2pL/w
+         mqO1HdmoxY4W2wL3ciR1vdaNBKHeQnPjNbX+GmVX2mindX7FdIv1W0tc5Ow9sT6xGK0t
+         PE2NfP7wT/gUXE3cY9lkTeNlHQybzAgARxiD3FnHRxQzMljnd84n/9GfVzn+XsGv76rf
+         DkBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788922717; x=1789527517;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+CrA+cvlGJlbJCNYzltiXcEC/SgR4IipKiqObnP/BdA=;
+        b=iJStM2wVVoVgypo8y6LXpeIjFFfDpz+Bu1eapnGeE7eNc89gxmown6k/k14FvoEH3W
+         XqoB4wXWiRdb5K3tNkW2BiaMljhT+d3s+Z2qBKjVz0nc9GSBbetwZjnol7ILq5Ge87ia
+         Ag8iuiXxEozNKNTS/djADgZnYaCxQwu96qEdjSWdN1XIEmIAqlgAN0l+pGCK1EI6cT+f
+         wn3FWz5YKBZLP241lu1WTEYbKZy9mV12pPVBn4bqXDuIZfD9rTVabw3f1EfAqFwYPK6e
+         /7FbuIVE873WnDd0gbYZViKhd7xsBwLtnObPb6mfVGXJ3ml2KlHA3UDPTMX8kMabYSQj
+         yCCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2oNZ/dpryDk41Lvhtjy9PG6IXAlp/lA4BE6l5RROiZAnEnz6DqOJeLQgcjBBFUJJJ1LW+Yu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz2cfeogVwjrZSTUUNraFW2MZv475+d/NBMjm4IyoGIHmXqNFb
+	1QN/Pp+SriiprpsrNGHLBfqzIUkLEGBmfVmmeVk3Y+CuRka4zBJnwVUk
+X-Gm-Gg: AYBFou2HFg1qizmRPfPXuh2ThU4yak5rHjIxRrBRA0x4qEWDULtL1uFdPk1yfDVE/Io
+	A77p3iEyegpOF46BHWLt1mqOSVnTgL2m5a/JkH1PfT+/gHtDkBdqoKFSyMasKQSEUftLigxbGe4
+	n2ZO4Tyo3r5ZqqPxTj9TDy7IMqic0fpz9aeZZtnWdipRz55PhFvs3CsoWWd3nAbUwXHBEf4F70y
+	gae+xeEudcHqBbmfD6+qiQpGlKCtMEniTXoTUljGcQH6F2Mhpj6tnrDbJH0ECuiIpgVe1P/XdBY
+	J90d1aaattbDLcZ/RSzAMHrGp8T6NhC3uZolXF1tj+jJKH3X1gx8a/cis7X1/NGyiuVB2zmAHP+
+	1UbIXXE238ufeRfexQBTk2n0+/2cqZkC+pVj5But2nCnoxnwdakk1Cr+z0iR33DVrIINIV/hbI7
+	HeN4GfZH19OjpeOHkNE5aQQkFkGsdMc6z+QM4sjqW6Iid4tYnh3O4dNIrv6L9yyVLNLy77SchrG
+	DDynamB5AuYFw==
+X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr46235543a91.1.1788922717300;
+        Tue, 08 Sep 2026 19:58:37 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39451sm35077172a91.7.2026.09.08.19.58.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 19:58:36 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	zokeefe@google.com,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/4] ntfs: fix volume flag update races
-Date: Wed,  9 Sep 2026 10:58:20 +0800
-Message-Id: <20260909025823.815495-2-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260909025823.815495-1-zenghongling@kylinos.cn>
-References: <20260909025823.815495-1-zenghongling@kylinos.cn>
+	linux-mm@kvack.org,
+	stable@vger.kernel.org,
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: [PATCH v5 2/3] mm: khugepaged: fix folio is used after pte_unmap_unlock()
+Date: Wed,  9 Sep 2026 10:58:02 +0800
+Message-ID: <20260909025804.3233645-3-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
+References: <20260909025804.3233645-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,158 +88,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-vol->vol_flags outside any lock to compute the new value before handing
-it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-the actual write. The read-modify-write is therefore not atomic, and two
-concurrent callers can lose an update: ntfs_sync_fs() may derive a
-"clean" value from vol->vol_flags while a writer concurrently records an
-error and sets VOLUME_IS_DIRTY; the locked write then silently
-overwrites the freshly-set dirty bit. The on-disk volume looks clean
-despite the recorded errors, so chkdsk will not run on the next mount
-and corrupted metadata can persist.
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-to set and to clear separately, and combine them with the current flag
-state under the lock inside ntfs_write_volume_flags(). The set/clear
-helpers pass only the bits to modify, not the complete flag state. The
-bit manipulation is done on CPU-endian values, and the result is
-converted back to little-endian before storing it. The wrappers keep
-their signatures so callers are unchanged.
+After the page table lock has dropped, the folio can be freed
+concurrently. The trace_mm_khugepaged_scan_pmd() is left with
+a dangling folio pointer.
 
+So using the folio_pfn() before dropping the page table lock, closing
+use-after-free window.
+
+And other pre-existing bug, When the `for (i = 0; i < HPAGE_PMD_NR; i++)`
+iteration to terminate and the folio operation preceding is normal, but
+pfn will be incorrect. so we really only trace the PFN if it really was
+problematic.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 7d2eba0557c1 ("mm: add tracepoint for scanning pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 ---
- fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 18 deletions(-)
+ include/trace/events/huge_memory.h |  6 +++---
+ mm/khugepaged.c                    | 10 +++++++++-
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f4a73e45773d..6ba19986a598 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
- }
+diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+index 7b526528f85b..fa828967e1fb 100644
+--- a/include/trace/events/huge_memory.h
++++ b/include/trace/events/huge_memory.h
+@@ -55,10 +55,10 @@ SCAN_STATUS
  
- /*
-- * ntfs_write_volume_flags - write new flags to the volume information flags
-+ * ntfs_write_volume_flags - apply flag changes to the volume information flags
-  * @vol:	ntfs volume on which to modify the flags
-- * @flags:	new flags value for the volume information flags
-+ * @set_bits:	bits to set in the volume information flags
-+ * @clear_bits:	bits to clear in the volume information flags
-  *
-  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-  * instead (see below).
-  *
-- * Replace the volume information flags on the volume @vol with the value
-- * supplied in @flags.  Note, this overwrites the volume information flags, so
-- * make sure to combine the flags you want to modify with the old flags and use
-- * the result when calling ntfs_write_volume_flags().
-+ * Combine @set_bits and @clear_bits with the current in-memory flag state and
-+ * write the result back.  The set/clear helpers pass only the bits to modify,
-+ * not the complete flag state.  The read-modify-write happens under
-+ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-+ * All bit manipulation is done on CPU-endian values, and the result is
-+ * converted back to little-endian before storing it.
-  *
-  * Return 0 on success and -errno on error.
-  */
--static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-+static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-+		const __le16 set_bits, const __le16 clear_bits,
-+		const bool skip_if_errors)
- {
- 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
- 	struct volume_information *vi;
- 	struct ntfs_attr_search_ctx *ctx;
-+	u16 flags;
- 	int err;
+ TRACE_EVENT(mm_khugepaged_scan_pmd,
  
--	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
--			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
- 	mutex_lock(&ni->mrec_lock);
--	if (vol->vol_flags == flags)
-+
-+	if (skip_if_errors && NVolErrors(vol))
-+		goto done;
-+
-+	flags = le16_to_cpu(vol->vol_flags);
-+	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-+	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-+			le16_to_cpu(vol->vol_flags), flags);
-+
-+	if (le16_to_cpu(vol->vol_flags) == flags)
- 		goto done;
+-	TP_PROTO(struct mm_struct *mm, struct folio *folio,
++	TP_PROTO(struct mm_struct *mm, unsigned long pfn,
+ 		 int referenced, int none_or_zero, int status, int unmapped),
  
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+-	TP_ARGS(mm, folio, referenced, none_or_zero, status, unmapped),
++	TP_ARGS(mm, pfn, referenced, none_or_zero, status, unmapped),
  
- 	vi = (struct volume_information *)((u8 *)ctx->attr +
- 			le16_to_cpu(ctx->attr->data.resident.value_offset));
--	vol->vol_flags = vi->flags = flags;
-+	vol->vol_flags = vi->flags = cpu_to_le16(flags);
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- done:
-@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-  * @flags:	flags to set on the volume
-  *
-  * Set the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-+	return ntfs_write_volume_flags(vol, flags, 0, false);
- }
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+@@ -71,7 +71,7 @@ TRACE_EVENT(mm_khugepaged_scan_pmd,
  
- /*
-@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * @flags:	flags to clear on the volume
-  *
-  * Clear the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
--	return ntfs_write_volume_flags(vol, flags);
-+	return ntfs_write_volume_flags(vol, 0, flags, false);
-+}
-+
-+/*
-+ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-+ * @vol:	ntfs volume whose dirty bit should be cleared
-+ *
-+ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-+ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-+ * recorded.
-+ */
-+static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+{
-+	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
- }
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->pfn = folio ? folio_pfn(folio) : -1;
++		__entry->pfn = pfn;
+ 		__entry->referenced = referenced;
+ 		__entry->none_or_zero = none_or_zero;
+ 		__entry->status = status;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 6ee0ad13a31f..b352c1330f8e 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1612,6 +1612,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 	enum scan_result result = SCAN_FAIL;
+ 	struct page *page = NULL;
+ 	struct folio *folio = NULL;
++	unsigned long failed_pfn = -1;
+ 	unsigned long addr;
+ 	unsigned long enabled_orders;
+ 	spinlock_t *ptl;
+@@ -1706,11 +1707,13 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 		if (cc->is_khugepaged && !(vma->vm_flags & VM_DROPPABLE) &&
+ 		    folio_test_lazyfree(folio) && !pte_dirty(pteval)) {
+ 			result = SCAN_PAGE_LAZYFREE;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
  
- int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-@@ -1858,8 +1886,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 		return 0;
+ 		if (!folio_test_anon(folio)) {
+ 			result = SCAN_PAGE_ANON;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
  
- 	/* If there are some dirty buffers in the bdev inode */
--	if (!NVolErrors(vol) &&
--	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-+	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
- 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
+@@ -1721,6 +1724,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 		if (folio_maybe_mapped_shared(folio)) {
+ 			if (++shared > max_ptes_shared) {
+ 				result = SCAN_EXCEED_SHARED_PTE;
++				failed_pfn = folio_pfn(folio);
+ 				count_collapse_event(HPAGE_PMD_ORDER, THP_SCAN_EXCEED_SHARED_PTE,
+ 						     MTHP_STAT_COLLAPSE_EXCEED_SHARED);
+ 				goto out_unmap;
+@@ -1738,15 +1742,18 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 		node = folio_nid(folio);
+ 		if (collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
+ 		cc->node_load[node]++;
+ 		if (!folio_test_lru(folio)) {
+ 			result = SCAN_PAGE_LRU;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
+ 		if (folio_test_locked(folio)) {
+ 			result = SCAN_PAGE_LOCK;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
+ 
+@@ -1759,6 +1766,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 		 */
+ 		if (folio_expected_ref_count(folio) != folio_ref_count(folio)) {
+ 			result = SCAN_PAGE_COUNT;
++			failed_pfn = folio_pfn(folio);
+ 			goto out_unmap;
+ 		}
+ 
+@@ -1784,7 +1792,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 		*lock_dropped = true;
  	}
+ out:
+-	trace_mm_khugepaged_scan_pmd(mm, folio, referenced,
++	trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
+ 				     none_or_zero, result, unmapped);
+ 	return result;
+ }
 -- 
-2.25.1
+2.53.0
 
