@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F24332EAE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F338339395
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973633; cv=none; b=IHgy/pmyac0xbXvcfiK6U3NHZXATa4TGDUboWVMebUHskx4MFqgYd+gxYhr4cY1AFSyDg77V6a3NKRu1lTOdDA7rFdR6R/ZfiRpDJTfgq33s3Q7Kg3IrozzfPZEJzfawKITjAD88ns66VRj50cTopOwyoO5kZEXqXhcBHNtXbJY=
+	t=1788973633; cv=none; b=V5jIBQWflkqKYxAil1Mh4kg9GXvzMz1aK1JOgSOg+sgyiBEU1SC3KoMWwdH8cUIOfuB5b6sMQgmewDWiOEpDTveWeMgSq05LHJbwPmNqg+W2wNgT+wHK6Xh/rzKw4wGQWO7pmWkHdX447Bc+89q66hUz89Srdx6d0qX9ZNB6saQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788973633; c=relaxed/simple;
-	bh=jF7+SQ+0wRPaDXq3XkxCNO3NWjF+IIdDSitGkBxp9P4=;
+	bh=OeIWVz0FBUMMNilMHGSqbM55aTmErnEf8TwXHESb2cw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s/G7ElOHK2VYj59V+FwXPBnX3eDy7agSb2g0DUmH3FL2bhNK11K6yPe4u+DGW0qUTVnhL+BHnOeQMWlszThYIVnarF6MC7wCKvMUIPi4KRe3cg2prdxqvD7L7TwoWfprxE3gZQiW6hiQTlOpNnhC08IIfAPB5s1caKJ8HLQ4mOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSBQN8R0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WoUUaP4j1BvUQZ+ruLrjjyO/OFUaxQGUWW4bIb5ghXOoZSaCNbVjNm7G5yDa5thaEgUicEXfLlEk7CZW9H+VcCapIse7RtUBcWh+Av9ZWBnljh42Z3TYmXP/LDtFTIUNxYV6GGz4G29WVu9mS4CMW3S6thLJi4zJLUB9G1BLJ1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmJKsBd6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSBQN8R0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035691F00899;
-	Wed,  9 Sep 2026 17:07:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmJKsBd6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB491F00898;
+	Wed,  9 Sep 2026 17:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973630;
-	bh=ZXpbBtGgpLd80xxQG2PevLJhxDkIrF5dxxNySATe8Y8=;
+	s=k20260515; t=1788973632;
+	bh=ObWaDUuHe+qVQlPZ17gy6S8/q6/YUyr/3cY3TLBDRkQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LSBQN8R0MInhnK7aSZdiCEwXHi/f3IWD4bxJM4fo3Oeo5Fz133+SaMsqdIykFYPnw
-	 dnzd+Npg8bi9wqftXXYVhZOYaiI/M2uk8KxEtVDXuZkonQcmUpvbW3vWSZqhGcwxXo
-	 Rnr4pAvqoqtGa1+RDmSDFuBL2n01CTChEdNDJI8POCsh9rY4b7RXlMBt3S8pahgd8x
-	 Gcej1XZQUXcEfrGXCupZl2yesn/nqpvzEv62aipGETdPYjBHanu1rBTOjrLT1+Kdeq
-	 SZAc7PuKhtu3crje6Y32w5DtVMTZGow+LCVf4m/UVeSx9WN5LZ6V4RXvIGmXoU5CSk
-	 jkKCVCkRAUoMA==
+	b=HmJKsBd6ex0jXFJYy3flZ/ak/w3xH6F0ygj2j3s6FF8q+F+HfLIuaiJXSKizDjdwb
+	 /22vMG87P38qp3V4DBi9Z1uaztEl1GhUidxXTUs6v44TDCKk/7YspiC++A98/ff0Br
+	 n8K+B5gXqTGpnI4vUb39LFekFkonm22rJDCVOyqUT5kZIS4t+sIwN1Uyg1ETM9QuEL
+	 OhE67Ga6rMdXTLrvxgslj/srIQzXFj++/R+ESxD097qjRDyR4y6F7Kmj09uqgdE6e4
+	 JJnyw8bWx6JDE51QY5gbDsLHcscFrrVc2AIHpmPq2x6bkeUfXltD4++C4VWAN2n/oe
+	 cJM11txgzO26Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Paul Barker <paul.barker.ct@bp.renesas.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
+Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] net: ravb: Only advertise Rx/Tx timestamps if hardware supports it
-Date: Wed,  9 Sep 2026 13:07:00 -0400
-Message-ID: <20260909170701.3189413-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] net: ravb: avoid dereferencing an invalid PTP clock
+Date: Wed,  9 Sep 2026 13:07:01 -0400
+Message-ID: <20260909170701.3189413-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909170701.3189413-1-sashal@kernel.org>
 References: <2026090322-boss-emu-7014@gregkh>
@@ -46,74 +45,103 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-[ Upstream commit 126e799602f45e9ce1ded03ee9eadda68bf470e0 ]
+[ Upstream commit 1f77af0aaf277413ff32f6ff8c2c4282bd64c897 ]
 
-Recent work moving the reporting of Rx software timestamps to the core
-[1] highlighted an issue where hardware time stamping was advertised
-for the platforms where it is not supported.
+The PTP clock is unavailable before the first open, so querying its
+index can dereference a NULL pointer. Registration failures can also
+leave an error pointer in priv->ptp.clock.
 
-Fix this by covering advertising support for hardware timestamps only if
-the hardware supports it. Due to the Tx implementation in RAVB software
-Tx timestamping is also only considered if the hardware supports
-hardware timestamps. This should be addressed in future, but this fix
-only reflects what the driver currently implements.
+Cache the PHC index separately and report -1 while no clock is
+registered. Normalize registration errors to NULL and preserve the
+static timestamping capabilities.
 
-1. Commit 277901ee3a26 ("ravb: Remove setting of RX software timestamp")
-
-Fixes: 7e09a052dc4e ("ravb: Exclude gPTP feature support for RZ/G2L")
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Paul Barker <paul.barker.ct@bp.renesas.com>
-Tested-by: Paul Barker <paul.barker.ct@bp.renesas.com>
-Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
-Link: https://patch.msgid.link/20241014124343.3875285-1-niklas.soderlund+renesas@ragnatech.se
+Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Link: https://patch.msgid.link/20260811103733.62599-2-xuanqiang.luo@linux.dev
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 1f77af0aaf27 ("net: ravb: avoid dereferencing an invalid PTP clock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/renesas/ravb_main.c | 25 ++++++++++++------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ drivers/net/ethernet/renesas/ravb.h      |  1 +
+ drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
+ drivers/net/ethernet/renesas/ravb_ptp.c  | 15 +++++++++++++--
+ 3 files changed, 16 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
+index a475f54a6b63c..33486234c1218 100644
+--- a/drivers/net/ethernet/renesas/ravb.h
++++ b/drivers/net/ethernet/renesas/ravb.h
+@@ -973,6 +973,7 @@ struct ravb_ptp_perout {
+ struct ravb_ptp {
+ 	struct ptp_clock *clock;
+ 	struct ptp_clock_info info;
++	int phc_index;
+ 	u32 default_addend;
+ 	u32 current_addend;
+ 	int extts[N_EXT_TS];
 diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 578ab58c9fec7..2e36be812945a 100644
+index 2e36be812945a..9b7b66fcfce8d 100644
 --- a/drivers/net/ethernet/renesas/ravb_main.c
 +++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -1323,20 +1323,19 @@ static int ravb_get_ts_info(struct net_device *ndev,
- 	struct ravb_private *priv = netdev_priv(ndev);
- 	const struct ravb_hw_info *hw_info = priv->info;
- 
--	info->so_timestamping =
--		SOF_TIMESTAMPING_TX_SOFTWARE |
--		SOF_TIMESTAMPING_TX_HARDWARE |
--		SOF_TIMESTAMPING_RX_HARDWARE |
--		SOF_TIMESTAMPING_RAW_HARDWARE;
--	info->tx_types = (1 << HWTSTAMP_TX_OFF) | (1 << HWTSTAMP_TX_ON);
--	info->rx_filters =
--		(1 << HWTSTAMP_FILTER_NONE) |
--		(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
--		(1 << HWTSTAMP_FILTER_ALL);
--	if (hw_info->gptp || hw_info->ccc_gac)
-+	if (hw_info->gptp || hw_info->ccc_gac) {
-+		info->so_timestamping =
-+			SOF_TIMESTAMPING_TX_SOFTWARE |
-+			SOF_TIMESTAMPING_TX_HARDWARE |
-+			SOF_TIMESTAMPING_RX_HARDWARE |
-+			SOF_TIMESTAMPING_RAW_HARDWARE;
-+		info->tx_types = (1 << HWTSTAMP_TX_OFF) | (1 << HWTSTAMP_TX_ON);
-+		info->rx_filters =
-+			(1 << HWTSTAMP_FILTER_NONE) |
-+			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
-+			(1 << HWTSTAMP_FILTER_ALL);
- 		info->phc_index = ptp_clock_index(priv->ptp.clock);
--	else
--		info->phc_index = 0;
-+	}
+@@ -1334,7 +1334,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+ 			(1 << HWTSTAMP_FILTER_NONE) |
+ 			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+ 			(1 << HWTSTAMP_FILTER_ALL);
+-		info->phc_index = ptp_clock_index(priv->ptp.clock);
++		info->phc_index = READ_ONCE(priv->ptp.phc_index);
+ 	}
  
  	return 0;
+@@ -2247,6 +2247,7 @@ static int ravb_probe(struct platform_device *pdev)
+ 	priv->rstc = rstc;
+ 	priv->ndev = ndev;
+ 	priv->pdev = pdev;
++	priv->ptp.phc_index = -1;
+ 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
+ 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
+ 	priv->num_tx_ring[RAVB_NC] = NC_TX_RING_SIZE;
+diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+index c099656dd75b6..ac73ca2a98f8d 100644
+--- a/drivers/net/ethernet/renesas/ravb_ptp.c
++++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+@@ -332,6 +332,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
+ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ {
+ 	struct ravb_private *priv = netdev_priv(ndev);
++	struct ptp_clock *clock;
+ 	unsigned long flags;
+ 
+ 	priv->ptp.info = ravb_ptp_info;
+@@ -344,7 +345,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ 
+-	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	if (IS_ERR(clock)) {
++		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
++		clock = NULL;
++	}
++
++	priv->ptp.clock = clock;
++	if (clock)
++		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
+ }
+ 
+ void ravb_ptp_stop(struct net_device *ndev)
+@@ -354,5 +363,7 @@ void ravb_ptp_stop(struct net_device *ndev)
+ 	ravb_write(ndev, 0, GIC);
+ 	ravb_write(ndev, 0, GIS);
+ 
+-	ptp_clock_unregister(priv->ptp.clock);
++	WRITE_ONCE(priv->ptp.phc_index, -1);
++	if (priv->ptp.clock)
++		ptp_clock_unregister(priv->ptp.clock);
  }
 -- 
 2.53.0
