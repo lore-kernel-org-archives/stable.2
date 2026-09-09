@@ -1,67 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C89957D221;
-	Wed,  9 Sep 2026 16:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A5D5476DE
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970655; cv=none; b=Hgphc5vC++RxaxsXE7PXu5eBRdvr0IRsyUh4y+SdJ8Tm0+8wFxjsnJIIdHRD7jIfKnygSYYFyr/6L1Hw9ziN1bBM4WYSrokvBrE3gbBjg0u48NgS6Tj66DkCmerIzWLOrq0+RDwjocxKPXt0gAo4MMUNE1TxQxbfRjz2cHm1OWc=
+	t=1788971202; cv=none; b=qq79n2Edph/xa4e9JLR6OEgEcBJ6M5KfazSgFS2kYDffWjQaqxM1ESXU8Kx5kdFT2I8MF6aJGM8Ot/FSJEgcNFuhnITfNiuM8Ff5HvNwikOjHFoOhMvH3TVj1ZSR0YVqrN7aTV5XUolxSKOd6+DqDT/v/yCZVINz3q5hvbL2Cmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970655; c=relaxed/simple;
-	bh=k8VGBb8PaDkc2yd06E/IJh2YobUiaptSlY9ebsPQNOk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uA3QnS/TrtvjOgfvYU9SK6vYi3gb/cC05Vn82jv9QAbMsuPa6mJhxbOE+hrKFJbvLj7Ts4lxsaO2vggcw+8ey/UdK/g5n27u2MuH2KuSvwmfrf2vkwVA9/j8EF7JBcgTGiOn84DLjHMZ27YwUEFkEzTNm+PHYy9zjDtmPaF0J1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUCYhhac; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788971202; c=relaxed/simple;
+	bh=pJjuLblbxzk2gjOti0iGQHAeP825ndXFfutj2TKcNng=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=llNpK5Hzv7l6SgnvbfAhXN+Q0dotuqeJER9oNulCKTA3nMwCWpN7gfzEb5rrt2pXZWxAgdpydCqMjMSnGZH67UxwvlXX/g3/nrX65HodyMzmO5gV9o93kp2un5WesktCSIWXwtlxPDCIc8yfsB8zu1dFuzLRlVvhhpsZfo0Zdx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JrCjWT/d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUCYhhac"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8431F000FF;
-	Wed,  9 Sep 2026 16:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JrCjWT/d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040921F000FF;
+	Wed,  9 Sep 2026 16:26:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788970654;
-	bh=Qhe2qNXetlQqkFY1S6O8BoiQ9ETn0fwLz5nwk41DypA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VUCYhhacUnIeH3MGrESrRcuKjnLBgv8kOx5gW6pTTwhEFKoDEAIQ9cEK5mXzghuf/
-	 78Ly+C0CMaXb2F/x43rRNd6eqO4DrHYvyAMQ9NgwaOwXM+iewa1rCGJDI6vFgVh3xB
-	 JmBGxSs0geyg9jrGtrcV7q+1KrJcBkGA/NMbu+Vem/4W1pdfX7b1pVTey+HY3M/jaZ
-	 tsFcOLYJxIzIGR1QIIseWmJ7qeRAnN3fX0PxUN/iV4svUUbXbMAgT4H3woizr68HKg
-	 ChsB4xwNSEapEwwgyKJQD22MaJe7AvqjORFKttPf6JSC0rRjejD2j0fA4TiSqFaGsd
-	 yA6bUOX1f9DXA==
-Date: Wed, 9 Sep 2026 18:17:26 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kathiravan T <quic_kathirav@quicinc.com>, 
-	Baruch Siach <baruch@tkos.co.il>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, Manu Gautam <mgautam@codeaurora.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] phy: qcom-qusb2: sort out register layouts
-Message-ID: <oudk5kc7htbuodfuszus4wqxcbfbrhn2meuk35cz5bms34i23j@jywq3lb3q5db>
-References: <20260706-fix-qusb2-v2-0-8d9cd73b1db7@oss.qualcomm.com>
+	s=k20260515; t=1788971200;
+	bh=6hKmcydaZtvTd8Og09yyTg7h9/tCcu1Rt+ZGF0P6Qpo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JrCjWT/dTC3r+/8OGESavgSDFp3Lhlt7PYeg0t6GcUP8TpGkVc2m/+PY67jR1c7r6
+	 hpD+hBa5blS3CI1LK+5zKf5q9tBRx2B/ZXOl/RCAWc6dL9buFhJidQztTiUPoLJOYg
+	 o3SdtD4D4LACuJQ1jRM4OtUXWeCk79xdAX7fX+F5j+yLKQfAlqoAK3M9OFJ5TkQyB8
+	 Vqh9eU6ykqvDGkMWoA2/hwQnwLZ54QAlFhsAVqQh0qPub86Me2A3sWgbDwVNVuz7Hs
+	 yPMrc5XpGYg/4WwbsFcFApgY3+G/x//3a8oJ4hUbdMyjBDqLKQECznhFu4lh4ScUVs
+	 /v+LJAhdCHBHA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Sanket Goswami <Sanket.Goswami@amd.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] platform/x86/amd/pmc: Move STB block into amd_pmc_s2d_init()
+Date: Wed,  9 Sep 2026 12:26:34 -0400
+Message-ID: <20260909162637.2981292-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090316-rogue-eggnog-a086@gregkh>
+References: <2026090316-rogue-eggnog-a086@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260706-fix-qusb2-v2-0-8d9cd73b1db7@oss.qualcomm.com>
 
-On Mon, Jul 06, 2026 at 04:53:13PM +0300, Dmitry Baryshkov wrote:
-> IPQ6018 and MSM8996 use the same register layout, however for historical
-> reasons ipq6018_regs_layout ended up correctly definig TEST1 register at
-> 0x98 (because platforms using that layout didn't use autoresume), while
-> msm8996_regs_layout used TEST_CTRL offset (0xb8) for the TEST1 layout
-> entry. Fix handling of the autoresume register and definitions of those
-> regs layouts.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+[ Upstream commit 83ad6974dd3bf34c080b3c08d36d02ebc3bd6da8 ]
 
-- Mani
+Transfer the support for STB-related file operations to the
+amd_pmc_s2d_init() function, thereby consolidating the STB and S2D
+(Spill to DRAM) functionality in one location. Also, relocate the
+call to amd_pmc_s2d_init() to occur after the creation of the
+"amd_pmc" debugfs directory. This ensures that the driver's root debugfs
+directory is established beforehand.
 
+For older platforms that supported S2D, exit immediately after creating
+debugfs. These platforms may not support the PMFW messages available on
+newer platforms. This adjustment is necessary due to the relocation of
+debugfs creation into amd_pmc_s2d_init().
+
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Co-developed-by: Sanket Goswami <Sanket.Goswami@amd.com>
+Signed-off-by: Sanket Goswami <Sanket.Goswami@amd.com>
+Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Link: https://lore.kernel.org/r/20241108070822.3912689-2-Shyam-sundar.S-k@amd.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: 0225c1d63768 ("platform/x86/amd/pmc: Propagate SMU errors and validate S2D address")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/platform/x86/amd/pmc/pmc.c | 31 +++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+index 343f75eeb7f28..91d164a3ca3bc 100644
+--- a/drivers/platform/x86/amd/pmc/pmc.c
++++ b/drivers/platform/x86/amd/pmc/pmc.c
+@@ -657,15 +657,6 @@ static void amd_pmc_dbgfs_register(struct amd_pmc_dev *dev)
+ 			    &s0ix_stats_fops);
+ 	debugfs_create_file("amd_pmc_idlemask", 0644, dev->dbgfs_dir, dev,
+ 			    &amd_pmc_idlemask_fops);
+-	/* Enable STB only when the module_param is set */
+-	if (enable_stb) {
+-		if (amd_pmc_is_stb_supported(dev))
+-			debugfs_create_file("stb_read", 0644, dev->dbgfs_dir, dev,
+-					    &amd_pmc_stb_debugfs_fops_v2);
+-		else
+-			debugfs_create_file("stb_read", 0644, dev->dbgfs_dir, dev,
+-					    &amd_pmc_stb_debugfs_fops);
+-	}
+ }
+ 
+ static void amd_pmc_dump_registers(struct amd_pmc_dev *dev)
+@@ -1069,6 +1060,18 @@ static int amd_pmc_s2d_init(struct amd_pmc_dev *dev)
+ 	u32 size = 0;
+ 	int ret;
+ 
++	if (!enable_stb)
++		return 0;
++
++	if (amd_pmc_is_stb_supported(dev)) {
++		debugfs_create_file("stb_read", 0644, dev->dbgfs_dir, dev,
++				    &amd_pmc_stb_debugfs_fops_v2);
++	} else {
++		debugfs_create_file("stb_read", 0644, dev->dbgfs_dir, dev,
++				    &amd_pmc_stb_debugfs_fops);
++		return 0;
++	}
++
+ 	/* Spill to DRAM feature uses separate SMU message port */
+ 	dev->msg_port = 1;
+ 
+@@ -1187,12 +1190,6 @@ static int amd_pmc_probe(struct platform_device *pdev)
+ 	/* Get num of IP blocks within the SoC */
+ 	amd_pmc_get_ip_info(dev);
+ 
+-	if (enable_stb && amd_pmc_is_stb_supported(dev)) {
+-		err = amd_pmc_s2d_init(dev);
+-		if (err)
+-			goto err_pci_dev_put;
+-	}
+-
+ 	platform_set_drvdata(pdev, dev);
+ 	if (IS_ENABLED(CONFIG_SUSPEND)) {
+ 		err = acpi_register_lps0_dev(&amd_pmc_s2idle_dev_ops);
+@@ -1203,6 +1200,10 @@ static int amd_pmc_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	amd_pmc_dbgfs_register(dev);
++	err = amd_pmc_s2d_init(dev);
++	if (err)
++		goto err_pci_dev_put;
++
+ 	if (IS_ENABLED(CONFIG_AMD_MP2_STB))
+ 		amd_mp2_stb_init(dev);
+ 	pm_report_max_hw_sleep(U64_MAX);
 -- 
-மணிவண்ணன் சதாசிவம்
+2.53.0
+
