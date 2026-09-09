@@ -1,91 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AD1568FAC
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:17:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2FC353A82;
+	Wed,  9 Sep 2026 14:17:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963447; cv=none; b=RJ41L91oXsHXME1/lmq8bZC2jxf/9dUAZeR0jhAxdIJJkEIl4wnSxcvA7FBptY/2pKRK3mnvbQCnT3qDpZfAOcr4CW7ke6MnpY455dlhedvH6t+KRJPnF9wULQhfYpJIiPYDL9GXViPE28Q1YkxOWsq+lzGwwbXtClw106emqDE=
+	t=1788963448; cv=none; b=mBKm8czYCBY/fJW7uHxfrjnpC6gpAlLOYlIaROe30b08FeTLDp1KUQ1NCfMdNWSzc4cFL+RnU5AaoKfHNly1JJ0z4bGLbIhBVxxwVj/APZA0v4pkjloBbRTW6l4P8nL4EgMC3Noh2BiswtE5Xcwml+WXNOa+uXFfz4p1ykoV13Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963447; c=relaxed/simple;
-	bh=u5kOERMmnx/10mCXjRq6WEn/CHlFcIPHd1u4/UWzyPE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BxBtcevNFLtn/8BOP39uU9c3vuzWCbdvi3XrO31RfNwHpOr9wOtS0BmZMS3p8Rx5iy+mVwutsl/tZd16AcW9MCQW9VpFIiIEct+oYKulsTux6huB5yUbq/qffXoMP66XIUpPNZq3bX/p37KR2KFuT+3jYaUfeWRdxQRgek+a+Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmjSWbyg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788963448; c=relaxed/simple;
+	bh=T8UVojdV06oP9hTMaxdR19RPkkK+G3gXgsX/P1dcmvs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=glwgfUOFx6GkXyJPQ/9I80/4ioKZvCyZK94sgKI10TYC2VJvkAejQks1SnGRBA/Lo6D8H0hOARtP3+FCYq8uNdAKBQ8+j2AtgJRszkQo54y/eI+NueKk+s6LWrHcqDDLfc9n73KfE5CNnv+DcBBSykIgW9oeO6pHHITqnlFrVqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s2nlujwa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmjSWbyg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B5E1F00A3A
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963446;
-	bh=PDKRUTHhDCmiVPJYXr0NSSjQGrcZKZMZgjZHcU7/9wA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OmjSWbyg5hh8gTeVY8Llt2joSKHySBo2vAvU2XVcF22bRRe/Sj32lOE51BuOEd8z6
-	 hJUDdMkg3mq/KKRZZzRMvm9R6S5peSTwSS9snN+knzCVaK6jA16dcpKujhYB5mu53P
-	 ZKpFS2QDO81Et5Umg9sLEMstLmfXtYiQx/WLBk9y9PJLvlVoQQOvJeUWlYWNnkGSfM
-	 QkXXtZLvrYJxEFnpoQvwKzwEY5l+69Owtwms+q8PTo/rTzbXArBiZ0JIJjidtbZKIG
-	 FkzyELtfxGso8SdS6wfOTnpNYchj4Kq78kCAqXUjIplqwHLOcLLbncXHGFLMaBHQce
-	 GwLuRtd8eWI8g==
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so9551617a12.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:17:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwVy7jscymJd9J1HGJfD/2dXbiQdG5Oq6VbfUvRK40A1cj4pc6YJ1rCGczwSjDRu+Gp/pB2BJc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAtox7CX8A90h/SQcv9Vx/A7jrX/mRrgjNEdGbPSfsHxMgr8Fw
-	mGMgUH1h7BwLwAMkE8XDFmHJGYQlm4J51foW+GOJUI1IzIEBJndRSgrY8oNuDZS8qfxa++bJBwr
-	dLj4TU97vWTFhGFhl4lSzZFuwBARxRrc=
-X-Received: by 2002:a05:6402:550c:b0:6a9:983b:79bd with SMTP id
- 4fb4d7f45d1cf-6a9983b7f5emr1148490a12.39.1788963444829; Wed, 09 Sep 2026
- 07:17:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s2nlujwa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D31B1F00AC4;
+	Wed,  9 Sep 2026 14:17:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963447;
+	bh=8TawFIW+3ntyd28U2QnyK5S6DaLOZrngh4/OxnCWuBA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=s2nlujwaTw96ZKjtrqR3Ao8C4PBcLOFZ65xArt+Ij67skxfThizywkD+9XJsXaHgj
+	 wiUrq4hYKJg9s++ednsd3933zKzKoo8NgP/jcUUUpImV2IJ15wZs0oJNDATTyjCXrn
+	 6mbBwjgwfE9IVanXcZui1jYh07U/VTAmtOEJ8Ryk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH 6.18 033/583] staging: rtl8723bs: fix OOB read in rtw_action_frame_parse()
+Date: Wed,  9 Sep 2026 15:35:18 +0200
+Message-ID: <20260909134238.982733477@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909033854.10107-1-15815827059@163.com>
-In-Reply-To: <20260909033854.10107-1-15815827059@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 9 Sep 2026 23:17:12 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_rgP4tu1x=rQsTsSkTuHeUXe5UWC+KthcnXm3sff_gnQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XU-KiqECxxjdNcHkXs9x_V_WvzVUxFdNgjyPwV2VkOr1yRreOyzs1NwmM
-Message-ID: <CAKYAXd_rgP4tu1x=rQsTsSkTuHeUXe5UWC+KthcnXm3sff_gnQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: fix invalid pointer dereference when
- get_inode_acl() fails
-To: huhai <15815827059@163.com>
-Cc: senozhatsky@chromium.org, tom@talpey.com, linux-cifs@vger.kernel.org, 
-	Henry Hu <huhai@kylinos.cn>, stable@vger.kernel.org, 
-	ChenXiaoSong <chenxiaosong@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 12:39=E2=80=AFPM huhai <15815827059@163.com> wrote:
->
-> From: Henry Hu <huhai@kylinos.cn>
->
-> When get_inode_acl() fails, it returns an ERR_PTR(), but
-> ksmbd_acls_fattr() stored that pointer in smb_fattr without
-> checking for errors. Later callers then passed the error pointer
-> to security descriptor helpers or posix_acl_release(), resulting
-> in an invalid pointer dereference.
->
-> This was reproduced on an XFS-backed share when xfs_get_acl()
-> returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
-> triggered the crash:
->
->   BUG: unable to handle page fault for address: fffffffffffffff8
->   RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
->   Call Trace:
->    smb2_query_info+0x40d/0x17c0 [ksmbd]
->    handle_ksmbd_work+0x1ca/0x770 [ksmbd]
->
-> Fix this by checking the return values from get_inode_acl() in
-> ksmbd_acls_fattr(). Treat -EOPNOTSUPP as indicating that no ACL is
-> available, and propagate all other errors to the callers. Update
-> smb2_open() and smb2_get_info_sec() to handle these errors.
->
-> Cc: stable@vger.kernel.org
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Assisted-by: Codex:gpt-5.6-sol
-> Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-> Signed-off-by: Henry Hu <huhai@kylinos.cn>
-Applied it to #ksmbd-for-next.
-Thanks!
+6.18-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Muhammad Bilal <meatuni001@gmail.com>
+
+commit ff917923f4fb9c83717ba135ee47d7e4c1567bb7 upstream.
+
+rtw_action_frame_parse() takes a frame_len parameter but never
+actually checks it before indexing into the frame body:
+
+	const u8 *frame_body = frame + sizeof(struct ieee80211_hdr_3addr);
+	...
+	c = frame_body[0];
+	...
+	a = frame_body[1];
+
+frame_body already points 24 bytes (sizeof(struct
+ieee80211_hdr_3addr)) into frame, so reading frame_body[0] and
+frame_body[1] requires frame_len >= 26. A management action frame
+shorter than that (e.g. exactly 24 bytes, the minimum a malicious
+peer can send) causes a 1-2 byte out-of-bounds read.
+
+This is reachable from rtw_cfg80211_monitor_if_xmit_entry() and
+cfg80211_rtw_mgmt_tx() in ioctl_cfg80211.c, both of which pass
+attacker/user-influenced frame buffers and lengths straight through.
+
+Add the missing length check before frame_body is dereferenced.
+
+Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Link: https://patch.msgid.link/20260728125456.32359-3-meatuni001@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/staging/rtl8723bs/core/rtw_ieee80211.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+@@ -1152,6 +1152,9 @@ int rtw_action_frame_parse(const u8 *fra
+ 	u8 c;
+ 	u8 a = ACT_PUBLIC_MAX;
+ 
++	if (frame_len < sizeof(struct ieee80211_hdr_3addr) + 2)
++		return false;
++
+ 	fc = le16_to_cpu(((struct ieee80211_hdr_3addr *)frame)->frame_control);
+ 
+ 	if ((fc & (IEEE80211_FCTL_FTYPE|IEEE80211_FCTL_STYPE))
+
+
