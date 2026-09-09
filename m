@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB201296BD2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D43630EF63
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 01:37:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917491; cv=none; b=N46iRMdUlIECBQ86W5/M4YTA5Fpe6xZMAG+x2iO4KSIiEOfvt6yCwhorTrGmt/2ec1m5h9u2OsFCngHo9EXXHsL//9sD6jXQTxpIf+6Ix5E9s9QulXXfStRZ4Zs50oj80nKkIy8wEeYg565gJRRyAZDVfjFb0lhTJBeCfB7qQH4=
+	t=1788917852; cv=none; b=SzNoiic3tRqhso5O8K9sg0rOk3QXT4EINJNFzq8p5o5SN+lzlHdWBwZtIcnv8MQtJo0thEcdgTK03n5a3A6Zzx8v73nlPZW8yUaxUhTVOB5DesNREOYm0KZxWqJaWvHEr6B4QvoTXwlewXNNjkgnOO5sUIuPHK+M6hvrMy1zIUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917491; c=relaxed/simple;
-	bh=mag5fy3Y3xt1vGLMWjmUi8Iz6F/wmQHC+cJl40rPtJM=;
+	s=arc-20240116; t=1788917852; c=relaxed/simple;
+	bh=4hVN6IbwREn5DKQI3h6KCPgvMzWtyAfrsa2gq6VzrNY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ntax2CleKW+nkVJVGZjLhLgaHbhqm4iayR/FFHiqfW97fdCsJzlSh7Z2V8J9owahcIWZCEHqEwKcKsIBj2ENth03lEWlfmMQe5opRMyQ9X8iAnmZp3ospCaKPcr8kZHXOEmpqqDHp/7+wf+75Q8yvLPTn7mARFoBy9qHYkbOOC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=go7WYNld; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YoizR1dQoVSCJ2OsEhasHK4VYN0uM8cJx/aixmoYxM/E9FFDCqRkjeKG+5s+qjSYaeK6UvFSF+G/HygDl2Q3of+SGKfWVZM/LdfAeQFBWVT0duzvVDXk4tkSLjS0EWJ1+yj++Qbn0S/aWZfFXlsl9jYnP1+QCsC6JD/65gvq/kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbE/PM3I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="go7WYNld"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0291A1F00A3A;
-	Wed,  9 Sep 2026 01:31:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbE/PM3I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5CE1F00A3D;
+	Wed,  9 Sep 2026 01:37:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917489;
-	bh=6DQMMJWdFRE8GZ4yCiVYWK3JEw4jTr+Ehk2haOPq2Gw=;
+	s=k20260515; t=1788917849;
+	bh=UOo0vyfxHlxI2zorTLtraG7o4CGlj7qcYyser7CNe6I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=go7WYNldLhsgkn9mL3z1bZRZEMPDVgDXzjuhTc9MLgCrL3AiAXYbfrPM/waJ+Qcen
-	 ffJ1TpUODG6xbhAu6TXSmM/nviNh7eIH7t3BMHrfFo67VwJjsmhz5ewVOUn0UV84pv
-	 8DW5FFrA9IUz59TWcUXB8XMY/Rnp77yVXsyHo7psA5pb00mbMQrEHDXFsl0ffU0GJN
-	 sJoyu1yXEjlJrYFYHYg3OyBvznYl9yH6dD/RCHPV2NzQs2ZdIm/V7P8KuHyHLqIWeR
-	 XSSVHpMTbvPKfevtAHLxuQpY6cTOj6vwfYR9xjjz9NqzAbCUS8Vk/brGHQhPjNrvTW
-	 pBLMWH6LiptWw==
+	b=RbE/PM3IrrZ/DitLnaBkO154E9r3vKKfbniCxB3+HaFwV7BNElBEQLKj861aApzhb
+	 8v8ErJgRUXZykep0nggv/cjnnLHVhVXLQxzVB+ThHV5crSw9X1mB+z/509wr2THDL+
+	 eTGNL/pAhwXaGneHDzzuVlBAbhOzLqLCuJxYrbVxaWU72F8z7pdR4jWClqw82hv+py
+	 x4MFXoTKDfqIYDIY+v35tCAo3jvYKCsDOKelV/53t8TklIIA1vU4YEeQHI2fOXdLFy
+	 OZ02fe98hsl6vILPiyNL0QVBG4dBGKf2umyF7DPxJxLTRsO607U6uIfYoOQdZyXT9f
+	 ELJK1X8qegBhw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] svcrdma: Use svc_xprt_put to free listener on create failure
-Date: Tue,  8 Sep 2026 21:31:25 -0400
-Message-ID: <20260909013125.889054-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] svcrdma: Allocate new transports on device's NUMA node
+Date: Tue,  8 Sep 2026 21:37:24 -0400
+Message-ID: <20260909013727.906528-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909013125.889054-1-sashal@kernel.org>
-References: <2026090355-untaxed-empower-663f@gregkh>
- <20260909013125.889054-1-sashal@kernel.org>
+In-Reply-To: <2026090304-champion-prevent-c92a@gregkh>
+References: <2026090304-champion-prevent-c92a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,56 +46,74 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit e346ef7bcb137f50c49f969330ab7dcf64ea1654 ]
+[ Upstream commit fe2b401e55482cf90a0056209c8a232b2d39056c ]
 
-svc_rdma_create() calls kfree(cma_xprt) when
-svc_rdma_create_listen_id() fails. svc_xprt_init() has already
-acquired a net namespace reference via get_net_track(); kfree
-bypasses svc_xprt_free() which releases it.
+The physical device's NUMA node ID is available when allocating an
+svc_xprt for an incoming connection. Use that value to ensure the
+svc_xprt structure is allocated on the NUMA node closest to the
+device.
 
-Replace the kfree() with svc_xprt_put() so the kref_init birth
-reference drops to zero and svc_xprt_free() dispatches
-svc_rdma_free() to clean up properly. sc_cm_id is still NULL
-at that point; the preceding patch added the necessary NULL
-guard in svc_rdma_free().
-
-svc_xprt_free() also drops the module reference via
-module_put(), but the caller _svc_xprt_create() does the same
-on xpo_create failure, double-putting the single
-try_module_get() it acquired. Take a compensating
-__module_get() before the svc_xprt_put() to keep the count
-balanced, matching the convention in svc_rdma_accept()'s error
-path.
-
-Fixes: 4fb8518bdac8 ("sunrpc: Tag svc_xprt with net")
-Cc: stable@vger.kernel.org
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-3-1b09bd87b6cd@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: 0944462247dc ("svcrdma: Reject connection when transport allocation fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index ae15c2ed2f12c..f573b555853c7 100644
+index 1041ea72b3613..575de045b465e 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -350,7 +350,13 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+@@ -64,7 +64,7 @@
+ #define RPCDBG_FACILITY	RPCDBG_SVCXPRT
  
- 	listen_id = svc_rdma_create_listen_id(net, sa, cma_xprt);
- 	if (IS_ERR(listen_id)) {
--		kfree(cma_xprt);
-+		/* _svc_xprt_create() acquired one module reference and
-+		 * puts it on xpo_create failure.  svc_xprt_free() puts
-+		 * a second one when the kref drops to zero.  Take a
-+		 * compensating reference so both puts are balanced.
-+		 */
-+		__module_get(cma_xprt->sc_xprt.xpt_class->xcl_owner);
-+		svc_xprt_put(&cma_xprt->sc_xprt);
- 		return ERR_CAST(listen_id);
- 	}
- 	cma_xprt->sc_cm_id = listen_id;
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+-						 struct net *net);
++						 struct net *net, int node);
+ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 					struct net *net,
+ 					struct sockaddr *sa, int salen,
+@@ -126,14 +126,14 @@ static void qp_event_handler(struct ib_event *event, void *context)
+ }
+ 
+ static struct svcxprt_rdma *svc_rdma_create_xprt(struct svc_serv *serv,
+-						 struct net *net)
++						 struct net *net, int node)
+ {
+-	struct svcxprt_rdma *cma_xprt = kzalloc(sizeof *cma_xprt, GFP_KERNEL);
++	struct svcxprt_rdma *cma_xprt;
+ 
+-	if (!cma_xprt) {
+-		dprintk("svcrdma: failed to create new transport\n");
++	cma_xprt = kzalloc_node(sizeof(*cma_xprt), GFP_KERNEL, node);
++	if (!cma_xprt)
+ 		return NULL;
+-	}
++
+ 	svc_xprt_init(net, &svc_rdma_class, &cma_xprt->sc_xprt, serv);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_accept_q);
+ 	INIT_LIST_HEAD(&cma_xprt->sc_rq_dto_q);
+@@ -197,9 +197,9 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
+ 	struct svcxprt_rdma *newxprt;
+ 	struct sockaddr *sa;
+ 
+-	/* Create a new transport */
+ 	newxprt = svc_rdma_create_xprt(listen_xprt->sc_xprt.xpt_server,
+-				       listen_xprt->sc_xprt.xpt_net);
++				       listen_xprt->sc_xprt.xpt_net,
++				       ibdev_to_node(new_cma_id->device));
+ 	if (!newxprt)
+ 		return;
+ 	newxprt->sc_cm_id = new_cma_id;
+@@ -306,7 +306,7 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
+ 
+ 	if (sa->sa_family != AF_INET && sa->sa_family != AF_INET6)
+ 		return ERR_PTR(-EAFNOSUPPORT);
+-	cma_xprt = svc_rdma_create_xprt(serv, net);
++	cma_xprt = svc_rdma_create_xprt(serv, net, NUMA_NO_NODE);
+ 	if (!cma_xprt)
+ 		return ERR_PTR(-ENOMEM);
+ 	set_bit(XPT_LISTENER, &cma_xprt->sc_xprt.xpt_flags);
 -- 
 2.53.0
 
