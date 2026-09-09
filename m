@@ -1,94 +1,108 @@
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7FA3C6606
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D531D3C1D62;
+	Wed,  9 Sep 2026 19:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983311; cv=none; b=jkmUcXK0FvSX+k30hePeBJB3XjDA6+oz1B3CGzDnuak7pd1NAKvdY2lCi7SmYA/IQxgXHlTP9RSqFpuMDuIX7LRO2RQlKk9deY8SM5sAd+BSQ9lDa2GEFMi8jDtR3PAdgtGGmzglAWp9CLSouMGG9DBeERMrbkzwlegjYJintGY=
+	t=1788983595; cv=none; b=ZljetkiDvW6xctNVqCW8eazft2Hj4XgSZmUQbljIlhg5R23KYb0Xvvyr0i/Em5kNOnuiugCYsjnipa3hLEI+WIKrUljHta/Q+erLnlqqWkOHxM8Kjx6bEwsOjL3oGNzZv1orw/uBSe5O/ZCPzchTyihCfhJclrPk6zho2x7R3Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983311; c=relaxed/simple;
-	bh=bIHnFJeIR8NCizBam5bSpQWNUrltT1kv2ZZq+/mblJQ=;
-	h=From:Subject:Cc:Content-Disposition:Content-Type:Mime-Version:
-	 Date:Message-Id:References:In-Reply-To:To; b=IyQZs2043Rofwl+mgJuUaSW76tn/x5RxhU308VQBZ0Kn/haBl+NrTgqZ9+zZsLmlcsH66yTaQOePyWxgrnylfYhjX27+28vlWii829Ir58sbFjQUFGAiQYqOYQXaw2DoV3S5axzmYBSLVVhZPSYakQ7lqcSqCPonqTz1vQIzmvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=IHW3e2mQ; arc=none smtp.client-ip=71.18.227.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1788983595; c=relaxed/simple;
+	bh=847sgO0ksGozPNuXNxnF4btPlgQ7SR2Ukr2n2buyng0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=H1/cONzdH1rTCPsUATqe1n47ccI5O1n0diCqpJNWEHXYlSDZWdtCVKOIx2qQ36MuKzBiv+99AWa/wR+tWfLUELOEWrixEJwkfL1ePxBJ4oegNyidjVIoohEO4T+WfJoULSPfcCPD/q/R1TAwK3D4skQNhdesxfV0pBZggMZmymY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gMcWiQ/Z; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="IHW3e2mQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788983296; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=VWXdC+EiFgKXDk4rNFutmJw52+1YadomDGamPq9rKuI=;
- b=IHW3e2mQi6/o4orGzclZk1XIgRsFPdaWkn5bD5vJvp9vNlWhYsuJegb9BlmzDA2ZYMAGfC
- HfqumZKKN90TLdO642EJJy1s/01ti7hz/QZhwPjEzvNEst3IbKYjpNR1C8kyd4lEs7cPKz
- jZET06kpwF3br5pxxYFHHIjsQGrR2GCzruD1yzc5L4VdXirNs8pVx7IH3iN3Y5flydGusi
- jkp5BvUMHxDT/2x0fKxx3ZSbFBPDp2TyCKpnNgbZypIO0LtvqqK7xrVo6WqzM22CeEyU82
- NZoU4AMJpJ0pyiWpugMXumuYmO8q6Lc1QHMPPDbsj6TcmSYX6rJbsUckjSMGCw==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
-Received: from nobug ([111.42.148.144]) by smtp.feishu.cn with ESMTPS; Thu, 10 Sep 2026 03:48:13 +0800
-Content-Transfer-Encoding: 7bit
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "Frank Li" <frank.li@nxp.com>, 
-	"Shenwei Wang" <shenwei.wang@nxp.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, 
-	"Richard Cochran" <richardcochran@gmail.com>, 
-	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
-	"Fugang Duan" <fugang.duan@nxp.com>, 
-	"Lucas Stach" <l.stach@pengutronix.de>, 
-	"Simon Horman" <horms@kernel.org>, <imx@lists.linux.dev>, 
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Content-Disposition: inline
-X-Lms-Return-Path: <lba+26aa1b7fe+00e492+vger.kernel.org+me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gMcWiQ/Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788983504;
+	bh=w+e0CFCNccox73yGiNG/BFtBobIPS+RYstEA96SzeSs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=gMcWiQ/ZKsJ+Hyjs/xh5kqVDBWzfj3I5I2sIpblmOmm8zMr6QjydKUXJatNzgf8xw
+	 b2gTQeD+ULI9ydCDuOnrgchPaZ7CpVwBl7hzAHZh/F6cO9XyqvkgDu002SbPOM6CXO
+	 ESUt0yS+NwYH8uiKxSviIhmWY2HVG/ig//KRI2Z4=
+X-QQ-mid: zesmtpgz5t1788983497t1275e637
+X-QQ-Originating-IP: d7YA61bGw3SKUwANztmKXguhPOXYeUL97DAfFI4k5/o=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 10 Sep 2026 03:51:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7115221183154363354
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
+Date: Thu, 10 Sep 2026 03:51:32 +0800
+Message-Id: <20260909195132.1623875-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Date: Thu, 10 Sep 2026 03:48:11 +0800
-Message-Id: <aqG3-ySw1AecQVkD@nobug>
-References: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc> <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc> <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
-In-Reply-To: <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
-To: "Bui Duc Phuc" <phucduc.bui@gmail.com>, "Wei Fang" <wei.fang@nxp.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Njs2StTnUbMA/QqYbAHAntHRFMTwSVxqVWoSM3NIBnl9uqCojCKq+WOv
+	0dRCDNboHBg3rk1XvWEkReuoeFj/QIl+YzcM+E0OoCZErjOcUKEgr4dnApI1LF9A8uq12Wu
+	2Z6eLOeWaGOwWXEDwuTXdqay9iekZGWngkTGte/4G3JJbQ0rzTqT64IBtrz9yJsAMy8QfYL
+	K7pGjRZ31A3hJw8k9oIscNyJxcapubHGVuvvh3E5xLhBoSyPrXOkKwyjx2Up8a7nejLSeMt
+	CgGCuTFlfwZUc5lGbS2GWmta8cgqpM88Mzd9W7HDmiAydSOXiEtQLJBTsbIb1scHo0yJewk
+	ivdeAMsIBLBGD/diiE2Ww9+9KZ+MUIsj/lyhZVweNqxhT06+STUMyJLhH0v9l45mIdbUqZN
+	rHDvBM9RNvdhSlP1yC66nzbaNoGSM77mBu6yL6WsbG+fRU4UUSOFHxomb28tqm1aPu0NliA
+	EkahJ0EKU3wakZEHhV0C3UpZFm0I2LVEs7feI1DyRjq50Oe0UKR+GioTPW3A5nbdV3gJZuY
+	PfXtUBlVQJHTq0Fm5VgDfxt8fg5hcTmDC5kjCJFcDInp/X2iuWma0kl3Qt5WkyLrwrp7R37
+	4cAELYRAYvdjpPlRi0bPJQOZxkBf0RIWohJVoQvyrEkB2+NdEtA+LVZm5mJSz+LXFKcTqap
+	JtVY7lgThh4ui9g2e9Ds0aJB+TCjG2/KPOzomtDzJSoNan/bindmKuK86IlgRJxEQ4gOIHZ
+	XDRAourRvMtWyotslapwL4hGsG8vlm6ODbSQtuMmBA2RWsCLVKV/kyM3FtzMeCk1RaCIpLZ
+	dmhubtBOeOopSz7uQnADqVSSIOo6zjuW0BFQknsPIQpfCvvxB5PZwPNf6qZmHJzdkWpRcql
+	I26k7M0m+Pt+wVEwdMaukcwL6GEvp348UeDo2+kJr1e3kkuTn/eoZkUE0Sk+o3ANiYk/4Jl
+	58hsgSVAWRdvr4wOenlNX417GMkhgkMNIoTGsrf3HutlaBJpzAuCmhtSIanW4cUIYXkV7wZ
+	Xoy5CkEPELBId+5HjhGMjstXRlN94rAeRZ33Lbs7twk8ZV4yjxMDilNmMkCTae1PRyqJAwu
+	Q==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-> > +
-> > +       if (fep->pps_irq >= 0) {
-> > +               free_irq(fep->pps_irq, ndev);
-> > +               fep->pps_irq = -1;
-> > +       }
-> > +
-> 
-> I think fep->pps_irq > 0 would be more appropriate here,
-> since the IRQ returned by platform_get_irq_byname_optional() or
-> platform_get_irq_optional() cannot be 0.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Hi Phuc,
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-You're right. I hadn't checked whether these helpers could return
-IRQ 0.
+Best Regards
+Wentao Guan
 
-I saw the existing irq >= 0 check in the request path and wanted
-the release path to match it. I used -1 to distinguish "no IRQ
-requested" from a possible IRQ 0, recording the IRQ only after
-request_irq() succeeded.
+Log:
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Wed Sep  9 23:55:33 CST 2026
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Thu Sep 10 00:10:35 CST 2026
+Linux version 6.18.51-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.18.51-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Thu Sep 10 00:25:26 CST 2026
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Sep  9 23:33:53 CST 2026
 
-Since both helpers reject IRQ 0, that extra handling is unnecessary.
-Keeping pps_irq at its initial value of 0 and checking > 0 before
-free_irq() is sufficient.
-
-Wei, I plan to drop the -1 initialization, use > 0 for the release
-check, and reset pps_irq to 0 after freeing it. Do you have any
-concerns with that change?
-
-Thanks for pointing this out.
-
-Best regards,
-Shengzhuo
