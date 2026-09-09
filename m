@@ -1,99 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4488D4B488F
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAFA3D16F8
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951330; cv=none; b=F9yJ0FSR7AI76o/3YbHPEV/YbUOuR6jzUpywT43z+3rQCrEVDQGCBYaE3UiyMLQSRCA+IsuXnsWHgJJGtGh/1Sq8vwy1gvOwE1frkHnI7eOgy2i5KfAQsI6ohdcQcqDIYlf7GZtP6OmkYsC4wuNjKDEg4sDtaSUMQ4c378A6VDI=
+	t=1788951359; cv=none; b=D1fFTT7sojVcwyCWjjEVIjCIg83jUV3kImz4Tli1kwg3gaDv0kFU6nx1+ftBf4/Vwlz/6gYI4P2sGzfGLJcXsGi35mRsZ4yU18wu0h+T7Tm0d2Hz4/TBHv/Aqe+VoAHv/8wOUbioKpS4gFOSbsnHRdGieHkO3aX4uS9E8j7zVUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951330; c=relaxed/simple;
-	bh=z2GYSQu/s9GNmSqM7w45Qkt2nz/g+up2n/P25CLgCs4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=O6vQbfkJiaLhxRxL1Xq4SlBA5dxwzgncZr/zJG4+EDJLQ6uAU4NbbmNif1I9buyXqA8iAfUSIBUz8tyg6+uRMFjxVVPN4mUO6+nkMOU2yFXkqFmsK6PU1u8HgTaRykPLaqIuFvNZh79+rFl+VlTZwvuN7S49JyZGg3MKL1K4ol0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YddqhxYG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951359; c=relaxed/simple;
+	bh=FYTguQ4FqswFlAhCV3N95kizeMw76HE9jc6H2e9NzdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QeGtVzmoLkIepuFcd8BLN6Vzfno3UZB5fveklq3btxJv+3b+1DRGKEqWgVJ1DQE8i8heU3t4RpQM4LMPSJzK7Fy55QWIeiUucjjAJWliz2HWl14pfPz94ROyD6V0XxjU1inuj8c62pgirB9UPNsA+y49sk7j0PcA0MvcfM/mCAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wtse51X1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YddqhxYG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D9A1F00A3D;
-	Wed,  9 Sep 2026 10:55:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951329;
-	bh=HZEwvcbTyMMoPzdC3LAIX/o+kwqDO0OvbePxPjJI2dc=;
-	h=Subject:To:Cc:From:Date;
-	b=YddqhxYGWyzHdFix3of9AP0feP+Vc/e6qYKNGfONMlwQDtYFIwdDYR4P5klUTKmrE
-	 +DwWWEw8ShCMnXRk9YREh2csgGvI03FA11R+6ZmxcTiNqzpHLvpfA7ikvZo6xFgccn
-	 8RWJv9RFvGi82xaa2SBFx80z1xPBoFs3iIdmrPhc=
-Subject: FAILED: patch "[PATCH] media: rkvdec: Propagate platform_get_irq() errors" failed to apply to 6.1-stable tree
-To: ahmisaranrao@gmail.com,detlev.casanova@collabora.com,hverkuil+cisco@kernel.org,nicolas.dufresne@collabora.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:48:29 +0200
-Message-ID: <2026090929-dictate-motto-3cf4@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wtse51X1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67CDE1F00A3D;
+	Wed,  9 Sep 2026 10:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788951356;
+	bh=pFuW2wZfDG5IQsRUp/h6kETZHQbrjcX51Ht8tvOmvRg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wtse51X138NcCN1XpLaewxKBIHP898BFNCxQJYuN5Psn4GJjgLUUDuPrKBzj6ShlX
+	 JkdFee+ogH+w3zbQ8alVN0UpZeolcApbgi6QsVDaPwjq6X9F4HS9jsSrIXN0zncTR7
+	 O5MKTzlDZtLFJfarNxH3l94EVOgKVyO70Ke1SSQ9hmdhYhtDJSzeKv5a8VbCcqvdmS
+	 jyaHLriDWuAhxujJtgF/vQmdd1DFYJXThMf8Aiv/ZuZwkmjOqfV6MSeDvTtnwNLwuu
+	 2tq/AtmZ6lSbNoSxC160czv3uJnf71CD87kEC++OK4czez6Aiv4gz+C/4DlSDjosGY
+	 MzjmlZ8KbOi/A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] power: supply: lp8788-charger: Convert to platform remove callback returning void
+Date: Wed,  9 Sep 2026 06:55:52 -0400
+Message-ID: <20260909105554.1634698-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090352-math-comrade-6046@gregkh>
+References: <2026090352-math-comrade-6046@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 7810ba3c5110ce66652ec6bd2abb92da5d726c3b ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() is renamed to .remove().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x c37aca64206fafe938119e801a3fd10a537a051f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090929-dictate-motto-3cf4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-Possible dependencies:
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20230918133700.1254499-17-u.kleine-koenig@pengutronix.de
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Stable-dep-of: 831c29a12d56 ("power: supply: lp8788-charger: fix use-after-free on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/power/supply/lp8788-charger.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c37aca64206fafe938119e801a3fd10a537a051f Mon Sep 17 00:00:00 2001
-From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-Date: Wed, 1 Jul 2026 16:42:03 +0530
-Subject: [PATCH] media: rkvdec: Propagate platform_get_irq() errors
-
-platform_get_irq() returns a positive IRQ number on success and a
-negative error code on failure. It no longer returns zero. The driver
-currently returns -ENXIO for all failures, which loses useful errors
-such as -EPROBE_DEFER.
-
-Return the error from platform_get_irq() directly.
-
-Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 4fd06f4c04db..061281f903f3 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1818,8 +1818,8 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
+index 755b6a4379b85..2c81be82a41a4 100644
+--- a/drivers/power/supply/lp8788-charger.c
++++ b/drivers/power/supply/lp8788-charger.c
+@@ -714,20 +714,18 @@ static int lp8788_charger_probe(struct platform_device *pdev)
+ 	return 0;
+ }
  
- 	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0)
--		return -ENXIO;
-+	if (irq < 0)
-+		return irq;
+-static int lp8788_charger_remove(struct platform_device *pdev)
++static void lp8788_charger_remove(struct platform_device *pdev)
+ {
+ 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
  
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					rkvdec_irq_handler, IRQF_ONESHOT,
+ 	flush_work(&pchg->charger_work);
+ 	lp8788_irq_unregister(pdev, pchg);
+ 	lp8788_psy_unregister(pchg);
+-
+-	return 0;
+ }
+ 
+ static struct platform_driver lp8788_charger_driver = {
+ 	.probe = lp8788_charger_probe,
+-	.remove = lp8788_charger_remove,
++	.remove_new = lp8788_charger_remove,
+ 	.driver = {
+ 		.name = LP8788_DEV_CHARGER,
+ 	},
+-- 
+2.53.0
 
