@@ -1,101 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2618D5328A5
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B9B5335AD
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951270; cv=none; b=c7ePoJz6Zv52xL0AclIg3phI3Ne9n1ReDTDWJxdKV+hHn9MF4WLHcIAHMNdKckfnpipJwEORg4dm6BK4Vj83C+F5Rk5mGS4kmEfdj97zMDhNFfeDa+W4Ga39SjvbIB+uCMkTk29DBvHLlWuLKqK8jVtvDmhKc0nZXbrs0e3jRZo=
+	t=1788951272; cv=none; b=N8tUWh5et1WgHjZLqtutBOq2Pp0r168M7ZmrKJlBVy/pJs403is7rUVLLoi68mk4GgAlKZPQ/xtlHigrve+Xe4twVjAFixytEAKkcqLO/1b7gapWIqBjayIzBWD/4BDNwi8PCCMgJR3k+M9bDHyzRtMI/8FjdN1dYTcLz/N45WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951270; c=relaxed/simple;
-	bh=egiwpFbmlrGFvARopo1kl2m4pMideL0l0NjQeSmKvtg=;
+	s=arc-20240116; t=1788951272; c=relaxed/simple;
+	bh=tKmd8PTSrAiy9d9P+675GgbsbCbqMeskIcP/hlTtHwI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KXAlS09H29iBTJc6iM8WvtENp2hUm6DJzcWgFKCQEPRIwmjwvBnVRfUxtJVk9c+6JapkveDHcYHfLt/r+VeYxcNGZoojDfZUCyiEKqKAOii0uHXVrmtS8lhzK0DulyTjIoXpl7BLt+FHTzJLkfKeqCq3BHPkaZtipkaRLdHdkkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awtU0MBc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mphBMyCIslCrqmUxBAOHHcXeNzwqTRb/ez2wrBUYcvgXl2+T38UoCEImhi5V3SZR1qEGh51G74n936AqSV+47l7pptDQdESpQy7123NbfiHMtVWF+URERAHrTyVZAiTSwA+9QA4Xt18dC+ojxsBvj2GQkjftQduKsFlNgosyxgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHMrg1hW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awtU0MBc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D5E1F00ACA;
-	Wed,  9 Sep 2026 10:54:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHMrg1hW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24B61F00A3A;
+	Wed,  9 Sep 2026 10:54:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951266;
-	bh=QLOqDJ01uC8/innBvE+CF5D1QjzhvDYnPtSyuO+qs8c=;
+	s=k20260515; t=1788951268;
+	bh=YJ01DRH4CfAGsIVaBEq5hj7D9iEJ9Mv5Iu6VSyKramg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=awtU0MBctigYWhYObaKUbpEQwg59snL6cU5/K8dRTyIFyo3rM7s+2fER4j6Oj7g3E
-	 Jtk6HKA1WHXTJRfnbD5ArqN0B675dfO07zWb2y8uhw3ufTY/bO0pslQepZo/iMRvV8
-	 HWTLm+tMwiQFYrqUmuGY7PHs+eqt9CsgZTopAWcQkhWqeMnRwiSytAcEBZ5Wshkj8M
-	 eHBTmskxGz7HsgCB2valDZueFl3/PjoQS5don33wEDJUwKQVzs9E2DCZTUsXtJGjIo
-	 jbndfq5BJOMYEH/uKjIj/EZGT608dK1qg5PsG4vk8I1ELKvsSr28hkaz7S63jPHK1j
-	 4sKMaeyeulsoA==
+	b=YHMrg1hWWK0VAfuDnh1Ow0rvu3Bph79FQtPU8AkuTs6ySoXWlQ98X5IRoDA0pKBle
+	 F6CY+4fJk0CW66XZKz+tyJHc2UwohMji5RjupL8X0BbVf9MwOeDJK2pGRMLK3dVE0V
+	 y+flMUefHPeT7ut0WOlkJEXfoUCiMlAComGs+I3KnuODNIqbzEYZ75vc0dAfR7TX1s
+	 R1rf3zZxq34U2CXv47gsDljBR0aaApmZp9untJSyrldD8XadQyYeOgFI00Mo1zGSJO
+	 rgyRPZpNDbO1y9LVwu96yXNkfZRGN3roFcJczIXx4gdAkLt8YVXYr/JqFNpu0Sf/uV
+	 yOCUCtH7BfrKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] remoteproc: qcom: pas: Guard dtb metadata release with dtb_pas_id check
-Date: Wed,  9 Sep 2026 06:54:22 -0400
-Message-ID: <20260909105422.1620618-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] power: supply: charger-manager: Convert to platform remove callback returning void
+Date: Wed,  9 Sep 2026 06:54:25 -0400
+Message-ID: <20260909105426.1621293-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909105422.1620618-1-sashal@kernel.org>
-References: <2026090336-snowiness-uncle-0a18@gregkh>
- <20260909105422.1620618-1-sashal@kernel.org>
+In-Reply-To: <2026090320-shirt-underuse-eb92@gregkh>
+References: <2026090320-shirt-underuse-eb92@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit c06c5ab4945392d2c2aded6d832ab6b58cabe351 ]
+[ Upstream commit 403eebf95c38302cacc48c127e575461f0e798be ]
 
-All other call sites of qcom_scm_pas_metadata_release() for the DTB
-context are guarded by a check on pas->dtb_pas_id, but the call inside
-qcom_pas_load() was not. Fix this by moving the call to the guarded
-block.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() is renamed to .remove().
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Fixes: 29814986b82e ("remoteproc: qcom_q6v5_pas: add support for dtb co-firmware loading")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260724182858.1868271-3-mukesh.ojha@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20230918133700.1254499-8-u.kleine-koenig@pengutronix.de
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Stable-dep-of: c57cb36f76eb ("power: supply: charger-manager: register regulators before exposing sysfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/remoteproc/qcom_q6v5_pas.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/power/supply/charger-manager.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index d7f84eb5b7f9a..23f928323bcfd 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -247,17 +247,14 @@ static int adsp_load(struct rproc *rproc, const struct firmware *fw)
- 					pas->dtb_pas_id, pas->dtb_mem_region,
- 					pas->dtb_mem_phys, pas->dtb_mem_size,
- 					&pas->dtb_mem_reloc);
--		if (ret)
--			goto release_dtb_metadata;
-+		if (ret) {
-+			qcom_pas_metadata_release(pas->dtb_pas_ctx);
-+			release_firmware(pas->dtb_firmware);
-+			return ret;
-+		}
- 	}
- 
- 	return 0;
--
--release_dtb_metadata:
--	qcom_pas_metadata_release(pas->dtb_pas_ctx);
--	release_firmware(pas->dtb_firmware);
--
--	return ret;
+diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
+index b874947b84f2b..42a7e4f045d82 100644
+--- a/drivers/power/supply/charger-manager.c
++++ b/drivers/power/supply/charger-manager.c
+@@ -1630,7 +1630,7 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	return ret;
  }
  
- static int adsp_start(struct rproc *rproc)
+-static int charger_manager_remove(struct platform_device *pdev)
++static void charger_manager_remove(struct platform_device *pdev)
+ {
+ 	struct charger_manager *cm = platform_get_drvdata(pdev);
+ 	struct charger_desc *desc = cm->desc;
+@@ -1650,8 +1650,6 @@ static int charger_manager_remove(struct platform_device *pdev)
+ 	power_supply_unregister(cm->charger_psy);
+ 
+ 	try_charger_enable(cm, false);
+-
+-	return 0;
+ }
+ 
+ static const struct platform_device_id charger_manager_id[] = {
+@@ -1742,7 +1740,7 @@ static struct platform_driver charger_manager_driver = {
+ 		.of_match_table = charger_manager_match,
+ 	},
+ 	.probe = charger_manager_probe,
+-	.remove = charger_manager_remove,
++	.remove_new = charger_manager_remove,
+ 	.id_table = charger_manager_id,
+ };
+ 
 -- 
 2.53.0
 
