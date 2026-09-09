@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AA049E5F6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC7C4A0149
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947910; cv=none; b=jtiFeLCvVTdkkGLLg+i9pxZtTFJZj+UUaISwfmRkc85W9yWJHQvXrzYIIHUwmbmVuKK7HwoNkHWDkmyNDv1tJoe81RlJuHT+aSOWcms7W63nQAzTCXqQQfTzn1ZebuUbxNeukzVyErgVFB3vjU/M+LA1BZ/PgSUel2lDxfUF6Ew=
+	t=1788947911; cv=none; b=lVeLnI35VVcvg6/Vvf7fDo0f05vW7uEL8khczltnit/JmQr/HsJWWOmrVKHAf7LUsUyrojWE4O0qVpzKv/AB6Z6CxLMVuQCtlyKX8a/H7Sc0WyTxgXXmyVilvnnNS7vLYe8vw4mSzqKQzH6qXYBo3P/iZ+LdAuJ1ryCBW65VO/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947910; c=relaxed/simple;
-	bh=rMfXZUFTjAb6oXY5qy6hV5b7ft0u2E5dnQJLVa/OGhQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CvJOJmQX1EhHeQNhBibLOoAkBwPQWppBJmqG81JIDD4QhMLn9wF9IANTjFOhGnoe2DTZImM7qa0jAIYc5MsQcs/xNTVjCYw4SrJt6c9CXt/G/zSKcBeER+9bSMqUOsml25wpb7qzNuE7c4YU6y/t4mVJZpZh8KdPY63tHOSSvYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lMO/wJHX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947911; c=relaxed/simple;
+	bh=vTo2g02JbEE48vQadnc1AagwFS44KWz9d6GGpZxblRk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=II2SDN+EeclFcdY8yDtotCi2LnZEPuJgCUHwRzWsSm5wBJc74wCpWgjLidpZ1sgWLZcHxi66VdMPOB8NzebXGAqP9Aurkc5huXaI0NOynlK5Ldx61ZN+dDE9XE8P0oIBd2XmXzmsGHaZj4y9SjKYhb2TrxS+5XKqHrehcF8DvMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YbYntvxg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lMO/wJHX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2C71F00AC4;
-	Wed,  9 Sep 2026 09:58:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YbYntvxg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E470C1F00A3A;
+	Wed,  9 Sep 2026 09:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947906;
-	bh=9EEhNPE+fKZgIrUpfvR+FSScUi2sLZqHzLavdxEKFvE=;
+	s=korg; t=1788947903;
+	bh=5nYmfJkcwizDzHmuYCgGX8ZNYa3aMO03O+/DOwF8Akg=;
 	h=Subject:To:Cc:From:Date;
-	b=lMO/wJHXZB+Kg9S4s2wH2F2ZIObvzoxVEErH9EmvvZekdUNNvAazjWCXhh5r/qYXz
-	 HMQ/MPpB+bjbsPZsTATbS1HuL2h7GQ/e2lGKpnesT0NNzT6UMMPZmCQ0YVanqIJacp
-	 jyk2vxViuldztBibg86uGvLnOfcbUyxmEWWJDutk=
-Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 5.10-stable tree
+	b=YbYntvxg8v+WqsGE7xKos3S7UwNozq0Q7hzrGhQ9A5NlmNxMVtg0U8Owuz7pJfrUR
+	 krrNrvuVCYeKo9moWGrDU7s6du6jO2KxafWVJgua/7ufZd1hXlkJyKrMQfeCrjW9+G
+	 Tx4eIBdg/5Z4N5wsjLHYVkJxn8fJNpXbtzALXbSM=
+Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 6.1-stable tree
 To: ruanjinjie@huawei.com,maddy@linux.ibm.com,sourabhjain@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:52:26 +0200
-Message-ID: <2026090926-voltage-around-ae2b@gregkh>
+Date: Wed, 09 Sep 2026 11:52:25 +0200
+Message-ID: <2026090925-speech-sitting-aadd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x fa40f9dbdd4af53e7445d9135b5b207eb8adf372
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090926-voltage-around-ae2b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090925-speech-sitting-aadd@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
