@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA9B387347
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832683AEB2C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947207; cv=none; b=r13r0TnHHQSn1g7QZcYnWBRSeKcw+Rjhq9W20EAZkX2C7rr/uwyNjYdTx8uVaojFFJ+VwctKHAr/XvYji9D5b2IafeejM5iwdbFHgFHlqoPS5KKTMkQnBohACXidHojY/ceEeB6pWI1ejQGsfXbMkTKzUTtR/A4RIaLPmlPCBbo=
+	t=1788947209; cv=none; b=YVtTFKgYxur7xL5JrEdE1/APU3mc0BMMX/VLsjUbh5gV23R7ytrnHzrQzPOzKQT9EwWfa5JoQmUWdcmYPZAF23dWR0QsjM2k+9E6u2o1p+wOLKvlVRWArjzRspRCul0K+SSOrawQ2tOZSKu+mfkM74mZmy5JFAd5NfYMopd3Xio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947207; c=relaxed/simple;
-	bh=TW+a6uxoHxUAyq46frGzHNW99+WdisaSKsB/SC/Eh1I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GhPJjKmM5cW+vZALwFKsE60gF07fVGdg+N3tTcY5PgYnmVEVYu9gBxIAnXnuV8jo5gp781ijUU3KUQSR6jZsMr4M7sP11N3NBn9Dvtm2ZRm2uDBotk2h//EVt7gzY4sEkKGuvH1Tw8xSZNigb6JpFX/xbe0F7kQhjXtj3Ow3tew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ECu/fRV8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947209; c=relaxed/simple;
+	bh=nFJoXksVznlZBP84DyjPm9MRvfkFeTfzCcpNM78hP0I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dUz5nuQ4THu5LFPP9CaTWE2WeC1YXDlxYgBk+kSdZW0yW774gNlZih3xbXNAJqvRuArruzWkOxKZxnT2Tx0rTyJoTE8XXWYQ5hkKjWqpdA3d4e0WpNATm7p1Syx8kdK6ILd4wskO2HOCXU56UkLIV5pyrratqvVVG30wIWrPy8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gfRlYcpX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ECu/fRV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72021F00A3A;
-	Wed,  9 Sep 2026 09:46:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gfRlYcpX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FC31F00A3A;
+	Wed,  9 Sep 2026 09:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947205;
-	bh=/Af5FvH+P7PL+cireN63k/LE/z7A1Pb3YAyy95DnKTE=;
+	s=korg; t=1788947208;
+	bh=ecakRRpGVxHRR6yKHpjVegFFVLPW4FG/X4RkZ++jQls=;
 	h=Subject:To:Cc:From:Date;
-	b=ECu/fRV8MxT/86CPuaoGnQfs0M4r76Y35yxNjrepqv076MtxcFD28ZCu+XFB4Ub9+
-	 WvGouGbHqg7hzHRjDRRabfF+8xR6x06oTqP7T735MH7MXe3CWVlizREYDHIipHo77O
-	 PrW2N1tmUUK0VuXRCBpGDFr+n66PeGFPmCtmJcVQ=
-Subject: FAILED: patch "[PATCH] i2c: qcom-cci: fix autosuspend cleanup" failed to apply to 5.10-stable tree
-To: lgs201920130244@gmail.com,andi.shyti@kernel.org,loic.poulain@oss.qualcomm.com,stable@vger.kernel.org,vladimir.zapolskiy@linaro.org
+	b=gfRlYcpX023h50pn1dY8T1q9Q22EUsnGRbhUgGPt0p7dW+YNI127huYtd1ek+yC0Y
+	 uRQnbw0ZUNA8yRd9p0n2Fvo77k2X26sPX0zsv25CX8KGEIVr//hjn9UBHNITbA2FiI
+	 frc4T4nzxc054gwwjVxWLkllPohulCV15WhOyj+0=
+Subject: FAILED: patch "[PATCH] arm64: mm: Fix the lockless page-table walk in show_pte()" failed to apply to 6.1-stable tree
+To: kmehltretter@gmail.com,will@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:41:10 +0200
-Message-ID: <2026090910-covenant-freestyle-77a9@gregkh>
+Date: Wed, 09 Sep 2026 11:41:40 +0200
+Message-ID: <2026090940-catering-debug-33e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f98d4986482151a835b521a734722fe8dc5ca37d
+git cherry-pick -x a77644d009dece1104b6fcc6e322b0e4503db0d6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090910-covenant-freestyle-77a9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090940-catering-debug-33e5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,71 +62,85 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f98d4986482151a835b521a734722fe8dc5ca37d Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 12 Aug 2026 17:44:25 +0800
-Subject: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
+From a77644d009dece1104b6fcc6e322b0e4503db0d6 Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Fri, 28 Aug 2026 19:41:31 +0200
+Subject: [PATCH] arm64: mm: Fix the lockless page-table walk in show_pte()
 
-cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
-does not call the matching pm_runtime_dont_use_autosuspend() before
-disabling runtime PM.
+show_pte() walks page tables locklessly and can run with interrupts
+enabled. A concurrent teardown can free a table page while it is being
+walked. It can also clear a parent entry after show_pte() checked it; the
+regular pXd_offset() helpers then reread the cleared entry and can derive a
+bogus lower-level pointer and fault again.
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without undoing the autosuspend setting during
-teardown, this reference is not dropped and usage_count remains
-unbalanced.
+Use the lockless offset helpers with the saved parent entries, as
+gup_fast() does, and pass the saved PMD to pte_offset_map().
 
-Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
-state. Its managed cleanup disables autosuspend and runtime PM and
-restores the suspended state on probe failure and driver removal.
-Remove the now redundant manual runtime PM cleanup.
+For task page tables, arm64 selects MMU_GATHER_RCU_TABLE_FREE. Disable
+local interrupts around the walk to hold off RCU-deferred table frees and
+block the tlb_remove_table_sync_one() IPI until the walk is finished.
 
-This issue was found by manual code inspection.
+Place the IRQ guard after the header print. This does not make the output a
+consistent snapshot, but prevents the task page-table walk from
+dereferencing a released table page or deriving a pointer from a different
+parent value.
 
-Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.8+
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260812094425.3515179-1-lgs201920130244@gmail.com
+Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index bdeda3979c48..25b6e4e9e3fa 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -595,9 +595,11 @@ static int cci_probe(struct platform_device *pdev)
- 		goto disable_clocks;
- 
- 	pm_runtime_set_autosuspend_delay(dev, MSEC_PER_SEC);
-+	ret = devm_pm_runtime_set_active_enabled(dev);
-+	if (ret)
-+		goto disable_clocks;
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 0b52557652be..75c3e463df2e 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -16,6 +16,7 @@
+ #include <linux/mm.h>
+ #include <linux/hardirq.h>
+ #include <linux/init.h>
++#include <linux/irqflags.h>
+ #include <linux/kasan.h>
+ #include <linux/kprobes.h>
+ #include <linux/uaccess.h>
+@@ -154,6 +155,9 @@ static void show_pte(unsigned long addr)
+ 	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
+ 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
+ 		 vabits_actual, mm_to_pgd_phys(mm));
 +
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_set_active(dev);
--	pm_runtime_enable(dev);
++	guard(irqsave)();
++
+ 	pgdp = pgd_offset(mm, addr);
+ 	pgd = READ_ONCE(*pgdp);
+ 	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
+@@ -167,25 +171,25 @@ static void show_pte(unsigned long addr)
+ 		if (pgd_none(pgd) || pgd_bad(pgd))
+ 			break;
  
- 	for (i = 0; i < cci->data->num_masters; i++) {
- 		if (!cci->master[i].cci)
-@@ -613,8 +615,6 @@ static int cci_probe(struct platform_device *pdev)
- 	return 0;
+-		p4dp = p4d_offset(pgdp, addr);
++		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
+ 		p4d = READ_ONCE(*p4dp);
+ 		pr_cont(", p4d=%016llx", p4d_val(p4d));
+ 		if (p4d_none(p4d) || p4d_bad(p4d))
+ 			break;
  
- error_i2c:
--	pm_runtime_disable(dev);
--	pm_runtime_dont_use_autosuspend(dev);
+-		pudp = pud_offset(p4dp, addr);
++		pudp = pud_offset_lockless(p4dp, p4d, addr);
+ 		pud = READ_ONCE(*pudp);
+ 		pr_cont(", pud=%016llx", pud_val(pud));
+ 		if (pud_none(pud) || pud_bad(pud))
+ 			break;
  
- 	for (--i ; i >= 0; i--) {
- 		if (cci->master[i].cci) {
-@@ -640,9 +640,6 @@ static void cci_remove(struct platform_device *pdev)
- 			cci_halt(cci, i);
- 		}
- 	}
--
--	pm_runtime_disable(&pdev->dev);
--	pm_runtime_set_suspended(&pdev->dev);
- }
+-		pmdp = pmd_offset(pudp, addr);
++		pmdp = pmd_offset_lockless(pudp, pud, addr);
+ 		pmd = READ_ONCE(*pmdp);
+ 		pr_cont(", pmd=%016llx", pmd_val(pmd));
+ 		if (pmd_none(pmd) || pmd_bad(pmd))
+ 			break;
  
- static const struct cci_data cci_v1_data = {
+-		ptep = pte_offset_map(pmdp, addr);
++		ptep = pte_offset_map(&pmd, addr);
+ 		if (!ptep)
+ 			break;
+ 
 
