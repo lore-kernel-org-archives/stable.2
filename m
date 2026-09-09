@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A00454EECA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258B15505C8
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955100; cv=none; b=DUZBDfoMmEW8uvZQrAwWRRVhz6emohZTIWJSoiq+/mUvskbCIiFlmtr8T2W98HTPSkr1hWiSP3+tOuS/C0OfKPW/26908hDbV4w7d0YmjA5M/UNNcIsU+13x7Nofh4VyrNtIFJ1v8SXvRI9EbnON61DfqRCWRoUoJcobxvm2G1E=
+	t=1788955101; cv=none; b=bH+vxLDfwP76RKOLzdzsuK/6fF6ISfgunO/KwHcdDM2zPzfK+OykuFsiSz/WQzQ3UqcTg8g05QHiJwPTQTbGNuPSFk5Af8oFkwRxoZjajNQQe0eOyQJWL0tjbtij5Baw8scOFwI6qtmK8WXbgbOZoKSeIQx3yjV25loLBmNwYOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955100; c=relaxed/simple;
-	bh=HS4+ZeSn4iyH3WbpxKX5OTN1Lot8OIFSVOg/OY31RDA=;
+	s=arc-20240116; t=1788955101; c=relaxed/simple;
+	bh=+VpvCzAKiC4EIhT/3bc8IiAfgFr7uus9US1C07fy1BY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AYDlJ2QxmY1CHuAHIJj55Zm+j1ScHQSn4HW+qKHPRBzUhDkIqYKG6woeVtp9sErjU8YmqxBmOIUIHcNLUqNLNwb0xmopPTEA7IYhSuSeQ+te/aQMdj7HTOPxwbRsX50592AqhAINHJJsylJmXpT+iyFk/rD5tK+rswq9diolkLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8p0TLWT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Qc6coHYaNQaooMrF756V4U/Q4S6+EzIeUpeOnYL0dMSfa+Cp0fqTvwnW1oCyXIbvpvYanQEgch9BeuFm1Yy6IbL2vI0ZGdTrsA/I0iYur6F4Vc/MIhso6QsLXnYGpYqlJJ9/xf0JAzDhdQSOk6U4W43Y/8tYtO3dH5DC+bOoZVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=acxPAaKw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8p0TLWT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 934B31F00AC4;
-	Wed,  9 Sep 2026 11:58:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="acxPAaKw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C94E1F00ACA;
+	Wed,  9 Sep 2026 11:58:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788955099;
-	bh=EKOH3D3WhniMAKL0osQnBryxfka/U0dB7QAiPMVlPjc=;
+	s=k20260515; t=1788955100;
+	bh=N6qPMD21i0qertAnb9kF4S1yZJM6Vo5IbMs9PDTlJKU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K8p0TLWTxWR+cuFrYLWVTTo+w3wHAMMEMYsvceEG/pGmKqwTJTqpvufZ7Uo6Z6Spt
-	 YP+BOXksywVS3ACxcBSE2dIe5wbRjJ2zD9xw4FcLHZwa9BkX9p5xH5ntHUI3wsM7Ex
-	 wmARswiiuGU8svDosfqASzyXsUUX1aWvObdyRHItjoGRM/IHJt8eQ2r4zHmmD7+elU
-	 ZUjOb+5P0Cu9Z7sdlXqtPMoHVIWQolzJZkqKrR4vW5+IgW+OQImBxaZpnwjCeFhOUb
-	 pSEhQUWf9BseNSm8nR6pFkTKA9AhkaVpeklqkenXOh2a38LaAXR6ASZ6WuNDfW4XeY
-	 R/WROGT5XLYdQ==
+	b=acxPAaKw4+jg2TsV2pNV6SvDgjAoUJfBan3pTi8YG6N943X4/ys6J/RdWiIUJ9dUc
+	 UwzKxwhViG/xHoDuxfe+sAubiZU2xKikbl5txqYGk1+yJAXMQwGKJrJuxYxzOcM0QS
+	 WiE2xBpANn/p6kVvy3k+Yg73GiR8xVLkOcsQbEQYqDI9Br39GDnd8vwgbUrT70nsHl
+	 8n7r5qXjW68yzEv9hVZn61LTtfWGxyqfSQm6rG73A0hlKd+t1ZvcUh9cM+Q3TYdNpu
+	 NlU7TcB8gbpowoHa9by8YYqyppDgTtoB051fPBcrDfBWWelsPkzRfqvb8zUHNU1IK5
+	 R/Fq6IZnBd+JA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Heng <zhangheng@kylinos.cn>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Joerg Roedel <jroedel@suse.de>,
+Cc: Weimin Xiong <xiongwm2026@163.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] iommu/msm: Use helper function devm_clk_get_prepared()
-Date: Wed,  9 Sep 2026 07:58:15 -0400
-Message-ID: <20260909115816.2182309-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] iommu/msm: Unwind probe state on registration failure
+Date: Wed,  9 Sep 2026 07:58:16 -0400
+Message-ID: <20260909115816.2182309-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090341-makeover-snout-3650@gregkh>
+In-Reply-To: <20260909115816.2182309-1-sashal@kernel.org>
 References: <2026090341-makeover-snout-3650@gregkh>
+ <20260909115816.2182309-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,158 +47,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Heng <zhangheng@kylinos.cn>
+From: Weimin Xiong <xiongwm2026@163.com>
 
-[ Upstream commit afc0cbc6e25b37dc9ba11d415ea6858902a7f04b ]
+[ Upstream commit 535a200220ca2c83bc8bf54bd2cbe045d6ee70c4 ]
 
-Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
-and enabled clocks"), devm_clk_get() and clk_prepare() can now be replaced
-by devm_clk_get_prepared() when driver prepares the clocks for the whole
-lifetime of the device. Moreover, it is no longer necessary to unprepare
-the clocks explicitly.
+msm_iommu_probe() adds its devm-managed IOMMU object to
+qcom_iommu_devices before adding the IOMMU sysfs device and registering
+it with the IOMMU core.
 
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Link: https://lore.kernel.org/r/20250103113059.463033-1-zhangheng@kylinos.cn
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
+If iommu_device_sysfs_add() fails, probe returns with the object still on
+qcom_iommu_devices. The driver core then releases the devm allocation,
+leaving a dangling list entry that later list walks may dereference.
 
-Backport to 6.12: remove the .remove_new callback entry used by this
-stable tree instead of the upstream .remove entry. The callback only
-unprepares clocks, which devm_clk_get_prepared() now handles. Keep
-the remaining upstream changes to prepare the probe error paths for
-535a200220ca ("iommu/msm: Unwind probe state on registration failure").
+If iommu_device_register() fails, the same dangling list entry remains
+and the sysfs device is left registered as well.
 
-Stable-dep-of: 535a200220ca ("iommu/msm: Unwind probe state on registration failure")
+Unwind the sysfs device and global list entry in reverse setup order on
+the corresponding failure paths.
+
+Fixes: 42df43b36163 ("iommu/msm: Make use of iommu_device_register interface")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Signed-off-by: Weimin Xiong <xiongwm2026@163.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/msm_iommu.c | 51 +++++++++------------------------------
- 1 file changed, 11 insertions(+), 40 deletions(-)
+ drivers/iommu/msm_iommu.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-index 989e0869d8055..2769e4544038c 100644
+index 2769e4544038c..71c1f4240aa6c 100644
 --- a/drivers/iommu/msm_iommu.c
 +++ b/drivers/iommu/msm_iommu.c
-@@ -725,47 +725,32 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 	iommu->dev = &pdev->dev;
- 	INIT_LIST_HEAD(&iommu->ctx_list);
- 
--	iommu->pclk = devm_clk_get(iommu->dev, "smmu_pclk");
-+	iommu->pclk = devm_clk_get_prepared(iommu->dev, "smmu_pclk");
- 	if (IS_ERR(iommu->pclk))
- 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->pclk),
- 				     "could not get smmu_pclk\n");
- 
--	ret = clk_prepare(iommu->pclk);
--	if (ret)
--		return dev_err_probe(iommu->dev, ret,
--				     "could not prepare smmu_pclk\n");
--
--	iommu->clk = devm_clk_get(iommu->dev, "iommu_clk");
--	if (IS_ERR(iommu->clk)) {
--		clk_unprepare(iommu->pclk);
-+	iommu->clk = devm_clk_get_prepared(iommu->dev, "iommu_clk");
-+	if (IS_ERR(iommu->clk))
- 		return dev_err_probe(iommu->dev, PTR_ERR(iommu->clk),
- 				     "could not get iommu_clk\n");
--	}
--
--	ret = clk_prepare(iommu->clk);
--	if (ret) {
--		clk_unprepare(iommu->pclk);
--		return dev_err_probe(iommu->dev, ret, "could not prepare iommu_clk\n");
--	}
- 
- 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	iommu->base = devm_ioremap_resource(iommu->dev, r);
- 	if (IS_ERR(iommu->base)) {
- 		ret = dev_err_probe(iommu->dev, PTR_ERR(iommu->base), "could not get iommu base\n");
--		goto fail;
-+		return ret;
- 	}
- 	ioaddr = r->start;
- 
- 	iommu->irq = platform_get_irq(pdev, 0);
--	if (iommu->irq < 0) {
--		ret = -ENODEV;
--		goto fail;
--	}
-+	if (iommu->irq < 0)
-+		return -ENODEV;
- 
- 	ret = of_property_read_u32(iommu->dev->of_node, "qcom,ncb", &val);
- 	if (ret) {
- 		dev_err(iommu->dev, "could not get ncb\n");
--		goto fail;
-+		return ret;
- 	}
- 	iommu->ncb = val;
- 
-@@ -780,8 +765,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 
- 	if (!par) {
- 		pr_err("Invalid PAR value detected\n");
--		ret = -ENODEV;
--		goto fail;
-+		return -ENODEV;
- 	}
- 
- 	ret = devm_request_threaded_irq(iommu->dev, iommu->irq, NULL,
-@@ -791,7 +775,7 @@ static int msm_iommu_probe(struct platform_device *pdev)
- 					iommu);
- 	if (ret) {
- 		pr_err("Request IRQ %d failed with ret=%d\n", iommu->irq, ret);
--		goto fail;
-+		return ret;
- 	}
- 
- 	list_add(&iommu->dev_node, &qcom_iommu_devices);
-@@ -800,23 +784,19 @@ static int msm_iommu_probe(struct platform_device *pdev)
+@@ -784,19 +784,25 @@ static int msm_iommu_probe(struct platform_device *pdev)
  				     "msm-smmu.%pa", &ioaddr);
  	if (ret) {
  		pr_err("Could not add msm-smmu at %pa to sysfs\n", &ioaddr);
--		goto fail;
-+		return ret;
+-		return ret;
++		goto err_remove_list;
  	}
  
  	ret = iommu_device_register(&iommu->iommu, &msm_iommu_ops, &pdev->dev);
  	if (ret) {
  		pr_err("Could not register msm-smmu at %pa\n", &ioaddr);
--		goto fail;
-+		return ret;
+-		return ret;
++		goto err_remove_sysfs;
  	}
  
  	pr_info("device mapped at %p, irq %d with %d ctx banks\n",
  		iommu->base, iommu->irq, iommu->ncb);
  
  	return ret;
--fail:
--	clk_unprepare(iommu->clk);
--	clk_unprepare(iommu->pclk);
--	return ret;
++
++err_remove_sysfs:
++	iommu_device_sysfs_remove(&iommu->iommu);
++err_remove_list:
++	list_del(&iommu->dev_node);
++	return ret;
  }
  
  static const struct of_device_id msm_iommu_dt_match[] = {
-@@ -824,20 +804,11 @@ static const struct of_device_id msm_iommu_dt_match[] = {
- 	{}
- };
- 
--static void msm_iommu_remove(struct platform_device *pdev)
--{
--	struct msm_iommu_dev *iommu = platform_get_drvdata(pdev);
--
--	clk_unprepare(iommu->clk);
--	clk_unprepare(iommu->pclk);
--}
--
- static struct platform_driver msm_iommu_driver = {
- 	.driver = {
- 		.name	= "msm_iommu",
- 		.of_match_table = msm_iommu_dt_match,
- 	},
- 	.probe		= msm_iommu_probe,
--	.remove_new	= msm_iommu_remove,
- };
- builtin_platform_driver(msm_iommu_driver);
 -- 
 2.53.0
 
