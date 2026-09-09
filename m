@@ -1,124 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04F833F588
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1E94B487B
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948668; cv=none; b=ZtUN6vpX//DQEfCi6JpOYZZ61PDopasMc2my3edWi5P2EkfcBKKKKDbRpOTC7SS1owYsjyLldKD40JDgKONgKdywcJp+qLDDRP5Cj09o9ChES+vqmIjcw7He/FRQ/L0546ooVo+xY4G4ppnKrjycA0w+Rwxa1QJMWOpf9TrtOVc=
+	t=1788948701; cv=none; b=np9cqLTs+TAJzJHULC34UXQjd/wPbOqnVnlj2A77Qr7cJ7bnsEPk+uaVtBfKnu0326SyPxb6BzA2SGKRSO6yGwHkm3xNptSLWgFNAk0OC9sEr3ENnQVjRJCiqFYsRpx0Ug39l+4IWAxSzmhBm+rtRYSSNCFLOeBkwG4QgyWDZno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948668; c=relaxed/simple;
-	bh=BCX55qVhOqc0N+oSrNkGJH6xs38y3HodPmF2ZciWvAI=;
+	s=arc-20240116; t=1788948701; c=relaxed/simple;
+	bh=RamOxJ5Z7TVPbczBY6erBs7luYUj8rXEFbnp6TrXVQk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fyj+ZjI73VKhUczwHTnCrdXbXes9xDIys3gh9+EPvp2p986lgAxVvUvLX+VqBMycm/BFDWe+sZVV057sqiHeAPyMJM9hRS1AXBoy6xxG4/19ifXNVIdC0QHpRXDkuy2jLmbsDeAGHZ1SveTYiAB5FLgM9NypLKkFR+hR7E8uj3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IfkH2lKi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EeEo9qncOzE/yg9PuzyfO4xKDhkCv5tqnKOcor6WLP4lCkj/43cWP3VAgJG2ykWlApi5szSf51M/i0vHX1XCmPWIiAbdcO4eaZhHMSlpeVFq2niVHUhvcnMh3muw59Q5+Wxlk0bzsvdc5NXRr65jRlAzmeI4JkdHdASQ0kcO/pE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eR9Cgo8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IfkH2lKi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380D71F00A3F;
-	Wed,  9 Sep 2026 10:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eR9Cgo8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE601F00A3D;
+	Wed,  9 Sep 2026 10:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948666;
-	bh=QORy+JIJVwDhSOd5av2kj8OIjjccBueEmhm81RJ1VO8=;
+	s=k20260515; t=1788948697;
+	bh=xYUACib9CPzNnl8f4PI3xu4mj1nfozKz/pOB2ZW72Jc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IfkH2lKis7CQa2facZuR+NPqCSUxyX0FVk+W95EqRWLH4isX+H6RcW9g28E5JzIU6
-	 q4dPYebRfIT5UQQpDu1inWwiHtxMPDH9N5gMFUFWGjlscNzrRk5WolG0UJmtOisWiE
-	 A5j0ZDuKYhU5FyymSTSOWk3oME5ZumTRHBwM2Cx2GtdhFRTIZNm6N2wo7kSigtXzKH
-	 u1kY6b3Z1nG4qRUMigh+puhq1hd+AIwB9neXP9yTJtZbVRw9wQDTMpGnP/9BBnDfKX
-	 SfGDAQuGesMpuigsoIl17cIJBO1Llii8Z9cVXXzicvT8pX1cidQEQzjPWCiyVjM0rx
-	 gE1fMtTDZGQhw==
+	b=eR9Cgo8kU0kT2lCoYPIRTeCG38XhSmQ1mUtHWrwuG661z1z81ikgtFg5hg/Cj1+gs
+	 Gotl0slTWL1Mn0sd/xUnVggckJ4qoltOp6JvMF2suAI6rtCtAub8MIhlvtbvALaLLa
+	 rVvC9PZpdjJDTTXA9zmempk2n6HhapNGlG7NM3RnDuJlLOCEnWMlep6g88v4DIz0+M
+	 oMsngPdMuLdd6VpGh085Ty6LsOHVvM2/BHN9nJ/xk0P/XtXde4NrYird4BVPUBHmTr
+	 Gn95MI7Nf4VozdBagtRccKf2VpMJtUKbyJFiBlf8A4SCUIqGW0s8dlo8fvhm4shEVX
+	 fl3EdcFE7rQ6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Vincent Donnefort <vdonnefort@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ASoC: codecs: aw88261: only check PLL and clock state at power-up
-Date: Wed,  9 Sep 2026 06:11:03 -0400
-Message-ID: <20260909101103.1458170-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ring-buffer: Make cpu_buffer::free_page a buffer_data_read_page
+Date: Wed,  9 Sep 2026 06:11:35 -0400
+Message-ID: <20260909101135.1461760-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909101103.1458170-1-sashal@kernel.org>
-References: <2026090347-devalue-briar-8e69@gregkh>
- <20260909101103.1458170-1-sashal@kernel.org>
+In-Reply-To: <2026090315-spinout-ditto-bd8b@gregkh>
+References: <2026090315-spinout-ditto-bd8b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+From: Vincent Donnefort <vdonnefort@google.com>
 
-[ Upstream commit 06b6f1245567a4be862c3e1cc74577922ceb05fb ]
+[ Upstream commit 7a1fb95de5404134f8758c1295ce88986bdf117c ]
 
-The SYSST check performed during device start requires SWS (amplifier
-switching, bit 8) and BSTS (boost finished, bit 9) on top of PLL lock
-and clock stability. Those bits cannot be asserted at this point in the
-sequence: the check runs after amppd release but before the
-hmute/ULS-hmute release, and the amplifier neither switches nor
-finishes ramping its boost converter while it is still muted. With the
-Fairphone (Gen. 6) firmware profile, aw88261_dev_start() therefore
-always fails with
+Discarding a cached reader page after a concurrent ring buffer resize
+uses the new global subbuf_order for the free_pages() call. This
+mismatched order may crashes the kernel or leaks memory because the cached
+page was allocated under the old size.
 
-  check sysst fail, reg_val=0x0011, check:0x311
+Save the actual free_page order alongside the page address to ensure we
+always refer to the correct value and do not rely on the potentially
+stalled cpu_buffer->subbuf_order value. The simplest is to make
+free_page a buffer_data_read_page which already covers exactly what we
+need: a page address and a page order.
 
-and playback aborts, even though the amplifier is fine and PLL lock
-and stable clocks are present.
-
-Check only PLL lock and clock stability, for which a definition
-already exists; this still re-validates the clocks after amppd release
-(aw88261_dev_check_syspll() checked them before it). This matches the
-vendor aw882xx driver, which only validates PLL lock and clock
-stability at this stage, and the in-tree aw88399 driver, which skips
-the SWS check whenever the amplifier may legitimately not be switching
-(AW88399_BIT_SYSST_NOSWS_CHECK).
-
-Fixes: 028a2ae25691 ("ASoC: codecs: Add aw88261 amplifier driver")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Link: https://patch.msgid.link/20260704192857.88366-1-jorijnvdgraaf@catcrafts.net
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://patch.msgid.link/20260813131152.3589632-4-vdonnefort@google.com
+Fixes: 8e7b58c27b3c ("ring-buffer: Just update the subbuffers when changing their allocation order")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ Changed upstream’s dpage variable to bpage in ring_buffer_free_read_page(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/aw88261.c | 6 +++---
- sound/soc/codecs/aw88261.h | 6 ------
- 2 files changed, 3 insertions(+), 9 deletions(-)
+ kernel/trace/ring_buffer.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 93610ae44822b..c0d62992701f6 100644
---- a/sound/soc/codecs/aw88261.c
-+++ b/sound/soc/codecs/aw88261.c
-@@ -253,10 +253,10 @@ static int aw88261_dev_check_sysst(struct aw_device *aw_dev)
- 			return ret;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 5936389188bd7..31c7ef21b526a 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -531,7 +531,7 @@ struct ring_buffer_per_cpu {
+ 	raw_spinlock_t			reader_lock;	/* serialize readers */
+ 	arch_spinlock_t			lock;
+ 	struct lock_class_key		lock_key;
+-	struct buffer_data_page		*free_page;
++	struct buffer_data_read_page	free_page;
+ 	unsigned long			nr_pages;
+ 	unsigned int			current_context;
+ 	struct list_head		*pages;
+@@ -2514,7 +2514,7 @@ static void rb_free_cpu_buffer(struct ring_buffer_per_cpu *cpu_buffer)
+ 		free_buffer_page(bpage);
+ 	}
  
- 		check_val = reg_val & (~AW88261_BIT_SYSST_CHECK_MASK)
--							& AW88261_BIT_SYSST_CHECK;
--		if (check_val != AW88261_BIT_SYSST_CHECK) {
-+							& AW88261_BIT_PLL_CHECK;
-+		if (check_val != AW88261_BIT_PLL_CHECK) {
- 			dev_dbg(aw_dev->dev, "check sysst fail, reg_val=0x%04x, check:0x%x",
--				reg_val, AW88261_BIT_SYSST_CHECK);
-+				reg_val, AW88261_BIT_PLL_CHECK);
- 			usleep_range(AW88261_2000_US, AW88261_2000_US + 10);
- 		} else {
- 			return 0;
-diff --git a/sound/soc/codecs/aw88261.h b/sound/soc/codecs/aw88261.h
-index 734d0f93ced9f..7863501086746 100644
---- a/sound/soc/codecs/aw88261.h
-+++ b/sound/soc/codecs/aw88261.h
-@@ -181,12 +181,6 @@
- 		AW88261_OTHS_OT_VALUE | \
- 		AW88261_PLLS_LOCKED_VALUE))
+-	free_pages((unsigned long)cpu_buffer->free_page, cpu_buffer->buffer->subbuf_order);
++	free_pages((unsigned long)cpu_buffer->free_page.data, cpu_buffer->free_page.order);
  
--#define AW88261_BIT_SYSST_CHECK \
--		(AW88261_BSTS_FINISHED_VALUE | \
--		AW88261_SWS_SWITCHING_VALUE | \
--		AW88261_CLKS_STABLE_VALUE | \
--		AW88261_PLLS_LOCKED_VALUE)
--
- #define AW88261_ULS_HMUTE_START_BIT	(14)
- #define AW88261_ULS_HMUTE_BITS_LEN	(1)
- #define AW88261_ULS_HMUTE_MASK		\
+ 	kfree(cpu_buffer);
+ }
+@@ -6570,9 +6570,9 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
+ 	local_irq_save(flags);
+ 	arch_spin_lock(&cpu_buffer->lock);
+ 
+-	if (cpu_buffer->free_page) {
+-		bpage->data = cpu_buffer->free_page;
+-		cpu_buffer->free_page = NULL;
++	if (cpu_buffer->free_page.data) {
++		*bpage = cpu_buffer->free_page;
++		cpu_buffer->free_page.data = NULL;
+ 	}
+ 
+ 	arch_spin_unlock(&cpu_buffer->lock);
+@@ -6624,8 +6624,8 @@ void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
+ 	local_irq_save(flags);
+ 	arch_spin_lock(&cpu_buffer->lock);
+ 
+-	if (!cpu_buffer->free_page) {
+-		cpu_buffer->free_page = bpage;
++	if (!cpu_buffer->free_page.data) {
++		cpu_buffer->free_page = *data_page;
+ 		bpage = NULL;
+ 	}
+ 
+@@ -6978,7 +6978,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 	}
+ 
+ 	for_each_buffer_cpu(buffer, cpu) {
+-		struct buffer_data_page *old_free_data_page;
++		struct buffer_data_read_page old_free_data_page;
+ 		struct list_head old_pages;
+ 		unsigned long flags;
+ 
+@@ -7021,7 +7021,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 
+ 		arch_spin_lock(&cpu_buffer->lock);
+ 		old_free_data_page = cpu_buffer->free_page;
+-		cpu_buffer->free_page = NULL;
++		cpu_buffer->free_page.data = NULL;
+ 		arch_spin_unlock(&cpu_buffer->lock);
+ 
+ 		rb_head_page_activate(cpu_buffer);
+@@ -7033,7 +7033,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 			list_del_init(&bpage->list);
+ 			free_buffer_page(bpage);
+ 		}
+-		free_pages((unsigned long)old_free_data_page, old_order);
++		free_pages((unsigned long)old_free_data_page.data, old_free_data_page.order);
+ 
+ 		rb_check_pages(cpu_buffer);
+ 	}
 -- 
 2.53.0
 
