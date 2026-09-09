@@ -1,154 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA264CB8B2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF53438837A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948881; cv=none; b=DioOyy+ZuJYdir4t0fLCQAEtn9FHMWG+BzNZETnnYSHs8fHA99yzRfN85oGtRChAmAwSRvmjWPlQwb+jQ5rRNufbuj1cFj00wwDapQz6TK1G6pu9xzNP2wW+DXiBo3rOEtUtuttnM8+P6krDSvWdx6RQF88F4F43pJfZdYU3uvE=
+	t=1788948944; cv=none; b=l6iCOosEi2hDXD7tWgxPiwJA5zxK2eUet+HIC2aJpk4MXHT0tl6xR3Bz9dr8fbGe872NcdywBSDN+gRXrhGbw9wIf0VsCoIjyL7zq4gAGHVgNNAbftu0b/DFzQD68lLur90/wJwCWVGCusPCW9F66XiYUQ9ockufvrIPFKSqVc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948881; c=relaxed/simple;
-	bh=OFauPF2CUfSjcRzXa8Qkrp6pQQa6fAVTCMziG5c/gwY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j3V1QKkV3tqsQEDmUAjWq6Ndcy2L3WvxEuujt63mNclTj1tfVoNuxEw8X3oFG5Ua04FGGrja9N3O50NQZJ+IFT63bZeko6/Vj8FsIH2dMc8+0xCMs8+J3oJzfspXfhb9iSggM8eHrRxH9Un68+AKEcZaHJRNeuxV17BwaPQkcy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V+NHiiKt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788948944; c=relaxed/simple;
+	bh=J0GqMoWgRVDxJAE6if6K3tBc9C/UZGT3v2I7HCW8hzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wr+qS/fUK0SzBLPdh8JrbbfjN4hO7i0KqobDK3t0Afgxwx90o9cNRa5flP8j6igOd66W11OcwODXQTbldc3g4YmT+8b+KcteS4nJz58oti9Vmu3kXRHCAnAH9NpXxQ+q/hUaaTMphZwfVpaX3ctEgDMnQGjNNiwqfv+nSs/hjAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2b9lw8R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V+NHiiKt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA321F00A3F;
-	Wed,  9 Sep 2026 10:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788948870;
-	bh=wQqWU5HDa79n6PLX0GNrsrl0jVGIVVI3XlEppgvNr0Y=;
-	h=Subject:To:Cc:From:Date;
-	b=V+NHiiKtp6IOGw/xlQi9lxv1Eh0BahLkBxK3qHyadkIFapa/sjTqXkDt2sdIg/276
-	 KXUr7Iq4gl0ffIzbCe/1pGw9xgQX6Ojif72qiriYVQXDFpkv+rdJIgPmRKrUpVMfB7
-	 IZpdbBTFD7xjfGqWggunjj6imeiZGuMa523mNwyY=
-Subject: FAILED: patch "[PATCH] ASoC: pcm512x: sort the register default table" failed to apply to 5.10-stable tree
-To: peter.ujfalusi@linux.intel.com,broonie@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:03:37 +0200
-Message-ID: <2026090937-awry-woven-fb0a@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2b9lw8R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5438A1F00ADB;
+	Wed,  9 Sep 2026 10:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948938;
+	bh=XE7qDztbQTlfGmgcZwMcl3wU+YMspCwe0mQnTGkuzhQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=b2b9lw8RmH4kpzBBTPumxyQuBMEcsbog14gmHkPrQsn8B2B3aQpcZI8KCzDobR6yw
+	 uoyoM/+Av/9+D2Ip/xy3u4JXCJVzjYfRaQChUFKXxCVfcromov5PTb24EtfhtgQ5b6
+	 1QQHMrF0TKnNuuuN1OAIlO0UFvqNZvgp1CTlO7loKwKhbAk+rUMGSd5Xn5VFFFbYze
+	 Cd/fr04/ETg8O2nYfq0zW+sjul1xpqsz2SUdd+5BhYvpuBLXI1cLKkkkR9F70j/NqW
+	 mcmF5Low/ndEAgCkxekIVwmEe6KAZ/tIjWgpRvnOo8oORr401Koo3RYcqGc28vYv3c
+	 8qn35xoFRAHIA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] svcrdma: Adjust the number of entries in svc_rdma_recv_ctxt::rc_pages
+Date: Wed,  9 Sep 2026 06:15:35 -0400
+Message-ID: <20260909101536.1481226-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909101536.1481226-1-sashal@kernel.org>
+References: <2026090344-perfume-python-398c@gregkh>
+ <20260909101536.1481226-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Chuck Lever <chuck.lever@oracle.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 81381d1a90dea186ce4585d9bd3cdc40b50e9c48 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Allow allocation of more entries in the rc_pages[] array when the
+maximum size of an RPC message is increased.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 767d9ae714e3e9b0ae86237c410fbfca7056570a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090937-awry-woven-fb0a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: NeilBrown <neil@brown.name>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-Possible dependencies:
+For the 5.15 backport, keep the existing kmalloc allocation policy and
+size the flexible rc_pages array with RPCSVC_MAXPAGES. This tree retains
+fixed-size RPC request page arrays and does not have svc_serv_maxpages(),
+so using the existing limit preserves both allocation capacity and the
+accepted segment-count upper bound without adding a helper function.
+Omit __counted_by, which is not available in this tree.
 
+Retain rc_maxpages and use it in xdr_check_write_chunk() so that target
+9808eb765666 ("svcrdma: Reject Write/Reply chunks with segcount 0") applies
+without changes. Initialize rc_maxpages before the context is published.
 
+Include linux/pagemap.h explicitly for release_pages(). The preceding
+rc_pages backport added this call without its declaration, causing an
+implicit-function-declaration build error on this stable tree.
 
-thanks,
+Stable-dep-of: 9808eb765666 ("svcrdma: Reject Write/Reply chunks with segcount 0")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/sunrpc/svc_rdma.h         | 3 ++-
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 8 ++++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 767d9ae714e3e9b0ae86237c410fbfca7056570a Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Wed, 5 Aug 2026 13:41:45 +0300
-Subject: [PATCH] ASoC: pcm512x: sort the register default table
-
-reg_defaults must be sorted by ascending register address, as
-regcache_lookup_reg() locates entries in it with bsearch().  See commit
-fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
-
-PCM512x_AUTO_MUTE (page 0, register 59) is listed before
-PCM512x_ERROR_DETECT (page 0, register 37) and PCM512x_VCOM_CTRL_2
-(page 1, register 9) is listed before the page 0 clocking block, so the
-bsearch() descends into the wrong half of the table.  24 of the 45
-entries are unreachable, among them every PLL coefficient and clock
-divider default.  regcache_reg_needs_sync() then cannot compare them
-against their default and reports that a sync is needed, so they are
-written to the device on every regcache_sync() even when they were
-never touched.
-
-Sort the table by register address.
-
-Fixes: 5a3af1293194 ("ASoC: pcm512x: Add PCM512x driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20260805104149.9795-2-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-
-diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
-index fe3b5011fa16..03b1fcb1bf96 100644
---- a/sound/soc/codecs/pcm512x.c
-+++ b/sound/soc/codecs/pcm512x.c
-@@ -78,28 +78,10 @@ static const struct reg_default pcm512x_reg_defaults[] = {
- 	{ PCM512x_POWER,             0x00 },
- 	{ PCM512x_MUTE,              0x00 },
- 	{ PCM512x_DSP,               0x00 },
--	{ PCM512x_PLL_REF,           0x00 },
--	{ PCM512x_DAC_REF,           0x00 },
--	{ PCM512x_DAC_ROUTING,       0x11 },
--	{ PCM512x_DSP_PROGRAM,       0x01 },
--	{ PCM512x_CLKDET,            0x00 },
--	{ PCM512x_AUTO_MUTE,         0x00 },
--	{ PCM512x_ERROR_DETECT,      0x00 },
--	{ PCM512x_DIGITAL_VOLUME_1,  0x00 },
--	{ PCM512x_DIGITAL_VOLUME_2,  0x30 },
--	{ PCM512x_DIGITAL_VOLUME_3,  0x30 },
--	{ PCM512x_DIGITAL_MUTE_1,    0x22 },
--	{ PCM512x_DIGITAL_MUTE_2,    0x00 },
--	{ PCM512x_DIGITAL_MUTE_3,    0x07 },
--	{ PCM512x_OUTPUT_AMPLITUDE,  0x00 },
--	{ PCM512x_ANALOG_GAIN_CTRL,  0x00 },
--	{ PCM512x_UNDERVOLTAGE_PROT, 0x00 },
--	{ PCM512x_ANALOG_MUTE_CTRL,  0x00 },
--	{ PCM512x_ANALOG_GAIN_BOOST, 0x00 },
--	{ PCM512x_VCOM_CTRL_1,       0x00 },
--	{ PCM512x_VCOM_CTRL_2,       0x01 },
- 	{ PCM512x_BCLK_LRCLK_CFG,    0x00 },
- 	{ PCM512x_MASTER_MODE,       0x7c },
-+	{ PCM512x_PLL_REF,           0x00 },
-+	{ PCM512x_DAC_REF,           0x00 },
- 	{ PCM512x_GPIO_DACIN,        0x00 },
- 	{ PCM512x_GPIO_PLLIN,        0x00 },
- 	{ PCM512x_SYNCHRONIZE,       0x10 },
-@@ -117,8 +99,26 @@ static const struct reg_default pcm512x_reg_defaults[] = {
- 	{ PCM512x_FS_SPEED_MODE,     0x00 },
- 	{ PCM512x_IDAC_1,            0x01 },
- 	{ PCM512x_IDAC_2,            0x00 },
-+	{ PCM512x_ERROR_DETECT,      0x00 },
- 	{ PCM512x_I2S_1,             0x02 },
- 	{ PCM512x_I2S_2,             0x00 },
-+	{ PCM512x_DAC_ROUTING,       0x11 },
-+	{ PCM512x_DSP_PROGRAM,       0x01 },
-+	{ PCM512x_CLKDET,            0x00 },
-+	{ PCM512x_AUTO_MUTE,         0x00 },
-+	{ PCM512x_DIGITAL_VOLUME_1,  0x00 },
-+	{ PCM512x_DIGITAL_VOLUME_2,  0x30 },
-+	{ PCM512x_DIGITAL_VOLUME_3,  0x30 },
-+	{ PCM512x_DIGITAL_MUTE_1,    0x22 },
-+	{ PCM512x_DIGITAL_MUTE_2,    0x00 },
-+	{ PCM512x_DIGITAL_MUTE_3,    0x07 },
-+	{ PCM512x_OUTPUT_AMPLITUDE,  0x00 },
-+	{ PCM512x_ANALOG_GAIN_CTRL,  0x00 },
-+	{ PCM512x_UNDERVOLTAGE_PROT, 0x00 },
-+	{ PCM512x_ANALOG_MUTE_CTRL,  0x00 },
-+	{ PCM512x_ANALOG_GAIN_BOOST, 0x00 },
-+	{ PCM512x_VCOM_CTRL_1,       0x00 },
-+	{ PCM512x_VCOM_CTRL_2,       0x01 },
+diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
+index 2bfc32337bc2e..bab8d45fcb58c 100644
+--- a/include/linux/sunrpc/svc_rdma.h
++++ b/include/linux/sunrpc/svc_rdma.h
+@@ -148,7 +148,8 @@ struct svc_rdma_recv_ctxt {
+ 	struct svc_rdma_pcl	rc_reply_pcl;
+ 
+ 	unsigned int		rc_page_count;
+-	struct page		*rc_pages[RPCSVC_MAXPAGES];
++	unsigned long		rc_maxpages;
++	struct page		*rc_pages[];
  };
  
- static bool pcm512x_readable(struct device *dev, unsigned int reg)
+ struct svc_rdma_send_ctxt {
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+index cf673cf9584d5..7d3b8fea9c682 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
+@@ -92,6 +92,7 @@
+  * are transferred from the svc_rdma_recv_ctxt to the second svc_rqst.
+  */
+ 
++#include <linux/pagemap.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <asm/unaligned.h>
+@@ -126,12 +127,15 @@ static struct svc_rdma_recv_ctxt *
+ svc_rdma_recv_ctxt_alloc(struct svcxprt_rdma *rdma)
+ {
+ 	struct svc_rdma_recv_ctxt *ctxt;
++	unsigned long pages;
+ 	dma_addr_t addr;
+ 	void *buffer;
+ 
+-	ctxt = kmalloc(sizeof(*ctxt), GFP_KERNEL);
++	pages = RPCSVC_MAXPAGES;
++	ctxt = kmalloc(struct_size(ctxt, rc_pages, pages), GFP_KERNEL);
+ 	if (!ctxt)
+ 		goto fail0;
++	ctxt->rc_maxpages = pages;
+ 	buffer = kmalloc(rdma->sc_max_req_size, GFP_KERNEL);
+ 	if (!buffer)
+ 		goto fail1;
+@@ -486,7 +490,7 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
+ 	 * a computation, perform a simple range check. This is an
+ 	 * arbitrary but sensible limit (ie, not architectural).
+ 	 */
+-	if (unlikely(segcount > RPCSVC_MAXPAGES))
++	if (unlikely(segcount > rctxt->rc_maxpages))
+ 		return false;
+ 
+ 	p = xdr_inline_decode(&rctxt->rc_stream,
+-- 
+2.53.0
 
