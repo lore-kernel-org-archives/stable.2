@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7093549386
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066D9549389
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954195; cv=none; b=I5JEGQagG+5rRoZhdtCfSqgJE+YkJPWreI1z4yzgI7NzsbcUCWYah4rQzGiXR8TZS2MsLn9dOF7h4Hc3IzvSBGnSiWigmkvCyNxvGa3OtKKiDbp0JZFaEIc41IbilT0i2ERXgVb1ZoTUWBB6wqdy6cz6CAjsXG8MyBTCp//ZZLo=
+	t=1788954198; cv=none; b=V/D2x/DukvOVDquqpilnnwOuB5fQPdmgt7IuFmGnpueoQ2zrtdLXPlNprRCmTmTyzqE29hW56o4P8pIuBdAIX0172aVFC/Vz0dQwDfl+iycs/vqjguXfd2Qtjt3W9hg7PgTN4FSBd9HHK+jjHQG3x1V2JYNCbzRRyoVRB2HoFqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954195; c=relaxed/simple;
-	bh=KOVk3kLI0g6e8Y8yL07I3gJq6nWmNGZzg+XoDeEOW6U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IC285UArMyPzw+eot7pIqyXY0DFk9f5JweQ7EV731cgs9kFNbf2qHaH5UaI4FibHssfiJQmAsFTLJEalXwSe5S+BK8D3F8+EDG2SAVFoWxLuKDx2AAnzTrC9zeOPQvqPgMXlThbGp7l9/NytDGaOjA2xsxu8BOjkQ9d5OmFBrr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vQlzrnCV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954198; c=relaxed/simple;
+	bh=qOjK9r2obYJOPG/teM0Yo3/tdwMkcLnEppEsHyma6yk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GSfYrqZ8C8eTG3Zzb0bIQRspOZZT4qY6unYhlyjXXctT/AWGkz/HV3w7jS6E7JNbghSnLbo5puEc3B0w/Kvj/rpNT03pkc8xn6tc4ILOue0VBtF9kd9Yh5Ox0VZvy7b0RCE0hdqEoyXz0Ru9K7Cc24sVnitftz47RdyOrJKtg0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pV5wpoH1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vQlzrnCV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD3C1F00A3D;
-	Wed,  9 Sep 2026 11:43:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pV5wpoH1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1F31F00A3A;
+	Wed,  9 Sep 2026 11:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954193;
-	bh=BUwkpLH7v9sSOyyypu4jzPeJcRUec4U4uiN50ABrAtw=;
+	s=korg; t=1788954196;
+	bh=sSNZTKDqU2Vm9MkSgQ+8M0NGtz4iiOrOUnjjSbgWnQU=;
 	h=Subject:To:Cc:From:Date;
-	b=vQlzrnCVEeZf07P2kJtQDswfBLkDmidvvHhSVx206pg7VyhJA33BDwrQ93iK/vDmG
-	 33nA46UK8W/IcqVdC6ote8ZKPUGAF++x7J/s1D3xs45fOOlT5ZUGAZDf4Y0OaBx1fE
-	 7SCWv7FEYKsso/Ijvd0LNM7MAr611bHVYiiB155Y=
-Subject: FAILED: patch "[PATCH] f2fs: limit recovery filename logging to stored length" failed to apply to 5.10-stable tree
-To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
+	b=pV5wpoH1sH6MQga9aOMlIwVmDyG1r+MB3zScNh7nueD1sndrQdfbRioGS+oQSMN/u
+	 f7PJI8PcE5NO/+EsIdrghYEM8TXZC2XPHBh19/RWKFZ2knK7LejNGvafWFDeuCtTOv
+	 RS5t/P37dG4xR2s/f1iK1+HPp1TkYPLSAGEbBHzY=
+Subject: FAILED: patch "[PATCH] f2fs: fix to avoid potential section-unaligned pinfile" failed to apply to 6.12-stable tree
+To: chao@kernel.org,daehojeong@google.com,jaegeuk@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:25:33 +0200
-Message-ID: <2026090933-getaway-untaken-d2ae@gregkh>
+Date: Wed, 09 Sep 2026 13:25:49 +0200
+Message-ID: <2026090949-defendant-bonsai-eda1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 01027b2fcb74dade59fb833b51023f6593b6a9a2
+git cherry-pick -x d0a481fad5c7a3a56ecf54a099651216869f4d0a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090933-getaway-untaken-d2ae@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090949-defendant-bonsai-eda1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,106 +62,83 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 01027b2fcb74dade59fb833b51023f6593b6a9a2 Mon Sep 17 00:00:00 2001
-From: Wenjie Qi <qwjhust@gmail.com>
-Date: Tue, 30 Jun 2026 16:23:30 +0800
-Subject: [PATCH] f2fs: limit recovery filename logging to stored length
+From d0a481fad5c7a3a56ecf54a099651216869f4d0a Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 29 Jun 2026 11:49:18 +0000
+Subject: [PATCH] f2fs: fix to avoid potential section-unaligned pinfile
 
-F2FS stores recovery filenames as a length plus a fixed-size i_name
-buffer.  The buffer is not NUL-terminated, but recover_inode() and
-recover_dentry() print it with %s.
+Blocks of pinfile may not aligned to section size due to wrong use
+on pinfile, result in heavy overhead of GC, let avoid this by
+adding additional check condition in f2fs_setattr().
 
-For a 255-byte filename, recovery logging can read past i_name into the
-following raw inode fields.
+- truncate -s 8mb pinfile
+: random checkpoint may persist filesize w/ inode
+- fallocate -o 0 -l 8mb pinfile
+ - f2fs_fallocate
+  - f2fs_expand_inode_data
+   - f2fs_allocate_pinning_section
+   - f2fs_map_blocks
+    - f2fs_map_lock
+    - __allocate_data_block
+    - file_need_truncate
+    : w/ FADVISE_TRUNC_BIT, we can expect unaligned mapping can be
+      truncated while open() if f2fs is not umount abnormally
+    - f2fs_map_unlock
+    : following f2fs checkpoint and sudden power-cut
 
-Print the name with a precision bounded by i_namelen and F2FS_NAME_LEN.
+- mount
+- open pinfile
+ - f2fs_file_open
+  - finish_preallocate_blocks
+   - truncate_setsize
+   : filesize is 8mb
+   - f2fs_truncate
+   : can only truncate block outside filesize, rather than truncating
+     unaligned blocks inside filesize
 
-Fixes: f356fe0cba0e ("f2fs: add debug msgs in the recovery routine")
+Fixes: f5a53edcf01e ("f2fs: support aligned pinned file")
 Cc: stable@kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Cc: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
-index 89af8407b667..3fecfdbd5958 100644
---- a/fs/f2fs/recovery.c
-+++ b/fs/f2fs/recovery.c
-@@ -158,6 +158,22 @@ static int init_recovered_filename(const struct inode *dir,
- 	return 0;
- }
- 
-+static const char *recover_printable_name(struct inode *inode,
-+					  struct f2fs_inode *raw,
-+					  int *name_len)
-+{
-+	static const char encrypted_name[] = "<encrypted>";
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 4b52c56d71f0..c54897a25981 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1107,17 +1107,23 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			!IS_ALIGNED(attr->ia_size,
+ 			F2FS_BLK_TO_BYTES(fi->i_cluster_size)))
+ 			return -EINVAL;
+-		/*
+-		 * To prevent scattered pin block generation, we don't allow
+-		 * smaller/equal size unaligned truncation for pinned file.
+-		 * We only support overwrite IO to pinned file, so don't
+-		 * care about larger size truncation.
+-		 */
+-		if (f2fs_is_pinned_file(inode) &&
+-			attr->ia_size <= i_size_read(inode) &&
+-			!IS_ALIGNED(attr->ia_size,
+-			F2FS_BLK_TO_BYTES(CAP_BLKS_PER_SEC(sbi))))
+-			return -EINVAL;
 +
-+	if (file_enc_name(inode)) {
-+		*name_len = sizeof(encrypted_name) - 1;
-+		return encrypted_name;
-+	}
-+
-+	*name_len = min_t(unsigned int, le32_to_cpu(raw->i_namelen),
-+			  F2FS_NAME_LEN);
-+	return raw->i_name;
-+}
-+
- static int recover_dentry(struct inode *inode, struct folio *ifolio,
- 						struct list_head *dir_list)
- {
-@@ -170,7 +186,8 @@ static int recover_dentry(struct inode *inode, struct folio *ifolio,
- 	struct inode *dir, *einode;
- 	struct fsync_inode_entry *entry;
- 	int err = 0;
--	char *name;
-+	const char *name;
-+	int name_len;
++		if (f2fs_is_pinned_file(inode)) {
++			/*
++			 * It may break section-aligned fallocate recovery
++			 * mechanism, so do not allow larger size truncation.
++			 */
++			if (attr->ia_size > i_size_read(inode))
++				return -EINVAL;
++			/*
++			 * To prevent scattered pin block generation, we don't
++			 * allow smaller/equal size unaligned truncation for
++			 * pinned file.
++			 */
++			else if (!IS_ALIGNED(attr->ia_size,
++				F2FS_BLK_TO_BYTES(CAP_BLKS_PER_SEC(sbi))))
++				return -EINVAL;
++		}
+ 	}
  
- 	entry = get_fsync_inode(dir_list, pino);
- 	if (!entry) {
-@@ -229,12 +246,9 @@ static int recover_dentry(struct inode *inode, struct folio *ifolio,
- out_put:
- 	f2fs_folio_put(folio, false);
- out:
--	if (file_enc_name(inode))
--		name = "<encrypted>";
--	else
--		name = raw_inode->i_name;
--	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %llu, err = %d",
--		    __func__, ino_of_node(ifolio), name,
-+	name = recover_printable_name(inode, raw_inode, &name_len);
-+	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, dir = %llu, err = %d",
-+		    __func__, ino_of_node(ifolio), name_len, name,
- 		    IS_ERR(dir) ? 0 : dir->i_ino, err);
- 	return err;
- }
-@@ -282,7 +296,8 @@ static int recover_inode(struct inode *inode, struct folio *folio)
- {
- 	struct f2fs_inode *raw = F2FS_INODE(folio);
- 	struct f2fs_inode_info *fi = F2FS_I(inode);
--	char *name;
-+	const char *name;
-+	int name_len;
- 	int err;
- 
- 	inode->i_mode = le16_to_cpu(raw->i_mode);
-@@ -331,13 +346,11 @@ static int recover_inode(struct inode *inode, struct folio *folio)
- 
- 	f2fs_mark_inode_dirty_sync(inode, true);
- 
--	if (file_enc_name(inode))
--		name = "<encrypted>";
--	else
--		name = F2FS_INODE(folio)->i_name;
-+	name = recover_printable_name(inode, raw, &name_len);
- 
--	f2fs_notice(F2FS_I_SB(inode), "recover_inode: ino = %x, name = %s, inline = %x",
--		    ino_of_node(folio), name, raw->i_inline);
-+	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, inline = %x",
-+		    __func__, ino_of_node(folio), name_len, name,
-+		    raw->i_inline);
- 	return 0;
- }
- 
+ 	if (is_quota_modification(idmap, inode, attr)) {
 
