@@ -1,153 +1,257 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CC75519AA
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339C1375AAB
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 19:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982091; cv=none; b=cUUH6+RKziPMuurHh5+5T+NPiYEEQDrufVXabSIsp6sZaBvVx5fRxHYg2tVSWawUk+/NRyYJILttHmAkmYxrbcV4JIsJZ+cS5SEO4eHaR3fE33ExNPPUnLnlM14aeWLDRlwdDJTRLXcoV4l9IrjizP/bQNMteTNWUB+MI5msY8c=
+	t=1788982248; cv=none; b=Obw+LmClj9CbEQf9A+3MYXmMbPyLgjTYVcIqwzA632/fEIxfmUR0wBr75EngsHx/suog9SYyX+qgJNldoAC/JgiB7fT8o82IEqOzDqv0a8Sm/5zTqnB1o+N6neez08d3ma9QrnXI3T3SyyGhdY3tVi3d3szBRqDAox5mQr/7lds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982091; c=relaxed/simple;
-	bh=fGd2gQvYjHPd/S46Z42N0Jlf7DxGps2/byqPup1ks4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AWsZ1TjdMZjTQJSTXdBeptYId23/GxiieUaTCieI0kfJ1mSVBinKSU73pyIl7bgpy9U36L+LmCBgYnz7yIOcn3DwyWYg2HYHLMCrYVEMxSEUYzeOhtf6wD58yTkflvwPFkH0Jofg4mzlc7bDXVY/esa7w/MVt7gaj6vTYMcalMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=rMX1htfu; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788982248; c=relaxed/simple;
+	bh=OjwTS77Of0cEI60dHR7L7jYTCrdKX4ImjgWXDc6oBCA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O1DGyDtpyM2lepizsP4eaC8HxMfld1lgwk5uzpBJs+2CQRh8/G0vYWIB3gnv8cDuEQ3AA+xPkevtQH9AiSlavVOJadfRXhwhrjn+RaQ0HelCMLKmCFeLIy7aB1zgZoFEgpE/HKCZ6xr36OtPpi0LDGJzzeX1UDEj7JtbyRxxd3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjQVMRUI; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="rMX1htfu"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91058dd77a2so18393416d6.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 12:28:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjQVMRUI"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4957eefd361so49465435e9.1
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 12:30:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788982089; x=1789586889; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
-        b=rMX1htfuWqOVOyHKThlge7fRi+3bgREEkZqDPVLFI0UDuDJ0Q/UFnoxVg1QRjkKV39
-         diYTyxPY7B9jPIU7dOkCSNqCZYEVsep6B0jy//NWrVf9qmvx2nmYl0f8epfLDh2w2w33
-         9V/RghEAboYAd3tG40NdpMvcpypfe608uIZ8VQ2yupJeXmN1amypDPMjpmgqwPEczE7y
-         NmcUh4ijwesOB2uT3cEqQywWZ/iSvHL/ATgk0jiyQ9QUcZDr0C8gMJjWiVKxt006cH9U
-         LyYtLwW3QML6ya6kvqpF/aNXDNr0gO5mNtn1xbCASqZyd7pyqyrE/3at65Js/t1YFxfQ
-         Dkvw==
+        d=gmail.com; s=20251104; t=1788982244; x=1789587044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LWEuh4czJmGzJknfeo9JvN82m4WXeS0H/uuWqVtl4ks=;
+        b=PjQVMRUIXeePD7wCZdk0hktW3427lXGGE1twL6OQiKs4P0lcVEt5rHhrYaQU00zTLT
+         S9Nuqmgk+hXNU8IfYHKYdE6Mf9w6YE9HEVmK9A2E0wQ0GOaMyaXGU0HreEJ5gMayE0CG
+         S0mHPDms1q+H+tiOX2ocgC0O5OoIbHG/cQnRgLeHP0dfDVHCxf40kaijhrGxtYBcAfxB
+         07AvdkttK7iYhv/paPG6kXVi+WZ8lrFxZ9A5dGlxnDlPP0t1qrsDNHGd+SB6XRycfdeF
+         8Do2HZjbNiluiuQOT6dKQdX98yQ4EEPw80xUKg1dmgWFa5za0zvOc9JR28n+tAyrv04D
+         ircA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982089; x=1789586889;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
-        b=Obf2FhgrE0ZZlC3RHvl7pDZ24iHtD2gjEOkNSBQ3/rD7o548hKmmOOX+BJDWsspQS6
-         m7sRPaMJXyeNAojpu40MiqtQLmr3Po/eMWKeFZnIrKW21CLgx4J3s2WwYJgWHecvEFRj
-         3qZFU34GbXTtimiXsCbR27+PlQ+jE/dlXqJti6plPX9iHQBmPybY/xR8P8/XJLmpRLd1
-         Z1vf0Vy5unsmy0D1qCVa+Vy6d3Z34Rr+wsD/hipLtb+wehLkd0SN6S+aeLw835JZH+Vx
-         PMtjSLKiKzXTQF1IV45SZPnRRV2YlwCLgtNH88Tn4ZUNNa3wPbOzNm8ka6Y7nl2UqSEd
-         jJDA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6ea1HeoQmiZe7bx6vUW9Z3vwGTrvGmx6R+osdA+D9vS5wGN4genFrHdxZsd10LEGUFPEIdZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kn7V2En/4zlm6XuJUACCrOqbOUfpjybxivJ8HyEaISBjBK3ghO
-	SuH16ItIDwDi/vqb1JXNMR7gJB5akvbjvCFgRaRRbFSgOM97fVVraa4mIukTxNiPBQ==
-X-Gm-Gg: AYBFou2XWpnw45k5iNURDPNcS73D+3L2pTHnsujN0sNZBk1gaCiq3PgUQCM4SCyWuZY
-	Q3dKdP+ArIhSTEnAPfq9bjGcuDYbKp64nuKy6XZYgnQxjrS7PzOlCjF8bwTLQH8oy5S+MbgrGRJ
-	Y+vmcSqJJFIOBlsE4cpx3/zuA8lC1JnJRMGL8BqGW4iRcnIgTfZAvHczD7mtMm8c/OKIdtKSaOa
-	7iXcErvKCBqfr+4Ey69knhUNW36E4+CAcP9Pt3j5W+mGoKmo47myWcvutukfs7ndTgY7oGHNLhh
-	hhJDX2ylNqlMfYIHL2S0wTGuEC9uT6oNLf0tZUyklUvw8oiloCQJ4/CxKNei7v/qXwrJX7CCeYP
-	sGN5YJ2G8dSwe0eAiFxpgSSck+D0w0jorhH+gj36k4cxDUcKHdtxev+fkKMnHzRGJM35paHWjST
-	UVS1+OcecnKJ7molVBo8h4gRbhbsHjDLB+K3gMr7RFfaa+2yTq0F1EAspeOjihCOHD3R/DQU5DL
-	X77Z7B0r/B2MMM7hwqOqxhqDcMnJhSwYy+HW/8LM2p6RwamNj3zDw==
-X-Received: by 2002:a05:622a:53c5:b0:530:4deb:9801 with SMTP id d75a77b69052e-530a2e093b6mr129633651cf.49.1788982089079;
-        Wed, 09 Sep 2026 12:28:09 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305418950fsm146682361cf.20.2026.09.09.12.28.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:28:08 -0700 (PDT)
-Date: Wed, 9 Sep 2026 15:28:05 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
-References: <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
+        d=1e100.net; s=20251104; t=1788982244; x=1789587044;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LWEuh4czJmGzJknfeo9JvN82m4WXeS0H/uuWqVtl4ks=;
+        b=J5re/iulNvgFtWgGxFhLwZnlTgyWJlbr7ivivrtH1qo9KQ8puy+afLclETyinCBLbI
+         x/Ce9/W96TgEu6Cj/Tj77gx3Mup/zgDOzn8swxL2NxXjiOmqTV5u08mExdxR5t64Pmks
+         czvoD94CGuEAEg5JCKREI+AlF6gHCOSBNwqzPo0liyxw/WTnmpsy1vN8Sdp6EVkHC5ic
+         EW16wuOpZfxcuJ3CxDqzndXihkBIxu3jJXBLL6bx3K+ggtG73P26iOfb7t4qXUNumST4
+         gYfItbrqD94Y/AWUYyijuTnAkywq4D0pg9il6xyKvYOJe7K8itAxVS3VckyLAajHFokg
+         LNeg==
+X-Forwarded-Encrypted: i=1; AKwUvBwd1kgb5kWBXS/rgWLGiATfD6b1/HdpG1L+wMou0xoxLQwUJQ4JuKcXw626F/LZyD+eXbnTYu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvDfrd5YBijIKI1V4Jp/HmThSpVi+O9SIRVdOL05R3TbIHd5Oc
+	r4e7RRBxJJx+Q7guuGBfVN9rYnzYCogLINrZgK8D4h6s+uc14vsZ+YS+
+X-Gm-Gg: AYBFou3hpnrXQaRvRIyTm4uqgTgYgawv3OmYtFDygNLll6uxQv576XuCK/uyEfbdg0J
+	feL4l9k4YUJaJ/F5UdKvGGKtsE2BvmFxCYPEOsE+DCsh82hN0WmCVVvigpsBoTwIy5jUt35ndb9
+	dPiHgGb+r6HINNt5fEYswoPobezIutks7IOW259hh7iPGpeN8MDSAp4tipZjFlD0NrbG3CySukJ
+	goYySj3PeOCp/jzXYvC6y4wRZX/kgmoz9uERm+FCnu2hyAjJlUHENthMv8APpZ+etcxHXZHYixU
+	jIAOqji6cXo6HFUSZcYmEIE7Zn/edfWqrORBUOrgbAZ4H+mFj/BWShjyKTgs7tr4iBGNsOrn5iF
+	C4HAXBR5be7UNQFTQv6beuSuD2Yey0577+iJFMHsY6y/1O5MeHt2rcaxkghNo9ObiZK0d2ipBbQ
+	mYRABV4Vgw9lMJQ1yQGv5Smk8Dwcn+/YrCK2tP0U4+PIvNtYR2yClKVGfAEeOT5QQECdQyH6Z/E
+	SzVR8yGYLlQN/90iuxBVn818iNCe+h88fOlICAc13fvYCEnBDuodr8ReUV3YU0QtVuOcaVVGMea
+	Wb2DICvTHeostAWwpYTfkdZ/AdH113I3lEhMdpKAdKA9iE/DFeUm1kPhkkRHddojXBaSWE6eAt9
+	1q7FST+Q=
+X-Received: by 2002:a05:600c:3588:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49cfc6ea7d5mr355877335e9.22.1788982243784;
+        Wed, 09 Sep 2026 12:30:43 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b090-6201-5565-e933-e630-1831.310.pool.telefonica.de. [2a02:3100:b090:6201:5565:e933:e630:1831])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b7332asm13318195e9.0.2026.09.09.12.30.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 12:30:43 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	Paulo Alcantara <pc@manguebit.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] super: make iterate_supers_type() deletion-safe
+Date: Wed,  9 Sep 2026 21:30:34 +0200
+Message-Id: <20260909193034.7467-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqFw--VfXWz-yZt8@localhost.localdomain>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
-> I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
+From: Christian Brauner <brauner@kernel.org>
 
-I don't know what that means.  Regardless, LOCK doesn't pair with 
-smp_load_acquire().  UNLOCK does, but only to the extent that acts as a 
-release.
+iterate_supers_type() drops sb_lock while invoking the callback and keeps
+only a passive reference to the current superblock. That reference keeps
+the object allocated, but does not keep its s_instances node linked.
 
-> But unlock+lock doesn't pair with unlock+lock on different CPU.
-> 
-> C MP+polocks
-> 
-> {}
-> 
-> P0(int *A, int *B, spinlock_t *mylock)
-> {
-> 	spin_lock(mylock);
-> 	WRITE_ONCE(*A, 1);
-> 	spin_unlock(mylock);
-> 	spin_lock(mylock);
-> 	WRITE_ONCE(*B, 1);
-> 	spin_unlock(mylock);
-> }
-> 
-> P1(int *A, int *B, spinlock_t *otherlock)
-> {
-> 	int r0;
-> 	int r1;
-> 
-> 	r0 = READ_ONCE(*B);
-> 	spin_lock(otherlock);
-> 	r1 = READ_ONCE(*A);
-> 	spin_unlock(otherlock);
-> }
-> 
-> exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
+After the iterator releases s_umount, final teardown can unlink the current
+s_instances node. The iterator then advances through a reinitialized node.
+With the current hlist it stops without visiting the remaining superblocks.
+The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+the cursor lifetime has been unsafe since the helper was introduced.
 
-I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
-in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
-litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
-the reads are executed in the opposite order, you can see how P1 might 
-get r0=1 and r1=0.
+The CIFS DFS lookup can consequently miss a matching superblock and return
+-EINVAL.
 
-If P1 had done this instead:
+Move removal from fs_supers to put_super(), alongside removal from
+super_blocks, so a passive reference keeps both list nodes linked. Keep
+the filesystem module reference until then, since unlinking s_instances
+may touch type->fs_supers.
 
-P1(int *A, int *B)
-{
-	int r0;
-	int r1;
+Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
+SB_DEAD under sb_lock to serialize with those callbacks. This allows
+kernfs to free its private information after kill_anon_super() returns.
+Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
+mounts still wait for teardown before retrying.
 
-	r0 = READ_ONCE(*B);
-	smp_rmb();
-	r1 = READ_ONCE(*A);
-}
+Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+Suggested-by: Jan Kara <jack@suse.cz>
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+Assisted-by: LLM
+[kmehltretter: supplied the commit message]
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Changes in v2:
+- Use Christian's implementation of Jan's suggestion: keep s_instances
+  linked until the last passive reference is dropped and make sget_fc()
+  skip SB_DEAD superblocks under sb_lock.
+- Retain the filesystem module reference until put_super().
+- Attribute authorship to Christian; retain my commit message.
 
-then r0=1 and r1=0 would be impossible.
+Testing: All tests run on v1 also passed with Christian's draft. These
+included an x86_64 QEMU deterministic KUnit test using the actual CIFS
+lookup callback and a Samba DFS reconnect test with concurrent CIFS
+mounts and unmounts in the same guest. The deterministic test exercised
+the missed-match case; the network stress did not reproduce the narrow
+race on baseline.
 
-Alan Stern
+Link to v1: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+
+Christian's draft:
+https://lore.kernel.org/r/20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner
+
+ fs/kernfs/mount.c |  4 ++--
+ fs/super.c        | 39 +++++++++++++++++++--------------------
+ 2 files changed, 21 insertions(+), 22 deletions(-)
+
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index f183a96778b9..a57399021c8b 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
+ 	up_write(&root->kernfs_supers_rwsem);
+ 
+ 	/*
+-	 * Remove the superblock from fs_supers/s_instances
+-	 * so we can't find it, before freeing kernfs_super_info.
++	 * Mark the superblock dead so sget_fc() can't find it,
++	 * before freeing kernfs_super_info.
+ 	 */
+ 	kill_anon_super(sb);
+ 	kfree(info);
+diff --git a/fs/super.c b/fs/super.c
+index 05e443173038..0f9e13eedb4f 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -433,15 +433,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
+ void put_super(struct super_block *s)
+ {
+ 	if (refcount_dec_and_test(&s->s_passive)) {
++		struct file_system_type *type = s->s_type;
+ 
+ 		spin_lock(&sb_lock);
+ 		list_del_init(&s->s_list);
++		hlist_del_init(&s->s_instances);
+ 		spin_unlock(&sb_lock);
+ 
+ 		WARN_ON(s->s_dentry_lru.node);
+ 		WARN_ON(s->s_inode_lru.node);
+ 		WARN_ON(s->s_mounts);
+ 		call_rcu(&s->rcu, destroy_super_rcu);
++		/* The unlink above may touch type->fs_supers, so drop it last. */
++		put_filesystem(type);
+ 	}
+ }
+ 
+@@ -558,17 +562,6 @@ static void kill_super_notify(struct super_block *sb)
+ 	if (sb->s_flags & SB_DEAD)
+ 		return;
+ 
+-	/*
+-	 * Remove it from @fs_supers so it isn't found by new
+-	 * sget_fc() walkers anymore. Any concurrent mounter still
+-	 * managing to grab a temporary reference is guaranteed to
+-	 * already see SB_DYING and will wait until we notify them about
+-	 * SB_DEAD.
+-	 */
+-	spin_lock(&sb_lock);
+-	hlist_del_init(&sb->s_instances);
+-	spin_unlock(&sb_lock);
+-
+ 	/* Drop sget_fc()'s claim; a never-registered entry stays with the sb. */
+ 	if (sb->s_super_dev->sd_dev) {
+ 		super_dev_put(sb->s_super_dev);
+@@ -577,11 +570,15 @@ static void kill_super_notify(struct super_block *sb)
+ 
+ 	/*
+ 	 * Let concurrent mounts know that this thing is really dead.
+-	 * We don't need @sb->s_umount here as every concurrent caller
+-	 * will see SB_DYING and either discard the superblock or wait
+-	 * for SB_DEAD.
++	 * sget_fc() skips SB_DEAD superblocks and calls test() under
++	 * sb_lock, so set it under sb_lock: once we return no test()
++	 * runs on this superblock anymore and none will start. Everyone
++	 * else already saw SB_DYING and either discarded the superblock
++	 * or waits for SB_DEAD.
+ 	 */
++	spin_lock(&sb_lock);
+ 	super_wake(sb, SB_DEAD);
++	spin_unlock(&sb_lock);
+ }
+ 
+ /**
+@@ -608,7 +605,6 @@ void deactivate_locked_super(struct super_block *s)
+ 		list_lru_destroy(&s->s_dentry_lru);
+ 		list_lru_destroy(&s->s_inode_lru);
+ 
+-		put_filesystem(fs);
+ 		put_super(s);
+ 	} else {
+ 		super_unlock_excl(s);
+@@ -795,12 +791,12 @@ void generic_shutdown_super(struct super_block *sb)
+ 	}
+ 	/*
+ 	 * Broadcast to everyone that grabbed a temporary reference to this
+-	 * superblock before we removed it from @fs_supers that the superblock
+-	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
+-	 * discard this superblock and treat it as dead.
++	 * superblock that it is dying. Every walker of @fs_supers outside
++	 * of sget_fc() will now discard this superblock and treat it as
++	 * dead.
+ 	 *
+-	 * We leave the superblock on @fs_supers so it can be found by
+-	 * sget_fc() until we passed sb->kill_sb().
++	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
++	 * a concurrent mounter waits until we passed sb->kill_sb().
+ 	 */
+ 	super_wake(sb, SB_DYING);
+ 	super_unlock_excl(sb);
+@@ -879,6 +875,9 @@ struct super_block *sget_fc(struct fs_context *fc,
+ 	spin_lock(&sb_lock);
+ 	if (test) {
+ 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
++			/* Only unlinked at the last passive reference. */
++			if (super_flags(old, SB_DEAD))
++				continue;
+ 			if (test(old, fc))
+ 				goto share_extant_sb;
+ 		}
+-- 
+2.53.0
