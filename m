@@ -1,126 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE20E51357F
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F993E638C
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950075; cv=none; b=TUmCLeGINQMsjQ38JAjKINcSemvz92+Q+3NP38n0n6l4BdjH7LuHBXABLGM1IAZYLmMNCOnThaZkMfDDlH6WT5ZiTpNAtW10i0eoxjav2trUTVWrlmcqt9GgL67EQTvvnGbmnohssm/r9wcnCjXXGBBdFxzpZVxGCWavlVKiX9A=
+	t=1788950260; cv=none; b=uXriYyx8eaN41bAN8rJRLszMKOs+uciYWgDVLt87GgfCVCm1q3kaxysJGBQMFs8YyEY2+Cwvh2EJBvlxJ497JeUq5IZMBp2T6gMV6GHlwCdj7NlaFNRyIrbaqkkSN8Dlb3Jn0WAYMj5w8d9wrrIJLiAf0RTFi8a+d+CmH16o3Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950075; c=relaxed/simple;
-	bh=cZx+uZiIuFsZk6tCHSQtItB4+f2cMD8GFoU88JBumm8=;
+	s=arc-20240116; t=1788950260; c=relaxed/simple;
+	bh=COuEBZTOheVk38rYaLV2hA3b8RYkv2KQzEiY6D14g98=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q8C99ddo8jvxohqU2JfMaiLDKKmWtU3RBQi9mjRR3gLHPtpYkA6/hXJZWZV27zMNqquoIWyygzvStYCXENIsHSZWJShQhPj4VmDM9DZZVCk6JaaSmAQ4ZEydilWeX+BXwYb+OQCFcZugn5ocydTJwQn9XzDoRmKPZv1VpgT58i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqIvomiS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Iw2VIsVKysMCzPlpeiZ8I3I9leBRZ2lVKxKF13WnOIFqwAfw5s4qZP4NzKc/zUzHiyaIKFTt9QYIjUAG1mjrJ2uCQM24IjaZH5AQfkGGMajkw1AUibph37KGdj+qQFNbOqaqa2oNcc3Ah/9fgLHPT35DaGwR62ofMerboDGJY5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqcJvChL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqIvomiS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B1D1F00A3F;
-	Wed,  9 Sep 2026 10:34:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqcJvChL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165B31F00A3A;
+	Wed,  9 Sep 2026 10:37:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950073;
-	bh=cAknlqRwwstuFzZlz0yL94UQEdmEDIPt5ZisLLFUl+Q=;
+	s=k20260515; t=1788950258;
+	bh=ywyM7S4J4pjIzcoc1RNSYUSDCzYUOHwZ84pVySI2Nxs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EqIvomiSRFO6Ww5U6HwJasozBL9jNMQdVdq5lYLJVrtpiHo6o1h98481igmkZZBg8
-	 EAhAvxeWqECS/x1FwhwaF+8r0n60Di38RJAXsIMgO6WrcgdsXV+elSNnMGXg6KKZdn
-	 BgE3s5FeKahkm9LEeUfS38Y7dIJ0L2qp5EavxMgMg01+B2+UGP79vqjZEq//IFOPQc
-	 EsfRHurYlCP+AI5o/0AM5/4n/T1B/IM05W8zXJXWwTruuDjKh3Sd8DCcYEFioHwfAC
-	 aJjEPfx83Lblodj5/y/+dqBgOmUM6qqQGUd26c04KGFWXTKwd7/OImwhAL+//aoCcE
-	 Y4ywOM47c8nCQ==
+	b=dqcJvChL7LhfKo6Ge0E/9t3D1v51BU6mmcvZo0u8VOKjUJqFwciA05JL4iE1seP+s
+	 oHVZDxVXgC2j6p2s86gJhDSTjqZvv8CWWPOdEQGFwmOJKdnpRbLq7ayixr/xjOA8St
+	 yNBZmshzV31TThIwkCWbOOh+NYD4XokINAoaVgzSrawMthH1NZWkH4Mc2TJTmkqKQ3
+	 yN6+TavACgXXLwHWij9k8eeTKqhSBTLGFNgGbnvU3zUDAj2vytiAV0WR0LCsgYTZQB
+	 iivSvFu1J6xxjYjbijNQVXoRTLMBvyKSfSIJ57fpDYYVUFP377e5bNmBhpQLFdqHzy
+	 gylEFbwoSGdvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Oscar Ou <oscarou@synology.com>,
-	Chuck Lever <cel@kernel.org>,
+Cc: =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <csokas.bence@prolan.hu>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] lockd: fix swapped arguments in nlmsvc_match_ip()
-Date: Wed,  9 Sep 2026 06:34:31 -0400
-Message-ID: <20260909103431.1544654-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] dmaengine: Add devm_dma_request_chan()
+Date: Wed,  9 Sep 2026 06:37:35 -0400
+Message-ID: <20260909103736.1550307-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090300-isolation-small-467e@gregkh>
-References: <2026090300-isolation-small-467e@gregkh>
+In-Reply-To: <2026090301-stream-storage-7d41@gregkh>
+References: <2026090301-stream-storage-7d41@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Oscar Ou <oscarou@synology.com>
+From: Bence Csókás <csokas.bence@prolan.hu>
 
-[ Upstream commit b9060689f49dc663e9a3d069c4a65ff63a836e66 ]
+[ Upstream commit 08bf1663c21a3e815eda28fa242d84c945ca3b94 ]
 
-When releasing locks by server IP address via /proc/fs/nfsd/unlock_ip,
-nlmsvc_unlock_all_by_ip() calls nlm_traverse_files() with the server
-sockaddr as the opaque @data argument:
+Expand the arsenal of devm functions for DMA devices, this time for
+requesting channels.
 
-	nlm_traverse_files(server_addr, nlmsvc_match_ip, NULL);
-
-The match callback is later invoked from nlm_traverse_locks() as:
-
-	match(lockhost, host);
-
-where the first argument is the nlm_host that owns the lock, and the
-second argument is the @data that was originally passed down (here the
-server sockaddr).  This is the convention every other match callback
-relies on (nlmsvc_mark_host(), nlmsvc_same_host(), nlmsvc_is_client()):
-arg1 is the real nlm_host, arg2 is the caller-supplied reference value.
-
-nlmsvc_match_ip() has had these two arguments reversed ever since the
-unlock-by-IP feature was introduced in commit 4373ea84c84d ("lockd:
-unlock lockd locks associated with a given server ip"):
-
-	return rpc_cmp_addr(nlm_srcaddr(host), datap);
-
-Here @host is actually the server sockaddr, so nlm_srcaddr(host)
-dereferences a struct sockaddr as a struct nlm_host and reads garbage
-at the offset of h_srcaddr; meanwhile @datap is actually the lock
-owner's nlm_host but is compared as a sockaddr.  As a result the
-comparison practically never matches and locks are not released for the
-requested IP.
-
-Swap the arguments so the lock owner's source address is compared
-against the requested server address:
-
-	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
-
-Fixes: 4373ea84c84d ("lockd: unlock lockd locks associated with a given server ip")
-Cc: stable@vger.kernel.org
-Signed-off-by: Oscar Ou <oscarou@synology.com>
-[ cel: fix the misleading typedef parameter names too ]
-Link: https://patch.msgid.link/20260617075738.1151797-1-oscarou@synology.com
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Bence Csókás <csokas.bence@prolan.hu>
+Link: https://lore.kernel.org/r/20250610082256.400492-2-csokas.bence@prolan.hu
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 777979e62711 ("i2c: mxs: fix DMA channel leak on probe error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/lockd/svcsubs.c          | 2 +-
- include/linux/lockd/lockd.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma/dmaengine.c   | 30 ++++++++++++++++++++++++++++++
+ include/linux/dmaengine.h |  7 +++++++
+ 2 files changed, 37 insertions(+)
 
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index 91a4c22c86ff2..4075d0eab263f 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -508,7 +508,7 @@ EXPORT_SYMBOL_GPL(nlmsvc_unlock_all_by_sb);
- static int
- nlmsvc_match_ip(void *datap, struct nlm_host *host)
- {
--	return rpc_cmp_addr(nlm_srcaddr(host), datap);
-+	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index e241b7b01233e..72656845f839f 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -927,6 +927,36 @@ void dma_release_channel(struct dma_chan *chan)
  }
+ EXPORT_SYMBOL_GPL(dma_release_channel);
  
++static void dmaenginem_release_channel(void *chan)
++{
++	dma_release_channel(chan);
++}
++
++/**
++ * devm_dma_request_chan - try to allocate an exclusive slave channel
++ * @dev:	pointer to client device structure
++ * @name:	slave channel name
++ *
++ * Returns pointer to appropriate DMA channel on success or an error pointer.
++ *
++ * The operation is managed and will be undone on driver detach.
++ */
++
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	struct dma_chan *chan = dma_request_chan(dev, name);
++	int ret = 0;
++
++	if (!IS_ERR(chan))
++		ret = devm_add_action_or_reset(dev, dmaenginem_release_channel, chan);
++
++	if (ret)
++		return ERR_PTR(ret);
++
++	return chan;
++}
++EXPORT_SYMBOL_GPL(devm_dma_request_chan);
++
  /**
-diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
-index d9930fc43ca54..ba838f529056c 100644
---- a/include/linux/lockd/lockd.h
-+++ b/include/linux/lockd/lockd.h
-@@ -268,7 +268,7 @@ void		  nsm_release(struct nsm_handle *nsm);
-  * This is used in garbage collection and resource reclaim
-  * A return value != 0 means destroy the lock/block/share
+  * dmaengine_get - register interest in dma_channels
   */
--typedef int	  (*nlm_host_match_fn_t)(void *cur, struct nlm_host *ref);
-+typedef int	  (*nlm_host_match_fn_t)(void *owner, struct nlm_host *ref);
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index b137fdb56093b..631519552c5a9 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -1521,6 +1521,7 @@ struct dma_chan *__dma_request_channel(const dma_cap_mask_t *mask,
  
- /*
-  * Server-side lock handling
+ struct dma_chan *dma_request_chan(struct device *dev, const char *name);
+ struct dma_chan *dma_request_chan_by_mask(const dma_cap_mask_t *mask);
++struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name);
+ 
+ void dma_release_channel(struct dma_chan *chan);
+ int dma_get_slave_caps(struct dma_chan *chan, struct dma_slave_caps *caps);
+@@ -1557,6 +1558,12 @@ static inline struct dma_chan *dma_request_chan_by_mask(
+ {
+ 	return ERR_PTR(-ENODEV);
+ }
++
++static inline struct dma_chan *devm_dma_request_chan(struct device *dev, const char *name)
++{
++	return ERR_PTR(-ENODEV);
++}
++
+ static inline void dma_release_channel(struct dma_chan *chan)
+ {
+ }
 -- 
 2.53.0
 
