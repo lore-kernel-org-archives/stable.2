@@ -1,166 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FBD5437DF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4414039E6FC
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953469; cv=none; b=PavGaQXk5b8xeb6Ns6z7suNoji5WbpF7ZEd0w4sfhHQvSZo+2bFdhKmW0iBtlH23HhBMvvZ+PsZT5K2gU5VKxuxwsH52gz0V6+KW28Lf/os91Bc3nVT9dFriOSfqhAQ2J6yA+3TmUTja6ShTmIyEkCfGxhj1fMTGUw7WUK8HY4A=
+	t=1788953469; cv=none; b=Q6ZSwPIVCvZ7C9Zh7YMYE5JIPJHl//XYID61pWYCTFlKT32WgBRGz90yT+0+33AFZriL4X+Yz0bOuBQlyOvtfoZwpUieinlcY9LVSX/wpuLW2aEYLq3BEPFvLIu5sYE1snd1s3CM0JfMVtWbaYoUs8FSWmlOLmd1mBbfdEUrZq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788953469; c=relaxed/simple;
-	bh=dlBw+Dh69WFnRAnY8CNu6jKif3XkygUebncWsi9DRjs=;
+	bh=2XM29T9GazC6fllqM6n2ZiOhkw1VphllxAyzhu1ieM4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sx2lQxyqCF+qOPYimVlmfl754DQPFOefm8ponv4/nXYnR2PyvktnB6YL/JbkUVoL9NlfFZGvHnakexhMF2/2eRBJtCc9k+lRHDKKnhNXJMp4+vctdRUTD2RTST4qn4WWMF8KBb5+svrbw5LECsvYsQcO0NJNTEIV699/dkt55HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1O51l6S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iXL74SIsWK5gTw19xPhb6rJHCmBY0FGulSeu1NP2IeuYTJ5w2aLNBkv74+hk+9jSb7NeA5N0cspchrXD1X6JPQxF/5SVeTsAdccVBUj46SRQZPhybVa97X9WZVOkyZOUN5hXJ6qtkbd48WyA2Wp0MX3cBskEnWyHOk8h0jKLiM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfKsofP9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1O51l6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B2D1F00A3A;
-	Wed,  9 Sep 2026 11:31:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfKsofP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8C71F00A3D;
+	Wed,  9 Sep 2026 11:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953467;
-	bh=9HfS4GzH/gwS41e8Mt2pVqOz8705GdqaQaVaR7uPkvA=;
+	s=k20260515; t=1788953464;
+	bh=6+CiRt7JYdK9PAo6HmT3DQWtxamOLi/zZ8j/BmweQ0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i1O51l6SAUG0rNy1JjGqPjgTT2TWlkPYAcuokA1fqlDhRIR/gWOdp9thobEXndCzr
-	 Km0wAXYFjxfeKEw05A3W3yd7Knp/WqzBrkWBJnADoCMELS3NgcnB8SdC/hDos0b/aH
-	 HqMBM5fYdXzEQt+uN62dbTBAjxxf1k/O6nrNkkwpbuC0HP3gmXs4yvHEyq2gqd1d/H
-	 +xd5aJQhr4nhH1Vmo8MXgs994TnL2T6Nklia2vgN3Eo8DE1FDMw6BV4lzzXjGfipD0
-	 04fPt8AdaDf9/9JrrkOanYjbkW/Ie7I6TT3YzjJ8iR4ajK7dWUatvnS2luuOARSBBC
-	 m8mJ0kFc31pHQ==
+	b=AfKsofP988CT1QpCMXVZEMb9DR3OjvmUrfPr9QnEq+Pm8+Iu6BVO5boxKKxMTVHRf
+	 sswg9CqIk+XjkVdH9oA5h+3VQYQF4JZT13GK5pXa5G1RU3eJvtyVrciNk+X1zDN5LG
+	 cmjznxLEf1/SlHwP0xzwdrvw4zz6JHnoV0whyOCWDAEI0QdxO/NUABZYNYSD4YklFl
+	 Rc/rc+UHiIUP/dXeInrxM7WeNFNy9z6zUUVShFiLbFXvRsSHrnbrS4rMSgvEI8ZYBE
+	 tUFLfjrQZmXHZL4Tu8JBIFBKDjavl6BOhyeoRW8ctA0bmW574iPZSay8M/Ltj+GRjk
+	 vv49xwPA8kyfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Linus Walleij <linusw@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] sched/core: Make core-sched flips wait for in-flight selections
-Date: Wed,  9 Sep 2026 07:31:05 -0400
-Message-ID: <20260909113105.1863245-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] power: supply: ab8500_fg: fix use-after-free on remove
+Date: Wed,  9 Sep 2026 07:31:01 -0400
+Message-ID: <20260909113101.1863047-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090312-earlobe-rendering-b0fe@gregkh>
-References: <2026090312-earlobe-rendering-b0fe@gregkh>
+In-Reply-To: <20260909113101.1863047-1-sashal@kernel.org>
+References: <2026090321-blissful-lily-9edf@gregkh>
+ <20260909113101.1863047-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit f3629c63a4af3e491381780bc6c123cb498c4c40 ]
+[ Upstream commit 75b1e88d34254f4fb7753345e21bfee47abddd7f ]
 
-Core scheduling's pick_next_task() operates on all sibling rqs under one
-acquisition of the shared core-wide lock. A ->pick_task() that releases the
-rq lock leaves every sibling __lock momentarily free, letting
-__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
-it. The selection resumes on the split locks, touching sibling state it no
-longer protects, and __schedule() finally releases a lock that was never
-taken while leaking the one that was.
+ab8500_fg_remove() destroys the driver workqueue while the threaded
+interrupt handlers are still armed; they are devm-managed and freed
+only after ->remove() returns, so a handler that fires in that
+window queues work on the freed workqueue.
 
-Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
-and make __sched_core_flip() wait for the count to drain. The count only
-changes under the shared lock, which the flip holds while sampling, so no
-other ordering is needed. The wait can repeat while selections overlap, but
-the flip backs off between samples and flips are rare cookie-lifetime
-events.
+Tear the workqueue down through devm instead, registering its cleanup
+after the power supply and before the interrupt requests.  devm then
+frees the interrupts first, so the handlers can no longer queue work,
+before disabling the delayed and plain work items and destroying the
+workqueue.  Disabling the items, rather than cancelling them, keeps
+them disabled so no producer (including the power-supply
+external_power_changed callback) can requeue them.
 
-sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
-left behind would bias it forever if that CPU later returns as its own
-leader.
+Found by an in-house static analysis tool.
 
-Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-[ adapted counter decrements to 5.15’s done: label and direct-return cached-selection path. ]
+Fixes: 13151631b5bd ("ab8500-fg: A8500 fuel gauge driver")
+Cc: stable@vger.kernel.org # v6.10+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260802020316.417757-1-fanwu01@zju.edu.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 23 +++++++++++++++++++++++
- kernel/sched/sched.h |  1 +
- 2 files changed, 24 insertions(+)
+ drivers/power/supply/ab8500_fg.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index c4e9fac7507a9..22a34f826093a 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -274,6 +274,17 @@ static void __sched_core_flip(bool enabled)
- 
- 		sched_core_lock(cpu, &flags);
- 
-+		/*
-+		 * A core-wide selection may have the shared rq lock temporarily
-+		 * released by a lock-dropping ->pick_task(). Flipping would
-+		 * rebind rq_lockp() under it. Wait it out.
-+		 */
-+		while (cpu_rq(cpu)->core->core_pick_in_flight) {
-+			sched_core_unlock(cpu, &flags);
-+			cpu_relax();
-+			sched_core_lock(cpu, &flags);
-+		}
-+
- 		for_each_cpu(t, smt_mask)
- 			cpu_rq(t)->core_enabled = enabled;
- 
-@@ -5789,6 +5800,8 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		return __pick_next_task(rq, prev, rf);
- 	}
- 
-+	rq->core->core_pick_in_flight++;
-+
- 	/*
- 	 * If there were no {en,de}queues since we picked (IOW, the task
- 	 * pointers are all still valid), and we haven't scheduled the last
-@@ -5810,6 +5823,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		}
- 
- 		rq->core_pick = NULL;
-+		rq->core->core_pick_in_flight--;
- 		return next;
- 	}
- 
-@@ -5992,6 +6006,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	}
- 
- done:
-+	rq->core->core_pick_in_flight--;
- 	set_next_task(rq, next);
- 	return next;
+diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
+index d7d402e6a407f..969a75f4c016d 100644
+--- a/drivers/power/supply/ab8500_fg.c
++++ b/drivers/power/supply/ab8500_fg.c
+@@ -3054,6 +3054,20 @@ static void ab8500_fg_unbind(struct device *dev, struct device *master,
+ 	flush_workqueue(di->fg_wq);
  }
-@@ -6181,6 +6196,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
- 	core_rq->core_forceidle     = rq->core_forceidle;
- 	core_rq->core_forceidle_seq = rq->core_forceidle_seq;
  
-+	/*
-+	 * A stale leftover would bias the count forever if this CPU later
-+	 * returns as its own leader. Move, don't copy.
-+	 */
-+	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
-+	rq->core_pick_in_flight            = 0;
++/* Disable, not cancel: works stay disabled so nothing can re-arm them. */
++static void ab8500_fg_destroy_workqueue(void *data)
++{
++	struct ab8500_fg *di = data;
 +
- 	/* install new leader */
- 	for_each_cpu(t, smt_mask) {
- 		rq = cpu_rq(t);
-@@ -9551,6 +9573,7 @@ void __init sched_init(void)
- 		rq->core_enabled = 0;
- 		rq->core_tree = RB_ROOT;
- 		rq->core_forceidle = false;
-+		rq->core_pick_in_flight = 0;
++	disable_work_sync(&di->fg_acc_cur_work);
++	disable_work_sync(&di->fg_work);
++	disable_delayed_work_sync(&di->fg_reinit_work);
++	disable_delayed_work_sync(&di->fg_low_bat_work);
++	disable_delayed_work_sync(&di->fg_check_hw_failure_work);
++	disable_delayed_work_sync(&di->fg_periodic_work);
++	destroy_workqueue(di->fg_wq);
++}
++
+ static const struct component_ops ab8500_fg_component_ops = {
+ 	.bind = ab8500_fg_bind,
+ 	.unbind = ab8500_fg_unbind,
+@@ -3155,6 +3169,11 @@ static int ab8500_fg_probe(struct platform_device *pdev)
+ 		return PTR_ERR(di->fg_psy);
+ 	}
  
- 		rq->core_cookie = 0UL;
- #endif
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index f58040a51e334..cb89d36146a63 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1110,6 +1110,7 @@ struct rq {
- 	unsigned long		core_cookie;
- 	unsigned char		core_forceidle;
- 	unsigned int		core_forceidle_seq;
-+	unsigned int		core_pick_in_flight;
- #endif
- };
++	/* Registered after fg_psy, before the IRQs: devm frees IRQ -> workqueue -> fg_psy. */
++	ret = devm_add_action_or_reset(dev, ab8500_fg_destroy_workqueue, di);
++	if (ret)
++		return ret;
++
+ 	di->fg_samples = SEC_TO_SAMPLE(di->bm->fg_params->init_timer);
  
+ 	/*
+@@ -3167,20 +3186,16 @@ static int ab8500_fg_probe(struct platform_device *pdev)
+ 	/* Register primary interrupt handlers */
+ 	for (i = 0; i < ARRAY_SIZE(ab8500_fg_irq); i++) {
+ 		irq = platform_get_irq_byname(pdev, ab8500_fg_irq[i].name);
+-		if (irq < 0) {
+-			destroy_workqueue(di->fg_wq);
++		if (irq < 0)
+ 			return irq;
+-		}
+ 
+ 		ret = devm_request_threaded_irq(dev, irq, NULL,
+ 				  ab8500_fg_irq[i].isr,
+ 				  IRQF_SHARED | IRQF_NO_SUSPEND | IRQF_ONESHOT,
+ 				  ab8500_fg_irq[i].name, di);
+ 
+-		if (ret != 0) {
+-			destroy_workqueue(di->fg_wq);
++		if (ret != 0)
+ 			return ret;
+-		}
+ 		dev_dbg(dev, "Requested %s IRQ %d: %d\n",
+ 			ab8500_fg_irq[i].name, irq, ret);
+ 	}
+@@ -3194,7 +3209,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
+ 	ret = ab8500_fg_sysfs_init(di);
+ 	if (ret) {
+ 		dev_err(dev, "failed to create sysfs entry\n");
+-		destroy_workqueue(di->fg_wq);
+ 		return ret;
+ 	}
+ 
+@@ -3202,7 +3216,6 @@ static int ab8500_fg_probe(struct platform_device *pdev)
+ 	if (ret) {
+ 		dev_err(dev, "failed to create FG psy\n");
+ 		ab8500_fg_sysfs_exit(di);
+-		destroy_workqueue(di->fg_wq);
+ 		return ret;
+ 	}
+ 
+@@ -3222,7 +3235,6 @@ static void ab8500_fg_remove(struct platform_device *pdev)
+ {
+ 	struct ab8500_fg *di = platform_get_drvdata(pdev);
+ 
+-	destroy_workqueue(di->fg_wq);
+ 	component_del(&pdev->dev, &ab8500_fg_component_ops);
+ 	list_del(&di->node);
+ 	ab8500_fg_sysfs_exit(di);
 -- 
 2.53.0
 
