@@ -1,154 +1,259 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226DD39A057
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977903; cv=pass; b=LMPXPUenk6cFZsaOccbgrjzBdA7zqjD0QqdP2++p5U+hbOWYlaOwU7vc2kAEgLRJ5NPtL3HQWJ/2TseIP7DlkZATW8UMUoKdaudzZ+8/KM6hMOLUffB8EywmKgtXwPSsuYRdCJx3lgtufOcYoeSEEzWtBnb+/uPw7tdAb9B89mc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977903; c=relaxed/simple;
-	bh=+CDkEoDX2/LXNI3w0TZ8BPrSDg27dcd2Jkj3AIOFwBY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MUHvW1sGSvSqyMNFNb2Z3IqCYyntLTeKJO3iZ7M72Qgs+zhGC/IWbzqDuVVYOz6ThiH8fb0CA5Pil5mMlUnFjiBqAbP6b9O57dZfDGxcw8ymR68FgNh13liYB0RT5FvZoBd8DV98TyMUkVMW/+xUWiT+CJVliWLH8x7OrGPLOCQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=K786/Ugs; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4353931E831
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 18:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788978018; cv=none; b=UVIIE+8zDXqiFzhFHvB2Vmwpc1h/IEIw1FUVzhJfRa/VcIc+H//26cgGIOqsV1KtqW+lz/yC5iXlj4jMwPlM3SikMX7poCrkUhv7IEFu9rNyZhYGCW4Ub/HRDyYs9YSzInYvhwSYoaCai4Uh/ZX+iTt2RAbN5aqSlLo3F5ceny4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788978018; c=relaxed/simple;
+	bh=Mq2Az3+22Q3FM0l/hsTf5YNDoL/eGYbeWkuJ8NoCUkw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rb3WLRgASRBrAREG7I4q1upsEQQdxXEueJ3YJCykMU3pr3nwIP9pZ1dDqUsI7XxlmMgPXqWL0McqWDV1QwdKiL+3fwhzIDUKmmB7BdeE8+Lbv+criCYc6aoR1K9UtyX8woZGuROGPCGgd9Suby7sorhHOH5j9lWSG81dd/AhXao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=oo2+N3u8; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="K786/Ugs"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66cf1f9965dso5164098d50.1
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 11:18:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788977900; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NUpouNcIE+BoYAQqKgWR+Nt6sNUI8dK6lWu6bKLzbiPy1XqPni8VmdT7KBXxpTCeeW
-         BthNkeXLur+wYmOEd+PGKvJ3XPdH83/l6sPQ4EEUTJ+Ou23+hpv5YhuplGpYS4lDru6T
-         wBljgr8iwhOSiWzI4lwuoiKmgAoYkxa5wLy4DPpUVOxZBhHYUUqfTMCbrAiiHk87ZQV3
-         X6E3ozSyC8PX2EPjL+lnt+wz5nkSoB4Cz8bd7Y+TUT5jwbYfQWeMto4WF0U/0cY1roEq
-         0u4/Yn2+YR6dVKBP/EvG9BFvqe6rd4DuEdbCl7QRE/OBuaZtNq4SGA2E0NeCPZVXs/QT
-         9UTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fpB1R6y/CuTo27wSddyY+/GZ4xEhTTLFsyZFIbKl89M=;
-        fh=rwIs2obaP7wzPjVmGgUXmkYjm5KzR7Z2pZsCt+P1mR4=;
-        b=A0bkW/dEOEmIJc61DMpl5CjQ0v3Xy2NvxwaoDxVno+oMGIQVQOTYS3XurDiKgGMO7X
-         twZBxUkbWXV6H0owHBef44LrWIxYZP6I/oOoADAQTVBAyh6DL20yTbtn+AjYEmdXwnju
-         I/tL1dJ8QgCTtFuuVXqSMqRvfSmq5LIG9XTc0n38izgE9PrgChNfCE+AnDW5x80bNJxM
-         wKhos5jUGoyUOAG4SBYN6tEFntOy+y048SrCWhMsaH5mBlHpugHbD/JogSSUg2dxUmD8
-         iE6M7EjlZOK692N+XotVnodTeDVKW9sYTknosRcOufePFvb/IqPNpKMnBXRfsF3hfAvn
-         WV0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788977900; x=1789582700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fpB1R6y/CuTo27wSddyY+/GZ4xEhTTLFsyZFIbKl89M=;
-        b=K786/UgsWJ13mRcFVosouCsAqsW6E3/kB3B568N2Cf80edSGyVZuDTDeiQwOOzPWUJ
-         +ItaDTNfEihzO5M6PHu+v5IxS8xZR3B7+9YhBuQKcn+MdjtQr17l5FYNUgUdLSdZdbnA
-         ScmCKjTF9yaAjUsdzD02XeKJenV/vSSQN8H7gRKpCCxyG3C6/Jvy86/EH+SfYAlKJIdI
-         9LqxoMOEcMZQKfB+2dvrgoahLX7vtynmozey13NE5eRykP77De179uAmsNlJkUWGMfrO
-         dg2benyomZnIWpR0K4fdcCEgkCU40WoG4zIPE9+t9tcqfuyaANvdXCt/JLK5pHjQe9Ra
-         tM/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788977900; x=1789582700;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fpB1R6y/CuTo27wSddyY+/GZ4xEhTTLFsyZFIbKl89M=;
-        b=TolgvGKYPIWpPq9NPU4+bKZLBijFepEnnIeouyt3Or6sAEZ2qkeH0YtwXQRAzIIcXT
-         mALmkMu4AoRzNgzlkEfTX7h9tXJ9gtu0Zo2lwrcxIdzRN4WjdQ35l2zDvi8/J/xgtiI8
-         co0GJRqXPoGWPFn4W1S6nNA+VfgQ4KF9fFufqWBTVZjNo/hFQLHi5oDZ8S2YHIYxg0g4
-         dhoSB7j8QTo5/IDd+BKdxyTCU41D9XwlHi+EDc8wSSzOiaWkD+gwCwiQxd4Yf5xXY3dC
-         0iSn/8aADIgGyMsJPGKFZORT/04LtPz9icaYQwY7LqgdX4b+Q1QxidRIR3SP7tcAz254
-         suGg==
-X-Forwarded-Encrypted: i=1; AKwUvBz6zH36qvWSEfYw1/96J33E1RH8ZnQ9C2vvVprov4lunESLuJp84qd4NtVB3X9ynQq0zE1KQO4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR0Uap8ZXaWlpJcaBPfkXNX1IdfEEWoDkHYH37ESUnRIUtZq3h
-	9g9MykTgJntbNqC3gFcDevMV9Lpek34rvA/0fvgka84K/dmtCu8yNn86JCW5+nc5pCoGkr6YrC6
-	AgsbufmwOddItVMJEp75J8i19O5Hti1vnYTXpgWkIiw==
-X-Gm-Gg: AYBFou0ccn2mck6M3YFKjPIlvbAra3vbXei0vOTZlckI1P/kKvGF+2UgUWus2d7CJXZ
-	u8HvkH+BeG2DLPuExG/ZZyHHeLS8+YrrzCuyi0QO34e3H+nGIi/NkM6lzgGKiFzayeHUN7Qkaw2
-	SJ6kgZ9A8YU45k+JCNNuPIquUcFahsUFp9z5oT8gnIdBHjFH436fsSs3B01mACUQSje7Vpj/AO/
-	LtH0kjN852xNj3cITHfDjDWBzvh8U08LN2IcFsuGtpFeZyJJmLzlxx5BQ72uT8d9Ne62mKRx3J3
-	m8NLpdEZn6yFIrz78K1d7Hh4vK2VZJAX0tgNPXam9M/vzFtoq0wyddY=
-X-Received: by 2002:a53:dd04:0:b0:66f:c1bc:4033 with SMTP id
- 956f58d0204a3-66fc1bc4591mr8088674d50.96.1788977899985; Wed, 09 Sep 2026
- 11:18:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="oo2+N3u8"
+Received: by dvalin.narfation.org (Postfix) id 9F60520317;
+	Wed, 09 Sep 2026 18:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1788978008;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p0fBL2Hhc29X6xxcIuNyO9DqvTaOvTB619ZndGHBHBI=;
+	b=oo2+N3u8AiHTOnWwU6hH17OB+ZuGcbFaPRcfk6cNWc0cfpccVeuHHQIOPqWFl2W6zRys3P
+	574qHjxIWT7y87CgZSvD9ZRmBNhFBzinvZ7BzR9WkgZG+NHnn3LNP19SvnPn+DtSp0/Yy0
+	lUIjI1KhUkGWP3lyLUX4mvMLUMCzXGE=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 7.2.y] batman-adv: dat: atomically update mac addresses
+Date: Wed,  9 Sep 2026 20:20:01 +0200
+Message-ID: <20260909182001.907058-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090931-urging-chevy-f253@gregkh>
+References: <2026090931-urging-chevy-f253@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907192129.557377-2-bestswngs@gmail.com> <20260909040807.3885815-2-bestswngs@gmail.com>
-In-Reply-To: <20260909040807.3885815-2-bestswngs@gmail.com>
-From: Emil Tsalapatis <emil@etsalapatis.com>
-Date: Wed, 9 Sep 2026 14:18:08 -0400
-X-Gm-Features: AcwNN1Vllz-TAro1yIo4gS9pQ0u90xlbBvVitrlvw4Rqq5UUb-P30JRI5SxUS38
-Message-ID: <CABFh=a73wXKY--GSfTTp6X0xcKVUNr-iUnqnJO3rZXp7RLvKjQ@mail.gmail.com>
-Subject: Re: [PATCH bpf v2] bpf: disallow bpf_skb_pull_data() for LWT_SEG6LOCAL
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, bpf@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, David Lebrun <dlebrun@google.com>, 
-	Mathieu Xhonneux <m.xhonneux@gmail.com>, co+adfca3e91be95776@bugs.sh, 
-	Xiang Mei <xmei5@asu.edu>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 12:08=E2=80=AFAM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> An LWT_SEG6LOCAL program can invalidate its cached SRH with
-> bpf_lwt_seg6_adjust_srh() and then call bpf_skb_pull_data(). The latter
-> may reallocate skb->head, leaving the per-CPU SRH pointer dangling.
-> Post-program SRH validation then writes through that pointer.
->
-> Disallow bpf_skb_pull_data() for LWT_SEG6LOCAL programs so the verifier
-> rejects this unsafe helper combination. Other LWT program types continue
-> to expose the helper through lwt_out_func_proto().
->
-> Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
-> Reported-by: co+adfca3e91be95776@bugs.sh
-> Closes: https://lore.kernel.org/all/GCy0KRM2IcQGoJQTjJEU9D0maBxXzEDHuQpq@=
-bugs.sh/
-> Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-> Link: https://lore.kernel.org/bpf/DL9COXZQXX4V.1FN45QO2Q77ZH@gmail.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:gpt-5
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
+commit e6de568d3eda3e3c01c868fabd7a9535d5ee4a73 upstream.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+When a MAC address is updated in batadv_dat_entry_add(), it is done using a
+simple copy function. A parallel reader might only see parts of this
+update. In worst case, the reader is transporting the half updated MAC
+address over the network or is creating an ARP response using it -
+poisoning the ARP cache.
 
-> Changes in v2:
-> - Disallow bpf_skb_pull_data() for LWT_SEG6LOCAL instead of adding a
->   wrapper to refresh the cached SRH pointer, as suggested by Alexei.
->
->  net/core/filter.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 8513167a858a8..2a84f9d011314 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
-> @@ -9044,6 +9044,8 @@ static const struct bpf_func_proto *
->  lwt_seg6local_func_proto(enum bpf_func_id func_id, const struct bpf_prog=
- *prog)
->  {
->         switch (func_id) {
-> +       case BPF_FUNC_skb_pull_data:
-> +               return NULL;
->  #if IS_ENABLED(CONFIG_IPV6_SEG6_BPF)
->         case BPF_FUNC_lwt_seg6_store_bytes:
->                 return &bpf_lwt_seg6_store_bytes_proto;
-> --
-> 2.55.0
+atomic64_t can be used to store the 48 bit of a mac address. A reader will
+then either see the old mac address or the new one - never a mixture of
+both.
+
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 2f1dfbe18507 ("batman-adv: Distributed ARP Table - implement local storage")
+[ Context ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/distributed-arp-table.c | 58 +++++++++++++++++---------
+ net/batman-adv/types.h                 |  2 +-
+ 2 files changed, 40 insertions(+), 20 deletions(-)
+
+diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
+index a6fe4820f65b9..1ec6480c96000 100644
+--- a/net/batman-adv/distributed-arp-table.c
++++ b/net/batman-adv/distributed-arp-table.c
+@@ -372,18 +372,19 @@ batadv_dat_entry_hash_find(struct batadv_priv *bat_priv, __be32 ip,
+ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 				 u8 *mac_addr, unsigned short vid)
+ {
++	u64 u64_mac = ether_addr_to_u64(mac_addr);
+ 	struct batadv_dat_entry *dat_entry;
+ 	int hash_added;
+ 
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip, vid);
+ 	/* if this entry is already known, just update it */
+ 	if (dat_entry) {
+-		if (!batadv_compare_eth(dat_entry->mac_addr, mac_addr))
+-			ether_addr_copy(dat_entry->mac_addr, mac_addr);
++		atomic64_set(&dat_entry->mac_addr, u64_mac);
++
+ 		dat_entry->last_update = jiffies;
+ 		batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 			   "Entry updated: %pI4 %pM (vid: %d)\n",
+-			   &dat_entry->ip, dat_entry->mac_addr,
++			   &dat_entry->ip, mac_addr,
+ 			   batadv_print_vid(vid));
+ 		goto out;
+ 	}
+@@ -394,7 +395,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 
+ 	dat_entry->ip = ip;
+ 	dat_entry->vid = vid;
+-	ether_addr_copy(dat_entry->mac_addr, mac_addr);
++	atomic64_set(&dat_entry->mac_addr, u64_mac);
+ 	dat_entry->last_update = jiffies;
+ 	kref_init(&dat_entry->refcount);
+ 
+@@ -410,7 +411,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 	}
+ 
+ 	batadv_dbg(BATADV_DBG_DAT, bat_priv, "New entry added: %pI4 %pM (vid: %d)\n",
+-		   &dat_entry->ip, dat_entry->mac_addr, batadv_print_vid(vid));
++		   &dat_entry->ip, mac_addr, batadv_print_vid(vid));
+ 
+ out:
+ 	batadv_dat_entry_put(dat_entry);
+@@ -864,6 +865,8 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 			    struct netlink_callback *cb,
+ 			    struct batadv_dat_entry *dat_entry)
+ {
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int msecs;
+ 	void *hdr;
+ 
+@@ -876,11 +879,12 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 	genl_dump_check_consistent(cb, hdr);
+ 
+ 	msecs = jiffies_to_msecs(jiffies - dat_entry->last_update);
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
+ 
+ 	if (nla_put_in_addr(msg, BATADV_ATTR_DAT_CACHE_IP4ADDRESS,
+ 			    dat_entry->ip) ||
+-	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN,
+-		    dat_entry->mac_addr) ||
++	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN, mac) ||
+ 	    nla_put_u16(msg, BATADV_ATTR_DAT_CACHE_VID, dat_entry->vid) ||
+ 	    nla_put_u32(msg, BATADV_ATTR_LAST_SEEN_MSECS, msecs)) {
+ 		genlmsg_cancel(msg, hdr);
+@@ -1147,6 +1151,8 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 	struct net_device *mesh_iface = bat_priv->mesh_iface;
+ 	int hdr_size = 0;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!READ_ONCE(bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1174,6 +1180,9 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_dst, vid);
+ 	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
+ 		/* If the ARP request is destined for a local client the local
+ 		 * client will answer itself. DAT would only generate a
+ 		 * duplicate packet.
+@@ -1182,7 +1191,7 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * additional DAT answer may trigger kernel warnings about
+ 		 * a packet coming from the wrong port.
+ 		 */
+-		if (batadv_is_my_client(bat_priv, dat_entry->mac_addr, vid)) {
++		if (batadv_is_my_client(bat_priv, mac, vid)) {
+ 			ret = true;
+ 			goto out;
+ 		}
+@@ -1192,18 +1201,16 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * the backbone gws belonging to our backbone has claimed the
+ 		 * destination.
+ 		 */
+-		if (!batadv_bla_check_claim(bat_priv,
+-					    dat_entry->mac_addr, vid)) {
++		if (!batadv_bla_check_claim(bat_priv, mac, vid)) {
+ 			batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 				   "Device %pM claimed by another backbone gw. Don't send ARP reply!",
+-				   dat_entry->mac_addr);
++				   mac);
+ 			ret = true;
+ 			goto out;
+ 		}
+ 
+ 		skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-						      dat_entry->mac_addr,
+-						      hw_src, vid);
++						      mac, hw_src, vid);
+ 		if (!skb_new)
+ 			goto out;
+ 
+@@ -1245,6 +1252,8 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	struct batadv_dat_entry *dat_entry = NULL;
+ 	bool ret = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int err;
+ 
+ 	if (!READ_ONCE(bat_priv->distributed_arp_table))
+@@ -1272,8 +1281,11 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	if (!dat_entry)
+ 		goto out;
+ 
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
++
+ 	skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-					      dat_entry->mac_addr, hw_src, vid);
++					      mac, hw_src, vid);
+ 	if (!skb_new)
+ 		goto out;
+ 
+@@ -1364,6 +1376,8 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	u8 *hw_src, *hw_dst;
+ 	bool dropped = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!READ_ONCE(bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1392,11 +1406,17 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	 * this frame would lead to doubled receive of an ARP reply.
+ 	 */
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_src, vid);
+-	if (dat_entry && batadv_compare_eth(hw_src, dat_entry->mac_addr)) {
+-		batadv_dbg(BATADV_DBG_DAT, bat_priv, "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
+-			   hw_src, &ip_src, hw_dst, &ip_dst,
+-			   dat_entry->mac_addr,	&dat_entry->ip);
+-		dropped = true;
++	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
++		if (batadv_compare_eth(hw_src, mac)) {
++			batadv_dbg(BATADV_DBG_DAT, bat_priv,
++				   "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
++				   hw_src, &ip_src, hw_dst, &ip_dst,
++				   mac, &dat_entry->ip);
++			dropped = true;
++		}
+ 	}
+ 
+ 	/* Update our internal cache with both the IP addresses the node got
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index b1f9f8964c3fd..9ab0dba82f509 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2176,7 +2176,7 @@ struct batadv_dat_entry {
+ 	__be32 ip;
+ 
+ 	/** @mac_addr: the MAC address associated to the stored IPv4 */
+-	u8 mac_addr[ETH_ALEN];
++	atomic64_t mac_addr;
+ 
+ 	/** @vid: the vlan ID associated to this entry */
+ 	unsigned short vid;
+-- 
+2.47.3
+
