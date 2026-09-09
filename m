@@ -1,189 +1,313 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A114552930
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9864654EEA5;
+	Wed,  9 Sep 2026 12:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955951; cv=none; b=Bv0+F4i8+aRjBdIPMbI5+aiUWjuO+GHXO+v/9QkD6kwJK8UQPXn0puxaW0DcT901fRqYIueWxKSylnXfiqGFZvkFfUjlPovh77zK+IwJTKsgnAh5CxIVFqzoND+KvoDaQEOMZuZRAre3boJoTZJ2zrQ+H6uQZ0Hyq2dPoYZ1ACU=
+	t=1788956000; cv=none; b=uhsCq+umAoWJ2Zh6w/cEei5kUmVcq+NQy/XQ9TYzdaqNWOvE3EAGpPqPd+QHDR17k9WJiPDo3nMga4U/ytiN81eGKakJ6hNKpT1Gjw3B4ImW0cEwzRTWTJlizEypyyiaZSNrC5GUlEwYXwDz4gAV4AyooH6MjIOALhZKXMm/OiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955951; c=relaxed/simple;
-	bh=Np7c5aBXs40Izu6BhIoBcwK6jKTo21Aj+MxYQLBZy98=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qTjPQz1cXVmqtGfNDhW3SPltbJQEZsAfpEXwEKRx8ZgjmUFDCfgF42q3sG32ltQ13DweAGpPOZzrH6TSd9LLeA263UNBViehRbr18nNH27lvT6CQwX8zF3AJ8MyjD/UfBEpI4/DwgAOcUYwRb904QKXjbk0DTfmewMCHqJLWBiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C7M4UGz4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IWirkZ3y; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788956000; c=relaxed/simple;
+	bh=nlRgJomXfHpAVbYKroH6LjYo9IjZ77ZyiMYCtnnpDG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d/C7aEBuycXXe2tmZNTLMkf/zUZAnTnBuDrOUeH7nKxQsMX7jVM5yhTR2uLjgVvFTOIwF8DUzf+yrPrMRLKRDEiegRk48GFrTeJ4/ben/QhI0ArxrSgZrYprx9AIvLjZY8DmS+zl+dIXhw9wKszOMMtl+psEnPE4U+MITVArjGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pu6r4Hdi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C7M4UGz4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IWirkZ3y"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BUCu02019456
-	for <stable@vger.kernel.org>; Wed, 9 Sep 2026 12:12:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qdXJHKg9yw3m3xvjN/96iKJOr0TVN9REc8Mom5izEBY=; b=C7M4UGz4QFPthV4l
-	yS18nJkdeOLTVx7y2IPax42+mmc3Hn3N/vFtUzCkfsi4g1TpYRnWBjn79I4SjjQK
-	CA+Rw5WK+OM4fY4WM6PCNzUVoloKqk2tP/5xDCRp6ybEy8RN1hIESUbo7h+YUSYa
-	eopKOdWSgbvf0JWgYg+XXlzknNWdemqgqnpNS6F8UeGZocMSdLYSuCrdP7yv28rW
-	8ymbtsktpmFoMPySPTcJfEMtX8cMWgueiHcnznBzOxiq15yVKy2ludY050OcmJHi
-	5zslGt6qMPC07koi2QMGURnRkAxmGcgaS+GjXKSC2hf2F0NbXtKPztONVv5f7Gwd
-	H3gpAw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk62x894w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 09 Sep 2026 12:12:28 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90e8d3a2d3fso11763976d6.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 05:12:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788955948; x=1789560748; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qdXJHKg9yw3m3xvjN/96iKJOr0TVN9REc8Mom5izEBY=;
-        b=IWirkZ3yI9EI68EWCLeqmB4c+t7Khg8mud5Yo4kEwsT5zLYoq6JjGcIIevzpTIq1wm
-         zI6TmknUbMT+OBRNX9Ax5KoG3jbOYhjrVQX6DAuJ7+/WzfIhWXcEe7imF4P632mXoYdZ
-         9jl7wKHaNd4LrVI76pLAlCAYEw1c0y4/KUoQT9+HOWlyJUSkZ6/oaNmD/Q1r8V9NNPW3
-         PAgg51TXmAhCgEwWeZXOceIM7YG5mAOBofTNAFLCwzyLkOJ/eWqFZTqMv97KbRSrZAJZ
-         NYQ2IIb2ct56rJlvVJulDdeOgs1oqYyPP5J315VQkqjBYqr50x46shO1FVKq1L5EcduE
-         jXtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788955948; x=1789560748;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qdXJHKg9yw3m3xvjN/96iKJOr0TVN9REc8Mom5izEBY=;
-        b=nd1AvN+cTCZjepXt03AGS7udnoYd5gmCfgCIEsXDPpITZclADkvHHbqoJkJ6+U95xt
-         vp3s2gvF+eUEtjehJumwDzxIHwrNw71PUaU8amyb8Aarz84/rTgzCUl5AFSgNDkTTQQz
-         5trr8kU+FESJZTfDAODsY/FN4mZ73vJm9ubjYqCd/KnyrzAk3R6UUpJQcoVhMSSmEieP
-         v27Hi9PciJ0T3bTAUFdJGwKON7+2UtAHEhvYpj4IMEaYBKtRe9rKJEennN2gQcYUdv4f
-         yTdFu78HyI2hg/3u1l6P3gcXyDODGo9r0/Rqv9FfTlnQdb7Wwnv8fpN+9TXSpXA7pnXU
-         oQxg==
-X-Forwarded-Encrypted: i=1; AKwUvByp7hdQrZTt4zw9BHrbZBMAZUn8ZXtiTEBA3ENTWfQLI7l5q/+zR6ovh9Hb/j/UI5468UllU5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++ka7lvtaRgdFgouiMA8AidwhBE1p3tHENYaVDWatEtwiGHcvNlc
-	0H5QcLIkqz5nTGXDkihWJgYQBnLMvEVVeI2L8jB2hF2xyxIEMgfcojWrmFda5SF5kyTNrLodkDR
-	/mVWI3vUwVd8rH6VoSvjnVXijvJ0RQYpKuC3v1rJzyblcgRZkdgwWN46nnpc=
-X-Gm-Gg: AYBFou3YhdTIdl17oOWr3jYDHAmIkgaFhZgZEJynSzyZ4HIR51/RMjDU7HcK+pKF71+
-	HGLb+01zsQ779aiC/YHuhDTwu5QrPUKpf1m8tgc/z8yooUAiibYXZfuclHcmm7qruLkbwZVs8zr
-	D+toTl1dsZTvEv03MyDiM1WFUS+PoVXBoyvv3EJogR2h1CKbubYu8NClNODydoRqpWnlD2py3JH
-	jMVDg+I/8XzsIhGPaPw8Srd4v4Df8lG7Q+M8yC9G+FF38mBUL0K4ozZQne2JOpbXELx/IAfTjhW
-	zoEUQ+ymgZh6f/AfJPNhW1Xw2ZpwxBUUmA36oY9PQbA4pDwpHyNQkRLUPngbgDZRhkGk99ZVzgF
-	QAYFW0ajUBNoUaZlUYZvxxQ==
-X-Received: by 2002:a05:6214:5012:b0:90c:c716:91b5 with SMTP id 6a1803df08f44-910476c940emr268734446d6.2.1788955947909;
-        Wed, 09 Sep 2026 05:12:27 -0700 (PDT)
-X-Received: by 2002:a05:6214:5012:b0:90c:c716:91b5 with SMTP id 6a1803df08f44-910476c940emr268733556d6.2.1788955947372;
-        Wed, 09 Sep 2026 05:12:27 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036902sm752132366b.3.2026.09.09.05.12.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 05:12:26 -0700 (PDT)
-Message-ID: <b58e3f64-1a5c-4db4-a51b-7138fb3609da@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 14:12:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pu6r4Hdi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20951F00A3A;
+	Wed,  9 Sep 2026 12:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788955994;
+	bh=DA6PfbLnlJANArEu06inY89Mrm2FdtKrjjM7FCGSyn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pu6r4HdiNiBuj4BNAI/9WPHDVnT4CJNFSso0lIDCiNBBlY4fgwCdaSzfO9184iy/P
+	 MSb2ZERYJpEpztUWwCUXtOhx/gH2U9lktdsbL0diKIlzUhILyyz2+wZPh5v4jsu8tv
+	 m0HyTswgWupmcHR4v/Pg2J8QuwDXTiJT3vhfwJSDcjNc36l4KWtybAQF0pki/nAeU2
+	 gB2427Y3qcQcEwmk0ZO6Za+eAaOiFaXure1YkX69xptTB2S9kpSzrtbyj2bxSIl14/
+	 eCeG9uOGHKItjA4kSpL7JQ193rGca84M71ObuvzyRcnqfXNSfau9YlhyCSZSao+ZQA
+	 B/qabtRLTTKNg==
+Date: Wed, 9 Sep 2026 14:13:11 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqFNV4k6DcbyxYCe@localhost.localdomain>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
- enabled
-To: Jie Luo <jie.luo@oss.qualcomm.com>,
-        Mieczyslaw Nalewaj
- <namiltd@yahoo.com>,
-        Stanislaw Pal <kuncy7@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260730191353.557494-1-kuncy7@gmail.com>
- <aeeeebf9-dbd4-4f57-847a-5f495b3236a2@oss.qualcomm.com>
- <20260803091003.15285-1-kuncy7@gmail.com>
- <8af46926-fecc-4396-973e-2290ae285998@oss.qualcomm.com>
- <cd5a25ed-76a3-4f1f-b924-06bb685ff426@oss.qualcomm.com>
- <181944c2-2484-4384-9c91-45cc87f31955@oss.qualcomm.com>
- <8286b42e-0314-477b-ac2e-4b410a97d833@yahoo.com>
- <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzNiBTYWx0ZWRfX5Y6D9Sen7thm
- 1tYiIQWDkLo2bGIaC+/xvO5yxx66ubZmmhXxnq3u+3PhKWZB5wvvH6eZMgOmhBbfuGXO1dzI7q2
- Oh9DlkW7HgFecI+1QcvF/sQFDLg+qrA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzNiBTYWx0ZWRfXwXxxzzUBTOKV
- o8xXHClg/EadBWbsPY6zXqpAFkQtQxKyzuPkz2VyAyok9BgY1abN9+p//mbv4PrbusMLkwn/iGW
- uUJ0uG5A11K6wMuNKOcybdiAunsCBuzGUjsbgO8I2cXeGiL1xNJ62fACjNNEf6KSkqDcTAvBq1K
- tu+YrK3I93s89xCYEgFXE3HIrOAFwmc5VIVbkDa0ySCxx+JtCxO+zAelvsoF6lKZPePbfyq6BmS
- cABxbYnGLPDrRQReEzM391QXdkLi0zSV8Td22IBUl9xSUtRU3ZQrFnwk/YzKd0lbZfOrKLcgxr5
- iDfwng9e8rKGOX/05qRyZ4z3ax7EwOtNtR5cI9sXVvgP9SP+jqRxWDyPQCpOmSBsLv9S6sdgQoB
- iRhesMUIjOA+X/zMWgRgP4IpMCMcea80toeDJiP6eiy5PRRQmcQeH7R2aZFYUWeU9v06DbpFB4f
- dnj7LJBquq+cVydE8tw==
-X-Authority-Analysis: v=2.4 cv=UeFhjqSN c=1 sm=1 tr=0 ts=6aa14d2c cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=W21wEWUqPQRnM_OgY4wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: ylKTIhZzB33VUtRQHU6I4LbaCWBmMCgp
-X-Proofpoint-GUID: ylKTIhZzB33VUtRQHU6I4LbaCWBmMCgp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090136
+In-Reply-To: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
 
-On 8/24/26 12:28 PM, Jie Luo wrote:
+Le Wed, Sep 09, 2026 at 11:55:18AM +0200, Peter Zijlstra a écrit :
+> On Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner wrote:
+> > On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> > > On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> > > Let me try and have a go :-)
+> > >
+> > >
+> > > do_exit()				de_thread() 			posix_timer_fn()
+> > >   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+> > >     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+> > >     tsk->flags |= PF_EXITING; 						    LOCK siglock
+> > >     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+> > >     					    LOCK tasklist_lock
+> > >     flush_sigqueue_list();		    if (leader->exit_state)
+> > > 					      break;
+> > >   ...                                       transfer_pid()
+> > > 					    UNLOCK tasklist_lock
+> > >   exit_notify()
+> > >     LOCK tasklist_lock
+> > >     tsk->exit_state = EXIT_ZOMBIE;
+> > >     UNLOCK tasklist_lock
+> > >
+> > >
+> > >
+> > > Then there is indeed nothing that makes sure posix_timer_fn() sees
+> > > sigqueue updates done by do_exit(), because those are ordered by
+> > > tasklist_lock, but posix_timer_fn() doesn't care about that.
+> > 
+> > That's irrelevant because in the above scenario posix_timer_fn() 't'
+> > points to the exiting old leader (on the left) because the PID store has
+> > not happened yet and it therefore observes PF_EXITING on it so it won't
+> > touch the sigqueue. Note, that setting and checking PF_EXITING is
+> > serialized by sighand lock, so this is fine.
 > 
+> There is nothing that constraints the 3rd column from happening before,
+> it could happen after transfer_pid().
 > 
-> On 8/22/2026 7:19 PM, Mieczyslaw Nalewaj wrote:
->> On Thu, Aug 20, 2026 at 01:39:52PM +0800, Jie Luo wrote:
->>> The CMN PLL output clocks do not depend on the AHB or SYS clocks. They
->>> continue to operate correctly at the fixed rates even when the AHB
->>> and SYS clocks are disabled.
->>
->> The PLL outputs keep running, but the AHB register interface does not.
->> Once autosuspend gates AHB/SYS, any later register access to the CMN
->> block hangs the bus. That is the bug we are fixing.
+> > > The easy solution would probably be to do transfer_pid() while holding
+> > > siglock?
+> > 
+> > That'd be only relevant for the situation Frederic is concerned about,
+> > i.e. the case where the third party observes the TID swap.
 > 
-> As far as I understand, there is no expectation that the CMN PLL
-> registers need to be accessed after the CMN PLL driver has finished
-> loading on IPQ5018.
+> That is the case I was aiming at.
 > 
-> Could we identify which module is blocked after the CMN PLL driver probe
-> completes?
+> > Because with that visible 't' in posix_timer_send_sigqueue() won't be
+> > old_leader, which has PF_EXITING set, it will be new_leader which has it
+> > not set.
 > 
->>
->>> On IPQ5018, the CMN PLL provides a 50 MHz output clock that is used as
->>> the reference clock for the connected Ethernet device.
->>
->> Correct, and that consumer is hardwired in silicon â€” the internal GE
->> PHY and uniphy blocks take proxied this clock without any Linux driver
->> calling clk_get() on it. Therefore no device link exists to keep the
->> provider active, and CCF rightfully gates the bus clocks after probe.
+> Same as above, there is nothing constraining the 3rd column from sliding
+> up or down. If it manages to see the new_leader, I don't see why it
+> would see the sigqueue flush.
 > 
-> The UNIPHY block is the consumer of this 50 MHz clock. It divides and
-> gates the 50 MHz clock, then routes it to the connected PHY or switch
-> on the IPQ5018 platform.
+> > So Frederic is concerned that posix_timer_send_sigqueue() can observe
+> > the PID store but not observe the sigqueue stores.
+> > 
+> > I argue that's not possible:
+> > 
+> > A:  sigqueue stores
+> > 
+> > B:   AQUIRE tasklist
+> > 
+> > C:   exit_state store
+> > 
+> > D:   RELEASE tasklist
+> >      // sigqueue and exit_state stores become globally visible
+> >  ------------------------------------------------------------------------
+> > 
+> > E                               ACQUIRE tasklist
+> >  ------------------------------------------------------------------------
+> > F                                if (exit_state)
+> > 				   swap_pid()
+> > G                                     STORE_PID
+> > 
+> > 				// The PID store can become visible in the
+> > 				// system right here so F can observe them before
+> > 				// RELEASE tasklist
+> 
+> The STORE_PID is not a STORE_RELEASE.
+> 
+> > H                                                             READ PID
+> 
+> And this READ is not LOAD_AQUIRE; although the LOCK siglock is probably
+> sufficient here. The READ MUST happen before LOCK siglock by means of
+> data dependency, and then the LOCK will constrain later loads.
+> 
+> > 							      ....
+> > I                                		              ACQUIRE siglock
+> > 
+> > After #A the sigqueue stores are maybe visible
+> > 
+> > After #C the exit_state store is maybe visible
+> > 
+> > After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+> > the system and cannot become magically become invisible after that
+> > point.
+> 
+> No, that is not in fact how Power (or ARM) works AFAICT. Memory ordering
+> is not global. It is entirely possible some CPUs see a store while
+> others do not.
+> 
+> The only guarantee here is that IF you acquire tasklist_lock (you
+> observe the store that unlocked it), you will also observe preceding
+> stores.  But since the posix_timer_fn() column does not in fact observe
+> or care about tasklist_lock, there is no ordering.
+> 
+> > The new leader cannot swap PIDs before acquiring task list lock and
+> > before it observed exit_state != 0 under it. That's fully serialized
+> > against the old leader as both hold task list lock for their operations.
+> > 
+> > #F creates a control dependency, so if the new leader acquires task list
+> >    lock before the old it will observe 0, drop the lock and wait. No PID
+> >    store obviously.
+> 
+> A control dependency only ensure *that* CPU will complete the exit_state
+> load before the store, it is a local LOAD->STORE ordering.
+> 
+> > #G can be come visible immediately but is only guaranteed to be visible
+> >    globally at the RELEASE of tasklist lock.
+> 
+> Nope, not at all. Can be randomly visible to random sets of CPUs.
+> 
+> > #H can only observe the PID store after the store actually happened in
+> >    #G. So it either reads the original PID or the swapped PID.
+> 
+> Sure. But that has no bearing on if it sees the sigqueue stores at A.
+> 
+> > #I is not really relevant for this. It's only relevant for PF_EXITING
+> >    and other stuff which is directly protected by it. And it does not
+> >    matter whether it locks the old or the new sighand.
+> > 
+> > Now let's look at the full chain and what can possibly be visible or not
+> > and when:
+> > 
+> > #A can trickle into the tasklist held section, but not after #D.
+> 
+> Yup.
+> 
+> > #C cannot be reordered against #B and #D
+> 
+> Agreed.
+> 
+> > #A is therefore guaranteed to be globally visible _before_ new leader
+> >    observes exit_state != 0 in #F under task list lock
+> 
+> Nope, A is therefore visible if you acquire tasklist_lock, specifically,
+> when you observe the store from D. And only if that matching LOAD is a
+> LOAD-ACQUIRE, such that subsequent loads are forced to be later.
+> 
+> > #G cannot be reordered against #F and obviously not against #E either.
+> 
+> Indeed.
+> 
+> >    It can become visible at any point after the store, but as argued
+> >    above that visibility can't be reordered before #A (sigqueue stores)
+> >    became visible.
+> 
+> Let G' be the unnamed RELEASE after G.
+> 
+> Now, I have deleted and rewritten this tail end at least twice now. And
+> I *think* I'm agreeing with you. Let me explain:
+> 
+> It all hinges on D-E and H-I.
+> 
+> D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+> RELEASE+ACQUIRE. Specifically, we have:
+> 
+>   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+>   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+> 
+> So while earlier I was arguing with RCpc in mind, in which case D-E
+> completely goes away and we can consider B-G' to be one big critical
+> section from the PoV of a third CPU (our posix_timer_fn() one). In this
+> case we can push A down and G up and have them cross.
+> 
+> *However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
+> which is RCtso and that *does* impose store order, so A stores must
+> happen before G stores
+> 
+> Combine with H-I, which has a data dependency from the LOAD to the LOCK
+> and thereby constraints later LOADs, those sigqueue loads that come
+> after I must in fact observe the A stores.
 
-Is it only the UNIPHY consuming the 50 MHz one?
+I didn't know about all those UNLOCK+LOCK properties. Well,
+I know that UNLOCK+LOCK on the same lock, or on different locks
+but the same CPU, equals smp_mb() except on powerpc. Which is why
+we have smp_mb__after_unlock_lock(). But what you describe is quite
+different.
 
-static const struct cmn_pll_fixed_output_clk ipq5018_output_clks[] = {
-	CLK_PLL_OUTPUT(IPQ5018_XO_24MHZ_CLK, "xo-24mhz", 24000000UL),
-	CLK_PLL_OUTPUT(IPQ5018_SLEEP_32KHZ_CLK, "sleep-32khz", 32000UL),
-	CLK_PLL_OUTPUT(IPQ5018_ETH_50MHZ_CLK, "eth-50mhz", 50000000UL),
-	{ /* Sentinel */ }
-};
+Is this something that we should expect litmus to modelize?
 
-What consumes the XO clock? What consumes the sleep clock?
+Because the following doesn't verify that:
+---
+C MP+farfetched
 
-Konrad
+{}
 
+P0(int *next, int *prev, int *exit_state, spinlock_t *tasklist_lock)
+{
+	// list_del_init()
+	WRITE_ONCE(*next, 1);
+	WRITE_ONCE(*prev, 1);
+	// exit_notify()
+	spin_lock(tasklist_lock);
+	WRITE_ONCE(*exit_state, 1);
+	spin_unlock(tasklist_lock);
+}
+
+P1(int *exit_state, int *pid, spinlock_t *tasklist_lock)
+{
+	int r0;
+
+	// de_thread()
+	spin_lock(tasklist_lock);
+	r0 = READ_ONCE(*exit_state);
+	if (r0 == 1) {
+		// exchange_tids()
+		WRITE_ONCE(*pid, 1);
+	}
+	spin_unlock(tasklist_lock);
+}
+
+P2(int *next, int *prev, int *pid, spinlock_t *sighand)
+{
+	int r0;
+	int r1;
+	// get target
+	r0 = READ_ONCE(*pid);
+	spin_lock(sighand);
+	// queue signal
+	r1 = READ_ONCE(*next);
+	if (r1 == 0)
+		WRITE_ONCE(*prev, 2);
+	spin_unlock(sighand);
+}
+
+exists (prev=1 /\ 2:r0=1) (* Bad outcome. *)
+---
+herd7 -conf linux-kernel.cfg ~/farfetched.litmus 
+Test MP+farfetched Allowed
+States 4
+2:r0=0; [prev]=1;
+2:r0=0; [prev]=2;
+2:r0=1; [prev]=1;
+2:r0=1; [prev]=2;
+Ok
+Witnesses
+Positive: 2 Negative: 7
+Condition exists ([prev]=1 /\ 2:r0=1)
+Observation MP+farfetched Sometimes 2 7
+Time MP+farfetched 0.02
+Hash=a44733c870613a81ae096a93babe215
