@@ -1,82 +1,40 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4723137F31D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C102242D65;
+	Wed,  9 Sep 2026 12:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958464; cv=none; b=ZrWYc0ngJksBgge/sAG2RJ8yz4QuYjQiIpBJwjxCNOTcL2Ugi/6RkR22D7G/05t5hNZOlXKDVygxKda5ZtoDzlW1fJDmIVum3EtE+Kpu7q+jM7AnbVsr3SPed1hIxOCFiC7mtHu4bgVwMOHgo0smvx4f6/htyXwDmOAKswG71Fc=
+	t=1788958661; cv=none; b=QwaO3Ele6ywywHOTbwBc8kkMX86hlh0fWj3ZYriCHbUpYV21INXRVSRlfmzqFkkkWG21p+SMvfVK1PCI3mVxe74/u/1zdPnUQLk3f+2P1mmytgodPLJtwm2dIbQiVJyQTG5EEzwmqb1jy+P7FrhvmAyUtHnze9hPjdrK3AR7jco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958464; c=relaxed/simple;
-	bh=nezGATePjrScPMxNiTNIPf1BmqnYGsGVladVVdtV6r4=;
+	s=arc-20240116; t=1788958661; c=relaxed/simple;
+	bh=Qlkui76DdvdKUmIEz/J8LDWRTkrA7J4SKBRFaRESGbg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eTpr6YuaKpOEs1Xm1RT7NjUki9ly0ELZKbbP6uTqZ0T7UMuBAhn2hBIT/KkR3D7l9ooQDndINBLRF3vmty8Az3EC219jTjS3GmiAFtKO/mmQ+dHNv+PAv8TJOSMDMBioA3zIU3OvJn6LzOBFKIayJRYIa/Ik2sfG7Ou8Z2/j0H4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=rlTnALHS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=x06HBaYM; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KU593rDbD6ArLu/bVw21IBh4FeX+JeDmBJ9sOfmHBsNiC1yOVK5CwcwuQiYSwKaOn0xxMC8ZXQ5l2ODXYu2h/4eq+MFHFdkWdrGJBM0GKtvQ6jMpQkrIOBzmSQASnBQUlRLPCDC9YH2WgpH/m5HuT8shnaa4pIy1Ij8sOXWdnpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sJklwq/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="rlTnALHS";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="x06HBaYM"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2CA13140006E;
-	Wed,  9 Sep 2026 08:54:22 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 09 Sep 2026 08:54:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1788958462; x=1789044862; bh=hHNqOx+ax8
-	onSnqXVdNREYQ1bBsZ+RlzPybR8AHFpD4=; b=rlTnALHSQrPML3hRK20Kab2XmL
-	nwM6YjsdcsYuKbrkPnE2XTrUK50nfKsiJuiwlvUS/2qmDlyJ2WnFkI4MUgpzVywc
-	hP85MzMQwc5F1KMiwv4AInfOvziTsvMM8ZFrY7XsY7r/pU3W1SR/pLWccgHqkY3a
-	VLluIv7SQJcSjVUHoMD/W+BVVOktiQaaSDeJzXa5P4CnO8Ytao32b5IbZNZq0s5p
-	rPZoV8LHZX2Dh52qagwjwaukdsZeUtsDfnOOurcZPvMh0SkeGFM5qT+lylPl9PAd
-	swvcPd8+Ss46EAB1m+fvZO29pKoPkR+htnikXXwZGF+m7E37qB/GagHEVSGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788958462; x=1789044862; bh=hHNqOx+ax8onSnqXVdNREYQ1bBsZ+RlzPyb
-	R8AHFpD4=; b=x06HBaYMdFx9VhPhvIJH716nSf7L/h6HvgQ/X+alqEHMGzKsu+H
-	driUZaxlxe5RzXHhNqZG7yrGNl7Tf4L4v6l3WRTlt+HgT8lGgRVG8l86aQOM6RWj
-	kFYq40SbXaHw2BVap9DHu4Goar06N8rNH2N26A/C6r2rro1eO2ZRTVh3gc1vilX1
-	HFMzU491jkpH4wt5gFR3aNRcg9KW95d4nfiRvT45yeq3KU2eMm9cedzAnsyNvRjw
-	vD5puAseAko+qEYoSJ6Q3PoK3xf7AYSSMWdVb9gdFj8SuerRVxozKXq5NxjZFkR4
-	h4kbEbhjwRTRokcFvoGPQiXj7Nuxf1/JSow==
-X-ME-Sender: <xms:_VahaklbHv_oAMKJoODqlQjcXnIphAqDNf2CrDotEyP87bWbvwa0kw>
-    <xme:_Vahat2RJdDdCed2kFekXUHewD5SThvIamYQUY2Ya6jfbFZOyA8gI7GCPpdXR4d4q
-    wcMyEn2_ObC68oDmYebi8iY0LpriXrOz-X9mE8tmZMh1EADoQ>
-X-ME-Received: <xmr:_VahapQ3Bqds8-ASqb13V34qglLJtvT15GciZ88TpUQNe0DtLpHzbvoDAPIte38cG3zTNgav7xpdasKYoeMDAts2MB3kAhEX97UDLpUcEJU>
-X-ME-Proxy-Cause: dmFkZTFM2Rg5I0rwx9blzS0WEvDR9aNKYFvAkC1WSw9Mvbgu9MQG5LIFbQjMyoVuSc25rA
-    TRr7Ui1SowbQmiaLjYoxAttqFEjMHG1DlYtOPZ9RB39PzpMwbOUVd5XKIOz+16mxYI00Bs
-    agKJWnom8q7b4YyEcW4JXpQA56GODib3B7FtSfi8oHXvrcOQV0Fghh+T0iB66JHJKpiXvz
-    pkYATiClFqvMnht1rsUogz5EiVPmXDJTppv+NFMVwTaWJCPBdUyJ/BswkQWCLYJrWrZ7+c
-    3oJsSd0AVH82zMRc3Q8HlfWE/JBXpZeQorRXNz5edP89+OeY0YFRHzYR/eG9WHe7Z8gkpi
-    LVSMdID7xMNGl2b+U9hMEpivM1xjWOjnAn/lzlKXzl2VVKFqHV331z2Pg9iD33XJlXIVBI
-    m1L0HUAbk9h1EHmAq09q3EbiQH12DcP4QyDzvmADZGP2bu/VVPfw0lrVPDyso4PMUn+Hm8
-    CiCcx1SR7Ra5PFnHIA2KmqMZ43eBBm78IHZvRPG331PvXkl4eN4Ss8AUBUzbu2SmxM31vO
-    4gRB5lyM14SsxQBjUzzuH9+pYo+blYshKnGftBiIsmZrleVohTM3c2UDloy2SFvwCQ4emQ
-    THp5L2etVPcaD48yWNW5MVMh3+ASRTytufl2x+b0t5L2WnFd2ZxyxG7d7AoQ
-X-ME-Proxy: <xmx:_VahauyfvCgASKl0z4oqtLrplxr11lin0xhqr5CoSJzTp0_ciymJGw>
-    <xmx:_lahahBwUWhJrKvJwDgiih44v9MB8ey3mAdVnuB8ahblQbGAKErSlA>
-    <xmx:_lahaiH3zvbUsn2t4EWXt817kQweRg7LFFyKM-fMtDvlsGva5tRkaw>
-    <xmx:_lahagO0sP9EYhO3GrbZCFrLCzz66ghRQld8KrlC3dcMQa3iJ65XTw>
-    <xmx:_lahaieA_KjYMoa3jaVAQBqSBn0oBIqlz4BvUi_1rrRciUN67xZw9nzb>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 08:54:21 -0400 (EDT)
-Date: Wed, 9 Sep 2026 14:52:45 +0200
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>
-Subject: Re: [PATCH 6.18.y 2/2] svcrdma: Clear sc_cm_id when ADDR_CHANGE
- replacement fails
-Message-ID: <2026090937-animating-trace-d6da@gregkh>
-References: <2026090325-lushness-making-8377@gregkh>
- <20260909002517.726510-1-sashal@kernel.org>
- <20260909002517.726510-2-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sJklwq/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D771F00A3A;
+	Wed,  9 Sep 2026 12:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788958659;
+	bh=qzKQKkJEhRRbqPcCHs8W9Y3hAQ32Cr+Nkf+ZaWQ1xbc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=sJklwq/SpH4su261gDpvQPuTKIjrlak5AhEHoHNGQOlboGsRiQg59zRzIXl49vtFe
+	 loOqEu+f6/G7OXFY6YBKh+Of9B3BbwIDa4Nfkury5gQ0NJppFFAqQv6jBq/QvUq16y
+	 +IXPTnMPpSHm05SVKvLsF81kxvQb/64dKaELGFHs=
+Date: Wed, 9 Sep 2026 14:55:37 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: stable@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com,
+	netdev@vger.kernel.org, phaddad@nvidia.com, Paul Saab <ps@mu.org>,
+	Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.1.y 6.6.y 6.12.y 6.18.y] net/mlx5e: xsk: Fix unlocked
+ writing to ICOSQ
+Message-ID: <2026090928-unviable-idealness-7e52@gregkh>
+References: <20260909100310.1941561-2-dtatulea@nvidia.com>
+ <2026090925-myspace-precision-c68e@gregkh>
+ <6a430d55-72e8-4333-b369-af215c9f0c3a@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,35 +43,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909002517.726510-2-sashal@kernel.org>
+In-Reply-To: <6a430d55-72e8-4333-b369-af215c9f0c3a@nvidia.com>
 
-On Tue, Sep 08, 2026 at 08:25:17PM -0400, Sasha Levin wrote:
-> From: Chuck Lever <chuck.lever@oracle.com>
+On Wed, Sep 09, 2026 at 02:47:16PM +0200, Dragos Tatulea wrote:
 > 
-> [ Upstream commit 01500306e1d50de7ca7a2cdcdfa28ac0523eb747 ]
 > 
-> When svc_rdma_listen_handler() handles RDMA_CM_EVENT_ADDR_CHANGE,
-> it creates a replacement listener cm_id and returns 1, telling
-> the CM core to destroy the old one. If the replacement allocation
-> fails, sc_cm_id still points at the old cm_id that the CM core is
-> about to destroy. Any subsequent dereference of sc_cm_id --
-> such as svc_rdma_detach()'s rdma_disconnect() call -- is a
-> use-after-free.
+> On 09.09.26 14:21, Greg KH wrote:
+> > On Wed, Sep 09, 2026 at 10:03:10AM +0000, Dragos Tatulea wrote:
+> >> commit c326f9c68921e2f14dfcecb2f6b4216313d50248 upstream.
+> >>
+> >> During napi poll, when the affinity changes and there's still XSK work
+> >> to be done, we trigger an ICOSQ interrupt on the new CPU. However, this
+> >> triggering on the ICOSQ is done unprotected.
+> >>
+> >> mlx5e_trigger_irq() is called while mlx5e_xsk_alloc_rx_mpwqe() is
+> >> running from a different CPU due to affinity change. This can happen
+> >> because IRQ triggering is done after napi_complete_done(). At this point
+> >> the NAPI can be scheduled on a different CPU. Like this:
+> >>
+> >>   CPU A (old affinity, NAPI tail)    CPU B (new affinity, fresh NAPI)
+> >>   -------------------------------    --------------------------------
+> >>   napi_complete_done()  clears SCHED
+> >>   mlx5e_cq_arm(...)
+> >>                                      napi_schedule_prep() sets SCHED
+> >>                                      mlx5e_napi_poll()
+> >>                                        mlx5e_xsk_alloc_rx_mpwqe()
+> >>                                          memcpy 640 B UMR body
+> >>                                          advance sq->pc by 10
+> >>   mlx5e_trigger_irq(&c->icosq)
+> >>     wqe_info[pi] = {NOP, 1}
+> >>     mlx5e_post_nop() advances sq->pc
+> >>
+> >> The obvious fix would be to lock the ICOSQ. But the ICOSQ is expected to
+> >> be accessed only from the channel's NAPI and has no locking. Kick the
+> >> async ICOSQ instead which is always locked.
+> >>
+> >> This issue was noticed in the wild with the following splat:
+> >>
+> >>   netdevice: ge-0-0-1: Bad OP in ICOSQ CQE: 0xd
+> >>   WARNING: drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:826 [...]
+> >>   [...]
+> >>   Call Trace:
+> >>    <IRQ>
+> >>    mlx5e_napi_poll+0x11d/0x7f0 [mlx5_core]
+> >>    __napi_poll+0x30/0x200
+> >>    ? skb_defer_free_flush+0x9c/0xc0
+> >>    net_rx_action+0x2fe/0x3f0
+> >>    handle_softirqs+0xd8/0x340
+> >>    __irq_exit_rcu+0xbc/0xe0
+> >>    common_interrupt+0x85/0xa0
+> >>    </IRQ>
+> >>    <TASK>
+> >>    asm_common_interrupt+0x26/0x40
+> >>   [...]
+> >>   ---[ end trace 0000000000000000 ]---
+> >>   mlx5_core 0000:08:00.0 ge-0-0-1: Error cqe on cqn 0x548, ci 0x2022, qn 0x8f4,
+> >>   opcode 0xd, syndrome 0x2, vendor syndrome 0x68
+> > 
+> > Why does the changelog here differ from what is in Linus's tree?
+> > 
+> > Please don't do that :(
+> > 
+> Apologies. Will fix.
 > 
-> NULL sc_cm_id on the failure path and guard svc_rdma_detach()'s
-> rdma_disconnect() call against NULL so that the listener can
-> be torn down safely when the server shuts down.
+> >> [ Backport to 6.18.y and older: upstream commit calls
+> >>   mlx5e_trigger_napi_async_icosq(), which was introduced by commit
+> >>   0da1dba72616 ("net/mlx5e: XSK, Fix unintended ICOSQ change") and is not
+> >>   present here. In these trees mlx5e_trigger_napi_icosq() is the
+> >>   equivalent helper: it takes c->async_icosq_lock and triggers
+> >>   c->async_icosq, which is unconditionally opened, activated, polled and
+> >>   armed for every channel. Race B of the upstream commit message does not
+> >>   apply, as it concerns the sync-ICOSQ variant of
+> >>   mlx5e_trigger_napi_icosq() that only exists upstream. ]
+> > 
+> > That part is ok, but changing the overall changelog text for no obvious
+> > reson isn't ok.
+> > 
+> Do you prefer that I drop it in v2.
 > 
-> Fixes: d1b586e75ec6 ("svcrdma: Handle ADDR_CHANGE CM event properly")
-> Cc: stable@vger.kernel.org
-> Acked-by: Jeff Layton <jlayton@kernel.org>
-> Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-5-1b09bd87b6cd@oracle.com
-> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-> [ added the missing sc_cm_id NULL guard to the existing __svc_rdma_free() cleanup worker. ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  net/sunrpc/xprtrdma/svc_rdma_transport.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
+> Also, should I prefix the next patch with v2? (First time sending a stable
+> patch like this)
 
-Does not apply :(
+Yes please, v2 would be great.
+
+thanks,
+
+greg k-h
