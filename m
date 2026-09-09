@@ -1,57 +1,57 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD5E47ECCB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DAF47F788
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 21:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987923; cv=none; b=poOPo1otfl4u1MkC9eg5vaNtujgDcRohXk2dhH70G3eKPC+7FuoiqlHsssdXQBKsC21U5H60o2Nj2iuKzr0MJUEU4Hnp0VHCQTEcU/KcDdOwR7rYfJh37jYg6FgNlSvVF/DVTraF25c81ZS//wF8HU/UUNZfYGuNcC9HwvjHmcY=
+	t=1788987923; cv=none; b=hh/q7Kvx6dZbiYNIG/pBedrGtAaZOsPqNxHBgxBbe56OXer/hu9nu2twePPSez6HTI/zvVhpqHuV3mLOLnOmBUKZLmqiE9cswpJW04ISYYzHowsQU03kd8fn/9I8disQFiQw3IvF2L+5Xtzvw9ivO1r8fWWb1HPBYUQ6pFjdlU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788987923; c=relaxed/simple;
-	bh=rNcHrQOngHenA2ln7+8NJHl3C1TmrNZcdK6DcGlRKGE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=T2dYIf1AUS+CD/CMu14ptnoWl9AZma+zKIHmdWg4zkwi5q29qYg65vaLEFqFJKyIyctEmh+FP4CvP/XCfV9zMOdCCse/FC4/ZoxX0VkRI5NfWBtrboM936+vsemy+fwRxu7xwnd+oKz13+5MqlgCxBI9lsTiIEswjZ/PblPfl0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=LR4FBd09; arc=none smtp.client-ip=52.35.192.45
+	bh=EFJ6604hW74UuqT5tVbbUNbHZ3EqSUf7/sqYIDO3i1M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=k3HowSzM7CjUpY3BW71QJjB6xSyQTnpc/QNFAoKG7fUUB1AQUIWo/oIOwegdHggyShAgrlQod4bGGyusynMsPruORMV7ymQ2tIAE24MZPr91yxESpcjTkFC77tP6PTOpaqplpWmGC+nj6lkTZ4oVYCJDQe+PMWAPcf7Oc0mukHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=gM/fuZBf; arc=none smtp.client-ip=50.112.246.219
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="LR4FBd09"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="gM/fuZBf"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
   t=1788987921; x=1820523921;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=NTcBdgDN08XUTF36Dr+WaI1fJifCfJ+2nNb69xYt2nM=;
-  b=LR4FBd094r+zJjik6XvALQtrBP7dtAit8s0DzS9pDQe7tYLqG2XPnIEp
-   seySGDxUu+d6k3xKW6VKvmJpVJAGMQ5z+82TSa44fmEDqqVgsB2dCRB8e
-   RAsOPLow12Z5eu6uW6SicDNgZsnDQ32dudgNpCHmOn4vitlFjFXggGE+T
-   pzKM+DDjkmD0qAxii8RdbpPKuAwrY2JtNKU8k4FUxm6NZxASSap8+IPj7
-   osIE+DNBHS6BtOToiwThIaPOWoLBvkTQUtMRWtYitIDDJfcfuQ0SW6GGU
-   SQAKSw5vggtcZ9CqPkHEnFZHGCmJOqY/nDx5oQ00uadS+6YMHQydh8Mjr
+  bh=crsgtAGheGiWYpZv580amg56trrQ5RCgRQ+HW0hql2Y=;
+  b=gM/fuZBfqERlWElvidgF3h0+XwelULIz3qo2kkJdptiFcblK/S4itgrm
+   bCKNs+2JYjbHbGH0EDss6dMBzmaQLrjWCnb64fSjrVK+fwTREYJROlqPB
+   2ykQmA1WGVe5CfXKS/pbi8bGPE9UkdnTBSFVPSmOwSKjDx5xRTZRS39+M
+   N/hthnb6wftcO6o37fLk5VJ6VI6o3sabmQ0S1r9D+RbqxBwC3vFvCms2o
+   EUgouBoVVS8vm1GPEv1/90GNSojkttZ9ui0INx36Rzdf6bMiDYJpYmkh4
+   7RIcOiKtWqtzypNPMaa0QxolNmaq2iq76vgQ0magPPK9207X1ptc3PwUF
    g==;
-X-CSE-ConnectionGUID: bg/teQ0ZTq2jFSn5mV1Oxw==
-X-CSE-MsgGUID: BOVl1lyeSxmPReWXwIYagQ==
+X-CSE-ConnectionGUID: RfUJDVZmQFa00wJc+ZxDyA==
+X-CSE-MsgGUID: ++7LgOvHSHGjoZB2bHhWZw==
 X-IronPort-AV: E=Sophos;i="6.25,271,1779148800"; 
-   d="scan'208";a="28028579"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:05:18 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:8102]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
- id d48da389-0b22-4dde-bfd5-71cd3ae5df6c; Wed, 9 Sep 2026 21:05:18 +0000 (UTC)
-X-Farcaster-Flow-ID: d48da389-0b22-4dde-bfd5-71cd3ae5df6c
+   d="scan'208";a="28045605"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:05:17 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:20375]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.160:2525] with esmtp (Farcaster)
+ id f78f225d-3282-48b9-bb34-6d3a5659bf77; Wed, 9 Sep 2026 21:05:16 +0000 (UTC)
+X-Farcaster-Flow-ID: f78f225d-3282-48b9-bb34-6d3a5659bf77
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Wed, 9 Sep 2026 21:05:17 +0000
+ Wed, 9 Sep 2026 21:05:16 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 9 Sep 2026 21:05:17 +0000
+ Wed, 9 Sep 2026 21:05:16 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Arnaldo Carvalho de Melo <acme@redhat.com>, <doebel@amazon.de>
-Subject: [PATCH 6.6.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
-Date: Wed, 9 Sep 2026 21:05:03 +0000
-Message-ID: <20260909210503.199459-5-doebel@amazon.de>
+Subject: [PATCH 6.1.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
+Date: Wed, 9 Sep 2026 21:05:01 +0000
+Message-ID: <20260909210503.199459-3-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -97,12 +97,12 @@ Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Cc: Ingo Molnar <mingo@elte.hu>
 Assisted-by: Claude:claude-opus-4.6
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-[doebel: context adjustment for 6.6]
+[doebel: context adjustment for 6.1]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 
 ---
 diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
-index 16cb7278faba..dfdfac2a11ad 100644
+index 3ffb41fa82b8..95add0d1c2bf 100644
 --- a/tools/perf/builtin-sched.c
 +++ b/tools/perf/builtin-sched.c
 @@ -51,6 +51,7 @@
