@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E90138C427
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:46:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697AF367F25
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976021; cv=none; b=QMFSB96L/Hp/EJuwjZLpMm5wIAVgcB3bAvvqrOlwiGVEa+TYqItbA+6qopy9+L6yQ/pb3/SmTGmQhaq+lYupJYzgSiIevxyYZTX3JaxQagugcO13mGoGDcEoFox06g4wzRv9b76Enmx7hZvFxXckVJEv2itziTUxkyfruMhq/tA=
+	t=1788976022; cv=none; b=FstPW7rPgX55kXz+ZMYCeUtwj++N/4UQBu6CmGgmfPzwTG6ds/MRNUkrPz7Dbgwk9yJwEb13avm9DXOEFUS9YQgK/QcDMlc8VO0XeCgbg1sFc3f3yk0hizFIDjBbVdW4tLGsPbIp3I2hh3ikApAIp4NJLllFi9nyLeHnQRIux2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976021; c=relaxed/simple;
-	bh=0Lr6/Q0plvRyqwciKRzjxuXx1B5gcwGhmS9pr6Z2Vso=;
+	s=arc-20240116; t=1788976022; c=relaxed/simple;
+	bh=3KoknGohNS4LzXvSjC+6L5y5Fd1ZCLMV2KoCOQA0Vc4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lpIt/WC3rRgF9BmSyKGNVzehnxnyEjMx7ZIuXoyiFLo/cFNs+FULhKaKDudRFEwu9ApmquNuwBVG+MKzQlCVXGGyQ6aWLlrTEsQDt8A2XEdsPmuhx3v7VHGWjscn32WLbVtcHtr5XWbqe5pLNzYIXyW/D0BD0wb/wVOiEIXKdLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GfeixQE7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Izv8Hs2olLggN+FkyaeYYyckKpN2lmE85POEnuM1vvaCJlnSDMj4Icn7jld4Sgty41/dDkKEei8D7o5+LT1v4Jvv32h97K40MGODoYc9OuEwtQpjYr6eeGFJoQ59VHel6c7QLHU77BPWcVjMurY3XjQm0JeegmZsaijo6AJApZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhqXEf+k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GfeixQE7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FE31F00893;
-	Wed,  9 Sep 2026 17:46:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhqXEf+k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C0E1F000FF;
+	Wed,  9 Sep 2026 17:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788976019;
-	bh=503Ny6wgkSVQdNNepLyjUpCzEwEA1//N4dYPypTLfzg=;
+	bh=CF77tnyFnmijGebRSWvAdhe9f9S9Dzj0UnT4y7NM8D0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GfeixQE7YBti15Y1p3fbNBewHyaZIbp5rbb5q7WaL9ZVtxCL0TZXL5GHf1C34vc38
-	 dpIZz522BgHGojigMXgXXLwoygfANHLZuJbL+6POMxrlfi19V6PR2hOkEZmSg065oE
-	 X67urabL9xfUgNW+ULxBT9MOEDh1kkGuO82ouzTSAhfONVo2//EavXPS6AiatO/ibY
-	 AMuOTIAj5LH+hUAISPRW8FpVjnjGAXuvlolgmQMQZAaeG/csVpYGTs9eai57W/H7sn
-	 M87ujuLomZofedVRLM4UrpCkj7Nd03X/S7c9xBtjGNARoAYs435udq0kH6rkHt7XZS
-	 2vtv5np2gSs7w==
+	b=RhqXEf+kzZ2XsqkrncqrON+5EkCcWy78PRwpwR8YS5Bp21aA11FXQjHEQn8VLf3aq
+	 EN0NzcoAw3AKlAq/37KzjIB2LBRVc6DbD5QChadb6qmWxCwRN57h23pEXRcdG8Ppjr
+	 vuiiJJfh0CDmiCPQzVcsBJDyIUz1Ky7vx7FNewGxiSXNTbzQVcVH1A76xEuMxBY87F
+	 tYYdWHJfC5YhP1kfJB/rtLNCA8iRrkXEM8eg3/GDtSKUwRt8i400skn06jWFxsx8zi
+	 SOKsTpVqP0iiglI5hrqmF5Wfj/UJ8KhWuQbvhhzCWQBJtFa/I4V0XSqM/qaFabwd7u
+	 OTp7Ap9gz8MtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: James Chapman <jchapman@katalix.com>,
 	Tom Parkin <tparkin@katalix.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/6] l2tp: prevent possible tunnel refcount underflow
-Date: Wed,  9 Sep 2026 13:46:52 -0400
-Message-ID: <20260909174655.3345526-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/6] l2tp: cleanup eth/ppp pseudowire setup code
+Date: Wed,  9 Sep 2026 13:46:53 -0400
+Message-ID: <20260909174655.3345526-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909174655.3345526-1-sashal@kernel.org>
 References: <2026090341-survival-shrill-fee9@gregkh>
@@ -49,724 +49,69 @@ Content-Transfer-Encoding: 8bit
 
 From: James Chapman <jchapman@katalix.com>
 
-[ Upstream commit 24256415d18695b46da06c93135f5b51c548b950 ]
+[ Upstream commit d93b8a63f011f252dcfb101d5b90367bd8f42db3 ]
 
-When a session is created, it sets a backpointer to its tunnel. When
-the session refcount drops to 0, l2tp_session_free drops the tunnel
-refcount if session->tunnel is non-NULL. However, session->tunnel is
-set in l2tp_session_create, before the tunnel refcount is incremented
-by l2tp_session_register, which leaves a small window where
-session->tunnel is non-NULL when the tunnel refcount hasn't been
-bumped.
-
-Moving the assignment to l2tp_session_register is trivial but
-l2tp_session_create calls l2tp_session_set_header_len which uses
-session->tunnel to get the tunnel's encap. Add an encap arg to
-l2tp_session_set_header_len to avoid using session->tunnel.
-
-If l2tpv3 sessions have colliding IDs, it is possible for
-l2tp_v3_session_get to race with l2tp_session_register and fetch a
-session which doesn't yet have session->tunnel set. Add a check for
-this case.
+l2tp eth/ppp pseudowire setup/cleanup uses kfree() in some error
+paths. Drop the refcount instead such that the session object is
+always freed when the refcount reaches 0.
 
 Signed-off-by: James Chapman <jchapman@katalix.com>
 Signed-off-by: Tom Parkin <tparkin@katalix.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
-
-Stable backport notes:
-
-Keep this tree's per-tunnel and per-net session hash lists. Assign
-session->tunnel immediately after taking the tunnel reference in both
-registration branches, before publishing the session with
-hlist_add_head_rcu(). Registration failures therefore leave the tunnel
-pointer NULL and cannot release an unacquired tunnel reference. Retain
-the explicit encapsulation argument to l2tp_session_set_header_len() and
-all its callers. Omit the upstream collision-table lookup hunk because
-this tree has no such table and publishes only initialized sessions.
-
-Rename the existing l2tp_tunnel_dec_refcount() and
-l2tp_session_dec_refcount() functions, declarations, exports and callers
-to l2tp_tunnel_put() and l2tp_session_put(). Their implementations are
-unchanged; no functions are added. This aligns the context adjacent to
-the notification calls so af20e269f745 applies cleanly with a three-way
-cherry-pick while retaining this tree's session lookup implementation.
-
-Restore the stable tunnel socket sk_user_data assignment, validation
-and destructor clearing removed by the earlier 4a4cd70369f1 backport.
-The stable lookup, UDP receive and tunnel destruction paths still rely
-on that association. The newer validation also passed a const socket
-to the old non-const lookup and dropped a reference that this lookup
-does not acquire. Retaining the stable socket relationship avoids that
-compiler diagnostic and preserves the existing tunnel lifetime model.
-
 Stable-dep-of: af20e269f745 ("net: l2tp: do not propagate multicast notification errors")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/l2tp/l2tp_core.c    | 48 +++++++++++++++++++++--------------------
- net/l2tp/l2tp_core.h    |  7 +++---
- net/l2tp/l2tp_debugfs.c |  8 +++----
- net/l2tp/l2tp_eth.c     |  6 +++---
- net/l2tp/l2tp_ip.c      |  4 ++--
- net/l2tp/l2tp_ip6.c     |  4 ++--
- net/l2tp/l2tp_netlink.c | 40 ++++++++++++++++++----------------
- net/l2tp/l2tp_ppp.c     | 41 ++++++++++++++++++-----------------
- 8 files changed, 82 insertions(+), 76 deletions(-)
+ net/l2tp/l2tp_eth.c | 2 +-
+ net/l2tp/l2tp_ppp.c | 8 +++++---
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 0f48d7fece498..7584c2f40f687 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -164,7 +164,7 @@ static void l2tp_session_free(struct l2tp_session *session)
- {
- 	trace_free_session(session);
- 	if (session->tunnel)
--		l2tp_tunnel_dec_refcount(session->tunnel);
-+		l2tp_tunnel_put(session->tunnel);
- 	kfree(session);
- }
- 
-@@ -186,12 +186,12 @@ void l2tp_tunnel_inc_refcount(struct l2tp_tunnel *tunnel)
- }
- EXPORT_SYMBOL_GPL(l2tp_tunnel_inc_refcount);
- 
--void l2tp_tunnel_dec_refcount(struct l2tp_tunnel *tunnel)
-+void l2tp_tunnel_put(struct l2tp_tunnel *tunnel)
- {
- 	if (refcount_dec_and_test(&tunnel->ref_count))
- 		l2tp_tunnel_free(tunnel);
- }
--EXPORT_SYMBOL_GPL(l2tp_tunnel_dec_refcount);
-+EXPORT_SYMBOL_GPL(l2tp_tunnel_put);
- 
- void l2tp_session_inc_refcount(struct l2tp_session *session)
- {
-@@ -199,12 +199,12 @@ void l2tp_session_inc_refcount(struct l2tp_session *session)
- }
- EXPORT_SYMBOL_GPL(l2tp_session_inc_refcount);
- 
--void l2tp_session_dec_refcount(struct l2tp_session *session)
-+void l2tp_session_put(struct l2tp_session *session)
- {
- 	if (refcount_dec_and_test(&session->ref_count))
- 		l2tp_session_free(session);
- }
--EXPORT_SYMBOL_GPL(l2tp_session_dec_refcount);
-+EXPORT_SYMBOL_GPL(l2tp_session_put);
- 
- /* Lookup a tunnel. A new reference is held on the returned tunnel. */
- struct l2tp_tunnel *l2tp_tunnel_get(const struct net *net, u32 tunnel_id)
-@@ -380,11 +380,13 @@ int l2tp_session_register(struct l2tp_session *session,
- 			}
- 
- 		l2tp_tunnel_inc_refcount(tunnel);
-+		session->tunnel = tunnel;
- 		hlist_add_head_rcu(&session->global_hlist, g_head);
- 
- 		spin_unlock_bh(&pn->l2tp_session_hlist_lock);
- 	} else {
- 		l2tp_tunnel_inc_refcount(tunnel);
-+		session->tunnel = tunnel;
- 	}
- 
- 	hlist_add_head_rcu(&session->hlist, head);
-@@ -698,7 +700,8 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		if (!session->lns_mode && !session->send_seq) {
- 			trace_session_seqnum_lns_enable(session);
- 			session->send_seq = 1;
--			l2tp_session_set_header_len(session, tunnel->version);
-+			l2tp_session_set_header_len(session, tunnel->version,
-+						    tunnel->encap);
- 		}
- 	} else {
- 		/* No sequence numbers.
-@@ -719,7 +722,8 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		if (!session->lns_mode && session->send_seq) {
- 			trace_session_seqnum_lns_disable(session);
- 			session->send_seq = 0;
--			l2tp_session_set_header_len(session, tunnel->version);
-+			l2tp_session_set_header_len(session, tunnel->version,
-+						    tunnel->encap);
- 		} else if (session->send_seq) {
- 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
- 					     session->name);
-@@ -863,7 +867,7 @@ static int l2tp_udp_recv_core(struct l2tp_tunnel *tunnel, struct sk_buff *skb)
- 	session = l2tp_tunnel_get_session(tunnel, session_id);
- 	if (!session || !session->recv_skb) {
- 		if (session)
--			l2tp_session_dec_refcount(session);
-+			l2tp_session_put(session);
- 
- 		/* Not found? Pass to userspace to deal with */
- 		pr_debug_ratelimited("%s: no session found (%u/%u). Passing up.\n",
-@@ -873,12 +877,12 @@ static int l2tp_udp_recv_core(struct l2tp_tunnel *tunnel, struct sk_buff *skb)
- 
- 	if (tunnel->version == L2TP_HDR_VER_3 &&
- 	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr)) {
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 		goto invalid;
- 	}
- 
- 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return 0;
- 
-@@ -1166,6 +1170,7 @@ static void l2tp_tunnel_destruct(struct sock *sk)
- 	/* Remove hooks into tunnel socket */
- 	write_lock_bh(&sk->sk_callback_lock);
- 	sk->sk_destruct = tunnel->old_sk_destruct;
-+	sk->sk_user_data = NULL;
- 	write_unlock_bh(&sk->sk_callback_lock);
- 
- 	/* Call the original destructor */
-@@ -1271,10 +1276,10 @@ static void l2tp_tunnel_del_work(struct work_struct *work)
- 
- 	l2tp_tunnel_remove(tunnel->l2tp_net, tunnel);
- 	/* drop initial ref */
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- 
- 	/* drop workqueue ref */
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- }
- 
- /* Create a socket for the tunnel, if one isn't set up by
-@@ -1447,8 +1452,6 @@ EXPORT_SYMBOL_GPL(l2tp_tunnel_create);
- static int l2tp_validate_socket(const struct sock *sk, const struct net *net,
- 				enum l2tp_encap_type encap)
- {
--	struct l2tp_tunnel *tunnel;
--
- 	if (!net_eq(sock_net(sk), net))
- 		return -EINVAL;
- 
-@@ -1462,11 +1465,8 @@ static int l2tp_validate_socket(const struct sock *sk, const struct net *net,
- 	    (encap == L2TP_ENCAPTYPE_IP && sk->sk_protocol != IPPROTO_L2TP))
- 		return -EPROTONOSUPPORT;
- 
--	tunnel = l2tp_sk_to_tunnel(sk);
--	if (tunnel) {
--		l2tp_tunnel_dec_refcount(tunnel);
-+	if (sk->sk_user_data)
- 		return -EBUSY;
--	}
- 
- 	return 0;
- }
-@@ -1505,10 +1505,12 @@ int l2tp_tunnel_register(struct l2tp_tunnel *tunnel, struct net *net,
- 	ret = l2tp_validate_socket(sk, net, tunnel->encap);
- 	if (ret < 0)
- 		goto err_inval_sock;
-+	rcu_assign_sk_user_data(sk, tunnel);
- 	write_unlock_bh(&sk->sk_callback_lock);
- 
- 	if (tunnel->encap == L2TP_ENCAPTYPE_UDP) {
- 		struct udp_tunnel_sock_cfg udp_cfg = {
-+			.sk_user_data = tunnel,
- 			.encap_type = UDP_ENCAP_L2TPINUDP,
- 			.encap_rcv = l2tp_udp_encap_recv,
- 			.encap_destroy = l2tp_udp_encap_destroy,
-@@ -1574,14 +1576,15 @@ void l2tp_session_delete(struct l2tp_session *session)
- 	if (session->session_close)
- 		(*session->session_close)(session);
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- }
- EXPORT_SYMBOL_GPL(l2tp_session_delete);
- 
- /* We come here whenever a session's send_seq, cookie_len or
-  * l2specific_type parameters are set.
-  */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version)
-+void l2tp_session_set_header_len(struct l2tp_session *session, int version,
-+				 enum l2tp_encap_type encap)
- {
- 	if (version == L2TP_HDR_VER_2) {
- 		session->hdr_len = 6;
-@@ -1590,7 +1593,7 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version)
- 	} else {
- 		session->hdr_len = 4 + session->cookie_len;
- 		session->hdr_len += l2tp_get_l2specific_len(session);
--		if (session->tunnel->encap == L2TP_ENCAPTYPE_UDP)
-+		if (encap == L2TP_ENCAPTYPE_UDP)
- 			session->hdr_len += 4;
- 	}
- }
-@@ -1604,7 +1607,6 @@ struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunn
- 	session = kzalloc(sizeof(*session) + priv_size, GFP_KERNEL);
- 	if (session) {
- 		session->magic = L2TP_SESSION_MAGIC;
--		session->tunnel = tunnel;
- 
- 		session->session_id = session_id;
- 		session->peer_session_id = peer_session_id;
-@@ -1640,7 +1642,7 @@ struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunn
- 			memcpy(&session->peer_cookie[0], &cfg->peer_cookie[0], cfg->peer_cookie_len);
- 		}
- 
--		l2tp_session_set_header_len(session, tunnel->version);
-+		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
- 
- 		refcount_set(&session->ref_count, 1);
- 
-diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
-index 91ebf0a3f4997..343a1e66d4353 100644
---- a/net/l2tp/l2tp_core.h
-+++ b/net/l2tp/l2tp_core.h
-@@ -214,9 +214,9 @@ static inline void *l2tp_session_priv(struct l2tp_session *session)
- 
- /* Tunnel and session refcounts */
- void l2tp_tunnel_inc_refcount(struct l2tp_tunnel *tunnel);
--void l2tp_tunnel_dec_refcount(struct l2tp_tunnel *tunnel);
-+void l2tp_tunnel_put(struct l2tp_tunnel *tunnel);
- void l2tp_session_inc_refcount(struct l2tp_session *session);
--void l2tp_session_dec_refcount(struct l2tp_session *session);
-+void l2tp_session_put(struct l2tp_session *session);
- 
- /* Tunnel and session lookup.
-  * These functions take a reference on the instances they return, so
-@@ -261,7 +261,8 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
- 
- /* Transmit path helpers for sending packets over the tunnel socket. */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version);
-+void l2tp_session_set_header_len(struct l2tp_session *session, int version,
-+				 enum l2tp_encap_type encap);
- int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
- 
- /* Pseudowire management.
-diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
-index 4595b56d175d9..9890e898ee2ec 100644
---- a/net/l2tp/l2tp_debugfs.c
-+++ b/net/l2tp/l2tp_debugfs.c
-@@ -44,7 +44,7 @@ static void l2tp_dfs_next_tunnel(struct l2tp_dfs_seq_data *pd)
- {
- 	/* Drop reference taken during previous invocation */
- 	if (pd->tunnel)
--		l2tp_tunnel_dec_refcount(pd->tunnel);
-+		l2tp_tunnel_put(pd->tunnel);
- 
- 	pd->tunnel = l2tp_tunnel_get_nth(pd->net, pd->tunnel_idx);
- 	pd->tunnel_idx++;
-@@ -54,7 +54,7 @@ static void l2tp_dfs_next_session(struct l2tp_dfs_seq_data *pd)
- {
- 	/* Drop reference taken during previous invocation */
- 	if (pd->session)
--		l2tp_session_dec_refcount(pd->session);
-+		l2tp_session_put(pd->session);
- 
- 	pd->session = l2tp_session_get_nth(pd->tunnel, pd->session_idx);
- 	pd->session_idx++;
-@@ -109,11 +109,11 @@ static void l2tp_dfs_seq_stop(struct seq_file *p, void *v)
- 	 * or l2tp_dfs_next_tunnel().
- 	 */
- 	if (pd->session) {
--		l2tp_session_dec_refcount(pd->session);
-+		l2tp_session_put(pd->session);
- 		pd->session = NULL;
- 	}
- 	if (pd->tunnel) {
--		l2tp_tunnel_dec_refcount(pd->tunnel);
-+		l2tp_tunnel_put(pd->tunnel);
- 		pd->tunnel = NULL;
- 	}
- }
 diff --git a/net/l2tp/l2tp_eth.c b/net/l2tp/l2tp_eth.c
-index 1f41d2f3b8c4e..5d45b2cc2aab0 100644
+index 5d45b2cc2aab0..7d350ed218772 100644
 --- a/net/l2tp/l2tp_eth.c
 +++ b/net/l2tp/l2tp_eth.c
-@@ -311,7 +311,7 @@ static int l2tp_eth_create(struct net *net, struct l2tp_tunnel *tunnel,
- 	if (rc < 0) {
- 		rtnl_unlock();
- 		l2tp_session_delete(session);
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 		free_netdev(dev);
- 
- 		return rc;
-@@ -322,14 +322,14 @@ static int l2tp_eth_create(struct net *net, struct l2tp_tunnel *tunnel,
- 
- 	rtnl_unlock();
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	__module_get(THIS_MODULE);
- 
- 	return 0;
- 
- err_sess_dev:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
+@@ -332,7 +332,7 @@ static int l2tp_eth_create(struct net *net, struct l2tp_tunnel *tunnel,
+ 	l2tp_session_put(session);
  	free_netdev(dev);
  err_sess:
- 	kfree(session);
-diff --git a/net/l2tp/l2tp_ip.c b/net/l2tp/l2tp_ip.c
-index 9a2a9ed3ba478..daf754e691361 100644
---- a/net/l2tp/l2tp_ip.c
-+++ b/net/l2tp/l2tp_ip.c
-@@ -152,7 +152,7 @@ static int l2tp_ip_recv(struct sk_buff *skb)
- 		goto discard_sess;
- 
- 	l2tp_recv_common(session, skb, ptr, optr, 0, skb->len);
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return 0;
- 
-@@ -185,7 +185,7 @@ static int l2tp_ip_recv(struct sk_buff *skb)
- 	return sk_receive_skb(sk, skb, 1);
- 
- discard_sess:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 	goto discard;
- 
- discard_put:
-diff --git a/net/l2tp/l2tp_ip6.c b/net/l2tp/l2tp_ip6.c
-index 1b7a7b4f7273a..54088b9252526 100644
---- a/net/l2tp/l2tp_ip6.c
-+++ b/net/l2tp/l2tp_ip6.c
-@@ -162,7 +162,7 @@ static int l2tp_ip6_recv(struct sk_buff *skb)
- 		goto discard_sess;
- 
- 	l2tp_recv_common(session, skb, ptr, optr, 0, skb->len);
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return 0;
- 
-@@ -195,7 +195,7 @@ static int l2tp_ip6_recv(struct sk_buff *skb)
- 	return sk_receive_skb(sk, skb, 1);
- 
- discard_sess:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 	goto discard;
- 
- discard_put:
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index e27e00cb16c6b..1ba8eb6d8e8ae 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -62,7 +62,7 @@ static struct l2tp_session *l2tp_nl_session_get(struct genl_info *info)
- 		tunnel = l2tp_tunnel_get(net, tunnel_id);
- 		if (tunnel) {
- 			session = l2tp_tunnel_get_session(tunnel, session_id);
--			l2tp_tunnel_dec_refcount(tunnel);
-+			l2tp_tunnel_put(tunnel);
- 		}
- 	}
- 
-@@ -249,7 +249,7 @@ static int l2tp_nl_cmd_tunnel_create(struct sk_buff *skb, struct genl_info *info
- 	}
- 	ret = l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
- 				 L2TP_CMD_TUNNEL_CREATE);
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- 
- out:
- 	return ret;
-@@ -279,7 +279,7 @@ static int l2tp_nl_cmd_tunnel_delete(struct sk_buff *skb, struct genl_info *info
- 
- 	l2tp_tunnel_delete(tunnel);
- 
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- 
- out:
- 	return ret;
-@@ -307,7 +307,7 @@ static int l2tp_nl_cmd_tunnel_modify(struct sk_buff *skb, struct genl_info *info
- 	ret = l2tp_tunnel_notify(&l2tp_nl_family, info,
- 				 tunnel, L2TP_CMD_TUNNEL_MODIFY);
- 
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- 
- out:
- 	return ret;
-@@ -478,12 +478,12 @@ static int l2tp_nl_cmd_tunnel_get(struct sk_buff *skb, struct genl_info *info)
- 	if (ret < 0)
- 		goto err_nlmsg_tunnel;
- 
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- 
- 	return genlmsg_unicast(net, msg, info->snd_portid);
- 
- err_nlmsg_tunnel:
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- err_nlmsg:
- 	nlmsg_free(msg);
+-	kfree(session);
++	l2tp_session_dec_refcount(session);
  err:
-@@ -504,10 +504,10 @@ static int l2tp_nl_cmd_tunnel_dump(struct sk_buff *skb, struct netlink_callback
- 		if (l2tp_nl_tunnel_send(skb, NETLINK_CB(cb->skb).portid,
- 					cb->nlh->nlmsg_seq, NLM_F_MULTI,
- 					tunnel, L2TP_CMD_TUNNEL_GET) < 0) {
--			l2tp_tunnel_dec_refcount(tunnel);
-+			l2tp_tunnel_put(tunnel);
- 			goto out;
- 		}
--		l2tp_tunnel_dec_refcount(tunnel);
-+		l2tp_tunnel_put(tunnel);
- 
- 		ti++;
- 	}
-@@ -639,12 +639,12 @@ static int l2tp_nl_cmd_session_create(struct sk_buff *skb, struct genl_info *inf
- 		if (session) {
- 			ret = l2tp_session_notify(&l2tp_nl_family, info, session,
- 						  L2TP_CMD_SESSION_CREATE);
--			l2tp_session_dec_refcount(session);
-+			l2tp_session_put(session);
- 		}
- 	}
- 
- out_tunnel:
--	l2tp_tunnel_dec_refcount(tunnel);
-+	l2tp_tunnel_put(tunnel);
- out:
- 	return ret;
+ 	return rc;
  }
-@@ -669,7 +669,7 @@ static int l2tp_nl_cmd_session_delete(struct sk_buff *skb, struct genl_info *inf
- 		if (l2tp_nl_cmd_ops[pw_type] && l2tp_nl_cmd_ops[pw_type]->session_delete)
- 			l2tp_nl_cmd_ops[pw_type]->session_delete(session);
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- out:
- 	return ret;
-@@ -690,8 +690,10 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
- 
- 	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
-+		struct l2tp_tunnel *tunnel = session->tunnel;
-+
- 		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
--		l2tp_session_set_header_len(session, session->tunnel->version);
-+		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
- 	}
- 
- 	if (info->attrs[L2TP_ATTR_LNS_MODE])
-@@ -703,7 +705,7 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	ret = l2tp_session_notify(&l2tp_nl_family, info,
- 				  session, L2TP_CMD_SESSION_MODIFY);
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- out:
- 	return ret;
-@@ -814,14 +816,14 @@ static int l2tp_nl_cmd_session_get(struct sk_buff *skb, struct genl_info *info)
- 
- 	ret = genlmsg_unicast(genl_info_net(info), msg, info->snd_portid);
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return ret;
- 
- err_ref_msg:
- 	nlmsg_free(msg);
- err_ref:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- err:
- 	return ret;
- }
-@@ -844,7 +846,7 @@ static int l2tp_nl_cmd_session_dump(struct sk_buff *skb, struct netlink_callback
- 		session = l2tp_session_get_nth(tunnel, si);
- 		if (!session) {
- 			ti++;
--			l2tp_tunnel_dec_refcount(tunnel);
-+			l2tp_tunnel_put(tunnel);
- 			tunnel = NULL;
- 			si = 0;
- 			continue;
-@@ -853,11 +855,11 @@ static int l2tp_nl_cmd_session_dump(struct sk_buff *skb, struct netlink_callback
- 		if (l2tp_nl_session_send(skb, NETLINK_CB(cb->skb).portid,
- 					 cb->nlh->nlmsg_seq, NLM_F_MULTI,
- 					 session, L2TP_CMD_SESSION_GET) < 0) {
--			l2tp_session_dec_refcount(session);
--			l2tp_tunnel_dec_refcount(tunnel);
-+			l2tp_session_put(session);
-+			l2tp_tunnel_put(tunnel);
- 			break;
- 		}
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 
- 		si++;
- 	}
 diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index f25b9c0c198a2..1d17e523b254b 100644
+index 1d17e523b254b..f219bc992fb9f 100644
 --- a/net/l2tp/l2tp_ppp.c
 +++ b/net/l2tp/l2tp_ppp.c
-@@ -302,12 +302,12 @@ static int pppol2tp_sendmsg(struct socket *sock, struct msghdr *m,
- 	l2tp_xmit_skb(session, skb);
- 	local_bh_enable();
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return total_len;
- 
- error_put_sess:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- error:
- 	return error;
- }
-@@ -361,12 +361,12 @@ static int pppol2tp_xmit(struct ppp_channel *chan, struct sk_buff *skb)
- 	l2tp_xmit_skb(session, skb);
- 	local_bh_enable();
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
- 	return 1;
- 
- abort_put_sess:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- abort:
- 	/* Free the original skb */
- 	kfree_skb(skb);
-@@ -402,7 +402,7 @@ static void pppol2tp_session_close(struct l2tp_session *session)
- 		sock_put(ps->__sk);
- 
- 		/* drop ref taken when we referenced socket via sk_user_data */
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 	}
- }
- 
-@@ -433,7 +433,7 @@ static int pppol2tp_release(struct socket *sock)
- 	if (session) {
- 		l2tp_session_delete(session);
- 		/* drop ref taken by pppol2tp_sock_to_session */
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 	}
- 
- 	release_sock(sk);
-@@ -674,7 +674,7 @@ static struct l2tp_tunnel *pppol2tp_tunnel_get(struct net *net,
- 
- 		/* Error if socket is not prepped */
- 		if (!tunnel->sock) {
--			l2tp_tunnel_dec_refcount(tunnel);
-+			l2tp_tunnel_put(tunnel);
- 			return ERR_PTR(-ENOENT);
+@@ -759,6 +759,8 @@ static int pppol2tp_connect(struct socket *sock, struct sockaddr *uservaddr,
+ 			goto end;
  		}
- 	}
-@@ -824,8 +824,8 @@ static int pppol2tp_connect(struct socket *sock, struct sockaddr *uservaddr,
- 			l2tp_tunnel_delete(tunnel);
- 	}
- 	if (drop_refcnt)
--		l2tp_session_dec_refcount(session);
--	l2tp_tunnel_dec_refcount(tunnel);
-+		l2tp_session_put(session);
-+	l2tp_tunnel_put(tunnel);
- 	release_sock(sk);
  
- 	return error;
-@@ -976,7 +976,7 @@ static int pppol2tp_getname(struct socket *sock, struct sockaddr *uaddr,
- 
- 	error = len;
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- end:
- 	return error;
- }
-@@ -1025,12 +1025,12 @@ static int pppol2tp_tunnel_copy_stats(struct pppol2tp_ioc_stats *stats,
- 		return -EBADR;
- 
- 	if (session->pwtype != L2TP_PWTYPE_PPP) {
--		l2tp_session_dec_refcount(session);
-+		l2tp_session_put(session);
- 		return -EBADR;
++		drop_refcnt = true;
++
+ 		pppol2tp_session_init(session);
+ 		ps = l2tp_session_priv(session);
+ 		l2tp_session_inc_refcount(session);
+@@ -767,10 +769,10 @@ static int pppol2tp_connect(struct socket *sock, struct sockaddr *uservaddr,
+ 		error = l2tp_session_register(session, tunnel);
+ 		if (error < 0) {
+ 			mutex_unlock(&ps->sk_lock);
+-			kfree(session);
++			l2tp_session_dec_refcount(session);
+ 			goto end;
+ 		}
+-		drop_refcnt = true;
++
+ 		new_session = true;
  	}
  
- 	pppol2tp_copy_stats(stats, &session->stats);
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- 
+@@ -865,7 +867,7 @@ static int pppol2tp_session_create(struct net *net, struct l2tp_tunnel *tunnel,
  	return 0;
- }
-@@ -1178,7 +1178,8 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
- 			po->chan.hdrlen = val ? PPPOL2TP_L2TP_HDR_SIZE_SEQ :
- 				PPPOL2TP_L2TP_HDR_SIZE_NOSEQ;
- 		}
--		l2tp_session_set_header_len(session, session->tunnel->version);
-+		l2tp_session_set_header_len(session, session->tunnel->version,
-+					    session->tunnel->encap);
- 		break;
  
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1247,7 +1248,7 @@ static int pppol2tp_setsockopt(struct socket *sock, int level, int optname,
- 		err = pppol2tp_session_setsockopt(sk, session, optname, val);
- 	}
- 
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- end:
- 	return err;
- }
-@@ -1368,7 +1369,7 @@ static int pppol2tp_getsockopt(struct socket *sock, int level, int optname,
- 	err = 0;
- 
- end_put_sess:
--	l2tp_session_dec_refcount(session);
-+	l2tp_session_put(session);
- end:
- 	return err;
- }
-@@ -1395,7 +1396,7 @@ static void pppol2tp_next_tunnel(struct net *net, struct pppol2tp_seq_data *pd)
- {
- 	/* Drop reference taken during previous invocation */
- 	if (pd->tunnel)
--		l2tp_tunnel_dec_refcount(pd->tunnel);
-+		l2tp_tunnel_put(pd->tunnel);
- 
- 	for (;;) {
- 		pd->tunnel = l2tp_tunnel_get_nth(net, pd->tunnel_idx);
-@@ -1405,7 +1406,7 @@ static void pppol2tp_next_tunnel(struct net *net, struct pppol2tp_seq_data *pd)
- 		if (!pd->tunnel || pd->tunnel->version == 2)
- 			return;
- 
--		l2tp_tunnel_dec_refcount(pd->tunnel);
-+		l2tp_tunnel_put(pd->tunnel);
- 	}
- }
- 
-@@ -1413,7 +1414,7 @@ static void pppol2tp_next_session(struct net *net, struct pppol2tp_seq_data *pd)
- {
- 	/* Drop reference taken during previous invocation */
- 	if (pd->session)
--		l2tp_session_dec_refcount(pd->session);
-+		l2tp_session_put(pd->session);
- 
- 	pd->session = l2tp_session_get_nth(pd->tunnel, pd->session_idx);
- 	pd->session_idx++;
-@@ -1471,11 +1472,11 @@ static void pppol2tp_seq_stop(struct seq_file *p, void *v)
- 	 * or pppol2tp_next_tunnel().
- 	 */
- 	if (pd->session) {
--		l2tp_session_dec_refcount(pd->session);
-+		l2tp_session_put(pd->session);
- 		pd->session = NULL;
- 	}
- 	if (pd->tunnel) {
--		l2tp_tunnel_dec_refcount(pd->tunnel);
-+		l2tp_tunnel_put(pd->tunnel);
- 		pd->tunnel = NULL;
- 	}
+ err_sess:
+-	kfree(session);
++	l2tp_session_dec_refcount(session);
+ err:
+ 	return error;
  }
 -- 
 2.53.0
