@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B5A581250
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B38758125F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971213; cv=none; b=VeEEkF2lX9R7iilSi0zmQvbC2nut/MBrcLCzX/UvJ9f1uTFSCzRVZUM+5iPqo9yYX8oiEXXV9fg8ICSK/KhcQbIFO2yXqBIJX15DYwswvz4MV30wyeJKa1g4D8xA8A/3sudjXJbxlgk1ktw2bKOcv3BJdXTb5iWVVsN8s58OSNg=
+	t=1788971214; cv=none; b=qNlpS1e9/ArcvUwFe2gcfj2F2Dj3R9hUz4ySd3A0y0LkSjPvoONg5zrDNTlnbu2Sj4uDOClZpznfjOHNHlH98xyFT4JyaG9vFKfk/13c/T22h4zEMo6X6zL+w6VZ5DBR9HB0jiAK9N3Yamz6gy2r0BMr9jTBLUZejyQKk6iQfF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971213; c=relaxed/simple;
-	bh=Y3plZ8ox10nzBerXh0CVi01/tqDOZz0andBJTfcr4BU=;
+	s=arc-20240116; t=1788971214; c=relaxed/simple;
+	bh=y5jA758TsnLCSdxCHXBFUHV0dtg5/1WHoMkOVyGI+vE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JXI8fcFqqXnij3ylaluG919WED6qvDcGPjdjz9yVfowzAmdA5opl5R4CRI5Sav0piINArYolHsdr3Ft2bSn3krBF2EIoqR0UCi7jLA5GKDPNpN+z+NLNhWw1qNjcCAti6l5Rl+T58N8XAWpAIOUg+t8Jr9bxS81y0FyzS4eqhVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YmYqSwRh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O9eoAVCOQxcPtTQ//Pj4+2Fmg2aDdHiwRCnyHzwFVbFqFNQh+xGdnklWgVC3NH7PcJ3/wrYHgJvV+WMcSfqBfHFNOEWRQujSK7JiVK4uvndlAq7P+1qWc1Z6BoG4taFEgfrHTTHo4n/LKOBBLG6JhpxnnreOpWbagWLg7fqn8M8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWGCtfSo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YmYqSwRh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF51D1F00898;
-	Wed,  9 Sep 2026 16:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWGCtfSo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980101F0089A;
+	Wed,  9 Sep 2026 16:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971212;
-	bh=wwvcfBa/w7YEKA4wtWtydR58g33Lm26BVNFTAeILs1k=;
+	s=k20260515; t=1788971213;
+	bh=Fc733AjDh0IgcVSrPVJZUnQfC53pKtIF40bZCukJnOg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YmYqSwRh0vqiTQbHx8I/HE57dgAOt0bGBiF9vdOySvAoXdIuRIWngCG/l1XkfuUmH
-	 RzVycRL7vmatuOWHiMyvvBJFM6MVypUAgqQ9wHvtppT3o+0FLHmBMyfQx/lkHlOhNX
-	 1dlKFltHRwonKfRuYtIwqRfCbg35oFiBWypZbQ+Ut/CgavZZaP2/CkpUWntQOYk7Qq
-	 9qbqOXe3y2QPxj4Ck4NtEvXXlXYWIkrr4FZZ2Gy7i1/Cu1Rgkk8iPS65/UY3Lyvoxa
-	 2nabjlLIVMCq+hGOiUJT8xKiHrY9/Td3Uvd1s1Dpns7iDeV3rw4JaAhyW6FHSm/svP
-	 DtisxD8M3CtgQ==
+	b=TWGCtfSoyen8K8/STbaY9Y9Ksn61vjQA4rp7zr/gzf8Cde/3T14LvE9VdCCrcTZ/G
+	 F8WpWi32CanEe00akvkpS4155yicLAz5v6RMJmR0ac9XhUaPPHbG6ipkQ5xFiVaR7D
+	 O4JbiRXmA2JYFlDiEcp6hbkAV0gZCzn9znQbPOG1gwew6qB44uM8BKX9ZW0Ez8grID
+	 EOlF8wv9NaDoIs0FOPWiunYQPotyWEn1W9f2oxyXBLDuGOBx8V/kHNvYqFu5e73LJN
+	 4aVoiXNPR2TRhXFaGTO20+gSXXpMPAfHPZwGisYiYpbDZwMxJE4fz2qpSlVuoZSzcM
+	 5jcmnx13WIj0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] PCI/AER: Emit TLP Log only for unmasked errors
-Date: Wed,  9 Sep 2026 12:26:44 -0400
-Message-ID: <20260909162644.2981443-6-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] io_uring/waitid: have io_waitid_complete() remove wait queue entry
+Date: Wed,  9 Sep 2026 12:26:48 -0400
+Message-ID: <20260909162650.2981584-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162644.2981443-1-sashal@kernel.org>
-References: <2026090327-shy-dealmaker-b70c@gregkh>
- <20260909162644.2981443-1-sashal@kernel.org>
+In-Reply-To: <2026090355-lavish-nimbly-617c@gregkh>
+References: <2026090355-lavish-nimbly-617c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +44,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit a8bf2dd750de7d682fdaa2127f4e3217ce9c4a82 ]
+[ Upstream commit a48c0cbf28c03f6c590a14ceb31bf6e619c2f6da ]
 
-Per PCIe r7.0 sec 6.2.5, the prefix and header of an offending TLP is only
-recorded for unmasked Uncorrectable Errors.  Yet when the AER driver
-determines whether a prefix and header has been logged, it does not take
-the Uncorrectable Error Mask Register into account.  Fix it.
+Both callers of this need the entry potentially removed, so shift the
+removal into the completion side and kill it from the two callers.
 
-Fixes: 6c2b374d7485 ("PCI-Express AER implemetation: AER core and aerdriver")
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: stable@vger.kernel.org # v2.6.19+
-Link: https://patch.msgid.link/2e712b96ba5bfc729d78bfc23f7fb7d285aa3d6d.1784905909.git.lukas@wunner.de
+While at it, add a helper for removing the wait_queue_entry based
+on the passed in io_kiocb.
+
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 2cf20c4e0f72 ("io_uring/waitid: avoid siginfo copy during ring teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pcie/aer.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ io_uring/waitid.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index 81b8cdacae533..b38594aa330be 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -775,7 +775,8 @@ void cper_print_aer(struct pci_dev *dev, int aer_severity,
- 		status = aer->uncor_status;
- 		mask = aer->uncor_mask;
- 		info.level = KERN_ERR;
--		tlp_header_valid = tlp_header_logged(status, aer->cap_control);
-+		tlp_header_valid = tlp_header_logged(status & ~mask,
-+						     aer->cap_control);
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index ef2283728c2b3..b67b6d5bc6830 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -115,6 +115,22 @@ static int io_waitid_finish(struct io_kiocb *req, int ret)
+ 	return ret;
+ }
+ 
++static void io_waitid_remove_wq(struct io_kiocb *req)
++{
++	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
++	struct wait_queue_head *head;
++
++	head = READ_ONCE(iw->head);
++	if (head) {
++		struct io_waitid_async *iwa = req->async_data;
++
++		iw->head = NULL;
++		spin_lock_irq(&head->lock);
++		list_del_init(&iwa->wo.child_wait.entry);
++		spin_unlock_irq(&head->lock);
++	}
++}
++
+ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+@@ -125,6 +141,7 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ 	lockdep_assert_held(&req->ctx->uring_lock);
+ 
+ 	hlist_del_init(&req->hash_node);
++	io_waitid_remove_wq(req);
+ 
+ 	ret = io_waitid_finish(req, ret);
+ 	if (ret < 0)
+@@ -135,7 +152,8 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+-	struct io_waitid_async *iwa = req->async_data;
++
++	lockdep_assert_held(&req->ctx->uring_lock);
+ 
+ 	/*
+ 	 * Mark us canceled regardless of ownership. This will prevent a
+@@ -147,9 +165,6 @@ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
+ 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
+ 		return false;
+ 
+-	spin_lock_irq(&iw->head->lock);
+-	list_del_init(&iwa->wo.child_wait.entry);
+-	spin_unlock_irq(&iw->head->lock);
+ 	io_waitid_complete(req, -ECANCELED);
+ 	io_req_queue_tw_complete(req, -ECANCELED);
+ 	return true;
+@@ -251,8 +266,7 @@ static void io_waitid_cb(struct io_kiocb *req, struct io_tw_state *ts)
+ 				io_waitid_drop_issue_ref(req);
+ 				return;
+ 			}
+-
+-			remove_wait_queue(iw->head, &iwa->wo.child_wait);
++			/* fall through to complete, will kill waitqueue */
+ 		}
  	}
  
- 	info.status = status;
-@@ -1099,7 +1100,7 @@ int aer_get_device_error_info(struct pci_dev *dev, struct aer_err_info *info)
- 		pci_read_config_dword(dev, aer + PCI_ERR_CAP, &aercc);
- 		info->first_error = PCI_ERR_CAP_FEP(aercc);
- 
--		if (tlp_header_logged(info->status, aercc)) {
-+		if (tlp_header_logged(info->status & ~info->mask, aercc)) {
- 			info->tlp_header_valid = 1;
- 			pci_read_config_dword(dev,
- 				aer + PCI_ERR_HEADER_LOG, &info->tlp.dw0);
 -- 
 2.53.0
 
