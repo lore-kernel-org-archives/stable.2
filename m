@@ -1,117 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB405D531;
-	Wed,  9 Sep 2026 03:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BDC348C63;
+	Wed,  9 Sep 2026 03:32:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788924719; cv=none; b=NS5q/3lBKA/6d3x3lnS5EjvFMQBrz3jhH6AGXkHsQKNisCfiyW7ojcxbcaQ4hbZ620nLJZfMn1gXoFH7dt8jCD+4o9RPqWYsfdGNok0fRGfoWs6e9tHleQZ62r5VcaSUxqm4UxdRPyR+zAZZw0GAGwxT7Gv0nBYbArT01rJ1RsM=
+	t=1788924745; cv=none; b=MyXhjOlc/cttT0Qaw3wScdVyL7JmlH7M6RsBJF2VWR/JkJjen3YtlGVsQAdfCdKwAQcyFX+X+XkfHAcDDHntCfZYPOuyZHi3o+/V8fMsl3HuM/uG3YiUlrHfNRgiiyIyXBSe90TeelkoOwxg+AfuqM76Axkh0ol2t9V3+B5zheQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788924719; c=relaxed/simple;
-	bh=Qm+aMJVZ1idBa35wLxEgrLzJcZojK9HIKgUFsthGAJk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=L5fX1Fd18DQyV2tbYNNGFFthnSkjqRLgRI80hyvXGCfwnttz1tNonsDultp0tzVgsCMhwrhC+2vaoOJYWcOs3vUOMeOkFyO1/Vdcx0mzTI1e5x9svACmHlC0nlUeZQwFD0/8yD0bn3Xq2RhOG6T+jSKNumbo2x9X7cpZe9VHDds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJ5SdLSS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788924745; c=relaxed/simple;
+	bh=Nll6ZwwPuyr6qoJ3nNwpHXSi+9U4EtB7FAhESeZQMsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qhckCdioAl0MNV3grEZq1AN5gEO+JGxOqiI1zHOF2Eg1FacV6+bSeX0MX8lZaD7n7+OVCUSzIsRHONXTOw8R08JpOurxbte04F/73Kx5Gh5K5wgvi+BDSZ0M8ao7CxT7kO5j3R96yqMy3y7YQgvQnLEDtef/BxMlCEiIaXmgBEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvqNe6dx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJ5SdLSS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A3F1F00A3A;
-	Wed,  9 Sep 2026 03:31:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvqNe6dx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09ACC1F00A3A;
+	Wed,  9 Sep 2026 03:32:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788924718;
-	bh=JvN514bLvBb8o7E32rh5fkZP8pnd+hgZq+omQSQeuT4=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=gJ5SdLSShN39mGKbDK+W3PMWstHQ5M6IsZJ3BNvrAzFpoFEFVy49WO43NLHuzVZGs
-	 UrQquZ3vRZVOs8zTyvMynlvXg9J/tGPFs0eoLndkrkITaM203IOeXS31o4RmOsyLAJ
-	 hU+2quI6S6lxW/LjNYksB1EaX9K1PWUDUokVEJWNDt3Y1tsG8VS5Kzm9ePEXVBYTVi
-	 9DFplvxm6WsJlK7o5jamQ+/0KO9pCS4WXImw9mwkb1dCp+jthCFt/2I8tuklkPgBV5
-	 +EvzgyX5fVulJtCIRDQkknWn+oAg1TeMU3JzHJqADQp9my6+RLY7fenVAMiBegsEvX
-	 aLDxzLfZY6YdQ==
-Content-Type: multipart/mixed; boundary="===============7905957693095893453=="
+	s=k20260515; t=1788924744;
+	bh=3kn+Gctsm96ES4+vGfS+3z35ShTYAttXRKN88Izlnv0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fvqNe6dxMGtmeTFl8McuWyzS5MO3WfnBEuLrvf+5dcDjbDWjaM/alVqAA+bp2+2wJ
+	 3C/+l8guO/RojW6Udpm7LpzC0KuPGHRDO3iihIPzJjCH74Fb6rVTUmWie2GSMHmewN
+	 sOn/gP5m4sVldV0+F0I9g5ooBZgB9yUNx7tRpriyDByZ5KHdJVQGhrNlezrup4QikA
+	 i9xTNObYtIxXKw8d+Brc6/CMfDL3BL9GiBJbDvdTEbtyg9jGqyh5lWa2NIynZbgq/V
+	 qyQHXgXza3EFsdTCH1jGzr7qAPd0v9iQxsLhyPr+1AvjLbChbLJv6rYXtd0HZTXwQi
+	 5Q+zxI+9GwWqA==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.12.y] mm/damon/tests/core-kunit: catch test failure in test_merge_regions_of()
+Date: Tue,  8 Sep 2026 20:32:16 -0700
+Message-ID: <20260909033217.123340-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090808-snowy-dynamic-3f12@gregkh>
+References: <2026090808-snowy-dynamic-3f12@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <90811fbd60e9519d8b1bcc316c4d43cd21c95e24c96b37ed2917d824e007c50b@mail.kernel.org>
-In-Reply-To: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-References: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-Subject: Re: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
-From: bot+bpf-ci@kernel.org
-To: nikhilljatt@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,davem@davemloft.net,edumazet@google.com,kuba@kernel.org,pabeni@redhat.com
-Cc: eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me,horms@kernel.org,dsahern@gmail.com,hawk@kernel.org,razor@blackwall.org,stable@vger.kernel.org,bpf@vger.kernel.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed,  9 Sep 2026 03:31:56 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============7905957693095893453==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+KUNIT_EXPECT_EQ() does not abort the execution of test code when the
+expectation is not met.  But damon_test_merge_regions_of() code after its
+initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It does a
+per-region test with a hard-coded number of regions that is correct only
+if the expectation was met.  As a result, __nth_region_of() could return
+NULL, and the test code can dereference NULL pointers.  Fix the issue by
+catching the expectation failure and skip the per-region tests.
 
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 8513167a858a..a7c7bbfd90e3 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
+The user impact on realistic setups should be negligible, as it is a unit
+test.
 
-[ ... ]
+The issue was discovered [1] by Sashiko.
 
-> @@ -6297,6 +6297,20 @@ static const struct bpf_func_proto bpf_skb_get_xfrm_state_proto = {
->  #endif
->
->  #if IS_ENABLED(CONFIG_INET) || IS_ENABLED(CONFIG_IPV6)
-> +/* Take a stable snapshot of the neighbour's link layer address.
-> + * neigh_ha_snapshot() can not be used here because it copies dev->addr_len
-> + * bytes while params->dmac is only ETH_ALEN long.
-> + */
-> +static void bpf_fib_dmac_snapshot(u8 *dmac, const struct neighbour *neigh)
-> +{
-> +	unsigned int seq;
-> +
-> +	do {
-> +		seq = read_seqbegin(&neigh->ha_lock);
-> +		memcpy(dmac, neigh->ha, ETH_ALEN);
-> +	} while (read_seqretry(&neigh->ha_lock, seq));
-> +}
-> +
-
-The commit message states:
-
->     neigh_ha_snapshot() cannot be used here because it copies dev->addr_len
->     bytes while params->dmac is only ETH_ALEN long (an IPoIB egress device
->     has addr_len 20 and would overflow into params->smac), so open-code the
->     seqlock loop around the ETH_ALEN copy.
-
-Is the overflow destination accurate? Looking at struct bpf_fib_lookup in
-include/uapi/linux/bpf.h, smac precedes dmac in the final union:
-
-    union {
-        struct { __u32 mark; };
-        struct {
-            __u8 smac[6];    /* ETH_ALEN */
-            __u8 dmac[6];    /* ETH_ALEN */
-        };
-    };
-
-That union is the last member of the struct, so smac sits at offset 52 and
-dmac at offset 58 in the 64-byte struct.
-
-Calling neigh_ha_snapshot(params->dmac, neigh, dev) with an IPoIB device
-(addr_len == 20) would write bytes 58..77, which is 6 bytes into dmac and
-14 bytes past the end of struct bpf_fib_lookup. It cannot reach params->smac
-at the lower offset.
-
-Because params points at BPF-program memory that the verifier only sized to
-sizeof(struct bpf_fib_lookup), the actual consequence is an out-of-bounds
-write past the program-supplied buffer, not a clobbered sibling field.
-
-The conclusion that neigh_ha_snapshot() is unusable here is correct, and
-the in-code comment is accurate. Could the changelog's claim about where the
-overflow lands be corrected before this goes to stable, since the
-parenthetical is the sole stated justification for open-coding the loop?
-
-
+Link: https://lore.kernel.org/20260715031002.108504-3-sj@kernel.org
+Link: https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org [1]
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 5.15.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit b640708929aa956235866bf7717d89018c661083)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ mm/damon/tests/core-kunit.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34305501194
---===============7905957693095893453==--
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index d7737f5df6688..1053d7acd8e45 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -264,11 +264,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 	damon_merge_regions_of(t, 9, 9999);
+ 	/* 0-112, 114-130, 130-156, 156-170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 5u);
++	if (damon_nr_regions(t) != 5)
++		goto out;
+ 	for (i = 0; i < 5; i++) {
+ 		r = __nth_region_of(t, i);
+ 		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
+ 		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
+ 	}
++out:
+ 	damon_free_target(t);
+ }
+ 
+-- 
+2.47.3
+
