@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1521453FD22
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A109F4AFE37
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952920; cv=none; b=HhEi3pAj2JRIT+VJ8mhS2/2tA7/pl1HAoRkzkMdb3uI83pIqcNIjYRYv4GQMu4Hn6DhfxqYqOF+RYzwW4hPj/WV3h5Kq9SK8Z8HJlZlwSBMVzTvqQjS7pTVaBB217xiLa6DrrYoHqXlqxkU+vzDD60EhXtdOwPmsZgUIG8sIP8c=
+	t=1788952920; cv=none; b=Gwh1cC5jgWfcH1mZGaqUYLVnNK57GT3/dqzw2d1oda2VXad9TSGz5yzyIGod1kSE2qBxjjz0WYef59P06nxy2RZD2E4PCmTtCovQ9cttNY3UMQ7bS3vt+8IeMysPaXLuwB/WtJjp3LTtMUaQ75VA1eA5W1GyU7nEICMNpdPoW6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788952920; c=relaxed/simple;
-	bh=/AH1aW83z2xf8J5NPWWTIz7gARJHAJky5ee1Ub62m3w=;
+	bh=NRYJTMuDKvqQtARc94tv8QzXu148Ghh+/W61KRyZd7s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fg3B5WlSc9mcKrrGC6qPcTQJpDFAMjoS4xAM7QTe4lO6SUSHg18uofDRReSUPPigHGaGD0T4a9e+gSV9eri9DJ4MD7T5oqFdU0qiJpeUQUfXKCRBZzXSOGEIC8AZd/BZ2obpUgCygCQXD42bTMAQ5sx0yvSMCjtaJc3eZGKIh7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFfHkOXF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=thhG5lb/h1oLcuzhBILbIldnmgFpTOBSRCHdqD7k0tLM3PQSkdcgD9REJQW1SB/Z0redUZvBY53vkfyrP61qiXxymeaWippQMX/LQKLAuR/FVsmx/8ZLeDQH04f8NjwDLYpwZSz5CmJkp4TIf+zkCNgzGCa91f4BnthZ4liyYBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ANPiAREy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFfHkOXF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2356F1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ANPiAREy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9301F00ACF;
 	Wed,  9 Sep 2026 11:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788952918;
-	bh=EkPgr60PhCp/xzSLXqacWMEZrjgoZ0PU8Ccxf/4TwHs=;
+	s=k20260515; t=1788952919;
+	bh=5ybfotvkXt3gwt1T0LhKrFi/lD14Qzkxhd8Qi+MMN4Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MFfHkOXFzGmA6Ikgw/aBrwuqRwO8/Lp2cAn30t6CZdAMFuUHcd3oVnYLx9AE9/kGM
-	 2r9LMm68YszSA45OdyD4UhFQfo1ZDzoUQ4TUt6Nm+1j8A+ANS2bTaiGKzQEtWuB2gg
-	 BGOwIC0LuR4Hj0a5sAMf5MEr9sEsfyVx23v3qBGGRnDRo4QDhDW5KBNg4vPc880B41
-	 nq0AYD3EEPmbkiStcDoNX99v3q4idCOQgZDhiLSo0pIbEApcrL+yFTVuk22df7trF1
-	 3izPnQZ7fMDw8P0l5Nl5zmdDHyCwszoxjvUFoXY9y0/DVqYgCeWDQDNe8jsj/hFC+E
-	 vVYB9iX+vsTTA==
+	b=ANPiAREylw+it4Qjmc2HEKgHl0z2SM9HIdCYlDIeALvAW17W+q7spzKpGVVizWsEQ
+	 cJfTS2nHIi59qxnEvX89dTBi+Sv1d00pTbG9avJdMcX4LPu+8srdOwi09p6NUPSAXs
+	 TiqCVlOu3/MCkd725wfoYr5kls5Zofh7T2rMm3Dw41Cck7vqvCeAFqbkZXPFZxOU8M
+	 5S+fxOnEhBGucaJU2jPnFvCaWi10L16cOTlbz+vJZYpdkVDkGVwmy7WYnhmyUxDeb4
+	 R3V9v5pbGRsqaWwyJcCeNB4XslzsVWaTp7o0eqJcEbRV4/159tuDM7Hz87ioh5nD9N
+	 yVzTi0LCU5l9g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/8] platform: Provide a remove callback that returns no value
-Date: Wed,  9 Sep 2026 07:21:50 -0400
-Message-ID: <20260909112153.1816689-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y 6/8] power: supply: lp8788-charger: Convert to platform remove callback returning void
+Date: Wed,  9 Sep 2026 07:21:51 -0400
+Message-ID: <20260909112153.1816689-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909112153.1816689-1-sashal@kernel.org>
 References: <2026090353-unadorned-buffed-09ad@gregkh>
@@ -49,79 +49,56 @@ Content-Transfer-Encoding: 8bit
 
 From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 5c5a7680e67ba6fbbb5f4d79fa41485450c1985c ]
+[ Upstream commit 7810ba3c5110ce66652ec6bd2abb92da5d726c3b ]
 
-struct platform_driver::remove returning an integer made driver authors
-expect that returning an error code was proper error handling. However
-the driver core ignores the error and continues to remove the device
-because there is nothing the core could do anyhow and reentering the
-remove callback again is only calling for trouble.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() is renamed to .remove().
 
-So this is an source for errors typically yielding resource leaks in the
-error path.
-
-As there are too many platform drivers to neatly convert them all to
-return void in a single go, do it in several steps after this patch:
-
- a) Convert all drivers to implement .remove_new() returning void instead
-    of .remove() returning int;
- b) Change struct platform_driver::remove() to return void and so make
-    it identical to .remove_new();
- c) Change all drivers back to .remove() now with the better prototype;
- d) drop struct platform_driver::remove_new().
-
-While this touches all drivers eventually twice, steps a) and c) can be
-done one driver after another and so reduces coordination efforts
-immensely and simplifies review.
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Link: https://lore.kernel.org/r/20221209150914.3557650-1-u.kleine-koenig@pengutronix.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/r/20230918133700.1254499-17-u.kleine-koenig@pengutronix.de
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Stable-dep-of: 831c29a12d56 ("power: supply: lp8788-charger: fix use-after-free on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/platform.c         |  4 +++-
- include/linux/platform_device.h | 11 +++++++++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ drivers/power/supply/lp8788-charger.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index d0b15cbab0ff0..e07043d85c65c 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -1306,7 +1306,9 @@ static int platform_remove(struct device *_dev)
- 	struct platform_driver *drv = to_platform_driver(_dev->driver);
- 	struct platform_device *dev = to_platform_device(_dev);
+diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
+index 397e5a03b7d9a..20694deb05275 100644
+--- a/drivers/power/supply/lp8788-charger.c
++++ b/drivers/power/supply/lp8788-charger.c
+@@ -715,20 +715,18 @@ static int lp8788_charger_probe(struct platform_device *pdev)
+ 	return 0;
+ }
  
--	if (drv->remove) {
-+	if (drv->remove_new) {
-+		drv->remove_new(dev);
-+	} else if (drv->remove) {
- 		int ret = drv->remove(dev);
+-static int lp8788_charger_remove(struct platform_device *pdev)
++static void lp8788_charger_remove(struct platform_device *pdev)
+ {
+ 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
  
- 		if (ret)
-diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
-index e7a83b0218077..870a918aa251c 100644
---- a/include/linux/platform_device.h
-+++ b/include/linux/platform_device.h
-@@ -203,7 +203,18 @@ extern void platform_device_put(struct platform_device *pdev);
+ 	flush_work(&pchg->charger_work);
+ 	lp8788_irq_unregister(pdev, pchg);
+ 	lp8788_psy_unregister(pchg);
+-
+-	return 0;
+ }
  
- struct platform_driver {
- 	int (*probe)(struct platform_device *);
-+
-+	/*
-+	 * Traditionally the remove callback returned an int which however is
-+	 * ignored by the driver core. This led to wrong expectations by driver
-+	 * authors who thought returning an error code was a valid error
-+	 * handling strategy. To convert to a callback returning void, new
-+	 * drivers should implement .remove_new() until the conversion it done
-+	 * that eventually makes .remove() return void.
-+	 */
- 	int (*remove)(struct platform_device *);
-+	void (*remove_new)(struct platform_device *);
-+
- 	void (*shutdown)(struct platform_device *);
- 	int (*suspend)(struct platform_device *, pm_message_t state);
- 	int (*resume)(struct platform_device *);
+ static struct platform_driver lp8788_charger_driver = {
+ 	.probe = lp8788_charger_probe,
+-	.remove = lp8788_charger_remove,
++	.remove_new = lp8788_charger_remove,
+ 	.driver = {
+ 		.name = LP8788_DEV_CHARGER,
+ 	},
 -- 
 2.53.0
 
