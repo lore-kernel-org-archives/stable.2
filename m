@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4758314B6E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9817A388E72
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976563; cv=none; b=a9chG6juBGd1UbpMda+i/rmJzCZVEDRzUbEBjpo6yCcrHADjymUDqZqdMHAKAvNgNexkYFeFXnuAhVzI9MC9J2spRTtqrBSnrotO+PNyWvoHGvkHbuWA3qewE0j+3fRlp+D1p2/cC07oZNVrKEtf6EUQtPFR/OiVLs/D8XZyb60=
+	t=1788976563; cv=none; b=ZsPaAJx9lSarPfcyReuV1PhxiHiirf/h0XwR0Ky4Xk/Q7Bg9UYpHQJzjRsb1tcqAZxzXV4BHl9lTHeG3eUw2qp4lC9EfSbuPducULpzx9u4TukX7ltCBNEsOJ3TP1whc40SoB7lpxGaZzkaLReYQ9QcHGz5FTJQpcjsCkz1KOiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788976563; c=relaxed/simple;
-	bh=5AR0Kh49ItNEhSfvtl/MCspOp7lmk+zADaU5+j7+WUA=;
+	bh=IQX1A5PIklqd8XbXxAAwHFB6AzXaU4Ix0rmmWJrlYuU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xx3a620typQkGeiS8EoynFmDbtfYAt1m+coOh7vXVE9uIdZP9mbC5s0t03WUvqVISaTwL2bZJqwbzCdFSWjB8K0jkC+XTFZsjq7/VdQtX289iFdpSpd+1pt4EaRtD6+nMxES4HbwaczqHV61Rr4S2/2qsNmWXkb8DyCZ2BZGwGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nq9B6kfu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Jw6u0duHSRYcnRIuTdxKssCowV2NA2ZvSbgNr4n4hJ6yd9tdnxAM7NHdO+Gl2M4VsHlR+G/UMa1LZy+PPejPErNrrlZ4wM7WuasFSN92IsNnbP9WGM7uyv+b9sfr6q8jCs/sFQBfR2MdbjzIg0W/5hboesKIdIrxlm8oMnVatwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJS+ly7F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nq9B6kfu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70E01F000FF;
-	Wed,  9 Sep 2026 17:56:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJS+ly7F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9791F00893;
+	Wed,  9 Sep 2026 17:56:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788976561;
-	bh=1nXtm3Gd/10egWibidkJFnTj2vhAMX7hIFu2Bgp9kOk=;
+	s=k20260515; t=1788976562;
+	bh=TqZUqp2TRPNA7I0kzOsjUKDpUGgDYP64Dv4v/hQ7soM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nq9B6kfu9w+J7Ej7V7OxLF9+3I5gE9Qqorh/v0P/VI6tBtU+4/oPn5YAM58NUG9Ut
-	 TAhvijUG7cTxq9upypMRQVYetKVk3a1zosOcJwLt1WOvnuZLPbr4iq7T+RLR8gapvQ
-	 C3ZsOYS9ud4tTylzWXrSJoCTDMlY42fsqAdVpZ+kod0pel+pNzJr6BEaQeHA4cVvdI
-	 PSJEuLR+/f5VNue3R8T4hGEAmwjBSCP1LFtNRLBjTM7bskx0cB0ULj4MNYbj9V/+yY
-	 YzLU+EWH9jiBjTEV9ZjrAdkv9KKvRfComk/VVBzZ1sJP7Oq3uK/Rz9Iij7GbQuocIW
-	 PEp4QeS8Q+WDA==
+	b=GJS+ly7F7hH6Ltc8xUHP1c87DnkNF/IxXW1PIySSs9jNfipk6x251OFQgxRhiXQmL
+	 V3MjDfL57+uvePilzxyCV+Xp6a0sFEuLf6YrZ1rQjXjf/IU/pZvMi5cVYD8BRcmQmW
+	 PELkZxNVP1jIRON81RevZFIs83T/P1vqAucwoYBqvWiLN6FR3xRHJghn4fL/cj9hlU
+	 DWYRdw0APt1G1Y9HvUeB6kjCvtXMOQYDb5zSUtkwKh+9LpjIOj3ig2XREPxLimxTPq
+	 B36e/81fZd0zxuQykJLtC/KeplQARnh9ybjIlJF+Far/k95t2J1eeZRNsCGBkERALH
+	 t4KhcyD6OBJmg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/4] net: ravb: Switch to SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() and pm_ptr()
-Date: Wed,  9 Sep 2026 13:55:56 -0400
-Message-ID: <20260909175559.3436094-1-sashal@kernel.org>
+Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10.y 2/4] net: ravb: avoid dereferencing an invalid PTP clock
+Date: Wed,  9 Sep 2026 13:55:57 -0400
+Message-ID: <20260909175559.3436094-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090334-visor-renewed-f29f@gregkh>
+In-Reply-To: <20260909175559.3436094-1-sashal@kernel.org>
 References: <2026090334-visor-renewed-f29f@gregkh>
+ <20260909175559.3436094-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,77 +46,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-[ Upstream commit 6ccc22a5afcbac46d55866d72eaba22f43491c00 ]
+The PTP clock is unavailable before the first open, so querying its
+index can dereference a NULL pointer. Registration failures can also
+leave an error pointer in priv->ptp.clock.
 
-SET_SYSTEM_SLEEP_PM_OPS() and SET_RUNTIME_PM_OPS() are deprecated now
-and require __maybe_unused protection against unused function warnings.
-The usage of pm_ptr() and SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() allows
-the compiler to see the functions, thus suppressing the warning. Thus
-drop the __maybe_unused markings.
+Cache the PHC index separately and report -1 while no clock is
+registered. Normalize registration errors to NULL and preserve the
+static timestamping capabilities.
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: 1cb9663789c5 ("net: ravb: serialize PTP clock teardown")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Link: https://patch.msgid.link/20260811103733.62599-2-xuanqiang.luo@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/net/ethernet/renesas/ravb_main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/renesas/ravb.h      |  1 +
+ drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
+ drivers/net/ethernet/renesas/ravb_ptp.c  | 15 +++++++++++++--
+ 3 files changed, 16 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
+index 7453b17a37a2c..e41e25cdbffea 100644
+--- a/drivers/net/ethernet/renesas/ravb.h
++++ b/drivers/net/ethernet/renesas/ravb.h
+@@ -978,6 +978,7 @@ struct ravb_ptp_perout {
+ struct ravb_ptp {
+ 	struct ptp_clock *clock;
+ 	struct ptp_clock_info info;
++	int phc_index;
+ 	u32 default_addend;
+ 	u32 current_addend;
+ 	int extts[N_EXT_TS];
 diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 3e131788a4a3c..172b05b7f594b 100644
+index 172b05b7f594b..0cb339359f995 100644
 --- a/drivers/net/ethernet/renesas/ravb_main.c
 +++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2341,7 +2341,7 @@ static int ravb_wol_restore(struct net_device *ndev)
- 	return disable_irq_wake(priv->emac_irq);
- }
+@@ -1270,7 +1270,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+ 		(1 << HWTSTAMP_FILTER_NONE) |
+ 		(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+ 		(1 << HWTSTAMP_FILTER_ALL);
+-	info->phc_index = ptp_clock_index(priv->ptp.clock);
++	info->phc_index = READ_ONCE(priv->ptp.phc_index);
  
--static int __maybe_unused ravb_suspend(struct device *dev)
-+static int ravb_suspend(struct device *dev)
+ 	return 0;
+ }
+@@ -2119,6 +2119,7 @@ static int ravb_probe(struct platform_device *pdev)
+ 	priv = netdev_priv(ndev);
+ 	priv->ndev = ndev;
+ 	priv->pdev = pdev;
++	priv->ptp.phc_index = -1;
+ 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
+ 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
+ 	priv->num_tx_ring[RAVB_NC] = NC_TX_RING_SIZE;
+diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+index 6984bd5b7da91..66cd690af54b0 100644
+--- a/drivers/net/ethernet/renesas/ravb_ptp.c
++++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+@@ -330,6 +330,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
+ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
  {
- 	struct net_device *ndev = dev_get_drvdata(dev);
  	struct ravb_private *priv = netdev_priv(ndev);
-@@ -2360,7 +2360,7 @@ static int __maybe_unused ravb_suspend(struct device *dev)
- 	return ret;
++	struct ptp_clock *clock;
+ 	unsigned long flags;
+ 
+ 	priv->ptp.info = ravb_ptp_info;
+@@ -342,7 +343,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ 
+-	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	if (IS_ERR(clock)) {
++		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
++		clock = NULL;
++	}
++
++	priv->ptp.clock = clock;
++	if (clock)
++		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
  }
  
--static int __maybe_unused ravb_resume(struct device *dev)
-+static int ravb_resume(struct device *dev)
- {
- 	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct ravb_private *priv = netdev_priv(ndev);
-@@ -2408,7 +2408,7 @@ static int __maybe_unused ravb_resume(struct device *dev)
- 	return ret;
+ void ravb_ptp_stop(struct net_device *ndev)
+@@ -352,5 +361,7 @@ void ravb_ptp_stop(struct net_device *ndev)
+ 	ravb_write(ndev, 0, GIC);
+ 	ravb_write(ndev, 0, GIS);
+ 
+-	ptp_clock_unregister(priv->ptp.clock);
++	WRITE_ONCE(priv->ptp.phc_index, -1);
++	if (priv->ptp.clock)
++		ptp_clock_unregister(priv->ptp.clock);
  }
- 
--static int __maybe_unused ravb_runtime_nop(struct device *dev)
-+static int ravb_runtime_nop(struct device *dev)
- {
- 	/* Runtime PM callback shared between ->runtime_suspend()
- 	 * and ->runtime_resume(). Simply returns success.
-@@ -2421,8 +2421,8 @@ static int __maybe_unused ravb_runtime_nop(struct device *dev)
- }
- 
- static const struct dev_pm_ops ravb_dev_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(ravb_suspend, ravb_resume)
--	SET_RUNTIME_PM_OPS(ravb_runtime_nop, ravb_runtime_nop, NULL)
-+	SYSTEM_SLEEP_PM_OPS(ravb_suspend, ravb_resume)
-+	RUNTIME_PM_OPS(ravb_runtime_nop, ravb_runtime_nop, NULL)
- };
- 
- static struct platform_driver ravb_driver = {
-@@ -2430,7 +2430,7 @@ static struct platform_driver ravb_driver = {
- 	.remove		= ravb_remove,
- 	.driver = {
- 		.name	= "ravb",
--		.pm	= &ravb_dev_pm_ops,
-+		.pm	= pm_ptr(&ravb_dev_pm_ops),
- 		.of_match_table = ravb_match_table,
- 	},
- };
 -- 
 2.53.0
 
