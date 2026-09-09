@@ -1,42 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A293587A2
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 05:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4787C3587A2;
+	Wed,  9 Sep 2026 05:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931446; cv=none; b=B2XSwQKZBvfcFYsNmws/H5njwaHxzdUQakRTxH3DjZpunsCDR7Th0LchHxxaoNtg1FLYv6cSjd3lX1c6Iu0zARjysPo6UbX60b3iAgqkOxFXmsgz2olcmACf3wRupkvyKbIp7cAea4Hh4JKDtSGPSNc3vS7iQmvAmA7FL1F/LSQ=
+	t=1788931518; cv=none; b=YZADRxkkkqTdxEjydBk4Hl5FMfd+kEZNlzFYBGJJuFBEO7lvapVbjpXKSzhcPzqE67RaW3bjtGhm086w5Jr/LTokQ3Tk7LxHruszT1y4mZpHzk2HPivsYwNMzveQJRBaMvmfrdc9cKtn+ldd4DWu+VaXnR5/DWl/oN/2zL88c1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931446; c=relaxed/simple;
-	bh=MMOnNT/u+YL4KVfof7KYiM+VDhqc4z3D35vzW5/nj6s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y9Wgv4Pxowtf+V1lInJRBAhDjZ/TztqAL8HeR3LaOrGGUhR8SnmCkhwLFc57UnRSvDV0hjIukMizqs8BWhNYnrjm4XJf3CNzBRmKdluotAeFJmbrlx4fOZvg5KjO2kymqcI4JsgCc5fL/bcide9NA9XVY06o+QXCtL8Lo76Up8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxGlnv3G; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxGlnv3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9121F00A3A;
-	Wed,  9 Sep 2026 05:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788931444;
-	bh=lQKipnC/jEQ6qAmaExAhEILOycynmmMk5r5EPALpqvA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KxGlnv3GQG1N+o2INnpTquPaPf0iDGikst1klP6PMbbdp9DK0Ll7lMPT3/DpZxHYM
-	 3hPdGI0iBMVAFu3yGLU0qRBmMR4bVboJP7q6dIaPJvLQHxPEJQsBuxuESYk6A49Tph
-	 luXmKfJJjRUtDB0TJDoXVe6Oypw1avs97F5uzbjg81/unrWrKu9t9H6O2scmW61mKp
-	 Xh1d5zLxMedGCd7OJE9KEdMMo4dGH3fRT8aXWykvnwkOP+6JQMq134sU1iF3bZYQkh
-	 6YVi56UDuzWaS2CAXUm3OBl5qFT4MtyrsFrwrG4j6FpdLfGUxSlOUT2E0oUv7+Po3f
-	 PmhmNaF71hmEg==
-From: SJ Park <sj@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] mm/damon/ops-common: use nr_accesses moving sum for quota" failed to apply to 6.6-stable tree
-Date: Tue,  8 Sep 2026 22:23:56 -0700
-Message-ID: <20260909052357.235575-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026090847-trapdoor-essence-0783@gregkh>
-References: 
+	s=arc-20240116; t=1788931518; c=relaxed/simple;
+	bh=z1IMR72Jm/OXNjztBA3wGKpKghlaUl7Iv2sZZOJYPU0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FKxogttiVhOW+cO7F7sX2ddKUFAzpdbyb4PkjNr0Wpt3an8CaPxVYpY4/V7Tth6XTlv8582ZkK8DLGr18xYd6bRuSyYdVRjc6VqWQ6W5zQITead6gQXdCKE+SVOKp4yXOQxswVzYYXQDj0CA18c1qkjTbuRsFuOHEARdFF02pkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBHIX6w7aBq6uoBAQ--.7104S3;
+	Wed, 09 Sep 2026 13:25:05 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgAHnKaw7aBqbcFoBA--.45453S2;
+	Wed, 09 Sep 2026 13:25:04 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: lucas.demarchi@intel.com
+Cc: thomas.hellstrom@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] drm/xe/i2c: cancel the client work on remove
+Date: Wed,  9 Sep 2026 05:23:28 +0000
+Message-Id: <20260909052328.654682-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,56 +39,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgAHnKaw7aBqbcFoBA--.45453S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?YhfASgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFzIrCNcQHfV2ckOR5KAS8rZcN3Zc9b3RzG5I2YoyNUuUXV
+	JaRR6vAqtJ69vbf58Vip9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4Dtr47KFW8Kry7Kw1UXFc_yoW8CF17pr
+	sxWrW5GrZF9F42gw47Za1xAFyUCr4fArWSkr17J343WwsxKry8Zr98tayUJFyjyayrZa4j
+	yrn0q3y3urW5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On Tue, 08 Sep 2026 14:52:47 +0200 <gregkh@linuxfoundation.org> wrote:
+xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
+schedules i2c->work when the adapter is registered under the xe I2C
+platform device, and xe_i2c_client_work() then instantiates the AMC
+client device on that adapter.
 
-> 
-> The patch below does not apply to the 6.6-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-[...]
-> ------------------ original commit in Linus's tree ------------------
-> 
-> From 6c25083f7ae7e2660d766169e5b4d3e96010503f Mon Sep 17 00:00:00 2001
-> From: SJ Park <sj@kernel.org>
-> Date: Sun, 19 Jul 2026 09:11:33 -0700
-> Subject: [PATCH] mm/damon/ops-common: use nr_accesses moving sum for quota
->  score
-> 
-> Since commit 42f994b71404 ("mm/damon/core: implement scheme-specific apply
-> interval"), DAMOS scheme can be applied at any time.  At that time,
-> nr_accesses may not be fully aggregated.  But the quota prioritization
-> score is calculated using the not fully aggregated count.  As a result,
-> the performance of DAMOS could be degraded.  Fix by using
-> damon_nr_accesses_mvsum() instead.
-> 
-> The user impact of the issue is suboptimum DAMOS performance under certain
-> setups.  Nonetheless, the bug was there from the beginning of the setup
-> availability.  In other words, the suboptimum performance is the baseline
-> of the setup and hence it didn't cause regression.  Also the extent of the
-> suboptimality was not big enough to be found from users and testers.
-> Still, this is a clear bug that is better to be fixed, and can be easily
-> fixed.
-> 
-> Link: https://lore.kernel.org/20260719161136.90191-1-sj@kernel.org
-> Fixes: 42f994b71404 ("mm/damon/core: implement scheme-specific apply interval")
+xe_i2c_remove() unregisters the client devices, the bus notifier and
+the adapter platform device, but it never drains i2c->work. A work
+item that is still queued or running when the adapter is unregistered
+dereferences i2c->adapter in i2c_new_client_device() after
+platform_device_unregister() has released the adapter. The work item
+is also embedded in the devm-allocated struct xe_i2c, so a work item
+still queued after the drm device devm unwind frees that allocation
+runs its callback on freed memory.
 
-Seems the broken commit is backported to 6.6.y even though it is not a fix,
-maybe to resolve a conflict of another fix.  That should be why this patch is
-tried to be applied on 6.6.y.
+Cancel the work in xe_i2c_remove(), after bus_unregister_notifier()
+so that no new instance can be scheduled, and before the adapter is
+unregistered so that a running instance still finds a live adapter.
 
-Though the broken commit indeed introduced the feature to DAMON API, the commit
-didn't introduce any DAMON API caller that uses the feature.  Apparently commit
-a2a9f68e358f ("mm/damon/sysfs-schemes: support DAMOS apply interval") has
-further integrated the feature with DAMON sysfs interface, and exposed it to
-users.  So technically speaking, it is the real broken commit.
+This issue was found by an in-house static analysis tool.
 
-And the real broken commit is not in 6.6.y.  So, this patch is not really
-needed for 6.6.y.
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/gpu/drm/xe/xe_i2c.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index 706783863d07..5a176d78193b 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -311,6 +311,7 @@ static void xe_i2c_remove(void *data)
+ 		i2c_unregister_device(i2c->client[i]);
+ 
+ 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++	cancel_work_sync(&i2c->work);
+ 	xe_i2c_unregister_adapter(i2c);
+ 	xe_i2c_remove_irq(i2c);
+ }
 
-Thanks,
-SJ
-
-[...]
