@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38405542810
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BE0545D96
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954763; cv=none; b=bbsybIqGRCBuZRurKOBUBoRfUVbMw2MEU4c4DjxMQnX5HQMa2n74mL948ow0zyIM+moq2pPsy9hswL5bGHrSYZb19rzx0N3Qa61kuftQ9Wc3hZhZbHlJb5iKRrftegn00WRcVsSeVob0RC2xcnJFl6CJqIznYEtnmd8gsbBkY0I=
+	t=1788955000; cv=none; b=WOPDTAypS3vmDnLJ7Obl+nlQYOCD17b4SumwXVIr1jluDpH9FWHk6IFIKqoVzBhbM8LB1CSLjc/Zjyo1h1YSG7qyM59RlJm5OJfWycNKMnL3QWcBnJM4IUEx8BJ00VHes1HajSma8poTE4DgKXWInigV8m4K5Dg8Phbmt8el1kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954763; c=relaxed/simple;
-	bh=L+2sKEEdQH5tl/0Opop2GQcyt5CFlf7RL6ZHHb1i7eI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CNRwCnqaQzSqwbgEl2C63uvpRd6F4YqrfNCj0WOKZdqMaaBc0+jbl+TnCY+bWRokTKzRaMjwU2FLm1uj8YIeRA5Wu7LlAzJ1FDeNhasjTsk28H6JkViWRvlaw8ucc87UtIrJNt/EsNJvOl6ZLEhc5rEUGwSHglTVtgIc86eWimA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IrQ3PrZB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788955000; c=relaxed/simple;
+	bh=TROM7wTzv621mDNUUxpiuyzI+HcxmHBnaZJRMlkxK9g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mi/+ZfHCZleHBzZb9tY/CdBCESSZjkj7VJGkI2btJ8licV6UvaIRRPUIjAoOrZ5HHzJylQ6ugxWbCsjGQt3QHKP50wvg0PFS4BYL/hj5g9Zn7qMkG12bz1WJQDBqJaWswEpBAhE84FWhG4npANYvnOHQKQvyQAVHNNjlpfyJG1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r0Mib/EZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IrQ3PrZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957AD1F00A3A;
-	Wed,  9 Sep 2026 11:52:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r0Mib/EZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8A21F00A3A;
+	Wed,  9 Sep 2026 11:56:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954762;
-	bh=IUnOTeNRpsJyWHOEDyt4n6Fuv5y94VUieTCt54+oCn0=;
+	s=korg; t=1788954998;
+	bh=IRYkjlnnpUsiKyZWa3a+4xWrZ/f5M/DxaBSX35LukaM=;
 	h=Subject:To:Cc:From:Date;
-	b=IrQ3PrZBbtCLDgenL3ufezuNzg38MNOa+V0czez62QaXd5FQFOIXtqzC9uH4iJJ5Z
-	 1LZqGbSO6oIp2AYPWE4pGxiUg7MNU3pvN4s2LxLbC6+Dl6AllFb0h5tLL9Pet5J7+i
-	 IeYg1QBToKN5d875ELEKZYOe8KlDoFOB5dz11atM=
-Subject: FAILED: patch "[PATCH] drm/hibmc: Use drm_atomic_helper_check_plane_state()" failed to apply to 5.10-stable tree
-To: tzimmermann@suse.de,libaihan@huawei.com,lumag@kernel.org,seanpaul@chromium.org,shiyongbang@huawei.com,stable@vger.kernel.org,xinliang.liu@linaro.org,zourongrong@gmail.com
+	b=r0Mib/EZ/HdTXDsqEhLGOFoaZd6gCcHTLxNDsU8+mJCO/2PD26xCmRF6+JIqrDGsm
+	 l2M8y/kuTxRA2hREgIdop7eWW2mEVGjOggeS8Hcb3YIKSVEiyd2j2A7vH6JCccTHEV
+	 RjC0rz6Mq1Scp8NCd0bq0NQiySsvB358B22TKI9g=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36" failed to apply to 6.12-stable tree
+To: Roman.Li@amd.com,alex.hung@amd.com,alexander.deucher@amd.com,daniel.wheeler@amd.com,mario.limonciello@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:51:53 +0200
-Message-ID: <2026090953-parka-swoop-b3c1@gregkh>
+Date: Wed, 09 Sep 2026 13:52:53 +0200
+Message-ID: <2026090953-snowshoe-unlovely-1c25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 715c5db68bdbd4a524b79ebf20fb61e880fffea0
+git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-parka-swoop-b3c1@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-snowshoe-unlovely-1c25@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,112 +62,39 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 715c5db68bdbd4a524b79ebf20fb61e880fffea0 Mon Sep 17 00:00:00 2001
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Thu, 18 Jun 2026 14:28:39 +0200
-Subject: [PATCH] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+From 9ce3169430f1db035d491481086e2fae2552569c Mon Sep 17 00:00:00 2001
+From: Roman Li <Roman.Li@amd.com>
+Date: Fri, 14 Aug 2026 18:03:17 -0400
+Subject: [PATCH] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
 
-Call drm_atomic_helper_check_plane_state() from the primary plane's
-atomic-check helper and replace the custom implementation.
+[WHY]
+Splash screen corruption on some 8K monitors.
 
-All plane's implementations of atomic_check should call the shared
-_check_plane_state() helper first. It adjusts the plane state for
-correct positioning, rotation and scaling of the plane. Do this
-even if the plane's CRTC has been disabled by setting the parameter
-can_update_disabled. The original code returned early in this case,
-but it's safe to so and cleaner to have all plane state initialized.
+[HOW]
+Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
+calculations, avoiding the corruption path observed during splash.
 
-As we don't set can_position, drm_atomic_helper_check_plane_state()'s
-visibility check tests if the plane covers all of the CRTC. This is
-a small change from the original code, which tested if the plane is
-exactly the size of the CRTC. With the new test, the plane still has
-to cover all of the CRTC, but can be larger than the CRTC's size. A
-later patch can fully implement this feature in hibmc.
+Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
+Cc: stable@vger.kernel.org
 
-If the plane is disabled, the helper clears the visibility flag in the
-plane state. On errors or if the plane is not visible, the atomic-check
-helper can return early. Implement all this in hibmc and drop the custom
-code that does some of it.
-
-v2:
-- extend the commit description (Yongbang)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Rongrong Zou <zourongrong@gmail.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Baihan Li <libaihan@huawei.com>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
-Cc: <stable@vger.kernel.org> # v4.10+
-Link: https://patch.msgid.link/20260618123142.92298-2-tzimmermann@suse.de
-
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index 3066dc9ebc64..7c0b88c774b5 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -72,46 +72,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
- static int hibmc_plane_atomic_check(struct drm_plane *plane,
- 				    struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
--										 plane);
--	struct drm_framebuffer *fb = new_plane_state->fb;
--	struct drm_crtc *crtc = new_plane_state->crtc;
--	struct drm_crtc_state *crtc_state;
--	u32 src_w = new_plane_state->src_w >> 16;
--	u32 src_h = new_plane_state->src_h >> 16;
-+	struct drm_plane_state *new_plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+index 166f10b8862f..c82886323a51 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+@@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
+ 		out->smn_latency_us = 2;
+ 		out->dispclk_dppclk_vco_speed_mhz = 3600;
+ 		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
++		out->gpuvm_min_page_size_kbytes = 4;
+ 		break;
  
--	if (!crtc || !fb)
-+	if (new_plane_state->crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
-+
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_NO_SCALING,
-+						  DRM_PLANE_NO_SCALING,
-+						  false, true);
-+	if (ret)
-+		return ret;
-+	else if (!new_plane_state->visible)
- 		return 0;
- 
--	crtc_state = drm_atomic_get_crtc_state(state, crtc);
--	if (IS_ERR(crtc_state))
--		return PTR_ERR(crtc_state);
--
--	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
--		drm_dbg_atomic(plane->dev, "scale not support\n");
--		return -EINVAL;
--	}
--
--	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
--		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
--		return -EINVAL;
--	}
--
--	if (!crtc_state->enable)
--		return 0;
--
--	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
--	    crtc_state->adjusted_mode.hdisplay ||
--	    new_plane_state->crtc_y + new_plane_state->crtc_h >
--	    crtc_state->adjusted_mode.vdisplay) {
--		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
--		return -EINVAL;
--	}
--
- 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
- 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
- 		return -EINVAL;
- 	}
-+
- 	return 0;
- }
  
 
