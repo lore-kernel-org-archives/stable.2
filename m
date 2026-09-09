@@ -1,122 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD2F4B4881
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081AC4B541D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948711; cv=none; b=OqYDOgq5vy1HNlEqu1kAJ0B7H1nP6008CnN1F38EICUBfjAcXcEKV0gx7NoEpvhAWMH8InqM7Jd+N/OtTJbnu3iK3gmzwCp3gdDsFkOydstz9lJMPNNMageaNv/VjTiZbcraW7m3NJ4JOsB6WwnYKV7tmAy9R2lgepkYGB2PUIM=
+	t=1788948850; cv=none; b=MUt0+KqG+XoC9sgNV3nVemAMTamAJkVfeFTh5puW9idtlFCo+P//kjVK6h+w9Wt5RGO/D7T/Q5PjmGTKd0X3QtZR7G72dii8wFq9bB6eZh22Ktpm0LE7QSOHVuJaOshdQZ1ldgtClcRD/AIyn36a5IPHZqETz8xhS8KO8DqBkjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948711; c=relaxed/simple;
-	bh=JY0swwK1KeOM7CFlimLgFwgTue2JWQNHLkojN1zS5as=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qk8mSbnOaXFiUA8AFkxSYQb6iREuBkyq8+qE6VCxMeDstUrkl4f1bfo74kyl5YbNRFkXH99uriZReYnDnOtMMyI10JEzlHUKKblEqiOYZsmIVbztC1cscsO3gwsRWFNTeLdcEUwuZknJpHN0jfRv1rUrgw9ZPeNWPiQ6GI8hiPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ToRTOwgW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788948850; c=relaxed/simple;
+	bh=0lt0q8fgBbt2/5DJskkwQF053qbl7VLS5F9GtkQSeFc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xgv8GejCExUhrWQzFk9phc2oKjxqfHv4srR/ZBr6wHsBWEFD1OpcwETplsss1dcnsx6JqA5EVRc++Jcrfz+lTlgGHzPj8nOTkxWORUZGfhGJQhqYxynGFirRn7KrwupiJLF4krie/ncDU85HPQ/6zjJwdDU4uxJPr3TL+Kg+j+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CFI357b7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ToRTOwgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5202B1F00A3D;
-	Wed,  9 Sep 2026 10:11:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948709;
-	bh=Fe+niGyH98kxZ+GYzdPz6R0lRGO1ftCGHGXYlS6gsoI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ToRTOwgWbUGuJaDoamOUIiqRzt5VFzMZ6s9/JNtuJdGvkY2fiVs+LTmGTw6Yv/sZ9
-	 3ZuOSxK2YTS7jWHkh1oLYJTDVGPpigLSofGhfXud/GTPSWyOyP5o6RU2UZONZNxkAP
-	 4aeOD8eRFXKcGxcw9s6rTy8NqTP7cCahA3Ilp0D4fCDNjG6Oi/sjW1ic6ZmBbzl5uz
-	 KiePYV5do1e6iPVbITLqH5Zh+lu4sEiGTKFyQPc6SM7+ZfX3WHAsRT2G1iMPO/C328
-	 7LdCC9ZWoaMru0jXQrRTysPbXmqUFHFw4x3Zb/Jg+dbVCCJVxPEygBKobg0bHz0RiE
-	 6cbDsdB4q45Xw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] sched_ext: Fix inverted ops.core_sched_before() invocation
-Date: Wed,  9 Sep 2026 06:11:47 -0400
-Message-ID: <20260909101147.1462770-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090300-shifting-wobbly-b1a8@gregkh>
-References: <2026090300-shifting-wobbly-b1a8@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CFI357b7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD03E1F00A3A;
+	Wed,  9 Sep 2026 10:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788948845;
+	bh=63CRk7IG9GVzfoww9aCeRdQ+lwNnzZqxdk5EEzISYv8=;
+	h=Subject:To:Cc:From:Date;
+	b=CFI357b7J98G0/vt2OJETbjzWkhqUk1QF+UDfKz28c1qcMX/lb4PekcsDBRGhpbmj
+	 +FdxInvyPgPYQHw5NzAg16mITXu5IrdEjGDXovaxNTKj+0kSzBm1IG5KF/Ky5qWLG2
+	 V20DwDJ85RLjsZuq82rYtxbxykTE6adCO98k5bvw=
+Subject: FAILED: patch "[PATCH] ASoC: fsl_easrc: Use div64_u64 for 64-by-64 division" failed to apply to 6.6-stable tree
+To: wangdicheng@kylinos.cn,broonie@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 12:02:40 +0200
+Message-ID: <2026090940-kindling-feel-b6b8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit f7b6d128dd49a6eec09066ecfd29095f12588786 ]
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-scx_prio_less() implements prio_less() semantics - %true means that @a is
-the lower priority and should run after @b. ops.core_sched_before() is
-documented to return %true when @a should run before @b. scx_prio_less()
-returns the op's value as-is, inverting the documented semantics at runtime.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Call the op with the arguments swapped.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x a46ccc71877e962783e0fffa105e41615904c511
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090940-kindling-feel-b6b8@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-scx_qmap followed the wiring instead of the documentation and returned %true
-for the younger task, so the two inversions canceled out and it behaved as
-intended. Flip its comparison to match. scx_qmap is likely the only current
-user in or out of the kernel tree. Any scheduler written the same way needs
-the same flip, while schedulers following the documentation are fixed by
-this change.
+Possible dependencies:
 
-Fixes: 7b0888b7cc19 ("sched_ext: Implement core-sched support")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ adapted the change to kernel/sched/ext.c with the older SCX_CALL_OP_2TASKS_RET() macro signature. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/sched/ext.c             | 10 ++++++++--
- tools/sched_ext/scx_qmap.bpf.c |  2 +-
- 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index 428cde37130df..40dbdfed42c9a 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -3173,19 +3173,25 @@ static struct task_struct *pick_task_scx(struct rq *rq)
-  *
-  * When ops.core_sched_before() is enabled, @p->scx.core_sched_at is used to
-  * implement FIFO ordering within each local DSQ. See pick_task_scx().
-+ *
-+ * Return: %true if @a should run after @b.
-  */
- bool scx_prio_less(const struct task_struct *a, const struct task_struct *b,
- 		   bool in_fi)
- {
- 	/*
-+	 * scx_prio_less() returns whether @a should run after @b while
-+	 * ops.core_sched_before() returns whether its first argument should run
-+	 * before the second. Swap the arguments.
-+	 *
- 	 * The const qualifiers are dropped from task_struct pointers when
- 	 * calling ops.core_sched_before(). Accesses are controlled by the
- 	 * verifier.
- 	 */
- 	if (SCX_HAS_OP(core_sched_before) && !scx_rq_bypassing(task_rq(a)))
- 		return SCX_CALL_OP_2TASKS_RET(SCX_KF_REST, core_sched_before,
--					      (struct task_struct *)a,
--					      (struct task_struct *)b);
-+					      (struct task_struct *)b,
-+					      (struct task_struct *)a);
- 	else
- 		return time_after64(a->scx.core_sched_at, b->scx.core_sched_at);
- }
-diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
-index e952f525599bd..6447502dde28d 100644
---- a/tools/sched_ext/scx_qmap.bpf.c
-+++ b/tools/sched_ext/scx_qmap.bpf.c
-@@ -529,7 +529,7 @@ static s64 task_qdist(struct task_struct *p)
- bool BPF_STRUCT_OPS(qmap_core_sched_before,
- 		    struct task_struct *a, struct task_struct *b)
- {
--	return task_qdist(a) > task_qdist(b);
-+	return task_qdist(a) < task_qdist(b);
- }
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a46ccc71877e962783e0fffa105e41615904c511 Mon Sep 17 00:00:00 2001
+From: wangdicheng <wangdicheng@kylinos.cn>
+Date: Fri, 17 Jul 2026 17:15:42 +0800
+Subject: [PATCH] ASoC: fsl_easrc: Use div64_u64 for 64-by-64 division
+
+Fix a coccinelle warning about do_div() truncating a 64-bit divisor:
+
+sound/soc/fsl/fsl_easrc.c:2061:2-8: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
+
+In fsl_easrc_m2m_calc_out_len(), val1 is computed as:
+
+  val1 = (u64)in_rate << frac_bits;   // frac_bits up to 39
+  do_div(val1, out_rate);
+  val1 += (s64)ctx_priv->ratio_mod << (frac_bits - 31);
+  val1 = val1 >> 12;
+
+In the worst case (in_rate=384000, out_rate=8000, frac_bits=39):
+  val1 = 384000 << 39 / 8000 = 26,388,279,068,672
+  val1 >> 12 = 6,440,497,829  (33 bits, exceeds 32-bit range)
+
+val1 is then used as the divisor in do_div(val2, val1), where
+do_div() silently truncates it to 32 bits, producing incorrect
+results. Use div64_u64() to perform a proper 64-by-64 division.
+
+Fixes: 955ac624058f ("ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers")
+Cc: stable@vger.kernel.org
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+Link: https://patch.msgid.link/20260717091542.721877-4-wangdich9700@163.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+
+diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+index edfd943197a0..15a342496760 100644
+--- a/sound/soc/fsl/fsl_easrc.c
++++ b/sound/soc/fsl/fsl_easrc.c
+@@ -2050,7 +2050,7 @@ static int fsl_easrc_m2m_calc_out_len(struct fsl_asrc_pair *pair, int input_buff
+ 		/* right shift 12 bit to make ratio in 32bit space */
+ 		val2 = (u64)in_samples << (frac_bits - 12);
+ 		val1 = val1 >> 12;
+-		do_div(val2, val1);
++		val2 = div64_u64(val2, val1);
+ 		out_samples = val2;
  
- void BPF_STRUCT_OPS(qmap_cpu_release, s32 cpu, struct scx_cpu_release_args *args)
--- 
-2.53.0
+ 		out_length = out_samples * out_width * channels;
 
