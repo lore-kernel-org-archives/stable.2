@@ -1,94 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1560F568FD7;
-	Wed,  9 Sep 2026 14:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AD1568FAC
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963445; cv=none; b=MSHl34jEWrAyBB4nUm+8MRtw1KWdQFWoau0BNI1wSnACQXoxufdrTuOmVie9jWMK2+/l97FZOtLJaRw88YM53ULkIzCHtPNXqzSF+UKGEV8V1dSfgv+OaadzArRmyLwmwWO+EUn8wpmODLNMNeuR7XY7qkUqzCAHKFvmDSW0vJU=
+	t=1788963447; cv=none; b=RJ41L91oXsHXME1/lmq8bZC2jxf/9dUAZeR0jhAxdIJJkEIl4wnSxcvA7FBptY/2pKRK3mnvbQCnT3qDpZfAOcr4CW7ke6MnpY455dlhedvH6t+KRJPnF9wULQhfYpJIiPYDL9GXViPE28Q1YkxOWsq+lzGwwbXtClw106emqDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963445; c=relaxed/simple;
-	bh=SeVBOfcEycSdt1FU230KdnX6TeF8yXFCC4OoA/zE1Io=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iUvYTgDS4pS4sedsAL6WZD52OUNfSgQdvIY5oifVwleXQwKuw0f1vsl9jmzLYO/WA8EtyRWsrB6yK2Chi40vjJTAr8AOetCq2ytmZBMEGio3L2lcIF91hbWcUVPjwG/rnVPl8szmQUd15iBCzJUMBx4RiW6QPJkiaZwKCkQE42g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SKbnW/oy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788963447; c=relaxed/simple;
+	bh=u5kOERMmnx/10mCXjRq6WEn/CHlFcIPHd1u4/UWzyPE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BxBtcevNFLtn/8BOP39uU9c3vuzWCbdvi3XrO31RfNwHpOr9wOtS0BmZMS3p8Rx5iy+mVwutsl/tZd16AcW9MCQW9VpFIiIEct+oYKulsTux6huB5yUbq/qffXoMP66XIUpPNZq3bX/p37KR2KFuT+3jYaUfeWRdxQRgek+a+Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmjSWbyg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SKbnW/oy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 274A81F00A3A;
-	Wed,  9 Sep 2026 14:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788963443;
-	bh=MzYhh+TNP2GyVjTc5eUuAVmVCbMnvXgBu+3/MLAGi+Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SKbnW/oyo6Hqz+X4CZvc2HCtUcwcLJimbYBT+3xa98Q1gOlNuMwIBqYQ3p5a7Gcnb
-	 onJKEjf0/Y34XWD74bTEqNvZo446k1XUwQgAv4//Az4lcTCEMW/BfLWRcg28CVYJ2H
-	 2fAzLJd8KWsQRO7KnQrG/5ceiUSBr3+KLd5gLrFs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Can Peng <pengcan@kylinos.cn>,
-	Kursad Oney <kursad.oney@broadcom.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 6.18 042/583] spi: bcmbca-hsspi: disable clocks on resume failure
-Date: Wed,  9 Sep 2026 15:35:27 +0200
-Message-ID: <20260909134239.386191708@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmjSWbyg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B5E1F00A3A
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:17:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963446;
+	bh=PDKRUTHhDCmiVPJYXr0NSSjQGrcZKZMZgjZHcU7/9wA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OmjSWbyg5hh8gTeVY8Llt2joSKHySBo2vAvU2XVcF22bRRe/Sj32lOE51BuOEd8z6
+	 hJUDdMkg3mq/KKRZZzRMvm9R6S5peSTwSS9snN+knzCVaK6jA16dcpKujhYB5mu53P
+	 ZKpFS2QDO81Et5Umg9sLEMstLmfXtYiQx/WLBk9y9PJLvlVoQQOvJeUWlYWNnkGSfM
+	 QkXXtZLvrYJxEFnpoQvwKzwEY5l+69Owtwms+q8PTo/rTzbXArBiZ0JIJjidtbZKIG
+	 FkzyELtfxGso8SdS6wfOTnpNYchj4Kq78kCAqXUjIplqwHLOcLLbncXHGFLMaBHQce
+	 GwLuRtd8eWI8g==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so9551617a12.3
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 07:17:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwVy7jscymJd9J1HGJfD/2dXbiQdG5Oq6VbfUvRK40A1cj4pc6YJ1rCGczwSjDRu+Gp/pB2BJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAtox7CX8A90h/SQcv9Vx/A7jrX/mRrgjNEdGbPSfsHxMgr8Fw
+	mGMgUH1h7BwLwAMkE8XDFmHJGYQlm4J51foW+GOJUI1IzIEBJndRSgrY8oNuDZS8qfxa++bJBwr
+	dLj4TU97vWTFhGFhl4lSzZFuwBARxRrc=
+X-Received: by 2002:a05:6402:550c:b0:6a9:983b:79bd with SMTP id
+ 4fb4d7f45d1cf-6a9983b7f5emr1148490a12.39.1788963444829; Wed, 09 Sep 2026
+ 07:17:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909033854.10107-1-15815827059@163.com>
+In-Reply-To: <20260909033854.10107-1-15815827059@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 9 Sep 2026 23:17:12 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_rgP4tu1x=rQsTsSkTuHeUXe5UWC+KthcnXm3sff_gnQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XU-KiqECxxjdNcHkXs9x_V_WvzVUxFdNgjyPwV2VkOr1yRreOyzs1NwmM
+Message-ID: <CAKYAXd_rgP4tu1x=rQsTsSkTuHeUXe5UWC+KthcnXm3sff_gnQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ksmbd: fix invalid pointer dereference when
+ get_inode_acl() fails
+To: huhai <15815827059@163.com>
+Cc: senozhatsky@chromium.org, tom@talpey.com, linux-cifs@vger.kernel.org, 
+	Henry Hu <huhai@kylinos.cn>, stable@vger.kernel.org, 
+	ChenXiaoSong <chenxiaosong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Can Peng <pengcan@kylinos.cn>
-
-commit d2f5a606710ad70c341dc609430a20a5645618d5 upstream.
-
-bcmbca_hsspi_resume() enables the HSSPI clock, and optionally the PLL
-clock, before restarting the SPI controller queue.
-
-If spi_controller_resume() fails, the function currently reports success
-and leaves those clocks enabled. Propagate the error and disable the
-clocks before returning.
-
-Fixes: a38a2233f23b ("spi: bcmbca-hsspi: Add driver for newer HSSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
-Reviewed-by: Kursad Oney <kursad.oney@broadcom.com>
-Link: https://patch.msgid.link/20260804071904.860842-1-pengcan@kylinos.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/spi/spi-bcmbca-hsspi.c |    8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
---- a/drivers/spi/spi-bcmbca-hsspi.c
-+++ b/drivers/spi/spi-bcmbca-hsspi.c
-@@ -612,7 +612,13 @@ static int bcmbca_hsspi_resume(struct de
- 		}
- 	}
- 
--	spi_controller_resume(host);
-+	ret = spi_controller_resume(host);
-+	if (ret) {
-+		if (bs->pll_clk)
-+			clk_disable_unprepare(bs->pll_clk);
-+		clk_disable_unprepare(bs->clk);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-
-
+On Wed, Sep 9, 2026 at 12:39=E2=80=AFPM huhai <15815827059@163.com> wrote:
+>
+> From: Henry Hu <huhai@kylinos.cn>
+>
+> When get_inode_acl() fails, it returns an ERR_PTR(), but
+> ksmbd_acls_fattr() stored that pointer in smb_fattr without
+> checking for errors. Later callers then passed the error pointer
+> to security descriptor helpers or posix_acl_release(), resulting
+> in an invalid pointer dereference.
+>
+> This was reproduced on an XFS-backed share when xfs_get_acl()
+> returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
+> triggered the crash:
+>
+>   BUG: unable to handle page fault for address: fffffffffffffff8
+>   RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
+>   Call Trace:
+>    smb2_query_info+0x40d/0x17c0 [ksmbd]
+>    handle_ksmbd_work+0x1ca/0x770 [ksmbd]
+>
+> Fix this by checking the return values from get_inode_acl() in
+> ksmbd_acls_fattr(). Treat -EOPNOTSUPP as indicating that no ACL is
+> available, and propagate all other errors to the callers. Update
+> smb2_open() and smb2_get_info_sec() to handle these errors.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Assisted-by: Codex:gpt-5.6-sol
+> Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+> Signed-off-by: Henry Hu <huhai@kylinos.cn>
+Applied it to #ksmbd-for-next.
+Thanks!
