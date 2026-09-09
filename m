@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAE357ED86
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF3157ED85
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:10:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963060; cv=none; b=png0ezAjgcUV44+XnN9mGCLt9sPU1E4V0eDYiOYsiQO0LMrPp2+1XwMO7Ria2YeNDRcAdcwkejZMh4Ut5tkvFsaBRQJ7z8k7Zclg/I+cbBJRTYQEFtwe2q7f3EOMYBDwEZ8PhO+GDRZZjYJDS7Ctym02izYiGkmSlSVR0BtRGWs=
+	t=1788963061; cv=none; b=bfftGYuk+IlMrK7friFylMxXVwjm4hsKpLnv8b2k2XABhnr1t6O0aZvaFGfcXIPPfrqi9DGPPS/93hMb2dfYgRhFbeXJMYoqPFt0BOabhEeZhziDd0Koi/yFlkus1X14q51q03JEoykNhKNEwNy2LBuMa4GvAaz6sCseg0cCq20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963060; c=relaxed/simple;
-	bh=MdgsXsa4gJvc6dIZV78kGGFx/COMe/4oSctJSO7BoAU=;
+	s=arc-20240116; t=1788963061; c=relaxed/simple;
+	bh=mm2ztdLRcBD7oNfyXO+PvyyjrXZAlG5Ra6+rqxqP4Ec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bsdrdjc0lBjm4b7NAUuRjrYxy3jGptMNEIN+F/obbfw+CGrvUAMsxHWcs+wRIv8HqsU4xHp9jgLyXw/aHCiZi6GFE6JEp8/xqGNvlidK2IRntasfgRKDjHGzSet8xBwGjbrtObbuSLB7bYk9wCwK8LXmb1oP5/CgKGvp1KRRi3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmgObAJc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NHlKkfkHKsDjJn6n+/5KEmEEn0+ijMNgL5/q5Dql2dOY27kkcgpm6Vied4KJXIKLiYVyMdeJHhLszCczqHYwk7sCzkiiQke7h4pRHdu2d9kD+1Ahq3FvcIQweRoGV02DBbqeTYyfgNHI/bL5Rqg7095q3BFLg1dGO7dHphwn7vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kU2HjjMv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmgObAJc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A431F00A3E;
-	Wed,  9 Sep 2026 14:10:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kU2HjjMv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F211F00AC4;
+	Wed,  9 Sep 2026 14:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963058;
-	bh=nVj7BE0uIM5gl+GA8jcE0ODIcKdtl16f0zuZsGZxbOk=;
+	s=k20260515; t=1788963059;
+	bh=z5CPHGO7UQ1gS+iJKQb3E07CCF34nAXczcaXSDASFAo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JmgObAJcvXuLvVD7BxXuFJI8Ew/vSCGuAypBOmo/QXTodeL457ZCcJfFQhhVXaJ8s
-	 rjkipuxhGlkefCSfUxBE6BGnTZ0+CaeLA+dZLRrWVohSgrF9LCVJ7tvnZVbEjXoPJ5
-	 f4V6ATO9NJ85Nk4+caw+VT8kTmb//IIKPDRF/z82UmmSNejylipOWHZoTZzs7GxcSy
-	 izRyMEEerNyT7Qq1mKm+6XjXiG67ygN2UgT1VEWsKQEovVDQl7ZQOE4ZgoyogbBF1o
-	 LHSoTL4gXNgiwSSUYCfw9gWi9i5q5aKYzEd6fGKUoHXR8bP68R9X1jz+BBYWi46BRQ
-	 j6CZT0RFnaNpg==
+	b=kU2HjjMvi5TndFm6HFePVm5JWOHEOgSFzEz4JyHKh+VtSD8kWUCD8XQTTnDd2xnQo
+	 B1/aqrq4lbEmOKeyJ6prmmHMAF7B/mMuRYPeRHsgeAkNn636Vz3O1o8NsPefuZ72Uh
+	 LB1Kl1TYtdiTe1yMHE5oVke/RqJIljPbErq4fhIsbYNAGVPFXBqwZIKffAEdJqJV7K
+	 G0G+lv6ChBV6eZ2q1ijGXvgzHfS/lT7eKpEA1zyQ8MWE3Z/8cXqLuOk6+Bjzi5eiO2
+	 Jw75qVycgZar506dNuVppqRA00C/ym/J8HoTCZId5NfoOdhAdXQvVW/4Yid/Ns90W6
+	 OHP5L3oitA71w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yi Liu <yi.l.liu@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
+Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	Jason Gunthorpe <jgg@nvidia.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] iommufd: Pass @pasid through the device attach/replace path
-Date: Wed,  9 Sep 2026 10:10:55 -0400
-Message-ID: <20260909141056.2382221-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] iommufd: Fix UAF in selftest IOPF reporting
+Date: Wed,  9 Sep 2026 10:10:56 -0400
+Message-ID: <20260909141056.2382221-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090323-coroner-freeload-0b49@gregkh>
+In-Reply-To: <20260909141056.2382221-1-sashal@kernel.org>
 References: <2026090323-coroner-freeload-0b49@gregkh>
+ <20260909141056.2382221-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,359 +47,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yi Liu <yi.l.liu@intel.com>
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-[ Upstream commit 03c9b102bea6f4f0b517c841fe1d2f9c616c95b9 ]
+[ Upstream commit 8c07df7cdfcf52f1ff276c588612aabc6c6b8399 ]
 
-Most of the core logic before conducting the actual device attach/
-replace operation can be shared with pasid attach/replace. So pass
-@pasid through the device attach/replace helpers to prepare adding
-pasid attach/replace.
+IOMMUFD selftest TRIGGER_IOPF borrows an attach handle from
+group->pasid_array without synchronizing against PASID detach,
+then a concurrent iommu_report_device_fault() can dereference
+that borrowed handle's domain pointer after the detach erases
+the handle and frees the backing struct iommufd_attach_handle.
+TRIGGER_IOPF then dereferences the freed handle, causing a UAF.
 
-So far the @pasid should only be IOMMU_NO_PASID. No functional change.
+Fix by adding a iopf_rwsem in mock_dev to follow the expected design
+of a real driver. Hold its read side across the whole
+iommu_report_device_fault() call, and its write side around every
+path that attaches, detaches, or replaces a device domain.
+This can block new reports and drains in-flight reports before an old
+attach handle or the IOPF fault parameter can be removed.
+Also take the write side while registering a mock device, since
+it can invoke the mock driver's default-domain attach callback.
 
-Link: https://patch.msgid.link/r/20250321171940.7213-4-yi.l.liu@intel.com
-Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+Closes: https://lore.kernel.org/all/D5E3AA41600B2056+f4e15662-bd2b-43ea-91cb-518de429e72c@smail.nju.edu.cn/
+Fixes: ddee19971081 ("iommufd/selftest: Add IOPF support for mock device")
+Cc: stable@vger.kernel.org
+Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+Assisted-by: Codex:gpt-5.6-terra
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Link: https://patch.msgid.link/38C8DF0A118B7176+20260811095551.2756745-1-peiyang_he@smail.nju.edu.cn
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Stable-dep-of: 8c07df7cdfcf ("iommufd: Fix UAF in selftest IOPF reporting")
+[ adapted locking to the older non-PASID selftest device APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/iommufd/device.c          | 70 +++++++++++++++----------
- drivers/iommu/iommufd/hw_pagetable.c    | 13 ++---
- drivers/iommu/iommufd/iommufd_private.h |  8 +--
- 3 files changed, 52 insertions(+), 39 deletions(-)
+ drivers/iommu/iommufd/selftest.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index 494976d13bf4d..5dc9fa269e3a8 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -367,7 +367,8 @@ static bool iommufd_device_is_attached(struct iommufd_device *idev)
- }
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index aed260d4a93cc..29d20d70d383a 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -138,6 +138,7 @@ enum selftest_obj_type {
  
- static int iommufd_hwpt_attach_device(struct iommufd_hw_pagetable *hwpt,
--				      struct iommufd_device *idev)
-+				      struct iommufd_device *idev,
-+				      ioasid_t pasid)
- {
- 	struct iommufd_attach_handle *handle;
- 	int rc;
-@@ -385,6 +386,7 @@ static int iommufd_hwpt_attach_device(struct iommufd_hw_pagetable *hwpt,
- 	}
+ struct mock_dev {
+ 	struct device dev;
++	struct rw_semaphore iopf_rwsem;
+ 	unsigned long flags;
+ 	int id;
+ };
+@@ -701,6 +702,7 @@ static struct mock_dev *mock_dev_create(unsigned long dev_flags)
+ 	if (!mdev)
+ 		return ERR_PTR(-ENOMEM);
  
- 	handle->idev = idev;
-+	WARN_ON(pasid != IOMMU_NO_PASID);
- 	rc = iommu_attach_group_handle(hwpt->domain, idev->igroup->group,
- 				       &handle->handle);
++	init_rwsem(&mdev->iopf_rwsem);
+ 	device_initialize(&mdev->dev);
+ 	mdev->flags = dev_flags;
+ 	mdev->dev.release = mock_dev_release;
+@@ -715,7 +717,9 @@ static struct mock_dev *mock_dev_create(unsigned long dev_flags)
  	if (rc)
-@@ -401,25 +403,28 @@ static int iommufd_hwpt_attach_device(struct iommufd_hw_pagetable *hwpt,
- }
+ 		goto err_put;
  
- static struct iommufd_attach_handle *
--iommufd_device_get_attach_handle(struct iommufd_device *idev)
-+iommufd_device_get_attach_handle(struct iommufd_device *idev, ioasid_t pasid)
- {
- 	struct iommu_attach_handle *handle;
- 
- 	lockdep_assert_held(&idev->igroup->lock);
- 
- 	handle =
--		iommu_attach_handle_get(idev->igroup->group, IOMMU_NO_PASID, 0);
-+		iommu_attach_handle_get(idev->igroup->group, pasid, 0);
- 	if (IS_ERR(handle))
- 		return NULL;
- 	return to_iommufd_handle(handle);
- }
- 
- static void iommufd_hwpt_detach_device(struct iommufd_hw_pagetable *hwpt,
--				       struct iommufd_device *idev)
-+				       struct iommufd_device *idev,
-+				       ioasid_t pasid)
- {
- 	struct iommufd_attach_handle *handle;
- 
--	handle = iommufd_device_get_attach_handle(idev);
-+	WARN_ON(pasid != IOMMU_NO_PASID);
-+
-+	handle = iommufd_device_get_attach_handle(idev, pasid);
- 	iommu_detach_group_handle(hwpt->domain, idev->igroup->group);
- 	if (hwpt->fault) {
- 		iommufd_auto_response_faults(hwpt, handle);
-@@ -429,13 +434,17 @@ static void iommufd_hwpt_detach_device(struct iommufd_hw_pagetable *hwpt,
- }
- 
- static int iommufd_hwpt_replace_device(struct iommufd_device *idev,
-+				       ioasid_t pasid,
- 				       struct iommufd_hw_pagetable *hwpt,
- 				       struct iommufd_hw_pagetable *old)
- {
--	struct iommufd_attach_handle *handle, *old_handle =
--		iommufd_device_get_attach_handle(idev);
-+	struct iommufd_attach_handle *handle, *old_handle;
- 	int rc;
- 
-+	WARN_ON(pasid != IOMMU_NO_PASID);
-+
-+	old_handle = iommufd_device_get_attach_handle(idev, pasid);
-+
- 	handle = kzalloc(sizeof(*handle), GFP_KERNEL);
- 	if (!handle)
- 		return -ENOMEM;
-@@ -470,7 +479,7 @@ static int iommufd_hwpt_replace_device(struct iommufd_device *idev,
- }
- 
- int iommufd_hw_pagetable_attach(struct iommufd_hw_pagetable *hwpt,
--				struct iommufd_device *idev)
-+				struct iommufd_device *idev, ioasid_t pasid)
- {
- 	struct iommufd_hwpt_paging *hwpt_paging = find_hwpt_paging(hwpt);
- 	int rc;
-@@ -496,7 +505,7 @@ int iommufd_hw_pagetable_attach(struct iommufd_hw_pagetable *hwpt,
- 	 * attachment.
- 	 */
- 	if (list_empty(&idev->igroup->device_list)) {
--		rc = iommufd_hwpt_attach_device(hwpt, idev);
-+		rc = iommufd_hwpt_attach_device(hwpt, idev, pasid);
- 		if (rc)
- 			goto err_unresv;
- 		idev->igroup->hwpt = hwpt;
-@@ -514,7 +523,7 @@ int iommufd_hw_pagetable_attach(struct iommufd_hw_pagetable *hwpt,
- }
- 
- struct iommufd_hw_pagetable *
--iommufd_hw_pagetable_detach(struct iommufd_device *idev)
-+iommufd_hw_pagetable_detach(struct iommufd_device *idev, ioasid_t pasid)
- {
- 	struct iommufd_hw_pagetable *hwpt = idev->igroup->hwpt;
- 	struct iommufd_hwpt_paging *hwpt_paging = find_hwpt_paging(hwpt);
-@@ -522,7 +531,7 @@ iommufd_hw_pagetable_detach(struct iommufd_device *idev)
- 	mutex_lock(&idev->igroup->lock);
- 	list_del(&idev->group_item);
- 	if (list_empty(&idev->igroup->device_list)) {
--		iommufd_hwpt_detach_device(hwpt, idev);
-+		iommufd_hwpt_detach_device(hwpt, idev, pasid);
- 		idev->igroup->hwpt = NULL;
- 	}
- 	if (hwpt_paging)
-@@ -534,12 +543,12 @@ iommufd_hw_pagetable_detach(struct iommufd_device *idev)
- }
- 
- static struct iommufd_hw_pagetable *
--iommufd_device_do_attach(struct iommufd_device *idev,
-+iommufd_device_do_attach(struct iommufd_device *idev, ioasid_t pasid,
- 			 struct iommufd_hw_pagetable *hwpt)
- {
- 	int rc;
- 
--	rc = iommufd_hw_pagetable_attach(hwpt, idev);
-+	rc = iommufd_hw_pagetable_attach(hwpt, idev, pasid);
++	down_write(&mdev->iopf_rwsem);
+ 	rc = device_add(&mdev->dev);
++	up_write(&mdev->iopf_rwsem);
  	if (rc)
- 		return ERR_PTR(rc);
- 	return NULL;
-@@ -588,7 +597,7 @@ iommufd_group_do_replace_reserved_iova(struct iommufd_group *igroup,
- }
- 
- static struct iommufd_hw_pagetable *
--iommufd_device_do_replace(struct iommufd_device *idev,
-+iommufd_device_do_replace(struct iommufd_device *idev, ioasid_t pasid,
- 			  struct iommufd_hw_pagetable *hwpt)
- {
- 	struct iommufd_hwpt_paging *hwpt_paging = find_hwpt_paging(hwpt);
-@@ -622,7 +631,7 @@ iommufd_device_do_replace(struct iommufd_device *idev,
- 			goto err_unlock;
+ 		goto err_put;
+ 	return mdev;
+@@ -770,7 +774,9 @@ static int iommufd_test_mock_domain(struct iommufd_ucmd *ucmd,
  	}
+ 	sobj->idev.idev = idev;
  
--	rc = iommufd_hwpt_replace_device(idev, hwpt, old_hwpt);
-+	rc = iommufd_hwpt_replace_device(idev, pasid, hwpt, old_hwpt);
++	down_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 	rc = iommufd_device_attach(idev, &pt_id);
++	up_write(&sobj->idev.mock_dev->iopf_rwsem);
  	if (rc)
- 		goto err_unresv;
+ 		goto out_unbind;
  
-@@ -655,7 +664,8 @@ iommufd_device_do_replace(struct iommufd_device *idev,
- }
- 
- typedef struct iommufd_hw_pagetable *(*attach_fn)(
--	struct iommufd_device *idev, struct iommufd_hw_pagetable *hwpt);
-+	struct iommufd_device *idev, ioasid_t pasid,
-+	struct iommufd_hw_pagetable *hwpt);
- 
- /*
-  * When automatically managing the domains we search for a compatible domain in
-@@ -663,7 +673,7 @@ typedef struct iommufd_hw_pagetable *(*attach_fn)(
-  * Automatic domain selection will never pick a manually created domain.
-  */
- static struct iommufd_hw_pagetable *
--iommufd_device_auto_get_domain(struct iommufd_device *idev,
-+iommufd_device_auto_get_domain(struct iommufd_device *idev, ioasid_t pasid,
- 			       struct iommufd_ioas *ioas, u32 *pt_id,
- 			       attach_fn do_attach)
- {
-@@ -692,7 +702,7 @@ iommufd_device_auto_get_domain(struct iommufd_device *idev,
- 		hwpt = &hwpt_paging->common;
- 		if (!iommufd_lock_obj(&hwpt->obj))
- 			continue;
--		destroy_hwpt = (*do_attach)(idev, hwpt);
-+		destroy_hwpt = (*do_attach)(idev, pasid, hwpt);
- 		if (IS_ERR(destroy_hwpt)) {
- 			iommufd_put_object(idev->ictx, &hwpt->obj);
- 			/*
-@@ -710,8 +720,8 @@ iommufd_device_auto_get_domain(struct iommufd_device *idev,
- 		goto out_unlock;
- 	}
- 
--	hwpt_paging = iommufd_hwpt_paging_alloc(idev->ictx, ioas, idev, 0,
--						immediate_attach, NULL);
-+	hwpt_paging = iommufd_hwpt_paging_alloc(idev->ictx, ioas, idev, pasid,
-+						0, immediate_attach, NULL);
- 	if (IS_ERR(hwpt_paging)) {
- 		destroy_hwpt = ERR_CAST(hwpt_paging);
- 		goto out_unlock;
-@@ -719,7 +729,7 @@ iommufd_device_auto_get_domain(struct iommufd_device *idev,
- 	hwpt = &hwpt_paging->common;
- 
- 	if (!immediate_attach) {
--		destroy_hwpt = (*do_attach)(idev, hwpt);
-+		destroy_hwpt = (*do_attach)(idev, pasid, hwpt);
- 		if (IS_ERR(destroy_hwpt))
- 			goto out_abort;
- 	} else {
-@@ -740,8 +750,9 @@ iommufd_device_auto_get_domain(struct iommufd_device *idev,
- 	return destroy_hwpt;
- }
- 
--static int iommufd_device_change_pt(struct iommufd_device *idev, u32 *pt_id,
--				    attach_fn do_attach)
-+static int iommufd_device_change_pt(struct iommufd_device *idev,
-+				    ioasid_t pasid,
-+				    u32 *pt_id, attach_fn do_attach)
- {
- 	struct iommufd_hw_pagetable *destroy_hwpt;
- 	struct iommufd_object *pt_obj;
-@@ -756,7 +767,7 @@ static int iommufd_device_change_pt(struct iommufd_device *idev, u32 *pt_id,
- 		struct iommufd_hw_pagetable *hwpt =
- 			container_of(pt_obj, struct iommufd_hw_pagetable, obj);
- 
--		destroy_hwpt = (*do_attach)(idev, hwpt);
-+		destroy_hwpt = (*do_attach)(idev, pasid, hwpt);
- 		if (IS_ERR(destroy_hwpt))
- 			goto out_put_pt_obj;
- 		break;
-@@ -765,8 +776,8 @@ static int iommufd_device_change_pt(struct iommufd_device *idev, u32 *pt_id,
- 		struct iommufd_ioas *ioas =
- 			container_of(pt_obj, struct iommufd_ioas, obj);
- 
--		destroy_hwpt = iommufd_device_auto_get_domain(idev, ioas, pt_id,
--							      do_attach);
-+		destroy_hwpt = iommufd_device_auto_get_domain(idev, pasid, ioas,
-+							      pt_id, do_attach);
- 		if (IS_ERR(destroy_hwpt))
- 			goto out_put_pt_obj;
- 		break;
-@@ -803,7 +814,8 @@ int iommufd_device_attach(struct iommufd_device *idev, u32 *pt_id)
- {
- 	int rc;
- 
--	rc = iommufd_device_change_pt(idev, pt_id, &iommufd_device_do_attach);
-+	rc = iommufd_device_change_pt(idev, IOMMU_NO_PASID, pt_id,
-+				      &iommufd_device_do_attach);
- 	if (rc)
- 		return rc;
- 
-@@ -833,7 +845,7 @@ EXPORT_SYMBOL_NS_GPL(iommufd_device_attach, IOMMUFD);
-  */
- int iommufd_device_replace(struct iommufd_device *idev, u32 *pt_id)
- {
--	return iommufd_device_change_pt(idev, pt_id,
-+	return iommufd_device_change_pt(idev, IOMMU_NO_PASID, pt_id,
- 					&iommufd_device_do_replace);
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_device_replace, IOMMUFD);
-@@ -849,7 +861,7 @@ void iommufd_device_detach(struct iommufd_device *idev)
- {
- 	struct iommufd_hw_pagetable *hwpt;
- 
--	hwpt = iommufd_hw_pagetable_detach(idev);
-+	hwpt = iommufd_hw_pagetable_detach(idev, IOMMU_NO_PASID);
- 	iommufd_hw_pagetable_put(idev->ictx, hwpt);
- 	refcount_dec(&idev->obj.users);
- }
-diff --git a/drivers/iommu/iommufd/hw_pagetable.c b/drivers/iommu/iommufd/hw_pagetable.c
-index 1d080f99d0457..53e31470a1385 100644
---- a/drivers/iommu/iommufd/hw_pagetable.c
-+++ b/drivers/iommu/iommufd/hw_pagetable.c
-@@ -87,6 +87,7 @@ iommufd_hwpt_paging_enforce_cc(struct iommufd_hwpt_paging *hwpt_paging)
-  * @ictx: iommufd context
-  * @ioas: IOAS to associate the domain with
-  * @idev: Device to get an iommu_domain for
-+ * @pasid: PASID to get an iommu_domain for
-  * @flags: Flags from userspace
-  * @immediate_attach: True if idev should be attached to the hwpt
-  * @user_data: The user provided driver specific data describing the domain to
-@@ -102,8 +103,8 @@ iommufd_hwpt_paging_enforce_cc(struct iommufd_hwpt_paging *hwpt_paging)
-  */
- struct iommufd_hwpt_paging *
- iommufd_hwpt_paging_alloc(struct iommufd_ctx *ictx, struct iommufd_ioas *ioas,
--			  struct iommufd_device *idev, u32 flags,
--			  bool immediate_attach,
-+			  struct iommufd_device *idev, ioasid_t pasid,
-+			  u32 flags, bool immediate_attach,
- 			  const struct iommu_user_data *user_data)
- {
- 	const u32 valid_flags = IOMMU_HWPT_ALLOC_NEST_PARENT |
-@@ -183,7 +184,7 @@ iommufd_hwpt_paging_alloc(struct iommufd_ctx *ictx, struct iommufd_ioas *ioas,
- 	 * sequence. Once those drivers are fixed this should be removed.
- 	 */
- 	if (immediate_attach) {
--		rc = iommufd_hw_pagetable_attach(hwpt, idev);
-+		rc = iommufd_hw_pagetable_attach(hwpt, idev, pasid);
- 		if (rc)
- 			goto out_abort;
- 	}
-@@ -196,7 +197,7 @@ iommufd_hwpt_paging_alloc(struct iommufd_ctx *ictx, struct iommufd_ioas *ioas,
+@@ -785,7 +791,9 @@ static int iommufd_test_mock_domain(struct iommufd_ucmd *ucmd,
+ 	return 0;
  
  out_detach:
- 	if (immediate_attach)
--		iommufd_hw_pagetable_detach(idev);
-+		iommufd_hw_pagetable_detach(idev, pasid);
- out_abort:
- 	iommufd_object_abort_and_destroy(ictx, &hwpt->obj);
- 	return ERR_PTR(rc);
-@@ -299,8 +300,8 @@ int iommufd_hwpt_alloc(struct iommufd_ucmd *ucmd)
- 		ioas = container_of(pt_obj, struct iommufd_ioas, obj);
- 		mutex_lock(&ioas->mutex);
- 		hwpt_paging = iommufd_hwpt_paging_alloc(
--			ucmd->ictx, ioas, idev, cmd->flags, false,
--			user_data.len ? &user_data : NULL);
-+			ucmd->ictx, ioas, idev, IOMMU_NO_PASID, cmd->flags,
-+			false, user_data.len ? &user_data : NULL);
- 		if (IS_ERR(hwpt_paging)) {
- 			rc = PTR_ERR(hwpt_paging);
- 			goto out_unlock;
-diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
-index 18cdf1391a034..30476b7cecdc3 100644
---- a/drivers/iommu/iommufd/iommufd_private.h
-+++ b/drivers/iommu/iommufd/iommufd_private.h
-@@ -365,13 +365,13 @@ int iommufd_hwpt_get_dirty_bitmap(struct iommufd_ucmd *ucmd);
++	down_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 	iommufd_device_detach(idev);
++	up_write(&sobj->idev.mock_dev->iopf_rwsem);
+ out_unbind:
+ 	iommufd_device_unbind(idev);
+ out_mdev:
+@@ -819,7 +827,9 @@ static int iommufd_test_mock_domain_replace(struct iommufd_ucmd *ucmd,
+ 		goto out_dev_obj;
+ 	}
  
- struct iommufd_hwpt_paging *
- iommufd_hwpt_paging_alloc(struct iommufd_ctx *ictx, struct iommufd_ioas *ioas,
--			  struct iommufd_device *idev, u32 flags,
--			  bool immediate_attach,
-+			  struct iommufd_device *idev, ioasid_t pasid,
-+			  u32 flags, bool immediate_attach,
- 			  const struct iommu_user_data *user_data);
- int iommufd_hw_pagetable_attach(struct iommufd_hw_pagetable *hwpt,
--				struct iommufd_device *idev);
-+				struct iommufd_device *idev, ioasid_t pasid);
- struct iommufd_hw_pagetable *
--iommufd_hw_pagetable_detach(struct iommufd_device *idev);
-+iommufd_hw_pagetable_detach(struct iommufd_device *idev, ioasid_t pasid);
- void iommufd_hwpt_paging_destroy(struct iommufd_object *obj);
- void iommufd_hwpt_paging_abort(struct iommufd_object *obj);
- void iommufd_hwpt_nested_destroy(struct iommufd_object *obj);
++	down_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 	rc = iommufd_device_replace(sobj->idev.idev, &pt_id);
++	up_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 	if (rc)
+ 		goto out_dev_obj;
+ 
+@@ -1415,10 +1425,16 @@ static int iommufd_test_trigger_iopf(struct iommufd_ucmd *ucmd,
+ {
+ 	struct iopf_fault event = { };
+ 	struct iommufd_device *idev;
++	struct mock_dev *mdev;
+ 
+ 	idev = iommufd_get_device(ucmd, cmd->trigger_iopf.dev_id);
+ 	if (IS_ERR(idev))
+ 		return PTR_ERR(idev);
++	if (!iommufd_selftest_is_mock_dev(idev->dev)) {
++		iommufd_put_object(ucmd->ictx, &idev->obj);
++		return -EINVAL;
++	}
++	mdev = container_of(idev->dev, struct mock_dev, dev);
+ 
+ 	event.fault.prm.flags = IOMMU_FAULT_PAGE_REQUEST_LAST_PAGE;
+ 	if (cmd->trigger_iopf.pasid != IOMMU_NO_PASID)
+@@ -1429,7 +1445,9 @@ static int iommufd_test_trigger_iopf(struct iommufd_ucmd *ucmd,
+ 	event.fault.prm.grpid = cmd->trigger_iopf.grpid;
+ 	event.fault.prm.perm = cmd->trigger_iopf.perm;
+ 
++	down_read(&mdev->iopf_rwsem);
+ 	iommu_report_device_fault(idev->dev, &event);
++	up_read(&mdev->iopf_rwsem);
+ 	iommufd_put_object(ucmd->ictx, &idev->obj);
+ 
+ 	return 0;
+@@ -1441,7 +1459,9 @@ void iommufd_selftest_destroy(struct iommufd_object *obj)
+ 
+ 	switch (sobj->type) {
+ 	case TYPE_IDEV:
++		down_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 		iommufd_device_detach(sobj->idev.idev);
++		up_write(&sobj->idev.mock_dev->iopf_rwsem);
+ 		iommufd_device_unbind(sobj->idev.idev);
+ 		mock_dev_destroy(sobj->idev.mock_dev);
+ 		break;
 -- 
 2.53.0
 
