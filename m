@@ -1,176 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6DD52D2CE
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A40852ED3D
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:45:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950737; cv=none; b=a+jjpOLwxRzsHlW9oALA+7ksJG65nadmMmg5DL4asHmq9Tw3z+71OHtdlLci8x14VSrkkbLvVL1KamqXizTrJY5Rm8GItbkKJ5KdyLsRHO5adaEht8Iurrg1rblC8bAPULL91/929YPiF4DEgKfhpVdO+e2BtS0xxd1dMzUYf+U=
+	t=1788950738; cv=none; b=jyO+UTES+x2GY/bzHffL9tmz20EUAQWrjgNbWc52IcJpCB0QURf0FxrlfsMt+NsDdE6t9VgcnJf/3Sino1GCbANRULXBS3KnrfENUizgITf5e50gNMVcI5tuomFYwxM/hyR/LGoy2hMeUYTM+X5NEBCtq4sW0QZPiPD1TUBiISc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950737; c=relaxed/simple;
-	bh=CVS2YBUQwjgJrcjIGd5RsfJqHzrXhCEdHjpRiBFSAGM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ffiWCds8ysVk8fMxkFlXkqVT4iBvG8Vcb3YqJvqW4NHiwpXHrYvSr7RWqVAS93Le8tCAvWi17BFyjQCh9FuN4WJJ+R0vGqLpqW4yArnmKTfHSROqbyyqcANBFt3HgbcAQLygBUvqMQjrptYmteQwBuKdLeoB3dzd1wgLplg18cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ivJiy1el; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950738; c=relaxed/simple;
+	bh=Dkn0MrRS4b5dxbw71LtlXhV07UoamO7vXIbXvoP8rVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hJg4Y+CREsndgzRZrV2BFG6scTBPZRdSwc9vuRwu57aq0bwLwW3hGfZGWCIHItAGFJ8WS2R77U0KtI1Zw50yycvJa8/jWfegcYAaeUilAklVHYyaPZUvtz36LDhOwBcvTUOz8Iz1ykJ56OP9VQsZzKNRpXAZJDBhflTl1X8DhGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqorw4Fq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ivJiy1el"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D82E1F00A3D;
-	Wed,  9 Sep 2026 10:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950736;
-	bh=+OLtmHLJja1TkROPLHP2Q/fT5iAdOO8X/44A7+xvs2Y=;
-	h=Subject:To:Cc:From:Date;
-	b=ivJiy1eltAqdqGi9xsALdnDdgBDaXFxoRVdBU5OiZLzabhXaScdeQfIDH7ajgyixs
-	 qE27CYlJMW9vDlVC0z9UlDbgV2m8eh4U+6OgpUGeVMOKsjP73B/5EBlv/riIGj2ggq
-	 2wRn0W4Z5IiRQFMPGlDF7ViXthhWBFTmYdYMVJ8Y=
-Subject: FAILED: patch "[PATCH] KVM: s390: Fix memory corruption by not reinjecting CK" failed to apply to 5.10-stable tree
-To: borntraeger@linux.ibm.com,hca@linux.ibm.com,imbrenda@linux.ibm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:35:46 +0200
-Message-ID: <2026090946-monthly-facebook-f216@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqorw4Fq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4EB1F00A3A;
+	Wed,  9 Sep 2026 10:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950737;
+	bh=15WpPoSY2jz0gqdk+MVcOpBqbikv7MnOodk4xtONICA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jqorw4Fq0KbNau4zXoEAsGyu4COi6qj6TQnWQS0yYJlpwWhHAH4hgkHrBmK5Fzagt
+	 4X+8yO3iLRgbQfEQyaO5cNqDeh/q/Hi2OT9n0UV/Gr4MpRAyWSp7SLB8v7Mmc7lb9e
+	 7NUhui06KVesQXvkSkzsCckVpB6L7A4Qnvm3KBgS2dlpZdCP4LhDnDQMgDaSNfEoY/
+	 ScRS4cdWEJn7ElXl01wFuEk7rjdEPgnwOSSAjFKaJUaq5SpH4RP4kEcvffKwdgMFhy
+	 uMRyp8fWDmhOio3E4xuZ3bMuPTY7FIlwE9Uerz9LjoaMnI1tPSFbswgVKV1l63qch4
+	 7h1Lmt8lUJckw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oscar Ou <oscarou@synology.com>,
+	Chuck Lever <cel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] lockd: fix swapped arguments in nlmsvc_match_ip()
+Date: Wed,  9 Sep 2026 06:45:34 -0400
+Message-ID: <20260909104535.1562331-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090301-mustiness-immersion-c821@gregkh>
+References: <2026090301-mustiness-immersion-c821@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Oscar Ou <oscarou@synology.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit b9060689f49dc663e9a3d069c4a65ff63a836e66 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+When releasing locks by server IP address via /proc/fs/nfsd/unlock_ip,
+nlmsvc_unlock_all_by_ip() calls nlm_traverse_files() with the server
+sockaddr as the opaque @data argument:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 546dde823a36d7283dcf46127c2f3d093443860f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090946-monthly-facebook-f216@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+	nlm_traverse_files(server_addr, nlmsvc_match_ip, NULL);
 
-Possible dependencies:
+The match callback is later invoked from nlm_traverse_locks() as:
 
+	match(lockhost, host);
 
+where the first argument is the nlm_host that owns the lock, and the
+second argument is the @data that was originally passed down (here the
+server sockaddr).  This is the convention every other match callback
+relies on (nlmsvc_mark_host(), nlmsvc_same_host(), nlmsvc_is_client()):
+arg1 is the real nlm_host, arg2 is the caller-supplied reference value.
 
-thanks,
+nlmsvc_match_ip() has had these two arguments reversed ever since the
+unlock-by-IP feature was introduced in commit 4373ea84c84d ("lockd:
+unlock lockd locks associated with a given server ip"):
 
-greg k-h
+	return rpc_cmp_addr(nlm_srcaddr(host), datap);
 
------------------- original commit in Linus's tree ------------------
+Here @host is actually the server sockaddr, so nlm_srcaddr(host)
+dereferences a struct sockaddr as a struct nlm_host and reads garbage
+at the offset of h_srcaddr; meanwhile @datap is actually the lock
+owner's nlm_host but is compared as a sockaddr.  As a result the
+comparison practically never matches and locks are not released for the
+requested IP.
 
-From 546dde823a36d7283dcf46127c2f3d093443860f Mon Sep 17 00:00:00 2001
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-Date: Thu, 6 Aug 2026 16:58:35 +0200
-Subject: [PATCH] KVM: s390: Fix memory corruption by not reinjecting CK
- machine checks
+Swap the arguments so the lock owner's source address is compared
+against the requested server address:
 
-Channel-subsystem damage machine checks are for the host channel
-subsystem. The guest channel subsystem is emulated in the userspace VMM.
-There is no point in forwarding such machine checks into the guest.
+	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
 
-This also simplifies the machine check reinjection and avoids kfree of a
-stack variable as reported by sashiko.  There might be still machine
-checks that have the ck bit set with another bit (like instruction
-damage), mask out the CK bit in s390_backup_mcck_info(), like the CP and
-ED bits already are.
-
-Fixes: 4d62fcc0b692 ("KVM: s390: Inject machine check into the guest")
+Fixes: 4373ea84c84d ("lockd: unlock lockd locks associated with a given server ip")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Acked-by: Heiko Carstens <hca@linux.ibm.com>
-Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260806145835.31818-1-borntraeger@linux.ibm.com>
+Signed-off-by: Oscar Ou <oscarou@synology.com>
+[ cel: fix the misleading typedef parameter names too ]
+Link: https://patch.msgid.link/20260617075738.1151797-1-oscarou@synology.com
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/lockd/svcsubs.c          | 2 +-
+ include/linux/lockd/lockd.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
-index 6454c1531854..7919b2b9ac9c 100644
---- a/arch/s390/include/asm/nmi.h
-+++ b/arch/s390/include/asm/nmi.h
-@@ -22,6 +22,7 @@
- #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
- #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
- #define MCCK_CODE_CP			BIT(63 - 9)
-+#define MCCK_CODE_CK			BIT(63 - 11)
- #define MCCK_CODE_STG_ERROR		BIT(63 - 16)
- #define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
- #define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
-@@ -33,6 +34,8 @@
- #define MCCK_CODE_FC_VALID		BIT(63 - 43)
- #define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
- 
-+#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE | MCCK_CODE_CK)
-+
- #ifndef __ASSEMBLER__
- 
- union mci {
-diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
-index e17a59d4d5a4..17297a8b63d9 100644
---- a/arch/s390/kernel/nmi.c
-+++ b/arch/s390/kernel/nmi.c
-@@ -344,8 +344,7 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
- 
- 	sie_page = container_of(sie_block, struct sie_page, sie_block);
- 	mcck_backup = &sie_page->mcck_info;
--	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
--				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
-+	mcck_backup->mcic = get_lowcore()->mcck_interruption_code & ~MCCK_CODE_NO_GUEST;
- 	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
- 	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
- }
-@@ -357,8 +356,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
- #define ED_STP_ISLAND	6	/* External damage STP island check */
- #define ED_STP_SYNC	7	/* External damage STP sync check */
- 
--#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE)
--
- /*
-  * machine check handler.
-  */
-diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
-index 009d6a845d59..0d9fbe75dc66 100644
---- a/arch/s390/kvm/interrupt.c
-+++ b/arch/s390/kvm/interrupt.c
-@@ -3108,9 +3108,7 @@ static int set_adapter_int(struct kvm_kernel_irq_routing_entry *e,
- void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 				     struct mcck_volatile_info *mcck_info)
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index e64e0110f66b5..a967fcdd195f4 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -486,7 +486,7 @@ EXPORT_SYMBOL_GPL(nlmsvc_unlock_all_by_sb);
+ static int
+ nlmsvc_match_ip(void *datap, struct nlm_host *host)
  {
--	struct kvm_s390_interrupt_info inti;
- 	struct kvm_s390_irq irq = {};
--	struct kvm_s390_mchk_info *mchk;
- 	union mci mci;
- 	__u64 cr14 = 0;         /* upper bits are not used */
- 	int rc;
-@@ -3129,20 +3127,14 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 	if (mci.w)
- 		cr14 |= CR14_WARNING_SUBMASK;
- 
--	mchk = mci.ck ? &inti.mchk : &irq.u.mchk;
--	mchk->cr14 = cr14;
--	mchk->mcic = mcck_info->mcic;
--	mchk->ext_damage_code = mcck_info->ext_damage_code;
--	mchk->failing_storage_address = mcck_info->failing_storage_address;
--	if (mci.ck) {
--		/* Inject the floating machine check */
--		inti.type = KVM_S390_MCHK;
--		rc = __inject_vm(vcpu->kvm, &inti);
--	} else {
--		/* Inject the machine check to specified vcpu */
--		irq.type = KVM_S390_MCHK;
--		rc = kvm_s390_inject_vcpu(vcpu, &irq);
--	}
-+	irq.u.mchk.cr14 = cr14;
-+	irq.u.mchk.mcic = mcck_info->mcic;
-+	irq.u.mchk.ext_damage_code = mcck_info->ext_damage_code;
-+	irq.u.mchk.failing_storage_address = mcck_info->failing_storage_address;
-+
-+	/* Inject the machine check to specified vcpu */
-+	irq.type = KVM_S390_MCHK;
-+	rc = kvm_s390_inject_vcpu(vcpu, &irq);
- 	WARN_ON_ONCE(rc);
+-	return rpc_cmp_addr(nlm_srcaddr(host), datap);
++	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
  }
  
+ /**
+diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
+index 0f016d69c996e..e1920a67d6572 100644
+--- a/include/linux/lockd/lockd.h
++++ b/include/linux/lockd/lockd.h
+@@ -268,7 +268,7 @@ void		  nsm_release(struct nsm_handle *nsm);
+  * This is used in garbage collection and resource reclaim
+  * A return value != 0 means destroy the lock/block/share
+  */
+-typedef int	  (*nlm_host_match_fn_t)(void *cur, struct nlm_host *ref);
++typedef int	  (*nlm_host_match_fn_t)(void *owner, struct nlm_host *ref);
+ 
+ /*
+  * Server-side lock handling
+-- 
+2.53.0
 
