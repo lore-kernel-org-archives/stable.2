@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442F54A1E0D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AA049E5F6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:58:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947907; cv=none; b=jQJ6R/aMpq2aGH1sQbWzk7+CgGaKZdC8ewM5AF6Q4tnoQwmXBgY6GEnhfrTjazLIjUbA06v361t7znDNwHQkbhf29fPGjNNF3V4gP1QMdS1EgZjE9z2AgB5oQryQ6aA0fkeA04be6pWMdPQTqip6M6HYYlD/PW3bOimCaXVs5js=
+	t=1788947910; cv=none; b=jtiFeLCvVTdkkGLLg+i9pxZtTFJZj+UUaISwfmRkc85W9yWJHQvXrzYIIHUwmbmVuKK7HwoNkHWDkmyNDv1tJoe81RlJuHT+aSOWcms7W63nQAzTCXqQQfTzn1ZebuUbxNeukzVyErgVFB3vjU/M+LA1BZ/PgSUel2lDxfUF6Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947907; c=relaxed/simple;
-	bh=/QJhheoWSo+RsLQ0RSKHnxeSKvHMSvuCFYfUpQM6CQ4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TXwIyb9ARa1swzd/Jnz+x7tj5dL+qgbRqqQ5HFV9gUFFuV6hCz9NTa5clQrrPFizNFEmUoFWZ+vYc90/rO8WyvCydqfvIeS9rco2XLDhbw/gyCMg834wfYZnwD7u63TW1sn/koJzIZgPgF+dCglaF/yLtSU2XDgiy1ijA6/3eMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qtZZ5DIk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947910; c=relaxed/simple;
+	bh=rMfXZUFTjAb6oXY5qy6hV5b7ft0u2E5dnQJLVa/OGhQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CvJOJmQX1EhHeQNhBibLOoAkBwPQWppBJmqG81JIDD4QhMLn9wF9IANTjFOhGnoe2DTZImM7qa0jAIYc5MsQcs/xNTVjCYw4SrJt6c9CXt/G/zSKcBeER+9bSMqUOsml25wpb7qzNuE7c4YU6y/t4mVJZpZh8KdPY63tHOSSvYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lMO/wJHX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qtZZ5DIk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E711F00A3F;
-	Wed,  9 Sep 2026 09:58:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lMO/wJHX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2C71F00AC4;
+	Wed,  9 Sep 2026 09:58:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947900;
-	bh=NlSfbi4b/vEV26RB6yJ4xzZIqHO6YcNujjBWxfO0KzE=;
+	s=korg; t=1788947906;
+	bh=9EEhNPE+fKZgIrUpfvR+FSScUi2sLZqHzLavdxEKFvE=;
 	h=Subject:To:Cc:From:Date;
-	b=qtZZ5DIkGbKqTgCsMRqHoMav5rA/IQEF9BfsUxoObckvFP9tDv2vaCCxycjiQOSOg
-	 j9E4COONPmxCc88wlClTpvOBD3mFyeUDJhb+tn9uPpXXH2kRXn9BScdYZJm7VjSg0S
-	 G5vU5PEy6Ym1cJOPN94EL5WwCyvUuCoRlOyhBDR0=
-Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 5.15-stable tree
+	b=lMO/wJHXZB+Kg9S4s2wH2F2ZIObvzoxVEErH9EmvvZekdUNNvAazjWCXhh5r/qYXz
+	 HMQ/MPpB+bjbsPZsTATbS1HuL2h7GQ/e2lGKpnesT0NNzT6UMMPZmCQ0YVanqIJacp
+	 jyk2vxViuldztBibg86uGvLnOfcbUyxmEWWJDutk=
+Subject: FAILED: patch "[PATCH] powerpc/kexec_file: Prevent kexec range truncation" failed to apply to 5.10-stable tree
 To: ruanjinjie@huawei.com,maddy@linux.ibm.com,sourabhjain@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:52:25 +0200
-Message-ID: <2026090925-sliceable-cold-552f@gregkh>
+Date: Wed, 09 Sep 2026 11:52:26 +0200
+Message-ID: <2026090926-voltage-around-ae2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x fa40f9dbdd4af53e7445d9135b5b207eb8adf372
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090925-sliceable-cold-552f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090926-voltage-around-ae2b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
