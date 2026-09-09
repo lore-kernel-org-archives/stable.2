@@ -1,47 +1,72 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769893D75BC;
-	Wed,  9 Sep 2026 08:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0108B305E28
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941968; cv=none; b=kWBWD4lz9OCz/5Xwhe5TfhdYScGCPv+SfbProSWA7vwjFGUNqpSBoqABNEIexwXMDYKtDRkGJHBf48X8Qnr34s0iqKbIn/o1qXA56mVpTnf9+zYYlmfRyiSXoiCigGYoYO7macs/eDjHdTxQrbKaV/ukH0xxo5cyn52rFCejZis=
+	t=1788941990; cv=none; b=gkRTlavj/pZb4v95MsJe2MPiN8vt+tBf3UQnwz6XmBdFh9GTJgHKwIDYlJNmWG6FeBr06FlFQXTTMFB8/gqVYLV+qtOEh8QOtssIpF5pH7YmFhxYvvVh9pDYCGX5zNvkyUCi2OGidiTnYcZGe0KHbayAyHvV/kQwYu4PqyPBk/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941968; c=relaxed/simple;
-	bh=Eweh2ZJdfQU7Dv7R4Fi7yHLOyhodOaYwZ8NipnJpAN0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M4T7ofaodkQ5z6YlKBHFfdHtviV/yKEm/FsW52kKEkUcaSy/2pUVpePvmm1sO28HKSz2Ii/fs9o4m/f/2Pb8/GduOzwF88wjRJg+I4kB1wrNlip3T/mzYco6GH+XZzxTpQ273a6o7RsJtcJ53KXsjwuM7zu5yRgbYrq7q64u56I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rE2Djbse; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788941990; c=relaxed/simple;
+	bh=ALiW49F/d5GoTiamQu6mmWXJoA2orkgGP9E7O3/Gnz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hTYSDsIzZssPjabnCRpNXPd26UNRFjVzvxmeDprVMsy40NS/89R+YJqhgtlHy5Fa9qUNvQ4taQLc1ayH5Fsp9bOWMShIRSz5qAZBm69U11Ivu9ZOyPgEGt7nESwUcD801ECRzvY4E5Tudp+ao/t9QP9tJAH7+/5WxK30Lgb7mS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s08dHUCG; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rE2Djbse"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788941961; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=DPj+D/FMh3SGhQq7WXpse/Sshm3bHMv0vOYgTbmCgW0=;
-	b=rE2DjbsedQoaNKWtwwJTdqsqizUvGRgs+DK3tNz7KlmmfjYP6uDzmakNzG3FOH4Va9UcGta/xns1Cngrcth3Y2e4iBlPN7OTkxTs4E46gvbumfeYfLh023pSFoVLCbWGEQrXYz5srEVPg8tF4jmjbC7L8BI5lAy3FTEYtIQy+WE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAeP4mL_1788941639;
-Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XAeP4mL_1788941639 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 16:14:00 +0800
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-To: joro@8bytes.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: suravee.suthikulpanit@amd.com,
-	vasant.hegde@amd.com,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	nicolinc@nvidia.com,
-	joerg.roedel@amd.com,
-	stable@vger.kernel.org,
-	oliver.yang@linux.alibaba.com,
-	zhuo.song@linux.alibaba.com,
-	xueshuai@linux.alibaba.com
-Subject: [PATCH] iommu/amd: Flush stale TLB entries when freeing a nested domain ID
-Date: Wed,  9 Sep 2026 16:13:58 +0800
-Message-Id: <20260909081358.83235-1-xueshuai@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s08dHUCG"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-399026951a2so794434a91.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 01:19:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788941988; x=1789546788; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AeAecISyFtoS/s+HRCWL6bIRyIqegC2fZufUlBFIf1U=;
+        b=s08dHUCGDh8Yuaj03J5nx7CvDVl0sswPEZ0ivo+/HSEMUBn2eIRKbc/3NhSXL7w9nl
+         rP/Q3ufiutXqq4FR40YNGXtqhOH/gQcFbUSMjsOYIKwM+c3INdLineS0GB+HTY4ZF8dG
+         Hj8slaSJiA4V81VN6pkesCcC2WRdTxSwNXdOMucHCDbAOV/6Rl5o365qT4EBq06oTzih
+         qcacU5BV+nvkrReLXsItYeQ8KH0lHVIHNaJ3oFlwyfWe8rPc3Rcnp5Cl9lU4T9PyCx01
+         2B9XnBc2V94KmsSdZEI5ImnzxmUgZezbLHF5/X8wUoa8E9OVNHYyEzsVH0V16//HIqg3
+         +Q1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788941988; x=1789546788;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AeAecISyFtoS/s+HRCWL6bIRyIqegC2fZufUlBFIf1U=;
+        b=fCDicgXKpvaDH7vQm/aQmV8zJAZ+5a9KPd4e1Dax//XjzZvGaijcq7ABInrLQkqgBg
+         PNJeqU1QMoUC3J3HTsWcbiv9yz53EMXXpR5iLsCb5QIs3PiOrlDpTjQB3PxHT18Sz3gj
+         AmN6+M6nN2i081PCd5amCANHXnvHpGRSE8auPVA4ONtkRHY5JjnYVHA3/DRN197XI6nX
+         ObUBcPG9cEr6w9USLfYhy7znpJg+6jRgjzw1e9xjXEa5Y7k/6vMj8KF1UBxO3MHt1NOn
+         vh3FeBB7uhSz0GAD0+Wz+bIEghrqNG0b33ocUzB1AJ+1lCfETAAwT4c/VO2Hmh77WqWL
+         k84w==
+X-Forwarded-Encrypted: i=1; AKwUvBw3KthF7+VzFsHUU847b9i9WxGAIfDEaDd0WtZQTeasPJVAfMrxk8pzziRHGrkMqC8x7ZZ1lyc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVO6McK1vLWwh48kaDZjKo3/McWbQVBtXZ+eN63vcfxyusAtyj
+	vYM9FZqMk1/Y5nfVkxnJkUfZveSvXF/8wfuPbAKmGL3wzg687/bUdmeGoRxx4w==
+X-Gm-Gg: AYBFou1Wwlrs8zF24wQoRNu9firE+ehdu632A7mJnAlD3fm0Pz1Y4viJZ/FaALmwjly
+	fEXMBbBZk/t/CO05Du/PWUz5QBWOt/+H9ZkKt2oNOJIWlldnVhaEXaSfo1VXdtN1j4h1TYp4zHQ
+	fRGLmV0pJlfKt0jcy0rJR7jwEAAlIzcndOqNHVFWsfmb5vDXN0BNL9pHauXIErAYzyFAPmSlloz
+	KaxKVt97Asrow4SQMuctpJEgLiPyADg3gQHwLZRmwtHZvpqMB/xv9eMAfBpcJ2F7C4e2HOWyuQs
+	DlrU29tN/ClVP6xWkBhm33pseGA3iAj00oQcrDo2NQFRuml7uy3tZqMWnsNSMNNTwhP8znNpe0i
+	lYQv5gvD5SPQ7kiNcq5SHHwQ0dPMpwB7IFS+u9YgO2mmgLS835pRszHAimubgjnIbK8r7j9rm1q
+	M6TD9vseBd6LEV4LuBthWnsOSKLKnLBipawmbB2tn8tybI+iJk7xVowvjfXxmXH7EyAvbafsO0a
+	8J0vtr7i/h8rw==
+X-Received: by 2002:a17:90a:2cc5:b0:39b:64e9:2510 with SMTP id 98e67ed59e1d1-39b64e9607amr12279879a91.4.1788941988297;
+        Wed, 09 Sep 2026 01:19:48 -0700 (PDT)
+Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b51eb40e6sm21357488a91.16.2026.09.09.01.19.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 01:19:47 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: ath12k: fix EHT GI reporting in monitor mode
+Date: Wed,  9 Sep 2026 16:19:29 +0800
+Message-ID: <20260909081929.122174-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,87 +75,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A nested domain uses its hdom_id as the domain ID tag for the stage-2
-translations programmed into the DTE.  When the last user of a
-gdom_id -> hdom_id mapping goes away, nested_domain_free() returns
-the hdom_id to the global pool without invalidating the TLB entries
-that were cached under that ID while devices were attached.
+Store the EHT GI value in the EHT-specific RX status field with the EHT
+GI conversion helper.
 
-Once the hdom_id is handed out to a different domain, those stale
-entries become reachable through the new owner of the ID, breaking
-DMA isolation between the two domains.
+The EHT RX path in dp_rx.c already uses rx_status->eht.gi with
+ath12k_mac_eht_gi_to_nl80211_eht_gi(). Align the monitor-mode RX path in
+dp_mon.c with that implementation.
 
-Flush all TLB entries tagged with the hdom_id on the IOMMU of the
-viommu before returning the ID to the pool, the same way
-set_dte_entry() flushes the old domain ID it replaces right after
-calling amd_iommu_update_dte().  This is safe at this point: the
-IOMMU core guarantees that a domain is detached from all devices
-before it is freed, and the mapping's refcount counts nested domain
-objects sharing the mapping rather than devices, so once it drops to
-zero no device translates through the hdom_id anymore.
-
-Fixes: 103f4e7c8544 ("iommu/amd: Add support for nested domain attach/detach")
 Cc: stable@vger.kernel.org
-Assisted-by: Qoder:Qwen-3.8-MAX-Preview
-Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
----
- drivers/iommu/amd/amd_iommu.h | 1 +
- drivers/iommu/amd/iommu.c     | 2 +-
- drivers/iommu/amd/nested.c    | 9 +++++++++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+Fixes: 5393dcb45209 ("wifi: ath12k: change the status update in the monitor Rx")
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
 
-diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
-index a2fe804b038b..97883db687ec 100644
---- a/drivers/iommu/amd/amd_iommu.h
-+++ b/drivers/iommu/amd/amd_iommu.h
-@@ -89,6 +89,7 @@ int amd_iommu_complete_ppr(struct device *dev, u32 pasid, int status, int tag);
-  * This function flushes all internal caches of
-  * the IOMMU used by this driver.
-  */
-+void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id);
- void amd_iommu_flush_all_caches(struct amd_iommu *iommu);
- void amd_iommu_domain_flush_pages(struct protection_domain *domain,
- 				  u64 address, u64 last, u32 flags);
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 4dc306a4b5c6..15bc9ddd93f4 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -1576,7 +1576,7 @@ static void amd_iommu_flush_tlb_all(struct amd_iommu *iommu)
- 	iommu_completion_wait(iommu);
- }
- 
--static void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id)
-+void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id)
- {
- 	struct iommu_cmd cmd;
- 
-diff --git a/drivers/iommu/amd/nested.c b/drivers/iommu/amd/nested.c
-index 63b53b29e029..d92ee06edb4c 100644
---- a/drivers/iommu/amd/nested.c
-+++ b/drivers/iommu/amd/nested.c
-@@ -265,6 +265,8 @@ static void nested_domain_free(struct iommu_domain *dom)
- 	struct guest_domain_mapping_info *curr;
- 	struct nested_domain *ndom __free(kfree) = to_ndomain(dom);
- 	struct amd_iommu_viommu *aviommu = ndom->viommu;
-+	struct amd_iommu *iommu = container_of(aviommu->core.iommu_dev,
-+					       struct amd_iommu, iommu);
- 
- 	xa_lock_irqsave(&aviommu->gdomid_array, irqflags);
- 
-@@ -288,6 +290,13 @@ static void nested_domain_free(struct iommu_domain *dom)
- 	pr_debug("%s: Free gdom_id=%#x, hdom_id=%#x\n",
- 		__func__, ndom->gdom_id, curr->hdom_id);
- 
-+	/*
-+	 * Flush any TLB entries still tagged with this hdom_id before
-+	 * returning it to the global pool, so that a future owner of the
-+	 * ID can not hit stale stage-2 translations.
-+	 */
-+	amd_iommu_flush_tlb_domid(iommu, curr->hdom_id);
-+
- 	amd_iommu_pdom_id_free(ndom->gdom_info->hdom_id);
- 	kfree(curr);
- }
+diff --git a/drivers/net/wireless/ath/ath12k/dp_mon.c b/drivers/net/wireless/ath/ath12k/dp_mon.c
+index 44c5cff75f16..08b3caeee8f9 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_mon.c
++++ b/drivers/net/wireless/ath/ath12k/dp_mon.c
+@@ -176,7 +176,7 @@ ath12k_dp_mon_fill_rx_rate(struct ath12k_pdev_dp *dp_pdev,
+ 			break;
+ 		}
+ 		rx_status->encoding = RX_ENC_EHT;
+-		rx_status->he_gi = ath12k_he_gi_to_nl80211_he_gi(sgi);
++		rx_status->eht.gi = ath12k_mac_eht_gi_to_nl80211_eht_gi(sgi);
+ 		break;
+ 	default:
+ 		ath12k_dbg(ab, ATH12K_DBG_DATA,
 -- 
-2.39.3
+2.55.0
 
