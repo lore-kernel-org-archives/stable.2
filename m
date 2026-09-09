@@ -1,124 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE81E58E2B8
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C19581225;
+	Wed,  9 Sep 2026 14:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963523; cv=none; b=KAXNSsCAhNPzM783EctTSr6FYpxobK2q4Nnvebk1KPqPHPHgLmec66p4wkmo16Jwdk5gWYXUtoAFiPF+A7Mw7icabVKNEcdH8Qor9BDm6q19kqyWvJzeBl0moUzuKAkEc4ngoZCB80OlABvm1DyXAoM0aQPYFg/ps+to2exu6mg=
+	t=1788963524; cv=none; b=lPNoXM1fIXa7nRX6x1cvsK5r6d94jFpCiASVS0bcMteubyLijPrry5E/C83ML/w5PfNiAUmbmak3lAe+EfaLAhovdnCjMh+SDqf9vhlWR5ucZ7LCcRcG4POeLZhBwaYquDdp+3M5MJo7PyzRz9FLQwuJmxDuN9J4fMM/zpC8Q4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963523; c=relaxed/simple;
-	bh=aA0igMpSHfh98ck5uVlFnOSq03LNeL8dR76qNxNQ2dA=;
+	s=arc-20240116; t=1788963524; c=relaxed/simple;
+	bh=0EbwUccueyWGI0ZHdOY42NqYyEU9B+HsJUVtkEh7kRs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oreVcVZg0vDAu8ztjAjtrh3RPExyTwgD8H4Jlt9mJQxJZPnvEl/0xIWyTjkT/Eo5ZRk5aDrOcDxTbojeiXwxzYvEqT5bDWKPeblcnEnm+fUfdo62e6Ef+mI8jmujBFKN1icWShy+7Jy1IHtp3+I9ku/bB/FXQLTDCPy4HaSYMVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1LIDnpy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XYC/cD+z8DeZraq23nHiFmrJ1uNK2Ub0R0iOrjZyPbH4NOnN9gUwjx1dt0uDRMq/LhvwGjaoPbaQUjJDu2qTmKcND8rmICwlZmcJM1HwUr5tDbfN9eCAd7lAuZL3OWQRhZzLHi8Rjs6c/ttWiv11uv0JPC+HlJj+b0UmV/83MWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qHXS3bcF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1LIDnpy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4791F00A3E;
-	Wed,  9 Sep 2026 14:18:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963522;
-	bh=ho1U4zi45ieRIWZFeA+cjpTs1qkRPuEEQ+0f0+8vsL4=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qHXS3bcF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8881F00A3F;
+	Wed,  9 Sep 2026 14:18:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788963523;
+	bh=4N0pw3vf5SswHIs+hrtVQqgiujTluSj1Xh2QCLIjyqs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a1LIDnpyaxgUw5XO0aQ0ESfr0poZmNu0qp3yS8Oq9s16EvXnhgutaICleErXxup94
-	 f1udv7HbNutoeSD4j3tTc/kbwdCwNc45FnK/nqippR9JmOkbyfVRIbH15Wj08IXMI1
-	 zkqfQyNHYi275zEY9MM1yyQ20tlFJ/lRa/OTSUOcVYC43YIpB+9/SiY5oh3+TwfYkD
-	 0bgYNCzMgtGxEOc+wfiXf91XaKaXVEFwEeyTuScN91xv0dsdBbawFJXtOKMr5bobfI
-	 aaORec6vb2PHHCLCOw+Q0ES9oRhbw17DOj8L8u5J9Mr3EDho8g6mqz0J8C9zfUTQ6d
-	 wDT4fsZo2kLkQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=qHXS3bcFi3UJv1TbC/noswvx8A2gN+tQwcZp0/bVU5ZS+RUtcv8fxnqVn/k/PeKpm
+	 bPRTN70TpslxstonK8HjzCvMJ7E4DABo7X8xpwJU10RskkweXEh4SHwVgve9Ug88IP
+	 mAXg0WvGpYnJQXwH5hqpYSYMAX6s3WEv3YsOr9NA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] platform/x86: ISST: Check for admin capability for write commands
-Date: Wed,  9 Sep 2026 10:18:39 -0400
-Message-ID: <20260909141840.2422032-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090311-unboxed-worrier-de27@gregkh>
-References: <2026090311-unboxed-worrier-de27@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com,
+	Niklas Cassel <cassel@kernel.org>,
+	Rihyeon Kim <rihyeon8648@gmail.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 6.18 107/583] nvme-fc: fix double free of fabrics options when nvme_add_ctrl() fails
+Date: Wed,  9 Sep 2026 15:36:32 +0200
+Message-ID: <20260909134241.834125559@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 69cd1ca440a96c85dcedcddfa5e0af6012f60b8b ]
+------------------
 
-In some SST deployments, administrators want to allow reading SST
-capabilities for non-root users. This can be achieved by changing file
-permissions for "/dev/isst_interface", but they still want to prevent
-any changes to the SST configuration by non-root users.
+From: Niklas Cassel <cassel@kernel.org>
 
-This capability was available before for non-TPMI SST. Extend the same
-capability for TPMI SST by adding a check for CAP_SYS_ADMIN for all
-write commands.
+commit 56e6279266f6962bb2d38a54397e3c605165b0c5 upstream.
 
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260107060729.1634420-1-srinivas.pandruvada@linux.intel.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Stable-dep-of: e45d6b847286 ("platform/x86: ISST: Validate max level for set feature")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+nvmf_create_ctrl() owns the fabrics options and frees them whenever
+->create_ctrl() returns an error, so a transport must not free them on
+its own error paths.  nvme-fc tracks this by testing ctrl->ctrl.opts in
+nvme_fc_ctrl_free(), which requires nvme_fc_init_ctrl() to clear that
+pointer on every error exit.
+
+The coupling is implicit, and commit 1a9e218195a5 ("nvme: split device
+add from initialization") broke it by adding a second error exit.  When
+nvme_add_ctrl() fails, nvme_fc_init_ctrl() jumps to out_put_ctrl:, past
+the "ctrl->ctrl.opts = NULL" that only sits on the fail_ctrl: path, so
+nvme_fc_ctrl_free() frees the options and nvmf_create_ctrl() frees them
+a second time:
+
+  BUG: KASAN: slab-use-after-free in nvmf_free_options+0x30/0x190
+   nvmf_free_options+0x30/0x190 drivers/nvme/host/fabrics.c:1284
+   nvmf_create_ctrl drivers/nvme/host/fabrics.c:1374 [inline]
+  Freed by task 5534:
+   nvme_fc_ctrl_free drivers/nvme/host/fc.c:2374 [inline]
+   nvme_fc_init_ctrl+0xe17/0x1450 drivers/nvme/host/fc.c:3605
+
+nvme_add_ctrl() fails when dev_set_name() cannot allocate, so this is
+reachable under memory pressure or fault injection.  Without KASAN the
+options are freed twice.
+
+Rather than clear the pointer on the second exit as well, derive
+ownership the way nvme-tcp, nvme-rdma and nvme-loop do, from list
+membership: their free_ctrl leaves the options alone unless the
+controller made it onto the transport list.
+
+The list cannot simply be populated on the success path as it is there.
+nvme-fc runs the initial connect synchronously via flush_delayed_work(),
+and the controller has to be reachable on rport->ctrl_list for the whole
+of it: nvme_fc_unregister_remoteport() needs to find it to signal
+connectivity loss, nvme_fc_match_disconn_ls() matches an incoming
+Disconnect Association LS against ctrl->association_id, which is only
+assigned during that window, nvme_fc_resume_controller() needs it on
+remoteport re-registration, and nvme_fc_existing_controller() uses it to
+reject a duplicate connect racing the one in flight.
+
+Keep the insertion where it is and add a fail_unlist: label, falling
+into fail_ctrl:, for the error paths that run after it.  The earlier
+error paths never reach the insertion and keep using fail_ctrl:
+directly, so the list is only touched where the controller is actually
+on it.
+
+nvme_fc_ctrl_free() cannot use the plain "goto free_ctrl" the other
+transports use, because it still has to put_device(), release the rport
+reference and free the ida entry for resources taken before the
+insertion.  Sample list_empty() under rport->lock instead.
+
+ctrl->ctrl.opts also stays valid for the whole teardown now.  That is
+not the bug being fixed, but it removes some fragility around the old
+idiom: nvme_free_ctrl() calls nvme_auth_free() before ->free_ctrl(), and
+ctrl_max_dhchaps() dereferences ctrl->opts without a NULL check when
+ctrl->dhchap_ctxs is set, which nvme-fc permits since NVMF_ALLOWED_OPTS
+allows the dhchap options.  The nvme sysfs attributes that dereference
+ctrl->opts, such as hostnqn and address, evaluate their is_visible()
+test once at device_add() time and stay readable until
+cdev_device_del().
+
+Fixes: 1a9e218195a5 ("nvme: split device add from initialization")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f58e57380a6083c4041d
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Tested-by: Rihyeon Kim <rihyeon8648@gmail.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../x86/intel/speed_select_if/isst_tpmi_core.c        | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/nvme/host/fc.c |   26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 9d376306e1e23..3c8fda948b651 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -620,7 +620,7 @@ static long isst_if_core_power_state(void __user *argp)
- 		return -EINVAL;
+--- a/drivers/nvme/host/fc.c
++++ b/drivers/nvme/host/fc.c
+@@ -2356,9 +2356,15 @@ nvme_fc_ctrl_free(struct kref *ref)
+ 	struct nvme_fc_ctrl *ctrl =
+ 		container_of(ref, struct nvme_fc_ctrl, ref);
+ 	unsigned long flags;
++	bool owns_opts;
  
- 	if (core_power.get_set) {
--		if (power_domain_info->write_blocked)
-+		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 			return -EPERM;
+-	/* remove from rport list */
++	/*
++	 * Presence on the rport list means nvme_fc_init_ctrl() completed,
++	 * and with it ownership of the fabrics options passed to it. If it
++	 * failed instead, the options still belong to nvmf_create_ctrl().
++	 */
+ 	spin_lock_irqsave(&ctrl->rport->lock, flags);
++	owns_opts = !list_empty(&ctrl->ctrl_list);
+ 	list_del(&ctrl->ctrl_list);
+ 	spin_unlock_irqrestore(&ctrl->rport->lock, flags);
  
- 		if (core_power.enable > SST_CP_MAX_ENABLE ||
-@@ -679,7 +679,7 @@ static long isst_if_clos_param(void __user *argp)
- 		return -EINVAL;
+@@ -2368,7 +2374,7 @@ nvme_fc_ctrl_free(struct kref *ref)
+ 	nvme_fc_rport_put(ctrl->rport);
  
- 	if (clos_param.get_set) {
--		if (power_domain_info->write_blocked)
-+		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 			return -EPERM;
+ 	ida_free(&nvme_fc_ctrl_cnt, ctrl->cnum);
+-	if (ctrl->ctrl.opts)
++	if (owns_opts)
+ 		nvmf_free_options(ctrl->ctrl.opts);
+ 	kfree(ctrl);
+ }
+@@ -3558,14 +3564,14 @@ nvme_fc_init_ctrl(struct device *dev, st
+ 	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_CONNECTING)) {
+ 		dev_err(ctrl->ctrl.device,
+ 			"NVME-FC{%d}: failed to init ctrl state\n", ctrl->cnum);
+-		goto fail_ctrl;
++		goto fail_unlist;
+ 	}
  
- 		if (!in_range(clos_param.min_freq_mhz / SST_MUL_FACTOR_FREQ, 0, SST_MAX_FREQ + 1))
-@@ -790,7 +790,8 @@ static long isst_if_clos_assoc(void __user *argp)
+ 	if (!queue_delayed_work(nvme_wq, &ctrl->connect_work, 0)) {
+ 		dev_err(ctrl->ctrl.device,
+ 			"NVME-FC{%d}: failed to schedule initial connect\n",
+ 			ctrl->cnum);
+-		goto fail_ctrl;
++		goto fail_unlist;
+ 	}
  
- 		power_domain_info = &sst_inst->power_domain_info[part][punit_id];
+ 	flush_delayed_work(&ctrl->connect_work);
+@@ -3576,14 +3582,22 @@ nvme_fc_init_ctrl(struct device *dev, st
  
--		if (assoc_cmds.get_set && power_domain_info->write_blocked)
-+		if (assoc_cmds.get_set && (power_domain_info->write_blocked ||
-+					   !capable(CAP_SYS_ADMIN)))
- 			return -EPERM;
+ 	return &ctrl->ctrl;
  
- 		offset = SST_CLOS_ASSOC_0_OFFSET +
-@@ -968,7 +969,7 @@ static int isst_if_set_perf_level(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
++fail_unlist:
++	/*
++	 * Leaving the list hands the options back to nvmf_create_ctrl();
++	 * see nvme_fc_ctrl_free().  Re-init so that list_empty() there
++	 * reports the controller as unlisted.
++	 */
++	spin_lock_irqsave(&rport->lock, flags);
++	list_del_init(&ctrl->ctrl_list);
++	spin_unlock_irqrestore(&rport->lock, flags);
++
+ fail_ctrl:
+ 	nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_DELETING);
+ 	cancel_work_sync(&ctrl->ioerr_work);
+ 	cancel_work_sync(&ctrl->ctrl.reset_work);
+ 	cancel_delayed_work_sync(&ctrl->connect_work);
  
--	if (power_domain_info->write_blocked)
-+	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
- 
- 	if (!(power_domain_info->pp_header.allowed_level_mask & BIT(perf_level.level)))
-@@ -1028,7 +1029,7 @@ static int isst_if_set_perf_feature(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
- 
--	if (power_domain_info->write_blocked)
-+	if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 		return -EPERM;
- 
- 	if (perf_feature.feature & ~SST_PP_FEATURE_STATE_VALID_MASK)
--- 
-2.53.0
+-	ctrl->ctrl.opts = NULL;
+-
+ 	if (ctrl->ctrl.admin_tagset)
+ 		nvme_remove_admin_tag_set(&ctrl->ctrl);
+ 	/* initiate nvme ctrl ref counting teardown */
+
 
