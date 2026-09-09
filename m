@@ -1,138 +1,226 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE6E311C1D
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1D7468C2F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966600; cv=none; b=eg/nSkcUj57Gfo0g2Nksem7EOQOq1sgcBQyFsS+dNhKGjyBMLfHSENf9PFle52j91XjOEBfJfIg4ThRrZxppQplYQut97gLop2+cdWrA9z1SyBV1pm9ue38Z+D17vlDEbM52wfanGxNd9s8/1wz1hl7+vZxBBtFqGJqf/4sI2tY=
+	t=1788966625; cv=none; b=GOjt68/fyx1EFxobWEduTe1a3nsfzMvzoIAJcTmMEITbE/bySYHU8Yp6e3n4q9k2KvGGK31jp4+rW0bp2xEidUqJ8yGWX/uICRMGmFmjJJGNK8WvgZIZepSPpZzfKNfTSVXm0X5MfRxZ2T8L20qov8CDV8QdEfm3TP8Re0CqR2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966600; c=relaxed/simple;
-	bh=T4GlgmX7p8/Q+FEg5lvd/Rj10NmfCsTHokzTrlLtBlU=;
+	s=arc-20240116; t=1788966625; c=relaxed/simple;
+	bh=qV6O8hsetPsoUCkZs8CI1mKXH/5TMnS9p2aGRvDBPww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nr64Z4OMBN9sQr0QWdadmfcSL87o5e+URSnyDJGH82azdAeDuvrzASlQtBjJu4uQj6Fq+mtsjyoGvG2rbghvg2S0FqcY8AIJA+8Jty2uK18sQY88IN5MGCYYCNwAEdI1BXAvbFlKTz/Ke1gBbVtd827mC/3yCUOSSigB/GhabNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzsqkEtS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=kEqgv+Y7mDLgFSPfJZwgAJPiXv1QMg+Pv65PHIN5xQuOSV1sZl2s+dtbKkamsUYsWHzBnOf3rYZP1oolylTbpXMvntTdx4Z7a6hUujZ0GUm0koIq0tD4bmqX2X8WYQfPTEcqTmQ2gvUUh2HgG9+PSB2yqhU9F/er1e/wloHObF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TINc47wa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzsqkEtS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B9E1F00A3D;
-	Wed,  9 Sep 2026 15:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TINc47wa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4EF1F00A3D;
+	Wed,  9 Sep 2026 15:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966599;
-	bh=6LmMwFvt+h/g4D+NVwvXBBVT1OY7ClMHnGzKP9ueft0=;
+	s=k20260515; t=1788966624;
+	bh=037h1U1QAcBa822lRl022gNzrOF2ywPkUjMGN7VmheA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JzsqkEtSYUYmqmqqHaD3pRHeVQ9ugLkj0ChKSgtoQxpUWT92oXmatb43r9d+xO9TN
-	 XKruu1MCHyselxcpzLaoF7r6/tVVS0aMbfwVxpcSbGmDcDa9IBRZt9sP/6NdwicXRX
-	 mH8Svh21Poe/UiFcuhNqSzGXSz0t83XnaFzztcqEQmZXeU/r2iFHGQqRpryfUMDElt
-	 cxuRbwJWs+HZmD+ZR8sAbFEprjs5ZTzdTSC5ty8mF1KELB5CIUIwfSNHiFxyZbI9sf
-	 cthYzeY5/SPjy8gOpwqY+tQR59TkYNJwB4p2MZ7xMqre3pespPuCatf6AATucp0r8e
-	 GaMK4YrmrtlLQ==
+	b=TINc47waj+0BZ2MTYpB3l8aEc3DS0szYlLP+12jR0s77C1nSdW2vc/Cn9ylJEL31o
+	 XFZZFbpYeJ6sKL0GQzU56yOp3yu3il++Lwbyt4zGNYZB/7AF5Aret/Atx0nyG5rBGP
+	 RA/+k8ZCGi11DMjplhHZT/frMJv5cMN3SxEHCtszBguoCcNPxWtDKl2Z/oBWxTUsUc
+	 AUTrKhArs6uYQrvOgwVCoWrtO7zN+XM/8gNsvb2O5nYnwGYMqqblbzdjPk2M9UtE/T
+	 uqWTIv53TmV2uaD6S+AhJ6soXx1wEhcJlvn9yRTJ9PjaxHZ34qBJFKFWUpDZ6htbqJ
+	 bCYKGNxwFzYrg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hui Su <sh_def@163.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hdegoede@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] io_uring/waitid: honor task_work cancellation
-Date: Wed,  9 Sep 2026 11:09:54 -0400
-Message-ID: <20260909150954.2816677-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] platform/x86: think-lmi: Replace kstrdup() + strreplace() with kstrdup_and_replace()
+Date: Wed,  9 Sep 2026 11:10:20 -0400
+Message-ID: <20260909151021.2821213-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909150954.2816677-1-sashal@kernel.org>
-References: <2026090344-mooned-reconfirm-9822@gregkh>
- <20260909150954.2816677-1-sashal@kernel.org>
+In-Reply-To: <2026090342-prepay-dwelling-6bbb@gregkh>
+References: <2026090342-prepay-dwelling-6bbb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hui Su <sh_def@163.com>
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-[ Upstream commit 14572de82e5022899e5856008bc9cac97004a88c ]
+[ Upstream commit e621198016e99cddc097d32cd3b56b15cee27d91 ]
 
-io_waitid_cb() may run through the fallback task_work path when
-task_work_add() can no longer queue work to the originating task. The
-fallback runs from a kworker and io_uring marks such task work as
-canceled through tw.cancel.
+Replace open coded functionalify of kstrdup_and_replace() with a call.
 
-io_waitid_cb() currently ignores tw.cancel and calls __do_wait().
-waitid is task-context dependent: __do_wait() performs child lookup
-relative to current, and the retry path also uses
-current->signal->wait_chldexit. If the callback runs from the fallback
-kworker, current is therefore not the task that submitted the request.
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://lore.kernel.org/r/20230918135116.1248560-1-andriy.shevchenko@linux.intel.com
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-Honor tw.cancel before entering __do_wait(). Complete the request with
--ECANCELED and skip the siginfo copy, since canceled task work may run
-without the submitting task's userspace execution context.
+Stable dependency adaptation for 54745d563114b74f6fecebce68cd020d06c1772b:
+Resolve current_value_store() against the existing immediate-save path;
+the bulk-save feature and its reboot guard are absent from this tree.
 
-Keep the existing siginfo handling for normal waitid completion and
-explicit cancellation.
+Also replace the remaining strip_cr() call in current_password_store()
+with strreplace(), and remove the now-unused strip_cr() helper. This is
+the target-relevant portion of upstream 6cb9c8637c672, folded into this
+dependency so the target has the expected context. Keep the target's
+password-length fix for the target commit itself. No functions are added.
 
-Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
-Link: https://patch.msgid.link/20260818103336.1922818-2-sh_def@163.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 54745d563114 ("platform/x86: think-lmi: Fix current password length check")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/waitid.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/platform/x86/think-lmi.c | 52 ++++++++++----------------------
+ 1 file changed, 16 insertions(+), 36 deletions(-)
 
-diff --git a/io_uring/waitid.c b/io_uring/waitid.c
-index e02e5855e221b..309f0a934b575 100644
---- a/io_uring/waitid.c
-+++ b/io_uring/waitid.c
-@@ -125,7 +125,7 @@ static void io_waitid_remove_wq(struct io_kiocb *req)
- 	}
- }
+diff --git a/drivers/platform/x86/think-lmi.c b/drivers/platform/x86/think-lmi.c
+index d5319b4637e18..3f26d9293027d 100644
+--- a/drivers/platform/x86/think-lmi.c
++++ b/drivers/platform/x86/think-lmi.c
+@@ -15,7 +15,7 @@
+ #include <linux/errno.h>
+ #include <linux/fs.h>
+ #include <linux/mutex.h>
+-#include <linux/string.h>
++#include <linux/string_helpers.h>
+ #include <linux/types.h>
+ #include <linux/dmi.h>
+ #include <linux/wmi.h>
+@@ -198,13 +198,6 @@ static struct think_lmi tlmi_priv;
+ static DEFINE_MUTEX(tlmi_mutex);
  
--static void io_waitid_complete(struct io_kiocb *req, int ret)
-+static void io_waitid_complete(struct io_kiocb *req, int ret, bool copy_si)
+ /* ------ Utility functions ------------*/
+-/* Strip out CR if one is present */
+-static void strip_cr(char *str)
+-{
+-	char *p = strchrnul(str, '\n');
+-	*p = '\0';
+-}
+-
+ /* Convert BIOS WMI error string to suitable error code */
+ static int tlmi_errstr_to_err(const char *errstr)
  {
- 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+@@ -410,7 +403,7 @@ static ssize_t current_password_store(struct kobject *kobj,
  
-@@ -137,7 +137,10 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
- 	hlist_del_init(&req->hash_node);
- 	io_waitid_remove_wq(req);
- 
--	ret = io_waitid_finish(req, ret);
-+	if (copy_si)
-+		ret = io_waitid_finish(req, ret);
-+	else
-+		io_waitid_free(req);
- 	if (ret < 0)
- 		req_set_fail(req);
- 	io_req_set_res(req, ret, 0);
-@@ -159,7 +162,7 @@ static bool __io_waitid_cancel(struct io_kiocb *req)
- 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
- 		return false;
- 
--	io_waitid_complete(req, -ECANCELED);
-+	io_waitid_complete(req, -ECANCELED, true);
- 	io_req_queue_tw_complete(req, -ECANCELED);
- 	return true;
+ 	strscpy(setting->password, buf, setting->maxlen);
+ 	/* Strip out CR if one is present, setting password won't work if it is present */
+-	strip_cr(setting->password);
++	strreplace(setting->password, '\n', '\0');
+ 	return count;
  }
-@@ -202,6 +205,11 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 	int ret;
  
- 	io_tw_lock(ctx, tw);
-+	if (unlikely(tw.cancel)) {
-+		io_waitid_complete(req, -ECANCELED, false);
-+		io_req_task_complete(tw_req, tw);
-+		return;
-+	}
+@@ -431,13 +424,11 @@ static ssize_t new_password_store(struct kobject *kobj,
+ 	if (!tlmi_priv.can_set_bios_password)
+ 		return -EOPNOTSUPP;
  
- 	ret = __do_wait(&iwa->wo);
+-	new_pwd = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present, setting password won't work if it is present */
++	new_pwd = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_pwd)
+ 		return -ENOMEM;
  
-@@ -229,7 +237,7 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 		}
+-	/* Strip out CR if one is present, setting password won't work if it is present */
+-	strip_cr(new_pwd);
+-
+ 	/* Use lock in case multiple WMI operations needed */
+ 	mutex_lock(&tlmi_mutex);
+ 
+@@ -708,13 +699,11 @@ static ssize_t cert_to_password_store(struct kobject *kobj,
+ 	if (!setting->signature || !setting->signature[0])
+ 		return -EACCES;
+ 
+-	passwd = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	passwd = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!passwd)
+ 		return -ENOMEM;
+ 
+-	/* Strip out CR if one is present */
+-	strip_cr(passwd);
+-
+ 	/* Format: 'Password,Signature' */
+ 	auth_str = kasprintf(GFP_KERNEL, "%s,%s", passwd, setting->signature);
+ 	if (!auth_str) {
+@@ -764,11 +753,10 @@ static ssize_t certificate_store(struct kobject *kobj,
+ 		return ret ?: count;
  	}
  
--	io_waitid_complete(req, ret);
-+	io_waitid_complete(req, ret, true);
- 	io_req_task_complete(tw_req, tw);
- }
+-	new_cert = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	new_cert = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_cert)
+ 		return -ENOMEM;
+-	/* Strip out CR if one is present */
+-	strip_cr(new_cert);
  
+ 	if (setting->cert_installed) {
+ 		/* Certificate is installed so this is an update */
+@@ -816,13 +804,11 @@ static ssize_t signature_store(struct kobject *kobj,
+ 	if (!tlmi_priv.certificate_support)
+ 		return -EOPNOTSUPP;
+ 
+-	new_signature = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	new_signature = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_signature)
+ 		return -ENOMEM;
+ 
+-	/* Strip out CR if one is present */
+-	strip_cr(new_signature);
+-
+ 	/* Free any previous signature */
+ 	kfree(setting->signature);
+ 	setting->signature = new_signature;
+@@ -845,13 +831,11 @@ static ssize_t save_signature_store(struct kobject *kobj,
+ 	if (!tlmi_priv.certificate_support)
+ 		return -EOPNOTSUPP;
+ 
+-	new_signature = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	new_signature = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_signature)
+ 		return -ENOMEM;
+ 
+-	/* Strip out CR if one is present */
+-	strip_cr(new_signature);
+-
+ 	/* Free any previous signature */
+ 	kfree(setting->save_signature);
+ 	setting->save_signature = new_signature;
+@@ -985,13 +969,11 @@ static ssize_t current_value_store(struct kobject *kobj,
+ 	if (!tlmi_priv.can_set_bios_settings)
+ 		return -EOPNOTSUPP;
+ 
+-	new_setting = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	new_setting = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_setting)
+ 		return -ENOMEM;
+ 
+-	/* Strip out CR if one is present */
+-	strip_cr(new_setting);
+-
+ 	/* Use lock in case multiple WMI operations needed */
+ 	mutex_lock(&tlmi_mutex);
+ 
+@@ -1168,13 +1150,11 @@ static ssize_t debug_cmd_store(struct kobject *kobj, struct kobj_attribute *attr
+ 	if (!tlmi_priv.can_debug_cmd)
+ 		return -EOPNOTSUPP;
+ 
+-	new_setting = kstrdup(buf, GFP_KERNEL);
++	/* Strip out CR if one is present */
++	new_setting = kstrdup_and_replace(buf, '\n', '\0', GFP_KERNEL);
+ 	if (!new_setting)
+ 		return -ENOMEM;
+ 
+-	/* Strip out CR if one is present */
+-	strip_cr(new_setting);
+-
+ 	if (tlmi_priv.pwd_admin->valid && tlmi_priv.pwd_admin->password[0]) {
+ 		auth_str = kasprintf(GFP_KERNEL, "%s,%s,%s;",
+ 				tlmi_priv.pwd_admin->password,
 -- 
 2.53.0
 
