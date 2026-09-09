@@ -1,150 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33E654937E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8A75476C6
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953487; cv=none; b=Sse8N91BwfeeJ0X7wXv4lyeV0Wa49W11cB6CjDGXNSW2DJ5sB2wcxcC91P/9+wVdAVy7BlCmyaI7GZFKHRdx/T0+uLuZe9d3U7cFXNfyNuvrEvpqiCXOoMqFDe6+UB4ecULZXJzgCyBYnrQCIXJHuUlXF4yMjMooY1pzaog1n50=
+	t=1788953499; cv=none; b=RkptsikKlWfk2whdu+C1ae3wd/XYnggBLIaaIjCpbEDcJJAg3nrojw0DRG+iRogTSHeZmTmo3tCqA8/Bt7GW6Q88hTEa+JjTbpQJWxQzf9ZnpyuhO0FcT6NAYz8lpo0Diyjb9macYjzf+v/2P4osxvCzSAh6nGLAYf6/p10Y900=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953487; c=relaxed/simple;
-	bh=C6ff9KcyqOndaRsGzyeVcjE1aS8hBY1J6uCvEO7yFsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P2Y2LnFTr06US3Bzs2YKdD5UuYhS94pYTKuZoStcoEgVByfp6KtjYB/r/6jlgqYh0aosI4a0TzGTBXGOv5ESUeEujL5rs7veoOqLfPJPw4bh72ifVPLWIf4Iy8L9kSiSjQbiWxn8RnDTaJWgdqu1aorU8dbyqu2WwNgU7O4mNVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhRC2u1c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953499; c=relaxed/simple;
+	bh=gXMJw/DQ+kIBXhLqPTjgG8GcAowRylo+yXDoPCBkgwQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IwWA1SOs7+Etr8VZKdSklMUBxUqsvVs+Gzy54Kvz5bf6LXEckfM7QGWGwQQALElFbst2RLl3RebpGOFzLjbq/e6oB3XaQSYN1yhVgbqtf9KA1UJOUHslfjnyeMT0epvu0qwlVrSFs4A2++NZhX24lBhVTSBS36htqoAT8wwuIQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lgu9UQTY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhRC2u1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA891F01567;
-	Wed,  9 Sep 2026 11:31:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lgu9UQTY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372451F01566
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953483;
-	bh=1OGMkGaKi4WvelAN3MNA1pHz6jf0IvkJHdkNzFaqspo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mhRC2u1coAv+XJZ08coT3vjoyEtIQ/T97+Fwnok/gcOMAyeVyzscB++hNs4DfE+MB
-	 lSZdUMTC/OWKsGz0PsJUooIq04vkoKGB7eACiboZdqVEMIBbdeuhY3pOO00mIKeHs2
-	 +xV2dfWRpAhIpG3UsAoakbVLIUTDCHDjTcLUVG2c6DZoYAv3LHun+vlCpI3+cd4i92
-	 ZeDVX0cpO3/QA6Uj+R8Rv6dKoPh8/5je8CYhRR1tZq/w7iepiZy61AEEntY8hukgeK
-	 9Nv6pJSE0RTvqnTqhIjhge6fwFOKUL+BTZZwNClkQdqf4oOBitzXKLW2tPQLrUVI7E
-	 ZXyIzQjbDGc2Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] power: supply: rt9455: quiesce delayed work before teardown
-Date: Wed,  9 Sep 2026 07:31:20 -0400
-Message-ID: <20260909113120.1865251-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909113120.1865251-1-sashal@kernel.org>
-References: <2026090323-starlight-drainable-44b5@gregkh>
- <20260909113120.1865251-1-sashal@kernel.org>
+	s=k20260515; t=1788953497;
+	bh=4HrDWZ38uz9eK5QO7WA7e1rSHfMfcm4h44xrKZFOY9c=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Lgu9UQTYB/wumaHz1xnypB7xjEMGRnX170oyZY53mDQpAI9jPWTsPtVtaIqAnqhsP
+	 Bli5+2apr/kL/Tix4LYZai5TDPa+r3/TL8/GwSuTLgEmpNTvj7I34+U8CY8gLHqeTN
+	 lHaYcanqPMrbT5wP4ndecxV47W8K6q5xIiD8jLoUXw6VcnvZYHu9Y1MTSn/xAN9hgh
+	 ZCNQFEtcTCKuZzLjTrUeosovfUnFgXbjs5wc1Vv6P2aaA4GZMRL9H/BtN4svte4TMD
+	 78B1XJoFLxdimyNOLkncz+vGlVIzml9fhQN1lR3uNrm2U3a4tUug0l9QvRv0uaHQHl
+	 /FN45hgL1Vqww==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a33307ecd9so61838191fa.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 04:31:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwh+fIW0lqPz1VrAS8FpN/z6GPOTluenNTEsxDd37tgXeRVBy2Fa+CR2sMwWoBKy3tmZkJ+m8o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nul6pH4u3UQydEgRUH1N0l0duUjphXis0/UoVdAHYaKsYrobtM
+	KPRfV7+NlI7SM09rPwmJXe/3j+XRnMHdtPrDz+i/QGER+aiuExubzBTT5cT+WcYxiO0nkwq8ZlG
+	N/5q4Avfcz9MCLpljbLmjpf+3255qcmzsz+G2i0bKrg==
+X-Received: by 2002:a05:651c:3049:b0:3a3:a3:3560 with SMTP id
+ 38308e7fff4ca-3a371b2e558mr39827311fa.6.1788953495876; Wed, 09 Sep 2026
+ 04:31:35 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 04:31:33 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 04:31:33 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260909080114.591938-2-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260909080114.591938-1-herve.codina@bootlin.com> <20260909080114.591938-2-herve.codina@bootlin.com>
+Date: Wed, 9 Sep 2026 04:31:33 -0700
+X-Gmail-Original-Message-ID: <CAMRc=McjcRnO5PWPNqR0387dRHyBU0057LmbKyVstq5m1ghspw@mail.gmail.com>
+X-Gm-Features: AcwNN1Xw1KvJ4chWgNCRGrWjb7O5pyZPCvmfkUuZ4FsL0lp5LvW4mH7OpBMH6KI
+Message-ID: <CAMRc=McjcRnO5PWPNqR0387dRHyBU0057LmbKyVstq5m1ghspw@mail.gmail.com>
+Subject: Re: [PATCH v11 01/10] driver core: fw_devlink: Introduce fw_devlink_set_device()
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
+	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
+	Daniel Machon <daniel.machon@microchip.com>, Steen Hegelund <steen.hegelund@microchip.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	stable@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>, 
+	Richard Cheng <icheng@nvidia.com>, Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
+	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Len Brown <lenb@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, 
+	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
+	Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, 
+	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On Wed, 9 Sep 2026 10:01:00 +0200, Herve Codina <herve.codina@bootlin.com> said:
+> Setting fwnode->dev is specific to fw_devlink.
+>
+> In order to avoid having a direct 'fwnode->dev = dev;' in several
+> place in the kernel, introduce fw_devlink_set_device() helper to perform
+> this operation.
+>
+> Having this helper allows to hide the fwnode devlink related stuff
+> behind the helper.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+> ---
+> Cc stable because used by other patches with Fixes + Cc stable
+> ---
+>  include/linux/fwnode.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+> index a9dcaf7e7076..3ce49575cf82 100644
+> --- a/include/linux/fwnode.h
+> +++ b/include/linux/fwnode.h
+> @@ -260,4 +260,10 @@ void fw_devlink_purge_absent_suppliers(struct fwnode_handle *fwnode);
+>  void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode);
+>  bool fw_devlink_is_strict(void);
+>
+> +static inline void fw_devlink_set_device(struct fwnode_handle *fwnode,
+> +					 struct device *dev)
+> +{
+> +	fwnode->dev = dev;
+> +}
+> +
+>  #endif
+> --
+> 2.55.0
+>
+>
+>
 
-[ Upstream commit 3e7a1ebc32fad5a558254a478efd401c17a24381 ]
-
-The threaded IRQ handler can queue pwr_rdy_work,
-max_charging_time_work and batt_presence_work.  pwr_rdy_work and
-batt_presence_work can also queue max_charging_time_work, while
-batt_presence_work can requeue itself.
-
-rt9455_remove() cancels max_charging_time_work before
-batt_presence_work.  The latter can therefore queue
-max_charging_time_work after it has already been cancelled:
-
-  rt9455_remove()                   workqueue
-    cancel pwr_rdy_work
-    cancel max_charging_time_work
-                                      batt_presence_work queues
-                                        max_charging_time_work
-    cancel batt_presence_work
-    return
-    devres frees rt9455_info
-                                      max_charging_time_work dereferences
-                                        rt9455_info
-
-The IRQ also remains registered until devres cleanup and can queue more
-work after any of the cancellation calls.  If rt9455_hw_init() fails
-after the IRQ has been requested, probe returns without cancelling work
-that may already have been queued.  A pending callback can then access
-rt9455_info after it has been freed.
-
-Register rt9455_cancel_all_delayed_works() through
-devm_add_action_or_reset() right after devm_power_supply_register().
-devres invokes the action in reverse registration order, after the
-managed IRQ has been freed and before rt9455_info is released, so the
-delayed works are drained in both rt9455_remove() and the probe error
-path.  Cancel pwr_rdy_work and batt_presence_work before
-max_charging_time_work because both can queue the latter.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: e86d69dd786e ("power_supply: Add support for Richtek RT9455 battery charger")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260723225310.12663-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ retained the int-returning rt9455_remove() callback required by the older I²C interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/power/supply/rt9455_charger.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/power/supply/rt9455_charger.c b/drivers/power/supply/rt9455_charger.c
-index 6f6adc7446a6d..310cae3f61f09 100644
---- a/drivers/power/supply/rt9455_charger.c
-+++ b/drivers/power/supply/rt9455_charger.c
-@@ -1583,6 +1583,19 @@ static const struct regmap_config rt9455_regmap_config = {
- 	.cache_type	= REGCACHE_RBTREE,
- };
- 
-+static void rt9455_cancel_all_delayed_works(void *data)
-+{
-+	struct rt9455_info *info = data;
-+
-+	/*
-+	 * Both pwr_rdy_work and batt_presence_work can queue
-+	 * max_charging_time_work, so cancel them first.
-+	 */
-+	cancel_delayed_work_sync(&info->pwr_rdy_work);
-+	cancel_delayed_work_sync(&info->batt_presence_work);
-+	cancel_delayed_work_sync(&info->max_charging_time_work);
-+}
-+
- static int rt9455_probe(struct i2c_client *client)
- {
- 	struct i2c_adapter *adapter = client->adapter;
-@@ -1673,6 +1686,10 @@ static int rt9455_probe(struct i2c_client *client)
- 		goto put_usb_notifier;
- 	}
- 
-+	ret = devm_add_action_or_reset(dev, rt9455_cancel_all_delayed_works, info);
-+	if (ret)
-+		goto put_usb_notifier;
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					rt9455_irq_handler_thread,
- 					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-@@ -1714,10 +1731,6 @@ static int rt9455_remove(struct i2c_client *client)
- 		usb_unregister_notifier(info->usb_phy, &info->nb);
- #endif
- 
--	cancel_delayed_work_sync(&info->pwr_rdy_work);
--	cancel_delayed_work_sync(&info->max_charging_time_work);
--	cancel_delayed_work_sync(&info->batt_presence_work);
--
- 	return ret;
- }
- 
--- 
-2.53.0
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
