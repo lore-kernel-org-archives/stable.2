@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821D7582BB1
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2905057ED98
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971246; cv=none; b=hjHZBR/ObrY1cY8ik/KpAvAhq83M9y7pdFwK3msE6KQPpSIIvttzg1aquwdj7aUE8ods8ABKBfsXsMpG1AWo11w3F9du7oplTv2SvllRl/o1p+rgXsLsiuz2oYaNIvyRWANsLP7KfC51XJSfe+zNnWMfUNJECIUrtpYNO1z8whU=
+	t=1788971254; cv=none; b=uReKGqEYX3+0vk1OfqIagSORL6b86Kr3NKNiMx4gG8YjOmNa8LpLMPktVGx8m/TDxF6UnltCRERg6l05BCYurI4nHiX9f8+d/nZV7rY8dloMEiFDPCfxdqNA1ONC7PGstvyG+LHWgsdANNk0eZGE+F4D0LAhdtlc2vFCbCeVorc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971246; c=relaxed/simple;
-	bh=BKhFh0OAfHqwXiFFLTLEfkOH1kXUOsw/N3L3lHHOhTc=;
+	s=arc-20240116; t=1788971254; c=relaxed/simple;
+	bh=veu+BI5Ueoz6s4BwiKh2E1GQ5AfL3XReM26QNY4MQbE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NMcYKdrV6pQ+kXe1qnjApujGXf+zsx9Sn9Hz1l7Rq9/8erFAtI0Of0Vx0iRyNcl291BX6e38KHsL2NCAjbryj80l1+Ms2e3kTRxh1YaS0x2f77pWImQLHQlZD3xdRP6EeYFouPQOa1AbiYj880QsmU/vZnNHUv9kuE1gSB/Dzcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1tL6lIK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jE3y8j27Ds2rOVkxaQ6ZB8hJYaCKOpNrtupL364OHpAb94mRcFcSUMnlUE2d5UJdioUxhF7Fy3ADhBGTiuUwoO31mnUsdO7FcUVSOhX8A3tCE9SyWbosbtsm4vHq2F0hdmhf33g0DlU2dM9Z0SyZPqwVGfYaLstFCNiZkvrLEvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/fnthoO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1tL6lIK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E625C1F00898;
-	Wed,  9 Sep 2026 16:27:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/fnthoO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412B01F00893;
+	Wed,  9 Sep 2026 16:27:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971245;
-	bh=+pv+XRo+UWIaT1LyWsknh49KzNun8G/4Ip7nGZbvYco=;
+	s=k20260515; t=1788971253;
+	bh=CrEQm4JY0e58aSJFObvWTHnqKd7tjpKVQp+YKvjE6v4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H1tL6lIK0hmzOmF027pQmnP80JvhSAleW+CMmZ2D+88USoMOkd7M22usVzNDXuiYP
-	 VF/9veZta/68i92Apx/yKd05/0d600Am+0xcaEDLFpBC2QDg9VWqzV8NCtx2HaReJj
-	 R4up3mEwGEDqaSXnHXYyKhf0C8wkGqPQmT4FZkhZd52eJ5kqDv6wl+MpCgmmJT+QkD
-	 wkalcTe+Mt6E+9f/JGe/ymng6CfdX74SgELPrbQdqlokM6JppBoT41xoUOXvBqDf5n
-	 y11tI/VqHXS1R9czEn92nOGuftOWTZcoqsSnL8R8HYQbeb+Hcu2lYBaYRXWL2fbded
-	 qc6DHVBzkV4mg==
+	b=g/fnthoOSDLT2D3wD6tHTa+8W6NZCw8tP0XW6bSbmi9IP90MG3TpIzCkBpHFjmkDh
+	 N2qMo+XQ24MpgUu3/B7Nakn0QjfDHVnfKOzccmkM0TLK5vfRvZNVt/QLp9GP/rNGzO
+	 80Ntw959eQJXrsFcq0aGXYFsXeMi01VbLxoy6DcDJymn6E6Lg4fW0b6EW5i+j1Av9O
+	 l61yjKhKXiM7On53ks6whAR9VuuBXN4JH+NdWFoUgPDm1EbCurZoDfLSpNlS5bSuh0
+	 WxAwoJXkeVi886jFBgA3ldf/O9H5GOLWReRmIkrlQGDNe7uMoIUXohdNtulh3wWh89
+	 eS8ZD9Jo+9FiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hui Su <sh_def@163.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] io_uring/waitid: honor task_work cancellation
-Date: Wed,  9 Sep 2026 12:27:19 -0400
-Message-ID: <20260909162719.2984896-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] net: dsa: realtek: keep variant reference in realtek_priv
+Date: Wed,  9 Sep 2026 12:27:28 -0400
+Message-ID: <20260909162729.2986277-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162719.2984896-1-sashal@kernel.org>
-References: <2026090345-dolly-jolliness-3485@gregkh>
- <20260909162719.2984896-1-sashal@kernel.org>
+In-Reply-To: <2026090349-lake-barista-93d3@gregkh>
+References: <2026090349-lake-barista-93d3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,93 +48,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hui Su <sh_def@163.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-[ Upstream commit 14572de82e5022899e5856008bc9cac97004a88c ]
+[ Upstream commit 4667a1db2f550d23e01ba655fce331196ead6e92 ]
 
-io_waitid_cb() may run through the fallback task_work path when
-task_work_add() can no longer queue work to the originating task. The
-fallback runs from a kworker and io_uring marks such task work as
-canceled through tw.cancel.
+Instead of copying values from the variant, we can keep a reference in
+realtek_priv.
 
-io_waitid_cb() currently ignores tw.cancel and calls __do_wait().
-waitid is task-context dependent: __do_wait() performs child lookup
-relative to current, and the retry path also uses
-current->signal->wait_chldexit. If the callback runs from the fallback
-kworker, current is therefore not the task that submitted the request.
+This is a preliminary change for sharing code betwen interfaces. It will
+allow to move most of the probe into a common module while still allow
+code specific to each interface to read variant fields.
 
-Honor tw.cancel before entering __do_wait(). Complete the request with
--ECANCELED and skip the siginfo copy, since canceled task work may run
-without the submitting task's userspace execution context.
-
-Keep the existing siginfo handling for normal waitid completion and
-explicit cancellation.
-
-Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
-Link: https://patch.msgid.link/20260818103336.1922818-2-sh_def@163.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: fb58b6a696b3 ("net: dsa: realtek: use gpiod_set_value_cansleep for reset GPIO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/waitid.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/net/dsa/realtek/realtek-mdio.c |  4 +---
+ drivers/net/dsa/realtek/realtek-smi.c  | 10 ++++------
+ drivers/net/dsa/realtek/realtek.h      |  5 ++---
+ 3 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/io_uring/waitid.c b/io_uring/waitid.c
-index f3222cb30cdea..d0ae5194191bf 100644
---- a/io_uring/waitid.c
-+++ b/io_uring/waitid.c
-@@ -131,7 +131,7 @@ static void io_waitid_remove_wq(struct io_kiocb *req)
- 	}
- }
+diff --git a/drivers/net/dsa/realtek/realtek-mdio.c b/drivers/net/dsa/realtek/realtek-mdio.c
+index 292e6d087e8b9..a0ba3fc4dc7c8 100644
+--- a/drivers/net/dsa/realtek/realtek-mdio.c
++++ b/drivers/net/dsa/realtek/realtek-mdio.c
+@@ -183,9 +183,7 @@ static int realtek_mdio_probe(struct mdio_device *mdiodev)
+ 	priv->dev = &mdiodev->dev;
+ 	priv->chip_data = (void *)priv + sizeof(*priv);
  
--static void io_waitid_complete(struct io_kiocb *req, int ret)
-+static void io_waitid_complete(struct io_kiocb *req, int ret, bool copy_si)
+-	priv->clk_delay = var->clk_delay;
+-	priv->cmd_read = var->cmd_read;
+-	priv->cmd_write = var->cmd_write;
++	priv->variant = var;
+ 	priv->ops = var->ops;
+ 
+ 	priv->write_reg_noack = realtek_mdio_write;
+diff --git a/drivers/net/dsa/realtek/realtek-smi.c b/drivers/net/dsa/realtek/realtek-smi.c
+index ff13563059c50..52c0f5b6de90f 100644
+--- a/drivers/net/dsa/realtek/realtek-smi.c
++++ b/drivers/net/dsa/realtek/realtek-smi.c
+@@ -45,7 +45,7 @@
+ 
+ static inline void realtek_smi_clk_delay(struct realtek_priv *priv)
  {
- 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
- 
-@@ -143,7 +143,10 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
- 	hlist_del_init(&req->hash_node);
- 	io_waitid_remove_wq(req);
- 
--	ret = io_waitid_finish(req, ret);
-+	if (copy_si)
-+		ret = io_waitid_finish(req, ret);
-+	else
-+		io_waitid_free(req);
- 	if (ret < 0)
- 		req_set_fail(req);
- 	io_req_set_res(req, ret, 0);
-@@ -165,7 +168,7 @@ static bool __io_waitid_cancel(struct io_ring_ctx *ctx, struct io_kiocb *req)
- 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
- 		return false;
- 
--	io_waitid_complete(req, -ECANCELED);
-+	io_waitid_complete(req, -ECANCELED, true);
- 	io_req_queue_tw_complete(req, -ECANCELED);
- 	return true;
- }
-@@ -244,6 +247,11 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 	int ret;
- 
- 	io_tw_lock(ctx, tw);
-+	if (unlikely(tw.cancel)) {
-+		io_waitid_complete(req, -ECANCELED, false);
-+		io_req_task_complete(tw_req, tw);
-+		return;
-+	}
- 
- 	ret = __do_wait(&iwa->wo);
- 
-@@ -271,7 +279,7 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 		}
- 	}
- 
--	io_waitid_complete(req, ret);
-+	io_waitid_complete(req, ret, true);
- 	io_req_task_complete(tw_req, tw);
+-	ndelay(priv->clk_delay);
++	ndelay(priv->variant->clk_delay);
  }
  
+ static void realtek_smi_start(struct realtek_priv *priv)
+@@ -208,7 +208,7 @@ static int realtek_smi_read_reg(struct realtek_priv *priv, u32 addr, u32 *data)
+ 	realtek_smi_start(priv);
+ 
+ 	/* Send READ command */
+-	ret = realtek_smi_write_byte(priv, priv->cmd_read);
++	ret = realtek_smi_write_byte(priv, priv->variant->cmd_read);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -249,7 +249,7 @@ static int realtek_smi_write_reg(struct realtek_priv *priv,
+ 	realtek_smi_start(priv);
+ 
+ 	/* Send WRITE command */
+-	ret = realtek_smi_write_byte(priv, priv->cmd_write);
++	ret = realtek_smi_write_byte(priv, priv->variant->cmd_write);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -446,9 +446,7 @@ static int realtek_smi_probe(struct platform_device *pdev)
+ 
+ 	/* Link forward and backward */
+ 	priv->dev = dev;
+-	priv->clk_delay = var->clk_delay;
+-	priv->cmd_read = var->cmd_read;
+-	priv->cmd_write = var->cmd_write;
++	priv->variant = var;
+ 	priv->ops = var->ops;
+ 
+ 	priv->setup_interface = realtek_smi_setup_mdio;
+diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
+index 4fa7c6ba874a5..0cf66b97c0e64 100644
+--- a/drivers/net/dsa/realtek/realtek.h
++++ b/drivers/net/dsa/realtek/realtek.h
+@@ -58,9 +58,8 @@ struct realtek_priv {
+ 	struct mii_bus		*bus;
+ 	int			mdio_addr;
+ 
+-	unsigned int		clk_delay;
+-	u8			cmd_read;
+-	u8			cmd_write;
++	const struct realtek_variant *variant;
++
+ 	spinlock_t		lock; /* Locks around command writes */
+ 	struct dsa_switch	*ds;
+ 	struct irq_domain	*irqdomain;
 -- 
 2.53.0
 
