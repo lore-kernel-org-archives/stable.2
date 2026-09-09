@@ -1,48 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87514B53F7
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432CF4B4876
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948708; cv=none; b=DKzbWEMBCAZxhekgeqHdbRBYiI4igbEm0eAo3GFV5+G5E6w4oex+ZDkFkLdiZ72S8QeeJH+37dVF9Oi0nI1ypkvlFEO7E8kZ7Qa0DMOlg5b7HAcMj+lKmnd4PrG4r/MFcV13uSjQuQZ2su8giunUUfTKqwYVm9DFAKgyYMSWN0c=
+	t=1788948710; cv=none; b=tNxIo6uCZs6RmPgREJH4Bis7ynFFq9s9gOuIikTv4WSQqiz/g6Adyb+QQh/SeIyO9OF6hBV48VeUyengqjdefwEbANhZVJnLQQZgIHYhDXFcSI4ivDj36StsgFR/u6ZFUcLWBrajE+GLRrOJmz62NwXgluzQMzTaMe+5fQS1LGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948708; c=relaxed/simple;
-	bh=Oa1R0nJcWTquL67HXGie37dNHrrvn0OfDzQUd7O/gjg=;
+	s=arc-20240116; t=1788948710; c=relaxed/simple;
+	bh=08jZTNSFQkW6vZoHl8IvpxKRKtE0UeeYqp+ZNisUHZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yh8Drd3bT2qcCrTaW7jWfujAKztaoWftcFUpawgLBk9uavvhVMklGNuhmQgaIR+FOC+g3CXKBNq6alK4X/dgpwrPtUp/yxP+MPysgJ8afyEiOfygI1Q0ep/VJ8aTu4SoAi0ydM2VdhZPZ19ku8BhwWhU5POyV4JtytjKsjlbWYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJBofBWV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JLp+UCG6bsaIE2/4LIZaGYU4dIc6xsZc1IWi+FoFCIWumJ7YxzAiK4uTOXgR1Dd9apFw9yfzyffK27zf8gCBVeE1MnO7+L5aF+MuuLLAs11XsUbsbF87YlWw1RyRoZR7w4nnjNocBHo8ehiAeTdzbrwjDdg0L1LIiFt8dr7O/O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKFWkFvy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJBofBWV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504471F00A3D;
-	Wed,  9 Sep 2026 10:11:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKFWkFvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974A51F00A3A;
+	Wed,  9 Sep 2026 10:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948706;
-	bh=/qSJoAiRtwIsllasQqvpxZzMgZRdeWwTAId/Uldix+k=;
+	s=k20260515; t=1788948707;
+	bh=PQR70NNwwroAEOplyiWTb2qQlvDaXavPSsqUAaE3XqI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NJBofBWVqnxxIyu5sH6mguIjn7orbmjMJkwTS3k1n8hgF7TNA7koFes87B/XMgxlV
-	 yT0fUyGAIBn4qBkwA/MS0W3O3CYlG5rbiJhMb3f4PAb0RVcvSVTkfW1BW6Vck8HsJE
-	 i9Oj9G4KU1/mQSYYNl0bCP2NNizNbPJaeqcnKWt6L9pbEynMGS0biMOX/Q6FS+C2I3
-	 6BdrnDmVx5ht53vOFK8Sc5zhEoA8cYD4eK8aWZ5Ca3vopqLB5LKjuTNAxBnw1oP1iq
-	 3L1xmqpU6OgPr8VBQ0YW0O84e43rnJLp8styaMpJ3ohYi49TVTbKtJTTPaUY2tkvLd
-	 A1M7YCGFBdXXA==
+	b=hKFWkFvyp2naJFofsa4xNEus+wgxCqhmLb+i8n852Zxd+ud3P+HfeK/+HkJhLAIpf
+	 sylffqXgSWt591AOh3ifsvkKfhKPDq9vfMRIeqrvU/ZRPsINL4opCbR264E5jtBXjI
+	 EEH7QZo+pXRc90ZZcCDDC6C5tPtdi56O5lO7GfOfRnjhvyQXmV4J1vDnpXe1Gxb/Dk
+	 EPeGI5waC+nYCrcxWhGrH4vsHZ5ZU0KsGHIDXSvxugVDpAlxMAl2rfoWe+YrMGn6ep
+	 zLYtBBJNXCcGJuMDL/agdCb2SaDcpZlx+30BZZrauVa6tcxxr65BkrA1JJTjmzRoPu
+	 75j5Um0HPCX0w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Mark Fasheh <mark@fasheh.com>,
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
 	Joel Becker <jlbec@evilplan.org>,
+	Kees Cook <kees@kernel.org>,
+	Mark Fasheh <mark@fasheh.com>,
 	Junxiao Bi <junxiao.bi@oracle.com>,
 	Changwei Ge <gechangwei@live.cn>,
 	Jun Piao <piaojun@huawei.com>,
+	Heming Zhao <heming.zhao@suse.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] ocfs2: validate dx_root extent list fields during block read
-Date: Wed,  9 Sep 2026 06:11:42 -0400
-Message-ID: <20260909101143.1462422-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] ocfs2: validate directory-index entry counts when reading metadata
+Date: Wed,  9 Sep 2026 06:11:43 -0400
+Message-ID: <20260909101143.1462422-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090339-enjoyer-humming-d784@gregkh>
+In-Reply-To: <20260909101143.1462422-1-sashal@kernel.org>
 References: <2026090339-enjoyer-humming-d784@gregkh>
+ <20260909101143.1462422-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,96 +54,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-[ Upstream commit 775c17386a6fd695f999d4cda90e3931386570dd ]
+[ Upstream commit bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 ]
 
-Patch series "ocfs2: consolidate extent list validation into block read
-callbacks".
+ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
+signature of an indexed-directory block before it reaches higher-level
+callers, but neither validator bounds the ocfs2_dx_entry_list counts
+against the capacity of the block that holds them.
 
-ocfs2 validates extent list fields (l_count, l_next_free_rec) at various
-points during extent tree traversal.  This is fragile because each caller
-must remember to check for corrupted on-disk data before using it.
+ocfs2_dx_dir_search() then walks
 
-This series moves those checks into the block read validation callbacks
-(ocfs2_validate_dx_root and ocfs2_validate_extent_block), so corrupted
-fields are caught early at block read time.  Redundant post-read checks
-are then removed.
+	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
+		dx_entry = &entry_list->de_entries[i];
 
-This patch (of 4):
+over de_num_used entries with no bounds check.  entry_list is either
+dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
+dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
+de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
+and make the walk read far past the end of the 4KB metadata block, giving
+a slab out-of-bounds read reachable from any path lookup, stat() or open()
+on an indexed directory once the image is mounted.
 
-Move the extent list l_count validation from ocfs2_dx_dir_lookup_rec()
-into ocfs2_validate_dx_root(), so that corrupted on-disk fields are caught
-early at block read time rather than during directory lookups.
+Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
+block read") already bounds dr_list for the non-inline dx_root, but left
+the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
+same read-time validation for both entry lists: de_count must equal the
+capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
+de_num_used must not exceed de_count, rejecting corrupted metadata with
+-EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
+array.
 
-Additionally, add a l_next_free_rec <= l_count check to prevent
-out-of-bounds access when iterating over extent records.
+de_count is always written as exactly the block capacity when a leaf or
+inline root is formatted, so the equality check does not reject any valid
+image.
 
-Both checks are skipped for inline dx roots (OCFS2_DX_FLAG_INLINE), which
-use dr_entries instead of dr_list.
+Found by 0sec automated security-research tooling (https://0sec.ai).
 
-Link: https://lkml.kernel.org/r/20260403090803.3860971-1-joseph.qi@linux.alibaba.com
-Link: https://lkml.kernel.org/r/20260403090803.3860971-2-joseph.qi@linux.alibaba.com
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>
+Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
+Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
+Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Mark Fasheh <mark@fasheh.com>
 Cc: Junxiao Bi <junxiao.bi@oracle.com>
 Cc: Changwei Ge <gechangwei@live.cn>
 Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: bc70726ddad5 ("ocfs2: validate directory-index entry counts when reading metadata")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/dir.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ fs/ocfs2/dir.c | 45 +++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 41 insertions(+), 4 deletions(-)
 
 diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index c0fec28e62c83..16ab67ac3e039 100644
+index 16ab67ac3e039..fbfce8cd131aa 100644
 --- a/fs/ocfs2/dir.c
 +++ b/fs/ocfs2/dir.c
-@@ -580,7 +580,7 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 		mlog(ML_ERROR,
- 		     "Checksum failed for dir index root block %llu\n",
- 		     (unsigned long long)bh->b_blocknr);
--		return ret;
-+		goto bail;
- 	}
- 
- 	if (!OCFS2_IS_VALID_DX_ROOT(dx_root)) {
-@@ -588,8 +588,32 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 				  "Dir Index Root # %llu has bad signature %.*s\n",
- 				  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
- 				  7, dx_root->dr_signature);
-+		goto bail;
-+	}
+@@ -611,6 +611,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
+ 					  le16_to_cpu(el->l_count));
+ 			goto bail;
+ 		}
++	} else {
++		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
 +
-+	if (!(dx_root->dr_flags & OCFS2_DX_FLAG_INLINE)) {
-+		struct ocfs2_extent_list *el = &dx_root->dr_list;
-+
-+		if (le16_to_cpu(el->l_count) != ocfs2_extent_recs_per_dx_root(sb)) {
++		if (le16_to_cpu(dl_list->de_count) !=
++		    ocfs2_dx_entries_per_root(sb)) {
 +			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid l_count %u (expected %u)\n",
++					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
 +					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(el->l_count),
-+					  ocfs2_extent_recs_per_dx_root(sb));
++					  le16_to_cpu(dl_list->de_count),
++					  ocfs2_dx_entries_per_root(sb));
 +			goto bail;
 +		}
 +
-+		if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
++		if (le16_to_cpu(dl_list->de_num_used) >
++		    le16_to_cpu(dl_list->de_count)) {
 +			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid l_next_free_rec %u (l_count %u)\n",
++					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
 +					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(el->l_next_free_rec),
-+					  le16_to_cpu(el->l_count));
++					  le16_to_cpu(dl_list->de_num_used),
++					  le16_to_cpu(dl_list->de_count));
 +			goto bail;
 +		}
  	}
  
-+bail:
+ bail:
+@@ -650,10 +672,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+ 		return ret;
+ 	}
+ 
+-	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
+-		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
+-				  7, dx_leaf->dl_signature);
+-	}
++	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
++		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
++				   7, dx_leaf->dl_signature);
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
++	    ocfs2_dx_entries_per_leaf(sb))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_count),
++				   ocfs2_dx_entries_per_leaf(sb));
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
++	    le16_to_cpu(dx_leaf->dl_list.de_count))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
++				   le16_to_cpu(dx_leaf->dl_list.de_count));
+ 
  	return ret;
  }
- 
 -- 
 2.53.0
 
