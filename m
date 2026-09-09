@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FA036F916
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6483A9DB1
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 09:47:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947232; cv=none; b=p9F9OCxkdwBjYNpnuACpZSo11u7wkVbIcl2AbR39V9Mf5B4RsYNQ3Zy/x8+aOUJ7vZMGUdB78WlQhGl8ipLx8gssTaoJe6v+fRW8ia8YUfmmJuyDMNfyfPd1U1dhzpDm+aVJd4P0yh5qk3aS9l1Jo4l2kYq3RXOW+V2lXv0wjgI=
+	t=1788947235; cv=none; b=eML/BGtRXd9txWaXZTHP8Or3LKctUF2FQQ2wGvkVePmgQGeH2GrnO7uPsxQbghchX5VZQy0rm2ZiB1dgdOwLddYcEGPmDXd1hlUZw1Dk/MUC+C1zMIWiBdPbaOVhhbtrC/cGE0Za5I0tz8yAqgC8BxL/S5yyJ99AOkb56gc4T4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947232; c=relaxed/simple;
-	bh=WzLQijr4L9mI8AJrISMKx/YDJar26fGcHoQ8r40u69g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PH0fgQ/KWRQLTD+ic2ZsvuAL9s8pVeZkkusVd4m2FTWzOUcrOABnRIYSweI44Gt6NMjKEpvjHSCjewAELPAEJr/krzCvOBxVIfgAJz3Gmyi40X1JsNhMO1a4UwtQHnd2llJzo2kBLfiolg97+oS3Pf9uxCKL8UK415DcqZOiLgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v0T7Nyd+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947235; c=relaxed/simple;
+	bh=PQ5aRXsqOULsrOx6TW3HSoIyhvNkYok/C4DqJ3WsWwQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HLtmefG2ugu0+zxJhUybfrVtzd36fePV8Jd7tMX0oZXUxKmUYJvzL8n1toUpz2zIe8mIj68p2bQxe1LA1EWJPpyXult1/TCeeuli2fSfKxA0zbmZer1mzHv7/UyCVjotHsYOdAZfNcG33NoKqXsWufKoV6vVCmvHL5EqUjqpbl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nfVcoQac; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v0T7Nyd+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F4D1F00A3A;
-	Wed,  9 Sep 2026 09:47:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nfVcoQac"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7281F00A3A;
+	Wed,  9 Sep 2026 09:47:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788947231;
-	bh=9B8rGlnNLsjl2I1D+OBI8N93wuQhgtzUVqJu/tjIzoE=;
+	s=korg; t=1788947233;
+	bh=/Q185A1t1M2mJYtH6HYc7egdxKxKIZ/OHbfx2VlChs0=;
 	h=Subject:To:Cc:From:Date;
-	b=v0T7Nyd+SIu/y6Jkyb9ByXjD+Ydhf3vekz7Fqtg8fz7ICAyqHrgG9p5GpFXONwPMT
-	 Ybi6mhfTPtNRBxDQvDORNId6cpgry5iMPJIhPwcVFvWdmdjuk7ASpll9FTTtvAtWtQ
-	 HHj2JwpcVii+63yuU2fe5Zzg3Sw65oy7nV4sAW70=
-Subject: FAILED: patch "[PATCH] nvme-fabrics: fix DHCHAP secret leak on parse failure" failed to apply to 6.1-stable tree
-To: raoxu@uniontech.com,hch@lst.de,kbusch@kernel.org
+	b=nfVcoQacdfnWlFHTnYbkYipltvXtiBQey9wQSQ/z5Mn4B5w4H+phStLjBMJNXz84H
+	 r2wOH9u7sdNA1nxH16WAXtt5VAwQfWSarBtiMyRZ6yDA/uZBYYS+cfGVgo6/89pbNS
+	 hA0ai7D/4EZXVunuAUf8EDvhoVfCvP8OXwCkWo+0=
+Subject: FAILED: patch "[PATCH] nvme: add missing SRCU grace period in error path" failed to apply to 6.6-stable tree
+To: tristan@talencesecurity.com,hch@lst.de,john.g.garry@oracle.com,kbusch@kernel.org,sagi@grimberg.me
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:43:16 +0200
-Message-ID: <2026090916-resurface-ultra-bfce@gregkh>
+Date: Wed, 09 Sep 2026 11:43:40 +0200
+Message-ID: <2026090940-seventy-hexagram-9370@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x afdee49a1b88ed9bb44e2b30e855297c169bcc53
+git cherry-pick -x ef248d5de4469fb6bbaf8dbe0c4c47800080d648
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090916-resurface-ultra-bfce@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090940-seventy-hexagram-9370@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,66 +62,42 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From afdee49a1b88ed9bb44e2b30e855297c169bcc53 Mon Sep 17 00:00:00 2001
-From: Xu Rao <raoxu@uniontech.com>
-Date: Thu, 13 Aug 2026 16:31:07 +0800
-Subject: [PATCH] nvme-fabrics: fix DHCHAP secret leak on parse failure
+From ef248d5de4469fb6bbaf8dbe0c4c47800080d648 Mon Sep 17 00:00:00 2001
+From: Tristan Madani <tristan@talencesecurity.com>
+Date: Sat, 15 Aug 2026 00:14:27 +0000
+Subject: [PATCH] nvme: add missing SRCU grace period in error path
 
-nvmf_parse_options() duplicates dhchap_secret and dhchap_ctrl_secret
-with match_strdup() before validating the DHHC-1: representation.
+nvme_alloc_ns() error path at out_unlink_ns removes ns from the
+namespace head siblings list with list_del_rcu(&ns->siblings) but
+does not wait for SRCU readers before freeing the namespace struct.
+Multipath code iterates the head->list under srcu_read_lock() in
+nvme_find_path() and nvme_mpath_revalidate_paths(), so a concurrent
+reader can still hold a reference to ns when kfree(ns) runs.
 
-If validation fails, the parser returns -EINVAL before the temporary
-string in p is assigned to opts->dhchap_secret or
-opts->dhchap_ctrl_secret. nvmf_create_ctrl() subsequently frees opts,
-but nvmf_free_options() cannot release the unassigned temporary string.
-Each rejected option therefore leaks one allocation.
+The normal removal path in nvme_ns_remove() correctly calls
+synchronize_srcu(&ns->head->srcu) after list_del_rcu() to wait for
+in-progress readers. Add the same grace period in the error path.
 
-This is easy to miss because valid secrets transfer ownership to opts
-and are freed normally, while the malformed-secret path still returns
-the expected -EINVAL to userspace.
-
-With CONFIG_NVME_HOST_AUTH enabled, the leak is reachable before the
-required-option checks and transport lookup. No NVMe-oF target or
-working transport connection is required; for example, repeatedly
-writing
-
-	dhchap_secret=BAD
-
-or
-
-	dhchap_ctrl_secret=BAD
-
-to /dev/nvme-fabrics deterministically takes the leaking parse path.
-
-Free the temporary string before leaving both validation error paths.
-Use kfree_sensitive() because the copied option may contain secret
-material even when its representation is rejected, matching the
-sensitive cleanup used for stored DHCHAP secrets.
-
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+Fixes: ed754e5deeb1 ("nvme: track shared namespaces")
 Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
 
-diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-index fd5abd04e080..59f823dfbbcc 100644
---- a/drivers/nvme/host/fabrics.c
-+++ b/drivers/nvme/host/fabrics.c
-@@ -1028,6 +1028,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 			}
- 			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
- 				pr_err("Invalid DH-CHAP secret %s\n", p);
-+				kfree_sensitive(p);
- 				ret = -EINVAL;
- 				goto out;
- 			}
-@@ -1042,6 +1043,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 			}
- 			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
- 				pr_err("Invalid DH-CHAP secret %s\n", p);
-+				kfree_sensitive(p);
- 				ret = -EINVAL;
- 				goto out;
- 			}
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 5f2744be7388..9739ce38b73a 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -4345,6 +4345,9 @@ static void nvme_alloc_ns(struct nvme_ctrl *ctrl, struct nvme_ns_info *info)
+ 			last_path = true;
+ 	}
+ 	mutex_unlock(&ctrl->subsys->lock);
++
++	/* guarantee not available in head->list */
++	synchronize_srcu(&ns->head->srcu);
+ 	if (last_path)
+ 		nvme_put_ns_head(ns->head);
+ 	nvme_put_ns_head(ns->head);
 
