@@ -1,124 +1,175 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C86302CC1;
-	Wed,  9 Sep 2026 05:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76AB37C925;
+	Wed,  9 Sep 2026 05:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932865; cv=none; b=KD212G7aEmwuuWV/KNTg7Mpz6FNsOPjZQDuJnsrC3GE5zb2+PUgW5+ZAMByGN6gYxc8SXjVKpW36LbWGhstI8XNg3uBk91U7Xi4BXswuOeFG4N0z43N84l0BqCCLXCQZuX3x0v5U5cFHhj6c1BKUkXgqLZvcqkJdqIIhaqBgPm4=
+	t=1788933048; cv=none; b=Np4lvIGg6MQGRH+nd+fIQOYx/CH8J3+qZ9BLUbNmTziH7jEj2IWj9ppLiWkPY1t1NQUlR+oy72k/vqG/A7TAe2WYaWUATO0UlQCJmTgYoYX2L2p8X3s9ftz4/e4Hc11hD1PcpPf3jBTzM5NSKY1HcBacEvbJPipLF4L3WdxpgU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932865; c=relaxed/simple;
-	bh=0OX7NS0OHrMcjPYcf0nWdOyQaiJxpeRx3bGnjIIZ+nQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jOiHnS3vsft1Q/WnzsjIezwcbyFKzDEGRSQ5BVpR29ASEbd9w9Sp/+xE2jwDbPQglCsYtBh3x9nR3+j4JM31A3ugu4zNSoOMpz14ToZLUPkDThf5KnQ7U7IudmRzOeY8kBtZ7d+/xRAlociC7dMG3mhks0FGBDmC7C2phThsy3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=BdAPqQCS; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1788933048; c=relaxed/simple;
+	bh=HpF3ljJ/A7frKz+hFdiIIaqLnOjLO6xIcMdLCZEnnrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qY3LZ7cnG4H8FGnLSQMtkC9zpbDeUS44FuFB/bbtKF+vPJvOxOObLLS1FzVC9M11835nlR+9HZ55xcn90vj59b+VXKiS6HbGPJomshin1cnCYRK7Zr8ZJ2T9Ph19xF6mvugy1U1LYPhAnYbbsNuM5SShLPmtHu2/riM5XC00J4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAcUG5Mn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="BdAPqQCS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1788932854;
-	bh=QXi4CxIsKcFvAvcPGZXQs2Kbt4qOqbHhroxMBzzNvgY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BdAPqQCSCLiA3BLGFkoi4pwfXq9Nciain3C0UiJ88sQo+oW+A4mOuJChPKVJaJc4J
-	 rnXAnGPsmYvz/9jgM002rlvpKsBUBR272pNPj6pHGpyGQDuuoOP20KDlkjHsovyElr
-	 KLokXclSXQ6v7PbgDLoZkzogzFQdzsBSlquAU/6lnWJadkrPuVM7FRyw5U5KgA5Cdk
-	 QeJKkyQdhvsl7yn3TaXTOa79fEqYl1i06fYjRAlgDA1XWKpcv+EYy+cSUREnLNtX8s
-	 UAi1XgTxIQkN+tCDDik9p2VeJSGyovPjNU9+DKxxqqNKEpvUUiCtUJli2lWFGRLH3t
-	 /0sdbSsI4Bbiw==
-Received: from [192.168.68.117] (unknown [180.150.113.112])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2604A60917;
-	Wed,  9 Sep 2026 13:47:33 +0800 (AWST)
-Message-ID: <f9d084200f79269c02e96cb165fcd3ba67be5271.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Borislav Petkov <bp@alien8.de>
-Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>, Tony Luck
- <tony.luck@intel.com>, "devicetree@vger.kernel.org"	
- <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"	
- <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"	
- <linux-edac@vger.kernel.org>, Krzysztof Kozlowski	
- <krzysztof.kozlowski@oss.qualcomm.com>, "stable@vger.kernel.org"	
- <stable@vger.kernel.org>
-Date: Wed, 09 Sep 2026 15:17:32 +0930
-In-Reply-To: <TY2PPF5CB9A1BE6E8F9A377C5FB805E6D9DF2B12@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
-	 <20260902160843.GCaphKC-y8HpkiAIWh@fat_crate.local>
-	 <TY2PPF5CB9A1BE6E8F9A377C5FB805E6D9DF2B12@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAcUG5Mn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF971F00A3A;
+	Wed,  9 Sep 2026 05:50:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788933046;
+	bh=tcohY9Z7g0fb1e79mJ/pzGr0Pn3NvBzQilyWwCTqAS4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JAcUG5MneqwOWVxezkp3zyR3c2mUit9+L+jmSXNtvtMp4/6clXturSpkZzvRlyGO7
+	 nvDlZed7kd1qpCbnNjfM7P6hOoX15vr3V3dZywHX9mkWVUlp32GByDYi7EwUmAAPi3
+	 mctold97sHU2cUrJxhaouN/FyjnQxwRchszwRzKS4igofE7m129FKDvAXFU7OJ3Iqx
+	 lmhUg8faQMS4EHCrxswsLcegNV941kLcEkiv7ZCVeA3SVlp0K6PzQ+xpicPx7tNCSN
+	 PjC3o1mST6XZjmfV5NIO+HqsDKHQtjX/bAIrGdOqarl+XNYAuTbLN3kUGSxYb8PBa+
+	 wl5ucKRyzFr3Q==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.18.y] mm/damon/vaddr: drop last same folio access check optimization
+Date: Tue,  8 Sep 2026 22:50:38 -0700
+Message-ID: <20260909055038.259529-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090857-overhear-pull-af4d@gregkh>
+References: <2026090857-overhear-pull-af4d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-08 at 07:13 +0000, Ryan Chen wrote:
->=20
-> > Subject: Re: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
-> >=20
-> > On Mon, Aug 24, 2026 at 10:42:27AM +0800, Ryan Chen wrote:
-> > > Add ECC error reporting for the Aspeed AST2700 SoC to the existing
-> > > aspeed_edac driver.
-> > >=20
-> > > The AST2700 memory controller keeps the same overall EDAC programming
-> > > model as the earlier Aspeed BMC SoCs, but uses a different register
-> > > layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memo=
-ry.
-> > > Rather than fork the driver, the existing code is first tidied and
-> > > generalised, then the AST2700 is added as one more per-SoC variant.
-> > >=20
-> > > Patches 2-5 are bug fixes and cleanups to the existing driver. Patche=
-s
-> > > 6 and 7 rework the implementation to accommodate the AST2700. Patch 8
-> > > adds the AST2700 support itself.
-> >=20
-> > Sashiko has comments:
-> >=20
-> > https://sashiko.dev/#/patchset/20260824-edac-v2-0-c8d8bb693586%40aspeed
-> > tech.com
-> >=20
-> > Please address them: if valid, fix them, if not, explain why they don't=
- need to
-> > be fixed.
-> >=20
-> > Btw, I don't see Stefan reviewing this driver and his last mail on LKML=
- is from
-> > 2025 so it looks like we'll orphan this driver too.
-> >=20
-> > Thx.
-> >=20
-> > --
-> > Regards/Gruss,
-> > =C2=A0=C2=A0=C2=A0 Boris.
-> >=20
-> > https://people.kernel.org/tglx/notes-about-netiquette
->=20
-> Hello Boris,
-> 	Thanks your review.
->=20
-> I've already replied to both of Sashiko's findings on their respective
-> threads:
-> 6/8: https://sashiko.dev/#/message/TY2PPF5CB9A1BE61E82EEE55F3F725362CCF2A=
-D2%40TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-> 8/8: https://sashiko.dev/#/message/TY2PPF5CB9A1BE62172BCC358347C4836CCF2A=
-D2%40TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
->=20
-> Short version: neither needs a code change. On 8/8 the premise doesn't
-> hold - u-boot masks every implemented DRAMC interrupt source
-> (INT_MASK reads GENMASK(16, 0), bits 31:17 are not implemented), so no
-> non-ECC source can raise the line and the spurious detector cannot
-> kick in.=20
+The optimization can race when multiple kdamonds are running.  Meanwhile,
+the impact of the optimization is quite doubtful.  Just remove it.
 
-I feel this is a fragile analysis given multiple components involved. I
-think it would be easier and safer (both in terms of kernel behaviour
-and guarding against change in u-boot behaviour) if we have the kernel
-driver take complete ownership of the interrupt configuration.
+The user impact of the issue should be quite trivial.  After all, the race
+can happen only when the user intentionally setup DAMON in the way.  Even
+if it happens, it would be rare and only degrade the best-effort
+monitoring results.  No critical consequences like kernel panic or memory
+corruption happen.
 
-Andrew
+The race possibility was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260715031002.108504-4-sj@kernel.org
+Link: https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org [1]
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 5.15.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 831846078caa14b7d00b2ccca8b8fe522afe3204)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/vaddr.c | 34 ++++++----------------------------
+ 1 file changed, 6 insertions(+), 28 deletions(-)
+
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index db93ca2024605..c49f494ec17cd 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -431,8 +431,6 @@ static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
+ }
+ 
+ struct damon_young_walk_private {
+-	/* size of the folio for the access checked virtual memory address */
+-	unsigned long *folio_sz;
+ 	bool young;
+ };
+ 
+@@ -468,7 +466,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 					mmu_notifier_test_young(walk->mm,
+ 						addr))
+ 			priv->young = true;
+-		*priv->folio_sz = HPAGE_PMD_SIZE;
+ 		folio_put(folio);
+ huge_out:
+ 		spin_unlock(ptl);
+@@ -490,7 +487,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	if (pte_young(ptent) || !folio_test_idle(folio) ||
+ 			mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = folio_size(folio);
+ 	folio_put(folio);
+ out:
+ 	pte_unmap_unlock(pte, ptl);
+@@ -519,7 +515,6 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ 	if (pte_young(entry) || !folio_test_idle(folio) ||
+ 	    mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = huge_page_size(h);
+ 
+ 	folio_put(folio);
+ 
+@@ -537,11 +532,9 @@ static const struct mm_walk_ops damon_young_ops = {
+ 	.walk_lock = PGWALK_RDLOCK,
+ };
+ 
+-static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+-		unsigned long *folio_sz)
++static bool damon_va_young(struct mm_struct *mm, unsigned long addr)
+ {
+ 	struct damon_young_walk_private arg = {
+-		.folio_sz = folio_sz,
+ 		.young = false,
+ 	};
+ 
+@@ -558,29 +551,18 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+  * r	the region to be checked
+  */
+ static void __damon_va_check_access(struct mm_struct *mm,
+-				struct damon_region *r, bool same_target,
++				struct damon_region *r,
+ 				struct damon_attrs *attrs)
+ {
+-	static unsigned long last_addr;
+-	static unsigned long last_folio_sz = PAGE_SIZE;
+-	static bool last_accessed;
++	bool accessed;
+ 
+ 	if (!mm) {
+ 		damon_update_region_access_rate(r, false, attrs);
+ 		return;
+ 	}
+ 
+-	/* If the region is in the last checked page, reuse the result */
+-	if (same_target && (ALIGN_DOWN(last_addr, last_folio_sz) ==
+-				ALIGN_DOWN(r->sampling_addr, last_folio_sz))) {
+-		damon_update_region_access_rate(r, last_accessed, attrs);
+-		return;
+-	}
+-
+-	last_accessed = damon_va_young(mm, r->sampling_addr, &last_folio_sz);
+-	damon_update_region_access_rate(r, last_accessed, attrs);
+-
+-	last_addr = r->sampling_addr;
++	accessed = damon_va_young(mm, r->sampling_addr);
++	damon_update_region_access_rate(r, accessed, attrs);
+ }
+ 
+ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+@@ -589,16 +571,12 @@ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+ 	struct mm_struct *mm;
+ 	struct damon_region *r;
+ 	unsigned int max_nr_accesses = 0;
+-	bool same_target;
+ 
+ 	damon_for_each_target(t, ctx) {
+ 		mm = damon_get_mm(t);
+-		same_target = false;
+ 		damon_for_each_region(r, t) {
+-			__damon_va_check_access(mm, r, same_target,
+-					&ctx->attrs);
++			__damon_va_check_access(mm, r, &ctx->attrs);
+ 			max_nr_accesses = max(r->nr_accesses, max_nr_accesses);
+-			same_target = true;
+ 		}
+ 		if (mm)
+ 			mmput(mm);
+-- 
+2.47.3
+
