@@ -1,121 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B762F5293FF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64E3526A89
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950571; cv=none; b=RDC466iV30rBsEEl7Jr00bOmxWVRQQENdQih3NyK+Os2G1M9NAdZCp0tBOFNdTBT7inR3PedJ4Dtfy0vRqR31neXa5nT19taZtPbgPeCSUY+JPeNBNxI7ZyTu5CNqeVZw1eajzuM7M3XvL8+8p9pr5YfWqMsuEbgUsCGJJDfkZY=
+	t=1788950586; cv=none; b=rDB1kPZBJ5CeF2LxfNg6g+ln4zWLxb/U5XDf86hHzQ8QmiQEtEJDa/8TPWS39hhiUYKnB0G6OLyiAl7WRucZMXF8vEx/aocTV+QFdzoQ0nMfthVsM+Pv97geRUisxxkv51qQemIiEUwXONY036GD6JalJ3W5EEObjnNf/F9VxWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950571; c=relaxed/simple;
-	bh=QGKhyk8DFt2taIqJMqqn9mKsMvDO2JhVQbdoi15XUA8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WqyMpfJ+kjbieHGn5jEhtYg17DntgFDblQYN/aExWPBtJkDVO6kZK1NccoRRjEqf3uXEeFFhnVygfEsqguO0K4oZ6MB1alVmit/9MGCqkgry09bXfrG/DLCjrGPUFODoloGET1VH8oKMRca08BZ93aNUKjgoq1KGVk5/UU1bEkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Tz3uGM1N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950586; c=relaxed/simple;
+	bh=fRcbYzfwhefvk/+c0TewifTfKDiUE/SeLJQvmhlnM0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N0XLpLpSqube3Upg7Sd3UeACsAGxLlcH0fL00ZGDls+JNBqDy4YOxCTXe3l06FBXW5+I9eIWlCeJO0UnjV4pHY7V3ntWIvdrqXZqoI8Y1zEH2yZkosScvNq+XaffL2ikJoS7oGgW8izVH5vcDxNPAZc8VY2e3fXOlzRDJ+K+DN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipfUBJkY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Tz3uGM1N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EB21F00A3A;
-	Wed,  9 Sep 2026 10:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788950569;
-	bh=e/i1QI+JbYgr7pwBgrBxj1FUMBGEZfhs/FVlXY+Rq5E=;
-	h=Subject:To:Cc:From:Date;
-	b=Tz3uGM1Nx0Co4cO+1/b8Ddj6o5u7OCXYRSxU+YHcpoO6beZUz4cFrKstipuy2iqL1
-	 OpKwJRPJujLDU8RpGDXOH16gUn+0zms7APO+n0QeRg9QilgFmlykyTGiFV8cBgTObf
-	 AwhcHH16hThvs6Eor3sKC1ueDXCgR01vRP3qbB7o=
-Subject: FAILED: patch "[PATCH] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not" failed to apply to 6.12-stable tree
-To: yosry@kernel.org,seanjc@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:32:15 +0200
-Message-ID: <2026090915-drainer-judicial-082f@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipfUBJkY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8BCC1F00A3E;
+	Wed,  9 Sep 2026 10:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950584;
+	bh=6qlZoiEa2i9wQJfA2fmG+jG1sN8J2L8vAdxFbCpjFig=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ipfUBJkYHJk5imYzVhkKPV3mcVeRTIm7n7K0emJShGKh9SbuFpRp//O/KHKoktIra
+	 JXBdxNwkL9QU1D+kQxGLa/rMXn+YHc/z6/czQp5aSmJ3J+rQx8SIcvfez3jQl80GNF
+	 rGj5Z+ItlJt2uq4sMOgPjMVX8bsgQGdF9FTqNd57zMrx5AWQXnlNJayeb/yb8k+RdQ
+	 AvCwecZKZXYo+KOPTUxMpzGRk2kZgYZhRr5hJkBgdO3ZrRKhER+iW+JtSj1yRXe1JI
+	 0kTjR2XYpGWL/bS9aFNGNK3ODFEQ846Vbv9PRy3IrOodmODWIsFxK6lkd6o82dtg7i
+	 irK39bY40cB8g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oscar Ou <oscarou@synology.com>,
+	Chuck Lever <cel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] lockd: fix swapped arguments in nlmsvc_match_ip()
+Date: Wed,  9 Sep 2026 06:43:02 -0400
+Message-ID: <20260909104302.1557843-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090301-flyable-joystick-bb39@gregkh>
+References: <2026090301-flyable-joystick-bb39@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Oscar Ou <oscarou@synology.com>
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit b9060689f49dc663e9a3d069c4a65ff63a836e66 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+When releasing locks by server IP address via /proc/fs/nfsd/unlock_ip,
+nlmsvc_unlock_all_by_ip() calls nlm_traverse_files() with the server
+sockaddr as the opaque @data argument:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x e62392bf39ebfdf60d1d082799397fe1cbf8dfc5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090915-drainer-judicial-082f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+	nlm_traverse_files(server_addr, nlmsvc_match_ip, NULL);
 
-Possible dependencies:
+The match callback is later invoked from nlm_traverse_locks() as:
 
+	match(lockhost, host);
 
+where the first argument is the nlm_host that owns the lock, and the
+second argument is the @data that was originally passed down (here the
+server sockaddr).  This is the convention every other match callback
+relies on (nlmsvc_mark_host(), nlmsvc_same_host(), nlmsvc_is_client()):
+arg1 is the real nlm_host, arg2 is the caller-supplied reference value.
 
-thanks,
+nlmsvc_match_ip() has had these two arguments reversed ever since the
+unlock-by-IP feature was introduced in commit 4373ea84c84d ("lockd:
+unlock lockd locks associated with a given server ip"):
 
-greg k-h
+	return rpc_cmp_addr(nlm_srcaddr(host), datap);
 
------------------- original commit in Linus's tree ------------------
+Here @host is actually the server sockaddr, so nlm_srcaddr(host)
+dereferences a struct sockaddr as a struct nlm_host and reads garbage
+at the offset of h_srcaddr; meanwhile @datap is actually the lock
+owner's nlm_host but is compared as a sockaddr.  As a result the
+comparison practically never matches and locks are not released for the
+requested IP.
 
-From e62392bf39ebfdf60d1d082799397fe1cbf8dfc5 Mon Sep 17 00:00:00 2001
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 13 Jul 2026 18:10:17 +0000
-Subject: [PATCH] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not
- supported
+Swap the arguments so the lock owner's source address is compared
+against the requested server address:
 
-Remove EFER.LME and EFER.LMA from EFER reserved bits only if long mode
-is actually supported. KVM does check long-mode support before allowing
-the bits for guest writes and userspace writes through KVM_SET_SREGS*
-(in __kvm_valid_efer()), but userspace writes through KVM_SET_MSRS only
-check reserved bits.
+	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
 
-In practice, this doesn't really matter. The true motiviation is getting
-rid of the #ifdeffery when initializing efer_reserved_bits.
-
+Fixes: 4373ea84c84d ("lockd: unlock lockd locks associated with a given server ip")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Link: https://patch.msgid.link/20260713181020.2735367-3-yosry@kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Oscar Ou <oscarou@synology.com>
+[ cel: fix the misleading typedef parameter names too ]
+Link: https://patch.msgid.link/20260617075738.1151797-1-oscarou@synology.com
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/lockd/svcsubs.c          | 2 +-
+ include/linux/lockd/lockd.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index c230b18d87e3..67481429ad6b 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -19,16 +19,8 @@ bool __read_mostly report_ignored_msrs = true;
- module_param(report_ignored_msrs, bool, 0644);
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(report_ignored_msrs);
- 
--/* EFER defaults:
-- * - enable syscall per default because its emulated by KVM
-- * - enable LME and LMA per default on 64 bit KVM
-- */
--#ifdef CONFIG_X86_64
--static
--u64 __read_mostly efer_reserved_bits = ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
--#else
-+/* Enable syscall by default because its emulated by KVM */
- static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
--#endif
- 
- #define MAX_IO_MSRS 256
- 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index a4216b858194..0845551c6cab 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -6910,6 +6910,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
- 
- static void kvm_setup_efer_caps(void)
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index 616ed213adaad..90c6527ad712c 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -493,7 +493,7 @@ EXPORT_SYMBOL_GPL(nlmsvc_unlock_all_by_sb);
+ static int
+ nlmsvc_match_ip(void *datap, struct nlm_host *host)
  {
-+	if (kvm_cpu_cap_has(X86_FEATURE_LM))
-+		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
-+
- 	if (kvm_cpu_cap_has(X86_FEATURE_NX))
- 		kvm_enable_efer_bits(EFER_NX);
+-	return rpc_cmp_addr(nlm_srcaddr(host), datap);
++	return rpc_cmp_addr(nlm_srcaddr(datap), (struct sockaddr *)host);
+ }
  
+ /**
+diff --git a/include/linux/lockd/lockd.h b/include/linux/lockd/lockd.h
+index 61c4b9c419042..4044502355ae6 100644
+--- a/include/linux/lockd/lockd.h
++++ b/include/linux/lockd/lockd.h
+@@ -268,7 +268,7 @@ void		  nsm_release(struct nsm_handle *nsm);
+  * This is used in garbage collection and resource reclaim
+  * A return value != 0 means destroy the lock/block/share
+  */
+-typedef int	  (*nlm_host_match_fn_t)(void *cur, struct nlm_host *ref);
++typedef int	  (*nlm_host_match_fn_t)(void *owner, struct nlm_host *ref);
+ 
+ /*
+  * Server-side lock handling
+-- 
+2.53.0
 
