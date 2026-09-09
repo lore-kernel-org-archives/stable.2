@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408B93DB645
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C9C3F7A84
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:02:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948133; cv=none; b=A1ocDPmiMOr1qClvgmIq5RZWPQlBn87c7weyP2aBXj4JFtUgIJiWV9C6U2EkORwJXjeLYK70UuuENWNYCGto0rsnvf4Xm3vv2gLpboThE1CjM77hYpJDnENJhP19kK1A2DTbSyxO91RvRKz8Tc5Nr8fQu+0ooJ8y+NsEyeCh8vo=
+	t=1788948136; cv=none; b=k1HLk4wqaI2dgLQiUqJofx5KkHvC3wq3Q4EVqYZZf9CrFb2dXC32yNw3bcS8iq8ixC3ezjBxeK5UUDxuLnKtZb4HcWRuO5H4ga+AzfI5ein1vfvStpcacEVBbR13t/r6GBzKzkAyifaAXpPAHmeyrFV6WZsfWNOShTlpdxbpkpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948133; c=relaxed/simple;
-	bh=Qs55mwAivDFMaJdmr08g8lScsh7dWiFsCIyddXYYj8E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=o9Hof0XZSLTutz0g5vmVutd68XyJEKlPFqPw0fiYyA37rAywKWy+aGi3sc2vCV8p8qcwSw9eWoaouoBA+wiXcmTmVkdQa6C4xj0pEjx7RINTyu86TQL+AxBf0T4ouZa191afFYSs1qup2PJi5m3oKKUO8z5rA7V4/od90G0Gz1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HZ5np//G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788948136; c=relaxed/simple;
+	bh=SgFiRkg1e5ECaK1Cp0ICBCH1hQlS2cK7jol1VJCsZuo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rD1daSw+vZI/7bTI1vYf0+pvqPoQEHmbmb5CYtNosEFObun8QuYd9BOKCjJKqqOB9IzV6TU8qXtynMarmurvpLMi5g+jOIJlqq/0Ns6NGCv2Vr8ExMaXMLkhf7TbKWVehB2/7MfowUVTtOAAzwZW+bWWvDruthFolwubVrAuVT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XBOTWXOK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HZ5np//G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8557D1F00A3A;
-	Wed,  9 Sep 2026 10:02:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XBOTWXOK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB231F00A3A;
+	Wed,  9 Sep 2026 10:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788948132;
-	bh=i5Lgz8aj+qd3clGQuE1HdZEornpwWNPS62d039A3vUw=;
+	s=korg; t=1788948134;
+	bh=1LM1kH2HV16pAH9NF0Fxl53p93LkXHO458XGKFg1Hkw=;
 	h=Subject:To:Cc:From:Date;
-	b=HZ5np//GdxpkMVZaX5MEfCku0XIaVcaRKvWg+CLUitKSmxj2jE9zUpmZ0DVP0c61e
-	 GAihDlJ86z/389UGOGLMDCKdgWTMJme0jbZ67eASQiQeTbAQ4ofrhBt5uJGkr0IYm0
-	 uQfmHfKY7ykaVzJXMV0AS+bbumyC5DIpwOAr7X8c=
-Subject: FAILED: patch "[PATCH] clk: meson: align gxbb_32k_clk_sel number of parents with" failed to apply to 5.15-stable tree
-To: martin.blumenstingl@googlemail.com,christianshewitt@gmail.com,jbrunet@baylibre.com
+	b=XBOTWXOKW6Lw1ZcSIiym/53dHRO1/hEQ7+ATNYxYOw6+D0jwG3Dqhv9JiWDFUducy
+	 ATlvKF4QOs1sgCMnw28s7Dufe7SNvyri8tFwY+zoMWsB8oT/the0XPw26Gs6RgD6Vk
+	 YEmCzoNoshPEbQ06vo1gvR/EJluM83kj982Cb22I=
+Subject: FAILED: patch "[PATCH] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs" failed to apply to 7.2-stable tree
+To: imran.shaik@oss.qualcomm.com,andersson@kernel.org,konrad.dybcio@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 11:58:30 +0200
-Message-ID: <2026090930-unguided-jam-8517@gregkh>
+Date: Wed, 09 Sep 2026 11:58:45 +0200
+Message-ID: <2026090945-hazard-parachute-9428@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 628b6fee9fca292f12d07f0f1bcf1edefa949d81
+git cherry-pick -x 830ead322c39c99bf972425b3c35323ec56c29de
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090930-unguided-jam-8517@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090945-hazard-parachute-9428@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,86 +62,119 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 628b6fee9fca292f12d07f0f1bcf1edefa949d81 Mon Sep 17 00:00:00 2001
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 23 Jun 2026 22:19:56 +0200
-Subject: [PATCH] clk: meson: align gxbb_32k_clk_sel number of parents with
- actual count
+From 830ead322c39c99bf972425b3c35323ec56c29de Mon Sep 17 00:00:00 2001
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 20:53:47 +0530
+Subject: [PATCH] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
 
-The following out-of-bounds read has been observed by Christian on a
-GXBB WeTek Hub:
-==================================================================
-BUG: KASAN: global-out-of-bounds in __clk_register+0x1b70/0x2418
-Read of size 8 at addr ffffd66320cf88e0 by task swapper/0/1
+CLK_ALPHA_PLL_TYPE_DEFAULT_EVO type PLLs do not have the PLL_TEST_CTL_U1
+register, so clk_alpha_pll_configure() does not program test_ctl_hi1_val
+for this PLL type.
 
-CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.0.0-rc5 #1 PREEMPT
-Hardware name: WeTek Hub (DT)
-Call trace:
- show_stack+0x14/0x20 (C)
- dump_stack_lvl+0x74/0x94
- print_report+0x164/0x4b0
- kasan_report+0x98/0xd8
- __asan_report_load8_noabort+0x1c/0x24
- __clk_register+0x1b70/0x2418
- devm_clk_hw_register+0x74/0x15c
- meson_clkc_init+0xd4/0x20c
- meson_clkc_syscon_probe+0x5c/0x94
- platform_probe+0xbc/0x17c
- really_probe+0x184/0x844
- __driver_probe_device+0x154/0x35c
- driver_probe_device+0x60/0x188
- __driver_attach+0x168/0x4a0
- bus_for_each_dev+0xec/0x180
- driver_attach+0x38/0x58
- bus_add_driver+0x238/0x4c0
- driver_register+0x150/0x388
- __platform_driver_register+0x54/0x7c
- gxbb_clkc_driver_init+0x18/0x20
- do_one_initcall+0xb8/0x340
- kernel_init_freeable+0x49c/0x52c
- kernel_init+0x24/0x148
- ret_from_fork+0x10/0x20
+The GCC PLL configurations for QCM2290, Shikra and SM6115 wrongly use
+test_ctl_hi1_val instead of test_ctl_hi_val, deviating from the hardware
+recommended settings. Fix them to use test_ctl_hi_val.
 
-The buggy address belongs to the variable:
- gxbb_32k_clk_parents+0x60/0x400
-
-The buggy address belongs to a vmalloc virtual mapping
-The buggy address belongs to the physical page:
-
-Memory state around the buggy address:
- ffffd66320cf8780: 00 00 00 00 f9 f9 f9 f9 00 f9 f9 f9 f9 f9 f9 f9
- ffffd66320cf8800: 00 04 f9 f9 f9 f9 f9 f9 00 04 f9 f9 f9 f9 f9 f9
->ffffd66320cf8880: 00 00 00 00 00 00 00 00 00 00 00 00 f9 f9 f9 f9
-                                                       ^
- ffffd66320cf8900: 00 01 f9 f9 f9 f9 f9 f9 00 06 f9 f9 f9 f9 f9 f9
- ffffd66320cf8980: 00 00 02 f9 f9 f9 f9 f9 00 00 02 f9 f9 f9 f9 f9
-==================================================================
-
-Commit 7915d7d5407c ("clk: amlogic: gxbb: drop non existing 32k clock
-parent") dropped a non-existing clock parent from the gxbb_32k_clk_sel
-mux but didn't adjust the hard-coded num_parents field. Fix the actual
-number of parents of that mux by using ARRAY_SIZE instead (avoiding
-similar problems in future).
-
-Fixes: 7915d7d5407c ("clk: amlogic: gxbb: drop non existing 32k clock parent")
-Reported-by: Christian Hewitt <christianshewitt@gmail.com>
+Fixes: 496d1a13d405 ("clk: qcom: Add Global Clock Controller driver for QCM2290")
+Fixes: 01cf3e27824d ("clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC")
+Fixes: e88c533d8a2a ("clk: qcom: gcc-sm6115: Add missing PLL config properties")
 Cc: stable@vger.kernel.org
-Tested-by: Christian Hewitt <christianshewitt@gmail.com>
-Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Link: https://patch.msgid.link/20260623201956.1324992-1-martin.blumenstingl@googlemail.com
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260729-pll-test-ctrl-fixup-v1-1-246d79589380@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 
-diff --git a/drivers/clk/meson/gxbb.c b/drivers/clk/meson/gxbb.c
-index f9131d014ef4..d432e08d1777 100644
---- a/drivers/clk/meson/gxbb.c
-+++ b/drivers/clk/meson/gxbb.c
-@@ -1394,7 +1394,7 @@ static struct clk_regmap gxbb_32k_clk_sel = {
- 		.name = "32k_clk_sel",
- 		.ops = &clk_regmap_mux_ops,
- 		.parent_data = gxbb_32k_clk_parents,
--		.num_parents = 4,
-+		.num_parents = ARRAY_SIZE(gxbb_32k_clk_parents),
- 		.flags = CLK_SET_RATE_PARENT,
- 	},
+diff --git a/drivers/clk/qcom/gcc-qcm2290.c b/drivers/clk/qcom/gcc-qcm2290.c
+index 02ca37f58477..77cff0e9af93 100644
+--- a/drivers/clk/qcom/gcc-qcm2290.c
++++ b/drivers/clk/qcom/gcc-qcm2290.c
+@@ -116,7 +116,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
  };
+ 
+ static struct clk_alpha_pll gpll10 = {
+@@ -148,7 +148,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll11 = {
+@@ -309,7 +309,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = 0x1 << 8,
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll8 = {
+diff --git a/drivers/clk/qcom/gcc-shikra.c b/drivers/clk/qcom/gcc-shikra.c
+index cd192ff38913..2a1c1fc253aa 100644
+--- a/drivers/clk/qcom/gcc-shikra.c
++++ b/drivers/clk/qcom/gcc-shikra.c
+@@ -122,7 +122,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll10 = {
+@@ -155,7 +155,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll11 = {
+@@ -360,7 +360,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = BIT(8),
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll8 = {
+diff --git a/drivers/clk/qcom/gcc-sm6115.c b/drivers/clk/qcom/gcc-sm6115.c
+index c5251aff9886..a3c9dbe3a48a 100644
+--- a/drivers/clk/qcom/gcc-sm6115.c
++++ b/drivers/clk/qcom/gcc-sm6115.c
+@@ -120,7 +120,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
+@@ -173,7 +173,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_val = 0x2 << 20,
+ 	.vco_mask = GENMASK(21, 20),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
+@@ -367,7 +367,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = 0x1 << 8,
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
 
