@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80D55335A0
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A276E474271
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953023; cv=none; b=bohR+jYRu0bRXFwREY6qWLzV19LF35knDXdbFcpWI2wfQM4j7axYHCF/rfh2TXfG0KTAdAYOTf2RIfOVLJCwAb3hNLbAAZ5GSqfQZKZ7O/RqklFZMVbX1H0W8xRWe4I54Njg9Vxj30k2Dg0NXR/mKR54OZEYiCqZ8meXaRLCvvw=
+	t=1788953025; cv=none; b=H7ZYWLdjzz0r1nSrO6Kdt/3phr0VQbBEmqmu8Yg7EpOkDWX5ESVgSQLYlhAetIE9OeLaP1W3TIvG2JRX2HwxdmWGGHxm4e+0uvS/hann60apOprc+lvtagC//BWIzrvAcmOjuU3nxd0FISEWyQjoyWn5L1IEcfd1AXkcTYZP4VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953023; c=relaxed/simple;
-	bh=Ypmec/XWsTp76rgH+023zVkDm+6guPTZbORBdqeUvug=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=clQP/SK3EmY2qNBRVziYnmjLko9zbE2rhT8fZbSuLuOPZOhKa57DtwgDrf8kcX8+tyRaMx3cxwYrkBXMA1Fxf8mZYZYVJgwIYIpQ53g91B/wVYe+2aAaquQbHgPfMqRbTaF+z1ahNUmRb7Qv/lVmWmA9X20HCfuh0j3e1vGLhiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ah0OtuIF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953025; c=relaxed/simple;
+	bh=Sgh4iGReXuo+KshGMhdzwY4bEDir5JtGL/oEkwPGIXc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hKdEQkw80y8AiNhljGoCI/z8I6L2Ud+lqjHl+HCWY22o82+6NzB3dSlvVqtlvgPfhAZ10jvVWplfc5JV7LpFBfALMsFIQHkPx13xGiY65dM4XeN42TtOWIacRcv8LWEzLSz1hg1ijZaSP546M3wPhvsUEaEmJ98Q+zbO67AyUfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m//7Oa4P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ah0OtuIF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9341F00A3A;
-	Wed,  9 Sep 2026 11:23:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m//7Oa4P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B481F00A3A;
+	Wed,  9 Sep 2026 11:23:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788953021;
-	bh=nk8K1vwUu9GhXvJL+zE315/huuhvY0bd7DKVvxz2LDI=;
+	s=korg; t=1788953024;
+	bh=oXIqcmyua6HcqBmkYBiz+sY41RWOHTrHFhevkVlbrmM=;
 	h=Subject:To:Cc:From:Date;
-	b=ah0OtuIF4m6PjMu9ESb2xj1nEfcIErDhBIysboeqv+8QelyIRQw8uC5TxICCdGR2t
-	 DH3x2VBCmL1ghE7dgKBV8KIWX2Q62FYwV9hGGqsF6Z4ltNFYLEELK3xiu/h2+3dhFj
-	 icqz2q+fj4failJt/hQCaCT4/3yB9QvAiKWMsX1E=
-Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Skip NVMe LS reject IOCB when FW not started" failed to apply to 6.6-stable tree
+	b=m//7Oa4PChmPXShPB+VDsvT2bao6D6r0kvJXQeuG2a8pSHm8UpzcXeD5D+7IQQFen
+	 65ADCcSIoXPS2oRm2aJmdfCki0ecQxByWTOyUpOMXfIlTNgQY7pC1bczE0xVebpOMx
+	 kksGzKhYRqMelLSbte1wyu3bqasBXVGiJGtnlmpc=
+Subject: FAILED: patch "[PATCH] scsi: qla2xxx: Skip NVMe LS reject IOCB when FW not started" failed to apply to 6.12-stable tree
 To: njavali@marvell.com,mkp@kernel.org,sashiko-dev@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 09 Sep 2026 13:14:22 +0200
-Message-ID: <2026090922-debtless-broadband-c2ee@gregkh>
+Message-ID: <2026090921-fester-word-0fdf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f7e46ebffc5781aab3f1f5a5d4350addbb5833f4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090922-debtless-broadband-c2ee@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090921-fester-word-0fdf@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
