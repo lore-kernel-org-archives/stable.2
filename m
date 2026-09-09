@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868D93CC327
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D69498906
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951317; cv=none; b=IaRbQuHgO9vA8x9s/m4s7KT7GKBjYbOuuZuyYAlxZ9saf5kp38Hj5mJwcxL+K8jmW7mo/A1k9bHf2Gv9KfsU+KtqRnb9ZPG/OrYje9gjW7u9MrpHiEMPiOvr4HNYT0vFeHxgSDPjb4Qn4McCaYf3wDYBMGUsc2Yq52PifXmY7JY=
+	t=1788951319; cv=none; b=d0ZKPs5WLHFHYA1zYK/lzwjnJMuXgIowJVP++JVs7gEUjRkKLvojVLevzDEUKOCj4O9ba/AB9PHSG6QUvq5gOgTZwkVoboRiDN7yoLn1PQFMVymogeW8ZfM7GM7Lj+r9k1Ht9s7RlGHI/49zSQikMvpNAOd6tvnujI0EUzsghuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951317; c=relaxed/simple;
-	bh=55ldDWfENmRnHBDQeYbfSK45GaMaSKal51fpojoGsto=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sJ57cg2G1ulPfBHSOm14j+DZuilatz0x5NNs7vG+1HiKxfmT0wTP/DNvoJdFsScKXZEuUH+HFmXCdllfT7hF6nrtQsoZjdbXR/QNVBnMuLzqOR/v1xbepBC5egVrx4MLK/gWb7SbfluKKnci0zDU7G/RY1+UhMyJy32JxzWFjn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rGGNwaZt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951319; c=relaxed/simple;
+	bh=tntEUwAs95xKpITHO/cH+7YftZJa8H4beotkTBEEWug=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GwQyoYI5ly+cxs3b/NLXAC6Awf6HBECIrrzRMDvApkmWR8OrX9g9a1ro7XoOMz7gb8yeXnNaQyuAVxakUh6dyVApb3/OTXe5oAOugwWHurJd6U2jcvERMiNRam307eAXt/HV0v+yyT+qRweaXXmbLh+AI2FdTuEu8aGbpH+DxjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z0TjXGHo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rGGNwaZt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52781F00A3A;
-	Wed,  9 Sep 2026 10:55:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z0TjXGHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641A71F00A3A;
+	Wed,  9 Sep 2026 10:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951315;
-	bh=I3z1B0gAOt3CpStLJzxXi0PEF6+pYBfW7c4HAzsih0k=;
+	s=korg; t=1788951317;
+	bh=Zw+HIUI2ByLlnJfr/92xGVAbEpHaqrLmoS9U6JqrsXg=;
 	h=Subject:To:Cc:From:Date;
-	b=rGGNwaZtTrqHAo+cyx3Pybj1XrFssG5pxceLpNjI3n67KLiBw/khYZynV0KGoFYB9
-	 vggSevAXmPneEDNNLRMuuxxDCYiCGnM9QZ0sXlTk4rQzvrSZr9ExvAEDd1atYgMk3O
-	 Cqct2G3BbZMHJ/9lq070/Kpcum2+gcg3z9lmuiGM=
-Subject: FAILED: patch "[PATCH] media: rc: sunxi-cir: Unregister rc device on probe failure" failed to apply to 5.10-stable tree
-To: mhun512@gmail.com,ae878000@gmail.com,sean@mess.org
+	b=Z0TjXGHoGOy7wsFe0cY3SMFALlvNbTKepf+p5rGvr2UKrgLEXcEScd3Gg4sMD5vv3
+	 GThORvk6J2A9RzA5op5mzdAoiQZwTVrd3nFYPeMYs5DgTy+XO47ZC3n8gFyUz+0idg
+	 1NlgLOd11aGXqwZKMgDVkUN0Tj00vBU3IDjQi7ns=
+Subject: FAILED: patch "[PATCH] media: rkvdec: Propagate platform_get_irq() errors" failed to apply to 6.6-stable tree
+To: ahmisaranrao@gmail.com,detlev.casanova@collabora.com,hverkuil+cisco@kernel.org,nicolas.dufresne@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:48:10 +0200
-Message-ID: <2026090910-petal-cupcake-2b81@gregkh>
+Date: Wed, 09 Sep 2026 12:48:28 +0200
+Message-ID: <2026090928-froth-sprinkler-1445@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 479aa6fa8c50f1052f1451326ef7d4d586d340c3
+git cherry-pick -x c37aca64206fafe938119e801a3fd10a537a051f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090910-petal-cupcake-2b81@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090928-froth-sprinkler-1445@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,38 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 479aa6fa8c50f1052f1451326ef7d4d586d340c3 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Wed, 13 May 2026 16:11:03 +0900
-Subject: [PATCH] media: rc: sunxi-cir: Unregister rc device on probe failure
+From c37aca64206fafe938119e801a3fd10a537a051f Mon Sep 17 00:00:00 2001
+From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
+Date: Wed, 1 Jul 2026 16:42:03 +0530
+Subject: [PATCH] media: rkvdec: Propagate platform_get_irq() errors
 
-After rc_register_device() succeeds, later probe failures must undo the
-registration with rc_unregister_device(). The current error path jumps to
-the allocation cleanup label and only calls rc_free_device(), leaving the
-rc device registration and resources created by rc_register_device()
-behind.
+platform_get_irq() returns a positive IRQ number on success and a
+negative error code on failure. It no longer returns zero. The driver
+currently returns -ENXIO for all failures, which loses useful errors
+such as -EPROBE_DEFER.
 
-Add a registered-device unwind label for the IRQ lookup, IRQ request, and
-hardware initialization failure paths. Keep rc_free_device() for failures
-before rc_register_device() succeeds.
+Return the error from platform_get_irq() directly.
 
-Fixes: b4e3e59fb59c ("[media] rc: add sunxi-ir driver")
+Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Signed-off-by: Sean Young <sean@mess.org>
+Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
+Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
-index cb4c56bf0752..28e840a7e5b8 100644
---- a/drivers/media/rc/sunxi-cir.c
-+++ b/drivers/media/rc/sunxi-cir.c
-@@ -344,22 +344,25 @@ static int sunxi_ir_probe(struct platform_device *pdev)
- 	ir->irq = platform_get_irq(pdev, 0);
- 	if (ir->irq < 0) {
- 		ret = ir->irq;
--		goto exit_free_dev;
-+		goto exit_unregister_dev;
- 	}
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 4fd06f4c04db..061281f903f3 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1818,8 +1818,8 @@ static int rkvdec_probe(struct platform_device *pdev)
+ 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
  
- 	ret = devm_request_irq(dev, ir->irq, sunxi_ir_irq, 0, SUNXI_IR_DEV, ir);
- 	if (ret) {
- 		dev_err(dev, "failed request irq\n");
--		goto exit_free_dev;
-+		goto exit_unregister_dev;
- 	}
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq <= 0)
+-		return -ENXIO;
++	if (irq < 0)
++		return irq;
  
- 	ret = sunxi_ir_hw_init(dev);
- 	if (ret)
--		goto exit_free_dev;
-+		goto exit_unregister_dev;
- 
- 	dev_info(dev, "initialized sunXi IR driver\n");
- 	return 0;
- 
-+exit_unregister_dev:
-+	rc_unregister_device(ir->rc);
-+
- exit_free_dev:
- 	rc_free_device(ir->rc);
- 
+ 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 					rkvdec_irq_handler, IRQF_ONESHOT,
 
