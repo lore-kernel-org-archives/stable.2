@@ -1,39 +1,39 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA3C43F4CF;
-	Wed,  9 Sep 2026 08:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85627489889
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944181; cv=none; b=ErX6mgMh6DMm9cIB6dQ7fNivL/ojHlY2OaOjXXxnKJf2PAVOKMlmuRUWakFZZkv9nFGe0rBm4PxbONaZDQUrB7PXV0E/e1xIZlfGAeaxZ8PKktdAfPCuS3sDGuD0l/6tOmmAoea9SG7Dsq3NG0wvrZ48XowcL4kFHq0MrmZ3lQI=
+	t=1788944217; cv=none; b=oih1oJX9NCqpV8bTWssNOrsgqvSs0judk1jwSBF1fJeGijZrKpVgvtr/ftHU/0P9HBX7jVW3rH7e6jQtmoPu073U8qu+uMRwHioLwQEJem6Mf9gxyoES5N6v2JOCg6nm0fuWkX3GF8kETwc6gZ4xGlg8ZKtLnnFOQK+EXHEwN14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944181; c=relaxed/simple;
-	bh=vlCDdHlERV7ldMdjAlR87YMzOlw9ABmR7MKXz/mJje0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DBSIildsicuGvqPw0U8vRZZFXrgR8GQSnfFQmqXcTfCBx0LeiQJMA+o5pQx5wK4TMAgQNPpNEsvR1AHY+vpFhOpd64+SiE/BIYYBd2753BIH6ifGsOwnQpNxwGM4FNoN92vsQBKDUKWDIl9bD3mTs/G7pv49IVvHEZmpXV0vTaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sW6STOlM; arc=none smtp.client-ip=185.246.85.4
+	s=arc-20240116; t=1788944217; c=relaxed/simple;
+	bh=JF3O1B0ruS2aFRTkmaSYRWic/aeA8sb9k9jvcclJdP4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=P0eZwx4zXKqgXMHLgfIbhn+ZWPU/JPngbRUW0AAKEj6bClRV2UzH4BabGVoTmJSgqU8kiMM23HnfmCUoSH0fpw2JkurR0mG+hmX1tWKEfv7fExMZPLN9R+PtB+6PpnVoOqdVHrNqMeWgSgRc76ySR5NscUy+5ILqmnHTDkWgsD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CDwauWnB; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sW6STOlM"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CDwauWnB"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6B7BE4E415A5;
-	Wed,  9 Sep 2026 08:56:18 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 051431A1A78;
+	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3DE0D60448;
-	Wed,  9 Sep 2026 08:56:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 007DE11C7AF65;
-	Wed,  9 Sep 2026 10:56:10 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CC74860448;
+	Wed,  9 Sep 2026 08:56:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15E4811C7AF3D;
+	Wed,  9 Sep 2026 10:56:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788944176; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=BzDIG/gMdp8z4Xa0xaBWgKt4+UvBf19IsQl+Zf3hMqM=;
-	b=sW6STOlMRIj94yOR70vXnTmjKZlfa+wY3OmS2s3f39yg7gLFsI7AClOWALD3FFKROmTGRL
-	0+FEqNF1Cby5rfU8wkFO/B0tlkP1azSRnO91Eb22vMNVll3D2kHp6YQPR5VZlqAaGgNxBK
-	zF3VuC2CHmuT6ZByNQKq9avzzB2Iyr9Vixce2cVb9XXj/TmZylmY/KejTRzzc2mTccbxMC
-	JECGmwHDsgXZMbb5J/hDup3CbCdCRaGsypSF7D3yX9cwAekNdYJhLPCpo8hl+T7MkxXNC5
-	F2lsE7ppOIp1UMM4sV1BkCB7lo9u/t2mgwPeL/UWz+M3WaEZJ754WhQm+nl/zA==
+	t=1788944212; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=jhoGSO/XD6PN/mlAWTDEsoUz7/QkmzABQbv+weCnPbQ=;
+	b=CDwauWnBz/mg4WpauvZGTQIf9scebzssIXSfVY7H7aezZ8D4uWVbghayq85ua+HO12bjoV
+	ILLXuawZB+4SqB5jPgw8oKhUXgz9hVoXq1qle3uPVw1RKAdyPvJkZy8gpS3s+lEpuMya/F
+	1THW21vDMtY6iKQpn1DJUi4Q2B9NJINF18IzvxzSw/uf/jFwGxp8j4GNAup1asq1V+FUJ7
+	uZv+d33uOCVDFe+ReKNHBJR9sSeP+0EdTz3fJiRlFlGxDwhHs2xS+WN/z5wWg8iy8xxz3G
+	sXU5Arq2nT+68v6vamDU83SWddQDW96Vf8ULLMnFuDMgwwXOKh85cO/f2TDT8A==
 From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Wed, 09 Sep 2026 10:56:09 +0200
-Subject: [PATCH 5.15.y] tcp: clear sock_ops cb flags before force-closing a
+Date: Wed, 09 Sep 2026 10:56:45 +0200
+Subject: [PATCH 5.10.y] tcp: clear sock_ops cb flags before force-closing a
  child socket
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -43,30 +43,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-cve-2026-74268-5-15-v1-1-37bf2b22cb29@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJW92KvorhIOui6wFNqwRDe
- HeLHr9J5p+RNZlmHKsZSUfL9hgK/KaC3M7DVckuxQguRHdwDcmotIL2uxAbYvJMnQ8qEnnLvaI
- 8n0l7m37VE7j2XH/Q/vf87u4qrzWJZfkCFHe8HH8AAAA=
-X-Change-ID: 20260908-cve-2026-74268-5-15-b12ecc6535fe
+Message-Id: <20260909-cve-2026-74268-5-10-v1-1-374ebc121b6d@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTtk2tg69SrGBZYBxgWaFomGc
+ HcLLL+XvH+BLEklw7VaIMmsWV9jgTlVEIdm7AW1LQZL1lMgxjgLbsDL2XpGh4bQ+YZDYGcCWyj
+ Pd5JOv3v1Bq42VP/gfuz583hKnLYkrOsfX3KpH38AAAA=
+X-Change-ID: 20260908-cve-2026-74268-5-10-56a899851982
 To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
  Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
+ Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
  Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
- David Ahern <dsahern@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <kafai@fb.com>, Song Liu <songliubraving@fb.com>, 
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>, 
- KP Singh <kpsingh@kernel.org>, Lawrence Brakmo <brakmo@fb.com>
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <kafai@fb.com>, 
+ Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+ John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>, 
+ Lawrence Brakmo <brakmo@fb.com>
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
  Sechang Lim <rhkrqnwk98@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
  Kuniyuki Iwashima <kuniyu@google.com>, Sasha Levin <sashal@kernel.org>, 
  "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944170; l=4721;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944205; l=4820;
  i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=p4vtM9qPFpQK2kcv4KsjziTw8xRoZuyTNe8QYOxibQQ=;
- b=ICDUNCgb5iecK5jzpS3p2bBCP2rG6gntLxMrg8jA2iYPK4tblk+I1xH5d64jZBGSP3yWpY9PY
- Av89R7PtqeDDq/ajd2n0v4K6+tX6nZLIsrW1B9GNm75q+Mkh/GdipzS
+ bh=gfGs0ll/D/LmEzDWS0zeRunUGoOktjRYi4+zsANwh50=;
+ b=RBJcJEeBsIokH9FWwAkHCPsE3jyGoCSdaKFJ6Z3FrnEfYoWKanpbyghHUJduIpbEGea5Ad3tN
+ xIWjh1o9dj1Bu+CaL1CfwKDn/c7ETxpUcqAmRrsWrnUuS3eyE+5OTnv
 X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
  pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
@@ -116,18 +117,18 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
- include/net/inet_connection_sock.h | 8 +-------
+ include/net/inet_connection_sock.h | 7 +------
  include/net/tcp.h                  | 9 +++++++++
  net/ipv4/inet_connection_sock.c    | 9 +++++++++
- 3 files changed, 19 insertions(+), 7 deletions(-)
+ 3 files changed, 19 insertions(+), 6 deletions(-)
 
 diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 7a015055fe6d..21862361a4f5 100644
+index cfb66f5a5076..5cc2b9658142 100644
 --- a/include/net/inet_connection_sock.h
 +++ b/include/net/inet_connection_sock.h
-@@ -292,14 +292,8 @@ reqsk_timeout(struct request_sock *req, unsigned long max_timeout)
- 	return (unsigned long)min_t(u64, timeout, max_timeout);
- }
+@@ -288,14 +288,9 @@ static inline int inet_csk_reqsk_queue_is_full(const struct sock *sk)
+ bool inet_csk_reqsk_queue_drop(struct sock *sk, struct request_sock *req);
+ void inet_csk_reqsk_queue_drop_and_put(struct sock *sk, struct request_sock *req);
  
 -static inline void inet_csk_prepare_for_destroy_sock(struct sock *sk)
 -{
@@ -135,17 +136,17 @@ index 7a015055fe6d..21862361a4f5 100644
 -	sock_set_flag(sk, SOCK_DEAD);
 -	this_cpu_inc(*sk->sk_prot->orphan_count);
 -}
--
+ 
  void inet_csk_destroy_sock(struct sock *sk);
 +void inet_csk_prepare_for_destroy_sock(struct sock *sk);
  void inet_csk_prepare_forced_close(struct sock *sk);
  
  /*
 diff --git a/include/net/tcp.h b/include/net/tcp.h
-index be91d81d66ab..e03fb905b6b1 100644
+index 4c87936a33d6..f7a61e6f5ebd 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -2353,6 +2353,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
+@@ -2356,6 +2356,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
  	return tcp_call_bpf(sk, op, 3, args);
  }
  
@@ -157,7 +158,7 @@ index be91d81d66ab..e03fb905b6b1 100644
  #else
  static inline int tcp_call_bpf(struct sock *sk, int op, u32 nargs, u32 *args)
  {
-@@ -2370,6 +2375,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
+@@ -2373,6 +2378,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
  	return -EPERM;
  }
  
@@ -169,10 +170,10 @@ index be91d81d66ab..e03fb905b6b1 100644
  
  static inline u32 tcp_timeout_init(struct sock *sk)
 diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 042982aaf970..ac9f18861aa7 100644
+index 723aab818b52..3d5816a8894f 100644
 --- a/net/ipv4/inet_connection_sock.c
 +++ b/net/ipv4/inet_connection_sock.c
-@@ -1074,6 +1074,15 @@ void inet_csk_destroy_sock(struct sock *sk)
+@@ -933,6 +933,15 @@ void inet_csk_destroy_sock(struct sock *sk)
  }
  EXPORT_SYMBOL(inet_csk_destroy_sock);
  
@@ -190,8 +191,8 @@ index 042982aaf970..ac9f18861aa7 100644
   */
 
 ---
-base-commit: 0996e0926f6b4d6123e1b94407d726bc9810248e
-change-id: 20260908-cve-2026-74268-5-15-b12ecc6535fe
+base-commit: be0af8204173441616d0775a54a95ca612a84ba8
+change-id: 20260908-cve-2026-74268-5-10-56a899851982
 
 Best regards,
 --  
