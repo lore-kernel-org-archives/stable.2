@@ -1,90 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAAF3B4E9B;
-	Wed,  9 Sep 2026 06:45:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2F63B6344;
+	Wed,  9 Sep 2026 06:58:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936319; cv=none; b=ZMLJZRpxS64cPy0rJ03vYhOqJNaZmmBAqLfBIhF74lDdymAbz9IjSqwjE/c3u9fRyMk9mGI7rl+RydDK8Ex1BintkV27AGPf4Qh+XdaQVCgVATQNG03X/wvQx3rAx/8AHcLHRhWdPGJWkqeGKzoFnv1/pSruRpnTz8lpgjVk8IY=
+	t=1788937118; cv=none; b=MPU8A55stkq55rZP1ZNtvTGNe4x2lMDfNewpPetMcFyPEpTdu4ZjV5F25pXHBARxqdLhwD+8m4EEniaqz0Ve1Y6F1+Xkv/nsyF/XF0YFQf0gop2iDngHE+DGvUEh48CUnuE6ut1wo0PansoLojo/9RmcX8mrpR20kp3zLKkcnNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936319; c=relaxed/simple;
-	bh=MpZNvYUqsLZlaih+HciCxLUKMn62j1FIs6s6NAMOt1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DdNUmbdYu0zuL7+bCuENbd+bSNTrgr+CCSx29IIGaN2lX2zDnLq7WNtInXhpT4kiZ1L3U9aO7GRzdG1Aj1wFspNjAKiaqHsufiLuSgL3AgmuNCMv8tk/6prXKQQnkxPiUDXmmCiH7Fi6cDJrgeQBMvUDqVoLQCTjskL5B00Kf9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVpI/crm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788937118; c=relaxed/simple;
+	bh=ZwcTGjsFBisObYo5p4yOAzzGAGhYTsp5VgaxYDbNmZ8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sN6P7YV7aTZKe5qZchLeFQ1UWyFLOGN3BRQ62klClVkbgx+i71orkEpUlrt3o16bpE2AFxaYo1quCoWEYrj/3KsgMf+juma2sX09TMCW+Mc3rVooy4lxrZBl8+UUNG4CVrn6bYTmrpynCK/6IOeJdyUmkKuWHj7LExNGe9tC5oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fMrkjVgp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVpI/crm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A651F00A3A;
-	Wed,  9 Sep 2026 06:45:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788936318;
-	bh=gHlyXkGD4aouYNP/UxWOMEmtewgDmyqgdbR4J4vNfuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OVpI/crmbCTehSjX//NzYyKi/Q0tH88FsfWv7XgHGuzglRq0olZW9qWm32/POWIhW
-	 eyHep5l3ajdpo2+ruvn5nRTKmvn096kz2VOR2Tjk5z+Vx41Nyrl4DAquFdWoWP73Jr
-	 evuspY7NFS+5a5BTV70rDyxw3Ts9PDr3hIluOepek/1IOOFvy7A5P+ZSx8dHiK6ZRi
-	 tHOodI0A0XbSNCGxOS5HU4VdEUX70tH3d+69Ws5Dy0odSf9MdrWuJLKsZkJ6s7BzQo
-	 Qf2G/aDy5pq+pRzxfbRtVXzLCrT780L9A6OJCE0PljlB2Ef/wPwxYqzsYN2BAxSF6k
-	 xBWOKQPyqrUew==
-Date: Wed, 9 Sep 2026 08:45:12 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Will Deacon <will@kernel.org>, David Carlier <devnexen@gmail.com>,
-	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
-	stable@vger.kernel.org, x86@kernel.org
-Subject: Re: Update on CPA fixes, x86/urgent and x86/mm
-Message-ID: <aqEAeL1Na_D7egr9@gmail.com>
-References: <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
- <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org>
- <apZ52DKlJIrpX6qq@gremlin>
- <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
- <ap_WIZwCPKB07nAf@kernel.org>
- <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
- <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
- <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
- <3d7152ba-5e41-4cff-9c96-08f77f60ede5@intel.com>
- <aqD_asyNQgzSQBy3@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fMrkjVgp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080D1F00A3D;
+	Wed,  9 Sep 2026 06:58:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788937117;
+	bh=IqVLTnDYn66bK2YcqZfK0YLZ2dluSsDrOdyDou0m65A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fMrkjVgpFiPSguDCjRN3DHCdAH3a2In70srjXbI+JAYwfUX62P8hsZPd2kVEkeyMT
+	 ppciAQQLOoiEMj1nm71D9UG3Pj92Z+lOzUrGGp26ZH2SFpWv4pnRHQ7n2v+3vTRY4C
+	 mthRPk1QEDzNhBckcjx4e9AIERtNFGcQSHxfZr88=
+Date: Tue, 8 Sep 2026 23:58:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: david@kernel.org, ljs@kernel.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
+ Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v5 0/3] mm: khugepaged: fix tracepoint UAF
+Message-Id: <20260908235836.43865421771074b81eadd127@linux-foundation.org>
+In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
+References: <20260909025804.3233645-1-vernon2gm@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqD_asyNQgzSQBy3@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed,  9 Sep 2026 10:58:00 +0800 Vernon Yang <vernon2gm@gmail.com> wrote:
 
-* Ingo Molnar <mingo@kernel.org> wrote:
-
+> From: Vernon Yang <yanglincheng@kylinos.cn>
 > 
-> * Dave Hansen <dave.hansen@intel.com> wrote:
+> The khugepaged tracepoints take a folio pointer and call folio_pfn(),
+> but by then the folio may no longer be valid: freed after folio_put(),
+> folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+> xarray-encoded swap entry. On classic SPARSEMEM, dereferencing it oopses
+> khugepaged as soon as the trace event is enabled; on other memory models
+> it merely prints a bogus pfn.
 > 
-> > OK, so Linus pulled the x86/urgent fixes I sent earlier today. I've
-> > staged everything else. Here's an explanation for where that leaves the
-> > other x86 fixes.
-> >
-> > ==== x86/urgent ====
-> > 
-> > x86/urgent has 5 urgent fixes in it. There are 4 that are CPA-related.
-> 
-> Note that the rebase you did of x86/mm onto x86/urgent added the
-> 5 MM fixes with an incorrect SOB chain - I've rebased x86/urgent
-> to fix this up. No other changes, so if there are no other issues
-> I this we can send this to Linus later today, and thus give it
-    ^think
-> an additional 2-3 days of testing in upstream until -rc3.
+> Pass the pfn to the tracepoints directly, captured while the folio is
+> still pinned, closing the use-after-free windows in
+> mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+> mm_khugepaged_collapse_file().
 
-When morning tea has not kicked in yet. ;-)
+Thanks, I've updated mm.git to this version.
 
-Thanks,
+> V4 -> V5:
+> - Use a single trace statement.
+> - Collect Acked-by.
 
-	Ingo
+Here's how v5 altered mm.git:
+
+
+ mm/khugepaged.c |   15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
+
+--- a/mm/khugepaged.c~b
++++ a/mm/khugepaged.c
+@@ -1790,13 +1790,10 @@ out_unmap:
+ 				       unmapped, cc, enabled_orders);
+ 		/* mmap_lock was released above, set lock_dropped */
+ 		*lock_dropped = true;
+-		trace_mm_khugepaged_scan_pmd(mm, -1, referenced, none_or_zero,
+-					     SCAN_SUCCEED, unmapped);
+-	} else {
+-out:
+-		trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
+-					     none_or_zero, result, unmapped);
+ 	}
++out:
++	trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
++				     none_or_zero, result, unmapped);
+ 	return result;
+ }
+ 
+@@ -2789,13 +2786,9 @@ static enum scan_result collapse_scan_fi
+ 		} else {
+ 			result = collapse_file(mm, addr, file, start, cc);
+ 		}
+-		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
+-					      SCAN_SUCCEED);
+-	} else {
+-		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
+-					      swap, result);
+ 	}
+ 
++	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
+ 	return result;
+ }
+ 
+_
+
