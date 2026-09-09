@@ -1,76 +1,34 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6105C3DD87F
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 15:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E73FF55409C;
+	Wed,  9 Sep 2026 15:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967619; cv=none; b=Ch/AukecnEQ2xWyCy5kzgA8DRl5kh4UVdJf05cK7NKsGBPU/ifEi12PJ4mk7VjnscIz9JYT/Mh4RkTGwVZMCRkOqqoJrokAnEdplwOOVUG5+96YmkHwakix7bcPKxMLHVVjgOjpMP6t+khWUGzJw8+OXSBM7FxeHIhMRKeWdIxI=
+	t=1788967685; cv=none; b=clDMbyLzY39XQ8peGGHeUVsvI7+WG+WE9koDi0y1NJVciwzTYuklAoS9MieRQYyD+yzUHcXIc5sFp6iFRc0Ph9QExZm1gMRS8Q+tRbVyfXXqDBqkvfXdwhypKRejiNxPTWVhgZz45JvTpVejLMikAjKwxoYa0cJeOtQlXd8OxRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967619; c=relaxed/simple;
-	bh=8IWRGuJB27JQntsOKFz+EresHsv7pRs8+lXe0A0vvq0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gFXw1vdXdaYXXBprWVWRddJEkYsTjX4PFddb2D7GqM52309xnIM3uZunU/dyVjHX/uMKZ3xzh1Ie4Bd4YcHf0sh4ukxTnpK+xZCcBvb/v1CeIWTCLpSRXF1E18XCTn1sCPWiDDJVEI992LuGu21l0GCr8cANpyC8HbYaNIngRIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z7FSvJw7; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z7FSvJw7"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4843e9c5960so5730334f8f.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 08:26:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788967616; x=1789572416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LW1s8UaLa5lVEYEH+LErOL0dEAs8vOkfroCHFQDUI7c=;
-        b=Z7FSvJw7fUI+xE4+tXlqGNywZOvMjuSQGzinfouYwswtRivL7NqSySuWF8PvkY2a+h
-         HfTRYGphKqkqFZdh6zo7EFYXdi6DUpo9DoOEx0iEl4RyFHK2ANgLZR116kmTgpu1HH/n
-         ogZco4YUw3AlTGkv0qL70QzkFjS0vbJTj4PD7ANV9Gu8R7T/KT789Hqfm5qZM1YKiyYV
-         g28Pa0N2BpuT2b6Re+jEbr5Drr8fwFiiyXMzIZ896thvaBs6m4dYqGkAIU4qBJrxXSef
-         qikBzM6I3FkjmmXxy+DJ/LWpBIPler5G3sQ1at0/nn0Va8XKY+mUu2hcNXs1IWa72E07
-         la1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788967616; x=1789572416;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LW1s8UaLa5lVEYEH+LErOL0dEAs8vOkfroCHFQDUI7c=;
-        b=IWV6V+43Lzl8nCBSOrJ8LPU3ysBumhgyHDHBmQkq8tOu/OYygweB3jgdVrI8e8+kzE
-         FcQkQmY2tQOSGgO8qN98/L6chlmQnSIxFiGH0IbFUfmE2w6deiJMtkR0xt+EFIRKpOB9
-         osSrlcMFFCZWuU6W7gNhaXTy0Ovy3iKGu641AZjLhQ0f9RvoTy2cGqAOKU9gGyzfbny1
-         1VjSDQiovw9D0LtGoJ7f4O+S4OwSFNHSO1ZcV8mz4ZumFGY8Ap/uFbrAGOzomYIdZNWY
-         B4+c3cRvZnsuc2TFQ9mDeOE2MS0XGrTqmDxYVvyBT+lf0ADngl+lg8JlQTruwGEIuW4a
-         DDiA==
-X-Gm-Message-State: AFuF++kVoJuA/+QVSJpmR+SH2g6qcYbAemZzAxkmJGHvCyx6hV14tOY4
-	yyOwNCrQhnrBkMC5szN7vnjUQFhQ/aH3IRgEx5/Igox8EOvfNS1RGOjFqC217ikLY24=
-X-Gm-Gg: AYBFou3IuorzxG4tSITeQi4WX7FGcQjw/0HXrZehcPpHClkj89kaAGAkT1afVfjgCjb
-	KKo0SCgSFX1p2VTYVdn2HHNl0z+hugDI77R//SY3EBczvn3Rfy7ydH6zOoEEKarFtabDYsQZBGD
-	c1zInmKQvAzI7+MGe6J3G9BqGt9pRKJBbXTCpym5ZhHjb4qFaGxtsrVQgdwSJ+yb18/wVMkHPgK
-	EOm61TKCoNVOgMuvMLTKwkNlGJnssoVg9IP2vAsvmChau3LWP9Jws/bFFqxrmvhtg0Wbkd5rScK
-	IlqcveJcAecosXyOPqY4ZT0zCow3vTiAh1Uf30H4ygxM5IDx+zJAS8XRy63w3kbKhqU/zpto9y+
-	JnuBAMXXsloOoxy0fzMtUFz48Hf/MygYoKcvJ3Ymjp94qkkIGss7j07xPKYbQQOlC1uDeXFQg4v
-	RpNYRiSc+Id7P4G/ZzTfYHM6yF0kH4m83ZZnRLTSw8s2Nw77Wd7jOFaHKWRqAj7CBE8dkG8TZLW
-	6nsHuJJ84zvldXF+Q6VKIVgbAn2cRezJR3nXxVbb0c3LOw9R4QGmTJ84q5+dg==
-X-Received: by 2002:a05:6000:715:b0:485:8c16:5ef5 with SMTP id ffacd0b85a97d-4858f0b188fmr27699493f8f.47.1788967616299;
-        Wed, 09 Sep 2026 08:26:56 -0700 (PDT)
-Received: from cachyos-x8664 (h37-122-44-64.dyn.bashtel.ru. [37.122.44.64])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485aa2c9acasm8901719f8f.36.2026.09.09.08.26.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:26:55 -0700 (PDT)
-From: Akhmed Zhitaev <zhitaevakh@gmail.com>
-To: stable@vger.kernel.org
-Cc: alexander.deucher@amd.com,
-	mario.limonciello@amd.com,
-	superm1@kernel.org,
-	Akhmed Zhitaev <zhitaevakh@gmail.com>
-Subject: [PATCH 6.18.y 2/2] drm/amd/display: Scale custom brightness curve from full range
-Date: Wed,  9 Sep 2026 20:26:35 +0500
-Message-ID: <20260909152635.83860-3-zhitaevakh@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909152635.83860-1-zhitaevakh@gmail.com>
-References: <2026090900-lip-ribbon-1726@gregkh>
- <20260909152635.83860-1-zhitaevakh@gmail.com>
+	s=arc-20240116; t=1788967685; c=relaxed/simple;
+	bh=GbQE/C5EL3goLl9+Xf5dk6SfdFav9LFstn5nK7k2Z0E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BTr+jDWOKs0m0at+o4TCYNjWEfVCXmf1P0bdD/Zfj8Fl2enxuBCOHBnjcS2Tc+2hTLm8b995J+dkz2PNDWGdZourl564uWTlcvXZ4OhUxUu1+LlCPryX7z68eQv3KYxllsrhVYLH+NIrP30kfkrsOa4iVQ9Wqr7jA4LUOuGm3io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDn7zf5eqFqsqUDAQ--.35929S3;
+	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCHUXX5eqFqcvgLBQ--.14715S2;
+	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: alexandre.belloni@bootlin.com,
+	cl634@andestech.com
+Cc: linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] rtc: atcrtc100: cancel alarm work on remove
+Date: Wed,  9 Sep 2026 15:26:51 +0000
+Message-Id: <20260909152651.712614-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,63 +36,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCHUXX5eqFqcvgLBQ--.14715S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?1GNiTgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WPkJOV2rqO1KNC8oE4y/Lr6IwZ8o0fuNPjhcAwmE/jJ3xxa
+	GkfmUcmsO0hiCFspzh+p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWw17ArW7Ar45Cr45KFy8JFc_yoW5XFyfpF
+	WfXF98WrWDKr4aqw42vr4jvF1UCw1Sq3y5GF1xZwna93s5JF9xZFyrZFW8W398JrZ5Ga1a
+	yFWjy3y5CFWUCFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUcXo2UUUUU
 
-[ Upstream commit 6fd83a1c2cdea48c396f600795217fbdfb8124f6 ]
+The alarm interrupt handler atcrtc_alarm_isr() queues rtc_work on the
+system workqueue to clear the alarm. The handler atcrtc_alarm_clear()
+dereferences the devm-managed atcrtc_dev through container_of(), takes
+rtc_lock() on the RTC device and writes the regmap.
 
-Custom brightness curves use an 8-bit input signal.  After exporting the
-full PWM range to userspace, the curve normalizer still divides requests
-by the physical PWM span.  On panels with a nonzero minimum PWM level,
-this can produce a curve input greater than 255 and send an invalid
-backlight level to DC.
+The driver has no remove callback, and the devres cleanup only frees
+the interrupt before the remaining resources. free_irq() waits for the
+interrupt handler, but it does not cancel work the handler already
+queued. A pending atcrtc_alarm_clear() can therefore run after the
+regmap, the I/O mapping and finally the device structure have been
+released, and dereference freed memory.
 
-Scale the userspace [0..max] range to the curve's [0..255] range
-instead.  This retains the full advertised range and keeps the reverse
-readback conversion unchanged.
+Add a remove callback that frees the interrupt first, so no new work
+can be queued, and then cancels the alarm work, following the same
+pattern as rtc-ds1374 and rtc-ds1305.
 
-[ Backport note: In 6.18.y the brightness helpers still live in
-  amdgpu_dm.c, while upstream changes the later amdgpu_dm_backlight.c.
-  Apply the same semantic change at the old location; the logic is
-  otherwise unchanged. ]
+It also clears the wake IRQ and disables the wakeup source configured
+in probe. These are not devres-managed, and the driver core only
+releases them when the device itself is removed, not on unbind.
+Without this cleanup, a later bind would fail probe with -EEXIST:
+device_wakeup_attach() rejects a second wakeup source for the same
+device, and the leftover wake IRQ would make dev_pm_set_wake_irq()
+fail with -EEXIST and a WARN as well.
 
-Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
+This issue was found by an in-house static analysis tool.
+
+Fixes: 7adca706fe16 ("rtc: atcrtc100: Add ATCRTC100 RTC driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-(Move to amdgpu_dm_backlight.c)
-Link: https://patch.msgid.link/20260813170959.22073-1-zhitaevakh@gmail.com
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 03ebb8001f..09fd92d2ce 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4952,10 +4952,10 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 	return 1;
+ drivers/rtc/rtc-atcrtc100.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+diff --git a/drivers/rtc/rtc-atcrtc100.c b/drivers/rtc/rtc-atcrtc100.c
+index 9808fc2c5a49..3c7313218da5 100644
+--- a/drivers/rtc/rtc-atcrtc100.c
++++ b/drivers/rtc/rtc-atcrtc100.c
+@@ -337,6 +337,16 @@ static int atcrtc_probe(struct platform_device *pdev)
+ 	return devm_rtc_register_device(atcrtc_dev->rtc_dev);
  }
  
--/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
--static inline u32 scale_input_to_fw(int min, int max, u64 input)
-+/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
-+static inline u32 scale_input_to_fw(int max, u64 input)
++static void atcrtc_remove(struct platform_device *pdev)
++{
++	struct atcrtc_dev *atcrtc_dev = platform_get_drvdata(pdev);
++
++	dev_pm_clear_wake_irq(&pdev->dev);
++	device_init_wakeup(&pdev->dev, false);
++	devm_free_irq(&pdev->dev, atcrtc_dev->alarm_irq, atcrtc_dev);
++	cancel_work_sync(&atcrtc_dev->rtc_work);
++}
++
+ static int atcrtc_resume(struct device *dev)
  {
--	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
-+	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
- }
+ 	struct atcrtc_dev *rtc = dev_get_drvdata(dev);
+@@ -372,6 +382,7 @@ static struct platform_driver atcrtc_platform_driver = {
+ 		.pm = pm_sleep_ptr(&atcrtc_pm_ops),
+ 	},
+ 	.probe = atcrtc_probe,
++	.remove = atcrtc_remove,
+ };
  
- /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-@@ -4968,7 +4968,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
- 				      unsigned int min, unsigned int max,
- 				      uint32_t *user_brightness)
- {
--	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
-+	u32 brightness = scale_input_to_fw(max, *user_brightness);
- 	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
- 	int left, right;
- 
--- 
-2.55.0
+ module_platform_driver(atcrtc_platform_driver);
 
