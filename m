@@ -1,266 +1,119 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C983AD518
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 07:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940725; cv=none; b=mCRh98RWumHIJjktqcdoRfQzi6VVG0dQz5niJD5+8/f+GFeD8rE8uV2sjZCbFRR7dve41Ry39AfZYir/MIYDYhf6Jdz/vkradXD0XhYoWiNhqeU6IEjFmjqirVVs/gE/vedqjJkjPvEx4DUg9WkEEwTPDImjxjkEnz1+3zycKoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940725; c=relaxed/simple;
-	bh=oFKIHEnjOZkM0LhQI373IP4A6ea77W3aw5Fo+/rzU+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cA7WXukjlWbwTZcaNPXcHoT3Edy9D/ilSB/Rqbjx3hrrXqBU0T+yX7E3rkpX4YfWFZbmNirjG2swOca5l4a8h4J6WuHmT7A2gd6MfScNPnTHHDRIwdAzkWdxOs0A+14D94Uyom01vjVHkJdnoKWq98KTxodQ/aE3lMhZgYEMkGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TooJ9C0V; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDF33E16B2
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 08:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788940862; cv=pass; b=EMaWAj5W4MOE/XI8burvYWv8QuElD4SRXN7N5DL0pu/ugiHM3patL1wYPwDvdTlm7G+R9W2g9SylQBGUumvfNW2qq6Ty/q60uO3k0bed+WkMWK5kHfAYglDD2LWkZoJeDeLYZOkGIddb0LC3afhKdbSV0bijgu/qu96MiszcJc4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788940862; c=relaxed/simple;
+	bh=3ucIodV25H4f/E3Otu92DPDMc08uUsFK0OMoN1m35TI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=teCWXPUH99rFZ9Tph8MQhAoaOrOXKTgRxYhLHJnF30FENjV/opfmo7zio7Suu+kJpaqpxh6ku7+yFarFVYdNmqpBkycBcAe9xrQXN22hWT88HamcexbszDOVN86HrPpUiEkySyCqQAo1dWnkD576A8vLseqIkW55IWI3tuDdN8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lAaBaJqV; arc=pass smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TooJ9C0V"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so4176495e9.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 00:58:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lAaBaJqV"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1b9c3af5cso4484658eaf.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 01:01:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788940859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LXXB6nOUQF0Se06CgKr39p2LD9OfO6LOm21DLjE6HRkLc7Ka9StPFM7S0ziFjklx6A
+         ILsJAa31Ky7bktizLY7dqo67i2L2/5loCaJ4SrZfb+bMoH6z+WoR9AgbZnuMbtjcyeu1
+         kCygvBdGladczZXmUxOiNBVOQFBPKB6JfwtQIXODIYmgPYrvzb/rhSuOSJvKOWTG/pY/
+         4bErQ/ubs+6HivIoi4bF362xf+Dk6qTuq3JlfFPsALJKaLQaII0BB5TN6HYNwu8MTuw9
+         bGDiw8WF8oJWIketwmAw3XTdtQZ6/GtotU38U9NV2GiDK7R14YVyJqDjNkk1hcoUlTiF
+         j2Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=r6ojG7KkisYtK+a5wUQDcdWxUyw918+UeZlJ6dvtgzc=;
+        fh=7m7ioAUZcp1u2kTUiC2y+5u3rDoBpYs7JFe6OQN0vGg=;
+        b=noR0Ji4izm5T8JnlbTL5iFbvc6wfORywTPZbMrEFP3d8p21TlB4SWNynzDCKKYoNrv
+         zOLxA726+1SwIiEZXLhCFh2XjTnwp+75Shs7P2RholXCbuDFcW9slgEuuzPyxsLYNHqI
+         KqeQ8bcdcdNZIbvV3NHmYknFgeTumtOIX/VKKVCn2d2yZ3zD/8VbOK81pA5myCZ6eYKd
+         W89rEI+qYIIEcEStzO/fjoQgfAcGOuocjHa99L+B4pbhTJnAzfjlPDSYq/9MfyMfEnAi
+         IqCAUvD2z9YOtf9xVv1TAHhDA7k+o5SuPQb3yUBCZLqIhmpr8RId9GMXDvNxm/FgXLUJ
+         ZLGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940721; x=1789545521; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GzlxlXPbi+hoW1AzpmLFkZ/2ymy+vUVv5xDUAEWTLDo=;
-        b=TooJ9C0V77GQXr4ojLIh91qK5HDhojY3FfDh8QGK81RGNH6jz0BVFLT/oqJehRrsE/
-         cjylvbWYG944yJaMqoCNjwSrzAcQZPOpz5vAlM1MgJQve+vg7a/lkrmHKmI0rkWuqI5A
-         UdeQupcYxPaNJ6EEa3TkUS6NcF0yY8fzG4A0Mt5DgLOSx7iQBNVQolr9RPUoa7ppW5Ij
-         ZUzx+TkA7wFJPr8MZSMt59omBz2Ds+9oPTH/vHUloSXS2q0X8aEcXwGH6ScKWpGNgfIv
-         Da7LpJCmi1LAdS9OycPFOzCMhGjo1DDarzfhsqqSOkETjKwUhbZD/QU7+eG9BFP+msZz
-         pQcg==
+        d=gmail.com; s=20251104; t=1788940859; x=1789545659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r6ojG7KkisYtK+a5wUQDcdWxUyw918+UeZlJ6dvtgzc=;
+        b=lAaBaJqVFwbtvNU1Rpl1bxMI2XLo0Vl5xuppeTvGKoDuJ5gg4ffjEYkdMmv3db4bLf
+         Fis2oWvBJddUyzFSamIMiTkFA9CWuoVECRCQ7uCqMVtyzUyYsuGm5SPp5eoXorenNYzO
+         FFGrkL2lrcLhrafn1d5oxJjA5obKhqF1ouCj35qxH5nE9hpqkFzTiIVIyh+kDePGTSes
+         wgcg3SFKpmrEUkaaqNr5rfzdKT5XktHi6MjoWBq2nz40bVXFYPeNwUYKKoDIVwLRYHbt
+         uHlLfVmKQ9Yoth6pZL/RoOiV62PchVianvM3gK//4xohZLHQSY40rv23dW6ltPKH2Y9m
+         xMyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940721; x=1789545521;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GzlxlXPbi+hoW1AzpmLFkZ/2ymy+vUVv5xDUAEWTLDo=;
-        b=ddXnn1LCpRlD44qNSJfSH069UdEsWiCthUzNLV07h6lAxIX7fNTOR2ElDzRP78hnGj
-         EgiAkrx7F/1w/psnCBTrXi7leSkVy7EDNQeI5s4b3VBLOAdc+5OIdSF8Hwo4t/QFtCzh
-         C44xAxG3wg7yo0BSRbl2cH1CLWnOVmVGFLYuSEGvsnJkKCcdzbCiCak9BRX+ELAG4yya
-         XhYu5FqwXTfLtlKHi4bkxzNe2LVsGfUDFDoktyMZ5W0XwS3OsPJjpmBKz6kCl2GIINAm
-         NcgxZwQ//8vxHHCxXP2OU4aaQq4mOR1/3wxOIVZsJnO+t2n3Q3RhHm08osLbVltFKaf4
-         8SzQ==
-X-Gm-Message-State: AFuF++kOn1ci5pUhWsIikVKpQgJBrE+jQUY9lU2Y7uldhKeUt6RTSkuW
-	ud+HY3aMsmThqLpBP+o4kXBqzjJ1DiFaNqLIMLpYkrKG1LDxoc/wCj/Qv2PMew==
-X-Gm-Gg: AYBFou0d7H0fUIAL4WO28weyQ17i/kM0CaG93TNzis52ktNHGsSeLOh9p+wSKIhLj6j
-	UKxURG637GyGj/x7z23QtZdZs4/IfZS4cpaV8rPq2IpZfyaUlMxncD3PeuQNQXUzFwT/4LBn/rY
-	DE8PeV2fg2VNkp9MQIfYbPU4ZyHY9VQnLHAJV/H1+5gPwjaYF89uBRPIzoaV6lcOEzBXmHFV0Lz
-	mPuZTglKK8pHvkKUEZmdiE46ecrBdMWHGZKvXuRCXkgt2RwO2rd3PVQGTd6WGvkTnkio79MWhXX
-	DAAuVRz2x8UQcoUi5PI0FG8v2zyoHTRNOiwq9IpHTXSllmh7rHF+QN6RcWY1cGtbRiWANMaXMD9
-	x2NwxrCjdYMxaAbLAgEpsnEq82DKO4fdcDpO2U60niWPQlo0aomCCItGsvsFKQEqBhzorhH5agR
-	mlMl2RT7SFGZBb741eJGb6fuo0QwFa7D7u9yfR5bluLOBF7mNlL7Ln0jtg4Hi36EzyOGjNf4FPa
-	gfu7BCe
-X-Received: by 2002:a05:600c:3f05:b0:49c:e1f1:3dd5 with SMTP id 5b1f17b1804b1-49d1f223e83mr86403965e9.4.1788940721112;
-        Wed, 09 Sep 2026 00:58:41 -0700 (PDT)
-Received: from SurHub.localdomain ([196.188.112.171])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9b49sm35478391f8f.17.2026.09.09.00.58.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 00:58:40 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: stable@vger.kernel.org
-Cc: Abdifatah Suruur <suruurism@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH 7.1.y] ksmbd: fix use-after-free in oplock break notification
-Date: Wed,  9 Sep 2026 10:58:35 +0300
-Message-ID: <20260909075835.3286-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1788940859; x=1789545659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r6ojG7KkisYtK+a5wUQDcdWxUyw918+UeZlJ6dvtgzc=;
+        b=cW2n0oCde2XDDT6VvxwnmGt6QBurORzRf1MqmZXWoH+HroWR7yDs0KqG/ddZnLVfTP
+         HESu2YIq9Jfqi8/PlX0MS9GMMco3YIl5khZd/OJLU6oYk1n2+gZivOBzByoaez0bAcNJ
+         uwvmHOc3oCMc0dib/TaYVU95SvvLfghoy4VbeR0u5eB9JSRuRJFEfqyaWhFpitFC9i4Q
+         ScoHRCDjHANvhnwMDalVf8dAGRo9XUku9EZBZonPt+hVj8lw1Vbnht7NNwsg6IpXGvOy
+         u0AZV/S105v0WKTNGH6w8P37OBI9zxQmjqsP9D+1ilUpmcHi6bnUaGxCQXabGHYMNcBP
+         5NOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxU1IUFqmlhKsAJ/Sg3Q2Ye+VDlQGDvH1a1D+CoFxcuqNGqM2c1yeyms8/6zHbzc7RNZRgxqAc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFgc3FyUO0X8NfMd1CkvBVBZG8ZHm+lx8VpnbxFzCcKPaYO5Ln
+	TPq+wxhYWXjZjIPqvb2zPE1uYhAZACM5FzSPnKGhYCPcHEwwlu8rMr8peIHkrCYh31FP7tbxdbU
+	e7npBgAMdrUDOOcMlUR3STb3o5o5RFc4=
+X-Gm-Gg: AYBFou3JISdZkLgOD8RWbgFbDeTQcc9evGg2asl3Pqv771uufPX/dr7ZDw+j5lavosH
+	FSPZOPpko3klQwnxBofua+wWhGJz5iIFxzGb7QpCamrI7Bij+0meOkI1s6kSJ41jpEETLRY224e
+	6o3ogw8AXEVw5dcPaU+8CzTd4K+L5yyohBlCRExDuU/GrPwVwvmwd+vTv0U2D+d5LdgciwHNO9k
+	CqrTvZmL+vmpfjU2WdWs90Up+xSTxCg7Vr/41vwjFbDsS3Rt6feA1jq9pHM4URLoFAAd40JUAvp
+	j4X1pZuDuim/gdLTtFvhtZwv2PxkM8m9Nx0kGObWmDUWxc0FmzGrZow=
+X-Received: by 2002:a05:6820:2004:b0:6b9:2d62:960c with SMTP id
+ 006d021491bc7-6b92d629902mr12360812eaf.68.1788940859557; Wed, 09 Sep 2026
+ 01:00:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820123512.87236-1-duankeqiangcym@gmail.com> <CAMd06XfsK+X1xVX7=nW+U572OxnZp1vFyYjBNdr2AMtb2zgYXg@mail.gmail.com>
+In-Reply-To: <CAMd06XfsK+X1xVX7=nW+U572OxnZp1vFyYjBNdr2AMtb2zgYXg@mail.gmail.com>
+From: keqiang duan <duankeqiangcym@gmail.com>
+Date: Wed, 9 Sep 2026 16:00:47 +0800
+X-Gm-Features: AcwNN1UAqaMukPjOzxIcxUWiOmebC4V-Yq3pNFBbnlgQ8z-xNu3lccJjr6eb_88
+Message-ID: <CAMd06XcQEv2ezDzRWcgccw53eXVcMPBqjGh--qZ5xFo0FA_pJQ@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: x86: Clear hardware HLT state when userspace
+ makes a vCPU not-halted
+To: seanjc@google.com
+Cc: pbonzini@redhat.com, Chao Gao <chao.gao@intel.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Qinguang Chen <chenqinguang@kuaishou.com>, Zhiping Du <duzhiping@kuaishou.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-smb2_oplock_break_noti() reads opinfo->conn without any lock and
-dereferences it after two allocations which may sleep.  When the
-durable handle owning the oplock is disconnected, session_fd_check()
-clears opinfo->conn and drops its conn reference under ci->m_lock, and
-the last ksmbd_conn_put() frees the connection.  A break triggered by
-another connection that races with the teardown can then resurrect the
-freed connection: ksmbd_conn_get() is a plain atomic_inc, and the
-queued break work later dereferences the stale conn via
-ksmbd_conn_write(), a use-after-free reachable by any authenticated
-client holding a durable batch oplock.
+Gentle ping.
 
-Thread the caller's inode into the notification path instead of taking
-a new reference on it.  Every caller of oplock_break() already holds a
-live ksmbd_file (or an explicit ksmbd_inode_lookup_lock() reference,
-in the parent lease break paths) on the inode that owns the break
-target's oplock list, so ci cannot be freed during the call, and its
-lock can be taken without dereferencing opinfo->o_fp, which a
-concurrent close may free.  Select and pin the connection under
-ci->m_lock, the same lock session_fd_check() and
-ksmbd_reopen_durable_fd() use to update opinfo->conn, so a concurrent
-detach either loses the race to the clear or keeps the connection
-alive until the notification work releases it.  Transfer the reference
-to the work item and release it on allocation failures.
+The patch still applies cleanly to the latest kvm-x86/next and builds
+with KVM_INTEL=3Dm KVM_AMD=3Dm KVM_WERROR=3Dy.
 
-[ This tree predates the deferred break machinery
-  (oplock_break_add()/oplock_break_drain_none()) that the original
-  commit is layered on; oplock_break() here calls the notifier
-  directly and the caller-pinning argument is unchanged. ]
+No rush given where we are in the cycle -- I just want to make sure
+this hasn't fallen through the cracks.  Please let me know if you'd
+like any changes, or if I should respin on top of the latest tree.
 
-Fixes: b003086d7696 ("ksmbd: fix NULL-deref of opinfo->conn in oplock/lease break notifiers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-commit 0e753899627b5e28a9fea8bca98262a6f65a2452 upstream.
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
----
- fs/smb/server/oplock.c | 61 +++++++++++++++++++++++++++++++++---------
- 1 file changed, 49 insertions(+), 12 deletions(-)
+Thanks!
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index 3f28dc3b7fc41..b8bc0d16e042c 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -708,31 +708,67 @@ static void __smb2_oplock_break_noti(struct work_struct *wk)
- 	ksmbd_conn_put(conn);
- }
- 
-+/*
-+ * Select and pin the connection used for an oplock break before doing any
-+ * allocations which may sleep.  The caller of oplock_break() holds a live
-+ * reference on ci (a file being opened, a file being operated on, or an
-+ * explicit ksmbd_inode_lookup_lock() reference in the parent lease break
-+ * paths), so the inode cannot be freed during the call.
-+ *
-+ * opinfo->conn is cleared under ci->m_lock by session_fd_check() when the
-+ * durable handle owning the oplock is disconnected, reassigned by
-+ * ksmbd_reopen_durable_fd() under the same lock, and the last
-+ * ksmbd_conn_put() of the old connection frees it.  Holding the read lock
-+ * excludes both writers, so the connection cannot be freed while it is
-+ * selected.
-+ */
-+static struct ksmbd_conn *smb2_oplock_break_conn_get(struct oplock_info *opinfo,
-+						     struct ksmbd_inode *ci)
-+{
-+	struct ksmbd_conn *conn;
-+
-+	down_read(&ci->m_lock);
-+	conn = READ_ONCE(opinfo->conn);
-+	if (conn && !ksmbd_conn_releasing(conn))
-+		conn = ksmbd_conn_get(conn);
-+	else
-+		conn = NULL;
-+	up_read(&ci->m_lock);
-+
-+	return conn;
-+}
-+
- /**
-  * smb2_oplock_break_noti() - send smb2 exclusive/batch to level2 oplock
-  *		break command from server to client
-  * @opinfo:		oplock info object
-+ * @ci:		inode owning the break target's oplock list, pinned by
-+ *		the caller
-  *
-  * Return:      0 on success, otherwise error
-  */
--static int smb2_oplock_break_noti(struct oplock_info *opinfo)
-+static int smb2_oplock_break_noti(struct oplock_info *opinfo,
-+				  struct ksmbd_inode *ci)
- {
- 	struct ksmbd_conn *conn;
- 	struct oplock_break_info *br_info;
- 	int ret = 0;
- 	struct ksmbd_work *work;
- 
--	conn = READ_ONCE(opinfo->conn);
-+	conn = smb2_oplock_break_conn_get(opinfo, ci);
- 	if (!conn)
- 		return 0;
- 
- 	work = ksmbd_alloc_work_struct();
--	if (!work)
-+	if (!work) {
-+		ksmbd_conn_put(conn);
- 		return -ENOMEM;
-+	}
- 
- 	br_info = kmalloc_obj(struct oplock_break_info, KSMBD_DEFAULT_GFP);
- 	if (!br_info) {
- 		ksmbd_free_work_struct(work);
-+		ksmbd_conn_put(conn);
- 		return -ENOMEM;
- 	}
- 
-@@ -741,7 +777,8 @@ static int smb2_oplock_break_noti(struct oplock_info *opinfo)
- 	br_info->open_trunc = opinfo->open_trunc;
- 
- 	work->request_buf = (char *)br_info;
--	work->conn = ksmbd_conn_get(conn);
-+	/* Transfer the reference acquired by smb2_oplock_break_conn_get(). */
-+	work->conn = conn;
- 	work->sess = opinfo->sess;
- 
- 	ksmbd_conn_r_count_inc(conn);
-@@ -890,8 +927,8 @@ static void wait_lease_breaking(struct oplock_info *opinfo)
- 	}
- }
- 
--static int oplock_break(struct oplock_info *brk_opinfo, int req_op_level,
--			struct ksmbd_work *in_work)
-+static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
-+			int req_op_level, struct ksmbd_work *in_work)
- {
- 	int err = 0;
- 
-@@ -957,7 +994,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, int req_op_level,
- 	if (brk_opinfo->is_lease)
- 		err = smb2_lease_break_noti(brk_opinfo);
- 	else
--		err = smb2_oplock_break_noti(brk_opinfo);
-+		err = smb2_oplock_break_noti(brk_opinfo, ci);
- 
- 	ksmbd_debug(OPLOCK, "oplock granted = %d\n", brk_opinfo->level);
- 	if (brk_opinfo->op_state == OPLOCK_CLOSING)
-@@ -1137,7 +1174,7 @@ void smb_send_parent_lease_break_noti(struct ksmbd_file *fp,
- 				continue;
- 			}
- 
--			oplock_break(opinfo, SMB2_OPLOCK_LEVEL_NONE, NULL);
-+			oplock_break(opinfo, p_ci, SMB2_OPLOCK_LEVEL_NONE, NULL);
- 			opinfo_put(opinfo);
- 		}
- 	}
-@@ -1178,7 +1215,7 @@ void smb_lazy_parent_lease_break_close(struct ksmbd_file *fp)
- 				continue;
- 			}
- 
--			oplock_break(opinfo, SMB2_OPLOCK_LEVEL_NONE, NULL);
-+			oplock_break(opinfo, p_ci, SMB2_OPLOCK_LEVEL_NONE, NULL);
- 			opinfo_put(opinfo);
- 		}
- 	}
-@@ -1280,7 +1317,7 @@ int smb_grant_oplock(struct ksmbd_work *work, int req_op_level, u64 pid,
- 		goto op_break_not_needed;
- 	}
- 
--	err = oplock_break(prev_opinfo, SMB2_OPLOCK_LEVEL_II, work);
-+	err = oplock_break(prev_opinfo, fp->f_ci, SMB2_OPLOCK_LEVEL_II, work);
- 	opinfo_put(prev_opinfo);
- 	if (err == -ENOENT)
- 		goto set_lev;
-@@ -1366,7 +1403,7 @@ static void smb_break_all_write_oplock(struct ksmbd_work *work,
- 	}
- 
- 	brk_opinfo->open_trunc = is_trunc;
--	oplock_break(brk_opinfo, SMB2_OPLOCK_LEVEL_II, work);
-+	oplock_break(brk_opinfo, fp->f_ci, SMB2_OPLOCK_LEVEL_II, work);
- 	opinfo_put(brk_opinfo);
- }
- 
-@@ -1430,7 +1467,7 @@ void smb_break_all_levII_oplock(struct ksmbd_work *work, struct ksmbd_file *fp,
- 			    SMB2_LEASE_KEY_SIZE))
- 			goto next;
- 		brk_op->open_trunc = is_trunc;
--		oplock_break(brk_op, SMB2_OPLOCK_LEVEL_NONE, NULL);
-+		oplock_break(brk_op, ci, SMB2_OPLOCK_LEVEL_NONE, NULL);
- next:
- 		opinfo_put(brk_op);
- 	}
--- 
-2.53.0
-
+keqiang duan <duankeqiangcym@gmail.com> =E4=BA=8E2026=E5=B9=B48=E6=9C=8820=
+=E6=97=A5=E5=91=A8=E5=9B=9B 20:44=E5=86=99=E9=81=93=EF=BC=9A
+>
+> +Cc Chao Gao
+>
+> Sorry for the missed Cc.  The patch is at
+>
+> https://lore.kernel.org/kvm/20260820123512.87236-1-duankeqiangcym@gmail.c=
+om/
