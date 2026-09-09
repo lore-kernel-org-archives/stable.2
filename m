@@ -1,138 +1,120 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1774BD10B
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 12:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D3B54CF7D;
+	Wed,  9 Sep 2026 12:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958147; cv=none; b=Q4rELiVIcVYLPNZKRmq64ZV9DpowtqpTz8fg5ZNhwnLR7ZcjMdSNEYgHokuYQEj7haeNAX4PR8HlRQm4Ky7BujQOTAl9Q4N5QQTVjEgWkPFHMQg3fseGfrgKdoxGuNyy+3358k9RIApphuiyJHMirzvPL+7/EsdhfIQnUGPTzf0=
+	t=1788958302; cv=none; b=mzGW+3Q3xZUASOEU9Lf/oMtZJzujZ16NX25lwE1hH8EETGeJiPOZdWJb/4tfwemp0HfI+W2iJriUjcqOmCc/Ojgyt1I+M+B3TYJU3AnfXezVBociywl1vLAcAZsWUuUQhsA+Cn9wHR1fTHvN/CxuBMYB9H07mEgIOstd7+t40H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958147; c=relaxed/simple;
-	bh=hN5YqIuRrbX9JeIHbZFR38P+bgEjxMdH+mpTAANDP9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WmuEwKCih8pSaGBl2HZRBx396dDEKAEMXgl0iu3GSPm26dU2HmA+7I+mWmOJOFbXOWrmXXewwh38S/CId7QiGOcobUi+iXGEShpUt+Nomcn8PFQ8vU2tCUmcNGktolxkDfD1mC3DGhdRfbaOXutA2BGcwlnrySeBfAZTz40HwjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrdC8CoM; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788958302; c=relaxed/simple;
+	bh=CHOwUTuLU9dYXLzl8B9ejeZKp39G3sNwKHan6EqRP20=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OobgJNVzfUTcm54ymD+0krU6kBZoLf8eoLKHzg8TKJfKQtu4eN0yooFqVKzpUR/aLgxptWVeJyveC7/Y4tDP4n/Y+2SnxPojdqtDReYapU79wyxR90/GEkpKqKJMJva+W2/MzGuT3fwnFrTAqbctVA32Ml8J1t8NwNyO3D6GZwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rYWnme0B; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrdC8CoM"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so1548335ad.2
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 05:49:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788958145; x=1789562945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
-        b=LrdC8CoMLsopAHoHE1L8k24Ga6u437GaG/VGCV5grvG20frR83PdjoSOPLwt2r0Anp
-         JvpwqpSDapbkrLoH2zLvmv5l3iyYKWjoPIkNzDEwJWnzIJ2iOJEMy9+m5Hhj7yZlsY9R
-         EBnHI5vplQNQB+fBnVSfZIwrHT1LR+6D3rTMcm9UPn9P0MKv/R2J2U6fYXXtrftH0r1d
-         tItr0PfgXVh8toj2IGW3Qg1TfaaQaiM8iS3dNXBAZTb/gh/25JwKBdzaIS97l6vp71Zu
-         FRxIvOgw8GzbPzOrzpG0bo9IBXTdnmMQcufqcmNy0lOI/7ZxUyyd25s0QU/VJuKoB8ZE
-         kn+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788958145; x=1789562945;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
-        b=GjL491x53LG83/+3dxnZMikIlQYWsYrEqCEipLud+CFp8Biki/FRRyhf7U0df1yfbF
-         Adl/ySQvlj7QOZEvr9gkIT4m/RtgH4iPrsV5KEGuEnhGr+Fr7LUf7RPIWg8mQ6Eecs8A
-         kOZVBbxcMVN0TsbZ5eN3DKj6nGV3wdhX2Jv4DGyPs3d7v6vmsLeT993rRffNjLm2KUIY
-         8bwepvip7BmsENuhwwTumaxka5mqGecGp2OnwF8WGEW62F/d2X7AZvo+ioWJAj9pTI0f
-         ZyKSIL96dHmm35CnscIfdJ/y9nShFJuPwMej5/edukOUssWLq8l4v0lO+g2SML5nhZJ0
-         B0zg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/0q1LO1I5g1D7FSdduAFMpT9VvOx2rdAzHgBG8zZqmyfEUgoocPzce1jCAx1QdhY3OGg63nE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGdO5SM5v98Ubce+xaHPw+k0OmeyerYNtdeG6/2ZtlBDvjknsP
-	K/KC0X4bTeNH+ARzXJ9z8XJEi8h3aNVa4OSHh91Ib2To4jpoY18chRZHyQhRpJrp
-X-Gm-Gg: AYBFou1nSd58t0ycEkcO+XCYIOWdwZSN0l4Was4wmDq6nce+wP1Zx+kvPJLpdT/xl56
-	W2tzt+k3TRZNeCEf1K1FOJIcrsxHkRq9yhjtWDbqaT5IYDcVCn2c247BkgaSzgnfZW9moYviUFx
-	cXPQf3cs+HAqqT1ZyJL0xhrqofTv7J+YeW0l3oTriJojKy3AJ/mnxNbFIjYyn1Pku4kKQLJl65T
-	MDQyUDdxUmywu68br7b2xX1Kw9wkxRgedKOBZsvZSUqx1yTsWQPWDGRDJDffaWfDGcrRQ978mkW
-	Rk/Kg7eCjYPfRnNT2TszO+kr7J/7R+UxHVUM0Q5jg96l4Rjy8In1EDYi6f/lPXU4tMeR6cHbP7D
-	wvjeIAw1EI7TjAlyS1+o2zVmS8+fM0/rTMULtrCth4piNReLbKiIHz+elEFFVa4iJ3YSl4OgtPe
-	X+6DnPy5xetMnakx9l58M2YQzZtGMer5M25wN0wntMQqf3o8JafqL3WH73qdLvhDPpY5WP0fTNT
-	Q==
-X-Received: by 2002:a17:903:350c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2dd07ccc33bmr14553335ad.17.1788958144625;
-        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
-Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm50266670eec.1.2026.09.09.05.49.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Pierrick Hascoet <pierrick.hascoet@abilis.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: as102: initialize mutexes before registering frontend
-Date: Wed,  9 Sep 2026 09:48:58 -0300
-Message-ID: <20260909124858.213790-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rYWnme0B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Mq137E/3icYTvBbUxpFvEmd0A5s/IR/Eke1OJBWVN8w=; b=rYWnme0BMotsfiebauujysdoqO
+	pJ5+Y23GgW10q6PCK82nIALbCAO+YsQhj4ezgVibIEJ7heNhberTNugfcFM7xVARoT38tgFx/jU9T
+	2SZfH71/8lzmeRpls/IURdrJGAvelRXBNKiU98+3DSL10CHgJZ2MQE7Xkwtn/w8EiHyC05e/zVWcL
+	92CUWeEjY9rDNQSrcjLxNMAyKNs8V2K6+lT6QFxusSc05Hzl+n8+jWfHDVcvU37i9Bggds6XfIEqE
+	YLQHjkFxTj5VWNRWQLVlW+5NvjP90sUhGign6p5cRjbkOwf9w5ueut4lja2nAO5VlvU2iV5Q2jTcM
+	6BfWQrJg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4Hm1-00000005Rvo-3Ug1;
+	Wed, 09 Sep 2026 12:51:34 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C4751300A9A; Wed, 09 Sep 2026 14:51:32 +0200 (CEST)
+Date: Wed, 9 Sep 2026 14:51:32 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Frederic Weisbecker <frederic@kernel.org>, stern@rowland.harvard.edu,
+	boqun@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <20260909125132.GR788244@noisy.programming.kicks-ass.net>
+References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 
-The bus adapter mutex and the stream mutex are initialized after the
-frontend has been registered, but the frontend's stream control
-callback as102_stream_ctrl() takes the bus adapter mutex, which can be
-used before it is initialized:
+On Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra wrote:
+> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
 
-	INFO: trying to register non-static key.
-	...
-	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
-	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
+> > Because the following doesn't verify that:
+> > ---
+> > C MP+farfetched
+> > 
+> > {}
+> > 
+> > P0(int *next, int *prev, int *exit_state, spinlock_t *tasklist_lock)
+> > {
+> > 	// list_del_init()
+> > 	WRITE_ONCE(*next, 1);
+> > 	WRITE_ONCE(*prev, 1);
+> > 	// exit_notify()
+> > 	spin_lock(tasklist_lock);
+> > 	WRITE_ONCE(*exit_state, 1);
+> > 	spin_unlock(tasklist_lock);
+> > }
+> > 
+> > P1(int *exit_state, int *pid, spinlock_t *tasklist_lock)
+> > {
+> > 	int r0;
+> > 
+> > 	// de_thread()
+> > 	spin_lock(tasklist_lock);
+> > 	r0 = READ_ONCE(*exit_state);
+> > 	if (r0 == 1) {
+> > 		// exchange_tids()
+> > 		WRITE_ONCE(*pid, 1);
+> > 	}
+> > 	spin_unlock(tasklist_lock);
+> > }
+> > 
+> > P2(int *next, int *prev, int *pid, spinlock_t *sighand)
+> > {
+> > 	int r0;
+> > 	int r1;
+> > 	// get target
+> > 	r0 = READ_ONCE(*pid);
+> > 	spin_lock(sighand);
 
-Initialize the mutexes before registering the adapter and frontend.
+There is no dependency between r0 and sighand. While I think there is in
+posixtimer_send_sigqueue(). Does making it smp_load_acquire() help?
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
-Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Tested-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
-Changes since v1:
-	- Succesfully tested agains new repro. Added 'Tested-by' tag
-
- drivers/media/usb/as102/as102_drv.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a0a7..a6dd675689f5 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
- 
-+	/* init bus mutex for token locking */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+
-+	/* init start / stop stream mutex */
-+	mutex_init(&as102_dev->sem);
-+
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
- 	}
- 
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
--- 
-2.51.0
-
+> > 	// queue signal
+> > 	r1 = READ_ONCE(*next);
+> > 	if (r1 == 0)
+> > 		WRITE_ONCE(*prev, 2);
+> > 	spin_unlock(sighand);
+> > }
+> > 
+> > exists (prev=1 /\ 2:r0=1) (* Bad outcome. *)
