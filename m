@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AF2566C42
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:29:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E544563FA1;
+	Wed,  9 Sep 2026 14:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964166; cv=none; b=ND/vt5kdgfNC0HFbNUtXLmvr6oSmzbJnav1tHjp5c4obD69HHYWWkBZY/W9WXhUSMXTFtvhoMuEtWcwXRzDnV/hmMr+SqWbzDKGIMVykoCICNvRgEHXjMiOwBau/tqFtm7erR9biFYgqroxmzf8/VSeVTs93pjIYcBVGyJOR9/0=
+	t=1788964166; cv=none; b=VCxSAoAF8OC60Xrz8HmYT9ZRWNWw7khbQ9wlkaa7v8ybyFpl39ajTue/a1f/v41CJDJGzU7Y7glPlb2R6PzO0IW0zGzXs47nnXVX7P6K4i8x5aBU5TylepgmZbDUQzKWGxJwpfjvCz8sr1NbNRAXXmxvib6/DnRj7TccrKC4bzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788964166; c=relaxed/simple;
-	bh=rDiZzPzTEi+xvNL2lF0+Ihxha7ksMe3Aseuv9jedk0s=;
+	bh=m8LRgwkDdZ3E6zRne2uR1cFwXPHk6hlYILt7cLRsPuk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NNk3wd3QvtCnDjuvSJHDUE5w0FTVuddT5OXfp2b5F2wYodA6xAX/vEECVzx3V6PP9On+HHKo/1B5WQFBt9HpZ1U0E5RZN1PjMCUqHcKkNE4i7pcINPQgCaEWcjwV2S+swOKFx/2B6bVH+wpn1EVUJ4STXiKNPoVWChH6XgZm/Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXgSP4mr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h/HK5fOUkFXdSw9oX9dSNRaCg9ybF46Lv02lonrGa5Pz2ddXlMlG8WkZNGE4ptIZqilFfNX3IXYh3CLS7yZTrjzdZoppbmUiyjKJuItk+QPCbqYObXU6paDEitORM38tt8t955s5iiy+VlC5GyvB9r6oTeN5c7C588Kxuph2pvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vnD0ZFnJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXgSP4mr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159961F00A3A;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vnD0ZFnJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7909D1F00A3D;
 	Wed,  9 Sep 2026 14:29:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964164;
-	bh=9490pqy/JORTzRT/A8HCaw0GfM9kN2hfTIKY5AcmZQg=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788964165;
+	bh=PG+Rn82cQlUECXPrbqDxz6MA9KlBsKy3OEI8hStTG9Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EXgSP4mrQvtDrwCQ80DeW56nJVcDL4sli9ZRHdmNysBpM+aBDnrDkK9gk3GuVu/pd
-	 UQ2wopeqcbKYckHGnbrHgNDXcs0lvbObM0j4oLqRmu5x+cT4VS6sNHqLNjFUHcp4zR
-	 b9qC0k0V6BO4+k/EK8zpjeRCTd0T5acm10e0d942bNz+rCXqPqRJVLmR/GIaTr5mlP
-	 rR0mllfQl38I1vClzB9Kba6rJgTKqtC1d1Ht2tye2tKUYXgIdYsvubIvxnwkiJNXFv
-	 RUhJUb0Zp9pKjalPtR4cIRi1JbffmfbEqm1QfqIxl9lik0xEAv0ZkCWlV96jiDLwfA
-	 45nGp/A1ty3vg==
-From: Sasha Levin <sashal@kernel.org>
+	b=vnD0ZFnJcQjh0ip0kPnzSrRDdQR+uT/alWchf/AYw1bg0jtOMN/yK2yYityLIJLmC
+	 T92zsXGcC3aSzrqxd35E8tA4sIpd8GgDxAiTVn5FZ/H5dgA07zo7H6qEZ+AnzcjqK0
+	 kM/+z97S3BnVjVGL1t114wdJL1K1HYsGWAGUzzfo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mmc: via-sdmmc: cancel card-detect work on remove
-Date: Wed,  9 Sep 2026 10:29:22 -0400
-Message-ID: <20260909142922.2477523-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090309-willfully-monorail-6921@gregkh>
-References: <2026090309-willfully-monorail-6921@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
+Subject: [PATCH 6.18 330/583] scsi: qla2xxx: Bound image count in qla2x00_update_fru_versions()
+Date: Wed,  9 Sep 2026 15:40:15 +0200
+Message-ID: <20260909134249.431471860@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+References: <20260909134237.773280130@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,50 +47,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 57e5d877f898d5e5c9d672a77bb6bdd24f0d9bf5 ]
+------------------
 
-Disabling the device interrupt and freeing the IRQ prevents new card-detect
-work from being queued, but carddet_work already queued by the handler can
-still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
-host through container_of() and dereferences its MMIO base; once remove()
-returns the host can be freed, so that work would touch freed memory.
+From: Nilesh Javali <njavali@marvell.com>
 
-Cancel carddet_work after freeing the IRQ and before cancelling
-finish_bh_work, which the card-detect handler can also queue. carddet_work
-can re-enable the interrupt through via_reset_pcictrl(); mask it again
-afterwards.
+commit de62cf265dbe309f34f144a6cdbca9240317727e upstream.
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
+qla2x00_update_fru_versions() copies the user-supplied BSG request into
+a fixed 256-byte stack buffer (bsg[DMA_POOL_SIZE]) and then iterates
+list->count times over the qla_image_version array embedded in that
+buffer, advancing the image pointer each iteration. count is taken
+directly from user input with no upper bound, while only (DMA_POOL_SIZE
+- sizeof(list->count)) / sizeof(struct qla_image_version) = 6 entries
+actually fit. A larger count walks the image pointer off the end of the
+stack buffer, reading adjacent kernel stack memory and sending it to the
+device via qla2x00_write_sfp().
 
-Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
+Reject requests whose declared count does not fit in the buffer.
+
+Fixes: 697a4bc69159 ("[SCSI] qla2xxx: Provide method for updating I2C attached VPD.")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ adjusted context to retain del_timer_sync() instead of timer_delete_sync(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-56-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/mmc/host/via-sdmmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/scsi/qla2xxx/qla_bsg.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
-index a2b0d9461665b..2e367e8d8411c 100644
---- a/drivers/mmc/host/via-sdmmc.c
-+++ b/drivers/mmc/host/via-sdmmc.c
-@@ -1202,6 +1202,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
+--- a/drivers/scsi/qla2xxx/qla_bsg.c
++++ b/drivers/scsi/qla2xxx/qla_bsg.c
+@@ -1578,6 +1578,13 @@ qla2x00_update_fru_versions(struct bsg_j
  
- 	free_irq(pcidev->irq, sdhost);
- 
-+	cancel_work_sync(&sdhost->carddet_work);
-+	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
-+	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
+ 	image = list->version;
+ 	count = list->count;
 +
- 	del_timer_sync(&sdhost->timer);
- 
- 	tasklet_kill(&sdhost->finish_tasklet);
--- 
-2.53.0
++	if (struct_size(list, version, count) > sizeof(bsg)) {
++		bsg_reply->reply_data.vendor_reply.vendor_rsp[0] =
++		    EXT_STATUS_INVALID_PARAM;
++		goto dealloc;
++	}
++
+ 	while (count--) {
+ 		memcpy(sfp, &image->field_info, sizeof(image->field_info));
+ 		rval = qla2x00_write_sfp(vha, sfp_dma, sfp,
+
 
