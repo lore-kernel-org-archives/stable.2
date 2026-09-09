@@ -1,179 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956093EC2EF
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8405E4A9D40;
+	Wed,  9 Sep 2026 10:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949148; cv=none; b=IgEJdA5R+nuXk4xkHOKs4xTJhTp16xImN/9s/qdsiLfNWb/nXWGaVXEerzKDHuxIR1+fmNsypT5wDp8fLwkeAtyduOc8T+Uo1uKCDnFYRVpq9NYNs8IrX6pjEnmsIW48WUJFH24yKSMND+pnF6CSI8w5NCF82duqALAmwaqIY4k=
+	t=1788949220; cv=none; b=peTwuhhkSKyeVJTJ+2xerVHFgz+GyzFefXXDp0b/FT+BqLBeOIKU3WoEU74Hrl2ZpkkigB3yAu5NdKkAS4klB6F/yVBAi112r7sa7gUfTt4ZgNQQv8uiJgxLRGbrGI6JOnMgEqh0FJ1lEOXXmYP/yR4QFNOvZkRAKgQAB37MyYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949148; c=relaxed/simple;
-	bh=Qr3NE9ZY/xWALwjo5H1IMuyvXa93YXzdtnhIB7aBZko=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dc4VBkJ/ZQ4yNtnmhTsX62joQZapwjK4tUcvqXkITag08w8MLJi0vbpeWsdCrtbxu1106SDZVejdYaEG7NpKBaB6Jd5q/rtpBIc7M958UI9+Tp3kR+FpPDzOlZNz6hUmpSDKWmdgdvPICLcrjy6zi06xGIYW8HlptqbcRKzJqrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8bghK3l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949220; c=relaxed/simple;
+	bh=mBPR4cecML1kh6RTYb53KQpz2q3r7URs5G4kBDlwPhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NZCMqpZ2t5zceWndn7PXGMT3OfABXtA7OKnwbAyUieNhzPup4aBxaj0XnxOwLOwjSfZdCwFKIfuBMeyBz6dw8/xvVq8YvRzCSNMtFd9HZ46lcnktdkwLuohGBdDTPgke0Fqq053BSpAGOiy8thWzqDlec0PMDGaTMDYumH8EM/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=fAid1gGw; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8bghK3l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033BE1F00A3E;
-	Wed,  9 Sep 2026 10:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949147;
-	bh=WGB8DA6VQNVoefmsgO9l3uNUieSpAXYhWMj2GIBH+JI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O8bghK3l/hvQ+U2Nko4Ev86Wog6cI7cWQaXmXLJxQptM2DntokLp0swMqwAe+CHMw
-	 EvQnoGehrUooNbe+pFbyq5fv5m29MurQODbmdFn9fD139g4i9vqjJobgYN9ZgQx/aJ
-	 cqZXJCNPuYoQRP0MVEacgD5AvHcbIAAIrBWnMi7uU8RqkRsvjvLvZoSIej2YSCkxqV
-	 7ejvJYVMkioGFsbEPwILHLVTXSk3WlJ5LDYb0drerIc+K3v2p83pSR4agz+chsDGNg
-	 azwaLjzMzBgYo3stoqomnYBmAeeP0ozti/sq05OWs8LJD0Gt+mClkzur/PUn0/JIJp
-	 AuHwO2cux//jQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Kees Cook <kees@kernel.org>,
-	Mark Fasheh <mark@fasheh.com>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ocfs2: validate directory-index entry counts when reading metadata
-Date: Wed,  9 Sep 2026 06:19:03 -0400
-Message-ID: <20260909101903.1491952-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909101903.1491952-1-sashal@kernel.org>
-References: <2026090340-backside-dangling-fd8e@gregkh>
- <20260909101903.1491952-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="fAid1gGw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8+z6Ftb8zC9qlYEEPdn0U4Tt9KrgEhALmOxawMxUgN8=; b=fAid1gGwDlR5OM76t/5g3RX/H5
+	r0tF/i2ohl9vRjCk3fDh6aUp+92blksfcBlKyBYS3GLkMMv0n46lTWaSS272ebtRsEaiOvR2uMRno
+	VXBC8U2MfOBBHRCEPKU+QtiPhrP38CBWbzbmw241NbmAczHZ/Dc0297WSAxKqwgCUZfq4u9j9+7Sh
+	5xS+Bna/YSREG48FsjgJjHTiLtSKDx7NqcyBgMfFbnv5Aky/pJVtDAXZXIoIYJzhKLI4XggybX5BB
+	+5GojnB51qlgFLjQOnVEiWF4oySm/jgR0jTX811JeoSFXz/c0N/mzMpeKWtJTDXN4CHGBwtJpvzmW
+	dtGwfHyg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4FPX-00000003u71-3skG;
+	Wed, 09 Sep 2026 10:20:14 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id D866E30036F; Wed, 09 Sep 2026 12:20:09 +0200 (CEST)
+Date: Wed, 9 Sep 2026 12:20:09 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <20260909102009.GQ788244@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+On Wed, Sep 09, 2026 at 11:55:19AM +0200, Peter Zijlstra wrote:
+> D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+> RELEASE+ACQUIRE. Specifically, we have:
+> 
+>   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+>   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+> 
 
-[ Upstream commit bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 ]
-
-ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
-signature of an indexed-directory block before it reaches higher-level
-callers, but neither validator bounds the ocfs2_dx_entry_list counts
-against the capacity of the block that holds them.
-
-ocfs2_dx_dir_search() then walks
-
-	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
-		dx_entry = &entry_list->de_entries[i];
-
-over de_num_used entries with no bounds check.  entry_list is either
-dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
-dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
-de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
-and make the walk read far past the end of the 4KB metadata block, giving
-a slab out-of-bounds read reachable from any path lookup, stat() or open()
-on an indexed directory once the image is mounted.
-
-Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
-block read") already bounds dr_list for the non-inline dx_root, but left
-the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
-same read-time validation for both entry lists: de_count must equal the
-capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
-de_num_used must not exceed de_count, rejecting corrupted metadata with
--EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
-array.
-
-de_count is always written as exactly the block capacity when a leaf or
-inline root is formatted, so the equality check does not reject any valid
-image.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
-Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
-Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ocfs2/dir.c | 45 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 4 deletions(-)
-
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 6b9f6890c6090..dc1e379e58d50 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -611,6 +611,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
- 					  le16_to_cpu(el->l_count));
- 			goto bail;
- 		}
-+	} else {
-+		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
-+
-+		if (le16_to_cpu(dl_list->de_count) !=
-+		    ocfs2_dx_entries_per_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_count),
-+					  ocfs2_dx_entries_per_root(sb));
-+			goto bail;
-+		}
-+
-+		if (le16_to_cpu(dl_list->de_num_used) >
-+		    le16_to_cpu(dl_list->de_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_num_used),
-+					  le16_to_cpu(dl_list->de_count));
-+			goto bail;
-+		}
- 	}
- 
- bail:
-@@ -650,10 +672,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
- 		return ret;
- 	}
- 
--	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
--		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
--				  7, dx_leaf->dl_signature);
--	}
-+	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
-+		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
-+				   7, dx_leaf->dl_signature);
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
-+	    ocfs2_dx_entries_per_leaf(sb))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count),
-+				   ocfs2_dx_entries_per_leaf(sb));
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
-+	    le16_to_cpu(dx_leaf->dl_list.de_count))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count));
- 
- 	return ret;
- }
--- 
-2.53.0
-
+For those that case: UNLOCK+LOCK is RCsc on all architectures except
+Power.
