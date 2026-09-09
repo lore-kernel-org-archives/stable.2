@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728BA3033DF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCBE2E5B2D
 	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 02:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919320; cv=none; b=IeJM16Mfm7MVFCu/wPUAhVDbR+JdzrUI0BdRkIedAPd/dMFbX5XJGwnQKyIlE2J4wyI+cXAtssHQ2i1SPQV1kjjqDLZtMoyite7MfTtizkLYkIepLRVahqExaAKIO25vOGekIhrqO7tmNfWuW/NvciRMYJJtnkLYAowuPhNcfhY=
+	t=1788919320; cv=none; b=apDjhGu8DVRMdeULBUoh0dUvwk7SmXiv3cmM/acadbbgNUiBe501fU1umWE0QVINrWWdxzAne6OKfOtg2FQkmgdV4VgNThu2M2VqR0URxBlibtBlNk+fmdlMPTNfCZFGesFoLltCCV8xFL9RL92upU7HwZXxzg2MbRcu3mBOQaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788919320; c=relaxed/simple;
-	bh=HlHmjjTNKPFzGUb8VNf99DGIDh828skYRXCfCnk4084=;
+	bh=zIoK1Mg9fqBQb1DFO9IrJbkj6lKWrx5/FxOuj5FRfeA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tXs3WwrWSj/xk9FiYLfMcvEVV6rtWLiMqZaskb2jHbarnZg8E/ggf8EobEEFK28NKiK2NXqLemf9Ri9RboRybDF/GptN/NqpAUEqkhO/k/k13vDXzlp8mzPPEeKr4itMt+vJTgpYfuR1RpjcI/2QTXv0yBe8YfBdy3h1uYxDVAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFMRHUoq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OgKICszF5CMAiqaW/IvxUCZtogz73OKp0eT8Z4pjKOgUlN6cPREHOB9I2qVbv+1CWUx4vEfMtA+PIc21xD5fRB66fKppW1eJejBgTqjUPhZml0LWxli4EgFWo/QEu7lAKO9WENnMxuuFqGm51jf/A1BD+xsJMJP36nYEYIvx2Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZN9RIbv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFMRHUoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE101F00A3E;
-	Wed,  9 Sep 2026 02:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZN9RIbv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D721F00A3D;
+	Wed,  9 Sep 2026 02:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788919318;
-	bh=joCJFuAw8DMopLgISWlmBE8mvJRjjll2nGM88KsSLBc=;
+	bh=s8+ceXcgLkpOStZ1aJ2nysXGPuFB5+hIWhlHGFiVCG4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UFMRHUoqUrysuXqjiRvAvH2zGX79TK8h0giuryAVpUIo3z5nrJei45PdSP5u+bua8
-	 bcOkcMShjJDEWb7HirZ79KfYkRoEiO/pBmKvRGKtYhnIIr6I/K3DGT1aUTPImFIIxR
-	 +eQtqXnnIzAAubbljAijgjsyIMhkR88yXy8gfvKQDZL95gsFFPMREOwutOImkRm+2m
-	 AMVibhb5jl0DrjDJc+5rlV/oo8y72mVTAtIVNF1yjKS7v+mKk+RlNbpILQVF+PH4R3
-	 ATuZkA63+QE0W8bewi8h0HvNESjLoTPcjZh/s/LTnTE0zjnqctiiiWEH5VIaaYInvL
-	 Jrfan8zStp7FA==
+	b=mZN9RIbvVMgNzGwdKL+mR6TuKlnva9TkHionUJQPAzy/Fju5R+tIJ0w5olFCjcyk9
+	 1E9Y8fqzA2unwaX7b1q7lJAY4cow5DqTXKG/cCJat3vx5UCEZNHlsEFvLS/E0eLBEO
+	 odAe3q4zx9zJ1RqIB69a6qKzX+z6ea+LQMDUpk7k1rdOmfH7SIy+lAR0RBq5KoIbLb
+	 OVyZHJ0sVfNABmjTu0rMIYUQap/YiUgi5mXtstF5O2aroptQ307bNvTvu7ZHkXd9uR
+	 LWPoLeKdHLsEpiHEu5V0D+EaZHMm08mooa/woYSNSEq7dOtRve/Q1BDcRy3VW7WjZB
+	 wc5y3UB3ChbOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/4] svcrdma: Fix SQ wake-ups
-Date: Tue,  8 Sep 2026 22:01:53 -0400
-Message-ID: <20260909020155.1007668-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/4] svcrdma: Fix retry loop in svc_rdma_send()
+Date: Tue,  8 Sep 2026 22:01:54 -0400
+Message-ID: <20260909020155.1007668-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909020155.1007668-1-sashal@kernel.org>
 References: <2026090318-deskbound-cushy-edcc@gregkh>
@@ -47,246 +47,93 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 5b9a85899c93430ff5173748fbcb79f28af21388 ]
+[ Upstream commit fc709d82dda6405862a681cc425386bfaf049539 ]
 
-Ensure there is a wake-up when increasing sc_sq_avail.
-
-Likewise, if a wake-up is done, sc_sq_avail needs to be updated,
-otherwise the wait_event() conditional is never going to be met.
+Don't call ib_post_send() at all if the transport is already
+shutting down.
 
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
 [Stable backport preparation for 0fbe20dfe74b]
-Keep the 6.1 tracepoint signatures while retaining all SQ accounting and
-wake-up changes. The existing svc_rdma_wake_send_waiters() supplies the
-atomic increment, ordering, and wake-up; do not increment twice.
+Keep the 6.1 Send Queue tracepoint signatures: sq_retry takes only the
+transport, and sq_post_err takes the transport and error status. This tree
+has no local completion ID in svc_rdma_send(). Do not import the upstream
+comment about completion releasing the Send context; this branch retains
+synchronous completion and caller-managed context lifetime.
 
-Pass the Write PCL directly to the existing pull-up helpers, using a local
-alias in svc_rdma_map_reply_msg() to preserve its public interface. Guard
-the existing Reply chunk send at its caller and move successful reply page
-accounting into svc_rdma_send_reply_msg(), after Send completion. These
-preparatory changes preserve the stable transport's synchronous I/O and
-resource lifetime rules while allowing the target's pull-up size check and
-ERR_CHUNK error routing to merge cleanly. No functions are added.
-
-The preceding backport 17122dca335f also enabled an asynchronous Read
-completion consumer that references the absent recv_ctxt::rc_pages array.
-Remove that helper and its receive-path branch: this tree completes Reads
-synchronously in svc_rdma_process_read_list(), and nothing enqueues a Read
-on sc_read_complete_q. Keep the queue declaration, initialization, and
-teardown from that prerequisite. This removes the build failure without
-introducing the unrelated asynchronous Read machinery.
+Retain the retry-loop fix: check XPT_CLOSE before reserving an SQ entry
+or posting, restore the reserved entry and wake waiters only after an
+actual post failure, and return -ENOTCONN on either shutdown or failure.
+The existing pull-up and reply-error preparation for 0fbe20dfe74b remains
+unchanged. No functions are added.
 
 Stable-dep-of: 0fbe20dfe74b ("svcrdma: Reject inline replies that overflow the pull-up buffer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_recvfrom.c | 32 -----------------
- net/sunrpc/xprtrdma/svc_rdma_sendto.c   | 47 ++++++++++++++-----------
- 2 files changed, 26 insertions(+), 53 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_sendto.c | 28 ++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index f9b5ea3f64957..6f4ddce266b56 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -768,30 +768,6 @@ static bool svc_rdma_is_reverse_direction_reply(struct svc_xprt *xprt,
- 	return true;
- }
- 
--static noinline void svc_rdma_read_complete(struct svc_rqst *rqstp,
--					    struct svc_rdma_recv_ctxt *ctxt)
--{
--	int i;
--
--	/* Transfer the Read chunk pages into @rqstp.rq_pages, replacing
--	 * the rq_pages that were already allocated for this rqstp.
--	 */
--	release_pages(rqstp->rq_respages, ctxt->rc_page_count);
--	for (i = 0; i < ctxt->rc_page_count; i++)
--		rqstp->rq_pages[i] = ctxt->rc_pages[i];
--
--	/* Update @rqstp's result send buffer to start after the
--	 * last page in the RDMA Read payload.
--	 */
--	rqstp->rq_respages = &rqstp->rq_pages[ctxt->rc_page_count];
--	rqstp->rq_next_page = rqstp->rq_respages + 1;
--
--	/* Prevent svc_rdma_recv_ctxt_put() from releasing the
--	 * pages in ctxt::rc_pages a second time.
--	 */
--	ctxt->rc_page_count = 0;
--}
--
- /**
-  * svc_rdma_recvfrom - Receive an RPC call
-  * @rqstp: request structure into which to receive an RPC Call
-@@ -839,13 +815,6 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
- 	rqstp->rq_xprt_ctxt = NULL;
- 
- 	spin_lock(&rdma_xprt->sc_rq_dto_lock);
--	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_read_complete_q);
--	if (ctxt) {
--		list_del(&ctxt->rc_list);
--		spin_unlock_bh(&rdma_xprt->sc_rq_dto_lock);
--		svc_rdma_read_complete(rqstp, ctxt);
--		goto complete;
--	}
- 	ctxt = svc_rdma_next_recv_ctxt(&rdma_xprt->sc_rq_dto_q);
- 	if (ctxt)
- 		list_del(&ctxt->rc_list);
-@@ -883,7 +852,6 @@ int svc_rdma_recvfrom(struct svc_rqst *rqstp)
- 			goto out_readfail;
- 	}
- 
--complete:
- 	rqstp->rq_xprt_ctxt = ctxt;
- 	rqstp->rq_prot = IPPROTO_MAX;
- 	svc_xprt_copy_addrs(rqstp, xprt);
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_sendto.c b/net/sunrpc/xprtrdma/svc_rdma_sendto.c
-index 22a871e6fe4dc..1216bb05e26cf 100644
+index 1216bb05e26cf..f3b837eedfa30 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_sendto.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_sendto.c
-@@ -321,11 +321,11 @@ int svc_rdma_send(struct svcxprt_rdma *rdma, struct svc_rdma_send_ctxt *ctxt)
+@@ -302,8 +302,9 @@ static void svc_rdma_wc_send(struct ib_cq *cq, struct ib_wc *wc)
+  * @rdma: transport on which to post the WR
+  * @ctxt: send ctxt with a Send WR ready to post
+  *
+- * Returns zero if the Send WR was posted successfully. Otherwise, a
+- * negative errno is returned.
++ * Return values:
++ *   %0: @ctxt's Send WR was posted successfully
++ *   %-ENOTCONN: The connection was lost
+  */
+ int svc_rdma_send(struct svcxprt_rdma *rdma, struct svc_rdma_send_ctxt *ctxt)
+ {
+@@ -319,30 +320,35 @@ int svc_rdma_send(struct svcxprt_rdma *rdma, struct svc_rdma_send_ctxt *ctxt)
+ 				      DMA_TO_DEVICE);
+ 
  	/* If the SQ is full, wait until an SQ entry is available */
- 	while (1) {
+-	while (1) {
++	while (!test_bit(XPT_CLOSE, &rdma->sc_xprt.xpt_flags)) {
  		if ((atomic_dec_return(&rdma->sc_sq_avail) < 0)) {
-+			svc_rdma_wake_send_waiters(rdma, 1);
+ 			svc_rdma_wake_send_waiters(rdma, 1);
++
++			/* When the transport is torn down, assume
++			 * ib_drain_sq() will trigger enough Send
++			 * completions to wake us. The XPT_CLOSE test
++			 * above should then cause the while loop to
++			 * exit.
++			 */
  			percpu_counter_inc(&svcrdma_stat_sq_starve);
  			trace_svcrdma_sq_full(rdma);
--			atomic_inc(&rdma->sc_sq_avail);
  			wait_event(rdma->sc_send_wait,
--				   atomic_read(&rdma->sc_sq_avail) > 1);
-+				   atomic_read(&rdma->sc_sq_avail) > 0);
- 			if (test_bit(XPT_CLOSE, &rdma->sc_xprt.xpt_flags))
- 				return -ENOTCONN;
+ 				   atomic_read(&rdma->sc_sq_avail) > 0);
+-			if (test_bit(XPT_CLOSE, &rdma->sc_xprt.xpt_flags))
+-				return -ENOTCONN;
  			trace_svcrdma_sq_retry(rdma);
-@@ -341,7 +341,7 @@ int svc_rdma_send(struct svcxprt_rdma *rdma, struct svc_rdma_send_ctxt *ctxt)
+ 			continue;
+ 		}
  
- 	trace_svcrdma_sq_post_err(rdma, ret);
- 	svc_xprt_deferred_close(&rdma->sc_xprt);
--	wake_up(&rdma->sc_send_wait);
-+	svc_rdma_wake_send_waiters(rdma, 1);
- 	return ret;
- }
- 
-@@ -648,7 +648,7 @@ static int svc_rdma_xb_count_sges(const struct xdr_buf *xdr,
-  * svc_rdma_pull_up_needed - Determine whether to use pull-up
-  * @rdma: controlling transport
-  * @sctxt: send_ctxt for the Send WR
-- * @rctxt: Write and Reply chunks provided by client
-+ * @write_pcl: Write chunk list provided by client
-  * @xdr: xdr_buf containing RPC message to transmit
-  *
-  * Returns:
-@@ -657,7 +657,7 @@ static int svc_rdma_xb_count_sges(const struct xdr_buf *xdr,
-  */
- static bool svc_rdma_pull_up_needed(const struct svcxprt_rdma *rdma,
- 				    const struct svc_rdma_send_ctxt *sctxt,
--				    const struct svc_rdma_recv_ctxt *rctxt,
-+				    const struct svc_rdma_pcl *write_pcl,
- 				    const struct xdr_buf *xdr)
- {
- 	/* Resources needed for the transport header */
-@@ -667,7 +667,7 @@ static bool svc_rdma_pull_up_needed(const struct svcxprt_rdma *rdma,
- 	};
- 	int ret;
- 
--	ret = pcl_process_nonpayloads(&rctxt->rc_write_pcl, xdr,
-+	ret = pcl_process_nonpayloads(write_pcl, xdr,
- 				      svc_rdma_xb_count_sges, &args);
- 	if (ret < 0)
- 		return false;
-@@ -723,7 +723,7 @@ static int svc_rdma_xb_linearize(const struct xdr_buf *xdr,
-  * svc_rdma_pull_up_reply_msg - Copy Reply into a single buffer
-  * @rdma: controlling transport
-  * @sctxt: send_ctxt for the Send WR; xprt hdr is already prepared
-- * @rctxt: Write and Reply chunks provided by client
-+ * @write_pcl: Write chunk list provided by client
-  * @xdr: prepared xdr_buf containing RPC message
-  *
-  * The device is not capable of sending the reply directly.
-@@ -738,7 +738,7 @@ static int svc_rdma_xb_linearize(const struct xdr_buf *xdr,
-  */
- static int svc_rdma_pull_up_reply_msg(const struct svcxprt_rdma *rdma,
- 				      struct svc_rdma_send_ctxt *sctxt,
--				      const struct svc_rdma_recv_ctxt *rctxt,
-+				      const struct svc_rdma_pcl *write_pcl,
- 				      const struct xdr_buf *xdr)
- {
- 	struct svc_rdma_pullup_data args = {
-@@ -746,7 +746,7 @@ static int svc_rdma_pull_up_reply_msg(const struct svcxprt_rdma *rdma,
- 	};
- 	int ret;
- 
--	ret = pcl_process_nonpayloads(&rctxt->rc_write_pcl, xdr,
-+	ret = pcl_process_nonpayloads(write_pcl, xdr,
- 				      svc_rdma_xb_linearize, &args);
- 	if (ret < 0)
- 		return ret;
-@@ -774,6 +774,7 @@ int svc_rdma_map_reply_msg(struct svcxprt_rdma *rdma,
- 			   const struct svc_rdma_recv_ctxt *rctxt,
- 			   const struct xdr_buf *xdr)
- {
-+	const struct svc_rdma_pcl *write_pcl = &rctxt->rc_write_pcl;
- 	struct svc_rdma_map_data args = {
- 		.md_rdma	= rdma,
- 		.md_ctxt	= sctxt,
-@@ -792,10 +793,10 @@ int svc_rdma_map_reply_msg(struct svcxprt_rdma *rdma,
- 	/* For pull-up, svc_rdma_send() will sync the transport header.
- 	 * No additional DMA mapping is necessary.
- 	 */
--	if (svc_rdma_pull_up_needed(rdma, sctxt, rctxt, xdr))
--		return svc_rdma_pull_up_reply_msg(rdma, sctxt, rctxt, xdr);
-+	if (svc_rdma_pull_up_needed(rdma, sctxt, write_pcl, xdr))
-+		return svc_rdma_pull_up_reply_msg(rdma, sctxt, write_pcl, xdr);
- 
--	return pcl_process_nonpayloads(&rctxt->rc_write_pcl, xdr,
-+	return pcl_process_nonpayloads(write_pcl, xdr,
- 				       svc_rdma_xb_dma_map, &args);
- }
- 
-@@ -841,6 +842,12 @@ static int svc_rdma_send_reply_msg(struct svcxprt_rdma *rdma,
- 
- 	ret = wait_for_completion_killable(&sctxt->sc_done);
- 	svc_rdma_send_ctxt_put(rdma, sctxt);
-+
-+	/* Prevent svc_xprt_release() from releasing the page backing
-+	 * rq_res.head[0].iov_base. It's no longer being accessed by
-+	 * the I/O device. */
-+	if (!ret)
-+		rqstp->rq_respages++;
- 	return ret;
- }
- 
-@@ -953,10 +960,13 @@ int svc_rdma_sendto(struct svc_rqst *rqstp)
- 	if (!p)
- 		goto put_ctxt;
- 
--	ret = svc_rdma_send_reply_chunk(rdma, rctxt, &rqstp->rq_res);
--	if (ret < 0)
--		goto reply_chunk;
--	rc_size = ret;
-+	rc_size = 0;
-+	if (!pcl_is_empty(&rctxt->rc_reply_pcl)) {
-+		ret = svc_rdma_send_reply_chunk(rdma, rctxt, &rqstp->rq_res);
-+		if (ret < 0)
-+			goto reply_chunk;
-+		rc_size = ret;
-+	}
- 
- 	*p++ = *rdma_argp;
- 	*p++ = *(rdma_argp + 1);
-@@ -976,11 +986,6 @@ int svc_rdma_sendto(struct svc_rqst *rqstp)
- 	ret = svc_rdma_send_reply_msg(rdma, sctxt, rctxt, rqstp);
- 	if (ret < 0)
- 		goto put_ctxt;
+ 		trace_svcrdma_post_send(ctxt);
+ 		ret = ib_post_send(rdma->sc_qp, wr, NULL);
+-		if (ret)
++		if (ret) {
++			trace_svcrdma_sq_post_err(rdma, ret);
++			svc_xprt_deferred_close(&rdma->sc_xprt);
++			svc_rdma_wake_send_waiters(rdma, 1);
+ 			break;
++		}
+ 		return 0;
+ 	}
 -
--	/* Prevent svc_xprt_release() from releasing the page backing
--	 * rq_res.head[0].iov_base. It's no longer being accessed by
--	 * the I/O device. */
--	rqstp->rq_respages++;
- 	return 0;
+-	trace_svcrdma_sq_post_err(rdma, ret);
+-	svc_xprt_deferred_close(&rdma->sc_xprt);
+-	svc_rdma_wake_send_waiters(rdma, 1);
+-	return ret;
++	return -ENOTCONN;
+ }
  
- reply_chunk:
+ /**
 -- 
 2.53.0
 
