@@ -1,142 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C29952ED47
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951673; cv=none; b=g+n2ZF7JcYE+o9b8jBsSx0hYDSAhkJwF57NWAgBsn4MSNJ9gCUDNguKbiHnI3Vhwda0KhLxSTmefXyuQfMyrXiQ1df3kLFZYmLtfcRmPNV8ZSfiJWhuHKJZ/Ce305N0wV1yDUl6CVVP1BNKTnBB69PFA9h+lJaxKuVleFpiEM3w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951673; c=relaxed/simple;
-	bh=Ze+Y/OgahZlS9/Jg4u9AaxG7ReysE9plGXjEAdx2srU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oPokUkPNHos2RuMphVJtYfkrnWXTh0sVhuK3YQahXNx6ybQBJy6nadHmh/eQjxWBBzTF3ojCfL87lLjxAfZg/f1Sqk5+GDBqlPcN8EcYPoBkAQxqalgoVPBhweSSDViDEI2dC8i10855HpyfP4tgRsi5wQKIzxgoGVlra/7OZ7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L9t/KRAT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C2852ED47
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788951677; cv=pass; b=JuMo66i2KnuLnYMBLzRwuoXzDenuzOq2gsEepN/wa3P2gvSCzCaWRYBlHP5BVKgee0McjJMMFPGtpExpPvMtF7LqZ7tKV/Ub7DR0JyceAlPcHhoG6yk1zdsXcyPMtZY93tzUcEWh3jn9+dF4ZOQnlEc07fQLbYSqa++clj1ymuo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788951677; c=relaxed/simple;
+	bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qmWACG9FlZEEASogI5Z6GkLJ8X0Ti1Z1mWWxshwGRMvMKFDF06jMxuHqEn/80JU/JMq31nKvg79ApLyYCeIzChs5oeetW7b+t1C24j8f1Sd946dycAxuRf3Xj3QBJIrT7LvRkBMpZBIdHQUwLYu1ioX0k0shAvKCxkZRIIE3QPI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLuiy9lH; arc=pass smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L9t/KRAT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64561F00A3A;
-	Wed,  9 Sep 2026 11:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788951671;
-	bh=CLGJHMLvX0/TXI0BprCfKoBgPBafrojEpKUwVmPinJ4=;
-	h=Subject:To:Cc:From:Date;
-	b=L9t/KRATr1jHSd07VzlmCX3RVyNyYgIXXspq69WOjFMDnstQuxt7obIeoKTG/88v+
-	 CsAMso5INTEmMXU3Sxf/4NnLf4iPY/N/is25jRY5K4VbTpkiu9fsSE83U3qzhfph9q
-	 Yw/fcIHgWQKqJ3PKrSw4SpCLrrvRYdGuGR1HB80E=
-Subject: FAILED: patch "[PATCH] media: chips-media: wave5: Resume device before setting EOS" failed to apply to 6.18-stable tree
-To: jackson.lee@chipsnmedia.com,hverkuil+cisco@kernel.org,nas.chung@chipsnmedia.com,nicolas.dufresne@collabora.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:54:08 +0200
-Message-ID: <2026090908-entomb-gradually-7052@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLuiy9lH"
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5c65093556aso4415479e0c.2
+        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 04:01:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788951673; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ESCJ7h0DS6ewtpSk83NwXd8w01d0lomOsHH0QbDUUGH7YE6WKJq41/QXbKLyndw07C
+         VQ4YrGoSelQm50vcSGELmJymeUpn1MEaEDch+RTvH8aKaAh4P7roau3aWvmMvDxHIeBa
+         gPF3M/b9e+XeoczhkSlPzKhgKbPpjzeuaoOpGQx4i+dnATIXFmAxus188iK4kLk0fEZP
+         h7yAWFlQTL9zMShG1yIKJfO6svBnVDv6vv2cbcIvHQ+FGlPNnF4T/YudjNH/aG43MjZ3
+         o6DH7uCH/ds08QVOpI59ZbCBmos2HpLBiYyZuQ/pEDG8/N6kyNc5jetawUdGupupEMvo
+         wTIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
+        fh=aOhFyKi/b5S57K0Z/sGdbXTUUsS6bz6D9gBda7P5gO8=;
+        b=KdnJNenhYy358sbK4EuYbqd2cLsOJirVMvRxep2s2mpNvTtBqUlemNxAJq1U+8JRr2
+         qv9lBn7I6MZrkP+rFtoe+RHDguTxXMfw0SRJ/a+mjCjkvUBdPnKUWsWtSpNoE07rLFSn
+         WGk7CgfdGmkPwLSP0brbjqmilImVSJe+zABvGEPwOFpE1Yz5psL9018HGPKlcN5PlVPa
+         V9D/VBHdzIYYTxF9zAZlIbT8YLlXz949KwC8/G61y+ZlSz85Jy28BtWik45GtIxTgzu/
+         GJZoip/zUKIH7y7zL1/IkhCjFGQkSyPgzV65kGjDrDAzOwBFX19QdESoGpD1ZdaNfMGC
+         YhLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788951673; x=1789556473; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
+        b=KLuiy9lHElUSQVyCGNhQ2N/Vy2L+WHxPwRqOwGLYJIauKAZkkT1R8DDgsI4jTIxX+t
+         BqFn4kd8nO5aJkD5qFTrsjKIFniUfsvQFSr5vK0rWiIgQCU/zV+hXIIdGRPLlW1XRhJd
+         +z+/WTUKvjgHlN9CKzW52/ouSEl3GxTYM3N8QUn2FaZg/R3QAAqcKVdx5JMbthxX4oLw
+         r8JkANzWiZOStrI3gg8MC2OAzQ5vvcBi3gl/ooF/c0hEPSZ4kH9wpccm6ac8Ijhv0zp1
+         aut1dlZ5CpwdlHaBfS7pHaCdIKN/+bRo0ltIvcGw+zXaUTjsw65AYSjO1TlJrS7hQwhx
+         RvKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788951673; x=1789556473;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=g/39UEqT9toqCrCnxGHkgjqNAqJ77A/mKbtdKnBETRs=;
+        b=bpl+2MrBkxXbAeIBsGDW04ZGnJMYjuumjHdIuCEfxYfFSlVj2gm48DoKPepwMpekDm
+         bTwyJO/ynxR9Rj0k8Hs34av698a37acl9aV6fie3Ypv9dv6fyJHbaL0Qvp6kw3U7gk8s
+         +L2N5YucPBiQVJIsDx3J8cX+DyfDGJ6gZhktkxrpf1QBQxlSIN0IqAlpdbfIgqhUgTIr
+         m8cspE8Hlt5iMeG5+MFRTsGDl31Ke1d+5Kk0gKT5hjrfbpRTuwVnNN+P8UynasI/J4VL
+         8WPg+sl9jKW14YKp/oLX06/XMBnVnrPC/VWw3IulWQPfFPkmaZbDm8323vIMDUJhklmk
+         UQyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMZmFOEy5myRSrQO2tpy01Mg9S/Skbx/JylM27cKuwe2hFRXJWOfmeIxCuHc22jmyy4UIAaZw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldBtdPRO3GjS7VBKW8KOZiupGdjCx/KvGzj7T0oAH/c9vBD9pp
+	qpaRxYtvr4S//uhY1/DGMJDejbmYNMV64LTZ8KzSIp0uUtT65f8Ehzs9fN/aB4+BjSnlX3KNVMS
+	a3fRbLxC9iuq6OLcZl3dZ5D/TLpSY8/I=
+X-Gm-Gg: AYBFou0/mk1kdoH/+ZwKu4bhzTNCQwJp1v3VtLvouIQ3vTZ4Ge3bFmY3gCJj0H6v6E4
+	WUOkZ3GIlRPbWfij6YuK1qvJIkypVt1aAwBc2+bd2GnctKmF8j8PBN00WgoqgZz9iiIqhv91QDE
+	LdSthfO5jE6MumxphYFGmHGud+jXrfeCcwM6kPx7aoVcelwQLUaapepnj/rkoG7s9FljWNw+qnf
+	za4sTS3OPbCe7DzGS09kNxrLe+5At7wlFkrEYUy//6XiC6Xm0EIGxecSFWOZ5NP2sQzmev458US
+	ajZ9fLA42uXrjBcAad1BmCVe5Si4ohqRzo9L7kynQ9feOw/PmiK/nKDqRhvIkGoPn+WLJPaJAQE
+	k0A3MFC+evEugezBotzdmKdCRe316dDTXr41ELUA=
+X-Received: by 2002:a05:6122:d90:b0:5c8:2c83:9cb with SMTP id
+ 71dfb90a1353d-5c82c830f80mr1746396e0c.2.1788951672620; Wed, 09 Sep 2026
+ 04:01:12 -0700 (PDT)
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 04:01:11 -0700
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 03:56:23 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260823120039.A7B3B1F000E9@smtp.kernel.org>
+References: <20260823120039.A7B3B1F000E9@smtp.kernel.org>
+From: Julien Le Bourg <julien.lebourg8@gmail.com>
+Date: Wed, 9 Sep 2026 04:01:11 -0700
+X-Gm-Features: AcwNN1XvXL1SjFRBtFvxbHrfryC6LwXZDTu3lMkv6bOZrarcI4At3uMGcycC3NQ
+Message-ID: <CAAK4M4VkRxnG9eYZWSiwqBKCMeWbF6XCGxekZLc-+8gt_R4hVw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Restore self-refresh fallback in
+ DCN21 bandwidth validation
+To: amd-gfx@lists.freedesktop.org
+Cc: sashiko-bot@kernel.org, Wayne.Lin@amd.com, nicholas.kazlauskas@amd.com, 
+	stable@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Sun, Aug 23, 2026 at 12:00:39PM +0000, sashiko-bot@kernel.org wrote:
+> This isn't a bug introduced by this patch, but since the stutter latency
+> leak is explicitly left unpatched for DCN 3.01, will it remain vulnerable
+> to MPO flip_done timeouts?
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Yes. dcn301_fpu.c has the same calculate_wm_set_for_vlevel() helper and
+only restores dram_clock_change_latency_us. DCN 3.01 also still calls
+dcn30_internal_validate_bw() with allow_self_refresh_only true, and
+watermarks run only for DC_VALIDATE_MODE_AND_PROGRAMMING, so the check
+vs commit_tail mismatch is the same shape as on DCN 2.1.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+I left it out of this patch on purpose: this is the DCN 2.1 regression
+(360 Hz eDP dropped after b96150a70696), I have no DCN 3.01 hardware,
+and I would rather not touch Van Gogh watermarks untested. Happy to
+send a follow-up if someone with DCN 3.01 can try it.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x a52e6f7923c17a672135b485ffd96fbd72f46267
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090908-entomb-gradually-7052@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+v2 is otherwise unchanged. 1920x1080@360 is in daily use here on
+Cezanne with this applied. A human look would be very welcome.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a52e6f7923c17a672135b485ffd96fbd72f46267 Mon Sep 17 00:00:00 2001
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
-Date: Fri, 26 Jun 2026 10:22:32 +0900
-Subject: [PATCH] media: chips-media: wave5: Resume device before setting EOS
- flag
-
-Setting the EOS flag talks to the firmware via send_firmware_command(),
-which accesses VPU registers. Both the STREAMOFF path
-(wave5_vpu_dec_job_abort()) and the V4L2_DEC_CMD_STOP path
-(wave5_vpu_dec_stop()) can run while the device is runtime suspended, so
-those register accesses hit powered-down hardware and the SoC raises an
-asynchronous SError, panicking the kernel:
-
-  SError Interrupt on CPU3, code 0x00000000bf000000 -- SError
-   send_firmware_command+0x2c/0x160 [wave5]
-   wave5_vpu_dec_set_bitstream_flag+0x6c/0x80 [wave5]
-   wave5_vpu_dec_update_bitstream_buffer+0x80/0xec [wave5]
-   wave5_vpu_dec_job_abort+0x44/0xa0 [wave5]
-   v4l2_m2m_cancel_job+0x110/0x19c [v4l2_mem2mem]
-   v4l2_m2m_streamoff+0x24/0x140 [v4l2_mem2mem]
-
-Resume the device with pm_runtime_resume_and_get() around the EOS
-firmware command and release it with pm_runtime_put_autosuspend(),
-matching the runtime PM handling already done in
-wave5_vpu_dec_device_run().
-
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 1817b83c5884..6564cf3ec739 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -823,7 +823,15 @@ static int wave5_vpu_dec_stop(struct vpu_instance *inst)
- 		 * calls do not block on a mutex while inside this spinlock.
- 		 */
- 		spin_unlock_irqrestore(&inst->state_spinlock, flags);
-+		/*
-+		 * V4L2_DEC_CMD_STOP can arrive while the device is runtime
-+		 * suspended (e.g. on pipeline teardown). Setting the EOS flag
-+		 * accesses VPU registers via send_firmware_command(), so the
-+		 * device must be resumed first to avoid an asynchronous SError.
-+		 */
-+		pm_runtime_resume_and_get(inst->dev->dev);
- 		ret = wave5_vpu_dec_set_eos_on_firmware(inst);
-+		pm_runtime_put_autosuspend(inst->dev->dev);
- 		if (ret)
- 			return ret;
- 
-@@ -1797,11 +1805,22 @@ static void wave5_vpu_dec_job_abort(void *priv)
- 	if (ret)
- 		return;
- 
-+	/*
-+	 * job_abort() runs from the STREAMOFF path and may be called while the
-+	 * device is runtime suspended. Setting the EOS flag talks to the
-+	 * firmware (send_firmware_command() accesses VPU registers), so the
-+	 * device must be resumed first; otherwise the register access faults
-+	 * with an asynchronous SError.
-+	 */
-+	pm_runtime_resume_and_get(inst->dev->dev);
-+
- 	ret = wave5_vpu_dec_set_eos_on_firmware(inst);
- 	if (ret)
- 		dev_warn(inst->dev->dev,
- 			 "Setting EOS for the bitstream, fail: %d\n", ret);
- 
-+	pm_runtime_put_autosuspend(inst->dev->dev);
-+
- 	v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
- }
- 
-
+Thanks,
+Julien
