@@ -1,152 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4687D581225
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A84F581250;
+	Wed,  9 Sep 2026 16:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971255; cv=none; b=pu8Q+WIKR6oueIj3QYE+EV+LFk8URz0EhmmSQhwGAvZMw/5I3fTY6XHmDJCZeNr/MtLzJOkZJPYc3z8+xZyxuLfvm6ODQHtv49WnUratbXj7aQ4LT6OP4uE2VOid9oGNQlZld0V37F5CCdYd1RVyHu8UuX6y6DU/aFdgiH2rYlM=
+	t=1788971399; cv=none; b=WhC/2XMpRMus8StqUP09oSeW5z6fkduGr9sWHODLHUfHEW8iTC5KXQbeWeNnYLVofeQNOJsUVvPA/cc1x89mr60GWPmcxjg8LyLMLv5YluNfdbGKnEXlXDzpeSv5BbJdHvUdA+wtdVtSyPUH2bv3UOM7YvFMJVnqj59HlYLRdjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971255; c=relaxed/simple;
-	bh=yEVHVjPTQ2JOGFiKYH53f+9evKuLKiAgLii4pFYSDqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=peC+/T0r75ly9Mg/ty9AYzFx0+QNckdyDwqeKTMQ220lPoZuaDrG9ZK5goHSiXl5W09lTI7YCLFn0xn0BhNIoQK7EJXveXZUm+08wxeeu2I6GfxCJSYUpNgcEqPYj+RT6AJb+SO72jwBY8YldEWK1+DJ2bQSnceRxVVL4w8CZ8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QPWXlSfV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788971399; c=relaxed/simple;
+	bh=krwfMdiCMzFHmtZQPPfEjSMaKs13pUHMuJ/roEuywc0=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=d5k0GKPhydOvNP6MukEmf3b2yqMpxZt/o2avrjpIrXVanY8OYcGQM4QwIl1AUCVlcgn4aBranBiIX7Liuy06N8GAHNZc4ltTeLQ7whrOZdmLiCCUsaXfSraPl1ZHLn3gBjmZYohzq/n0M6PB6cW+/bSWosLvdkQxsWdn0OK3kEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hauke-m.de; spf=pass smtp.mailfrom=hauke-m.de; dkim=pass (2048-bit key) header.d=hauke-m.de header.i=@hauke-m.de header.b=ppFYb/AV; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hauke-m.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hauke-m.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QPWXlSfV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528481F00898;
-	Wed,  9 Sep 2026 16:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971254;
-	bh=Nl5xW68JUWVqWdqG1HO6Uw0izkgJ0R/7MYOfzNq9lBg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QPWXlSfVX1Fi09t8bMq8y8CatXwNME97s85yT+FIId6gn1q4vb5KWwvjVGY5rT9Vc
-	 Lhc0Umajdhoh1aVlkfjfg2/LZRlBr8i+aIBGNc3lIXL14mLBTLdomUjsVmG4nRdTF7
-	 jeNvYovrXrx257mAbUSG5Hk0fsZ/jUNoP/j0f10jjB9S+BmhPygFPG7ZOTPP68yf/v
-	 zbeOH+eZS9HgX9wtZ9kLOYVWpgxoR17wCQQ3+R+6CMi3LvmL4DYiNjjCKLqXUdlkjC
-	 bFEHBGfT+UYbxpkYyIA3puUSNOuS2vluUwxkrkQYQhX0PpARtvVaBNXabej0g3ZvOf
-	 c1VZebPQntrDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] net: dsa: realtek: use gpiod_set_value_cansleep for reset GPIO
-Date: Wed,  9 Sep 2026 12:27:29 -0400
-Message-ID: <20260909162729.2986277-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909162729.2986277-1-sashal@kernel.org>
-References: <2026090349-lake-barista-93d3@gregkh>
- <20260909162729.2986277-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=hauke-m.de header.i=@hauke-m.de header.b="ppFYb/AV"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg5r14Yl6zMlH1;
+	Wed, 09 Sep 2026 18:29:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hauke-m.de; s=MBO0001;
+	t=1788971393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GijESrXrggs2Ng+WJhK7xqr1s12SqTgNBkqbolGvWN8=;
+	b=ppFYb/AV/USeUbcdcR29K2xJdq/CI8DWS0hMJ9UpxWWY1Z8ARX7DpcS2qtYaipyieYBb4B
+	HjCKJkkg4N1Ktu8goUFujHHJw6ArW5WutYQ2keWiiILQKA2VYKD4pPimbbYZiu/R5T9/w9
+	ll+RcxVfbQK3zK0NQnV86vqbQCpCI+0NkES5KGM9OtdGwlf33EIeInm7s0H02dKXNNQDf+
+	7S2MoNzq/WFj6bM0itWL6aIeXGH4KuYbA/HJqeZ2UAXz5DJdEcA9IIdDsDhJBjVP19FAdu
+	XyBnqAoRs383NTaUMzcnaQ5gExwsgK1SweDdc8mnSrNxCo6r/gy1j2CKDFr0/A==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hauke@hauke-m.de designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hauke@hauke-m.de
+Message-ID: <7dfa42f6-64c1-4084-bfea-d57500c245cf@hauke-m.de>
+Date: Wed, 9 Sep 2026 18:29:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Hauke Mehrtens <hauke@hauke-m.de>
+To: stable@vger.kernel.org, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>
+Content-Language: en-US
+Subject: network flow offloading broken in 6.18.45+
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4hg5r14Yl6zMlH1
 
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Hi,
 
-[ Upstream commit fb58b6a696b30bcbfbe0cfc0a91b19c816a955fc ]
+flow offloading is currently broken in Linux 6.18.45.
 
-rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
-the probe path, which may sleep and is not timing-critical.  When the
-reset GPIO is provided by a sleeping controller such as an I2C I/O
-expander, gpiod_set_value() warns:
+Since the backport of commit b5964aac51e0 ("netfilter: flowtable: 
+consolidate xmit path") to Linux 6.18.45. This is happening in a router 
+with traffic from wifi to the Ethernet device when mac80211 returns 
+-EOPNOTSUPP.
 
-  WARNING: drivers/gpio/gpiolib.c:4030 at gpiod_set_value+0x44/0x80, CPU#1: kworker/u16:4/61
-  Hardware name: B&O MAP CA33 Rev f (UNKNOWN) (DT)
-  Workqueue: events_unbound deferred_probe_work_func
-  pc : gpiod_set_value+0x44/0x80
-  lr : rtl83xx_probe+0x1d8/0x3a0
-  Call trace:
-   gpiod_set_value+0x44/0x80 (P)
-   rtl83xx_probe+0x1d8/0x3a0
-   realtek_mdio_probe+0x24/0xa0
-   mdio_probe+0x38/0x78
-   really_probe+0xc4/0x3e0
-   __driver_probe_device+0x15c/0x1b8
-   driver_probe_device+0xb4/0x120
-   __device_attach_driver+0xb8/0x1a0
-   bus_for_each_drv+0x88/0xf0
-   __device_attach+0xa0/0x1d8
-   device_initial_probe+0x54/0x68
-   bus_probe_device+0x38/0xa0
-   deferred_probe_work_func+0xb8/0x120
-   process_one_work+0x184/0x4e8
-   worker_thread+0x188/0x308
-   kthread+0x130/0x150
-   ret_from_fork+0x10/0x20
+Upstream fixed it in 871df5007eda ("netfilter: flowtable: bail out if 
+forward path cannot be discovered") by not offloading the flow at all. 
+backporting this change looks more complicated.
 
-Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO can
-be used without triggering the warning.
+This cam up in a discussion in an OpenWrt PR:
+https://github.com/openwrt/openwrt/pull/24800
 
-The reset GPIO has been driven with the non-sleeping gpiod_set_value()
-since the driver was added in v4.19.  The call has since been refactored
-across several files - from realtek-smi.c / realtek-mdio.c into the common
-rtl83xx.c module and then into the rtl83xx_reset_assert() and
-rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
-applies as-is only to kernels that carry those helpers (v6.9+); older
-stable kernels need the same gpiod_set_value_cansleep() conversion at the
-corresponding open-coded call sites.
+An LLM suggested this change: 
+https://github.com/openwrt/openwrt/pull/24800/changes/394d741e6e76ecd172dbbf1d9ba171e378211734
 
-Fixes: d8652956cf37 ("net: dsa: realtek-smi: Add Realtek SMI driver")
-Cc: <stable@vger.kernel.org> # 6.9.x
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Link: https://patch.msgid.link/20260814110102.2362246-1-o.rempel@pengutronix.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ applied changes to realtek-mdio.c and realtek-smi.c probe functions because rtl83xx.c is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/dsa/realtek/realtek-mdio.c | 4 ++--
- drivers/net/dsa/realtek/realtek-smi.c  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+It seams to work, but I do not understand this part of the code god 
+enough to judge if this is correct.
 
-diff --git a/drivers/net/dsa/realtek/realtek-mdio.c b/drivers/net/dsa/realtek/realtek-mdio.c
-index a0ba3fc4dc7c8..ca6d19c9487aa 100644
---- a/drivers/net/dsa/realtek/realtek-mdio.c
-+++ b/drivers/net/dsa/realtek/realtek-mdio.c
-@@ -202,10 +202,10 @@ static int realtek_mdio_probe(struct mdio_device *mdiodev)
- 	}
- 
- 	if (priv->reset) {
--		gpiod_set_value(priv->reset, 1);
-+		gpiod_set_value_cansleep(priv->reset, 1);
- 		dev_dbg(dev, "asserted RESET\n");
- 		msleep(REALTEK_HW_STOP_DELAY);
--		gpiod_set_value(priv->reset, 0);
-+		gpiod_set_value_cansleep(priv->reset, 0);
- 		msleep(REALTEK_HW_START_DELAY);
- 		dev_dbg(dev, "deasserted RESET\n");
- 	}
-diff --git a/drivers/net/dsa/realtek/realtek-smi.c b/drivers/net/dsa/realtek/realtek-smi.c
-index 52c0f5b6de90f..c0967c1e457e6 100644
---- a/drivers/net/dsa/realtek/realtek-smi.c
-+++ b/drivers/net/dsa/realtek/realtek-smi.c
-@@ -463,10 +463,10 @@ static int realtek_smi_probe(struct platform_device *pdev)
- 		return PTR_ERR(priv->reset);
- 	}
- 	if (priv->reset) {
--		gpiod_set_value(priv->reset, 1);
-+		gpiod_set_value_cansleep(priv->reset, 1);
- 		dev_dbg(dev, "asserted RESET\n");
- 		msleep(REALTEK_HW_STOP_DELAY);
--		gpiod_set_value(priv->reset, 0);
-+		gpiod_set_value_cansleep(priv->reset, 0);
- 		msleep(REALTEK_HW_START_DELAY);
- 		dev_dbg(dev, "deasserted RESET\n");
- 	}
--- 
-2.53.0
-
+Hauke
