@@ -1,92 +1,106 @@
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FF3478E5A;
-	Wed,  9 Sep 2026 10:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CE04B128F
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949544; cv=none; b=UxFOENWOTvhMEZDQGvCWVGxTGGdNYEj9itET8tWCBSA3IbaIJe/0u4uIkAw8XcD0pMF2XMmKGGSpSsfOHTtSPjsTbnxLwKZc7J3P5ZJI4PTwcfMAw3cqUuIL04BUtW1xyqN6JhJfi1+utk8S7up7cSfD5VrRNtf9zVrNmLhatiU=
+	t=1788949687; cv=none; b=Cehr98eKy7dKIABdiFaFxAesEsjyXiWWR5b3xe1o8f7gBGm6WuODITcPSp2OuPb1Z66GoknRW3F7fl6WlNNAVRhjXB5DQ6Tu+BWzXHU3eG6d4h1zS28Go9sb0+yV31rfujIcv1WxqC3e2WCPAfeuH/UFGmQiTv4sowOiB9QiVS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949544; c=relaxed/simple;
-	bh=X6CS8natN/FeN/v/5ZXPoQdCMzGosg/lTx3jrqNsSAg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M2llAIbGFRyrTkOs/zKsVr5xzS687RpnXT4wgb3pIfjGX6kkFZVC+L/tRKUGTtimBUIvC/3LKgsPV+Wo2DJ763zWaynyz2gWjBUMToV0rr/8b47gVmgrttv1k0vy7sdU1I1eIRUEVp7xNPZ8Z7sGKRZhun+LXrrd55mlForelVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DRHdZGDq; arc=none smtp.client-ip=79.135.106.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788949687; c=relaxed/simple;
+	bh=tAAs7SsEE6yNyNlA4QygxHQ3hCGp/6sRGQL8biKUzTg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dPb7w7kmBqy5o/3neNiimCxpR2daCLc00bbtBF+Qsyr4rEFhMwL2+WRM1KRo0bdubwR8QHzfs1qTr+hcFTMS5RGz80bw/4uJABle+ADAJ0DvcONTyHxpvBCH+hdrtcJDasb2Q5p53VsjjtGj8BIURM1mWJMNdWJLiRROJv5Xuvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1zyiMaP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DRHdZGDq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788949532; x=1789208732;
-	bh=dceBWMYXZxkpNT6zH1rL/lZdha3FG9MrbZct7tilnUo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DRHdZGDqhCLAkGAGUj8U+fvFj4X5M/DHA+Z8+sbfE0x6PS/dJGFv2n/X/EyjfX4BH
-	 A+omUHWmb7zGGICxo0hbGuX2+QVh0Yp9vqSa9LpTsdt7zfGlcCiStk0gmMDNql5PvA
-	 jFEITMrSqSzZRQAO77xy4wEPw4/134x+8V51oZZldOrMASbjoic1wdUBuoCw+6p9iY
-	 we8VzR1OUEbLCtt0MZx5EQHYhVKt4bd4naQ12sQyACsC//fAGw1P5P1lLKBhoiTmJp
-	 PyrTDJNynqkzDWrKvtrQCeh7LS17WuRjF0TKSxNNQTTUZyNdh+YNNKpo/G0d8MYMuZ
-	 xJ2cbsn4Usbxw==
-Date: Wed, 09 Sep 2026 10:25:28 +0000
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] Input: soc_button_array - fix MS Surface Pro 11 probe failure
-Message-ID: <20260909102521.67488-1-lsa.uz@pm.me>
-In-Reply-To: <20260909093934.29411-1-johannes.goede@oss.qualcomm.com>
-References: <20260909093934.29411-1-johannes.goede@oss.qualcomm.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: c74eb37c6e77e0b9bb4eea2612100284fe62ca97
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1zyiMaP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9281F00A3D;
+	Wed,  9 Sep 2026 10:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788949686;
+	bh=YUaJ4JRuswvtq64K9G3p0nE2EofuBy0ZE82aSfuVwRQ=;
+	h=Subject:To:Cc:From:Date;
+	b=1zyiMaP/PJeztL195higI3wrmlRqzJirwi9X2u9R22KFuYBAk5S9K4KNCVwk3KbLf
+	 negdJPHyiUbLDX+xjqP7qJSmG8X1bK/3IghBLxMw++9mmzKJzKL/C5Czli+ejgpOX+
+	 vJa7fwBMWkFuscleE/PYejUuRYIEPi/0HPSBf68k=
+Subject: FAILED: patch "[PATCH] ASoC: tas2764: sort the register default table" failed to apply to 5.15-stable tree
+To: peter.ujfalusi@linux.intel.com,broonie@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 09 Sep 2026 12:16:26 +0200
+Message-ID: <2026090926-affirm-protozoan-b415@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hans,
 
-It fixes it. Sixteen consecutive boots on the Surface Pro 11, every one wit=
-h
-both gpio-keys devices present and MSHW0040:00 bound. The baseline in my
-report was 13 boots in 40.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  boots                     16
-  buttons appeared          16
-  first input at            1.242 - 1.377 s
+To reproduce the conflict and resubmit, you may use the following commands:
 
-For comparison the 13 stock successes ran 1.28 - 1.78 s, so no boot here wa=
-s
-slower than stock managed when it worked, and the spread is tighter. The un=
-it
-that binds this device by hand was disabled for the whole run, so nothing
-masked the result.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x e7643c3f7eb3292f8a98c2ddbf46ba78d848b83d
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090926-affirm-protozoan-b415@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Built on 7.0.0-30, Ubuntu 26.04; both patches apply to that kernel's copy o=
-f
-the file as-is, 2/2 at an offset. Ubuntu ships the file unmodified - an
-out-of-tree build of mainline v7.0's source carries the same srcversion as
-Ubuntu's own module - so the tested source differs from stock by your patch=
-es
-and nothing else.
+Possible dependencies:
 
-One note for whoever tests this driver next rather than about the patch: on
-this install soc_button_array is in the initramfs under MODULES=3Dmost, so
-replacing the module under /lib/modules does nothing until update-initramfs
-runs, and modinfo will report the new one while the old one is loaded. Thre=
-e
-boots of mine were recorded before I noticed. I checked
-/sys/module/soc_button_array/srcversion on every boot above.
 
-Patch 2/2 was in the same build and caused no regression, but I am not
-claiming a test for it: the buttons appear here, so this machine's ACPI
-descriptor package is not empty and the new check is never reached. So for
-1/2 only:
 
-Tested-by: Sergey Lebedev <lsa.uz@pm.me>
+thanks,
 
-Sergey
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e7643c3f7eb3292f8a98c2ddbf46ba78d848b83d Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Wed, 5 Aug 2026 13:41:47 +0300
+Subject: [PATCH] ASoC: tas2764: sort the register default table
+
+reg_defaults must be sorted by ascending register address, as
+regcache_lookup_reg() locates entries in it with bsearch().  See commit
+fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
+
+TAS2764_DVC (0x1a) is listed before TAS2764_CHNL_0 (0x03), which makes
+it unreachable.  regcache_reg_needs_sync() then cannot compare it
+against its default and reports that a sync is needed, so it is written
+to the device on every regcache_sync() even when it was never touched.
+
+Sort the table by register address.
+
+Fixes: 827ed8a0fa50 ("ASoC: tas2764: Add the driver for the TAS2764")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20260805104149.9795-4-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+
+diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
+index b11b998aa32a..f9c65c9f6d0a 100644
+--- a/sound/soc/codecs/tas2764.c
++++ b/sound/soc/codecs/tas2764.c
+@@ -897,13 +897,13 @@ static const struct reg_default tas2764_reg_defaults[] = {
+ 	{ TAS2764_PAGE, 0x00 },
+ 	{ TAS2764_SW_RST, 0x00 },
+ 	{ TAS2764_PWR_CTRL, 0x1a },
+-	{ TAS2764_DVC, 0x00 },
+ 	{ TAS2764_CHNL_0, 0x28 },
+ 	{ TAS2764_TDM_CFG0, 0x09 },
+ 	{ TAS2764_TDM_CFG1, 0x02 },
+ 	{ TAS2764_TDM_CFG2, 0x0a },
+ 	{ TAS2764_TDM_CFG3, 0x10 },
+ 	{ TAS2764_TDM_CFG5, 0x42 },
++	{ TAS2764_DVC, 0x00 },
+ 	{ TAS2764_INT_CLK_CFG, 0x19 },
+ };
+ 
 
