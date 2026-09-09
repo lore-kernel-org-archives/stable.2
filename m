@@ -1,143 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C227E29B77E
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 16:59:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D235492E40
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 17:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973201; cv=none; b=J6iTJPaF1sLhKDMI06hnZhk9PckNUqtMfHHJzTJRND1FLoLu2loUvlK5EJclUc5clMzJbX9QY4KUj13tfCT9AAp1o2+NEwaOcW1EWb8jsLEdkb7+9RL7KZ39V291+3aO2P7p60dJYK7PEeQJwSFCmIeMF3jDP/19M29V90DPzss=
+	t=1788973205; cv=none; b=fI6ARnAv8OCYgMjOaNMd8DboIVceO8a6Ab47lYnThXKqjIUrhf9JWg0n86buQ/o+JQSGzLze5iMp9I/GxMGHznW2hgBl7AHuo7GtjWYbfxkiKYhc5Ok4u/DWnWYeVp9N1sU0nNGAJSSzpBkVssNJgJS4dl8mb3u4eoKRwcE2vpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973201; c=relaxed/simple;
-	bh=Ec4O7DP9hU3+AGPu/D/M/RIeENtyFeuoWvulHLpAgFI=;
+	s=arc-20240116; t=1788973205; c=relaxed/simple;
+	bh=Zty8Wuj7H/Mp5HKI8YqrvId6xrD9sDHjbkJ4zaKKq9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Zq6mk6LavstWcWtPDY2uD+H0qSEIbymxPgZpQ5kQAJ7WIGkwWPMgxG6Wnbohp3Q42ip/oCm8mbVCtlwzk7jc8eyQfZZJcWimi/ETJbU703eBRA6YvidOs2iqMM88nV0tJWe7jNhlA2PzfFb2QzkMTass7HrBAdCmEtJ70GPF4fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqAMiGmt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pvzyuGlLLBS6FRGVudo8qUDLLi26ms++yrGBVrHr74APJL9vOyvl85Z6YYg8eRCarp8FuztU+8VMUOi/lMdiYPJBqNPPbe42NwtR+ZArwcT0yV8nRvDKyBD+v+uiN+NaVwafVcXxSppd2fk5RO2P/0T3ZSupunixK58S0UpfO0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3++jpLa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqAMiGmt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18DB31F00899;
-	Wed,  9 Sep 2026 16:59:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3++jpLa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515A81F00893;
+	Wed,  9 Sep 2026 17:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973199;
-	bh=RXJ2I4uGn5POxkU7RzaMtEpNfxl18iJ7tbumx5RAsw0=;
+	s=k20260515; t=1788973204;
+	bh=yUU4j9zwLEcCHyTEQ3UUAXLCNM0HYgwO2oNstZrp1os=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oqAMiGmtxa/D12SG4bpXq93OM5w9KN4txThioiwjPz6PEPrpgSrz1Kfb6f67r0kTY
-	 /jjvxGI/0fIH9kXwKhtgaVcW5zSr+vVRYe18u6JfG0jItJqmDP4GtPIWmZvIsE4b2Y
-	 90mmnePL0sB4nIASiMQyjdbx8D+fzBk6w/vIMZJOAMEJvB+3iyXVkZrA+7kTkEDcVw
-	 ZJpTi2Erw9NrDUIHmXxU06G2hgrITDaNINMlD6rAQj/1IY2gEVizpEAJiV/0E00Nx3
-	 hJr+KbuYajnMQzXbFMgvIC/5OFaCQ3MmLJKidmP1T/17R8qiziTykE+DTuVZM6lycJ
-	 yZLQjPmL/xigg==
+	b=N3++jpLaDLxxE8cQ3Wj2NjPSl2Hi9p9jSXVyXnAtSGs9TC+mSrtJKDaulitRJ/+yR
+	 Yre8QNkmwjrqz8LcKdIOcX4WxBanKLPT9WUs9j/x9x7CkMEsC2NijAA7CAbnKujjtX
+	 w7Uf7NuoX7NPGsgnH4bj8BS/vFTiXxcKxBSk8e3OLDeC+irb50x2A/TL/+yWmCljR9
+	 025Q/UAJyIwXTsAVqw5KoloCMwLY3I/pCT5GJTnDBu01nLD7bZlgk/vU10rWX/MNQi
+	 gtNwNHY00/0B9B6/hKSLzmROa+lCZp1qpgMBqj14/a9G95lnfzGs0lfCPk8qioX2sc
+	 6090fKhHLxogg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
-	Francis De Brabandere <francisdb@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] platform/x86/amd/pmc: Propagate SMU errors and validate S2D address
-Date: Wed,  9 Sep 2026 12:59:56 -0400
-Message-ID: <20260909165956.3156218-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] workqueue: Add resource managed version of delayed work init
+Date: Wed,  9 Sep 2026 12:59:59 -0400
+Message-ID: <20260909170001.3156731-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909165956.3156218-1-sashal@kernel.org>
-References: <2026090317-retool-chivalry-dde5@gregkh>
- <20260909165956.3156218-1-sashal@kernel.org>
+In-Reply-To: <2026090356-iphone-deviate-2dac@gregkh>
+References: <2026090356-iphone-deviate-2dac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
 
-[ Upstream commit 0225c1d637687b03726f00ac65b6def843d2c464 ]
+[ Upstream commit 0341ce5443949588e93581b49b934cdde2befbf8 ]
 
-amd_stb_s2d_init() discards the return value of several S2D SMU commands.
-When the SMU refuses a command (e.g. "SMU cmd failed. err: 0xff") the
-failure is only noticed indirectly - if at all - and reported as -EIO,
-masking the real error.
+A few drivers which need a delayed work-queue must cancel work at driver
+detach. Some of those implement remove() solely for this purpose. Help
+drivers to avoid unnecessary remove and error-branch implementation by
+adding managed verision of delayed work initialization. This will also
+help drivers to avoid mixing manual and devm based unwinding when other
+resources are handled by devm.
 
-More seriously, the S2D_PHYS_ADDR_LOW/HIGH return values are ignored, so
-on failure phys_addr_low/hi are left uninitialised and the assembled
-address is passed straight to devm_ioremap().  When the SMU leaves them at
-zero this maps physical address 0 and trips the ioremap-on-RAM warning:
-
-  amd_pmc AMDI000B:00: SMU cmd failed. err: 0xff
-  ioremap on RAM at 0x0000000000000000 - 0x0000000000ffffff
-  WARNING: CPU: 13 PID: 4592 at arch/x86/mm/ioremap.c:...
-
-Check the return value of each SMU command and propagate it, and reject a
-zero physical address before calling devm_ioremap().
-
-Reported-by: Francis De Brabandere <francisdb@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-Tested-by: Francis De Brabandere <francisdb@gmail.com>
-Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260721181756.143084-4-mario.limonciello@amd.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+Link: https://lore.kernel.org/r/51769ea4668198deb798fe47fcfb5f5288d61586.1616506559.git.matti.vaittinen@fi.rohmeurope.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 6eba34732524 ("power: supply: twl4030_charger: cancel workers via devm")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/amd/pmc/mp1_stb.c | 31 +++++++++++++++++---------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+ include/linux/devm-helpers.h | 53 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+ create mode 100644 include/linux/devm-helpers.h
 
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index afb9555d63ea7..6d90f52531636 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -26,30 +26,39 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	/* Spill to DRAM feature uses separate SMU message port */
- 	dev->msg_port = MSG_PORT_S2D;
- 
--	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
- 	if (size != S2D_TELEMETRY_BYTES_MAX) {
- 		ret = -EIO;
- 		goto out;
- 	}
- 
--	/* Get DRAM size */
--	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
--	if (ret || !dev->dram_size)
-+	/* Get DRAM size; fall back to the default if the query fails */
-+	if (amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true) ||
-+	    !dev->dram_size)
- 		dev->dram_size = S2D_TELEMETRY_DRAMBYTES_MAX;
- 
- 	/* Get STB DRAM address */
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low, dev->stb_arg.s2d_msg_id, true);
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
- 
- 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
--
--	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
--	if (!dev->stb_virt_addr) {
--		ret = -ENOMEM;
-+	if (!stb_phys_addr) {
-+		dev_err(dev->dev, "S2D phys addr query returned invalid address\n");
-+		ret = -ENXIO;
- 		goto out;
- 	}
- 
--	ret = 0;
-+	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
-+	if (!dev->stb_virt_addr)
-+		ret = -ENOMEM;
- 
- out:
- 	/* Restore the default message port for subsequent SMU operations */
+diff --git a/include/linux/devm-helpers.h b/include/linux/devm-helpers.h
+new file mode 100644
+index 0000000000000..f64e0c9f3763c
+--- /dev/null
++++ b/include/linux/devm-helpers.h
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __LINUX_DEVM_HELPERS_H
++#define __LINUX_DEVM_HELPERS_H
++
++/*
++ * Functions which do automatically cancel operations or release resources upon
++ * driver detach.
++ *
++ * These should be helpful to avoid mixing the manual and devm-based resource
++ * management which can be source of annoying, rarely occurring,
++ * hard-to-reproduce bugs.
++ *
++ * Please take into account that devm based cancellation may be performed some
++ * time after the remove() is ran.
++ *
++ * Thus mixing devm and manual resource management can easily cause problems
++ * when unwinding operations with dependencies. IRQ scheduling a work in a queue
++ * is typical example where IRQs are often devm-managed and WQs are manually
++ * cleaned at remove(). If IRQs are not manually freed at remove() (and this is
++ * often the case when we use devm for IRQs) we have a period of time after
++ * remove() - and before devm managed IRQs are freed - where new IRQ may fire
++ * and schedule a work item which won't be cancelled because remove() was
++ * already ran.
++ */
++
++#include <linux/device.h>
++#include <linux/workqueue.h>
++
++static inline void devm_delayed_work_drop(void *res)
++{
++	cancel_delayed_work_sync(res);
++}
++
++/**
++ * devm_delayed_work_autocancel - Resource-managed work allocation
++ * @dev: Device which lifetime work is bound to
++ * @pdata: work to be cancelled when driver is detached
++ *
++ * Initialize work which is automatically cancelled when driver is detached.
++ * A few drivers need delayed work which must be cancelled before driver
++ * is detached to avoid accessing removed resources.
++ * devm_delayed_work_autocancel() can be used to omit the explicit
++ * cancelleation when driver is detached.
++ */
++static inline int devm_delayed_work_autocancel(struct device *dev,
++					       struct delayed_work *w,
++					       work_func_t worker)
++{
++	INIT_DELAYED_WORK(w, worker);
++	return devm_add_action(dev, devm_delayed_work_drop, w);
++}
++
++#endif
 -- 
 2.53.0
 
