@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C50472538
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:43:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E485153ED16
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:44:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954240; cv=none; b=E4Eq97m3aROgwNfIiTRdWKElyv8nuKrYc8jv50cDnu7xsnRPDRi8RsbEoiO7aME/aGx0PJcqGpD54FQUXfl9LejUzLE3K0Eyx3isbkhrU6enssejNpH5C8p9PiTzoPD1QDffvb/qQqabs3VcnbvImfVg9p8lLCFZXIwDYm07axg=
+	t=1788954243; cv=none; b=ZPIPXOnx2CMXVeKk5bJB3pLOR2+bORCKCHPF4Qx71ECAqNOxeHAEJywOHTPhuiyXApqLD5fAMFfle5FME1pyrG/YQdQsJ9O+NfoQzwfW4DEtLxMBJYYKB0r+28aoj+AS9L7SVSNJpJt38vvQlN9T9MJ+xgjBEd7r01huk8/H4nQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954240; c=relaxed/simple;
-	bh=hNRpbq1BZfgnxImSUxtDgbNgDNTLfxALD0+d888i54c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Kd1Ey5suVC3GfoeCjr8NvrT4Kef9yx+1cfsmPZ1I+oFjIctfU9OcUrtqlnhXSd3OKuI8GA7HXPxgPboEOQYXkRA6AiLtgboHOqg6VuhRnFwAA/dbm/Cu8udg7VJ1j2JBTdNVRwoH4r8KG0zp1MWexWkgUc8SfT/qNt4eBobIJKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M1tCkezl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954243; c=relaxed/simple;
+	bh=laRh2pBP/wTdaYyFvOfzuCMUNSiNEs4PY8MZPh1UWE0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KCT6R/vEZBZ27m6ZCT6dh6Px0u8JkUgWKlzELiB5cB8Et02LrrUx1uv+3GlYxRXwJzGVK184QeK7B9Zvd1Yj3ekRLtCJAoi9W5YFn9J+8ZHCmxg5FPPLNRH6XwwR2O1pzyQK8ZbfQLh8/KubIXX76hDxoKqgagjkFUtGQARNX+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UgplXuVz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M1tCkezl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E68D1F00A3D;
-	Wed,  9 Sep 2026 11:43:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UgplXuVz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6F21F00A3A;
+	Wed,  9 Sep 2026 11:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788954239;
-	bh=MLqac32nUqUEqbWaTMuppJK2052yoNVx2WdKjDjfrug=;
+	s=korg; t=1788954241;
+	bh=+Wfc8olN1PrPCjnOXeI9aGP0Qh31RukXDcpU8O7a9zo=;
 	h=Subject:To:Cc:From:Date;
-	b=M1tCkezlnrkqtANsFQKtp6/KVTBXPlgPFMHT3AxXA7ePxU7GOieFR+fbBQeoCZYMq
-	 +HlyRkr/4mbXEQulDjGVXQaeP74d6Cx2PBrnE7Q/w6lhOOHDI9pdcYHijd3P+3Pr/c
-	 HIdzJsDU5kKt+r/WgVz7uA2bfWP364MDFK2pK52A=
-Subject: FAILED: patch "[PATCH] f2fs: fix dentry folio leak in find_in_level" failed to apply to 6.1-stable tree
-To: 3497809730@qq.com,chao@kernel.org,jaegeuk@kernel.org
+	b=UgplXuVz8iai8rWXv8YnUZ7nzrj76B/WvDyMoyjz7Efq/12tMu0wcIAYSQ0okIhOg
+	 9pECRAbkPp5FhfC947A6MtzkAVTyhwJ62ndrv818xDf6ucLYRxw8SyQj7P4DfjI+3t
+	 likiiXXc86ujLxk+/zueLCGg+M7yrT86XBESf978=
+Subject: FAILED: patch "[PATCH] f2fs: avoid NULL checkpoint thread access in sysfs" failed to apply to 6.1-stable tree
+To: qwjhust@gmail.com,chao@kernel.org,jaegeuk@kernel.org,qiwenjie@xiaomi.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:26:15 +0200
-Message-ID: <2026090915-cargo-unclothed-b04d@gregkh>
+Date: Wed, 09 Sep 2026 13:26:30 +0200
+Message-ID: <2026090930-ricotta-unpledged-5906@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cca7d3e30bf30333314e31bc70b9a739f1342167
+git cherry-pick -x 5cb33b00c8fbb6e8f1fa3d281c3036d5f7c7c41f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090915-cargo-unclothed-b04d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090930-ricotta-unpledged-5906@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,35 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cca7d3e30bf30333314e31bc70b9a739f1342167 Mon Sep 17 00:00:00 2001
-From: Guanghui Yang <3497809730@qq.com>
-Date: Sun, 19 Jul 2026 16:45:14 +0800
-Subject: [PATCH] f2fs: fix dentry folio leak in find_in_level
+From 5cb33b00c8fbb6e8f1fa3d281c3036d5f7c7c41f Mon Sep 17 00:00:00 2001
+From: Wenjie Qi <qwjhust@gmail.com>
+Date: Tue, 4 Aug 2026 09:48:48 +0800
+Subject: [PATCH] f2fs: avoid NULL checkpoint thread access in sysfs
 
-find_in_level() gets a dentry folio with f2fs_find_data_folio() before
-calling find_in_block().  If find_in_block() returns an error, the
-function stores the error in res_folio and breaks out of the loop without
-dropping the dentry folio.
+checkpoint_merge can be enabled even when no checkpoint merge thread is
+running. A read-only mount is one case: f2fs does not start
+f2fs_issue_ckpt there, but ckpt_thread_ioprio is still writable through
+sysfs.
 
-This leaks the folio reference on the find_in_block() error path.  Drop
-the dentry folio before returning the error to the caller.
+The ckpt_thread_ioprio store path updates the saved ioprio value and,
+when checkpoint_merge is enabled, calls set_task_ioprio() for the
+checkpoint thread. If cprc->f2fs_issue_ckpt is NULL, that dereferences a
+NULL task pointer.
 
-Fixes: 7ad08a58bf67 ("f2fs: Handle casefolding with Encryption")
-Cc: stable@vger.kernel.org
+Protect ckpt_thread_ioprio sysfs writes with s_umount as well, so the
+checkpoint thread cannot disappear under the store path while updating
+its ioprio.
+
+Fixes: e65920661708 ("f2fs: add ckpt_thread_ioprio sysfs node")
+Cc: stable@kernel.org
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index a9563f7fcd88..0562ad211351 100644
---- a/fs/f2fs/dir.c
-+++ b/fs/f2fs/dir.c
-@@ -320,6 +320,7 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index d9f81edca04a..c976549ff1bc 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -557,7 +557,7 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+ 			return -EINVAL;
  
- 		de = find_in_block(dir, dentry_folio, fname, &max_slots, use_hash);
- 		if (IS_ERR(de)) {
-+			f2fs_folio_put(dentry_folio, false);
- 			*res_folio = ERR_CAST(de);
- 			de = NULL;
- 			break;
+ 		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, level);
+-		if (test_opt(sbi, MERGE_CHECKPOINT)) {
++		if (cprc->f2fs_issue_ckpt) {
+ 			ret = set_task_ioprio(cprc->f2fs_issue_ckpt,
+ 					cprc->ckpt_thread_ioprio);
+ 			if (ret)
+@@ -1007,13 +1007,14 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
+ 	ssize_t ret;
+ 	bool gc_entry = (!strcmp(a->attr.name, "gc_urgent") ||
+ 					a->struct_type == GC_THREAD);
++	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio");
+ 
+-	if (gc_entry) {
++	if (gc_entry || thread_entry) {
+ 		if (!down_read_trylock(&sbi->sb->s_umount))
+ 			return -EAGAIN;
+ 	}
+ 	ret = __sbi_store(a, sbi, buf, count);
+-	if (gc_entry)
++	if (gc_entry || thread_entry)
+ 		up_read(&sbi->sb->s_umount);
+ 
+ 	return ret;
 
