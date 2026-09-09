@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317D3566C71
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:58:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31883568544
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 14:58:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965909; cv=none; b=LFKkPJPMTSZW1mQaizwOHY39/jdvV6PkJBESAK1hpD8EKd1SxSnV0UFBaq5Sv4Fl6eZSY0IVpVtFG0lEA+0gtmNBJeSUbD2FFq3jHNTlH/BtZaMpdj1OIIAAaPaeEc/SD6AY5jcb+eRM5QwePfhuHdIkIVXUXnnmjI5diGfKujw=
+	t=1788965909; cv=none; b=aaOdCBDZrPH7ikEgUYrYKhJqBLs0v1hoVuHkq14O7LWEiYjBGSicxafyS/w/1CSRn1bBHwaEd326BsOWMeAq7IHWDUDE93RHur/E2SPxTLm1k8lv13zoniQnfJ522LUV0E7Kha3pBFMghgHXsEV+A7L07LK8+fZpRx9XOsSoaKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788965909; c=relaxed/simple;
-	bh=3EW1rmzTvXNJtlWcor9Tbr5/G22k46713b/zUvo3ezE=;
+	bh=7urVkxJ5yAVQCCgrqBnJch6kponWRL2EW8+0s8gm9HI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=meQyQMhqPrKL/y9U29zuyzPPX5l8Liyck5jyM81ttIqRJfJwhPaIATAeNPFEIf0R9tlIbELHtMD/tX9QUiXNJ6ZljP7wpEEcw/qaLnIG4pCf7FkRUvZjXoZu6gwgGjp7hX62jnFhz4aYWIpNsx4O1KngQKBJCzuhwJ9IKNFNldQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwDMO1Q+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OTZwLxDPDFzOQ7n/T1Bmp3Phf8jrvkesAHHrKSneQD+56lKwsgthFMWxfYaXIttjnbQmkoJo/H2Y4m1dcqYxGw3p3ElBCG5qFT197VAdWNDB4DvhP/BInoOAiXydd5DUHNFcOAbsx8DJ+1Xoe9ly7JYEYUbv4vN27PkLiYD25c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxpJV6+y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwDMO1Q+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8CB1F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxpJV6+y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652DE1F00A3E;
 	Wed,  9 Sep 2026 14:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965908;
-	bh=Ov3QjG2AIis2xCxTZF7KdFmRgU/kt+sIXsN61NtH/bM=;
+	s=k20260515; t=1788965907;
+	bh=AmHRTwQawwObpJaXrtV89IptD/6uUpwmoctMroyFrG4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NwDMO1Q+rGdiooAkXgEeB51zVc1kB0QcHQA+UNV6Ncem/ZyG/6Lj/b7iaK7qUD77A
-	 3xTBQC/v9KU2aR+PstT/I92QMq492+hQJKTlYS/nfNI6RlBiZ4B6u4mpCH6qf5/HWN
-	 dUkCLT0eDtFWB4CeSyKoJsOiYFibu9XABocbX44yjKXFCMFW2v9r+emqNlktHfPEhf
-	 QiZGboRQ+w8GDeZRtD2+X4KlArZceEJWCBYGmYnrD12aN2WH5Qpnm2z53bxj1nGVxZ
-	 pikidwjS8zmQBnKZ+YbriGk49KcddaH+PIvGiL7Pz0L6B7+bKotS0Ca9hEaNPbvWGl
-	 hNE24q9KcuBaA==
+	b=mxpJV6+yG0Wbtn+30YmUwtTVjU6KvTri4WyLd6JNul4m/kl7iDv3C56MqPWfT1VEH
+	 Ru96Nz5fYA3/v/gpoNg7vPlU17PuIw+eEx8uVBbfkhlXt90GQH5el1dtSMbnzat4ww
+	 qwLRaKNwqGz5xLZ8vtXkfVHJ78vcrw3rTrUxo90v6rC0uXFByk9uFFPNTGzzAeviQ0
+	 iUHQyeSs8q99SePOVdnpaK3kRJNJPuT/4uJzakgdbFrVV7BnhX0DR/+9N6TcGLRlU1
+	 78fthn/UuUsHHiGYYqM+VcyK/GcgayNv39cY/+xdYD0eZ8vRP9ntX22jcBH9hNvc58
+	 pmUokqcsJpJaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: HyeongJun An <sammiee5311@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/7] platform/x86: ISST: Validate level in perf mask ioctls
-Date: Wed,  9 Sep 2026 10:58:20 -0400
-Message-ID: <20260909145822.2742457-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] platform/x86: int1092: Fix potential memory leak in sar_probe()
+Date: Wed,  9 Sep 2026 10:58:24 -0400
+Message-ID: <20260909145824.2742771-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909145822.2742457-1-sashal@kernel.org>
-References: <2026090339-boxcar-confused-152e@gregkh>
- <20260909145822.2742457-1-sashal@kernel.org>
+In-Reply-To: <20260909145824.2742771-1-sashal@kernel.org>
+References: <2026090358-valuables-resolved-cee0@gregkh>
+ <20260909145824.2742771-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,65 +47,108 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 
-[ Upstream commit 80e0d353c86a9a168ad6d213f494796294381538 ]
+[ Upstream commit 30c906cff490c3601ee9ff110fe8115fabe75fd4 ]
 
-isst_if_get_perf_level_mask() and isst_if_get_base_freq_mask() use the
-user-provided level as an index into perf_levels[] via
-_read_pp_level_info() and _read_bf_level_info(), but neither helper
-validates it first.
+The memory allocated for device_mode_info in parse_package() called by
+sar_get_data() is not freed in some of the error paths in sar_probe().
+Fix that by converting to use device managed allocations.
 
-The adjacent level-info helpers reject levels above max_level before
-reading the same per-level register block. Add the same bounds checks to
-the mask helpers, and reject disabled SST-PP levels in
-isst_if_get_perf_level_mask() to match isst_if_get_perf_level_info().
-
-This prevents out-of-bounds reads from the per-level offset table on
-invalid ioctl input.
-
-Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
-Fixes: 06a61df83209 ("platform/x86: ISST: Add SST-BF support via TPMI")
+Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260807144003.3498972-3-sammiee5311@gmail.com
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Link: https://patch.msgid.link/20260723-platx86-v4-1-93b4a178b595@cse.iitm.ac.in
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Stable-dep-of: f9a647cb8d90 ("platform/x86: ISST: Return error during profile addition")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../platform/x86/intel/speed_select_if/isst_tpmi_core.c  | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../platform/x86/intel/int1092/intel_sar.c    | 32 ++++++-------------
+ 1 file changed, 10 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index a73d425cf0410..1220ce4e3b970 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -1029,6 +1029,12 @@ static int isst_if_get_perf_level_mask(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
+index af4c127d33f4d..1cfb268f6b71f 100644
+--- a/drivers/platform/x86/intel/int1092/intel_sar.c
++++ b/drivers/platform/x86/intel/int1092/intel_sar.c
+@@ -91,8 +91,10 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
+ 	    item->package.count <= data->total_dev_mode)
+ 		return AE_ERROR;
  
-+	if (cpumask.level > power_domain_info->max_level)
-+		return -EINVAL;
-+
-+	if (!(power_domain_info->pp_header.level_en_mask & BIT(cpumask.level)))
-+		return -EINVAL;
-+
- 	_read_pp_level_info("mask", mask, cpumask.level, SST_PP_INFO_2_OFFSET,
- 			    SST_PP_RSLVD_CORE_MASK_START, SST_PP_RSLVD_CORE_MASK_WIDTH,
- 			    SST_MUL_FACTOR_NONE)
-@@ -1110,6 +1116,9 @@ static int isst_if_get_base_freq_mask(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+-	data->device_mode_info = kmalloc_objs(struct wwan_device_mode_info,
+-					      data->total_dev_mode);
++	data->device_mode_info = devm_kmalloc_array(&context->sar_device->dev,
++						    data->total_dev_mode,
++						    sizeof(*data->device_mode_info),
++						    GFP_KERNEL);
+ 	if (!data->device_mode_info)
+ 		return AE_ERROR;
  
-+	if (cpumask.level > power_domain_info->max_level)
-+		return -EINVAL;
-+
- 	_read_bf_level_info("BF-cpumask", mask, cpumask.level, SST_BF_INFO_1_OFFSET,
- 			    P1_HI_CORE_MASK_START, P1_HI_CORE_MASK_WIDTH,
- 			    SST_MUL_FACTOR_NONE)
+@@ -253,7 +255,7 @@ static int sar_probe(struct platform_device *device)
+ 	if (!handle)
+ 		return -ENODEV;
+ 
+-	context = kzalloc_obj(*context);
++	context = devm_kzalloc(&device->dev, sizeof(*context), GFP_KERNEL);
+ 	if (!context)
+ 		return -ENOMEM;
+ 
+@@ -264,7 +266,7 @@ static int sar_probe(struct platform_device *device)
+ 	result = guid_parse(SAR_DSM_UUID, &context->guid);
+ 	if (result) {
+ 		dev_err(&device->dev, "SAR UUID parse error: %d\n", result);
+-		goto r_free;
++		return result;
+ 	}
+ 
+ 	for (reg = 0; reg < MAX_REGULATORY; reg++)
+@@ -272,43 +274,29 @@ static int sar_probe(struct platform_device *device)
+ 
+ 	if (sar_get_device_mode(device) != AE_OK) {
+ 		dev_err(&device->dev, "Failed to get device mode\n");
+-		result = -EIO;
+-		goto r_free;
++		return -EIO;
+ 	}
+ 
+ 	result = sysfs_create_group(&device->dev.kobj, &intcsar_group);
+ 	if (result) {
+ 		dev_err(&device->dev, "sysfs creation failed\n");
+-		goto r_free;
++		return result;
+ 	}
+ 
+ 	if (acpi_install_notify_handler(ACPI_HANDLE(&device->dev), ACPI_DEVICE_NOTIFY,
+ 					sar_notify, (void *)device) != AE_OK) {
+ 		dev_err(&device->dev, "Failed acpi_install_notify_handler\n");
+-		result = -EIO;
+-		goto r_sys;
++		sysfs_remove_group(&device->dev.kobj, &intcsar_group);
++		return -EIO;
+ 	}
+ 	return 0;
+-
+-r_sys:
+-	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+-r_free:
+-	kfree(context);
+-	return result;
+ }
+ 
+ static void sar_remove(struct platform_device *device)
+ {
+-	struct wwan_sar_context *context = dev_get_drvdata(&device->dev);
+-	int reg;
+-
+ 	acpi_remove_notify_handler(ACPI_HANDLE(&device->dev),
+ 				   ACPI_DEVICE_NOTIFY, sar_notify);
+ 	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+-	for (reg = 0; reg < MAX_REGULATORY; reg++)
+-		kfree(context->config_data[reg].device_mode_info);
+-
+-	kfree(context);
+ }
+ 
+ static struct platform_driver sar_driver = {
 -- 
 2.53.0
 
