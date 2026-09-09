@@ -1,105 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F769345CA8
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 11:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E1F53D0C4;
+	Wed,  9 Sep 2026 11:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952215; cv=none; b=bdYzpKdpxM21MQu1R77rVK+1HwH+JXJ+USM3FBbCOiu3lpmhtW3vkub2C87qt3uZizWCI5Hlis/Bwh0P2BP/ji4jBFLJPGz1rjMYueTIs6qXB++uw5L2YQqFZEl2icKR6bvlJsVXob92GgE9BwUNKpXIhtWa0/kOCmE3MNmGg0A=
+	t=1788952395; cv=none; b=NqmqfW1mKE2ImqRoaaMFtzADVuPOE6M/1daD2HSzwTlTL2KxDazpmhLdBVhODQ8xPDVRyczmapqN83FhY+/zsZ3ghqAPKoL6r0hPJkYKil2IwMz8L2ECCwa+3s4+xVgE5IZWxqmF7V3C0ZQQ4eOM9URovoEQroZmhHmT/Zoft1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952215; c=relaxed/simple;
-	bh=a7ZzI92kJHYYWpOEHkcmckp/YxpJ+8p062Nw3IgC0PI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Q7lJipNT1xGxvmgtlEaiddr87R8gVrMH3AvHvLoxJ2ytSCaJH85bnxOxrSZCdGBNakVMD2gax54cWfQLNxwT1FMVJVKkox9lGL2hlItOFIE882a0rl/7ssVusPiWBkTnPWhmcIB9/e8EDG7fXdOR9JmRfbjeLdO6RJd3CKAdTRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ujsZJUdh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788952395; c=relaxed/simple;
+	bh=Lp1BzneSVJSqGUrRRhL5yj3mUFPLY1tgBLQ0lwaScS4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C7T9nuwbosDgOISH+et9OyPLbEqdY7QeWJoi/ztSVqZDqz2GtTpA/zScjsTYVgridIR3sNxGQUfvohEODu7E0MExWw1BVF6FVUNs7AgHzNSfpjve8whilxkssomxaP5HKmcCHFE7nBqGPaJdfA7QV26f/ycj6vz2igUsPIfd1Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ai/AvUcX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ujsZJUdh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B947A1F00A3A;
-	Wed,  9 Sep 2026 11:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788952214;
-	bh=P+7q6ziZpl+MydRtotNL/wvfXMrCZ4tJyRSyze0KacI=;
-	h=Subject:To:Cc:From:Date;
-	b=ujsZJUdhRgYlbLE/WsHSxgV3JvsZZBRGsIYXC5f/pXHBIiOLlmN43HRjjRc+/xdY/
-	 sn5VDbJGoAC3ayj8X/AZaqs7Hapa8h3pF1nBaWkEgUiJ+vhNjPtmvMlEcJ1ncm/F/f
-	 2AOeYfnf0O4uxcDVG2P01T3AiDsjTvOUaCvur96A=
-Subject: FAILED: patch "[PATCH] media: cec: disable delayed work before freeing an" failed to apply to 5.10-stable tree
-To: birenpandya@gmail.com,hdanton@sina.com,hverkuil+cisco@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 12:58:32 +0200
-Message-ID: <2026090932-enjoying-smolder-eef3@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ai/AvUcX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08141F00A3F;
+	Wed,  9 Sep 2026 11:13:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788952388;
+	bh=G8G2dhlJPLx8pBD+kOQpUMViNYkYx46qc9qc2gMu0lo=;
+	h=From:To:Cc:Subject:Date;
+	b=ai/AvUcXbEHvDGS6G3Gh51u3ur+Wv8EHaQSlUEcBAuVnU+vXR8my8rriFOXkw2eSs
+	 /EnMu/6Fr99K82BsTaOPPci9q0Bkxodr1brfUy7r+H9gRUUz29qwpND5CDcBS9Y6jG
+	 vT3xDggJ2+psbF9AfyVz+oqGeSPQmgj21XMOdb09cHi9HRqyEM0yHP0KBQtN6MEbvY
+	 0uPPTvU7nG1rgbE195VhPMn7gw7C5ykr4apHhuBxeRiRn9gK0QoYx/zDehOVPPVpGg
+	 qxGUghoY4hqYalA0XdpnM6tL4xkvA40iG+iY9rx6D441tDAHns98+/i30pTV8Cmfyt
+	 +KPwzECKq9Cyg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Aaron Skomra <aaron.skomra@wacom.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Peter Hutterer <peter.hutterer@who-t.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v10 1/5] HID: wacom: Use hdev->product in wacom_setup_touch_input_capabilities
+Date: Wed,  9 Sep 2026 11:12:23 +0000
+Message-ID: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Replace the lookup-dependent 'wacom_wac->shared->touch->product' references
+with 'hdev->product' inside wacom_setup_touch_input_capabilities() since
+'hdev' is already available (via container_of) and represents the touch
+device itself.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 0fbd5c2327020858c45b2d1c65775d64cdeca523
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090932-enjoying-smolder-eef3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 0fbd5c2327020858c45b2d1c65775d64cdeca523 Mon Sep 17 00:00:00 2001
-From: Biren Pandya <birenpandya@gmail.com>
-Date: Sun, 21 Jun 2026 10:04:37 +0530
-Subject: [PATCH] media: cec: disable delayed work before freeing an
- interrupted transmit
-
-cec_transmit_msg_fh() drops adap->lock to wait for a blocking transmit in
-wait_for_completion_killable(). If that wait is interrupted by a signal,
-cancel_delayed_work_sync() can run before the CEC kthread arms the reply
-timeout via schedule_delayed_work(&data->work) in cec_transmit_done_ts().
-The work is then armed after the cancel, and the data is freed with its
-delayed_work still pending:
-
-  ODEBUG: free active (active state 0) object: ... hint: cec_wait_timeout
-
-Use disable_delayed_work_sync(): it cancels the work and disables it, so
-the later schedule_delayed_work() becomes a no-op and the work cannot be
-re-armed. The data is freed right after, so it need not be re-enabled.
-
-Fixes: 490d84f6d73c ("media: cec: forgot to cancel delayed work")
-Reported-by: syzbot+051024d603432b4ab395@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=051024d603432b4ab395
-Suggested-by: Hillf Danton <hdanton@sina.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+v7 -> v8:  New patch
+v8 -> v9:  No change
+v9 -> v10: No change
 
-diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-index a90cb84a4b4d..829ee4861bf7 100644
---- a/drivers/media/cec/core/cec-adap.c
-+++ b/drivers/media/cec/core/cec-adap.c
-@@ -965,7 +965,7 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
- 	 */
- 	mutex_unlock(&adap->lock);
- 	err = wait_for_completion_killable(&data->c);
--	cancel_delayed_work_sync(&data->work);
-+	disable_delayed_work_sync(&data->work);
- 	mutex_lock(&adap->lock);
+ drivers/hid/wacom_wac.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index 8feb8027be95..7cf2b4de52be 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -3966,8 +3966,8 @@ int wacom_setup_pen_input_capabilities(struct input_dev *input_dev,
+ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+ 					 struct wacom_wac *wacom_wac)
+ {
++	struct hid_device *hdev = container_of(wacom_wac, struct wacom, wacom_wac)->hdev;
+ 	struct wacom_features *features = &wacom_wac->features;
+-
+ 	if (!(features->device_type & WACOM_DEVICETYPE_TOUCH))
+ 		return -ENODEV;
  
- 	if (err)
+@@ -3976,9 +3976,11 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+ 	else
+ 		__set_bit(INPUT_PROP_POINTER, input_dev->propbit);
+ 
+-	if (features->type == HID_GENERIC)
++	if (features->type == HID_GENERIC) {
++		hid_dbg(hdev, "generic touch setup\n");
+ 		/* setup has already been done */
+ 		return 0;
++	}
+ 
+ 	input_dev->evbit[0] |= BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS);
+ 	__set_bit(BTN_TOUCH, input_dev->keybit);
+@@ -4010,19 +4012,17 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+ 		input_dev->evbit[0] |= BIT_MASK(EV_SW);
+ 		__set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+ 
+-		if (wacom_wac->shared->touch->product == 0x361) {
++		if (hdev->product == 0x361) {
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_X,
+ 					     0, 12440, 4, 0);
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_Y,
+ 					     0, 8640, 4, 0);
+-		}
+-		else if (wacom_wac->shared->touch->product == 0x360) {
++		} else if (hdev->product == 0x360) {
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_X,
+ 					     0, 8960, 4, 0);
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_Y,
+ 					     0, 5920, 4, 0);
+-		}
+-		else if (wacom_wac->shared->touch->product == 0x393) {
++		} else if (hdev->product == 0x393) {
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_X,
+ 					     0, 6400, 4, 0);
+ 			input_set_abs_params(input_dev, ABS_MT_POSITION_Y,
+@@ -4052,8 +4052,8 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+ 		fallthrough;
+ 
+ 	case WACOM_27QHDT:
+-		if (wacom_wac->shared->touch->product == 0x32C ||
+-		    wacom_wac->shared->touch->product == 0xF6) {
++		if (hdev->product == 0x32C ||
++		    hdev->product == 0xF6) {
+ 			input_dev->evbit[0] |= BIT_MASK(EV_SW);
+ 			__set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+ 			wacom_wac->has_mute_touch_switch = true;
+-- 
+2.55.0.979.g7e5102b832-goog
 
