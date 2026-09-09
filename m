@@ -1,384 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C3C357D09;
-	Wed,  9 Sep 2026 09:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314F14854F6;
+	Wed,  9 Sep 2026 09:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944588; cv=none; b=bZ3KKvI8mrBmu45xz5YbHqlGmhM8jSYalbOp/KBF6kx17YkYq5OchD335kR9olzaSbj9rOfSZKikTSQ6DV2EEMyNmyMMfSWiDVoz1GyhP8xLBLCo6mBe9G/hFlzfuCduUsLU30h6GnpZtgzdVPh1daFzSW7LRCRZJShMWYkOATs=
+	t=1788944614; cv=none; b=XnE8I1mmUYGGBnvlcvM4Dcb4SDHg8FwBipRmbtbq/QWepnjiitGk0Yfc9rXy8rBjOEz0ik0sh7htyaYTuv3TLBopiQTiMYmq55SAy0I7q5tgNKE30eXeFl9s0nF3sfOephUlJEu42er3hXWQUpft5XbMh9sndfeT9zc1/X38z08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944588; c=relaxed/simple;
-	bh=w1N1zPkQ9mGPXQZD3zwD2xR1mRDu14CBGKK8vaPJxRo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Vlys+kHcD5nSdt9RydewXSRVQF2AfuaGXogztr1fAj3ToIysoLJ52gCq9IQmQgUhxJ4PAaxaMn4pCBlLZbax5iODDUjlBIgBNMRF+6PVVmLCsp7RbZFxCcfQ6kn9Xf+jiGikUaZSnV+nKl0elg3L02+SdRYd2XTNO9Ec4A3KpAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxvJre/d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944614; c=relaxed/simple;
+	bh=dAW4XFaHnXuRRusbMK+XhLRVSHDX62pvCW3fTPDkR5k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dnHNHfhhQf9yahdacaNuHP12VPumampaz04rWx7qifJ/vI9Jr6+8OuPj4xKpPLSLkZQofcVCd1KupG30MfcAZu4g/tm0dLLDnwdkQ3+5Z/vdHSyBW5a7HfrxyU0lc/vjh1HugxCz67DeKTZ/kNKeVTlIFqYzEo53hqvh4z3AQmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HaDw5ez+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxvJre/d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C759D1F00A3A;
-	Wed,  9 Sep 2026 09:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HaDw5ez+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95341F00A3A;
+	Wed,  9 Sep 2026 09:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944586;
-	bh=AdhICVDd3XeO9TrCmQEOzxpFVAahhrpfNkZGct+poOg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UxvJre/dJstmYmqqKLLe7aEntPNoqZpVbxvA2jWRZNV/Pf9rWqZFoYom3wLXDJWi0
-	 m2uTDCL8PRCRWxjVBL58zKwL/mAlhx0f2Gket4Al7sD0a0JvAo537fGpfgbHTtKjD8
-	 dtARbgWiywnd78DybldGxX0kn62Hx0ornJ6RuzM3shxFcgxNXheDnS9dg0Z0RB/1Af
-	 DBr18u3iG8icamiIWeiyuQ2uVqqQlMBajWV1eB8LGWQiPVNa3VUBjJyUU0oua1IlKB
-	 Ss8wjqHa3vz5L2iuY7h074Mh7+ypcvmyZ3oYYg7pp6VDgnIiQavmMwtkBHc3PlDVGP
-	 YAaEi1upTid3Q==
-Subject: Re: [PATCH net v5] net: wwan: qcom_bam_dmux: fix TX DMA channel
- use-after-free
-From: netdev-bot+sashiko@kernel.org
-To: getshell@seu.edu.cn
-Cc: stephan@gerhold.net, loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 09 Sep 2026 09:03:05 +0000
-Message-ID: <178894458529.219967.3874306151542640489@kernel.org>
-In-Reply-To: <20260903180057.1437-1-getshell@seu.edu.cn>
-References: <20260903180057.1437-1-getshell@seu.edu.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1788944612;
+	bh=ad/uP/9BUaKeqL2yxjxogEEVcG1H43vsLZmR0rGjAt0=;
+	h=From:Date:Subject:To:Cc;
+	b=HaDw5ez+b3XDVV1tsv1rTrXGgu6ItNNHZ8tcUgGcAwWdpRhMeb4e3XmIUx5LK56bR
+	 jOhxSv+JWhRrp9IvCp4urd7bzztMmsnoY1gL1kKanHFAFxIhgMH/JUIda1MxwYq6qd
+	 aL703p8YlTOtOq2yNIrxGxyBP5xJi9b73ySNRvelwqfNG2GRHAL7MQ+9u717rNSYpV
+	 6JhHZSarC7WTW99XV6CGeu+XnkwT/BVqVe8kpjQBE4o2iNUDpLTrQ2Gh7uXluXPLyG
+	 9xLVFLSoaVtukFd29sQjsFgh9AE3T+rbmQPWCwBdsguRw5k+GxJgDbL5s8Ucz3507+
+	 OP7CWwQulK8kg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 09 Sep 2026 11:03:18 +0200
+Subject: [PATCH] fs/ntfs3: use d_instantiate_new() in ntfs_create_inode()
+ and murder syzbot's "WARNING in do_new_mount" saga
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-work-ntfs3-d_instantiate_new-v1-1-2db697162ce8@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XM0QqCQBCF4VeRuW5F1wjtVSJk3B1zCsbY2TIQ3
+ 71du+zyPxy+FZQCk8K5WCHQm5VnSVEfCnATyo0M+9RgK3uquqozyxweRuKojfE9i0aUyBipF1p
+ MWx/RN7UnbC0k4hlo5M/OX66/1tdwJxezmR8DKpkhoLgpT1kvd73808v8hW37AiUt2920AAAA
+X-Change-ID: 20260909-work-ntfs3-d_instantiate_new-814ad31dea82
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, jack@suse.cz, 
+ syzkaller-bugs@googlegroups.com, viro@zeniv.linux.org.uk, 
+ ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org, 
+ syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4049; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dAW4XFaHnXuRRusbMK+XhLRVSHDX62pvCW3fTPDkR5k=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQtVLj/9sFvEWUe4bbrxud3z5gYcdVcXign9IOE/pfOQ
+ l25evZ1HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMJOsHwh9+b+cCqz9xKuzVv
+ qPk66T2+kX/bVFqmz3GfiJF8fFauFcP/qM1fX/P+80gvnrja76j4olk7dqamLzEV+NFkINWZo+r
+ MBwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+ntfs_create_inode() creates a new inode via ntfs_new_inode(). It hashes
+it with insert_inode_locked() and so it's marked as I_NEW until
+unlock_new_inode().
 
-Critical: 0 · High: 1 (2) · Medium: 1 · Low: 0
+ntfs 3 calls d_instantiate() in between though... Since the dentry was
+already hashed by the lookup before the create any path walk finds it
+without touching the parent's i_rwsem and so can lock the inode.
 
-- [High] The new design (live level re-read via
-  irq_get_irqchip_state(IRQCHIP_STATE_LINE_LEVEL) as the only state…
-- [Medium] bam_dmux_runtime_suspend() turns a possibly stale
-  BAM_DMUX_PC_VOTE_DOWN_PENDING into an irreversible power-down…
+If the inode is a directory unlock_new_inode() calls
+lockdep_annotate_inode_mutex_key() and marks i_rwsem with the
+i_mutex_dir_key class.
 
-Pre-existing issues:
-- [High] bam_dmux_remove() cancels register_netdev_work and unregisters
-  all netdevs while the RX DMA producer and the pc IRQ are still live;…
-- [High] bam_dmux_rx_callback() can run concurrently with
-  bam_dmux_power_off() and dereference a released/NULL RX channel.
+That resets the count and the owner of a lock somebody else may already
+hold by now...
 
---
+syzbot has been spamming us with the same godforsaken bug
 
-net: wwan: qcom_bam_dmux: fix TX DMA channel use-after-free
+  "WARNING in do_new_mount"
 
-This adds a power_lock mutex to serialize the modem power-control state,
-re-reads the pc line level at each decision point instead of toggling a
-cached bool, defers a pc=false transition while the host vote is active and
-TX is allocated, and keeps both state IRQs masked with IRQF_NO_AUTOEN until
-probe has committed the initial state.
+since 2023. I can't take it anymore so I went looking. Afaict, syzbot's
+executor chdirs into a freshly mounted ntfs3 image, creates a
+directory and then mounts some pseudofs on it. Everytime the mkdir()
+takes longer than syzbot waits mount() runs concurrently:
 
-Link: https://lore.kernel.org/netdev/20260822085308.1089-1-getshell@seu.edu.cn/
+  mkdir("./sys")                        mount(NULL, "./sys", "sysfs")
+  ntfs_create_inode()
+    d_instantiate()
+                                        user_path_at() finds the dentry
+                                        do_lock_mount()
+                                          inode_lock(inode)
+                                          namespace_lock()
+    unlock_new_inode()
+      lockdep_annotate_inode_mutex_key()
+        init_rwsem(&inode->i_rwsem)
+                                        unlock_mount()
+                                          inode_unlock(inode)
 
-> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-> index cc6ace8d64371..429d34a3cfa07 100644
-> --- a/drivers/net/wwan/qcom_bam_dmux.c
-> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+The mount side then releases a lock that according to the rwsem nobody
+holds:
 
-[ ... ]
+  DEBUG_RWSEMS_WARN_ON((rwsem_owner(sem) != current) && ...):
+  count = 0x0, magic = 0xffff888043a854e8, owner = 0x0,
+  curr 0xffff888000244880, list empty
+  WARNING: CPU: 0 PID: 5346 at kernel/locking/rwsem.c:1368 __up_write
+  Call Trace:
+   inode_unlock include/linux/fs.h:877 [inline]
+   unlock_mount fs/namespace.c:2892 [inline]
+   do_new_mount_fc fs/namespace.c:3828 [inline]
+   do_new_mount+0x777/0xa40 fs/namespace.c:3887
 
-> @@ -655,6 +683,8 @@ static void bam_dmux_free_skbs(struct bam_dmux_skb_dma skbs[],
->  
->  static void bam_dmux_power_off(struct bam_dmux *dmux)
->  {
-> +	lockdep_assert_held(&dmux->power_lock);
-> +
->  	if (dmux->tx) {
->  		dmaengine_terminate_sync(dmux->tx);
->  		dma_release_channel(dmux->tx);
+On PREEMPT_RT the same thing shows up as
 
-[Severity: High]
-This isn't a bug introduced by this patch, but now that power_lock
-serializes the power-control paths, is the RX completion callback still
-left outside that serialization?
+  DEBUG_LOCKS_WARN_ON(rt_mutex_owner(lock) != current)
+  WARNING: kernel/locking/rtmutex_common.h:193 at rt_mutex_slowunlock
 
-bam_dmux_rx_callback() ends with an unconditional refill:
+The up_write() underflows the reset count. A following inode_lock() on
+that directory then never returns. A path walk into the new directory
+racing with the mkdir() corrupts the lock the same way via
+inode_lock_shared() in lookup_slow().
 
-drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_rx_callback() {
-	...
-out:
-	if (bam_dmux_skb_dma_queue_rx(skb_dma, GFP_ATOMIC))
-		dma_async_issue_pending(dmux->rx);
-}
+Switch to d_instantiate_new() and drop the trailing unlock_new_inode().
+All error paths bail out before that point with I_NEW still set and
+keep using discard_new_inode().
 
-while bam_dmux_power_off() does:
+May we never see this fscking bug report again.
 
-	if (dmux->rx) {
-		dmaengine_terminate_sync(dmux->rx);
-		dma_release_channel(dmux->rx);
-		dmux->rx = NULL;
-	}
+Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+Cc: stable@vger.kernel.org # v5.15+
+Reported-by: syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/6a9beced.a5e650b3.26d8a.000b.GAE@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/ntfs3/inode.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Can the refill see dmux->rx == NULL and oops? dmaengine_prep_config_single()
-dereferences chan with no NULL check:
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 56b4f6469a28..4ac26c80bd34 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1866,10 +1866,10 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 		goto out6;
+ 
+ 	/*
+-	 * Call 'd_instantiate' after inode->i_op is set
++	 * Call 'd_instantiate_new' after inode->i_op is set
+ 	 * but before finish_open.
+ 	 */
+-	d_instantiate(dentry, inode);
++	d_instantiate_new(dentry, inode);
+ 
+ 	/* Set original time. inode times (i_ctime) may be changed in ntfs_init_acl. */
+ 	inode_set_atime_to_ts(inode, ni->i_crtime);
+@@ -1917,9 +1917,6 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 	if (!fnd)
+ 		ni_unlock(dir_ni);
+ 
+-	if (!err)
+-		unlock_new_inode(inode);
+-
+ 	return err;
+ }
+ 
 
-include/linux/dmaengine.h:
-	if (chan->device->device_prep_config_sg)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260909-work-ntfs3-d_instantiate_new-814ad31dea82
 
-Qualcomm BAM registers device_terminate_all but no device_synchronize:
-
-drivers/dma/qcom/bam_dma.c:
-	bdev->common.device_terminate_all = bam_dma_terminate_all;
-
-so dmaengine_terminate_sync() -> dmaengine_synchronize() cannot wait for a
-callback that vchan_complete() has already spliced off and started. Should
-the RX callback also take power_lock, or check a shutdown flag, before
-requeueing?
-
-> @@ -670,10 +700,24 @@ static void bam_dmux_free_skbs(struct bam_dmux_skb_dma skbs[],
->  	bam_dmux_free_skbs(dmux->rx_skbs, DMA_FROM_DEVICE);
->  }
->  
-> -static irqreturn_t bam_dmux_pc_irq(int irq, void *data)
-> +static void bam_dmux_complete_pc_down(struct bam_dmux *dmux)
->  {
-> -	struct bam_dmux *dmux = data;
-> -	bool new_state = !dmux->pc_state;
-> +	lockdep_assert_held(&dmux->power_lock);
-> +
-> +	bam_dmux_power_off(dmux);
-> +	bam_dmux_pc_ack(dmux);
-> +	WRITE_ONCE(dmux->pc_state, false);
-> +}
-> +
-> +static bool bam_dmux_handle_pc(struct bam_dmux *dmux, bool new_state)
-> +{
-> +	lockdep_assert_held(&dmux->power_lock);
-> +
-> +	if (new_state == dmux->pc_state) {
-> +		if (new_state && dmux->pc_vote == BAM_DMUX_PC_VOTE_DOWN_PENDING)
-> +			dmux->pc_vote = BAM_DMUX_PC_VOTE_ACTIVE;
-> +		return false;
-> +	}
->  
->  	dev_dbg(dmux->dev, "pc: %u\n", new_state);
->  
-
-[ ... ]
-
-> @@ -706,9 +795,47 @@ static irqreturn_t bam_dmux_pc_ack_irq(int irq, void *data)
->  static int bam_dmux_runtime_suspend(struct device *dev)
->  {
->  	struct bam_dmux *dmux = dev_get_drvdata(dev);
-> +	bool wake = false;
->  
->  	dev_dbg(dev, "runtime suspend\n");
-> -	bam_dmux_pc_vote(dmux, false);
-> +
-> +	scoped_guard(mutex, &dmux->power_lock) {
-> +		bam_dmux_pc_vote_locked(dmux, false);
-> +		if (dmux->pc_vote == BAM_DMUX_PC_VOTE_DOWN_PENDING) {
-> +			dmux->pc_vote = BAM_DMUX_PC_VOTE_INACTIVE;
-> +			bam_dmux_complete_pc_down(dmux);
-> +			wake = true;
-> +		} else if (!dmux->pc_state) {
-> +			bam_dmux_power_off(dmux);
-> +		}
-> +	}
-
-[Severity: Medium]
-Is it safe for this to act on the cached BAM_DMUX_PC_VOTE_DOWN_PENDING
-without re-sampling the pc line?
-
-Every other new decision point in the patch calls
-irq_get_irqchip_state(IRQCHIP_STATE_LINE_LEVEL) first, but this one
-converts the cached flag straight into bam_dmux_complete_pc_down(), which
-releases both channels, frees the RX skbs and toggles pc-ack:
-
-	bam_dmux_power_off(dmux);
-	bam_dmux_pc_ack(dmux);
-	WRITE_ONCE(dmux->pc_state, false);
-
-DOWN_PENDING is only cancelled from bam_dmux_handle_pc() when a later
-invocation observes new_state == dmux->pc_state == true:
-
-	if (new_state == dmux->pc_state) {
-		if (new_state && dmux->pc_vote == BAM_DMUX_PC_VOTE_DOWN_PENDING)
-			dmux->pc_vote = BAM_DMUX_PC_VOTE_ACTIVE;
-
-So if the modem re-raises pc and the rising-edge handler is still blocked on
-mutex_lock(&dmux->power_lock) when the autosuspend timer fires:
-
-bam_dmux_runtime_suspend()
-   scoped_guard(mutex, &dmux->power_lock)
-      bam_dmux_complete_pc_down()   /* pc line is high again */
-
-does the driver then acknowledge a pc=false transition the modem has already
-revoked, and tear down RX while the peer believes the link is up? The commit
-message describes this as the case to avoid:
-
-    "acknowledging a new pc=false transition while the host vote remains
-    active lets the modem power down the DMA engine underneath the driver"
-
-Would reading the line level here before calling
-bam_dmux_complete_pc_down() close that window?
-
-[ ... ]
-
-> @@ -817,31 +939,40 @@ static int bam_dmux_probe(struct platform_device *pdev)
->  	pm_runtime_use_autosuspend(dev);
->  	pm_runtime_enable(dev);
->  
-> -	ret = devm_request_threaded_irq(dev, pc_ack_irq, NULL, bam_dmux_pc_ack_irq,
-> -					IRQF_ONESHOT, NULL, dmux);
-> +	ret = devm_request_threaded_irq(dev, dmux->pc_ack_irq, NULL,
-> +					bam_dmux_pc_ack_irq,
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +					NULL, dmux);
->  	if (ret)
->  		goto err_disable_pm;
->  
->  	ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
-> -					IRQF_ONESHOT, NULL, dmux);
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN, NULL, dmux);
->  	if (ret)
-> -		goto err_disable_pm;
-> +		goto err_power_off;
->  
-> +	mutex_lock(&dmux->power_lock);
->  	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
-> -				    &dmux->pc_state);
-> -	if (ret)
-> -		goto err_disable_pm;
-> +				    &pc_state);
-> +	if (ret) {
-> +		mutex_unlock(&dmux->power_lock);
-> +		goto err_power_off;
-> +	}
->  
->  	/* Check if remote finished initialization before us */
-> -	if (dmux->pc_state) {
-> -		if (bam_dmux_power_on(dmux))
-> -			bam_dmux_pc_ack(dmux);
-> -		else
-> -			bam_dmux_power_off(dmux);
-> -	}
-> +	bam_dmux_handle_pc(dmux, pc_state);
-> +	mutex_unlock(&dmux->power_lock);
-> +
-> +	/* Start handling state changes after the initial state is processed. */
-> +	enable_irq(dmux->pc_ack_irq);
-> +	enable_irq(dmux->pc_irq);
-
-[Severity: High]
-Can a pc transition be lost in the window created here between the level
-snapshot and enable_irq(dmux->pc_irq)?
-
-The in-tree DTs for qcom,bam-dmux (msm8916.dtsi, msm8939.dtsi) parent these
-interrupts on SMSM:
-
-	interrupt-parent = <&hexagon_smsm>;
-	interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
-
-and smsm_intr() advances the cached level for all bits but only dispatches
-the enabled ones:
-
-drivers/soc/qcom/smsm.c:smsm_intr() {
-	val = readl(entry->remote_state);
-	changed = val ^ xchg(&entry->last_value, val);
-
-	for_each_set_bit(i, entry->irq_enabled, 32) {
-	...
-}
-
-and on unmask the cache is re-synced to the live line rather than replaying
-the missed edge:
-
-drivers/soc/qcom/smsm.c:smsm_unmask_irq() {
-	/* Make sure our last cached state is up-to-date */
-	if (readl(entry->remote_state) & BIT(irq))
-		set_bit(irq, &entry->last_value);
-	else
-		clear_bit(irq, &entry->last_value);
-}
-
-The smp2p provider does the same thing in qcom_smp2p_notify_in().
-
-So if the modem raises pc after irq_get_irqchip_state() but before
-enable_irq(), is that edge simply consumed?  bam_dmux_power_on() would never
-run, no pc-ack would be toggled, and the following falling edge would land in
-bam_dmux_handle_pc() with new_state == dmux->pc_state == false:
-
-	if (new_state == dmux->pc_state) {
-		...
-		return false;
-	}
-
-after which every bam_dmux_runtime_resume() would time out in
-
-	wait_event_timeout(dmux->pc_wait, READ_ONCE(dmux->pc_state),
-			   BAM_DMUX_REMOTE_TIMEOUT)
-
-because the modem has no reason to produce another rising edge. Given that
-probe already has a "Check if remote finished initialization before us" path,
-a pc rising edge concurrent with probe looks like expected timing. Is there a
-recovery path for that case, or does relying on a re-read of the line level
-while the child IRQ is masked need a different approach?
-
->  
->  	return 0;
->  
-> +err_power_off:
-> +	mutex_lock(&dmux->power_lock);
-> +	bam_dmux_power_off(dmux);
-> +	mutex_unlock(&dmux->power_lock);
->  err_disable_pm:
->  	pm_runtime_disable(dev);
->  	pm_runtime_dont_use_autosuspend(dev);
-> @@ -872,12 +1003,16 @@ static void bam_dmux_remove(struct platform_device *pdev)
->  	pm_runtime_set_suspended(dev);
->  
->  	/* Try to wait for remote side to drop power vote */
-> -	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
-> +	if (!wait_event_timeout(dmux->pc_wait, !READ_ONCE(dmux->rx),
-> +				BAM_DMUX_REMOTE_TIMEOUT))
->  		dev_err(dev, "Timed out waiting for remote side to suspend\n");
->  
->  	/* Make sure everything is cleaned up before we return */
-> +	disable_irq(dmux->pc_ack_irq);
->  	disable_irq(dmux->pc_irq);
-> +	mutex_lock(&dmux->power_lock);
->  	bam_dmux_power_off(dmux);
-> +	mutex_unlock(&dmux->power_lock);
->  	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
->  }
-
-[Severity: High]
-This is a pre-existing ordering issue rather than something the patch
-introduces, but since the remove path is being touched here: can
-register_netdev_work be re-queued after its only cancellation?
-
-bam_dmux_remove() runs cancel_work_sync(&dmux->register_netdev_work) and
-unregister_netdevice_many() at the top, while the RX channel is still armed
-and the pc IRQ is still enabled. Only afterwards does it reach
-disable_irq()/bam_dmux_power_off().
-
-A remote OPEN command arriving in that window does:
-
-bam_dmux_rx_callback()
-  bam_dmux_cmd_open()
-     /* Cannot sleep here, schedule work to register the netdev */
-     schedule_work(&dmux->register_netdev_work);
-
-and there is no second cancel_work_sync() after the IRQs are disabled and the
-DMA is terminated. bam_dmux_register_netdev_work() would then dereference the
-devm-allocated dmux and publish a fresh netdev holding it:
-
-	bndev = netdev_priv(netdev);
-	bndev->dmux = dmux;
-	...
-	ret = register_netdev(netdev);
-
-Once remove() returns, devm frees dmux, so any xmit on that interface would
-touch freed memory. Would moving the cancel_work_sync() after
-disable_irq()/bam_dmux_power_off(), or adding a second one there, be
-appropriate?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903180057.1437-1-getshell%40seu.edu.cn
