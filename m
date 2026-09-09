@@ -1,150 +1,299 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1E94B487B
-	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C4C4B515E
+	for <stable@vger.kernel.org>; Wed,  9 Sep 2026 10:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948701; cv=none; b=np9cqLTs+TAJzJHULC34UXQjd/wPbOqnVnlj2A77Qr7cJ7bnsEPk+uaVtBfKnu0326SyPxb6BzA2SGKRSO6yGwHkm3xNptSLWgFNAk0OC9sEr3ENnQVjRJCiqFYsRpx0Ug39l+4IWAxSzmhBm+rtRYSSNCFLOeBkwG4QgyWDZno=
+	t=1788948704; cv=none; b=H6PwGorJeTuq4YQJlL0/Rk1/vM28cZ55QxvB9uS8YUDUtuqsKyejjxto4vz1ZNP2KZdF087jYr1yOLu/aelHCdZ0WiHjxnaloRBmOQ7ZipIZ5SkNIjooyEEW5Z4AHDWvHHtqG3mGI/rb5xnMny5VkJ18LyZsdRmbBOFaZEGIS98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948701; c=relaxed/simple;
-	bh=RamOxJ5Z7TVPbczBY6erBs7luYUj8rXEFbnp6TrXVQk=;
+	s=arc-20240116; t=1788948704; c=relaxed/simple;
+	bh=UBMUAsEU4h4X5xVAAcnM6s4xHLT2ao0ejXGVkYxcOAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EeEo9qncOzE/yg9PuzyfO4xKDhkCv5tqnKOcor6WLP4lCkj/43cWP3VAgJG2ykWlApi5szSf51M/i0vHX1XCmPWIiAbdcO4eaZhHMSlpeVFq2niVHUhvcnMh3muw59Q5+Wxlk0bzsvdc5NXRr65jRlAzmeI4JkdHdASQ0kcO/pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eR9Cgo8k; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CVMuOg4Pr5MvyB1Etbi3pL/+C4E1rFb75KPO30nSBXz3OoI5b60tRaOQUD42QvyYYhEw5Fro8C/ckGavXC3IGbxmN/ENYFseA6aW0XaS6D9RhrlxLFFmFfV6df61QtArkgIdNHYmBajFAaOuHjzrp8CJBfBKS6bw0FG7CXKvz60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjJprR5i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eR9Cgo8k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE601F00A3D;
-	Wed,  9 Sep 2026 10:11:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjJprR5i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D891F00A3D;
+	Wed,  9 Sep 2026 10:11:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948697;
-	bh=xYUACib9CPzNnl8f4PI3xu4mj1nfozKz/pOB2ZW72Jc=;
+	s=k20260515; t=1788948702;
+	bh=bESg2aQPmRaPtngiNcXBpw7AJ17dO8dP1cfo+/hBWwY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eR9Cgo8kU0kT2lCoYPIRTeCG38XhSmQ1mUtHWrwuG661z1z81ikgtFg5hg/Cj1+gs
-	 Gotl0slTWL1Mn0sd/xUnVggckJ4qoltOp6JvMF2suAI6rtCtAub8MIhlvtbvALaLLa
-	 rVvC9PZpdjJDTTXA9zmempk2n6HhapNGlG7NM3RnDuJlLOCEnWMlep6g88v4DIz0+M
-	 oMsngPdMuLdd6VpGh085Ty6LsOHVvM2/BHN9nJ/xk0P/XtXde4NrYird4BVPUBHmTr
-	 Gn95MI7Nf4VozdBagtRccKf2VpMJtUKbyJFiBlf8A4SCUIqGW0s8dlo8fvhm4shEVX
-	 fl3EdcFE7rQ6w==
+	b=UjJprR5i+3VSDD1+v4E/DwXISCD0Ulx71cPEXHukJ0cwxYglWPPyxUNkcTaMQq/R8
+	 i4y9SsCKHw8yFsk5ZloNgWOKFMfLrjKUIqzRCgVPg5yFipGAZlBcbAmpNmawj25x+n
+	 yUneh0wqvTuzg7/5voqpsu7N6lJYQjTgSXcbxHFnCuByl2mucJagUr1OLrn4Xn/iaS
+	 RdytamNBcz9TwXKwgXLR7C4i8xmmtjpBHan8p2sKYq1LkAsbXqg00eSQjzFEb3Lg3p
+	 Lf/OaKYd21C9N34Z2AxxfPEb0HegwYvYMwINqJHNS5phn06+76WIkSt66VWmRLobIs
+	 r0J6h+ednrTfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vincent Donnefort <vdonnefort@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: John Stultz <jstultz@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ring-buffer: Make cpu_buffer::free_page a buffer_data_read_page
-Date: Wed,  9 Sep 2026 06:11:35 -0400
-Message-ID: <20260909101135.1461760-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] sched: Rework prev_balance() to avoid stale prev references
+Date: Wed,  9 Sep 2026 06:11:39 -0400
+Message-ID: <20260909101140.1462154-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090315-spinout-ditto-bd8b@gregkh>
-References: <2026090315-spinout-ditto-bd8b@gregkh>
+In-Reply-To: <2026090310-heftiness-overbite-2cac@gregkh>
+References: <2026090310-heftiness-overbite-2cac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: John Stultz <jstultz@google.com>
 
-[ Upstream commit 7a1fb95de5404134f8758c1295ce88986bdf117c ]
+[ Upstream commit 7a3a6bfbd62a2ba3e0ef1e92d6b71abb66890825 ]
 
-Discarding a cached reader page after a concurrent ring buffer resize
-uses the new global subbuf_order for the free_pages() call. This
-mismatched order may crashes the kernel or leaks memory because the cached
-page was allocated under the old size.
+Historically, the prev value from __schedule() was the rq->curr.
+This prev value is passed down through numerous functions, and
+used in the class scheduler implementations. The fact that
+prev was on_cpu until the end of __schedule(), meant it was
+stable across the rq lock drops that the class->balance()
+implementations often do.
 
-Save the actual free_page order alongside the page address to ensure we
-always refer to the correct value and do not rely on the potentially
-stalled cpu_buffer->subbuf_order value. The simplest is to make
-free_page a buffer_data_read_page which already covers exactly what we
-need: a page address and a page order.
+However, with proxy-exec, the prev passed to functions called
+by __schedule() is rq->donor, which may not be the same as
+rq->curr and may not be on_cpu, this makes the prev value
+potentially unstable across rq lock drops.
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813131152.3589632-4-vdonnefort@google.com
-Fixes: 8e7b58c27b3c ("ring-buffer: Just update the subbuffers when changing their allocation order")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ Changed upstream’s dpage variable to bpage in ring_buffer_free_read_page(). ]
+A recently found issue with proxy-exec, is when we begin doing
+return migration from try_to_wake_up(), its possible we may be
+waking up the rq->donor.  When we do this, we proxy_resched_idle()
+to put_prev_set_next() setting the rq->donor to rq->idle, allowing
+the rq->donor to be return migrated and allowed to run.
+
+This however runs into trouble, as on another cpu we might be in
+the middle of calling __schedule(). Conceptually the rq lock is
+held for the majority of the time, but in calling prev_balance()
+its possible the class->balance() handler call may briefly drop the rq lock.
+This opens a window for try_to_wake_up() to wake and return migrate the
+rq->donor before the class logic reacquires the rq lock.
+
+Unfortunately prev_balance() pass in a prev argument, to which we pass
+rq->donor. However this prev value can now become stale and incorrect across a
+rq lock drop.
+
+So, to correct this, rework the prev_balance() call so that it does not take a
+"prev" argument.
+
+Signed-off-by: John Stultz <jstultz@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260512025635.2840817-2-jstultz@google.com
+
+Backport adaptation for Linux 6.12, as a dependency of f3629c63a4af
+("sched/core: Make core-sched flips wait for in-flight selections"):
+
+This tree has no proxy execution. Alias rq->donor and rq->curr in a union,
+as upstream does without CONFIG_SCHED_PROXY_EXEC, so the existing curr
+updates also provide the scheduling context without separate state.
+Remove the prev parameter from prev_balance(), __pick_next_task(), and
+both pick_next_task() variants, and read rq->donor at their call sites.
+
+Keep the stable sched_class balance and pick_next_task interfaces and the
+fair and sched_ext selection paths. Pass rq->donor to these existing
+callbacks; it aliases the on-CPU current task and remains stable across
+lock drops here. Drop the upstream deadline, RT, idle, and stop callback
+signature changes, along with assumptions about newer selection APIs,
+proxy execution, and lock annotations. No functions are added.
+
+Label the CONFIG_SCHED_CORE closing directive in struct rq to match the
+target's patch context. The unmodified target patch applies cleanly after
+this adaptation. The core-selection counter fix remains in the target.
+
+[ sashal: Reduced backport -- upstream 7a3a6bfbd62a2 touches 6 file(s), this
+  backport carries 2. Not backported here:
+  kernel/sched/deadline.c
+  kernel/sched/idle.c
+  kernel/sched/rt.c
+  kernel/sched/stop_task.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: f3629c63a4af ("sched/core: Make core-sched flips wait for in-flight selections")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/ring_buffer.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ kernel/sched/core.c  | 39 +++++++++++++++++++--------------------
+ kernel/sched/sched.h |  8 ++++++--
+ 2 files changed, 25 insertions(+), 22 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 5936389188bd7..31c7ef21b526a 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -531,7 +531,7 @@ struct ring_buffer_per_cpu {
- 	raw_spinlock_t			reader_lock;	/* serialize readers */
- 	arch_spinlock_t			lock;
- 	struct lock_class_key		lock_key;
--	struct buffer_data_page		*free_page;
-+	struct buffer_data_read_page	free_page;
- 	unsigned long			nr_pages;
- 	unsigned int			current_context;
- 	struct list_head		*pages;
-@@ -2514,7 +2514,7 @@ static void rb_free_cpu_buffer(struct ring_buffer_per_cpu *cpu_buffer)
- 		free_buffer_page(bpage);
- 	}
- 
--	free_pages((unsigned long)cpu_buffer->free_page, cpu_buffer->buffer->subbuf_order);
-+	free_pages((unsigned long)cpu_buffer->free_page.data, cpu_buffer->free_page.order);
- 
- 	kfree(cpu_buffer);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index ea106403abd86..10206603f6ae8 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5936,10 +5936,9 @@ static inline void schedule_debug(struct task_struct *prev, bool preempt)
+ 	schedstat_inc(this_rq()->sched_count);
  }
-@@ -6570,9 +6570,9 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
- 	local_irq_save(flags);
- 	arch_spin_lock(&cpu_buffer->lock);
  
--	if (cpu_buffer->free_page) {
--		bpage->data = cpu_buffer->free_page;
--		cpu_buffer->free_page = NULL;
-+	if (cpu_buffer->free_page.data) {
-+		*bpage = cpu_buffer->free_page;
-+		cpu_buffer->free_page.data = NULL;
+-static void prev_balance(struct rq *rq, struct task_struct *prev,
+-			 struct rq_flags *rf)
++static void prev_balance(struct rq *rq, struct rq_flags *rf)
+ {
+-	const struct sched_class *start_class = prev->sched_class;
++	const struct sched_class *start_class = rq->donor->sched_class;
+ 	const struct sched_class *class;
+ 
+ #ifdef CONFIG_SCHED_CLASS_EXT
+@@ -5964,7 +5963,7 @@ static void prev_balance(struct rq *rq, struct task_struct *prev,
+ 	 * a runnable task of @class priority or higher.
+ 	 */
+ 	for_active_class_range(class, start_class, &idle_sched_class) {
+-		if (class->balance && class->balance(rq, prev, rf))
++		if (class->balance && class->balance(rq, rq->donor, rf))
+ 			break;
  	}
+ }
+@@ -5973,7 +5972,7 @@ static void prev_balance(struct rq *rq, struct task_struct *prev,
+  * Pick up the highest-prio task:
+  */
+ static inline struct task_struct *
+-__pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
++__pick_next_task(struct rq *rq, struct rq_flags *rf)
+ {
+ 	const struct sched_class *class;
+ 	struct task_struct *p;
+@@ -5985,38 +5984,38 @@ __pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
  
- 	arch_spin_unlock(&cpu_buffer->lock);
-@@ -6624,8 +6624,8 @@ void ring_buffer_free_read_page(struct trace_buffer *buffer, int cpu,
- 	local_irq_save(flags);
- 	arch_spin_lock(&cpu_buffer->lock);
+ 	/*
+ 	 * Optimization: we know that if all tasks are in the fair class we can
+-	 * call that function directly, but only if the @prev task wasn't of a
++	 * call that function directly, but only if the current task wasn't of a
+ 	 * higher scheduling class, because otherwise those lose the
+ 	 * opportunity to pull in more work from other CPUs.
+ 	 */
+-	if (likely(!sched_class_above(prev->sched_class, &fair_sched_class) &&
++	if (likely(!sched_class_above(rq->donor->sched_class, &fair_sched_class) &&
+ 		   rq->nr_running == rq->cfs.h_nr_queued)) {
  
--	if (!cpu_buffer->free_page) {
--		cpu_buffer->free_page = bpage;
-+	if (!cpu_buffer->free_page.data) {
-+		cpu_buffer->free_page = *data_page;
- 		bpage = NULL;
- 	}
+-		p = pick_next_task_fair(rq, prev, rf);
++		p = pick_next_task_fair(rq, rq->donor, rf);
+ 		if (unlikely(p == RETRY_TASK))
+ 			goto restart;
  
-@@ -6978,7 +6978,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	}
- 
- 	for_each_buffer_cpu(buffer, cpu) {
--		struct buffer_data_page *old_free_data_page;
-+		struct buffer_data_read_page old_free_data_page;
- 		struct list_head old_pages;
- 		unsigned long flags;
- 
-@@ -7021,7 +7021,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 
- 		arch_spin_lock(&cpu_buffer->lock);
- 		old_free_data_page = cpu_buffer->free_page;
--		cpu_buffer->free_page = NULL;
-+		cpu_buffer->free_page.data = NULL;
- 		arch_spin_unlock(&cpu_buffer->lock);
- 
- 		rb_head_page_activate(cpu_buffer);
-@@ -7033,7 +7033,7 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 			list_del_init(&bpage->list);
- 			free_buffer_page(bpage);
+ 		/* Assume the next prioritized class is idle_sched_class */
+ 		if (!p) {
+ 			p = pick_task_idle(rq);
+-			put_prev_set_next_task(rq, prev, p);
++			put_prev_set_next_task(rq, rq->donor, p);
  		}
--		free_pages((unsigned long)old_free_data_page, old_order);
-+		free_pages((unsigned long)old_free_data_page.data, old_free_data_page.order);
  
- 		rb_check_pages(cpu_buffer);
+ 		return p;
  	}
+ 
+ restart:
+-	prev_balance(rq, prev, rf);
++	prev_balance(rq, rf);
+ 
+ 	for_each_active_class(class) {
+ 		if (class->pick_next_task) {
+-			p = class->pick_next_task(rq, prev);
++			p = class->pick_next_task(rq, rq->donor);
+ 			if (p)
+ 				return p;
+ 		} else {
+ 			p = class->pick_task(rq);
+ 			if (p) {
+-				put_prev_set_next_task(rq, prev, p);
++				put_prev_set_next_task(rq, rq->donor, p);
+ 				return p;
+ 			}
+ 		}
+@@ -6065,7 +6064,7 @@ extern void task_vruntime_update(struct rq *rq, struct task_struct *p, bool in_f
+ static void queue_core_balance(struct rq *rq);
+ 
+ static struct task_struct *
+-pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
++pick_next_task(struct rq *rq, struct rq_flags *rf)
+ {
+ 	struct task_struct *next, *p, *max = NULL;
+ 	const struct cpumask *smt_mask;
+@@ -6077,7 +6076,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 	bool need_sync;
+ 
+ 	if (!sched_core_enabled(rq))
+-		return __pick_next_task(rq, prev, rf);
++		return __pick_next_task(rq, rf);
+ 
+ 	cpu = cpu_of(rq);
+ 
+@@ -6090,7 +6089,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 		 */
+ 		rq->core_pick = NULL;
+ 		rq->core_dl_server = NULL;
+-		return __pick_next_task(rq, prev, rf);
++		return __pick_next_task(rq, rf);
+ 	}
+ 
+ 	/*
+@@ -6114,7 +6113,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 		goto out_set_next;
+ 	}
+ 
+-	prev_balance(rq, prev, rf);
++	prev_balance(rq, rf);
+ 
+ 	smt_mask = cpu_smt_mask(cpu);
+ 	need_sync = !!rq->core->core_cookie;
+@@ -6287,7 +6286,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+ 	}
+ 
+ out_set_next:
+-	put_prev_set_next_task(rq, prev, next);
++	put_prev_set_next_task(rq, rq->donor, next);
+ 	if (rq->core->core_forceidle_count && next == rq->idle)
+ 		queue_core_balance(rq);
+ 
+@@ -6512,9 +6511,9 @@ static inline void sched_core_cpu_deactivate(unsigned int cpu) {}
+ static inline void sched_core_cpu_dying(unsigned int cpu) {}
+ 
+ static struct task_struct *
+-pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
++pick_next_task(struct rq *rq, struct rq_flags *rf)
+ {
+-	return __pick_next_task(rq, prev, rf);
++	return __pick_next_task(rq, rf);
+ }
+ 
+ #endif /* CONFIG_SCHED_CORE */
+@@ -6682,7 +6681,7 @@ static void __sched notrace __schedule(int sched_mode)
+ 		switch_count = &prev->nvcsw;
+ 	}
+ 
+-	next = pick_next_task(rq, prev, &rf);
++	next = pick_next_task(rq, &rf);
+ picked:
+ 	clear_tsk_need_resched(prev);
+ 	clear_preempt_need_resched();
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 7956abeb9154e..620d0e347ed88 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1184,7 +1184,11 @@ struct rq {
+ 	 */
+ 	unsigned long 		nr_uninterruptible;
+ 
+-	struct task_struct __rcu	*curr;
++	/* Scheduling and execution contexts coincide without proxy execution. */
++	union {
++		struct task_struct __rcu *donor;
++		struct task_struct __rcu *curr;
++	};
+ 	struct sched_dl_entity	*dl_server;
+ 	struct task_struct	*idle;
+ 	struct task_struct	*stop;
+@@ -1326,7 +1330,7 @@ struct rq {
+ 	unsigned int		core_forceidle_seq;
+ 	unsigned int		core_forceidle_occupation;
+ 	u64			core_forceidle_start;
+-#endif
++#endif /* CONFIG_SCHED_CORE */
+ 
+ 	/* Scratch cpumask to be temporarily used under rq_lock */
+ 	cpumask_var_t		scratch_mask;
 -- 
 2.53.0
 
