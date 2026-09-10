@@ -1,152 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2ECD58F066
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D015758F064
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067325; cv=none; b=BjI8WvsNb4xp/FVEVMtcJCCNQKwKNGBYTHM9sLYfzAYL17flIOz+8VuPRdQ1+bzTCBJKQZ5r8FeW+izxd+ZgJCn0vcDDtGQWBhy2tzu14fCXyqwoDzWnRg/2u8k3o62ZI9blUIS5XSzu8y857CbGgUIW1+up9uOWzB6g4EoOXZ8=
+	t=1789067325; cv=none; b=czmwrqM8gTD10Y4bF5xZ6+1Yp1fk60vjgMhTzVjTeglRb59IrCEm07kEBoOQj/8AGithiQ841jhIsZi/e2O8BgsNzxI5w62lbIMMWUqKl2CmGKjeEpZtcewgZ7rmP9NQImgsXRa8O3AP1zZbyVSgeXzGyVZcFZeCG2CATK/+ze4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789067325; c=relaxed/simple;
-	bh=RiPsCQPituENL53gccxkXUYYXp7BHFy5sxzaHNDbXRg=;
+	bh=lAjRy+GkK8+lly/vjtjqR/rGIKKDLT/ZzKASVthuCIc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UMBZZlpzm8M/rtJ8XsnItfgw1ZA/u7PaZ7iedaf7sHXo08/ZGd0i8lPVncTdyBa+ZZpW0KJ6xjVc+08cy+IYD2YmDwh00KDo8B5+bC1Kf45nAnodFWSX4BL46YHslJ8Vi17p+9ATO1dExJEE2DWGdmDijVsR/hrKHNxPbEB7gFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhD2aXGZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dzBmM7K/DS+Ccd8I3mLQUylGiO42/w9nq7n0zvSUrKyV6hoyIaQTpSyb4TGL/RdEOD5JZXV+KyHV2kGV6JJwUpQaNUnSj9FQVYRqJoAmBHjgI7tt/rjUOe2K65YBcMrOdg+0MFfrjKB04owBgvDV1PXP2jPTXa/ixMlWGy27FT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSfAYIEf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhD2aXGZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A7E1F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSfAYIEf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF481F00893;
 	Thu, 10 Sep 2026 19:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789067323;
-	bh=q/gk/YpLPeRqTFdCdODsQWsh+oCQnScR+9+xqn9RSHY=;
+	bh=3k59yMIX/Rx77t+kYwSaPlRjEhgE/T+h0c68ZWee11E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fhD2aXGZdFncJl5o2HvL85bDWMWV5eOTjO1HLmgJUq6qMu/TOlLmDoD3VYQvFFT/s
-	 wiqQ+T2AsfDJd8hqOqmZZX2p5T74mYaT19Kq/ZT9ovRjVYDsFO3qxc6yo+xyrGUuvT
-	 fku+VeiL1NDgxgIm2J9vb4ffxNsrdjBRFIScBBHaw1HTOQ+DVG7RP4Tnz6qtlfnukD
-	 eAPJLBaBwZNwjXXFU5hwbJ7IxGHFibYnUYMgrEnRFPsqVsxvSX/w4Et44/1KpfEMz3
-	 SifdumPyijvQWdIraw+n7Jtn6V/RwY+2uQBGgwVyeEQSEtnoIiqZPeZItoouGXcDmm
-	 rb1eff7J96URA==
+	b=iSfAYIEffh1g2y5qi8dficloz6NyY2J8ARpEZEW3CWWeoHPbeUCEUkLjFJTA4vZqV
+	 MTzNC87ClVfSRZ1SBq4a7RwcGII3hCe6EOMjkzaO3k16Plo3BOtc7rOuzQfv/wJTm4
+	 UWRAxSAan/HVwQqbDjVFJKJMS0O3/ia9ZYWiWYjvLSM5DDfu8c/2r3KWquxnzLiBf1
+	 1ANb7fUykvZmddRg8V3sUYk6JQpVEOsn1k7HUpIfTYzG5TZoW9hDseykYaZsv+aVQ3
+	 UGkrbvdMnLn2ka4/S9Su9laBQhBB6R/0WKLjdqTi9EWNGgG+jm2KcGgqz+lgmHvwyn
+	 kOT1/apBs+VkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] arm64: mm: Fix the lockless page-table walk in show_pte()
-Date: Thu, 10 Sep 2026 15:08:37 -0400
-Message-ID: <20260910190837.1453363-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 15:08:40 -0400
+Message-ID: <20260910190841.1453617-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910190837.1453363-1-sashal@kernel.org>
-References: <2026090941-average-edition-4184@gregkh>
- <20260910190837.1453363-1-sashal@kernel.org>
+In-Reply-To: <2026090842-deluge-gloss-a643@gregkh>
+References: <2026090842-deluge-gloss-a643@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-[ Upstream commit a77644d009dece1104b6fcc6e322b0e4503db0d6 ]
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-show_pte() walks page tables locklessly and can run with interrupts
-enabled. A concurrent teardown can free a table page while it is being
-walked. It can also clear a parent entry after show_pte() checked it; the
-regular pXd_offset() helpers then reread the cleared entry and can derive a
-bogus lower-level pointer and fault again.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Use the lockless offset helpers with the saved parent entries, as
-gup_fast() does, and pass the saved PMD to pte_offset_map().
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-For task page tables, arm64 selects MMU_GATHER_RCU_TABLE_FREE. Disable
-local interrupts around the walk to hold off RCU-deferred table frees and
-block the tlb_remove_table_sync_one() IPI until the walk is finished.
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
-Place the IRQ guard after the header print. This does not make the output a
-consistent snapshot, but prevents the task page-table walk from
-dereferencing a released table page or deriving a pointer from a different
-parent value.
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
 
-Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-[ replaced guard(irqsave)() with explicit local_irq_save()/local_irq_restore() calls to avoid declarations after statements. ]
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+
+Stable dependency adaptation for 5.10:
+
+Retain only the dma_buf_fd_install prerequisite needed by
+a4a1a2bfcb29785292d634d7787edc6fb550714d (misc: fastrpc: don't publish fd
+before copy_to_user() succeeds). The FastRPC target already applies cleanly
+to this tree.
+
+There is no DMA_BUF_TRACE/trace_dma_buf_fd infrastructure in 5.10, so map
+dma_buf_fd_install(dmabuf, fd) directly to fd_install(fd, dmabuf->file)
+with a header macro. Both arguments are evaluated once. This adds no
+function or exported symbol; linux/file.h already supplies fd_install.
+
+Drop the dma-buf.c helper and all dma-heap.c changes. The heap allocate
+callback here returns an already installed fd, not a struct dma_buf *,
+and the heap refactoring would require converting the heap drivers and
+their callback interface. Those changes are unnecessary for the FastRPC
+target. This dependency adaptation does not fix the separate heap ioctl
+issue described above.
+
+[ sashal: Reduced backport -- upstream 30d0aff2c65a2 touches 3 file(s), this
+  backport carries 1. Not backported here:
+  drivers/dma-buf/dma-buf.c
+  drivers/dma-buf/dma-heap.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: a4a1a2bfcb29 ("misc: fastrpc: don't publish fd before copy_to_user() succeeds")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/mm/fault.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ include/linux/dma-buf.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 39f03d18717eb..0155330b9d0da 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -15,6 +15,7 @@
- #include <linux/mm.h>
- #include <linux/hardirq.h>
- #include <linux/init.h>
-+#include <linux/irqflags.h>
- #include <linux/kasan.h>
- #include <linux/kprobes.h>
- #include <linux/uaccess.h>
-@@ -123,6 +124,7 @@ static void show_pte(unsigned long addr)
- 	struct mm_struct *mm;
- 	pgd_t *pgdp;
- 	pgd_t pgd;
-+	unsigned long flags;
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 957b398d30e5d..dd7b5f9f7fac2 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -487,6 +487,13 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
  
- 	if (is_ttbr0_addr(addr)) {
- 		/* TTBR0 */
-@@ -144,6 +146,9 @@ static void show_pte(unsigned long addr)
- 	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
- 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
- 		 vabits_actual, mm_to_pgd_phys(mm));
+ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
 +
-+	local_irq_save(flags);
++/*
++ * Install a reserved fd only after all fallible work has succeeded.
++ * This kernel has no DMA-BUF fd tracepoint to emit.
++ */
++#define dma_buf_fd_install(dmabuf, fd) fd_install((fd), (dmabuf)->file)
 +
- 	pgdp = pgd_offset(mm, addr);
- 	pgd = READ_ONCE(*pgdp);
- 	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
-@@ -157,25 +162,25 @@ static void show_pte(unsigned long addr)
- 		if (pgd_none(pgd) || pgd_bad(pgd))
- 			break;
+ struct dma_buf *dma_buf_get(int fd);
+ void dma_buf_put(struct dma_buf *dmabuf);
  
--		p4dp = p4d_offset(pgdp, addr);
-+		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
- 		p4d = READ_ONCE(*p4dp);
- 		pr_cont(", p4d=%016llx", p4d_val(p4d));
- 		if (p4d_none(p4d) || p4d_bad(p4d))
- 			break;
- 
--		pudp = pud_offset(p4dp, addr);
-+		pudp = pud_offset_lockless(p4dp, p4d, addr);
- 		pud = READ_ONCE(*pudp);
- 		pr_cont(", pud=%016llx", pud_val(pud));
- 		if (pud_none(pud) || pud_bad(pud))
- 			break;
- 
--		pmdp = pmd_offset(pudp, addr);
-+		pmdp = pmd_offset_lockless(pudp, pud, addr);
- 		pmd = READ_ONCE(*pmdp);
- 		pr_cont(", pmd=%016llx", pmd_val(pmd));
- 		if (pmd_none(pmd) || pmd_bad(pmd))
- 			break;
- 
--		ptep = pte_offset_map(pmdp, addr);
-+		ptep = pte_offset_map(&pmd, addr);
- 		if (!ptep)
- 			break;
- 
-@@ -185,6 +190,7 @@ static void show_pte(unsigned long addr)
- 	} while(0);
- 
- 	pr_cont("\n");
-+	local_irq_restore(flags);
- }
- 
- /*
 -- 
 2.53.0
 
