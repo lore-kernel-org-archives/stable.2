@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E5758E2D4
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155A158FD39
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067333; cv=none; b=jmLzNZpGetmERIRTrQQIxx1RxfGW8N/nsku3SORqEi9zoN5maCK9YwWLPiZPiW/Fs2FzzrVWb2Gvfq5RBAtAjvfGS+Odgiha70XdCZ/1krOC2+kljUqRWneQA+Q6abzG2Vbfk6u53zpKypLDHwnVH89hpVbbmLY5gFjY8dPTcms=
+	t=1789067334; cv=none; b=OJws6xdn7Hio7+lyoxxupUPaRj+sy4eExbrGdTta4jrlrAblzs158KwHCaUwTWCa5ccwC+2tqAZP3HtvY5wWE/d5jZySARd0GctNrdlascjkAagQGOcazkjGSS5q5jbxbMRbuPgwa8FaILLNocchPLheh1nkOLUstXI6SI0KMIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067333; c=relaxed/simple;
-	bh=ULoQzirNmzfRXp6ITSGHzQq+SHEW5t61gnFi10zV/uQ=;
+	s=arc-20240116; t=1789067334; c=relaxed/simple;
+	bh=m5umePxBvUSksu5lPptAOaXJUv2XTax7MPaN0cM9C/w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BVxI+qeR4VLQwWF6a2GqWG2i50Zr4MAOjUU5QdemMlQTS3ukGBn2YUa9hrTS5hE0nztHzljQPUq7Iz/b9/breSGoMRSQGZaG+/OyZIAsN276u5LBkOi7v3uZ5goFrW9swlBSvxDjLuOU0zmz0osiOE3YryF/AdkB0smj0+5eIc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0t80B+J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W7w7vJYWdSyCZ9/bBwAaewW1HfUBX1GQxJR4dH+KMIsIURZfzEYKNztYW+DMzEeRuNnYNNhQ1tGD3MDWhGlMpQCu9jmPeHgyodLpVpzX3G2FAYwEtxKIzmo5xhGqhYhcgYNnSgfN6cd03bQqpigHzVMGFR1liwMM5J8+cVsJS7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nI3q6LEP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0t80B+J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9721F00898;
-	Thu, 10 Sep 2026 19:08:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI3q6LEP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF211F00899;
+	Thu, 10 Sep 2026 19:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067332;
-	bh=J1mihEib44fSOWb3vaJiy0AcfC6vh7761VQdtiZyj4c=;
+	s=k20260515; t=1789067333;
+	bh=xFzqmCUJK9e6KBPZc8T3Zw6Ma+e306VVkvvPeAT9xis=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I0t80B+JPeSc2Y4mAqRBne53R3+/5i9jtKjG3MVIrkc+MnRU5VwNdret4t7kHSBLw
-	 k3m4T6x8UOUCjp6ad5Eo7u/5udRECyH7Kp3lnv6fcWmSZe0wkZUyYMH2cQZYp46rzC
-	 PWG1VFmBUCZRuFtfHdE4JbNzIIg98RKohO7n/H1qmZ91Q8VxRm5oig5NZal5I++1/t
-	 X0k/rwYdDUhCIMm0yi/0S7fMTwbHMCeZWlhWFZmUKUOtAmj/HRfy2ObWjcWAOBYRQi
-	 Iy1n1xaAOP8A3qceJviMyM7nKHEdaHTpKYKmCOyVEb6x0NB/TblJkUG1qMZ4sOSNQc
-	 zEJ7K7VR699Cw==
+	b=nI3q6LEP8m45rwRi6s79V6xE2Qp/4tnDeSUincHxnXHHtKSguZ3mvUgQI+CJEtAnI
+	 O5uA23MLhdGJUGy0enqaK/y5GKoeCGQfo/Whr4852YzqapZskNxDNkOVrQV+Gc9eKt
+	 xvJTunCVMU2YvoXiUrAA5f4U8wpRl1BoYGAH3Wike/Xe3Ix3tDK35UvUSBuZOg0wan
+	 jc2RoLuePUCI/fI3uJTdtPYsQcaY+vItsUaJOVd5F6GBv8FRJeioGjuCSXCcAxD58D
+	 5nIL3btJ1y1HhHzJ7q3REFxjGgUBai0UtnVwMmys5odaPxE45BxQbV74d7vXlNXlRF
+	 sFk19GK+iSnAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christoph Hellwig <hch@lst.de>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/7] block: remove GENHD_FL_SUPPRESS_PARTITION_INFO
-Date: Thu, 10 Sep 2026 15:08:44 -0400
-Message-ID: <20260910190846.1453814-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y 6/7] block: don't set GENHD_FL_NO_PART for hidden gendisks
+Date: Thu, 10 Sep 2026 15:08:45 -0400
+Message-ID: <20260910190846.1453814-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910190846.1453814-1-sashal@kernel.org>
 References: <2026090834-voyage-donut-60bd@gregkh>
@@ -48,108 +48,63 @@ Content-Transfer-Encoding: 8bit
 
 From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 3b5149ac50970669ee0ddb9629ec77ffd5c0622d ]
+[ Upstream commit 9f18db572c97bc327b63528d195fdb252f47e9de ]
 
-This flag is not set directly anywhere and only inherited from
-GENHD_FL_HIDDEN.  Just check for GENHD_FL_HIDDEN instead.
+Hidden gendisks can't be opened using blkdev_get_*, so we can't really
+reach any of the partition scanning paths or partitioning ioctls except
+for the initial partition scan from add_disk.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20211122130625.1136848-11-hch@lst.de
+Link: https://lore.kernel.org/r/20211122130625.1136848-13-hch@lst.de
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-Adapt the dependency to the 5.10 disk-registration layout.  Remove the
-hidden-disk suppression assignment from __device_add_disk(), where this
-branch sets GENHD_FL_NO_PART, and keep register_disk() and its existing
-uevent and backing-device registration flow intact.
+Adapt the dependency to the 5.10 disk-registration layout.  Keep the void
+disk_scan_partitions() interface and its capacity and partition-scan
+checks, adding a direct GENHD_FL_HIDDEN check before requesting a scan.
 
-Preserve GENHD_FL_CD, GENHD_FL_UP, GENHD_FL_NATIVE_CAPACITY and
-GENHD_FL_BLOCK_EVENTS_ON_EXCL_WRITE, which are still used on this branch.
-Only remove GENHD_FL_SUPPRESS_PARTITION_INFO and check GENHD_FL_HIDDEN
-in both partition-listing paths.  No functions are added.
+Remove the implicit GENHD_FL_NO_PART assignment from __device_add_disk(),
+where this branch handles hidden disks.  Preserve its existing BDI and
+region registration, and keep register_disk()'s hidden-disk early return,
+uevents and sysfs links intact.  No functions are added.
 
-The preceding dependencies already removed the MMC and null_blk users.
 Verified that target 3f9c7a108c0e applies cleanly with a three-way merge,
-inserting its zoned-disk check in __device_add_disk() before partition
+placing its zoned-disk check in __device_add_disk() before partition
 scanning.  The existing GENHD_FL_NO_PART ext_range handling is retained.
 
 Stable-dep-of: 3f9c7a108c0e ("block: flag zoned disks with GENHD_FL_NO_PART")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/genhd.c         | 11 +++--------
- include/linux/genhd.h |  9 +--------
- 2 files changed, 4 insertions(+), 16 deletions(-)
+ block/genhd.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/block/genhd.c b/block/genhd.c
-index fef31a2f50a80..4ecab2f503719 100644
+index 4ecab2f503719..ea81203f6a036 100644
 --- a/block/genhd.c
 +++ b/block/genhd.c
-@@ -747,10 +747,8 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+@@ -680,7 +680,8 @@ static void disk_scan_partitions(struct gendisk *disk)
+ {
+ 	struct block_device *bdev;
  
- 	if (disk->flags & GENHD_FL_HIDDEN) {
- 		/*
--		 * Don't let hidden disks show up in /proc/partitions,
--		 * and don't bother scanning for partitions either.
-+		 * Don't bother scanning for partitions.
- 		 */
--		disk->flags |= GENHD_FL_SUPPRESS_PARTITION_INFO;
- 		disk->flags |= GENHD_FL_NO_PART;
- 	} else {
+-	if (!get_capacity(disk) || !disk_part_scan_enabled(disk))
++	if (!get_capacity(disk) || !disk_part_scan_enabled(disk) ||
++	    (disk->flags & GENHD_FL_HIDDEN))
+ 		return;
+ 
+ 	set_bit(GD_NEED_PART_SCAN, &disk->state);
+@@ -745,12 +746,7 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+ 
+ 	disk_alloc_events(disk);
+ 
+-	if (disk->flags & GENHD_FL_HIDDEN) {
+-		/*
+-		 * Don't bother scanning for partitions.
+-		 */
+-		disk->flags |= GENHD_FL_NO_PART;
+-	} else {
++	if (!(disk->flags & GENHD_FL_HIDDEN)) {
  		struct backing_dev_info *bdi = disk->queue->backing_dev_info;
-@@ -1086,8 +1084,7 @@ void __init printk_all_partitions(void)
- 		 * Don't show empty devices or things that have been
- 		 * suppressed
- 		 */
--		if (get_capacity(disk) == 0 ||
--		    (disk->flags & GENHD_FL_SUPPRESS_PARTITION_INFO))
-+		if (get_capacity(disk) == 0 || (disk->flags & GENHD_FL_HIDDEN))
- 			continue;
- 
- 		/*
-@@ -1182,9 +1179,7 @@ static int show_partition(struct seq_file *seqf, void *v)
- 	struct hd_struct *part;
- 	char buf[BDEVNAME_SIZE];
- 
--	if (!get_capacity(sgp))
--		return 0;
--	if (sgp->flags & GENHD_FL_SUPPRESS_PARTITION_INFO)
-+	if (!get_capacity(sgp) || (sgp->flags & GENHD_FL_HIDDEN))
- 		return 0;
- 
- 	/* show the full disk and all non-0 size partitions of it */
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 30e1841630b1f..d6892e2f31c37 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -92,11 +92,6 @@ struct hd_struct {
-  * ``GENHD_FL_UP`` (0x0010): indicates that the block device is "up",
-  * with a similar meaning to network interfaces.
-  *
-- * ``GENHD_FL_SUPPRESS_PARTITION_INFO`` (0x0020): don't include
-- * partition information in ``/proc/partitions`` or in the output of
-- * printk_all_partitions().
-- * Used for the null block device and some MMC devices.
-- *
-  * ``GENHD_FL_EXT_DEVT`` (0x0040): the driver supports extended
-  * dynamic ``dev_t``, i.e. it wants extended device numbers
-  * (``BLOCK_EXT_MAJOR``).
-@@ -118,8 +113,7 @@ struct hd_struct {
-  * ``GENHD_FL_HIDDEN`` (0x0400): the block device is hidden; it
-  * doesn't produce events, doesn't appear in sysfs, and doesn't have
-  * an associated ``bdev``.
-- * Implies ``GENHD_FL_SUPPRESS_PARTITION_INFO`` and
-- * ``GENHD_FL_NO_PART``.
-+ * Implies ``GENHD_FL_NO_PART``.
-  * Used for multipath devices.
-  */
- #define GENHD_FL_REMOVABLE			0x0001
-@@ -127,7 +121,6 @@ struct hd_struct {
- /* 4 is unused (used to be GENHD_FL_MEDIA_CHANGE_NOTIFY) */
- #define GENHD_FL_CD				0x0008
- #define GENHD_FL_UP				0x0010
--#define GENHD_FL_SUPPRESS_PARTITION_INFO	0x0020
- #define GENHD_FL_EXT_DEVT			0x0040
- #define GENHD_FL_NATIVE_CAPACITY		0x0080
- #define GENHD_FL_BLOCK_EVENTS_ON_EXCL_WRITE	0x0100
+ 		struct device *dev = disk_to_dev(disk);
+ 		int ret;
 -- 
 2.53.0
 
