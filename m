@@ -1,205 +1,371 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CD2599A4B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFDA5867E2
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066407; cv=pass; b=USADnR/UylYNII/N5A+VJ7wOdDt5HqyTnDSjje2ozmbuoKljMlHroAmFHflqZnB3uHG8OHrt01m+N8YSN0lz/wo36YGXizuBS8fFDNZ6MJPrqeRugpPwhGl8QEJLV52Du/OnuufqbR0dqTUqgY3cTo2Lc1H/c3cfL0J5oP12iGk=
+	t=1789066728; cv=pass; b=jPMvkVonAXbw0zApRZlBwMtd9dNpXIBMoGN9+lpsb+NJb+n+cCKN2ynx31zSaI03S8mwZQ4Yz2lXBIalLEldMNm6YoChROFs+2NHkPvxd5Rj0u+e7FJlnfRlCZSuU2HCY8UCxIZPPHO5fRSFHYLbbhZYNFjfPq+6fu7H2fHVvCc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066407; c=relaxed/simple;
-	bh=VvXoNF3sMeo2fpv2qDY0aBbxOZBUbISC5Fqd+S82nYA=;
+	s=arc-20240116; t=1789066728; c=relaxed/simple;
+	bh=4uJOjuShBwWLtphZjerKycWL4xXTU123kfZIyQdrPiE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u4mWThniIZXrMeCkp262c3KdroyHC8Q6X0SmCCXQPDTEV4pcLGUJmb47X+iu5VDZ4e4E/WhVidOyrurake4KdlmrARfedzkISOlRwGR7HuOxMEQTG7ub3Dt3WL5Gng6XQ4wYaI7Yxa/Qtu0Cwrs6+yHzhQTk/07K/IM3eAwZkgc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMdhZ8K3; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=mqZXlzdOk4Iibcm8cGtiU9PIljTrGSBXHuJkh6HJpb+faD/MA3Zo+rh57+OcEBmKNEfJasu3YLMZ7YSv9ivfDZRTJJas5BsjaymW7pojKaGeIiTyOrFBgcteyYbzUsx1tLBrVhL4L8TI0oqVE6+vVhVIWmiNdL5rprwfJ6Webko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nqWzbty0; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMdhZ8K3"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663bfso26933266b.1
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:53:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789066397; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nqWzbty0"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c294bdd76cdso28853866b.0
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:58:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789066725; cv=none;
         d=google.com; s=arc-20260327;
-        b=c49LKDbosUaED+2ExJWfJ65zaMl6BrdBzuAZK2BC8ZEzhXmKXOPyscrhTABN8p47sn
-         ZzEhak89k+WnPgkKBQZtKvsYorUkg4juj7oGa4RoZe1guxYWdliiQ6xvvdygANMRfPy8
-         iYcSIKx7N/R3x4zngOGPGjIxiEyA/m7X3CBhhZBP7VOIo2mqvcdkZ7mfSrV/yTCc9Z+P
-         IKp2JKtB+MCvryCFMRD43PhMfeDcEO0+DKcm92BrK35bdQsBxf0jaHIYh1RYo/enlFOL
-         uQ+a0F9l0j2lv+vA60DBjbHFlrF3U5IbpZf4oxK/PrvFGtdXT96+xARPqGZS77nphr5U
-         ynWA==
+        b=HbitQrEgwxjg1lxqdXZ3srpLD1edyQrJEk5cZKp6aMD4zFPwDjE+mqZJ1jq2S+IVhz
+         oyspubA9wEry88PZOwqtPNWrMEj/YeIEF0keB+b8irB/n+axwR6hUYB5M+l5I5LQd4c7
+         o+QuCUpUhNJdaGSuAIwKfr1yp8beB547nwb3NSFdoLC0wArVQfUxh++RNmRmLVqIhgs5
+         gN9AiKt6d63Xj0QP66/qWZkAtYZYzINPzPcWLSPy/BJzrj/nbJu3NiNb3JLVx53y64PN
+         3N54Z1vRCh00n/MbB/DUcDHX5I0mMH+jqTOsjwtN7+ZeV6HsEn/qFcibVpWEiahsJ2VJ
+         3QfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
-        fh=0DUqw9ArmJvNusF60JCqDoNH/tSSekXj8HXW6kZUbb0=;
-        b=p+Yj1td1T6rB6izCNtqvJVez3uVuSRkaIUn7uY8A5Zlr3QcKnDcKEF//G+A+uasHLn
-         /kI9NNoR8klikLN79leY0FZ6EMPXitFJ2ele0jpWdHRtFBDB2JidN635iGaD7tw14a/Z
-         nFvBAdMlYMgPhuMK6zTfyoJ2ngM+BK8AMqz1ddWMZNGdhNWwhyDuXeywcpOCh+oKsBMw
-         hiNY16g3p9iFOQxdLX7er573zKcon3HfMhkCXC8x12A6OUwUJs/9zTe900/bXhYliU58
-         SaQH7dsOpcmbjs0JI7AVSsEhscHMiMakkm6bE2DqzzQgvlwj8XP6T/x7WD2TdabxbZX6
-         t0rg==;
+        bh=HQqZIquyuP45TVqeu7OsKl4uUPqmuzFoyabpJxAg8u0=;
+        fh=DiWmgdK+achYxB3Jj4YVlWUjgpLXkM/gzGXTLk6TBoU=;
+        b=LlcrnLaYGmeTcrL5TpoK0Rk0Z6sUYw5LhSHfrLNB1NfCn7iv2KCdECUsJkMDFx55xg
+         xvatxaJpd5MfvouN0v98j39pE0x3qud655IDwgl7aW2s/aV7fGN5RSOqw2cBVV31GgzB
+         MHWXPKzunXhtDT9wH2uvOjOKPpnFIlO0gA9WCXtd0+IaOyeBmbOrvOjD8IillqjUeN67
+         mb1ysac1cIEagHIucOnduG+XHPgymQp6yKibNqCzPIC4oB0coMVOOVP3Cn6/ouR4ZPVn
+         Up+REsgomoW1I54OHJyjGAcBjNqbsH/p7nQqx7yq610zWUQ9FnhiWzWtG9l2+AxGy0YK
+         mJ1g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789066397; x=1789671197; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789066725; x=1789671525; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
-        b=AMdhZ8K3Z/qcyQ0KXyhN9VufTLn54TfCpOZV4MHMe2MQRHj0s/b9KJqeT7sPyQOIXo
-         JkfnshlGeOLSvYdZwn8fz/lJebqKRGPNrew5AgwQ5umh6X5l967lgkyFw2sL/YdifmNB
-         0TvZM9pgkKlcSmH3UKZdfIN5n4qt7eU9xMgOC4xdsUxaVvqUFlxvItUShsN3bRi0zhFS
-         3igpwt5MFVmLZ8D0Ub4qa56ngpjr/XI9iBaj09BFtWvflQTl0SuKE/IrW3sfJZnKmPQb
-         Ftds0Vt6lKiyz5bSYtefWcfLqtbHBI6Ch/7OrwVbzAQcJCpR7ZfFjUelGEtgjTAb+W7k
-         PxkA==
+        bh=HQqZIquyuP45TVqeu7OsKl4uUPqmuzFoyabpJxAg8u0=;
+        b=nqWzbty0NBOCbeCJPrayjVXZj0R6FKVavkd4Kc1oQ2BJ6zrFfbkXH8sZcwblkL0paG
+         44FHjgKoAXRb3GSJG1N/jga6AkAd96CXSwJtnAhu0q61uGIXURIfv6L23ldmlfmwvIl3
+         2xnpgoa87VyFrFmWUPBqA2gEyzj434CoKLoi+r8p8vJNfXpg6zEd7Vv2q9/OSuHQBbiP
+         DwR7xwQ3pqJQogfVtQt9gZwJwpd2ygb4RBSD/OJFHyXby9CyM8xRVnxoGksaXfpSnskU
+         C1Ary5McC80HyvMxe53/l8girwDx3wFKYH3KMoQ0QIbU8Hv4cJRmwbEWybMFGEkrBihT
+         zQew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066397; x=1789671197;
+        d=1e100.net; s=20251104; t=1789066725; x=1789671525;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
-        b=WZcVGtwsl8P036lE25i2Ra3D2uOH4dbXI39DvW2ftDE+ox3Clq+V0Ie6NKk16p1wBi
-         lny9bsJJRdueZZr+IxutxexpeRheZWQQpjeAICH+fAubdqVBdznyWhCukpze+5dRi0YP
-         XnRPdj/yMYwlbz0iaz9m+A5Oanp7G4eyPMD2kAB2X4Q3O1LwMiqk7rNH3/sYI+pyNkx3
-         /83YekyRlE0VRiRIXWAWUNCGYiDaP2Fipa6Cj1bSAj1TFxOeAht7XOzE9MTn6k+Zw7l6
-         hfbgSq+5SMrun4SoWqX36oR+42nFNkmzTkAWfSK165g1Wb265URkmOCHdSejN5vGugu7
-         LE/A==
-X-Forwarded-Encrypted: i=1; AKwUvBw1PQhpHw47fZgggi9iueMLc73zik6XpRzB/pQXIe+OF10AyKkFXW7gp6v+lVLxM45X+a0nYaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJnehf4TwZuauv0VfkCjvjYtyOW2VXhydVtPvhJZWGu6DXpMnc
-	dKCPzHH4flaf9czSADUchCFMJx7O9jvyl27dTlKbwZ+Uz4KGAW3+IJMmAGevx7OC4AoVQmBPCbx
-	5QmnxljpB3xBjbH+0czvELbu0wJuR8KA=
-X-Gm-Gg: AYBFou2D7gCZ3Ljzvs+KTqj6km1OQy82Cf9tPp+sy6juZTIsSpPSuoaStGTEa1q+sxY
-	xJx8LuO8ZGcxVhOFZxVjRl2o+H9w2KPylZiZ8nx0cb9QtfXIy2KX0+YLdNENBVC8V40ubchlYvD
-	Y5+1fcnHeUbge5ovDmKXranPnWtBt12MWbj91tS50tN7n8OMWYnowUEQyIh61DeExyntA2yEYY+
-	cALfAZCazNg5n+x/uOb3yLoSdLtAfLkO1BqCr2zmHWeo5ZbLxf3lw9IP0KEeJM9NrniBw4IgvWv
-	YVIkUcjw2Cug6Knknn+E6l6onddL3H9bpD30IKKZGafTAacoPJk/ofXMVj32daX+1Z7Tz1tCXzi
-	N02BM4jaAAW6W
-X-Received: by 2002:a17:907:97cd:b0:c25:b706:e59 with SMTP id
- a640c23a62f3a-c29666f49e8mr191366b.17.1789066397017; Thu, 10 Sep 2026
- 11:53:17 -0700 (PDT)
+        bh=HQqZIquyuP45TVqeu7OsKl4uUPqmuzFoyabpJxAg8u0=;
+        b=rz4QgBLbNg+9rYCk648Y/I5EKvHvs6jNqD7KiHF+pXvZJzmUrhmn/m7dpPw+oknLLR
+         lL6Nu9u9U8htFuaj1BR+JmTcxQIW1IyrMQk2lhfSpqwDDbp4A/yWy6zw2qccgscZXjzy
+         L6PUPVny2zdIf6hhICmzgvU2SF+eHlgAaRsRL5e1EtQ9K4AU9Sha0WJ8z9blvlaj0Pk6
+         JwGy7jQooReDxwsnn+2DMZv5MwEQ1PMN/WY86ToKThSDEzXkmb3G147RjY68vFn1ekUA
+         eb2AqeKTsWxA1yqNQH9RMD7DvRgK6ql0dI06+kVaHDrSEk5e1LrH/4gXDTXRxxL6sDD4
+         9YaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypq5ytvAfnSDv9JHVvYCLxQ+1evcKVcItMs9g7w3Ro648BzEAUC6MDlhX81zSJDR5O6WUf/Ac=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5O36xWZXijSBYHX85CGLpY7XnN9JPNHEjms7NsaWwZVYvBXUc
+	/Id6CQQAT5asknPUoGTI1lfdu2O1gToznHvmLExLO0xcJV+LoaZfuFDqaM+02sfBlb7O/ES5JgM
+	MOxCOOld7PQZBscFut0AC/m3B0wNHoOKXMzKFGFok
+X-Gm-Gg: AYBFou3yjk+vgOCJ5BP6ZhWrWSuRELb3lUbhYKzN1JOo71KJwbuKf64dS5/s3ExzKJW
+	GqICGFP9OjRKA1EJUeMeh7GCI0lSrEJcxUQXn+guKVnEnidg/LCE8Fw3AJXbQoP4CXuY6ZM5cRI
+	1FIqn146+Fz7kKx+2vGYdwzI+QccN+/f6Pn4vX/wm2QwSkR5Na1gsUT1/Qxa3IaIGUiLDZVUwKq
+	s/CS93PYcjgarl7jdlJvr6EPzEuLi1y7IHM9WuL/cE4eaQWZkX3/eL+0MrFX/AmQGzVgt2NIPYA
+	AzyEhdUDsWPrM+0DREDsZwmXy2TnF0u4YJAWviNfARGfFER6vME5A+k5vdB0+HPbjbaq9+tWAp4
+	Qsg5AHQiu//Jt4J+S35PNYQlQtDc5PnA89NmmpSSczs7gZbtAyEPc63pUE3ISeIeBuxaCU4mtNQ
+	aC1K0px7P4BZXayST6FDybXOg=
+X-Received: by 2002:a17:907:1b18:b0:c26:1691:b368 with SMTP id
+ a640c23a62f3a-c261691b9e2mr1568936666b.33.1789066724035; Thu, 10 Sep 2026
+ 11:58:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
-In-Reply-To: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
-From: Ping Cheng <pinglinux@gmail.com>
-Date: Thu, 10 Sep 2026 11:53:05 -0700
-X-Gm-Features: AcwNN1WtBzIj10yYVWNSv1D2MgnrM6PZMOlbKADR-R4JWexEKJoN-9DMVJ_y5ok
-Message-ID: <CAF8JNhKJES5xkXd4VQxwp_sV_jUsgLsqFz+OJADL0-neY-W1Cg@mail.gmail.com>
-Subject: Re: [PATCH v10 1/5] HID: wacom: Use hdev->product in wacom_setup_touch_input_capabilities
-To: Lee Jones <lee@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Aaron Skomra <aaron.skomra@wacom.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Peter Hutterer <peter.hutterer@who-t.net>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260908132838.2116068-1-jmattson@google.com> <CADrL8HW3Q=8eBf-=h6BAPdUN_X1Z_-KG=i5a5rA2kF+V4JURww@mail.gmail.com>
+ <CALMp9eRJXozpUpdOhqDCWn7VbqHb9G9hn4aZnxS_fef4ad1yTg@mail.gmail.com> <aqGsukcRG6khmxpt@google.com>
+In-Reply-To: <aqGsukcRG6khmxpt@google.com>
+From: James Houghton <jthoughton@google.com>
+Date: Thu, 10 Sep 2026 11:58:07 -0700
+X-Gm-Features: AcwNN1WLwJW3KNE6RfNY_nN3EYlV3ulbOc4d2X94HLA4GgWJWiLcf20fkOLPcKI
+Message-ID: <CADrL8HWRjzzs7YmNkGDYQWDnygw=OcdgqCWCOfdt9af0-XwvVw@mail.gmail.com>
+Subject: Re: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory
+ during vCPU teardown
+To: Sean Christopherson <seanjc@google.com>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Tested the whole set of v10. Status stays the same:
+On Wed, Sep 9, 2026 at 12:00=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Tue, Sep 08, 2026, Jim Mattson wrote:
+> > On Tue, Sep 8, 2026 at 10:35=E2=80=AFAM James Houghton <jthoughton@goog=
+le.com> wrote:
+> > >
+> > > On Tue, Sep 8, 2026 at 6:54=E2=80=AFAM Jim Mattson <jmattson@google.c=
+om> wrote:
+> > > >
+> > > > When a vCPU is destroyed while L2 is active, KVM synthesizes a nest=
+ed
+> > > > VM-Exit, which flushes the cached shadow VMCS12 back to guest memor=
+y:
+> > > >
+> > > >   vmx_vcpu_free()
+> > > >   |-> nested_vmx_free_vcpu()
+> > > >       |-> vmx_leave_nested()
+> > > >           |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
+> > > >               |-> nested_flush_cached_shadow_vmcs12()
+> > > >                   |-> kvm_write_guest_cached()
+> > > >                       |-> __copy_to_user(ghc->hva, ...)
+> > > >
+> > > > During process exit, do_exit() calls exit_mm() before closing file
+> > > > descriptors, so vCPU destruction runs with current->mm =3D=3D NULL =
+on a
+> > > > borrowed lazy TLB active_mm. If the borrowed address space has a wr=
+itable
+> > > > mapping at ghc->hva, __copy_to_user() corrupts an unrelated task's =
+memory.
+> > > >
+> > > > Skip the flush when KVM synthesizes a VM-exit with vm_exit_reason =
+=3D=3D -1
+> > > > (e.g. during vCPU teardown or SMM entry). In these paths, KVM force=
+s the
+> > > > vCPU out of guest mode internally--no architectural VM-exit is deli=
+vered
+> > > > to L1.
+> > > >
+> > > > Fixes: 61ada7488ffd ("KVM: nVMX: Cache shadow vmcs12 on VMEntry and=
+ flush to memory on VMExit")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Jim Mattson <jmattson@google.com>
+> > >
+> > > Hi Jim,
+> > >
+> > > This patch looks good for a stable backport, but I feel this kind of
+> > > bug could easily happen again with the current API.
+> > >
+> > > One simple thing that would have prevented this would be to:
+> > > 1. Change kvm_write_guest_cached() (and related) to take the vcpu
+> > > instead of the kvm, and
+> > > 2. Check that vcpu->mm =3D=3D current->mm before doing the uaccess.
+>
+> The mm pointer is store in "kvm", not in "kvm_vcpu", i.e. this sort of ha=
+rdening
+> shouldn't require modifying the callsites.
 
-Acked-by: Ping Cheng <ping.cheng@wacom.com>
-Tested-by: Ping Cheng <ping.cheng@wacom.com>
+Yeahhh, I noticed this a few minutes after I sent that email, heh. :(
 
-Cheers,
-Ping
-
-On Wed, Sep 9, 2026 at 4:27=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
+> > > This wouldn't be as suitable for a backport, but I think it's better
+> > > for preventing similar classes of bugs. I'm sure you (and
+> > > Paolo/Sean/others) will have better ideas. What do you think?
+> >
+> > There seems to be some awareness of this issue within KVM, so that may
+> > not be necessary. Also, as Sashiko points out, we have issues with
+> > reads as well as writes. I don't know how many choke points we'd have
+> > to test.
+> >
+> > AFAICT (with AI assistance), all of the current problems are rooted in
+> > the following call to nested_vmx_vmexit():
+> >
+> > void vmx_leave_nested(struct kvm_vcpu *vcpu)
+> > {
+> >         if (is_guest_mode(vcpu)) {
+> >                 vcpu->arch.nested_run_pending =3D 0;
+> >                 nested_vmx_vmexit(vcpu, -1, 0, 0);
+> >         }
+> >         free_nested(vcpu);
+> > }
+> >
+> > On the SVM side, there is no comparable faux VM-exit. Instead of
+> > calling nested_svm_vmexit(), the teardown of SVM nested state is an
+> > open-coded sequence. Maybe something like that would work better for
+> > VMX?
 >
-> Replace the lookup-dependent 'wacom_wac->shared->touch->product' referenc=
-es
-> with 'hdev->product' inside wacom_setup_touch_input_capabilities() since
-> 'hdev' is already available (via container_of) and represents the touch
-> device itself.
+> Yes, vmx_leave_nested()'s use of nested_vmx_vmexit() is an endless source=
+ of pain
+> and needs to be rewritten.
 >
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
-> v7 -> v8:  New patch
-> v8 -> v9:  No change
-> v9 -> v10: No change
+> However, the bigger flaw is that the memslots are still valid when the VM=
+ is
+> being destroyed.  The hardening James suggested above really should be ha=
+rdening,
+> not the primary mechanism for ensuring correctness.
 >
->  drivers/hid/wacom_wac.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
+> Manually freeing each memslot one-by-one isn't a great option, because th=
+e latency
+> introduced by each synchronize_srcu_expedited() call would be rather absu=
+rd.  But
+> once KVM unregisters its mmu_notifier, i.e. once kvm_mmu_notifier_release=
+() and
+> thus kvm_flush_shadow_all() runs, all indirect references to memslots nee=
+d to be
+> gone.  And by "indirect references" I mean code in KVM that relies on a m=
+emslot
+> existing and being reachable, e.g. x86's rmaps and shadow page accounting=
+.
 >
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index 8feb8027be95..7cf2b4de52be 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -3966,8 +3966,8 @@ int wacom_setup_pen_input_capabilities(struct input=
-_dev *input_dev,
->  int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
->                                          struct wacom_wac *wacom_wac)
->  {
-> +       struct hid_device *hdev =3D container_of(wacom_wac, struct wacom,=
- wacom_wac)->hdev;
->         struct wacom_features *features =3D &wacom_wac->features;
-> -
->         if (!(features->device_type & WACOM_DEVICETYPE_TOUCH))
->                 return -ENODEV;
+> KVM is infuriatingly close to enforcing that already, as only kvm_arch_de=
+stroy_vm()
+> and kvm_destroy_devices() run between unregistering the mmu_notifier and =
+freeing
+> all memslot metadata.
 >
-> @@ -3976,9 +3976,11 @@ int wacom_setup_touch_input_capabilities(struct in=
-put_dev *input_dev,
+>         mmu_notifier_unregister(&kvm->mmu_notifier, kvm->mm);
+>         /*
+>          * At this point, pending calls to invalidate_range_start()
+>          * have completed but no more MMU notifiers will run, so
+>          * mn_active_invalidate_count may remain unbalanced.
+>          * No threads can be waiting in kvm_swap_active_memslots() as the
+>          * last reference on KVM has been dropped, but freeing
+>          * memslots would deadlock without this manual intervention.
+>          *
+>          * If the count isn't unbalanced, i.e. KVM did NOT unregister its=
+ MMU
+>          * notifier between a start() and end(), then there shouldn't be =
+any
+>          * in-progress invalidations.
+>          */
+>         WARN_ON(rcuwait_active(&kvm->mn_memslots_update_rcuwait));
+>         if (kvm->mn_active_invalidate_count)
+>                 kvm->mn_active_invalidate_count =3D 0;
 >         else
->                 __set_bit(INPUT_PROP_POINTER, input_dev->propbit);
+>                 WARN_ON(kvm->mmu_invalidate_in_progress);
+>         kvm_arch_destroy_vm(kvm);
+>         kvm_destroy_devices(kvm);
+>         for (i =3D 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
+>                 kvm_free_memslots(kvm, &kvm->__memslots[i][0]);
+>                 kvm_free_memslots(kvm, &kvm->__memslots[i][1]);  <=3D=3D=
+=3D KVM will be very sad after this
 >
-> -       if (features->type =3D=3D HID_GENERIC)
-> +       if (features->type =3D=3D HID_GENERIC) {
-> +               hid_dbg(hdev, "generic touch setup\n");
->                 /* setup has already been done */
->                 return 0;
-> +       }
+>         }
 >
->         input_dev->evbit[0] |=3D BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS);
->         __set_bit(BTN_TOUCH, input_dev->keybit);
-> @@ -4010,19 +4012,17 @@ int wacom_setup_touch_input_capabilities(struct i=
-nput_dev *input_dev,
->                 input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
->                 __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+> Destroying memslots before kvm_destroy_devices() is a-ok, all implementat=
+ions do
+> nothing more than kvm_io_bus_unregister_dev() (a nop at this point in the=
+ VM's
+> lifecycle, as buses are already destroyed), and free of memory.
 >
-> -               if (wacom_wac->shared->touch->product =3D=3D 0x361) {
-> +               if (hdev->product =3D=3D 0x361) {
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
-,
->                                              0, 12440, 4, 0);
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
-,
->                                              0, 8640, 4, 0);
-> -               }
-> -               else if (wacom_wac->shared->touch->product =3D=3D 0x360) =
-{
-> +               } else if (hdev->product =3D=3D 0x360) {
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
-,
->                                              0, 8960, 4, 0);
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
-,
->                                              0, 5920, 4, 0);
-> -               }
-> -               else if (wacom_wac->shared->touch->product =3D=3D 0x393) =
-{
-> +               } else if (hdev->product =3D=3D 0x393) {
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
-,
->                                              0, 6400, 4, 0);
->                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
-,
-> @@ -4052,8 +4052,8 @@ int wacom_setup_touch_input_capabilities(struct inp=
-ut_dev *input_dev,
->                 fallthrough;
+> Unfortunately, kvm_arch_destroy_vm() is practically infeasible to audit. =
+ But, we
+> don't need to audit that code, we just need to audit kvm_arch_flush_shado=
+w_memslot(),
+> because if there are memslot references that are dropped by flush_shadow_=
+memslot()
+> but not flush_shadow_all(), then KVM is already buggy and vulnerable.
 >
->         case WACOM_27QHDT:
-> -               if (wacom_wac->shared->touch->product =3D=3D 0x32C ||
-> -                   wacom_wac->shared->touch->product =3D=3D 0xF6) {
-> +               if (hdev->product =3D=3D 0x32C ||
-> +                   hdev->product =3D=3D 0xF6) {
->                         input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
->                         __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
->                         wacom_wac->has_mute_touch_switch =3D true;
-> --
-> 2.55.0.979.g7e5102b832-goog
+> *sigh*
 >
+> And of course PPC is a disaster and does literally nothing on flush_shado=
+w_all().
+> Doubly hilarious, the worst offender seems to be kvmhv_release_all_nested=
+().  As
+> a quick and dirty fix, I think we can simply iterate over memslots and ma=
+nually
+> flush each one?
 >
+> Which, amazingly, appears to be safe even though kvmppc_uvmem_drop_pages(=
+) takes
+> mmap_lock, as exit_mmap()'s call to mmu_notifier_release() is (thanfully)=
+ super
+> obviously done without hold mmap_lock.
+>
+>         /* mm's last user has gone, and its about to be pulled down */
+>         mmu_notifier_release(mm);
+>
+>         mmap_read_lock(mm);
+>
+> diff --git arch/powerpc/include/asm/kvm_host.h arch/powerpc/include/asm/k=
+vm_host.h
+> index 2d139c807577..1c8d9d7360e9 100644
+> --- arch/powerpc/include/asm/kvm_host.h
+> +++ arch/powerpc/include/asm/kvm_host.h
+> @@ -903,7 +903,6 @@ struct kvm_vcpu_arch {
+>  #define __KVM_HAVE_CREATE_DEVICE
+>
+>  static inline void kvm_arch_memslots_updated(struct kvm *kvm, u64 gen) {=
+}
+> -static inline void kvm_arch_flush_shadow_all(struct kvm *kvm) {}
+>  static inline void kvm_arch_vcpu_blocking(struct kvm_vcpu *vcpu) {}
+>  static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu) {}
+>
+> diff --git arch/powerpc/kvm/powerpc.c arch/powerpc/kvm/powerpc.c
+> index 9194cf492d1c..2b88fb9e9bc4 100644
+> --- arch/powerpc/kvm/powerpc.c
+> +++ arch/powerpc/kvm/powerpc.c
+> @@ -764,6 +764,17 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
+>         kvmppc_core_commit_memory_region(kvm, old, new, change);
+>  }
+>
+> +void kvm_arch_flush_shadow_all(struct kvm *kvm)
+> +{
+> +       struct kvm_memory_slot *memslot;
+> +       struct kvm_memslots *slots;
+> +       int bkt;
+> +
+> +       slots =3D kvm_memslots(kvm);
+> +       kvm_for_each_memslot(memslot, bkt, slots)
+> +               kvmppc_core_flush_memslot(kvm, slot);
+> +}
+> +
+>  void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+>                                    struct kvm_memory_slot *slot)
+>  {
+>
+> If the above works for PPC, then KVM can nuke memslots before calling int=
+o
+> kvm_arch_destroy_vm().  x86's asinine memslot deletion in kvm_arch_destro=
+y_vm()
+> needs to be addressed, but that code exists purely to do vm_munmap(), and=
+ can
+> and should be moved to kvm_arch_free_memslot().
+>
+> All that said, I'm not sure this aggressive fix is the right thing to sen=
+d to
+> stable@.  For that, James' suggestion of hardening KVM's usage of
+> __copy_{to,from}_user() seems like the best blend of being comprehensive =
+without
+> being overly invasive/risky.
+
+This seems kind of nightmareish to backport; there are a lot of
+copy_*_user() callsites that will need updating. Maybe I have a
+different idea of the diff you're suggesting.
+
+I wish we could just change the uaccess primitives, like
+{,__}access_ok(), to check that `current->mm` is not NULL (and WARN
+and return -EFAULT if it is NULL). That diff is also not trivial to
+backport; many arch implementations would need updating. I have half a
+mind to send an RFC patch to linux-mm@ to see what they think. :)
+
+> So, as an immediate set of changes, what if we do this over ~5 patches, w=
+ith patches
+> 1 and 2 tagged for stable@?
+>
+>   1. Add kvm_copy_{to,from}_user{,_inatomic)() and return -EFAULT if curr=
+ent->mm
+>      is not kvm->mm.
+
+SGTM. This is not mutually exclusive with the generic uaccess changes
+I'm suggesting above. If this is actually reasonably backportable,
+sure let's backport it.
+
+>   2. Hack-a-fix PPC's kvm_arch_flush_shadow_all().
+>   3. Do x86's vm_munmap() in kvm_arch_free_memslot().
+>   4. Nuke memslots before calling kvm_arch_destroy_vm().
+>   5. Change the current->mm checks in kvm_copy_{to,from}_user{,_inatomic)=
+() to
+>      WARN_ON_ONCE() on failure.
+>
+> And then in the near-ish future, take things a step further and do:
+>
+>   6. Fix the vmx_leave_nested() trainwreck.
+>   7. Harden the common kvm_{read,write}_guest family of APIs even further=
+ by
+>      adding an early WARN_ON_ONCE() on current->mm !=3D kvm->mm, i.e. to =
+detect
+>      bad KVM behavior as additional defense-in-depth.
+
+This all SGTM, thanks Sean.
