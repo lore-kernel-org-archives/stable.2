@@ -1,139 +1,245 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5937D34678E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:29:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0262AD00
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:32:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003790; cv=none; b=keICG3pUPTuIuLi2cI63xRdz+czXVKyzKV9kRN/cO31HFHHDeyMHeNy0myO6ANQt0iWGugHO0a3eO+khsU1QhA67knrZC+OjhP8mrs6vMtfbNN21OQO22OKqdSCv//Rr5uqGiS9UYkWVt81+G5ZV0xy4PXJsR0uWMaAzv6y2wCw=
+	t=1789003959; cv=none; b=NUuUYpoD7TEgrr1AxhVRmI8ZKT2U4eTSIc3ofpZLgakvLmSD8peRM/qEuSy4vrUTRTPZnOrtZduuE2OWvL8mv93vK7p1mF3V+bTglGfyRkbkbr7OS8LaTJQNfpW1stfsn1Zew0NmhMYNDox97ukzfmV5wdTG2rUrtUSldsTR9Ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003790; c=relaxed/simple;
-	bh=HokBZGUvcpqzA4fK4KC14RydgPCDsWUTfyRQ2653WxQ=;
+	s=arc-20240116; t=1789003959; c=relaxed/simple;
+	bh=xgZWK+ewOUAWAfbHzJdT+KFhq3K7ccbjdrHDm4DgIzg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GXByN7zcA2zIrL+kSOCEPfXLzN5+OqlP4Q/D1c/zwFDA3dzU/m1PnKEYsQAFlLoA2ReFCOMAzZjhG47NJrY7lINqc4JWMZg4gnNiGo9IoWbysMag/RkVcgiQVk0QMYOrX/MN9VkfUproOwwR6ySm3Z0u9ZSqIK/hNhST0I1/AYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eax39K5u; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Icq5oLjQ8YWueoOTL/itMHNpWGskV4UFwOOnjxbb6IqwU40Vynv6vfnJdmkX8HLXcx7zftma3LlDrTUvPVA4/xMjP586zox/mygTWYFjpAVi41iUBQJczMFDOhpLvzxY6IH5SwD2DqtJ81DlNHqc5J+htDtmkyzOAJmpWjlqmrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lM4rwM1D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eax39K5u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3B11F000FF;
-	Thu, 10 Sep 2026 01:29:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lM4rwM1D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9A81F000FF;
+	Thu, 10 Sep 2026 01:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003789;
-	bh=hPAWuvCKp9nv30Gv/2eBXzK7cqt3zTvIibaulpT8DBk=;
+	s=k20260515; t=1789003958;
+	bh=VXCh8EGLVlxW2nYCgLQLqSrUyWh/2uCoELeNL4YFTQo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eax39K5uJEQjlMvzrz5bcRQvK/7EnWUrtw7EOYP0AD8sUsjSkWbb5m5nuQrzFAi86
-	 lXquUAzRx/0ZMHOrI7yBxbpncXlofbw8vZwESLDWuCS0esfxncBtr3Y9+ngzJC+Inj
-	 Y7FGbVe67E7kK/80nvcfA+AG9QJa9AG+jFH+5zPV+y8J1ynlAoWVHXicYMoleJ7qSr
-	 6mWEpBaiHkCC6fKtIEuOFbI2PfL0Gzdq/X9NgFdDdrdDHHKxUKTYegehNhKpkQeWMk
-	 YlYJF1kpYTa4Yf6RXBaawrewMMS0+E15n/uf98ktBIZUNs0SS30gshZAxDU/b1mB8b
-	 12gBYRAe6FV2g==
+	b=lM4rwM1DFJMZhy337O+OFDcSeSFkXW4zueS+VWbUHPNsoA8/+yofm9P29O8UUOIIO
+	 DVYXsVZ9IRkObly1a90PbEzfUyV0OKQxAn+z4M5gcYuX1F0MxWhjwOLvbuFO8SdrAX
+	 52NsSGVWefoCtAchYYXS9IHmJHTQryLXUaaji7UWJRmhBPCMQKs3U3uXIVNC9Hg5ZN
+	 pOA+jkUi2AfCZx/lFibhm3ngNoWkuLSmiaC4z10xg/+QBBoBw56mtgKMy3xbRQ5HuO
+	 sgD7Ue48n0FaRAbN2HU4rQklOEvHsfo9aJEjGEOsydK386fUjmlkR+lp91PbC7tIKg
+	 Smmz+V39jukIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?HE=20WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89?= <skyexpoc@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
-Date: Wed,  9 Sep 2026 21:29:44 -0400
-Message-ID: <20260910012944.3879576-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior
+Date: Wed,  9 Sep 2026 21:32:35 -0400
+Message-ID: <20260910013236.3889340-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910012944.3879576-1-sashal@kernel.org>
-References: <2026090803-neutron-crazed-bd82@gregkh>
- <20260910012944.3879576-1-sashal@kernel.org>
+In-Reply-To: <2026090819-kilometer-itunes-d755@gregkh>
+References: <2026090819-kilometer-itunes-d755@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: HE WEI（ギカク） <skyexpoc@gmail.com>
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-[ Upstream commit 7c4841e2a62794a3bab7c1ff0540580f387e377f ]
+[ Upstream commit dcfe437492e27d54f3ac491aed024da760f5c43c ]
 
-ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
-(== record_size) bytes and then walks every attribute of the primary MFT
-record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
-by le_size(name_len), with no check against the end of the buffer; the
-total size is only computed after the loop.
+There are too many different host behaviors when it comes to NoStream
+handling, and not everyone follows the USB and xHCI spec. The DWC3
+driver attempts to do some guess work to interop with different hosts,
+but it can't cover everything. Let's keep it simple and treat every host
+the same: just retry on NoStream after a 100ms of no response delay.
+Note that some hosts cannot handle frequent retries. This may affect
+performance on certain defective hosts, but NoStream is a rare
+occurrence and interoperability is more important.
 
-A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
-bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
-bytes in the list.  Because the number of attributes in a record is not
-bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
-minimum-size attributes), a crafted record packed with such attributes
-produces a list larger than record_size and overflows the heap buffer.
-
-This is reachable from a crafted, loop-mounted NTFS image: opening the file
-and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
-ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
-ni_create_attr_list().
-
-  BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
-  Write of size 4 at addr ffff000008984c00 by task setfattr/345
-   ni_create_attr_list+0xc48/0x1058
-   ni_ins_attr_ext+0x510/0x7c0
-   ni_insert_attr+0x3f8/0x70c
-   ni_insert_resident+0xc8/0x3b0
-   ntfs_set_ea+0x66c/0xd28
-   ntfs_setxattr+0x4d8/0x5b0
-   __arm64_sys_setxattr+0xa4/0x124
-  Allocated by task 345:
-   ni_create_attr_list+0x188/0x1058
-  The buggy address belongs to the cache kmalloc-1k of size 1024
-  (the write lands at object+1024).
-
-Size the buffer from the actual attributes instead of assuming a single
-record_size is always enough.
-
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Reported-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://lore.kernel.org/r/b92ae94c86f01f165d5f178b7767898573b6dc75.1736819308.git.Thinh.Nguyen@synopsys.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: b58e6200450d ("usb: dwc3: clear forceRM when issuing EndTransfer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/frecord.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/usb/dwc3/core.h   |   3 +-
+ drivers/usb/dwc3/gadget.c | 109 ++++++++++++++++++++------------------
+ 2 files changed, 59 insertions(+), 53 deletions(-)
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 5a00008d85714..152733f58f01e 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -821,10 +821,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	rs = sbi->record_size;
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index eb8b8f3e52167..7ee7228b31eb9 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -742,6 +742,7 @@ struct dwc3_event_buffer {
+  */
+ struct dwc3_ep {
+ 	struct usb_ep		endpoint;
++	struct delayed_work	nostream_work;
+ 	struct list_head	cancelled_list;
+ 	struct list_head	pending_list;
+ 	struct list_head	started_list;
+@@ -764,7 +765,7 @@ struct dwc3_ep {
+ #define DWC3_EP_WAIT_TRANSFER_COMPLETE	BIT(7)
+ #define DWC3_EP_IGNORE_NEXT_NOSTREAM	BIT(8)
+ #define DWC3_EP_FORCE_RESTART_STREAM	BIT(9)
+-#define DWC3_EP_FIRST_STREAM_PRIMED	BIT(10)
++#define DWC3_EP_STREAM_PRIMED		BIT(10)
+ #define DWC3_EP_PENDING_CLEAR_STALL	BIT(11)
+ #define DWC3_EP_TXFIFO_RESIZED		BIT(12)
+ #define DWC3_EP_DELAY_STOP             BIT(13)
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index d2b07d767877e..3cf22447c0415 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -995,8 +995,7 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
  
- 	/*
--	 * Skip estimating exact memory requirement.
--	 * Looks like one record_size is always enough.
-+	 * Compute the exact size of the attribute list.  Each attribute in the
-+	 * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
-+	 * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
-+	 * unnamed one expands to le_size(0) (0x20) here, so a record crafted
-+	 * with many such attributes needs more than a single record_size; the
-+	 * previous fixed kzalloc(record_size) could therefore be overflowed by
-+	 * an attacker-controlled record.
- 	 */
--	le = kzalloc(al_aligned(rs), GFP_NOFS);
-+	lsize = 0;
-+	attr = NULL;
-+	while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
-+		lsize += le_size(attr->name_len);
+ 			/*
+ 			 * All stream eps will reinitiate stream on NoStream
+-			 * rejection until we can determine that the host can
+-			 * prime after the first transfer.
++			 * rejection.
+ 			 *
+ 			 * However, if the controller is capable of
+ 			 * TXF_FLUSH_BYPASS, then IN direction endpoints will
+@@ -3309,6 +3308,50 @@ static int dwc3_gadget_init_out_endpoint(struct dwc3_ep *dep)
+ 	return dwc3_alloc_trb_pool(dep);
+ }
+ 
++#define nostream_work_to_dep(w) (container_of(to_delayed_work(w), struct dwc3_ep, nostream_work))
++static void dwc3_nostream_work(struct work_struct *work)
++{
++	struct dwc3_ep	*dep = nostream_work_to_dep(work);
++	struct dwc3	*dwc = dep->dwc;
++	unsigned long   flags;
 +
-+	if (!lsize)
-+		return -EINVAL;
++	spin_lock_irqsave(&dwc->lock, flags);
++	if (dep->flags & DWC3_EP_STREAM_PRIMED)
++		goto out;
 +
-+	le = kzalloc(al_aligned(lsize), GFP_NOFS);
- 	if (!le)
- 		return -ENOMEM;
++	if ((dep->flags & DWC3_EP_IGNORE_NEXT_NOSTREAM) ||
++	    (!DWC3_MST_CAPABLE(&dwc->hwparams) &&
++	     !(dep->flags & DWC3_EP_WAIT_TRANSFER_COMPLETE)))
++		goto out;
++	/*
++	 * If the host rejects a stream due to no active stream, by the
++	 * USB and xHCI spec, the endpoint will be put back to idle
++	 * state. When the host is ready (buffer added/updated), it will
++	 * prime the endpoint to inform the usb device controller. This
++	 * triggers the device controller to issue ERDY to restart the
++	 * stream. However, some hosts don't follow this and keep the
++	 * endpoint in the idle state. No prime will come despite host
++	 * streams are updated, and the device controller will not be
++	 * triggered to generate ERDY to move the next stream data. To
++	 * workaround this and maintain compatibility with various
++	 * hosts, force to reinitiate the stream until the host is ready
++	 * instead of waiting for the host to prime the endpoint.
++	 */
++	if (DWC3_VER_IS_WITHIN(DWC32, 100A, ANY)) {
++		unsigned int cmd = DWC3_DGCMD_SET_ENDPOINT_PRIME;
++
++		dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
++	} else {
++		dep->flags |= DWC3_EP_DELAY_START;
++		dwc3_stop_active_transfer(dep, true, true);
++		spin_unlock_irqrestore(&dwc->lock, flags);
++		return;
++	}
++out:
++	dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
++	spin_unlock_irqrestore(&dwc->lock, flags);
++}
++
+ static int dwc3_gadget_init_endpoint(struct dwc3 *dwc, u8 epnum)
+ {
+ 	struct dwc3_ep			*dep;
+@@ -3354,6 +3397,7 @@ static int dwc3_gadget_init_endpoint(struct dwc3 *dwc, u8 epnum)
+ 	INIT_LIST_HEAD(&dep->pending_list);
+ 	INIT_LIST_HEAD(&dep->started_list);
+ 	INIT_LIST_HEAD(&dep->cancelled_list);
++	INIT_DELAYED_WORK(&dep->nostream_work, dwc3_nostream_work);
  
-@@ -834,7 +847,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	attr = NULL;
- 	nb = 0;
- 	free_b = 0;
--	attr = NULL;
+ 	dwc3_debugfs_create_endpoint_dir(dep);
  
- 	for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
- 		sz = le_size(attr->name_len);
+@@ -3789,66 +3833,27 @@ static void dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+ static void dwc3_gadget_endpoint_stream_event(struct dwc3_ep *dep,
+ 		const struct dwc3_event_depevt *event)
+ {
+-	struct dwc3 *dwc = dep->dwc;
+-
+ 	if (event->status == DEPEVT_STREAMEVT_FOUND) {
+-		dep->flags |= DWC3_EP_FIRST_STREAM_PRIMED;
+-		goto out;
++		cancel_delayed_work(&dep->nostream_work);
++		dep->flags |= DWC3_EP_STREAM_PRIMED;
++		dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
++		return;
+ 	}
+ 
+ 	/* Note: NoStream rejection event param value is 0 and not 0xFFFF */
+ 	switch (event->parameters) {
+ 	case DEPEVT_STREAM_PRIME:
+-		/*
+-		 * If the host can properly transition the endpoint state from
+-		 * idle to prime after a NoStream rejection, there's no need to
+-		 * force restarting the endpoint to reinitiate the stream. To
+-		 * simplify the check, assume the host follows the USB spec if
+-		 * it primed the endpoint more than once.
+-		 */
+-		if (dep->flags & DWC3_EP_FORCE_RESTART_STREAM) {
+-			if (dep->flags & DWC3_EP_FIRST_STREAM_PRIMED)
+-				dep->flags &= ~DWC3_EP_FORCE_RESTART_STREAM;
+-			else
+-				dep->flags |= DWC3_EP_FIRST_STREAM_PRIMED;
+-		}
+-
++		cancel_delayed_work(&dep->nostream_work);
++		dep->flags |= DWC3_EP_STREAM_PRIMED;
++		dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
+ 		break;
+ 	case DEPEVT_STREAM_NOSTREAM:
+-		if ((dep->flags & DWC3_EP_IGNORE_NEXT_NOSTREAM) ||
+-		    !(dep->flags & DWC3_EP_FORCE_RESTART_STREAM) ||
+-		    (!DWC3_MST_CAPABLE(&dwc->hwparams) &&
+-		     !(dep->flags & DWC3_EP_WAIT_TRANSFER_COMPLETE)))
+-			break;
+-
+-		/*
+-		 * If the host rejects a stream due to no active stream, by the
+-		 * USB and xHCI spec, the endpoint will be put back to idle
+-		 * state. When the host is ready (buffer added/updated), it will
+-		 * prime the endpoint to inform the usb device controller. This
+-		 * triggers the device controller to issue ERDY to restart the
+-		 * stream. However, some hosts don't follow this and keep the
+-		 * endpoint in the idle state. No prime will come despite host
+-		 * streams are updated, and the device controller will not be
+-		 * triggered to generate ERDY to move the next stream data. To
+-		 * workaround this and maintain compatibility with various
+-		 * hosts, force to reinitiate the stream until the host is ready
+-		 * instead of waiting for the host to prime the endpoint.
+-		 */
+-		if (DWC3_VER_IS_WITHIN(DWC32, 100A, ANY)) {
+-			unsigned int cmd = DWC3_DGCMD_SET_ENDPOINT_PRIME;
+-
+-			dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
+-		} else {
+-			dep->flags |= DWC3_EP_DELAY_START;
+-			dwc3_stop_active_transfer(dep, true, true);
+-			return;
+-		}
++		dep->flags &= ~DWC3_EP_STREAM_PRIMED;
++		if (dep->flags & DWC3_EP_FORCE_RESTART_STREAM)
++			queue_delayed_work(system_wq, &dep->nostream_work,
++					   msecs_to_jiffies(100));
+ 		break;
+ 	}
+-
+-out:
+-	dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
+ }
+ 
+ static void dwc3_endpoint_interrupt(struct dwc3 *dwc,
 -- 
 2.53.0
 
