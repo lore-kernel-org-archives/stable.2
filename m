@@ -1,92 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1370935E1BC
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A7835FF58
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003034; cv=none; b=qN8ipJeMHCpXadzerZm1+jr/UtEONB1JkSkLEBi7grjVdK0BMmoE+VWKBekM5zJ8/r0wH0H9pCo5gB3ce5rV+dnoajSBsMpbeU/WKr/eyUXCDKFVtS9b8XTBOHr5q7zRlrOfAG0iIs+IAL8ngL92riR6lYTMkxPRATd3j+jzdNs=
+	t=1789003036; cv=none; b=uxpKs5t/qYcsl9oH3mxTHv26UbVVmWb/gQFXNhS0bHNNH0WfP+UvK2XayC7CB5yK+NENNXZaIfw1Oe+4sIUf+3qAVj6cTzRXeYZfNI7dHQop1MJzKT0zlRUvZgjQKGnymo53ShYV1JbkH/ltb5j16Cpy13PFcVSREHYMjMHL6Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003034; c=relaxed/simple;
-	bh=RbywjcStM2SZ6qdxU+JhA5u7SLdH2Wi9WscF5VgRmZg=;
+	s=arc-20240116; t=1789003036; c=relaxed/simple;
+	bh=YXlOxm0zcRF9RbY7TEq/AMLsZCVcUqXiFmiTUwp/xFc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j4HKcn27NtsL+pjIVptU/XcEzfwBdvO+CLI7Yfclj7IycjXqdEDJPvCIQHha05DUEkzjMZbXIWtQC1lP2Q7M50bsrCEGCzQzOUSr7Qq9GBRihV9GtINSHAWF7/tPcxP/VccBZSjyVgWI+UnRXyKhZi1dalx9/0C/JavbJNuZnyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YttiGsyD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fGpzMoH+Telm377INpx1J/+gcgTHgFxofIFX5UpIt6xw/ubqVphaOSWQ3zH0pFy2JnaxnNo26ud9lMxmGsvurCI+ifF2hN3P2s/DlMi2ubxXXWUsvVK9lKQvKGp0BQD4ljtnlFs0Unhsb9nlWnYAeqyEleqT1W1rkdces3VBSKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=StWcQamn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YttiGsyD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74501F00898;
-	Thu, 10 Sep 2026 01:17:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="StWcQamn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589B51F00899;
+	Thu, 10 Sep 2026 01:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003028;
-	bh=7aPaCy2tV4WTaGADE8iiXhCNN5BngexYqguDLyVBvII=;
+	s=k20260515; t=1789003031;
+	bh=qEKbNNRq+S2piGsCRxD1YiAuFdz2F1aZcn47G3i6jZQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YttiGsyDbADT2tlkXPp0NuBDj+iZOVF5o//GK2LYBi7yili9v4rHlzfTZoBKAZVKt
-	 oHZ0NZTqxdhD9UuH5McSl/q1isGDkdoO2bI1TP477iwoeH6W+H3ieOu4/jeKVRYuzu
-	 3m8+I6SYb3KNJJ3XAFDPQKO//2fuw/AfiidA3aDtWMj8/X5b+Rj1SQ3hMK3WqR58AA
-	 0Jb2hs2D8xG01eOhY5HFiLWvA1jniBMmotOGW3fwHXCB2Ynd3L6aGXaWGMfDPQLmSg
-	 6wj48zkBc7ErUBYXuGyQ+EfNHQFnVrocF4O4g2VRuqc9eGDMnwdT+/i4y+DbdbzO/U
-	 rZmWHpKe73Nbg==
+	b=StWcQamn7YMitGW37FZk4b8O4DZ+IvU29FWHd/8uaPk7O6ub8Nf8W9MZ6EmRAElrQ
+	 fRsPYP4wj47GRdkNEcTUG7yhBPW+8rg7jlV6hfV1bIExJcRnfqAgwQUHqGEVteH6OY
+	 Bc0o7qaBYPX/mO34AZZ8eHU/ZNCBgjhCDBrsicDDyZHFSIhFlVJWJiXukyMPlgzIcZ
+	 drMeYT/SJngNA/nfmIvWBHQFV/7gRKUo3H8lb3nUlQ6OFWZDz7VPeKd7n70VLacQpj
+	 mRSKzjDRUfg2S0df6Gzl9sEsmHbBMsGKM1aTVfzxGQMeMq3sB1z+/TciMfp9ZqRVTe
+	 05dN1f1iUz1qg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Nirbhay Sharma <nirbhay.lkd@gmail.com>,
+	syzbot+83c9dd5c0dcf6184fdbf@syzkaller.appspotmail.com,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] i3c: master: Do not treat master device as a duplicate target
-Date: Wed,  9 Sep 2026 21:17:06 -0400
-Message-ID: <20260910011706.3831507-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] fs/ntfs3: fix KMSAN uninit-value in ni_create_attr_list
+Date: Wed,  9 Sep 2026 21:17:08 -0400
+Message-ID: <20260910011709.3831760-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090411-sublet-unblessed-7a77@gregkh>
-References: <2026090411-sublet-unblessed-7a77@gregkh>
+In-Reply-To: <2026090802-coherent-breach-4121@gregkh>
+References: <2026090802-coherent-breach-4121@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: Nirbhay Sharma <nirbhay.lkd@gmail.com>
 
-[ Upstream commit 4dc1b3eeba7991905a5b5b8129ebea51be7d87b7 ]
+[ Upstream commit 5f33da04e6ceee849e76e6592cc283c72fef7af9 ]
 
-i3c_master_search_i3c_dev_duplicate() searches the bus for another I3C
-device with the same PID as the reference device.  The search can match
-master->this, causing the controller itself to be returned as a
-duplicate.
+The call to kmalloc() to allocate the attribute list buffer is given a
+size of al_aligned(rs). This size can be larger than the data
+subsequently copied into the buffer, leaving trailing bytes uninitialized.
 
-Since the controller is not a target device, it cannot be a duplicate of
-one.  Exclude master->this from matching so that the function only
-returns real duplicate target devices.
+This can trigger a KMSAN "uninit-value" warning if that memory is
+later accessed.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260807145638.168865-4-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ adjusted the duplicate-device comparison to match the older branch’s PID handling without nonzero-PID checks. ]
+Fix this by using kzalloc() instead, which ensures the entire
+allocated buffer is zero-initialized, preventing the warning.
+
+Reported-by: syzbot+83c9dd5c0dcf6184fdbf@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=83c9dd5c0dcf6184fdbf
+Signed-off-by: Nirbhay Sharma <nirbhay.lkd@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/ntfs3/frecord.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index c062e94ce2211..e6f8e1daa5a19 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1981,7 +1981,8 @@ i3c_master_search_i3c_dev_duplicate(struct i3c_dev_desc *refdev)
- 	struct i3c_dev_desc *i3cdev;
- 
- 	i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
--		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid)
-+		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid &&
-+		    i3cdev != master->this)
- 			return i3cdev;
- 	}
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+index 3a458975181c4..b24035c351925 100644
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -769,7 +769,7 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+ 	 * Skip estimating exact memory requirement.
+ 	 * Looks like one record_size is always enough.
+ 	 */
+-	le = kmalloc(al_aligned(rs), GFP_NOFS);
++	le = kzalloc(al_aligned(rs), GFP_NOFS);
+ 	if (!le)
+ 		return -ENOMEM;
  
 -- 
 2.53.0
