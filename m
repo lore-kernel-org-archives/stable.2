@@ -1,97 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C744A2472A6
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E4632E151
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003261; cv=none; b=nb7C1vE4KstwUtyKmLuEnJkefukj+AYllaM27e0HFn8+AcXS/aCY85R8kVOomKnogcaDv3mEo2H9rzE83vf6PI/Um/1K4jNwBcdwiD8zq1wrk3QfIfWFjecVaFjYAMWO8R12R2emuHIw6cVX16e5abbig1QdpeZ0gBeTDUFD3gs=
+	t=1789003262; cv=none; b=QRdXHSPgLxOTRbxmMjaksTBZcTQmI+hRVCSCLL4lVyi30BxUeyWD0ly2G+wgPOWBu7P53m5/oTfLyBM3CNxAr4PUIyZmkjJqOCqJgJOFTtuvcIJk0aBr+4Bb0ID+fLVzvLswL+4VgEhiXBmCAdOKIsMVvh9q50H/xM9bfjKeJBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003261; c=relaxed/simple;
-	bh=UJotlrP0STj0H+UD5bhUyMUtFD+G5CyJtXMdNkHCDdw=;
+	s=arc-20240116; t=1789003262; c=relaxed/simple;
+	bh=9rERr2e1TlCeWssk+7xwHPN8xLBWze9V0jnIPOMhNUk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gGGj7VZeoUu1eSAEE5l/qhq628c2hpz60s1nNlIwVNDZ4xBaR+V4bI6OL7TEam76vJTbqHnNSf7FOEkzb0SYC8bVbVjUps1P2jDqrkvvzfr+MkNl/Lv4MVVfLTxSFjMqOcziInREVcR053jDpzDSlxqN+EbLEDyFFFcVfIFZrcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSl3f8lX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ej9mmlpGY1mZmCmclfwmXwzES0i1nZT2AfrFoSvd/Y5FkgourOADaQnRGxQJ3+VsH7mxY7ZrDxSPT96iZEjSvJWbcg5FpJ0qltG+dDf5Ctk4NWiSmRbdEjj31lZf1kO9QuI83PebSfTj74XPIYEDrRoX+r/LO/W2jOI2zVYxCNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAbcwHKz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSl3f8lX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7241D1F00898;
-	Thu, 10 Sep 2026 01:20:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAbcwHKz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723491F00893;
+	Thu, 10 Sep 2026 01:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003259;
-	bh=KpDBEwDEbV3evgrJHzUhoqeQJTzY2J5Y1bwEeIifZyE=;
+	s=k20260515; t=1789003261;
+	bh=lene88BXYo/IuiBWGh7egAu98kH49emuOpgGJf/gYCY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HSl3f8lXIxXsYtYgKUv/+aqr/Ci55TyD0Z7zVFVf3LVgoSgpTenn1vaGw1M28rgX5
-	 pqt944CAExQ3hMR2CpFvCdbzPr0HDnl5mLpcT9OmgEJzHTxzabxGPmsJJD8bHzBsLN
-	 uvST9DOPZ/Yspsgzs2/QOeRc43FtLyl5zzEi0FcpysZC+5d8Sc7qcuY5DNy0ryzZAB
-	 4/6wIubzFxdScMv47ZekqRBO8Z/yyaxzU+7o4ltNu7crKQ1LdMRL0eqIGQKTNZi4yS
-	 vPFuQGrEzQYe967vPlZVgBch5on9jObWZYypWQJKigtvzl9JhdgFls6bktM5NsG8ji
-	 lzgROnRipEbRA==
+	b=jAbcwHKz8ls1MFnFtpxuw+XSawH7AGjvGKVRZinjlWROODFOyo9WGtOzrYJsZZcv7
+	 +L6RBRCCYTN2EQI3U1PvA0/oaizlvpSJhSaH0ilquxWRnqT44RPjElsc+t4S21LBFH
+	 uOW/2UHHiKx2kO/w+XCp7GPxLFNFRAHyxZuvKtKQSruequdk6G3W6JA2IXZ4TZnWRe
+	 lE0OwcgQefdJWWSn79g0kI5Jx7bZS1Ta64yQXg4n1uJoWWf5Ahw/i/lKG3VxqOca6w
+	 d2VOvfdz7eXl37ro5+G1ruQiBeg4GZn57GwpKUQlH8DWi8kfiLKQzwsJS6+a9SRHCp
+	 6zt6dSlYd+tMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] wifi: mt76: mt7915: bound the device EEPROM address before the EFUSE copy
-Date: Wed,  9 Sep 2026 21:20:56 -0400
-Message-ID: <20260910012056.3847376-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] i3c: master: Do not treat master device as a duplicate target
+Date: Wed,  9 Sep 2026 21:20:58 -0400
+Message-ID: <20260910012058.3847485-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910012056.3847376-1-sashal@kernel.org>
-References: <2026090457-untouched-slouching-68c4@gregkh>
- <20260910012056.3847376-1-sashal@kernel.org>
+In-Reply-To: <2026090412-bruising-crispy-d9d5@gregkh>
+References: <2026090412-bruising-crispy-d9d5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 44b5adfe49499f53002737f5fe81d608c08122fc ]
+[ Upstream commit 4dc1b3eeba7991905a5b5b8129ebea51be7d87b7 ]
 
-mt7915_mcu_get_eeprom() copies a fixed EFUSE block into the driver's
-dev->mt76.eeprom.data buffer at the offset reported by the MCU response
-(res->addr, a device-controlled __le32) without checking it against the
-buffer size. A malicious or malfunctioning device can report an arbitrary
-address and drive a 16-byte out-of-bounds write past eeprom.data.
+i3c_master_search_i3c_dev_duplicate() searches the bus for another I3C
+device with the same PID as the reference device.  The search can match
+master->this, causing the controller itself to be returned as a
+duplicate.
 
-Reject a response whose address would place the copy outside eeprom.data
-before deriving the destination pointer. Devices that echo the requested
-in-bounds offset are unaffected.
+Since the controller is not a target device, it cannot be a duplicate of
+one.  Exclude master->this from matching so that the function only
+returns real duplicate target devices.
 
-Fixes: e57b7901469f ("mt76: add mac80211 driver for MT7915 PCIe-based chipsets")
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260625-b4-disp-16f99062-v1-1-aee52ecf61b9@proton.me
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Acked-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260807145638.168865-4-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[ adjusted the duplicate-device comparison to match the older branch’s PID handling without nonzero-PID checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7915/mcu.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/i3c/master.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-index 4dbda2ea2f8d4..9186ddc67f8ff 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-@@ -2856,8 +2856,15 @@ int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset, u8 *read_buf)
- 		return ret;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 09d7b707c7b18..2fb403a34cf39 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -1976,7 +1976,8 @@ i3c_master_search_i3c_dev_duplicate(struct i3c_dev_desc *refdev)
+ 	struct i3c_dev_desc *i3cdev;
  
- 	res = (struct mt7915_mcu_eeprom_info *)skb->data;
--	if (!buf)
--		buf = dev->mt76.eeprom.data + le32_to_cpu(res->addr);
-+	if (!buf) {
-+		u32 addr = le32_to_cpu(res->addr);
-+
-+		if (addr > dev->mt76.eeprom.size - MT7915_EEPROM_BLOCK_SIZE) {
-+			dev_kfree_skb(skb);
-+			return -EINVAL;
-+		}
-+		buf = dev->mt76.eeprom.data + addr;
-+	}
- 	memcpy(buf, res->data, MT7915_EEPROM_BLOCK_SIZE);
+ 	i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
+-		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid)
++		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid &&
++		    i3cdev != master->this)
+ 			return i3cdev;
+ 	}
  
- 	dev_kfree_skb(skb);
 -- 
 2.53.0
 
