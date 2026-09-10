@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5F558F073
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859FA4CCDFF
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067336; cv=none; b=iJ5X8AQZ4+OR0JaQvz2xDRg43gHzwZVR5IrYshF5ILJCtcwm/J5+vEQYsXpF2XBNoPTupuyRcYQ0s2DgrS+pDFd5+UjaCPfrqCZEu//1odqNQQMF8IzwZkUQHowaVoSE0QF+3QkZO+3pxz/D0vdEv7bvLzN6pks2KPMeTRNRl40=
+	t=1789067338; cv=none; b=j2a6d0kR5H0bmAjFsvn3LMMEgI/C81SjCnqmYoTx6nSPt4yVSGDE61Prg9/VG2WKs5/05RV5iv/7blCpM7dijX7SDVpdzt3LSAzw4eFwdjkETn9ViLgxhmdUmObhYUemoUGK8ZlnWIUZaOTL+Gynu+REXzArE3OEPhjozEme5SE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067336; c=relaxed/simple;
-	bh=HTObshrFRb/YjZVIlJEqwwaLajwr7whwMhyhLxRjTNU=;
+	s=arc-20240116; t=1789067338; c=relaxed/simple;
+	bh=zSohi2TuYm/L5WReCkcQFRR5fFCPyQmEfF+kwisoMV4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W3L6xDzgksEervZqXHOq17HYkNoFDaUIGR2+dx7NGTnVCND/vUzY3+6txl/M1DcslxfdfUWLPG9sb2A972hUbDkTMYNNy364iF+WQd1Qtrul3/o/3YbNumU2CUKoBwTywESebNBBqIfcwefqs0WS0gdLobgmjSM9ouMEYgbGMNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XosiQhXB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZCneO4QQ9s30m3yLbtJ+ZDZOyIWMMa4ImfRFRIAoLfZSdjk4uTQz+UZAaGafWWW4VIM+6b8uJlQBYU376XeLT2bcJ1VR9txWOAwdAtrNVoyxNn3bXyGhJPIDspWzvC8/gvAzFHMqjrsdRa+KzulvTmGD3NiyUle6FLekIZ9txnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EjSVIE/v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XosiQhXB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24901F00893;
-	Thu, 10 Sep 2026 19:08:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EjSVIE/v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F101F00899;
+	Thu, 10 Sep 2026 19:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067334;
-	bh=SmCpFA/ShAwqTVWaWaJse/brTkUkFGHSX0wT4t/O5JI=;
+	s=k20260515; t=1789067335;
+	bh=AjbSjAHun/5NStFg5/JglzQGeP7AnyDf24VWUjWfCeA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XosiQhXBJBiDHWVWN3PCKXtMIkGZRda8mZhiunX8xHf9DF0Fz7I8LHiUQSapj87fk
-	 z27pkHsLkQqH6EXGHPH9WTqleH4/65V9lDCaRMB1Dwijq/iek4mzNdfp/DR4iMzrXf
-	 LIsRFe883485jeGEPNk+QGyO/BPQ1r0tiP08qpt51FtumELLUGF+/qbrEhpAxOeWts
-	 yOnP1Jo83RWw/8FpS95LYKeGgS/N4SB6ZMqaesapnK597/g59hpsPdXmhaLFfwxEgQ
-	 dyXWzkIDrWpIgGAGzVN10qPWDtvSmV2YYxBPFwlr/3utlCJr3PpnG0l/cLavcXE1OR
-	 TWfhSn105iLLA==
+	b=EjSVIE/v+RStXnusloWOZ0Lbwj9C/7ZCY626Xmwbxehzs3vwLDmOmcA8xwitDN9z2
+	 RuDnDAV9hK+JWb7M3MJqH2DGomMUeh+J4uG/GTqdOtfCJUYWJ/QokLDZSnK7+ONQjK
+	 mG+GCnnwE24Wji58gK8MSWByM1jp63TBJHlSR7KyhkzQYE4HCjFJByThk9/BNrWaI/
+	 49Oik+E611YvYtUjNaGhbDT6jJ08t/6Oiy1fQDW+QkI+SXGSTPhlNzcKH+2ahn6ojr
+	 rXWWwnZPciWhf3KO4wyFWj3kMgWdLb8ecmILvmexEriWBcz3YgIPZ3BMQlGOL4v2n+
+	 xCNS9ENQo0syQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yabin Cui <yabinc@google.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	James Clark <james.clark@linaro.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Jiri Olsa <jolsa@redhat.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mark Rutland <mark.rutland@arm.com>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Namhyung Kim <namhyung@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Zide Chen <zide.chen@intel.com>,
+	Thomas Falcon <thomas.falcon@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] perf/aux: Allocate non-contiguous AUX pages by default
-Date: Thu, 10 Sep 2026 15:08:51 -0400
-Message-ID: <20260910190852.1454402-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities
+Date: Thu, 10 Sep 2026 15:08:52 -0400
+Message-ID: <20260910190852.1454402-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090959-treadmill-straddle-c245@gregkh>
+In-Reply-To: <20260910190852.1454402-1-sashal@kernel.org>
 References: <2026090959-treadmill-straddle-c245@gregkh>
+ <20260910190852.1454402-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,127 +49,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yabin Cui <yabinc@google.com>
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit 18049c8cff9cc89daadc4df6975f7d9069638926 ]
+[ Upstream commit 8767b4d73018bd3143f4c55b672064fad292f11b ]
 
-perf always allocates contiguous AUX pages based on aux_watermark.
-However, this contiguous allocation doesn't benefit all PMUs. For
-instance, ARM SPE and TRBE operate with virtual pages, and Coresight
-ETR allocates a separate buffer. For these PMUs, allocating contiguous
-AUX pages unnecessarily exacerbates memory fragmentation. This
-fragmentation can prevent their use on long-running devices.
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
 
-This patch modifies the perf driver to be memory-friendly by default,
-by allocating non-contiguous AUX pages. For PMUs requiring contiguous
-pages (Intel BTS and some Intel PT), the existing
-PERF_PMU_CAP_AUX_NO_SG capability can be used. For PMUs that don't
-require but can benefit from contiguous pages (some Intel PT), a new
-capability, PERF_PMU_CAP_AUX_PREFER_LARGE, is added to maintain their
-existing behavior.
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
+}
 
-Signed-off-by: Yabin Cui <yabinc@google.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>
-Cc: Jiri Olsa <jolsa@redhat.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Link: https://lore.kernel.org/r/20250508232642.148767-1-yabinc@google.com
-Stable-dep-of: 8767b4d73018 ("perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities")
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
+
+$ grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
+
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
+
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.intel.com
+[ Adjusted patch context to match the older PMU initialization and capability layout. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/events/intel/pt.c  |  2 ++
- include/linux/perf_event.h  |  1 +
- kernel/events/ring_buffer.c | 29 ++++++++++++++++++++---------
- 3 files changed, 23 insertions(+), 9 deletions(-)
+ arch/x86/events/intel/core.c | 10 +++-------
+ arch/x86/events/perf_event.h |  2 +-
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
-index a087bc0c54987..acdff93985504 100644
---- a/arch/x86/events/intel/pt.c
-+++ b/arch/x86/events/intel/pt.c
-@@ -1797,6 +1797,8 @@ static __init int pt_init(void)
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index ddde2f1d0bd29..f7b4db1132bcd 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -6538,12 +6538,6 @@ __init int intel_pmu_init(void)
  
- 	if (!intel_pt_validate_hw_cap(PT_CAP_topa_multiple_entries))
- 		pt_pmu.pmu.capabilities = PERF_PMU_CAP_AUX_NO_SG;
-+	else
-+		pt_pmu.pmu.capabilities = PERF_PMU_CAP_AUX_PREFER_LARGE;
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
  
- 	pt_pmu.pmu.capabilities	|= PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE;
- 	pt_pmu.pmu.attr_groups		 = pt_attr_groups;
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index c2bd4bc45a27b..be6ddf1961534 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -301,6 +301,7 @@ struct perf_event_pmu_context;
- #define PERF_PMU_CAP_AUX_OUTPUT			0x0080
- #define PERF_PMU_CAP_EXTENDED_HW_TYPE		0x0100
- #define PERF_PMU_CAP_AUX_PAUSE			0x0200
-+#define PERF_PMU_CAP_AUX_PREFER_LARGE		0x0400
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
+-
+ 	/*
+ 	 * Install the hw-cache-events table:
+ 	 */
+@@ -7271,8 +7265,10 @@ __init int intel_pmu_init(void)
+ 				      &x86_pmu.intel_ctrl);
  
- /**
-  * pmu::scope
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 6ecbbc57cdfde..b4edac7d9cd34 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -680,7 +680,15 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- {
- 	bool overwrite = !(flags & RING_BUFFER_WRITABLE);
- 	int node = (event->cpu == -1) ? -1 : cpu_to_node(event->cpu);
--	int ret = -ENOMEM, max_order;
-+	bool use_contiguous_pages = event->pmu->capabilities & (
-+		PERF_PMU_CAP_AUX_NO_SG | PERF_PMU_CAP_AUX_PREFER_LARGE);
-+	/*
-+	 * Initialize max_order to 0 for page allocation. This allocates single
-+	 * pages to minimize memory fragmentation. This is overridden if the
-+	 * PMU needs or prefers contiguous pages (use_contiguous_pages = true).
-+	 */
-+	int max_order = 0;
-+	int ret = -ENOMEM;
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
  
- 	if (!has_aux(event))
- 		return -EOPNOTSUPP;
-@@ -690,8 +698,8 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- 
- 	if (!overwrite) {
- 		/*
--		 * Watermark defaults to half the buffer, and so does the
--		 * max_order, to aid PMU drivers in double buffering.
-+		 * Watermark defaults to half the buffer, to aid PMU drivers
-+		 * in double buffering.
- 		 */
- 		if (!watermark)
- 			watermark = min_t(unsigned long,
-@@ -699,16 +707,19 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- 					  (unsigned long)nr_pages << (PAGE_SHIFT - 1));
- 
- 		/*
--		 * Use aux_watermark as the basis for chunking to
--		 * help PMU drivers honor the watermark.
-+		 * If using contiguous pages, use aux_watermark as the basis
-+		 * for chunking to help PMU drivers honor the watermark.
- 		 */
--		max_order = get_order(watermark);
-+		if (use_contiguous_pages)
-+			max_order = get_order(watermark);
- 	} else {
- 		/*
--		 * We need to start with the max_order that fits in nr_pages,
--		 * not the other way around, hence ilog2() and not get_order.
-+		 * If using contiguous pages, we need to start with the
-+		 * max_order that fits in nr_pages, not the other way around,
-+		 * hence ilog2() and not get_order.
- 		 */
--		max_order = ilog2(nr_pages);
-+		if (use_contiguous_pages)
-+			max_order = ilog2(nr_pages);
- 		watermark = 0;
- 	}
- 
+ 	intel_pmu_check_event_constraints(x86_pmu.event_constraints,
+ 					  x86_pmu.cntr_mask64,
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index ab77bc634c392..c82c6b5e4013a 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -630,7 +630,7 @@ union perf_capabilities {
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+ 		u64	pebs_timing_info:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 	};
+ 	u64	capabilities;
+ };
 -- 
 2.53.0
 
