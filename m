@@ -1,131 +1,135 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C768385539
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170453CA481
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068251; cv=none; b=iX4p8aC4pFzPBtVkULDUIWqNO5IltEXjKUuLuc+zwdKLef0YQ+buwjiLCXPIMplFaVTurxzWutBpKbe1dx8A+ZHC+sC0GaWLY8BvfXd9gdmpwJfOkkAo+3k6IhLnMRjiTQjqbpwUoY0gRipbx9hIXa6ezUEc0pEAgbBMebw1CAI=
+	t=1789068385; cv=none; b=jas+TOAqDfJ5N8K9SUtb4CHAAfVL1iHKRBK5Ofrs8MSXqv6+v6GjAC2uKYqTNa4HGmcVnevV9mzoQRPTeuUYHh98OkE7nYUqe7WU5SnpBQSTM81fsdFzJ6x3Z9fNuCDLKjKqdIlps+go2gW3Pxer22ZS5Kz1Gnu4aorBAG+6adA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068251; c=relaxed/simple;
-	bh=NFdPHhc3LsLcrwO8I1jm9fAG7WMoI0tLSX9zCgLEAR8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TJLmd0PjIChzYDVV6KLNM8x0z8b44dfNeTU23MUXgP2jV+qinpX6TNB2VCSzBF6Hc4wxMav+nwL01bSHhuBE3hHB8NKYOwnXIz2UqQ6seylv17emONYU7G9v5rzx5lHVoJgu0CTWPyF6LuxWKS1BgDN8vnH5FvlqxuX15odTFMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=pkDF1Iw4; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1789068385; c=relaxed/simple;
+	bh=PK8bn5aU171tfON89RThbs87i/BE1OYud3wLsDUh4hU=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=cuinUpWZNqRw/Z2sIiA+tNZ+zWMeJPJdme1kvhQoIvLiWZ5Ne6uLWfq6v5qffAj/+cIXVsrigQWfiA3n9yHp0El2/JCYuNHGJcuUfBXs0ZqqRkMzNFaL6MiFwx7ZYudIjwunYse/JkMM6zSDrT8/LQKaumJyktnxYc73ok3L+FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=TJzVSaBe; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="pkDF1Iw4"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-910316a2fc9so480496d6.2
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:24:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="TJzVSaBe"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb4so5516685a.1
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:26:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789068245; x=1789673045; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cgtHhNSTchXYsp+hlynbz5tZ66bgVPaYzguNWbLkTBs=;
-        b=pkDF1Iw4g9w3t2bXjLYcTPESzHkp7bFctyPqxdWu2j4rcpNY53KBgDcYWj+dAryKC3
-         BLhKBXsK0bH3Aj8p7scMf2/i/HOjveOgMrMQfgXt8bqGJup+fIoC2wE1o8WO2ARY8XxH
-         Z3V3OmFBjqwgY5Ddk0XDvtdNPEV9h+t/jUwTL5kZIwAlGUyojhUWI6gnv2aqo97Ss4s5
-         65HP+roRSIHOcsMfbUyNjn+h+2tMl/8qdJ0EzQHDSKGWQMPthv4AdY8ysGG9KZ97xzZY
-         31hjUb5nBXT2SgczDalJ/a+HAzCnjDmkLDfofqziwo/RfYcG1YoxzpycCqqxHLp4Prpa
-         4r6g==
+        d=paul-moore.com; s=google; t=1789068382; x=1789673182; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4xukxtRxDbbfqZShrZASrA+GXX4dRNxrhliA3H85hXQ=;
+        b=TJzVSaBe6JWN3LWgLyYOZUFto49U5CTuJraV4VIPAmuBR7ZJBmyKCIBU/+2bTVxEW4
+         L56FQrsc2n++FdHOiZlMa+30UoluoJ0OCeD82XWQ8TnSRUcpS6ELlAFAWX3rYjhvxYxa
+         I2N+mbEtMnPAp62CPX6EQDkK20snic25TSNJ64Sdyjf0tiOv+O9rDDGOhIPVsNhFqjof
+         L/w7ohojbwyPI8eaVyj1W6zxrNkyHzPZ6GQ8yVjBCucZL9KINHUD4D25ygbh5MGbCV8j
+         u4s29Csmji/0TXNgyFvp1JVremYVguwLbdOkyQa5b8ktuNfjBxUz806L0llSUr5ufvr9
+         irJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068245; x=1789673045;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789068382; x=1789673182;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cgtHhNSTchXYsp+hlynbz5tZ66bgVPaYzguNWbLkTBs=;
-        b=P1eMSSqZmQBIAZhftrZ92LpV4Lw09fZW1RC4Yw4FiAnAffGGShQHX0Ol2I86DE09wr
-         kzawedZN5kPPEqDQFfrwa89xwVQtGb17nHqlgcZpv7ETXiby9diwuaUkEcpC/CiXOFgp
-         up0EAxStZy7qtSb09jFFBr5nUIBoT0VDB+4luttRZeKpf04uhWNmSkOS7t2bHRVAoxU4
-         ylNfpq8381JNeDDvptK6ne+mYydRHHbIr/efelt5um1c0rgCGT9pVlgUH5MSZwZlcd9u
-         4shjs1VWBYuBVrJD3BWtvHU/7AWsqqFwHnKv1xkbefDUgZoELNfXMj4sbsg7FuEMjbKB
-         yoSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpW6Rvw9OlIbKwLtx3HXXib+MIAHNDDCzVzzcIPRL5Si+gkrRV64eVi+/M5q+e5AUmHNqKgf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqg8IP76HmkphmUaEf6kpfBDkEJtb7/JPdsbG9A4zNLfccCWuG
-	Ja19sGTEnv3Jmtu2nwxDVxehsY17FShMJbedsTpK8wKpS+6CtrosX03xwlc1BCcsafg=
-X-Gm-Gg: AYBFou0tST9GXqdv/HxeKe/6tw90gwKfW8Qsa6xTzVUeDnToI3ULbLiC7bcGy39/NhX
-	xQrU1qVnM9r72Ay3d0DODUVCtGTS+BLiRYBWg4Ts5uC5J7BmOCHEXTQfaUHRZ4Ixlkds4kq7gXx
-	Bj0vrIKrW0Gju1eHoV0yRCbqNHykLOFbSc69mJBAYNdSCZBlalJ7OBVBfMpiTgGXifAqocC8OQk
-	9Kpr2ot7+VjFNYlG6O2IdvypdYEl5ISqaf35gX28sI7amyL1Tw57P411xQSQaGlCep5uQdsX1tV
-	932LjjWB/DwObAzOSPd2kZLw9ItvK2KPsb3EYCXEnp/llW5lMWfVZ+rCPeZGD/Vq2JJuyO2hnil
-	iWoY40+qiro8tResDHpVXL+T/h29SmjApcwr3ul05rb0SAxAWwWHdttX5Iz7b2KBrcdU5XiZ28h
-	UZeTgAgIu299iQ/aaUdNirE0s/vytS/RFaSg1SuK0bnRF0e6mPScruSWQI8oX/JeFyNjz5lQ==
-X-Received: by 2002:a05:6214:226a:b0:911:9375:bc33 with SMTP id 6a1803df08f44-912120f2d2bmr2797916d6.30.1789068240280;
-        Thu, 10 Sep 2026 12:24:00 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f202856sm3329906d6.2.2026.09.10.12.23.59
+        bh=4xukxtRxDbbfqZShrZASrA+GXX4dRNxrhliA3H85hXQ=;
+        b=NuVgAlWmnsNZItaiazZs3G0gtGpvh/+PfueRaUHzU/Wl02w4skKOqLwfQAL7/qUL5w
+         iwNnhUjMMILgTJRqEAwzLYa4wObeYVQH6zXQJT7vpMGFfvJV/QMQIsuEjsb8gPM+bvmx
+         l6P+PtSUXEd9uxZOa84wD5+vq/qWothKmxpXa9m8KPpNOexyM05KpLdrIp/pBoWqwDpk
+         ijWv4bVGg4Rl8EUOvPkk765MbF4fQcqKCRLXd05syNKNkV6MWtJYzfqEJ8ndA61TXqmm
+         Qm4ugr2FtF5IjqN0gIxAH5I/oTnevOlOPAEHwsVJ1mTaHOuacE1viiT7YTguma2SnoVo
+         CoYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ1Uito2/O7G9BJZoqJ4i3m6i9rH7iz2Q6gKdI00JFBNDTR/OkALOdzJFSYEmsz/BW3yqLujU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mc4feq0yX7AllxQ1IIcxUPIsKMbGypRZ7lHlFlm5UWgS5XKr5W
+	WKWcf+2IV1nxN8qZjpnhahC+U1IxiZ+hbzE2lbLXEiNddbsf1uZfHAO6kIgwkIXTaw==
+X-Gm-Gg: AYBFou2BKx7aoCTa3DmyFwuY2Izft6mR+Vlvk9LiMhdor9sbBV/jUe0vAZupZyzi3L4
+	mmAYLgxAqTU3jLvcEAQ0yzEuR56NdVROdBdfIk4QdCtVrzi2ffHb6oRk0A4p5ndNBIfGodz0uem
+	T/abW/gj7rwkYw5xFLfuAvyhv7dZZy7YYf/v3pgDXHvdlVrh7d9ZWgqkZ5LQTu8OdYcg1W0bnvS
+	ifDVHMiErvGeeVAYHE422xi6KQ5HAM+o/swSENwcdyiJ4AG3CNIaiRJcQ9vCREs/h+1iTIMZF7g
+	g87HofiMGN+aKxNT34VMi5GlvIGlVZnROF8xpLY+0mi7uw+TZYvGewHxI/EElXICLQFNyy9bb8e
+	BB5/es+8Qk1ndT7Nir8vI6V8KKfpzqpXtNxjtOnMzklBEOPZoC34BgzN1p8y5EyjNFbg7OyMRvL
+	M5eO0Zga8Azyvcbuwp3Yf1tZvqd1RaVv25zSadQqa9euct6n9CepOWnSuFXzC6FUW/tZpfXnaPM
+	cDIoFQ97eIDm4Z5avSLpdojV8DACxcOVDsiMoz8yhFlyFpKgu6ghugqkWRTsY/L0HbuNA7/4Ll/
+X-Received: by 2002:a05:620a:28d4:b0:936:8840:427f with SMTP id af79cd13be357-939ea037c44mr52546485a.4.1789068381925;
+        Thu, 10 Sep 2026 12:26:21 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8045b46sm56168385a.18.2026.09.10.12.26.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 12:23:59 -0700 (PDT)
-Date: Thu, 10 Sep 2026 15:23:55 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>,
-	David Hildenbrand <david@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	William Kucharski <william.kucharski@oracle.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.6.y] mm/huge_memory: use folio's memcg inside
- __folio_split()
-Message-ID: <aqMDyxhGXZyhcm5H@cmpxchg.org>
-References: <20260904022657.2656810-1-ziy@nvidia.com>
- <2026-09-05-daily-reply-0043-folio-split-memcg-6-6-bounce-v2@kernel.org>
- <DL8LKM3Q9LGZ.DENNSVG6XK1C@nvidia.com>
+        Thu, 10 Sep 2026 12:26:21 -0700 (PDT)
+Date: Thu, 10 Sep 2026 15:26:20 -0400
+Message-ID: <f444c557e77c22eb578216a5e6eb5b98@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL8LKM3Q9LGZ.DENNSVG6XK1C@nvidia.com>
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260909_1743/pstg-lib:20260909_1550/pstg-pwork:20260909_1743
+From: Paul Moore <paul@paul-moore.com>
+To: Bradley Morgan <include@grrlz.net>, linux-security-module@vger.kernel.org, bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Bradley Morgan <include@grrlz.net>, stable@vger.kernel.org, James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 2/2] lsm: fix size queries for getselfattr with NULL buffer
+References: <20260619130305.27779-2-include@grrlz.net>
+In-Reply-To: <20260619130305.27779-2-include@grrlz.net>
 
-On Sun, Sep 06, 2026 at 06:46:55PM -0400, Zi Yan wrote:
-> On Sun Sep 6, 2026 at 9:33 AM EDT, Sasha Levin wrote:
-> >> __GFP_ACCOUNT is needed for xarray node allocation accounting when
-> >> XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
-> >> convergence regression") fixed a workingset regression with it.
-> >> xas_split_alloc() does not have it and needs to be fixed.
-> >
-> > Mainline's c299a2285d9d takes a reference on the folio's memcg with
-> > get_mem_cgroup_from_folio() and holds it in current->active_memcg for the
-> > duration of __folio_split() - rcu_read_lock()+css_tryget(), released with
-> > mem_cgroup_put() afterwards. This 6.6.y version instead holds a bare
-> > folio_memcg(folio) pointer across the same window, which includes a TLB
-> > shootdown and several lock acquisitions - exactly the kind of window the
-> > upstream refcount exists to close.
-> >
-> > 6.6 already has rcu_read_lock(), css_tryget() and mem_cgroup_put() available,
-> > so nothing's missing to do this the same way upstream does.  Could you resend a
-> > v2 that takes and drops the reference (under CONFIG_MEMCG, as upstream does)?
+On Jun 19, 2026 Bradley Morgan <include@grrlz.net> wrote:
 > 
-> No, this is not needed. Before commit f1cf8d2f36dc3 ("mm: memcontrol:
-> eliminate the problem of dying memory cgroup for LRU folios"), like
-> v6.6, a charged folio take a ref on its memcg. During split, the folio
-> is locked, so will not be uncharged. As a result, its memcg will not go
-> away.
+> The lsm_get_self_attr() syscall allows callers to pass in a NULL context
+> buffer to find out the size of the output needed. That path still
+> compared the computed entry size against the caller provided size first,
+> so a NULL buffer with size 0 incorrectly returned -E2BIG rather than
+> reporting the required size.
+> 
+> Only enforce the available buffer length after checking for the NULL
+> buffer. Cover the zero length sizing query in the self test.
+> 
+> Fixes: d7cf3412a9f6 ("lsm: consolidate buffer size handling into lsm_fill_user_ctx()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
+> ---
+>  security/security.c                                  | 8 ++++----
+>  tools/testing/selftests/lsm/lsm_get_self_attr_test.c | 5 ++---
+>  2 files changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/security/security.c b/security/security.c
+> index 71aea8fdf014..fa0d7e036249 100644
+> --- a/security/security.c
+> +++ b/security/security.c
+> @@ -406,15 +406,15 @@ int lsm_fill_user_ctx(struct lsm_ctx __user *uctx, u32 *uctx_len,
+>  	int rc = 0;
+>  
+>  	nctx_len = ALIGN(struct_size(nctx, ctx, val_len), sizeof(void *));
+> +	/* no buffer - return success/0 and set @uctx_len to the req size */
+> +	if (!uctx)
+> +		goto out;
+> +
+>  	if (nctx_len > *uctx_len) {
+>  		rc = -E2BIG;
+>  		goto out;
+>  	}
+>  
+> -	/* no buffer - return success/0 and set @uctx_len to the req size */
+> -	if (!uctx)
+> -		goto out;
+> -
+>  	nctx = kzalloc(nctx_len, GFP_KERNEL);
+>  	if (nctx == NULL) {
+>  		rc = -ENOMEM;
 
-Yes. It's safe until that last unlock & free in
-__split_huge_page(). We don't have allocations or indirect references
-to current->active_memcg afterwards that I can see.
+I'm not sure the existing code is necessarily wrong.  The existing code
+allows for an E2BIG length check against the current necessary size, so
+one can still do a length check regardless of if a buffer is passed.
+Even in the NULL/E2BIG case, the necessary buffer size should still be
+returned to the caller so that the process can size their allocation
+appropriately.
 
-> According to Claude, adding a ref there might cause a deadlock when a
-> to-be-split folio has a dying memcg, where css_tryget() keeps failing
-> and folio_memcg() keeps returning the same memcg.
+Or am I missing something else?
 
-If the cgroup was rmdir'd, only css_tryget_online() would fail. The
-page itself holds a reference, keeping the dying cgroup from being
-freed. And css_tryget() would still work.
-
-So it would be doable if you wanted to keep the backport closer to
-what we have upstream. But yes, it's not strictly necessary.
-
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+--
+paul-moore.com
