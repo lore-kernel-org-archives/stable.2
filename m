@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BD446EC6A
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A0421235
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038529; cv=none; b=IWQao1xaoH4J5v1x/GaN3onIRFDYe8WgpzbIQth6VatnLU3bt2H1JEAkdD950VALq1uQTB02dp69u2BzedOXHkBT9SW0ekc/3gSULcsxyjv+zRihWi5zCt0gbPfhLD20iW6X4wmGVGASZgb/YCgmvrvBB8h0T2sF7xAHQE+AFQI=
+	t=1789038535; cv=none; b=bdFI2k/xkYj1TZWnE6tqyBTaHuEcmodJeY4OH3afSra2RksFdBz4gDjeWOW0eLdLGDILc7qun2+9sJxvy4SBYxVjiviR7Ynle1U1vKZi+Ct+Qc8Zk87GsaheLemjFgnzRj0j7Qi9ru/ZJxXoBfBaNL21zWAkZa+4bBo7duF1n2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038529; c=relaxed/simple;
-	bh=N0lgwUdt6p90OOgR75mJlHYw3Cgr6JrQv3XfTGRon0s=;
+	s=arc-20240116; t=1789038535; c=relaxed/simple;
+	bh=KgyYoNLG5rg40/A4KknC4JflJLqxaV7JefTftK/ZG84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y9H8EWzwbfZeen5e4fael+DTgisLQGbHmqrv7un4LoMktnHSv4iMceh/sQmH+KkmGpc94p7ID30Jvp45jY6F6e5yBbjEya4T3HK48b8yCbOxUr634s/nky7Q+e2YfZwCGgn9UjqyBECRRzoL95pjsox0PAbVH8HMTF1UrbDCkFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReQlHgo3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=u+nkM0Ul77zNU+iEer+hmx9UW33UZ3Gf020A9gn6rsSphtcAMEpc8R6uxUQbJShMAIPW/+XEn6GZ4mTZcqbzkCmCgEnjMNWuEUIoVrdm9OtMQYKJszXsOwhjahFwLBlhyrooDvMa/LNVvxkYkynebkqBJbBe/+6y06kdALZAU+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d9TakiQZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReQlHgo3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286351F000FF;
-	Thu, 10 Sep 2026 11:08:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d9TakiQZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415F11F00893;
+	Thu, 10 Sep 2026 11:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038527;
-	bh=A+MtTYvM8Pzj2y+iv9R0LveFXG56sgnjnAWaUqFKEpA=;
+	s=k20260515; t=1789038533;
+	bh=jnxZEaJ5ZE6jzk0toQtDUwAZ67qTNAh+qmCPKIYJ2vQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ReQlHgo3BczONzjrzxm/g0fydekv+7F93QkY7ZQiaDOTFgnT9Iexohe59M/bFjyNM
-	 cW/OG7RjCkolJZAUXodj1Nudg8UU6pWtZn2phKGU00yKMh3ddpSdpw2c6G11LQrsi1
-	 MxCIF70BIZSNo66cFVFWJhn6M8Wh8JgYnsCCcrcaauXf/wo4VkN4bgkhgs8rW+Gkio
-	 OYouk6T+OgP50VlsnDNphPg5OLy2LcDKrdjwtZRogxbbUJbgPOYEPjVqJEYYjS61im
-	 y9DoN9Shap2q6n5NuNwNvK2pc9ncPS6FnChMekdvrmS8TNSTEYRxFFymbLLLbIhK+A
-	 ayR4f8Otgb1cg==
+	b=d9TakiQZ9XvzynCw1i1haxRggQMx8ZkTjwBdnDfX0kzcDwN996zCZY4TH+iAZyAtb
+	 qbxNzrXvj4LXvfkKy6K0xGnWYq2DfOla/HIBhlhyu9J5n5I2fTqRrvVFwd0ZYOZ7G5
+	 SdNDib59Ib12QuqV5NXHBUcQqSHe2L+KMwFAokGJM1sHmRXaynXUyIrrAufjX0P5r1
+	 zYLjHk/xF3Q2BaEXVnSfA5EYUCAWvLJsZfGWpxs4rmKs3urDtwtSrJfa0OR4fP2olj
+	 g3QAPGKkMC2//YpCxi3PmAMuHmT4o1oaNUOk0/tL8zsWfthrJOWgjz883uHo6ZuTkM
+	 9gLJeNTFEuLmg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muhammad Bilal <meatuni001@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
+Cc: Xu Yang <xu.yang_2@nxp.com>,
+	stable <stable@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-Date: Thu, 10 Sep 2026 07:08:45 -0400
-Message-ID: <20260910110845.4145229-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] usb: typec: tcpm: fix debug accessory mode detection for sink ports
+Date: Thu, 10 Sep 2026 07:08:49 -0400
+Message-ID: <20260910110850.4146076-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090828-green-riverside-c962@gregkh>
-References: <2026090828-green-riverside-c962@gregkh>
+In-Reply-To: <2026090804-natural-naming-bb59@gregkh>
+References: <2026090804-natural-naming-bb59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,141 +48,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
+From: Xu Yang <xu.yang_2@nxp.com>
 
-[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
+[ Upstream commit f6ec9bb4acc7182b25a793ad094a764e1cb819a7 ]
 
-sm750_hw_imageblit() advances its monochrome source pointer by
-src_delta per scanline, and computes the correct rounded-up stride
-internally as:
+The port in debug accessory mode can be either a source or sink. The
+previous tcpm_port_is_debug() function only checked for source port.
 
-        bytes_per_scan = (width + start_bit + 7) / 8;
+Commit 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into
+accessory mode debug") changed the detection logic to support both roles,
+but left some logic in _tcpm_cc_change() unchanged, This causes the state
+machine to transition to an incorrect state when operating as a sink in
+debug accessory mode. Log as below:
 
-Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-image->width >> 3. For widths not a multiple of 8 this under-counted
-the stride, so the source pointer fell further behind the real
-per-scanline layout on every line, corrupting the rendered image.
+[  978.637541] CC1: 0 -> 5, CC2: 0 -> 5 [state TOGGLING, polarity 0, connected]
+[  978.637567] state change TOGGLING -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+[  978.637596] pending state change SRC_ATTACH_WAIT -> DEBUG_ACC_ATTACHED @ 180 ms [rev1 NONE_AMS]
+[  978.647098] CC1: 5 -> 0, CC2: 5 -> 5 [state SRC_ATTACH_WAIT, polarity 0, connected]
+[  978.647115] state change SRC_ATTACH_WAIT -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
 
-Rather than just fixing the caller's calculation, remove src_delta
-as a parameter entirely and have sm750_hw_imageblit() advance by the
-bytes_per_scan it already computes for itself. There has only ever
-been one caller, and that caller was passing an out-of-sync
-derivative of the same width/start_bit values sm750_hw_imageblit()
-already has, so keeping stride as a separate parameter served no
-purpose beyond letting the two calculations drift apart, which is
-exactly what happened here.
+It should go to SNK_ATTACH_WAIT instead of SRC_ATTACH_WAIT state.
 
-Rounding up, rather than down, is the direction consistent with the
-rest of the fbdev core: struct fb_image mono bitmap data (the same
-image->data this driver receives) is walked elsewhere with byte
-strides derived from a ceiling division of width by 8. The generic
-mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
-BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-ceiling division with an added start_bit offset, so the caller's
-">> 3" (floor) was the one calculation out of step with how this data
-layout is handled everywhere else.
+To fix this, add tcpm_port_is_debug_source() and tcpm_port_is_debug_sink()
+helper to explicitly identify the power mode in debug accessory mode.
+Update the state transition logic in _tcpm_cc_change() to ensure the state
+machine transitions comply with Type-C specification. Also update the logic
+in run_state_machine() to keep consistency.
 
-Found by code review of sm750_hw_imageblit()'s internal stride
-calculation against what its only caller was passing in, and
-confirmed with a clean -Werror build. I do not have this hardware,
-so this has not been exercised at runtime on real sm750 silicon.
-
-Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
+Fixes: 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into accessory mode debug")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Amit Sunil Dhamne <amitsd@google.com>
+Link: https://patch.msgid.link/20260424074009.2979266-1-xu.yang_2@nxp.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Adapted the patch to the older sm750fb variable names. ]
+
+[5.10 dependency adaptation: This tree does not contain 8db73e6a42b6
+or sink debug accessory support. Retain the source debug predicate and
+its source-path callers, and keep tcpm_port_is_debug() source-only.
+Drop the sink predicate and sink accessory state transitions, which
+require the missing feature. This supplies tcpm_port_is_debug_source()
+for cd3b9cea675b without changing 5.10 accessory behavior or adding
+functions. The target applies with a three-way merge; its references
+to AMS_START and upcoming_state still require a separate 5.10 adaptation
+because AMS and Collision Avoidance was not backported.]
+
+Stable-dep-of: cd3b9cea675b ("usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/sm750fb/sm750.c       | 2 +-
- drivers/staging/sm750fb/sm750.h       | 2 +-
- drivers/staging/sm750fb/sm750_accel.c | 6 ++----
- drivers/staging/sm750fb/sm750_accel.h | 4 +---
- 4 files changed, 5 insertions(+), 9 deletions(-)
+ drivers/usb/typec/tcpm/tcpm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 24e927a1669d6..4f78fcfa52e10 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -273,7 +273,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
- 	spin_lock(&sm750_dev->slock);
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 992901274a243..5cd39ad963e1c 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -420,9 +420,12 @@ struct pd_rx_event {
+ 	 (tcpm_cc_is_source((port)->cc2) && \
+ 	  !tcpm_cc_is_source((port)->cc1)))
  
- 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
--				      image->data, image->width >> 3, 0,
-+				      image->data, 0,
- 				      base, pitch, bpp,
- 				      image->dx, image->dy,
- 				      image->width, image->height,
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index fcb7d586ebf02..2845b8ec48aca 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -73,7 +73,7 @@ struct lynx_accel {
- 			   u32 rop2);
+-#define tcpm_port_is_debug(port) \
++#define tcpm_port_is_debug_source(port) \
+ 	(tcpm_cc_is_source((port)->cc1) && tcpm_cc_is_source((port)->cc2))
  
- 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
--			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
-+			    u32 start_bit, u32 d_base, u32 d_pitch,
- 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
++#define tcpm_port_is_debug(port) \
++	tcpm_port_is_debug_source(port)
++
+ #define tcpm_port_is_audio(port) \
+ 	(tcpm_cc_is_audio((port)->cc1) && tcpm_cc_is_audio((port)->cc2))
  
-diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
-index b07c1aa68621c..47230896a5b0b 100644
---- a/drivers/staging/sm750fb/sm750_accel.c
-+++ b/drivers/staging/sm750fb/sm750_accel.c
-@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * sm750_hw_imageblit
-  * @accel: Acceleration device data
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *	      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *	      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
- {
-@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
- 			write_dpPort(accel, *(unsigned int *)ajRemain);
- 		}
+@@ -3095,7 +3098,7 @@ static void run_state_machine(struct tcpm_port *port)
+ 			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
+ 		break;
+ 	case SRC_ATTACH_WAIT:
+-		if (tcpm_port_is_debug(port))
++		if (tcpm_port_is_debug_source(port))
+ 			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
+ 				       PD_T_CC_DEBOUNCE);
+ 		else if (tcpm_port_is_audio(port))
+@@ -3918,7 +3921,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
  
--		pSrcbuf += srcDelta;
-+		pSrcbuf += ulBytesPerScan;
- 	}
- 
- 	return 0;
-diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
-index 2c79cb730a0a6..df48ed57a054e 100644
---- a/drivers/staging/sm750fb/sm750_accel.h
-+++ b/drivers/staging/sm750fb/sm750_accel.h
-@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
- /**
-  * sm750_hw_imageblit
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *>-----      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *>-----      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
- 
+ 	switch (port->state) {
+ 	case TOGGLING:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		else if (tcpm_port_is_sink(port))
+@@ -3926,7 +3929,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 		break;
+ 	case SRC_UNATTACHED:
+ 	case ACC_UNATTACHED:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		break;
 -- 
 2.53.0
 
