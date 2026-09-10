@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809E13D170C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:44:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4384D47D932
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055088; cv=none; b=nvrrZzGCdaAN58YLZ225pr4E1X2vn4gvXTIIMtY4O9hg5no6Nqcrr3ypPPIa5o+LyiUQjV4Sg7FyjLZzSjsPZpWhYRaGwYCs9PKSzP9v9yFa72MZtporFgCI1JgL2ZVN/CDs2aPwzwm9qnTOn0dQxvV02u2gQLmUw2t5GsEJZeI=
+	t=1789055089; cv=none; b=GbwFxdbjqNAwwy3G52+joawwbDVilfW66hVc7sU71XAj4p28RJi3WKNiCRzRrUECs91emxEnHx8sMeWHWDYP5dTBq2ZqtQeTvvXkR/pxc+ap+of3AD42hzfB4hd8k54P6TSR6nxF+krA+Xh95apBvBlC1YqHgFP+dfTU8schI94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055088; c=relaxed/simple;
-	bh=hzvUdJIWulOhupItluwXrqax4jk35Wl8Y3+E5aYSk70=;
+	s=arc-20240116; t=1789055089; c=relaxed/simple;
+	bh=D5n1dRWxS8syqPVknutKljB5mtyBreAU1CnzKmu8J9s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JGw/SQP2ht2H9E0cgO0giH53WM/tARo9GRNituogHITYl5BAbv8PbZwUgVuDIJXX0sc4TG2QVIqcrEbyAWSVphEjIP8NlWQOFfNAPbb7L7NhtlB8HMBGb2miudTtBFhLQSAilQzNQsD64ZAUfN+yCg6En8/GgoUejF73rA2D3/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAhJE+ON; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BKkHdNV/iyiYVJlyU7SHUMKVHVrBZrGlRVQJLJFq1ZPiF0BUODrefngI/HP33MIwswy4s8VGyLIVm+A2LOsypXOEcEQWVX8vVoROQBUa0+kHx1HGY/caBxgx2o0e+8F42GFTvzzgzuJ82dHRrK9Gis6diWwXZ68QW/eXcSer9LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrL8pfdL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAhJE+ON"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02421F000FF;
-	Thu, 10 Sep 2026 15:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrL8pfdL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D33B1F00898;
+	Thu, 10 Sep 2026 15:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055087;
-	bh=MhCCv8D3UqYaNdyrd0FFPwJ4Rjjm89C15atKLsfoPbA=;
+	s=k20260515; t=1789055088;
+	bh=BeYEaWuqcJFw7kpPv/Xb0lE/qbZTJoWFelX0kNNOiH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nAhJE+ONEeI4VOZdXlOnccDjxmr7WyI65HESePfI3U0PHZsj0zGhKzNL3bLePgw6t
-	 RwPqU2jUoj5aBi1R/dSHLwx95SK7FwJukn4OUgNSMBq/acrEGz0mxM2du11ceMfsEr
-	 zPEuuW5mX0aZHJTM2vsV53bVprbruwTZwCwNS3HpclM1iTWE2PajQxREnGxhsK7ZxD
-	 4o98ceNBCBG8wO8yJYu4HyTdPzFMoh5UMOSaVB+9ZBKawHQA9rIjX6gCHq42/ipbQf
-	 sKoIMHJKMmnYoi7Rvw7mKNWP1O6AEcFQF32/UggK2DRK4Bpvp3qKiNH0w/9TW+0JrF
-	 hkn1EoCdjATTA==
+	b=BrL8pfdLb+ey0NU/YMLklzyouKu2jXUls8ogSLR0ngAOqw+j4SeFVcTJ9C6zl2kBF
+	 vjUY40f9Xnf1cbKsJsYWN8w7/YZqOANbKGYVNzPiu3QzBYgOmUuxuZ2ZOrVj4tlA6h
+	 nge/JIqaLb/GOOe6FvEt07ovy3fTKqYaTFxHpVuEk5c/qdYUuv4QX0ExqHkI8aiuyP
+	 n32uPAlC+Dl2fcvwwNivF5NQtuhe3XvRi2FZ2VfqXm443XVdtGC3fBhXnLY0FmlZUT
+	 QTT96Qnc6rDmWlyV1vUCc8p6cuiqnnkgbXKNMGqzpq06XyT4XjXwQZ01QXKGTW6YSE
+	 qYmIQC86R23Ow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Antonio Borneo <antonio.borneo@foss.st.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
+Cc: Ju Nan <junan76@163.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Antonio Borneo <antonio.borneo@foss.st.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] irqchip/stm32-exti: Split MCU and MPU code
-Date: Thu, 10 Sep 2026 11:44:43 -0400
-Message-ID: <20260910154445.1032754-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout
+Date: Thu, 10 Sep 2026 11:44:44 -0400
+Message-ID: <20260910154445.1032754-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090814-trapper-singer-17bb@gregkh>
+In-Reply-To: <20260910154445.1032754-1-sashal@kernel.org>
 References: <2026090814-trapper-singer-17bb@gregkh>
+ <20260910154445.1032754-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,120 +48,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Antonio Borneo <antonio.borneo@foss.st.com>
+From: Ju Nan <junan76@163.com>
 
-[ Upstream commit 350755e2e548ccbe941d045900b57233efa906cb ]
+[ Upstream commit d31fbbade43f880b7e59e2b3a72722fe2725d93f ]
 
-Keep only the code for ARMv7m STM32 MCUs in in stm32-exti.c and split out
-the code for ARMv7a & ARMv8a STM32MPxxx MPUs into stm32mp-exti.c
+HWSPNLCK_TIMEOUT is passed to hwspin_lock_timeout_in_atomic(), whose
+timeout argument is in milliseconds, not microseconds:
 
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Link: https://lore.kernel.org/r/20240620083115.204362-5-antonio.borneo@foss.st.com
+  atomic_delay += HWSPINLOCK_RETRY_DELAY_US;
+  if (atomic_delay > to * 1000)
+          return -ETIMEDOUT;
 
-Backport dependency adaptation for Linux 6.1:
+So stm32mp_exti_set_type() asks for a 1 second timeout where the comment
+next to the macro says it wants 1 millisecond. The semaphore is polled
+with udelay() from a section that holds chip_data->rlock, a
+raw_spinlock_t, so preemption stays disabled for the whole wait on every
+configuration, PREEMPT_RT included.
 
-The stable driver predates STM32MP_EXTI selection, standard device PM,
-interrupts-extended mappings, and secure/RIF event handling. Importing the
-upstream split would pull in those unrelated changes and new functions.
-Limit this dependency to relocating the existing combined MCU/MPU driver
-to irq-stm32mp-exti.c and updating its existing STM32_EXTI Makefile entry.
-Keep Kconfig, syscore PM, interrupt mappings, and all existing functions.
+The hwspinlock core documents this explicitly:
 
-Retain the upstream removal of unused hwspinlock handling from the MCU
-set-type callback: MCU host initialization never assigns a hwspinlock.
-This leaves the MPU callback as the only timeout user, so the target's
-macro rename fixes all remaining users without leaving an undefined name.
+  If the mode is HWLOCK_IN_ATOMIC (called from an atomic context) the
+  timeout is handled with busy-waiting delays, hence shall not exceed
+  few msecs.
 
-Match the upstream timeout-definition context, including its two register
-macros, so d31fbbade43f880b7e59e2b3a72722fe2725d93f applies unchanged. The
-register macros remain unused; no secure/RIF behavior is introduced.
-
-[ sashal: Reduced backport -- upstream 350755e2e548c touches 4 file(s), this
-  backport carries 2. Not backported here:
-  drivers/irqchip/irq-stm32-exti.c
-  drivers/irqchip/Kconfig
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: d31fbbade43f ("irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout")
+Fixes: 5257169ade8c ("irqchip/stm32-exti: Use the hwspin_lock_timeout_in_atomic() API")
+Signed-off-by: Ju Nan <junan76@163.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260821024756.24927-2-junan76@163.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/irqchip/Makefile                      |  2 +-
- .../{irq-stm32-exti.c => irq-stm32mp-exti.c}  | 21 ++++++-------------
- 2 files changed, 7 insertions(+), 16 deletions(-)
- rename drivers/irqchip/{irq-stm32-exti.c => irq-stm32mp-exti.c} (98%)
+ drivers/irqchip/irq-stm32mp-exti.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 94c2885882ee1..f659fe07928db 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -88,7 +88,7 @@ obj-$(CONFIG_LS_EXTIRQ)			+= irq-ls-extirq.o
- obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
- obj-$(CONFIG_EZNPS_GIC)			+= irq-eznps.o
- obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
--obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
-+obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32mp-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
- obj-$(CONFIG_IRQ_UNIPHIER_AIDET)	+= irq-uniphier-aidet.o
- obj-$(CONFIG_ARCH_SYNQUACER)		+= irq-sni-exiu.o
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
-similarity index 98%
-rename from drivers/irqchip/irq-stm32-exti.c
-rename to drivers/irqchip/irq-stm32mp-exti.c
-index cec9080cccad0..ed43ced2d6ed1 100644
---- a/drivers/irqchip/irq-stm32-exti.c
+diff --git a/drivers/irqchip/irq-stm32mp-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
+index ed43ced2d6ed1..fab88feae3e3d 100644
+--- a/drivers/irqchip/irq-stm32mp-exti.c
 +++ b/drivers/irqchip/irq-stm32mp-exti.c
-@@ -22,9 +22,12 @@
+@@ -24,7 +24,7 @@
  
- #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #define IRQS_PER_BANK			32
  
--#define IRQS_PER_BANK 32
-+#define IRQS_PER_BANK			32
+-#define HWSPNLCK_TIMEOUT		1000 /* usec */
++#define HWSPNLCK_TIMEOUT_MS		1
  
--#define HWSPNLCK_TIMEOUT	1000 /* usec */
-+#define HWSPNLCK_TIMEOUT		1000 /* usec */
-+
-+#define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
-+#define EXTI_HWCFGR1			0x3f0
+ #define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
+ #define EXTI_HWCFGR1			0x3f0
+@@ -503,7 +503,7 @@ static int stm32_exti_h_set_type(struct irq_data *d, unsigned int type)
+ 	raw_spin_lock(&chip_data->rlock);
  
- struct stm32_exti_bank {
- 	u32 imr_ofst;
-@@ -301,33 +304,21 @@ static int stm32_irq_set_type(struct irq_data *d, unsigned int type)
- 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
- 	struct stm32_exti_chip_data *chip_data = gc->private;
- 	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
--	struct hwspinlock *hwlock = chip_data->host_data->hwlock;
- 	u32 rtsr, ftsr;
- 	int err;
- 
- 	irq_gc_lock(gc);
- 
--	if (hwlock) {
+ 	if (hwlock) {
 -		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
--		if (err) {
--			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
--			goto unlock;
--		}
--	}
--
- 	rtsr = irq_reg_readl(gc, stm32_bank->rtsr_ofst);
- 	ftsr = irq_reg_readl(gc, stm32_bank->ftsr_ofst);
- 
- 	err = stm32_exti_set_type(d, type, &rtsr, &ftsr);
- 	if (err)
--		goto unspinlock;
-+		goto unlock;
- 
- 	irq_reg_writel(gc, rtsr, stm32_bank->rtsr_ofst);
- 	irq_reg_writel(gc, ftsr, stm32_bank->ftsr_ofst);
- 
--unspinlock:
--	if (hwlock)
--		hwspin_unlock_in_atomic(hwlock);
- unlock:
- 	irq_gc_unlock(gc);
- 
++		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT_MS);
+ 		if (err) {
+ 			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
+ 			goto unlock;
 -- 
 2.53.0
 
