@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D015758F064
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6F9533596
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067325; cv=none; b=czmwrqM8gTD10Y4bF5xZ6+1Yp1fk60vjgMhTzVjTeglRb59IrCEm07kEBoOQj/8AGithiQ841jhIsZi/e2O8BgsNzxI5w62lbIMMWUqKl2CmGKjeEpZtcewgZ7rmP9NQImgsXRa8O3AP1zZbyVSgeXzGyVZcFZeCG2CATK/+ze4=
+	t=1789067325; cv=none; b=jLbJlrpeKdN8ybvas+DTTGfOtXF9R+mHNprj6Aiw4gSq2s/lHIr3ZbajQtZDh0mHcIYmi0beX7jyOYD1uA7Y2H7eNXs4d/15qfbTCz0cNi58Hwzv49Ydb81s3yOghRFGWAcRLt6JcS19T0ilGp0qROeuwAeZIh6Qxvduw22vY2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789067325; c=relaxed/simple;
-	bh=lAjRy+GkK8+lly/vjtjqR/rGIKKDLT/ZzKASVthuCIc=;
+	bh=RGhBklHQrfRgquonb/TvKkyvSrTngroKxE+eppS8DQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dzBmM7K/DS+Ccd8I3mLQUylGiO42/w9nq7n0zvSUrKyV6hoyIaQTpSyb4TGL/RdEOD5JZXV+KyHV2kGV6JJwUpQaNUnSj9FQVYRqJoAmBHjgI7tt/rjUOe2K65YBcMrOdg+0MFfrjKB04owBgvDV1PXP2jPTXa/ixMlWGy27FT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSfAYIEf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YNa3OCV77o2oNpGPphhmIKek2+bm+COOcStK7pBaMIdwT+UXU21X61LvqYfipMl/6naurpzjz2HhA7yPI+/B79dBxx2uUIc71nkH6WcA01t7hvxrdW9ydPVw35n+lS6DVhSp1aImEAzUFP0tE+eY5Z82eovrqBbgRnF99U+TYVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJPrjH9v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSfAYIEf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF481F00893;
-	Thu, 10 Sep 2026 19:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJPrjH9v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A88CD1F0089B;
+	Thu, 10 Sep 2026 19:08:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067323;
-	bh=3k59yMIX/Rx77t+kYwSaPlRjEhgE/T+h0c68ZWee11E=;
+	s=k20260515; t=1789067324;
+	bh=frUlhyL4wr4R59t9IPGCt5grNGJ+WNOHes+WzSACcaw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iSfAYIEffh1g2y5qi8dficloz6NyY2J8ARpEZEW3CWWeoHPbeUCEUkLjFJTA4vZqV
-	 MTzNC87ClVfSRZ1SBq4a7RwcGII3hCe6EOMjkzaO3k16Plo3BOtc7rOuzQfv/wJTm4
-	 UWRAxSAan/HVwQqbDjVFJKJMS0O3/ia9ZYWiWYjvLSM5DDfu8c/2r3KWquxnzLiBf1
-	 1ANb7fUykvZmddRg8V3sUYk6JQpVEOsn1k7HUpIfTYzG5TZoW9hDseykYaZsv+aVQ3
-	 UGkrbvdMnLn2ka4/S9Su9laBQhBB6R/0WKLjdqTi9EWNGgG+jm2KcGgqz+lgmHvwyn
-	 kOT1/apBs+VkA==
+	b=BJPrjH9vgFnWXcHy+a/thkX9wMXO/Otr30XU1YUSB407ZdkVBXsTpc/37dZH4wHRw
+	 rDqQw2WswOwek7Ire1y4Cup0s0La8hxEjSVZi26EupDUOA9PUITKERtzNoRJq/a0n7
+	 l/uIT1vqRBOloPwoQOFkrFgLgSBjNYrd46q1kJBNraaui8k8E7ys78BKHsMAOrP36d
+	 d05YcKAMl5wjOgcKe6ZbVpmWqsapwoOW54c+Wt717FJYWeg+p+TvyDRtoj1xKMmqIp
+	 vFuLW9JODRRJx3lkR7i+I2jJQPadKXmjPBZPnIc7RYIMtvlVuKSyjjFa872ZRJ15uY
+	 Ybl8ms+INFWfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Baineng Shou <shoubaineng@gmail.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 15:08:40 -0400
-Message-ID: <20260910190841.1453617-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] misc: fastrpc: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 15:08:41 -0400
+Message-ID: <20260910190841.1453617-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090842-deluge-gloss-a643@gregkh>
+In-Reply-To: <20260910190841.1453617-1-sashal@kernel.org>
 References: <2026090842-deluge-gloss-a643@gregkh>
+ <20260910190841.1453617-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,115 +50,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Baineng Shou <shoubaineng@gmail.com>
 
-[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
+[ Upstream commit a4a1a2bfcb29785292d634d7787edc6fb550714d ]
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
+into the caller's fd table before copy_to_user() copies the fd number
+back to userspace.  If copy_to_user() fails, the fd is already visible
+to other threads in the same process but the ioctl returns -EFAULT.
+The existing comment in the code even acknowledges the problem:
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
+   already called fd_install()..."
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
+Now that dma_buf_fd_install() is available (introduced to fix the same
+issue in dma-heap), apply the same pattern here: reserve the fd with
+get_unused_fd_flags(), attempt copy_to_user(), and only on success call
+dma_buf_fd_install() to publish it atomically with the tracepoint.  On
+copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
+unwind without any user-visible side effects.
 
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
 Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
 Signed-off-by: Christian König <christian.koenig@amd.com>
-
-Stable dependency adaptation for 5.10:
-
-Retain only the dma_buf_fd_install prerequisite needed by
-a4a1a2bfcb29785292d634d7787edc6fb550714d (misc: fastrpc: don't publish fd
-before copy_to_user() succeeds). The FastRPC target already applies cleanly
-to this tree.
-
-There is no DMA_BUF_TRACE/trace_dma_buf_fd infrastructure in 5.10, so map
-dma_buf_fd_install(dmabuf, fd) directly to fd_install(fd, dmabuf->file)
-with a header macro. Both arguments are evaluated once. This adds no
-function or exported symbol; linux/file.h already supplies fd_install.
-
-Drop the dma-buf.c helper and all dma-heap.c changes. The heap allocate
-callback here returns an already installed fd, not a struct dma_buf *,
-and the heap refactoring would require converting the heap drivers and
-their callback interface. Those changes are unnecessary for the FastRPC
-target. This dependency adaptation does not fix the separate heap ioctl
-issue described above.
-
-[ sashal: Reduced backport -- upstream 30d0aff2c65a2 touches 3 file(s), this
-  backport carries 1. Not backported here:
-  drivers/dma-buf/dma-buf.c
-  drivers/dma-buf/dma-heap.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: a4a1a2bfcb29 ("misc: fastrpc: don't publish fd before copy_to_user() succeeds")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/dma-buf.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/misc/fastrpc.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 957b398d30e5d..dd7b5f9f7fac2 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -487,6 +487,13 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 6f1787e83b65f..eba3191a6708c 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1319,24 +1319,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
+ 		return err;
+ 	}
  
- int dma_buf_fd(struct dma_buf *dmabuf, int flags);
+-	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
++	bp.fd = get_unused_fd_flags(O_ACCMODE);
+ 	if (bp.fd < 0) {
+ 		dma_buf_put(buf->dmabuf);
+-		return -EINVAL;
++		return bp.fd;
+ 	}
+ 
+ 	if (copy_to_user(argp, &bp, sizeof(bp))) {
+-		/*
+-		 * The usercopy failed, but we can't do much about it, as
+-		 * dma_buf_fd() already called fd_install() and made the
+-		 * file descriptor accessible for the current process. It
+-		 * might already be closed and dmabuf no longer valid when
+-		 * we reach this point. Therefore "leak" the fd and rely on
+-		 * the process exit path to do any required cleanup.
+-		 */
++		put_unused_fd(bp.fd);
++		dma_buf_put(buf->dmabuf);
+ 		return -EFAULT;
+ 	}
+ 
++	dma_buf_fd_install(buf->dmabuf, bp.fd);
 +
-+/*
-+ * Install a reserved fd only after all fallible work has succeeded.
-+ * This kernel has no DMA-BUF fd tracepoint to emit.
-+ */
-+#define dma_buf_fd_install(dmabuf, fd) fd_install((fd), (dmabuf)->file)
-+
- struct dma_buf *dma_buf_get(int fd);
- void dma_buf_put(struct dma_buf *dmabuf);
+ 	return 0;
+ }
  
 -- 
 2.53.0
