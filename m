@@ -1,118 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32063470136
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6812E456E19
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039826; cv=none; b=HbFYBCyk+AxB2RCaKRCoyXEOgWhZnsfrPI1Tq1dzNL0vPNoacSshHoYncA0pwSE6FVfBZ5VyEWEmFzwNEkgrAOEzsH7wiBHwn7pcR6S1VdmDQ3arWP9p6UYK4ohrS0/065uQP8LajAYfr9ixORDvJR4KIES3Ipvs7PMsCdq4/k0=
+	t=1789039828; cv=none; b=MOWQkiyx3ZX7vDv8JtAuQE2Tol0eF4osaZF2QsfLm5/4cpEMc5eJ2YCYStF3vREta99Iw2BeL4F1DpC3LSxGHqPL3AMXkrST76OO7ef+KT23wvrYMpsnUPMcHUhGbdWtOouB2xXJvDEHHtPhy4hq62P9Fha8+Ta47Ko9M5+OmKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039826; c=relaxed/simple;
-	bh=F6lohWUYc2QNMuIHc/MWOd0fU5LKPXL3/YoO6V/UA94=;
+	s=arc-20240116; t=1789039828; c=relaxed/simple;
+	bh=Ag9OCBgqECWTHwbj4X6Fd8CyCKvJzwkKNHrwq+KI9po=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oroA/rthuu9XLbiU9evOpPxvCvM66bFM7rHX3amKpFzCvnRDUgG9lZ5KvCDdnbLxOsddyFUuyOEVnelpcsns01xrQWO5A5G9yxk8/NbAGuyZI3KqXLMatBorA8O43HdKz6WOY4nWfoXlvNDWTRT/nNBtjwLltcEcxbEIvWl0g4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPKB/4YF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CBY1XrESOcNRZgkULnwRNjGwPtUKmAHeY6hwUHxnpjOD6Zr6osOqCpUNtLEwlVVYC8MyNdHoGp7YgRhzMIQHzfjg/leE3UsG4P47oA1Coq59vDcCzLpddek/0AIwsWjXHe6Pk6ipMUdrucYxn0xP8rKl0sfG8pbLzcUloshiEoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/iWTpwk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPKB/4YF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202551F000FF;
-	Thu, 10 Sep 2026 11:30:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/iWTpwk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDAC1F00893;
+	Thu, 10 Sep 2026 11:30:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789039823;
-	bh=KUB5e1oZPv+hl7t1ZEc3bPZ35WbuSPcniF5D8IqsfbE=;
+	s=k20260515; t=1789039825;
+	bh=eu0FE5cLo7ihkSuggZwIEMhuJ+UFlQyok7DLxTzoP4s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EPKB/4YFXZY2ko9ObZIVXaCYgKpcSTiX06KfmDqBAjRUW6A0LfW9WqSxjxLoX9wsP
-	 SAOZ5FOmLCAU36/nospqfNxRmSRhwSxt2+ZhTOpOEHvOsoEQqA+SMCpJXUe9ANNtul
-	 gnufpPsaz8EvLhcZsoaR2DbB5N1+aq7JI06YwawZ7ImI7RjzH97+I2rqGoiKuXfdLs
-	 81g40CZZT+jPTCAnsQ6bR7wldxykFuxiYh7BfGuVGKlfC0ztLz2X/oKhNYGwSNsM66
-	 YK1rewCDQZitRxEzynFdRte0TYWIGMkSGQPtU+b8vFSbf/mPscY9XKCICdDiTT2qrJ
-	 cUMJv83xxTCWA==
+	b=b/iWTpwkqmY2y2Dii+dSGK9YCkzbspEX2iM/7RtvP2CScQ40mThEA4atk49LNjVu/
+	 AvG9LZ54I1Hzdbhw1RYbA4Toy6OOzC5j80BYmPX8wxAmKzqiZDloW/ct61QCwkXo9V
+	 objkG6nKQwZCn/wfayhb5goJf86OluDfrMS2QWog9DKq1EkhUMK+hEKHIXpIoebcPW
+	 GpkmZWjDR7iw4MmYPUir0vcCSiQEn15k7+1Sm+QmQJKAIG5kuNm+vTWDXpD811Ypey
+	 0u+gYocduc7hZSHWJsol7kFZ+EGaXZXXR/WXcInq+874Qt2T74GptZLkkQ3Fy7cCsS
+	 wAfql5vZnr19w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Muhammad Bilal <meatuni001@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] tracing/probes: Fix anon_stack check for unnamed bitfields in btf_find_struct_member
-Date: Thu, 10 Sep 2026 07:30:21 -0400
-Message-ID: <20260910113021.62834-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
+Date: Thu, 10 Sep 2026 07:30:23 -0400
+Message-ID: <20260910113023.62881-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090810-jasmine-divided-a4e9@gregkh>
-References: <2026090810-jasmine-divided-a4e9@gregkh>
+In-Reply-To: <2026090828-angling-karate-5de5@gregkh>
+References: <2026090828-angling-karate-5de5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Muhammad Bilal <meatuni001@gmail.com>
 
-[ Upstream commit f36d94a20ca185bcadef3a10b980cd2cfd72d53a ]
+[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
 
-btf_find_struct_member() traverses into nested anonymous structures
-and unions by pushing members with !member->name_off onto anon_stack.
-However, it does not consider the unnamed bitfields (e.g. `int : 5`
-or `unsigned int : 0`) which also have member->name_off == 0.
+sm750_hw_imageblit() advances its monochrome source pointer by
+src_delta per scanline, and computes the correct rounded-up stride
+internally as:
 
-If such an unnamed bitfield is pushed to anon_stack, the
-btf_find_struct_member() return an error even if there are other
-valid entries in anon_stack.
+        bytes_per_scan = (width + start_bit + 7) / 8;
 
-To fix this, only push unnamed struct/union members to anon_stack.
-Also move the btf_type_is_struct() check to the entry of this function
-because now it is sure only struct/union are pushed to anon_stack.
+Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+image->width >> 3. For widths not a multiple of 8 this under-counted
+the stride, so the source pointer fell further behind the real
+per-scanline layout on every line, corrupting the rendered image.
 
-Link: https://lore.kernel.org/all/178827249775.123716.7813217688423513612.stgit@devnote2/
+Rather than just fixing the caller's calculation, remove src_delta
+as a parameter entirely and have sm750_hw_imageblit() advance by the
+bytes_per_scan it already computes for itself. There has only ever
+been one caller, and that caller was passing an out-of-sync
+derivative of the same width/start_bit values sm750_hw_imageblit()
+already has, so keeping stride as a separate parameter served no
+purpose beyond letting the two calculations drift apart, which is
+exactly what happened here.
 
-Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
+Rounding up, rather than down, is the direction consistent with the
+rest of the fbdev core: struct fb_image mono bitmap data (the same
+image->data this driver receives) is walked elsewhere with byte
+strides derived from a ceiling division of width by 8. The generic
+mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+ceiling division with an added start_bit offset, so the caller's
+">> 3" (floor) was the one calculation out of step with how this data
+layout is handled everywhere else.
+
+Found by code review of sm750_hw_imageblit()'s internal stride
+calculation against what its only caller was passing in, and
+confirmed with a clean -Werror build. I do not have this hardware,
+so this has not been exercised at runtime on real sm750 silicon.
+
+Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
-[ retained the existing kcalloc() allocation instead of upstream’s kzalloc_objs() call. ]
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_btf.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/staging/sm750fb/sm750.c       | 2 +-
+ drivers/staging/sm750fb/sm750.h       | 2 +-
+ drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+ drivers/staging/sm750fb/sm750_accel.h | 4 +---
+ 4 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index 5bbdbcbbde3cd..40e66eb59abbc 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -74,24 +74,24 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 94a83ec342827..05b00ba542fbe 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -275,7 +275,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+ 	spin_lock(&sm750_dev->slock);
+ 
+ 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
+-				      image->data, image->width >> 3, 0,
++				      image->data, 0,
+ 				      base, pitch, Bpp,
+ 				      image->dx, image->dy,
+ 				      image->width, image->height,
+diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
+index aff69661c8e62..a693d9f1d0d5e 100644
+--- a/drivers/staging/sm750fb/sm750.h
++++ b/drivers/staging/sm750fb/sm750.h
+@@ -73,7 +73,7 @@ struct lynx_accel {
+ 			   u32 rop2);
+ 
+ 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
+-			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
++			    u32 start_bit, u32 d_base, u32 d_pitch,
+ 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
+ 
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index 44b9e3fe3a41d..37217a496ba75 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * sm750_hw_imageblit
+  * @accel: Acceleration device data
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *	      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *	      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
  {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-+	const struct btf_type *mtype;
- 	u32 tid, cur_offset = 0;
- 	const char *name;
- 	int i, top = 0;
+@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+ 			write_dpPort(accel, *(unsigned int *)ajRemain);
+ 		}
  
-+	if (!btf_type_is_struct(type))
-+		return ERR_PTR(-EINVAL);
-+
- 	anon_stack = kcalloc(BTF_ANON_STACK_MAX, sizeof(*anon_stack), GFP_KERNEL);
- 	if (!anon_stack)
- 		return ERR_PTR(-ENOMEM);
+-		pSrcbuf += srcDelta;
++		pSrcbuf += ulBytesPerScan;
+ 	}
  
- retry:
--	if (!btf_type_is_struct(type)) {
--		member = ERR_PTR(-EINVAL);
--		goto out;
--	}
--
- 	for_each_member(i, type, member) {
- 		if (!member->name_off) {
- 			/* Anonymous union/struct: push it for later use */
--			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
-+			mtype = btf_type_skip_modifiers(btf, member->type, &tid);
-+			if (mtype && btf_type_is_struct(mtype) &&
- 			    top < BTF_ANON_STACK_MAX) {
- 				anon_stack[top].tid = tid;
- 				anon_stack[top++].offset =
+ 	return 0;
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 2c79cb730a0a6..df48ed57a054e 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+ /**
+  * sm750_hw_imageblit
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *>-----      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *>-----      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
+ 
 -- 
 2.53.0
 
