@@ -1,89 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85EC34041C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86CA349CFD
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003576; cv=none; b=SwKkA2gCj5/ksGYJDg+o+y03JOYnjJqBK2iA1EsgEMKBc/yLpsjTeecYsqREB4m1BdjcfMvEoraXIPefdnq8ONam3k0Ddh90eie0zJ+hJeHGv1xhPkc18rk1r/jvM/rNWxM1EaB39P2XaytWgCfNTwV+7+cFecJOq0xdNoJXZsA=
+	t=1789003576; cv=none; b=G2fX+T7f20HBshAVZEoaQC8uYx3d4NqEdN4ADDyI0QVfZ3JnNI+sPmt+68IdAkKmW20rhUuS4qbL1SAH2g4XSpMnAk/vWWy1+CDLxhQFkQtJHBlHQse/oX04368bv6uksKI9ftaAeEKQNGjoKWIzAXE41yHGxShNkVyYHv3HPL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789003576; c=relaxed/simple;
-	bh=qXJYBYOOE0aUyiGhgPn1MiwmBpFXunIlQJnxMVPUiaU=;
+	bh=OT5N0THSCo35iF1wYeVt7ULQXT1s8ijS4CEOrAAMJPg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cv7wKWWnYUn/fUloC0TP0zvPAfSgSRIyz1il6GxF1KAp0iOwcZHQjNkB34FBSAlwawz65QcVLGqO9ewuoNMzAQpecWRXS0VvWiJ/5s+vELykgUWcVYqawVqakEPqhR1fhldyOB6H3cDoPosGeSsC3mpgxa3VkyihCGTQGx86jTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY9N8om7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=awHrB6/vJggiWCwHa0iVYtOjVjHEE1LZrg5eu1AxBvVwpGlxC5HSOA2A8pztW9jiKbBK87+ZShgGi052hgxs5NNGw7qWq3bmHTCWGZT1TSDElnK/zJXXLMMZOS+nQV6yaAtG5//A57X7fNSroGU872/tz5eDOU42at5lc5OiUbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5V4GS2O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY9N8om7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33B01F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5V4GS2O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1596F1F00893;
 	Thu, 10 Sep 2026 01:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789003574;
-	bh=8uI0Sw49eiXeoQcPCbxLRRAyCB4+KnAZpG9ALNWb4GY=;
+	bh=uKKDJGEmPupxSmPCx4FfyfboifuDpV5V9CUZsxJ53Ew=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UY9N8om7rN3Ga6izfSUO1VXHoNR2G1WdNladmZJXp5FXZ1R6yt0KmLq3k86TIEDjm
-	 vu+aqs0xDcqjhjVot8QlQPjc3YXdQEQJiUzUN7g9WJmD+DTg0oXAx6k0v3pv1rYkUO
-	 d6acoeW622iXgSZK3eS+Uw2Ilk5Jeyxo3HUcz5gj9tIFIuQc11nNUKqRCpN6v5yEix
-	 Zy/LBf6QW1Hl51lzzV/WBQPAhZTdaBUvgs4cNPqLSXY2DcgxFnVdcjdZVrWapGLbU+
-	 jVEIGmfc+18pspTqZln1IZMWkITRCKWlQUZbNfVx8lg8oey2Qj3CliPstHTX44PTGf
-	 htigcEKphO3QA==
+	b=i5V4GS2OjFkTmDT3rOdhVmrOvYa9yXKsvF3UqWU0APmJ8R9P8Sr0zJK/2buuncpVn
+	 H3Q/p5w5AEc2c9s13htlmkcQDnihWSHhXB6dwoX/x1a8FyoMXmEUlHXkVHR1iF3IFG
+	 FVWZZXD2KYUET33VDl2ZQp/KniihUkyNVwrCohbyYTrT7LpoZXt9FWRpQ3PxuIhg3d
+	 5UexFxaZgh2ftkDEAyJjsaoqkilKt6uuAgNMKIAD2Hj1tcqu5HFqYIqqFl4fPU2G7H
+	 9X6gHPf6smwIIjmaqDExKnKAFn+sGiKgUrA7q0BmMraZKSEkfRTKv8YBHnGrHOAa6F
+	 wpZKCb5y98UiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nirbhay Sharma <nirbhay.lkd@gmail.com>,
-	syzbot+83c9dd5c0dcf6184fdbf@syzkaller.appspotmail.com,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/4] fs/ntfs3: fix KMSAN uninit-value in ni_create_attr_list
-Date: Wed,  9 Sep 2026 21:26:09 -0400
-Message-ID: <20260910012610.3866859-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] i3c: master: Fix use-after-free of master->this
+Date: Wed,  9 Sep 2026 21:26:12 -0400
+Message-ID: <20260910012612.3866980-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910012610.3866859-1-sashal@kernel.org>
-References: <2026090803-refract-segment-1a96@gregkh>
- <20260910012610.3866859-1-sashal@kernel.org>
+In-Reply-To: <2026090432-surpass-exciting-1def@gregkh>
+References: <2026090432-surpass-exciting-1def@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nirbhay Sharma <nirbhay.lkd@gmail.com>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 5f33da04e6ceee849e76e6592cc283c72fef7af9 ]
+[ Upstream commit feb0ed76601f3c2f91f08688c5a7d8b9d382f720 ]
 
-The call to kmalloc() to allocate the attribute list buffer is given a
-size of al_aligned(rs). This size can be larger than the data
-subsequently copied into the buffer, leaving trailing bytes uninitialized.
+sysfs attribute callbacks for the master controller device dereference
+master->this.  However, master->this is freed in
+i3c_master_detach_free_devs() before the master device itself is
+released.
 
-This can trigger a KMSAN "uninit-value" warning if that memory is
-later accessed.
+As a result, sysfs accesses can dereference a freed master->this
+pointer, leading to a use-after-free.
 
-Fix this by using kzalloc() instead, which ensures the entire
-allocated buffer is zero-initialized, preventing the warning.
+Keep master->this alive until i3c_masterdev_release(), which is called
+after the master device and its sysfs state are being torn down. Do not
+free master->this as part of the normal device detach path.
 
-Reported-by: syzbot+83c9dd5c0dcf6184fdbf@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=83c9dd5c0dcf6184fdbf
-Signed-off-by: Nirbhay Sharma <nirbhay.lkd@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Stable-dep-of: 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()")
+On the error path in i3c_master_set_info(), reset master->this and
+bus.cur_master to NULL before freeing the allocated device.
+
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260807145638.168865-5-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[ retained of_node_put(dev->of_node) instead of upstream’s fwnode_handle_put(dev->fwnode). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/frecord.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/i3c/master.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index b2791327af22f..162a6c038000e 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -826,7 +826,7 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	 * Skip estimating exact memory requirement.
- 	 * Looks like one record_size is always enough.
- 	 */
--	le = kmalloc(al_aligned(rs), GFP_NOFS);
-+	le = kzalloc(al_aligned(rs), GFP_NOFS);
- 	if (!le)
- 		return -ENOMEM;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index add78b03c5338..e91cedea961eb 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -529,6 +529,11 @@ static struct attribute *i3c_masterdev_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(i3c_masterdev);
  
++static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
++{
++	kfree(dev);
++}
++
+ static void i3c_masterdev_release(struct device *dev)
+ {
+ 	struct i3c_master_controller *master = dev_to_i3cmaster(dev);
+@@ -541,6 +546,8 @@ static void i3c_masterdev_release(struct device *dev)
+ 	i3c_bus_cleanup(bus);
+ 
+ 	of_node_put(dev->of_node);
++
++	i3c_master_free_i3c_dev(master->this);
+ }
+ 
+ static const struct device_type i3c_masterdev_type = {
+@@ -728,11 +735,6 @@ static void i3c_device_release(struct device *dev)
+ 	kfree(i3cdev);
+ }
+ 
+-static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
+-{
+-	kfree(dev);
+-}
+-
+ static struct i3c_dev_desc *
+ i3c_master_alloc_i3c_dev(struct i3c_master_controller *master,
+ 			 const struct i3c_device_info *info)
+@@ -1602,6 +1604,8 @@ int i3c_master_set_info(struct i3c_master_controller *master,
+ 	return 0;
+ 
+ err_free_dev:
++	master->bus.cur_master = NULL;
++	master->this = NULL;
+ 	i3c_master_free_i3c_dev(i3cdev);
+ 
+ 	return ret;
+@@ -1622,7 +1626,8 @@ static void i3c_master_detach_free_devs(struct i3c_master_controller *master)
+ 					i3cdev->boardinfo->init_dyn_addr,
+ 					I3C_ADDR_SLOT_FREE);
+ 
+-		i3c_master_free_i3c_dev(i3cdev);
++		if (i3cdev != master->this)
++			i3c_master_free_i3c_dev(i3cdev);
+ 	}
+ 
+ 	list_for_each_entry_safe(i2cdev, i2ctmp, &master->bus.devs.i2c,
 -- 
 2.53.0
 
