@@ -1,51 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BACE489FDE
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:52:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7504489FD4
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044781; cv=none; b=I5/HXntOGO6U5gWSQ5CTGxUXNbrbdlu3okmS/v0LNxiaDH/USKbbO+DnjlFz8VOjHq9JPjEPBMk3o/o5YHNf8M1WcOMDbUChxnB6rN9CTJahivAlknOLx3NEWtnuVtle2PTvRTqJuA1YxT5kBd7ZofPUN6/EpwxXQY7+HpzxWA0=
+	t=1789044783; cv=none; b=jq1vFLpqql6Fh+wy78xj/WW7qj5TqTHvnoj669mbPg3Y/k6CaWGoKOtgLQDCHJHcmOpAmhz8JnTbLlvvmwaehaxBQ7EPGzW3bJ1EJrWU43XGAwnB3W9z724lDUs49AtQcj4Xy0jFZ6ucNPAdF8uB8LIQ5uYdLbZRbyv2oYiIa4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044781; c=relaxed/simple;
-	bh=vvYfpsDe2KbetiQ3K76gDgutEoU30cGc6wu1lV+QADo=;
+	s=arc-20240116; t=1789044783; c=relaxed/simple;
+	bh=GzuaQl2Z7fKjAQmKbkDIU04+uHyD3KbKOfYpfhmiZeQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QfZ0NuN/AyO99Y1FzsQ2ruZMbgcJw/8mPQWfI+2sN+xQDGJvNobV3yLx7qSqkjohezNfV7tksHNOvanYaELuac2tKtvrfJeMW9h52vuDsPeMwXSNgJNHMg8McvOSIrpzvoow2qk4JeQfiqRu4en49yD8HC2fjMu+2mdXgnfuTDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1pwZur7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DDZ/QYV2QSHKmky9R15TwEulN/otOVw+gV1Quxnohkf6t8CPP+CLzAMSwIphMWLjpgZrUfYKtTpHbnf9gqzy3la4r5vCpkE5ey+wvNEvWLeSBXWMn7ROBe0k3QlAFHlBdeUwKDUdDmoch7B+nOPPDBmR8l/9ZsqEGyePImv4dOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXcjkSzB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1pwZur7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A701F00899;
-	Thu, 10 Sep 2026 12:52:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXcjkSzB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F371F00893;
+	Thu, 10 Sep 2026 12:52:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044778;
-	bh=IjobrVW3sTn+KH6hFT/g60yk9WLBkL2zoemv+GXiOvQ=;
+	s=k20260515; t=1789044780;
+	bh=EaGSW8GohiIDErhOcVuLA53WUAgJ89gALM6hHtn6frA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g1pwZur7NIPxZt4cbm7WcNlDzxb252TR/L56Ze6F3pKjchufxgxeS4IdpoHQTECpP
-	 cqa+mhDDQtUA/gqdm3JEvFGw76iNOSX/Vsq+BvkyzI/8kGf+SD/vdmJp7/Gk1hmmdP
-	 E9S9pAFzQMlL9jYzMg02gi6HdzXdz1jh1Oll1bzx/dBAoWyMbKrYiRpLArO43TSlru
-	 RpSc97cS4tNC21Nos4uNKTUwpbJFr7SaT4EL7L/z4LKMnD/vW3LyLVxFScSYxo2llQ
-	 0Q6dm7BS1PEj64KfFZA2/ewhmYMjQhq7qnWWEuzisPAulmPhvI1VraGc15DbDGZn8r
-	 cXHcGzNS3TfQA==
+	b=YXcjkSzBQy8BxHhwHKFJqi8V822Q1XQGLtZQt6DYlhggxudk5sD4l2xwic2UNv2/r
+	 +FOKo3K3te35i2s5I3v3NTA5Gz/ZOHM6H9ycceuwbpt3BfjZREAtc60X7cYXj0vhkY
+	 scRGmj0pXl9RPdw8LKfKmY3mLH6/gbkyNurJC//lU9FoPXfmQdSYIcMn6EONTIA00i
+	 WKd22qhmxoMQMFJUp5gY3s766sfVJbQC3U1dJvuUjIdQ+9lNMUfS35trPXwoGCWwDX
+	 MuJs4uRvhCOuHwsFjIIJTJTfXMmiTvBFflR9IweHJlHjTeM8bm2YamyAU6lJSk3hCc
+	 yoJBR/mG43GiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
-	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Michal Simek <michal.simek@amd.com>,
-	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
-	Dhruva Gole <d-gole@ti.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	William Zhang <william.zhang@broadcom.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Hagen Paul Pfeifer <hagen@jauu.net>,
+	Jakub Kacinski <kuba@kernel.org>,
+	James Bottomley <james.bottomley@HansenPartnership.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
-Date: Thu, 10 Sep 2026 08:52:53 -0400
-Message-ID: <20260910125254.183393-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/secretmem: properly account locked pages
+Date: Thu, 10 Sep 2026 08:52:57 -0400
+Message-ID: <20260910125257.183551-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910125254.183393-1-sashal@kernel.org>
-References: <2026090831-flashy-precook-e8f5@gregkh>
- <20260910125254.183393-1-sashal@kernel.org>
+In-Reply-To: <2026090830-slimy-mocker-caa9@gregkh>
+References: <2026090830-slimy-mocker-caa9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,174 +61,354 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1 ]
+[ Upstream commit 97d34aa65c29cca85e3e9050f4c936389b38a054 ]
 
-Supporting multi-cs in spi drivers would require the chip_select & cs_gpiod
-members of struct spi_device to be an array. But changing the type of these
-members to array would break the spi driver functionality. To make the
-transition smoother introduced four new APIs to get/set the
-spi->chip_select & spi->cs_gpiod and replaced all spi->chip_select and
-spi->cs_gpiod references with get or set API calls.
-While adding multi-cs support in further patches the chip_select & cs_gpiod
-members of the spi_device structure would be converted to arrays & the
-"idx" parameter of the APIs would be used as array index i.e.,
-spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
+secretmem accounts folios by treating memory as if it were mlock()'d and
+thus limited by the RLIMIT_MEMLOCK limit.
 
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Acked-by: Heiko Stuebner <heiko@sntech.de> # Rockchip drivers
-Reviewed-by: Michal Simek <michal.simek@amd.com>
-Reviewed-by: Cédric Le Goater <clg@kaod.org> # Aspeed driver
-Reviewed-by: Dhruva Gole <d-gole@ti.com> # SPI Cadence QSPI
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com> # spi-stm32-qspi
-Acked-by: William Zhang <william.zhang@broadcom.com> # bcm63xx-hsspi driver
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com> # DW SSI part
-Link: https://lore.kernel.org/r/167847070432.26.15076794204368669839@mailman-core.alsa-project.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
+However the folios are unevictable and remain so until the inode is
+evicted, eliminating usual mlock() semantics - mapping folios then
+unmapping them does not clear their unevictable state, since it depends on
+AS_UNEVICTABLE, not PG_mlocked.
 
-Stable backport notes:
-Limit this dependency to spi-bcm63xx-hsspi.c, the driver affected by
-3b0cee026640 ("spi: bcm63xx-hsspi: disable clocks on resume failure").
-Convert its eleven existing chip-select accesses using the accessor
-already provided by this stable tree. Drop conversions in other drivers,
-SPI memory core and trace events, which are unrelated to the target.
+A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+map then unmap and VmLck no longer counts the secretmem range.  Worse,
+folios are not accounted in the process's RSS, meaning the OOM killer
+won't know to kill the process.
 
-Keep the stable driver's existing transfer implementation; do not import
-upstream prepend support, additional helpers or drivers absent from 6.1.
-In the existing resume function, use the spi_controller type/accessors
-and the local name host. The old spi_master names are compatibility
-aliases here, so this preserves behavior while allowing the target's
-spi_controller_resume(host) error-handling hunk to apply unchanged.
-No functions are added.
+Repeatedly mapping/unmapping (or forking) can then result in the
+consumption of all available system memory with unevictable folios and
+cause system instability.
 
-[ sashal: Reduced backport -- upstream 9e264f3f85a56 touches 92 file(s), this
-  backport carries 1. Not backported here:
-  drivers/spi/spi-altera-core.c
-  drivers/spi/spi-amd.c
-  drivers/spi/spi-ar934x.c
-  drivers/spi/spi-armada-3700.c
-  drivers/spi/spi-aspeed-smc.c
-  drivers/spi/spi-at91-usart.c
-  drivers/spi/spi-ath79.c
-  drivers/spi/spi-atmel.c
-  ... and 83 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+A secretmem fd can be passed between processes and over fork so a
+per-process limit simply does not make sense, so follow the precedent set
+by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
+locked pages in user_struct->locked_vm.
 
-Stable-dep-of: 3b0cee026640 ("spi: bcm63xx-hsspi: disable clocks on resume failure")
+Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+applies per-user not per-process, so it doesn't make sense to bypass for
+users with CAP_IPC_LOCK, therefore remove this bypass.
+
+There is simply no reason to carry on marking the mapping as mlock()'d
+since it's misleading and the lifecycle is now correctly handled, so
+remove this too.
+
+Note that secretmem does not support any form of truncation (including
+hole punching) and the folios are unreclaimable, so the folios need only
+be accounted on fault and unaccounted on inode destruction.
+
+__secretmem_account_pages() is more or less a duplicate of the code that
+io_uring etc.  use, but since this is a bug fix that needs backporting,
+defer any de-duplication efforts to a follow-up.
+
+test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
+been removed, so remove the test altogether for the fix.  A new test will
+be sent separately for upstream.
+
+Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
+Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Hagen Paul Pfeifer <hagen@jauu.net>
+Cc: Jakub Kacinski <kuba@kernel.org>
+Cc: James Bottomley <james.bottomley@HansenPartnership.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted secretmem changes to Linux 6.12’s page-based fault handling and legacy mmap interface. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-bcm63xx-hsspi.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ include/linux/sched/user.h                |   3 +-
+ mm/secretmem.c                            | 117 ++++++++++++++++++++--
+ tools/testing/selftests/mm/memfd_secret.c |  30 +-----
+ 3 files changed, 110 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 9948c2a459c12..16e2873c4d4b3 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -132,7 +132,7 @@ static void bcm63xx_hsspi_set_cs(struct bcm63xx_hsspi *bs, unsigned int cs,
- static void bcm63xx_hsspi_set_clk(struct bcm63xx_hsspi *bs,
- 				  struct spi_device *spi, int hz)
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index 4cc52698e214e..8d7e5521f7cdd 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -25,7 +25,8 @@ struct user_struct {
+ 
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
++	defined(CONFIG_SECRETMEM)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+diff --git a/mm/secretmem.c b/mm/secretmem.c
+index aec96e4896f00..e89accd5b3688 100644
+--- a/mm/secretmem.c
++++ b/mm/secretmem.c
+@@ -18,6 +18,8 @@
+ #include <linux/secretmem.h>
+ #include <linux/set_memory.h>
+ #include <linux/sched/signal.h>
++#include <linux/sched/user.h>
++#include <linux/cred.h>
+ 
+ #include <uapi/linux/magic.h>
+ 
+@@ -47,10 +49,69 @@ bool secretmem_active(void)
+ 	return !!atomic_read(&secretmem_users);
+ }
+ 
++struct secretmem_inode_state {
++	struct user_struct	*user;
++	atomic_long_t		nr_pages_accounted;
++};
++
++static bool __secretmem_account_pages(struct user_struct *user,
++		unsigned long nr_pages)
++{
++	unsigned long page_limit, cur_pages, new_pages;
++
++	if (!nr_pages)
++		return true;
++
++	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	cur_pages = atomic_long_read(&user->locked_vm);
++	do {
++		new_pages = cur_pages + nr_pages;
++		if (new_pages > page_limit)
++			return false;
++	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
++					  &cur_pages, new_pages));
++	return true;
++}
++
++static bool secretmem_account_folio(struct secretmem_inode_state *state,
++		const struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++
++	if (!__secretmem_account_pages(state->user, nr_pages))
++		return false;
++
++	atomic_long_add(nr_pages, &state->nr_pages_accounted);
++	return true;
++}
++
++static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
++		unsigned long nr_pages)
++{
++	atomic_long_sub(nr_pages, &state->user->locked_vm);
++	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
++}
++
++static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
++}
++
++static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
++{
++	const unsigned long nr_pages_accounted =
++		atomic_long_read(&state->nr_pages_accounted);
++
++	__secretmem_unaccount_pages(state, nr_pages_accounted);
++}
++
+ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
  {
--	unsigned int profile = spi->chip_select;
-+	unsigned int profile = spi_get_chipselect(spi, 0);
- 	u32 reg;
- 
- 	reg = DIV_ROUND_UP(2048, DIV_ROUND_UP(bs->speed_hz, hz));
-@@ -159,7 +159,7 @@ static void bcm63xx_hsspi_set_clk(struct bcm63xx_hsspi *bs,
- static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- {
- 	struct bcm63xx_hsspi *bs = spi_master_get_devdata(spi->master);
--	unsigned int chip_select = spi->chip_select;
-+	unsigned int chip_select = spi_get_chipselect(spi, 0);
- 	u16 opcode = 0;
- 	int pending = t->len;
- 	int step_size = HSSPI_BUFFER_LEN;
-@@ -168,7 +168,7 @@ static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- 	u32 val = 0;
- 
- 	bcm63xx_hsspi_set_clk(bs, spi, t->speed_hz);
--	bcm63xx_hsspi_set_cs(bs, spi->chip_select, true);
-+	bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), true);
- 
- 	if (tx && rx)
- 		opcode = HSSPI_OP_READ_WRITE;
-@@ -236,14 +236,14 @@ static int bcm63xx_hsspi_setup(struct spi_device *spi)
- 	u32 reg;
- 
- 	reg = __raw_readl(bs->regs +
--			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 	reg &= ~(SIGNAL_CTRL_LAUNCH_RISING | SIGNAL_CTRL_LATCH_RISING);
- 	if (spi->mode & SPI_CPHA)
- 		reg |= SIGNAL_CTRL_LAUNCH_RISING;
- 	else
- 		reg |= SIGNAL_CTRL_LATCH_RISING;
- 	__raw_writel(reg, bs->regs +
--		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 
- 	mutex_lock(&bs->bus_mutex);
- 	reg = __raw_readl(bs->regs + HSSPI_GLOBAL_CTRL_REG);
-@@ -251,16 +251,16 @@ static int bcm63xx_hsspi_setup(struct spi_device *spi)
- 	/* only change actual polarities if there is no transfer */
- 	if ((reg & GLOBAL_CTRL_CS_POLARITY_MASK) == bs->cs_polarity) {
- 		if (spi->mode & SPI_CS_HIGH)
--			reg |= BIT(spi->chip_select);
-+			reg |= BIT(spi_get_chipselect(spi, 0));
- 		else
--			reg &= ~BIT(spi->chip_select);
-+			reg &= ~BIT(spi_get_chipselect(spi, 0));
- 		__raw_writel(reg, bs->regs + HSSPI_GLOBAL_CTRL_REG);
- 	}
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		bs->cs_polarity |= BIT(spi->chip_select);
-+		bs->cs_polarity |= BIT(spi_get_chipselect(spi, 0));
- 	else
--		bs->cs_polarity &= ~BIT(spi->chip_select);
-+		bs->cs_polarity &= ~BIT(spi_get_chipselect(spi, 0));
- 
- 	mutex_unlock(&bs->bus_mutex);
- 
-@@ -291,7 +291,7 @@ static int bcm63xx_hsspi_transfer_one(struct spi_master *master,
- 	 * e. At the end restore the polarities again to their default values.
- 	 */
- 
--	dummy_cs = !spi->chip_select;
-+	dummy_cs = !spi_get_chipselect(spi, 0);
- 	bcm63xx_hsspi_set_cs(bs, dummy_cs, true);
- 
- 	list_for_each_entry(t, &msg->transfers, transfer_list) {
-@@ -304,7 +304,7 @@ static int bcm63xx_hsspi_transfer_one(struct spi_master *master,
- 		spi_transfer_delay_exec(t);
- 
- 		if (t->cs_change)
--			bcm63xx_hsspi_set_cs(bs, spi->chip_select, false);
-+			bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), false);
- 	}
- 
- 	mutex_lock(&bs->bus_mutex);
-@@ -518,8 +518,8 @@ static int bcm63xx_hsspi_suspend(struct device *dev)
- 
- static int bcm63xx_hsspi_resume(struct device *dev)
- {
--	struct spi_master *master = dev_get_drvdata(dev);
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(master);
-+	struct spi_controller *host = dev_get_drvdata(dev);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(host);
- 	int ret;
- 
- 	ret = clk_prepare_enable(bs->clk);
-@@ -534,7 +534,7 @@ static int bcm63xx_hsspi_resume(struct device *dev)
+ 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct secretmem_inode_state *state = inode->i_private;
+ 	pgoff_t offset = vmf->pgoff;
+ 	gfp_t gfp = vmf->gfp_mask;
+ 	unsigned long addr;
+@@ -73,9 +134,16 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 			goto out;
  		}
- 	}
  
--	spi_master_resume(master);
-+	spi_controller_resume(host);
++		if (!secretmem_account_folio(state, folio)) {
++			folio_put(folio);
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
++
+ 		page = &folio->page;
+ 		err = set_direct_map_invalid_noflush(page);
+ 		if (err) {
++			secretmem_unaccount_folio(state, folio);
+ 			folio_put(folio);
+ 			ret = vmf_error(err);
+ 			goto out;
+@@ -84,6 +152,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 		__folio_mark_uptodate(folio);
+ 		err = filemap_add_folio(mapping, folio, offset, gfp);
+ 		if (unlikely(err)) {
++			secretmem_unaccount_folio(state, folio);
+ 			/*
+ 			 * If a split of large page was required, it
+ 			 * already happened when we marked the page invalid
+@@ -114,23 +183,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
+ 	.fault = secretmem_fault,
+ };
  
++static void secretmem_destroy_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state = inode->i_private;
++
++	secretmem_unaccount_all_folios(state);
++	free_uid(state->user);
++	kfree(state);
++	inode->i_private = NULL;
++}
++
+ static int secretmem_release(struct inode *inode, struct file *file)
+ {
+ 	atomic_dec(&secretmem_users);
++	secretmem_destroy_inode_priv(inode);
++
  	return 0;
  }
+ 
+ static int secretmem_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+-	unsigned long len = vma->vm_end - vma->vm_start;
+-
+ 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
+ 		return -EINVAL;
+ 
+-	if (!mlock_future_ok(vma->vm_mm, vma->vm_flags | VM_LOCKED, len))
+-		return -EAGAIN;
+-
+-	vm_flags_set(vma, VM_LOCKED | VM_DONTDUMP);
++	vm_flags_set(vma, VM_DONTDUMP);
+ 	vma->vm_ops = &secretmem_vm_ops;
+ 
+ 	return 0;
+@@ -190,20 +266,40 @@ static const struct inode_operations secretmem_iops = {
+ 
+ static struct vfsmount *secretmem_mnt;
+ 
++static int secretmem_init_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return -ENOMEM;
++
++	state->user = get_uid(current_user());
++	inode->i_private = state;
++	return 0;
++}
++
+ static struct file *secretmem_file_create(unsigned long flags)
+ {
+ 	struct file *file;
+ 	struct inode *inode;
+ 	const char *anon_name = "[secretmem]";
++	int err;
+ 
+ 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
+ 	if (IS_ERR(inode))
+ 		return ERR_CAST(inode);
+ 
++	err = secretmem_init_inode_priv(inode);
++	if (err)
++		goto err_free_inode;
++
+ 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
+ 				 O_RDWR, &secretmem_fops);
+-	if (IS_ERR(file))
+-		goto err_free_inode;
++	if (IS_ERR(file)) {
++		err = PTR_ERR(file);
++		goto err_free_priv;
++	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
+ 	mapping_set_unevictable(inode->i_mapping);
+@@ -216,10 +312,11 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 	inode->i_size = 0;
+ 
+ 	return file;
+-
++err_free_priv:
++	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+-	return file;
++	return ERR_PTR(err);
+ }
+ 
+ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
+index 9a0597310a765..06cffbc3fd77f 100644
+--- a/tools/testing/selftests/mm/memfd_secret.c
++++ b/tools/testing/selftests/mm/memfd_secret.c
+@@ -57,33 +57,6 @@ static void test_file_apis(int fd)
+ 		pass("file IO is blocked as expected\n");
+ }
+ 
+-static void test_mlock_limit(int fd)
+-{
+-	size_t len;
+-	char *mem;
+-
+-	len = mlock_limit_cur;
+-	if (len % page_size != 0)
+-		len = (len/page_size) * page_size;
+-
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem == MAP_FAILED) {
+-		fail("unable to mmap secret memory\n");
+-		return;
+-	}
+-	munmap(mem, len);
+-
+-	len = mlock_limit_max * 2;
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem != MAP_FAILED) {
+-		fail("unexpected mlock limit violation\n");
+-		munmap(mem, len);
+-		return;
+-	}
+-
+-	pass("mlock limit is respected\n");
+-}
+-
+ static void test_vmsplice(int fd, const char *desc)
+ {
+ 	ssize_t transferred;
+@@ -297,7 +270,7 @@ static void prepare(void)
+ 				   strerror(errno));
+ }
+ 
+-#define NUM_TESTS 6
++#define NUM_TESTS 5
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -319,7 +292,6 @@ int main(int argc, char *argv[])
+ 	if (ftruncate(fd, page_size))
+ 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
+ 
+-	test_mlock_limit(fd);
+ 	test_file_apis(fd);
+ 	/*
+ 	 * We have to run the first vmsplice test before any secretmem page was
 -- 
 2.53.0
 
