@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB1A453A5E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:42:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0B947532F
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:42:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040548; cv=none; b=eGJekZWRX+5rF3KY9iYU+nteGpgmo0SGT3ChT2YJGundcU8DNwNFjJt+NF/W1sIUY8CkTHeuLPFMjuOdtpIhTFOMcGrYVR19K7wrbGxyGlpoMUB6X/qZf3geUkJszVgUWsEGyGP+n15D+ibHUSXwidFQn79zdMGHuWa4R0FvDAA=
+	t=1789040549; cv=none; b=LyxsnUhklE8pAwst0amIf4YRKuLuohR2O8j3v21DCu46+zpcJD9Iur+o7vHBRh/HdyCI4zAu67sHWLH5HdYxCN3v+rKpLUrnmM/oa8KbPt7VJmHZjzRAcNAThm3stlRzCo+NorMiexlFHM1JyJAumMcsgS1/9lnaYwu962Er7KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040548; c=relaxed/simple;
-	bh=oyFYVUiW3C49W/cchJDjtaa4+k23NlulnxRzDX5GVac=;
+	s=arc-20240116; t=1789040549; c=relaxed/simple;
+	bh=n2cw8ccKh/5sZWgvROx6ttwtWpAomKak9sOtwxPUcYU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VmhY1J5ic0+GWV/IH0Zuz03rG/5WhkcqasRzWAv6f75FCtYEjqo/dn0yuexywAJeUNMdP8bhuHcqWoplbgA+sjiVEZ64PWL+/q69W+kIBInqu+ZtzRtkfwuPTrV2nG/b9GnYUxf0jeAfe64ov2LGHeaDoAIsnwch/g7+6iaNj4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3/7tt6X; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TvOfBTrW/Pv2N9fAeny+TyFi4wOIyN8nAfnczy7ZVgOOHF3kpzdr446jtwu/1dCaCCdhAxjRqSg8qGdZUc+ApGcp0AkmHAJmMPjyQnh0CS46YYu5L27vx3cy5+38Di2oJ5j0MckuFgP08iD1GKFXpLzawiRtHbtnvNS9KZm5jak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+qNxiSQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3/7tt6X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13B11F00898;
-	Thu, 10 Sep 2026 11:42:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+qNxiSQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50D71F00893;
+	Thu, 10 Sep 2026 11:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789040546;
-	bh=K6y5aBk5W+Byp+a/aucrpqNYMOg/gQ3zyOicp3/oZ18=;
+	s=k20260515; t=1789040547;
+	bh=1VIdwXE2Ep5bWwNjyOQRQrCtdFdwV54lJZ+5YV0mvAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3/7tt6XEQX2DEOPmA5+PcBS7SlxO6sauXdFKl5moR+u/bjNIZ9IdElmk6f8z2O70
-	 tgEPqcuyb7WFyGZCcmL0OC9DV17p9+N5PTAEkP83bUujRw4VieQRNNtJvUbIZVYp0y
-	 LnNAY2CniPNEH2JzeluoBktL4bYdX4Nos1p9tJKmGnj+6hcVq7bZF1p3il4e2bc3JZ
-	 BNFAQ9oPNCQP8wh+LY1kT77RVmTFR8BE/LuWFaw6KRqO3bN9/eieRpKY84vXcwXj/5
-	 6SPFmg+2oN3hI9XZzFvMM5V3wiMiBYns0ROCbvcQQb7Cqktku9cR5S/OdNENaWNDVm
-	 J6LNll8KAFilA==
+	b=d+qNxiSQ+p/6XMoyg3IZl9D/gVpqGuUA6gzIzH+T1fOdLjJcorGGnCBcazEAKTIGf
+	 SZX9hYjk8d70dJOSL28hlpvDHzhH965JVT9HvjQEEzQN/yF3XJ21giifKKT7tSZonB
+	 2ZCUQB1lYEhJS+e31POgD8HXlnIAdtCBji3gay+vmwkTurBwK9xxlrWRa7VHLdjA/R
+	 Q1vy9A51u2Zt2oDgHSCX6QOZFtz/oN1FM5AxMCSirwChRXVmKIjEeR90IyV4N+81Mp
+	 A8XV13J6mUbEOu9aD/Z67J+XoSx8Vzl549/tSLWEsLiLwgi+EZUZAYPwybhWwcB/FE
+	 d/zxeoaFdMiMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Muhammad Bilal <meatuni001@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()
-Date: Thu, 10 Sep 2026 07:42:23 -0400
-Message-ID: <20260910114223.89615-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
+Date: Thu, 10 Sep 2026 07:42:25 -0400
+Message-ID: <20260910114225.89657-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910114223.89615-1-sashal@kernel.org>
-References: <2026090823-contour-casket-b871@gregkh>
- <20260910114223.89615-1-sashal@kernel.org>
+In-Reply-To: <2026090829-wobbling-sterilize-72a1@gregkh>
+References: <2026090829-wobbling-sterilize-72a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,57 +48,137 @@ Content-Transfer-Encoding: 8bit
 
 From: Muhammad Bilal <meatuni001@gmail.com>
 
-[ Upstream commit 28a289beaf226b30b1e6e7d7b1a2946fe2d6e852 ]
+[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
 
-rtw_restruct_wmm_ie() scans in_ie for a WMM IE with:
+sm750_hw_imageblit() advances its monochrome source pointer by
+src_delta per scanline, and computes the correct rounded-up stride
+internally as:
 
-	while (i < in_len) {
-		...
-		if (i + 5 < in_len && in_ie[i] == 0xDD && ...) {
-			...
-			break;
-		}
-		i += (in_ie[i + 1] + 2); /* to the next IE element */
-	}
+        bytes_per_scan = (width + start_bit + 7) / 8;
 
-When the "i + 5 < in_len" match check fails simply because i is
-within 5 bytes of the end of the buffer (i.e. no WMM IE was found
-near the tail of in_ie), execution falls through to
-"i += (in_ie[i + 1] + 2)", which reads in_ie[i + 1]. If i == in_len
-- 1 at that point, this is a 1-byte out-of-bounds read of an
-attacker-influenced IE buffer built from association/scan data.
+Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+image->width >> 3. For widths not a multiple of 8 this under-counted
+the stride, so the source pointer fell further behind the real
+per-scanline layout on every line, corrupting the rendered image.
 
-Commit a75281626fc8f ("staging: rtl8723bs: fix potential
-out-of-bounds read in rtw_restruct_wmm_ie") added the "i + 5 <
-in_len" guard to the match condition itself, but did not add an
-equivalent guard before the fallthrough advance, so the same class
-of OOB read remained reachable through the non-matching path.
+Rather than just fixing the caller's calculation, remove src_delta
+as a parameter entirely and have sm750_hw_imageblit() advance by the
+bytes_per_scan it already computes for itself. There has only ever
+been one caller, and that caller was passing an out-of-sync
+derivative of the same width/start_bit values sm750_hw_imageblit()
+already has, so keeping stride as a separate parameter served no
+purpose beyond letting the two calculations drift apart, which is
+exactly what happened here.
 
-Add an explicit bounds check before advancing to the next IE.
+Rounding up, rather than down, is the direction consistent with the
+rest of the fbdev core: struct fb_image mono bitmap data (the same
+image->data this driver receives) is walked elsewhere with byte
+strides derived from a ceiling division of width by 8. The generic
+mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+ceiling division with an added start_bit offset, so the caller's
+">> 3" (floor) was the one calculation out of step with how this data
+layout is handled everywhere else.
 
-Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+Found by code review of sm750_hw_imageblit()'s internal stride
+calculation against what its only caller was passing in, and
+confirmed with a clean -Werror build. I do not have this hardware,
+so this has not been exercised at runtime on real sm750 silicon.
+
+Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
 Cc: stable@vger.kernel.org
+Reviewed-by: Dan Carpenter <error27@gmail.com>
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260728125456.32359-4-meatuni001@gmail.com
+Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/staging/sm750fb/sm750.c       | 2 +-
+ drivers/staging/sm750fb/sm750.h       | 2 +-
+ drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+ drivers/staging/sm750fb/sm750_accel.h | 4 +---
+ 4 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index b08186a2af5fa..c7fab90550f01 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -2274,6 +2274,9 @@ int rtw_restruct_wmm_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, uint in_
- 			break;
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 7d64ba7a4a054..7397742043c17 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -275,7 +275,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+ 	spin_lock(&sm750_dev->slock);
+ 
+ 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
+-				      image->data, image->width >> 3, 0,
++				      image->data, 0,
+ 				      base, pitch, Bpp,
+ 				      image->dx, image->dy,
+ 				      image->width, image->height,
+diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
+index aff69661c8e62..a693d9f1d0d5e 100644
+--- a/drivers/staging/sm750fb/sm750.h
++++ b/drivers/staging/sm750fb/sm750.h
+@@ -73,7 +73,7 @@ struct lynx_accel {
+ 			   u32 rop2);
+ 
+ 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
+-			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
++			    u32 start_bit, u32 d_base, u32 d_pitch,
+ 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
+ 
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index 44b9e3fe3a41d..37217a496ba75 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * sm750_hw_imageblit
+  * @accel: Acceleration device data
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *	      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *	      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
+ {
+@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+ 			write_dpPort(accel, *(unsigned int *)ajRemain);
  		}
  
-+		if (i + 1 >= in_len)
-+			break;
-+
- 		i += (in_ie[i + 1] + 2); /*  to the next IE element */
+-		pSrcbuf += srcDelta;
++		pSrcbuf += ulBytesPerScan;
  	}
+ 
+ 	return 0;
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 2c79cb730a0a6..df48ed57a054e 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+ /**
+  * sm750_hw_imageblit
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *>-----      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *>-----      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
  
 -- 
 2.53.0
