@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075ED5328B9
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:49:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF5F3B3894
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058979; cv=none; b=jXKHE8BtXK/+EcKV0pRC8wNUIpz1FTc5yPv/xfr1ctbZRj6mtI0wqC5l2MD/1ph8I5Tsk3tnyChBIgF9k6qlPW9woBjWVys7EvoouCN9o2TAO/0Ly8+/hTg7Gu7YgwCs8kiBpu2VlihUz2PlcM2xT+saUN0o5K4UtlZL/NkrgP0=
+	t=1789058980; cv=none; b=YetbpexScD9HjCHDohD0jYp5fdRKxgNDIuiu15dpjLbwm9SolU1PSWckQ6UlDPaRiRnL71ENNaB3vdfzNErqXhNv6ITTarWXz5I0pV60FjPPz8ICXlbIKCN6Djusx248kIK6mdItnBTZ8KMfpZ/TCLrNhxL2hJbQqtZjbAGF5+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058979; c=relaxed/simple;
-	bh=HktelD7xSN2tppNo8fDUaoTFtCs+tPOIIu5e4/S1bMU=;
+	s=arc-20240116; t=1789058980; c=relaxed/simple;
+	bh=OhRQZhGtmwOq+s1kzkdls0WifB1pHPGcQwnTnFw1e8U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RhGdnL6DRUK3L9CaeXHpFf6rwUMq3Qhs3TGYBbq+nXy2LrAQGisVJXAIMpVFUYGaXy0ztkh0stG1FRYOLZmakIeZWPHl1Gi3alGT3HdpRa1UTnd3zwOprifGIOgotiS8Pd3AmVNsiUDXTjji/yqCXmT0F/jDkD7aNidn3sxYckM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDRUi4W+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PbVuc4aMzu7rZK/723cGKkkFQm8e0hZwY80/qDGCF3CdGU+vxFJzLRBCdGzLVJ6+5UccOED6ZHrPegeEOcEq4jh6FtnOO38EEmZ4+T2LJcGtve3Wqceq6IqyihHdxsaDaKb1wCEh/FEga29Ds9rSfiCEv44fAWSrnvWWDMCneMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+HKRjtG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDRUi4W+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE80B1F000FF;
-	Thu, 10 Sep 2026 16:49:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+HKRjtG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D702B1F00893;
+	Thu, 10 Sep 2026 16:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789058977;
-	bh=HbFmMnAQo9hSXCZ6zkcSErWNZuWPTLf2AANeem+l56U=;
+	s=k20260515; t=1789058978;
+	bh=RSx497K3CbVlsuikAtmtsji8yA5jwz5pqJVV0mQYb1g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XDRUi4W+eZ/xIcMRYKN6ChENMKqWQmlNC2956FUgQQB+gBaG/f6P81AmKy+GIkkSq
-	 4sqCbHSxCNbpAeMOIiO+rc3nMh4JcmH2ZQd11QqNgzGUmz4vGSfKQKxgOk35tdih4h
-	 Uok1gM+sLKpEt6ZuBz9npSWlWGRa9eW54SaBH5tKyYaQWxM7MjWy9K+4xHbrunpaIr
-	 MpJE1rOqC3OvDFnoMreMeBqE6Y4QYCMeG+Uho8iFGNO0nRgMD0khSurTE9ZMIAbJGT
-	 zbr42zX55idQxMo+wkVf1J6z07ItxwqJSYygTJVG9VW5Tcb3PxEZM2NwMt5gvsADE4
-	 eP+HN0r4ob2Rg==
+	b=m+HKRjtGfJa9aGkS9aTplNGuDKW0oz2mN4Y/WO2zGZfVLYDBn+Gco11iUh8ovmYk6
+	 BoIOPZkVzb4MHXzhfg2jvYFcEKD7YIBl/pJzkOejATULAXS7uNvcYvU9vY2xA9LJOL
+	 0SVADCwnQiGMvsBQhVQ5zQgDjAdV+/lcf8xEO4bSMMfUO7aDo7X0TxbDw5bJ2mdzQT
+	 chnOGa2tjuz9RvuE5DCMWgm231qxZkubZQrE6Ml3pqA+dqFb1OzUYLT8fE64mLMmiN
+	 FOhXZ63cZiWEHJ2T7b8ZA9qphnZxe+sDgGjmap+jtxiK4CYChkkYwBxAGr7yzSuwpF
+	 XCxhk+yDOA3CA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
@@ -33,12 +33,13 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] i2c: qcom-cci: Do not check return value of cci_init()
-Date: Thu, 10 Sep 2026 12:49:33 -0400
-Message-ID: <20260910164935.1257325-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] i2c: qcom-cci: Remove overcautious disable_irq() calls
+Date: Thu, 10 Sep 2026 12:49:34 -0400
+Message-ID: <20260910164935.1257325-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090908-parrot-escargot-18fb@gregkh>
+In-Reply-To: <20260910164935.1257325-1-sashal@kernel.org>
 References: <2026090908-parrot-escargot-18fb@gregkh>
+ <20260910164935.1257325-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,55 +50,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-[ Upstream commit 17c5d247e3e4708cac05ff087c8013c0dda383a2 ]
+[ Upstream commit f0285c286bca5a1e018ba25040cef6c7806c31ef ]
 
-The cci_init() function is not supposed to fail, and it never returns
-a non-zero, so it'd make sense to convert its signature to void.
+In cci_probe() the controller's interrupt is requested using a devres
+managed API, and in cci_probe() error path and cci_remove() it'd be
+safe to rely on devres mechanism to free and shutdown the interrupt,
+thus explicit disable_irq() calls can be removed as unnecessary ones.
 
 Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260515234121.1607425-3-vladimir.zapolskiy@linaro.org
+Link: https://lore.kernel.org/r/20260515234121.1607425-5-vladimir.zapolskiy@linaro.org
 Stable-dep-of: f98d49864821 ("i2c: qcom-cci: fix autosuspend cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 85de659bb3627..bcc67427b6c3f 100644
+index bcc67427b6c3f..2cbf47052d8da 100644
 --- a/drivers/i2c/busses/i2c-qcom-cci.c
 +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -247,7 +247,7 @@ static int cci_reset(struct cci *cci)
- 	return 0;
- }
+@@ -630,7 +630,7 @@ static int cci_probe(struct platform_device *pdev)
  
--static int cci_init(struct cci *cci)
-+static void cci_init(struct cci *cci)
- {
- 	u32 val = CCI_IRQ_MASK_0_I2C_M0_RD_DONE |
- 			CCI_IRQ_MASK_0_I2C_M0_Q0_REPORT |
-@@ -288,8 +288,6 @@ static int cci_init(struct cci *cci)
- 		val = hw->scl_stretch_en << 8 | hw->trdhld << 4 | hw->tsp;
- 		writel(val, cci->base + CCI_I2C_Mm_MISC_CTL(i));
- 	}
--
--	return 0;
- }
- 
- static int cci_run_queue(struct cci *cci, u8 master, u8 queue)
-@@ -634,9 +632,7 @@ static int cci_probe(struct platform_device *pdev)
+ 	ret = cci_reset(cci);
  	if (ret < 0)
- 		goto error;
- 
--	ret = cci_init(cci);
--	if (ret < 0)
 -		goto error;
-+	cci_init(cci);
++		goto disable_clocks;
  
- 	pm_runtime_set_autosuspend_delay(dev, MSEC_PER_SEC);
- 	pm_runtime_use_autosuspend(dev);
+ 	cci_init(cci);
+ 
+@@ -662,8 +662,6 @@ static int cci_probe(struct platform_device *pdev)
+ 			of_node_put(cci->master[i].adap.dev.of_node);
+ 		}
+ 	}
+-error:
+-	disable_irq(cci->irq);
+ disable_clocks:
+ 	cci_disable_clocks(cci);
+ 
+@@ -683,7 +681,6 @@ static void cci_remove(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	disable_irq(cci->irq);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_set_suspended(&pdev->dev);
+ }
 -- 
 2.53.0
 
