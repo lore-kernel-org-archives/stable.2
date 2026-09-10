@@ -1,43 +1,47 @@
-Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-228.mta1.migadu.com [95.215.58.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D16B67E;
-	Thu, 10 Sep 2026 03:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755BE3803DE
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 03:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009243; cv=none; b=oaKnG+m0bxxnEY4G6DNQRrAkioeGtaOHtydLJ69uHr9twdRy9G27xMGDp309AGQnSUQ/K1a3qilRiyxgMTdJ/o4qva82WAN1WAII7/Ofen8ndkhSp9jKZRDZIWqgQahuVadSRtwC/WCkYKaVwdx2YsLTIkozuvUla47oLY62phk=
+	t=1789009876; cv=none; b=dEwZr7RBrNu6uFanc8T+hJHKFdQBAZg+kbUJt1KaZb+SQGxuHkROvxI8k8/s8OQglR4I+zNLQpLdVzUWeQ4K4MtDDEEn3pwb6Csp7J01hBst5AeaYpmCFuk7+tHHvQnr5CfMrr88OgzdIGxxdUfgiBq71dftnohkqlwcR80at0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009243; c=relaxed/simple;
-	bh=A7PNGMGbQtnRVCFeuXx3tq5V8XXMyBCnWap9FB6QgiM=;
+	s=arc-20240116; t=1789009876; c=relaxed/simple;
+	bh=7KzUFv49w6HE+2wsp3PnziaKu2DGbCjmay2SdfIHDLI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m9TQe3bwcjXxD3FZXNDZpo8MsvKmcwGptin4eCI7eOS3tEW3z5x9DIdXl9nvheN9oCb35bFKQSMMZnttZzR58j8lx0wD4eRKDwHxR5JElj+b5MyO/xGwDzA9WxGqFb+w8NkKD6TjHOLAWCtjBo/xMoMMziWEjdHGW5pMtEQ/giw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=XOeb8x3y; arc=none smtp.client-ip=115.124.28.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	 MIME-Version; b=Fld/n+czLJ+YIODTv58penjo38T/bH1gcfAgahOX5MIozUh22uEdmXA75z3Z63OlFCEshz3dE/5cZZMrR/WreiubFDpgfdwDoQHGHFqqKn8XopmMDiDEmdpjQomM06ALEThypaQjyOeZRJvFVcQDWEL7Y/Oeils/1gAlxRexJ6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=bLEEzxmW; arc=none smtp.client-ip=95.215.58.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="XOeb8x3y"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789009237; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=OTFLWrl+qAjkSWXHIgQqkXGjVHwsQiyRzO/dH1S63EM=;
-	b=XOeb8x3yHfSkpmaam6xnfRH+F9KD46ZSwKSH7ZJKNiyNznabGswKfOEHZlHiXIw4K23Sv/WT1ZsRM0i/pLdsQr9drOdm3GbwiOR7jRvpCai2yzAqa8yMS1SQwwdkdB5Nt5nE09wD3E82sbP75AOy+MucBR5FjX58pUcHX/NRaK8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07731052|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0118688-0.000212665-0.987919;FP=6717226604748474298|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jA1h9UI_1789009236;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jA1h9UI_1789009236 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 11:00:36 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Thu, 10 Sep 2026 11:00:35 +0800
-Message-ID: <20260910030036.1045515-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908062119.402027-1-zhugl3@xiaopeng.com>
-References: <20260908062119.402027-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="bLEEzxmW"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7KzUFv49w6HE+2wsp3PnziaKu2DGbCjmay2SdfIHDLI=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789009871; v=1; x=1789614671;
+ b=bLEEzxmWINUk/EsTxr48Onxrvfy9wt6Uq+CScH6ZXx5Y29mYc+oS0s8u0c2Lrge2C2uta3rE
+ MvwqmmYnRJonoDkEkEluDxGbn5arArPlOi2rPKeYMxk+Zj/fW5CIGX4PPISR23oJwBlkK1xxJ0t
+ vms09vmeXJ6WX9o8ydz4OZIPvN+vkLqBs1pOVgNR6gjXus8fCvBpQPv+ENc9XSjUeTNdpBZ9n2H
+ L6zBoNuR+wlxttjL/5ZWJhSgE6CNYP4YDIlUA6/wloA62HYu28b8JmDAU2Hyx6HcUjLtwN07rM3
+ rakPlIZyuIplPODwWBa271UL0uWREX3SPlC4/MfIWj/CQ==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6d022997a9e88ff3;
+	Thu, 10 Sep 2026 03:11:11 +0000
+X-Mizu-Trace-ID: 6d022997a9e88ff3
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: stable@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Wentao Guan <guanwentao@uniontech.com>,
+	linux-wireless@vger.kernel.org
+Subject: [PATCH 6.18.y 1/2] wifi: mt76: mt7925: cancel mlo_pm_work on stop
+Date: Wed,  9 Sep 2026 20:11:01 -0700
+Message-ID: <20260910031106.25906-2-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910031106.25906-1-lucid_duck@justthetip.ca>
+References: <20260910031106.25906-1-lucid_duck@justthetip.ca>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +50,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single folio
-with no length check, so a malicious or buggy MDS returning more
-inline data than the folio can hold writes past its end.
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
 
-Clamp the length to folio_size() so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+commit 81faf578320df2dfc682a96baa6e85851dd68b6f upstream.
 
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
+mt7925 queues mlo_pm_work with a 5 second delay during multi-link
+power-save setup and never cancels it on the stop path. If the device is
+torn down inside that window, the work outlives the teardown and its timer
+fires afterwards, trying to queue onto the workqueue that is already gone:
+
+  workqueue: cannot queue mt7925_mlo_pm_work [mt7925_common] on wq phy0
+  WARNING: kernel/workqueue.c:2283 at __queue_work+0x59/0xa0, CPU#1: swapper/1/0
+   call_timer_fn+0x2a/0x140
+   __run_timers+0x203/0x330
+   run_timer_softirq+0x86/0xf0
+
+mt7921 already has its own stop callback, so add one for mt7925 that
+cancels the work before calling mt792x_stop().
+
+Fixes: 276a56883257 ("wifi: mt76: mt7925: update the power-saving flow")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Tested-by: Traockl <281473483+Traockl@users.noreply.github.com>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
+Backport note: the upstream message ends "mt7925_ops backs both the PCIe
+and USB drivers, so this covers both." That is wrong and I said so on the
+list on 28 July. mt7925u_probe() replaces the stop callback with its own,
+so this reaches PCIe only. I dropped the sentence instead of carrying it
+into three more trees. The USB gap is a separate fix, not yet sent.
 
-- rebase onto ceph-client.git testing, where ceph_fill_inline_data()
-  was converted to folios; clamp to folio_size() instead of PAGE_SIZE
-  (reported by Alex Markuze)
-
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 4a2d3352a..3c7cf8a5e 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -2266,6 +2266,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
- 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
- 	      ceph_vinop(inode), len, locked_folio);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index 910713e..d22e25b 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2180,10 +2180,19 @@ static void mt7925_rfkill_poll(struct ieee80211_hw *hw)
+ 	wiphy_rfkill_set_hw_state(hw->wiphy, ret == 0);
+ }
  
-+	if (len > folio_size(folio)) {
-+		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
-+					   len);
-+		len = folio_size(folio);
-+	}
++static void mt7925_stop(struct ieee80211_hw *hw, bool suspend)
++{
++	struct mt792x_dev *dev = mt792x_hw_dev(hw);
 +
- 	if (len > 0)
- 		memcpy_to_folio(folio, 0, data, len);
- 
--- 
-2.43.0
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
++
++	mt792x_stop(hw, suspend);
++}
++
+ const struct ieee80211_ops mt7925_ops = {
+ 	.tx = mt792x_tx,
+ 	.start = mt7925_start,
+-	.stop = mt792x_stop,
++	.stop = mt7925_stop,
+ 	.add_interface = mt7925_add_interface,
+ 	.remove_interface = mt792x_remove_interface,
+ 	.config = mt7925_config,
 
