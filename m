@@ -1,298 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF51B49F137
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:29:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78CB489FC4
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050549; cv=none; b=j3b73+db/ZQ+XsIdrJDNb5LEShG8fQv6PHR/xhAIlzVQnIQfcmiAIm6Q0A0F/etcUs+GTLT9QK3xnV+RflLXF0rAu5Ocj3wNXT00sm4uy9ZfH5gjuLHZQAD88HVH3Q4drMgEvcLM0Vq53dvXjHdFG1556c1xdyYWnlhNYlkNxAY=
+	t=1789050735; cv=none; b=pUo7/N4+pXG+dLkaFehtG9mMmLHC0G5HUrGEINcOcTrbEBzABCWkpzWP32HHxnTMQOetBQgbot3leFO2b+Ky8u83Z9ndSjjJQ9rUyA2T7Rv63R0QU6GolbDFU9iCA70QoKi1zvcN+qjS3qkVpOO8SpYWonjkMrF9TJjq8qIEQBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050549; c=relaxed/simple;
-	bh=6kRggn1AgNkTiFVyHdQuAe6zO82LS7vm0MpSeSHMVtI=;
+	s=arc-20240116; t=1789050735; c=relaxed/simple;
+	bh=ecH6LEVEmACvE81DrLtQPbc+m7FaTjFfBuLtR9hu5Tc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L5cV5hpHGMETScz7Al7OMD9QsMCQjSooKLtWnS3bmg0kG6MpLq5Bxrnh5KESLvWEpyBumuc1cGrWUzBdfl3c9I4jVhS0zOzITE5KOEiISF33URe3pXC8ha4QSGK5Mi2Up09CzB4zCzEd6H/k0Sa0WGPU7b8Wdk1AWX1gu0wYEUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nx6cn3f3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=J78+SyzOpYBkvhzlrJiMEcmOUBNJYqokDfuY1lpLkl/pGWcBGnldQleKmcPTRumTRjj8Xa32AOaDXySIeLDDAIOn6woDscMAgpd3pl/urBuaD5Cyy6P0wFMRdmTkHgQld9UJsQ2RfLc/EqpOAIlBS8wjj+ITsfuBcTd0RUZ+oAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tf4S0QA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nx6cn3f3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2109B1F000FF;
-	Thu, 10 Sep 2026 14:29:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tf4S0QA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200F51F000FF;
+	Thu, 10 Sep 2026 14:32:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050547;
-	bh=1vyO4jpT4IcyJEinr0D4d5fkCsMtYyeeL4IdYeAbVxU=;
+	s=k20260515; t=1789050733;
+	bh=IvW7kpMj66onsCZnIV+36eIODzVUPFaGRqqII/WC9pA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nx6cn3f35o8OHw7r2tjQqCmebblWojafKC0oxzGwOnNuag22W5VifOt7UKr1WaTdO
-	 +ugy/8LMGUp5innw5l0FPrHZQLkXjn+8/7ZWMpU3BYrxNVV8h1R6Zr40fCzhWepyPP
-	 pfkU+LBs9LjusEHq3Hb2uOuwBdEHP7Sofj7gJR2MxGGFEqNyKyOYZe6dGGPY6wDrFf
-	 xLtgP+pLrIallhP+TabNl+kVQXBX6c9G6HUUpxSlDxE/ob+bqKecsNuisNBhtiHlPR
-	 qCRY0b4jWzSAfrqa4Bx2pfmApmd9VblqEwV/guBgszq3RJnFKJYUNewNr4ebIk54+B
-	 mlVkcpjik5aAA==
+	b=Tf4S0QA8c0jd+WMQFDKl+GzUTwxpKduUc2FrFj+Y22Vlih6Ovi/wpue3JnrcqjHfg
+	 WGtkdHJO9yavE3sZAi722b7c3h9DSpfrNQ0XBZRjTuyd4y1HfBZUrDi4qZVOZk/Ubz
+	 SOYt36x+OdIG6J6poO0R/erEDV4yhYHgh6euvT552Fi02hNlIKdrmD94m1M3cj+hwR
+	 gRLmpFiIIT9gMizK/zP2WRgauYhDrncO4+oQAASAIrlRPRlevdCiwkDWzIiNUc4VKr
+	 gSvJNznxAe2Vyl5rc0CpK+2GV2a5lwzj5gAhLDkNeL2wSGdzu9jZ3Tc2/WgAloTXGL
+	 vhFTTTwtyr+nw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Breno Leitao <leitao@debian.org>,
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ftrace: Take trace_array reference before accessing its ftrace_ops
-Date: Thu, 10 Sep 2026 10:29:05 -0400
-Message-ID: <20260910142905.693726-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 10:32:11 -0400
+Message-ID: <20260910143211.723897-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090806-impulse-directive-c104@gregkh>
-References: <2026090806-impulse-directive-c104@gregkh>
+In-Reply-To: <2026090815-obituary-startle-7f81@gregkh>
+References: <2026090815-obituary-startle-7f81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-[ Upstream commit 9100191e5acb2e5ea2313f436667bb5fce129f47 ]
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-The trace instance files set_ftrace_filter and set_ftrace_notrace was
-updated to work with specific trace instances (trace_arrays). The issue is
-that when these files are opened, there is a small race window where it
-will use the ftrace_ops from the inode->private pointer to get a reference
-to the trace_array and then take its reference. The problem is that the
-ftrace_ops itself could be freed. If the rmdir on the instance happens at
-the same time the set_ftrace_filter file is opened, the rmdir could have
-also freed the ftrace_ops and referencing it will cause a use-after-free
-bug and crash the kernel.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Instead, pass in the trace_array as the file private data (NULL for the
-top level instance), and then pass both the trace_array and the ftrace_ops
-to the ftrace_regex_open() function. If the trace_array is NULL, then it
-just uses the ftrace_ops without the need to take its reference (like
-normal). If the ftrace_ops is NULL, that is only the case for the top
-level instance and the global_ops can be used.
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-This allows the trace_array to have its reference incremented before
-touching the ftrace_ops that could also be freed when the instance is.
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
+
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260828223901.29e26edb@robin
-Fixes: 591dffdade9f0 ("ftrace: Allow for function tracing instance to filter functions")
-Reported-by: Breno Leitao <leitao@debian.org>
-Tested-by: Breno Leitao <leitao@debian.org>
-Closes: https://lore.kernel.org/all/apGORjltZgAiAYHT@gmail.com/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ Replaced kzalloc_obj(*iter) with kzalloc(sizeof(*iter), GFP_KERNEL) because the newer helper is unavailable in 6.6. ]
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+[ Replaced dma_buf_fd_install(dmabuf, fd) with fd_install(fd, dmabuf->file) due to missing tracing infrastructure. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/ftrace.h         |  5 +--
- kernel/trace/ftrace.c          | 59 ++++++++++++++++++++++------------
- kernel/trace/trace.h           |  4 +--
- kernel/trace/trace_functions.c |  2 +-
- kernel/trace/trace_stack.c     |  2 +-
- 5 files changed, 46 insertions(+), 26 deletions(-)
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/include/linux/ftrace.h b/include/linux/ftrace.h
-index 5c3eaf9fc90c4..594fda9702ab2 100644
---- a/include/linux/ftrace.h
-+++ b/include/linux/ftrace.h
-@@ -673,8 +673,9 @@ unsigned long ftrace_get_addr_new(struct dyn_ftrace *rec);
- unsigned long ftrace_get_addr_curr(struct dyn_ftrace *rec);
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 3cbe87d4a464d..273e39290cf14 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -48,33 +48,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
  
- extern ftrace_func_t ftrace_trace_function;
-+struct trace_array;
- 
--int ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+int ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file);
- ssize_t ftrace_filter_write(struct file *file, const char __user *ubuf,
- 			    size_t cnt, loff_t *ppos);
-@@ -883,7 +884,7 @@ static inline unsigned long ftrace_location(unsigned long ip)
-  * have them defined when ftrace is not enabled, but these
-  * functions may still be called. Use a macro instead of inline.
-  */
--#define ftrace_regex_open(ops, flag, inod, file) ({ -ENODEV; })
-+#define ftrace_regex_open(tr, ops, flag, inode, file) ({ -ENODEV; })
- #define ftrace_set_early_filter(ops, buf, enable) do { } while (0)
- #define ftrace_set_filter_ip(ops, ip, remove, reset) ({ -ENODEV; })
- #define ftrace_set_filter_ips(ops, ips, cnt, remove, reset) ({ -ENODEV; })
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index a5ddc3f7aefaa..115f4232d688d 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -4017,7 +4017,8 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
- 
- /**
-  * ftrace_regex_open - initialize function tracer filter files
-- * @ops: The ftrace_ops that hold the hash filters
-+ * @tr: The trace_array that holds the ftrace_ops [optional]
-+ * @ops: The ftrace_ops that hold the hash filters [optional]
-  * @flag: The type of filter to process
-  * @inode: The inode, usually passed in to your open routine
-  * @file: The file, usually passed in to your open routine
-@@ -4030,25 +4031,46 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
-  * ftrace_notrace_write() if @flag has FTRACE_ITER_NOTRACE set.
-  * tracing_lseek() should be used as the lseek routine, and
-  * release must call ftrace_regex_release().
-+ *
-+ * Note, If @tr is not NULL, its reference has to be taken before
-+ *       @ops may be referenced.
-+ *       If @ops is NULL and @tr is not, then @tr->ops is used.
-+ *       If @tr is NULL and @ops is not then @ops->private is uesd for @tr.
-+ *       If both @tr and @ops are NULL, then the &global_ops is
-+ *         to be used, and @tr will be the global_ops.private pointer.
-+ *
-+ * Returns: 0 on success or a negative errno value on failure
-  */
- int
--ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file)
- {
--	struct ftrace_iterator *iter;
-+	struct ftrace_iterator *iter = NULL;
- 	struct ftrace_hash *hash;
- 	struct list_head *mod_head;
--	struct trace_array *tr = ops->private;
--	int ret = -ENOMEM;
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
 -
--	ftrace_ops_init(ops);
-+	int ret = -ENODEV;
- 
- 	if (unlikely(ftrace_disabled))
- 		return -ENODEV;
- 
-+	if (!tr) {
-+		if (!ops)
-+			ops = &global_ops;
-+		tr = ops->private;
-+	}
-+
- 	if (tracing_check_open_get_tr(tr))
- 		return -ENODEV;
- 
-+	if (!ops)
-+		ops = tr->ops;
-+
-+	if (WARN_ON_ONCE(!ops))
-+		goto out;
-+
-+	ftrace_ops_init(ops);
-+
-+	ret = -ENOMEM;
- 	iter = kzalloc(sizeof(*iter), GFP_KERNEL);
- 	if (!iter)
- 		goto out;
-@@ -4126,21 +4148,19 @@ ftrace_regex_open(struct ftrace_ops *ops, int flag,
- static int
- ftrace_filter_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
- 
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops,
--			FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
--			inode, file);
-+	return ftrace_regex_open(tr, NULL,
-+				 FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
-+				 inode, file);
- }
- 
- static int
- ftrace_notrace_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
- 
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_NOTRACE,
-+	return ftrace_regex_open(tr, NULL, FTRACE_ITER_NOTRACE,
- 				 inode, file);
- }
- 
-@@ -6437,15 +6457,15 @@ static const struct file_operations ftrace_graph_notrace_fops = {
- };
- #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
- 
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent)
- {
- 
- 	trace_create_file("set_ftrace_filter", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_filter_fops);
-+			  tr, &ftrace_filter_fops);
- 
- 	trace_create_file("set_ftrace_notrace", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_notrace_fops);
-+			  tr, &ftrace_notrace_fops);
- }
- 
- /*
-@@ -6470,7 +6490,6 @@ void ftrace_destroy_filter_files(struct ftrace_ops *ops)
- 
- static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- {
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
 -
- 	trace_create_file("available_filter_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_avail_fops);
- 
-@@ -6483,7 +6502,7 @@ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- 	trace_create_file("touched_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_touched_fops);
- 
--	ftrace_create_filter_files(&global_ops, d_tracer);
-+	ftrace_create_filter_files(NULL, d_tracer);
- 
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- 	trace_create_file("set_graph_function", TRACE_MODE_WRITE, d_tracer,
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 7ba372c21fee6..0a89196952c94 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1114,7 +1114,7 @@ extern void clear_ftrace_function_probes(struct trace_array *tr);
- int register_ftrace_command(struct ftrace_func_command *cmd);
- int unregister_ftrace_command(struct ftrace_func_command *cmd);
- 
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent);
- void ftrace_destroy_filter_files(struct ftrace_ops *ops);
- 
-@@ -1137,11 +1137,11 @@ static inline void clear_ftrace_function_probes(struct trace_array *tr)
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
  {
- }
- 
-+#define ftrace_create_filter_files(tr, parent) do { } while (0)
- /*
-  * The ops parameter passed in is usually undefined.
-  * This must be a macro.
-  */
--#define ftrace_create_filter_files(ops, parent) do { } while (0)
- #define ftrace_destroy_filter_files(ops) do { } while (0)
- #endif /* CONFIG_FUNCTION_TRACER && CONFIG_DYNAMIC_FTRACE */
- 
-diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
-index 44ae51d1dc45d..eecac19a2bcbb 100644
---- a/kernel/trace/trace_functions.c
-+++ b/kernel/trace/trace_functions.c
-@@ -90,7 +90,7 @@ int ftrace_create_function_files(struct trace_array *tr,
- 	if (!tr->ops)
- 		return -EINVAL;
- 
--	ftrace_create_filter_files(tr->ops, parent);
-+	ftrace_create_filter_files(tr, parent);
- 
+ 	struct dma_heap *heap;
+@@ -92,30 +65,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
  	return 0;
  }
-diff --git a/kernel/trace/trace_stack.c b/kernel/trace/trace_stack.c
-index 5a48dba912eae..c6b2f622ffa12 100644
---- a/kernel/trace/trace_stack.c
-+++ b/kernel/trace/trace_stack.c
-@@ -499,7 +499,7 @@ stack_trace_filter_open(struct inode *inode, struct file *file)
- 	struct ftrace_ops *ops = inode->i_private;
  
- 	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_FILTER,
-+	return ftrace_regex_open(NULL, ops, FTRACE_ITER_FILTER,
- 				 inode, file);
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
  }
  
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -131,6 +116,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -167,15 +154,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
 -- 
 2.53.0
 
