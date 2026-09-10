@@ -1,44 +1,44 @@
-Received: from mta1.migadu.com (out-232.mta1.migadu.com [95.215.58.232])
+Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9CB387346
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 03:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57685384CDD
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 03:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009886; cv=none; b=nTrgRwumhfmZ1jrKEtNNiZPVt3A/Dc5FblwJzob3gkXbpCghV7vinn/dDE0xrmhW8CyRjisKzy+Das0iu3+vhBwNOecp1N7gfg16pXcFn5WIflQqLoxks71rnXwRbLApmxuQtT8pahnTe2eDsXjEaOeJEiEw/ssTjHHcFZnms9c=
+	t=1789009887; cv=none; b=AbmJuPR2H2ALshOuDm2hziIOfQmiCgscwQ1H61spr+1+EAx7KDdXg/U/SLTThPY6Cw99Oq08ldGE072WLNo3n1uthNcKTB71+qXm6SyyuO1s2wASZiuTk5yQtbc8Tod0AZ+DG2DUenMRX4FgjMGEIYlujlnnRTmgiVbj4WUFink=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009886; c=relaxed/simple;
-	bh=SIqGZyfsfyKf1E4lLdDLS4ULkhunGBeR5pKAUW45QQA=;
+	s=arc-20240116; t=1789009887; c=relaxed/simple;
+	bh=MxuuGjuc+Q7r9CTYgjxjtVmtqA/MKeh1uLKYoDz2iPc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IURnFqhKfy0rFzlykgcRqGzRVyfA5QozUJZNdLLlcbDng5nbvNGe1DVGvP3ajgHV1hSIANEJNlWVnveslTSP+O7LOxWr8Eucqa04eJd6YcjDxhLKL+etN/slUoIF5nclbl5Q38zAHNm/Xjuv+cbh2K45G1OiuuHey4sdIHamypE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=nfCSucC+; arc=none smtp.client-ip=95.215.58.232
+	 MIME-Version; b=e6ka/2w8Pb1OXBD1axi2HH6uuZ0BP5dSGwPS9ZjSneZdg1TIWsrtQ/2eOC7ttmQPj5Ku91QPycRyflobVSovOIQto4fGkP5OuyimFhBXMdL17tekQ0NSC7H4+4A+Ue1rbzBVLVv9u2oDCt8VL9e5AifKiNj/zvt9LMY/ehHOzSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=ObSLvvmB; arc=none smtp.client-ip=91.218.175.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="nfCSucC+"
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="ObSLvvmB"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SIqGZyfsfyKf1E4lLdDLS4ULkhunGBeR5pKAUW45QQA=;
+DKIM-Signature: a=rsa-sha256; bh=MxuuGjuc+Q7r9CTYgjxjtVmtqA/MKeh1uLKYoDz2iPc=;
  c=simple/simple; d=justthetip.ca;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789009875; v=1; x=1789614675;
- b=nfCSucC+/tpQIYTrkLIcAezexRbLqdxlwfltaGNbPHLylIE++3YzOY4/YqMkxO6Xm/bmUBwz
- EllYRHhBQMftf3KFbNO4ZOG7PvhbSJp+BkKo1jAKAMV8A9eDY21Mvr9ZJIJOrJ7GxlWWF9dtTSc
- xGlfgO+WrEzLuVDTblRj+kwvnHIUxxsNSTpgQA9R3Ye3h6jjY+Irv3JafBjlMIoWGusL1smxy9u
- l8UvIrcbVoJ9d+ROEC6zfF20XuBXv8gAbxAeLSpw07yyD1MvulF1+A3Zr2AQ/UJR0+QDCuc9Fgw
- x4iCTPzRQOEq9Th74vIIYe1RmEeL9nZfowC4cDQ+9LHmg==
+ t=1789009878; v=1; x=1789614678;
+ b=ObSLvvmBfw27LICYm69nQu+cFkCB1wEmzw5Y/vG+ku+oWlYGB0LQJqV6hd9E8oewWN3FUU0X
+ n8pxi7TrPv5tDG2DE470bItBASsYZo4b8sCkp2TFfvEnaRTykkiIxH9VtSR7pOByrlu0HYUU1tt
+ MlAo6Y97vfegplViW6kpzv3qDeixLujnHwPdrk8tvd+7E3PUl7F/gsNd7eBzb5SYNT/wM20/lMl
+ lHS827bBti2O3/EVyJdjXyYXAqR8a/Zx/LPSqj3wq/j0aq8R+obdL7zu82aKTRLbl2VtILw659j
+ Uck82yxGtvmEHpJJmEj08nVLC8P6XJP8KVKF5I9uky2Fw==
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6c2ddf06cac6a47b;
-	Thu, 10 Sep 2026 03:11:15 +0000
-X-Mizu-Trace-ID: 6c2ddf06cac6a47b
+Received: by smtp.migadu.com with ESMTPS id eaf2dea66643c40a;
+	Thu, 10 Sep 2026 03:11:18 +0000
+X-Mizu-Trace-ID: eaf2dea66643c40a
 X-Migadu-Flow: FLOW_OUT
 From: Devin Wittmayer <lucid_duck@justthetip.ca>
 To: stable@vger.kernel.org
 Cc: Felix Fietkau <nbd@nbd.name>,
 	Wentao Guan <guanwentao@uniontech.com>,
 	linux-wireless@vger.kernel.org
-Subject: [PATCH 7.1.y 2/2] wifi: mt76: mt7925: cancel pending mlo_pm_work
-Date: Wed,  9 Sep 2026 20:11:04 -0700
-Message-ID: <20260910031106.25906-5-lucid_duck@justthetip.ca>
+Subject: [PATCH 7.2.y 2/2] wifi: mt76: mt7925: cancel pending mlo_pm_work
+Date: Wed,  9 Sep 2026 20:11:06 -0700
+Message-ID: <20260910031106.25906-7-lucid_duck@justthetip.ca>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910031106.25906-1-lucid_duck@justthetip.ca>
 References: <20260910031106.25906-1-lucid_duck@justthetip.ca>
@@ -79,10 +79,10 @@ Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
 diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-index f1946ef..c74e134 100644
+index c7a07c7..9b58ffe 100644
 --- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
 +++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-@@ -1314,6 +1314,7 @@ void mt7925_mac_reset_work(struct work_struct *work)
+@@ -1323,6 +1323,7 @@ void mt7925_mac_reset_work(struct work_struct *work)
  
  	cancel_delayed_work_sync(&dev->mphy.mac_work);
  	cancel_delayed_work_sync(&pm->ps_work);
@@ -91,10 +91,10 @@ index f1946ef..c74e134 100644
  
  	for (i = 0; i < 10; i++) {
 diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-index 8050bd7..c20f4a3 100644
+index 61c9c30..3beb2c1 100644
 --- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
 +++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-@@ -1605,6 +1605,7 @@ static int mt7925_suspend(struct ieee80211_hw *hw,
+@@ -1640,6 +1640,7 @@ static int mt7925_suspend(struct ieee80211_hw *hw,
  	cancel_delayed_work_sync(&phy->mt76->mac_work);
  
  	cancel_delayed_work_sync(&dev->pm.ps_work);
@@ -103,10 +103,10 @@ index 8050bd7..c20f4a3 100644
  
  	mt792x_mutex_acquire(dev);
 diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/pci.c b/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
-index 4883772..b23d014 100644
+index ea64303..084baad 100644
 --- a/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
 +++ b/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
-@@ -42,6 +42,7 @@ static void mt7925e_unregister_device(struct mt792x_dev *dev)
+@@ -48,6 +48,7 @@ static void mt7925e_unregister_device(struct mt792x_dev *dev)
  	mt76_for_each_q_rx(&dev->mt76, i)
  		napi_disable(&dev->mt76.napi[i]);
  	cancel_delayed_work_sync(&pm->ps_work);
@@ -114,7 +114,7 @@ index 4883772..b23d014 100644
  	cancel_work_sync(&pm->wake_work);
  	cancel_work_sync(&dev->reset_work);
  
-@@ -455,6 +456,7 @@ static int mt7925_pci_suspend(struct device *device)
+@@ -517,6 +518,7 @@ static int mt7925_pci_suspend(struct device *device)
  	dev->hif_resumed = false;
  	flush_work(&dev->reset_work);
  	cancel_delayed_work_sync(&pm->ps_work);
@@ -123,10 +123,10 @@ index 4883772..b23d014 100644
  
  	mt7925_roc_abort_sync(dev);
 diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
-index d9968f0..7ba50c3 100644
+index e9f5849..a798164 100644
 --- a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
 +++ b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
-@@ -251,6 +251,7 @@ static int mt7925u_suspend(struct usb_interface *intf, pm_message_t state)
+@@ -269,6 +269,7 @@ static int mt7925u_suspend(struct usb_interface *intf, pm_message_t state)
  	pm->suspended = true;
  	dev->hif_resumed = false;
  	flush_work(&dev->reset_work);
