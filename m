@@ -1,138 +1,117 @@
-Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC1A3B6343
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 10:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CC33955CA;
+	Thu, 10 Sep 2026 10:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035117; cv=none; b=D2uMrkawkpAIO24Fm3fAan8BBaWajl4U0vLCb+nN/CH/pi3kgBsZqWrAuqPgtSChvLpVaJ7/mhz0vNz3PTJYU00l38L8NN8WAKPogxWLAJCQvR7M3wptJZ0kwxYng6absoM98QvCosI5Jw0k7GMwXLqejlPhf5dl905oWCHmJ0c=
+	t=1789035276; cv=none; b=WyRzCzOb89WWcimuSwGv5YewqIwIWs0dVQClX+INJJvvFXQhJT0QRQaBLwv/fyekqLg0dnACsXyVrhqc4+JdxrnWT8tw97R7vxOfKKjhZJQxVk5CcuEwmpepgQuQiSHXNQZEVw7Q5XjdMfi9Zbt7mCsCQ1b7IYnmzKpibpukuak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035117; c=relaxed/simple;
-	bh=+YiOtMV9LtHLD/hVdNynO6GNFamQnmcFiMsxau6m56I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dDWWU6xWogrJttwgqOty18/Ml9f1DLcFf8e1qQ+c7YS/M7ZbTxJS3e16BNfr1TBIVQBwvJpktvwUlSnD1g6dJLhA9hqJvDwl0WHl/6lWRk7LM9tNztySjEu5SKk8QIvExhZEbHSnEexzoPlq+XzzTKHCQxzU0Zd8w2VE7b60G+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bvG1tSfP; arc=none smtp.client-ip=91.218.175.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789035276; c=relaxed/simple;
+	bh=jpVG4p3SMg6F7Y/z1SShMyfoiqGQ5ZswZ/kwFzvBNK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HnziPhHt2OOreWshHq/1axVrtESYAjDwESxpqq9+Iw4ZPXygMX24yNvzE+jiYJy6t0MH2SZuLBcRTBZf/ZG98WMFxuDX2ctO9XiRRWDcUPwcM8U1mWGwe1K3rZIztS1M0DI2k73u/YABwm/lGZ160xNEDxcRIubBUgG7vwBGQfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5IJxrpH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bvG1tSfP"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+YiOtMV9LtHLD/hVdNynO6GNFamQnmcFiMsxau6m56I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789035112; v=1; x=1789639912;
- b=bvG1tSfPqXZ/HsMTLiJbbg+qVuiO+f6K+Z6kWsto6B1gKoiLFjB0LxF2pOb2Bym3KHGQk0Pl
- d8sl+ZW0d8T0x5P7G9EmAiQVdKE+aJtQYIRfiOccOvbkPQkdQC9NBBzrXrtwbLO3uK9xZRtM6P6
- b55gx6oZJmYcpbrhlcLyXHxg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 20c1762f2feea230;
-	Thu, 10 Sep 2026 10:11:52 +0000
-X-Mizu-Trace-ID: 20c1762f2feea230
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7975ef1f-8d2d-4be3-b206-7c6326bed2db@linux.dev>
-Date: Thu, 10 Sep 2026 11:11:50 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5IJxrpH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48D461F000FF;
+	Thu, 10 Sep 2026 10:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789035274;
+	bh=vuN9YgNNVDUDcK9F5V9wjj4jgSHSO9jPfMDMRTl00m4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L5IJxrpHYACCI3tkKbfR8R+V4hXIzjwQbm69USLqNRck8/aJ6MxyOPfDyv9Z6Xi0t
+	 HTl/wQEbF/iISzOx57w+XLzjMSvEdrfejt1OI8HNGOxT5T26hHcL+4PKOKvvQ3aDFk
+	 5FrUCFhyKYas1qYBbyC2urL6cG9LDmgZZLOcrqUmhOXIkF2MnnwrX74JwzFFu/myfR
+	 wKrrm5O0tihSm/n+nLCZH7FsTnRGtbvbG5NVEUkFlsuSfueWUjjZqG+PfBo1pidDoj
+	 aKTLRliAYoM1sLfxR0PY1SVYQgEpTZIkYeS9aQnm/GfPNZ4MiHs4A72rKSGydHwDHS
+	 rrf/OXv4UACww==
+Date: Thu, 10 Sep 2026 11:14:31 +0100
+From: Simon Horman <horms@kernel.org>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+	Paul Fertser <fercerpav@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] net: ncsi: validate MAC and VLAN counts in Get
+ Parameters response
+Message-ID: <20260910101431.GU40544@horms.kernel.org>
+References: <20260906233752.87773-1-elb12345@hotmail.co.uk>
+ <AS8P251MB0001E99A1865DFEC3C3A16E7C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
- not in zswap
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: yosry@kernel.org, chengming.zhou@linux.dev, hannes@cmpxchg.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com,
- kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>
-References: <20260907161938.1932355-1-usama.arif@linux.dev>
- <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS8P251MB0001E99A1865DFEC3C3A16E7C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+
+On Mon, Sep 07, 2026 at 12:37:52AM +0100, Aamir Ahmed wrote:
+> The Get Parameters (GP) response handler iterates over MAC address
+> and VLAN filter tables using counts (mac_cnt, vlan_cnt) taken directly
+> from the response packet.  These counts are not validated against either
+> the actual packet length or the filter arrays allocated by the earlier
+> Get Capabilities response handler.
+> 
+> A malformed GP response can cause:
+>  - out-of-bounds read past the packet data when iterating pdata
+>  - out-of-bounds write to mac_filter.addrs[] when mac_cnt exceeds
+>    the allocated filter size (n_uc + n_mc + n_mixed)
+>  - out-of-bounds write to vlan_filter.vids[] when vlan_cnt exceeds
+>    n_vids
+>  - bitmap corruption via set_bit()/clear_bit() beyond u64 width
+> 
+> Add three validation checks before the filter table loops:
+>  1. Packet is large enough for the claimed MAC and VLAN entries
+>  2. mac_cnt does not exceed the allocated MAC filter capacity
+>  3. vlan_cnt does not exceed the allocated VLAN filter capacity
+> 
+> Also check for NULL filter arrays in case Get Capabilities was not
+> processed first.
+> 
+> Fixes: 0b49507fc090 ("net/ncsi: Resource management")
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+> ---
+>  net/ncsi/ncsi-rsp.c | 31 +++++++++++++++++++++++++++++--
+>  1 file changed, 29 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index 1401528dbd6c..88f3b8db0289 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -884,10 +884,38 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+>  	nc->modes[NCSI_MODE_AEN].enable = 1;
+>  	nc->modes[NCSI_MODE_AEN].data[0] = ntohl(rsp->aen_mode);
+>  
+> +	/* Validate the response carries enough data for the MAC and VLAN
+> +	 * tables it claims to contain.  The variable-length area begins
+> +	 * at offset 48 (right after the fixed Get Parameters fields).
+> +	 */
+> +	if (nr->rsp->len < 48 + (unsigned int)rsp->mac_cnt * ETH_ALEN +
+> +			    (unsigned int)rsp->vlan_cnt * sizeof(__be16)) {
+> +		netdev_warn(ndp->ndev.dev,
+> +			    "NCSI: GP response too short for %u MACs + %u VLANs\n",
+> +			    rsp->mac_cnt, rsp->vlan_cnt);
+> +		return -EINVAL;
+> +	}
+
+My concern with this patch is the same as for patch 1/2.
+
+I'm not sure that there is any guarantee that nr->rsp is a linear skb
+and if not then checking len is insufficient and I think the check
+should be implemented using pskb_may_pull.
+
+Not that any pointers referring to skb data may be invalidated
+by that call, so, f.e. rsp should probably be set after the
+call to pskb_may_pull().
+
+...
 
 
+As noted collectively by Greg and Paolo elsewhere:
+1. Please include an Assisted-by tag
+2. Please keep the number of patches in-flight to 15 or less
 
-On 10/09/2026 03:47, Andrew Morton wrote:
-> On Mon,  7 Sep 2026 09:19:38 -0700 Usama Arif <usama.arif@linux.dev> wrote:
-> 
->> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
->> zswap_never_enabled() to decide whether a swapin may use a large folio.
->> zswap_load() samples the same one-way static key again once the read
->> reaches it.  Nothing serialises the two reads, and in between the task
->> allocates and pins a high-order folio, which can sleep.
->>
->> If zswap is enabled for the first time in that window, a large folio that
->> was correctly permitted reaches zswap_load(), which rejects every large
->> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
->> as "zswap handled it" and skips the backing-device read, so the folio
->> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
->> for shmem.  The data is intact on the swap device - it was written there
->> before zswap was ever enabled - and the not-uptodate folio stays in the
->> swap cache, so every retry of the fault fails the same way.  With
->> panic_on_warn the WARN takes the machine down rather than the task.
->>
->> Scan the range instead of rejecting the folio.  The caller has pinned
->> every slot before issuing the read, so zswap cannot start a store or a
->> writeback into the range and the scan is stable.  If nothing in the range
->> is in zswap it is all on the backing device: return -ENOENT and let
->> swap_read_folio() read it.
->>
->> A range that does have a slot in zswap is still refused, because zswap
->> stores large folios as order-0 entries and cannot reconstruct one.  That
->> stays reachable - a slot shared with another task can be stored inside
->> the same window - and refusing is correct, since the alternative is
->> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
->> the request is valid, zswap just cannot serve it.  The only caller
->> distinguishes -ENOENT from everything else, so that part is a
->> documentation fix.
-> 
-> So to hit this bug the user needs to enable zswap system-wide during a
-> teeny race window in the swapin code?
-> 
-> I suspect nobody has ever hit this and couldn't do so if they tried?
-
-
-Yes, I think it would be very very difficult to hit this.
-
-It was part of my PMD swap series, where its actually needed for the feature.
-
-I think we can drop cc:stable, unless you think its needed Yosry?
-> 
->> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
->> Cc: stable@vger.kernel.org
-> 
-> 
-> Documentation/process/stable-kernel-rules.rst, with which I agree:
-> 
-> Rules on what kind of patches are accepted, and which ones are not, into the
-> "-stable" tree:
-> 
-> - It or an equivalent fix must already exist in Linux mainline (upstream).
-> - It must be obviously correct and tested.
-> - It cannot be bigger than 100 lines, with context.
-> - It must follow the
->   :ref:`Documentation/process/submitting-patches.rst <submittingpatches>`
->   rules.
-> - It must either fix a real bug that bothers people or just add a device ID.
->   To elaborate on the former:
-> 
->   - It fixes a problem like an oops, a hang, data corruption, a real security
->     issue, a hardware quirk, a build error (but not for things marked
->     CONFIG_BROKEN), or some "oh, that's not good" issue.
->   - Serious issues as reported by a user of a distribution kernel may also
->     be considered if they fix a notable performance or interactivity issue.
->     As these fixes are not as obvious and have a higher risk of a subtle
->     regression they should only be submitted by a distribution kernel
->     maintainer and include an addendum linking to a bugzilla entry if it
->     exists and additional information on the user-visible impact.
->   - No "This could be a problem..." type of things like a "theoretical race
->     condition", unless an explanation of how the bug can be exploited is also
->     provided.
->   - No "trivial" fixes without benefit for users (spelling changes, whitespace
->     cleanups, etc).
-> 
-> 
-> If this patch meets the above then its changelog needs an update!
-
+-- 
+pw-bot: changes-requested
