@@ -1,42 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C03F33B97D
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05DA73AAF6B;
+	Thu, 10 Sep 2026 13:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047963; cv=none; b=bjYOstW6CqfQhHJRJNFdya19T1OJM1lO096FqYgFWq7RqtS0T+SiO4lcj7pi9D+hTQQcE2Wnn5z+LUlgcbWt9BZMLRQgdoZufFAF8Iv1Q19yjuxwSJB4NlG37Umm1bN7IKJ9N1DWJ//r8DDNf3rPdra5zgqMDF2AfunIMUW/1Ow=
+	t=1789048227; cv=none; b=cPBuOeqkmfS+Yzc5LBPbpRz++/RiKS1rdSr/+mPpzjbtPEaeFne36patsuGNG46na+xvevyLPu0GE/GrAj9lmmlZnhQn1Mh9nwoqIBxuy+Z6Pjlx45D6ThEkO5uJ5BsO/3p+4Qc3qlUaambqtGJXag78iNj35YfUBu9FZTsLP88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047963; c=relaxed/simple;
-	bh=jLH1cU8U3gqRUVKrcUEl1mB92T5KvKin8u9B/I3Stpk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=otn3qMf58a2h74q7m4eXJaZDMRrle+HGer41cADaOtkRAbpGZmzMfMEy6ODNw48s5csxZQomXCou7w4O55z7Q51ZsFWHwJJlDCnAGaLkJhLSNNIW6DwJdHBI4KpnRHY5huUn31ig/u207B7ttnscTCMR1AGfbbCoMfvopGwbiag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y69YZfUQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789048227; c=relaxed/simple;
+	bh=V9Y1F8P8Q5erbjhiCN13oXa0hejGdTWhlhNdfPBQ9ps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DWJeK+onKqhoW3jnTnJKofb62fDUb8p+HetGVOBIJQqKn2RoPsVqRp3b4JV8r6xSs/8NLPT/mZpzpcWwIx7LNPVhQe7BNLqE11Ey8Hk0WLHsldFhRkn+pJ/KxNqpEReB9jFpE5LTUFJxOWxJ5rPVj5RZV5KWYrseupIbvxFcbmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=LytjJdIF; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y69YZfUQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44A11F000FF;
-	Thu, 10 Sep 2026 13:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789047962;
-	bh=GrNLHQtxJGpAkyUcvn9eUH4aQ+5wEnxDZ2KQK66GbAo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y69YZfUQC+OV6p9g2HLwoes1X/5XPgKFZlScY7RenYJjPEHcDjc1+TpyXHw9Z8FfZ
-	 QZdYRojWJ5LpFawS3HF3dMp4c3k4NlWA1LnG+hYTW5yDClWe5URVxDapggXbVUQbF8
-	 xXPoomzRJRrjYGIqEm4oFrQ1rKxu7/bIcyjRDZMFQe65FWVlBNhfSfJHUUmOkIILzV
-	 t+VyctGxQxQl2ilkg3U0/uL5ZHD5RydCcOeJ59X09VM2sneZ+0JR+CxDWzY28hDsm2
-	 yKpmktWReH6W/A9nirpyUK10R79t3Y4c5Qw2AWen3ldYheKm64jEGxSWlkxdN3jhi5
-	 JoWrgNJJKCGNA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Breno Leitao <leitao@debian.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ftrace: Take trace_array reference before accessing its ftrace_ops
-Date: Thu, 10 Sep 2026 09:46:00 -0400
-Message-ID: <20260910134600.388256-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090802-onscreen-sharpener-bd5e@gregkh>
-References: <2026090802-onscreen-sharpener-bd5e@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="LytjJdIF"
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 1FF4320B7166;
+	Thu, 10 Sep 2026 06:49:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1FF4320B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789048181;
+	bh=CPbWm5KrpeYp0YWqZerft7p6ELbJVPGttZYsnIzY9zM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=LytjJdIF7NGkHvYURqJcJw98zt/TEpaAm4q9V+yBBFpifE8PXo9rFlieyd0MQogZF
+	 HA0K9nrvUf5Yog8Qcre0rrS7LI+xbYrAW+/z4uwyfYRHE2iYAe/DK0hh/lsfaatYlX
+	 sARchkzncykYJvr6ZIUWQE3xT85nbAIIeTlDABIM=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: Martin Henriksson <mh@kvaser.com>,
+	Jimmy Assarsson <extja@kvaser.com>,
+	Christer Beskow <chbe@kvaser.com>,
+	Nicklas Johansson <extnj@kvaser.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	Kees Cook <kees@kernel.org>,
+	Enrico Pozzobon <enrico.pozzobon@dissecto.com>,
+	Yiran Qiu <eritque-arcus@ikuyo.dev>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	linux-can@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com
+Subject: [PATCH net v4] can: kvaser_usb: validate command format before parsing in hydra receive path
+Date: Thu, 10 Sep 2026 09:50:00 -0400
+Message-ID: <20260910135000.34796-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,253 +63,280 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+The receive-path command parsers (kvaser_usb_hydra_wait_cmd and
+kvaser_usb_hydra_read_bulk_callback) call kvaser_usb_hydra_cmd_size()
+without verifying that enough buffer remains. For CMD_EXTENDED,
+kvaser_usb_hydra_cmd_size() unconditionally reads a 2-byte len field
+at offset 4. A malicious USB device can place a CMD_EXTENDED header at
+the end of a 3072-byte bulk transfer such that only 4 bytes remain,
+causing a 2-byte slab-out-of-bounds read.
 
-[ Upstream commit 9100191e5acb2e5ea2313f436667bb5fce129f47 ]
+  BUG: KASAN: slab-out-of-bounds in kvaser_usb_hydra_wait_cmd+0x3f1/0x480
+    [kvaser_usb_hydra.c:678]
+  Read of size 2 at addr ffff888013f7ec00 by task kworker/0:0/9
+   kvaser_usb_hydra_wait_cmd+0x3f1/0x480
+   kvaser_usb_hydra_get_software_details+0x1c7/0x5d0
+   kvaser_usb_probe+0x36a/0x1240
 
-The trace instance files set_ftrace_filter and set_ftrace_notrace was
-updated to work with specific trace instances (trace_arrays). The issue is
-that when these files are opened, there is a small race window where it
-will use the ftrace_ops from the inode->private pointer to get a reference
-to the trace_array and then take its reference. The problem is that the
-ftrace_ops itself could be freed. If the rmdir on the instance happens at
-the same time the set_ftrace_filter file is opened, the rmdir could have
-also freed the ftrace_ops and referencing it will cause a use-after-free
-bug and crash the kernel.
+Additionally, if the device sends CMD_EXTENDED with len=0,
+kvaser_usb_hydra_cmd_size() returns 0 and the parser loops forever
+(pos += 0), permanently burning one CPU core.
 
-Instead, pass in the trace_array as the file private data (NULL for the
-top level instance), and then pass both the trace_array and the ftrace_ops
-to the ftrace_regex_open() function. If the trace_array is NULL, then it
-just uses the ftrace_ops without the need to take its reference (like
-normal). If the ftrace_ops is NULL, that is only the case for the top
-level instance and the global_ops can be used.
+A positive but undersized extended length can also pass the buffer extent
+check and reach a handler. For example, an 8-byte CMD_RX_MESSAGE_FD at
+the end of an RX URB causes kvaser_usb_hydra_rx_msg_ext() to read fixed
+fields and payload past the buffer.
 
-This allows the trace_array to have its reference incremented before
-touching the ftrace_ops that could also be freed when the instance is.
+Add receive-side length validation which preserves incomplete headers for
+reassembly, rejects extended lengths outside 8..128 bytes, and checks each
+known extended command against the minimum length its handler consumes.
+For CMD_RX_MESSAGE_FD, derive the required length from its flags and DLC
+so valid variable-length commands remain accepted. Apply the checks to
+both receive paths and clear malformed leftover state before returning.
 
+Fixes: aec5fb2268b7 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Closes: https://lore.kernel.org/all/20260819145658.29872-1-blbllhy@gmail.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260828223901.29e26edb@robin
-Fixes: 591dffdade9f0 ("ftrace: Allow for function tracing instance to filter functions")
-Reported-by: Breno Leitao <leitao@debian.org>
-Tested-by: Breno Leitao <leitao@debian.org>
-Closes: https://lore.kernel.org/all/apGORjltZgAiAYHT@gmail.com/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ retained kzalloc(sizeof(*iter), GFP_KERNEL) instead of kzalloc_obj(*iter). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
 ---
- include/linux/ftrace.h         |  5 +--
- kernel/trace/ftrace.c          | 57 ++++++++++++++++++++++------------
- kernel/trace/trace.h           |  4 +--
- kernel/trace/trace_functions.c |  2 +-
- kernel/trace/trace_stack.c     |  2 +-
- 5 files changed, 44 insertions(+), 26 deletions(-)
+v4:
+ - Reject extended command lengths outside the generic 8-byte header and
+   the 128-byte maximum.
+ - Validate complete CMD_TX_ACKNOWLEDGE_FD and CMD_RX_MESSAGE_FD extents
+   before dispatch, deriving variable RX payload lengths from flags and DLC.
+ - Apply command-specific validation to synchronous scanning, direct bulk
+   receive, and fragmented-command reassembly.
+ - Link: https://lore.kernel.org/all/20260827194410.4023800-1-kuba@kernel.org/
 
-diff --git a/include/linux/ftrace.h b/include/linux/ftrace.h
-index c3b1c74bdd7a4..62e85b2c65168 100644
---- a/include/linux/ftrace.h
-+++ b/include/linux/ftrace.h
-@@ -797,8 +797,9 @@ unsigned long ftrace_get_addr_new(struct dyn_ftrace *rec);
- unsigned long ftrace_get_addr_curr(struct dyn_ftrace *rec);
+v3:
+ - Preserve fragmented command headers by distinguishing incomplete size
+   fields from invalid zero lengths.
+ - Complete a fragmented extended size field before reading it, using the
+   actual valid leftover length.
+ - Link: https://lore.kernel.org/all/20260824214058.44948-1-blbllhy@gmail.com/
+
+v2:
+ - Clear malformed leftover state before returning.
+ - Reject command lengths shorter than the buffered prefix.
+
+v1:
+ - The zero-length command loop is also addressed by:
+   https://lore.kernel.org/linux-can/20260815-can-esd-hydra-fixes-v1-2-de644cbeaec2@ikuyo.dev/
+ - This patch additionally handles truncated command headers in the
+   synchronous wait and asynchronous receive paths, including the
+   leftover-buffer path.
+
+ .../net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 140 +++++++++++++++++-
+ 1 file changed, 132 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+index efbb7bed34c9..adc326c2d211 100644
+--- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
++++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+@@ -536,6 +536,80 @@ static size_t kvaser_usb_hydra_cmd_size(struct kvaser_cmd *cmd)
+ 	return ret;
+ }
  
- extern ftrace_func_t ftrace_trace_function;
-+struct trace_array;
- 
--int ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+int ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file);
- ssize_t ftrace_filter_write(struct file *file, const char __user *ubuf,
- 			    size_t cnt, loff_t *ppos);
-@@ -1008,7 +1009,7 @@ static inline unsigned long ftrace_location(unsigned long ip)
-  * have them defined when ftrace is not enabled, but these
-  * functions may still be called. Use a macro instead of inline.
-  */
--#define ftrace_regex_open(ops, flag, inod, file) ({ -ENODEV; })
-+#define ftrace_regex_open(tr, ops, flag, inode, file) ({ -ENODEV; })
- #define ftrace_set_early_filter(ops, buf, enable) do { } while (0)
- #define ftrace_set_filter_ip(ops, ip, remove, reset) ({ -ENODEV; })
- #define ftrace_set_filter_ips(ops, ips, cnt, remove, reset) ({ -ENODEV; })
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index f643ae98e4d1f..bd324bf9fc6fe 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -4618,7 +4618,8 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
- 
- /**
-  * ftrace_regex_open - initialize function tracer filter files
-- * @ops: The ftrace_ops that hold the hash filters
-+ * @tr: The trace_array that holds the ftrace_ops [optional]
-+ * @ops: The ftrace_ops that hold the hash filters [optional]
-  * @flag: The type of filter to process
-  * @inode: The inode, usually passed in to your open routine
-  * @file: The file, usually passed in to your open routine
-@@ -4632,26 +4633,45 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
-  * tracing_lseek() should be used as the lseek routine, and
-  * release must call ftrace_regex_release().
-  *
-+ * Note, If @tr is not NULL, its reference has to be taken before
-+ *       @ops may be referenced.
-+ *       If @ops is NULL and @tr is not, then @tr->ops is used.
-+ *       If @tr is NULL and @ops is not then @ops->private is uesd for @tr.
-+ *       If both @tr and @ops are NULL, then the &global_ops is
-+ *         to be used, and @tr will be the global_ops.private pointer.
-+ *
-  * Returns: 0 on success or a negative errno value on failure
-  */
- int
--ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file)
- {
--	struct ftrace_iterator *iter;
-+	struct ftrace_iterator *iter = NULL;
- 	struct ftrace_hash *hash;
- 	struct list_head *mod_head;
--	struct trace_array *tr = ops->private;
--	int ret = -ENOMEM;
--
--	ftrace_ops_init(ops);
-+	int ret = -ENODEV;
- 
- 	if (unlikely(ftrace_disabled))
- 		return -ENODEV;
- 
-+	if (!tr) {
-+		if (!ops)
-+			ops = &global_ops;
-+		tr = ops->private;
++/* -EAGAIN means incomplete; -EINVAL rejects an invalid command length. */
++static int kvaser_usb_hydra_cmd_size_rx(struct kvaser_cmd *cmd,
++					size_t remaining, size_t *cmd_len)
++{
++	if (remaining < sizeof(cmd->header.cmd_no))
++		return -EAGAIN;
++
++	if (cmd->header.cmd_no == CMD_EXTENDED &&
++	    remaining < offsetof(struct kvaser_cmd_ext, cmd_no_ext))
++		return -EAGAIN;
++
++	*cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++	if (cmd->header.cmd_no != CMD_EXTENDED)
++		return 0;
++
++	if (*cmd_len < offsetof(struct kvaser_cmd_ext, rx_can) ||
++	    *cmd_len > KVASER_USB_HYDRA_MAX_CMD_LEN)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int kvaser_usb_hydra_verify_cmd_size(const struct kvaser_cmd *cmd,
++					    size_t cmd_len)
++{
++	const struct kvaser_cmd_ext *cmd_ext;
++	size_t min_len;
++
++	if (cmd->header.cmd_no != CMD_EXTENDED)
++		return 0;
++
++	cmd_ext = (const struct kvaser_cmd_ext *)cmd;
++
++	/* Keep this switch in sync with kvaser_usb_hydra_handle_cmd_ext(). */
++	switch (cmd_ext->cmd_no_ext) {
++	case CMD_TX_ACKNOWLEDGE_FD:
++		min_len = offsetof(struct kvaser_cmd_ext, tx_ack.timestamp) +
++			  sizeof(cmd_ext->tx_ack.timestamp);
++		break;
++
++	case CMD_RX_MESSAGE_FD: {
++		u32 flags;
++
++		min_len = offsetof(struct kvaser_cmd_ext,
++				   rx_can.kcan_payload);
++		if (cmd_len < min_len)
++			return -EINVAL;
++
++		flags = le32_to_cpu(cmd_ext->rx_can.flags);
++		if (flags & KVASER_USB_HYDRA_CF_FLAG_ERROR_FRAME) {
++			min_len += sizeof(cmd_ext->rx_can.err_frame_data);
++		} else if (!(flags & KVASER_USB_HYDRA_CF_FLAG_REMOTE_FRAME)) {
++			u32 kcan_header;
++			u8 dlc;
++
++			kcan_header = le32_to_cpu(cmd_ext->rx_can.kcan_header);
++			dlc = (kcan_header & KVASER_USB_KCAN_DATA_DLC_MASK) >>
++				KVASER_USB_KCAN_DATA_DLC_SHIFT;
++
++			if (flags & KVASER_USB_HYDRA_CF_FLAG_FDF)
++				min_len += can_fd_dlc2len(dlc);
++			else
++				min_len += can_cc_dlc2len(dlc);
++		}
++		break;
 +	}
 +
- 	if (tracing_check_open_get_tr(tr))
- 		return -ENODEV;
- 
-+	if (!ops)
-+		ops = tr->ops;
++	default:
++		return 0;
++	}
 +
-+	if (WARN_ON_ONCE(!ops))
-+		goto out;
++	return cmd_len < min_len ? -EINVAL : 0;
++}
 +
-+	ftrace_ops_init(ops);
+ static struct kvaser_usb_net_priv *
+ kvaser_usb_hydra_net_priv_from_cmd(const struct kvaser_usb *dev,
+ 				   const struct kvaser_cmd *cmd)
+@@ -675,8 +749,11 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
+ 			size_t cmd_len;
+ 
+ 			tmp_cmd = buf + pos;
+-			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
+-			if (pos + cmd_len > actual_len) {
++			err = kvaser_usb_hydra_cmd_size_rx(tmp_cmd,
++							   actual_len - pos,
++							   &cmd_len);
++			if (err || pos + cmd_len > actual_len ||
++			    kvaser_usb_hydra_verify_cmd_size(tmp_cmd, cmd_len)) {
+ 				dev_err_ratelimited(&dev->intf->dev,
+ 						    "Format error\n");
+ 				break;
+@@ -2110,6 +2187,7 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ {
+ 	unsigned long irq_flags;
+ 	struct kvaser_cmd *cmd;
++	int err;
+ 	int pos = 0;
+ 	size_t cmd_len;
+ 	struct kvaser_usb_dev_card_data_hydra *card_data =
+@@ -2120,27 +2198,64 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 	spin_lock_irqsave(usb_rx_leftover_lock, irq_flags);
+ 	usb_rx_leftover_len = card_data->usb_rx_leftover_len;
+ 	if (usb_rx_leftover_len) {
++		const size_t cmd_size_field_end =
++			offsetof(struct kvaser_cmd_ext, cmd_no_ext);
+ 		int remaining_bytes;
+ 
+ 		cmd = (struct kvaser_cmd *)card_data->usb_rx_leftover;
+ 
+-		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++		if (cmd->header.cmd_no == CMD_EXTENDED &&
++		    usb_rx_leftover_len < cmd_size_field_end) {
++			remaining_bytes = min_t(int, len,
++						cmd_size_field_end -
++						usb_rx_leftover_len);
+ 
+-		remaining_bytes = min_t(unsigned int, len,
++			memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len,
++			       buf, remaining_bytes);
++			usb_rx_leftover_len += remaining_bytes;
++			card_data->usb_rx_leftover_len = usb_rx_leftover_len;
++			pos += remaining_bytes;
 +
-+	ret = -ENOMEM;
- 	iter = kzalloc(sizeof(*iter), GFP_KERNEL);
- 	if (!iter)
- 		goto out;
-@@ -4729,21 +4749,19 @@ ftrace_regex_open(struct ftrace_ops *ops, int flag,
- static int
- ftrace_filter_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
++			if (usb_rx_leftover_len < cmd_size_field_end) {
++				spin_unlock_irqrestore(usb_rx_leftover_lock,
++						       irq_flags);
++				return;
++			}
++		}
++
++		err = kvaser_usb_hydra_cmd_size_rx(cmd, usb_rx_leftover_len,
++						   &cmd_len);
++		if (err || cmd_len < usb_rx_leftover_len) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			card_data->usb_rx_leftover_len = 0;
++			spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
++			return;
++		}
++
++		remaining_bytes = min_t(unsigned int, len - pos,
+ 					cmd_len - usb_rx_leftover_len);
+ 		/* Make sure we do not overflow usb_rx_leftover */
+ 		if (remaining_bytes + usb_rx_leftover_len >
+ 						KVASER_USB_HYDRA_MAX_CMD_LEN) {
+ 			dev_err(&dev->intf->dev, "Format error\n");
++			card_data->usb_rx_leftover_len = 0;
+ 			spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
+ 			return;
+ 		}
  
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops,
--			FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
--			inode, file);
-+	return ftrace_regex_open(tr, NULL,
-+				 FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
-+				 inode, file);
- }
+-		memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len, buf,
+-		       remaining_bytes);
++		memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len,
++		       buf + pos, remaining_bytes);
+ 		pos += remaining_bytes;
  
- static int
- ftrace_notrace_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
+ 		if (remaining_bytes + usb_rx_leftover_len == cmd_len) {
++			if (kvaser_usb_hydra_verify_cmd_size(cmd, cmd_len)) {
++				dev_err(&dev->intf->dev, "Format error\n");
++				card_data->usb_rx_leftover_len = 0;
++				spin_unlock_irqrestore(usb_rx_leftover_lock,
++						       irq_flags);
++				return;
++			}
++
+ 			kvaser_usb_hydra_handle_cmd(dev, cmd);
+ 			usb_rx_leftover_len = 0;
+ 		} else {
+@@ -2154,9 +2269,13 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 	while (pos < len) {
+ 		cmd = buf + pos;
  
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_NOTRACE,
-+	return ftrace_regex_open(tr, NULL, FTRACE_ITER_NOTRACE,
- 				 inode, file);
- }
+-		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++		err = kvaser_usb_hydra_cmd_size_rx(cmd, len - pos, &cmd_len);
++		if (err && err != -EAGAIN) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			return;
++		}
  
-@@ -7051,15 +7069,15 @@ static const struct file_operations ftrace_graph_notrace_fops = {
- };
- #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
+-		if (pos + cmd_len > len) {
++		if (err == -EAGAIN || pos + cmd_len > len) {
+ 			/* We got first part of a command */
+ 			int leftover_bytes;
  
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent)
- {
+@@ -2174,6 +2293,11 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 			break;
+ 		}
  
- 	trace_create_file("set_ftrace_filter", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_filter_fops);
-+			  tr, &ftrace_filter_fops);
- 
- 	trace_create_file("set_ftrace_notrace", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_notrace_fops);
-+			  tr, &ftrace_notrace_fops);
- }
- 
- /*
-@@ -7084,7 +7102,6 @@ void ftrace_destroy_filter_files(struct ftrace_ops *ops)
- 
- static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- {
--
- 	trace_create_file("available_filter_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_avail_fops);
- 
-@@ -7097,7 +7114,7 @@ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- 	trace_create_file("touched_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_touched_fops);
- 
--	ftrace_create_filter_files(&global_ops, d_tracer);
-+	ftrace_create_filter_files(NULL, d_tracer);
- 
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- 	trace_create_file("set_graph_function", TRACE_MODE_WRITE, d_tracer,
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 62d5a5f224c4a..a61ceb44da121 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1253,7 +1253,7 @@ extern void clear_ftrace_function_probes(struct trace_array *tr);
- int register_ftrace_command(struct ftrace_func_command *cmd);
- int unregister_ftrace_command(struct ftrace_func_command *cmd);
- 
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent);
- void ftrace_destroy_filter_files(struct ftrace_ops *ops);
- 
-@@ -1276,11 +1276,11 @@ static inline void clear_ftrace_function_probes(struct trace_array *tr)
- {
- }
- 
-+#define ftrace_create_filter_files(tr, parent) do { } while (0)
- /*
-  * The ops parameter passed in is usually undefined.
-  * This must be a macro.
-  */
--#define ftrace_create_filter_files(ops, parent) do { } while (0)
- #define ftrace_destroy_filter_files(ops) do { } while (0)
- #endif /* CONFIG_FUNCTION_TRACER && CONFIG_DYNAMIC_FTRACE */
- 
-diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
-index d17c18934445f..a56994cfc64bb 100644
---- a/kernel/trace/trace_functions.c
-+++ b/kernel/trace/trace_functions.c
-@@ -101,7 +101,7 @@ int ftrace_create_function_files(struct trace_array *tr,
- 		return ret;
++		if (kvaser_usb_hydra_verify_cmd_size(cmd, cmd_len)) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			return;
++		}
++
+ 		kvaser_usb_hydra_handle_cmd(dev, cmd);
+ 		pos += cmd_len;
  	}
- 
--	ftrace_create_filter_files(tr->ops, parent);
-+	ftrace_create_filter_files(tr, parent);
- 
- 	return 0;
- }
-diff --git a/kernel/trace/trace_stack.c b/kernel/trace/trace_stack.c
-index 0aa2514a6593b..e7f4e523587d0 100644
---- a/kernel/trace/trace_stack.c
-+++ b/kernel/trace/trace_stack.c
-@@ -499,7 +499,7 @@ stack_trace_filter_open(struct inode *inode, struct file *file)
- 	struct ftrace_ops *ops = inode->i_private;
- 
- 	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_FILTER,
-+	return ftrace_regex_open(NULL, ops, FTRACE_ITER_FILTER,
- 				 inode, file);
- }
- 
--- 
-2.53.0
 
+base-commit: 7addb4e5ef1702704914b47bca3f706ef96c1589
+-- 
+2.55.0
