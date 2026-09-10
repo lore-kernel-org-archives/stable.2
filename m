@@ -1,233 +1,148 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD024BB26E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4244A0F0B
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051877; cv=none; b=MLwhgKvcoU8v0v/bAwOBvf/vNoV8QaDm9LdSvC7LEqres4s1ag2VIe8bWxwCnpYUC6V4JC5QrCLHSXFzFESZu+s28nDFBmns6l2mti23co+Y+AahQ+iRXL6nnC6sLrzNGamyp0Qbo7eh/BUcCaboassSHGih88CeHuO7kxWfLuM=
+	t=1789051934; cv=none; b=kW/zwo0Eu9uYyk1/UyfwXSRK69Uo0Ew2BI6Ev1JG/hiObgRdVcd7zzIx14yqgnsCdf5KbxEp11a+6lHrWwtc43kxlzNg4D75gP4usUMUPcxvyyJPoCBE6MNeKQfj+jqPNx2U3CQuGzo8XMjNuzTNRiR0LpSchOvWoAvccfuGqPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051877; c=relaxed/simple;
-	bh=MhddNrmrZwmeTvC1OhCTLgh7ZbHYoDZbylqC1X1rPIs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZCqGaohTUsmhGh5gfINmB2s67udbPB+TKfeFncUny8f20MSHKDU9ZHWnMboyOvjDElAYOFz/89kP4XbiXIiVQD1C80gPKnpqc9xBZ7xZhbQ3gpea1YBnuUazqIxq0oF54CrK4HoFg8pgYBIplMGhIAt6ENx7Sea/5OTk9ogBfAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MoQ+DEU4; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com
+	s=arc-20240116; t=1789051934; c=relaxed/simple;
+	bh=oL4ISteGLta73I0DppH9tBtmzkKniaXiRyjM8T0tBVg=;
+	h=Message-ID:In-Reply-To:References:From:To:Subject:Date:
+	 MIME-Version:Content-Type; b=oXVVUnspFoy9xFiIw5Ja/DGU+TjTBLO5VAsk+srP60B41I23Vv9E63NbPrdyTzVCAI0+2Vs3hRFsUKzeYnkgJb6jQNo+v05gSTbArTYYnYAwcRPC4r4y3se4lN9av9ZMgHhA2s28QundXGL7aM7F/RQQGqUOvHxp3GNzSnJ/yOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz; spf=pass smtp.mailfrom=swiftden.buzz; dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b=wFoo4zg4; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swiftden.buzz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MoQ+DEU4"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfc52ddc55so102785205ad.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:51:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b="wFoo4zg4"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66cf1f9965dso6201276d50.1
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:52:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789051874; x=1789656674; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iPR+8RLWsIHJc9acjgG1g7ANa3O2x38Ojpgbt/bpoPQ=;
-        b=MoQ+DEU4FAs/1fNcUWcgR3MLmbR+34wnAYv8cAcWL285060C1YuLyKv1byMxoDnuvh
-         LYHHNjMtVZ8cXrZrMQFS1ztDVON+9VeCIeMZABivZGQiaY/gCzzNBJG2B1lrjNUoB7KN
-         dyZpLPgGD/p9tRIZMjct9l1+rKghMaWLVMLNEArkV1MMm18hry5FGFcUy4ToFqTS7h2D
-         CHcXUg8A+Reuq8JMqxhqIMam0pCEZhpawVf1xzmsdgHgTG73ei27+CohTN1nZmwxqvkJ
-         UdZTMSPUQHGJ1sNeXJSCrIZnsDb8cEh399Q7jP82RMGuTN2OkJ8hk5NffS+tpGdXZWZv
-         BpQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051874; x=1789656674;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=swiftden.buzz; s=google; t=1789051932; x=1789656732; darn=vger.kernel.org;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iPR+8RLWsIHJc9acjgG1g7ANa3O2x38Ojpgbt/bpoPQ=;
-        b=UjsZ16xCZc363jOd+DrqsTfMaz+STbwpV6oKF2SXm3POs7C7OFwR+TiPC60tX5MHQ/
-         oye1S5iah57GcrIbhxqwUzK4NnnhC5ByPvawmVZkjoVzGekyw0vE36mhRdqi8MA5BYh8
-         YcnUQ13OLjdeg/8hkNpC7nuLKYhpJGxnfJTsQjEczUiexKYH1zhuQEoVY8ijztbzw0f8
-         81x9wFlkMF81knZWjpXDNsho9f2MdPEC1g1lsJlYl5ZuN/KfGC3AUNL6cTuHIrHhFLwo
-         dU7+tb2MHydQY5/XMkhuG0axjx5BEIefqrbm1zAKJYKIz4IE8GNDNrmuUmi+PvAdg9a3
-         7mUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygehd/UF0mfto5UfJP9Y4s1KGq5HMCwphOfjjHcv4HjCHpYSHPl5TqDz/+TYg2v2xyRAGB9F0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUAMxoLoXMK26rCG2oB/z3AdEtByooqsi/7IBQECu9jky0Na68
-	oWVRp19iLZdaB/YDKIHqB1vDFSbj7OCgZpABuBPHFrzWITcWfTLXRZWcEa3MszgiI5hIOwpHaLf
-	qf7lg/ddQvzA/Uh0g87qFFA==
-X-Received: from plw20.prod.google.com ([2002:a17:903:45d4:b0:2ca:f1f8:ea00])
- (user=ericchancf job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3804:b0:2cf:9347:f445 with SMTP id d9443c01a7336-2db126d8a54mr668494555ad.10.1789051873909;
- Thu, 10 Sep 2026 07:51:13 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:51:07 +0000
-In-Reply-To: <20260910145107.3640991-1-ericchancf@google.com>
+        bh=oL4ISteGLta73I0DppH9tBtmzkKniaXiRyjM8T0tBVg=;
+        b=wFoo4zg4NZAU3u9daBOH6PHwd7Jpe62iAhuUssoukG2L4oaKFYx326C0iJrinrQ7uh
+         7Qcf2JpHQrlsBwSeqK72wWcaC0hbKvqZqz6BBJqsfcZ2msPVQuGrK+mxpexo/A2EkH7c
+         zp4vUQk/NLCt4LtCHMmHxmFcVbmXvWP48iQUVPHkWN4f6Vaq7GSLfrgxzeZtq/Sq0TRh
+         rrYW/KHKkzaONyLkx4JetLXQEyhcu9M+Cymeyn8ecHTiZzchVYzVc+d5trdTOa3OOvEH
+         3jl5SbvoPuESJoVyGJHPZGghgjquQ0VSOxeE6EZZTHuO2YKFZJgeGmDXgZEVZEZjPovX
+         UGog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789051932; x=1789656732;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oL4ISteGLta73I0DppH9tBtmzkKniaXiRyjM8T0tBVg=;
+        b=SGClU7Ggkk0JEh5NGqR7F0xpaJSrN2QB3tsFtIdcu+XqLOw4NjAhRXejImkI5kUoe8
+         uIBZienSTyYw55WyYcLVc1kc21HQAcEMoMDAfF7ic0vnzpoM5xcCbhmdum8mgAk8Cm3F
+         0WkTjQrmGv/r4KKR73PstwR3w75u07C1oK039+zXdpe3bn5gzITDJsWl7erXJg7HzXk4
+         eSr44P5EGHa3gbL7tH+OLNEeJzw5K61oYQ+mcPPdSFfD8eP5oKRvZzjbW/d4nUv0piwk
+         h70U+5V3BM5ja2Nm255n5ElMikL1YX8lPzKgm+vhco32izpShkpzW5/DRC8ansW5Y05F
+         PZJw==
+X-Gm-Message-State: AFuF++m12RYmvHR4rIA7n4Seh79cTU9bvMrpaGie7id7Xc99qLc0gRe0
+	NvkEOfWoGxISlCJWjPr8EnrU/NGBqH4Y3M+SkQG6HcySyPupc3+DQkNj0hlWYCoKjtUQSdiNtY8
+	Lt3XRZQ==
+X-Gm-Gg: AYBFou1Bon3bxjah/wjwdNyBM8296/ywHP1iwyfjpioil0zVqcYBJxkhsMuyE/3nTqc
+	IsvcXPkb73EjM4fNEV6bbPyzWwrTDZC2ynQvtCGEfp/uuesn6omzKLENP8tqec9ass+IHCJNAB4
+	siAB2b6me0zVakWxmMMWlK/10xfww7HtnDVPUb0NyNLOs2IWACPZKSgEiIp6kanlqSrG4Ifk8Hw
+	8P3wKcjZJFhMYdDbyQxd9gvuBKOncKbJzi4c4/2HFhSlUhWBdjAqdWG6off4e9zghSaYlsNMMx9
+	FeqqvBBwZTRbNhIbwwF6eVrLYbvRdBuGLWYtzujQqiPRclvSSwC+7MZZkfRfggxR1t6emO3l5EW
+	YtkkdRoNIy0BDt/brk9vDz5xKAiqRfGI5+SY3uLfWs5D2xwZC6HS8dSfgP2UrgUXU16D05BTNQ1
+	HrwBFjoJUnpYQiEYwchrIqTCQ7x4POf9Ie81LnW+0fjQfBKG/9J1/2RRuEiAtDjLCesmLf6iqFS
+	7BSxmf/2DaB/r5V3N55Wl1ih4Im5VKp655AvpZqjSzx1fxw/Mf5hEwdQi3Z8+5JB741/N5nBtpq
+	cX4EW88eHW6IG00=
+X-Received: by 2002:a05:690e:b85:b0:66f:ca93:eae4 with SMTP id 956f58d0204a3-66fca93ed15mr10134787d50.92.1789051932082;
+        Thu, 10 Sep 2026 07:52:12 -0700 (PDT)
+Received: from 01a08bce-0a4c-7572-824c-296398214cf0.local (ec2-100-48-62-121.compute-1.amazonaws.com. [100.48.62.121])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm14065026d50.2.2026.09.10.07.52.11
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:52:11 -0700 (PDT)
+Message-ID: <01a08bce-0a4c-7572-824c-296398214cf0@swiftden.buzz>
+In-Reply-To: <01a06306-ee90-713d-888f-101a10980a7a@swiftden.buzz>
+References: <01a06306-ee90-713d-888f-101a10980a7a@swiftden.buzz>
+X-Mail-Abuse-Inquiries:
+ https://app.instantly.ai/privacy/report-abuse/01a08bce-0a4c-7572-824c-296398214cf0
+From: Todd Ford <todd@swiftden.buzz>
+To: stable@vger.kernel.org
+Subject: Re: Offline bad review
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 14:52:11 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910145107.3640991-1-ericchancf@google.com>
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260910145107.3640991-3-ericchancf@google.com>
-Subject: [PATCH 2/2] coresight: Switch to DEFINE_RUNTIME_DEV_PM_OPS()
-From: Eric Chan <ericchancf@google.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
-	Leo Yan <leo.yan@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, coresight@lists.linaro.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Eric Chan <ericchancf@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 
-According to Documentation/power/runtime_pm.rst and
-include/linux/pm_runtime.h, modern drivers are encouraged to use
-DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr() to simplify runtime PM ops
-definitions and eliminate unnecessary #ifdef CONFIG_PM guards.
+Hey, I'm a real person not a bot lol
 
-Convert the CoreSight TMC, CATU, and ETM4x drivers to use
-DEFINE_RUNTIME_DEV_PM_OPS() and replace direct references to their
-dev_pm_ops structures with pm_ptr(). This removes the #ifdef CONFIG_PM
-blocks around the runtime suspend and resume callbacks, allowing the
-compiler to always validate them regardless of CONFIG_PM.
+Would removing a few of the negative =
+reviews help bring in more clients?
 
-Signed-off-by: Eric Chan <ericchancf@google.com>
----
- drivers/hwtracing/coresight/coresight-catu.c       | 12 +++++-------
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 11 ++++-------
- drivers/hwtracing/coresight/coresight-tmc-core.c   | 12 ++++--------
- 3 files changed, 13 insertions(+), 22 deletions(-)
+Open to explore this?
 
-diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-index d9a12d5e48fa..e3bbfb707f73 100644
---- a/drivers/hwtracing/coresight/coresight-catu.c
-+++ b/drivers/hwtracing/coresight/coresight-catu.c
-@@ -14,6 +14,7 @@
- #include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/slab.h>
- 
- #include "coresight-catu.h"
-@@ -640,7 +641,6 @@ static void catu_platform_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- }
- 
--#ifdef CONFIG_PM
- static int catu_runtime_suspend(struct device *dev)
- {
- 	struct catu_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -666,11 +666,9 @@ static int catu_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops catu_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(catu_runtime_suspend, catu_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(catu_dev_pm_ops,
-+				 catu_runtime_suspend, catu_runtime_resume, NULL);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id catu_acpi_ids[] = {
-@@ -688,14 +686,14 @@ static struct platform_driver catu_platform_driver = {
- 		.name			= "coresight-catu-platform",
- 		.acpi_match_table	= ACPI_PTR(catu_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &catu_dev_pm_ops,
-+		.pm			= pm_ptr(&catu_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver catu_driver = {
- 	.drv = {
- 		.name			= "coresight-catu",
--		.pm			= &catu_dev_pm_ops,
-+		.pm			= pm_ptr(&catu_dev_pm_ops),
- 		.suppress_bind_attrs	= true,
- 	},
- 	.probe				= catu_probe,
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index ace5e077a10c..ef664a84120f 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -2460,7 +2460,6 @@ static const struct amba_id etm4_ids[] = {
- 
- MODULE_DEVICE_TABLE(amba, etm4_ids);
- 
--#ifdef CONFIG_PM
- static int etm4_runtime_suspend(struct device *dev)
- {
- 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -2486,11 +2485,9 @@ static int etm4_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops etm4_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(etm4_runtime_suspend, etm4_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(etm4_dev_pm_ops,
-+				 etm4_runtime_suspend, etm4_runtime_resume, NULL);
- 
- static const struct of_device_id etm4_sysreg_match[] = {
- 	{ .compatible	= "arm,coresight-etm4x-sysreg" },
-@@ -2514,14 +2511,14 @@ static struct platform_driver etm4_platform_driver = {
- 		.of_match_table		= etm4_sysreg_match,
- 		.acpi_match_table	= ACPI_PTR(etm4x_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &etm4_dev_pm_ops,
-+		.pm			= pm_ptr(&etm4_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver etm4x_amba_driver = {
- 	.drv = {
- 		.name   = "coresight-etm4x",
--		.pm	= &etm4_dev_pm_ops,
-+		.pm	= pm_ptr(&etm4_dev_pm_ops),
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe		= etm4_probe_amba,
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-index ece2e8c9be26..77588d53e1b0 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-@@ -980,8 +980,6 @@ static void tmc_platform_remove(struct platform_device *pdev)
- 	__tmc_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
--
--#ifdef CONFIG_PM
- static int tmc_runtime_suspend(struct device *dev)
- {
- 	struct tmc_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -1007,11 +1005,9 @@ static int tmc_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops tmc_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(tmc_runtime_suspend, tmc_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(tmc_dev_pm_ops,
-+				 tmc_runtime_suspend, tmc_runtime_resume, NULL);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id tmc_acpi_ids[] = {
-@@ -1029,14 +1025,14 @@ static struct platform_driver tmc_platform_driver = {
- 		.name			= "coresight-tmc-platform",
- 		.acpi_match_table	= ACPI_PTR(tmc_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &tmc_dev_pm_ops,
-+		.pm			= pm_ptr(&tmc_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver tmc_driver = {
- 	.drv = {
- 		.name   = "coresight-tmc",
--		.pm	= &tmc_dev_pm_ops,
-+		.pm	= pm_ptr(&tmc_dev_pm_ops),
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe		= tmc_probe,
--- 
-2.55.0.1003.g10538fe699-goog
+All the best,
+Todd
 
+On Wed, September 2, 2026 4:49 PM, Todd Ford <todd@swiftden.buzz>
+[todd@swiftden.buzz]> wrote:
+
+> Greetings, just wanted to follow up,
+>=20
+> I also came across Wendy left a review saying "This was my first visit to=
+ the store. There were lots of cute clothes and some good prices. However, =
+when we checked out, an item rang up as 25% off instead of the 40% off that=
+ was advertised. When we questioned it, the cashier said that was how it =
+rang up, so it was only 25% off.
+>=20
+> I walked back to the sign, which =
+originally stated 40% off, and it had been switched to 25%. I=E2=80=99m =
+thankful that the customer behind me in line spoke up and said she also =
+thought it was 40% off, especially since the sign had been changed while we=
+ were still shopping.
+>=20
+> Another employee later told us that only the =
+sweatshirts on the rack were 40% off, which was not stated anywhere on the =
+sign. This felt like false advertising and was very disappointing, =
+especially since the only response we received was a brief =
+=E2=80=9Csorry=E2=80=9D from the cashier.".
+>=20
+> We can eliminate =
+multiple bad reviews to strengthen your online image.
+>=20
+> Can I give you a quick call?
+>=20
+> Best,
+> Todd
+> On Thu, August 20, =
+2026 2:35 PM, Todd Ford <todd@swiftden.buzz>
+> [todd@swiftden.buzz]> wrote:
+>=20
+> > Hi there, are you in charge of Offline?
+> >=20
+> > I was browsing some of your Google reviews, and one from Angela Russell=
+ caught my eye. If you=E2=80=99re interested, I can have it deleted for you=
+.
+> >=20
+> > They commented, "Had a staff member order me sweat pants to =
+ship, but they ordered me the wrong pair. Apon the returning I was asked if=
+ I wanted a refund to original payment or gift card. I asked for my =
+original payment refund and they are now saying a week later they can't =
+(only able to do gift card apparently) and now I'm out my own money because=
+ I will not be returning. Worst online customer service with little to no =
+help and a bunch of "I'm sorrys"
+> >=20
+> > Would you prefer this review =
+gone from your profile? We focus on removing unfavorable reviews, and I =
+observed you have a couple of other critical reviews we could help remove.
+> >=20
+> > Looking forward to your thoughts
+> >=20
+> > Stay awesome,
+> > Todd
+> >
