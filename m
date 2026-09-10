@@ -1,206 +1,287 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2456C492E30
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576724AB1D9
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:55:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055566; cv=none; b=DCcdcgfNDmVfc5fIKoZMWnWySHC4V3yWyM6LvmCA+021GOhJpBbAmHJBInKQkTdCAzDqCnHjz4tbja4jS/VsLp/0q2xM3ijmC8l37SO+a6XrM5GRk5vIxnZZ/LHMUdtuK5+7FkzXVPdq8PupyydWGrDWYLYxR8hV7IsztetQsx4=
+	t=1789055751; cv=none; b=qnDRvt83EsjotpijuyWTX6DF02DIpqRQR7VtYo9U+UDsnlO7kLj901bjQMtPPs3QVzDiinNfjI6xiuNDMHpwAxMNVTQdlHEpzhHt+DaiKRzbb0S6N8QPuvYOVi4nnYnLFj3sLiCEEko/akB1+SAEwXgttkTfMkSkz1WJrlmYbWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055566; c=relaxed/simple;
-	bh=GEPqv91D2zt/P1o2mNkcpnWuADJHq0vR6hGWfAxAoF8=;
+	s=arc-20240116; t=1789055751; c=relaxed/simple;
+	bh=WoR7GgY+UswjW29sHvbap3WcnF8Xni3onbUCz4K0v3o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZPNhSqtKaFGMuAAwQPDEqndpHPP5IcRhslQrbIkrGP8HjB2PmENSsP6OOw38WKhHaKimDYVKHkRWMA8HlBxl0Ux8N+7GnpUQOJM7Byh4GmFAOkaIjsgg8dkV+MP2S2fOBmcrViStc56lA4rySrDicDsMBKIee1KRv6ZjRZD2g4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJh7hF/x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=W9r6mahrfLZRCNarOHNPnvNmJKgSza3dNjUJkUOyBT53J94TZ8FJjYB4nu6UjxgunQDXsTn3hQltEv5Yfea11aVMRw+rXMoAY7N6EMha9hoMtUuPO/qEaA4wRjGqZTHu2E6p1Zke1XgqO1HZcOIccJZjf05nEeS7QW+QMvQLMAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIvmT6hQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJh7hF/x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2AF1F00898;
-	Thu, 10 Sep 2026 15:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIvmT6hQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9971F000FF;
+	Thu, 10 Sep 2026 15:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055564;
-	bh=M/8xyqbjLZP/OVmsGKeXZsu3yRzciDw/814sz5sNnfQ=;
+	s=k20260515; t=1789055749;
+	bh=BkblELkp4a79H3jgGqd5hvlM4h5aRNgBwqNf5Oz5fAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NJh7hF/xTF8I7mqnUx8iPoirXypVwCQKh5V2HzGzLI8BHFqFY8FqUIlyt87HRYMiL
-	 YVBNOsYD3FvyEnYj+XSzqVtH/UEFj1cwHLeF7iojdLR6WIdOQMIC1h1MmR+Q08Hr6D
-	 f2RmLdt8lINMOFpmJfPLm4HBaX1AezrCUfh8nJccATkjbSP8oQOykLtQRs7lOSXvw5
-	 P0+rHRS4/8S/WstdGRVxoENHMGnRhl/wByNjVtZNwysGyFnI0EGsjFTPqWP71ej7Qw
-	 5TOLxMIJWZl67bQQ4l8UjE4vTy03kwZPG5CD2eJ450rdyK/90iUe793WMnz8Dy2nWx
-	 +VdGd87b3dRXQ==
+	b=YIvmT6hQ62OokbSX81lwP8Ly+FO+5Gy6WEeeHHiMBxGQOFHRvzkGLVgIchokpC0Fm
+	 28gJzcLa7ohMzdcUyelx/d4kwR7mx9808+pbg6LFkzpfKuR8g1p0Zfigqx2CmSnFsq
+	 VYU/rCahWtQOU0e/pt2f9vmDJHKf5kP7QYA7QEJemOMGKMHpguMyuXCMABUk3O2rfh
+	 TP7s9StQmL9hvh9BsEcAC6t3rDQ0fAVqqVVw9EIljSwrqzZSgd3t8eUwkJQkNoZBXp
+	 9mH5pgpqWkEDhccgnkwwWPVoX9HRzVmv3uiEAhT66OXAUA3i5UgwPRPUs1BppK9xyC
+	 KU4oL5KMk4bVQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Yao Kai <yaokai34@huawei.com>,
-	Thomas Gleixner <tglx@kernel.org>,
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] futex: Provide rt_mutex_.*_schedule() equivalents for futex scheduling
-Date: Thu, 10 Sep 2026 11:52:41 -0400
-Message-ID: <20260910155241.1081251-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 11:55:45 -0400
+Message-ID: <20260910155546.1134527-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910155241.1081251-1-sashal@kernel.org>
-References: <2026090837-colonist-magnify-011d@gregkh>
- <20260910155241.1081251-1-sashal@kernel.org>
+In-Reply-To: <2026090820-pasta-equal-9989@gregkh>
+References: <2026090820-pasta-equal-9989@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-[ Upstream commit 912edebe8501a36c6bedcef03bd238ab90a7e060 ]
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-There is rt_mutex_{pre|post}_schedule() around
-rt_mutex_wait_proxy_lock() to ensure that sched_submit_work()/
-sched_update_worker() is invoked before we schedule out and block on
-rt_mutex while waiting for it become available.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-The reason is that blocking on rt_mutex assigns a pi_waiter for the PI
-chain and sched_submit_work() will also assign a pi_waiter if it blocks
-on lock but a this point we already have a waiter assigned.
-We can't skip sched_submit_work() entirely because I/O relies on the
-fact that I/O queue is flushed while it blocks on a sleeping lock.
-Therefore sched_submit_work() is moved before we block on the lock.
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-Sleeping lock in this context means mutex or rw_semaphore not spinlock_t
-on PREEMPT_RT. Because the mutex abstraction on PREEMPT_RT uses the same
-abstraction as the futex proxy lock, the futex code ended up using
-rt_mutex_{pre|post}_schedule(), too.
-Using it is/ was just to keep the task_struct::sched_rt_mutex assertion
-happy. Futex proxy lock is used only in the syscall context of a task.
-At this point it never got any I/O that needs to be flushed and it can't
-be a workqueue that needs to notify that it will be scheduled out.
-Therefore sched_submit_work() does nothing here.
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
-By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
-get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
-because in this callchain the lock is (usually) not contended and so
-rt_mutex_slowlock_block() does not schedule, triggering the assert.
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
 
-Adding rt_mutex_pre_schedule() here looks wrong (as noted by PeterZ)
-because at this point there is a pi_waiter recorded and invoking
-sched_submit_work() with a possible lock contention would be wrong.
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
 
-Add rt_mutex_futex_{pre|post}_schedule() which toggles the
-sched_rt_mutex assert and does not involve sched_submit_work(). Add
-asserts here to ensure that sched_submit_work() would do nothing. Use it
-only in futex proxy lock case which is rt_mutex_wait_proxy_lock().
-Remove it from futex_lock_pi().
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
 
-Fixes: d14f9e930b90 ("locking/rtmutex: Use rt_mutex specific scheduler helpers")
-Reported-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901135453.3121948-2-bigeasy@linutronix.de
-Closes: https://lore.kernel.org/all/20260717084922.4153317-2-yaokai34@huawei.com
-[ adjusted futex context for older locking code lacking private-hash handling and futex_q_lockptr_lock(). ]
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+
+Stable adaptation for 6.18:
+- Resolve the dma-heap conflict without importing the absent mem_accounting
+  module parameter; retain the existing kzalloc() form.
+- This tree has neither DMA_BUF_TRACE nor trace_dma_buf_fd. Omit the new
+  dma-buf.c function and export, and provide dma_buf_fd_install as a
+  single-evaluation macro around the existing fd_install() in dma-buf.h.
+  This preserves the reserved-fd publication semantics without adding
+  functions or importing the unrelated tracing infrastructure.
+- Retain the heap allocation and usercopy cleanup changes, and expose the
+  interface needed for the target FastRPC fix to apply unchanged.
+
+[ sashal: Reduced backport -- upstream 30d0aff2c65a2 touches 3 file(s), this
+  backport carries 2. Not backported here:
+  drivers/dma-buf/dma-buf.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: a4a1a2bfcb29 ("misc: fastrpc: don't publish fd before copy_to_user() succeeds")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/rt.h     |  2 ++
- kernel/futex/pi.c            | 10 ----------
- kernel/locking/rtmutex_api.c |  2 ++
- kernel/sched/core.c          | 16 ++++++++++++++++
- 4 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ include/linux/dma-buf.h    |  5 +++
+ 2 files changed, 45 insertions(+), 40 deletions(-)
 
-diff --git a/include/linux/sched/rt.h b/include/linux/sched/rt.h
-index 4e3338103654c..922935cc33833 100644
---- a/include/linux/sched/rt.h
-+++ b/include/linux/sched/rt.h
-@@ -52,8 +52,10 @@ static inline bool rt_or_dl_task_policy(struct task_struct *tsk)
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 3cbe87d4a464d..ca79e12252858 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -48,33 +48,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
  
- #ifdef CONFIG_RT_MUTEXES
- extern void rt_mutex_pre_schedule(void);
-+extern void rt_mutex_futex_pre_schedule(void);
- extern void rt_mutex_schedule(void);
- extern void rt_mutex_post_schedule(void);
-+extern void rt_mutex_futex_post_schedule(void);
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -92,30 +65,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
  
- /*
-  * Must hold either p->pi_lock or task_rq(p)->lock.
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index ccd5d19dea68a..258faa26e6f9d 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -992,12 +992,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
- 		goto no_block;
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -131,6 +116,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -167,15 +154,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			dma_buf_fd_install(dmabuf, fd);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
  	}
  
--	/*
--	 * Must be done before we enqueue the waiter, here is unfortunately
--	 * under the hb lock, but that *should* work because it does nothing.
--	 */
--	rt_mutex_pre_schedule();
--
- 	rt_mutex_init_waiter(&rt_waiter);
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 36216d28d8bdc..b2e3296f94709 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -611,6 +611,11 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
  
- 	/*
-@@ -1065,10 +1059,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
- 	 * the
- 	 */
- 	spin_lock(q.lock_ptr);
--	/*
--	 * Waiter is unqueued.
--	 */
--	rt_mutex_post_schedule();
- no_block:
- 	/*
- 	 * Fixup the pi_state owner and possibly acquire the lock if we
-diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
-index 5b438aa71f872..51622ce539e48 100644
---- a/kernel/locking/rtmutex_api.c
-+++ b/kernel/locking/rtmutex_api.c
-@@ -380,6 +380,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
- {
- 	int ret;
- 
-+	rt_mutex_futex_pre_schedule();
- 	raw_spin_lock_irq(&lock->wait_lock);
- 	/* sleep on the mutex */
- 	set_current_state(TASK_INTERRUPTIBLE);
-@@ -390,6 +391,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
- 	 */
- 	fixup_rt_mutex_waiters(lock, true);
- 	raw_spin_unlock_irq(&lock->wait_lock);
-+	rt_mutex_futex_post_schedule();
- 
- 	return ret;
- }
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ea106403abd86..41ab7cfed2fd6 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -7097,6 +7097,17 @@ void rt_mutex_pre_schedule(void)
- 	sched_submit_work(current);
- }
- 
+ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
 +/*
-+ * Used within the futex syscall context, skips sched_submit_work() because none
-+ * its work will be done. Asserts ensure that it is indeed the case.
++ * This tree has no DMA-BUF fd tracepoint, so publishing a reserved fd only
++ * requires fd_install(). Call this after all fallible work has succeeded.
 + */
-+void rt_mutex_futex_pre_schedule(void)
-+{
-+	lockdep_assert(!(current->flags & (PF_WQ_WORKER | PF_IO_WORKER)));
-+	lockdep_assert(!current->plug);
-+	lockdep_assert(!fetch_and_set(current->sched_rt_mutex, 1));
-+}
-+
- void rt_mutex_schedule(void)
- {
- 	lockdep_assert(current->sched_rt_mutex);
-@@ -7109,6 +7120,11 @@ void rt_mutex_post_schedule(void)
- 	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
- }
++#define dma_buf_fd_install(dmabuf, fd) fd_install((fd), (dmabuf)->file)
+ struct dma_buf *dma_buf_get(int fd);
+ void dma_buf_put(struct dma_buf *dmabuf);
  
-+void rt_mutex_futex_post_schedule(void)
-+{
-+	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
-+}
-+
- /*
-  * rt_mutex_setprio - set the current priority of a task
-  * @p: task to boost
 -- 
 2.53.0
 
