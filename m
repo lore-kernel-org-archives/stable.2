@@ -1,105 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3E03BB9F3
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:36:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E9847535D
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040179; cv=none; b=f8gx4wJ4iJTGNpDJTSDaxK1Tul/7Dx2ZL0FUCdkAuCoY/sMAORnUGpTLQbP9UNd7V7niDEIFrslds2Pi1P6pkYlA4Gq5tCFpJp9Q3irw1jxgMLsIe7Ek/VggFcX0dCk4nePSTzcbEpcZMXF4fieZkhQ5b1GEXwX2qLKDFDIfhfU=
+	t=1789040411; cv=none; b=rqFqyYgvZbA5rT/ZcBI2tppHXTek7RccSX6vumdDTrtNjzzbU50UVcsY2+BZBsGPFOmgCB5/RAi6RiTMxm9tSilefPDq5nfigg1GmHmY+t5ONwKk5k+PsUUV0wIq+oncXMy1az69+pfxbzEClHlUSGOSNaMJtXrelecY02wIUF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040179; c=relaxed/simple;
-	bh=Qx1gIKYGrjLRYOyjFJwjIM3SXxKb4xwhvnLxfg97u5M=;
+	s=arc-20240116; t=1789040411; c=relaxed/simple;
+	bh=F6lohWUYc2QNMuIHc/MWOd0fU5LKPXL3/YoO6V/UA94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hDHLWkXHo6/hFfjOoCsKH3E+RYu/ShxDHJEPxh8aH/83iiomGmC+Q5xGXvHHBF4wx+1imx263LxynBqBjXZy5l61A0JmSP039Dj7nn4QTPEvm4/ecngUqCGzB/Vt1WL8eMCU3Njtp4+bee54LRPzgBixqEYszTOehiClN66uaWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fSjE751n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qfVA3IiTDSFZaEbkGbCZzbGGYPsPLJVzfRwuQ5cMuR28dM1+D0upyig69qTB5N04QvpxCYLnqaLnxy3MVeE4RzhII86CvyKhHBzPYWM++kK2DknlrH2LQfe4oYYEt5xHpu6pw5hYtc38dTda1rvvpGxcEhNEkudOcOomGr5kWuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQz7VCn0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fSjE751n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7EFA1F00898;
-	Thu, 10 Sep 2026 11:36:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQz7VCn0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7771F000FF;
+	Thu, 10 Sep 2026 11:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789040177;
-	bh=YiEsu/o2PuXsVWMqkumpMC8vWjHqgrAvzZGm5vCu690=;
+	s=k20260515; t=1789040409;
+	bh=KUB5e1oZPv+hl7t1ZEc3bPZ35WbuSPcniF5D8IqsfbE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fSjE751nnXkoDVVM+mrftB65Ot1OZSz5G29zdoRbicTo3F0n5+/Qp00OC1GJu1W7Q
-	 dhUymZ6c8nnDUjfx+OKBavv3SZQXC/lQdEaQ7IMNSbdwI4YTiGJCYXaCVZqDAUJ3ps
-	 7DY6Zo+I52kmzHfYPrqaPGpmCSgXIoQsDp1zuJtv7cX1NjlzmL9WaNvx3h8PO+QEm6
-	 Puvhi+eNqNqUt2OjzXv5xdVfj7mK4u1EOTykCLv2WvllaK+A7qj7z8gpQrk0L5ckNE
-	 fYSzyvt1nKlduObM7pvsZQBDeGBmoLlyKOtt0dVl279+BTXwou5LGtYjyow0Oy3GiF
-	 griOKQOYCtYwA==
+	b=iQz7VCn09mYIwWYd5ofhIPejOQZ1Ih0pbw/8b1pHgMrCBrMjpyUpIKJUp3vnJKSaD
+	 aTNsLlk8zQrsOx7ID4iD3cEGuQPFtZifXJPiKDprFMQG+6GZfvrvIFOZj5g5HroU+u
+	 l6fi78VNHJqFrVxXzr3YzOuHpSt99xJI4pqJtlwIEtvLl8qhKEedjiK3PbPeseDIxH
+	 gkNUgeg5NqyswD0IzVeZCM7W25kYxGbUxcsbmJRYLEUiR7BtT5joAAKPZrQ3UlhWH6
+	 gqIqDxSWcxjzjhjRblzwkpIxpRQ82QXBTrozWJj8UobeQSGHYc8f4GhtHAnvarj2xE
+	 pNYoWyTnKBU9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muhammad Bilal <meatuni001@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()
-Date: Thu, 10 Sep 2026 07:36:14 -0400
-Message-ID: <20260910113614.77812-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] tracing/probes: Fix anon_stack check for unnamed bitfields in btf_find_struct_member
+Date: Thu, 10 Sep 2026 07:40:06 -0400
+Message-ID: <20260910114006.86648-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910113614.77812-1-sashal@kernel.org>
-References: <2026090822-rematch-anvil-8a95@gregkh>
- <20260910113614.77812-1-sashal@kernel.org>
+In-Reply-To: <2026090811-undergo-kabob-4eb4@gregkh>
+References: <2026090811-undergo-kabob-4eb4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 28a289beaf226b30b1e6e7d7b1a2946fe2d6e852 ]
+[ Upstream commit f36d94a20ca185bcadef3a10b980cd2cfd72d53a ]
 
-rtw_restruct_wmm_ie() scans in_ie for a WMM IE with:
+btf_find_struct_member() traverses into nested anonymous structures
+and unions by pushing members with !member->name_off onto anon_stack.
+However, it does not consider the unnamed bitfields (e.g. `int : 5`
+or `unsigned int : 0`) which also have member->name_off == 0.
 
-	while (i < in_len) {
-		...
-		if (i + 5 < in_len && in_ie[i] == 0xDD && ...) {
-			...
-			break;
-		}
-		i += (in_ie[i + 1] + 2); /* to the next IE element */
-	}
+If such an unnamed bitfield is pushed to anon_stack, the
+btf_find_struct_member() return an error even if there are other
+valid entries in anon_stack.
 
-When the "i + 5 < in_len" match check fails simply because i is
-within 5 bytes of the end of the buffer (i.e. no WMM IE was found
-near the tail of in_ie), execution falls through to
-"i += (in_ie[i + 1] + 2)", which reads in_ie[i + 1]. If i == in_len
-- 1 at that point, this is a 1-byte out-of-bounds read of an
-attacker-influenced IE buffer built from association/scan data.
+To fix this, only push unnamed struct/union members to anon_stack.
+Also move the btf_type_is_struct() check to the entry of this function
+because now it is sure only struct/union are pushed to anon_stack.
 
-Commit a75281626fc8f ("staging: rtl8723bs: fix potential
-out-of-bounds read in rtw_restruct_wmm_ie") added the "i + 5 <
-in_len" guard to the match condition itself, but did not add an
-equivalent guard before the fallthrough advance, so the same class
-of OOB read remained reachable through the non-matching path.
+Link: https://lore.kernel.org/all/178827249775.123716.7813217688423513612.stgit@devnote2/
 
-Add an explicit bounds check before advancing to the next IE.
-
-Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
 Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260728125456.32359-4-meatuni001@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+[ retained the existing kcalloc() allocation instead of upstream’s kzalloc_objs() call. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 3 +++
- 1 file changed, 3 insertions(+)
+ kernel/trace/trace_btf.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 1f97583a6536d..29a83f1e1fbfb 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -2023,6 +2023,9 @@ int rtw_restruct_wmm_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, uint in_
- 			break;
- 		}
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index 5bbdbcbbde3cd..40e66eb59abbc 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -74,24 +74,24 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ {
+ 	struct btf_anon_stack *anon_stack;
+ 	const struct btf_member *member;
++	const struct btf_type *mtype;
+ 	u32 tid, cur_offset = 0;
+ 	const char *name;
+ 	int i, top = 0;
  
-+		if (i + 1 >= in_len)
-+			break;
++	if (!btf_type_is_struct(type))
++		return ERR_PTR(-EINVAL);
 +
- 		i += (in_ie[i + 1] + 2); /*  to the next IE element */
- 	}
+ 	anon_stack = kcalloc(BTF_ANON_STACK_MAX, sizeof(*anon_stack), GFP_KERNEL);
+ 	if (!anon_stack)
+ 		return ERR_PTR(-ENOMEM);
  
+ retry:
+-	if (!btf_type_is_struct(type)) {
+-		member = ERR_PTR(-EINVAL);
+-		goto out;
+-	}
+-
+ 	for_each_member(i, type, member) {
+ 		if (!member->name_off) {
+ 			/* Anonymous union/struct: push it for later use */
+-			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
++			mtype = btf_type_skip_modifiers(btf, member->type, &tid);
++			if (mtype && btf_type_is_struct(mtype) &&
+ 			    top < BTF_ANON_STACK_MAX) {
+ 				anon_stack[top].tid = tid;
+ 				anon_stack[top++].offset =
 -- 
 2.53.0
 
