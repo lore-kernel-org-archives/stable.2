@@ -1,38 +1,38 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8825B2D3A7C;
-	Thu, 10 Sep 2026 07:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D397D3CBE7A;
+	Thu, 10 Sep 2026 07:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024896; cv=none; b=QphlR9V5KO5ZmFZosYDvU+MCg53XWP+oj6qC9KCiIeL2pop/3QxDKNDK35qzybRLSoXr//apdS0Ufu8buITFclXA8cf1OXpHZYYutUwvt3tWeWA4r6TLt6fr0o3P0CZTCqOsxJmfz+/Nhx7/Lx1IYu7ND3w4JM5L5zBgqWu1Wkg=
+	t=1789024897; cv=none; b=XekQ78uRiuTnHMxg8iS9xgnkU/uLRVisSpxZeJY8gmEqDFU0gF14jyt2mXMTgb7yY+U9KgBux4EZ712f8W+m8wdEIa6JFqS0SxXuHX2nShGL+3qGLQkxvZmxeCIs0DloZRfQqyaSGAgpEl+WikqNd6Dq7MtEMqsP9AX0B7qRvzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024896; c=relaxed/simple;
-	bh=IgPGvoTl1AY0BQ7q3cIlMBOFi2MJsF1pvDR3MQSUkok=;
+	s=arc-20240116; t=1789024897; c=relaxed/simple;
+	bh=yVytSuTLx0yKJRrvkBnSBdY9WePjCtUYiMMjXaD4gq0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mYi5TYG9pRxA+w1vQCJx/Rpr3U1NQuOwaDCrqqoSCPvNz13h6lRgDLQYHvgUg0ufsXNRtgiZoUe5mAOLrM3ms/hl/U3g/Y9ObmqzKar30WeLluMlU4XK+UpoqUvrXOMxlG+JZ491z9U8Ndb30bwaEsVPdbrnN8nFt5qIee8s/vc=
+	 MIME-Version; b=h03ICPqjkrT2L/akKJKeH/TW50mLLH7WcxDsorb6fWJIm9nFtUIrAZTb5NUD8zbfCMvxtCsgcF45f2We7mYMOdAvI8HTUSHSkWx42vpcTkqGwv4tsA6NyqKZKI+q6zXcPSkzoehDz7UDOI7a0HkyYcSSJ8Feapa3kXKIYl7ov4M=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 3a5a149cace811f19a56ed5b684f684d-20260910
+X-UUID: 3a0f2400ace811f19a56ed5b684f684d-20260910
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8c51f055-aa84-4cb5-998b-31b3bfdb4550,IP:0,U
+X-CID-O-INFO: VERSION:1.3.19,REQID:e9ec5d54-6cb1-45e8-9476-ec2b82dbba74,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:f344eab691ed5165df38160b8d650277,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:db2fd0f14fdf181b5861c3ec477b1ee4,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3a5a149cace811f19a56ed5b684f684d-20260910
+X-UUID: 3a0f2400ace811f19a56ed5b684f684d-20260910
 X-User: zenghongling@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1997346749; Thu, 10 Sep 2026 15:21:23 +0800
+	with ESMTP id 1866856386; Thu, 10 Sep 2026 15:21:23 +0800
 From: Hongling Zeng <zenghongling@kylinos.cn>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -40,10 +40,11 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	zhongling0719@126.com,
 	Hongling Zeng <zenghongling@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v8 3/4] ntfs: sync the volume dirty bit with the recorded error state
-Date: Thu, 10 Sep 2026 15:21:15 +0800
-Message-Id: <20260910072116.1851446-4-zenghongling@kylinos.cn>
+Subject: [PATCH v8 2/4] ntfs: set the volume dirty bit unconditionally on metadata changes
+Date: Thu, 10 Sep 2026 15:21:14 +0800
+Message-Id: <20260910072116.1851446-3-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260910072116.1851446-1-zenghongling@kylinos.cn>
 References: <20260910072116.1851446-1-zenghongling@kylinos.cn>
@@ -55,298 +56,412 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The runtime metadata-corruption paths in fs/ntfs only record the
-in-memory NVolErrors() flag; whether VOLUME_IS_DIRTY ever reaches disk
-depends on ntfs_set_volume_flags() being called by some other path,
-which for most error sites never happens.  A volume can therefore
-unmount with a clean on-disk flag despite recorded corruption, and
-chkdsk will not run on the next mount.
+Metadata-changing paths skipped ntfs_set_volume_flags() when the
+locklessly-read volume flags already contained VOLUME_IS_DIRTY.  A
+concurrent ntfs_sync_fs() could clear the bit after that check and before
+the metadata update, leaving the modified volume clean on disk.
 
-Persisting the dirty bit from the error paths themselves does not work:
-they run under a wide variety of ntfs locks, and the dirty-bit write
-takes the $Volume mrec_lock and maps the $Volume mft record, which on
-an $MFT page-cache miss takes the $MFT runlist lock for writing.  That
-is enough to self-deadlock or form ABBA cycles from several of them:
-the $MFT extend undo paths hold the $MFT runlist lock and then take
-vol->lcnbmp_lock inside ntfs_cluster_free(); the cluster allocation and
-free rollback paths hold vol->lcnbmp_lock; and the whole mft record
-allocation tree is reachable from ntfs_write_volume_label()'s
-attribute-list maintenance while it holds the $Volume mrec_lock itself.
+Always call ntfs_set_volume_flags(); the locked update avoids an
+unnecessary write when the bit is already set.
 
-Instead, make the persistence a property of the sync paths, which run
-without ntfs locks held.  The new ntfs_sync_volume_dirty_state() sets
-VOLUME_IS_DIRTY when NVolErrors() is recorded and clears it otherwise,
-evaluating the error flag under the $Volume mrec_lock.  It is called
-from ntfs_sync_fs(), from the remount-to-read-only path of
-ntfs_reconfigure(), and from ntfs_put_super(), which previously
-evaluated NVolErrors() outside the lock before clearing the dirty bit
-unconditionally, and which now also persists the dirty bit for volumes
-with recorded errors so they unmount with chkdsk scheduled.
+For IOCB_NOWAIT writes, use a non-blocking variant that returns -EAGAIN
+when acquiring the $Volume mrec_lock, allocating the search context, or
+handling an attribute list would require sleeping.  Use GFP_NOWAIT for
+the search-context allocation, and keep expected -EAGAIN results out of
+the filesystem error-reporting path.
 
-The guarantee this provides is eventual, not instantaneous: the error
-paths record NVolErrors() with a lock-free set_bit(), so a persistence
-point that evaluates the flag just before an error is recorded can
-still leave the on-disk bit clean until the next one.  This is sound
-because NVolErrors() is sticky for the lifetime of the mount and every
-persistence point re-derives the on-disk bit from it; the last one,
-ntfs_put_super(), runs after evict_inodes() on a quiesced filesystem,
-so a volume that is read-write at unmount time cannot unmount clean.
-A volume that is already read-only when the error is recorded
-(errors=remount-ro flips the superblock on the first error, as does an
-earlier remount-ro) has no persistence point left and keeps whatever
-on-disk bit it had; that behaviour is unchanged.  The residual window
-is a crash between the error and the next persistence point.
-
-The persistence paths never write a hibernated volume: resuming Windows
-from a modified image corrupts it.  Record the mount-time hibernation
-verdict in the new NV_Hibernated volume flag and make
-ntfs_sync_volume_dirty_state() a no-op while it is set, so the dirty
-bit is left exactly as it is on disk and only the in-memory error
-state is kept.  Without this, an rw mount of a hibernated volume with
-the default errors=continue would gain a filesystem-internal write on
-the first sync, remount or unmount.  Other writes to such a mount,
-like the mount-time logfile emptying, are pre-existing and unchanged.
-
+Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- fs/ntfs/super.c  | 117 ++++++++++++++++++++++++++++++++++++-----------
- fs/ntfs/volume.h |   4 ++
- 2 files changed, 95 insertions(+), 26 deletions(-)
+Change in v7:
+- Use a separate cleanup path for expected NOWAIT failures so they do not
+  call ntfs_error().
+- Use GFP_NOWAIT instead of GFP_ATOMIC for search-context allocation.
+---
+ fs/ntfs/attrib.c | 30 +++++++++++++----
+ fs/ntfs/attrib.h |  2 ++
+ fs/ntfs/file.c   | 29 ++++++++++++-----
+ fs/ntfs/namei.c  | 24 +++++---------
+ fs/ntfs/ntfs.h   |  1 +
+ fs/ntfs/super.c  | 83 +++++++++++++++++++++++++++++++++++++++++-------
+ 6 files changed, 128 insertions(+), 41 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 618807c90e59..53a96b935b37 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -262,6 +262,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 	return 0;
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index c7c09a751c6a..0c94bf22cbeb 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -1678,20 +1678,24 @@ void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx)
  }
  
-+static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol);
-+
- static int ntfs_reconfigure(struct fs_context *fc)
+ /*
+- * ntfs_attr_get_search_ctx - allocate/initialize a new attribute search context
++ * ntfs_attr_get_search_ctx_gfp - allocate/initialize a new attribute search
++ * context using the given allocation flags
+  * @ni:		ntfs inode with which to initialize the search context
+  * @mrec:	mft record with which to initialize the search context
++ * @gfp:	allocation flags for the search context
+  *
+- * Allocate a new attribute search context, initialize it with @ni and @mrec,
+- * and return it. Return NULL if allocation failed.
++ * Allocate a new attribute search context with kmem_cache_alloc(@gfp),
++ * initialize it with @ni and @mrec, and return it. Return NULL if allocation
++ * failed.  Callers that must not sleep, e.g. those servicing an IOCB_NOWAIT
++ * request, pass GFP_NOWAIT to avoid direct reclaim.
+  */
+-struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+-		struct mft_record *mrec)
++struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx_gfp(
++		struct ntfs_inode *ni, struct mft_record *mrec, gfp_t gfp)
  {
- 	struct super_block *sb = fc->root->d_sb;
-@@ -312,10 +314,24 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		}
- 	} else if (!sb_rdonly(sb) && (fc->sb_flags & SB_RDONLY)) {
- 		/* Remounting read-only. */
--		if (!NVolErrors(vol)) {
--			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
--				ntfs_warning(sb,
--					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-+		/*
-+		 * With errors recorded the dirty bit is set rather than
-+		 * cleared, and it is committed right away: the VFS does
-+		 * not sync the filesystem during a remount, and once the
-+		 * remount succeeds no further persistence point exists -
-+		 * ntfs_sync_fs() is only ever invoked for read-write
-+		 * superblocks (all its VFS callers skip read-only ones)
-+		 * and ntfs_put_super() skips them, so the only remaining
-+		 * write would be the evict-time commit at unmount, which
-+		 * a crash never reaches.  An error recorded only after
-+		 * the remount is still never persisted.
-+		 */
-+		if (ntfs_sync_volume_dirty_state(vol)) {
-+			ntfs_warning(sb,
-+				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
-+		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+			ntfs_commit_inode(vol->vol_ino);
-+			blkdev_issue_flush(sb->s_bdev);
- 		}
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	bool init;
+ 
+-	ctx = kmem_cache_alloc(ntfs_attr_ctx_cache, GFP_NOFS);
++	ctx = kmem_cache_alloc(ntfs_attr_ctx_cache, gfp);
+ 	if (ctx) {
+ 		init = ntfs_attr_init_search_ctx(ctx, ni, mrec);
+ 		if (init == false) {
+@@ -1703,6 +1707,20 @@ struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+ 	return ctx;
+ }
+ 
++/*
++ * ntfs_attr_get_search_ctx - allocate/initialize a new attribute search context
++ * @ni:		ntfs inode with which to initialize the search context
++ * @mrec:	mft record with which to initialize the search context
++ *
++ * Allocate a new attribute search context, initialize it with @ni and @mrec,
++ * and return it. Return NULL if allocation failed.
++ */
++struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(
++		struct ntfs_inode *ni, struct mft_record *mrec)
++{
++	return ntfs_attr_get_search_ctx_gfp(ni, mrec, GFP_NOFS);
++}
++
+ /*
+  * ntfs_attr_put_search_ctx - release an attribute search context
+  * @ctx:	attribute search context to free
+diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+index 6b4fa9f57640..dd3c39668eff 100644
+--- a/fs/ntfs/attrib.h
++++ b/fs/ntfs/attrib.h
+@@ -88,6 +88,8 @@ static inline s64 ntfs_attr_size(const struct attr_record *a)
+ void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx);
+ struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+ 		struct mft_record *mrec);
++struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx_gfp(
++		struct ntfs_inode *ni, struct mft_record *mrec, gfp_t gfp);
+ void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx);
+ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol,
+ 		const __le32 type, const s64 size);
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 007d1614b9ac..32a644ff21b6 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		goto out;
  	}
  
-@@ -357,10 +373,11 @@ void ntfs_handle_error(struct super_block *sb)
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
+ 		err = ntfs_setattr_size(vi, attr);
+@@ -620,8 +619,24 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		goto out_lock;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
++	/*
++	 * The volume must be marked dirty before the modification is made,
++	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
++	 * can clear the bit concurrently and the modification would then
++	 * land on a volume that is clean on disk.  In the IOCB_NOWAIT case
++	 * the marking must not sleep, so it uses the nowait variant, and
++	 * any failure of the marking fails the request instead of letting
++	 * the write proceed on a volume that may be clean on disk.
++	 */
++	if (iocb->ki_flags & IOCB_NOWAIT) {
++		err = ntfs_set_volume_flags_nowait(vol, VOLUME_IS_DIRTY);
++		if (err) {
++			ret = err;
++			goto out_lock;
++		}
++	} else {
+ 		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	}
+ 
+ 	pos = iocb->ki_pos;
+ 	count = ret;
+@@ -1153,11 +1168,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 			return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+-		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+-		if (err)
+-			return err;
+-	}
++	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	if (err)
++		return err;
+ 
+ 	old_size = i_size_read(vi);
+ 
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index fdf52fac4329..3e0adb9a0ea4 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 		new_dir_first = is_subdir(new_dentry->d_parent,
+ 					  old_dentry->d_parent);
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	if (new_ni)
+@@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		goto out;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+ 			   symname, symlen);
+@@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	switch (mode & S_IFMT) {
+ 	case S_IFCHR:
+@@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ihold(vi);
+ 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+index 45f77848a9cf..b76501a91143 100644
+--- a/fs/ntfs/ntfs.h
++++ b/fs/ntfs/ntfs.h
+@@ -219,6 +219,7 @@ struct option_t {
+ };
+ extern const struct option_t on_errors_arr[];
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags);
++int ntfs_set_volume_flags_nowait(struct ntfs_volume *vol, __le16 flags);
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags);
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label);
+ 
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 6ba19986a598..618807c90e59 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -357,6 +357,7 @@ void ntfs_handle_error(struct super_block *sb)
   * @vol:	ntfs volume on which to modify the flags
   * @set_bits:	bits to set in the volume information flags
   * @clear_bits:	bits to clear in the volume information flags
-+ * @dirty_if_errors:	force VOLUME_IS_DIRTY on when NVolErrors() is set
-  * @nowait:	do not wait for the $Volume mrec_lock
++ * @nowait:	do not wait for the $Volume mrec_lock
   *
   * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-- * instead (see below).
-+ * or ntfs_sync_volume_dirty_state() instead (see below).
+  * instead (see below).
+@@ -368,19 +369,33 @@ void ntfs_handle_error(struct super_block *sb)
+  * All bit manipulation is done on CPU-endian values, and the result is
+  * converted back to little-endian before storing it.
   *
-  * Combine @set_bits and @clear_bits with the current in-memory flag state and
-  * write the result back.  The set/clear helpers pass only the bits to modify,
-@@ -378,11 +395,18 @@ void ntfs_handle_error(struct super_block *sb)
-  * for the lifetime of the mount, so the attribute lookup is an in-memory
-  * scan, and marking the record dirty does not submit I/O.
-  *
-+ * When @dirty_if_errors is true and errors have been recorded on @vol,
-+ * VOLUME_IS_DIRTY is forced on after the requested changes.  NVolErrors() is
-+ * evaluated under the same mrec_lock, which orders this against other
-+ * locked flag updates; the runtime error paths themselves record the flag
-+ * lock-free, so see ntfs_sync_volume_dirty_state() for the guarantee this
-+ * provides against them.
++ * When @nowait is set, the call must not sleep: the mrec_lock is acquired
++ * with mutex_trylock() and a contended lock fails with -EAGAIN, the search
++ * context is allocated with GFP_NOWAIT and exhausted memory fails with
++ * -EAGAIN, and a $Volume inode carrying an attribute list, whose extent
++ * mapping could block, is rejected with -EAGAIN as well.  The remaining
++ * transition work is non-blocking: the mft record of $Volume stays mapped
++ * for the lifetime of the mount, so the attribute lookup is an in-memory
++ * scan, and marking the record dirty does not submit I/O.
 + *
   * Return 0 on success and -errno on error.
   */
  static int ntfs_write_volume_flags(struct ntfs_volume *vol,
  		const __le16 set_bits, const __le16 clear_bits,
--		const bool skip_if_errors, const bool nowait)
-+		const bool dirty_if_errors, const bool nowait)
+-		const bool skip_if_errors)
++		const bool skip_if_errors, const bool nowait)
  {
  	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
  	struct volume_information *vi;
-@@ -397,12 +421,11 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
- 		mutex_lock(&ni->mrec_lock);
+-	struct ntfs_attr_search_ctx *ctx;
++	struct ntfs_attr_search_ctx *ctx = NULL;
+ 	u16 flags;
+ 	int err;
+ 
+-	mutex_lock(&ni->mrec_lock);
++	if (nowait) {
++		if (!mutex_trylock(&ni->mrec_lock))
++			return -EAGAIN;
++	} else {
++		mutex_lock(&ni->mrec_lock);
++	}
+ 
+ 	if (skip_if_errors && NVolErrors(vol))
+ 		goto done;
+@@ -394,16 +409,28 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+ 	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+-	ctx = ntfs_attr_get_search_ctx(ni, NULL);
++	/*
++	 * The nowait path must not sleep past this point either.  An
++	 * attribute list on $Volume would make ntfs_attr_lookup() map
++	 * extent mft records, which can block; sane volumes never have
++	 * one, so refuse such a volume instead of risking the sleep.
++	 */
++	if (nowait && NInoAttrList(ni)) {
++		err = -EAGAIN;
++		goto out_unlock;
++	}
++
++	ctx = ntfs_attr_get_search_ctx_gfp(ni, NULL,
++			nowait ? GFP_NOWAIT : GFP_NOFS);
+ 	if (!ctx) {
+-		err = -ENOMEM;
+-		goto put_unm_err_out;
++		err = nowait ? -EAGAIN : -ENOMEM;
++		goto out_unlock;
  	}
  
--	if (skip_if_errors && NVolErrors(vol))
--		goto done;
--
- 	flags = le16_to_cpu(vol->vol_flags);
- 	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
- 	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	if (dirty_if_errors && NVolErrors(vol))
-+		flags |= le16_to_cpu(VOLUME_IS_DIRTY);
- 	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
- 			le16_to_cpu(vol->vol_flags), flags);
+ 	err = ntfs_attr_lookup(AT_VOLUME_INFORMATION, NULL, 0, 0, 0, NULL, 0,
+ 			ctx);
+ 	if (err)
+-		goto put_unm_err_out;
++		goto out_unlock;
  
-@@ -516,15 +539,43 @@ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+@@ -414,10 +441,19 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+ 	mutex_unlock(&ni->mrec_lock);
+ 	ntfs_debug("Done.");
+ 	return 0;
+-put_unm_err_out:
++out_unlock:
+ 	if (ctx)
+ 		ntfs_attr_put_search_ctx(ctx);
+ 	mutex_unlock(&ni->mrec_lock);
++	/*
++	 * -EAGAIN from the NOWAIT path means that the operation would
++	 *  have to sleep.  It is an expected result, not a filesystem
++	 *  error, so do not pass it to ntfs_error().
++	 */
++	if (nowait && err == -EAGAIN) {
++		ntfs_debug("Failed with error code %i.", -err);
++		return err;
++	}
+ 	ntfs_error(vol->sb, "Failed with error code %i.", -err);
+ 	return err;
+ }
+@@ -435,7 +471,32 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	return ntfs_write_volume_flags(vol, flags, 0, false);
++	return ntfs_write_volume_flags(vol, flags, 0, false, false);
++}
++
++/*
++ * ntfs_set_volume_flags_nowait - set bits without sleeping
++ * @vol:	ntfs volume on which to modify the flags
++ * @flags:	flags to set on the volume
++ *
++ * Same as ntfs_set_volume_flags(), except that the call does not sleep.
++ * Contended mrec_lock, exhausted GPF_NOWAIT and an attribute list on
++ * $Volume (whose extent mapping could block) each fail with -EAGAIN; see
++ * ntfs_write_volume_flags() for why the remaining path is non-blocking.
++ * For callers servicing an IOCB_NOWAIT request, which must fail with
++ * -EAGAIN rather than sleep.  That -EAGAIN is an expected retry signal
++ * rather than a filesystem error, so it is not reported through
++ * ntfs_error() and never triggers the errors= handling.
++ *
++ * A failure means the flags were NOT set; such callers should fail the
++ * request rather than proceed with the modification.
++ *
++ * Return 0 on success, -EAGAIN when the operation would have to sleep and
++ * -errno on other errors.
++ */
++int ntfs_set_volume_flags_nowait(struct ntfs_volume *vol, __le16 flags)
++{
++	return ntfs_write_volume_flags(vol, flags, 0, false, true);
  }
  
  /*
-- * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-- * @vol:	ntfs volume whose dirty bit should be cleared
-+ * ntfs_sync_volume_dirty_state - persist the dirty bit per the error state
-+ * @vol:	ntfs volume whose dirty bit to persist
-+ *
-+ * Set VOLUME_IS_DIRTY if errors have been recorded on @vol and clear it
-+ * otherwise, under the $Volume mrec_lock.
-+ *
-+ * The guarantee this provides is eventual, not instantaneous: the runtime
-+ * error paths record NVolErrors() with a lock-free set_bit(), so a
-+ * persistence point that evaluates the flag just before an error is
-+ * recorded can still leave the on-disk bit clean.  This is sound because
-+ * NVolErrors() is sticky (nothing clears it for the lifetime of the mount)
-+ * and every persistence point re-derives the on-disk bit from it; the
-+ * last one, ntfs_put_super(), runs after evict_inodes() on a quiesced
-+ * filesystem, so a volume that is read-write at unmount time cannot
-+ * unmount clean.  A volume that is already read-only when the error is
-+ * recorded (errors=remount-ro flips the superblock on the first error,
-+ * as does an earlier remount-ro) has no persistence point left and
-+ * keeps whatever on-disk bit it had; that behaviour is unchanged.  The
-+ * residual window is a crash between the error and the next
-+ * persistence point.
-+ *
-+ * This is the single point that persists the in-memory error state to disk.
-+ * The runtime error paths only record NVolErrors() because they run under a
-+ * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-+ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-+ * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-+ *
-+ * A hibernated volume is not written from these persistence paths:
-+ * resuming Windows from a modified image corrupts it, so the dirty bit
-+ * is left as it is on disk and only the in-memory error state is kept.
-  *
-- * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-- * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-- * recorded.
-+ * Return 0 on success and -errno on error.
+@@ -451,7 +512,7 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
   */
--static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol)
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
  {
-+	if (NVolHibernated(vol))
-+		return 0;
- 	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true, false);
+-	return ntfs_write_volume_flags(vol, 0, flags, false);
++	return ntfs_write_volume_flags(vol, 0, flags, false, false);
  }
  
-@@ -1676,6 +1727,11 @@ static bool load_system_files(struct ntfs_volume *vol)
- 			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
- 		}
- 		NVolSetErrors(vol);
-+		/*
-+		 * Remember it for the lifetime of the mount: see
-+		 * ntfs_sync_volume_dirty_state().
-+		 */
-+		NVolSetHibernated(vol);
- 	}
+ /*
+@@ -464,7 +525,7 @@ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  */
+ static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
+ {
+-	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true, false);
+ }
  
- 	/* If (still) a read-write mount, empty the logfile. */
-@@ -1833,22 +1889,31 @@ static void ntfs_put_super(struct super_block *sb)
- 	ntfs_commit_inode(vol->mft_ino);
- 
- 	/*
--	 * If a read-write mount and no volume errors have occurred, mark the
--	 * volume clean.  Also, re-commit all affected inodes.
-+	 * If a read-write mount, persist the error state in the volume flags:
-+	 * mark the volume clean if no volume errors have occurred, and make
-+	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
-+	 * next mount.  Also, re-commit all affected inodes.
- 	 */
- 	if (!sb_rdonly(sb)) {
-+		if (ntfs_sync_volume_dirty_state(vol)) {
-+			ntfs_warning(sb,
-+				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
-+		} else if (NVolErrors(vol)) {
-+			/*
-+			 * The dirty bit is on disk now; only warn when the
-+			 * sync actually succeeded, or this message would
-+			 * contradict the one above.
-+			 */
-+			ntfs_warning(sb,
-+				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+		}
-+		/* Commits the updated volume flags if they were written. */
-+		ntfs_commit_inode(vol->vol_ino);
- 		if (!NVolErrors(vol)) {
--			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
--				ntfs_warning(sb,
--					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
--			ntfs_commit_inode(vol->vol_ino);
- 			ntfs_commit_inode(vol->root_ino);
- 			if (vol->mftmirr_ino)
- 				ntfs_commit_inode(vol->mftmirr_ino);
- 			ntfs_commit_inode(vol->mft_ino);
--		} else {
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
- 		}
- 	}
- 
-@@ -1947,8 +2012,8 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 		return 0;
- 
- 	/* If there are some dirty buffers in the bdev inode */
--	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
--		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-+	if (ntfs_sync_volume_dirty_state(vol)) {
-+		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
- 	sync_inodes_sb(sb);
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index bc85a9592245..c7cd27b6dc1a 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -181,6 +181,8 @@ struct ntfs_volume {
-  *				Windows-reserved names (CON, AUX, NUL, COM1,
-  *				LPT1, etc.) or invalid characters.
-  *
-+ * NV_Hibernated		Windows is hibernated on the volume; the sync
-+ *				paths must not write the volume flags.
-  * NV_Discard			Issue discard/TRIM commands for freed clusters.
-  * NV_DisableSparse		Disable creation of sparse regions.
-  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
-@@ -199,6 +201,7 @@ enum {
- 	NV_ShowHiddenFiles,
- 	NV_HideDotFiles,
- 	NV_CheckWindowsNames,
-+	NV_Hibernated,
- 	NV_Discard,
- 	NV_DisableSparse,
- 	NV_NativeSymlinkRel,
-@@ -237,6 +240,7 @@ DEFINE_NVOL_BIT_OPS(SysImmutable)
- DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
- DEFINE_NVOL_BIT_OPS(HideDotFiles)
- DEFINE_NVOL_BIT_OPS(CheckWindowsNames)
-+DEFINE_NVOL_BIT_OPS(Hibernated)
- DEFINE_NVOL_BIT_OPS(Discard)
- DEFINE_NVOL_BIT_OPS(DisableSparse)
- DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
 -- 
 2.25.1
 
