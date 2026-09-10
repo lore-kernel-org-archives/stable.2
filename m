@@ -1,112 +1,252 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3360749B21E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F0E49DBB8
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050351; cv=none; b=XaZtdn4bFpGsQzI500dAB2sW0wn00r2L8DEJ4uPkZz2i5uQGNWddE1+/x16SlbFa7hnCbVTbkCuDimfryBOea1bCtc4n8TURoAr4hP9yRjrRyBLZ7vkhExQgdITgOywhuGfwhB9iVOc33jqIRRYU+9Cpk7qxGfEhp3IVKw5A0hc=
+	t=1789050419; cv=none; b=CsenEBAUXM9LcI6AtSbF1dieZT3QcU4xfDnmnI4oUWoGWW0oVtY3HG6EAcrORdLCCgQ8elPzUmfN3HyYD5R9cXwRE/Yauvd89/Tlco+PO8RauKjKp2RAAm1GVm8r3E1FvAepE08hASZvqVmdTIqSDSK9Z5oY05r4ZAAsiSfDCk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050351; c=relaxed/simple;
-	bh=GbzbfXdIPVJnGozDhXJM7uFtsEn1WNvKI9fq6la9D5w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JxhqwLFQMuZpd48TV2xJ8QgJU/HPydZa0mDr0B6MccKvFnI3TJRGYlW6aw4IofDBerarOZrxPCSUJUK9YeLOjTXWM1gqh+7UQfBNH0KLVDfU1O2Z2sh6tJO06bkyz/IbBuJRhBP/napmqhqcw5mxKG2jGMEu1iECyS+QIB1HKvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huT1p+0Q; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789050419; c=relaxed/simple;
+	bh=ecH6LEVEmACvE81DrLtQPbc+m7FaTjFfBuLtR9hu5Tc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pBDzPEBlhEzSXtAiFIANasRo45d1FLsyC28ELIh+yUarhq+jaTl/i0N0qGovRnIdpgToZKa3vgLfUhDXE5OvcCbE0Gc8kMJiLcS0ad9hMXpyNjo8JhXBlxw6cdm5o0Dq9tbUFqTFWxpC/YYaKucj+naYfrRNENIq3wUCeaglLYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMxl+zyE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huT1p+0Q"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so408361666b.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:25:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789050348; x=1789655148; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EmCbLYEUB7kSZyxwCycLxp9L3iLwlal6dc4efBNBV4M=;
-        b=huT1p+0QSo+DSdrA1ejCOp3UfS33hpr98szjxoqbBT0i6u/s0CM2u3QV7zj11t1nt+
-         NRcGjWFUkbuJPZPInjBlSyixTYMsQEQyqF1c9kr07N6yxZ04gtFC5sI18kvRJVnshYoR
-         PTw+GkYIA4uC5rZ1fy97XcUqNfsq0TpD0XYzDDVLpcCeQAfWdvp8CrPZ2288MkIiAduI
-         ogTy0SFnmEGyeRrZ+ha2SZkzmznUUmEg9ZsoBMNuZM27k15dzvdltfhJv2YcLBQVKecT
-         gAhc+jDeQbLpyX6GghQ0At47kkYCsh5c124ZCBFjN++f6YrGSZOs1gG66+sEGqZ6KY2h
-         9bpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050348; x=1789655148;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EmCbLYEUB7kSZyxwCycLxp9L3iLwlal6dc4efBNBV4M=;
-        b=PGxcgJliLvwZDd9T7+G7GvasVd/yuR1j6ncTB94BoQH39J4L9yQ6jmbKEJY5M1whHF
-         RiZhbrStIuv9e05a507XeVRlp7MNAo5y4jScZ1YRW1k/+x/MmUBpt+HTlLhMf9m64t4z
-         miaFuJLDM2fWUB1RA0iqMg6KwcCPKOoYzYY9cejYhjtWJKdCanPgf1V0F7iQMeqQxDVe
-         6UBUViUMoL9BruMOWuVJ+hH8DA8EtJqVq3o+DF/kQRh0SHrpob+B3tUN+nPVJ2tWpVDs
-         mGJ/xf8C86RyL9djvBXsQV2Oy6yev68jwMGmi2uxmUeiKl5aoMqTPP5YmSYI5tDn2mmV
-         HJbA==
-X-Gm-Message-State: AFuF++kMynkwcc8ZLsSEqwIyjdwYaWj6LOh7A8BoSf23+EYSdrU7/jR3
-	cdxFl/JsNKp+KK0AIjG7kHpkXHFEwZMTBPH0pUeqEK+c9j/G9MKbktpw
-X-Gm-Gg: AYBFou2kF/7cJUPQ5aVkW7ym25vzM+wRZesjCgcblvqJGxb/jOr1gvYT99j5crLjSdt
-	DhE1Levv9XXOpVUhadTKc8Qbk4bTLr04w2xGZ9CljcEbT6zSmWv4j4NZ8Jr1caQXpt7KhDQixI5
-	IqA1TS/rkOrKl6i+M+cdWJ42DE8e5u1//DECd3k0SbIWpFtA5pDuMS/RNF/0L1wV/nhd69hoECv
-	h/GFXGEGWix6VisEQlVwGZrajOimJGLBisGrmsMPI79fP0jiLS7/hwkwddBiF1TZS4CtTWh82/M
-	TqjSTKFPZ3GNZpag4VLsPDFlnG2XGSaTmmknU6yQ4NhIqfAbyz8VdfuuXmn7zgPUL+dS3yO7Ujx
-	aQ368QrkuYm2fx74FR2sCo8eFjUIp2soqtAiLgR8kHEAdVJX6Op3RKufmsDUXuSBTJkk0/nmEqD
-	Qc/lKfMFsafrG9vENzg8MNTBT/eA16RgQz/LdLZSP5Wzh8GXWQNaeEE7Ji3Cbcnl1pfTy7E8W2d
-	TWdmZ9+
-X-Received: by 2002:a17:907:9620:b0:c29:462b:f917 with SMTP id a640c23a62f3a-c29462c1f75mr494346666b.14.1789050348235;
-        Thu, 10 Sep 2026 07:25:48 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2951217d12sm84606066b.44.2026.09.10.07.25.47
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 10 Sep 2026 07:25:48 -0700 (PDT)
-Date: Thu, 10 Sep 2026 16:25:43 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Mathias Nyman <mathias.nyman@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.6.y 2/4] usb: xhci: Fix sum_trb_lengths()
-Message-ID: <20260910162543.2d3894a4.michal.pecio@gmail.com>
-In-Reply-To: <20260910110830.4144529-2-sashal@kernel.org>
-References: <2026090811-curler-hatchet-10b9@gregkh>
-	<20260910110830.4144529-1-sashal@kernel.org>
-	<20260910110830.4144529-2-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMxl+zyE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9C51F000FF;
+	Thu, 10 Sep 2026 14:26:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789050417;
+	bh=IvW7kpMj66onsCZnIV+36eIODzVUPFaGRqqII/WC9pA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oMxl+zyEvjeivKpkZx5RZQuru0SnxOSKXwwtFTZGfJQIboS9jnl2ThXN2A+IgMJNi
+	 NfHRKybimB55WHM2WRkqgPltbSU5hBwyu2n8JvuOiVda6+G51nf0K55BSAS1P4rD32
+	 PvRxixGTTKVYN2cUxpbdr9Zdt7gn00bagEdkhHIAO68ahwgH92iSUVxJO67k8deAq3
+	 cHW9kgT0Z1K3+RFLN3uAxR/9+Yw6i6hLl7XacjrbvcgHdB9GbQ4RAF3TJrq4RbgoQN
+	 5megZTWSPIN0AenJAnXbwPdTOk6g5xzi1RGhmoK4FilqQrP2lWAcT21qgpyv3GvqOU
+	 xSfR/IPHlMOfQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 10:26:55 -0400
+Message-ID: <20260910142655.685667-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090815-obituary-startle-7f81@gregkh>
+References: <2026090815-obituary-startle-7f81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 07:08:28 -0400, Sasha Levin wrote:
-> From: Michal Pecio <michal.pecio@gmail.com>
-> 
-> [ Upstream commit ae71f9b88e5a15fed17a432e21c30ee9463ed1a4 ]
-> 
-> This function is supposed to sum the lengths of all transfer TRBs in
-> a TD up to a point, but it starts summing at the current dequeue since
-> it only ever gets called on the first pending TD.
-> 
-> This won't work when there are cancelled TDs at the beginning of the
-> ring. The function tries to exclude No-Ops from the count, but not all
-> cancelled TDs are No-Op'ed - not those the HW stopped on.
-> 
-> The absolutely obvious fix is to start counting at the TD's first TRB.
-> And remove the now-useless 'ring' parameter, and 'xhci' too.
-> 
-> Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-> Link: https://lore.kernel.org/r/20241106101459.775897-4-mathias.nyman@linux.intel.com
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Stable-dep-of: ff44dfb03a29 ("xhci: fix lost bounce buffers on TDs spanning several ring segments")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-grep Stable-dep-of -r Documentation/process comes empty,
-is this tag supposed to mean what it seems to mean?
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-If so, I don't think it's true.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Regards,
-Michal
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
+
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
+
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
+
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Cc: stable@vger.kernel.org
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+[ Replaced dma_buf_fd_install(dmabuf, fd) with fd_install(fd, dmabuf->file) due to missing tracing infrastructure. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 3cbe87d4a464d..273e39290cf14 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -48,33 +48,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -92,30 +65,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -131,6 +116,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -167,15 +154,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
+-- 
+2.53.0
 
