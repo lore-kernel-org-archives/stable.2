@@ -1,245 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72FD39B972;
-	Thu, 10 Sep 2026 04:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2022E0B5C;
+	Thu, 10 Sep 2026 04:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015939; cv=none; b=oAPieVJib/opsXU8HNzE+pC7yGD8iePLi+z6hD7uR0Do4GE3ofa2MWBtx4I60CoOO/ctzENdvmWH+z9aPzpm/rjNESanudOp0uVomA/xVPlTc1l231C+snBGjIahfHwpuNZKVAVdV+ok0+B6cQjs7+fTMjh4gzbMVAHbvEcXPUg=
+	t=1789016063; cv=none; b=DUxAEuvEQP+EbxLyR2UL2WtpzdywWYjCdupLUoAEPInCAuYVeFVnv2Uj1qcgwk9qY6jtoipxostZ6ZspmyJ80CnR/Yq7ZHGiPBTkxrdeCxij8iABrKdV8+3uCSsgjdIveqBLznS+YfsRWPGmDrV70On85ohBt/Y59VGCgXUbzwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015939; c=relaxed/simple;
-	bh=0Lm51wTH9VGr/i6Wdxm7m04pe2ecCcXI0ZrykPiipJo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mbVWzFSM+n81DbelHkitutr/8J8M167Tjz+qMY66rZ92dg/6TJGpNECYwbFGuE4euIe9A8btci/3In5V2IHnQROXTED9yaRU9PNugAe/P8Wuc9daVnjDvuhQiUW+/D3qb6z3SM8lHUKRn42HP/ZqqMhxfbZqiqPLlGQABZ+tSJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIkmSJQi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789016063; c=relaxed/simple;
+	bh=Ddi3vmY56A+OJnvZGNLzzX04tVkrqlrw869MVFV80hg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nQMmqAPhZa5OyMs3ZYH/qrsPGt5wVTeX88JuipdWYbo+rN38F+pcVFvwg8eAkVjme26fH+EvwHeDl3eeETgUa+fb/jw2i88HIq5AYVmZxb4AWjXyLB3vvqrQMQYjBRWGEOtgmr1nCI+XSazFudzU3h037C9Efd/+A16GofSRaho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Y//61vps; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIkmSJQi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6ECC1F000FF;
-	Thu, 10 Sep 2026 04:52:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789015937;
-	bh=15HFrqWF/+MQsMOouFb0s1rwFayiwTbtk9+s3/wEPWo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YIkmSJQiVQqij5iQPtnhmKvjCiWZ/bHVz1wE97JDb5h5Hq11WfiD3l8BzAhc/GUSG
-	 lw6xKGxoi10wSoF6JsbB3ZqsRdeiG5D31U0vi1oQBVNJVyLZuY0vTrfvHzfKUVr6M9
-	 skYMslGoMnuejlOJDjKrSpmNRQgkW7ZuSzyYHQN+HQ7JRJX7E+jFIoYPll3KxL9eil
-	 K0pvpEXr12vN8ni6bJ9Es1Yz60A07DxZCESIX1jayYDej3Tkpc2PandmGZ+iAOLN2e
-	 9xI8i1sb01XKMtjAFArBBljleSt4wry80F54RiJGoHYAwJH1LCzXCupsTKhh/MuBcu
-	 woIOZahrfEVxA==
-Subject: Re: [PATCH] net: usb: asix: fix off-by-one in rx_fixup bounds check
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: andrew@lunn.ch, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, peter@korsgaard.com, Dean_Jenkins@mentor.com,
- jstultz@google.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- stable@vger.kernel.org
-Date: Thu, 10 Sep 2026 04:52:16 +0000
-Message-ID: <178901593630.219967.12800331069404600154@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB00014BB4591CE6011152DB4FC8B22=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB00014BB4591CE6011152DB4FC8B22=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Y//61vps"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d3a5a3c8;
+	Thu, 10 Sep 2026 12:54:07 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v3 0/3] nvmet: avoid recursive configfs open
+Date: Thu, 10 Sep 2026 12:53:57 +0800
+Message-Id: <20260910045400.1201582-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902103202.GB8095@lst.de>
+References: <20260902103202.GB8095@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa089aa7def03a1kunm413fe85d181356
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSR8YVhpITENOSkoeHh4YSFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Y//61vpseLMPMbRKNQjZO4WUB/OhsVOs0OQydhXCQO+PqaKk+zwOx/yMJuTH9Dp51t5qd4MOKZJGtaPZ+CrIImIseiPwFZg+9PMwXUYmsqUNrxm3nvx70vZrRIs38zN3iFG+SvBo+vIHLcyGGQ/U+HETqnTP+KiYqF5gj05kDVM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=r4DZPSSWJirORZ4ABDo6ALp7Yp4ZhsDi/cAg9PK+Ixo=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+The nvmet configfs store callbacks hold the item's frag_sem while they
+enable file-backed namespaces or passthru controllers.  Both paths open a
+user-configured pathname.  If it resolves into configfs, the open path can
+re-enter __configfs_open_file() and try to acquire the same frag_sem again.
 
-Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
+Add a configfs helper for identifying resolved configfs paths, then use it
+from both nvmet backend open paths.  The resolved path is opened directly
+after the check so the backend does not perform a second pathname walk.
 
-- [High] Incomplete fix: the patch only tightens the pre-loop
-  synchronisation predicate at drivers/net/usb/asix_common.c:151, but…
-- [Medium] The commit message characterises the read at
-  drivers/net/usb/asix_common.c:153 as a '1-byte heap OOB read' and adds…
+Changes since v2:
+- Keep the filesystem type comparison in fs/configfs and export one helper.
+- Use the helper from both nvmet callers.
+- Use file_open_root() for already-resolved paths so standard open-time
+  permission checks are preserved.
+- Rebase the series on Linux 7.3-rc2.
 
-Pre-existing issues:
-- [High] Unsigned underflow after the loop's over-read leads to a large
-  out-of-bounds copy and a kernel heap info leak to userspace.
+Runyu Xiao (3):
+  fs: configfs: add helper to identify configfs paths
+  nvmet: avoid recursive configfs open for file-backed namespaces
+  nvmet: avoid recursive configfs open for passthru
 
---
-
-net: usb: asix: fix off-by-one in rx_fixup bounds check
-
-This tightens the multi-URB Data header synchronisation check in
-asix_rx_fixup_internal() so the guard uses the same even-aligned offset
-that the following get_unaligned_le32() actually reads from.  It carries
-a Fixes tag for 3f30b158eba5 and Cc: stable.
-
-No Link: tags in the commit header.
-
-Quoting the changelog:
-
->     When rx->remaining is odd, the alignment rounding makes offset larger
->     than rx->remaining. For example with rx->remaining=3 and skb->len=7:
->     check passes (3+4<=7) but offset becomes ((3+1)&0xfffe)=4, and the
->     4-byte read at offset 4 needs 8 bytes total, causing a 1-byte
->     heap OOB read.
-
-[Severity: Medium]
-Is "heap OOB read" the right description for this read, and does it
-justify Cc: stable on memory-safety grounds?
-
-In the usbnet receive path the rx skb is allocated with dev->rx_urb_size
-bytes of linear space and skb->len is only set from urb->actual_length:
-
-drivers/net/usb/usbnet.c:rx_submit() {
-	size_t			size = dev->rx_urb_size;
-	...
-	skb = __netdev_alloc_skb_ip_align(dev->net, size, flags);
-	...
-}
-
-drivers/net/usb/usbnet.c:rx_complete() {
-	...
-	skb_put(skb, urb->actual_length);
-	...
-}
-
-Every asix path sets an even rx_urb_size (2048 for FLAG_FRAMING_AX in
-asix_devices.c and ax88172a.c, and 2048/4096/8192/16384 in
-ax88178_set_mfb()).  The scenario in the changelog needs an odd skb->len,
-so skb->len < rx_urb_size and skb->data + skb->len is still inside the
-skb's own allocation, i.e. tailroom.
-
-The overshoot of the read at the patched site is at most one byte
-(offset + 4 <= rx->remaining + 5 <= skb->len + 1), and the value is only
-used for the size-versus-complement comparison before being discarded, so
-the visible effect is a spurious "Data Header synchronisation was lost"
-message and a dropped frame.
-
-Would it be more accurate to describe this as a read of stale/uninitialised
-tailroom rather than an out-of-allocation access that KASAN would flag?
-
-> diff --git a/drivers/net/usb/asix_common.c b/drivers/net/usb/asix_common.c
-> index 4f03f4e57655d..c50646ea35c7e 100644
-> --- a/drivers/net/usb/asix_common.c
-> +++ b/drivers/net/usb/asix_common.c
-> @@ -148,7 +148,7 @@ int asix_rx_fixup_internal(struct usbnet *dev, struct sk_buff *skb,
->  	 * Also avoid unnecessarily discarding a good current netdev socket
->  	 * buffer.
->  	 */
-> -	if (rx->remaining && (rx->remaining + sizeof(u32) <= skb->len)) {
-> +	if (rx->remaining && (((rx->remaining + 1) & 0xfffe) + sizeof(u32) <= skb->len)) {
->  		offset = ((rx->remaining + 1) & 0xfffe);
->  		rx->header = get_unaligned_le32(skb->data + offset);
->  		offset = 0;
-
-[Severity: High]
-Does this change actually remove the read described in the changelog, or
-just move it into the main parsing loop?
-
-Replaying the changelog example, rx->remaining = 3 and skb->len = 7:
-
-  ((3 + 1) & 0xfffe) + 4 = 8 <= 7   -> false, sync branch skipped
-
-offset stays 0 and control falls into the loop, which is gated only on two
-bytes being present:
-
-drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
-	while (offset + sizeof(u16) <= skb->len) {
-	...
-			if (skb->len - offset == sizeof(u16)) {
-				... rx->split_head = true; break;
-			}
-
-			if (rx->split_head == true) {
-				...
-			} else {
-				rx->header = get_unaligned_le32(skb->data +
-								offset);
-				offset += sizeof(u32);
-			}
-	...
-}
-
-The first iteration copies the 3 remaining payload bytes, clears
-rx->remaining and does offset += (copy_length + 1) & 0xfffe, giving
-offset = 4.  The loop is re-entered because 4 + 2 <= 7, rx->remaining is 0
-and rx->split_head is false, so the else branch runs
-get_unaligned_le32(skb->data + 4) on a 7-byte skb, reading skb->data[7] --
-the same byte the changelog says is being fixed.
-
-offset is always even here (it starts at 0 and advances by 2, 4, or
-(copy_length + 1) & 0xfffe), and only the exact skb->len - offset == 2 case
-is special-cased, so any 3-byte tail reaches the 4-byte read.  The same
-state is reachable with no prior rx->remaining at all, for example a fresh
-rx state with skb->len == 3.
-
-Would guarding that read with offset + sizeof(u32) <= skb->len, or handling
-a 3-byte tail the way the 2-byte split_head case is handled, be the fix
-instead of re-deriving the pre-loop predicate?
-
-There also looks to be a behaviour change for the inputs the new predicate
-excludes.  For odd rx->remaining with skb->len == rx->remaining + 4 the old
-check was true (3 + 4 <= 7), so the header was validated and
-reset_asix_rx_fixup_info() discarded the frame on a mismatch.  With the new
-predicate that branch is skipped entirely, and the trailing bytes are
-appended to rx->ax_skb and handed to the stack:
-
-drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
-	...
-		if (rx->ax_skb) {
-			skb_put_data(rx->ax_skb, skb->data + offset,
-				     copy_length);
-			if (!rx->remaining) {
-				usbnet_skb_return(dev, rx->ax_skb);
-	...
-}
-
-Does this lose the desynchronisation detection for exactly those lengths?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the same 3-byte-tail path
-looks like it goes further than a one-byte over-read, and this patch steers
-the changelog's own example into it, so it may be worth handling in the same
-change.
-
-Once the else branch has done offset += sizeof(u32) with only 3 bytes left,
-offset == skb->len + 1.  The reconstructed header has 3 device-supplied
-bytes plus one stale byte, and only bits 24-26 of the complement come from
-the stale byte, so the self-check has roughly a one-in-eight chance of
-passing and a device can retry:
-
-			size = (u16)(rx->header & 0x7ff);
-			if (size != ((~rx->header >> 16) & 0x7ff)) {
-				... return 0;
-			}
-
-If it passes and size <= mtu + ETH_HLEN + VLAN_HLEN, rx->remaining = size
-and the clamp is evaluated with offset > skb->len:
-
-		if (rx->remaining > skb->len - offset) {
-			copy_length = skb->len - offset;
-			rx->remaining -= copy_length;
-		} else {
-			copy_length = rx->remaining;
-			rx->remaining = 0;
-		}
-
-skb->len is unsigned int, so skb->len - offset wraps to 0xffffffff, the
-test is false and copy_length becomes the full device-chosen size.  Can
-this then copy up to mtu + ETH_HLEN + VLAN_HLEN bytes from one byte past
-the received data, beyond the rx_urb_size allocation when skb->len is near
-rx_urb_size?
-
-		if (rx->ax_skb) {
-			skb_put_data(rx->ax_skb, skb->data + offset,
-				     copy_length);
-			if (!rx->remaining) {
-				usbnet_skb_return(dev, rx->ax_skb);
-
-usbnet_skb_return() delivers the skb before the trailing
-skb->len != offset check reports the error, so would adjacent heap contents
-be handed to userspace as a normal received frame?  asix sets
-FLAG_MULTI_PACKET, so there is no usbnet-level length sanity check ahead of
-rx_fixup, and skb->len comes straight from urb->actual_length.
+ drivers/nvme/target/io-cmd-file.c | 20 +++++++++++++++++++-
+ drivers/nvme/target/passthru.c    | 17 ++++++++++++++++-
+ fs/configfs/mount.c               |  6 ++++++
+ include/linux/configfs.h          |  2 ++
+ 4 files changed, 43 insertions(+), 2 deletions(-)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB00014BB4591CE6011152DB4FC8B22%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+2.34.1
