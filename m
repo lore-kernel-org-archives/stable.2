@@ -1,79 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582A3361959;
-	Thu, 10 Sep 2026 19:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069878; cv=none; b=lj+I6YfCeRSjBFsbeGjmdbMKYoo9X3OiapThD/iLD/oKD9qSxYKvaZUmV4Y9qWRURwSyxSlcPi6ULgtoKfoVnJ1JSg/TvJauATSv88ou5QmOKKFaM+ASOuvNgoYwhKIQPv1vH77uEtMJ9TGEyYKlgLPYtpZ9lU41neVyTG1OMtI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069878; c=relaxed/simple;
-	bh=+TLJJaEmCJ/1/Msf3ENzwQ9wO+N77vy1E6kFychptwo=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Svm283OiCJkQUcgY+05+WJPvR+hxDITYYCrQsB+jT5IB6LcClMbkv24bg4DxUg7K3KnPVEMJNMkkK7HLZ8829RdilnLeI87bqHUQwnW1a4+xvReYMCXnh+DtPnICanCxC5zqAQIdfCbqzQ+aGPE1VHAhpY1Q2N+4YcUoyk4cg6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YU/bCqCM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5EF414434
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789069971; cv=pass; b=m5zow59la/U313I6oOV3pnOq9jG9pV31IWPwGo64SlgMqJflPHS0+Hwa4RmGaRuUWJ1k4sxwCyfW7vtd+/ALdpAmemhGTslXgwvYs9ockb+sNySiHBMikBWfORLWmuSfmPPp4kPmp9R2MD3bs1AI28GNoeGGtGb8GsqYB6sqXiY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789069971; c=relaxed/simple;
+	bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=to8urZYmJsxIu/TSnlHqjaCflsN2KZkcAdCZpEgAKKSUDg7aLX+ZBsml7b1PU9uHHbE5BtmckfmPTNzRk+wnnEYyuUls6ALdSJN6RUhs5PMxSd3CG19FsEKdxcLdMkKPvk8d0Djjpa+O0F5nnAqUGCDDpHwkaiDxg7WOaqlLeiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PDrO6TR5; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YU/bCqCM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C0F1F000FF;
-	Thu, 10 Sep 2026 19:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789069868;
-	bh=jAQZGFrAtIqvNeMZFEctdK1yW1GhoxGQp3cTSBDzVXM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YU/bCqCMJCqfX9ldgeeL8lrK8XbDs1q7U00KArI4Vqp8H6aTIbImQPZklBR9x8eec
-	 PorU8A7EV5PsNBXgfKM46EgiE8zeH8E3X94ox/PaXmD2EtY+70KD/7TwbwZDVANrvv
-	 a+PPC5/7V3MFTXaMjYIaRps4tMOegvJh+G6nqZyObax7sH0CbfPB2v8LXK3L6j0p9p
-	 XdQO3SonyAhqERrIx6smSNG0TQeJq+ty4OvwpHEIhyY85WN2dXVnMIBCH5sZNm6FnW
-	 EsRzbzeZg8nMMgVpG8kgfvuC064yuqng7ptqMQEkoOEG2jGN4wAr9DznZKxYhDq3n8
-	 vfVg9/ASKVlAg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0AD7380CEC6;
-	Thu, 10 Sep 2026 19:50:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PDrO6TR5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so93543f8f.0
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:52:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789069967; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aDuZM1YMDJz6z1cJ7npZQzpVtCRglk3+oKyIUu0OjPu7x9aY2YPpVIB8NnpIuW7icz
+         1+MCNu1LsV/n/e9JmPKE54sOdV1Bn4L9HkyXw1DTvCVKQruOiogdW7obdPsPkfhFsqbw
+         hZwUBeisnwX0HaQeEe4zl8JAPnVz3ztwbl+y09pkoMbWf3+h1GgNwm+6LkqZjZ4xMM/V
+         vo+enAJImTHvoKqwJDFTkFwLn3H017qy73eVncjIQe3XyyAULLITW5dEkq3tv3fupqKA
+         56E9vPLLyg/RtGal6OBNVdTNNgN/fl2fTK6BGlaf5k14k9Sp8wripqvioerWydvp6KP9
+         VDpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
+        fh=eHm3gkqh3jr1UMbHjBx/kZgXyGzlV8Qj+ScJdsWKwgg=;
+        b=OQVEwy+pX5Mol0mx3TQSCWZLq0oMA72/J5FV1n8/bZ8OVzBRPjlRfmTbMTv6exYnof
+         SYiy4NpvVtZ2p5AWJsce4Efm5lWfo/oqRmY+Sacpg52430s4aAzKaVUHknuWWRlLRi06
+         6/spEaCWfv3pNdAVwvLwVgMhs4CtOokAjRAbuyCXMatgcJ/x4AvNfiKRZGARbNpsH6sn
+         cfQ3Q4c3jbvcWL8jn6W+yBnrpADcd0qa8C+6mIiPpZCGdCniLSrJ1ZSH4UbYvoDdB6G9
+         RlUEIK90y9AoON4cT++WdvMhzJeTpRrJY2IrOL721q76HaK4Fe4MJQyMKcVMAZfrGi98
+         SyYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789069967; x=1789674767; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
+        b=PDrO6TR5mHiQ6mkfx3NfMoUR+P1inFsrAZ095Ddog1bZa/C8T2HrTVJucMd1/wImuc
+         VTYJ53FTrIo8pO0o792CjTEcUs8tbp8u1Nkkz/jK/MhRyO06432FWYfJ6FLew3FXjubO
+         PlY4oU/WdLAF93SxgxAcYKhj1FRrtm9O74Go/MqEZ503bFBZjm0JEWaFBmrCz2tLle81
+         zYQxlODiLL5k9wC8kwRIjWrcqyMbHd2Hweovjsji+1muXNvY3rvoOOR/d78cGdEIv+Ff
+         Kmsdq3B9OWUgaBgc7aENU8I07kTfkdgkrotJkws/Mi3Hqzu89rTynCZE/26hSEPmocjV
+         FngQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789069967; x=1789674767;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
+        b=Dt37+3v+UAJ9IwlGe8Z2Sn3qNJvCyI1vqJMba2fDPyf39goJ3f5LWcMGsvvYhM0BJ7
+         aNimqkSwRaFqIcA6YV0c/jUhGJI3evmWDN7gVl2uw3B08Q1s+cdisyLvlvYgXgU+jYbf
+         D8TDmt9kemy0S1QgQVUwkY7+WiPab2Q/zIo2GS9hMOblMQB+YF5km7x1GEyLasqqIar+
+         Z7hC7ezpz1m+or4plZ1PTNPYs4l/nxLuOu3J1qVZQt0BaLthZEi7m1ruGBZGcAcZvxyc
+         +kTalwAehUJief0Qim4rW+0Tk0fYgwzRPkRwGTxGK2D/2vZznMwsVPvxy1PkRYRZObr7
+         45Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwkxbjCtsh/gMvcCU1kdsliKopP7ebvzcVSLm9G2VCsddzgP7jptu2NnlGcEvIlToRE2yzfaUc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1dpmhrAk9BtCB8PkqQs0i6dBJFJwuuMw+CPSTDkRobsqWODkR
+	gITTCK5tZ1dcm8n8gXfLgi3pLTHtteKFKkh5RVybFKtH5+gHKG3fVdLG7lZFY48tK6xDs9NsKzo
+	BDLo7XJqgXWL3qazRrhcMbzXFYOJIgdBzcSxkXRcK
+X-Gm-Gg: AYBFou1NkE4WZcbLgWn/uYsjQ2XhZK8o07gev0tORp2+Qq52TEeTQMsjqYW/Edsh7os
+	p1f9iCGdMVr9vuFLQVUwURIWzhVMz+j4l7yH19bwTy14kX08puI/wnN5aeXXeePsXxl3wrsqipt
+	iZ+bdcM/qHuye8PZuE5Ag4vkWwukRUqkaDNjrTjk8CP9Nst8VcMqMdaPbvi9SH5xmvKLKfhAo6Z
+	c4SCs2BwU2EjxJaXxU2MptjRq8AmoNLcSbjHIJ5vkoLaZeMWBSEep0tQRlZD/5AISkd7d28gNOk
+	G7BOa046fqHOZ0rtIXew9V1r3hRAWdqT66r28QbkFLH9XtbTgAvxE56KtQPx1/zGzgkG1Ieq3dX
+	/XwW2jagnyg==
+X-Received: by 2002:a5d:4483:0:b0:482:dac8:cd0d with SMTP id
+ ffacd0b85a97d-486eb33ec05mr931955f8f.21.1789069966721; Thu, 10 Sep 2026
+ 12:52:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: hci_codec: validate vendor codec count
- length
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178906980564.2055460.13921415718571070478.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 19:50:05 +0000
-References: <20260824155736.54542-1-acharyalaxman8848@gmail.com>
-In-Reply-To: <20260824155736.54542-1-acharyalaxman8848@gmail.com>
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, luiz.dentz@gmail.com,
- marcel@holtmann.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260904234401.2339633-1-jthies@google.com> <2026091023-numeric-husband-1b03@gregkh>
+In-Reply-To: <2026091023-numeric-husband-1b03@gregkh>
+From: Jameson Thies <jthies@google.com>
+Date: Thu, 10 Sep 2026 12:52:34 -0700
+X-Gm-Features: AcwNN1W1WwceoXxfw7kV1OcYc7DN9h4A1Bt3IOdWqxeC9UAzLths1l0qeH57h3g
+Message-ID: <CAMFSARfnRpkq21j7WZYqdthy4aC7VSPjQAKm1eHvbYxhM6pOnQ@mail.gmail.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bleung@chromium.org, akuchynski@chromium.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Hi Greg.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+> Does not apply against 7.3-rc2 :(
 
-On Mon, 24 Aug 2026 21:42:36 +0545 you wrote:
-> The Read Local Supported Codecs parsers consume the variable-sized
-> standard codec array before parsing the vendor codec count.  Although the
-> initial reply-size check includes a vendor count byte in the fixed layout,
-> it does not guarantee that the byte remains after the standard codec array.
-> 
-> If a controller reply ends immediately after that array, calculating the
-> vendor codec array size reads vnd_codecs->num beyond the skb data.  Use
-> skb_pull_data() to validate and consume each codec header before using its
-> count in both command variants.
-> 
-> [...]
+7.3-rc2 and usb-next include the v1 version of this patch which fixes
+the OOB issue but doesn't incorporate Heikki's or Andrei's feedback.
+I'll send a quick series to revert the existing change and followup
+with the v2 version.
 
-Here is the summary with links:
-  - [v2] Bluetooth: hci_codec: validate vendor codec count length
-    https://git.kernel.org/bluetooth/bluetooth-next/c/803d146cd56b
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+- Jameson
