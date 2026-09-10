@@ -1,123 +1,227 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A581F91E3
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 22:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B14B355049;
+	Thu, 10 Sep 2026 22:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789079895; cv=none; b=Nk8LJB/RenJ7EXMpaO8QVjU9wmco/RYxdLmy3FgUk1v5EupMxV1EDUf06V3EQ1/dya1u6YIGBmidfzDEG714CU7d5K/n2MCcCMaFgPRfmAD0q429BTyFMWqA2ueZ/hPSCPjJhItcOrVEqKkhwpgKAXbWY2nRZLiqFmhlmazTg40=
+	t=1789081088; cv=none; b=LuBN0dl4hJn0o6W+eWHevob+QDUQzku0JpnRWDC+y+xaVzpse+u2OgTi601oyhVVjcAF/EVaTRNn6q2QL3hQ+4qk22O2MSJORGJ8vExiZiO6Jd8lmq2yoK9c9j8IGKdyBM6778yb3qI+nd4iS6AewRU/0JHd+QaJlGwy4zVw3VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789079895; c=relaxed/simple;
-	bh=SWt2X1DGCJzAIa/CTdS0MH7oV7EwnCVO57QQ71qYkXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cvIsf6p7oJs29ToZo33qikEDdVp2ci44JtO0Z5iLIq7ZvLPu+uUTWCH0W6VJSPvoLQr772sN3ltCyjbJyq/R/RCokLi0lH2Q7wbsJFSNYh2C9PeUPmOCU0doQ2mhQBhFNHMZjcPCPOHlqhcjUpGF1uQ1Q6oXFqFrC+Rn27qon1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VDpNHDoV; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789081088; c=relaxed/simple;
+	bh=/9T4lP7odycPErrV9B9fPbzZa+lV+jFodiifhB445Xw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rSSXGzoUK7ROdspXX/vWNufK3Fv9RXHQLK+KGlEHz5E0EH7q9bGK6U8jqeEOevPFX4aQ6WNe0qPoE/92d1G3SANG9DVpNln35tRO8j+Rdf5KHabwC4Ha4ZgSxGvnRY0QwhFgmEdhTVbWzjNq2RZ5e0WqiDK/d7BwAinnrMM9FPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itiLJ2EY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VDpNHDoV"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa6so33409885a.0
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789079893; x=1789684693; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lw0J18o8NMgLkUQr/yomujhpoAzqRd78S+D2/pgaPdk=;
-        b=VDpNHDoVhUrSsfqmVRdXCj9UD0ePzf+7+bqodP9PyaokGXpHIuFuUUKQJImI4Tk5D4
-         fxZB0DuBx8d12XhDMo/QurqT7zW3hX/JjPJrufCXyuydkFSnP0yC6N/6mn08hoLoSDNu
-         BU2R/XNUaZCvdjoOHDG8HS4fz4tUErwdKnfWQ26KNsJaKzTQK08htB1WIBMyo9FSbbh+
-         u15IqCBEFn0LBcnGn89X9+YWTVeVCWuL0xljcbwgtOMpxlisRCsOLiQW0e7ZiAj8nV30
-         FLZsVa/N2C5uPatcuk6V6mNQHKh9fogL+5nkZrd9GfHgyoIgWDq9SP+WrlG4F0Jlwd5e
-         GnzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789079893; x=1789684693;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lw0J18o8NMgLkUQr/yomujhpoAzqRd78S+D2/pgaPdk=;
-        b=D3Gfp2euxKlNHau9Nvm4QzRAhUJwyxQdFHBdWDr3cgdBBDutTWM0diT6YZlwuXhKVK
-         G9+nOiceFaJWbCGkbY0XWbSZ4fF6Q5bxnHYaUU8iMXzATuYXwlbIOsv95wJ1v6Z9fcFO
-         /D1PHOUIjOE1gBwuCTog5zxVpj8xSvACcQYpV1uBMnoS0KJlwMSex/MOtBXtZjVph3X8
-         BvscFI1fQji6bFWAy6Keb50s7tH+MVrHhJO/VCFVEULrfgEd0Vby005MtRvxFUT7OyPe
-         0UXkaaSRQfb5Em//93iCH3rDVH0bevIvj/bNnbJ4DkJ0AJTCbUH9Xq94JU/RPpQGhn4T
-         APfw==
-X-Forwarded-Encrypted: i=1; AKwUvByewvZugDqSaArKmo5HRg3psBlETJ3r6/Zvf+X9nqjOHl4zDKz+J7fRTZdWYjXNNSbMH9pXqDM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltITNUb4Tu2dVnVU2uo+c+FKiUu6i/0zMG6ht3iMbLJzec8nYn
-	3dWGp3OYStxF1VhGybX+m2nc3wj/ivdAEA6TpQOTdRBlJ5xh1xOV69c=
-X-Gm-Gg: AYBFou1YOqho1gPa632ebXku8ASP13eOorjJQl74EVyWcGv4ZnTzjSCqp93ydT1pyVX
-	1H2C1bieeY6JlPt3kYJMxdex21u/RDimXZtU8vX8Ligkp/zFsV/HmF23t4BxXlYC6M10cICUM8o
-	FrCEmMZaPXoAqIdEcWY/C5IrdtbW04HuKvLo8Vv1V42eXq0sDXjeIyBO+fzJj+PTs1WxMs6yS+u
-	Wa0hSiEGH4O1P5Wepr8xG8w7P9N8jCWUQZPPoBCqxoVpB6+b5/UYTfGXrbi/8sJSWqHuEZJgcYx
-	OiM97eKXYnTKRtIdV5/2AgNINE+T7qbjVQGP08xgxgdrBAsNgM51bTD5Ko+pPybiV7vbrIyivOQ
-	N54EomEH1G5FZDT43VxCK6wB+TydmjvoDsPpkQhhAE1+cdaVCscZOP17nzch4Msx5Yq0RTlQtlw
-	xyLatkjHlOzpWOqJkzrcUYgnf6vte2tuk481wt1FVHV3Xz1Ao86HEwXzYqs2osOuwkVqD+uyD92
-	h/7NHJhL+0DJINFicGCW1qjM6DCdetFQ0kndmuYrmYwawTGm4xpzQz1QbI2/lmscYUQRwpRNs7P
-	wQq38QVgQDxaxpO8hWfKcanCLi3HZKIPyg==
-X-Received: by 2002:a05:620a:28c4:b0:939:518d:7f6e with SMTP id af79cd13be357-939ea137501mr198587685a.22.1789079893180;
-        Thu, 10 Sep 2026 15:38:13 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e803dc90sm90487685a.17.2026.09.10.15.38.11
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 15:38:12 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <treding@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] drm/panel: simple: Clean up resources on DSI attach failure
-Date: Thu, 10 Sep 2026 18:38:03 -0400
-Message-ID: <20260910223803.8552-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itiLJ2EY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9DF1F000FF;
+	Thu, 10 Sep 2026 22:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789081085;
+	bh=sQ6x/k1wDKwsXpUfg2/qVSXIi+v2mKe76dRQ9lTpK38=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=itiLJ2EYXsX9JjF0rSbAky8sfubkSsLHfeYhBXljp3JkYlgTKTSFvJMH8tO4tWQwl
+	 iFk/fkhuUIVr3efweckyofCd+hC4ZmetpTfyM2FzcssXjtY5tx/NK/u76ho0j9gtfU
+	 t5+MndRNhvXcoWOHbxPCRGpn8JC5epxHdjRU5480eJ/tmqoOI2vXjIsQtdNHwpkZ6D
+	 F8vdw31R7JlzkyLaf0vVCm3x1XXgRJQOEkXa/40HzPPD7gOpLn3vcQCn01hsgLNUkA
+	 iY/UKky/JJVyTNWqAL1VgK9/mS27eznX70+Z6W0R1WmiNhncqWDuFApuhN19PMAU3C
+	 dOdwPLz+GbI+Q==
+Message-ID: <06792614227360acd42d62693d0af78d0f9e947e.camel@kernel.org>
+Subject: Re: [rds-devel] [External] : Re: [PATCH net] rds: ib: use
+ rds_conn_drop() on protocol version mismatch
+From: Allison Henderson <achender@kernel.org>
+To: Gerd Rausch <gerd.rausch@oracle.com>, henrymei
+ <ljp1205831794@gmail.com>,  netdev@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
+	santosh.shilimkar@oracle.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, Aohan Mei
+	 <henrymei@tencent.com>, TencentOS Corvus AI <corvus@tencent.com>, 
+	stable@vger.kernel.org
+Date: Thu, 10 Sep 2026 15:58:04 -0700
+In-Reply-To: <a4b5d873-4746-4e36-ae15-c45957459fb4@oracle.com>
+References: <20260908123356.1163970-1-henrymei@tencent.com>
+	 <4fda023c1e7152aee2d5f977f5045dcddcd08d8d.camel@kernel.org>
+	 <10cf2701-211a-42fe-bb1b-c218d718ed2b@oracle.com>
+	 <2338b4729960abdf0c753d39cb3b7056421bac18.camel@kernel.org>
+	 <a4b5d873-4746-4e36-ae15-c45957459fb4@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-If mipi_dsi_attach() fails after panel_simple_probe() succeeds, only the
-panel registration is undone, leaving runtime PM enabled and an optional
-DDC adapter reference unreleased.
+On Thu, 2026-09-10 at 10:08 -0700, Gerd Rausch wrote:
+> Hi Allison,
+>=20
+> On 2026-09-09 15:55, Allison Henderson wrote:
+> > On Wed, 2026-09-09 at 10:25 -0700, Gerd Rausch wrote:
+> > > On 2026-09-09 00:09, Allison Henderson via rds-devel wrote:
+> > > I don't get this.
+> > >=20
+> > > So RDS should just keep on retrying to connect every second instead
+> > > of giving up on that incompatible peer? Forever?
+> > >=20
+> > > The version number the peer uses remains the same until it gets upgra=
+ded somehow.
+> >=20
+> > Hi Gerd,
+> >=20
+> > You're right that this ends up as a ~1s retry loop.  While that may
+> > not be pretty, I think it's still the right call for a net/stable
+> > fix, for a few reasons.
+> >=20
+> > First, it's already what we do for the same condition in the other
+> > direction.  When the passive side rejects us with RDS_RDMA_REJ_INCOMPAT=
+,
+> > the REJECTED case in rds_rdma_cm_event_handler_cmn() calls
+> > rds_conn_drop(), we reconnect with the usual backoff (capped at
+> > rds_sysctl_reconnect_max_jiffies, one second), and we log a pr_warn
+> > on every attempt.  That's the common direction, a new node talking to
+> > an old one.  Aohan's patch just makes the rare direction behave the
+> > same way instead of wedging.
+> >=20
+>=20
+> The important difference is that when this happens, and the client
+> sees a RDS_RDMA_REJ_INCOMPAT from the peer, it'll downgrade to
+> RDS_PROTOCOL_COMPAT_VERSION (3.1):
+> An older version expected to be understood by all RDS modules.
+>=20
+> And thus the connection will be retried with version 3.1,
+> and is expected to be accepted by the peer:
+>=20
+> Function rds_ib_cm_connect_complete() explicitly exempts
+> RDS_PROTOCOL_COMPAT_VERSION from the rds_conn_destroy() treatment,
+> but allows the connection to proceed.
+>=20
+> So it is not the same way at all.
+>=20
+> Before this patch, a version 3.1 connection is expected to be established=
+.
+> After this patch, there's an infinite connection retry attempt every seco=
+nd,
+> that'll never succeed.
 
-Call panel_simple_remove() to unwind the common probe resources as well.
+Hi Gerd,
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+I think we might be talking about different branches of code?  It
+looks like the downgrade you're describing is in the REJECTED case of
+rds_rdma_cm_event_handler_cmn().  But this patch doesn't touch that.
+The 3.1 exemption in rds_ib_cm_connect_complete() is a few lines above
+the one being changed, and it isn't touched either.  So a 3.1 connection
+should proceed exactly as before.
+ =20
+The changes here are only reached in the RDMA_CM_EVENT_ESTABLISHED case,
+after the peer has already accepted, and only when the version it accepted
+with is below 3.1. IOW: that is specifically a peer that answered our
+3.1 proposal with 3.0.  Or an accept that carried no (or truncated)
+private data, which leaves c_version at 0 on a fresh conn. =C2=A0
 
-Fixes: 210fcd9d9cf1 ("drm/panel: Add support for Panasonic VVX10F004B0")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/gpu/drm/panel/panel-simple.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+There is no fallback for that case before or after the patch. 3.1 is the
+compat floor, so there's nothing lower to fall back to.  Before
+the patch, that branch calls rds_conn_destroy() under c_cm_lock and
+deadlocks against rds_conn_shutdown().  Which then stalls every RDS
+connection on the node.  After the patch it drops the conn and
+retries with backoff. =C2=A0Neither case establishes a connection, and neit=
+her
+was ever going to.
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..767068de6816 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -6552,11 +6552,8 @@ static int panel_simple_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->lanes = desc->lanes;
- 
- 	err = mipi_dsi_attach(dsi);
--	if (err) {
--		struct panel_simple *panel = mipi_dsi_get_drvdata(dsi);
--
--		drm_panel_remove(&panel->base);
--	}
-+	if (err)
-+		panel_simple_remove(&dsi->dev);
- 
- 	return err;
- }
--- 
-2.50.1
+>=20
+> > Second, rds_conn_destroy() doesn't actually give up on the peer either.
+> > Nothing in RDS remembers that a peer is incompatible.  Destroy frees
+> > the conn, and the next rds_sendmsg() to that address either reuses the
+> > socket's cached rs->rs_conn or goesthrough rds_conn_create_outgoing()
+> > and rds_conn_connect_if_down() and then connects again.  With an
+> > application actively sending, that's a create/connect/mismatch/destroy
+> > cycle at the application level.  With an idle application the only
+> > difference from the drop is whether the retry is timer-driven or
+> > send-driven.  Deferring the destroy to a worker doesn't change that
+> > picture, it just avoids the deadlock.
+> >=20
+>=20
+> I can't follow.
+> Are you suggesting to ban an IP-address / peer for life?
+>=20
+> A node can always retry an RDS connect, triggered by a sendmsg().
+> Much like a failed TCP connect() doesn't ban a peer for life.
+
+No, quite the opposite, apologies if that was unclear.  The point I
+was trying to make is that rds_conn_destroy() doesn't "give up" on the
+peer either. It frees the conn, and then next sendmsg() recreates it and
+connects again.  So the choice here was never "give up" versus "retry".=C2=
+=A0
+It is "retry on the next send" versus "retry on a timer", and the former
+also comes with a dead lock.
+
+>=20
+> There's a big difference between an application trying to send data again=
+,
+> and the RDS module itself spinning around every second and re-trying
+> a connect with a version# that is known to be incompatible,
+> and thus never succeeding, because the fallback mechanism became broken.
+>=20
+
+Agreed, but that would be the net-next follow-up I suggested: mark the
+conn when the peer turns out to be incompatible, have rds_conn_shutdown()
+skip the timer-driven rds_queue_reconnect() for it, and let
+rds_conn_connect_if_down() from the next sendmsg() be the retry.
+That gives you the TCP-like behaviour you describe.=C2=A0I just don't think=
+ it
+should gate a one-line stable fix for a dead lock.
+
+> >=20
+> > >=20
+> > > I understand how the rds_conn_destroy() path is full of bugs.
+> > >=20
+> > > But shouldn't that just mean those bugs ought to be fixed,
+> >=20
+> > While that code path does have bugs, making rds_conn_destroy()
+> > safe to call from the CM path is a much bigger change, and one that
+> > should probably go through net-next rather than holding up a small
+> > fix like this.  The current code hangs every RDS connection on the
+> > node the first time this fires, and a one second retry on one conn is
+> > strictly better than that.
+> >=20
+>=20
+> It is not only the infinite retry every second that's of concern:
+>=20
+> This change also implies that all RDS kernel modules speak
+> the exact same protocol version.
+> I don't see how that assumption can ever be valid.
+>=20
+> Because after this change, if versions differ, there's no fallback to 3.1=
+,
+> but connections won't ever get established.
+
+The version negotiation looks unchanged to me.  The passive side still
+picks the highest common minor from dp_protocol_minor_mask, or 3.1 for
+a 3.1 peer, or rejects with RDS_RDMA_REJ_INCOMPAT.  And the active side
+still lowers c_proposed_version to RDS_PROTOCOL_COMPAT_VERSION on that
+reject.  The changed line only runs when negotiation has already
+produced a result below 3.1, which no fallback can rescue.
+
+FWIW, upstream currently defines both RDS_PROTOCOL_VERSION and
+RDS_PROTOCOL_COMPAT_VERSION as 3.1.  And the active side proposes
+c_proposed_version, which starts at RDS_PROTOCOL_VERSION.  So, that
+means upstream always proposes 3.1.  The downgrade in the REJECTED case
+is basically a no-op there.  And an INCOMPAT reject already results in
+the once-a-second retry you're describing.  That's what I meant by the
+other direction behaving the same way, and it's another reason the "retry
+only on send" change is better done once, for both paths, as a follow-up.
+
+I hope that helps?  Let me know if anything is unclear or if you think
+I've missed something.
+
+Thank you,
+Allison
+
+
+>=20
+> Thanks,
+>=20
+>    Gerd
+>=20
+
