@@ -1,35 +1,35 @@
-Received: from smtpout4.mo538.mail-out.ovh.net (smtpout4.mo538.mail-out.ovh.net [51.210.91.33])
+Received: from smtpout8.mo540.mail-out.ovh.net (smtpout8.mo540.mail-out.ovh.net [51.210.91.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFDA3B4EA1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9696C50C29E
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059154; cv=none; b=m0A8RpgkLRdhDCpnmLbZVHwbXV2ICNJq6eNIgHVIUnapcz5Ri6050I1qhlAu/wiUxzvzW3wswfWK9RJ3UNK8gvi/XHl5/eaz5xIbeiBao40o1WcTQimp3hJ4KJiMmWildHE4yn2yh8M56OpamrTuAWtUyUdZuNg6jJ8FIyJDKf8=
+	t=1789059162; cv=none; b=UOIB4FLgA+861awYja1+uyVks8s9DcZCbmSoF2LzKT9PlYdljw1Ii7l/AHpbffZu7giYroWP2XueyCx1lNfePuwHmzEaLIihAR5QkV+Kc6IpluTgc5SuPE/lY4BuDxH/+BhGYHDQKcYrZFKVih1yDkHu2zSLoXQt4IebaKSA86c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059154; c=relaxed/simple;
-	bh=2dMOQ1vx6rLMO4qsV1MwGfT3wfsbDmnSKHx/gffVTps=;
+	s=arc-20240116; t=1789059162; c=relaxed/simple;
+	bh=shNexhU3+91h/nfk4jHmpTFHp5feiax3mrpPpYJuB6U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VUYk96nvrmv9HgFfwQsQv1kgNFYRRlwKo/TM2HqxvEVPZVeSjnSykMvzbs5iEdbn5+YJ3rysZ/JX0n0SDpbEXXqgHvrIUzVD4MVoBAM+JOrfj85fsZ+8Omq2LReH9Jx1204eD21wvpDgs/5o1kpF5YtRBwe5z94dZl2MbEGRymk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=QSPT4AZy; arc=none smtp.client-ip=51.210.91.33
+	 MIME-Version; b=XAdRwW2EuJ93M0QxZG14mG6rTPHKVwM/dcY/pzil4DFuH12mhf4b+um1qbr3RiIwTlaFHYHJXhOfkg27dK1HOrO9yauBEzylgH37yPpPzHpgYP/nVKzYIY1h1YUQe4wTo5gXaJyNrxUkKo03ZSoF/Kh8fkewvZzWLiqEvUCvJH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=eHuLCaJM; arc=none smtp.client-ip=51.210.91.57
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="QSPT4AZy"
+	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="eHuLCaJM"
 Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHY2HKVz6DM8;
-	Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
+	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHb5gdxz452h;
+	Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
 Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
         by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.188.184])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHY116qz6GrV;
-	Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
+        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.178.248])
+	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHb412sz6MbM;
+	Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
 Received: from sicoop.com (unknown [10.1.6.2])
 	(Authenticated sender: michaltoma@sicoop.com)
-	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 76158941C3B;
-	Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R00350eeada4-356d-4531-b89e-ad671e8ca1bc,
+	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 0D7F4941C3B;
+	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-100R003a667408e-8f09-46f7-ac05-eac24a551907,
                     D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
 X-OVh-ClientIp:89.91.4.113
 From: Michal TOMA <michaltoma@sicoop.com>
@@ -49,9 +49,9 @@ Cc: Michal TOMA <michaltoma@sicoop.com>,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/vmwgfx: Don't map or free the exporter's sg_table for imported BOs
-Date: Thu, 10 Sep 2026 18:52:19 +0200
-Message-ID: <20260910165221.7558-2-michaltoma@sicoop.com>
+Subject: [PATCH v2 3/3] drm/vmwgfx: Don't leak a GEM handle when referencing a surface by fd
+Date: Thu, 10 Sep 2026 18:52:21 +0200
+Message-ID: <20260910165221.7558-4-michaltoma@sicoop.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
 References: <20260910165221.7558-1-michaltoma@sicoop.com>
@@ -62,126 +62,117 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16161448740256764187
+x-ovh-tracer-id: 16162011691840459035
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aJ55Rvp0OwdgfYjyIyVOA4GjkJ3AUayJQ12PN/0LdjhCHM4nNrCbH5WIwuv5d0SLWxwsrSrMMM1TsxIx/S9bmyurSJBaj0ipwTfXjT4MgVdCci/mSA5AK17ODDLAp8ctX+dW1jSkTqtet7YwqciO+N+zY39IV/eTOQ0yJ97HiI82ce/TMW91sbwrdodVWl+uciPPF31rzaUdgK4zWmMiC7Thp4/aySHkgHnnv5stVPaFHXqBnUSaIM9dhOl/rkK0kweNEx7ge1GnDzxwlpO6Iy53UPFOIcN08lp8FRhUbgu2xKFED0RJgItP1zFi8vyMqePNyvpmxg0Kl0aCYDZSY7A
-DKIM-Signature: a=rsa-sha256; bh=+q8drlTkuKqRhIVJc6wlGkRTMV5udQFSe+F1A2psgEE=;
+X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/ao2fRm+hdRKsfPiXwR6JtPvE9uBwWaUZGfOuYkoIaNwSABKYA4FYmqFzX8LXG8sNY4aL3OYy0PDsoE9ZPIu9x0Dy4AE4M3iVSH9Hoegxy/nPDe9moS4EAD64MaxOGzMoCYxtmQn1G7Bnod9owt3hZtTTVL+1Ir4efHM0l2cv4cnF1O1j8nKHok7la0l/Pj/N2RSInIhRHon05lDGezlMonevEAcGfkk6zmj3UyYYZ5jwUcNigAbaPUGHSzxG/02ZhpS9YDrY6JgYHRpw21c7f0NO4544eUQ3Msfo190FJ4saBIVi0+ikA43aDEQXEH3nC1nilyBUMerjzPNIzgFltlw
+DKIM-Signature: a=rsa-sha256; bh=VgeMh5kbh20ZiKkQLJh6YqAh8e02PiCBUeJC60hC1Iw=;
  c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059145; v=1;
- b=QSPT4AZymfn5UJcS5IAbzMaOT8wzseb0NpFwAoqjuwsIL631VhML0a18W6O/HCO1RvzhAzoe
- xuAuYtFWZi7zoYbSQ1k0pd2bpRRcg9qxXn5lT4yPJMOrW2RWs+6Z9jpU4neFz8I0ysn7MWS8KcE
- cpNnb+PDWS0saf9rOpiqi8rx7mM6/5K9EiCKtTCsJd957IWRjJgyAZi0d4tk5krAvitfsMBa6SG
- BtWMDzgJxf0rkciscxSY+y1Ec809b/jRT8rd0T+cKtIfCwxPLAv06REyXFya3Eo8IYLDhWGlwdd
- wXIeRBWz7YlaeXyOZo3mNjpYr8qs52BisrzF1QCnknc5Q==
+ t=1789059148; v=1;
+ b=eHuLCaJMoWoP+OzjUgqU3rkTjhTSQ/xCMPD0o6rDpIhcZYr6C3yJwRe9u2b5qn2x27/wE62X
+ +44dFSB1aHtgiBtZg1SLw6Ah1ZYtzwf9b1NQ0jT72Dd72HokDX/4oukAIE7ItLGwejAi8x33taq
+ qvC5LWzfL+I9U795oHyJwr3YAlHkf/CaL6V+Y5OWfuly05QIWJRhDlQz1DQkiD9dbq4DbyTc+4s
+ UzPb8+pzlfCzCZn8eIZjLFc9LdRj9YLzEktESqqp6aWP990MlCXy2zKa6qviGMhFIGQ5yLtauxm
+ QWrOdrHUm98F36tKOBk+cOyVsVwS/xTgaPtVMpJOq07Ww==
 
-For a TTM tt with TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points
-vsgt->sgt at the exporter's sg_table and then calls
-vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt: the inline table, not
-the one vsgt->sgt points to. For an imported buffer object that inline
-table is never populated, since vmw_ttm_tt_create() allocates the
-vmw_ttm_tt with kzalloc() and only the non-external branch fills it in.
-dma_map_sgtable() is therefore called with orig_nents == 0, which trips
-the WARN_ON_ONCE() in __dma_map_sg_attrs() and returns -EIO.
+DRM_VMW_GB_SURFACE_REF_EXT with DRM_VMW_HANDLE_PRIME first tries
+ttm_prime_fd_to_handle(). If the fd is not a vmwgfx surface export,
+vmw_surface_handle_reference() falls back to
+vmw_buffer_prime_to_surface_base(). That function calls
+drm_gem_prime_fd_to_handle() to turn the fd into a GEM handle in the
+caller's file, then looks for a surface attached to that buffer.
 
-The error path then calls sg_free_table() on vsgt->sgt, which for an
-imported object is the exporter's table. Its scatterlist is freed while
-the attachment is still live, leaving sgl == NULL and orig_nents
-unchanged. vmw_ttm_unmap_dma() would free that table too, if a mapping
-ever succeeded.
+That handle is never returned to userspace, since the ioctl reports the
+surface handle and a separate backup buffer handle, and it is never
+deleted. Every call that gets this far therefore leaves a GEM handle
+behind in the file, whether it fails or succeeds, and whatever the
+handle references stays alive until the file is closed.
 
-Any process that can open the render node reaches this with three
-DRM_RENDER_ALLOW ioctls: import a dma-buf with
-DRM_IOCTL_PRIME_FD_TO_HANDLE, create a guest-backed surface on it with
-DRM_VMW_GB_SURFACE_CREATE_EXT, and submit SVGA_3D_CMD_UPDATE_GB_SURFACE
-for that surface with DRM_VMW_EXECBUF. Validation moves the buffer to
-VMW_BO_DOMAIN_MOB, and binding the tt takes the path above:
+For a dma-buf from another exporter, such as udmabuf, this is an
+actual import: drm_gem_prime_fd_to_handle() attaches to the dma-buf,
+maps it and creates a new GEM object. The surface lookup then always
+fails, because such a buffer never has a surface. The WARN_ON() fires
+and the ioctl returns -EINVAL, but the import stays referenced by the
+stray handle.
 
-  WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
-   dma_map_sgtable+0x1d/0x30
-   vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
-   vmw_move+0x1cd/0x2c0 [vmwgfx]
-   ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
-   ttm_bo_validate+0xd2/0x1d0 [ttm]
-   vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
-   vmw_execbuf_process+0x852/0x1330 [vmwgfx]
-   vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
-   drm_ioctl_kernel+0xa6/0x100
-   drm_ioctl+0x2ad/0x590
-   __x64_sys_ioctl+0xb9/0x100
+Mesa's svga winsys passes dma-buf fds to DRM_VMW_GB_SURFACE_REF_EXT as
+DRM_VMW_HANDLE_PRIME, and KWin 6.7 imports every wl_shm client buffer
+as a udmabuf through EGL. On a Plasma Wayland session this pins one
+window-sized buffer inside the compositor's DRM file for every
+attempted import, for as long as the compositor runs, and logs a full
+WARN backtrace each time. On a VirtualBox VMSVGA guest with 3D
+acceleration on and the previous patch applied, 103 udmabufs (750 MiB)
+had accumulated this way 40 minutes after boot. 99 of them had a
+dma-buf refcount of 3, were still attached to the vmwgfx device and
+were held by no process fd or mapping.
 
-  vmwgfx 0000:00:02.0: [drm] VSG table map failed!
+Look the buffer up through the dma-buf instead of importing it. Only
+GEM buffers exported by this device can have a surface, so reject
+anything else with drm_gem_is_prime_exported_dma_buf() before touching
+it. For our own buffers, use dma_buf->priv directly: the dma-buf holds
+a reference to the GEM object for as long as we hold the dma-buf, so
+neither a handle nor an extra object reference is needed. The surface
+lookup and the ttm_ref_object_add() reference that the callers rely on
+are unchanged.
 
-Today the damage stops there, because vmwgfx never releases a PRIME
-import: nothing unmaps the attachment afterwards, so the freed table is
-only leaked. Adding the missing drm_prime_gem_destroy() call to
-vmw_bo_free(), which is the next patch in this series, makes the
-exporter unmap that table on release, and dma_unmap_sgtable() then
-walks a NULL scatterlist:
-
-  BUG: kernel NULL pointer dereference, address: 000000000000001c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:dma_direct_unmap_sg+0x62/0x200
-   unmap_udmabuf+0x24/0x40
-   dma_buf_unmap_attachment_unlocked+0x46/0x70
-   drm_prime_gem_destroy+0x28/0x50
-   vmw_bo_free+0x15b/0x1f0 [vmwgfx]
-
-The exporter has already mapped the table for this device in
-dma_buf_map_attachment(), so there is nothing for vmwgfx to do here:
-use the table as it is, and leave mapping, unmapping and freeing to its
-owner.
+While restructuring the function, also:
+ - replace the WARN_ON() on a buffer without a surface with a debug
+   message. Userspace can trigger that case at will.
+ - drop the base object reference taken by
+   vmw_lookup_user_surface_for_buffer() when ttm_ref_object_add() fails.
+   It was leaked before.
 
 Build tested on drm-misc-fixes (4600b4d1a9ee) with W=1 (no warnings in
 drivers/gpu/drm/vmwgfx/) and checkpatch.pl --strict. Runtime tested on
-a VirtualBox 7.2 VMSVGA guest running kernel 7.2.3, whose vmwgfx
-sources for the files involved are identical to drm-misc-fixes, using a
-module built from them.
+the same guest and 7.2.3 kernel as the previous patch, comparing a
+vmwgfx.ko with only the previous patch against one with both. Calls
+from a second render file:
+ - udmabuf fd: -EINVAL both times. Before, each call left the import
+   held by the file (refcount 3, attached) and logged a WARN. Now
+   nothing is imported and nothing is logged.
+ - fd of a dumb buffer exported from the primary node: -EINVAL both
+   times. Before, a stray GEM handle and a WARN per call; now neither.
+ - fd of a buffer exported before a GB surface was created on it, which
+   reaches this function and succeeds: the exporter's surface is
+   returned both times. Before, each call left a GEM handle in the
+   file; now it does not.
+ - fd of a buffer created together with its surface, which is exported
+   as a TTM prime surface and does not reach this function: succeeds
+   both times.
+During a 5-minute KWin 6.7 test replaying a terminal workload, the
+udmabuf count went from 4 to 20 (140 MiB) with only the previous patch,
+with WARNs logged. With both patches it stayed at 6 during the run,
+returned to 4 afterwards, and no WARN was logged.
 
-Without this patch the reproducer above logs the WARN_ON_ONCE() and
-"VSG table map failed!", and DRM_VMW_EXECBUF returns -EIO; releasing the
-buffer afterwards, with the next patch of this series applied, oopsed in
-the TTM delete worker and hung the machine.
-
-With this patch the same reproducer logs nothing: the execbuf is
-accepted, so an imported buffer object can now be bound at all, and
-releasing it afterwards leaves no entry behind in
-/sys/kernel/debug/dma_buf/bufinfo.
-
-Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org # v6.9+
+Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
+Cc: stable@vger.kernel.org # v6.11+
 Assisted-by: LLM
 Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
 ---
-Reproducer (results and environment are in the cover letter). Run as an
-ordinary user with access to the render node and /dev/udmabuf; it needs
-no root. Without this patch it logs the WARN and "VSG table map
-failed!"; with it, the execbuf is accepted and nothing is logged.
+Reproducer (results and environment are in the cover letter). Run as
+root, since it counts udmabufs in debugfs:
 
-// Can userspace get an imported (external) dma-buf BO bound for the device?
-//
-// Chain under test:
-//   udmabuf -> PRIME_FD_TO_HANDLE            (external BO, sits in SYSTEM)
-//   GB_SURFACE_CREATE_EXT buffer_handle=...  (surface backed by the import)
-//   execbuf SVGA_3D_CMD_UPDATE_GB_SURFACE    (validation forces the BO to MOB)
-//     -> vmw_ttm_bind() -> vmw_ttm_map_dma()
-//        external branch maps the wrong (empty, inline) sg_table, fails, and
-//        the out_map_fail path calls sg_free_table() on the EXPORTER's table.
-//
-// Proof of reachability is the kernel message "VSG table map failed!".
-//
-//   vmw-import-execbuf-bind-test            hold the buffer, never release it
-//   vmw-import-execbuf-bind-test --release  also close everything at the end
-//
-// WARNING: --release is the dangerous half. With "drm/vmwgfx: Release PRIME
-// import in the BO destroy path" applied, releasing a buffer whose exporter
-// sg_table was freed in step 3 makes udmabuf run dma_unmap_sgtable() on a
-// table with sgl == NULL and orig_nents != 0 -> NULL pointer dereference.
-// Without that patch the release path never touches the table (it leaks).
+  cc -o vmwgfx-surfref-fd-leak vmwgfx-surfref-fd-leak.c
+  ./vmwgfx-surfref-fd-leak
+
+// SPDX-License-Identifier: MIT
+/*
+ * Reproducer for "drm/vmwgfx: Don't leak a GEM handle when referencing a
+ * surface by fd": DRM_VMW_GB_SURFACE_REF_EXT(DRM_VMW_HANDLE_PRIME) with a
+ * udmabuf fd. Run as root, since it counts udmabufs in debugfs.
+ *
+ *   cc -o vmwgfx-surfref-fd-leak vmwgfx-surfref-fd-leak.c && ./vmwgfx-surfref-fd-leak
+ *
+ * The render node stays open after the calls. Expected lines 2 and 3
+ * (udmabufs left while the node is open / after it is closed):
+ *   with this fix:       0 / 0
+ *   without it:          8 / 0 if "drm/vmwgfx: Release PRIME import in
+ *                        the BO destroy path" is applied, otherwise
+ *                        8 / 8 (pinned until reboot)
+ */
 #define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -191,168 +182,185 @@ failed!"; with it, the execbuf is accepted and nothing is logged.
 #include <drm/drm.h>
 #include <drm/vmwgfx_drm.h>
 
-#define DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT \
-	DRM_IOWR(DRM_COMMAND_BASE + DRM_VMW_GB_SURFACE_CREATE_EXT, \
-		 union drm_vmw_gb_surface_create_ext_arg)
-#define DRM_IOCTL_VMW_UNREF_SURFACE \
-	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_UNREF_SURFACE, struct drm_vmw_surface_arg)
-#define DRM_IOCTL_VMW_EXECBUF \
-	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_EXECBUF, struct drm_vmw_execbuf_arg)
-
-#define SVGA_3D_CMD_UPDATE_GB_SURFACE 1102
-#define SVGA3D_INVALID_ID 0xffffffff
+#define DRM_IOCTL_VMW_GB_SURFACE_REF_EXT \
+	DRM_IOWR(DRM_COMMAND_BASE + DRM_VMW_GB_SURFACE_REF_EXT, \
+		 union drm_vmw_gb_surface_reference_ext_arg)
+#define N 8
 #define SIZE (6UL << 20)
 
-struct update_gb_surface_cmd {
-	uint32_t id;		/* SVGA3dCmdHeader.id */
-	uint32_t size;		/* SVGA3dCmdHeader.size: bytes that follow */
-	uint32_t sid;		/* SVGA3dCmdUpdateGBSurface.sid */
-};
-
-int main(int argc, char **argv)
+/* udmabufs of @size listed in dma_buf/bufinfo */
+static int count_udmabufs(unsigned long size)
 {
-	int release = (argc > 1 && !strcmp(argv[1], "--release"));
+	FILE *f = fopen("/sys/kernel/debug/dma_buf/bufinfo", "r");
+	char line[512];
+	int n = 0;
+
+	if (!f) {
+		perror("/sys/kernel/debug/dma_buf/bufinfo");
+		return -1;
+	}
+	while (fgets(line, sizeof(line), f)) {
+		unsigned long sz;
+
+		if (sscanf(line, "%lu", &sz) == 1 && sz == size &&
+		    strstr(line, "udmabuf"))
+			n++;
+	}
+	fclose(f);
+	return n;
+}
+
+int main(void)
+{
 	int render = open("/dev/dri/renderD128", O_RDWR | O_CLOEXEC);
 	int udm = open("/dev/udmabuf", O_RDWR | O_CLOEXEC);
-	int mfd, dfd;
+	int before, einval = 0;
 
 	if (render < 0 || udm < 0) {
 		perror("open");
 		return 1;
 	}
-	mfd = memfd_create("import-execbuf", MFD_ALLOW_SEALING | MFD_CLOEXEC);
-	if (mfd < 0 || ftruncate(mfd, SIZE) ||
-	    fcntl(mfd, F_ADD_SEALS, F_SEAL_SHRINK)) {
-		perror("memfd");
-		return 1;
-	}
-	struct udmabuf_create c = {
-		.memfd = mfd, .flags = UDMABUF_FLAGS_CLOEXEC, .size = SIZE,
-	};
-	dfd = ioctl(udm, UDMABUF_CREATE, &c);
-	if (dfd < 0) {
-		perror("UDMABUF_CREATE");
-		return 1;
-	}
+	before = count_udmabufs(SIZE);
+	for (int i = 0; i < N; i++) {
+		int memfd = memfd_create("surfref", MFD_ALLOW_SEALING | MFD_CLOEXEC);
+		struct udmabuf_create create = {
+			.memfd = memfd, .flags = UDMABUF_FLAGS_CLOEXEC, .size = SIZE,
+		};
+		union drm_vmw_gb_surface_reference_ext_arg arg;
+		int dmabuf;
 
-	struct drm_prime_handle ph = { .fd = dfd };
-	if (ioctl(render, DRM_IOCTL_PRIME_FD_TO_HANDLE, &ph)) {
-		perror("PRIME_FD_TO_HANDLE");
-		return 1;
+		if (memfd < 0 || ftruncate(memfd, SIZE) ||
+		    fcntl(memfd, F_ADD_SEALS, F_SEAL_SHRINK)) {
+			perror("memfd");
+			return 1;
+		}
+		dmabuf = ioctl(udm, UDMABUF_CREATE, &create);
+		if (dmabuf < 0) {
+			perror("UDMABUF_CREATE");
+			return 1;
+		}
+		memset(&arg, 0, sizeof(arg));
+		arg.req.sid = dmabuf;
+		arg.req.handle_type = DRM_VMW_HANDLE_PRIME;
+		if (ioctl(render, DRM_IOCTL_VMW_GB_SURFACE_REF_EXT, &arg) &&
+		    errno == EINVAL)
+			einval++;
+		close(dmabuf);
+		close(memfd);
 	}
-	printf("1. imported udmabuf as GEM handle %u\n", ph.handle);
-
-	union drm_vmw_gb_surface_create_ext_arg a;
-	memset(&a, 0, sizeof(a));
-	a.req.version = drm_vmw_gb_surface_v1;
-	/* HINT_TEXTURE | HINT_RENDERTARGET | BIND_SHADER_RESOURCE | BIND_RENDER_TARGET */
-	a.req.base.svga3d_flags = (1U << 5) | (1U << 6) | (1U << 23) | (1U << 24);
-	a.req.base.format = 142;			/* SVGA3D_B8G8R8X8_UNORM */
-	a.req.base.mip_levels = 1;
-	a.req.base.drm_surface_flags = drm_vmw_surface_flag_shareable;
-	a.req.base.buffer_handle = ph.handle;
-	a.req.base.base_size.width = 1536;
-	a.req.base.base_size.height = 1024;
-	a.req.base.base_size.depth = 1;
-	if (ioctl(render, DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT, &a)) {
-		printf("2. GB_SURFACE_CREATE_EXT on the imported buffer: FAILED, errno %d (%s)\n",
-		       errno, strerror(errno));
-		return 1;
-	}
-	printf("2. surface backed by the imported buffer: sid %u\n", a.rep.handle);
-
-	struct update_gb_surface_cmd cmd = {
-		.id = SVGA_3D_CMD_UPDATE_GB_SURFACE,
-		.size = sizeof(uint32_t),
-		.sid = a.rep.handle,
-	};
-	struct drm_vmw_execbuf_arg e;
-	memset(&e, 0, sizeof(e));
-	e.commands = (uint64_t)(uintptr_t)&cmd;
-	e.command_size = sizeof(cmd);
-	e.version = DRM_VMW_EXECBUF_VERSION;
-	e.context_handle = SVGA3D_INVALID_ID;
-	errno = 0;
-	if (ioctl(render, DRM_IOCTL_VMW_EXECBUF, &e))
-		printf("3. execbuf UPDATE_GB_SURFACE: returned errno %d (%s)\n",
-		       errno, strerror(errno));
-	else
-		printf("3. execbuf UPDATE_GB_SURFACE: accepted\n");
-	printf("   -> now check the kernel log for \"VSG table map failed!\"\n");
-
-	if (!release) {
-		printf("4. holding the buffer open (no release). Ctrl-C or kill to end;\n"
-		       "   note that ending this process frees the BO, which is the\n"
-		       "   step that can oops with the BO-destroy fix applied.\n");
-		fflush(stdout);
-		pause();
-		return 0;
-	}
-
-	printf("4. --release: dropping the surface, the handle and every fd\n");
-	fflush(stdout);
-	struct drm_vmw_surface_arg u = { .sid = a.rep.handle, .handle_type = DRM_VMW_HANDLE_LEGACY };
-	ioctl(render, DRM_IOCTL_VMW_UNREF_SURFACE, &u);
-	struct drm_gem_close gc = { .handle = ph.handle };
-	ioctl(render, DRM_IOCTL_GEM_CLOSE, &gc);
-	close(dfd);
-	close(mfd);
 	close(udm);
+	usleep(500000);
+	printf("GB_SURFACE_REF_EXT with a udmabuf fd: %d/%d calls failed with EINVAL\n",
+	       einval, N);
+	printf("6 MiB udmabufs left, render node open:   %d (before: %d)\n",
+	       count_udmabufs(SIZE), before);
 	close(render);
-	sleep(1);
-	printf("5. released, still alive\n");
+	usleep(500000);
+	printf("6 MiB udmabufs left, render node closed: %d\n",
+	       count_udmabufs(SIZE));
 	return 0;
 }
 
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 48 ++++++++++++++-----------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-index dfd08ee19..3e8bdf246 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-@@ -189,6 +189,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
- 	case vmw_dma_map_bind:
- 	case vmw_dma_map_populate:
- 		if (vmw_tt->dma_ttm.page_flags  & TTM_TT_FLAG_EXTERNAL) {
-+			/*
-+			 * The exporter has already mapped its sg_table for
-+			 * this device in dma_buf_map_attachment(). Use it as
-+			 * it is: it is not ours to map, unmap or free.
-+			 */
- 			vsgt->sgt = vmw_tt->dma_ttm.sg;
- 		} else {
- 			vsgt->sgt = &vmw_tt->sgt;
-@@ -199,11 +204,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
- 				GFP_KERNEL);
- 			if (ret)
- 				goto out_sg_alloc_fail;
--		}
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index bd0563741..27f68fd9c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -16,8 +16,11 @@
+ #include "device_include/svga3d_surfacedefs.h"
  
--		ret = vmw_ttm_map_for_dma(vmw_tt);
--		if (unlikely(ret != 0))
--			goto out_map_fail;
-+			ret = vmw_ttm_map_for_dma(vmw_tt);
-+			if (unlikely(ret != 0))
-+				goto out_map_fail;
-+		}
+ #include <drm/drm_dumb_buffers.h>
++#include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_placement.h>
  
- 		break;
- 	default:
-@@ -237,6 +242,13 @@ static void vmw_ttm_unmap_dma(struct vmw_ttm_tt *vmw_tt)
- 	if (!vmw_tt->vsgt.sgt)
- 		return;
- 
-+	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-+		/* The mapping and the table belong to the exporter. */
-+		vmw_tt->vsgt.sgt = NULL;
-+		vmw_tt->mapped = false;
-+		return;
-+	}
++#include <linux/dma-buf.h>
 +
- 	switch (dev_priv->map_mode) {
- 	case vmw_dma_map_bind:
- 	case vmw_dma_map_populate:
+ #define SVGA3D_FLAGS_64(upper32, lower32) (((uint64_t)upper32 << 32) | lower32)
+ 
+ /**
+@@ -931,33 +934,37 @@ u32 vmw_lookup_surface_handle_for_buffer(struct vmw_private *vmw,
+ 
+ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
+ 					    struct drm_file *file_priv,
+-					    u32 fd, u32 *handle,
++					    u32 fd,
+ 					    struct ttm_base_object **base_p)
+ {
+ 	struct ttm_base_object *base;
+-	struct vmw_bo *bo;
++	struct dma_buf *dma_buf;
+ 	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
+ 	struct vmw_user_surface *user_srf;
+ 	int ret;
+ 
+-	ret = drm_gem_prime_fd_to_handle(&dev_priv->drm, file_priv, fd, handle);
+-	if (ret) {
+-		drm_warn(&dev_priv->drm,
+-			 "Wasn't able to find user buffer for fd = %u.\n", fd);
+-		return ret;
+-	}
++	dma_buf = dma_buf_get(fd);
++	if (IS_ERR(dma_buf))
++		return PTR_ERR(dma_buf);
+ 
+-	ret = vmw_user_bo_lookup(file_priv, *handle, &bo);
+-	if (ret) {
+-		drm_warn(&dev_priv->drm,
+-			 "Wasn't able to lookup user buffer for handle = %u.\n", *handle);
+-		return ret;
++	/*
++	 * Only buffers exported by this device can have a user surface.
++	 * Look the buffer up through the dma-buf, which holds a reference
++	 * to it, instead of importing the fd into file_priv: the GEM handle
++	 * that would create is never returned to userspace, so nothing
++	 * would release it (or a foreign dma-buf) until the file is closed.
++	 */
++	if (!drm_gem_is_prime_exported_dma_buf(&dev_priv->drm, dma_buf)) {
++		ret = -EINVAL;
++		goto out;
+ 	}
+ 
+-	user_srf = vmw_lookup_user_surface_for_buffer(dev_priv, bo, *handle);
+-	if (WARN_ON(!user_srf)) {
+-		drm_warn(&dev_priv->drm,
+-			 "User surface fd %d (handle %d) is null.\n", fd, *handle);
++	user_srf = vmw_lookup_user_surface_for_buffer(dev_priv,
++						      to_vmw_bo(dma_buf->priv),
++						      fd);
++	if (!user_srf) {
++		drm_dbg_driver(&dev_priv->drm,
++			       "No user surface for buffer fd %d.\n", fd);
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+@@ -966,13 +973,15 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
+ 	ret = ttm_ref_object_add(tfile, base, NULL, false);
+ 	if (ret) {
+ 		drm_warn(&dev_priv->drm,
+-			 "Couldn't add an object ref for the buffer (%d).\n", *handle);
++			 "Couldn't add an object ref for buffer fd %d (%d).\n",
++			 fd, ret);
++		ttm_base_object_unref(&base);
+ 		goto out;
+ 	}
+ 
+ 	*base_p = base;
+ out:
+-	vmw_user_bo_unref(&bo);
++	dma_buf_put(dma_buf);
+ 
+ 	return ret;
+ }
+@@ -996,7 +1005,6 @@ vmw_surface_handle_reference(struct vmw_private *dev_priv,
+ 			return vmw_buffer_prime_to_surface_base(dev_priv,
+ 								file_priv,
+ 								u_handle,
+-								&handle,
+ 								base_p);
+ 	} else {
+ 		handle = u_handle;
 -- 
 2.55.0
 
