@@ -1,100 +1,257 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B8736F8EA
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 06:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D880330D3E8;
+	Thu, 10 Sep 2026 06:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022945; cv=none; b=c3OEQsMHrtBP+WilZlUz9IbOGwZYeJzD4DWtOzKlnK5KlWPvc0b30cRnDwO00rgZqxg3ABcbaYbdo4FxSGaPO5vU9J16J0zigLjqDsAe/02k7EdIMrN2kyXNn1o6l4mB9O1v/MtbfhRfWQiDcQuuHdjYzdZEuJ1/+KdRe0JeAu4=
+	t=1789023288; cv=none; b=sVHj9N8sVXjKzUoJlUsL/NKrxJ2aLX+41vK+nw0a2dpZgCXDnxp1FMLVjpx+t8L9lmltFB3UDwu/GsXFuYc7tUl2xs56c6McjnwGrOVcAQk8q5YC/r4vIDVTwn19WPzrT8I32tcHgKyz6Q/tMEgNiWLcNuOvpSa5Sc3YYyMIqAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022945; c=relaxed/simple;
-	bh=IMvB7Rw6zaKxg84+XQ+z79t9XRpVQGJdSj12MS8Pz2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mo6T9c9A2eh+ijmAm0z8Hwfjnz7VHe8PH8DVdqCE6WnkFZ1hl0nmc6AEhTGVvQYoS380myJiUx4cpoj9yokNbGRc6mtaLr6i/rQu3eUolHh0Qq9W917UGPjWs5d5lVkqC84tllKNYr9nxbEAwMmlv2xeV11Fv+Kiwr17QpSFqIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WuIiMTh/; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789023288; c=relaxed/simple;
+	bh=n9odGZdEAfMv1EitzufznCQRLwi8wplX0Uov18O85ls=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tsNkBlnVKIh1FS2s2PHarlLAKf46/uCfKnGhalc+zwyY7eUu0Wi1elHsNaPB+9aJJvjalQ9T1lTZuhqexFaUphMmreo+9ojanAWfdViitqMqTbrIbadT7NCGEgzUtxb/pPLHJPMRY5rxmylPLqKZr53TNjGpsmBLWUfE+nArwEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ncr1GlNb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WuIiMTh/"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so830707f8f.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 23:49:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022942; x=1789627742; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Hvvqi1F7OSg7axX83WRLceC1+q3SHWfcWgXiSTOssgU=;
-        b=WuIiMTh/rKEYFjH+CGV/dBKQRWvKiaRSXELFhj6qdDFBSURbRzbQeXbHPwLevNg7V2
-         SYofzldBd9p8Dc1DMei4fJUBwu7IImwVhg0h3VpqnHro70oGA/ZZ1H6OkbVbF1yqaXER
-         KcFPTi7dt4jbAxSG6rSawfWOrQ/Rem1sQ+Y0tLSHUKqgFBq0FcCui2fhptuEJrJXL72M
-         hu1vKW+FTVewNQWO9H5f4OdXxDmRoYyHcMYP7GA308k7ySr5z2RKThRxsJkse9K7mKFP
-         NNy2K1U3xduMu5Yoi4CPUtasn3vAtLabo8urPvDfb3kX/3/snwvCBqAAEsqt4OvttirC
-         ipSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022942; x=1789627742;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hvvqi1F7OSg7axX83WRLceC1+q3SHWfcWgXiSTOssgU=;
-        b=NmIYyF4/SXJVLEPeRC416CZA3R38/OcsY+SCb73XWQa2HlFxln4Uuhv9texKqCN5Id
-         WVodKlsEdETMXO6bF5mnjwbQs7Oev3AUX7nNraDalaXlM4IJzCeT34qcc4hyU0cKxGBf
-         2JnuXT5IsgTTVyqPmxJOADEo35NXnsGw0+PXL7Hm7ObtxAXDB+8znQQYzmm+szNrKIh3
-         1aUsRvvlTdvdQwDJ5MEzMUQjCWn681OOdLJq5bBw7SWcqzZ8JxIYWEMbRQJqQY8PsGc2
-         6YLLOXDIQ5Fg4afqE8tDfH2TgqusA5pFmrivEa5/oCVoojHRbQAwKTpE7UmTrwrNqsEa
-         /QHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgLRIFh2Hp1/+emAt43J1DCuJHnE+tKgAJMtQXK41Q+S71j0nLQYXUZz8Ce7hgKFJ0sOFC8Q8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lltGk0SOaSOH3jVeTEwdh2zSjpCs/L+/vaMrf1uvqi4V0hqClD
-	/okYHfMLdWrF3ZssITGZyQObUiZxbCbFy2Zo0WTxgytfQhm4r3z78KKs
-X-Gm-Gg: AYBFou3f+rjASrsNHfA7FOOexgOm17K1QsHFPafiCBTrPzw/3h0vHS5sI/9U+5ffMQ4
-	4eU1pmIAK0Q6M7/dWgIspuGS779zMS4lrzEmbpSVA1NaPMeDPd2BhWMxwWHlmNMmCJmY1slvDkK
-	PKYbGJUe0hAIZqOb9QMZme5aDHTXI3+SGIFMIr+hnWgo6pdpYIkI8PWAyf7nXcDEtb012cQJz9t
-	5711DfB3VxSJWw27rgoWRbwZGcL00OsYg2gwQQ6+lRWVcCC6cz9TR/iuDY7Tj4zHG9VvDRdQNuQ
-	mhoRGw8jJogWcZfFkVqYRew+UHJOwel/te2b5gKx+cpBjV1gnlIatsI0U2vnzttRSMDccI1qt2A
-	crtxSNfIYz36wpkuUxgrA2xEIwU1QqWClnFMljBVXlaY1UhmHBMNUo13Wta6VLaEUb/VU9vF+9D
-	DWGziNY2clb9twUKjoStB5PTFvLhBwXJG2BM+/lno0juICbAa0oNlqTTl8IoPapo8ONMfSXiyMp
-	CQsdJwzIhMCQAN7mpiJxEqopikRTgMeDLwUggELAuGc8ziC2mHZnY1EUzZSNOZttJ/9J6ZpcJBL
-	BdewBZty39Y337rVBE1s3xRStQySE8fREESXl2dunsUAzt+e+z2bcRRms6d4eZF+8CiApojUA7I
-	ahg==
-X-Received: by 2002:a05:6000:4555:b0:486:e5f7:89c5 with SMTP id ffacd0b85a97d-486e5f78d16mr666488f8f.1.1789022941516;
-        Wed, 09 Sep 2026 23:49:01 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm37240838f8f.37.2026.09.09.23.49.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:49:01 -0700 (PDT)
-Date: Thu, 10 Sep 2026 08:48:58 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Christoph Hellwig <hch@lst.de>, 
-	Linus Walleij <linusw@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
-Message-ID: <aqJR7M11iFmK4_pi@gmail.com>
-References: <20260910063620.17768-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ncr1GlNb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63581F000FF;
+	Thu, 10 Sep 2026 06:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789023286;
+	bh=wi5rBy9HhdLl2dwL3tu5ohZQ+FFI73SL/VWlC+ZFZ3E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ncr1GlNbddpXLnfe78bkT/V5vz9kYB0MyFUCtUyBidyDHnqDQtX2+jpl5lC4mjaBn
+	 Y/4QIpAIjQumHo9uOH30Uls0uJBRjnVkOV1JZQQyoXR936Ff1HvZWzC5N5W/ocP0Ut
+	 xOlMnY4mbcFFIwbeO7cAzcDiRw960Lo6stiHJ8qoE6E2zRn2F8bJcIeKFsVNgAsHfY
+	 v/MkyhNLclCYyiyeBemg3w+bTAPXGAcVm9SBbmgkZPmfhYxZcberB64cLuMsmczm9y
+	 ipI2VyGUCL6pPxfgvJiRKdfzKtZvZd+0G+Mz08eknO2XdJGGab73UWKpXdiolR42Hm
+	 wWl6a8lHwGg7w==
+Subject: Re: [PATCH v2] net: tulip: use mod_timer() in t21142_lnk_change()
+From: netdev-bot+sashiko@kernel.org
+To: linmag7@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 10 Sep 2026 06:54:45 +0000
+Message-ID: <178902328547.219967.7621030268252739442@kernel.org>
+In-Reply-To: <20260905225454.439466-1-linmag7@gmail.com>
+References: <20260905225454.439466-1-linmag7@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910063620.17768-1-kmehltretter@gmail.com>
 
-On Thu, Sep 10, 2026 at 08:36:18AM +0100, Karl Mehltretter wrote:
-> This series prevents a DMA_FROM_DEVICE map from discarding CPU-written
-> buffer contents on non-coherent 32-bit ARM. It is based on
-> v7.3-rc1-324-g986c24e0fe44.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-> Karl Mehltretter (2):
->   ARM: dma-mapping: preserve DMA_FROM_DEVICE buffer contents
->   ARM: dma-mapping: flush FROM_DEVICE buffers on legacy backends
-> 
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
 
-Adding Linus at his current email address.
+- [High] Incomplete fix: the illegal hardirq timer_delete_sync() on the
+  non-TIMER_IRQSAFE media timer is still reachable from the exact call…
+- [Low] Stale synchronization comment left behind by the conversion.
 
-Sorry for the noise.
+Pre-existing issues:
+- [High] t21142_lnk_change() re-arms tp->timer from hardirq
+  (drivers/net/ethernet/dec/tulip/21142.c:219 and :227) with no…
 
-Karl
+--
+
+net: tulip: use mod_timer() in t21142_lnk_change()
+
+This replaces the timer_delete_sync() + expires + add_timer() sequences in
+t21142_lnk_change() with a single mod_timer() call, since the function runs
+in hardirq context and tp->timer is not TIMER_IRQSAFE.  The mod_timer() is
+placed before t21142_start_nway() so a pending timer cannot fire while the
+NWay state is being reprogrammed.  The comment in tulip_interrupt() is
+updated to point at pnic2_lnk_change() instead.
+
+> diff --git a/drivers/net/ethernet/dec/tulip/21142.c b/drivers/net/ethernet/dec/tulip/21142.c
+> index 76767dec216da..950abf4a8c14a 100644
+> --- a/drivers/net/ethernet/dec/tulip/21142.c
+> +++ b/drivers/net/ethernet/dec/tulip/21142.c
+> @@ -216,20 +216,16 @@ void t21142_lnk_change(struct net_device *dev, int csr5)
+>  		    (csr12 & 2) == 2) ||
+>  		   (tp->nway && (csr5 & (TPLnkFail)))) {
+>  		/* Link blew? Maybe restart NWay. */
+> -		timer_delete_sync(&tp->timer);
+> +		mod_timer(&tp->timer, RUN_AT(3 * HZ));
+>  		t21142_start_nway(dev);
+> -		tp->timer.expires = RUN_AT(3*HZ);
+> -		add_timer(&tp->timer);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this hardirq re-arm make
+the media timer pending again after teardown already cancelled it?
+
+tulip_down() in tulip_core.c does the sync-cancel while chip interrupts and
+the registered IRQ are still live:
+
+	cancel_work_sync(&tp->media_work);
+	napi_disable(&tp->napi);
+	timer_delete_sync(&tp->timer);
+	spin_lock_irqsave(&tp->lock, flags);
+	/* Disable interrupts by clearing the interrupt mask. */
+	iowrite32(0x00000000, ioaddr + CSR7);
+	...
+	timer_setup(&tp->timer, tulip_tbl[tp->chip_id].media_timer, 0);
+
+free_irq() only happens later, in tulip_close().  A TPLnkFail/TPLnkPass
+interrupt taken in that window reaches:
+
+	tulip_interrupt() -> tp->link_change() -> t21142_lnk_change()
+	   -> mod_timer(&tp->timer, RUN_AT(3 * HZ));
+
+and the hook is deliberately called outside tp->lock, so this can run on
+another CPU while tulip_down() holds the lock.  tulip_down() then calls
+timer_setup() on a timer that is pending again, which re-initialises
+timer->entry while the node is still linked into base->vectors[idx].  Can
+that corrupt the timer base's hlist, so a later detach_timer() ->
+__hlist_del() writes through a NULL pprev from the timer softirq?
+
+If the entry instead stays armed, tulip_remove_one() only calls
+unregister_netdev() with no final timer_delete_sync()/timer_shutdown_sync(),
+so tulip_timer() would dereference tp->dev after the netdev and the embedded
+tulip_private are gone.
+
+The old code had the same shape (sync-delete then add_timer() from hardirq),
+so this is not new, but the conversion makes the post-teardown re-arm silent
+where add_timer() would at least have tripped WARN_ON_ONCE(timer_pending()).
+Would it make sense to mask CSR7 and free the IRQ before the timer sync (or
+switch tulip_down() to timer_shutdown_sync()), or to guard the hardirq
+re-arm?
+
+There is a symmetric case on the way up: tulip_up() enables CSR7 interrupts
+before the unlocked pair
+
+	tp->timer.expires = RUN_AT(next_tick);
+	add_timer(&tp->timer);
+
+so a concurrent hardirq mod_timer() races that plain store, and add_timer()
+can then hit its pending warning and leave the wrong deadline.
+
+[Severity: Low]
+With both add_timer() calls here converted, does the comment in
+t21142_media_task() still describe an existing call site?
+
+drivers/net/ethernet/dec/tulip/21142.c:t21142_media_task() {
+	...
+	/* mod_timer synchronizes us with potential add_timer calls
+	 * from interrupts.
+	 */
+	mod_timer(&tp->timer, RUN_AT(next_tick));
+}
+
+tulip_media_task() in timer.c carries the identical wording.  tulip_tbl[]
+gives t21142_media_task to DC21142/43 and tulip_media_task to DC21140,
+AX88140, I21145, DM910X and RS7112; of those only DC21142/43 and I21145 have
+HAS_NWAY, so tp->link_change is t21142_lnk_change, whose two add_timer()
+calls this patch removed.  The remaining add_timer(&tp->timer) is in
+tulip_up(), which is process context, and the interrupt-path re-arms in
+interrupt.c already use mod_timer().
+
+The analogous comment in tulip_interrupt() was updated in this patch, so
+should these two say mod_timer calls from interrupts as well?
+
+>  	} else if (dev->if_port == 3  ||  dev->if_port == 5) {
+>  		if (tulip_debug > 1)
+>  			dev_info(&dev->dev, "21143 %s link beat %s\n",
+>  				 medianame[dev->if_port],
+>  				 (csr12 & 2) ? "failed" : "good");
+>  		if ((csr12 & 2)  &&  ! tp->medialock) {
+> -			timer_delete_sync(&tp->timer);
+> +			mod_timer(&tp->timer, RUN_AT(3 * HZ));
+>  			t21142_start_nway(dev);
+> -			tp->timer.expires = RUN_AT(3*HZ);
+> -			add_timer(&tp->timer);
+>  		} else if (dev->if_port == 5)
+>  			iowrite32(csr14 & ~0x080, ioaddr + CSR14);
+>  	} else if (dev->if_port == 0  ||  dev->if_port == 4) {
+
+> diff --git a/drivers/net/ethernet/dec/tulip/interrupt.c b/drivers/net/ethernet/dec/tulip/interrupt.c
+> index 0a12cb9b3ba78..6ed4b68ad86c2 100644
+> --- a/drivers/net/ethernet/dec/tulip/interrupt.c
+> +++ b/drivers/net/ethernet/dec/tulip/interrupt.c
+> @@ -698,9 +698,8 @@ irqreturn_t tulip_interrupt(int irq, void *dev_instance)
+>  				dev->stats.rx_errors++;
+>  				tulip_start_rxtx(tp);
+>  			}
+> -			/*
+> -			 * NB: t21142_lnk_change() does a timer_delete_sync(), so be careful
+> -			 * if this call is ever done under the spinlock
+> +			/* NB: pnic2_lnk_change() does a timer_delete_sync(), so be careful
+> +			 * if this call is ever done under the spinlock.
+>  			 */
+>  			if (csr5 & (TPLnkPass | TPLnkFail | 0x08000000)) {
+>  				if (tp->link_change)
+
+[Severity: High]
+Since the same hazard is still reachable through this exact hook, would it
+be better to convert pnic2_lnk_change() in the same patch rather than
+document it in the comment?
+
+tulip_init_one() installs both handlers into the one hook:
+
+drivers/net/ethernet/dec/tulip/tulip_core.c:tulip_init_one() {
+	...
+	if (tp->chip_id == PNIC2)
+		tp->link_change = pnic2_lnk_change;
+	else if (tp->flags & HAS_NWAY)
+		tp->link_change = t21142_lnk_change;
+	...
+	timer_setup(&tp->timer, tulip_tbl[tp->chip_id].media_timer, 0);
+}
+
+The timer is set up with flags 0, i.e. not TIMER_IRQSAFE, and
+pnic2_lnk_change() still has three copies of the old sequence:
+
+drivers/net/ethernet/dec/tulip/pnic2.c:pnic2_lnk_change() {
+	...
+		timer_delete_sync(&tp->timer);
+		pnic2_start_nway(dev);
+		tp->timer.expires = RUN_AT(3*HZ);
+		add_timer(&tp->timer);
+	...
+}
+
+On a PNIC-II board a link-state interrupt therefore produces the same
+WARN_ON(in_hardirq() && !(timer->flags & TIMER_IRQSAFE)) splat this patch
+fixes for the 21142.
+
+Beyond the warning, __timer_delete_sync() then spins:
+
+kernel/time/timer.c:__timer_delete_sync() {
+	do {
+		ret = __try_to_del_timer_sync(timer, shutdown);
+
+		if (unlikely(ret < 0)) {
+			del_timer_wait_running(timer);
+			cpu_relax();
+		}
+	} while (ret < 0);
+}
+
+del_timer_wait_running() is a no-op without CONFIG_PREEMPT_RT, so if the
+tulip hardirq lands on the CPU whose timer softirq is currently in
+pnic2_timer(), can that callback ever complete, or does the CPU spin
+indefinitely?
+
+The commit message says:
+
+  "pnic2_lnk_change() still calls timer_delete_sync() from the same hardirq
+  path, but its timer callback re-arms the timer directly with mod_timer(),
+  so fixing that path requires separate consideration of the
+  callback/reschedule race."
+
+pnic2_timer() re-arming with mod_timer() looks like the same situation as
+t21142_media_task()/tulip_media_task(), whose overwrite race the commit
+message already accepts for the converted sites.  What makes the PNIC2 case
+different?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905225454.439466-1-linmag7%40gmail.com
