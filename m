@@ -1,95 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D74739CCE2;
-	Thu, 10 Sep 2026 16:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56735221D7
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 17:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059373; cv=none; b=LpwZV+YsBAMjf9dCC2+MuVmfaGnpdUxPpPQW2Lgv0b4oXiI8VsNy35vVdfVVNT1djSlS7Ha9mQ56A0QcG4gtTlTCvb+1dmKC8pT5R4GcrjUTDN9WM2rmESP1DuAQaVdx3aXfaj5/OM/wWpAuiOfjNZaSFSqJaNrZzxpu8p45kHg=
+	t=1789059693; cv=none; b=pgcfjTbKoele+b4z3qls3Z54r1xlWqigHN9V7QQjiMmOkSOsAd7N9pKIxP+ni1X1J13eb7JfsSgwDwB8i7vGl5EROMAlZMzgYbcuBlpge8qC+nz1fjNElsf6yP++dNtMtX+aFTQmZR54GPbZPY4XJSYdXKZcTt93pXciEozvQDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059373; c=relaxed/simple;
-	bh=QcFhRK88+b/E5jRc/+kYj47x/P2Hg+ARykNSBWh+CMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PN9M72lQSi//CXJyM4rb5QD9lLIj4tu9jQSoAptOHZqUcOlxyWqoepo4dRufqgm/g+b0TN+2Uwp7L6WXK+gRcysjwouZLLKoiYBBvL7yABYO7UNWZqjT+zmIkiP5uMCMivKUNRDs2Bj++a24uSc5gRFrPjkR1wECr8JOV/9PE3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYT1XR/O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789059693; c=relaxed/simple;
+	bh=YUygCSoBLSP779ZHFZTRO8WmpFPGvAw+hpiEQXvKk2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=InOaKE+l8U43WpWkvatCWLFbsnXio/LyVgzQCIAxFDnhXXXUPFIpcpXmUADt11pDLa45TyCeuA+gcqg+gWJQjCyYi0oFVhuUh5IchIasUVGqELJ41T4D79vyegkxXLouNv0tdnNhwTrHVez3IqRES2aBZKKrOFuD8KifQsT9Uqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EDZlvuvN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYT1XR/O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1840B1F000FF;
-	Thu, 10 Sep 2026 16:56:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EDZlvuvN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999E21F000FF;
+	Thu, 10 Sep 2026 17:01:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059371;
-	bh=H5qv7SU0WDIL3754Sz2KIRetoEuCaKQJTb8/kp1+BN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RYT1XR/OfF0mS9K7RNsSt0/bIB4tPLioqS6oICC8IIBQHYVfhoUtGXezZnR7dAl+c
-	 rFWzFgqOUX4ca86r7skR+88tgY+1ogkZggJmqPnETO8L7QgfniDy2g/o7Y18pUXxsb
-	 bFM6/G27KvDldgE/IwzDlrYaZ1ti/gQoZmyuuGAU9OyXJJfhZeM7dLTPnJgKsYWFmi
-	 wKWAGiMui/lzpZDf76fBJTyUFLu/Rq18kYGGmUr0p2SOBUpNmY9gHnQMAuwr0ROqn/
-	 6RRmm9D08XnbYF8D3KE8lgsE0DMnNnhHE1v3HoHRYQ2+1033JG9Ecp7oP7YCvG8lGz
-	 q0jT9Y7FpqKlw==
-Date: Thu, 10 Sep 2026 17:56:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Itai Handler <itai.handler@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org, michal.simek@amd.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Message-ID: <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
-References: <20260910113325.717882-1-itai.handler@gmail.com>
+	s=k20260515; t=1789059674;
+	bh=Go6ulWpJsRtnE/+tnIWN/NZP4wn5CMAFLc8XLHGqLVc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EDZlvuvNaaS+mTgJxO/zwl3gv4rHYnGK+b49GsVBVsWAMKLwQXfgOJy6l1PN+8MsO
+	 UfL2OPG7qwTVWjHdmV9iysVw1cVVu/0b+U5SasgLReL+upSXUwZ4fV1KTWWdzTXim0
+	 WmPm/1rW0DN4DYAghoY19bbefHEvhrHN5nUqi1/dJ2XQ0DawXoD590RFrTXrFCBkCN
+	 Mz1lxcdVbcNNCv+wPOzxV+VssjfuEh8W6/CKgd2f+81TcQV1vZHDJjFzruzgBbB+qm
+	 uujXY93ZL4wp2DsoJVOzx3xpGLfHajwMJvwqYiEIStOGRThR2n+f9MGJj6LxnK3oLU
+	 eatwk5Pxj2yEA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Usama Arif <usama.arif@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+Date: Thu, 10 Sep 2026 13:01:11 -0400
+Message-ID: <20260910170111.1335164-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090845-tarnish-radio-f8c5@gregkh>
+References: <2026090845-tarnish-radio-f8c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3mhjrI60cxQYt2un"
-Content-Disposition: inline
-In-Reply-To: <20260910113325.717882-1-itai.handler@gmail.com>
-X-Cookie: Gravity brings me down.
+Content-Transfer-Encoding: 8bit
 
+From: Usama Arif <usama.arif@linux.dev>
 
---3mhjrI60cxQYt2un
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+[ Upstream commit fe6cf984939d8e12cb33a99673c8d026c5135e68 ]
 
-On Thu, Sep 10, 2026 at 02:33:25PM +0300, Itai Handler wrote:
+zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+file case, but not the dirty bit.  The pte path does propagate it, in
+zap_present_folio_ptes() and so does the pmd split path, in
+__split_huge_pmd_locked().
 
-> +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-> +{
-> +	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-> +	int ret;
-> +
-> +	/*
-> +	 * Only a runtime suspended controller can be left alone: its clocks
-> +	 * are gated, so it cannot be mastering the bus, and its registers
-> +	 * must not be accessed either.  Any other answer means it may be
-> +	 * running and has to be stopped.  In particular, on a kernel built
-> +	 * without runtime PM this returns -EINVAL, and there the clocks
-> +	 * enabled in probe() are never gated at all.
-> +	 */
-> +	ret = pm_runtime_get_if_in_use(&pdev->dev);
-> +	if (!ret)
-> +		return;
-> +
-> +	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
+For most file mappings the omission is harmless, because writing to a
+shared file mapping goes through page_mkwrite(), which dirties the folio.
+tmpfs is different: it has no page_mkwrite(), and vma_wants_writenotify()
+is false for it, so a *read* fault on a MAP_SHARED tmpfs mapping installs
+a writable pmd via do_read_fault().  do_read_fault() does not call
+fault_dirty_shared_page(), so subsequent stores through that mapping set
+only the hardware dirty bit in the pmd and never call folio_mark_dirty().
+A shmem folio allocated by a fault is marked uptodate but not dirty (see
+the clear: block in shmem_get_folio_gfp()), so PG_dirty is never set at
+all.
 
-What ensures that nothing can start new transactions after this has run,
-and if there's any operations in flight will the controller be OK with
-just being stopped like this?
+Unmapping such a folio - munmap(), or exit_mmap() when the process dies -
+then loses the only record that it was written, because zap_huge_pmd()
+drops the pmd without transferring the dirty bit.  Reclaim afterwards sees
+a clean shmem folio: the whole swap-out block in shrink_folio_list() is
+inside "if (folio_test_dirty(folio))", so pageout() is skipped and the
+folio falls into __remove_mapping().  There, folio_is_file_lru() is false
+for a swapbacked folio, so no shadow entry is created and
+__filemap_remove_folio(folio, NULL) simply empties the i_pages slot.  The
+data is freed without ever being written to swap, and the next fault on
+that index returns a freshly zeroed folio.
 
---3mhjrI60cxQYt2un
-Content-Type: application/pgp-signature; name="signature.asc"
+This is silent data loss for any process that keeps state in a MAP_SHARED
+tmpfs segment across an unmap - for example a cache handed from one
+process generation to the next through /dev/shm.  It requires the folio to
+be PMD-mapped, so it only shows up once shmem THP is enabled (which is
+what we did in Meta fleet and started noticing crashes); with THP off the
+pte path transfers the dirty bit correctly.  It also only becomes visible
+when swap is enabled, because with no swap device shmem folios (which are
+on the anon LRU) are not scanned by reclaim at all, so the clean folio is
+never dropped.
 
------BEGIN PGP SIGNATURE-----
+Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
+2MB-backed region, write a known pattern through the resulting mapping,
+munmap, force reclaim of the cgroup, then re-map and read back.  Without
+this patch the region reads back as zeros and vmstat shows zswpout 0 - the
+data was discarded rather than swapped.  With this patch the region reads
+back correctly and the pages are swapped out as expected.  With
+huge=never, or when the first touch is a write, the test passes either
+way.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi4SYACgkQJNaLcl1U
-h9DtGwf9Hvtmmb3vMcKh7JgRiQb0kCFv9qEx+cbBU1WvojtOeTyWRno1HPM+1Dm4
-1a+alpDAO3fkRljzrLYyxHcx61SNwypP85xG7nYIRoLjj85Q0H7rl74tmH4W2KNW
-XCdswt1F115sVLVg5Z7a5rv5gyunIjmgqze32jlZQKFkU15oEUsbk3NB1/CbQOQT
-Z2QYer07Z/TCA0enUEK6NKJYRDJQJnSgGJBoAvoF5vbn72TLcrHx8vf7i9GZktzl
-j8ZPbKqiygHJwpUT0+Qser2009MxBTS79sbGbN5/ESD4eKi59lGRghuhmza22ZFP
-nKQ1163hkIr+j+n+ECibjh0si5+eDA==
-=ImZb
------END PGP SIGNATURE-----
+Link: https://lore.kernel.org/20260819101222.3732660-1-usama.arif@linux.dev
+Fixes: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Acked-by: Hugh Dickins <hughd@google.com>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/huge_memory.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---3mhjrI60cxQYt2un--
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 8564a92d83f0b..dba06f285960a 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2253,6 +2253,8 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 			 * Use flush_needed to indicate whether the PMD entry
+ 			 * is present, instead of checking pmd_present() again.
+ 			 */
++			if (flush_needed && pmd_dirty(orig_pmd))
++				folio_mark_dirty(folio);
+ 			if (flush_needed && pmd_young(orig_pmd) &&
+ 			    likely(vma_has_recency(vma)))
+ 				folio_mark_accessed(folio);
+-- 
+2.53.0
+
