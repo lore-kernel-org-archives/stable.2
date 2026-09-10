@@ -1,113 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A71493D4F
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EE3A49B1F9
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050238; cv=none; b=ZhLI4dIoWlG0nj7lYJXmAl4ITU1LTpO7RqlppFv2z8Ae7C6g/9hTSo5mD16S9An48mjcJ3nnsNevHeymT6qWQgsRy1GeGrOCoS8sHO37H42Ag1jNQcIjGg6bNyf1JaJ+0ozYjbMQrc+OBKAXelMxxlmDgrgSl5Rkg6DCi7HrZZU=
+	t=1789050289; cv=none; b=s8u7N8J2WDPw3tJF9JFyF55RJ1v8HdM+wQ/Dt5h0arVRSKhykpZbKIHA1ATUc0QsXKcfy3YZtYKUAX9GUBk1qvPs7sqiMRFBwcoCwVWEZV8NLdf0qqfyaypoFIqXVzOM9+unBz9IgiW9uS93S49zC8z9RY2a/lOVQ4C2L/C7ns4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050238; c=relaxed/simple;
-	bh=82CLORQTehejI8o5yAbTUXI+v6cfVPH4GSbjhyBlsQk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XnfW8ydcaP8gum1FsgUjU6x2GpXMXj0j52lPUrkArGWiWw0L0cVK84HhZUV4W2FvOO7hsMl3isKHU5K6Z0UnQGFh3CobVMdPMl1AGgWVE1UbniFy1Ja90Tkl1yqkYtbroRN3zvp1i0VyeszJb8LDnzcs6bJeOF4QG9OFN+io3uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3xbe2gU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050289; c=relaxed/simple;
+	bh=HEfL7d3n00h3U3+XJykgzKwhbH5YqtSSnRGlr/lRfNc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nto8mzTSL+YinbHNA5XNmk2vISKXP54ezJAvLxTOb9SNIeypfdCDcjzyDbjFJeOMJ4pSyZiUDIHJKKL5U/rG+k8Epl7aAiV2d1hvWkO5n9dF3HEtYYDMojMEDs6R4jdmHQLariq7MKVMbSlBXyXI2ewE2XxHBicsdMcTzooxN10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a07ChFdO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3xbe2gU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6071F00893;
-	Thu, 10 Sep 2026 14:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050236;
-	bh=9v+WqGLfbH6YYtcLSru6WfvGhuOvauCb4oJO1SexgxI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f3xbe2gUMpEt2tsS25yTsyIhGW1AtmXidbq0Pw8MsVtQBxyOMjpK3QHLFAF19nh+K
-	 8zUaTCdDxhE1bAJg7Em/3N+n5OU4MTd5GxACOXfU7pRttDT1BGYmpmZ5k+4H1Ah2BB
-	 JNteqrlzzSxl1eOm5M16AVBxQi8bB0KSYRHakVNnegstcOmiP4w2aAEMFyIWL5xbXt
-	 kIPalXNyjem7h6rhh4cIKlRXnkiFlsRDxy5td59AKbCaiYaRGdnluRdd2NIFE/V/sj
-	 ivEW9V2bhNHALLULXukQssi/4tJXabLIRCBL1+oHPk0cfJU6zxPlH+1ESWSOdte7J/
-	 swNf6eDGh+IjQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	sashiko-bot@kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ftrace: Synchronize the initialization of ftrace_ops
-Date: Thu, 10 Sep 2026 10:23:54 -0400
-Message-ID: <20260910142354.675288-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090829-luminous-distort-6af9@gregkh>
-References: <2026090829-luminous-distort-6af9@gregkh>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a07ChFdO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CE08F153B;
+	Thu, 10 Sep 2026 07:24:43 -0700 (PDT)
+Received: from [10.0.152.207] (unknown [10.0.152.207])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B38EB3F7B4;
+	Thu, 10 Sep 2026 07:24:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789050287; bh=HEfL7d3n00h3U3+XJykgzKwhbH5YqtSSnRGlr/lRfNc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=a07ChFdOX0Dv7XSDDls5zde/APBZPGr1SXf2UvW0eJ7Axf8f41/BJmoBknxkaS9/6
+	 P2hLKXuEpBSmBkRaRT6qmUw6BwqbVbBv6kI7te5/xgTMKrKh+EAYaYoT8xr8CrzLSa
+	 whCEMaMyBbMn5PRxuXBklaVkMI1DlDsLSowmFxs4=
+Message-ID: <1066c195-fde7-4bfc-850f-189936c29c96@arm.com>
+Date: Thu, 10 Sep 2026 15:24:42 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/21] arm64: gpr-num: add __GPR_NUM() helper
+To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
+ cl@gentwo.org, david@kernel.org, david.laight.linux@gmail.com,
+ james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
+ ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
+ usama.anjum@arm.com, will@kernel.org, yang@os.amperecomputing.com
+References: <20260908151741.394589-1-mark.rutland@arm.com>
+ <20260908151741.394589-12-mark.rutland@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20260908151741.394589-12-mark.rutland@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On 9/8/26 16:17, Mark Rutland wrote:
+> The gpr-num infrastructure requires users to concatenate the register
+> name with a long prefix in order to get a symbol that evaluates to a
+> compile-time constant. Doing this manually is error-prone and painful to
+> read.
+> 
+> Add a new __GPR_NUM() helper which wraps the concatenation.
+> 
+> For the moment I've left existing open-coded concatenation as-is. In
+> particular, the DEFINE_MRS_S() and DEFINE_MSR_S() macros have awkward
+> stringification requirements and would require invasive changes that
+> outweigh the benefit. I have plans to rework those in the near future to
+> remove the need to use gpr-num values.
+> 
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> ---
+>  arch/arm64/include/asm/gpr-num.h | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/include/asm/gpr-num.h b/arch/arm64/include/asm/gpr-num.h
+> index 240cd25d55c5a..30fb8a67b19f0 100644
+> --- a/arch/arm64/include/asm/gpr-num.h
+> +++ b/arch/arm64/include/asm/gpr-num.h
+> @@ -11,6 +11,8 @@
+>  	.equ	.L__gpr_num_xzr, 31
+>  	.equ	.L__gpr_num_wzr, 31
+>  
+> +#define __GPR_NUM(gpr)		(.L__gpr_num_##gpr)
+> +
+>  #else /* __ASSEMBLER__ */
+>  
+>  #define __DEFINE_ASM_GPR_NUMS					\
+> @@ -26,6 +28,8 @@
+>  "	wx\\n	.req	w\\n\n"										\
+>  "	.endr\n"
+>  
+> +#define __GPR_NUM(gpr)		"(.L__gpr_num_" gpr ")"
+> +
+>  #endif /* __ASSEMBLER__ */
+>  
+>  #endif /* __ASM_GPR_NUM_H */
+> -- 2.30.2
+> 
 
-[ Upstream commit 4617721c502b2ddaa4e324e86da4997edf738fa5 ]
+Brilliant!
 
-There's some internal state that ftrace_ops needs to have set, but since
-it can be declared outside of the ftrace.c code, it calls
-ftrace_ops_init() on the ops in every global function. The issue is that
-if two tasks call it on the same ops at the same time it is possible to
-have the initialization of one corrupt the initialization of the other
-call.
+FWIW,
 
-Create a ops_mutex to use to synchronize every initialization of the
-ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
-states it was initializied but the flag is checked again after the mutex
-has been taken. Checking first outside the mutex allows it to shortcut
-having to take the mutex. But then the check needs to be done again after
-the mute is taken in case of races.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902095501.6b59af20@gandalf.local.home
-Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
-Reported-by: sashiko-bot@kernel.org
-Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ adjusted INIT_OPS_HASH macro context for the missing subop_list member. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/ftrace.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index ad112022dad78..62f00f576e014 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -71,6 +71,8 @@
- #define INIT_OPS_HASH(opsname)	\
- 	.func_hash		= &opsname.local_hash,			\
- 	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock),
-+/* Used only to synchronize the initialization of ftrace_ops */
-+static DEFINE_MUTEX(ops_mutex);
- #else
- #define INIT_OPS_HASH(opsname)
- #endif
-@@ -128,10 +130,17 @@ void ftrace_ops_list_func(unsigned long ip, unsigned long parent_ip,
- static inline void ftrace_ops_init(struct ftrace_ops *ops)
- {
- #ifdef CONFIG_DYNAMIC_FTRACE
--	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
-+	unsigned long flags = smp_load_acquire(&ops->flags);
-+
-+	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
-+		guard(mutex)(&ops_mutex);
-+		/* Could have been initialized before lock taken */
-+		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
-+			return;
- 		mutex_init(&ops->local_hash.regex_lock);
- 		ops->func_hash = &ops->local_hash;
--		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
-+		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
-+		smp_store_release(&ops->flags, flags);
- 	}
- #endif
- }
--- 
-2.53.0
-
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
