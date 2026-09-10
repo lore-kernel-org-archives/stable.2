@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD20F37F72D;
-	Thu, 10 Sep 2026 04:36:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558273A1E7E;
+	Thu, 10 Sep 2026 04:36:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014969; cv=none; b=SDK/TAyqapA7gEqHjTheYomBjlqKFrftqTZWSeR27HHzokvjXy0u37fUwfu4fs6iGD2nJhIx2VYCWX4/9tAq0VEokCgCwGvN0HQKZPdQhbPmCm4rx4QPUQYM3Eq5aSv8+op62mhX3/84UWQt6KJn4qN3YU3gZGmVSmdVX4INpRw=
+	t=1789014970; cv=none; b=brH51bPi/UUGRD1ME7Oi8nNcJCSOXh9wavQBeuorh2ApJxQEW45A2DJfZWbP0Ov0CKZQX9KzNCCMrluxp7GUbl8t3McfcNUhwx/6fNWQ9Yi2YnPNMdCUgy40UutSoSPpt1Inqh7CzzOL09yupbeNyw3znD7UFRTIBUMnjEavKw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014969; c=relaxed/simple;
-	bh=YyuN0m2jYrmVFdLTTvc7Lhq/rwtAShj49SccpqbNPKk=;
+	s=arc-20240116; t=1789014970; c=relaxed/simple;
+	bh=gi6rJ3bt4biDASqoQHe2pYiRHSKK4K8EeZO8/yiPNAY=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Jskg+yUWE9x6Z6KKOzDMMtHDD1V5uGWPpJEBG9oGD8S5h9ziFbl4ONG+YdqTRny42MAxxcVdFb0//GiymVvevZZJGpaX7tZ/MgJ56X516E2DeG7W1iGVQByumvQHI+GTjCS2mN7OGr+XUd0zynuBDWAKzNPMM3mq6Z4ls8Ni0qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wre+O8Bk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=VyJIlZH/9/4NXwWR4XZZCvmkYRvv0B2q0CG1EUELHOzYc49INBwCfodPzQ4bAqA4JrndEqskZ4Ueq8fQC+gsrCGu38+gfqMrRM/4LjA1QDBx8MVak/QZjd/DHxq8UNVJOzHd1HSnt4u7jQGmwSOu1nJ6KMq7xKYvbq0mb7SnafM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwMTANik; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wre+O8Bk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853F61F000FF;
-	Thu, 10 Sep 2026 04:36:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwMTANik"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B47C1F00893;
+	Thu, 10 Sep 2026 04:36:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789014967;
-	bh=Z7KOKMDLvgMoTle1J1esWv52SIsOGWWBoe2sJ4cqNVU=;
+	s=k20260515; t=1789014969;
+	bh=IT7akshQlDjWtrlTNtOLNQbSUNvYlVBEcKrcp61V+fA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Wre+O8BkI/aW5kkRmEk8fTndv/JM5OofmyNibfBPt3LHRJY97y/sAth66e27JQiav
-	 gdLcQRDDsaCP1gSIfYuY2QqQ/Xn30W2Dc9XLcPuTC4QBFRQ4V/ip/RWp3NahHGCEAS
-	 Nna+DHoXOL9DF8Bcydt+kJ83WjSwakRCczRlNTMNbuqGnExmeg+9+bm9DH/WdKKf92
-	 C+o9SzSLvGzpG/LWb6cM3p6a/9v8JlJefW66IYl6YsuFR7kIMP19v8VNVKFnnbaO1+
-	 pog7nILNBbeBgRiV1GcYPNefQ/Ip4b5CxOumAEuzxMUdSQGRkwK+ohLp8B67vbl9E3
-	 9LP4HGDyQDijQ==
-Subject: Re: [PATCH net v3 1/2] net: fec: stop the PTP clock after the netdev
- is unregistered
+	b=mwMTANikRNNuWL3+vGEFBfZY3vlj81qlIZTK7euilnJd1BF5AEvlKbRFcZJjc2TLm
+	 Ts7JnVtcfFc56ckei2GtDAfYqwh1nIFldKTBJ53TO+rKmm5MSehrLwb4bRmRBxFRFp
+	 ogXqfQWY8HMnGsAy/ic8DwIIa6mXUm+pRbJB5YwdgrI/Gl38sERYeENk5Rerpw97Rl
+	 Jf4braX7W75YSlYJ5BAn36CJBdyMKhb+8ct22b4p7ER6muoF65oGtITBc8vePfXlos
+	 L+pPlRK1QdpcmMtf9Xi99ENjJ63AKYjeKv7aLjvx2c8HZUyqsC76JEqF/FLyzqMGNZ
+	 T/z2b9hIrhc8A==
+Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before
+ tearing down the PHC and netdev
 From: netdev-bot+sashiko@kernel.org
 To: me@cherr.cc
 Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
@@ -36,11 +36,11 @@ Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
  troy.kisky@boundarydevices.com, fugang.duan@nxp.com, l.stach@pengutronix.de,
  horms@kernel.org, phucduc.bui@gmail.com, imx@lists.linux.dev,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 10 Sep 2026 04:36:06 +0000
-Message-ID: <178901496609.219967.4341484781884273489@kernel.org>
-In-Reply-To: <20260909-fec-ptp-pps-event-uaf-v3-1-bead12c29a16@cherr.cc>
-References: <20260909-fec-ptp-pps-event-uaf-v3-1-bead12c29a16@cherr.cc>
-X-sashiko-severity: Medium
+Date: Thu, 10 Sep 2026 04:36:07 +0000
+Message-ID: <178901496762.219967.11660527639623819235@kernel.org>
+In-Reply-To: <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc>
+References: <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -53,161 +53,129 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-- [Medium] Moving fec_ptp_stop() after unregister_netdev() in
-  fec_drv_remove() (drivers/net/ethernet/freescale/fec_main.c:5503-5505)…
+- [High] Incomplete fix: only the PPS interrupt is converted to explicit
+  request_irq()/free_irq().
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  fec_drv_remove() still cancels tx_timeout_work before the netdev is…
-- [High] This problem wasn't introduced by this patch, but fec_ptp_stop()
-  still cancels the perout hrtimer before unregistering the PHC, so a…
+- [High] Teardown ordering race in fec_ptp_stop()
+  (drivers/net/ethernet/freescale/fec_ptp.c:856-874):…
 
 --
 
-net: fec: stop the PTP clock after the netdev is unregistered
+net: fec: free the PPS interrupt before tearing down the PHC and netdev
 
-This moves the fec_ptp_stop() call in fec_drv_remove() to after
-unregister_netdev() so that ethtool callbacks are drained before the PTP
-clock is unregistered.  The probe error path is left unchanged.
+This converts the PPS interrupt in fec_ptp_init() from devm_request_irq()
+to request_irq(), records the irq number in fep->pps_irq, and releases it
+with free_irq() in fec_ptp_stop() before ptp_clock_unregister().  The goal
+is to make the handler go away before the PHC and the netdev are freed.
 
-> diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-> index 794ec427b0ee..a29c8ddbbf34 100644
-> --- a/drivers/net/ethernet/freescale/fec_main.c
-> +++ b/drivers/net/ethernet/freescale/fec_main.c
-> @@ -5500,9 +5500,9 @@ fec_drv_remove(struct platform_device *pdev)
->  			ERR_PTR(ret));
+> diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
+> index 7176803146f3..960b9f01c531 100644
+> --- a/drivers/net/ethernet/freescale/fec.h
+> +++ b/drivers/net/ethernet/freescale/fec.h
+> @@ -670,6 +670,7 @@ struct fec_enet_private {
 >  
->  	cancel_work_sync(&fep->tx_timeout_work);
+>  	/* pps  */
+>  	int pps_channel;
+> +	int pps_irq;
+>  	unsigned int reload_period;
+>  	int pps_enable;
+>  	unsigned int next_counter;
+
+> diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
+> index 56801c2009d5..598cd8024123 100644
+> --- a/drivers/net/ethernet/freescale/fec_ptp.c
+> +++ b/drivers/net/ethernet/freescale/fec_ptp.c
+
+[ ... ]
+
+> @@ -785,11 +786,12 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
+>  	 * only the PTP_CLOCK_PPS clock events should stop
+>  	 */
+>  	if (irq >= 0) {
+> -		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
+> -				       0, pdev->name, ndev);
+> +		ret = request_irq(irq, fec_pps_interrupt, 0, pdev->name, ndev);
+>  		if (ret < 0)
+>  			dev_warn(&pdev->dev, "request for pps irq failed(%d)\n",
+>  				 ret);
+> +		else
+> +			fep->pps_irq = irq;
+>  	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but can the tx timeout work be
-re-queued after this cancel_work_sync() returns?
+The commit message says the change closes the case where "a later interrupt
+can dereference the freed netdev".  Does that hold once the main FEC
+interrupts are considered?
 
-At this point the netdev is still registered and running, so the qdisc TX
-watchdog can still call ndo_tx_timeout:
+fec_probe() still registers them with devres, using the same ndev cookie:
 
-fec_main.c:fec_timeout() {
+drivers/net/ethernet/freescale/fec_main.c:fec_probe() {
 	...
-	schedule_work(&fep->tx_timeout_work);
+		ret = devm_request_irq(&pdev->dev, irq, fec_enet_interrupt,
+				       0, pdev->name, ndev);
+	...
+		fep->irq[i] = irq;
 }
 
-Nothing disarms the watchdog until unregister_netdev() -> dev_close() ->
-dev_deactivate() runs, and there is no second cancel_work_sync() later in
-fec_drv_remove().
+devres_release_all() runs only after ->remove() returns, but
+fec_drv_remove() already frees the netdev inside the callback:
 
-fec_enet_timeout_work() also takes rtnl_lock(), which unregister_netdev()
-holds, so it can be pushed past unregistration and still be pending when
-fec_drv_remove() reaches:
-
-fec_main.c:fec_drv_remove() {
+drivers/net/ethernet/freescale/fec_main.c:fec_drv_remove() {
+	...
+	unregister_netdev(ndev);
+	fec_ptp_stop(pdev);
 	...
 	fec_enet_deinit(ndev);
 	free_netdev(ndev);
 }
 
-Since the work_struct lives inside netdev_priv memory and the worker
-dereferences fep->netdev, does this become a use-after-free of the netdev
-and the work_struct?
+If the line is asserted in that window, fec_enet_interrupt() dereferences
+the cookie immediately:
 
-Would moving cancel_work_sync() to after unregister_netdev() (or adding a
-second cancel before free_netdev()) address that?
-
-> +	unregister_netdev(ndev);
->  	if (fep->bufdesc_ex)
->  		fec_ptp_stop(pdev);
-
-[Severity: Medium]
-With this ordering, does fec_ptp_stop() now touch the 1588 registers while
-clk_ptp is gated?
-
-unregister_netdev() -> dev_close() -> fec_enet_close() runs first, and for
-bufdesc_ex it goes through fec_stop():
-
-fec_main.c:fec_stop() {
-	...
-		fec_ptp_start_cyclecounter(ndev);
-		fec_ptp_restore_state(fep);
-}
-
-fec_ptp_restore_state() re-arms PPS via fec_ptp_enable_pps(fep, 1) when PPS
-was enabled, so fep->pps_enable is 1 on return.  fec_enet_close() then
-does:
-
-fec_main.c:fec_enet_close() {
-	...
-	fec_enet_clk_enable(ndev, false);
-}
-
-which does clk_disable_unprepare(fep->clk_ptp) and clears fep->ptp_clk_on.
-
-Control then returns to fec_drv_remove() and fec_ptp_stop() runs:
-
-fec_ptp.c:fec_ptp_stop() {
-	if (fep->pps_enable)
-		fec_ptp_enable_pps(fep, 0);
-
-	cancel_delayed_work_sync(&fep->time_keep);
-	hrtimer_cancel(&fep->perout_timer);
+drivers/net/ethernet/freescale/fec_main.c:fec_enet_interrupt() {
+	struct net_device *ndev = dev_id;
+	struct fec_enet_private *fep = netdev_priv(ndev);
 	...
 }
 
-fec_ptp_enable_pps() reaches the disable branch with no ptp_clk_on or
-ptp_clk_mutex guard:
+The same ordering applies to the probe unwind, where failed_irq,
+failed_mii_init and failed_register all fall through to free_netdev(ndev)
+with the handlers still installed.
 
-fec_ptp.c:fec_ptp_enable_pps() {
-	...
-	} else {
-		writel(0, fep->hwp + FEC_TCSR(fep->pps_channel));
-	}
-}
+Should fep->irq[] be released with free_irq() in fec_drv_remove() (or the
+netdev allocation switched to a devm-managed one) so the lifetime rule is
+the same for every irq registered with ndev as dev_id?  As it stands the
+driver ends up with two different conventions for identically-cookied
+interrupts, and the failure mode described in the changelog is still
+reachable through the main irq lines.
 
-Every other 1588 register path in the driver (fec_ptp_gettime,
-fec_ptp_settime, the PEROUT branch of fec_ptp_enable, fec_time_keep) bails
-out when !fep->ptp_clk_on.  If this write is not latched with the clock
-gated, does the output-compare channel and its TIE interrupt enable stay
-armed while software records pps_enable = 0?
-
-The same reorder also moves hrtimer_cancel(&fep->perout_timer) past the
-clock gating, so can an already-armed perout hrtimer run
-fec_ptp_pps_perout() from hardirq context and touch FEC_ATIME_CTRL /
-FEC_TCCR / FEC_TCSR in the gated clock domain?
-
-fec_ptp.c:fec_ptp_pps_perout() {
-	...
-	temp_val = readl(fep->hwp + FEC_ATIME_CTRL);
-	temp_val |= FEC_T_CTRL_PINPER;
-	writel(temp_val, fep->hwp + FEC_ATIME_CTRL);
-	...
-}
-
-Would quiescing PPS/PEROUT and cancelling the hrtimer while clk_ptp is
-still on, and deferring only ptp_clock_unregister() past
-unregister_netdev(), keep the intended ethtool lifetime fix without this
-window?
+> @@ -861,6 +863,12 @@ void fec_ptp_stop(struct platform_device *pdev)
+>  
+>  	cancel_delayed_work_sync(&fep->time_keep);
+>  	hrtimer_cancel(&fep->perout_timer);
+> +
+> +	if (fep->pps_irq >= 0) {
+> +		free_irq(fep->pps_irq, ndev);
+> +		fep->pps_irq = -1;
+> +	}
+> +
+>  	if (fep->ptp_clock)
+>  		ptp_clock_unregister(fep->ptp_clock);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but fec_ptp_stop() cancels the perout hrtimer
-before unregistering the PHC, so can a concurrent PTP ioctl re-arm it?
+This isn't a bug introduced by this patch, but the ordering in
+fec_ptp_stop() means both hrtimer_cancel() and the new free_irq() run while
+the PHC character device is still registered, since ptp_clock_unregister()
+comes last.
 
-fec_ptp.c:fec_ptp_stop() {
-	...
-	cancel_delayed_work_sync(&fep->time_keep);
-	hrtimer_cancel(&fep->perout_timer);
-	...
-	if (fep->ptp_clock)
-		ptp_clock_unregister(fep->ptp_clock);
-}
+Can an in-flight ioctl re-arm perout_timer after the cancel?
+fec_ptp_enable() drops ptp_clk_mutex and tmreg_lock before arming:
 
-In the PTP_CLK_REQ_PEROUT branch of fec_ptp_enable(), fep->ptp_clk_on is
-validated under ptp_clk_mutex, but both ptp_clk_mutex and tmreg_lock are
-dropped before the timer is armed:
-
-fec_ptp.c:fec_ptp_enable() {
-	...
-			spin_unlock_irqrestore(&fep->tmreg_lock, flags);
-			mutex_unlock(&fep->ptp_clk_mutex);
+drivers/net/ethernet/freescale/fec_ptp.c:fec_ptp_enable() {
 	...
 			if (delta > FEC_PTP_MAX_NSEC_COUNTER) {
 				timeout = ns_to_ktime(delta - NSEC_PER_SEC);
@@ -215,21 +183,33 @@ fec_ptp.c:fec_ptp_enable() {
 	...
 }
 
-A thread preempted between the check and hrtimer_start() can arm the timer
-at an arbitrary later point.  ptp_clock_unregister() only waits for the
-ioctl to finish, which is after hrtimer_cancel() has already run.
-fec_drv_remove() then proceeds to fec_enet_deinit(ndev) and
-free_netdev(ndev), freeing fep together with the embedded hrtimer, so does
-fec_ptp_pps_perout_handler() end up running against freed memory?
+posix_clock_ioctl() holds only down_read(&clk->rwsem) across that callback,
+and fec_ptp_stop() takes none of those locks.  ptp_clock_unregister() ->
+posix_clock_unregister() then waits for the ioctl to finish, so the arm
+completes and nothing cancels the timer again.
 
-This patch narrows the window (ptp_clk_on is false once the netdev is
-closed) but does not close it.  Would unregistering the PHC first, then
-cancelling the hrtimer and the delayed work, be the right order here?
+fec_drv_remove() afterwards calls free_netdev(ndev), which frees the
+fec_enet_private embedding perout_timer, and the later expiry runs:
 
-> -	unregister_netdev(ndev);
->  	fec_enet_mii_remove(fep);
->  	if (fep->reg_phy)
->  		regulator_disable(fep->reg_phy);
+drivers/net/ethernet/freescale/fec_ptp.c:fec_ptp_pps_perout_handler() {
+	struct fec_enet_private *fep = container_of(timer,
+					struct fec_enet_private, perout_timer);
+
+	fec_ptp_pps_perout(fep);
+	...
+}
+
+The ptp_clk_on check in fec_ptp_enable() only rejects a fresh request; a
+request already past that check is unaffected.  The window also exists on
+the probe error path, fec_probe() failed_init -> fec_ptp_stop(), where
+ptp_clk_on is true for the whole of probe.
+
+Symmetrically, can a PTP_ENABLE_PPS ioctl reach fec_ptp_enable_pps(fep, 1)
+after free_irq() and re-enable the hardware compare interrupt with no
+handler installed?  fec_ptp_enable_pps() has no ptp_clk_on gate.
+
+Would it be better to unregister (or defunct) the PHC first, or to re-cancel
+the hrtimer after ptp_clock_unregister() returns?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16%40cherr.cc
