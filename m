@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4281631B83B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4665030D3FA;
+	Thu, 10 Sep 2026 01:03:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002141; cv=none; b=SP1Kvc8DGL50u3OTGprtthqi22FY8p4IsUPvSzdItBFmTkQOY9Ys7pyPzKOlOpsl4oWMelSaU2WpwogfLoMLxNxKGCDHbygTXya3ZgBR5dbsLrd0++dtcaqGhWbFX+91dxKfdvdXGY6goMKV6H3qag1Bbx3+4NpPTQBI7jycv6s=
+	t=1789002207; cv=none; b=Aq9XH/asiTjUGrh6+lg8hUQdccYNE3fcEi9o0n54IMu/hJjb4VKaoTwwZKC0jpY04iX5qrjR6BnEctVZow41QZ+zjzEnXH+xFggymSNtcu9ucRBmNIwJFpfjGRgQKnoBtXnqHOzrNey5PP/6vxat3Ci4pVDZTbGj32JnFCOo+K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002141; c=relaxed/simple;
-	bh=w2lSSEP+qjRf8pPyeo9opK/NrGyVapu0aiU5cpsjwrY=;
+	s=arc-20240116; t=1789002207; c=relaxed/simple;
+	bh=xb7+ZUruM1MJTCPd1YL0SgedH7s3Jo7Il8pcGJEyajc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e5g8k+zdLbnfHTyddiXo7mC19vzSPYc/kWM08grh29BRrSnQ0Lo/HEBvTJgWNA7QyWN8byHSWoNaqZRzNa/GJFyWJlTWZvuO1L9/cKW4vtzcONoqc4FmS5RdH9ZAyX1aMdXOSHzL40F05+T0XsfjKilDqr3Y0m8ivo78VTc7iQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRHrAGDi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qiONrMWnZLtqW+4sIYnmr+ow2W/BMFUavxapsUApNBtZkhqHLM7WCUS5IDdJO5tF5vMr4xxtltpV8chc1r5ZUZRNHl+Qmz6E19y9A+v4dq/iZFnxutxQTKuWYkEgrbadtD64uPSJfj6YA4hbbWwcr4CTtSRMOur0Syge9+pYQ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/+plz5J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRHrAGDi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BB2A1F00898;
-	Thu, 10 Sep 2026 01:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/+plz5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27BC1F000FF;
+	Thu, 10 Sep 2026 01:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002140;
-	bh=A6Ih64Vp9ncIvxOABZuS3g0MxQkz5rI7RaBGv3O2UoY=;
+	s=k20260515; t=1789002206;
+	bh=TIG2T2i4jA9WjB+FPHW3l0yqt0ufR3BV4sxNXqQXvbA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SRHrAGDivUTaD4x7P1D5apnNEBIXedG+oZFD8inS5j6O4quUyPNuYbXagBCoqZ6UW
-	 RgqXJ4vIYBVcOFLs9Rw+Lq8H0ex4CyvtTfneGtNfLSpnYa+0F2HXo4oWyeYqoyLYxp
-	 dGL/Y06L2WuBXljneMire0ypJbZt+0rqdavvsZLIK+XYnRQ8v+IQNuZU1qYKkIAQE6
-	 AQ7qGm2HpTs2rL4JqEEFpmQ4qQ9zeiUKlNXxBNtly1ncrerMg5I4A8/e6j3MeCr44k
-	 VxJDYG2I6KiqheaagJ/+vVyr5QTjg/LWvI+38iPr5f2P9BZFyMPltoDcmeH3MMrzq2
-	 GoVBQ3T4JTOdQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] i3c: master: Fix recursive locking during device registration
-Date: Wed,  9 Sep 2026 21:02:15 -0400
-Message-ID: <20260910010215.3799061-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910010215.3799061-1-sashal@kernel.org>
-References: <2026090420-phobia-unluckily-1be7@gregkh>
- <20260910010215.3799061-1-sashal@kernel.org>
+	b=P/+plz5Jh01msgLnAOw6O9rOmCvIUQCuKf6y16U4QTaMj+o08bMbhENcCLTw2LUBD
+	 ztHlidR4af6Y9OPnAsIqLHlFoYNh4Z0XLJUYsZvatv0qIMFXX/Y0pZHozWRk5jBTLO
+	 OG7uMzM3CzSjjwkczQARyIOqFx99BhQofcuCuf+dYGg0rld2xoVx0Ro6PjW5+XYgCN
+	 wMze7vliC92EwG4Y+OKm5Sjid6kOKZvhKeZeIxQoZAfBjd1QZzgWHW7UZXJJNwtfs6
+	 UGcc5ZdDQkvtQQwS+8uwaBKmWvdDcVlvqej3KUrK4jJt+s+n3OPrKRD/ePFKONoyLp
+	 6P2nfljn1XLig==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: aliceryhl@google.com,
+	boris.brezillon@collabora.com,
+	dakr@kernel.org,
+	markus.probst@posteo.de,
+	patches@lists.linux.dev,
+	sashal@kernel.org,
+	stable@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH 6.18 445/583] rust: devres: fix race condition due to nesting
+Date: Thu, 10 Sep 2026 03:03:10 +0200
+Message-ID: <20260910010310.429807-1-ojeda@kernel.org>
+In-Reply-To: <20260909134253.387396612@linuxfoundation.org>
+References: <20260909134253.387396612@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +50,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+On Wed, 09 Sep 2026 15:42:10 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> -        try_pin_init!(&this in Self {
+> +        let callback = Self::devres_callback;
+> +        let inner = Arc::pin_init(
+> +            try_pin_init!(Inner {
+> +                data <- Revocable::new(data),
+> +            }),
+> +            GFP_KERNEL,
+> +        )?;
+> +        let devres_inner = inner.clone();
 
-[ Upstream commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 ]
+The compiler complains here:
 
-i3c_master_register_new_i3c_devs() registers newly discovered devices
-while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
-can immediately probe the device, and probe callbacks typically invoke
-I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
-recursive acquisition of the same rwsem.  rwsems do not support recursive
-read locking and can deadlock when a writer is waiting.  See the
-"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
+    error[E0277]: the trait bound `impl pin_init::PinInit<Inner<T>, error::Error>: pin_init::PinInit<_, E>` is not satisfied
+       --> rust/kernel/devres.rs:141:13
+        |
+    140 |           let inner = Arc::pin_init(
+        |                       ------------- required by a bound introduced by this call
+    141 | /             try_pin_init!(Inner {
+    142 | |                 data <- Revocable::new(data),
+    143 | |                 revocation <- Completion::new(),
+    144 | |             }),
+        | |              ^
+        | |              |
+        | |______________the trait `pin_init::PinInit<_, E>` is not implemented for `impl pin_init::PinInit<Inner<T>, error::Error>`
+        |                this tail expression is of type `impl PinInit<Inner<T>, Error>`
+        |
+        = help: the following other types implement trait `pin_init::PinInit<T, E>`:
+                  <AlwaysFail<T> as pin_init::PinInit<T, ()>>
+                  <ChainPinInit<I, F, T, E> as pin_init::PinInit<T, E>>
+                  <ChainInit<I, F, T, E> as pin_init::PinInit<T, E>>
+                  <core::result::Result<T, E> as pin_init::PinInit<T, E>>
+    note: required by a bound in `init::InPlaceInit::pin_init`
+       --> rust/kernel/init.rs:155:31
+        |
+    155 |     fn pin_init<E>(init: impl PinInit<T, E>, flags: Flags) -> error::Result<Self::PinnedSelf>
+        |                               ^^^^^^^^^^^^^ required by this bound in `InPlaceInit::pin_init`
 
-For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
-  WARNING: possible recursive locking detected
-  kworker/5:1/94 is trying to acquire lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
-  but task is already holding lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
+    error[E0282]: type annotations needed for `Arc<T>`
+       --> rust/kernel/devres.rs:140:13
+        |
+    140 |         let inner = Arc::pin_init(
+        |             ^^^^^
+    ...
+    147 |         let devres_inner = inner.clone();
+        |                                  ----- type must be known at this point
+        |
+    help: consider giving `inner` an explicit type, where the type for type parameter `T` is specified
+        |
+    140 |         let inner: Arc<T> = Arc::pin_init(
+        |                  ++++++++
 
-Fix this by separating device creation from device registration.
-Populate desc->dev under the maintenance lock, collect the devices that
-still need registration into a local list, then release the lock before
-calling device_register().  Finally retake the lock and clean up any
-devices that failed to register.
+    error[E0282]: type annotations needed
+       --> rust/kernel/devres.rs:158:17
+        |
+    158 |                 Arc::as_ptr(&inner).cast_mut().cast(),
+        |                 ^^^^^^^^^^^         -------- type must be known at this point
+        |                 |
+        |                 cannot infer type of the type parameter `T` declared on the struct `Arc`
+        |
+    help: consider specifying the generic argument
+        |
+    158 |                 Arc::<T>::as_ptr(&inner).cast_mut().cast(),
+        |                    +++++
 
-Use the maintenance lock rather than the normal-use lock while adding
-device objects.  A write-side maintenance lock prevents readers from
-observing a partially initialized desc->dev during initial device
-population, or desc->dev disappearing if registration fails.
+This diff would work, similar to commit 9aa64d2503c6 ("rust: devres:
+embed struct devres_node directly"), but I wonder if the sequence of
+backports was not intended like this:
 
-The local list requires a list node, so add a list node member to struct
-i3c_device.
+    diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+    index 67471946f2b5..0cafe7ba28c8 100644
+    --- a/rust/kernel/devres.rs
+    +++ b/rust/kernel/devres.rs
+    @@ -137,7 +137,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
+             Error: From<E>,
+         {
+             let callback = Self::devres_callback;
+    -        let inner = Arc::pin_init(
+    +        let inner = Arc::pin_init::<Error>(
+                 try_pin_init!(Inner {
+                     data <- Revocable::new(data),
+                     revocation <- Completion::new(),
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i3c/master.c       | 45 ++++++++++++++++++++++++++++----------
- include/linux/i3c/master.h |  3 +++
- 2 files changed, 36 insertions(+), 12 deletions(-)
+I hope that helps!
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 949de8c6b7cdf..0e4ab4a697110 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1613,12 +1613,21 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
- static void
- i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- {
-+	struct i3c_device *i3cdev, *tmp;
- 	struct i3c_dev_desc *desc;
-+	LIST_HEAD(i3c_unreg_devs);
- 	int ret;
- 
- 	if (!master->init_done)
- 		return;
- 
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	if (master->shutting_down) {
-+		i3c_bus_maintenance_unlock(&master->bus);
-+		return;
-+	}
-+
- 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
- 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
- 			continue;
-@@ -1639,25 +1648,37 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (desc->boardinfo)
- 			desc->dev->dev.of_node = desc->boardinfo->of_node;
- 
--		ret = device_register(&desc->dev->dev);
--		if (ret) {
--			dev_err(&master->dev,
--				"Failed to add I3C device (err = %d)\n", ret);
--			desc->dev->desc = NULL;
--			put_device(&desc->dev->dev);
--			desc->dev = NULL;
--		}
-+		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
- 	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		ret = device_register(&i3cdev->dev);
-+		if (ret)
-+			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
-+		else
-+			list_del_init(&i3cdev->node);
-+	}
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		list_del(&i3cdev->node);
-+		desc = i3cdev->desc;
-+		i3cdev->desc = NULL;
-+		put_device(&i3cdev->dev);
-+		desc->dev = NULL;
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
- }
- 
- static void i3c_master_reg_work_fn(struct work_struct *work)
- {
- 	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
- 
--	i3c_bus_normaluse_lock(&master->bus);
--	if (!master->shutting_down)
--		i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	i3c_master_register_new_i3c_devs(master);
- }
- 
- /**
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 1b172fa8d7396..9b8ce780684a1 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -219,6 +219,8 @@ struct i3c_dev_desc {
-  *	  every time the I3C device is rediscovered with a different dynamic
-  *	  address assigned
-  * @bus: I3C bus this device is attached to
-+ * @node: unregistered device list node, only for use by
-+ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
-  *
-  * I3C device object exposed to I3C device drivers. The takes care of linking
-  * this object to the relevant &struct_i3c_dev_desc one.
-@@ -229,6 +231,7 @@ struct i3c_device {
- 	struct device dev;
- 	struct i3c_dev_desc *desc;
- 	struct i3c_bus *bus;
-+	struct list_head node;
- };
- 
- /*
--- 
-2.53.0
+Cc: Markus Probst <markus.probst@posteo.de>
+Cc: Sasha Levin <sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: driver-core@lists.linux.dev
 
+Cheers,
+Miguel
