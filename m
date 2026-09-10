@@ -1,139 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDB631618B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82D62472A6
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:21:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003264; cv=none; b=lxAwBqwyu4T8yRemHM7FYf9BAQ0fAY2XaWH6vqLocUyTOwG2ZlDH0+oUbqw04oOydCWPGzQ6gm1d3Z/GvUKaXcNWX1IRZqAdO6bZZ3bPjLSBhBHjNYb9lGoyIT827Ejw3tUW3DS/W1C7uWnTrf2GiWhMZY09vuogqTQY6V9uDWc=
+	t=1789003267; cv=none; b=aEiwgNIaZSTk2P4LQR++iqfjFfqCp0M8C8dytU0Z4G7zC+fVyL4C5WTJrpjn5ee4r2DY2hh215qla0pjzBXJlCtYYc/zgJtavcChmKk699CLbvMAH2o/6xCM0Vg90EGlSvGDZFshZkDZilbOPd8MSqNmn425T2/Ba9TRPHq8paw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003264; c=relaxed/simple;
-	bh=W7eIY776NTXpXpM+gWj4+cXis3x/8BW9lW6SgiTAkQU=;
+	s=arc-20240116; t=1789003267; c=relaxed/simple;
+	bh=bjZxYbE+o/OrhZJqvWTCoyY4+ZT8vIh4gUTXjaEZaBs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hxH6gq4oBGSqbckh2sr5GOk+9gS2S2W8vmLylvuwtd/0sLqj35egnbUeTSUsS16wl4cawi1rw2PZCVT7HocpBroXyIbYcI5A4pJQqG/6NO7afkvy+luLeUY/gDynNAtfWNaOuzEWADNuf4bZVujy9945BK4cYo9h/ZhkPEsw7rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKaB19LI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nGuL4dVtE/N1L3YyTb3QvUgFkCfNs2eBH/+KkFvtpwlkza/yRPFTk0NnSWxtSCT4M6kBxZ+8fawB2efHOJvtbjOHb/iLh8nzP51i+Zib1LgHXERQ8kdOMKMGzS9zePy5dxVosNI/B8cRFqS8C6+a0xRXbJW4XozY+TUbq/Puab4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMw91Vl5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKaB19LI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85EC41F000FF;
-	Thu, 10 Sep 2026 01:21:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMw91Vl5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D038A1F000FF;
+	Thu, 10 Sep 2026 01:21:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003263;
-	bh=n6hZhuOxE3YMEj09SHUsJ0X3dNZuNaKl/dZb7Bjytq4=;
+	s=k20260515; t=1789003265;
+	bh=PsRDmN8GHPW/diuJoeCiYexi+KonoPezg5kHTCNWwVw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CKaB19LIOfkWpSYgaL2VXbN8QoXvnN0CawJiHuIB7pzYv1UoKn6ZDPuepbRnieq/7
-	 8KaO5ljm8rw1wMdYHO+7/y0S8HVO3L3wKMUdjRCWZo0hRsZj3PPSAbsbb+WxWMCv3U
-	 +mvMB2uHkdGi4lyCDVeDv4fJ7uVEa6Hvp3OTqq1o6SBua+M/8X4GK18C0yEqNoSIVF
-	 6XTAiVIY5FXPglKQZ8cQvUbLWaduGrlLVK6TXD1WgEy7vcPV9xRDACLQHITeudBatU
-	 sBdf58JQKbCeYFfoQNZtjA/DLvFMGA6M5FDDlWkf7ex/REXqygQfyyiL557lJlSMWV
-	 NIisr0Hv4n+Bw==
+	b=lMw91Vl5kJoV4fEahvcb5P+7KcDvUz36yefwK+IR6+FW9zvdAmNpS0G303N4nm3If
+	 Pjzcq1wpamnpxXJ5piAFG7HnHhXoIElKdHHIjEcAhG0kAYUUxqqFem+PZkdAA6aGjV
+	 MREUySxLBLb0lPDN9DvkT1JX+QSMKOq/BUbOiYdUPaCNP5zd1IE0XXd/LhbwlIVlEc
+	 es17UCtTjZGjOMckR8XWZubm25nWA7TRvFW4o0zd4dnaVmGar0vrqdUnk7JMVl8Z2W
+	 F0Nuxvaq3K3deoWweV8tPX/QkuTlZ1wsuaCfNHb9nQAtlrmDNZm8Bj9hGQptRYpqq3
+	 sVyTfrdrOJn0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] i3c: master: Fix use-after-free of master->this
-Date: Wed,  9 Sep 2026 21:21:01 -0400
-Message-ID: <20260910012101.3847611-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] udf: Move udf_map_block() up
+Date: Wed,  9 Sep 2026 21:21:02 -0400
+Message-ID: <20260910012103.3847731-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090431-poncho-cathedral-285a@gregkh>
-References: <2026090431-poncho-cathedral-285a@gregkh>
+In-Reply-To: <2026090408-hardening-frenzied-5de0@gregkh>
+References: <2026090408-hardening-frenzied-5de0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: Jan Kara <jack@suse.cz>
 
-[ Upstream commit feb0ed76601f3c2f91f08688c5a7d8b9d382f720 ]
+[ Upstream commit 97e9d759a4193eabe4d8b6ecac093aac664c16e3 ]
 
-sysfs attribute callbacks for the master controller device dereference
-master->this.  However, master->this is freed in
-i3c_master_detach_free_devs() before the master device itself is
-released.
+Move udf_map_block() in the file to avoid forward declarations.
 
-As a result, sysfs accesses can dereference a freed master->this
-pointer, leading to a use-after-free.
-
-Keep master->this alive until i3c_masterdev_release(), which is called
-after the master device and its sysfs state are being torn down. Do not
-free master->this as part of the normal device detach path.
-
-On the error path in i3c_master_set_info(), reset master->this and
-bus.cur_master to NULL before freeing the allocated device.
-
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-5-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ retained of_node_put(dev->of_node) instead of upstream’s fwnode_handle_put(dev->fwnode). ]
+Link: https://patch.msgid.link/20260730104232.4086759-3-jack@suse.cz
+Signed-off-by: Jan Kara <jack@suse.cz>
+Stable-dep-of: 62333e480d12 ("udf: Fix data loss when converting inline inodes to out of line")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ fs/udf/inode.c | 118 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 59 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index c062e94ce2211..58a6cce5afb3e 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -667,6 +667,11 @@ static struct attribute *i3c_masterdev_attrs[] = {
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index 3a184ded12ade..bed3bc4f4fa2f 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -337,65 +337,6 @@ const struct address_space_operations udf_aops = {
+ 	.migrate_folio	= buffer_migrate_folio,
  };
- ATTRIBUTE_GROUPS(i3c_masterdev);
  
-+static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
-+{
-+	kfree(dev);
-+}
-+
- static void i3c_masterdev_release(struct device *dev)
- {
- 	struct i3c_master_controller *master = dev_to_i3cmaster(dev);
-@@ -679,6 +684,8 @@ static void i3c_masterdev_release(struct device *dev)
- 	i3c_bus_cleanup(bus);
- 
- 	of_node_put(dev->of_node);
-+
-+	i3c_master_free_i3c_dev(master->this);
- }
- 
- static const struct device_type i3c_masterdev_type = {
-@@ -866,11 +873,6 @@ static void i3c_device_release(struct device *dev)
- 	kfree(i3cdev);
- }
- 
--static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
+-/*
+- * Expand file stored in ICB to a normal one-block-file
+- *
+- * This function requires i_mutex held
+- */
+-int udf_expand_file_adinicb(struct inode *inode)
 -{
--	kfree(dev);
+-	struct folio *folio;
+-	struct udf_inode_info *iinfo = UDF_I(inode);
+-	int err;
+-
+-	WARN_ON_ONCE(!inode_is_locked(inode));
+-	if (!iinfo->i_lenAlloc) {
+-		down_write(&iinfo->i_data_sem);
+-		if (UDF_QUERY_FLAG(inode->i_sb, UDF_FLAG_USE_SHORT_AD))
+-			iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
+-		else
+-			iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
+-		up_write(&iinfo->i_data_sem);
+-		mark_inode_dirty(inode);
+-		return 0;
+-	}
+-
+-	folio = __filemap_get_folio(inode->i_mapping, 0,
+-			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, GFP_KERNEL);
+-	if (IS_ERR(folio))
+-		return PTR_ERR(folio);
+-
+-	if (!folio_test_uptodate(folio))
+-		udf_adinicb_read_folio(folio);
+-	down_write(&iinfo->i_data_sem);
+-	memset(iinfo->i_data + iinfo->i_lenEAttr, 0x00,
+-	       iinfo->i_lenAlloc);
+-	iinfo->i_lenAlloc = 0;
+-	if (UDF_QUERY_FLAG(inode->i_sb, UDF_FLAG_USE_SHORT_AD))
+-		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
+-	else
+-		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
+-	folio_mark_dirty(folio);
+-	folio_unlock(folio);
+-	up_write(&iinfo->i_data_sem);
+-	err = filemap_fdatawrite(inode->i_mapping);
+-	if (err) {
+-		/* Restore everything back so that we don't lose data... */
+-		folio_lock(folio);
+-		down_write(&iinfo->i_data_sem);
+-		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
+-				folio, 0, inode->i_size);
+-		folio_unlock(folio);
+-		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
+-		iinfo->i_lenAlloc = inode->i_size;
+-		up_write(&iinfo->i_data_sem);
+-	}
+-	folio_put(folio);
+-	mark_inode_dirty(inode);
+-
+-	return err;
 -}
 -
- static struct i3c_dev_desc *
- i3c_master_alloc_i3c_dev(struct i3c_master_controller *master,
- 			 const struct i3c_device_info *info)
-@@ -1741,6 +1743,8 @@ int i3c_master_set_info(struct i3c_master_controller *master,
- 	return 0;
+ #define UDF_MAP_CREATE		0x01	/* Mapping can allocate new blocks */
+ #define UDF_MAP_NOPREALLOC	0x02	/* Do not preallocate blocks */
  
- err_free_dev:
-+	master->bus.cur_master = NULL;
-+	master->this = NULL;
- 	i3c_master_free_i3c_dev(i3cdev);
- 
+@@ -456,6 +397,65 @@ static int udf_map_block(struct inode *inode, struct udf_map_rq *map)
  	return ret;
-@@ -1761,7 +1765,8 @@ static void i3c_master_detach_free_devs(struct i3c_master_controller *master)
- 					i3cdev->boardinfo->init_dyn_addr,
- 					I3C_ADDR_SLOT_FREE);
+ }
  
--		i3c_master_free_i3c_dev(i3cdev);
-+		if (i3cdev != master->this)
-+			i3c_master_free_i3c_dev(i3cdev);
- 	}
- 
- 	list_for_each_entry_safe(i2cdev, i2ctmp, &master->bus.devs.i2c,
++/*
++ * Expand file stored in ICB to a normal one-block-file
++ *
++ * This function requires i_mutex held
++ */
++int udf_expand_file_adinicb(struct inode *inode)
++{
++	struct folio *folio;
++	struct udf_inode_info *iinfo = UDF_I(inode);
++	int err;
++
++	WARN_ON_ONCE(!inode_is_locked(inode));
++	if (!iinfo->i_lenAlloc) {
++		down_write(&iinfo->i_data_sem);
++		if (UDF_QUERY_FLAG(inode->i_sb, UDF_FLAG_USE_SHORT_AD))
++			iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
++		else
++			iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
++		up_write(&iinfo->i_data_sem);
++		mark_inode_dirty(inode);
++		return 0;
++	}
++
++	folio = __filemap_get_folio(inode->i_mapping, 0,
++			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, GFP_KERNEL);
++	if (IS_ERR(folio))
++		return PTR_ERR(folio);
++
++	if (!folio_test_uptodate(folio))
++		udf_adinicb_read_folio(folio);
++	down_write(&iinfo->i_data_sem);
++	memset(iinfo->i_data + iinfo->i_lenEAttr, 0x00,
++	       iinfo->i_lenAlloc);
++	iinfo->i_lenAlloc = 0;
++	if (UDF_QUERY_FLAG(inode->i_sb, UDF_FLAG_USE_SHORT_AD))
++		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
++	else
++		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
++	folio_mark_dirty(folio);
++	folio_unlock(folio);
++	up_write(&iinfo->i_data_sem);
++	err = filemap_fdatawrite(inode->i_mapping);
++	if (err) {
++		/* Restore everything back so that we don't lose data... */
++		folio_lock(folio);
++		down_write(&iinfo->i_data_sem);
++		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
++				folio, 0, inode->i_size);
++		folio_unlock(folio);
++		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
++		iinfo->i_lenAlloc = inode->i_size;
++		up_write(&iinfo->i_data_sem);
++	}
++	folio_put(folio);
++	mark_inode_dirty(inode);
++
++	return err;
++}
++
+ static int __udf_get_block(struct inode *inode, sector_t block,
+ 			   struct buffer_head *bh_result, int flags)
+ {
 -- 
 2.53.0
 
