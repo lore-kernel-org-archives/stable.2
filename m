@@ -1,70 +1,75 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECF43D3339;
-	Thu, 10 Sep 2026 07:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C951840DB2F
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026809; cv=none; b=OiIbuGgj2kl7WS2pclk+33PBSilxWYjeNAC7ja8R0pHjKp7a6dN4sO/jikNr9KJ0dRHBthRkg11ds9Gd/mt8b/fmHmKDFtDKx3C+k8LtISrzIxgUlOtamOltSdAGs76yTMogVilZHNmDchoAon4PK3oC+GSO8Zk9zleCTA3CD/U=
+	t=1789027426; cv=none; b=U74DQ1d2v6gza1rmMXr94qi0zI/YoNaEjYeMPZ1u3VL2stN7RzQ0ZQ3AapC/y3CDz+QQfaKrecdU/YDF18jbdrXeONrNG1kD9mOv7X9/4OebFlhIjZzDc7VkFj64WWgcRNThSdUjp2+lgySln3hOjl8TnH+qHUJoTpe5uDKCrIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026809; c=relaxed/simple;
-	bh=VWliHbAyNsfQkTLue9pckqYn2hIoO3+6LJlxdUoTPaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VkG1FmJa5/lnMZLxVwrVKMdVs7NQwIxkxMgK08YrT+VVJX+w3lw27qvMGjmb93978myq+uQH1nYUxDvwEevgSsZDRacSExvBiuzv18+gkMaP4Vypd44+1B/OBnphECdv49JL4TDsKEfi6zbeoNQ7wT3cVababG/Ep3Vp3u8Qhmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jvB+RFz2; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789027426; c=relaxed/simple;
+	bh=It3hGucDlDiimzY7cb7O9jAeM6W782d0j84+5HqyF5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QY3eg5j+s72JFkb8qPJviT1RObruAQrHDtoDWrKCmpcvxrrNIXfOz19HEjDFPcamENSdONGv4rY46xiHYED+wdgwZ4lKFyyZtcUhpp16CQFiIke7cTOTXxvLC+88krySNAU4a5mgv5kTSNdL5vfirNTzNbVg/xlX12Q+Zgqw4I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGmvS1vx; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jvB+RFz2"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Ve8m1973909;
-	Thu, 10 Sep 2026 07:53:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=lVQVUZ0Ep4SayKCfM
-	+/Hw8LgKHBJ2yc3PzwStLnYwVQ=; b=jvB+RFz2SRvAc0V6TwPLVgAuepaMAqyA9
-	ERktgk9TbfyDxPqwqGGSVmLitYFITtq0sHqw4HkkTGQmzEOmpfIoYEWnbQVz8kCw
-	/AfNCa2xCfxTYaGYed1Tui2hivnl/oQ260J2OJycgFIDiTNsC3SCFrfBWrVpzhau
-	XIyEBWGA/UyWy9FaqY6MZgE4RWzRAFXOoRZtDo71PLrSS0aHzuCvCiMmFD5Eq5o7
-	MOVin/JdzLtXP28sUq3O2RNTIAkkyat9dIbY2MfOlzIG2Jlf5zCi7kSJvQ7l7ppD
-	NGdskS6ZQ1pDkyVk0WNdPzkCg4AP6fM459Qn4sdOd0mxBcrrzE1iA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8pk4w5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 07:53:25 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A7fQgW016952;
-	Thu, 10 Sep 2026 07:53:24 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkcr33694-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 07:53:24 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A7rLap43254190
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 07:53:21 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E95582004B;
-	Thu, 10 Sep 2026 07:53:20 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F04B720049;
-	Thu, 10 Sep 2026 07:53:17 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.bl1-in.ibm.com (unknown [9.123.14.23])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 10 Sep 2026 07:53:17 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, stefanb@linux.ibm.com,
-        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v3 1/2] keys/trusted_keys: return immediately after TPM unseal failure
-Date: Thu, 10 Sep 2026 13:22:31 +0530
-Message-ID: <20260910075232.178855-2-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910075232.178855-1-ssrish@linux.ibm.com>
-References: <20260910075232.178855-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGmvS1vx"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2dd020a2e44so14254665ad.1
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789027414; x=1789632214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i8zhbFIVLiK3IaZuONcJMvzZFWnMkWhoBnRei/mXFFQ=;
+        b=dGmvS1vxQmfm28mdcgr2t/zq4MoCMBORveSLgeaT1V4o+aBUi/6aEaZJ6S7AJl9EWA
+         P1vwF8oiWde7dqi6RUz8SNty52wD2NDpDTeWuyb25p9ZSovJxnmcLThGjCveLz1iQETv
+         iZ9UwFkAg58UV0GzyMAPhYL9my0ojnvFQbNWwFGhhRUXBl/LBtS2jB2v59niM9QDOCgF
+         YPLp76W4sL5CMx5QDyhdTJ70PeztfykU8FEYG2J7nu+sI2eZ8QqdwggVB3PIxyMyHEWQ
+         ZVlWkxgIWyMOUKZtY3h/GntjVb0nBdAJPr+Flwwg+DR58Iv84Otk4iK4TFSvEChrbQgm
+         ab8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789027414; x=1789632214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i8zhbFIVLiK3IaZuONcJMvzZFWnMkWhoBnRei/mXFFQ=;
+        b=mrv7cIzA1TFJ9UudcJUbHdLH1cSgiMXOjO1ht2/vwMCIbr3X/KBblYaIL0a2hMuj12
+         SOFNxx0OAy0dA0+lqt2Jj9QmLdqABC3mqhOoUX3UgRVW6k0U85vEDRkleJeRkkwIx8po
+         vW+lHgV46a6llERGovHRQzYw4TTnsHbD4SL/5zykINILfIj55QRj9Gewo9X/6E9F323R
+         VzhMoXYkeECyvpqnEARbkMEejcBbrErwU23IGsG9vT8t8orqyzJ6MpRhckR7M00UD+2P
+         1eNFln3F2wcAa/a4i7sBduFFAPU+o7qZbkjnG4f4r+VEhc+MMgovvHmtUzsOWSQsgOad
+         uqbw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8glIj8YdnS0GO4TnMHoarpgdvGxwpjOXfDiuaYZmRwLfqhau5KmKM8XLGiRi/R6GuiRblMCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQW+Pbr9W3yYZq/OENH35LA+KDOy13AHwqqzDZNqa9bkLKYHOy
+	WMpXRm7LhTUcvQ5Bs//ho6b30OX2l4jrw8jVLORNr6ZpztkNxqyxHLUZ
+X-Gm-Gg: AYBFou1IsJNNAdQQaJyExCLbAZ5NVEUaFtmoRpybibUO1rLKksZIzdMkMlXRc9UoyzM
+	UEhrvGjqmoHJEYiM62CEHg6zd220mQ6kgeAKm2H7zPwsmRK5oDgPMShcxKVw38UjbkKbJNciY3y
+	Ogq2imi2EWN7DvFWO1juC+PqTUART3h930o0sOVUGKWpWdYroE1i2OMsZh8vpORkzmhRBu4g1H7
+	Y7V8bIz6AUw6IrTp6lZhT35c1MvVAbpHMpf41Qnc3UJqDNQ3+ANC1VwZ69D3nreiAnsxCcjKa2i
+	A8/aWUHJukR3qXNlda4WN6halN+PScYA4K8U8aVDZAT1cRa8g0rpnqzQXXL3hN8HGp0CMgyshd3
+	8BfR910jkomznerp9Ariis0vEJ2SwoexcYBTMutFnkoiTunlimhNuCjBYboO2E6yEFQ9tVHHnSt
+	+rq1dc8X3SMdn3+8pa3+iJsr1UNCIs6b2U79hWJSWONiDsdOFa9hjvrDsaulWgalpR+NG2qeBqf
+	wBQjZCzJ93B4AJCB6x+5bYyQWxaftZXo27gtHHWHNEpnEAl
+X-Received: by 2002:a17:902:b114:b0:2d9:1dee:43e3 with SMTP id d9443c01a7336-2db12757f17mr383673035ad.18.1789027413851;
+        Thu, 10 Sep 2026 01:03:33 -0700 (PDT)
+Received: from localhost.localdomain ([180.101.244.71])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db2db7f088sm69745075ad.35.2026.09.10.01.03.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 01:03:33 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: netfilter-devel@vger.kernel.org
+Cc: pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	coreteam@netfilter.org,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH nf v2] netfilter: nf_tables: skip expired catchall elements on insert and delete
+Date: Thu, 10 Sep 2026 16:03:19 +0800
+Message-ID: <20260910080324.2663491-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,64 +77,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=eM2GH3p1 c=1 sm=1 tr=0 ts=6aa261f5 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Gb-tKBqSAOq4cnd-bv4A:9
-X-Proofpoint-ORIG-GUID: W4rNDHD9n96vMXGGrJCraWHdre9UZai-
-X-Proofpoint-GUID: W4rNDHD9n96vMXGGrJCraWHdre9UZai-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfXwgxHNo5wYSox
- +hHgx3HU9ZZRwLZkYIHLC4iPbq0fYxDlBYdGrca7YFQfMjNMCCzzGkue/2tJMWHR/6I/oBKMQpJ
- GYW5ZFx1aZ0O7yrKDA7xUfhEK+yuvYU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfX6tstTj+ScFn+
- Yh+ahFlo8Jc2mgp8DeArRiivwBG/HittagYJODfvPCMNQWV2KoUfiLY94ey+/T0rHP504+YiQm5
- p9bVqi2bs+7mMhdcUQp+oSdR1bPYpalYfuAHAwR1n2J/mv5jA41y/yuFq+Rv+bfvSvtH/Siu9G+
- DpQkYz83h3U2uwcV4UfL7ARkNiCvhXKX2oISkwouelED2ing1nCNb64igsoQN4gUJPeKquBxEtC
- KpvRYRRDuC8HizMzfsnp0+69rRR6p1L+ejkyULTjCbir7PSvUKnguaJIdaBsQ239Jqyj+3oW/hW
- FY7ugul2YrwjIOsD2tLnJaoA/htgssjJXQVk6LXv87od5ZjYbh/79tR7Jj4H++qnolmpR3snNCi
- cKE7dTMILJ0biv68UqnvJyRNzAxGreP9B3+bqk2yGguhEwv7lvxbG7a60Bq9Rw1TjRcDoiMz5LR
- iTtjIv1b0C86Ti8WjNw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100081
 
-trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
-fails. If pcrlock() succeeds, its return value overwrites the unseal error,
-causing key instantiation to succeed.
+From: Aohan Mei <henrymei@tencent.com>
 
-Return immediately when unseal fails to preserve the original error.
+nft_setelem_catchall_insert() looks up duplicates with
+nft_set_elem_active() only, while nft_set_catchall_lookup() and the
+dump path additionally skip expired elements.
 
-Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
+Once a catchall element with a timeout expires, this predicate drift
+makes it invisible to userspace dumps, yet it still blocks
+re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
+without it the request reports success but silently inserts nothing.
+The stale entry only goes away when the (user-tunable) gc interval
+elapses, so the catchall rule may silently stop matching for an
+arbitrarily long time after its first expiration.
+
+The delete path shows the same drift: nft_setelem_catchall_deactivate()
+picks the first active-next entry in the catchall list, so with an
+expired entry still pending GC it retires the stale entry instead of
+the fresh one, and it deactivates an element that userspace no longer
+sees instead of failing with -ENOENT.
+
+Align both walks with the lookup and dump predicates: only an element
+that is active and not expired counts as a duplicate or delete
+candidate, using a single timestamp snapshot for the expiry checks.
+
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
 ---
- security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+v2: drop the is_dead check, it does not belong to this dedup walk;
+    use __nft_set_elem_expired() with a single timestamp snapshot;
+    also skip expired catchall elements in the delete path.
+v1: https://lore.kernel.org/netfilter-devel/REPLACE-WITH-V1-MESSAGE-ID
 
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index bf0bf7f36970..9cdfeea800a3 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
- 		ret = tpm2_unseal_trusted(chip, p, options);
- 	else
- 		ret = key_unseal(p, options);
--	if (ret < 0)
-+	if (ret < 0) {
- 		pr_info("key_unseal failed (%d)\n", ret);
-+		goto out;
-+	}
+ net/netfilter/nf_tables_api.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index 765a92fa90d6..0f3449cca5d2 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -6991,11 +6991,13 @@ static int nft_setelem_catchall_insert(const struct net *net,
+ {
+ 	struct nft_set_elem_catchall *catchall;
+ 	u8 genmask = nft_genmask_next(net);
++	u64 tstamp = get_jiffies_64();
+ 	struct nft_set_ext *ext;
  
- 	if (options->pcrlock) {
- 		ret = pcrlock(options->pcrlock);
+ 	list_for_each_entry(catchall, &set->catchall_list, list) {
+ 		ext = nft_set_elem_ext(set, catchall->elem);
+-		if (nft_set_elem_active(ext, genmask)) {
++		if (nft_set_elem_active(ext, genmask) &&
++		    !__nft_set_elem_expired(ext, tstamp)) {
+ 			*priv = catchall->elem;
+ 			return -EEXIST;
+ 		}
+@@ -7088,11 +7090,13 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
+ 					   struct nft_set_elem *elem)
+ {
+ 	struct nft_set_elem_catchall *catchall;
++	u64 tstamp = get_jiffies_64();
+ 	struct nft_set_ext *ext;
+ 
+ 	list_for_each_entry(catchall, &set->catchall_list, list) {
+ 		ext = nft_set_elem_ext(set, catchall->elem);
+-		if (!nft_is_active_next(net, ext))
++		if (!nft_is_active_next(net, ext) ||
++		    __nft_set_elem_expired(ext, tstamp))
+ 			continue;
+ 
+ 		kfree(elem->priv);
 -- 
-2.53.0
+2.43.7
 
