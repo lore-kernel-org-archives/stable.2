@@ -1,153 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368553DA5C3
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECF43D3339;
+	Thu, 10 Sep 2026 07:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026776; cv=none; b=DgYEXtTAn4jq/iXWwaMEvWrlsxQf0Pi7hjursJh7wsillIl6Hpbn/t3fiA2ySfo/xqNzwE4obCw5nAcXElK566rKrDMR17YIEeW4xEZC3tbweDapaLlge6+8KdLESV7npFbMMoxTbOQFv4JQM/HQqspi1GphTt7NC1okPi5kaIA=
+	t=1789026809; cv=none; b=OiIbuGgj2kl7WS2pclk+33PBSilxWYjeNAC7ja8R0pHjKp7a6dN4sO/jikNr9KJ0dRHBthRkg11ds9Gd/mt8b/fmHmKDFtDKx3C+k8LtISrzIxgUlOtamOltSdAGs76yTMogVilZHNmDchoAon4PK3oC+GSO8Zk9zleCTA3CD/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026776; c=relaxed/simple;
-	bh=CsLIGHHO8YWAldmY8Naazy7NOx7PZIBpEJmR+iBDvqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZJp09+hrkWRiGTRAbrMpXOzGZKx37kR+roVS66IUs1d5OgcHV1XlgONplXi2XcAJ2NqM1Rr87ciLKUKVy1j/LKMOCV+yb5A9iDfXVLwAKoNPKcuJPY8JLPaEgih0FRzv2SP5d51IKz/v2kmtfpPQqhRtD1nVqSgG1j/b4guZ0v4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Bj7oyrmZ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aUMZe1gp; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789026809; c=relaxed/simple;
+	bh=VWliHbAyNsfQkTLue9pckqYn2hIoO3+6LJlxdUoTPaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VkG1FmJa5/lnMZLxVwrVKMdVs7NQwIxkxMgK08YrT+VVJX+w3lw27qvMGjmb93978myq+uQH1nYUxDvwEevgSsZDRacSExvBiuzv18+gkMaP4Vypd44+1B/OBnphECdv49JL4TDsKEfi6zbeoNQ7wT3cVababG/Ep3Vp3u8Qhmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jvB+RFz2; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Bj7oyrmZ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aUMZe1gp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789026774;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3zdat3lb+JFaceCjEvZhP3kP5xpKa4RbvpVHW8sS2v0=;
-	b=Bj7oyrmZVR9i5l09nENsd3Ehvh1j3A2xi86XHNxDhT2mXfcs28L+dK0JMaxFshMm+uMCQc
-	fz6AHrQiwN9Xhrs5sCE+zujaXCYbysPtvW7J6lc57gJpca2oQK99xiD0i0ePdB2B0WUr1N
-	tsTj5H6qdt7jIgjOS1H8BnCmJLCX6h8=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-464-UCQDa0X-P3GN-o5tbewGGg-1; Thu, 10 Sep 2026 03:52:53 -0400
-X-MC-Unique: UCQDa0X-P3GN-o5tbewGGg-1
-X-Mimecast-MFC-AGG-ID: UCQDa0X-P3GN-o5tbewGGg_1789026772
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-495474a5fbcso67982205e9.1
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:52:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789026772; x=1789631572; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3zdat3lb+JFaceCjEvZhP3kP5xpKa4RbvpVHW8sS2v0=;
-        b=aUMZe1gphFpGyWH2lGxRZn9K4IA0gtA/fPFSSIgcWXytxMiihsIYefNNOPq8QbtF6o
-         84zMooes7Nf8L1xZG97UjC/FHtuQoHElpJAtGA8KO8tEfEcXfk/QDMbPx2Y2IGQUZvSd
-         EetksXHoLpthH7JGTWWCL6zeftLSHBE5p/hdacNfhd1XzZYDhKQWQGjjiA+VfIUlqwFc
-         MBziQZDIdHuWrKANj9scezy1ZWNsp4w2Km9cKkMHafpdh61UeUwjp1A9c+EldSgOn25r
-         0E6OgUM+n+ktHP6WMKH1XQcqCjZrP/6Z/U5MBsyZMKfYk1HR/Xo3EWVCANX0W3U3gRt7
-         mi8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789026772; x=1789631572;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3zdat3lb+JFaceCjEvZhP3kP5xpKa4RbvpVHW8sS2v0=;
-        b=dQlJ86I2uCXwZwQkHCLn+5FI9QIuU9s8b46NycZNC6Lb4Op6d2+piDlIzxeEk3bVyO
-         0MGAQ1FC5B+wYegfhLigSoHFDdmetQXyoa0ewEWCXb9DmU+KA/KyqvbSMraWIeNp1/eO
-         mIl17He+08hS/+jj5IEDK6yLhkVakqoYZRWt2EfqUgSeAdRMQnn8O4/oV+rpcr/C66k2
-         +g+UQR2KjiMhCgTt1bBIqgMgzTYV+gVfquEeExzQTJt0v5p1xygyqa4Ya7vyoYfmlw8M
-         /kmG8FLj+1P6w5rz+TO+ZlMB51+Mc/mj45Iui2CHI2mWM2hfLzj0zlC8mpjpO326Eyli
-         uPvg==
-X-Forwarded-Encrypted: i=1; AKwUvBznkevE0Slgv2IAHsHye2qTsfV1J83I9ijMPDLutWblcsumhCw0bH34ugu+vD4O7sMs9YG63+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltMFGcnp8ZFeZoESw5hHdtJ1kSzkGadNU+Qq10tvyv+/AHW32J
-	iUOsDl5ZUtRhutO0YP8fkbTx0XohnGTenDTtI6qjQUxhSOM9mmjza7DorfBA+do/YQDy7pZNsE2
-	Hama7ZZamYsUJ1l8GaseUShZG/N6cOxRLooFhs0CbPbFx+gpPWGzJ8fDUtSTKUGnALQ==
-X-Gm-Gg: AYBFou3TwKC4Je70tkRBdbvKEZC2AQKsQfkO4uLKi2z00eYlzmF9onA6a50LzKz+vfR
-	9lxW+jbv2YERmwjEHkzrVA0DXqaZqaXz0Qgo1cXE+cSlrDEr1clui716bQ85NPhyuM/9ue/f+RC
-	BpJtD5u5B9JYRb1v0dRNvTM+8hFtvRk5TlUdNWV8RsHefyZgHo9wR5M31CgEuQuB+6xDXKAICo9
-	oG2+lllr03sm5c/frfQlx0SmMl48veOaW+0PD6mOXNmWCd5yiGKo8q2NZAiCGQLi0Wl7TVsjMr5
-	dkByRaJsx4inDvpJxjNh4XHScjLeA4NzyZ7T42UsEcLNU9x6OSwRXWj9MGZI/PfLTK6bw7r/p4x
-	f7jm1/GhE8Tcn1v1ohSXiEJ7PODRVq/WPCicmkjBe2p7NWg==
-X-Received: by 2002:a05:600c:1991:b0:49d:1842:f001 with SMTP id 5b1f17b1804b1-49d1842f00dmr150578305e9.14.1789026771638;
-        Thu, 10 Sep 2026 00:52:51 -0700 (PDT)
-X-Received: by 2002:a05:600c:1991:b0:49d:1842:f001 with SMTP id 5b1f17b1804b1-49d1842f00dmr150577875e9.14.1789026771102;
-        Thu, 10 Sep 2026 00:52:51 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm48847267f8f.21.2026.09.10.00.52.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:52:50 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:52:38 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, stable@vger.kernel.org, 
-	co+6a581c4284f721d4@bugs.sh, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan McDowell <noodles@meta.com>, 
-	Ross Philipson <ross.philipson@gmail.com>, Stefan Berger <stefanb@linux.ibm.com>, 
-	Srish Srinivasan <ssrish@linux.ibm.com>, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
-Message-ID: <aqJhkjPdib-MQTCT@sgarzare-redhat>
-References: <20260901205809.2028454-1-jarkko@kernel.org>
- <apfoKo-BdwaLXtkT@sgarzare-redhat>
- <aqHIwoKcEWeI_yjs@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jvB+RFz2"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Ve8m1973909;
+	Thu, 10 Sep 2026 07:53:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=lVQVUZ0Ep4SayKCfM
+	+/Hw8LgKHBJ2yc3PzwStLnYwVQ=; b=jvB+RFz2SRvAc0V6TwPLVgAuepaMAqyA9
+	ERktgk9TbfyDxPqwqGGSVmLitYFITtq0sHqw4HkkTGQmzEOmpfIoYEWnbQVz8kCw
+	/AfNCa2xCfxTYaGYed1Tui2hivnl/oQ260J2OJycgFIDiTNsC3SCFrfBWrVpzhau
+	XIyEBWGA/UyWy9FaqY6MZgE4RWzRAFXOoRZtDo71PLrSS0aHzuCvCiMmFD5Eq5o7
+	MOVin/JdzLtXP28sUq3O2RNTIAkkyat9dIbY2MfOlzIG2Jlf5zCi7kSJvQ7l7ppD
+	NGdskS6ZQ1pDkyVk0WNdPzkCg4AP6fM459Qn4sdOd0mxBcrrzE1iA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8pk4w5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 07:53:25 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A7fQgW016952;
+	Thu, 10 Sep 2026 07:53:24 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkcr33694-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 07:53:24 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A7rLap43254190
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 07:53:21 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E95582004B;
+	Thu, 10 Sep 2026 07:53:20 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F04B720049;
+	Thu, 10 Sep 2026 07:53:17 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.bl1-in.ibm.com (unknown [9.123.14.23])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 10 Sep 2026 07:53:17 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, stefanb@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com,
+        stable@vger.kernel.org
+Subject: [PATCH v3 1/2] keys/trusted_keys: return immediately after TPM unseal failure
+Date: Thu, 10 Sep 2026 13:22:31 +0530
+Message-ID: <20260910075232.178855-2-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910075232.178855-1-ssrish@linux.ibm.com>
+References: <20260910075232.178855-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <aqHIwoKcEWeI_yjs@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=eM2GH3p1 c=1 sm=1 tr=0 ts=6aa261f5 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Gb-tKBqSAOq4cnd-bv4A:9
+X-Proofpoint-ORIG-GUID: W4rNDHD9n96vMXGGrJCraWHdre9UZai-
+X-Proofpoint-GUID: W4rNDHD9n96vMXGGrJCraWHdre9UZai-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfXwgxHNo5wYSox
+ +hHgx3HU9ZZRwLZkYIHLC4iPbq0fYxDlBYdGrca7YFQfMjNMCCzzGkue/2tJMWHR/6I/oBKMQpJ
+ GYW5ZFx1aZ0O7yrKDA7xUfhEK+yuvYU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfX6tstTj+ScFn+
+ Yh+ahFlo8Jc2mgp8DeArRiivwBG/HittagYJODfvPCMNQWV2KoUfiLY94ey+/T0rHP504+YiQm5
+ p9bVqi2bs+7mMhdcUQp+oSdR1bPYpalYfuAHAwR1n2J/mv5jA41y/yuFq+Rv+bfvSvtH/Siu9G+
+ DpQkYz83h3U2uwcV4UfL7ARkNiCvhXKX2oISkwouelED2ing1nCNb64igsoQN4gUJPeKquBxEtC
+ KpvRYRRDuC8HizMzfsnp0+69rRR6p1L+ejkyULTjCbir7PSvUKnguaJIdaBsQ239Jqyj+3oW/hW
+ FY7ugul2YrwjIOsD2tLnJaoA/htgssjJXQVk6LXv87od5ZjYbh/79tR7Jj4H++qnolmpR3snNCi
+ cKE7dTMILJ0biv68UqnvJyRNzAxGreP9B3+bqk2yGguhEwv7lvxbG7a60Bq9Rw1TjRcDoiMz5LR
+ iTtjIv1b0C86Ti8WjNw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100081
 
-On Wed, Sep 09, 2026 at 11:59:46PM +0300, Jarkko Sakkinen wrote:
->On Wed, Sep 02, 2026 at 11:24:16AM +0200, Stefano Garzarella wrote:
->> On Tue, Sep 01, 2026 at 11:58:06PM +0300, Jarkko Sakkinen wrote:
->> > tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
->> > payload->blob_len. Address this by passing the decoded blob size to
->> > tpm2_load_cmd(), and use it for the boundary checks.
->> >
->> > Cc: stable@vger.kernel.org # v5.13+
->> > Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
->> > Reported-by: co+6a581c4284f721d4@bugs.sh
->> > Closes: https://bugs.sh/b/6a581c4284f721d4/
->> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
->> > ---
->> > security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
->> > 1 file changed, 7 insertions(+), 5 deletions(-)
->> >
->> > diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
->> > index 67225dd562a9..01f18bb37047 100644
->> > --- a/security/keys/trusted-keys/trusted_tpm2.c
->> > +++ b/security/keys/trusted-keys/trusted_tpm2.c
->> > @@ -99,7 +99,7 @@ struct tpm2_key_context {
->> >
->> > static int tpm2_key_decode(struct trusted_key_payload *payload,
->> > 			   struct trusted_key_options *options,
->> > -			   u8 **buf)
->> > +			   u8 **buf, unsigned int *blob_len)
->> > {
->> > 	int ret;
->> > 	struct tpm2_key_context ctx;
->> > @@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
->>
->> 	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
->>
->> Pre-existing, but is `+ 4` here useless?
->
->I checked this through in detail.
->
->It should not be like that given that callbacks tpm2_key_{pub,priv}
->provide the length of TPM2B_PUBLIC and TPM2B_PRIVATE.
->
->Thus, it is a bug introduced by f2219745250f ("security: keys: trusted:
->use ASN.1 TPM2 key format for the blobs")
+trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
+fails. If pcrlock() succeeds, its return value overwrites the unseal error,
+causing key instantiation to succeed.
 
-Yep, agree. Do you want me to send a fix?
+Return immediately when unseal fails to preserve the original error.
 
-Thanks,
-Stefano
+Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
+Cc: stable@vger.kernel.org
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index bf0bf7f36970..9cdfeea800a3 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+ 		ret = tpm2_unseal_trusted(chip, p, options);
+ 	else
+ 		ret = key_unseal(p, options);
+-	if (ret < 0)
++	if (ret < 0) {
+ 		pr_info("key_unseal failed (%d)\n", ret);
++		goto out;
++	}
+ 
+ 	if (options->pcrlock) {
+ 		ret = pcrlock(options->pcrlock);
+-- 
+2.53.0
 
