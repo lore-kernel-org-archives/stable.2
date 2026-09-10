@@ -1,136 +1,102 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E844BE424;
-	Thu, 10 Sep 2026 16:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247014BE435
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056703; cv=none; b=oMGD8lZrLMP8EKQknwXW3jz8NS75cHay00DetZfMLPGYX4pXRdbsc++V9WFy4Izc5VhpydKeMYrBZSbs0bCDd2ns9rOtacNaC+fJYjebNJ4j5Ja+fxLb9cIj0YcQlxxCphRBUueryMkdq+HEzx4uWZuLpCmHF0uF0ueSUmNhAuM=
+	t=1789057426; cv=none; b=phMFIpaSnNZLyb7sb/59VYZ7srrm9qcczWjVAswrsTgcHSy+iuZ1sUxYAGQoIdZCxHwQR0OIjyWopegW7J0tEgV0/kwIK1IVw1AgxNk1oII/00NrRTaD74GtAU3PxXiIBPZl/WSf2sun8q0Sm6uC7/s69LfM0Ihg2Id+faCL8hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056703; c=relaxed/simple;
-	bh=m9IMd72Q+Du6fhOKO1Umo1pX/Zuz0nCkmCAKuAygOG8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CXEK2fOP9nkFBWRfqG+KCQvRVeJqzaka6VMrStw0TN+ssyy30QWytHIxivFf6Pv+gjigvEYeXgIrD5fWR23XnXGL61YF29hP8eprrtmxD7qKtMTDQ0p6Q1eoAC8lmNLsFGeiIT0GNvRBnp5TgIvuuVSxI7lnQudLwYHt1UYC5sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jSy2W0qE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O9m8z2Gm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FjNCkmJn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O4J+5s1p; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789057426; c=relaxed/simple;
+	bh=YSghPuclO7gQiXTLDzfE4bkBtKUF1sJO1s/E7HVHRx8=;
+	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 To:Cc:Content-Type; b=YAWSDRSiDAMdCA81zEvfbSHmhFynmTcay5sqCW9SGo3kY7IBiWo3UUj5sSDHiifhNLnb4hI/RtCnWM29F+i/VkeOH95aKsLvy9wNlhGwqi6vxWzgYLgsGiETqSX3zPB45RESTJfbY1fuiO/iS+DCmHHbWqkoArlVb3vX9E+8jv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=CctjByDp; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jSy2W0qE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O9m8z2Gm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FjNCkmJn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O4J+5s1p"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4EEB921DA5;
-	Thu, 10 Sep 2026 16:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789056695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTJVoTokhIxtKUnUKZO8I6RmqLBJbGupbbqv0tLZXP8=;
-	b=jSy2W0qE1MPWAekOFD2Nl85p9ExS8vGsjYy2xGZMDEzx+cxuTelULAF4M/I/xUIUlCcUq4
-	iGj/ih7+xOsbzRSl2HcUt1ThgcINYJdOLdIMgrY3+cNDGZui+KuUl3unrEQ4UidOfrgzT+
-	HEI+E2T11m+rDv9/McXFCu1SF6kc9qw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789056695;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTJVoTokhIxtKUnUKZO8I6RmqLBJbGupbbqv0tLZXP8=;
-	b=O9m8z2GmEVWX8etqjfTSkpuTIFNSklpy81YXay7gNvh8VNRPnmHFy/j/d5rPOqpGLCfoGY
-	zvPTTRZ2c9jzG+BA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789056691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTJVoTokhIxtKUnUKZO8I6RmqLBJbGupbbqv0tLZXP8=;
-	b=FjNCkmJn1su2ZbL3fNxG0P5OLAiAAjaJHwvOKlDIe4RWPaqAegpih5VMv5KIvey71OBsIX
-	D6ydSlHifkavf1S40psX4oyB1TJcU3GCrsq4E2jJ6cLIPSpfv58yUWA1hY31e0PNDKJmlX
-	tbtUEuwcEiIpEPg0xhjaJdD8m2QDaa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789056691;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTJVoTokhIxtKUnUKZO8I6RmqLBJbGupbbqv0tLZXP8=;
-	b=O4J+5s1pEtaIStHzMuGc+ZCldcmfMIv7GSd3KzeFqCGlqnB2zLLFCstukroG1jcoqwh+aI
-	x/44feG2IpMAzDCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 860401326D;
-	Thu, 10 Sep 2026 16:11:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S3dDDrLWomqlPQAAD6G6ig
-	(envelope-from <krisman@suse.de>); Thu, 10 Sep 2026 16:11:30 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] io_uring/net: don't overconsume buffers when using
- MSG_TRUNC
-In-Reply-To: <87a4pp2iog.fsf@mailhost.krisman.be>
-Organization: SUSE
-References: <20260902230041.1320658-1-krisman@suse.de>
- <20260902230041.1320658-3-krisman@suse.de>
- <0f5e8693-dcba-4fa8-87d1-570ac08e2d83@kernel.dk>
- <87a4pp2iog.fsf@mailhost.krisman.be>
-Date: Thu, 10 Sep 2026 13:11:27 -0300
-Message-ID: <875x0d2ij4.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="CctjByDp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
+	s=s1; t=1789057423;
+	bh=Ojl/NWsC9MSjDYgGDCuYdo4PQAJl7yOv7aALgpvhTkU=;
+	b=CctjByDpfVpmnxgsUyiWguRtHQFglltrewxGSBTFmzx1pQDJTZZ4NMZ5bOva2GKcYVY7
+	TNFulDf3GzGJNpZSCfjYZUcwzzcYmr3ahV8JfXCHxkk9jdOYyvKOPdrjoq3OazNtpyHlmv
+	ns/FsTmTLLChVAuywYtb1G4Q4oj1nPb7194jTOwOwUCOt6aFolv43GCYMO21YsWUpYHzkJ
+	g3kRUQ1FGVfOKUNC8T/DpBdSaLK9tBJjzgx1IAwixQVmg2k2NTaLF4gyv7psrpHsBtw0fk
+	1GpyIlSnu91vSaGImW+BZD6sNdOCQouVSy0svPb8rhgvQRJEKj+1oyTPc1NXiDTg==
+Received: by recvd-69664d99dd-bcjr2 with SMTP id recvd-69664d99dd-bcjr2-1-6AA2D98E-78
+	2026-09-10 16:23:42.801218343 +0000 UTC m=+836507.408174706
+Received: from daisy.dens.ffj.family (unknown)
+	by geopod-ismtpd-6 (SG)
+	with ESMTP
+	id uocpkYPWStS876SvS2QkZQ
+	Thu, 10 Sep 2026 16:23:42.691 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: Re: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
+Date: Thu, 10 Sep 2026 16:23:43 +0000 (UTC)
+Message-ID: <20260910162342.9854-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
+References: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io> <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,mailhost.krisman.be:mid]
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmednNviVbiXOC?=
+ =?us-ascii?Q?oREWn0PvvJP53Uz8gPPC5zPjaNtjMPM+hLjOqwU?=
+ =?us-ascii?Q?QawE=2F3B72uKOWIppfuG513fXq618S6PDhcLtW4t?=
+ =?us-ascii?Q?6mNk3XgvuMeDVZkUvWdsdZ4eV2RtJ1CssKu6wNa?=
+ =?us-ascii?Q?RESe8rnvPTUkNNkPAVyHBGFmtdEKysMLnVW8vKJ?= =?us-ascii?Q?qAK3?=
+To: Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Liz Fong-Jones <lizf@honeycomb.io>, Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
 
-Gabriel Krisman Bertazi <krisman@suse.de> writes:
-
-
-> I'm folding your fix up in the v3, modulo a compilation error.  It only
-> changes the error path, the bug is still fixed on 7.3 with your patch
-> folded in.
-
-Please scratch that.  I misunderstood your previous email. I see you
-applied it on io_uring-7.3 with your fix up.  Looks good and the
-test still passes. I'll turn it into a liburing test.
-
-
-
-> Any suggestions on how to test this error path for liburing?
-> I got a test for the bug, but testing ret<0 means failing the socket.
+On Ilpo Järvinen wrote:
+> Great, it worked (I was somewhat afraid there might have been some
+> landmine for the case where there's no bridge).
 >
->
-> -- 
-> Gabriel Krisman Bertazi
+> And yes, it's very important in general case to assign the resource in
+> correct order because the assignment algorithm is greedy.
 
--- 
-Gabriel Krisman Bertazi
+Thanks, Ilpo, for both reviews.
+
+Yes, it works fine even without the bridge. This is what it looks
+like when triggering the resize through sysfs, and through amdgpu's
+probe-on-insmod, on the actual root-bus hardware (HoneyComb LX2K,
+LX2160A, dGPU directly on the root bus, no upstream bridge).
+
+Manual trigger via sysfs (shrink then grow back, forcing the release
++ reassign path both directions):
+
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: releasing
+  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: releasing
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: assigned
+  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: assigned
+  ...
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: assigned
+  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: assigned
+
+And the real-world path, amdgpu's own probe with the amdgpu.rebar=0
+workaround removed:
+
+  amdgpu 0004:01:00.0: VRAM: 4096M 0x000000F400000000 - 0x000000F4FFFFFFFF (4096M used)
+  amdgpu 0004:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
+  amdgpu 0004:01:00.0:  4096M of VRAM memory ready
+
+No "Fatal error during GPU init" (the original regression's failure
+signature), full IP block init, driver comes up clean.
