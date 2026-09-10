@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC9E4BFE90
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20B491581
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050233; cv=none; b=Fhcj+dnD5stbBv/2l2vcxxHE626rMbh0oq7c0lEwf9mxKIyzphPxOfl6e3ODrO7I21a7wAxG5ML0Ay+kVURP2k7JekmXL6IiFlHkzciM2R4osV4fFP+4uCOMEKqT8XzLOJLCJ/ZmcMFKsHrwK2LGyTPjF8TxvjdCybkvSsHqIyY=
+	t=1789050236; cv=none; b=KjrP3010YgGqIcKUO60wg60Xz0x/QXvw1i4lUiUn+YnWBFnwC2ev6FQ2OtaCOqplR9xSFYLwz0gTafEHtaOlFKQQCSMO8c+HVR35U0HPPCpUFm/Uj7kI5tXVqXZrB/HTdT6PEX8bfh99qr8r2dFGZbMbgqa24eir7mzqjx5U0h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050233; c=relaxed/simple;
-	bh=4JCd2yPFLw6KuvBEBs1yooEWEV6FCjppr4ey6apZQ7w=;
+	s=arc-20240116; t=1789050236; c=relaxed/simple;
+	bh=ccoCUm+cWcYi9VCBN+t2kALEq4aYnLHbgwMLMCDkXms=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JAu4KBPu+CjSh2dPvdPUqUafnaTe/3ZhU5HyUgHk873UJ+Gif10PXSMDEgV/bCUc3C0U+13NK6pXUQwfOvjVaobW5hN6cXmCzACk2H+HeL59FZaaPEZpoMF3dCmslm5b3b/u3exm2Qdwt9hH7k6NvZXZ5Z0vXkDeefztnll/Rpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZX3w5Qyy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TM+yfB0RpkftjpjDulEiDpGtBGmtOqyMfK2qCRMMml6ExI0d1ZQs+2+UxaNvQmxeWx/IqrN26tG4coZ7ksACEc0qLv9FqeU2YD9x4ojDXeIqB/jNhvywH0s5/9FbbJpvOHdI7MQ+iVEPryXEkzbyGsn20SvaxNblB5BKsi7Dn48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IiXOiHVg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZX3w5Qyy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423CB1F00893;
-	Thu, 10 Sep 2026 14:23:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IiXOiHVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7D61F000FF;
+	Thu, 10 Sep 2026 14:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050231;
-	bh=mYklcYrGmSCspOC2o2DweuQUB/66V2FaREFcqUShdmc=;
+	s=k20260515; t=1789050235;
+	bh=jkFWsVoZLaB60Gzn8wyAxySMu25l08rbs2sz7h43zJ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZX3w5QyymeQ0NisGVCXUfJmEkS6VL4/XqBt1h6T8kXqtKmqXnCUU5rM6xxODJqtPb
-	 VIj0IvC6pAg1QF1OwSYsF8RzRUDxvOLY/kcDK1uEdZ/AEg9f02kWceK7RNA4NA+Bou
-	 1Hmvtze+M2oOGFKeu1/oyVTbLvBJ/mIP4AoknqhcsLL9DKWTrhFlS8CIfNxMkqrKLU
-	 RqXnFRLPgjzE9vpyJ54bU5G7TDC3daCibU6IkAP2DklxWa0gRHTW7lzulL0XuVXC0v
-	 vZMcuPpSydVS5H6nQu5ARKIkdL8tUqXHTRp/kpO5fFL1v1IZw6NYDaK7m0/gTaxx86
-	 3wejKscHsEnEQ==
+	b=IiXOiHVgouhdsF2juWBxPIy3iv4PEmPQUXPYojf3LG1WAZVVmRbsdGMnQohiV+NDY
+	 u+3uwtYgViit1io+bfa5AzGki6nmmUqOYfYU4FsNxtIyGUx8BpD+8nSMG/zIf2yIgR
+	 ZEuh9miyLTXX7n7swzC+UAbb5wi95WiEgJpbs0jgET+EMi+jlo2xiCsD8RpGWWQPOe
+	 tMhBpItT5YAIvdSz34xTwn8KAoVET4LhiK0DzonfblLoJsCWvpC7+L5XCiLOd+T4HO
+	 R20dmbPPT7Tzsr9zAUYofJNVz9cOqjnLHdkd7qNE0lpvTS4uXh1KNkLx3JcpYpwNVa
+	 ptCoZBO79w4bg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Baineng Shou <shoubaineng@gmail.com>,
@@ -34,8 +34,8 @@ Cc: Baineng Shou <shoubaineng@gmail.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.18.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 10:23:49 -0400
-Message-ID: <20260910142349.675041-1-sashal@kernel.org>
+Date: Thu, 10 Sep 2026 10:23:53 -0400
+Message-ID: <20260910142353.675226-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <2026090814-frequency-igloo-c376@gregkh>
 References: <2026090814-frequency-igloo-c376@gregkh>
@@ -109,7 +109,7 @@ Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
 Signed-off-by: Christian König <christian.koenig@amd.com>
-[ replaced dma_buf_fd_install() with fd_install(fd, dmabuf->file) due to missing DMA_BUF_TRACE support. ]
+[ Replaced dma_buf_fd_install(dmabuf, fd) with fd_install(fd, dmabuf->file) due to missing tracing infrastructure. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
