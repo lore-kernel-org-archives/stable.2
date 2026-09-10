@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612A33AD8B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7004BFE93
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789004135; cv=none; b=TX60t4B21UkGDJbX295LXELc3U0aL7/wbdntukdbHzDXHgIZMlnpey2KhBpbmZUZtwxZmU0/VNFyJ/rvP7nBijcLi8Zgy4T2BQJ5HD0QxKQkGjc2dSjW8aCzt1hrXe0QJbOPiLf9n2+HqSoWar0IEJL517m3vrlqWYO+GsAJ7vA=
+	t=1789004138; cv=none; b=hO+mkXmrBJMqwJZzaR+D9pK5MkBtmwkSB0Isb1AMEb8v1/BOiB9P4d3mQbntVlxpZ4z7Mo6C2iDH9zvwo/MPtWRHUgC832lJTIcOWObEwL92XejU7C327M5PzSNmX7dzdR+YvTifo7nWOk+qUbRrBdYQAwmre4I02yMpSke0dcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789004135; c=relaxed/simple;
-	bh=R3/+HDhZnRqMRN/wAYQaScScx7miqp7I7MJaJUHdPFA=;
+	s=arc-20240116; t=1789004138; c=relaxed/simple;
+	bh=lR9aO8ZXKEyOPnaFtmdBZ/NZ4iulpwQYpD/pQeGG7zw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YX8Q+VII2skj+9FOHD73lydBrUxNPQ0lPSdr4ojYYQ1HBe9140JKNPS+4SkChL7PjWKcnu5TdnUt16R6QRR78uKIyZeHqG4pu0XVCH7LshL1aLSioweA7Ylt+pRPT4XklsN4uSN6QiyZThZcnLztJTrHvYEWsplB8Pr791QG6KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=je2wSDgW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ic9qs3TpxUbXL8D8aeL2Ofxnm1kUaqEolMqyOWFC8JB8j2ujS3gzROXUncz7stbsOaxMq+0/8d6I7XAgf7FFn3KdQVvvh2xXWSBUYfPuDITd/i/dz6V4zG2RUvpxScREHezoUPL4qhQI0FfGofbQ6FBnI9HDkSzatS2THlT1BAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLwCElx/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="je2wSDgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FEB1F00899;
-	Thu, 10 Sep 2026 01:35:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLwCElx/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773BE1F000FF;
+	Thu, 10 Sep 2026 01:35:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789004133;
-	bh=568vk0EwVnS1xfHwDM+P+ydK7m18PDmDJSvMB6hKpuI=;
+	s=k20260515; t=1789004137;
+	bh=YCHe7ENvXCwCzq45WzgSo+MeM6ULLJKCAgY5YEUFoZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=je2wSDgWaNSUwDvZWgED0GZnK9zrREiUU3cHUqyycGQwtIVr3lBeHesK1WavtfbOd
-	 x120z8MCAeL5LS5iixi5N+69qy980bnqwIpoZUmbhqb2jMVYR3+aWeijw7qqF/Lrb9
-	 I9NFdWM+U4ON4ae4TiPygDrJsQlXETBxDljoCFIhQMdm8hOi32c0evTK2l0XZJ114A
-	 jBILmQUzbYsoRmagfM2sRRbM1XdQ9pECiIINQVFSRFiXV6naXlFVXt8uz1xvWPBVfH
-	 RaXH37doPICnpoWeZR382l7GVy5rqP5yttY6v9j64R3AMJ3Y+6kkhR28Iy1k/nnsrP
-	 t55NgYKPOL1MA==
+	b=KLwCElx/4DrsugElIGl+df9cHPik1ZHBnYvohdkZtAdE/cco0+ZRumm3zFJYt70Jh
+	 x9gvxa0NJubH60EPfjxazH7ieckZydX1kJIC3/c59nHvJ9pCLkinVzSx9JRkMvEey/
+	 3p+arrXjwm7ALCZT2fQQRRRyJbxMecyH4XVdAu8bHpNPSRn9OmwS1s5rAyaV7ljYOc
+	 hd0PqWShBR8cfHsnWfH+ImEgQIYNmFPx16fGXYCSLWfFRjOG3/gJqYnioXivH2JgF6
+	 +9JGI5Cmo2iruxbvdnUnOXyN2hBBCOJovPLOhFDrwDKnxNm46/h5I+cSVHABANYw94
+	 Vg4jCv4wuMdgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Yuhang.chen" <yhchen312@gmail.com>,
-	Ping-Ke Shih <pkshih@realtek.com>,
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] wifi: rtw89: pci: add .shutdown callback to stop rfkill polling on reboot
-Date: Wed,  9 Sep 2026 21:35:30 -0400
-Message-ID: <20260910013530.3901662-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior
+Date: Wed,  9 Sep 2026 21:35:33 -0400
+Message-ID: <20260910013534.3902140-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910013530.3901662-1-sashal@kernel.org>
-References: <2026090433-armed-frequent-d9dc@gregkh>
- <20260910013530.3901662-1-sashal@kernel.org>
+In-Reply-To: <2026090819-scribing-superman-d087@gregkh>
+References: <2026090819-scribing-superman-d087@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,197 +45,201 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Yuhang.chen" <yhchen312@gmail.com>
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-[ Upstream commit 667c12782aaf8dd3cb2213e528fe63a73cb63345 ]
+[ Upstream commit dcfe437492e27d54f3ac491aed024da760f5c43c ]
 
-Since the hardware rfkill polling was introduced, arm64 platforms can
-panic with an asynchronous SError during warm reboot:
+There are too many different host behaviors when it comes to NoStream
+handling, and not everyone follows the USB and xHCI spec. The DWC3
+driver attempts to do some guess work to interop with different hosts,
+but it can't cover everything. Let's keep it simple and treat every host
+the same: just retry on NoStream after a 100ms of no response delay.
+Note that some hosts cannot handle frequent retries. This may affect
+performance on certain defective hosts, but NoStream is a rare
+occurrence and interoperability is more important.
 
-  SError Interrupt on CPU8, code 0x00000000be000011 -- SError
-  Workqueue: events_power_efficient rfkill_poll [rfkill]
-    rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
-    rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
-    rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
-    ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
-    cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
-    rfkill_poll+0x30/0x88 [rfkill]
-  Kernel panic - not syncing: Asynchronous SError Interrupt
-
-On the reboot path the kernel only runs device_shutdown(), which calls
-each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
-driver had no .shutdown callback, so nothing stopped the rfkill polling
-work while the platform was tearing the PCIe link down.  Once the link
-is gone, the next MMIO read from the poll handler targets a
-non-responding device and is reported as a fatal asynchronous SError on
-arm64.
-
-Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
-sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
-RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
-rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
-chip after shutdown begins and the SError no longer occurs.
-
-This does not call the full .remove path from .shutdown, to keep the
-shutdown handler minimal and avoid running the non-idempotent teardown
-twice.
-
-Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
-Cc: stable@vger.kernel.org
-Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
-Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20260729014142.2746777-1-yhchen312@gmail.com
-[ Adapted the shutdown check to use the existing goto out path for mutex unlocking. ]
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://lore.kernel.org/r/b92ae94c86f01f165d5f178b7767898573b6dc75.1736819308.git.Thinh.Nguyen@synopsys.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: b58e6200450d ("usb: dwc3: clear forceRM when issuing EndTransfer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw89/core.h       |  1 +
- drivers/net/wireless/realtek/rtw89/mac80211.c   |  3 ++-
- drivers/net/wireless/realtek/rtw89/pci.c        | 13 +++++++++++++
- drivers/net/wireless/realtek/rtw89/pci.h        |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8851be.c  |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8852ae.c  |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8852be.c  |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8852bte.c |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8852ce.c  |  1 +
- drivers/net/wireless/realtek/rtw89/rtw8922ae.c  |  1 +
- 10 files changed, 23 insertions(+), 1 deletion(-)
+ drivers/usb/dwc3/core.h   |   3 +-
+ drivers/usb/dwc3/gadget.c | 109 ++++++++++++++++++++------------------
+ 2 files changed, 59 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wireless/realtek/rtw89/core.h
-index 0b48d2dfce4cc..36ae35afda16d 100644
---- a/drivers/net/wireless/realtek/rtw89/core.h
-+++ b/drivers/net/wireless/realtek/rtw89/core.h
-@@ -4725,6 +4725,7 @@ enum rtw89_flags {
- 	RTW89_FLAG_CHANGING_INTERFACE,
- 	RTW89_FLAG_HW_RFKILL_STATE,
- 	RTW89_FLAG_UNPLUGGED,
-+	RTW89_FLAG_SHUTDOWN,
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 45084ca66806e..d1d8985195bf5 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -726,6 +726,7 @@ struct dwc3_event_buffer {
+  */
+ struct dwc3_ep {
+ 	struct usb_ep		endpoint;
++	struct delayed_work	nostream_work;
+ 	struct list_head	cancelled_list;
+ 	struct list_head	pending_list;
+ 	struct list_head	started_list;
+@@ -748,7 +749,7 @@ struct dwc3_ep {
+ #define DWC3_EP_WAIT_TRANSFER_COMPLETE	BIT(7)
+ #define DWC3_EP_IGNORE_NEXT_NOSTREAM	BIT(8)
+ #define DWC3_EP_FORCE_RESTART_STREAM	BIT(9)
+-#define DWC3_EP_FIRST_STREAM_PRIMED	BIT(10)
++#define DWC3_EP_STREAM_PRIMED		BIT(10)
+ #define DWC3_EP_PENDING_CLEAR_STALL	BIT(11)
+ #define DWC3_EP_TXFIFO_RESIZED		BIT(12)
+ #define DWC3_EP_DELAY_STOP             BIT(13)
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 1d40e5136ef0c..82ad6f4d2c6a1 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -997,8 +997,7 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
  
- 	NUM_OF_RTW89_FLAGS,
- };
-diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c b/drivers/net/wireless/realtek/rtw89/mac80211.c
-index d1f9bd41f8b5d..cf766849086ff 100644
---- a/drivers/net/wireless/realtek/rtw89/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
-@@ -1550,7 +1550,8 @@ static void rtw89_ops_rfkill_poll(struct ieee80211_hw *hw)
- 	mutex_lock(&rtwdev->mutex);
- 
- 	/* wl_disable GPIO get floating when entering LPS */
--	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags))
-+	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags) ||
-+	    test_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags))
- 		goto out;
- 
- 	rtw89_core_rfkill_poll(rtwdev, false);
-diff --git a/drivers/net/wireless/realtek/rtw89/pci.c b/drivers/net/wireless/realtek/rtw89/pci.c
-index c3a8a7af06472..a806aa39173b1 100644
---- a/drivers/net/wireless/realtek/rtw89/pci.c
-+++ b/drivers/net/wireless/realtek/rtw89/pci.c
-@@ -4451,6 +4451,19 @@ void rtw89_pci_remove(struct pci_dev *pdev)
+ 			/*
+ 			 * All stream eps will reinitiate stream on NoStream
+-			 * rejection until we can determine that the host can
+-			 * prime after the first transfer.
++			 * rejection.
+ 			 *
+ 			 * However, if the controller is capable of
+ 			 * TXF_FLUSH_BYPASS, then IN direction endpoints will
+@@ -3337,6 +3336,50 @@ static int dwc3_gadget_init_out_endpoint(struct dwc3_ep *dep)
+ 	return dwc3_alloc_trb_pool(dep);
  }
- EXPORT_SYMBOL(rtw89_pci_remove);
  
-+void rtw89_pci_shutdown(struct pci_dev *pdev)
++#define nostream_work_to_dep(w) (container_of(to_delayed_work(w), struct dwc3_ep, nostream_work))
++static void dwc3_nostream_work(struct work_struct *work)
 +{
-+	struct ieee80211_hw *hw = pci_get_drvdata(pdev);
-+	struct rtw89_dev *rtwdev;
++	struct dwc3_ep	*dep = nostream_work_to_dep(work);
++	struct dwc3	*dwc = dep->dwc;
++	unsigned long   flags;
 +
-+	if (!hw)
++	spin_lock_irqsave(&dwc->lock, flags);
++	if (dep->flags & DWC3_EP_STREAM_PRIMED)
++		goto out;
++
++	if ((dep->flags & DWC3_EP_IGNORE_NEXT_NOSTREAM) ||
++	    (!DWC3_MST_CAPABLE(&dwc->hwparams) &&
++	     !(dep->flags & DWC3_EP_WAIT_TRANSFER_COMPLETE)))
++		goto out;
++	/*
++	 * If the host rejects a stream due to no active stream, by the
++	 * USB and xHCI spec, the endpoint will be put back to idle
++	 * state. When the host is ready (buffer added/updated), it will
++	 * prime the endpoint to inform the usb device controller. This
++	 * triggers the device controller to issue ERDY to restart the
++	 * stream. However, some hosts don't follow this and keep the
++	 * endpoint in the idle state. No prime will come despite host
++	 * streams are updated, and the device controller will not be
++	 * triggered to generate ERDY to move the next stream data. To
++	 * workaround this and maintain compatibility with various
++	 * hosts, force to reinitiate the stream until the host is ready
++	 * instead of waiting for the host to prime the endpoint.
++	 */
++	if (DWC3_VER_IS_WITHIN(DWC32, 100A, ANY)) {
++		unsigned int cmd = DWC3_DGCMD_SET_ENDPOINT_PRIME;
++
++		dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
++	} else {
++		dep->flags |= DWC3_EP_DELAY_START;
++		dwc3_stop_active_transfer(dep, true, true);
++		spin_unlock_irqrestore(&dwc->lock, flags);
 +		return;
-+
-+	rtwdev = hw->priv;
-+	set_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags);
++	}
++out:
++	dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
++	spin_unlock_irqrestore(&dwc->lock, flags);
 +}
-+EXPORT_SYMBOL(rtw89_pci_shutdown);
 +
- MODULE_AUTHOR("Realtek Corporation");
- MODULE_DESCRIPTION("Realtek PCI 802.11ax wireless driver");
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/drivers/net/wireless/realtek/rtw89/pci.h b/drivers/net/wireless/realtek/rtw89/pci.h
-index 0ea4dcb84dd86..7b438ffa41d0e 100644
---- a/drivers/net/wireless/realtek/rtw89/pci.h
-+++ b/drivers/net/wireless/realtek/rtw89/pci.h
-@@ -1602,6 +1602,7 @@ struct pci_device_id;
+ static int dwc3_gadget_init_endpoint(struct dwc3 *dwc, u8 epnum)
+ {
+ 	struct dwc3_ep			*dep;
+@@ -3382,6 +3425,7 @@ static int dwc3_gadget_init_endpoint(struct dwc3 *dwc, u8 epnum)
+ 	INIT_LIST_HEAD(&dep->pending_list);
+ 	INIT_LIST_HEAD(&dep->started_list);
+ 	INIT_LIST_HEAD(&dep->cancelled_list);
++	INIT_DELAYED_WORK(&dep->nostream_work, dwc3_nostream_work);
  
- int rtw89_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id);
- void rtw89_pci_remove(struct pci_dev *pdev);
-+void rtw89_pci_shutdown(struct pci_dev *pdev);
- void rtw89_pci_ops_reset(struct rtw89_dev *rtwdev);
- int rtw89_pci_ltr_set(struct rtw89_dev *rtwdev, bool en);
- int rtw89_pci_ltr_set_v1(struct rtw89_dev *rtwdev, bool en);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8851be.c b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
-index d334924faec8c..a036e2a7a2e08 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8851be.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
-@@ -84,6 +84,7 @@ static struct pci_driver rtw89_8851be_driver = {
- 	.id_table	= rtw89_8851be_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops,
- };
- module_pci_driver(rtw89_8851be_driver);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
-index 9a675e2193bcd..ab70abc80011a 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
-@@ -86,6 +86,7 @@ static struct pci_driver rtw89_8852ae_driver = {
- 	.id_table	= rtw89_8852ae_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops,
- };
- module_pci_driver(rtw89_8852ae_driver);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852be.c b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-index d8f9d92ca0fb9..f787da3c65d4b 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-@@ -88,6 +88,7 @@ static struct pci_driver rtw89_8852be_driver = {
- 	.id_table	= rtw89_8852be_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops,
- };
- module_pci_driver(rtw89_8852be_driver);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
-index 7029481196468..635edbb28a066 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
-@@ -84,6 +84,7 @@ static struct pci_driver rtw89_8852bte_driver = {
- 	.id_table	= rtw89_8852bte_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops,
- };
- module_pci_driver(rtw89_8852bte_driver);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
-index 8aaad7d58c0d9..1d9096854b699 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
-@@ -113,6 +113,7 @@ static struct pci_driver rtw89_8852ce_driver = {
- 	.id_table	= rtw89_8852ce_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops,
- };
- module_pci_driver(rtw89_8852ce_driver);
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
-index 47f855a7a2688..c71de2da3cfaf 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
-@@ -82,6 +82,7 @@ static struct pci_driver rtw89_8922ae_driver = {
- 	.id_table	= rtw89_8922ae_id_table,
- 	.probe		= rtw89_pci_probe,
- 	.remove		= rtw89_pci_remove,
-+	.shutdown	= rtw89_pci_shutdown,
- 	.driver.pm	= &rtw89_pm_ops_be,
- };
- module_pci_driver(rtw89_8922ae_driver);
+ 	dwc3_debugfs_create_endpoint_dir(dep);
+ 
+@@ -3817,66 +3861,27 @@ static void dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+ static void dwc3_gadget_endpoint_stream_event(struct dwc3_ep *dep,
+ 		const struct dwc3_event_depevt *event)
+ {
+-	struct dwc3 *dwc = dep->dwc;
+-
+ 	if (event->status == DEPEVT_STREAMEVT_FOUND) {
+-		dep->flags |= DWC3_EP_FIRST_STREAM_PRIMED;
+-		goto out;
++		cancel_delayed_work(&dep->nostream_work);
++		dep->flags |= DWC3_EP_STREAM_PRIMED;
++		dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
++		return;
+ 	}
+ 
+ 	/* Note: NoStream rejection event param value is 0 and not 0xFFFF */
+ 	switch (event->parameters) {
+ 	case DEPEVT_STREAM_PRIME:
+-		/*
+-		 * If the host can properly transition the endpoint state from
+-		 * idle to prime after a NoStream rejection, there's no need to
+-		 * force restarting the endpoint to reinitiate the stream. To
+-		 * simplify the check, assume the host follows the USB spec if
+-		 * it primed the endpoint more than once.
+-		 */
+-		if (dep->flags & DWC3_EP_FORCE_RESTART_STREAM) {
+-			if (dep->flags & DWC3_EP_FIRST_STREAM_PRIMED)
+-				dep->flags &= ~DWC3_EP_FORCE_RESTART_STREAM;
+-			else
+-				dep->flags |= DWC3_EP_FIRST_STREAM_PRIMED;
+-		}
+-
++		cancel_delayed_work(&dep->nostream_work);
++		dep->flags |= DWC3_EP_STREAM_PRIMED;
++		dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
+ 		break;
+ 	case DEPEVT_STREAM_NOSTREAM:
+-		if ((dep->flags & DWC3_EP_IGNORE_NEXT_NOSTREAM) ||
+-		    !(dep->flags & DWC3_EP_FORCE_RESTART_STREAM) ||
+-		    (!DWC3_MST_CAPABLE(&dwc->hwparams) &&
+-		     !(dep->flags & DWC3_EP_WAIT_TRANSFER_COMPLETE)))
+-			break;
+-
+-		/*
+-		 * If the host rejects a stream due to no active stream, by the
+-		 * USB and xHCI spec, the endpoint will be put back to idle
+-		 * state. When the host is ready (buffer added/updated), it will
+-		 * prime the endpoint to inform the usb device controller. This
+-		 * triggers the device controller to issue ERDY to restart the
+-		 * stream. However, some hosts don't follow this and keep the
+-		 * endpoint in the idle state. No prime will come despite host
+-		 * streams are updated, and the device controller will not be
+-		 * triggered to generate ERDY to move the next stream data. To
+-		 * workaround this and maintain compatibility with various
+-		 * hosts, force to reinitiate the stream until the host is ready
+-		 * instead of waiting for the host to prime the endpoint.
+-		 */
+-		if (DWC3_VER_IS_WITHIN(DWC32, 100A, ANY)) {
+-			unsigned int cmd = DWC3_DGCMD_SET_ENDPOINT_PRIME;
+-
+-			dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
+-		} else {
+-			dep->flags |= DWC3_EP_DELAY_START;
+-			dwc3_stop_active_transfer(dep, true, true);
+-			return;
+-		}
++		dep->flags &= ~DWC3_EP_STREAM_PRIMED;
++		if (dep->flags & DWC3_EP_FORCE_RESTART_STREAM)
++			queue_delayed_work(system_wq, &dep->nostream_work,
++					   msecs_to_jiffies(100));
+ 		break;
+ 	}
+-
+-out:
+-	dep->flags &= ~DWC3_EP_IGNORE_NEXT_NOSTREAM;
+ }
+ 
+ static void dwc3_endpoint_interrupt(struct dwc3 *dwc,
 -- 
 2.53.0
 
