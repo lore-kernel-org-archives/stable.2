@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033A74CCDE3
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:14:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5872359481B
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:14:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067669; cv=none; b=KqHUx8nY8014Ebop7Q6p3MTs7PM9i/ABOZaO5KVR8BTNgCNB8TXa34PNS2C/WSOZccLjfaO/zS/j7Mu74td6uH2hrjl03cB2ME0TFGEI2Mp7NNco8UC9jVMRh5w/Eyi8UWUWxB1DNpvbjT9hUsleshO7PUTdTNSwVxJjc0e1hQg=
+	t=1789067670; cv=none; b=h0k5cNY5yUxlRzApCBrHx6r5Vti7nUXwLTOH/ONnlGN3R3BuuEgNccAKvba65g9F/vfQkHcWmhrb/82heYb+m9N5DhaCfaok7aNOdH3h0SdwZnOOMDcCMCrLa4I4jFKx31FfyiZX6t/P7zoJL1EMIAzEoTSA15FXOC1gc1M+T0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067669; c=relaxed/simple;
-	bh=o7sz3cRs3zB+5cRdf/oZvyRbDfkBKlCxIAwPAiNmf9Q=;
+	s=arc-20240116; t=1789067670; c=relaxed/simple;
+	bh=Nn0GvbW34KoFSiU258CwHcaVAuDeGLyAX9S5mr+zsXo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kh9/dqpVKJVZhZ3JeMZh4RPrLaJf9OQV1FoUqqS/3G9qgdZDBHNGL+JVaUAvMy6Qmr+XeVEiPQvogJ2mIp9UaBC5b692TYG2VFI06/fJ8Wc3vDmRuWW+EHTraVpsKB0AAus4cmMYmmT4VMXVKHBbULw6SB+IrTg+HZHdYfBp0rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkeGFLcr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aUbueD8CIQh/mawWq31st2waTbmbSHt/Cqvz2ugDTLLU7JOyr4/O0izJxFELKZ6jULMDB50fOSBWxBg0x2P8761JarCuXqaXhz/LHMnDo4KZ1bbE+QFYXNzf3nCLqjJaLZFeDZpguvz7AYjL7fICn092y+ZflGsFhy2DedNX+hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tmlf8bgf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkeGFLcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B921F000FF;
-	Thu, 10 Sep 2026 19:14:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tmlf8bgf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5881F00893;
+	Thu, 10 Sep 2026 19:14:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067667;
-	bh=LleZVz/HRyF9TlKZIA0DMTlJVxXrqLiyTdkymlKqQS8=;
+	s=k20260515; t=1789067669;
+	bh=bLqWm9yO/77w4PtkTEatyg8xOM7bVZYKeNFDDDiobAw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MkeGFLcrhx8a+23Pz7kLJcNMZaNq6ga4mTHpxDpjyFSmu36CYX03qoK7cfsNytnP7
-	 igblg6rMT7vdtLXmgcl30vhp8J0Pwna4RtzbOnrV6mRskLudRArBUTjcqxbjNcytVi
-	 2LwxV7A5o3tncjIh+9DWu3qcf9xoDBUWSEVzdYkAg4qSdxQ6AChvtTYdDRJdD33WJW
-	 txkDjYxsONpwA/0RkPINqrkVC9vSsrY46cfTdSpJtzSwiW6pi93vonkkXtMfe35L3M
-	 lkWoJReqtfwJ6rOJyum+kChXFnPPDRvxvfrIIoHTSsjBeEqW4ldPlbh54zhpjym6WW
-	 tq9AI+HsYfeNw==
+	b=Tmlf8bgfDRiC6FtAcA+sb9XWKXMbNBrbPolYLul9l/rPoIx17IIUo2KWYsQP+RvXs
+	 pPzVA435R02LisEHFv2FILUZfHK1rlSVP8V4gJ+PTiaOHDonuHqX6oZK7XEo6ABN1j
+	 GspIEh/WYQUKiDY5DXIdodcQ3gbl4KW9vKMu4QXIL+1S7wLdqD+ha4DIsmyURGfs6c
+	 VcXfyeQ+EsYI9B3D+JtuTxV1G0ZHvCaEfKq02EFGqVPg7aKCLWDpw4SHM0sBbdRVD4
+	 5vsG/dgtcZeZ2NNGYJ7ZNx6dyKJavEmqUJJ0OEmrYQnZfG9aJTJo2LPhNvWOVeG8VP
+	 GaNIs9I+U4+Qw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nvme-fabrics: fix DHCHAP secret leak on parse failure
-Date: Thu, 10 Sep 2026 15:14:25 -0400
-Message-ID: <20260910191425.1482187-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ring-buffer: Show persistent buffer dropped events in trace_pipe file
+Date: Thu, 10 Sep 2026 15:14:26 -0400
+Message-ID: <20260910191427.1482318-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090915-fasting-saddled-14f5@gregkh>
-References: <2026090915-fasting-saddled-14f5@gregkh>
+In-Reply-To: <2026090939-revisable-paving-9733@gregkh>
+References: <2026090939-revisable-paving-9733@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,71 +45,199 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit afdee49a1b88ed9bb44e2b30e855297c169bcc53 ]
+[ Upstream commit 8928e4a3be34bf053f9ef1cad67263604bf4f05e ]
 
-nvmf_parse_options() duplicates dhchap_secret and dhchap_ctrl_secret
-with match_strdup() before validating the DHHC-1: representation.
+When the persistent ring buffer is validated on boot up, if a subbuffer is
+deemed invalid, it resets the buffer and continues. Have the code preserve
+the RB_MISSED_EVENTS flag in the commit portion of the subbuffer header
+and pass that back so that the trace_pipe file can show the missed events
+like the trace file does.
 
-If validation fails, the parser returns -EINVAL before the temporary
-string in p is assigned to opts->dhchap_secret or
-opts->dhchap_ctrl_secret. nvmf_create_ctrl() subsequently frees opts,
-but nvmf_free_options() cannot release the unassigned temporary string.
-Each rejected option therefore leaks one allocation.
+For example:
 
-This is easy to miss because valid secrets transfer ownership to opts
-and are freed normally, while the malformed-secret path still returns
-the expected -EINVAL to userspace.
+   <...>-1242    [005] d....  4429.120116: page_fault_user: address=0x7ffaebb6e728 ip=0x7ffaeb9d4960 error_code=0x7
+   <...>-1242    [005] .....  4429.120124: mm_page_alloc: page=00000000055254f3 pfn=0x1373bd order=0 migratetype=1 gfp_flags=GFP_HIGHUSER_MOVABLE|__GFP_COMP
+   <...>-1242    [005] d..2.  4429.120132: tlb_flush: pages:1 reason:local MM shootdown (3)
+CPU:5 [LOST EVENTS]
+   <...>-1242    [005] d....  4429.120661: page_fault_user: address=0x55ba7c2d0944 ip=0x55ba7c20cd02 error_code=0x7
+   <...>-1242    [005] .....  4429.120669: mm_page_alloc: page=0000000005a02500 pfn=0x12b6e4 order=0 migratetype=1 gfp_flags=GFP_HIGHUSER_MOVABLE|__GFP_COMP
+   <...>-1242    [005] d..2.  4429.120680: tlb_flush: pages:1 reason:local MM shootdown (3)
 
-With CONFIG_NVME_HOST_AUTH enabled, the leak is reachable before the
-required-option checks and transport lookup. No NVMe-oF target or
-working transport connection is required; for example, repeatedly
-writing
+Link: https://patch.msgid.link/20260522171052.156419479@kernel.org
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-	dhchap_secret=BAD
+Backport notes for 6.18:
 
-or
+Keep the ring_buffer_read_page() changes needed as context for
+6365c44a824f ("ring-buffer: Allow splice reads on static buffers").
+Separate the raw commit flags from the page byte count and preserve the
+lost-events flag when copying page contents. Keep the existing bpage name,
+rb_page_capacity(reader) bounds and unsigned lost-event count. Read and
+mask bpage->commit directly instead of adding the newer data-page helpers.
 
-	dhchap_ctrl_secret=BAD
+Drop the reader-page unknown-loss propagation: this tree lacks the
+persistent invalid-subbuffer recovery and signed-loss reporting changes
+that make that path meaningful.
 
-to /dev/nvme-fabrics deterministically takes the leaking parse path.
+Keep the copy loop bounded by the page size, not event_size, avoiding the
+one-event-per-read regression subsequently fixed by af05b4e06279. Preserve
+the loss flag when trimming a swapped page to real_end, and combine output
+flags with bitwise OR so an already-set flag is not added a second time.
 
-Free the temporary string before leaving both validation error paths.
-Use kfree_sensitive() because the copied option may contain secret
-material even when its representation is rejected, matching the
-sensitive cleanup used for stored DHCHAP secrets.
-
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Stable-dep-of: 6365c44a824f ("ring-buffer: Allow splice reads on static buffers")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/fabrics.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/trace/ring_buffer.c | 56 ++++++++++++++++++++++----------------
+ 1 file changed, 32 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-index fd01b86f10a4b..908961bbbe8fd 100644
---- a/drivers/nvme/host/fabrics.c
-+++ b/drivers/nvme/host/fabrics.c
-@@ -952,6 +952,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 			}
- 			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
- 				pr_err("Invalid DH-CHAP secret %s\n", p);
-+				kfree_sensitive(p);
- 				ret = -EINVAL;
- 				goto out;
- 			}
-@@ -966,6 +967,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 			}
- 			if (strlen(p) < 11 || strncmp(p, "DHHC-1:", 7)) {
- 				pr_err("Invalid DH-CHAP secret %s\n", p);
-+				kfree_sensitive(p);
- 				ret = -EINVAL;
- 				goto out;
- 			}
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 47e6e1088e428..18095c7d31fa7 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -6524,6 +6524,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	struct buffer_page *reader;
+ 	unsigned long missed_events;
+ 	unsigned int commit;
++	unsigned int size;
+ 	unsigned int read;
+ 	u64 save_timestamp;
+ 
+@@ -6558,7 +6559,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	event = rb_reader_event(cpu_buffer);
+ 
+ 	read = reader->read;
+-	commit = rb_page_size(reader);
++	commit = rb_page_commit(reader);
++	size = rb_page_size(reader);
+ 
+ 	/* Check if any events were dropped */
+ 	missed_events = cpu_buffer->lost_events;
+@@ -6570,13 +6572,14 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	 * we must copy the data from the page to the buffer.
+ 	 * Otherwise, we can simply swap the page with the one passed in.
+ 	 */
+-	if (read || (len < (commit - read)) ||
++	if (read || (len < (size - read)) ||
+ 	    cpu_buffer->reader_page == cpu_buffer->commit_page ||
+ 	    cpu_buffer->mapped) {
+ 		struct buffer_data_page *rpage = cpu_buffer->reader_page->page;
+ 		unsigned int rpos = read;
+ 		unsigned int pos = 0;
+-		unsigned int size;
++		unsigned int event_size;
++		unsigned int flags = 0;
+ 
+ 		/*
+ 		 * If a full page is expected, this can still be returned
+@@ -6585,19 +6588,22 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		 * the reader page.
+ 		 */
+ 		if (full &&
+-		    (!read || (len < (commit - read)) ||
++		    (!read || (len < (size - read)) ||
+ 		     cpu_buffer->reader_page == cpu_buffer->commit_page))
+ 			return -1;
+ 
+-		if (len > (commit - read))
+-			len = (commit - read);
++		if (len > (size - read))
++			len = (size - read);
+ 
+ 		/* Always keep the time extend and data together */
+-		size = rb_event_ts_length(event);
++		event_size = rb_event_ts_length(event);
+ 
+-		if (len < size)
++		if (len < event_size)
+ 			return -1;
+ 
++		if (commit & RB_MISSED_EVENTS)
++			flags = RB_MISSED_EVENTS;
++
+ 		/* save the current timestamp, since the user will need it */
+ 		save_timestamp = cpu_buffer->read_stamp;
+ 
+@@ -6609,25 +6615,25 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 			 * one or two events.
+ 			 * We have already ensured there's enough space if this
+ 			 * is a time extend. */
+-			size = rb_event_length(event);
+-			memcpy(bpage->data + pos, rpage->data + rpos, size);
++			event_size = rb_event_length(event);
++			memcpy(bpage->data + pos, rpage->data + rpos, event_size);
+ 
+-			len -= size;
++			len -= event_size;
+ 
+ 			rb_advance_reader(cpu_buffer);
+ 			rpos = reader->read;
+-			pos += size;
++			pos += event_size;
+ 
+-			if (rpos >= commit)
++			if (rpos >= size)
+ 				break;
+ 
+ 			event = rb_reader_event(cpu_buffer);
+ 			/* Always keep the time extend and data together */
+-			size = rb_event_ts_length(event);
+-		} while (len >= size);
++			event_size = rb_event_ts_length(event);
++		} while (len >= event_size);
+ 
+ 		/* update bpage */
+-		local_set(&bpage->commit, pos);
++		local_set(&bpage->commit, pos | flags);
+ 		bpage->time_stamp = save_timestamp;
+ 
+ 		/* we copied everything to the beginning */
+@@ -6652,12 +6658,14 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		 * on the page.
+ 		 */
+ 		if (reader->real_end)
+-			local_set(&bpage->commit, reader->real_end);
++			local_set(&bpage->commit, reader->real_end |
++				  (commit & RB_MISSED_EVENTS));
+ 	}
+ 
+ 	cpu_buffer->lost_events = 0;
+ 
+ 	commit = local_read(&bpage->commit);
++	size = commit & ~RB_MISSED_MASK;
+ 	/*
+ 	 * Set a flag in the commit field if we lost events
+ 	 */
+@@ -6665,20 +6673,20 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		/* If there is room at the end of the page to save the
+ 		 * missed events, then record it there.
+ 		 */
+-		if (rb_page_capacity(reader) - commit >= sizeof(missed_events)) {
+-			memcpy(&bpage->data[commit], &missed_events,
++		if (rb_page_capacity(reader) - size >= sizeof(missed_events)) {
++			memcpy(&bpage->data[size], &missed_events,
+ 			       sizeof(missed_events));
+-			local_add(RB_MISSED_STORED, &bpage->commit);
+-			commit += sizeof(missed_events);
++			commit |= RB_MISSED_STORED;
++			size += sizeof(missed_events);
+ 		}
+-		local_add(RB_MISSED_EVENTS, &bpage->commit);
++		local_set(&bpage->commit, commit | RB_MISSED_EVENTS);
+ 	}
+ 
+ 	/*
+ 	 * This page may be off to user land. Zero it out here.
+ 	 */
+-	if (commit < rb_page_capacity(reader))
+-		memset(&bpage->data[commit], 0, rb_page_capacity(reader) - commit);
++	if (size < rb_page_capacity(reader))
++		memset(&bpage->data[size], 0, rb_page_capacity(reader) - size);
+ 
+ 	return read;
+ }
 -- 
 2.53.0
 
