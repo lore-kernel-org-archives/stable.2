@@ -1,60 +1,74 @@
-Received: from smtpout8.mo536.mail-out.ovh.net (smtpout8.mo536.mail-out.ovh.net [51.210.91.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE69549382
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887D56C624
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063907; cv=none; b=drXejtAwvDS6gJNNBxe3qljCkR6ZIfEeHvkiUqIagyMhTc4nkQpfDDKahIwcLX/32f3DzcD2kpG61xDsdN0hEQRsQrNXUUf1Brup5IGCU0l99TiPSjv0g3GVHAKvaO4lc1KX3Cwyo+56jD/nGRIjkw/8K76sq92qSv+5xrJuwNY=
+	t=1789064532; cv=none; b=V433+7I4wEjVIDgcJT1QZUQo016rNuuUM6BPCp0SgvkFdeLIk0k7QSk7DqEYYQKQ/aYQZqp2nixGipes64sntnaeAHXKplayc9IBRhcwRlSGF3O5TWjUviGAOWz5pyMfdJJ4Yy/FybPG+YLOgp0yOQxuEhVbl0zYQ7wG2tg3Bc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063907; c=relaxed/simple;
-	bh=gIKX6TDOBdFxDOz14E2FVc2SqTSSOWSA0OIAhBYHJTs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n/WuIqUarP/scpBtimE3rQ1XYN3SDy6c9xc7ab0BhvXM//YlRJ+DOvkyInCwJmr1UXjwtzqxPBSeuoAvp7rt0Z8b/jvLjf3rcXQNg3OBO7nFZHk3+bEmUoskC0LIYOIJPRjwRdAy4fAD/GhEIZyjA1waNkFDWPIUMGuKZO2QzWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=DtS/Hwto; arc=none smtp.client-ip=51.210.91.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
+	s=arc-20240116; t=1789064532; c=relaxed/simple;
+	bh=xeBaVq34Fvm+F/zQVDvqjxr/qQQkcNW+NLJKAnQ0Gzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=byHyjn7VK0uRh/qt+RvmgE/SdqY3WTuc8cdhYeueYwvmPsm1+RbKL2ZC6dJ/UIrjZv2JOTEIA1+k8/n4CtIJ6220c2giRQts27Tk7U/7+yhg1deeziZ92oJFDvG3pUEcu7g1H2DO3zzHj8a3xT32HabvArvDkKbssTEWrWOzAT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=hiq9LTIH; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="DtS/Hwto"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ3t9Lz81p8;
-	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.118.86])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ2Z6bz6GrV;
-	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.2])
-	(Authenticated sender: michaltoma@sicoop.com)
-	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id D2220941C3D;
-	Thu, 10 Sep 2026 16:52:24 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R0035100abae-58a1-4818-86d9-510bfad2885a,
-                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
-X-OVh-ClientIp:89.91.4.113
-From: Michal TOMA <michaltoma@sicoop.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Michal TOMA <michaltoma@sicoop.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	ian.forbes@broadcom.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="hiq9LTIH"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso1393565e9.3
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1789064526; x=1789669326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
+        b=hiq9LTIHwK9bGox2e61Q5JkEOIfi+7XrnWER7D9SJLinSRQdrsBjxlA5spo7zgyAVa
+         7NYb7ST88F24ybJlmGl6mksaluXawXRSUr/HaVSdc6QDYpqeo4VKgTGz/th2wYgKZFvo
+         QQzwAJa+3qc7MyKVYBaHba7QLHkuhZca0UWtBE9gkN/O08doU6OxkReN/DoVYsVWtu7W
+         weEJ3ksB3WQC+JIhHBg0FbK+PrYk/W9kxYDp2Mmg/8xdU14P+HMFFpLcyOIcWk6NXy3E
+         ayBUpZt5yP3Si/1PnXBfAGXs+ikXz45dEYYaQ4j1Pqxx1ByjqfLiakl+NUIVCZ5pN8J8
+         U+2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789064526; x=1789669326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
+        b=bFj6CEgcZVAAh1v0co0J/mESgIAQE58dfA55INQEe5o7+R0YPnC/RucBca1tB3P5mo
+         r/uCpwqjK5zXFsbrfo07JBknDFV5U3Ioeg5wUH1jODVfsQToyfWNugwtjnmUAhYR8hhU
+         epsYnz6oCeNbUbOCLWK51MZ7N+fJDmgwsBHxMYP0KOhpTgdl3o/a06gddkxZumKvSLPG
+         IpS4MGMxDwZ6KGi+HoXdfYVIDZqjeEiBRYpWS4gE4foAKb2eEmoByJzCYn2I3FZc2R/K
+         QN/Ok64UEWlbC0yKPiJXg7jORqt6MHmw9qlzcTIuubuP/LxyC7hti7SCTlemttOK3slA
+         nJbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCm3GjuS7Zh6jrIkmxhwg8ENGIWJgD6m6zKUJ/Az7w7InJ/Y16OTnWAGPOK+E+f35CVEGHzWU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaccDR30HNdhKJzCb/mSiCFYrzOAlXJnjPsCFDt7Wl9NH5bJds
+	EwOleq+Vjt6fQL1fzQXt1fJvXxzXPAyy9IyqxBDwvA3gkV+hwUFDuex0KiWL4aOSoAQ=
+X-Gm-Gg: AYBFou1xDaef+7AAtzvUd4hl6CayWHOONZTbmoIZMlKZVUiSLiJ12lJqHsdobyYPBru
+	+y0Z10cYRXs0kttvjWdwn9F8uxwJ8+dMSQZVU8caRJ4GDaZG4RoAxEN19e0AF+4ZLRNfYbwXlOC
+	7Hahk81bVCi3z0jxkdGIub+pyYZmS9cnGFvUJqDaZ8lmPmy+r3hAekGLNskQj+2M9mVDjpVRhDF
+	O+6AL5Q3nNkmcybPkd998yvFmAaaldg8eHJw/7/oEhnC8Ze/B3x1/AmG5ONPRe4JohFrvXy3ZBA
+	uFqgc3hB4IlY6pMduwI2It4gOGab0L45qr1/LA9VQa4K7AQ9vmuCDJSJSjUYY/6CzEt1D+5DD9h
+	qPZEJU4Ck+PsLYgDvqkMWFWe0MLWxIXxwNcPUs7AEIARGsnlm1kD/yjJ8D/beqL7cO3fA1fP8f1
+	VvQnsFpt13TtMwvgor5WklBrWMcFSOYx9wRp15o9JgdrwFQF+1M0TQGx48ZyB8nwdj0yfCAmUoy
+	jIFmdIycv9yMfcmoZ0vSWt2QHbVdlxbQHak167QeP77tPpziDZmsMEjRRUh9oPfSMh5Rtus1eQ=
+X-Received: by 2002:a05:600d:6501:10b0:49c:fa21:e73b with SMTP id 5b1f17b1804b1-49e619c0bc0mr2423325e9.17.1789064526542;
+        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
+Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5765152asm40025455e9.11.2026.09.10.11.22.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: dhowells@redhat.com,
+	steved@redhat.com,
+	viro@zeniv.linux.org.uk,
+	netfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy path
-Date: Thu, 10 Sep 2026 18:52:20 +0200
-Message-ID: <20260910165221.7558-3-michaltoma@sicoop.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
-References: <20260910165221.7558-1-michaltoma@sicoop.com>
+Subject: [PATCH] cachefiles: pass a poll key when waking the daemon
+Date: Thu, 10 Sep 2026 20:22:00 +0200
+Message-ID: <20260910182200.1272489-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,134 +76,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16161730214470242587
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aKmehTmst5mpd6wa3AMMntN/pO+wvCw2son0GCMudqp5Ra4cXUpQtcElszFg/9ehvvt+7rEA1Z9lPK5POcjs9mV8gxjYKMJCBfyj9mlYbId/iN3gvqqcqjfLnt/Kqkcar21QFcaq+dQQcLLdU1Pm2WPzBIYeISj5qNIe9acCCY7WF6gMMfAtke8mUpLXQyAb+MrLSCaZt7uXHxM8ngYd0pk6YK4ubo4DckID00v6UBCE7A5a7Iv4BJyfMrMneLMh6mVBgqTRybeXYqlWCh9yeBzZbh5BiAEReyeXOZzlV1G483EoUdsWQpGLFjyvqgLW/267n85Wk9eU7Z5wj25y/SQ
-DKIM-Signature: a=rsa-sha256; bh=oNgvdIjXenpFeV/paVDrELbuNab+1ePKbm0+q9vDIwE=;
- c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059147; v=1;
- b=DtS/Hwto0Pp7We+ky/snyzOrUBa4NOC1LbeatC5KkVvc6BLdabN7mfLw/h5E9DreheFGMhx1
- d/s4wCgekHFO0M6i0C+rmsGQYxjuKa33M5II29LqgopkoOEGcj0Y7W9bMO9a93kb3eqrKBIEMPA
- qDu472coQQcffoiTs3OZt/zvQXA2Uju8nCds+81n8zpCK4pHuLN17/pGzY/Uz4/Sth5HhJ3JLfl
- FB41NPUcTnpYOdvEoong6ydhJ8c3l2vcxx4nF57y9ynT0DIJMDBeJp/rWwskruKyn5FuipyQA87
- ABV5+3BKARBnL30qg4DW5wKwqUOZgpd4U2b+lrhp/rJQw==
 
-drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
-reference with get_dma_buf(), maps the attachment and, once
-vmw_prime_import_sg_table() has created the TTM buffer object, stores
-the attachment in obj->import_attach. Drivers that import this way have
-to undo it by calling drm_prime_gem_destroy() when the object is freed.
+Keyless wakeups bypass epoll's event-mask filtering.  With only
+`EPOLLOUT` registered, any cachefiles_state_changed() call will wake
+up the epoll_wait() system call, but will not return any events,
+causing a busy loop.
 
-vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
-drm_gem_object_release() and kfree(). For every imported dma-buf, the
-sg mapping, the attachment and the dma-buf reference are leaked when
-the last GEM reference goes away, and the exporter's backing pages stay
-pinned until reboot.
+Pass the relevant poll events with each wakeup so `epoll` can filter
+out unwanted notifications.
 
-Any process that can open the vmwgfx render node can hit this by
-importing a dma-buf from another exporter, for example with
-DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
-VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
-host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
-udmabufs and imports them through EGL on llvmpipe, and it keeps many of
-those imports referenced while it runs, which is a separate userspace
-problem. Restarting the compositor did not give the memory back,
-though: with about 1.5 GiB of client buffers imported, killing KWin
-left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
-of 1, still attached to the vmwgfx device, after every userspace
-reference was gone. Their pages are no longer mapped or in any page
-cache, so reclaim and swap cannot free them.
-
-Call drm_prime_gem_destroy() for imported objects before
-drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
-destroy callbacks, and include <drm/drm_prime.h> for it. The check is
-safe on the import error path: drm_gem_prime_import_dev() only sets
-obj->import_attach after gem_prime_import_sg_table() succeeded, so a
-buffer object destroyed before that point is not unmapped, detached or
-put a second time. ttm_bo_release() tears down the TTM backing and
-drops the reservation lock before calling the destroy callback, which
-fits the _unlocked unmap done by drm_prime_gem_destroy().
-
-The leak was found by walking /proc/kpageflags, which attributed the
-missing memory to orphaned shmem pages. Those matched the udmabuf
-objects in dma_buf/bufinfo, and the remaining reference was traced to
-the missing PRIME teardown. It was confirmed without a compositor using
-a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
-it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
-the GEM handle and every file descriptor, then check bufinfo.
-
-Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
-config and W=1: drivers/gpu/drm/vmwgfx/ builds without warnings before
-and after the change, and checkpatch.pl --strict is clean. Runtime
-tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
-sources for the files involved are identical to drm-misc-fixes, using a
-vmwgfx.ko built from them with this change. With the reproducer, all 8
-imported udmabufs stayed pinned without the change and none with it,
-with 3D acceleration both on and off. With KWin on llvmpipe, killing
-the compositor now released 84 of 92 udmabufs (610 MiB) within 10
-seconds, where the same test on the unpatched driver released none.
-
-Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org # v6.6+
-Assisted-by: LLM
-Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+Fixes: a5b3a80b899b ("CacheFiles: Provide read-and-reset release counters for cachefilesd")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
-Reproducer (results and environment are in the cover letter). Compare
-the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
-and after: without this patch all 8 remain, with count 1 and still
-attached to the vmwgfx device.
+Note: backports to older branches need to adjust ondemand.c as well
+like this:
+-       wake_up_all(&cache->daemon_pollwq);
++       cachefiles_wake_poll(cache, EPOLLIN);
+---
+ fs/cachefiles/cache.c    |  4 ++--
+ fs/cachefiles/internal.h | 15 +++++++++++++--
+ fs/cachefiles/namei.c    |  2 +-
+ 3 files changed, 16 insertions(+), 5 deletions(-)
 
-#!/usr/bin/env python3
-import fcntl, os, struct
-N, SIZE = 8, 4 * 1024 * 1024
-UDMABUF_CREATE     = 0x40187542  # _IOW('u', 0x42, struct udmabuf_create)
-PRIME_FD_TO_HANDLE = 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_handle)
-GEM_CLOSE          = 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
-render = os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
-udm = os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
-for i in range(N):
-    mfd = os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
-    os.ftruncate(mfd, SIZE)
-    fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-    create = bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
-    dfd = fcntl.ioctl(udm, UDMABUF_CREATE, create)
-    ph = bytearray(struct.pack('IIi', 0, 0, dfd))
-    fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
-    handle = struct.unpack('IIi', ph)[0]
-    fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)))
-    os.close(dfd)
-    os.close(mfd)
-os.close(udm)
-os.close(render)
-
-The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
-every udmabuf, so the leak is specific to the vmwgfx import.
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c0b..56bc94edc 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -30,6 +30,7 @@
- #include "vmwgfx_drv.h"
- #include "vmwgfx_resource_priv.h"
- 
-+#include <drm/drm_prime.h>
- #include <drm/ttm/ttm_placement.h>
- 
- /**
-@@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 		vmw_surface_unreference(&vbo->dumb_surface);
+diff --git a/fs/cachefiles/cache.c b/fs/cachefiles/cache.c
+index 9fb06dc16520..08ca598618ac 100644
+--- a/fs/cachefiles/cache.c
++++ b/fs/cachefiles/cache.c
+@@ -255,7 +255,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ 	    test_and_clear_bit(CACHEFILES_CULLING, &cache->flags)
+ 	    ) {
+ 		_debug("cease culling");
+-		cachefiles_state_changed(cache);
++		cachefiles_state_changed(cache, EPOLLIN);
  	}
- 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-+	if (drm_gem_is_imported(&vbo->tbo.base))
-+		drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
- 	drm_gem_object_release(&vbo->tbo.base);
- 	WARN_ON(vbo->dirty);
- 	kfree(vbo);
+ 
+ 	//_leave(" = 0");
+@@ -275,7 +275,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ begin_cull:
+ 	if (!test_and_set_bit(CACHEFILES_CULLING, &cache->flags)) {
+ 		_debug("### CULL CACHE ###");
+-		cachefiles_state_changed(cache);
++		cachefiles_state_changed(cache, EPOLLIN | EPOLLOUT);
+ 	}
+ 
+ 	_leave(" = %d", ret);
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index c93324e0f98c..b8a5ea4a5ced 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -15,6 +15,7 @@
+ #include <linux/fscache-cache.h>
+ #include <linux/cred.h>
+ #include <linux/security.h>
++#include <linux/poll.h>
+ 
+ #define CACHEFILES_DIO_BLOCK_SIZE 4096
+ 
+@@ -117,13 +118,23 @@ struct cachefiles_object *cachefiles_cres_object(struct netfs_cache_resources *c
+ 	return fscache_cres_cookie(cres)->cache_priv;
+ }
+ 
++/*
++ * Wake up the daemon polling on /dev/cachefiles.
++ */
++static inline void cachefiles_wake_poll(struct cachefiles_cache *cache,
++					__poll_t mask)
++{
++	__wake_up(&cache->daemon_pollwq, TASK_NORMAL, 0, poll_to_key(mask));
++}
++
+ /*
+  * note change of state for daemon
+  */
+-static inline void cachefiles_state_changed(struct cachefiles_cache *cache)
++static inline void cachefiles_state_changed(struct cachefiles_cache *cache,
++					    __poll_t mask)
+ {
+ 	set_bit(CACHEFILES_STATE_CHANGED, &cache->flags);
+-	wake_up_all(&cache->daemon_pollwq);
++	cachefiles_wake_poll(cache, mask);
+ }
+ 
+ /*
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index 88955249a1a6..52eb227f07e8 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -74,7 +74,7 @@ void cachefiles_unmark_inode_in_use(struct cachefiles_object *object,
+ 	if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
+ 		atomic_long_add(inode->i_blocks, &cache->b_released);
+ 		if (atomic_inc_return(&cache->f_released))
+-			cachefiles_state_changed(cache);
++			cachefiles_state_changed(cache, EPOLLIN);
+ 	}
+ }
+ 
 -- 
-2.55.0
+2.47.3
 
