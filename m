@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050154AA032
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809E13D170C
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:44:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054675; cv=none; b=UlHgRrT1hh+yayfHKJ2IDe5F+Uzp1JIzhakB284nQQhDDms7BVqfYX2L3akGnuuqYfngffPAu8ECFwPs/guNkiFue+xpXyDYBVtpSbeanHYeB0fqxxDus9m+Mw4E5Nk05mmxqxZ72bFo8YV1DDwiQ2AfgfosF659t6HO4365Mec=
+	t=1789055088; cv=none; b=nvrrZzGCdaAN58YLZ225pr4E1X2vn4gvXTIIMtY4O9hg5no6Nqcrr3ypPPIa5o+LyiUQjV4Sg7FyjLZzSjsPZpWhYRaGwYCs9PKSzP9v9yFa72MZtporFgCI1JgL2ZVN/CDs2aPwzwm9qnTOn0dQxvV02u2gQLmUw2t5GsEJZeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054675; c=relaxed/simple;
-	bh=JxwQMqbKlfDI0qQc2hMcmXYYirP3vcz21Aw2y1gyAkY=;
+	s=arc-20240116; t=1789055088; c=relaxed/simple;
+	bh=hzvUdJIWulOhupItluwXrqax4jk35Wl8Y3+E5aYSk70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DkjFzhhjCLC07Cn8jzEqqdNSNRqy8dpVcI8lUOB0TXSeDr7zpACXN9Ig68IcFOZe15eCdkRNf9wCa/FbFH6tYwGlhM0Cro/xj2O+eHK7uLY1rOzKA0G+R4c1Danko9BPnv3F4CB2m7d81zFDVi8YUUeDFh8qNF4mL98IizZFF68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrWYByX4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JGw/SQP2ht2H9E0cgO0giH53WM/tARo9GRNituogHITYl5BAbv8PbZwUgVuDIJXX0sc4TG2QVIqcrEbyAWSVphEjIP8NlWQOFfNAPbb7L7NhtlB8HMBGb2miudTtBFhLQSAilQzNQsD64ZAUfN+yCg6En8/GgoUejF73rA2D3/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAhJE+ON; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrWYByX4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E329B1F00893;
-	Thu, 10 Sep 2026 15:37:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAhJE+ON"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02421F000FF;
+	Thu, 10 Sep 2026 15:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789054673;
-	bh=fci03vZG3+np7ibwY/iJ+NsHRj5F1sWnOcdXX5suwkE=;
+	s=k20260515; t=1789055087;
+	bh=MhCCv8D3UqYaNdyrd0FFPwJ4Rjjm89C15atKLsfoPbA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BrWYByX4kjSPi2Uv35C3KEl8f8Lb11/D5aZ1KThwxarmObXxzG/lIglvp2pzFiZIT
-	 mYQN3TfHO2Q+Nc1pFxQzv4tzDAbpXPo1l4GtUvnaFcy2OJZDU4NNmgoVyUSBTJA2M1
-	 b8loOXkcfudBYwo5ImA9Xb5N8cejnJb/FYDj7L+nB1IsBj1Xr9aDOa55HnhPb3YCIv
-	 GznaFzlE1HPRF6+MaN/sHbfozJDmyNOeJXZvlV76UDpz0oMrbZPB4uXO1Rb7hfdnpf
-	 a0k4j9/5tF9+6G0MW1cZslPxNOCethwVX+nGAnlHC/qYeH4q7PoKESRAc/Q8K446PC
-	 TzcTbQ2CaDQLQ==
+	b=nAhJE+ONEeI4VOZdXlOnccDjxmr7WyI65HESePfI3U0PHZsj0zGhKzNL3bLePgw6t
+	 RwPqU2jUoj5aBi1R/dSHLwx95SK7FwJukn4OUgNSMBq/acrEGz0mxM2du11ceMfsEr
+	 zPEuuW5mX0aZHJTM2vsV53bVprbruwTZwCwNS3HpclM1iTWE2PajQxREnGxhsK7ZxD
+	 4o98ceNBCBG8wO8yJYu4HyTdPzFMoh5UMOSaVB+9ZBKawHQA9rIjX6gCHq42/ipbQf
+	 sKoIMHJKMmnYoi7Rvw7mKNWP1O6AEcFQF32/UggK2DRK4Bpvp3qKiNH0w/9TW+0JrF
+	 hkn1EoCdjATTA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
+Cc: Antonio Borneo <antonio.borneo@foss.st.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] kprobes: Protect kprobe_blacklist with RCU
-Date: Thu, 10 Sep 2026 11:37:51 -0400
-Message-ID: <20260910153751.993932-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] irqchip/stm32-exti: Split MCU and MPU code
+Date: Thu, 10 Sep 2026 11:44:43 -0400
+Message-ID: <20260910154445.1032754-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090833-aptitude-antibody-c550@gregkh>
-References: <2026090833-aptitude-antibody-c550@gregkh>
+In-Reply-To: <2026090814-trapper-singer-17bb@gregkh>
+References: <2026090814-trapper-singer-17bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,97 +45,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Antonio Borneo <antonio.borneo@foss.st.com>
 
-[ Upstream commit 0c4256196b3a105307e2235fbfd85e768bbcdd0f ]
+[ Upstream commit 350755e2e548ccbe941d045900b57233efa906cb ]
 
-__within_kprobe_blacklist() traverses kprobe_blacklist without holding
-kprobe_mutex. When a module is unloaded, kprobe_remove_area_blacklist()
-removes blacklist entries and immediately frees them with kfree().
-A concurrent call to within_kprobe_blacklist() can therefore dereference
-freed memory.
+Keep only the code for ARMv7m STM32 MCUs in in stm32-exti.c and split out
+the code for ARMv7a & ARMv8a STM32MPxxx MPUs into stm32mp-exti.c
 
-Furthermore, within_kprobe_blacklist() can be called in atomic or
-non-preemptible contexts where the sleeping kprobe_mutex cannot be taken.
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Link: https://lore.kernel.org/r/20240620083115.204362-5-antonio.borneo@foss.st.com
 
-Protect kprobe_blacklist with RCU. Use guard(rcu)() and
-list_for_each_entry_rcu() for traversal, list_add_tail_rcu() for
-insertions, list_del_rcu() for deletions, and kfree_rcu() to reclaim
-entries safely after a grace period.
+Backport dependency adaptation for Linux 6.1:
 
-Link: https://lore.kernel.org/all/178810004323.64882.16493230858653316962.stgit@devnote2/
+The stable driver predates STM32MP_EXTI selection, standard device PM,
+interrupts-extended mappings, and secure/RIF event handling. Importing the
+upstream split would pull in those unrelated changes and new functions.
+Limit this dependency to relocating the existing combined MCU/MPU driver
+to irq-stm32mp-exti.c and updating its existing STM32_EXTI Makefile entry.
+Keep Kconfig, syscore PM, interrupt mappings, and all existing functions.
 
-Fixes: 376e242429bf ("kprobes: Introduce NOKPROBE_SYMBOL() macro to maintain kprobes blacklist")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260807155802.F06041F000E9@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.7-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ Replaced guard(rcu)() with explicit rcu_read_lock()/rcu_read_unlock() to avoid declaration-after-statement warnings. ]
+Retain the upstream removal of unused hwspinlock handling from the MCU
+set-type callback: MCU host initialization never assigns a hwspinlock.
+This leaves the MPU callback as the only timeout user, so the target's
+macro rename fixes all remaining users without leaving an undefined name.
+
+Match the upstream timeout-definition context, including its two register
+macros, so d31fbbade43f880b7e59e2b3a72722fe2725d93f applies unchanged. The
+register macros remain unused; no secure/RIF behavior is introduced.
+
+[ sashal: Reduced backport -- upstream 350755e2e548c touches 4 file(s), this
+  backport carries 2. Not backported here:
+  drivers/irqchip/irq-stm32-exti.c
+  drivers/irqchip/Kconfig
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: d31fbbade43f ("irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/kprobes.h |  1 +
- kernel/kprobes.c        | 19 ++++++++++++++-----
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/irqchip/Makefile                      |  2 +-
+ .../{irq-stm32-exti.c => irq-stm32mp-exti.c}  | 21 ++++++-------------
+ 2 files changed, 7 insertions(+), 16 deletions(-)
+ rename drivers/irqchip/{irq-stm32-exti.c => irq-stm32mp-exti.c} (98%)
 
-diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
-index 24b0eaa5de307..e5262feff8267 100644
---- a/include/linux/kprobes.h
-+++ b/include/linux/kprobes.h
-@@ -177,6 +177,7 @@ struct kprobe_blacklist_entry {
- 	struct list_head list;
- 	unsigned long start_addr;
- 	unsigned long end_addr;
-+	struct rcu_head rcu;
- };
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index 94c2885882ee1..f659fe07928db 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -88,7 +88,7 @@ obj-$(CONFIG_LS_EXTIRQ)			+= irq-ls-extirq.o
+ obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
+ obj-$(CONFIG_EZNPS_GIC)			+= irq-eznps.o
+ obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
+-obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
++obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32mp-exti.o
+ obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
+ obj-$(CONFIG_IRQ_UNIPHIER_AIDET)	+= irq-uniphier-aidet.o
+ obj-$(CONFIG_ARCH_SYNQUACER)		+= irq-sni-exiu.o
+diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
+similarity index 98%
+rename from drivers/irqchip/irq-stm32-exti.c
+rename to drivers/irqchip/irq-stm32mp-exti.c
+index cec9080cccad0..ed43ced2d6ed1 100644
+--- a/drivers/irqchip/irq-stm32-exti.c
++++ b/drivers/irqchip/irq-stm32mp-exti.c
+@@ -22,9 +22,12 @@
  
- #ifdef CONFIG_KPROBES
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 0d463859ad329..69d166f42d04a 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1427,11 +1427,20 @@ static bool __within_kprobe_blacklist(unsigned long addr)
- 	/*
- 	 * If there exists a kprobe_blacklist, verify and
- 	 * fail any probe registration in the prohibited area
-+	 * Note: this can return true during transition period where
-+	 * (start_addr, end_addr) in the black list is shrinking
-+	 * but old entry has not been removed yet. This is acceptable
-+	 * because the worst case is that we reject more probes than
-+	 * we should.
- 	 */
--	list_for_each_entry(ent, &kprobe_blacklist, list) {
--		if (addr >= ent->start_addr && addr < ent->end_addr)
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(ent, &kprobe_blacklist, list) {
-+		if (addr >= ent->start_addr && addr < ent->end_addr) {
-+			rcu_read_unlock();
- 			return true;
-+		}
- 	}
-+	rcu_read_unlock();
- 	return false;
- }
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
  
-@@ -2258,7 +2267,7 @@ int kprobe_add_ksym_blacklist(unsigned long entry)
- 	ent->start_addr = entry;
- 	ent->end_addr = entry + size;
- 	INIT_LIST_HEAD(&ent->list);
--	list_add_tail(&ent->list, &kprobe_blacklist);
-+	list_add_tail_rcu(&ent->list, &kprobe_blacklist);
+-#define IRQS_PER_BANK 32
++#define IRQS_PER_BANK			32
  
- 	return (int)size;
- }
-@@ -2287,8 +2296,8 @@ static void kprobe_remove_area_blacklist(unsigned long start, unsigned long end)
- 	list_for_each_entry_safe(ent, n, &kprobe_blacklist, list) {
- 		if (ent->start_addr < start || ent->start_addr >= end)
- 			continue;
--		list_del(&ent->list);
--		kfree(ent);
-+		list_del_rcu(&ent->list);
-+		kfree_rcu(ent, rcu);
- 	}
- }
+-#define HWSPNLCK_TIMEOUT	1000 /* usec */
++#define HWSPNLCK_TIMEOUT		1000 /* usec */
++
++#define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
++#define EXTI_HWCFGR1			0x3f0
+ 
+ struct stm32_exti_bank {
+ 	u32 imr_ofst;
+@@ -301,33 +304,21 @@ static int stm32_irq_set_type(struct irq_data *d, unsigned int type)
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct stm32_exti_chip_data *chip_data = gc->private;
+ 	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
+-	struct hwspinlock *hwlock = chip_data->host_data->hwlock;
+ 	u32 rtsr, ftsr;
+ 	int err;
+ 
+ 	irq_gc_lock(gc);
+ 
+-	if (hwlock) {
+-		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
+-		if (err) {
+-			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
+-			goto unlock;
+-		}
+-	}
+-
+ 	rtsr = irq_reg_readl(gc, stm32_bank->rtsr_ofst);
+ 	ftsr = irq_reg_readl(gc, stm32_bank->ftsr_ofst);
+ 
+ 	err = stm32_exti_set_type(d, type, &rtsr, &ftsr);
+ 	if (err)
+-		goto unspinlock;
++		goto unlock;
+ 
+ 	irq_reg_writel(gc, rtsr, stm32_bank->rtsr_ofst);
+ 	irq_reg_writel(gc, ftsr, stm32_bank->ftsr_ofst);
+ 
+-unspinlock:
+-	if (hwlock)
+-		hwspin_unlock_in_atomic(hwlock);
+ unlock:
+ 	irq_gc_unlock(gc);
  
 -- 
 2.53.0
