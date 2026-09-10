@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88F7379966
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B9C3769FF
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006273; cv=none; b=a8euNx6DPuluwkHnWUg5UUul7S0FIeZW/e+prvfOL65et+Pc/8f+/xl8reX5aLvQib0ajQWdI5qHq2ZR2KAt9fKqINRbjRe5pcejRHrOMPCAe3zirUJyzOB5qxjakx835aDiDdA1r1CYRelb+bLbJ2CGCtcR63z3Vb8d6m7gloY=
+	t=1789006273; cv=none; b=S9cpGpfNktPxNdPFxLTHe1ezd3ymuQktFyeJaRvb4RBeXl0sewYrLOy9l3f9b1rm6J5fsrClJHpLk1Cdilo0P0JNq4mw4RDNsE6Bc2wKsqe7QdjwsMey0reJ/+8BqNOx0JcRfs1P192pPEeQu7FDWAuHFLQDzGCpszdeCSAb2F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789006273; c=relaxed/simple;
-	bh=sFDw6Ya4ZQkuJiRwgLkdbxEiXfz3QV4HwH0haCCo6ak=;
+	bh=/+kUvMBC0mBkJUbVYwsecNMn3XwiiK+vVVH/78xk9RE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GcK7bKhLZp1jyd0dY/bEPWQpGGtYtcYyWfKeKteg6uw3S97e0nU4edBQnISoDvDEhLWxrEj3Mh1DvgDPQOFp063SxCgV8gVg1LPiOiB6NKvYcysJF2Fec5PnFBoW6xaJi3qe0wvYpIZy+JWoW8tYsR6IeEk2W1vubeKU6QCMzgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=je6cgcqj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o8jSsWlj5M8abeXJH3KHi/ujN7XFYiS74Dd8o9mdOJtj/mr1mueDqz/MFtK+WMKj6Rrm3VB/eYBZdLJl8lxMzxKcoVM1vwlxxpT8AWVtKhrDoNGENDmZEOXN7vrqbpPGRCFaddEG4FlacahawjleYnKjWDWMT0fMOXI3NoVMov8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kh1lzged; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="je6cgcqj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B5A1F0089A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kh1lzged"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90A61F00899;
 	Thu, 10 Sep 2026 02:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789006271;
-	bh=IcGOV1Bx2X8lwfBg7+/beS60J4ioUAR3kDFhOJwvNGU=;
+	bh=ZQhJ2z/gtlZPN/nZJ0bFqZGOOqI9tMrktfAp5qBR7nA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=je6cgcqjHMuhH7rU0Z3h3K0T4Zx1ZXpXsiCoEu6sx7GIzk4ygy+Op0dcNOzkCEvnC
-	 HrnfwsiKaF2R5mgx5FmL1CbKHCCAl+7QxkRAxqHf9cgx+qkqDn09KlkEoKUtsP70IS
-	 NmZIpzzcaKh66aSuPH7SKqYjYzDsDTRnW8NipLFmKeYkKuUO80tLUXAHUHvigxQcyr
-	 QT9jpoqlRBavtxC5LWvNd05rHbHrSfGIo0YgcpLIGmsk/Z5svvKpfwvikPb3iyBVFw
-	 nMxzLEAgAYWO5nynsdBRG99I382ZI3NAAEM7Fp0rN482fhvq41BqHBCft0uZ+mMK6L
-	 eK63v2ktx5b8Q==
+	b=Kh1lzgedW5X/YSZwI0QuEMdaCG7CCx2BDuOlcj/Za7MYszMtJmR3u6BfmOzNSXnd1
+	 kTAsiSJdw0MzxLuz/N8Brg2MTacYh/VgSOn358t4qLC+GMxUU5SHXOl3MxmmykBxBZ
+	 Mn9lg4iCZ8QGjWyuUfnehJcayjFTsb7JYfhC5+Ugh4agJquW+4fTyin6r0l6pzcXqU
+	 Oyxgb6QsdP/xjWPjOuqLXdGLgSJihgiUNFdAuen6yfElkeb6YHywzHQ8C2olQKRHIc
+	 QU3219q7VUIygyJHTHLNvHDO4SSBhuPajIds6xOFgqpZXN0JciD9esGDqRx5T0g5zW
+	 ZN0UljP/3SsiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Xu Yang <xu.yang_2@nxp.com>,
+	stable <stable@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] i3c: master: Fix recursive locking during device registration
-Date: Wed,  9 Sep 2026 22:11:07 -0400
-Message-ID: <20260910021107.3989169-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] usb: typec: tcpm: fix debug accessory mode detection for sink ports
+Date: Wed,  9 Sep 2026 22:11:08 -0400
+Message-ID: <20260910021109.3989265-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910021107.3989169-1-sashal@kernel.org>
-References: <2026090421-spilt-flock-92e8@gregkh>
- <20260910021107.3989169-1-sashal@kernel.org>
+In-Reply-To: <2026090802-feminize-veto-a3d7@gregkh>
+References: <2026090802-feminize-veto-a3d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +48,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: Xu Yang <xu.yang_2@nxp.com>
 
-[ Upstream commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 ]
+[ Upstream commit f6ec9bb4acc7182b25a793ad094a764e1cb819a7 ]
 
-i3c_master_register_new_i3c_devs() registers newly discovered devices
-while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
-can immediately probe the device, and probe callbacks typically invoke
-I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
-recursive acquisition of the same rwsem.  rwsems do not support recursive
-read locking and can deadlock when a writer is waiting.  See the
-"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
+The port in debug accessory mode can be either a source or sink. The
+previous tcpm_port_is_debug() function only checked for source port.
 
-For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
-  WARNING: possible recursive locking detected
-  kworker/5:1/94 is trying to acquire lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
-  but task is already holding lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
+Commit 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into
+accessory mode debug") changed the detection logic to support both roles,
+but left some logic in _tcpm_cc_change() unchanged, This causes the state
+machine to transition to an incorrect state when operating as a sink in
+debug accessory mode. Log as below:
 
-Fix this by separating device creation from device registration.
-Populate desc->dev under the maintenance lock, collect the devices that
-still need registration into a local list, then release the lock before
-calling device_register().  Finally retake the lock and clean up any
-devices that failed to register.
+[  978.637541] CC1: 0 -> 5, CC2: 0 -> 5 [state TOGGLING, polarity 0, connected]
+[  978.637567] state change TOGGLING -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+[  978.637596] pending state change SRC_ATTACH_WAIT -> DEBUG_ACC_ATTACHED @ 180 ms [rev1 NONE_AMS]
+[  978.647098] CC1: 5 -> 0, CC2: 5 -> 5 [state SRC_ATTACH_WAIT, polarity 0, connected]
+[  978.647115] state change SRC_ATTACH_WAIT -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
 
-Use the maintenance lock rather than the normal-use lock while adding
-device objects.  A write-side maintenance lock prevents readers from
-observing a partially initialized desc->dev during initial device
-population, or desc->dev disappearing if registration fails.
+It should go to SNK_ATTACH_WAIT instead of SRC_ATTACH_WAIT state.
 
-The local list requires a list node, so add a list node member to struct
-i3c_device.
+To fix this, add tcpm_port_is_debug_source() and tcpm_port_is_debug_sink()
+helper to explicitly identify the power mode in debug accessory mode.
+Update the state transition logic in _tcpm_cc_change() to ensure the state
+machine transitions comply with Type-C specification. Also update the logic
+in run_state_machine() to keep consistency.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Fixes: 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into accessory mode debug")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Amit Sunil Dhamne <amitsd@google.com>
+Link: https://patch.msgid.link/20260424074009.2979266-1-xu.yang_2@nxp.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[Backport to 6.12: This tree lacks 8db73e6a42b6 and the associated
+sink debug-accessory state-machine support. Retain only the source-debug
+macro extraction and source-side call-site updates. Keep
+tcpm_port_is_debug() source-only and omit the sink-debug macro and all
+sink/audio attachment transitions introduced by the upstream dependency.
+This preserves existing detection and state transitions while providing
+tcpm_port_is_debug_source() for cd3b9cea675b ("usb: typec: tcpm: constrain
+TCPM_SOURCING_VBUS event handling"). No functions are added.]
+
+Stable-dep-of: cd3b9cea675b ("usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c       | 45 ++++++++++++++++++++++++++++----------
- include/linux/i3c/master.h |  3 +++
- 2 files changed, 36 insertions(+), 12 deletions(-)
+ drivers/usb/typec/tcpm/tcpm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index add87ee719a0c..9b05d7753b6c5 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1518,12 +1518,21 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
- static void
- i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- {
-+	struct i3c_device *i3cdev, *tmp;
- 	struct i3c_dev_desc *desc;
-+	LIST_HEAD(i3c_unreg_devs);
- 	int ret;
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 2eabd89c36cbd..1354de477f289 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -531,9 +531,12 @@ static const char * const pd_rev[] = {
+ 	 (tcpm_cc_is_source((port)->cc2) && \
+ 	  !tcpm_cc_is_source((port)->cc1)))
  
- 	if (!master->init_done)
- 		return;
+-#define tcpm_port_is_debug(port) \
++#define tcpm_port_is_debug_source(port) \
+ 	(tcpm_cc_is_source((port)->cc1) && tcpm_cc_is_source((port)->cc2))
  
-+	i3c_bus_maintenance_lock(&master->bus);
++#define tcpm_port_is_debug(port) \
++	tcpm_port_is_debug_source(port)
 +
-+	if (master->shutting_down) {
-+		i3c_bus_maintenance_unlock(&master->bus);
-+		return;
-+	}
-+
- 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
- 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
- 			continue;
-@@ -1544,25 +1553,37 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (desc->boardinfo)
- 			desc->dev->dev.of_node = desc->boardinfo->of_node;
+ #define tcpm_port_is_audio(port) \
+ 	(tcpm_cc_is_audio((port)->cc1) && tcpm_cc_is_audio((port)->cc2))
  
--		ret = device_register(&desc->dev->dev);
--		if (ret) {
--			dev_err(&master->dev,
--				"Failed to add I3C device (err = %d)\n", ret);
--			desc->dev->desc = NULL;
--			put_device(&desc->dev->dev);
--			desc->dev = NULL;
--		}
-+		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
- 	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		ret = device_register(&i3cdev->dev);
-+		if (ret)
-+			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
-+		else
-+			list_del_init(&i3cdev->node);
-+	}
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		list_del(&i3cdev->node);
-+		desc = i3cdev->desc;
-+		i3cdev->desc = NULL;
-+		put_device(&i3cdev->dev);
-+		desc->dev = NULL;
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
- }
+@@ -3974,7 +3977,7 @@ static void run_state_machine(struct tcpm_port *port)
+ 			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
+ 		break;
+ 	case SRC_ATTACH_WAIT:
+-		if (tcpm_port_is_debug(port))
++		if (tcpm_port_is_debug_source(port))
+ 			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
+ 				       PD_T_CC_DEBOUNCE);
+ 		else if (tcpm_port_is_audio(port))
+@@ -4998,7 +5001,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
  
- static void i3c_master_reg_work_fn(struct work_struct *work)
- {
- 	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
- 
--	i3c_bus_normaluse_lock(&master->bus);
--	if (!master->shutting_down)
--		i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	i3c_master_register_new_i3c_devs(master);
- }
- 
- /**
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index dab8c0c21c057..f0fb54067da03 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -219,6 +219,8 @@ struct i3c_dev_desc {
-  *	  every time the I3C device is rediscovered with a different dynamic
-  *	  address assigned
-  * @bus: I3C bus this device is attached to
-+ * @node: unregistered device list node, only for use by
-+ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
-  *
-  * I3C device object exposed to I3C device drivers. The takes care of linking
-  * this object to the relevant &struct_i3c_dev_desc one.
-@@ -229,6 +231,7 @@ struct i3c_device {
- 	struct device dev;
- 	struct i3c_dev_desc *desc;
- 	struct i3c_bus *bus;
-+	struct list_head node;
- };
- 
- /*
+ 	switch (port->state) {
+ 	case TOGGLING:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		else if (tcpm_port_is_sink(port))
+@@ -5009,7 +5012,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 		break;
+ 	case SRC_UNATTACHED:
+ 	case ACC_UNATTACHED:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		break;
 -- 
 2.53.0
 
