@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64762E542C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:17:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC132609E3
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:18:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788999481; cv=none; b=o/D4WlEbZ+1Zt20nGuajUKDiDv+kmLSvaqB9SlayLMrrl9oDbRvGX24wgK6GRINx6FYYsenDMhO/3+mzim1wG3QvvsEOvVNnHe0eY8iSK5KMFSRtmK58iClTQQ715KuXpUu1ebB77KAvv3NGA4f/Ms6nTD/UDNI/4XLEepMt1fA=
+	t=1788999482; cv=none; b=SrAs7873svrzwwBjvaprzIx5Xajc3kVWNYzzpQ2q+/+vdaf2t+wVW0lOElGua81TAWbKni40yZFfjG5PcijZ153ONvl118ENDNIotldrnlydJASF+HJ0YPTKTI9ewfFcpQLfHVlle8GdTkUm+/kyq/G2HQD0ioHkXH9iqbbZ81s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788999481; c=relaxed/simple;
-	bh=Wzb4+bGMWGleCTRpnGn5Q6rH5OzWwyxjSTlMLSkiYw4=;
+	s=arc-20240116; t=1788999482; c=relaxed/simple;
+	bh=poDutceKsIQZ4R7Q8xRVY/+6quyFotrQKLqCqQtiJYg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QvuSH9johViZEF+rpsP9c7VwW34vwg8KENqM6rtnI52TTS6vddBQ/0vOdA9ke0qeU557AmcGYqvjVQZSiMDTLWyYZu5AK6oX5wXSTkgzmo3AYjixNuJA8wCfn5we5f2GaQg3vcdvZ53uSu3FOMEH3MgKEw5iyQ1zKwQgs0aqQyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BqKXll1P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CcBgLbL0at/CyJZGBoI6/sAsdB9wolXIidDqqQ0MmAd+M5GbnKEeUuNE6kOFKLYk6JgXc/tSoSZHBZlgyzCjRP+wmyLnmOsgvRE6THuuEqesD0HqqaBkFXxlLoBF+8WOCyispR3dYQ6kJAPF6Zsg0/wX2XtJj/xNnBd2avUdRoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gop0ZwJ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BqKXll1P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B771F00898;
-	Thu, 10 Sep 2026 00:17:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gop0ZwJ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3AEC1F00893;
+	Thu, 10 Sep 2026 00:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788999479;
-	bh=ha/v6MewKjrJv7UmzfF2aRbhofxHT2O50lnijW+Kw1Q=;
+	s=k20260515; t=1788999480;
+	bh=yqSYDXxoPUyVEv3iQzki+NlxwURT8ADEDuyFlkOUp98=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BqKXll1PHzQiQ/ewCa33HxxHZcLQ7Y4BgD/dC4f/f4HET33twnezSxGMpRQszdijW
-	 3feAJ3O8POJTSjXn2Hpbgpzj9gLcKFfHNIoNBpyepniS/YT/54GUGdRNOWbnHGbBGR
-	 uN43YcWJy7BiAcdok22TouSJS1LYb07nFE6hCOvwD9KcRFFw6OpZfUlV54g8s7yUwg
-	 8YsCeP/oSJtQPkqBwMatga261GSd+lU2iCbgOQt+PZi1njJ9zWfOdkAV6/ehmVGZek
-	 ACDn7tJ3gXazUZnsXISl11UCDWyH0Igip5TCUT3RYHLJ92x6x3fspzgyAfUyZb5cat
-	 sLXQ3q2qMkVtQ==
+	b=gop0ZwJ16qwX1ewb1wLQflEvUZYyB+jeODuBvcnSI43NjSP9buQKzyto4ChXS+ee2
+	 JBQMk/FO7/ON9vVDHaMWCq0gJz4n/ZzQ8TI4sIRdR0VBbekDtFOJp3HL4nws2TtqEy
+	 z+7d8UwbTHZAT4ixRGmbVu/tiwzMpEc5B2nZIwGxq06XtK2acN9W8VLwwSNTfRRanE
+	 7DUhbtptDScD8rUMZC1rQs06hEhSmz3jmZDdbu2Y8RVupgsBORtBgHp9Rh6iQ0K7oO
+	 JE4VwuAMQix2cDyzdkmdGiAbx3zLzPIfn0HIGAB6sOtdizzgbEijAFNgjlEpgrSFtM
+	 LAIQpM8G+/NJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Adrian Hunter <adrian.hunter@intel.com>,
 	Frank Li <Frank.Li@nxp.com>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] i3c: master: Defer new-device registration out of DAA caller context
-Date: Wed,  9 Sep 2026 20:17:55 -0400
-Message-ID: <20260910001756.3748845-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] i3c: master: Fix recursive locking during device registration
+Date: Wed,  9 Sep 2026 20:17:56 -0400
+Message-ID: <20260910001756.3748845-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910001756.3748845-1-sashal@kernel.org>
 References: <2026090419-hunchback-antics-d9e3@gregkh>
@@ -49,213 +49,148 @@ Content-Transfer-Encoding: 8bit
 
 From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 3f79dac3ea1c30516fcc791770af034387c7f917 ]
+[ Upstream commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 ]
 
-Master drivers may invoke i3c_master_do_daa_ext() during resume to
-re-run Dynamic Address Assignment.  As well as assigning addresses to
-any newly arrived devices, this restores the dynamic address of devices
-that lost it across system suspend, so it has to run as part of the
-controller's resume path.
+i3c_master_register_new_i3c_devs() registers newly discovered devices
+while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
+can immediately probe the device, and probe callbacks typically invoke
+I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
+recursive acquisition of the same rwsem.  rwsems do not support recursive
+read locking and can deadlock when a writer is waiting.  See the
+"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
 
-A side effect of i3c_master_do_daa_ext() today is that it also
-registers any newly discovered I3C devices with the driver model
-inline, via i3c_master_register_new_i3c_devs().  Doing that from the
-resume path is problematic: a hot-join-capable device may join the bus
-during this same DAA, and registering it immediately would push driver
-model work (probing, sysfs, etc.) into the controller's resume context,
-where the rest of the system is not yet fully resumed and the
-controller driver is still partway through its own resume sequence.
+For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
+  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
+  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
+  WARNING: possible recursive locking detected
+  kworker/5:1/94 is trying to acquire lock:
+  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
+  but task is already holding lock:
+  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
 
-Decouple discovery from registration: add a reg_work work item to
-struct i3c_master_controller and have i3c_master_do_daa_ext() queue it
-on master->wq (the freezable workqueue) instead of calling
-i3c_master_register_new_i3c_devs() directly.  The worker performs the
-registration only when the controller is not shutting_down, and is
-cancelled alongside hj_work in i3c_master_shutdown().  Because wq is
-freezable, any newly observed devices end up being registered after
-the system has finished resuming.
+Fix this by separating device creation from device registration.
+Populate desc->dev under the maintenance lock, collect the devices that
+still need registration into a local list, then release the lock before
+calling device_register().  Finally retake the lock and clean up any
+devices that failed to register.
 
-i3c_master_register() also routes its initial post-bus-init registration
-through reg_work, using flush_work() to keep probe-time behavior
-synchronous.  This keeps a single registration code path and ensures the
-worker is the only writer of desc->dev.
+Use the maintenance lock rather than the normal-use lock while adding
+device objects.  A write-side maintenance lock prevents readers from
+observing a partially initialized desc->dev during initial device
+population, or desc->dev disappearing if registration fails.
 
-Fixes: 3a379bbcea0af ("i3c: Add core I3C infrastructure")
+The local list requires a list node, so add a list node member to struct
+i3c_device.
+
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+Cc: stable@vger.kernel.org
 Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260608054312.10604-7-adrian.hunter@intel.com
+Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
 Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-
-Stable adaptation for 6.12:
-
-Use the existing i3c_master_do_daa() API because this branch lacks the
-extended DAA API and the runtime-PM and core hot-join prerequisites.
-Keep the registration worker introduced by this commit unchanged.
-Initialize reg_work in i3c_master_register() and preserve the initial
-registration flush.
-
-Add the shutting_down gate and cancel reg_work directly in the existing
-i3c_master_unregister() path, before device and bus cleanup. Queue DAA
-registration while holding the maintenance lock so unregister cannot
-cancel the work and then race with a late enqueue. No additional helper
-functions or core hot-join/shutdown callbacks are introduced.
-
-Include the two device_register() failure-path pointer clears from
-74be657d98a8d ("i3c: master: Fix device_register() error path"), which are
-required by the target's registration cleanup rewrite. Keep the existing
-OF node handling; the target merges cleanly without the unified firmware
-property conversion.
-
-This prepares the tree for 456f832e5fc2 ("i3c: master: Fix recursive locking
-during device registration").
-
-Stable-dep-of: 456f832e5fc2 ("i3c: master: Fix recursive locking during device registration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c       | 48 +++++++++++++++++++++++++++-----------
- include/linux/i3c/master.h |  6 +++++
- 2 files changed, 41 insertions(+), 13 deletions(-)
+ drivers/i3c/master.c       | 45 ++++++++++++++++++++++++++++----------
+ include/linux/i3c/master.h |  3 +++
+ 2 files changed, 36 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 067dd5946d512..9103dc77a4459 100644
+index 9103dc77a4459..96c29fdaf437a 100644
 --- a/drivers/i3c/master.c
 +++ b/drivers/i3c/master.c
-@@ -1689,11 +1689,23 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (ret) {
- 			dev_err(&master->dev,
- 				"Failed to add I3C device (err = %d)\n", ret);
-+			desc->dev->desc = NULL;
- 			put_device(&desc->dev->dev);
-+			desc->dev = NULL;
- 		}
- 	}
- }
- 
-+static void i3c_master_reg_work_fn(struct work_struct *work)
-+{
-+	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
-+
-+	i3c_bus_normaluse_lock(&master->bus);
-+	if (!master->shutting_down)
-+		i3c_master_register_new_i3c_devs(master);
-+	i3c_bus_normaluse_unlock(&master->bus);
-+}
-+
- /**
-  * i3c_master_do_daa() - do a DAA (Dynamic Address Assignment)
-  * @master: master doing the DAA
-@@ -1714,17 +1726,17 @@ int i3c_master_do_daa(struct i3c_master_controller *master)
+@@ -1659,12 +1659,21 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
+ static void
+ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+ {
++	struct i3c_device *i3cdev, *tmp;
+ 	struct i3c_dev_desc *desc;
++	LIST_HEAD(i3c_unreg_devs);
  	int ret;
  
- 	i3c_bus_maintenance_lock(&master->bus);
--	ret = master->ops->do_daa(master);
--	i3c_bus_maintenance_unlock(&master->bus);
--
--	if (ret)
--		return ret;
-+	if (master->shutting_down)
-+		ret = -ENODEV;
-+	else
-+		ret = master->ops->do_daa(master);
- 
--	i3c_bus_normaluse_lock(&master->bus);
--	i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	/* Serialize queuing with cancellation during unregister. */
-+	if (!ret)
-+		queue_work(master->wq, &master->reg_work);
-+	i3c_bus_maintenance_unlock(&master->bus);
- 
--	return 0;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(i3c_master_do_daa);
- 
-@@ -2817,6 +2829,7 @@ int i3c_master_register(struct i3c_master_controller *master,
- 	master->dev.release = i3c_masterdev_release;
- 	master->ops = ops;
- 	master->secondary = secondary;
-+	master->shutting_down = false;
- 	INIT_LIST_HEAD(&master->boardinfo.i2c);
- 	INIT_LIST_HEAD(&master->boardinfo.i3c);
- 
-@@ -2868,6 +2881,7 @@ int i3c_master_register(struct i3c_master_controller *master,
- 		ret = -ENOMEM;
- 		goto err_put_dev;
- 	}
-+	INIT_WORK(&master->reg_work, i3c_master_reg_work_fn);
- 
- 	ret = i3c_master_bus_init(master);
- 	if (ret)
-@@ -2893,12 +2907,15 @@ int i3c_master_register(struct i3c_master_controller *master,
- 
- 	/*
- 	 * We're done initializing the bus and the controller, we can now
--	 * register I3C devices discovered during the initial DAA.
-+	 * register I3C devices discovered during the initial DAA. Device
-+	 * registration is done via reg_work because that keeps a single
-+	 * registration code path and ensures the worker is the only writer
-+	 * of desc->dev. Flush the work to preserve synchronous probe-time
-+	 * behavior.
- 	 */
- 	master->init_done = true;
--	i3c_bus_normaluse_lock(&master->bus);
--	i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	queue_work(master->wq, &master->reg_work);
-+	flush_work(&master->reg_work);
- 
- 	return 0;
- 
-@@ -2925,6 +2942,11 @@ void i3c_master_unregister(struct i3c_master_controller *master)
- {
- 	i3c_bus_notify(&master->bus, I3C_NOTIFY_BUS_REMOVE);
+ 	if (!master->init_done)
+ 		return;
  
 +	i3c_bus_maintenance_lock(&master->bus);
-+	master->shutting_down = true;
-+	i3c_bus_maintenance_unlock(&master->bus);
-+	cancel_work_sync(&master->reg_work);
 +
- 	i3c_master_i2c_adapter_cleanup(master);
- 	i3c_master_unregister_i3c_devs(master);
- 	i3c_master_bus_cleanup(master);
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 414a8acde0183..2addb43f85dac 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -499,6 +499,7 @@ struct i3c_master_controller_ops {
-  * @secondary: true if the master is a secondary master
-  * @init_done: true when the bus initialization is done
-  * @hotjoin: true if the master support hotjoin
-+ * @shutting_down: set to true when master is being unregistered
-  * @boardinfo.i3c: list of I3C  boardinfo objects
-  * @boardinfo.i2c: list of I2C boardinfo objects
-  * @boardinfo: board-level information attached to devices connected on the bus
-@@ -508,6 +509,9 @@ struct i3c_master_controller_ops {
-  *	in a thread context. Typical examples are Hot Join processing which
-  *	requires taking the bus lock in maintenance, which in turn, can only
-  *	be done from a sleep-able context
-+ * @reg_work: work item used to register newly discovered I3C devices with
-+ *	    the driver model, queued to @wq by i3c_master_do_daa() and
-+ *	    cancelled when the controller is unregistered
-  *
-  * A &struct i3c_master_controller has to be registered to the I3C subsystem
-  * through i3c_master_register(). None of &struct i3c_master_controller fields
-@@ -522,12 +526,14 @@ struct i3c_master_controller {
- 	unsigned int secondary : 1;
- 	unsigned int init_done : 1;
- 	unsigned int hotjoin: 1;
-+	bool shutting_down;
- 	struct {
- 		struct list_head i3c;
- 		struct list_head i2c;
- 	} boardinfo;
- 	struct i3c_bus bus;
- 	struct workqueue_struct *wq;
-+	struct work_struct reg_work;
- };
++	if (master->shutting_down) {
++		i3c_bus_maintenance_unlock(&master->bus);
++		return;
++	}
++
+ 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
+ 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
+ 			continue;
+@@ -1685,25 +1694,37 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+ 		if (desc->boardinfo)
+ 			desc->dev->dev.of_node = desc->boardinfo->of_node;
+ 
+-		ret = device_register(&desc->dev->dev);
+-		if (ret) {
+-			dev_err(&master->dev,
+-				"Failed to add I3C device (err = %d)\n", ret);
+-			desc->dev->desc = NULL;
+-			put_device(&desc->dev->dev);
+-			desc->dev = NULL;
+-		}
++		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
+ 	}
++
++	i3c_bus_maintenance_unlock(&master->bus);
++
++	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
++		ret = device_register(&i3cdev->dev);
++		if (ret)
++			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
++		else
++			list_del_init(&i3cdev->node);
++	}
++
++	i3c_bus_maintenance_lock(&master->bus);
++
++	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
++		list_del(&i3cdev->node);
++		desc = i3cdev->desc;
++		i3cdev->desc = NULL;
++		put_device(&i3cdev->dev);
++		desc->dev = NULL;
++	}
++
++	i3c_bus_maintenance_unlock(&master->bus);
+ }
+ 
+ static void i3c_master_reg_work_fn(struct work_struct *work)
+ {
+ 	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
+ 
+-	i3c_bus_normaluse_lock(&master->bus);
+-	if (!master->shutting_down)
+-		i3c_master_register_new_i3c_devs(master);
+-	i3c_bus_normaluse_unlock(&master->bus);
++	i3c_master_register_new_i3c_devs(master);
+ }
  
  /**
+diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
+index 2addb43f85dac..25efe4757d922 100644
+--- a/include/linux/i3c/master.h
++++ b/include/linux/i3c/master.h
+@@ -228,6 +228,8 @@ struct i3c_dev_desc {
+  *	  every time the I3C device is rediscovered with a different dynamic
+  *	  address assigned
+  * @bus: I3C bus this device is attached to
++ * @node: unregistered device list node, only for use by
++ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
+  *
+  * I3C device object exposed to I3C device drivers. The takes care of linking
+  * this object to the relevant &struct_i3c_dev_desc one.
+@@ -238,6 +240,7 @@ struct i3c_device {
+ 	struct device dev;
+ 	struct i3c_dev_desc *desc;
+ 	struct i3c_bus *bus;
++	struct list_head node;
+ };
+ 
+ /*
 -- 
 2.53.0
 
