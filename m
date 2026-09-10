@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D1A46D095;
-	Thu, 10 Sep 2026 10:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A77645DF6C
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 10:56:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037761; cv=none; b=RuUfyFFJlQZ+ceaTmQCMxSWmRMjOIKeEYkhMhwRzyuioDq/DEk6V8qHTMcsp8gLa5Eg1HXMuexHMIjWjpZfXpkMsyl4XLK/9ctAGYOAQdbTeYiopzNUC+757G/7l/mWLmcX7XqvdcMaYhYnvUrB1/9jJq2XqmkesryKmeUIOYPQ=
+	t=1789037820; cv=none; b=WN8ZJ57mF4fr8r7gWTCm3KvvOmETsCkzSWnH4/dLyNFfBls3uUFUn6vdpKiCYNnvmh3fBejQrhcZioLJ96KLfQbEnVil695tZPrxMX5QpOrvAmwl7eEeHPCRJCpOuLZgcRu4uXtBSRUyET/eZqfU6Y9hG5mZz8wbfXdW23HGRMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037761; c=relaxed/simple;
-	bh=xUmNq+h8P5GOEqnP5pSs7V6mHwoQfX21xBNIHagQvog=;
+	s=arc-20240116; t=1789037820; c=relaxed/simple;
+	bh=0XVud+aFs7SjXyrBbSbz9+RlhMfbfwciyLfpZ2J7E6k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YuZQGK3jU7SPjKRDWl9v6GtxqtQpNt9+5v6c1FobLvx+jqlBC9pAA8QFOZ0LLIBqgCB9JH3zbGhEc431YlW9AGLX2N3NK8BvTZRs+nBDGtwH0p6oy52uX9va0Pu0rdVG0uXIBS5tiynzn0hn21YMjB4s2rs/Um4MdsHBfPPrk+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc/Krtey; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bNHma+Hibyf/siRsxWIgQjsVqm4mjTnlSSyRVXbv/a2Hi8JrsVkYEKYUAhZcrkSGaw0UgZwx9FIpj6xoQ6FAXoekrj7X/4wqrqBogRNJytGXnALa+ivNoUNaZDuofIwg8OkcLmUD0JApYJ9oGMnQtCMPI7u9qaRFEuiEp3pN2Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QugRe20W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc/Krtey"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FEC91F00893;
-	Thu, 10 Sep 2026 10:55:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QugRe20W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EB9B1F000FF;
+	Thu, 10 Sep 2026 10:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789037750;
-	bh=i0k/HI/bcvlOdY3uUk2PaTWHvR+HLRCqNH8Ek21Htnw=;
+	s=k20260515; t=1789037810;
+	bh=vy0obgvg0nf8qGQKnYvGOGI82XsQ6j8jix882VNn/Nc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sc/Krteyn26A4LgEQxcaQ3aIGJQrPiYPJoPeNp7tZ/hRMWj3NuGHWMPxFTWsGav5x
-	 wptWbvudyVSj5LZah6hldUObO9gJUrw/FqALJrudU8w/ZQ6XvreENhQGhT5jqQCTlL
-	 wSmYrFeJXRNV1yMOF7JEX2SjiQFpGARrQ57co0kwAGpS5uPPI5kaqKKFygGvNWIi/k
-	 aAVPHnzVr63YkXDJzeXXEFWAGhCbsXdCoT6gg9W8eA4SNsvVlbC0YCx6d/o+PtdzIV
-	 qZFNSKXnlpZpABb2WgKchhgOH+kvgIFxRFGXgBTsZ7GiiBy7ulWCz+t5k96ldf1zZR
-	 UGrWVYbSz/0Fg==
-Date: Thu, 10 Sep 2026 11:55:44 +0100
-From: Will Deacon <will@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Christoph Hellwig <hch@lst.de>, Ard Biesheuvel <ardb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
-Message-ID: <aqKMsKpYnAZOoKQo@willie-the-truck>
-References: <20260910063620.17768-1-kmehltretter@gmail.com>
- <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
+	b=QugRe20W6g3MjyJ+mgnoAlyfxdfcW8qlXrm53ytBcd1jTs5KN6YljfasGpJHQ0FQC
+	 lJJ8Iz4hQN99WZlHJTKqfF/kSqZzxDE8ON4Tn0fE32XSyUBMPn1rR8LgiuOW2M878K
+	 IUqWJIUeZGXkk0wxvGn871PZGtXDYfzvQIs+jTnvvUk30CtHJy9Md9Lwyocou+5qj7
+	 7Ztlfmjx6Ut7DVwCSWsi6zclwPdLt9a7YrjX+Ng831FVWh59qswdmYF6ayEBsnwjQ8
+	 wA7QPytJP5GbfpiXZ+cnkByeHec4QR/zQYz07ap+c3GctQRu/thP7omkDpUpFa4OUL
+	 bvSon05EQ/nWw==
+Date: Thu, 10 Sep 2026 11:56:43 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com, 
+	ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org, david@kernel.org, 
+	david.laight.linux@gmail.com, james.morse@arm.com, maz@kernel.org, peterz@infradead.org, 
+	ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org, 
+	usama.anjum@arm.com, vladimir.murzin@arm.com, will@kernel.org, 
+	yang@os.amperecomputing.com
+Subject: Re: [PATCH v4 01/21] arm64: percpu: Fix this_cpu_write() casting
+Message-ID: <aqKMAXthAIfa409I@gremlin>
+References: <20260908151741.394589-1-mark.rutland@arm.com>
+ <20260908151741.394589-2-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,73 +47,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
+In-Reply-To: <20260908151741.394589-2-mark.rutland@arm.com>
 
-On Thu, Sep 10, 2026 at 11:14:28AM +0200, Arnd Bergmann wrote:
-> On Thu, Sep 10, 2026, at 08:36, Karl Mehltretter wrote:
-> > This series prevents a DMA_FROM_DEVICE map from discarding CPU-written
-> > buffer contents on non-coherent 32-bit ARM. It is based on
-> > v7.3-rc1-324-g986c24e0fe44.
-> >
-> > ARM currently invalidates these buffers before the device writes them.
-> > If the device writes only part of a buffer, discarded dirty cache lines
-> > can expose older memory contents in the untouched bytes. A stock USB
-> > webcam demonstrated this through usbfs. Short isochronous packets left
-> > gaps, and usbfs returned non-zero data to userspace from bytes it had
-> > cleared.
-> >
-> > arm64 changed this handoff from invalidate to clean in 2022 with commit
-> > c50f11c6196f ("arm64: mm: Don't invalidate FROM_DEVICE buffers at start
-> > of DMA transfer"). Arnd Bergmann's 2023 ARM32 cache-maintenance series
-> > left DMA_FROM_DEVICE preservation unresolved [1]. This series keeps the
-> > existing ownership hooks.
-> 
-> I think the main problem here is that we remain inconsistent about the
-> rules across CPU architectures, and changing Arm on its own does not
-> mean we have a solution if another architecture decides to change it
-> in the opposite direction at some point.
-> 
-> I see this as a tradeoff that can go either way:
-> 
-> - the current 32-bit Arm approach (also arc, hexagon, microblaze, mips,
->   nios2, openrisc, powerpc32, sh) is obviously faster as it avoids
->   the writeback, but it relies on device drivers to ensure no stale
->   data can leak back into userspace.
-> 
-> - Will's patch changed arm64 (later copied into riscv) to avoid that
->   risk by adding the overhead out of caution, and avoid having to
->   audit and fix all drivers.
+On Tue, Sep 08, 2026 at 04:17:21PM +0100, Mark Rutland wrote:
+> The arm64 implementation of this_cpu_write() casts 'val' to unsigned
+> long. This is necessary to handle cases where 'val' is a pointer type,
+> and to avoid spurious compiler warnings for the (unreachable!) cases
+> where the pointer type would be cast to a smaller integer type.
+>
+> Unfortunately, the cast is applied to 'val' rather than '(val)', which
+> won't always generate the expected value when 'val' is an expression.
+>
+> For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
+> 'zero' is a u32:
+>
+> * 'zero'                      ===> (u32) 0x00000000
+> * 'zero - 1'                  ===> (u32) 0xffffffff
+> * '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
+> * '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
+>
+> Fix this by adding brackets around 'val'
+>
+> The bug described above can be seen from the disassembly of the
+> following test code:
+>
+> | void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, zero - 1);
+> | }
+> |
+> | void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, (zero - 1));
+> | }
+>
+> Generated code before this patch:
+>
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffffffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        add     x0, x0, x3
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+>
+> Generated code after this patch:
+>
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        b       this_cpu_write_zero_minus_1
+>
+> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+> Reported-by: David Laight <david.laight.linux@gmail.com>
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
 
-How would you envisage fixing a driver for this? There were two issues
-I tried to address by moving from invalidate to clean on arm64:
+Ah the fun of arithmetic conversions in C :)
 
-1. If the DMA transfer didn't write every cacheline in the buffer, then
-   we could expose stale data in the gaps.
+LGTM so:
 
-2. If the buffer has a pre-existing userspace mapping, then we expose
-   stale data during the window between the DMA map() call and the DMA
-   itself.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Fixing (1) in the driver would presumably require it to walk through the
-buffer after the transfer and zero all the gaps, with an appreciation
-for the cache writeback granule (!= cacheline size) and then (somehow)
-clean those parts back to the PoC. Is that something any drivers attempt
-today?
+> Reviewed-by: David Laight <david.laight.linux@gmail.com>
+> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Acked-by: Christopher Lameter (Ampere) <cl@gentwo.org>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/percpu.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+> index b57b2bb009677..63bbfd4944a37 100644
+> --- a/arch/arm64/include/asm/percpu.h
+> +++ b/arch/arm64/include/asm/percpu.h
+> @@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
+>  	_pcp_protect_return(__percpu_read_64, pcp)
+>
+>  #define this_cpu_write_1(pcp, val)	\
+> -	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
+>  #define this_cpu_write_2(pcp, val)	\
+> -	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
+>  #define this_cpu_write_4(pcp, val)	\
+> -	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
+>  #define this_cpu_write_8(pcp, val)	\
+> -	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
+>
+>  #define this_cpu_add_1(pcp, val)	\
+>  	_pcp_protect(__percpu_add_case_8, pcp, val)
+> --
+> 2.30.2
+>
 
-Fixing (2) in the driver would presumably require ruling out the
-possibility of a user alias, which sounds hard and possibly ABI breaking
-for some drivers (depending on how they manage their buffers).
-
-> If we decide to align with arm64/riscv and take your series, I think
-> we need two more parts:
-> 
-> - actually measure the performance overhead: you already did the
->   work to test this on three separate arm implementations but did
->   not share performance numbers.
->   Can you quantify how much this costs us on the hardware you used?
-
-It's worth noting that many Arm CPUs upgrade invalidate to
-clean+invalidate (either due to the micro-architecture, errata or because
-of virtualisation).
-
-Will
+--
+Cheers, Lorenzo
