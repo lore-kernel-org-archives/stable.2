@@ -1,139 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D60361969
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491CF36729A
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005559; cv=none; b=TB4SYFIl2XvfeIudWnnXgn/5YtZyDDsRNDAgcZPyQRqRQSek/4C4DCeiG1tVM7bRTovGypW3f3KBOpOIDcAX5A/lAp90yAAjwbUh73pOQWWhsaNll+zyvTun4CYoNwbt7A5e04NX6u0uxwQWN2Cs7fZcBMdayitjySEzsNFaXXE=
+	t=1789005562; cv=none; b=K7dISE5c84rJjOeL/KoQuyNabr9lHnyyj8IeynVI/y+b6AQI1kgL43W2T5c1leDyDxh8yKKLfXNgE2TXI4oWH2FgrfyokDuuz5woHUBwqaIaUURp8j/XhCbQK1HXfn7XjzVn9Rtmhmkh64S95VmW90ficGCnX01ddkIuUyr3c9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005559; c=relaxed/simple;
-	bh=UsjgJB1eBeKLhsZypS34D53siYtkhMJVmwIEVrH22rk=;
+	s=arc-20240116; t=1789005562; c=relaxed/simple;
+	bh=exkfzkGaM7gYBNIe8Ttl2+58/HGUTssOg2CKxMWDYh8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SKAW30CwmdSfXqJEFCNzvqoPy3vy6H3Vw9tzSJGuvBdZdt4YLBOk1XP/ftzS5937ZsWUeUNf04fm9fpyjduTeotXt1p+eIW4DNB9HMkAiYqTE+DaqK5bLUwzUx9neSTl+8W3g15hdyeaoY1E7gqwxKRY5cRHoY9vdGTJlZjMJWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpQ9pOC8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=f/Xyz0KAeDt0hmovkK7RRUNh9WYFzboHq7eNadxyEsNZrUT8RX7crB1g2u+KigW52qo2bMHLR1HS7r4PWxcsHe2IEk6E8t6MTbWpGiAblkz2fhUaFieo6Hc39Q/DpT+VmcB6uBhquOxSBaahsS623t8qWcJl6ca+OIPRVHYUbxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qz61O4KP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpQ9pOC8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A791F0089B;
-	Thu, 10 Sep 2026 01:59:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qz61O4KP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604751F000FF;
+	Thu, 10 Sep 2026 01:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789005558;
-	bh=9pzkwpnv5etODs4qbdxCRK5HlTtRow6QXAmIMxOsTvM=;
+	s=k20260515; t=1789005561;
+	bh=nqeKjajy5FREs3byswZJm6wloK+s4NxytwYVssl4jXY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dpQ9pOC8S4XqWbWBl129llGo4YZw6DBuxnmHa7v0dEL+5pjngaeYx5d7r2tLO1xKt
-	 grG8qAAY49Mn9LfozbxWt1Ou0ec4cja979d41Xbny6RrDFzBFfy1+5USP5rjPQqfuR
-	 jCJ/1LwA2pByjJ70GwEGxju+fVInaMdvdTmi899QzkxMOP9Rrhq4mrhNjJCkrKQrZj
-	 uWyrujsblelymAcqvPTgrc7zZm/4iBoSF+xpoyh8AKteYYk+LaWB8EvH50aAwt9rZu
-	 wO5UrCbDHbdRBcb3yZ6FU16mD5uxc2CGsU6oZm31lYlXXCS2hfpGim4CA6lzf1zN6v
-	 dAyIXkCI4+cYA==
+	b=Qz61O4KPygjxJ+NC5zKvx7A8qYclV3YE6ydGD+C05C+R3ZxuHVTgn3u4m2lIvoAlA
+	 BbtRXcPE0ERyDVpypRFiPxBNHgEGIZH265r6ovH90jxNFugmZWHz6rc28hyM2YxIsp
+	 stISmSQI6monrq44tR2sUKO2iYJbZF/k4IAqoi9jrFwTjikGWGDF27rytFgkHYVHwO
+	 +GGt1fveAqbqatCtRSXmrrG27FOKinKPkGzOvUYkozPTY44pIelBz6u7tUSJjUmj1w
+	 C5To14dL4zdv5M8sDSuvDHAsXo7pQoLV6ObNRphKohiQT9xfz253cs6GiyGDeNwSEb
+	 ATNJTsfhOEUug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?HE=20WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89?= <skyexpoc@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
-Date: Wed,  9 Sep 2026 21:59:14 -0400
-Message-ID: <20260910015914.3948870-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] i3c: master: Replace WARN_ON() with dev_err() in i3c_dev_free_ibi_locked()
+Date: Wed,  9 Sep 2026 21:59:16 -0400
+Message-ID: <20260910015918.3949701-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910015914.3948870-1-sashal@kernel.org>
-References: <2026090804-handiwork-afford-7887@gregkh>
- <20260910015914.3948870-1-sashal@kernel.org>
+In-Reply-To: <2026090420-duplicate-unframed-a6f4@gregkh>
+References: <2026090420-duplicate-unframed-a6f4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: HE WEI（ギカク） <skyexpoc@gmail.com>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 7c4841e2a62794a3bab7c1ff0540580f387e377f ]
+[ Upstream commit 471895799c2f46688792e175ced936ffeb6cdf01 ]
 
-ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
-(== record_size) bytes and then walks every attribute of the primary MFT
-record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
-by le_size(name_len), with no check against the end of the buffer; the
-total size is only computed after the loop.
+IBI disable failures are not indicative of a software bug, so using
+WARN_ON() is not appropriate.  Replace these warnings with dev_err().
 
-A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
-bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
-bytes in the list.  Because the number of attributes in a record is not
-bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
-minimum-size attributes), a crafted record packed with such attributes
-produces a list larger than record_size and overflows the heap buffer.
-
-This is reachable from a crafted, loop-mounted NTFS image: opening the file
-and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
-ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
-ni_create_attr_list().
-
-  BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
-  Write of size 4 at addr ffff000008984c00 by task setfattr/345
-   ni_create_attr_list+0xc48/0x1058
-   ni_ins_attr_ext+0x510/0x7c0
-   ni_insert_attr+0x3f8/0x70c
-   ni_insert_resident+0xc8/0x3b0
-   ntfs_set_ea+0x66c/0xd28
-   ntfs_setxattr+0x4d8/0x5b0
-   __arm64_sys_setxattr+0xa4/0x124
-  Allocated by task 345:
-   ni_create_attr_list+0x188/0x1058
-  The buggy address belongs to the cache kmalloc-1k of size 1024
-  (the write lands at object+1024).
-
-Size the buffer from the actual attributes instead of assuming a single
-record_size is always enough.
-
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Reported-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260113072702.16268-5-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Stable-dep-of: 456f832e5fc2 ("i3c: master: Fix recursive locking during device registration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/frecord.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/i3c/master.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 89895ee524440..38874abe17716 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -816,10 +816,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	rs = sbi->record_size;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index add78b03c5338..b4426fa660898 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -2710,8 +2710,11 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+ 	if (!dev->ibi)
+ 		return;
  
- 	/*
--	 * Skip estimating exact memory requirement.
--	 * Looks like one record_size is always enough.
-+	 * Compute the exact size of the attribute list.  Each attribute in the
-+	 * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
-+	 * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
-+	 * unnamed one expands to le_size(0) (0x20) here, so a record crafted
-+	 * with many such attributes needs more than a single record_size; the
-+	 * previous fixed kzalloc(record_size) could therefore be overflowed by
-+	 * an attacker-controlled record.
- 	 */
--	le = kzalloc(al_aligned(rs), GFP_NOFS);
-+	lsize = 0;
-+	attr = NULL;
-+	while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
-+		lsize += le_size(attr->name_len);
-+
-+	if (!lsize)
-+		return -EINVAL;
-+
-+	le = kzalloc(al_aligned(lsize), GFP_NOFS);
- 	if (!le)
- 		return -ENOMEM;
+-	if (WARN_ON(dev->ibi->enabled))
+-		WARN_ON(i3c_dev_disable_ibi_locked(dev));
++	if (dev->ibi->enabled) {
++		dev_err(&master->dev, "Freeing IBI that is still enabled\n");
++		if (i3c_dev_disable_ibi_locked(dev))
++			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
++	}
  
-@@ -829,7 +842,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	attr = NULL;
- 	nb = 0;
- 	free_b = 0;
--	attr = NULL;
- 
- 	for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
- 		sz = le_size(attr->name_len);
+ 	master->ops->free_ibi(dev);
+ 	kfree(dev->ibi);
 -- 
 2.53.0
 
