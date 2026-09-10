@@ -1,94 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E4F36194D
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CF3221FB6
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006452; cv=none; b=HbhTj688qOhZ6C3X+SXAbqg+mDYkz5mSiJOiY1ipFQNotPevYJJ4p+H8ZfWdo6TVO5Rk5snrje8aelXBwUW7hO8Bk5BttDqQHNL91Y3zT5+JTUK2BXveVEk9k+fvYURXh4m6MyuwNEVklqKRV8ewfVRYBIVP+ghU1RWDlju915g=
+	t=1789006498; cv=none; b=uGokYbftKUQ7GwLt9Qp4lxC/R64Mk6aYud+n2nxR/E06p9ZYxX7nAoL+7kPuCyMZ6n8QKegAxxgYTY+i/CgEWuoUhVKebrn7Uy0OmXXcTeDOU/Cx2Lairk8MMkctXIGXxvFrLW+/RDBM4ioJ0XxnbFRKP7wDNs+ccUKXUH0whIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006452; c=relaxed/simple;
-	bh=tKcx+5Vsjjnr9AK3kzWngurtrLTwcaOuoWgt3CggJVQ=;
+	s=arc-20240116; t=1789006498; c=relaxed/simple;
+	bh=Y3kDIGKYo7JJiZtuWRDgFGEwAgDwFAg/L0LFmsQol9w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JdzFKyCf0Nrp/1mFdHeKqtZnRkTpVHWZiBhiQe5FM9MSS+gR8u8qWRBzxhUK9I+5JNwbUpKKDPKVS15V6LY3aLjpULYBZJJ6PYu2MsN/4iV8KqYzh4hChTLE8WziT7znu+dMArY1lQ/nbc9zAgTZfHWBW9Zrc+UthhC1F8F7Tl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deECWw0f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aPDplZQPwbndCosUMJ9DnrF+/moDqmf+2+8/eI5PWrKvY5NoFBBYKnIqQ+8LXbk96Aq4i/OhNIIbl34ROywJQYZvx00uBslYQRo6w/qXwkMAGQNiJROxDhqayOU8BQNRbiKJWNofSTxC5q+dvKZWFIWtdwCoCXWg/pk5aYcW7sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JpBQ6DNP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deECWw0f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51311F000FF;
-	Thu, 10 Sep 2026 02:14:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JpBQ6DNP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C999B1F000FF;
+	Thu, 10 Sep 2026 02:14:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789006451;
-	bh=OxLclSyoHj+B4aaUI9/kR+YJN5OlLsArhd55/S98xW8=;
+	s=k20260515; t=1789006496;
+	bh=4iFnjBdA2L+oW63TSwVpdl7ZkfCcjm7Kgi5DI0t1Wf8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=deECWw0fQ8jCkjNbbFqpRpbSv2obLZwb1lf/FeFx3/WfIKqnanSB/rn/Kc0pItFr9
-	 VqO1sP5lo6lRFkYCfkF/3NRKZuAy9ToY+0xIf1baBV7E09Eh4wFYQhHWmgEtNIZFKU
-	 AwFk+afhqDMP7tDG434aOW9Jh3CuzKdKQawDHr5o9OJ6aIzMdGU93MFL6nSGcBazEP
-	 LTrCmMoh+ZHnEdBltJ1Nihyloulpz4eNEAVg/Mh5DS66uD8Ed2KEl2Iw4CnLTw19Ms
-	 6SKsj2s4iEQsewJpD6cYSDUlzJv1qAb0s+A46PXc7mBgt2A5PTdnipkT17BXKvF407
-	 CflGg3Md/fTtg==
+	b=JpBQ6DNPriVUcMo7BV3rOde1Se2u6UefE5bWqKEUP6ySz8QSQTzBc1DkfTjUwUMmk
+	 MpllTtbIzS48fUbT5o3cjZ/81SKIfqN6FI8yHeGRE4rFubHI9FDCFXBnRylpYc1HX5
+	 vaX8I45rlNYAO4DIE7ctmNV9P+S4t9nJqorEouZDPYuFGNR/wvkHuTus5izp71hhWA
+	 Uw7HIP1eqXkQIB487Wu9opOoaAOe4Y2jRjzeHTMg5y2Vv8k3bwOf8HunkeGKnvpAHG
+	 +wvgW8osYHDxyETYbrOY+F646tjUz/vdTDBo5C+lA2Z9+J/TyLu58bD8Xuf4kH4Q1f
+	 4/h15Fe+0iSJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeffin Philip <jeffinphilip14@gmail.com>,
-	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com,
+Cc: Xu Yang <xu.yang_2@nxp.com>,
 	stable <stable@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
-Date: Wed,  9 Sep 2026 22:14:09 -0400
-Message-ID: <20260910021409.3997045-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] usb: typec: tcpm: fix debug accessory mode detection for sink ports
+Date: Wed,  9 Sep 2026 22:14:53 -0400
+Message-ID: <20260910021454.3999749-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090851-diameter-thermal-3fb2@gregkh>
-References: <2026090851-diameter-thermal-3fb2@gregkh>
+In-Reply-To: <2026090802-sauciness-bleach-95a1@gregkh>
+References: <2026090802-sauciness-bleach-95a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeffin Philip <jeffinphilip14@gmail.com>
+From: Xu Yang <xu.yang_2@nxp.com>
 
-[ Upstream commit 2c0f5ca48674a5b5f9fa4a9c3325aa48053af0bc ]
+[ Upstream commit f6ec9bb4acc7182b25a793ad094a764e1cb819a7 ]
 
-Previously fsg_num_buffers_validate() was removed as it was not
-necessary due to Kconfig setting the limits for n from 2 to 256 with
-default as 2. However, setting the page content in such a way that
-kstrtou8() reflects n value as either 0 or 1 bypasses these
-restrictions leading to a null pointer dereference if n is 0. Fix
-this by adding a check for n < 2 and returning -EINVAL if n is
-either 0 or 1 consistent with Kconfig logic.
+The port in debug accessory mode can be either a source or sink. The
+previous tcpm_port_is_debug() function only checked for source port.
 
-Reported-by: syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=791be35f1fbcc85d06d7
-Fixes: fe5a6c48fd95 ("usb: gadget: storage: get rid of fsg_num_buffers_validate()")
+Commit 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into
+accessory mode debug") changed the detection logic to support both roles,
+but left some logic in _tcpm_cc_change() unchanged, This causes the state
+machine to transition to an incorrect state when operating as a sink in
+debug accessory mode. Log as below:
+
+[  978.637541] CC1: 0 -> 5, CC2: 0 -> 5 [state TOGGLING, polarity 0, connected]
+[  978.637567] state change TOGGLING -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+[  978.637596] pending state change SRC_ATTACH_WAIT -> DEBUG_ACC_ATTACHED @ 180 ms [rev1 NONE_AMS]
+[  978.647098] CC1: 5 -> 0, CC2: 5 -> 5 [state SRC_ATTACH_WAIT, polarity 0, connected]
+[  978.647115] state change SRC_ATTACH_WAIT -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+
+It should go to SNK_ATTACH_WAIT instead of SRC_ATTACH_WAIT state.
+
+To fix this, add tcpm_port_is_debug_source() and tcpm_port_is_debug_sink()
+helper to explicitly identify the power mode in debug accessory mode.
+Update the state transition logic in _tcpm_cc_change() to ensure the state
+machine transitions comply with Type-C specification. Also update the logic
+in run_state_machine() to keep consistency.
+
+Fixes: 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into accessory mode debug")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-Link: https://patch.msgid.link/20260818035904.10324-1-jeffinphilip14@gmail.com
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Amit Sunil Dhamne <amitsd@google.com>
+Link: https://patch.msgid.link/20260424074009.2979266-1-xu.yang_2@nxp.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ adjusted context to retain the branch’s existing kcalloc() call instead of kzalloc_objs(). ]
+
+[Backport to 6.12: This tree lacks 8db73e6a42b6 and the associated
+sink debug-accessory state-machine support. Retain only the source-debug
+macro extraction and source-side call-site updates. Keep
+tcpm_port_is_debug() source-only and omit the sink-debug macro and all
+sink/audio attachment transitions introduced by the upstream dependency.
+This preserves existing detection and state transitions while providing
+tcpm_port_is_debug_source() for cd3b9cea675b ("usb: typec: tcpm: constrain
+TCPM_SOURCING_VBUS event handling"). No functions are added.]
+
+Stable-dep-of: cd3b9cea675b ("usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_mass_storage.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/usb/typec/tcpm/tcpm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-index e01d57a5327c6..f149560f8a9b7 100644
---- a/drivers/usb/gadget/function/f_mass_storage.c
-+++ b/drivers/usb/gadget/function/f_mass_storage.c
-@@ -2748,6 +2748,9 @@ int fsg_common_set_num_buffers(struct fsg_common *common, unsigned int n)
- 	struct fsg_buffhd *bh, *buffhds;
- 	int i;
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 6969db16f07cc..6ff7d4dbaafe2 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -522,9 +522,12 @@ static const char * const pd_rev[] = {
+ 	 (tcpm_cc_is_source((port)->cc2) && \
+ 	  !tcpm_cc_is_source((port)->cc1)))
  
-+	if (n < 2)
-+		return -EINVAL;
+-#define tcpm_port_is_debug(port) \
++#define tcpm_port_is_debug_source(port) \
+ 	(tcpm_cc_is_source((port)->cc1) && tcpm_cc_is_source((port)->cc2))
+ 
++#define tcpm_port_is_debug(port) \
++	tcpm_port_is_debug_source(port)
 +
- 	buffhds = kcalloc(n, sizeof(*buffhds), GFP_KERNEL);
- 	if (!buffhds)
- 		return -ENOMEM;
+ #define tcpm_port_is_audio(port) \
+ 	(tcpm_cc_is_audio((port)->cc1) && tcpm_cc_is_audio((port)->cc2))
+ 
+@@ -4023,7 +4026,7 @@ static void run_state_machine(struct tcpm_port *port)
+ 			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
+ 		break;
+ 	case SRC_ATTACH_WAIT:
+-		if (tcpm_port_is_debug(port))
++		if (tcpm_port_is_debug_source(port))
+ 			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
+ 				       PD_T_CC_DEBOUNCE);
+ 		else if (tcpm_port_is_audio(port))
+@@ -5035,7 +5038,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 
+ 	switch (port->state) {
+ 	case TOGGLING:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		else if (tcpm_port_is_sink(port))
+@@ -5043,7 +5046,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 		break;
+ 	case SRC_UNATTACHED:
+ 	case ACC_UNATTACHED:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		break;
 -- 
 2.53.0
 
