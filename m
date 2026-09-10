@@ -1,39 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155A158FD39
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E108493628
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067334; cv=none; b=OJws6xdn7Hio7+lyoxxupUPaRj+sy4eExbrGdTta4jrlrAblzs158KwHCaUwTWCa5ccwC+2tqAZP3HtvY5wWE/d5jZySARd0GctNrdlascjkAagQGOcazkjGSS5q5jbxbMRbuPgwa8FaILLNocchPLheh1nkOLUstXI6SI0KMIw=
+	t=1789067336; cv=none; b=OL5KkSEGAbpGUXsYKDZ2bXNOFed3jRvqa6ElJNBxo1MsxuSHt2KJydDWscUw718OHcjvb2og/wJzg6RkpvsRy4vqalDm14b+MUEjqyWUAXfsQlQM0f6MSd0jbImJAHNyddIDhLu/pwE3xZc3V0S2O5OcaSloOLSugEdiHNHqqT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067334; c=relaxed/simple;
-	bh=m5umePxBvUSksu5lPptAOaXJUv2XTax7MPaN0cM9C/w=;
+	s=arc-20240116; t=1789067336; c=relaxed/simple;
+	bh=xEETmcSeoWeLwDY6CaxH9M5e69yeGVvuTxAW68tXLqY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W7w7vJYWdSyCZ9/bBwAaewW1HfUBX1GQxJR4dH+KMIsIURZfzEYKNztYW+DMzEeRuNnYNNhQ1tGD3MDWhGlMpQCu9jmPeHgyodLpVpzX3G2FAYwEtxKIzmo5xhGqhYhcgYNnSgfN6cd03bQqpigHzVMGFR1liwMM5J8+cVsJS7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nI3q6LEP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kYV33LR6I87/dIkB/NJk1xvWpTAvxI3tC54CCjepNp05hlsiGr3AWLlx+6jrntfNbIQqsxY5PQ02pVOC23KCrE99DKqQdoaEWtWAVOpEniFoSW6LvoF0LJm6yCA2sTaTGH0XNLgc0bPlfWQYJsGG3wuWqCpT4ZalVEl4Nyu+7MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/z8f7z9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI3q6LEP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF211F00899;
-	Thu, 10 Sep 2026 19:08:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/z8f7z9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E431F000FF;
+	Thu, 10 Sep 2026 19:08:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067333;
-	bh=xFzqmCUJK9e6KBPZc8T3Zw6Ma+e306VVkvvPeAT9xis=;
+	s=k20260515; t=1789067334;
+	bh=w/5q/z4sKGelOAe1hKfHUw1iW3kRV7Y24JzBvXfAjTo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nI3q6LEP8m45rwRi6s79V6xE2Qp/4tnDeSUincHxnXHHtKSguZ3mvUgQI+CJEtAnI
-	 O5uA23MLhdGJUGy0enqaK/y5GKoeCGQfo/Whr4852YzqapZskNxDNkOVrQV+Gc9eKt
-	 xvJTunCVMU2YvoXiUrAA5f4U8wpRl1BoYGAH3Wike/Xe3Ix3tDK35UvUSBuZOg0wan
-	 jc2RoLuePUCI/fI3uJTdtPYsQcaY+vItsUaJOVd5F6GBv8FRJeioGjuCSXCcAxD58D
-	 5nIL3btJ1y1HhHzJ7q3REFxjGgUBai0UtnVwMmys5odaPxE45BxQbV74d7vXlNXlRF
-	 sFk19GK+iSnAw==
+	b=I/z8f7z9r+SFG01dqunJcx7B/DJxT6yl1aZL0/tPJIJtH8nHHAipY4dTe848MLxi/
+	 sJgwUjOSeW+r+x8CdWkwaHaYMfaJ9y3FP+Eg9Gec5cQUjyLzUS5xBR7O/kIeOgFVRH
+	 IrqGG+rMRWWeTXmlSb3G+sqStS+JMz8ICDq7gX2C711OXqYLnPpML0CaDnGGQZOWAX
+	 Dxt29//OhKRmy7NtHi1KYgEXGjLgPXJOrtm2JE1Wi+FbqjZLTcpRY0bYlMk1SGErIx
+	 TtLqMt2g9oC1zxgWqJoA/NFVNnCsAU8SC+HNTi6yy1ssVxfauT5G61QwZ27P+7nYZV
+	 nl34mhx0fH0UA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Hannes Reinecke <hare@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Hannes Reinecke <hare@suse.de>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 6/7] block: don't set GENHD_FL_NO_PART for hidden gendisks
-Date: Thu, 10 Sep 2026 15:08:45 -0400
-Message-ID: <20260910190846.1453814-6-sashal@kernel.org>
+Subject: [PATCH 5.10.y 7/7] block: flag zoned disks with GENHD_FL_NO_PART
+Date: Thu, 10 Sep 2026 15:08:46 -0400
+Message-ID: <20260910190846.1453814-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910190846.1453814-1-sashal@kernel.org>
 References: <2026090834-voyage-donut-60bd@gregkh>
@@ -46,65 +50,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Damien Le Moal <dlemoal@kernel.org>
 
-[ Upstream commit 9f18db572c97bc327b63528d195fdb252f47e9de ]
+[ Upstream commit 3f9c7a108c0e8f14425384912017071b71341e3b ]
 
-Hidden gendisks can't be opened using blkdev_get_*, so we can't really
-reach any of the partition scanning paths or partitioning ioctls except
-for the initial partition scan from add_disk.
+Zoned block devices do not support partitions. However, the partition
+table is nevertheless still inspected, and any partition found ignored
+with a warning in add_partition(). While this is generally not a problem,
+and in fact beneficial to the user as it indicates an invalid use of a
+zoned block device, scanning for a partition table on the device may
+result in issuing read operations to offline zones (e.g. after a disk head
+is depopulated for disks that support head management operations).
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20211122130625.1136848-13-hch@lst.de
+Since partitions are ignored anyway, completely disable partition scanning
+for zoned gendisks by setting the flag GENHD_FL_NO_PART in __add_disk().
+The existing check in add_partition() is left as-is to ensure that we
+still get a warning if for whatever reason, despite GENHD_FL_NO_PART, we
+still endup trying to add partitions.
+
+Flagging zoned disks with GENHD_FL_NO_PART also has the benefit to expose
+through sysfs the ext_range attribute with the value of 1 instead of the
+default DISK_MAX_PARTS, thus correctly advertizing the fact that zoned
+disks do not support partitions.
+
+Fixes: 5eac3eb30c9a ("block: Remove partition support for zoned block devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Link: https://patch.msgid.link/20260831025050.667758-1-dlemoal@kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-Adapt the dependency to the 5.10 disk-registration layout.  Keep the void
-disk_scan_partitions() interface and its capacity and partition-scan
-checks, adding a direct GENHD_FL_HIDDEN check before requesting a scan.
-
-Remove the implicit GENHD_FL_NO_PART assignment from __device_add_disk(),
-where this branch handles hidden disks.  Preserve its existing BDI and
-region registration, and keep register_disk()'s hidden-disk early return,
-uevents and sysfs links intact.  No functions are added.
-
-Verified that target 3f9c7a108c0e applies cleanly with a three-way merge,
-placing its zoned-disk check in __device_add_disk() before partition
-scanning.  The existing GENHD_FL_NO_PART ext_range handling is retained.
-
-Stable-dep-of: 3f9c7a108c0e ("block: flag zoned disks with GENHD_FL_NO_PART")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/genhd.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ block/genhd.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/block/genhd.c b/block/genhd.c
-index 4ecab2f503719..ea81203f6a036 100644
+index ea81203f6a036..976d2d77a1e0f 100644
 --- a/block/genhd.c
 +++ b/block/genhd.c
-@@ -680,7 +680,8 @@ static void disk_scan_partitions(struct gendisk *disk)
- {
- 	struct block_device *bdev;
+@@ -721,6 +721,13 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+ 	if (register_queue)
+ 		elevator_init_mq(disk->queue);
  
--	if (!get_capacity(disk) || !disk_part_scan_enabled(disk))
-+	if (!get_capacity(disk) || !disk_part_scan_enabled(disk) ||
-+	    (disk->flags & GENHD_FL_HIDDEN))
- 		return;
- 
- 	set_bit(GD_NEED_PART_SCAN, &disk->state);
-@@ -745,12 +746,7 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
- 
- 	disk_alloc_events(disk);
- 
--	if (disk->flags & GENHD_FL_HIDDEN) {
--		/*
--		 * Don't bother scanning for partitions.
--		 */
--		disk->flags |= GENHD_FL_NO_PART;
--	} else {
-+	if (!(disk->flags & GENHD_FL_HIDDEN)) {
- 		struct backing_dev_info *bdi = disk->queue->backing_dev_info;
- 		struct device *dev = disk_to_dev(disk);
- 		int ret;
++	/*
++	 * We do not support partitions with zoned block devices, so do not try
++	 * to scan the partitions table.
++	 */
++	if (blk_queue_is_zoned(disk->queue))
++		disk->flags |= GENHD_FL_NO_PART;
++
+ 	/*
+ 	 * If the driver provides an explicit major number it also must provide
+ 	 * the number of minors numbers supported, and those will be used to
 -- 
 2.53.0
 
