@@ -1,89 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A190C58B6B9
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:42:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D563859E0
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069365; cv=none; b=D3/99UTPf2hnAQmFo67+xCN1KVUN0sOjbpob11x+IKXWt1iE2pX/GCsOliF6t9CRAOdST+Fy48hAWlqKqfO7i95LwFTF7HXTDHt2yUUpFfKemyUGAcSmvgXVo7ZxKjGPnF5zidPjaE1FECCcRGeXvNWwf1BzAgQuZ+2TCZ8O5Zc=
+	t=1789069368; cv=none; b=fbXC7wpELnCwn7sWVLUXRCq3ZIN5f0jn3Nlgq/3hu4+oVtQ3X9r1UcTfMcxOqBzV4usty/aBDjKJ7M7Mas9ZTOCDbXxI5ENFoml3d5ndZLFsVp6IF8wz8hNsFBC6B6w/iGQF+tGiTsfgjJDIKvp3nnCZJUn1RqGHYEMk7nP3axE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069365; c=relaxed/simple;
-	bh=YSZkbJp+i+2d//IROZJBvgVueydxROJVmcZcYepamEU=;
+	s=arc-20240116; t=1789069368; c=relaxed/simple;
+	bh=h8CsMN6HVGp+1Fueambe3qT/crxV1jlSR7hA/ErmNe0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fp4qC4mBqqXF0ztlcyxvHW9+UjwCVGnmn1WMpyBVdKqeckDqkqWBBFVcS8YHUY8nKoahOq2CiKrU2r9yjAYY+psd5a3dzlhHF/3jwpY9fJdBFifNQrped3I/sdEJczZ5uvDmQg6Tq6KbfjeoJgTgRNOrJBThenKY+Ov+FZZmjnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fNVdkr3w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=IbTz8xTEoYUBxORnHJ2JcOazFpFazu7aWeJVP5whw0spE65jiu/nMdglkdVSV5yPTkbKON8VekzecAgYOBgVFy5/PeU5XU+zdY/R118M8O5hqtbrPdxfjUM13wNP8fOhWK8m40GiUliGJvjeu2HEx5vpkGxyg9Rwm69fyzzu/mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDyXb2o3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fNVdkr3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0751F00893;
-	Thu, 10 Sep 2026 19:42:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDyXb2o3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57FA91F000FF;
+	Thu, 10 Sep 2026 19:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789069363;
-	bh=XF3fWJpK3l7tgJC+E0ypvS4zVtTweuwsw0nzgYTGAqI=;
+	s=k20260515; t=1789069367;
+	bh=UFgw7zPLlGcSR5QYiRdwoHoNXETlSjjvP/YVhEkOvbg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fNVdkr3wPdEARj6cs8aujbelbzi81JsPjHaQbsBM46UIDzqN15APQpjynzP3aZHoX
-	 1Wkah1z6Pz3ws1bX2zM+WtzlXsCMUZ0lPZabWWKUchmdS02j1PqP7B7yYMHglrPe2u
-	 a3Uze8lXRD2d0xxiQcmD6bRHf0cImwpxOSidZW48WId7HABOwYJG8ynVa577pSZjFC
-	 LhJ+86cshJEyyI7KLx2Z/ZkKXw3Aht03CheQizcBxQtQBCFIPfPz7gBpNUD9xB5Wmd
-	 jqfL0CCzXGAVC4GHh73adg+SkRCOypQKcGXF+1iOem3epSa9SCEumXGaacPjr+Xpk+
-	 HdCYk8JY2RGPA==
+	b=NDyXb2o38u7vYIXSCtkjn1UFrSzu4H4KyWX9oYG4ap+3BRkLcXDhAc25V8VHpk3zi
+	 pcRyeMo2JnqxkDwIO0DjC0/zlm7waVS4ldnlU5vWVVUCkj/o1sTEOsrBqdz+MfXcAj
+	 WGy8+0KU29rifEty2JIFzVLlh5EYjNFzfoqUaYoiZK5j8WDLhyQNoqq+KF5A+shzA+
+	 0wf5LZd2Fj4ECFI/MaXLWtwgecjpxkySdD9e7hOZcOG1W5VuFYBboJgtGjc5b2MpmO
+	 SskHpuEu2WFPJ/BOs9CRU52seYqlqhU5cYvP932rvGsebzP/bKXjOjE4730/1jbtN3
+	 UIlIoFGHCo8bA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: HyeongJun An <sammiee5311@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Zide Chen <zide.chen@intel.com>,
+	Thomas Falcon <thomas.falcon@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ALSA: rawmidi: Return the error from snd_rawmidi_input_params()
-Date: Thu, 10 Sep 2026 15:42:40 -0400
-Message-ID: <20260910194240.1586464-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities
+Date: Thu, 10 Sep 2026 15:42:44 -0400
+Message-ID: <20260910194244.1586611-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910194240.1586464-1-sashal@kernel.org>
-References: <2026090937-unscathed-albatross-6872@gregkh>
- <20260910194240.1586464-1-sashal@kernel.org>
+In-Reply-To: <2026090959-popper-rotunda-e863@gregkh>
+References: <2026090959-popper-rotunda-e863@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit f4a23e17d84fd2a152d9e12369761934e1af0ee8 ]
+[ Upstream commit 8767b4d73018bd3143f4c55b672064fad292f11b ]
 
-The snd_rawmidi_input_params() computes err for the three invalid mode
-combinations and for resize_runtime_buffer(), applies the new framing
-and clock type only when err is zero, and then returns 0 anyway.  A
-caller that asked for parameters the kernel rejected is told the change
-succeeded, and the substream keeps its old buffer.
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
 
-The open_mutex conversion turned the early returns into assignments.
-It handled the output sibling correctly, which still returns err, and
-left this one behind.
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
+}
 
-Fixes: 94b98194b62e ("ALSA: rawmidi: Take open_mutex around parameter changes")
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
+
+$ grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
+
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
+
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Link: https://patch.msgid.link/20260902125058.19499-1-sammiee5311@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.intel.com
+[ Adjusted patch context to match Linux 6.6’s older PMU code. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/rawmidi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/events/intel/core.c | 10 +++-------
+ arch/x86/events/perf_event.h |  2 +-
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 7accf9a1ddf4c..00243e52fae2d 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -777,7 +777,7 @@ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
- 		substream->framing = framing;
- 		substream->clock_type = clock_type;
- 	}
--	return 0;
-+	return err;
- }
- EXPORT_SYMBOL(snd_rawmidi_input_params);
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 8d1ec1d888da7..2c3d1f645fc24 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -6155,12 +6155,6 @@ __init int intel_pmu_init(void)
  
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
+ 
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
+-
+ 	/*
+ 	 * Install the hw-cache-events table:
+ 	 */
+@@ -6951,8 +6945,10 @@ __init int intel_pmu_init(void)
+ 				     (u64)fixed_mask);
+ 
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
+ 
+ 	intel_pmu_check_event_constraints(x86_pmu.event_constraints,
+ 					  x86_pmu.num_counters,
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index 4ca15be45cb80..9837e8d0deb39 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -609,7 +609,7 @@ union perf_capabilities {
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+ 		u64	pebs_timing_info:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 	};
+ 	u64	capabilities;
+ };
 -- 
 2.53.0
 
