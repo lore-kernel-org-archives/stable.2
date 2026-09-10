@@ -1,121 +1,101 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52B637DEB2
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256B01E51E0;
+	Thu, 10 Sep 2026 02:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789007119; cv=none; b=eiw6J5CLh6UpUiOqcF7SCM02Plae1V7wIZr2ObbIbZjtukBFu5MLjIAz8XQ1BSsyCwwPgWzMWhr1fHeVSZ08IZLhnza8etD4GzDroz6xzVCtPB7GGEWdTsLAsWb45s/pl3bedTUuMHD8FxIOMWsisuwL6/v+H6GFRNwRfaXRt4M=
+	t=1789007314; cv=none; b=JQEy+jmFdH12D294L3lU+02r5GrXfbsGTo02koTOxD3Q2zWgOu7iCa6g7zujW/2hMKRlxMoT2QuS9ckBU83AM5jm/ZrbacjrqvO7nJS6v+BpQB+SOcsz7IZ0IjmXFdAsHB3yfOI4hOjFnXl1Dc++x5sdcN/nm7UU5wvviY2pnlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789007119; c=relaxed/simple;
-	bh=h7jlRf2IsDI9qQdqGv2bSdvzHPNhhTR1Nonfg/W40cU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E/n0B7Z5CL0naj71Z12YfsabCk3ksLnFPSRCCpdnJ5CcuRJI5BVUBKi/3JyP2GDE55Py+yK+ztRQdFRQGIIs5YVUSFAfBqsojbZU2VpveTBCf4Q+4cvYUgeXpZOqE97xOwxbqaGYTFCmzqtkYnUnmpRycRK13mwGXsSPUKTZYYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=L2whPWgI; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789007314; c=relaxed/simple;
+	bh=qEMmzoO+HC0iJ6rzMg9/5xEshklNUaRQFLrDToeQ0f8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oxm1/Ianh5OdlV5KlqOKAIb5WmnW32LdnU+WmlbdsTRK6hC70bkWorR0OYjtpsqK4OtEEKy1LuSEAjfyslv9kjPHE0jAvTk4PhB7aGnIw1Pq3C9aik4TUmvRLUEpdRojf4F786VmRsAYyePD0UrOC5kO4MHFwW5qsOet2zvZ7iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V1StZFcU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="L2whPWgI"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d91ff7d9acso57217865ad.3
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 19:25:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789007115; x=1789611915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+mClRprXurGsMr2UxPPq1/QlRUj/VLPAMpoAcj6a2AM=;
-        b=L2whPWgIXodOTfJfr3JwG3F5vO9y5tCMyLCBh7Z4vmFpj2dt7DB6UHuxwMiCCmP+Yj
-         q/WaU65CJNtll58G8iWi1U6FmeYUpgzWz/BUqnqvNxzNKeWtuloSvajiNxFWTX7kpEQU
-         tH7hWa7bSFcizXwOH7V/EO8GksAhwNL+orLBq6K6SVD82LTEeiBmmnKoyqzUgEcg4fYr
-         IO64HT1l7kAjd4MyCZufmvWg1rmnh1NFZGrxgyWX1pDGTvf/oAJs+2nIgZ/F4zTK4q4l
-         WGW5yWIeffU/yGjcnyn6FWu0ZlZdAH7EZkURia20epwBhGaT+OLPmm5qNNjTt1dYW1cf
-         Xd5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789007115; x=1789611915;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+mClRprXurGsMr2UxPPq1/QlRUj/VLPAMpoAcj6a2AM=;
-        b=B4n9iyq2yefk+9srPkM9pevStps+6ItVFADuzgZSHbhQneicWRlx7a5V1Pj6fb3DgI
-         wu777PRbf/8FyvxmuX4N+ae5TwR6eyfeAhvdB/iGR9j+lcvVktgxvhTHsytsf7er0yQA
-         ePnlZP9oxvyNIOaw8XRBbNWhBlS+YI+moME2BC+7usiuIBRaD07ziJpzN3Jxk2iTwC4l
-         3wA/zj/1/zA2P/jmPogxwzMyBUActbLRFafYWWMSTDt+Ihoml2ygmUhR7grdthxPDYCZ
-         XE3Wo0cOtg2SWUEK3MF78obLWy4DCWs9EfYrYtzxwFsUKo8daIsp4M8lhtvUkkOZ4zoL
-         Roqg==
-X-Forwarded-Encrypted: i=1; AKwUvBww9jJUioi3RPJncbdjU+vvmd89oGetCl3hNZ0n07u0A1ZNU2VAV6OKVUQZH6D53Yy6sDn/gYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntgM4fdm9Q1eugZxZHVgzi5pvHxRhuZgW3uIcoaOmrh2aZkbSd
-	cju1/bMJWsAEWamBhhzTn+8RQvkeAhVO1RhtblbskQ0jz0EqEdB33Vx2Z6ZVh2gO8A==
-X-Gm-Gg: AYBFou0g4rG4kMKAiM7NIuctahTeqZVYcyrKjUGB/0LPbfJtK1DOztHCMh2fpAv/tTF
-	0REP0yv+ctdnv4rWGXaqzi8WEutVsGKIhufj5/pWycKMUtAt1YGxFOINNUOD5cBaySBQyYlWdAU
-	BV4YpxIEiKQhcVJM8o6JuMCByAvHm8kIeyzKF5amPKpDxV9cplL+4nnN1Bh6Q7U+6FZ6URQ7VB7
-	IQ7BWBQ3mut5kIn0PO8n4Mo5dkfxfSk9uCeFJZmZ2X+WmGJhFzjH6DRL9E3/L6wKtH9NefC5v13
-	AvlwE5SCFiIaDCEyRfA4PhSIUlee01w9qNFSPr3DUUhAe0mj7g6SMsN9KffsNSwTMayLD58/SMi
-	PoaDyQmr55qeNFkSebFFk+/xXzmf4dmZwFTgc3aKTS3xqDlsIOGbfkXShciyW9IyP5SpL13/moY
-	Ieb5J/dCvE7s9u7PS47tyhuNFgueR8idTmm1CS9k90geSDvkIeWyCq6pF/UsbE7671vE18ELGxV
-	svEgo3uQNzKpDD+CFuJNKynji33elR90yjllqaGc41I4w==
-X-Received: by 2002:a17:90b:498c:b0:38f:7f60:ba35 with SMTP id 98e67ed59e1d1-39b260d3351mr53425599a91.5.1789007115401;
-        Wed, 09 Sep 2026 19:25:15 -0700 (PDT)
-Received: from p1.. (129-219-8-31.nat.asu.edu. [129.219.8.31])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1435c2ae6b5sm2688847c88.1.2026.09.09.19.25.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:25:15 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>
-Cc: fuse-devel@lists.linux.dev,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luis Henriques <luis@igalia.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	bestswngs@gmail.com,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v7 2/2] fuse: return -E2BIG for an oversized SETXATTR over io-uring
-Date: Wed,  9 Sep 2026 19:24:42 -0700
-Message-ID: <20260910022442.3594649-2-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910022442.3594649-1-xmei5@asu.edu>
-References: <20260910022442.3594649-1-xmei5@asu.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V1StZFcU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688941F000FF;
+	Thu, 10 Sep 2026 02:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789007312;
+	bh=eUwQmgsQqzQQenhKvvPa+VT7E6BdXxWZIJScwCHFucI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V1StZFcUUowVRlS4Sr890zbyy5pvRsD/DGaXNYeYFGs/d2xSRMpXddcndg0EFedWo
+	 wm4etMO7xJURU6fsT/AnnPFvAiUCX0HOld8UCgEvTxmTvLdTbt4qbUv10ieHIRBjlK
+	 wPWnIc1a6eN+aRAj65gSciT5EacL2/dkOUNdhkmBcLK/7As+wVm0hEDANtMXjdZN7j
+	 R746OKNZyhF9JJAj91YfETDUWsQRHNzmCVloaOmcnB5XRRvJnyuKZbmqK80cmrskeE
+	 umvKEFsNWdvEPnsh2CWSoVqXG0plW5EuGQ1gZPO8rEJK6n8Eq/CsyW1Cs4FYYGorrV
+	 uuosE6bhUdsPg==
+Date: Wed, 9 Sep 2026 19:28:31 -0700
+From: Peter Chen <peter.chen@kernel.org>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-usb@vger.kernel.org, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>, Sicong Huang <congei42@163.com>
+Subject: Re: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
+Message-ID: <aqIVzxZyRyx67GPX@hu-petche-lv.qualcomm.com>
+References: <20260909095655.694527-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909095655.694527-1-fanwu01@zju.edu.cn>
 
-fuse_dev_do_read() answers a request that does not fit the server's
-buffer with -EIO, except for FUSE_SETXATTR, which gets -E2BIG since the
-value may legitimately be larger than the buffer and setxattr(2) reports
-that to userspace.
+On 26-09-09 09:56:55, Fan Wu wrote:
+> cdns3_gadget_start() arms two works on system_freezable_wq:
+> pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
+> for realigned request buffers. Both handlers use the cdns3_device the
+> works are embedded in, and cdns3_pending_setup_status_handler() also
+> calls the ep0 request completion.
+> 
+> cdns3_gadget_exit() does not wait for these works. It frees all
+> endpoints and aligned buffers and drops the last reference to the
+> gadget device, which frees priv_dev, so a work queued before the exit
+> can run after the free.
+> 
+> Fix this by waiting for both works after the gadget driver is unbound
+> and the IRQ is freed, when no new work can be queued, and before the
+> endpoints and buffers are released.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sicong Huang <congei42@163.com>
+> Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
+> Suggested-by: Sicong Huang <congei42@163.com>
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/usb/cdns3/cdns3-gadget.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+> index 42311c1bf..0d272e9c5 100644
+> --- a/drivers/usb/cdns3/cdns3-gadget.c
+> +++ b/drivers/usb/cdns3/cdns3-gadget.c
+> @@ -3269,6 +3269,10 @@ static void cdns3_gadget_exit(struct cdns *cdns)
+>  	usb_del_gadget(&priv_dev->gadget);
+>  	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
+>  
+> +	/* The works can still be queued until the IRQ is freed. */
+> +	cancel_work_sync(&priv_dev->pending_status_wq);
+> +	cancel_work_sync(&priv_dev->aligned_buf_wq);
+> +
 
-Over io-uring the copy fails with -EIO for every opcode, so the two
-transports report different errnos for the same condition.  Map that
--EIO to -E2BIG for SETXATTR.
+We may cancel work before going to de-init. How about move them before
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- fs/fuse/dev_uring.c | 2 ++
- 1 file changed, 2 insertions(+)
+	pm_runtime_put_autosuspend(cdns->dev);
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index c6dd420c4034..6351f2470e09 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -893,6 +893,8 @@ static int fuse_uring_args_to_ring(struct fuse_req *req,
- 	fuse_copy_finish(&cs);
- 	if (err) {
- 		pr_info_ratelimited("%s fuse_copy_args failed\n", __func__);
-+		if (err == -EIO && args->opcode == FUSE_SETXATTR)
-+			err = -E2BIG;
- 		return err;
- 	}
- 
 -- 
-2.43.0
 
+Thanks,
+Peter Chen
