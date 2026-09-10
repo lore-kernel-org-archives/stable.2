@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9604A38B7D1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D9A4A0138
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:35:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054079; cv=none; b=LXDY3fZrwF2Ja4AWZWv6PJznNbXg7oBnierG55rCrD8xPd7oDQ1EiQgEUEIE838kY6033yobMhaGVlffRFYaM3gkE+KVmRcYz6lQ7waAj2GiSQYeyypjw4Tj3O/cA+kQ5hOxPx8wDNI/EvqWBJ3B0Q6ZKohbNzhpcN5Uy7Gv0AA=
+	t=1789054528; cv=none; b=pNrez3uEiRvZWt4/8BoJcSG50b0XjCV/BAX0di2oe0+hSvsJs7G2VHiQdNd6LP5ut8bIkpT1Vntie8HP1B1ZLKsJemlxs5QtFsRPCUD9fF0I0IDXkZTS13s+YWnhPJVmtcZf1rvQmQEoJoxXWx7A4ZoZ8b97zN0UKyKJBpt+eug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054079; c=relaxed/simple;
-	bh=c6iKL+i/kJhLJB6k9NhqY8jRoqbC4Q+ZSb+sFJV7HXg=;
+	s=arc-20240116; t=1789054528; c=relaxed/simple;
+	bh=t+IN90zqBC1J2uXpGFy0Crg1UIza8W8YbVm2x3owFgU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=URvA7O4iqvjN5aO+LOxDRzzkGMVJ2bZFVNAls4D9ajVMq9FqmPF92qFPfJEPmSyQAvbgklzNVJT69RTPure8iqNTPMBQ8lMdpS/FqCbCtMkb9ZdVLyoDlnm7h98KaO5ahYMjsjuiy8MjB875UG4KfUxsusxzmGt7B2SwsJeMoPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BakrnJMg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bD7Ad9cxFnb6lNVlxq+GAhxctHLo7v+nasdSUBYJES+Wn+S7cZntGe7KOydTdgVxpFrS1wTOF1FxCyyifHypaycsAynGeuLi5e5h2GBPekbFRfBbJ+OzL/69FR4+Vk6BqBJthnT9T7RHaFf6cLTx8iactH3YRMSGfoHh4F9yRUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzlLjymf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BakrnJMg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8321B1F00893;
-	Thu, 10 Sep 2026 15:27:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzlLjymf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05B81F00893;
+	Thu, 10 Sep 2026 15:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789054078;
-	bh=bd3LitVBAL66qknvb+gDhvM3J8u1TfGFW6jzcmj+cOQ=;
+	s=k20260515; t=1789054527;
+	bh=2dqB9w1NGV2H91GSRIWoF4ASydhzGtuBDZmyIhGfPgQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BakrnJMg8r84ZEJyMF1rA+CXPRgAn5naibe0nkmWxKtJcC0KNa67IXfEvGKY0a662
-	 MAWValCoWm62nv2tkWzcxS5Dwt3Ln+kKURSPDJmoeVUkd/nIfUPnMehLM/yUO7/dta
-	 AiNB7xNxvzju982NcZ9GMUnUub/vwGdiQvaUL8k9PqudCU+XtK3hNTyDYO2I7ua3jO
-	 NhZjuxJIynSMDQAaOHvaBwSdagg42a0t5WL9PjnpR11hUarj4tHTFEogHVSixjkNPY
-	 Gq3HFiEZvhNkFkiW1Pxe/kNPluw2rt9oz4+UtAorI1R6OeKPMqciayiqJQCwScUgby
-	 J+Z8ievHEsAwA==
+	b=fzlLjymfdP5LKPc3iyrPkL3K65VZjvZ73QHZ8d+Kia6KiONLehyY66ftxhDiwzeP4
+	 c7ubYH/K2BNWyF5LjG0ceEPvdIUgHDCRu6opxrg3TxInfpJU+EWeQF37qEDbepFWHE
+	 bZrj1omMCY2YUFK/ad3fBxjGTdb4HTISzde8herKs0re9BTTz0CoGtrasFDPmB3Uq+
+	 rcFy/AIG7BzIN9mrQA83ujZ5u1dqbcxsBT4H8BTt2l09Q8e3qYpgGn0xHoVdbmy6v0
+	 1hRfv/vGYuV+5xRwuCHv4TutHOJdaJhR8hxcjJaX4Q4VYgg9vejiiXME+7WLBH1aYW
+	 4U9/bQyk+nAsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>,
-	"Xiang Mei (Microsoft)" <xmei5@asu.edu>,
-	AutonomousCodeSecurity@microsoft.com,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Antonio Borneo <antonio.borneo@foss.st.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/3] ksmbd: fix tree connection use-after-free in smb2_tree_connect()
-Date: Thu, 10 Sep 2026 11:27:54 -0400
-Message-ID: <20260910152754.950820-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] irqchip/stm32-exti: Split MCU and MPU code
+Date: Thu, 10 Sep 2026 11:35:24 -0400
+Message-ID: <20260910153525.983390-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910152754.950820-1-sashal@kernel.org>
-References: <2026090802-tactical-overplay-91bf@gregkh>
- <20260910152754.950820-1-sashal@kernel.org>
+In-Reply-To: <2026090813-staff-splicing-7337@gregkh>
+References: <2026090813-staff-splicing-7337@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,167 +45,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+From: Antonio Borneo <antonio.borneo@foss.st.com>
 
-[ Upstream commit b5ec6c462aab1062cf5d1e667ba7c6442f737055 ]
+[ Upstream commit 350755e2e548ccbe941d045900b57233efa906cb ]
 
-ksmbd_tree_conn_connect() publishes a new tree connection in
-sess->tree_conns with a single reference and returns its pointer to
-smb2_tree_connect(). The handler continues to initialize the object and
-build the response after publication. A concurrent session logoff can
-erase the connection and drop that reference, freeing the object while
-the handler still uses it.
+Keep only the code for ARMv7m STM32 MCUs in in stm32-exti.c and split out
+the code for ARMv7a & ARMv8a STM32MPxxx MPUs into stm32mp-exti.c
 
-BUG: KASAN: slab-use-after-free in smb2_tree_connect+0xe3d/0xf90
-  smb2_tree_connect (fs/smb/server/smb2pdu.c:2872)
-  handle_ksmbd_work
-  process_one_work
-  worker_thread
-  kthread
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Link: https://lore.kernel.org/r/20240620083115.204362-5-antonio.borneo@foss.st.com
 
-After xa_store() succeeds, take a second reference before releasing
-tree_conns_lock. The original reference belongs to the xarray entry and
-the second belongs to the creating smb2_tree_connect() handler.
+Backport dependency adaptation for Linux 6.1:
 
-Keep the references balanced in every path:
+The stable driver predates STM32MP_EXTI selection, standard device PM,
+interrupts-extended mappings, and secure/RIF event handling. Importing the
+upstream split would pull in those unrelated changes and new functions.
+Limit this dependency to relocating the existing combined MCU/MPU driver
+to irq-stm32mp-exti.c and updating its existing STM32_EXTI Makefile entry.
+Keep Kconfig, syscore PM, interrupt mappings, and all existing functions.
 
-- On normal exit or an error after publication, smb2_tree_connect()
-  drops its creator reference. Error cleanup also calls
-  ksmbd_tree_conn_disconnect(), which drops the xarray reference only if
-  it removes the exact entry.
-- SMB2 TREE_DISCONNECT uses the same helper to remove the entry and drop
-  its xarray reference. The request's existing lookup reference remains
-  owned by the request and is released by the existing cleanup.
-- Session LOGOFF removes each entry and drops its xarray reference. If
-  it wins the race, later cleanup sees that the entry is gone and does
-  not drop that reference again.
+Retain the upstream removal of unused hwspinlock handling from the MCU
+set-type callback: MCU host initialization never assigns a hwspinlock.
+This leaves the MPU callback as the only timeout user, so the target's
+macro rename fixes all remaining users without leaving an undefined name.
 
-To enforce this ownership, claim the disconnected state and erase the
-exact entry atomically under tree_conns_lock. This guarantees one drop
-for the xarray reference and one drop by each in-flight user, regardless
-of which teardown path wins. If logoff removes the entry before
-initialization completes, fail the connect instead of marking the
-detached object TREE_CONNECTED.
+Match the upstream timeout-definition context, including its two register
+macros, so d31fbbade43f880b7e59e2b3a72722fe2725d93f applies unchanged. The
+register macros remain unused; no secure/RIF behavior is introduced.
 
-Fixes: 33b235a6e6eb ("ksmbd: fix race condition between tree conn lookup and disconnect")
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ added braces around the successful-connect if branch to accommodate the new tree_conn assignment ]
+[ sashal: Reduced backport -- upstream 350755e2e548c touches 4 file(s), this
+  backport carries 2. Not backported here:
+  drivers/irqchip/irq-stm32-exti.c
+  drivers/irqchip/Kconfig
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: d31fbbade43f ("irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/mgmt/tree_connect.c |  8 ++++++++
- fs/smb/server/smb2pdu.c           | 32 +++++++++++++++----------------
- 2 files changed, 23 insertions(+), 17 deletions(-)
+ drivers/irqchip/Makefile                      |  2 +-
+ .../{irq-stm32-exti.c => irq-stm32mp-exti.c}  | 21 ++++++-------------
+ 2 files changed, 7 insertions(+), 16 deletions(-)
+ rename drivers/irqchip/{irq-stm32-exti.c => irq-stm32mp-exti.c} (98%)
 
-diff --git a/fs/smb/server/mgmt/tree_connect.c b/fs/smb/server/mgmt/tree_connect.c
-index 58e5b8592da46..3d04feaf8737a 100644
---- a/fs/smb/server/mgmt/tree_connect.c
-+++ b/fs/smb/server/mgmt/tree_connect.c
-@@ -82,6 +82,8 @@ ksmbd_tree_conn_connect(struct ksmbd_work *work, const char *share_name)
- 	down_write(&sess->tree_conns_lock);
- 	ret = xa_err(xa_store(&sess->tree_conns, tree_conn->id, tree_conn,
- 			      KSMBD_DEFAULT_GFP));
-+	if (!ret)
-+		atomic_inc(&tree_conn->refcount);
- 	up_write(&sess->tree_conns_lock);
- 	if (ret) {
- 		status.ret = -ENOMEM;
-@@ -127,6 +129,12 @@ int ksmbd_tree_conn_disconnect(struct ksmbd_session *sess,
- 			       struct ksmbd_tree_connect *tree_conn)
- {
- 	down_write(&sess->tree_conns_lock);
-+	if (tree_conn->t_state == TREE_DISCONNECTED ||
-+	    xa_load(&sess->tree_conns, tree_conn->id) != tree_conn) {
-+		up_write(&sess->tree_conns_lock);
-+		return -ENOENT;
-+	}
-+	tree_conn->t_state = TREE_DISCONNECTED;
- 	xa_erase(&sess->tree_conns, tree_conn->id);
- 	up_write(&sess->tree_conns_lock);
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index 87b49a10962c7..d6085b2d86288 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -85,7 +85,7 @@ obj-$(CONFIG_MVEBU_SEI)			+= irq-mvebu-sei.o
+ obj-$(CONFIG_LS_EXTIRQ)			+= irq-ls-extirq.o
+ obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
+ obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
+-obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
++obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32mp-exti.o
+ obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
+ obj-$(CONFIG_IRQ_UNIPHIER_AIDET)	+= irq-uniphier-aidet.o
+ obj-$(CONFIG_ARCH_SYNQUACER)		+= irq-sni-exiu.o
+diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
+similarity index 98%
+rename from drivers/irqchip/irq-stm32-exti.c
+rename to drivers/irqchip/irq-stm32mp-exti.c
+index dc6f67decb022..34b7c9b2717f9 100644
+--- a/drivers/irqchip/irq-stm32-exti.c
++++ b/drivers/irqchip/irq-stm32mp-exti.c
+@@ -22,9 +22,12 @@
  
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 64142c1d9020a..cfbfd071f16ea 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2251,6 +2251,7 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	struct ksmbd_session *sess = work->sess;
- 	char *treename = NULL, *name = NULL;
- 	struct ksmbd_tree_conn_status status;
-+	struct ksmbd_tree_connect *tree_conn = NULL;
- 	struct ksmbd_share_config *share = NULL;
- 	int rc = -EINVAL;
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
  
-@@ -2277,9 +2278,10 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 		    name, treename);
+-#define IRQS_PER_BANK 32
++#define IRQS_PER_BANK			32
  
- 	status = ksmbd_tree_conn_connect(work, name);
--	if (status.ret == KSMBD_TREE_CONN_STATUS_OK)
-+	if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
-+		tree_conn = status.tree_conn;
- 		rsp->hdr.Id.SyncId.TreeId = cpu_to_le32(status.tree_conn->id);
--	else
-+	} else
- 		goto out_err1;
- 
- 	share = status.tree_conn->share_conf;
-@@ -2311,8 +2313,15 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 		status.tree_conn->posix_extensions = true;
- 
- 	down_write(&sess->tree_conns_lock);
--	status.tree_conn->t_state = TREE_CONNECTED;
-+	if (status.tree_conn->t_state == TREE_DISCONNECTED) {
-+		status.ret = KSMBD_TREE_CONN_STATUS_ERROR;
-+		share = NULL;
-+	} else {
-+		status.tree_conn->t_state = TREE_CONNECTED;
-+	}
- 	up_write(&sess->tree_conns_lock);
-+	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
-+		goto out_err1;
- 	rsp->StructureSize = cpu_to_le16(16);
- out_err1:
- 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_DURABLE_HANDLE && share &&
-@@ -2332,9 +2341,6 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	rc = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_tree_connect_rsp));
- 	if (rc) {
- 		if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
--			down_write(&sess->tree_conns_lock);
--			status.tree_conn->t_state = TREE_DISCONNECTED;
--			up_write(&sess->tree_conns_lock);
- 			ksmbd_tree_conn_disconnect(sess, status.tree_conn);
- 			status.tree_conn = NULL;
- 		}
-@@ -2375,6 +2381,9 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
- 		smb2_set_err_rsp(work);
- 
-+	if (tree_conn)
-+		ksmbd_tree_connect_put(tree_conn);
+-#define HWSPNLCK_TIMEOUT	1000 /* usec */
++#define HWSPNLCK_TIMEOUT		1000 /* usec */
 +
- 	return rc;
- }
++#define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
++#define EXTI_HWCFGR1			0x3f0
  
-@@ -2478,17 +2487,6 @@ int smb2_tree_disconnect(struct ksmbd_work *work)
+ struct stm32_exti_bank {
+ 	u32 imr_ofst;
+@@ -356,33 +359,21 @@ static int stm32_irq_set_type(struct irq_data *d, unsigned int type)
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct stm32_exti_chip_data *chip_data = gc->private;
+ 	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
+-	struct hwspinlock *hwlock = chip_data->host_data->hwlock;
+ 	u32 rtsr, ftsr;
+ 	int err;
  
- 	ksmbd_close_tree_conn_fds(work);
+ 	irq_gc_lock(gc);
  
--	down_write(&sess->tree_conns_lock);
--	if (tcon->t_state == TREE_DISCONNECTED) {
--		up_write(&sess->tree_conns_lock);
--		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
--		err = -ENOENT;
--		goto err_out;
+-	if (hwlock) {
+-		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
+-		if (err) {
+-			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
+-			goto unlock;
+-		}
 -	}
 -
--	tcon->t_state = TREE_DISCONNECTED;
--	up_write(&sess->tree_conns_lock);
--
- 	err = ksmbd_tree_conn_disconnect(sess, tcon);
- 	if (err) {
- 		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
+ 	rtsr = irq_reg_readl(gc, stm32_bank->rtsr_ofst);
+ 	ftsr = irq_reg_readl(gc, stm32_bank->ftsr_ofst);
+ 
+ 	err = stm32_exti_set_type(d, type, &rtsr, &ftsr);
+ 	if (err)
+-		goto unspinlock;
++		goto unlock;
+ 
+ 	irq_reg_writel(gc, rtsr, stm32_bank->rtsr_ofst);
+ 	irq_reg_writel(gc, ftsr, stm32_bank->ftsr_ofst);
+ 
+-unspinlock:
+-	if (hwlock)
+-		hwspin_unlock_in_atomic(hwlock);
+ unlock:
+ 	irq_gc_unlock(gc);
+ 
 -- 
 2.53.0
 
