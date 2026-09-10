@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E0A47D928
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:56:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3721B48662E
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044998; cv=none; b=uPeS3zQy14bQl740LXqKbs+DDnIn4+qnAzuP/iWkE7ReUmZy6gbmezmHPzC0IV4zgphJWxGdG6vAjDYGlWKMaaxLSBEiOVyYthSvcv5axg6ZbMWS9EHa9KaK0PusBHrJWY5EFAQIQUy2N1ylo2EpmJnkMkfnL4raEpglVnWhRUo=
+	t=1789044999; cv=none; b=We3tZwTYLot0FDHNIZkc9IO4m0i2YMU775eKBHBSoZEiAG6pI8ZIDfYcis/+3gnqgHuI+RDzySyFvNzCOGMn9oqsEdNUucj8Qkigtc6HKfPhTrfmZbDL9PeMG43QI2j26ys0izpJVTJxGhKd28xOVvUwwCaLkP0BI8pnZVObw5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044998; c=relaxed/simple;
-	bh=P17NDWvBlrA56fJMy7UFRpXU/xZQcIdCNEGKdhoeEy4=;
+	s=arc-20240116; t=1789044999; c=relaxed/simple;
+	bh=CYOm/WpoczRKpV9wiwXpgWtPJFlMNsI2hqy4q5BKZQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o4kNtGsAauGijnLxqfywR1dk2LJiVBuQnBDQhmeFZwz8PimHHHWA4PYjMoJU5StHmAxDTY7vXiXNuGqbp7m7abdONzDauBtidx5/AjufumsrnAmeZdWXPbIZ90JtKZ/8WNYVhxIr9sGaX+nLzHOpi04dRwzIx6LEx4VV5+rPpYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQZbiNCt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TZ7djrapTteOeshov4Mpjboo2EPqnqrii/U5fF21qsC+m7/wcKrhWzZEF2qAJdYVdnbqirh4e5Ea7HZYsL1JxDng+uOHBKC0n5rjj9+ApPN7BNEDKSgM++bce5CR9kkosUuMqtpgARyFjx7oeUHmX7NKPkwm29kLolfNqhSY/nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NGOgkuqW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQZbiNCt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B198B1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NGOgkuqW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1344D1F0089A;
 	Thu, 10 Sep 2026 12:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044996;
-	bh=y8AcVoKjvXG1pcz8BAqzK8Z6EWQV13zCuclRhCdhJYg=;
+	s=k20260515; t=1789044997;
+	bh=4AVFuaiJK04VETZQ0MyIcoA0MS3k85HnqULcE20Y074=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dQZbiNCtcFilthJYpkhRqFWJNGGadQeSzQ3QjQLfZAsrYTNAJf0Tds3vaHjUGePR6
-	 iiMHHxzuN04UEMkItPT4vFKutiumQtgha3uvqskZ7aLxF5jK1xnHAeriCYqhk2pNeA
-	 DVsgE+1lYdNAUWKtndbUrReKd0/4qxQBKt60S88ck9MR+Yr08dpBYvQI1wp9KjQUY4
-	 s9Cwq+gxWlJ5JeZ9ZcFB6/wxTcZ7dNjceMtikhFqi8iACta8cJDZ+hKqO0BPg12T/t
-	 1Z5CUP4LPHRv8u4jmvWAIBuatAbrembrELu1KSmGQEvyZ/Jy3f9WFlXJfq8MeIB53D
-	 ak6HzFEGiyHNA==
+	b=NGOgkuqWKeNLYeOSzfd/wPfgJcwpw7Q/jGDIhG+pFwZ33eBv+0vXKxYknhu46sstj
+	 aAYyPS08fUyzV8aBbxr9a8qyyY0aBlO2zGV4sEQ6lpeDavge8vjU9aX1X6dmD1G337
+	 Y2y+JDLExImGG9/em7r5b9iwevuOzgENeIv3gTUUatiivr2bmV22XpdZSSmuXVdnNp
+	 /7pRe8JX8La4s+Jb4DzLWGkUf5oW2R5TSqmPM8reQEYsBBEVpPqGWKrm10DEiyljW0
+	 94hJAKamQ7l7ekLfcvCS2aYnKW66x4W43XiwbTQy5c11qDO365LDdh5KDuBcYhsQ1r
+	 IA+SXjVfgHcQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arthur Gautier <baloo@superbaloo.net>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] xhci: fix lost bounce buffers on TDs spanning several ring segments
-Date: Thu, 10 Sep 2026 08:56:31 -0400
-Message-ID: <20260910125631.195223-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] Documentation: tracing: Add documentation about eprobes
+Date: Thu, 10 Sep 2026 08:56:33 -0400
+Message-ID: <20260910125634.195265-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910125631.195223-1-sashal@kernel.org>
-References: <2026090813-undocked-untwist-c0a8@gregkh>
- <20260910125631.195223-1-sashal@kernel.org>
+In-Reply-To: <2026090850-fiber-stony-0dfd@gregkh>
+References: <2026090850-fiber-stony-0dfd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,141 +51,319 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arthur Gautier <baloo@superbaloo.net>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit ff44dfb03a293bf30e31f98772a1dd316a6071d1 ]
+[ Upstream commit 623526ba8984cafdffa0eba7ee424f2e40c8a219 ]
 
-When a TD reaches a link TRB with data that is not aligned to the
-endpoint's wMaxPacketSize, xhci_align_td() stages the unalignable tail
-through the bounce buffer of the ring segment holding that link TRB.
-xhci_unmap_td_bounce_buffer() later unmaps it and, for IN transfers,
-copies the data back into the URB's buffer.
+Eprobes was added back in 5.15, but was never documented. It became a
+"secret" interface even though it has been a topic of several
+presentations. For some reason, when eprobes was added, documenting it
+never became a priority, until now.
 
-The enqueue path records the segment that was bounced in td->bounce_seg,
-under the assumption that a TD never spans more than two ring segments.
-That assumption does not hold: a TD large enough to span three or more
-segments crosses several link TRBs and can be bounced at each of them.
-Only the last one survives in td->bounce_seg, so every earlier bounce
-buffer is neither copied back nor DMA unmapped.
-
-The URB still completes with actual_length equal to the requested length
-and no error, so the transfer looks successful while a wMaxPacketSize
-sized hole in the destination buffer silently keeps its previous
-contents. It also leaks a DMA mapping per dropped bounce.
-
-Any sufficiently large and fragmented bulk transfer can hit this. It was
-found with a USB mass storage device behind xHCI backing a dm-verity
-target with 512 byte hash blocks, where the stale data is detected rather
-than silently consumed. The device enumerates as SuperSpeed, so
-wMaxPacketSize is 1024, while dm-bufio issues one 512 byte bio per hash
-block. verity_prefetch_io() makes the block layer merge hundreds of them
-into a single request of up to 512 scatterlist entries of 512 bytes each.
-At 256 TRBs per ring segment such a TD spans three segments, and every
-segment boundary falls on an odd multiple of 512, i.e. unaligned to
-wMaxPacketSize. dm-bufio then caches a hash block holding stale data and
-dm-verity declares the metadata block corrupted:
-
-  device-mapper: verity: 8:2: metadata block 10850 is corrupted
-
-A reproducer running this under qemu is available at
-https://github.com/baloo/xhci-verity
-
-The bounce state (bounce_buf, bounce_dma, bounce_len, bounce_offs)
-already lives on the ring segment, so there is nothing extra to track.
-Keep recording the last bounced segment in td->bounce_seg and, on
-completion, walk the segments from td->start_seg up to it, unmapping
-every segment that still has a pending bounce.
-
-Stopping at td->bounce_seg rather than td->end_seg matters: a bounce
-implies the TD continues past that segment's link TRB, so bounce_seg is
-always strictly before end_seg, and a later TD may already have started
-in end_seg and been bounced there. Walking that far would copy a foreign
-bounce buffer into this URB and unmap it twice. It also keeps the walk
-correct if a TD ever wraps the whole ring so that end_seg == start_seg.
-
-[mn: Add ring->num_segs check to prevent unlikely infinite for loop.]
-
-Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
-Cc: stable@vger.kernel.org
-Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Arthur Gautier <baloo@superbaloo.net>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20260831090448.95644-4-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Namhyung Kim <namhyung@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Link: https://lore.kernel.org/20250730140945.528135548@kernel.org
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: 47e93045a2db ("tracing/probes: Fix BTF kflag check for anonymous struct member access")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 32 ++++++++++++++++++++++++--------
- 1 file changed, 24 insertions(+), 8 deletions(-)
+ Documentation/trace/eprobetrace.rst | 269 ++++++++++++++++++++++++++++
+ Documentation/trace/index.rst       |   1 +
+ 2 files changed, 270 insertions(+)
+ create mode 100644 Documentation/trace/eprobetrace.rst
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index c3c005c4da2d2..3c67040e6be28 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -768,21 +768,18 @@ static void xhci_giveback_urb_in_irq(struct xhci_hcd *xhci,
- 	usb_hcd_giveback_urb(hcd, urb, status);
- }
- 
--static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
--		struct xhci_ring *ring, struct xhci_td *td)
-+static void xhci_unmap_one_bounce_buffer(struct xhci_hcd *xhci,
-+		struct xhci_ring *ring, struct xhci_td *td,
-+		struct xhci_segment *seg)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
--	struct xhci_segment *seg = td->bounce_seg;
- 	struct urb *urb = td->urb;
- 	size_t len;
- 
--	if (!ring || !seg || !urb)
--		return;
--
- 	if (usb_urb_dir_out(urb)) {
- 		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
- 				 DMA_TO_DEVICE);
--		return;
-+		goto done;
- 	}
- 
- 	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
-@@ -798,10 +795,29 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
- 		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
- 		       seg->bounce_len);
- 	}
-+done:
- 	seg->bounce_len = 0;
- 	seg->bounce_offs = 0;
- }
- 
-+static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
-+		struct xhci_ring *ring, struct xhci_td *td)
-+{
-+	struct xhci_segment *seg;
-+	int i = 0;
+diff --git a/Documentation/trace/eprobetrace.rst b/Documentation/trace/eprobetrace.rst
+new file mode 100644
+index 0000000000000..89b5157cfab86
+--- /dev/null
++++ b/Documentation/trace/eprobetrace.rst
+@@ -0,0 +1,269 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+	if (!td->bounce_seg || !ring || !td->urb)
-+		return;
++==================================
++Eprobe - Event-based Probe Tracing
++==================================
 +
-+	/* td->bounce_seg is the last one bounced, unmap them all */
-+	for (seg = td->start_seg; i++ < ring->num_segs; seg = seg->next) {
-+		if (seg->bounce_len)
-+			xhci_unmap_one_bounce_buffer(xhci, ring, td, seg);
-+		if (seg == td->bounce_seg)
-+			break;
-+	}
-+}
++:Author: Steven Rostedt <rostedt@goodmis.org>
 +
- static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
- 			    struct xhci_ring *ep_ring, int status)
- {
-@@ -3827,7 +3843,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 						  &trb_buff_len,
- 						  ring->enq_seg)) {
- 					send_addr = ring->enq_seg->bounce_dma;
--					/* assuming TD won't span 2 segs */
-+					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
- 				}
- 			}
++- Written for v6.17
++
++Overview
++========
++
++Eprobes are dynamic events that are placed on existing events to either
++dereference a field that is a pointer, or simply to limit what fields are
++recorded in the trace event.
++
++Eprobes depend on kprobe events so to enable this feature, build your kernel
++with CONFIG_EPROBE_EVENTS=y.
++
++Eprobes are created via the /sys/kernel/tracing/dynamic_events file.
++
++Synopsis of eprobe_events
++-------------------------
++::
++
++  e[:[EGRP/][EEVENT]] GRP.EVENT [FETCHARGS]	: Set a probe
++  -:[EGRP/][EEVENT]				: Clear a probe
++
++ EGRP		: Group name of the new event. If omitted, use "eprobes" for it.
++ EEVENT		: Event name. If omitted, the event name is generated and will
++		  be the same event name as the event it attached to.
++ GRP		: Group name of the event to attach to.
++ EVENT		: Event name of the event to attach to.
++
++ FETCHARGS	: Arguments. Each probe can have up to 128 args.
++  $FIELD	: Fetch the value of the event field called FIELD.
++  @ADDR		: Fetch memory at ADDR (ADDR should be in kernel)
++  @SYM[+|-offs]	: Fetch memory at SYM +|- offs (SYM should be a data symbol)
++  $comm		: Fetch current task comm.
++  +|-[u]OFFS(FETCHARG) : Fetch memory at FETCHARG +|- OFFS address.(\*3)(\*4)
++  \IMM		: Store an immediate value to the argument.
++  NAME=FETCHARG : Set NAME as the argument name of FETCHARG.
++  FETCHARG:TYPE : Set TYPE as the type of FETCHARG. Currently, basic types
++		  (u8/u16/u32/u64/s8/s16/s32/s64), hexadecimal types
++		  (x8/x16/x32/x64), VFS layer common type(%pd/%pD), "char",
++                  "string", "ustring", "symbol", "symstr" and "bitfield" are
++                  supported.
++
++Types
++-----
++The FETCHARGS above is very similar to the kprobe events as described in
++Documentation/trace/kprobetrace.rst.
++
++The difference between eprobes and kprobes FETCHARGS is that eprobes has a
++$FIELD command that returns the content of the event field of the event
++that is attached. Eprobes do not have access to registers, stacks and function
++arguments that kprobes has.
++
++If a field argument is a pointer, it may be dereferenced just like a memory
++address using the FETCHARGS syntax.
++
++
++Attaching to dynamic events
++---------------------------
++
++Eprobes may attach to dynamic events as well as to normal events. It may
++attach to a kprobe event, a synthetic event or a fprobe event. This is useful
++if the type of a field needs to be changed. See Example 2 below.
++
++Usage examples
++==============
++
++Example 1
++---------
++
++The basic usage of eprobes is to limit the data that is being recorded into
++the tracing buffer. For example, a common event to trace is the sched_switch
++trace event. That has a format of::
++
++	field:unsigned short common_type;	offset:0;	size:2;	signed:0;
++	field:unsigned char common_flags;	offset:2;	size:1;	signed:0;
++	field:unsigned char common_preempt_count;	offset:3;	size:1;	signed:0;
++	field:int common_pid;	offset:4;	size:4;	signed:1;
++
++	field:char prev_comm[16];	offset:8;	size:16;	signed:0;
++	field:pid_t prev_pid;	offset:24;	size:4;	signed:1;
++	field:int prev_prio;	offset:28;	size:4;	signed:1;
++	field:long prev_state;	offset:32;	size:8;	signed:1;
++	field:char next_comm[16];	offset:40;	size:16;	signed:0;
++	field:pid_t next_pid;	offset:56;	size:4;	signed:1;
++	field:int next_prio;	offset:60;	size:4;	signed:1;
++
++The first four fields are common to all events and can not be limited. But the
++rest of the event has 60 bytes of information. It records the names of the
++previous and next tasks being scheduled out and in, as well as their pids and
++priorities. It also records the state of the previous task. If only the pids
++of the tasks are of interest, why waste the ring buffer with all the other
++fields?
++
++An eprobe can limit what gets recorded. Note, it does not help in performance,
++as all the fields are recorded in a temporary buffer to process the eprobe.
++::
++
++ # echo 'e:sched/switch sched.sched_switch prev=$prev_pid:u32 next=$next_pid:u32' >> /sys/kernel/tracing/dynamic_events
++ # echo 1 > /sys/kernel/tracing/events/sched/switch/enable
++ # cat /sys/kernel/tracing/trace
++
++ # tracer: nop
++ #
++ # entries-in-buffer/entries-written: 2721/2721   #P:8
++ #
++ #                                _-----=> irqs-off/BH-disabled
++ #                               / _----=> need-resched
++ #                              | / _---=> hardirq/softirq
++ #                              || / _--=> preempt-depth
++ #                              ||| / _-=> migrate-disable
++ #                              |||| /     delay
++ #           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
++ #              | |         |   |||||     |         |
++     sshd-session-1082    [004] d..4.  5041.239906: switch: (sched.sched_switch) prev=1082 next=0
++             bash-1085    [001] d..4.  5041.240198: switch: (sched.sched_switch) prev=1085 next=141
++    kworker/u34:5-141     [001] d..4.  5041.240259: switch: (sched.sched_switch) prev=141 next=1085
++           <idle>-0       [004] d..4.  5041.240354: switch: (sched.sched_switch) prev=0 next=1082
++             bash-1085    [001] d..4.  5041.240385: switch: (sched.sched_switch) prev=1085 next=141
++    kworker/u34:5-141     [001] d..4.  5041.240410: switch: (sched.sched_switch) prev=141 next=1085
++             bash-1085    [001] d..4.  5041.240478: switch: (sched.sched_switch) prev=1085 next=0
++     sshd-session-1082    [004] d..4.  5041.240526: switch: (sched.sched_switch) prev=1082 next=0
++           <idle>-0       [001] d..4.  5041.247524: switch: (sched.sched_switch) prev=0 next=90
++           <idle>-0       [002] d..4.  5041.247545: switch: (sched.sched_switch) prev=0 next=16
++      kworker/1:1-90      [001] d..4.  5041.247580: switch: (sched.sched_switch) prev=90 next=0
++        rcu_sched-16      [002] d..4.  5041.247591: switch: (sched.sched_switch) prev=16 next=0
++           <idle>-0       [002] d..4.  5041.257536: switch: (sched.sched_switch) prev=0 next=16
++        rcu_sched-16      [002] d..4.  5041.257573: switch: (sched.sched_switch) prev=16 next=0
++
++Note, without adding the "u32" after the prev_pid and next_pid, the values
++would default showing in hexadecimal.
++
++Example 2
++---------
++
++If a specific system call is to be recorded but the syscalls events are not
++enabled, the raw_syscalls can still be used (syscalls are system call
++events are not normal events, but are created from the raw_syscalls events
++within the kernel). In order to trace the openat system call, one can create
++an event probe on top of the raw_syscalls event:
++::
++
++ # cd /sys/kernel/tracing
++ # cat events/raw_syscalls/sys_enter/format
++ name: sys_enter
++ ID: 395
++ format:
++	field:unsigned short common_type;	offset:0;	size:2;	signed:0;
++	field:unsigned char common_flags;	offset:2;	size:1;	signed:0;
++	field:unsigned char common_preempt_count;	offset:3;	size:1;	signed:0;
++	field:int common_pid;	offset:4;	size:4;	signed:1;
++
++	field:long id;	offset:8;	size:8;	signed:1;
++	field:unsigned long args[6];	offset:16;	size:48;	signed:0;
++
++ print fmt: "NR %ld (%lx, %lx, %lx, %lx, %lx, %lx)", REC->id, REC->args[0], REC->args[1], REC->args[2], REC->args[3], REC->args[4], REC->args[5]
++
++From the source code, the sys_openat() has:
++::
++
++ int sys_openat(int dirfd, const char *path, int flags, mode_t mode)
++ {
++	return my_syscall4(__NR_openat, dirfd, path, flags, mode);
++ }
++
++The path is the second parameter, and that is what is wanted.
++::
++
++ # echo 'e:openat raw_syscalls.sys_enter nr=$id filename=+8($args):ustring' >> dynamic_events
++
++This is being run on x86_64 where the word size is 8 bytes and the openat
++system call __NR_openat is set at 257.
++::
++
++ # echo 'nr == 257' > events/eprobes/openat/filter
++
++Now enable the event and look at the trace.
++::
++
++ # echo 1 > events/eprobes/openat/enable
++ # cat trace
++
++ # tracer: nop
++ #
++ # entries-in-buffer/entries-written: 4/4   #P:8
++ #
++ #                                _-----=> irqs-off/BH-disabled
++ #                               / _----=> need-resched
++ #                              | / _---=> hardirq/softirq
++ #                              || / _--=> preempt-depth
++ #                              ||| / _-=> migrate-disable
++ #                              |||| /     delay
++ #           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
++ #              | |         |   |||||     |         |
++              cat-1298    [003] ...2.  2060.875970: openat: (raw_syscalls.sys_enter) nr=0x101 filename=(fault)
++              cat-1298    [003] ...2.  2060.876197: openat: (raw_syscalls.sys_enter) nr=0x101 filename=(fault)
++              cat-1298    [003] ...2.  2060.879126: openat: (raw_syscalls.sys_enter) nr=0x101 filename=(fault)
++              cat-1298    [003] ...2.  2060.879639: openat: (raw_syscalls.sys_enter) nr=0x101 filename=(fault)
++
++The filename shows "(fault)". This is likely because the filename has not been
++pulled into memory yet and currently trace events cannot fault in memory that
++is not present. When an eprobe tries to read memory that has not been faulted
++in yet, it will show the "(fault)" text.
++
++To get around this, as the kernel will likely pull in this filename and make
++it present, attaching it to a synthetic event that can pass the address of the
++filename from the entry of the event to the end of the event, this can be used
++to show the filename when the system call returns.
++
++Remove the old eprobe::
++
++ # echo 1 > events/eprobes/openat/enable
++ # echo '-:openat' >> dynamic_events
++
++This time make an eprobe where the address of the filename is saved::
++
++ # echo 'e:openat_start raw_syscalls.sys_enter nr=$id filename=+8($args):x64' >> dynamic_events
++
++Create a synthetic event that passes the address of the filename to the
++end of the event::
++
++ # echo 's:filename u64 file' >> dynamic_events
++ # echo 'hist:keys=common_pid:f=filename if nr == 257' > events/eprobes/openat_start/trigger
++ # echo 'hist:keys=common_pid:file=$f:onmatch(eprobes.openat_start).trace(filename,$file) if id == 257' > events/raw_syscalls/sys_exit/trigger
++
++Now that the address of the filename has been passed to the end of the
++system call, create another eprobe to attach to the exit event to show the
++string::
++
++ # echo 'e:openat synthetic.filename filename=+0($file):ustring' >> dynamic_events
++ # echo 1 > events/eprobes/openat/enable
++ # cat trace
++
++ # tracer: nop
++ #
++ # entries-in-buffer/entries-written: 4/4   #P:8
++ #
++ #                                _-----=> irqs-off/BH-disabled
++ #                               / _----=> need-resched
++ #                              | / _---=> hardirq/softirq
++ #                              || / _--=> preempt-depth
++ #                              ||| / _-=> migrate-disable
++ #                              |||| /     delay
++ #           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
++ #              | |         |   |||||     |         |
++              cat-1331    [001] ...5.  2944.787977: openat: (synthetic.filename) filename="/etc/ld.so.cache"
++              cat-1331    [001] ...5.  2944.788480: openat: (synthetic.filename) filename="/lib/x86_64-linux-gnu/libc.so.6"
++              cat-1331    [001] ...5.  2944.793426: openat: (synthetic.filename) filename="/usr/lib/locale/locale-archive"
++              cat-1331    [001] ...5.  2944.831362: openat: (synthetic.filename) filename="trace"
++
++Example 3
++---------
++
++If syscall trace events are available, the above would not need the first
++eprobe, but it would still need the last one::
++
++ # echo 's:filename u64 file' >> dynamic_events
++ # echo 'hist:keys=common_pid:f=filename' > events/syscalls/sys_enter_openat/trigger
++ # echo 'hist:keys=common_pid:file=$f:onmatch(syscalls.sys_enter_openat).trace(filename,$file)' > events/syscalls/sys_exit_openat/trigger
++ # echo 'e:openat synthetic.filename filename=+0($file):ustring' >> dynamic_events
++ # echo 1 > events/eprobes/openat/enable
++
++And this would produce the same result as Example 2.
+diff --git a/Documentation/trace/index.rst b/Documentation/trace/index.rst
+index e9bcb9d9f7f3b..f8a4682478a60 100644
+--- a/Documentation/trace/index.rst
++++ b/Documentation/trace/index.rst
+@@ -36,6 +36,7 @@ the Linux kernel.
+    kprobes
+    kprobetrace
+    fprobetrace
++   eprobetrace
+    fprobe
+    ring-buffer-design
+ 
 -- 
 2.53.0
 
