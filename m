@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1187F347BD9
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA119471CF8
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040860; cv=none; b=LiDbn+QwcKjuQYgFWsa/+tN8eQGusTkhKoeK9ptjrJMah8YBef3/rkgY9kuTcDlkc5WUBqz6XuFfW6XPMsT90oxk7irQPewFvO99UyQfT9gi/Kb7dQGV2WG6kEJ2YngAFgzh1f+ECW5mnLKKiw8WU3O1aVs0vh/ZH8SeJXClXhY=
+	t=1789041100; cv=none; b=GyIwqWa6Qmjybx1GRUCnFSTPEcQJPOZWep6JEMHbqlLumzWFYh242smce7wTJsPgjcbdvlkMwEfkcfUd/wko6IXp8K/Cw0tWiIalk73AUk9niHF26ktHgCbATtl9ELuxBOE9e6lt0UJWdzmT1oLHuosLJXwM6S/BtlzyeXwpEZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040860; c=relaxed/simple;
-	bh=gxHCqDeZRzlxk+wIss6Y+U96CJciK3Nwfm3LFufowFU=;
+	s=arc-20240116; t=1789041100; c=relaxed/simple;
+	bh=FFu4RdhcpFu2qdPQTrPjQgbiEnDOAzdOgHgGvdaY14U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bsK57d/4Og3XkpE5n5l3ak38qbRYVlNpC+m70nhZy4QS5soL9B1XzGxKc9aWWSHjYHic0miTJDxSwLCz/Bhc+5Epz+FgXFlPBUY6mLXJFUBjYkuEYw1zgwG5/VCe6g/eZS5nCc0oV/DZceYiDMcBE7Q3nV35PutP7xA0WBDj/kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFPaNmcY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VUPAHf/nyJs2cozm4Osdh5XPGnK6TEilPcovK8HTnf85vhRkmMdIkW0rKIvzEHj50LyFCLTnyFsoaXjM85JEBLXZT2r1nxOvIYF6iuy/U78fnXPbCR5JpSFLyhEsdOxlgklHvNwsXLKkHGqJz+geDgmoFFhAsFczh0JEdVPz1Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iivldVo4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFPaNmcY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DD41F000FF;
-	Thu, 10 Sep 2026 11:47:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iivldVo4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86E91F000FF;
+	Thu, 10 Sep 2026 11:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789040858;
-	bh=F9636W1t1kHZRskLifrlmUQJzjF5IoguXb62cWBLepU=;
+	s=k20260515; t=1789041099;
+	bh=gf0nUp88zxNo7nNO9B/vLGjxZDEQ1x6wqf+5RAVVsOY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HFPaNmcYCwx4956GWmkd+39oIHTIR4iFU8An7NL+s82FiRn6i3+A1DbTkszG/XKC4
-	 rRJ3UAF00bESrUCmULU/vm6+IwFFIoVXjd+X9c9LTsBqiZJqjWjI1GOnph0ARrIvXB
-	 DAwYx7Isygt1cG29S+VWZ+EonrAoaihaIxH+O+D4kkeSzrsHVhSWGZNtVtLOUY2Rbf
-	 5co6PY6PCyOrNAcXib7DzeTygLowucaz8gl8vpCZxuoi3PWdMFd747qfVEODVd3y8M
-	 8ukeH3RIWE0CKeDww1a0oKeslwNRwyevjMhU9CRMg99QrRa5Wa97gEXXk9EN8uPWff
-	 319IRXNZgct6w==
+	b=iivldVo4FL+KO1WB4/qAlJbbwkWi5VmmP238AA5TkscZJc5MNiZVWsnGwN1rHwrGg
+	 G+e/bWsKblWkVihlVnjC23UhqSRkRe+ggq9UMLDD3CGtKM2MPhEBroEZfls4oAQa4c
+	 h2iaXgX9c05hlBghpKCLzv9GN2axcThdPeZypwXBrxy+EBrke2KVFtE42ZR6hD12dG
+	 A9bMgiH6Q5VKcwVr41PcT6BmtwWf4QI96ieXisQvF+Pi0cYOp9dZWJb3rRcGrwKMIr
+	 Y1/dmtWv4xNCsa/am339PbZ14ZpM1UF7TWAJJj2PLrHeh83VZpxMeY3DfGGmM/VPjw
+	 2cllzpcgM5iwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Muhammad Bilal <meatuni001@gmail.com>,
 	Dan Carpenter <error27@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-Date: Thu, 10 Sep 2026 07:47:36 -0400
-Message-ID: <20260910114736.101033-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
+Date: Thu, 10 Sep 2026 07:51:36 -0400
+Message-ID: <20260910115136.111073-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090830-barstool-rancidity-82b7@gregkh>
-References: <2026090830-barstool-rancidity-82b7@gregkh>
+In-Reply-To: <2026090831-duress-clone-7908@gregkh>
+References: <2026090831-duress-clone-7908@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,10 +102,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  4 files changed, 5 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 1d911bceb9c75..917c2d7f43187 100644
+index d0260fd935272..c30b67cf450fa 100644
 --- a/drivers/staging/sm750fb/sm750.c
 +++ b/drivers/staging/sm750fb/sm750.c
-@@ -276,7 +276,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+@@ -275,7 +275,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
  	spin_lock(&sm750_dev->slock);
  
  	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
