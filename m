@@ -1,135 +1,108 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170453CA481
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C983D59B688
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068385; cv=none; b=jas+TOAqDfJ5N8K9SUtb4CHAAfVL1iHKRBK5Ofrs8MSXqv6+v6GjAC2uKYqTNa4HGmcVnevV9mzoQRPTeuUYHh98OkE7nYUqe7WU5SnpBQSTM81fsdFzJ6x3Z9fNuCDLKjKqdIlps+go2gW3Pxer22ZS5Kz1Gnu4aorBAG+6adA=
+	t=1789068787; cv=none; b=er8zoah9R8QKySa1fZdL65EIPpc2gSvz7kEQIDbVPw4osfsPKR/yHyLeGvIc76pFJlUih/G4adwNe9VmcREZ98mUAl0fRHxIGdOxLirPjo6fANTLB9tQ3WUopYDLVMGNfpaiW/KcIkfdzXR1onVWpRM2tYjlQHeoppjhbGdSK4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068385; c=relaxed/simple;
-	bh=PK8bn5aU171tfON89RThbs87i/BE1OYud3wLsDUh4hU=;
-	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
-	 References:In-Reply-To; b=cuinUpWZNqRw/Z2sIiA+tNZ+zWMeJPJdme1kvhQoIvLiWZ5Ne6uLWfq6v5qffAj/+cIXVsrigQWfiA3n9yHp0El2/JCYuNHGJcuUfBXs0ZqqRkMzNFaL6MiFwx7ZYudIjwunYse/JkMM6zSDrT8/LQKaumJyktnxYc73ok3L+FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=TJzVSaBe; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	s=arc-20240116; t=1789068787; c=relaxed/simple;
+	bh=OaL2gIY4/rvYENHa/VV3JZ6qts0VkGiuYhfofseuZ9I=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=usbH3V7lhkzuDV7NPh/Lmw3oZ8elKVXAqIxufxlD/theGhxxwyNGX90dte6+J2p34GTgXr5XTXYOPej/m+7Zdxht+g+kpkFSpTKg6WJDXYKPeeZ0N1kWZnVnPDmLH1LOeHONlcCIg1VhG2U4TtqBaKx+oLP+oBEKEcc6dHW8CNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tepGuMwe; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="TJzVSaBe"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb4so5516685a.1
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:26:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tepGuMwe"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-868f443cbd0so43498b3a.2
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:32:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1789068382; x=1789673182; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4xukxtRxDbbfqZShrZASrA+GXX4dRNxrhliA3H85hXQ=;
-        b=TJzVSaBe6JWN3LWgLyYOZUFto49U5CTuJraV4VIPAmuBR7ZJBmyKCIBU/+2bTVxEW4
-         L56FQrsc2n++FdHOiZlMa+30UoluoJ0OCeD82XWQ8TnSRUcpS6ELlAFAWX3rYjhvxYxa
-         I2N+mbEtMnPAp62CPX6EQDkK20snic25TSNJ64Sdyjf0tiOv+O9rDDGOhIPVsNhFqjof
-         L/w7ohojbwyPI8eaVyj1W6zxrNkyHzPZ6GQ8yVjBCucZL9KINHUD4D25ygbh5MGbCV8j
-         u4s29Csmji/0TXNgyFvp1JVremYVguwLbdOkyQa5b8ktuNfjBxUz806L0llSUr5ufvr9
-         irJg==
+        d=google.com; s=20251104; t=1789068774; x=1789673574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0LO3wehpioybmx3i7IEixw9RnbaJnGBUVwi8qW7M7RA=;
+        b=tepGuMweAM+uILF1KssKPC0y1nCdviJjfFZiQnschqJAPvW4VLZD2l56daP+wpV2xS
+         Qaw1Z3a2vlIXkpCJN1Wq8FwNv5plD2A7EhavmzXgSULk6D2L29Kl9lHd7t8pLU8kZh1V
+         vkvIoBrmMBrw/sddhF4vOtNEhKpM0tqM9+g7u0PdsRRWJZkybnmxE0a4Lxu79004lCLO
+         Pt94NagDmeg4fUsu/ou0e7uOXc5mcUiEubTSOeLcZbCDsK7wRiASCP5QNfXc5dBQvLEg
+         3+0fd1MKidjU2rwws0HqBrSy0UeZSmuzIHCu06JnmJHfo9Vprl2gwFbig+ckNspRa77T
+         cQLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068382; x=1789673182;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789068774; x=1789673574;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4xukxtRxDbbfqZShrZASrA+GXX4dRNxrhliA3H85hXQ=;
-        b=NuVgAlWmnsNZItaiazZs3G0gtGpvh/+PfueRaUHzU/Wl02w4skKOqLwfQAL7/qUL5w
-         iwNnhUjMMILgTJRqEAwzLYa4wObeYVQH6zXQJT7vpMGFfvJV/QMQIsuEjsb8gPM+bvmx
-         l6P+PtSUXEd9uxZOa84wD5+vq/qWothKmxpXa9m8KPpNOexyM05KpLdrIp/pBoWqwDpk
-         ijWv4bVGg4Rl8EUOvPkk765MbF4fQcqKCRLXd05syNKNkV6MWtJYzfqEJ8ndA61TXqmm
-         Qm4ugr2FtF5IjqN0gIxAH5I/oTnevOlOPAEHwsVJ1mTaHOuacE1viiT7YTguma2SnoVo
-         CoYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ1Uito2/O7G9BJZoqJ4i3m6i9rH7iz2Q6gKdI00JFBNDTR/OkALOdzJFSYEmsz/BW3yqLujU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mc4feq0yX7AllxQ1IIcxUPIsKMbGypRZ7lHlFlm5UWgS5XKr5W
-	WKWcf+2IV1nxN8qZjpnhahC+U1IxiZ+hbzE2lbLXEiNddbsf1uZfHAO6kIgwkIXTaw==
-X-Gm-Gg: AYBFou2BKx7aoCTa3DmyFwuY2Izft6mR+Vlvk9LiMhdor9sbBV/jUe0vAZupZyzi3L4
-	mmAYLgxAqTU3jLvcEAQ0yzEuR56NdVROdBdfIk4QdCtVrzi2ffHb6oRk0A4p5ndNBIfGodz0uem
-	T/abW/gj7rwkYw5xFLfuAvyhv7dZZy7YYf/v3pgDXHvdlVrh7d9ZWgqkZ5LQTu8OdYcg1W0bnvS
-	ifDVHMiErvGeeVAYHE422xi6KQ5HAM+o/swSENwcdyiJ4AG3CNIaiRJcQ9vCREs/h+1iTIMZF7g
-	g87HofiMGN+aKxNT34VMi5GlvIGlVZnROF8xpLY+0mi7uw+TZYvGewHxI/EElXICLQFNyy9bb8e
-	BB5/es+8Qk1ndT7Nir8vI6V8KKfpzqpXtNxjtOnMzklBEOPZoC34BgzN1p8y5EyjNFbg7OyMRvL
-	M5eO0Zga8Azyvcbuwp3Yf1tZvqd1RaVv25zSadQqa9euct6n9CepOWnSuFXzC6FUW/tZpfXnaPM
-	cDIoFQ97eIDm4Z5avSLpdojV8DACxcOVDsiMoz8yhFlyFpKgu6ghugqkWRTsY/L0HbuNA7/4Ll/
-X-Received: by 2002:a05:620a:28d4:b0:936:8840:427f with SMTP id af79cd13be357-939ea037c44mr52546485a.4.1789068381925;
-        Thu, 10 Sep 2026 12:26:21 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8045b46sm56168385a.18.2026.09.10.12.26.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 12:26:21 -0700 (PDT)
-Date: Thu, 10 Sep 2026 15:26:20 -0400
-Message-ID: <f444c557e77c22eb578216a5e6eb5b98@paul-moore.com>
+        bh=0LO3wehpioybmx3i7IEixw9RnbaJnGBUVwi8qW7M7RA=;
+        b=paWggKKY/gRaAWgF4sfiCUgmogV//+wdjsN9/dSX3dved0AcguthQvgyxgDN0U2qmt
+         R/33pn7K8uXY6qQLxMKK2g2PMldUw+qkpPThckiGH2Det332mtCXxHAmq5Etk3djxMI7
+         ykWBhEC0O4eFgACwpVyQlpa4mDPz7rp7UikpqUEGZxPiqvi5NXeZ1AOm10j5IUoH2qFx
+         mvz5Oe6kGqfM98Acn/m0HuLRyaJdYPE+0c5XL+FClq8m9uoESb5B+DU/2hQzItr0Q2Kg
+         atXWciVxrFoeDEAX0LqclbTgavQiyA+nMumm1WcWeebGumoKfM0Vn+i5CkAT7Of8f1xh
+         u2KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzn3LfabvNXHuwx52N3Bng+tJEVnl1rAcss2kAkLensqFzgOudtRnVgBLd38ybd+cpXrlh9gE0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUv9lTXp25IAI1ZB9nxennmUEuwQL9Cw5VNjjWX83Skc1hSVFm
+	BIUelnIBkcwpUcSlpuqxPnTO2+Q/4cL/2MZJkmDw/0D7E+RummS/xkxXaj/yq+mZam5JWtKEdKr
+	EEUoscA==
+X-Received: from pfqf15.prod.google.com ([2002:aa7:9d8f:0:b0:848:49f6:6f5c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ad8e:b0:848:30c3:45dd
+ with SMTP id d2e1a72fcca58-86b3041253emr623075b3a.11.1789068773550; Thu, 10
+ Sep 2026 12:32:53 -0700 (PDT)
+Date: Thu, 10 Sep 2026 12:32:52 -0700
+In-Reply-To: <aqMBidJ_96qroogH@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260909_1743/pstg-lib:20260909_1550/pstg-pwork:20260909_1743
-From: Paul Moore <paul@paul-moore.com>
-To: Bradley Morgan <include@grrlz.net>, linux-security-module@vger.kernel.org, bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Bradley Morgan <include@grrlz.net>, stable@vger.kernel.org, James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 2/2] lsm: fix size queries for getselfattr with NULL buffer
-References: <20260619130305.27779-2-include@grrlz.net>
-In-Reply-To: <20260619130305.27779-2-include@grrlz.net>
+Mime-Version: 1.0
+References: <20260908132838.2116068-1-jmattson@google.com> <CADrL8HW3Q=8eBf-=h6BAPdUN_X1Z_-KG=i5a5rA2kF+V4JURww@mail.gmail.com>
+ <CALMp9eRJXozpUpdOhqDCWn7VbqHb9G9hn4aZnxS_fef4ad1yTg@mail.gmail.com>
+ <aqGsukcRG6khmxpt@google.com> <CADrL8HWRjzzs7YmNkGDYQWDnygw=OcdgqCWCOfdt9af0-XwvVw@mail.gmail.com>
+ <aqMBidJ_96qroogH@google.com>
+Message-ID: <aqMF5GVp6qHb-WcY@google.com>
+Subject: Re: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory
+ during vCPU teardown
+From: Sean Christopherson <seanjc@google.com>
+To: James Houghton <jthoughton@google.com>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Jun 19, 2026 Bradley Morgan <include@grrlz.net> wrote:
-> 
-> The lsm_get_self_attr() syscall allows callers to pass in a NULL context
-> buffer to find out the size of the output needed. That path still
-> compared the computed entry size against the caller provided size first,
-> so a NULL buffer with size 0 incorrectly returned -E2BIG rather than
-> reporting the required size.
-> 
-> Only enforce the available buffer length after checking for the NULL
-> buffer. Cover the zero length sizing query in the self test.
-> 
-> Fixes: d7cf3412a9f6 ("lsm: consolidate buffer size handling into lsm_fill_user_ctx()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
-> ---
->  security/security.c                                  | 8 ++++----
->  tools/testing/selftests/lsm/lsm_get_self_attr_test.c | 5 ++---
->  2 files changed, 6 insertions(+), 7 deletions(-)
-> 
-> diff --git a/security/security.c b/security/security.c
-> index 71aea8fdf014..fa0d7e036249 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -406,15 +406,15 @@ int lsm_fill_user_ctx(struct lsm_ctx __user *uctx, u32 *uctx_len,
->  	int rc = 0;
->  
->  	nctx_len = ALIGN(struct_size(nctx, ctx, val_len), sizeof(void *));
-> +	/* no buffer - return success/0 and set @uctx_len to the req size */
-> +	if (!uctx)
-> +		goto out;
-> +
->  	if (nctx_len > *uctx_len) {
->  		rc = -E2BIG;
->  		goto out;
->  	}
->  
-> -	/* no buffer - return success/0 and set @uctx_len to the req size */
-> -	if (!uctx)
-> -		goto out;
-> -
->  	nctx = kzalloc(nctx_len, GFP_KERNEL);
->  	if (nctx == NULL) {
->  		rc = -ENOMEM;
+On Thu, Sep 10, 2026, Sean Christopherson wrote:
+> On Thu, Sep 10, 2026, James Houghton wrote:
+> > On Wed, Sep 9, 2026 at 12:00=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > I wish we could just change the uaccess primitives, like
+> > {,__}access_ok(), to check that `current->mm` is not NULL (and WARN
+> > and return -EFAULT if it is NULL).
+>=20
+> That wouldn't help at all in this case, because the access_ok() check is =
+done
+> when memslots are modified.  Which is the crux of KVM's problems: KVM dec=
+ouples
+> the initial checks from the accesses, relying on kvm->mm to
+>=20
+> And even if we hardened all of the uaccess helpers, we'd _still_ have pro=
+blems,
+> because it's not just a NULL current->mm that's problematic.  The last re=
+ference
+> to a VM file, i.e. to struct kvm, can be put by a different _process_.  I=
+.e. KVM
+> still needs to guard against reading/writing guest memory using a valid, =
+non-NULL
+> current->mm that isn't kvm->mm.  That can't be genericized in the uaccess=
+ APIs,
+> because the rule that only a specific address space can be used is very m=
+uch unique
+> to KVM.
 
-I'm not sure the existing code is necessarily wrong.  The existing code
-allows for an E2BIG length check against the current necessary size, so
-one can still do a length check regardless of if a buffer is passed.
-Even in the NULL/E2BIG case, the necessary buffer size should still be
-returned to the caller so that the process can size their allocation
-appropriately.
-
-Or am I missing something else?
-
---
-paul-moore.com
+Oh, and I'm not saying we shouldn't try to harden the uaccess APIs to guard=
+ against
+a NULL current->mm.  That absolutely would be worthwhile.  I'm just saying =
+that for
+KVM, it sadly isn't sufficient.
