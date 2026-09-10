@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C13493D55
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FEA489FB2
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:42:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047780; cv=none; b=skn7eIWftfJJR6gj0YQ82mzGJUQGViYm4mKGFnqGgF7ENtX/Zb2kmF6WAaNDtlKJOn2YeYxODYVRDLxoJwZ/WZ/12IESJfU9ROQaiGDLyOpW3GDy/U62DthzYqJL6+MV6D4g0JSwqPSffrmkbiLqsymMOcM4epvYeLypQJpicTc=
+	t=1789047780; cv=none; b=CfzGCNywEUrh38l8yWrE1Oy18g81OAeOp4uR8gErnmXNDaShijsv9Ss7V4iCFwmkaBJUzGo6VyAyedIETz3N6tJrfj/ZAKTSlQFcmgYqhgo5D+n1LRxnAqpBfZR0Lh46Znq7D5bQrMZUVxLxQwSRMIP2iWmBxx0Vhk5fecTxE/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789047780; c=relaxed/simple;
-	bh=dScUjNnbEkjwufUpsNCSJblcHZUzIblCPApUyRYiJsY=;
+	bh=8HAUbvrB7jIuajEGtdr4LCP40ok5pCLVXLuMVbqmPPw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V/gu/bAmdCfdgE5urF4wUhOi26DMh/P/HLyWa8eEGjepIW5am3V3VppMiFcncKR/AezeNawhbYDx+awiSnsFqAZCSngrnGymLqhromafu4mrwhx6t9rVEIf3rlkwEtDUmeujVqFNabb3Tlp1eiYS45HEswZluoH8O7ySn5kknJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbNwGT+s; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ohoRh9OA0GOZJEi2tyngEoV9i+IIdKhHBkGi7F9HWwA1TGFAhWDwaG6i1vb4uVfP7Uda8yRSdX70C7WSBSKKWGgq84CLoHGmwr2fMSwPiNswZ4xDM2MadGOs5dZd7/8RyVR1eQ9BcgK3hLJmCpVD92lVny6pAZa9jXvq9xzk65A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyQT+C9n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbNwGT+s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18611F00898;
-	Thu, 10 Sep 2026 13:42:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyQT+C9n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930A51F00893;
+	Thu, 10 Sep 2026 13:42:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789047778;
-	bh=NAfg43zzSc6yKURf6AqXzEyti4DBfTD4p1Nn8nH5REo=;
+	s=k20260515; t=1789047779;
+	bh=+/zGKNLW4Cke54gKqVMiXL2BbTIPFszdiApSdNPp2VY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XbNwGT+sM9klRsqkBEv56Sz8PmyiJTXva0wMnmygIp2HF9l/fHM6uuozpH4P4m0a4
-	 7bLEqu8zbU236vIp/aaeim6ODC534kHRLavpI6Potr5c7MqZN6zJLIql9uBdnW0kWJ
-	 PxCpSqbxPFq79wU/BHKDyPVbTeaMQ1NoUdu59nk5qkHv1R2DGvI3z5F1fT+vvYCOrY
-	 XXFZpx3IW6vYl5I3A6+XfulegcCuO0W3rSx8KxIyhmf5QkZlYwxTKPjYuPktztGGbm
-	 6mcmhnQ3W8eu3/OE7s2hjuMHntvdwXQu9Ry11osXSyHkT7cuS0cyEAtBr6tEbs2+2u
-	 iuUKy9C4WlxXg==
+	b=kyQT+C9nHH+/IfSxfNBv2SyFnxB6ip+kU3cmbbAG6HzvPGgBIxoQDLJF7dyjELStD
+	 Sf2uVlSQ4XOtGjtRrrAUj/Saqr+HoeVnL3z3MIKtlDxgJRybGzl2gpA2fuoKcXYPrr
+	 a1AmB3phxyDAp1TyV9G7Y1wkCRGS2Y6hLjPsJ6hMnfM5GuT7s3KkdIo1udOXR1urcg
+	 SGiUYFUeOuDFw5gckNcZ1GzkDbBMU7o8pq8p4qpvHvhZ30gUisOeHCS063BX8yKytH
+	 GbaXE0G9oCZHvvc7WTKKxPhmcL0JNprBUIpdG2rXf29eOuN5V6PEB8VMSWg4fCy9Jf
+	 F8Lt+zHjyNUqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Neronin <niklas.neronin@linux.intel.com>,
+Cc: Arthur Gautier <baloo@superbaloo.net>,
+	Michal Pecio <michal.pecio@gmail.com>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/4] usb: xhci: refactor xhci_td_cleanup() to return void
-Date: Thu, 10 Sep 2026 09:42:53 -0400
-Message-ID: <20260910134254.352939-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/4] xhci: fix lost bounce buffers on TDs spanning several ring segments
+Date: Thu, 10 Sep 2026 09:42:54 -0400
+Message-ID: <20260910134254.352939-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910134254.352939-1-sashal@kernel.org>
 References: <2026090813-valuables-reuse-daab@gregkh>
@@ -47,191 +48,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Neronin <niklas.neronin@linux.intel.com>
+From: Arthur Gautier <baloo@superbaloo.net>
 
-[ Upstream commit 7acfea2866acc6c888f880e28a249bc5ce069ad0 ]
+[ Upstream commit ff44dfb03a293bf30e31f98772a1dd316a6071d1 ]
 
-The function is modified to return 'void' instead of an integer since it
-invariably returns '0'. Additionally, multiple functions which only
-return xhci_td_cleanup() are also refactored to return void.
+When a TD reaches a link TRB with data that is not aligned to the
+endpoint's wMaxPacketSize, xhci_align_td() stages the unalignable tail
+through the bounce buffer of the ring segment holding that link TRB.
+xhci_unmap_td_bounce_buffer() later unmaps it and, for IN transfers,
+copies the data back into the URB's buffer.
 
-This change eliminates the need for callers to handle a return value that
-does not convey meaningful information and improve code readability, as it
-becomes immediately clear that the function does not produce a significant
-output.
+The enqueue path records the segment that was bounced in td->bounce_seg,
+under the assumption that a TD never spans more than two ring segments.
+That assumption does not hold: a TD large enough to span three or more
+segments crosses several link TRBs and can be bounced at each of them.
+Only the last one survives in td->bounce_seg, so every earlier bounce
+buffer is neither copied back nor DMA unmapped.
 
-Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
+The URB still completes with actual_length equal to the requested length
+and no error, so the transfer looks successful while a wMaxPacketSize
+sized hole in the destination buffer silently keeps its previous
+contents. It also leaks a DMA mapping per dropped bounce.
+
+Any sufficiently large and fragmented bulk transfer can hit this. It was
+found with a USB mass storage device behind xHCI backing a dm-verity
+target with 512 byte hash blocks, where the stale data is detected rather
+than silently consumed. The device enumerates as SuperSpeed, so
+wMaxPacketSize is 1024, while dm-bufio issues one 512 byte bio per hash
+block. verity_prefetch_io() makes the block layer merge hundreds of them
+into a single request of up to 512 scatterlist entries of 512 bytes each.
+At 256 TRBs per ring segment such a TD spans three segments, and every
+segment boundary falls on an odd multiple of 512, i.e. unaligned to
+wMaxPacketSize. dm-bufio then caches a hash block holding stale data and
+dm-verity declares the metadata block corrupted:
+
+  device-mapper: verity: 8:2: metadata block 10850 is corrupted
+
+A reproducer running this under qemu is available at
+https://github.com/baloo/xhci-verity
+
+The bounce state (bounce_buf, bounce_dma, bounce_len, bounce_offs)
+already lives on the ring segment, so there is nothing extra to track.
+Keep recording the last bounced segment in td->bounce_seg and, on
+completion, walk the segments from td->start_seg up to it, unmapping
+every segment that still has a pending bounce.
+
+Stopping at td->bounce_seg rather than td->end_seg matters: a bounce
+implies the TD continues past that segment's link TRB, so bounce_seg is
+always strictly before end_seg, and a later TD may already have started
+in end_seg and been bounced there. Walking that far would copy a foreign
+bounce buffer into this URB and unmap it twice. It also keeps the walk
+correct if a TD ever wraps the whole ring so that end_seg == start_seg.
+
+[mn: Add ring->num_segs check to prevent unlikely infinite for loop.]
+
+Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
+Cc: stable@vger.kernel.org
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Arthur Gautier <baloo@superbaloo.net>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://lore.kernel.org/r/20241106101459.775897-29-mathias.nyman@linux.intel.com
+Link: https://patch.msgid.link/20260831090448.95644-4-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-[5.10 backport: keep the existing if-based halt cleanup, stream_id
-arguments, last_trb/last_trb_seg fields and num_trbs_free accounting.
-Convert only the six existing cleanup/completion functions and their
-return statements; the newer upstream halt/cancellation paths are absent
-here. This supplies the void xhci_td_cleanup() context required by
-ff44dfb03a293bf30e31f98772a1dd316a6071d1 without adding functions.]
-
-Stable-dep-of: ff44dfb03a29 ("xhci: fix lost bounce buffers on TDs spanning several ring segments")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 53 +++++++++++++++++-------------------
- 1 file changed, 25 insertions(+), 28 deletions(-)
+ drivers/usb/host/xhci-ring.c | 32 ++++++++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 3e7664a2476db..eeb4d5de682d6 100644
+index eeb4d5de682d6..491e6c488dd30 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -771,8 +771,8 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+@@ -737,21 +737,18 @@ static void xhci_giveback_urb_in_irq(struct xhci_hcd *xhci,
+ 	usb_hcd_giveback_urb(hcd, urb, status);
+ }
+ 
+-static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+-		struct xhci_ring *ring, struct xhci_td *td)
++static void xhci_unmap_one_bounce_buffer(struct xhci_hcd *xhci,
++		struct xhci_ring *ring, struct xhci_td *td,
++		struct xhci_segment *seg)
+ {
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+-	struct xhci_segment *seg = td->bounce_seg;
+ 	struct urb *urb = td->urb;
+ 	size_t len;
+ 
+-	if (!ring || !seg || !urb)
+-		return;
+-
+ 	if (usb_urb_dir_out(urb)) {
+ 		dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+ 				 DMA_TO_DEVICE);
+-		return;
++		goto done;
+ 	}
+ 
+ 	dma_unmap_single(dev, seg->bounce_dma, ring->bounce_buf_len,
+@@ -767,10 +764,29 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+ 		memcpy(urb->transfer_buffer + seg->bounce_offs, seg->bounce_buf,
+ 		       seg->bounce_len);
+ 	}
++done:
+ 	seg->bounce_len = 0;
  	seg->bounce_offs = 0;
  }
  
--static int xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
--			   struct xhci_ring *ep_ring, int status)
-+static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
-+			    struct xhci_ring *ep_ring, int status)
- {
- 	struct urb *urb = NULL;
- 
-@@ -813,8 +813,6 @@ static int xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
- 			status = 0;
- 		xhci_giveback_urb_in_irq(xhci, td, status);
- 	}
--
--	return 0;
- }
- 
- static int xhci_reset_halted_ep(struct xhci_hcd *xhci, unsigned int slot_id,
-@@ -2065,9 +2063,9 @@ int xhci_is_vendor_info_code(struct xhci_hcd *xhci, unsigned int trb_comp_code)
- 	return 0;
- }
- 
--static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
--		     struct xhci_ring *ep_ring, struct xhci_td *td,
--		     u32 trb_comp_code)
-+static void finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
-+		      struct xhci_ring *ep_ring, struct xhci_td *td,
-+		      u32 trb_comp_code)
- {
- 	struct xhci_ep_ctx *ep_ctx;
- 
-@@ -2080,7 +2078,7 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		 * stopped TDs.  A stopped TD may be restarted, so don't update
- 		 * the ring dequeue pointer or take this TD off any lists yet.
- 		 */
--		return 0;
++static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
++		struct xhci_ring *ring, struct xhci_td *td)
++{
++	struct xhci_segment *seg;
++	int i = 0;
++
++	if (!td->bounce_seg || !ring || !td->urb)
 +		return;
- 	}
- 	if (trb_comp_code == COMP_STALL_ERROR ||
- 		xhci_requires_manual_halt_cleanup(xhci, ep_ctx,
-@@ -2108,7 +2106,7 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		inc_deq(xhci, ep_ring);
- 	}
- 
--	return xhci_td_cleanup(xhci, td, ep_ring, td->status);
-+	xhci_td_cleanup(xhci, td, ep_ring, td->status);
- }
- 
- /* sum trb lengths from the first trb up to stop_trb, _excluding_ stop_trb */
-@@ -2128,9 +2126,9 @@ static u32 sum_trb_lengths(struct xhci_td *td, union xhci_trb *stop_trb)
- /*
-  * Process control tds, update urb status and actual_length.
-  */
--static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
--		struct xhci_ring *ep_ring,  struct xhci_td *td,
--			   union xhci_trb *ep_trb, struct xhci_transfer_event *event)
-+static void process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
-+			    struct xhci_ring *ep_ring,  struct xhci_td *td,
-+			    union xhci_trb *ep_trb, struct xhci_transfer_event *event)
++
++	/* td->bounce_seg is the last one bounced, unmap them all */
++	for (seg = td->start_seg; i++ < ring->num_segs; seg = seg->next) {
++		if (seg->bounce_len)
++			xhci_unmap_one_bounce_buffer(xhci, ring, td, seg);
++		if (seg == td->bounce_seg)
++			break;
++	}
++}
++
+ static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
+ 			    struct xhci_ring *ep_ring, int status)
  {
- 	struct xhci_ep_ctx *ep_ctx;
- 	u32 trb_comp_code;
-@@ -2210,7 +2208,7 @@ static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		td->urb_length_set = true;
- 		td->urb->actual_length = requested - remaining;
- 		xhci_dbg(xhci, "Waiting for status stage event\n");
--		return 0;
-+		return;
- 	}
- 
- 	/* at status stage */
-@@ -2218,15 +2216,15 @@ static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		td->urb->actual_length = requested;
- 
- finish_td:
--	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
-+	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
- }
- 
- /*
-  * Process isochronous tds, update urb packet status and actual_length.
-  */
--static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
--		struct xhci_ring *ep_ring, struct xhci_td *td,
--		union xhci_trb *ep_trb, struct xhci_transfer_event *event)
-+static void process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
-+			    struct xhci_ring *ep_ring, struct xhci_td *td,
-+			    union xhci_trb *ep_trb, struct xhci_transfer_event *event)
- {
- 	struct urb_priv *urb_priv;
- 	int idx;
-@@ -2319,14 +2317,13 @@ static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 	if (td->error_mid_td && ep_trb != td->last_trb) {
- 		xhci_dbg(xhci, "Error mid isoc TD, wait for final completion event\n");
- 		td->urb_length_set = true;
--		return 0;
-+		return;
- 	}
--
--	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
-+	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
- }
- 
--static int skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
--			struct xhci_virt_ep *ep, int status)
-+static void skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
-+			 struct xhci_virt_ep *ep, int status)
- {
- 	struct urb_priv *urb_priv;
- 	struct usb_iso_packet_descriptor *frame;
-@@ -2348,15 +2345,15 @@ static int skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
- 	ep->ring->num_trbs_free += td->num_trbs - 1;
- 	inc_deq(xhci, ep->ring);
- 
--	return xhci_td_cleanup(xhci, td, ep->ring, status);
-+	xhci_td_cleanup(xhci, td, ep->ring, status);
- }
- 
- /*
-  * Process bulk and interrupt tds, update urb status and actual_length.
-  */
--static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
--		struct xhci_ring *ep_ring, struct xhci_td *td,
--		union xhci_trb *ep_trb, struct xhci_transfer_event *event)
-+static void process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
-+				 struct xhci_ring *ep_ring, struct xhci_td *td,
-+				 union xhci_trb *ep_trb, struct xhci_transfer_event *event)
- {
- 	struct xhci_slot_ctx *slot_ctx;
- 	u32 trb_comp_code;
-@@ -2403,7 +2400,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 
- 		xhci_handle_halted_endpoint(xhci, ep, ep_ring->stream_id, td,
- 					    EP_SOFT_RESET);
--		return 0;
-+		return;
- 	default:
- 		/* do nothing */
- 		break;
-@@ -2422,7 +2419,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		td->urb->actual_length = 0;
- 	}
- 
--	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
-+	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
- }
- 
- /*
+@@ -3524,7 +3540,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 						  &trb_buff_len,
+ 						  ring->enq_seg)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+-					/* assuming TD won't span 2 segs */
++					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
+ 				}
+ 			}
 -- 
 2.53.0
 
