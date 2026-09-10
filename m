@@ -1,84 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4493BB110;
-	Thu, 10 Sep 2026 05:52:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2E51C5D59;
+	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019525; cv=none; b=rcfyS0j4L9SUPRZA2hC6o1Oe4q6LUOmZJ9owCuAIWtoAJZaEdqvpKnzQFSDBeWpM2kz1mp3KvlSdV4B4I/y2i3gFFYd6cXKw4i9/fWyr2MJZhd7iO16/mB3uCcXK72hakk1OlnuRgLAWuVQKX255QZrDuQw4k9Ueuvx0ddtC7Uw=
+	t=1789019947; cv=none; b=oZG77bxdVyEBX7nJf1eEA2UmY81QBwFCSC2iUtzCzHgNxSGCESirqg7HzLhlQ2StmeGS51XAdzPTV35ShNG+J/m3azUegtBW0ILqGxuKD7b1J2BYvNKwGsva6VXg+xEap9nFdjdGln2HIMMZYWr3hKmuzf9NF7iz+ntbXnyh56I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019525; c=relaxed/simple;
-	bh=UhW180dA12tPRUBRPjV6IIm+7+EC76P+6MoJwyAryug=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZdiKo8dwbsLnnpbvav43cme4b7Y8puepBowoGrIKo6DfgF6i9Hgd3de2fadoe1NpTcd6KyNcdppFE276yDtjiCVeizg9/i56F0v2Hbo0DiUzJlyvhIG76Qt0V47sqdf46X9pzw+aRU8kQlTGBKj5tc3cB/0ZkUYWOuy41Pl69pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nth0jdys; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789019947; c=relaxed/simple;
+	bh=UYklCB0vOsedLPk8gbIcfZRFc4+bCVWDxvOA6gvPHz8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Rvg8jNa792pz4/Afn5vQez9YxQS+geqXcgajcMPo7+nzZg/N32+XVifYWR8DF6VY17t9lISxtfy8HoZus22R9S9Jp4bKvn15Hgw016OuPnovAlwfk83d7sis/Wh6MRX+tJqnRTOfBeY2oHQIdA5v35x6H8yCZFS5wOAr1HYrZP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=r+b243BF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nth0jdys"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC991F000FF;
-	Thu, 10 Sep 2026 05:52:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789019523;
-	bh=+HP1WKODdJHWLa5/U+FaZfR2U3PLFaGuLN6HzsglwPk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Nth0jdyscrbkeX8sKKrZkDVmC/eb5VvJs6m+uOD655SxiFm5+2Qpjth0v9kiLpCpf
-	 tVxAysa4b8OJHSLmjXFQkrfFN4Iv5YdFXkMtpDXR9r0ZLw0wLlSdbIUR/MsX6zwXFo
-	 07C/T00Hdz8mgIU4EmHW+tO/jtXM4Q1qWJUUQRHcImN10LTu/6WKZu7fhsn67sNL/B
-	 IYPTNhE38aL49ihK21UwNwyDLg7ynixkJ+kZysFzCD4satVsWRIFe+LG7LO8iSgde2
-	 KGOiilY4mFUjiDbKNM0BiunYhcUQYFXIs88/3sAw3sGXizCDUJOYVX/qXvvYZV3i+i
-	 6faJHYeyDJIWw==
-Date: Thu, 10 Sep 2026 07:51:59 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 5/7] xfs: fix replaying dirent removals into the
- temporary directory
-Message-ID: <aqJFemuEB7uUyXRL@andromeda.toxiclabs.cc>
-References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
- <178892936728.4057962.9945119784451295166.stgit@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="r+b243BF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7891F000FF;
+	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789019945;
+	bh=6+W848YAGgId+r0hutVeqFh0OVKi+g9bP4xQ6R+kF14=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=r+b243BFAi1hYjM3C5FSUaRF87pjCI3Jp7Gy16gGEtlDLB+qr6pI76jTdWFOtd9nV
+	 zkzmtHr+WvIyIfodL4jckPUVjGIkNxEyFRj+Smk+lt5tFZjU5I+Dq4DFaIhIbXOau+
+	 yDBPitQAj0zIg9oKLCDEAfYVZtHGv0mwIfk8RdxY=
+Date: Wed, 9 Sep 2026 22:59:04 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: bingfangguo@tencent.com
+Cc: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
+ <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
+ <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Johannes
+ Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal
+ Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo
+ <bfguo@icloud.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v5] mm/memcg: clear folio memcg after changing per memcg
+ stats
+Message-Id: <20260909225904.6d60c722ba21f26e18c98767@linux-foundation.org>
+In-Reply-To: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
+References: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178892936728.4057962.9945119784451295166.stgit@frogsfrogsfrogs>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 11:05:37PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
-> 
-> xrep_dir_replay_removename is the function that replays a directory
-> entry removal from sc->ip into the temporary directory so that when we
-> swap the contents of sc->tempip and sc->ip, the directory is correct.
-> LOLLM noticed that we were passing the wrong inode pointer into
-> xrep_dir_init_args.  It doesn't make sense to set rd->args.dp to
-> rd->args.dp so let's fix this.
-> 
-> Cc: <stable@vger.kernel.org> # v6.10
-> Fixes: 8559b21a64d983 ("xfs: implement live updates for directory repairs")
-> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-> Assisted-by: LOLLM # finding obvious bugs
+On Thu, 10 Sep 2026 11:46:58 +0800 Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org> wrote:
 
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+> I notice extremely high swapcached count in the per memcg level
+> memory.stat when running tests with cgroupv1 setup by swapping pages in
+> and out.  It seems that the counter never gets decreased so the value is
+> rather useless and confusing to users reading it. So I think fixing it
+> so that the value can reflect the actual swapcache usage correctly could
+> be helpful.
+> 
+> __memcg1_swapout() transfers the memsw charge of a folio to its swap
+> entry and clears folio->memcg_data as part of that.  In the vmscan
+> swapout path it runs before __swap_cache_del_folio(), which then
+> decrements the swapcache stats through lruvec_stat_mod_folio().  Since
+> folio->memcg_data has already been cleared, folio_memcg() returns NULL
+> and the NR_SWAPCACHE decrement only updates the node-level counter
+> instead of the memcg's lruvec, leaking the per-memcg swapcache count.
+> 
+> Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
+> the NR_FILE_PAGES and NR_SWAPCACHE updates but before
+> __swap_cache_do_del_folio() removes the folio from the swap cache.  This
+> keeps the stats attributed to the folio's memcg while still recording
+> the swap cgroup with a valid folio->swap.  Add a swapout parameter so
+> the plain swap_cache_del_folio() path is left unchanged.
 
-> ---
->  fs/xfs/scrub/dir_repair.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> 
-> diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-> index 0a3d02d8f04153..82ec5cfad63c59 100644
-> --- a/fs/xfs/scrub/dir_repair.c
-> +++ b/fs/xfs/scrub/dir_repair.c
-> @@ -727,7 +727,7 @@ xrep_dir_replay_removename(
->  	const struct xfs_name	*name,
->  	xfs_extlen_t		total)
->  {
-> -	struct xfs_inode	*dp = rd->args.dp;
-> +	struct xfs_inode	*dp = rd->sc->tempip;
->  
->  	ASSERT(S_ISDIR(VFS_I(dp)->i_mode));
->  
-> 
-> 
+Thanks.
+
+> Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
+
+January this year.
+
+How does this affect users?  Should we backport the fix into earlier
+kernels?  If so, why?
+
