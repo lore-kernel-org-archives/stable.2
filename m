@@ -1,414 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7504489FD4
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D03E3D16FD;
+	Thu, 10 Sep 2026 12:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044783; cv=none; b=jq1vFLpqql6Fh+wy78xj/WW7qj5TqTHvnoj669mbPg3Y/k6CaWGoKOtgLQDCHJHcmOpAmhz8JnTbLlvvmwaehaxBQ7EPGzW3bJ1EJrWU43XGAwnB3W9z724lDUs49AtQcj4Xy0jFZ6ucNPAdF8uB8LIQ5uYdLbZRbyv2oYiIa4k=
+	t=1789044787; cv=none; b=bzo5lNdeuaPu1ifYo5IBva97xClUGoTGYkbAIqejsCh5SLS/InsZKeNv4mh0w1NC4+U1CWLgdDltDSHPhgmWXqOwa9OyL7SMb59seFoLPco/nHMGol28J877Nen0ZW1EsAjctfdSailkMndX7WcWjvHZg0si6SfwEYQKuI2p7Ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044783; c=relaxed/simple;
-	bh=GzuaQl2Z7fKjAQmKbkDIU04+uHyD3KbKOfYpfhmiZeQ=;
+	s=arc-20240116; t=1789044787; c=relaxed/simple;
+	bh=lqTIdEaPrpwGl5K+cpZOtpgI5Wdv2a5OovOLiY9Cxz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DDZ/QYV2QSHKmky9R15TwEulN/otOVw+gV1Quxnohkf6t8CPP+CLzAMSwIphMWLjpgZrUfYKtTpHbnf9gqzy3la4r5vCpkE5ey+wvNEvWLeSBXWMn7ROBe0k3QlAFHlBdeUwKDUdDmoch7B+nOPPDBmR8l/9ZsqEGyePImv4dOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXcjkSzB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WXsQW+T4HAXv6rfbecy2Ow/sy5eCcGfxS+sjuGireUj3uMP9Lc8JFrHZK+yPngfWeQ5wMngDwNeGUTNlvRXZO7qxyK9GECaf2nS6OWhF8vDCSzNuqg0iU2a25jWpPw1kiaMbm0xD/8maAD8PHDc0cc2KTuXxcupc7ym3CzOIwY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNNfCWYT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXcjkSzB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F371F00893;
-	Thu, 10 Sep 2026 12:52:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNNfCWYT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474A71F000FF;
+	Thu, 10 Sep 2026 12:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044780;
-	bh=EaGSW8GohiIDErhOcVuLA53WUAgJ89gALM6hHtn6frA=;
+	s=k20260515; t=1789044785;
+	bh=ZAwZPihDUqVguGMD+e1WxJuQTdm2jQpWWVdsIj5EqYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YXcjkSzBQy8BxHhwHKFJqi8V822Q1XQGLtZQt6DYlhggxudk5sD4l2xwic2UNv2/r
-	 +FOKo3K3te35i2s5I3v3NTA5Gz/ZOHM6H9ycceuwbpt3BfjZREAtc60X7cYXj0vhkY
-	 scRGmj0pXl9RPdw8LKfKmY3mLH6/gbkyNurJC//lU9FoPXfmQdSYIcMn6EONTIA00i
-	 WKd22qhmxoMQMFJUp5gY3s766sfVJbQC3U1dJvuUjIdQ+9lNMUfS35trPXwoGCWwDX
-	 MuJs4uRvhCOuHwsFjIIJTJTfXMmiTvBFflR9IweHJlHjTeM8bm2YamyAU6lJSk3hCc
-	 yoJBR/mG43GiA==
+	b=PNNfCWYTWUebqAFKXsVLyRZhODcZ2qx+QcZYV3Wwm78IszmXcn9+j/9c9PXs4d+Q+
+	 7UA0xPv2dxq9IeqpkgP/O3wuoCDbHJkoEOhHL8RwcgRd/4gAxnY4YnoSwCfcsKXz/g
+	 CN6fIzmZbmQvJ1ighItnJdozc8yB0zO1K01RG1yRntg5ab9Pt6I63XExcLjW0hIA6m
+	 2wqrl/juqRYmdo6LepKFKLEzq77f7377A8EDFQ194aK11xwjYJFmR+kXksq9hOZb7x
+	 KDeIq5mSpMkVW3lkz21KsuQsQd+lVsy2yTwA3Umgl9t1wniQZsmQUK1/WlMRbjSiys
+	 5d0J0GA/HsJPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Hagen Paul Pfeifer <hagen@jauu.net>,
-	Jakub Kacinski <kuba@kernel.org>,
-	James Bottomley <james.bottomley@HansenPartnership.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Lee Jones <lee.jones@linaro.org>,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Teddy Wang <teddy.wang@siliconmotion.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/secretmem: properly account locked pages
-Date: Thu, 10 Sep 2026 08:52:57 -0400
-Message-ID: <20260910125257.183551-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] staging: sm750fb: sm750_accel: Provide description for 'accel' and fix function naming
+Date: Thu, 10 Sep 2026 08:53:01 -0400
+Message-ID: <20260910125302.184373-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090830-slimy-mocker-caa9@gregkh>
-References: <2026090830-slimy-mocker-caa9@gregkh>
+In-Reply-To: <2026090831-improve-varied-70b4@gregkh>
+References: <2026090831-improve-varied-70b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Lee Jones <lee.jones@linaro.org>
 
-[ Upstream commit 97d34aa65c29cca85e3e9050f4c936389b38a054 ]
+[ Upstream commit d12dd1e0e3b96b1a2c9ffdb0fa9c115aeb82b569 ]
 
-secretmem accounts folios by treating memory as if it were mlock()'d and
-thus limited by the RLIMIT_MEMLOCK limit.
+Fixes the following W=1 kernel build warning(s):
 
-However the folios are unevictable and remain so until the inode is
-evicted, eliminating usual mlock() semantics - mapping folios then
-unmapping them does not clear their unevictable state, since it depends on
-AS_UNEVICTABLE, not PG_mlocked.
+ drivers/staging/sm750fb/sm750_accel.c:155: warning: Function parameter or member 'accel' not described in 'sm750_hw_copyarea'
+ drivers/staging/sm750fb/sm750_accel.c:155: warning: expecting prototype for sm750_hm_copyarea(). Prototype was for sm750_hw_copyarea() instead
+ drivers/staging/sm750fb/sm750_accel.c:321: warning: Function parameter or member 'accel' not described in 'sm750_hw_imageblit'
 
-A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-map then unmap and VmLck no longer counts the secretmem range.  Worse,
-folios are not accounted in the process's RSS, meaning the OOM killer
-won't know to kill the process.
-
-Repeatedly mapping/unmapping (or forking) can then result in the
-consumption of all available system memory with unevictable folios and
-cause system instability.
-
-A secretmem fd can be passed between processes and over fork so a
-per-process limit simply does not make sense, so follow the precedent set
-by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
-locked pages in user_struct->locked_vm.
-
-Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
-applies per-user not per-process, so it doesn't make sense to bypass for
-users with CAP_IPC_LOCK, therefore remove this bypass.
-
-There is simply no reason to carry on marking the mapping as mlock()'d
-since it's misleading and the lifecycle is now correctly handled, so
-remove this too.
-
-Note that secretmem does not support any form of truncation (including
-hole punching) and the folios are unreclaimable, so the folios need only
-be accounted on fault and unaccounted on inode destruction.
-
-__secretmem_account_pages() is more or less a duplicate of the code that
-io_uring etc.  use, but since this is a bug fix that needs backporting,
-defer any de-duplication efforts to a follow-up.
-
-test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
-been removed, so remove the test altogether for the fix.  A new test will
-be sent separately for upstream.
-
-Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
-Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Hagen Paul Pfeifer <hagen@jauu.net>
-Cc: Jakub Kacinski <kuba@kernel.org>
-Cc: James Bottomley <james.bottomley@HansenPartnership.com>
-Cc: Jesper Dangaard Brouer <hawk@kernel.org>
-Cc: John Fastabend <john.fastabend@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted secretmem changes to Linux 6.12’s page-based fault handling and legacy mmap interface. ]
+Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Cc: Teddy Wang <teddy.wang@siliconmotion.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-fbdev@vger.kernel.org
+Cc: linux-staging@lists.linux.dev
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Link: https://lore.kernel.org/r/20210414181129.1628598-26-lee.jones@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: cc7cd2a92281 ("staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/user.h                |   3 +-
- mm/secretmem.c                            | 117 ++++++++++++++++++++--
- tools/testing/selftests/mm/memfd_secret.c |  30 +-----
- 3 files changed, 110 insertions(+), 40 deletions(-)
+ drivers/staging/sm750fb/sm750_accel.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 4cc52698e214e..8d7e5521f7cdd 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -25,7 +25,8 @@ struct user_struct {
- 
- #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
- 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
--	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
-+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
-+	defined(CONFIG_SECRETMEM)
- 	atomic_long_t locked_vm;
- #endif
- #ifdef CONFIG_WATCH_QUEUE
-diff --git a/mm/secretmem.c b/mm/secretmem.c
-index aec96e4896f00..e89accd5b3688 100644
---- a/mm/secretmem.c
-+++ b/mm/secretmem.c
-@@ -18,6 +18,8 @@
- #include <linux/secretmem.h>
- #include <linux/set_memory.h>
- #include <linux/sched/signal.h>
-+#include <linux/sched/user.h>
-+#include <linux/cred.h>
- 
- #include <uapi/linux/magic.h>
- 
-@@ -47,10 +49,69 @@ bool secretmem_active(void)
- 	return !!atomic_read(&secretmem_users);
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index 8faa601c700b2..24b9077a634a6 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -131,7 +131,8 @@ int sm750_hw_fillrect(struct lynx_accel *accel,
  }
  
-+struct secretmem_inode_state {
-+	struct user_struct	*user;
-+	atomic_long_t		nr_pages_accounted;
-+};
-+
-+static bool __secretmem_account_pages(struct user_struct *user,
-+		unsigned long nr_pages)
-+{
-+	unsigned long page_limit, cur_pages, new_pages;
-+
-+	if (!nr_pages)
-+		return true;
-+
-+	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-+
-+	cur_pages = atomic_long_read(&user->locked_vm);
-+	do {
-+		new_pages = cur_pages + nr_pages;
-+		if (new_pages > page_limit)
-+			return false;
-+	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
-+					  &cur_pages, new_pages));
-+	return true;
-+}
-+
-+static bool secretmem_account_folio(struct secretmem_inode_state *state,
-+		const struct folio *folio)
-+{
-+	const unsigned long nr_pages = folio_nr_pages(folio);
-+
-+	if (!__secretmem_account_pages(state->user, nr_pages))
-+		return false;
-+
-+	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-+	return true;
-+}
-+
-+static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-+		unsigned long nr_pages)
-+{
-+	atomic_long_sub(nr_pages, &state->user->locked_vm);
-+	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-+}
-+
-+static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-+		struct folio *folio)
-+{
-+	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-+}
-+
-+static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-+{
-+	const unsigned long nr_pages_accounted =
-+		atomic_long_read(&state->nr_pages_accounted);
-+
-+	__secretmem_unaccount_pages(state, nr_pages_accounted);
-+}
-+
- static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- {
- 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
- 	struct inode *inode = file_inode(vmf->vma->vm_file);
-+	struct secretmem_inode_state *state = inode->i_private;
- 	pgoff_t offset = vmf->pgoff;
- 	gfp_t gfp = vmf->gfp_mask;
- 	unsigned long addr;
-@@ -73,9 +134,16 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 			goto out;
- 		}
+ /**
+- * sm750_hm_copyarea
++ * sm750_hw_copyarea
++ * @accel: Acceleration device data
+  * @sBase: Address of source: offset in frame buffer
+  * @sPitch: Pitch value of source surface in BYTE
+  * @sx: Starting x coordinate of source surface
+@@ -298,6 +299,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
  
-+		if (!secretmem_account_folio(state, folio)) {
-+			folio_put(folio);
-+			ret = VM_FAULT_SIGBUS;
-+			goto out;
-+		}
-+
- 		page = &folio->page;
- 		err = set_direct_map_invalid_noflush(page);
- 		if (err) {
-+			secretmem_unaccount_folio(state, folio);
- 			folio_put(folio);
- 			ret = vmf_error(err);
- 			goto out;
-@@ -84,6 +152,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 		__folio_mark_uptodate(folio);
- 		err = filemap_add_folio(mapping, folio, offset, gfp);
- 		if (unlikely(err)) {
-+			secretmem_unaccount_folio(state, folio);
- 			/*
- 			 * If a split of large page was required, it
- 			 * already happened when we marked the page invalid
-@@ -114,23 +183,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
- 	.fault = secretmem_fault,
- };
- 
-+static void secretmem_destroy_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state = inode->i_private;
-+
-+	secretmem_unaccount_all_folios(state);
-+	free_uid(state->user);
-+	kfree(state);
-+	inode->i_private = NULL;
-+}
-+
- static int secretmem_release(struct inode *inode, struct file *file)
- {
- 	atomic_dec(&secretmem_users);
-+	secretmem_destroy_inode_priv(inode);
-+
- 	return 0;
- }
- 
- static int secretmem_mmap(struct file *file, struct vm_area_struct *vma)
- {
--	unsigned long len = vma->vm_end - vma->vm_start;
--
- 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
- 		return -EINVAL;
- 
--	if (!mlock_future_ok(vma->vm_mm, vma->vm_flags | VM_LOCKED, len))
--		return -EAGAIN;
--
--	vm_flags_set(vma, VM_LOCKED | VM_DONTDUMP);
-+	vm_flags_set(vma, VM_DONTDUMP);
- 	vma->vm_ops = &secretmem_vm_ops;
- 
- 	return 0;
-@@ -190,20 +266,40 @@ static const struct inode_operations secretmem_iops = {
- 
- static struct vfsmount *secretmem_mnt;
- 
-+static int secretmem_init_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->user = get_uid(current_user());
-+	inode->i_private = state;
-+	return 0;
-+}
-+
- static struct file *secretmem_file_create(unsigned long flags)
- {
- 	struct file *file;
- 	struct inode *inode;
- 	const char *anon_name = "[secretmem]";
-+	int err;
- 
- 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
- 
-+	err = secretmem_init_inode_priv(inode);
-+	if (err)
-+		goto err_free_inode;
-+
- 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
- 				 O_RDWR, &secretmem_fops);
--	if (IS_ERR(file))
--		goto err_free_inode;
-+	if (IS_ERR(file)) {
-+		err = PTR_ERR(file);
-+		goto err_free_priv;
-+	}
- 
- 	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
- 	mapping_set_unevictable(inode->i_mapping);
-@@ -216,10 +312,11 @@ static struct file *secretmem_file_create(unsigned long flags)
- 	inode->i_size = 0;
- 
- 	return file;
--
-+err_free_priv:
-+	secretmem_destroy_inode_priv(inode);
- err_free_inode:
- 	iput(inode);
--	return file;
-+	return ERR_PTR(err);
- }
- 
- SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
-diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
-index 9a0597310a765..06cffbc3fd77f 100644
---- a/tools/testing/selftests/mm/memfd_secret.c
-+++ b/tools/testing/selftests/mm/memfd_secret.c
-@@ -57,33 +57,6 @@ static void test_file_apis(int fd)
- 		pass("file IO is blocked as expected\n");
- }
- 
--static void test_mlock_limit(int fd)
--{
--	size_t len;
--	char *mem;
--
--	len = mlock_limit_cur;
--	if (len % page_size != 0)
--		len = (len/page_size) * page_size;
--
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem == MAP_FAILED) {
--		fail("unable to mmap secret memory\n");
--		return;
--	}
--	munmap(mem, len);
--
--	len = mlock_limit_max * 2;
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem != MAP_FAILED) {
--		fail("unexpected mlock limit violation\n");
--		munmap(mem, len);
--		return;
--	}
--
--	pass("mlock limit is respected\n");
--}
--
- static void test_vmsplice(int fd, const char *desc)
- {
- 	ssize_t transferred;
-@@ -297,7 +270,7 @@ static void prepare(void)
- 				   strerror(errno));
- }
- 
--#define NUM_TESTS 6
-+#define NUM_TESTS 5
- 
- int main(int argc, char *argv[])
- {
-@@ -319,7 +292,6 @@ int main(int argc, char *argv[])
- 	if (ftruncate(fd, page_size))
- 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
- 
--	test_mlock_limit(fd);
- 	test_file_apis(fd);
- 	/*
- 	 * We have to run the first vmsplice test before any secretmem page was
+ /**
+  * sm750_hw_imageblit
++ * @accel: Acceleration device data
+  * @pSrcbuf: pointer to start of source buffer in system memory
+  * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+  *	      and -ive mean button up
 -- 
 2.53.0
 
