@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CFE49CF35
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47247499F1D
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049181; cv=none; b=MnXfG8lwYm99t3WinbZvpb7fft4umtW2k6nag/dJs465HjLTesE0p0Hg5EIl7+ZIIv1eih7p0dFegrVHS6xGN4HjKSslLQ9u01Q1EqLXOw8llB3nTpNL5K7PrdVfm1NG3UItLq4KYurSvU367LQStfsin8vPWK+gTSUpHHogAjo=
+	t=1789049181; cv=none; b=UvxUY+L+uAgk09VPqAdpdueVkgvyMtrXndo9vcwPAXgOUsHNeT7tlzIxFaecrdqPkLcYpZ8V6Q1RbDGjniaY+z5VFP98qvDH4OW/kP9oMLtMR8S8JT93Rxm38cU7SsGdjtSQA9g0L6a1v9VTJxu2RaB7SenNKsbgr3F3ByU/JLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789049181; c=relaxed/simple;
-	bh=EfZGW9u7UuwpuDv6K1E1u17eIbguOgIVEhcXKv7zvyY=;
+	bh=cnKNuEWIcXR6YzgQM/X3BDE2gkKXmGd4ipb5snY6ob8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dcgleq0XxAK19WMJ+IQJE3EhhbuRS7DWFJKSdGdKoGWOvHeN1Y48vqX1sv3p1vdk6FzOGkmUE+n+VVr/aXNgiMxQuTxb33dt7pQXPO9Uix8T8EIAM0RHDLM6u5p9myVCfX1cmoU2eE4WPDdHXWpG7ADahf6b3VDMiO2FM9AxLr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GIQ9LRcs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WN7VTOzWJ3xlSbSYL3v9koGMwXrB6rxn1omcjM5PM2F8R/2/wmbUJ0pbqEfTzEjqczEMwADsb5Tt7mcWuQCNTyxXqFZTPGTezAM2eMCc+O1zLNGsPrIQXopgi+bcNYagD5Cw390gCAOsZxb1S7+jn8SvHdb8xP9ijJKF1UWWez0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByGY46XT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GIQ9LRcs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A174B1F00899;
-	Thu, 10 Sep 2026 14:06:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByGY46XT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6069A1F000FF;
+	Thu, 10 Sep 2026 14:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789049179;
-	bh=tovsLfkauagsSSfaqCCCgJLVpuEgpjLyRNGhCi6RhqY=;
+	bh=dGmmwv9eF4kfTortKerE6XdnQbrInQZa5h7Zy+koy10=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GIQ9LRcseeZUrsmeyc+rAfU8943E9jMhZrdh0a0Mv423ZgeREi8sTyUrDCLPT17Ch
-	 dj+F3WXm0QhNEVio8cIZws0n0I24Z9RNjpEnkxca9/jBw6yPexobkzopMZ2HXoQ6j2
-	 Ifw7fnYZUm4+g3BtCoTNbcXtlx7w20p86kwoIvJ61iNyqfbDD9rOL/Qq21Vf8D77H6
-	 LRILdDNM3RFrcKLnZ4cyMIPELOjPdilMZhbQ4IU7C5KpmlHjRp5QGlgHsmjmEt5eL3
-	 r7yYSkcQozPtFlru2lpTnd/fcCsEejpxQfBrmpznVDflojcJjMV+rrZkmrqp4eKgUK
-	 FMH+8Y/ytH96w==
+	b=ByGY46XTd+NqB0MPXpsBc25n7I8L+LasLTdFvn2iJwl3e1imumvyyTssGftXU9j1r
+	 8988iVy4cyIabo71K00BTxzEH8hKXnN+LC7pSijwzQGJqGjLbYYxnqYaUfuCOzJcEM
+	 qcAc+qPeU3lFzIOMlhBuDUn/Yhp11VWfPOeFYJKwNCLaCly7zmSrdU01s5VrJsBY7f
+	 maS7fpvC3c+UfVXidsy68OEz+f5bzTrCfyVT9eSwjfxZUGki1Zr4Iw6Qz3aRDpaZsM
+	 oBG1v0B6JsAle/tug05WoBsVwiGLMszTV2HTgN/BpvYVmyEOeyHBUTtA75pSFPNwRa
+	 cXLN97tyNHR2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Peter Zijlstra <peterz@infradead.org>,
 	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/6] futex: Rename __unqueue_futex()
-Date: Thu, 10 Sep 2026 10:06:12 -0400
-Message-ID: <20260910140617.564852-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/6] futex: Rename hash_futex()
+Date: Thu, 10 Sep 2026 10:06:13 -0400
+Message-ID: <20260910140617.564852-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090826-jeep-tassel-64cd@gregkh>
+In-Reply-To: <20260910140617.564852-1-sashal@kernel.org>
 References: <2026090826-jeep-tassel-64cd@gregkh>
+ <20260910140617.564852-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,86 +49,111 @@ Content-Transfer-Encoding: 8bit
 
 From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit af92dcea186ed7bcd5cc013163ec47a8a135ee97 ]
+[ Upstream commit eee5a7bc96becd7cdb8e4fabd327ca5e49136704 ]
 
 In order to prepare introducing these symbols into the global
 namespace; rename:
 
-  s/__unqueue_futex/__futex_unqueue/g
+  s/hash_futex/futex_hash/g
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: André Almeida <andrealmeid@collabora.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Reviewed-by: André Almeida <andrealmeid@collabora.com>
-Link: https://lore.kernel.org/r/20210923171111.300673-7-andrealmeid@collabora.com
+Link: https://lore.kernel.org/r/20210923171111.300673-8-andrealmeid@collabora.com
 Stable-dep-of: a3b8d46fe401 ("futex: Prevent rcuwait use-after-free during requeue PI")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/futex/core.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ kernel/futex/core.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 8a3a27967973a..ff61ed8184a32 100644
+index ff61ed8184a32..2a1ecbbedd155 100644
 --- a/kernel/futex/core.c
 +++ b/kernel/futex/core.c
-@@ -1508,12 +1508,12 @@ static int futex_lock_pi_atomic(u32 __user *uaddr, struct futex_hash_bucket *hb,
+@@ -298,7 +298,7 @@ struct futex_hash_bucket {
+ 
+ /*
+  * The base of the bucket array and its size are always used together
+- * (after initialization only in hash_futex()), so ensure that they
++ * (after initialization only in futex_hash()), so ensure that they
+  * reside in the same cacheline.
+  */
+ static struct {
+@@ -408,13 +408,13 @@ static inline int hb_waiters_pending(struct futex_hash_bucket *hb)
  }
  
  /**
-- * __unqueue_futex() - Remove the futex_q from its futex_hash_bucket
-+ * __futex_unqueue() - Remove the futex_q from its futex_hash_bucket
-  * @q:	The futex_q to unqueue
+- * hash_futex - Return the hash bucket in the global hash
++ * futex_hash - Return the hash bucket in the global hash
+  * @key:	Pointer to the futex key for which the hash is calculated
   *
-  * The q->lock_ptr must not be NULL and must be held by the caller.
+  * We hash on the keys returned from get_futex_key (see below) and return the
+  * corresponding hash bucket in the global hash.
   */
--static void __unqueue_futex(struct futex_q *q)
-+static void __futex_unqueue(struct futex_q *q)
+-static struct futex_hash_bucket *hash_futex(union futex_key *key)
++static struct futex_hash_bucket *futex_hash(union futex_key *key)
+ {
+ 	u32 hash = jhash2((u32 *)key, offsetof(typeof(*key), both.offset) / 4,
+ 			  key->both.offset);
+@@ -923,7 +923,7 @@ static void exit_pi_state_list(struct task_struct *curr)
+ 		next = head->next;
+ 		pi_state = list_entry(next, struct futex_pi_state, list);
+ 		key = pi_state->key;
+-		hb = hash_futex(&key);
++		hb = futex_hash(&key);
+ 
+ 		/*
+ 		 * We can race against put_pi_state() removing itself from the
+@@ -1673,7 +1673,7 @@ futex_wake(u32 __user *uaddr, unsigned int flags, int nr_wake, u32 bitset)
+ 	if (unlikely(ret != 0))
+ 		return ret;
+ 
+-	hb = hash_futex(&key);
++	hb = futex_hash(&key);
+ 
+ 	/* Make sure we really have tasks to wakeup */
+ 	if (!hb_waiters_pending(hb))
+@@ -1771,8 +1771,8 @@ futex_wake_op(u32 __user *uaddr1, unsigned int flags, u32 __user *uaddr2,
+ 	if (unlikely(ret != 0))
+ 		return ret;
+ 
+-	hb1 = hash_futex(&key1);
+-	hb2 = hash_futex(&key2);
++	hb1 = futex_hash(&key1);
++	hb2 = futex_hash(&key2);
+ 
+ retry_private:
+ 	double_lock_hb(hb1, hb2);
+@@ -2216,8 +2216,8 @@ static int futex_requeue(u32 __user *uaddr1, unsigned int flags,
+ 	if (requeue_pi && match_futex(&key1, &key2))
+ 		return -EINVAL;
+ 
+-	hb1 = hash_futex(&key1);
+-	hb2 = hash_futex(&key2);
++	hb1 = futex_hash(&key1);
++	hb2 = futex_hash(&key2);
+ 
+ retry_private:
+ 	hb_waiters_inc(hb2);
+@@ -2459,7 +2459,7 @@ static inline struct futex_hash_bucket *queue_lock(struct futex_q *q)
  {
  	struct futex_hash_bucket *hb;
  
-@@ -1540,13 +1540,13 @@ static void mark_wake_futex(struct wake_q_head *wake_q, struct futex_q *q)
- 		return;
+-	hb = hash_futex(&q->key);
++	hb = futex_hash(&q->key);
  
- 	get_task_struct(p);
--	__unqueue_futex(q);
-+	__futex_unqueue(q);
  	/*
- 	 * The waiting task can free the futex_q as soon as q->lock_ptr = NULL
- 	 * is written, without taking any locks. This is possible in the event
- 	 * of a spurious wakeup, for example. A memory barrier is required here
- 	 * to prevent the following store to lock_ptr from getting ahead of the
--	 * plist_del in __unqueue_futex().
-+	 * plist_del in __futex_unqueue().
- 	 */
- 	smp_store_release(&q->lock_ptr, NULL);
+ 	 * Increment the counter before taking the lock so that
+@@ -3224,7 +3224,7 @@ static int futex_unlock_pi(u32 __user *uaddr, unsigned int flags)
+ 	if (ret)
+ 		return ret;
  
-@@ -1998,7 +1998,7 @@ void requeue_pi_wake_futex(struct futex_q *q, union futex_key *key,
- {
- 	q->key = *key;
+-	hb = hash_futex(&key);
++	hb = futex_hash(&key);
+ 	spin_lock(&hb->lock);
  
--	__unqueue_futex(q);
-+	__futex_unqueue(q);
- 
- 	WARN_ON(!q->rt_waiter);
- 	q->rt_waiter = NULL;
-@@ -2566,7 +2566,7 @@ static int unqueue_me(struct futex_q *q)
- 			spin_unlock(lock_ptr);
- 			goto retry;
- 		}
--		__unqueue_futex(q);
-+		__futex_unqueue(q);
- 
- 		BUG_ON(q->pi_state);
- 
-@@ -2583,7 +2583,7 @@ static int unqueue_me(struct futex_q *q)
-  */
- static void unqueue_me_pi(struct futex_q *q)
- {
--	__unqueue_futex(q);
-+	__futex_unqueue(q);
- 
- 	BUG_ON(!q->pi_state);
- 	put_pi_state(q->pi_state);
+ 	/*
 -- 
 2.53.0
 
