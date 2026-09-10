@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB13D2609E3
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECCA2609E3
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788999474; cv=none; b=mNOcCG4irSFntFAxgpG9hu9Cnvf1B60XR1QsZkPM0nXqEix3D/VK+htVFpi+Plk7y6QJZMooolj555IDXf7xrWMFyih4jE1A8RwPQvNC1sH/U7NRCgM/FvB0aDQrDTJouRVePGSdd26hjWausgtX6Ed7yPxs7K6tMzBXa1xU29w=
+	t=1788999480; cv=none; b=oJcKo1TM+GitAgQGdgqXbbnYStQbmQ+b5WjhXG2H8upHkoDB4HdQ1zgbNlpei+Yeewf2t4UL+NAxSyP1gww84US+qBLqrQoQhgpU0ewV/SPt18yrsrak348BlfK2DlJNWgdvtJtmlKEZoNZfBR5przU8mQQG3nIk2QiZvnB9CVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788999474; c=relaxed/simple;
-	bh=9dQHn2FR1XRms5B8Y4jLEOtUeZ+SOOkQvoiF72+8qyw=;
+	s=arc-20240116; t=1788999480; c=relaxed/simple;
+	bh=zDBPfuyrRsjM7Xd+6ZmTmXqcpku7oQ/OWxSTjeMrbVA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DqJDh8F9ERmzzd/t0sRgbZAdIvZa4h8q3DPT6dlPsvlsf1mXDcWkOdZDonxL2OZ6q4R6k+7u+502EC6A7A2UfiOxttC5YQvuVTMW0iMFx2ZeHjmhGyVYQIsiuc66YJIFXfG1SZodVvozQwv4XZdRH/uhpyctbTYDkvxC81r+MwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=buzasAFD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KStsElnR7ODBmDw/UuNzVePpUo7uPdmsk5DmYYsNqYRM+ds2CwmLYH2jvdnoPD2eLhCHoPsRddkmMXB0qIRyH2QYu5/xzZSCx1t3LawkKOJ8ez018T0VIrlpLiyJrVZoKcSIQGoFu8pohMNSi6p4IcvuoEikDxMrgHx1EyWzN+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbCpoOCL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="buzasAFD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E9F1F00898;
-	Thu, 10 Sep 2026 00:17:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbCpoOCL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD991F000FF;
+	Thu, 10 Sep 2026 00:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788999473;
-	bh=R399kpTnmEBK4in+rJE+DAx9GbnJQJl1zOKP5tJ8mQ8=;
+	s=k20260515; t=1788999478;
+	bh=HjtHhHMqTG3OT82bXFOL64+sQEsLIgojaZQPEiD3t8M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=buzasAFD1PkXLpYnZ3VaVZn9N0pZkR+HUeIE63cW2JeFlRdDQCwihny2MTKEXxly/
-	 +KEohRPErZPBNdbZdJYfjVuaulGcKhR7oLkd3j+jnUcCa06sfbuC75iy09YKW4jHI0
-	 5qVjBLbsiaSX0U8TZ+JvAjoMVg3uL7Kt+X8Q41c8ESdN1ukcQfPhquZWEgK4dicYjm
-	 v2kKrQjCQ8SgIoN6AgHD1fNx+qff7z3rEuwaGiWyfFPstYf1MPQGeN8PGTZwJuYEZw
-	 TeVe/yyg00i2cFMZrBkoyrGup9gBA6y1H21qNY88fFYd9D7hOnysFwWIttb2ba4gZt
-	 cuSVbXwje5AhA==
+	b=ZbCpoOCLIx3q7i5yfYmtrVCovS0rjU7G1+aAmYG9nHZHQNt+mHFJ8McbQNupCrCQ1
+	 dKyQ8+epjHmSzTfwVkO24gJ5+6jU4YWcKu6+/i79YIGa8++hvbYZUxBvzq1yPklTI9
+	 cmkOC2bFjK3Cf0mQPR6U8UmgzMvBRGwmwei0n/I3LCKb2Pp9FOPUOwMy0xmSfuCFvD
+	 wARtVUzCWPQVOeso6uZzPVoycX8xbbPYLgOXyMIUwFubqa/gDGA5uhPMGxb5SpikGB
+	 RIXq/6rcmgjM7t/LifhFDdKxsnJSWNSgCmc6GCcrgMcgzC1jwKA4DrL8BiHa9YtaX+
+	 v/Sr6mqiYquyw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hidayath Khan <hidayath@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] net/smc: fix use-after-free in smc_rx_pipe_buf_release()
-Date: Wed,  9 Sep 2026 20:17:49 -0400
-Message-ID: <20260910001749.3748657-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] i3c: master: Replace WARN_ON() with dev_err() in i3c_dev_free_ibi_locked()
+Date: Wed,  9 Sep 2026 20:17:54 -0400
+Message-ID: <20260910001756.3748845-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910001749.3748657-1-sashal@kernel.org>
-References: <2026090344-judgingly-mace-1efd@gregkh>
- <20260910001749.3748657-1-sashal@kernel.org>
+In-Reply-To: <2026090419-hunchback-antics-d9e3@gregkh>
+References: <2026090419-hunchback-antics-d9e3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,66 +46,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hidayath Khan <hidayath@linux.ibm.com>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit c924884743e948e25625b7fbf3ee2a9325a204a7 ]
+[ Upstream commit 471895799c2f46688792e175ced936ffeb6cdf01 ]
 
-smc_rx_splice() hands RMB pages to a pipe and takes a socket reference
-per entry so the smc_sock stays alive until the reader finishes. The
-connection does not: a concurrent close runs smc_conn_free(), which
-releases the receive buffer back to the link group pool.
+IBI disable failures are not indicative of a software bug, so using
+WARN_ON() is not appropriate.  Replace these warnings with dev_err().
 
-smc_rx_pipe_buf_release() tests sk_state before taking the socket lock.
-The state can change between the test and the lock, and
-smc_rx_update_cons() then dereferences conn->rmb_desc and walks
-conn->lgr, which smc_conn_free() has already released. On the
-is_reg_err path smcr_buf_unuse() frees the descriptor outright, so
-this is a use-after-free.
-
-Take the socket lock first and test conn->freed instead.
-smc_conn_free() sets that flag before releasing anything, and every
-caller holds the socket lock. The two paths exclude each other: either
-the pipe release runs first with everything valid, or it sees the flag
-and skips the update.
-
-Fixes: 9014db202cb7 ("smc: add support for splice()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260820074642.966856-3-hidayath@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260113072702.16268-5-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Stable-dep-of: 456f832e5fc2 ("i3c: master: Fix recursive locking during device registration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/smc/smc_rx.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/i3c/master.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
-index 33b5bcafdec7d..318ffb372f384 100644
---- a/net/smc/smc_rx.c
-+++ b/net/smc/smc_rx.c
-@@ -110,16 +110,15 @@ static void smc_rx_pipe_buf_release(struct pipe_inode_info *pipe,
- 				    struct pipe_buffer *buf)
- {
- 	struct smc_spd_priv *priv = (struct smc_spd_priv *)buf->private;
-+	struct smc_connection *conn = &priv->smc->conn;
- 	struct smc_sock *smc = priv->smc;
--	struct smc_connection *conn;
- 	struct sock *sk = &smc->sk;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 6eec1e6fb139f..067dd5946d512 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -3054,8 +3054,11 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+ 	if (!dev->ibi)
+ 		return;
  
--	if (sk->sk_state == SMC_CLOSED ||
--	    sk->sk_state == SMC_PEERFINCLOSEWAIT ||
--	    sk->sk_state == SMC_APPFINCLOSEWAIT)
--		goto out;
--	conn = &smc->conn;
- 	lock_sock(sk);
-+	if (conn->freed) {
-+		release_sock(sk);
-+		goto out;
+-	if (WARN_ON(dev->ibi->enabled))
+-		WARN_ON(i3c_dev_disable_ibi_locked(dev));
++	if (dev->ibi->enabled) {
++		dev_err(&master->dev, "Freeing IBI that is still enabled\n");
++		if (i3c_dev_disable_ibi_locked(dev))
++			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
 +	}
- 	smc_rx_update_cons(smc, priv->len);
- 	release_sock(sk);
- 	if (atomic_sub_and_test(priv->len, &conn->splice_pending))
+ 
+ 	master->ops->free_ibi(dev);
+ 
 -- 
 2.53.0
 
