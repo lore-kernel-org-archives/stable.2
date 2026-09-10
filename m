@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C26F493D3D;
-	Thu, 10 Sep 2026 14:28:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF51B49F137
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:29:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050536; cv=none; b=eWiAFgR1htiavLqhnRTJH4QrnCrJ0qxquuFF3wuvlMrqeTHx4KxjN35z2gNbet4Oog89Ng8uzc+dOky/74+jHZG1vs7nfhqBs5RG8NEAbt6eDnFgurO3JVbgjIsdrwOgPop/kR4R5ADoMevYWNQnsljTEhlaYHMncd9R1jQwBq8=
+	t=1789050549; cv=none; b=j3b73+db/ZQ+XsIdrJDNb5LEShG8fQv6PHR/xhAIlzVQnIQfcmiAIm6Q0A0F/etcUs+GTLT9QK3xnV+RflLXF0rAu5Ocj3wNXT00sm4uy9ZfH5gjuLHZQAD88HVH3Q4drMgEvcLM0Vq53dvXjHdFG1556c1xdyYWnlhNYlkNxAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050536; c=relaxed/simple;
-	bh=Vs4wjfHszeZkCmfK7zEffUP85vyI8R7s0ImJGwV3oe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jpsgrlXdJ+UjQ3Ll7FFXgw+4rXWCcBHKIvsZDiYfyJqfZqvzhPT0MZlFF5bMqhidMYASqCROpi4FZTd4V5Q8pvW/l7FJwASDMpByed/HNukxQAYsmD6w6pUrmW9X1IpMrvUZUlFP3tJw76PLmd/Lh53fAaxe3HippZbhrj75PeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USlad1nL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050549; c=relaxed/simple;
+	bh=6kRggn1AgNkTiFVyHdQuAe6zO82LS7vm0MpSeSHMVtI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L5cV5hpHGMETScz7Al7OMD9QsMCQjSooKLtWnS3bmg0kG6MpLq5Bxrnh5KESLvWEpyBumuc1cGrWUzBdfl3c9I4jVhS0zOzITE5KOEiISF33URe3pXC8ha4QSGK5Mi2Up09CzB4zCzEd6H/k0Sa0WGPU7b8Wdk1AWX1gu0wYEUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nx6cn3f3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USlad1nL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3E81F000FF;
-	Thu, 10 Sep 2026 14:28:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nx6cn3f3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2109B1F000FF;
+	Thu, 10 Sep 2026 14:29:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050535;
-	bh=SW8evpy02DamdqiEXgaSrgnCDzWYzeYmnUuButPjW68=;
-	h=From:To:Cc:Subject:Date;
-	b=USlad1nLJGBwm1TYjCXfWCjFwVc1+yp1yNfaYzaZ2UJTL28VarH9mHjDofJ5U7qdV
-	 yWXTkCa/SzEwXLxakf5RFyH7CY7LMTIHvqcYDuegGK7bfn2gk5RbIrWbJEo9S+wlkd
-	 4duC0LuhDN3UJH7DgtLTMNm6efHvoqmzIXtCsqlV2EJuoGTzpQS86cY4/CWCYDea6d
-	 ALvqaZeSwbE/JQCTCzbYz5E37L/ffg3v3krMg/iF9/p7ZHnAVlAdiMfLGYCJZ6QNLE
-	 Pq/2/bKG+mVUCkVR6sQrTfozCGq9RpnpEmVOl5r9zVu8w+8v+y1JYxog7C4jwqlGfq
-	 6qqXOstwzJBPg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Enze Li <lienze@kylinos.cn>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2] mm/damon/core: reset invalid quota->charge_target_from
-Date: Thu, 10 Sep 2026 07:28:45 -0700
-Message-ID: <20260910142846.172957-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1789050547;
+	bh=1vyO4jpT4IcyJEinr0D4d5fkCsMtYyeeL4IdYeAbVxU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Nx6cn3f35o8OHw7r2tjQqCmebblWojafKC0oxzGwOnNuag22W5VifOt7UKr1WaTdO
+	 +ugy/8LMGUp5innw5l0FPrHZQLkXjn+8/7ZWMpU3BYrxNVV8h1R6Zr40fCzhWepyPP
+	 pfkU+LBs9LjusEHq3Hb2uOuwBdEHP7Sofj7gJR2MxGGFEqNyKyOYZe6dGGPY6wDrFf
+	 xLtgP+pLrIallhP+TabNl+kVQXBX6c9G6HUUpxSlDxE/ob+bqKecsNuisNBhtiHlPR
+	 qCRY0b4jWzSAfrqa4Bx2pfmApmd9VblqEwV/guBgszq3RJnFKJYUNewNr4ebIk54+B
+	 mlVkcpjik5aAA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Breno Leitao <leitao@debian.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ftrace: Take trace_array reference before accessing its ftrace_ops
+Date: Thu, 10 Sep 2026 10:29:05 -0400
+Message-ID: <20260910142905.693726-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090806-impulse-directive-c104@gregkh>
+References: <2026090806-impulse-directive-c104@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,84 +45,254 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMOS can suddenly stop working if a target process that the quota is
-just fully charged on is terminated.  Fix by catching and processing the
-corner case.
+From: Steven Rostedt <rostedt@goodmis.org>
 
-When DAMOS quota is fully charged, the target and the region to continue
-applying the action in the next round is saved in
-damos_quota->charge_{target,addr}_from.  In the next round, DAMOS
-iterates targets and regions from the beginning.  It skips applying the
-action to the regions until it visits and skips the saved target/region.
+[ Upstream commit 9100191e5acb2e5ea2313f436667bb5fce129f47 ]
 
-Virtual address space targets become invalid if the process is
-terminated.  Trying to apply the scheme to invalid target is just a
-waste of time.  Hence commit 6e4930e33329 ("mm/damon/core: fix wasteful
-CPU calls by skipping non-existent targets") made the logic to skip
-invalid targets.  However, it does skip before the charged target/region
-skipping/updating.
+The trace instance files set_ftrace_filter and set_ftrace_notrace was
+updated to work with specific trace instances (trace_arrays). The issue is
+that when these files are opened, there is a small race window where it
+will use the ftrace_ops from the inode->private pointer to get a reference
+to the trace_array and then take its reference. The problem is that the
+ftrace_ops itself could be freed. If the rmdir on the instance happens at
+the same time the set_ftrace_filter file is opened, the rmdir could have
+also freed the ftrace_ops and referencing it will cause a use-after-free
+bug and crash the kernel.
 
-Let's suppose the user runs DAMOS for multiple virtual address spaces
-with a quota.  The quota exceeded in the middle of a virtual address
-space.  And the process of the address space is terminated.  Then the
-charge_target_from points to the invalid target.  The pointer update
-logic is skipped for the invalid target, so the charge_target_from is
-never updated.  DAMOS action to every target/region is skipped.  From
-the user's perspective, it would look like suddenly DAMOS has stopped
-working.
+Instead, pass in the trace_array as the file private data (NULL for the
+top level instance), and then pass both the trace_array and the ftrace_ops
+to the ftrace_regex_open() function. If the trace_array is NULL, then it
+just uses the ftrace_ops without the need to take its reference (like
+normal). If the ftrace_ops is NULL, that is only the case for the top
+level instance and the global_ops can be used.
 
-No critical leak or crash can happen.  The user could reinstall the
-scheme.  But this makes use of DAMOS under certain setups quite
-unreliable.
+This allows the trace_array to have its reference incremented before
+touching the ftrace_ops that could also be freed when the instance is.
 
-When the invalid target is found, further check the corner case and
-reset the pointer.
-
-This issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260830064708.40CA61F000E9@smtp.kernel.org
-
-Fixes: 6e4930e33329 ("mm/damon/core: fix wasteful CPU calls by skipping non-existent targets")
-Cc: <stable@vger.kernel.org> # 7.0.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260828223901.29e26edb@robin
+Fixes: 591dffdade9f0 ("ftrace: Allow for function tracing instance to filter functions")
+Reported-by: Breno Leitao <leitao@debian.org>
+Tested-by: Breno Leitao <leitao@debian.org>
+Closes: https://lore.kernel.org/all/apGORjltZgAiAYHT@gmail.com/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ Replaced kzalloc_obj(*iter) with kzalloc(sizeof(*iter), GFP_KERNEL) because the newer helper is unavailable in 6.6. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes from RFC v2
-- RFC v2: https://lore.kernel.org/20260908144246.104162-1-sj@kernel.org
-- Drop RFC tag again.
-Changes from v1
-- v1: https://lore.kernel.org/20260907165529.98874-1-sj@kernel.org
-- Move the corner case check to invalid target found case, to handle
-  dynamic quota uninstall case.
-- Add RFC tag again.
-Changes from RFC v1
-- RFC v1: https://lore.kernel.org/20260906183654.95634-1-sj@kernel.org
-- Drop RFC tag.
+ include/linux/ftrace.h         |  5 +--
+ kernel/trace/ftrace.c          | 59 ++++++++++++++++++++++------------
+ kernel/trace/trace.h           |  4 +--
+ kernel/trace/trace_functions.c |  2 +-
+ kernel/trace/trace_stack.c     |  2 +-
+ 5 files changed, 46 insertions(+), 26 deletions(-)
 
- mm/damon/core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 645cb367019ae..06cf2ab7e97d7 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3393,8 +3393,15 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
- 	max_region_sz = damon_region_sz_limit(c);
- 	mutex_lock(&c->walk_control_lock);
- 	damon_for_each_target(t, c) {
--		if (c->ops.target_valid && c->ops.target_valid(t) == false)
-+		if (c->ops.target_valid && c->ops.target_valid(t) == false) {
-+			damon_for_each_scheme(s, c) {
-+				if (s->quota.charge_target_from != t)
-+					continue;
-+				s->quota.charge_target_from = NULL;
-+				s->quota.charge_addr_from = 0;
-+			}
- 			continue;
-+		}
- 		damos_apply_target(c, t, max_region_sz);
- 	}
+diff --git a/include/linux/ftrace.h b/include/linux/ftrace.h
+index 5c3eaf9fc90c4..594fda9702ab2 100644
+--- a/include/linux/ftrace.h
++++ b/include/linux/ftrace.h
+@@ -673,8 +673,9 @@ unsigned long ftrace_get_addr_new(struct dyn_ftrace *rec);
+ unsigned long ftrace_get_addr_curr(struct dyn_ftrace *rec);
  
-
-base-commit: bd699d8a4388cda037f01797294c834fb422ebe6
+ extern ftrace_func_t ftrace_trace_function;
++struct trace_array;
+ 
+-int ftrace_regex_open(struct ftrace_ops *ops, int flag,
++int ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
+ 		  struct inode *inode, struct file *file);
+ ssize_t ftrace_filter_write(struct file *file, const char __user *ubuf,
+ 			    size_t cnt, loff_t *ppos);
+@@ -883,7 +884,7 @@ static inline unsigned long ftrace_location(unsigned long ip)
+  * have them defined when ftrace is not enabled, but these
+  * functions may still be called. Use a macro instead of inline.
+  */
+-#define ftrace_regex_open(ops, flag, inod, file) ({ -ENODEV; })
++#define ftrace_regex_open(tr, ops, flag, inode, file) ({ -ENODEV; })
+ #define ftrace_set_early_filter(ops, buf, enable) do { } while (0)
+ #define ftrace_set_filter_ip(ops, ip, remove, reset) ({ -ENODEV; })
+ #define ftrace_set_filter_ips(ops, ips, cnt, remove, reset) ({ -ENODEV; })
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index a5ddc3f7aefaa..115f4232d688d 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -4017,7 +4017,8 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
+ 
+ /**
+  * ftrace_regex_open - initialize function tracer filter files
+- * @ops: The ftrace_ops that hold the hash filters
++ * @tr: The trace_array that holds the ftrace_ops [optional]
++ * @ops: The ftrace_ops that hold the hash filters [optional]
+  * @flag: The type of filter to process
+  * @inode: The inode, usually passed in to your open routine
+  * @file: The file, usually passed in to your open routine
+@@ -4030,25 +4031,46 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
+  * ftrace_notrace_write() if @flag has FTRACE_ITER_NOTRACE set.
+  * tracing_lseek() should be used as the lseek routine, and
+  * release must call ftrace_regex_release().
++ *
++ * Note, If @tr is not NULL, its reference has to be taken before
++ *       @ops may be referenced.
++ *       If @ops is NULL and @tr is not, then @tr->ops is used.
++ *       If @tr is NULL and @ops is not then @ops->private is uesd for @tr.
++ *       If both @tr and @ops are NULL, then the &global_ops is
++ *         to be used, and @tr will be the global_ops.private pointer.
++ *
++ * Returns: 0 on success or a negative errno value on failure
+  */
+ int
+-ftrace_regex_open(struct ftrace_ops *ops, int flag,
++ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
+ 		  struct inode *inode, struct file *file)
+ {
+-	struct ftrace_iterator *iter;
++	struct ftrace_iterator *iter = NULL;
+ 	struct ftrace_hash *hash;
+ 	struct list_head *mod_head;
+-	struct trace_array *tr = ops->private;
+-	int ret = -ENOMEM;
+-
+-	ftrace_ops_init(ops);
++	int ret = -ENODEV;
+ 
+ 	if (unlikely(ftrace_disabled))
+ 		return -ENODEV;
+ 
++	if (!tr) {
++		if (!ops)
++			ops = &global_ops;
++		tr = ops->private;
++	}
++
+ 	if (tracing_check_open_get_tr(tr))
+ 		return -ENODEV;
+ 
++	if (!ops)
++		ops = tr->ops;
++
++	if (WARN_ON_ONCE(!ops))
++		goto out;
++
++	ftrace_ops_init(ops);
++
++	ret = -ENOMEM;
+ 	iter = kzalloc(sizeof(*iter), GFP_KERNEL);
+ 	if (!iter)
+ 		goto out;
+@@ -4126,21 +4148,19 @@ ftrace_regex_open(struct ftrace_ops *ops, int flag,
+ static int
+ ftrace_filter_open(struct inode *inode, struct file *file)
+ {
+-	struct ftrace_ops *ops = inode->i_private;
++	struct trace_array *tr = inode->i_private;
+ 
+-	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops,
+-			FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
+-			inode, file);
++	return ftrace_regex_open(tr, NULL,
++				 FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
++				 inode, file);
+ }
+ 
+ static int
+ ftrace_notrace_open(struct inode *inode, struct file *file)
+ {
+-	struct ftrace_ops *ops = inode->i_private;
++	struct trace_array *tr = inode->i_private;
+ 
+-	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops, FTRACE_ITER_NOTRACE,
++	return ftrace_regex_open(tr, NULL, FTRACE_ITER_NOTRACE,
+ 				 inode, file);
+ }
+ 
+@@ -6437,15 +6457,15 @@ static const struct file_operations ftrace_graph_notrace_fops = {
+ };
+ #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
+ 
+-void ftrace_create_filter_files(struct ftrace_ops *ops,
++void ftrace_create_filter_files(struct trace_array *tr,
+ 				struct dentry *parent)
+ {
+ 
+ 	trace_create_file("set_ftrace_filter", TRACE_MODE_WRITE, parent,
+-			  ops, &ftrace_filter_fops);
++			  tr, &ftrace_filter_fops);
+ 
+ 	trace_create_file("set_ftrace_notrace", TRACE_MODE_WRITE, parent,
+-			  ops, &ftrace_notrace_fops);
++			  tr, &ftrace_notrace_fops);
+ }
+ 
+ /*
+@@ -6470,7 +6490,6 @@ void ftrace_destroy_filter_files(struct ftrace_ops *ops)
+ 
+ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
+ {
+-
+ 	trace_create_file("available_filter_functions", TRACE_MODE_READ,
+ 			d_tracer, NULL, &ftrace_avail_fops);
+ 
+@@ -6483,7 +6502,7 @@ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
+ 	trace_create_file("touched_functions", TRACE_MODE_READ,
+ 			d_tracer, NULL, &ftrace_touched_fops);
+ 
+-	ftrace_create_filter_files(&global_ops, d_tracer);
++	ftrace_create_filter_files(NULL, d_tracer);
+ 
+ #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+ 	trace_create_file("set_graph_function", TRACE_MODE_WRITE, d_tracer,
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 7ba372c21fee6..0a89196952c94 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1114,7 +1114,7 @@ extern void clear_ftrace_function_probes(struct trace_array *tr);
+ int register_ftrace_command(struct ftrace_func_command *cmd);
+ int unregister_ftrace_command(struct ftrace_func_command *cmd);
+ 
+-void ftrace_create_filter_files(struct ftrace_ops *ops,
++void ftrace_create_filter_files(struct trace_array *tr,
+ 				struct dentry *parent);
+ void ftrace_destroy_filter_files(struct ftrace_ops *ops);
+ 
+@@ -1137,11 +1137,11 @@ static inline void clear_ftrace_function_probes(struct trace_array *tr)
+ {
+ }
+ 
++#define ftrace_create_filter_files(tr, parent) do { } while (0)
+ /*
+  * The ops parameter passed in is usually undefined.
+  * This must be a macro.
+  */
+-#define ftrace_create_filter_files(ops, parent) do { } while (0)
+ #define ftrace_destroy_filter_files(ops) do { } while (0)
+ #endif /* CONFIG_FUNCTION_TRACER && CONFIG_DYNAMIC_FTRACE */
+ 
+diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
+index 44ae51d1dc45d..eecac19a2bcbb 100644
+--- a/kernel/trace/trace_functions.c
++++ b/kernel/trace/trace_functions.c
+@@ -90,7 +90,7 @@ int ftrace_create_function_files(struct trace_array *tr,
+ 	if (!tr->ops)
+ 		return -EINVAL;
+ 
+-	ftrace_create_filter_files(tr->ops, parent);
++	ftrace_create_filter_files(tr, parent);
+ 
+ 	return 0;
+ }
+diff --git a/kernel/trace/trace_stack.c b/kernel/trace/trace_stack.c
+index 5a48dba912eae..c6b2f622ffa12 100644
+--- a/kernel/trace/trace_stack.c
++++ b/kernel/trace/trace_stack.c
+@@ -499,7 +499,7 @@ stack_trace_filter_open(struct inode *inode, struct file *file)
+ 	struct ftrace_ops *ops = inode->i_private;
+ 
+ 	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops, FTRACE_ITER_FILTER,
++	return ftrace_regex_open(NULL, ops, FTRACE_ITER_FILTER,
+ 				 inode, file);
+ }
+ 
 -- 
-2.47.3
+2.53.0
+
