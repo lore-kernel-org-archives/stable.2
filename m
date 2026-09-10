@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C56472090
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB2147CC62
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:51:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041102; cv=none; b=bUM9qcPSvgcjhz14QNgkc4sRDNkymt2VtQkYw6G/8BPaCuXTF7v4N2cYvyMRY6ub53BrjpRwObw5WkzqhSThQecc2tBF5Y38pVcb4cQs+kE2DCo4o9HWzn2Glakm0WL0BPhgztvxLqSpvqHDxTAabuRTUdFmNz9+A4a/iQlRKy0=
+	t=1789041103; cv=none; b=tsN6yA/NIu0nBLUlaX5Axchc41jpn8RBG+NVeLOofFcHPdkHN+5kRkGBeSqVYwlJrfFMl0RsPxk6FS+l/E6Y6w5pFQbAW0AF0TR5QIxmAc28kfLD/buP8DHIVte4733k/FxlDX8ZAAxxQq5uD2hw1NllUGMVjQn6al4DCCraOfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041102; c=relaxed/simple;
-	bh=RIuTPdeqzMkwmPMk47x2Ccix5jbovzwoL+LMF3XA5p4=;
+	s=arc-20240116; t=1789041103; c=relaxed/simple;
+	bh=p9vuj3aQiV8Fo0DZD6Yx8bCQviGJrvsmFOwmpUrERGI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=emIbcWfqzOm0rnSgOoXWNZMu8WO8v4pdyAAhve4hrCfHHU0LY8pddSv2tlhPwA+/x7ETcyiiDVuWiExvAPVYLxXR9aj8Jw/3Jv6qUFLafuQTA0c4m1FKgK9Yf8gXjU6vHaE4oBZHKnx6LwQfuPNYwEDRCewpqxyoFDzZwbZv4TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BqsVEg+F; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=opP/BYnjzw/5usQ9ZSWhApxK58NgTulkjltPY45ARrB5uEaEExwMAE3mYc7wnBkD4q6U7kdSHqJaLzJ8f80xs0wyuR69cgujpQPC5osZFl/J32pHE4EhuHXpJ/WEPLJOuTYccKg6mTtofUoHLAi0Z0IKwImb/tsMEwCMDmHqE0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdnCVD62; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BqsVEg+F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7651F00893;
-	Thu, 10 Sep 2026 11:51:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdnCVD62"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64DEC1F0089B;
+	Thu, 10 Sep 2026 11:51:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789041101;
-	bh=W1n2b4S7T2DlMZXkjb4ICdTmBuCmn0eM8vmFo8Yn4qE=;
+	s=k20260515; t=1789041102;
+	bh=vZArZ5VoldkBSfUnsUjOw9dEh4wckRnSGF0ijpEw0sY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BqsVEg+FeLGOHJbuN4CjKG98y6DF8yM6qSpe8SRMBnpf9A8b9u7vcECipvXqozLwQ
-	 UkQdwOYaDmW6265y5FHVVwpDFaQcXgKWDV+xdYLeX/IF2csi4/YD42TT6qC0QZdbII
-	 pJ34Yp/+guCrYPsU/qSxLkqcUDsib5POK7+AtJDSfLi9Aq98jpj+ARmXtobwK4KsNY
-	 +z6IsRdDBcVpoKSpnd3o9BzdPoZgX9/ycaES2vD0HFcYtcaHJpW4t4T9V1m3tlCMbb
-	 k8vqkpTc6rJvGVjanHGITZRCFOoFKUN8rtHS2ZjIMSUOSU/aJ2d8uQkLCNFcM61nVm
-	 uZA4L7XW4LThw==
+	b=UdnCVD620Jdj03IztENRyW4HLaKZ19lMjzbOXFhG81mf5GHDaWBbLZklBJIZesCR2
+	 b/cIwICgJHYRQzAEI9YqdSZQNqo1B1b3jfu/M0/4zl+Tlv18K5VXqdQEe655YAIpAL
+	 6X9/bTN/+f4lwlZrYVRbqRv006hqJsp/Y4YFcYFrr2HFErlLSlPK0lH7jyHbb9AWnI
+	 0cdwqdYnclBB/RtQDByfuIh8TPbDLsj36LnYni84ImQDpTfLNg0wcjkJFIg+8TihQM
+	 SqwdRcCPhvDWtO7wvfWJoaKrl2aD7s67c2hgAE4uCc5ynxqXmttCtEaJLiWLzSaKWm
+	 SOTePU5v2hHEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Martin Kaiser <martin@kaiser.cx>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] tracing/probes: ignore id update from btf_type_skip_modifiers
-Date: Thu, 10 Sep 2026 07:51:38 -0400
-Message-ID: <20260910115139.111324-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] tracing/probes: Fix BTF kflag check for anonymous struct member access
+Date: Thu, 10 Sep 2026 07:51:39 -0400
+Message-ID: <20260910115139.111324-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090849-jawed-juggling-59e4@gregkh>
+In-Reply-To: <20260910115139.111324-1-sashal@kernel.org>
 References: <2026090849-jawed-juggling-59e4@gregkh>
+ <20260910115139.111324-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,89 +47,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Martin Kaiser <martin@kaiser.cx>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 823b37855829bc328d46102a56e4d0b2f7a3d0d1 ]
+[ Upstream commit 47e93045a2db80d24f5fef65adecc6b2b32efa23 ]
 
-We can pass NULL as id pointer to btf_type_skip_modifiers if we do not
-need the id of the returned btf_type.
+btf_find_struct_member() traverses into nested anonymous structures and
+unions to find a struct member. However, get_bitoffset_of_field() in
+trace_probe.c checked btf_type_kflag(type) using the outer parent type
+instead of the actual anonymous structure/union that directly contains
+the found member.
 
-Link: https://lore.kernel.org/all/20260623132937.3494895-1-martin@kaiser.cx/
+If the parent structure and anonymous structure have mismatched kflags
+(e.g., the parent has kflag=0 while the anonymous structure has kflag=1
+because it contains bitfields), the bitfield size encoded in the upper
+8 bits of member->offset is erroneously treated as part of the byte/bit
+offset, corrupting the resolved offset and failing to set last_bitsize.
+Similarly, btf_find_struct_member() pushed anonymous member offsets
+onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
 
-Signed-off-by: Martin Kaiser <martin@kaiser.cx>
+To fix this problem, update btf_find_struct_member() to return actual
+containing structure/union type via member_type, use appropriate
+__btf_member_bit_offset() to get bit offset, and use member_type for
+btf_type_kflag() in get_bitoffset_of_field().
+
+Link: https://lore.kernel.org/all/178827250904.123716.17452648791331881284.stgit@devnote2/
+
+Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.7-flash
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Stable-dep-of: 47e93045a2db ("tracing/probes: Fix BTF kflag check for anonymous struct member access")
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+[ applied changes to parse_btf_field() because get_bitoffset_of_field() is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_probe.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ kernel/trace/trace_btf.c   | 19 +++++++++++--------
+ kernel/trace/trace_btf.h   |  3 ++-
+ kernel/trace/trace_probe.c |  5 +++--
+ 3 files changed, 16 insertions(+), 11 deletions(-)
 
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index 5bbdbcbbde3cd..807d03ff8f063 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -61,16 +61,17 @@ struct btf_anon_stack {
+ 
+ /*
+  * Find a member of data structure/union by name and return it.
+- * Return NULL if not found, or -EINVAL if parameter is invalid.
+- * If the member is an member of anonymous union/structure, the offset
+- * of that anonymous union/structure is stored into @anon_offset. Caller
+- * can calculate the correct offset from the root data structure by
+- * adding anon_offset to the member's offset.
++ * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
++ * If the member is a member of an anonymous union/structure, the bit offset
++ * of that anonymous union/structure is stored into @anon_offset.
++ * If @member_type is non-NULL, the actual containing structure/union type
++ * of the found member is stored into @member_type.
+  */
+ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 						const struct btf_type *type,
+ 						const char *member_name,
+-						u32 *anon_offset)
++						u32 *anon_offset,
++						const struct btf_type **member_type)
+ {
+ 	struct btf_anon_stack *anon_stack;
+ 	const struct btf_member *member;
+@@ -94,14 +95,16 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
+ 			    top < BTF_ANON_STACK_MAX) {
+ 				anon_stack[top].tid = tid;
+-				anon_stack[top++].offset =
+-					cur_offset + member->offset;
++				anon_stack[top++].offset = cur_offset +
++					__btf_member_bit_offset(type, member);
+ 			}
+ 		} else {
+ 			name = btf_name_by_offset(btf, member->name_off);
+ 			if (name && !strcmp(member_name, name)) {
+ 				if (anon_offset)
+ 					*anon_offset = cur_offset;
++				if (member_type)
++					*member_type = type;
+ 				goto out;
+ 			}
+ 		}
+diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
+index 4bc44bc261e6f..4bd26bceae23a 100644
+--- a/kernel/trace/trace_btf.h
++++ b/kernel/trace/trace_btf.h
+@@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
+ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 						const struct btf_type *type,
+ 						const char *member_name,
+-						u32 *anon_offset);
++						u32 *anon_offset,
++						const struct btf_type **member_type);
 diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 8e1df280d3114..813e2ddefdaab 100644
+index 813e2ddefdaab..95dcfeede94a0 100644
 --- a/kernel/trace/trace_probe.c
 +++ b/kernel/trace/trace_probe.c
-@@ -355,9 +355,8 @@ static bool btf_type_is_char_ptr(struct btf *btf, const struct btf_type *type)
+@@ -577,6 +577,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
  {
- 	const struct btf_type *real_type;
- 	u32 intdata;
--	s32 tid;
- 
--	real_type = btf_type_skip_modifiers(btf, type->type, &tid);
-+	real_type = btf_type_skip_modifiers(btf, type->type, NULL);
- 	if (!real_type)
- 		return false;
- 
-@@ -374,14 +373,13 @@ static bool btf_type_is_char_array(struct btf *btf, const struct btf_type *type)
- 	const struct btf_type *real_type;
- 	const struct btf_array *array;
- 	u32 intdata;
--	s32 tid;
- 
- 	if (BTF_INFO_KIND(type->info) != BTF_KIND_ARRAY)
- 		return false;
- 
- 	array = (const struct btf_array *)(type + 1);
- 
--	real_type = btf_type_skip_modifiers(btf, array->type, &tid);
-+	real_type = btf_type_skip_modifiers(btf, array->type, NULL);
- 
- 	intdata = btf_type_int(real_type);
- 	return !(BTF_INT_ENCODING(intdata) & BTF_INT_SIGNED)
-@@ -584,7 +582,6 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
+ 	struct fetch_insn *code = *pcode;
+ 	const struct btf_member *field;
++	const struct btf_type *mtype;
+ 	u32 bitoffs, anon_offs;
+ 	bool is_struct = ctx->struct_btf != NULL;
  	struct btf *btf = ctx_btf(ctx);
- 	char *next;
- 	int is_ptr;
--	s32 tid;
+@@ -611,7 +612,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
  
- 	do {
- 		if (!is_struct) {
-@@ -595,7 +592,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 			}
- 
- 			/* Convert a struct pointer type to a struct type */
--			type = btf_type_skip_modifiers(btf, type->type, &tid);
-+			type = btf_type_skip_modifiers(btf, type->type, NULL);
- 			if (!type) {
+ 			anon_offs = 0;
+ 			field = btf_find_struct_member(btf, type, fieldname,
+-						       &anon_offs);
++						       &anon_offs, &mtype);
+ 			if (IS_ERR(field)) {
  				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 				return -EINVAL;
-@@ -635,7 +632,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 				ctx->last_bitsize = 0;
- 			}
+ 				return PTR_ERR(field);
+@@ -624,7 +625,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
+ 			bitoffs += anon_offs;
  
--			type = btf_type_skip_modifiers(btf, field->type, &tid);
-+			type = btf_type_skip_modifiers(btf, field->type, NULL);
- 			if (!type) {
- 				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 				return -EINVAL;
-@@ -754,7 +751,7 @@ static int parse_btf_arg(char *varname,
- 	return -ENOENT;
- 
- found:
--	type = btf_type_skip_modifiers(ctx->btf, tid, &tid);
-+	type = btf_type_skip_modifiers(ctx->btf, tid, NULL);
- found_type:
- 	if (!type) {
- 		trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+ 			/* Accumulate the bit-offsets of the dot-connected fields */
+-			if (btf_type_kflag(type)) {
++			if (btf_type_kflag(mtype)) {
+ 				bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
+ 				ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
+ 			} else {
 -- 
 2.53.0
 
