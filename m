@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BD5494839
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2A533B97D
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:45:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047782; cv=none; b=Fi08q+IsszcpAGujVqGL0wbwIhvG3NOJKma6f8uC9Cptk5h2cJp3Oq+RKDGNB0NYuGgYT77yBOSriTkH7U9RywJFboexpGKS/ZUh9mnU8AEa12v4rUKRbSYbK5zgXqH2TduwE6MVVFDX0Ns6u6s53ioTjBEE7jrq1Lin2ej3HSc=
+	t=1789047943; cv=none; b=rXfg/GLK2lUybDFTqSo19VhhXQ0iLXpCFdmSeba7Bz6WWykpkBMHn9SYgq0BIihwPqlOE/e/QV0tfWAmXZD0dTwJYksxq7GYYNmctZNpA2iad57RdKVUvTGKSbMmtrHzCKAi6uUQXAgmjulIst2eNB4qQYJXppzr5e11YHY48IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047782; c=relaxed/simple;
-	bh=gykPIqYnd21HZ9bAY3z2hepFv6JxhYRPQ69oECVosFw=;
+	s=arc-20240116; t=1789047943; c=relaxed/simple;
+	bh=bLIM7DnFowCq1jT+yUdwsPQAYaaDVQi9ZmLOg5eamXU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jk+OOQx0wRnsMZ0oZrDoHm3rpJj16KMXRXdqfP0wqBXZioz8XUTxceuvKMTb/VBOu87/ivKARFEu6OPH8c7TAdODeD3tETnNO8EoxDcsux/OALUB5J4RJIAj11HGAQodgLIYDoxVeEPZwq2AWNVhY7doKnZXMukzT1RkuTcH5nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzS+u68R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jiIq5nSgIzheQx7wZEgNWeNigj8mtkfpWin3/fVztGYSL0cSPYuEXsHiYqkN5xioJXiQbePXrHIgWL6q9Hr6gg3abLl+6aqiGMfnRCZhYPDf93h7ksDA2SQqyn52rMqaFlUcHpJXQ9p5RT/LoIkRoTHKKLgweDODsPQqt9YuHJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYkd3MAf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzS+u68R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C007A1F0089B;
-	Thu, 10 Sep 2026 13:42:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYkd3MAf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6241F000FF;
+	Thu, 10 Sep 2026 13:45:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789047780;
-	bh=B+OU2qR4qtEl88VM/yo6F7bzabiKq7zxEDtcm0VVYO0=;
+	s=k20260515; t=1789047941;
+	bh=XXZhsMBrARoFE7iLvSIsYaZm/ZPLV3QBIGQBui1ntww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DzS+u68RzGTtblTt/v6Q1tuku+GbWAO4RIERKzlHhFAuCyoZW2k19PvBcK7vpKh94
-	 OikEJmu25NVx7W5aHCIyYYxjJlVi3nAIfhkBYeLiFeSMpsScrw5tqvytlpDdDM9GBH
-	 Qtko9eC/l2ePKE955t7as+iho+aZICBFgpvPAsO5MwkbD3+MngUMCMftj7fp1dilDJ
-	 kVjyJ/HkPgDxVxsLH5pWrbRZEgj5nnbWC8gRJV+HCQoyRnPHUNvEX9zLiMcnkG8Nn+
-	 jcKyb647x06OXjWLcuk80J6oPreuWu0jucsGtVRahARIV7d//oPGx/mRjJELXzLIjv
-	 LqeBNatndPLfw==
+	b=TYkd3MAfN3KOpO9/O9hh+Fx8yLDnfLyIpBj871+5QBxMHo9DiFuDiIzLIHc6C/XdY
+	 ajUxJkfjaVN2U+LVI7pR6fmQ9pbh/EdPgZv3kEUtN7nQB28Dh6YB0RLl1GXHoZHBy1
+	 F3mIimz3wMXVB7mQxhgkTE/eHcw+k2EEZ3jYxPbwqzfWPLc4PEt1hIe4kQQAU6BtYl
+	 Vz66bUaIzOG0bhS+Xgx31KVo66HI8W9fMZPFTzGsUYkzigEbycN06F+FfWJZ7WlA2n
+	 vP08BjRdbqOd1f+mamkDwR4tiGgMSeCf5eRWibf/+MIOn1atiL4H8Onz3Xm/9WxJrB
+	 xAoUPDtHQlcqg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Steven Rostedt <rostedt@goodmis.org>,
-	sashiko-bot@kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] tracing: Take trace_array reference when opening options file
-Date: Thu, 10 Sep 2026 09:42:57 -0400
-Message-ID: <20260910134257.355340-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] tracing: Clean up use of trace_create_maxlat_file()
+Date: Thu, 10 Sep 2026 09:45:38 -0400
+Message-ID: <20260910134539.386642-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910134257.355340-1-sashal@kernel.org>
-References: <2026090832-jalapeno-putdown-ae1a@gregkh>
- <20260910134257.355340-1-sashal@kernel.org>
+In-Reply-To: <2026090833-darn-control-392b@gregkh>
+References: <2026090833-darn-control-392b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,125 +48,120 @@ Content-Transfer-Encoding: 8bit
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit f2951ebd15c36a1ea4820a7f0cbb0b5f1c028b73 ]
+[ Upstream commit ba73713da50e5c24499ca8941171593466ea34f7 ]
 
-The options files do not take the trace_array reference for the options
-they represent. This could cause a use-after-free kernel crash if one of
-these files is opened by one task and another task removes the instance
-that the option is for. Because it doesn't take a reference upon opening,
-it will not stop the removal which will free the options descriptor that
-is being used.
+In trace.c, the function trace_create_maxlat_file() is defined behind the
+ #ifdef CONFIG_TRACER_MAX_TRACE block. The #else part defines it as:
 
-As the options are somewhat dynamic in their creation at boot up, each
-file represents a flag in the trace_array. The trace_array has an array of
-indexes to represent each of these flags that is stored in the
-trace_flags_index array. The address of the index array element is used to
-pass to the inode->i_private pointer. Then that element is read which
-holds the index (which represents the flag) and then the index is used to
-calculate the trace_array descriptor from its trace_flags_index array.
+ #define trace_create_maxlat_file(tr, d_tracer)				\
+	trace_create_file("tracing_max_latency", TRACE_MODE_WRITE,	\
+			  d_tracer, tr, &tracing_max_lat_fops)
 
-One issue is that the index element can not be referenced until the
-trace_array's reference is taken. To handle this, create a new helper
-function called: trace_array_options_get() that will iterate all the
-existing trace_arrays in the ftrace_trace_arrays list (under the
-trace_types_lock), and compare the passed in address of the index element
-with the entire array of the trace_array's trace_flags_index array.
-If it matches, then up the corresponding trace_array's reference and
-return.
+But the one place that it it used has:
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902121918.5a9e9d1b@gandalf.local.home
-Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ replaced unavailable __trace_array_get(tr) with tr->ref++ and return 0. ]
+ #ifdef CONFIG_TRACER_MAX_TRACE
+	trace_create_maxlat_file(tr, d_tracer);
+ #endif
+
+Which is pointless and also wrong!
+
+It only gets created when both CONFIG_TRACE_MAX_TRACE and CONFIG_FS_NOTIFY
+is defined, but the file itself should not be dependent on
+CONFIG_FS_NOTIFY. Always create that file when TRACE_MAX_TRACE is defined
+regardless if FS_NOTIFY is or is not.
+
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Link: https://patch.msgid.link/20260207191101.0e014abd@robin
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: f2951ebd15c3 ("tracing: Take trace_array reference when opening options file")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace.c | 69 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 65 insertions(+), 4 deletions(-)
+ kernel/trace/trace.c | 38 ++++++++++++++++----------------------
+ 1 file changed, 16 insertions(+), 22 deletions(-)
 
 diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 2f43d334b138f..83478825ade77 100644
+index 5ef1c79dc5c9e..8b536db426ce5 100644
 --- a/kernel/trace/trace.c
 +++ b/kernel/trace/trace.c
-@@ -9002,11 +9002,72 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
+@@ -1707,10 +1707,7 @@ static ssize_t trace_seq_to_buffer(struct trace_seq *s, void *buf, size_t cnt)
+ unsigned long __read_mostly	tracing_thresh;
+ 
+ #ifdef CONFIG_TRACER_MAX_TRACE
+-static const struct file_operations tracing_max_lat_fops;
+-
+ #ifdef LATENCY_FS_NOTIFY
+-
+ static struct workqueue_struct *fsnotify_wq;
+ 
+ static void latency_fsnotify_workfn(struct work_struct *work)
+@@ -1727,17 +1724,6 @@ static void latency_fsnotify_workfn_irq(struct irq_work *iwork)
+ 	queue_work(fsnotify_wq, &tr->fsnotify_work);
  }
  
-+/*
-+ * The tr_index is the address of a trace_array->trace_flags_index[]
-+ * element that holds the index of the trace flag. But since the
-+ * trace_array reference has not been taken yet, it cannot be referenced
-+ * as it could have been freed by a rmdir of the instance the trace_array
-+ * represents.
-+ *
-+ * Search the list of trace_arrays and compare the tr_index to the
-+ * address of the entire trace_array trace_flags_index array for each
-+ * trace_array in the list. If one is matched, then take the reference
-+ * and return it. If not, the trace_array no longer exits.
-+ */
-+static int trace_array_options_get(void *tr_index)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	guard(mutex)(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_index >= (void *)&tr->trace_flags_index[0] &&
-+		    tr_index < (void *)&tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE]) {
-+			tr->ref++;
-+			return 0;
-+		}
-+	}
-+	return -ENODEV;
-+}
-+
-+static int trace_options_open(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = inode->i_private;
-+
-+	if (trace_array_options_get(tr_index) < 0)
-+		return -ENODEV;
-+
-+	filp->private_data = tr_index;
-+
-+	return 0;
-+}
-+
-+static int trace_options_release(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = filp->private_data;
-+	struct trace_array *tr;
-+	unsigned int index;
-+
-+	get_tr_index(tr_index, &tr, &index);
-+
-+	trace_array_put(tr);
-+
-+	return 0;
-+}
-+
- static const struct file_operations trace_options_core_fops = {
--	.open = tracing_open_generic,
--	.read = trace_options_core_read,
--	.write = trace_options_core_write,
--	.llseek = generic_file_llseek,
-+	.open		= trace_options_open,
-+	.read		= trace_options_core_read,
-+	.write		= trace_options_core_write,
-+	.llseek		= generic_file_llseek,
-+	.release	= trace_options_release,
- };
+-static void trace_create_maxlat_file(struct trace_array *tr,
+-				     struct dentry *d_tracer)
+-{
+-	INIT_WORK(&tr->fsnotify_work, latency_fsnotify_workfn);
+-	init_irq_work(&tr->fsnotify_irqwork, latency_fsnotify_workfn_irq);
+-	tr->d_max_latency = trace_create_file("tracing_max_latency",
+-					      TRACE_MODE_WRITE,
+-					      d_tracer, tr,
+-					      &tracing_max_lat_fops);
+-}
+-
+ __init static int latency_fsnotify_init(void)
+ {
+ 	fsnotify_wq = alloc_workqueue("tr_max_lat_wq",
+@@ -1762,14 +1748,22 @@ void latency_fsnotify(struct trace_array *tr)
+ 	 */
+ 	irq_work_queue(&tr->fsnotify_irqwork);
+ }
++#endif /* !LATENCY_FS_NOTIFY */
  
- struct dentry *trace_create_file(const char *name,
+-#else /* !LATENCY_FS_NOTIFY */
+-
+-#define trace_create_maxlat_file(tr, d_tracer)				\
+-	trace_create_file("tracing_max_latency", TRACE_MODE_WRITE,	\
+-			  d_tracer, tr, &tracing_max_lat_fops)
++static const struct file_operations tracing_max_lat_fops;
+ 
++static void trace_create_maxlat_file(struct trace_array *tr,
++				     struct dentry *d_tracer)
++{
++#ifdef LATENCY_FS_NOTIFY
++	INIT_WORK(&tr->fsnotify_work, latency_fsnotify_workfn);
++	init_irq_work(&tr->fsnotify_irqwork, latency_fsnotify_workfn_irq);
+ #endif
++	tr->d_max_latency = trace_create_file("tracing_max_latency",
++					      TRACE_MODE_WRITE,
++					      d_tracer, tr,
++					      &tracing_max_lat_fops);
++}
+ 
+ /*
+  * Copy the new maximum trace into the separate maximum-trace
+@@ -1904,7 +1898,9 @@ update_max_tr_single(struct trace_array *tr, struct task_struct *tsk, int cpu)
+ 	__update_max_tr(tr, tsk, cpu);
+ 	arch_spin_unlock(&tr->max_lock);
+ }
+-
++#else /* !CONFIG_TRACER_MAX_TRACE */
++static inline void trace_create_maxlat_file(struct trace_array *tr,
++					    struct dentry *d_tracer) { }
+ #endif /* CONFIG_TRACER_MAX_TRACE */
+ 
+ static int wait_on_pipe(struct trace_iterator *iter, int full)
+@@ -9745,9 +9741,7 @@ init_tracer_tracefs(struct trace_array *tr, struct dentry *d_tracer)
+ 
+ 	create_trace_options_dir(tr);
+ 
+-#ifdef CONFIG_TRACER_MAX_TRACE
+ 	trace_create_maxlat_file(tr, d_tracer);
+-#endif
+ 
+ 	if (ftrace_create_function_files(tr, d_tracer))
+ 		MEM_FAIL(1, "Could not allocate function filter files");
 -- 
 2.53.0
 
