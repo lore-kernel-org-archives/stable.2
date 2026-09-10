@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9973ACA60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F638489FDD
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:52:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044779; cv=none; b=uZx4Wemw+O+TXjtUHGRZTt6PDEfJ1C6uTzZ7llqgzwMn8WACUBV99GHQCi1UPbZF4MzKe33Z8IElPM62ktorQzxWVH48ClKTqGMPlSz2591AE8JTz56UizWmJbL17JbK5LcU/AaTqcWR3aZ2LsFzStn9PvVMUGuB3HfAkx3n8Ig=
+	t=1789044779; cv=none; b=A97b6RxSwaKF0RzX5glLtGzH56ZNlWpLqFlfpiCkEGjhJHgMAwXzy/jZn9ZHpScNhuzx9FGffOr2NAOo0qrBqEsbYD49i8hb5Linq9Rbg//VAQmMgZ4dfrTsBuPMg1+a3v28dk8zoSs5QdgReT26USHGhxYqZZyIj60Qkp19v7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789044779; c=relaxed/simple;
-	bh=bzvb6RCs7mk6d8viIS2mvyhsZVXrEUE9oWsTWeJFFm4=;
+	bh=O8gG/aZeQxhp8YHIEuA2mI67jatkng+QZJ6v2Bkjmjs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Im0fvmRt/vUYQwYZKJMAfJtwHxwzrCPLbNJDy/lFbZiIxSAYOELGbuVDU50x+7K5ye8QbS6665abwKoySgcRoZAbhKcHEyyA+alOt890ufr6SgVOK0kkyTzKikmM80Kp2m/73wb3vHCmC70wNhIYPbP3tIeDgjyBH5AICSFpMjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9bNte9C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h02cvNftyzfn1aTf7mn7+SPgGiwW22+QUEnRRKpbHBvKq5SPcqvBW1Ih+mKAc7isokj9oP+CaqPxy1fjPuO8/4Bn0LnPa+Ev73Vb0yR7JINpRhC2BjkdFG+68uB+q0Gd/4JAt5lILAgHHb2KWYrqteSDwAC4SZRkcvjF8581aBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2SZSRV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9bNte9C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6841F008BC;
-	Thu, 10 Sep 2026 12:52:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2SZSRV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D95D1F0089B;
+	Thu, 10 Sep 2026 12:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789044776;
-	bh=5buf6nL1SHgSkUgw8dSYROPsVJ/BFOPOzvuawm6A3QE=;
+	bh=ABF8p6ge88P8fD0lAjAJwBuVLNBWKwJj912l1TkHqjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B9bNte9CamD1yc9Vmhql3+GhVbFps0fLoJb2PkI34AT2IAc98H5+vG4WW3OQc1nAE
-	 epzjt+R8G5nHEgOebOnooGny5CFzLQ80XCv4u9iRVxvgqBML4QHYsSUdD635njhLxg
-	 LIrgJPxEFuV/+TSebTd2cyoThA74rqHGCwUNUuwWffhh4qtkLglzxE7SiQBnTr38wO
-	 nsp/yYXWvH/CsETK26Fxg6ePf0cZukJYD4CxuQKMFVLVQ9F4EGlnWttc2Fa0r2icc5
-	 Q2VV6KIbR5mPlqbnSTlAEEq6LIgr4MsASI/im2EyMpu1xh6ECLgJUKo2m/JpfOU5Ao
-	 njkRI38e5mBDA==
+	b=i2SZSRV8PlMMtoAOmFOdD4/QooWlPFaVDWJyVT3IX6t/ZhoXRog6gYliBkThl1SNQ
+	 ug1gqU0qrNl9sOP8HvMiBDhDJWhFlG++5nQPsCuz8RHNo91ByWLyAD/ZvRwt4Dz7Ry
+	 f+xmzA8xrVBI++nqYdPz0I5Ln5Tl3n4dSQZsnpS4ZF8jIwa5WVjLcvUoOC42m5LYlf
+	 vOGmJ8xPG+MtJNsNce6YBzrq/ei3CNGIucQ3SKROVKEqtIBjxcT6V5kTfyXoaQXO+o
+	 hOThxJ2YN8VdNAzZMGjaFzNSW05zPHoassYl9EwW5vyCGivrrQlR2EeJCceL0PzjSD
+	 fvNR+BuNDUDvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: William Zhang <william.zhang@broadcom.com>,
+Cc: Rob Herring <robh@kernel.org>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] spi: bcm63xx-hsspi: Disable spi mem dual io read op support
-Date: Thu, 10 Sep 2026 08:52:51 -0400
-Message-ID: <20260910125254.183393-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/4] spi: mpc5xxx-psc: Remove unused platform_data
+Date: Thu, 10 Sep 2026 08:52:52 -0400
+Message-ID: <20260910125254.183393-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090831-flashy-precook-e8f5@gregkh>
+In-Reply-To: <20260910125254.183393-1-sashal@kernel.org>
 References: <2026090831-flashy-precook-e8f5@gregkh>
+ <20260910125254.183393-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,77 +46,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: William Zhang <william.zhang@broadcom.com>
+From: Rob Herring <robh@kernel.org>
 
-[ Upstream commit c6182a187b33cd00a763ac2490c0f5210b2c4742 ]
+[ Upstream commit 04725901d9933b3134e6dee6b5bc1efb67f8d43f ]
 
-In general the controller supports SPI dual mode operation but the
-particular SPI flash dual io read op switches from single mode in cmd
-phase to dual mode in address and data phase. This is not compatible
-with prepend operation where cmd and address are sent out through the
-prepend buffer and they must use same the number of io pins.
+The platform_data for the MPC5xxx PSC SPI controllers is never used, so
+remove it and the resulting code which depends on it.
 
-This patch disables these SPI flash dual io read ops through the mem_ops
-supports_op interface. This makes sure the SPI flash driver selects the
-compatible read ops at run time.
-
-Signed-off-by: William Zhang <william.zhang@broadcom.com>
-Link: https://lore.kernel.org/r/20230209200246.141520-14-william.zhang@broadcom.com
+Signed-off-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20230217-dt-mpc5xxx-spi-v1-1-3be8602fce1e@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Stable-dep-of: 3b0cee026640 ("spi: bcm63xx-hsspi: disable clocks on resume failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-bcm63xx-hsspi.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/spi/spi-mpc512x-psc.c | 28 ++++---------------------
+ drivers/spi/spi-mpc52xx-psc.c | 39 +++--------------------------------
+ 2 files changed, 7 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 7d8e5c66f6d17..9948c2a459c12 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -20,6 +20,8 @@
+diff --git a/drivers/spi/spi-mpc512x-psc.c b/drivers/spi/spi-mpc512x-psc.c
+index 03630359ce70d..0b4d49ef84de8 100644
+--- a/drivers/spi/spi-mpc512x-psc.c
++++ b/drivers/spi/spi-mpc512x-psc.c
+@@ -22,7 +22,6 @@
+ #include <linux/delay.h>
+ #include <linux/clk.h>
  #include <linux/spi/spi.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-+#include <linux/spi/spi-mem.h>
-+#include <linux/mtd/spi-nor.h>
- #include <linux/reset.h>
- #include <linux/pm_runtime.h>
+-#include <linux/fsl_devices.h>
+ #include <asm/mpc52xx_psc.h>
  
-@@ -318,6 +320,26 @@ static int bcm63xx_hsspi_transfer_one(struct spi_master *master,
- 	return 0;
+ enum {
+@@ -51,8 +50,6 @@ enum {
+ 	__ret; })
+ 
+ struct mpc512x_psc_spi {
+-	void (*cs_control)(struct spi_device *spi, bool on);
+-
+ 	/* driver internal data */
+ 	int type;
+ 	void __iomem *psc;
+@@ -128,26 +125,16 @@ static void mpc512x_psc_spi_activate_cs(struct spi_device *spi)
+ 	mps->bits_per_word = cs->bits_per_word;
+ 
+ 	if (spi->cs_gpiod) {
+-		if (mps->cs_control)
+-			/* boardfile override */
+-			mps->cs_control(spi, (spi->mode & SPI_CS_HIGH) ? 1 : 0);
+-		else
+-			/* gpiolib will deal with the inversion */
+-			gpiod_set_value(spi->cs_gpiod, 1);
++		/* gpiolib will deal with the inversion */
++		gpiod_set_value(spi->cs_gpiod, 1);
+ 	}
  }
  
-+static bool bcm63xx_hsspi_mem_supports_op(struct spi_mem *mem,
-+			    const struct spi_mem_op *op)
-+{
-+	if (!spi_mem_default_supports_op(mem, op))
-+		return false;
-+
-+	/* Controller doesn't support spi mem dual io mode */
-+	if ((op->cmd.opcode == SPINOR_OP_READ_1_2_2) ||
-+		(op->cmd.opcode == SPINOR_OP_READ_1_2_2_4B) ||
-+		(op->cmd.opcode == SPINOR_OP_READ_1_2_2_DTR) ||
-+		(op->cmd.opcode == SPINOR_OP_READ_1_2_2_DTR_4B))
-+		return false;
-+
-+	return true;
-+}
-+
-+static const struct spi_controller_mem_ops bcm63xx_hsspi_mem_ops = {
-+	.supports_op = bcm63xx_hsspi_mem_supports_op,
-+};
-+
- static irqreturn_t bcm63xx_hsspi_interrupt(int irq, void *dev_id)
+ static void mpc512x_psc_spi_deactivate_cs(struct spi_device *spi)
  {
- 	struct bcm63xx_hsspi *bs = (struct bcm63xx_hsspi *)dev_id;
-@@ -408,6 +430,7 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 	mutex_init(&bs->bus_mutex);
- 	init_completion(&bs->done);
+-	struct mpc512x_psc_spi *mps = spi_master_get_devdata(spi->master);
+-
+ 	if (spi->cs_gpiod) {
+-		if (mps->cs_control)
+-			/* boardfile override */
+-			mps->cs_control(spi, (spi->mode & SPI_CS_HIGH) ? 0 : 1);
+-		else
+-			/* gpiolib will deal with the inversion */
+-			gpiod_set_value(spi->cs_gpiod, 0);
++		/* gpiolib will deal with the inversion */
++		gpiod_set_value(spi->cs_gpiod, 0);
+ 	}
+ }
  
-+	master->mem_ops = &bcm63xx_hsspi_mem_ops;
- 	master->dev.of_node = dev->of_node;
- 	if (!dev->of_node)
- 		master->bus_num = HSSPI_BUS_NUM;
+@@ -474,7 +461,6 @@ static irqreturn_t mpc512x_psc_spi_isr(int irq, void *dev_id)
+ static int mpc512x_psc_spi_do_probe(struct device *dev, u32 regaddr,
+ 					      u32 size, unsigned int irq)
+ {
+-	struct fsl_spi_platform_data *pdata = dev_get_platdata(dev);
+ 	struct mpc512x_psc_spi *mps;
+ 	struct spi_master *master;
+ 	int ret;
+@@ -490,12 +476,6 @@ static int mpc512x_psc_spi_do_probe(struct device *dev, u32 regaddr,
+ 	mps->type = (int)of_device_get_match_data(dev);
+ 	mps->irq = irq;
+ 
+-	if (pdata) {
+-		mps->cs_control = pdata->cs_control;
+-		master->bus_num = pdata->bus_num;
+-		master->num_chipselect = pdata->max_chipselect;
+-	}
+-
+ 	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LSB_FIRST;
+ 	master->setup = mpc512x_psc_spi_setup;
+ 	master->prepare_transfer_hardware = mpc512x_psc_spi_prep_xfer_hw;
+diff --git a/drivers/spi/spi-mpc52xx-psc.c b/drivers/spi/spi-mpc52xx-psc.c
+index 609311231e64b..604868df913c4 100644
+--- a/drivers/spi/spi-mpc52xx-psc.c
++++ b/drivers/spi/spi-mpc52xx-psc.c
+@@ -18,7 +18,6 @@
+ #include <linux/io.h>
+ #include <linux/delay.h>
+ #include <linux/spi/spi.h>
+-#include <linux/fsl_devices.h>
+ #include <linux/slab.h>
+ #include <linux/of_irq.h>
+ 
+@@ -28,10 +27,6 @@
+ #define MCLK 20000000 /* PSC port MClk in hz */
+ 
+ struct mpc52xx_psc_spi {
+-	/* fsl_spi_platform data */
+-	void (*cs_control)(struct spi_device *spi, bool on);
+-	u32 sysclk;
+-
+ 	/* driver internal data */
+ 	struct mpc52xx_psc __iomem *psc;
+ 	struct mpc52xx_psc_fifo __iomem *fifo;
+@@ -101,17 +96,6 @@ static void mpc52xx_psc_spi_activate_cs(struct spi_device *spi)
+ 		ccr |= (MCLK / 1000000 - 1) & 0xFF;
+ 	out_be16((u16 __iomem *)&psc->ccr, ccr);
+ 	mps->bits_per_word = cs->bits_per_word;
+-
+-	if (mps->cs_control)
+-		mps->cs_control(spi, (spi->mode & SPI_CS_HIGH) ? 1 : 0);
+-}
+-
+-static void mpc52xx_psc_spi_deactivate_cs(struct spi_device *spi)
+-{
+-	struct mpc52xx_psc_spi *mps = spi_master_get_devdata(spi->master);
+-
+-	if (mps->cs_control)
+-		mps->cs_control(spi, (spi->mode & SPI_CS_HIGH) ? 0 : 1);
+ }
+ 
+ #define MPC52xx_PSC_BUFSIZE (MPC52xx_PSC_RFNUM_MASK + 1)
+@@ -220,14 +204,9 @@ int mpc52xx_psc_spi_transfer_one_message(struct spi_controller *ctlr,
+ 		m->actual_length += t->len;
+ 
+ 		spi_transfer_delay_exec(t);
+-
+-		if (cs_change)
+-			mpc52xx_psc_spi_deactivate_cs(spi);
+ 	}
+ 
+ 	m->status = status;
+-	if (status || !cs_change)
+-		mpc52xx_psc_spi_deactivate_cs(spi);
+ 
+ 	mpc52xx_psc_spi_transfer_setup(spi, NULL);
+ 
+@@ -269,7 +248,7 @@ static int mpc52xx_psc_spi_port_config(int psc_id, struct mpc52xx_psc_spi *mps)
+ 	int ret;
+ 
+ 	/* default sysclk is 512MHz */
+-	mclken_div = (mps->sysclk ? mps->sysclk : 512000000) / MCLK;
++	mclken_div = 512000000 / MCLK;
+ 	ret = mpc52xx_set_psc_clkdiv(psc_id, mclken_div);
+ 	if (ret)
+ 		return ret;
+@@ -317,7 +296,6 @@ static irqreturn_t mpc52xx_psc_spi_isr(int irq, void *dev_id)
+ static int mpc52xx_psc_spi_do_probe(struct device *dev, u32 regaddr,
+ 				u32 size, unsigned int irq, s16 bus_num)
+ {
+-	struct fsl_spi_platform_data *pdata = dev_get_platdata(dev);
+ 	struct mpc52xx_psc_spi *mps;
+ 	struct spi_master *master;
+ 	int ret;
+@@ -333,19 +311,8 @@ static int mpc52xx_psc_spi_do_probe(struct device *dev, u32 regaddr,
+ 	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LSB_FIRST;
+ 
+ 	mps->irq = irq;
+-	if (pdata == NULL) {
+-		dev_warn(dev,
+-			 "probe called without platform data, no cs_control function will be called\n");
+-		mps->cs_control = NULL;
+-		mps->sysclk = 0;
+-		master->bus_num = bus_num;
+-		master->num_chipselect = 255;
+-	} else {
+-		mps->cs_control = pdata->cs_control;
+-		mps->sysclk = pdata->sysclk;
+-		master->bus_num = pdata->bus_num;
+-		master->num_chipselect = pdata->max_chipselect;
+-	}
++	master->bus_num = bus_num;
++	master->num_chipselect = 255;
+ 	master->setup = mpc52xx_psc_spi_setup;
+ 	master->transfer_one_message = mpc52xx_psc_spi_transfer_one_message;
+ 	master->cleanup = mpc52xx_psc_spi_cleanup;
 -- 
 2.53.0
 
