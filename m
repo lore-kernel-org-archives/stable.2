@@ -1,414 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688E64A2079
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CE048EC81
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:39:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051018; cv=none; b=EyXJIbIHRKqy/DBoepMp784MneH8SImWUf7OyZ46aI1tkKwAqlDJiSvTrHlvtcJK5cDFidZbvZAxcDht7HKR6MAP9qG3SaAAKjpgpvIa2x2Hdysm7TYI0H9xl1ZYBO1Rvr9sR+hExGIo/CnEj+EwcI9zzK32Pr9xXUpDNf/HVxs=
+	t=1789051177; cv=none; b=ttYermntdzwqo5wUbt2Tng5lM4SG3Y7N92Ss775tQPMzyM7mVN6cwOyOZiYk4G9PPQJRt0yTJ/AxRIM9oG2UFeYYqVshmvAGCowf6vMePO6jsCCK/N30CbaFF0T+7bXW/ffU1lJa2N4j/CZMTeffJnnU44uzG65jKJYVDYtjWzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051018; c=relaxed/simple;
-	bh=txhZ0B8DtE1sqMnyMPlAoGJHZ/NaorqgiSScBPx2ViM=;
+	s=arc-20240116; t=1789051177; c=relaxed/simple;
+	bh=5AbzimVzM1gwgfm/w8Qd/KF2acJ6VH5SNkYmYFD8IRs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t96Tych8U0Xcy9vEdepfnN+feAAsxw4hQgnetkHQ5vcUKuWEkJgFFzb85Ntl8znPCxLKgLBSnBRwR2ncx+JTx6EE6Dq+rWERXXRB2qHMrfszqgXp/TLSLskXDN+3+G/eE4vAYO2mFeZb/eR3xIiA3c7XZXxVPn9W0DEgkhFQYQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZnvLYh0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IzC0v+iIGqCYt+FVUL8CaQPBYrLpX982LHUUtkCDeg02iHoapSlmZGmTAuuC+NCS6fpPcSHE+nTX3gClVg4BLOGRieO+fDZPoMIM6ckmKloihWm3kjtD9st882djo6oEbJoYXZMZfs477Cd5+S0uJrDEZHnApsO8Y+srV2Q9AeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eKFB2HCx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZnvLYh0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840CF1F000FF;
-	Thu, 10 Sep 2026 14:36:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eKFB2HCx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60D91F000FF;
+	Thu, 10 Sep 2026 14:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789051016;
-	bh=7+URpbISlodudmyLkzmAPKsJvqEwxTZO0L0ml2Nhn3o=;
+	s=k20260515; t=1789051175;
+	bh=H/OT8i32RXNb8w3svvbOK9bVd8Y0cVM+LvNSjjNnarU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PZnvLYh0Sb5OLjc3cN4TQ9+8FLoNxh39uVKSYtr+ljwiN22kMsf6hSa1JzqakITlz
-	 SIzKP26Mf0nIASdG2cWbgUO8USgykDR2r6ttKljqi16xQDKg+4aYl0lHTRtEOlJGro
-	 U9fN+rpc0lkGxwZ+PQonxRKUZTvmOiI9W/hXg5fajKHLs5r7pCiai3NZbGWTj/Tl9O
-	 PPPQyIWKriEz2KxPXUdaSDq1CAukpywr0Zf5f+Ejsx5GgFbIm4/HXODcHzLYJwXYAy
-	 fZt8Epf2uoTKpKQHj1pnA1u10qQDh3YRCbk2NvLfPy5qbgBHqeVCe6bF6zs9pqJohA
-	 p4QGPsF+ImMnQ==
+	b=eKFB2HCxsobGGhMcvuPbc6HFj3QRkSdYESJdnGtLz6MLM+zuQCJA2W4bCJv1+j8eH
+	 HcQEI7ocUZAqhE9tNSzN12iVOU6UKTtmeYWM4YZeDWgfscdee87WZukrCCOiWZRmai
+	 dcRksRDJF0AdFcHK+Ae2EnBjJ+v9IEY7GK+OIeLZZSPvh5WdZ922+UznwLH9fJb0Nc
+	 4r8xWJ/gWLh7vO2Ij253RGoUAy1bO5RRnFzuvvBaJb2YBV/SlfFj9v0SnmndQPwbSu
+	 OYfua7iWV040JlQcnCMbATKOiWLGiFn9ya9zpBdTUsePtrQSmjpqAoGTXln3wO4Ciw
+	 QnPNuzms0ruuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Hagen Paul Pfeifer <hagen@jauu.net>,
-	Jakub Kacinski <kuba@kernel.org>,
-	James Bottomley <james.bottomley@HansenPartnership.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Christoph Hellwig <hch@lst.de>,
+	Robin Murphy <robin.murphy@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/secretmem: properly account locked pages
-Date: Thu, 10 Sep 2026 10:36:52 -0400
-Message-ID: <20260910143652.758650-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 02/10] dma-direct: refactor the !coherent checks in dma_direct_alloc
+Date: Thu, 10 Sep 2026 10:39:23 -0400
+Message-ID: <20260910143932.771351-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090832-trivial-doorframe-5fc5@gregkh>
-References: <2026090832-trivial-doorframe-5fc5@gregkh>
+In-Reply-To: <20260910143932.771351-1-sashal@kernel.org>
+References: <2026090811-unwound-smuggler-adf1@gregkh>
+ <20260910143932.771351-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 97d34aa65c29cca85e3e9050f4c936389b38a054 ]
+[ Upstream commit a86d10942db2e0099a369b367fe62898f95987a8 ]
 
-secretmem accounts folios by treating memory as if it were mlock()'d and
-thus limited by the RLIMIT_MEMLOCK limit.
+Add a big central !dev_is_dma_coherent(dev) block to deal with as much
+as of the uncached allocation schemes and document the schemes a bit
+better.
 
-However the folios are unevictable and remain so until the inode is
-evicted, eliminating usual mlock() semantics - mapping folios then
-unmapping them does not clear their unevictable state, since it depends on
-AS_UNEVICTABLE, not PG_mlocked.
-
-A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-map then unmap and VmLck no longer counts the secretmem range.  Worse,
-folios are not accounted in the process's RSS, meaning the OOM killer
-won't know to kill the process.
-
-Repeatedly mapping/unmapping (or forking) can then result in the
-consumption of all available system memory with unevictable folios and
-cause system instability.
-
-A secretmem fd can be passed between processes and over fork so a
-per-process limit simply does not make sense, so follow the precedent set
-by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
-locked pages in user_struct->locked_vm.
-
-Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
-applies per-user not per-process, so it doesn't make sense to bypass for
-users with CAP_IPC_LOCK, therefore remove this bypass.
-
-There is simply no reason to carry on marking the mapping as mlock()'d
-since it's misleading and the lifecycle is now correctly handled, so
-remove this too.
-
-Note that secretmem does not support any form of truncation (including
-hole punching) and the folios are unreclaimable, so the folios need only
-be accounted on fault and unaccounted on inode destruction.
-
-__secretmem_account_pages() is more or less a duplicate of the code that
-io_uring etc.  use, but since this is a bug fix that needs backporting,
-defer any de-duplication efforts to a follow-up.
-
-test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
-been removed, so remove the test altogether for the fix.  A new test will
-be sent separately for upstream.
-
-Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
-Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Hagen Paul Pfeifer <hagen@jauu.net>
-Cc: Jakub Kacinski <kuba@kernel.org>
-Cc: James Bottomley <james.bottomley@HansenPartnership.com>
-Cc: Jesper Dangaard Brouer <hawk@kernel.org>
-Cc: John Fastabend <john.fastabend@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted folio-based fault handling to Linux 6.1’s page-based APIs using page_folio(page) ]
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+Stable-dep-of: 94a04ad732c9 ("dma-direct: return struct page from dma_direct_alloc_from_pool()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/user.h                |   3 +-
- mm/secretmem.c                            | 119 ++++++++++++++++++++--
- tools/testing/selftests/vm/memfd_secret.c |  30 +-----
- 3 files changed, 112 insertions(+), 40 deletions(-)
+ kernel/dma/direct.c | 66 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 41 insertions(+), 25 deletions(-)
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 4cc52698e214e..8d7e5521f7cdd 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -25,7 +25,8 @@ struct user_struct {
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index fd47717af82fd..517ca0e61a57c 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -204,29 +204,49 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	    !force_dma_unencrypted(dev) && !is_swiotlb_for_alloc(dev))
+ 		return dma_direct_alloc_no_mapping(dev, size, dma_handle, gfp);
  
- #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
- 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
--	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
-+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
-+	defined(CONFIG_SECRETMEM)
- 	atomic_long_t locked_vm;
- #endif
- #ifdef CONFIG_WATCH_QUEUE
-diff --git a/mm/secretmem.c b/mm/secretmem.c
-index b570a6e25b6be..84d10092ecb03 100644
---- a/mm/secretmem.c
-+++ b/mm/secretmem.c
-@@ -18,6 +18,9 @@
- #include <linux/secretmem.h>
- #include <linux/set_memory.h>
- #include <linux/sched/signal.h>
-+#include <linux/sched/user.h>
-+#include <linux/cred.h>
-+#include <linux/slab.h>
+-	if (!IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED) &&
+-	    !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
+-	    !IS_ENABLED(CONFIG_DMA_GLOBAL_POOL) &&
+-	    !dev_is_dma_coherent(dev) &&
+-	    !is_swiotlb_for_alloc(dev))
+-		return arch_dma_alloc(dev, size, dma_handle, gfp, attrs);
++	if (!dev_is_dma_coherent(dev)) {
++		/*
++		 * Fallback to the arch handler if it exists.  This should
++		 * eventually go away.
++		 */
++		if (!IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED) &&
++		    !IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
++		    !IS_ENABLED(CONFIG_DMA_GLOBAL_POOL) &&
++		    !is_swiotlb_for_alloc(dev))
++			return arch_dma_alloc(dev, size, dma_handle, gfp,
++					      attrs);
  
- #include <uapi/linux/magic.h>
- 
-@@ -47,10 +50,69 @@ bool secretmem_active(void)
- 	return !!atomic_read(&secretmem_users);
- }
- 
-+struct secretmem_inode_state {
-+	struct user_struct	*user;
-+	atomic_long_t		nr_pages_accounted;
-+};
+-	if (IS_ENABLED(CONFIG_DMA_GLOBAL_POOL) &&
+-	    !dev_is_dma_coherent(dev))
+-		return dma_alloc_from_global_coherent(dev, size, dma_handle);
++		/*
++		 * If there is a global pool, always allocate from it for
++		 * non-coherent devices.
++		 */
++		if (IS_ENABLED(CONFIG_DMA_GLOBAL_POOL))
++			return dma_alloc_from_global_coherent(dev, size,
++					dma_handle);
 +
-+static bool __secretmem_account_pages(struct user_struct *user,
-+		unsigned long nr_pages)
-+{
-+	unsigned long page_limit, cur_pages, new_pages;
-+
-+	if (!nr_pages)
-+		return true;
-+
-+	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-+
-+	cur_pages = atomic_long_read(&user->locked_vm);
-+	do {
-+		new_pages = cur_pages + nr_pages;
-+		if (new_pages > page_limit)
-+			return false;
-+	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
-+					  &cur_pages, new_pages));
-+	return true;
-+}
-+
-+static bool secretmem_account_folio(struct secretmem_inode_state *state,
-+		struct folio *folio)
-+{
-+	const unsigned long nr_pages = folio_nr_pages(folio);
-+
-+	if (!__secretmem_account_pages(state->user, nr_pages))
-+		return false;
-+
-+	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-+	return true;
-+}
-+
-+static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-+		unsigned long nr_pages)
-+{
-+	atomic_long_sub(nr_pages, &state->user->locked_vm);
-+	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-+}
-+
-+static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-+		struct folio *folio)
-+{
-+	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-+}
-+
-+static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-+{
-+	const unsigned long nr_pages_accounted =
-+		atomic_long_read(&state->nr_pages_accounted);
-+
-+	__secretmem_unaccount_pages(state, nr_pages_accounted);
-+}
-+
- static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- {
- 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
- 	struct inode *inode = file_inode(vmf->vma->vm_file);
-+	struct secretmem_inode_state *state = inode->i_private;
- 	pgoff_t offset = vmf->pgoff;
- 	gfp_t gfp = vmf->gfp_mask;
- 	unsigned long addr;
-@@ -72,8 +134,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 			goto out;
- 		}
- 
-+		if (!secretmem_account_folio(state, page_folio(page))) {
-+			put_page(page);
-+			ret = VM_FAULT_SIGBUS;
-+			goto out;
++		/*
++		 * Otherwise remap if the architecture is asking for it.  But
++		 * given that remapping memory is a blocking operation we'll
++		 * instead have to dip into the atomic pools.
++		 */
++		remap = IS_ENABLED(CONFIG_DMA_DIRECT_REMAP);
++		if (remap) {
++			if (!gfpflags_allow_blocking(gfp) &&
++			    !is_swiotlb_for_alloc(dev))
++				return dma_direct_alloc_from_pool(dev, size,
++						dma_handle, gfp);
++		} else {
++			if (IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED))
++				set_uncached = true;
 +		}
-+
- 		err = set_direct_map_invalid_noflush(page);
- 		if (err) {
-+			secretmem_unaccount_folio(state, page_folio(page));
- 			put_page(page);
- 			ret = vmf_error(err);
- 			goto out;
-@@ -82,6 +151,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 		__SetPageUptodate(page);
- 		err = add_to_page_cache_lru(page, mapping, offset, gfp);
- 		if (unlikely(err)) {
-+			secretmem_unaccount_folio(state, page_folio(page));
- 			/*
- 			 * If a split of large page was required, it
- 			 * already happened when we marked the page invalid
-@@ -112,23 +182,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
- 	.fault = secretmem_fault,
- };
- 
-+static void secretmem_destroy_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state = inode->i_private;
-+
-+	secretmem_unaccount_all_folios(state);
-+	free_uid(state->user);
-+	kfree(state);
-+	inode->i_private = NULL;
-+}
-+
- static int secretmem_release(struct inode *inode, struct file *file)
- {
- 	atomic_dec(&secretmem_users);
-+	secretmem_destroy_inode_priv(inode);
-+
- 	return 0;
- }
- 
- static int secretmem_mmap(struct file *file, struct vm_area_struct *vma)
- {
--	unsigned long len = vma->vm_end - vma->vm_start;
--
- 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
- 		return -EINVAL;
- 
--	if (mlock_future_check(vma->vm_mm, vma->vm_flags | VM_LOCKED, len))
--		return -EAGAIN;
--
--	vma->vm_flags |= VM_LOCKED | VM_DONTDUMP;
-+	vma->vm_flags |= VM_DONTDUMP;
- 	vma->vm_ops = &secretmem_vm_ops;
- 
- 	return 0;
-@@ -188,19 +265,40 @@ static const struct inode_operations secretmem_iops = {
- 
- static struct vfsmount *secretmem_mnt;
- 
-+static int secretmem_init_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state;
-+
-+	state = kzalloc(sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->user = get_uid(current_user());
-+	inode->i_private = state;
-+	return 0;
-+}
-+
- static struct file *secretmem_file_create(unsigned long flags)
- {
- 	struct file *file = ERR_PTR(-ENOMEM);
- 	struct inode *inode;
- 	const char *anon_name = "[secretmem]";
-+	int err;
- 
- 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
-+
-+	err = secretmem_init_inode_priv(inode);
-+	if (err)
-+		goto err_free_inode;
-+
- 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
- 				 O_RDWR, &secretmem_fops);
--	if (IS_ERR(file))
--		goto err_free_inode;
-+	if (IS_ERR(file)) {
-+		err = PTR_ERR(file);
-+		goto err_free_priv;
 +	}
  
- 	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
- 	mapping_set_unevictable(inode->i_mapping);
-@@ -213,10 +311,11 @@ static struct file *secretmem_file_create(unsigned long flags)
- 	inode->i_size = 0;
+ 	/*
+-	 * Remapping or decrypting memory may block. If either is required and
+-	 * we can't block, allocate the memory from the atomic pools.
+-	 * If restricted DMA (i.e., is_swiotlb_for_alloc) is required, one must
+-	 * set up another device coherent pool by shared-dma-pool and use
+-	 * dma_alloc_from_dev_coherent instead.
++	 * Decrypting memory may block, so allocate the memory from the atomic
++	 * pools if we can't block.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL) &&
+-	    !gfpflags_allow_blocking(gfp) &&
+-	    (force_dma_unencrypted(dev) ||
+-	     (IS_ENABLED(CONFIG_DMA_DIRECT_REMAP) &&
+-	      !dev_is_dma_coherent(dev))) &&
++	    force_dma_unencrypted(dev) && !gfpflags_allow_blocking(gfp) &&
+ 	    !is_swiotlb_for_alloc(dev))
+ 		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
  
- 	return file;
+@@ -234,10 +254,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
+ 	if (!page)
+ 		return NULL;
 -
-+err_free_priv:
-+	secretmem_destroy_inode_priv(inode);
- err_free_inode:
- 	iput(inode);
--	return file;
-+	return ERR_PTR(err);
- }
+-	if (!dev_is_dma_coherent(dev) && IS_ENABLED(CONFIG_DMA_DIRECT_REMAP)) {
+-		remap = true;
+-	} else if (PageHighMem(page)) {
++	if (PageHighMem(page)) {
+ 		/*
+ 		 * Depending on the cma= arguments and per-arch setup,
+ 		 * dma_alloc_contiguous could return highmem pages.
+@@ -249,9 +266,8 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 			goto out_free_pages;
+ 		}
+ 		remap = true;
+-	} else if (!dev_is_dma_coherent(dev) &&
+-		   IS_ENABLED(CONFIG_ARCH_HAS_DMA_SET_UNCACHED))
+-		set_uncached = true;
++		set_uncached = false;
++	}
  
- SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
-diff --git a/tools/testing/selftests/vm/memfd_secret.c b/tools/testing/selftests/vm/memfd_secret.c
-index 9b298f6a04b37..348cc976726bb 100644
---- a/tools/testing/selftests/vm/memfd_secret.c
-+++ b/tools/testing/selftests/vm/memfd_secret.c
-@@ -56,33 +56,6 @@ static void test_file_apis(int fd)
- 		pass("file IO is blocked as expected\n");
- }
- 
--static void test_mlock_limit(int fd)
--{
--	size_t len;
--	char *mem;
--
--	len = mlock_limit_cur;
--	if (len % page_size != 0)
--		len = (len/page_size) * page_size;
--
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem == MAP_FAILED) {
--		fail("unable to mmap secret memory\n");
--		return;
--	}
--	munmap(mem, len);
--
--	len = mlock_limit_max * 2;
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem != MAP_FAILED) {
--		fail("unexpected mlock limit violation\n");
--		munmap(mem, len);
--		return;
--	}
--
--	pass("mlock limit is respected\n");
--}
--
- static void try_process_vm_read(int fd, int pipefd[2])
- {
- 	struct iovec liov, riov;
-@@ -258,7 +231,7 @@ static void prepare(void)
- 				   strerror(errno));
- }
- 
--#define NUM_TESTS 4
-+#define NUM_TESTS 3
- 
- int main(int argc, char *argv[])
- {
-@@ -278,7 +251,6 @@ int main(int argc, char *argv[])
- 					   strerror(errno));
- 	}
- 
--	test_mlock_limit(fd);
- 	test_file_apis(fd);
- 	test_process_vm_read(fd);
- 	test_ptrace(fd);
+ 	if (remap) {
+ 		/* remove any dirty cache lines on the kernel alias */
 -- 
 2.53.0
 
