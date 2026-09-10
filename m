@@ -1,237 +1,278 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2613538A73B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9D038DC6A
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054005; cv=none; b=mGfWq5KqrPD/p3DPQGbgwxrSLkuf+cGMtyFet0VPHFlYOMohEAV9ahRXyyS1+kVyh7L1hlhdTHF//n+CWR1KNnwQYwnfcGe0os7iL1qsf6e4NzOfP+voPuzWcQCcNtnagpBfRoZ8mJY5odmm652TOhIHrOtgCbaGLDlxbf37lKA=
+	t=1789054078; cv=none; b=LERUC1u7HXQ1dJgQDQ2EdLtEsGG8BZu5FNf62oKBwP2X1Mg6z80ggN6ZiSQzrK1jvW28OSDBpizK22oHaF8nCBSG1QBOkXxrrls+sBwIpCMjIl1uUsn6BQZ6QNI1dVYHkcU9JW7S9ThUxymQc4RCYbI7ouXFgBtCCUQoPMY7Y7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054005; c=relaxed/simple;
-	bh=ZO2yvDepDB5xzJbShcoDrCcUNzgfujqH7PRPIfeteTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SOLdTf/v9YoiUMPe0JSkThVsCXmvL3jR76byftZ2b63qvcBfYrN7hmJKcoVIcdST0Mt0xyK8RB9O2FX8C9Y7lZypNf0Gl+k3EVROkssqyum3hK5BjsHu3qboljZXS4WSrn+IYViZJrpE+B1lmaDa+21laictlWpgR7Tlc/Tc3Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=i5b59XKn; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789054078; c=relaxed/simple;
+	bh=6y/rOjw1gHUzrBFOqpU9h2mi+k1NFhcMDPs1TMzAPk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ocjBTS0MBrvcBPEkK4yx8TbDuE3LJHxYdnLm5j4dL9byXNSrk02JeDmmcr0Ob945l7dj1TpaphA1FYvjN+Bp4sqLtt6K+k8qtx5wct/pxD3nT2Xjpt3E/8hUoUhWGdOxmwsnZ/uKIb1PhU3/cupFVSYNHzC/mRg3/JfWI28VgEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQUwvdwF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="i5b59XKn"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90e970f710cso75905046d6.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:26:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789054003; x=1789658803; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UbXQIuo0NcIuxxmA533Eh1W7sX2mi8fyfrtvA9Iq3dc=;
-        b=i5b59XKnqtA8P6Pd2S7vU5C8YRVGG5RDn8/sQ3GVkL1v6VsAWlG7YrWa1X5UP+UsN5
-         zKVihZvvEN9Fr8Tkv/ksEeZk2h+e3X/IpoWu2FITJ7+Rbp+fR/2dAXk3y4Fm4012MV7m
-         PtgovVrv6MZq1X1BVvwIY0/4Y0rWElKqbEcmZJlzUy0mdNj3O2T+dXd70mdkBgKIxg4c
-         +ozf6Me4+CxZ/41gpg7vld6gNXHMOo2Ga9H+kym0CyzbU0aZUfWJin0G2fq+7WKvh2eB
-         IAt0pKnUxR2cE8OVYk4DNsrFuPgyAYlUPmdXOMQO5zu3Ss0LZOVGR7ChUXA1lr12FLbq
-         P/PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054003; x=1789658803;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UbXQIuo0NcIuxxmA533Eh1W7sX2mi8fyfrtvA9Iq3dc=;
-        b=Ksj+GUZcbdam7ZCWqMj23aczoK5Soc9BiOIUTd8GhqPjyhXxTT03f3qyQc5CREo7wZ
-         Z/6aj5gt132FiNe4GAxFzDp5voa4l8h7rvHA2QZwWRUADmFRYzeufKae7/Si2op7fCSU
-         M02J/k+p7rCY1eqmFwlkr1CLfShcfkpyqVTVt5EgPdLQXWMfjjzBrI23V6TYaCLYT94c
-         mSUGldrNPv03nKoPdCYf3flfIEs+tA8eUezC6HpATjwoV/s4Pz/EPzA8Ik5yiZ5fWEni
-         gF3AXh18Os/UIOzaIzXe8pJqsFBnpdA5JPi/cYEbKat5IOI8A8WTMRIfSDgpWUtKPGl3
-         fVwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBycoLs1Lm81PIogXXZVMrA7goIZVehoFsYj3qjnKEdCnPF34u0OPBEGs6heY9sVsslt2qa8seU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2ipO+7yDjQanL+sj1x+AlhQX5zRENn9wXI/6ipZWoJx3exQNh
-	jiA7w1mxW6xl9wM7DF/xcIOu70kfziXUFtebDoXuePb74w+X1nbhGY7sajgtWUpdIQ==
-X-Gm-Gg: AYBFou3NJbsTj4QI+fcUu+FMx3gtIHUv3qGtWlijmLVLPjNwaMQbgLGJBWEwdbMEmjf
-	V2TJvax2WjRky7idC8foZHEmweA5QX371mNGGosKsoedkK57BWp8jn6+BQgrU7Yjvf9aSLtKKon
-	4gmvuBR5WaMEdCeG5Ml2eTib2VBMdTQoaqc6gTz9Erlm0wwCuY2GWMeRgZfGMGVttKJqOsHMl++
-	DlBJgp9reVdYDFPFQUnRWbk1EKYCGMvt2ArdNM99cSRc+1QY7Rziw/jj+AGEByGJPFwZ4EjRmSV
-	vzSnIwFFPe7ao0oWEf2Uv9RBwhcL0MmF++QPQVBEcj+loxPcgu2o1NCbcHiQ1tv4acmgpGWsFNX
-	pNvMBv4hPtEnKpJ+tqGufn2QUgq7eznEJ5Nvi3Hn9YDtqscuGTExTAOm6Ww2+XnnKD13OxD2C5n
-	1CekZCGVp2mslT+ylcpuXN3ecZlkWl7d8Qsh9IgGperAtOC0M5ArIf/ghTj+jL/CU0iWRdO3Ml
-X-Received: by 2002:a05:6214:230f:b0:8fd:d5a7:f970 with SMTP id 6a1803df08f44-9103efef7b2mr506271296d6.11.1789054002587;
-        Thu, 10 Sep 2026 08:26:42 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040646d59sm171288396d6.8.2026.09.10.08.26.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 08:26:41 -0700 (PDT)
-Date: Thu, 10 Sep 2026 11:26:38 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <541b1db8-8649-46a9-9fa1-1b5f93cded7f@rowland.harvard.edu>
-References: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
- <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
- <aqKu8nJqPsmKOo1d@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQUwvdwF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046D31F000FF;
+	Thu, 10 Sep 2026 15:27:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789054076;
+	bh=Uq+rBNy8gTjXdUL+qwlFT/g0xoUdHkGsidLsPNAP1Qg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aQUwvdwF6KBnld7mxSfsnvUStlYRDW7b5uL90jEB7BCwxuIm/uzu4+qr4sC34AH70
+	 cgX92IDa0/odEQwtXytw60FsTr68MNCS08+/eF1+Rf/Nwz4k6fe2DwYw+6Fgt08zfu
+	 OSIY86k0s1YAcAIVB2ugBCgSiejzUvVk1OQjmepAl5i43ICiWX4Bvx5L/A4hurVptL
+	 dykNPIVzpoxwAxG/LQwvpPQS2HTu3ekajSRsVzngaqwMhTA0rJXisUUW0H+g7tIzbe
+	 ESJBBKcxeOgjukmdjWCrBQz/2MMv9XwpkLKnLOS2KEr566G3U3ErbRCqLV0l1deKkM
+	 oilyLo/Tk+BpQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/3] ksmbd: fix maximum allowed access checks
+Date: Thu, 10 Sep 2026 11:27:52 -0400
+Message-ID: <20260910152754.950820-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090802-tactical-overplay-91bf@gregkh>
+References: <2026090802-tactical-overplay-91bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqKu8nJqPsmKOo1d@localhost.localdomain>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 03:21:54PM +0200, Frederic Weisbecker wrote:
-> Alan, let me ask you something, because I'm the only one here puzzled by
-> this data dependency.
-> 
-> The following scenario works (the bad outcome never happens) because
-> UNLOCK+LOCK pairs with smp_load_acquire():
-> 
-> 	C MP+polocks
-> 
-> 	{}
-> 
-> 	P0(int *A, int *B, spinlock_t *mylock)
-> 	{
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*A, 1);
-> 		spin_unlock(mylock);
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*B, 1);
-> 		spin_unlock(mylock);
-> 	}
-> 
-> 	P1(int *A, int *B)
-> 	{
-> 		int r0;
-> 		int r1;
-> 
-> 		r0 = smp_load_acquire(B);
-> 		r1 = READ_ONCE(*A);
-> 	}
-> 
-> 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-> 
-> 
-> So I understand this one. Now unfortunately litmus doesn't support
-> structures, but let's suppose it could. I'm taking the previous script
-> and introduce a small change in P1:
-> 
-> 	C MP+polocks
-> 
-> 	{}
-> 
-> 	P0(int *A, int *B, spinlock_t *mylock)
-> 	{
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*A, 1);
-> 		spin_unlock(mylock);
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*B, 1);
-> 		spin_unlock(mylock);
-> 	}
-> 
-> 	P1(int *A, int *B)
-> 	{
-> 		int r0;
-> 		int r1
-> 
-> 		r0 = READ_ONCE(*B);
-> 		spin_lock(r0->somelock)
-> 		r1 = READ_ONCE(*A);
-> 		spin_unlock(r0->somelock)
-> 	}
-> 
-> 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-> 
-> 
-> So instead of doing a LOAD-ACQUIRE on B, I do a plain READ but I also
-> do a spin_lock right after on a data that depends on that READ. I can't
-> run that on litmus but this is the same (simplified) pattern as what we
-> had in this discussion and therefore I assume that it also works (ie: the
-> bad outcome shouldn't happen), is that right?
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Yes.
+[ Upstream commit cc2f133e80eb2c4a04bfa77a2f207749fe2f516a ]
 
-> Would it also work if spin_lock() was just a LOAD-ACQUIRE?
+The DACL permission check looks for an ACE matching the current user and
+falls back to the Everyone ACE. It does not consider an Authenticated
+Users ACE, even though an authenticated session is a member of that
+well-known group.
 
-Yes.
+As a result, opening a file whose access is granted through S-1-5-11 can
+incorrectly fail with STATUS_ACCESS_DENIED. Treat an Authenticated Users
+ACE as a fallback entry alongside Everyone.
 
-> Does it mean that data dependency implies sufficient ordering such that
-> a LOAD-ACQUIRE to a data that depends on B provides the same guarantees as
-> a LOAD-ACQUIRE to B?
+The maximal access calculation also combines access masks from every ACE,
+regardless of whether its SID applies to the current user. This can grant
+rights belonging to an unrelated principal. Process only ACEs applying to
+the user, Everyone, or Authenticated Users, and accumulate allowed and
+denied masks in ACL order. Preserve explicitly requested access bits so
+they are validated against the resulting maximal mask.
 
-Indeed it does, with the obvious exception that a load-acquire of B 
-also provides ordering to any statements in between it and the load of 
-the data depending on B.  That is:
+When ACCESS_SYSTEM_SECURITY is denied, report STATUS_PRIVILEGE_NOT_HELD
+instead of the generic STATUS_ACCESS_DENIED. Access to the system ACL
+requires a security privilege that ksmbd does not grant.
 
-	r0 = smp_load_acquire(B);
-	X;
-	r1 = READ_ONCE(r0->A);
+For regular files, include FILE_EXECUTE in maximal access when the client
+requested GENERIC_EXECUTE and the DACL grants the complete file-read set.
+Keep a direct FILE_EXECUTE request subject to the explicit DACL bit. This
+matches the POSIX file ACL mapping without broadening specific execute
+requests.
 
-orders the load from B before everything that follows, including X, 
-whereas:
+Do not replace rights from an applicable NT ACE with a POSIX ACL entry.
+The POSIX ACL is only a fallback when no user, Everyone, or Authenticated
+Users ACE applies; otherwise it can incorrectly broaden the stored DACL.
 
-	r0 = READ_ONCE(B);
-	X;
-	r1 = smp_load_acquire(r0->A);
+This fixes smb2.maximum_allowed.maximum_allowed.
 
-orders the load from B before the load from r0->A and everything 
-following it, but not before X.
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Stable-dep-of: b5ec6c462aab ("ksmbd: fix tree connection use-after-free in smb2_tree_connect()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/smb2pdu.c |  9 ++++-
+ fs/smb/server/smbacl.c  | 83 ++++++++++++++++++++++++++---------------
+ fs/smb/server/smbacl.h  |  2 +-
+ 3 files changed, 61 insertions(+), 33 deletions(-)
 
-> The reason I'm asking that is because, unlike control dependency, data
-> dependency and its guarantees are not well documented. It is defined in
-> tools/memory-model/Documentation/explanation.txt but not really described
-> in Documentation/memory-barriers.txt. There is a mention in a scenario within
-> the section "MULTICOPY ATOMICITY" just to show that it's not as strong as
-> a full memory barrier.
-> 
-> So if data dependency can provide the guarantee above in my second script
-> but it's not as strong as a full barrier, this suggests that data dependencies
-> have their own specific properties that should probably be documentated.
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 76f63f9adc725..9b3ffa0929805 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3601,6 +3601,7 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 	if (file_present && !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
+ 		rc = smb_check_perm_dacl(conn, &path, &daccess,
++					 req->DesiredAccess,
+ 					 sess->user->uid);
+ 		if (rc)
+ 			goto err_out;
+@@ -4173,8 +4174,12 @@ int smb2_open(struct ksmbd_work *work)
+ 			rsp->hdr.Status = STATUS_INVALID_PARAMETER;
+ 		else if (rc == -EOPNOTSUPP)
+ 			rsp->hdr.Status = STATUS_NOT_SUPPORTED;
+-		else if (rc == -EACCES || rc == -ESTALE || rc == -EXDEV)
+-			rsp->hdr.Status = STATUS_ACCESS_DENIED;
++		else if (rc == -EACCES || rc == -ESTALE || rc == -EXDEV) {
++			if (req->DesiredAccess & FILE_ACCESS_SYSTEM_SECURITY_LE)
++				rsp->hdr.Status = STATUS_PRIVILEGE_NOT_HELD;
++			else
++				rsp->hdr.Status = STATUS_ACCESS_DENIED;
++		}
+ 		else if (rc == -ENOENT)
+ 			rsp->hdr.Status = STATUS_OBJECT_NAME_INVALID;
+ 		else if (rc == -EPERM)
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index c13f07a09ab8b..0537638153325 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1432,7 +1432,7 @@ bool smb_inherit_flags(int flags, bool is_dir)
+ }
+ 
+ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+-			__le32 *pdaccess, int uid)
++			__le32 *pdaccess, __le32 raw_daccess, int uid)
+ {
+ 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	struct smb_ntsd *pntsd = NULL;
+@@ -1442,10 +1442,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	unsigned int dacl_offset;
+ 	size_t dacl_struct_end;
+ 	struct smb_sid sid;
+-	int granted = le32_to_cpu(*pdaccess & ~FILE_MAXIMAL_ACCESS_LE);
++	int requested = le32_to_cpu(*pdaccess & ~FILE_MAXIMAL_ACCESS_LE);
++	int granted = requested;
+ 	struct smb_ace *ace;
+ 	int i, found = 0;
+-	unsigned int access_bits = 0;
++	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+@@ -1479,10 +1480,13 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		goto err_out;
+ 	}
+ 
++	if (!uid)
++		sid_type = SIDUNIX_USER;
++	id_to_sid(uid, sid_type, &sid);
++
+ 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
+-		granted = READ_CONTROL | WRITE_DAC | FILE_READ_ATTRIBUTES |
++		access_bits = READ_CONTROL | WRITE_DAC | FILE_READ_ATTRIBUTES |
+ 			DELETE;
+-
+ 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+ 		aces_size = acl_size - sizeof(struct smb_acl);
+ 		for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
+@@ -1495,15 +1499,41 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 				       CIFS_SID_BASE_SIZE)
+ 				break;
+ 			aces_size -= ace_size;
+-			granted |= le32_to_cpu(ace->access_req);
++
++			if (ace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES ||
++			    ace_size < offsetof(struct smb_ace, sid) +
++				      CIFS_SID_BASE_SIZE +
++				      sizeof(__le32) * ace->sid.num_subauth)
++				break;
++
++			if (ace->flags & INHERIT_ONLY_ACE ||
++			    (compare_sids(&sid, &ace->sid) &&
++			     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
++			     compare_sids(&sid_everyone, &ace->sid) &&
++			     compare_sids(&sid_authusers, &ace->sid)))
++				goto next_ace;
++
++			switch (ace->type) {
++			case ACCESS_ALLOWED_ACE_TYPE:
++				access_bits |= le32_to_cpu(ace->access_req);
++				break;
++			case ACCESS_DENIED_ACE_TYPE:
++			case ACCESS_DENIED_CALLBACK_ACE_TYPE:
++				denied |= ~access_bits &
++					le32_to_cpu(ace->access_req);
++				break;
++			}
++next_ace:
+ 			ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
+ 		}
++		access_bits &= ~denied;
++		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
++		    S_ISREG(d_inode(path->dentry)->i_mode) &&
++		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
++			access_bits |= FILE_EXECUTE;
++		granted = requested | access_bits;
+ 	}
+ 
+-	if (!uid)
+-		sid_type = SIDUNIX_USER;
+-	id_to_sid(uid, sid_type, &sid);
+-
+ 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+ 	aces_size = acl_size - sizeof(struct smb_acl);
+ 	for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
+@@ -1527,25 +1557,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
+ 		}
+-		if (!compare_sids(&sid_everyone, &ace->sid))
++		if (!compare_sids(&sid_everyone, &ace->sid) ||
++		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+ 
+ 		ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
+ 	}
+ 
+-	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE && found) {
+-		granted = READ_CONTROL | WRITE_DAC | FILE_READ_ATTRIBUTES |
+-			DELETE;
+-
+-		granted |= le32_to_cpu(ace->access_req);
+-
+-		if (!pdacl->num_aces)
+-			granted = GENERIC_ALL_FLAGS;
+-	}
+-
+ 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
+ 		posix_acls = get_inode_acl(d_inode(path->dentry), ACL_TYPE_ACCESS);
+-		if (!IS_ERR_OR_NULL(posix_acls) && !found) {
++		if (!IS_ERR_OR_NULL(posix_acls) && !found && !others_ace) {
+ 			unsigned int id = -1;
+ 
+ 			pa_entry = posix_acls->a_entries;
+@@ -1583,14 +1604,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		}
+ 	}
+ 
+-	switch (ace->type) {
+-	case ACCESS_ALLOWED_ACE_TYPE:
+-		access_bits = le32_to_cpu(ace->access_req);
+-		break;
+-	case ACCESS_DENIED_ACE_TYPE:
+-	case ACCESS_DENIED_CALLBACK_ACE_TYPE:
+-		access_bits = le32_to_cpu(~ace->access_req);
+-		break;
++	if (!(*pdaccess & FILE_MAXIMAL_ACCESS_LE)) {
++		switch (ace->type) {
++		case ACCESS_ALLOWED_ACE_TYPE:
++			access_bits = le32_to_cpu(ace->access_req);
++			break;
++		case ACCESS_DENIED_ACE_TYPE:
++		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
++			access_bits = le32_to_cpu(~ace->access_req);
++			break;
++		}
+ 	}
+ 
+ check_access_bits:
+diff --git a/fs/smb/server/smbacl.h b/fs/smb/server/smbacl.h
+index ab21ba2cd4df3..bf0312bfa0405 100644
+--- a/fs/smb/server/smbacl.h
++++ b/fs/smb/server/smbacl.h
+@@ -95,7 +95,7 @@ bool smb_inherit_flags(int flags, bool is_dir);
+ int smb_inherit_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		     unsigned int uid, unsigned int gid);
+ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+-			__le32 *pdaccess, int uid);
++			__le32 *pdaccess, __le32 raw_daccess, int uid);
+ int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
+ 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
+ 		 bool type_check, bool get_write);
+-- 
+2.53.0
 
-Perhaps so.  Can you suggest a place in explanations.txt that could be 
-improved?
-
-Here's how I think about ordering guarantees in general.  Not in terms 
-of pairing of memory barriers, since (as you pointed out) dependencies 
-aren't memory barriers, and also since ordering cycles can involve more 
-than two CPUs (so triples or higher, not just pairs).
-
-Instead there's a hierarchy of ordering classes.  The lowest level only 
-orders events on a single CPU; it includes dependencies, smp_rmb(), and 
-load-acquires.
-
-The next level orders cross-CPU events (i.e., writes), but only in a way 
-that affects two CPUs at a time.  It includes things like smp_wmb() and 
-store-releases, and it guarantees that if CPU 1 writes A first and B 
-second, then CPU 2 will observe the store to A before it observes the 
-store to B.  Likewise for CPU 3, CPU 4, etc., but there is no guarantee 
-about the order in which differing CPUs will observe the stores.
-
-The highest level orders events in a way that involves all CPUs.  It 
-includes things like smp_mb() and synchronize_rcu(), and it says that if 
-CPU 1 writes A first and B second, then _every_ CPU will observe the 
-store to A before _any_ CPU (including CPU 1!) observes the store to B.
-
-This is a little imprecise, and there are varying details within the 
-levels, but the overall idea is basically right.
-
-At any rate, the point you're raising is that dependencies and 
-load-acquires both sit at the lowest level of this hierarchy, so they 
-provide pretty much the same ordering guarantees.
-
-Alan Stern
