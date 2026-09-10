@@ -1,112 +1,252 @@
-Received: from mail-qv2-f11.google.com (mail-qv2-f11.google.com [74.125.230.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F09C3914F8
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.139
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051370; cv=pass; b=XV+mqj+KskOQJII/vM1d7Y6QL5ylVWMKHxT9XFs2VRpLsCgKOZAz2z1wvAcIQAfcUoJokM04RfJseAke/YBgg1GlABgqXBYb+iMl+YTIxLbVq/YvNrbOEhhk+VywlfnL3GjYm/MCAnccTtVeYj/CuchkSN5Qn1ON9HdJkois99g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051370; c=relaxed/simple;
-	bh=A3NBwT3kopqU6rUQDfTU2NVJM1JpMiHHARAEukPCTcE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bNP4pFCYMkOTp/BFgml4ZEyOzZhlC4atfsB75qIzrwDjX5QBiZ0bFsEUtWWOniyg99IfkuxG0Lq8fIGjkzA6/4Zi4+btqBPVgx+JQOb2MRGcEvzOuH6pAhet1Ph0V7jwzlcICy6eyYbimdrYHYEADldKmr//mNAeBB/9Ueh/fFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxBUDI9n; arc=pass smtp.client-ip=74.125.230.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2780489FD6
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789051689; cv=none; b=q/8bNiocW7vprT01J7Rf/zaH7D0c5sya9m1GANnKsTzHahBYv5/t5WdH1JOidyhtHKi0M6WLqlKwpHWqX4oZHEVKHLcV4u+GHMG7F1iGBBDb/cEB2UqUN6OUOJxZM051DY1AYuq+iwEgKwsxhMQkxL/0tsqXwUMLOLuUoxzQFgQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789051689; c=relaxed/simple;
+	bh=ojWniChg8jNy3zCJKuSvX2eElsBmDp3I/K+xwhXfEks=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WaGgftxT+K2rmY6gsIe04pwfLCB7Dy2ZcjA2hJinPdQCh70MjclSCjPIf7lOY1WF/tVy6/tRZ94GvdxbP5aHgJcUMiCx7PFc8aMVM0fxiMUCa7yOB/ry5PrjPjLHGu14cOO3bOM2sJnSkey6f06m0Mt+27JjZMhFDE0nCx5BM44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dn/JCaKN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxBUDI9n"
-Received: by mail-qv2-f11.google.com with SMTP id 6a1803df08f44-90cdfc57039so20948036d6.0
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:42:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789051367; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RnelVJErdH6ktNOFAv7pHlYKns4mF5Qy8HuwjV+lOeyeX2M2iHzfQpQ8qRpPKNk8pC
-         GD9BsKmWOLWYaffmkkrH97qBScKuyiQmJE72ur+kTDHIsctsmjI3543A2Qf8Cu4/1qMy
-         8kmtjPSOzA9/YPEIB7VKrLLZP2Iz7xS5Ke6gKfGxWulPhHXt629edWHVs5+oOvdNx4D4
-         scv2Vi7L5FapWGMI7gX9PP46CWcnKrT9fn+47evTW+b2TbylWc7mKhrcYxvJQixvatTK
-         OGP2j4sO7kP6edNP+HIdNNLEF0by5KKFWcjxIw2GFlqfyYZJipqyPM+qlEZDAsDC3d8/
-         xrkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=A3NBwT3kopqU6rUQDfTU2NVJM1JpMiHHARAEukPCTcE=;
-        fh=BIIjgmP/VLENg/iqJQMJrBAH3wplEysAgQecil1Yjik=;
-        b=jtBi8MYyAxQagaBEvhqfV3RAkqpnWhOMPaaHn81rYxJCOOTwXrQFBYflD6ldSaB57a
-         DaQR5HeLpELgLx/iOMM7xPE9xe3MjZG65YwkniDhnTcze6nxuHKaVoM0fcvy3VpYVJ87
-         H7/9DcPsKlL9zjRcsAxNL9ceC0hcuQiCHM284vzNEuxvv3zZpXpMKCZkvtoXcxPdCnEj
-         X/nNgV/EgYwJaTXkB2f0I0+74z9Qmb4cB2mWM4N0vFwYl2f/HFGuX1t8qQxnZluiNSfN
-         D+NpRPAAQWOEk4bH5B44hkDpOXZ9K/Zb85MdF4jNg8lCtYPWCexBFZYTuaseuqx7x8JJ
-         aJqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789051367; x=1789656167; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A3NBwT3kopqU6rUQDfTU2NVJM1JpMiHHARAEukPCTcE=;
-        b=KxBUDI9n7UWsOjc5rlh9Gwf2PJ0D/+LSYmdyy/6oismbd/nrNNM11K/IDaDoT+tgJN
-         jQkC2FE2up5sDZc9f07MYtbi3YLC3wZtGk+4//pjfjFoJejFAcmwZdTUUcgEim/+P7lk
-         Xfme03uKsGP0a6rqH70uMnd3510615o1kOK8vUyNpUmJlumXGdfp+RQDkgkZY93Dvz8h
-         wr0T7PYN1eO93/LHWAsWAnts6VSRJ8T1nlIpOjEm9WXVwg0YyQJaurFk5AIisfd+RtsL
-         j7cUBwr4AIlutYdKHnXPf8KPsFiUPAVyfSD1jUxiHz+dF1itJ/v5bBIWb2bOymBIXdwp
-         c/EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051367; x=1789656167;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A3NBwT3kopqU6rUQDfTU2NVJM1JpMiHHARAEukPCTcE=;
-        b=gcaRW5J+LFXA2ThQwFptKQQu0HGTP6Y/ttM95oNa50H2XN63Ht5T49/eIuMH/It5XH
-         QBjGKLt59unGvzMeotvIEl/WP7bp/TlwZYQeZlhiHrhrqMxGQvasW65aC3PIOvDZ7SaW
-         FSI6niQsp85RwePtMT/oNIBHLAx2FA66UuAfyfyeuTF/HWi2IS99ZyyaZpIe2aNFh17R
-         Ltxt7cdnleD5d50kk9su0b1r05oooRdF0Oqr7DTQztith0+yKfHAHaajhxhN2xnUqt2A
-         98oBpcniUgOub4iQS3G3jvazzd91fH8hh00e/OE15iowCpUJi5+N3SR2nq4TP/A8A0yV
-         Ansg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCeOf67pf8f2f3nZGZ9/m5U2i0oxe8Zmq+xK7VdzAPYK59vgu01mc2fRw4zeRr4Fs5vvrdkLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjaqvCpEIcE6au2Uq6K9+6mjE4B5WiRn1m9mQLkV+X7RUqEdrM
-	bLG70AOC3ym8kCdNkuw4iv7my5cJXLJwcama0OdmUoBL0a3HBhSiuOvR2lX4pBltmCNN3WFJSNl
-	lNtLCv2ubOQzXskYBlbQ+r83MaFbswY8=
-X-Gm-Gg: AYBFou3SWsbO6Kxt4etqy3gDCpyx3c4XNwJYpZT87mo40sfWQHTI7YMqGkbgTockfx0
-	dcDHo9xgnpMMTXBm56Q2efiVXLuM/bmqJ9NAnrvAE266DBg0iDN4zvtddAOO4fouw2LkIZYLWTh
-	0rJRomPhrEObrJp8xApr+Zrmq3pyL7cEZN67Gn+v9rsL0/DGeEFg7IXhEbFmuyun3kk0/3Dt5wR
-	mRDvlJBJdNU78qkKAI6MnNOLcw0IqZkFhJx0GINnZSKp9xAEA8fFg25wXOHYP/LmWoEnvLbzcgB
-	zdhoOeg5xIUUJR4ECOBsIVfAStUKsDR6TA8b1nQpdXff++wl88CsvIS+TiwkSDDGl2VWBlJH/fq
-	Qe7u20IxCvhc+VcP90awGOq82qWZMWjqM15B/rJfb
-X-Received: by 2002:a05:6214:5b0f:b0:910:7078:b4f with SMTP id
- 6a1803df08f44-91070780df9mr133306426d6.25.1789051367346; Thu, 10 Sep 2026
- 07:42:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dn/JCaKN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47BD1F000FF;
+	Thu, 10 Sep 2026 14:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789051687;
+	bh=O8qd8wT/Fjid0EH340T0XrRx+wDTyGSV0vYloOxcN94=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Dn/JCaKN4Cw8mQIuISHrjgUu54CdaAmBzeNC0uga7TaMrIEFmCrXjrdISSte538ii
+	 0FYPDpE2KG5OwFoM0I9FAtj/VmbEt+XGMm+M9vsV4K+0ppkDo68DsheZnzr8UALmkh
+	 gSutafw0S3Q4oLhJZ2eAp6JNFnHa8vINwKyhq2A7sezQIOq9bvqoSJ0Fwo9Hyeo9nz
+	 ay/8m6yZR3TwPH0FoAm/W286JvqcbShK6VBcULf9dEVuwEONCTVmgk1aQesRA1q31k
+	 XFMmHXAfZkx64iKpJVlpVqFEFU0+rg1/WTqHv/m6bKSue/aTP043DPJoutRijeLF/p
+	 poHuBYBoTkUhA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 10:48:04 -0400
+Message-ID: <20260910144804.803266-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090859-unpainted-acclaim-c3fd@gregkh>
+References: <2026090859-unpainted-acclaim-c3fd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260607064053.195166-1-enelsonmoore@gmail.com> <ap6hIoGppETYr7ey@ryzen>
-In-Reply-To: <ap6hIoGppETYr7ey@ryzen>
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Date: Thu, 10 Sep 2026 07:42:36 -0700
-X-Gm-Features: AcwNN1Wk1zV5NERHaZeTyuW_3PUV8dF4eqEkqONhyMYLHRDUgO1Fa3RjXoXy7mk
-Message-ID: <CADkSEUidf27u7U5mbB4FcDYZa5o6dWQnwf1LwT90Ud34MjfsWA@mail.gmail.com>
-Subject: Re: [PATCH] ata: pata_legacy: remove documentation for removed module parameters
-To: Niklas Cassel <cassel@kernel.org>
-Cc: linux-doc@vger.kernel.org, stable@vger.kernel.org, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Damien Le Moal <dlemoal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi, Niklas,
+From: Baineng Shou <shoubaineng@gmail.com>
 
-On Mon, Sep 7, 2026 at 4:33=E2=80=AFAM Niklas Cassel <cassel@kernel.org> wr=
-ote:
-> This patch was sent to linux-doc@vger.kernel.org and linux-ide was not
-> even added as CC, so I assume you want this to go via Jonathan's tree.
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-I don't think that was intentional - the script I wrote to integrate
-get_maintainer.pl with git send-email had some bugs causing it to
-exclude entries. I have since fixed them. Feel free to merge it via
-the IDE tree.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Ethan
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
+
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
+
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
+
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Cc: stable@vger.kernel.org
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+[ replaced dma_buf_fd_install(dmabuf, fd) with fd_install(fd, dmabuf->file) due to missing tracing infrastructure. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 84ae708fafe75..2fbf5e91509b5 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 unsigned int fd_flags,
+-				 unsigned int heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
+-- 
+2.53.0
+
