@@ -1,57 +1,57 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C983D59B688
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B420D53FD48
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068787; cv=none; b=er8zoah9R8QKySa1fZdL65EIPpc2gSvz7kEQIDbVPw4osfsPKR/yHyLeGvIc76pFJlUih/G4adwNe9VmcREZ98mUAl0fRHxIGdOxLirPjo6fANTLB9tQ3WUopYDLVMGNfpaiW/KcIkfdzXR1onVWpRM2tYjlQHeoppjhbGdSK4U=
+	t=1789069260; cv=none; b=SNtrjOW3+6leTUTRrDOEXVRTKOeR176TvVxe7rHREbi0Hko+2IFDiC6OPI/pvmJ+IpZLHkJcbe5zTygS+IJCC+bbeTrTT5i8+HCXvBd8D8RbM5lolXQ/s5L4K94o2rnU6DH4arNBYBk8lgQx9xDsygbW19XhX3ZHHjcsHnKhItw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068787; c=relaxed/simple;
-	bh=OaL2gIY4/rvYENHa/VV3JZ6qts0VkGiuYhfofseuZ9I=;
+	s=arc-20240116; t=1789069260; c=relaxed/simple;
+	bh=sWES5GzN2OM+Ii15B8E62bMhDC2BenzHZ4gqkrhblUU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=usbH3V7lhkzuDV7NPh/Lmw3oZ8elKVXAqIxufxlD/theGhxxwyNGX90dte6+J2p34GTgXr5XTXYOPej/m+7Zdxht+g+kpkFSpTKg6WJDXYKPeeZ0N1kWZnVnPDmLH1LOeHONlcCIg1VhG2U4TtqBaKx+oLP+oBEKEcc6dHW8CNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tepGuMwe; arc=none smtp.client-ip=209.85.210.200
+	 To:Cc:Content-Type; b=dJ9U05ncParkxZv8foXaRiRPw4AYBcLsYQs9jemOPizFoNyE2tEzKvkh2GOA5v6KO+n+NLV1MXS4e+7BRN2iV8klanotrTmaYgNGLrln77kVGpDxhBQWm0VtalU7VWbUwlbDTKyhDBM60n6kjyv0cU4kc0y4OZ02NcGIAdHS1QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ig5j8fpW; arc=none smtp.client-ip=209.85.215.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tepGuMwe"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-868f443cbd0so43498b3a.2
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:32:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ig5j8fpW"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso205364a12.2
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789068774; x=1789673574; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789069259; x=1789674059; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=0LO3wehpioybmx3i7IEixw9RnbaJnGBUVwi8qW7M7RA=;
-        b=tepGuMweAM+uILF1KssKPC0y1nCdviJjfFZiQnschqJAPvW4VLZD2l56daP+wpV2xS
-         Qaw1Z3a2vlIXkpCJN1Wq8FwNv5plD2A7EhavmzXgSULk6D2L29Kl9lHd7t8pLU8kZh1V
-         vkvIoBrmMBrw/sddhF4vOtNEhKpM0tqM9+g7u0PdsRRWJZkybnmxE0a4Lxu79004lCLO
-         Pt94NagDmeg4fUsu/ou0e7uOXc5mcUiEubTSOeLcZbCDsK7wRiASCP5QNfXc5dBQvLEg
-         3+0fd1MKidjU2rwws0HqBrSy0UeZSmuzIHCu06JnmJHfo9Vprl2gwFbig+ckNspRa77T
-         cQLQ==
+        bh=wTqHNT7a66b+hUhj9EbNAk2o66nIbGOCLKCO5Ek1p00=;
+        b=Ig5j8fpW4slpLX1HsmiTPBLuHggBH9GVjTn7y+FTRtQ+TYN8LQ6EJpix1cOLgc7XvB
+         rLd9+Mw460JO1JEvRH/F8lZVnuXv1TaEsvEwtQvs2ePzHUf85CSLa8LlB8dqsT70OfDh
+         nkP2BNmmbhIK//fZeOIgnojJ2yBMmiywIZvTv4cmbe8bxJlWO+vu9pAiskPzC9y3ZBdd
+         JPRB7X2Nojb0M1x7hN6qU+7u3hDH5obWLNaS0si/t+5PJ/ZROTtb5JYMrajblUPqnX1O
+         jXsl6GxijU8Wq07MMxqfIzf4Mx5MbOUQhnza8VcmQJ0stiV18eXTA06na/0NW31w7/BQ
+         4zPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068774; x=1789673574;
+        d=1e100.net; s=20251104; t=1789069259; x=1789674059;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0LO3wehpioybmx3i7IEixw9RnbaJnGBUVwi8qW7M7RA=;
-        b=paWggKKY/gRaAWgF4sfiCUgmogV//+wdjsN9/dSX3dved0AcguthQvgyxgDN0U2qmt
-         R/33pn7K8uXY6qQLxMKK2g2PMldUw+qkpPThckiGH2Det332mtCXxHAmq5Etk3djxMI7
-         ykWBhEC0O4eFgACwpVyQlpa4mDPz7rp7UikpqUEGZxPiqvi5NXeZ1AOm10j5IUoH2qFx
-         mvz5Oe6kGqfM98Acn/m0HuLRyaJdYPE+0c5XL+FClq8m9uoESb5B+DU/2hQzItr0Q2Kg
-         atXWciVxrFoeDEAX0LqclbTgavQiyA+nMumm1WcWeebGumoKfM0Vn+i5CkAT7Of8f1xh
-         u2KA==
-X-Forwarded-Encrypted: i=1; AKwUvBzn3LfabvNXHuwx52N3Bng+tJEVnl1rAcss2kAkLensqFzgOudtRnVgBLd38ybd+cpXrlh9gE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUv9lTXp25IAI1ZB9nxennmUEuwQL9Cw5VNjjWX83Skc1hSVFm
-	BIUelnIBkcwpUcSlpuqxPnTO2+Q/4cL/2MZJkmDw/0D7E+RummS/xkxXaj/yq+mZam5JWtKEdKr
-	EEUoscA==
-X-Received: from pfqf15.prod.google.com ([2002:aa7:9d8f:0:b0:848:49f6:6f5c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ad8e:b0:848:30c3:45dd
- with SMTP id d2e1a72fcca58-86b3041253emr623075b3a.11.1789068773550; Thu, 10
- Sep 2026 12:32:53 -0700 (PDT)
-Date: Thu, 10 Sep 2026 12:32:52 -0700
+        bh=wTqHNT7a66b+hUhj9EbNAk2o66nIbGOCLKCO5Ek1p00=;
+        b=f8RcJp8R60Oozl/hQwDf04HAdonF4PuWol7z7J3XWqDGcAWu/Vrd8urcM3TyJG/7fm
+         0mY097q1tfBa1s287pKwlHoOIK0NBhg628IjlF8p8KlXEPaLYHrY0pGEUINkZ4h+hWJ/
+         4JjBJV/YU+R8canJhX41fgg0+RIeRBYty414Ja403jXTUJhbijKUlAHiAbtuRMulhHF+
+         yF3Y7ZLQvkxngimvxp7u+QpkZxpIBUWqPHTvptLxOr+epKqgdKuxK4YKMwDf/N+YUtwy
+         2jSdw0ne8poJhTMefjHmSEiWHx/DcI5Tyd7VLypFPuy5eYJI6FOiPZ3kI6QfcOdlBVC4
+         YifA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPmB85TmyoFet9rIRzhDTJSRkTGWin/Xr0/jt2bDXGm/7btoLy2sLmcgN9DhTdegTd7lpVRPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lK6ReDXeaylZBGjNM3ABmAxESgmgmaz9GtvbSnvA7Y8/Nj86Tz
+	KNSYWFu/xJD8OHNmGClowEy/uJAwpJp/Em1Wn+iJZNMbW+By1WP2Wrscw/QKh6mS9Tw/CcSEv+6
+	EYPB2BQ==
+X-Received: from pgbcf1.prod.google.com ([2002:a05:6a02:841:b0:cc4:bd4b:9195])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3947:b0:3d3:b00a:7082
+ with SMTP id adf61e73a8af0-3daed42b98emr813754637.28.1789069258885; Thu, 10
+ Sep 2026 12:40:58 -0700 (PDT)
+Date: Thu, 10 Sep 2026 12:40:58 -0700
 In-Reply-To: <aqMBidJ_96qroogH@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -63,7 +63,7 @@ References: <20260908132838.2116068-1-jmattson@google.com> <CADrL8HW3Q=8eBf-=h6B
  <CALMp9eRJXozpUpdOhqDCWn7VbqHb9G9hn4aZnxS_fef4ad1yTg@mail.gmail.com>
  <aqGsukcRG6khmxpt@google.com> <CADrL8HWRjzzs7YmNkGDYQWDnygw=OcdgqCWCOfdt9af0-XwvVw@mail.gmail.com>
  <aqMBidJ_96qroogH@google.com>
-Message-ID: <aqMF5GVp6qHb-WcY@google.com>
+Message-ID: <aqMHygGz8CBJjRF8@google.com>
 Subject: Re: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory
  during vCPU teardown
 From: Sean Christopherson <seanjc@google.com>
@@ -77,32 +77,46 @@ On Thu, Sep 10, 2026, Sean Christopherson wrote:
 > On Thu, Sep 10, 2026, James Houghton wrote:
 > > On Wed, Sep 9, 2026 at 12:00=E2=80=AFPM Sean Christopherson <seanjc@goo=
 gle.com> wrote:
-> > I wish we could just change the uaccess primitives, like
-> > {,__}access_ok(), to check that `current->mm` is not NULL (and WARN
-> > and return -EFAULT if it is NULL).
+> > > If the above works for PPC, then KVM can nuke memslots before calling=
+ into
+> > > kvm_arch_destroy_vm().  x86's asinine memslot deletion in kvm_arch_de=
+stroy_vm()
+> > > needs to be addressed, but that code exists purely to do vm_munmap(),=
+ and can
+> > > and should be moved to kvm_arch_free_memslot().
+> > >
+> > > All that said, I'm not sure this aggressive fix is the right thing to=
+ send to
+> > > stable@.  For that, James' suggestion of hardening KVM's usage of
+> > > __copy_{to,from}_user() seems like the best blend of being comprehens=
+ive without
+> > > being overly invasive/risky.
+> >=20
+> > This seems kind of nightmareish to backport; there are a lot of
+> > copy_*_user() callsites that will need updating. Maybe I have a
+> > different idea of the diff you're suggesting.
 >=20
-> That wouldn't help at all in this case, because the access_ok() check is =
-done
-> when memslots are modified.  Which is the crux of KVM's problems: KVM dec=
-ouples
-> the initial checks from the accesses, relying on kvm->mm to
+> Nah, it's not many, because it's only the __copy_{to,from}_user{,inatomic=
+}() usage
+> that needs handling.  Everything else is strictly scoped to an ioctl, whe=
+re (a)
+> current->mm can't be NULL and (b) KVM doesn't make any assumption about t=
+he address
+> space.
 >=20
-> And even if we hardened all of the uaccess helpers, we'd _still_ have pro=
-blems,
-> because it's not just a NULL current->mm that's problematic.  The last re=
-ference
-> to a VM file, i.e. to struct kvm, can be put by a different _process_.  I=
-.e. KVM
-> still needs to guard against reading/writing guest memory using a valid, =
-non-NULL
-> current->mm that isn't kvm->mm.  That can't be genericized in the uaccess=
- APIs,
-> because the rule that only a specific address space can be used is very m=
-uch unique
-> to KVM.
+> At a glance, it's 11 total: 5 in virt/kvm, 4 in vmx.c, and 2 in PPC's boo=
+k3s_64_mmu_radix.c.
+> Well, plus 4 more to also harden {,__}kvm_{get,put}_guest().
+>=20
+> And even if that number were doubled or tripled, the backports would stil=
+l be
+> relatively easy.  The overwhelming majority won't conflict, and the few t=
+hat do
+> should be trivial to resolve (more than likely, simply drop the change).
 
-Oh, and I'm not saying we shouldn't try to harden the uaccess APIs to guard=
- against
-a NULL current->mm.  That absolutely would be worthwhile.  I'm just saying =
-that for
-KVM, it sadly isn't sufficient.
+To clarify: my goal isn't to harden literally every uaccess in KVM, just th=
+ose
+that have a dependency on memslots, i.e. are accessing guest memory.  Those=
+ also
+happen to be the ones that are often buried deep in KVM, in widely-used API=
+s.
