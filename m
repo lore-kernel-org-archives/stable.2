@@ -1,42 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DA6476CD6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F8C489FBF
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:53:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044804; cv=none; b=cRTxl172fmhctXSn5NZ4s7FDSkQbm3rYIDKJG9ijadznP3jXvrjamX+lryvgBc26fBJeW3j7jc1elyyU0UWcrvFznvhep3ec1guxk8ak7BpcYysDJVWFP0yQ4BmemngAkjXD8N8yvkdccuH0aYwR68AD2M7dskW25NZj3ws4LEQ=
+	t=1789044805; cv=none; b=S/cdw9uGnWM0p2Jm9j3F3vBp6WcpZNzdV3fyfpaync62tX4g7ScQy4KVbDEqGMNm/xL3FAq/FEWmEXPgO/WTPCO6Y/mz8vs212f8ba6P1D2hYiRLzSpPWdofoDcUzHWXvjAaUQg+lhXN7we/acYFb0DuW3KxLUxonUMiZ+QOnDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044804; c=relaxed/simple;
-	bh=SCkUA0gHcS0+3fwPgmmo12G3adHoEmDSgKrp4FnUdzM=;
+	s=arc-20240116; t=1789044805; c=relaxed/simple;
+	bh=F8/Y5D8rP+/z6lyqAdAr42alqJfRKuNTfSh5E6VW1wo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qIx2Z3UD+ZclnGIz2L/29fgmY2/sQMYPWeFJ3+JaeqPBdxMC9CZQXzdx9AoDYoJXxqwf//g6JQgp8dYh8pgMxDyqK46228Y9SIcE4pLPyxogoxIjsfXJ1JrKsD6xUcMsb3FqNpc4VgePF/sy098cZB1Xjc9mhQhHW0VfFNRzIrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxrccxfu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=auNrjfMSk6XUhYFIOIrcTNI2aMBaz2Lo47Mvr5GNgfn+a/7se4zj5IdVAv11Uvu7jPY2h05hJWshPHZIxovDAqYBx0HE8TlZhenLfYCB7DGfAWl4KV7QCNpVF+DXVINA3rjA6zuIfvGX2/tVM9HmnPUC+Hj8FAvTh6y+NHToTPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkVrogmE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxrccxfu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9E51F00893;
-	Thu, 10 Sep 2026 12:53:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkVrogmE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AE41F0089A;
+	Thu, 10 Sep 2026 12:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044802;
-	bh=UdwO7EVmZwYlKJL8qTL+As9L6sZ6bakwpXzXKw3n7Y8=;
+	s=k20260515; t=1789044803;
+	bh=fYxv3KWUBM6G9+MgIO9kG24Yv8BDS6SpSB9/gYHE4TM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DxrccxfuHVZ0Fqzx2scE/NHIXhNDrludsYOFpAVs3/NPBnfjmIcXOJ2ow7seC1kyg
-	 hgnJZGF+cDadJA2+fbGdt9Pd5wvsgus66UI6FKV3ElQ5W8HR9jxr46pfuDbvAm19xO
-	 jjj+hG04g0Nm9Gu2C/LzY1ULGSRu0x8pCEJxLeF2RLXM0csDjVu792l0QXt9+zdO5j
-	 ihI+MKYd99JpJjABMOx+6Djao8+HmyFDNejtrlu+b+bODC65pubd2zxP2PjEFVjMYy
-	 zWB65gv80UgOoixV82xbnOvtsDBgLuNn3goqL2HrfkVzHtRfso6wBKQ405ln2nZOR6
-	 a9HEds4a1VDwA==
+	b=dkVrogmEMhjsHyfPBNV2HbvSJaHkpAwVftRS8L3q8uJbFsXTYTyGFY6Vg1/z89gQ6
+	 7a1iiUGxXWf9Zhl9fXVnA/avR2+WGoLMiuNFyaEX6nFyYB/KmQqOiJr6WikxkoRDYh
+	 aBAJwa/xEdWoW09AJnfq6er0gAHlOK8BzJCRdgpLN07cqpHYSy9Qp2OJywf2TxvUFL
+	 PdqtulDvYGZWOtphr5q4oyohBdTSjma44VRZtHXLiOuegOd+vynrBbwGfemJTKBqEZ
+	 IOcWuzjtbJCvXUJ0GaGYNp+KYtg2tEWtHweNuot94IPwmwPytgX1rIyk05p2KXbS+e
+	 k7Gn51QruolXA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	sashiko-bot@kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] tracing: Make printk_trace global for tracing system
-Date: Thu, 10 Sep 2026 08:53:18 -0400
-Message-ID: <20260910125319.187851-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] tracing: Take trace_array reference when opening options file
+Date: Thu, 10 Sep 2026 08:53:19 -0400
+Message-ID: <20260910125319.187851-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910125319.187851-1-sashal@kernel.org>
 References: <2026090831-flashback-racing-7323@gregkh>
@@ -51,52 +48,125 @@ Content-Transfer-Encoding: 8bit
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 1c53d781d42541adc5ba76b4f843a3ff382e01fb ]
+[ Upstream commit f2951ebd15c36a1ea4820a7f0cbb0b5f1c028b73 ]
 
-The printk_trace is used to determine which trace_array trace_printk()
-writes to. By making it a global variable among the tracing subsystem it
-will allow the trace_printk functions to be moved out of trace.c and still
-have direct access to that variable.
+The options files do not take the trace_array reference for the options
+they represent. This could cause a use-after-free kernel crash if one of
+these files is opened by one task and another task removes the instance
+that the option is for. Because it doesn't take a reference upon opening,
+it will not stop the removal which will free the options descriptor that
+is being used.
 
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Link: https://patch.msgid.link/20260208032450.144525891@kernel.org
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-Stable-dep-of: f2951ebd15c3 ("tracing: Take trace_array reference when opening options file")
+As the options are somewhat dynamic in their creation at boot up, each
+file represents a flag in the trace_array. The trace_array has an array of
+indexes to represent each of these flags that is stored in the
+trace_flags_index array. The address of the index array element is used to
+pass to the inode->i_private pointer. Then that element is read which
+holds the index (which represents the flag) and then the index is used to
+calculate the trace_array descriptor from its trace_flags_index array.
+
+One issue is that the index element can not be referenced until the
+trace_array's reference is taken. To handle this, create a new helper
+function called: trace_array_options_get() that will iterate all the
+existing trace_arrays in the ftrace_trace_arrays list (under the
+trace_types_lock), and compare the passed in address of the index element
+with the entire array of the trace_array's trace_flags_index array.
+If it matches, then up the corresponding trace_array's reference and
+return.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260902121918.5a9e9d1b@gandalf.local.home
+Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ replaced the unavailable __trace_array_get(tr) call with tr->ref++ and return 0. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace.c | 2 +-
- kernel/trace/trace.h | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ kernel/trace/trace.c | 69 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 65 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 675602fd9a41a..063e88fbe3856 100644
+index 063e88fbe3856..8c8a2aad3e49b 100644
 --- a/kernel/trace/trace.c
 +++ b/kernel/trace/trace.c
-@@ -537,7 +537,7 @@ static struct trace_array global_trace = {
- 	.trace_flags = TRACE_DEFAULT_FLAGS,
+@@ -9393,11 +9393,72 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
+ 
++/*
++ * The tr_index is the address of a trace_array->trace_flags_index[]
++ * element that holds the index of the trace flag. But since the
++ * trace_array reference has not been taken yet, it cannot be referenced
++ * as it could have been freed by a rmdir of the instance the trace_array
++ * represents.
++ *
++ * Search the list of trace_arrays and compare the tr_index to the
++ * address of the entire trace_array trace_flags_index array for each
++ * trace_array in the list. If one is matched, then take the reference
++ * and return it. If not, the trace_array no longer exits.
++ */
++static int trace_array_options_get(void *tr_index)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_index >= (void *)&tr->trace_flags_index[0] &&
++		    tr_index < (void *)&tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE]) {
++			tr->ref++;
++			return 0;
++		}
++	}
++	return -ENODEV;
++}
++
++static int trace_options_open(struct inode *inode, struct file *filp)
++{
++	void *tr_index = inode->i_private;
++
++	if (trace_array_options_get(tr_index) < 0)
++		return -ENODEV;
++
++	filp->private_data = tr_index;
++
++	return 0;
++}
++
++static int trace_options_release(struct inode *inode, struct file *filp)
++{
++	void *tr_index = filp->private_data;
++	struct trace_array *tr;
++	unsigned int index;
++
++	get_tr_index(tr_index, &tr, &index);
++
++	trace_array_put(tr);
++
++	return 0;
++}
++
+ static const struct file_operations trace_options_core_fops = {
+-	.open = tracing_open_generic,
+-	.read = trace_options_core_read,
+-	.write = trace_options_core_write,
+-	.llseek = generic_file_llseek,
++	.open		= trace_options_open,
++	.read		= trace_options_core_read,
++	.write		= trace_options_core_write,
++	.llseek		= generic_file_llseek,
++	.release	= trace_options_release,
  };
  
--static struct trace_array *printk_trace = &global_trace;
-+struct trace_array *printk_trace = &global_trace;
- 
- /* List of trace_arrays interested in the top level trace_marker */
- static LIST_HEAD(marker_copies);
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 62d5a5f224c4a..cea39bbcf52f0 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -479,6 +479,8 @@ extern bool trace_clock_in_ns(struct trace_array *tr);
- 
- extern unsigned long trace_adjust_address(struct trace_array *tr, unsigned long addr);
- 
-+extern struct trace_array *printk_trace;
-+
- /*
-  * The global tracer (top) should be the first trace array added,
-  * but we check the flag anyway.
+ struct dentry *trace_create_file(const char *name,
 -- 
 2.53.0
 
