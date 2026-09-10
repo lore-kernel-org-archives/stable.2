@@ -1,253 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B93737E5C9;
-	Thu, 10 Sep 2026 03:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263343955F9;
+	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011488; cv=none; b=D4kJKUl/5f23MIeJNANGMj/PYp3/4yzX6hK9PtjDKoYlfsdqPosmUY2Lwu/1KLHeRBRG4VsKkBqh758g08jvrNcYlMasY3vJUAgFvMaCj8uOabWnT2I6AUGqT0THzVBfSJ3oXTTuAvM3uH9nTgwKK/b3yX4A4iDQ8hdo5xe9vBg=
+	t=1789012020; cv=none; b=lSlqMXuzC4JRYdauafGpxg5SPDvUK7ZNLM0F5SUqsGRm13epY8gv1SZT6p1uAV/APeGyHDAipxy0CBpRiqgcUfJPaAgqqEwQuh30nIqbcooKjEgPy4+2DV2gdXX54MdU1XdgSXPTmGLJL8mWlyzGhBzx3hORByGPGTD9zrN28ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011488; c=relaxed/simple;
-	bh=Hr3oZU2DGTaJF7RYY8SHEQiTy9FvjwzGSb7rHZ3HIUo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rW0h6IsgNWxuBwf5j4LVZ/ZTGmUp43u8U2TrG7K1DtiMHjKMDVdTGvdHJq14WDqGyDW4uKqBZKjlpX8+/Zpra8BeSWeeoPsxaBeWGLJaIx/tXVvUhh8ypE3UCJ0b4BIZz2xqS4zdVye1D1odp66vZ3tSPl8eim7OtTlHOzFOYvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaAKqWyo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789012020; c=relaxed/simple;
+	bh=rnmFLhQ+W54V6NRlDXw9yxyyyS6OM1jdtMbAVv5lvkA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bogoBU8h2CZZhDjiQSR9ekFMyczNAKEuyoEpicZta0udwdbuDz6S3MyyulhNQUsjVg/heefsffZQAwYHb5sL9wg2u+0eTH2e/Nb7uJWurKGL68bDXZbZVFPsOnyQnWCnc/J/eU7HBdHhidKxYurAZPLzlU+4zDN/AskvDEbTgQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuPgYMI7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaAKqWyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918931F000FF;
-	Thu, 10 Sep 2026 03:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789011487;
-	bh=4CSDVEKhvI/miVbVmt/K0SX2SLNYpqDTjFSavY1zd+c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FaAKqWyoNsz0qLMCX3xXwnnbqOb9qQ3w/JzzC3+VPyJTSUp36+/sdtbuWaxikt0SS
-	 0olodx8qn0NcUVNICHB/c4IyT7OoEqgDwSMklGPoANR/lksWR4mVJuiy2PsJEeCJCy
-	 mYk8AXnFb+MoYq/yX/PMaALGkLtvUdn+5crILdImIJZLUvE+LC0PLIpvojN1Myz6X6
-	 1fnABXBf7PbPLxM4IGj8p3Ep2icWTBlmVLC4+JZBDxcCu4yhAGdHGrHCin189e0MSG
-	 lhsybP4Hy5ASCkINS3CDT10QcKZfkahKkj5MG+pOggF0lyaefEpLYjmwzPqIthaeNq
-	 KLt2RptIXSjHA==
-Subject: Re: [PATCH] wifi: mwifiex: validate scan response TLV lengths
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: briannorris@chromium.org, kvalo@kernel.org, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Thu, 10 Sep 2026 03:38:06 +0000
-Message-ID: <178901148617.219967.9577139649619803564@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB0001DD15CC44F76B4BBD2853C8B32=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB0001DD15CC44F76B4BBD2853C8B32=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuPgYMI7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ACFD3C2BCC7;
+	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789012019;
+	bh=rnmFLhQ+W54V6NRlDXw9yxyyyS6OM1jdtMbAVv5lvkA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=kuPgYMI7y3r9FhNTNN2j/mds3devLqSBkcPBny7+VF5pns+ARBL8ri3iLO6nEE774
+	 sXr9CUzqodA+dc43taN3q1N6wpM1wdTBJtqWNhl/8+LBjM2j7w4FiqKhgflq6bJXXl
+	 dGKVzj2ehrCCX1jsyEFfkWlQrZO1o9xtTDcJhPd82jwmpkquzQFfLIl+Qb+Nbm3Z43
+	 O3AqCX4SagUVLx73QV5FU89J+GNL6qC/8FGVVOPyq0WU4nM4Pc1YPQRluj2D1c5lXl
+	 e4XSUXx/O/LncjiwykCjg6dkIwpxwMLETU9Jm+clFl2yTyBGLB+hDOb73iroriH5b0
+	 TQ60i2eFH7T+g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 972D5C79FB9;
+	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
+From: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>
+Date: Thu, 10 Sep 2026 11:46:58 +0800
+Subject: [PATCH v5] mm/memcg: clear folio memcg after changing per memcg
+ stats
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
+X-B4-Tracking: v=1; b=H4sIADEoomoC/33NQWrDMBAF0KsErasgaSzHyqr3KFlIo1Gshe1gC
+ bch+O6dhEJSWsys/of/5iYKzZmKOO5uYqYllzyNHOzbTmDvxzPJHDkLo0yrOtPJgQY8y/LpL+i
+ xJ1mqr0Wm/CV1IEoQEXwKgveXmbh+2B8nzn0udZqvj1eLvrc/KugNddGSD1WnHYUYuva90og01
+ j1Og7i7i3laTm1ahi2H3kcA1VgX/lrwapktC9g6OJtsbKxNh3+s5tWyW1bDVoTWtBEUe+m3ta7
+ rN2415qqoAQAA
+To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Bingfang Guo <bingfangguo@tencent.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789012018; l=6933;
+ i=bingfangguo@tencent.com; s=20260812; h=from:subject:message-id;
+ bh=8n9tFaBEaZV6w7VSVd9OL8zcVOGtD1Os/VxlJVMxjmA=;
+ b=u7kryou6X6EpuZcoj1fEwBBnTXHEqJB/8nmrzB3FB3H7zV3Cx6QjLZQANBvbnSkqGtXN7g5l3
+ 447z0fdva94CF1x0/qEmjP84l6qrAuEi4T7xL+1moF3EQxzrS3V3DuQ
+X-Developer-Key: i=bingfangguo@tencent.com; a=ed25519;
+ pk=q7u9S7d5e7VijWrYF9O+vv9/XvqWduVGtwGtuCObAHE=
+X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260812 with
+ auth_id=942
+X-Original-From: Bingfang Guo <bingfangguo@tencent.com>
+Reply-To: bingfangguo@tencent.com
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+From: Bingfang Guo <bingfangguo@tencent.com>
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
+I notice extremely high swapcached count in the per memcg level
+memory.stat when running tests with cgroupv1 setup by swapping pages in
+and out.  It seems that the counter never gets decreased so the value is
+rather useless and confusing to users reading it. So I think fixing it
+so that the value can reflect the actual swapcache usage correctly could
+be helpful.
 
-- [High] Incomplete fix: the new bound check in mwifiex_ret_802_11_scan()
-  (drivers/net/wireless/marvell/mwifiex/scan.c:2143-2150) validates the…
-- [High] The newly added `chan_band_tlv = NULL` invalidation
-  (drivers/net/wireless/marvell/mwifiex/scan.c:2182-2185) creates a…
-- [Medium] The new bss_descript_size validation
-  (drivers/net/wireless/marvell/mwifiex/scan.c:2143-2150) and the…
+__memcg1_swapout() transfers the memsw charge of a folio to its swap
+entry and clears folio->memcg_data as part of that.  In the vmscan
+swapout path it runs before __swap_cache_del_folio(), which then
+decrements the swapcache stats through lruvec_stat_mod_folio().  Since
+folio->memcg_data has already been cleared, folio_memcg() returns NULL
+and the NR_SWAPCACHE decrement only updates the node-level counter
+instead of the memcg's lruvec, leaking the per-memcg swapcache count.
 
---
+Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
+the NR_FILE_PAGES and NR_SWAPCACHE updates but before
+__swap_cache_do_del_folio() removes the folio from the swap cache.  This
+keeps the stats attributed to the folio's memcg while still recording
+the swap cgroup with a valid folio->swap.  Add a swapout parameter so
+the plain swap_cache_del_folio() path is left unchanged.
 
-wifi: mwifiex: validate scan response TLV lengths
+Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
+Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+Acked-by: Kairui Song <kasong@tencent.com>
+---
+** Testing **
+The problem can be reproduced by populating 256MB of shmem pages in a
+memcg and then swapping them out using pageout. After the operation, we
+can still see those pages in the swapcached counter by reading
+memory.stats.  After applying the given patch, the value is correctly
+decreased to 0.
 
-This adds three checks to mwifiex_ret_802_11_scan(): a bound check on the
-firmware-supplied bss_descript_size against the response size, and
-invalidation of the TSF and channel-band TLVs when their reported lengths
-are too short for number_of_sets entries.  A few questions on the new
-checks below.
+The test script and source can be found from v4 (below).
 
-> diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-> index 97c0ec3b822e7..4d0f3c412a900 100644
-> --- a/drivers/net/wireless/marvell/mwifiex/scan.c
-> +++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-> @@ -2137,11 +2137,18 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
->  	bss_info = scan_rsp->bss_desc_and_tlv_buffer;
->  
->  	/*
-> -	 * The size of the TLV buffer is equal to the entire command response
-> -	 *   size (scan_resp_size) minus the fixed fields (sizeof()'s), the
-> -	 *   BSS Descriptions (bss_descript_size as bytesLef) and the command
-> -	 *   response header (S_DS_GEN)
-> +	 * Validate that bss_descript_size fits within the response to
-> +	 * prevent an underflow in the TLV buffer size computation below.
->  	 */
-> +	if (bytes_left + sizeof(scan_rsp->bss_descript_size) +
-> +	    sizeof(scan_rsp->number_of_sets) + S_DS_GEN > scan_resp_size) {
-> +		mwifiex_dbg(adapter, ERROR,
-> +			    "SCAN_RESP: bss_descript_size %u exceeds resp size %u\n",
-> +			    bytes_left, scan_resp_size);
-> +		ret = -1;
-> +		goto check_next_scan;
-> +	}
-> +
+** Test Results **
 
-[Severity: High]
-Does this check actually bound the parse to the received buffer?  The
-reference used here is scan_resp_size, which comes from
-le16_to_cpu(resp->size) a few lines above, and resp->size is itself a
-firmware-supplied field.
+before the patch
 
-The dispatcher never reconciles it with the length of the skb that was
-actually received:
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=4778
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 268435456
 
-drivers/net/wireless/marvell/mwifiex/cmdevt.c:mwifiex_process_cmdresp() {
-	...
-	resp = (struct host_cmd_ds_command *)adapter->curr_cmd->resp_skb->data;
-	...
-}
+LEAK DETECTED: swapcached = 268435456 bytes (expected ~0)  [BUGGY kernel]
+```
 
-A grep for resp_skb->len in drivers/net/wireless/marvell/mwifiex/ returns
-no matches, and the only clamp against MWIFIEX_SIZE_OF_CMD_BUFFER is on the
-CMD_F_HOSTCMD copy path, which does not apply to the scan handler.  On PCIe
-the response buffer is allocated at MWIFIEX_UPLD_SIZE and then trimmed to
-the transport length:
+after the patch
 
-drivers/net/wireless/marvell/mwifiex/pcie.c:mwifiex_pcie_process_cmd_complete() {
-	...
-	rx_len = get_unaligned_le16(skb->data);
-	skb_put(skb, MWIFIEX_UPLD_SIZE - skb->len);
-	skb_trim(skb, rx_len);
-	...
-}
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=2601
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 0
 
-and on USB only an upper bound on skb->len is enforced in
-mwifiex_usb_recv().
+OK: swapcached = 0 bytes  [FIXED kernel]
+```
+---
+Changes in v5:
+- Refine the param description. (Kairui)
+- Collect Acked-by tags.
+- Link to v4: https://lore.kernel.org/r/20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com
 
-So can a response that carries only a couple of kilobytes but declares
-resp->size = 0xFFFF (with a small bss_descript_size) pass this new check
-and leave tlv_buf_size at roughly 64 KB?
+Changes in v4:
+- Update and use the correct fixes tag. (Kairui)
+- Briefly describe the context for @swapout param in the kdoc. (Kairui)
+- Cc the stable list. (Kairui)
+- Link to v3: https://lore.kernel.org/r/20260902-memcg-swapcache-stats-fix-v3-1-795f5d455f7b@tencent.com
 
-	tlv_buf_size = scan_resp_size - (bytes_left
-					 + sizeof(scan_rsp->bss_descript_size)
-					 + sizeof(scan_rsp->number_of_sets)
-					 + S_DS_GEN);
+Changes in v3:
+- Add doc for the new parameter.
+- Link to v2: https://lore.kernel.org/r/20260901-memcg-swapcache-stats-fix-v2-1-9caad330459b@tencent.com
 
-mwifiex_ret_802_11_scan_get_tlv_ptrs() then walks TLV headers with that
-bound, and mwifiex_parse_single_response_buf() consumes bytes_left
-descriptor bytes, both past the end of the real allocation.  If that is
-correct, the "TLV search to read past the response buffer" case described
-in the changelog is still reachable, just bounded at ~64 KB rather than
-unbounded.  Would it be better to anchor the check on
-adapter->curr_cmd->resp_skb->len (or validate/clamp resp->size against it
-in mwifiex_process_cmdresp()) instead of on resp->size?
+Changes in v2:
+- Update the commit message to describe the problem in the beginnning.
+- Change function declaration for !CONFIG_SWAP as well.
+- Link to v1: https://lore.kernel.org/r/20260831-memcg-swapcache-stats-fix-v1-1-1c0819ebdb86@tencent.com
+---
+ mm/swap.h       |  6 ++++--
+ mm/swap_state.c | 13 ++++++++++---
+ mm/vmscan.c     |  3 +--
+ 3 files changed, 15 insertions(+), 7 deletions(-)
 
-[Severity: Medium]
-Is the fixed-header term correct for the background-scan variant?  Earlier
-in mwifiex_ret_802_11_scan() the response can be the nested bgscan form:
+diff --git a/mm/swap.h b/mm/swap.h
+index 0b5d507739bcb..b3b54c28929a1 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -319,7 +319,8 @@ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+ void __swap_cache_add_folio(struct swap_cluster_info *ci,
+ 			    struct folio *folio, swp_entry_t entry);
+ void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-			    struct folio *folio, swp_entry_t entry, void *shadow);
++			    struct folio *folio, swp_entry_t entry, void *shadow,
++			    bool swapout);
+ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
+ 				struct folio *old, struct folio *new);
+ 
+@@ -452,7 +453,8 @@ static inline void swap_cache_del_folio(struct folio *folio)
+ }
+ 
+ static inline void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-		struct folio *folio, swp_entry_t entry, void *shadow)
++		struct folio *folio, swp_entry_t entry, void *shadow,
++		bool swapout)
+ {
+ }
+ 
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 305877e1f4d7b..625c185a1ca4d 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -306,21 +306,28 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
+  * @folio: The folio.
+  * @entry: The first swap entry that the folio corresponds to.
+  * @shadow: shadow value to be filled in the swap cache.
++ * @swapout: whether this folio is being reclaimed after swapout.
+  *
+  * Removes a folio from the swap cache and fills a shadow in place.
+  * This won't put the folio's refcount. The caller has to do that.
+  *
+  * Context: Caller must ensure the folio is locked and in the swap cache
+  * using the index of @entry, and lock the cluster that holds the entries.
++ * If @swapout is set, the folio should be in reclaim path and IRQs
++ * should be disabled.
+  */
+ void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *folio,
+-			    swp_entry_t entry, void *shadow)
++			    swp_entry_t entry, void *shadow, bool swapout)
+ {
+ 	unsigned long nr_pages = folio_nr_pages(folio);
+ 
+-	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ 	node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
+ 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
++
++	if (swapout)
++		__memcg1_swapout(folio, ci);
++
++	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ }
+ 
+ /**
+@@ -339,7 +346,7 @@ void swap_cache_del_folio(struct folio *folio)
+ 	swp_entry_t entry = folio->swap;
+ 
+ 	ci = swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(entry));
+-	__swap_cache_del_folio(ci, folio, entry, NULL);
++	__swap_cache_del_folio(ci, folio, entry, NULL, false);
+ 	swap_cluster_unlock(ci);
+ 
+ 	folio_ref_sub(folio, folio_nr_pages(folio));
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 245f68c75b289..29bced43b0ce6 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -755,8 +755,7 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
+ 
+ 		if (reclaimed && !mapping_exiting(mapping))
+ 			shadow = workingset_eviction(folio, target_memcg);
+-		__memcg1_swapout(folio, ci);
+-		__swap_cache_del_folio(ci, folio, swap, shadow);
++		__swap_cache_del_folio(ci, folio, swap, shadow, true);
+ 		swap_cluster_unlock_irq(ci);
+ 	} else {
+ 		void (*free_folio)(struct folio *);
 
-	if (is_bgscan_resp)
-		scan_rsp = &resp->params.bg_scan_query_resp.scan_resp;
-	else
-		scan_rsp = &resp->params.scan_resp;
+---
+base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
+change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
 
-and fw.h defines that variant with an extra 32-bit field ahead of the
-nested structure:
-
-struct host_cmd_ds_802_11_bg_scan_query_rsp {
-	__le32 report_condition;
-	struct host_cmd_ds_802_11_scan_rsp scan_resp;
-} __packed;
-
-Since resp->size counts from the start of struct host_cmd_ds_command, the
-fixed part for a HostCmd_CMD_802_11_BG_SCAN_QUERY response is
-S_DS_GEN + 4 + 3, not S_DS_GEN + 3.  Does that mean the new check accepts a
-bss_descript_size that extends four bytes past the firmware-declared
-response, and that tlv_buf_size is likewise four bytes too large, so
-mwifiex_ret_802_11_scan_get_tlv_ptrs() can accept a TLV header that lies
-partly outside the declared payload?  The resulting header.len is then
-trusted as the upper bound by the two new TSF/chan-band checks.  Would
-deriving the fixed size from the selected response variant be preferable to
-carrying the existing S_DS_GEN-only formula into the new guard?
-
->  	tlv_buf_size = scan_resp_size - (bytes_left
->  					 + sizeof(scan_rsp->bss_descript_size)
->  					 + sizeof(scan_rsp->number_of_sets)
-
-[ ... ]
-
-> @@ -2165,6 +2178,12 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
->  					     (struct mwifiex_ie_types_data **)
->  					     &chan_band_tlv);
->  
-> +	/* Validate chan-band TLV has enough entries for all reported BSS */
-> +	if (chan_band_tlv &&
-> +	    le16_to_cpu(chan_band_tlv->header.len) <
-> +	    scan_rsp->number_of_sets * sizeof(struct chan_band_param_set))
-> +		chan_band_tlv = NULL;
-> +
-
-[Severity: High]
-Can clearing chan_band_tlv here leave adapter->nd_info in an inconsistent
-state?  n_matches is published from number_of_sets regardless:
-
-	if (nd_config) {
-		adapter->nd_info =
-			kzalloc_flex(*adapter->nd_info, matches,
-				     scan_rsp->number_of_sets, GFP_ATOMIC);
-
-		if (adapter->nd_info)
-			adapter->nd_info->n_matches = scan_rsp->number_of_sets;
-	}
-
-but the per-entry allocation in the loop below is gated on chan_band_tlv:
-
-		if (chan_band_tlv && adapter->nd_info) {
-			adapter->nd_info->matches[idx] =
-				kzalloc(sizeof(*pmatch) + sizeof(u32),
-					GFP_ATOMIC);
-
-So with a short chan-band TLV, n_matches is non-zero while every
-matches[i] stays NULL.  mwifiex_ret_wakeup_reason() then hands that object
-to cfg80211:
-
-drivers/net/wireless/marvell/mwifiex/cfg80211.c:mwifiex_ret_wakeup_reason() {
-	...
-	if (wiphy->wowlan_config->nd_config)
-		wakeup_report.net_detect = adapter->nd_info;
-	...
-}
-
-and nl80211 dereferences the entries without a NULL check:
-
-net/wireless/nl80211.c:cfg80211_net_detect_results() {
-	...
-	for (i = 0; i < nd->n_matches; i++) {
-		struct cfg80211_wowlan_nd_match *match = nd->matches[i];
-		...
-		if (nla_put(msg, NL80211_ATTR_SSID, match->ssid.ssid_len,
-			    match->ssid.ssid)) {
-	...
-}
-
-Before this hunk a short chan-band TLV still produced a non-NULL
-chan_band_tlv (with the out-of-bounds read of chan_band_param[idx] the
-changelog describes), so does this trade that read for a NULL dereference
-on the wowlan wakeup report path?
-
-The same inconsistency looks reachable without this patch as well, when
-firmware omits the chan-band TLV entirely, when the GFP_ATOMIC kzalloc of a
-match fails, or when the loop exits early on bytes_left == 0 or the parse
-error goto.  Would setting n_matches after the loop to the number of
-entries actually populated, or dropping nd_info when the chan-band TLV is
-unusable, cover all of those?
-
->  #ifdef CONFIG_PM
->  	if (priv->wdev.wiphy->wowlan_config)
->  		nd_config = priv->wdev.wiphy->wowlan_config->nd_config;
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB0001DD15CC44F76B4BBD2853C8B32%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+Bingfang Guo <bingfangguo@tencent.com>
+
+
