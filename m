@@ -1,181 +1,118 @@
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C7947C112;
-	Thu, 10 Sep 2026 11:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318D547986B
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040809; cv=none; b=cV1Ku7oVUvasXv8YBIFLxZdfCeF4J2a25VDK3/jdiBzoE5WMIpRW2UzOUk1vyoWfJegs27RkE9LZKEyQU4vF/Vmb9MeY4Zrqtw/lrVcn1/Dz4kwMXjCS3PvwoFeKej8zXvvFBCOy4SGRutF++bYQaQXum+J8niZB0TOfBKzqJ/k=
+	t=1789040812; cv=none; b=CD6pAb2H/YW0VzSTDfnGi6muairj6pSDUytC/ibOQcWaYZ81M6aWf7EOr5pUsB5w+NSO7AIsWDw0wOLMCGvutdSx/iM/6R8q/jd/aEUCGmmj8/jq6lb2JYUokn/Qo0qs1ilr9KXoqOl/Cmmjor1TplFUg7nvr9AlXF6Gh+4EEc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040809; c=relaxed/simple;
-	bh=d7z6KPD6K9yAbT6rqth8+0jINVsF/Bf64K/NCCQDth4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NcaRyy2ZMkK1VvZ8bQ1ELq4Wh/dUC+NiaqiZL2P+M1hKxFYjvwDFIS0SIhR4etJrwTuHChhvGYCbzpNyD8L8oYOcMX2Z2i72+Kn51BAnHT4zQDWO+VhiATcLuoIuqyl5aDmbG/iD/c76aWeF+vtY71gbDjwjfIHgNz5eoiu2Pa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=AEcqfbDC; arc=none smtp.client-ip=52.12.53.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	s=arc-20240116; t=1789040812; c=relaxed/simple;
+	bh=F6lohWUYc2QNMuIHc/MWOd0fU5LKPXL3/YoO6V/UA94=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y7Kkp9C4Vch0iC5w5l1LOlZ8+32LkiBsuYyF/B22Wr5VbuUL5VX4tWYu5GZ9Q5/m4bcFHqQaFAq5WTodVqtAY7msSbs1UU0+1UdUeUsmWRk4yJZMG7nbx7ZsGyok+mvu83gaBlxgOvtrkrKHaSQcTJlUbNjbsXP1wtKNMAT6ORg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j32vg+/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="AEcqfbDC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1789040802; x=1820576802;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zIxMe7CUOIbyICiMyGkhisOqvvsyopgrlubg8GsVc3c=;
-  b=AEcqfbDCDXAvt011rwBnjlhxM/xy9gfu1gvUpXPZXotAMAjJ9Myhu5HM
-   nOLmFmTVnAnCR/mbrwijotmrd5la9u4SJq5zjGE8qLithggsmyZSOqaDj
-   rbPoQ26MVEYRXneC29m5Cr39l4u5rLBJQ/ZOAMc9xgMeneq4NM7cI7MOC
-   /qovnsQOaVGvSUZf7As3kazauQhjgKdaM/9HdyOJzTyUCdZ5ypaNn3gtp
-   T5qfCbnrlq+pwlsbna2DOwBhsRGLhs9LqfscnZl3iSXaGWuZnO/qBtl8b
-   ykPvVSmzksI8EH8T5tlNAKQ7RuGdVqf3g3Gq1/8QYrubGj8ZBvbXhjBHB
-   A==;
-X-CSE-ConnectionGUID: PrxB9U2pTCO3cOtOxIS8kQ==
-X-CSE-MsgGUID: 71u9WAD7TGq5z4s2L10l2A==
-X-IronPort-AV: E=Sophos;i="6.27,95,1787011200"; 
-   d="scan'208";a="28190348"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:46:36 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:31293]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
- id 723b55c1-1dd1-4458-a7f0-829821daf3d6; Thu, 10 Sep 2026 11:46:36 +0000 (UTC)
-X-Farcaster-Flow-ID: 723b55c1-1dd1-4458-a7f0-829821daf3d6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 10 Sep 2026 11:46:36 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 10 Sep 2026
- 11:46:31 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <akpm@linux-foundation.org>
-CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
-	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
-	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
-	<djwong@kernel.org>, <hannes@cmpxchg.org>, <hch@infradead.org>, <hch@lst.de>,
-	<jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
-	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <vbabka@suse.cz>, <willy@infradead.org>,
-	<ziy@nvidia.com>
-Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-Date: Thu, 10 Sep 2026 11:46:02 +0000
-Message-ID: <20260910114602.926944-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j32vg+/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6C11F000FF;
+	Thu, 10 Sep 2026 11:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789040807;
+	bh=KUB5e1oZPv+hl7t1ZEc3bPZ35WbuSPcniF5D8IqsfbE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j32vg+/i7zHJM2OEt0IMxsV0fzrJs1N6MZGr6iXXAmM8Iv2EuPe9NUkG24xOQ6o8J
+	 ydOjFNnDbIPy9vu8Bwl0UTzT26U+pLEe7M8FDuX6vWapv/R90nhhdcPUzX2ltRnCaK
+	 hGQtzdxMuOfzpy2RAOmQcL8O85dAmQkkxPeXFdRzqqWL84jKzCChD8s+rsLzzfcQ9Y
+	 5zg+VLz615Lns3SXO8N2FbsWapflsLmZWXBlWF8vzi5A2I9n2zKzcuXFODZBvsi2DM
+	 vX2bcepoJQcnRvovXh5xAH1tEvmrCGGjjG3qsIg2STlA6F32fD2Z9YCoo+n6ZDCPgn
+	 niSDcD7XcpTIA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] tracing/probes: Fix anon_stack check for unnamed bitfields in btf_find_struct_member
+Date: Thu, 10 Sep 2026 07:46:45 -0400
+Message-ID: <20260910114645.98172-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090811-scone-shakiness-7ec5@gregkh>
+References: <2026090811-scone-shakiness-7ec5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D035UWB002.ant.amazon.com (10.13.138.97) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-On Sat, 05 Sep 2026 17:42:39 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+[ Upstream commit f36d94a20ca185bcadef3a10b980cd2cfd72d53a ]
 
-> Is there anything particularly unusual about this test case?
+btf_find_struct_member() traverses into nested anonymous structures
+and unions by pushing members with !member->name_off onto anon_stack.
+However, it does not consider the unnamed bitfields (e.g. `int : 5`
+or `unsigned int : 0`) which also have member->name_off == 0.
 
-It is a stock pgbench simple-update PostgreSQL workload on a large
-instance (96 vCPUs), using standard PostgreSQL settings and with no huge
-pages assigned to the database. We deliberately overprovision the
-pgbench clients: 1024 clients over 96 threads. That keeps enough writers
-in the buffered write path concurrently to hit the costly-order
-allocation failure path continuously. The memory fragmentation comes from 
-page tables: PostgreSQL spawns a new process per client, and those page
-tables consume ~40% of memory, which significantly limits the page cache
-and the free memory available.
+If such an unnamed bitfield is pushed to anon_stack, the
+btf_find_struct_member() return an error even if there are other
+valid entries in anon_stack.
 
+To fix this, only push unnamed struct/union members to anon_stack.
+Also move the btf_type_is_struct() check to the entry of this function
+because now it is sure only struct/union are pushed to anon_stack.
 
-> > Results (average of 3 runs, TPS):
-> >
-> >   Config                   Avg TPS      % vs Baseline
-> >   baseline (no patch)       59,408       -
-> >   With this patch          155,409      +161.6%
->
-> Is this back to pre-5d8edfb900d5 performance?
+Link: https://lore.kernel.org/all/178827249775.123716.7813217688423513612.stgit@devnote2/
 
-Yes - fully recovered. Here is the summary, same host and workload
-throughout, average of 3 runs:
+Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+[ retained the existing kcalloc() allocation instead of upstream’s kzalloc_objs() call. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace_btf.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-  Config                                        Avg TPS   % vs baseline
-  AL2023 stock 6.1 kernel                       136,942            n/a
-  v7.3-rc1 baseline (no patch)                   59,408             -
-  v7.3-rc1, 5d8edfb900d5 behaviour reverted     151,184        +154.5%
-  v7.3-rc1 + v4                                 155,409        +161.6%
-
-The 6.1 row predates 5d8edfb900d5 entirely. A different kernel version,
-so not directly comparable, but it shows the performance this workload
-used to get on this host.
-
-A literal "git revert 5d8edfb900d5" does not apply to v7.3-rc1 -
-iomap_write_iter() has been rewritten since - so the reverted row is a
-one-line behavioural revert, forcing the write loop back to copying at
-most PAGE_SIZE per iteration:
-
-  -	size_t chunk = mapping_max_folio_size(mapping);
-  +	size_t chunk = PAGE_SIZE;
-
-which is what the pre-5d8edfb900d5 loop computed. That makes
-iomap_get_folio() pass no order hint, so the path issues only order-0
-allocations.
-
-
-> AI review asked a few serious-looking questions:
-> 	https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
-
-Thanks for pointing that out. To address them, we can have something
-like the patch below. Performance results are still similar to v4. Happy
-to submit a formal v5 patch with it if you would like.
-
-  Config                                        Avg TPS   % vs baseline
-  v7.3-rc1 baseline (no patch)                   59,408             -
-  v7.3-rc1 + v4                                 155,409        +161.6%
-  v7.3-rc1 + proposed patch                     161,994        +172.7%
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..be8b0d72a2db 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4784,10 +4784,22 @@ static inline struct page *
- __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 						struct alloc_context *ac)
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index 5bbdbcbbde3cd..40e66eb59abbc 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -74,24 +74,24 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
  {
--	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-+	/*
-+	 * Costly __GFP_NORETRY callers have a cheap fallback to a lower order,
-+	 * so don't stall them in direct reclaim or direct compaction.  Exempt
-+	 * __GFP_THISNODE (the THP attempt from alloc_pages_mpol() needs direct
-+	 * compaction) and __GFP_NOFAIL (must not be made to fail).  Don't
-+	 * clear __GFP_DIRECT_RECLAIM from gfp_mask instead: that would also
-+	 * change the alloc_flags derived by alloc_flags_slowpath().
-+	 */
-+	const bool costly_noretry = costly_order &&
-+		(gfp_mask & __GFP_NORETRY) &&
-+		!(gfp_mask & (__GFP_THISNODE | __GFP_NOFAIL));
-+	bool can_direct_reclaim = !costly_noretry &&
-+		(gfp_mask & __GFP_DIRECT_RECLAIM);
- 	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
- 	bool nofail = gfp_mask & __GFP_NOFAIL;
--	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
- 	struct page *page = NULL;
- 	unsigned int alloc_flags;
- 	unsigned long did_some_progress;
-
-
-Thanks,
-Salvatore
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
+ 	struct btf_anon_stack *anon_stack;
+ 	const struct btf_member *member;
++	const struct btf_type *mtype;
+ 	u32 tid, cur_offset = 0;
+ 	const char *name;
+ 	int i, top = 0;
+ 
++	if (!btf_type_is_struct(type))
++		return ERR_PTR(-EINVAL);
++
+ 	anon_stack = kcalloc(BTF_ANON_STACK_MAX, sizeof(*anon_stack), GFP_KERNEL);
+ 	if (!anon_stack)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ retry:
+-	if (!btf_type_is_struct(type)) {
+-		member = ERR_PTR(-EINVAL);
+-		goto out;
+-	}
+-
+ 	for_each_member(i, type, member) {
+ 		if (!member->name_off) {
+ 			/* Anonymous union/struct: push it for later use */
+-			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
++			mtype = btf_type_skip_modifiers(btf, member->type, &tid);
++			if (mtype && btf_type_is_struct(mtype) &&
+ 			    top < BTF_ANON_STACK_MAX) {
+ 				anon_stack[top].tid = tid;
+ 				anon_stack[top++].offset =
+-- 
+2.53.0
 
