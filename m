@@ -1,148 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4562C234E;
-	Thu, 10 Sep 2026 06:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C01E3C584F;
+	Thu, 10 Sep 2026 06:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021236; cv=none; b=f2gKAP/jDQUv/bmqYH6R8s07HqNY4YOkONHtrrLx5RZAyfuzSwgMm+LxrG11zHWB8LHRR/Bw9fBBhTEYzQ4hzJhyhbOwxlB8TQsD+NzA11CATmD6kS38JlhZlY70EONAoubzGD+wlP51rkCVtxyzqe5eO9i4beSC0a3khrtaiAY=
+	t=1789021639; cv=none; b=A+gRPZMbXczn907Wwy10uNO1VFGxB1hcppC/P+3Adq4pQy1PxegTkInZfaVRErQgVgx+2dIHILs6y7AKqp0IGPnGWwEOrwyMHTaqRgpohDhG2EUVEyTvbh+SiLlIrdzH8n8hu4397Ft0E/l+b+327CYo7Tjqrac5cpszlvQcv2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021236; c=relaxed/simple;
-	bh=OOjJqj+kZUo8t+tSlXF/nNDhYOBq8B+d+HdyuNNRjjE=;
-	h=Date:To:From:Subject:Message-Id; b=qeq9fI1+SszXlGZmOJGuXwVKo3vuDumk0+JlG+zXGZbAV0+1S5ENRaHVOuZQoS2M1TUrY0Ixs1+5yxEpMa6U+NjP+YngmT1sLuJRmB1PJU5n9GtAXSk7Z5EugD0NenUTwZX5rfb9fq32CPZ3CQxlN2UaYfS4YC6poJTZxuER0S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0lN3eS4C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789021639; c=relaxed/simple;
+	bh=6ALfx11zTl1d3VOOOPlF+PV+VUy+Z3ZCjmrjc7EuI8M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tpJfLBMLuhUdJUw19/YiHcSvKHOUxC5Ie539+A51zmLO7z3GsRLmAhpcRoYkDygFlyvqvr8RzNFfJMiS3JuWKsBhvaaWT7XpFdeji194PuIS1pHwTxUuoVIiTARyxvNYL6JMvrt1dYei2+4B25V8CwG+AU4EaVvijZhMfGsBhz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvM3mb9a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0lN3eS4C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BDF1F00893;
-	Thu, 10 Sep 2026 06:20:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789021226;
-	bh=jyO5zDQFnkFvl83LZFuJ758xx6PqDyuUGAft9EfDLrw=;
-	h=Date:To:From:Subject;
-	b=0lN3eS4CiG5UdalPBucE7xlUV82dkaNqcBRCJtcq7OYNGCGAn74PnG9M3MssvzlRh
-	 JvrdgECU5CQIhw/ykcwdLvjSw+D4643OXZK/2qf8YgSASDO2xPYc+q9x6nzryhRrOC
-	 DZCxcbQlKE16XLBgQ0HkujNQTKYqEQsSH2zvy2h8=
-Date: Wed, 09 Sep 2026 23:20:25 -0700
-To: mm-commits@vger.kernel.org,weir@nebusec.ai,vega@nebusec.ai,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,notasas@gmail.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,rakukuip@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memory-constrain-generic_access_phys-to-page-boundary.patch added to mm-unstable branch
-Message-Id: <20260910062026.25BDF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvM3mb9a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794B31F00893;
+	Thu, 10 Sep 2026 06:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789021638;
+	bh=LmQPSlIMbNQbZmsXoI9th3BPOmA0NlJk3Q3TI/x65hU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PvM3mb9agP01/lQLKr4p91SLp5u+VQ8eds92E9c0+OUszvw9Y2KMGp6azJ2oU9NFZ
+	 g1eU7hq/PuvgPAlFgvcH8FncsC6EGL6EtUe1+Q/Gojen5+nuEdK7XfWv529QXl4P2N
+	 NKijP5GnrArOtmCjAFLlZG85HvP4JMWkCfOFKLjNsCv32cKaJBZwvMvOIZpWxlndKo
+	 LQA2nNvgE2/x60f7tpNAm/AsFwddqHAtQqMRwEVn5qax96RlWi3thohHZQUYm/tkoy
+	 ARYnQgC2R+5wJARjt1Xz8Drh5lY8cSgIOtHzVqRezawAzLOhBhuMGlT7uqoXjeStId
+	 7R/8Qq2TrxQqw==
+Date: Thu, 10 Sep 2026 08:27:13 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, dgc@kernel.org, floss@jetm.me, 
+	stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/7] xfs: fix under-reservation of blocks when repairing
+ sf directories
+Message-ID: <aqJNVGbubjNJ9WG5@andromeda.toxiclabs.cc>
+References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
+ <178892936640.4057962.1916451282677820756.stgit@frogsfrogsfrogs>
+ <20260910050031.GB26687@lst.de>
+ <aqJANTuQQMEIqcmO@andromeda.toxiclabs.cc>
+ <20260910060907.GC6253@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910060907.GC6253@frogsfrogsfrogs>
 
+On Wed, Sep 09, 2026 at 11:09:07PM -0700, Darrick J. Wong wrote:
+> On Thu, Sep 10, 2026 at 07:31:37AM +0200, Carlos Maiolino wrote:
+> > On Thu, Sep 10, 2026 at 07:00:31AM +0200, Christoph Hellwig wrote:
+> > > On Tue, Sep 08, 2026 at 11:04:35PM -0700, Darrick J. Wong wrote:
+> > > > +static inline unsigned int
+> > > > +xrep_tempexch_estimate_sf_resblks(
+> > > > +	struct xfs_scrub	*sc,
+> > > > +	int			whichfork)
+> > > > +{
+> > > > +	if (whichfork == XFS_ATTR_FORK)
+> > > > +		return sc->mp->m_attr_geo->fsbcount;
+> > > > +	if (S_ISDIR(VFS_I(sc->ip)->i_mode))
+> > > > +		return sc->mp->m_dir_geo->fsbcount;
+> > > > +	return 1;
+> > > 
+> > > geo->fsbcount for attrs is a always 1 and a lot of code relies on that,
+> > > so this feels a bit overcomplicated and misleading (but still correct).
+> > > 
+> > > What about the more usual:
+> > > 
+> > > 	if (S_ISDIR(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
+> > > 		return sc->mp->m_dir_geo->fsbcount;
+> > > 	return 1;
+> 
+> I prefer not to leave a logic bomb in the scrub code in case we ever
+> have multi-fsblock attr blocks.
+> 
+> Though I guess I'd be ok with
+> 
+> 	ASSERT(mp->m_attr_geo->fsbcount == 1);
+> 
+> 	if (S_ISDIR(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
+> 		return sc->mp->m_dir_geo->fsbcount;
+> 	return 1;
+> 
+> or something like that?
 
-The patch titled
-     Subject: mm/memory: constrain generic_access_phys() to page boundary
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-memory-constrain-generic_access_phys-to-page-boundary.patch
+That sounds good to me too.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memory-constrain-generic_access_phys-to-page-boundary.patch
+Between all three I prefer the first explicit, self-documenting one, but
+I have no strong feelings for any.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+I agree about not leaving any magic numbers unchecked though.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Luxiao Xu <rakukuip@gmail.com>
-Subject: mm/memory: constrain generic_access_phys() to page boundary
-Date: Thu, 10 Sep 2026 11:42:50 +0800
-
-This patch addresses an issue in generic_access_phys() where accessing
-memory across page boundaries in PFNMAP VMAs assumes physical pages are
-contiguous, which can lead to accessing unintended physical memory or
-exceeding VMA boundaries.
-
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
-
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
-
-Constrain the access in generic_access_phys() to at most the current page
-boundary (PAGE_SIZE - offset) and map only a single PAGE_SIZE via
-ioremap_prot().  Since the caller __access_remote_vm() already loops over
-the requested length and handles partial transfers, it will naturally
-iterate over the remaining pages.
-
-Also add a missing (resource_size_t) cast during PFN re-validation to
-avoid truncation on 32-bit PAE systems.
-
-Link: https://lore.kernel.org/e06e28a46c2a176238f03b5740df0913e57c2861.1788842306.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Suggested-by: David Hildenbrand <david@kernel.org>
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/memory.c |   10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
---- a/mm/memory.c~mm-memory-constrain-generic_access_phys-to-page-boundary
-+++ a/mm/memory.c
-@@ -7131,6 +7131,12 @@ int generic_access_phys(struct vm_area_s
- 	bool writable;
- 	struct follow_pfnmap_args args = { .vma = vma, .address = addr };
- 
-+	/*
-+	 * Limit access to one page at a time, as that's what follow_pfnmap_start()
-+	 * guarantees; expect the caller to retry to read larger ranges.
-+	 */
-+	len = min_t(int, len, PAGE_SIZE - offset);
-+
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
-@@ -7142,7 +7148,7 @@ retry:
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
- 
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
- 
-@@ -7150,7 +7156,7 @@ retry:
- 		goto out_unmap;
- 
- 	if ((pgprot_val(prot) != pgprot_val(args.pgprot)) ||
--	    (phys_addr != (args.pfn << PAGE_SHIFT)) ||
-+	    (phys_addr != ((resource_size_t)args.pfn << PAGE_SHIFT)) ||
- 	    (writable != args.writable)) {
- 		follow_pfnmap_end(&args);
- 		iounmap(maddr);
-_
-
-Patches currently in -mm which might be from rakukuip@gmail.com are
-
-mm-memory-constrain-generic_access_phys-to-page-boundary.patch
-
+> 
+> > Either are fine to me so feel free to add:
+> > 
+> > Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+> 
+> But only if Carlos really wants me to add that.
+> 
+> --D
+> 
+> > 
+> > > 
+> > > ?
+> > > 
+> > > Otherwise looks good:
+> > > 
+> > > Reviewed-by: Christoph Hellwig <hch@lst.de>
+> > > 
+> 
