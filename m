@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5810946EF7C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD5F3DD875
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038514; cv=none; b=uAR7J3rhyRgGjhSqNYF/V7EqMGhZsTNuYWq31i2tAaqreplOXOsHeOFZ+1GZYnRjJgRTxJqeO5xd9DWYYtvwpOYhg+mLj3kMQSUwNe+0qyBmSzD+ikD2pAxwwuxlLpdIyHAMApm4WQygnnjbjsn8fThyGf4MgezufgmgysgGfC4=
+	t=1789038515; cv=none; b=W1x97lQqkAs8FCV5qdQFIQNDtkO2hARXa/rmEBCgqfQmdvoECCjk7bAvtHeBffbKzA81PeDOWiyd3NuWuTO7DhiiNbtboiGTjbObCZxsVaE7icRZt0JTrEBDFDHcZ3XK29n2/qIy2KzVkKgLSqv/8WbLmennPn/8FcF4E8eVYnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038514; c=relaxed/simple;
-	bh=eeval3mlN14BLX+UUyTdBXA7l62Yog8acuj12iWe0rA=;
+	s=arc-20240116; t=1789038515; c=relaxed/simple;
+	bh=QU+ffykY60X7ScUqvbgHLNRK2aEWzCnMLAreGIHAChI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=he8pXrPSF5aCPVK/OduzC6tKGfErZ3Pbwvw5chDgXZLHrHH9SnLH5oDkqU45Wz5/Y8k8frZBJDhZa4vvT6F17kUGcxr3Wzw3KI/23N2SgbPrNs/4jyOVU1d2ABG08FU/AXM17pPa0omcm+HPS+NDRqDgH1Y0BUWeTCReCnj1n4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBj4LEj7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jRjKCCvwH9CkuqJgcrKvmXXXPJn+Hs5rL/HQVN5PLrIpWf8cIWRTziXN2wl+z5/Gmox0/24f7ed44htsFhOsHHxhL1CjBGXOHXifUOq10xlRI8ZdkeaMBsml+FNhykzHwT+bBt9r9oYMjhpYWqQ9A8b8BZfsTVUqFxHPIziaD9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YigW1Qon; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBj4LEj7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE051F000FF;
-	Thu, 10 Sep 2026 11:08:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YigW1Qon"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F041F00893;
+	Thu, 10 Sep 2026 11:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038512;
-	bh=wAnwLI1JcB1MnyerldDAsVw1QgazkfoB9lQ7rlWyTP0=;
+	s=k20260515; t=1789038513;
+	bh=cjJfFaeSlBJWmescM8zvwxHScxS6TYCESGaP8kw9DVU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jBj4LEj7VHrbZGmXnZgl8btUYgGmL2SBK3D5itmwwNsc1xe8FLA2Noan2RCYfMzTb
-	 k9LCyVN4a9IPGbdhdy3D56rNkTKoveYbNUvfJf6Rp3y2wU5Cwhse77Oc6+99zmJvNe
-	 5OB7FRyJ3pN4n+/LKFQDebIBm5UaQpo0B9MRmrKjpndHssUb47TXfTJPWnuPYthUuB
-	 POLSrMWTaPm5LtWCXwv/lE9u8ohZDwtzo9dRm0XRt+BfgqvaUU0u7DlZO0g47o02gP
-	 4p+pTvTQcowsyAin8pplXmLICZRkE/b1Tq1Rm2lEcnreslnL5PfcSysUxdPlRw2PIP
-	 U3FYB3KCouOHg==
+	b=YigW1QonOJOcLV8zJyTUAK4ONyX4pUUxP0uz7B81y8AwCLrUJyGld+b4eVbQe8fMU
+	 ME2lp8gCZNNJoB0IvASFpwdu8VR0BzTUudoYKiPLYegtiGhRKe5vXGYu5cgTEKJKeB
+	 iypfWkxfbFZPo/6XxcXMnTLW4l5eZDntWSDkBYJh6YqctqOPGwTlma62KF/jptJ5o9
+	 2kwlErO38wDQu4KHUVLTEfhUjXjwCd3n1OuivVx0VM9GtVO/dHPJvQvyZSbezgCwSq
+	 VPSWIKC9E/4L7/DxZYQeOKRUlky5mWESLPUvYM1oSswWN6t4mDUyHPI2eIxfFfqd2R
+	 jW+d4pf4cG1/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michal Pecio <michal.pecio@gmail.com>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] usb: xhci: Remove unused parameters of next_trb()
-Date: Thu, 10 Sep 2026 07:08:27 -0400
-Message-ID: <20260910110830.4144529-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] usb: xhci: Fix sum_trb_lengths()
+Date: Thu, 10 Sep 2026 07:08:28 -0400
+Message-ID: <20260910110830.4144529-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090811-curler-hatchet-10b9@gregkh>
+In-Reply-To: <20260910110830.4144529-1-sashal@kernel.org>
 References: <2026090811-curler-hatchet-10b9@gregkh>
+ <20260910110830.4144529-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,77 +49,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Michal Pecio <michal.pecio@gmail.com>
 
-[ Upstream commit 6b2eb0621ffb3ee9f3e497b483e8088436bdb07e ]
+[ Upstream commit ae71f9b88e5a15fed17a432e21c30ee9463ed1a4 ]
 
-The function has two parameters which it doesn't use and hasn't ever
-used. One caller even puts NULL there, knowing it will work anyway.
+This function is supposed to sum the lengths of all transfer TRBs in
+a TD up to a point, but it starts summing at the current dequeue since
+it only ever gets called on the first pending TD.
+
+This won't work when there are cancelled TDs at the beginning of the
+ring. The function tries to exclude No-Ops from the count, but not all
+cancelled TDs are No-Op'ed - not those the HW stopped on.
+
+The absolutely obvious fix is to start counting at the TD's first TRB.
+And remove the now-useless 'ring' parameter, and 'xhci' too.
 
 Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://lore.kernel.org/r/20241106101459.775897-3-mathias.nyman@linux.intel.com
+Link: https://lore.kernel.org/r/20241106101459.775897-4-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: ff44dfb03a29 ("xhci: fix lost bounce buffers on TDs spanning several ring segments")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/usb/host/xhci-ring.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 2f20faa90b246..486c8afd81706 100644
+index 486c8afd81706..85d68e74e86a8 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -140,10 +140,8 @@ static void trb_to_noop(union xhci_trb *trb, u32 noop_type)
-  * TRB is in a new segment.  This does not skip over link TRBs, and it does not
-  * effect the ring dequeue or enqueue pointers.
-  */
--static void next_trb(struct xhci_hcd *xhci,
--		struct xhci_ring *ring,
--		struct xhci_segment **seg,
--		union xhci_trb **trb)
-+static void next_trb(struct xhci_segment **seg,
-+			union xhci_trb **trb)
- {
- 	if (trb_is_link(*trb)) {
- 		*seg = (*seg)->next;
-@@ -444,9 +442,9 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
- 	 * avoiding corrupting the command ring pointer in case the command ring
- 	 * is stopped by the time the upper dword is written.
- 	 */
--	next_trb(xhci, NULL, &new_seg, &new_deq);
-+	next_trb(&new_seg, &new_deq);
- 	if (trb_is_link(new_deq))
--		next_trb(xhci, NULL, &new_seg, &new_deq);
-+		next_trb(&new_seg, &new_deq);
- 
- 	crcr = xhci_trb_virt_to_dma(new_seg, new_deq);
- 	xhci_write_64(xhci, crcr | CMD_RING_ABORT, &xhci->op_regs->cmd_ring);
-@@ -694,7 +692,7 @@ static int xhci_move_dequeue_past_td(struct xhci_hcd *xhci,
- 		    link_trb_toggles_cycle(new_deq))
- 			new_cycle ^= 0x1;
- 
--		next_trb(xhci, ep_ring, &new_seg, &new_deq);
-+		next_trb(&new_seg, &new_deq);
- 
- 		/* Search wrapped around, bail out */
- 		if (new_deq == ep->ring->dequeue) {
-@@ -774,7 +772,7 @@ static void td_to_noop(struct xhci_hcd *xhci, struct xhci_ring *ep_ring,
- 		if (trb == td->last_trb)
- 			break;
- 
--		next_trb(xhci, ep_ring, &seg, &trb);
-+		next_trb(&seg, &trb);
- 	}
+@@ -2354,13 +2354,12 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 	return xhci_td_cleanup(xhci, td, ep_ring, td->status);
  }
  
-@@ -2364,7 +2362,7 @@ static int sum_trb_lengths(struct xhci_hcd *xhci, struct xhci_ring *ring,
- 	union xhci_trb *trb = ring->dequeue;
- 	struct xhci_segment *seg = ring->deq_seg;
+-/* sum trb lengths from ring dequeue up to stop_trb, _excluding_ stop_trb */
+-static int sum_trb_lengths(struct xhci_hcd *xhci, struct xhci_ring *ring,
+-			   union xhci_trb *stop_trb)
++/* sum trb lengths from the first trb up to stop_trb, _excluding_ stop_trb */
++static u32 sum_trb_lengths(struct xhci_td *td, union xhci_trb *stop_trb)
+ {
+ 	u32 sum;
+-	union xhci_trb *trb = ring->dequeue;
+-	struct xhci_segment *seg = ring->deq_seg;
++	union xhci_trb *trb = td->first_trb;
++	struct xhci_segment *seg = td->start_seg;
  
--	for (sum = 0; trb != stop_trb; next_trb(xhci, ring, &seg, &trb)) {
-+	for (sum = 0; trb != stop_trb; next_trb(&seg, &trb)) {
+ 	for (sum = 0; trb != stop_trb; next_trb(&seg, &trb)) {
  		if (!trb_is_noop(trb) && !trb_is_link(trb))
- 			sum += TRB_LEN(le32_to_cpu(trb->generic.field[2]));
- 	}
+@@ -2550,7 +2549,7 @@ static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		goto finish_td;
+ 
+ 	if (sum_trbs_for_length)
+-		frame->actual_length = sum_trb_lengths(xhci, ep->ring, ep_trb) +
++		frame->actual_length = sum_trb_lengths(td, ep_trb) +
+ 			ep_trb_len - remaining;
+ 	else
+ 		frame->actual_length = requested;
+@@ -2633,7 +2632,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		goto finish_td;
+ 	case COMP_STOPPED_LENGTH_INVALID:
+ 		/* stopped on ep trb with invalid length, exclude it */
+-		td->urb->actual_length = sum_trb_lengths(xhci, ep_ring, ep_trb);
++		td->urb->actual_length = sum_trb_lengths(td, ep_trb);
+ 		goto finish_td;
+ 	case COMP_USB_TRANSACTION_ERROR:
+ 		if (xhci->quirks & XHCI_NO_SOFT_RETRY ||
+@@ -2654,7 +2653,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		td->urb->actual_length = requested - remaining;
+ 	else
+ 		td->urb->actual_length =
+-			sum_trb_lengths(xhci, ep_ring, ep_trb) +
++			sum_trb_lengths(td, ep_trb) +
+ 			ep_trb_len - remaining;
+ finish_td:
+ 	if (remaining > requested) {
 -- 
 2.53.0
 
