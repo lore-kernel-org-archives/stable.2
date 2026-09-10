@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38372F3C3E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:00:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF79B28690
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:00:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002034; cv=none; b=mWu58ik/kxGFkwVQPLgAkJCeRF4qAELIGcyttSH+PdL+Lqgt4wiN6vWV9O0/HT9IutexC+agRiPlskFW2duCT1y3lGbc5FsRQ/VlLUtBm+/JlGTPdxPgDAp0Ovz0TUmj/tPqlVplgGtSzIDcNAr8nhv+Yn1QxF41p5cT6QZPibo=
+	t=1789002037; cv=none; b=hsKodXhMLo8FoQoMZVD1CeAdFm2G15895DpqufzEHZAp4ZmSygMThJN1eVZ8UTo6LeWSCPYDu0l3782L5KWDhfZujAOsGfMiEb4ZNN6uTU4iXmPYTDfzMi0CWdtUe8AyinaBtXvZZagIsoPyBDRBMTezKrduLVP5z1grkgz6TNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002034; c=relaxed/simple;
-	bh=RUkuGpKV7Vx2xcosagoqyAB6lnwvfn9vEFgn/8VglvU=;
+	s=arc-20240116; t=1789002037; c=relaxed/simple;
+	bh=wj+Hgz6bd9YJxnrgsxqXLm8CUWahz55fZ4+oPSEB+hQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kAhlIF0WJcgkhnGit/RhaRIPhDyDm30ueDGP9/NOp506QRIP0vbTRgPv274DaO6prpwjLh8xYDgebCQAQ1ok5+S7+mImfOkv/Hbh6HmmuqFT21zcHQAzAaRsPlbSS1jba4F7VLCFdHkSWZBJ19qG36gkjlkgyVDJMc4sK3idmII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XvW+LRkm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VPRzc88/qxRcH7fnIiZV08ZbQ9/k336iyZ8xWUVLYLL2EHzNCJXW7Pv9KwfqdPEIzC/kjQ0xASRHZ5uy1lYOr0O9Yaw3u6FRecmx4+huOFRS2jiAyxPh4kWfBBx97/mB7mwh+rOrvdGCqLq1hGHJOD6hxonzF4cOim7VrHdjkg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aTxrKy3q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XvW+LRkm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415B71F000FF;
-	Thu, 10 Sep 2026 01:00:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aTxrKy3q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26101F00893;
+	Thu, 10 Sep 2026 01:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002032;
-	bh=Texw+b76z24+aw2SBrvESrpX2GUrADF1oPhi+vZF0hM=;
+	s=k20260515; t=1789002035;
+	bh=J7mdJzbPGj9mlUJ6ge52wtoq+iZRohAZ1PpPBC4u50o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XvW+LRkm6o+btfhOcIo+H82fhb1vsA2vPNm0AMwwntW6JPgNSj+hViy0Fn8ISfvgQ
-	 bX9d5dtqMYS7J06124NIkVEPJLdSWNQJrmp48+ok3U/gkQ6sV6L6Ce2wxrVJKvZow9
-	 HEI5WGp9Oh3hHF8SVM18GAqX1/3GlZEywA18uSb2W0scHFiJchGNWuz8Sne29MBzsF
-	 lI933Tqh3puNZHwtYQaQgjLphpNbnx9aBSYI24bwQ9e5vcaT+gu/KgrBqDsKZn8yc+
-	 Y+D8FmkGMhZP7+MbcbTEB0H5+ygPItMFr9RzfuXAoK/3l68YCSDaSF5XpPunczzBLX
-	 Y1ae6HnOIlxDg==
+	b=aTxrKy3qwb0rFFYZiypjwdbxIKNPvKvgxyenS/kP/laskWXQgsesCXTb+LZ3wPZ3z
+	 Gg6zeEktEOAsyAKrBOD6gahoRZt/Qvp1rUEZQDTQMmbEeBxMwdv5w9FM2wdIadkA79
+	 HVMOUF4nzGANre9pCM6wP3c4Y7Z4unA4Gt5WJmbuqFnVbYLljrIj7CHJw57aIm6uqI
+	 OjmJWhqk2VZifUoaYvciAy5p1bKNorvhziq9ZULNjVYXv7N77qu0zcV74HG0Ev/JYn
+	 hhYMx9guo2DFUFPLkOzQzpoPHKpflKRF81z9nSo8aTiU0S8DeWueW7saXzf73170Y8
+	 gIMposDfG4WUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Bryam Vargas <hexlabsecurity@proton.me>,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] dm-pcache: bound the logical key offset from persistent memory
-Date: Wed,  9 Sep 2026 21:00:29 -0400
-Message-ID: <20260910010029.3788785-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] dm-pcache: reject a kset that overruns its segment
+Date: Wed,  9 Sep 2026 21:00:31 -0400
+Message-ID: <20260910010031.3788894-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090433-clothing-lyricist-8896@gregkh>
-References: <2026090433-clothing-lyricist-8896@gregkh>
+In-Reply-To: <2026090426-rebirth-deflected-dbea@gregkh>
+References: <2026090426-rebirth-deflected-dbea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,50 +47,98 @@ Content-Transfer-Encoding: 8bit
 
 From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 97fc4b53dbe4a983fdf093243067fa6a64562307 ]
+[ Upstream commit 7ac1f10f987a2ffae4aecf0e2ceca8f552b665cb ]
 
-cache_key_decode() takes a key's logical off from the cache device and
-later indexes req_key_tree->subtrees[] by it in get_subtree(). An off
-past the device forms a subtree pointer outside the array, which
-rb_insert() writes through during replay.
+cache_replay(), the writeback worker and the GC worker read a kset of
+get_kset_onmedia_size() bytes and advance the position by it. A forged
+key_num makes that size exceed the segment's remaining space, so the
+advance walks past the segment and trips the cache_pos_advance() BUG_ON.
 
-Reject a key of zero length, or whose off+len (computed in 64 bits)
-exceeds the device size, before it is used.
+Reject a kset whose on-media size exceeds cache_seg_remain() before use.
 
 Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ adjusted context to account for the missing cache_seg_id_valid() check. ]
+[ backported missing writeback_errors support from the upstream dependency. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-pcache/cache_key.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/md/dm-pcache/cache.h           | 1 +
+ drivers/md/dm-pcache/cache_gc.c        | 5 +++++
+ drivers/md/dm-pcache/cache_key.c       | 5 +++++
+ drivers/md/dm-pcache/cache_writeback.c | 8 ++++++++
+ 4 files changed, 19 insertions(+)
 
+diff --git a/drivers/md/dm-pcache/cache.h b/drivers/md/dm-pcache/cache.h
+index afc112b79496a..93c1e699a3944 100644
+--- a/drivers/md/dm-pcache/cache.h
++++ b/drivers/md/dm-pcache/cache.h
+@@ -180,6 +180,7 @@ struct pcache_cache {
+ 		u32 advance;
+ 		int ret;
+ 	} writeback_ctx;
++	atomic_t		writeback_errors;
+ 
+ 	char gc_kset_onmedia_buf[PCACHE_KSET_ONMEDIA_SIZE_MAX];
+ 	struct delayed_work	gc_work;
+diff --git a/drivers/md/dm-pcache/cache_gc.c b/drivers/md/dm-pcache/cache_gc.c
+index 3088cfef951bc..99999a92c4e67 100644
+--- a/drivers/md/dm-pcache/cache_gc.c
++++ b/drivers/md/dm-pcache/cache_gc.c
+@@ -134,6 +134,11 @@ void pcache_cache_gc_fn(struct work_struct *work)
+ 			continue;
+ 		}
+ 
++		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&key_tail)) {
++			atomic_inc(&cache->gc_errors);
++			return;
++		}
++
+ 		for (i = 0; i < kset_onmedia->key_num; i++) {
+ 			struct pcache_cache_key key_tmp = { 0 };
+ 
 diff --git a/drivers/md/dm-pcache/cache_key.c b/drivers/md/dm-pcache/cache_key.c
-index a3bb1f95afb90..e21ca33c731da 100644
+index a3bb1f95afb90..c39e642f1feb9 100644
 --- a/drivers/md/dm-pcache/cache_key.c
 +++ b/drivers/md/dm-pcache/cache_key.c
-@@ -90,10 +90,19 @@ int cache_key_decode(struct pcache_cache *cache,
- 			struct pcache_cache_key *key)
- {
- 	struct dm_pcache *pcache = CACHE_TO_PCACHE(cache);
-+	u64 dev_bytes = (u64)cache->dev_size << SECTOR_SHIFT;
+@@ -811,6 +811,11 @@ int cache_replay(struct pcache_cache *cache)
+ 		}
  
- 	key->off = key_onmedia->off;
- 	key->len = key_onmedia->len;
+ 		/* Replay the kset and check for errors. */
++		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(pos)) {
++			ret = -EIO;
++			goto out;
++		}
++
+ 		ret = kset_replay(cache, kset_onmedia);
+ 		if (ret)
+ 			goto out;
+diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm-pcache/cache_writeback.c
+index 3df8687e2382f..656e4d0489121 100644
+--- a/drivers/md/dm-pcache/cache_writeback.c
++++ b/drivers/md/dm-pcache/cache_writeback.c
+@@ -229,6 +229,9 @@ void cache_writeback_fn(struct work_struct *work)
+ 	if (pcache_is_stopping(pcache))
+ 		goto unlock;
  
-+	if (key_onmedia->len == 0 ||
-+	    key_onmedia->len > dev_bytes ||
-+	    key_onmedia->off > dev_bytes - key_onmedia->len) {
-+		pcache_dev_err(pcache, "key off %llu + len %u exceeds device size\n",
-+				key_onmedia->off, key_onmedia->len);
-+		return -EIO;
++	if (atomic_read(&cache->writeback_errors))
++		goto unlock;
++
+ 	kset_onmedia = (struct pcache_cache_kset_onmedia *)cache->wb_kset_onmedia_buf;
+ 
+ 	mutex_lock(&cache->dirty_tail_lock);
+@@ -246,6 +249,11 @@ void cache_writeback_fn(struct work_struct *work)
+ 		goto queue_work;
+ 	}
+ 
++	if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&dirty_tail)) {
++		atomic_inc(&cache->writeback_errors);
++		goto unlock;
 +	}
 +
- 	key->cache_pos.cache_seg = &cache->segments[key_onmedia->cache_seg_id];
- 	key->cache_pos.seg_off = key_onmedia->cache_seg_off;
- 
+ 	ret = cache_kset_insert_tree(cache, kset_onmedia);
+ 	if (ret) {
+ 		delay = PCACHE_CACHE_WRITEBACK_INTERVAL;
 -- 
 2.53.0
 
