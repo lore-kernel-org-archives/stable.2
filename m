@@ -1,205 +1,245 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC7B3B8D79;
-	Thu, 10 Sep 2026 04:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72FD39B972;
+	Thu, 10 Sep 2026 04:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015525; cv=none; b=a+ovE4qBVXHodLFs5Y3LkNotGxtd/k+Qg//UrYksy2N3Y/7r3DOZ8IZ/b6fhkmuwcB9ef3KUMBoOwGF2jg7+gyBLAs0pBqawc08Rhyr66PgoLJSKdijnTyj0PzVr0gfwD6YKGi+8Mabj0t7qmlg01E8QnqOUynQ+j6nJa3kaLqE=
+	t=1789015939; cv=none; b=oAPieVJib/opsXU8HNzE+pC7yGD8iePLi+z6hD7uR0Do4GE3ofa2MWBtx4I60CoOO/ctzENdvmWH+z9aPzpm/rjNESanudOp0uVomA/xVPlTc1l231C+snBGjIahfHwpuNZKVAVdV+ok0+B6cQjs7+fTMjh4gzbMVAHbvEcXPUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015525; c=relaxed/simple;
-	bh=yQe12d99Rn305gPi0P4nNv0qtfQGs+VD9cmRc4inoxU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R2/pjzFNrAEiqI1SOcS607t0TISdaFPWNGehJitlYiPEpj3U/7g+DL6amqFNFruI2tUCj7xcIX4e2wpvyZ4ySd9n5jXIACtXeMREAgj7wCsOtJvbYmhvN687rL05h0ZbsPUWMmiXIySqStPZG681OoJRg7LHSod6hvLaZ2WvgLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YxHcM2J4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789015939; c=relaxed/simple;
+	bh=0Lm51wTH9VGr/i6Wdxm7m04pe2ecCcXI0ZrykPiipJo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mbVWzFSM+n81DbelHkitutr/8J8M167Tjz+qMY66rZ92dg/6TJGpNECYwbFGuE4euIe9A8btci/3In5V2IHnQROXTED9yaRU9PNugAe/P8Wuc9daVnjDvuhQiUW+/D3qb6z3SM8lHUKRn42HP/ZqqMhxfbZqiqPLlGQABZ+tSJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIkmSJQi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YxHcM2J4"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A21dsb3820627;
-	Thu, 10 Sep 2026 04:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=937gEZ
-	2FAmvZr3axh7N0QR7cgV6dr8mEQI5M5QgHgXI=; b=YxHcM2J4ZP25lbnNP9pyrL
-	IjDVN8ywBNMhOW5z9n5G5I3nDrD2ttFP/3rCYYx62WzTgaPnKMVOTMRkAH12jWrO
-	EFYYy35jBMZBfd4N2pO2uxBeHS6JhR5UrdgdoRLngylnEAMk+Evd6Z9vU1bvqQzU
-	7mRN2cmm3HmFG064Bz5jrxl+Z8m7YMx/1MSmL6mXyr2GpVFOQaVJVvAFjTk08r51
-	5J6z1CV6rKtggvABwNU8GaZl2ThiwgVXOsq3b5I2tKdWDteVkH+AYUCCe6PuLmlH
-	WzVv8kYJUt0gHL0XVdYWFRJZKPH65ihTa65ZmkFeKM/6MABTtedjhP0odltm0hgw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8n2bfd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 04:45:06 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A4frwP026362;
-	Thu, 10 Sep 2026 04:45:05 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkcr3afde-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 04:45:05 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A4j3Fc32702916
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 04:45:03 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2115E2004D;
-	Thu, 10 Sep 2026 04:45:03 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 68F6420043;
-	Thu, 10 Sep 2026 04:44:59 +0000 (GMT)
-Received: from [9.123.7.154] (unknown [9.123.7.154])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 10 Sep 2026 04:44:59 +0000 (GMT)
-Message-ID: <3e27a805-36e7-4423-b3d1-4e84b4c8f434@linux.ibm.com>
-Date: Thu, 10 Sep 2026 10:14:57 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIkmSJQi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6ECC1F000FF;
+	Thu, 10 Sep 2026 04:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789015937;
+	bh=15HFrqWF/+MQsMOouFb0s1rwFayiwTbtk9+s3/wEPWo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YIkmSJQiVQqij5iQPtnhmKvjCiWZ/bHVz1wE97JDb5h5Hq11WfiD3l8BzAhc/GUSG
+	 lw6xKGxoi10wSoF6JsbB3ZqsRdeiG5D31U0vi1oQBVNJVyLZuY0vTrfvHzfKUVr6M9
+	 skYMslGoMnuejlOJDjKrSpmNRQgkW7ZuSzyYHQN+HQ7JRJX7E+jFIoYPll3KxL9eil
+	 K0pvpEXr12vN8ni6bJ9Es1Yz60A07DxZCESIX1jayYDej3Tkpc2PandmGZ+iAOLN2e
+	 9xI8i1sb01XKMtjAFArBBljleSt4wry80F54RiJGoHYAwJH1LCzXCupsTKhh/MuBcu
+	 woIOZahrfEVxA==
+Subject: Re: [PATCH] net: usb: asix: fix off-by-one in rx_fixup bounds check
+From: netdev-bot+sashiko@kernel.org
+To: elb12345@hotmail.co.uk
+Cc: andrew@lunn.ch, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, peter@korsgaard.com, Dean_Jenkins@mentor.com,
+ jstultz@google.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Thu, 10 Sep 2026 04:52:16 +0000
+Message-ID: <178901593630.219967.12800331069404600154@kernel.org>
+In-Reply-To: =?utf-8?q?=3CAS8P251MB00014BB4591CE6011152DB4FC8B22=40AS8P251MB?=
+ =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+References: =?utf-8?q?=3CAS8P251MB00014BB4591CE6011152DB4FC8B22=40AS8P251MB0?=
+ =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] KEYS: encrypted: fix integer overflow of datablob_len
-To: Cen Zhang <cenzhang@linux.microsoft.com>, Mimi Zohar <zohar@linux.ibm.com>
-Cc: David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
-        Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-        "Serge E. Hallyn" <serge@hallyn.com>,
-        Roberto Sassu
- <roberto.sassu@polito.it>,
-        David Safford <safford@watson.ibm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kees Cook
- <kees@kernel.org>, Francis Perron <francis@akrites.dev>,
-        linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Akrites SIRT <sirt@akrites.dev>,
-        AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com,
-        kys@microsoft.com
-References: <20260909153433.83117-1-cenzhang@linux.microsoft.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260909153433.83117-1-cenzhang@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=NMVAaE6g c=1 sm=1 tr=0 ts=6aa235d2 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=yMhMjlubAAAA:8 a=VnNF1IyMAAAA:8 a=ZF_tswfMEFhI52YJ_YIA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: K02mtE-9mGZEow58vsVAn98gQ74EIdlk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA0NiBTYWx0ZWRfX9kUgJQaK/9wc
- IChmPO7hXQorYWU00xyP9JmnI+HqfTem3kVSk5zo1mvIrOTumQeYsRSSfm7sTm637qIfvWAM6ea
- M7WB/Rnwu+hC8IMtMf5Jl6HdhjMH1QY56v5hjebBTh3q/wj+TCmtsHWkCeJY7wBtrh886KwRe5I
- 0zSth3J3ZQ8jhlGik5w6Uf0VFjJoeatSNvhiodR3er1nRaAW3Sq9aXaBYiJLq8Y/ukjgjQDUvD/
- hSJAoZ483xeloYeIbIQPmU4DesrKlOhZOFpH6entJzYBnDHsSQ2UM98Un5afVfXWlaYj1UFdpLj
- Evd0u35FLG3bNzl6UMpBbEykKMZybqwPOhMml8Xm+QG/bmjANk1XnjmPgVSvSYmi6gCA9WRltI7
- bFneyJ/F6kXtMMJKAhc30x+dyJakln0SdxgwHGfmDz2co8ZKFp77L9YbHMtgfQG25UG1SgR12Lq
- ghRCwbEnNyE2TQP8KtQ==
-X-Proofpoint-ORIG-GUID: K02mtE-9mGZEow58vsVAn98gQ74EIdlk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA0NiBTYWx0ZWRfX2X4lLwQAyquU
- CBE8t2v8+1LZYnVuYqsnmduD+gY0cYvk1xGGBXDWTkzVpNBhkTdZ/DiYm9UubbLbJEvuDYwsKmT
- Yny+BiCvC7dQ5cUZIxPsa7qFDfXKlMA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100046
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-On 09.09.2026 9:04 PM, Cen Zhang wrote:
-> encrypted_key_alloc() stores datablob_len in a u16. It is computed from
-> multiple string and payload lengths. If the result exceeds U16_MAX, the
-> assignment truncates the allocation size. KASAN reports a 32760-byte
-> slab-out-of-bounds write when __ekey_init() copies the master key
-> description into the undersized buffer.
->
-> The total payload length stored in key->datalen is also a u16. Use
-> check_add_overflow() to reject values that do not fit either destination,
-> and use kzalloc_flex() for the flexible-array allocation.
->
-> Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/keyrings/20260826154456.85974-1-blbllhy@gmail.com/
-> Assisted-by: GitHub-Copilot:claude-opus-4.6
-> Signed-off-by: Cen Zhang <cenzhang@linux.microsoft.com>
-> Signed-off-by: Francis Perron <francis@akrites.dev>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
 
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
-> Changes in v3:
-> - Describe the bounds using u16 and U16_MAX and simplify the commit
->    message.
-> - Include the KASAN-reported write size.
-> - Remove organization names from the author and sign-off identities.
-> - Remove the unnecessary off-list discussion note.
-> - Use cenzhang@linux.microsoft.com.
-> - No code changes.
->
->   security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
->   1 file changed, 14 insertions(+), 6 deletions(-)
->
-> diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
-> index 59cb77b237b3..e07092ea301a 100644
-> --- a/security/keys/encrypted-keys/encrypted.c
-> +++ b/security/keys/encrypted-keys/encrypted.c
-> @@ -19,6 +19,7 @@
->   #include <linux/parser.h>
->   #include <linux/string.h>
->   #include <linux/err.h>
-> +#include <linux/overflow.h>
->   #include <keys/user-type.h>
->   #include <keys/trusted-type.h>
->   #include <keys/encrypted-type.h>
-> @@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
->   {
->   	struct encrypted_key_payload *epayload = NULL;
->   	unsigned short datablob_len;
-> +	unsigned short payload_totallen;
->   	unsigned short decrypted_datalen;
->   	unsigned short payload_datalen;
->   	unsigned int encrypted_datalen;
-> @@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
->   
->   	encrypted_datalen = roundup(decrypted_datalen, blksize);
->   
-> -	datablob_len = format_len + 1 + strlen(master_desc) + 1
-> -	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
-> +	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
-> +			       + strlen(datalen) + 1 + ivsize + 1,
-> +			       encrypted_datalen, &datablob_len))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (check_add_overflow(datablob_len,
-> +			       payload_datalen + HASH_SIZE + 1,
-> +			       &payload_totallen))
-> +		return ERR_PTR(-EINVAL);
->   
-> -	ret = key_payload_reserve(key, payload_datalen + datablob_len
-> -				  + HASH_SIZE + 1);
-> +	ret = key_payload_reserve(key, payload_totallen);
->   	if (ret < 0)
->   		return ERR_PTR(ret);
->   
-> -	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
-> -			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
-> +	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
-> +				GFP_KERNEL);
->   	if (!epayload)
->   		return ERR_PTR(-ENOMEM);
->   
->
-> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+- [High] Incomplete fix: the patch only tightens the pre-loop
+  synchronisation predicate at drivers/net/usb/asix_common.c:151, but…
+- [Medium] The commit message characterises the read at
+  drivers/net/usb/asix_common.c:153 as a '1-byte heap OOB read' and adds…
+
+Pre-existing issues:
+- [High] Unsigned underflow after the loop's over-read leads to a large
+  out-of-bounds copy and a kernel heap info leak to userspace.
+
+--
+
+net: usb: asix: fix off-by-one in rx_fixup bounds check
+
+This tightens the multi-URB Data header synchronisation check in
+asix_rx_fixup_internal() so the guard uses the same even-aligned offset
+that the following get_unaligned_le32() actually reads from.  It carries
+a Fixes tag for 3f30b158eba5 and Cc: stable.
+
+No Link: tags in the commit header.
+
+Quoting the changelog:
+
+>     When rx->remaining is odd, the alignment rounding makes offset larger
+>     than rx->remaining. For example with rx->remaining=3 and skb->len=7:
+>     check passes (3+4<=7) but offset becomes ((3+1)&0xfffe)=4, and the
+>     4-byte read at offset 4 needs 8 bytes total, causing a 1-byte
+>     heap OOB read.
+
+[Severity: Medium]
+Is "heap OOB read" the right description for this read, and does it
+justify Cc: stable on memory-safety grounds?
+
+In the usbnet receive path the rx skb is allocated with dev->rx_urb_size
+bytes of linear space and skb->len is only set from urb->actual_length:
+
+drivers/net/usb/usbnet.c:rx_submit() {
+	size_t			size = dev->rx_urb_size;
+	...
+	skb = __netdev_alloc_skb_ip_align(dev->net, size, flags);
+	...
+}
+
+drivers/net/usb/usbnet.c:rx_complete() {
+	...
+	skb_put(skb, urb->actual_length);
+	...
+}
+
+Every asix path sets an even rx_urb_size (2048 for FLAG_FRAMING_AX in
+asix_devices.c and ax88172a.c, and 2048/4096/8192/16384 in
+ax88178_set_mfb()).  The scenario in the changelog needs an odd skb->len,
+so skb->len < rx_urb_size and skb->data + skb->len is still inside the
+skb's own allocation, i.e. tailroom.
+
+The overshoot of the read at the patched site is at most one byte
+(offset + 4 <= rx->remaining + 5 <= skb->len + 1), and the value is only
+used for the size-versus-complement comparison before being discarded, so
+the visible effect is a spurious "Data Header synchronisation was lost"
+message and a dropped frame.
+
+Would it be more accurate to describe this as a read of stale/uninitialised
+tailroom rather than an out-of-allocation access that KASAN would flag?
+
+> diff --git a/drivers/net/usb/asix_common.c b/drivers/net/usb/asix_common.c
+> index 4f03f4e57655d..c50646ea35c7e 100644
+> --- a/drivers/net/usb/asix_common.c
+> +++ b/drivers/net/usb/asix_common.c
+> @@ -148,7 +148,7 @@ int asix_rx_fixup_internal(struct usbnet *dev, struct sk_buff *skb,
+>  	 * Also avoid unnecessarily discarding a good current netdev socket
+>  	 * buffer.
+>  	 */
+> -	if (rx->remaining && (rx->remaining + sizeof(u32) <= skb->len)) {
+> +	if (rx->remaining && (((rx->remaining + 1) & 0xfffe) + sizeof(u32) <= skb->len)) {
+>  		offset = ((rx->remaining + 1) & 0xfffe);
+>  		rx->header = get_unaligned_le32(skb->data + offset);
+>  		offset = 0;
+
+[Severity: High]
+Does this change actually remove the read described in the changelog, or
+just move it into the main parsing loop?
+
+Replaying the changelog example, rx->remaining = 3 and skb->len = 7:
+
+  ((3 + 1) & 0xfffe) + 4 = 8 <= 7   -> false, sync branch skipped
+
+offset stays 0 and control falls into the loop, which is gated only on two
+bytes being present:
+
+drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
+	while (offset + sizeof(u16) <= skb->len) {
+	...
+			if (skb->len - offset == sizeof(u16)) {
+				... rx->split_head = true; break;
+			}
+
+			if (rx->split_head == true) {
+				...
+			} else {
+				rx->header = get_unaligned_le32(skb->data +
+								offset);
+				offset += sizeof(u32);
+			}
+	...
+}
+
+The first iteration copies the 3 remaining payload bytes, clears
+rx->remaining and does offset += (copy_length + 1) & 0xfffe, giving
+offset = 4.  The loop is re-entered because 4 + 2 <= 7, rx->remaining is 0
+and rx->split_head is false, so the else branch runs
+get_unaligned_le32(skb->data + 4) on a 7-byte skb, reading skb->data[7] --
+the same byte the changelog says is being fixed.
+
+offset is always even here (it starts at 0 and advances by 2, 4, or
+(copy_length + 1) & 0xfffe), and only the exact skb->len - offset == 2 case
+is special-cased, so any 3-byte tail reaches the 4-byte read.  The same
+state is reachable with no prior rx->remaining at all, for example a fresh
+rx state with skb->len == 3.
+
+Would guarding that read with offset + sizeof(u32) <= skb->len, or handling
+a 3-byte tail the way the 2-byte split_head case is handled, be the fix
+instead of re-deriving the pre-loop predicate?
+
+There also looks to be a behaviour change for the inputs the new predicate
+excludes.  For odd rx->remaining with skb->len == rx->remaining + 4 the old
+check was true (3 + 4 <= 7), so the header was validated and
+reset_asix_rx_fixup_info() discarded the frame on a mismatch.  With the new
+predicate that branch is skipped entirely, and the trailing bytes are
+appended to rx->ax_skb and handed to the stack:
+
+drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
+	...
+		if (rx->ax_skb) {
+			skb_put_data(rx->ax_skb, skb->data + offset,
+				     copy_length);
+			if (!rx->remaining) {
+				usbnet_skb_return(dev, rx->ax_skb);
+	...
+}
+
+Does this lose the desynchronisation detection for exactly those lengths?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the same 3-byte-tail path
+looks like it goes further than a one-byte over-read, and this patch steers
+the changelog's own example into it, so it may be worth handling in the same
+change.
+
+Once the else branch has done offset += sizeof(u32) with only 3 bytes left,
+offset == skb->len + 1.  The reconstructed header has 3 device-supplied
+bytes plus one stale byte, and only bits 24-26 of the complement come from
+the stale byte, so the self-check has roughly a one-in-eight chance of
+passing and a device can retry:
+
+			size = (u16)(rx->header & 0x7ff);
+			if (size != ((~rx->header >> 16) & 0x7ff)) {
+				... return 0;
+			}
+
+If it passes and size <= mtu + ETH_HLEN + VLAN_HLEN, rx->remaining = size
+and the clamp is evaluated with offset > skb->len:
+
+		if (rx->remaining > skb->len - offset) {
+			copy_length = skb->len - offset;
+			rx->remaining -= copy_length;
+		} else {
+			copy_length = rx->remaining;
+			rx->remaining = 0;
+		}
+
+skb->len is unsigned int, so skb->len - offset wraps to 0xffffffff, the
+test is false and copy_length becomes the full device-chosen size.  Can
+this then copy up to mtu + ETH_HLEN + VLAN_HLEN bytes from one byte past
+the received data, beyond the rx_urb_size allocation when skb->len is near
+rx_urb_size?
+
+		if (rx->ax_skb) {
+			skb_put_data(rx->ax_skb, skb->data + offset,
+				     copy_length);
+			if (!rx->remaining) {
+				usbnet_skb_return(dev, rx->ax_skb);
+
+usbnet_skb_return() delivers the skb before the trailing
+skb->len != offset check reports the error, so would adjacent heap contents
+be handed to userspace as a normal received frame?  asix sets
+FLAG_MULTI_PACKET, so there is no usbnet-level length sanity check ahead of
+rx_fixup, and skb->len comes straight from urb->actual_length.
 
 -- 
-Thanks and Regards
-R.Nageswara Sastry
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB00014BB4591CE6011152DB4FC8B22%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
