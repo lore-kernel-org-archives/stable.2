@@ -1,122 +1,91 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from forward400a.mail.yandex.net (forward400a.mail.yandex.net [178.154.239.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BAE54A7CB;
-	Thu, 10 Sep 2026 17:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702FF56E070;
+	Thu, 10 Sep 2026 17:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061810; cv=none; b=jicW01VfDf/9ZNi9DdPKKz4Ieg3esMRkNNNZ3vwTatNdv0wkfd1dtVDWT5EitLwHLyvlD3mRaI0BppTU0BThQ7NUZsAT1rQ29j16WFupAxgE7kto810u9mi9F7s3QTQ5TdHprAYHsDXmAMs1bXzg9dt5Xivaq8t3OWmX61VSdgI=
+	t=1789062200; cv=none; b=b8DRa8uoG71UgPubDO4EfslshVCrAi8BI0c9PGMDMhUVbKMPlt5LsFzInkrDilpdnEIaRF9U2R0fbpVhqCkjY5AH5hV9qYxBSb+QBYGnG7ZYD6gR38PV/sqT2TJ9/VW562QETD36W9JYzVMU4oDi8EfDlnZEbv0ULOEEK6uM3v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061810; c=relaxed/simple;
-	bh=ImPxA/rUoNLvK9u39rTy303kECXS1yH3M28zrUZ8utA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dx4R/y1dzEbp6seEi+rHrynJSUZUQthS+XLEBL9Xwgyx9GRCbiqFZ1CyVdusyaUxXaTaaHJRda9s0gls1xNxGi4lIjix72FLTH7yXmZAQEW504woI5r8d0s1lNZfjYKprv9EC6PWbK9j0QjNCWX5XOFlsD2daK7MxVVI+n/9niw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=RLNeHpRM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ir470VhC; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789062200; c=relaxed/simple;
+	bh=u70VVk9lickgfND4F/WJPlfvi4AFn7ySCn2KEJJA7pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f/Pi3ksUopVvvLY+ge1BSgYYXSCmz9zRQ5yUE4w6OBsJmt8V0Fly1zWd2vc+Z8xrP1/MzqMvSGm45hUVg/SVjN0pIxbgFv73u2w2mu60m1nrkxdZK9jrwybV7ES1RgBhFQLREilAGmKOLQiHyhLPPLGqSn55+zBpfl2fazI+dfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=qQ94PLib; arc=none smtp.client-ip=178.154.239.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="RLNeHpRM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ir470VhC"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2716B1400112;
-	Thu, 10 Sep 2026 13:36:41 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-02.internal (MEProxy); Thu, 10 Sep 2026 13:36:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789061801;
-	 x=1789148201; bh=I2VWxGFI3oVu4Dlc3BfD8bqOEW3Z80dsePsJeN2htVA=; b=
-	RLNeHpRM4bRJirP7w9UOlNeCHDbE9sgLagWgzzhNniVdiLvuVlj2T/I7r6eWeUe7
-	PmT/T8/x7lQNZcDykqMo6bTtfzkHxZRq9EEeE7oHPYjmOILUxvniH9Imz4Qn2jkM
-	68jJ99XXMbYJHQCTRqEUB/xWLk8/sjPAfUgtUUBv6Igyd4w+DWDZUxykFvWzp9RS
-	WEsDYR4HePQJxNDwJt5N+d+tdN98ZCmjluVWe4TxcTN+Cw2tDnoPt5NySyFlCBLG
-	gm3FdU9qaWO7mVqvOuypSWIK8Tev/wgqujboVhljs1+O6SyBNhkq3qCrTy4CMOgf
-	esrCHSyryCAGb5Y1yN9wGA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789061801; x=
-	1789148201; bh=I2VWxGFI3oVu4Dlc3BfD8bqOEW3Z80dsePsJeN2htVA=; b=I
-	r470VhC0rzjjMS/y3iewzgYngA6ed4jwe0NwmfUXoiawpaJ+zwytGtVwy9Ds5/tA
-	o9QY86A6SAHxftxyXNBCguxJENdmuAkXzrDyOxj13nwaSc1E39t9QniMbYj2buy1
-	VLYK+XF3OjRQD+pMih+nkeXptCaRAN3rSJaNmhpp1TPgyOfh/kv/u+Cb33JETd4X
-	4TdUYbh7odKM7iYrzVlhfRAp1zxYvmQ81+AyzVmdLwXGqDsRI4LhYSEiYzGxcFZ8
-	43Ny+qanUb1t2NGehTYe4eWxRU/abNW5vN+UyensDi/kqrAnmQTNG9n8MSHhsCi9
-	eLRCQDXfVZ4SReIXpD4nw==
-X-ME-Sender: <xms:p-qialZtYoEk4u2ZYNSCRGQhdueUFlUECfV6Y7x8q2iIUanOItOITw>
-    <xme:p-qiaoQgb8AE_ndy618BYN66yY9rJEHxlXxCagqH6ikhhjwFenwB-5nJYL9sk3iDp
-    IJ94QwU_Tomx0V3VrDvQMxY6-uGtl4zebXZHflXqJxuwN2-j48vhfE>
-X-ME-Received: <xmr:p-qiajdXS0EGQ_JzUbQDlPf7T48H0fQX31sLHGCiDYdm3xyh1WG_a5uHb6iGvyKoDntZeA3Pr6VwTfns4dS0iWB3FS9ySEnD>
-X-ME-Proxy-Cause: dmFkZTFKn9g1I2UqXoXFN38HHdIeMGMwzykN5nqOMjQJtyqhUabGxmnhunTuO2dgOxIXn6
-    N+4BFwUp+kFt187HxkIyFyWb8B2ZeLpiTXw2tEmM2ErssxlkTdvle5UDfWJ8MSXqEeinS/
-    Kl+NG2RXj1PpMtthayPAGwk/1WsVKZh5M/uOL0f0UY3QuC8Oeros6cVyvVnNKK19QguBCd
-    uj97DIhcyVmb5kA2n8+kE9H828MJPb61cI/tDm14jJhFmRkZefBaF0U/zS49akXgSBWARN
-    ctI2tS7HRMWKFeanuN4Gd43H1uoo0wVygB4OHxpJW0khwQNWthlvLpcmoTvdjp/L3PzYIg
-    KsvZnfTfW9TiB+FSG7yWKBfqFzblBS/jth5gfwsC6fZkSmgyU9znDkXtE64w4OrGd4h3av
-    DBQ3YUmdNw6FLHOTTOEzPSpYzVufZy3zRQCI4cKz50pAgkLY68OvKhg4UUqLjfrDZwgj7r
-    E/2FXEXQtHyRk96aLMP0il49XwAWg/ZwiTVCRG0/adF/hWvysMkr8FGAMGoGAODRhgSKSy
-    HSvRlfGqiKSqSO43Rd9e2G5LIUsqFJbjO0itpwhAsPe8yK3zdIX/7lxOYdyGRuemI0LWi/
-    XCXP/SokD40gBS/e2BfBfU1tFIipNjWLDYACdqynjdVexnrClaByZtwKNtag
-X-ME-Proxy: <xmx:p-qianl2lumkicE4d-dPUNY6EjQSiST4K53YuoKwmUz8bUGf6igXsg>
-    <xmx:p-qiaojgeESeAqtRfLd3FK5RYEXpmHCmQ_XKFZKrDKX15xtYHJ_wDw>
-    <xmx:p-qiaoFg7W4Mst_FyH8h5p3w135ShpSRlPch09iPTUdZN2hpBMSXkQ>
-    <xmx:p-qianwefF43WJuUaAj6ltEfwnIfKK1XPzWW_gSPjF48LmiM5v10bw>
-    <xmx:qeqiajvbIMI1Wus3ajma4wHfRN9qgn-fYPJtWMkxS6-HKH5LramBE6f->
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Sep 2026 13:36:37 -0400 (EDT)
-Message-ID: <fb192349-7a21-473e-a020-6dc6ffa6eda7@pobox.com>
-Date: Thu, 10 Sep 2026 10:36:36 -0700
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="qQ94PLib"
+Received: from mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net [IPv6:2a02:6b8:c17:2010:0:640:2180:0])
+	by forward400a.mail.yandex.net (postfix) with ESMTPS id 4FC4AC1802;
+	Thu, 10 Sep 2026 20:34:53 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net (smtp) with ESMTPSA id pYTK6qleDeA0-umyu9rMG;
+	Thu, 10 Sep 2026 20:34:52 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1789061692; bh=/w6I0bR9juTZK9iJyXX1KbrXF3UOCLi/woVjIOkqNUE=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=qQ94PLibwbkO9kYGE9uoT4AwE/lXDJ4Nzfp+EpV8ByfqtRkjJm8DYR8n3ARXfECdI
+	 9hNZkVPgCDC4RJZ0k4aS4v9eNqj7oUN0iWS1KMo94PscaiRanJz/34he0JVyRzosAV
+	 pU5nKDlkQSYPBzg6mgiS68Q3EJRUxROkTL8F6wPw=
+Authentication-Results: mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: nathan2049@yandex.ru
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] ACPI: APD: fix off-by-one when copying clk-name property
+Date: Thu, 10 Sep 2026 22:34:51 +0500
+Message-ID: <20260910173451.61469-1-nathan2049@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260909134230.441546314@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 6:34 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.5 release.
-> There are 556 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.5-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Peter Zmanovsky <zzz4android@gmail.com>
 
-Tested on 3 amd64 systems (my DIY home NAS, my Lenovo ThinkPad T14 Gen
-1, and an Apple MacBook Air 13" 2017). Working well, no regressions
-observed.
+The ACPI string object's .length field holds the byte count of the
+string excluding the NULL terminator.  fch_misc_setup() allocates
+obj->string.length bytes for the clock name buffer and then passes
+that same value as the size argument to strscpy().  Since strscpy()
+writes at most (size - 1) non-null characters before appending NULL,
+the last byte of the clock name is silently dropped.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Allocate obj->string.length + 1 bytes and pass that same count to
+strscpy() so the complete string is preserved.
 
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 7fdb98e8a768b ("ACPI: APD: Add a fmw property clk-name")
+Signed-off-by: Peter Zmanovsky <zzz4android@gmail.com>
+---
+ drivers/acpi/acpi_apd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
+index e7366fcb76ee..f2012dfdc511 100644
+--- a/drivers/acpi/acpi_apd.c
++++ b/drivers/acpi/acpi_apd.c
+@@ -82,12 +82,12 @@ static int fch_misc_setup(struct apd_private_data *pdata)
+ 		return -ENOENT;
+ 
+ 	if (!acpi_dev_get_property(adev, "clk-name", ACPI_TYPE_STRING, &obj)) {
+-		clk_data->name = devm_kzalloc(&adev->dev, obj->string.length,
++		clk_data->name = devm_kzalloc(&adev->dev, obj->string.length + 1,
+ 					      GFP_KERNEL);
+ 		if (!clk_data->name)
+ 			return -ENOMEM;
+ 
+-		strscpy(clk_data->name, obj->string.pointer, obj->string.length);
++		strscpy(clk_data->name, obj->string.pointer, obj->string.length + 1);
+ 	} else {
+ 		/* Set default name to mclk if entry missing in firmware */
+ 		clk_data->name = "mclk";
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
