@@ -1,252 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A4048E0FF
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8664B4897
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:51:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051806; cv=none; b=IqVYEoMuEKgGm9SM1j4BhF3/pJ5tW4UeSWS5DGWTmjKsgWbdVjiNTIPuu7tUWlzaYDz26727FrjxKgAUKBMngaZ9KpW1yVprQ8hIUzZ4YHBOneP+AEahPVqpjDw0yMYbvCiFQ/Y4a0Y0u4ENuQiHZ+EYHM4hsXcVFd728GVsgVI=
+	t=1789051873; cv=none; b=ahO6p/oHW8gseC1SsACgXk/C5UdkHNozFMTEtEL0He6k6oHUcZz1O64hFcTZkZzJr2oXdCGYbcykYiPWg2AU+ETz/fAZC2ZTiQWLvEZ+7qMPyy3qSjezdzIF+o27kwWuvTO3JKbuVIErCtuIWydMw9po1LDEljpvjgnMIlmFi9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051806; c=relaxed/simple;
-	bh=PjLReTykwPlsxPgm6lzHM4wPidE6gQC+kNJyn/3OqFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uHttriBs8nXBtU0YaqgjKxvCCMhHeC+/Whk4TFsC3jBD3PpA3ho4WKOfvaNALVHa20bk+GG+W8DbXjlBzaiH0ggDRwDcUURGrExWF7vUmr0L9lX/aj6g/1W2zjbn/fHYS1oiti+UUC9zFLp08h+qzdPkKID3M6REXdY2Y18T/rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U10r+V+A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789051873; c=relaxed/simple;
+	bh=I4eB1+rSh1pIF8vz4CEEf+Z1CRDKXONMcV0Ntu6+sRk=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ckf88X/tTJvB5NSPZKXCL/d9YmFftlyycm0tR2Gz6KaivGWfgcltGnj+c9CwFdhO7dcUchX8tCMudG3BG1q7VVZFZYZ3xMUAVmbrmEGHANiSCjDSm6svv74reA6OkAcp56F/gTjntxBLvxwnF0kN7Yf/1YzYNi3MtbZJdOpOgGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nUCr2Q30; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U10r+V+A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62861F000FF;
-	Thu, 10 Sep 2026 14:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789051804;
-	bh=jho/NaXeK5gjbL1JrGAP3z4jNabkJvKwqQSbFfqzdYg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U10r+V+AUl3RJQYu6E5iyyi0mTXqnu/t0Vmo0V5O+wNufHtP38rfaYQA/zoqEIojJ
-	 015XuX4ouTMNfxNZ6gzO6dg7jXyDHexVI5H7rzFqzIdK1P3nwnLWQLDp5+9TgOGzQd
-	 lNC+b7z+0IivLneQ1N/f2ByD4ZRBjcXTJED2b0RoiMZZ9Ha98r7OTg32mYXwV9xx0M
-	 i+1BXm8vqUcoMg0ScpgYYZTAz4TzghV/nxC9Q7PITXrs6/kErmsUrS/0bmMPWiszZF
-	 pBmn9hHBHuLY2aRqaU6WpZkQ/blrlkhkMsSPlXyqT+/fz2mRQsvNHuBNXEFXcq6X0L
-	 E0U8th1LtpjmA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 10:50:02 -0400
-Message-ID: <20260910145002.810759-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090859-unpainted-acclaim-c3fd@gregkh>
-References: <2026090859-unpainted-acclaim-c3fd@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nUCr2Q30"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-855315ccb64so3935835b3a.3
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:51:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789051870; x=1789656670; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TON9oQUuio6y+v4LacqHOanxJcsWbypgqiH4li5BR50=;
+        b=nUCr2Q30fCBGfjU/N48aDWyg6s7U585zEU9FvpztS5moVPjudShIXtQ4yGeMckZYsS
+         mcKmH4pETS5p/x4QmfoPBipxV7qJx7vAUqnj6DdL4gPluvaEpwUKZwNBRWHe+O0OJ0j3
+         KdfuFKyc1YUQCn7Ni2Jx898efNsuxcW7iVcvWtai66fhUXuWg/fVTfJ2zfqLs0wAMBrU
+         AeH/06AJ0qZqW9VEAc2FZmUUsFg8UKQFXbiIgykInQdNxIbmRs6nuLZiU+V8fqMM7xDv
+         4rW4SiWSAyVi+/yTtWizf7l7/Rmh+mboAo3di0VS+W90S4EZJTUs+nAB1kEY7oi3CxDw
+         mZBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789051870; x=1789656670;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TON9oQUuio6y+v4LacqHOanxJcsWbypgqiH4li5BR50=;
+        b=PYvIV2KOhnocEkTaVtZ1ae8s9dfzyja6rkfhLtV0BUNwoK4J/tWCkF9VcxRB3fL2Kr
+         uPqk4iijyRPMvXn9PX/l/ThOI/hqzXN3iHguXBAVSvPfkb/bk6FzSOMkABgxzaEVeHVh
+         iZKj5W0zvEoVh15MVUzdQ8253oLVA1549yGYY/nnJaoRPiiMj1Vy4PR/uou/h4avkMid
+         VG0V7PD5gxBDktiDW62SDqCYUHzonnplGa0DCZ9OnqgvBMOSW2v4euihmMaFafOpPfG4
+         sOrRlfpNMorMh9xxI5gcKPfWIa/NLB2yhJg2CGFuj5bW0JKuxjOK/Me5yIPQBh3UKQj+
+         iQrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFj9iNRn3JOxMbcesGdjnXmCYoMPtDvkyEdagd3rPmwNSexEQGmROAuE/boBa1FQHwhBcriyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPuLmD66yxnaJMdxGWC0ugbqu+DAW0v+bSWOcu0yMEZmb9zoLz
+	oCK9Nvy/DdXVa5FaXpaCl6FlqaRGj+Yuu7Zver1lG6Yk1+EXbXc3MAo5hoDgufZniZzC2hiluBy
+	EPW6qG1xndeDrvhjB/qq2zw==
+X-Received: from pfko10.prod.google.com ([2002:a05:6a00:214a:b0:847:ac08:fdf6])
+ (user=ericchancf job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:4c82:b0:86a:9be:6bf3 with SMTP id d2e1a72fcca58-86a09be73b2mr5548413b3a.23.1789051870295;
+ Thu, 10 Sep 2026 07:51:10 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:51:05 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260910145107.3640991-1-ericchancf@google.com>
+Subject: [PATCH 0/2] coresight: Fix missing AMBA dev_pm_ops and modernize PM ops
+From: Eric Chan <ericchancf@google.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
+	Leo Yan <leo.yan@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, coresight@lists.linaro.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Eric Chan <ericchancf@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Baineng Shou <shoubaineng@gmail.com>
+This 2-patch series addresses an issue where CoreSight AMBA drivers (TMC,
+CATU, and ETM4x) missed setting their dev_pm_ops during earlier ACPI and
+platform driver refactorings, and modernizes runtime PM ops definitions
+across these drivers to align with Documentation/power/runtime_pm.rst.
 
-[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
+- Patch 1 is a bug fix (marked for stable) that sets the missing .pm
+  pointer in the AMBA drivers (tmc_driver, catu_driver, and
+  etm4x_amba_driver) so runtime PM suspend and resume callbacks are
+  properly invoked when probed via AMBA bus.
+- Patch 2 modernizes the runtime PM definitions across TMC, CATU, and
+  ETM4x to use DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr(), eliminating
+  unnecessary #ifdef CONFIG_PM blocks.
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+Eric Chan (2):
+  coresight: Add missing dev_pm_ops to AMBA drivers
+  coresight: Switch to DEFINE_RUNTIME_DEV_PM_OPS()
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+ drivers/hwtracing/coresight/coresight-catu.c  | 31 +++++++++--------
+ .../coresight/coresight-etm4x-core.c          | 30 ++++++++---------
+ .../hwtracing/coresight/coresight-tmc-core.c  | 33 +++++++++----------
+ 3 files changed, 44 insertions(+), 50 deletions(-)
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
-
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
-Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
-[ Replaced dma_buf_fd_install() with fd_install(fd, dmabuf->file) because the older tree lacks the tracing infrastructure. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
- 1 file changed, 40 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index 84ae708fafe75..2fbf5e91509b5 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
- static struct class *dma_heap_class;
- static DEFINE_XARRAY_ALLOC(dma_heap_minors);
- 
--static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
--				 unsigned int fd_flags,
--				 unsigned int heap_flags)
--{
--	struct dma_buf *dmabuf;
--	int fd;
--
--	/*
--	 * Allocations from all heaps have to begin
--	 * and end on page boundaries.
--	 */
--	len = PAGE_ALIGN(len);
--	if (!len)
--		return -EINVAL;
--
--	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
--	fd = dma_buf_fd(dmabuf, fd_flags);
--	if (fd < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--	}
--	return fd;
--}
--
- static int dma_heap_open(struct inode *inode, struct file *file)
- {
- 	struct dma_heap *heap;
-@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static long dma_heap_ioctl_allocate(struct file *file, void *data)
-+static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
- {
- 	struct dma_heap_allocation_data *heap_allocation = data;
- 	struct dma_heap *heap = file->private_data;
-+	struct dma_buf *dmabuf;
- 	int fd;
-+	size_t len;
- 
- 	if (heap_allocation->fd)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
-+
-+	len = PAGE_ALIGN(heap_allocation->len);
-+	if (!len)
-+		return ERR_PTR(-EINVAL);
-+
-+	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-+				     heap_allocation->heap_flags);
- 
--	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
--				   heap_allocation->fd_flags,
--				   heap_allocation->heap_flags);
--	if (fd < 0)
--		return fd;
-+	if (IS_ERR(dmabuf))
-+		return dmabuf;
-+
-+	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		return ERR_PTR(fd);
-+	}
- 
- 	heap_allocation->fd = fd;
- 
--	return 0;
-+	return dmabuf;
- }
- 
- static unsigned int dma_heap_ioctl_cmds[] = {
-@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 	unsigned int in_size, out_size, drv_size, ksize;
- 	int nr = _IOC_NR(ucmd);
- 	int ret = 0;
-+	int fd;
-+	struct dma_buf *dmabuf;
- 
- 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
- 		return -EINVAL;
-@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 
- 	switch (kcmd) {
- 	case DMA_HEAP_IOCTL_ALLOC:
--		ret = dma_heap_ioctl_allocate(file, kdata);
-+		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-+
-+		if (IS_ERR(dmabuf)) {
-+			ret = PTR_ERR(dmabuf);
-+			break;
-+		}
-+
-+		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-+		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-+			put_unused_fd(fd);
-+			dma_buf_put(dmabuf);
-+			ret = -EFAULT;
-+		} else {
-+			fd_install(fd, dmabuf->file);
-+		}
-+
- 		break;
- 	default:
- 		ret = -ENOTTY;
- 		goto err;
- 	}
- 
--	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
--		ret = -EFAULT;
- err:
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
 -- 
-2.53.0
+2.55.0.1003.g10538fe699-goog
 
