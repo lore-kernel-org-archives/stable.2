@@ -1,74 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E384438D3F1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2ECD58F066
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067324; cv=none; b=bks7Ae0M4m+2/e7FU0Fba1yHa4pFmscxszDbPi60s7JjdQbZRuqcJ+eI/pcK0T+LcJ3+avuZIzXgK9kzOkW2UUYnCXDuI3SZUmDuBN2VNWAQUc1Y7jgwl2QJrgx6aNInvdcPnVyVZ4K34wv7Mm5xl0LTyjWs8DXM6NKKW5R6hhg=
+	t=1789067325; cv=none; b=BjI8WvsNb4xp/FVEVMtcJCCNQKwKNGBYTHM9sLYfzAYL17flIOz+8VuPRdQ1+bzTCBJKQZ5r8FeW+izxd+ZgJCn0vcDDtGQWBhy2tzu14fCXyqwoDzWnRg/2u8k3o62ZI9blUIS5XSzu8y857CbGgUIW1+up9uOWzB6g4EoOXZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067324; c=relaxed/simple;
-	bh=6+C2J2qOjte4O4mB09YJB8xP/tXI53jg9CjBEXp9/Mo=;
+	s=arc-20240116; t=1789067325; c=relaxed/simple;
+	bh=RiPsCQPituENL53gccxkXUYYXp7BHFy5sxzaHNDbXRg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y8oQiSoOeKcgtlqMsv8vCLjgLLc1pmwISxZD2RpcaHZG76+hf2ATpUWG2UJb3qHj4cOahn5PNaxnT/hdt0vcLYgzjzMLQBisNk13bMZRS390C0M2s7WKPokzhjuszxek5v3nD55L/VwXKTpjSXTsNIopMvEgP9A8iDlmfMfmom8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnN0w2rw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UMBZZlpzm8M/rtJ8XsnItfgw1ZA/u7PaZ7iedaf7sHXo08/ZGd0i8lPVncTdyBa+ZZpW0KJ6xjVc+08cy+IYD2YmDwh00KDo8B5+bC1Kf45nAnodFWSX4BL46YHslJ8Vi17p+9ATO1dExJEE2DWGdmDijVsR/hrKHNxPbEB7gFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhD2aXGZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnN0w2rw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E90B1F000FF;
-	Thu, 10 Sep 2026 19:08:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhD2aXGZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A7E1F00898;
+	Thu, 10 Sep 2026 19:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067322;
-	bh=RxCv8qpAoDSLQ4w/Dp7OTvEY9fufgD87yKnFIQKV/EQ=;
+	s=k20260515; t=1789067323;
+	bh=q/gk/YpLPeRqTFdCdODsQWsh+oCQnScR+9+xqn9RSHY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dnN0w2rwTKJ0d9aeG5VmX8RxWsESpWc5zwlaQN16ixR1tck1nzY0D1wcFO6IIEaj+
-	 2OR8b+cfDKcEAyNSwn4GEqe8rVoXypFZql3Fas18fHGm4Fw5REzri0axZ0uVz4tGvz
-	 KtSI8I7fvQhnHp+eRX7PiYI0idYr3V4SyiaBH53dG2TRe+8FBQar5RSVL9XFznFWmB
-	 CM8uzsdESKr9a6LwyzQTSp6RpDoGuAZtQ2c5EE+Fy8prlSpv8y9GGEe/Ld9p29RpIG
-	 EZOTAM9sJowV8SOoOJgc+yslQWlbkv8RGujzYWtz5sAPnh2Hbk0srGW3Sz4g51YxY7
-	 4yryl+OBCTB3g==
+	b=fhD2aXGZdFncJl5o2HvL85bDWMWV5eOTjO1HLmgJUq6qMu/TOlLmDoD3VYQvFFT/s
+	 wiqQ+T2AsfDJd8hqOqmZZX2p5T74mYaT19Kq/ZT9ovRjVYDsFO3qxc6yo+xyrGUuvT
+	 fku+VeiL1NDgxgIm2J9vb4ffxNsrdjBRFIScBBHaw1HTOQ+DVG7RP4Tnz6qtlfnukD
+	 eAPJLBaBwZNwjXXFU5hwbJ7IxGHFibYnUYMgrEnRFPsqVsxvSX/w4Et44/1KpfEMz3
+	 SifdumPyijvQWdIraw+n7Jtn6V/RwY+2uQBGgwVyeEQSEtnoIiqZPeZItoouGXcDmm
+	 rb1eff7J96URA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hugh Dickins <hughd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexandre Ghiti <alexghiti@rivosinc.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Chris Zankel <chris@zankel.net>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Ungerer <gerg@linux-m68k.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Helge Deller <deller@gmx.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	John David Anglin <dave.anglin@bell.net>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Simek <monstr@monstr.eu>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	Will Deacon <will@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] arm64: allow pte_offset_map() to fail
-Date: Thu, 10 Sep 2026 15:08:36 -0400
-Message-ID: <20260910190837.1453363-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] arm64: mm: Fix the lockless page-table walk in show_pte()
+Date: Thu, 10 Sep 2026 15:08:37 -0400
+Message-ID: <20260910190837.1453363-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090941-average-edition-4184@gregkh>
+In-Reply-To: <20260910190837.1453363-1-sashal@kernel.org>
 References: <2026090941-average-edition-4184@gregkh>
+ <20260910190837.1453363-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,68 +46,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hugh Dickins <hughd@google.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 52924726f4c06b3f77de75fb665e6efd8e777d07 ]
+[ Upstream commit a77644d009dece1104b6fcc6e322b0e4503db0d6 ]
 
-In rare transient cases, not yet made possible, pte_offset_map() and
-pte_offset_map_lock() may not find a page table: handle appropriately.
+show_pte() walks page tables locklessly and can run with interrupts
+enabled. A concurrent teardown can free a table page while it is being
+walked. It can also clear a parent entry after show_pte() checked it; the
+regular pXd_offset() helpers then reread the cleared entry and can derive a
+bogus lower-level pointer and fault again.
 
-Link: https://lkml.kernel.org/r/35e46485-8499-4337-c51f-b8fa495a1a93@google.com
-Signed-off-by: Hugh Dickins <hughd@google.com>
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
-Cc: Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Chris Zankel <chris@zankel.net>
-Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Greg Ungerer <gerg@linux-m68k.org>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: John David Anglin <dave.anglin@bell.net>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Max Filippov <jcmvbkbc@gmail.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Simek <monstr@monstr.eu>
-Cc: Mike Kravetz <mike.kravetz@oracle.com>
-Cc: Mike Rapoport (IBM) <rppt@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Will Deacon <will@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: a77644d009de ("arm64: mm: Fix the lockless page-table walk in show_pte()")
+Use the lockless offset helpers with the saved parent entries, as
+gup_fast() does, and pass the saved PMD to pte_offset_map().
+
+For task page tables, arm64 selects MMU_GATHER_RCU_TABLE_FREE. Disable
+local interrupts around the walk to hold off RCU-deferred table frees and
+block the tlb_remove_table_sync_one() IPI until the walk is finished.
+
+Place the IRQ guard after the header print. This does not make the output a
+consistent snapshot, but prevents the task page-table walk from
+dereferencing a released table page or deriving a pointer from a different
+parent value.
+
+Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ replaced guard(irqsave)() with explicit local_irq_save()/local_irq_restore() calls to avoid declarations after statements. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/mm/fault.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/mm/fault.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index d293aac8c554c..39f03d18717eb 100644
+index 39f03d18717eb..0155330b9d0da 100644
 --- a/arch/arm64/mm/fault.c
 +++ b/arch/arm64/mm/fault.c
-@@ -176,6 +176,9 @@ static void show_pte(unsigned long addr)
+@@ -15,6 +15,7 @@
+ #include <linux/mm.h>
+ #include <linux/hardirq.h>
+ #include <linux/init.h>
++#include <linux/irqflags.h>
+ #include <linux/kasan.h>
+ #include <linux/kprobes.h>
+ #include <linux/uaccess.h>
+@@ -123,6 +124,7 @@ static void show_pte(unsigned long addr)
+ 	struct mm_struct *mm;
+ 	pgd_t *pgdp;
+ 	pgd_t pgd;
++	unsigned long flags;
+ 
+ 	if (is_ttbr0_addr(addr)) {
+ 		/* TTBR0 */
+@@ -144,6 +146,9 @@ static void show_pte(unsigned long addr)
+ 	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
+ 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
+ 		 vabits_actual, mm_to_pgd_phys(mm));
++
++	local_irq_save(flags);
++
+ 	pgdp = pgd_offset(mm, addr);
+ 	pgd = READ_ONCE(*pgdp);
+ 	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
+@@ -157,25 +162,25 @@ static void show_pte(unsigned long addr)
+ 		if (pgd_none(pgd) || pgd_bad(pgd))
  			break;
  
- 		ptep = pte_offset_map(pmdp, addr);
-+		if (!ptep)
-+			break;
-+
- 		pte = READ_ONCE(*ptep);
- 		pr_cont(", pte=%016llx", pte_val(pte));
- 		pte_unmap(ptep);
+-		p4dp = p4d_offset(pgdp, addr);
++		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
+ 		p4d = READ_ONCE(*p4dp);
+ 		pr_cont(", p4d=%016llx", p4d_val(p4d));
+ 		if (p4d_none(p4d) || p4d_bad(p4d))
+ 			break;
+ 
+-		pudp = pud_offset(p4dp, addr);
++		pudp = pud_offset_lockless(p4dp, p4d, addr);
+ 		pud = READ_ONCE(*pudp);
+ 		pr_cont(", pud=%016llx", pud_val(pud));
+ 		if (pud_none(pud) || pud_bad(pud))
+ 			break;
+ 
+-		pmdp = pmd_offset(pudp, addr);
++		pmdp = pmd_offset_lockless(pudp, pud, addr);
+ 		pmd = READ_ONCE(*pmdp);
+ 		pr_cont(", pmd=%016llx", pmd_val(pmd));
+ 		if (pmd_none(pmd) || pmd_bad(pmd))
+ 			break;
+ 
+-		ptep = pte_offset_map(pmdp, addr);
++		ptep = pte_offset_map(&pmd, addr);
+ 		if (!ptep)
+ 			break;
+ 
+@@ -185,6 +190,7 @@ static void show_pte(unsigned long addr)
+ 	} while(0);
+ 
+ 	pr_cont("\n");
++	local_irq_restore(flags);
+ }
+ 
+ /*
 -- 
 2.53.0
 
