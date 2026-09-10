@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8706E37FF6A;
-	Thu, 10 Sep 2026 06:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E673939D0;
+	Thu, 10 Sep 2026 06:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020552; cv=none; b=uIWUFkbn2VG6SjCT5iV4mCdbniZheum0hQgjRYMYX6KNBlw/OZX1dHCbmEs5asvEM5KAFZmS5hKNs3aNC8gwuu1OFDXfBOrBHYfXsgezQqslHXx4+Od7S8Rq9xegVssRGGUVAGnTU05ZT/+QsEsyiiCiR0SDLq7Iw4msk3Bz5Jk=
+	t=1789020860; cv=none; b=TGDyVS57uJ0420uhuVZ0OKk2oT7DfTHGbk55IPUeqPLeupfe9/tJo12vQG2ke2NbC4XZXhij5yHWBP6U+o1zcK3jroR7/PQGsIObB2pah22Fv/aP10WgUFR/06OgNxkIlUwfMkmlzyBaNCBYR+DOgiqbuNkSLjf10rZ4A3R31PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020552; c=relaxed/simple;
-	bh=ghQPz6Q0lgcH5PJj72lYwgb8VnCyHxSfV3phXAsPD3w=;
+	s=arc-20240116; t=1789020860; c=relaxed/simple;
+	bh=YM/4wRuX2Qi1LMqYbx8rCMSmKVcmkIT9KGYnnRgEaO4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jrFCLx9N8c+QkNZhI2s0zqZzooTGq8Ywv/y+NB6fyrbdZh4rHpmqvgELRAiaSizTwJ9Xtqe+nGysUbEu0KqSXzBfwfFsRn+r2qNz30wg+pxGXccOlWVeHH3lFZSUG0uDINJlphRM7DTyhzGMyQ8YrG5jLzYHReLZuz5Rd2cDro0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxkNRFIy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oGp2oKSVovAghmX/xG0brT6iteC46prqNM6dxZ3n8iqqplgyq1FniuhoJIJs2k/z4/jjyg7OXLvE4S+NZ+hOVxHhghl9YvIjThoZmNAnFXeRPWgjPLrebNX2R3DfhNMUzXMPtbgx16PI2dWKnaGVi57IsOIKtJ2KkKg3R9wcWT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BdK46Fqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxkNRFIy"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 18F521F00893;
-	Thu, 10 Sep 2026 06:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789020548;
-	bh=EV5K19ueo41sbYsCt94LAb/In1aILOl8I2bF1SsUAHQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BdK46Fqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959841F000FF;
+	Thu, 10 Sep 2026 06:14:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789020848;
+	bh=jXw4N5ytxD4UI37+p86OA4FEbqP4b9fZyLZr1WfZy7U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cxkNRFIySC2h4ZCxuYL/sXUAcrTvmaaAJ8xgjRYoKtHsnVcyNwiNCEXyEVg7BI3Rt
-	 s4xiIc3p/trE6nbZgEh4NNu4Q9MykqHxcaz7GmcTDmB2virQECTQLZiqAtNnaM0rys
-	 jWgrtsLvDQuUGwFtM1YoX098f5MW8sV3aFsQdNC1k9FXD+02HHDjrqbphjDvQ5oY7A
-	 thXKZEPf+85kzFpmOMK9/YgykwUZGG5pON+y3UgplzovisQfZ+jLXYBDNnm6v+vOMd
-	 cTX76DS7NDKwyzzB1DSj0TLBLxms3LTyB9HXSpWGXZoLw1rGjeMF4MMtj2TfC183bH
-	 trcbITBpvDHPQ==
-Date: Wed, 9 Sep 2026 23:09:07 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, dgc@kernel.org, floss@jetm.me,
-	stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/7] xfs: fix under-reservation of blocks when repairing
- sf directories
-Message-ID: <20260910060907.GC6253@frogsfrogsfrogs>
-References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
- <178892936640.4057962.1916451282677820756.stgit@frogsfrogsfrogs>
- <20260910050031.GB26687@lst.de>
- <aqJANTuQQMEIqcmO@andromeda.toxiclabs.cc>
+	b=BdK46FqaKe+s7ek8N6movVbNnNnE03TCAFe/eKcPHUfdb+ikavG3gW7PojaEcs2pd
+	 hyCg6yETiyvUZ5ys5r0PCOvIz5UuCMGou73TKJS6AILYji6aK4uGZGD27zS3ZC4MK4
+	 rm4h+FLqVcuxULDnlISaqnH1aM8E0tvrKs4KBJPQ=
+Date: Thu, 10 Sep 2026 08:12:14 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: stable@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+	achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
+Message-ID: <2026091059-smudgy-boogieman-5af3@gregkh>
+References: <20260909134237.773280130@linuxfoundation.org>
+ <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +46,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqJANTuQQMEIqcmO@andromeda.toxiclabs.cc>
+In-Reply-To: <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com>
 
-On Thu, Sep 10, 2026 at 07:31:37AM +0200, Carlos Maiolino wrote:
-> On Thu, Sep 10, 2026 at 07:00:31AM +0200, Christoph Hellwig wrote:
-> > On Tue, Sep 08, 2026 at 11:04:35PM -0700, Darrick J. Wong wrote:
-> > > +static inline unsigned int
-> > > +xrep_tempexch_estimate_sf_resblks(
-> > > +	struct xfs_scrub	*sc,
-> > > +	int			whichfork)
-> > > +{
-> > > +	if (whichfork == XFS_ATTR_FORK)
-> > > +		return sc->mp->m_attr_geo->fsbcount;
-> > > +	if (S_ISDIR(VFS_I(sc->ip)->i_mode))
-> > > +		return sc->mp->m_dir_geo->fsbcount;
-> > > +	return 1;
-> > 
-> > geo->fsbcount for attrs is a always 1 and a lot of code relies on that,
-> > so this feels a bit overcomplicated and misleading (but still correct).
-> > 
-> > What about the more usual:
-> > 
-> > 	if (S_ISDIR(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
-> > 		return sc->mp->m_dir_geo->fsbcount;
-> > 	return 1;
-
-I prefer not to leave a logic bomb in the scrub code in case we ever
-have multi-fsblock attr blocks.
-
-Though I guess I'd be ok with
-
-	ASSERT(mp->m_attr_geo->fsbcount == 1);
-
-	if (S_ISDIR(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
-		return sc->mp->m_dir_geo->fsbcount;
-	return 1;
-
-or something like that?
-
-> Either are fine to me so feel free to add:
+On Thu, Sep 10, 2026 at 06:18:02AM +0100, Jon Hunter wrote:
+> Hi Greg,
 > 
-> Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-
-But only if Carlos really wants me to add that.
-
---D
-
+> On 09/09/2026 14:34, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.18.51 release.
+> > There are 583 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
+> > Anything received after that time might be too late.
+> > 
+> > The whole patch series can be found in one patch at:
+> > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
+> > or in the git tree and branch at:
+> > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> > and the diffstat can be found below.
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> > 
+> > -------------
+> > Pseudo-Shortlog of commits:
 > 
+> ...
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_i2s: sort the register default table
 > > 
-> > ?
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_i2s: sort the Tegra264 register default table
 > > 
-> > Otherwise looks good:
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Fix the MIXER enable default value
 > > 
-> > Reviewed-by: Christoph Hellwig <hch@lst.de>
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Sort ADMAIF register defaults
 > > 
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Sort MBDRC register defaults
+> > 
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_mixer: sort the register default table
+> 
+> 
+> These are causing some audio regressions for Tegra ...
+> 
+> Test results for next:
+>     builds:	11 pass, 0 fail
+>     boots:	26 pass, 0 fail, aborted 1
+>     tests:	139 pass, 15 fail, aborted 1
+> 
+> Linux version:	6.18.51-rc1-g4cfd5b1359b0
+> Boards tested:	tegra20-ventana
+>                 tegra30-cardhu-a04
+>                 tegra124-jetson-tk1
+>                 tegra210-p2371-2180
+>                 tegra210-p3450-0000
+>                 tegra186-p2771-0000
+>                 tegra186-p3509-0000+p3636-0001
+>                 tegra194-p2972-0000
+>                 tegra194-p3509-0000+p3668-0000
+>                 tegra234-p3737-0000+p3701-0000
+>                 tegra234-p3768-0000+p3767-0005
+> 
+> Test failures:	tegra186-p2771-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra186-p2771-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh (rt565x loopback)
+>                 tegra194-p2972-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra194-p3509-0000+p3668-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra194-p3509-0000+p3668-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra210-p2371-2180: tegra-audio-loopback-testsuite.sh
+>                 tegra210-p2371-2180: tegra-audio-mixer-testsuite.sh
+>                 tegra210-p3450-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra210-p3450-0000: tegra-audio-mixer-testsuite.sh
+> 
+> This tells me that there is some other dependency missing.
+> My intention was to only backport these for v7.2 because
+> audio is broken in that release for Tegra. Sorry if I screwed
+> up an fixes tags here.
+> 
+> I see this is pulling in a bunch of other related patches, but
+> I am not sure if these should be pulled in either. Adding Peter
+> if he has any comments.
+
+All of them had specific Fixes: tags on them, which I followed, are they
+incorrect?
+
+I can drop all of the "sort the register table" patches if you want from
+all branches, just let me know.
+
+thanks,
+
+greg k-h
