@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25B1377EA2
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:28:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F1C48A8B7
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046892; cv=none; b=FXT/5RFIYxnjd0Q00Af2ybIwGTZ4CHp7MKzOmJUzaGE/5nuN9yUFh2qcn1S0Wgd7cSjZdMIhENOl6Af0D5+z96jyHE44XdMhjZGLaPljP0J307nTu0tyEpjbseu3LiOgrQYY5U1zLnsXcoBJvnlSVqHEH9i41ReTzUXVt8cYJzU=
+	t=1789046893; cv=none; b=bYxOowbHlTwj9DBFW+6AQBoEDaeZROWKbgozv0SR9GLVoB9l58jkH6TZICENgEsAWqPiMdng1whdWYletQ2NLaXi31Ao/xf1avbDvuJFqiF1fvhvNMOaF4ah8ZgC1VzhKz/DIJUkmkomJ8pOafoBWh7qcx64yLjnNoa7hDX1i6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046892; c=relaxed/simple;
-	bh=gsvDoeKpYWDzmfj/0yAWf3xNdwUAHKrN24wD0Pebdog=;
+	s=arc-20240116; t=1789046893; c=relaxed/simple;
+	bh=ayVkUiozgwsd7e6jc25ZL5AmSZ5xe9nMdUfwLA0OYEc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hOT3YawjdgWnndWV5p0iZQ9u8nn77ITPky9iHRuBff8fqc9RDu7XRZlcCxYJRv5zHE2aFTtFciK3ZCMLnUu+TeCo1Ce5qZkwK6955z7kQrWKBewlz9XejGLhxtnsVZ0k5q5wMWGwu5jsNhg8Ja4WRJWo62ezT0INa7gId+MJn8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnjPt5eD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UaerOZDs1kxAHQ0br3DWKwp1MBpHI2broKA9pGIy0UoEkalFAXwzLsM6dMSMCLiEQ+2Tb5fKqaK4OOaxFfqw0RFeTFXCaY+tni73L8XFflz7kuAL+lSgaeeuVvmzdwQV0bbYIyvkRQtR7r7revPE4sso2Gh5qEtTWUDb+qDUtJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgn2jGEO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnjPt5eD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535A71F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgn2jGEO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E3A1F00898;
 	Thu, 10 Sep 2026 13:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046890;
-	bh=fNTaSoieeH83C1FizKN+BDjmtc0IDbOqQnx4iu8TnVY=;
+	s=k20260515; t=1789046891;
+	bh=oYhyiwe020UHjtQS5aoJ2i/e/DrJ8SB7zNN0OB7dlJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bnjPt5eDcM20oAhaRQ+vc/ksXHFSRYTqb17V7cK/2fgND96miCQ4tTqb/TkZaAG9K
-	 W+2zQo2PJoxD+jzzQ9iBFyscuajBUSV5ygDYpYqHGA84Sythp2JehyIfztxEHh0iH0
-	 165b1K+BnoLvTZ0zegwkpIWRgbfs1WecRvn+COWxyUMD8bxreJWT0hpyywodI20m8c
-	 hcfmVBoW02+kLdKBoMOJrbhZbt/S2AAkQpmOVdpiFEAo2npaTxSRkuJ4OPQevZ3TIe
-	 Bd2NGKYIH2qBpxI48CHm12+3vxiZpyns6AnNQMDrBn1BK1GNtgcWHRYXXUgsevSCwg
-	 gzllVnB1iPRXA==
+	b=dgn2jGEO0Fxisb22BZGiOXIvnrwlEJRNt0jQJw9fmhNw7rxnFgrLEIShHxdoLYhQH
+	 spKKao2VVg0jDDEbfIZV0zAqzJT7ElO+sPUyNduVwXdRITdd/6ZggLS57fv4jxo1DV
+	 a4ujeW1tIhbmmXKfnQgi3sq2RAuFcQ+djwGPJfQUX1P6qShbDV35dtRGs975+A/VBv
+	 p51oA4VNpNsa82spx3lhH0C4dX4M/IhNChe7/1fV3K3zZDpkX5lp82gCPNfQldIeh4
+	 gQbzentonvf2NJq2Btd1m8hgWf3f3jfl07YaVj0MAXm0mHfkafQZtJ4yD+2f9lTx1I
+	 p62TxDuZwlhCA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yang Yingliang <yangyingliang@huawei.com>,
+Cc: Can Peng <pengcan@kylinos.cn>,
+	Kursad Oney <kursad.oney@broadcom.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] spi: bcm63xx-hsspi: switch to use modern name
-Date: Thu, 10 Sep 2026 09:28:07 -0400
-Message-ID: <20260910132808.259891-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] spi: bcm63xx-hsspi: disable clocks on resume failure
+Date: Thu, 10 Sep 2026 09:28:08 -0400
+Message-ID: <20260910132808.259891-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910132808.259891-1-sashal@kernel.org>
 References: <2026090832-pout-curve-a0f8@gregkh>
@@ -46,210 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yang Yingliang <yangyingliang@huawei.com>
+From: Can Peng <pengcan@kylinos.cn>
 
-[ Upstream commit 2c40be6bc95bd2b9681b4acc434feda05b16eb00 ]
+[ Upstream commit 3b0cee02664041aea7e4f787c66cb86c82eb4e97 ]
 
-Change legacy name master to modern name host or controller.
+bcm63xx_hsspi_resume() enables the HSSPI clock, and optionally the PLL
+clock, before restarting the SPI controller queue.
 
-No functional changed.
+If spi_controller_resume() fails, the function currently reports success
+and leaves those clocks enabled. Propagate the error and disable the
+clocks before returning.
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-Link: https://lore.kernel.org/r/20230728093221.3312026-8-yangyingliang@huawei.com
+Fixes: 142168eba9dc ("spi: bcm63xx-hsspi: add bcm63xx HSSPI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+Reviewed-by: Kursad Oney <kursad.oney@broadcom.com>
+Link: https://patch.msgid.link/20260804072017.860974-1-pengcan@kylinos.cn
 Signed-off-by: Mark Brown <broonie@kernel.org>
-
-Backport notes for 5.15:
-Apply the host/controller renaming only to functions present in this tree.
-Drop hunks for the absent polling/sysfs and prepend-transfer support, and
-preserve the existing transfer, chip-select, interrupt and remove behavior.
-Retain spi_alloc_master(), since spi_alloc_host() is unavailable in 5.15;
-no new helpers or functions are needed.
-
-The renamed controller and host in bcm63xx_hsspi_resume() provide the
-context required by 3b0cee026640 ("spi: bcm63xx-hsspi: disable clocks on
-resume failure").
-
-Stable-dep-of: 3b0cee026640 ("spi: bcm63xx-hsspi: disable clocks on resume failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-bcm63xx-hsspi.c | 62 ++++++++++++++++-----------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ drivers/spi/spi-bcm63xx-hsspi.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 9948c2a459c12..34e7001191c0d 100644
+index 34e7001191c0d..dea226f4ace0a 100644
 --- a/drivers/spi/spi-bcm63xx-hsspi.c
 +++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -158,7 +158,7 @@ static void bcm63xx_hsspi_set_clk(struct bcm63xx_hsspi *bs,
- 
- static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- {
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(spi->master);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(spi->controller);
- 	unsigned int chip_select = spi->chip_select;
- 	u16 opcode = 0;
- 	int pending = t->len;
-@@ -232,7 +232,7 @@ static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- 
- static int bcm63xx_hsspi_setup(struct spi_device *spi)
- {
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(spi->master);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(spi->controller);
- 	u32 reg;
- 
- 	reg = __raw_readl(bs->regs +
-@@ -267,10 +267,10 @@ static int bcm63xx_hsspi_setup(struct spi_device *spi)
- 	return 0;
- }
- 
--static int bcm63xx_hsspi_transfer_one(struct spi_master *master,
-+static int bcm63xx_hsspi_transfer_one(struct spi_controller *host,
- 				      struct spi_message *msg)
- {
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(master);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(host);
- 	struct spi_transfer *t;
- 	struct spi_device *spi = msg->spi;
- 	int status = -EINVAL;
-@@ -315,7 +315,7 @@ static int bcm63xx_hsspi_transfer_one(struct spi_master *master,
- 	mutex_unlock(&bs->bus_mutex);
- 
- 	msg->status = status;
--	spi_finalize_current_message(master);
-+	spi_finalize_current_message(host);
- 
- 	return 0;
- }
-@@ -357,7 +357,7 @@ static irqreturn_t bcm63xx_hsspi_interrupt(int irq, void *dev_id)
- 
- static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- {
--	struct spi_master *master;
-+	struct spi_controller *host;
- 	struct bcm63xx_hsspi *bs;
- 	void __iomem *regs;
- 	struct device *dev = &pdev->dev;
-@@ -413,13 +413,13 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
+@@ -534,7 +534,13 @@ static int bcm63xx_hsspi_resume(struct device *dev)
  		}
  	}
  
--	master = spi_alloc_master(&pdev->dev, sizeof(*bs));
--	if (!master) {
-+	host = spi_alloc_master(&pdev->dev, sizeof(*bs));
-+	if (!host) {
- 		ret = -ENOMEM;
- 		goto out_disable_pll_clk;
- 	}
- 
--	bs = spi_master_get_devdata(master);
-+	bs = spi_controller_get_devdata(host);
- 	bs->pdev = pdev;
- 	bs->clk = clk;
- 	bs->pll_clk = pll_clk;
-@@ -430,10 +430,10 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 	mutex_init(&bs->bus_mutex);
- 	init_completion(&bs->done);
- 
--	master->mem_ops = &bcm63xx_hsspi_mem_ops;
--	master->dev.of_node = dev->of_node;
-+	host->mem_ops = &bcm63xx_hsspi_mem_ops;
-+	host->dev.of_node = dev->of_node;
- 	if (!dev->of_node)
--		master->bus_num = HSSPI_BUS_NUM;
-+		host->bus_num = HSSPI_BUS_NUM;
- 
- 	of_property_read_u32(dev->of_node, "num-cs", &num_cs);
- 	if (num_cs > 8) {
-@@ -441,15 +441,15 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 			 num_cs);
- 		num_cs = HSSPI_SPI_MAX_CS;
- 	}
--	master->num_chipselect = num_cs;
--	master->setup = bcm63xx_hsspi_setup;
--	master->transfer_one_message = bcm63xx_hsspi_transfer_one;
--	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH |
-+	host->num_chipselect = num_cs;
-+	host->setup = bcm63xx_hsspi_setup;
-+	host->transfer_one_message = bcm63xx_hsspi_transfer_one;
-+	host->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH |
- 			    SPI_RX_DUAL | SPI_TX_DUAL;
--	master->bits_per_word_mask = SPI_BPW_MASK(8);
--	master->auto_runtime_pm = true;
-+	host->bits_per_word_mask = SPI_BPW_MASK(8);
-+	host->auto_runtime_pm = true;
- 
--	platform_set_drvdata(pdev, master);
-+	platform_set_drvdata(pdev, host);
- 
- 	/* Initialize the hardware */
- 	__raw_writel(0, bs->regs + HSSPI_INT_MASK_REG);
-@@ -467,12 +467,12 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 			       pdev->name, bs);
- 
- 	if (ret)
--		goto out_put_master;
-+		goto out_put_host;
- 
- 	pm_runtime_enable(&pdev->dev);
- 
- 	/* register and we are done */
--	ret = devm_spi_register_master(dev, master);
-+	ret = devm_spi_register_controller(dev, host);
- 	if (ret)
- 		goto out_pm_disable;
- 
-@@ -480,8 +480,8 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 
- out_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
--out_put_master:
--	spi_master_put(master);
-+out_put_host:
-+	spi_controller_put(host);
- out_disable_pll_clk:
- 	clk_disable_unprepare(pll_clk);
- out_disable_clk:
-@@ -492,8 +492,8 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
- 
- static int bcm63xx_hsspi_remove(struct platform_device *pdev)
- {
--	struct spi_master *master = platform_get_drvdata(pdev);
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(master);
-+	struct spi_controller *host = platform_get_drvdata(pdev);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(host);
- 
- 	/* reset the hardware and block queue progress */
- 	__raw_writel(0, bs->regs + HSSPI_INT_MASK_REG);
-@@ -506,10 +506,10 @@ static int bcm63xx_hsspi_remove(struct platform_device *pdev)
- #ifdef CONFIG_PM_SLEEP
- static int bcm63xx_hsspi_suspend(struct device *dev)
- {
--	struct spi_master *master = dev_get_drvdata(dev);
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(master);
-+	struct spi_controller *host = dev_get_drvdata(dev);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(host);
- 
--	spi_master_suspend(master);
-+	spi_controller_suspend(host);
- 	clk_disable_unprepare(bs->pll_clk);
- 	clk_disable_unprepare(bs->clk);
- 
-@@ -518,8 +518,8 @@ static int bcm63xx_hsspi_suspend(struct device *dev)
- 
- static int bcm63xx_hsspi_resume(struct device *dev)
- {
--	struct spi_master *master = dev_get_drvdata(dev);
--	struct bcm63xx_hsspi *bs = spi_master_get_devdata(master);
-+	struct spi_controller *host = dev_get_drvdata(dev);
-+	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(host);
- 	int ret;
- 
- 	ret = clk_prepare_enable(bs->clk);
-@@ -534,7 +534,7 @@ static int bcm63xx_hsspi_resume(struct device *dev)
- 		}
- 	}
- 
--	spi_master_resume(master);
-+	spi_controller_resume(host);
+-	spi_controller_resume(host);
++	ret = spi_controller_resume(host);
++	if (ret) {
++		if (bs->pll_clk)
++			clk_disable_unprepare(bs->pll_clk);
++		clk_disable_unprepare(bs->clk);
++		return ret;
++	}
  
  	return 0;
  }
