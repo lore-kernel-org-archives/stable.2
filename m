@@ -1,139 +1,414 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F1C48E0CB
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688E64A2079
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051013; cv=none; b=AY1jKzEhG5GnFzp0GRX1GOcs7+nxCRBgqoVwXW/mAUlWvEYS1cSwubLTht4GqhuC6IEsap4n9swcfuoi6QT4VfuKjj8PJ0tf5G41pE/hJ8Y20Bgw+G5Qy+L+bG0hHjgIMiXLEsDWKiM44z3f34mqavR6YbCiwiFpHq5pueuJ2+U=
+	t=1789051018; cv=none; b=EyXJIbIHRKqy/DBoepMp784MneH8SImWUf7OyZ46aI1tkKwAqlDJiSvTrHlvtcJK5cDFidZbvZAxcDht7HKR6MAP9qG3SaAAKjpgpvIa2x2Hdysm7TYI0H9xl1ZYBO1Rvr9sR+hExGIo/CnEj+EwcI9zzK32Pr9xXUpDNf/HVxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051013; c=relaxed/simple;
-	bh=44++hIkP5myLEtGQXIFd/CtlqyOT1Q2AyIHZpmKSjvY=;
+	s=arc-20240116; t=1789051018; c=relaxed/simple;
+	bh=txhZ0B8DtE1sqMnyMPlAoGJHZ/NaorqgiSScBPx2ViM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rEbOicTpPtEYek+7w4p3K2IuMII6DPmLvHqtmaFXiH2XcbsxQkdEk+OvEyDL6t+N8DdwbE645QTb0ZMZiGTbIC6CgxvlSdmVh2FxQv8wI6veOhu4pwsFiwyCurG4XT+ksPBV7Ty1/wmHB2AcXJoBjjC/rlM14g8HZntkaSXMjGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndWKrZ5J; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=t96Tych8U0Xcy9vEdepfnN+feAAsxw4hQgnetkHQ5vcUKuWEkJgFFzb85Ntl8znPCxLKgLBSnBRwR2ncx+JTx6EE6Dq+rWERXXRB2qHMrfszqgXp/TLSLskXDN+3+G/eE4vAYO2mFeZb/eR3xIiA3c7XZXxVPn9W0DEgkhFQYQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZnvLYh0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndWKrZ5J"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2637dd37c1so703511766b.0
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:36:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789051010; x=1789655810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=orC8VUg8M5+c5rSP9eN2LigrAsxa02qw3fBkTWfZG5o=;
-        b=ndWKrZ5JAjB5G6iuzNo741KncDzAzpJ1jMnadG/XLjo5S2SXnKrge9jMiu0vkqRXul
-         02R542PRx2VIdx19mzyq7eG8oep8y0PvuPycoGVYn27v4Tslh28jwwIUgOFqGAYW+1qR
-         9BVnJlDJn0+yE3xZ9iv2qiy3Cf3T1J0A4HfN9zAZipwdWQarykmlovSOhr5eG/56kPU9
-         VQIRT1tg7aD0k6w1P3YbLbLd6SzIvuRA+0Tj70h9AJ2BZUW4F26HNbZEScZFxhfpSAfo
-         odp0I8hiYhAwukNMu4QkEwTSZBvRP5liONDIvXiesFGCQsw5j4XYvbmbZ5cyrMj/O+Z3
-         vTYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051010; x=1789655810;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=orC8VUg8M5+c5rSP9eN2LigrAsxa02qw3fBkTWfZG5o=;
-        b=hNfp56gc4zmQlp9Xeek8wREbVnJD8aXgtF2LZyG8g21UuPYxOzt8OHKtPzN/gGt0nz
-         yhdwSYkxNdbKRbl0S9WA8nZx3EqphPutxxwVAvo+l3I5VlvGtU8qwv5j/figrg8++WXC
-         QElGIFnUWjnH9MVYR2tvwh6YHRAzo0MJN+yz3VLe0lVI5j4bounhBTD/htIlGgZo8YdG
-         0O75EtfldEHds9+x0UFVyjBXLGlNqoeYMTsMM5CnYy1Tole2/Ai/KR6RFwQtyuoUX483
-         59ivmGDuxQKfDVZwEm0+xn7t5y+7epqIzgvQmyqmrIQsPGz9x2EWRXKZ1+L3XrxLfiqi
-         MuHw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2ceSFnnqR8UPBtPNdcgbCYHp3arKToTLeW3I4lArhlzXZeWO9RCSJUAmr1dQowAuRugTVxik=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCHcQ9suTWJlTzXiPC/i/m62AOoSE6JSSeUkVSDw510+fEspdQ
-	D9eDYErqvVkvukqhGM8UKaepmvy5l/sSgCbwGU9z9H/CWlmKbFCnQUtR
-X-Gm-Gg: AYBFou1QOk0hto9yIDmX58vrZgo55AIrxheZC2p3LWIV+IWHVccAiNGMdA4onZLTR5N
-	Ma3jOPoCaSKNg+/qNuO0ZzjuiqmVEE7CDtFxWJi8XEMRFz98cCCvkowMKBl7mN+YhSNhbuZHX5M
-	d+anjeziMv9SaUcS0CspShPhDqinwToICyRbBSuTygVxE8wDQdSADc4oVNTvID98dOxogQfoFPa
-	lnj+Yuns5JH7YS7kvoa8qYbriEVCX8i8ysJjMruKPNeNNETIq/GvddAoU2+SNPz+WTGuWBic9xG
-	jOwtWXtF92H7JXr85FiLFUg8jm8UWmL6RwFyyfxbbyWcPvGsOMdyuDPBON+f92XOgrGlzM3fHjP
-	8zccHpu5grHO7oIe9wJ+TIFffRPiO0CLbMne0YbXh6oEAwpvoOCnKkGa9wCFp+enoIbsluweBEP
-	l1fE2guNvyjNl5nJ0wupPOe7bkA0BUUMttjKYr51T1Y+VHIuVUj/nCxsGf6w1dHj/Hl0VMPPTiC
-	TA0EbY=
-X-Received: by 2002:a17:906:ee88:b0:c29:3711:626f with SMTP id a640c23a62f3a-c2937116522mr422684566b.24.1789051009715;
-        Thu, 10 Sep 2026 07:36:49 -0700 (PDT)
-Received: from bbzr-mini (cool-t.fvds.ru. [103.137.251.133])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2945d5ea60sm135441466b.29.2026.09.10.07.36.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:36:49 -0700 (PDT)
-From: Vadim Nikitushkin <bub4z0r@gmail.com>
-To: christian.koenig@amd.com,
-	thomas.hellstrom@linux.intel.com
-Cc: ray.huang@amd.com,
-	matthew.auld@intel.com,
-	matthew.brost@intel.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	skainsworth@gmail.com,
-	alexander.deucher@amd.com,
-	bernardomagri21@gmail.com,
-	Vadim Nikitushkin <bub4z0r@gmail.com>
-Subject: [PATCH] drm/ttm: apply the swapout bulk_move fix to the intended condition
-Date: Thu, 10 Sep 2026 17:34:51 +0300
-Message-ID: <20260910143451.65853-1-bub4z0r@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZnvLYh0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840CF1F000FF;
+	Thu, 10 Sep 2026 14:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789051016;
+	bh=7+URpbISlodudmyLkzmAPKsJvqEwxTZO0L0ml2Nhn3o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PZnvLYh0Sb5OLjc3cN4TQ9+8FLoNxh39uVKSYtr+ljwiN22kMsf6hSa1JzqakITlz
+	 SIzKP26Mf0nIASdG2cWbgUO8USgykDR2r6ttKljqi16xQDKg+4aYl0lHTRtEOlJGro
+	 U9fN+rpc0lkGxwZ+PQonxRKUZTvmOiI9W/hXg5fajKHLs5r7pCiai3NZbGWTj/Tl9O
+	 PPPQyIWKriEz2KxPXUdaSDq1CAukpywr0Zf5f+Ejsx5GgFbIm4/HXODcHzLYJwXYAy
+	 fZt8Epf2uoTKpKQHj1pnA1u10qQDh3YRCbk2NvLfPy5qbgBHqeVCe6bF6zs9pqJohA
+	 p4QGPsF+ImMnQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Hagen Paul Pfeifer <hagen@jauu.net>,
+	Jakub Kacinski <kuba@kernel.org>,
+	James Bottomley <james.bottomley@HansenPartnership.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/secretmem: properly account locked pages
+Date: Thu, 10 Sep 2026 10:36:52 -0400
+Message-ID: <20260910143652.758650-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <853fb020-592b-4f85-a9b5-a522aca6a29e@amd.com>
-References: <853fb020-592b-4f85-a9b5-a522aca6a29e@amd.com>
+In-Reply-To: <2026090832-trivial-doorframe-5fc5@gregkh>
+References: <2026090832-trivial-doorframe-5fc5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 3db7d7d58341 ("drm/ttm: fix swapped-out resources never leaving
-their bulk_move range") landed in drm-misc-fixes with its one-line
-change applied to the wrong "if": the "if (ret)" after
-ttm_resource_try_charge() in ttm_bo_alloc_at_place() became
-"if (ret > 0)", while the "if (!ret)" after ttm_tt_swapout() in
-ttm_bo_swapout_cb() that the patch targeted was left untouched.
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-ttm_resource_try_charge() returns 0 or a negative error code, so with
-"ret > 0" a failed dmem cgroup charge no longer fails the allocation.
-Restore that check and apply the intended change: ttm_tt_swapout()
-returns the number of pages swapped out on success, so the bulk_move
-removal must run for ret > 0.
+[ Upstream commit 97d34aa65c29cca85e3e9050f4c936389b38a054 ]
 
-Fixes: 3db7d7d58341 ("drm/ttm: fix swapped-out resources never leaving their bulk_move range")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+secretmem accounts folios by treating memory as if it were mlock()'d and
+thus limited by the RLIMIT_MEMLOCK limit.
+
+However the folios are unevictable and remain so until the inode is
+evicted, eliminating usual mlock() semantics - mapping folios then
+unmapping them does not clear their unevictable state, since it depends on
+AS_UNEVICTABLE, not PG_mlocked.
+
+A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+map then unmap and VmLck no longer counts the secretmem range.  Worse,
+folios are not accounted in the process's RSS, meaning the OOM killer
+won't know to kill the process.
+
+Repeatedly mapping/unmapping (or forking) can then result in the
+consumption of all available system memory with unevictable folios and
+cause system instability.
+
+A secretmem fd can be passed between processes and over fork so a
+per-process limit simply does not make sense, so follow the precedent set
+by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
+locked pages in user_struct->locked_vm.
+
+Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+applies per-user not per-process, so it doesn't make sense to bypass for
+users with CAP_IPC_LOCK, therefore remove this bypass.
+
+There is simply no reason to carry on marking the mapping as mlock()'d
+since it's misleading and the lifecycle is now correctly handled, so
+remove this too.
+
+Note that secretmem does not support any form of truncation (including
+hole punching) and the folios are unreclaimable, so the folios need only
+be accounted on fault and unaccounted on inode destruction.
+
+__secretmem_account_pages() is more or less a duplicate of the code that
+io_uring etc.  use, but since this is a bug fix that needs backporting,
+defer any de-duplication efforts to a follow-up.
+
+test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
+been removed, so remove the test altogether for the fix.  A new test will
+be sent separately for upstream.
+
+Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
+Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Hagen Paul Pfeifer <hagen@jauu.net>
+Cc: Jakub Kacinski <kuba@kernel.org>
+Cc: James Bottomley <james.bottomley@HansenPartnership.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted folio-based fault handling to Linux 6.1’s page-based APIs using page_folio(page) ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Christian, the commit in drm-misc-fixes (3db7d7d58341) ended up with the
-change applied to the try_charge condition at line 532 instead of the
-swapout one at line 1434; the resulting tree still has "if (!ret)" in
-ttm_bo_swapout_cb(). This is a fix-up on top of 3db7d7d58341 since
-drm-misc-fixes does not rebase. Sorry for the noise.
+ include/linux/sched/user.h                |   3 +-
+ mm/secretmem.c                            | 119 ++++++++++++++++++++--
+ tools/testing/selftests/vm/memfd_secret.c |  30 +-----
+ 3 files changed, 112 insertions(+), 40 deletions(-)
 
- drivers/gpu/drm/ttm/ttm_bo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index a12af5b..9b85b5f 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -532,7 +532,7 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_object *bo,
- 		ret = ttm_resource_try_charge(bo, place, &alloc_state->charge_pool,
- 					      force_space ? &alloc_state->limit_pool
- 							  : NULL);
--		if (ret > 0) {
-+		if (ret) {
- 			/*
- 			 * -EAGAIN means the charge failed, which we treat
- 			 * like an allocation failure. Therefore, return an
-@@ -1434,7 +1434,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index 4cc52698e214e..8d7e5521f7cdd 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -25,7 +25,8 @@ struct user_struct {
  
- 	if (ttm_tt_is_populated(tt)) {
- 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
--		if (!ret) {
-+		if (ret > 0) {
- 			spin_lock(&bdev->lru_lock);
- 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
- 			ttm_resource_move_to_lru_tail(bo->resource);
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
++	defined(CONFIG_SECRETMEM)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+diff --git a/mm/secretmem.c b/mm/secretmem.c
+index b570a6e25b6be..84d10092ecb03 100644
+--- a/mm/secretmem.c
++++ b/mm/secretmem.c
+@@ -18,6 +18,9 @@
+ #include <linux/secretmem.h>
+ #include <linux/set_memory.h>
+ #include <linux/sched/signal.h>
++#include <linux/sched/user.h>
++#include <linux/cred.h>
++#include <linux/slab.h>
+ 
+ #include <uapi/linux/magic.h>
+ 
+@@ -47,10 +50,69 @@ bool secretmem_active(void)
+ 	return !!atomic_read(&secretmem_users);
+ }
+ 
++struct secretmem_inode_state {
++	struct user_struct	*user;
++	atomic_long_t		nr_pages_accounted;
++};
++
++static bool __secretmem_account_pages(struct user_struct *user,
++		unsigned long nr_pages)
++{
++	unsigned long page_limit, cur_pages, new_pages;
++
++	if (!nr_pages)
++		return true;
++
++	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	cur_pages = atomic_long_read(&user->locked_vm);
++	do {
++		new_pages = cur_pages + nr_pages;
++		if (new_pages > page_limit)
++			return false;
++	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
++					  &cur_pages, new_pages));
++	return true;
++}
++
++static bool secretmem_account_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++
++	if (!__secretmem_account_pages(state->user, nr_pages))
++		return false;
++
++	atomic_long_add(nr_pages, &state->nr_pages_accounted);
++	return true;
++}
++
++static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
++		unsigned long nr_pages)
++{
++	atomic_long_sub(nr_pages, &state->user->locked_vm);
++	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
++}
++
++static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
++}
++
++static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
++{
++	const unsigned long nr_pages_accounted =
++		atomic_long_read(&state->nr_pages_accounted);
++
++	__secretmem_unaccount_pages(state, nr_pages_accounted);
++}
++
+ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ {
+ 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct secretmem_inode_state *state = inode->i_private;
+ 	pgoff_t offset = vmf->pgoff;
+ 	gfp_t gfp = vmf->gfp_mask;
+ 	unsigned long addr;
+@@ -72,8 +134,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 			goto out;
+ 		}
+ 
++		if (!secretmem_account_folio(state, page_folio(page))) {
++			put_page(page);
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
++
+ 		err = set_direct_map_invalid_noflush(page);
+ 		if (err) {
++			secretmem_unaccount_folio(state, page_folio(page));
+ 			put_page(page);
+ 			ret = vmf_error(err);
+ 			goto out;
+@@ -82,6 +151,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 		__SetPageUptodate(page);
+ 		err = add_to_page_cache_lru(page, mapping, offset, gfp);
+ 		if (unlikely(err)) {
++			secretmem_unaccount_folio(state, page_folio(page));
+ 			/*
+ 			 * If a split of large page was required, it
+ 			 * already happened when we marked the page invalid
+@@ -112,23 +182,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
+ 	.fault = secretmem_fault,
+ };
+ 
++static void secretmem_destroy_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state = inode->i_private;
++
++	secretmem_unaccount_all_folios(state);
++	free_uid(state->user);
++	kfree(state);
++	inode->i_private = NULL;
++}
++
+ static int secretmem_release(struct inode *inode, struct file *file)
+ {
+ 	atomic_dec(&secretmem_users);
++	secretmem_destroy_inode_priv(inode);
++
+ 	return 0;
+ }
+ 
+ static int secretmem_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+-	unsigned long len = vma->vm_end - vma->vm_start;
+-
+ 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
+ 		return -EINVAL;
+ 
+-	if (mlock_future_check(vma->vm_mm, vma->vm_flags | VM_LOCKED, len))
+-		return -EAGAIN;
+-
+-	vma->vm_flags |= VM_LOCKED | VM_DONTDUMP;
++	vma->vm_flags |= VM_DONTDUMP;
+ 	vma->vm_ops = &secretmem_vm_ops;
+ 
+ 	return 0;
+@@ -188,19 +265,40 @@ static const struct inode_operations secretmem_iops = {
+ 
+ static struct vfsmount *secretmem_mnt;
+ 
++static int secretmem_init_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state;
++
++	state = kzalloc(sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return -ENOMEM;
++
++	state->user = get_uid(current_user());
++	inode->i_private = state;
++	return 0;
++}
++
+ static struct file *secretmem_file_create(unsigned long flags)
+ {
+ 	struct file *file = ERR_PTR(-ENOMEM);
+ 	struct inode *inode;
+ 	const char *anon_name = "[secretmem]";
++	int err;
+ 
+ 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
+ 	if (IS_ERR(inode))
+ 		return ERR_CAST(inode);
++
++	err = secretmem_init_inode_priv(inode);
++	if (err)
++		goto err_free_inode;
++
+ 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
+ 				 O_RDWR, &secretmem_fops);
+-	if (IS_ERR(file))
+-		goto err_free_inode;
++	if (IS_ERR(file)) {
++		err = PTR_ERR(file);
++		goto err_free_priv;
++	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
+ 	mapping_set_unevictable(inode->i_mapping);
+@@ -213,10 +311,11 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 	inode->i_size = 0;
+ 
+ 	return file;
+-
++err_free_priv:
++	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+-	return file;
++	return ERR_PTR(err);
+ }
+ 
+ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+diff --git a/tools/testing/selftests/vm/memfd_secret.c b/tools/testing/selftests/vm/memfd_secret.c
+index 9b298f6a04b37..348cc976726bb 100644
+--- a/tools/testing/selftests/vm/memfd_secret.c
++++ b/tools/testing/selftests/vm/memfd_secret.c
+@@ -56,33 +56,6 @@ static void test_file_apis(int fd)
+ 		pass("file IO is blocked as expected\n");
+ }
+ 
+-static void test_mlock_limit(int fd)
+-{
+-	size_t len;
+-	char *mem;
+-
+-	len = mlock_limit_cur;
+-	if (len % page_size != 0)
+-		len = (len/page_size) * page_size;
+-
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem == MAP_FAILED) {
+-		fail("unable to mmap secret memory\n");
+-		return;
+-	}
+-	munmap(mem, len);
+-
+-	len = mlock_limit_max * 2;
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem != MAP_FAILED) {
+-		fail("unexpected mlock limit violation\n");
+-		munmap(mem, len);
+-		return;
+-	}
+-
+-	pass("mlock limit is respected\n");
+-}
+-
+ static void try_process_vm_read(int fd, int pipefd[2])
+ {
+ 	struct iovec liov, riov;
+@@ -258,7 +231,7 @@ static void prepare(void)
+ 				   strerror(errno));
+ }
+ 
+-#define NUM_TESTS 4
++#define NUM_TESTS 3
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -278,7 +251,6 @@ int main(int argc, char *argv[])
+ 					   strerror(errno));
+ 	}
+ 
+-	test_mlock_limit(fd);
+ 	test_file_apis(fd);
+ 	test_process_vm_read(fd);
+ 	test_ptrace(fd);
 -- 
 2.53.0
 
