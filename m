@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04959379966
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BB33769FF
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:11:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006277; cv=none; b=m4rpUEP8/56UewxiSdecBXXoe5yFKUAWYwRtebu+pCDMZCVsweLNjBqskdijP8y2WDOH6NYCkjmXiouYXH/+fyU2/qHMVkLfRmni0UvQbkwm1KEqYNyz8KASHe8ieErae7eeEhKH0vOTiVEjUd3gFvfThstmHA3lpLVk6tKahiU=
+	t=1789006278; cv=none; b=BnOUEP1FGNtER19eZIvFKqcKEusq2q6WHP1H8RZJ8Vx1FpZ8JMOdzRZLpJKQwsEL27wpMl57B/STAkIErYsGrah2GbPoQMhBflpEvCXICwSVx9hvGLxSd9DuEn2A65QaJfJk7sjwekHovRWnYZu03UxPzRj8AO2XnsiTZwUPgpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006277; c=relaxed/simple;
-	bh=SryFeRF+glk7TmSUDbpr1MbwlKA8jsSboUHYwpC+ZxE=;
+	s=arc-20240116; t=1789006278; c=relaxed/simple;
+	bh=IaIk2IQosx/h56aHBvb1dmYfPLpodhU0q+8MTD6kMFc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UKOJE+5kAEIstZBrMMcL2xyyr/AlGgch5EhWE5ByUgEvHXRpRcA6JmUzzjwAIzfoIHN8ctl34iF6CET4wYG6g+bkGMj6LenrZF2HOybDCQpNLHZ733/takTI88CzWagzmU622bCmsxgXvsOFoA1tMnGOblku7O5V5ZigFDr4gzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I1CsThNj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mCE4HkS4d406wmdRTKcGcdPuKUMEoExTF4qi6/qLIQqdPrNotYCwhf4WYssTW4JLP6L1HMXn35sqos/Nw28Esc69k4R0yWhrGPWPnYeD4UYR4xbxYIjD95DrqbpwQSqATASuOb7AufX1vbnfsMUpvFFXFuDiZAvfBxcR/trgNRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCmNhgKI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I1CsThNj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5797A1F00893;
-	Thu, 10 Sep 2026 02:11:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCmNhgKI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227F61F00898;
+	Thu, 10 Sep 2026 02:11:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789006275;
-	bh=zMXiBIf96p6dW3LDSw/Fz2/m8vxCJFW+LaModK0GgLs=;
+	s=k20260515; t=1789006276;
+	bh=AevA6saFGdrtRbN5x/w21/6vccVd43KaktrP2sdWKWA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I1CsThNj3/JgJ7jAcoTgaPLhz8HKYOjrV/5YZiD+tiJ2TMpEF0BkV+I3l3culSoV3
-	 ZUIVXSDEH8PrbMzFwXGSkP8tDgJnDMbJviDsqA/dyqBGpVQ6YWwEocTUOQRwE6PZoe
-	 7xNezcqlrrcYM9pVduvQGjSaLaBXP/1rRyIWFZkwqtG65F7EeT91AeI/C7lBPtfLQZ
-	 a7P2mSRX/Evx3cji7Uaxm65KRG2oWXcV/LPeudQ0jSxr9Xq9pzjetcOUQTcK4ZdvRZ
-	 rBEsesHNxzT6HzNxC4sgVwTl/RpWUhGJLGK62Wmr7EN5pZhD5Vm8NFolxtgVVcVlCR
-	 Q1kvUadAg/GQw==
+	b=mCmNhgKI2VdTxfKZSm3kL98R8RRMdDs3ytbvmtBpj81ZRjhmQ8gGj+Q4Z+4DIhxj1
+	 wIcaeuZCA5fJ01hB9Wwm5pNqjmbLKtnjbInvY4uIy1d/oiWrsEUUHpTozdLcXl6m2v
+	 LG1pu4h23j+f68MIFHfiai/Uez+6x3DAeQff/cd47FNRuI2AFFZOnevAbv14YVvPPP
+	 n4d2ep300LxSmCuQf/+hnYYH2YzmweJqTGsAx9xAuGucEpJSqc1T38usVPTbKDZq9h
+	 VcBDGEhXaYWD+/zZ5MOBFmETKmIUEeNjdlImXDf/1t9Aio3nHs8dudXKkZpfnuO92d
+	 ELn06QmcjBnMA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Peter Chen <peter.chen@kernel.org>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	stable <stable@kernel.org>,
+	Ijae Kim <ae878000@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] usb: cdns3: rename hibernated argument of role->resume() to lost_power
-Date: Wed,  9 Sep 2026 22:11:12 -0400
-Message-ID: <20260910021113.3989344-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: storage: realtek_cr: fix use-after-free on disconnect
+Date: Wed,  9 Sep 2026 22:11:14 -0400
+Message-ID: <20260910021114.3989473-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910021113.3989344-1-sashal@kernel.org>
-References: <2026090844-colossal-stem-a83f@gregkh>
- <20260910021113.3989344-1-sashal@kernel.org>
+In-Reply-To: <2026090831-imbecile-crinkle-7c3e@gregkh>
+References: <2026090831-imbecile-crinkle-7c3e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,87 +48,70 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 0bde749c58c72405c54a1eabf6266a0273377226 ]
+[ Upstream commit 4ffee1aebb0c0ffcda9faffd17834ea9b00d42cc ]
 
-The cdns_role_driver->resume() callback takes a second boolean argument
-named `hibernated` in its implementations. This is mistaken; the only
-potential caller is:
+realtek_cr_destructor() calls timer_delete() before the chip containing
+the timer is freed. The timer callback may still be running and can
+rearm itself, resulting in a use-after-free.
 
-int cdns_resume(struct cdns *cdns)
-{
-	/* ... */
+Use timer_shutdown_sync() to wait for the callback and prevent further
+rearming. Do this unconditionally because ss_en may be changed after
+the timer is armed.
 
-	if (cdns->roles[cdns->role]->resume)
-		cdns->roles[cdns->role]->resume(cdns, cdns_power_is_lost(cdns));
+Move timer_setup() into init_realtek_cr() so the timer is initialized
+before any failure path can invoke the destructor.
 
-	return 0;
-}
+Found by static analysis.
 
-The argument can be true in cases outside of return from hibernation.
-Reflect the true meaning by renaming both arguments to `lost_power`.
-
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Link: https://lore.kernel.org/r/20250205-s2r-cdns-v7-3-13658a271c3c@bootlin.com
+Fixes: e931830bb877 ("Realtek cr: Add autosuspend function.")
+Cc: stable <stable@kernel.org>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260727123414.44700-1-mhun512@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: eae6460f6173 ("usb: cdnsp: fix wakeup from S3 after controller context loss")
+[ adapted the timer_delete() removal to the branch’s del_timer() spelling. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/cdns3/cdns3-gadget.c | 4 ++--
- drivers/usb/cdns3/cdnsp-gadget.c | 2 +-
- drivers/usb/cdns3/core.h         | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/usb/storage/realtek_cr.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-index b52570c6deff7..9221de5111e4a 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -3483,7 +3483,7 @@ __must_hold(&cdns->lock)
- 	return 0;
+diff --git a/drivers/usb/storage/realtek_cr.c b/drivers/usb/storage/realtek_cr.c
+index a026c6cb6e684..de82d8260d729 100644
+--- a/drivers/usb/storage/realtek_cr.c
++++ b/drivers/usb/storage/realtek_cr.c
+@@ -915,7 +915,6 @@ static int realtek_cr_autosuspend_setup(struct us_data *us)
+ 	us->proto_handler = rts51x_invoke_transport;
+ 
+ 	chip->timer_expires = 0;
+-	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
+ 	fw5895_init(us);
+ 
+ 	/* enable autosuspend function of the usb device */
+@@ -933,10 +932,7 @@ static void realtek_cr_destructor(void *extra)
+ 		return;
+ 
+ #ifdef CONFIG_REALTEK_AUTOPM
+-	if (ss_en) {
+-		del_timer(&chip->rts51x_suspend_timer);
+-		chip->timer_expires = 0;
+-	}
++	timer_shutdown_sync(&chip->rts51x_suspend_timer);
+ #endif
+ 	kfree(chip->status);
  }
+@@ -981,6 +977,9 @@ static int init_realtek_cr(struct us_data *us)
  
--static int cdns3_gadget_resume(struct cdns *cdns, bool hibernated)
-+static int cdns3_gadget_resume(struct cdns *cdns, bool lost_power)
- {
- 	struct cdns3_device *priv_dev = cdns->gadget_dev;
+ 	us->extra = chip;
+ 	us->extra_destructor = realtek_cr_destructor;
++#ifdef CONFIG_REALTEK_AUTOPM
++	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
++#endif
+ 	us->max_lun = chip->max_lun = rts51x_get_max_lun(us);
+ 	chip->us = us;
  
-@@ -3491,7 +3491,7 @@ static int cdns3_gadget_resume(struct cdns *cdns, bool hibernated)
- 		return 0;
- 
- 	cdns3_gadget_config(priv_dev);
--	if (hibernated)
-+	if (lost_power)
- 		writel(USB_CONF_DEVEN, &priv_dev->regs->usb_conf);
- 
- 	return 0;
-diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
-index 89d3d8167e599..64440fdf97c88 100644
---- a/drivers/usb/cdns3/cdnsp-gadget.c
-+++ b/drivers/usb/cdns3/cdnsp-gadget.c
-@@ -2025,7 +2025,7 @@ static int cdnsp_gadget_suspend(struct cdns *cdns, bool do_wakeup)
- 	return 0;
- }
- 
--static int cdnsp_gadget_resume(struct cdns *cdns, bool hibernated)
-+static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
- {
- 	struct cdnsp_device *pdev = cdns->gadget_dev;
- 	enum usb_device_speed max_speed;
-diff --git a/drivers/usb/cdns3/core.h b/drivers/usb/cdns3/core.h
-index ac30ee21309d0..801be9e61340e 100644
---- a/drivers/usb/cdns3/core.h
-+++ b/drivers/usb/cdns3/core.h
-@@ -30,7 +30,7 @@ struct cdns_role_driver {
- 	int (*start)(struct cdns *cdns);
- 	void (*stop)(struct cdns *cdns);
- 	int (*suspend)(struct cdns *cdns, bool do_wakeup);
--	int (*resume)(struct cdns *cdns, bool hibernated);
-+	int (*resume)(struct cdns *cdns, bool lost_power);
- 	const char *name;
- #define CDNS_ROLE_STATE_INACTIVE	0
- #define CDNS_ROLE_STATE_ACTIVE		1
 -- 
 2.53.0
 
