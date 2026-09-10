@@ -1,194 +1,195 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B243C3F7B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029891; cv=pass; b=AWakWRsrB6Dhr0c4JIr38pUiCB/LFdo1idOJvN9opfGNSYa3Ulgokg8hr8M2bWn1WAH4ZUo6y9TULCDWUp99jWDkgfbhY2Ihfs0oK82B5ZZTpeS68HS/KPspYw8DLThgm9jMWcvkxqnpcp+YMmbG+BiiYsb7MNGsrV5oQBB5KNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029891; c=relaxed/simple;
-	bh=2L4i5AeMVgZ8ZbU5eaRQAyD/0mMzF1qyndAZfksaAzk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KNd2cAc3iGG4/E0t3uUUqolFYWugN/4S4lYaZ6Z697zf14MFjMnNONAQfSArvpc6nB+kxsLVb/KL0vLboSxGj9WrXxfySeRqOQwIpBDjmPyG/t3BwiM+t7EJ6qWe731abiBfm3LGBp4CKaGErEXK+K2PesBzyAqpBQATTToIkDQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=LGfFbAZ+; arc=pass smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131B33C09FE;
+	Thu, 10 Sep 2026 08:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789030016; cv=none; b=rEnw+AplRdSB7zL+B5wxw+UAjQnr6OFEiXqEqxSF8MEenG0BQlg2v4/vuIRVcIlEAdXuyfIZu5jI+fe6Gr0bJOAo9sGGGkPabA98Gguhl/IpRhnVea7nllBB2Y9dn1sjwvRtGpa5frf/tP/1QBWC3Cadi3VR9imSFN1B57tZs2w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789030016; c=relaxed/simple;
+	bh=ynSUx5O0vGrtBcIzhCFEUSn6SYgdZ8c7Coka6IHOtz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lpamKgYWo1gJyydb+W+6/hZjtszRfKNwjEK6KspQG3Oyxc5MQ6ioDlKivipYnlBcEXtxEmKbOBoX/FBqTH67Tr2C7bNQ3wPVyQ8qiGAKexa7IfoPbf8BY26DdOy4EGq+n4eN3XfPT5WT3FknF7U9E+68DH0rASj2oi6P3lE58YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OPeZe2mB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oUoJCIsW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TlFhXNxv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iSMWN7e7; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="LGfFbAZ+"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so53246715e9.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:44:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789029887; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mz676EBZfvC6CuiF32Do08o1P6K9TXRq42JsHHpYFIl/5HB/kVOh4wIi6fPcc7rmvF
-         OrBcvQMG6KTR8bSobCDaZpjf12b9mMWJ1fCk/MK8B/BYWAavfVQvIovUYtFoB6nknnTv
-         OCTxVu2F9Nhz2SYn/L1zSiqRsIpmrX3+bF4YYyP3WAFb+Nt0a9UXZmXQZUdeDNhjiO07
-         rbDdeSQg1BUpqDWqlV+xLkxWdMKoZKVDqVlUylKgv2/2P8df6VJ4AD1X9ajNdsqbHzXp
-         Hfg8Wa5JF0XnuXmLJkLlVODR73F9IxlznLKKJERDY/XOBNe+ilaKq1cw+rva4283NDEm
-         xnPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=scbEHeSfgSCcxK7Ny73Kn4g0gC7DW9iSvZ1f2Vwg208=;
-        fh=EZVSuOFyO3BhcOemrfPE0nijWuRXsFS5/Oc546dmw1M=;
-        b=NyKrTXF1WQHrIbxHh/dpP7k4UTPq6oJJ6QNNv0PFBSQpFarAj/RjqtYL1G5fFnfuYR
-         4YxfOSswqJdcvbVxKQNTzUdcA0G2+Qtgv6uC2iCOSU90DrAZ59aMBPore/9NHnJoxcUC
-         ALoJb8LWI0HNh7lefaygBwMiD8SoZmV2hC9M9ylDYGNGDkoHVw0/hxfj7mZxOwm6oW+T
-         d8kUeffeCczJl3IO9YlRuzk32JStv4tee+V7O3LOtcpoWub2yKnsEJJ/U6oulJtFZYmO
-         JV0dmmkEIyJRi/ptRl3xjQ8egEXYvUjD9/tI8Bq8ScEQm/9uVLB1shfOl/cLYECfTCB0
-         m/AA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789029887; x=1789634687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=scbEHeSfgSCcxK7Ny73Kn4g0gC7DW9iSvZ1f2Vwg208=;
-        b=LGfFbAZ+C4M4vmS0ouD6dDR8QuWuY8OfJWvxoyirrdZ37ynmROZ1tSFs//8SLoetpI
-         plGxxh68Dq+w0UVkHDPq4Kl/kzQLDUQky/AzW3HTL4YXWkMiDMg6biLRY5D5Z+QjyPaT
-         mDDx2Gm9SQU5IBoReB1KTPfgP+jkxbpAF2N3VZ7xPowWHGXbWs2feuiSOMFs81pmAsvd
-         O81b6GC7xxdbOQiqz5wrsUvxyFmf4e8YyzgSTh+Q8WW7hdLkxRb4UweYKWRREp8lB02V
-         ZckgyHMMpVgJy2ANgWDVYKzXRePlCiLZmaO5mCuhEID17ZTtzzsLV8zVqEazHyXwuFth
-         ewgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789029887; x=1789634687;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=scbEHeSfgSCcxK7Ny73Kn4g0gC7DW9iSvZ1f2Vwg208=;
-        b=JNy3Nijdz9GH/+IA3xtmzDAMnYoZxWGGvd7C+oEK5pU3PumhdkiXDttcglBe88l3EV
-         MCHLfp7uTTxQZ2BVLv3xXWolTaq9/xld83iWmGR22E7aYvjmXGzDtl+NPbwpq3wPBFKg
-         sspZv3NqMSAD3wQG7NzdGD/a/FxFADPkPNTWNJnt85shSgcD28E4gDomxGqo8zs/BU1G
-         eg5U1/KPHSVBKveTbkLzqUk066TgaeSsIU5SJ7U1fxeHU019LCGtynq4C7Xv3VVf/EPZ
-         OwWPlnjss20x1yfKeUtcXkL3F6XP6+IER9FF+2Jj4SSMBKuCJ+Q5nWA+MiMYD9N2u6BV
-         kZVw==
-X-Forwarded-Encrypted: i=1; AKwUvBywo81BOs8L859S6nbh+4BhRfnlORlS+NlOctnRUv9tU4JotQ+Ubc4DsmCVGV5JJO3e0PTfdn0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmjDF6QrJBcCWlqoxu5+zxcDbd/q0ZIm7B024gG9yBj+75WRB/
-	mEQQ+Me6edI5Cfkicfcy8pjmCXQP7D9bOQIL9bi9nCIRGnzAUgt7TipXYKZfTvGckXjcERLZAdR
-	JLB8/qI7nN6l4dnGlUU53GFJEquqYFQJU67MgwS+Zaw==
-X-Gm-Gg: AYBFou1c4bboqgEPQhFENQ7+S8Tfw3nfwCGduYmq4XnkxFpyUoRBC/xGnZVwWNa+UV3
-	6DAFYgwqR/JysKvYiLfqATWkVOKUKPFgp1W9/AukoyGIr5ybN0Q330d/Bo60GjMxg2b9EScg8Vn
-	fL0I7E/fKM4dYZ0dDG6BqNe98zdJZ4MFpMcre7NohBuH2C9JYo0yVQ1kmP8nDQBb4EpGKyXFG7m
-	pCV6FCl7Z6CO6WY22JTaK1vMU7ffbcTPWB7t0sag5udqTfR3vlfsPc4D3aez6Pq4Pu/pw/dsdMx
-	wEgjjgqj11zeAZd/oTkpK57sqlouAnTtZh2MEjvR8ZmKWdR07wa3DzZf+FXshWY1/Wwv8stK7RT
-	7IgIoIiYT5ryAIh13JfyLanYArW4qIQm0ykTrvGBcvGtm8AiPEZN2zhXnrwtrr7sjtc+h+Ckbhd
-	U=
-X-Received: by 2002:a05:600c:3148:b0:49d:1e3d:3b3f with SMTP id
- 5b1f17b1804b1-49d1e3d3b56mr116962455e9.8.1789029886716; Thu, 10 Sep 2026
- 01:44:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OPeZe2mB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oUoJCIsW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TlFhXNxv";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iSMWN7e7"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C1EE1FD87;
+	Thu, 10 Sep 2026 08:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789030003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=OPeZe2mBCNSZG9faUGgW76QSzjbES5lqawHvTyLRKgx3eWE3s/Z+w5p57o6nswvvEI4xPf
+	L1EqrGy8H7Ze4u0VMdtCOpD/O/YtiKx59L7biyAJuQJSrh9l30pjIoxPDNxTdDGT+mby2q
+	N5dEbPyBHlKHVY5QEJM/0+xOR5PVF7A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789030003;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=oUoJCIsW/C800JcyNgaMTmZug869+ht/UC+RrRtfbMMXoo7o5RLWZnkyfm6P+4vB7BMSl1
+	SMYzAmlb2pqh6nDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789029999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=TlFhXNxvk2ouWz3CBQCsAZH9hYkYbMu+7YKoQ68PEOkHWkgFLC1S9RcvzR010Rfk3zWdmE
+	yUNSFotVPVC5LB6SpwtKPCct11BzLGnqH75n97I0Fer0vPb+kWkJC0tL7CkX9dzVdUKdJ/
+	HqlPiLyHnjTfvG1gyiik3JkxPfuoURY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789029999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=iSMWN7e7+A/nJcB8ZGPd4+BYJR/w3drhvcON0l19ExQzzERsUwhnoRqgy2f04mkxMeWctS
+	Hm0NKo3qHVp/9PCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60A2A137FD;
+	Thu, 10 Sep 2026 08:46:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rZORF29uomolZwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 08:46:39 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id E0D9EA12EA; Thu, 10 Sep 2026 10:46:30 +0200 (CEST)
+Date: Thu, 10 Sep 2026 10:46:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, Tejun Heo <tj@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Dennis Zhou <dennis@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
+ drain pass
+Message-ID: <q6euw7q6hdfdzhadrwyc47j2lbev6kutm3vix7fi5v7aset2hq@kbv4uy55whd6>
+References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAGEsz8GNHFCOZ=-_y56rK1aX+Ze7w8qVqZSQ-OuGo_dPC4bXCw@mail.gmail.com>
- <20260731163550.46991-1-mhun512@gmail.com>
-In-Reply-To: <20260731163550.46991-1-mhun512@gmail.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Thu, 10 Sep 2026 14:14:34 +0530
-X-Gm-Features: AcwNN1V28fjgBOHn1dVY71XHW4M_hQYvtSbbXwHks3Yz0rwxCZGQBzSs1WPsOfE
-Message-ID: <CAAhSdy27Ou5CJ8CaKE+QdnK_n+rq9nBJHWOu2V02DvUDQFXWcg@mail.gmail.com>
-Subject: Re: [PATCH v2] RISC-V: KVM: Synchronize hrtimer callback during teardown
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: atish.patra@linux.dev, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,toxicpanda.com:email,suse.cz:email,suse.com:email]
 
-On Fri, Jul 31, 2026 at 10:05=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> =
-wrote:
->
-> The non-Sstc hrtimer callback clears next_set before its final uses of
-> the enclosing vCPU.  If teardown observes next_set as false while the
-> callback is still running, kvm_riscv_vcpu_timer_cancel() skips
-> hrtimer_cancel() and kvm_destroy_vcpus() can free the vCPU before the
-> callback enters kvm_riscv_vcpu_set_interrupt().
->
-> A guest can arm the timer with SBI TIME and request shutdown with SBI
-> legacy shutdown or SRST.  A VMM that honors KVM_EXIT_SYSTEM_EVENT and
-> destroys the VM supplies the teardown side of the race; no post-launch
-> host ioctl is needed to arm or request teardown.
->
-> On upstream master 62cc90241548, generic KASAN reported:
->
->   BUG: KASAN: slab-use-after-free in do_raw_spin_lock
->   Write of size 4 at addr ff60000005e58898
->
->   kvm_riscv_vcpu_set_interrupt
->   kvm_riscv_vcpu_hrtimer_expired
->   __hrtimer_run_queues
->   hrtimer_interrupt
->
-> The object was allocated by KVM_CREATE_VCPU and freed concurrently by:
->
->   kvm_destroy_vcpus
->   kvm_arch_destroy_vm
->   kvm_destroy_vm
->   __fput
->
-> For deterministic validation, I added mdelay(1000) immediately after
-> the existing next_set =3D false assignment.  This only widens the
-> existing post-clear callback window.  A no-delay trace build naturally
-> reached the callback-after-teardown-start/before-deinit ordering in 12
-> of 200 runs, but 1,500 stock-kernel stress iterations did not produce a
-> KASAN report, so natural reproduction is timing-sensitive.
->
-> Always invoke hrtimer_cancel() for an initialized timer.  Preserve the
-> existing -EINVAL result when the timer is no longer set, but only after
-> synchronizing with a running callback.
->
-> With this patch, hrtimer_cancel() blocked for the full widened callback
-> window before vCPU destruction.  KASAN reported no error in 100
-> fixed-and-widened runs or 200 fix-only timing-sweep runs.
->
-> Fixes: 3a9f66cb25e1 ("RISC-V: KVM: Add timer functionality")
+On Wed 09-09-26 18:01:07, Josef Bacik wrote:
+> cleanup_offline_cgwbs_workfn() drains a dying cgwb by calling
+> cleanup_offline_cgwb() until it returns false, with a cond_resched()
+> between passes.  On a CONFIG_PREEMPTION kernel that cond_resched() does
+> nothing: _cond_resched() is a plain "return 0", and under
+> PREEMPT_DYNAMIC the full and lazy modes disable it.  Since commit
+> 7dadeaa6e851 ("sched: Further restrict the preemption modes") those are
+> the only two models on the architectures with PREEMPT_LAZY support,
+> arm64 and x86 among them, so the drain loop never reports a Tasks-RCU
+> quiescent state.
+> 
+> A worker draining a cgwb with millions of attached inodes runs for
+> minutes.  On a 6.18 arm64 host in lazy mode the cgwb worker drained one
+> dying cgroup's writeback domain for over 11 minutes.  A BPF program
+> unlink (bpf_trampoline_unlink_prog -> bpf_trampoline_update ->
+> unregister_ftrace_direct -> ftrace_shutdown -> synchronize_rcu_tasks())
+> waited on that grace period while holding the trampoline mutex, 42
+> tasks queued behind it in D state, and the hung task detector fired at
+> 614 s and panicked the host.  Any BPF or ftrace detach during a long
+> drain inherits the drain's length.
+> 
+> Fix this by calling cond_resched_tasks_rcu_qs() so we do not stall out
+> anybody who calls sycnrhonize_rcu_tasks().  We put this in a do { } while
+> loop because if we have many small cgroups cleanup_offline_cgwb() will
+> return false and we will never call cond_resched_tasks_rcu_qs(), creating
+> the same problem.
+> 
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
 > Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:GPT-5.6
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-LGTM.
+Makes sense to me. Feel free to add:
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Queued this patch as fix for Linux-7.3-rcX
+And I fully agree about the fragility. It looks as an oversight that
+cond_resched() doesn't imply RCU quiescent period after the recent
+preemption overhaul.
 
-Thanks,
-Anup
+								Honza
 
 > ---
-> Changes in v2:
-> - Add the required Assisted-by trailer.
-> - Drop security@kernel.org from the recipients.
->
->  arch/riscv/kvm/vcpu_timer.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> AI disclosure: I used AI assistance during the audit and am treating the
-> issue as public as required by Documentation/process/security-bugs.rst.
-> The reproducer and full KASAN trace have not been posted publicly and
-> are available on request.
->
-> diff --git a/arch/riscv/kvm/vcpu_timer.c b/arch/riscv/kvm/vcpu_timer.c
-> index ae53133c7ab0..a2cd277a4059 100644
-> --- a/arch/riscv/kvm/vcpu_timer.c
-> +++ b/arch/riscv/kvm/vcpu_timer.c
-> @@ -61,10 +61,13 @@ kvm_riscv_vcpu_hrtimer_expired(struct hrtimer *h)
->
->  static int kvm_riscv_vcpu_timer_cancel(struct kvm_vcpu_timer *t)
->  {
-> -       if (!t->init_done || !t->next_set)
-> +       if (!t->init_done)
->                 return -EINVAL;
->
->         hrtimer_cancel(&t->hrt);
-> +
-> +       if (!t->next_set)
-> +               return -EINVAL;
->         t->next_set =3D false;
->
->         return 0;
-> --
-> 2.47.2
+>  mm/backing-dev.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+> index cecbcf9060a6..18e999053bae 100644
+> --- a/mm/backing-dev.c
+> +++ b/mm/backing-dev.c
+> @@ -910,8 +910,9 @@ static void cleanup_offline_cgwbs_workfn(struct work_struct *work)
+>  			continue;
+>  
+>  		spin_unlock_irq(&cgwb_lock);
+> -		while (cleanup_offline_cgwb(wb))
+> -			cond_resched();
+> +		do {
+> +			cond_resched_tasks_rcu_qs();
+> +		} while (cleanup_offline_cgwb(wb));
+>  		spin_lock_irq(&cgwb_lock);
+>  
+>  		wb_put(wb);
+> 
+> ---
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> change-id: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
+> 
+> Best regards,
+> --  
+> Josef Bacik <josef@toxicpanda.com>
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
