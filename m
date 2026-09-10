@@ -1,96 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8103836B90C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A43366541
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005576; cv=none; b=E5OEwr1UCaAIHoYiOG1SrjXVkItsVG+uU2XXNAtkawCVSujq2QbOBEGHH0LT7qGU01IxHqFXjHFMzODmh1bItJNSzJURgIUnNSXE7G5Uu60Ke+2eBoXKLfVwyaeyUo/Q5N57M4CtTNIRl42o6QBktEcYH+5BwnK3HdFu4yI3cMM=
+	t=1789005577; cv=none; b=EbZ6Oqaav8XTbVPySxtrgYNUR6dKyrz5CaVW/3IPA5yNLDEFUI+IA8WrhhJjgmcAmlJf/Lnc02xytsDR8RADmaTxoczoOr2fSXDEMIQSr8ekLQ94UJFuREUiOslWnw5pArKWwFhwp2lh3OS9hBUlWgQ4AfGm0bAUXLRIELxuWNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005576; c=relaxed/simple;
-	bh=zJ4EPPgcTyc9unAzzGWaB3U2x4Uvh14fcx+T9oDz5g4=;
+	s=arc-20240116; t=1789005577; c=relaxed/simple;
+	bh=DQ0cujOcyuJCQ9TCOa81SqWsb32n9mYg6sooxxbw/0U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rMUp0Oa+lBbxlk4WvHgrAYbHX0EP2gPYoczCLkb+uYYYAaXW72xab6hALEfN1nYVVPAD1gc/bu8jUoZ4R3cChIIKqor9GKjybFcXYPqDEPYjs5v9fn689dq0Mv/M+66VGQ/I+ohKZ/5vj4UOrZS9O9yd5VBxnXHaLdamNfm+O10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0M/gygF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BwdpgnFaneiX3jMEaicMvArlNAGxglw30c58s/iz/9cs7jFwS6abu6iirelweKR9VCiLImVAiUxuVRWYl18jRfT1aXJFxyzQQLpii+XTO2OtznM8/goi3q14O7t6WTh1Akmf+AKVy6UJQoeGrFfsq5I5j4psF8BHE3DTouAMrtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/Wbgwzu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0M/gygF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D328A1F00893;
-	Thu, 10 Sep 2026 01:59:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/Wbgwzu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A782F1F000FF;
+	Thu, 10 Sep 2026 01:59:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789005574;
-	bh=uRLLwJih2SFaARgGcbkE+SWXVoMWLNu0W+kE8zFbdr8=;
+	s=k20260515; t=1789005575;
+	bh=kRwVjT5QjmaQ0ncRzul7yE7FWfOPLhsh34TagL04lwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z0M/gygFnQxZv09/A+/rlRy0C7U9cxi0q4NRdTLQo0/CIZmun/yMxbNG/NDbKNiDT
-	 If+wU2+tSXC651vTYp0TSFO79wkfivG38/0m5mgDYBZBkGpI6KjDZT5qi17YBsBHj0
-	 VEx5jLbYoSqwWsrGH0yqJjTHXZvTSYx5KLpR3H0QY+ru0DyCmvw/Ksk8sg4lCfKqNs
-	 OmJFRpExFwQV7hDfLvxEFml1nscdCaiiZ9ItWB2UFFFKWTV/8cKbAq2zP872pT/qXL
-	 F0JujRqeNWuB4Vt3KD37eRbVwk6+4Bkq8kT44Ubgw/iQajueeYZUfpDnldday5b0su
-	 HWstZM6kK/XVw==
+	b=R/WbgwzurArAzuF31gR9tKaKCSFNOcPi6/AhknKZPdIdzekIK+9g2xi+g5NYkTjRg
+	 0/wuulpRC7xnWKaXjL7lCjZ7G7uPSSfGY1mzLlxejkRbyFZpp5WParmqKyvt2fMmmi
+	 KLh8iNc+1oQgz33I8SOIW4RSNbgWzaYN29HlGyMzCDYaLMHjX77aFIUffNNe95za6a
+	 nnX5aMoz3J7r5i9o9ME2oRVqi1S/iJkaXfbcZ47g0KLDqrrsvPtWC2xL5tMtsqyeCk
+	 YCF18Jq6vKfs5hLfcBbL880HoWGhr52brBpu89rzdjyN7ifuRhgStEAfWQN9YM1ddl
+	 ahW8fzbbnbcLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
+	Peter Chen <peter.chen@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] xhci: Cleanup Candence controller PCI device and vendor ID usage
-Date: Wed,  9 Sep 2026 21:59:30 -0400
-Message-ID: <20260910015932.3952831-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] usb: cdns3: rename hibernated argument of role->resume() to lost_power
+Date: Wed,  9 Sep 2026 21:59:31 -0400
+Message-ID: <20260910015932.3952831-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090843-suspense-pleading-37f3@gregkh>
+In-Reply-To: <20260910015932.3952831-1-sashal@kernel.org>
 References: <2026090843-suspense-pleading-37f3@gregkh>
+ <20260910015932.3952831-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
+From: Théo Lebrun <theo.lebrun@bootlin.com>
 
-[ Upstream commit f28a7d7db247af8b9f1090bd6b1ca1fa48a3f0e4 ]
+[ Upstream commit 0bde749c58c72405c54a1eabf6266a0273377226 ]
 
-Use predefined PCI vendor ID constant for Cadence controller in pci_ids.h
-Rename the Candence device ID to match the pattern other PCI vendor and
-device IDs use
+The cdns_role_driver->resume() callback takes a second boolean argument
+named `hibernated` in its implementations. This is mistaken; the only
+potential caller is:
 
-Reported-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Closes: https://lore.kernel.org/linux-usb/ZuMOfHp9j_6_3-WC@surfacebook.localdomain
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://lore.kernel.org/r/20241106101459.775897-5-mathias.nyman@linux.intel.com
+int cdns_resume(struct cdns *cdns)
+{
+	/* ... */
+
+	if (cdns->roles[cdns->role]->resume)
+		cdns->roles[cdns->role]->resume(cdns, cdns_power_is_lost(cdns));
+
+	return 0;
+}
+
+The argument can be true in cases outside of return from hibernation.
+Reflect the true meaning by renaming both arguments to `lost_power`.
+
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Acked-by: Peter Chen <peter.chen@kernel.org>
+Link: https://lore.kernel.org/r/20250205-s2r-cdns-v7-3-13658a271c3c@bootlin.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: eae6460f6173 ("usb: cdnsp: fix wakeup from S3 after controller context loss")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-pci.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/usb/cdns3/cdns3-gadget.c | 4 ++--
+ drivers/usb/cdns3/cdnsp-gadget.c | 2 +-
+ drivers/usb/cdns3/core.h         | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index bd33cf6769cf6..c2ae0e5f4c2b7 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -94,8 +94,7 @@
- #define PCI_DEVICE_ID_ASMEDIA_3042_XHCI			0x3042
- #define PCI_DEVICE_ID_ASMEDIA_3242_XHCI			0x3242
+diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+index ac0aeb135d6fe..bc1157a4df006 100644
+--- a/drivers/usb/cdns3/cdns3-gadget.c
++++ b/drivers/usb/cdns3/cdns3-gadget.c
+@@ -3484,7 +3484,7 @@ __must_hold(&cdns->lock)
+ 	return 0;
+ }
  
--#define PCI_DEVICE_ID_CADENCE				0x17CD
--#define PCI_DEVICE_ID_CADENCE_SSP			0x0200
-+#define PCI_DEVICE_ID_CDNS_SSP				0x0200
+-static int cdns3_gadget_resume(struct cdns *cdns, bool hibernated)
++static int cdns3_gadget_resume(struct cdns *cdns, bool lost_power)
+ {
+ 	struct cdns3_device *priv_dev = cdns->gadget_dev;
  
- static const char hcd_name[] = "xhci_hcd";
+@@ -3492,7 +3492,7 @@ static int cdns3_gadget_resume(struct cdns *cdns, bool hibernated)
+ 		return 0;
  
-@@ -509,9 +508,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 		if (pdev->device == 0x9203)
- 			xhci->quirks |= XHCI_TRB_OVERFETCH;
- 	}
--
--	if (pdev->vendor == PCI_DEVICE_ID_CADENCE &&
--	    pdev->device == PCI_DEVICE_ID_CADENCE_SSP)
-+	if (pdev->vendor == PCI_VENDOR_ID_CDNS &&
-+	    pdev->device == PCI_DEVICE_ID_CDNS_SSP)
- 		xhci->quirks |= XHCI_CDNS_SCTX_QUIRK;
+ 	cdns3_gadget_config(priv_dev);
+-	if (hibernated)
++	if (lost_power)
+ 		writel(USB_CONF_DEVEN, &priv_dev->regs->usb_conf);
  
- 	/* xHC spec requires PCI devices to support D3hot and D3cold */
+ 	return 0;
+diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
+index 89d3d8167e599..64440fdf97c88 100644
+--- a/drivers/usb/cdns3/cdnsp-gadget.c
++++ b/drivers/usb/cdns3/cdnsp-gadget.c
+@@ -2025,7 +2025,7 @@ static int cdnsp_gadget_suspend(struct cdns *cdns, bool do_wakeup)
+ 	return 0;
+ }
+ 
+-static int cdnsp_gadget_resume(struct cdns *cdns, bool hibernated)
++static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
+ {
+ 	struct cdnsp_device *pdev = cdns->gadget_dev;
+ 	enum usb_device_speed max_speed;
+diff --git a/drivers/usb/cdns3/core.h b/drivers/usb/cdns3/core.h
+index ac30ee21309d0..801be9e61340e 100644
+--- a/drivers/usb/cdns3/core.h
++++ b/drivers/usb/cdns3/core.h
+@@ -30,7 +30,7 @@ struct cdns_role_driver {
+ 	int (*start)(struct cdns *cdns);
+ 	void (*stop)(struct cdns *cdns);
+ 	int (*suspend)(struct cdns *cdns, bool do_wakeup);
+-	int (*resume)(struct cdns *cdns, bool hibernated);
++	int (*resume)(struct cdns *cdns, bool lost_power);
+ 	const char *name;
+ #define CDNS_ROLE_STATE_INACTIVE	0
+ #define CDNS_ROLE_STATE_ACTIVE		1
 -- 
 2.53.0
 
