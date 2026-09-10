@@ -1,189 +1,287 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1BF481FBE;
-	Thu, 10 Sep 2026 15:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC362931CD
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055553; cv=none; b=kg70cFZ8QW+kUGctt7EBqPc+Uyo8eAtmhvXY/gV7td0kRlesfXrC+bvLkFP6cXbk/2FX8MqQXajxqAr4lKyFKl1wms9RiBTNgYIFCgpifLh+ZpzaagNJ3FyEquwz48z5YWDVp0+wpOlBeQSEqLedRxknqMVyXqrX263L77Vcrbo=
+	t=1789055558; cv=none; b=U48Re9ipBvOzKPASj/6UdhGMXMQglUs8tPYLpzKXv+wPCmIY+t6gX0BldMGJK3cYhkgKoI49Gp6R+KB8pkxR29lhne6RKiiZvwVS++s+w6VDdszJ+glDtWuci9YzO7mwAUKnNrvN2c1zLtkt8t5MFRy7UcRIJmyWjDbFZUGWe24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055553; c=relaxed/simple;
-	bh=pUlSWictvp/eDSu91ES6EO7H5q04wHa+8g5OJOCT5S0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JkVjfa4WUULmu/awFpnHYeYsHNS87qa3NfFxyXZXm+28YAcEPu+9vqv0QnAc7zAWHbPiaL+fSJ72hhE0ZaOBZDxletVDgLNwHV2K0LWmeASN435kF9hyQujg3UcfnSchHxhlISBAxKYRD1jF/ElFj5/qeHDzFTGSxtdRwpJ05qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZACdnQCB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789055558; c=relaxed/simple;
+	bh=rB2aohnFf5r0Pt8z2HOIB4viF5yBdfu01kc6p6QoXVA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lenLsKwo5jHGiW2E2ZSK6Q7D/ilYfwaWCrbM0xp3DVgIkmTeAlo/Il3ry5dmjhqG56US7EuBQklIXRxMuVacRfscja5Het4Zyv0t001BLd+/8T+S1k3l2ESPl+UYqaAsgbDUDZGctlBcp5Ll++hF+9ILGdjWlyuAoGrQJk3HFXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVXLwxlN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZACdnQCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDA41F000FF;
-	Thu, 10 Sep 2026 15:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVXLwxlN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D7B1F000FF;
+	Thu, 10 Sep 2026 15:52:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055551;
-	bh=ADE8OsHyYORA6yoeRAcFH03eBG7vlWU09tWqM5pgBHs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZACdnQCBNDCzTOpVvqm9H8qu47NWGW992edIRDrIQWMn/uQK/67Pb166d2wPblV1w
-	 HT2a7F61eOjHNObfW1Mzp6bygxkhMBEHtdkg5BvZf2j3lCz9UNpSvvppL3DmNU4mKl
-	 hN9cHPSIniay+r+6mAYVpLGF58H54G8HVziYZeLbH5ERXHCWRq1NAg/I/bPgFj6xQl
-	 am2X6zlB7iUdmX/rCggw7u+H35iWwQNmONwlcje/rxIMO3vtMvXhyALSMy47Tw0HBJ
-	 z2GjfKhj1BfXYCYUu+WcdqiMT5NmqUe1qXyqzAgkuhWg4NEFSLohseNNC3vDAaTS54
-	 fKK4hsjR/J+Rw==
-Subject:
- Re: [PATCH net v2] openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()
-From: netdev-bot+sashiko@kernel.org
-To: echaudro@redhat.com
-Cc: netdev@vger.kernel.org, dev@openvswitch.org, aconole@redhat.com,
- i.maximets@ovn.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, cpp.code.lv@gmail.com,
- stable@vger.kernel.org
-Date: Thu, 10 Sep 2026 15:52:30 +0000
-Message-ID: <178905555085.219967.6617611783437228045@kernel.org>
-In-Reply-To:
- <1b1582eb07550d71f3cbe210e5cb31eeb8d0ad86.1788876917.git.echaudro@redhat.com>
-References:
- <1b1582eb07550d71f3cbe210e5cb31eeb8d0ad86.1788876917.git.echaudro@redhat.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789055556;
+	bh=6MgyAGs8IXWqSYGyADsCPiPhta1q+973gOhnnemMujc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hVXLwxlNJ7qimYTrUlCl/s86zclCdO59OsdWZhVd3gV37aFxv2yQwDjcFJMn3Q6Pr
+	 FG2hqqeLsPyCw7t9KtVQTlpyvIS/u+BYlGC39J9LsY3l4lXXynG5yn589Ys3kBT2QP
+	 uvRr3m+CZbY4HTskvc8b5cwADTHjbPagVXnrJhRg8FIyawmnapMPiAHexjpnmBg6fa
+	 hDCSCioccuCj23EmZgtQCJYFdMbeyR5rMGhhOlUElP4Q7E3DOQC9+ACE1iup8PzKNO
+	 yh7yNTDX4xE/BGn0it9eXwtXFVWGIqV6COPJ0WUvz4U4dlG8ALcg7HeNU5EytpyHYv
+	 aDPau5wQRs4/Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 11:52:33 -0400
+Message-ID: <20260910155234.1080006-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090820-renovator-enjoyable-ee8a@gregkh>
+References: <2026090820-renovator-enjoyable-ee8a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+From: Baineng Shou <shoubaineng@gmail.com>
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-- [Medium] The `case IPPROTO_ESP:` arm of get_ipv6_ext_hdrs()
-  (net/openvswitch/flow.c:287-297), whose whitelist this patch changes…
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Pre-existing issues:
-- [High] In get_ipv6_ext_hdrs() the loop tail unconditionally advances
-  the parse offset with `start += ipv6_optlen(hp)`…
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
---
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
-openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
 
-This replaces two uses of IPPROTO_FRAGMENT with OFPIEH12_FRAG in the ESP
-and AH arms of get_ipv6_ext_hdrs(), where the constant was being used as a
-bitmask of already-seen extension headers.  The stated effect is that a
-packet with two AH headers now reports OFPIEH12_UNSEQ in addition to
-OFPIEH12_UNREP.
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
 
-A couple of questions on the ESP arm and on the offset arithmetic in the
-same loop.
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
 
-> diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
-> index 46c1d66aad8c..868d9fdf3afd 100644
-> --- a/net/openvswitch/flow.c
-> +++ b/net/openvswitch/flow.c
-> @@ -288,7 +288,7 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
->  			if (*ext_hdrs & OFPIEH12_ESP)
->  				*ext_hdrs |= OFPIEH12_UNREP;
->  			if ((*ext_hdrs & ~(OFPIEH12_HOP | OFPIEH12_DEST |
-> -					   OFPIEH12_ROUTER | IPPROTO_FRAGMENT |
-> +					   OFPIEH12_ROUTER | OFPIEH12_FRAG |
->  					   OFPIEH12_AUTH | OFPIEH12_UNREP)) ||
->  			    dest_options_header_count >= 2) {
->  				*ext_hdrs |= OFPIEH12_UNSEQ;
+No UAPI or heap-driver interface change.
 
-[Severity: Medium]
-Can the case IPPROTO_ESP arm ever run?  The switch in get_ipv6_ext_hdrs()
-is inside:
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
 
-	while (ipv6_ext_hdr(next_type)) {
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Cc: stable@vger.kernel.org
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
 
-and ipv6_ext_hdr() in net/ipv6/exthdrs_core.c only accepts a fixed set of
-next-header values:
+Stable adaptation for 6.18:
+- Resolve the dma-heap conflict without importing the absent mem_accounting
+  module parameter; retain the existing kzalloc() form.
+- This tree has neither DMA_BUF_TRACE nor trace_dma_buf_fd. Omit the new
+  dma-buf.c function and export, and provide dma_buf_fd_install as a
+  single-evaluation macro around the existing fd_install() in dma-buf.h.
+  This preserves the reserved-fd publication semantics without adding
+  functions or importing the unrelated tracing infrastructure.
+- Retain the heap allocation and usercopy cleanup changes, and expose the
+  interface needed for the target FastRPC fix to apply unchanged.
 
-	return   (nexthdr == NEXTHDR_HOP)	||
-		 (nexthdr == NEXTHDR_ROUTING)	||
-		 (nexthdr == NEXTHDR_FRAGMENT)	||
-		 (nexthdr == NEXTHDR_AUTH)	||
-		 (nexthdr == NEXTHDR_NONE)	||
-		 (nexthdr == NEXTHDR_DEST);
+[ sashal: Reduced backport -- upstream 30d0aff2c65a2 touches 3 file(s), this
+  backport carries 2. Not backported here:
+  drivers/dma-buf/dma-buf.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
 
-NEXTHDR_ESP (50) is not in that list, so the loop exits before the ESP arm
-is entered, and *ext_hdrs |= OFPIEH12_ESP at the end of that arm never
-executes.  That would also mean OFPIEH12_ESP is never reported in
-key->ipv6.exthdrs, and the OFPIEH12_ESP entry in the second-DSTOPTS
-whitelist can never be exercised.
+Stable-dep-of: a4a1a2bfcb29 ("misc: fastrpc: don't publish fd before copy_to_user() succeeds")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ include/linux/dma-buf.h    |  5 +++
+ 2 files changed, 45 insertions(+), 40 deletions(-)
 
-If that reading is right, is this part of the commit message accurate?
-
-	This caused incorrect OFPIEH12_UNSEQ verdicts in
-	both the ESP and AH arms: the ESP arm failed to whitelist OFPIEH12_FRAG,
-
-Only the AH hunk seems able to change an observable verdict.
-
-Should making the ESP arm reachable be part of this change, for example by
-admitting ESP into the walk:
-
-	while (ipv6_ext_hdr(next_type) || next_type == IPPROTO_ESP) {
-
-Note that would also need a separate advance for ESP, since the ESP header
-has no ipv6_opt_hdr-style hdrlen field.
-
-> @@ -301,7 +301,7 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
->  				*ext_hdrs |= OFPIEH12_UNREP;
->  			if ((*ext_hdrs &
->  			     ~(OFPIEH12_HOP | OFPIEH12_DEST | OFPIEH12_ROUTER |
-> -			       IPPROTO_FRAGMENT | OFPIEH12_UNREP)) ||
-> +			       OFPIEH12_FRAG | OFPIEH12_UNREP)) ||
->  			    dest_options_header_count >= 2) {
->  				*ext_hdrs |= OFPIEH12_UNSEQ;
->  			}
-
-[Severity: High]
-This isn't a bug introduced by this patch, it dates back to 28a3f0601727,
-but since the AH arm is being touched here: is the offset advance at the
-bottom of the same loop in get_ipv6_ext_hdrs() correct for AH and Fragment
-headers?
-
-	hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
-	if (!hp)
-		break;
-	next_type = hp->nexthdr;
-	start += ipv6_optlen(hp);
-
-ipv6_optlen() is only the right arithmetic for HOPOPTS/DSTOPTS/ROUTING.
->From include/linux/ipv6.h:
-
-	#define ipv6_optlen(p)  (((p)->hdrlen+1) << 3)
-	#define ipv6_authlen(p) (((p)->hdrlen+2) << 2)
-
-For an AH with hdrlen=4 the header is 24 bytes, but ipv6_optlen() returns
-40, so start lands 16 bytes inside the ICV/payload.  For a Fragment header,
-the byte read as hdrlen is the Reserved field, which the sender controls and
-receivers are required to ignore; the correct advance is a fixed 8.
-
-The kernel's own chain walker handles both cases explicitly in
-ipv6_find_hdr() (net/ipv6/exthdrs_core.c):
-
-			hdrlen = 8;
-		} else if (nexthdr == NEXTHDR_AUTH) {
-			if (flags && (*flags & IP6_FH_F_AUTH) && (target < 0))
-				break;
-			hdrlen = ipv6_authlen(hp);
-		} else
-			hdrlen = ipv6_optlen(hp);
-
-With the current code, any header parsed after an AH header, or after a
-Fragment header with a non-zero Reserved byte, has its nexthdr and hdrlen
-read from sender-chosen payload bytes, so the OFPIEH12_* bits stored in
-key->ipv6.exthdrs and exported as OVS_KEY_ATTR_IPV6_EXTHDRS can be steered
-remotely.  Payload bytes that look like a second AH or a HOPOPTS header
-would raise OFPIEH12_UNREP/OFPIEH12_UNSEQ, and genuine trailing headers can
-be missed.  There is no memory-safety concern here since
-skb_header_pointer() is bounds-checked and start advances by at least 8 each
-iteration.
-
-The two-AH example given in the commit message still behaves as described,
-since next_type comes from the previous header's correctly-read nexthdr
-field.  Would it make sense to fix the per-type length handling in a
-follow-up?
-
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 8ab49924f8b71..0c628e4146e26 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			dma_buf_fd_install(dmabuf, fd);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d58e329ac0e71..0b0b5fbb6cc1f 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -582,6 +582,11 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
+ 
+ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
++/*
++ * This tree has no DMA-BUF fd tracepoint, so publishing a reserved fd only
++ * requires fd_install(). Call this after all fallible work has succeeded.
++ */
++#define dma_buf_fd_install(dmabuf, fd) fd_install((fd), (dmabuf)->file)
+ struct dma_buf *dma_buf_get(int fd);
+ void dma_buf_put(struct dma_buf *dmabuf);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/1b1582eb07550d71f3cbe210e5cb31eeb8d0ad86.1788876917.git.echaudro%40redhat.com
+2.53.0
+
