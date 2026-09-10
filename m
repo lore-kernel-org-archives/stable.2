@@ -1,62 +1,148 @@
-Received: from mail.scd31.com (mail.scd31.com [205.209.125.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDD8361969;
-	Thu, 10 Sep 2026 01:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.209.125.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0827368D57
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005565; cv=none; b=kLRqhuo4cylt+T0FoTRz/+CDoQE1AfE2mCFp4jop2COQk6QZylQA85WHTBW5fdZq1bYw5m7ud2y1WnSdKL5qa/DT+wyc8XxqzDvKBdJFsgnr7m9MyTqI9URV9UKeCInz9nuZFNfaF6vdRDoNf4XGvgjbgmaCffc+BIEfZp8iM78=
+	t=1789005567; cv=none; b=nCTIyG7sgi+C0DxzqdgntRvcv6TpILN6dhNm0WL2m82lXPd7f16KojgoX7hMZ+muO+PipwepwACtm+Ylw3CwlJ5OhGUunXUp/4nCMmhTBf3Ky3wMqCzOSkoNKVGm/aVuKuK2m6xI56kUZzRM7px1bcmcgTJdVUbIDHypbdreZlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005565; c=relaxed/simple;
-	bh=BPTlFatxbnqCqBdnyDYxPS+gQfFaoRdqwdLHQi5jO0Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=t/aY0psQ1ZbrfXBUbEBq70kDBPqtQB9HEtn+2yPl8LdoYdHliXXNzfbrjmWHJnIP+iSCeQW7ByQxsHbjlUYIsVvDInjewqCJdJqWvTn1TUwkPZT3Fb5B8m13n1xRLOAkzUUxlf3yNUUN22XK8fAHHd56eFZaB0+RG8p2btI4+A0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=scd31.com; spf=pass smtp.mailfrom=scd31.com; dkim=pass (2048-bit key) header.d=scd31.com header.i=@scd31.com header.b=ZVLzAZ4R; arc=none smtp.client-ip=205.209.125.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=scd31.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=scd31.com
+	s=arc-20240116; t=1789005567; c=relaxed/simple;
+	bh=nsztPrEaguHGVw+gLi4jRpazA0Lyp3dUDV4tSSQPv1Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UQ7HyiqZxXzhLpTl4Tz+em/awnhJdkzNljt7PfqIFStyh5vRAZ3n3/5bRLSEm4OFZBWbEOLsFTDymSPtWFXHLl9s5FSK/tK4BvIwjatAWqlpn5c1XxBDso1olL2BPBzvFuuzppz/aelkFeNHPdF3yP+iwt6Lu99W8rM647cxfb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fl5nQV0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=scd31.com header.i=@scd31.com header.b="ZVLzAZ4R"
-From: Sophie D <patches@scd31.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=scd31.com; s=mail;
-	t=1789005562;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BPTlFatxbnqCqBdnyDYxPS+gQfFaoRdqwdLHQi5jO0Y=;
-	b=ZVLzAZ4RC8fSUuiOan9es7jr4+OyYMKfEEE4uQUOyG/TulU+9tyV0ZJ8+HRyY3z6yutBPM
-	VHXYrAub9QxA1m6Y49AjtI4SqrcOpmqQuhLnkk1uJh5S9Bl76TO5Gcg3YDWVUAy+QKgzi8
-	LSbyEo4mH3qIjEE7p53dYJu6XCKyJp5KlY7RlD/BSnMZGiyaFPQKvlzxyzCZMJZCid2rA0
-	4DziuMbMkR9Pm76MB9MOydjfBTmrab7IHbS+WXT1QCU3aB/zsnt76ERRXsj+sWSrG1y7KT
-	kFUrLCLqjVGoOyX7cL2n7R4B9zuY/V4CLywT9ZH/s3UnDA1HmVCp3AGdgvPNhw==
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/gud: Merge damage clips in full update mode
-In-Reply-To: <8c592732-6025-4073-b075-0e3e6911c935@suse.de>
-References: <20260907230849.31032-1-patches@scd31.com>
- <8c592732-6025-4073-b075-0e3e6911c935@suse.de>
-Date: Wed, 09 Sep 2026 21:59:22 -0400
-Message-ID: <86h5jxsw79.fsf@scd31.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fl5nQV0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A2F1F000FF;
+	Thu, 10 Sep 2026 01:59:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789005565;
+	bh=ZD0o5lo38cWdBO+Nk0tztwn3OZkeLDOcN+JYquVTCHQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fl5nQV0QpqdoODDm7QYz2OuWU3c5BWqT8kS+Yn8ABFTnNTxbgE9nkLbqaV5JOmRVS
+	 XF55eHeYs9K5qfmcX7bRUZa245ZbiPSIy/8QAun8A4t+JBb9Tl/DbOwngCnTmhH4WR
+	 kIj9SSyJVZLwrhzlRpWmgcA6U+3cnbPJSFlDgMIddZX/97Lslw5iXOzKfrohT5K5C/
+	 xXoKUnsUrWQxvc8dlvb9W0uYZ8h2ZATRt1vaI9WL3bN7kybM4kyf+ezmHj56H4Tswx
+	 D2ssC6l34b3Zy1dYRcwMtdh6mX5qd6j16oys5CeUscPxlrHc/IucqYzIkzDdF9ZjTD
+	 S3PO4BYTlS+fg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xu Yang <xu.yang_2@nxp.com>,
+	stable <stable@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] usb: typec: tcpm: fix debug accessory mode detection for sink ports
+Date: Wed,  9 Sep 2026 21:59:22 -0400
+Message-ID: <20260910015923.3950221-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090801-cure-lethargic-5a66@gregkh>
+References: <2026090801-cure-lethargic-5a66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Xu Yang <xu.yang_2@nxp.com>
 
->
-> Such state needs to be checked much earlier. Please set=20
-> plane_state->ignore_damage_clips [1] at the end of=20
-> gud_plane_atomic_check [2] if in full-update mode.=C2=A0 The damage itera=
-tor=20
-> will then do the right thing.
+[ Upstream commit f6ec9bb4acc7182b25a793ad094a764e1cb819a7 ]
 
-Thank you for reviewing! I've made this change and have tested it on my
-hardware.
+The port in debug accessory mode can be either a source or sink. The
+previous tcpm_port_is_debug() function only checked for source port.
 
-Sophie
+Commit 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into
+accessory mode debug") changed the detection logic to support both roles,
+but left some logic in _tcpm_cc_change() unchanged, This causes the state
+machine to transition to an incorrect state when operating as a sink in
+debug accessory mode. Log as below:
+
+[  978.637541] CC1: 0 -> 5, CC2: 0 -> 5 [state TOGGLING, polarity 0, connected]
+[  978.637567] state change TOGGLING -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+[  978.637596] pending state change SRC_ATTACH_WAIT -> DEBUG_ACC_ATTACHED @ 180 ms [rev1 NONE_AMS]
+[  978.647098] CC1: 5 -> 0, CC2: 5 -> 5 [state SRC_ATTACH_WAIT, polarity 0, connected]
+[  978.647115] state change SRC_ATTACH_WAIT -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+
+It should go to SNK_ATTACH_WAIT instead of SRC_ATTACH_WAIT state.
+
+To fix this, add tcpm_port_is_debug_source() and tcpm_port_is_debug_sink()
+helper to explicitly identify the power mode in debug accessory mode.
+Update the state transition logic in _tcpm_cc_change() to ensure the state
+machine transitions comply with Type-C specification. Also update the logic
+in run_state_machine() to keep consistency.
+
+Fixes: 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into accessory mode debug")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Amit Sunil Dhamne <amitsd@google.com>
+Link: https://patch.msgid.link/20260424074009.2979266-1-xu.yang_2@nxp.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[Backport to 6.12: This tree lacks 8db73e6a42b6 and the associated
+sink debug-accessory state-machine support. Retain only the source-debug
+macro extraction and source-side call-site updates. Keep
+tcpm_port_is_debug() source-only and omit the sink-debug macro and all
+sink/audio attachment transitions introduced by the upstream dependency.
+This preserves existing detection and state transitions while providing
+tcpm_port_is_debug_source() for cd3b9cea675b ("usb: typec: tcpm: constrain
+TCPM_SOURCING_VBUS event handling"). No functions are added.]
+
+Stable-dep-of: cd3b9cea675b ("usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/typec/tcpm/tcpm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index db0755350d069..20d2d0745b29d 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -602,9 +602,12 @@ static const char * const pd_rev[] = {
+ 	 (tcpm_cc_is_source((port)->cc2) && \
+ 	  !tcpm_cc_is_source((port)->cc1)))
+ 
+-#define tcpm_port_is_debug(port) \
++#define tcpm_port_is_debug_source(port) \
+ 	(tcpm_cc_is_source((port)->cc1) && tcpm_cc_is_source((port)->cc2))
+ 
++#define tcpm_port_is_debug(port) \
++	tcpm_port_is_debug_source(port)
++
+ #define tcpm_port_is_audio(port) \
+ 	(tcpm_cc_is_audio((port)->cc1) && tcpm_cc_is_audio((port)->cc2))
+ 
+@@ -4742,7 +4745,7 @@ static void run_state_machine(struct tcpm_port *port)
+ 			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
+ 		break;
+ 	case SRC_ATTACH_WAIT:
+-		if (tcpm_port_is_debug(port))
++		if (tcpm_port_is_debug_source(port))
+ 			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
+ 				       PD_T_CC_DEBOUNCE);
+ 		else if (tcpm_port_is_audio(port))
+@@ -5868,7 +5871,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 
+ 	switch (port->state) {
+ 	case TOGGLING:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		else if (tcpm_port_is_sink(port))
+@@ -5879,7 +5882,7 @@ static void _tcpm_cc_change(struct tcpm_port *port, enum typec_cc_status cc1,
+ 		break;
+ 	case SRC_UNATTACHED:
+ 	case ACC_UNATTACHED:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		break;
+-- 
+2.53.0
+
