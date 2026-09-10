@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6EB361969
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B29367F31
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:59:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005581; cv=none; b=hi37Q59ei697S2dh0VSpF108xX8zZEGfGLv3oAsW8xycRuAaNJiT5IXnrVpyK8LO6zpVV80tLn7VISZzZ2rxosjiOfRHnW9Ewl6Bl8rjSXyAD0/OlwxyGa78z9vjVQ5pbQygU2giOlvpHFpXAEor9hrVgvfMMajb2AR3loS2eqk=
+	t=1789005587; cv=none; b=tH9+QF9juadR4x9D0p8r2SeVPGvb0mN601Rp5Lx7n5P7Un1p3i52/bJd4WSBYKyZ/qAdVY1EJPFo/AGecerm9y3roEWOOAP8NgtqYqRg6K99qahGokzfFgTCtYk63172IHRv8P+9dK9+o6FKmrhic+6qZcAnGdhcyR65ss1x0Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005581; c=relaxed/simple;
-	bh=V1hgo0GHSAtDMVSwqAbF67qxXo4iqXuu78ge/biEWqA=;
+	s=arc-20240116; t=1789005587; c=relaxed/simple;
+	bh=IaIk2IQosx/h56aHBvb1dmYfPLpodhU0q+8MTD6kMFc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qx2QGGkBhGjZ/Cqe7VfncxWM2s3xjYDnhuwPaHDVyxvrk5QKDBnUhDz+JcJiSm/+r97UDROvafnlaDgIsG1FlbaIHwEvuDKtOhSYx+1vlMYTKCgEdVqzBm3ZvtMwxaJZSUdS3YKqBt9oT4rd8+vMIiKJ+w3zySyJMoPkEKFnOv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cL89oYPh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XzsH1xsg9/Sx3LGTXJbNzJqHStE2HncLEGqOtOyJQHvUjhHfDJ+U4o7WkaiM5p368aB8rAz/6ydSSXaUTMtxpV5clc3aJYG/A19qCOLbZzCdljwqaP8Gms9NP308C8/oh13kG0Drk17eI+gcel6DrCVxVnAyBvBwQTncnzh0pC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQcNBhLF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cL89oYPh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033B71F00893;
-	Thu, 10 Sep 2026 01:59:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQcNBhLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A78C1F000FF;
+	Thu, 10 Sep 2026 01:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789005579;
-	bh=Mmx/d9Dll8EoG5sFENuQFQO8dCjZHTz1yF6zTDT1sfY=;
+	s=k20260515; t=1789005584;
+	bh=AevA6saFGdrtRbN5x/w21/6vccVd43KaktrP2sdWKWA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cL89oYPhz9ZMrMB4mDRAqvux7Xa3C4sNtViO7AZasMgUDYVTxIl5q3NjA1FvVBcpa
-	 AXk1LXMSGabWp2tCjMNKXUj6HPF/sNSdTxFKmcdu8kBWaOjq9cZyoxrJYKgqrrxdA4
-	 uOen/uve/A4p9tsK5A1j721MbdKpCL7PnBvYvLUIVTOrKD/YxCkPHRamyaZLyqL67N
-	 qJts9N2J95sbiUQiMP13F012vpvOmnoSyCIHyyfkg+0w+yNIIacOT2tgGvx5/BDJ8e
-	 Cj/MxvS88wYgBB7XZjG01fTOv7BZE7mCNj1Sz+7f8eBPxubWx1a2G2Z/Sywi0QZcuD
-	 cVjyk7TnK/2hg==
+	b=bQcNBhLFI55rv/84HehUdwDBIyLSW3mUGc+kNZheOCDORFX6uABvS2fEH3U6zDeb3
+	 5eFxqI3/AU9N5tLbu5i7DEnJuV/Mdux4tu8SeNWmY0aysf/C/HH6wCa44dLE5E/tfR
+	 nZZUJAOBMcuiTwd7Y71F2EAq3WY5IPCNmhqBLK2tGUH4nXKHzRnprmJI0zIHq6bz2Y
+	 H9bvMC1LTTxeO2qhIWwtA+D3uhtHhgS+dxyzv60FCXm33TTEaofgO7HEfJNDFpZiWm
+	 jxmPzwQnmLnWA1BzOg0tXU5+5kvBQgpfpReFvgL9Gl88SabHRHskSkhztdTodT2aZv
+	 1elsBjN5+KA5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	stable <stable@kernel.org>,
+	Ijae Kim <ae878000@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] udf: Fix data loss when converting inline inodes to out of line
-Date: Wed,  9 Sep 2026 21:59:37 -0400
-Message-ID: <20260910015937.3953397-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] usb: storage: realtek_cr: fix use-after-free on disconnect
+Date: Wed,  9 Sep 2026 21:59:42 -0400
+Message-ID: <20260910015942.3954058-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090409-transpire-dyslexic-70b4@gregkh>
-References: <2026090409-transpire-dyslexic-70b4@gregkh>
+In-Reply-To: <2026090831-splotchy-crystal-8959@gregkh>
+References: <2026090831-splotchy-crystal-8959@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,121 +48,70 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jan Kara <jack@suse.cz>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 62333e480d12ab186f89fe2725b372d12f72d5eb ]
+[ Upstream commit 4ffee1aebb0c0ffcda9faffd17834ea9b00d42cc ]
 
-When udf_expand_file_adinicb() converts file from inline format to out
-of line, we use filemap_fdatawrite() to writeout the data to the new
-blocks. However since 36580ed08776 ("udf: Do not allocate blocks on page
-writeback") the writeback actually doesn't allocate the new block and
-the folio dirty bit is just silently cleared. Thus unless the file is
-written to after the conversion (as it can easily happen in case of
-truncate up), the data is just lost. Fix the problem by explicitely
-allocating the block underlying the data before starting writeback.
+realtek_cr_destructor() calls timer_delete() before the chip containing
+the timer is freed. The timer callback may still be running and can
+rearm itself, resulting in a use-after-free.
 
-Fixes: 36580ed08776 ("udf: Do not allocate blocks on page writeback")
-CC: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260730104232.4086759-4-jack@suse.cz
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ adjusted mapping declarations to accommodate the branch’s older udf_map_block() function order. ]
+Use timer_shutdown_sync() to wait for the callback and prevent further
+rearming. Do this unconditionally because ss_en may be changed after
+the timer is armed.
+
+Move timer_setup() into init_realtek_cr() so the timer is initialized
+before any failure path can invoke the destructor.
+
+Found by static analysis.
+
+Fixes: e931830bb877 ("Realtek cr: Add autosuspend function.")
+Cc: stable <stable@kernel.org>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260727123414.44700-1-mhun512@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adapted the timer_delete() removal to the branch’s del_timer() spelling. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/inode.c | 42 ++++++++++++++++++++++++++----------------
- 1 file changed, 26 insertions(+), 16 deletions(-)
+ drivers/usb/storage/realtek_cr.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index 848c46c5e9d3c..11792768594c8 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -48,13 +48,25 @@
- #define FE_DELETE_PERMS	(FE_PERM_U_DELETE | FE_PERM_G_DELETE | \
- 			 FE_PERM_O_DELETE)
+diff --git a/drivers/usb/storage/realtek_cr.c b/drivers/usb/storage/realtek_cr.c
+index a026c6cb6e684..de82d8260d729 100644
+--- a/drivers/usb/storage/realtek_cr.c
++++ b/drivers/usb/storage/realtek_cr.c
+@@ -915,7 +915,6 @@ static int realtek_cr_autosuspend_setup(struct us_data *us)
+ 	us->proto_handler = rts51x_invoke_transport;
  
--struct udf_map_rq;
-+#define UDF_MAP_CREATE		0x01	/* Mapping can allocate new blocks */
-+#define UDF_MAP_NOPREALLOC	0x02	/* Do not preallocate blocks */
-+
-+#define UDF_BLK_MAPPED	0x01	/* Block was successfully mapped */
-+#define UDF_BLK_NEW	0x02	/* Block was freshly allocated */
-+
-+struct udf_map_rq {
-+	sector_t lblk;
-+	udf_pblk_t pblk;
-+	int iflags;		/* UDF_MAP_ flags determining behavior */
-+	int oflags;		/* UDF_BLK_ flags reporting results */
-+};
+ 	chip->timer_expires = 0;
+-	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
+ 	fw5895_init(us);
  
- static umode_t udf_convert_permissions(struct fileEntry *);
- static int udf_update_inode(struct inode *, int);
- static int udf_sync_inode(struct inode *inode);
- static int udf_alloc_i_data(struct inode *inode, size_t size);
- static int inode_getblk(struct inode *inode, struct udf_map_rq *map);
-+static int udf_map_block(struct inode *inode, struct udf_map_rq *map);
- static int udf_insert_aext(struct inode *, struct extent_position,
- 			   struct kernel_lb_addr, uint32_t);
- static void udf_split_extents(struct inode *, int *, int, udf_pblk_t,
-@@ -343,6 +355,10 @@ int udf_expand_file_adinicb(struct inode *inode)
- {
- 	struct folio *folio;
- 	struct udf_inode_info *iinfo = UDF_I(inode);
-+	struct udf_map_rq map = {
-+		.lblk = 0,
-+		.iflags = UDF_MAP_CREATE,
-+	};
- 	int err;
+ 	/* enable autosuspend function of the usb device */
+@@ -933,10 +932,7 @@ static void realtek_cr_destructor(void *extra)
+ 		return;
  
- 	WARN_ON_ONCE(!inode_is_locked(inode));
-@@ -372,20 +388,27 @@ int udf_expand_file_adinicb(struct inode *inode)
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
- 	else
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
-+	up_write(&iinfo->i_data_sem);
-+
-+	/* Allocate the block underlying the data */
-+	err = udf_map_block(inode, &map);
-+	if (err < 0)
-+		goto restore;
-+
- 	folio_mark_dirty(folio);
- 	folio_unlock(folio);
--	up_write(&iinfo->i_data_sem);
- 	err = filemap_fdatawrite(inode->i_mapping);
- 	if (err) {
- 		/* Restore everything back so that we don't lose data... */
- 		folio_lock(folio);
-+restore:
- 		down_write(&iinfo->i_data_sem);
- 		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
- 				folio, 0, inode->i_size);
--		folio_unlock(folio);
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
- 		iinfo->i_lenAlloc = inode->i_size;
- 		up_write(&iinfo->i_data_sem);
-+		folio_unlock(folio);
- 	}
- 	folio_put(folio);
- 	mark_inode_dirty(inode);
-@@ -393,19 +416,6 @@ int udf_expand_file_adinicb(struct inode *inode)
- 	return err;
+ #ifdef CONFIG_REALTEK_AUTOPM
+-	if (ss_en) {
+-		del_timer(&chip->rts51x_suspend_timer);
+-		chip->timer_expires = 0;
+-	}
++	timer_shutdown_sync(&chip->rts51x_suspend_timer);
+ #endif
+ 	kfree(chip->status);
  }
+@@ -981,6 +977,9 @@ static int init_realtek_cr(struct us_data *us)
  
--#define UDF_MAP_CREATE		0x01	/* Mapping can allocate new blocks */
--#define UDF_MAP_NOPREALLOC	0x02	/* Do not preallocate blocks */
--
--#define UDF_BLK_MAPPED	0x01	/* Block was successfully mapped */
--#define UDF_BLK_NEW	0x02	/* Block was freshly allocated */
--
--struct udf_map_rq {
--	sector_t lblk;
--	udf_pblk_t pblk;
--	int iflags;		/* UDF_MAP_ flags determining behavior */
--	int oflags;		/* UDF_BLK_ flags reporting results */
--};
--
- static int udf_map_block(struct inode *inode, struct udf_map_rq *map)
- {
- 	int ret;
+ 	us->extra = chip;
+ 	us->extra_destructor = realtek_cr_destructor;
++#ifdef CONFIG_REALTEK_AUTOPM
++	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
++#endif
+ 	us->max_lun = chip->max_lun = rts51x_get_max_lun(us);
+ 	chip->us = us;
+ 
 -- 
 2.53.0
 
