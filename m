@@ -1,115 +1,83 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C5748CD61
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39157384256;
+	Thu, 10 Sep 2026 15:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052259; cv=none; b=Q2H9QkNZEUe4N0Y2xVfQH7tcygzuvPzo8WKuOOjoXuTQDV1iQwWCWPPjZE1rVkvFMlJscuLaSj1XU078Z7pkQGQcWHXvNepj8Bah9RYkLK4k3h0cxo8DJDgoDkJ2KTwOgJIX5ccZYOqsmsPY818EUxO9o72hDRvJ11IO9Y76y+w=
+	t=1789052482; cv=none; b=d5hGOMbaZJNyhBheRWNIVwapXk8pgSbVo43wNRVtZ5YEgVxhsMb/HtBRGqszVvurPoeQWWnj9G/FUJTcHFXG33TZl5JraWoEdY6hUYZ/VBHoZhT0Q2ZrrQf7aJ3itj1VQGo29/ZWp+6aoJYWQs6qzsuOizYAi36szUMWPDWBzZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052259; c=relaxed/simple;
-	bh=MdLSULf3d3qvKV+vE3zXiAyNrNZe0yPTzOESM2avdlc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=up8Fmf0PTN3HNcSUdt/CDOCjynjhcKAX/AiuY+QRgbOJ/zIN+h7Q7ZhbQKBfu3Qnw9EGHzkmI3qcgZDgaTLb3bRZME4NCdEATWftwQWbYWo8xwMRe2jPQuzISgOnZyYI9Hyt5EauZRw1OpSiAHMLkWyIguZ8OQuu0LIB5iTp1TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=q83puyE2; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789052482; c=relaxed/simple;
+	bh=L8DM0rJVl8lI0AE8AqZeZSU4hIs6eem028Jbow6Fsxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RUobJRdiUxlCqL4abE6QQLfdQCmGDl6m0oMWyDHCok0WD/k9l6RKpxxxW+G1b4blY64cCVLMjV67VzSIsC7Fu2FvkvfJ23qMYpSU6yYOEBh3fPepUc2gx4h5jYGI9WtDa4VKYg4b3nY7E+gtqY58vtFGTP8ad+zUOGRlBIGSVfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPB2dbOc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="q83puyE2"
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id 4eOjx3fMfc3Xs4gDTxW75B; Thu, 10 Sep 2026 14:57:31 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 4gDSxUJSYn6N54gDSxGcBn; Thu, 10 Sep 2026 14:57:30 +0000
-X-Authority-Analysis: v=2.4 cv=LJJmQIW9 c=1 sm=1 tr=0 ts=6aa2c55b
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=HsQM0NtH+7ObRZRg4qitg2mGRHy2UjGToKtnghGJ6mk=; b=q83puyE2hgYiYtAzNTkqEYgelH
-	7+hdutQ7UiBQk2+k8VfCSGAf7IwT53iuJdjQnqoeij+IqY7wUiZEu0p+wd7iYTz4cMre8HgmFWD7r
-	fv7U74hnB6F6f9GtfScgcTOb5XGglov4cNFP2+UwcBm/WIFKA9pU+gU2m+uTiAcKlyjTrjNJsvRjL
-	iOMMZSuaogQpoT6DudZ5Vd4KIoTyd1d70u+KCPkH70DViH6X8JXaz8m9UBnG18uD/96b5fWjGBKtM
-	PaBmaxALiwTUulDfgx5AivWeVFgJypmtOo2jm1en52Or76OaFEo/6gLyngSjkRvM4M1MT5wEqmRYb
-	nK/mcEXQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40986 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1x4gDR-00000000HwG-3kGu;
-	Thu, 10 Sep 2026 08:57:29 -0600
-Message-ID: <887fff2e-ef6f-469d-a4e6-4455276518c9@w6rz.net>
-Date: Thu, 10 Sep 2026 07:57:28 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPB2dbOc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3722D1F000FF;
+	Thu, 10 Sep 2026 15:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789052480;
+	bh=JOXfFD2pYQZzyzXEGGXBKQ9880w58jVJaec/hDfB60g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HPB2dbOcLtPdehPej5NTutXykBpbS/VVRRWrdLCwFK5eSCgS5uoDrSR/QpfKLuymh
+	 jwroneGXNmJpi0orSe3AnvLIu4ObY9gd25gYBV/8IBV1SzaP4YHYJu6K8e3hFxE/7M
+	 y3RP7MiEi1QjV+COgtucSsnI8j7p8uOaVzpREwrU=
+Date: Thu, 10 Sep 2026 17:01:12 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jiazi Liu <jiazi.liu1984@gmail.com>
+Cc: Thinh.Nguyen@synopsys.com, frode@meta.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] usb: dwc3: gadget: fix IRQ storm on invalid event
+ buffer count
+Message-ID: <2026091053-unstylish-punctured-9ad6@gregkh>
+References: <20260727092258.1121-1-liujiazi@amazon.com>
+ <20260907073756.22329-1-jiazi.liu1984@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260909134230.441546314@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x4gDR-00000000HwG-3kGu
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40986
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfH7yrm0I0GcgoyR/wS5MaoDj4u203KGCfGuWb3ggZdAciMzU2r0xzsejMpp7jj1dj+qFVxnCq7i/ZryE1jF8baiSvyZd2tgcPOsXxVe0ana7nALdW+8W
- QLjIKO8swDkdGZvM6Kham8pSdZluvJF1509XHd+z4AeqB4hB/ktit4kpaY/KP94F/MJkog8/O5zSiQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907073756.22329-1-jiazi.liu1984@gmail.com>
 
-On 9/9/26 06:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.5 release.
-> There are 556 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.5-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Mon, Sep 07, 2026 at 03:37:56PM +0800, Jiazi Liu wrote:
+> When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
+> event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
+> that event count does not exceed event buffer length") returns IRQ_NONE
+> without writing back GEVNTCOUNT. Since the DWC3 interrupt is
+> level-triggered, the uncleared IRQ source keeps the line asserted,
+> causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
+> and triggers spurious.c:184 BUG -> kernel panic.
+> 
+> The resulting call stack:
+>   __report_bad_irq+0xac/0xc8
+>   note_interrupt+0x340/0x468
+>   handle_irq_event+0xac/0xc0
+>   handle_fasteoi_irq+0x120/0x228
+>   gic_handle_irq+0x68/0x108
+>   ...
+>   kernel BUG at kernel/irq/spurious.c:184
+> 
+> To reproduce, write a bogus value exceeding the event buffer length
+> directly to the GEVNTCOUNT register:
+> 
+>   devmem <DWC3_BASE + 0xc40c> 4 0x1004
+> 
+> Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
+> consistent with the stale event clearing pattern in
+> dwc3_event_buffers_setup(), and schedule error recovery to
+> reinitialize the controller.
+> 
+> Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+I missed where Thinh signed off on this, where did that happen?
 
-Tested-by: Ron Economos <re@w6rz.net>
+confused,
 
+greg k-h
