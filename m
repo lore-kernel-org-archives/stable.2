@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A6D23395D;
-	Thu, 10 Sep 2026 08:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD333AEF57
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029832; cv=none; b=i+W/PPiupeQ5GxQ1Q2zySiFYsOX/R1doyEG2cPiXXdn8z7nkQkbkE/c1G7yBzDltO1Kk9VZEdWWpRyOH0HMZBWjB92J1TsMGcgu29BFjgBv/uHFqH0YEZfolv5VjLsqrbPOPLYZRr3/bbri+kRiWhpCw73YAxhxLt7DUYr6LEio=
+	t=1789029832; cv=none; b=pgjMRpKI0kjTzUvpbJFLQht8qb2Hytilrw1AKo9kKeSWaF4fbvcbUm0wWMr89JEId1OfK0fyp3NuP8wra1hzxEFOz6To3eaNDxhiGd86HREBF0KHgCb5REHjG0cc6GEecFwSBjsuGMN7zO4x8sKpA15EjCfRpIjfVu87wHPfLWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789029832; c=relaxed/simple;
-	bh=GwscfBrlwlJ4OfLnuhq6+VRNnnQ2CC3GGxRnzmZy45c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N8bOaf3GUMtSKi5xvsPQAQHdGRIbQOsD7gjMDAAudSjlNzpfHNSayfNd83CkXsQ48CTsPeGk/EXss8F2nGkJ9dmrQ5IRj/nM6WxWaUs/IUssea4w5iIgrvrfHy0Ok7KQJSH/K3Fb3yIsOnm7UUMrlE1MUj7UZX6eEYp0npohh5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2HP7y+v; arc=none smtp.client-ip=100.103.45.18
+	bh=eEr66d69pRMLa7uye6L6l7GSlIwsxhWoejkxpcsCj7w=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PurIbKca7LAeBbp7qrtfTLOPHaHFeDPlj8AI7Bn0q6AHiaZWOiqteP23CMJI4Ab6fNHYcx4X2QWBsUNcBV8BQOAGLhVd3TFVTEXBGdQGTJFyFGdtyCaiUuWiBrsPo/0PF519WTNG+Mgf08IakkbUXW94vrP3v536HvcecGbRT9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dYpbk0P4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FeSYmf3G; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2HP7y+v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4006D1F000FF;
-	Thu, 10 Sep 2026 08:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789029831;
-	bh=ErRlIXkdJ4/rRpN+QKa7XDjPMLHUV1wufabVSUtAsQI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P2HP7y+vQFK2rr4JQhfnWLQMcAoRUjYl4ShV0NJRFVhOU01TwpojXqi5Jbf1VLxtt
-	 5H9xKB2rEUeMkwUkTm5zk539OYXH0eiWTbsiy9jycZVsGQzCIayr6NiL0YWH1JR3l1
-	 buZNmfJ+GpiTDrFMdLrNywunrZUioJ75icRB1IFBoL2ji1IPNU3+4jgJinv8TZG+TW
-	 L439PYO2ICtBackUaHH4CaeZWo0b/I8QDxYt6BXfeZdBBeVop2JbHKCVChZvjoYU5Q
-	 Xb1w6rKuHpgTSCZnAML1njltCXVnefNYTP1iYvbYePrxP4gp1ZbjAGRaM5XdClNwnT
-	 yVPzcZRhjUumw==
-Message-ID: <fb373298-717e-4047-bf47-770bc39d1b81@kernel.org>
-Date: Thu, 10 Sep 2026 10:43:46 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dYpbk0P4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FeSYmf3G"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5GaYB4187870
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:43:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MtiGDKihwWXaJj+ph8EISAiatJoUykhVq4J6XnBzE/Q=; b=dYpbk0P4OrOxhO21
+	WzPEyM7wBniiHqjL7jQPgwTSSMCEJVEMXIBKdmV7Qmw0fYaXekS6bedaq/pbnSWZ
+	KJJJLBNYjOSQzahOoBgj6/D31UflfXGo3oXYrrjWFPE19IWZffCtQWtmW5VvjV8y
+	84EE7slIhcdO9N0p3hygd090d84SoXzzRT6npNNXYOqq9cOWxhZdNHnzbXuG/Kkt
+	GG1L3gsvYQSKcQ0vPhTha7S2Y6oGXLse6tpcTv39zqMb4UjhmHmFW+/OkM+RcWox
+	HbFcIvArlpYMIkhzvMHnaWoFjqgDOyVXbsyE0KBRLtMpDEl2Y/DJJdI6iqWreBsC
+	hGaYiA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcygtx7p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 08:43:50 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so873597385a.2
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789029829; x=1789634629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MtiGDKihwWXaJj+ph8EISAiatJoUykhVq4J6XnBzE/Q=;
+        b=FeSYmf3G1l+U8fs3BwvI+Wm0PnYejQdMbpfUhpamJ7bM4DDTjffLhlZBluAQ8IIjRm
+         B4pfxvUejUWVLyz2mMUbWOgKWVu+uVVX68X7ajhktYfLlv8QbwVb//oZT0KfD9C0crWc
+         qIGZUR/mDMZa6g6C4pWKjVc6eHJeyeqxy0YGFKr3nbfCIMLpOQFyoe2aSZbEArJmi1Ut
+         ya/yLMDfPeYfqKF5d7vLH1ss9rT8HKZQevMMUc0r1B/eZFLT2/WIyjga3py3WeK3ZwDU
+         Mas90wcw7zeYan5dRSZyjnV4N7bficplemIZhyj0nLcWLnzaYeUHLgwCNyH+BqYoVugN
+         8VNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789029829; x=1789634629;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MtiGDKihwWXaJj+ph8EISAiatJoUykhVq4J6XnBzE/Q=;
+        b=Vg+OXh2JldcmgjbUCCK55dyI26scAmXt4Oqcee43XN8JjC8+mndehgmJCkxv/F7MT8
+         X4zieA7ooksnlxjscxPjyq1nx16c1Fvaea2idDbO929UhXvaf1pKlkN/UywNR6rUO1SL
+         yRmd99idgJQjdAxHuMDcjgUprG7NOa8sEDxMIgzdOXpUQv7oM3Lg3S85e6i/MkbvtSr2
+         BzUZ0xncARRsnzzTx1kgDPOW+yf/upI5snQmWH6XrsVWJHnmF86bOBgdFybPpTiPdB/p
+         oG727uQiC0alG93Mq0wQVls8U7tRLLQnPpsmURVQe0KJbIR8BZZarpp+LngVK4xTDW15
+         TmMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzmmyjMkDu1JKxvt1HSg4OPae2eijZ8PFqWaisJ2m6HwHC+lJdDQVU38okJzTLD6VtXF4GtaXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3qvlBRfoqp87NgaxYNmZjoSSiNlATngZaaGQq6qGCGk9H8nky
+	VDkeMDT2DSXDWmQ6q+dowQBb5pG9JwXFgOiBRendZoYTrcKyQo+KWCR+CIuqp4k7XYEa3LmmKs7
+	3fFJ9GM72HwqM6QVzV6BpKDqjPIktFvOaQwPlxkDcg/GPnCN7gdqRDkXmiLk=
+X-Gm-Gg: AYBFou2QdjnpFzCeyeALgTLQDg7XSnswZvdBc3hv60ICt17MjyiGBeGWan5Y5dKaMYq
+	b+Uo9LvwHQaxmIW+g5FJj89Dknpgj5MnIY8fBtutHOscWSZ4yB2IpSG/SL2LjJMF+dTcQd+VsQF
+	ciw4niEQ58Lv4kdAu7lgU5FwB2Ia1yPBtH6GHf2GU3pWkwojn060/gnMSGAigJMwsgfZ1v3Imn3
+	tPxt7LOXTF20IgIKG+mndeu7Ezgnk4RaMsQKUvJoI74PADc+MHnmiXp4rbNlgbv41ynKyyGmRw6
+	aTE3eDJzEnCZEGCq6UlvGObbVufcOaeqyUdzJ6b0/OSLcjBm5XXm1E377SPxg/Q8ZxV88tWvifn
+	alNCM/iJoTExNqRelBESUi4CN5xadbEnVVGgNZYyzURmTehcfoXGg5arhOcM/YupTSwHVaw+w5G
+	5wPugiwqMCiSZr833zhxAAWIc5rJhHKnaB4oM9fqMwvgQTjFuk2VniNgoDP+4V1P5v0UE=
+X-Received: by 2002:a05:620a:8423:b0:938:fc91:91ce with SMTP id af79cd13be357-9398036365cmr3566661885a.20.1789029829657;
+        Thu, 10 Sep 2026 01:43:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:8423:b0:938:fc91:91ce with SMTP id af79cd13be357-9398036365cmr3566658685a.20.1789029829086;
+        Thu, 10 Sep 2026 01:43:49 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26204ecdbcsm801689166b.25.2026.09.10.01.43.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 01:43:48 -0700 (PDT)
+Message-ID: <bb913cfc-288b-4ce6-befd-76c774de4d02@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 10:43:47 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,195 +89,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: guest_memfd: take the invalidate lock when
- unbinding a dying file
-To: Shivank Garg <shivankg@amd.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] Input: soc_button_array - fix MS Surface Pro 11
+ probe failure
+To: Sergey Lebedev <lsa.uz@pm.me>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260909093934.29411-1-johannes.goede@oss.qualcomm.com>
+ <20260909102521.67488-1-lsa.uz@pm.me>
+Content-Language: en-US, nl
+In-Reply-To: <20260909102521.67488-1-lsa.uz@pm.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5NyBTYWx0ZWRfX4Er70gtRLz5q
+ A6rfXLs/38vBweS6UsVThXUs5bRO7ijEu1HVaDiJH7oDITCWbH//g8u9EDYslZ72gkqHbCqPFom
+ JbkEGDys6Q+jI1QrgHBFic/ZK36RLtbRt8Cyspm9xZdOAVGT1x/Si8T3nrLIr1E/EWd0xMnGIIz
+ 6PeRLbiFJtmEf+/0nYYmg+9p1UILrqMDLSfkSFoqW3U4EAnslAOGCekq1Mgw+2HkY0QWMfMhxnE
+ mQrobuDXTRKhMk945r4xAUx1qomMgqVwAT4Jv6VPf81JA6sPMrR8tPyoTaxwRGeG5Har89HP77j
+ HGkjDyzMAFOFzv8gJadoEobosj4cV6O7Fn+fxyxnMZmZPItjRZ8N+dTmanLtfoBrnAwlW/8+gY2
+ 3H0PXJ/T6ZApbKg/FrI/vmjRSHyFfPCui/XNxTOhU+HTkniH1wst/Ig0LktzK62gz1isbGGrJYR
+ acwwxY9QfsUHOCs8+jQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5NyBTYWx0ZWRfX4wKV7TjrtARe
+ SLirc+K6HazphOCX533LBhyEPiHYjIqO4JrEHqvrY77ZH+zSPbOqihvRkwafLw66u+lhTgVi1OE
+ +XCFPYI+MQG4f5RWg0NTFGq3mOzXPK0=
+X-Proofpoint-ORIG-GUID: xS3bnxDd__RO9IOLL8Lfqz-oFmHWyS5A
+X-Authority-Analysis: v=2.4 cv=VONIDNPX c=1 sm=1 tr=0 ts=6aa26dc6 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=ruf0KxjLdvrAcJlDzccA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: xS3bnxDd__RO9IOLL8Lfqz-oFmHWyS5A
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100097
 
-On 9/1/26 09:20, Shivank Garg wrote:
-> kvm_gmem_unbind() takes mapping->invalidate_lock only if the
-> get_file_active() succeeds. When the guest_memfd file is dying, its
-> reference count is already zero so get_file_active fails and the binding
-> is removed without holding the invalidate lock.
-> 
-> kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
-> decide whether to begin or end KVM MMU invalidation. So, the bindings
-> must therefore remain stable between the two calls. Otherwise, unbind
-> can remove a binding after start increments mmu_invalidate_in_progress,
-> but before end finds the binding and decrements it.
-> Example, unbind race with memory failure:
-> 
->   CPU 0: memory failure               CPU 1: memslot delete
->   ----------------------------------  ---------------------------
->                                       (guest_memfd file is dying)
->   kvm_gmem_error_folio()
->     kvm_gmem_invalidate_start()
->       finds binding
->       mmu_invalidate_in_progress++
->                                       kvm_gmem_unbind()
->                                         get_file_active() fails
->                                         removes binding
->     kvm_gmem_invalidate_end()
->       no binding found
->       counter stays elevated
-> 
-> mmu_invalidate_retry() then returns 1 forever, so guest page faults
-> retry without ever installing a mapping and the guest hangs.
-> 
-> Remove the distinction between live and dying files in the unbind path.
-> Always use slot->gmem.file and take the invalidate lock when it's non-NULL.
-> Normal unbind callers hold slots_lock, which prevents release from clearing
-> the pointer or freeing the file state until unbind completes. Final VM
-> teardown can only see a NULL pointer because guest_memfd pins the KVM until
-> release has cleared all bindings.
-> 
-> Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
-> Tested on a 7.3-rc1, AMD EPYC 7713.
-> 
-> Changes in V2:
-> - Treat a dying file as the normal case: always use slot->gmem.file and
->   take invalidate lock, drop use of gmem_get_file for unbind and fold
->   __kvm_gmem_unbind() into caller. (Sean) 
-> - Drop NUMA selftests changes from this series, and will be sent separately. (Sean)
-> - Link to V1: https://lore.kernel.org/kvm/20260823-shivank-gmem-fix-split-v1-0-512a29fb8e86@amd.com
-> ---
->  virt/kvm/guest_memfd.c | 44 ++++++++++++++++++--------------------------
->  1 file changed, 18 insertions(+), 26 deletions(-)
-> 
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 625e62e1a031..21bb3710edfe 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -668,48 +668,40 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
->  	return r;
->  }
->  
-> -static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct gmem_file *f)
-> +void kvm_gmem_unbind(struct kvm_memory_slot *slot)
->  {
-> +	struct file *file = slot->gmem.file;
->  	unsigned long start = slot->gmem.pgoff;
->  	unsigned long end = start + slot->npages;
-> +	struct gmem_file *f;
->  
-> -	xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-> -
-> -	/*
-> -	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-> -	 * cannot see this memslot.
-> -	 */
-> -	WRITE_ONCE(slot->gmem.file, NULL);
-> -}
-> -
-> -void kvm_gmem_unbind(struct kvm_memory_slot *slot)
-> -{
->  	/*
->  	 * Nothing to do if the underlying file was _already_ closed, as
->  	 * kvm_gmem_release() invalidates and nullifies all bindings.
->  	 */
-> -	if (!slot->gmem.file)
-> +	if (!file)
->  		return;
->  
-> -	CLASS(gmem_get_file, file)(slot);
-> -
->  	/*
->  	 * However, if the file is _being_ closed, then the bindings need to be
->  	 * removed as kvm_gmem_release() might not run until after the memslot
-> -	 * is freed.  Note, modifying the bindings is safe even though the file
-> -	 * is dying as kvm_gmem_release() nullifies slot->gmem.file under
-> -	 * slots_lock, and only puts its reference to KVM after destroying all
-> -	 * bindings.  I.e. reaching this point means kvm_gmem_release() hasn't
-> -	 * yet destroyed the bindings or freed the gmem_file, and can't do so
-> -	 * until the caller drops slots_lock.
-> +	 * is freed.  Modifying the bindings is safe even if the file is dying
-> +	 * as kvm_gmem_release() nullifies slot->gmem.file under slots_lock,
-> +	 * and only puts its reference to KVM after destroying all bindings.
-> +	 * I.e. reaching this point means kvm_gmem_release() hasn't destroyed
-> +	 * the bindings or freed the gmem_file and can't do so until the caller
-> +	 * drops slots_lock, so there's no need to verify the file is live.
->  	 */
-> -	if (!file) {
-> -		__kvm_gmem_unbind(slot, slot->gmem.file->private_data);
-> -		return;
-> -	}
-> +	f = file->private_data;
->  
->  	filemap_invalidate_lock(file->f_mapping);
-> -	__kvm_gmem_unbind(slot, file->private_data);
-> +	xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-> +
-> +	/*
-> +	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-> +	 * cannot see this memslot.
-> +	 */
-> +	WRITE_ONCE(slot->gmem.file, NULL);
->  	filemap_invalidate_unlock(file->f_mapping);
->  }
+Hi,
 
-Besides fixing something, this does make the code simpler :)
+On 9-Sep-26 12:25, Sergey Lebedev wrote:
+> Hans,
+> 
+> It fixes it. Sixteen consecutive boots on the Surface Pro 11, every one with
+> both gpio-keys devices present and MSHW0040:00 bound. The baseline in my
+> report was 13 boots in 40.
+> 
+>   boots                     16
+>   buttons appeared          16
+>   first input at            1.242 - 1.377 s
+> 
+> For comparison the 13 stock successes ran 1.28 - 1.78 s, so no boot here was
+> slower than stock managed when it worked, and the spread is tighter. The unit
+> that binds this device by hand was disabled for the whole run, so nothing
+> masked the result.
+> 
+> Built on 7.0.0-30, Ubuntu 26.04; both patches apply to that kernel's copy of
+> the file as-is, 2/2 at an offset. Ubuntu ships the file unmodified - an
+> out-of-tree build of mainline v7.0's source carries the same srcversion as
+> Ubuntu's own module - so the tested source differs from stock by your patches
+> and nothing else.
+> 
+> One note for whoever tests this driver next rather than about the patch: on
+> this install soc_button_array is in the initramfs under MODULES=most, so
+> replacing the module under /lib/modules does nothing until update-initramfs
+> runs, and modinfo will report the new one while the old one is loaded. Three
+> boots of mine were recorded before I noticed. I checked
+> /sys/module/soc_button_array/srcversion on every boot above.
+> 
+> Patch 2/2 was in the same build and caused no regression, but I am not
+> claiming a test for it: the buttons appear here, so this machine's ACPI
+> descriptor package is not empty and the new check is never reached. So for
+> 1/2 only:
+> 
+> Tested-by: Sergey Lebedev <lsa.uz@pm.me>
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Great, thank you for testing!
 
--- 
-Cheers,
+Regards,
 
-David
+Hans
+
