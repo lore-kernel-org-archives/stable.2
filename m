@@ -1,94 +1,228 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15965352032;
-	Thu, 10 Sep 2026 01:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29613630AE
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002730; cv=none; b=S2ZpIr32l3ytfGQo5AGgRZEMSQP1Gjar+dX8AKHhBDaq4m43tZ0sn9B+skdrw40yWIREih963G10uKX+JRlKvPrGPlOC9/hZ50HjqHSloXfwTsZU6ReQduWYwf+4CT5DzaG1pVvWVwblWLxEHZeLbxdkOuMxyG47Bh+0rKSg/9Q=
+	t=1789003031; cv=none; b=NGyLyVhqgsXltVM+7xNdP8Z8BwxzdnfC95s5gHfHP0mGOPuOtHYulva9wyibocUK0Oc0SZIxFKXSJ/tKwq+OTrLWLz0gQu0mYLsbYadgvQCAh0jyGFC9oDDAZY88Zl0vjdMnXGil+43MKjFZLXuRr+cgc2Pm3Z/YRS6bKzwAzRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002730; c=relaxed/simple;
-	bh=jCcrHF+pJYVkp+pgHVqNx93JGeFZOZz6Oh0TsW6mRnI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qltCuPN+G1i0If6SY3oYVgt9qqjhBgb04iAqZgO1R1AYAgoZObdFfv6qgMfaYTnyVXjtcSzBnBrpiNUIs7qZ5eB8POrKLYgg6SfQ0ByKEaDFhzzXRD0bCe1o36fdOaO/GCfJwBsK3T29SH8RzOw+t8BHWRGB6gcfq7V6Khjc8Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a1c88878-7b05-4cbc-a57b-04b103082ad9,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a33e1639ab237ca0431f939f701201ab,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <gonglinkai@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 855703371; Thu, 10 Sep 2026 09:11:53 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Xin Ji <xji@analogixsemi.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	gonglinkai@kylinos.cn
-Subject: [PATCH v3] usb: typec: anx7411 - stop the IRQ before destroying the workqueue
-Date: Thu, 10 Sep 2026 09:11:50 +0800
-Message-Id: <20260910011150.2966843-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
-References: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
+	s=arc-20240116; t=1789003031; c=relaxed/simple;
+	bh=jyTlYrKRQyrEwNvVDLaPLeMVjxxlLwLgwHa0xOhbI7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p9PnQKvIxfBB+K7PPW6hD1xyCR6d6l7LliZ/d/8i6uvnd4yjbSU9RuRdL9J6fnkM+OvVxBRr+aQ9+D33yI4gY31Y8HNFkoipu07sH0Kf0LY5efSpoV/mng1Si28b80oIL/TXEyKuEUKe1vNyn67FMHhDhLJ5nFzV8kv19DOYwpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8LQ9TVj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8LQ9TVj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE211F000FF;
+	Thu, 10 Sep 2026 01:17:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789003026;
+	bh=7A6VO6UfSrqd47O/Boy6aZJX33hjaUz8fxqYKrubkis=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V8LQ9TVj592cbrD3GMBRdlK/XoQLrzN7aSXB/pJAbDbPXTjZHPI6AQN2ths1TgL8E
+	 baryxqMayCfxLQM2pxJdPpQ/PHZr/YWDdSUCm7/LIzmGgUqEsyL6fFruOc795E7GSh
+	 GHkUN90sgqaSwupRDj4OHjftxI6F9FveamZNtl5FDmOHNt2mG0lgcQqo7YtUgFq2y7
+	 PG0bxz39gVlOi29xOXv5nIsdmkA2rXmrNEADNbfP9wIVaYB5pNxBa7xa33ZaHYnpUP
+	 sQmYdv5vYI2btnv9wUmAfMLI8W5UdC4qPY2dYF2duwQJZ5HwhlhJcb4WosCWt4Eg1r
+	 lrjNkazWqZ1vA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: StanleyYP Wang <StanleyYP.Wang@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] wifi: mt76: mt7915: set correct background radar capability
+Date: Wed,  9 Sep 2026 21:17:03 -0400
+Message-ID: <20260910011704.3831468-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090457-perpetual-gallstone-572d@gregkh>
+References: <2026090457-perpetual-gallstone-572d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The IRQ is devm-managed, so it can still queue plat->work while
-remove() is tearing the queue down. Disable it first.
+From: StanleyYP Wang <StanleyYP.Wang@mediatek.com>
 
-Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+[ Upstream commit 888208d1ccc41bebe97744445787183b17bb3ea4 ]
+
+Some of the variants do not support background radar, so add a
+helper to report background radar capability.
+For mt7916, only the variant of 5G 2T2R + 1R supports background
+radar.
+
+Signed-off-by: StanleyYP Wang <StanleyYP.Wang@mediatek.com>
+Reviewed-by: Shayne Chen <shayne.chen@mediatek.com>
+Link: https://patch.msgid.link/20250320015909.3948612-1-StanleyYP.Wang@mediatek.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Stable-dep-of: 44b5adfe4949 ("wifi: mt76: mt7915: bound the device EEPROM address before the EFUSE copy")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v3:
-- add Cc: stable (Heikki)
+ .../wireless/mediatek/mt76/mt7915/debugfs.c   |  5 +++
+ .../wireless/mediatek/mt76/mt7915/eeprom.c    | 33 ++++++++++++++++++-
+ .../wireless/mediatek/mt76/mt7915/eeprom.h    |  1 +
+ .../net/wireless/mediatek/mt76/mt7915/init.c  |  7 ++--
+ .../net/wireless/mediatek/mt76/mt7915/mcu.c   |  8 +++--
+ .../wireless/mediatek/mt76/mt7915/mt7915.h    |  3 +-
+ 6 files changed, 49 insertions(+), 8 deletions(-)
 
-v2:
-- keep the minimal remove() race fix; drop the workqueue later if wanted
-  (code unchanged from v1)
-
- drivers/usb/typec/anx7411.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
-index 41df115912b9..c3d36da692e4 100644
---- a/drivers/usb/typec/anx7411.c
-+++ b/drivers/usb/typec/anx7411.c
-@@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
- 	anx7411_partner_unregister_altmode(plat);
- 	anx7411_unregister_partner(plat);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/debugfs.c b/drivers/net/wireless/mediatek/mt76/mt7915/debugfs.c
+index 578013884e438..c170ea1299831 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/debugfs.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/debugfs.c
+@@ -444,6 +444,11 @@ mt7915_rdd_monitor(struct seq_file *s, void *data)
  
--	if (plat->workqueue)
-+	if (plat->workqueue) {
-+		disable_irq(plat->intp_irq);
-+		cancel_work_sync(&plat->work);
- 		destroy_workqueue(plat->workqueue);
+ 	mutex_lock(&dev->mt76.mutex);
+ 
++	if (!mt7915_eeprom_has_background_radar(dev)) {
++		seq_puts(s, "no background radar capability\n");
++		goto out;
 +	}
++
+ 	if (!cfg80211_chandef_valid(chandef)) {
+ 		ret = -EINVAL;
+ 		goto out;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+index b038568e0be91..38dfd5de365ca 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+@@ -147,7 +147,7 @@ static int mt7915_eeprom_load(struct mt7915_dev *dev)
+ 		/* read eeprom data from efuse */
+ 		block_num = DIV_ROUND_UP(eeprom_size, eeprom_blk_size);
+ 		for (i = 0; i < block_num; i++) {
+-			ret = mt7915_mcu_get_eeprom(dev, i * eeprom_blk_size);
++			ret = mt7915_mcu_get_eeprom(dev, i * eeprom_blk_size, NULL);
+ 			if (ret < 0)
+ 				return ret;
+ 		}
+@@ -359,6 +359,37 @@ s8 mt7915_eeprom_get_power_delta(struct mt7915_dev *dev, int band)
+ 	return val & MT_EE_RATE_DELTA_SIGN ? delta : -delta;
+ }
  
- 	i2c_unregister_device(plat->spi_client);
++bool
++mt7915_eeprom_has_background_radar(struct mt7915_dev *dev)
++{
++	u8 val, buf[MT7915_EEPROM_BLOCK_SIZE];
++	u8 band_sel, tx_path, rx_path;
++	int offs = MT_EE_WIFI_CONF + 1;
++
++	switch (mt76_chip(&dev->mt76)) {
++	case 0x7915:
++		return true;
++	case 0x7906:
++		/* read efuse to check background radar capability */
++		if (mt7915_mcu_get_eeprom(dev, offs, buf))
++			break;
++
++		val = buf[offs % MT7915_EEPROM_BLOCK_SIZE];
++		band_sel = u8_get_bits(val, MT_EE_WIFI_CONF0_BAND_SEL);
++		tx_path = u8_get_bits(val, MT_EE_WIFI_CONF0_TX_PATH);
++		rx_path = u8_get_bits(val, MT_EE_WIFI_CONF0_RX_PATH);
++
++		return (band_sel == MT_EE_V2_BAND_SEL_5GHZ &&
++			tx_path == rx_path && rx_path == 2);
++	case 0x7981:
++	case 0x7986:
++	default:
++		break;
++	}
++
++	return false;
++}
++
+ const u8 mt7915_sku_group_len[] = {
+ 	[SKU_CCK] = 4,
+ 	[SKU_OFDM] = 8,
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.h b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.h
+index 2908e8113e48a..73611c9d26e15 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.h
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.h
+@@ -55,6 +55,7 @@ enum mt7915_eeprom_field {
+ #define MT_EE_CAL_DPD_SIZE_V2			(300 * MT_EE_CAL_UNIT)
  
+ #define MT_EE_WIFI_CONF0_TX_PATH		GENMASK(2, 0)
++#define MT_EE_WIFI_CONF0_RX_PATH		GENMASK(5, 3)
+ #define MT_EE_WIFI_CONF0_BAND_SEL		GENMASK(7, 6)
+ #define MT_EE_WIFI_CONF1_BAND_SEL		GENMASK(7, 6)
+ #define MT_EE_WIFI_CONF_STREAM_NUM		GENMASK(7, 5)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/init.c b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
+index b2220ff7d6758..747345df874c0 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
+@@ -389,9 +389,10 @@ mt7915_init_wiphy(struct mt7915_phy *phy)
+ 	if (!is_mt7915(&dev->mt76))
+ 		wiphy_ext_feature_set(wiphy, NL80211_EXT_FEATURE_STA_TX_PWR);
+ 
+-	if (!mdev->dev->of_node ||
+-	    !of_property_read_bool(mdev->dev->of_node,
+-				   "mediatek,disable-radar-background"))
++	if (mt7915_eeprom_has_background_radar(phy->dev) &&
++	    (!mdev->dev->of_node ||
++	     !of_property_read_bool(mdev->dev->of_node,
++				    "mediatek,disable-radar-background")))
+ 		wiphy_ext_feature_set(wiphy,
+ 				      NL80211_EXT_FEATURE_RADAR_BACKGROUND);
+ 
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
+index 32e9c0960657a..605ccb3e55822 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
+@@ -2853,7 +2853,7 @@ int mt7915_mcu_set_eeprom(struct mt7915_dev *dev)
+ 				 &req, sizeof(req), true);
+ }
+ 
+-int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset)
++int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset, u8 *read_buf)
+ {
+ 	struct mt7915_mcu_eeprom_info req = {
+ 		.addr = cpu_to_le32(round_down(offset,
+@@ -2861,8 +2861,8 @@ int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset)
+ 	};
+ 	struct mt7915_mcu_eeprom_info *res;
+ 	struct sk_buff *skb;
++	u8 *buf = read_buf;
+ 	int ret;
+-	u8 *buf;
+ 
+ 	ret = mt76_mcu_send_and_get_msg(&dev->mt76,
+ 					MCU_EXT_QUERY(EFUSE_ACCESS),
+@@ -2871,8 +2871,10 @@ int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset)
+ 		return ret;
+ 
+ 	res = (struct mt7915_mcu_eeprom_info *)skb->data;
+-	buf = dev->mt76.eeprom.data + le32_to_cpu(res->addr);
++	if (!buf)
++		buf = dev->mt76.eeprom.data + le32_to_cpu(res->addr);
+ 	memcpy(buf, res->data, MT7915_EEPROM_BLOCK_SIZE);
++
+ 	dev_kfree_skb(skb);
+ 
+ 	return 0;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h b/drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h
+index f49d6b2f81e42..f6e67613966d9 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h
+@@ -427,6 +427,7 @@ int mt7915_eeprom_get_target_power(struct mt7915_dev *dev,
+ 				   struct ieee80211_channel *chan,
+ 				   u8 chain_idx);
+ s8 mt7915_eeprom_get_power_delta(struct mt7915_dev *dev, int band);
++bool mt7915_eeprom_has_background_radar(struct mt7915_dev *dev);
+ int mt7915_dma_init(struct mt7915_dev *dev, struct mt7915_phy *phy2);
+ void mt7915_dma_prefetch(struct mt7915_dev *dev);
+ void mt7915_dma_cleanup(struct mt7915_dev *dev);
+@@ -477,7 +478,7 @@ int mt7915_mcu_set_fixed_rate_ctrl(struct mt7915_dev *dev,
+ 				   struct ieee80211_sta *sta,
+ 				   void *data, u32 field);
+ int mt7915_mcu_set_eeprom(struct mt7915_dev *dev);
+-int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset);
++int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset, u8 *read_buf);
+ int mt7915_mcu_get_eeprom_free_block(struct mt7915_dev *dev, u8 *block_num);
+ int mt7915_mcu_set_mac(struct mt7915_dev *dev, int band, bool enable,
+ 		       bool hdr_trans);
 -- 
-2.25.1
+2.53.0
+
