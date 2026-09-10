@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9999040DB20
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C13493D55
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047779; cv=none; b=UlXqKyBVPcpjah1gxqTNhE2pl0aTbTygAmvDwy86DGcZvJ+WsTE2dNEy2WI3A9SIY56OjM3341Ng/KxS85ByfHr23LrAADr4CGYeX/ofS0uIiqqAxztVYkh65M2SdQ0dJhHey4G476UnVgXXxbj4wETO/7GRtgeSr8VqIMwz2o8=
+	t=1789047780; cv=none; b=skn7eIWftfJJR6gj0YQ82mzGJUQGViYm4mKGFnqGgF7ENtX/Zb2kmF6WAaNDtlKJOn2YeYxODYVRDLxoJwZ/WZ/12IESJfU9ROQaiGDLyOpW3GDy/U62DthzYqJL6+MV6D4g0JSwqPSffrmkbiLqsymMOcM4epvYeLypQJpicTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047779; c=relaxed/simple;
-	bh=fra/xZFrIeAAIZok5jvrG+I9ekspsmZQdtFDKAlWPTo=;
+	s=arc-20240116; t=1789047780; c=relaxed/simple;
+	bh=dScUjNnbEkjwufUpsNCSJblcHZUzIblCPApUyRYiJsY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dalbkGXFgCP4dIYwM3j0abPmeXBXlq+uGkHxRMUhWoFH7vwpkWlC88JGK45B1uwlspPN9/CObKJ52LspvTMfvm5UzNkhVBQ4+30EBs+9F4IZRKHzpeVWUP8Fw8Nc+82FgUSy7fEahJHQsAAso3oSVpgNW24jpg3fTMQRNvQ4wOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oHK2RXn2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V/gu/bAmdCfdgE5urF4wUhOi26DMh/P/HLyWa8eEGjepIW5am3V3VppMiFcncKR/AezeNawhbYDx+awiSnsFqAZCSngrnGymLqhromafu4mrwhx6t9rVEIf3rlkwEtDUmeujVqFNabb3Tlp1eiYS45HEswZluoH8O7ySn5kknJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbNwGT+s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oHK2RXn2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED35D1F000FF;
-	Thu, 10 Sep 2026 13:42:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbNwGT+s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18611F00898;
+	Thu, 10 Sep 2026 13:42:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789047777;
-	bh=UNJb9NU3JJ50ADUzmWP/OBuAS7LoDfJDWzgQ9IKpg9w=;
+	s=k20260515; t=1789047778;
+	bh=NAfg43zzSc6yKURf6AqXzEyti4DBfTD4p1Nn8nH5REo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oHK2RXn2HaNwJ2xbQoAv4y7FTPUzWyG8aQMPB4PegLKoyOxZ5l6ttJb9RJU9f3NY4
-	 O1uLtwecCcV6pmO+oVRb2YdUrTkdMZd96ZflE5olh0T1vjQAQxvqfx05SMKEMXpmF2
-	 liGYv1q7TqtDp1+WgTyMge9op9zCRXqJJxy0k97cryjVPc9EH50AqIDF7vwfT64Xs+
-	 vhNwamBODTymAePE0x02D+uF7VhMJ6+0/J8mEJiE7TZuBoGbdytimS3NMcQEGHu59H
-	 JDr2LfSUp9ftUo5REXhV7TU6h/vZO+x2ga0Hu+xRqaWLdcEI6sUvMnD/zNCu5CVNcG
-	 MhnC4XY+AR7wA==
+	b=XbNwGT+sM9klRsqkBEv56Sz8PmyiJTXva0wMnmygIp2HF9l/fHM6uuozpH4P4m0a4
+	 7bLEqu8zbU236vIp/aaeim6ODC534kHRLavpI6Potr5c7MqZN6zJLIql9uBdnW0kWJ
+	 PxCpSqbxPFq79wU/BHKDyPVbTeaMQ1NoUdu59nk5qkHv1R2DGvI3z5F1fT+vvYCOrY
+	 XXFZpx3IW6vYl5I3A6+XfulegcCuO0W3rSx8KxIyhmf5QkZlYwxTKPjYuPktztGGbm
+	 6mcmhnQ3W8eu3/OE7s2hjuMHntvdwXQu9Ry11osXSyHkT7cuS0cyEAtBr6tEbs2+2u
+	 iuUKy9C4WlxXg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michal Pecio <michal.pecio@gmail.com>,
+Cc: Niklas Neronin <niklas.neronin@linux.intel.com>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/4] usb: xhci: Fix sum_trb_lengths()
-Date: Thu, 10 Sep 2026 09:42:52 -0400
-Message-ID: <20260910134254.352939-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/4] usb: xhci: refactor xhci_td_cleanup() to return void
+Date: Thu, 10 Sep 2026 09:42:53 -0400
+Message-ID: <20260910134254.352939-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910134254.352939-1-sashal@kernel.org>
 References: <2026090813-valuables-reuse-daab@gregkh>
@@ -47,80 +47,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michal Pecio <michal.pecio@gmail.com>
+From: Niklas Neronin <niklas.neronin@linux.intel.com>
 
-[ Upstream commit ae71f9b88e5a15fed17a432e21c30ee9463ed1a4 ]
+[ Upstream commit 7acfea2866acc6c888f880e28a249bc5ce069ad0 ]
 
-This function is supposed to sum the lengths of all transfer TRBs in
-a TD up to a point, but it starts summing at the current dequeue since
-it only ever gets called on the first pending TD.
+The function is modified to return 'void' instead of an integer since it
+invariably returns '0'. Additionally, multiple functions which only
+return xhci_td_cleanup() are also refactored to return void.
 
-This won't work when there are cancelled TDs at the beginning of the
-ring. The function tries to exclude No-Ops from the count, but not all
-cancelled TDs are No-Op'ed - not those the HW stopped on.
+This change eliminates the need for callers to handle a return value that
+does not convey meaningful information and improve code readability, as it
+becomes immediately clear that the function does not produce a significant
+output.
 
-The absolutely obvious fix is to start counting at the TD's first TRB.
-And remove the now-useless 'ring' parameter, and 'xhci' too.
-
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://lore.kernel.org/r/20241106101459.775897-4-mathias.nyman@linux.intel.com
+Link: https://lore.kernel.org/r/20241106101459.775897-29-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[5.10 backport: keep the existing if-based halt cleanup, stream_id
+arguments, last_trb/last_trb_seg fields and num_trbs_free accounting.
+Convert only the six existing cleanup/completion functions and their
+return statements; the newer upstream halt/cancellation paths are absent
+here. This supplies the void xhci_td_cleanup() context required by
+ff44dfb03a293bf30e31f98772a1dd316a6071d1 without adding functions.]
+
 Stable-dep-of: ff44dfb03a29 ("xhci: fix lost bounce buffers on TDs spanning several ring segments")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/usb/host/xhci-ring.c | 53 +++++++++++++++++-------------------
+ 1 file changed, 25 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 38e118047ff4c..3e7664a2476db 100644
+index 3e7664a2476db..eeb4d5de682d6 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -2111,13 +2111,12 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 	return xhci_td_cleanup(xhci, td, ep_ring, td->status);
+@@ -771,8 +771,8 @@ static void xhci_unmap_td_bounce_buffer(struct xhci_hcd *xhci,
+ 	seg->bounce_offs = 0;
  }
  
--/* sum trb lengths from ring dequeue up to stop_trb, _excluding_ stop_trb */
--static int sum_trb_lengths(struct xhci_hcd *xhci, struct xhci_ring *ring,
--			   union xhci_trb *stop_trb)
-+/* sum trb lengths from the first trb up to stop_trb, _excluding_ stop_trb */
-+static u32 sum_trb_lengths(struct xhci_td *td, union xhci_trb *stop_trb)
+-static int xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
+-			   struct xhci_ring *ep_ring, int status)
++static void xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
++			    struct xhci_ring *ep_ring, int status)
  {
- 	u32 sum;
--	union xhci_trb *trb = ring->dequeue;
--	struct xhci_segment *seg = ring->deq_seg;
-+	union xhci_trb *trb = td->first_trb;
-+	struct xhci_segment *seg = td->start_seg;
+ 	struct urb *urb = NULL;
  
- 	for (sum = 0; trb != stop_trb; next_trb(&seg, &trb)) {
- 		if (!trb_is_noop(trb) && !trb_is_link(trb))
-@@ -2308,7 +2307,7 @@ static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		goto finish_td;
+@@ -813,8 +813,6 @@ static int xhci_td_cleanup(struct xhci_hcd *xhci, struct xhci_td *td,
+ 			status = 0;
+ 		xhci_giveback_urb_in_irq(xhci, td, status);
+ 	}
+-
+-	return 0;
+ }
  
- 	if (sum_trbs_for_length)
--		frame->actual_length = sum_trb_lengths(xhci, ep->ring, ep_trb) +
-+		frame->actual_length = sum_trb_lengths(td, ep_trb) +
- 			ep_trb_len - remaining;
- 	else
- 		frame->actual_length = requested;
-@@ -2392,7 +2391,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		goto finish_td;
- 	case COMP_STOPPED_LENGTH_INVALID:
- 		/* stopped on ep trb with invalid length, exclude it */
--		td->urb->actual_length = sum_trb_lengths(xhci, ep_ring, ep_trb);
-+		td->urb->actual_length = sum_trb_lengths(td, ep_trb);
- 		goto finish_td;
- 	case COMP_USB_TRANSACTION_ERROR:
- 		if (xhci->quirks & XHCI_NO_SOFT_RETRY ||
-@@ -2414,7 +2413,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ static int xhci_reset_halted_ep(struct xhci_hcd *xhci, unsigned int slot_id,
+@@ -2065,9 +2063,9 @@ int xhci_is_vendor_info_code(struct xhci_hcd *xhci, unsigned int trb_comp_code)
+ 	return 0;
+ }
+ 
+-static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+-		     struct xhci_ring *ep_ring, struct xhci_td *td,
+-		     u32 trb_comp_code)
++static void finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++		      struct xhci_ring *ep_ring, struct xhci_td *td,
++		      u32 trb_comp_code)
+ {
+ 	struct xhci_ep_ctx *ep_ctx;
+ 
+@@ -2080,7 +2078,7 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		 * stopped TDs.  A stopped TD may be restarted, so don't update
+ 		 * the ring dequeue pointer or take this TD off any lists yet.
+ 		 */
+-		return 0;
++		return;
+ 	}
+ 	if (trb_comp_code == COMP_STALL_ERROR ||
+ 		xhci_requires_manual_halt_cleanup(xhci, ep_ctx,
+@@ -2108,7 +2106,7 @@ static int finish_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		inc_deq(xhci, ep_ring);
+ 	}
+ 
+-	return xhci_td_cleanup(xhci, td, ep_ring, td->status);
++	xhci_td_cleanup(xhci, td, ep_ring, td->status);
+ }
+ 
+ /* sum trb lengths from the first trb up to stop_trb, _excluding_ stop_trb */
+@@ -2128,9 +2126,9 @@ static u32 sum_trb_lengths(struct xhci_td *td, union xhci_trb *stop_trb)
+ /*
+  * Process control tds, update urb status and actual_length.
+  */
+-static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+-		struct xhci_ring *ep_ring,  struct xhci_td *td,
+-			   union xhci_trb *ep_trb, struct xhci_transfer_event *event)
++static void process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++			    struct xhci_ring *ep_ring,  struct xhci_td *td,
++			    union xhci_trb *ep_trb, struct xhci_transfer_event *event)
+ {
+ 	struct xhci_ep_ctx *ep_ctx;
+ 	u32 trb_comp_code;
+@@ -2210,7 +2208,7 @@ static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		td->urb_length_set = true;
  		td->urb->actual_length = requested - remaining;
- 	else
- 		td->urb->actual_length =
--			sum_trb_lengths(xhci, ep_ring, ep_trb) +
-+			sum_trb_lengths(td, ep_trb) +
- 			ep_trb_len - remaining;
+ 		xhci_dbg(xhci, "Waiting for status stage event\n");
+-		return 0;
++		return;
+ 	}
+ 
+ 	/* at status stage */
+@@ -2218,15 +2216,15 @@ static int process_ctrl_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		td->urb->actual_length = requested;
+ 
  finish_td:
- 	if (remaining > requested) {
+-	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
++	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
+ }
+ 
+ /*
+  * Process isochronous tds, update urb packet status and actual_length.
+  */
+-static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+-		struct xhci_ring *ep_ring, struct xhci_td *td,
+-		union xhci_trb *ep_trb, struct xhci_transfer_event *event)
++static void process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++			    struct xhci_ring *ep_ring, struct xhci_td *td,
++			    union xhci_trb *ep_trb, struct xhci_transfer_event *event)
+ {
+ 	struct urb_priv *urb_priv;
+ 	int idx;
+@@ -2319,14 +2317,13 @@ static int process_isoc_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 	if (td->error_mid_td && ep_trb != td->last_trb) {
+ 		xhci_dbg(xhci, "Error mid isoc TD, wait for final completion event\n");
+ 		td->urb_length_set = true;
+-		return 0;
++		return;
+ 	}
+-
+-	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
++	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
+ }
+ 
+-static int skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
+-			struct xhci_virt_ep *ep, int status)
++static void skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
++			 struct xhci_virt_ep *ep, int status)
+ {
+ 	struct urb_priv *urb_priv;
+ 	struct usb_iso_packet_descriptor *frame;
+@@ -2348,15 +2345,15 @@ static int skip_isoc_td(struct xhci_hcd *xhci, struct xhci_td *td,
+ 	ep->ring->num_trbs_free += td->num_trbs - 1;
+ 	inc_deq(xhci, ep->ring);
+ 
+-	return xhci_td_cleanup(xhci, td, ep->ring, status);
++	xhci_td_cleanup(xhci, td, ep->ring, status);
+ }
+ 
+ /*
+  * Process bulk and interrupt tds, update urb status and actual_length.
+  */
+-static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+-		struct xhci_ring *ep_ring, struct xhci_td *td,
+-		union xhci_trb *ep_trb, struct xhci_transfer_event *event)
++static void process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++				 struct xhci_ring *ep_ring, struct xhci_td *td,
++				 union xhci_trb *ep_trb, struct xhci_transfer_event *event)
+ {
+ 	struct xhci_slot_ctx *slot_ctx;
+ 	u32 trb_comp_code;
+@@ -2403,7 +2400,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 
+ 		xhci_handle_halted_endpoint(xhci, ep, ep_ring->stream_id, td,
+ 					    EP_SOFT_RESET);
+-		return 0;
++		return;
+ 	default:
+ 		/* do nothing */
+ 		break;
+@@ -2422,7 +2419,7 @@ static int process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		td->urb->actual_length = 0;
+ 	}
+ 
+-	return finish_td(xhci, ep, ep_ring, td, trb_comp_code);
++	finish_td(xhci, ep, ep_ring, td, trb_comp_code);
+ }
+ 
+ /*
 -- 
 2.53.0
 
