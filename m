@@ -1,113 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ED44A2A64
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16B1341068;
+	Thu, 10 Sep 2026 14:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049536; cv=none; b=FNVrfld4rOD92+nDj6lJRYg0PerenIBNDLqX8Ys5WRrjS+nOLVAMY3CtLvZ1NOhwR/LVBfMQRhlnVqFXmbQcVi1yo359ph97iYS5oSmdwXgpoCcBSuLivwkvpXU9dj+pvycBwu3MObApwuvBfekON9tRCvn6adkK/yk7HEVFSlw=
+	t=1789049684; cv=none; b=SKteSJm8eIKDi56L2Zt1HpSfnYav4mDIWSohUgTvhNhbeoSyZ4NCbywuhKM1jwMfcLlkXQvTiMmtXgrOA9nqKrjUINjuM0pzou7LCisEpSjrf21QqcCjMAR4qL/ovwDHghmtPT1vxCFZEM5X9uSCQ+CZgy/YRhygPtsf5HZBjXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049536; c=relaxed/simple;
-	bh=oVdb5YK+v4o475YbC7On+ZqCVg0VY5s6e+Izz4zOfz0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IjW928cEgO6Tpb/zURvaX0RiRdgDzhNjk1kg7ymiv/WrJJwukbEf4DBjx+5jkjqF7bOFkKUX17MvWIvjvAb+iZCAL2S86VC1EXw2zFu+WTC/tlBZ8eo2DjcJ0ZVvWtB6yQtgNs7oTiB2sUYzlX1ToOeWECayUzCEuhim3/qmORg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fLyRpeR0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789049684; c=relaxed/simple;
+	bh=8odRz4n4VgiTQHHIx1K/AVnMHcqYY/ae1HoVUyy6QtE=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=TSm4Ixr6mZYXuf/Wv71m71kxnc1k166oVDsACTL3V7Q1F67LIUJnVMkOisv/JM8+VJ+Jl4T/Fzl2LPh96J839X2ABT0CvHdgpQfySRqss2Kjoe65KuwVUZbz9dVsAXXQg31Geah9onvZShpgLq8UU9g2iZGl4GrtQqHfk9HCiRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=uocRacO0; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fLyRpeR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27361F000FF;
-	Thu, 10 Sep 2026 14:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049535;
-	bh=B1/p+9fEC0Jxbr45q/49ox7J/8CS0W/R4efGGt1Ff5c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fLyRpeR0ELIrDXu87gzRxkL2kS+ovUFnf3wOcfga/IFARwMZs0RYdSyzwBIIWcuLt
-	 IEk+pLtucogtFlpK6QhQDvqBlXwOByftZjGmc9YJUKUh+svP7jBas2AutcEu+GpR2h
-	 rgX6XdcQ1om7mGa+KYk+ziv9pOtJXIk0nM+HulLW9KMR5tgDJ5UZwOjei+m90OCzA7
-	 pNL4OP0BeBewxYVIAsgE4PXTU64lLmQzbEMMKZjJj2w8PEO4HFYiXcsfwYDKc6P4C6
-	 vcBcJ9EaCaBGZTMezxH/UxI7FdrtQaRuy2R8BcDtyL5HmuaeZogfUIor5jitsRgg36
-	 n0aCVIB4ojIqQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	sashiko-bot@kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ftrace: Synchronize the initialization of ftrace_ops
-Date: Thu, 10 Sep 2026 10:12:12 -0400
-Message-ID: <20260910141212.642140-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090829-rundown-turbofan-bc25@gregkh>
-References: <2026090829-rundown-turbofan-bc25@gregkh>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="uocRacO0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=kIWQyuPhziZdEFcftncrQD98qtLPLGba+f0do/MFyWs=; b=uocRacO0iWyxvaK29kJuo5wY/m
+	TS4UfNzz3GLMhHT6g1CwNTg0wc09b1oGEOC0hY7BO+E5WB+/moQ94vTCT0FkbHqwrtpJ8uJvoyWEh
+	2U/4Bnx8cR9m3JuYnAM12eoeq3XuppNNbyIdw9kx6b0DLsqI7ArpKyQEqdcBR0PCA2YZP4ilulWWF
+	r7NcmIHKnPJ6ifCoKD5fOFIrnUwBIUFWvLesPiXQFEAKUcajAEREaBLcSP+ysr8aZkoA+zWglj5gN
+	aWobd5ZG3Zcrd2GqJx9+CLMEvcIQs1WB/1qpEsUOQ3bCUlpWuKlYTDio189BSZmZSfYgnVGtYIhof
+	BJTcQdrA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x4fXv-0000000182C-0cFq;
+	Thu, 10 Sep 2026 11:14:35 -0300
+Message-ID: <d99c2b25ef6a34a2a9301e19f5f8fe0d@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org
+Cc: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>, Pali Rohar <pali@kernel.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, Ronnie Sahlberg
+ <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Tom
+ Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] smb: client: fix one-byte OOB read in
+ smb2_parse_native_symlink()
+In-Reply-To: <20260909230748.1226168-1-pc@manguebit.org>
+References: <20260909230748.1226168-1-pc@manguebit.org>
+Date: Thu, 10 Sep 2026 11:14:34 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Steven Rostedt <rostedt@goodmis.org>
+Paulo Alcantara <pc@manguebit.org> writes:
 
-[ Upstream commit 4617721c502b2ddaa4e324e86da4997edf738fa5 ]
+> When parsing a share-root relative native symlink, memcpy copies
+> smb_target+1 (skipping the leading separator) but uses
+> strlen(smb_target)+1 as the length, reading one byte past the
+> allocated buffer.
+>
+> This fixes the following KASAN splat when accessing an SMB symlink
+> with a target of '\a\b':
+>
+>   BUG: KASAN: slab-out-of-bounds in smb2_parse_native_symlink+0x4f5/0xca0
+>   Read of size 5 at addr ffff88800878fe21 by task netfsfuzz-execu/1
+>   CPU: 1 UID: 0 PID: 1 Comm: netfsfuzz-execu Tainted: G N
+>   7.2.0-11943-g2709dd5ae32f-dirty #1 PREEMPT(lazy)
+>   Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+>   1996)
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x7b/0xa0
+>    print_report+0xd0/0x630
+>    kasan_report+0xe5/0x120
+>    kasan_check_range+0x105/0x1b0
+>    __asan_memcpy+0x23/0x60
+>    smb2_parse_native_symlink+0x4f5/0xca0
+>    parse_reparse_point+0x68a/0x1530
+>    reparse_info_to_fattr+0x752/0xa20
+>    cifs_get_fattr+0x873/0x15b0
+>    cifs_get_inode_info+0xc0/0x310
+>    cifs_lookup+0x308/0xa70
+>    __lookup_slow+0x122/0x2b0
+>    lookup_slow+0x50/0x70
+>    path_lookupat+0x525/0xaf0
+>    filename_lookup+0x1f2/0x550
+>    vfs_statx+0xd1/0x1a0
+>    vfs_fstatat+0x65/0xc0
+>    __do_sys_newfstatat+0x9a/0x120
+>    do_syscall_64+0xdd/0x4a0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> ...
 
-There's some internal state that ftrace_ops needs to have set, but since
-it can be declared outside of the ftrace.c code, it calls
-ftrace_ops_init() on the ops in every global function. The issue is that
-if two tasks call it on the same ops at the same time it is possible to
-have the initialization of one corrupt the initialization of the other
-call.
-
-Create a ops_mutex to use to synchronize every initialization of the
-ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
-states it was initializied but the flag is checked again after the mutex
-has been taken. Checking first outside the mutex allows it to shortcut
-having to take the mutex. But then the check needs to be done again after
-the mute is taken in case of races.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902095501.6b59af20@gandalf.local.home
-Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
-Reported-by: sashiko-bot@kernel.org
-Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ adjusted INIT_OPS_HASH macro context for the missing subop_list member. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/ftrace.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index a5ddc3f7aefaa..c7e9ce10f506c 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -75,6 +75,8 @@
- #define INIT_OPS_HASH(opsname)	\
- 	.func_hash		= &opsname.local_hash,			\
- 	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock),
-+/* Used only to synchronize the initialization of ftrace_ops */
-+static DEFINE_MUTEX(ops_mutex);
- #else
- #define INIT_OPS_HASH(opsname)
- #endif
-@@ -159,10 +161,17 @@ const struct ftrace_ops ftrace_nop_ops = {
- static inline void ftrace_ops_init(struct ftrace_ops *ops)
- {
- #ifdef CONFIG_DYNAMIC_FTRACE
--	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
-+	unsigned long flags = smp_load_acquire(&ops->flags);
-+
-+	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
-+		guard(mutex)(&ops_mutex);
-+		/* Could have been initialized before lock taken */
-+		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
-+			return;
- 		mutex_init(&ops->local_hash.regex_lock);
- 		ops->func_hash = &ops->local_hash;
--		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
-+		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
-+		smp_store_release(&ops->flags, flags);
- 	}
- #endif
- }
--- 
-2.53.0
-
+Applied.
