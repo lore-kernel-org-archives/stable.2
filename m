@@ -1,123 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F048A3B14CE
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:53:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D74739CCE2;
+	Thu, 10 Sep 2026 16:56:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059220; cv=none; b=Q7Jy2IECeC49sW7qPJFTZZ0aTQsEPd/Ktdzz1IyHqD7XGLvVztgzMZmUWhgoICGfRhVSpME1VQXziPCNPLp7u2OsNQUyI5quoLJUvoAh5e7ML7yYK32r9UAAQIlINfdsH6KoNfJ+8otexBncpmyovnqAXBR7QtqAIv8S3FdmOoU=
+	t=1789059373; cv=none; b=LpwZV+YsBAMjf9dCC2+MuVmfaGnpdUxPpPQW2Lgv0b4oXiI8VsNy35vVdfVVNT1djSlS7Ha9mQ56A0QcG4gtTlTCvb+1dmKC8pT5R4GcrjUTDN9WM2rmESP1DuAQaVdx3aXfaj5/OM/wWpAuiOfjNZaSFSqJaNrZzxpu8p45kHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059220; c=relaxed/simple;
-	bh=b/7LGvJ3ph/dpx1tcx8+U6IUh2wHWUsxPmy6jnsG+WU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j+JTGydEvTQKxtfHu/M/jPSV2Ke2VC0gA6vm+xt6DNdj47HC/WVZaewjOQbfgRUwrvGNDcIyQodR2LFd3HMblpNqIaPMOKpFfp6tSPGlGRVjYsCJwhaMo8VYXgqzrP0lLafbLjnLfDCv2HpwMf+JwT8uZs7y37KyhSCNfk20Ows=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl0sR2sM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789059373; c=relaxed/simple;
+	bh=QcFhRK88+b/E5jRc/+kYj47x/P2Hg+ARykNSBWh+CMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PN9M72lQSi//CXJyM4rb5QD9lLIj4tu9jQSoAptOHZqUcOlxyWqoepo4dRufqgm/g+b0TN+2Uwp7L6WXK+gRcysjwouZLLKoiYBBvL7yABYO7UNWZqjT+zmIkiP5uMCMivKUNRDs2Bj++a24uSc5gRFrPjkR1wECr8JOV/9PE3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYT1XR/O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl0sR2sM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87DD1F000FF;
-	Thu, 10 Sep 2026 16:53:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYT1XR/O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1840B1F000FF;
+	Thu, 10 Sep 2026 16:56:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059218;
-	bh=mcifqayaJrsTFab+f8+mykZxqto8cbRay8cRShRjQKs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cl0sR2sMSFYv0uGfEw9asFQo8GG0fyFpcjnIpqSrfdcP91pfGjrgP+stuBq6w+OoG
-	 FYHV8TIf6NP79EADbNyRr+U3w28dBvX4oyTxuILV25Z1w9qh1dssezjfue3O1b17QF
-	 aF19zgL06+B4rT5g17X++IVhZAx/TwD12EUSjlWjCETbB/h0dmDPC/8uaDM4IQBcdd
-	 /WitHStoz9Vb5hmzrX7JtD7QBPHg6Kipc8IXQhg3XXEqa+1G8nSqcrSx5OJHGqhwtZ
-	 r2P40xO3EuTZUMm7a1yJhemJABfYiFaxFzzc87YRO2DLJsSw5pk6xvXAXFYwaRrt4z
-	 B6swpMnCD5Vug==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-Date: Thu, 10 Sep 2026 12:53:36 -0400
-Message-ID: <20260910165336.1289665-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090900-washout-open-1097@gregkh>
-References: <2026090900-washout-open-1097@gregkh>
+	s=k20260515; t=1789059371;
+	bh=H5qv7SU0WDIL3754Sz2KIRetoEuCaKQJTb8/kp1+BN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RYT1XR/OfF0mS9K7RNsSt0/bIB4tPLioqS6oICC8IIBQHYVfhoUtGXezZnR7dAl+c
+	 rFWzFgqOUX4ca86r7skR+88tgY+1ogkZggJmqPnETO8L7QgfniDy2g/o7Y18pUXxsb
+	 bFM6/G27KvDldgE/IwzDlrYaZ1ti/gQoZmyuuGAU9OyXJJfhZeM7dLTPnJgKsYWFmi
+	 wKWAGiMui/lzpZDf76fBJTyUFLu/Rq18kYGGmUr0p2SOBUpNmY9gHnQMAuwr0ROqn/
+	 6RRmm9D08XnbYF8D3KE8lgsE0DMnNnhHE1v3HoHRYQ2+1033JG9Ecp7oP7YCvG8lGz
+	 q0jT9Y7FpqKlw==
+Date: Thu, 10 Sep 2026 17:56:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Itai Handler <itai.handler@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org, michal.simek@amd.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Message-ID: <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
+References: <20260910113325.717882-1-itai.handler@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3mhjrI60cxQYt2un"
+Content-Disposition: inline
+In-Reply-To: <20260910113325.717882-1-itai.handler@gmail.com>
+X-Cookie: Gravity brings me down.
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[ Upstream commit 457b5dbce31209e65e1184716ed3af59cb1c0372 ]
+--3mhjrI60cxQYt2un
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-RZN1_RTC_ALW is a weekday bitmask where bit N represents weekday N.
-When no alarm has been configured, the register has its power-on-reset
-value of zero.
+On Thu, Sep 10, 2026 at 02:33:25PM +0300, Itai Handler wrote:
 
-rzn1_rtc_read_alarm() uses fls() to convert the weekday bitmask into a
-weekday number. When RZN1_RTC_ALW is zero, fls(0) returns zero and
-fls(wday) - 1 evaluates to -1. This invalid weekday is then used to
-calculate the alarm date and can either leave tm_wday set to -1 or
-produce a fabricated alarm date.
+> +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
+> +{
+> +	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
+> +	int ret;
+> +
+> +	/*
+> +	 * Only a runtime suspended controller can be left alone: its clocks
+> +	 * are gated, so it cannot be mastering the bus, and its registers
+> +	 * must not be accessed either.  Any other answer means it may be
+> +	 * running and has to be stopped.  In particular, on a kernel built
+> +	 * without runtime PM this returns -EINVAL, and there the clocks
+> +	 * enabled in probe() are never gated at all.
+> +	 */
+> +	ret = pm_runtime_get_if_in_use(&pdev->dev);
+> +	if (!ret)
+> +		return;
+> +
+> +	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
 
-Treat a zero RZN1_RTC_ALW value as an unset alarm weekday and return
-without calculating the alarm date. Move reading RZN1_RTC_CTL1 before
-this check so that alrm->enabled is updated for both configured and
-unconfigured alarms.
+What ensures that nothing can start new transactions after this has run,
+and if there's any operations in flight will the controller be OK with
+just being stopped like this?
 
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Link: https://patch.msgid.link/20260821211032.13554-5-prabhakar.mahadev-lad.rj@bp.renesas.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ retained the ALME-only enable check because RZN1_RTC_CTL1_1SE is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/rtc/rtc-rzn1.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+--3mhjrI60cxQYt2un
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index ff094b3ce9e3c..800a0644b877d 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -193,13 +193,24 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	if (ret)
- 		return ret;
- 
-+	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
-+	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
-+
- 	min = readl(rtc->base + RZN1_RTC_ALM);
- 	hour = readl(rtc->base + RZN1_RTC_ALH);
--	wday = readl(rtc->base + RZN1_RTC_ALW);
- 
- 	tm->tm_sec = 0;
- 	tm->tm_min = bcd2bin(min);
- 	tm->tm_hour = bcd2bin(hour);
-+
-+	/*
-+	 * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
-+	 * register's power-on reset value.
-+	 */
-+	wday = readl(rtc->base + RZN1_RTC_ALW);
-+	if (!wday)
-+		return 0;
-+
- 	delta_days = ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
- 	tm->tm_wday = fls(wday) - 1;
- 
-@@ -208,9 +219,6 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 		rtc_time64_to_tm(alarm, tm);
- 	}
- 
--	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
--	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
--
- 	return 0;
- }
- 
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi4SYACgkQJNaLcl1U
+h9DtGwf9Hvtmmb3vMcKh7JgRiQb0kCFv9qEx+cbBU1WvojtOeTyWRno1HPM+1Dm4
+1a+alpDAO3fkRljzrLYyxHcx61SNwypP85xG7nYIRoLjj85Q0H7rl74tmH4W2KNW
+XCdswt1F115sVLVg5Z7a5rv5gyunIjmgqze32jlZQKFkU15oEUsbk3NB1/CbQOQT
+Z2QYer07Z/TCA0enUEK6NKJYRDJQJnSgGJBoAvoF5vbn72TLcrHx8vf7i9GZktzl
+j8ZPbKqiygHJwpUT0+Qser2009MxBTS79sbGbN5/ESD4eKi59lGRghuhmza22ZFP
+nKQ1163hkIr+j+n+ECibjh0si5+eDA==
+=ImZb
+-----END PGP SIGNATURE-----
+
+--3mhjrI60cxQYt2un--
