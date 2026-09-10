@@ -1,180 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailer241.gate86.rs.smtp.com (mailer241.gate86.rs.smtp.com [74.91.86.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B6B31E846
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45A52E8B83
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.91.86.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044999; cv=none; b=UNL7WiveUt3C6Z+zzTE/eiha3a4saYyYVGPajUzlzebe+lKzPmwh9AC96CGbdKuz6age/QV+OkL+Ubp3PQoAI+sm4b4esvYbRpXwE+jxDrbu5sSc5CG8phf4mCTt2ZSVBGQ4RMHQRYqIgnxFDDGGZnU8rxX4fGYNLZw4PXtTl2o=
+	t=1789045068; cv=none; b=nLLGrISje26KWABhl0eJ59Sk99DZ7bbJMtWvwLpYv/66lwPlDLRdabJgr91okKopxnJHeib0Bf0q9Vp4fL/C7URPlDtqF9fAPxECkilCXlFySUPZCfJGGZj9+ziAfmamZwDdYzXROVl29+hcNYTGdISIZhplnlZdfFa5Q8rSS7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044999; c=relaxed/simple;
-	bh=8YngwyMloo3dI8fqQt2CzEhtNlnZvAOl2RgvmbYJ6GY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K7+VB6Pdb4Jj4ftC92fhjZl30eiUvL+HU0vz6R33enhh99VjQRFqJA054znjZDfDp1e000yvT116PJwAw25MUWp8yyXtU3u1OClk2xzJEI7cEKXhxOOXZMXlFyEtf33bOFBCNX5WUMP0gkauZWHK1GqdacS6O9Tcvf37X1WLIFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RboymDZa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789045068; c=relaxed/simple;
+	bh=w2lh7ptEnPTKkoQwNFhNxV06/VvmaNakq+TNlN/nnRU=;
+	h=From:Subject:To:Content-Type:Date:Message-Id; b=ZH2YzHpGT51yHQwYXb7lQsvSOQMxu8fcK4p9saXneTAjtra+T3iOxvDeFp51YJ3o4iE6TysGLl5Q7KYGEBG9iWEg1htpLGnjgSkBZWLVejBintc/Rmz/mfPNOfiuAYpy7L3VTTgtbWNlu8h9j2WjGaCNl/vWtLlHr3ZjFr57FG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com; spf=pass smtp.mailfrom=computergamingpc.com; dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b=cDlLYEVm; dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b=fzKkhUbw; arc=none smtp.client-ip=74.91.86.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computergamingpc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RboymDZa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549151F000FF;
-	Thu, 10 Sep 2026 12:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044997;
-	bh=6PprvsnpYShbUINY9ZBMOvOYt3g00qxC2FRrxzBXlDk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RboymDZaKvsRopKYgvhjuSF6HYtIt6VpLUuWisNmeptx9iwbrFYNCIM8oJ9rL7k4p
-	 ihp0ZAFDBMqZeSqkHt5IfqfeekSyhmSHhtj/FdvkaTwA4Ro6f3cN1D7DxRfBDEshFR
-	 eMv6CXWioEIZt/+jv6ABqS72aKpTXOcx3Ra6Y8ik/uKof/6985H+3Kf+NQfEhRkKHz
-	 Ts7cGZa7hq9oKv7YCX0Bewl8CLjvUITfi5IhQrrlM1G3gNhkJ0OyNtD+PhHo/EYjpN
-	 hkXZrXAbxfI3iuYzFQi+T1NKbDQLa86sW9WzKD7KRLGlhdd0UMlM6fn7KSAnPPIsB5
-	 fahF7xErOnOUA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] tracing/probes: Fix BTF kflag check for anonymous struct member access
-Date: Thu, 10 Sep 2026 08:56:34 -0400
-Message-ID: <20260910125634.195265-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910125634.195265-1-sashal@kernel.org>
-References: <2026090850-fiber-stony-0dfd@gregkh>
- <20260910125634.195265-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b="cDlLYEVm";
+	dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b="fzKkhUbw"
+X-Report-Abuse: SMTP.com is an email service provider. Our abuse team cares
+ about your feedback. Please contact abuse@smtp.com for further investigation.
+Received: from [10.0.16.252] (unknown [10.138.12.189])
+	by s0-aws-app2-mta-out-2 (Halon) with ESMTP
+	id ff413e73-8089-49b9-8df7-6a20563000da;
+	Thu, 10 Sep 2026 12:37:38 +0000 (UTC)
+Received: Received from 10.138.12.155 by Caffeine
+ (s0-aws-app2-swarm-manager-1) with SMTP id
+ d43bf343-aac0-4462-b3dc-f283f4a12634  for stable@vger.kernel.org;
+  Thu, 10 Sep 2026 12:37:08 +0000 (UTC)
+Feedback-ID: 9194450:SMTPCOM
+Received: from ObaTech (unknown [191.177.202.135])
+	by s0-aws-app2-mta-in-1 (Halon) with ESMTPSA
+	id d43bf343-aac0-4462-b3dc-f283f4a12634;
+	Thu, 10 Sep 2026 12:37:08 +0000 (UTC)
+From: "Computer Gaming pc" <sales@computergamingpc.com>
+Subject: Current Inventory Update: GPUs & Enterprise SSDs Available
+To: <stable@vger.kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Reply-To: <sales@computergamingpc.com>
+Date: Thu, 10 Sep 2026 13:37:08 +0100
+Priority: urgent
+X-Priority: 1
+Importance: high
+Message-Id: <202610091337082DF2346837-7CD7C33BD7@computergamingpc.com>
+X-SMTPCOM-Sender-ID: 9194450
+X-SMTPCOM-Tracking-Number: d43bf343-aac0-4462-b3dc-f283f4a12634
+X-SMTPCOM-Message-ID: 890b4da2-655c-4e39-80c6-1b55835e69e3
+X-SMTPCOM-Payload: 
+ dfJemDD78dXkwXlRdIy9O1dsuFIjZUACX7Jm6W6bzqKccDOobsidgtzAdyHk9bb1FSHNVEyj-VJ0KSdSij2MFvKSH31LxmZxJwGjWNSEwuUK97Pln1US7xoqR2pQTKeQDZ-qaLHsn5n3dbgqFO4tfisMs9MYR6WAnqZUV0m466-oE6ZbDmDm36pWaDG1GgZB
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=computergamingpc.com; i=@computergamingpc.com; q=dns/txt; s=smtpkey;
+ t=1789043849; h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=w2lh7ptEnPTKkoQwNFhNxV06/VvmaNakq+TNlN/nnRU=;
+ b=cDlLYEVm+VOQEEb31/3KHNsF2pjiehkhvnZP2v9IUJ09TYa24Qhyh6keMZjLV6LhlIW+2
+ tlhb392DzX3AE8+4Rl5jKFNE/62ljyVqcImlmIEyaL75S2DhkawdUMGXAazfOJwHG9e0ULz
+ unVqlxSqIqU/ad5ly29MJlTQBc1e4HoDkvSh2gOzs4Z1jrKBqVDouYJHAP03trRlw7c91sN
+ B7rfed78G4psoVbxaf6mAorQOATbus+bikrbKKBoGCuBgSI+aVtb+Aibb8sppta1QTJxv+7
+ HosvBemAxe9aVGSzi/z/ytfjDEnoDoavel2Z0RvPr0DO5bQwB3zlTDmEpQoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=smtpmessage.com;
+ i=@smtpmessage.com; q=dns/txt; s=smtpcustomer; t=1789043849;
+ h=feedback-id : from : subject : to : content-type :
+ content-transfer-encoding : reply-to : date : message-id :
+ list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
+ bh=w2lh7ptEnPTKkoQwNFhNxV06/VvmaNakq+TNlN/nnRU=;
+ b=fzKkhUbw0IqeDyHFEsHreKHZrz11RbnymNN2J/amq1rmS1laNGmfBF4Y2hZ60JlI9FPkT
+ 1Ez32dAwoQNiRtbK8CvujNahhcyWaJahMkJVRQ7aIy1gz6TaBzd5HymukwQ7R6YrPN9Q2RV
+ bbwma5kj6kgXDA7VHkQOob2dyVFhiFyKqpLObMfEpdrilRRZg9qT3whojdNLMSzSV5zirVy
+ t2yMSJkwUCPeNHaMzvDcsXTqBJeic8QCgZxjb2eJlC2XwQJ/7jkr4Ah5y+lbltV/J8QOrjz
+ 5KgmgPRrU2fq+0dj1jnAsVO2MfR2X/bBol4ghSfJ8dsoFO/cmnT/2zIJRhXg==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Dear Partner,
+We’re pleased to share a current snapshot of our available inventory for 
+immediate dispatch.
 
-[ Upstream commit 47e93045a2db80d24f5fef65adecc6b2b32efa23 ]
+Memory Modules
+* 128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (Qty: 980) – $140.00
+* 32GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,500) – $1,140.00
+* 64GB Dual Rank x4 DDR4-2933 CAS-21 (Qty: 1,200) – $1,450.00
+* 32GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,500) – $1,150.00
+* 64GB Dual Rank x4 DDR4-3200 CAS-22 (Qty: 1,100) – $1,450.00
+* 32GB 2Rx4 PC4-2400T (Qty: 1,500) – $45.00
+* 32GB 2Rx4 PC4-3200AA (Qty: 1,500) – $45.00
+* 16GB 2Rx8 PC4-3200AA (Qty: 1,500) – $20.00
+NVIDIA H200 NVL 141GB — Qty: 10 — $26,500
+Nvidia PRO 6000 96G Server Edition - $10,000.00
+RTX 5090 Founders Edition 32GB (90 units) – $2,800 
 
-btf_find_struct_member() traverses into nested anonymous structures and
-unions to find a struct member. However, get_bitoffset_of_field() in
-trace_probe.c checked btf_type_kflag(type) using the outer parent type
-instead of the actual anonymous structure/union that directly contains
-the found member.
+Solid State Drives
+- SSD SATA 6G 3.84TB SFF (Qty: 450) – $120.00
+- SSD SAS 12G 960GB SFF (Qty: 470) – $300.00
+- SSD SAS 12G 1.92TB SFF (Qty: 560) – $350.00
+- SSD SAS 12G 3.84TB SFF (Qty: 560) – $150.00
+- SSD SATA 6G 1.92TB SFF (Qty: 450) – $100.00
+- Samsung 990 PRO 1TB NVME SSD QTY:410 - $150
 
-If the parent structure and anonymous structure have mismatched kflags
-(e.g., the parent has kflag=0 while the anonymous structure has kflag=1
-because it contains bitfields), the bitfield size encoded in the upper
-8 bits of member->offset is erroneously treated as part of the byte/bit
-offset, corrupting the resolved offset and failing to set last_bitsize.
-Similarly, btf_find_struct_member() pushed anonymous member offsets
-onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
+- HP (HPE) P43331-B21 64GB DDR5-4800 RDIMM QTY: 390 - $1,750
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 P43331-B21 (Qty: 500) – $1,750.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 P64707-B21 (Qty: 500) – $1,750.00
+- DDR4 64GB 3200Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $1,450.00
+- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 Samsung (Qty: 500) – $1,450.00
+- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $1,550.00
+- Intel Xeon Silver 4214R - QTY: 420 $350.00
+- Intel Xeon Gold 5220R - QTY: 410 - $450.00
+- Intel Xeon Platinum 8380: $450.00 QTY: 410
+- AMD EPYC 7542 - QTY: 490-- $380.00
 
-To fix this problem, update btf_find_struct_member() to return actual
-containing structure/union type via member_type, use appropriate
-__btf_member_bit_offset() to get bit offset, and use member_type for
-btf_type_kflag() in get_bitoffset_of_field().
+Storage & CPUs 
+Samsung PM9A3 2.5" SSD PCIe 4.0 7.68TB (115 units) – $650 
+7.68TB SAS SSD 2.5" 12G Server Drive (140 units) – $650 
+Intel Xeon Silver 4214R (120 units) – $300 
+Intel Xeon Gold 5220R (130 units) – $300 
+AMD EPYC 7542 (97 units) – $450 
+Intel Xeon Platinum 8380 (95 units) – $450
+HFS001TEM9X173N PVC10 NVMe SK Hynix 1 TB - $85 (500 unit)
 
-Link: https://lore.kernel.org/all/178827250904.123716.17452648791331881284.stgit@devnote2/
-
-Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.7-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
-[ Applied get_bitoffset_of_field() changes to the equivalent logic in parse_btf_field(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_btf.c   | 19 +++++++++++--------
- kernel/trace/trace_btf.h   |  3 ++-
- kernel/trace/trace_probe.c |  5 +++--
- 3 files changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index 5bbdbcbbde3cd..807d03ff8f063 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -61,16 +61,17 @@ struct btf_anon_stack {
- 
- /*
-  * Find a member of data structure/union by name and return it.
-- * Return NULL if not found, or -EINVAL if parameter is invalid.
-- * If the member is an member of anonymous union/structure, the offset
-- * of that anonymous union/structure is stored into @anon_offset. Caller
-- * can calculate the correct offset from the root data structure by
-- * adding anon_offset to the member's offset.
-+ * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
-+ * If the member is a member of an anonymous union/structure, the bit offset
-+ * of that anonymous union/structure is stored into @anon_offset.
-+ * If @member_type is non-NULL, the actual containing structure/union type
-+ * of the found member is stored into @member_type.
-  */
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset)
-+						u32 *anon_offset,
-+						const struct btf_type **member_type)
- {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-@@ -94,14 +95,16 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
- 			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
- 			    top < BTF_ANON_STACK_MAX) {
- 				anon_stack[top].tid = tid;
--				anon_stack[top++].offset =
--					cur_offset + member->offset;
-+				anon_stack[top++].offset = cur_offset +
-+					__btf_member_bit_offset(type, member);
- 			}
- 		} else {
- 			name = btf_name_by_offset(btf, member->name_off);
- 			if (name && !strcmp(member_name, name)) {
- 				if (anon_offset)
- 					*anon_offset = cur_offset;
-+				if (member_type)
-+					*member_type = type;
- 				goto out;
- 			}
- 		}
-diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-index 4bc44bc261e6f..4bd26bceae23a 100644
---- a/kernel/trace/trace_btf.h
-+++ b/kernel/trace/trace_btf.h
-@@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
--						u32 *anon_offset);
-+						u32 *anon_offset,
-+						const struct btf_type **member_type);
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 2fa7b596f03e1..1fed23033c1f7 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -533,6 +533,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- {
- 	struct fetch_insn *code = *pcode;
- 	const struct btf_member *field;
-+	const struct btf_type *mtype;
- 	u32 bitoffs, anon_offs;
- 	char *next;
- 	int is_ptr;
-@@ -561,7 +562,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 
- 			anon_offs = 0;
- 			field = btf_find_struct_member(ctx->btf, type, fieldname,
--						       &anon_offs);
-+						       &anon_offs, &mtype);
- 			if (IS_ERR(field)) {
- 				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 				return PTR_ERR(field);
-@@ -574,7 +575,7 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 			bitoffs += anon_offs;
- 
- 			/* Accumulate the bit-offsets of the dot-connected fields */
--			if (btf_type_kflag(type)) {
-+			if (btf_type_kflag(mtype)) {
- 				bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
- 				ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
- 			} else {
--- 
-2.53.0
-
+For quotes, availability, or inspection scheduling, please reach out 
+directly:
+sales@computergamingpc.com Call or WhatsApp: +1(774) 559-1248 | +1 (641)232-
+4364
+Thank you for your continued partnership.
+Ann Kamila
+Computer Gaming PC Trading
+2500 US-6, Iowa City, IA 52240, USA.
