@@ -1,148 +1,195 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout8.mo536.mail-out.ovh.net (smtpout8.mo536.mail-out.ovh.net [51.210.91.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72193481FA5
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063491; cv=pass; b=BXffggffIY5nKvKjLUXRrDVxjWsuMc7CqRyBf/bWG5l3QlxwotmLwWSPAa7phtdmlHGK6kys8Xxy9iHm2s+/MI9HucogD5+1c77qyK497iB6IqQk60FTp39LVhhk5n+ZJ8PonfhDDWyuhft7qGlKJgeA0xvDTqXzA3iRHSChkys=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063491; c=relaxed/simple;
-	bh=/JiSL9KtMYW39gs+t7l5GNFcMSkI1SwWlTIMXx+UrPU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EsWITzaOuCTItYN4W8z6rZe9bCLHsnbSxeBOXpinzEqMenjDYSqQyh/g93EUoZtzOQ2q0J8FQ+KifbXso+dDFTdqOCj6OxsN4g1ZApSXaA4Ja7iyJ1J/uWVYb3+Qhu0yc/wzCBfiapeZDnaczYtWjdlghYOpl7l+4Vs3voalCoo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEskD115; arc=pass smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE69549382
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789063907; cv=none; b=drXejtAwvDS6gJNNBxe3qljCkR6ZIfEeHvkiUqIagyMhTc4nkQpfDDKahIwcLX/32f3DzcD2kpG61xDsdN0hEQRsQrNXUUf1Brup5IGCU0l99TiPSjv0g3GVHAKvaO4lc1KX3Cwyo+56jD/nGRIjkw/8K76sq92qSv+5xrJuwNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789063907; c=relaxed/simple;
+	bh=gIKX6TDOBdFxDOz14E2FVc2SqTSSOWSA0OIAhBYHJTs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n/WuIqUarP/scpBtimE3rQ1XYN3SDy6c9xc7ab0BhvXM//YlRJ+DOvkyInCwJmr1UXjwtzqxPBSeuoAvp7rt0Z8b/jvLjf3rcXQNg3OBO7nFZHk3+bEmUoskC0LIYOIJPRjwRdAy4fAD/GhEIZyjA1waNkFDWPIUMGuKZO2QzWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=DtS/Hwto; arc=none smtp.client-ip=51.210.91.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEskD115"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47de0093c42so11866f8f.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:04:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789063487; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GICHstwxOBfzkV0eMz5cMA9ZgVatksrB5DAnw5AUWcHFAw9uRX9lUsf7BoEcVvlNch
-         jjFGWJPw4Jk7ha1kDlPOV4QlBPb/EvjoC7qIvdX4AxOghGUuBwJQMIEKMXt4zBZSsGef
-         dsMjV3JUEvVycqXEkhD7fTj/5jXvqDXAFu2Q+xzb7i48ijh40CkgYwJCBuH2wM9uOay5
-         X5Smu6yg0pFBW5FNzbqMnGs+6NQc9SuNUHQ6hRmz1Z9hnXd+iu1PCpfYwPccFuoG0ksw
-         8riUPGUfWymRsE+H6WSHJiuAfWdD+WM0oTujCBREFvZlVn19OeGeRmA2+9NOcoSSICYd
-         3UIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
-        fh=0Kx1t+E+nY63mU9mzRNS2frwFvbDNBE1sOeLnz1Go9k=;
-        b=Y4htMN3VhirjV1lfQ4SIq3Ga8RQGvTv8fDzEVLRV+iqU+2ODruvMUxb2O1eGF9tkua
-         cDhM/oIFEHdxZ23AhBPkikH1/4eNvQt/g6FKhRNVlT7Aqd5TUidYvYCqZ4ZDVTvW28Z2
-         6s/qhTxYyueIrltFdtxz5V0pzTUQVsqXDr+njmRDG+7NugJhH9TqpMD9bhwTZdPBi480
-         uYTQLv9SqlP/7me5fqqAHudfVleQv4LYOamX0ZqCY7+Y+S8gTjDefeJMn1ErRTa7HaTI
-         scqDEP/rfonhk7HXEBeq5HbeNmELpMmph5aaTOOcdTQJGui2eDrvIk4JZ/asKiT88rHO
-         nCmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789063487; x=1789668287; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
-        b=sEskD115CpRrijD4cFzDelRYsF8YWzl7654MOPwh89cY6gbyQnrSMlfZ8+AKtEU6a0
-         yil0X+5Y03DWkpDho47+1NAYo+9/rc5Ntu4BGlZoQvY8681Czq/y3kop9p1YyDoICKUZ
-         Bl/BuaEWMVrX0NR9l6hsA07pLxg3p/uiPEdDDl2wqmLdkocKj3cSuATuNlc55zMhRcXf
-         Yw4XpXsR/QENFv0L1WtfkrnWaBxCIUkK6+UxPETdSNdHUYunrvWKe8sYpr5ECPlUovvX
-         Y4p4bU4kQSYZV/cCZbtjmxVcaudKGD0f5mYvLJEO66Mf2Oe/LztwKisydDQ/AtaAusff
-         op9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789063487; x=1789668287;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
-        b=qVOt+SmKkjcQ4GoStLfrw2ohld3WgrinE/2w2IbgmiOWiYU2qhvabOVCxIxksPWhbU
-         OJ+v15Vsso/jz6GyTgcrn6qOTvKbZuyjYZe0C1rP5n+pZ4ADOm+QILAi9Zr+qoI6fvwY
-         DMaIEYwkPuLf2q/Mp23gQrSbs6xxjDzZofAremHy9Hp3+A3dlE5LbEr/oOLBF6YiN380
-         mheg+Yn/5txKVajDBy5VxxGs6TL/OEx3DYC0JHYaCkvf7dzl5BRxjNno9VovWdqvlnDe
-         ccJRdqFtJGhg1zce/SoIQHZnrfR89oMBV/jv8izirewQlowmbJm1Axe8slqzDLgiK/HK
-         rqEQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNg1v4Lbgzb7iDWu5qcZvwv2Wq866ZzU+eD4crUC88KMu5kunN6o41yF14q04/HTsyXxV/3jc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9+tUDKRWZnNZvA4LKc0g9aBQV6XpYdy/HaPFkob4AH4Jvp8vi
-	knGkp7H9WITR3Yfh/YaJQTXhm61rhJxpOO1Xf0VW8Tl3uiUxG6fsFSwVfyGc8tC799dBTqyCt+p
-	cmfWM3130u8EYYaWdT9rxMTOg3m6JBdLzxkur
-X-Gm-Gg: AYBFou3go5GIyNWkQtqbCjdetcVMTu5WgfIlZYbTiE5QtDxs77GMOYL2b3acqa14lNY
-	4L6PBW9B5TosGhJrMY70/9oD9PI5DD4P0Edpm2cB5OyPK680qBXkKDaNYWUaafN1kyFP06lblZ1
-	VS0Eye6H5Alytq0FBFtD3c99agoMCrk4Wm/3uBhLaWqD3urZUVqmHK0+2uBPjjk06KUcxuiWEZg
-	GLdIDICN8GcT2s22rLhHDFWuDRXIbh1e7A+rRxZsTCCAuDqHGnwWVARAC96iBbzZQ4FW8j2C4XG
-	nUsOKNIORg2DYDsGqWXsM+18gOGAAUhFrKO+KX4TBTZ4+pWfDvItWn8sUUuYNWpvxVH4+loBwre
-	4vA+WRNgJaDo/TGcvbW3/4pHXvuy+DHwdtRg43A==
-X-Received: by 2002:a5d:6f10:0:b0:485:8c16:5ef8 with SMTP id
- ffacd0b85a97d-486eb3104f1mr167913f8f.50.1789063487446; Thu, 10 Sep 2026
- 11:04:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="DtS/Hwto"
+Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
+	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ3t9Lz81p8;
+	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
+        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.118.86])
+	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ2Z6bz6GrV;
+	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Received: from sicoop.com (unknown [10.1.6.2])
+	(Authenticated sender: michaltoma@sicoop.com)
+	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id D2220941C3D;
+	Thu, 10 Sep 2026 16:52:24 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-100R0035100abae-58a1-4818-86d9-510bfad2885a,
+                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
+X-OVh-ClientIp:89.91.4.113
+From: Michal TOMA <michaltoma@sicoop.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Michal TOMA <michaltoma@sicoop.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	ian.forbes@broadcom.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy path
+Date: Thu, 10 Sep 2026 18:52:20 +0200
+Message-ID: <20260910165221.7558-3-michaltoma@sicoop.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
+References: <20260910165221.7558-1-michaltoma@sicoop.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910022442.3594649-1-xmei5@asu.edu> <20260910022442.3594649-2-xmei5@asu.edu>
-In-Reply-To: <20260910022442.3594649-2-xmei5@asu.edu>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 10 Sep 2026 11:04:35 -0700
-X-Gm-Features: AcwNN1UPtHpn5Ju1AbUXHO7M6POxnBVC4rOVn1G8Fc3LCftjvo7b6-mIt_6WkRg
-Message-ID: <CAJnrk1b=WoRPqKLEex-WuTVxjjw95Aj77Azwzv=BeR9VTu4PSA@mail.gmail.com>
-Subject: Re: [PATCH v7 2/2] fuse: return -E2BIG for an oversized SETXATTR over io-uring
-To: Xiang Mei <xmei5@asu.edu>
-Cc: Bernd Schubert <bernd@bsbernd.com>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>, fuse-devel@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, bestswngs@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16161730214470242587
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aKmehTmst5mpd6wa3AMMntN/pO+wvCw2son0GCMudqp5Ra4cXUpQtcElszFg/9ehvvt+7rEA1Z9lPK5POcjs9mV8gxjYKMJCBfyj9mlYbId/iN3gvqqcqjfLnt/Kqkcar21QFcaq+dQQcLLdU1Pm2WPzBIYeISj5qNIe9acCCY7WF6gMMfAtke8mUpLXQyAb+MrLSCaZt7uXHxM8ngYd0pk6YK4ubo4DckID00v6UBCE7A5a7Iv4BJyfMrMneLMh6mVBgqTRybeXYqlWCh9yeBzZbh5BiAEReyeXOZzlV1G483EoUdsWQpGLFjyvqgLW/267n85Wk9eU7Z5wj25y/SQ
+DKIM-Signature: a=rsa-sha256; bh=oNgvdIjXenpFeV/paVDrELbuNab+1ePKbm0+q9vDIwE=;
+ c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
+ t=1789059147; v=1;
+ b=DtS/Hwto0Pp7We+ky/snyzOrUBa4NOC1LbeatC5KkVvc6BLdabN7mfLw/h5E9DreheFGMhx1
+ d/s4wCgekHFO0M6i0C+rmsGQYxjuKa33M5II29LqgopkoOEGcj0Y7W9bMO9a93kb3eqrKBIEMPA
+ qDu472coQQcffoiTs3OZt/zvQXA2Uju8nCds+81n8zpCK4pHuLN17/pGzY/Uz4/Sth5HhJ3JLfl
+ FB41NPUcTnpYOdvEoong6ydhJ8c3l2vcxx4nF57y9ynT0DIJMDBeJp/rWwskruKyn5FuipyQA87
+ ABV5+3BKARBnL30qg4DW5wKwqUOZgpd4U2b+lrhp/rJQw==
 
-On Wed, Sep 9, 2026 at 7:25=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
->
-> fuse_dev_do_read() answers a request that does not fit the server's
-> buffer with -EIO, except for FUSE_SETXATTR, which gets -E2BIG since the
-> value may legitimately be larger than the buffer and setxattr(2) reports
-> that to userspace.
->
-> Over io-uring the copy fails with -EIO for every opcode, so the two
-> transports report different errnos for the same condition.  Map that
-> -EIO to -E2BIG for SETXATTR.
->
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
+reference with get_dma_buf(), maps the attachment and, once
+vmw_prime_import_sg_table() has created the TTM buffer object, stores
+the attachment in obj->import_attach. Drivers that import this way have
+to undo it by calling drm_prime_gem_destroy() when the object is freed.
 
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
+drm_gem_object_release() and kfree(). For every imported dma-buf, the
+sg mapping, the attachment and the dma-buf reference are leaked when
+the last GEM reference goes away, and the exporter's backing pages stay
+pinned until reboot.
 
-> ---
->  fs/fuse/dev_uring.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-> index c6dd420c4034..6351f2470e09 100644
-> --- a/fs/fuse/dev_uring.c
-> +++ b/fs/fuse/dev_uring.c
-> @@ -893,6 +893,8 @@ static int fuse_uring_args_to_ring(struct fuse_req *r=
-eq,
->         fuse_copy_finish(&cs);
->         if (err) {
->                 pr_info_ratelimited("%s fuse_copy_args failed\n", __func_=
-_);
-> +               if (err =3D=3D -EIO && args->opcode =3D=3D FUSE_SETXATTR)
+Any process that can open the vmwgfx render node can hit this by
+importing a dma-buf from another exporter, for example with
+DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
+VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
+host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
+udmabufs and imports them through EGL on llvmpipe, and it keeps many of
+those imports referenced while it runs, which is a separate userspace
+problem. Restarting the compositor did not give the memory back,
+though: with about 1.5 GiB of client buffers imported, killing KWin
+left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
+of 1, still attached to the vmwgfx device, after every userspace
+reference was gone. Their pages are no longer mapped or in any page
+cache, so reclaim and swap cannot free them.
 
-nit: might be worth a comment above saying something like "fuse uring
-doesn't use pipe buffers, so an -EIO err can only mean the in-args
-didn't fit ent->payload"
+Call drm_prime_gem_destroy() for imported objects before
+drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
+destroy callbacks, and include <drm/drm_prime.h> for it. The check is
+safe on the import error path: drm_gem_prime_import_dev() only sets
+obj->import_attach after gem_prime_import_sg_table() succeeded, so a
+buffer object destroyed before that point is not unmapped, detached or
+put a second time. ttm_bo_release() tears down the TTM backing and
+drops the reservation lock before calling the destroy callback, which
+fits the _unlocked unmap done by drm_prime_gem_destroy().
 
-Thanks,
-Joanne
+The leak was found by walking /proc/kpageflags, which attributed the
+missing memory to orphaned shmem pages. Those matched the udmabuf
+objects in dma_buf/bufinfo, and the remaining reference was traced to
+the missing PRIME teardown. It was confirmed without a compositor using
+a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
+it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
+the GEM handle and every file descriptor, then check bufinfo.
 
-> +                       err =3D -E2BIG;
->                 return err;
->         }
->
-> --
-> 2.43.0
->
+Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
+config and W=1: drivers/gpu/drm/vmwgfx/ builds without warnings before
+and after the change, and checkpatch.pl --strict is clean. Runtime
+tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
+sources for the files involved are identical to drm-misc-fixes, using a
+vmwgfx.ko built from them with this change. With the reproducer, all 8
+imported udmabufs stayed pinned without the change and none with it,
+with 3D acceleration both on and off. With KWin on llvmpipe, killing
+the compositor now released 84 of 92 udmabufs (610 MiB) within 10
+seconds, where the same test on the unpatched driver released none.
+
+Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
+Cc: stable@vger.kernel.org # v6.6+
+Assisted-by: LLM
+Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+---
+Reproducer (results and environment are in the cover letter). Compare
+the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
+and after: without this patch all 8 remain, with count 1 and still
+attached to the vmwgfx device.
+
+#!/usr/bin/env python3
+import fcntl, os, struct
+N, SIZE = 8, 4 * 1024 * 1024
+UDMABUF_CREATE     = 0x40187542  # _IOW('u', 0x42, struct udmabuf_create)
+PRIME_FD_TO_HANDLE = 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_handle)
+GEM_CLOSE          = 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
+render = os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
+udm = os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
+for i in range(N):
+    mfd = os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
+    os.ftruncate(mfd, SIZE)
+    fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
+    create = bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
+    dfd = fcntl.ioctl(udm, UDMABUF_CREATE, create)
+    ph = bytearray(struct.pack('IIi', 0, 0, dfd))
+    fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
+    handle = struct.unpack('IIi', ph)[0]
+    fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)))
+    os.close(dfd)
+    os.close(mfd)
+os.close(udm)
+os.close(render)
+
+The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
+every udmabuf, so the leak is specific to the vmwgfx import.
+
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index 9c7a73c0b..56bc94edc 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -30,6 +30,7 @@
+ #include "vmwgfx_drv.h"
+ #include "vmwgfx_resource_priv.h"
+ 
++#include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_placement.h>
+ 
+ /**
+@@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
+ 		vmw_surface_unreference(&vbo->dumb_surface);
+ 	}
+ 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
++	if (drm_gem_is_imported(&vbo->tbo.base))
++		drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
+ 	drm_gem_object_release(&vbo->tbo.base);
+ 	WARN_ON(vbo->dirty);
+ 	kfree(vbo);
+-- 
+2.55.0
+
