@@ -1,106 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DAE4BFE68;
-	Thu, 10 Sep 2026 00:34:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D882E7F2C;
+	Thu, 10 Sep 2026 00:37:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789000467; cv=none; b=O+zId+TXFAgXZV7QMGq9aQe3dXKuQzCZ/FQx1KCdw44a1YbqpcyayqnNaufM9R3QXL4qXD3WS6ULfRAiI9PLkHbE2ruNjKh5qv+1BnzKuBcp/BZTXswI8tlSuLB5cvvy1m3FD1LZfX9HDfSsWtnVTSR4hZdNHFjhZ3RK3ZW1dt8=
+	t=1789000668; cv=none; b=N2lytWDzbS99YIrihR11dJBPqkABfPFuWfZJ17IDzCPaeArNGIDKcd3f0PvqeLl90qzOLlXGhqFS8B37/yL8j0hC3/P8XZaDcxbib88bvwnIMmfozajzVgw7zJT2+jw6YrfRlw3Dzx4n26OPMEFCUstxGezrynyCVwAYbeOk7N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789000467; c=relaxed/simple;
-	bh=nfI70XfbB8Tg08XHW1UBeBZaszVmOJvGajs6CmBmAVM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=PUMxIE3w02AEQtLOtlGon98TQ0W9pe70k84KgjU9fzON4nH8o6E9/3TmrBEPfENTAIPFK+r9rbDEJj2QnyxVT0vPN5h1WRdWHgeaMOwmrCPMgNIQk0HrplzubhdV8uK67ybrcxvJ1+RMdrkyT3dWprywmZNHAlKAYNZSJDF9gmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bAEoLplI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789000668; c=relaxed/simple;
+	bh=yHqi1edR8aA7bDb+xd1ZhznEKoX7szdGT34u1U0k2ho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yqhp59Qy7uYE1CwiiktbGxEWhpnfsLvXunWjNMySRWUO2P7yA35zNXh6lw1csU6eyZZD1ufWSF5l29ebJtz6SYNGc4SKeU8bOqB9vnMEHw27tOgE7dWIbTJNpSZXKBNPGp0NzKiihCGV9wrlm3HK4j1k0/DqeLjJykSqiit/oRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3bhKCHB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bAEoLplI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989391F000FF;
-	Thu, 10 Sep 2026 00:34:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3bhKCHB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0B841F000FF;
+	Thu, 10 Sep 2026 00:37:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789000466;
-	bh=QD05iClpjTuKrQBi/AfupCRZI4bkgKtjfdTZMjzNS6E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bAEoLplI6y5a5YG488KxlFSq8y3bnNNaWrNO+UktuWu85Zm8O8EIf2kDMpR+mzoyS
-	 FBzVw2YCkYh8LNWKoG/i4OikOXrEooIAZCjdwfSJ7Oi8juik+n/WdpXEs37nsuJYYq
-	 jp6UASYnabRrCOgOGgxFjEh0PVMkarAKBNdLRWkjc6hZQtqcp4h0xwLHFkbENvllyV
-	 MBWattOSdZhBCr1EmBbBMIzW6aJ1Fws4nZ2ZiDLbCSOrHsEXHjYNeuC7nRMJjSFNO7
-	 mFP+30rhKB40Gbdy8vrppitnchfBspDkNB61bWdj+/40PaMQaQ/MYHUG3b835Px4vv
-	 4kKYa/fxkc9Fw==
-Date: Thu, 10 Sep 2026 09:34:22 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Sang-Heon Jeon <ekffu200098@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] tools/bootconfig: Fix integer overflow in size check
-Message-Id: <20260910093422.e24e680b0506c16af51b2bbd@kernel.org>
-In-Reply-To: <178900024679.183840.10345859264677533824.stgit@devnote2>
-References: <178900024679.183840.10345859264677533824.stgit@devnote2>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789000667;
+	bh=AuJvlKHeSaZqPSLspcfsddW5faqpBg2eD22pMELDkHU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=o3bhKCHBAiyUYUFvRM+tqDK5hjsSy6+iL7l9CQmWK8ztm0ea0l33yqeeET74fap1a
+	 wLKIF/owFeOKH4rp70FbDr8s5uJmnhKvcwNds+bmyyhugh+ay2dHHT3H1NcnG1Bg93
+	 9vFMm6Gv8XZdu4Jzr3l92rxjCmi/j1C2bUeZ4JbKyRoK6KclhpBlT5RISrtXeNNK7T
+	 /cl95VaJ20kaccMKwslAz/hZoh90E+DPg1mRliueuDGV0GsJ0hl4UaafHPA79G+dT0
+	 qLm9s+7kPySbcQEnHF63gYbEd7RI31cvTNoN6iqNgj58CqO1gxoP+/FRkOJGbz+pA/
+	 tJXOCy6OMVG3A==
+From: SJ Park <sj@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.18.y] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Wed,  9 Sep 2026 17:37:38 -0700
+Message-ID: <20260910003739.113303-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090910-flypaper-elixir-5106@gregkh>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 09:30:46 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+On Wed, 9 Sep 2026 15:03:16 +0200 Greg KH <greg@kroah.com> wrote:
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> On Tue, Sep 08, 2026 at 09:15:02PM -0700, SJ Park wrote:
+> > Patch series "mm/damon: unurgent fixes for infinite loop, NULL de-ref and
+> > races", v1.1.
+> > 
+> > Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+> > dereference and monitoring results degradation.  The first two sounds
+> > scary but the infinite loop happens only under unreasonable user setup.
+> > The NULL dereference is only in a unit test.  Monitoring results
+> > degradation is trivial since it is only best-effort, and those happens
+> > from only unlikely races.  Still those are bugs that better to fix if
+> > possible.  Fix those.
+> > 
+> > This patch (of 6):
+> > 
+> > Due to online parameter update like events, the number of DAMON regions
+> > could be higher than the user-set upper limit.  kdamond_merge_regions()
+> > repeats merge regions until the number meets the limit, while doubling the
+> > merge threshold up to the theoretical maximum threshold.  It is tried only
+> > up to the theoretical maximum threshold because even the aggressive
+> > merging can fail from reducing the number of regions under the
+> > user-defined upper limit.  For example, there could be many user-defined
+> > non-contiguous regions that cannot be merged.
+> > 
+> > The threshold based loop break condition is evaluated by comparing the
+> > threshold for the next merging try against the theoretical maximum
+> > threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
+> > threshold could make it overflow, and bypass the loop break condition.  In
+> > the case, if the number of regions cannot be reduced under the upper limit
+> > like explained above, the loop will run infinitely.
+> > 
+> > Prevent the case by doing the break condition check before doubling the
+> > threshold.  Also, prevent the threshold exceeding the maximum threshold,
+> > as it could overflow and apply the wrong merge threshold.
+> > 
+> > This issue is unlikely to occur in real world, since having the max_thres
+> > higher than UINT_MAX / 2 require unrealistically large aggregation
+> > intervals compared to the sampling interval.  Also, it requires an
+> > unrealistically large number of uncontiguous regions setup.  Nonetheless,
+> > the consequence is bad and the fix is simple.
+> > 
+> > The issue was discovered [1] by Sashiko.
+> > 
+> > Link: https://lore.kernel.org/20260715031002.108504-1-sj@kernel.org
+> > Link: https://lore.kernel.org/20260715031002.108504-2-sj@kernel.org
+> > Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [1]
+> > Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
+> > Signed-off-by: SJ Park <sj@kernel.org>
+> > Cc: <stable@vger.kernel.org> # 6.10.x
+> > Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> > (cherry picked from commit 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd)
+> > Signed-off-by: SJ Park <sj@kernel.org>
+> > ---
+> >  mm/damon/core.c | 13 +++++++++----
+> >  1 file changed, 9 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/mm/damon/core.c b/mm/damon/core.c
+> > index 70ac1f08753d1..08e527efd6883 100644
+> > --- a/mm/damon/core.c
+> > +++ b/mm/damon/core.c
+> > @@ -2411,15 +2411,20 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+> >  
+> >  	max_thres = c->attrs.aggr_interval /
+> >  		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
+> > -	do {
+> > +	while (true) {
+> >  		nr_regions = 0;
+> >  		damon_for_each_target(t, c) {
+> >  			damon_merge_regions_of(t, threshold, sz_limit);
+> >  			nr_regions += damon_nr_regions(t);
+> >  		}
+> > -		threshold = max(1, threshold * 2);
+> > -	} while (nr_regions > c->attrs.max_nr_regions &&
+> > -			threshold / 2 < max_thres);
+> > +		if (nr_regions <= c->attrs.max_nr_regions ||
+> > +				max_thres <= threshold)
+> > +			break;
+> > +		if (threshold < max_thres / 2)
+> > +			threshold = max(1, threshold * 2);
+> > +		else
+> > +			threshold = max_thres;
+> > +	}
+> >  }
+> >  
+> >  /*
+> > -- 
+> > 2.47.3
+> > 
+> > 
 > 
-> Sashiko reported that on 32-bit systems, if the size in the bootconfig
-> footer is corrupted such that adding BOOTCONFIG_FOOTER_SIZE wraps
-> around (for instance, if size is 0xFFFFFFFF), the size check in
-> load_xbc_from_initrd() can be bypassed:
-> 
->     if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
->         pr_err("bootconfig size is too big\n");
->         return -E2BIG;
->     }
-> 
-> This would lead to load_xbc_fd() being called with a negative size,
-> resulting in an undersized allocation, heap overflow on read, and
-> out-of-bounds write on the terminating null byte.
-> 
-> Avoid the integer overflow by checking whether size is greater than
-> stat.st_size - BOOTCONFIG_FOOTER_SIZE. Since stat.st_size is already
-> verified to be at least BOOTCONFIG_FOOTER_SIZE earlier in the function,
-> this subtraction will never underflow.
-> 
-> Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
-> Assisted-by: Antigravity:gemini-3.8-flash
+> Does not apply :(
 
-OOps, I forgot to add:
+Seems another patch in 6.18.51..6.18.51-rc1 is causing the conflict.  I just
+confirmed the original commit can clealy cherry-picked on 6.18.51-rc1.  Could
+you please add that?  Let me know if there is something that I can help :)
 
-Cc: stable@vger.kernel.org
 
 Thanks,
+SJ
 
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
->  tools/bootconfig/main.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-> index 7dc9fff9b637..b380ad6777fa 100644
-> --- a/tools/bootconfig/main.c
-> +++ b/tools/bootconfig/main.c
-> @@ -218,7 +218,7 @@ static int load_xbc_from_initrd(int fd, char **buf)
->  	csum = le32toh(csum);
->  
->  	/* Wrong size error  */
-> -	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-> +	if (size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
->  		pr_err("bootconfig size is too big\n");
->  		return -E2BIG;
->  	}
-> 
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[...]
