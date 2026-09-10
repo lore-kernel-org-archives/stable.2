@@ -1,43 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87654DF4C1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4829E51E45E
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058593; cv=none; b=JjiFiANRv2xAkAlenSqgY0i4/+IJRCz9ALgzIac6wICeEXAKfkNsWGBRgo+IS20j+huJ8kjmI5e+pqBN4CFuGHAIa/cZ3JRKl4pFUlEypWb8HZLGZ8FqgZ4m0dbvDXc1oBeTSrFQC+Pe8EDnbA46Q/lkyYdPg18nrZixwWTNKYI=
+	t=1789058693; cv=none; b=Xtq6asnNjKOTqxavH+8rGiDzjm36bfgoQq424BNUj+m6Bcdm+cSXmgtirS+jClT4OpwwzhwFl1fKITvwR4kOY36juKEI0ctby67jwuhGzRZcl+VuJTzsj0EcXuGZv+4EShP4cp298VC3B9OGn+EcNcQg4nZ57ReorZ73OSnRby4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058593; c=relaxed/simple;
-	bh=YwJCYTSbHiwAaSDw9EEGHp+rfCHA/qhvKcUvmeyXhjw=;
+	s=arc-20240116; t=1789058693; c=relaxed/simple;
+	bh=zD3WG+1uNK0B3jt0MeRoQj7HGbLvEUDV56yIIGlytv0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q7xDxLllUAF20D7YCu+0if5+kDwX7o6EOzW3E9rfs7KmqWBEIzksGvg0aTwVRwdGl1bpZqfrR6y3kxG5ONf7gKbe1vr/1jNH2w3dNVGKRSxLskKqlZX6HInskIiMxXV4FcLOCPCG1XbGabvdmKyLUismCw3afgP8YzIUwvLPrkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTPVMhe8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=u8Rk80PZpw5kvXJYZZYe2VQ6+AYzdhYxa2F1EbMJS13fBwfGLkSNA3nC6Zb5eIx8iEE4g+5YBcGLDEwxDnbnPpoUVm6A+NceVdCWE8prEBk5o47RqRUxx/D//ZJ/tequFS9dCv+SzJbfFslD/agbsMWvXMZxZoqx/r/7XQ8Cmcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GmpgWvBN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTPVMhe8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A1B1F00899;
-	Thu, 10 Sep 2026 16:43:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GmpgWvBN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1889F1F000FF;
+	Thu, 10 Sep 2026 16:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789058591;
-	bh=xyfKuggzdAoa9feCbxYo90knyTKN4nGXHEW8CGES5no=;
+	s=k20260515; t=1789058689;
+	bh=SEmZo4+GdcLeZ9/pg2DoPp/ERxnpWlYlayKrCzyP92A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oTPVMhe8EuT5uigfQ8f1HwSWEdV2akbU+3ZXg/cAk74Zo1Ki3rIMBgZp9eJKu+4QS
-	 cWrB+jMGwwewAPmsQCUA0pT5X6VhaEFTxuMRomwr+Gsy3JApWOAz2rLBDNaS+1/lhk
-	 s+88mD38oKhnzvmkroebQ4De3GPBkiWsMESSq3hcZxnFtupxVB4yQtNVVZgxUguNaN
-	 dWmvDA/r/TsQK+l4l0foDKWf3rGDhBS8v9zsR60ZHcz/G2CRSfqiYCyNaOca4rbpBn
-	 kn5emwBOtgtJHgqcjAEzmGOnPYHJTwCBaRlnLTS8th1+CtA90mihy9r9VZoD1KP/Mc
-	 3xgku0GNkPBMQ==
+	b=GmpgWvBNQbzG7oMsGHGZBAaGn4NFh4WD9TjVX2iiEwWfvnVhh962kpJK3/Wl1DU0f
+	 W6zDgdhyqvok71Td1mtQCi5ktfDWc0TXCg+zYkG/M8mebFadkUizCm2yC86Pne6tGz
+	 vH3F8t6CQqvXmGsiKXR/FTdjFddvKa73gMuziLqsWLPY8gEunrNnM5dU+YMKDL42hP
+	 3SS2Pi701i/0bHuCOKBcQF2kP2NAgdaTO8B/g4uIzXzsSTLFzoFECm3yHu4owUjR1I
+	 l2vo+sjDtVY0f+PsE2SeOwxvFRVRN6NsxnGcFh53Pe9jPyjOFReCkIZ3NxaWxNLJiT
+	 TasQ1tXPl1cuw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Hugh Dickins <hughd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alexandre Ghiti <alexghiti@rivosinc.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Chris Zankel <chris@zankel.net>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Helge Deller <deller@gmx.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	John David Anglin <dave.anglin@bell.net>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Simek <monstr@monstr.eu>,
+	Mike Kravetz <mike.kravetz@oracle.com>,
+	"Mike Rapoport (IBM)" <rppt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Will Deacon <will@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-Date: Thu, 10 Sep 2026 12:43:09 -0400
-Message-ID: <20260910164309.1247063-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] arm64: allow pte_offset_map() to fail
+Date: Thu, 10 Sep 2026 12:44:43 -0400
+Message-ID: <20260910164444.1248701-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090900-ended-professor-5de8@gregkh>
-References: <2026090900-ended-professor-5de8@gregkh>
+In-Reply-To: <2026090940-catering-debug-33e5@gregkh>
+References: <2026090940-catering-debug-33e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +77,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Hugh Dickins <hughd@google.com>
 
-[ Upstream commit 457b5dbce31209e65e1184716ed3af59cb1c0372 ]
+[ Upstream commit 52924726f4c06b3f77de75fb665e6efd8e777d07 ]
 
-RZN1_RTC_ALW is a weekday bitmask where bit N represents weekday N.
-When no alarm has been configured, the register has its power-on-reset
-value of zero.
+In rare transient cases, not yet made possible, pte_offset_map() and
+pte_offset_map_lock() may not find a page table: handle appropriately.
 
-rzn1_rtc_read_alarm() uses fls() to convert the weekday bitmask into a
-weekday number. When RZN1_RTC_ALW is zero, fls(0) returns zero and
-fls(wday) - 1 evaluates to -1. This invalid weekday is then used to
-calculate the alarm date and can either leave tm_wday set to -1 or
-produce a fabricated alarm date.
-
-Treat a zero RZN1_RTC_ALW value as an unset alarm weekday and return
-without calculating the alarm date. Move reading RZN1_RTC_CTL1 before
-this check so that alrm->enabled is updated for both configured and
-unconfigured alarms.
-
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Link: https://patch.msgid.link/20260821211032.13554-5-prabhakar.mahadev-lad.rj@bp.renesas.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ retained the ALME-only enable check because RZN1_RTC_CTL1_1SE is absent. ]
+Link: https://lkml.kernel.org/r/35e46485-8499-4337-c51f-b8fa495a1a93@google.com
+Signed-off-by: Hugh Dickins <hughd@google.com>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
+Cc: Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Chris Zankel <chris@zankel.net>
+Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Greg Ungerer <gerg@linux-m68k.org>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@kernel.org>
+Cc: John David Anglin <dave.anglin@bell.net>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Max Filippov <jcmvbkbc@gmail.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Simek <monstr@monstr.eu>
+Cc: Mike Kravetz <mike.kravetz@oracle.com>
+Cc: Mike Rapoport (IBM) <rppt@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Will Deacon <will@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: a77644d009de ("arm64: mm: Fix the lockless page-table walk in show_pte()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/rtc/rtc-rzn1.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ arch/arm64/mm/fault.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 8570c8e63d70c..da1b7087b2d9e 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -193,13 +193,24 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	if (ret)
- 		return ret;
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 0776c98ad27f1..c4120bd80a9b4 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -177,6 +177,9 @@ static void show_pte(unsigned long addr)
+ 			break;
  
-+	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
-+	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
+ 		ptep = pte_offset_map(pmdp, addr);
++		if (!ptep)
++			break;
 +
- 	min = readl(rtc->base + RZN1_RTC_ALM);
- 	hour = readl(rtc->base + RZN1_RTC_ALH);
--	wday = readl(rtc->base + RZN1_RTC_ALW);
- 
- 	tm->tm_sec = 0;
- 	tm->tm_min = bcd2bin(min);
- 	tm->tm_hour = bcd2bin(hour);
-+
-+	/*
-+	 * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
-+	 * register's power-on reset value.
-+	 */
-+	wday = readl(rtc->base + RZN1_RTC_ALW);
-+	if (!wday)
-+		return 0;
-+
- 	delta_days = ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
- 	tm->tm_wday = fls(wday) - 1;
- 
-@@ -208,9 +219,6 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 		rtc_time64_to_tm(alarm, tm);
- 	}
- 
--	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
--	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
--
- 	return 0;
- }
- 
+ 		pte = READ_ONCE(*ptep);
+ 		pr_cont(", pte=%016llx", pte_val(pte));
+ 		pte_unmap(ptep);
 -- 
 2.53.0
 
