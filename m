@@ -1,339 +1,270 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813383D3339
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 06:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F633BBFCB;
+	Thu, 10 Sep 2026 06:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022202; cv=none; b=Kw28zR84ejQxig0zn3dTSGIJIckrQ2i5pWPKB8Pplq0zwRqfsaxuUtbmJblgTIP1QmrRMqDprZ1WcnMi3MhhnTuzjr6x0gtYsqZo1H3TSMZ5OkYWq7MXrxUpadu4oOGdWPrtyzDFwoAj/8DQ8gBea1aobUXHU7BqCYZbkDbOCtc=
+	t=1789022305; cv=none; b=NW0VprgXDzbOaHZDdeknoS+JFLDrUbozZW/eToqL94Qb4dLhU8fZBmTJzsnMyDxP7l5GUvEvCaYr/0KHHPqg1QTMwB9Iapc+48FadSvgJIE19W3xL3MSfdrO67nO9sHUx4Db9m08qZHKJPU7Rh6w40VLHriVIZbvKFsBHFpVNBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022202; c=relaxed/simple;
-	bh=Z/xuzhVwKiXOqQ0+szO9CMg0xobxzNfOPJ1um9M0KKs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dezE59vXVoU/CfEzLXALxeIapA4KyD/CzXZTfWwQCxrCNe/c5oBzuxrz8AL5aT8kpSV6bibAuxMie5Feu2s2lr1iXN+QO0mnKbHL8Bzs25nSuh73dBNcabrfy7nEbGNmi/GMgJjr5/LxF9RZ11BoAqJtD+7XunboGSGAyrOfp1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oyy+TGuY; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789022305; c=relaxed/simple;
+	bh=Xa++H7v6qEgzzdyfPyOcE5bKef4SLwZKaPl0D8ZKFaY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mgnzCDEBh/oT562edIxIVOFjGTxU1fuXt2xJNiqJfSAznTBRHOtEDEhXlBrmw/DOIEtHp0470gG17AkAgNiU3o8jqwgPq27mbG1/sHRnbS/aDR1E0RoK2G8p7CA1zA5239jBZfSLWffqMwiL2PvhSm+lein4uENcKj47f5z3WdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHrQgRYL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oyy+TGuY"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso9966695e9.0
-        for <stable@vger.kernel.org>; Wed, 09 Sep 2026 23:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022199; x=1789626999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b7aTmkgkOjMNLisksiT3PXivjuFocTpiOSE3RpArX7I=;
-        b=Oyy+TGuYqs+oZwI+ScmE0pSVZm0KWaA9T3s5YDNqcm7UUcV5fDwxmXx40+Bojj4+rI
-         PRsxoRIKLfmdeuUsC4KvhgloSTmadAN5kdIrm4IabJ0pLcNhaP9rujrXnk8M1/PZasMQ
-         tTY0t98BkQ3yddTmzAkC3yDNjJvhZCjc38lvYKKxPvJ+v89KSQu7VeDeQ/aXtnC50naK
-         ayQ/dm6wZIh4lnJdJ4vx+uyCPgl7jQ+zhyBLGVj5bT2Qbe0nH6BGP6x1189wgQEFHYjZ
-         Sh46qyfo9eIWrq45AWYBWDsuyD3atJ1xRwWb7PpII486+q00vsVZ4JVmrkrForJEta+A
-         fXhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022199; x=1789626999;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b7aTmkgkOjMNLisksiT3PXivjuFocTpiOSE3RpArX7I=;
-        b=F/QW4eE6vAf1kPGPU5mXm1vZMyRtNKQaYH7b4V/3Crb/7pmSH1T0JwyAGNpeqcdHGa
-         hVgUUW0a0NpXsAf6YDGJPc6oYeqKUhmYLhv03brm0YJDIJgmVexOTsfcG0VHBiHLAvDC
-         gLL/JKn6x94rBpgX7JgfEq7K7h3r1Zn4ipq3S2jdkcyjWo3NMMspmTQgpt38RbPE/3bu
-         1eD8OYKEx7S3QH1EByNtfLfGGfXiiJTQy2mWzQ8MgqK1QW4vx28KcxxfBKcI5xRgUTKB
-         sBWchZ9TnR1SHNtrbTi/V9sB/fIrX5lVjTmLW96U16kFFWoc2tUu4tvWuOQ3VEgQjX5+
-         16KA==
-X-Forwarded-Encrypted: i=1; AKwUvBzdZTAZX9XdhOkOAykeHNfjGdG+f+GVINi/HHbE3ymVvsrqwi4U4/jupLTvqqE8FMcehrhiBfk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nArEbm9aJ4r/tekt9fGLbSAbtqT8QtPD7O0C3flNOuHy95iOYU
-	1Z6g/E7vZOZ7CwV5y00le1hUR1+fUy4N4fQr3QlL19HNJYbS/dyzIeoa
-X-Gm-Gg: AYBFou1+NhLEQfeRwXrQ4WVtpoQQRefYJp1m3Yx1huUF0sJtfdAVZl3+XfDaqiVfbCo
-	4xEQsycrXbTT8NkA/6+4oOl32rIWydV8x51ilWegBKg6Rxsgpt3RXooJubrAnGfJ+sSZ12qJ5es
-	btQ1mYbbqiDieHJNAoA6KXeBqIwBZEnPTzZR7gzl8XY840eoTrs0IaxbsioO76obhuJvD3JOFVN
-	Ft3Ae3bbR6UYBVWs7vhU41gUnXPLnksV7eAe/Wdhyc7lb/o3pH4Fe45go3rM3bS8VWtImG0Au6o
-	pACdPEJZA9BuVSTOhK8jePQIjTRGGMNQHSr9Rknirx755i5ftJLoXRH5VDpzmAdUdLhXRy+NTjF
-	go41JXe3Byw01RrwIMIF6VgG5hYxwLdf/8k14Puz18+R8Vvblw07oZ7JJG96eFOMYjnzg+nxzCl
-	voKXuSqeDBq14Y7CWTS8SR9VJboTZUYczux3tvjJZFsu+RH916+0HnkgADOLQxlR+sdTbb8ACFA
-	tW/SAhcJMI6NgSDVDyMjx05dAc2R0IAWEIZg/szTHDfjtVvO2Y45KllelvSprrJYSzY4BTGsUyv
-	h6NO/n/XpRJ+gNO64ag05QVySkWyW5Ntf/1paMlybSFUnqMmcwMBPV+skNkOGyN5oIqVH4mZy/Z
-	zINUSNw==
-X-Received: by 2002:a05:600c:68d5:b0:49b:4eb6:6ffd with SMTP id 5b1f17b1804b1-49d26d9efb9mr17702415e9.5.1789022198365;
-        Wed, 09 Sep 2026 23:36:38 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26bfdb4asm47766655e9.11.2026.09.09.23.36.37
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 23:36:37 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Christoph Hellwig <hch@lst.de>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ARM: dma-mapping: flush FROM_DEVICE buffers on legacy backends
-Date: Thu, 10 Sep 2026 08:36:20 +0200
-Message-Id: <20260910063620.17768-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260910063620.17768-1-kmehltretter@gmail.com>
-References: <20260910063620.17768-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHrQgRYL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC481F000FF;
+	Thu, 10 Sep 2026 06:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789022303;
+	bh=PgBCmpi9wIbpt8bE7nm61uWUm4ngcd2ZYPDryY49W1w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FHrQgRYL7RGlmlauPePOIBZIx6Sp9yD3oqZHcOafkPPWEjE1LQ2JjGSco5lIWVBUn
+	 yB3aj4Mu6wZVOrVCXJ2ow3iMYKEaWay1CnJXd13GaQGLfgT+XsKx/58HfLktwizuPp
+	 ZrJGJpqhPr42k0yEjjFLY2xo7wp2GnGb1jzjQkOvUt5RVzy76zC0wNXvN7L0pb2hCt
+	 u08DO9XMGlbUtTyJpaR8agJUY6xdXh6EeWy0AHUfxnJlN5NmWP2irGmniB11g8RlHj
+	 Qe67yhfjR4KbzUzmFXLknjsnMhgTd3csraeTBWcmpK5aXAmoPEt0MP3w4Qbso+0jVF
+	 kJizgsLlf6sdg==
+Subject:
+ Re: [PATCH] wifi: wilc1000: validate packet bounds in RX buffer parsing
+From: netdev-bot+sashiko@kernel.org
+To: elb12345@hotmail.co.uk
+Cc: kvalo@kernel.org, ajay.kathat@microchip.com,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Thu, 10 Sep 2026 06:38:22 +0000
+Message-ID: <178902230252.219967.10764605657139372266@kernel.org>
+In-Reply-To: =?utf-8?q?=3CAS8P251MB0001BF71A8397CE77A82E7E2C8B32=40AS8P251MB?=
+ =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+References: =?utf-8?q?=3CAS8P251MB0001BF71A8397CE77A82E7E2C8B32=40AS8P251MB0?=
+ =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The legacy write-back cache backends invalidate DMA_FROM_DEVICE buffers
-when ownership passes to the device. A plain invalidate can discard dirty
-CPU cache lines. If the device writes only part of the buffer, untouched
-bytes can expose memory contents older than those present at the handoff.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-This was reproduced on the ARM926EJ-S (ARMv5TEJ) in a SAM9X75. A
-mapping-only test lost 339,936 to 351,744 of 409,600 CPU-written bytes per
-100-iteration run. In a separate usbfs test, a webcam returned short
-isochronous packets into a buffer that usbfs had cleared. Across five
-boots, the existing kernel exposed 29,403 non-zero bytes among 245,708
-unwritten gap bytes to userspace.
+Critical: 1 · High: 1 (1) · Medium: 1 · Low: 0
 
-With this change, five fresh 100-iteration runs on the same SAM9X75 board
-each lost 0 of 409,600 bytes.
+- [Critical] The `size` that the patched parser now treats as its
+  authoritative bound is a raw device-supplied length that is never…
+- [High] The new checks bound only the upper end of a record
+  (pkt_len/pkt_offset against tp_len, tp_len against size - offset) and…
+- [Medium] The new validation still accepts transport records that cannot
+  contain their own 4-byte header, and payload offsets that point inside…
 
-Use the existing clean-and-invalidate operation for DMA_FROM_DEVICE at
-device handoff. The cache lines remain invalid after the handoff, but dirty
-CPU data reaches memory first. Keep the existing no-op ownership-return
-hooks. These backends already use the same operation for
-DMA_BIDIRECTIONAL.
+Pre-existing issues:
+- [High] Short public-action management frames underflow the vendor-IE
+  length in wilc_wfi_p2p_rx() (cfg80211.c).
 
-The XScale 80200 A0/A1 path already uses clean-and-invalidate for this case
-and remains unchanged.
+--
 
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- arch/arm/mm/cache-fa.S      | 1 -
- arch/arm/mm/cache-v4wb.S    | 1 -
- arch/arm/mm/proc-arm1020.S  | 1 -
- arch/arm/mm/proc-arm1020e.S | 1 -
- arch/arm/mm/proc-arm1022.S  | 1 -
- arch/arm/mm/proc-arm1026.S  | 1 -
- arch/arm/mm/proc-arm920.S   | 1 -
- arch/arm/mm/proc-arm922.S   | 1 -
- arch/arm/mm/proc-arm925.S   | 1 -
- arch/arm/mm/proc-arm926.S   | 1 -
- arch/arm/mm/proc-arm940.S   | 1 -
- arch/arm/mm/proc-arm946.S   | 1 -
- arch/arm/mm/proc-feroceon.S | 2 --
- arch/arm/mm/proc-mohawk.S   | 1 -
- arch/arm/mm/proc-xsc3.S     | 1 -
- arch/arm/mm/proc-xscale.S   | 1 -
- 16 files changed, 17 deletions(-)
+wifi: wilc1000: validate packet bounds in RX buffer parsing
 
-diff --git a/arch/arm/mm/cache-fa.S b/arch/arm/mm/cache-fa.S
-index e1641799569b..1ff3d66fe944 100644
---- a/arch/arm/mm/cache-fa.S
-+++ b/arch/arm/mm/cache-fa.S
-@@ -232,7 +232,6 @@ SYM_TYPED_FUNC_START(fa_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	fa_dma_clean_range
--	bcs	fa_dma_inv_range
- 	b	fa_dma_flush_range
- SYM_FUNC_END(fa_dma_map_area)
- 
-diff --git a/arch/arm/mm/cache-v4wb.S b/arch/arm/mm/cache-v4wb.S
-index 874fe5310f9a..87036c8bb318 100644
---- a/arch/arm/mm/cache-v4wb.S
-+++ b/arch/arm/mm/cache-v4wb.S
-@@ -244,7 +244,6 @@ SYM_TYPED_FUNC_START(v4wb_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	v4wb_dma_clean_range
--	bcs	v4wb_dma_inv_range
- 	b	v4wb_dma_flush_range
- SYM_FUNC_END(v4wb_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm1020.S b/arch/arm/mm/proc-arm1020.S
-index 4612a4961e81..c79f3c3e47a0 100644
---- a/arch/arm/mm/proc-arm1020.S
-+++ b/arch/arm/mm/proc-arm1020.S
-@@ -350,7 +350,6 @@ SYM_TYPED_FUNC_START(arm1020_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm1020_dma_clean_range
--	bcs	arm1020_dma_inv_range
- 	b	arm1020_dma_flush_range
- SYM_FUNC_END(arm1020_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm1020e.S b/arch/arm/mm/proc-arm1020e.S
-index b4a8a3a8eda3..a117e26e4763 100644
---- a/arch/arm/mm/proc-arm1020e.S
-+++ b/arch/arm/mm/proc-arm1020e.S
-@@ -337,7 +337,6 @@ SYM_TYPED_FUNC_START(arm1020e_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm1020e_dma_clean_range
--	bcs	arm1020e_dma_inv_range
- 	b	arm1020e_dma_flush_range
- SYM_FUNC_END(arm1020e_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm1022.S b/arch/arm/mm/proc-arm1022.S
-index 709870e99e19..63b4992f8ad2 100644
---- a/arch/arm/mm/proc-arm1022.S
-+++ b/arch/arm/mm/proc-arm1022.S
-@@ -336,7 +336,6 @@ SYM_TYPED_FUNC_START(arm1022_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm1022_dma_clean_range
--	bcs	arm1022_dma_inv_range
- 	b	arm1022_dma_flush_range
- SYM_FUNC_END(arm1022_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm1026.S b/arch/arm/mm/proc-arm1026.S
-index 02f7370a8c5c..c5e50395473b 100644
---- a/arch/arm/mm/proc-arm1026.S
-+++ b/arch/arm/mm/proc-arm1026.S
-@@ -331,7 +331,6 @@ SYM_TYPED_FUNC_START(arm1026_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm1026_dma_clean_range
--	bcs	arm1026_dma_inv_range
- 	b	arm1026_dma_flush_range
- SYM_FUNC_END(arm1026_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm920.S b/arch/arm/mm/proc-arm920.S
-index 0326067c6c75..e30b013432f0 100644
---- a/arch/arm/mm/proc-arm920.S
-+++ b/arch/arm/mm/proc-arm920.S
-@@ -299,7 +299,6 @@ SYM_TYPED_FUNC_START(arm920_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm920_dma_clean_range
--	bcs	arm920_dma_inv_range
- 	b	arm920_dma_flush_range
- SYM_FUNC_END(arm920_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm922.S b/arch/arm/mm/proc-arm922.S
-index 3fe6fdf0d325..b1ace8c664e2 100644
---- a/arch/arm/mm/proc-arm922.S
-+++ b/arch/arm/mm/proc-arm922.S
-@@ -301,7 +301,6 @@ SYM_TYPED_FUNC_START(arm922_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm922_dma_clean_range
--	bcs	arm922_dma_inv_range
- 	b	arm922_dma_flush_range
- SYM_FUNC_END(arm922_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm925.S b/arch/arm/mm/proc-arm925.S
-index 2d15467e4a08..3d91d16e4af0 100644
---- a/arch/arm/mm/proc-arm925.S
-+++ b/arch/arm/mm/proc-arm925.S
-@@ -357,7 +357,6 @@ SYM_TYPED_FUNC_START(arm925_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm925_dma_clean_range
--	bcs	arm925_dma_inv_range
- 	b	arm925_dma_flush_range
- SYM_FUNC_END(arm925_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm926.S b/arch/arm/mm/proc-arm926.S
-index d94aa8199452..bd335d703590 100644
---- a/arch/arm/mm/proc-arm926.S
-+++ b/arch/arm/mm/proc-arm926.S
-@@ -320,7 +320,6 @@ SYM_TYPED_FUNC_START(arm926_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm926_dma_clean_range
--	bcs	arm926_dma_inv_range
- 	b	arm926_dma_flush_range
- SYM_FUNC_END(arm926_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm940.S b/arch/arm/mm/proc-arm940.S
-index 545c076c36d2..ba7158639ab7 100644
---- a/arch/arm/mm/proc-arm940.S
-+++ b/arch/arm/mm/proc-arm940.S
-@@ -264,7 +264,6 @@ SYM_TYPED_FUNC_START(arm940_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm940_dma_clean_range
--	bcs	arm940_dma_inv_range
- 	b	arm940_dma_flush_range
- SYM_FUNC_END(arm940_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-arm946.S b/arch/arm/mm/proc-arm946.S
-index f3d4e18c3fba..a135c654b854 100644
---- a/arch/arm/mm/proc-arm946.S
-+++ b/arch/arm/mm/proc-arm946.S
-@@ -306,7 +306,6 @@ SYM_TYPED_FUNC_START(arm946_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	arm946_dma_clean_range
--	bcs	arm946_dma_inv_range
- 	b	arm946_dma_flush_range
- SYM_FUNC_END(arm946_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-feroceon.S b/arch/arm/mm/proc-feroceon.S
-index 7f08d06c9625..dbaf01ba7cb5 100644
---- a/arch/arm/mm/proc-feroceon.S
-+++ b/arch/arm/mm/proc-feroceon.S
-@@ -391,7 +391,6 @@ SYM_TYPED_FUNC_START(feroceon_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	feroceon_dma_clean_range
--	bcs	feroceon_dma_inv_range
- 	b	feroceon_dma_flush_range
- SYM_FUNC_END(feroceon_dma_map_area)
- 
-@@ -405,7 +404,6 @@ SYM_TYPED_FUNC_START(feroceon_range_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	feroceon_range_dma_clean_range
--	bcs	feroceon_range_dma_inv_range
- 	b	feroceon_range_dma_flush_range
- SYM_FUNC_END(feroceon_range_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-mohawk.S b/arch/arm/mm/proc-mohawk.S
-index 4669c63e3121..7df85a32f7b5 100644
---- a/arch/arm/mm/proc-mohawk.S
-+++ b/arch/arm/mm/proc-mohawk.S
-@@ -287,7 +287,6 @@ SYM_TYPED_FUNC_START(mohawk_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	mohawk_dma_clean_range
--	bcs	mohawk_dma_inv_range
- 	b	mohawk_dma_flush_range
- SYM_FUNC_END(mohawk_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-xsc3.S b/arch/arm/mm/proc-xsc3.S
-index fd25634a2ed5..6c5910bcc211 100644
---- a/arch/arm/mm/proc-xsc3.S
-+++ b/arch/arm/mm/proc-xsc3.S
-@@ -332,7 +332,6 @@ SYM_TYPED_FUNC_START(xsc3_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	xsc3_dma_clean_range
--	bcs	xsc3_dma_inv_range
- 	b	xsc3_dma_flush_range
- SYM_FUNC_END(xsc3_dma_map_area)
- 
-diff --git a/arch/arm/mm/proc-xscale.S b/arch/arm/mm/proc-xscale.S
-index d8462df8020b..86422559d91e 100644
---- a/arch/arm/mm/proc-xscale.S
-+++ b/arch/arm/mm/proc-xscale.S
-@@ -390,7 +390,6 @@ SYM_TYPED_FUNC_START(xscale_dma_map_area)
- 	add	r1, r1, r0
- 	cmp	r2, #DMA_TO_DEVICE
- 	beq	xscale_dma_clean_range
--	bcs	xscale_dma_inv_range
- 	b	xscale_dma_flush_range
- SYM_FUNC_END(xscale_dma_map_area)
- 
+The patch converts the record loop in wilc_wlan_handle_rx_buff() from a
+do-while into a while loop that requires four header bytes to remain, and
+adds checks of tp_len against the remaining buffer plus pkt_len/pkt_offset
+against tp_len.  A few questions about how complete the new bounds are.
+
+> diff --git a/drivers/net/wireless/microchip/wilc1000/wlan.c b/drivers/net/wireless/microchip/wilc1000/wlan.c
+> index 4b116fe6f9ea9..3ebcd688f2dd5 100644
+> --- a/drivers/net/wireless/microchip/wilc1000/wlan.c
+> +++ b/drivers/net/wireless/microchip/wilc1000/wlan.c
+> @@ -1111,7 +1111,7 @@ static void wilc_wlan_handle_rx_buff(struct wilc *wilc, u8 *buffer, int size)
+>  	int is_cfg_packet;
+>  	u8 *buff_ptr;
+>  
+> -	do {
+> +	while (offset + sizeof(u32) <= size) {
+>  		buff_ptr = buffer + offset;
+>  		header = get_unaligned_le32(buff_ptr);
+>  
+> @@ -1123,11 +1123,19 @@ static void wilc_wlan_handle_rx_buff(struct wilc *wilc, u8 *buffer, int size)
+>  		if (pkt_len == 0 || tp_len == 0)
+>  			break;
+>  
+> +		if (tp_len > size - offset)
+> +			break;
+
+[Severity: Critical]
+Is "size" itself known to describe memory inside the RX allocation?  The
+only producer is wilc_wlan_handle_isr_ext():
+
+drivers/net/wireless/microchip/wilc1000/wlan.c:wilc_wlan_handle_isr_ext() {
+	size = FIELD_GET(WILC_INTERRUPT_DATA_SIZE, int_status) << 2;
+	...
+	if (size <= 0)
+		return;
+
+	if (WILC_RX_BUFF_SIZE - offset < size)
+		offset = 0;
+
+	buffer = &wilc->rx_buffer[offset];
+	...
+	ret = wilc->hif_func->hif_block_rx_ext(wilc, 0, buffer, size);
+	...
+	offset += size;
+	wilc->rx_buffer_offset = offset;
+	...
+	rqe->buffer = buffer;
+	rqe->buffer_size = size;
+}
+
+WILC_INTERRUPT_DATA_SIZE is GENMASK(14, 0) and the field is word scaled, so
+the chip can advertise 32767 << 2 = 131068 bytes, while wilc->rx_buffer is a
+single WILC_RX_BUFF_SIZE (96 * 1024 = 98304) byte allocation.  Since size is
+u32 the "size <= 0" test never fires, and for size > 98304 the code only
+rewinds offset to 0 and still issues hif_block_rx_ext() for the full size;
+wilc_sdio_read() and wilc_spi_read() only reject size <= 4, so nothing clamps
+the transfer.  Can this write past the end of wilc->rx_buffer?
+
+There also seems to be a second-order effect: rx_buffer_offset is then set to
+offset + size (up to 131068), and on the next interrupt
+"WILC_RX_BUFF_SIZE - offset" is evaluated in unsigned arithmetic, so
+98304 - 131068 wraps to a huge value that is never < size and the rewind
+never triggers again.  Would that leave buffer pointing entirely outside the
+allocation for every subsequent block read?
+
+Because rqe->buffer_size carries that same unvalidated length, every new
+check added here ("tp_len > size - offset" and friends) can pass while the
+parser walks memory outside the allocation.  Would clamping size to
+WILC_RX_BUFF_SIZE in wilc_wlan_handle_isr_ext() be needed for the new bounds
+in this function to mean anything?
+
+>  		if (pkt_offset & IS_MANAGMEMENT) {
+> +			if (tp_len < HOST_HDR_OFFSET || pkt_len > tp_len - HOST_HDR_OFFSET)
+> +				break;
+>  			buff_ptr += HOST_HDR_OFFSET;
+>  			wilc_wfi_mgmt_rx(wilc, buff_ptr, pkt_len,
+>  					 pkt_offset & IS_MGMT_AUTH_PKT);
+>  		} else {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since the management check
+here only caps pkt_len from above, short management frames still reach
+wilc_wfi_p2p_rx() in cfg80211.c, where the vendor IE length underflows:
+
+drivers/net/wireless/microchip/wilc1000/cfg80211.c:wilc_wfi_p2p_rx() {
+	...
+	if (!ieee80211_is_action(mgmt->frame_control) ||
+	    !ieee80211_is_public_action((struct ieee80211_hdr *)buff, size))
+	...
+	d = (struct wilc_p2p_pub_act_frame *)(&mgmt->u.action);
+	if (d->oui_subtype != GO_NEG_REQ && d->oui_subtype != GO_NEG_RSP &&
+	...
+	vendor_ie = cfg80211_find_vendor_ie(WLAN_OUI_WFA, WLAN_OUI_TYPE_WFA_P2P,
+					    buff + ie_offset, size - ie_offset);
+}
+
+ie_offset is offsetof(struct ieee80211_mgmt, u) + sizeof(*d) = 24 + 8 = 32,
+but ieee80211_is_public_action() only guarantees
+IEEE80211_MIN_ACTION_SIZE(category), i.e. 25 bytes.  For a 31 byte frame
+d->oui_subtype (frame offset 30) is still in bounds, and "size - ie_offset"
+with u32 size wraps to roughly 4 GiB.  Does that let cfg80211_find_vendor_ie()
+scan far past the RX buffer?
+
+A "size >= ie_offset" guard in wilc_wfi_p2p_rx(), and/or a minimum pkt_len
+check for management records here, would close it.
+
+> +			if (pkt_offset > tp_len ||
+> +			    pkt_len > tp_len - pkt_offset)
+> +				break;
+
+[Severity: High]
+The new checks bound the upper end of a record but never require a minimum
+length, since only zero pkt_len/tp_len is rejected.  Do the consumers still
+read past what has been validated?
+
+For the data path, tp_len = pkt_len = 1 with pkt_offset = 0 passes both
+checks, and then:
+
+drivers/net/wireless/microchip/wilc1000/netdev.c:wilc_frmw_to_host() {
+	...
+	wilc_netdev = get_if_handler(wilc, buff);
+	if (!wilc_netdev)
+		goto out;
+
+	buff += pkt_offset;
+}
+
+get_if_handler() is called with the record start, before pkt_offset is added,
+and does:
+
+drivers/net/wireless/microchip/wilc1000/netdev.c:get_if_handler() {
+	struct ieee80211_hdr *h = (struct ieee80211_hdr *)mac_header;
+	...
+			if (ether_addr_equal_unaligned(h->addr2, vif->bssid)) {
+}
+
+That touches bytes 4..15 of the record.  With the loop guard only requiring
+offset + 4 <= size, a record at offset == size - 4 would read up to 12 bytes
+beyond the region described by size.
+
+For the config path, pkt_len == 1 is accepted, but:
+
+drivers/net/wireless/microchip/wilc1000/wlan_cfg.c:wilc_wlan_cfg_indicate_rx() {
+	msg_type = frame[0];
+	msg_id = frame[1];	/* seq no */
+	frame += 4;
+	size -= 4;
+}
+
+size goes negative, and the info handlers then do:
+
+drivers/net/wireless/microchip/wilc1000/hif.c:wilc_gnrl_async_info_received() {
+	id = get_unaligned_le32(&buffer[length - 4]);
+}
+
+with a u32 length, so length < 4 indexes at 0xFFFFFFFD.  The same pattern
+appears in wilc_network_info_received(), which additionally does
+kmemdup(&buffer[9], get_unaligned_le16(&buffer[6]) - 1) and can copy up to
+65534 bytes out of a record validated as 1..8 bytes.
+
+On the management side, pkt_len == 1 with tp_len == 5 passes, yet
+wilc_wfi_mgmt_rx() reads two bytes:
+
+drivers/net/wireless/microchip/wilc1000/netdev.c:wilc_wfi_mgmt_rx() {
+		struct ieee80211_mgmt *mgmt = (struct ieee80211_mgmt *)buff;
+		u16 type = le16_to_cpup((__le16 *)buff);
+}
+
+Would per-branch minimum lengths be needed here, at least
+sizeof(struct ieee80211_hdr) before the data classifier, 4 plus the subtype
+requirements for config frames, and the parsed header size for management
+frames?
+
+[Severity: Medium]
+Can a record smaller than its own header still be accepted?  tp_len is only
+rejected when zero or larger than the remaining bytes, so tp_len in 1..3
+passes even though four header bytes were already consumed, and this branch
+accepts pkt_offset in 0..3.
+
+With tp_len = 1, pkt_offset = 0, pkt_len = 1, one byte of the framing header
+itself is handed to wilc_frmw_to_host() as packet data, and
+
+		offset += tp_len;
+
+advances by 1, so the next iteration parses a header overlapping the record
+just consumed.  Even with a large tp_len, pkt_offset = 0 makes the four byte
+receive header the first bytes of the Ethernet or configuration frame, which
+wilc_wlan_cfg_indicate_rx() then reads as msg_type/msg_id.
+
+Should the checks require tp_len >= sizeof(u32), and pkt_offset >=
+HOST_HDR_OFFSET for non-management records?
+
+>  			if (!is_cfg_packet) {
+>  				wilc_frmw_to_host(wilc, buff_ptr, pkt_len,
+>  						  pkt_offset);
+
+[ ... ]
+
 -- 
-2.53.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB0001BF71A8397CE77A82E7E2C8B32%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
