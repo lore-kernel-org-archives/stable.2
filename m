@@ -1,87 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2E51C5D59;
-	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98081C5D59;
+	Thu, 10 Sep 2026 05:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019947; cv=none; b=oZG77bxdVyEBX7nJf1eEA2UmY81QBwFCSC2iUtzCzHgNxSGCESirqg7HzLhlQ2StmeGS51XAdzPTV35ShNG+J/m3azUegtBW0ILqGxuKD7b1J2BYvNKwGsva6VXg+xEap9nFdjdGln2HIMMZYWr3hKmuzf9NF7iz+ntbXnyh56I=
+	t=1789019955; cv=none; b=ql9dJD679R3uc4I4IqvoijY59N7H2PmebOpe0D3d4UmSFHjY5MiTh6U4UkBfGohcR5a361c1+nusZ+PAZGWR96h1lvCxvkdAeUY14qiQe2jaTuyaLcMAXuz5/FkReXeVXKry4WTIfDjEwZaBUXMmvm6x1lUOWrK/ROKsiyfPkQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019947; c=relaxed/simple;
-	bh=UYklCB0vOsedLPk8gbIcfZRFc4+bCVWDxvOA6gvPHz8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Rvg8jNa792pz4/Afn5vQez9YxQS+geqXcgajcMPo7+nzZg/N32+XVifYWR8DF6VY17t9lISxtfy8HoZus22R9S9Jp4bKvn15Hgw016OuPnovAlwfk83d7sis/Wh6MRX+tJqnRTOfBeY2oHQIdA5v35x6H8yCZFS5wOAr1HYrZP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=r+b243BF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789019955; c=relaxed/simple;
+	bh=HsGeQsnE0WhB7nvxR0yzD68C1zchcH6sEfIbyCFsOKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=erGYbi2srZhVIHXXa3/Qzki+AAkcvqtTBzYciRAe8JoPYW+ihT8NqpS7EvAk2GtGeOSsDguz/0wHbGEvNxKar79fUauyBVjXNzO9jNAoGW4cdGWTvWhfwM3oUaspxuorosMky7TpYZQcVNUdZuF7WpsM/nt6fudFKU5u8uXtkYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8/0xDT9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="r+b243BF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7891F000FF;
-	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789019945;
-	bh=6+W848YAGgId+r0hutVeqFh0OVKi+g9bP4xQ6R+kF14=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=r+b243BFAi1hYjM3C5FSUaRF87pjCI3Jp7Gy16gGEtlDLB+qr6pI76jTdWFOtd9nV
-	 zkzmtHr+WvIyIfodL4jckPUVjGIkNxEyFRj+Smk+lt5tFZjU5I+Dq4DFaIhIbXOau+
-	 yDBPitQAj0zIg9oKLCDEAfYVZtHGv0mwIfk8RdxY=
-Date: Wed, 9 Sep 2026 22:59:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: bingfangguo@tencent.com
-Cc: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
- <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Johannes
- Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal
- Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo
- <bfguo@icloud.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5] mm/memcg: clear folio memcg after changing per memcg
- stats
-Message-Id: <20260909225904.6d60c722ba21f26e18c98767@linux-foundation.org>
-In-Reply-To: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
-References: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8/0xDT9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667911F00898;
+	Thu, 10 Sep 2026 05:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789019953;
+	bh=xxxEPOu8evdLxv2GdwMSPNmrKmxMUp1ONnNuYZu8Yjc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B8/0xDT90xBpzTPKfgrg2Lbc89F3rMu+/1zITVmVPNWp6OlTRc7NbyHlhONrO4psb
+	 VRU4p9Iue7cO9FakD+3fGF5zK2K4UHRYsQqXOFdHt5R/0Ot99Dwggg7sTs4CcnZR0k
+	 tg6J+iJcYp1Zd0RLtQWkB8f75YPMwzDUMpkVJHUgAxBfLQwvC9HTrQ35aXqYA8d/hP
+	 VIudU61ueKxwnsQnzx+jX0oRq9i8zWTO24jdCkXGhWxhHzIy3lKguSzIJ8f6Cc3Afi
+	 P5FM8CIEJtL31N7k8Jgh7bBSg0cyFbIYNYkrZj2oCRFClMF3ny05aOsdLv/B2+CD37
+	 SLEIoZ/2osOWw==
+Date: Thu, 10 Sep 2026 07:59:09 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 6/7] xfs: reset parent pointer args before each dir tree
+ unlink repair
+Message-ID: <aqJHKAfQTD9UKQKA@andromeda.toxiclabs.cc>
+References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
+ <178892936749.4057962.1251607208695971705.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178892936749.4057962.1251607208695971705.stgit@frogsfrogsfrogs>
 
-On Thu, 10 Sep 2026 11:46:58 +0800 Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org> wrote:
-
-> I notice extremely high swapcached count in the per memcg level
-> memory.stat when running tests with cgroupv1 setup by swapping pages in
-> and out.  It seems that the counter never gets decreased so the value is
-> rather useless and confusing to users reading it. So I think fixing it
-> so that the value can reflect the actual swapcache usage correctly could
-> be helpful.
+On Tue, Sep 08, 2026 at 11:05:52PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
 > 
-> __memcg1_swapout() transfers the memsw charge of a folio to its swap
-> entry and clears folio->memcg_data as part of that.  In the vmscan
-> swapout path it runs before __swap_cache_del_folio(), which then
-> decrements the swapcache stats through lruvec_stat_mod_folio().  Since
-> folio->memcg_data has already been cleared, folio_memcg() returns NULL
-> and the NR_SWAPCACHE decrement only updates the node-level counter
-> instead of the memcg's lruvec, leaking the per-memcg swapcache count.
+> LOLLM noticed that xfs_parent_removename only partially initializes the
+> passed-in parent pointer arguments object.  In the directory tree repair
+> code, we could decide to remove multiple links to a file, so we don't
+> want state from one call to bleed into the next one.  Zero the whole
+> thing explicitly.
 > 
-> Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
-> the NR_FILE_PAGES and NR_SWAPCACHE updates but before
-> __swap_cache_do_del_folio() removes the folio from the swap cache.  This
-> keeps the stats attributed to the folio's memcg while still recording
-> the swap cgroup with a valid folio->swap.  Add a swapout parameter so
-> the plain swap_cache_del_folio() path is left unchanged.
+> Cc: <stable@vger.kernel.org> # v6.10
+> Fixes: 3f31406aef493b ("xfs: fix corruptions in the directory tree")
+> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> Assisted-by: LOLLM # finding obvious bugs
+> ---
 
-Thanks.
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
 
-> Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
-
-January this year.
-
-How does this affect users?  Should we backport the fix into earlier
-kernels?  If so, why?
-
+>  fs/xfs/scrub/dirtree_repair.c |    1 +
+>  1 file changed, 1 insertion(+)
+> 
+> 
+> diff --git a/fs/xfs/scrub/dirtree_repair.c b/fs/xfs/scrub/dirtree_repair.c
+> index 8acd55b8c7696d..1d1eafcf6eb598 100644
+> --- a/fs/xfs/scrub/dirtree_repair.c
+> +++ b/fs/xfs/scrub/dirtree_repair.c
+> @@ -479,6 +479,7 @@ xrep_dirtree_unlink(
+>  	}
+>  
+>  	if (xfs_has_parent(sc->mp)) {
+> +		memset(&dl->ppargs, 0, sizeof(dl->ppargs));
+>  		error = xfs_parent_removename(sc->tp, &dl->ppargs, dp,
+>  				&dl->xname, sc->ip);
+>  		if (error)
+> 
+> 
