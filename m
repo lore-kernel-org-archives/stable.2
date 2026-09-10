@@ -1,153 +1,252 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BF94A091D
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC9E4BFE90
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049819; cv=none; b=kEHGhlfx+84S1a0z/Ol/UoaJvGfB1tjW2YLpYbaVcl5kk7A5ST7kGfQCqIW0a9nbNJ/pdXw/RbfsPZTnzz4Gh5TXWm8BIzTN8cDZXimePBBcr0puAGPStXO9VmqyGn9rfD8/AV3ffOrrI0dyMQmukcM4SbhVfoRP+iJ4HnUUhbs=
+	t=1789050233; cv=none; b=Fhcj+dnD5stbBv/2l2vcxxHE626rMbh0oq7c0lEwf9mxKIyzphPxOfl6e3ODrO7I21a7wAxG5ML0Ay+kVURP2k7JekmXL6IiFlHkzciM2R4osV4fFP+4uCOMEKqT8XzLOJLCJ/ZmcMFKsHrwK2LGyTPjF8TxvjdCybkvSsHqIyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049819; c=relaxed/simple;
-	bh=ZHk+OoghMCoHYA0fAqgJIcS5mK9yxj9zSLOS3Af/sOg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C6+2zPafHkni1RnNJa82/DdPWlKxoKqlLZxFRkQ6wy7N2Gk4FNYHIoA5lpwOQwdFIQxwiUhoEZewlIl6c+LancX9Okueqx4oEiRwQ6l4/GrMNeL+goHv6QyNS406vId+7DjKhGUwO6UjC3JPGOpfoAv2HoSV/gq+8u2W56al4hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJBh6qOR; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789050233; c=relaxed/simple;
+	bh=4JCd2yPFLw6KuvBEBs1yooEWEV6FCjppr4ey6apZQ7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JAu4KBPu+CjSh2dPvdPUqUafnaTe/3ZhU5HyUgHk873UJ+Gif10PXSMDEgV/bCUc3C0U+13NK6pXUQwfOvjVaobW5hN6cXmCzACk2H+HeL59FZaaPEZpoMF3dCmslm5b3b/u3exm2Qdwt9hH7k6NvZXZ5Z0vXkDeefztnll/Rpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZX3w5Qyy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJBh6qOR"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso59149055e9.0
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:16:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789049815; x=1789654615; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cfkoJaXJRyESn+mlV6qvPjMOAGJjSlzoQyRVAMURXQc=;
-        b=mJBh6qORqrE0iRe9+QI0rJvrG0o05/+4qzEXS4PawP2R15wzEA9fgg6EByDgqMcQGU
-         NBoKI7a+ShTEBZGtzABj0D/YCxGnJfjL8hGwCKaFgVubId9bqM4W3huDdvY2b8cHnP1l
-         P99qJMSjSA3VInVW/hesfdHwnJ+iNdKaHDva+R6sElZ3glRY3E2VvtHs2I+cQnICnT9e
-         ddnk6R06xHwROtyVXHq6zXTfdb/C7+zy5H8ZNhKXSznOr8Y+uHbrnfwGNmEgMHJq/ohl
-         m9P970I1q/rUfIg8Et6e+IC1ZoPmetgTP2J22OSy9os3NJz0x9fH5Fn4CnTzUhD+RNdf
-         WH5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789049815; x=1789654615;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cfkoJaXJRyESn+mlV6qvPjMOAGJjSlzoQyRVAMURXQc=;
-        b=MEdmuJArvg5JHhSahkcq9AdaqCJFtR+fLiuKUIvhVwa9urR3u5phmfeLv4uPRf8+59
-         XdcINJapsLpAgsEBxp9ZzPjhjtZQom3aKrMnwvwaz9mOTRRnqvS0fpKI+cJeFddShZgb
-         0KoLrRc7yXT7Mtq8bs1cGYmwxHFfH1LK3S/riTHqR37BKMv/+fh00AXKVjUlXxQiiWwm
-         o9n91+9OThl4GJVp4UKOxOXeAEcOx8RmU8c+1oEqFddypAtmksF9fmAXZihSeEN4d6dk
-         NyAOFFImjaDbpRu0kW2ivs06dXebgB0JcZgENp3YGW+iJNCfoJm7jiF+s36V9wIi3KnF
-         iCVA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8VMEBCw4HClh6l6VXdeUe1OpKLfHtZ0BJU7yEuofc216HEfT9kvf5hyGCzyUTq0OfGzfiAgQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb86ni6/NR0z555EYGE54XqUThCI3OLvmv8/X2bOrPzeqJu1n4
-	pgFEj10N1r4T3BZEBYwi5Og/MLjSQxwB/Pj3XI0BNQpv33UN/KKwD/1t
-X-Gm-Gg: AYBFou1SCrjlux8soqBQ2wD7FHlz1T2JinGkYfuPafoUjxC335DXIJH1LUUiDaE8bCA
-	e1+eWgE2j/S7TyQ8GPJPsdu8+N9vNLrrgC1/h+lTbkLAsV+PZosClqdbBio5cnlip7ShcoiVzdj
-	3cwttlVAHc1V/SR1KIrT5gEB3gnkMcD1pNN4Z6wUCIaZO0K/EWW5w9ycpCfkSbJkYJz0/o4OC5g
-	2wVduT6MZ2IhINuYiJO/BWlmXG3YuMoI3LCrvu6LUQiqD16h7D/TZBFgjqLNRfTr2u++Lk/kH5v
-	9F9KFNpSp9Ik8EwsGa6JWWZ2pxOo/dAhk0Mtu4DemYONpAVsu7+o9DQ0zLGk+hKXj1FsHz8gouu
-	HOCyHBgmGSf4A+rqzEMMsqHkYM/rKlUz5Epp9oEx07Ck8S2n9EZF4FkYYcAfs53sFI/QZ4obtm2
-	OkwK9ZoOOHuXmkYCHK3nnrUioBt8IrE7WPG5SWPMcJwjxivh5prBXoISYLGd2o101MwFA810YQm
-	l+RXwcDtYj/D4f1yy615qYxIuYhpRMZSYRgKQ0rKq0SISI+RWu+FiAPJsiiign/+E3RN2QJaQ==
-X-Received: by 2002:a05:600c:8b29:b0:49c:ee22:364c with SMTP id 5b1f17b1804b1-49cf824743cmr422491675e9.9.1789049814830;
-        Thu, 10 Sep 2026 07:16:54 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm293895575e9.4.2026.09.10.07.16.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:16:53 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 10 Sep 2026 16:16:45 +0200
-Subject: [PATCH v2 4/7] of: property: fw_devlink: Follow PWM nexus maps
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZX3w5Qyy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423CB1F00893;
+	Thu, 10 Sep 2026 14:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789050231;
+	bh=mYklcYrGmSCspOC2o2DweuQUB/66V2FaREFcqUShdmc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZX3w5QyymeQ0NisGVCXUfJmEkS6VL4/XqBt1h6T8kXqtKmqXnCUU5rM6xxODJqtPb
+	 VIj0IvC6pAg1QF1OwSYsF8RzRUDxvOLY/kcDK1uEdZ/AEg9f02kWceK7RNA4NA+Bou
+	 1Hmvtze+M2oOGFKeu1/oyVTbLvBJ/mIP4AoknqhcsLL9DKWTrhFlS8CIfNxMkqrKLU
+	 RqXnFRLPgjzE9vpyJ54bU5G7TDC3daCibU6IkAP2DklxWa0gRHTW7lzulL0XuVXC0v
+	 vZMcuPpSydVS5H6nQu5ARKIkdL8tUqXHTRp/kpO5fFL1v1IZw6NYDaK7m0/gTaxx86
+	 3wejKscHsEnEQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 10:23:49 -0400
+Message-ID: <20260910142349.675041-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090814-frequency-igloo-c376@gregkh>
+References: <2026090814-frequency-igloo-c376@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-fw-devlink-nexus-ready-v2-4-17ac82dbe226@toradex.com>
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
-In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
- Frank Li <Frank.li@oss.nxp.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-PWM consumers use of_parse_phandle_with_args_map() to resolve specifiers
-through pwm-map properties. fw_devlink instead parses the pwms property
-as a direct phandle reference, so it records the nexus node as the
-supplier rather than the mapped PWM provider.
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-A nexus is a translation node, not the PWM provider, and need not be
-populated as a device. The resulting fwnode link can therefore remain
-unresolved and indefinitely defer the consumer while
-device_links_check_suppliers() waits for the nexus.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Use the map-aware parser for pwms so fw_devlink resolves the same
-provider as the PWM consumer API. Direct PWM references continue to work
-because the map-aware parser returns the original provider when no
-pwm-map property is present.
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-Fixes: e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
-Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
+
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
+
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+[ replaced dma_buf_fd_install() with fd_install(fd, dmabuf->file) due to missing DMA_BUF_TRACE support. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/of/property.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index eba7e9fe6c38..a9c51d639a2b 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1331,6 +1331,15 @@ static struct device_node *parse_##fname(struct device_node *np,	  \
- 	return parse_prop_cells(np, prop_name, index, name, cells);	  \
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 8ab49924f8b71..dd45297a96c84 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
  }
  
-+#define DEFINE_SIMPLE_NEXUS_PROP(fname, name, stem)			  \
-+static struct device_node *parse_##fname(struct device_node *np,	  \
-+					const char *prop_name, int index) \
-+{									  \
-+	if (strcmp(prop_name, name))					  \
-+		return NULL;						  \
-+	return parse_nexus_prop(np, prop_name, index, stem);		  \
-+}
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
 +
- /**
-  * parse_suffix_prop_cells - Suffix property parsing function for suppliers
-  *
-@@ -1426,7 +1435,7 @@ DEFINE_SIMPLE_PROP(extcon, "extcon", NULL)
- DEFINE_SIMPLE_PROP(nvmem_cells, "nvmem-cells", "#nvmem-cell-cells")
- DEFINE_SIMPLE_PROP(phys, "phys", "#phy-cells")
- DEFINE_SIMPLE_PROP(wakeup_parent, "wakeup-parent", NULL)
--DEFINE_SIMPLE_PROP(pwms, "pwms", "#pwm-cells")
-+DEFINE_SIMPLE_NEXUS_PROP(pwms, "pwms", "pwm")
- DEFINE_SIMPLE_PROP(resets, "resets", "#reset-cells")
- DEFINE_SIMPLE_PROP(leds, "leds", NULL)
- DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
-
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
 -- 
-2.43.0
+2.53.0
 
