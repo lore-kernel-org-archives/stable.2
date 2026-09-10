@@ -1,93 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E309B26738C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F02DEA68;
+	Thu, 10 Sep 2026 01:02:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002135; cv=none; b=FfH6DmfUWjYtHdYlDjnjghljyFEZbhGLrDMNIpGTIHZnFeQ18+DG0Ian9CY4e9YihBsPUVrAUlcrwtFSvuM6vT/6YIz7xSmbBlz5jwG0S6qcthJ2gpoTH2CU4+GJcocyK0wbWXv8DMdjTYVj6boGt4/XaxrA0h+5wZUKp9wfH3k=
+	t=1789002137; cv=none; b=ZeJMtlzC/B3RwJlehwGGrq/MRhVu4fSZiw480+bylnf3bzgy5c5U+/UI8F0KYqOjF6bYJMktnIx7v3XcAsJh6N60KNi4051FQBKjz5gFogckyQr6SG3lf639QTDRQMIwdAfcb8CihyQ9GlR70872bRbdGtSdRmI5l3XBm17YG7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002135; c=relaxed/simple;
-	bh=BqvSXRj+bLgSt8JBXuS7ni8QFOHc2F8qN1x/7fZkXEw=;
+	s=arc-20240116; t=1789002137; c=relaxed/simple;
+	bh=HNFyNCSWekecqfGGYhYMt3zNLGCx+oJFKh2qWwQ4DfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NGJU7n5ylIuJJ+19rA0vyx2SVGSaMZ7chbWfD+in5J0lfH+Uete3E9/ubkfpK5b++CIlQoMP0ZDstMdaIKIsxdlJsa3YB8WuCo6P03UtmsXTlnsD68fgljBTv3pc4bbfyEftlPfYvgMCE0I0sceVW3QdWUVZOm8+Niq+jpmhZAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4aGeC8Y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S3UsH46ZYCEe6AAcsZKv3Hdw2dTONwr56KGeLz/F79YpAtzgAue6UFDWYQvk8RcQHlFJXyU99uvG3bUC3ovynkIXya8khOqBsSPMshnqsA9NS/oI5taHE4y0gsuk1k05IWAkwMP2D1cmjElPbosBNIAR8NVs4uyzfB9hXQA2IPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iF7x4SRH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4aGeC8Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD10E1F000FF;
-	Thu, 10 Sep 2026 01:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iF7x4SRH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A07D1F000FF;
+	Thu, 10 Sep 2026 01:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002133;
-	bh=5ExV1/Fia8KgFi5A3Q6YoEXQLrza8LgIKK8odkL1Yig=;
+	s=k20260515; t=1789002136;
+	bh=gIzAHGHZOqDl7Bi5BYw494RMcXu1WDUxaQt0fNOXS80=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B4aGeC8Y4e/o9J6xcozbbeQ0XBzoVMAJ9RpBYcjIklcX1suGOVk/99kRKyJHRFG80
-	 L2/JA5Pi6OUBHOOYTypruasssBXEztMJQTmEhzaIaUCEgtR7cn2fbUG95vWvP004DH
-	 jE1gLtaWQwt3txezFJT+vw3jNgZSiTIka+6Xy5NK+gHNV7O5WjdxWojNt43P/76Sut
-	 duqP4b+EKngogQwkBef51fuKjmiRj9I0tZmZSRdtbnaruRWyboo+tDlSTNN37mfbS2
-	 jOdLcRzrqJd0U1Dx5mUvqRZ4AH7/MKlbqtrMslkLfnDzogmzQYdPzPaVqgXoj/89+Y
-	 Uww3rvMnjczMQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] i3c: master: Do not treat master device as a duplicate target
-Date: Wed,  9 Sep 2026 21:02:10 -0400
-Message-ID: <20260910010210.3797772-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090411-splice-widow-13ac@gregkh>
-References: <2026090411-splice-widow-13ac@gregkh>
+	b=iF7x4SRHMXn/LlzIRtqgTjiFuTu9K6F1UPA+hALqoZzSMgzFKcINcFaZIqOS/XEK3
+	 CZU06Z+2tGj+lOKGUWKQAvMf+/B3AdTr6IBUSc1lgOB9kFGLjf1yoBmgj2A+x2FPmM
+	 JFbgbmE6sGF+0I3zsu9fTL14FQzSX1YVxmtCKjl4Qm6/26c0+M10jhK6sBGbggorEM
+	 j4Ij0SzIFKLNttS9wMV2vJAkQQt7uY6Z2oyfXy5ZaGX6J4b8vA3uHSARzb8//6qy9x
+	 AlM/L4j+oaaDO3XhRN6SRTk1WYTYJHLSkBKxMsLOEEm23xgxME4T1H6Qt9ov/MyZAt
+	 7i75P/qRX6Yrw==
+From: SJ Park <sj@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 7.2.y] mm/damon/core: skip aging from repeated aggressive merging
+Date: Wed,  9 Sep 2026 18:02:09 -0700
+Message-ID: <20260910010209.126591-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090918-relic-padded-3b25@gregkh>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+On Wed, 9 Sep 2026 14:19:27 +0200 Greg KH <greg@kroah.com> wrote:
+[...]
+> Does not apply to the latest 7.2.y queue :(
 
-[ Upstream commit 4dc1b3eeba7991905a5b5b8129ebea51be7d87b7 ]
+Thank you, just rebased the patch to 7.2.5-rc1 and posted as another reply [1].
 
-i3c_master_search_i3c_dev_duplicate() searches the bus for another I3C
-device with the same PID as the reference device.  The search can match
-master->this, causing the controller itself to be returned as a
-duplicate.
+As number of stable patches for DAMON is increasing, this kind of patch
+applying-order based conflict might be even more common in future.  Maybe I
+could reduce this kind of issues if I could post fixed patches as single patch
+series, instead of replying to this kind of individual failure report.
 
-Since the controller is not a target device, it cannot be a duplicate of
-one.  Exclude master->this from matching so that the function only
-returns real duplicate target devices.
+I was initially worried if your workflow is dependent to the guided workflow
+(replying ported patch as a reply to each failure report), and hence if this
+could make your job more difficult.  But I know the stable patch submission
+rules are quite flexible.  And you may already have good enough automation for
+such small change.s  So as long as I keep the essential stable patches rule
+(use 'cherry-pick -x' option and add target branch name as patch subject tag),
+that might not really make your work worse?
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260807145638.168865-4-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ adjusted the duplicate-device comparison to match the older branch’s PID handling without nonzero-PID checks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i3c/master.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+If that is fine, I will try that from the next time, unless only single failure
+is reported on the day.
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 6eec1e6fb139f..92d6b611c6c9e 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -2022,7 +2022,8 @@ i3c_master_search_i3c_dev_duplicate(struct i3c_dev_desc *refdev)
- 	struct i3c_dev_desc *i3cdev;
- 
- 	i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
--		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid)
-+		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid &&
-+		    i3cdev != master->this)
- 			return i3cdev;
- 	}
- 
--- 
-2.53.0
+[1] https://lore.kernel.org/20260910005213.126528-1-sj@kernel.org
 
+
+Thanks,
+SJ
+
+[...]
