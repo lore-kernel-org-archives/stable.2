@@ -1,121 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D982D2877DA;
-	Thu, 10 Sep 2026 02:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493E9313531;
+	Thu, 10 Sep 2026 03:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789008435; cv=none; b=aHX4qb8JrbZ59LokwtOeTC/H9kXMTtK4wc13l25EnhG+ssKHZaSimtqccILT7bI/227h6eWEzbn4dIOdMAoah/ei9J/3bJVE80Gzo6AHIUYgnXb/msVNLvVl36u4ql8EydBoy1Aszf/qkKRdKhFrqqfVAZ1LbYiE6+cfDja95A8=
+	t=1789009242; cv=none; b=NPbkDq0r38n4EHC09Xv7pIdLcG48IsE7xt249IYBPFd4kP8kUUlFviF2BAKe1nsDHmwYbJbCwcK+bCnz+uvktDyCdWl3sI5uEUE57LhxOiqTibHJ3PnKLeXP1QZopGMqr678PrSNdLUGugRvLJUNRsTu35ZcU5Sl0gFlHZAfZUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789008435; c=relaxed/simple;
-	bh=d0dcrt7bn2rzR78vVZyWJIxQ+SHzCjONmEeWXccRBQ4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=j+HNgcsi9HwScyhYVzXlRifVtau04Gz1Qe8sJepc5SBItf93yh3uiobrbu6fTXnYt+QAOuLJnRBGV5lyWvARUMelQzg++kp3TLzmHo5zzk2ZxVR9xwxA7Qy8Seti3NnMrCyJNUcWPi3LKQsdGxAJR4ff6om22W7pPUQxyPYwnDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GqB8NuMi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789009242; c=relaxed/simple;
+	bh=DLa4IUKwhMz1ZucFVxnS0DYI9r3Q6V9AmXjU9DkKS1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BClGV6wPbCc8YogTgM5vC6WB+6jjeJtnqyEUmeEKtBgnu459x1q3BA5E3cuRqzKz+QGVm5Yu1aFCILaG/cNqzO4hwpEDK2AMxBCYz9WXzMbj7lrUXf9MosMDYCglB+gyXYp56AkwF3eOFMR8nD0LdYNSsTbqN1LNuBvGnEF8+bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=vWwnBdAq; arc=none smtp.client-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GqB8NuMi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF841F000FF;
-	Thu, 10 Sep 2026 02:47:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789008433;
-	bh=DwQIpJL6XFgYeovLrOfrrQBEuXDvt/nYNYAROMqmr4U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GqB8NuMiJIO3o52zIm9Um/v0WDyjDNDLMrzcmqdqsCMJGuke572wcg3uVfMlUl2Q7
-	 7KReR5eczs3MlwumyAKo3tUFyHPQ5FI+Qtr24G4RkCYGbyy+h9XQ4DI5hFNhz4UJ9d
-	 MKZe2wBRBN3bcLtW/VDIPE3RVoPHuQgVkwlD0VUU=
-Date: Wed, 9 Sep 2026 19:47:12 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: yosry@kernel.org, chengming.zhou@linux.dev, hannes@cmpxchg.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com,
- kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti
- <alex@ghiti.fr>
-Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range
- is not in zswap
-Message-Id: <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
-In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
-References: <20260907161938.1932355-1-usama.arif@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="vWwnBdAq"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789009237; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=ZTDMtZkV+xrOIsRKN1uJ2I8SuIvazu8YUdxdn3DJoOY=;
+	b=vWwnBdAqEfPR8Trw7mOL5BV+vAMZRWBC5qU8wCfPrA1sJV2Lv3Y9UsG5DSCkEfF89kGWno0Gquf/368ZjmhNGnVNE7e9NXWRJzZwyPRKpYHOCsIk93l6A8RkOS70Wwa6K0TICZVcVT1Nc2f4C3HLWr5dyHJS/qHki2mjn4K2LLk=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07673908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00310226-0.000220808-0.996677;FP=15700201687439524970|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jA1h9Vh_1789009236;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jA1h9Vh_1789009236 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 10 Sep 2026 11:00:37 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] ceph: fix out-of-bounds read in ceph_netfs_issue_op_inline()
+Date: Thu, 10 Sep 2026 11:00:36 +0800
+Message-ID: <20260910030036.1045515-2-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910030036.1045515-1-zhugl3@xiaopeng.com>
+References: <20260908062119.402027-1-zhugl3@xiaopeng.com>
+ <20260910030036.1045515-1-zhugl3@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon,  7 Sep 2026 09:19:38 -0700 Usama Arif <usama.arif@linux.dev> wrote:
+The read offset is validated against i_size but never against
+inline_len, and the two fields come from the MDS independently.  When
+a read starts past the end of the inline data, the subtraction
 
-> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
-> zswap_never_enabled() to decide whether a swapin may use a large folio.
-> zswap_load() samples the same one-way static key again once the read
-> reaches it.  Nothing serialises the two reads, and in between the task
-> allocates and pins a high-order folio, which can sleep.
-> 
-> If zswap is enabled for the first time in that window, a large folio that
-> was correctly permitted reaches zswap_load(), which rejects every large
-> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
-> as "zswap handled it" and skips the backing-device read, so the folio
-> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
-> for shmem.  The data is intact on the swap device - it was written there
-> before zswap was ever enabled - and the not-uptodate folio stays in the
-> swap cache, so every retry of the fault fails the same way.  With
-> panic_on_warn the WARN takes the machine down rather than the task.
-> 
-> Scan the range instead of rejecting the folio.  The caller has pinned
-> every slot before issuing the read, so zswap cannot start a store or a
-> writeback into the range and the scan is stable.  If nothing in the range
-> is in zswap it is all on the backing device: return -ENOENT and let
-> swap_read_folio() read it.
-> 
-> A range that does have a slot in zswap is still refused, because zswap
-> stores large folios as order-0 entries and cannot reconstruct one.  That
-> stays reachable - a slot shared with another task can be stored inside
-> the same window - and refusing is correct, since the alternative is
-> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
-> the request is valid, zswap just cannot serve it.  The only caller
-> distinguishes -ENOENT from everything else, so that part is a
-> documentation fix.
+	len = min_t(size_t, iinfo->inline_len - subreq->start, subreq->len);
 
-So to hit this bug the user needs to enable zswap system-wide during a
-teeny race window in the swapin code?
+underflows and min_t() ends up with subreq->len, so copy_to_iter()
+reads past the end of the inline buffer straight into the user
+buffer.  A malicious or buggy MDS reporting a short inline payload
+together with an inflated i_size can thus leak kernel heap memory to
+userspace.
 
-I suspect nobody has ever hit this and couldn't do so if they tried?
+Bail out with -ENODATA when the offset is not within the inline
+data.
 
-> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
-> Cc: stable@vger.kernel.org
+Fixes: 5b19f1eba459 ("ceph: make ceph_netfs_issue_op() handle inlined data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
 
+- set err = -ENODATA before bailing out on start >= inline_len, and
+  correct the commit message: with err left at 0 the subreq completed
+  with no progress, which netfs treats as EOF, not -ENODATA
+  (reported by Alex Markuze)
 
-Documentation/process/stable-kernel-rules.rst, with which I agree:
+ fs/ceph/addr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Rules on what kind of patches are accepted, and which ones are not, into the
-"-stable" tree:
-
-- It or an equivalent fix must already exist in Linux mainline (upstream).
-- It must be obviously correct and tested.
-- It cannot be bigger than 100 lines, with context.
-- It must follow the
-  :ref:`Documentation/process/submitting-patches.rst <submittingpatches>`
-  rules.
-- It must either fix a real bug that bothers people or just add a device ID.
-  To elaborate on the former:
-
-  - It fixes a problem like an oops, a hang, data corruption, a real security
-    issue, a hardware quirk, a build error (but not for things marked
-    CONFIG_BROKEN), or some "oh, that's not good" issue.
-  - Serious issues as reported by a user of a distribution kernel may also
-    be considered if they fix a notable performance or interactivity issue.
-    As these fixes are not as obvious and have a higher risk of a subtle
-    regression they should only be submitted by a distribution kernel
-    maintainer and include an addendum linking to a bugzilla entry if it
-    exists and additional information on the user-visible impact.
-  - No "This could be a problem..." type of things like a "theoretical race
-    condition", unless an explanation of how the bug can be exploited is also
-    provided.
-  - No "trivial" fixes without benefit for users (spelling changes, whitespace
-    cleanups, etc).
-
-
-If this patch meets the above then its changelog needs an update!
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 3c7cf8a5e..dd33afca7 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -321,6 +321,12 @@ static bool ceph_netfs_issue_op_inline(struct netfs_io_subrequest *subreq)
+ 		return false;
+ 	}
+ 
++	if (subreq->start >= iinfo->inline_len) {
++		ceph_mdsc_put_request(req);
++		err = -ENODATA;
++		goto out;
++	}
++
+ 	len = min_t(size_t, iinfo->inline_len - subreq->start, subreq->len);
+ 	err = copy_to_iter(iinfo->inline_data + subreq->start, len, &subreq->io_iter);
+ 	if (err == 0) {
+-- 
+2.43.0
 
