@@ -1,162 +1,121 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F8B492E58
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048763; cv=pass; b=JsHo2QpVJgs23joSgAHyFzHLfxpLpVXJUpcGhpIc13ToJv2gBJei6ofWeNbVa4xTazUWNzIeCiSULwyHA1YTO5/6eoFgm8nJsZVBHuiXI6RIV3V58qkFtsnMON1mYxaRYPkwHAueFLyHoAe2KAZ6yf/IexXm64RrbVyFz4ThGjA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048763; c=relaxed/simple;
-	bh=4FCRoa1ZFnGPclKdf7FZ3h4xxGbrom0G8s8bGT+RMtQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ivu0OCcsJvhvbDNuBs0e8Tafwf1fVB+EawlCndZbYsvcBzu2ouVvT7SoWyDwufTIYSUcYRhKPCr6oOnCERe+Se49ZWd8p2uPohhBmUcx00MibUeimzCm07ZmV9WDDB4beUTuQ6GJzRiHKuvSFeRME9v8V/StRqa76GV9ykV9d6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=cezdMIZV; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65593939C1
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789048934; cv=none; b=XHTPVfdMQJ3ztw8E+o28HWBKz1WyAHAu6yeIQnq7Xjydkukm4brDrkCyrdunXuDlWQtJmLi9KejyUNLNAUrz3wPP5dQRtaaCDeOk+qanIf9GY35GwA8bPV8Zhv6Ocao8iT8tjf7l3+sy2+18cO4IPoguW7eIZuRxMRkRdtScLP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789048934; c=relaxed/simple;
+	bh=Cy750GzBll6bROKUYBd0OY8+u3cY55k9qpgc+XdvLXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NZ9vDcZ+h1X8QZcKPM1GYWff8wWsyq68xFeakvXTLIllJkHxHvHq46h080+/aepWGjit0jqKw/iQpX6zVLFAUEknswxg3eFrmWL9MH+7ppfbfoES/EGxiCrDoR/FgzzWnXWHLs3R1+u8hOBNsy8jtle4Uv0V1T5nqX/zye3xNnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K74qrI5K; arc=none smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="cezdMIZV"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47de0093c42so6582291f8f.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 06:59:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789048759; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nNIT4RqAe1t/RBK+whi2KEMqyJavWHVyIhHABqwjp8Zc3BMyGrjgdHHDTXZJXRm7V6
-         mtv7fl20tH9j7yPHROOqjG5VOE5OCBjPs7MDPiee08HKWr2KO2fIAqKz8vPQ5pjb0qx2
-         Poxhoi80GPzU2TV9lXU69j8wI9ic1wqD0N4INIL4T3L4C/H3f293WOQ2y+GYTs0yZcp2
-         2TAAK87quyZYdN9iCIDMLtTMAtlSipPp3wPdpWbMpibCsF7tBNL3W8h8Eryib1G1G855
-         Aid8pyOpCltVgcRem3PtOS2KI5RyIKaEfpk7IdVUKmCF0ODUYy0wK4GvX7wrCoJwWXgp
-         KUEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
-        fh=sYqRrxAKjsZ1uevm2y7N0i18/VMvSgpO8YYCzhcAPXs=;
-        b=AvTt6hDl0C6/ICDTmgDTGatzc6KiabN2jrgahv+I/TxV7p2bF57YJy7ecZ9610+mE7
-         9dNlrJnxvr5ssQ5iRczq/Nzb7xkZ83bm80cwy270Lv10uoyPAuHr8vGiVsF5WB1VIuji
-         Ud/GdSEqE3fZfbJ46JHRoBz3p6kU//hD+VEHQYE3+HqQ6oZcrB0WM0G7C0C7Y03Zjp6F
-         /zgZHle7j9Ms4DeLW68z8RIpYakSK0d9d4IatEwmEQe7pvnEgUqcZ1TvEMYnOEsAac8D
-         HnI/wM6QTrtF9JWFlh2bOa57nEVMYuQnRrZHij/2PWYZ/K5DhiIk0S2XbXmcD4ZRv6l+
-         3njg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K74qrI5K"
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4a46a53abc9so5556671b6e.3
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:02:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789048759; x=1789653559; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
-        b=cezdMIZVSt/fPfjPM4Tz7FCdYVXwEhvQh4y1VNkoAE6iTTKKxoAwM2P6UpEay8aZRo
-         xkeuPkPs1GKJxYdoFtai1dg31xay+5IogFF/e9TemeVV0ohMBYVMeMsoyqxARbg6vsey
-         bqn4f9KdCZpO4bxWRqgA0LWYRCm0ddgKK2F6DCFGaeIy9oCc7H+Ovmzf2DKYinnjJAzS
-         IoX198GgGsmkCnV/qgo25Cku/TF8djv4y+M+6RcRFn63TN+jTyd/yW/41hfqCRyaOw/4
-         So4AA6wKwzBm7nODwEKHitRIcNBnT07F55ldEm1M/0U5dpiw/PSckrTOMpVVfeSX0+kS
-         yZ1g==
+        d=gmail.com; s=20251104; t=1789048932; x=1789653732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z9J+JrWjpvpXQUYfZhH1A5CtyfDunCqzubZiL0OyBK0=;
+        b=K74qrI5KuYSQ2AKcqQgqPUvinFRvMoB/PC9V7vkT6TaZnXdlcc88G7BMaqm0dv+XmV
+         iu7SsiDaVciDiqnLzTX8Dy6KsATC3CdFJswDb32EaTRn26U9GMufmXT0Xw6Q1Z68bCM0
+         bx9SI1jWHcZ+7nZszb2fll1fiuOK8T+8bqzjq2VLlrPE9yf2GXJf31GBgmTyIy91asJt
+         LM345/LJWebQrDTZ8h4cJhm/1x38QP/dmXq41kpBX9AqTRrIA8WD8x3BRnm5H3IItvF+
+         lexlsjy0sqyBRSv/Mkasq3bUZRQ69uoUA1OkzUXOGyrOidg8hErY+9SspKcqFcXZTKae
+         ao9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048759; x=1789653559;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
-        b=MUAiU76IFTQ5rQw7icYXqmm/Rhqj/KWd+pr+DD9xOgUt5jaQMKla8LX6Cy84P/chVN
-         J+k+UfvH70gyFbgvWsb4vYG/oNMlKtzQnz//gvKHKJ+4QVQcY/iwESFxW2QCQl8Zk8Dm
-         QHiKXjpJBx6fg2EK6B7//p4bzyUAjVkLq4l1U/eRGvDaym+6Xi8OkSt0vS5H7JLOr9u+
-         3fEBCjBv7cvKHQ/yUX/scXrRWtgrLh0Dq4jcnhPOwB1HgWW1gg+hVsHks1IM+95TFm4F
-         w83hBjzFuK5wa/cWUQgJC9H2sxtMnRM1S500fTti9OrTObATXBWddF+gguMtiVq1RdDc
-         4M5w==
-X-Forwarded-Encrypted: i=1; AKwUvBwKpG9MJRFEH1a3m9xPFmN3gmA4xBPQu8gMRseOphyYUfuZhJZaamW1VCmZFaWJXs6xfIwrwPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2A8kUEuQ3XxWHmj897X+3UTbqGesmQDACRxreCKP6c8IsP4ve
-	8Nnny4qkhT1Hh2sib9Q7YYUr8+yu8uejQ49Lc8RIN999i96HR7bVqUvJD8wCuB0w1did6GSSJ5K
-	xVuBNjhza30ZBXMK/fJea7TZUU1Bss6ZWcxYyC8Bjfg==
-X-Gm-Gg: AYBFou0xTKcvFPdXVSX1aFrC2ApRg/mraeRTCr33zbMnp7pmub6+VmaBH/CAdBBnBsS
-	NoSLc9p1NUWp42GbhrNkBzbBD6B715SIJj8szf7GN6RRD/H8cRDFXMXlWjiD32hIHRD5FFMjebB
-	8sbKTXPx0LedzGKe3aeI638sRtUHi9xsXLz2HQr6k/yjh8GtVHYk8diCTC8VSeFW/R2hoSryjMr
-	jVIHDrV9BYUXR7LENlznIqcvYrqVvcHGvDv5IISy8Q/yWSFRkCn3PvyC4bcIMiWUa94Zo9EI0F4
-	MIZ0VNbyOVKLFv6f/dfxSWV7n1Rx9JDF01BXHMxhzhbMtyu1+SROtOMikv98GicM+rLkaBr4pYv
-	vQEGPshYl31ZOJDtv8xfWHGLjoUu4fXPmHkFllysiI+LdakKwqHcJvcR94MzjlCgrTlfKoUMprA
-	==
-X-Received: by 2002:adf:e19e:0:b0:485:8c16:5eef with SMTP id
- ffacd0b85a97d-4858c166088mr39391128f8f.41.1789048759310; Thu, 10 Sep 2026
- 06:59:19 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789048932; x=1789653732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z9J+JrWjpvpXQUYfZhH1A5CtyfDunCqzubZiL0OyBK0=;
+        b=r0bQOdz1GOS/JBelqAdMkSUEDG6at+or0HPW5Bk1p5b3ECiju419s+c3GwXoqmKwHV
+         rLfvAPhtN7rulF6Cf1CIepmKUUheQWMoi/TOtoDv4S3gxOyltuI8Ww5exCH36Z0/2Ras
+         ogiUexyWSjAnAxbgsgjwyBARi1w0YTD7IX6n+4ZQjuOoAXKZLd3IRWOl+9Wr/d1pRsi5
+         rKpLRAtQ6JTXySj0MDAXLAyjOEi9bzgYdF4tfE3oocOJanWbRTkBdGOxnwQWONI2IWl+
+         FxYFPWFojcubuZntWwcHSvZW6w/D2pTB9DmdDhpql5uzCBR8TNTV/l39vSBi4ZLQ6/ih
+         pn6Q==
+X-Gm-Message-State: AFuF++kyqPhmQEi1I6hQ8xgQjMFqtxPAZbRnGnEbq5o9UalxufG+Ryd9
+	WBxhR0RlQF70XBWICC7b34OguoONieyEBIhPVAmNMoHbe1OEVK9fQ/NfOl/dU9/T
+X-Gm-Gg: AYBFou2+fFMH6qhMyndNoPoCKlCTfGciSx2bewLgRfg1Pqypo7Yw/JWw9NLf92Voydz
+	Y+qYgfvfl8Ck6hEhGCGMCUbwBE2RRQMNYz1AEHKQwHBzjexa/UOPpQ9B2I4sfU7RgNwXxh1SeZ8
+	fg20eEwonKN4CRW4zpqqvYHpJ97y3s0tOW1v4n3HPv7C5zgvjqSfMww9qyel0cdvo3O7VZiABYZ
+	gq9Iw+1eLHFpnck6uz5g621gPre64tyDvTg/H/1y3LdyFg9XWJjIdpSQFkX6BlXZBdJvrxuBpAq
+	utO/eAOknnyfL6uM/EGVzW4sct/uckHkkKHwzHK29bgYFTMJUH+P7+6p3KYmd2Y/DSokchDG31W
+	mA66D3DKi3tqPKTLs3WNYgA79oRMJtDdWef2fiQ9iZlc96rnnMle75A0CJ2A98xu8YM+pyqYgqm
+	LLeAsfeF0aqraystxxZeQ7Q7rBeLfbhwBWVZ5Y1zIIM+8Tj4w+WEYcFJjjNS70lDo36DPaRlPX
+X-Received: by 2002:a05:6820:198c:b0:6b4:117e:543 with SMTP id 006d021491bc7-6b6fc5dc03amr23927800eaf.21.1789048931393;
+        Thu, 10 Sep 2026 07:02:11 -0700 (PDT)
+Received: from lap-0341.. ([182.176.170.188])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338f7bad290sm21735667eec.14.2026.09.10.07.02.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:02:10 -0700 (PDT)
+From: Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>
+To: syedlabeeq@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] usb: storage: sierra_ms: reject short SWoC info transfers
+Date: Thu, 10 Sep 2026 19:01:56 +0500
+Message-ID: <20260910140156.47847-1-syedlabeeq@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810051544.3953925-1-xb@ultrarisc.com> <20260810051544.3953925-3-xb@ultrarisc.com>
-In-Reply-To: <20260810051544.3953925-3-xb@ultrarisc.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Thu, 10 Sep 2026 19:29:06 +0530
-X-Gm-Features: AcwNN1W7Uqn-QGBR02QgV1a2VTJVT2tlA_caJMvDJlneztIk9EUK-XjvcF0ult4
-Message-ID: <CAAhSdy2qxD9x-mvt=5yEKA+xoa8QJ9evnQkJot9n+rkxvOQukA@mail.gmail.com>
-Subject: Re: [RESEND PATCH 2/2] RISC-V: KVM: Propagate interrupted G-stage faults
-To: Xie Bo <xb@ultrarisc.com>
-Cc: kvm-riscv@lists.infradead.org, Atish Patra <atish.patra@linux.dev>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 10:46=E2=80=AFAM Xie Bo <xb@ultrarisc.com> wrote:
->
-> __kvm_faultin_pfn() reports an interrupted host page fault with
-> KVM_PFN_ERR_SIGPENDING. RISC-V currently handles it as a generic error PF=
-N
-> and returns -EFAULT.
->
-> Return -EINTR for the signal-pending sentinel so callers can distinguish
-> an interrupted fault from an invalid userspace mapping. Do not log the
-> expected interruption as a vCPU exit error.
->
-> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
-g")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xie Bo <xb@ultrarisc.com>
+sierra_get_swoc_info() requests sizeof(struct swoc_info) (60) bytes
+from the device via usb_control_msg(), but its callers only treat a
+negative return value as failure. A device that answers the
+vendor-specific GetSwocInfo request with a short IN transfer is
+therefore accepted, leaving the tail of the freshly allocated
+(kmalloc(), non-zeroing) swoc_info buffer uninitialized.
 
-LGTM.
+truinst_show() subsequently prints swocInfo->rev, swocInfo->LinuxSKU
+and swocInfo->LinuxVer from that buffer into the world-readable
+(0444) "truinst" sysfs attribute. An emulated/malicious USB device
+(VID 0x1199, PID 0x0fff) can exploit this to disclose up to 5 bytes
+of stale kernel heap memory (kmalloc-64) to unprivileged userspace,
+once per sysfs read, indefinitely. On kernels built without
+init_on_alloc this leaks recently freed heap contents.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+Only accept the transfer when the full structure was received.
+sierra_ms_init() already retries failed queries, so well-behaved
+devices are unaffected.
 
-Queued this as a fix for Linux-7.3-rcX
+Fixes: 32fe5e393455 ("USB Storage Sierra: TRU-Install feature update")
+Cc: stable@vger.kernel.org
+Signed-off-by: Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>
+Assisted-by: Kimi:K2 [Kimi Code CLI]
+---
+v2: add blank line before the comment block; add Assisted-by tag.
+    No functional change.
+ drivers/usb/storage/sierra_ms.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Thanks,
-Anup
-
-
-> ---
->  arch/riscv/kvm/mmu.c       | 2 ++
->  arch/riscv/kvm/vcpu_exit.c | 2 +-
->  2 files changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index d189fd5..3e955d8 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -708,6 +708,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct k=
-vm_memory_slot *memslot,
->                                 vma_pageshift, current);
->                 return 0;
->         }
-> +       if (is_sigpending_pfn(hfn))
-> +               return -EINTR;
->         if (is_error_noslot_pfn(hfn))
->                 return -EFAULT;
->
-> diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
-> index 88e0c36..8d36eb8 100644
-> --- a/arch/riscv/kvm/vcpu_exit.c
-> +++ b/arch/riscv/kvm/vcpu_exit.c
-> @@ -283,7 +283,7 @@ int kvm_riscv_vcpu_exit(struct kvm_vcpu *vcpu, struct=
- kvm_run *run,
->         }
->
->         /* Print details in-case of error */
-> -       if (ret < 0) {
-> +       if (ret < 0 && ret !=3D -EINTR) {
->                 kvm_err("VCPU exit error %d\n", ret);
->                 kvm_err("SEPC=3D0x%lx SSTATUS=3D0x%lx HSTATUS=3D0x%lx\n",
->                         vcpu->arch.guest_context.sepc,
->
+diff --git a/drivers/usb/storage/sierra_ms.c b/drivers/usb/storage/sierra_ms.c
+index 177fa6cd143ab2837640c26f8336781ddd3cf9cb..d8fe9561b2b5f4cce6aa8702309cfc195bc3c891 100644
+--- a/drivers/usb/storage/sierra_ms.c
++++ b/drivers/usb/storage/sierra_ms.c
+@@ -77,6 +77,13 @@
+ 			sizeof(struct swoc_info),	/* __u16 size 	     */
+ 			USB_CTRL_SET_TIMEOUT);		/* int timeout 	     */
+ 
++	/*
++	 * A short IN transfer leaves the tail of swocInfo uninitialized;
++	 * only a full transfer is valid.
++	 */
++	if (result != sizeof(struct swoc_info))
++		return -EIO;
++
+ 	swocInfo->LinuxSKU = le16_to_cpu(swocInfo->LinuxSKU);
+ 	swocInfo->LinuxVer = le16_to_cpu(swocInfo->LinuxVer);
+ 	return result;
+-- 
+2.43.0
