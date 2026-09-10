@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7414B46EF9F
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E462339AD2A
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067671; cv=none; b=Z8IUzGMnD6dZI4pfUQJN9Vdrr6Rmar2NJ0dpBum8UmtDhQzz+cLQE1YsFq3JgABxryZn37jHhyo/ldbP2H5AlTCPDbyJTNbih01di75TRSRZhZk71JgLKYUGIoSLAc2oVx/p7ZYFLFGjxXYonFJEqE092hyrBS8aut/cbEquLCA=
+	t=1789067741; cv=none; b=LTsKiq6d5ri7Mz7agJhbeZD+2bLqnt2q3eLhM5ZAEVyU0prsLyFQmyLuLkpK7Ui9pfyiB6azXkL0bZN2x3gru7jMAvkBbZ1lULlpXxUwpCbJHlV2T8Lj3MT6LfDgWrsFWykL8m7s4sfvAbQxju7YVFia95oWnTIQArO/CgIWyaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067671; c=relaxed/simple;
-	bh=yONbx833vReCL8u21KQDtpx/GldC6y5ERofgpR2+z1s=;
+	s=arc-20240116; t=1789067741; c=relaxed/simple;
+	bh=6G3FspFKnEVyN/bzTMcQHO9DwXQ7Xfvs+J6UG4RICXs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W+GElFEyr0GaUN9PHNKow2fqazTuuDr57Fw/1PfbzI/AcmfBMPi3+wiT535UCMCr3n6cKUxH4aQWSFDd0DT1VYPFwtNYcNjx2iIv/DLMmP5jCxLs7Hyp7Lr8WWb8Q1b7gzjOJaDP+K5oY3+pkkwBKKKGWvDs2MNX/dj4Jgw6VwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ0vx3BW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HSEYwt5FFA7TEBBpH3Xb1bp8+0mkWsdZpjtaaJYq2Hc+T4CLHxqed2oOgdHG+lCWttuf+AiYVAIMP3CC32FeYcNiOITfcCIqwyQyA81JfAxcvFs8Sxg96TuN2fOnSFx/fP2PeEAU+7KAGmNfb1mY0LAKEBTMITVle2q+tEfEPJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENtidFWx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ0vx3BW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8074E1F000FF;
-	Thu, 10 Sep 2026 19:14:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENtidFWx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FDB1F000FF;
+	Thu, 10 Sep 2026 19:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067670;
-	bh=naecBUT99YvpTKuUHAJNiLz/RpubelS+GsAgSuFbFMw=;
+	s=k20260515; t=1789067738;
+	bh=UobQCY8mjMy8QNtPlPJaZeBSy9bRybG0h8fSVaZxQVM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XJ0vx3BWRcK7cGRoYnV6bk427MFH//JrXGRi6wf++5Qm6hMkkzFLK0TLndivS4Vaf
-	 7B6+1SScwZpiWzKUQxhDI8mHI2Rbe6/4mBRJbsL9adO3XUwsHYc3ddauqIUIAkUgmN
-	 2uk7CnTOEDu+tsfR5qhdo/hSPksJ2y2GRYMWgY3UsNC5U1jqqKCmYq64+f703xVyL1
-	 sQVpJhoZLC0g2EIluoqrcdH9eXQ63NKcsuqH2S2XyMzx56V627zi3x8thTbb+icEH8
-	 Zv96iKJOY7GVtY3wXCiBksSHh+4xUmvh1A2/8RKa80GAR5f6HDy3requvUFx3Nc5qJ
-	 t+Y04GqzE1eRg==
+	b=ENtidFWxpaStzvgsm8PkZxppNOkah8wfWavUOb26O3mH7unttvSMuRflXMJ8F049n
+	 joxmAcKavFBY4iSXrN4njUo2oskuGyOQgiP38F/lB6rdIlBE8DSoGMbnsOd8N5lCkw
+	 2hfKpHXVhRZ4COibzPoIZt0AdfXtaw87whIHpODKInvt1/4/ItZSRyF7DnjQ+gDvXv
+	 QrMNd1lgqV4zrwI8rYXxDarZPD+wFhgW0GnyQGuh4HYBTeD00lVU3rm1jtFLHCT67L
+	 BapyxtC3knefA4UlZDCU372AtVIaNfNCQc0IhrjBThIptP1mOv1ct97Rk9aK37z0rL
+	 Di4jDnoWkmtnw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vincent Donnefort <vdonnefort@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Caleb Sander Mateos <csander@purestorage.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ring-buffer: Allow splice reads on static buffers
-Date: Thu, 10 Sep 2026 15:14:27 -0400
-Message-ID: <20260910191427.1482318-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] nvme: fold nvme_config_discard() into nvme_update_disk_info()
+Date: Thu, 10 Sep 2026 15:15:35 -0400
+Message-ID: <20260910191536.1489155-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910191427.1482318-1-sashal@kernel.org>
-References: <2026090939-revisable-paving-9733@gregkh>
- <20260910191427.1482318-1-sashal@kernel.org>
+In-Reply-To: <2026090951-pusher-problem-219d@gregkh>
+References: <2026090951-pusher-problem-219d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +46,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
 
-[ Upstream commit 6365c44a824ff138e7926413932bb5c2e28a4c8c ]
+[ Upstream commit 9110b85244f142ca4bcaea27be408c778d3c48d0 ]
 
-ring_buffer_read_page() rejects splice (full=1) reads on static buffers
-(that is user-mapped, persistent or remote) because !read check assumes
-unread pages must be swapped. However for those buffers we have no other
-choice than memcpy the data.
+The choice of what queue limits are set in nvme_update_disk_info() vs.
+nvme_config_discard() seems a bit arbitrary. A subsequent commit will
+compute the discard_granularity limit using struct nvme_id_ns, which is
+only passed to nvme_update_disk_info() currently. So move the logic in
+nvme_config_discard() to nvme_update_disk_info(). Replace several
+instances of ns->ctrl in nvme_update_disk_info() with the ctrl variable
+brought from nvme_config_discard().
 
-For the memcpy case, only return an error when the writer is still on
-the reader page for the splice interface to wait.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901155445.1475405-2-vdonnefort@google.com
-Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Stable-dep-of: 3838e80fcfb3 ("nvme: skip the zoned limits update if the zone info query failed")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/ring_buffer.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ drivers/nvme/host/core.c | 43 ++++++++++++++++++----------------------
+ 1 file changed, 19 insertions(+), 24 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 18095c7d31fa7..f913eee68fa35 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6581,15 +6581,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 		unsigned int event_size;
- 		unsigned int flags = 0;
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index d7199fc97f189..18685653f9b45 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -1882,26 +1882,6 @@ static bool nvme_init_integrity(struct nvme_ns_head *head,
+ 	return true;
+ }
  
--		/*
--		 * If a full page is expected, this can still be returned
--		 * if there's been a previous partial read and the
--		 * rest of the page can be read and the commit page is off
--		 * the reader page.
--		 */
--		if (full &&
--		    (!read || (len < (size - read)) ||
--		     cpu_buffer->reader_page == cpu_buffer->commit_page))
-+		/* If a full page is requested, it cannot be the commit page */
-+		if (full && cpu_buffer->reader_page == cpu_buffer->commit_page)
- 			return -1;
+-static void nvme_config_discard(struct nvme_ns *ns, struct queue_limits *lim)
+-{
+-	struct nvme_ctrl *ctrl = ns->ctrl;
+-
+-	if (ctrl->dmrsl && ctrl->dmrsl <= nvme_sect_to_lba(ns->head, UINT_MAX))
+-		lim->max_hw_discard_sectors =
+-			nvme_lba_to_sect(ns->head, ctrl->dmrsl);
+-	else if (ctrl->oncs & NVME_CTRL_ONCS_DSM)
+-		lim->max_hw_discard_sectors = UINT_MAX;
+-	else
+-		lim->max_hw_discard_sectors = 0;
+-
+-	lim->discard_granularity = lim->logical_block_size;
+-
+-	if (ctrl->dmrl)
+-		lim->max_discard_segments = ctrl->dmrl;
+-	else
+-		lim->max_discard_segments = NVME_DSM_MAX_RANGES;
+-}
+-
+ static bool nvme_ns_ids_equal(struct nvme_ns_ids *a, struct nvme_ns_ids *b)
+ {
+ 	return uuid_equal(&a->uuid, &b->uuid) &&
+@@ -2084,6 +2064,7 @@ static bool nvme_update_disk_info(struct nvme_ns *ns, struct nvme_id_ns *id,
+ 		struct queue_limits *lim)
+ {
+ 	struct nvme_ns_head *head = ns->head;
++	struct nvme_ctrl *ctrl = ns->ctrl;
+ 	u32 bs = 1U << head->lba_shift;
+ 	u32 atomic_bs, phys_bs, io_opt = 0;
+ 	bool valid = true;
+@@ -2118,11 +2099,26 @@ static bool nvme_update_disk_info(struct nvme_ns *ns, struct nvme_id_ns *id,
+ 	lim->physical_block_size = min(phys_bs, atomic_bs);
+ 	lim->io_min = phys_bs;
+ 	lim->io_opt = io_opt;
+-	if ((ns->ctrl->quirks & NVME_QUIRK_DEALLOCATE_ZEROES) &&
+-	    (ns->ctrl->oncs & NVME_CTRL_ONCS_DSM))
++	if ((ctrl->quirks & NVME_QUIRK_DEALLOCATE_ZEROES) &&
++	    (ctrl->oncs & NVME_CTRL_ONCS_DSM))
+ 		lim->max_write_zeroes_sectors = UINT_MAX;
+ 	else
+-		lim->max_write_zeroes_sectors = ns->ctrl->max_zeroes_sectors;
++		lim->max_write_zeroes_sectors = ctrl->max_zeroes_sectors;
++
++	if (ctrl->dmrsl && ctrl->dmrsl <= nvme_sect_to_lba(ns->head, UINT_MAX))
++		lim->max_hw_discard_sectors =
++			nvme_lba_to_sect(ns->head, ctrl->dmrsl);
++	else if (ctrl->oncs & NVME_CTRL_ONCS_DSM)
++		lim->max_hw_discard_sectors = UINT_MAX;
++	else
++		lim->max_hw_discard_sectors = 0;
++
++	lim->discard_granularity = lim->logical_block_size;
++
++	if (ctrl->dmrl)
++		lim->max_discard_segments = ctrl->dmrl;
++	else
++		lim->max_discard_segments = NVME_DSM_MAX_RANGES;
+ 	return valid;
+ }
  
- 		if (len > (size - read))
+@@ -2387,7 +2383,6 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
+ 	if (!nvme_update_disk_info(ns, id, &lim))
+ 		capacity = 0;
+ 
+-	nvme_config_discard(ns, &lim);
+ 	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
+ 	    ns->head->ids.csi == NVME_CSI_ZNS)
+ 		nvme_update_zone_info(ns, &lim, &zi);
 -- 
 2.53.0
 
