@@ -1,97 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB9D196C7C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:24:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D32196C7C
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003448; cv=none; b=D7/EqrgVhEPKx4feMqpG0ul/mOQZwssL+dgCrCRxnAB4p0dBnuudjxZviqlf9mQcMqDPu3/nwB8aJtxr/nt8rDqjhDkWDyTweAU0hIZoPvz1v4iOAb/rDX9WmEVkXGMxjibhRHMD83lc45Nawn55GOYGoIixMV9/7vwgmxLwvXs=
+	t=1789003457; cv=none; b=NPqa+lLM4zpW3i4EsTYB+41QG4CoUbZszy0UeQV19uC5mNgUsL6BUzt+FMnBItleB9HMHztNf/dtyXdfWufZLvC1ZhhrwFgrOM9UsfqEctUidDDvSEj58tYFDZAaYtt/e+GIDT+QVgXdmaIwShW+OiecT0XOJbvn7qlEkwxE82g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003448; c=relaxed/simple;
-	bh=6jJxmPTfasXgc07lcdBIc+riLMsKRt1hE6Wc1Cjmo/Y=;
+	s=arc-20240116; t=1789003457; c=relaxed/simple;
+	bh=c5Ogb89SFxmGVUbTS953ca418L0thtl4sEOI4bMJ/9c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aQXLfYUkubgyt4RQmCqsALJ9R3srRf8Xj8p1Gaz4Docce2m+Tzge4eZ6XogaA/+OPTk+pa54ofwrJqLq15bREBhXi9UzsRmsIitUJJJQjt09UzypGpdJL9fuwd/muMkBo0zTJ6syrEsEsTNFoYCSOb3cOhIY6OOGwT872Sfx8RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WUqtwauS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YLkoywEdizpD+3La2IrilhrlOtJ1dHtKO8hkRywqczfbQbNKxJBhmZZjd7Lu0tFWXvHvNwvQhYL7l4hu00/N/ITF37iGC79uP66RnEFiBsziH1G7XBUbnPbj8jXPFcJ0UyUu2gA9Yx5EvTSiC/vGgst+aw/9sWxy1mnO3iRYJoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfKmmPJ/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WUqtwauS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131E61F00898;
-	Thu, 10 Sep 2026 01:24:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfKmmPJ/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A6D1F000FF;
+	Thu, 10 Sep 2026 01:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003446;
-	bh=IwQlwgtneQyFCJx52UXjG5a49kxT2OTvbtQzRG6iIEE=;
+	s=k20260515; t=1789003455;
+	bh=ktI+3kfKeJ1X1mmFaW1k8vzWEmM/5YYCvuUQSfP7Y8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WUqtwauScOpp71zu/d7kIc9GIK3o5RjI04QjP65H1QOzVVVsCwMX9OJLy5zYdMe74
-	 z4bfjemrEF/BX5nNlQrhlMDcsP+9Dw7SdIP3MgkqgU/Qruy+y2VivIs6K/JxGcEOuZ
-	 inbt8IWCboHPY/tHadm4HDoOo723UAnRBScb2Ei2ePGXzOMjD7fhlwgdPqkS9cM1Dd
-	 AklFUN6Y5Cv1kKJEAvk0Pgjhq7OmFqxkPhP/x7lkvSRYESwtszJODCnpIH9/I2jwyV
-	 ZSdLheAX4unL8XGyhTXG8A83JGFmUEZB8D3RoY7/aSh8XXuVnXN/RlM/OaVn2ETD9m
-	 vTSZf0Qoq87fw==
+	b=XfKmmPJ/dVS6xQEhOR7xmfzh1CFAsBXXsS5unTBrt90TENHBQylphDxilGMSbn9x/
+	 vKS+uuc8mYCKbq59MucbQVtBNr6YV+QWanDWpRv3G5aNMEaIqOp4CNTfN0k6XrWE+n
+	 9H8eP4WYkKta780Qcd3i5vJjyJe2WcM1UFBF8UeHsFkIu3NVsihD0RzPK8YVFn02dw
+	 KHLxs5IiOl6UHeY/kmfQ8GYkeR6JN3LGm1ZpdbBL3caA18rMSVBBCkYQ1onitRAZDN
+	 lL9lEvfG6Fu6mKA/bdtPR4HsBuFgoyLWBgw+77zzxPLENt8jrfC8Pz+g6co2s6zVcO
+	 OxObGckknHg0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] wifi: mt76: mt7915: bound the device EEPROM address before the EFUSE copy
-Date: Wed,  9 Sep 2026 21:24:03 -0400
-Message-ID: <20260910012403.3854761-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] i3c: master: Fix use-after-free of master->this
+Date: Wed,  9 Sep 2026 21:24:13 -0400
+Message-ID: <20260910012413.3855568-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910012403.3854761-1-sashal@kernel.org>
-References: <2026090457-rental-precise-67a9@gregkh>
- <20260910012403.3854761-1-sashal@kernel.org>
+In-Reply-To: <2026090431-wok-detector-21f6@gregkh>
+References: <2026090431-wok-detector-21f6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 44b5adfe49499f53002737f5fe81d608c08122fc ]
+[ Upstream commit feb0ed76601f3c2f91f08688c5a7d8b9d382f720 ]
 
-mt7915_mcu_get_eeprom() copies a fixed EFUSE block into the driver's
-dev->mt76.eeprom.data buffer at the offset reported by the MCU response
-(res->addr, a device-controlled __le32) without checking it against the
-buffer size. A malicious or malfunctioning device can report an arbitrary
-address and drive a 16-byte out-of-bounds write past eeprom.data.
+sysfs attribute callbacks for the master controller device dereference
+master->this.  However, master->this is freed in
+i3c_master_detach_free_devs() before the master device itself is
+released.
 
-Reject a response whose address would place the copy outside eeprom.data
-before deriving the destination pointer. Devices that echo the requested
-in-bounds offset are unaffected.
+As a result, sysfs accesses can dereference a freed master->this
+pointer, leading to a use-after-free.
 
-Fixes: e57b7901469f ("mt76: add mac80211 driver for MT7915 PCIe-based chipsets")
+Keep master->this alive until i3c_masterdev_release(), which is called
+after the master device and its sysfs state are being torn down. Do not
+free master->this as part of the normal device detach path.
+
+On the error path in i3c_master_set_info(), reset master->this and
+bus.cur_master to NULL before freeing the allocated device.
+
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260625-b4-disp-16f99062-v1-1-aee52ecf61b9@proton.me
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260807145638.168865-5-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[ retained of_node_put(dev->of_node) instead of upstream’s fwnode_handle_put(dev->fwnode). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7915/mcu.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/i3c/master.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-index d7f297705d717..27e1725dcbfe4 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-@@ -2763,8 +2763,15 @@ int mt7915_mcu_get_eeprom(struct mt7915_dev *dev, u32 offset, u8 *read_buf)
- 		return ret;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 09d7b707c7b18..60487b0a1e3fe 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -667,6 +667,11 @@ static struct attribute *i3c_masterdev_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(i3c_masterdev);
  
- 	res = (struct mt7915_mcu_eeprom_info *)skb->data;
--	if (!buf)
--		buf = dev->mt76.eeprom.data + le32_to_cpu(res->addr);
-+	if (!buf) {
-+		u32 addr = le32_to_cpu(res->addr);
++static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
++{
++	kfree(dev);
++}
 +
-+		if (addr > dev->mt76.eeprom.size - MT7915_EEPROM_BLOCK_SIZE) {
-+			dev_kfree_skb(skb);
-+			return -EINVAL;
-+		}
-+		buf = dev->mt76.eeprom.data + addr;
-+	}
- 	memcpy(buf, res->data, MT7915_EEPROM_BLOCK_SIZE);
+ static void i3c_masterdev_release(struct device *dev)
+ {
+ 	struct i3c_master_controller *master = dev_to_i3cmaster(dev);
+@@ -679,6 +684,8 @@ static void i3c_masterdev_release(struct device *dev)
+ 	i3c_bus_cleanup(bus);
  
- 	dev_kfree_skb(skb);
+ 	of_node_put(dev->of_node);
++
++	i3c_master_free_i3c_dev(master->this);
+ }
+ 
+ static const struct device_type i3c_masterdev_type = {
+@@ -866,11 +873,6 @@ static void i3c_device_release(struct device *dev)
+ 	kfree(i3cdev);
+ }
+ 
+-static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
+-{
+-	kfree(dev);
+-}
+-
+ static struct i3c_dev_desc *
+ i3c_master_alloc_i3c_dev(struct i3c_master_controller *master,
+ 			 const struct i3c_device_info *info)
+@@ -1736,6 +1738,8 @@ int i3c_master_set_info(struct i3c_master_controller *master,
+ 	return 0;
+ 
+ err_free_dev:
++	master->bus.cur_master = NULL;
++	master->this = NULL;
+ 	i3c_master_free_i3c_dev(i3cdev);
+ 
+ 	return ret;
+@@ -1756,7 +1760,8 @@ static void i3c_master_detach_free_devs(struct i3c_master_controller *master)
+ 					i3cdev->boardinfo->init_dyn_addr,
+ 					I3C_ADDR_SLOT_FREE);
+ 
+-		i3c_master_free_i3c_dev(i3cdev);
++		if (i3cdev != master->this)
++			i3c_master_free_i3c_dev(i3cdev);
+ 	}
+ 
+ 	list_for_each_entry_safe(i2cdev, i2ctmp, &master->bus.devs.i2c,
 -- 
 2.53.0
 
