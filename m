@@ -1,311 +1,246 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010065.outbound.protection.outlook.com [52.101.61.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4183DA7C4;
-	Thu, 10 Sep 2026 09:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032355; cv=none; b=Cz4fpm5Tv/uo1gjHg1WMwxW4y/xEGzDuYW2GtI3WuJxLyimrXyvlqIm1XWKH57ZoyJhbmerR1MB4j602g0YyGW+545ldG4dQR5xaqqh5EpCWhghJisb12MugH/RVWvybB6MkDJJdkvaSyalMVFYvrW03pa8WhlZKyIN3LoIzCp8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032355; c=relaxed/simple;
-	bh=8RaqSawQ1vF5qX9NhmWGCVksHh6K50Ps3D9VLnths8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KHLPUjKOI2F0NsNRI9ssgs8+2hUbZey15bwHWXHBCqD7X6L/cnQtzPr5z/EivxvSn6Qa6oukIaoRQc4NRxKIAtz6eAI57/h1GiJNBusbmrpEpU3jH0NrhEHYrhDprBhvjUbq6tNTX5+8eVkBkyBkDtB1RoNpoy2AfL2gV9et8aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TS8gejpD; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=FZn08i+u; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vhp3byuu; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Emzvn4XT; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC03DC4BD
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 09:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789032458; cv=fail; b=OhSq8gIqdOjG75/scCHLggjN3kXkfxHhbG9pA/hJpsgF0awwPAk+pxFShNxdJe0iPaAETEfXvIfKZ945BZXE/BiW2R8NHuTk96DMxRPipx2J52UJ3NL6RfhEpULdWN9hjuid04LXlz8WXsN69NJ/r3/azGRgL9z7VE8mDqsNCvE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789032458; c=relaxed/simple;
+	bh=TCPXrlnUniMnxFBNUEK3QGmxToto4YVMG3Xl+Csjqv8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=aKZZo3fDgy8TTD9zPX/fWEPlvGjiTDnwXte4IPLSwijzZpG+a5/C4FsGY0TyrxXAQCuWEu7vxSRaEehG/JYGlcX2d6ND2XOsKmgZolokSoiHo8f52aqPqXkG85CYV7OwaScDRVu01xW6mGlES6igswfMj8oTnh9kIeyg5Z0429k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sU9QsBvI; arc=fail smtp.client-ip=52.101.61.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TS8gejpD";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="FZn08i+u";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vhp3byuu";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Emzvn4XT"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3E8C221A40;
-	Thu, 10 Sep 2026 09:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789032335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4OnHufQCEI/q4CeEJ/6LJb9WBevXB4VxMCacj9atnjg=;
-	b=TS8gejpDnCs3pf7xTX4LXrFOtT3NmzhlONzA9+XabE1H7Csb3PjMzDLi1qCgOzsx1XkePN
-	AXVShDiotuHUbi5Bog94bJtRd1a39DIRo9VzDn65GtZXr4yLpahdzq2mtjBvVRU0eWXyvr
-	IjbabB39o69Q/olNwY5Cr1W1kWe02z8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789032335;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4OnHufQCEI/q4CeEJ/6LJb9WBevXB4VxMCacj9atnjg=;
-	b=FZn08i+uXxc7uty6Dtt5rhLHoC0x5qwS5xzxnF9MQlBUaZf5NQPSgG4B58JkYktt9evR8U
-	EG84DCP4SgknYfAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vhp3byuu;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Emzvn4XT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789032331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4OnHufQCEI/q4CeEJ/6LJb9WBevXB4VxMCacj9atnjg=;
-	b=vhp3byuuq9e9zrYWse5GagWE6a+jFAxBwIl/m3cC7REBg8VYrpnnbukZLFR1Tc1tQKQmjK
-	YK2ovRbiOeVru4tOJ4AXwS9C/wyBNypM2zojcE+/uyHJjBa6S1jaLDGeZq/PrwI3Fj3dzS
-	pqjl3YqSUJMRdFkHWrAQUzUSgig5wps=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789032331;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4OnHufQCEI/q4CeEJ/6LJb9WBevXB4VxMCacj9atnjg=;
-	b=Emzvn4XTerqRE6MD4NmoLpkCaTUQnJQWFNZ3r5zm+WzWN0EW4HTWTEGS9SGB9J801RhHkX
-	jh8irPB+HfacNZCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D509137FD;
-	Thu, 10 Sep 2026 09:25:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LTI7A4t3omqVEAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 09:25:31 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9DD53A12EA; Thu, 10 Sep 2026 11:25:26 +0200 (CEST)
-Date: Thu, 10 Sep 2026 11:25:26 +0200
-From: Jan Kara <jack@suse.cz>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Paulo Alcantara <pc@manguebit.org>, 
-	linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] super: make iterate_supers_type() deletion-safe
-Message-ID: <fqx7ykgqbmqfinufnwc3spjfcmy5vmkgk7doo5kugar6shlxur@mpleeeom7m7r>
-References: <20260909193034.7467-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sU9QsBvI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xWi1qrNLB9oKBj4eslHpdyJngRi/6+xPM6wqK/6ashBEVUWGaiGYZnvCkDRc1bIRhaytx+qZmdhVKQ0WlWtLp6d7KfN8obxapEvabhc5ChjJRWIdoCEQ7mHYbAFsnbdA0O9FRsBGLhvGV7x8pjqoQ0o/QZ1fS/34D16H+0QmoUwRJz0EgtI5K//ZuTd2FLvBn9gsALK5z3yuh1Gn1qhNGd6sSqt5/a29C/1anwtChhWlSGHWYvD2FACYrmoxYNK+/oJbJ6q8Lf0nOst0dyEhEjP54bbXh0kYoSsa3PtlJljhhC59a1ulLGwKk1q4/VAoqG2Q4fTmigTYcfp9vL2H9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C6DaVCrxruT3b4V8RWlYmVYqwb6QbLOXCE4eZX7qN8A=;
+ b=P+fAufi85PaRCa+E0Unt6C53zJ1GSqAkxi7OqWD0dBQoMsmSF7RzUoVw+P5MerGEEhZEcK+zxmGBUhyRaaZdjFgTNkviuHMHzI82xtTWHyjDEOG/BmYRKh0+gDJG3Svell2+lXmEqd8RY4/q9pxSDOyxifs0FlWreruuMd5YDh3Y7HZye3B7VJpo5UEJ+YCRcUWVpZDAz09YgxML6UqWFh1YjuEwBtU4kYWL6QQiFbLF1kzBM7isLqShReQwOuRah5CrbzvDaFcRx5HK+WDYtez0/fNwSLvqVuwN2NdmQfp+r2ez9yU/cBDoiy03jN8h5thM5vIPAUnAjK0WBuLB6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C6DaVCrxruT3b4V8RWlYmVYqwb6QbLOXCE4eZX7qN8A=;
+ b=sU9QsBvI+Kr82RX+1iKPMrHy7r583t7ENfqoHQSHspgV7f77WgXrXqptqWZQqRdvDSg1z9EuREs4jnC2EOjnEX41nOaei7gKP7Mm6VSJJAC+drocR2IQqOB5KT8xMIr4HG8D4YjRtn349GoR2kECNkuQX1NrEBk9LjWCbTq0KYc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SAWPR12MB999270.namprd12.prod.outlook.com (2603:10b6:806:562::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
+ 2026 09:27:34 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 09:27:34 +0000
+Message-ID: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
+Date: Thu, 10 Sep 2026 11:27:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
+ runtime suspended
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20260909020854.58462-1-mike@fireburn.co.uk>
+ <20260909094609.1541-1-mike@fireburn.co.uk>
+ <e63d8ae9-f102-424f-88a5-0fd6837d79d4@amd.com>
+ <CAHbf0-HAGCLcH2ryR6dgaTwMEjOgqbFFnzMUge-s1LZtjTohjA@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAHbf0-HAGCLcH2ryR6dgaTwMEjOgqbFFnzMUge-s1LZtjTohjA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0157.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909193034.7467-1-kmehltretter@gmail.com>
-X-Spam-Score: -4.01
-X-Rspamd-Queue-Id: 3E8C221A40
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,suse.cz:email];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SAWPR12MB999270:EE_
+X-MS-Office365-Filtering-Correlation-Id: adae0baf-cd6c-43f5-aa3a-08df0f1dbefa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|4143699003|18002099003|22082099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	H1dOvQZMNjcnN5PmR36ato2wsFFY4FbnN4i5rN6L8O2tRFC7g6ytuqfzwLa6ddQTCmKn1pOev87LYC/CT923AUnU6DqE9LOA8GEPK2CHcIPyhX2QPtFcKtHuJQS4ZrTJ5iOfa6t58Xfm7MHTT2L9sN7PC08f2zov+l/MUXs3iVvAR675Tw0R0CMdM4O8BGE0nBSEdae4AKu7aj1fKKGy76RSVF/R56NqDXeuAoSCT44meCBOk8Off3/fjvv/TJ9P+UnqXzKcERbpcTgFiiWtANjF+tEg38lJVQZTUN4lFKKSlUWPHV+J/gX+AVfszPP6qzQK157FwCMC474E6aBvO/zrmGuK/SCV7mb4HfCvvCooTOMdABblT5/j91fzOnqz07bhAefY7OBhxTvdU6IT7IgqUw6Agp9Fh7T9n8Jlrgm8EZRx0Hq+srkkFFGo5y8bH+l1kdqGM4T17wc12W8++wGYjE4YpMEolCI7Ztu/oBPLr/CIjrH+9XW6g04zgj5oYdectbW2DQOXBh6Z/btUTg7pKAe7fTx9VSiIzJDi4N7Pr2zaRvIVsWc52Lbou8H4ah9OzyVaq03Ta6fEOgR2IIi67F+ithA1a2RAGpjDhQiYALwvLWiN/x5MRZj/heQpB+euU6O5kDyWr2/zKiFU7E0odVBOs57GIdSr/N/Z0Nw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(4143699003)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UlNNV1pvTSs4VzhXSXREZW9DMnY2L1FldVVlNzFQZUNJR3d5cXdiZjJWcUt5?=
+ =?utf-8?B?d3NybTdaN2pMenpPcGgrYmF5Rk1yQWhnTXd6ODFpZDJOdWxjMW9jL2FpWlZx?=
+ =?utf-8?B?Z2RsTkJuUDdwVGxTTTAxVi9rV1FGQjVaWDJtV0NBeS9iTDN4RnNYT2x0cURY?=
+ =?utf-8?B?dkljN3NId0kyUUtQQ3g2cVVhckpub0g5blZTRlRNcW9tZXp3L2NySjBScEt3?=
+ =?utf-8?B?VHpESlRBaDhYQXJFY1paa1k3Zyt5dXMyRUZjMDByRHZ6cnFOckNwZmIrMmdG?=
+ =?utf-8?B?V1dZTUhlNm1sY1RJZTA0U09HV0xqL3hFenNHTERjbkZXaHlxbVg2NDdVdEtC?=
+ =?utf-8?B?eUowcURoTUI0SG01ODFDa0VtMWQvL3RhVHl3OXVWTUVkNlQ4N3F3d280OGds?=
+ =?utf-8?B?R0NQMThmWmhRNDEzSHZtVHN6bm1qUHBRTnJNdDRWSHJQUnJGR25JK0ZHZjFI?=
+ =?utf-8?B?cFVXUUpETTlZZkxFNlBGajF0dkJsSXJGTCt2bXhaV2dNaHVUV3FxWWJubjJ1?=
+ =?utf-8?B?NTFZU2ZzMDZIa1pHbStSbVRPcWJ2Qml4SFRzYTZsaGNrcEtQMXE5dkJid0Jv?=
+ =?utf-8?B?VVg0RHZwTzNBSDRRVHNMV0xST1NuZEc2MDNoSWhuaWhITkZZVVYwVWFVYkRp?=
+ =?utf-8?B?M0FyVXhyQVA0amFxWkVVU1BURWdxV2hTR25aVWpYQ1ZPQlVxcWRzajhjZFNy?=
+ =?utf-8?B?RlJtNTlTei8zRWJ2b0h1aFRFdnNiWTduVG1uSTM0cG94aVJrTjFMOXM1SGxL?=
+ =?utf-8?B?Tm5mWUk0Q3ErWm5zQnlhS2w1Q3lMN0Z5RFFwMU5zQWRqWlpGeUIzOWNBM3hI?=
+ =?utf-8?B?ejIrcEo3T1dRa3dyczFEdURLSEY5SVRhVW9IYjcwNnV0ZEQ2Mm96OU16OCtG?=
+ =?utf-8?B?V1lOakZQVy96aStkekh5bVBIV1ZwNGhmcDNGSGRqbnF1ZXkxVllUTzQ2NEZK?=
+ =?utf-8?B?Vk9IblRpNWFJb1hORVgvcW5zUm9KV2FCWWRLQjNyNHh1Q0grTEFFUXJQRS80?=
+ =?utf-8?B?RHV3SHNQcCs5SHBlU1ZOVExseE5ScHU2eGo1UktwQlEvZTBpNkYyN2s2eFAy?=
+ =?utf-8?B?V29RRCtXc05mSnFsYUw2c2w1UGRxcmJaYVJCOHVMTUxXdzJxUnVEZmNpbnlN?=
+ =?utf-8?B?TUh3WmpXYTg4NGJIQUNSd2hhcnlQcVA5ekU3L1hlSWFpMDFSY0ttaklwdHEr?=
+ =?utf-8?B?eUxtdXNHcUJrMVNESExRL0VBRmlFcW4rcllXQzJFNW9TY3Z0S2FxMjQ5ZXZ3?=
+ =?utf-8?B?dWRnQkdVME5qSiszZE1ubldGT0FJSytUSXIxM2JZaGlEUDRaQWRYVFZUTXZq?=
+ =?utf-8?B?ZUlPdFdOK29QRGtDckFxTzM0SzE3Y1pnMEJtZ2RlRVVYQisrN3Y1aWF0ejQw?=
+ =?utf-8?B?elJnWWhwaWZ0WStEckU1N3dkWEd6WXNJME1KSmJlaWpWV001b3hnUFNKVlV2?=
+ =?utf-8?B?QkhqcWZlZHVOZnAyN2daRXNFTXdwSW5pUEI4Q0Q4K0lpUkM0Q0ZVWXdjcGUw?=
+ =?utf-8?B?Y2d2SUlkKy92cW81a2lNdWd1SlRkTkNsQ0EvWHNSREQxbmVCQURmYnErVlRR?=
+ =?utf-8?B?U0xBMUR4QktnYmVuOUZkdUVJZ2hsY1JHVnpzVGZEMzBUU0VpdFkzV3hNMEhm?=
+ =?utf-8?B?ZTZTNEZ1ZnFWenhJWitTYXZvaWpkSFh0RFpmMjdpNmVWVVBtNGVFcVoyeExW?=
+ =?utf-8?B?ZHBzWTdSNHJwUUVwVGRZeUdDWmVOaUFsUWY0TkZvNHoyUXpPc3Uxa3NpUWYy?=
+ =?utf-8?B?ZUFjdVBuMW5lZGc5bUtlNEFWeXF5UDRRS2M5OWVyWkM2NHErZVd4SWJGUWp4?=
+ =?utf-8?B?aTBWMXYyS1locS9yMEw3WUh0TThUK3VkVi9FUEh4bDlTWWV0RnR6VGlnL01t?=
+ =?utf-8?B?RThJM21oaEVVb2NMUTR5SjRFV3E5WERVQTZvUTdldXVQZGtaQ2F2ZDhVQ1Fm?=
+ =?utf-8?B?YVlLTWUxdU52M01aRVFZUXh1b05LZ3docUtFc3U5T1VQb3BIOXQ1b3NHd05r?=
+ =?utf-8?B?RUxmMjUzVTk0bDU0emxja3JpTlFOQ3dHcVU2Y1A4VlFibWpEUTJySzdjNVFR?=
+ =?utf-8?B?VmN1V2c2dEpqUEk2dHlBaXFTSzBuNlJ6cDNncElzd0RUam9jWjdJajdxdGRU?=
+ =?utf-8?B?SE9JaXdadmg1MU1XdnZRR1FTdWpEVVdWc3ZsNXFPdnpXVGZKMktUcGNWTjNB?=
+ =?utf-8?B?M1FWVjhUeE52Y2NHOWlWOFpsa1o5eUpHQjc3bmMyc1V4OTJ2VXFwbEEyTE42?=
+ =?utf-8?B?cnNXWXBlWVcwcHdEc3pBNlI5cGFkTGtUYkpMMDU2U1JDTU04NGFVYnpvNXNz?=
+ =?utf-8?Q?sOd3A/Tr/d5lSqjakr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adae0baf-cd6c-43f5-aa3a-08df0f1dbefa
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 09:27:34.3484
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DVmVPKx1O15MtqYJdnGbKCMZreHoiB14Wizikdl2KkWcz3gUGXjCXM7Na98y2YbN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999270
 
-On Wed 09-09-26 21:30:34, Karl Mehltretter wrote:
-> From: Christian Brauner <brauner@kernel.org>
+On 9/10/26 02:15, Mike Lothian wrote:
+> On Wed, 9 Sept 2026 at 13:46, Christian König <christian.koenig@amd.com> wrote:
+...
+>> That sounds like there is also a bug in kwin as well.
+>>
+>> The GPU can only go into suspend when the rendering application closes it driver connection and that usually only happens when it terminates
 > 
-> iterate_supers_type() drops sb_lock while invoking the callback and keeps
-> only a passive reference to the current superblock. That reference keeps
-> the object allocated, but does not keep its s_instances node linked.
+> Not any more. amdgpu_driver_open_kms() does pm_runtime_get_sync() on
+> entry and pm_runtime_put_autosuspend() at the pm_put: label on every
+> path including success, so an open fd holds no reference.
+> amdgpu_driver_postclose_kms() is the same shape. I see the dGPU
+> autosuspend with the client's render node still open
 > 
-> After the iterator releases s_umount, final teardown can unlink the current
-> s_instances node. The iterator then advances through a reinitialized node.
-> With the current hlist it stops without visiting the remaining superblocks.
-> The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-> the cursor lifetime has been unsafe since the helper was introduced.
+>> So question is here why is kwin still having that imported DMA-buf as necessary resource for the rendering?
 > 
-> The CIFS DFS lookup can consequently miss a matching superblock and return
-> -EINVAL.
-> 
-> Move removal from fs_supers to put_super(), alongside removal from
-> super_blocks, so a passive reference keeps both list nodes linked. Keep
-> the filesystem module reference until then, since unlinking s_instances
-> may touch type->fs_supers.
-> 
-> Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-> SB_DEAD under sb_lock to serialize with those callbacks. This allows
-> kernfs to free its private information after kill_anon_super() returns.
-> Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-> mounts still wait for teardown before retrying.
-> 
-> Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-> Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Assisted-by: LLM
-> [kmehltretter: supplied the commit message]
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Because it is the content of a mapped window. kwin composites on the
+> APU and samples the buffer the client rendered on the dGPU. In 6.7.5
+> EglDisplay::importBufferAsImage() (src/opengl/egldisplay.cpp:395)
+> caches the EGLImage per GraphicsBuffer and drops it when the buffer is
+> destroyed, so the attach happens once, not per frame. The client can
+> then idle for minutes with the window still on screen
 
-Looks good to me! Feel free to add:
+Ah, yes that starts to make more sense now. I was really wondering how this was reproduced.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+>>>               if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
+>>>                   attach->peer2peer) {
+>>> -                     bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>>> -                     domains |= AMDGPU_GEM_DOMAIN_VRAM;
+>>> +                     /*
+>>> +                      * Only migrate into VRAM while the exporter is held
+>>> +                      * awake.  A negative return means runtime PM is
+>>> +                      * disabled, so it cannot suspend either.
+>>> +                      */
+>>
+>> Setting AMDGPU_GEM_DOMAIN_VRAM doesn't automatically migrate the BO, it just sets this as possible placement.
+> 
+> Not on this path. amdgpu_bo_placement_from_domain() marks GTT
+> TTM_PL_FLAG_FALLBACK when preferred_domains has VRAM and we are not an
+> APU, which is exactly when amdgpu_dma_buf_map() adds VRAM.
+> ttm_resource_compatible() skips fallback placements when not evicting,
+> so a BO in GTT is not compatible and ttm_bo_validate() migrates it
 
-								Honza
+Good point as well, yes. That is for optimizing placements for BOs which have both VRAM|GTT set in their preferred domains.
 
-> ---
-> Changes in v2:
-> - Use Christian's implementation of Jan's suggestion: keep s_instances
->   linked until the last passive reference is dropped and make sget_fc()
->   skip SB_DEAD superblocks under sb_lock.
-> - Retain the filesystem module reference until put_super().
-> - Attribute authorship to Christian; retain my commit message.
+> A WARN_ONCE on the failing branch gives old=TTM_PL_TT new=TTM_PL_VRAM
+> with amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move in the
+> backtrace
 > 
-> Testing: All tests run on v1 also passed with Christian's draft. These
-> included an x86_64 QEMU deterministic KUnit test using the actual CIFS
-> lookup callback and a Samba DFS reconnect test with concurrent CIFS
-> mounts and unmounts in the same guest. The deterministic test exercised
-> the missed-match case; the network stress did not reproduce the narrow
-> race on baseline.
+>> BO migration is only triggered if the BO is swapped out or similar. What most likely happens instead is that we suspend while something is still ongoing.
+>>
+>> But anyway the problem goes deeper than just the amdgpu_dma_buf_map() callback.
+>>
+>> We have picked up pinning DMA-buf to VRAM for RDMA without ODP (e.g. exactly the feature I mention in the commit message of c52feb436539), but failed to correctly fix the PM handling.
+>>
+>> So we really need to call pm_runtime_get_if_active() in amdgpu_dma_buf_attach() and fail to let some other driver attach if the device is already suspended.
 > 
-> Link to v1: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+> Happy to do that. Which behaviour do you want when it returns 0?
+
+Oh, well that is a really good question.
+
+> Failing the attach breaks render offload. The attachment lives as long
+> as the buffer, so a client allocating a new one while the dGPU is idle
+> gets a failed import and kwin has no texture for that window
 > 
-> Christian's draft:
-> https://lore.kernel.org/r/20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner
+> Holding the reference until detach keeps offload working, but pins the
+> dGPU awake for as long as any of its buffers are imported, which in
+> practice is the whole session
+
+Ideally we would want to grab the PM reference during operations like pin, map, etc.. *and* keep it alive as long as those data access paths can't be reverted by an invalidation notification.
+
+But what makes it additionally complicated is that we hold locks in those operations which are also needed during suspend/resume, so we can't wait for resume to finish because that would deadlock.
+
+So in practice that is most likely horrible complicate and error prone. And my educated guess is that it is also probably overkill.
+
+For now I think we should use this instead:
+
+In amdgpu_dma_buf_attach() when pm_runtime_get_if_active() fails we just set attach->peer2peer = false.
+
+And then add a matching amdgpu_dma_buf_detach() to drop the reference again when attach->peer2peer is true.
+
+Regards,
+Christian.
+
+
+ 
+
 > 
->  fs/kernfs/mount.c |  4 ++--
->  fs/super.c        | 39 +++++++++++++++++++--------------------
->  2 files changed, 21 insertions(+), 22 deletions(-)
+> Note the importer here is amdgpu on both ends, so "some other driver"
+> would not cover this case
 > 
-> diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-> index f183a96778b9..a57399021c8b 100644
-> --- a/fs/kernfs/mount.c
-> +++ b/fs/kernfs/mount.c
-> @@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
->  	up_write(&root->kernfs_supers_rwsem);
->  
->  	/*
-> -	 * Remove the superblock from fs_supers/s_instances
-> -	 * so we can't find it, before freeing kernfs_super_info.
-> +	 * Mark the superblock dead so sget_fc() can't find it,
-> +	 * before freeing kernfs_super_info.
->  	 */
->  	kill_anon_super(sb);
->  	kfree(info);
-> diff --git a/fs/super.c b/fs/super.c
-> index 05e443173038..0f9e13eedb4f 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -433,15 +433,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
->  void put_super(struct super_block *s)
->  {
->  	if (refcount_dec_and_test(&s->s_passive)) {
-> +		struct file_system_type *type = s->s_type;
->  
->  		spin_lock(&sb_lock);
->  		list_del_init(&s->s_list);
-> +		hlist_del_init(&s->s_instances);
->  		spin_unlock(&sb_lock);
->  
->  		WARN_ON(s->s_dentry_lru.node);
->  		WARN_ON(s->s_inode_lru.node);
->  		WARN_ON(s->s_mounts);
->  		call_rcu(&s->rcu, destroy_super_rcu);
-> +		/* The unlink above may touch type->fs_supers, so drop it last. */
-> +		put_filesystem(type);
->  	}
->  }
->  
-> @@ -558,17 +562,6 @@ static void kill_super_notify(struct super_block *sb)
->  	if (sb->s_flags & SB_DEAD)
->  		return;
->  
-> -	/*
-> -	 * Remove it from @fs_supers so it isn't found by new
-> -	 * sget_fc() walkers anymore. Any concurrent mounter still
-> -	 * managing to grab a temporary reference is guaranteed to
-> -	 * already see SB_DYING and will wait until we notify them about
-> -	 * SB_DEAD.
-> -	 */
-> -	spin_lock(&sb_lock);
-> -	hlist_del_init(&sb->s_instances);
-> -	spin_unlock(&sb_lock);
-> -
->  	/* Drop sget_fc()'s claim; a never-registered entry stays with the sb. */
->  	if (sb->s_super_dev->sd_dev) {
->  		super_dev_put(sb->s_super_dev);
-> @@ -577,11 +570,15 @@ static void kill_super_notify(struct super_block *sb)
->  
->  	/*
->  	 * Let concurrent mounts know that this thing is really dead.
-> -	 * We don't need @sb->s_umount here as every concurrent caller
-> -	 * will see SB_DYING and either discard the superblock or wait
-> -	 * for SB_DEAD.
-> +	 * sget_fc() skips SB_DEAD superblocks and calls test() under
-> +	 * sb_lock, so set it under sb_lock: once we return no test()
-> +	 * runs on this superblock anymore and none will start. Everyone
-> +	 * else already saw SB_DYING and either discarded the superblock
-> +	 * or waits for SB_DEAD.
->  	 */
-> +	spin_lock(&sb_lock);
->  	super_wake(sb, SB_DEAD);
-> +	spin_unlock(&sb_lock);
->  }
->  
->  /**
-> @@ -608,7 +605,6 @@ void deactivate_locked_super(struct super_block *s)
->  		list_lru_destroy(&s->s_dentry_lru);
->  		list_lru_destroy(&s->s_inode_lru);
->  
-> -		put_filesystem(fs);
->  		put_super(s);
->  	} else {
->  		super_unlock_excl(s);
-> @@ -795,12 +791,12 @@ void generic_shutdown_super(struct super_block *sb)
->  	}
->  	/*
->  	 * Broadcast to everyone that grabbed a temporary reference to this
-> -	 * superblock before we removed it from @fs_supers that the superblock
-> -	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
-> -	 * discard this superblock and treat it as dead.
-> +	 * superblock that it is dying. Every walker of @fs_supers outside
-> +	 * of sget_fc() will now discard this superblock and treat it as
-> +	 * dead.
->  	 *
-> -	 * We leave the superblock on @fs_supers so it can be found by
-> -	 * sget_fc() until we passed sb->kill_sb().
-> +	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
-> +	 * a concurrent mounter waits until we passed sb->kill_sb().
->  	 */
->  	super_wake(sb, SB_DYING);
->  	super_unlock_excl(sb);
-> @@ -879,6 +875,9 @@ struct super_block *sget_fc(struct fs_context *fc,
->  	spin_lock(&sb_lock);
->  	if (test) {
->  		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-> +			/* Only unlinked at the last passive reference. */
-> +			if (super_flags(old, SB_DEAD))
-> +				continue;
->  			if (test(old, fc))
->  				goto share_extant_sb;
->  		}
-> -- 
-> 2.53.0
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Cheers
+> 
+> Mike
+> 
+>> Regards,
+>> Christian.
+>>
+>>> +                     pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
+>>> +                     if (pm_ref) {
+>>> +                             bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>>> +                             domains |= AMDGPU_GEM_DOMAIN_VRAM;
+>>> +                     }
+>>>               }
+>>>               amdgpu_bo_placement_from_domain(bo, domains);
+>>>               r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>> +             if (pm_ref > 0)
+>>> +                     pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+>>>               if (r)
+>>>                       return ERR_PTR(r);
+>>>       }
+>>
+
