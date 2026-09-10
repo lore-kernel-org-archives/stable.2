@@ -1,139 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471C76DCE1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D70C30FC1C
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003770; cv=none; b=Bh9BDe8jSkriLKChjurR6FX2VomLcFyrLa2Ps4c9kEYrzgO0n8fFZFSyk7WynW+5wAlNbN2nHq3G/HKcvNcY5rTkKSi5kmcThjxG1t34+e51hLd2Pr/VfENYQuClFHXvLlHeNlnWs8ZDez+vuG4YS9Exq7Z76g+FLk381oOBFys=
+	t=1789003788; cv=none; b=JkB7upLpLZ3jGkU9WsUc86Qb/+0ky+Uvn9AeALxeYC4UDwUZSbnI6kxIAYSWrhtp2kkgk403Refy1v74xeQLyL6j8bNVYsaRoZ25YA5iGH+l6TPLRCRF1xjR429pXQui/bo7oQXASpF21Oqeo11HZdzhroTbja8iDjYT3Xd6I5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003770; c=relaxed/simple;
-	bh=7CoztHRx3efld8qquUKAkxpRDFMl3TrIzuWvPVKcEnY=;
+	s=arc-20240116; t=1789003788; c=relaxed/simple;
+	bh=gHhbcegFI52ltURzNuQjQZ9JQ3HihPiQJWnZQHR26Gs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X5RB2jktMZ5OqYmF+GW9oYUvXGOl6iB+CGhk2AAlBdloCF7kd8NjeqboHPbUZLA2lX6zCEzjiJHm81Q+dXh7FDoGtRc9iSG3bBC3+hPUg62kFEKWEGvXJZvZOxgnOvJ5Lt7O5hMeuJYz79S+I2UYD+RypxU04F0Zydf+vceKWLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhKd1FOO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UrmHdZfJkNWKwn6NkJZ/QdeOMVodZQqCHodBkuQcVBCTPlKK1rimP6uLAxdSFZcnavZYa31N1S7b4IAUrPVdsGKKLJV2VQuxcdWkmXPZMw7nRB5RWxkrx2L8J9wP4mzf+188WcRxdSV7o88gpqI2TqiaTgvgpKQDDDh5RMSHkGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQd6uWN6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhKd1FOO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54E7C1F000FF;
-	Thu, 10 Sep 2026 01:29:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQd6uWN6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BBAB1F000FF;
+	Thu, 10 Sep 2026 01:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003768;
-	bh=IBxw96PZlkxSpSFn1Zab0vO4YYOJLGliWLpPr9Y4yxM=;
+	s=k20260515; t=1789003786;
+	bh=5f7BoRCSnyInTL937znHjJbHXrv7ZYBfjGS5+E5QynM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EhKd1FOOuCsvLRn9wQrd5WcYnDMEWEU7u0/p3mXrfIX/5dwUw7aslodVoD4opwr7W
-	 1EKzUtE/m0JmEQGbfAOMIqQZ4pzVet9QBx4ofFig0xtkEe7ZlvaVKNzAFmUEPF3BKV
-	 fITAeJPyi2iwM60VGrKmwGFjqy+zPeMDPShERRcXf8Wb6umBPpbz46QWUCdpjyDtrs
-	 POG6jTEvFZ+wI84kUQJMNxBF7NY9PIh9v66HMP7Ofqa5lBDtcoEuKpXfT0fOrDxk1t
-	 h6rmA1JpkswkijL00HxtA3KFAWqQcDkd5uDfWbzMMMV2VwGAHMq5VQdCmBWpIrwai6
-	 VhIOIGvaR7rAA==
+	b=oQd6uWN6titYCYpPEL2kh2Vur4+THTfGPK7xLJiB7KvSfVJYr8T5ggagOwRAHUeP3
+	 No0dCpTHSyVQf3mVveKq8aihkFaKe7omMhF+37MJfqxcJ6lFqH+vbUBidJJCPSbcXd
+	 v8dY+fzvMbsLbCN4dADWkPUTaK+ZID9KNO9wl6EdBrNd1dwzbAmEDW+EoHCXoUXwnt
+	 65FMfHBYt0EVhQe0YUldblgTcb00cjKXHyXobvgRahT5ql/mgZZPoAL2At29vclu17
+	 05c8sW7N3d9RfUJVlUo9OPgP6quxfslfAcPBONy2iExSsvR/Fxc+1RmMLlBGHRGGWp
+	 EOfu+fPk9Nx7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	lei lu <llfamsec@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] i3c: master: Fix use-after-free of master->this
-Date: Wed,  9 Sep 2026 21:29:26 -0400
-Message-ID: <20260910012926.3879265-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] fs/ntfs3: Add more checks in mi_enum_attr (part 2)
+Date: Wed,  9 Sep 2026 21:29:41 -0400
+Message-ID: <20260910012944.3879576-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090432-creasing-wilt-9c7e@gregkh>
-References: <2026090432-creasing-wilt-9c7e@gregkh>
+In-Reply-To: <2026090803-neutron-crazed-bd82@gregkh>
+References: <2026090803-neutron-crazed-bd82@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit feb0ed76601f3c2f91f08688c5a7d8b9d382f720 ]
+[ Upstream commit a8f659ce14f8f734894227ba2c5ca78c8451501e ]
 
-sysfs attribute callbacks for the master controller device dereference
-master->this.  However, master->this is freed in
-i3c_master_detach_free_devs() before the master device itself is
-released.
+Add offset check before access to attr->non_res field as mentioned in [1].
 
-As a result, sysfs accesses can dereference a freed master->this
-pointer, leading to a use-after-free.
+[1] https://lore.kernel.org/ntfs3/20241010110005.42792-1-llfamsec@gmail.com/
 
-Keep master->this alive until i3c_masterdev_release(), which is called
-after the master device and its sysfs state are being torn down. Do not
-free master->this as part of the normal device detach path.
-
-On the error path in i3c_master_set_info(), reset master->this and
-bus.cur_master to NULL before freeing the allocated device.
-
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-5-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[ retained of_node_put(dev->of_node) instead of upstream’s fwnode_handle_put(dev->fwnode). ]
+Suggested-by: lei lu <llfamsec@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ fs/ntfs3/record.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 22a95b30d5aba..cfd7496f70447 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -575,6 +575,11 @@ static struct attribute *i3c_masterdev_attrs[] = {
- };
- ATTRIBUTE_GROUPS(i3c_masterdev);
+diff --git a/fs/ntfs3/record.c b/fs/ntfs3/record.c
+index f810f0419d25e..61d53d39f3b9f 100644
+--- a/fs/ntfs3/record.c
++++ b/fs/ntfs3/record.c
+@@ -212,7 +212,7 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
+ 			return NULL;
  
-+static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
-+{
-+	kfree(dev);
-+}
-+
- static void i3c_masterdev_release(struct device *dev)
- {
- 	struct i3c_master_controller *master = dev_to_i3cmaster(dev);
-@@ -587,6 +592,8 @@ static void i3c_masterdev_release(struct device *dev)
- 	i3c_bus_cleanup(bus);
+ 		if (off >= used || off < MFTRECORD_FIXUP_OFFSET_1 ||
+-		    !IS_ALIGNED(off, 4)) {
++		    !IS_ALIGNED(off, 8)) {
+ 			return NULL;
+ 		}
  
- 	of_node_put(dev->of_node);
-+
-+	i3c_master_free_i3c_dev(master->this);
- }
- 
- static const struct device_type i3c_masterdev_type = {
-@@ -774,11 +781,6 @@ static void i3c_device_release(struct device *dev)
- 	kfree(i3cdev);
- }
- 
--static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
--{
--	kfree(dev);
--}
--
- static struct i3c_dev_desc *
- i3c_master_alloc_i3c_dev(struct i3c_master_controller *master,
- 			 const struct i3c_device_info *info)
-@@ -1641,6 +1643,8 @@ int i3c_master_set_info(struct i3c_master_controller *master,
- 	return 0;
- 
- err_free_dev:
-+	master->bus.cur_master = NULL;
-+	master->this = NULL;
- 	i3c_master_free_i3c_dev(i3cdev);
- 
- 	return ret;
-@@ -1661,7 +1665,8 @@ static void i3c_master_detach_free_devs(struct i3c_master_controller *master)
- 					i3cdev->boardinfo->init_dyn_addr,
- 					I3C_ADDR_SLOT_FREE);
- 
--		i3c_master_free_i3c_dev(i3cdev);
-+		if (i3cdev != master->this)
-+			i3c_master_free_i3c_dev(i3cdev);
+@@ -236,8 +236,11 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
+ 		off += asize;
  	}
  
- 	list_for_each_entry_safe(i2cdev, i2ctmp, &master->bus.devs.i2c,
+-	/* Can we use the first field (attr->type). */
+-	/* NOTE: this code also checks attr->size availability. */
++	/*
++	 * Can we use the first fields:
++	 * attr->type,
++	 * attr->size
++	 */
+ 	if (off + 8 > used) {
+ 		static_assert(ALIGN(sizeof(enum ATTR_TYPE), 8) == 8);
+ 		return NULL;
+@@ -259,10 +262,17 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
+ 
+ 	asize = le32_to_cpu(attr->size);
+ 
++	if (!IS_ALIGNED(asize, 8))
++		return NULL;
++
+ 	/* Check overflow and boundary. */
+ 	if (off + asize < off || off + asize > used)
+ 		return NULL;
+ 
++	/* Can we use the field attr->non_res. */
++	if (off + 9 > used)
++		return NULL;
++
+ 	/* Check size of attribute. */
+ 	if (!attr->non_res) {
+ 		/* Check resident fields. */
 -- 
 2.53.0
 
