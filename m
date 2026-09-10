@@ -1,149 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4665030D3FA;
-	Thu, 10 Sep 2026 01:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15965352032;
+	Thu, 10 Sep 2026 01:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002207; cv=none; b=Aq9XH/asiTjUGrh6+lg8hUQdccYNE3fcEi9o0n54IMu/hJjb4VKaoTwwZKC0jpY04iX5qrjR6BnEctVZow41QZ+zjzEnXH+xFggymSNtcu9ucRBmNIwJFpfjGRgQKnoBtXnqHOzrNey5PP/6vxat3Ci4pVDZTbGj32JnFCOo+K4=
+	t=1789002730; cv=none; b=S2ZpIr32l3ytfGQo5AGgRZEMSQP1Gjar+dX8AKHhBDaq4m43tZ0sn9B+skdrw40yWIREih963G10uKX+JRlKvPrGPlOC9/hZ50HjqHSloXfwTsZU6ReQduWYwf+4CT5DzaG1pVvWVwblWLxEHZeLbxdkOuMxyG47Bh+0rKSg/9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002207; c=relaxed/simple;
-	bh=xb7+ZUruM1MJTCPd1YL0SgedH7s3Jo7Il8pcGJEyajc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qiONrMWnZLtqW+4sIYnmr+ow2W/BMFUavxapsUApNBtZkhqHLM7WCUS5IDdJO5tF5vMr4xxtltpV8chc1r5ZUZRNHl+Qmz6E19y9A+v4dq/iZFnxutxQTKuWYkEgrbadtD64uPSJfj6YA4hbbWwcr4CTtSRMOur0Syge9+pYQ0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/+plz5J; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/+plz5J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27BC1F000FF;
-	Thu, 10 Sep 2026 01:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002206;
-	bh=TIG2T2i4jA9WjB+FPHW3l0yqt0ufR3BV4sxNXqQXvbA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P/+plz5Jh01msgLnAOw6O9rOmCvIUQCuKf6y16U4QTaMj+o08bMbhENcCLTw2LUBD
-	 ztHlidR4af6Y9OPnAsIqLHlFoYNh4Z0XLJUYsZvatv0qIMFXX/Y0pZHozWRk5jBTLO
-	 OG7uMzM3CzSjjwkczQARyIOqFx99BhQofcuCuf+dYGg0rld2xoVx0Ro6PjW5+XYgCN
-	 wMze7vliC92EwG4Y+OKm5Sjid6kOKZvhKeZeIxQoZAfBjd1QZzgWHW7UZXJJNwtfs6
-	 UGcc5ZdDQkvtQQwS+8uwaBKmWvdDcVlvqej3KUrK4jJt+s+n3OPrKRD/ePFKONoyLp
-	 6P2nfljn1XLig==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: aliceryhl@google.com,
-	boris.brezillon@collabora.com,
-	dakr@kernel.org,
-	markus.probst@posteo.de,
-	patches@lists.linux.dev,
-	sashal@kernel.org,
+	s=arc-20240116; t=1789002730; c=relaxed/simple;
+	bh=jCcrHF+pJYVkp+pgHVqNx93JGeFZOZz6Oh0TsW6mRnI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qltCuPN+G1i0If6SY3oYVgt9qqjhBgb04iAqZgO1R1AYAgoZObdFfv6qgMfaYTnyVXjtcSzBnBrpiNUIs7qZ5eB8POrKLYgg6SfQ0ByKEaDFhzzXRD0bCe1o36fdOaO/GCfJwBsK3T29SH8RzOw+t8BHWRGB6gcfq7V6Khjc8Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a1c88878-7b05-4cbc-a57b-04b103082ad9,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:a33e1639ab237ca0431f939f701201ab,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 855703371; Thu, 10 Sep 2026 09:11:53 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Xin Ji <xji@analogixsemi.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH 6.18 445/583] rust: devres: fix race condition due to nesting
-Date: Thu, 10 Sep 2026 03:03:10 +0200
-Message-ID: <20260910010310.429807-1-ojeda@kernel.org>
-In-Reply-To: <20260909134253.387396612@linuxfoundation.org>
-References: <20260909134253.387396612@linuxfoundation.org>
+	gonglinkai@kylinos.cn
+Subject: [PATCH v3] usb: typec: anx7411 - stop the IRQ before destroying the workqueue
+Date: Thu, 10 Sep 2026 09:11:50 +0800
+Message-Id: <20260910011150.2966843-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
+References: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, 09 Sep 2026 15:42:10 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> -        try_pin_init!(&this in Self {
-> +        let callback = Self::devres_callback;
-> +        let inner = Arc::pin_init(
-> +            try_pin_init!(Inner {
-> +                data <- Revocable::new(data),
-> +            }),
-> +            GFP_KERNEL,
-> +        )?;
-> +        let devres_inner = inner.clone();
+The IRQ is devm-managed, so it can still queue plat->work while
+remove() is tearing the queue down. Disable it first.
 
-The compiler complains here:
+Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+---
+v3:
+- add Cc: stable (Heikki)
 
-    error[E0277]: the trait bound `impl pin_init::PinInit<Inner<T>, error::Error>: pin_init::PinInit<_, E>` is not satisfied
-       --> rust/kernel/devres.rs:141:13
-        |
-    140 |           let inner = Arc::pin_init(
-        |                       ------------- required by a bound introduced by this call
-    141 | /             try_pin_init!(Inner {
-    142 | |                 data <- Revocable::new(data),
-    143 | |                 revocation <- Completion::new(),
-    144 | |             }),
-        | |              ^
-        | |              |
-        | |______________the trait `pin_init::PinInit<_, E>` is not implemented for `impl pin_init::PinInit<Inner<T>, error::Error>`
-        |                this tail expression is of type `impl PinInit<Inner<T>, Error>`
-        |
-        = help: the following other types implement trait `pin_init::PinInit<T, E>`:
-                  <AlwaysFail<T> as pin_init::PinInit<T, ()>>
-                  <ChainPinInit<I, F, T, E> as pin_init::PinInit<T, E>>
-                  <ChainInit<I, F, T, E> as pin_init::PinInit<T, E>>
-                  <core::result::Result<T, E> as pin_init::PinInit<T, E>>
-    note: required by a bound in `init::InPlaceInit::pin_init`
-       --> rust/kernel/init.rs:155:31
-        |
-    155 |     fn pin_init<E>(init: impl PinInit<T, E>, flags: Flags) -> error::Result<Self::PinnedSelf>
-        |                               ^^^^^^^^^^^^^ required by this bound in `InPlaceInit::pin_init`
+v2:
+- keep the minimal remove() race fix; drop the workqueue later if wanted
+  (code unchanged from v1)
 
-    error[E0282]: type annotations needed for `Arc<T>`
-       --> rust/kernel/devres.rs:140:13
-        |
-    140 |         let inner = Arc::pin_init(
-        |             ^^^^^
-    ...
-    147 |         let devres_inner = inner.clone();
-        |                                  ----- type must be known at this point
-        |
-    help: consider giving `inner` an explicit type, where the type for type parameter `T` is specified
-        |
-    140 |         let inner: Arc<T> = Arc::pin_init(
-        |                  ++++++++
+ drivers/usb/typec/anx7411.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-    error[E0282]: type annotations needed
-       --> rust/kernel/devres.rs:158:17
-        |
-    158 |                 Arc::as_ptr(&inner).cast_mut().cast(),
-        |                 ^^^^^^^^^^^         -------- type must be known at this point
-        |                 |
-        |                 cannot infer type of the type parameter `T` declared on the struct `Arc`
-        |
-    help: consider specifying the generic argument
-        |
-    158 |                 Arc::<T>::as_ptr(&inner).cast_mut().cast(),
-        |                    +++++
-
-This diff would work, similar to commit 9aa64d2503c6 ("rust: devres:
-embed struct devres_node directly"), but I wonder if the sequence of
-backports was not intended like this:
-
-    diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-    index 67471946f2b5..0cafe7ba28c8 100644
-    --- a/rust/kernel/devres.rs
-    +++ b/rust/kernel/devres.rs
-    @@ -137,7 +137,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
-             Error: From<E>,
-         {
-             let callback = Self::devres_callback;
-    -        let inner = Arc::pin_init(
-    +        let inner = Arc::pin_init::<Error>(
-                 try_pin_init!(Inner {
-                     data <- Revocable::new(data),
-                     revocation <- Completion::new(),
-
-I hope that helps!
-
-Cc: Markus Probst <markus.probst@posteo.de>
-Cc: Sasha Levin <sashal@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alice Ryhl <aliceryhl@google.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: driver-core@lists.linux.dev
-
-Cheers,
-Miguel
+diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
+index 41df115912b9..c3d36da692e4 100644
+--- a/drivers/usb/typec/anx7411.c
++++ b/drivers/usb/typec/anx7411.c
+@@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
+ 	anx7411_partner_unregister_altmode(plat);
+ 	anx7411_unregister_partner(plat);
+ 
+-	if (plat->workqueue)
++	if (plat->workqueue) {
++		disable_irq(plat->intp_irq);
++		cancel_work_sync(&plat->work);
+ 		destroy_workqueue(plat->workqueue);
++	}
+ 
+ 	i2c_unregister_device(plat->spi_client);
+ 
+-- 
+2.25.1
