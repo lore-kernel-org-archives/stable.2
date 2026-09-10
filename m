@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0A346EF92
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5C8470120
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038520; cv=none; b=a2NzdSFjndz4+e8CmH2t7yI1MNPfNRn47F8RGQGAXCI58itk6o577qhidpSJJlXOtNNbqo7qyJTEfpxFwpsjAOQvUYoNACfBBF049QxgqKJ9FfCszgpEnRXtgklCsdnBJP4zvACw6jeaLNUbNZiuKCPpta2Q6jnxM4M+hq2K1F8=
+	t=1789038521; cv=none; b=mFugPpS47WBGXYlGe18liwllxvBmGW6/KEMQvKN/qt0+0G+3vrOHlsmtIIoSXf/0wd9KtbFdgBFYWH/Coz50xNA8jAyw95LRsv+4kRVFH038pxrGxQZ2vZsv99RSf1KcToAlqBhe5OcJd+P87db+G+hsQvhw/tfDKFkD6VvXQCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038520; c=relaxed/simple;
-	bh=XH3Lgveysf4FIpFglcOTj3AD5iZ7b6bacDL9vCKGJ/o=;
+	s=arc-20240116; t=1789038521; c=relaxed/simple;
+	bh=AjpS5WCIKvXjfqCYnsSRLYE3ZOP54YnahxG77ULK0qA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QVOcaau9JQMIYR0Olk5ASdQpDys1ikuohMQ27TvHxwxeFZIfbIslQIv+gC7ZaAGma7li13WEU5xIEDCLbLIv3Sq8WdKWQTpUMmNzzDFd/8nJikADsveJp2lGsQd2+yCfzWBlrAgk/bENPQX9A7Uak1fqrZEqO/wswFV9Q1LvyOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EmHd3J4/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FWducuILxG08Z1EgVg0TRAFMgfNiwdqmqMeF2scTnifKjBQHPJjHmDR95BiFdskM3wMycPZOm6toMt5tQfEOnnJUcOGlcjTfQr/a8cKZusF7cSGl47b7IvLrRl2P4TX1jgS/VG3WXMgo+1NROPg81s9l26uO8KQ/p6ZaaZyN5wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flFH92sx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EmHd3J4/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC921F00893;
-	Thu, 10 Sep 2026 11:08:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flFH92sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A231F00899;
+	Thu, 10 Sep 2026 11:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038519;
-	bh=mLVjiRuaZ7ftR1B5s0wxcUJ6b49QHAxqw+k8DE1nz4s=;
+	s=k20260515; t=1789038520;
+	bh=pxqn+MMkstPw1ZfBZ6zbQ/QdOo2AQd2diFK+L8vt1m0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EmHd3J4/dXJgtFbT5La8//Cc5NEGmKS5vwdLOpaKhkIFjbWM9Zi/4BOOACMrC7zj+
-	 jVlkx8s0HLPB6IBqFC65jRJEKLmDt0spTHyY2krs3UB15aS/FCCXmGe797+tzBdHAm
-	 g1xjMBo7apM+8wxDOyFUlKQduYPc9csXh4ddBFAvkIt6HOZgEtYtNcpii+wN1ECkMs
-	 pN+EdunXyxv6wRrWWY5c4U+jgvcCtW2f1ECkC7wun/TxGV11zblRJUJkTkDUkEKZVh
-	 I8zNh/A/a7KFbrnnvxvtfTyR3hExnz2qUT1ZzD+qTyDBxU9w0G4MXVTlBPtFuZtDoX
-	 tP4ueYOXPO1jA==
+	b=flFH92sxFV1RZm8Q7AoDVKa1YwMMDLuzM1qPfwG9F15VwZ+vB2GYJKaJnlw/e9ekB
+	 hCZEDh7SlTodoI9QPrHxgHF6kzbJ4qYy8ujkynHqVFDKYz9TZDVoLB8e61UUEp6rxJ
+	 t4jmLJsMa+15ih1YNKdNzKLbOfCPH49cF2IZeLFe4rdqtEyoTGDr3WxWSr6xeS8fMz
+	 Nd5J6y0Olq9IfIxSlU3pxbjSUHz5m2GxUn9uXj1nd1HwMbKF19VQvQeF0PpI9z7rL/
+	 IpIUBPchqeUK2YoTNQCDHqmaPUFxefjYsDdgVLmYErAKmh8riOigHGwoaAojc8ZyYc
+	 IuvP7GHcpq/vw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	lei lu <llfamsec@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/7] fs/ntfs3: Sequential field availability check in mi_enum_attr()
-Date: Thu, 10 Sep 2026 07:08:32 -0400
-Message-ID: <20260910110835.4144700-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 5/7] fs/ntfs3: Add more checks in mi_enum_attr (part 2)
+Date: Thu, 10 Sep 2026 07:08:33 -0400
+Message-ID: <20260910110835.4144700-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910110835.4144700-1-sashal@kernel.org>
 References: <2026090804-parakeet-recolor-7d74@gregkh>
@@ -47,73 +48,65 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit 090f612756a9720ec18b0b130e28be49839d7cb5 ]
+[ Upstream commit a8f659ce14f8f734894227ba2c5ca78c8451501e ]
 
-The code is slightly reformatted to consistently check field availability
-without duplication.
+Add offset check before access to attr->non_res field as mentioned in [1].
 
-Fixes: 556bdf27c2dd ("ntfs3: Add bounds checking to mi_enum_attr()")
+[1] https://lore.kernel.org/ntfs3/20241010110005.42792-1-llfamsec@gmail.com/
+
+Suggested-by: lei lu <llfamsec@gmail.com>
 Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Stable-dep-of: 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/record.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ fs/ntfs3/record.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/fs/ntfs3/record.c b/fs/ntfs3/record.c
-index e633fabdfbe5e..e8d25f6ff15ed 100644
+index e8d25f6ff15ed..76b12444633c5 100644
 --- a/fs/ntfs3/record.c
 +++ b/fs/ntfs3/record.c
-@@ -232,6 +232,7 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
+@@ -207,7 +207,7 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
+ 			return NULL;
+ 
+ 		if (off >= used || off < MFTRECORD_FIXUP_OFFSET_1 ||
+-		    !IS_ALIGNED(off, 4)) {
++		    !IS_ALIGNED(off, 8)) {
+ 			return NULL;
+ 		}
+ 
+@@ -231,8 +231,11 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
+ 		off += asize;
  	}
  
- 	/* Can we use the first field (attr->type). */
-+	/* NOTE: this code also checks attr->size availability. */
+-	/* Can we use the first field (attr->type). */
+-	/* NOTE: this code also checks attr->size availability. */
++	/*
++	 * Can we use the first fields:
++	 * attr->type,
++	 * attr->size
++	 */
  	if (off + 8 > used) {
  		static_assert(ALIGN(sizeof(enum ATTR_TYPE), 8) == 8);
  		return NULL;
-@@ -252,10 +253,6 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
- 		return NULL;
+@@ -254,10 +257,17 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
  
  	asize = le32_to_cpu(attr->size);
--	if (asize < SIZEOF_RESIDENT) {
--		/* Impossible 'cause we should not return such attribute. */
--		return NULL;
--	}
  
- 	/* Check overflow and boundary. */
- 	if (off + asize < off || off + asize > used)
-@@ -286,6 +283,10 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
- 	if (attr->non_res != 1)
- 		return NULL;
- 
-+	/* Can we use memory including attr->nres.valid_size? */
-+	if (asize < SIZEOF_NONRESIDENT)
++	if (!IS_ALIGNED(asize, 8))
 +		return NULL;
 +
- 	t16 = le16_to_cpu(attr->nres.run_off);
- 	if (t16 > asize)
+ 	/* Check overflow and boundary. */
+ 	if (off + asize < off || off + asize > used)
  		return NULL;
-@@ -312,7 +313,8 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
  
- 	if (!attr->nres.svcn && is_attr_ext(attr)) {
- 		/* First segment of sparse/compressed attribute */
--		if (asize + 8 < SIZEOF_NONRESIDENT_EX)
-+		/* Can we use memory including attr->nres.total_size? */
-+		if (asize < SIZEOF_NONRESIDENT_EX)
- 			return NULL;
- 
- 		tot_size = le64_to_cpu(attr->nres.total_size);
-@@ -322,9 +324,6 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
- 		if (tot_size > alloc_size)
- 			return NULL;
- 	} else {
--		if (asize + 8 < SIZEOF_NONRESIDENT)
--			return NULL;
--
- 		if (attr->nres.c_unit)
- 			return NULL;
- 
++	/* Can we use the field attr->non_res. */
++	if (off + 9 > used)
++		return NULL;
++
+ 	/* Check size of attribute. */
+ 	if (!attr->non_res) {
+ 		/* Check resident fields. */
 -- 
 2.53.0
 
