@@ -1,67 +1,42 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65593939C1
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36404963C7
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048934; cv=none; b=XHTPVfdMQJ3ztw8E+o28HWBKz1WyAHAu6yeIQnq7Xjydkukm4brDrkCyrdunXuDlWQtJmLi9KejyUNLNAUrz3wPP5dQRtaaCDeOk+qanIf9GY35GwA8bPV8Zhv6Ocao8iT8tjf7l3+sy2+18cO4IPoguW7eIZuRxMRkRdtScLP0=
+	t=1789049035; cv=none; b=AUIteblRBhR1NAjNMgkfik0X0lrK1F/eqeRFHXQVutzy1zwzhkG0HGMwB89b6MbvdB7LUSjWSBxW/d0C1y4/YcbRe8Dtdumq6JQyebHAZAE8LpTpLwG0Kj+foEXwKTRvh9zaEMzGjhf6VDvwyDC6g0MTNBQL4/+wecjGFkXWkh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048934; c=relaxed/simple;
-	bh=Cy750GzBll6bROKUYBd0OY8+u3cY55k9qpgc+XdvLXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NZ9vDcZ+h1X8QZcKPM1GYWff8wWsyq68xFeakvXTLIllJkHxHvHq46h080+/aepWGjit0jqKw/iQpX6zVLFAUEknswxg3eFrmWL9MH+7ppfbfoES/EGxiCrDoR/FgzzWnXWHLs3R1+u8hOBNsy8jtle4Uv0V1T5nqX/zye3xNnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K74qrI5K; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789049035; c=relaxed/simple;
+	bh=pP3lbTiA6cbjDs574Bc4hRmwYv9RQuxJFQ9YYdbfl+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ETesCmfSLLKhWHs8LtQD7R242sqCWCWJyhG1JoiqiShXxwEQQ+lxmIknB6oD1Zjt0SE2vS6JGR5Ucr9Ux7iQ7vK7bWiMNbXWZb9gsHRj5x8L04ttvCeF07rML+madZ/U/BDrmnvTdDGcMXdZBnzi71vYmIspzsjeytMqHug6NMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlP4ejv9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K74qrI5K"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4a46a53abc9so5556671b6e.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:02:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789048932; x=1789653732; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z9J+JrWjpvpXQUYfZhH1A5CtyfDunCqzubZiL0OyBK0=;
-        b=K74qrI5KuYSQ2AKcqQgqPUvinFRvMoB/PC9V7vkT6TaZnXdlcc88G7BMaqm0dv+XmV
-         iu7SsiDaVciDiqnLzTX8Dy6KsATC3CdFJswDb32EaTRn26U9GMufmXT0Xw6Q1Z68bCM0
-         bx9SI1jWHcZ+7nZszb2fll1fiuOK8T+8bqzjq2VLlrPE9yf2GXJf31GBgmTyIy91asJt
-         LM345/LJWebQrDTZ8h4cJhm/1x38QP/dmXq41kpBX9AqTRrIA8WD8x3BRnm5H3IItvF+
-         lexlsjy0sqyBRSv/Mkasq3bUZRQ69uoUA1OkzUXOGyrOidg8hErY+9SspKcqFcXZTKae
-         ao9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048932; x=1789653732;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z9J+JrWjpvpXQUYfZhH1A5CtyfDunCqzubZiL0OyBK0=;
-        b=r0bQOdz1GOS/JBelqAdMkSUEDG6at+or0HPW5Bk1p5b3ECiju419s+c3GwXoqmKwHV
-         rLfvAPhtN7rulF6Cf1CIepmKUUheQWMoi/TOtoDv4S3gxOyltuI8Ww5exCH36Z0/2Ras
-         ogiUexyWSjAnAxbgsgjwyBARi1w0YTD7IX6n+4ZQjuOoAXKZLd3IRWOl+9Wr/d1pRsi5
-         rKpLRAtQ6JTXySj0MDAXLAyjOEi9bzgYdF4tfE3oocOJanWbRTkBdGOxnwQWONI2IWl+
-         FxYFPWFojcubuZntWwcHSvZW6w/D2pTB9DmdDhpql5uzCBR8TNTV/l39vSBi4ZLQ6/ih
-         pn6Q==
-X-Gm-Message-State: AFuF++kyqPhmQEi1I6hQ8xgQjMFqtxPAZbRnGnEbq5o9UalxufG+Ryd9
-	WBxhR0RlQF70XBWICC7b34OguoONieyEBIhPVAmNMoHbe1OEVK9fQ/NfOl/dU9/T
-X-Gm-Gg: AYBFou2+fFMH6qhMyndNoPoCKlCTfGciSx2bewLgRfg1Pqypo7Yw/JWw9NLf92Voydz
-	Y+qYgfvfl8Ck6hEhGCGMCUbwBE2RRQMNYz1AEHKQwHBzjexa/UOPpQ9B2I4sfU7RgNwXxh1SeZ8
-	fg20eEwonKN4CRW4zpqqvYHpJ97y3s0tOW1v4n3HPv7C5zgvjqSfMww9qyel0cdvo3O7VZiABYZ
-	gq9Iw+1eLHFpnck6uz5g621gPre64tyDvTg/H/1y3LdyFg9XWJjIdpSQFkX6BlXZBdJvrxuBpAq
-	utO/eAOknnyfL6uM/EGVzW4sct/uckHkkKHwzHK29bgYFTMJUH+P7+6p3KYmd2Y/DSokchDG31W
-	mA66D3DKi3tqPKTLs3WNYgA79oRMJtDdWef2fiQ9iZlc96rnnMle75A0CJ2A98xu8YM+pyqYgqm
-	LLeAsfeF0aqraystxxZeQ7Q7rBeLfbhwBWVZ5Y1zIIM+8Tj4w+WEYcFJjjNS70lDo36DPaRlPX
-X-Received: by 2002:a05:6820:198c:b0:6b4:117e:543 with SMTP id 006d021491bc7-6b6fc5dc03amr23927800eaf.21.1789048931393;
-        Thu, 10 Sep 2026 07:02:11 -0700 (PDT)
-Received: from lap-0341.. ([182.176.170.188])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338f7bad290sm21735667eec.14.2026.09.10.07.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:02:10 -0700 (PDT)
-From: Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>
-To: syedlabeeq@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] usb: storage: sierra_ms: reject short SWoC info transfers
-Date: Thu, 10 Sep 2026 19:01:56 +0500
-Message-ID: <20260910140156.47847-1-syedlabeeq@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlP4ejv9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DE41F000FF;
+	Thu, 10 Sep 2026 14:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049033;
+	bh=M23NWbrd9eU9yp8dX3beVXOBU2QxZJr4xsghbGI0AH8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hlP4ejv92udhdKDPnihiL6TmLWStVDezkZxlth6K7smb68yPA0W49AVUAG4VntUuA
+	 3zqG9QJxMaHc1TAEiUhPdsPfGLYLnqwzvGZDMEkJtKnFWVjOhy1Emc0icoBQGlDekl
+	 KLb9UuDn0mBJ94ROtUKqhzkrA7fBxyGX2amec1pJDSFTagN6qJn6M08vD320a2cS30
+	 a7HgFK4k9FUqy6bUn0rfD/epOcM8x4C1ePNILrCxAJsx+0xqPRm47OAzD5e7fHcVLr
+	 KFUH1tYYmMYxDrKkTO3UVhkeqYvNqvHHzW8B9c8deczl84tj9SewKID8uRDtbpcBXk
+	 JKUqmGFbBKEzA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Breno Leitao <leitao@debian.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ftrace: Take trace_array reference before accessing its ftrace_ops
+Date: Thu, 10 Sep 2026 10:03:51 -0400
+Message-ID: <20260910140351.542099-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090804-math-renewal-5eb6@gregkh>
+References: <2026090804-math-renewal-5eb6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,52 +45,253 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sierra_get_swoc_info() requests sizeof(struct swoc_info) (60) bytes
-from the device via usb_control_msg(), but its callers only treat a
-negative return value as failure. A device that answers the
-vendor-specific GetSwocInfo request with a short IN transfer is
-therefore accepted, leaving the tail of the freshly allocated
-(kmalloc(), non-zeroing) swoc_info buffer uninitialized.
+From: Steven Rostedt <rostedt@goodmis.org>
 
-truinst_show() subsequently prints swocInfo->rev, swocInfo->LinuxSKU
-and swocInfo->LinuxVer from that buffer into the world-readable
-(0444) "truinst" sysfs attribute. An emulated/malicious USB device
-(VID 0x1199, PID 0x0fff) can exploit this to disclose up to 5 bytes
-of stale kernel heap memory (kmalloc-64) to unprivileged userspace,
-once per sysfs read, indefinitely. On kernels built without
-init_on_alloc this leaks recently freed heap contents.
+[ Upstream commit 9100191e5acb2e5ea2313f436667bb5fce129f47 ]
 
-Only accept the transfer when the full structure was received.
-sierra_ms_init() already retries failed queries, so well-behaved
-devices are unaffected.
+The trace instance files set_ftrace_filter and set_ftrace_notrace was
+updated to work with specific trace instances (trace_arrays). The issue is
+that when these files are opened, there is a small race window where it
+will use the ftrace_ops from the inode->private pointer to get a reference
+to the trace_array and then take its reference. The problem is that the
+ftrace_ops itself could be freed. If the rmdir on the instance happens at
+the same time the set_ftrace_filter file is opened, the rmdir could have
+also freed the ftrace_ops and referencing it will cause a use-after-free
+bug and crash the kernel.
 
-Fixes: 32fe5e393455 ("USB Storage Sierra: TRU-Install feature update")
+Instead, pass in the trace_array as the file private data (NULL for the
+top level instance), and then pass both the trace_array and the ftrace_ops
+to the ftrace_regex_open() function. If the trace_array is NULL, then it
+just uses the ftrace_ops without the need to take its reference (like
+normal). If the ftrace_ops is NULL, that is only the case for the top
+level instance and the global_ops can be used.
+
+This allows the trace_array to have its reference incremented before
+touching the ftrace_ops that could also be freed when the instance is.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>
-Assisted-by: Kimi:K2 [Kimi Code CLI]
+Link: https://patch.msgid.link/20260828223901.29e26edb@robin
+Fixes: 591dffdade9f0 ("ftrace: Allow for function tracing instance to filter functions")
+Reported-by: Breno Leitao <leitao@debian.org>
+Tested-by: Breno Leitao <leitao@debian.org>
+Closes: https://lore.kernel.org/all/apGORjltZgAiAYHT@gmail.com/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ retained kzalloc(sizeof(*iter), GFP_KERNEL) instead of kzalloc_obj(*iter). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2: add blank line before the comment block; add Assisted-by tag.
-    No functional change.
- drivers/usb/storage/sierra_ms.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/ftrace.h         |  5 +--
+ kernel/trace/ftrace.c          | 57 ++++++++++++++++++++++------------
+ kernel/trace/trace.h           |  4 +--
+ kernel/trace/trace_functions.c |  2 +-
+ kernel/trace/trace_stack.c     |  2 +-
+ 5 files changed, 44 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/usb/storage/sierra_ms.c b/drivers/usb/storage/sierra_ms.c
-index 177fa6cd143ab2837640c26f8336781ddd3cf9cb..d8fe9561b2b5f4cce6aa8702309cfc195bc3c891 100644
---- a/drivers/usb/storage/sierra_ms.c
-+++ b/drivers/usb/storage/sierra_ms.c
-@@ -77,6 +77,13 @@
- 			sizeof(struct swoc_info),	/* __u16 size 	     */
- 			USB_CTRL_SET_TIMEOUT);		/* int timeout 	     */
+diff --git a/include/linux/ftrace.h b/include/linux/ftrace.h
+index 1ddc2a3ee463f..97e5f692a887e 100644
+--- a/include/linux/ftrace.h
++++ b/include/linux/ftrace.h
+@@ -759,8 +759,9 @@ unsigned long ftrace_get_addr_new(struct dyn_ftrace *rec);
+ unsigned long ftrace_get_addr_curr(struct dyn_ftrace *rec);
  
-+	/*
-+	 * A short IN transfer leaves the tail of swocInfo uninitialized;
-+	 * only a full transfer is valid.
-+	 */
-+	if (result != sizeof(struct swoc_info))
-+		return -EIO;
+ extern ftrace_func_t ftrace_trace_function;
++struct trace_array;
+ 
+-int ftrace_regex_open(struct ftrace_ops *ops, int flag,
++int ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
+ 		  struct inode *inode, struct file *file);
+ ssize_t ftrace_filter_write(struct file *file, const char __user *ubuf,
+ 			    size_t cnt, loff_t *ppos);
+@@ -970,7 +971,7 @@ static inline unsigned long ftrace_location(unsigned long ip)
+  * have them defined when ftrace is not enabled, but these
+  * functions may still be called. Use a macro instead of inline.
+  */
+-#define ftrace_regex_open(ops, flag, inod, file) ({ -ENODEV; })
++#define ftrace_regex_open(tr, ops, flag, inode, file) ({ -ENODEV; })
+ #define ftrace_set_early_filter(ops, buf, enable) do { } while (0)
+ #define ftrace_set_filter_ip(ops, ip, remove, reset) ({ -ENODEV; })
+ #define ftrace_set_filter_ips(ops, ips, cnt, remove, reset) ({ -ENODEV; })
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 14c1bcbce106d..d7acab7813fd4 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -4526,7 +4526,8 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
+ 
+ /**
+  * ftrace_regex_open - initialize function tracer filter files
+- * @ops: The ftrace_ops that hold the hash filters
++ * @tr: The trace_array that holds the ftrace_ops [optional]
++ * @ops: The ftrace_ops that hold the hash filters [optional]
+  * @flag: The type of filter to process
+  * @inode: The inode, usually passed in to your open routine
+  * @file: The file, usually passed in to your open routine
+@@ -4540,26 +4541,45 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
+  * tracing_lseek() should be used as the lseek routine, and
+  * release must call ftrace_regex_release().
+  *
++ * Note, If @tr is not NULL, its reference has to be taken before
++ *       @ops may be referenced.
++ *       If @ops is NULL and @tr is not, then @tr->ops is used.
++ *       If @tr is NULL and @ops is not then @ops->private is uesd for @tr.
++ *       If both @tr and @ops are NULL, then the &global_ops is
++ *         to be used, and @tr will be the global_ops.private pointer.
++ *
+  * Returns: 0 on success or a negative errno value on failure
+  */
+ int
+-ftrace_regex_open(struct ftrace_ops *ops, int flag,
++ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
+ 		  struct inode *inode, struct file *file)
+ {
+-	struct ftrace_iterator *iter;
++	struct ftrace_iterator *iter = NULL;
+ 	struct ftrace_hash *hash;
+ 	struct list_head *mod_head;
+-	struct trace_array *tr = ops->private;
+-	int ret = -ENOMEM;
+-
+-	ftrace_ops_init(ops);
++	int ret = -ENODEV;
+ 
+ 	if (unlikely(ftrace_disabled))
+ 		return -ENODEV;
+ 
++	if (!tr) {
++		if (!ops)
++			ops = &global_ops;
++		tr = ops->private;
++	}
 +
- 	swocInfo->LinuxSKU = le16_to_cpu(swocInfo->LinuxSKU);
- 	swocInfo->LinuxVer = le16_to_cpu(swocInfo->LinuxVer);
- 	return result;
+ 	if (tracing_check_open_get_tr(tr))
+ 		return -ENODEV;
+ 
++	if (!ops)
++		ops = tr->ops;
++
++	if (WARN_ON_ONCE(!ops))
++		goto out;
++
++	ftrace_ops_init(ops);
++
++	ret = -ENOMEM;
+ 	iter = kzalloc(sizeof(*iter), GFP_KERNEL);
+ 	if (!iter)
+ 		goto out;
+@@ -4637,21 +4657,19 @@ ftrace_regex_open(struct ftrace_ops *ops, int flag,
+ static int
+ ftrace_filter_open(struct inode *inode, struct file *file)
+ {
+-	struct ftrace_ops *ops = inode->i_private;
++	struct trace_array *tr = inode->i_private;
+ 
+-	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops,
+-			FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
+-			inode, file);
++	return ftrace_regex_open(tr, NULL,
++				 FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
++				 inode, file);
+ }
+ 
+ static int
+ ftrace_notrace_open(struct inode *inode, struct file *file)
+ {
+-	struct ftrace_ops *ops = inode->i_private;
++	struct trace_array *tr = inode->i_private;
+ 
+-	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops, FTRACE_ITER_NOTRACE,
++	return ftrace_regex_open(tr, NULL, FTRACE_ITER_NOTRACE,
+ 				 inode, file);
+ }
+ 
+@@ -6960,15 +6978,15 @@ static const struct file_operations ftrace_graph_notrace_fops = {
+ };
+ #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
+ 
+-void ftrace_create_filter_files(struct ftrace_ops *ops,
++void ftrace_create_filter_files(struct trace_array *tr,
+ 				struct dentry *parent)
+ {
+ 
+ 	trace_create_file("set_ftrace_filter", TRACE_MODE_WRITE, parent,
+-			  ops, &ftrace_filter_fops);
++			  tr, &ftrace_filter_fops);
+ 
+ 	trace_create_file("set_ftrace_notrace", TRACE_MODE_WRITE, parent,
+-			  ops, &ftrace_notrace_fops);
++			  tr, &ftrace_notrace_fops);
+ }
+ 
+ /*
+@@ -6993,7 +7011,6 @@ void ftrace_destroy_filter_files(struct ftrace_ops *ops)
+ 
+ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
+ {
+-
+ 	trace_create_file("available_filter_functions", TRACE_MODE_READ,
+ 			d_tracer, NULL, &ftrace_avail_fops);
+ 
+@@ -7006,7 +7023,7 @@ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
+ 	trace_create_file("touched_functions", TRACE_MODE_READ,
+ 			d_tracer, NULL, &ftrace_touched_fops);
+ 
+-	ftrace_create_filter_files(&global_ops, d_tracer);
++	ftrace_create_filter_files(NULL, d_tracer);
+ 
+ #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+ 	trace_create_file("set_graph_function", TRACE_MODE_WRITE, d_tracer,
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index baa39009a25d1..eacf6d3d2313d 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1191,7 +1191,7 @@ extern void clear_ftrace_function_probes(struct trace_array *tr);
+ int register_ftrace_command(struct ftrace_func_command *cmd);
+ int unregister_ftrace_command(struct ftrace_func_command *cmd);
+ 
+-void ftrace_create_filter_files(struct ftrace_ops *ops,
++void ftrace_create_filter_files(struct trace_array *tr,
+ 				struct dentry *parent);
+ void ftrace_destroy_filter_files(struct ftrace_ops *ops);
+ 
+@@ -1214,11 +1214,11 @@ static inline void clear_ftrace_function_probes(struct trace_array *tr)
+ {
+ }
+ 
++#define ftrace_create_filter_files(tr, parent) do { } while (0)
+ /*
+  * The ops parameter passed in is usually undefined.
+  * This must be a macro.
+  */
+-#define ftrace_create_filter_files(ops, parent) do { } while (0)
+ #define ftrace_destroy_filter_files(ops) do { } while (0)
+ #endif /* CONFIG_FUNCTION_TRACER && CONFIG_DYNAMIC_FTRACE */
+ 
+diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
+index fbb6cf8dc0475..e668c2697dcc7 100644
+--- a/kernel/trace/trace_functions.c
++++ b/kernel/trace/trace_functions.c
+@@ -97,7 +97,7 @@ int ftrace_create_function_files(struct trace_array *tr,
+ 		return ret;
+ 	}
+ 
+-	ftrace_create_filter_files(tr->ops, parent);
++	ftrace_create_filter_files(tr, parent);
+ 
+ 	return 0;
+ }
+diff --git a/kernel/trace/trace_stack.c b/kernel/trace/trace_stack.c
+index 7f9572a373335..d602c86de18f3 100644
+--- a/kernel/trace/trace_stack.c
++++ b/kernel/trace/trace_stack.c
+@@ -499,7 +499,7 @@ stack_trace_filter_open(struct inode *inode, struct file *file)
+ 	struct ftrace_ops *ops = inode->i_private;
+ 
+ 	/* Checks for tracefs lockdown */
+-	return ftrace_regex_open(ops, FTRACE_ITER_FILTER,
++	return ftrace_regex_open(NULL, ops, FTRACE_ITER_FILTER,
+ 				 inode, file);
+ }
+ 
 -- 
-2.43.0
+2.53.0
+
