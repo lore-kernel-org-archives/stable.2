@@ -1,117 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CCD31618B
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:21:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECEF3128B6
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:24:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003267; cv=none; b=jrInbFo2OmVyVwgo3nMnF0jlkyy2HpbNJcMbbkeJhVNHQ1AiwDg/6qlCaJkbW3+rZ3EI5cF9ST8Tp3JpNZOTfzWfmXjkHErumC9YU9PFdV75E0prbzT7NrHGnk8jT9CGUv+W43/8Hr3vvm7ZSfPDCnLK1nb1qtV8+TC9BtWJJNU=
+	t=1789003445; cv=none; b=V6kVcTbIDDa8LJRFKXpsl+IbQf4Xf1Wc01QaKzRSUSpOBNzuy2zv5LKhU3bq8Nsngj5DdEi83ETIvawy7RVfIP2T56ly10hA0CEYtO1vGLNbKVV/0WlDTENSFz75X8DUDTj4vErGStYTqNikJ5RN2WavgNi5ewgRDNVFxf3r6MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003267; c=relaxed/simple;
-	bh=07K2V86eo+aO+3/jBDxlI54TqtzrGqMnvH8Qkv0qgdg=;
+	s=arc-20240116; t=1789003445; c=relaxed/simple;
+	bh=fZ0w3qe8/Nmj7Lzm/kFeSh2lxusIM6eJ24fflpucA1g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eodCsbJZYcWHEUUmSI9nwZB/Y6HhScvhQ3mykTepafrTdkNMVO92mqFLRIq+URE583+AqUHqQEqNnrqarkdC5mveDf4L5McTqhisj1S2cpRb9W+rfggKVBticlBDbgQR8BDhQF4GyQA5E083TbQ/kKLQQOJapDsDewYNj2LnixE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcH0YgYi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ug2X+vn537GpY19bXkhhG3znorl5INJ5IHwuen0OhNufnKWxXtAnCjnxemlCeTVVoisesjL3k4XAFRo7S35WA+O9QYZzFVFIh9mNKTA7Rwp9jHqK5u7i2ZFfxzesgsbktjIR4/sWecvkinCchrDf257EQQQY/qxHFK0giwUtjVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AioU73Rl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcH0YgYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7281F00899;
-	Thu, 10 Sep 2026 01:21:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AioU73Rl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916891F000FF;
+	Thu, 10 Sep 2026 01:24:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003265;
-	bh=7X306JXqrS34QQj2i4n6C+qC822pYxKi7MGvrtrD6+M=;
+	s=k20260515; t=1789003444;
+	bh=d2ashPz1ZOKO9yoU2BJ6hwfSKJKL5ngf7L39fiaMtGo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcH0YgYiyMU+bTnp25B96mbluy821wVNbA7qaWTKIbrZEOUYBTAy1vTw6V5Zah0lU
-	 /JRHV8dTVn5CLrym1htEwZXB9cKKZ9kp4ll2hc5bAPAU/7fhDBC3xUGS0mzAq4wIFX
-	 09EI2g5uCteSt4aZjp4J5UosxJB+EjcVTcbuAKXIewGPSNQ2bYz7vci4SUZVWZ8X/G
-	 bKSAC/uJiO86o6URqmmQw6FsYFcVh5s/c5Hhj+2N+oyB+2ZsiDDr0x/ILyhYtBZCyq
-	 PHDutuDQOqWlpv1GhdtJH9NaLVzoVyil8w0yDQXKbortd+uqCtD9CAxbxUH6lykSnz
-	 9QYIQw5rWaA3w==
+	b=AioU73RlJm5CXQijDD2Tr2Wf53qmeziVmTMvNVEZAriXhT8ihbozVgKh18k8tIiD7
+	 2SIQ//v1zfxDUKlv+M4Xx65IF657ohkz9hT3cJEl2q0N8Ikg95gOwCkivmC5fgYZlD
+	 UCLUOa3rpR2YjnZYBecjA0nscKoObvlh0txoETjqhTP0DxzrRmziXhoQLh6TI+uxpy
+	 mEgLy3Rf6Ar3w18AqUwad3jsWijPKT0bySG3oTnTKy2MSy1BFHcVz4+4pYC0SY9gJ/
+	 fjxan4tzyNHOF4vA+K2+PsgMtwJHCcHWLkJo7PKJzuQrB/KZPFSePFJTcajLGnPQa/
+	 +EDuIdAj5h3QA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] udf: Fix data loss when converting inline inodes to out of line
-Date: Wed,  9 Sep 2026 21:21:03 -0400
-Message-ID: <20260910012103.3847731-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] i3c: master: Do not treat master device as a duplicate target
+Date: Wed,  9 Sep 2026 21:24:01 -0400
+Message-ID: <20260910012401.3854605-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910012103.3847731-1-sashal@kernel.org>
-References: <2026090408-hardening-frenzied-5de0@gregkh>
- <20260910012103.3847731-1-sashal@kernel.org>
+In-Reply-To: <2026090412-disarm-stranger-9a23@gregkh>
+References: <2026090412-disarm-stranger-9a23@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jan Kara <jack@suse.cz>
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-[ Upstream commit 62333e480d12ab186f89fe2725b372d12f72d5eb ]
+[ Upstream commit 4dc1b3eeba7991905a5b5b8129ebea51be7d87b7 ]
 
-When udf_expand_file_adinicb() converts file from inline format to out
-of line, we use filemap_fdatawrite() to writeout the data to the new
-blocks. However since 36580ed08776 ("udf: Do not allocate blocks on page
-writeback") the writeback actually doesn't allocate the new block and
-the folio dirty bit is just silently cleared. Thus unless the file is
-written to after the conversion (as it can easily happen in case of
-truncate up), the data is just lost. Fix the problem by explicitely
-allocating the block underlying the data before starting writeback.
+i3c_master_search_i3c_dev_duplicate() searches the bus for another I3C
+device with the same PID as the reference device.  The search can match
+master->this, causing the controller itself to be returned as a
+duplicate.
 
-Fixes: 36580ed08776 ("udf: Do not allocate blocks on page writeback")
-CC: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260730104232.4086759-4-jack@suse.cz
-Signed-off-by: Jan Kara <jack@suse.cz>
+Since the controller is not a target device, it cannot be a duplicate of
+one.  Exclude master->this from matching so that the function only
+returns real duplicate target devices.
+
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Acked-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260807145638.168865-4-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[ adjusted the duplicate-device comparison to match the older branch’s PID handling without nonzero-PID checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/inode.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/i3c/master.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index bed3bc4f4fa2f..271e3f0d1fb10 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -406,6 +406,10 @@ int udf_expand_file_adinicb(struct inode *inode)
- {
- 	struct folio *folio;
- 	struct udf_inode_info *iinfo = UDF_I(inode);
-+	struct udf_map_rq map = {
-+		.lblk = 0,
-+		.iflags = UDF_MAP_CREATE,
-+	};
- 	int err;
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index add78b03c5338..af55b881d33ce 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -1828,7 +1828,8 @@ i3c_master_search_i3c_dev_duplicate(struct i3c_dev_desc *refdev)
+ 	struct i3c_dev_desc *i3cdev;
  
- 	WARN_ON_ONCE(!inode_is_locked(inode));
-@@ -435,20 +439,27 @@ int udf_expand_file_adinicb(struct inode *inode)
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
- 	else
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
-+	up_write(&iinfo->i_data_sem);
-+
-+	/* Allocate the block underlying the data */
-+	err = udf_map_block(inode, &map);
-+	if (err < 0)
-+		goto restore;
-+
- 	folio_mark_dirty(folio);
- 	folio_unlock(folio);
--	up_write(&iinfo->i_data_sem);
- 	err = filemap_fdatawrite(inode->i_mapping);
- 	if (err) {
- 		/* Restore everything back so that we don't lose data... */
- 		folio_lock(folio);
-+restore:
- 		down_write(&iinfo->i_data_sem);
- 		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
- 				folio, 0, inode->i_size);
--		folio_unlock(folio);
- 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
- 		iinfo->i_lenAlloc = inode->i_size;
- 		up_write(&iinfo->i_data_sem);
-+		folio_unlock(folio);
+ 	i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
+-		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid)
++		if (i3cdev != refdev && i3cdev->info.pid == refdev->info.pid &&
++		    i3cdev != master->this)
+ 			return i3cdev;
  	}
- 	folio_put(folio);
- 	mark_inode_dirty(inode);
+ 
 -- 
 2.53.0
 
