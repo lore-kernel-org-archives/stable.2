@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4663A388893
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7EB3AAF5B
 	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:45:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058726; cv=none; b=U8CtKXsus0SBbEuDjKjTTWkB3VKxVY6Uyph1fYCpiTgHIj9K9WxBRhqDZ5YtTjUp38K2ZBAioXUUuFl6C8XtiAjN21/L5xvExJyy3qN/f2fClADv/LhG08v3BwZxyN3EAAfdEd4bIcD7TOcC1xz/UY8vtVoijEEScZNMKZl5yzw=
+	t=1789058727; cv=none; b=Ql8F3i5l9wdpsoVzGNoi1ef384g6yNWTXNz0dWP4cseNg3ufr6pRTUmbscobYCjDMDJBZzeJoTr/v13khwCAOXmOln8FfVPa4/qu0473EhPUSSN/L1Jbru1hWLH7E2F38VrqlnZa2MaDx5Eiiv7K7uMGWt40jcn7oFXJvaPFvkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058726; c=relaxed/simple;
-	bh=tvHzbcw30pbjhEJWNAWRaem0spdPcvtbzGwuV7nD/Z8=;
+	s=arc-20240116; t=1789058727; c=relaxed/simple;
+	bh=20XYGRolyVaDa4tmt5fWA4f/9wSm/LqJjSTpw05nkZg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rAH5l6nUuy+9uARUi/o2MHalMCakAdAGcgvzbLVviFOzRHcAgaTyT+36GwqohZPsh3fYNUNfYLJRHdhN9w55VuCyptdbFR9srxJicZxPGCYjjtgZo76+Aq6VVijmKwKyDigoSHEil/3TRGoS/AjdnMhifwlRA71+/meDzhjJBTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lb601A/X; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SqBPnIUOnTJs405bhpUgt9BOIrorLkJqYZxajboenCZk6LiNCLGJ8Yzqcp4hykL/76mKUJXW1BH3z6QfYuRq1I4tcrqLdFJmYed7rojVl56jUo4HAsH/SvwdBh/Lvgnnjs7nEXpFmzUH2VeprOg3QnkeNRjegyWfTJZxIf3o8aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nMb0OZEo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lb601A/X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557DF1F000FF;
-	Thu, 10 Sep 2026 16:45:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMb0OZEo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B53F1F00898;
+	Thu, 10 Sep 2026 16:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789058724;
-	bh=eYCxIvJkcbgHrPUIS3ccwKbFvwJgCshMRVAvNALZuDg=;
+	s=k20260515; t=1789058725;
+	bh=FgD5BvbP/h0iyyQ1g9wNUCb5ZiBRHDWujdXHiu4wglQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lb601A/XP/yfirL0GZ/r41V+IMn1YmbgMRpvxtFCzPXqHJEUFKO97ErKeI5ZR7KtO
-	 FeJFLJODL7bsRfP50cwt5v7rD4ZrDzGpqZl68mBXutfC8POg9bxtRSx/nGrGdXYCxj
-	 eFpHGl33gQtUiFHu9mKFXolWBPJdc6ZLjOfIjCteKcTbVuzZnNDXGFCGQyrhmy0mrC
-	 jvmeOisYqnQ/DLWDbgDAadTtPO0lgucBdC+/fDlqzfr1jhdhXSDOZ/zAfoOhMGhfYe
-	 2RZJDp0PIJrKX9zrMMUODK+8s6nMqqIm0J5DOKXDwt6IoAYDNWrhgx1Bj9agr29cvK
-	 WOXaReLEXLTcg==
+	b=nMb0OZEoVjU+21rS7UX/rYYlsck62zhuxH7KcrZ91cA6ujIp9il6d81O03zS/Tx4a
+	 OQDzK13bAEjGDZ4Ne6Q9pt4FUNErwNvIu24R1dBF2SrSoaQUCRhxMOQOwlOSO8dRd9
+	 /XwM4PAYkSVHGNkpIYD8ibObi4+8yST+fX1gLYWWDC8+OYlY3a7efzpnz9P/NlaucB
+	 +E9s6b/zYch+Qm0UjIoMvb3OEwqVINE6vYFXXfbH00esYYvjidWd2BVinm3jnBHz30
+	 Ki/cneCOnm2AJJPVxnQuT19i3uCjrJgE/UuIdqSyvKwV/Y9Umskiy7Rn8oLE4ZGiLS
+	 lJAUhOyAk9Utg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ian Rogers <irogers@google.com>,
+Cc: Yilin Zhang <yilinzhang@moonshot.ai>,
+	Kimi Security Team <bug-report@moonshot.ai>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Weiming Shi <shiweiming@moonshot.ai>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] perf/core: Fix deadlock in perf_mmap() failure path
-Date: Thu, 10 Sep 2026 12:45:21 -0400
-Message-ID: <20260910164522.1249555-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] perf: Fix use-after-free when perf mmap() revival races with the last munmap()
+Date: Thu, 10 Sep 2026 12:45:22 -0400
+Message-ID: <20260910164522.1249555-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090946-pacify-trodden-af31@gregkh>
+In-Reply-To: <20260910164522.1249555-1-sashal@kernel.org>
 References: <2026090946-pacify-trodden-af31@gregkh>
+ <20260910164522.1249555-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,187 +48,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Zijlstra <peterz@infradead.org>
+From: Yilin Zhang <yilinzhang@moonshot.ai>
 
-[ Upstream commit c69df06e4e26e50611190ce04eab92c5cc261b61 ]
+[ Upstream commit 58a8108bc73de0740d5b88150465d6690ea5f85f ]
 
-Ian noted that commit 77de62ad3de3 ("perf/core: Fix refcount bug and
-potential UAF in perf_mmap") would cause a deadlock due to
-event->mmap_mutex recursion.
+perf_mmap_close() drops rb->mmap_count *without* holding
+event->mmap_mutex (the refcount_dec_and_test() right before the
+refcount_dec_and_mutex_lock() of event->mmap_count). A concurrent
+perf_mmap_rb() can slot its entire "revival" path into that window
+(perf_mmap holds event->mmap_mutex for its whole duration, including
+rb_alloc):
 
-This happens because we're now calling perf_mmap_close() under
-mmap_mutex, while that function itself can also take mmap_mutex.
+  munmap side (perf_mmap_close)          mmap side (perf_mmap_rb)
+  -----------------------------------    --------------------------------
+  rb->mmap_count 1 -> 0   (no lock)      (holds event->mmap_mutex)
+                                         inc_not_zero(rb->mmap_count) fails
+                                         ring_buffer_attach(event, NULL)
+                                         rb_alloc() + attach new rb
+                                         refcount_set(&event->mmap_count, 1)
+  lock; event->mmap_count 1 -> 0
+  ring_buffer_attach(event, NULL)
+  ring_buffer_put() -> frees the *new* rb
 
-Solve this by noting that perf_mmap_close() is far more complicated
-than we need at this particular point, since it deals with scenarios
-that cannot happen in this particular case.
+The revival's refcount_set(&event->mmap_count, 1) is an invisible
+1 -> 1 write: the close frees the just-revived buffer although the
+other process still has it mapped -- a page-level use-after-free
+allowing local privilege escalation to root by any unprivileged user
+(default kernel.perf_event_paranoid=2).
 
-Replace the call to perf_mmap_close() with a very narrow undo for the
-case of first-exposure. If this is not the first mmap(), there is no
-race and it is fine to drop the lock and call perf_mmap_close() to
-handle to more complicated scenarios.
+Swap the order of the two counter updates: event->mmap_count is
+dropped first via refcount_dec_and_mutex_lock(), so its 1 -> 0
+transition and the ring_buffer_attach() stay serialized with
+perf_mmap(). rb->mmap_count == 0 then implies every event using the
+buffer is detached already, so the result of the rb->mmap_count drop
+can gate the remaining teardown directly and detach_rest is no longer
+needed.
 
-Note: move the rb->mmap_user (namespace) handling into the rb
-init/free code such that it does not complicate the mmap handling.
+An earlier fix for this race from Kyle Zeng and David Lee takes
+event->mmap_mutex around both counter updates [0]; here the not-last
+close stays lockless.
 
-Fixes: 77de62ad3de3 ("perf/core: Fix refcount bug and potential UAF in perf_mmap")
-Reported-by: Ian Rogers <irogers@google.com>
-Closes: https://patch.msgid.link/CAP-5%3DfVJyVMZw%3DDqP53Kxg58nUmJ_0bxoaeOKAbC03BVc11HaA%40mail.gmail.com
+Fixes: 59741451b49c ("perf: Identify the 0->1 transition for event::mmap_count")
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Co-developed-by: Weiming Shi <shiweiming@moonshot.ai>
+Signed-off-by: Weiming Shi <shiweiming@moonshot.ai>
+Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260326112821.GK3738786@noisy.programming.kicks-ass.net
-Stable-dep-of: 58a8108bc73d ("perf: Fix use-after-free when perf mmap() revival races with the last munmap()")
+Link: https://lore.kernel.org/linux-perf-users/20260804060931.711308-1-david.lee@trailofbits.com/ [0]
+Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org # 6.18+
+Link: https://patch.msgid.link/20260831162155.1437652-1-yilinzhang@moonshot.ai
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c        | 70 +++++++++++++++++++++++++++++--------
- kernel/events/internal.h    |  1 +
- kernel/events/ring_buffer.c |  2 ++
- 3 files changed, 58 insertions(+), 15 deletions(-)
+ kernel/events/core.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 04c9d49150931..b27d51a51ef37 100644
+index b27d51a51ef37..76d048a488270 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -6737,6 +6737,7 @@ static void perf_mmap_open(struct vm_area_struct *vma)
- }
- 
- static void perf_pmu_output_stop(struct perf_event *event);
-+static void perf_mmap_unaccount(struct vm_area_struct *vma, struct perf_buffer *rb);
- 
- /*
-  * A buffer can be mmap()ed multiple times; either directly through the same
-@@ -6752,8 +6753,6 @@ static void perf_mmap_close(struct vm_area_struct *vma)
+@@ -6753,7 +6753,6 @@ static void perf_mmap_close(struct vm_area_struct *vma)
  	mapped_f unmapped = get_mapped(event, event_unmapped);
  	struct perf_buffer *rb = ring_buffer_get(event);
  	struct user_struct *mmap_user = rb->mmap_user;
--	int mmap_locked = rb->mmap_locked;
--	unsigned long size = perf_data_size(rb);
- 	bool detach_rest = false;
+-	bool detach_rest = false;
  
  	/* FIXIES vs perf_pmu_unregister() */
-@@ -6848,11 +6847,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 	 * Aside from that, this buffer is 'fully' detached and unmapped,
- 	 * undo the VM accounting.
- 	 */
--
--	atomic_long_sub((size >> PAGE_SHIFT) + 1 - mmap_locked,
--			&mmap_user->locked_vm);
--	atomic64_sub(mmap_locked, &vma->vm_mm->pinned_vm);
--	free_uid(mmap_user);
-+	perf_mmap_unaccount(vma, rb);
- 
- out_put:
- 	ring_buffer_put(rb); /* could be last */
-@@ -6994,6 +6989,15 @@ static void perf_mmap_account(struct vm_area_struct *vma, long user_extra, long
- 	atomic64_add(extra, &vma->vm_mm->pinned_vm);
- }
- 
-+static void perf_mmap_unaccount(struct vm_area_struct *vma, struct perf_buffer *rb)
-+{
-+	struct user_struct *user = rb->mmap_user;
-+
-+	atomic_long_sub((perf_data_size(rb) >> PAGE_SHIFT) + 1 - rb->mmap_locked,
-+			&user->locked_vm);
-+	atomic64_sub(rb->mmap_locked, &vma->vm_mm->pinned_vm);
-+}
-+
- static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
- 			unsigned long nr_pages)
- {
-@@ -7056,8 +7060,6 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
- 	if (!rb)
- 		return -ENOMEM;
- 
--	refcount_set(&rb->mmap_count, 1);
--	rb->mmap_user = get_current_user();
- 	rb->mmap_locked = extra;
- 
- 	ring_buffer_attach(event, rb);
-@@ -7207,16 +7209,54 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
- 			mapped(event, vma->vm_mm);
- 
- 		/*
--		 * Try to map it into the page table. On fail, invoke
--		 * perf_mmap_close() to undo the above, as the callsite expects
--		 * full cleanup in this case and therefore does not invoke
--		 * vmops::close().
-+		 * Try to map it into the page table. On fail undo the above,
-+		 * as the callsite expects full cleanup in this case and
-+		 * therefore does not invoke vmops::close().
- 		 */
- 		ret = map_range(event->rb, vma);
--		if (ret)
--			perf_mmap_close(vma);
-+		if (likely(!ret))
-+			return 0;
-+
-+		/* Error path */
-+
-+		/*
-+		 * If this is the first mmap(), then event->mmap_count should
-+		 * be stable at 1. It is only modified by:
-+		 * perf_mmap_{open,close}() and perf_mmap().
-+		 *
-+		 * The former are not possible because this mmap() hasn't been
-+		 * successful yet, and the latter is serialized by
-+		 * event->mmap_mutex which we still hold (note that mmap_lock
-+		 * is not strictly sufficient here, because the event fd can
-+		 * be passed to another process through trivial means like
-+		 * fork(), leading to concurrent mmap() from different mm).
-+		 *
-+		 * Make sure to remove event->rb before releasing
-+		 * event->mmap_mutex, such that any concurrent mmap() will not
-+		 * attempt use this failed buffer.
-+		 */
-+		if (refcount_read(&event->mmap_count) == 1) {
-+			/*
-+			 * Minimal perf_mmap_close(); there can't be AUX or
-+			 * other events on account of this being the first.
-+			 */
-+			mapped = get_mapped(event, event_unmapped);
-+			if (mapped)
-+				mapped(event, vma->vm_mm);
-+			perf_mmap_unaccount(vma, event->rb);
-+			ring_buffer_attach(event, NULL);	/* drops last rb->refcount */
-+			refcount_set(&event->mmap_count, 0);
-+			return ret;
-+		}
-+
-+		/*
-+		 * Otherwise this is an already existing buffer, and there is
-+		 * no race vs first exposure, so fall-through and call
-+		 * perf_mmap_close().
-+		 */
+ 	if (unmapped)
+@@ -6784,17 +6783,18 @@ static void perf_mmap_close(struct vm_area_struct *vma)
+ 		mutex_unlock(&rb->aux_mutex);
  	}
  
-+	perf_mmap_close(vma);
- 	return ret;
- }
+-	if (refcount_dec_and_test(&rb->mmap_count))
+-		detach_rest = true;
+-
+-	if (!refcount_dec_and_mutex_lock(&event->mmap_count, &event->mmap_mutex))
+-		goto out_put;
+-
+-	ring_buffer_attach(event, NULL);
+-	mutex_unlock(&event->mmap_mutex);
++	/*
++	 * Drop references in reverse order of perf_mmap() to prevent
++	 * rb revival after rb->mmap_count reaches zero.
++	 */
++	if (refcount_dec_and_mutex_lock(&event->mmap_count,
++					&event->mmap_mutex)) {
++		ring_buffer_attach(event, NULL);
++		mutex_unlock(&event->mmap_mutex);
++	}
  
-diff --git a/kernel/events/internal.h b/kernel/events/internal.h
-index d9cc570830918..c03c4f2eea571 100644
---- a/kernel/events/internal.h
-+++ b/kernel/events/internal.h
-@@ -67,6 +67,7 @@ static inline void rb_free_rcu(struct rcu_head *rcu_head)
- 	struct perf_buffer *rb;
+ 	/* If there's still other mmap()s of this buffer, we're done. */
+-	if (!detach_rest)
++	if (!refcount_dec_and_test(&rb->mmap_count))
+ 		goto out_put;
  
- 	rb = container_of(rcu_head, struct perf_buffer, rcu_head);
-+	free_uid(rb->mmap_user);
- 	rb_free(rb);
- }
- 
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 20a9050237362..dc2aa2a7109ef 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -340,6 +340,8 @@ ring_buffer_init(struct perf_buffer *rb, long watermark, int flags)
- 		rb->paused = 1;
- 
- 	mutex_init(&rb->aux_mutex);
-+	rb->mmap_user = get_current_user();
-+	refcount_set(&rb->mmap_count, 1);
- }
- 
- void perf_aux_output_flag(struct perf_output_handle *handle, u64 flags)
+ 	/*
 -- 
 2.53.0
 
