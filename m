@@ -1,197 +1,171 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA9D486E67
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E7D48A8B9;
+	Thu, 10 Sep 2026 13:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045740; cv=none; b=PZM9FvE5J+qSd6nZ3MmtODLl/UkafzwPM4eDU2tm8G4rqefHKminogbAMySqiP5eOQbnWJRjVnByYRIX2Utt6hNOzaEiKLumOIvfLWlKFBhwnFMO1rXj8xCvKUIf/qp9pvdb3r4h+ptrviEMEhEEJ5+vFUJoDCdKtc5MISk2h1c=
+	t=1789046199; cv=none; b=Z/k4/3+jRaDTVJSgfxPIqjBAc2suKyrfGRcyNwIT0YBEi9MW6AozZi1vgbiRiaj0WYyX+mvl8C9WK3l5geMYkh9IZ/wW+3XZChagmZIVFISVAzuLD1JeltLBB0r7v3c/uQLTE1icUiuGCNUgyPtxl8Gn0r8u17AQOceH2fqOKdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045740; c=relaxed/simple;
-	bh=Uma3r3Qc44Y0Xz31JrEvI/Rw746qZICX+o0Zsz4ItL8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZjR95RNtQhLGGrC/qgrZ6x0vqlGibJiaLWVezzJC4nV41+TSkEEM9RCj7OsnVcxu7pKL84Z7Z9DTopcetmOgwWqQEfJbxNOI2Wnhum3sffFsvT8y80AY1EWIXc1aXtZqBLnRLVASzVxMre0vFkxIoqbwsz4aBbRr93CsJFin7V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GadzsUIg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iFcKrhHL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789046199; c=relaxed/simple;
+	bh=0AFyZVt79MBqmDgSqh1BCUiQfV7ujVh0oIziE26dPrQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=jA6ZrtEhW/FOQMav0iwi8W8/qIhyOjGpxpf66ijDJ+69xUSiocmifbDOKRytNnBKRvIGAbyZkvGn9wL/txFyS/Q4xMwSoVeq3/ljL4EkG9kWxdKask7D1JYVsI/jBASST0h2ZLj3k+sC35tKocWekHCqPAt509JuAblsKA38tt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=M65EOCsY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=guO3ci0B; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GadzsUIg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iFcKrhHL"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7tff869693
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:08:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/AX/Kem1ZM8Esmp/0yLI0NjEShE6PnXQcN8z1bGeCo4=; b=GadzsUIg2YzBBr0D
-	XAFgVM1jy6rl7/SVGpPBAHcFAUPphOJFD9RTi3dEQzk/rymaMtlE884OdBid3NKz
-	C23UA2mhV90HOmldiRUW4bJqiFbybB6JhSc05KyBIeJfAk3ymXQ7+C3/uPCQRH5X
-	soysu5yYaOMTR0YF3IW/H8CAmBrDXCb9i0r+AlDYUE4ELnUmShccEzxImWU/38QS
-	8gloyOD/WKhi4LdFIi/uXDU/QVZS4XfyFUnf+ngHi5Fz4/WKqNHMcbq5JG5hySXh
-	fOhCQBM0t36sqCLk63TmfA2dbEmdTxuy3GJENDbkR2LdMAONwkKHVmsy0zWnAoFS
-	n/wpXA==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyd3wst-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:08:57 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46a5954cdfcso6751252fac.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 06:08:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789045737; x=1789650537; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/AX/Kem1ZM8Esmp/0yLI0NjEShE6PnXQcN8z1bGeCo4=;
-        b=iFcKrhHLPYvvvVrwgwCiIQ+0rUj7IautPl2vkLnC1OQVPgrDZyR8WidyPDRqR4B17O
-         JQnrElzwHZPo4nTViXagO7M/x7/D4jXucmX3WDRoho4DSbdRlqqXzh1BNfGIS60zHElW
-         2KW0BI0qkA1C8Sa1Pu178bI1b+aqcCnhODMvTgNK22WdWIiqMuJesteLDE/WznoPkBWx
-         vukDDGosLVqV2QCJMWYj3VStTgMAx1UiQ9pwZZNhmfrPkd8X+owXUMKemgERqAv0ZnIC
-         5Grs6cRvWBpx6FJAKkVpmdHEIE38Q6wdrRHIr7UyxtNXhKmwBGFo/eCaL9iCz8vNP93J
-         yWOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045737; x=1789650537;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/AX/Kem1ZM8Esmp/0yLI0NjEShE6PnXQcN8z1bGeCo4=;
-        b=B/M1Wv08J9VhUSP9agZtZZyZvBEScLm0rRX7h7065TM2b372i5FNrprWyEdECECBs3
-         NBN32GvnvGCdK6D7fbPJejEg4p3zYost1xVXGGeFrOcWHSI1yMRITuXfAcr/y0XgSDpL
-         SoHnVbOj5lPWIOeeiGPe8yc8iF0BcSNERmRu0SkN5ylnCtg0gnUC/AplnBp3fkzu+iHn
-         LvtdIVwL3caziOIDsN+rqg8xGGUoutnSIMtyQklfxDech/aJphCMXkIgI4npBmJlGYjM
-         PHV+kxAzAASYtyNahTRwhlvc+aHB9ckByqE8CsLZ8sJkCiqtYNTPuRo1F98xVV9EkXuB
-         M2mw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ27U3TNhVpZv9xNbqr+fhC+iiiSSgu4OBZkKl3qeK/P71p4HZ41aA5TpanuwhEqA60I7ISHA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksFFRIb0YkP7ZGNe2FzNHSed1kF0dMpiocSufzGlyIxjU0h2aU
-	mkX1+VjI160SArhKdMoHTT2lPGUMFgZRrSFsAut4aebKHr/nZMElxcyB0BwYOrx0pnyyEPSpe9O
-	9ARxp7NmTtIfUhEAEHKtzVooeMbwEcmuMbsWNEsjPWUifeQkm3YcIl0CnT4BAuPg66rQ=
-X-Gm-Gg: AYBFou0PG42jyIlE0NtRhiWBjoP136909UFQ3vVCvkre3Pb5TBexY57FZM8xT2lPRGa
-	5apxNBlT4lvCmjV7xGRDYAtLKiIZDeulcMqClevHgs7fnaOfwa9nRD1Wim3cnvBocqOmmMa+spp
-	e0X9JFmb78ieN74qs6vBzhfsEwKDNf+tmjby4Sz5woYoJzOPBftOd4elcDensHiu5lMUspk16UV
-	lGAcBlbkCvga70dCXpycQvGfO57thE8aQjziPseRo/Fv11Aoua6C+SA+5dfTPF8tcZJuS0GZhqq
-	WTTcdfBiF2PQ0n+6qAgwPYunUxoCyQ3P9vk8CMyXLbu7O7relJFm3sy9p65JMhtakik87+ZBw7U
-	UI7jkfUSxVavBs8mVdwnZZh8tQ1Wg
-X-Received: by 2002:a05:6870:ff89:b0:475:a153:2dc2 with SMTP id 586e51a60fabf-47c519261f4mr3937950fac.24.1789045736663;
-        Thu, 10 Sep 2026 06:08:56 -0700 (PDT)
-X-Received: by 2002:a05:6122:6c1b:b0:5c8:4409:602a with SMTP id 71dfb90a1353d-5c844096071mr109779e0c.8.1789045289387;
-        Thu, 10 Sep 2026 06:01:29 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:c9b1:abfb:f300:5e98])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26204ecdbcsm831849866b.25.2026.09.10.06.01.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:01:28 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:00:48 +0200
-Subject: [PATCH v7 07/12] crypto: qce - Use a fallback for CCM with a
- partial final block
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="M65EOCsY";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="guO3ci0B"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3BC9E1D000EA;
+	Thu, 10 Sep 2026 09:16:35 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 09:16:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789046194;
+	 x=1789132594; bh=e3stYz9jx1b9Q2oH4Nnw+NNtqnXMxwA+Xc4jXa61Nfk=; b=
+	M65EOCsYFY8qmqItH4KPbmfa/S34hmo77EREMEDGsZBeXbI6ZTlc2vFWbUlEfM/j
+	LDlo1+RtGHUsjG3bWAf7EFyEHA34UjpTgHeTP0bTIndd9renbVNYBNeguwKfngXh
+	dI3PsBl2U3yoYay7zh7hGN1VeRBtfChmr/X8Bg4/osTsGphX0+SqJcUX3gLLHHRq
+	rmpS0Vx6JvGkj12LTXpYO2KODhBtzWYY5BYimY1Mfsy9+h/fz5Ag2UAj50wulGNh
+	1uN0uLWH9apk26Tup24MfPvpKpCsURkOIU3PGFccB/MPqbVr+7O8Rues6iirDn4e
+	aKUIEaZWJihYmYwdam8u0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789046194; x=
+	1789132594; bh=e3stYz9jx1b9Q2oH4Nnw+NNtqnXMxwA+Xc4jXa61Nfk=; b=g
+	uO3ci0Bto6gNKUNATnUiKqMqxNt0NqnA5uLXCayUeaV8aQYYfJbe+czjGBt5wbjV
+	uLpyZ7dqJLe7Owvqd8zRRlgKNyWBuYRaL02yYm6q0rJSbr0gafsuWtgOrkOyxlqG
+	4wRhOVGwaY0p1oqm3ZvHLzDO8W1tT7h/NdavvLLm7CedmQSfJbCP9T3xpkOrtiTs
+	AvU/EC6PwdMtaT4wCbNAS7d73LMamu5lvba86+p4sXwHKpML0OPHmKm5jq1Pj6co
+	rNgR4FforNmJ6g28pmvzogG3ZePOBb1Sfuzq2nbAI41p7bVAKJM5zZ9ljJzg8IvB
+	JxaEBANtl/RvVsbGOkeXg==
+X-ME-Sender: <xms:rK2iaskI4Am06FtWWADsfzmMHorSeF92jvhOBx7tmiDMxq6BFQ6wyA>
+    <xme:rK2iamonI79JfvsN3L2CrtgxTrTQdBqvNX1IiAGb30rOwIuIHDcbJt7Pi1gGX8vU5
+    GUVb_mhPtev2m2APHfIU2uuYoG3hTnv_rt4CxYByCOPT6aPEfh0ObUV>
+X-ME-Proxy-Cause: dmFkZTF3HB9fRiN65EDoc3yMO7VBmb45FRf2lV1lgfDonJBDFaMYlj3UtcPsxXYQQnXRgs
+    bS+GdOCkZTgtyJs4zSKCinFCCrtA2bxdiH19evYPKT5QvJ/XmfrdjyHvo+vUPATGIk6Zd/
+    zhvkn1FqT+fRgGmGZvUk0gq8HmYb6mHZEUTuRyaZ9LQg+x81N4FhWB1NJgSkvHSiuAC8YZ
+    JRQQi2XqbVB5/HLWUzglPl3nPTNk+T+PX0heWOF/7kB/fHvNWhcFLserxEPe+SY9yZ+iD4
+    Jlay7FyZ8ATt9dZosXZsBjAQUDN/xP5FjTgDPuP/QiRCzukLHdnLwmDZ62cDSY2r5uCLbI
+    sEnfyPj/KS6oBvJGdB/D6Bi7nZrYT9PkuHsG6n8YT0dXzi8jppGjQ13UtgUc0oDUiakfa9
+    kQt8vrWi/id48mOJpRT+DAjkKETcosiMo9d/NgqvHUEMdg/H0FUrDImcJhtm6A3xYjcdYf
+    B/wB2UUjyC09sn/7hiUeWT+XzjrevoG/CdVOF+qgXXzNRW6zBKawQWFl1i+zAf5kzlqeuI
+    NE5Oldc7bpOPQfUaDVra1I8Ff57DP0oDclNNMbKzJOPVZ1o2kuQkuXX1Rk70/aToYMeZj+
+    u6eNmuZx9Lo98moAPmg3XEZ8Vt/8g1kdeT8ZrKvlqmzbVo6iRWPA+5rvElVg
+X-ME-Proxy: <xmx:rq2iajFyLkzrXydI_q2MVo78QEeePnXV_HcVtnMBgA99jPuVnnjBoA>
+    <xmx:rq2iaqavdIaG18sH6W-GdmcgON1IPQ7wkG18c1ol2oT5Eu3JGqN13g>
+    <xmx:rq2iaqE5MARX_Hgg5SpAvtjY4p6c-ylMx_KYTPZ8Fn2RQCAf14Enbw>
+    <xmx:rq2iao0SqVRdIpK_8kZUWnutOlx9bRRX-ZN7DDSddSMasHs8JjBe-w>
+    <xmx:sq2iaosSXlGB3x82dfvIMLkWakrO4QJFxUYQwKUB5_tt1HjSEDzm4T-t>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 51C7932A007B; Thu, 10 Sep 2026 09:16:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: ATaKlDvsEa83
+Date: Thu, 10 Sep 2026 15:15:48 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Will Deacon" <will@kernel.org>
+Cc: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Russell King" <linux@armlinux.org.uk>,
+ "Hans Ulli Kroll" <ulli.kroll@googlemail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>,
+ "Christoph Hellwig" <hch@lst.de>, "Ard Biesheuvel" <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
+Message-Id: <56fbf5bc-f138-4ad6-a1db-b16b8de601c3@app.fastmail.com>
+In-Reply-To: <aqKMsKpYnAZOoKQo@willie-the-truck>
+References: <20260910063620.17768-1-kmehltretter@gmail.com>
+ <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
+ <aqKMsKpYnAZOoKQo@willie-the-truck>
+Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-qce-fix-self-tests-v7-7-cdbd2718af14@oss.qualcomm.com>
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-To: Thara Gopinath <thara.gopinath@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Stanimir Varbanov <svarbanov@mm-sol.com>,
-        Eneas U de Queiroz <cotequeiroz@gmail.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Eric Biggers <ebiggers@kernel.org>,
-        Demi Marie Obenour <demiobenour@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1622;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Uma3r3Qc44Y0Xz31JrEvI/Rw746qZICX+o0Zsz4ItL8=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoqoQWFinvRcFAnUPd4tcM/rD2YmCQ7Yz02TzF
- kzcr8WKelaJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqKqEAAKCRAFnS7L/zaE
- w/1OD/48D1BIRVEjmOTkZ1OTGEWgwaQ/dwyRiP644llwbqISK4/pqV/Inlwv5tE4QpyEdtpTxdA
- Df7w5Bz12wbRguaAd02lo31r61KrjHVTbBVXqoEo80ceuMRk1J+8LfrSYx0NnQ8KtBD2OnSdXZH
- UGbX4HI7FbSjGSOgUMaE6I2wDWVrAPcia/yWFtyS816NpAytkqKHoND3dlHmXNPA17Tet/FO80U
- WeuX5kRPrxp+jcnU9H8af1GuR2T1lV0SwqZ8nsxqjuVoH92nKd24o5UTxcMA0Qpf5WwIAJYcn5p
- P4oN3MJphGRyLvnQ9KS4KHsfejsoGDl13uRKAclEI6TcwUGYooiVrzgqbjcZExh21imLVS2iOO/
- rA7log+daqucMzjZxtW/xMGCdazuGXKL9w5ujt8z5GdSJDNuzpX1OModWvWo4izz+Q0XPrnOFXV
- HBQ1QHPrmlkk9Jnaf2v49MSx1C+9Mvb1GtnID+H73kSN9k9qYSF0uf+z86TYeGJCfuG0OXm03OP
- VQ03TzoyOKAVkTZuN1IDFsd+peHkQ4/H09el9UHpYI8nJgNUdk73/rAFud+y8pGSNzRK7/x39P3
- dXgJX7c19T+RD5BCxZtuFOUU+WoXtnwrcCPWhVg+DY9179m6Ut9dWqgHupDiSryMW3ja44w8yyd
- r8Nz89K4h5eKNUw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: kObQn77z3D9CAg3jS_6VBJ5s2HcDkuC5
-X-Authority-Analysis: v=2.4 cv=ef+o7LEH c=1 sm=1 tr=0 ts=6aa2abe9 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=dx2SfONCXZg6tt9xEGkA:9 a=QEXdDO2ut3YA:10
- a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-ORIG-GUID: kObQn77z3D9CAg3jS_6VBJ5s2HcDkuC5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX9LWmScRKygtI
- BqqfyPNi3Ljia02zIrCZYN3bh4yANSQYcWiZorc+X4+SOR14XAa1w0KDeraRl5UK7NBLThLjRJr
- D9qilluDaFFmhya5FFTs3H9LgurYQEc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX6sKv/GGAJhR0
- i1momDK3agVMPnOrp4DlmQerq9JVPtI+tNHudwlXQiNtacgaSnZd2X+KfBOELSHnhwtBRPTUi8d
- MGPXVr+XBPk8BNfMFimY6slKaDbqX4APrSWDCeqA+jOgRapTGWg5BUkuTzrzsOkmr4XTvgBTygX
- h1YQFuhprkbQ4LMUTZukP+so18eLcogCKYZvaWMxYSjyRlZuwgy2fmqxYKRDRmUtpKcHASkYgNx
- /QVsKBCFCpNd+eVqfiOBWbaNVsh7EH+j5v1kKvPzbLpSH2rS+dtuzShz++tqkSagbIYlIw/tXtx
- 0MpH1axJvLUc+My6L75rxweA+ea7zbnoDPYWcwYxh5FKSQgdW+uoixzYB8p1d+8IgR8xTmQnK9s
- qJLH9cQbg4EGE/roW88X6t2h9cri5GkI5nr5MwavW9NvTUqoOQYqyW65VAgFZ+HF3+w/rQ7yb8C
- d1ioD9F7sgtV6w93+tA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100157
 
-CCM builds on AES-CTR for encryption, and the crypto engine stalls on a
-partial final block just as it does for plain ctr(aes): a payload whose
-length is not a multiple of the AES block size leaves the operation
-incomplete and fails with a hardware operation error. This was caught by
-the ccm(aes) crypto self-tests.
+On Thu, Sep 10, 2026, at 12:55, Will Deacon wrote:
+> On Thu, Sep 10, 2026 at 11:14:28AM +0200, Arnd Bergmann wrote:
+>> I see this as a tradeoff that can go either way:
+>> 
+>> - the current 32-bit Arm approach (also arc, hexagon, microblaze, mips,
+>>   nios2, openrisc, powerpc32, sh) is obviously faster as it avoids
+>>   the writeback, but it relies on device drivers to ensure no stale
+>>   data can leak back into userspace.
+>> 
+>> - Will's patch changed arm64 (later copied into riscv) to avoid that
+>>   risk by adding the overhead out of caution, and avoid having to
+>>   audit and fix all drivers.
+>
+> How would you envisage fixing a driver for this? There were two issues
+> I tried to address by moving from invalidate to clean on arm64:
+>
+> 1. If the DMA transfer didn't write every cacheline in the buffer, then
+>    we could expose stale data in the gaps.
+>
+> 2. If the buffer has a pre-existing userspace mapping, then we expose
+>    stale data during the window between the DMA map() call and the DMA
+>    itself.
+>
+> Fixing (1) in the driver would presumably require it to walk through the
+> buffer after the transfer and zero all the gaps, with an appreciation
+> for the cache writeback granule (!= cacheline size) and then (somehow)
+> clean those parts back to the PoC. Is that something any drivers attempt
+> today?
 
-Force the software fallback for CCM requests whose message length is not
-block aligned, reusing the driver's existing need_fallback mechanism.
+I'm not aware of any driver doing this, but also haven't tried looking
+for them. I think the usual assumption is that a driver asking for
+a variable-length reply should ensure that it doesn't access of the
+data that was not returned, and that the driver understands which
+parts were received.
 
-Cc: stable@vger.kernel.org
-Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
-Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/crypto/qce/aead.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+One thing that the arm32 implementation (but not any others as far
+as IIRC) does is to do a writeback+invalidate for any partial
+cache lines passed into dma_sync_*(), but this of course does
+not handle short transfers.
 
-diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
-index 0453b806408c96db9d67e8f1fcfab83f145ffb26..ddae743903229f248d1dc7037c4ae78537476563 100644
---- a/drivers/crypto/qce/aead.c
-+++ b/drivers/crypto/qce/aead.c
-@@ -514,6 +514,14 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
- 			ctx->need_fallback = true;
- 	}
- 
-+	/*
-+	 * CCM uses AES-CTR internally and the CE stalls on a partial final
-+	 * block, so a payload that is not a multiple of the block size has to
-+	 * be handled by the fallback.
-+	 */
-+	if (IS_CCM(rctx->flags) && !IS_ALIGNED(rctx->cryptlen, AES_BLOCK_SIZE))
-+		ctx->need_fallback = true;
-+
- 	/* If fallback is needed, schedule and exit */
- 	if (ctx->need_fallback) {
- 		/* Reset need_fallback in case the same ctx is used for another transaction */
+We had at some point discussed using KASAN to debug these better:
+mark any memory that is passed to a device as unaccessible through
+the DMA mapping API (rounded up to full cache lines), and then mark
+the data as accessible again during the sync to the CPU (not rounding
+up). As long as the driver only passes the actually received size
+into dma_sync_single_for_cpu(), any later access would trigger
+a KASAN assertion.
 
--- 
-2.47.3
+> Fixing (2) in the driver would presumably require ruling out the
+> possibility of a user alias, which sounds hard and possibly ABI breaking
+> for some drivers (depending on how they manage their buffers).
 
+There are not that many subsystems that do streaming DMA into
+user-mapped buffers, so I also can't think of any good example
+here where things would actually go wrong in practice. Have you
+been able to find an example that runs into this scenario?
+
+Block drivers always transfer entire pages, and I don't think you
+can access a page until a transfer from userspace has completed.
+GPU and media drivers might be affected, but it looks like those
+usually use coherent mappings.
+
+>> - actually measure the performance overhead: you already did the
+>>   work to test this on three separate arm implementations but did
+>>   not share performance numbers.
+>>   Can you quantify how much this costs us on the hardware you used?
+>
+> It's worth noting that many Arm CPUs upgrade invalidate to
+> clean+invalidate (either due to the micro-architecture, errata or because
+> of virtualisation).
+
+Right.
+
+    Arnd
