@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0842C33986F
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF81330307
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 07:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025304; cv=none; b=G7K4d56ofwzTkT4mporx+4UxlMIrj/B7uPDmwfrMwiILV1sjY/W9TaowP6THhqDazUbRvPXWn3mrtQ3nQothWo8o2O3LTdcK4xuZkzgtvWTX9qwKCli95L+Ugtr7sA+FcAgrufKmfHnY9jyHKLMg6QV0QEuk/BoAYkbodRpBjX0=
+	t=1789025399; cv=none; b=Qt/Io4Vr3F7B9ngA8WXyL6u+eH1rvajDTJd4epsbT0o6hcKIemw1mGkye3ett1tuvY2ka1Dng+UFawbMWk4e38acoJVTbvv17HO1STZVN5XVwYIwpyXE9n7HaB0PE2MmTffdcmdiVy/I6713yR0Z7NbWwzL+wF24zSTro9DQxT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025304; c=relaxed/simple;
-	bh=bfD5ZhNE4N/aizHNYrarJqR1znB7R8NU4xCbHf/9IWg=;
+	s=arc-20240116; t=1789025399; c=relaxed/simple;
+	bh=y4M+GiiOYFAbubXcx8JwJgiGbmU6qKcM43I6y3YE1w4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5JnH7aJZ25OOyj1aO/UgmbReub722D8AgE7+xBJiz6S/D85heD8wDfhAspZ7S+WdJocNFQrGw0wZvIJvROIzR7pd9Nm53CyX04ruDyg2U5b72pszKV0Csm8sTpJeIJl+3YkvsYU49Dw6I8a2x/tZyF3eEIezE78xCYzqosdx2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=I4IFgxOt; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=gVo3h2H5SMNW7Fd19EM48wlumOLQgPvQ6u0oJtHUH9SarQuD25rFA1Cgbb9gchv1+3NvDq/jJlJQRYrlsNUQJJZVFbSW9rzyYjp0MAStL6UMAdHp879unufph+vmhLezR2r0qlyKzYvGJhdvFffUsHH6rlMufNAMysHzPlDTYDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hSZhuve7; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="I4IFgxOt"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so17863225e9.1
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:28:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hSZhuve7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1067315f8f.3
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 00:29:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789025300; x=1789630100; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789025396; x=1789630196; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hf0Vxg/RVuff+NE1o7hBeSqcBx9matMTMP/dNlfdEJU=;
-        b=I4IFgxOtIynX+8nrtbi6PXkNMEGrc0wxfef375tlJQGBmcasvE6xgcEIZrgyqIH1zp
-         bTl+HPP/bQ2AOJ0PIg6d9QjOnxcLzqVGX7WcLxryMlixh4p6zalOdX/iM4ePywZO+PvL
-         fg3/rq59EHbDibsdqoIG/8RtWmiA0BQQ8zq/8iJNW30JSQcdL2WDYUjA9sngLQ27HnhO
-         +hbQdMisyjOE5lyAGCEKa4YU5Q3mtV1TKviIz2LFL4+Yrn4kqBd9x9QtlZq7hLkcNL+C
-         dmlH4CgVeg9tQxoAwVzgGGqTCVGZ2NmgKUaBB0DuIGYYIYw7kWnmIqnyk70ufmIEKbdn
-         Egew==
+        bh=a0jIRTzqzV3q4uOQGdtY2jprNAQRxNJzHauEVeey+qw=;
+        b=hSZhuve7qB79GtcHKtYp/yzy8d7MPHU+Ddar3WL9kdGbKfO/xcghGjKZ0IHbVZusH8
+         7HUWJV52PEWjkixaHbLhPG91O8YKSXsVULKQbjzpfVSQGeF+9Eo7ct8sbEu1NslYIlWX
+         gB3sRe0aPjpgo4T0Gm4IY7kClxEdO3atWxW5YgIPFfPwd0OGnBaANCPvKjs6aXBfU9QR
+         /JNs3VLrBWXxLghFZPq53Mp0gFVgwNPassWl3/fqYzxUijrh21YJ+A7JU6GnwmxjuI5f
+         6wXAHh2r6A9bPpca/toJ/RMLzn1TrCPLdvftBN4ABQXmCmIxOIhiDc7v1e37ZgNXLyp1
+         8uZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789025300; x=1789630100;
+        d=1e100.net; s=20251104; t=1789025396; x=1789630196;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hf0Vxg/RVuff+NE1o7hBeSqcBx9matMTMP/dNlfdEJU=;
-        b=QmNKtkLzixFLdQ3FsgooaB01pMeTz65pKQTGsHehscF0R/27lognUhlywnvzXg05/r
-         a46HsIadJEtjVk4ALibfUOKWevpko4QzvVKt8oKAZi9lspg4ibsqhEZpQhEAkfQqSVPC
-         VgfjRZcbKG5az86NkiYdovodvnxW+o2SGj0y3a0pnoXgQC8/eaqJllYr/gV/e9Si5UBO
-         xiiuGHYkGjq+DEUz/m8VS9sw4Jh58hu2WbvF9FgON3feKplp43sXm8023Cb7xofmOtRE
-         i55eIzxr2QLKw/fH37ouOHwzbLYD85yWOELErpYad9tWRn8y+8IjZ1JR6sxStiBB5F2K
-         kukQ==
-X-Gm-Message-State: AFuF++moGjUxw+nbcJMAgTEqbq7I3QobUE6o0tRp+L/Ugk0BbUwTi1mn
-	/8DFT9OmIYCxbYQyUXJvF0E60T9xnr1z7NcgfWuKeZLp4zXmmt1e6ojFuf4LvWFFIYvbuJH6WXt
-	CcF8f+Sk=
-X-Gm-Gg: AYBFou3i1D76TaXvyOPJjtGJcX2xM2xx0pi0yrvVJaEuCo7I8N0TSCPCCSsYUf+AhtN
-	gcUI495D/GW4lLXlXWxxFwUTmYhG84P5DXeWUfcUQorpvmxt5Os7y/4pOoWePVKlj/Ubg5oiYmF
-	raoEUHCnHM9EN8HjOf9eJK42HuOFjg1By+nFFXfCsKTbWY46wPdRrUIQHMGvJPsVKPUv4zWnOHV
-	8ha4in1qhgRsSpVxp6eZfEEmB/dr/SoN+U32YfbnCC3IC8xNDoihTjyk/hM9t94tfnPtI2G75+j
-	suA/dylXhnjMUSyY24ghfCTaGHEZt5aMT1hmg3TNLJSPbF+sTUaXbR0CHMNtxpxXSQoXnhfyjO2
-	t69GfWBMcmXxpVM4xLmctFc53ZDTDBVqe6je9W5FxZ+LK1BlDvt+1/UZnt6HVjRfxrvPPKfHrAE
-	DPP/dQbv7Avg2k1aQz2fDQavuTtsDUDlbQM01siRRQkhifFTtCEWOS9mPW8zCzztbed8TIRDSWZ
-	bmvTqJzgFj0TF/Dfzf1FUKQczR3
-X-Received: by 2002:a05:600c:4fcb:b0:49c:f13e:e4c with SMTP id 5b1f17b1804b1-49d26db4274mr30720015e9.9.1789025299675;
-        Thu, 10 Sep 2026 00:28:19 -0700 (PDT)
+        bh=a0jIRTzqzV3q4uOQGdtY2jprNAQRxNJzHauEVeey+qw=;
+        b=jWEuT+KQ8JZpLdqZ9fM38ZzVKP+GZuOYAY/9o7VjYa9iyLR58BA2MUpgPPuCBzorX5
+         +/uz/LWYtkfx3PPCH3qOQxBGDzsZX5Z7kyA7UATVncJidumlLPSzByI2l5yJzn95cpMg
+         vdZ3NVcq7An07Jh+O72WfAmd8+5I4JQWf6SmCIAeou2Cv+Si6EGnW2EbECI8InlFqAhB
+         02YBM3SxSwE+ApMoedc8d5FuJu1wqpY2F6TMu2t8YaMRLbIVryH4eaZXOBq/tBaXB7AN
+         XqpueVIYweIvVlOHIQ5C0eo67yvymzBGID9D+scWAnAqxGxj0wJlwmqqvGa1VxHICOny
+         hLUQ==
+X-Gm-Message-State: AFuF++lZDWIPvSnca8UCRUElTe5lQTAQWFce9SXyhO0+KV5+DD3PHT+o
+	VwKJ6DyYg9emUYzl3RzOkQvjdtwq2WZkmYymq13rctQsijAdJpZbRs+tfm5YTyKjqXrf+skj7aZ
+	9yOZ9Mac=
+X-Gm-Gg: AYBFou1zs6T6IQrjmuW5Q1bvQZ+if8Rc9wDH+VmYNCZnC7Gc+rJ/9DO+H4sJ9TcTW/8
+	iExGZfdtjZGZxPM4PBF1CS3UmwOBXgoBQxjm+WKnzpCK743yvkLCTtvmKL50BG/iiD4yfgbgpwv
+	jhCDv+DK5IBbUvZff74iSsZCVwJEW6JrBc6WqdmHI5KVnpve7yGgIMmL2GVbBtFvkn/NN25Gn35
+	pP4qW5jJmLHeGyk/7OLLR4FBjj7gOC9bxk1fw+bOn9cZvlzzDNlT9waEVac2TyhwPTHQ3umpnr+
+	nxQqXq/Im3Fk9c25NwPxmxav2PseTY1nUXl4L68zlMaW0T5MR+Q1vIz3pWt/zPOX9FQA4jurJ35
+	p+x7kTmIQRL6kGb6hiRaUxdSB29Y0hOmYTs9l6Ik5k1YYFiVxn9s9x56PoaO04uvoneivL/NMo2
+	boDchc5FOT5JeIbzTY5VwPGtg/sadCPwz3KmeOzFCv07I+15opzI5iOOp5ZONyvNR2llsGD80G0
+	qiYHkDqN/e6w2pjfw==
+X-Received: by 2002:a05:6000:4713:b0:485:892b:bdad with SMTP id ffacd0b85a97d-485aada981emr23994207f8f.12.1789025395849;
+        Thu, 10 Sep 2026 00:29:55 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be5b72sm46629625e9.4.2026.09.10.00.28.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm44551660f8f.5.2026.09.10.00.29.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:28:19 -0700 (PDT)
+        Thu, 10 Sep 2026 00:29:55 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: stable@vger.kernel.org
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -66,12 +66,12 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
 	Christian Hewitt <christianshewitt@gmail.com>,
 	Jerome Brunet <jbrunet@baylibre.com>
-Subject: [PATCH 5.10.y] clk: meson: align gxbb_32k_clk_sel number of parents with actual count
-Date: Thu, 10 Sep 2026 09:28:14 +0200
-Message-ID: <20260910072814.334323-1-jbrunet@baylibre.com>
+Subject: [PATCH 5.15.y] clk: meson: align gxbb_32k_clk_sel number of parents with actual count
+Date: Thu, 10 Sep 2026 09:29:50 +0200
+Message-ID: <20260910072950.341030-1-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090930-shopper-footsore-8dba@gregkh>
-References: <2026090930-shopper-footsore-8dba@gregkh>
+In-Reply-To: <2026090930-unguided-jam-8517@gregkh>
+References: <2026090930-unguided-jam-8517@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -150,10 +150,10 @@ Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/clk/meson/gxbb.c b/drivers/clk/meson/gxbb.c
-index cc99a828eb4d..d6c4667dd42e 100644
+index 6f3918f0a782..8af08853ffe5 100644
 --- a/drivers/clk/meson/gxbb.c
 +++ b/drivers/clk/meson/gxbb.c
-@@ -1302,7 +1302,7 @@ static struct clk_regmap gxbb_32k_clk_sel = {
+@@ -1303,7 +1303,7 @@ static struct clk_regmap gxbb_32k_clk_sel = {
  		.name = "32k_clk_sel",
  		.ops = &clk_regmap_mux_ops,
  		.parent_data = gxbb_32k_clk_parent_data,
