@@ -1,252 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20B491581
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A71493D4F
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:23:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050236; cv=none; b=KjrP3010YgGqIcKUO60wg60Xz0x/QXvw1i4lUiUn+YnWBFnwC2ev6FQ2OtaCOqplR9xSFYLwz0gTafEHtaOlFKQQCSMO8c+HVR35U0HPPCpUFm/Uj7kI5tXVqXZrB/HTdT6PEX8bfh99qr8r2dFGZbMbgqa24eir7mzqjx5U0h0=
+	t=1789050238; cv=none; b=ZhLI4dIoWlG0nj7lYJXmAl4ITU1LTpO7RqlppFv2z8Ae7C6g/9hTSo5mD16S9An48mjcJ3nnsNevHeymT6qWQgsRy1GeGrOCoS8sHO37H42Ag1jNQcIjGg6bNyf1JaJ+0ozYjbMQrc+OBKAXelMxxlmDgrgSl5Rkg6DCi7HrZZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050236; c=relaxed/simple;
-	bh=ccoCUm+cWcYi9VCBN+t2kALEq4aYnLHbgwMLMCDkXms=;
+	s=arc-20240116; t=1789050238; c=relaxed/simple;
+	bh=82CLORQTehejI8o5yAbTUXI+v6cfVPH4GSbjhyBlsQk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TM+yfB0RpkftjpjDulEiDpGtBGmtOqyMfK2qCRMMml6ExI0d1ZQs+2+UxaNvQmxeWx/IqrN26tG4coZ7ksACEc0qLv9FqeU2YD9x4ojDXeIqB/jNhvywH0s5/9FbbJpvOHdI7MQ+iVEPryXEkzbyGsn20SvaxNblB5BKsi7Dn48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IiXOiHVg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XnfW8ydcaP8gum1FsgUjU6x2GpXMXj0j52lPUrkArGWiWw0L0cVK84HhZUV4W2FvOO7hsMl3isKHU5K6Z0UnQGFh3CobVMdPMl1AGgWVE1UbniFy1Ja90Tkl1yqkYtbroRN3zvp1i0VyeszJb8LDnzcs6bJeOF4QG9OFN+io3uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3xbe2gU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IiXOiHVg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7D61F000FF;
-	Thu, 10 Sep 2026 14:23:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3xbe2gU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6071F00893;
+	Thu, 10 Sep 2026 14:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050235;
-	bh=jkFWsVoZLaB60Gzn8wyAxySMu25l08rbs2sz7h43zJ8=;
+	s=k20260515; t=1789050236;
+	bh=9v+WqGLfbH6YYtcLSru6WfvGhuOvauCb4oJO1SexgxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IiXOiHVgouhdsF2juWBxPIy3iv4PEmPQUXPYojf3LG1WAZVVmRbsdGMnQohiV+NDY
-	 u+3uwtYgViit1io+bfa5AzGki6nmmUqOYfYU4FsNxtIyGUx8BpD+8nSMG/zIf2yIgR
-	 ZEuh9miyLTXX7n7swzC+UAbb5wi95WiEgJpbs0jgET+EMi+jlo2xiCsD8RpGWWQPOe
-	 tMhBpItT5YAIvdSz34xTwn8KAoVET4LhiK0DzonfblLoJsCWvpC7+L5XCiLOd+T4HO
-	 R20dmbPPT7Tzsr9zAUYofJNVz9cOqjnLHdkd7qNE0lpvTS4uXh1KNkLx3JcpYpwNVa
-	 ptCoZBO79w4bg==
+	b=f3xbe2gUMpEt2tsS25yTsyIhGW1AtmXidbq0Pw8MsVtQBxyOMjpK3QHLFAF19nh+K
+	 8zUaTCdDxhE1bAJg7Em/3N+n5OU4MTd5GxACOXfU7pRttDT1BGYmpmZ5k+4H1Ah2BB
+	 JNteqrlzzSxl1eOm5M16AVBxQi8bB0KSYRHakVNnegstcOmiP4w2aAEMFyIWL5xbXt
+	 kIPalXNyjem7h6rhh4cIKlRXnkiFlsRDxy5td59AKbCaiYaRGdnluRdd2NIFE/V/sj
+	 ivEW9V2bhNHALLULXukQssi/4tJXabLIRCBL1+oHPk0cfJU6zxPlH+1ESWSOdte7J/
+	 swNf6eDGh+IjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	sashiko-bot@kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 10:23:53 -0400
-Message-ID: <20260910142353.675226-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ftrace: Synchronize the initialization of ftrace_ops
+Date: Thu, 10 Sep 2026 10:23:54 -0400
+Message-ID: <20260910142354.675288-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090814-frequency-igloo-c376@gregkh>
-References: <2026090814-frequency-igloo-c376@gregkh>
+In-Reply-To: <2026090829-luminous-distort-6af9@gregkh>
+References: <2026090829-luminous-distort-6af9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baineng Shou <shoubaineng@gmail.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
+[ Upstream commit 4617721c502b2ddaa4e324e86da4997edf738fa5 ]
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+There's some internal state that ftrace_ops needs to have set, but since
+it can be declared outside of the ftrace.c code, it calls
+ftrace_ops_init() on the ops in every global function. The issue is that
+if two tasks call it on the same ops at the same time it is possible to
+have the initialization of one corrupt the initialization of the other
+call.
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+Create a ops_mutex to use to synchronize every initialization of the
+ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
+states it was initializied but the flag is checked again after the mutex
+has been taken. Checking first outside the mutex allows it to shortcut
+having to take the mutex. But then the check needs to be done again after
+the mute is taken in case of races.
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
-
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
 Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
-[ Replaced dma_buf_fd_install(dmabuf, fd) with fd_install(fd, dmabuf->file) due to missing tracing infrastructure. ]
+Link: https://patch.msgid.link/20260902095501.6b59af20@gandalf.local.home
+Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
+Reported-by: sashiko-bot@kernel.org
+Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ adjusted INIT_OPS_HASH macro context for the missing subop_list member. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
- 1 file changed, 40 insertions(+), 40 deletions(-)
+ kernel/trace/ftrace.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index 8ab49924f8b71..dd45297a96c84 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
- static struct class *dma_heap_class;
- static DEFINE_XARRAY_ALLOC(dma_heap_minors);
- 
--static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
--				 u32 fd_flags,
--				 u64 heap_flags)
--{
--	struct dma_buf *dmabuf;
--	int fd;
--
--	/*
--	 * Allocations from all heaps have to begin
--	 * and end on page boundaries.
--	 */
--	len = PAGE_ALIGN(len);
--	if (!len)
--		return -EINVAL;
--
--	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
--	fd = dma_buf_fd(dmabuf, fd_flags);
--	if (fd < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--	}
--	return fd;
--}
--
- static int dma_heap_open(struct inode *inode, struct file *file)
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index ad112022dad78..62f00f576e014 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -71,6 +71,8 @@
+ #define INIT_OPS_HASH(opsname)	\
+ 	.func_hash		= &opsname.local_hash,			\
+ 	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock),
++/* Used only to synchronize the initialization of ftrace_ops */
++static DEFINE_MUTEX(ops_mutex);
+ #else
+ #define INIT_OPS_HASH(opsname)
+ #endif
+@@ -128,10 +130,17 @@ void ftrace_ops_list_func(unsigned long ip, unsigned long parent_ip,
+ static inline void ftrace_ops_init(struct ftrace_ops *ops)
  {
- 	struct dma_heap *heap;
-@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static long dma_heap_ioctl_allocate(struct file *file, void *data)
-+static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
- {
- 	struct dma_heap_allocation_data *heap_allocation = data;
- 	struct dma_heap *heap = file->private_data;
-+	struct dma_buf *dmabuf;
- 	int fd;
-+	size_t len;
- 
- 	if (heap_allocation->fd)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
+ #ifdef CONFIG_DYNAMIC_FTRACE
+-	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
++	unsigned long flags = smp_load_acquire(&ops->flags);
 +
-+	len = PAGE_ALIGN(heap_allocation->len);
-+	if (!len)
-+		return ERR_PTR(-EINVAL);
-+
-+	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-+				     heap_allocation->heap_flags);
- 
--	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
--				   heap_allocation->fd_flags,
--				   heap_allocation->heap_flags);
--	if (fd < 0)
--		return fd;
-+	if (IS_ERR(dmabuf))
-+		return dmabuf;
-+
-+	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		return ERR_PTR(fd);
-+	}
- 
- 	heap_allocation->fd = fd;
- 
--	return 0;
-+	return dmabuf;
- }
- 
- static unsigned int dma_heap_ioctl_cmds[] = {
-@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 	unsigned int in_size, out_size, drv_size, ksize;
- 	int nr = _IOC_NR(ucmd);
- 	int ret = 0;
-+	int fd;
-+	struct dma_buf *dmabuf;
- 
- 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
- 		return -EINVAL;
-@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 
- 	switch (kcmd) {
- 	case DMA_HEAP_IOCTL_ALLOC:
--		ret = dma_heap_ioctl_allocate(file, kdata);
-+		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-+
-+		if (IS_ERR(dmabuf)) {
-+			ret = PTR_ERR(dmabuf);
-+			break;
-+		}
-+
-+		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-+		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-+			put_unused_fd(fd);
-+			dma_buf_put(dmabuf);
-+			ret = -EFAULT;
-+		} else {
-+			fd_install(fd, dmabuf->file);
-+		}
-+
- 		break;
- 	default:
- 		ret = -ENOTTY;
- 		goto err;
++	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
++		guard(mutex)(&ops_mutex);
++		/* Could have been initialized before lock taken */
++		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
++			return;
+ 		mutex_init(&ops->local_hash.regex_lock);
+ 		ops->func_hash = &ops->local_hash;
+-		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
++		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
++		smp_store_release(&ops->flags, flags);
  	}
- 
--	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
--		ret = -EFAULT;
- err:
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
+ #endif
+ }
 -- 
 2.53.0
 
