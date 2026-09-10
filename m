@@ -1,65 +1,65 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064103AD515
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 23:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30C93B7B8C
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 23:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084479; cv=none; b=kLXfTFPxfIjdgLzsUvSiIoJcwYeYZjrHOaFOMHP8g/hVrjQ4uKCWRIK0phY6WL6JvSqBx9XQH6sC0/oi0sxfQHnJShws/JsOOz/p9W1+nanrEsTIVAplE2GGbMfMgeKH/xDonnHRTdro5FrL8YZDMnt+4eEA0VZ+XHR5JuJITq4=
+	t=1789084487; cv=none; b=R8k0LsAhu/bpYDU4ao4s5FJysnkm/ZWGhFSz1jtvEcGnBfFWjpv5A7I62HOZ7Mjnz0+q3OeiyKVdamUDWTk7x3E+dbtcec32O9LxFOPQ3rrdL1CXVab00Njs31goRPrGP550Xjtx1SEKDJySaczbeuTufpoeqyLKx9Lgkhihpdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084479; c=relaxed/simple;
-	bh=xtwXIZOGEy5UPVOOx7FUe2g9BLc+qYFqk68bmhTQ99M=;
+	s=arc-20240116; t=1789084487; c=relaxed/simple;
+	bh=WueL8tY9e+f4EG9kegBhb/48QAgoQxxqkg2Jsh/Y0p0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p7mtp0BRx5QtUIeN82DeF7hujC8Ft1fhYtPCynpjCLW/8Bgz+TEF5JJa4bH07eHgZsEfcPKOkN//WJ+/e7KYC3IRA5BRhgA1rLrudYyUHcevuNun5ost95E+RZ8P8UMoNx0gYMzLEFwpGrn/PIZfPhbmBaKAUaQ20nPahh7CTbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQvwkXwN; arc=none smtp.client-ip=209.85.160.173
+	 MIME-Version; b=uh1FDlMtcxJp8jbP2dmDYfqqjyn4U8aGGAoFt0YUMNddxWrOmcZyWOY56M/2TImLWNp9PDhkX1r0g29IZxe3UmKD1f/0MLMT8N5LsaMncEaJMwK5ZLNrHHpz4CLKBgpbtVn+mwVGrG0V0Hzmcs89c5JLBN6vHcWq1wlE1LoomiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G9d+5DfR; arc=none smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQvwkXwN"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5302b692c8eso4571871cf.2
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:54:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G9d+5DfR"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52fa6005224so4481431cf.1
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:54:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789084477; x=1789689277; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789084485; x=1789689285; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s6Jijc6okwul17I+K9OvRXUy0M5JwDpgrdpc+hLNXWA=;
-        b=FQvwkXwNsIqteS+yvvXaKi0hGm5Mqa9IylVV+EQu1/0z20/7B6PIIVSVKbMkpj/WzD
-         lGrEHRAPfUoacDPgF08Ou10KOEN2+cO2BKx5gRt2HVD7pwyidXBxrhqv9/Cw8gHjUPvm
-         DYoj4QxEU63TsyP3LTnulEXxa+Z1IAtzADzDOw/pCYNirM2JTkbD9114fEIGKSRkVYzA
-         zCO4kvFnloFTmLSXZrlWUa249wb1HWjhWfn4q7sZlLkMFDdphkXATqqJpLLeTVtiT5ei
-         znpHKIhoob0lZRqh0Qp90okSWacnUUhAB7GvAaUnfuimzDuovabSZouF8EEYtQwXAb6U
-         NWEg==
+        bh=imdVCDjW8TkcoAnhfj8hrX1xpu4892DD4sMcv+6zDbc=;
+        b=G9d+5DfRAhTSaQHdIyzsmK7qa1BdqPLpp+8inNjSBxbl0lSEq3vHk12gyFRKfz29bl
+         mGkXUDZAns5wH/S8+DLeP1vstuB74IWZqWiWAbrrTH7MBEfhQjjJmfNk2Hi90QBf2qqm
+         NpwcpmhC2UGvs5PexFv6qgj71OSzW//jkHLGrssQSEF5id78ScTTXSpygcYqFGeUllrn
+         66Dp2H/T9yqYKbzv/5fvnVf1l2k/RF2jYd1T5LKsOzI+gfqx1qmxL9vg9ScKZymQQAd1
+         +x094yeyHv6bxYbBVaDHBuBbfb3kzLDGZRom74NufWWt70FQ51qNSrqhCTQr+WAejJmA
+         dj5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789084477; x=1789689277;
+        d=1e100.net; s=20251104; t=1789084485; x=1789689285;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s6Jijc6okwul17I+K9OvRXUy0M5JwDpgrdpc+hLNXWA=;
-        b=g3n/UBbDvUuxN2F65p2xbqc5LkZYvrrU8VJsWcIKKjO2dbkAnbudIgaNXLcjxiDGOd
-         mfLx1VAEPQopVJXh9CB6UOTLktjmjyb2rWCW3E3oCQTDjcbJ1ct6p4xormGOFKoitCMp
-         5U7qgKrQjEfNusNG1BTcnNWeq3KNjT5mJTw4afhbVPrgQxGF4Mj5ISgx4LmJwilT3UGz
-         NkkiTf0F6vuMk4ScB0YERdb5yqxhE2gzzJdFpEA1li32EGsYMfwk3LCZQuHB+7mbbGIW
-         DRqU2BUJKss1BrsYMocXDdHy8LU1z/e3c3OEXhLoLBTv32t6Ni4dFzzHPL7k/5kFJfTf
-         esQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRY+nzAMtvidbR8YP/Nf4ckXdYUKFNwFA0LtWeFnrkmTNfiWqgxsvQ/d0cejb0ZRmH4AsUZpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1nAlswp7lom91QjvgkoHvu8Y0jFGdavjxDt69hiYCBCu1mlvQ
-	sl4Zml/sYLtb8Qe2is1oZeNh3fI0AYGcAM3wKSi/dF2t4YQfirNXqNg=
-X-Gm-Gg: AYBFou00xAcGXae7iKXrWq9NK/l5W5WTaTrzBdz8vfdGPlD20DhpmAFQDuobaNyxlE0
-	vmhIptL83LG9TxFiiq1fQzf3s5qZ0DctlT0LfaQ4ExkP9HvkSUqLK9bDvgTieuNSptJRPt4LaHv
-	xUoESDfaa8ScvMk0JGhzt5B6nBYwSLnKK0JTHqj53N2NpLWdR2K+dxyyc6iLOwLirdr5bPdpaZX
-	EQkOJ0Bid+E1zQkuxDxIPkEv0X/H73ST/0xP8RGgu2W0OxSWB+DSIVzZy/Yh9n3KeifuboNL7PN
-	sq4cDyfZz+XKBdCrgaPbKtrlP/YYzinOzJ3/7Yrolm5NDHdgV+0AInIuvYcspWgRSIjzBwLQmP1
-	aUCQAa5EbCxakddndSuUSkVzm5DxuWq5MhxW0Rs2mdMUen/hXkSixn1YllnQ0e1UuZEPLjpEH73
-	MumOSnrOJF2dlTrzEPAlldQox7wqpHsU4XzQpkil+lS+zOGreL/BzDXsY7p4HDrzcXNzvYjXi5d
-	pMkZeFw22ztu9jsHFe0ncynPHoKuzIh1ZkUz7f7yVZz2zUisSIxLozGan90seLgpkjGAu84xPRn
-	Hu4AuP/TQ+z4QF+iipzmcJbdTEZJNvtnIc4=
-X-Received: by 2002:a05:622a:1389:b0:530:b2e4:d5a2 with SMTP id d75a77b69052e-530c87a548amr28704191cf.61.1789084476627;
-        Thu, 10 Sep 2026 16:54:36 -0700 (PDT)
+        bh=imdVCDjW8TkcoAnhfj8hrX1xpu4892DD4sMcv+6zDbc=;
+        b=R7UNsvWq5Oj52aveHynv4HptVHxoKXhDcukLq6C0jCVpIQ1og9vqI5oguOAiv5alZY
+         irqHT49xeL4h/9jt4EYyz2AM9qubOtqX2Dd8PUJ6SlQ+4Q5/pwHERITrPcs3rbZ3zMzj
+         kOzMOEkQKNslv5VazvSc4kYxN8Iiy2hjBgBl8nZjhMnzi0FarRW8DzR0jngKZ9ED8sVL
+         M8Wa8bcezmBvvAsuMSlC1zwXgzpMo3LEM7t1NmWqMo15sbpRR7xl544NQvBvfi4ZJQ/2
+         DyZF/CpsHwBde67xKg8nKPX3FvpBTs4sPJoQf9ugjmnYakZhhKbSC5LmCIN/PQ+VfBXY
+         bd0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxB9VvMF+vQy9X+KWU+y3ls2BzaXmImpjFoaYirQ72sCQM4T7U9lW8Qpq2wYQobLWhnzB7+IxI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8zvEjo7DaiiflPAfUCdcIJYdnxuQiIUbmESPywAj9UjgD0ira
+	0Wd+uNToKsFFekzwD/hID+LtzvTZByImJhU4Wv+tREbpTAxVngkJop4=
+X-Gm-Gg: AYBFou05obf4LuyzKseZ8VTEKddqug685+fua0wKBTo3ty5/pV3uZjJSbKy4Q/oyaT5
+	aZwTXsNgP1cBDt3Zuiq7arctEAMkiwfgy3QTCXA7Z2VLlGZ8SHpgwss9jCAKvxkS1LAenIBX2fc
+	wBPpH1x05xcTS2/FH0y70h1HFdSA6aVom5XcKDrg8CEazq20GYcRIsJsSf7JWLW/uczBOp2JyAI
+	bCtmQdnVAnK2h+WlWo3fZX6Llyji9lLPbLkklnUjdmWria4vQ9Qb0TfXpO284zsK6pNn+sIaXSF
+	cu3LTUVYh6LvHzbgsYMXdLr4VkuSmxXp0oOuiht8x4s7ZeoMvp7d3FILYTxCHOlWLCunaUzNZ/G
+	2LrGHWVuir5ptVT2uq8BnwWBGtyIyqYEow8uYZ+Kqya4Zjv/BXhx1ngBFMQp/9A2uiTOlTizOW0
+	m8LgNz4Wvn+vHSMQaJrKnRUVXKqzLaOagDcC/pfdNlNbE1iY3L21IKoKpVrBGpgcKYj76TtISUv
+	66aEfpT6JtBGRe71IBmwxSKI+YWiMvHY4MVo9JAcNWkpKECFEzp0gBg95QGItfuRb4gpq1ZfxEq
+	OYw9QijLAlnZi2pH94J0/g/uSkOKwkK8rQ==
+X-Received: by 2002:a05:622a:2294:b0:530:b2e4:d597 with SMTP id d75a77b69052e-530c87487damr29756721cf.50.1789084479899;
+        Thu, 10 Sep 2026 16:54:39 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca48912csm6100771cf.13.2026.09.10.16.54.35
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca48912csm6100771cf.13.2026.09.10.16.54.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 16:54:36 -0700 (PDT)
+        Thu, 10 Sep 2026 16:54:39 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Zhao Qiang <qiang.zhao@nxp.com>
 Cc: Krzysztof Halasa <khc@pm.waw.pl>,
@@ -76,9 +76,9 @@ Cc: Krzysztof Halasa <khc@pm.waw.pl>,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 2/4] net: wan: fsl_ucc_hdlc: allocate suspend backup before quiescing
-Date: Thu, 10 Sep 2026 19:54:28 -0400
-Message-ID: <e83f6d9871c4110959ca234f618b3878d5c4f648.1788128904.git.mhun512@gmail.com>
+Subject: [PATCH net v3 4/4] net: wan: fsl_ucc_hdlc: release HDLC device on remove
+Date: Thu, 10 Sep 2026 19:54:30 -0400
+Message-ID: <598d90cf55981c38288fab8c32dd52286090f384.1788128904.git.mhun512@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1788128904.git.mhun512@gmail.com>
 References: <cover.1788128904.git.mhun512@gmail.com>
@@ -90,51 +90,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uhdlc_suspend() detaches the netdev and disables NAPI before allocating
-the parameter RAM backup. If that allocation fails, suspend returns
--ENOMEM with the interface still running but NAPI disabled. The PM core
-does not call resume after a failed suspend, so a later close attempts to
-disable NAPI again and can wait indefinitely.
+ucc_hdlc_probe() registers an HDLC netdev whose private pointer refers to
+the separately allocated ucc_hdlc_private object. The remove path frees
+that object and its resources without unregistering or freeing the
+netdev. The registered device is left with a dangling private pointer.
 
-Allocate the backup before changing the runtime state. An allocation
-failure then leaves the interface attached and NAPI enabled.
+Unregister the HDLC device before releasing the UCC and DMA resources so
+an active interface is stopped first. Free the netdev before releasing
+its private object.
+
+This patch depends on the preceding "net: wan: hdlc: close active devices
+before protocol detach" fix (patch 3 of this series). Without that fix,
+protocol detach clears IFF_UP before unregister can invoke ndo_stop, so
+an active interface would not be stopped before its resources are freed.
 
 Fixes: c19b6d246a35 ("drivers/net: support hdlc function for QE-UCC")
 Cc: stable@vger.kernel.org
-Reported-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/r/20260803133048.42650-1-mhun512@gmail.com
 Link: https://lore.kernel.org/r/20260806020541.2011936-2-kuba@kernel.org
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/net/wan/fsl_ucc_hdlc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/wan/fsl_ucc_hdlc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/net/wan/fsl_ucc_hdlc.c b/drivers/net/wan/fsl_ucc_hdlc.c
-index 82796452e54a2..596f4ef053636 100644
+index 596f4ef053636..371150efc1a65 100644
 --- a/drivers/net/wan/fsl_ucc_hdlc.c
 +++ b/drivers/net/wan/fsl_ucc_hdlc.c
-@@ -888,6 +888,10 @@ static int uhdlc_suspend(struct device *dev)
- 	if (!netif_running(priv->ndev))
- 		return 0;
+@@ -1255,6 +1255,8 @@ static void ucc_hdlc_remove(struct platform_device *pdev)
+ {
+ 	struct ucc_hdlc_private *priv = dev_get_drvdata(&pdev->dev);
  
-+	priv->ucc_pram_bak = kmalloc_obj(*priv->ucc_pram_bak);
-+	if (!priv->ucc_pram_bak)
-+		return -ENOMEM;
++	unregister_hdlc_device(priv->ndev);
 +
- 	netif_device_detach(priv->ndev);
- 	napi_disable(&priv->napi);
+ 	uhdlc_memclean(priv);
  
-@@ -897,10 +901,6 @@ static int uhdlc_suspend(struct device *dev)
- 	priv->gumr = ioread32be(&uf_regs->gumr);
- 	priv->guemr = ioread8(&uf_regs->guemr);
+ 	if (priv->utdm && priv->utdm->si_regs) {
+@@ -1266,6 +1268,7 @@ static void ucc_hdlc_remove(struct platform_device *pdev)
+ 		iounmap(priv->utdm->siram);
+ 		priv->utdm->siram = NULL;
+ 	}
++	free_netdev(priv->ndev);
+ 	kfree(priv);
  
--	priv->ucc_pram_bak = kmalloc_obj(*priv->ucc_pram_bak);
--	if (!priv->ucc_pram_bak)
--		return -ENOMEM;
--
- 	/* backup HDLC parameter */
- 	memcpy_fromio(priv->ucc_pram_bak, priv->ucc_pram,
- 		      sizeof(struct ucc_hdlc_param));
+ 	dev_info(&pdev->dev, "UCC based hdlc module removed\n");
 -- 
 2.47.1
