@@ -1,131 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96945908AF;
-	Thu, 10 Sep 2026 19:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312A43AB285
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066902; cv=none; b=mhw/wUChjZg42ULHuWLbvvg7qgbUt1Qjl2ad/BkgjdrSEMbZqhLxNUBRbyYRQULArfSmoudh2VmViZbYHM5KeoAKvouPS97W2UKv/YSn3CxNtOUgeelfQ5p/oylzWUu+mC67qgwanDV1qKGt6kkQtHU7UhtQIH5zE1I7CDa2n+o=
+	t=1789067306; cv=none; b=jTmBWuTBMbOTyQqSrUneclTk3971GntgaYuJc7rUJQhr80iIxc3v+nxXio8JX3ucuwNgnV1jZljCyBjUUyoc7W1NJenj1BPuDYT3y5p1rydEmJKmY1Xfry3GIuSU/BhVzST0J8IXEpq9ebO29pZUZk7/cEiBxwrBcS77lM3GTA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066902; c=relaxed/simple;
-	bh=oM36+sCiJzLl1vlQuOx2XFLCpKIJ9874GC4BB6iAR04=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tqlvPZg8Jw6ak4/mE2VQmnnMPGPELpNkcEclzZmDqdhX3O4ml6DJqdsehYlP5a74gWIVN0+yuEWbxKD2pLHum8kox2miE7Fz2D2IYeWW2Rp+4YgZZtYB5tjTrLZummVX2D+FcnbLgyIPxNLG4CvNYjlVDLHxsUmCgp/O1MWcLNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9kDcbfr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789067306; c=relaxed/simple;
+	bh=MKztazk2LzLSy/Y02l4g9J8sQY3q6F80C5JRH7oiGxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Vz0LBw8WmFShJjmoCYf9yujTAa720e7+K+hVxZwQ15CoDxdZOXyQRnoTfSgwtdoNmLwvc7QagI8MYKVIRID5C5PVb0J+tZdnUSbsoR58ZfGgUwzyJxoxIaIqfHhhenWgJ67KTUeagAB+QwInKyH4cv11QXJUYUOqNcI0hgqBRF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+I8phWB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9kDcbfr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6231F000FF;
-	Thu, 10 Sep 2026 19:01:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+I8phWB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FEFE1F000FF;
+	Thu, 10 Sep 2026 19:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789066900;
-	bh=o/aJgC7/v4Ab0Ev6JyLQT1mN8r2uNaekGe8w0Q8Fi4k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K9kDcbfrBDWRVngAIGGKwdtDSajfbjWd5JjJtsPDjlQZxCUNjMzw01/5bP9X80uKF
-	 lHzIUUriCuZerdqhq/yVaYD76SA2MC8dTZGLC/gqIK6nc+xYROXN6vI3a6nd13UkuI
-	 mTzSCpnC6FiOa6PoTKWU0gn+yeVP5z8j90WI77F4LAB3lxIdpGGGtLqB7YSiBH/v1e
-	 S1vhNjaH0rPBcQYtlEnQisISaxXMp5wiG1AeOlUlyau57RDlln7Sd5w2XfCI4HhVZP
-	 zUbSIehwFt0tJXxIpFHQrB1ePpaL3CyzUui++f405FmO3J8p8GikOB6wpOiaxKzFj1
-	 0JDwNz23IO70A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in
- spi_nor_shutdown()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mwalle@kernel.org, "Itai Handler" <itai.handler@gmail.com>, pratyush@kernel.org
-Cc: linux-kernel@vger.kernel.org, takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, miquel.raynal@bootlin.com, linux-mtd@lists.infradead.org, vigneshr@ti.com
-In-Reply-To: <20260910184452.895485-2-itai.handler@gmail.com>
-References: <20260910184452.895485-1-itai.handler@gmail.com>
- <20260910184452.895485-2-itai.handler@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 19:01:39 +0000
-Message-Id: <20260910190139.BF6231F000FF@smtp.kernel.org>
+	s=k20260515; t=1789067304;
+	bh=qnVz+aDY3cMyMtwHpaFFfpLn+qoqOIDvSyPgIrFazvI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=E+I8phWBeCEiFJOirHR+nYYMTvyBDHO1MTkbJH27vZG2CFzTxxTIC2hEAFs+ua5ma
+	 wLzfBEWa+gHUWqlqZZU62w61vBdfD/Al3N0BjdeEfIIQOj2F0fyVFOhnW2A3/2Ox31
+	 tIBKP54tsiwkEJ/DweSaEtMRg0PDTfw5UdBF4DBazkRhVM1Fs6f3TKsAfO+pYAgDSy
+	 VKhAbxOYdMC2ZpKcwayIJbOWIqedSo0G64Ga3HPW8sgG+xcypCTW79HVnat02leEpi
+	 NtL4hsWeoki8uueMgHwdIK6RuaF80wE6LjHyfDnXSk+JbVX7pQGKUQdTEvq826XFdU
+	 4JL0NfnIyb98g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Tony Lindgren <tony@atomide.com>,
+	Wolfram Sang <wsa@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] i2c: omap: Improve error reporting for problems during .remove()
+Date: Thu, 10 Sep 2026 15:08:19 -0400
+Message-ID: <20260910190822.1452673-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090909-unmarked-juggling-ce1d@gregkh>
+References: <2026090909-unmarked-juggling-ce1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-New issues:
-- [High] Unsafe Killable Wait in Shutdown/Remove skips hardware restoration
+[ Upstream commit 9496fffcb28f39e0352779a0199b6e61861c9221 ]
 
-Pre-existing issues:
-- [Critical] Race condition leading to data corruption after shutdown resto=
-re
-- [High] Resource leak in locking helpers on fatal signal interruption
---
+If pm_runtime_get() fails in .remove() the driver used to return the
+error to the driver core. The only effect of this (compared to returning
+zero) is a generic warning that the error value is ignored.
 
-commit 7d7b032d63ce9b4009f7d886e821261d29fb7c2a
-Author: Itai Handler <itai.handler@gmail.com>
+So emit a better warning and return zero to suppress the generic (and
+little helpful) message. Also disable runtime PM in the error case.
 
-mtd: spi-nor: take the flash lock in spi_nor_shutdown()
+This prepares changing platform device remove callbacks to return void.
 
-This commit modifies spi_nor_shutdown() to acquire the device lock before
-restoring the flash addressing mode. This serializes the restore operation
-against operations already in flight during system shutdown.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Reviewed-by: Tony Lindgren <tony@atomide.com>
+Signed-off-by: Wolfram Sang <wsa@kernel.org>
+Stable-dep-of: f98d49864821 ("i2c: qcom-cci: fix autosuspend cleanup")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-omap.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index ccf4396cdcd04..96dd6ae6d6191 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
->  static void spi_nor_shutdown(struct spi_mem *spimem)
->  {
->  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
-> +	int ret;
-> +
-> +	/*
-> +	 * Wait for an operation started by another thread to finish.
-> +	 * device_shutdown() runs with MTD users still active: a busy flash
-> +	 * ignores the commands spi_nor_restore() issues, leaving it in
-> +	 * 4-byte address mode, and a restore landing mid-read changes the
-> +	 * chip's address width under the transfer.
-> +	 */
-> +	ret =3D spi_nor_prep_and_lock(nor);
+diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+index 256fa766b1d3a..7378467c2babe 100644
+--- a/drivers/i2c/busses/i2c-omap.c
++++ b/drivers/i2c/busses/i2c-omap.c
+@@ -1513,14 +1513,17 @@ static int omap_i2c_remove(struct platform_device *pdev)
+ 	int ret;
+ 
+ 	i2c_del_adapter(&omap->adapter);
+-	ret = pm_runtime_resume_and_get(&pdev->dev);
++
++	ret = pm_runtime_get_sync(&pdev->dev);
+ 	if (ret < 0)
+-		return ret;
++		dev_err(omap->dev, "Failed to resume hardware, skip disable\n");
++	else
++		omap_i2c_write_reg(omap, OMAP_I2C_CON_REG, 0);
+ 
+-	omap_i2c_write_reg(omap, OMAP_I2C_CON_REG, 0);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
++
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
 
-[Severity: High]
-This is a pre-existing issue, but does spi_nor_prep_and_lock() leak device
-preparation resources if interrupted by a fatal signal?
-
-If a process is killed while waiting on wait_event_killable() inside
-spi_nor_prep_and_lock(), it returns -ERESTARTSYS but fails to invoke
-spi_nor_unprep() to roll back the earlier spi_nor_prep() call. Does this
-also apply to the other locking helpers like spi_nor_prep_and_lock_pe() and
-spi_nor_prep_and_lock_rd()?
-
-> +	if (ret)
-> +		return;
-
-[Severity: High]
-If a fatal signal is pending during the reboot process, such as from the OOM
-killer or a manual SIGKILL, wait_event_killable() in spi_nor_prep_and_lock()
-will immediately return -ERESTARTSYS.
-
-Will this early return skip the spi_nor_restore() hardware state reset? Sin=
-ce
-this skips restoring the 3-byte addressing mode, could the bootloader read
-garbage on the next boot, leaving the device unbootable until a power cycle?
-
-> =20
->  	spi_nor_restore(nor);
-> +	spi_nor_unlock_and_unprep(nor);
-
-[Severity: Critical]
-This is a pre-existing issue, but could releasing the lock while the MTD
-device remains active expose the flash's modified 3-byte addressing state
-to concurrent operations?
-
-If a concurrent thread acquires the lock immediately after spi_nor_shutdown=
-()
-finishes and issues a write command, the driver will assume 4-byte mode
-and send 4 address bytes. Could the hardware misinterpret the 4th address
-byte as data, resulting in permanent data corruption by shifting the
-destination address?
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910184452.8954=
-85-1-itai.handler@gmail.com?part=3D1
