@@ -1,93 +1,414 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F1C48A8B7
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBBE473C66
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 13:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046893; cv=none; b=bYxOowbHlTwj9DBFW+6AQBoEDaeZROWKbgozv0SR9GLVoB9l58jkH6TZICENgEsAWqPiMdng1whdWYletQ2NLaXi31Ao/xf1avbDvuJFqiF1fvhvNMOaF4ah8ZgC1VzhKz/DIJUkmkomJ8pOafoBWh7qcx64yLjnNoa7hDX1i6g=
+	t=1789046897; cv=none; b=a7+/FwZn6kbLKbtiSYCJrmrC9oCn2In92KzbRYgkZFu6DkmDTffQfB4QH7eZkjaVyoF2XRgj1QScnhJ/cfHNFEMioOxMHfZafafnSgCvkhL7RPc+RjhzKRK2lQQd/eb3RtykvF50HZgSJM7FQTMPy8fnz8hyhDVQFzxXci4zs4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046893; c=relaxed/simple;
-	bh=ayVkUiozgwsd7e6jc25ZL5AmSZ5xe9nMdUfwLA0OYEc=;
+	s=arc-20240116; t=1789046897; c=relaxed/simple;
+	bh=WnNSg/3n7YpBzk7ie5zbc4RbFFZpLpvrZneLaKmMR20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UaerOZDs1kxAHQ0br3DWKwp1MBpHI2broKA9pGIy0UoEkalFAXwzLsM6dMSMCLiEQ+2Tb5fKqaK4OOaxFfqw0RFeTFXCaY+tni73L8XFflz7kuAL+lSgaeeuVvmzdwQV0bbYIyvkRQtR7r7revPE4sso2Gh5qEtTWUDb+qDUtJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgn2jGEO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=k2iHQQTVa3lQbRCtnfU6sxN1zqeVGbBOvEDqIIYU+NcKP/Pz5wz6srQgzzJ9K0zIXSt+qZfXxQPffUgQ8StgXAH5Iz7r+tTpJHLXiQAUkxx2Qq21TNBpifuth83ZQ8PEZibqXSlVjVIF7bmXFl5jbc0P7+BLiSaQG6oTWWIt5Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iaINwf6G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgn2jGEO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E3A1F00898;
-	Thu, 10 Sep 2026 13:28:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iaINwf6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7227A1F00893;
+	Thu, 10 Sep 2026 13:28:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046891;
-	bh=oYhyiwe020UHjtQS5aoJ2i/e/DrJ8SB7zNN0OB7dlJo=;
+	s=k20260515; t=1789046896;
+	bh=gehGPjoBfjT/ompangEKvknTTlh+t0t13Yf9PNbqfAU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dgn2jGEO0Fxisb22BZGiOXIvnrwlEJRNt0jQJw9fmhNw7rxnFgrLEIShHxdoLYhQH
-	 spKKao2VVg0jDDEbfIZV0zAqzJT7ElO+sPUyNduVwXdRITdd/6ZggLS57fv4jxo1DV
-	 a4ujeW1tIhbmmXKfnQgi3sq2RAuFcQ+djwGPJfQUX1P6qShbDV35dtRGs975+A/VBv
-	 p51oA4VNpNsa82spx3lhH0C4dX4M/IhNChe7/1fV3K3zZDpkX5lp82gCPNfQldIeh4
-	 gQbzentonvf2NJq2Btd1m8hgWf3f3jfl07YaVj0MAXm0mHfkafQZtJ4yD+2f9lTx1I
-	 p62TxDuZwlhCA==
+	b=iaINwf6GEo9ayKOj4IzOICY5W040omM53k/PovoMfPMxhBZ0Yd9f/h3tg/tFnAdVT
+	 svA3dJg3Yp/zS4gfGWrATQkiw0cwNmkgcvz3VYbsHUeyjdNJ+HzGeRn6Gye8MtW4t0
+	 7z62rfCWzfiuq2d+NaVtU52rAwzVX6DsuF+/nZro9+yoNeAZBvDfFJ+MQsA3wPjBY8
+	 QrhLX42vzfT8EYrnFs5+nKgT3efpzlzcZ9CjJLyfuSlp5VaXS9+L5OihUrDOvU6EF3
+	 MYAPb9xexbXtdKYw8E/SXu2Q8nLaN7episVy1NpfOxMI3NoGRn197dgLX92bOonyJ5
+	 seaLJx5vxCbOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Can Peng <pengcan@kylinos.cn>,
-	Kursad Oney <kursad.oney@broadcom.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Hagen Paul Pfeifer <hagen@jauu.net>,
+	Jakub Kacinski <kuba@kernel.org>,
+	James Bottomley <james.bottomley@HansenPartnership.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] spi: bcm63xx-hsspi: disable clocks on resume failure
-Date: Thu, 10 Sep 2026 09:28:08 -0400
-Message-ID: <20260910132808.259891-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/secretmem: properly account locked pages
+Date: Thu, 10 Sep 2026 09:28:13 -0400
+Message-ID: <20260910132813.260130-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910132808.259891-1-sashal@kernel.org>
-References: <2026090832-pout-curve-a0f8@gregkh>
- <20260910132808.259891-1-sashal@kernel.org>
+In-Reply-To: <2026090831-recent-irregular-5144@gregkh>
+References: <2026090831-recent-irregular-5144@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Can Peng <pengcan@kylinos.cn>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 3b0cee02664041aea7e4f787c66cb86c82eb4e97 ]
+[ Upstream commit 97d34aa65c29cca85e3e9050f4c936389b38a054 ]
 
-bcm63xx_hsspi_resume() enables the HSSPI clock, and optionally the PLL
-clock, before restarting the SPI controller queue.
+secretmem accounts folios by treating memory as if it were mlock()'d and
+thus limited by the RLIMIT_MEMLOCK limit.
 
-If spi_controller_resume() fails, the function currently reports success
-and leaves those clocks enabled. Propagate the error and disable the
-clocks before returning.
+However the folios are unevictable and remain so until the inode is
+evicted, eliminating usual mlock() semantics - mapping folios then
+unmapping them does not clear their unevictable state, since it depends on
+AS_UNEVICTABLE, not PG_mlocked.
 
-Fixes: 142168eba9dc ("spi: bcm63xx-hsspi: add bcm63xx HSSPI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
-Reviewed-by: Kursad Oney <kursad.oney@broadcom.com>
-Link: https://patch.msgid.link/20260804072017.860974-1-pengcan@kylinos.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+map then unmap and VmLck no longer counts the secretmem range.  Worse,
+folios are not accounted in the process's RSS, meaning the OOM killer
+won't know to kill the process.
+
+Repeatedly mapping/unmapping (or forking) can then result in the
+consumption of all available system memory with unevictable folios and
+cause system instability.
+
+A secretmem fd can be passed between processes and over fork so a
+per-process limit simply does not make sense, so follow the precedent set
+by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
+locked pages in user_struct->locked_vm.
+
+Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+applies per-user not per-process, so it doesn't make sense to bypass for
+users with CAP_IPC_LOCK, therefore remove this bypass.
+
+There is simply no reason to carry on marking the mapping as mlock()'d
+since it's misleading and the lifecycle is now correctly handled, so
+remove this too.
+
+Note that secretmem does not support any form of truncation (including
+hole punching) and the folios are unreclaimable, so the folios need only
+be accounted on fault and unaccounted on inode destruction.
+
+__secretmem_account_pages() is more or less a duplicate of the code that
+io_uring etc.  use, but since this is a bug fix that needs backporting,
+defer any de-duplication efforts to a follow-up.
+
+test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
+been removed, so remove the test altogether for the fix.  A new test will
+be sent separately for upstream.
+
+Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
+Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Hagen Paul Pfeifer <hagen@jauu.net>
+Cc: Jakub Kacinski <kuba@kernel.org>
+Cc: James Bottomley <james.bottomley@HansenPartnership.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted secretmem changes to Linux 6.6’s older APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-bcm63xx-hsspi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ include/linux/sched/user.h                |   3 +-
+ mm/secretmem.c                            | 118 ++++++++++++++++++++--
+ tools/testing/selftests/mm/memfd_secret.c |  30 +-----
+ 3 files changed, 111 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 34e7001191c0d..dea226f4ace0a 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -534,7 +534,13 @@ static int bcm63xx_hsspi_resume(struct device *dev)
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index 4cc52698e214e..8d7e5521f7cdd 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -25,7 +25,8 @@ struct user_struct {
+ 
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
++	defined(CONFIG_SECRETMEM)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+diff --git a/mm/secretmem.c b/mm/secretmem.c
+index f64ea1cde2f92..ef507d68f3e15 100644
+--- a/mm/secretmem.c
++++ b/mm/secretmem.c
+@@ -18,6 +18,8 @@
+ #include <linux/secretmem.h>
+ #include <linux/set_memory.h>
+ #include <linux/sched/signal.h>
++#include <linux/sched/user.h>
++#include <linux/cred.h>
+ 
+ #include <uapi/linux/magic.h>
+ 
+@@ -47,10 +49,69 @@ bool secretmem_active(void)
+ 	return !!atomic_read(&secretmem_users);
+ }
+ 
++struct secretmem_inode_state {
++	struct user_struct	*user;
++	atomic_long_t		nr_pages_accounted;
++};
++
++static bool __secretmem_account_pages(struct user_struct *user,
++		unsigned long nr_pages)
++{
++	unsigned long page_limit, cur_pages, new_pages;
++
++	if (!nr_pages)
++		return true;
++
++	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	cur_pages = atomic_long_read(&user->locked_vm);
++	do {
++		new_pages = cur_pages + nr_pages;
++		if (new_pages > page_limit)
++			return false;
++	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
++					  &cur_pages, new_pages));
++	return true;
++}
++
++static bool secretmem_account_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++
++	if (!__secretmem_account_pages(state->user, nr_pages))
++		return false;
++
++	atomic_long_add(nr_pages, &state->nr_pages_accounted);
++	return true;
++}
++
++static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
++		unsigned long nr_pages)
++{
++	atomic_long_sub(nr_pages, &state->user->locked_vm);
++	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
++}
++
++static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
++}
++
++static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
++{
++	const unsigned long nr_pages_accounted =
++		atomic_long_read(&state->nr_pages_accounted);
++
++	__secretmem_unaccount_pages(state, nr_pages_accounted);
++}
++
+ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ {
+ 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct secretmem_inode_state *state = inode->i_private;
+ 	pgoff_t offset = vmf->pgoff;
+ 	gfp_t gfp = vmf->gfp_mask;
+ 	unsigned long addr;
+@@ -73,9 +134,16 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 			goto out;
  		}
- 	}
  
--	spi_controller_resume(host);
-+	ret = spi_controller_resume(host);
-+	if (ret) {
-+		if (bs->pll_clk)
-+			clk_disable_unprepare(bs->pll_clk);
-+		clk_disable_unprepare(bs->clk);
-+		return ret;
-+	}
++		if (!secretmem_account_folio(state, folio)) {
++			folio_put(folio);
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
++
+ 		page = &folio->page;
+ 		err = set_direct_map_invalid_noflush(page);
+ 		if (err) {
++			secretmem_unaccount_folio(state, folio);
+ 			folio_put(folio);
+ 			ret = vmf_error(err);
+ 			goto out;
+@@ -84,6 +152,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 		__folio_mark_uptodate(folio);
+ 		err = filemap_add_folio(mapping, folio, offset, gfp);
+ 		if (unlikely(err)) {
++			secretmem_unaccount_folio(state, folio);
+ 			/*
+ 			 * If a split of large page was required, it
+ 			 * already happened when we marked the page invalid
+@@ -114,23 +183,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
+ 	.fault = secretmem_fault,
+ };
  
++static void secretmem_destroy_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state = inode->i_private;
++
++	secretmem_unaccount_all_folios(state);
++	free_uid(state->user);
++	kfree(state);
++	inode->i_private = NULL;
++}
++
+ static int secretmem_release(struct inode *inode, struct file *file)
+ {
+ 	atomic_dec(&secretmem_users);
++	secretmem_destroy_inode_priv(inode);
++
  	return 0;
  }
+ 
+ static int secretmem_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+-	unsigned long len = vma->vm_end - vma->vm_start;
+-
+ 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
+ 		return -EINVAL;
+ 
+-	if (!mlock_future_ok(vma->vm_mm, vma->vm_flags | VM_LOCKED, len))
+-		return -EAGAIN;
+-
+-	vm_flags_set(vma, VM_LOCKED | VM_DONTDUMP);
++	vm_flags_set(vma, VM_DONTDUMP);
+ 	vma->vm_ops = &secretmem_vm_ops;
+ 
+ 	return 0;
+@@ -190,19 +266,40 @@ static const struct inode_operations secretmem_iops = {
+ 
+ static struct vfsmount *secretmem_mnt;
+ 
++static int secretmem_init_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state;
++
++	state = kzalloc(sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return -ENOMEM;
++
++	state->user = get_uid(current_user());
++	inode->i_private = state;
++	return 0;
++}
++
+ static struct file *secretmem_file_create(unsigned long flags)
+ {
+ 	struct file *file;
+ 	struct inode *inode;
+ 	const char *anon_name = "[secretmem]";
++	int err;
+ 
+ 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
+ 	if (IS_ERR(inode))
+ 		return ERR_CAST(inode);
++
++	err = secretmem_init_inode_priv(inode);
++	if (err)
++		goto err_free_inode;
++
+ 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
+ 				 O_RDWR, &secretmem_fops);
+-	if (IS_ERR(file))
+-		goto err_free_inode;
++	if (IS_ERR(file)) {
++		err = PTR_ERR(file);
++		goto err_free_priv;
++	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
+ 	mapping_set_unevictable(inode->i_mapping);
+@@ -215,10 +312,11 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 	inode->i_size = 0;
+ 
+ 	return file;
+-
++err_free_priv:
++	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+-	return file;
++	return ERR_PTR(err);
+ }
+ 
+ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
+index 9b298f6a04b37..348cc976726bb 100644
+--- a/tools/testing/selftests/mm/memfd_secret.c
++++ b/tools/testing/selftests/mm/memfd_secret.c
+@@ -56,33 +56,6 @@ static void test_file_apis(int fd)
+ 		pass("file IO is blocked as expected\n");
+ }
+ 
+-static void test_mlock_limit(int fd)
+-{
+-	size_t len;
+-	char *mem;
+-
+-	len = mlock_limit_cur;
+-	if (len % page_size != 0)
+-		len = (len/page_size) * page_size;
+-
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem == MAP_FAILED) {
+-		fail("unable to mmap secret memory\n");
+-		return;
+-	}
+-	munmap(mem, len);
+-
+-	len = mlock_limit_max * 2;
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem != MAP_FAILED) {
+-		fail("unexpected mlock limit violation\n");
+-		munmap(mem, len);
+-		return;
+-	}
+-
+-	pass("mlock limit is respected\n");
+-}
+-
+ static void try_process_vm_read(int fd, int pipefd[2])
+ {
+ 	struct iovec liov, riov;
+@@ -258,7 +231,7 @@ static void prepare(void)
+ 				   strerror(errno));
+ }
+ 
+-#define NUM_TESTS 4
++#define NUM_TESTS 3
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -278,7 +251,6 @@ int main(int argc, char *argv[])
+ 					   strerror(errno));
+ 	}
+ 
+-	test_mlock_limit(fd);
+ 	test_file_apis(fd);
+ 	test_process_vm_read(fd);
+ 	test_ptrace(fd);
 -- 
 2.53.0
 
