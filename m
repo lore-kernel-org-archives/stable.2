@@ -1,101 +1,94 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 669362E542C;
-	Thu, 10 Sep 2026 02:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D733769FF
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 02:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006214; cv=none; b=t2Jmst1bjCRx5p1+jPuOPbL8lnrZGFTNlklPTJAg8lSObpbGLYz3QrMCMCPL4h/Dpk7Dzh7ze8l6rbcXTGLC25LQfFPIpT0vNJ1bQaUgHTBSRwIjcqG3DZQ8/ko/Nut2U4BuwYPHhEdVWv2KzAtmshbxP4TPG/OqsajaIBJvyiE=
+	t=1789006269; cv=none; b=GicGpy0P9hFKxMJzKUMKpPNBBpJrq4cYfWIiJo4hLiI7Oq0xo3Y5N8q5qjlHc0HVBNyqCB5Mkw20L3svDYvxLXBzBp69leJaUVjWE/TKikIMCi2ubAt+Otb2XnarkXG/ATO7ugaGo8w68y0TNBneQ79Yb3Fl3K9NWLr0DUuIugU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006214; c=relaxed/simple;
-	bh=6X4PBf5BZXBmLYQRCarw6LEMDqC8sbd/96iuOUcMbsU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WstKZj5JqBHnC1GhgpjtfGxfcCpGbR6FwfB0Lb/NDiVra/yZol1R/cyzawzbpZ+ztnCPHHDjYRteovX7KdLRY8snsZwBWODGlnt5eAbZaujAXFOfDmBECtmOPO2SqEzc8WDcCMPt3hqIIpIf5DBJuM/PnShU2JhR5CPQezFb1xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHcH56EaJqKg8FAQ--.1192S3;
-	Thu, 10 Sep 2026 10:10:02 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgCn2TB6EaJqaQ+rAw--.47397S2;
-	Thu, 10 Sep 2026 10:10:02 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	wcn36xx@lists.infradead.org
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
-Date: Thu, 10 Sep 2026 02:09:07 +0000
-Message-Id: <20260910020907.3353-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789006269; c=relaxed/simple;
+	bh=OniNcNS6EFqx4poXltPQeM0y9Ag321pgHnddYtcwuVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gwYdEIo/IsgOLPlaAYCqKxt58cpmeWFn3Zzr4exqowPzh7MnsefRFyW576sgD5be1EjeyR10ATcuGoNivZE0ht5EJx9NY60btDeQY721kZsMN1ysuV/Fd3KHLAi25N40GZaNxPhX9QYwK2RBlWVSlINQ3aFqnqAXruDbcS6AD0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USxCRb32; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USxCRb32"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4406A1F000FF;
+	Thu, 10 Sep 2026 02:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789006268;
+	bh=KDbIlmzcBKYb/qo6/oi5i5bElV9FWeYhQm1sjuXd7MU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=USxCRb32CTM3FKx0IgvOXxEa+pODIMalGEdt2+H8LuFhKUwWFbCbED5QNugf9sMo7
+	 rAZRjTRbnWW7ps6ntH5i2QarZfQzz11CQtnztZ94D+Ro+xt4Mn9aiEZ9rC5D30YZmE
+	 qcwX4v3BKBwSEqJ6GbVxXyw5uQsG1xMI5LUO0Sx8RPhQ+1kMeCBglioE1uyOVYKZLM
+	 b9X7Ktup9qCucTi3m8AGvY+SE/i7mfDapiInN6EEjtc49G8QCWPikFsokgm2Dp7ot1
+	 jQ55/ZKY6xOQEr1/VCfmteQq1y6gxxrHBrHfMC8SPX7EhpcnU8xIVLp4Sn1Ma4i2iK
+	 CLkeW8lETq6GQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com,
+	stable <stable@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
+Date: Wed,  9 Sep 2026 22:11:05 -0400
+Message-ID: <20260910021105.3989086-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090850-exonerate-dumpster-494a@gregkh>
+References: <2026090850-exonerate-dumpster-494a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgCn2TB6EaJqaQ+rAw--.47397S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?1kkibQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyt9d8Xr08ZnRfj2RxFhaKwHmhjm7l4LO8xHhS7sy8/3QVB
-	t0d+DN4Erlu6FYofXtHN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7CF15GFyfJr43Jr4xAFyDCFX_yoW8ArW7pr
-	Z7Wr4I9FykZFs7JwsrWr48WFy8Jan5ArZF9Fyxua13ZFn5CFn5tFy5uF9xZFWUtayqqFy2
-	yr45tr15G3ZxA3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I_M3UUUUU==
 
-wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
-which only dequeues the timer and does not wait for a callback that is
-already executing; the preceding free_irq() calls synchronize the
-interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
-therefore be running past the teardown and use the wcn freed along
-with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
-reads wcn->tx_ack_skb and passes wcn->hw to
-ieee80211_tx_status_irqsafe().
+From: Jeffin Philip <jeffinphilip14@gmail.com>
 
-Fix this by using timer_shutdown_sync(), which waits for a running
-callback and also prevents the timer from being rearmed again. The
-timer is set up again by wcn36xx_dxe_init() on the next start, so the
-start/stop cycle is unaffected.
+[ Upstream commit 2c0f5ca48674a5b5f9fa4a9c3325aa48053af0bc ]
 
-This issue was found by an in-house static analysis tool.
+Previously fsg_num_buffers_validate() was removed as it was not
+necessary due to Kconfig setting the limits for n from 2 to 256 with
+default as 2. However, setting the page content in such a way that
+kstrtou8() reflects n value as either 0 or 1 bypasses these
+restrictions leading to a null pointer dereference if n is 0. Fix
+this by adding a check for n < 2 and returning -EINVAL if n is
+either 0 or 1 consistent with Kconfig logic.
 
-Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reported-by: syzbot+791be35f1fbcc85d06d7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=791be35f1fbcc85d06d7
+Fixes: fe5a6c48fd95 ("usb: gadget: storage: get rid of fsg_num_buffers_validate()")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://patch.msgid.link/20260818035904.10324-1-jeffinphilip14@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adjusted context to retain the branch’s existing kcalloc() call instead of kzalloc_objs(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/ath/wcn36xx/dxe.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/gadget/function/f_mass_storage.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
-index 44020ec26..801f1218e 100644
---- a/drivers/net/wireless/ath/wcn36xx/dxe.c
-+++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
-@@ -1055,7 +1055,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
+diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
+index 74cb7e57a197c..341cb3861a13f 100644
+--- a/drivers/usb/gadget/function/f_mass_storage.c
++++ b/drivers/usb/gadget/function/f_mass_storage.c
+@@ -2748,6 +2748,9 @@ int fsg_common_set_num_buffers(struct fsg_common *common, unsigned int n)
+ 	struct fsg_buffhd *bh, *buffhds;
+ 	int i;
  
- 	free_irq(wcn->tx_irq, wcn);
- 	free_irq(wcn->rx_irq, wcn);
--	timer_delete(&wcn->tx_ack_timer);
-+	timer_shutdown_sync(&wcn->tx_ack_timer);
- 
- 	if (wcn->tx_ack_skb) {
- 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
++	if (n < 2)
++		return -EINVAL;
++
+ 	buffhds = kcalloc(n, sizeof(*buffhds), GFP_KERNEL);
+ 	if (!buffhds)
+ 		return -ENOMEM;
+-- 
+2.53.0
 
