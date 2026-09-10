@@ -1,120 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6F9533596
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4FE568552
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 19:08:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067325; cv=none; b=jLbJlrpeKdN8ybvas+DTTGfOtXF9R+mHNprj6Aiw4gSq2s/lHIr3ZbajQtZDh0mHcIYmi0beX7jyOYD1uA7Y2H7eNXs4d/15qfbTCz0cNi58Hwzv49Ydb81s3yOghRFGWAcRLt6JcS19T0ilGp0qROeuwAeZIh6Qxvduw22vY2o=
+	t=1789067330; cv=none; b=AuvqOXaMvPFoO/Z25gjWuKQEFfy12HEM8qDmsqeMvCiN1rRpUW4pJVVTXYVVlPRQQcEtfjvfBzlFmtJEFGgClC2n2N4WJvxWmj8HihQxmQHbe7sHmRNmH/LZw0uZkVPZfE7Uo0031MSMmj/9uogXn9Vi+lH0splFZQqIZYBwets=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067325; c=relaxed/simple;
-	bh=RGhBklHQrfRgquonb/TvKkyvSrTngroKxE+eppS8DQw=;
+	s=arc-20240116; t=1789067330; c=relaxed/simple;
+	bh=Qv3W1uJ2ykF7Sb1IvzBDR/Ovge4S0FtIm4xBfZoaEhE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YNa3OCV77o2oNpGPphhmIKek2+bm+COOcStK7pBaMIdwT+UXU21X61LvqYfipMl/6naurpzjz2HhA7yPI+/B79dBxx2uUIc71nkH6WcA01t7hvxrdW9ydPVw35n+lS6DVhSp1aImEAzUFP0tE+eY5Z82eovrqBbgRnF99U+TYVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJPrjH9v; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YO9LnWNNU7TS1M+7x2xQyTmupgfEvoz3NAqAvODzVxDpRs9K0V5sZbkf4SByAaiUiDp+7I71HIWkq/fQ/KYwPf0iQvDyDjIpFzbMnZWbmp065PoBNZGOiB8N/QT0qXskcMqqnWJaciUrPUD8A484KP5HpmGtdSNSeTN8cqULJL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJqfObzl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJPrjH9v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A88CD1F0089B;
-	Thu, 10 Sep 2026 19:08:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJqfObzl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D71F1F000FF;
+	Thu, 10 Sep 2026 19:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789067324;
-	bh=frUlhyL4wr4R59t9IPGCt5grNGJ+WNOHes+WzSACcaw=;
+	s=k20260515; t=1789067329;
+	bh=6u/WLyVlv6nCqy9K27OlZH8CfIXi/qhemIAkHcGXjKM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BJPrjH9vgFnWXcHy+a/thkX9wMXO/Otr30XU1YUSB407ZdkVBXsTpc/37dZH4wHRw
-	 rDqQw2WswOwek7Ire1y4Cup0s0La8hxEjSVZi26EupDUOA9PUITKERtzNoRJq/a0n7
-	 l/uIT1vqRBOloPwoQOFkrFgLgSBjNYrd46q1kJBNraaui8k8E7ys78BKHsMAOrP36d
-	 d05YcKAMl5wjOgcKe6ZbVpmWqsapwoOW54c+Wt717FJYWeg+p+TvyDRtoj1xKMmqIp
-	 vFuLW9JODRRJx3lkR7i+I2jJQPadKXmjPBZPnIc7RYIMtvlVuKSyjjFa872ZRJ15uY
-	 Ybl8ms+INFWfg==
+	b=GJqfObzlVDFooKZ/88adhUwTJ1Xj2W8U+xeLz2RN/DA1WhSxQF3ep5jJbmeVVvE2e
+	 2n6vu/lNGjUUX3rUqaKHAqQ78D+8wnCSi65PdSniRCZQO3UIy/SHG/8MnCRiyzUoX+
+	 RQYD3IEAZg8kf8UtyV051hCkDEM5iUabCNmna3cNfUopS9em2LFCTNUsr+d1PJF5LJ
+	 j3r+agKsEVqloRlkZakkqs+fQBnaZIOC7++B12bKM21i1sLgRLvhWNzLsr/EphAnBH
+	 vojo6iDjSNxSPfh0gS1LSpDwdcOYP84aqIkHVhD+9ak6eFpUZw9OL0tZCYozyoY+5X
+	 nSqTiUDYlfR6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
+Cc: Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] misc: fastrpc: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 15:08:41 -0400
-Message-ID: <20260910190841.1453617-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/7] block: remove a dead check in show_partition
+Date: Thu, 10 Sep 2026 15:08:40 -0400
+Message-ID: <20260910190846.1453814-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910190841.1453617-1-sashal@kernel.org>
-References: <2026090842-deluge-gloss-a643@gregkh>
- <20260910190841.1453617-1-sashal@kernel.org>
+In-Reply-To: <2026090834-voyage-donut-60bd@gregkh>
+References: <2026090834-voyage-donut-60bd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baineng Shou <shoubaineng@gmail.com>
+From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit a4a1a2bfcb29785292d634d7787edc6fb550714d ]
+[ Upstream commit e3b3bad3f29878d13fdbc96f9e59674bd9b06bae ]
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
+disk_max_parts never returns 0 given that ->minors for devices not using
+the extended dev_t must be non-zero, and disk_max_parts always returns
+DISK_MAX_PARTS for the latter.
 
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
-
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
-
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
-Cc: stable@vger.kernel.org
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Link: https://lore.kernel.org/r/20211122130625.1136848-5-hch@lst.de
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 3f9c7a108c0e ("block: flag zoned disks with GENHD_FL_NO_PART")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/misc/fastrpc.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ block/genhd.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 6f1787e83b65f..eba3191a6708c 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1319,24 +1319,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
- 	}
+diff --git a/block/genhd.c b/block/genhd.c
+index 768a49460bf19..01a7b81eca751 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -1174,9 +1174,7 @@ static int show_partition(struct seq_file *seqf, void *v)
+ 	struct hd_struct *part;
+ 	char buf[BDEVNAME_SIZE];
  
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
- 
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
- 	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
-+
- 	return 0;
- }
- 
+-	/* Don't show non-partitionable removeable devices or empty devices */
+-	if (!get_capacity(sgp) || (!disk_max_parts(sgp) &&
+-				   (sgp->flags & GENHD_FL_REMOVABLE)))
++	if (!get_capacity(sgp))
+ 		return 0;
+ 	if (sgp->flags & GENHD_FL_SUPPRESS_PARTITION_INFO)
+ 		return 0;
 -- 
 2.53.0
 
