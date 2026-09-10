@@ -1,125 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3B54B515E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:54:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D7E4A4983
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 14:55:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052068; cv=none; b=b8QGGj6GEDOElTND2qhh+b+wuAQ3+jtoEGQJ22GuRJ1PjQEghp3BjPedqbCBoRXC9/mRKnxH+D/R+XLHf9Ae5XoD+n8SBge+KZT4auHkMEZd7KxxPUMpOomwwZgH2Z9HLve7tYV3GufeNQXO0TfiMM/du89hYriJoO4P9/MxCZc=
+	t=1789052149; cv=none; b=kGFN+m8adD6FY3AS/OxIg8t4+JNm8MHNpAquJo6MXvKNLtEjpHveZu/lRRDTi7jxGlx/coHXCyty+udyHDBeVenHoOo4cxQ9FcFdvTiGd9BBL/foCmo1rRQtku30GTw1ShWJOsLZ3zaydBdv3RwMgyhA5YD/x4ggpwjcck8N6wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052068; c=relaxed/simple;
-	bh=JgUnjoodBuVNW/YrPY0KKrU3ZJSjBHXdGgBbpphpFqU=;
+	s=arc-20240116; t=1789052149; c=relaxed/simple;
+	bh=bwjwRKjxdqAeQ9irC08GpVL0FwyC5RfUECPcDH0O+ic=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mjeZEwyI98uzXejktuNlPiRrflDm4lp+YlXm101pCoRfVxT4KF8Hpjlk/KSypAk7n3Vr2vMrpIavAG5wEi5uzcnJASlQhqpdJlg9/CA37/7MUi2DUm9p2QX0H8Z/MtKdaaUhnAeqLBvYpb2UbyMg8pZFUwF9Ec6fp0ifPV/10w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIo3tzPp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=E6ttscyMCWpPH/SNDBcj6/pGNooLzKYh7OxDoYr3ck0CUAcRCuB7O4En82TRJPlhwOLwHPMm6U/8dnHBOV+KNZSg5vHjDXvr/4BdbksG+EKQXk4e/T5jOmP8CjKA7SM0ZAEVF86uIzaPH09mfTYW8Jx1a3gK7GxeCpmH1cbrLtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfYzB4+H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIo3tzPp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1471C1F000FF;
-	Thu, 10 Sep 2026 14:54:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfYzB4+H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3EE1F000FF;
+	Thu, 10 Sep 2026 14:55:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789052066;
-	bh=2Y/X6+5xjCH1oxZcLEtOauD3W82Qwtkh/GQTOzO4ZUM=;
+	s=k20260515; t=1789052147;
+	bh=4iWF+ALm5kucu3l+htqXRIvBJos76W9QCpoqjGz+XM8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QIo3tzPpEV+vACiA1OCmF5NKK5lZ1CqDqUWBkEzfhF7upgGKJMYcBQbT9cITlhpdf
-	 GHKfC1egNOfn7SPAdYC7soMmkxanjcLi0LR9lBCIISwpY4Ug0oJw1leSb5BdiJjRW8
-	 UNp0J3TdFMN7G5r+rKz6NSiMhpyTqPlywY1U4vcuQwVRRYlPRtXeLnW8i5hRoMIeJG
-	 j3XCEUEttm3EG2/Dlk/Vq53iBsN49ZmE8mvttM95u0pF6k2LeWT4/tKWK1Z6tXUU0Y
-	 Yx1NbzeX8s9v8Y41cThya6yKHSRojV6dwd+v1NhaXqAMmekwhFxv32fZrn1wXQHzgQ
-	 Fwf3kDX3DaoXg==
+	b=FfYzB4+HxK/ey9zmlttfJCI6taxVBrimv8zAmkYzhz1rCo269PL1YNJOb+/F2PDVF
+	 NdcMmOUbVzn9RqcRLT87fHY9n6EZq0uIf26uuXrkfaXjouxpwmnhdEvHysnQJ0PPQp
+	 NGKW9Ux2kRZ5nxltmnXtca4tSmgjf8Hj1qk3y3LBO9DMJu3eN9Q7xiV9dxJSFNR26n
+	 TG4A7Tic3s7A0gb+8UQcnn/bFD9R2G0qXO8ux4ljOFuLRKj73Su01mhZia5UX/TsLb
+	 97wF4PNiL2u1w0gWdhq0+XdsXpXyD+9EBrROH2dnhGSCZ1dHP0g/VV7Vg9N3WvyMLs
+	 GS0dGx0ZG1hAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Leo Martins <loemra.dev@gmail.com>,
-	Boris Burkov <boris@bur.io>,
-	"jlayton@meta.com" <jlayton@meta.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Baineng Shou <shoubaineng@gmail.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] btrfs: abort transaction before releasing tree_log_mutex on commit failure
-Date: Thu, 10 Sep 2026 10:54:24 -0400
-Message-ID: <20260910145424.828388-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+Date: Thu, 10 Sep 2026 10:55:45 -0400
+Message-ID: <20260910145545.830088-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090820-emerald-festive-f68c@gregkh>
-References: <2026090820-emerald-festive-f68c@gregkh>
+In-Reply-To: <2026090800-thumb-vacancy-9e39@gregkh>
+References: <2026090800-thumb-vacancy-9e39@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Leo Martins <loemra.dev@gmail.com>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-[ Upstream commit 529c01c3dc0d322c103611c35b01d71ea04562b2 ]
+[ Upstream commit 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 ]
 
-When transaction metadata writeout fails in btrfs_commit_transaction(),
-the current code only logs the error, drops tree_log_mutex and then goes
-through cleanup_transaction(), which aborts the transaction and records
-the fs error.
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-That is too late for the tree log side. A log sync can already be
-waiting on tree_log_mutex, because the committing transaction is moved
-to TRANS_STATE_UNBLOCKED while that mutex is held, which lets fsyncs
-join the next transaction and queue up in btrfs_sync_log(). Once the
-failed commit drops tree_log_mutex, such a log sync acquires it, sees
-BTRFS_FS_ERROR() still clear, and writes super_for_commit. That
-superblock holds the roots prepared for the transaction that has just
-failed to write out its metadata, so it can point at tree blocks that
-never reached the disk, and the next mount fails with a parent transid
-mismatch.
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-Commit 165ea85f1483 ("btrfs: do not write supers if we have an fs
-error") fixed this class of problem by making btrfs_sync_log() check for
-an fs error right after taking tree_log_mutex. That check only works if
-the commit path publishes the fs error before it releases the same
-mutex, and commit 68d4ece9c30e ("btrfs: don't call
-btrfs_handle_fs_error() in btrfs_commit_transaction()") removed the only
-thing that did so.
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
-Restore the ordering by aborting the transaction while tree_log_mutex is
-still held. We have a transaction handle here, so this does not need to
-bring back the btrfs_handle_fs_error() call: __btrfs_abort_transaction()
-records the fs error itself, which is all btrfs_sync_log() looks at, and
-the error message put in its place is kept.
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. dma_buf_fd_install()       publishes the fd and emits the
+                                trace_dma_buf_fd tracepoint -- from
+                                here on the ioctl cannot fail.
 
-This is what commit 3810ab40afa5 ("btrfs: abort transaction on error in
-write_all_supers()") already does for the next call in this function.
+A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
+fd_install() together with the DMA_BUF_TRACE() call, preserving the
+export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
+is refactored to return the struct dma_buf * directly (returning
+ERR_PTR on failure) so the caller holds the dmabuf reference across
+steps 3 and 4.
 
-This is reproducible on an unmodified kernel by failing the first
-couple of bios of a transaction commit with fail_make_request while a
-concurrent fsync workload keeps log syncs queued on tree_log_mutex.
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
 
-Fixes: 68d4ece9c30e ("btrfs: don't call btrfs_handle_fs_error() in btrfs_commit_transaction()")
-CC: stable@vger.kernel.org # 7.0+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Reviewed-by: jlayton@meta.com <jlayton@meta.com>
-Signed-off-by: Leo Martins <loemra.dev@gmail.com>
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-[ adjusted error-message context to retain `%d` with `ret` instead of `%pe` with `ERR_PTR(ret)`. ]
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Cc: stable@vger.kernel.org
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+[ Replaced dma_buf_fd_install() with fd_install(fd, dmabuf->file) because the older tree lacks the tracing infrastructure. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/transaction.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
-index 8f94197281008..5376cd5505454 100644
---- a/fs/btrfs/transaction.c
-+++ b/fs/btrfs/transaction.c
-@@ -2589,6 +2589,12 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
- 	ret = btrfs_write_and_wait_transaction(trans);
- 	if (unlikely(ret)) {
- 		btrfs_err(fs_info, "error while writing out transaction: %d", ret);
-+		/*
-+		 * Abort before releasing tree_log_mutex, so a log sync waiting
-+		 * on it sees the fs error and skips writing super_for_commit
-+		 * for this failed transaction. See btrfs_sync_log().
-+		 */
-+		btrfs_abort_transaction(trans, ret);
- 		mutex_unlock(&fs_info->tree_log_mutex);
- 		goto scrub_continue;
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 59d158873f4cb..c8656380530f7 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -49,33 +49,6 @@ static dev_t dma_heap_devt;
+ static struct class *dma_heap_class;
+ static DEFINE_XARRAY_ALLOC(dma_heap_minors);
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 unsigned int fd_flags,
+-				 unsigned int heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -93,30 +66,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -132,6 +117,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -168,15 +155,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
  	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
 -- 
 2.53.0
 
