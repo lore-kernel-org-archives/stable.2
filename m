@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C789A31F9B5
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:00:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AB425DB12
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:00:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002028; cv=none; b=Uo7cV5msGM2t5LlFg005Gd9DCHbIsF8K0INXzcTq2WlO67CrMrMr1ug2t6IbOnRX0EQ6Pj3kbbvgKEi+m4ki8p18kV1XAt+FrGys6CYJl6FUzsKfl80LBQuT+NkM5SQScgwGdMF226RcGwSeVhTOipYa9JcVV9WltgLhP3boEGg=
+	t=1789002031; cv=none; b=USlc7Pz7+9zC2lAvOlEs/CQm64e74xvCw9Fib8DIEtuGFggV2dnIGFwu9M+/TXbrqbKyycTAHWCajjQi8w4AY98BDNM8fiNAtoEdeyDp73DwyS2o2orVuunjyalPrY9Sbbf7zP+HGFREz6Fou7U+o8luCceRK7EDMldETRw1puI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002028; c=relaxed/simple;
-	bh=r75UvtttNQh953y8FwAvulDzioWtwO3Ue6YjIy4dJgg=;
+	s=arc-20240116; t=1789002031; c=relaxed/simple;
+	bh=IDC35oCs29c+RuGWA0nn0XRcd5JnAJABvpzSfzp5YOs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VzSOWFsIuG9ohrTk+wXvPNYgwZekPnLAZMxGRB9YhC++l8Ae68UvVu8JSggrAaF5Ov/BSgSa4H6f0CtXmBr0yrYfnW/OWdfwopqy+OT7bDaxE8wqImdwhyqjLg0jEgkNJqHMTXCEIgs8sskqma/fWHCnQrGY3N3AUbVw6S1pWPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nw4enqxN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gB+rn45tLqpVBtpHBo4CcEufHvsDxdjdb5C7xGZNUTARLT04mFR+LcBj9lJ/VU9MEWzV1z7T7eF6fT/9SPOP2l8AoiJvLNAX7+0MmfoIsZd6Hb+R1ljQiy/IvOaGOqTxSPp2P89oGXGuwdVK1qmB4kQn/WbCGjVKMxIs2YU4xA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEWcGiOA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nw4enqxN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F3F1F00899;
-	Thu, 10 Sep 2026 01:00:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEWcGiOA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592E61F000FF;
+	Thu, 10 Sep 2026 01:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002026;
-	bh=Pj/mVx3WoMULdYzB6irIHkFKA5ghcnEEjxqLBY6iQQM=;
+	s=k20260515; t=1789002029;
+	bh=l/yOwphQdl88Ynw/rTVTj2Amo6Z8IMfOzYbh6JwHZmI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nw4enqxNGoyyZFoj3OeH3IPvR8k9rMa5scHNZXHUpVx9Wl/AI9p91P2blFt3oIuSL
-	 HuaCJG4wb5+SdKWQ74fsTxO4bVJkLzojB1FwpANGAvXIRrV5oECShfYntVfUglPTcl
-	 EI2XvRbZ+2EbaJIAVAPmU/9FtLeqZ1JrLYJB8e87rnb+Yfr8BMLUuB3QFFERUOPhbE
-	 qod+LW+mE3C/eqHpPXmk0h9YzRTnfCSP/41Th6s0NkUf+9jjPNiowSTySJm8UFQHqS
-	 8m58n8wRHsrFBWboeHW0YsWB8SyDp/Y/oQtxN5znfdVk7PwBbfkETkiJjfH7cu7cma
-	 WHuNgBKXeShFw==
+	b=XEWcGiOAkRd/ZWUQ7USyCI1UEP0FuO5PVuGhtaa4zugEjd1Q8ICWwHsWtFlvjnNeO
+	 GjIIOD2pfX9Dm0tgNX5GJF4PVW1ZQXehAdHT/a33DWYa1r/+gcduhAklZHecymdRgM
+	 kp3PCMtewcbcqj0PwA/j+DXdCeFMliRBOULs756T/+dZQJD8hGLGHBEV4oSOyivvAD
+	 ckUCY2nyHO6pVuMfkvcwFpqzipfbwWZE6Cgnfk2b7rs/6RsRgStLNGkPllbtlEjUcD
+	 BJ/gpHqG0RpOxqiXgL4NLlnaWPkPNwMGjYdRP0irW8Epn+Qnmd9WHbzoOV4JkyGRzL
+	 2tdUPRxGMOw3g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: "Yuhang.chen" <yhchen312@gmail.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] i3c: master: Fix recursive locking during device registration
-Date: Wed,  9 Sep 2026 21:00:22 -0400
-Message-ID: <20260910010022.3788326-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y] wifi: rtw89: pci: add .shutdown callback to stop rfkill polling on reboot
+Date: Wed,  9 Sep 2026 21:00:26 -0400
+Message-ID: <20260910010026.3788615-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910010022.3788326-1-sashal@kernel.org>
-References: <2026090419-playoff-payable-3bac@gregkh>
- <20260910010022.3788326-1-sashal@kernel.org>
+In-Reply-To: <2026090432-juvenile-roundworm-d5e3@gregkh>
+References: <2026090432-juvenile-roundworm-d5e3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +45,197 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+From: "Yuhang.chen" <yhchen312@gmail.com>
 
-[ Upstream commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 ]
+[ Upstream commit 667c12782aaf8dd3cb2213e528fe63a73cb63345 ]
 
-i3c_master_register_new_i3c_devs() registers newly discovered devices
-while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
-can immediately probe the device, and probe callbacks typically invoke
-I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
-recursive acquisition of the same rwsem.  rwsems do not support recursive
-read locking and can deadlock when a writer is waiting.  See the
-"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
+Since the hardware rfkill polling was introduced, arm64 platforms can
+panic with an asynchronous SError during warm reboot:
 
-For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
-  WARNING: possible recursive locking detected
-  kworker/5:1/94 is trying to acquire lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
-  but task is already holding lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
+  SError Interrupt on CPU8, code 0x00000000be000011 -- SError
+  Workqueue: events_power_efficient rfkill_poll [rfkill]
+    rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
+    rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
+    rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
+    ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
+    cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
+    rfkill_poll+0x30/0x88 [rfkill]
+  Kernel panic - not syncing: Asynchronous SError Interrupt
 
-Fix this by separating device creation from device registration.
-Populate desc->dev under the maintenance lock, collect the devices that
-still need registration into a local list, then release the lock before
-calling device_register().  Finally retake the lock and clean up any
-devices that failed to register.
+On the reboot path the kernel only runs device_shutdown(), which calls
+each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
+driver had no .shutdown callback, so nothing stopped the rfkill polling
+work while the platform was tearing the PCIe link down.  Once the link
+is gone, the next MMIO read from the poll handler targets a
+non-responding device and is reported as a fatal asynchronous SError on
+arm64.
 
-Use the maintenance lock rather than the normal-use lock while adding
-device objects.  A write-side maintenance lock prevents readers from
-observing a partially initialized desc->dev during initial device
-population, or desc->dev disappearing if registration fails.
+Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
+sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
+RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
+rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
+chip after shutdown begins and the SError no longer occurs.
 
-The local list requires a list node, so add a list node member to struct
-i3c_device.
+This does not call the full .remove path from .shutdown, to keep the
+shutdown handler minimal and avoid running the non-idempotent teardown
+twice.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
 Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260729014142.2746777-1-yhchen312@gmail.com
+[ Omitted the .shutdown registration in rtw8922de.c because the driver is absent from the target tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c       | 45 ++++++++++++++++++++++++++++----------
- include/linux/i3c/master.h |  3 +++
- 2 files changed, 36 insertions(+), 12 deletions(-)
+ drivers/net/wireless/realtek/rtw89/core.h       |  1 +
+ drivers/net/wireless/realtek/rtw89/mac80211.c   |  3 ++-
+ drivers/net/wireless/realtek/rtw89/pci.c        | 13 +++++++++++++
+ drivers/net/wireless/realtek/rtw89/pci.h        |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8851be.c  |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8852ae.c  |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8852be.c  |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8852bte.c |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8852ce.c  |  1 +
+ drivers/net/wireless/realtek/rtw89/rtw8922ae.c  |  1 +
+ 10 files changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index d94c1bf4f6688..c3f8e9d58d96d 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1618,12 +1618,21 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
- static void
- i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- {
-+	struct i3c_device *i3cdev, *tmp;
- 	struct i3c_dev_desc *desc;
-+	LIST_HEAD(i3c_unreg_devs);
- 	int ret;
+diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wireless/realtek/rtw89/core.h
+index e146fd082f21a..7e35168e8d606 100644
+--- a/drivers/net/wireless/realtek/rtw89/core.h
++++ b/drivers/net/wireless/realtek/rtw89/core.h
+@@ -5042,6 +5042,7 @@ enum rtw89_flags {
+ 	RTW89_FLAG_CHANGING_INTERFACE,
+ 	RTW89_FLAG_HW_RFKILL_STATE,
+ 	RTW89_FLAG_UNPLUGGED,
++	RTW89_FLAG_SHUTDOWN,
  
- 	if (!master->init_done)
+ 	NUM_OF_RTW89_FLAGS,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c b/drivers/net/wireless/realtek/rtw89/mac80211.c
+index 474be7a5e49c7..968d0346a87f4 100644
+--- a/drivers/net/wireless/realtek/rtw89/mac80211.c
++++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
+@@ -1879,7 +1879,8 @@ static void rtw89_ops_rfkill_poll(struct ieee80211_hw *hw)
+ 	lockdep_assert_wiphy(hw->wiphy);
+ 
+ 	/* wl_disable GPIO get floating when entering LPS */
+-	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags))
++	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags) ||
++	    test_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags))
  		return;
  
-+	i3c_bus_maintenance_lock(&master->bus);
+ 	rtw89_core_rfkill_poll(rtwdev, false);
+diff --git a/drivers/net/wireless/realtek/rtw89/pci.c b/drivers/net/wireless/realtek/rtw89/pci.c
+index 17a199ee1d4a4..6c1f66e65497f 100644
+--- a/drivers/net/wireless/realtek/rtw89/pci.c
++++ b/drivers/net/wireless/realtek/rtw89/pci.c
+@@ -4829,6 +4829,19 @@ void rtw89_pci_remove(struct pci_dev *pdev)
+ }
+ EXPORT_SYMBOL(rtw89_pci_remove);
+ 
++void rtw89_pci_shutdown(struct pci_dev *pdev)
++{
++	struct ieee80211_hw *hw = pci_get_drvdata(pdev);
++	struct rtw89_dev *rtwdev;
 +
-+	if (master->shutting_down) {
-+		i3c_bus_maintenance_unlock(&master->bus);
++	if (!hw)
 +		return;
-+	}
 +
- 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
- 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
- 			continue;
-@@ -1644,25 +1653,37 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (desc->boardinfo)
- 			desc->dev->dev.of_node = desc->boardinfo->of_node;
++	rtwdev = hw->priv;
++	set_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags);
++}
++EXPORT_SYMBOL(rtw89_pci_shutdown);
++
+ MODULE_AUTHOR("Realtek Corporation");
+ MODULE_DESCRIPTION("Realtek PCI 802.11ax wireless driver");
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/drivers/net/wireless/realtek/rtw89/pci.h b/drivers/net/wireless/realtek/rtw89/pci.h
+index cb05c83dfd567..09fca0e46cd1b 100644
+--- a/drivers/net/wireless/realtek/rtw89/pci.h
++++ b/drivers/net/wireless/realtek/rtw89/pci.h
+@@ -1737,6 +1737,7 @@ struct pci_device_id;
  
--		ret = device_register(&desc->dev->dev);
--		if (ret) {
--			dev_err(&master->dev,
--				"Failed to add I3C device (err = %d)\n", ret);
--			desc->dev->desc = NULL;
--			put_device(&desc->dev->dev);
--			desc->dev = NULL;
--		}
-+		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
- 	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		ret = device_register(&i3cdev->dev);
-+		if (ret)
-+			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
-+		else
-+			list_del_init(&i3cdev->node);
-+	}
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		list_del(&i3cdev->node);
-+		desc = i3cdev->desc;
-+		i3cdev->desc = NULL;
-+		put_device(&i3cdev->dev);
-+		desc->dev = NULL;
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
- }
- 
- static void i3c_master_reg_work_fn(struct work_struct *work)
- {
- 	struct i3c_master_controller *master = container_of(work, typeof(*master), reg_work);
- 
--	i3c_bus_normaluse_lock(&master->bus);
--	if (!master->shutting_down)
--		i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
-+	i3c_master_register_new_i3c_devs(master);
- }
- 
- /**
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 678aa2c173779..58e5c9e42ce7b 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -220,6 +220,8 @@ struct i3c_dev_desc {
-  *	  every time the I3C device is rediscovered with a different dynamic
-  *	  address assigned
-  * @bus: I3C bus this device is attached to
-+ * @node: unregistered device list node, only for use by
-+ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
-  *
-  * I3C device object exposed to I3C device drivers. The takes care of linking
-  * this object to the relevant &struct_i3c_dev_desc one.
-@@ -230,6 +232,7 @@ struct i3c_device {
- 	struct device dev;
- 	struct i3c_dev_desc *desc;
- 	struct i3c_bus *bus;
-+	struct list_head node;
+ int rtw89_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id);
+ void rtw89_pci_remove(struct pci_dev *pdev);
++void rtw89_pci_shutdown(struct pci_dev *pdev);
+ void rtw89_pci_basic_cfg(struct rtw89_dev *rtwdev, bool resume);
+ void rtw89_pci_ops_reset(struct rtw89_dev *rtwdev);
+ int rtw89_pci_ltr_set(struct rtw89_dev *rtwdev, bool en);
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8851be.c b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
+index ce59ac9f56ba8..79ea3ccb79572 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8851be.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
+@@ -92,6 +92,7 @@ static struct pci_driver rtw89_8851be_driver = {
+ 	.id_table	= rtw89_8851be_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
  };
- 
- /*
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
+index 9e05e831569d2..4f1624740dd2b 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
+@@ -94,6 +94,7 @@ static struct pci_driver rtw89_8852ae_driver = {
+ 	.id_table	= rtw89_8852ae_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852be.c b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
+index 12db0d0be5479..72bbaf22893fc 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852be.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
+@@ -96,6 +96,7 @@ static struct pci_driver rtw89_8852be_driver = {
+ 	.id_table	= rtw89_8852be_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
+index 8c995aa953251..b10587fa5f324 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
+@@ -98,6 +98,7 @@ static struct pci_driver rtw89_8852bte_driver = {
+ 	.id_table	= rtw89_8852bte_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
+index 150fed189414d..281f46455de42 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
+@@ -121,6 +121,7 @@ static struct pci_driver rtw89_8852ce_driver = {
+ 	.id_table	= rtw89_8852ce_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
+index 90c62b757c57b..1ad7d44d03522 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
+@@ -109,6 +109,7 @@ static struct pci_driver rtw89_8922ae_driver = {
+ 	.id_table	= rtw89_8922ae_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops_be,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
 -- 
 2.53.0
 
