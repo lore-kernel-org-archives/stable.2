@@ -1,264 +1,191 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023101.outbound.protection.outlook.com [52.101.83.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229CA3EB11E
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039517; cv=none; b=NaQAnIRHPE53P9+I4Rm4ROABqMEZCu39sG0oLCLH/F/dbD8BlkuQ/Sne+AIBxA3jA9BTO1g/ZzDdnWIbF43iwo0c4EXxU3wU6+gc5kekXyYopGlN1RxRKE7DhWcbw7QPPJeytHBVKjk5oobJm1DkKDxYwKUafu7Nvs0qDrkjd5I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039517; c=relaxed/simple;
-	bh=Ok2rWjqDwyoQUWviMsDqNihKaJmVy/EFBU5yzCIP6KA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=huchx9ILhETmCkr78dpPFcws2FrS6BvbFPuEv2nqtfJB2xFBT9aT1FiEWTmL6ggIHVqYH5sgIrp1nA5AHTLXAedElnkop2747qlmZTsYnehO8ubYwAjzbaI3k84rD90byxjB6N662jmr2JJeN7eWVBrudJFxjNIsiQ08tv6w21I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=t5j8XbhQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KQ0rH2MX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=sWm6MCGI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uims9Jbt; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C91E47125B;
+	Thu, 10 Sep 2026 11:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789039606; cv=fail; b=tNmK1GwcLdjgaF01Hc+ZMgbe6vAZRwStZsbWzAMWxgv7FeyvbWmceqXMJZMm3jEXtzAnbYigXZxFVO5Wh03cLl3Yh0+2bg9XUBGZGaRZ+ItklLgPxaTZYxFQef3YrSoZTCmOdzdqoqD+QjfrMOcT52swUT9s5MFmndvXYaG3mJ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789039606; c=relaxed/simple;
+	bh=QhZbuDvy6/whI9EPX8KAkuaDZnAson3Sl1PUzKl0zsg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OQTeQwalPFlsKweuOe8dk4+lxdd+pfuPiX3OFwS0Tis14B8qfDadJ0WPhJCTdahrAPZ8lsgwKq+7a9231HvNq2KifZ4p6DWwMtP68Ev+05M7j1tKhtmU0SrXcNZBMpSZ1QuYlNbQ+DJV1+QHo6PQFIqRiBfsFB63seUN+e1oCss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuleuven.be; spf=pass smtp.mailfrom=kuleuven.be; dkim=pass (1024-bit key) header.d=kuleuven.be header.i=@kuleuven.be header.b=pKgZZ0Af; arc=fail smtp.client-ip=52.101.83.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuleuven.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="t5j8XbhQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KQ0rH2MX";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="sWm6MCGI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uims9Jbt"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 808E621C15;
-	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789039501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=t5j8XbhQgEKCpoUU5ZC4JxMiQMklEuM+OHnH/ZXiSchomhMCJklPwxNLoCbM6TEdSH8Ybp
-	BpXaXr+awQh9XpdyL9Xlk9T8SIffKTFuX1z54KVR6CVvIEGRylMMsyOW4xm8neF9+efrbU
-	g3Y7XwhHosFlKEpAjg1LEq6aniNyUFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789039501;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=KQ0rH2MXraL/UOZwVElkZQDdJByn0AnBw6HJ5PHG8OV1MPyFWjZdiMLa3sN7QVktpCZE3W
-	gQ43Lp1bDBR7+TBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789039497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=sWm6MCGIfrlDqlHXV8pzBeLbiAeYCwYicqxvkTgCAIavcFniTHvVsEK32JDjmv0t03/5NQ
-	ji1RuiAV5pgKjaSA3WWd9gmmqfLnfB45gx8ZBboJ09US1RcPjsdxLJDXtgiH/0KPuhpsLX
-	6rDtiJ8hrq27McEf3INF6jU9VWbDo/c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789039497;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=uims9JbtpdBbtS6EqJAA5f+UCkkMipwfIKyUFZmnvnaJ6lL5zd9IwvdulumwNBKz+DItQM
-	BbK3UOb/947YFHCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B1581321C;
-	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sNlKEomTomq3CQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 11:24:57 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D1F32A12EA; Thu, 10 Sep 2026 13:24:52 +0200 (CEST)
-Date: Thu, 10 Sep 2026 13:24:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
- rotating b_attached
-Message-ID: <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
-References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+	dkim=pass (1024-bit key) header.d=kuleuven.be header.i=@kuleuven.be header.b="pKgZZ0Af"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=byNVGNh2F9aP3hHou0+M7iE05v4NlgD5k7B0Ol7FNzEgdTeNcGUtq5o1zEboDTF5WrgJZX0BafBO8KZ3IhJaP7SViREC2TynBZUymguPSXzRKjNIf7lIEr8FrVq9Ll+G6sh6t8/WpLlW+McJUFPEBLD/Op5ezsQxJ8hxZB3MrXncqCLeOIIq4ql5f6XGd5D+qOksfrexpXrRmhnMOwFrnMtofq+oW2TRF1eiTyUO35c8HZwjr1OZI0HpZK9zZiqv+YFukiBOXQd1SqsveAeeYXZ6XOoETpvq11itwEpik6B4P/jrdpKEiDS+Zv9dLEHbjCxv+9GR2XDLJCQVatG5zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Sl40GcUiFK5s/Bca27FDFFh6CJLtgVc1aX+rj0PaH0c=;
+ b=OfOk0e2T1aLOlYfnB+1xlc0KXoyZS7Gxh6xEvJh1tSnBdHWJv2cC+fIja7oUs6JamshmNKgPeheybnXEb3hIm5DwClL2SfL+ZpXnl9Iy0jo3Dl6/lqfbs9NYoQM1V3if8ZW4OMhrQnf2zrppwVlYwAFTboTv9gsV0vSF4Y9Z5ttpneEmCLqfHzHzmHUgAGqYI4j3I3VrnCaq8KImmtwCw6/CtyhJxXQ+0odCE6L3NmKRFbcltdkRAo0xvZKMrZw2xmV8/tP5qhySzs/0bKOmGPiqbvgfzNpkU736cfUaXb9+IVbyjsGXyiU7DuC/jtj8E4V49g/dPGH8LquSzx73EA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kuleuven.be; dmarc=pass action=none header.from=kuleuven.be;
+ dkim=pass header.d=kuleuven.be; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuleuven.be;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Sl40GcUiFK5s/Bca27FDFFh6CJLtgVc1aX+rj0PaH0c=;
+ b=pKgZZ0AfRQHuWC7VGsnQQnwwhDuIzoP83yI0PxJn6im28+27JZTbOYz4YExKT6egMBMlt3FUbgGisQg1B98rflBrRlw89aV5MMR1aTcGyWRABvXn4OdXUDU0dwiR8QjxCUnWUC4kxB1Ydjt+p5spVWkpZnq1ITJWgvgiwcXg1RA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kuleuven.be;
+Received: from AS8PR08MB8996.eurprd08.prod.outlook.com (2603:10a6:20b:5b1::13)
+ by AS8PR08MB9019.eurprd08.prod.outlook.com (2603:10a6:20b:5c1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Thu, 10 Sep
+ 2026 11:26:31 +0000
+Received: from AS8PR08MB8996.eurprd08.prod.outlook.com
+ ([fe80::ee9d:8228:404b:262c]) by AS8PR08MB8996.eurprd08.prod.outlook.com
+ ([fe80::ee9d:8228:404b:262c%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 11:26:31 +0000
+Message-ID: <125229be-6fcc-4a4a-923f-1765cf03e29f@kuleuven.be>
+Date: Thu, 10 Sep 2026 13:26:30 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dm-integrity: fix infinite loop on discard with large
+ tag size
+To: jo.vanbulck@cs.kuleuven.be, Ben Cressey <ben@cressey.dev>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Mike Snitzer <snitzer@redhat.com>, stable@vger.kernel.org,
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+References: <20260820-dm-integrity-discard-v1-0-196d3618d09a@cressey.dev>
+ <20260820-dm-integrity-discard-v1-2-196d3618d09a@cressey.dev>
+ <35bdf3a1-9e85-45d3-8af8-f324cc455144@cs.kuleuven.be>
+Content-Language: en-US
+From: Shukai Ni <shukai.ni@kuleuven.be>
+Autocrypt: addr=shukai.ni@kuleuven.be; keydata=
+ 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
+ qQzAq6/nlHM/bMUHgzNXNIMB
+In-Reply-To: <35bdf3a1-9e85-45d3-8af8-f324cc455144@cs.kuleuven.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0400.eurprd06.prod.outlook.com
+ (2603:10a6:20b:461::29) To AS8PR08MB8996.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5b1::13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR08MB8996:EE_|AS8PR08MB9019:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b2e2c18-1ef4-4a68-7b6d-08df0f2e5d21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|786006|366016|1800799024|23010399003|376014|7416014|10067099003|56012099006|18002099003|22082099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Pq0XqHHlaFmQDhG7Vx3kBWauSZmZYzmRsS2ZtuX2lUkc+0y9SKDJXryP1n7WtevaTADXx3a2Hftmg4YuWw7wd8Nkt+sJaVW2dFV/dFriZLIjYribA+ZNtQeE+DA6CqYjNi9raSP9MEsSs90GFZtLyixjqI12FbLKsIqwcl8Cjuh+c9TJdeYw+zn1mj0ghHIAznD5YOXmAOLLzH4cCvVFXS0bhv0zJISS1MPSK1AlBByHyjeHu2OheNvpwGijJujI3v38cz6CAVn581RmlDmW9qJiNq9lhBw8W0WTJKvKkC+0mbD8AaqbOsLggUMkZ5vdZVabnVFKsw8BYdAVy6oqM+kXG5skhwt/qp3DdP92yXnjdXh8k8obE4+/zhkX3yQ10YwR3SzAgV7br51Xvw7+Nx3BqRvINtyxYeIKlu/rUlJDAQf0gYFvvJW1RXqA3IqGAOVoC4oLX4/lCcU3VoYmfVjYdH11dLQDOhWFLztSqS0Bkq37pKdQRWY5FqdKj2acc6DAuvOG4C/aQasRgQJXaIgwyHnVNE8pAi8UKvGhYtEVDurbF+CbjQnI9Y4ZG9eg+CXhxHVl/iSm+3lfC41xOvm5R5W2i/GcgwL+3SLf7z4gamKQ42/cUiIklbvlfWyIdF+tXYEPJqDhywW8xYkj4eiiOMH67A9mCrPAjWVUltA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB8996.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(786006)(366016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q09pREtkN05nektxNzlrZFhpQU1LUmRsd21kNHk4cXQwcTdCU2NYVHhKa29z?=
+ =?utf-8?B?MHd5VlV5TkwwTUYvM3FvQUl5L09QQXBHL3NMampvWVNFdkRtOGdPeXJlbjY1?=
+ =?utf-8?B?ZGJ0VHQ4NkNzd0xYOGVWOHRJRmkvZVE4aWcxQUIyei91dGdhU2xEMkhCZmxw?=
+ =?utf-8?B?cndpNU4wMnZMS01sV1FIaUFDWGZvdHNlY1RiOU0vUWI5YWZiaGkzT2YwK3BH?=
+ =?utf-8?B?TnA1ZFdXN0NqNU5IbUQ3MkVDS3hWN1R6b0xOS3hwYzhzSFBzRGpxZy9PUnd4?=
+ =?utf-8?B?eFROb2xDdkQ0c3NqY3FIcWRlWWVOM2JGYnVYZzdYM0lnb2ZacVdnWU1Od2M1?=
+ =?utf-8?B?VEpJaWFWTVVnd3gzNHBya0poamJjRVpyTldiMkdUN3VMRzUrcDh0K2dJMEJx?=
+ =?utf-8?B?L0FlZmZDSG1jdnFralRqVUdJSWJMeWVTTzV3ZDQwRmFNeC9UTUFBbGttUVh5?=
+ =?utf-8?B?Z1FJc2ovOTZscjk1bDYzNjVOSEtXUWpKQnVFTllScjRVM3dLcEMybjZnRnd0?=
+ =?utf-8?B?MEdpS1dkWmhld3EwWDFZdFFVSHhwRTNxUDlxYThXWVNXRFRRVzZTbFRaUTFr?=
+ =?utf-8?B?TENUQ3kzSWNDc295Mm41VGt0WkdmcGpBNVh3S1E5SVM5anVGeWJ0cm5PS2tM?=
+ =?utf-8?B?MXEvODdndG5hQ25JSlhJdWNQUVpQNFB2aXVVakwrMHVTTFhLS3RMRWFPUVhC?=
+ =?utf-8?B?eGJrTC9LZnlrdjRMaEs2YzdtNFNQbHJseUM4MWdzR215ZURNMk1ORVUwTTlk?=
+ =?utf-8?B?djJHdnN5N3hWNng5a25USjd2b0lDZHlkVmtjWk5GQ3JGaFJSZ2hSeWxlQUV6?=
+ =?utf-8?B?U3RxZTB4dlYvc3g1QklzOEV4MWVpWlprNnkySWh3S2pzaVE1RXROSktrdVBT?=
+ =?utf-8?B?QVMyNVdBVzhCQVZSMkR0UzFrQm04ME5qRlNwZzZJT0FPR255STNaYXBpbjVi?=
+ =?utf-8?B?NUg5R3Rockx0dlJzREVSL3FDY3Y4S1NwL3hzdTRWT2crWFk3TkhqdXNJT0hV?=
+ =?utf-8?B?RzEvNVJpYjJqeHhxWUszWThwTGY3VXNLanczNnRFbHBVaFZ0ODcyb2hISnAz?=
+ =?utf-8?B?dDdMWGp4K0tzekpkSXhHQlJ4Y2dVUG1KbHYzQ3hHSno0OU1CbkV0UDJvV2hK?=
+ =?utf-8?B?TGlwM0pRWm8xdSsra1NvNWpZd0N6eEprTnpmYjRod0VtUEpKaW1TRzY2MmNp?=
+ =?utf-8?B?WHdiWFBucW95T2VLRnhmaUQ2d0xvL2VWRFBKY0RLcGtZeFk2bzE0ZFlyN2VZ?=
+ =?utf-8?B?RTNvbVZaQTUxOTZWMi9SWXVvMU1ySWlveXRrNlVESXZUdTN4UFBlOC96Q2tj?=
+ =?utf-8?B?MG1VR255eitIeFJYTUNNVWRTaGZXb3RYajhOU1BTcUtaMGttNlJkSlpEK3do?=
+ =?utf-8?B?VGlyQWNpd3pEU3RuVzdlRHZubzNHaDA1SzMzTlJsbHpiazZVRzBQVjUrcTlS?=
+ =?utf-8?B?c2lOelVwVzZLbWVWQXBucTFBL2EvcWNhWFppdTU2VHIyNE85dDliVng2ZEFa?=
+ =?utf-8?B?NXU5RW5LNExhMFBQTHhSbTFkUUV0VjZKakV0QVBybloveUNNcDBlUkdZdG5i?=
+ =?utf-8?B?aVJsVzJYT2tkTjVNam02K0d5VDJEaGhTWmVtakd0dm9EMVA0TXg5eE5Yb0cv?=
+ =?utf-8?B?R2RKNDhxZllWdldHUm0zdnhUdWxCMEo4K0Q1dGZyQWVzVTFMUVJoRHJWZ0VJ?=
+ =?utf-8?B?TmtaUXFkRlhjVGwyaEx1R0tHNjEyTDU2RFk4alhCUkZRb1U2OUQ5UWI2NVRO?=
+ =?utf-8?B?a0hzMzhEb3JZUlEvQVNvNzZDcDZZcGRSc2puWTgyRGtJa1h2T21UR1NuZ2xo?=
+ =?utf-8?B?M2xmZ3grTHRjbWZxVkFEcURSQnpEeGhEb1RFUmE3WlRCVjhCTy8rUjVBTTdI?=
+ =?utf-8?B?blVtd0xoSklLRm81QVR5ZGhxYVVoekZ0WHVxSFYxTEVVOWlxL3JtS3dLeGNh?=
+ =?utf-8?B?aDh6clF4eFhjeEZ3MEJrV0ZoaUs5K2pJbWFTOHM2TWpQTUpMOVZ6M0MyU2Uv?=
+ =?utf-8?B?elpDSDFwdnhZSHFRN0VzQnFRMXE3dzZZRStpNFk1NkpJMm9EeGF3Zm1aOGxI?=
+ =?utf-8?B?d05PT2N6RUx3V3RIcWZpZXczUWpFK003MC84SW5KZzR6dnl0RmFUUDRMR01q?=
+ =?utf-8?B?ZVdQTU83UjlwZ001Y0U3T0JLeHRXQy8vaittUFBxeVRJUm15MnF3ZnJUbXV5?=
+ =?utf-8?B?c2xxYzczei9IZ2VZd0NqQTVZUk02eE1ZS2lTbENPUm5aaFZIUE0rVmJBQkVQ?=
+ =?utf-8?B?b3hqR29Ub1J6M2VyM2dPeTdFdFp5a0s5aWpWNTIwaXdRSjZtTEVaQ2ZEbnRs?=
+ =?utf-8?B?c2F1YTljRlNjRG9uZlFDQjBDdmlQS2RlcVFvSGhLa1dtNWZjWEtnZ0VEUjMr?=
+ =?utf-8?Q?EpD7evLalMHfmjq/jdQe5+VHbSltmrvryX8yo?=
+X-OriginatorOrg: kuleuven.be
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b2e2c18-1ef4-4a68-7b6d-08df0f2e5d21
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR08MB8996.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 11:26:31.7242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3973589b-9e40-4eb5-800e-b0b6383d1621
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IgAoiChncD4z2GbAodehLD4KEAxOFkBBSnJHScf8z4E2/hatv/k9ZuWx1by2n8ZZbe9IXaROC5wMix2/jCjR2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9019
 
-On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
-> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
-> per call and is called again until the dying wb is drained, but every
-> call walks wb->b_attached from the head. Inodes already prepared (they
-> stay on the list with I_WB_SWITCH set until the switch worker runs) and
-> inodes that cannot be switched (I_FREEING, I_WILL_FREE, !SB_ACTIVE,
-> DAX, already on the target wb) stay at the head, so each pass rescans a
-> growing prefix under wb->list_lock and a full drain is quadratic in the
-> number of attached inodes. With ~17M inodes attached to one dying cgwb
-> we have seen this end in soft lockups, with CPUs reported stuck for
-> 21-48s.
+Hi Mikulas,
 
-Hum, somehow I've missed this case when fixing slow inode switching couple
-months ago. Likely because I was more focused on the b_dirty_time case back
-then :) since that was what the user was hitting.
 
-> Move every scanned inode to the tail of b_attached, so the next pass
-> starts where the previous one stopped and the drain becomes linear.
-> b_attached is unordered and isw_prepare_wbs_switch() is its only
-> walker, so nobody else sees the reorder. b_dirty_time is ordered by
-> expiry for move_expired_inodes() and keeps its current scan.
+On 8/20/26 23:44, Ben Cressey wrote:
+>> When integrity_metadata handles a discard, it fills a buffer with
+>> DISCARD_FILLER and writes it over the tags, max_blocks blocks at a
+>> time. If the kmalloc fails, the buffer is the on-stack array> 
+>> checksums_onstack and max_size is set to HASH_MAX_DIGESTSIZE. So if the
+>> tag size is larger than HASH_MAX_DIGESTSIZE, max_blocks is zero, bi_size
+>> is never decremented and the loop never terminates.
 
-OK, but isn't there the very same quadratic behavior problem with
-b_dirty_time scan which you don't touch (and where your trick cannot work)?
+Following up on this explicitly in case it got lost in the noise.
+Jo and I reviewed 1/2 and the one-line fix is correct.
 
-								Honza
+2/2 is independent of our change (on-stack fallback with tag_size >
+HASH_MAX_DIGESTSIZE) and also looks right to us.
 
-> 
-> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-> ---
-> Seen in production on a 6.18-based kernel: with ~17M inodes attached
-> to one dying cgwb, a node spent 36 minutes in back-to-back
-> wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
-> time, starving writeback on that wb); with this patch the same workload
-> drains in ~30 seconds. Also seen on stock Amazon Linux 2023 6.12.68 as
-> isw workers spinning on the list_lock in inode_switch_wbs_work_fn()
-> while cleanup_offline_cgwbs_workfn() runs.
-> 
-> Tested with a QEMU A/B setup at 100k attached inodes and patched vs
-> unpatched on production-class hardware at ~17M attached inodes.
-> 
-> Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
-> state [1] fixes BPF/ftrace detach stalls behind the same drain; this
-> patch bounds the walk itself. The two are independent.
-> 
-> [1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
-> ---
->  fs/fs-writeback.c | 39 ++++++++++++++++++++++++++++-----------
->  1 file changed, 28 insertions(+), 11 deletions(-)
-> 
-> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-> index e744f9f9d43f..69a452b12b12 100644
-> --- a/fs/fs-writeback.c
-> +++ b/fs/fs-writeback.c
-> @@ -725,21 +725,37 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
->  
->  static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
->  				   struct inode_switch_wbs_context *isw,
-> -				   struct list_head *list, int *nr)
-> +				   struct list_head *list, bool rotate, int *nr)
->  {
-> -	struct inode *inode;
-> +	struct inode *inode, *tmp;
-> +	LIST_HEAD(scanned);
-> +	bool full = false;
-> +
-> +	list_for_each_entry_safe(inode, tmp, list, i_io_list) {
-> +		/*
-> +		 * Rotate scanned inodes to the tail so the next scan resumes
-> +		 * at unscanned ones instead of re-walking an ever-growing
-> +		 * prefix of prepared and skipped inodes.  b_dirty_time is
-> +		 * expiry-ordered and so must not be rotated.
-> +		 */
-> +		if (rotate)
-> +			list_move_tail(&inode->i_io_list, &scanned);
->  
-> -	list_for_each_entry(inode, list, i_io_list) {
->  		if (!inode_prepare_wbs_switch(inode, new_wb))
->  			continue;
->  
->  		isw->inodes[*nr] = inode;
->  		(*nr)++;
->  
-> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
-> -			return true;
-> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
-> +			full = true;
-> +			break;
-> +		}
->  	}
-> -	return false;
-> +	if (rotate)
-> +		list_splice_tail(&scanned, list);
-> +
-> +	return full;
->  }
->  
->  /**
-> @@ -747,8 +763,9 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
->   * @wb: target wb
->   *
->   * Switch all inodes attached to @wb to a nearest living ancestor's wb in order
-> - * to eventually release the dying @wb.  Returns %true if not all inodes were
-> - * switched and the function has to be restarted.
-> + * to eventually release the dying @wb.  Returns %true if the scan stopped
-> + * early after making progress; the caller should call again to continue
-> + * draining.
->   */
->  bool cleanup_offline_cgwb(struct bdi_writeback *wb)
->  {
-> @@ -783,13 +800,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
->  	 * bandwidth restrictions, as writeback of inode metadata is not
->  	 * accounted for.
->  	 */
-> -	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr);
-> +	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, true, &nr);
->  	if (!restart)
->  		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
-> -						 &nr);
-> +						 false, &nr);
->  	spin_unlock(&wb->list_lock);
->  
-> -	/* no attached inodes? bail out */
-> +	/* nothing to switch? bail out */
->  	if (nr == 0) {
->  		atomic_dec(&isw_nr_in_flight);
->  		wb_put(new_wb);
-> 
-> ---
-> base-commit: e14d4302cbd0de773960bec33c2281508c8d8855
-> change-id: 20260909-wb-cgwb-rotate-f17a75facfdc
-> 
-> Best regards,
-> --  
-> Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Reviewed-by: Shukai Ni <shukai.ni@kuleuven.be>
+Reviewed-by: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
