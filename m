@@ -1,120 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E2849BD6C
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1267D49BD74
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 15:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055559; cv=none; b=KmmCX/iHZuMu7pneHp5u4aacitzOJZmKWuSPvoUkvJj1AmkA90TrYqKfywH7j0Mv8tkFeMkzZ3x/IIAhzF4FKZ1jZfDFj/COpWqWwBnRB6SbVNFFoz8FPulPtGHt0UbOnCFO440OjE6T9YiAJHicEPy3UfSAm8G78dkQpoYWPVo=
+	t=1789055565; cv=none; b=CtlwZsk0/RQ32E4mB4lR4rc67wgz7vEsefQKYUbCMzg8aJ1iOBhymzJuUNhjWbkU8iGm5GvtFk9ZWgy0M0uDGBSnZr+GHayMsCT1RplAo0yD6uRL15gsYvHySE8e2W1QHW7x9b3/pRSJqcpOQO73HYoq41XbG9zgVJLYXeodrok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055559; c=relaxed/simple;
-	bh=XmwJ8V/1mz+8kPYvCf8GcjNmYAeOgK5HrwVVT5cJ4jQ=;
+	s=arc-20240116; t=1789055565; c=relaxed/simple;
+	bh=5RnC7Ty9GO0gzcNrR+VM01nfNJwIUTujog68Yd4YArA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TjRYNp7wdvE/syI90XnM2Tbgi9gggN8M9TcmM3sYEP1zmrOWUVRLQOkyGr5WwEIlA66AQlJTszutuuWA/3+k+lrcd6l3qy/I75kf9QATWnQfbR+AHDiMYr3Yh81XQiTIuXjeVcOizjJ0wskKoVETqpFg5TvhoE+K6vpfqMfbVAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aZywIRen; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Zf1TP5i5IQD2CxxCKYcgTS43wS7sJgHDq6krq82omQneUa+C17Uli0sFpIkF380jbUqDUhmNuVvnhv+M3sgeCb3/dVcZSv+e/gsbJyx9qf7u6I3ynYWiQwvv3lH690d0wMcBB2OKSv90q2Qo4QIt3yUMU/cglVfIBt/8PFRiLxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5L5Girj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aZywIRen"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B526D1F00898;
-	Thu, 10 Sep 2026 15:52:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5L5Girj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623A01F00893;
+	Thu, 10 Sep 2026 15:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055557;
-	bh=2qOBAmSwWIrCRrcWnsu8mRo+VK7KOUckKIz7g6Eq4E8=;
+	s=k20260515; t=1789055564;
+	bh=t6RORo/TUQxdx9pGSZQTmB239MBNaW5W9/vUigYi7L4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aZywIRendJXdIn4ayQQvJfIegOZu986+J8YQRIH/ivX9qcG8ahjNfZ6MmxgzbccJv
-	 nbyS/a9X/PSkiYtChENObH6mIIeacW4QCYPnQbZjm0BKIYkVFK03ONuVjmYNev28+G
-	 VSgDsbbjmfYAzhdcTAqaGf1/ICDlH3DUyF4CRcCGCYteaTPuyuRnjsuFFiVHB3qJaX
-	 cYwxdI2lqQPkQDCRSS1dPLvQcCfGau1X+KCRJRxt+kJWGnIQJlmtKbPWtkJvhrgnGq
-	 YttkqPVO9vPh95fPrLuZ2/2/0zzBhz0V9eETcJc/Hg7ac0r8PjKGjHOmY7zOhl6EnO
-	 tyNrrLPYJ2gcQ==
+	b=G5L5GirjMXOYcfb/VLVyvQ5mGSWjBYNMlo3Z7kbFHFAF1O0962GmYKV/VFOJtfdci
+	 mQx5tvlCMzKShL9amDw3SVSpJXl0FNYNh01eLTnsaQ8ljqjqJKaDka+39xi5qoosMq
+	 K3gfpOuKf5BdVgFb4IZj+gbRc5dQL/84KZqgNaJyssQLbYbY29t4cMrPNiOzCwMoj4
+	 a13PQnOAxc40msYshQfUnFEXzj01SG7ZNs0KTmdCpiROM//UfRAob14Sn7y1taAh49
+	 UeJuj5gOpslzkA6z2dIskFtZJKxZojsI+I8A5bCy4KL1TwXeFAqKshsO4ih3rVwGqj
+	 nHsqon/EweF3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
+Cc: Marco Elver <elver@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Bart Van Assche <bvanassche@acm.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] misc: fastrpc: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 11:52:34 -0400
-Message-ID: <20260910155234.1080006-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] compiler_types: Move lock checking attributes to compiler-context-analysis.h
+Date: Thu, 10 Sep 2026 11:52:40 -0400
+Message-ID: <20260910155241.1081251-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910155234.1080006-1-sashal@kernel.org>
-References: <2026090820-renovator-enjoyable-ee8a@gregkh>
- <20260910155234.1080006-1-sashal@kernel.org>
+In-Reply-To: <2026090837-colonist-magnify-011d@gregkh>
+References: <2026090837-colonist-magnify-011d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baineng Shou <shoubaineng@gmail.com>
+From: Marco Elver <elver@google.com>
 
-[ Upstream commit a4a1a2bfcb29785292d634d7787edc6fb550714d ]
+[ Upstream commit de15fecae44df8254fa597bad7eb3680a8b1c10c ]
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
+The conditional definition of lock checking macros and attributes is
+about to become more complex. Factor them out into their own header for
+better readability, and to make it obvious which features are supported
+by which mode (currently only Sparse). This is the first step towards
+generalizing towards "context analysis".
 
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
+No functional change intended.
 
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
-
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
-Cc: stable@vger.kernel.org
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Marco Elver <elver@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20251219154418.3592607-2-elver@google.com
+Stable-dep-of: 912edebe8501 ("futex: Provide rt_mutex_.*_schedule() equivalents for futex scheduling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/misc/fastrpc.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ include/linux/compiler-context-analysis.h | 32 +++++++++++++++++++++++
+ include/linux/compiler_types.h            | 18 ++-----------
+ 2 files changed, 34 insertions(+), 16 deletions(-)
+ create mode 100644 include/linux/compiler-context-analysis.h
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index e240b94644809..29f9003999a07 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1681,24 +1681,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
- 	}
- 
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
- 
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
- 	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
+diff --git a/include/linux/compiler-context-analysis.h b/include/linux/compiler-context-analysis.h
+new file mode 100644
+index 0000000000000..f8af63045281d
+--- /dev/null
++++ b/include/linux/compiler-context-analysis.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Macros and attributes for compiler-based static context analysis.
++ */
 +
- 	return 0;
- }
++#ifndef _LINUX_COMPILER_CONTEXT_ANALYSIS_H
++#define _LINUX_COMPILER_CONTEXT_ANALYSIS_H
++
++#ifdef __CHECKER__
++
++/* Sparse context/lock checking support. */
++# define __must_hold(x)		__attribute__((context(x,1,1)))
++# define __acquires(x)		__attribute__((context(x,0,1)))
++# define __cond_acquires(x)	__attribute__((context(x,0,-1)))
++# define __releases(x)		__attribute__((context(x,1,0)))
++# define __acquire(x)		__context__(x,1)
++# define __release(x)		__context__(x,-1)
++# define __cond_lock(x, c)	((c) ? ({ __acquire(x); 1; }) : 0)
++
++#else /* !__CHECKER__ */
++
++# define __must_hold(x)
++# define __acquires(x)
++# define __cond_acquires(x)
++# define __releases(x)
++# define __acquire(x)		(void)0
++# define __release(x)		(void)0
++# define __cond_lock(x, c)	(c)
++
++#endif /* __CHECKER__ */
++
++#endif /* _LINUX_COMPILER_CONTEXT_ANALYSIS_H */
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+index b624f3e8716b1..286822a3c9133 100644
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -37,6 +37,8 @@
+ # define BTF_TYPE_TAG(value) /* nothing */
+ #endif
  
++#include <linux/compiler-context-analysis.h>
++
+ /* sparse defines __CHECKER__; see Documentation/dev-tools/sparse.rst */
+ #ifdef __CHECKER__
+ /* address spaces */
+@@ -47,14 +49,6 @@
+ # define __rcu		__attribute__((noderef, address_space(__rcu)))
+ static inline void __chk_user_ptr(const volatile void __user *ptr) { }
+ static inline void __chk_io_ptr(const volatile void __iomem *ptr) { }
+-/* context/locking */
+-# define __must_hold(x)	__attribute__((context(x,1,1)))
+-# define __acquires(x)	__attribute__((context(x,0,1)))
+-# define __cond_acquires(x) __attribute__((context(x,0,-1)))
+-# define __releases(x)	__attribute__((context(x,1,0)))
+-# define __acquire(x)	__context__(x,1)
+-# define __release(x)	__context__(x,-1)
+-# define __cond_lock(x,c)	((c) ? ({ __acquire(x); 1; }) : 0)
+ /* other */
+ # define __force	__attribute__((force))
+ # define __nocast	__attribute__((nocast))
+@@ -75,14 +69,6 @@ static inline void __chk_io_ptr(const volatile void __iomem *ptr) { }
+ 
+ # define __chk_user_ptr(x)	(void)0
+ # define __chk_io_ptr(x)	(void)0
+-/* context/locking */
+-# define __must_hold(x)
+-# define __acquires(x)
+-# define __cond_acquires(x)
+-# define __releases(x)
+-# define __acquire(x)	(void)0
+-# define __release(x)	(void)0
+-# define __cond_lock(x,c) (c)
+ /* other */
+ # define __force
+ # define __nocast
 -- 
 2.53.0
 
