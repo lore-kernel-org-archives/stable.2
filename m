@@ -1,43 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6812E456E19
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBB14756CB
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039828; cv=none; b=MOWQkiyx3ZX7vDv8JtAuQE2Tol0eF4osaZF2QsfLm5/4cpEMc5eJ2YCYStF3vREta99Iw2BeL4F1DpC3LSxGHqPL3AMXkrST76OO7ef+KT23wvrYMpsnUPMcHUhGbdWtOouB2xXJvDEHHtPhy4hq62P9Fha8+Ta47Ko9M5+OmKA=
+	t=1789040052; cv=none; b=Xy8RWk0xNWVpE/sPI0JNvr4J6lHypv92Cn2DjMsb1fVcX35Fn/43N0if4xtlEjej6OlFc26GYjrZ1ojtIWADUR0zL1oB9cvObYE/o5XjFut+pdjLxQxlpUwtLaM5uHherVcLPGTreZHUhfsiqAIHq/t6TyQnEdJdo5MzilqhzRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039828; c=relaxed/simple;
-	bh=Ag9OCBgqECWTHwbj4X6Fd8CyCKvJzwkKNHrwq+KI9po=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CBY1XrESOcNRZgkULnwRNjGwPtUKmAHeY6hwUHxnpjOD6Zr6osOqCpUNtLEwlVVYC8MyNdHoGp7YgRhzMIQHzfjg/leE3UsG4P47oA1Coq59vDcCzLpddek/0AIwsWjXHe6Pk6ipMUdrucYxn0xP8rKl0sfG8pbLzcUloshiEoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/iWTpwk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789040052; c=relaxed/simple;
+	bh=CJUuoQ2iTfwcG6oeIrw7E+rGr4DRPBFegg1mGe30BQk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LnquyKHQ9tJYka0C2gDoAX2J22qfp+HVsxP2ceyATZEuQZbylSD5oiG6+hEZN55ghdQ9Pcnq17s60q1SzWz5AgvU5+F+44tJkD36Dmac/ugimTr/K+YSkKL+Z3U1xxsuvWu2KJz+GahSU21wC5zArmN3QVBXhZqpOsThK4XBkA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTwQvbQX; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/iWTpwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDAC1F00893;
-	Thu, 10 Sep 2026 11:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789039825;
-	bh=eu0FE5cLo7ihkSuggZwIEMhuJ+UFlQyok7DLxTzoP4s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b/iWTpwkqmY2y2Dii+dSGK9YCkzbspEX2iM/7RtvP2CScQ40mThEA4atk49LNjVu/
-	 AvG9LZ54I1Hzdbhw1RYbA4Toy6OOzC5j80BYmPX8wxAmKzqiZDloW/ct61QCwkXo9V
-	 objkG6nKQwZCn/wfayhb5goJf86OluDfrMS2QWog9DKq1EkhUMK+hEKHIXpIoebcPW
-	 GpkmZWjDR7iw4MmYPUir0vcCSiQEn15k7+1Sm+QmQJKAIG5kuNm+vTWDXpD811Ypey
-	 0u+gYocduc7hZSHWJsol7kFZ+EGaXZXXR/WXcInq+874Qt2T74GptZLkkQ3Fy7cCsS
-	 wAfql5vZnr19w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Muhammad Bilal <meatuni001@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-Date: Thu, 10 Sep 2026 07:30:23 -0400
-Message-ID: <20260910113023.62881-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090828-angling-karate-5de5@gregkh>
-References: <2026090828-angling-karate-5de5@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTwQvbQX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd82be878so4157495e9.1
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 04:34:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789040047; x=1789644847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
+        b=JTwQvbQXoYmvd5WjFiN5Cty9lyfVXerC+Luhp2ACyu+xoyfBKzm31EJTDtw2LT7poj
+         yVeXDCIMxUVJ+ex54TjCMPvBA1PBQkA1FifH7jU0pIoGD8sWBWGd+9rY9nWHAKVTCu6u
+         UgkanNZafDTiiYpQ8pYGSpt6xWegucV9netyvnN0Tsh6TRVkyoB4xRbo6wOJcvgiIZXZ
+         EpItQhLtQewTM3/+j1ZPVFKMIRrYSe0iPwoP3lCjffqWUpW7NfStBVYUHwqc554CnN1u
+         XqBhW6sXy7sEI7E+r5OsvWq0DhqaBY6K7mD8flIN3ZkV37GAvbd3C35wo58RWvHwkABt
+         GBrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789040047; x=1789644847;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
+        b=eDxaLVrnH/X34AWpOhdEXxwpezpjZwNbcwJDzMgxPRo2Bc5+yHQKU++i9okCnRmVU2
+         YZyXvWgy6IO2uyKHuVbr+Njog+B/Djj5cn97X974bh9RNn5+fCwGNkqs8GHjgvReWtMF
+         75sA1WfNyqCN3BzVffgxKHDtQWNCGT7vaW5YFpdXhAAT3RRaNLK1OpkQrzK7OG89EB1s
+         ci6kglc0EAyChTqHOfTujK/4TcN4qOMV3SNPIBGrTEc9vF8N1ASc5n/1P340nFmZxs9t
+         I34r546p9p063qPw9/ENJnPBq55DnNqnWwY6WwEhHD8Se7qpyP8GgJzUI7xFCAk6OYAj
+         27oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNAowggNAPhlw2WOWbn6SAyQw4T/d6tWVNLnDDiTq1B2PjxOib3AtU7REW8fVwL8Nc150/V4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnkK3bUzqfHoirXf3j771wYgXQcMGVJh+MpC64aUUpwopMtxQd
+	PnPzn4pRFgrw2oKHzIiWBTXz8dW2oChCSyP5cVBIL5TFCDN5SkHpzmdIHVCDIqDt
+X-Gm-Gg: AYBFou3lq+K41srgYdUYYyh0x89lcd9bfG2DtYK0+R6wUiOrucKqUmh/B/j7RQ5cIPq
+	W9/msouOga6rCLUmgPV7YOdPARWozFXL40jHvFP7VpD0SCtmjtcdo460vzAjvERO5qryc6P2M66
+	biJodFJzgd9XSc+Pn3DbPBpRtuzK3scfqdSx327Iz4kA5/+Pd04aQRJifbGlU3IKaV182jbpRkP
+	qvu8fja0q9RKxa8W64PqeDG7ut+18u64UyolshSLWpUVdn277iIZHBuEW+YFjBJRQOdRBfuu/RU
+	M/Wzm/7Oo15JlfsWPZke1qZcfLT21ofuQsSzPJ8mhRuML5p8rHc5s6GTYXaSq/cVmbEGIkxftU8
+	gAM06GHWR6exmoAsmFS/5YZi5Lp/Vnwq3DuQOogyAHWr2aMHrJQpBEvllKrWGGRdv+hkjm1cp5F
+	uJ8LzfYt66D563sMfvwtVv7kE3enGCBOI13Gca7Q4vDqK7qQWtdz1tQaeI15DCz0yqO6sH+9JVJ
+	8H4EZv95bukl7tLhBg=
+X-Received: by 2002:a05:6000:2c0e:b0:484:3328:1ad1 with SMTP id ffacd0b85a97d-48590805fabmr30378346f8f.6.1789040047066;
+        Thu, 10 Sep 2026 04:34:07 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm49155813f8f.22.2026.09.10.04.34.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:34:06 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: broonie@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
+	michal.simek@amd.com,
+	Itai Handler <itai.handler@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Date: Thu, 10 Sep 2026 14:33:25 +0300
+Message-Id: <20260910113325.717882-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,140 +77,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
+The driver has no ->shutdown, and platform_drv_shutdown() has no
+fallback of its own.  Unlike pci_device_shutdown(), which clears bus
+mastering when kexec_in_progress, nothing on the platform bus disarms a
+device that can still write to memory.  The normal kexec path never
+calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
+reached.
 
-[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
+A controller that is still executing a DMA read may therefore keep
+writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
+memory owned by the kernel that called kexec, DST_SIZE is non-zero and
+the flash is still clocked, so data can keep landing in RAM while the
+new kernel is being relocated, and after it has started executing.
 
-sm750_hw_imageblit() advances its monochrome source pointer by
-src_delta per scanline, and computes the correct rounded-up stride
-internally as:
+That destination is a physical address which means nothing to the new
+kernel, so the writes can corrupt whatever now occupies it: kernel text
+or data, page tables, or the initrd.  Nothing reports an error and the
+resulting behaviour is undefined.
 
-        bytes_per_scan = (width + start_bit + 7) / 8;
+This can be observed by reading GQSPI_EN (offset 0x114) and
+QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
+kernel, before the driver probes: without this patch GQSPI_EN reads 1
+and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
 
-Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-image->width >> 3. For widths not a multiple of 8 this under-counted
-the stride, so the source pointer fell further behind the real
-per-scanline layout on every line, corrupting the rendered image.
+Write 0 to GQSPI_EN_OFST, as zynqmp_qspi_remove() and
+zynqmp_qspi_suspend() already do.  Skip it only when
+pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
+are gated, so the registers are unreachable and the controller cannot be
+mastering the bus.  A negative return is not the same thing - it is what
+the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
+and refclk for good, so the controller is running and must be stopped.
 
-Rather than just fixing the caller's calculation, remove src_delta
-as a parameter entirely and have sm750_hw_imageblit() advance by the
-bytes_per_scan it already computes for itself. There has only ever
-been one caller, and that caller was passing an out-of-sync
-derivative of the same width/start_bit values sm750_hw_imageblit()
-already has, so keeping stride as a separate parameter served no
-purpose beyond letting the two calculations drift apart, which is
-exactly what happened here.
-
-Rounding up, rather than down, is the direction consistent with the
-rest of the fbdev core: struct fb_image mono bitmap data (the same
-image->data this driver receives) is walked elsewhere with byte
-strides derived from a ceiling division of width by 8. The generic
-mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
-BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-ceiling division with an added start_bit offset, so the caller's
-">> 3" (floor) was the one calculation out of step with how this data
-layout is handled everywhere else.
-
-Found by code review of sm750_hw_imageblit()'s internal stride
-calculation against what its only caller was passing in, and
-confirmed with a clean -Werror build. I do not have this hardware,
-so this has not been exercised at runtime on real sm750 silicon.
-
-Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
 Cc: stable@vger.kernel.org
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
 ---
- drivers/staging/sm750fb/sm750.c       | 2 +-
- drivers/staging/sm750fb/sm750.h       | 2 +-
- drivers/staging/sm750fb/sm750_accel.c | 6 ++----
- drivers/staging/sm750fb/sm750_accel.h | 4 +---
- 4 files changed, 5 insertions(+), 9 deletions(-)
+Note for stable: before commit 1c26372e5aa9 ("spi: spi-zynqmp-gqspi:
+Update driver to use spi-mem framework") this driver stored the
+spi_master in the platform drvdata rather than the zynqmp_qspi, so a
+backport to those trees needs spi_master_get_devdata() in place of the
+platform_get_drvdata() used here.
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 94a83ec342827..05b00ba542fbe 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -275,7 +275,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
- 	spin_lock(&sm750_dev->slock);
+ drivers/spi/spi-zynqmp-gqspi.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 4d55090..24f680b 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1373,11 +1373,35 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(xqspi->pclk);
+ }
  
- 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
--				      image->data, image->width >> 3, 0,
-+				      image->data, 0,
- 				      base, pitch, Bpp,
- 				      image->dx, image->dy,
- 				      image->width, image->height,
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index aff69661c8e62..a693d9f1d0d5e 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -73,7 +73,7 @@ struct lynx_accel {
- 			   u32 rop2);
++static void zynqmp_qspi_shutdown(struct platform_device *pdev)
++{
++	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
++	int ret;
++
++	/*
++	 * Only a runtime suspended controller can be left alone: its clocks
++	 * are gated, so it cannot be mastering the bus, and its registers
++	 * must not be accessed either.  Any other answer means it may be
++	 * running and has to be stopped.  In particular, on a kernel built
++	 * without runtime PM this returns -EINVAL, and there the clocks
++	 * enabled in probe() are never gated at all.
++	 */
++	ret = pm_runtime_get_if_in_use(&pdev->dev);
++	if (!ret)
++		return;
++
++	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
++
++	if (ret > 0)
++		pm_runtime_put_noidle(&pdev->dev);
++}
++
+ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
  
- 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
--			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
-+			    u32 start_bit, u32 d_base, u32 d_pitch,
- 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
- 
-diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
-index 44b9e3fe3a41d..37217a496ba75 100644
---- a/drivers/staging/sm750fb/sm750_accel.c
-+++ b/drivers/staging/sm750fb/sm750_accel.c
-@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * sm750_hw_imageblit
-  * @accel: Acceleration device data
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *	      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *	      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
- {
-@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
- 			write_dpPort(accel, *(unsigned int *)ajRemain);
- 		}
- 
--		pSrcbuf += srcDelta;
-+		pSrcbuf += ulBytesPerScan;
- 	}
- 
- 	return 0;
-diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
-index 2c79cb730a0a6..df48ed57a054e 100644
---- a/drivers/staging/sm750fb/sm750_accel.h
-+++ b/drivers/staging/sm750fb/sm750_accel.h
-@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
- /**
-  * sm750_hw_imageblit
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *>-----      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *>-----      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
- 
+ static struct platform_driver zynqmp_qspi_driver = {
+ 	.probe = zynqmp_qspi_probe,
+ 	.remove = zynqmp_qspi_remove,
++	.shutdown = zynqmp_qspi_shutdown,
+ 	.driver = {
+ 		.name = "zynqmp-qspi",
+ 		.of_match_table = zynqmp_qspi_of_match,
 -- 
-2.53.0
+2.34.1
 
