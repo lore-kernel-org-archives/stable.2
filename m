@@ -1,117 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DED22F3C37
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAE439FCC4
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 16:31:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057904; cv=none; b=D0qZyGTikY2yP9CVzdM+LAMQBT4CyfwHUgCvxC+am8rdR8Fviq8ExEj6R/i4CRkp2oajxG8oB94u7I4HooOjKR8b8A2faZeLDJe7AupkRd3ke/3+6LlOR3fJbk2+ueVSo6cqRL6v/Vu1aMMtPrn3qOnYv6qSSMXpStBqLC6WjNI=
+	t=1789057913; cv=none; b=lL6d4ACYWVZbNLQfpRrBInlTncDpVR9aFCW0JXi5wCXnLtrRXW6vN/Du2myVYx2pmwnYoP3I+XwuF4jMTQ2FWL2f/MuD/pS07LALpNWoe1fCsKTRBEzh0/GdJoro3Wzww7ea9uybS5yvnM0OEQVoAJkal6jTesF0qvciWCREefw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057904; c=relaxed/simple;
-	bh=4YZf9KNz1eC+NvClS59IZwhUfyRa2JRnYA43+1Z1iB0=;
+	s=arc-20240116; t=1789057913; c=relaxed/simple;
+	bh=YwJCYTSbHiwAaSDw9EEGHp+rfCHA/qhvKcUvmeyXhjw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KuqIrHRTsekEdD7eVx9uPPRYNvX9EN733FqnsPDN5wEeq5pP4dSCOvfVifKiNyX3SsnkiGK96xcN2HfpNI6aqG9u/yRXY1xU0dL6Mry4OxbIYk4b4WwJeNtSMjUqejhq1cibipV/154VaGW8ya9pf/vPkAqZLV3U2KxZxMIVYdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUSVqTdQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FanEamCstm0HIMw+vpYI5z0if8M6bQX6/Q3fPD52J9f7I+RAwHKkdnf4gUsOZArqXYSj1eCZFySTgajnJXrevvIzv2p9ggdJ5fpAae1bUbFd+xr8nMDGTNYvKrVPnHRCRZkR19drL1aYGyspzIqy6t+ATekwljq3hb7VQy2+VXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ClJmGDdH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUSVqTdQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A048F1F00899;
-	Thu, 10 Sep 2026 16:31:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ClJmGDdH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5F11F000FF;
+	Thu, 10 Sep 2026 16:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789057894;
-	bh=qBD9A/Q2sQpsp4ZReEx7YRKCrF2iTWWXpNHKRj0F6lA=;
+	s=k20260515; t=1789057901;
+	bh=xyfKuggzdAoa9feCbxYo90knyTKN4nGXHEW8CGES5no=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KUSVqTdQIYUqgjIVPMN0G21wYNJFinmH3a40I700qioYNfD7fX7XmjzHkV17A2cII
-	 etYdYkeUMYy39+7WyLegkOmOt0KxOhTxncHu71W6xzmOHRUf4WCi2ZcHB20rKP1R7W
-	 KhrIBrWYE1lPjIab/4S6ct043/2TYzQbHoXL0gh3vqQJCkPGhxA9XQkFYBGQAOTRD9
-	 dpyplb/p19/8lUH2SMQnJPJfAn+403PzkhbWvVE9lt9RcUMT4O0EzdXHVYo0jet7fg
-	 vqvSvVo7eLWGyaur/V4PyfNfVcAQpERY71DQh/EkJbq6ttn1y4gEXo91p0XLJeMFvv
-	 VLJ/tthwHfMLA==
+	b=ClJmGDdHuvUJtzDVc2pllooZy1MgQNuUZ1riDQOZPyGf8c9/yIldqqLmRZu1Wfyzd
+	 G7RjbPO2/q2+kYXYkoEYwpaQCjRJ3/A9YMIM3GDnse6dJEQP0VRYXTXNBzR2ULtgN/
+	 2FT/yudzy0YpDW69MY38VA8/3rhz9TdVdfxiLLV1+KVTX3V8iTJ1E9R5tS/krvg9yB
+	 ORV8b7oo8GR9mJDiW/cIa3BR0mgWWcN9JDvzW9yTP50VIaP7xo6Jc/Pn1zTJJjPmTu
+	 4wNDXt4WQhyINnoMup3FrSwXveWo5qUK8yTPghsZEiEeFp+92Xlsni+B2IkfAm60EG
+	 ATnKI11B+ch5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] misc: fastrpc: don't publish fd before copy_to_user() succeeds
-Date: Thu, 10 Sep 2026 12:31:31 -0400
-Message-ID: <20260910163131.1220814-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
+Date: Thu, 10 Sep 2026 12:31:39 -0400
+Message-ID: <20260910163139.1221060-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910163131.1220814-1-sashal@kernel.org>
-References: <2026090820-providing-sleeve-6d20@gregkh>
- <20260910163131.1220814-1-sashal@kernel.org>
+In-Reply-To: <2026090959-pregnancy-sliver-04e7@gregkh>
+References: <2026090959-pregnancy-sliver-04e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baineng Shou <shoubaineng@gmail.com>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[ Upstream commit a4a1a2bfcb29785292d634d7787edc6fb550714d ]
+[ Upstream commit 457b5dbce31209e65e1184716ed3af59cb1c0372 ]
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
+RZN1_RTC_ALW is a weekday bitmask where bit N represents weekday N.
+When no alarm has been configured, the register has its power-on-reset
+value of zero.
 
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
+rzn1_rtc_read_alarm() uses fls() to convert the weekday bitmask into a
+weekday number. When RZN1_RTC_ALW is zero, fls(0) returns zero and
+fls(wday) - 1 evaluates to -1. This invalid weekday is then used to
+calculate the alarm date and can either leave tm_wday set to -1 or
+produce a fabricated alarm date.
 
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
+Treat a zero RZN1_RTC_ALW value as an unset alarm weekday and return
+without calculating the alarm date. Move reading RZN1_RTC_CTL1 before
+this check so that alrm->enabled is updated for both configured and
+unconfigured alarms.
 
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
 Cc: stable@vger.kernel.org
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Link: https://patch.msgid.link/20260821211032.13554-5-prabhakar.mahadev-lad.rj@bp.renesas.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[ retained the ALME-only enable check because RZN1_RTC_CTL1_1SE is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/misc/fastrpc.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/rtc/rtc-rzn1.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 0a5ab9ea89d44..d9a42cce79b55 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1683,24 +1683,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
- 	}
+diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+index 8570c8e63d70c..da1b7087b2d9e 100644
+--- a/drivers/rtc/rtc-rzn1.c
++++ b/drivers/rtc/rtc-rzn1.c
+@@ -193,13 +193,24 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 	if (ret)
+ 		return ret;
  
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
- 
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
- 	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
++	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
++	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
 +
+ 	min = readl(rtc->base + RZN1_RTC_ALM);
+ 	hour = readl(rtc->base + RZN1_RTC_ALH);
+-	wday = readl(rtc->base + RZN1_RTC_ALW);
+ 
+ 	tm->tm_sec = 0;
+ 	tm->tm_min = bcd2bin(min);
+ 	tm->tm_hour = bcd2bin(hour);
++
++	/*
++	 * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
++	 * register's power-on reset value.
++	 */
++	wday = readl(rtc->base + RZN1_RTC_ALW);
++	if (!wday)
++		return 0;
++
+ 	delta_days = ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
+ 	tm->tm_wday = fls(wday) - 1;
+ 
+@@ -208,9 +219,6 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 		rtc_time64_to_tm(alarm, tm);
+ 	}
+ 
+-	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
+-	alrm->enabled = !!(ctl1 & RZN1_RTC_CTL1_ALME);
+-
  	return 0;
  }
  
