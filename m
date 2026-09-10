@@ -1,171 +1,97 @@
-Received: from coelho.fi (coelho.fi [88.99.146.29])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874DC4BFE81
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 12:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=88.99.146.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1679483BFB;
+	Thu, 10 Sep 2026 12:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043097; cv=none; b=EpjkIIGzI55SiGuCEWdEnlrq+CjdOXnv0T8Iotq/J1KNY8n3wIdFUrchy2aUW1CbXiHp+DIf/kHxnbc/2Xb+BVQhgY2yHjL0FKNEi1QIQH/ecxAh6WzLymDLX2sJUKTlC1akobgpMTT3y42iGu8UzKXK26h2reuzhfDKWhQH2/8=
+	t=1789043241; cv=none; b=asw4Gq74O69j3FYs8567X6wuC0Fa+78jmsf+y9CHTew5d1yZo/IbTPn8PFgs05DGAEuNRVtoRZ/FFqkFrqYBBmLg1h5ly+a9qXGpi7B5kHGIuMzhkcQCrwwfAlwKRGlB/Gi9jgCNJ8YIuPotwWO1u+jcIxW3Q0G1A3b3L6mD4rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043097; c=relaxed/simple;
-	bh=/wYOsprHJlOb9/qYNjWgw7Y/KXkSErjsDeNjFA/xzhU=;
-	h=Message-ID:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Subject; b=gGyBSZZIF+sYHg0qKND7jiMMOiupJf6REqLDFZXGCWRYwjmnefWsXPNh5yypjEz6ci+m0RQnhKHnSVCg72Qm2Z8JMjjKFL0hKCHBPIP0duiwAhFHIPQZGhYabgQZQWdJ826BL7CukfYav2/dAI2bUs8VyGGx072LRDkXoajArYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=coelho.fi; spf=pass smtp.mailfrom=coelho.fi; arc=none smtp.client-ip=88.99.146.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=coelho.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=coelho.fi
-Received: from [62.183.198.118] (helo=[10.147.29.250])
-	by coelho.fi with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <luca@coelho.fi>)
-	id 1x4dpf-00000003Psx-1i7t;
-	Thu, 10 Sep 2026 15:24:52 +0300
-Message-ID: <001a17caa12acbbb62b73d65bc0d8c1d7739d726.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: imre.deak@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Thu, 10 Sep 2026 15:24:45 +0300
-In-Reply-To: <aqKQSYPEonBCauQc@ideak-desk.lan>
-References: <20260907174413.741851-1-imre.deak@intel.com>
-	 <20260907174413.741851-2-imre.deak@intel.com>
-	 <676822730026eb7eed7513dbc8f1461f24c6a1a7.camel@coelho.fi>
-	 <aqKQSYPEonBCauQc@ideak-desk.lan>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10 
+	s=arc-20240116; t=1789043241; c=relaxed/simple;
+	bh=IwE4JaM445mvUMo2/xkQG0Y/CS/sbR5Z1WyaY2XU3XQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=coo2qNIdp4JXm4VuUSnVsCGgSBpxRGW33cemxWgFGRiTXozrLO+lmPVvTstIhb06VKRfbcuHNtLZZEXnP5kWvwjCrQ7VrNVbFM/zCq5vCrSFS9IRMGyBfjroxjlZ9ydpxU+ILONoJgLceUDTvWbBSh90IPPxMFbUIspsSotNZww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=GSLf5dZd; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="GSLf5dZd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789043122;
+	bh=IwE4JaM445mvUMo2/xkQG0Y/CS/sbR5Z1WyaY2XU3XQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=GSLf5dZdSJXtKJk0yzOvTmFYjp4ybkSVzEa8IRhHN5mwHjrZOjkmTnPbtym+ZJYaz
+	 0k07V1vFXcsH5utYBu2ZTNDf5CEc1o6O4DZ0yBpXLCem43YMRwDCik5N9Hqnscnlfn
+	 KX9eLMGanPGPRTIHinYB6eQ/iokY6lBtHms9+GbE=
+X-QQ-mid: zesmtpsz1t1789043115td9088851
+X-QQ-Originating-IP: WW1GG0+DvR5K/zxkJ6FVKn9A7L7z+jHvol7nn7XxNf0=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 10 Sep 2026 20:25:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18235711230818459501
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+Date: Thu, 10 Sep 2026 20:23:36 +0800
+Message-Id: <20260910122335.182598-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+References: <20260909134230.441546314@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Spam-Level: 
-Subject: Re: [PATCH 2/2] drm/i915/dp_mst: Fix configuring TUs for a
- disconnected stream
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M5AZ9zH6FprOLkqhbqUhOPABg4HPFEwP0godkBzcHScUOGMp7b0ggp7n
+	5rBIW2oKEnC49jqcCBqfJRyJG1nESjS/Vsg5hDQ4LKfwefRi8TwELSeI+x/bo8D/4AFPd+U
+	XAM6ksUWMJxrJKaqAFBRjdIqHUQ1qiFoBS2FzEaheTw9E6R/B3pELuC/HKrRB8FsR0eYicM
+	JrwmzfC0O/BgQu0rx86tatPPBAMV7OqjKnAZHmJgi1v5edJt+Hdr28DUk4M3AlGg0uYZzW7
+	GKkgtDeTPPKMxBk/eRViMe256EHidlzxzWlt7efjXkPI2eT1E+0pLgnejJ5p28mW+G4d3eJ
+	vl/itgosiZwPY3p5GhOEnpal07jRSNyUx14rwEjqPp7/rhKoh4Zp0c2eO5Vo4JI5sFo30bV
+	pPtHV1kFn4k9x2WT2oNPhGDDhM/jVh2m43J7IGfRZOj8v3s+MuTcIP8wutcAQ3kCBVj+JLx
+	njE2NwIS3Y9IJz4RhFKVBANqYptxTAW2VjimfjNDFfkP/fXuGhmbeRNrW+K76oKvM5lISTm
+	LkejFNsY+lidN2GceCraVG9v3c1s30hCSIKisDR89itTYD3f8tEcZPkhijIp2+SqOk/rfsu
+	7urVOQlxOJNy/ev6r1LhouXmdc4Lca50daUF5DATGUTh3mUiTjyPHViuarelS3Dj/nJXf3M
+	sW6bd7m+XQBe228AxYi3XuvR5WnuHEbk9oYZvsauYNCaEuM0zp4BRTr+vykFmFDbfawNypa
+	JFxAXTSvk3HJhVlQKIBu2YD6f4W0nB5UaLILsMOvwWcrIeUOo4tMRZunuXHZRgKth7e/1Vm
+	h+XZsNbycsb8Nz9yrMTjGbT7eiEdRBTqY33qywHCPEcytr3Lp1ioEfLvzRLnXh/i+sqlBIX
+	vcPcvAmCS3exsPqdAVVMA1Cz4YKKASc+Z3VEpng8/FVWONxWYSSxDiL48wMgu/uEDa/Z/11
+	SBom3qfc/6yNp6Do6MkWeM3NimB0MfKSGP4u8Q93IHAnE+gg8lZTCspduQZ9+EWr/PO9GUm
+	Zt4v8CNrS2uGD9ne8hfIkkaxSvc//6KH7WrPsoxPH9HUIqvv+2goM1ciJA07+i2t4QbrLlL
+	msQ+lDglmFj
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 2026-09-10 at 14:11 +0300, Imre Deak wrote:
-> On Thu, Sep 10, 2026 at 12:50:16PM +0300, Luca Coelho wrote:
-> > On Mon, 2026-09-07 at 20:44 +0300, Imre Deak wrote:
-> > > During an atomic commit after all the MST stream CRTC state is comput=
-ed
-> > > the driver ensures that the sum of TUs of all the streams on a given =
-MST
-> > > topology link is within limits (63 for 8b10 and 64 for 128b132b). For=
- a
-> > > disconnected stream the DRM MST core's BW verification doesn't ensure
-> > > this, because the topology state it uses for this is destroyed as soo=
-n
-> > > as the stream (i.e. MST connector/port) is disconnected. The driver
-> > > should keep the link state valid even for such disconnected streams, =
-as
-> > > userspace may disable them one-by-one only in a deferred way. Ensure =
-the
-> > > link's sum of TUs stays within limits in this case by simply reusing =
-the
-> > > maximum link BPP limit from the stream's (i.e. CRTC's) old state.
-> > >=20
-> > > The disconnection can happen either via the whole topology getting
-> > > disconnected or via only the given stream's port getting disconnected=
-.
-> > > Check for both of these conditions separately, as a connector gets
-> > > unregistered after a link disconnect event only in a deferred way.
-> > >=20
-> > > Cc: stable@vger.kernel.org # v6.10+
-> > > Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/160=
-73
-> > > Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/163=
-84
-> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++=
-++
-> > >  drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
-> > >  drivers/gpu/drm/i915/display/intel_link_bw.c |  3 ++-
-> > >  3 files changed, 25 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gp=
-u/drm/i915/display/intel_dp_mst.c
-> > > index 20766b6c0bcfa..0c362784afe4a 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> > > @@ -2172,6 +2172,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct in=
-tel_atomic_state *state,
-> > >  	return false;
-> > >  }
-> > > =20
-> > > +bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *sta=
-te,
-> > > +				      const struct intel_crtc *crtc)
-> > > +{
-> > > +	struct intel_connector *connector;
-> > > +
-> > > +	connector =3D get_connector_in_state_for_crtc(state, crtc);
-> > > +	if (!connector)
-> > > +		return false;
-> > > +
-> > > +	if (!connector->mst.dp)
-> > > +		return false;
-> > > +
-> > > +	if (!connector->mst.dp->mst.mgr.mst_state)
-> > > +		return true;
-> > > +
-> > > +	if (drm_connector_is_unregistered(&connector->base))
-> > > +		return true;
-> > > +
-> > > +	return false;
-> > > +}
-> > > +
-> > >  /**
-> > >   * intel_dp_mst_prepare_probe - Prepare an MST link for topology pro=
-bing
-> > >   * @intel_dp: DP port object
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gp=
-u/drm/i915/display/intel_dp_mst.h
-> > > index ab09b487c6bb5..8ce89242c05c9 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> > > @@ -28,6 +28,8 @@ int intel_dp_mst_atomic_check_link(struct intel_ato=
-mic_state *state,
-> > >  				   struct intel_link_bw_limits *limits);
-> > >  bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *stat=
-e,
-> > >  				     struct intel_crtc *crtc);
-> > > +bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *sta=
-te,
-> > > +				      const struct intel_crtc *crtc);
-> > >  void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
-> > >  bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
-> > > =20
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/g=
-pu/drm/i915/display/intel_link_bw.c
-> > > index b47474a3e9fec..e71e76d6fd3e0 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-> > > @@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_=
-state *state,
-> > >  			intel_atomic_get_new_crtc_state(state, crtc);
-> > >  		int forced_bpp_x16 =3D get_forced_link_bpp_x16(state, crtc);
-> > > =20
-> > > -		if (state->base.duplicated && crtc_state) {
-> > > +		if ((state->base.duplicated && crtc_state) ||
-> > > +		    intel_dp_mst_stream_disconnected(state, crtc)) {
-> > >  			limits->max_bpp_x16[pipe] =3D crtc_state->max_link_bpp_x16;
-> > >  			if (intel_dsc_enabled_on_link(crtc_state))
-> > >  				limits->link_dsc_pipes |=3D BIT(pipe);
-> >=20
-> > I think Sashiko's NULL-dereference commment is valid.  Can you check
-> > it?
->=20
-> At least I can't see how a connector can get into the atomic state
-> without the crtc state for the CRTC associated with the connector.
-> Sashiko didn't provide the exact scenario it had in mind.
+Build tested in our x86/arm64/loongarch config successfully without error.
 
-As discussed offline, this is not really a problem, and it's a safe
-bypass the NULL pointer check here.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-
---
-Cheers,
-Luca.
+Best Regards
+Wentao Guan
