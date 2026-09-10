@@ -1,74 +1,81 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887D56C624
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:22:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FBD58B6AB
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064532; cv=none; b=V433+7I4wEjVIDgcJT1QZUQo016rNuuUM6BPCp0SgvkFdeLIk0k7QSk7DqEYYQKQ/aYQZqp2nixGipes64sntnaeAHXKplayc9IBRhcwRlSGF3O5TWjUviGAOWz5pyMfdJJ4Yy/FybPG+YLOgp0yOQxuEhVbl0zYQ7wG2tg3Bc0=
+	t=1789065947; cv=none; b=Mly2T94zHIdd2HJQm3jsjYNwnk4J4aM/lgLvmY5WbqSX40AwGsF2eu0ooR02mXWN6RnMzOQEMdNqy2S22hQoUtWDmbYMbO00C8uu+MIXjMTfhE22vZ1oDQ2VNhK1vf9oE6nXSkd0oYTUBzn8gWEshEXhjCV+2zGBU/vPdb77d4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064532; c=relaxed/simple;
-	bh=xeBaVq34Fvm+F/zQVDvqjxr/qQQkcNW+NLJKAnQ0Gzk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=byHyjn7VK0uRh/qt+RvmgE/SdqY3WTuc8cdhYeueYwvmPsm1+RbKL2ZC6dJ/UIrjZv2JOTEIA1+k8/n4CtIJ6220c2giRQts27Tk7U/7+yhg1deeziZ92oJFDvG3pUEcu7g1H2DO3zzHj8a3xT32HabvArvDkKbssTEWrWOzAT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=hiq9LTIH; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	s=arc-20240116; t=1789065947; c=relaxed/simple;
+	bh=We2CtplNBgDDHP42d3oV8K1++E9MJ5VWZ/GusjF3Qyo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=VhtFmYVYZ0oUgQ9ykXQZKUTbyCs/MJVbrd1aIxqfwid8F7FrjxgMLEYO8jHnBFWOyVUm7Hi8OOgmDO6dEjELZILF/72aSaw19mYEgeAEjD/y1TL64le4YxCb4SGts5IJaAFAYjTtzTBdF7xtKx8PpOgc5ssDvpjIo1K4O98OKH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DgeJoTPd; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="hiq9LTIH"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso1393565e9.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DgeJoTPd"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5faa1cfso187455e9.0
+        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:45:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1789064526; x=1789669326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
-        b=hiq9LTIHwK9bGox2e61Q5JkEOIfi+7XrnWER7D9SJLinSRQdrsBjxlA5spo7zgyAVa
-         7NYb7ST88F24ybJlmGl6mksaluXawXRSUr/HaVSdc6QDYpqeo4VKgTGz/th2wYgKZFvo
-         QQzwAJa+3qc7MyKVYBaHba7QLHkuhZca0UWtBE9gkN/O08doU6OxkReN/DoVYsVWtu7W
-         weEJ3ksB3WQC+JIhHBg0FbK+PrYk/W9kxYDp2Mmg/8xdU14P+HMFFpLcyOIcWk6NXy3E
-         ayBUpZt5yP3Si/1PnXBfAGXs+ikXz45dEYYaQ4j1Pqxx1ByjqfLiakl+NUIVCZ5pN8J8
-         U+2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789064526; x=1789669326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789065944; x=1789670744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
-        b=bFj6CEgcZVAAh1v0co0J/mESgIAQE58dfA55INQEe5o7+R0YPnC/RucBca1tB3P5mo
-         r/uCpwqjK5zXFsbrfo07JBknDFV5U3Ioeg5wUH1jODVfsQToyfWNugwtjnmUAhYR8hhU
-         epsYnz6oCeNbUbOCLWK51MZ7N+fJDmgwsBHxMYP0KOhpTgdl3o/a06gddkxZumKvSLPG
-         IpS4MGMxDwZ6KGi+HoXdfYVIDZqjeEiBRYpWS4gE4foAKb2eEmoByJzCYn2I3FZc2R/K
-         QN/Ok64UEWlbC0yKPiJXg7jORqt6MHmw9qlzcTIuubuP/LxyC7hti7SCTlemttOK3slA
-         nJbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCm3GjuS7Zh6jrIkmxhwg8ENGIWJgD6m6zKUJ/Az7w7InJ/Y16OTnWAGPOK+E+f35CVEGHzWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaccDR30HNdhKJzCb/mSiCFYrzOAlXJnjPsCFDt7Wl9NH5bJds
-	EwOleq+Vjt6fQL1fzQXt1fJvXxzXPAyy9IyqxBDwvA3gkV+hwUFDuex0KiWL4aOSoAQ=
-X-Gm-Gg: AYBFou1xDaef+7AAtzvUd4hl6CayWHOONZTbmoIZMlKZVUiSLiJ12lJqHsdobyYPBru
-	+y0Z10cYRXs0kttvjWdwn9F8uxwJ8+dMSQZVU8caRJ4GDaZG4RoAxEN19e0AF+4ZLRNfYbwXlOC
-	7Hahk81bVCi3z0jxkdGIub+pyYZmS9cnGFvUJqDaZ8lmPmy+r3hAekGLNskQj+2M9mVDjpVRhDF
-	O+6AL5Q3nNkmcybPkd998yvFmAaaldg8eHJw/7/oEhnC8Ze/B3x1/AmG5ONPRe4JohFrvXy3ZBA
-	uFqgc3hB4IlY6pMduwI2It4gOGab0L45qr1/LA9VQa4K7AQ9vmuCDJSJSjUYY/6CzEt1D+5DD9h
-	qPZEJU4Ck+PsLYgDvqkMWFWe0MLWxIXxwNcPUs7AEIARGsnlm1kD/yjJ8D/beqL7cO3fA1fP8f1
-	VvQnsFpt13TtMwvgor5WklBrWMcFSOYx9wRp15o9JgdrwFQF+1M0TQGx48ZyB8nwdj0yfCAmUoy
-	jIFmdIycv9yMfcmoZ0vSWt2QHbVdlxbQHak167QeP77tPpziDZmsMEjRRUh9oPfSMh5Rtus1eQ=
-X-Received: by 2002:a05:600d:6501:10b0:49c:fa21:e73b with SMTP id 5b1f17b1804b1-49e619c0bc0mr2423325e9.17.1789064526542;
-        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
-Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5765152asm40025455e9.11.2026.09.10.11.22.05
+        bh=SYKvuY+VqGTbeddLCjHS1PA1XfFdTZPu7ob+AkuwS84=;
+        b=DgeJoTPdQzBLIr2j84y19A5oghnz/wX8obUOywVJ1Nzx/nijMqHWjnz0ZnJebKKHDh
+         c6M7plFYOWROp28ForCoFLdW0j9+PBeOf7u0f1jdyPrFRkgrXBQSl2VbTFmo0mdRySGC
+         wRY/x42LS4+nf+FVr+6L/3YlydGHEy/RJ9j7B37K9aHuunPXqUr+LkpA7dPeuaR9x7VA
+         U0Th4pF9LXIADHdAlRuly8ePEeqIkkOoKRJGVRRGiBeofvB2Hef3lSsIffOaJVJ3OMDR
+         xypNQSHelLH/y0LLa9b2kJTqlmlf6IyU5/KNuu3pbjlcz4xw2WW0Mb2ND7TQJ3kXETsQ
+         3vTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789065944; x=1789670744;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SYKvuY+VqGTbeddLCjHS1PA1XfFdTZPu7ob+AkuwS84=;
+        b=SzM4493K/qM296f0sObZWSF+T46/hhIhan6zZha5ST5Fgm4rzfWhrK/qoAm8HyYuIO
+         bJJq2mZ83mZLSqANGnCPIteMFiS+G+J0c4aM5D2plN+Fl7kTW3gbtdlERuGzsw9o0xOK
+         AMfp6HbAupxt1110pj237aFJVhz+ZppABDC8w/B69stucGmSu7CiRp65MH7CEhJ86EDx
+         lbTKezzzEl63Fq4vOPxAO7UXTpA3+vnKi4VtUdUbCtShojsVOYi3VwjJjqdqBY0/gFB0
+         qnCKKTQUljORDBBGnGZy8lBe1QzVSjSvszAqJTiY6CYsYeJ+ym0hTPVDTq07QNT3OfS9
+         ZAeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+cf7VjUIBk9AOUwUtcwEXGIB0mMCFfF4BV4+kBrbb4FS4dbXkitnicys4I4ErOxxcpGwORE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXSNh4DGjE4R7T/phDt63koP7zzATY99nGxyY3Wxqi2L83TOo7
+	zWk4XrTLlL3SVg2MR6PP5qKjjqYGTVcz0BNbzldfraLGUFcUPYu/2P38
+X-Gm-Gg: AYBFou1hKvEEr30d2nWKbI/IVzXptbQ1lLIj2uZNrVQqJFrKN5n+fTttwrpBEfErVpw
+	lBEcVy1IGUgAxTGQIbuLpSHQaKO7y2Q0d4R0SQHS5QQ24hjNZuk8tecDBuYPeKdGuMOzbKPDGCO
+	CGc83UoIpJEPBiaU7Ofcdbhd1q3hLiJc/VlpHWq3CPglysFpGGWjEP+ZXLjkfj80ynXMsIR9ElU
+	24g5iby9Tj4QWCqaO8/7gpvY61TFxPSonLiWhMAf6P2DaxAhj9SzOPhUD471Q4TbJivie8zRsT6
+	UsLeDQMX5h7o90I/5lwDD0IYeZ6KH3d0prJu70fUQ2JfJEjLDa2CXxei+wgBnax4FPjWDRNgref
+	QOZ/I4Di0e1w6NQ9N+I4TzohZNgVgCgsjoZ2OR0Px+JmsJAT2YRBqjb6lAghaDYcZPGE9misNkv
+	Zaus/aFQylGMKpzYdqrDXP4p4I5Y7PCiBOkjs9GMyPuqmwgBpd9Fd2eR4PTdlM1PqhbdB2kdiGF
+	woAfq+NUG9zsl/hCO8=
+X-Received: by 2002:a05:600c:4688:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49e619ec129mr3232775e9.2.1789065943543;
+        Thu, 10 Sep 2026 11:45:43 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm18760055e9.14.2026.09.10.11.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: dhowells@redhat.com,
-	steved@redhat.com,
-	viro@zeniv.linux.org.uk,
-	netfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
+        Thu, 10 Sep 2026 11:45:43 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: mwalle@kernel.org,
+	pratyush@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	vigneshr@ti.com,
+	richard@nod.at,
+	miquel.raynal@bootlin.com,
+	takahiro.kuwano@infineon.com,
+	Itai Handler <itai.handler@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] cachefiles: pass a poll key when waking the daemon
-Date: Thu, 10 Sep 2026 20:22:00 +0200
-Message-ID: <20260910182200.1272489-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH 1/2] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
+Date: Thu, 10 Sep 2026 21:44:51 +0300
+Message-Id: <20260910184452.895485-2-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260910184452.895485-1-itai.handler@gmail.com>
+References: <20260910184452.895485-1-itai.handler@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,101 +84,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Keyless wakeups bypass epoll's event-mask filtering.  With only
-`EPOLLOUT` registered, any cachefiles_state_changed() call will wake
-up the epoll_wait() system call, but will not return any events,
-causing a busy loop.
+spi_nor_shutdown() calls spi_nor_restore() to put the flash back into
+3-byte addressing before the system reboots or kexecs. It does so
+without taking nor->lock, which every other path that talks to the chip
+acquires through spi_nor_prep_and_lock().
 
-Pass the relevant poll events with each wakeup so `epoll` can filter
-out unwanted notifications.
+device_shutdown() does not freeze userspace and does not stop kernel
+threads; it walks the device list calling ->shutdown with all CPUs
+online. Another thread can therefore be in the middle of an operation,
+with the restore running concurrently with it. A write and a read are
+both damaged, in different ways.
 
-Fixes: a5b3a80b899b ("CacheFiles: Provide read-and-reset release counters for cachefilesd")
+A program or erase leaves the flash busy, and a busy flash accepts only
+status register reads and ignores everything else, including the EX4B
+that spi_nor_restore() sends. Neither spi_nor_write_enable() nor
+spi_nor_set_4byte_addr_mode() reads anything back, so the restore
+reports success while the flash is left in 4-byte addressing. The next
+boot stage then addresses it with 3 bytes and reads the wrong data,
+which is the failure commit 59b356ffd0b0 ("mtd: m25p80: restore the
+status of SPI flash when exiting") introduced this restore to prevent.
+
+A read, by contrast, does not ignore the restore - it is corrupted by
+it. spi_nor_read() holds the lock across a loop that issues one
+spi_nor_read_data() per chunk, each using nor->addr_nbytes.
+spi_nor_set_4byte_addr_mode() updates nor->params->addr_nbytes and not
+nor->addr_nbytes, so a restore landing between two chunks switches the
+chip to 3-byte addressing while the driver carries on sending 4 address
+bytes. The rest of the transfer is addressed wrongly and returns wrong
+data, and nothing reports an error. A restore may also soft reset the
+chip in the middle of that same read.
+
+Take nor->lock for the restore, so it runs between operations instead of
+during one: a program or erase has finished waiting on the chip, and a
+read has issued its last chunk. This is a locking fix rather than a
+missing wait - each operation already waits for completion at the site
+that started it.
+
+This narrows the race without closing it. The restore still runs while
+MTD users are attached, so an operation that starts after it has
+completed will address a chip that is now in 3-byte mode while
+nor->addr_nbytes is still 4. Closing that as well would mean having MTD
+stop accepting operations before ->shutdown runs, which is a larger
+change; serialising against the operations already in flight is what
+keeps the restore itself from being issued into a busy chip.
+
+Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when exiting")
 Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
 ---
-Note: backports to older branches need to adjust ondemand.c as well
-like this:
--       wake_up_all(&cache->daemon_pollwq);
-+       cachefiles_wake_poll(cache, EPOLLIN);
----
- fs/cachefiles/cache.c    |  4 ++--
- fs/cachefiles/internal.h | 15 +++++++++++++--
- fs/cachefiles/namei.c    |  2 +-
- 3 files changed, 16 insertions(+), 5 deletions(-)
+ drivers/mtd/spi-nor/core.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/fs/cachefiles/cache.c b/fs/cachefiles/cache.c
-index 9fb06dc16520..08ca598618ac 100644
---- a/fs/cachefiles/cache.c
-+++ b/fs/cachefiles/cache.c
-@@ -255,7 +255,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
- 	    test_and_clear_bit(CACHEFILES_CULLING, &cache->flags)
- 	    ) {
- 		_debug("cease culling");
--		cachefiles_state_changed(cache);
-+		cachefiles_state_changed(cache, EPOLLIN);
- 	}
- 
- 	//_leave(" = 0");
-@@ -275,7 +275,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
- begin_cull:
- 	if (!test_and_set_bit(CACHEFILES_CULLING, &cache->flags)) {
- 		_debug("### CULL CACHE ###");
--		cachefiles_state_changed(cache);
-+		cachefiles_state_changed(cache, EPOLLIN | EPOLLOUT);
- 	}
- 
- 	_leave(" = %d", ret);
-diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
-index c93324e0f98c..b8a5ea4a5ced 100644
---- a/fs/cachefiles/internal.h
-+++ b/fs/cachefiles/internal.h
-@@ -15,6 +15,7 @@
- #include <linux/fscache-cache.h>
- #include <linux/cred.h>
- #include <linux/security.h>
-+#include <linux/poll.h>
- 
- #define CACHEFILES_DIO_BLOCK_SIZE 4096
- 
-@@ -117,13 +118,23 @@ struct cachefiles_object *cachefiles_cres_object(struct netfs_cache_resources *c
- 	return fscache_cres_cookie(cres)->cache_priv;
- }
- 
-+/*
-+ * Wake up the daemon polling on /dev/cachefiles.
-+ */
-+static inline void cachefiles_wake_poll(struct cachefiles_cache *cache,
-+					__poll_t mask)
-+{
-+	__wake_up(&cache->daemon_pollwq, TASK_NORMAL, 0, poll_to_key(mask));
-+}
-+
- /*
-  * note change of state for daemon
-  */
--static inline void cachefiles_state_changed(struct cachefiles_cache *cache)
-+static inline void cachefiles_state_changed(struct cachefiles_cache *cache,
-+					    __poll_t mask)
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..96dd6ae6d619 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
+ static void spi_nor_shutdown(struct spi_mem *spimem)
  {
- 	set_bit(CACHEFILES_STATE_CHANGED, &cache->flags);
--	wake_up_all(&cache->daemon_pollwq);
-+	cachefiles_wake_poll(cache, mask);
+ 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
++	int ret;
++
++	/*
++	 * Wait for an operation started by another thread to finish.
++	 * device_shutdown() runs with MTD users still active: a busy flash
++	 * ignores the commands spi_nor_restore() issues, leaving it in
++	 * 4-byte address mode, and a restore landing mid-read changes the
++	 * chip's address width under the transfer.
++	 */
++	ret = spi_nor_prep_and_lock(nor);
++	if (ret)
++		return;
+ 
+ 	spi_nor_restore(nor);
++	spi_nor_unlock_and_unprep(nor);
  }
  
  /*
-diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
-index 88955249a1a6..52eb227f07e8 100644
---- a/fs/cachefiles/namei.c
-+++ b/fs/cachefiles/namei.c
-@@ -74,7 +74,7 @@ void cachefiles_unmark_inode_in_use(struct cachefiles_object *object,
- 	if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
- 		atomic_long_add(inode->i_blocks, &cache->b_released);
- 		if (atomic_inc_return(&cache->f_released))
--			cachefiles_state_changed(cache);
-+			cachefiles_state_changed(cache, EPOLLIN);
- 	}
- }
- 
--- 
-2.47.3
-
