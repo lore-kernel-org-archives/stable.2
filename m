@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3E3286D56
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDBB4BFE93
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 01:35:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789004133; cv=none; b=ShRS8En76mS4UHUGMGblLz6CGHnV0RWq4xLC8G85c9wveZRaDuixfGeKvHHOz7LtVRp1YjI6B9SG2Gk0+ifxkZXUFPzUf1zmhnwI5U1NzD6ESTtqU1dowj2xqEHvU8UhKYsdzKiZTGEi9dT6g3KLco+d3BTfQI1yOX+7t6linZ4=
+	t=1789004134; cv=none; b=EfS43Sc2FRq/J++WcC3/diaEXeUhEfEe2PGn0dDfwWN5jLuXOogaP6aF38sxh4mQ1xj5RwmejbEVzPVZpFVBETyaJfkGYy5Aj7b09iW+aXGnQuHjz5jAMRfsK/5Jewdv9wMyUVHJDUKZQdAowkZsFy+HBVP1qm7pZgAEBERc3j0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789004133; c=relaxed/simple;
-	bh=Yt3FPJC/2/25KvB9wn1PfZdZeCwifezoV8YYlfLgz9g=;
+	s=arc-20240116; t=1789004134; c=relaxed/simple;
+	bh=uKo7OnKINCud2RD1UPpw/QiHG8nzSuF85YGZt2IQ77o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UdOCauxhm6i7wR9bIBDc0y9y5LCyVyDmd8Se8k27A8D1MHe8l21RTZa5shZegLqceOdHREsB9I/hN9f9NoNB5R6J034FJQ7h7H9v0lxAJwClcJDn9iAax/Q/n2IHxosDEyW+lSR9EKnQkbWC2xWirCmuVmVKDmsKzJLcHDZugkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2t4/AQo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q7iDD2OTDuFDKmpf0LgaFjKI5S6VBsfzEm6kNaKVutvDAmvr8spsvM/UQa+R0wgTv/ohCW2E0ZJf4MFg1gZ4hQTjExKuHxpNcxiPGPb2zcm5UqbPHlACpxFTRWHJOjJ1KKlBT3K4CVhDYpHpSX5ShmA9u+VW9PYcYNz1mMQtJU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXMap/0O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2t4/AQo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4971F000FF;
-	Thu, 10 Sep 2026 01:35:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXMap/0O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA1F1F00898;
+	Thu, 10 Sep 2026 01:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789004132;
-	bh=8sMVF+7JsYTfQtF8Fv+hqzhpr0klhuIZzQLGhXB0sac=;
+	bh=CvOeE2KuKyUg/rqJhckIs3CfhtINJEly5vNjUJBjwls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T2t4/AQo6YNK6Imn1euElipTgRC1puQebBPqPGYaFYoOE1QAsNQTbAfHx1N+l8Tko
-	 BdbinlzkptcbpiOKwoEoeqf2p8+ivPLakBwroMLOivp3csmDxfOY5B5kcPbob2to7C
-	 DuJAz5sDQRiRNEpweGvlS1JsT8+h1YV7WGyTpxE5ObdQ+HGM4rYIH6R+sBDBp//clE
-	 5rDHb0BZvHJcV6MJkvInwcJxgAB34pIRTbbgl/8kozvnNrhkYkyzCHc+Rh1RoDktMs
-	 FXrRm1APS51y7elxXOgjM12IrytojVxSoKjow6qGyX5vvLwiq0f7mAijJqZuguP6Ui
-	 H1gTrmEzn9dMA==
+	b=UXMap/0OiMFCKqhQJIztXb2tqBMuYjCb1jLm70AUIPapjT2tdVkg2FPblIibAvCib
+	 XZcMesTnstr7Q5lGS9yn0KdBhlUkMU0SbyU7p0XvyJqV6h1Rw+kTUowXwt1JZUiMaM
+	 0NCr3+77g+biL0+zVv+pub8mpkxXJIN6V0RbFKdjv0aE0r6c7pG1321qEfyvaL5K7S
+	 JlCSTIamy3K+Sor3t6eoGFs6OYrNI4n+Q2SCaSx5QWXGBskLIuTqeOWx4ZLEcBsDtz
+	 0csUwfywB1ykZIzuv5u0TyiXf2sMRTxPY2BIRYkSGBiEdcisIoazKulMpI8weV/GSV
+	 YHrbpeoaGh0+A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zong-Zhe Yang <kevin_yang@realtek.com>,
+Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] wifi: rtw89: cleanup unused rtwdev::roc_work
-Date: Wed,  9 Sep 2026 21:35:28 -0400
-Message-ID: <20260910013530.3901662-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] wifi: rtw89: Hide some errors when the device is unplugged
+Date: Wed,  9 Sep 2026 21:35:29 -0400
+Message-ID: <20260910013530.3901662-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090433-armed-frequent-d9dc@gregkh>
+In-Reply-To: <20260910013530.3901662-1-sashal@kernel.org>
 References: <2026090433-armed-frequent-d9dc@gregkh>
+ <20260910013530.3901662-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,34 +46,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zong-Zhe Yang <kevin_yang@realtek.com>
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
 
-[ Upstream commit c281bdb8821461047d3e74206afbff190d1f7846 ]
+[ Upstream commit 0740c6beefae03066a562e3047959528d8893709 ]
 
-The needed one was moved to rtwvif::roc_work. And, rtwdev::roc_work is
-unused. So, remove it.
+A few unnecessary error messages are printed when the device is
+unplugged. "read swsi busy" in particular can appear ~1000 times when
+RTL8851BU is unplugged.
 
-Signed-off-by: Zong-Zhe Yang <kevin_yang@realtek.com>
+Add a new flag RTW89_FLAG_UNPLUGGED and print some error messages only
+when this flag is not set. The new USB driver will set the flag when
+the device is unplugged.
+
+Signed-off-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20250120034004.21135-1-pkshih@realtek.com
+Link: https://patch.msgid.link/cc18b739-6f38-4c1a-a681-1e2a0d4ed60d@gmail.com
 Stable-dep-of: 667c12782aaf ("wifi: rtw89: pci: add .shutdown callback to stop rfkill polling on reboot")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw89/core.h | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/net/wireless/realtek/rtw89/core.h |  1 +
+ drivers/net/wireless/realtek/rtw89/mac.c  | 13 ++++++++-----
+ drivers/net/wireless/realtek/rtw89/phy.c  |  3 ++-
+ 3 files changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wireless/realtek/rtw89/core.h
-index 36ba2ca255bb0..6d9365332174b 100644
+index 6d9365332174b..0b48d2dfce4cc 100644
 --- a/drivers/net/wireless/realtek/rtw89/core.h
 +++ b/drivers/net/wireless/realtek/rtw89/core.h
-@@ -5604,7 +5604,6 @@ struct rtw89_dev {
- 	struct delayed_work coex_rfk_chk_work;
- 	struct delayed_work cfo_track_work;
- 	struct delayed_work forbid_ba_work;
--	struct delayed_work roc_work;
- 	struct delayed_work antdiv_work;
- 	struct rtw89_ppdu_sts_info ppdu_sts;
- 	u8 total_sta_assoc;
+@@ -4724,6 +4724,7 @@ enum rtw89_flags {
+ 	RTW89_FLAG_FORBIDDEN_TRACK_WROK,
+ 	RTW89_FLAG_CHANGING_INTERFACE,
+ 	RTW89_FLAG_HW_RFKILL_STATE,
++	RTW89_FLAG_UNPLUGGED,
+ 
+ 	NUM_OF_RTW89_FLAGS,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/mac.c b/drivers/net/wireless/realtek/rtw89/mac.c
+index 31465893f866d..9fb0a5cd0fb7e 100644
+--- a/drivers/net/wireless/realtek/rtw89/mac.c
++++ b/drivers/net/wireless/realtek/rtw89/mac.c
+@@ -88,7 +88,7 @@ int rtw89_mac_write_lte(struct rtw89_dev *rtwdev, const u32 offset, u32 val)
+ 
+ 	ret = read_poll_timeout(rtw89_read8, lte_ctrl, (lte_ctrl & BIT(5)) != 0,
+ 				50, 50000, false, rtwdev, R_AX_LTE_CTRL + 3);
+-	if (ret)
++	if (ret && !test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
+ 		rtw89_err(rtwdev, "[ERR]lte not ready(W)\n");
+ 
+ 	rtw89_write32(rtwdev, R_AX_LTE_WDATA, val);
+@@ -104,7 +104,7 @@ int rtw89_mac_read_lte(struct rtw89_dev *rtwdev, const u32 offset, u32 *val)
+ 
+ 	ret = read_poll_timeout(rtw89_read8, lte_ctrl, (lte_ctrl & BIT(5)) != 0,
+ 				50, 50000, false, rtwdev, R_AX_LTE_CTRL + 3);
+-	if (ret)
++	if (ret && !test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
+ 		rtw89_err(rtwdev, "[ERR]lte not ready(W)\n");
+ 
+ 	rtw89_write32(rtwdev, R_AX_LTE_CTRL, 0x800F0000 | offset);
+@@ -5666,13 +5666,15 @@ int rtw89_mac_coex_init(struct rtw89_dev *rtwdev, const struct rtw89_mac_ax_coex
+ 
+ 	ret = rtw89_mac_read_lte(rtwdev, R_AX_LTE_SW_CFG_2, &val32);
+ 	if (ret) {
+-		rtw89_err(rtwdev, "Read R_AX_LTE_SW_CFG_2 fail!\n");
++		if (!test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
++			rtw89_err(rtwdev, "Read R_AX_LTE_SW_CFG_2 fail!\n");
+ 		return ret;
+ 	}
+ 	val32 = val32 & B_AX_WL_RX_CTRL;
+ 	ret = rtw89_mac_write_lte(rtwdev, R_AX_LTE_SW_CFG_2, val32);
+ 	if (ret) {
+-		rtw89_err(rtwdev, "Write R_AX_LTE_SW_CFG_2 fail!\n");
++		if (!test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
++			rtw89_err(rtwdev, "Write R_AX_LTE_SW_CFG_2 fail!\n");
+ 		return ret;
+ 	}
+ 
+@@ -5796,7 +5798,8 @@ int rtw89_mac_cfg_gnt(struct rtw89_dev *rtwdev,
+ 
+ 	ret = rtw89_mac_write_lte(rtwdev, R_AX_LTE_SW_CFG_1, val);
+ 	if (ret) {
+-		rtw89_err(rtwdev, "Write LTE fail!\n");
++		if (!test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
++			rtw89_err(rtwdev, "Write LTE fail!\n");
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/net/wireless/realtek/rtw89/phy.c b/drivers/net/wireless/realtek/rtw89/phy.c
+index d544077ec2989..c957f88faeeeb 100644
+--- a/drivers/net/wireless/realtek/rtw89/phy.c
++++ b/drivers/net/wireless/realtek/rtw89/phy.c
+@@ -881,7 +881,8 @@ static u32 rtw89_phy_read_rf_a(struct rtw89_dev *rtwdev,
+ 				       30, false, rtwdev, R_SWSI_V1,
+ 				       B_SWSI_R_DATA_DONE_V1);
+ 	if (ret) {
+-		rtw89_err(rtwdev, "read swsi busy\n");
++		if (!test_bit(RTW89_FLAG_UNPLUGGED, rtwdev->flags))
++			rtw89_err(rtwdev, "read swsi busy\n");
+ 		return INV_RF_DATA;
+ 	}
+ 
 -- 
 2.53.0
 
