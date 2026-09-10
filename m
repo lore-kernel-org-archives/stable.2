@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB38390614
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 03:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07F73839AC
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 03:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010214; cv=none; b=mY0mjSc2I3QadZ65LWT3mq7mh1Jmjupqv6VIDLM5k1X/xQtHHaSUs4foxYhe6EVNp3of0GcTPmtjc/po2sE/JkUC4lsahvBX6QwmD9omi3RRtHWZpA1+6hMpWbH1BnVFg2pCTXd5bDY2SlSLFJS9zX7qXDLzBGQZD11avvQmN3I=
+	t=1789010851; cv=none; b=QTy+2oDTNrO7s2+bJ3CjqyWAFjrkmoSw0qbWD9ZWkjIw2+rC55Y1bTZ+bDM+MRspHm4e8qI+RjekdD7r31KlFWuC+Fn3+g2KPp1mcYqT6/KxZUa54hlGAeiFH9QQbdbu0WAvbBunoXkDV3hfVpIvLzc1E9Bz2KU14reFdtr8Kk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010214; c=relaxed/simple;
-	bh=Knvj+VPZsAtqLDiQ3Jx3vB3yWmalcCvTEycyDBhhTa8=;
+	s=arc-20240116; t=1789010851; c=relaxed/simple;
+	bh=gHja9HIu/bxkuNrmbSELtJIfILpHnzbnGexXRFGXaTI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dpjZM6pW7XEek/bdwXlxxocb29bi+DZQVqhKeK34nop9/gEXDRfJYqni1xGh+eNN8gWF040d5o2wcLC+8fng4F8XEMwkljbzqWAIIGjECHP3FIjSg59KyaCrlkYhiGP2GRyXJ5+q8wfqdNoui0bTN7tTXMveLKHzh/x9faerZ0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=njO63hK0; arc=none smtp.client-ip=91.218.175.105
+	 In-Reply-To:Content-Type; b=dEN1AyIqzUqicbC52dOfSBQoVVnaTkNDCUdbMyCqkcGGWO8GOi2vGF7f+tTppdbsndTDUjCW8tFonDvg+jSusUK0koOnjMP+H76gxy2Tz6KtBPVa9N0zxQANBTc76Ons3sVXOUehtmlcaLj421Lcd9xVD52HhZpTKjU+XI8lly0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Lo7NfiWl; arc=none smtp.client-ip=91.218.175.160
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="njO63hK0"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Lo7NfiWl"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Knvj+VPZsAtqLDiQ3Jx3vB3yWmalcCvTEycyDBhhTa8=;
+DKIM-Signature: a=rsa-sha256; bh=gHja9HIu/bxkuNrmbSELtJIfILpHnzbnGexXRFGXaTI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789010209; v=1; x=1789615009;
- b=njO63hK0MTHREW0+rd0MKx0osLhUVAIXgZyMrNudpFqN5u0SoN5LlxfEz/wgHjeJtmg+Jh0S
- 0GbB3/Pml9skSlCirQvaLGJmeYD1nFkIgjUIbQSSp34ALapnvhrv1Pwo5Ga8FIvyOl71K03Sk6f
- GPcW1fBTOWflsLW34hoFkXQM=
+ t=1789010844; v=1; x=1789615644;
+ b=Lo7NfiWlBUoaMBaVabNZEMA5Hs7BA69FJRiR3Q1CbsfHcDF9CedmR4Q0XWAf+igMS1b6UpzL
+ G2DFPaU5o0f3mt/0hmXT/m0gubSrEsHiMy5lSdEhfnkzztgNMGJ4uAqIQEIjplLYl0+S/LkHYYc
+ fPj/jzQrHlVKK0XUTtrwHeoQ=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9e91a4f534bf631c;
-	Thu, 10 Sep 2026 03:16:49 +0000
-X-Mizu-Trace-ID: 9e91a4f534bf631c
+Received: by smtp.migadu.com with ESMTPS id d91fe77cc28b0de6;
+	Thu, 10 Sep 2026 03:27:14 +0000
+X-Mizu-Trace-ID: d91fe77cc28b0de6
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <89a099f4-b18e-487c-9b92-b4988a79e9e5@linux.dev>
-Date: Thu, 10 Sep 2026 11:17:35 +0800
+Message-ID: <675259f9-c093-439c-a411-1937b23ddaa2@linux.dev>
+Date: Thu, 10 Sep 2026 11:28:09 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,6 +58,7 @@ Content-Transfer-Encoding: 7bit
 
 Hi Daniel
 
+Thanks for you comment.
 
 On 2026/9/10 06:00, Daniel Gomez wrote:
 > On 2026-09-08T17:50:33+08:00, Hao Ge <hao.ge@linux.dev> wrote:
@@ -74,27 +75,26 @@ On 2026/9/10 06:00, Daniel Gomez wrote:
 > 
 > Then, why returning an error at all? I don't see why not doing it inside
 
-Codetag is a generic framework with a dedicated section in modules. We keep
-this error path to account for possible future data stored in this section,
-allowing us to perform security and validity checks for codetag within
-codetag_load_module.
+codetag is a generic framework with a dedicated section in modules.
+We keep this error path to account for possible future data stored
+in this section, allowing us to perform security and validity
+checks for codetag within codetag_load_module.
 
 > codetag itself wouldn't work but it's a "bigger" change. IMO, the error
 > is supposed to be handled at load_module() then, the unwinding as the
 > rest.
 > 
 > 
-I'm worried about this as well. Invoking codetag_unload_module () here brings
-kvfree_rcu_barrier () into the error path and triggers two runs of ->free_section_mem (),
-(used=true from the unload, used=false later from module_deallocate).
 
-Perhaps we could put this patch on hold for now, until I come up with a proper solution?
-The intention is to let codetag take care of its own cleanup, preserving the logic in our
-existing patch.
+I'm worried about this as well. Invoking codetag_unload_module() here
+brings kvfree_rcu_barrier() into the error path and triggers two runs of
+->free_section_mem() (used=true from the unload, used=false later from
+module_deallocate).
 
-How does this sound?
+My idea is to let codetag handle its own cleanup while keeping the logic of
+our current patch. Maybe we can put this patch on hold temporarily until I
+work out a proper solution. How does this sound?
 
 Thanks
 Best Regards
 Hao
-
