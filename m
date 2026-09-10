@@ -1,139 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD29470EB9
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BD446EC6A
+	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:08:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038522; cv=none; b=lqc+eg0jJCoeTr70HVCnSXWZKfTbwJxsGC2Cg5Nh5g1vtOYcTvt9CIOUK+SBCt8NRDTJC+8oezeiCRVwVlIjThxkBYMxR/MmXYBi72+Q4xVAp9gJ5oXfPk+QqfCdo5hq9zdiVF5urSgq9gxTsAfeD0olTMwlvGMBGnKLcA6AERI=
+	t=1789038529; cv=none; b=IWQao1xaoH4J5v1x/GaN3onIRFDYe8WgpzbIQth6VatnLU3bt2H1JEAkdD950VALq1uQTB02dp69u2BzedOXHkBT9SW0ekc/3gSULcsxyjv+zRihWi5zCt0gbPfhLD20iW6X4wmGVGASZgb/YCgmvrvBB8h0T2sF7xAHQE+AFQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038522; c=relaxed/simple;
-	bh=C+1zDi3wR1bzbNG/chanPOY71LNvkfVao9QFYdE4Bgs=;
+	s=arc-20240116; t=1789038529; c=relaxed/simple;
+	bh=N0lgwUdt6p90OOgR75mJlHYw3Cgr6JrQv3XfTGRon0s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WXx4B+cSElFHy191Pn1IIaNF96W6uEdtWrPOPMtcQZfTzXpUMdp7l8Zg9CgQv7Fe6fk8Yk0B+xm7oxjt6P8u3HMlUFtnZ0oYFa5sBZ15Al0MIMIWYkKpOcgbSS1K54f3J9ZpSf+yP4z/8XtMFA+L3AQEvlM3qjZKPGQndKmjZBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R9bGff6f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Y9H8EWzwbfZeen5e4fael+DTgisLQGbHmqrv7un4LoMktnHSv4iMceh/sQmH+KkmGpc94p7ID30Jvp45jY6F6e5yBbjEya4T3HK48b8yCbOxUr634s/nky7Q+e2YfZwCGgn9UjqyBECRRzoL95pjsox0PAbVH8HMTF1UrbDCkFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReQlHgo3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R9bGff6f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE441F00898;
-	Thu, 10 Sep 2026 11:08:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReQlHgo3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286351F000FF;
+	Thu, 10 Sep 2026 11:08:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038521;
-	bh=Tly2JeKVerQ5BTASRTCNdksUPpx9peVE9Y/H6sq8M/E=;
+	s=k20260515; t=1789038527;
+	bh=A+MtTYvM8Pzj2y+iv9R0LveFXG56sgnjnAWaUqFKEpA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R9bGff6fkPe+bAHQx9ULUABNneJqCCI7az0P1TBWnXf1M1NLjJrHexGmGCuz6TGwT
-	 F75uU46G9XnEppUmB4tuzPNO14xwxLG2gI9XPeiSxKGtutDxCvW2sJterAEp4whIfB
-	 8Nd2KqI5pU4d5ASeymDXeH3Nd2uhPxrbifeCJwntoji4+vwyWSAc2D/8YdXbV/LsgI
-	 GxZrtRuHPE2pLZWjik3gghOLC88+GbGhLnizp3y4ayvn9nn5X1IGHXwFHqadx4y3wW
-	 uYHlV+xgmqXuf7DvN+3wYEJYLc5AH1/Rx0a65JLqib7Ku62coQ0zTrA3iU4sjAoP69
-	 YzNCks8jFMRpA==
+	b=ReQlHgo3BczONzjrzxm/g0fydekv+7F93QkY7ZQiaDOTFgnT9Iexohe59M/bFjyNM
+	 cW/OG7RjCkolJZAUXodj1Nudg8UU6pWtZn2phKGU00yKMh3ddpSdpw2c6G11LQrsi1
+	 MxCIF70BIZSNo66cFVFWJhn6M8Wh8JgYnsCCcrcaauXf/wo4VkN4bgkhgs8rW+Gkio
+	 OYouk6T+OgP50VlsnDNphPg5OLy2LcDKrdjwtZRogxbbUJbgPOYEPjVqJEYYjS61im
+	 y9DoN9Shap2q6n5NuNwNvK2pc9ncPS6FnChMekdvrmS8TNSTEYRxFFymbLLLbIhK+A
+	 ayR4f8Otgb1cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?HE=20WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89?= <skyexpoc@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Muhammad Bilal <meatuni001@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 7/7] fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
-Date: Thu, 10 Sep 2026 07:08:35 -0400
-Message-ID: <20260910110835.4144700-7-sashal@kernel.org>
+Subject: [PATCH 6.18.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
+Date: Thu, 10 Sep 2026 07:08:45 -0400
+Message-ID: <20260910110845.4145229-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910110835.4144700-1-sashal@kernel.org>
-References: <2026090804-parakeet-recolor-7d74@gregkh>
- <20260910110835.4144700-1-sashal@kernel.org>
+In-Reply-To: <2026090828-green-riverside-c962@gregkh>
+References: <2026090828-green-riverside-c962@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: HE WEI（ギカク） <skyexpoc@gmail.com>
+From: Muhammad Bilal <meatuni001@gmail.com>
 
-[ Upstream commit 7c4841e2a62794a3bab7c1ff0540580f387e377f ]
+[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
 
-ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
-(== record_size) bytes and then walks every attribute of the primary MFT
-record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
-by le_size(name_len), with no check against the end of the buffer; the
-total size is only computed after the loop.
+sm750_hw_imageblit() advances its monochrome source pointer by
+src_delta per scanline, and computes the correct rounded-up stride
+internally as:
 
-A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
-bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
-bytes in the list.  Because the number of attributes in a record is not
-bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
-minimum-size attributes), a crafted record packed with such attributes
-produces a list larger than record_size and overflows the heap buffer.
+        bytes_per_scan = (width + start_bit + 7) / 8;
 
-This is reachable from a crafted, loop-mounted NTFS image: opening the file
-and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
-ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
-ni_create_attr_list().
+Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+image->width >> 3. For widths not a multiple of 8 this under-counted
+the stride, so the source pointer fell further behind the real
+per-scanline layout on every line, corrupting the rendered image.
 
-  BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
-  Write of size 4 at addr ffff000008984c00 by task setfattr/345
-   ni_create_attr_list+0xc48/0x1058
-   ni_ins_attr_ext+0x510/0x7c0
-   ni_insert_attr+0x3f8/0x70c
-   ni_insert_resident+0xc8/0x3b0
-   ntfs_set_ea+0x66c/0xd28
-   ntfs_setxattr+0x4d8/0x5b0
-   __arm64_sys_setxattr+0xa4/0x124
-  Allocated by task 345:
-   ni_create_attr_list+0x188/0x1058
-  The buggy address belongs to the cache kmalloc-1k of size 1024
-  (the write lands at object+1024).
+Rather than just fixing the caller's calculation, remove src_delta
+as a parameter entirely and have sm750_hw_imageblit() advance by the
+bytes_per_scan it already computes for itself. There has only ever
+been one caller, and that caller was passing an out-of-sync
+derivative of the same width/start_bit values sm750_hw_imageblit()
+already has, so keeping stride as a separate parameter served no
+purpose beyond letting the two calculations drift apart, which is
+exactly what happened here.
 
-Size the buffer from the actual attributes instead of assuming a single
-record_size is always enough.
+Rounding up, rather than down, is the direction consistent with the
+rest of the fbdev core: struct fb_image mono bitmap data (the same
+image->data this driver receives) is walked elsewhere with byte
+strides derived from a ceiling division of width by 8. The generic
+mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+ceiling division with an added start_bit offset, so the caller's
+">> 3" (floor) was the one calculation out of step with how this data
+layout is handled everywhere else.
 
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Reported-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Found by code review of sm750_hw_imageblit()'s internal stride
+calculation against what its only caller was passing in, and
+confirmed with a clean -Werror build. I do not have this hardware,
+so this has not been exercised at runtime on real sm750 silicon.
+
+Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Adapted the patch to the older sm750fb variable names. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/frecord.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/staging/sm750fb/sm750.c       | 2 +-
+ drivers/staging/sm750fb/sm750.h       | 2 +-
+ drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+ drivers/staging/sm750fb/sm750_accel.h | 4 +---
+ 4 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index d21d003775b62..8a489886ca7fe 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -788,10 +788,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	rs = sbi->record_size;
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 24e927a1669d6..4f78fcfa52e10 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -273,7 +273,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+ 	spin_lock(&sm750_dev->slock);
  
- 	/*
--	 * Skip estimating exact memory requirement.
--	 * Looks like one record_size is always enough.
-+	 * Compute the exact size of the attribute list.  Each attribute in the
-+	 * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
-+	 * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
-+	 * unnamed one expands to le_size(0) (0x20) here, so a record crafted
-+	 * with many such attributes needs more than a single record_size; the
-+	 * previous fixed kzalloc(record_size) could therefore be overflowed by
-+	 * an attacker-controlled record.
- 	 */
--	le = kzalloc(al_aligned(rs), GFP_NOFS);
-+	lsize = 0;
-+	attr = NULL;
-+	while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
-+		lsize += le_size(attr->name_len);
-+
-+	if (!lsize)
-+		return -EINVAL;
-+
-+	le = kzalloc(al_aligned(lsize), GFP_NOFS);
- 	if (!le)
- 		return -ENOMEM;
+ 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
+-				      image->data, image->width >> 3, 0,
++				      image->data, 0,
+ 				      base, pitch, bpp,
+ 				      image->dx, image->dy,
+ 				      image->width, image->height,
+diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
+index fcb7d586ebf02..2845b8ec48aca 100644
+--- a/drivers/staging/sm750fb/sm750.h
++++ b/drivers/staging/sm750fb/sm750.h
+@@ -73,7 +73,7 @@ struct lynx_accel {
+ 			   u32 rop2);
  
-@@ -801,7 +814,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	attr = NULL;
- 	nb = 0;
- 	free_b = 0;
--	attr = NULL;
+ 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
+-			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
++			    u32 start_bit, u32 d_base, u32 d_pitch,
+ 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
  
- 	for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
- 		sz = le_size(attr->name_len);
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index b07c1aa68621c..47230896a5b0b 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * sm750_hw_imageblit
+  * @accel: Acceleration device data
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *	      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *	      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
+ {
+@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+ 			write_dpPort(accel, *(unsigned int *)ajRemain);
+ 		}
+ 
+-		pSrcbuf += srcDelta;
++		pSrcbuf += ulBytesPerScan;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 2c79cb730a0a6..df48ed57a054e 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+ /**
+  * sm750_hw_imageblit
+  * @pSrcbuf: pointer to start of source buffer in system memory
+- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *>-----      and -ive mean button up
+  * @startBit: Mono data can start at any bit in a byte, this value should be
+  *>-----      0 to 7
+  * @dBase: Address of destination: offset in frame buffer
+@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
+-		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
++		       u32 startBit, u32 dBase, u32 dPitch,
+ 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
+ 
 -- 
 2.53.0
 
