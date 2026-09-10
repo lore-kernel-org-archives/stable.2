@@ -1,185 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0B947532F
-	for <stable@vger.kernel.org>; Thu, 10 Sep 2026 11:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C7947C112;
+	Thu, 10 Sep 2026 11:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040549; cv=none; b=LyxsnUhklE8pAwst0amIf4YRKuLuohR2O8j3v21DCu46+zpcJD9Iur+o7vHBRh/HdyCI4zAu67sHWLH5HdYxCN3v+rKpLUrnmM/oa8KbPt7VJmHZjzRAcNAThm3stlRzCo+NorMiexlFHM1JyJAumMcsgS1/9lnaYwu962Er7KI=
+	t=1789040809; cv=none; b=cV1Ku7oVUvasXv8YBIFLxZdfCeF4J2a25VDK3/jdiBzoE5WMIpRW2UzOUk1vyoWfJegs27RkE9LZKEyQU4vF/Vmb9MeY4Zrqtw/lrVcn1/Dz4kwMXjCS3PvwoFeKej8zXvvFBCOy4SGRutF++bYQaQXum+J8niZB0TOfBKzqJ/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040549; c=relaxed/simple;
-	bh=n2cw8ccKh/5sZWgvROx6ttwtWpAomKak9sOtwxPUcYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TvOfBTrW/Pv2N9fAeny+TyFi4wOIyN8nAfnczy7ZVgOOHF3kpzdr446jtwu/1dCaCCdhAxjRqSg8qGdZUc+ApGcp0AkmHAJmMPjyQnh0CS46YYu5L27vx3cy5+38Di2oJ5j0MckuFgP08iD1GKFXpLzawiRtHbtnvNS9KZm5jak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+qNxiSQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789040809; c=relaxed/simple;
+	bh=d7z6KPD6K9yAbT6rqth8+0jINVsF/Bf64K/NCCQDth4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NcaRyy2ZMkK1VvZ8bQ1ELq4Wh/dUC+NiaqiZL2P+M1hKxFYjvwDFIS0SIhR4etJrwTuHChhvGYCbzpNyD8L8oYOcMX2Z2i72+Kn51BAnHT4zQDWO+VhiATcLuoIuqyl5aDmbG/iD/c76aWeF+vtY71gbDjwjfIHgNz5eoiu2Pa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=AEcqfbDC; arc=none smtp.client-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+qNxiSQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50D71F00893;
-	Thu, 10 Sep 2026 11:42:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789040547;
-	bh=1VIdwXE2Ep5bWwNjyOQRQrCtdFdwV54lJZ+5YV0mvAQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d+qNxiSQ+p/6XMoyg3IZl9D/gVpqGuUA6gzIzH+T1fOdLjJcorGGnCBcazEAKTIGf
-	 SZX9hYjk8d70dJOSL28hlpvDHzhH965JVT9HvjQEEzQN/yF3XJ21giifKKT7tSZonB
-	 2ZCUQB1lYEhJS+e31POgD8HXlnIAdtCBji3gay+vmwkTurBwK9xxlrWRa7VHLdjA/R
-	 Q1vy9A51u2Zt2oDgHSCX6QOZFtz/oN1FM5AxMCSirwChRXVmKIjEeR90IyV4N+81Mp
-	 A8XV13J6mUbEOu9aD/Z67J+XoSx8Vzl549/tSLWEsLiLwgi+EZUZAYPwybhWwcB/FE
-	 d/zxeoaFdMiMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Muhammad Bilal <meatuni001@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-Date: Thu, 10 Sep 2026 07:42:25 -0400
-Message-ID: <20260910114225.89657-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090829-wobbling-sterilize-72a1@gregkh>
-References: <2026090829-wobbling-sterilize-72a1@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="AEcqfbDC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1789040802; x=1820576802;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zIxMe7CUOIbyICiMyGkhisOqvvsyopgrlubg8GsVc3c=;
+  b=AEcqfbDCDXAvt011rwBnjlhxM/xy9gfu1gvUpXPZXotAMAjJ9Myhu5HM
+   nOLmFmTVnAnCR/mbrwijotmrd5la9u4SJq5zjGE8qLithggsmyZSOqaDj
+   rbPoQ26MVEYRXneC29m5Cr39l4u5rLBJQ/ZOAMc9xgMeneq4NM7cI7MOC
+   /qovnsQOaVGvSUZf7As3kazauQhjgKdaM/9HdyOJzTyUCdZ5ypaNn3gtp
+   T5qfCbnrlq+pwlsbna2DOwBhsRGLhs9LqfscnZl3iSXaGWuZnO/qBtl8b
+   ykPvVSmzksI8EH8T5tlNAKQ7RuGdVqf3g3Gq1/8QYrubGj8ZBvbXhjBHB
+   A==;
+X-CSE-ConnectionGUID: PrxB9U2pTCO3cOtOxIS8kQ==
+X-CSE-MsgGUID: 71u9WAD7TGq5z4s2L10l2A==
+X-IronPort-AV: E=Sophos;i="6.27,95,1787011200"; 
+   d="scan'208";a="28190348"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:46:36 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:31293]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
+ id 723b55c1-1dd1-4458-a7f0-829821daf3d6; Thu, 10 Sep 2026 11:46:36 +0000 (UTC)
+X-Farcaster-Flow-ID: 723b55c1-1dd1-4458-a7f0-829821daf3d6
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 10 Sep 2026 11:46:36 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 10 Sep 2026
+ 11:46:31 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <akpm@linux-foundation.org>
+CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
+	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hannes@cmpxchg.org>, <hch@infradead.org>, <hch@lst.de>,
+	<jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<vbabka@kernel.org>, <vbabka@suse.cz>, <willy@infradead.org>,
+	<ziy@nvidia.com>
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Thu, 10 Sep 2026 11:46:02 +0000
+Message-ID: <20260910114602.926944-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX19D035UWB002.ant.amazon.com (10.13.138.97) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
 
-[ Upstream commit cc7cd2a9228175c975f62ad56ed7c767701cb4fa ]
+On Sat, 05 Sep 2026 17:42:39 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-sm750_hw_imageblit() advances its monochrome source pointer by
-src_delta per scanline, and computes the correct rounded-up stride
-internally as:
+> Is there anything particularly unusual about this test case?
 
-        bytes_per_scan = (width + start_bit + 7) / 8;
+It is a stock pgbench simple-update PostgreSQL workload on a large
+instance (96 vCPUs), using standard PostgreSQL settings and with no huge
+pages assigned to the database. We deliberately overprovision the
+pgbench clients: 1024 clients over 96 threads. That keeps enough writers
+in the buffered write path concurrently to hit the costly-order
+allocation failure path continuously. The memory fragmentation comes from 
+page tables: PostgreSQL spawns a new process per client, and those page
+tables consume ~40% of memory, which significantly limits the page cache
+and the free memory available.
 
-Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-image->width >> 3. For widths not a multiple of 8 this under-counted
-the stride, so the source pointer fell further behind the real
-per-scanline layout on every line, corrupting the rendered image.
 
-Rather than just fixing the caller's calculation, remove src_delta
-as a parameter entirely and have sm750_hw_imageblit() advance by the
-bytes_per_scan it already computes for itself. There has only ever
-been one caller, and that caller was passing an out-of-sync
-derivative of the same width/start_bit values sm750_hw_imageblit()
-already has, so keeping stride as a separate parameter served no
-purpose beyond letting the two calculations drift apart, which is
-exactly what happened here.
+> > Results (average of 3 runs, TPS):
+> >
+> >   Config                   Avg TPS      % vs Baseline
+> >   baseline (no patch)       59,408       -
+> >   With this patch          155,409      +161.6%
+>
+> Is this back to pre-5d8edfb900d5 performance?
 
-Rounding up, rather than down, is the direction consistent with the
-rest of the fbdev core: struct fb_image mono bitmap data (the same
-image->data this driver receives) is walked elsewhere with byte
-strides derived from a ceiling division of width by 8. The generic
-mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
-BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-ceiling division with an added start_bit offset, so the caller's
-">> 3" (floor) was the one calculation out of step with how this data
-layout is handled everywhere else.
+Yes - fully recovered. Here is the summary, same host and workload
+throughout, average of 3 runs:
 
-Found by code review of sm750_hw_imageblit()'s internal stride
-calculation against what its only caller was passing in, and
-confirmed with a clean -Werror build. I do not have this hardware,
-so this has not been exercised at runtime on real sm750 silicon.
+  Config                                        Avg TPS   % vs baseline
+  AL2023 stock 6.1 kernel                       136,942            n/a
+  v7.3-rc1 baseline (no patch)                   59,408             -
+  v7.3-rc1, 5d8edfb900d5 behaviour reverted     151,184        +154.5%
+  v7.3-rc1 + v4                                 155,409        +161.6%
 
-Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/staging/sm750fb/sm750.c       | 2 +-
- drivers/staging/sm750fb/sm750.h       | 2 +-
- drivers/staging/sm750fb/sm750_accel.c | 6 ++----
- drivers/staging/sm750fb/sm750_accel.h | 4 +---
- 4 files changed, 5 insertions(+), 9 deletions(-)
+The 6.1 row predates 5d8edfb900d5 entirely. A different kernel version,
+so not directly comparable, but it shows the performance this workload
+used to get on this host.
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 7d64ba7a4a054..7397742043c17 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -275,7 +275,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
- 	spin_lock(&sm750_dev->slock);
- 
- 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
--				      image->data, image->width >> 3, 0,
-+				      image->data, 0,
- 				      base, pitch, Bpp,
- 				      image->dx, image->dy,
- 				      image->width, image->height,
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index aff69661c8e62..a693d9f1d0d5e 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -73,7 +73,7 @@ struct lynx_accel {
- 			   u32 rop2);
- 
- 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
--			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
-+			    u32 start_bit, u32 d_base, u32 d_pitch,
- 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
- 
-diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
-index 44b9e3fe3a41d..37217a496ba75 100644
---- a/drivers/staging/sm750fb/sm750_accel.c
-+++ b/drivers/staging/sm750fb/sm750_accel.c
-@@ -300,8 +300,6 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * sm750_hw_imageblit
-  * @accel: Acceleration device data
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *	      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *	      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -316,7 +314,7 @@ static unsigned int deGetTransparency(struct lynx_accel *accel)
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2)
+A literal "git revert 5d8edfb900d5" does not apply to v7.3-rc1 -
+iomap_write_iter() has been rewritten since - so the reverted row is a
+one-line behavioural revert, forcing the write loop back to copying at
+most PAGE_SIZE per iteration:
+
+  -	size_t chunk = mapping_max_folio_size(mapping);
+  +	size_t chunk = PAGE_SIZE;
+
+which is what the pre-5d8edfb900d5 loop computed. That makes
+iomap_get_folio() pass no order hint, so the path issues only order-0
+allocations.
+
+
+> AI review asked a few serious-looking questions:
+> 	https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+
+Thanks for pointing that out. To address them, we can have something
+like the patch below. Performance results are still similar to v4. Happy
+to submit a formal v5 patch with it if you would like.
+
+  Config                                        Avg TPS   % vs baseline
+  v7.3-rc1 baseline (no patch)                   59,408             -
+  v7.3-rc1 + v4                                 155,409        +161.6%
+  v7.3-rc1 + proposed patch                     161,994        +172.7%
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..be8b0d72a2db 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4784,10 +4784,22 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
  {
-@@ -405,7 +403,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
- 			write_dpPort(accel, *(unsigned int *)ajRemain);
- 		}
- 
--		pSrcbuf += srcDelta;
-+		pSrcbuf += ulBytesPerScan;
- 	}
- 
- 	return 0;
-diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
-index 2c79cb730a0a6..df48ed57a054e 100644
---- a/drivers/staging/sm750fb/sm750_accel.h
-+++ b/drivers/staging/sm750fb/sm750_accel.h
-@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
- /**
-  * sm750_hw_imageblit
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *>-----      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *>-----      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
- 
--- 
-2.53.0
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback to a lower order,
++	 * so don't stall them in direct reclaim or direct compaction.  Exempt
++	 * __GFP_THISNODE (the THP attempt from alloc_pages_mpol() needs direct
++	 * compaction) and __GFP_NOFAIL (must not be made to fail).  Don't
++	 * clear __GFP_DIRECT_RECLAIM from gfp_mask instead: that would also
++	 * change the alloc_flags derived by alloc_flags_slowpath().
++	 */
++	const bool costly_noretry = costly_order &&
++		(gfp_mask & __GFP_NORETRY) &&
++		!(gfp_mask & (__GFP_THISNODE | __GFP_NOFAIL));
++	bool can_direct_reclaim = !costly_noretry &&
++		(gfp_mask & __GFP_DIRECT_RECLAIM);
+ 	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+ 	bool nofail = gfp_mask & __GFP_NOFAIL;
+-	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+
+
+Thanks,
+Salvatore
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
