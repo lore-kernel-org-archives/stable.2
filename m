@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDFA17DFFA
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:15:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E322F1C8604
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085742; cv=none; b=KJFyH9Y0GmtzpF+1RcuKtXO4rz/dM/vSczixRKSGGEaR4OgpZAn9BTJkIOcX6PDVAkG5Ll06VdhoGKNnXpSo28wEYBcdXAwetxuddezLZXUstUYmzp+V5SNtNyfopC3blo3ZIflUFJgBkfYC0FF8ywVRXl72HmAOXnplUs8G60k=
+	t=1789085748; cv=none; b=aOyAG+TBQzy6E23npYiJJ8ZrpXsVSsDGnb9KKY0ED6Wk7hFACuwm6GUzsrsUfP5U+qZAKcxY3sO17H3WEdlRf0ve5WHzxwZ5OykAnFNEHEk/qEeh8d4Hf8nn7JkKpCVy2Pjn83upz1zGYEFRDTLRAMs3H/1tYWO0xKsu5bk0ax4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085742; c=relaxed/simple;
-	bh=qGU+x6ESzLI+BUcd1/Jdw4/hxSJnwlJWuuLAP0OgO3Q=;
+	s=arc-20240116; t=1789085748; c=relaxed/simple;
+	bh=mk2kKLlAt4o8xFJVGTW7CcTVgbsvbCJclvTv3In4O74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wno0fQ2h9vmhSiR4BB6IQSaLvLPORN9U1x5bnS4rbtxtrOeY8BbCPOzkFKLK+GDsmbnqKaIwf/YkqwL/2MFYMgNsjF0wA2TvZ5UH1Yuk/emSt4B5JIirrdAj400UKynGSbGyq16VqbsUhNYhMsXbUyAaOJq1zBMSxuJOcOdCc9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ9QuQWq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JvlM58JxOlTdWVP9mhH9Mm0rXGFO4oftV0mPqrelFBu+zlu8R9zAGbVOY/rxH46vfRX1r3Zug8pDSSup5Tk/6HvGsqaMyySdGgLLs/GdsK0h9J2IdpAuPvWysYH8CTVtgC8DJ1w4ApWe9Y/SgeCHhNbwW4KZX0YjGmEgmqP5xv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwT4CPJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ9QuQWq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23161F000FF;
-	Fri, 11 Sep 2026 00:15:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwT4CPJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7501F000FF;
+	Fri, 11 Sep 2026 00:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789085740;
-	bh=FOo/jaHM9eZa9ewG3h/QGbbnBxR5i+VxiW/ks94Fyjc=;
+	s=k20260515; t=1789085745;
+	bh=N7AFXVwd/gSw6Zbd9P5k7ccZ80/5fjYv16tcrcq22pg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hJ9QuQWqd6518IC3k6EPzpW6feIvADyQRs21AW5GYwBOpLOuAPZMVGeGNjlB3mY8m
-	 A5ZHeqkIaGREE4UmQtpKKO1Pxpd0wdJB77uqnB3RNxYsYkRmNTwvy136uFwPWNdpew
-	 pNJwIKMbdNbvyYkGABS9NZ0m49e6zt4YMxxA3PEUXjQdzDpFvtLRv1gMWiXLFulc2V
-	 pRXmvtM7w9K72Ol5CU9azcCTvxfjdxcfN45l3jrGBYVdOIowRmE4u/7RogfAVrj95P
-	 D7fMSAyvQ7dDdFPEph/cQu5vkRNSvQ9Ctf3r+chR1ldKQMwmNipHrvHX5lldVpIFlT
-	 3Cyiq7pSJqQsQ==
+	b=lwT4CPJbhR2NLCn0ll8P/WcpzyY6VSZa/EVC0bTIldlRsPXFVUeY/AYc2RET3R6R8
+	 VkQbUiXUi5kbNUJfFFLC+S88KnD8vqGJkx52b0yoAQNj42LHsRKcsTL7oM3Jpiu0fs
+	 9BY+iKf5GWJlb00YYlyv3Jyk9e+dXxV0mneg9g75iKZYxeeoEZDNeH5Zz5pfZIazOa
+	 7/MgxapHRo5j/HJmhdxCI6MyForwkSJRqwdY7msyspLLkxCiUAdzTkCvaIsmCHg9+K
+	 +sJm6LBofhGJpdAobSeK4lWm99qyV1lfXDVKxgINPWXwkf9T9ZMcLj4uSYQv5qcDzn
+	 Mk5NDY5kHmIMA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Alan Adamson <alan.adamson@oracle.com>,
+	Christoph Hellwig <hch@lst.de>,
+	John Garry <john.g.garry@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] arm64: mm: Fix the lockless page-table walk in show_pte()
-Date: Thu, 10 Sep 2026 20:15:38 -0400
-Message-ID: <20260911001538.3303072-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] nvme: all namespaces in a subsystem must adhere to a common atomic write size
+Date: Thu, 10 Sep 2026 20:15:40 -0400
+Message-ID: <20260911001543.3303783-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090941-sustainer-talisman-a5d7@gregkh>
-References: <2026090941-sustainer-talisman-a5d7@gregkh>
+In-Reply-To: <2026090951-hardhead-splashing-d9e8@gregkh>
+References: <2026090951-hardhead-splashing-d9e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,104 +46,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Alan Adamson <alan.adamson@oracle.com>
 
-[ Upstream commit a77644d009dece1104b6fcc6e322b0e4503db0d6 ]
+[ Upstream commit 8695f060a02953b33ac6240895dcb9c7ce16c91c ]
 
-show_pte() walks page tables locklessly and can run with interrupts
-enabled. A concurrent teardown can free a table page while it is being
-walked. It can also clear a parent entry after show_pte() checked it; the
-regular pXd_offset() helpers then reread the cleared entry and can derive a
-bogus lower-level pointer and fault again.
+The first namespace configured in a subsystem sets the subsystem's
+atomic write size based on its AWUPF or NAWUPF. Subsequent namespaces
+must have an atomic write size (per their AWUPF or NAWUPF) less than or
+equal to the subsystem's atomic write size, or their probing will be
+rejected.
 
-Use the lockless offset helpers with the saved parent entries, as
-gup_fast() does, and pass the saved PMD to pte_offset_map().
-
-For task page tables, arm64 selects MMU_GATHER_RCU_TABLE_FREE. Disable
-local interrupts around the walk to hold off RCU-deferred table frees and
-block the tlb_remove_table_sync_one() IPI until the walk is finished.
-
-Place the IRQ guard after the header print. This does not make the output a
-consistent snapshot, but prevents the task page-table walk from
-dereferencing a released table page or deriving a pointer from a different
-parent value.
-
-Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-[ replaced guard(irqsave)() with explicit local_irq_save()/local_irq_restore() to avoid declaration-after-statement warnings. ]
+Signed-off-by: Alan Adamson <alan.adamson@oracle.com>
+[hch: fold in review comments from John Garry]
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: John Garry <john.g.garry@oracle.com>
+Stable-dep-of: 3838e80fcfb3 ("nvme: skip the zoned limits update if the zone info query failed")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/mm/fault.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/nvme/host/core.c | 30 +++++++++++++++++++++++++++---
+ drivers/nvme/host/nvme.h |  3 ++-
+ 2 files changed, 29 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index d8baedd160de0..edf82cced64dd 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -14,6 +14,7 @@
- #include <linux/mm.h>
- #include <linux/hardirq.h>
- #include <linux/init.h>
-+#include <linux/irqflags.h>
- #include <linux/kprobes.h>
- #include <linux/uaccess.h>
- #include <linux/page-flags.h>
-@@ -116,6 +117,7 @@ static inline unsigned long mm_to_pgd_phys(struct mm_struct *mm)
- static void show_pte(unsigned long addr)
- {
- 	struct mm_struct *mm;
-+	unsigned long flags;
- 	pgd_t *pgdp;
- 	pgd_t pgd;
- 
-@@ -139,6 +141,9 @@ static void show_pte(unsigned long addr)
- 	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
- 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
- 		 vabits_actual, mm_to_pgd_phys(mm));
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 4b13427d0a8a4..3f2586086f6ec 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2056,7 +2056,21 @@ static bool nvme_update_disk_info(struct nvme_ns *ns, struct nvme_id_ns *id,
+ 		if (id->nsfeat & NVME_NS_FEAT_ATOMICS && id->nawupf)
+ 			atomic_bs = (1 + le16_to_cpu(id->nawupf)) * bs;
+ 		else
+-			atomic_bs = (1 + ns->ctrl->subsys->awupf) * bs;
++			atomic_bs = (1 + ns->ctrl->awupf) * bs;
 +
-+	local_irq_save(flags);
++		/*
++		 * Set subsystem atomic bs.
++		 */
++		if (ns->ctrl->subsys->atomic_bs) {
++			if (atomic_bs != ns->ctrl->subsys->atomic_bs) {
++				dev_err_ratelimited(ns->ctrl->device,
++					"%s: Inconsistent Atomic Write Size, Namespace will not be added: Subsystem=%d bytes, Controller/Namespace=%d bytes\n",
++					ns->disk ? ns->disk->disk_name : "?",
++					ns->ctrl->subsys->atomic_bs,
++					atomic_bs);
++			}
++		} else
++			ns->ctrl->subsys->atomic_bs = atomic_bs;
+ 
+ 		nvme_update_atomic_write_disk_info(ns, id, lim, bs, atomic_bs);
+ 	}
+@@ -2195,6 +2209,17 @@ static int nvme_update_ns_info_block(struct nvme_ns *ns,
+ 	nvme_set_chunk_sectors(ns, id, &lim);
+ 	if (!nvme_update_disk_info(ns, id, &lim))
+ 		capacity = 0;
 +
- 	pgdp = pgd_offset(mm, addr);
- 	pgd = READ_ONCE(*pgdp);
- 	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
-@@ -152,31 +157,32 @@ static void show_pte(unsigned long addr)
- 		if (pgd_none(pgd) || pgd_bad(pgd))
- 			break;
++	/*
++	 * Validate the max atomic write size fits within the subsystem's
++	 * atomic write capabilities.
++	 */
++	if (lim.atomic_write_hw_max > ns->ctrl->subsys->atomic_bs) {
++		blk_mq_unfreeze_queue(ns->disk->queue, memflags);
++		ret = -ENXIO;
++		goto out;
++	}
++
+ 	nvme_config_discard(ns, &lim);
+ 	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
+ 	    ns->head->ids.csi == NVME_CSI_ZNS)
+@@ -3021,7 +3046,6 @@ static int nvme_init_subsystem(struct nvme_ctrl *ctrl, struct nvme_id_ctrl *id)
+ 		kfree(subsys);
+ 		return -EINVAL;
+ 	}
+-	subsys->awupf = le16_to_cpu(id->awupf);
+ 	nvme_mpath_default_iopolicy(subsys);
  
--		p4dp = p4d_offset(pgdp, addr);
-+		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
- 		p4d = READ_ONCE(*p4dp);
- 		pr_cont(", p4d=%016llx", p4d_val(p4d));
- 		if (p4d_none(p4d) || p4d_bad(p4d))
- 			break;
+ 	subsys->dev.class = &nvme_subsys_class;
+@@ -3431,7 +3455,7 @@ static int nvme_init_identify(struct nvme_ctrl *ctrl)
+ 		dev_pm_qos_expose_latency_tolerance(ctrl->device);
+ 	else if (!ctrl->apst_enabled && prev_apst_enabled)
+ 		dev_pm_qos_hide_latency_tolerance(ctrl->device);
+-
++	ctrl->awupf = le16_to_cpu(id->awupf);
+ out_free:
+ 	kfree(id);
+ 	return ret;
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index dcdce7d12e441..8b4c0e17bb4e7 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -410,6 +410,7 @@ struct nvme_ctrl {
  
--		pudp = pud_offset(p4dp, addr);
-+		pudp = pud_offset_lockless(p4dp, p4d, addr);
- 		pud = READ_ONCE(*pudp);
- 		pr_cont(", pud=%016llx", pud_val(pud));
- 		if (pud_none(pud) || pud_bad(pud))
- 			break;
+ 	enum nvme_ctrl_type cntrltype;
+ 	enum nvme_dctype dctype;
++	u16 awupf; /* 0's based value. */
+ };
  
--		pmdp = pmd_offset(pudp, addr);
-+		pmdp = pmd_offset_lockless(pudp, pud, addr);
- 		pmd = READ_ONCE(*pmdp);
- 		pr_cont(", pmd=%016llx", pmd_val(pmd));
- 		if (pmd_none(pmd) || pmd_bad(pmd))
- 			break;
- 
--		ptep = pte_offset_map(pmdp, addr);
-+		ptep = pte_offset_map(&pmd, addr);
- 		pte = READ_ONCE(*ptep);
- 		pr_cont(", pte=%016llx", pte_val(pte));
- 		pte_unmap(ptep);
- 	} while(0);
- 
- 	pr_cont("\n");
-+	local_irq_restore(flags);
- }
+ static inline enum nvme_ctrl_state nvme_ctrl_state(struct nvme_ctrl *ctrl)
+@@ -442,11 +443,11 @@ struct nvme_subsystem {
+ 	u8			cmic;
+ 	enum nvme_subsys_type	subtype;
+ 	u16			vendor_id;
+-	u16			awupf;	/* 0's based awupf value. */
+ 	struct ida		ns_ida;
+ #ifdef CONFIG_NVME_MULTIPATH
+ 	enum nvme_iopolicy	iopolicy;
+ #endif
++	u32			atomic_bs;
+ };
  
  /*
 -- 
