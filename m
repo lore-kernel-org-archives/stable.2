@@ -1,140 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DD359B68E
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:15:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB05C599A33
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161346; cv=none; b=GvCy0IhaU1kXMNemGAMdhwzQlyiemmKBEW9iVELIeBn5YurDwQLE+sFtqEYrmydH3pjD98zag4iTEx5AVjgQlts3TLf5fKbm9OIweYh6/TCJvdZUYX8YfJ2zs+vn6atjck73B22JO7NJCzRP7MBLFPCuw9Gwo0iN3AvkFznSlCM=
+	t=1789161351; cv=none; b=XBWr94TimbgOOHzyN1ofV7ukFAdIVhEnR9LoTbD1VdxShrG+EB07tFd1YGfIsZTBCKubhrBykHPACy/uxEQnsfDmC6U85Tv2OYYa1N1oNbdCYnIIK0YAIhDWUzUzKRjfWMkm1um3z00DpyJreo41CGeuLwoKJPmB0fgjosaG6rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161346; c=relaxed/simple;
-	bh=ENv5WDcAxjS52Fq1cWeRDCeMspK96Ic6Za1NQOhS7kM=;
+	s=arc-20240116; t=1789161351; c=relaxed/simple;
+	bh=tfKb2t3G/FMMCTM86XdpiESx+8D0KiAZpyI/kOE2Npo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BPuPssafMeAp5sp1UZqcsMIdtie2aXI+t2C40mHk8jLN1H1bXBpowJcYiZtAZmZgzQjZQKDrknbEJEyrbNftFKe3xOHFidJh32zpyBYV8OqQpKaMn0PR/fCWI7MFa6RpWLoTEUrl9wPlspQYQ+sRqi+EHgtmniWL1YZ8M9IK6to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUchu6f4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gEeYCnuk5ObMrGhf6AFBi/vszXBdD8jO0/3S17xFTAsz9Zvr4dZa6nh6qhOC0qCnTj0IYkDEe47KafegGnVsRggti+RxX9D20Jp4Du+o9We3GJld8Eudu1PFnvgIrdFXc9Jb7DAXBhw5+BI5HoQ2i4xxG4H8xs0LOlzotqiljJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4dxIw3T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUchu6f4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A7D1F000FF;
-	Fri, 11 Sep 2026 21:15:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4dxIw3T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5001F000FF;
+	Fri, 11 Sep 2026 21:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789161344;
-	bh=GAUpwlzWBKEGu1nHoRVDz3ldhtK8aCesyFFactWq5jU=;
+	s=k20260515; t=1789161347;
+	bh=YQfkpC+moFV/h7ZfLlSeLkeqOPyzwffPK9WMDvAfbFA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nUchu6f4xwGaNgP+0Yc5dzQko+XVL97FakMnH8Tx4WUTP66KO4sK32y0XidIDvrGE
-	 LlKvjqYc1SKV2JVnZxtB+igOPoLbTil8ohzH0SJ3fMOGhTRA6umb3cerRp/vTCDoyy
-	 SEkQXeY9SuJGoeamSLJqdVF2lf9Gwqtca9lW8+xscfaI03yoReaKKUFU7GHLvqhmmM
-	 NnVBlMk1Vr0Fb9ScGn1fvYmKXXKfrF227UCVQZfJLS8WFbjEVfG9WZzGP6aHlZ1ftj
-	 7WnbWaWG+CNbK6CpHIaUSMm5pAwv5+K2doCjbXN/586sMkWZIwzTIK1QhKO5E9TM+V
-	 undpRQ0pju44g==
+	b=V4dxIw3TB/kEION3WoEqXJhUd+4ysmlclNnCI6tX6oKlEU5czXZmuAxfGMsYkVwgt
+	 dUGXI110iE4KoFRdV3ZyzqhW4jDGFwhz4yrqwNrO/SvU4HWxuc+AI7K/VsrCSLO4D6
+	 xa3ChW25iOiPhhyHG+/WwKnQVZ7oSHnKswRja/PKIMK6g5PJlwOBU5Z/N7ybjzy6h6
+	 nBWbl46ZPhluuIAUzvxTVnNSwpcQKQH/3FSebQTUtiq22l7VqOGNecR3ITWnIxEvTE
+	 l43LhCDzYgcoyGltRwZE8b24TWACqjSSpAaSWLQ4Sq9hLrQwLcUBub1g38MRUaaduQ
+	 yyvt8vE/N9g4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Joanne Chang <joannechien@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: qla2xxx: Fix soft lockup polling continuation IOCB signature
-Date: Fri, 11 Sep 2026 17:15:42 -0400
-Message-ID: <20260911211542.1532236-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: dirty directory inodes on mtime/ctime update
+Date: Fri, 11 Sep 2026 17:15:45 -0400
+Message-ID: <20260911211545.1532801-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090958-lucrative-hydroxide-cdb1@gregkh>
-References: <2026090958-lucrative-hydroxide-cdb1@gregkh>
+In-Reply-To: <2026090949-starring-glider-1adf@gregkh>
+References: <2026090949-starring-glider-1adf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nilesh Javali <njavali@marvell.com>
+From: Joanne Chang <joannechien@google.com>
 
-[ Upstream commit d7e3fa7d06bf7fcaac186d3c4d635caac166d36c ]
+[ Upstream commit 9ec09d5f4b317a417c8655c14056f70cbe71eb6c ]
 
-qla27xx_copy_multiple_pkt() and qla27xx_copy_fpin_pkt() poll
-rsp_q->ring_ptr->signature for RESPONSE_PROCESSED (0xDEADDEAD) to decide
-whether the next continuation IOCB has arrived, spinning on cpu_relax()
-without advancing the ring or decrementing the entry count while it has
-not. response_t::signature lives at byte offset 60, but a continuation
-IOCB (sts_cont_entry_t / struct sts_cont_entry_ext) carries raw FC frame
-payload at that offset (data[56..59]). A received frame whose payload
-bytes happen to equal 0xDEADDEAD is therefore misread as "not yet
-arrived", and the loop spins forever in interrupt/DPC context, causing a
-CPU soft lockup.
+Xfstests generic/547 sometimes fail with mismatched directory metadata
+before and after a power failure. This happens because when a directory
+entry is added, renamed, or deleted, its mtime and ctime are updated and
+the inode is marked dirty via
+f2fs_mark_inode_dirty_sync(dir, sync=false). The sync=false flag means
+the dirty inode is not added to the global DIRTY_META list. Therefore,
+subsequent checkpoints skip flushing these updated directory blocks,
+causing directory timestamps to revert to stale values after a sudden
+power failure.
 
-The poll is also unnecessary: callers of qla27xx_copy_multiple_pkt()
-(PT_LS4_UNSOL and the NVMe purls path) already gate on
-qla_chk_cont_iocb_avail(), which guarantees all entry_count IOCBs are
-present before copying begins. The sibling helper
-__qla_copy_purex_to_buffer() already drops the signature poll and relies
-on the entry_type == STATUS_CONT_TYPE guard instead.
+Address this by changing the dirtying parameter to sync=true during
+directory entry mutations and renames. This forces F2FS to immediately
+queue the updated directory blocks on the global DIRTY_META list,
+ensuring timestamps are committed to checkpoints.
 
-Remove the signature busy-wait from both helpers, keeping the entry_type
-guard, and gate the FPIN path with qla_chk_cont_iocb_avail() so it defers
-and re-processes on the next interrupt once all continuation IOCBs have
-arrived, mirroring the ELS_AUTH_ELS and PT_LS4_UNSOL arms. With this the
-signature field is never read on a continuation IOCB, eliminating the
-payload-aliasing lockup.
-
-Fixes: 9f2475fe7406 ("scsi: qla2xxx: SAN congestion management implementation")
+Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoint")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-15-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ made __update_rsp_in() unconditional before the availability check to accommodate 5.15’s conditional producer-pointer reads. ]
+Signed-off-by: Joanne Chang <joannechien@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ Adjusted f2fs_set_link() context to retain f2fs_put_page(page, 1) instead of f2fs_folio_put(folio, true). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_isr.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ fs/f2fs/dir.c    | 6 +++---
+ fs/f2fs/inline.c | 2 +-
+ fs/f2fs/namei.c  | 6 +++---
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_isr.c b/drivers/scsi/qla2xxx/qla_isr.c
-index 7dcd2c8577db0..6662f8fa81737 100644
---- a/drivers/scsi/qla2xxx/qla_isr.c
-+++ b/drivers/scsi/qla2xxx/qla_isr.c
-@@ -1042,14 +1042,6 @@ qla27xx_copy_fpin_pkt(struct scsi_qla_host *vha, void **pkt,
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index 54dd52de7269d..79d8dbbcdb3a8 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -437,7 +437,7 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+ 	set_page_dirty(page);
  
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 	f2fs_put_page(page, 1);
+ }
  
-@@ -3930,10 +3922,25 @@ void qla24xx_process_response_queue(struct scsi_qla_host *vha,
- 					       "SCM not active for this port\n");
- 					break;
- 				}
-+				__update_rsp_in(1, is_shadow_hba, rsp, rsp_in);
-+				if (qla_chk_cont_iocb_avail(vha, rsp,
-+				    (response_t *)pkt, rsp_in)) {
-+					/*
-+					 * ring_ptr and ring_index were
-+					 * pre-incremented above. Reset them
-+					 * back to current. Wait for next
-+					 * interrupt with all IOCBs to arrive
-+					 * and re-process.
-+					 */
-+					rsp->ring_ptr = (response_t *)pkt;
-+					rsp->ring_index = cur_ring_index;
-+
-+					ql_dbg(ql_dbg_init, vha, 0x5095,
-+					    "Defer processing FPIN...\n");
-+					return;
-+				}
- 				pure_item = qla27xx_copy_fpin_pkt(vha,
- 							  (void **)&pkt, &rsp);
--				__update_rsp_in(follow_inptr, is_shadow_hba,
--						rsp, rsp_in);
- 				if (!pure_item)
- 					break;
- 				qla24xx_queue_purex_item(vha, pure_item,
+@@ -591,7 +591,7 @@ void f2fs_update_parent_metadata(struct inode *dir, struct inode *inode,
+ 		clear_inode_flag(inode, FI_NEW_INODE);
+ 	}
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (F2FS_I(dir)->i_current_depth != current_depth)
+ 		f2fs_i_depth_write(dir, current_depth);
+@@ -903,7 +903,7 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 758ec6d3ae841..5e85a03153704 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -720,7 +720,7 @@ void f2fs_delete_inline_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index da213cd39fc70..74482016832d2 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -1037,7 +1037,7 @@ static int f2fs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 	f2fs_up_write(&F2FS_I(old_inode)->i_sem);
+ 
+ 	inode_set_ctime_current(old_inode);
+-	f2fs_mark_inode_dirty_sync(old_inode, false);
++	f2fs_mark_inode_dirty_sync(old_inode, true);
+ 
+ 	f2fs_delete_entry(old_entry, old_page, old_dir, NULL);
+ 	old_page = NULL;
+@@ -1206,7 +1206,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(old_dir, old_nlink > 0);
+ 		f2fs_up_write(&F2FS_I(old_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(old_dir, false);
++	f2fs_mark_inode_dirty_sync(old_dir, true);
+ 
+ 	/* update directory entry info of new dir inode */
+ 	f2fs_set_link(new_dir, new_entry, new_page, old_inode);
+@@ -1225,7 +1225,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(new_dir, new_nlink > 0);
+ 		f2fs_up_write(&F2FS_I(new_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(new_dir, false);
++	f2fs_mark_inode_dirty_sync(new_dir, true);
+ 
+ 	if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT) {
+ 		f2fs_add_ino_entry(sbi, old_dir->i_ino, TRANS_DIR_INO);
 -- 
 2.53.0
 
