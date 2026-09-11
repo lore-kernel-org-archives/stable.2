@@ -1,120 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF6D357D17
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17951A3160;
+	Fri, 11 Sep 2026 14:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136674; cv=none; b=jaQ9BTuz16o/MdRlfh2mhnGj6f82XuASTLRSfxe1nfxEMV2xa0EOtFMV2R2MgchI/52uhpTBTdvnopXmqFpYJeMKoRWeo4wLErZQcLCTzoQhFge/MdheOKqsbMeJ7aMryd/fWOr4C2EILzuJXs12tdoBK9XT8ij8LNa4UaWJkEc=
+	t=1789136877; cv=none; b=tVSKT6kYcYeVtEl9lu0H3hgHwp6cwTe7AYIwQifMYhafY6giR82kWs/f3xHjS3I15oE+MbyQdQ7n33hfTmKCviYiTXSwyKaIYulqoD6Yt/LvXW93xHiYpKUKmoDzn0qLGWN7KwDYHxYXZ/54C7Z2Dbh2TSfPtehbSalY0bzHZXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136674; c=relaxed/simple;
-	bh=3QmCsBKpdonYlt1l4m/v1Az1Uv8rst/q4yK2IT30KoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OGFIuIp9fRl0LxUlnkO6lR/kdZ82YiTpA8gLMi4EBp+QWcuWFkLO9cdHPTSh9GcHWPE+WAYbrx+oSSuRbsYK7bs3SmLQOfhquz9w/0ru3BIB1uJAakif3Yv7rLGG0k4A9ai/aMfnaAiBLt2YQ57OSp3VauBAuGZvhUC1ZxMwVQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KStCGop9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789136877; c=relaxed/simple;
+	bh=WzVA3xuZ5JdDGBqQbjJVlTNBllbYsKRQWabRga5ERUE=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=b5GyU4q2mQskvc8L2SMzA9r4IuQUWUeve5kEFgdxqz/HuTO7B5iBvLSvGcQ+0bwKI3eFnBMDhCzMjWWypYa6pRYyDL6hFNzw2Lla1RY7HeyUbyP1aR7u/38DORDuO4GQp4ExG1e4qSUfC//XAp68cQzK6tYFNoP6s579iEAWBcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bx7OnAGr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KStCGop9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 486D61F000FF;
-	Fri, 11 Sep 2026 14:24:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789136672;
-	bh=nwDGRJWAGtg45xD5wmYCSGtjeuTHdCU1Y8iRJyBimvY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KStCGop9Wo8nRrAcOl2Ijm7bFSdZzSBQNL5dMjTdPIVgznGpnRKFw07qT8bAQkJs8
-	 2YD0oqdcTQAOU1evKZucavjACAf3H6F/EKP2Kf2xxZARcefHWTmWZcJtJ8nAGyBebD
-	 LtYmbOQOcCd78xZaS9xxnIzU0+xzzro218jKjIqBn8sI2dI1CYN4vG+uvcve/BvM/D
-	 Ykkj1vh4IW+gYn59h5UnMPf8RFO7Pv6BTPwej0nGqfuOjCFTDbb7xDz35saJF5nWZZ
-	 IbZiHEOL8f2N4IN2avfFbVPo27RvAqz0RBUG7JXyuygMlTzIaHTyg737RSgCf8n/mE
-	 sw42yTE3WgBaA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] scsi: qla2xxx: Initialize NVMe abort_work once at submission
-Date: Fri, 11 Sep 2026 10:24:30 -0400
-Message-ID: <20260911142430.894469-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090909-gaming-dwelling-9e59@gregkh>
-References: <2026090909-gaming-dwelling-9e59@gregkh>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bx7OnAGr"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8510663C;
+	Fri, 11 Sep 2026 16:26:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789136775;
+	bh=WzVA3xuZ5JdDGBqQbjJVlTNBllbYsKRQWabRga5ERUE=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=bx7OnAGre7KGRBkMjaytz3CoYbubcRbmabeSbTGp8hvXheaK6MZeL8YAqHLSkp6A8
+	 bfKDFS6ZTNCkZKeVzsLJiCafbH+E+8Eu+c7SYGvIxU1EFElpCX3z/96SktdqYHUiMz
+	 hL3/Ca78PdXrtLWp+crCNB4HLF+GCv9oBxX9xnTk=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
+References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
+Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+To: Dafna Hirschfeld <dafna@fastmail.com>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Paul Elder <paul.elder@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Fri, 11 Sep 2026 15:27:50 +0100
+Message-ID: <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-From: Nilesh Javali <njavali@marvell.com>
+Quoting Jacopo Mondi (2026-09-11 14:56:19)
+> The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
+> demosaicing block on the RkISP1 ISP.
+>=20
+> The current implementation however clears the bit when demosaicing
+> have to be bypassed and sets it when demosaicing has to be enabled,
+> effectively inverting the bypass bit handling logic.
 
-[ Upstream commit 7e85f6dbc85616de2172bce8eaf84b387a723cd1 ]
+Ouch.
 
-qla_nvme_fcp_abort() and qla_nvme_ls_abort() ran INIT_WORK() on
-priv->abort_work immediately before schedule_work(). INIT_WORK()
-reinitializes the work_struct, resetting its list head and clearing the
-pending bit. If an abort is issued more than once for the same command
-(for example, concurrent transport teardown and a timeout-driven abort),
-the second INIT_WORK() reinitializes a work item that is already queued,
-which can corrupt the workqueue list and lead to crashes or a looping
-worker.
+> Fix this by setting the bypass bit when disabling the demosaicing block,
+> and by clearing it instead when demosaicing has to be performed.
+>=20
+> The issue never manifested itself as libcamera hasn't an algorithm
+> to control Bayer demosaicing bypass yet.
+>=20
+> Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> ---
+> media: rkisp1: Fix demosaicing bypass
+> ---
+>  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/dri=
+vers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> index 042b759eba62..496381962f1b 100644
+> --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+>         const struct rkisp1_ext_params_bdm_config *bdm =3D &block->bdm;
+> =20
+>         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
+> -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+>                 return;
+>         }
+> =20
+> @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> =20
+>         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
+>             !(params->enabled_blocks & BIT(bdm->header.type)))
+> -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
 
-Initialize priv->abort_work once at command submission, next to the
-existing per-command spin_lock_init(&priv->cmd_lock), and leave only
-schedule_work() in the abort paths. schedule_work() already does nothing
-when the work item is still pending, so a repeated abort no longer
-disturbs an in-flight work item. The command is not returned to the
-transport until the final kref_put()/release callback runs after
-abort_work has completed, so the work item is idle before priv is reused
-and the single submission-time INIT_WORK() is safe.
 
-Fixes: e473b3074104 ("scsi: qla2xxx: Add FC-NVMe abort processing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-52-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/qla2xxx/qla_nvme.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I think this also opens us up to add mono formats as explicitly
+supported by the ISP and potentially set the demosaic defaulting to off
+in that instance?
 
-diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index 28a5b40e0f329..45fa0e2b78353 100644
---- a/drivers/scsi/qla2xxx/qla_nvme.c
-+++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -278,7 +278,6 @@ static void qla_nvme_ls_abort(struct nvme_fc_local_port *lport,
- 	}
- 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
- 
--	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	schedule_work(&priv->abort_work);
- }
- 
-@@ -317,6 +316,7 @@ static int qla_nvme_ls_req(struct nvme_fc_local_port *lport,
- 	priv->sp = sp;
- 	kref_init(&sp->cmd_kref);
- 	spin_lock_init(&priv->cmd_lock);
-+	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	nvme = &sp->u.iocb_cmd;
- 	priv->fd = fd;
- 	nvme->u.nvme.desc = fd;
-@@ -361,7 +361,6 @@ static void qla_nvme_fcp_abort(struct nvme_fc_local_port *lport,
- 	}
- 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
- 
--	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	schedule_work(&priv->abort_work);
- }
- 
-@@ -600,6 +599,7 @@ static int qla_nvme_post_cmd(struct nvme_fc_local_port *lport,
- 
- 	kref_init(&sp->cmd_kref);
- 	spin_lock_init(&priv->cmd_lock);
-+	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	sp->priv = priv;
- 	priv->sp = sp;
- 	sp->type = SRB_NVME_CMD;
--- 
-2.53.0
+Anyway, Looks sane to me in this order.
 
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+
+>  }
+> =20
+>  static void
+>=20
+> ---
+> base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
+>=20
+> Best regards,
+> -- =20
+> Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+>
