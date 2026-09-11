@@ -1,130 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A57388390
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:42:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA22A3B47FF
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119724; cv=none; b=mxsDC/cWimp1YaZGlv9q7P7HG6sxsAapkMs0StYSfeFq0XPqHvU0c04Mz8brlpWprqPUfhE8Kz8VWT7lq8PodeIS3socaWRt0s1zK+BZ66W037HG4ACJn91F21T0Us4YCzUyjk/ixBggRKe7WV0ZqdnL0Mdn1S5vE/Fk37u1o+E=
+	t=1789119877; cv=none; b=Nc9uDjJuRsmIMiwoeyGX3TRLNLwRhS2vRsKlS2QyM0ViuFVe05OGD69mJSnfNXHVMqgfwEApDC/nYbHL1ySpdxEvXnXHWILFOXPd8E5WGsdPioddRknH5ImvMlY6VYmOpXKneURBGZHFhVdiTAoLPTCpy3iKyu0AAUs1a0Qy6M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119724; c=relaxed/simple;
-	bh=o1y/z7Ku1dnGsg/17HxtmbCVjwmdCErA7P+qsmdg0TY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeCQfAW+h3cUGNLp4nz4SUgDqy+hooLsSGYnzgBqESVVYNs5bi1eSNw8mPbLR03jrh5lYzam/67RlQ1dziMnMAIpjOxpIMfqY55+Pbi7ZLeScApEZ6mERKh3ze2U3DVqCrY/JVuAVJ9X0lTx/7crSUPoh+ZZV4X2KXY2ZNA6ruE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IP9YRKLn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789119877; c=relaxed/simple;
+	bh=YHbX4X3CXe93kACFiPRWviUjRijn7lYH9m3RYGp/EhQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GqnB/znkFnMfjPJNEOCRPvwJLAHWaGY9KSFxRO6NzdhtgmPfbwJTkOIskSzwpbuIs7l/mHxUI3eJ2kmaKNJSov0Aa0s/NXK+2XQ1EZu7+OmspUzagNf5Eht3fPlZICdAk+WODRAzwzRD55eN4iKY3FHlUcQSwuwtqEgP0ERWN2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DLBJE5ZF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IP9YRKLn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812691F000FF;
-	Fri, 11 Sep 2026 09:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789119722;
-	bh=0yZtW6BeJcEiWxOumhdHsf42XF2Wb8UaCY0cfQFl3wM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IP9YRKLnvrdKRc+IrCzaW61+fEZ12Dter+rQSq953lFRPf26q7bxZKrgXPe08/YvA
-	 S9RbWkrckCFETNn3/l4iFryi5fca1lxIw6F7pIEGrAL01GbUVtjqeETrL5eW47hWRc
-	 cmeuklxV+CTO1qmkdubGt2bBf3hs1aumldaUdPhfXwFI+MQhob/ZJBJ/9B4YJfA2nI
-	 1NgCoxK8P19/SekcGUpNjV06dSGJmGSbbHmaMKcgRVlc4ILOZyFPS+Wix4btkgUaMP
-	 Ms4w9pAmz+Odu/ls+vQOaJ49mrgdnTRkpNiXHEFLrUpg11ISYNsRjskBvNWcnv4l6G
-	 1kc8VG5Fnbzjw==
-Date: Fri, 11 Sep 2026 10:41:56 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, 
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Kunwu Chan <kunwu.chan@gmail.com>, Pedro Falcato <pfalcato@suse.de>, Jann Horn <jannh@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Li Xinhai <lixinhai.lxh@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.12.y] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
-Message-ID: <aqPMx3Tf-pC7iu7b@gremlin>
-References: <2026090957-prideful-repulsive-38a0@gregkh>
- <20260911021410.42929-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DLBJE5ZF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A041F000FF;
+	Fri, 11 Sep 2026 09:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789119875;
+	bh=xZt/MSUZF7ZUdsyAxtb8zAkHiSYMAI0AYKkzpFuw/hc=;
+	h=Subject:To:Cc:From:Date;
+	b=DLBJE5ZFTKRNGMEA44OBMW9+xRUZZeOrcFj0DYm9QTeyIft34TMmqIv1pK6aousFc
+	 FZ5S50YXbU+u0HDfbY4n3hA+roRLrSQPxY/CEXKVFARFsptAMQobXNErj0X3AOhVAP
+	 Zcz9J+2i2CC9H6/LrUHUzE5LH4rGxo8jIkPEVtLM=
+Subject: FAILED: patch "[PATCH] ksmbd: zero pipe read compound padding" failed to apply to 6.6-stable tree
+To: linkinjeon@kernel.org,cheryl@renat.io
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 11 Sep 2026 11:44:24 +0200
+Message-ID: <2026091124-spout-outward-c397@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911021410.42929-1-sashal@kernel.org>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 10:14:10PM -0400, Sasha Levin wrote:
-> From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
->
-> [ Upstream commit 35b0fb391b0df57383bc15985bb769f4555c97ba ]
->
-> Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> a faulted VMA into an unfaulted one.
->
-> It does so after the page tables have been moved to the copied VMA with
-> MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> as the page tables it had are no longer present.
->
-> However, in doing so, it violates the invariant that the anonymous page
-> offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
->
-> This is because a VMA may have been faulted in, mremap()'d (causing a
-> delta between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
->
-> This condition is a violation of a fundamental assumption in mm, but now
-> also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> this condition.
->
-> Correct it by resetting the VMA's page offset at the point of completing
-> the MREMAP_DONTUNMAP operation.
->
-> Link: https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-> Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-> Tested-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Cc: Jann Horn <jannh@google.com>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Li Xinhai <lixinhai.lxh@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> [ adapted dontunmap_complete() changes to move_vma() using direct vm_pgoff assignment instead of unavailable helpers. ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-LGTM thanks!
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> ---
->  mm/mremap.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 12af89b4342a7..9685ea816fde1 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -811,8 +811,18 @@ static unsigned long move_vma(struct vm_area_struct *vma,
->  		 * table has been moved.
->  		 */
->  		if (new_vma != vma && vma->vm_start == old_addr &&
-> -			vma->vm_end == (old_addr + old_len))
-> +			vma->vm_end == (old_addr + old_len)) {
-> +			const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-> +
->  			unlink_anon_vmas(vma);
-> +			/*
-> +			 * The VMA is now unfaulted and it is an invariant that
-> +			 * unfaulted anonymous VMAs have page offset equal to
-> +			 * vma->vm_start >> PAGE_SHIFT.
-> +			 */
-> +			if (vma_is_anonymous(vma) && !vma->vm_file)
-> +				vma->vm_pgoff = pgoff_unfaulted;
-> +		}
->
->  		/* Because we won't unmap we don't need to touch locked_vm */
->  		return new_addr;
-> --
-> 2.53.0
->
+To reproduce the conflict and resubmit, you may use the following commands:
 
---
-Cheers, Lorenzo
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 73f860489e3be2245598d1819226304fc5b87291
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091124-spout-outward-c397@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 73f860489e3be2245598d1819226304fc5b87291 Mon Sep 17 00:00:00 2001
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 25 Aug 2026 09:31:35 +0900
+Subject: [PATCH] ksmbd: zero pipe read compound padding
+
+Compound response handling extends the last response iov to an eight-byte
+boundary.
+
+smb2_read_pipe() allocates only the payload size, so the alignment padding
+can expose up to seven bytes of uninitialized kernel heap memory.
+
+Allocate the aligned size and clear the unused tail before pinning the
+response buffer.
+
+Fixes: e2b76ab8b5c9 ("ksmbd: add support for read compound")
+Reported-by: Cheryl Babcock <cheryl@renat.io>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index ba0fe25bf366..8c589110460a 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8657,13 +8657,18 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+ 		}
+ 
+ 		aux_payload_buf =
+-			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
++			kvmalloc(ALIGN(rpc_resp->payload_sz, 8),
++				 KSMBD_DEFAULT_GFP);
+ 		if (!aux_payload_buf) {
+ 			err = -ENOMEM;
+ 			goto out;
+ 		}
+ 
+ 		memcpy(aux_payload_buf, rpc_resp->payload, rpc_resp->payload_sz);
++		if (rpc_resp->payload_sz & 7)
++			memset(aux_payload_buf + rpc_resp->payload_sz, 0,
++			       ALIGN(rpc_resp->payload_sz, 8) -
++			       rpc_resp->payload_sz);
+ 
+ 		nbytes = rpc_resp->payload_sz;
+ 		err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
+
