@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A783DEFFE
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:30:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B36F17DFFA
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:31:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093861; cv=none; b=rL64YucKs5BKMedJ02RpmLXXygcv/ECLK00CCMozPlUQvZdan08VX0CwOpPliZV4gchivhAyVeB1SgEW38ZRAclOI+wQe3bvhbpSfyLg8gMXsAENeFBVsjS6nngdbhwOauAGfZe0kJFVkU3f7UVMnYUlaRGkM5zmno95X9oLwSA=
+	t=1789093861; cv=none; b=SWp3tuc8aJQS0ffzabGcZ8Mg/Wbb8L/6CSB3Ihs6Donvj+zQpp+pXMsi0cAg1UXvz9DlZKPpu4gJkLRv9YQ4gf/AfCnZkWzBVKmlER3npn2RkkYe2hTevSJhlL4hWwgyvFDleHLoWJX0JE2fKAL+wCVmxBCvIE1TPPZxRTOvyrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789093861; c=relaxed/simple;
-	bh=BgbwV1ZHGeMc9LF81Rw+S0LCA9ASZx8WQ9AqhkffMNg=;
+	bh=uQ+CBS/l4IEKjlDBxzJ4fXQqsvkEyBMk3Zd3WJHVHW0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bfB78Cv71l7nkI9yZbDQQYc3jimuv16qW0HzO3O6PHzuXgRNooJYPI/KLEGcdKujBNIZ7LKGxpN7eM6t6lfDPM11uNSUKbHHyJ6BlM35rh2Hr6tcvZ9g8DE8K91jUPBrMbfZfo6HzVxC8llrSrPjZLkfSF33Ht6zQacIJUSJKho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYh3Z5wP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tHa5f/35DJm4uiUityen4uQ5ptkOY8D7nVtt/RUui5cw/vfv6npIBmTYVr2zWnD+ANqqPeH4Pys0wN92dW5VSpHcNwRZ0uJq6qh0h9+CPfncSiOK2ubNT2xT8zCmw+rHG7Vf/dsMOlOZqpu3tZo9T9CfbBw03J60F4rsowTbAtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgJZ8OUT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYh3Z5wP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2DD51F000FF;
-	Fri, 11 Sep 2026 02:30:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgJZ8OUT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B4F1F00893;
+	Fri, 11 Sep 2026 02:30:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093859;
-	bh=lmzb6xGI7jcOOdXgB8PX1bps2cQGiY8eYAeMBYKD5CU=;
+	s=k20260515; t=1789093860;
+	bh=fMvVGQcZRaDktweY1b+mSo7l4t1ZVjI6CKui6gOt4y4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nYh3Z5wPrQKEITwAmpoNpot/rUBUGfmKQfYCWLXL86UCzCZVhBiTA1+h0WFL38I8M
-	 /8/7K4OoULVO1Wm3CsRYaQKfHOHzL3vW1lCnjjec7/C3IxkpQKKb6gAswAElSy1TxB
-	 6GrWmNyAJheU+MPef9bPpKEKb4IRgDKORdoWbYriUwBXfWDbykwcrKbqr3uergb/ev
-	 KC0TL/YN+dWzJtk7/wIMYkSbiy47ECNUtXX5769edkgow3Xge4Dpn21Ci/bnTFn+cU
-	 tMd0VjZr6N0a9FXmMrw5RpzVOdGym2qSbsWHFQSzCcxNBQbF/3MENI2wTkVNQiw1Dh
-	 cl93tT8K8XmbA==
+	b=TgJZ8OUT3It03EMSEazsFyUpyWREcHKQ5uIQB8lvz8hSW4n8Qr0i94gWLlUZhvtLF
+	 VPRJWvl6D/K5PNh3c9SrnXwXJB8AEzH6vszi0NuRrRVUR624bnFENMA/mYHk9tIbM8
+	 BBXRD4ZcNPj6AZH/AVPgYss7Qr+mDOR/23kSoeBUR5nc1LH45l41YdaIzatFBaZd5A
+	 RB2ykdTZi7nvUsfwaQHsCH03LgYNeHjX9SoMLPCnZqtHj0GMo0GNJ0QzpuZJAuwBrv
+	 nobF2LIyoNFyIVFuZthP2J7wfYmTe9RHHkNPydY7RWpetEHV97rOh8iNmd843dvEgc
+	 ogE2KEItYjxRA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Dhruva Gole <d-gole@ti.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Frank Li <Frank.Li@nxp.com>,
+Cc: Moksh Panicker <mokshpanicker.7@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] PM: runtime: Wrapper macros for ACQUIRE()/ACQUIRE_ERR()
-Date: Thu, 10 Sep 2026 22:30:56 -0400
-Message-ID: <20260911023057.75546-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] iio: light: apds9306: fix PM reference leak in apds9306_read_data()
+Date: Thu, 10 Sep 2026 22:30:57 -0400
+Message-ID: <20260911023057.75546-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090902-spruce-sleeve-2bcf@gregkh>
+In-Reply-To: <20260911023057.75546-1-sashal@kernel.org>
 References: <2026090902-spruce-sleeve-2bcf@gregkh>
+ <20260911023057.75546-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,90 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+From: Moksh Panicker <mokshpanicker.7@gmail.com>
 
-[ Upstream commit ef8057b07c72a817537856b98d6e7493b9404eaf ]
+[ Upstream commit d378fceaafd79e0dc59d3546bda251a3058062c0 ]
 
-Add wrapper macros for ACQUIRE()/ACQUIRE_ERR() and runtime PM
-usage counter guards introduced recently: pm_runtime_active_try,
-pm_runtime_active_auto_try, pm_runtime_active_try_enabled, and
-pm_runtime_active_auto_try_enabled.
+apds9306_read_data() calls pm_runtime_resume_and_get() but several
+error paths return directly without calling pm_runtime_put_autosuspend(),
+leaking the runtime PM reference and preventing the device from
+autosuspending.
 
-The new macros should be more straightforward to use.
+Use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() and PM_RUNTIME_ACQUIRE_ERR() to
+automatically handle runtime PM reference release on all return paths.
 
-For example, they can be used for rewriting a piece of code like below:
-
-        ACQUIRE(pm_runtime_active_try, pm)(dev);
-        if ((ret = ACQUIRE_ERR(pm_runtime_active_try, &pm)))
-                return ret;
-
-in the following way:
-
-        PM_RUNTIME_ACQUIRE(dev, pm);
-        if ((ret = PM_RUNTIME_ACQUIRE_ERR(&pm)))
-                return ret;
-
-If the original code does not care about the specific error code
-returned when attepmting to resume the device:
-
-        ACQUIRE(pm_runtime_active_try, pm)(dev);
-        if (ACQUIRE_ERR(pm_runtime_active_try, &pm))
-                return -ENXIO;
-
-it may be changed like this:
-
-        PM_RUNTIME_ACQUIRE(dev, pm);
-        if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-                return -ENXIO;
-
-Link: https://lore.kernel.org/linux-pm/5068916.31r3eYUQgx@rafael.j.wysocki/
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-Reviewed-by: Dhruva Gole <d-gole@ti.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/3400866.aeNJFYEL58@rafael.j.wysocki
-Stable-dep-of: d378fceaafd7 ("iio: light: apds9306: fix PM reference leak in apds9306_read_data()")
+Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
+Signed-off-by: Moksh Panicker <mokshpanicker.7@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/pm_runtime.h | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/iio/light/apds9306.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index 0b436e15f4cd6..911d7a4d32c15 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -637,6 +637,30 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
- DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
- 		  pm_runtime_resume_and_get(_T), _RET == 0)
+diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
+index 389125675caa4..5ce01037ae554 100644
+--- a/drivers/iio/light/apds9306.c
++++ b/drivers/iio/light/apds9306.c
+@@ -471,9 +471,9 @@ static int apds9306_read_data(struct apds9306_data *data, int *val, int reg)
+ 	int status = 0;
+ 	u8 buff[3];
  
-+/* ACQUIRE() wrapper macros for the guards defined above. */
-+
-+#define PM_RUNTIME_ACQUIRE(_dev, _var)			\
-+	ACQUIRE(pm_runtime_active_try, _var)(_dev)
-+
-+#define PM_RUNTIME_ACQUIRE_AUTOSUSPEND(_dev, _var)	\
-+	ACQUIRE(pm_runtime_active_auto_try, _var)(_dev)
-+
-+#define PM_RUNTIME_ACQUIRE_IF_ENABLED(_dev, _var)	\
-+	ACQUIRE(pm_runtime_active_try_enabled, _var)(_dev)
-+
-+#define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)	\
-+	ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
-+
-+/*
-+ * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
-+ *
-+ * Always check PM_RUNTIME_ACQUIRE_ERR() after using one of the
-+ * PM_RUNTIME_ACQUIRE*() macros defined above (yes, it can be used with
-+ * any of them) and if it is nonzero, avoid accessing the given device.
-+ */
-+#define PM_RUNTIME_ACQUIRE_ERR(_var_ptr)	\
-+	ACQUIRE_ERR(pm_runtime_active, _var_ptr)
-+
- /**
-  * pm_runtime_put_sync - Drop device usage counter and run "idle check" if 0.
-  * @dev: Target device.
+-	ret = pm_runtime_resume_and_get(data->dev);
+-	if (ret)
+-		return ret;
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
++	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
++		return PM_RUNTIME_ACQUIRE_ERR(&pm);
+ 
+ 	ret = regmap_field_read(rf->intg_time, &intg_time_idx);
+ 	if (ret)
+@@ -537,8 +537,6 @@ static int apds9306_read_data(struct apds9306_data *data, int *val, int reg)
+ 
+ 	*val = get_unaligned_le24(&buff);
+ 
+-	pm_runtime_put_autosuspend(data->dev);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
