@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF433D331A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D59225776
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123304; cv=none; b=RT0Ob5OBu9r3METKdf+VR5NUbtv+UkBm6WN0uSG7SRtiopArg16OkKJQAwUG5bDDRciV9Nbcq61RoOOsXcIeBzcGffpcJWAArX+AhcZuyJTL/L1+o9d6nJOt0sav8xgaae/I4jpiRK37/SiluU8rYZhIuNA6FXmESADZjbJEhZQ=
+	t=1789123304; cv=none; b=tCjjUOKJvg71w6d0AhtBF1Egk+g6QqVlcr14juqLns5WNALxfVsSzpJZiVQoXcYLTrY3sdiNeteUawEkQ8++A757A9b7F0RCMo7PC5AFKI5DIwBLzQ7D0M5Y6Qg/9U5oJl5jBDQfvPTtuIJEG4XcUlqOTi6jS8q89g3PMGMhrCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789123304; c=relaxed/simple;
-	bh=CH2GDLqFhtZkB4RI4Wgu/lZJ2LG3Yxao+GL8UF6pGLI=;
+	bh=GoX0obQHqyhE4RFqV104QJX0902CfMUoEk4l5gV5M1A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JCau+V1gnwv5S7ZyPuALeasdZsluheCphEBtjqZRtyA1avb4e9GzzCkELXGSlYGgdPH/PwkotEl/IO4XZdczHdhfcjulw/R+MDzyZfdwkWVnBlOn0i23tdM9JPfyoBKN8uaXzbi0puwgOr6TLvvXP+w9pmUtzE5rGujbkddKkgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8ECJ9xf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uThMhY3ZwLVzGlz1FYYQ4qmAgM4tQ2j/l1b3fujrCFJQ1RoCte5GAP2Wzy2MNJic/mWGKk2tILSFariLQ1EiP8Bgzt4IHZ3+kc2wchlgrDXqSUqMr6jxOn2eEmXprExB+XIX+nR9v+v+QH6xdfiz7NBHUoLNg9+jN39eZ92QRcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WI5ICARp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8ECJ9xf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4DE1F000FF;
-	Fri, 11 Sep 2026 10:41:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WI5ICARp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3410C1F0089A;
+	Fri, 11 Sep 2026 10:41:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789123302;
-	bh=3bAd7Wxcr4vz6SfqJmFuHYtwiQekLgh9epHDk5KfV6Q=;
+	bh=z8EPKrB1m3fAVYKUVb7deMOewxholWkdojucML4tDGs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j8ECJ9xf9UjEdw1lKvEOP93Q9Pk9jq+iuIPXuCfNncQ0ZeXtrRtIXLrY8J+Mx6Wn3
-	 8IR3R1vAnBj4nZkyYhBDb32fB+NvlgKAxrN1GTwv6T7x93xbVKNVlFAsQ75IH6lZW+
-	 TflVtuXOLv3ho0LTF7ZVh3QXRaUCCNiYAzSgGJMc5Z8Vdd78iKm0Teoysy/TD9VRNg
-	 fRCq4ev1F/54Dw63Pu+dWgIOi6HXPzOlpVfsB9r4JfLDfqVuvmcZVYMjAWt72Xzb5H
-	 ahpkE4dsqqCSHkMXnI+ePHflA+DoqbtPj9Ouzd8KqSTNqqvkWnRL8hRvwRiHM0Nba3
-	 1RkC5em1oj1Kw==
+	b=WI5ICARplEyQ9J7qd8XBwzZsmMArtmt+VXP2caxb0D/1ZZm3lUdbhY7gPX6mF6lys
+	 jdsLFH5YEsFr+LWHxbgZl+hlTiw/FkItUVGivu+3TyJvdOkKTQKkpzC1ZObatpHGkv
+	 zgT/aWcgu6BBnbzidhiAmENPZFIDm5jPslZcP4uxY+a+8BAVSyA5gbNTTOpGBmdNIU
+	 kNm9AI2V3ekQ2PbegzguKAXD3UOrptVwGR4zO0gB1F8QIY7/EiyPUssR6ZHCAuFl3b
+	 ZE1osBl/YqQWR2E65hdEpC3cUujrc0g9E2BqVlLE9kHsmwh98oopaFgDbInMjnqJ3F
+	 Jq2NjRVNqiapQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Li Chen <me@linux.beauty>,
+	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 5/7] KVM: x86: Expose several TSC helpers via x86.h for use by MSR code
-Date: Fri, 11 Sep 2026 06:41:34 -0400
-Message-ID: <20260911104136.194961-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] nvdimm: preserve flush callback -ENOMEM
+Date: Fri, 11 Sep 2026 06:41:37 -0400
+Message-ID: <20260911104140.195754-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911104136.194961-1-sashal@kernel.org>
-References: <2026090906-angling-trickily-a20c@gregkh>
- <20260911104136.194961-1-sashal@kernel.org>
+In-Reply-To: <2026090940-grappling-configure-44a7@gregkh>
+References: <2026090940-grappling-configure-44a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,115 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Li Chen <me@linux.beauty>
 
-[ Upstream commit 9d13832ced63160ca67b6c72868b794cbcda556d ]
+[ Upstream commit 6b7108712a4b1c37cac69815aede1dde202b3187 ]
 
-Begrudgingly move adjust_tsc_offset_{guest,host}() to x86.h as inlines,
-and expose several other TSC helpers in anticipation of moving KVM's MSR
-code to a dedicated msrs.c.  Unfortunately for KVM, several MSRs that KVM
-emulates can affect TSC state.
+nvdimm_flush() maps provider flush failures to -EIO. Keep that default
+because provider callbacks can report host-side or backend failures that
+should remain generic I/O errors to the guest.
 
-Opportunistically drop a superfluous local "tsc_offset" variable, whose
-existence causes checkpatch to complain about lack of a blank line.
+Guest-side allocation failures should not be reported as I/O errors. In the
+virtio-pmem path, the flush request allocation can fail with -ENOMEM before
+any request is submitted to the host. Mapping that to -EIO makes resource
+pressure look like media failure.
 
-No functional change intended.
+Preserve -ENOMEM from provider callbacks and continue to map other non-zero
+provider failures to -EIO. The generic flush path still returns 0, and
+pmem_submit_bio() already converts errno values to block status for bio
+completion.
 
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260613000329.732085-14-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: a4b8acd428ba ("KVM: x86: Always initialize EFER reserved bits on vendor initialization")
+Suggested-by: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+Signed-off-by: Li Chen <me@linux.beauty>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20260630092338.2094628-2-me@linux.beauty>
+Stable-dep-of: e57140944b5a ("nvdimm: virtio_pmem: refcount requests for token lifetime")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/x86.c | 22 +++-------------------
- arch/x86/kvm/x86.h | 19 +++++++++++++++++++
- 2 files changed, 22 insertions(+), 19 deletions(-)
+ drivers/nvdimm/region_devs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 14ba2476c5e45..a3b8f67e9fb79 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2637,7 +2637,7 @@ u64 kvm_scale_tsc(u64 tsc, u64 ratio)
- 	return _tsc;
- }
+diff --git a/drivers/nvdimm/region_devs.c b/drivers/nvdimm/region_devs.c
+index bc01a0da168d2..8553d9322175e 100644
+--- a/drivers/nvdimm/region_devs.c
++++ b/drivers/nvdimm/region_devs.c
+@@ -1065,7 +1065,8 @@ int nvdimm_flush(struct nd_region *nd_region, struct bio *bio)
+ 	if (!nd_region->flush)
+ 		rc = generic_nvdimm_flush(nd_region);
+ 	else {
+-		if (nd_region->flush(nd_region, bio))
++		rc = nd_region->flush(nd_region, bio);
++		if (rc && rc != -ENOMEM)
+ 			rc = -EIO;
+ 	}
  
--static u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc)
-+u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc)
- {
- 	u64 tsc;
- 
-@@ -2678,7 +2678,7 @@ u64 kvm_calc_nested_tsc_multiplier(u64 l1_multiplier, u64 l2_multiplier)
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_calc_nested_tsc_multiplier);
- 
--static void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset)
-+void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset)
- {
- 	if (vcpu->arch.guest_tsc_protected)
- 		return;
-@@ -2792,7 +2792,7 @@ static void __kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 offset, u64 tsc,
- 	kvm_track_tsc_matching(vcpu, !matched);
- }
- 
--static void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
-+void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- {
- 	u64 data = user_value ? *user_value : 0;
- 	struct kvm *kvm = vcpu->kvm;
-@@ -2860,22 +2860,6 @@ static void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- 	raw_spin_unlock_irqrestore(&kvm->arch.tsc_write_lock, flags);
- }
- 
--static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
--					   s64 adjustment)
--{
--	u64 tsc_offset = vcpu->arch.l1_tsc_offset;
--	kvm_vcpu_write_tsc_offset(vcpu, tsc_offset + adjustment);
--}
--
--static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
--{
--	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
--		WARN_ON(adjustment < 0);
--	adjustment = kvm_scale_tsc((u64) adjustment,
--				   vcpu->arch.l1_tsc_scaling_ratio);
--	adjust_tsc_offset_guest(vcpu, adjustment);
--}
--
- #ifdef CONFIG_X86_64
- 
- static u64 read_tsc(void)
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 65003b2dd1b19..73af2c17d6dfb 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -391,6 +391,25 @@ uint64_t kvm_get_wall_clock_epoch(struct kvm *kvm);
- bool kvm_get_monotonic_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp);
- int kvm_guest_time_update(struct kvm_vcpu *v);
- 
-+void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value);
-+u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc);
-+void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset);
-+
-+static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
-+					   s64 adjustment)
-+{
-+	kvm_vcpu_write_tsc_offset(vcpu, vcpu->arch.l1_tsc_offset + adjustment);
-+}
-+
-+static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
-+{
-+	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
-+		WARN_ON(adjustment < 0);
-+	adjustment = kvm_scale_tsc((u64) adjustment,
-+				   vcpu->arch.l1_tsc_scaling_ratio);
-+	adjust_tsc_offset_guest(vcpu, adjustment);
-+}
-+
- int kvm_read_guest_virt(struct kvm_vcpu *vcpu,
- 	gva_t addr, void *val, unsigned int bytes,
- 	struct x86_exception *exception);
 -- 
 2.53.0
 
