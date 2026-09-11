@@ -1,105 +1,90 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FA25477E20
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9753943C055
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130835; cv=none; b=b15Alp55UXeNXE9HYnvWR2ewMZSLEyfXjU2lFcml1kfyAm7epfKmK26QdInrG7l1YQM2x1Tcdwh/9Ei3aQsz9tnkX5W8DTmWwNgQdS0nV1qiopU9Ll1BdWUbAbHTmGpmTaBboZSwtJI4PHrajDfIr6RCTkBykKttPmBDOk1pYAM=
+	t=1789130836; cv=none; b=PghGhpqr3lD5NZX4xRleSyVzH1LOImFzHjh/svku4xN99n+w5NcZXsbztHCPmLVn12mkZNqn7eWK8xMitb3Amxd4B/jb2EO/hRyGi2HwnchvpKkv1rCTNG5809kBKIcSf1RVSoJalZ2vPMblIEYKw8QlL5mmQBVebFqgmTEl+wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130835; c=relaxed/simple;
-	bh=id96Lk+HpLVgNjIVup4+7EebLweifTMRP/9y9m7oEJE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uLCmJACb4MbaBsHpb8WFWohgHn1aPRnZ69psuhDi3feN2D15GyCo4zhxQyAhtpj+QDwb0CL648Ta0GIsGUYSNT2z+ELgJfvcrF7aBx7luVI/5UUZQMH87Kc12E0/YU+hQQNfWGU2MHXyhJL2kZm4oKfzHFka98AbzhweroaJ8tY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ias0IPMU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789130836; c=relaxed/simple;
+	bh=3DFvITyVCAvUBssENxStXNt2264GeYaIN5LCnJ3xo+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I/UMjvPsIeFO9F8qPhSA6W82c5aElYowBJY4LUk4OiYbtlun+Noe3HzVuJsUwy56E+zIYshME/jw9/1WBas0oGVy6Orc3/WjQjMmoNrg7zXuaP3KY+gxzQMnmtsetClWLYCGc5iEH+daUFFJrSM0hckg3w9MT7ab3T84mW0SFLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mn43r35/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ias0IPMU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D15F216A3;
-	Fri, 11 Sep 2026 05:47:06 -0700 (PDT)
-Received: from [10.0.152.207] (unknown [10.0.152.207])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBD8B3F7B4;
-	Fri, 11 Sep 2026 05:47:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789130830; bh=id96Lk+HpLVgNjIVup4+7EebLweifTMRP/9y9m7oEJE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ias0IPMUgeA6nzUHI6Z5ZM7GoPxgPuUUUDADBiMCIR7EKtcam6ybraYlVw1V+Rql7
-	 PrDiQI2k/4+OxCpOArrbzlnZOHhlFLx+Wm1Pmbs4fnuux4TVU8qyJ8lbbj0WzTsmuS
-	 tmQKpXbkF7fs/1Kt2R8IsuaM5Nw09VVZxF0jywpQ=
-Message-ID: <5760123e-6e18-4f7a-beb4-8179c0795c6d@arm.com>
-Date: Fri, 11 Sep 2026 13:47:06 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mn43r35/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D941F00899;
+	Fri, 11 Sep 2026 12:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789130832;
+	bh=O7wLYpnhl9BZaRPcRwKVxlME1c8ReAp5BwMtmXUlmG0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Mn43r35/GO0t+ntNxVoqBi07I+rlsAC5hXQQZUmovfA8HUCMeFj8p9+KIdouCSmAu
+	 lpKbkU+a3hClrFLSTEW8PE5p6wreuegnw40Ye+sbE5Gzvwc0Pjcim/OqcObJWZYESc
+	 y2oF01/U6Q6cCe4iWpsenUC6V+JMaFVn1vRRQE02+eeDndJTT+Mbo9nchFIWVu6x5w
+	 XzIYim/qEQi4IpNqFDekLSN0iq8sAb1n+X9ino8vA4TUEeiKaOGSAttffjRY/jWuhO
+	 crZIdRoh4YcDoCqlI6KyLltk+vsIEcmK2bPPz9Dffh/4RPeYeiKya4v7H3t2j9uL4Z
+	 NPeqmU57TPxmA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>,
+	Detlev Casanova <detlev.casanova@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: rkvdec: Propagate platform_get_irq() errors
+Date: Fri, 11 Sep 2026 08:47:10 -0400
+Message-ID: <20260911124710.643225-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090929-grout-renewal-43d1@gregkh>
+References: <2026090929-grout-renewal-43d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/21] arm64: entry: sdei: Restore all clobberable GPRs
-To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
- cl@gentwo.org, david@kernel.org, david.laight.linux@gmail.com,
- james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
- ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
- usama.anjum@arm.com, will@kernel.org, yang@os.amperecomputing.com
-References: <20260908151741.394589-1-mark.rutland@arm.com>
- <20260908151741.394589-13-mark.rutland@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20260908151741.394589-13-mark.rutland@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 16:17, Mark Rutland wrote:
-> Currently __sdei_asm_handler() avoids restoring x20 to x27, as these are
-> not be clobbered by existing code. This is correct today, but it makes
-> it awkward to rework __sdei_asm_handler(). Given the rarity of SDEI
-> events, restoring x20 to x27 should not have a measurable impact.
-> 
-> Restore x20 to x27 when returning from an SDEI event handler. This will
-> free up those GPRs for usage in __sdei_asm_handler() prior to return.
-> 
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yang Shi <yang@os.amperecomputing.com>
-> ---
->  arch/arm64/kernel/entry.S | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-> index f63049ac32dc6..a6ec5c5a2d29c 100644
-> --- a/arch/arm64/kernel/entry.S
-> +++ b/arch/arm64/kernel/entry.S
-> @@ -1044,10 +1044,14 @@ SYM_CODE_START(__sdei_asm_handler)
->  	bl	__sdei_handler
->  
->  	msr	sp_el0, x28
-> -	/* restore regs >x17 that we clobbered */
-> +	/* restore regs >x17 that firmware won't restore */
->  	mov	x4, x19         // keep x4 for __sdei_asm_exit_trampoline
-> -	ldp	x28, x29, [x4, #SDEI_EVENT_INTREGS + 16 * 14]
->  	ldp	x18, x19, [x4, #SDEI_EVENT_INTREGS + 16 * 9]
-> +	ldp	x20, x21, [x4, #SDEI_EVENT_INTREGS + 16 * 10]
-> +	ldp	x22, x23, [x4, #SDEI_EVENT_INTREGS + 16 * 11]
-> +	ldp	x24, x25, [x4, #SDEI_EVENT_INTREGS + 16 * 12]
-> +	ldp	x26, x27, [x4, #SDEI_EVENT_INTREGS + 16 * 13]
-> +	ldp	x28, x29, [x4, #SDEI_EVENT_INTREGS + 16 * 14]
->  	ldp	lr, x1, [x4, #SDEI_EVENT_INTREGS + S_LR]
->  	mov	sp, x1
->  
-> -- 2.30.2
-> 
+From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
 
-FWIW,
+[ Upstream commit c37aca64206fafe938119e801a3fd10a537a051f ]
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+platform_get_irq() returns a positive IRQ number on success and a
+negative error code on failure. It no longer returns zero. The driver
+currently returns -ENXIO for all failures, which loses useful errors
+such as -EPROBE_DEFER.
+
+Return the error from platform_get_irq() directly.
+
+Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
+Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ adjusted the patch path to drivers/staging/media/rkvdec/rkvdec.c. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/staging/media/rkvdec/rkvdec.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/media/rkvdec/rkvdec.c b/drivers/staging/media/rkvdec/rkvdec.c
+index 41b93f09e6df0..8b87213f69a70 100644
+--- a/drivers/staging/media/rkvdec/rkvdec.c
++++ b/drivers/staging/media/rkvdec/rkvdec.c
+@@ -1017,8 +1017,8 @@ static int rkvdec_probe(struct platform_device *pdev)
+ 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+ 
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq <= 0)
+-		return -ENXIO;
++	if (irq < 0)
++		return irq;
+ 
+ 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 					rkvdec_irq_handler, IRQF_ONESHOT,
+-- 
+2.53.0
 
