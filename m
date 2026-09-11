@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BC6387348
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FA33938B
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150099; cv=none; b=JcpLiYoThgwq5tzDGrPFP6Oglkk4ICc+tLkYnb4qhsNtr3f9Qf9+ii7fNHxzEadS4cajJcGmYBWiETNMANCK9Ht+KKutbFTxdTyCnrOdRozV4r1zC4i/74EN08knJlK/slrPenyeev/SOKS0AdtHPxWqVMIGpRkJv57ef6er7OY=
+	t=1789150100; cv=none; b=kgl6CXnu9w48g+U4IMKI7euTwaqaTri9KLdl1+Q9YS3832cHaJJ6c++0w4vCTI3RLh/Ur9BpbHOzYDm5ueJ8umL5FI0QvYiTUUrjFgr+P3OqxcT/YDvScqkKC+oj+GSgLML5DDTMbx2ef5HR3XpC4IhVV19OyD7cH2PxHjsWnAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150099; c=relaxed/simple;
-	bh=YtFwx1WarjPmn6yUDwli3iD0gWa9Q9INy+wrAsxL2wI=;
+	s=arc-20240116; t=1789150100; c=relaxed/simple;
+	bh=icI6PGs0xjtQXrWblNU8EjwbBbEzd/q+dXaMx0k9OSo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k4NFR2i3OUIZW8fFN8gwvIG1kA6VvabG/t3y74nu5ajW3BRiCxE4hBPAkl9YCdpcfXuAJBvV1Nm95HbtWmJ0SXQbbCux4CmNzf6dMRcYP/N4ehBbil0G0NOJJbCSeAmchgYZhu+qaquWhKWGfUYLU6nRV78e4MHXaR8ss10M068=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AbaSmtXb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V79/I/RKNm6r/LeSWJA3yq2rP00RxE487seNIH+6MtAIf/bssXwzLl4KVDQg7JFozL1yJIFti++IB3s2M2IcdIyOHeYIwV34rKvteLRACKHXyFmp5Xc9SP/jXzCEOCDfnSM/BSRA8t0UZXo+VNa61I2HLALdW+QczVNxAdOHUo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXJ1+zJw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AbaSmtXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E101F000FF;
-	Fri, 11 Sep 2026 18:08:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXJ1+zJw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECD11F00898;
+	Fri, 11 Sep 2026 18:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150097;
-	bh=GUUyODMzrcsXRDekRBFIbQIuNcGKUHH/lLK1ufv5TFI=;
+	s=k20260515; t=1789150098;
+	bh=SauwKWNHtENT3Ah7h7H1RLG9Sr/D7KvVPJOeUIpB5y4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AbaSmtXbMp4AMZu8EqNVyFTK5PL02Bq2u9YGS9qIYV0KZuur2FFywX+r3V94KOWe+
-	 H3QQMin75VwioXmYp/Dz8yKHluTUTOhQBJ375DGBt1lA6DOPmyayRAUYBAfcWS2gQF
-	 SQEMMW8+7kT7eBL9BRTM8sgyEoaFqo7+1+uAe/ugeDH7W6NOHDi3YQw/NRWbt7JIz6
-	 xuk9KkD3/OfpDh7L14/BKBNV37neo9AtQCibPqx1ahz67OeG9pLaJivxq+RB5axb/N
-	 WLg9vLQJNntFOXlONI/ppfg7c064/LzerNiUAlw7zfa/gByZd+O03zt3E2k+hWIsRC
-	 oS4pQyiQkUYDQ==
+	b=fXJ1+zJww0MJZKvRo0NdaFmqVYmqvBbMBiEk01BfSbRc0ALSO5oRBc0qmnkV/rY7/
+	 6MP7Tdaz45S9n/9XSmVcMWkRBVn1zIkmDQ1CCOx08zhd5Iiu0DWjsyrN2Cqvq+gFdX
+	 /84FsEzhYwYKtbjm8/vld+7rdeF97cVZ8zIQRCsTveDQ+z2Cd4EcTNf3V+pU07ukMW
+	 DPbRQlI6LRrLsY8DY1KtTkPEp6RiNRLd1t5YGpIrZ1XZR1gYz/WMEPcPsYvCLt4gy0
+	 UmMOb9KnwrdmBtPOXfeztTprz6a90RDukCF/PNMCjhK498VZR3yMcbvYHBg7N+30T4
+	 Vxd0hyUs7obDg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] scsi: qla2xxx: Unlink NVMe unsol ctx before freeing on LS reject error
-Date: Fri, 11 Sep 2026 14:08:15 -0400
-Message-ID: <20260911180815.1299302-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap capacity
+Date: Fri, 11 Sep 2026 14:08:16 -0400
+Message-ID: <20260911180816.1299348-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090901-spooky-activist-b1d2@gregkh>
-References: <2026090901-spooky-activist-b1d2@gregkh>
+In-Reply-To: <2026090903-chug-retype-8098@gregkh>
+References: <2026090903-chug-retype-8098@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,45 +48,99 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit e46160a5d4fa59bf4d5f3412b6b5cb79edb967dd ]
+[ Upstream commit 2ac6a829843cf3df522d19e091276109b94c4c7a ]
 
-qla_nvme_xmt_ls_rsp() obtains uctx, which was linked into
-fcport->unsol_ctx_head by qla2xxx_process_purls_iocb() and is still linked
-when the NVMe transport calls back to transmit the LS response. On the
-error (out:) path the function frees uctx with kfree() but never removes
-it from the list. This leaves a freed node in fcport->unsol_ctx_head: the
-next list_add_tail() for that fcport writes through the freed node, and a
-subsequent list_del() can corrupt the list or panic.
+ha->max_npiv_vports is taken from firmware (mcp->mb[11]) and only
+constrained so that (max_npiv_vports + 1) is a multiple of
+MIN_MULTI_ID_FABRIC, which permits values of 63, 127, 191 and 255.
+NPIV vports are then allocated up to that count.
 
-Unlink uctx with list_del() before kfree() on the error path, matching the
-other free sites in qla_nvme_release_lsrsp_cmd_kref() and
-qla2xxx_process_purls_pkt(). qla2x00_rel_sp() in the failure path only
-returns the SRB to its pool and does not invoke sp->put_fn, so the out:
-path is the sole free and uctx is always still linked there.
+VP enable uses the VP_CONFIG IOCB, which addresses a vport through a
+plain vp_index byte, so a vp_index beyond 128 is enabled without issue.
+VP disable, however, uses the VP_CTRL IOCB, which selects target vports
+through the fixed 128-bit vp_idx_map bitmap. qla24xx_control_vp()
+rejects a vp_index past that bitmap and the IOCB builder cannot set a bit
+beyond 127, yet qla24xx_vport_delete() frees the local state regardless.
+A vport with vp_index > 128 can therefore be created and enabled but
+never disabled, leaving it permanently active in firmware: a resource
+leak.
 
-Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
+Cap ha->max_npiv_vports at init to the vp_idx_map capacity so such
+vports are never created. This collapses 191/255 to 127 (still
+modulo-valid) and leaves the real-world 63/127 cases unaffected.
+
+Fixes: 4d0ea24769c8 ("[SCSI] qla2xxx: Retrieve max-NPIV support capabilities from FW.")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-27-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-20-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ adapted the qla24xx_control_vp() hunk to include the prerequisite bounds-check block missing from this branch. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_nvme.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/scsi/qla2xxx/qla_fw.h   |  4 ++++
+ drivers/scsi/qla2xxx/qla_init.c | 13 +++++++++++++
+ drivers/scsi/qla2xxx/qla_mid.c  |  8 ++++++++
+ 3 files changed, 25 insertions(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index b84fe71ea340d..ebe236f5b5d50 100644
---- a/drivers/scsi/qla2xxx/qla_nvme.c
-+++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -446,6 +446,7 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
- 		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
- 		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
- 	}
-+	list_del(&uctx->elem);
- 	kfree(uctx);
- 	return rval;
- }
+diff --git a/drivers/scsi/qla2xxx/qla_fw.h b/drivers/scsi/qla2xxx/qla_fw.h
+index 6faf7533958f1..4ac91c8eec46b 100644
+--- a/drivers/scsi/qla2xxx/qla_fw.h
++++ b/drivers/scsi/qla2xxx/qla_fw.h
+@@ -1442,6 +1442,10 @@ struct vp_ctrl_entry_24xx {
+ 	uint8_t reserved_5[24];
+ };
+ 
++/* vp_idx_map is a 128-bit (16-byte) bitmap selecting target VPs. */
++#define VP_CTRL_IDX_MAP_BITS \
++	(sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
++
+ /*
+  * Modify Virtual Port Configuration IOCB
+  */
+diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
+index 177b71fae2f89..b633aa273ef69 100644
+--- a/drivers/scsi/qla2xxx/qla_init.c
++++ b/drivers/scsi/qla2xxx/qla_init.c
+@@ -4380,6 +4380,19 @@ qla2x00_setup_chip(scsi_qla_host_t *vha)
+ 					    MIN_MULTI_ID_FABRIC))
+ 						ha->max_npiv_vports =
+ 						    MIN_MULTI_ID_FABRIC - 1;
++
++					/*
++					 * The VP_CTRL IOCB selects target VPs
++					 * through the fixed vp_idx_map bitmap,
++					 * so a vp_index beyond it can be enabled
++					 * via VP_CONFIG but never disabled via
++					 * VP_CTRL, leaking the VP.  Cap the count
++					 * to the bitmap capacity.
++					 */
++					if (ha->max_npiv_vports >=
++					    VP_CTRL_IDX_MAP_BITS)
++						ha->max_npiv_vports =
++						    VP_CTRL_IDX_MAP_BITS - 1;
+ 				}
+ 				qla2x00_get_resource_cnts(vha);
+ 				qla_init_iocb_limit(vha);
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 7e1956d0435d7..8b67267af52c4 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -968,6 +968,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
+ 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
+ 		return QLA_PARAMETER_ERROR;
+ 
++	/*
++	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
++	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
++	 * if firmware advertises more NPIV vports.
++	 */
++	if (vp_index > VP_CTRL_IDX_MAP_BITS)
++		return QLA_PARAMETER_ERROR;
++
+ 	/* ref: INIT */
+ 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
+ 	if (!sp)
 -- 
 2.53.0
 
