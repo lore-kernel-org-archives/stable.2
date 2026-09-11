@@ -1,167 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391ED37C93F
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BB5453A28
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129198; cv=none; b=H7UG6ID3bYvOLCL2yqfO73T1orX+p+wlP0PE6a7m45Z3yY7why+hAsuHqcLwJIXSmo+YAFFzvX0E+FaDyUGY60wHa+see1+yoBk6tXFqge8QkW6++qy7dCJVvt7Nk5LwMruj0Y8NDC7B1mhwCSdSZVPvmkExzMFhYK4D+OSzKSY=
+	t=1789129416; cv=none; b=WXv9ahEa+0WFowp1ZLQr9QCsoAPo82Nk5GP9g6Z1Ai/b7hxe2n+sIIZ2bZwe539DkBAEq7LFo3jrxLv3S9+sZMApcNdQ346vfNJ06y1FlLsdD586c5b1baJ/CInbj801uDo1TKh6oC2wQ/AxLoIw0qhdoptwQ3a8GCozXTwb2gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129198; c=relaxed/simple;
-	bh=E095syJIvhzTpI+mUFWg7LKESfSV29aGPfM58wG0HAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=smqpllgeJrAW1ad2McNrvhaHvWR4udS5Y58qoZZjLIsh1A3uqJsoGRYydKu7/qzvMQTceibmQ4XG/6fU0iMwBTVji1EpMmK7g7IuiXM70LaN9V3yo3zcnzBVrVLWFJYHwVDFEC6CTai1IwrSOOqidbmRN5wlIdQIFNUjbHkR/ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwo4oglX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789129416; c=relaxed/simple;
+	bh=Rba+A5pnVBMGG6Tz4mAtVRNcXYTLljQpHl05prrlDnQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jqIYEBrBYp5gYTVnSoJv8EoEpCNhWq+i6mcrtw45Ie3uhBvUctsJT6ga6VQyV3ug0q2drrEkjeCGqChpQDX7DUy2/EFmOEzX7a484QkBkTP8/8zsl3NZuHCHdCUQbhFYhj6fO61ML/82ZJSqpGBTUDCqgNH276yEnteF9woG3To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=jMdjuVVc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hDfItkgy; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwo4oglX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043A51F00899;
-	Fri, 11 Sep 2026 12:19:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789129180;
-	bh=wIbQwUod6yifrXwCB84h7NfULL0YyW9mPjursDOAong=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dwo4oglX6k4DFiDzO5GL8XGXsPIxdGFXBOV4Fh91DrPRbsNkqQM26iCxbTEWeuO8P
-	 RNJ0tyLrcTcLGaKTbhYMg5bUFGae1O2t7B37Jo+xo/XmZxpc+0Sy7OIGr44puHzeTz
-	 FhDBb0t/T/cs7H8ptas0ws7tlEk2RG9rT9Mw7Z0Vqly/FQiTkgwrlcjYaXpqY8Uyet
-	 4KxcvbE5wFA+UQmhU372HQ3iJrMF3v9TEsPIeVPQY5IkyPHj4xcMRn5xqpkHFlIEbM
-	 ojT6l50e6LYNAWcRocHor6Ogm1vjwGkA450dMGFGktom6pSZyPwWAOmU92yxe6FPLw
-	 fOWL4U6hUXPqQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] KVM: s390: Fix memory corruption by not reinjecting CK machine checks
-Date: Fri, 11 Sep 2026 08:19:37 -0400
-Message-ID: <20260911121937.514719-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911121937.514719-1-sashal@kernel.org>
-References: <2026090945-sporting-book-8561@gregkh>
- <20260911121937.514719-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="jMdjuVVc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hDfItkgy"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id DA2811D000A6;
+	Fri, 11 Sep 2026 08:23:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Fri, 11 Sep 2026 08:23:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1789129408; x=1789215808; bh=Tiei/YRY/8
+	FOVzxdFIGpZyCohcTCb/in3Nl60RG+sds=; b=jMdjuVVcChV0NZe88KBb5TR6qz
+	zoESdLtwnxJI/wWItun3rAZV4nQ2cwScauuv0qH1pHosNd689Ih8FQC7Zfsa48Zk
+	t1FKkwLlnQgyzqgKb92BwFWAe8nDo6kTo8SHM48mXUqIQkJc+8CjNjsXuO772Zi3
+	OKY7GRWG4M0XuzzhotPd25EGhp6Tk+gPX/hy+Zb5Co0gOKpYwO6iPZ2Fm/zjTy/w
+	4DBaLSP52nhj1ltHgqsyJbB1E9RusTaItlVhe+xWdfetlkp8C4mDl+jaY9WHlA5Z
+	zFKHn6Ujs5GwvMuBtnLc4NEjn+0ig3umW+fGuYlA3MVSeLKgDRwxr/ig4JIQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789129408; x=1789215808; bh=Tiei/YRY/8FOVzxdFIGpZyCohcTCb/in3Nl
+	60RG+sds=; b=hDfItkgyuFBUq7kL/p4Flku2mwoPoa8Z+nOJg49q9WW4Gis5+OU
+	iJS9N/ewLs27KOLlPsU7rtYafZ0U0+E8nC/SNNLMXiIlWAM5kLVIty9bxGwf8npp
+	l94bco2wWW/O3DPVHc+DGPFbJw415IPKerjja8JEMLHkXPhmAeO/GBbMQlWoM0JA
+	CsXtYZjt97oEwHWrk8X/bkZ3Wc8QEoUJ3w5rjztxBjP0rtrupoNqi0qYd/reO7q8
+	qNkmSsV5BSvwGxdvJU4z5pfbO6qKW7+cabPBDTf0mLW2fIteGobb7J7Td+j1E+lV
+	sXA6jP0RuBPRVUKqx1sHacrWA8QPZRLBKqw==
+X-ME-Sender: <xms:wPKjahCFfyxhBYgrVVcUoP3a0e0FrstprdZIZ7kcqizvXhJ94H2sHQ>
+    <xme:wPKjapglgYM29o98dsUpJIMWJPo_knpFoe_gQTJ2J4DcjBkR2LmV9pssaqN3RWy95
+    U0TxQDG9K4sBe4K9co6QeVZleoLsBf097XF_gUtdT-2P7wYHw>
+X-ME-Received: <xmr:wPKjajMgIqaaLOs5Niw9v8F0mf5fJnHoDHxBybfJf6wlqRRgve94JixGvEoRn4O1_4tnGb0Ta-mhTPiXFo_XdgAfPcIYAlsBcRuUhDUF68M>
+X-ME-Proxy-Cause: dmFkZTE+6EtaDKw1FhMvfcnRri4SgjWYnFWmAFh7um+ZvIT5cPTnfVndZwC6eLRXypZhk3
+    AI0iNquSPX4B7H3xQILtOD+Xt7tVM6TgXZEe70ofy9xhNdmKlffYIbIQiTT3bq4yoou2mX
+    ozVD81Fc2KVz2hT/rbH5rU6DbeQwImUVE8e7X2rCGdkaYMCW9mDV77hgd02M+WQ54LJncU
+    ighyqUn0fvyhPecQJQZfefjgWNLf3cjsMCdUEZ3I8cLOH65nF6Jeq5CJTdjPsfYgPPpijy
+    JOKb6DBUfkXR/3O08kKWgs8OhJQD0ZOmsmLvGPGO3pJrYm7dpKCGlYfY5EiM29u2FOlDmf
+    wgLHhFOtiWior3mWEpF3OfdFLtk3uzIEnTvWNQFfoK4nkWWzKnSA8mkjH3ki3epMDlWLja
+    et8l6OlQ3DPZ4ZYN+fJCx5X9eyzH2UErvSTjASLzuw5hOHfCHi0Ew25WO01wtD6c7rOIsn
+    mCrWT4sFQbjUhFwtoLMkxAB9aDjQ37fWeeavJZfkzr5fx0WigJBy/WCPVzWKqb4BH4qRd2
+    wHP6Klc/95ExQoLoZKss5/cDvxjSvPZIc/ZHgxoWoE5Am16VWilO1wWC9iP0jOBGo8REcJ
+    LY5EYe6B3qwrUYDwFqh+1/K6cXIlD4JRF+EO9JnORyq3NUh96+VjrV3nKLWg
+X-ME-Proxy: <xmx:wPKjap-FMS83NyNFRmKU_4r2htrwJx3t-dBu0KQx5YqrhuIVp4FRpg>
+    <xmx:wPKjakcPein1BVN08FmCIE5fT39W5pQpT5TGMPKJxR9lJ1mdsBdiGA>
+    <xmx:wPKjaowr2iw9ojO9SdteOYpWgaKkqVfa4tzznMTBNQm6izFvttW9bg>
+    <xmx:wPKjapInMjBEGM0gRVh8u8z9rUMDQEA50KprtysPEjWCqXYott_Xzw>
+    <xmx:wPKjamXGy9-UuLdX4aBFYBgujgCDq5RioD4s66nN90Idd69buHnzUed3>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 08:23:27 -0400 (EDT)
+Date: Fri, 11 Sep 2026 14:23:18 +0200
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Bryam Vargas <hexlabsecurity@proton.me>,
+	Mikulas Patocka <mpatocka@redhat.com>
+Subject: Re: [PATCH 7.2.y] dm-pcache: bound the logical key offset from
+ persistent memory
+Message-ID: <2026091113-recent-cloak-163c@gregkh>
+References: <2026090433-ebony-snore-69ef@gregkh>
+ <20260910001829.3751733-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910001829.3751733-1-sashal@kernel.org>
 
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
+On Wed, Sep 09, 2026 at 08:18:29PM -0400, Sasha Levin wrote:
+> From: Bryam Vargas <hexlabsecurity@proton.me>
+> 
+> [ Upstream commit 97fc4b53dbe4a983fdf093243067fa6a64562307 ]
+> 
+> cache_key_decode() takes a key's logical off from the cache device and
+> later indexes req_key_tree->subtrees[] by it in get_subtree(). An off
+> past the device forms a subtree pointer outside the array, which
+> rb_insert() writes through during replay.
+> 
+> Reject a key of zero length, or whose off+len (computed in 64 bits)
+> exceeds the device size, before it is used.
+> 
+> Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> [ adjusted context to account for the missing cache_seg_id_valid() check. ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/md/dm-pcache/cache_key.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/md/dm-pcache/cache_key.c b/drivers/md/dm-pcache/cache_key.c
+> index 51dd1ccf4e2fd..c98005d16fd6b 100644
+> --- a/drivers/md/dm-pcache/cache_key.c
+> +++ b/drivers/md/dm-pcache/cache_key.c
+> @@ -90,10 +90,19 @@ int cache_key_decode(struct pcache_cache *cache,
+>  			struct pcache_cache_key *key)
+>  {
+>  	struct dm_pcache *pcache = CACHE_TO_PCACHE(cache);
+> +	u64 dev_bytes = (u64)cache->dev_size << SECTOR_SHIFT;
+>  
+>  	key->off = key_onmedia->off;
+>  	key->len = key_onmedia->len;
+>  
+> +	if (key_onmedia->len == 0 ||
+> +	    key_onmedia->len > dev_bytes ||
+> +	    key_onmedia->off > dev_bytes - key_onmedia->len) {
+> +		pcache_dev_err(pcache, "key off %llu + len %u exceeds device size\n",
+> +				key_onmedia->off, key_onmedia->len);
+> +		return -EIO;
+> +	}
+> +
+>  	key->cache_pos.cache_seg = &cache->segments[key_onmedia->cache_seg_id];
+>  	key->cache_pos.seg_off = key_onmedia->cache_seg_off;
+>  
+> -- 
+> 2.53.0
+> 
+> 
 
-[ Upstream commit 546dde823a36d7283dcf46127c2f3d093443860f ]
-
-Channel-subsystem damage machine checks are for the host channel
-subsystem. The guest channel subsystem is emulated in the userspace VMM.
-There is no point in forwarding such machine checks into the guest.
-
-This also simplifies the machine check reinjection and avoids kfree of a
-stack variable as reported by sashiko.  There might be still machine
-checks that have the ck bit set with another bit (like instruction
-damage), mask out the CK bit in s390_backup_mcck_info(), like the CP and
-ED bits already are.
-
-Fixes: 4d62fcc0b692 ("KVM: s390: Inject machine check into the guest")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Acked-by: Heiko Carstens <hca@linux.ibm.com>
-Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260806145835.31818-1-borntraeger@linux.ibm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/s390/include/asm/nmi.h |  3 +++
- arch/s390/kernel/nmi.c      |  5 +----
- arch/s390/kvm/interrupt.c   | 24 ++++++++----------------
- 3 files changed, 12 insertions(+), 20 deletions(-)
-
-diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
-index d0adaae8f3499..4957ebbde29c7 100644
---- a/arch/s390/include/asm/nmi.h
-+++ b/arch/s390/include/asm/nmi.h
-@@ -23,6 +23,7 @@
- #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
- #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
- #define MCCK_CODE_CP			BIT(63 - 9)
-+#define MCCK_CODE_CK			BIT(63 - 11)
- #define MCCK_CODE_STG_ERROR		BIT(63 - 16)
- #define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
- #define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
-@@ -34,6 +35,8 @@
- #define MCCK_CODE_FC_VALID		BIT(63 - 43)
- #define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
- 
-+#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE | MCCK_CODE_CK)
-+
- #ifndef __ASSEMBLER__
- 
- union mci {
-diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
-index 911e1be5f8cda..abc5d969344e3 100644
---- a/arch/s390/kernel/nmi.c
-+++ b/arch/s390/kernel/nmi.c
-@@ -377,8 +377,7 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
- 
- 	sie_page = container_of(sie_block, struct sie_page, sie_block);
- 	mcck_backup = &sie_page->mcck_info;
--	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
--				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
-+	mcck_backup->mcic = get_lowcore()->mcck_interruption_code & ~MCCK_CODE_NO_GUEST;
- 	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
- 	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
- }
-@@ -390,8 +389,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
- #define ED_STP_ISLAND	6	/* External damage STP island check */
- #define ED_STP_SYNC	7	/* External damage STP sync check */
- 
--#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE)
--
- /*
-  * machine check handler.
-  */
-diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
-index 7207390bd849e..994f442e117a4 100644
---- a/arch/s390/kvm/interrupt.c
-+++ b/arch/s390/kvm/interrupt.c
-@@ -2856,9 +2856,7 @@ static int set_adapter_int(struct kvm_kernel_irq_routing_entry *e,
- void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 				     struct mcck_volatile_info *mcck_info)
- {
--	struct kvm_s390_interrupt_info inti;
- 	struct kvm_s390_irq irq = {};
--	struct kvm_s390_mchk_info *mchk;
- 	union mci mci;
- 	__u64 cr14 = 0;         /* upper bits are not used */
- 	int rc;
-@@ -2871,20 +2869,14 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 	if (mci.w)
- 		cr14 |= CR14_WARNING_SUBMASK;
- 
--	mchk = mci.ck ? &inti.mchk : &irq.u.mchk;
--	mchk->cr14 = cr14;
--	mchk->mcic = mcck_info->mcic;
--	mchk->ext_damage_code = mcck_info->ext_damage_code;
--	mchk->failing_storage_address = mcck_info->failing_storage_address;
--	if (mci.ck) {
--		/* Inject the floating machine check */
--		inti.type = KVM_S390_MCHK;
--		rc = __inject_vm(vcpu->kvm, &inti);
--	} else {
--		/* Inject the machine check to specified vcpu */
--		irq.type = KVM_S390_MCHK;
--		rc = kvm_s390_inject_vcpu(vcpu, &irq);
--	}
-+	irq.u.mchk.cr14 = cr14;
-+	irq.u.mchk.mcic = mcck_info->mcic;
-+	irq.u.mchk.ext_damage_code = mcck_info->ext_damage_code;
-+	irq.u.mchk.failing_storage_address = mcck_info->failing_storage_address;
-+
-+	/* Inject the machine check to specified vcpu */
-+	irq.type = KVM_S390_MCHK;
-+	rc = kvm_s390_inject_vcpu(vcpu, &irq);
- 	WARN_ON_ONCE(rc);
- }
- 
--- 
-2.53.0
-
+Does not apply :(
