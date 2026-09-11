@@ -1,78 +1,159 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862615A5132
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6EE59E333
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161358; cv=none; b=QOMi+8vnEAangWEPQBrs3OpzZIW+0I8DvJoJpNvmV/apV0m12sqe6cBBeHcIkXEzbubgAPoTzYre5TeGAqnpY1nnjYdS/nSYItuQDgxPk4YInpWoyknB6Mb1VF+xz+Mrb3aWs4OzZbY72nQoxCbmYvYlA5hUeIDrg5uD7zovsFc=
+	t=1789161360; cv=none; b=A+d8RwYAuqbXuYdUtnmnO9RYVqdoXyl35fR6mVmdwXdeK8vkKiAISG/dtG5WLTeww+IhZsuGpVT0GYTlqf0YgH7XtiTEnn5V/ij4z/wZ7g690gBBerAaJidgJAC1PP9+8ocvjwIAVhKPSKOuC1l/MVGKBFMNbz2aSMeovBINkQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161358; c=relaxed/simple;
-	bh=4+gZNPWyIJ3mCtYhhOmkl1E9lPQeG02urbagnaEJsd4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kDBb8V2hKer4cRd27EiNa3TJJFeIbLlIElMoOL+AxH+8rrKRjpQQL04aL4+rxUU8uOjnGybtVIQjxCgSnLrymGWd7ouKfbBpX/Zk3KY1qYPUv68ZuqEJDjwfjxlpYw840X8jYivYQBSDbLr74yuNM0oqUrrTkqY4201klHTEPTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca94bso151905e9.3
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:15:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789161354; x=1789766154;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4+gZNPWyIJ3mCtYhhOmkl1E9lPQeG02urbagnaEJsd4=;
-        b=l08PpsyfFF91MYzLXn8ySsFP9K0SJRS16/xGO8p9ZwllYoYJvYel7HNHSLHROBg3hE
-         tJgAcm/Sf3lkwE6OuPb24CbBG9wCcYs/C0wcrB4/SZ2dh9YQvjHmUuJFeH0yiawdg04Y
-         WINK907TlhsarEkGItxJGKgsohOG/8srCQBn7lz/qqad8kBb/3qDY3AjtgyPRDZD+huZ
-         UVENcYgRLp7jvOcTjLS6frwXHqIu0qtOYOyMSZKSX6xwcEuTJ0CtgnN5PALvl+1uArs2
-         MxR8+GNr9uwSjLxSNPimDc4indrApuudFutmHpgdBKR71xnL2/RrIIzmL3ShSI8hZ7TY
-         A3vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkEw+Hfj4d/zFViNOME9ly7lGgu/nGL90fo4ElEKvHjZOzqWrtp6iofrxDtxW5hDPDQ2O3ve4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCb7w9EU4pFbI7gV2JiJvbfAbV61KBw9CI2uYj20PdtwU1Dc8b
-	U18QCyzOC/1H8JXwbAtALWMXkwO+TwzhYpdlfjUBK4/Z/V4gkVx/0YtD
-X-Gm-Gg: AYBFou2YZtfncsgmdEJHe6go4syI09SZHfFlDfy5RhKR3tYIEam28zO/6w8jMjYRG0T
-	RC/rU2VC0dGW4dW5JbjBUnagNPyMT2Ba7tfGgvT7fMYDro9wRYsCLpGRFAM/AhgPvAZKgvEgBKj
-	EkLGBdaNuGURiQBYlJgKp+Bav6KEwPd9rlgNb/xHFOvyy+sjMpT9tcQ19L1phbLP4kFuFTzIupR
-	uIOIoujipY8iHs9iGNP6gYcjFQ+x47ClEVQflmZ71CPrD9rqUdwQ5LBTYEeBfWtqSFEbcSzcsJs
-	X/jLDYvH7jclKAV1lZrdMOPGsw6C5fyffWj4WAWUNd/wgKeEYeddNjBDT4SCqCig0hhLrJYChqv
-	ZtBdug9QKvKyFzJxYhOlqQApyICPuM5q9QwOft8VKUVWoSj33qOqVg5br6R01K8o3TDrwTFp7FS
-	ZvAfIQz68IpGONEpD+SRpeyigkrqWuwVEyg27xXsBka3YCJQILIXcjlKtJt6h93O4fe/obh+mDm
-	1KMdjXUlmdCqIPaL2ImJ1njd8QwzcE2
-X-Received: by 2002:a05:6000:491e:b0:482:9dc6:16c4 with SMTP id ffacd0b85a97d-486f6bd8b93mr285658f8f.1.1789161354138;
-        Fri, 11 Sep 2026 14:15:54 -0700 (PDT)
-Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ebe4sm7149818f8f.14.2026.09.11.14.15.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 14:15:53 -0700 (PDT)
-Message-ID: <d040bea9-711d-4638-9d64-50516709b41b@grimberg.me>
-Date: Sat, 12 Sep 2026 00:15:51 +0300
+	s=arc-20240116; t=1789161360; c=relaxed/simple;
+	bh=kysZ0Va4sXk4YJ1G/NLKiIOJNWSuG0Sqw0+aF1/8QR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VfSMPQyIllcdyYbkuHoNUSscTIzUJyySmgX7nn5qOZTYOGVgunm265q3DjUgzn4L46UIr2UW3YUVp+ObNNbf0MIFMB61Zyo7xXscmRYXo0B5YlE2YA/DRnOZnLNh6v9m+aSCYFXiHmot9p3mFsLZLbuJ1DsQQRlBbbGVl02z54E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4oYyj+l; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4oYyj+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03AC1F0089A;
+	Fri, 11 Sep 2026 21:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789161356;
+	bh=Cz2cvjdia/lku21ilyW2PLM6EoI1c1jj2npivgPrm+w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g4oYyj+lxaNIpEPglSn5isWDRBSV+3iPaMxQq1HRojY37EjEwd5v3yo+FsdMY66Ka
+	 QStQCaSfLrfjwpZ+QAzWK4Sf30qwZvPGsXG/OG4Drpm0ylZ+ildix4Ob4HwXQn+GAH
+	 02+UGd7Zq7khX1rfm19m4RTc+sSH+SxJCR6NaeR5XK9NFBwPsp2d7AkpmtshyK3ofW
+	 +Uk4EbQ0v6souw/thNI+Ql9WCj9qUmhz9ovfcbw7H020Qxm6P1rNG/iNHDLEnTAi24
+	 IvJG3IpP54EF7aJejaJJy61Fl9YeWj13dBqCbMC6aQ4wQxppqIipqerTFNWEgRZS+/
+	 qmopEUpj8e5wA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Wenjie Qi <qwjhust@gmail.com>,
+	stable@kernel.org,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: limit recovery filename logging to stored length
+Date: Fri, 11 Sep 2026 17:15:54 -0400
+Message-ID: <20260911211554.1533186-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090931-skimpily-unvarying-9950@gregkh>
+References: <2026090931-skimpily-unvarying-9950@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet-tcp: fix a hang on queue teardown with data digest
-To: Shivam Kumar <kumar.shivam43666@gmail.com>, linux-nvme@lists.infradead.org
-Cc: Greg KH <greg@kroah.com>, security@kernel.org,
- Christoph Hellwig <hch@lst.de>, Chaitanya Kulkarni <kch@nvidia.com>,
- Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org
-References: <20260901014718.2835558-1-kumar.shivam43666@gmail.com>
-Content-Language: en-US
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <20260901014718.2835558-1-kumar.shivam43666@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Wenjie Qi <qwjhust@gmail.com>
 
+[ Upstream commit 01027b2fcb74dade59fb833b51023f6593b6a9a2 ]
 
-On 01/09/2026 4:47, Shivam Kumar wrote:
-> With data digest on, a command that has received all its data waits for
-> the digest in NVMET_TCP_RECV_DDGST. has_data_in() is already false there,
-> so need_data_in() is too, and nvmet_tcp_uninit_data_in_cmds() skips it on
-> teardown even though it still holds the nvmet_req_init() reference.
+F2FS stores recovery filenames as a length plus a fixed-size i_name
+buffer.  The buffer is not NUL-terminated, but recover_inode() and
+recover_dentry() print it with %s.
 
-So nvmet_tcp_uninit_data_in_cmds  is where this should be addressed.
+For a 255-byte filename, recovery logging can read past i_name into the
+following raw inode fields.
+
+Print the name with a precision bounded by i_namelen and F2FS_NAME_LEN.
+
+Fixes: f356fe0cba0e ("f2fs: add debug msgs in the recovery routine")
+Cc: stable@kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ adapted folio references to pages and retained %lx formatting for unsigned long inode numbers ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/recovery.c | 41 +++++++++++++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
+
+diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
+index bc105da3e7460..f05206e32ff51 100644
+--- a/fs/f2fs/recovery.c
++++ b/fs/f2fs/recovery.c
+@@ -157,6 +157,22 @@ static int init_recovered_filename(const struct inode *dir,
+ 	return 0;
+ }
+ 
++static const char *recover_printable_name(struct inode *inode,
++					  struct f2fs_inode *raw,
++					  int *name_len)
++{
++	static const char encrypted_name[] = "<encrypted>";
++
++	if (file_enc_name(inode)) {
++		*name_len = sizeof(encrypted_name) - 1;
++		return encrypted_name;
++	}
++
++	*name_len = min_t(unsigned int, le32_to_cpu(raw->i_namelen),
++			  F2FS_NAME_LEN);
++	return raw->i_name;
++}
++
+ static int recover_dentry(struct inode *inode, struct page *ipage,
+ 						struct list_head *dir_list)
+ {
+@@ -169,7 +185,8 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
+ 	struct inode *dir, *einode;
+ 	struct fsync_inode_entry *entry;
+ 	int err = 0;
+-	char *name;
++	const char *name;
++	int name_len;
+ 
+ 	entry = get_fsync_inode(dir_list, pino);
+ 	if (!entry) {
+@@ -228,12 +245,9 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
+ out_put:
+ 	f2fs_put_page(page, 0);
+ out:
+-	if (file_enc_name(inode))
+-		name = "<encrypted>";
+-	else
+-		name = raw_inode->i_name;
+-	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %lx, err = %d",
+-		    __func__, ino_of_node(ipage), name,
++	name = recover_printable_name(inode, raw_inode, &name_len);
++	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, dir = %lx, err = %d",
++		    __func__, ino_of_node(ipage), name_len, name,
+ 		    IS_ERR(dir) ? 0 : dir->i_ino, err);
+ 	return err;
+ }
+@@ -281,7 +295,8 @@ static int recover_inode(struct inode *inode, struct page *page)
+ {
+ 	struct f2fs_inode *raw = F2FS_INODE(page);
+ 	struct f2fs_inode_info *fi = F2FS_I(inode);
+-	char *name;
++	const char *name;
++	int name_len;
+ 	int err;
+ 
+ 	inode->i_mode = le16_to_cpu(raw->i_mode);
+@@ -330,13 +345,11 @@ static int recover_inode(struct inode *inode, struct page *page)
+ 
+ 	f2fs_mark_inode_dirty_sync(inode, true);
+ 
+-	if (file_enc_name(inode))
+-		name = "<encrypted>";
+-	else
+-		name = F2FS_INODE(page)->i_name;
++	name = recover_printable_name(inode, raw, &name_len);
+ 
+-	f2fs_notice(F2FS_I_SB(inode), "recover_inode: ino = %x, name = %s, inline = %x",
+-		    ino_of_node(page), name, raw->i_inline);
++	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, inline = %x",
++		    __func__, ino_of_node(page), name_len, name,
++		    raw->i_inline);
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
+
