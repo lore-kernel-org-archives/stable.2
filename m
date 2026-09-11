@@ -1,270 +1,219 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C8C4B1473
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161DA26ED37
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151693; cv=none; b=BOLPSb92AWRJDlZ2q/3afGgUZsX7/N8Z+rA+gIR4OQr1rSlkKoQp7e15ju8Pjbe95+7uB6YoIABHjzlbjrBjWU2QTuf0PD+DGMojtdyGC1u4Xon8AYicEPAC8nbQyZZ8dOugFyOvMUjTOmA4jv9w7glcXexY/utRGrozPkQHyFU=
+	t=1789151917; cv=none; b=YuUp1FQowhjYaSHJVoVmazPYh8LOzpyYfIf7iMZHWvi+IWkPs69DLQeQC4a9SC9YCHgo1UQUhWmgqjpCCc6yfA+IppVmmBLshAUUjGEyETsmXgCm1XDVq6jVPv8L6Y6f7DVULMdsjyWnyBf32vVbUEbdGcE5n5LKs3D/3v4te+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151693; c=relaxed/simple;
-	bh=OH4TD0T1j9//gFx8Hjs8ilFM6X8S8rbMf9k/5jV8TiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NwEJDs8Rg5Ca0gzIJkMGiPmj0c/H4gTXPJkdlNBoofLWnWebBctd8HbyUJibZpRN9bgeMcGiK2xSFCt21Boxlw5NMQXoGNV/t/VrpJazwq1BSZoxXPNJboCxO6N+5WjX61ag2KG/cH9a9cR5H3MtF7gFLiFAtZb6LoVPDKw8i6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BH3Gvypw; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789151917; c=relaxed/simple;
+	bh=acJm8YyyCUIQftd15Ca1RH1IgteKpk+omJ1/AkCX6Ak=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uh/vAbOkTPm9s7WzHrdoZiHqXWiBxIaLqNL0Tedt5zG3wpzzCKWn+A2ge95FF6n+P7i1EiU3I87Ou/ZtG7jmzlIGCrjLNSSXWc25Bj3bZDUcGFmvQDyolovKb+9bxuW8/DL2lfV3XLAa0Ulr0odyG5cxux0sn7SiLG5Cye1C2Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=QWUCIiOR; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BH3Gvypw"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-86d43cdee51so13314307b3.2
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:34:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="QWUCIiOR"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so126609f8f.3
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:38:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789151685; x=1789756485; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hk2aRK1vwnRKpbCEcf4tT6rBkC59i6gDVNC/VnuWdwc=;
-        b=BH3GvypwzTzf+/oIl4NT6GDRmDXXMjcAHSrFZ4cRo8DRjyQMX3wTU+6QQRpubYyYx9
-         8z5CF1y8IHahAtaSdRTt+3L7xrZINfED0CTwHNaYpn0Yzm07BYK/rImo5Hzg+siyVle0
-         dAjB9jeLLVnAPJFVEQ1iAOJatM4KfTdlpcz6Kd8s1PCj6KZwfsGrJfPhJXmfMVdjFSFv
-         ldFZHmnNZJRofIi/4074FwY4VcpqfKU4K0jRslDR8vjcQCLzcTxLHmXdFUC4V2yZDf4H
-         1Ely8tSPnp6YN8/BXdBjT+y1q/EnpCpLfEBaLpFw0NzSldJ+Yslt7lBG/frIPIaSo9HG
-         pQEQ==
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1789151913; x=1789756713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bIN1MnaZoYO+k9IvdVDRKIgD4gsx81w6whboS0Ne+GU=;
+        b=QWUCIiORNNyS3KyaXk7gVDKqPvKSTjAU0bYFa0omjPvlFzMP3e13p2Wl5zn9+m6JBo
+         Asw/jWkkddUw+Rk3fVa/gmkgap9NIbC1i7MlFnMG677scJPkDRPx156yi16PmAlQQJs+
+         kqSpISZWC+74U7NmAFxfTTDB6xuLQrep0pL4gdfyS4xKC3fOq9pwA5BVK4IJnYIj92V2
+         9R+Y6QKhgtQpVw7TDlhEhJABgFXCQ+33nyJh8sp0u+McUKbLdcqzWljk8HHqM608Yxbe
+         nnlW1un6ypVcfVbTDNnpqIolg+ip5sjYp7jEaSVRvQwBlygvyjhbPp00H4qOeFDc/Rm+
+         XyoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789151685; x=1789756485;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1789151913; x=1789756713;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hk2aRK1vwnRKpbCEcf4tT6rBkC59i6gDVNC/VnuWdwc=;
-        b=c1UImHMN4dN+l/ei9uNT5jmBw39NADomb6Vgg3TGVXzQy1J3tiI7hV3qJuY7SRtab2
-         T/PVIKCrIo0LjdhlGLdd7rF376xPB8zzgwHJ7RTG5SQxNf86OoE8g+b4FP0mcIkxcTsu
-         sds0Qe4wlt9CVowNy19dshClMtIj0dqb3hYAPKPUIPKwanQqsd5moTb0CiiW/78TXmQq
-         pL0fEq5S+aCSdx9ZGc7AcbCIvSo9eCZvTx6apU8JtEO5FfUrmpNhnn+U5+4GaPR9xCn8
-         worsyq8uMFJMWODGZ1/832pI7pHG0HCr9QALX0k9Uph5G52kX8PlbPcEg+JsQuD+YW74
-         MFuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiZrylW6bR0FUTDlWYTfsD1iY3GN7dxZXidTYap01auq5A1Ih4u7RxPv1j854bxOK1zFgscuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw6tt9tNVWK878XumzX8rD4VsGfs3WgjglBKtvasUX3aO7opTN
-	EcR7f4E8TGQvcyLh5u7qyz8Q5DLWYOXA/z3CrCJjJ3qEXNeV2CjFYE2c
-X-Gm-Gg: AYBFou18B0NtSh5FMtujhOb/vgYJx4slcsICMmOHhouVp1AtT4n2vHvWDl9Day1w3CV
-	c4v1UkVMpJD85nn9zjGQt/yi8Qb2DXU1OGSU9LbkpIu5g8Of64Zj7Q2/jgLbgaQ9wXorjJObjZR
-	IL7KgMBn15s0nApBrIGkk8zvihif8FecZo0nMns7AFDedZFvRp2t0OF7wladahu2M/juV2e9U18
-	TCylQM6JfTNT9b2hRTBf4RCe4oSyf15WFRPkLe2A6cRJi3WCHawe4wDTapVRK3eADuR2+7sgxCG
-	qxMHNwtUsBuFLImu2TLydYpEfZ6mW4aFt35AGm3vAvMbg9MTuEji/loIsN+c7oBUwAq6D5HeRDR
-	g2nmhM1lkYHycvolqeWiRC7CdFQOsivu1iznE5xL5ejRAXEcKc62pczAHgKRFDC6C8BuQC/eOC9
-	keRAAJloenuH23Hnffw6E7JlfLl+QNZDicYAQXHlV8b5UBijnA3f9wz/xvBWMrYgZ1ebuyTpKwH
-	Q==
-X-Received: by 2002:a05:690c:7107:b0:873:5bb2:6c31 with SMTP id 00721157ae682-884b2eb52bemr20024517b3.56.1789151684818;
-        Fri, 11 Sep 2026 11:34:44 -0700 (PDT)
-Received: from [10.138.10.6] ([185.98.168.14])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488a4c120sm14489077b3.38.2026.09.11.11.34.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 11:34:43 -0700 (PDT)
-Message-ID: <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
-Date: Fri, 11 Sep 2026 14:34:39 -0400
+        bh=bIN1MnaZoYO+k9IvdVDRKIgD4gsx81w6whboS0Ne+GU=;
+        b=QBKs0M5H90+p+sw83cyMiyv/dZl+oPhxW/JLc+yhh9gZn2wJPBURFy84syNbrEQ4G3
+         SYASngduDZWV6VpKPWYQFqAHfCj3+SVvBzhvLbefgTL2HTjAjdy91oYm9tlyiEfdLgiJ
+         V0DN6GTf04VJBG48GTv7Zh+kv1JL0TO2UpN4aNXrPzHsQRNMybUozrkdT5sin3HNuqOt
+         rePZvR0MoUQfR/6RLMvahaxehwKqKkyzgQzig67K7Wi1OLNdN81HZHI8OlcZv4v8Ons2
+         jleTZqxJB5X67m2C5128s2dwHm1xcOrz256gDocjLhdhg0spqMUqKls3LI11dOt7/ig/
+         TfPA==
+X-Forwarded-Encrypted: i=1; AKwUvByCyvwkyoWAmK6lEET/pcYuTNRrIozKU8AZhF0RLFa6iyEV14D/Yaw9hMtXj90VdF2PLwf3X2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtdSLUN/WAwibSB2ab6wGtYro0K51RqHTd3DdadL+eMiz8NAdd
+	Nt2PHey7AnFWquZ39/SJRifrz/pNeOVlpLmNN/s7IoAAcrC4X/OIaLWZ1I3hlHT0HpquKzqOEqY
+	8ZqKM3g==
+X-Gm-Gg: AYBFou3ZE8IRG5Z7ZOc4ao7yGWNw3hGaNtXDydzkA5RNgNt3gQLOcaXHHW+XIwjmpvV
+	asZ7pru0kQ3ZOqkq85ujetE7zy93ZNAcwxmvg64KFF9wbcQ3F0RVRK4qG4zwwojD3vx34l6sHKU
+	c7+sNizpfNBPCpmK7SVfE9Bs/RmHZGvFgpfNgrcaSlWY4+vbNHcNG4KZosBGjsoq0imWxp2LUBW
+	loIQ3crOJAyDbf8tZr5gglc4Cv6Z7rIQvy7SRmsnWXyk+emGn4r+YTJzBugjsGkqCJIn1+f5LVH
+	2Siv1Vl/36oxIgGki4t0jG1qdDgMI5pLeX2l/cKt/lSPY5qLMzdC0SBe6nFXYcvKjDwh4V2zoe+
+	+Sd8qSbOnIFL4jW0fc/m+ncXZJWA8DRahL3MPBsENyVMUVtJu95CSZInsu6xMAmFiMG8GxO9+Qc
+	dKDL7pEfGVQ5eeefaiU6YfpIi9HQTL/9mf3VWtv2mWMwBIMy+3cq5rSGgks6xW2kZ6qimg+LHN0
+	dohJGSfXS5hs4N+Nfv6Sp5rn1IH
+X-Received: by 2002:adf:e991:0:b0:486:e8fa:f9b7 with SMTP id ffacd0b85a97d-486eb31a264mr11917325f8f.13.1789151912576;
+        Fri, 11 Sep 2026 11:38:32 -0700 (PDT)
+Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm8204290f8f.23.2026.09.11.11.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:38:31 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com,
+	alexander.deucher@amd.com,
+	kevinyang.wang@amd.com,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH v3] drm/amdgpu: hold a runtime PM reference for P2P dma-buf attachments
+Date: Fri, 11 Sep 2026 19:38:25 +0100
+Message-ID: <20260911183825.935140-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
+References: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------b6Pv0kWTnPJ4ZTrxShFmchbP"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------b6Pv0kWTnPJ4ZTrxShFmchbP
-Content-Type: multipart/mixed; boundary="------------b0zZgz1THSQE2fTDm71bz4rh";
- protected-headers="v1"; hp="clear"
-Message-ID: <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
-Date: Fri, 11 Sep 2026 14:34:39 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-
---------------b0zZgz1THSQE2fTDm71bz4rh
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 9/10/26 09:00, Bartosz Golaszewski wrote:
-> This iteration - in addition to the previous fixes - proposes to split
-> the QCE driver into a core part necessary to bind to the QCE DT node an=
-d
-> enable runtime power management in order to allow to drop the
-> interconnect votes, and the crypto part registering the crypto
-> algorithms. The core module is then enabled in arm64 defconfig while th=
-e
-> crypto part stays disabled by default.
->=20
-> The QCE hardware crypto engine has several limitations that cause it to=
+amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
+attachment.  GTT is only a fallback placement when VRAM is preferred, so
+ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
+exporting device is runtime suspended its SDMA rings are down and the
+move fails:
 
-> produce incorrect results or stall on certain inputs. This series fixes=
+  amdgpu: Move buffer fallback to memcpy unavailable
 
-> several bugs and adds workaround allowing the deiver to pass crypto
-> self-tests.
->=20
-> The failures addressed are:
->=20
-> - HMAC self-test failures for empty messages
-> - AES-XTS returning success on zero-length input (should be -EINVAL)
-> - AES-CTR: partial final block causes the engine to stall, output IV
->   derivation was incorrect
-> - AES-XTS with key1 =3D=3D key2 is not supported by the CE
-> - AES-CCM: partial final block and fragmented payload both stall the
->   engine
->=20
-> All fixes were tested on an SM8650 QRD board with
-> CONFIG_CRYPTO_SELFTESTS=3Dy and CONFIG_CRYPTO_SELFTESTS_FULL=3Dy.
->=20
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.co=
-m>
-For stable, would it be better to not register the algorithms, thus
-preventing their use?  Another option would be to replace the whole
-driver with an always-on stub driver that just does power management.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
+An importer on a second GPU reaches this holding no runtime PM
+reference on the exporter, e.g. a compositor on the APU submitting a
+frame that references a buffer exported by an idle dGPU:
 
---------------b0zZgz1THSQE2fTDm71bz4rh--
+  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
+    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
+      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
 
---------------b6Pv0kWTnPJ4ZTrxShFmchbP
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Pinning a dma-buf into VRAM has the same requirement, which
+commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
+when we attach a buffer" v2") called out as the one case that would
+need the reference back.
 
------BEGIN PGP SIGNATURE-----
+Take it in attach and drop it in detach.  pm_runtime_get_if_active()
+never resumes the device, so it cannot deadlock against the reservation
+taken during resume, which is why the old pm_runtime_get_sync() had to
+go.  If the device is not active, clear peer2peer instead: the buffer
+then stays in GTT, which remains accessible while the GPU is powered
+down.
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqkSb8ACgkQszaHOrMp
-8lO7hg//dbVegiswT9OWuiiGRNL+3ZcajQKPRYop7Furtl8QGFJLNnPvy9HGsoC/
-dNu7zvnyjdvq0yUCPYUDX4FRu91ub4jeLjERVoiVt0vBG4vZ9Q+GaIOQkh8mN4zD
-9LOIe3f4oXZmcP2VNBmngRY74+liMEianyQS1VUum6ARhwG0w6J8lFAjTWcXGt23
-djST7HR04rLN/nhRR1+fNaoAkOVVrNP499u1Db/otch9dmWGXtdFc8x9Cr9Fqi+d
-796xeQyEG3uoRpKj9VAoNrJtKgEUe/ccZCDoBkxEyT6PE45rCj3sN6A0Yim4Pstg
-BCeppYc/tz076CaQ8JPm7/xuOhsm8pXfytihp/zBNQ1nsvm+mp46shmkqZteNo0W
-Xhw/Jjc4ZG+JjuIIGTpoPJ6sIP8atO8meSSmHnLAJnCfsMKZBDeQxNsxSHc+E1Qh
-RQ2JO9O7gF8XPmt0A1XdzuUp19k32ET50Q9/WQQUUG5I0bbBjUiO3OdTju5pYNuZ
-V9NYKGLGoQpSZ2oIHmfDU84rEwdHl1tewrWqtmUmRJ5o/3yzWRElBSmOkd89KJRz
-4ZItImyuy/eerN7T8Z7PP24Klc3mAFgT3cXGsY1yLyvBvJiHoutMvPwSNkGyB4ig
-opXcjqL9WRB65MrV6H1RG864VH4a4dlCmdemgBV2aJuTL4TCj7M=
-=zFw5
------END PGP SIGNATURE-----
+Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
+Cc: stable@vger.kernel.org
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:Opus-5 [Claude Code]
+---
 
---------------b6Pv0kWTnPJ4ZTrxShFmchbP--
+v3: take the reference in attach and drop it in detach, clearing
+    peer2peer when the device is not active, as suggested by Christian.
+    v2 only covered amdgpu_dma_buf_map() and left VRAM pinning exposed.
+v2: use pm_runtime_get_if_active() instead of testing
+    adev->mman.buffer_funcs_enabled, which was racy against a
+    concurrent suspend.  Reported by Sashiko AI review.
+
+Reproduced on a HawkPoint APU [1002:1900] driving the display with a
+Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
+offload.  Without the patch kwin_wayland hits the call chain above
+within a minute of the dGPU autosuspending and the desktop stops
+repainting until it resumes.
+
+Tested with v3: Chromium rendering on the dGPU and composited by kwin
+6.7.5 for five minutes, then closed.  The dGPU stayed active while the
+window was on screen and suspended six seconds after Chromium exited,
+with no fallback errors or runtime PM usage count underflows.  After
+an hour of yuzu render offload the dGPU also suspended once yuzu
+exited.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 39 ++++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..fae695c3e531 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -43,6 +43,7 @@
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
++#include <linux/pm_runtime.h>
+ 
+ static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ 
+@@ -100,15 +101,50 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+ 		attach->peer2peer = false;
+ 
++	/*
++	 * P2P access needs the exporter awake for the lifetime of the
++	 * attachment.  pm_runtime_get_if_active() never resumes the device,
++	 * so it cannot deadlock against the reservation taken during resume.
++	 * A negative return means runtime PM is disabled and the device
++	 * cannot suspend, in which case the put in detach is a no-op.
++	 */
++	if (attach->peer2peer &&
++	    !pm_runtime_get_if_active(adev_to_drm(adev)->dev))
++		attach->peer2peer = false;
++
+ 	r = dma_resv_lock(bo->tbo.base.resv, NULL);
+ 	if (r)
+-		return r;
++		goto err_pm_put;
+ 
+ 	amdgpu_vm_bo_update_shared(bo);
+ 
+ 	dma_resv_unlock(bo->tbo.base.resv);
+ 
+ 	return 0;
++
++err_pm_put:
++	if (attach->peer2peer)
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++	return r;
++}
++
++/**
++ * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
++ *
++ * @dmabuf: DMA-buf where we remove the attachment from
++ * @attach: the attachment to remove
++ *
++ * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
++ */
++static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
++				  struct dma_buf_attachment *attach)
++{
++	struct drm_gem_object *obj = dmabuf->priv;
++	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
++	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++
++	if (attach->peer2peer)
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ }
+ 
+ /**
+@@ -350,6 +386,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
+ 
+ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+ 	.attach = amdgpu_dma_buf_attach,
++	.detach = amdgpu_dma_buf_detach,
+ 	.pin = amdgpu_dma_buf_pin,
+ 	.unpin = amdgpu_dma_buf_unpin,
+ 	.map_dma_buf = amdgpu_dma_buf_map,
+-- 
+2.55.0
+
