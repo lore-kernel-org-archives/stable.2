@@ -1,250 +1,424 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6852B25771;
-	Fri, 11 Sep 2026 01:10:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E0F313E1B
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089017; cv=none; b=Pst6wU7upyQG2iugyOYnYhSrLH7FFr0z9vBrlw21A+McF0lOdfx4w9imuLkROtGNU83XymhxrBfuZqyRicMZSZ5/7hYLimsQV5ncgQ0Zbmyr5aXQMf3+Dr2Wll8wwfaovcRn7y9vZ3XcsZSfDiSY8Jq9RGd9iZJ5SHOPdu1fdUc=
+	t=1789089181; cv=none; b=KVux8GkMlFvdsSbsDqvgw99G8f3h1UTOnjMJr2P/tnWTNJAmL/k0VO2NdVut3ddQ+13t4SLmEAE6cHxJp7izhfjV0KyzVjZ0puADhlQ+X1IskRQWCQ/ZVRT5/JPPPRHq2q7M4M+I0SsTp3pXsZO62VKwhiMiuqN3pVfrVjeNxgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089017; c=relaxed/simple;
-	bh=irKHY5apBI7M8nltS/Gk3BbWzF1zeKxXCk/10QxRv/I=;
-	h=Date:To:From:Subject:Message-Id; b=A9G+o98hd9xUuUA89Xveea5elkCdsjo0Jp0va+PH69stoUrR5Y9PMNFvgQNgAe714jUIAOullViA4W3wwcO3Zq4olzqGgf9S2q1YVb0gUOeswF+/6ibrudj8cvULeIy27XAkMkABjWn8ve+Xo/3vdf736UVlTN8J2FrC4gMqwGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=VJaOT5IU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789089181; c=relaxed/simple;
+	bh=6XoAMac2Kpd8+cQe40u11smFzuLDdKhWkgRhTfdUj1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cNSe7UaMlaTCcHsZWmq+6AVnrfAtbsUbpYCdyOQsbJsH1clrzLjEO3qFyiiti1vZ/v4SzvGYeMJ1BNcP+/jewSx8OJsbDYuanyDOhVU7CtRK+M+dULRl0uzPPzQyl46JO7ErvnHEyB5jlQQTkatJ7Laf20XHZqW10KzpUuutuI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeCOij1j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VJaOT5IU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2DF31F000FF;
-	Fri, 11 Sep 2026 01:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789089016;
-	bh=myhK+TNX9TD+33mKGRfxH8LxaNqrwOaeohZgkHqUEYo=;
-	h=Date:To:From:Subject;
-	b=VJaOT5IUIqLWu5Pcn8BrEsYDgbq+FrbzSTallZLDMUSgORiKkYhjxe8oXNDMY6BpJ
-	 AMhpiKRM1EqsWKsmIr52IeFN1DaXBkhkZGn4NrDE7I/hM32laSlMC/JEpHG8LyTPWu
-	 o/ZMyUhh/o7ng2urDdPmlCf5ep9VtG0kuOTIqERA=
-Date: Thu, 10 Sep 2026 18:10:15 -0700
-To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,david@kernel.org,chris@chrisdown.name,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch added to mm-new branch
-Message-Id: <20260911011015.F2DF31F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeCOij1j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8130D1F000FF;
+	Fri, 11 Sep 2026 01:12:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789089179;
+	bh=s8ZsuOWuk56t9CyHjER3EpIizkLCmJDMRu97R9H6M6Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aeCOij1jrdnrMfH/UKIrB6JDUCFb8eD+ROQV5HtKlKKhQdLlwY67s7wVE5qtP0cvo
+	 mRrh1Ez1ga//5BYFzshuS1VdCdPCzh+YRrp2ma6L/NKOnL21CIpxkKiSMSAIgGqv0M
+	 KKKBhOYqSG7qClio3BnzFTm/5H87iDbp/ttmN4rxUcgUC5xwjLUq/9T87BMSmeWWWm
+	 pI99qcvWPJz12qvyDDNbnZ7bKumZZwMJMz2zKscDmTnY6zp1qv4r5yZjenaABpG26b
+	 vGLLQDWnb6ZzhUJnud+N2ol3k7mJAxxTxrQ17kpVb1CqsVp8U6EWNVqxRU1QE5vpmU
+	 761c5bhWt0c7A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hari Bathini <hbathini@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] powerpc/kexec: split CONFIG_KEXEC_FILE and CONFIG_CRASH_DUMP
+Date: Thu, 10 Sep 2026 21:12:54 -0400
+Message-ID: <20260911011256.4032346-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090924-deskwork-unvocal-d17e@gregkh>
+References: <2026090924-deskwork-unvocal-d17e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Hari Bathini <hbathini@linux.ibm.com>
 
-The patch titled
-     Subject: mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-has been added to the -mm mm-new branch.  Its filename is
-     mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch
+[ Upstream commit 33f2cc0a2e90f7177c49559b434191b02efd0cd5 ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch
+CONFIG_KEXEC_FILE does not have to select CONFIG_CRASH_DUMP. Move
+some code under CONFIG_CRASH_DUMP to support CONFIG_KEXEC_FILE and
+!CONFIG_CRASH_DUMP case.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Mon, 7 Sep 2026 10:54:45 +0800
-
-For MGLRU, memory.min/low is not honored during global proactive reclaim
-(writing to the root memory.reclaim) and global direct reclaim, because
-these paths shrink memcgs using stale protection (emin/elow).  It can be
-reproduced as follows:
-
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
-
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection.  The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
-
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only runs
-for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection computation,
-so emin/elow are whatever a previous kswapd run left behind - or zero if
-kswapd never ran on this node.  Relying on a prior kswapd pass is not
-correct either: a memcg's emin/elow are derived from its ancestors'
-memory.min/low settings and from children_min_usage, both of which change
-over time, so emin/elow go stale even after kswapd has run and must be
-recomputed at the point of reclaim.
-
-Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
-along the root-to-target path only, by iterating through the cgroup
-ancestors array top-down.  This avoids the full tree traversal that would
-be needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
-
-Call it from shrink_one() for the non-kswapd path so that each memcg about
-to be shrunk has correct protection values.
-
-Link: https://lore.kernel.org/20260907025445.1836238-3-ridong.chen@linux.dev
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Assisted-by: Claude:claude-opus-4-8
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
+Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+Link: https://msgid.link/20240226103010.589537-3-hbathini@linux.ibm.com
+Stable-dep-of: fa40f9dbdd4a ("powerpc/kexec_file: Prevent kexec range truncation")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ arch/powerpc/kexec/elf_64.c       |   4 +-
+ arch/powerpc/kexec/file_load_64.c | 269 ++++++++++++++++--------------
+ 2 files changed, 142 insertions(+), 131 deletions(-)
 
- include/linux/memcontrol.h |   10 +++++++
- mm/memcontrol.c            |   45 +++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |    8 +++++-
- 3 files changed, 62 insertions(+), 1 deletion(-)
-
---- a/include/linux/memcontrol.h~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/include/linux/memcontrol.h
-@@ -1921,6 +1921,16 @@ static inline bool memcg_is_dying(struct
- }
- #endif /* CONFIG_MEMCG */
+diff --git a/arch/powerpc/kexec/elf_64.c b/arch/powerpc/kexec/elf_64.c
+index eeb258002d1e0..89315dd7399e6 100644
+--- a/arch/powerpc/kexec/elf_64.c
++++ b/arch/powerpc/kexec/elf_64.c
+@@ -47,7 +47,7 @@ static void *elf64_load(struct kimage *image, char *kernel_buf,
+ 	if (ret)
+ 		return ERR_PTR(ret);
  
-+#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg);
-+#else
-+static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+							struct mem_cgroup *memcg)
-+{
-+}
-+#endif
-+
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
---- a/mm/memcontrol.c~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/mm/memcontrol.c
-@@ -5253,6 +5253,51 @@ void mem_cgroup_calculate_protection(str
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+-	if (image->type == KEXEC_TYPE_CRASH) {
++	if (IS_ENABLED(CONFIG_CRASH_DUMP) && image->type == KEXEC_TYPE_CRASH) {
+ 		/* min & max buffer values for kdump case */
+ 		kbuf.buf_min = pbuf.buf_min = crashk_res.start;
+ 		kbuf.buf_max = pbuf.buf_max =
+@@ -70,7 +70,7 @@ static void *elf64_load(struct kimage *image, char *kernel_buf,
+ 	pr_debug("Loaded purgatory at 0x%lx\n", pbuf.mem);
+ 
+ 	/* Load additional segments needed for panic kernel */
+-	if (image->type == KEXEC_TYPE_CRASH) {
++	if (IS_ENABLED(CONFIG_CRASH_DUMP) && image->type == KEXEC_TYPE_CRASH) {
+ 		ret = load_crashdump_segments_ppc64(image, &kbuf);
+ 		if (ret) {
+ 			pr_err("Failed to load kdump kernel segments\n");
+diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+index 12cbfc9fce451..c66773bfad695 100644
+--- a/arch/powerpc/kexec/file_load_64.c
++++ b/arch/powerpc/kexec/file_load_64.c
+@@ -96,119 +96,6 @@ static int get_exclude_memory_ranges(struct crash_mem **mem_ranges)
+ 	return ret;
  }
  
-+#ifdef CONFIG_LRU_GEN
+-/**
+- * get_usable_memory_ranges - Get usable memory ranges. This list includes
+- *                            regions like crashkernel, opal/rtas & tce-table,
+- *                            that kdump kernel could use.
+- * @mem_ranges:               Range list to add the memory ranges to.
+- *
+- * Returns 0 on success, negative errno on error.
+- */
+-static int get_usable_memory_ranges(struct crash_mem **mem_ranges)
+-{
+-	int ret;
+-
+-	/*
+-	 * Early boot failure observed on guests when low memory (first memory
+-	 * block?) is not added to usable memory. So, add [0, crashk_res.end]
+-	 * instead of [crashk_res.start, crashk_res.end] to workaround it.
+-	 * Also, crashed kernel's memory must be added to reserve map to
+-	 * avoid kdump kernel from using it.
+-	 */
+-	ret = add_mem_range(mem_ranges, 0, crashk_res.end + 1);
+-	if (ret)
+-		goto out;
+-
+-	ret = add_rtas_mem_range(mem_ranges);
+-	if (ret)
+-		goto out;
+-
+-	ret = add_opal_mem_range(mem_ranges);
+-	if (ret)
+-		goto out;
+-
+-	ret = add_tce_mem_ranges(mem_ranges);
+-out:
+-	if (ret)
+-		pr_err("Failed to setup usable memory ranges\n");
+-	return ret;
+-}
+-
+-/**
+- * get_crash_memory_ranges - Get crash memory ranges. This list includes
+- *                           first/crashing kernel's memory regions that
+- *                           would be exported via an elfcore.
+- * @mem_ranges:              Range list to add the memory ranges to.
+- *
+- * Returns 0 on success, negative errno on error.
+- */
+-static int get_crash_memory_ranges(struct crash_mem **mem_ranges)
+-{
+-	phys_addr_t base, end;
+-	struct crash_mem *tmem;
+-	u64 i;
+-	int ret;
+-
+-	for_each_mem_range(i, &base, &end) {
+-		u64 size = end - base;
+-
+-		/* Skip backup memory region, which needs a separate entry */
+-		if (base == BACKUP_SRC_START) {
+-			if (size > BACKUP_SRC_SIZE) {
+-				base = BACKUP_SRC_END + 1;
+-				size -= BACKUP_SRC_SIZE;
+-			} else
+-				continue;
+-		}
+-
+-		ret = add_mem_range(mem_ranges, base, size);
+-		if (ret)
+-			goto out;
+-
+-		/* Try merging adjacent ranges before reallocation attempt */
+-		if ((*mem_ranges)->nr_ranges == (*mem_ranges)->max_nr_ranges)
+-			sort_memory_ranges(*mem_ranges, true);
+-	}
+-
+-	/* Reallocate memory ranges if there is no space to split ranges */
+-	tmem = *mem_ranges;
+-	if (tmem && (tmem->nr_ranges == tmem->max_nr_ranges)) {
+-		tmem = realloc_mem_ranges(mem_ranges);
+-		if (!tmem)
+-			goto out;
+-	}
+-
+-	/* Exclude crashkernel region */
+-	ret = crash_exclude_mem_range(tmem, crashk_res.start, crashk_res.end);
+-	if (ret)
+-		goto out;
+-
+-	/*
+-	 * FIXME: For now, stay in parity with kexec-tools but if RTAS/OPAL
+-	 *        regions are exported to save their context at the time of
+-	 *        crash, they should actually be backed up just like the
+-	 *        first 64K bytes of memory.
+-	 */
+-	ret = add_rtas_mem_range(mem_ranges);
+-	if (ret)
+-		goto out;
+-
+-	ret = add_opal_mem_range(mem_ranges);
+-	if (ret)
+-		goto out;
+-
+-	/* create a separate program header for the backup region */
+-	ret = add_mem_range(mem_ranges, BACKUP_SRC_START, BACKUP_SRC_SIZE);
+-	if (ret)
+-		goto out;
+-
+-	sort_memory_ranges(*mem_ranges, false);
+-out:
+-	if (ret)
+-		pr_err("Failed to setup crash memory ranges\n");
+-	return ret;
+-}
+-
+ /**
+  * get_reserved_memory_ranges - Get reserve memory ranges. This list includes
+  *                              memory regions that should be added to the
+@@ -434,6 +321,120 @@ static int locate_mem_hole_bottom_up_ppc64(struct kexec_buf *kbuf,
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_CRASH_DUMP
 +/**
-+ * mem_cgroup_calculate_protection_path - compute protection along a path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
++ * get_usable_memory_ranges - Get usable memory ranges. This list includes
++ *                            regions like crashkernel, opal/rtas & tce-table,
++ *                            that kdump kernel could use.
++ * @mem_ranges:               Range list to add the memory ranges to.
 + *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
++ * Returns 0 on success, negative errno on error.
 + */
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg)
++static int get_usable_memory_ranges(struct crash_mem **mem_ranges)
 +{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
++	int ret;
 +
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						     &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+							  &cur->memory,
-+							  recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+#endif /* CONFIG_LRU_GEN */
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
- {
---- a/mm/vmscan.c~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/mm/vmscan.c
-@@ -5245,7 +5245,13 @@ static int shrink_one(struct lruvec *lru
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
 +	/*
-+	 * For kswapd, mem_cgroup_calculate_protection() has already
-+	 * been called during the top-down cgroup traversal.
++	 * Early boot failure observed on guests when low memory (first memory
++	 * block?) is not added to usable memory. So, add [0, crashk_res.end]
++	 * instead of [crashk_res.start, crashk_res.end] to workaround it.
++	 * Also, crashed kernel's memory must be added to reserve map to
++	 * avoid kdump kernel from using it.
 +	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_calculate_protection_path(NULL, memcg);
++	ret = add_mem_range(mem_ranges, 0, crashk_res.end + 1);
++	if (ret)
++		goto out;
 +
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
++	ret = add_rtas_mem_range(mem_ranges);
++	if (ret)
++		goto out;
++
++	ret = add_opal_mem_range(mem_ranges);
++	if (ret)
++		goto out;
++
++	ret = add_tce_mem_ranges(mem_ranges);
++out:
++	if (ret)
++		pr_err("Failed to setup usable memory ranges\n");
++	return ret;
++}
++
++/**
++ * get_crash_memory_ranges - Get crash memory ranges. This list includes
++ *                           first/crashing kernel's memory regions that
++ *                           would be exported via an elfcore.
++ * @mem_ranges:              Range list to add the memory ranges to.
++ *
++ * Returns 0 on success, negative errno on error.
++ */
++static int get_crash_memory_ranges(struct crash_mem **mem_ranges)
++{
++	phys_addr_t base, end;
++	struct crash_mem *tmem;
++	u64 i;
++	int ret;
++
++	for_each_mem_range(i, &base, &end) {
++		u64 size = end - base;
++
++		/* Skip backup memory region, which needs a separate entry */
++		if (base == BACKUP_SRC_START) {
++			if (size > BACKUP_SRC_SIZE) {
++				base = BACKUP_SRC_END + 1;
++				size -= BACKUP_SRC_SIZE;
++			} else
++				continue;
++		}
++
++		ret = add_mem_range(mem_ranges, base, size);
++		if (ret)
++			goto out;
++
++		/* Try merging adjacent ranges before reallocation attempt */
++		if ((*mem_ranges)->nr_ranges == (*mem_ranges)->max_nr_ranges)
++			sort_memory_ranges(*mem_ranges, true);
++	}
++
++	/* Reallocate memory ranges if there is no space to split ranges */
++	tmem = *mem_ranges;
++	if (tmem && (tmem->nr_ranges == tmem->max_nr_ranges)) {
++		tmem = realloc_mem_ranges(mem_ranges);
++		if (!tmem)
++			goto out;
++	}
++
++	/* Exclude crashkernel region */
++	ret = crash_exclude_mem_range(tmem, crashk_res.start, crashk_res.end);
++	if (ret)
++		goto out;
++
++	/*
++	 * FIXME: For now, stay in parity with kexec-tools but if RTAS/OPAL
++	 *        regions are exported to save their context at the time of
++	 *        crash, they should actually be backed up just like the
++	 *        first 64K bytes of memory.
++	 */
++	ret = add_rtas_mem_range(mem_ranges);
++	if (ret)
++		goto out;
++
++	ret = add_opal_mem_range(mem_ranges);
++	if (ret)
++		goto out;
++
++	/* create a separate program header for the backup region */
++	ret = add_mem_range(mem_ranges, BACKUP_SRC_START, BACKUP_SRC_SIZE);
++	if (ret)
++		goto out;
++
++	sort_memory_ranges(*mem_ranges, false);
++out:
++	if (ret)
++		pr_err("Failed to setup crash memory ranges\n");
++	return ret;
++}
++
+ /**
+  * check_realloc_usable_mem - Reallocate buffer if it can't accommodate entries
+  * @um_info:                  Usable memory buffer and ranges info.
+@@ -863,6 +864,7 @@ int load_crashdump_segments_ppc64(struct kimage *image,
  
-_
-
-Patches currently in -mm which might be from chenridong@xiaomi.com are
-
-mm-vmscan-drop-the-combined-limit-gate-in-__node_reclaim.patch
-mm-mglru-preserve-inactive-placement-when-enabling-mglru.patch
-mm-mglru-make-type-fallback-logic-explicit-in-isolate_folios.patch
-memcg-acquire-peaks_lock-when-reading-memorypeak.patch
-mm-memcg-fix-memorypeak-reset-clobbering-other-fds-watermark.patch
-mm-page_counter-avoid-integer-overflow-in-effective_protection.patch
-mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch
+ 	return 0;
+ }
++#endif
+ 
+ /**
+  * setup_purgatory_ppc64 - initialize PPC64 specific purgatory's global
+@@ -977,26 +979,14 @@ static unsigned int cpu_node_size(void)
+ 	return size;
+ }
+ 
+-/**
+- * kexec_extra_fdt_size_ppc64 - Return the estimated additional size needed to
+- *                              setup FDT for kexec/kdump kernel.
+- * @image:                      kexec image being loaded.
+- *
+- * Returns the estimated extra size needed for kexec/kdump kernel FDT.
+- */
+-unsigned int kexec_extra_fdt_size_ppc64(struct kimage *image)
++static unsigned int kdump_extra_fdt_size_ppc64(struct kimage *image)
+ {
+ 	unsigned int cpu_nodes, extra_size = 0;
+ 	struct device_node *dn;
+ 	u64 usm_entries;
+ 
+-	// Budget some space for the password blob. There's already extra space
+-	// for the key name
+-	if (plpks_is_available())
+-		extra_size += (unsigned int)plpks_get_passwordlen();
+-
+-	if (image->type != KEXEC_TYPE_CRASH)
+-		return extra_size;
++	if (!IS_ENABLED(CONFIG_CRASH_DUMP) || image->type != KEXEC_TYPE_CRASH)
++		return 0;
+ 
+ 	/*
+ 	 * For kdump kernel, account for linux,usable-memory and
+@@ -1024,6 +1014,25 @@ unsigned int kexec_extra_fdt_size_ppc64(struct kimage *image)
+ 	return extra_size;
+ }
+ 
++/**
++ * kexec_extra_fdt_size_ppc64 - Return the estimated additional size needed to
++ *                              setup FDT for kexec/kdump kernel.
++ * @image:                      kexec image being loaded.
++ *
++ * Returns the estimated extra size needed for kexec/kdump kernel FDT.
++ */
++unsigned int kexec_extra_fdt_size_ppc64(struct kimage *image)
++{
++	unsigned int extra_size = 0;
++
++	// Budget some space for the password blob. There's already extra space
++	// for the key name
++	if (plpks_is_available())
++		extra_size += (unsigned int)plpks_get_passwordlen();
++
++	return extra_size + kdump_extra_fdt_size_ppc64(image);
++}
++
+ /**
+  * add_node_props - Reads node properties from device node structure and add
+  *                  them to fdt.
+@@ -1172,6 +1181,7 @@ int setup_new_fdt_ppc64(const struct kimage *image, void *fdt,
+ 	struct crash_mem *umem = NULL, *rmem = NULL;
+ 	int i, nr_ranges, ret;
+ 
++#ifdef CONFIG_CRASH_DUMP
+ 	/*
+ 	 * Restrict memory usage for kdump kernel by setting up
+ 	 * usable memory ranges and memory reserve map.
+@@ -1208,6 +1218,7 @@ int setup_new_fdt_ppc64(const struct kimage *image, void *fdt,
+ 			goto out;
+ 		}
+ 	}
++#endif
+ 
+ 	/* Update cpus nodes information to account hotplug CPUs. */
+ 	ret =  update_cpus_node(fdt);
+@@ -1279,7 +1290,7 @@ int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
+ 	buf_min = kbuf->buf_min;
+ 	buf_max = kbuf->buf_max;
+ 	/* Segments for kdump kernel should be within crashkernel region */
+-	if (kbuf->image->type == KEXEC_TYPE_CRASH) {
++	if (IS_ENABLED(CONFIG_CRASH_DUMP) && kbuf->image->type == KEXEC_TYPE_CRASH) {
+ 		buf_min = (buf_min < crashk_res.start ?
+ 			   crashk_res.start : buf_min);
+ 		buf_max = (buf_max > crashk_res.end ?
+-- 
+2.53.0
 
