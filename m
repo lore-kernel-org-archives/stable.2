@@ -1,133 +1,123 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA758367F31
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E664D217648
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138769; cv=none; b=iL2NoVr4NLx/6J5uaWRNBLmGiONHuCc26EPTZjGpgAHTHsgNwmRHKkjbqfE7NrXbT4bxtGEbHGMOlEUIqzjxsqKxq33D5/rOHy0T++JUcuUrxjNWjVwxq3njUFS2Znj5Eoyin1mXoceuHft7nsYNnbybDPlvtMm0PsIM8KPZ3Rk=
+	t=1789138940; cv=none; b=AulSrQpHdIoKUtBKzBw+XhgFul8zYfzXVcg8id0MODZzqKFcbZ0g5q9E7MCt3rzyu2k7QeV+4+toLHG6FlTbzJxVkiDuPAdyhLLR+mftjKryzZiEOKBiOu1Iqqt9aeVArCl+Eo8ZJxh+a/HkJP7AfHcEdovvOGuDhBg017yZCIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138769; c=relaxed/simple;
-	bh=y5PDDgbvI8JDIV5c+ixgp0TvLVEig2hfmyI4vNZJveg=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=nsCvsN1Bl7Q9QToztBstlz+VO7CCvMI4YxZ3btQZPEfVX7gQamAhXgEiolxoOcFPNsMr05KlZs6GFQHxFCweottz5i0hK3n8qwqT6S2rxiK9nyEss1ho+GtbjQb9YPO8oY40eVpuuyfKR6s6LulP/pHxFVB7raZchWAWq0RNwkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=RAbLGKxl; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1789138940; c=relaxed/simple;
+	bh=Y+F38SJHQMgoAF/mtnzGhLwiRkI9IMKwZYxrJWMMD/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GJePS+gE+gaVtfw1ugXYizV97BY4eZYsYfrYduzvqWGX5p2138wFKqMzECK/jNaG5naGZ7MSL1T6VejUPbSb03/BcUXMtye5Ing65yU6UhlBTgpt7IWg0MgFLmAZYmRbQDc8zto2sKBlaGj08AfxUwFp876R5CYZWe7N0nbzq7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vt5/6gGD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="RAbLGKxl"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso992989a91.3
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:59:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789138762; x=1789743562; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=a3BJnV+GuBB/QWN6Xmzk+Ui/xHnWjwZDHhPx+6hkD2g=;
-        b=RAbLGKxlXkIcucvfCPeJ8FfOo+PX0hxQsSvpg6MfTnUWFPLyiBvl9agmF7viD8cuox
-         4ss85V/HyOCSrfSNaiuVLtefL5AxYajn9BcpNT/A/eBjmNrHbgfzlYmkPmCDEiP5qBou
-         uLQeS6PIuc+ZFJagO/YVGG3MKt0gUrLTToTKEuB/JgFsmEX2bh9xiGyys85qOctDrTVF
-         wZMSWmgUEzyr3BzI1zk9wsggmNNP+jbAGIKfAcOq+/zhunNmD7aeMBENfnn7UDqDZwGv
-         8bnRskpjm+4kho8xwIOVNqyketTpUWQ8r/xTWJyIJNDrUFyMg/BflfzF+eeMcG8/f73O
-         gMeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789138762; x=1789743562;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a3BJnV+GuBB/QWN6Xmzk+Ui/xHnWjwZDHhPx+6hkD2g=;
-        b=tIIRH+NGSqNDOUgmFVXWWdg796eAJ5k6GL9NPkuiZ841RaX4sGEeGoI7pZ3/6UhETx
-         LMNmrX0bkYJyWlg59lUKhShttnE6cnvH0UqWOLQuMFqTC3TcB5m2qNixfguolXKUzDjf
-         R1Baa/phkvn1DCFlfvDZXYne+lA98ZVZeS1wCIUredi2Evx8S3yP5S/kj7AlRbGci3ND
-         TwMZsXdAch4bVSxEXr2VkftAKg+lxq62cJaNkFT+TNE9N1JifsmRokz4QASVrV3uY5E4
-         6yn2h0wxLWTCaaNqC93bRxK8pn65f5kHxbczw6sSEi0O7ho7Kzm/SB9mT2SB+jEsSy44
-         /Z1A==
-X-Gm-Message-State: AFuF++mdLsrncKG2wCC9oPDONESC5qgqjx9VxKHjLGp5QtAD21uErjkm
-	EI4a1OJeuzE7YuX//FRh/CJQx82VWrGGxNYhq0hwu4J/uz/wq+Q+y3up+C8eJCEjVsJXt6d/3C6
-	LSGQY
-X-Gm-Gg: AYBFou0kxtTnXXUBWgFU8KbWs7eiQO6S80bJtRjQhWLcZMKCKmGFVpLdak3/zoM2UGe
-	zEvP2gNOagPOd+auMJpdTcZCb1gU81MvbpORa5CHqF22DObDLQ2P9jwjE+sysF0doClRuCF3M6F
-	Lbhf+r6zO4cTbob04vmLdBK37dwy7Z1NAYzvoK8eg9LcwES3Tj9E2wZHz9B+4q4phMFVskgxf8R
-	UbSsMSGArv8a21ApdXLX91q2lBZ4zutBbG5lGQzlOtyVAq1OTZv6TmoDcZVKZ14oR8fffPfyfPs
-	pgruFh2pgW2r5HWnFGhyzb0zrDntS4J6a/WWU+qNdg1zp5xO71kZtAT590Bw5MGPChElxDt2Kwl
-	EyiohyzYt4elFppz6g1PfDzPRjywYnkHyK8qkyPMS1CXMnFdEFi7vPxCBtnA2/vQ+4PtnKutP5b
-	eaMKGHerybylkiUTNBwopiadqp5Kacf3iwt7KLPDTwcu8iZGAGIbjKE/GMZEYFdkCw8iYR7fINq
-	g==
-X-Received: by 2002:a17:90b:4a8b:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39d9bbc81cfmr7254073a91.2.1789138762230;
-        Fri, 11 Sep 2026 07:59:22 -0700 (PDT)
-Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b97994sm13326360c88.12.2026.09.11.07.59.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:59:21 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vt5/6gGD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46301F00898;
+	Fri, 11 Sep 2026 15:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789138938;
+	bh=mJaXH4aYXx2zI+ttid98hh8W39+lGgaMxe1Ecabumjg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Vt5/6gGDMZlkvarXYCvjf5eKdPxMkFhe/pCgfcePwDULMMPx03hkw+JZi1jmyvork
+	 Z2D8Mq1aHbZyUxyRa/gtIElHymfb06r/VZqjCO8DTZcQPbUZblOlCLwbHBtDhxMx1Y
+	 uGxD5m7YcfjBNQGzpEm5vX6S8YKtUPkEqwu1tS1ZDU1zXuJa/9FiKqWwXHdTZRvOae
+	 Cr4wGi1FTH8vb2jDL12KoHH4z+a5Ly4TGzitIZZp6leGJWqWNlfkhFSvg++wYCuna8
+	 O7cxXLghBhZaExJQ36qPZ9NtTcXgWL7MlcjGnfnidlYn8abDEprsWAtdys1wuRB0qO
+	 TIqIhGPvRFv3A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Sashiko <sashiko-dev@google.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc() error path
+Date: Fri, 11 Sep 2026 11:02:16 -0400
+Message-ID: <20260911150216.1017754-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090958-riding-tannery-42e5@gregkh>
+References: <2026090958-riding-tannery-42e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.1.y: (build)Error in fs/ext4/bitmap
- (arm-linux-gnueabihf-ld) [logspec:kbuild,kb...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+From: Nilesh Javali <njavali@marvell.com>
+
+[ Upstream commit 6d90f0feb929f6c0f3010f9af4747c7230b75993 ]
+
+When qla2x00_mem_alloc() fails, qla2x00_probe_one() jumps to
+probe_hw_failed and calls qla2x00_mem_free(). Several error labels in
+qla2x00_mem_alloc() freed adapter members (elsrej.c, purex_dma_pool,
+flt, sfp_data, loop_id_map, async_pd, sf_init_cb, ex_init_cb, npiv_info)
+but left the pointers dangling. qla2x00_mem_free() then freed them a
+second time. Worse, for the dma_pool members it issued
+dma_pool_free(ha->s_dma_pool, ...) after s_dma_pool had already been
+destroyed and set to NULL at fail_s_dma_pool, dereferencing a NULL pool.
+
+Clear each freed pointer (and its DMA handle) in the error labels so the
+subsequent qla2x00_mem_free() skips them.
+
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Fri, 11 Sep 2026 14:59:21 -0000
-Message-ID: <178913876125.4387.4550791845141337702@kernelci.org>
-
-New build issue found on stable-rc/linux-6.1.y:
-
+Reported-by: Sashiko <sashiko-dev@google.com>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Link: https://patch.msgid.link/20260730155838.2119230-13-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ adjusted cleanup context for the missing fail_flt_data block. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Error in fs/ext4/bitmap (arm-linux-gnueabihf-ld) [logspec:kbuild,kbuild.compiler.linker_error]
----
+ drivers/scsi/qla2xxx/qla_os.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Log excerpt:
-=====================================================
-arm-linux-gnueabihf-ld: fs/ext4/bitmap.o: in function `ext4_chksum':
-/tmp/kci/linux/fs/ext4/ext4.h:2466:(.text+0x48): undefined reference to `crc32c'
-arm-linux-gnueabihf-ld: /tmp/kci/linux/fs/ext4/ext4.h:2466:(.text+0x98): undefined reference to `crc32c'
-arm-linux-gnueabihf-ld: /tmp/kci/linux/fs/ext4/ext4.h:2466:(.text+0xec): undefined reference to `crc32c'
-arm-linux-gnueabihf-ld: /tmp/kci/linux/fs/ext4/ext4.h:2466:(.text+0x140): undefined reference to `crc32c'
-arm-linux-gnueabihf-ld: fs/ext4/extents.o: in function `ext4_chksum':
-/tmp/kci/linux/fs/ext4/ext4.h:2466:(.text+0x258): undefined reference to `crc32c'
-arm-linux-gnueabihf-ld: fs/ext4/extents.o:/tmp/kci/linux/fs/ext4/ext4.h:2466: more undefined references to `crc32c' follow
+diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
+index 01bf507470b12..3e148e4e94593 100644
+--- a/drivers/scsi/qla2xxx/qla_os.c
++++ b/drivers/scsi/qla2xxx/qla_os.c
+@@ -4486,25 +4486,40 @@ qla2x00_mem_alloc(struct qla_hw_data *ha, uint16_t req_len, uint16_t rsp_len,
+ fail_lsrjt:
+ 	dma_free_coherent(&ha->pdev->dev, ha->elsrej.size,
+ 			  ha->elsrej.c, ha->elsrej.cdma);
++	ha->elsrej.c = NULL;
++	ha->elsrej.cdma = 0;
+ fail_elsrej:
+ 	dma_pool_destroy(ha->purex_dma_pool);
++	ha->purex_dma_pool = NULL;
+ fail_flt:
+ 	dma_free_coherent(&ha->pdev->dev, sizeof(struct qla_flt_header) + FLT_REGIONS_SIZE,
+ 	    ha->flt, ha->flt_dma);
++	ha->flt = NULL;
++	ha->flt_dma = 0;
+ 
+ fail_flt_buffer:
+ 	dma_free_coherent(&ha->pdev->dev, SFP_DEV_SIZE,
+ 	    ha->sfp_data, ha->sfp_data_dma);
++	ha->sfp_data = NULL;
++	ha->sfp_data_dma = 0;
+ fail_sfp_data:
+ 	kfree(ha->loop_id_map);
++	ha->loop_id_map = NULL;
+ fail_loop_id_map:
+ 	dma_pool_free(ha->s_dma_pool, ha->async_pd, ha->async_pd_dma);
++	ha->async_pd = NULL;
++	ha->async_pd_dma = 0;
+ fail_async_pd:
+ 	dma_pool_free(ha->s_dma_pool, ha->sf_init_cb, ha->sf_init_cb_dma);
++	ha->sf_init_cb = NULL;
++	ha->sf_init_cb_dma = 0;
+ fail_sf_init_cb:
+ 	dma_pool_free(ha->s_dma_pool, ha->ex_init_cb, ha->ex_init_cb_dma);
++	ha->ex_init_cb = NULL;
++	ha->ex_init_cb_dma = 0;
+ fail_ex_init_cb:
+ 	kfree(ha->npiv_info);
++	ha->npiv_info = NULL;
+ fail_npiv_info:
+ 	dma_free_coherent(&ha->pdev->dev, ((*rsp)->length + 1) *
+ 		sizeof(response_t), (*rsp)->ring, (*rsp)->dma);
+-- 
+2.53.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:f4bc30d8e5f6b517dfd5386d8b9a25bade392079
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  9f5e4631f281f1f3c92f33dcb2dc004f416196a0
-
-# Builds where the incident occurred:
-
-## defconfig+arm64-chromebook+kcidebug+kcidebug-arm64+lab-setup on (arm64):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40c5320239ade90229f8e
-
-## defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y on (arm64):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arm64-chromebook-6aa40bef20239ade90229d8e/.config
-- dashboard: https://d.kernelci.org/build/maestro:6aa40bef20239ade90229d8e
-
-## vexpress_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40b8b20239ade902299a9
-
-#kernelci issue maestro:f4bc30d8e5f6b517dfd5386d8b9a25bade392079
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
