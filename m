@@ -1,145 +1,431 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7923746AA73;
-	Fri, 11 Sep 2026 09:06:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D946DFFC;
+	Fri, 11 Sep 2026 09:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117582; cv=none; b=TucBq0KHfQIsrxrXWTIpxKH2TruLygOqxwN3Cjlz8ensrU7sxJKdUPCqZfpw4u+WrukysVXsuH3nsIrlk0xl2mjmkZaiXwnue0o/LZSu1MHrfw6nXiAbS2+col9BP6PfvEJGRnr8HUWczqiKcnTL2MgnLjn0HkMQ+k8wJCKHaQA=
+	t=1789117757; cv=none; b=jkO9ZI7bTnmoUacqwbWSr/QQ+m8bydZ06HMixrDCrQ16NRX8NxziO4r2y4NoMMMqYs622O3CFapTbuUqAi4Gl9kynzMX8SrhUDcMjihDQ50rUf8xSmHf4N7uh2QE5uHFJSgSuRv0RqsKDnyBh5hluBJDKHbuew6lO8Mr229x1n4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117582; c=relaxed/simple;
-	bh=lhga+Weuy8JTzpn00mh5e2wdFlQK7ezFMNk65Apg3sI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bPMA8VkdsMIdwUDz+yxoOTdlsFYXRXZoc/wxnoe2/aQNgJ2ah92RW70ZaGYhX0MYhq90KCBnsTevpXIMmPDV4J+csikkEcU2hEaQ+PEa/Rhtuwi/5HBTAl64KgDESeFq+U6xV9rQKJezroh1GKyNjmMpP2FPfhznDfjgidgNpK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fChbx+Es; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789117757; c=relaxed/simple;
+	bh=w6RUSB76nykMjKbkL/sWNkYsji+k8Z/x9jJRNN/F3jA=;
+	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=CRYjZwIA32iSMHFgkZ2zNw/9C4sxlEkeevx/wL3sEqGLwrY8qxdpvp3aOb/TTBAth6FWiIwVo9BjrDd/IpyUaAFI38QLt1fp+YrHvPTjD0hLYohy+kMwxHPOUj3+uJvTtKMCGJdoAO3a48mGeG84KmeMzUxiVZGxvk6WdzEy89U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUFTANAL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fChbx+Es"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3C91F000FF;
-	Fri, 11 Sep 2026 09:06:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUFTANAL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B7E1F000FF;
+	Fri, 11 Sep 2026 09:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789117580;
-	bh=kinXsJ+URPBbp7XR5+VZT6QQgES4hyVW0D7lJiMNVIw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fChbx+Es/EQZDBom8HzjAqsQnYXng0pabKZrsb/D5uYF7GcXcIeD4eU82dmB6Wz+X
-	 mXHBGsdf+QkGZsbq0U2ImzhHnC6TSWPXphgUbkQ/q7afFTPv6l/vjj4Jt5TtgtYnXj
-	 /slvW7cBwDjlfYZaNACWS5OLojYa/6YL5iNL/u8kba9QW057726051wqkJNRXxki5h
-	 ea51WIogrD4y+80+gOgHEf1Kz+U2gDdYzZzD9d3yk5SyoAxTHSecbXLhsCJqn0m8JL
-	 rfzdjo1lspS4bd0m0w+PLaScCB6Q0FsoWMsQFK+SYtKg+E+L4MX2IEQRqmXCyIsntM
-	 RsL33XvkMibVg==
-Message-ID: <5cd0cb7c-f540-4369-a55e-8eaaa400e289@kernel.org>
-Date: Fri, 11 Sep 2026 11:06:16 +0200
+	s=k20260515; t=1789117755;
+	bh=nSak4ZCMCP0xH0tD1B3rAyqTo40368fZ0vqrVSYAYe0=;
+	h=Date:From:To:Cc:Subject:References;
+	b=JUFTANAL3R4z2/kUH7Ic9nZfTYA8AK+wVsekMAAyJafmPa8PC22O4LhnJ8NdZmca+
+	 Eh5GlZaXzyFv2huqOIzCVmpUXA2so1T2lcpGzTNhHQZZkXMxKikhyClKCFZtJF7xFc
+	 ip31X4HEq01meWdH+tZJFycohoL+YJTC+qW8p5o1ylhrhmVyFW3fU0ECBhNvbfusQ+
+	 v05JS9UzkHVd2hk611Et6KmC5v4G/ZZaRHlZYt5HujaHvoqvdHGSE/Mh6R5Ge1ednv
+	 kq6/NSqLuiOSz0kGMqJ4G6iHufT4Ak05uKsvqQryqWuIDyRXReuida+KatgLIVJLer
+	 lqDWAqw/OGBLg==
+Date: Fri, 11 Sep 2026 11:09:12 +0200
+Message-ID: <20260911090541.572536604@kernel.org>
+User-Agent: quilt/0.69
+From: Thomas Gleixner <tglx@kernel.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ "Eric W. Biederman" <ebiederm@xmission.com>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ stable@vger.kernel.org
+Subject: [patch V3 1/8] signal: Prevent exec() race
+References: <20260911090341.949101445@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tty: amiserial: fix broken TIOCMIWAIT
-To: Johan Hovold <johan@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- sashiko-bot@kernel.org, stable@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
-References: <20260911090132.723531-1-johan@kernel.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260911090132.723531-1-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-On 11. 09. 26, 11:01, Johan Hovold wrote:
-> A change replacing interruptible_sleep_on() inadvertently broke the
-> TIOCMIWAIT implementation which now immediately returns -EIO (unless
-> there is a racing modem status update).
-> 
-> Replace the old hangup (and signal) detection with a check for the
-> TTY_IO_ERROR flag which is set on hangup.
+From: Thomas Gleixner <tglx@kernel.org>
 
-You seem you opened a can of worms.
+Hyunwoo debugged the following KASAN UAF splat:
 
-Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
+  BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
+  Write of size 8 at addr ffff888007ed80c8 by task poc/79
+  ...
+  Call Trace:
+   __send_signal_locked+0xb27/0xba0
+   do_send_sig_info+0xa7/0x160
+   do_send_specific+0x76/0xa0
+   __x64_sys_tgkill+0x193/0x270
+  ...
+  Allocated by task 80:
+   do_timer_create+0x1a4/0x1030
+   __x64_sys_timer_create+0x145/0x190
+  ...
+  Freed by task 12:
+   kmem_cache_free_bulk+0x1f8/0x4a0
+   kvfree_rcu_bulk+0x14f/0x1c0
+   kfree_rcu_work+0x128/0x1a0
+  ...
+  Last potentially related work creation:
+   kvfree_call_rcu+0x39/0x390
+   __flush_itimer_signals+0x211/0x320
+   flush_itimer_signals+0x47/0x90
+   begin_new_exec+0xa6b/0x28c0
 
-> Fixes: 591cee0a3563 ("tty/amiserial: avoid interruptible_sleep_on")
-> Reported-by: sashiko-bot@kernel.org
-> Link: https://lore.kernel.org/20260910132029.D80801F00898@smtp.kernel.org
-> Cc: stable@vger.kernel.org	# 3.14
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->   drivers/tty/amiserial.c | 9 ++++-----
->   1 file changed, 4 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/tty/amiserial.c b/drivers/tty/amiserial.c
-> index 28af0fd98181..60f6060b893d 100644
-> --- a/drivers/tty/amiserial.c
-> +++ b/drivers/tty/amiserial.c
-> @@ -1138,11 +1138,6 @@ static int rs_ioctl(struct tty_struct *tty,
->   				local_irq_save(flags);
->   				cnow = info->icount; /* atomic copy */
->   				local_irq_restore(flags);
-> -				if (cnow.rng == cprev.rng && cnow.dsr == cprev.dsr &&
-> -				    cnow.dcd == cprev.dcd && cnow.cts == cprev.cts) {
-> -					ret = -EIO; /* no change => error */
-> -					break;
-> -				}
->   				if ( ((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
->   				     ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
->   				     ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
-> @@ -1150,6 +1145,10 @@ static int rs_ioctl(struct tty_struct *tty,
->   					ret = 0;
->   					break;
->   				}
-> +				if (tty_io_error(tty)) {
-> +					ret = -EIO;
-> +					break;
-> +				}
->   				schedule();
->   				/* see if a signal did it */
->   				if (signal_pending(current)) {
+It turned out that this happens with a non-leader exec() as Hyunwoo
+explained:
 
+de_thread() calls exchange_tids() before release_task(leader), so the
+struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
+now points to the thread which called execve(). pid_task() returns that
+thread and lock_task_sighand() on it succeeds.
 
--- 
-js
-suse labs
+If the timer signal is blocked, its sigqueue stays queued on the leader's
+task::pending. The next expiry of that timer can then run while
+release_task() flushes the queue.
+
+posixtimer_send_sigqueue() checks whether the sigqueue is already queued
+with a plain list_empty(), which only reads list_head::next.
+list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
+before list_head::prev, so the check can pass in between. list_add_tail()
+queues the entry on the task::pending of the live thread, and the
+list_head::prev store from the flush then overwrites the list_head::prev
+link that list_add_tail() has just set.
+
+__flush_itimer_signals() does not undo that either. With list_head::prev
+pointing at the entry itself, its list_del_init() only stores the same
+values again, so the entry is not removed from the list. It is still there
+after the last reference is dropped and the timer is freed by RCU, and the
+list_add_tail() of a later tgkill() follows that list_head::prev into the
+freed timer.
+
+This problem surfaced with the recent commit which moved the sigqueue flush
+out of the sighand lock held region.
+
+Hyonwoo proposed to fix this by using list_del_init_careful(), but that
+just papers over the problem. After some disucssions and various attempts
+to solve it, Eric pointed out that there is no reason to flush
+task::pending late in release_task() and it should be done in
+exit_signals() already.
+
+As nothing can collect and deliver signals which are queued in a dying
+task's pending queue, there is no reason to delay it further.
+
+But it has to be ensured that no signals can be queued into it after that
+point. exit_signals() sets PF_EXITING in task::flags, which can be used as
+an indicator for this.
+
+Cure it by:
+
+  - Preventing signal queueing for task private signals (PIDTYPE_PID) when
+    the task has PF_EXITING set in __send_signal_locked() and in
+    posixtimer_send_sigqueue().
+
+  - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
+    task group empty and the group exit case with sighand lock
+
+  - Flushing task::pending signals right there.
+
+    Optimize that by moving the whole pending list to an on-stack list head
+    under sighand lock and free the signals without the lock held.
+
+There has been quite some discussion about the lockless flush and the
+non-leader exec case on weakly ordered systems. The problem is that a third
+party which tries to send a posix timer signal relies on the PID lookup to
+find the target task and that lookup might result in the new leader when
+the signal was originaly directed to the old leader. In case that the
+signal was queued on the old leader then the lockless flush raised a
+concern over the following situation:
+
+   old_leader		new_leader              third party
+
+A: flush_list()	// list_del_init() stores to sigqueue
+
+   LOCK (tasklist)
+   old_leader->exit_state = EXIT_ZOMBIE;
+B: UNLOCK (tasklist)
+
+C:			LOCK (tasklist)
+			if (old_leader->exit_state)
+			   transfer_tids()
+D:			     store PID
+						posix_timer_send_sigqueue()
+						// Observes #D so t = new_leader
+E:						t = get_target()
+
+F:						LOCK (sighand)
+
+G:						   if (list_empty(sigqueue))
+							list_add(sigqueue)
+
+The concern was that the third party might observe #D but not observe #A
+and therefore would proceed to #G while the list_del() stores (#A) in
+flush_list() are not visible yet, which could result in list corruption.
+
+That would be possible if looking at it solely from a RELEASE+ACQUIRE
+ordering point of view, but B-C is a UNLOCK+LOCK hand-over, which is not
+the same as RELEASE+ACQUIRE:
+
+  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+
+As B-C is UNLOCK+LOCK, which is RCtso and that does impose store order,
+A stores must happen before the D store.
+
+Combine with E-F, which has a data dependency from the LOAD to the LOCK and
+thereby constraints later LOADs, those sigqueue loads in G that come after
+F must in fact observe the A stores.
+
+Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
+Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: stable@vger.kernel.org
+Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+---
+V5: Amend change log to document that the lockless flush is safe - Oleg, Frederic, Peter
+    Add comments to flush_sigqueue_list() when lockless is safe
+
+V4: Prevent requeuing of signals which are unignored - Oleg, Eric
+
+    Split out the decision into an inline which can be reused by the posix
+    CPU timer follow up changes.
+
+V3: Restructure code and fix the missing unlock - Oleg
+
+V2: Don't flush w/o sighand lock held - Oleg
+    Move the pending list under the lock and free it lockless
+---
+ kernel/exit.c   |   11 ++---
+ kernel/signal.c |  117 +++++++++++++++++++++++++++++++++++++++++---------------
+ 2 files changed, 92 insertions(+), 36 deletions(-)
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
+ 	free_pids(post.pids);
+ 	release_thread(p);
+ 	/*
+-	 * This task was already removed from the process/thread/pid lists
+-	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
+-	 * ->pending or, if group dead, signal->shared_pending. We can call
+-	 * flush_sigqueue() lockless.
++	 * This task was already removed from the process/thread/pid lists and
++	 * lock_task_sighand(p) can't succeed. If it's the group leader then
++	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
++	 * already in exit_signals(). Nothing else can touch
++	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
++	 * lockless.
+ 	 */
+-	flush_sigqueue(&p->pending);
+ 	if (thread_group_leader(p))
+ 		flush_sigqueue(&p->signal->shared_pending);
+ 
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -457,18 +457,42 @@ static void __sigqueue_free(struct sigqu
+ 	kmem_cache_free(sigqueue_cachep, q);
+ }
+ 
+-void flush_sigqueue(struct sigpending *queue)
++/*
++ * flush_sigqueue_list() can only be invoked without holding sighand::siglock in
++ * the following cases:
++ *
++ *  1) When flushing task::pending _after_ setting task::flags PF_EXITING
++ *
++ *     All functions which try to send a signal to @task will observe PF_EXITING
++ *     and drop the signal.
++ *
++ *  2) When flushing task::signal::shared_pending _after_ the last task in a
++ *     thread group was unhashed and task::sighand is NULL.
++ *
++ *     Nothing can queue a signal anymore because sighand is NULL.
++ */
++static void flush_sigqueue_list(struct list_head *head)
+ {
+-	struct sigqueue *q;
++	struct sigqueue *q, *tmp;
+ 
+-	sigemptyset(&queue->signal);
+-	while (!list_empty(&queue->list)) {
+-		q = list_entry(queue->list.next, struct sigqueue , list);
++	list_for_each_entry_safe(q, tmp, head, list) {
+ 		list_del_init(&q->list);
+ 		__sigqueue_free(q);
+ 	}
+ }
+ 
++void flush_sigqueue(struct sigpending *queue)
++{
++	sigemptyset(&queue->signal);
++	flush_sigqueue_list(&queue->list);
++}
++
++static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
++{
++	sigemptyset(&queue->signal);
++	list_splice_init(&queue->list, head);
++}
++
+ /*
+  * Flush all pending signals for this kthread.
+  */
+@@ -1019,6 +1043,21 @@ static inline bool legacy_queue(struct s
+ 	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+ }
+ 
++/*
++ * When PF_EXITING is set the task is on the way out and has t::pending
++ * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
++ * be leaked.
++ */
++static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
++{
++	lockdep_assert_held(&t->sighand->siglock);
++
++	if (!(t->flags & PF_EXITING))
++		return true;
++
++	return type != PIDTYPE_PID;
++}
++
+ static int __send_signal_locked(int sig, struct kernel_siginfo *info,
+ 				struct task_struct *t, enum pid_type type, bool force)
+ {
+@@ -1030,6 +1069,10 @@ static int __send_signal_locked(int sig,
+ 	lockdep_assert_held(&t->sighand->siglock);
+ 
+ 	result = TRACE_SIGNAL_IGNORED;
++
++	if (!task_can_queue_signal(t, type))
++		goto ret;
++
+ 	if (!prepare_signal(sig, t, force))
+ 		goto ret;
+ 
+@@ -1968,11 +2011,25 @@ static inline struct task_struct *posixt
+ 	struct task_struct *t = pid_task(tmr->it_pid, tmr->it_pid_type);
+ 
+ 	if (t && tmr->it_pid_type != PIDTYPE_PID &&
+-	    same_thread_group(t, current) && !current->exit_state)
++	    same_thread_group(t, current) && !(current->flags & PF_EXITING))
+ 		t = current;
+ 	return t;
+ }
+ 
++/*
++ * Find the target task for the POSIX timer signal and prevent that a
++ * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
++ */
++static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
++{
++	struct task_struct *t = posixtimer_get_target(tmr);
++
++	if (t && task_can_queue_signal(t, tmr->it_pid_type))
++		return t;
++
++	return NULL;
++}
++
+ void posixtimer_send_sigqueue(struct k_itimer *tmr)
+ {
+ 	struct sigqueue *q = &tmr->sigq;
+@@ -1990,6 +2047,9 @@ void posixtimer_send_sigqueue(struct k_i
+ 	if (!likely(lock_task_sighand(t, &flags)))
+ 		return;
+ 
++	if (!task_can_queue_signal(t, tmr->it_pid_type))
++		goto unlock;
++
+ 	/*
+ 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
+ 	 * locked to prevent a race against dequeue_signal().
+@@ -2081,6 +2141,7 @@ void posixtimer_send_sigqueue(struct k_i
+ 	result = TRACE_SIGNAL_DELIVERED;
+ out:
+ 	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
++unlock:
+ 	unlock_task_sighand(t, &flags);
+ }
+ 
+@@ -2136,7 +2197,7 @@ static void posixtimer_sig_unignore(stru
+ 		 * has exited by now, drop the reference count.
+ 		 */
+ 		guard(rcu)();
+-		target = posixtimer_get_target(tmr);
++		target = posixtimer_get_unignore_target(tmr);
+ 		if (target)
+ 			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
+ 		else
+@@ -3120,42 +3181,36 @@ static void retarget_shared_pending(stru
+ 
+ void exit_signals(struct task_struct *tsk)
+ {
++	LIST_HEAD(sigq_list);
+ 	int group_stop = 0;
+-	sigset_t unblocked;
+ 
+ 	/*
+ 	 * @tsk is about to have PF_EXITING set - lock out users which
+-	 * expect stable threadgroup.
++	 * expect a stable threadgroup.
+ 	 */
+ 	cgroup_threadgroup_change_begin(tsk);
+ 
+-	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
++	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
+ 		tsk->flags |= PF_EXITING;
+-		cgroup_threadgroup_change_end(tsk);
+-		return;
+-	}
+ 
+-	spin_lock_irq(&tsk->sighand->siglock);
+-	/*
+-	 * From now this task is not visible for group-wide signals,
+-	 * see wants_signal(), do_signal_stop().
+-	 */
+-	tsk->flags |= PF_EXITING;
++		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+ 
+-	cgroup_threadgroup_change_end(tsk);
++		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
++		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
++			sigset_t unblocked = tsk->blocked;
++
++			signotset(&unblocked);
++			retarget_shared_pending(tsk, &unblocked);
++
++			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
++			    task_participate_group_stop(tsk))
++				group_stop = CLD_STOPPED;
++		}
++	}
+ 
+-	if (!task_sigpending(tsk))
+-		goto out;
++	cgroup_threadgroup_change_end(tsk);
+ 
+-	unblocked = tsk->blocked;
+-	signotset(&unblocked);
+-	retarget_shared_pending(tsk, &unblocked);
+-
+-	if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
+-	    task_participate_group_stop(tsk))
+-		group_stop = CLD_STOPPED;
+-out:
+-	spin_unlock_irq(&tsk->sighand->siglock);
++	flush_sigqueue_list(&sigq_list);
+ 
+ 	/*
+ 	 * If group stop has completed, deliver the notification.  This
+
