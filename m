@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42853414406
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7258543CEF5
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123290; cv=none; b=pUyXSBMBKiEdSkHYQGpdT7XRiJYfjjQJXRA3Kq5nv4iPF5j5EF4j7c6aDsQHil9hA1pHLA+GO7GZTEzOjnoAOoiAux7NXfDuObgVuHuW2lfO+MdGPDX38RJswTZonmJ1jmndnZTPmEpaEEXOqR8RZMxSS5joQkooRFDB2V4h5Wk=
+	t=1789123290; cv=none; b=i6gKOLUsHZ0r43irwSpAwM/YN/qpkkPE/nWhdwc4hAornBc7Cf+Z1l61gw/Ozhzu8USO3hjV5fiV5MDrZDujazHjHzNZfsC5DIGM1W1KRQtFUX+cu4iy2A3X2FlEF3kLMdJ2Tjg0Dt5o0/H8QWQG1ZYMiRKucRHpa+UwbCIm07Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789123290; c=relaxed/simple;
-	bh=fNb32DBTJMkHIwiaRUwNbyarWPnt3kPm1TfJjxf3aYw=;
+	bh=0za5ZR+CKDq5+fLhBfbIqAGWJoGZ3Q7YS1LRIrc1Qqk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Go8JU3qsSE+HDHtO6blAxF9bukOl7mgiYtCL+Pemi9zthU245GxdzNYML+4DVkszODbqcUHXhQAUY5mAz/yveiVtSoIfVLGxGoMHJ3UWiNWyV0mOZlRrnH8MXmxCKJW+xxDxu6C7jMXvaT8VbI0V21tLwyL7WRNhaJTJ1uncoxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAtqEGMb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jlm5bfAicSLW6NHNGsjozWT0dFO3+kFpq05TFMbPD84VcSkrSN5VC67+LWTGYZA7XgL8unYFdVR5Sq2SEevfCmYl20Pn+KJeOYMlmFI+qqDmLxqI7ETox/k7P3/FF8e+1GhuDPcGZqXAmKD1vxbhNMklxVtzmpmx4EYVW/dkT0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtjqfdzT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAtqEGMb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822E81F00898;
-	Fri, 11 Sep 2026 10:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtjqfdzT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6609C1F0089A;
+	Fri, 11 Sep 2026 10:41:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123288;
-	bh=LBTwocCtB3n3xWzCFlO/DVU4AEnLyVR45HriFcQRqvs=;
+	s=k20260515; t=1789123289;
+	bh=MH8o8Qk/y00Z2oGLVH7Jfq+FRhKT3ny8S6c50xix4OE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mAtqEGMbFSOo0pfuCSEY4ZbbcBLMa+OwQlyoBwLbISNH8HBdNBRXwn2cnNPiXaBye
-	 FmC7MHQqrDQmHv6JyWgzxEpCAD++8+Y7qBuWkWWT0WFXxiRh3i+gvyzQU/i+Sg6+v2
-	 2jDS951/wJkWXyEvHTrgx2CbKr5+4DMhiB37JmlKZSGDju59tWNkdKQEkoLDHbjD8v
-	 OwH6nt0ruQbTX7kVLekFYexGCtBmnSlazn9/bAdwuPqWZw5o9IRMNzDDscvhxj/32B
-	 SyPIjAPrYs4WfWrr3NmgZoQjhpuvPU3LTE9epwPmoTxlnHf5yxAk0dSDKtBD59ADaE
-	 BwVqaMuqJI1ZQ==
+	b=JtjqfdzTfTK3CgzPJ0HAA8smZQKDZi2pSJnsFGr1bved4e3U0WyMj9IckQss+HEL1
+	 GCQTy4oBFt1iQOy9z4ZPrk7m1sBML3LOGvMXtuC9bx8+7HvSQOS8RqcIOXkxvzwoqw
+	 xT2WQ0+uboQY7KumFHybWzV8qTb+94MparcznbVqiksnUthtwhNaei/9Ae0Zp5mRZo
+	 gjynIL4k4ZzBZqPr/GJLKNJZ4CK06MBqxrq7QRhzd1Slj7o5lVgD+mYvUBaJd4Njf0
+	 LF5kaoaL3HstVbUbpyUuetyUaZYcG8PruIKxV7Go85f8Dl8nRG/G11J2FQHHwjGfW3
+	 c1okSXnxIf8zg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
 	Kai Huang <kai.huang@intel.com>,
+	Yosry Ahmed <yosry@kernel.org>,
 	Binbin Wu <binbin.wu@linux.intel.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/9] KVM: x86: Swap the include order between x86.h and mmu.h
-Date: Fri, 11 Sep 2026 06:41:17 -0400
-Message-ID: <20260911104123.189614-3-sashal@kernel.org>
+Subject: [PATCH 7.2.y 4/9] KVM: x86: Move eager_page_split to mmu.{c,h}
+Date: Fri, 11 Sep 2026 06:41:18 -0400
+Message-ID: <20260911104123.189614-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260911104123.189614-1-sashal@kernel.org>
 References: <2026090914-waviness-supermom-9b84@gregkh>
@@ -50,75 +51,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit febae924e83017834994054916dd612266aa1e5d ]
+[ Upstream commit cde542b6526639571a848e1d70f8ff6817e40e4e ]
 
-Invert the include ordering between x86.h and mmu.h, and move
-mmu_is_nested() to mmu.h where it belongs (mmu_is_nested()'s placement in
-x86.h was solely responsible for the existing ordering), so that x86.h is
-not included by most KVM internal headers (but includes them).
+Move KVM's eager_page_split module param to the MMU, as it is very much an
+MMU knob.
 
 No functional change intended.
 
 Reviewed-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Message-ID: <20260613000329.732085-8-seanjc@google.com>
+Message-ID: <20260613000329.732085-10-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: e62392bf39eb ("KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not supported")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu.h | 6 +++++-
- arch/x86/kvm/x86.h | 6 +-----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ arch/x86/kvm/mmu.h     | 1 +
+ arch/x86/kvm/mmu/mmu.c | 3 +++
+ arch/x86/kvm/x86.c     | 3 ---
+ arch/x86/kvm/x86.h     | 2 --
+ 4 files changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index e1bb663ebbd58..f9e137cc831fe 100644
+index f9e137cc831fe..fc28c4ce90ef7 100644
 --- a/arch/x86/kvm/mmu.h
 +++ b/arch/x86/kvm/mmu.h
-@@ -4,7 +4,6 @@
- 
- #include <linux/kvm_host.h>
- #include "regs.h"
--#include "x86.h"
+@@ -7,6 +7,7 @@
  #include "cpuid.h"
  
  extern bool __read_mostly enable_mmio_caching;
-@@ -300,6 +299,11 @@ static inline void kvm_update_page_stats(struct kvm *kvm, int level, int count)
- 	atomic64_add(count, &kvm->stat.pages[level - 1]);
- }
++extern bool eager_page_split;
  
-+static inline bool mmu_is_nested(struct kvm_vcpu *vcpu)
-+{
-+	return vcpu->arch.mmu == &vcpu->arch.guest_mmu;
-+}
+ #define PT_WRITABLE_SHIFT 1
+ #define PT_USER_SHIFT 2
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index a61750f8e1e37..d479fe7d423d2 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -115,6 +115,9 @@ module_param_named(tdp_mmu, tdp_mmu_enabled, bool, 0444);
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(tdp_mmu_enabled);
+ #endif
+ 
++bool __read_mostly eager_page_split = true;
++module_param(eager_page_split, bool, 0644);
 +
- static inline gpa_t kvm_translate_gpa(struct kvm_vcpu *vcpu,
- 				      struct kvm_mmu *mmu,
- 				      gpa_t gpa, u64 access,
+ static int max_huge_page_level __read_mostly;
+ static int tdp_root_level __read_mostly;
+ static int max_tdp_level __read_mostly;
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 55d064c89c148..ba61dc1b082ee 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -183,9 +183,6 @@ module_param(force_emulation_prefix, int, 0644);
+ int __read_mostly pi_inject_timer = -1;
+ module_param(pi_inject_timer, bint, 0644);
+ 
+-bool __read_mostly eager_page_split = true;
+-module_param(eager_page_split, bool, 0644);
+-
+ /* Enable/disable SMT_RSB bug mitigation */
+ static bool __read_mostly mitigate_smt_rsb;
+ module_param(mitigate_smt_rsb, bool, 0444);
 diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 138d2cfe5ead8..e5ece3eeb4f16 100644
+index e5ece3eeb4f16..b7e0f554f804f 100644
 --- a/arch/x86/kvm/x86.h
 +++ b/arch/x86/kvm/x86.h
-@@ -6,6 +6,7 @@
- #include <asm/fpu/xstate.h>
- #include <asm/mce.h>
- #include <asm/pvclock.h>
-+#include "mmu.h"
- #include "regs.h"
- #include "kvm_emulate.h"
- #include "cpuid.h"
-@@ -210,11 +211,6 @@ static inline bool x86_exception_has_error_code(unsigned int vector)
- 	return (1U << vector) & exception_has_error_code;
- }
+@@ -414,8 +414,6 @@ extern int pi_inject_timer;
  
--static inline bool mmu_is_nested(struct kvm_vcpu *vcpu)
--{
--	return vcpu->arch.mmu == &vcpu->arch.guest_mmu;
--}
+ extern bool report_ignored_msrs;
+ 
+-extern bool eager_page_split;
 -
- static inline u8 vcpu_virt_addr_bits(struct kvm_vcpu *vcpu)
+ static inline void kvm_pr_unimpl_wrmsr(struct kvm_vcpu *vcpu, u32 msr, u64 data)
  {
- 	return kvm_is_cr4_bit_set(vcpu, X86_CR4_LA57) ? 57 : 48;
+ 	if (report_ignored_msrs)
 -- 
 2.53.0
 
