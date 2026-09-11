@@ -1,104 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8333B2AA
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7010118DF80;
+	Fri, 11 Sep 2026 01:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089475; cv=none; b=OS7iOvfukAWqlAxoVSB8q1MATK9RyzorIfqdNzxdx398P/K8XNf6TInTzfnYFijEjUf7ZrnQfYu4zrhAgJ6H2H3NUzOz10crXQxIocXN1Fzq2IAV18RjgAOUTjZ9uA3XZ7JRuu/AJrt9x2tL1vyERpevH2Dz9g3J7l9C5+PnR+Y=
+	t=1789089836; cv=none; b=Rljw5faEwRIdnCobH86yz3Zobkz0Os7STUp3+uyTCe5FrnMCm/2znfBGXThixUrZ7EVQ6LZ3Tx5UBh3VOLSA3JCGoFPrUzSAwtMNlYy2TXrhUzd3JBkk/+1eIeSQp2Xlf0WGx0chFLJGL8SLTf2iDATwo6xuM/NeY2bvs2kNSCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089475; c=relaxed/simple;
-	bh=JZX4L0bWxSfQdwJ27FesbbCb7IcTeXR9/MubLI+3o9Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SDPH3hTKHY953BRXb1aMgFL0SwfMsvwP8IQPzVENuv+nBukAO0aZ2kpimyxq7+TAHtEXiYQ50ZKa6PJlV0D3BrcfQMvDdSNaDPnxjtTFha/svdXxOueUfxrEDd8NFmgYP5iA7KgiPSd63Wik6ohOdaQaJ7rzFBIyABr7MQyAi2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCT8bVdm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789089836; c=relaxed/simple;
+	bh=KuRfJQGV6M5WblNNGhdfEaOjFUigjF7Ucc3XXJVic4M=;
+	h=Date:To:From:Subject:Message-Id; b=lTCrJDmS/TUA7cc8M6B8m5ag9zsG28+K3DXXelV1NeXACAV7Fs1xx61vD5EWTihDGukyirFfl3VqGyfBEtMmm64pIT1bWRD+miqET+AXnZiNL4cX6l+L5T1MhoJo/W4aUXQtZIApxkJkN+aRTB1TVDordBp8uoML3iuagQyvjMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cpH5Y+Sr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCT8bVdm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B693A1F00898;
-	Fri, 11 Sep 2026 01:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789089474;
-	bh=a4n/83idsyuWahv9Oy0/n5nWxngPY435h2zQyT94QOs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oCT8bVdmtxC1QSyoWlv/83C+GuOE/uJzBn/+AsBqJnt1XiTpLOZDB8ibihjEEndPG
-	 d+w7B78V+rcVdtYNsVtfXXPhGmEiSVXb+xhMjNjRZp/VvcTQZpI28EPz88DjRLgxAy
-	 boboztcAFeBqH+GirjoTYo2fMEeFk0ppUfPzqvTLabaVWTBRYpeto8xoLfBnMBwTkl
-	 /FLCs1FPcnOTPtdt24lRZ+Yrd+jcag+UF4+GjVImJmKhoDbE2nnL3vcIxocVrzwElH
-	 y7BexWLnKPbnI/oxlPlQf4cQdC1wRT7DWyiHd7hgD+8YgHOfCgo2Ov3YCq2DS04Rji
-	 4edsAihSHg1Kg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Miquel Raynal (DAVE)" <miquel.raynal@bootlin.com>,
-	Andrea Scian <andrea.scian@dave.eu>,
-	Michal Simek <michal.simek@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mtd: rawnand: pl353: Make sure we use the monolithic helpers for raw accesses
-Date: Thu, 10 Sep 2026 21:17:51 -0400
-Message-ID: <20260911011751.4049598-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911011751.4049598-1-sashal@kernel.org>
-References: <2026090927-freehand-voice-e7f2@gregkh>
- <20260911011751.4049598-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cpH5Y+Sr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5B21F000FF;
+	Fri, 11 Sep 2026 01:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789089835;
+	bh=TfxO/CxdoT8y8lLRCV6DW+mYA2+pEi4JKNnD9kr7rEQ=;
+	h=Date:To:From:Subject;
+	b=cpH5Y+Sr0umoLA6bK0qkQT221qZRmiHOIbqG1P7CsRF3SQMCPck5jFImIvYDofw9m
+	 bvlspwuc+YhtuD/DSY9Fl7y1+do0KKqtZoNlzAvgIgb8VFm04NFM3N2S+tv04NvD0N
+	 OKd44W58Cp6d16yQ2jcswzhv4tljDbfpxOXJG1bY=
+Date: Thu, 10 Sep 2026 18:23:54 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,nphamcs@gmail.com,hannes@cmpxchg.org,chengming.zhou@linux.dev,xialonglong@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-zswap-enable-static-key-after-runtime-pool-recovery.patch removed from -mm tree
+Message-Id: <20260911012354.EC5B21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: "Miquel Raynal (DAVE)" <miquel.raynal@bootlin.com>
 
-[ Upstream commit 80ecacd054ffeb60cd28e46ed5cd6bd0d2de318b ]
+The quilt patch titled
+     Subject: mm/zswap: enable static key after runtime pool recovery
+has been removed from the -mm tree.  Its filename was
+     mm-zswap-enable-static-key-after-runtime-pool-recovery.patch
 
-Any access not using the hardware ECC engine should be monolithic
-because the controller has its very own way of handling the end of a
-transaction during operation configuration, so we cannot easily make
-repeated reads.
+This patch was dropped because an updated version will be issued
 
-This has the side effect of fixing support for software ECC engines.
+------------------------------------------------------
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: mm/zswap: enable static key after runtime pool recovery
+Date: Sat, 5 Sep 2026 20:50:28 +0800
 
-Suggested-by: Andrea Scian <andrea.scian@dave.eu>
-Cc: stable@vger.kernel.org
-Fixes: 08d8c62164a3 ("mtd: rawnand: pl353: Add support for the ARM PL353 SMC NAND controller")
-Signed-off-by: Miquel Raynal (DAVE) <miquel.raynal@bootlin.com>
-Acked-by: Michal Simek <michal.simek@amd.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
+without a pool after a failed initial pool creation.  A later compressor
+parameter update can create and publish a pool, but does not enable
+zswap_ever_enabled.
+
+If users then enable zswap, zswap_store() intercepts swapout while
+zswap_load() still returns -ENOENT without consulting the xarray.  The
+swapin path therefore reads a stale backing swap slot because the store
+skipped writing it.
+
+Enable the static key after a successful compressor and pool update.  Do
+this outside zswap_pools_lock because static key updates may sleep.
+
+Verified with fault injection on a stock kernel (compressor builtin,
+CONFIG_ZSWAP_DEFAULT_ON=n):
+
+  1. Boot with zswap.enabled=1; pool creation fails, init completes
+     pool-less (static key off).
+  2. Echo an available compressor name to zswap.compressor; a pool is
+     recovered but the key stays off.
+  3. Enable zswap.
+  4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
+     fault it back in and verify.
+
+Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
+without this patch; all pages intact (zswpin=131072) with it.
+
+Link: https://lore.kernel.org/20260905125101.2970456-1-xialonglong2025@163.com
+Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
+Assisted-by: Zcode:GLM-5.3
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Longlong Xia <xialonglong@kylinos.cn>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/mtd/nand/raw/pl35x-nand-controller.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/pl35x-nand-controller.c b/drivers/mtd/nand/raw/pl35x-nand-controller.c
-index 56c789ab8c1a1..771bda7612864 100644
---- a/drivers/mtd/nand/raw/pl35x-nand-controller.c
-+++ b/drivers/mtd/nand/raw/pl35x-nand-controller.c
-@@ -914,7 +914,6 @@ static int pl35x_nand_init_hw_ecc_controller(struct pl35x_nandc *nfc,
- 	chip->ecc.steps = mtd->writesize / chip->ecc.size;
- 	chip->ecc.read_page = pl35x_nand_read_page_hwecc;
- 	chip->ecc.write_page = pl35x_nand_write_page_hwecc;
--	chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
- 	pl35x_smc_set_ecc_pg_size(nfc, chip, mtd->writesize);
+ mm/zswap.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/mm/zswap.c~mm-zswap-enable-static-key-after-runtime-pool-recovery
++++ a/mm/zswap.c
+@@ -586,6 +586,9 @@ static int zswap_compressor_param_set(co
+ 	else
+ 		ret = -EINVAL;
  
- 	nfc->ecc_buf = devm_kmalloc(nfc->dev, chip->ecc.bytes * chip->ecc.steps,
-@@ -981,7 +980,6 @@ static int pl35x_nand_attach_chip(struct nand_chip *chip)
- 	case NAND_ECC_ENGINE_TYPE_NONE:
- 	case NAND_ECC_ENGINE_TYPE_SOFT:
- 		dev_dbg(nfc->dev, "Using software ECC (Hamming 1-bit/512B)\n");
--		chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
- 		break;
- 	case NAND_ECC_ENGINE_TYPE_ON_HOST:
- 		dev_dbg(nfc->dev, "Using hardware ECC\n");
-@@ -995,6 +993,9 @@ static int pl35x_nand_attach_chip(struct nand_chip *chip)
- 		return -EINVAL;
- 	}
- 
-+	chip->ecc.read_page_raw = nand_monolithic_read_page_raw;
-+	chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
++	if (!ret)
++		static_branch_enable(&zswap_ever_enabled);
 +
- 	return 0;
- }
+ 	spin_lock_bh(&zswap_pools_lock);
  
--- 
-2.53.0
+ 	if (!ret) {
+_
+
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
+
+mm-hugetlb-do-not-dissolve-gigantic-pages-without-runtime-support.patch
+mm-hugetlb-warn-instead-of-silently-bailing-gigantic-pages-without-runtime-support.patch
+mm-hugetlb-preserve-source-surplus-accounting-during-demotion.patch
+mm-hugetlb-cap-demotion-at-currently-available-free-pages.patch
+mm-zswap-publish-the-initial-pool-with-list_add_rcu.patch
+mm-zswap-enable-zswap_ever_enabled-in-zswap_pool_create.patch
 
