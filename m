@@ -1,263 +1,134 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF9F3451C8
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E54F28B7EA;
+	Fri, 11 Sep 2026 14:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137452; cv=none; b=CnKoaeuwBZnErls2xteAIPWpH/FqrWAMQMGy5R/hrlG02Y5fmKQGfVGjNTKlK83lBhsW8SUSO/txVqi/k9gEa+W0xVrMtM4haaxq08TOi0O320hVTKprY0KathHNlfM8CNE4CWbWaDxUxozv0NK9zgAay5OKZvI3ZWrlvO38A9I=
+	t=1789137819; cv=none; b=WahGcODxPAIvP6Aa+6xiGTRuBdF4was+3c7P2yCjdP1B1Os5m8dcYyPjaIBYsmUUSOZYkcHDgXyaCR6HWWNwE0mRSRQLV8WvX6aIlaMqF/vmGaFIL9MhcHxLXf62+QODdyFi/iVFvlMdRkyi5fuyyunkj10jwAkP2WtzEq5D90s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137452; c=relaxed/simple;
-	bh=CEYkY4jQ3BKp7MCge8xop87gVEl9XH/zl5q3vNn1suk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wu8QvwzEefbQlbMa/aAArbW+CRsU0X9Gm5rudLgqnbnxlpzGgad5LFgNBbJxRCtlvd/u67P7palOoi3RBG2NgP+LOBpn4g5hILOb/Zn2+UMCxkvXS8Aeh3m1YAV0J1VVHcZ3hkGfYYd88QmkPSz8j3WyA7w/P9FZIS+DwuxR0mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSK5LShx; arc=none smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789137819; c=relaxed/simple;
+	bh=9CQ6VJZqavjdvMlAthdEhiGX60f8zC8Yt55rgCYfAzc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TCCzI7xI4dfDq//lJgDfhvHI+6uQmnCRjqYMaiPAEGHhpoeZDQ4AVyl3NIuKxNnzm5g43HNbvAE/bRwNtOdnp8vRHZ+qKWNbkHLsymCV7Rhw3wGHJGmjfuwKW/CKMD0FlPlK9/Jh/JJRlo1VZbQ8NbjWeUVMJsi4RBtFbFJNP3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UHyzVD6/; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSK5LShx"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b145a9623fso598459eaf.3
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789137448; x=1789742248; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P2Ov6MxIFeBvn1siphW3kcaZJl5WIgV8anby3r7O9WA=;
-        b=CSK5LShxoxRmisQXjilnB9SOwFQ18mdB9F9ageicxiXGYntwc0YUJqKyU37mZRiaoU
-         DSLJgo23TefH/8yFa83vJguEC6yqwq4OUtpofje8VNS+KxtB9+UiGOz4K6XxW/P2EGYj
-         +GhFY31WLwmAmE+Uwu5ETrQiTFh2tYxx8CwVztXJc92I5DTiRYq/wEax/ozReN/wTazM
-         HWr8lXVqXfQzkjywodb/gTsx8uxQJREqY9sPI+XwtnN3/cRZiB8zXw6SFcj4alg758Kx
-         wfNj4CXF4b5Wu1n9zl0YGAKKhxtFxJFyWmipx23cnEZdDVkxacX9qrAj5z5WGQIYziXq
-         6zsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789137448; x=1789742248;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P2Ov6MxIFeBvn1siphW3kcaZJl5WIgV8anby3r7O9WA=;
-        b=AGzXL4PIZzvrapd/hueeGFHqspFa/4lDw/E9EvyEpVAxNy/XkcAeQZUsZezfq9IF2w
-         a/xA2UntpDshme4MTQye7csU62Zt5r4OZz5qMTvQo64VDDe3UPwk73QShCXANC9Kofo9
-         xoL6rTcxz7eUOLrqOvIZnzd9duSisZm6lufLThk+24B1ckXscE2ElY3j8lmSXRmfMpH3
-         26LtcTBBlOIi3z4vQCsJht9xYWBzIQuYdP9tutgBSf95QBZhBb8kPojMa8bJryPcB7CX
-         4ENmPCm3Wm1ohmnn8ROV7x1/yh8V4F74Fj1Mg2mcMt1ob0vOWIYSZQcJmIZCj4OKKb5n
-         q7pw==
-X-Forwarded-Encrypted: i=1; AKwUvBxeUFNrhDf/lnTud+spcTIuc1LN9fDdwL8+8ghKEkl5nS9mSuA2I0NXzbVXevGH0TdyZL4IWyc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+aSAidqGWscnFZKeSUxrrN9jx/Fd9vstOpy7UGKWTa/G2/tfM
-	6esDWj0ZaXydq09abPK2lgmrJKFTOHKcIv/mhBW+er7ppHW2kIcFz9oAhvAHrQ==
-X-Gm-Gg: AYBFou01yysfeLkT0U8PZMincYERsRCFMz24ofB23SpKOe4D7emUXtXk1rVcyNgEyKE
-	nxPh7lXuLv7FLiU6nGSzDm5xhEcYTNSBF8c29N/wEJARn7luC+D/VsVheArFvWIiryVe/2C9pDL
-	dmaV3N3OIJFAxhbw0NZxG/AcR9qb4dK6reiwhWi/IEVFa13mt0dgOMgNd44YOnnLCIXI3HceqLD
-	xn+yoZ3IRritQfnwyXyiCMQq47+piE0c1Wis7i3BjwSf0q1gcE3Upx7uq570Hqrjoi/uFkClils
-	fFtwoeH8iZviBgIPKVZAU86A3H0xhAHe5ncoQujvfapZ7526hEWMmPV919jPbIatDVhOBkoH7MG
-	wCkpjT7zupkUq5cME0I6PhZgmN59tImvm2QM87AdUfe/i230YWWdujFKf+4pUzzkKog+DV6r2Ct
-	EdUK5KfV+Xju8ukUVLeuJ3Sahc5oxwHXqoX4t7MMZj02XpX6m6JVG9N2Au5Vev6dynlIbWcnyBL
-	IQKhzVYgW2BCa2RR8CALldSTodvXg==
-X-Received: by 2002:a05:6820:c3ce:10b0:6ba:2d85:8f49 with SMTP id 006d021491bc7-6c0bd5873e7mr2467455eaf.65.1789137448463;
-        Fri, 11 Sep 2026 07:37:28 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:5c::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0990ccbdfsm2617969eaf.4.2026.09.11.07.37.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:37:28 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Hongxiang Lou <louhongxiang@huawei.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	fvdl@google.com,
-	jthoughton@google.com,
-	rientjes@google.com,
-	vannapurve@google.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Ackerley Tng <ackerleytng@google.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: hugetlb: Fix out_put_pages subpool reserve calculation
-Date: Fri, 11 Sep 2026 07:37:26 -0700
-Message-ID: <20260911143726.3689114-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909-hugetlb-subpool-always-track-used-v2-2-30c5d83b572a@google.com>
-References: 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UHyzVD6/"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6B18763C;
+	Fri, 11 Sep 2026 16:41:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789137717;
+	bh=9CQ6VJZqavjdvMlAthdEhiGX60f8zC8Yt55rgCYfAzc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UHyzVD6/whSa/kEcgnQ6WOv07UlykE+BvSeQ0k1LOf6I5oJoGKzavTR26T716GIPC
+	 oRyZK8jke9UJi3MB45d9uSyDjGL2OTy0mSm0gT/KwCIpKdnlLFr0hR57UroAuXPDi7
+	 nv9iFLkepbTFtrry4AJWZXpubMVlrOEmbClJgegg=
+Date: Fri, 11 Sep 2026 16:43:32 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Dafna Hirschfeld <dafna@fastmail.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Paul Elder <paul.elder@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
+Message-ID: <aqQTTtJf9qcdSz2z@zed>
+References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
+ <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
 
-On Wed, 09 Sep 2026 14:49:27 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+Hi Kieran
 
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> When reserving pages for a mapping fails during global accounting, the
-> error path rolls back the adjustments made to the subpool.
-> 
-> Currently, this rollback was performed in two separate steps:
-> 
-> 1. Returning only the portion of reservations originally satisfied from the
->    subpool
-> 2. Separately adjusting the subpool used pages counter for the portion that
->    was requested from the global pool.
-> 
-> In (1.), because the used pages counter had not yet been decremented for
-> the global portion, the subpool observed an inflated used pages count. If
-> the mount was configured with both a minimum size and a maximum size, this
-> inflated count prevented the subpool from recognizing that usage fell below
-> the minimum size guarantee.
-> 
-> As a result, the subpool failed to restore its reserved pages counter and
-> instead returned that a global reservation should be dropped. The
-> mount-time reservation is permanently destroyed, leaving global reservation
-> counts depleted and causing an underflow when the filesystem is eventually
-> unmounted.
+On Fri, Sep 11, 2026 at 03:27:50PM +0100, Kieran Bingham wrote:
+> Quoting Jacopo Mondi (2026-09-11 14:56:19)
+> > The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
+> > demosaicing block on the RkISP1 ISP.
+> >
+> > The current implementation however clears the bit when demosaicing
+> > have to be bypassed and sets it when demosaicing has to be enabled,
+> > effectively inverting the bypass bit handling logic.
+>
+> Ouch.
+>
+> > Fix this by setting the bypass bit when disabling the demosaicing block,
+> > and by clearing it instead when demosaicing has to be performed.
+> >
+> > The issue never manifested itself as libcamera hasn't an algorithm
+> > to control Bayer demosaicing bypass yet.
+> >
+> > Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > ---
+> > media: rkisp1: Fix demosaicing bypass
+> > ---
+> >  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
+> >  1 file changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > index 042b759eba62..496381962f1b 100644
+> > --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> >         const struct rkisp1_ext_params_bdm_config *bdm = &block->bdm;
+> >
+> >         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
+> > -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> >                 return;
+> >         }
+> >
+> > @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> >
+> >         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
+> >             !(params->enabled_blocks & BIT(bdm->header.type)))
+> > -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+>
+>
+> I think this also opens us up to add mono formats as explicitly
+> supported by the ISP and potentially set the demosaic defaulting to off
+> in that instance?
 
-Yeah, this sounds pretty bad. 
+mmm, I think userspace is in a better position to decide when to
+bypass debayer instead of relying on auto-configuration of the ISP ?
 
-> Additionally, if concurrent threads modified subpool usage during the
-> reservation attempt, calculating the rollback amount using stale local
-> variables could cause global reservation counts to diverge.
-> 
-> Now that used pages are always tracked within the subpool, return the
-> entire requested page count to the subpool in a single call. Global
-> reservations are then adjusted using the difference between the
-> reservations originally requested and those returned, fixing the issues
-> described above.
-> 
-> Fixes: 1d3f9bb4c8af ("mm/hugetlb: restore failed global reservations to subpool")
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> Cc: stable@vger.kernel.org
+I guess we'll discuss this when support for luma-only formats will be
+added to the driver
 
-Thanks! LGTM,
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>
+> Anyway, Looks sane to me in this order.
+>
+> Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-With one nit below:
+thanks
 
-> ---
->  mm/hugetlb.c | 49 +++++++++++++++++++++++--------------------------
->  1 file changed, 23 insertions(+), 26 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index e72e22f887478..9eb9f3442574c 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -6676,12 +6676,14 @@ long hugetlb_reserve_pages(struct inode *inode,
->  		struct vm_area_struct *vma,
->  		vma_flags_t vma_flags)
->  {
-> -	long chg = -1, add = -1, spool_resv, gbl_resv;
-> +	long chg = -1, add = -1;
->  	struct hstate *h = hstate_inode(inode);
->  	struct hugepage_subpool *spool = subpool_inode(inode);
->  	struct resv_map *resv_map;
->  	struct hugetlb_cgroup *h_cg = NULL;
-> -	long gbl_reserve, regions_needed = 0;
-> +	long regions_needed = 0;
-> +	long gbl_resv_get;
-> +	long gbl_resv_put;
->  	int err;
->  
->  	/* This should never happen */
-> @@ -6756,9 +6758,9 @@ long hugetlb_reserve_pages(struct inode *inode,
->  	 * the subpool has a minimum size, there may be some global
->  	 * reservations already in place (gbl_reserve).
->  	 */
-> -	gbl_reserve = hugepage_subpool_get_pages(spool, chg);
-> -	if (gbl_reserve < 0) {
-> -		err = gbl_reserve;
-> +	gbl_resv_get = hugepage_subpool_get_pages(spool, chg);
-> +	if (gbl_resv_get < 0) {
-> +		err = gbl_resv_get;
->  		goto out_uncharge_cgroup;
->  	}
->  
-> @@ -6766,7 +6768,7 @@ long hugetlb_reserve_pages(struct inode *inode,
->  	 * Check enough hugepages are available for the reservation.
->  	 * Hand the pages back to the subpool if there are not
->  	 */
-> -	err = hugetlb_acct_memory(h, gbl_reserve);
-> +	err = hugetlb_acct_memory(h, gbl_resv_get);
->  	if (err < 0)
->  		goto out_put_pages;
->  
-> @@ -6785,7 +6787,7 @@ long hugetlb_reserve_pages(struct inode *inode,
->  		add = region_add(resv_map, from, to, regions_needed, h, h_cg);
->  
->  		if (unlikely(add < 0)) {
-> -			hugetlb_acct_memory(h, -gbl_reserve);
-> +			hugetlb_acct_memory(h, -gbl_resv_get);
->  			err = add;
->  			goto out_put_pages;
->  		} else if (unlikely(chg > add)) {
-> @@ -6821,26 +6823,21 @@ long hugetlb_reserve_pages(struct inode *inode,
->  	}
->  	return chg;
->  
-> -out_put_pages:
-> -	spool_resv = chg - gbl_reserve;
-> -	if (spool_resv) {
-> -		/* put sub pool's reservation back, chg - gbl_reserve */
-> -		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
-> -		/*
-> -		 * subpool's reserved pages can not be put back due to race,
-> -		 * return to hstate.
-> -		 */
-> -		hugetlb_acct_memory(h, -gbl_resv);
-> -	}
-> -	/* Restore used_hpages for pages that failed global reservation */
-> -	if (gbl_reserve && spool) {
-> -		unsigned long flags;
-> + out_put_pages:
-
-I'm not sure if this section warrants these two comment blocks anymore.
-The logic is quite straightforward now that we don't have to worry about
-managing the global / subpool reservations separately and rather just
-simply do the subtraction to account the memory.
-
-> +	/*
-> +	 * Return all that was requested from the subpool, let subpool
-> +	 * tell us the new number of reservations that need to be
-> +	 * returned to the global pool.
-> +	 */
-> +	gbl_resv_put = hugepage_subpool_put_pages(spool, chg);
-> +	/*
-> +	 * There may be a difference between the number of
-> +	 * reservations to consume and the number to restore now if
-> +	 * there are multiple threads interacting with the subpool -
-> +	 * restore the difference.
-> +	 */
-> +	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
->  
-> -		spin_lock_irqsave(&spool->lock, flags);
-> -		if (spool->max_hpages != -1)
-> -			spool->used_hpages -= gbl_reserve;
-> -		unlock_or_release_subpool(spool, flags);
-> -	}
->  out_uncharge_cgroup:
->  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
->  					    chg * pages_per_huge_page(h), h_cg);
-> 
-> -- 
-> 2.55.0.1007.g17ff1f9808-goog
+>
+> >  }
+> >
+> >  static void
+> >
+> > ---
+> > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
+> >
+> > Best regards,
+> > --
+> > Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> >
