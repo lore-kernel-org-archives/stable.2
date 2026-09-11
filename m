@@ -1,91 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B185328B7F
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:28:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F043976A4
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140521; cv=none; b=EMftMJvJPu97pBWZhAJ3St+FJb+4bYKzLPIxyP7wCZkPkNxXtSBoqRBJA6ZapMtJEKHRM5dTY5k5AcOpGu0Al8P2m3r+aPLjivLgWCZCHPvZ7PmNQv+9+F3C6UzOY75DjC+3T4myMRGxj6UhG6wRwsJPFzxjLoLyVnDYW95/Vqo=
+	t=1789140522; cv=none; b=HKQuvM6JSK840Q/OXKxnLO+v2OlpsYHNypgkZ3cJtcLMspRPCSEE3rxHF+P3L0cOb6ulORLqh3Li9ujw5Vzna8Ub8D7xjbc8jz1Qs70eGt+zkE5qcuKKU3TSAZ2CuqjFQx6cgEkoodPPNyCyUs4YixJFJvqOtsBxT1yHTSBmdNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140521; c=relaxed/simple;
-	bh=4C84/TUsxxJwmsBibCJQO2DYmN2mixkh3HDLrVl7oiM=;
+	s=arc-20240116; t=1789140522; c=relaxed/simple;
+	bh=ef1rOxRFhxgWr35uz3Zzh7dk01I7S5XF0WAoH2ITNd0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PuvYnxgP3+PKOvAUejTSgKB7SpkjLJcHZPe8ICGnO/5zb6RHPJChrhUP7+KppeR/on4Bjy7OkwNZIhpFQvngNVMSeTCeOANBRNEY3AjeCpUg4CDVi2i6aitZwWE2ImHeQ/L3o5mlHX5HmczcgV2BdMjQkvLyjj0eEXCv3uOwT+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofye3mWy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NDmAgBZF+jdZn+nTlh47qgkYiMWwI24KGxocKLT4z7+kI++vOHsI56QqyyDc5nBCU5jgI9y5JQ83hRQ4jS4rQ2cj1UxYDoPS2lUQ9S5+MZ4snSSB/0l8N3wZEXMYxuhif4ZqMPGVlJZNks3ERHcELPJAufEEh9OCsCB3/JgeppU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDGLNJSB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofye3mWy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39A2D1F00893;
-	Fri, 11 Sep 2026 15:28:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDGLNJSB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC2C1F000FF;
+	Fri, 11 Sep 2026 15:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789140518;
-	bh=weQxR0eF2QY5C16vQOJebhJuVIdSwpmzxqLxA0CWWHU=;
+	s=k20260515; t=1789140520;
+	bh=Vj7kCtsdU9lY78ukdpy88OLlOnb7XnDok5N21tm9xa8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ofye3mWye3xIlMyUz4UGZzDeYsJoIbgdgatFUe7xBY+JwVK/aOY2pxHSV3uhhGWzv
-	 NR9b9RnHbC1hl9lnkY4LEFWHeNqkrDSIGJP5wasqYH8q6BGu/sRpmg9R/8ggMy31sz
-	 s0TQaLzCFa1zC1ZK+t964jjwUH0OLnEzbvThiSN9lp39KPXsDK+/k2cQn8SmAw+yjS
-	 MkxGJ/ovT3YU88g+aXa58kVVyLSOyBihHyqK6SuavF/hjzFhQ1kHreE6JXnnPm0oWs
-	 abS4Ixn36kbvejDDU1Pu8jWWKUOMQYldJNZdNIS1lFlS6ZlKcIzMXKpUY5NOmp8QjG
-	 92I4MBY2C5LEg==
+	b=QDGLNJSBsbl6dfm6XArPsxVsLBbCQXDf5mFbAbJQy6KVdpanOQeEFeXCJWFZHxRgh
+	 DKbwxgn3x2BpoWbsZRvL/OSzBO3g0u4dWBq7DzpOVTMBYGoOUrHJafHQVxXAdtUh2P
+	 Hqbjzd+ozd+EqEYwqS6P9qQVWTbFSsMsZtZ9YKtG+hRO2KiBB+kaqy4Xh+9jmQIdgT
+	 t1f8MtGbZFrQG9jU2pYMDnHVwQjfK0diOuxvOGGzpUWGPa/fA0Bzru/G7US3hYg9WG
+	 sKn+0ecN1d/8nU2h5Omw9FPL5WyIST2tHOgbgCmPWLWWuI9HHcs92BZXzE2WirX3t1
+	 xEzdQ0OglqkJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Hannes Reinecke <hare@kernel.org>,
+	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: qla2xxx: Zero dport diagnostics buffer to avoid info leak
-Date: Fri, 11 Sep 2026 11:28:36 -0400
-Message-ID: <20260911152836.1078305-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] scsi: qla2xxx: Skip vport under deletion in report ID acquisition
+Date: Fri, 11 Sep 2026 11:28:38 -0400
+Message-ID: <20260911152838.1078361-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090930-ridden-childcare-44d5@gregkh>
-References: <2026090930-ridden-childcare-44d5@gregkh>
+In-Reply-To: <2026090950-mower-implement-8f2f@gregkh>
+References: <2026090950-mower-implement-8f2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit a152edab3854f01dd2daf3eaf8f32cbabdb3834e ]
+[ Upstream commit 23582731afa35031c94fadb71a4f3b4afd094649 ]
 
-qla2x00_do_dport_diagnostics() allocates the qla_dport_diag response
-buffer with kmalloc_obj() (non-zeroing) and, on success, copies the full
-sizeof(*dd) back to user space via sg_copy_from_buffer(). The inbound
-sg_copy_to_buffer() only fills as many bytes as the user request payload
-provides, and qla26xx_dport_diagnostics() zeroes only dd->buf. The
-options and unused[] fields are therefore copied out uninitialized,
-leaking kernel heap contents to user space.
+qla24xx_report_id_acquisition() format-1 handling walks ha->vp_list under
+vport_slock, takes a vref_count on the matching vport and calls
+qla_update_host_map() to register its port id.
 
-Allocate with kzalloc_obj(), matching qla2x00_do_dport_diagnostics_v2().
+A vport teardown via qla24xx_vport_delete() sets VPORT_DELETE, then
+qla24xx_disable_vp() removes the vport from the host_map btree and zeroes
+vha->d_id (RESET_AL_PA). The vport is only unlinked from vp_list later,
+in qla24xx_deallocate_vp_id(), which clears vp_map[idx] (RESET_VP_IDX)
+but does not touch host_map. In the window in between, report ID
+acquisition can still find the vport on vp_list and call
+qla_update_host_map(); with d_id already zeroed it takes the
+btree_insert32() path and re-inserts the dying vport into host_map.
+Nothing cleans that entry afterwards, so once scsi_host_put() frees the
+vha a later host_map lookup dereferences freed memory.
 
-Fixes: ec89146215d1 ("qla2xxx: Add bsg interface to support D_Port Diagnostics.")
+Skip a vport that has VPORT_DELETE set before taking the reference, so it
+is neither re-registered nor scheduled for DPC re-registration. This
+mirrors the existing guard in qla2x00_alert_all_vps().
+
+Fixes: 41dc529a4602 ("qla2xxx: Improve RSCN handling in driver")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-54-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-22-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ Adapted kzalloc_obj(*dd) to kzalloc(sizeof(*dd), GFP_KERNEL) to match the branch’s allocation syntax. ]
+[ Adjusted context to use rptid_entry->vp_idx instead of the missing local vp_idx variable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_bsg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/scsi/qla2xxx/qla_mbx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_bsg.c b/drivers/scsi/qla2xxx/qla_bsg.c
-index 23779a1f0cee9..aadc5d0b6c270 100644
---- a/drivers/scsi/qla2xxx/qla_bsg.c
-+++ b/drivers/scsi/qla2xxx/qla_bsg.c
-@@ -2393,7 +2393,7 @@ qla2x00_do_dport_diagnostics(struct bsg_job *bsg_job)
- 	    !IS_QLA28XX(vha->hw))
- 		return -EPERM;
- 
--	dd = kmalloc(sizeof(*dd), GFP_KERNEL);
-+	dd = kzalloc(sizeof(*dd), GFP_KERNEL);
- 	if (!dd) {
- 		ql_log(ql_log_warn, vha, 0x70db,
- 		    "Failed to allocate memory for dport.\n");
+diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
+index 3b78c04feabdf..5376f04797c1f 100644
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -4147,6 +4147,8 @@ qla24xx_report_id_acquisition(scsi_qla_host_t *vha,
+ 			spin_lock_irqsave(&ha->vport_slock, flags);
+ 			list_for_each_entry(vp, &ha->vp_list, list) {
+ 				if (rptid_entry->vp_idx == vp->vp_idx) {
++					if (test_bit(VPORT_DELETE, &vp->dpc_flags))
++						break;
+ 					found = 1;
+ 					atomic_inc(&vp->vref_count);
+ 					break;
 -- 
 2.53.0
 
