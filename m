@@ -1,268 +1,229 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EE7372B26;
-	Fri, 11 Sep 2026 09:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81DC30FF1D
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119030; cv=none; b=m7DI6XlKqZCSPQd6Ddb8mhJzkY/fjtlbJC/U3sm9DiRZXhiovw0ilbGT7HtNBFuK7xW5U2FwsGdOQ9rzLRWMvClQfz4lxyAg/7VjWSzgMdudxQFGoXsn5ONiVcLLZ0v2yR9euuNQufHHsooz74gm5/Wz5m5sj9tOfMMsKr342lc=
+	t=1789119351; cv=none; b=rRZbzRsUxauMjVU+xhFNryvMtQJFiwtPK8S0dJu4Z6/5nfdtBH5N9QHcGVg8a/51yXchvyePCJkn9CjGZ54D23XvyiWYdjqeUsFt2aPxtbJNBq6oCDH6o/GPejpb9tRwHjizGIdk5aKiD6cUWzNXK0jNRNdqeP+btkvjyj5J18A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119030; c=relaxed/simple;
-	bh=ajYr5SO5G2Ezh9ZbAC+1UlKiopRQF8Xf4UoyRxdoB2Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wx8YzJ07SmwirwYc5L7dpCd/UCir9O446p1jg+TCmeleLsgClLlVDzidgTpoOxJa2dIASuvrLcNLmuzfOrqTpGP2gbdxDbeTcdPHveFkMu0EIcL404Zrq9sDncqedonmcCwQJutYtcq/R4Z06BPdmy5L3UzPfCyd5Qf0wVM2y1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=WWI1OsCL; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	s=arc-20240116; t=1789119351; c=relaxed/simple;
+	bh=5ilCdKcqCwxjYRqo4FSYfH9Cm2vVzU9QtahGdbQcnhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jFtoP0qwIQLS41V//aSW6KtVkvWMFbv3FAo1ZOWAMwl1bnuluhQ8fxZuGEz+G9TP4qQc73OFesgyCDy6hQubQ++OJqhB7G4PFRihN8oZg3Lr503nHJTCLbPQzbrZHgrSOMP6ou7eq7JF5EO3zbEyWu93jpN4YIaNMCqUSzL4Ms8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=xIGNt+l8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZKVNvNPz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qgEvyuQI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=gifg9d9E; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="WWI1OsCL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1789118952;
-	bh=nl+3kTEA6kG+Ya0Qebsmh5RZwS1Ke2Bdvprd1eODfmg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=WWI1OsCL83ydbSN9iSyd2o29+jrs0LWzij9JO2owBCdCIVwwKWY444CRILB8bjZ+5
-	 AZRTlCToq+zuvDKtDETlo7z3kZYqJTA+7w9mBbfe2XXzKFTAkQxn8OntE/BEnP+QKe
-	 ooBPPRPazR4LOXWVfAkGBSWOnmeju/JMTVzTOaM0=
-X-QQ-mid: esmtpgz12t1789118950ta17ba4e3
-X-QQ-Originating-IP: 74Cznb4R1YCb91v6oqvm5/Nsioh1HIbE26jAmimgBZA=
-Received: from hepeiyang-vm.wu.lxd ( [36.152.24.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 11 Sep 2026 17:29:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8586802869201418434
-EX-QQ-RecipientCnt: 9
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bskeggs@redhat.com,
-	airlied@redhat.com,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/nouveau: fix memory leak in r535_gr_promote_ctx
-Date: Fri, 11 Sep 2026 17:28:51 +0800
-Message-ID: <DFACFA54B3906F4E+20260911092851.1201981-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="xIGNt+l8";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZKVNvNPz";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qgEvyuQI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="gifg9d9E"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B28B321D2B;
+	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789119334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=xIGNt+l8jOYVNSIX7ujdNAJ1iW2XTiRGd9o0QOutyKQFtqYhlRk8Ln6Zj8M85EdjaqMVkM
+	mxmUNjlFVY8/WrxpH1v+mdxlpH+I3xAf6zN5j0lQr5Yi0OGpLfwHTTji11TmtJG9bv0XYf
+	Voqt5G5GoUCkxlvbZ2UwLBWZZM19URg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789119334;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=ZKVNvNPz5qWa4w8sVHqBKpx6WsNPpKs08O41aAs5ed0wVyPAo7RrDbUamJvJ0hv01si4ud
+	JUF1OHVk4WrvXVCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=qgEvyuQI;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=gifg9d9E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789119330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=qgEvyuQItOS7u/bdUozwj1bNWb7OG5ekxdo4V4NPGbk5ruGgWMhGs/5TAqICwjcs+lMFEb
+	V2DxeCmtmFN3wCSzHFlVp1rgL3MPBsJ3O06awTZC/HWqRIXk776qRYc19f3Ydl574sfnbZ
+	1duejhtKAT1YEj+V12QKZhFQL/7J/HQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789119330;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=gifg9d9Ea0zwtw+0PzXVfC8+1NX8ADLaPtx9Iss8SqiAbPxBOBdspM/7hXlho1yrmj+QI9
+	skypO+UFmhJCd+Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89305136ED;
+	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jEl4IWLLo2pPSwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 09:35:30 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 1A278A1342; Fri, 11 Sep 2026 11:35:30 +0200 (CEST)
+Date: Fri, 11 Sep 2026 11:35:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Tejun Heo <tj@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
+ rotating b_attached
+Message-ID: <5onojwm73shl2c3ddwboijarrefjw4gmkfcvnwdvow2wybhu5u@wu37jhkboemj>
+References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+ <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
+ <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NAeO0+xU6W76Ayry0UF/ArnN6+9gQoytP5DS40CO9rQ180r2sb3lwnLB
-	jca/floIY4NQMYggenaGeZDotUYINZbbmLhanJoSzIjHoEIRkoFHE1q8Vymx6+37oECWKhc
-	X5STVgmnFs9R++jpRWy3W0j3IRDXi8hie8wFb43HD5PLpV5RvCSujzRtHDBqdYriixw3eZt
-	M6fL+oFTRCciqtejFtN3M5l4XKfsaqE0ckwIlmsoWDFxk6ajaFKH5a74ePWyKDwK4Xhk/6w
-	eayl0mJh90Bk5qrSS2Hhe3R1qqTYZCJ1Nxb+RxPjqde+ttT0Onx5jq8RRtt2V1HvCnyTASt
-	iR/2XVX/VWrf4xEYka2IcYtcZ1aCfcBP5BXGhfamS3oAkEII5OFlgXN8cbRf2yILaAQ3gJX
-	5m7i97pezxbVz6mSy3IDHRDISvn0yqYlOr9NtymYAJik0WZpNBbT4sAcPkwYwktN74xRlV7
-	27fDyS7ClGzNl7oM2BrKPZZKc9XEF6goIIr8817K944bot1pXauswuxTwZDPDSb2IDYIIFn
-	krP61eyiX1CeZa7xMRq/MTbs+l9htbwvnIZrYBmgvvMAzfpo5cexkftX2VJy7LGa3mU+/jS
-	+5vSgN104shTTtxeqsjqab7BkaQWGZe3aLaO/1xYx5Y9k1LayWPNN+UMugOobkSggw441+H
-	4QiTgUODS/cVUhDMY8O267sDoqrW4Yoo6KqitVCbKA7FcmKUT8KCuVk1WYAAgdfLn5wzmDV
-	44DS0d5jopgIj+zA8C0ZZhczuDWAp/J0uZ7Vm6FpZXx06SJaUmGN+9AiQPnVVQ5UrOenJrC
-	4OCFEZwDMUSc8Y1ozKRF6WdtWPEwO0ZTpGeN8JMmTdKYPqG2pjZV4qb/bQCrMIrpKRot1Zf
-	xI7VWX4Xc2kUC71sAK9rgzDUoM9p/wuPgrfvOU2k5u5Df12Owx6Nim0QLweEVKcdL6DnHDr
-	QymkBG4hTwdG337mpwkFgTm8uN41dr3URSzOr63yAMibF0y8xNxug3BjdyAdwpT89zEz5jv
-	c8VLEZhFEYeoPPlA6uVn0YeZMmKusyZS4UUko8ePTxxpgcXgGN
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: B28B321D2B
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-r535_gr_promote_ctx() gets the GPU_PROMOTE_CTX RM control RPC before it
-allocates and maps the context buffers. If nvkm_memory_new(),
-nvkm_vmm_get_locked(), or nvkm_memory_map() fails, the function returns
-without submitting the RPC and leaks the request allocation. The leaked
-allocation is a 4KiB GSP message queue element. This leak can be reliably
-triggered by a non-root user with access to the nouveau device node,
-and repeated leak can lead to a local denial of service.
+On Thu 10-09-26 23:47:44, Patrick Lu (Anthropic) wrote:
+> On Thu, Sep 10, 2026 at 01:24:52PM +0200, Jan Kara wrote:
+> > On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
+> > > Move every scanned inode to the tail of b_attached, so the next pass
+> > > starts where the previous one stopped and the drain becomes linear.
+> > > b_attached is unordered and isw_prepare_wbs_switch() is its only
+> > > walker, so nobody else sees the reorder. b_dirty_time is ordered by
+> > > expiry for move_expired_inodes() and keeps its current scan.
+> >
+> > OK, but isn't there the very same quadratic behavior problem with
+> > b_dirty_time scan which you don't touch (and where your trick cannot work)?
+> 
+> Yes, the same thing happens there. We never saw it because none of our
+> filesystems are mounted with lazytime, so b_dirty_time was always empty
+> on the hosts we looked at.
+> 
+> We realized the rotation works for b_dirty_time too if the walk starts
+> from the oldest end instead of the newest. sync takes the whole list no
+> matter the order, and move_expired_inodes() picks from the oldest end,
+> so walking with list_for_each_entry_safe_reverse() and moving scanned
+> inodes to the newest end keeps the oldest unscanned inode right where
+> the expiry looks. Prepared inodes leave the list as soon as the switch
+> work runs and get a new dirtied_time_when on the new wb anyway
+> (9a6ebbdbd412), so the only inodes left out of order are the ones that
+> can never switch (DAX), and only on the dying wb.
+> 
+> I tried it in qemu with 100k lazytime inodes on a dying cgwb. With v1
+> the b_dirty_time scan under list_lock still grows from 11 to 115 ms per
+> pass across the drain, same as unpatched. Walking both lists from the
+> oldest end keeps b_attached and b_dirty_time flat at ~0.6 ms per pass,
+> with one loop and no flag. Does that make sense? Something like this,
+> which I can send as v2:
 
-Found when fuzzing the nouveau driver with a modified Syzkaller:
+Yes, I was also thinking that since we are going to clobber
+dirtied_time_when anyway, we can as well do it a bit earlier to ease
+iteration.
 
-	BUG: memory leak
-	unreferenced object 0xffff888019cb8000 (size 4096):
-	comm "syz.6.42", pid 2747, jiffies 4294720158
-	hex dump (first 32 bytes):
-		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-	backtrace (crc 43f743b8):
-		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-		slab_post_alloc_hook mm/slub.c:4597 [inline]
-		slab_alloc_node mm/slub.c:4917 [inline]
-		__do_kmalloc_node mm/slub.c:5333 [inline]
-		__kvmalloc_node_noprof+0x62c/0x9e0 mm/slub.c:6905
-		r535_gsp_cmdq_get drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:426 [inline]
-		r535_gsp_rpc_get+0x3e/0x230 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:617
-		nvkm_gsp_rpc_get drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h:281 [inline]
-		r535_gsp_rpc_rm_ctrl_get+0x138/0x490 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c:75
-		nvkm_gsp_rm_ctrl_get drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h:323 [inline]
-		r535_gr_promote_ctx+0x1c5/0x1700 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c:68
-		r535_gr_chan_new+0x140/0x1c0 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c:159
-		nvkm_gr_cclass_new+0x99/0xd0 drivers/gpu/drm/nouveau/nvkm/engine/gr/base.c:117
-		nvkm_cgrp_ectx_get+0x48a/0x860 drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c:82
-		nvkm_cgrp_vctx_get+0x252/0xd00 drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c:136
-		nvkm_chan_cctx_get+0x2ae/0xb70 drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c:112
-		nvkm_uchan_object_new+0x285/0x840 drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c:177
-		nvkm_ioctl_new+0x378/0x930 drivers/gpu/drm/nouveau/nvkm/core/ioctl.c:132
-		nvkm_ioctl_path drivers/gpu/drm/nouveau/nvkm/core/ioctl.c:278 [inline]
-		nvkm_ioctl+0x286/0x9b0 drivers/gpu/drm/nouveau/nvkm/core/ioctl.c:300
-		nvif_object_ioctl drivers/gpu/drm/nouveau/nvif/object.c:46 [inline]
-		nvif_object_ctor+0x3cc/0x5c0 drivers/gpu/drm/nouveau/nvif/object.c:269
-		nouveau_abi16_ioctl_grobj_alloc+0x43f/0x9d0 drivers/gpu/drm/nouveau/nouveau_abi16.c:635
-		drm_ioctl_kernel+0x192/0x350 drivers/gpu/drm/drm_ioctl.c:817
-		drm_ioctl+0x4f8/0xb40 drivers/gpu/drm/drm_ioctl.c:914
+I can see in your patch you don't touch dirtied_time_when at all which will
+make the b_dirtied_time list not ordered by the timestamps. That makes me a
+bit uneasy but since we are going to move everything out from that list
+eventually I think that is fine.
 
-Fix by splitting the original loop in r535_gr_promote_ctx() in two.
-The first loop performs all fallible allocation and mapping work.
-After the first loop succeeds, allocate the control RPC.
-Then use the second loop to fill the promote entries and submit the RPC.
+								Honza
 
-Cc: stable@vger.kernel.org
-Fixes: 361c3cd8ae12 ("drm/nouveau/gr/r535: initial support")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.5
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c | 54 +++++++++++++---------
- 1 file changed, 33 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c
-index 034db286d285..8b3474733311 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gr.c
-@@ -47,97 +47,109 @@ r535_gr_chan_dtor(struct nvkm_object *object)
- 		nvkm_memory_unref(&grc->mem[i]);
- 	}
- 
- 	nvkm_vmm_unref(&grc->vmm);
- 	return grc;
- }
- 
- static const struct nvkm_object_func
- r535_gr_chan = {
- 	.dtor = r535_gr_chan_dtor,
- };
- 
- int
- r535_gr_promote_ctx(struct r535_gr *gr, bool golden, struct nvkm_vmm *vmm,
- 		    struct nvkm_memory **pmem, struct nvkm_vma **pvma,
- 		    struct nvkm_gsp_object *chan)
- {
- 	struct nvkm_subdev *subdev = &gr->base.engine.subdev;
- 	struct nvkm_device *device = subdev->device;
- 	NV2080_CTRL_GPU_PROMOTE_CTX_PARAMS *ctrl;
-+	int ret;
- 
--	ctrl = nvkm_gsp_rm_ctrl_get(&vmm->rm.device.subdevice,
--				    NV2080_CTRL_CMD_GPU_PROMOTE_CTX, sizeof(*ctrl));
--	if (WARN_ON(IS_ERR(ctrl)))
--		return PTR_ERR(ctrl);
--
--	ctrl->engineType = 1;
--	ctrl->hChanClient = vmm->rm.client.object.handle;
--	ctrl->hObject = chan->handle;
--
-+	/* Allocate and map all context buffers before getting the control RPC. */
- 	for (int i = 0; i < gr->ctxbuf_nr; i++) {
--		NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ENTRY *entry =
--			&ctrl->promoteEntry[ctrl->entryCount];
- 		const bool alloc = golden || !gr->ctxbuf[i].global;
--		int ret;
--
--		entry->bufferId = gr->ctxbuf[i].bufferId;
--		entry->bInitialize = gr->ctxbuf[i].init && alloc;
-+		const bool nonmapped = alloc && gr->ctxbuf[i].bufferId ==
-+			NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ID_PRIV_ACCESS_MAP;
- 
- 		if (alloc) {
- 			ret = nvkm_memory_new(device, gr->ctxbuf[i].init ?
- 					      NVKM_MEM_TARGET_INST : NVKM_MEM_TARGET_INST_SR_LOST,
- 					      gr->ctxbuf[i].size, 1 << gr->ctxbuf[i].page,
- 					      gr->ctxbuf[i].init, &pmem[i]);
- 			if (WARN_ON(ret))
- 				return ret;
--
--			if (gr->ctxbuf[i].bufferId ==
--					NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ID_PRIV_ACCESS_MAP)
--				entry->bNonmapped = 1;
- 		} else {
- 			if (gr->ctxbuf[i].bufferId ==
- 				NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ID_UNRESTRICTED_PRIV_ACCESS_MAP)
- 				continue;
- 
- 			pmem[i] = nvkm_memory_ref(gr->ctxbuf_mem[i]);
- 		}
- 
--		if (!entry->bNonmapped) {
-+		if (!nonmapped) {
- 			struct gf100_vmm_map_v0 args = {
- 				.priv = 1,
- 				.ro   = gr->ctxbuf[i].ro,
- 			};
- 
- 			mutex_lock(&vmm->mutex.vmm);
- 			ret = nvkm_vmm_get_locked(vmm, false, true, false, 0, gr->ctxbuf[i].align,
- 						  nvkm_memory_size(pmem[i]), &pvma[i]);
- 			mutex_unlock(&vmm->mutex.vmm);
- 			if (ret)
- 				return ret;
- 
- 			ret = nvkm_memory_map(pmem[i], 0, vmm, pvma[i], &args, sizeof(args));
- 			if (ret)
- 				return ret;
-+		}
-+	}
- 
-+	ctrl = nvkm_gsp_rm_ctrl_get(&vmm->rm.device.subdevice,
-+				    NV2080_CTRL_CMD_GPU_PROMOTE_CTX, sizeof(*ctrl));
-+	if (WARN_ON(IS_ERR(ctrl)))
-+		return PTR_ERR(ctrl);
-+
-+	ctrl->engineType = 1;
-+	ctrl->hChanClient = vmm->rm.client.object.handle;
-+	ctrl->hObject = chan->handle;
-+
-+	for (int i = 0; i < gr->ctxbuf_nr; i++) {
-+		NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ENTRY *entry =
-+			&ctrl->promoteEntry[ctrl->entryCount];
-+		const bool alloc = golden || !gr->ctxbuf[i].global;
-+
-+		if (!alloc && gr->ctxbuf[i].bufferId ==
-+			NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ID_UNRESTRICTED_PRIV_ACCESS_MAP)
-+			continue;
-+
-+		entry->bufferId = gr->ctxbuf[i].bufferId;
-+		entry->bInitialize = gr->ctxbuf[i].init && alloc;
-+
-+		if (alloc && gr->ctxbuf[i].bufferId ==
-+				NV2080_CTRL_GPU_PROMOTE_CTX_BUFFER_ID_PRIV_ACCESS_MAP)
-+			entry->bNonmapped = 1;
-+
-+		if (!entry->bNonmapped)
- 			entry->gpuVirtAddr = pvma[i]->addr;
--		}
- 
- 		if (entry->bInitialize) {
- 			entry->gpuPhysAddr = nvkm_memory_addr(pmem[i]);
- 			entry->size = gr->ctxbuf[i].size;
- 			entry->physAttr = 4;
- 		}
- 
- 		nvkm_debug(subdev,
- 			   "promote %02d: pa %016llx/%08x sz %016llx va %016llx init:%d nm:%d\n",
- 			   entry->bufferId, entry->gpuPhysAddr, entry->physAttr, entry->size,
- 			   entry->gpuVirtAddr, entry->bInitialize, entry->bNonmapped);
- 
- 		ctrl->entryCount++;
- 	}
- 
- 	return nvkm_gsp_rm_ctrl_wr(&vmm->rm.device.subdevice, ctrl);
- }
- 
- int
- r535_gr_chan_new(struct nvkm_gr *base, struct nvkm_chan *chan, const struct nvkm_oclass *oclass,
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index e744f9f9d43f..ea3eb40bf828 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -727,19 +727,34 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
+>  				   struct inode_switch_wbs_context *isw,
+>  				   struct list_head *list, int *nr)
+>  {
+> -	struct inode *inode;
+> +	struct inode *inode, *tmp;
+> +	LIST_HEAD(scanned);
+> +	bool full = false;
+> +
+> +	/*
+> +	 * Walk from the oldest end and move scanned inodes to the newest
+> +	 * end, so the next scan resumes at unscanned inodes instead of
+> +	 * re-walking an ever-growing run of prepared and skipped ones.
+> +	 * For b_dirty_time this keeps the oldest unscanned inode at the
+> +	 * end move_expired_inodes() picks from; b_attached is unordered.
+> +	 */
+> +	list_for_each_entry_safe_reverse(inode, tmp, list, i_io_list) {
+> +		list_move(&inode->i_io_list, &scanned);
+>  
+> -	list_for_each_entry(inode, list, i_io_list) {
+>  		if (!inode_prepare_wbs_switch(inode, new_wb))
+>  			continue;
+>  
+>  		isw->inodes[*nr] = inode;
+>  		(*nr)++;
+>  
+> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
+> -			return true;
+> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
+> +			full = true;
+> +			break;
+> +		}
+>  	}
+> -	return false;
+> +	list_splice(&scanned, list);
+> +
+> +	return full;
+>  }
+>  
+>  /**
+> 
+> Thanks,
+> Patrick
 -- 
-2.43.0
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
