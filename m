@@ -1,131 +1,104 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399063F9F26;
-	Fri, 11 Sep 2026 11:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125302; cv=none; b=JiLxdp4ETOKiQioSDy6L/NDOwyAzYDE71Br94dXzEIfce1xQ0lYavdAl5vjx8bFfLjIGGK/Z2RTOSZ5ra7fTpbaBcYa9hPGfTrb45906ScahPRePrDYBr1CipqeF7WOgN+yQuig+awrzyajQWbYMv9Jy+5ujstUTMaYk3rwh5Dc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125302; c=relaxed/simple;
-	bh=9z3dYgMWb/tOv0KmrTVdDX+ydYolvLmVvBBhL8swSjs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ca9Mh2YjHN4aUezgMPex0lwh5FeFWZH/qQSEKf0I3hQ6fIzgK7XN7tKbxOPxRGxGJH+U9amH/Dj+ZsbyN1cmaSW4CYtS0lKuu546LAVOeVBHeKNEzZHYlIyKwK/kn3UmaHVf/vWgIDu3tyBn3vCm3rBdWHp9sG1jDKyj5W5+Y+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=b27G4EEq; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66DD443C2A
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789125659; cv=pass; b=ZDSUOoR5cit1mxGlr3pXThMrvF1SxGpG3UzkCIjRjn1KPx23rDW2EBlJ8ye06TF7NqE7d38mhcQcWIp4UprL0xtjbopJU3eQa96R7J3HQvhi72D4fZ9P0Xt18BK6ebl9UgA2mAWGjNhi1IfkMDafsg9CQEkUZ7fKfuGhGi9rteM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789125659; c=relaxed/simple;
+	bh=Fds8sz2PUdfOGmt3Fzs5pG1hKhISPGFhPz7NxEHwyVU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=qqoIHwrtCCanXUlh6jBZeoKHezAnnzNEH6kVEcBISdQloXq8IOk4SYkCA20pwwalMUiUjPU3dyzBbHowJprfJ64Y7k5orBmY6/hpn2oVChFQe+OXoI2kK2shmK6RUmanxSsUAZy6NVj0jLKRPe3Y7jcBFVkdSZ9mW3oXrEp3bQ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mvista.com; spf=pass smtp.mailfrom=mvista.com; dkim=pass (1024-bit key) header.d=mvista.com header.i=@mvista.com header.b=d50jaqvG; arc=pass smtp.client-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mvista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mvista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="b27G4EEq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1789125297;
-	bh=ijpw5B0ALKMOrNr17ZNQ0P4pO6xFuJNivKJm8MC9AMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b27G4EEqPwQF4J8bCvKPoiPiPMl9N9SQL9UlJG43cal+skl0XhMvfncgzQYlizO99
-	 Pq1vnxYbctNacDg6q/iq73m7CRTx3HtDXBEMxP3Nr+YjPAKbGNQQAZz3+hUf9mLooO
-	 0t8Yc5Od44yede5GjcHlGQZU5GzY1dTxETgn9OA8NInH285guFG3YgzIsKNJ1TnTC7
-	 idpC1PP8SdmQGkT+lvz3R/4qoKDloopC+yfaMabTSJTg/YUC+bv6La90tmUY4uNwuc
-	 vzm1E6D8osWUuY+JFc3jm8eAwH1YwE0ji76Ura3RKp6c6YTJeGe2HcKVuPqBkkGPR3
-	 4lyro2NP7BpDQ==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 92CD4603DA;
-	Fri, 11 Sep 2026 13:14:57 +0200 (CEST)
-Date: Fri, 11 Sep 2026 13:14:54 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Aohan Mei <ljp1205831794@gmail.com>
-Cc: netfilter-devel@vger.kernel.org, fw@strlen.de, phil@nwl.cc,
-	coreteam@netfilter.org, Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
-Subject: Re: [PATCH nf v2] netfilter: nf_tables: skip expired catchall
- elements on insert and delete
-Message-ID: <aqPirnuC6Rdebi8y@chamomile>
-References: <20260910080324.2663491-1-ljp1205831794@gmail.com>
+	dkim=pass (1024-bit key) header.d=mvista.com header.i=@mvista.com header.b="d50jaqvG"
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-47bad4566d5so366364fac.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 04:20:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789125654; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ADZtJozqJraO+ggYqSi0+BvjOIZO2/tOEaB2HHISGibdPP3joyrrFbXeIlhRy1XFrz
+         YYBn/MHiuNF0O36S61pIK8DKayO8GrCRI6efxr5OYbTwrmgatHBfHIHueZmtSTwdb/t+
+         yOa3ftt0Xan5P2x6UeMGOFe3Atc7QUhLFuh5YSo3+iYNuDR73GLsfvi/0x1xY5d1Mmk2
+         /OkFC3WVowla29eotteYZTkFELnIAeygjDWn4E/ff+r8EtwrSV0QCQSCxaQpUUg2n0uV
+         70uiaivcPF/6odIN8W6NtCPZHQC2EzDhkGAWnTpSf2/tx9TsPPUh1ga3heYmHufw654T
+         B6oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=Fds8sz2PUdfOGmt3Fzs5pG1hKhISPGFhPz7NxEHwyVU=;
+        fh=2mP+pJggPNCdSHANLJ91cUFqhCjso7LAPKRkrBNbUSI=;
+        b=dRERK1ukcmOOmyVhaofad6fjmr2uMigCW9V3387l5i2M3dk2/XgoGWXL334f50awv1
+         BP6utcAlIaAzNzez29NNcMHfjwnSXKuxoKuz6R15aGZ9mm/d5eBJR1Ktx7cYDfqT8gIQ
+         w5bBY5mv5wm+4n5/N2dEZCGjwMe4j4uM0GbjWkLkLNffCzeKsXyqwYohz7+oQCd8o8AQ
+         gdRqfKp+0ckBBvolDSa28ecVzuBBjvHo4ymGHlu34TykTx7WF8betle3YfhZzm0ALh4s
+         0LKzCvMjgL2TRYnXh5ozrStLXPeDDf63f+4A4X8DRvAm6itznW0sdAcYYq2y7DqOGjXM
+         agSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mvista.com; s=google; t=1789125654; x=1789730454; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fds8sz2PUdfOGmt3Fzs5pG1hKhISPGFhPz7NxEHwyVU=;
+        b=d50jaqvGGUj0wdaFPA3OAbsWKhuDaev5v1UPfNzsoGZ5cMCBnRnhqAgPV2HsL37a2p
+         ZpxwbEkVWWRJI+5NiNoiVUJZdhyOSU8n4wTbQ1nSdJBOPnKk/rP2PZXxg3gn1Q5JRY8d
+         fcQDo3oWESc5buQQk/RQsZ4OPY0f0Lwb1nqjQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789125654; x=1789730454;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Fds8sz2PUdfOGmt3Fzs5pG1hKhISPGFhPz7NxEHwyVU=;
+        b=Yy4DFfgTkE5KrhpeAOqS1xZ/bUR5HqcwJ2osLPJNv2izbYI8W3hBoCXJcDAfBMpBqA
+         sBsKv9C84vS3jrVoxxJ7wAxCtpRr7WE/t3+qtkLwfMxT2C8zLdpedXrpHrrlzNWUn0Zk
+         xggLGMAE4wqGqM3z4rHMzaJo0SrFW6e0u5wvGTf2ma8KKKNIFkOA2idqW/HIobxQ1H/4
+         LJduk6o1cTOMIlsPUzk94WJNsnwVkS4S0/iwSCl++359FkOWAHDzab38PgoUuzxlakt0
+         pvzn5yXlWrX7r6vB2QK1k5KWAEq6Rx2MtoMo59pKXBxmJR/PRLGBKs5+eljV+A1yMFF2
+         gjsg==
+X-Gm-Message-State: AFuF++lqruQy0SPlhLtCuO3fwhOQh73TU6DamcTKstDeDtorDpgODRPm
+	HmYnoF85QkS9kcwL/eNCzLzpOjkfJCxfGMQxnw1k14XyWfZLcctq4AUNLg/NLE4vgUpklMVEkg1
+	eoyKGPMHECdWnXP+K6cTg9Ya4XyXE3RE7acO2JmNd0773wwLl80e/Vno0cQ==
+X-Gm-Gg: AYBFou3dVruHl4oK1HRRG7RFweXWtbYSuS+tay8fOshZrJlgxopi3Ic+dYyj6H/Mx21
+	sXp48WSKK9jbNxmHlCNx7CCqteNmW4KMfA+bb1UyZZ+bvDH0gDaoVk1M/WsuL+z4QNe3ZuUdpn7
+	b1m+VAHtYJpYqndtJ2tYLeSCMn6hx02juqY/5hYOOctSAFUtStkNnC0bwBscRzWpCTt/+AyDGPY
+	G1jjlyoMPh/Fv5jb9yPqXKVAM1rt5huY4GqTt1TN3pLfF2FOBvoCL4wIrfQ3ysrD+CLuiK1ROCv
+	yepae5UF4W1P6KIlcE4BKrcJVZbfOmiLXYO6hyx8IcRzOzKDacYw3y1ov3k0940B+j6CfqeCUm/
+	ayHMU3iUAgvZjKSV/Dnwe8+XsQE/jqMhcwsj5IQSgUA==
+X-Received: by 2002:a05:6870:e0cc:b0:465:8554:94b7 with SMTP id
+ 586e51a60fabf-47de86e350amr2741757fac.12.1789125653680; Fri, 11 Sep 2026
+ 04:20:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910080324.2663491-1-ljp1205831794@gmail.com>
+From: Hardik Gohil <hgohil@mvista.com>
+Date: Fri, 11 Sep 2026 16:50:40 +0530
+X-Gm-Features: AcwNN1W3bq8plirK4CTJj2F_hh8nvGjpUVrukam0whmtHtzSbxvOiPkl5vdtVbs
+Message-ID: <CAH+zgeGSQTgn=LVUKj-T4LnxSFjn-t7cftfAiEvAsQpdr9sfXg@mail.gmail.com>
+Subject: Attaching CVE-ID to specific kernel fixes
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 04:03:19PM +0800, Aohan Mei wrote:
-> From: Aohan Mei <henrymei@tencent.com>
-> 
-> nft_setelem_catchall_insert() looks up duplicates with
-> nft_set_elem_active() only, while nft_set_catchall_lookup() and the
-> dump path additionally skip expired elements.
-> 
-> Once a catchall element with a timeout expires, this predicate drift
-> makes it invisible to userspace dumps, yet it still blocks
-> re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
-> without it the request reports success but silently inserts nothing.
-> The stale entry only goes away when the (user-tunable) gc interval
-> elapses, so the catchall rule may silently stop matching for an
-> arbitrarily long time after its first expiration.
-> 
-> The delete path shows the same drift: nft_setelem_catchall_deactivate()
-> picks the first active-next entry in the catchall list, so with an
-> expired entry still pending GC it retires the stale entry instead of
-> the fresh one, and it deactivates an element that userspace no longer
-> sees instead of failing with -ENOENT.
-> 
-> Align both walks with the lookup and dump predicates: only an element
-> that is active and not expired counts as a duplicate or delete
-> candidate, using a single timestamp snapshot for the expiry checks.
-> 
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Cc: stable@vger.kernel.org
-> Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
-> Assisted-by: CodeBuddy:Kimi-K3
-> Signed-off-by: Aohan Mei <henrymei@tencent.com>
-> ---
-> v2: drop the is_dead check, it does not belong to this dedup walk;
->     use __nft_set_elem_expired() with a single timestamp snapshot;
->     also skip expired catchall elements in the delete path.
-> v1: https://lore.kernel.org/netfilter-devel/REPLACE-WITH-V1-MESSAGE-ID
-> 
->  net/netfilter/nf_tables_api.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-> index 765a92fa90d6..0f3449cca5d2 100644
-> --- a/net/netfilter/nf_tables_api.c
-> +++ b/net/netfilter/nf_tables_api.c
-> @@ -6991,11 +6991,13 @@ static int nft_setelem_catchall_insert(const struct net *net,
->  {
->  	struct nft_set_elem_catchall *catchall;
->  	u8 genmask = nft_genmask_next(net);
-> +	u64 tstamp = get_jiffies_64();
+Hello Greg,
 
-No, this does not work. This must use the tstamp that is stored in the
-per-netns area.
+I had a query regarding CVE fixes for LTS kernels. I noticed that
+while fixes are backported to LTS kernels, the corresponding CVE ID is
+sometimes not included in the patch.
 
->  	struct nft_set_ext *ext;
->  
->  	list_for_each_entry(catchall, &set->catchall_list, list) {
->  		ext = nft_set_elem_ext(set, catchall->elem);
-> -		if (nft_set_elem_active(ext, genmask)) {
-> +		if (nft_set_elem_active(ext, genmask) &&
-> +		    !__nft_set_elem_expired(ext, tstamp)) {
->  			*priv = catchall->elem;
->  			return -EEXIST;
->  		}
-> @@ -7088,11 +7090,13 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
->  					   struct nft_set_elem *elem)
->  {
->  	struct nft_set_elem_catchall *catchall;
-> +	u64 tstamp = get_jiffies_64();
->  	struct nft_set_ext *ext;
->  
->  	list_for_each_entry(catchall, &set->catchall_list, list) {
->  		ext = nft_set_elem_ext(set, catchall->elem);
-> -		if (!nft_is_active_next(net, ext))
-> +		if (!nft_is_active_next(net, ext) ||
-> +		    __nft_set_elem_expired(ext, tstamp))
->  			continue;
->  
->  		kfree(elem->priv);
-> -- 
-> 2.43.7
-> 
+May I know the reason for not adding the CVE ID to these fixes?
+Wouldn=E2=80=99t it be a good practice to include the CVE ID in the patch, =
+as
+it would make it easier to identify and track the security fixes?
+
+Any views on this from the community?
+
+Regards,
+Hardik
