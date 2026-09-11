@@ -1,119 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6421A683D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589E425771;
+	Fri, 11 Sep 2026 01:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789088698; cv=none; b=ujIPhGqi97tDXb/IHWoVDUdPFPw4BhJrdkAVISqI9j6x0GKg/V2w8eE1fcYDggD6jBy63bAct8in1Cz1IqH/ILYu5yli9Y8mP4uNJUa2NLT29yfqaBm0H+iVpcyBP6/eXnTtOwdiHEvMbh1YC8eFEXRg2vNKQTzpxOEJlKPpDQs=
+	t=1789089015; cv=none; b=Ov9PFN9WxiRLllwRUCZzCfGfc4yCOdwP/EEJFiBID+/sqAwwTxeOp86WeIraxAYcK+/W7ChGBytk7K9NdGosM8q9CHw4cmF39EV6R5GPJz0C3MGh9e2VHbw8NbxJ6/XiIgD2pra60tmTrvnOCTw1eJDaBH27BNo/fYkLGL4Z90w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789088698; c=relaxed/simple;
-	bh=40Lu2wRqdfrtqMAY7zIJIS5t314kE0EHdzhMCpzObd0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R/I+3WLcn8ayKh+Fuk4mwHbY+kCzWy2N3fJ0eat4D7hAGF4jgTKCmMQXOIItkmimSJ9kLjWDqkcpGvLdf3eyPsYQoXcIMWZN26vAZTIgZPW78wYxXM5RRDqS8fG4r6R5H0OwKJUbNhe/YfM2AXwoBZ2WsmAzXPyF9nyjEDQrYAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAxQ5xON; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789089015; c=relaxed/simple;
+	bh=ipvybFxxBPkQMPky0lJuVHQ6IPtek1zLaIeSMkM93iE=;
+	h=Date:To:From:Subject:Message-Id; b=oXrn18c8xMk5cMoeOBS0gA1epfHfdPT1YDcyIboUNKjnjcNb2m5BMjRckrWtTU33MzI5frJ+gye4sYNRoWdYeLgta6uIqnGX/sTxR5omed37FF8DTemiCa++wsOFa/lD6aWk9ZXT9ahbTRMZKOGo6qyHL83AaJN8XMup2/j6gqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=my0hY+cU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAxQ5xON"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF751F0089E
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789088695;
-	bh=40Lu2wRqdfrtqMAY7zIJIS5t314kE0EHdzhMCpzObd0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VAxQ5xONjv3ztUEcYy7yDo+iCH7TGm6/Xvu0LrQtuaYb7CeWB/ZaVKBp4sXcL/JP5
-	 iLxslT+w0+5W40sGuyoD4sE8JDQk1+2RR6jjmlof2jRtHC46PcrG6StWou+CEujdvx
-	 xVCC6Zsk/VEuZ54ol26x+gV2SpB12M8P0RAXrKcZlfsE2R0BwxW2uO2j3YBQkWl1Lc
-	 e72iYafvmwp7H6rxgVQSVdVrQSX4Jm13Xr+GM7h79uA+4iygAHTFW9/SJ7EJuxDpe8
-	 jyCKP4c18bbESK9RTg36Ej8Yfaw6luiFepIjVa8yBNKqMIhbU2AM/+Ly75SA8huX10
-	 dZu1UMN5E+10w==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2544ff970dso61339966b.2
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 18:04:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxJW6VHySotl8ONnLiJEoJpVcZRTY0SCYhGwZ56VXVQ0Iuf7VU8hVPkfSsMP9pS1Ccp5et2reY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEIPXh/YjmWpJjS8QO+OAv39Udl3m0in5xzc4HAICPW2bRzlWa
-	EQRyfP7klR73PC9/6B+wHxHvdpaO40vpSmybo/bN4yMb4ZelkNEa2Y7y+PlUYBfGOaDbhTs7EOe
-	lhhyeSUesibqYKX4QwvawINMdiaKs3cQ=
-X-Received: by 2002:a17:907:961a:b0:c28:ec7c:27ae with SMTP id
- a640c23a62f3a-c29666bfe90mr53903566b.25.1789088694040; Thu, 10 Sep 2026
- 18:04:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="my0hY+cU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91701F000FF;
+	Fri, 11 Sep 2026 01:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789089013;
+	bh=uCyPMO7S2FSPZo30XxNmWONs6YGIG09TJaO6TDXvhng=;
+	h=Date:To:From:Subject;
+	b=my0hY+cUtBk7FdXkn0O5aKWlsXEY/s8btTPhRb8jwOfzNybWTere8YGz2g672/sxO
+	 8bt4y3IDuk9tkStqUFcqqD9ltGonc5wkOI4KYglG8VFocxt8e+HOR7bxLQq1w6td7C
+	 VNfaRcajqMKVq+3LKFFhGmF5EDzPNUd/LXvgc3GY=
+Date: Thu, 10 Sep 2026 18:10:13 -0700
+To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,david@kernel.org,chris@chrisdown.name,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-page_counter-avoid-integer-overflow-in-effective_protection.patch added to mm-new branch
+Message-Id: <20260911011013.A91701F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910051649.3806214-1-april.cardenas@canonical.com>
-In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 11 Sep 2026 10:04:41 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd829H6zq5g+n6Ue40cW96PfFaPu3kAXe+i5WZhp6E9u=w@mail.gmail.com>
-X-Gm-Features: AcwNN1XpUYrtKTZJ2AXoyTyNrttIcCISwwbTIIFxmObetxMzLHFFFo8SvJuZfwM
-Message-ID: <CAKYAXd829H6zq5g+n6Ue40cW96PfFaPu3kAXe+i5WZhp6E9u=w@mail.gmail.com>
-Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
- for multiuser mounts
-To: April Cardenas <april.cardenas@canonical.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
-	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 2:17=E2=80=AFPM April Cardenas
-<april.cardenas@canonical.com> wrote:
->
-> Currently, when cifs_oplock_break handles a break request from the server
-> it searches for the appropriate tlink to handle the request
-> but incorrectly uses the current fsuid as the search key, eventually
-> causing read errors for users with multiuser mounts on NetApp.
-> Fix this by using the tlink from the cfile struct instead to respond
-> through the correct session.
->
-> As breaks are handled in a worker thread, the current fsuid
-> isn't guaranteed to match the session that the break is intended for.
-> This means that cifs_sb_tlink may search the rbtree using the wrong fsuid=
-,
-> and return a tlink with an incorrect session than
-> the lease break was intended for. As a result, the breaks
-> may be ACKed through an incorrect session.
->
-> While it seems that Samba/Windows Servers 2016-2025 ignore this as long a=
-s
-> the lease key is correct, we ran into a case where if you're using
-> NetApp ONTAP or Azure NetApp Files they will reject the ACK
-> and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
-> a user may initiate through their still held open file handle,
-> and the server will eventually close the file.
->
-> In the dmesg logs, the user may see errors like these:
->
-> CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
-> CIFS: VFS: Send error in read =3D -9
->
-> With a multiuser mount using NetApp, this issue is really easy
-> for users to hit on a wide variety of kernel versions
-> by attempting to copy a file from the share
-> to the local machine through GNOME Files/Nautilus.
-> This copy will always result in Nautilus throwing
-> a `Bad File Descriptor` error to the user and fail.
-> With this fix, you can copy files through Nautilus without issue.
->
-> From looking at the traces, it seems that glib will
-> open the file first, and call listxattr before actually attempting
-> to copy the file data. The listxattr call always triggers a break,
-> causing the copy to fail.
->
-> The proposed fix returns to the way the client grabbed the tlink before
-> commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
->
-> The bulk of that commit (checking for list empty) remains untouched, and
-> I think the change to using cifs_sb_tlink was intended to avoid a
-> NULL/ERR deference on the tlink as well as update the reference count.
->
-> I believe this fix should preserve those safety properties, but of course
-> I'd appreciate any corrections here.
->
-> Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: April Cardenas <april.cardenas@canonical.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks.
+
+The patch titled
+     Subject: mm/page_counter: avoid integer overflow in effective_protection()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-page_counter-avoid-integer-overflow-in-effective_protection.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_counter-avoid-integer-overflow-in-effective_protection.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Ridong Chen <chenridong@xiaomi.com>
+Subject: mm/page_counter: avoid integer overflow in effective_protection()
+Date: Mon, 7 Sep 2026 10:54:44 +0800
+
+Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
+reclaim", v4.
+
+For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
+(global direct reclaim and root-level memory.reclaim), because these paths
+shrink memcgs using stale protection (emin/elow).
+
+Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
+in effective_protection(), spotted by the sashiko review tool, which patch
+2's new caller would also be exposed to.
+
+
+This patch (of 2):
+
+effective_protection() scales a parent's protection by a ratio of page
+counts, e.g.  for recursive protection:
+
+	(parent_effective - siblings_protected) * (usage - protected)
+		/ (parent_usage - siblings_protected)
+
+The multiply is done at unsigned long width before dividing.  On systems
+with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+protection value and silently breaking memory.min/low enforcement.
+
+Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
+usage and parent_usage are not read atomically (a child is charged before
+its parent), usage - protected can briefly exceed the divisor, making the
+quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
+stays <= 1.
+
+Reported by the sashiko review tool [1].
+
+Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
+Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
+Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
+Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/page_counter.c |   21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+--- a/mm/page_counter.c~mm-page_counter-avoid-integer-overflow-in-effective_protection
++++ a/mm/page_counter.c
+@@ -8,6 +8,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/atomic.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/bug.h>
+@@ -376,7 +377,8 @@ static unsigned long effective_protectio
+ 	 * otherwise get a smaller chunk than what they claimed.
+ 	 */
+ 	if (siblings_protected > parent_effective)
+-		return protected * parent_effective / siblings_protected;
++		return mul_u64_u64_div_u64(protected, parent_effective,
++					   siblings_protected);
+ 
+ 	/*
+ 	 * Ok, utilized protection of all children is within what the
+@@ -417,13 +419,20 @@ static unsigned long effective_protectio
+ 	if (parent_effective > siblings_protected &&
+ 	    parent_usage > siblings_protected &&
+ 	    usage > protected) {
+-		unsigned long unclaimed;
++		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+ 
+-		unclaimed = parent_effective - siblings_protected;
+-		unclaimed *= usage - protected;
+-		unclaimed /= parent_usage - siblings_protected;
++		parent_unclaimed = parent_effective - siblings_protected;
++		parent_unprotected = parent_usage - siblings_protected;
+ 
+-		ep += unclaimed;
++		/*
++		 * The usages aren't read atomically, so a child can transiently
++		 * appear to use more than its parent, making the ratio exceed 1
++		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
++		 */
++		unprotected = min(usage - protected, parent_unprotected);
++
++		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
++					  parent_unprotected);
+ 	}
+ 
+ 	return ep;
+_
+
+Patches currently in -mm which might be from chenridong@xiaomi.com are
+
+mm-vmscan-drop-the-combined-limit-gate-in-__node_reclaim.patch
+mm-mglru-preserve-inactive-placement-when-enabling-mglru.patch
+mm-mglru-make-type-fallback-logic-explicit-in-isolate_folios.patch
+memcg-acquire-peaks_lock-when-reading-memorypeak.patch
+mm-memcg-fix-memorypeak-reset-clobbering-other-fds-watermark.patch
+mm-page_counter-avoid-integer-overflow-in-effective_protection.patch
+mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch
+
