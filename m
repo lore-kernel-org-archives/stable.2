@@ -1,148 +1,109 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A968F420475;
-	Fri, 11 Sep 2026 17:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148145; cv=none; b=l4np3t+gqggyQxSaWGK01Po2Tsrosj2g4txNsJXPG1JgOn1HsUvUloZISco7XqyP+/f+7AuixccE1n5TODn6hylTNcGmhAM1QrfzdNofRr+EOBVLR/SBgy1BFhfOK5fy69PRJHRJCzIb+FPLeusrfa/0FoTPBzTLgdpk9rNCSjs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148145; c=relaxed/simple;
-	bh=iwS1vIB//xdldz1BpUq3y6FKoMrwQfjgvhFiBVkFpJ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DSpgMSE6LAxbU/eSZa7ff1roYd/o9mBUwuI/nyR+7BHEvO06EygalGrnFjqXHAg8GInPh4FbNP+3tJO2yxYoi6akkSyYMWbhht2zpZCDbvlgz7xa1Nv9HENLnRTfZwEA9OySykOE9WGM01zBRDHZH238r72Gx09h/a9YslJDKMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=G7PDZITx; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901CE4A99B6
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789148397; cv=pass; b=CqVkKDtsHtDiKscCSfh8/l6dh9pjbu5TviYRehE6dKT2VNxEAj7LdUQnZ6gjs3/AOajYEhqvA+YPyzk+hN8imEuHkYDameFvn3BtLHe400MwceYPIWP5g5mEEtfg2XrC1PeLMkBNCxNsxaa1Cylt/edYlNMP+bCtOhUwZGBUW/s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789148397; c=relaxed/simple;
+	bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rc18VUPlhNG62iadfJAtz+MGg3QEs9whhFvfOG7IFcU9f2kJc7UAhFU5yDGWCJjpph2vMzqpFrAvmznhD027EzUI2et6qsGRHS8xmzZGTNpKOapYGRqdTVLVDWIfjEUiUB1YUnxYMgHSC2Kg3Y0qtBe1mCKaActT0TIp94Tjdgk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y+wzf5gD; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G7PDZITx"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CCE38DA8;
-	Fri, 11 Sep 2026 19:33:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789148040;
-	bh=iwS1vIB//xdldz1BpUq3y6FKoMrwQfjgvhFiBVkFpJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G7PDZITx/MujrpiarN9EybIY1mRkNbTwzhvSEn83zOfTkm/EOUm3PTGudX8yGNQw5
-	 YVqp5nJT79QwxGQhN5phLuKUN43obFtdWNsNKvPglxi1APLJZ16rxDhHV5Vd79RDRK
-	 YOnsURurJrjcX7oo3cWiRjOj6updowLDTyXNpjJ0=
-Date: Fri, 11 Sep 2026 20:35:36 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Paul Elder <paul.elder@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
-Message-ID: <20260911173536.GX1892234@killaraus.ideasonboard.com>
-References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
- <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
- <aqQTTtJf9qcdSz2z@zed>
- <20260911173508.GW1892234@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y+wzf5gD"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so2648a12.0
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:39:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789148391; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pnNa4hv1kKpk7WkE8xerhjRFrsZjpo4IZogvjpNqXbnS9ZBNZmQy8KfimMCb6laE6a
+         dgP5CjWdLS8uqHskyJeLZc+aeXFQOve/S0OOL3YI0hw9Mc+OMv4JGYHsPq7R9KD/FzoO
+         C7yo9W/RqkM2d+hUGeOaCG04qUGbusVz0CGX9zpoqykBfcjJfrnLuRPvgG6nyTgxaLzr
+         czG5w0C6Qx3v6So2m8YaIm/HrfbTnaG0+a/jWbzjVWIKb/5WPxMEpgvfg5z8xN4ngtnY
+         vXnf/u8BMF1UZqwNULp/63naUHnY8KNV+TEGodJxFmt7Hqq01vYPsuUy03CLDKU3Bph9
+         NfxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
+        fh=zjgdJHHNUlsc4bixb96NlOct7kraU/uQ1fl9p535/bg=;
+        b=Tt83i0wDOBNUiowCBBYkWESp5trxm32rorZx88q3wVnhOTuC8McGUo0yZnaaDycL7N
+         QZ5fqEAV+oBH6Sl7Y4225KIw9bCphRUPOZ/YseXVvFyC+euAqX6n9xCNVEHhoWPW5iq9
+         HjTMZ7r0vh0+elVbKiAdYVfBO38MlKOXn8T3qYzQN1Qc5q9r6SJ5IwLB15jXbx7Y98IX
+         hVuJP6i2VrKA0iSykSRLCtmU4HZ400SSZB3aK+n5Xaoc4oPKtXknWmC+ok4xAgRoCjG+
+         F+llfmHbgsadF0fpMWangmdoUYZAOmvjGRbWMnSxF5jzyuxUz9SlAjIL2Vvwq9Fngl4R
+         nl7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789148391; x=1789753191; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
+        b=Y+wzf5gDdAjJvN31ndTPQatU9eRlMBR3mwyJqDCJmTCgl5odbeO8CWb+eKRNmsh4wN
+         K5eVgyPeed1zyxXTwlQvLMtI2GO+dwLZuFVXyXQocn1vqPKqzHNxn9kyGcsTBsLYptvB
+         RloRmmWevN1Q2Y+4KX1C4y/YnHOl84yIpT4HGZUDODwczDM93uFBWqP+UhGbfOyoMV9q
+         XQPDNeclUAJt0H1nm22CiPr2G3g0r619shI2eKIx0pEulNQeb4XYiv+xzSZnyrIFs/vy
+         zPLf5zUOj+gSI9uG1AsdLDe/wrUcPXvc50geX83Bj5f6Cqv7vxaeTiau4iZ6CwNWElTd
+         Icpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789148391; x=1789753191;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
+        b=eKynd4VsFu4l5ndFN0c0W8bGo3wdK/OaIHvchxDi0vdiCzeMwmjyI3JTjX5Ztgj5To
+         7g1lzdERadcC50N+4lGHpPneWmoh1Yno1rv4aF7Ra86PvTpqIYXcj9zNrLkiPG+usXt6
+         Eebx1cy9yhD3UPZmKTtseZ6+FAjpYSWogCdl02eSrYjYpJdaPQ8RI7lMXPPM6BB/WUZL
+         wT7hZu1QIwx96ZImkvxcQ2sjL4HTsM7pCHlhZczIeGIWIHL2OKgwRHOIpCVo32THLvtL
+         +i+LjHcfZfyH3T7vBNkyqxVOgZWxKS+ZeT2g9Xz5UW56A/KVgMEywWPBMmaxN3wYjinC
+         1d5w==
+X-Forwarded-Encrypted: i=1; AKwUvBx0spqQSkHhxjWnbXGqei8FXtrY9hMF1QuLpPWNVKjZQtf25gzYp79zf45fJjCOfaspVAkY2Dc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUMy6znHv3uRSfh7abazcMqqM1BaVN2m3gtHdH8X0Fnb+7wPxE
+	gHalaFwIu0ILpxX8IjSAOcjHGfyzpR7/BvZ2Dt4zcW3N3vIr9rLRv3wk208yhxVXGEHxfkYkxHJ
+	Cv3JIYSPUOR/DuOD+Y1SCqjJo44yEazmlbvETGw9M
+X-Gm-Gg: AYBFou3hYTB/oM1iWjQfW8JU/rIa6F+6o4r9Vy9avYEZs7n/ssdHsqCrqoHnO+uvNSt
+	BZicDHG9Aih8zwXTw7lpUZNTL8TBZWBgeKJ//J8EQGq3TxEGQNCRYh49gtiVfJvGYgrTLu5fxoX
+	OlrmfzJJP+NBjz+9W6ZdhP02g7/kud2ve4mK3JiK6Kyewds9osAhDEGpDSHtQad8pvhbkV3tw1q
+	O6GfVp413FanhAfLOw0uNxYohF2CpZ0nju2R1PJmFcgrCB4ksWspm+SdVMTTtIUZqLRm1LnWFg8
+	lPD+Eq8uswme0ccYnpmhkEa/Xyxkll3FRerbg5Ox3yw9bQXxb9A4hYo=
+X-Received: by 2002:a05:6402:3987:b0:6a6:967c:3186 with SMTP id
+ 4fb4d7f45d1cf-6a9cab59a3dmr2722a12.2.1789148391126; Fri, 11 Sep 2026 10:39:51
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911173508.GW1892234@killaraus.ideasonboard.com>
+References: <20260908132838.2116068-1-jmattson@google.com> <CADrL8HW3Q=8eBf-=h6BAPdUN_X1Z_-KG=i5a5rA2kF+V4JURww@mail.gmail.com>
+ <CALMp9eRJXozpUpdOhqDCWn7VbqHb9G9hn4aZnxS_fef4ad1yTg@mail.gmail.com> <aqGsukcRG6khmxpt@google.com>
+In-Reply-To: <aqGsukcRG6khmxpt@google.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Fri, 11 Sep 2026 10:39:39 -0700
+X-Gm-Features: AcwNN1X2A_hxZ5GZwsDJmDi2mwtjAoPaaSIS9kKhx7UswvNj-QNrz6kZOK723cw
+Message-ID: <CALMp9eSG0F9yv_KfYpWk58Ko6ZPcVArijguF=JF61NVVnuAVVQ@mail.gmail.com>
+Subject: Re: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory
+ during vCPU teardown
+To: Sean Christopherson <seanjc@google.com>
+Cc: James Houghton <jthoughton@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Yosry Ahmed <yosry@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 08:35:10PM +0300, Laurent Pinchart wrote:
-> On Fri, Sep 11, 2026 at 04:43:32PM +0200, Jacopo Mondi wrote:
-> > On Fri, Sep 11, 2026 at 03:27:50PM +0100, Kieran Bingham wrote:
-> > > Quoting Jacopo Mondi (2026-09-11 14:56:19)
-> > > > The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
-> > > > demosaicing block on the RkISP1 ISP.
-> > > >
-> > > > The current implementation however clears the bit when demosaicing
-> > > > have to be bypassed and sets it when demosaicing has to be enabled,
-> > > > effectively inverting the bypass bit handling logic.
-> > >
-> > > Ouch.
-> > >
-> > > > Fix this by setting the bypass bit when disabling the demosaicing block,
-> > > > and by clearing it instead when demosaicing has to be performed.
-> > > >
-> > > > The issue never manifested itself as libcamera hasn't an algorithm
+On Wed, Sep 9, 2026 at 12:00=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> So, as an immediate set of changes, what if we do this over ~5 patches, w=
+ith patches
+> 1 and 2 tagged for stable@?
 
-s/hasn't/doesn't have/
+By "we" here, you do mean the Royal "we," right?
 
-I'll fix it when applying.
-
-> > > > to control Bayer demosaicing bypass yet.
-> > > >
-> > > > Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > ---
-> > > > media: rkisp1: Fix demosaicing bypass
-> > > > ---
-> > > >  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
-> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > > >
-> > > > diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> > > > index 042b759eba62..496381962f1b 100644
-> > > > --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> > > > +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> > > > @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
-> > > >         const struct rkisp1_ext_params_bdm_config *bdm = &block->bdm;
-> > > >
-> > > >         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
-> > > > -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> > > > -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> > > > +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> > > > +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> > > >                 return;
-> > > >         }
-> > > >
-> > > > @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
-> > > >
-> > > >         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
-> > > >             !(params->enabled_blocks & BIT(bdm->header.type)))
-> > > > -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> > > > -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> > > > +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> > > > +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> > >
-> > > I think this also opens us up to add mono formats as explicitly
-> > > supported by the ISP and potentially set the demosaic defaulting to off
-> > > in that instance?
-> > 
-> > mmm, I think userspace is in a better position to decide when to
-> > bypass debayer instead of relying on auto-configuration of the ISP ?
-> > 
-> > I guess we'll discuss this when support for luma-only formats will be
-> > added to the driver
-> 
-> While I understand why auto-configuration is tempting, I've found that
-> more often than not it makes the life of both the driver and userspace
-> more difficult. Look for instance at the colourspace handling code in
-> rkisp1.
-> 
-> > > Anyway, Looks sane to me in this order.
-> > >
-> > > Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> > thanks
-> > 
-> > > >  }
-> > > >
-> > > >  static void
-> > > >
-> > > > ---
-> > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> > > > change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
-
--- 
-Regards,
-
-Laurent Pinchart
+I just want to confirm that you aren't expecting anything from me. :)
