@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61DC3D331A
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4133E2ADB
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123295; cv=none; b=Uun2QA4Yievd7Gs0lkFshU0HyUKwhY2V3g6//yP6aLWciWAH8JeA+HnI6VZpzDtSUPppAkhTdnvFnO+OZctnyK8R8iVQeUox/p0UAEU62a3yUmiC97Dt9oF9GSNAGXrM+y5aCo9MP1gMMxy2uSy7QpjcFuBYF6CMdds+aFJxX6c=
+	t=1789123296; cv=none; b=eI6/nUYpQFn/Cpgl9p6fsQnngYVVilWeqlebFj+qklEOj210Xz496qxyl2YRvdJ0yiWu5Ano8Cgf5d2eCsQjNPD9CIDNyzbLNMTmyBQCnSu+RAecYyCIOpNz2HDhuLYK0uygAn9+d1hH4/gu0c8SYm5R7ccipUSMaepqGQFIB8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123295; c=relaxed/simple;
-	bh=IeYZd2VeEb0yzwT9GTpxyfuf0tzgykmEtu+Y39STZ4s=;
+	s=arc-20240116; t=1789123296; c=relaxed/simple;
+	bh=Ljr/NfNDoZI/5OUDm217JDi000fj6BuaUIEq31TytGI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SUtiWGenFaVSsnhO3OMpQPgs23VffSkLELz7i2NgsuzcMaloI+ma01Uq9EZmqz9XE7NWR0/JlxQv05HuW1Kri1ERfzbf044ZybCu+LrRIkvh7kmPi2DM0T/9meECpDII0ufD4dArsEmReBy7AtrAvZ2tMGB/PLF0GQymD5qfYcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQXBc1vZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GXzg2r8mdeBAAT5PLr8YxiJU393MzYPxb5E5JhFGRTdl6cqpzEdfp8VZUiTdR/iAtOXFWkh0EKh6I2gfzOGKSpMtWD0kgyjNk2lOj2MjDGOoUabUkGKFV4/kwuebQVA/mPIsfJW9D4NAeApywJMEHZw8lnTn2lChdDxJai8k+U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHAe0uCl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQXBc1vZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB761F0089B;
-	Fri, 11 Sep 2026 10:41:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHAe0uCl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408991F00893;
+	Fri, 11 Sep 2026 10:41:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123293;
-	bh=I6DBDXV/7/BTyHLYJGXjT/c4ihTRK1oRB4CoXn9Rxag=;
+	s=k20260515; t=1789123294;
+	bh=VSPeB8+9p5egJkf2hd0bL8pbAet8l6phX4af2t0A1TY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jQXBc1vZRN0wzv3OTOqwxH0/U5e6LtbVZvyoqH6Ckf8diqP1KOt3caCdn4/5gnbff
-	 D2GjslunCWg8xuXSX75o/80RvTqcj02Iq1cnNOIJZp0kZ1NL6DsZq09bakqZPES4Ya
-	 XIA3zq5NqLJTdfG1ankvRPPngKDpqrGFFW+qvbjTK/6vomO4m8vPMhi+IDFt3WZSpx
-	 kPDcpC2W5YfxKP040MiCaUFUpoiNNK27rk3/08cP4XkpqOQR6XrcCzxRGfezzqTiIr
-	 bM4UfZch/hUlu5AFi/moGbddf8yEZLbHMqFleOxkvE82juRucrHs0p5slxxyI7R8Uh
-	 85luY5N3gVqgQ==
+	b=ZHAe0uCly3uueB88hqhenBr+jgEO4ivfLJFBoipglQnSqnocrVF68TVAuTglO+hiR
+	 LNT6ljNGDRPZo4rW92Om7qDQVUlqH7OqVqtWilT4wYX9ZZLfllDT5jDhvCv4XleCFo
+	 NWEkU9VQOPN2GFmbCz205Gc8L03if58Xm3eBeeug6qF86fFrxYS7wks2xJb+iY0/zh
+	 4IMeyMruX4wZFOZbalh+ucWZv2Hpxf2NafxLWM1thQ26lyloHw4FKREvGTvIZrtu0D
+	 JFExVIvPOrvm13RtH3xLNqcpHAERF6UUzxEMKmBaHtN5LM0Kg16sC1+3tTibNQLA3H
+	 kdIsW4OHzDZwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Yosry Ahmed <yosry@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/5] ASoC: Intel: Skylake: Introduce HDA codec init and exit routines
-Date: Fri, 11 Sep 2026 06:41:27 -0400
-Message-ID: <20260911104130.193213-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 9/9] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not supported
+Date: Fri, 11 Sep 2026 06:41:23 -0400
+Message-ID: <20260911104123.189614-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911104130.193213-1-sashal@kernel.org>
-References: <2026090904-antiques-gallantly-338c@gregkh>
- <20260911104130.193213-1-sashal@kernel.org>
+In-Reply-To: <20260911104123.189614-1-sashal@kernel.org>
+References: <2026090914-waviness-supermom-9b84@gregkh>
+ <20260911104123.189614-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,66 +46,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Yosry Ahmed <yosry@kernel.org>
 
-[ Upstream commit e4746d94d00c52918461bc169e009b6784a38e21 ]
+[ Upstream commit e62392bf39ebfdf60d1d082799397fe1cbf8dfc5 ]
 
-Preliminary step in making snd_hda_codec_device_init() the only
-constructor for struct hda_codec instances. To do that, existing usage
-of hdac_ext equivalents has to be dropped.
+Remove EFER.LME and EFER.LMA from EFER reserved bits only if long mode
+is actually supported. KVM does check long-mode support before allowing
+the bits for guest writes and userspace writes through KVM_SET_SREGS*
+(in __kvm_valid_efer()), but userspace writes through KVM_SET_MSRS only
+check reserved bits.
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Acked-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220816111727.3218543-2-cezary.rojewski@intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 6ad4892c4f5c ("ASoC: hdac_hda: Fix hlink refcount leak on component registration failure")
+In practice, this doesn't really matter. The true motiviation is getting
+rid of the #ifdeffery when initializing efer_reserved_bits.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260713181020.2735367-3-yosry@kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/skylake/skl.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ arch/x86/kvm/msrs.c | 10 +---------
+ arch/x86/kvm/x86.c  |  3 +++
+ 2 files changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index 46bb3b8bd5afe..e0987e2f39301 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -689,6 +689,35 @@ static void load_codec_module(struct hda_codec *codec)
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index 07f2a22d2607d..19981ac780eed 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -19,16 +19,8 @@ bool __read_mostly report_ignored_msrs = true;
+ module_param(report_ignored_msrs, bool, 0644);
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(report_ignored_msrs);
  
- #endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
+-/* EFER defaults:
+- * - enable syscall per default because its emulated by KVM
+- * - enable LME and LMA per default on 64 bit KVM
+- */
+-#ifdef CONFIG_X86_64
+-static
+-u64 __read_mostly efer_reserved_bits = ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
+-#else
++/* Enable syscall by default because its emulated by KVM */
+ static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
+-#endif
  
-+static void skl_codec_device_exit(struct device *dev)
-+{
-+	snd_hdac_device_exit(dev_to_hdac_dev(dev));
-+}
+ #define MAX_IO_MSRS 256
+ 
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index a0e74a4e40d06..3b29427526785 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -7328,6 +7328,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
+ 
+ static void kvm_setup_efer_caps(void)
+ {
++	if (kvm_cpu_cap_has(X86_FEATURE_LM))
++		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
 +
-+static __maybe_unused struct hda_codec *skl_codec_device_init(struct hdac_bus *bus, int addr)
-+{
-+	struct hda_codec *codec;
-+	int ret;
-+
-+	codec = snd_hda_codec_device_init(to_hda_bus(bus), addr, "ehdaudio%dD%d", bus->idx, addr);
-+	if (IS_ERR(codec)) {
-+		dev_err(bus->dev, "device init failed for hdac device\n");
-+		return codec;
-+	}
-+
-+	codec->core.type = HDA_DEV_ASOC;
-+	codec->core.dev.release = skl_codec_device_exit;
-+
-+	ret = snd_hdac_device_register(&codec->core);
-+	if (ret) {
-+		dev_err(bus->dev, "failed to register hdac device\n");
-+		snd_hdac_device_exit(&codec->core);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return codec;
-+}
-+
- /*
-  * Probe the given codec address
-  */
+ 	if (kvm_cpu_cap_has(X86_FEATURE_NX))
+ 		kvm_enable_efer_bits(EFER_NX);
+ 
 -- 
 2.53.0
 
