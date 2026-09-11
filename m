@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD65C357CE0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 22:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CB345563F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 22:00:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164032; cv=none; b=paH1BY+c4cj/T/DJb7j5UxvoA7/Mtwn/+QEIl2TFJUPuXqHR2yw79uGI/zraBi+ffXIfexqp125GqTyCr638TFQWkDdW4UNra64J9ClFAjtFT7PHei277nYAKv5hPN6/l+N3QWZe9mp00Z+BwpYY+gKzV36hLCeKkyhsYLL+NMM=
+	t=1789164032; cv=none; b=O2lvWAlPGeMBU7uS/8AJNIYiSyt68ItCQi1dvViGyfJvaEVJBtLfdl0VZwotGJhYWprGeM1m/27Ucy/TGZXEKYGt+UthMNKwo2kMKwVRhRnWj1L44sBpBGWQLbE50aVsd5yRmRlF2oUz06PQmBcTbOrYbix8woF0DfRZjg7oEDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789164032; c=relaxed/simple;
-	bh=lJ1lYqw6ZK05sdDI0vNfIMfLuC3kmT5V1OzEJX2N9tQ=;
+	bh=MAfsH7wYibbXspYUWauIwzQBsaJVenf2str0DxvCDuY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NOZ8YUR2wnnH3EL5z9sDKza4ZH1mZzOemPdTMkwrTaGoeFVt3k8fF3H1KETmrW2HwxXuonrYHH3XK6ppE6CH878VcoBFmD83ymvF4GkUw5N7ZRjsxiaZDq4CcCkmurFVtNxUXc/RIyXzqfnJVIiBBpcHHxg/QL7WufYx80BFR4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GfIUIB9x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nnUAcrIORUIouBowqkJJlTGKae5Yja4RNN6xkiqvATC4bTpzV8rdsfIsYJ/Yu0/TJUkTRYzQgCcIYqV+STM/TEa2Bmj1qgLZxvpasmN2P5uxTUL6JEBDHkjFcez50FpoPJzZvRndLR+8/SbEvCGqZ11rf9Ai8XaAK4wcX8aFYUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fsc6Gcqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GfIUIB9x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBABA1F0089C;
-	Fri, 11 Sep 2026 22:00:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fsc6Gcqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE711F000FF;
+	Fri, 11 Sep 2026 22:00:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789164030;
-	bh=La17p5oxq8xNbXofbuaLhNBa0BEtM+DReBYYpPumGRo=;
+	s=k20260515; t=1789164031;
+	bh=tUNbxz5u/FKovodMgeEgkudk3Jg+tjaZDmf69onL1vU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GfIUIB9xsxLE9czRfVyDxzFixrjrMJ5/2PjDWAMAF1FBqkrzvK8/8sSNaOKdePLWl
-	 +riBIuFN/RI7wPLNK6UAlxFW7n2imeCDby1GfX0eY8+P5rBIi5tf0T/bcrlrsX4WU3
-	 wW4HvIM5gPh4lpZuc2453iJynyxRXzPlZmcm41pcexyZomlWFC9YvNopaYJ+oS7Lw6
-	 4UuzqdZhRc1upRoq7sVsgkdLXPNWqPAyH34WugUEyb0L8nmQpWmeOXlPFbUGQqQd9k
-	 L/SCCp8arUCWuq5FOIGlh2BUHWk0kWjQuHfEZODmD3kvKktmFd9zaKsM1mLm2Upg4g
-	 KMsvbT2uMKLmw==
+	b=Fsc6GcqsEEZVZr2bWqcH3f+fm+KE9uSHXTJLhxJFlufxO7tqlQ3OpdTMZnvX6+z+1
+	 lsZLFDO71OuNVCwblHl0GpC0QXXNW2O9+5rN3rfNsgZEZliFbq7hcSw2AuPOzxRv0P
+	 1dGp0KZTVPKk9iBE3wwL5aN/VnWRtkOY49UsNGZzkZD4gZpAjA0BOFu7kYLg18g2mi
+	 JhYv3RvWpjHDZuLtEGTXthHnsagYPCvrfUV1LfiRMlIkxpcj7r57EcJHLWF2uGX2ws
+	 9CWewYaW3JvVwo5f7v/TDctiqjeXj139GxVhrjH8RiBQ4gBIb6YlRJ5Bxgn6EQpxVC
+	 Z3Bn6EEJXy2yw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
+Cc: Wenjie Qi <qwjhust@gmail.com>,
+	stable@kernel.org,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] f2fs: fix to migrate all curseg types during free_segment_range
-Date: Fri, 11 Sep 2026 18:00:25 -0400
-Message-ID: <20260911220025.1624949-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y] f2fs: limit recovery filename logging to stored length
+Date: Fri, 11 Sep 2026 18:00:29 -0400
+Message-ID: <20260911220029.1625442-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911220025.1624949-1-sashal@kernel.org>
-References: <2026090946-clumsily-stuck-0ea2@gregkh>
- <20260911220025.1624949-1-sashal@kernel.org>
+In-Reply-To: <2026090932-used-copartner-4981@gregkh>
+References: <2026090932-used-copartner-4981@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +48,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Wenjie Qi <qwjhust@gmail.com>
 
-[ Upstream commit 8ec06f50ddd8d201bd7e55b896ae28ed9d4cb7d1 ]
+[ Upstream commit 01027b2fcb74dade59fb833b51023f6593b6a9a2 ]
 
-In free_segment_range(), the curseg evacuation loop only iterates up to
-NR_CURSEG_PERSIST_TYPE (0..5), missing non-persistent in-memory curseg
-types such as CURSEG_COLD_DATA_PINNED and CURSEG_ALL_DATA_ATGC.
+F2FS stores recovery filenames as a length plus a fixed-size i_name
+buffer.  The buffer is not NUL-terminated, but recover_inode() and
+recover_dentry() print it with %s.
 
-Even though these in-memory curseg types are not saved in the on-disk
-checkpoint header, they still occupy active physical segments at runtime.
-If an active in-memory curseg happens to be allocated within the segment
-range being truncated during filesystem shrink, failing to evacuate it
-will cause subsequent writes to the curseg attempting out-of-bounds I/O
-on the truncated storage range.
+For a 255-byte filename, recovery logging can read past i_name into the
+following raw inode fields.
 
-Fix this by expanding the curseg evacuation loop upper bound to
-NR_CURSEG_TYPE to ensure all active curseg types are safely migrated
-out of the target range.
+Print the name with a precision bounded by i_namelen and F2FS_NAME_LEN.
 
-Fixes: d0b9e42ab615 ("f2fs: introduce inmem curseg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
+Fixes: f356fe0cba0e ("f2fs: add debug msgs in the recovery routine")
+Cc: stable@kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ inlined recover_printable_name() logic into the existing page-based recovery functions. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/recovery.c | 33 ++++++++++++++++++++++-----------
+ 1 file changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 115b6d6c6bc7a..edeb111c47569 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2103,7 +2103,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
+diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
+index 332996ff5cce6..5748e3d98ff50 100644
+--- a/fs/f2fs/recovery.c
++++ b/fs/f2fs/recovery.c
+@@ -176,7 +176,8 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
+ 	struct inode *dir, *einode;
+ 	struct fsync_inode_entry *entry;
+ 	int err = 0;
+-	char *name;
++	const char *name;
++	int name_len;
  
- 	/* Move out cursegs from the target range */
--	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
-+	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_TYPE; type++) {
- 		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
- 		if (err)
- 			goto out;
+ 	entry = get_fsync_inode(dir_list, pino);
+ 	if (!entry) {
+@@ -235,12 +236,16 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
+ out_put:
+ 	f2fs_put_page(page, 0);
+ out:
+-	if (file_enc_name(inode))
++	if (file_enc_name(inode)) {
+ 		name = "<encrypted>";
+-	else
++		name_len = sizeof("<encrypted>") - 1;
++	} else {
+ 		name = raw_inode->i_name;
+-	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %lx, err = %d",
+-		    __func__, ino_of_node(ipage), name,
++		name_len = min_t(unsigned int, le32_to_cpu(raw_inode->i_namelen),
++				 F2FS_NAME_LEN);
++	}
++	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, dir = %lx, err = %d",
++		    __func__, ino_of_node(ipage), name_len, name,
+ 		    IS_ERR(dir) ? 0 : dir->i_ino, err);
+ 	return err;
+ }
+@@ -287,7 +292,8 @@ static void recover_inline_flags(struct inode *inode, struct f2fs_inode *ri)
+ static int recover_inode(struct inode *inode, struct page *page)
+ {
+ 	struct f2fs_inode *raw = F2FS_INODE(page);
+-	char *name;
++	const char *name;
++	int name_len;
+ 	int err;
+ 
+ 	inode->i_mode = le16_to_cpu(raw->i_mode);
+@@ -336,13 +342,18 @@ static int recover_inode(struct inode *inode, struct page *page)
+ 
+ 	f2fs_mark_inode_dirty_sync(inode, true);
+ 
+-	if (file_enc_name(inode))
++	if (file_enc_name(inode)) {
+ 		name = "<encrypted>";
+-	else
+-		name = F2FS_INODE(page)->i_name;
++		name_len = sizeof("<encrypted>") - 1;
++	} else {
++		name = raw->i_name;
++		name_len = min_t(unsigned int, le32_to_cpu(raw->i_namelen),
++				 F2FS_NAME_LEN);
++	}
+ 
+-	f2fs_notice(F2FS_I_SB(inode), "recover_inode: ino = %x, name = %s, inline = %x",
+-		    ino_of_node(page), name, raw->i_inline);
++	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, inline = %x",
++		    __func__, ino_of_node(page), name_len, name,
++		    raw->i_inline);
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
