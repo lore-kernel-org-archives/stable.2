@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-201.mta0.migadu.com [91.218.175.201])
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68232236E8
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C16F45C6EA
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113699; cv=none; b=pjHG/CNKzLEAmYCiIGkRmo+pOUJ0qaOyukKy0KfctsAEhKKdek0byI5Wb4xFqrquos44en4QOvBWgES3nQOyg2JIiENsnOo1ZcI6/04LSPDIznnKrsydpz562yMWesgR8Lo7esNLJHamU1xt7m1Hn9dbt4x+JwhJhmkcSFX3Kpg=
+	t=1789113712; cv=none; b=DdMpLOzYf/9G9rawrgOkYzn+yGrTsSbFvjbyLTFWBtW14zTmwrob+GS0JKfdq+zD1cJee0lR8G9W4q65IDSo3ZBiFd4djZ1rYga/rgwuKbuYp0ieareeZoK6YeKbFmiQW3La3dB3Uk1EMVYh8FubybTueh76mPDrJXyhPNXs3uE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113699; c=relaxed/simple;
-	bh=lG7+VxQE9zUCiUgD2bZJA+1KtHaOwgs94O/ucBNwUz8=;
+	s=arc-20240116; t=1789113712; c=relaxed/simple;
+	bh=fjfBBGmsJJ56y0JVyIG84X0Pp//85lfIIw3IuGHXEuw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pOwiN1W5x7iNTRhnAz1AFqsVY2C7G/TmL3fzVFesllXb+bVkLzsiOoo9dvs2Hl3t//zMUpfN3E/VyIBnibCSFziNKDwsJilvbSeQi6EUrP1LbpP+lij/Y+YotxEgMLWkEl5Ep9xmRyfGonpzX+RpRmm/n4yl/h3tZCJIqBQ6rgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NdxEXbE3; arc=none smtp.client-ip=91.218.175.201
+	 MIME-Version; b=iNaB7hrkwPtnScgauKRwoyb7Jkpk41bdxzZnd2IxX0YDl6cAw54UcyvVVaYJOY1grT3HMKgMD6Si93Yk5J/X3D4xvxHCzMt9tl6+6lEiGXtHno0U47GJq4Klpyxgvs4lfLq5WQJv93UwAk+dZpqjo75hHoaZ3AA/Z+DslIOqQWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Gx060nBe; arc=none smtp.client-ip=91.218.175.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NdxEXbE3"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Gx060nBe"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lG7+VxQE9zUCiUgD2bZJA+1KtHaOwgs94O/ucBNwUz8=;
+DKIM-Signature: a=rsa-sha256; bh=fjfBBGmsJJ56y0JVyIG84X0Pp//85lfIIw3IuGHXEuw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789113694; v=1; x=1789718494;
- b=NdxEXbE3v6S7pr4MZ7ay2dDAAr6pL96WRUa2XXwNoFm+h4wme/hestlpKoT+UWQUt6nlM+gR
- 97QNUxtMeqgyvIk3Ci9IE51Gq0juGo8ew8YLDxMOgk0fmS7OpbjVJOSm5fqtbw2pkkdop4K3YSp
- wf9prF0WXsKba7Px9u6K/gng=
+ t=1789113707; v=1; x=1789718507;
+ b=Gx060nBeVY1D62r9dKfL9BMU0V0CMYMZUncAc5m9CHjz1sagu5U9bVjq0u4T/tawn1Ndmgg9
+ ivKZt4cQZfl9dWtxUnSIuOKYRDbJ82DnlRm4as2mWvQPHKUtLWUJpL9zgivmT7qmlSZnhjIwFsw
+ ZvAUZXRiFoJCWVtWnS6qRafc=
 X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 908157556f9f07d4;
-	Fri, 11 Sep 2026 08:01:33 +0000
-X-Mizu-Trace-ID: 908157556f9f07d4
+Received: by mta12.migadu.com with ESMTPS id 243d01929788e07c;
+	Fri, 11 Sep 2026 08:01:46 +0000
+X-Mizu-Trace-ID: 243d01929788e07c
 X-Migadu-Flow: FLOW_OUT
 From: Hui Zhu <hui.zhu@linux.dev>
 To: Johannes Weiner <hannes@cmpxchg.org>,
@@ -49,9 +49,9 @@ To: Johannes Weiner <hannes@cmpxchg.org>,
 	linux-kernel@vger.kernel.org
 Cc: Hui Zhu <zhuhui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v5 2/4] mm: workingset: use lruvec_page_state_local() to count lru pages
-Date: Fri, 11 Sep 2026 16:00:49 +0800
-Message-ID: <2ed42f96aca124856ea30f774afb55cbe6d8ba58.1789096175.git.zhuhui@kylinos.cn>
+Subject: [PATCH v5 3/4] mm: memcg: skip the RCU lock when the memcg is not dying
+Date: Fri, 11 Sep 2026 16:00:50 +0800
+Message-ID: <9ffdbdfc96312e3e13cb8f056bfe26649492d949.1789096175.git.zhuhui@kylinos.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1789096175.git.zhuhui@kylinos.cn>
 References: <cover.1789096175.git.zhuhui@kylinos.cn>
@@ -65,46 +65,58 @@ Content-Transfer-Encoding: 8bit
 
 From: Hui Zhu <zhuhui@kylinos.cn>
 
-Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
-number of lru pages") switched count_shadow_nodes() to lruvec_lru_size().
-With CONFIG_MEMCG enabled, lruvec_lru_size() reads mz->lru_zone_size,
-which only the classic LRU paths maintain.  MGLRU accounts its pages
-through __update_lru_size(), which skips that array, so with MGLRU on the
-four evictable LRU lists are always seen as empty.  The shadow node budget
-(pages >> 3) then collapses to slab plus unevictable pages, and the
-workingset shadow shrinker reclaims eviction tokens almost as fast as they
-are created, losing thrashing protection.
+get_non_dying_memcg_start() takes rcu_read_lock() on every stat update, but
+the lock only protects the upward walk to a non-dying ancestor, which
+happens solely while a memcg is being offlined.  The dying check itself
+reads the CSS_DYING flag of a memcg the caller already holds a reference
+to, so it is safe without the lock.
 
-lruvec_page_state_local() reads lruvec_stats->state_local instead, which
-both classic LRU and MGLRU maintain.  Switch back to it.  The reparenting
-race this re-exposes on cgroup v2 is closed by the preceding patch that
-redirects dying-memcg stat updates for all hierarchies.
+Check memcg_is_dying() first and return immediately when the memcg is
+alive, taking the RCU lock only on the rare dying path.  On an anon
+fault/charge churn workload in a memcg this recovers the ~0.6% overhead
+added by the previous patch (4368077 vs 4343159 pages/s before, back to
+~4377000 pages/s after).
 
 Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the number of lru pages")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- mm/workingset.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ mm/memcontrol.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/workingset.c b/mm/workingset.c
-index 7ac2b88c80ae5..8412f4840ae35 100644
---- a/mm/workingset.c
-+++ b/mm/workingset.c
-@@ -688,10 +688,9 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index ace9fe2b46084..9995f3d2aae1b 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -853,6 +853,17 @@ static long memcg_state_val_in_pages(int idx, long val)
+ static inline struct mem_cgroup *
+ get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
+ {
++	/*
++	 * Fast path: the caller holds a reference to @memcg, so reading
++	 * its CSS_DYING flag without the RCU lock is safe.  The RCU lock
++	 * is only needed to walk up to a non-dying ancestor, which
++	 * happens only while a memcg is actually being offlined.
++	 */
++	if (!memcg_is_dying(memcg)) {
++		*rcu_locked = false;
++		return memcg;
++	}
++
+ 	rcu_read_lock();
+ 	*rcu_locked = true;
  
- 		mem_cgroup_flush_stats_ratelimited(sc->memcg);
- 		lruvec = mem_cgroup_lruvec(sc->memcg, NODE_DATA(sc->nid));
--
- 		for (pages = 0, i = 0; i < NR_LRU_LISTS; i++)
--			pages += lruvec_lru_size(lruvec, i, MAX_NR_ZONES - 1);
--
-+			pages += lruvec_page_state_local(lruvec,
-+							 NR_LRU_BASE + i);
- 		pages += lruvec_page_state_local(
- 			lruvec, NR_SLAB_RECLAIMABLE_B) >> PAGE_SHIFT;
- 		pages += lruvec_page_state_local(
+@@ -864,6 +875,9 @@ get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
+ 
+ static inline void get_non_dying_memcg_end(bool rcu_locked)
+ {
++	if (!rcu_locked)
++		return;
++
+ 	rcu_read_unlock();
+ }
+ 
 -- 
 2.43.0
 
