@@ -1,116 +1,146 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2363EF0D7
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B5C49BD77
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149552; cv=none; b=OaQrucgB9x0rNfnpyzv5EHz7kLmbN4JGL4AR8Ut2lg298wRdfrcRJd6zgYo5sRyZYRUpVVkhnIn4jVgMcAuJoz7XzfeyfK3kAn19wvsqLZgLpByLqvD0eYBHTczillapwAhIf9QZH7e/TKJOoyxVLrhTwRzcpLicLxxO7pQFZpA=
+	t=1789149591; cv=none; b=FW58+6H7JRJNQFChzbDOtTy9/lrxwU/nFjmj0/R7P90pbep7ZoEBl37B/LgYBPAysNUtoxwNhuzooWw/fyFL7GB4uI6lXXlALMbY6UjGt0TABixsnJxajZzkrrtTb2tK9VgYFNscez+pb7OVQ/MLfv638/ZjcPmlZcwzBzKU++U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149552; c=relaxed/simple;
-	bh=lzXbJYDkP5Js04N+SIMdbt5b+DDjxqYLyMSiJ6+7GgQ=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=CYCAtFlpAqSeSk4lXPeydNi1BPQyqFJ8IH89nKyU3DiDNucNbjA95DfISXlJ8qQLxULjtEYLgSsUT75GdMfpRnqg2BACwVKIjSlj7uLkTQRbORwxe27k2uSAI85qzwjgAwqOb7Du2mZz/3p3h1a5a8PtVQ98EhN4an8emEq6q3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=QyKdudfv; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1789149591; c=relaxed/simple;
+	bh=MtNzLsR11jvBRo8VmerZ7qVfk6QZo6IMEcW3cqmkGzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dfefx+9zQ9WS75u/p7NLLSRfIBKB16/EBxe/aTQQrX1Rwc0j4ODTESMFx4AKt0+qfDpctMZ3kA3uIod1LDLVreCt3yHCRsb5O26KLctWJ4NR/XkzxzYG8FtXnAvTSs2aFDkbPwha5c0c+il1DOpfIHk5zQZn2yZUp32deqxMSLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVuFHRap; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="QyKdudfv"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d90ba1d807so2037385ad.3
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789149550; x=1789754350; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/1ShsrqaiW7UZGoWo4E16528ZH4kR/YO+r5D4mbNkrU=;
-        b=QyKdudfvuIHgi6c6jTALdFz+noAuKb0Y4tnDcUVIsRKbtp9tvngYncBXVB9/R8FU+r
-         CcxplNpCvvCkEPUA1RWwQ/tAzAyN0EL9ajQFxv/8xEAuG4535b8hcDHbgggSPaA0aDap
-         G1RwrkCIEru3QLNYW9ucGYasrgyGXTwmBpBlRSogWGTNz7GE+FS+nlaOJzlWB4pEcJff
-         EJY7hHYENQJIyUI+tiZcxM9S7q03BkEy/CCApgTw153vHbtCyMFlLZFomGLOC509sI51
-         LAlN6x7mp2BjF/Wa4F+5zu4crfMmciaWXFrOdw/mW8Kjj59AFuK03Sih0yah+fLdsZ7J
-         jFxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789149550; x=1789754350;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/1ShsrqaiW7UZGoWo4E16528ZH4kR/YO+r5D4mbNkrU=;
-        b=T9xSEqQa0+nlX7nYW1Pbx9ZJuozlgwz3S1XKbsHUeKcyBx4nUjsC3axd4G/Z2VN19u
-         hBU3bd9erOvin1qmkZiTQSj118+ominndZUSJ06j5jmYA/mDPhX5Bvs1kzOIFxfkbqry
-         5Lia35Al7KNWzX15RqBXxO9cks3hBsq6xUDCrMj5MHXpBgryw4EtJtV4Edu+RStcn8YN
-         NbSMIjyXISL9B7nM4oKHIXvjjcmbGHyUu/TSWVaNzsvwiLJdT0AMEPA36CZ7BbuDh9ON
-         ryKw00L4vwr/2qSHY+CI2zaF+xbh97TIFGW8/CGsNiGzsTJ49d2oOQBFyrhs8zKDE6BN
-         dVVw==
-X-Gm-Message-State: AFuF++kKkcU2giYBu6zr5M+97NqfsmHZBJE1gPnKEDwof4UpRwrbTl7k
-	L8AOPZkRj6fTBKVXwxlTF7xGcl/ul5pqJrPBJ7/S3IFwn3XAOHVM6hhmYlYq3aBBio4=
-X-Gm-Gg: AYBFou37hl4vxE+dyq1W3JXsqnksRnEAYwJRBNTx1OUcAhAXl6SSp7b0FWr8J9GAPZ5
-	Hkf86INUjEjbi8B8FjUKQuk8mFxMW5Vz5hrcJgAjOXYebT2wg718rb9qRBc8Xx82BeZJL8l8zWk
-	znmhqLX1lz5H3MiJZcpulLXmWCDozBcoBezdm2yi+vFhVxBkbU78N9AWCBjMHSbcOTTaECIZtYk
-	rfuVaq6GTRIA4U7+j+SeNARh2cReLDGpGq8OAv0cRgFRQqqh5L55oJFqpZQWQ3HyQ+vOArkY7Wd
-	vN2z0DoKzsUL//5BcCBbZUHcdGjfufuZ0X8bQKWiuogcpW/H63IZl1aE0fWZrKxZuvDNr0cZwzi
-	NxoMKjF3X2D7UBhP6FXHiQHioo8oqILqYIQJaV1cNGDGcAULdUFYW3PMU9D3SrG3YFUxczWLY+g
-	GW/gdKpNURAPbiyokiEmabk0a7Eax1w9D018iic99C0LrzU6fc7rdzbX5Slyhvgk4=
-X-Received: by 2002:a17:903:2451:b0:2db:7269:38ef with SMTP id d9443c01a7336-2dd2a3362camr95238155ad.14.1789149550278;
-        Fri, 11 Sep 2026 10:59:10 -0700 (PDT)
-Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bac1c716csm6667723eec.2.2026.09.11.10.59.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 10:59:09 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVuFHRap"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FD61F000FF;
+	Fri, 11 Sep 2026 17:59:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789149589;
+	bh=JVp4058mGT2Qn/7Vdy4T51/KqQcIXK0B/8c/ARN/OoQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NVuFHRapf9ZE0+aERrO77FVQyoGdxlHQuMm3bvze77J4ps+iW1tBbBsnxA0meWb4u
+	 yiU7xirh+y8/lPSSkzsK1fH8PnkKjzLRJZjr4ncKk72SzhbgITGW2VFNAGZeJAFRcx
+	 ur9gwreegNVxgAi1AAbsrFggEWDB6Z6iod2wKQf0RL29H4Kmx5OXTtlT+4C2aK0zCA
+	 NvS1huVqZ/03Unf3yR1DRce2XirgjxLJSfuCStS0XcBRpVrpF+obNyVSk014324Ti7
+	 nkwW4ggIPwKMXwynycKmuCUK1sQdZ9mNT/1pavU9Gz0kjwqCBwvagNJnd88STBZu3n
+	 vyvyNDIjtLJgg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Sashiko <sashiko-dev@google.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap capacity
+Date: Fri, 11 Sep 2026 13:59:47 -0400
+Message-ID: <20260911175947.1288110-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090902-nape-morphing-bd71@gregkh>
+References: <2026090902-nape-morphing-bd71@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.6.y: (build)undefined reference to
- `irq_domain_alloc_generic_chips' in kernel/i...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+From: Nilesh Javali <njavali@marvell.com>
+
+[ Upstream commit 2ac6a829843cf3df522d19e091276109b94c4c7a ]
+
+ha->max_npiv_vports is taken from firmware (mcp->mb[11]) and only
+constrained so that (max_npiv_vports + 1) is a multiple of
+MIN_MULTI_ID_FABRIC, which permits values of 63, 127, 191 and 255.
+NPIV vports are then allocated up to that count.
+
+VP enable uses the VP_CONFIG IOCB, which addresses a vport through a
+plain vp_index byte, so a vp_index beyond 128 is enabled without issue.
+VP disable, however, uses the VP_CTRL IOCB, which selects target vports
+through the fixed 128-bit vp_idx_map bitmap. qla24xx_control_vp()
+rejects a vp_index past that bitmap and the IOCB builder cannot set a bit
+beyond 127, yet qla24xx_vport_delete() frees the local state regardless.
+A vport with vp_index > 128 can therefore be created and enabled but
+never disabled, leaving it permanently active in firmware: a resource
+leak.
+
+Cap ha->max_npiv_vports at init to the vp_idx_map capacity so such
+vports are never created. This collapses 191/255 to 127 (still
+modulo-valid) and leaves the real-world 63/127 cases unaffected.
+
+Fixes: 4d0ea24769c8 ("[SCSI] qla2xxx: Retrieve max-NPIV support capabilities from FW.")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Fri, 11 Sep 2026 17:59:09 -0000
-Message-ID: <178914954912.4461.15612519535901309681@kernelci.org>
-
-New build issue found on stable-rc/linux-6.6.y:
-
+Reported-by: Sashiko <sashiko-dev@google.com>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Link: https://patch.msgid.link/20260730155838.2119230-20-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ adapted the qla24xx_control_vp() hunk to include the prerequisite bounds-check block missing from this branch. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-undefined reference to `irq_domain_alloc_generic_chips' in kernel/irq/irqdomain (kernel/irq/irqdomain.c) [logspec:kbuild,kbuild.compiler.linker_error]
----
+ drivers/scsi/qla2xxx/qla_fw.h   |  4 ++++
+ drivers/scsi/qla2xxx/qla_init.c | 13 +++++++++++++
+ drivers/scsi/qla2xxx/qla_mid.c  |  8 ++++++++
+ 3 files changed, 25 insertions(+)
 
-Log excerpt:
-=====================================================
-powerpc64le-linux-gnu-ld: kernel/irq/irqdomain.o: in function `irq_domain_instantiate':
-irqdomain.c:(.text+0x1748): undefined reference to `irq_domain_alloc_generic_chips'
-powerpc64le-linux-gnu-ld: irqdomain.c:(.text+0x17c0): undefined reference to `irq_domain_remove_generic_chips'
+diff --git a/drivers/scsi/qla2xxx/qla_fw.h b/drivers/scsi/qla2xxx/qla_fw.h
+index f307beed9d29d..e7ded95afb9a8 100644
+--- a/drivers/scsi/qla2xxx/qla_fw.h
++++ b/drivers/scsi/qla2xxx/qla_fw.h
+@@ -1442,6 +1442,10 @@ struct vp_ctrl_entry_24xx {
+ 	uint8_t reserved_5[24];
+ };
+ 
++/* vp_idx_map is a 128-bit (16-byte) bitmap selecting target VPs. */
++#define VP_CTRL_IDX_MAP_BITS \
++	(sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
++
+ /*
+  * Modify Virtual Port Configuration IOCB
+  */
+diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
+index 2ab1cecda8c75..3dfe5dfd5c3f2 100644
+--- a/drivers/scsi/qla2xxx/qla_init.c
++++ b/drivers/scsi/qla2xxx/qla_init.c
+@@ -4374,6 +4374,19 @@ qla2x00_setup_chip(scsi_qla_host_t *vha)
+ 					    MIN_MULTI_ID_FABRIC))
+ 						ha->max_npiv_vports =
+ 						    MIN_MULTI_ID_FABRIC - 1;
++
++					/*
++					 * The VP_CTRL IOCB selects target VPs
++					 * through the fixed vp_idx_map bitmap,
++					 * so a vp_index beyond it can be enabled
++					 * via VP_CONFIG but never disabled via
++					 * VP_CTRL, leaking the VP.  Cap the count
++					 * to the bitmap capacity.
++					 */
++					if (ha->max_npiv_vports >=
++					    VP_CTRL_IDX_MAP_BITS)
++						ha->max_npiv_vports =
++						    VP_CTRL_IDX_MAP_BITS - 1;
+ 				}
+ 				qla2x00_get_resource_cnts(vha);
+ 				qla_init_iocb_limit(vha);
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 9946899dd83b8..e85b4bec91d9b 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -957,6 +957,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
+ 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
+ 		return QLA_PARAMETER_ERROR;
+ 
++	/*
++	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
++	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
++	 * if firmware advertises more NPIV vports.
++	 */
++	if (vp_index > VP_CTRL_IDX_MAP_BITS)
++		return QLA_PARAMETER_ERROR;
++
+ 	/* ref: INIT */
+ 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
+ 	if (!sp)
+-- 
+2.53.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:831dfb93f8bd5de8edffac3306ace19b7838c782
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  c33bbcf64a1d0e2170b7cdee977e2c00e258a70f
-
-# Builds where the incident occurred:
-
-## ppc64le_defconfig on (powerpc):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40c7e20239ade9022a05c
-
-#kernelci issue maestro:831dfb93f8bd5de8edffac3306ace19b7838c782
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
