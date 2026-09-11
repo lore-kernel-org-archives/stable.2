@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C8641228D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2633E2ADB
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123307; cv=none; b=iR7RFZfMFMZGhy51thduEsYInL1syznplKaqcmx7KCP25dYpXuTqJBIeuXmA3rmbvWSlYtQ5d4fzASR6hhsIkaIfkQb4uMCdHXO+TpXo2xy5UE3vmIb2KeeZcuhfj3xy+ddO+61gx4vjYTanL/3rCW/xaLNyx5KT7oGypC0up1w=
+	t=1789123309; cv=none; b=Wi00G9jn2hzlwZpW84CLHkpRyp5M0J0E/IAesh0TmT9SRFMtVWIDtN0ymPzKFrPvPyuFIfGBWr0ZTypxi3eo83SAmdbxxGJHIhqFJQpxvR3UXj0iXblsSCcWBWo+d3qAiChjAwMPGKFc83GxBVHo6k2YH4spwSxf1nTfi6lsUDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123307; c=relaxed/simple;
-	bh=09hToGdqQLUqgQEFflQ/QmV/cJ7v9aRxkJaGWXJYidw=;
+	s=arc-20240116; t=1789123309; c=relaxed/simple;
+	bh=NVj3kq6bTePSg/hbK/+QY8RwkXjYFcUD82eFY3l/mUc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qijlC4uypYBQMgSYckm9kacL1aD/wdaR63aRNNMaGFvXEeiq8PXblqKKRfAr/NaPojckVyhG/wlFrkO96xSSPc6wPM8UkWbxROkknhTZqgGRU9SHFiNPckLbDXZacdEXlJkcgQMDZiRn+iUlXiEIobUzqz81AAVLSAdL1hJTb+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtVvN8Qh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LAlZFaSYQ7TR/E7Z3JufbmrsA+6dPOXBolrEPityjWixHaImLJiFPnUrt+vQ5rapvzAPY1NnDADr9MdY7lKLntcw6hE8U0ELBlBq4hhNeCFMJTrJNWgX+nWD1TAElb0LoDFnZLIgjXk2eDRAFLfqiOBbiyG1yXU4U+Onh6peDUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRwZnK/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtVvN8Qh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F151F000FF;
-	Fri, 11 Sep 2026 10:41:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRwZnK/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544891F000FF;
+	Fri, 11 Sep 2026 10:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123304;
-	bh=sPc50L8LptNh1m/CrlTozP3koKuew7cYLz4hfyOVOxk=;
+	s=k20260515; t=1789123308;
+	bh=Pn0qXpen+fT1DZyLkrZhbgGOFGL+I8sujppyoujSMWA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RtVvN8Qh+ZG1UIlaYSx11CzvnbkrP2ogLALEo4h0IXAyj2gnMC1dGfo9NCIuvUpIk
-	 YtTz+U+qo6wCZDjCieJqjrnPbLzAK+ceTgysefRtU5q0w+AjKPyTkZMYJGIg/A67H8
-	 8RTrvUq1Gsz1lVJPOJoC+LjZE49A5QJQPP1MH9qJbfPGOwOxd6kQFbpeI9KcPx5ObP
-	 93DTk5HSGvUzFVNUaxMnNmXXDdnSfbxsF9C/oJ2wTS4aLoAVx1/gb+QudZI4S9w3FI
-	 ZL6C25cIEmVRAsQB+qvBerFbJC5MXmss8uT0zfuurVIc1Ti/IDWf4B/6WZfIUP6NSn
-	 ehKejvDArzeaw==
+	b=lRwZnK/6zTqXidHeXUGl7v6rwIldQniv48eQnMrh2HU7leNIf9Dp3UxVmANoGpqPv
+	 LB3r7YOfIXjmsxsUamlBJ6imVyYSlnnsT/pKHdLcnLg1if6RKDH0lKPSQ/MzhE9Hsx
+	 GQx06qw7xaD8ydrLiZihlyKkFLtSxlODrlHybWg3xtkDL1tbEBa7KQWJx8R2V5qSvR
+	 zg1nxC7CO7o9qhd38Pe8xafQGnf7w7WEJOMyMRpm+onVoQQCxDHRnH0lLA1gGg9/F1
+	 5GphblW/qIIxVSRtJ1hdl91k5VYgm8Zbm6p+0hs410kS+oKbmI2DVYFI4u7gJ4SOcu
+	 DsTmIYTe36ZRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yosry Ahmed <yosry@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Kai Huang <kai.huang@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 7/7] KVM: x86: Always initialize EFER reserved bits on vendor initialization
-Date: Fri, 11 Sep 2026 06:41:36 -0400
-Message-ID: <20260911104136.194961-7-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] KVM: x86: Extract REGS and SREGS runtime sync code to helpers
+Date: Fri, 11 Sep 2026 06:41:42 -0400
+Message-ID: <20260911104145.196806-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911104136.194961-1-sashal@kernel.org>
-References: <2026090906-angling-trickily-a20c@gregkh>
- <20260911104136.194961-1-sashal@kernel.org>
+In-Reply-To: <2026090911-unvented-professed-4dc0@gregkh>
+References: <2026090911-unvented-professed-4dc0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,82 +48,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yosry Ahmed <yosry@kernel.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit a4b8acd428ba3f03952ef309d7f438dbc357557b ]
+[ Upstream commit 6a8a98aa9c147eb63f5a360f157f207bf46c05ee ]
 
-EFER reserved bits are statically initialized, and do not reset if a
-vendor module is re-loaded. For example, loading kvm_amd with nested=1
-removes EFER.SVME (and potentially EFER.LMSLE) from the reserved bits.
-Reloading kvm_amd with nested=0 does not add them back, allowing
-userspace to set EFER.SVME with nested=0.
+Extract the REGS and SREGS portions of {store,sync}_regs() into separate
+helpers in anticipation of moving the register specific code out of x86.c
+and into regs.c.
 
-Re-initializing EFER reserved bits before configuring them on vendor
-initialization.
+No functional change intended.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Link: https://patch.msgid.link/20260713181020.2735367-4-yosry@kernel.org
+Cc: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Message-ID: <20260613000329.732085-2-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 184bd464bdb6 ("KVM: x86: Check EFER validity on KVM_SET_SREGS*")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/msrs.c | 10 ++++++++--
- arch/x86/kvm/msrs.h |  1 +
- arch/x86/kvm/x86.c  |  2 ++
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ arch/x86/kvm/x86.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index 87372113dc0f9..eb6791744303d 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -19,8 +19,7 @@ bool __read_mostly report_ignored_msrs = true;
- module_param(report_ignored_msrs, bool, 0644);
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(report_ignored_msrs);
- 
--/* Enable syscall by default because its emulated by KVM */
--static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
-+static u64 __read_mostly efer_reserved_bits;
- 
- #define MAX_IO_MSRS 256
- 
-@@ -637,6 +636,13 @@ static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index f0707f0e1ec00..7f27c80190f89 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -12629,7 +12629,7 @@ int kvm_arch_vcpu_ioctl_set_fpu(struct kvm_vcpu *vcpu, struct kvm_fpu *fpu)
  	return 0;
  }
  
-+void kvm_init_efer_bits(void)
-+{
-+	/* Enable syscall by default because its emulated by KVM */
-+	efer_reserved_bits = ~((u64)EFER_SCE);
+-static void store_regs(struct kvm_vcpu *vcpu)
++static void kvm_run_sync_regs_to_user(struct kvm_vcpu *vcpu)
+ {
+ 	BUILD_BUG_ON(sizeof(struct kvm_sync_regs) > SYNC_REGS_SIZE_BYTES);
+ 
+@@ -12638,13 +12638,18 @@ static void store_regs(struct kvm_vcpu *vcpu)
+ 
+ 	if (vcpu->run->kvm_valid_regs & KVM_SYNC_X86_SREGS)
+ 		__get_sregs(vcpu, &vcpu->run->s.regs.sregs);
 +}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init_efer_bits);
 +
- void kvm_enable_efer_bits(u64 mask)
- {
-        efer_reserved_bits &= ~mask;
-diff --git a/arch/x86/kvm/msrs.h b/arch/x86/kvm/msrs.h
-index 09f1098b67846..adb2c03af0c0e 100644
---- a/arch/x86/kvm/msrs.h
-+++ b/arch/x86/kvm/msrs.h
-@@ -56,6 +56,7 @@ int kvm_get_set_one_reg(struct kvm_vcpu *vcpu, unsigned int ioctl,
- int kvm_get_reg_list(struct kvm_vcpu *vcpu,
- 		     struct kvm_reg_list __user *user_list);
++static void store_regs(struct kvm_vcpu *vcpu)
++{
++	kvm_run_sync_regs_to_user(vcpu);
  
-+void kvm_init_efer_bits(void);
- void kvm_enable_efer_bits(u64);
- bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer);
- int kvm_emulate_msr_read(struct kvm_vcpu *vcpu, u32 index, u64 *data);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 796fd7fafdb85..ee249ac15e200 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -7304,6 +7304,8 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_setup_xss_caps);
+ 	if (vcpu->run->kvm_valid_regs & KVM_SYNC_X86_EVENTS)
+ 		kvm_vcpu_ioctl_x86_get_vcpu_events(
+ 				vcpu, &vcpu->run->s.regs.events);
+ }
  
- static void kvm_setup_efer_caps(void)
+-static int sync_regs(struct kvm_vcpu *vcpu)
++static int kvm_run_sync_regs_from_user(struct kvm_vcpu *vcpu)
  {
-+	kvm_init_efer_bits();
+ 	if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_REGS) {
+ 		__set_regs(vcpu, &vcpu->run->s.regs.regs);
+@@ -12660,6 +12665,14 @@ static int sync_regs(struct kvm_vcpu *vcpu)
+ 		vcpu->run->kvm_dirty_regs &= ~KVM_SYNC_X86_SREGS;
+ 	}
+ 
++	return 0;
++}
 +
- 	if (kvm_cpu_cap_has(X86_FEATURE_LM))
- 		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
++static int sync_regs(struct kvm_vcpu *vcpu)
++{
++	if (kvm_run_sync_regs_from_user(vcpu))
++		return -EINVAL;
++
+ 	if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_EVENTS) {
+ 		struct kvm_vcpu_events events = vcpu->run->s.regs.events;
  
 -- 
 2.53.0
