@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69471380FE0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C421D37F329
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091040; cv=none; b=WR8RDA7B00v9US0yBF2DVyenw5lLXjXnNS9Vu7vFdsTfp1BDC7q0iTH8nCcKj78TYFIJWdCUwtEeby9kXndSIoUP7k7WWFhqgU2kStX//fpPlyi8iKewg9GNHQgElDnBy6K3ndxZSbKrrVoDYDISdaEKpMtP4XiBBswzoJVTviM=
+	t=1789091041; cv=none; b=SbCkEUDgA31XxV6Wp+JVPJ4jxlmXhvIlGHmkJGiBBnAV0/fNSdZfagggLPuVLFA9QUqhrFilvJGRlN6V2TnMVKV2tNn6BiIxP+8sCE8AifYYMI9VrtI397y4JKVAt8PExFGAIRHfoIyGpYLE/ImTBixsZX3Yk7pngszVbe5XaMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091040; c=relaxed/simple;
-	bh=YqMwrUv8usRu+Jrq1qhLicBtx9MhyaTjbMkaZasHo3I=;
+	s=arc-20240116; t=1789091041; c=relaxed/simple;
+	bh=Rlh3osSKzIbl8Od+t4a+lGptyeinRuKugcidhvkE2NQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lfQr6WB8Jf9dW0DGrmG4TLxFsG36zZS+gdL2nyM+C0xzxhctFcMnr1JEVJnGbPdHYDJdtVSk7oKA3Qr7X0RcdDOnp/rCPHit+SmiTEiOhDSBAnabc8Gwy6xZgFl8ZnKKzBQYtvNlRzPT8MRWkf3ib24c0DFrsNMCFcS5yaDO3IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9dzLoXt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bADpZEXaSG0jlsKlG25RHy280R53n8Z+y6gIdvBELRWfJEedf1u1vvCPyGe80XB0bSIYTplwBIkJMVTSL+cGCW4Z0MKkufzarjohcpM53sVrdSfyQ84DEArwgq+cOUl6wk+ZJI3dtwrZ7pq/kuPfdnHIPeNgttCZVwAf5O1FBAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QoRdLcRH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9dzLoXt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54381F000FF;
-	Fri, 11 Sep 2026 01:43:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QoRdLcRH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312C71F0089A;
+	Fri, 11 Sep 2026 01:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789091039;
-	bh=ki59lNAVhW7GUefZCaC7NLF9hwzdMil6tJQf+KpL/ig=;
+	bh=PJUnrridjgpIN9HlYU5x7jjicKayBoYzW+hGNbppNdU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M9dzLoXtxkN4BiIhbpu7Me0mM4WvvOkWWLCc76lX5eOoLoxlCXgwM501NvT/0dPVJ
-	 Y8CS5fjdJNeoeLAmDTKwFPh/yUD/aNIzf01WpGV3o1KOEoOnyA2O/ABIknPceLsE6q
-	 iBU4SwW+T6oH9sEIJixangt8iniWbOG73MQtfG+dOGwOIurYeIg5DPROHxLZq93p+B
-	 Qj9M5zaqj0SyvStJCdmN9LU75ukdTSW0OrVFcNqfM49/4Tc20XnLoNGKI1DENH/J/p
-	 CJkW5nJ7inxWYOO1ObANJLlhH7DfiHQFVo0UZfWn3QFw4Jmbwc/OWnWUTKUucLDzDG
-	 MquAsbmPjw0HQ==
+	b=QoRdLcRHcx6frCszv3MuwP+P5GAW/KUkJUwQxaoX8lqyr7vCL3hvfQbIzTtZnW0kp
+	 BDpn3VIq09LG36xnYDn2iqp3j20NfFl4q2TCZC80ybOOgeiDd2Hx+Hi+oBnSFUGnX5
+	 pWnkkT40/RzVO8CqVf3XFjwcf/tBw+VtlqnjA304MMkTTeOWsSUCK4JjjwrcuzYitG
+	 9gJxerDxUh6OvKcmtXAOYq9ic63D8McFHlsIi/3UbIu+Uq2j2b1gQyd670OHNSW+f8
+	 0etd7u26I0tnkdTOr6QegCdApFN9s5BmI0fi+bkEo1m3mshf0Js7n7sDE6zOUGlYhy
+	 hjVJFzyE3m6+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Li Chen <me@linux.beauty>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] ASoC: tegra210_mixer: sort the register default table
-Date: Thu, 10 Sep 2026 21:43:56 -0400
-Message-ID: <20260911014357.4149699-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/6] nvdimm: virtio_pmem: always wake -ENOSPC waiters
+Date: Thu, 10 Sep 2026 21:43:53 -0400
+Message-ID: <20260911014355.4149601-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090906-choice-delicate-818c@gregkh>
-References: <2026090906-choice-delicate-818c@gregkh>
+In-Reply-To: <20260911014355.4149601-1-sashal@kernel.org>
+References: <2026090939-disdain-corridor-626c@gregkh>
+ <20260911014355.4149601-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,49 +46,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Li Chen <me@linux.beauty>
 
-[ Upstream commit f70bc276fc7f712ff5c8e995d5050558a3198df2 ]
+[ Upstream commit 811808761e19fdea1c25b7c76734b8945f758f27 ]
 
-reg_defaults must be sorted by ascending register address, as
-regcache_lookup_reg() locates entries in it with bsearch().  See commit
-fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
+virtio_pmem_host_ack() reclaims virtqueue descriptors with
+virtqueue_get_buf(). The -ENOSPC waiter wakeup is tied to completing the
+returned token. If token completion is skipped for any reason, reclaimed
+descriptors may not wake a waiter and the submitter may sleep forever
+waiting for a free slot. Always wake one -ENOSPC waiter for each virtqueue
+completion before touching the returned token.
 
-TEGRA210_MIXER_ENABLE (0x400) is the last entry of the table, after
-TEGRA210_MIXER_PEAKM_RAM_CTRL (0x434), which makes it unreachable.
-regcache_reg_needs_sync() then cannot compare it against its default and
-reports that a sync is needed, so it is written to the device on every
-regcache_sync() even when it was never touched.
-
-Sort the table by register address.
-
-Fixes: 05bb3d5ec64a ("ASoC: tegra: Add Tegra210 based Mixer driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20260805122748.13090-4-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: 5442b8093a2f ("ASoC: tegra: Fix the MIXER enable default value")
+Signed-off-by: Li Chen <me@linux.beauty>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20260630092338.2094628-7-me@linux.beauty>
+Stable-dep-of: e57140944b5a ("nvdimm: virtio_pmem: refcount requests for token lifetime")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/tegra/tegra210_mixer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nvdimm/nd_virtio.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra210_mixer.c b/sound/soc/tegra/tegra210_mixer.c
-index e07e2f1d2f707..7808a54810626 100644
---- a/sound/soc/tegra/tegra210_mixer.c
-+++ b/sound/soc/tegra/tegra210_mixer.c
-@@ -57,10 +57,10 @@ static const struct reg_default tegra210_mixer_reg_defaults[] = {
- 	MIXER_TX_REG_DEFAULTS(3),
- 	MIXER_TX_REG_DEFAULTS(4),
- 
-+	{ TEGRA210_MIXER_ENABLE, 0x1 },
- 	{ TEGRA210_MIXER_CG, 0x00000001},
- 	{ TEGRA210_MIXER_GAIN_CFG_RAM_CTRL, 0x00004000},
- 	{ TEGRA210_MIXER_PEAKM_RAM_CTRL, 0x00004000},
--	{ TEGRA210_MIXER_ENABLE, 0x1 },
+diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
+index 63d420a7866f5..4b81544db4a61 100644
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -15,26 +15,33 @@ struct virtio_pmem_flush_work {
+ 	struct bio *bio;
  };
  
- /* Default gain parameters */
++static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
++{
++	struct virtio_pmem_request *req_buf;
++
++	if (list_empty(&vpmem->req_list))
++		return;
++
++	req_buf = list_first_entry(&vpmem->req_list,
++				   struct virtio_pmem_request, list);
++	req_buf->wq_buf_avail = true;
++	wake_up(&req_buf->wq_buf);
++	list_del(&req_buf->list);
++}
++
+  /* The interrupt handler */
+ void virtio_pmem_host_ack(struct virtqueue *vq)
+ {
+ 	struct virtio_pmem *vpmem = vq->vdev->priv;
+-	struct virtio_pmem_request *req_data, *req_buf;
++	struct virtio_pmem_request *req_data;
+ 	unsigned long flags;
+ 	unsigned int len;
+ 
+ 	spin_lock_irqsave(&vpmem->pmem_lock, flags);
+ 	while ((req_data = virtqueue_get_buf(vq, &len)) != NULL) {
++		virtio_pmem_wake_one_waiter(vpmem);
+ 		req_data->done = true;
+ 		wake_up(&req_data->host_acked);
+-
+-		if (!list_empty(&vpmem->req_list)) {
+-			req_buf = list_first_entry(&vpmem->req_list,
+-					struct virtio_pmem_request, list);
+-			req_buf->wq_buf_avail = true;
+-			wake_up(&req_buf->wq_buf);
+-			list_del(&req_buf->list);
+-		}
+ 	}
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ }
 -- 
 2.53.0
 
