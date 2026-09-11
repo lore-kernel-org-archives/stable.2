@@ -1,131 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C301D339389
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:11:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E0C339719
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:11:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135885; cv=none; b=Tjr4q1UIAPnBAgLF8N8WRzhCuDbiISQld8CmlAouq9CIKrJJsADlcq1mMXOQw7tTGTK3B1xSLTvZSc++U8MK2kq/IfBYvoooqibytYAC93UBojVoFEk4v0ihVigzPoRkHlfxppnmpFfAuAWg6SiN7N8GtoSMn+4ai6qm+lOtunU=
+	t=1789135900; cv=none; b=XxzZU0urw5178OyWFHAtxkXBkZza3xrxHAhRm6Wfha+Ezku1nLysLhv6dHC0/HhUCOSqRD9f7WRioJ1EmewMbs7+cU7C6spchvKLm1fW2wtjL0PzDhqPgaJfG2hpLr0/Ht6e9U2ab146T+iU2xhY0WAj5F28l/5ErF0xuE3dQ8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135885; c=relaxed/simple;
-	bh=vd38BHuAyWVWOS6zo3mBWIi3WGzSfK5WGYn9GHMvp08=;
+	s=arc-20240116; t=1789135900; c=relaxed/simple;
+	bh=dfJYKzpCva7Bcfk+J/tLAZmGsU9wWrDy2qmSKTBSBaA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hsd4+EaR9+O6QuX7jXDH3Njv25bezTPNMmrbApglxh4kH9udLtJiCjnXI46tla7dPQArtTbg826M8vWsQjYwo/Dk5LZRyn+aLvsgQGvMmZAf3QjhzgG4tdi3jX1LlkEFQCt/kYoU1fI0hCc4OFq6g254GXkubBSiWNTAxJwN6tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ua/qmgqr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ilLycgzSFDVvalP0gEwRDB3M3qCfk7c9k0WPnTwwVLjXDw8y2OhtP7cL7BpffO/XiKwcQScKtfUUSda5FlS/rv1hBlZOTASflpJhKVT4UW9pPZc1YukUmhI6GfAbQITzpU9yVUXVXr9c26KjmdLUK/ArOgV2+JnZWDnX3Q1dPXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VpYCyTp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ua/qmgqr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC5E61F00898;
-	Fri, 11 Sep 2026 14:11:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VpYCyTp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A32931F008A2;
+	Fri, 11 Sep 2026 14:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789135884;
-	bh=aLR0qIf4a28Wt0SrOsRQyXLzLEqwT/REOiB/6EeYqM0=;
+	s=k20260515; t=1789135898;
+	bh=lKotf4nNmfpUiBVaFYqm+7alacxJm2bxZ/kBKFcxMZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ua/qmgqrVYdbzmBBIflCacI4KrxT60jtXlK4u8YyzkaRlQt5OxGG7ZZJPkfa+1PER
-	 7F0W/+w0qAReJtq11U9rhft//NBDuQ+P//X9XNx/0tryYI7h44FdccGvMEp/Twp51k
-	 2RM2uMa/GIRnsnJYQhzXoPwM5ecexU/gmo3JyMNdUlI8g13qg78/k4nBs6MzcKuBRH
-	 gFBDMMd4h+tWqq8jM19O3YD3dl2MHegvmuUNB2PiZtgT/ua06DbBrZgLImVyd0Zvh1
-	 W1AkJNl9n5TaJpFlhsr0IhRreV6zbZpFu6IQXoa/ibvWFv7SDkmyh9+UxILL4gPqSv
-	 7638mKCSLtQMQ==
+	b=VpYCyTp9LgiIeVDYfha96dYd/HBIOJfeqULuWvqyuLKLSxCA0aPhtFab4E3CijLo3
+	 pvjUQ4e+AambijSIJJ1aa25xZoiwk44flqcYUD4D2UvIlj2H8rVrm7CMEiJkLGG6Vi
+	 JCtu6WEPepXaYHgzOdhMQ/h1Fo+OLQKC/Ase8rfL4uGZYaYTKse0bbU63o6GN9KyhA
+	 B/9UcQcU/UgiAnND8XBtkP3/Rtq2C7W0dH2Zgqw2zg2Dqxm+Mfh0YBLlB7JWFWHdb2
+	 qtzbfGZooJHMqx4SVWf0t0zUf1vdDCRwSUI+AoSVU3WrNRgP3uFjJs8Vj0Zn84ouEK
+	 Xq7yK1d5Kn1eg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Thomas Huth <thuth@redhat.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] media: chips-media: wave5: Add timeout while stop_streaming
-Date: Fri, 11 Sep 2026 10:11:22 -0400
-Message-ID: <20260911141122.758706-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] s390: Replace __ASSEMBLY__ with __ASSEMBLER__ in non-uapi headers
+Date: Fri, 11 Sep 2026 10:11:35 -0400
+Message-ID: <20260911141136.760459-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090953-underline-result-7e3d@gregkh>
-References: <2026090953-underline-result-7e3d@gregkh>
+In-Reply-To: <2026090946-monthly-facebook-f216@gregkh>
+References: <2026090946-monthly-facebook-f216@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+From: Thomas Huth <thuth@redhat.com>
 
-[ Upstream commit 2ae7faed2e60d6d07d9efdd962d20dcb15330ced ]
+[ Upstream commit 42398caf16c955251a2dab86f797b76adeb99899 ]
 
-When stop_streaming is called, an infinite loop may occur in some cases.
-Add a bounded poll of the queue status: loop until the queues drain,
-sleeping briefly between polls, and bail out once VPU_DEC_STOP_TIMEOUT
-elapses.
+While the GCC and Clang compilers already define __ASSEMBLER__
+automatically when compiling assembler code, __ASSEMBLY__ is a
+macro that only gets defined by the Makefiles in the kernel.
+This is bad since macros starting with two underscores are names
+that are reserved by the C language. It can also be very confusing
+for the developers when switching between userspace and kernelspace
+coding, or when dealing with uapi headers that rather should use
+__ASSEMBLER__  instead. So let's now standardize on the __ASSEMBLER__
+macro that is provided by the compilers.
 
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ adapted timeout polling to the older decoder’s report_queue_count condition. ]
+This is a completely mechanical patch (done with a simple "sed -i"
+statement), with some manual fixups done later while rebasing the
+patch.
+
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+Acked-by: Heiko Carstens <hca@linux.ibm.com>
+Link: https://lore.kernel.org/r/20250611140046.137739-3-thuth@redhat.com
+Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+
+Backport preparation for 546dde823a36 on Linux 5.10:
+
+Keep the assembler guard conversion only in asm/nmi.h. Drop unrelated
+header conversions and changes to headers absent from this branch.
+
+Match the target's machine-check context by adding the storage-error bit
+names and ordering the CPU timer validity definition by bit number.
+Provide get_lowcore() as a macro for the existing fixed-address lowcore
+mapping and use it for the three saved machine-check fields. Initialize
+the existing reinjection IRQ structure as expected by the target.
+
+These changes add no functions and leave the CK filtering and reinjection
+fix to the target commit.
+
+[ sashal: Reduced backport -- upstream 42398caf16c95 touches 33 file(s), this
+  backport carries 4. Not backported here:
+  arch/s390/boot/boot.h
+  arch/s390/include/asm/alternative.h
+  arch/s390/include/asm/asm-const.h
+  arch/s390/include/asm/cpu.h
+  arch/s390/include/asm/cpu_mf-insn.h
+  arch/s390/include/asm/ctlreg.h
+  arch/s390/include/asm/dwarf.h
+  arch/s390/include/asm/extmem.h
+  ... and 23 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 546dde823a36 ("KVM: s390: Fix memory corruption by not reinjecting CK machine checks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../media/platform/chips-media/wave5/wave5-vpu-dec.c | 12 ++++++------
- .../platform/chips-media/wave5/wave5-vpuconfig.h     |  1 +
- 2 files changed, 7 insertions(+), 6 deletions(-)
+ arch/s390/include/asm/lowcore.h | 3 +++
+ arch/s390/include/asm/nmi.h     | 9 ++++++---
+ arch/s390/kernel/nmi.c          | 7 +++----
+ arch/s390/kvm/interrupt.c       | 2 +-
+ 4 files changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 13f09bb42cb2d..5aa052da53463 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2021-2023 CHIPS&MEDIA INC
-  */
+diff --git a/arch/s390/include/asm/lowcore.h b/arch/s390/include/asm/lowcore.h
+index 612ed3c6d5813..2eeda90a68d35 100644
+--- a/arch/s390/include/asm/lowcore.h
++++ b/arch/s390/include/asm/lowcore.h
+@@ -192,6 +192,9 @@ struct lowcore {
  
-+#include <linux/delay.h>
- #include <linux/pm_runtime.h>
- #include "wave5-helper.h"
+ #define S390_lowcore (*((struct lowcore *) 0))
  
-@@ -1480,25 +1481,24 @@ static void wave5_vpu_dec_stop_streaming(struct vb2_queue *q)
++/* The lowcore mapping is fixed at zero on this branch. */
++#define get_lowcore() (&S390_lowcore)
++
+ extern struct lowcore *lowcore_ptr[];
+ 
+ static inline void set_prefix(__u32 address)
+diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
+index 5afee80cff580..5fa69aee84195 100644
+--- a/arch/s390/include/asm/nmi.h
++++ b/arch/s390/include/asm/nmi.h
+@@ -23,14 +23,17 @@
+ #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
+ #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
+ #define MCCK_CODE_CP			BIT(63 - 9)
+-#define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
++#define MCCK_CODE_STG_ERROR		BIT(63 - 16)
++#define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
++#define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
+ #define MCCK_CODE_PSW_MWP_VALID		BIT(63 - 20)
+ #define MCCK_CODE_PSW_IA_VALID		BIT(63 - 23)
+ #define MCCK_CODE_CR_VALID		BIT(63 - 29)
+ #define MCCK_CODE_GS_VALID		BIT(63 - 36)
+ #define MCCK_CODE_FC_VALID		BIT(63 - 43)
++#define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ 
+ union mci {
+ 	unsigned long val;
+@@ -101,5 +104,5 @@ void nmi_free_per_cpu(struct lowcore *lc);
+ void s390_handle_mcck(void);
+ int s390_do_machine_check(struct pt_regs *regs);
+ 
+-#endif /* __ASSEMBLY__ */
++#endif /* __ASSEMBLER__ */
+ #endif /* _ASM_S390_NMI_H */
+diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
+index 0102376eca3db..640141c7da423 100644
+--- a/arch/s390/kernel/nmi.c
++++ b/arch/s390/kernel/nmi.c
+@@ -313,11 +313,10 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
+ 
+ 	sie_page = container_of(sie_block, struct sie_page, sie_block);
+ 	mcck_backup = &sie_page->mcck_info;
+-	mcck_backup->mcic = S390_lowcore.mcck_interruption_code &
++	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
+ 				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
+-	mcck_backup->ext_damage_code = S390_lowcore.external_damage_code;
+-	mcck_backup->failing_storage_address
+-			= S390_lowcore.failing_storage_address;
++	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
++	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
+ }
+ NOKPROBE_SYMBOL(s390_backup_mcck_info);
+ 
+diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
+index 64d1dfe6dca53..797b323ca7d4d 100644
+--- a/arch/s390/kvm/interrupt.c
++++ b/arch/s390/kvm/interrupt.c
+@@ -2857,7 +2857,7 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
+ 				     struct mcck_volatile_info *mcck_info)
  {
- 	struct vpu_instance *inst = vb2_get_drv_priv(q);
- 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
--	bool check_cmd = TRUE;
-+	unsigned long timeout;
- 
- 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
- 	pm_runtime_resume_and_get(inst->dev->dev);
- 
--	while (check_cmd) {
-+	timeout = jiffies + msecs_to_jiffies(VPU_DEC_STOP_TIMEOUT);
-+	while (true) {
- 		struct queue_status_info q_status;
--		struct dec_output_info dec_output_info;
- 
- 		wave5_vpu_dec_give_command(inst, DEC_GET_QUEUE_STATUS, &q_status);
- 
- 		if (q_status.report_queue_count == 0)
- 			break;
- 
--		if (wave5_vpu_wait_interrupt(inst, VPU_DEC_TIMEOUT) < 0)
-+		if (time_after(jiffies, timeout))
- 			break;
- 
--		if (wave5_vpu_dec_get_output_info(inst, &dec_output_info))
--			dev_dbg(inst->dev->dev, "there is no output info\n");
-+		usleep_range(1000, 2000);
- 	}
- 
- 	v4l2_m2m_update_stop_streaming_state(m2m_ctx, q);
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuconfig.h b/drivers/media/platform/chips-media/wave5/wave5-vpuconfig.h
-index 1ea9f5f314995..e04f2dbf3b655 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuconfig.h
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuconfig.h
-@@ -59,6 +59,7 @@
- //  application specific configuration
- #define VPU_ENC_TIMEOUT                 60000
- #define VPU_DEC_TIMEOUT                 60000
-+#define VPU_DEC_STOP_TIMEOUT            300
- 
- // for WAVE encoder
- #define USE_SRC_PRP_AXI         0
+ 	struct kvm_s390_interrupt_info inti;
+-	struct kvm_s390_irq irq;
++	struct kvm_s390_irq irq = {};
+ 	struct kvm_s390_mchk_info *mchk;
+ 	union mci mci;
+ 	__u64 cr14 = 0;         /* upper bits are not used */
 -- 
 2.53.0
 
