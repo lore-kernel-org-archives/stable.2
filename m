@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A2C30DD1B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675C43126C0
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089200; cv=none; b=bUr53TOpKi4+7HRwS2ADhAujMCzZxc+R781I7r+jyEt8XICghWnMBmmTm5miTB/eEs2sCf0pXQglXyBBYyAXyFENHYV1kTSFXEgjjEr/0rMvFMUHZHwWBKS9V2lo7GMt1eQJczoC69TgpTR57px+xhuOkSEz3MC3N7sqOYLIgcc=
+	t=1789089201; cv=none; b=P6jzB+WQxXueFSTbLlxQG9U1g2dXx775TYAg20Z8KOy5G1ia04AdIDbZcVtBo7yYIE+sMhK5AEXIMa3ixMEGlb0vRWn5z9UvZnfogNOl0Wi0vwfdGJrxAqIuPvms0fv04gd9eD0LgwSl3800eqTvvBd9vUV7Sn9nqDtrJ/Gpx0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089200; c=relaxed/simple;
-	bh=qUGlc6Zx2DY79foGMdFOB4kykbR8dlfPhuZbolzITKI=;
+	s=arc-20240116; t=1789089201; c=relaxed/simple;
+	bh=hKoPSmVbNuoB5tneYMPagnfHIYq46LxqvBXRT4iub6k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RuFN5ySqwCF4xtiNFhAMghWoRnhQJCVUoFoG4YVrtH+OAuiGCUUDuVchrjnZIkYSfH184cXJSX6KdeEEiycD5CSNDrtrL/sJGhssRgFshMBqYpiqkCPLyds1RguysP1HacMoMLu3xjGlDz5Z+RzK5wMKhmP/lAQQ330FthZBp/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcya39GM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qaeEMM0UQQlP8h9QDMWjo54fVW2gc7mCqXNaMggiLc18YtHfGHv6VlhgcskWI3jMYVG7QpPNFLrZb18wWqm7xFshpZW2BrVzaFo25V24aUS2+aqkmGe5utPnDcHsQ5cL7i5RQOddN6P+qlbnHotqMuNlXwJpD6FGzTx4Brbrb2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4LxidvP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcya39GM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303AB1F00893;
-	Fri, 11 Sep 2026 01:13:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4LxidvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A28C1F00898;
+	Fri, 11 Sep 2026 01:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789089195;
-	bh=ZdRHE7huHV3dNkHkpVe8xYBDrDrLS+5Dmtctit27fhE=;
+	s=k20260515; t=1789089198;
+	bh=bH7QeetMspUWd2eHzLolC7tw9J9caB0I+mwYaP+n6Gk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hcya39GMrFt42h+Mjx1XuwXCVCMjxIQW6z//gUW5zXoK4FMLwmAGDHh0TXOqm8o55
-	 Ih/W9IgugTW9knE8LRzmEDcZnYyWV0TVk6y4r5NTReGFGZQ6Iv417KWTKTkPnbhBUL
-	 JR8Nzi5sUdEtDdbexqA0vlUMPwqHqOlc6RZmPjYVhc1Ir3sGG7vPMZl9H8uneyQIDb
-	 SwM5qLp5Gzdw/hGwe6o8Ozr3s7cJtecMwsYPtalw8A38E6I23sO4OAu/qtVTwErT4l
-	 kyta80JjU5ImzvD0HD7jdpnWXl/zp1h5fJYrzYb6jyLvhuP1BAMJwoR3sFFmWt8Ghg
-	 JMxm8SBu2/Xcg==
+	b=B4LxidvPuIxMZD2T+060BjTVV5AdGCxCXEUE/JUMxIPvTXODAvw4ejk41pt+i+Cx0
+	 xw0xNMA/Pe9O9bh0HanilgAQKk2upolNADjAWRQt3OnVoucnLMiPjOP/H1aREzs8Um
+	 38LoKFMLrtAFHDIHx09cLQ/UyVV2bh622oyT5SXFHx9b1Z1cHe61R3rirdljRGBXKm
+	 8aC2nZK0u1RVVJujifbP46Mn0hqtV+Rq9MI8OveVPZIPeBGe+o9HSBfepupeLyRKYX
+	 Um13wGsU/9Ajm7FaKzAUK7pfg9a7gcdgwhQqnpsRLsOJTCJbW8R5HHgON9pDszFvt/
+	 osEfbeZM5SeAA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Li Chen <me@linux.beauty>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/6] nvdimm: preserve flush callback -ENOMEM
-Date: Thu, 10 Sep 2026 21:13:08 -0400
-Message-ID: <20260911011313.4034971-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/6] nvdimm: virtio_pmem: always wake -ENOSPC waiters
+Date: Thu, 10 Sep 2026 21:13:11 -0400
+Message-ID: <20260911011313.4034971-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090939-defiance-yelling-974c@gregkh>
+In-Reply-To: <20260911011313.4034971-1-sashal@kernel.org>
 References: <2026090939-defiance-yelling-974c@gregkh>
+ <20260911011313.4034971-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,46 +48,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Li Chen <me@linux.beauty>
 
-[ Upstream commit 6b7108712a4b1c37cac69815aede1dde202b3187 ]
+[ Upstream commit 811808761e19fdea1c25b7c76734b8945f758f27 ]
 
-nvdimm_flush() maps provider flush failures to -EIO. Keep that default
-because provider callbacks can report host-side or backend failures that
-should remain generic I/O errors to the guest.
+virtio_pmem_host_ack() reclaims virtqueue descriptors with
+virtqueue_get_buf(). The -ENOSPC waiter wakeup is tied to completing the
+returned token. If token completion is skipped for any reason, reclaimed
+descriptors may not wake a waiter and the submitter may sleep forever
+waiting for a free slot. Always wake one -ENOSPC waiter for each virtqueue
+completion before touching the returned token.
 
-Guest-side allocation failures should not be reported as I/O errors. In the
-virtio-pmem path, the flush request allocation can fail with -ENOMEM before
-any request is submitted to the host. Mapping that to -EIO makes resource
-pressure look like media failure.
-
-Preserve -ENOMEM from provider callbacks and continue to map other non-zero
-provider failures to -EIO. The generic flush path still returns 0, and
-pmem_submit_bio() already converts errno values to block status for bio
-completion.
-
-Suggested-by: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
 Signed-off-by: Li Chen <me@linux.beauty>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260630092338.2094628-2-me@linux.beauty>
+Message-ID: <20260630092338.2094628-7-me@linux.beauty>
 Stable-dep-of: e57140944b5a ("nvdimm: virtio_pmem: refcount requests for token lifetime")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvdimm/region_devs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/nvdimm/nd_virtio.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/nvdimm/region_devs.c b/drivers/nvdimm/region_devs.c
-index 849c131f39c75..4e24dccb2ff86 100644
---- a/drivers/nvdimm/region_devs.c
-+++ b/drivers/nvdimm/region_devs.c
-@@ -1112,7 +1112,8 @@ int nvdimm_flush(struct nd_region *nd_region, struct bio *bio)
- 	if (!nd_region->flush)
- 		rc = generic_nvdimm_flush(nd_region);
- 	else {
--		if (nd_region->flush(nd_region, bio))
-+		rc = nd_region->flush(nd_region, bio);
-+		if (rc && rc != -ENOMEM)
- 			rc = -EIO;
- 	}
+diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
+index 8e16b7780be1a..75183a177d75d 100644
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -15,26 +15,33 @@ struct virtio_pmem_flush_work {
+ 	struct bio *bio;
+ };
  
++static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
++{
++	struct virtio_pmem_request *req_buf;
++
++	if (list_empty(&vpmem->req_list))
++		return;
++
++	req_buf = list_first_entry(&vpmem->req_list,
++				   struct virtio_pmem_request, list);
++	req_buf->wq_buf_avail = true;
++	wake_up(&req_buf->wq_buf);
++	list_del(&req_buf->list);
++}
++
+  /* The interrupt handler */
+ void virtio_pmem_host_ack(struct virtqueue *vq)
+ {
+ 	struct virtio_pmem *vpmem = vq->vdev->priv;
+-	struct virtio_pmem_request *req_data, *req_buf;
++	struct virtio_pmem_request *req_data;
+ 	unsigned long flags;
+ 	unsigned int len;
+ 
+ 	spin_lock_irqsave(&vpmem->pmem_lock, flags);
+ 	while ((req_data = virtqueue_get_buf(vq, &len)) != NULL) {
++		virtio_pmem_wake_one_waiter(vpmem);
+ 		req_data->done = true;
+ 		wake_up(&req_data->host_acked);
+-
+-		if (!list_empty(&vpmem->req_list)) {
+-			req_buf = list_first_entry(&vpmem->req_list,
+-					struct virtio_pmem_request, list);
+-			req_buf->wq_buf_avail = true;
+-			wake_up(&req_buf->wq_buf);
+-			list_del(&req_buf->list);
+-		}
+ 	}
+ 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ }
 -- 
 2.53.0
 
