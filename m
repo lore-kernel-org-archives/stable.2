@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864CA357CFC
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:49:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A840642C50F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:53:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127374; cv=none; b=dIb/PPdJRN+9k564VIut+InV3N77eeoGDRp+G+tGycreZTqI96LUpF3b7e9K0NYwripVX7ZxqAEFJBBYz49P5w79PNO8GMSuDRDN77v7xrxlaJaj4np0KDWmEdIQ9Md9iE414L+MPh6NTJsHdpDluDolEeHUyHRGaRftgm7kZUA=
+	t=1789127620; cv=none; b=joy/w/Fech0jAwKYd2MAkAFh7EuQtqaFGpCCR+siJYod4r0Z3+R65aGqt/rtsqMp727txUQUAPjWzwlcVk0Qf3Oq5U4UFfGpdwjwjlvLq0biIbSPwPQ5SlDCjwurGsRTRz7V3Z69i/bKID2oXuKey5jFDq46lbto3qfrqruwTW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127374; c=relaxed/simple;
-	bh=dxyVo2oeRJ2/e5H7gkIsKAYiyS8Ke4ZPDP8ucAOaYYs=;
+	s=arc-20240116; t=1789127620; c=relaxed/simple;
+	bh=u5ZMnKhUhMbEAuODpp7Ev/TlxT2w7iJIsoFEy5rn6ZU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MwTTvTFlIXS0QvuF70oJxaSEwhIhZ2ZZuB8HMCd7A8TczGS1pqQw8VGQPm2ga704PEwgs6DxGkBhAaUxKt+f8Xk5NHs4Q9Pmn1/x5vvBVw8V6dkaHvJBRN0QMWnV224qGFpESYbnt4WQCO74mdYjgk9RQUrnGcmgz5MF2W85uNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rlfw4ro1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hqu7Ow7rIUB8X1nfAQcGYf61S/Jb41G1IoEZdZ84jsXk/cFiWooT49iO63XlSiyUyArTZgpB2rJIulcFJvJ1ASrtKov30AVF2yZ5X4YQL7nn2mXnutZlRZlKUNmK7vFyvDFk/t6JjpYMwSZcCgg4/ZCntsx6oTe7ELxJ/hhuJMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUzBVv9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rlfw4ro1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B201F000FF;
-	Fri, 11 Sep 2026 11:49:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUzBVv9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F8B1F000FF;
+	Fri, 11 Sep 2026 11:53:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789127373;
-	bh=Lxan71TKAP9LBMIRepbrB9PWl18IXnTLXn0IcV3uqTU=;
+	s=k20260515; t=1789127619;
+	bh=eTdaXo8FWRAmp7yeTpazvgP5q6Y9E9Kc1wtViwImRb0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rlfw4ro1BqGyBTdgTmJklphj7TWINHMun8hvA16rrKqtXMKVwiByBGgmeHne3rZvX
-	 9XAUYkSPtEEj+vSfj2FgATcRI2wYgIXpcgo+uh1Wdx7FZNXF0RHTxCzpWDDI/0HJiI
-	 GwWcBmMaGhvRBzc4xAgJND+VPin4+FPX6tY5zPXQkSioE/4MRuise9XMeShwtVyez9
-	 ou1TAS+IOqZCVUTrm4YDY0X7jAQG7aFkap9ckHzVKzBFPcPS0rAGKWFIgtS/APVco9
-	 Noi2xcRfyH49Zm12CrNVqcU9vOiAW+I1G4+49Unb8CxBQ8bqjb4o37WyLS4utS/2g4
-	 K/0GcZ1VfSaog==
+	b=EUzBVv9ZeGf3PgCmEaTUr85KU40vNGxk0FPkdc3IzpCe8PwCkMBq1R4ipZI/6S+EY
+	 NOrsGToefHdiiuiBH/3JlrDzkRvF5PG4cS2xvoB5R/dOJIQVtaQ9UNimdghdUAzqPj
+	 Qn5KzlPlihLFoOFZdyBJwWX7jiaDwKZrFo3ZzwCjiMI1+POsuE5Ws+cWAelExJuawR
+	 mkgh9cKve1cwoKXLtKpa8E4sQyu8kFsQ7lJpIikJWiZbQQmLCf8RdY6KVmK+fwTqRz
+	 3JOTdUiHrguoDNirAuAPeA8lwLCoxwqWXx76wBj7AUK0Y9PV9nZrczxk8i/NskaTqk
+	 rhYCwYlwgATSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: rkvdec: Propagate platform_get_irq() errors
-Date: Fri, 11 Sep 2026 07:49:31 -0400
-Message-ID: <20260911114931.462036-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: s390: Zero initialize data structures for inject_pfault_token
+Date: Fri, 11 Sep 2026 07:53:36 -0400
+Message-ID: <20260911115336.468271-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090928-grew-headdress-5025@gregkh>
-References: <2026090928-grew-headdress-5025@gregkh>
+In-Reply-To: <2026090923-boondocks-sulphate-e6e5@gregkh>
+References: <2026090923-boondocks-sulphate-e6e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-[ Upstream commit c37aca64206fafe938119e801a3fd10a537a051f ]
+[ Upstream commit 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 ]
 
-platform_get_irq() returns a positive IRQ number on success and a
-negative error code on failure. It no longer returns zero. The driver
-currently returns -ENXIO for all failures, which loses useful errors
-such as -EPROBE_DEFER.
+__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
+the on-stack struct kvm_s390_irq but the full ext substructure is copied
+into the cpu local variable on inject. ext_params and pad contain stale
+stack values.
 
-Return the error from platform_get_irq() directly.
+Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
+but a host user can use the migration ioctls to get to the data.
 
-Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
+Fix by zero-initializing the irq struct.
+Do the same for the inti data structure.
+
+Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
 Cc: stable@vger.kernel.org
-Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ adjusted the patch path to drivers/staging/media/rkvdec/rkvdec.c. ]
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
+[ Adjusted context for missing inti_mem and ret declarations in __kvm_inject_pfault_token(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/media/rkvdec/rkvdec.c | 4 ++--
+ arch/s390/kvm/kvm-s390.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/rkvdec/rkvdec.c b/drivers/staging/media/rkvdec/rkvdec.c
-index a1d941b0be00b..85dcabe11bf9e 100644
---- a/drivers/staging/media/rkvdec/rkvdec.c
-+++ b/drivers/staging/media/rkvdec/rkvdec.c
-@@ -1044,8 +1044,8 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
+index 70d7bbd62120d..e4c9081a317d5 100644
+--- a/arch/s390/kvm/kvm-s390.c
++++ b/arch/s390/kvm/kvm-s390.c
+@@ -4598,8 +4598,8 @@ long kvm_arch_fault_in_page(struct kvm_vcpu *vcpu, gpa_t gpa, int writable)
+ static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
+ 				      unsigned long token)
+ {
+-	struct kvm_s390_interrupt inti;
+-	struct kvm_s390_irq irq;
++	struct kvm_s390_interrupt inti = {};
++	struct kvm_s390_irq irq = {};
  
- 	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0)
--		return -ENXIO;
-+	if (irq < 0)
-+		return irq;
- 
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					rkvdec_irq_handler, IRQF_ONESHOT,
+ 	if (start_token) {
+ 		irq.u.ext.ext_params2 = token;
 -- 
 2.53.0
 
