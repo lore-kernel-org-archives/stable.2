@@ -1,80 +1,74 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9902237B3FE;
-	Fri, 11 Sep 2026 05:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6C049E13D;
+	Fri, 11 Sep 2026 05:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104762; cv=none; b=F6vL6NMg37rjhElhYFUGRJXJxKcZic6wAif5bNFFpbhFo84EvT1VT/lyiE36h4fnGxfKUZbE5KVOAHD19yODYSjglDp/0kYu7fPeU37xtTXOeO/fHTfTo0kqjHuGARfpBtiBEY3m44Yh2dz0+pkTKGQ+96t5gjNs3Iwr4riUzL4=
+	t=1789106016; cv=none; b=Zrkz6qnxhGV5+iW6MQJrnaHLMYPk3rCwsYDbMT5bA8V9Wsy7GsLt55BBTmeZIdd/jNvRCqbaItu5/1CZ3ryPP9o7CG8xYrHnSGFJZbQ7QRtaRl1ZAv+LlriuWTqE2BKi2p6yJIRdi3qEXns0kAq/Q+znwczFjvypoktFTDLXXdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104762; c=relaxed/simple;
-	bh=roUbVsxt7Qm8e8sbeFUR2KtD6TjYwdZVigeatZ///YA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=sVyKJ3VfU8K2tm2r/o5WUurYhyl8nusY6zHk9bNtTqMXAVrbZ/SbblvQw0Lhh7sSJSAnJ2ZJrmr3ApVIyCX48+y02vpPp9DeHRZ5dKsLb9jN+boFPy3ibCCykoQhERZ3qhHHp5p/gl34uHcDREk/hcC9fBjfvv1oKFb2bY2Xts8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=J0Yxh4tj; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1789106016; c=relaxed/simple;
+	bh=D8JDb0jN12znCOqM9EZxahvVkpn9OD1Q+r4zc2bL0Xw=;
+	h=Date:Subject:From:To:Cc:Message-ID:MIME-Version:Content-Type; b=KYM8uVu5lNpsDdsfe+dE4IMK1rocxBtpQ6IP/AmhLbpEmzCCr8hRlH1T181ZEv7XSBlfnK+gWyeENn4Ai/S3r2/0plgoBSb95mh36uv4DJIglD9Hbrj5OrihSuprGM9w+UQFxt9SGnyI6IZBinagPBS4duK+2kVVbQAKH8c3Uls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epo3e++/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="J0Yxh4tj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
-	content-type:references:reply-to;
-	bh=Cw/6iUe+OXctJ3/QTaiN6oy6i+6c0PDli5dcQiIXkfw=; b=J0Yxh4tjBj5YKKEdEgtH9x9dDZ
-	HUw/QmkvMfO3s65qzitIIoAMriuYkpBlHUUc4dR+KIUyqhcqKZ3/FuAUWtcbaXLKq8CZ8X7QWO62y
-	2/8Ag6k5pjnnGyTlF0BhT//NfGJnzv4asC4mPM5BBcJZsypSp78LFmreP3svU32+YUt0wYfPMW1Re
-	ADQuTPSo9Xo5XUF3+riI53qhZdLu8rVsmeLS7QWzPYxS8JTzNnz+hcoZTJI7JqE+T4ed9doZB9For
-	cMrEf+XnXSfM2z1NOigAKN0SKnAe+/NN47yM+cGZDu3otQJj1rbeYdhco2uye/jdg+qb5ar3PVJqD
-	AL0P7RKQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4tsJ-0000000CuCD-1Njk;
-	Fri, 11 Sep 2026 13:32:36 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:32:35 +1000
-Date: Fri, 11 Sep 2026 15:32:35 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: mario.limonciello@amd.com, thomas.lendacky@amd.com, john.allen@amd.com,
-	davem@davemloft.net, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	runyu.xiao@seu.edu.cn, jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH v2] crypto: ccp: Initialize DBC ioctl mutex before
- registering device
-Message-ID: <aqOScxbMjvMWmB-I@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epo3e++/"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A30961F000FF;
+	Fri, 11 Sep 2026 05:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789106014;
+	bh=iIepxeTYepXCTrv1KTKDw/hVXLSlHxGbaqY3xpKfgn4=;
+	h=Date:Subject:From:To:Cc;
+	b=epo3e++/u57GvYuXKuUITZGOEZVNfy7wSMuA6PMmlcr8EQFaYGsApNa+/nwE878fq
+	 sB2NJYsiImffbIrus0xdCPbeWtUrfFfEJnU4fEjHSQKguYdydrnc9d4sYexPN2fIiN
+	 nxpS8rgHrgMne81D/juf8Xqd4UTayYwM/QfGhzRv+8OHWInWt2AZEVoa+dhYjZ63Ts
+	 jaPtBsarS719Lu1aQCQvdQ5+dgV3mvBywyW2zXhF2XmEj6GXP1LnprxC/FCro5nsPS
+	 7n2rBzlIV+KLgG+mw2q5CzygHMK9MlzRQkz08ocJJMSavn5N1oNmdWuT+SmKVq8iB9
+	 0b5cJG6a6j13Q==
+Date: Thu, 10 Sep 2026 22:53:34 -0700
+Subject: [PATCHSET] xfs: LLM-inspired bug fixes, part 14
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org, hch@lst.de
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
-X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
-> dbc_dev_init() registers the DBC misc device before initializing
-> ioctl_mutex. Once misc_register() publishes the device, userspace can
-> open it and invoke dbc_ioctl() while the mutex is still uninitialized.
-> 
-> Initialize ioctl_mutex before calling misc_register() so the published
-> ioctl callback always sees an initialized mutex.
-> 
-> Fixes: c04cf9e14f10 ("crypto: ccp - Add support for fetching a nonce for dynamic boost control")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/20260829133410.1708684-1-runyu.xiao@seu.edu.cn/
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> Assisted-by: Codex:GPT-5
-> ---
-> v2:
-> - Move mutex initialization before setting up the misc device, as suggested
->  by Tom Lendacky.
-> 
-> drivers/crypto/ccp/dbc.c | 4 ++--
-> 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi all,
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Here's a fourteenth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+mwa...
+
+If you're going to start using this code, I strongly recommend pulling
+from my git trees, which are linked below.
+
+With a bit of luck, this should all go splendidly.
+Comments and questions are, as always, welcome.
+
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=llm-fixes-14
+---
+Commits in this patchset:
+ * xfs: check padding field in xfs_ioc_commit_range
+ * xfs: don't call xfs_exchange_range_finish for a dry run
+ * xfs: use the correct reservations for rtrmap/refcount recovery
+ * xfs: fix integer overflows in xbitmap set functions
+ * xfs: only flag zero padding for dir3 data blocks, not dir3 block blocks
+ * xfs: check di_forkoff correctly in scrub
+---
+ fs/xfs/scrub/bitmap.c      |   26 ++++++++++++++++++--------
+ fs/xfs/scrub/dir.c         |    2 +-
+ fs/xfs/scrub/inode.c       |    2 +-
+ fs/xfs/xfs_exchrange.c     |   13 +++++++++----
+ fs/xfs/xfs_refcount_item.c |    8 ++++++--
+ fs/xfs/xfs_rmap_item.c     |    8 ++++++--
+ 6 files changed, 41 insertions(+), 18 deletions(-)
+
