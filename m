@@ -1,118 +1,126 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A858C2D1913
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 13:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E12E448D1D;
+	Fri, 11 Sep 2026 13:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133761; cv=none; b=lq1aH7oRjNF3ziVVcOW+2NRjkSZfL5Iu/VU0dRSCUMA8l25vxA2kFSjDujDZmhonv6BBcRqtld+jPsX4rjRCU1X1j83wa8R4e2iutc4XqM9lAseeGFXdH/vC23PqoPmdm6cYSrjSpaHr3uUlSxqc0Ip2l5G5UgMQnqVA6ZxX7tc=
+	t=1789133962; cv=none; b=sasUmfV3nttt2ab8HX3YTObKyksymvmjGGRcAJwP06CzcRCq8iRdx5WVb3MJejPmD4T+lcNbwrxzCZDU4SPAweXqraeEHbHyL0Cd8fAac32VljNjrlgSJ0fxtJKeE4QBnE/+VVjQw7Bmq/w3RUX45X6vyoqRnCPk7NHlgLRxLgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133761; c=relaxed/simple;
-	bh=l/bCVGSspL02YXJ/yAB5JeMTyAVEFU1oMpY90Had7ck=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RJwuPo8mzZarMLItHNskyrB9rjTsxQsYc0RHraV0o9Ffe8c3So7A7rhwiuli3dpXfhN6LrN+FxhMKE1Jq+oxIQXKhN4E4/pESJA/M8JyoGncKqOvC+yNP/Uab1to8tc9UDbXHzR4w2TrKeeq577YRIJVtx6IIYdnpl32iG4J8rQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=p74ZxXTI; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1789133962; c=relaxed/simple;
+	bh=HEa7y2dg0Q5/324DIBpIKPkDzSkkBUrm51tW/kKBdS8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LUJzB1RDcV6CRYr92OSgCOE+qVa4TEaTHWanWRMz+5r5DUXl+GitYl9q8heIL4uTvOwV8qZx/LvfWOnuO8cU0JTGGqeimwBywVJjRM7RTlGmEM6JnwBm7RuyxuTvNhkTn2+bE7a/wQLa2P4TBp0lSZgxyEKAddeDx6VrItxTcH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AHT766EZ; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="p74ZxXTI"
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1789133747;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/bgLyaoJzXUKGE5hQTyHuqNL2qur/PgtwXtaYxDoOp4=;
-	b=p74ZxXTIaPYFLJvHO4kSym/M9jRPr/3fIC4vOz32kmQP0ULCG6yXy5L9qi/ujfGGoY9jcZ
-	oVdhL6NVkwQcsbhIQTCRt9UsPN5WgwFVeaTZH4xQHagNm9EcuVAvn5MydOw7xCUoXl9nRS
-	GJRoeq9GFlEx308yjgLR8jgJvi5MGXc=
-To: lvc-patches@linuxtesting.org
-Cc: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	lvc-project@linuxtesting.org,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	stable <stable@kernel.org>
-Subject: [PATCH 5.10/6.1] usb: typec: tcpm: bound altmode_desc[] per iteration in svdm_consume_modes()
-Date: Fri, 11 Sep 2026 16:35:44 +0300
-Message-ID: <20260911133546.111411-1-arefev@swemel.ru>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AHT766EZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789133961; x=1820669961;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=HEa7y2dg0Q5/324DIBpIKPkDzSkkBUrm51tW/kKBdS8=;
+  b=AHT766EZg4HYtGkVe6CNqZXy45wy0uabCXVFwDa6fVQjPRm7WwarYr+x
+   sb/vwaGiaT6KhztVyD2tmtAB762PMSA1gujpGoDXIEjXVxBilN5z08N9L
+   JhenAOLDMO7mj2FRtxvnkzOxPloupOQL7u0lG1iDprChZmNwZ0iony2bQ
+   EmEeec9D/wVyZgeRZfMx7naUu9zVvG1jVYGM8d0YJfgH4Kb7LZlq6iXue
+   wrifaJXCli+L/MT2Wx1lRlMZh+kS2fuCaUyY3jwALR1Nsqm1PDWuSar0B
+   BtJEo+3SRgdm0N9aqa87Y25RB/AFNN26RMHd/L398ObcSiZWtp8mbQ/ja
+   Q==;
+X-CSE-ConnectionGUID: 19DYd/40ROqNerCEEHlbZQ==
+X-CSE-MsgGUID: ZdLL+FjfRI6B7HtvN6eEDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="100192179"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="100192179"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 06:39:21 -0700
+X-CSE-ConnectionGUID: KFXQRo5PSOCleIcv8it7OA==
+X-CSE-MsgGUID: OwqQLQInR7e2wChAb07d7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="275446796"
+Received: from smithj1-mobl2.amr.corp.intel.com (HELO [10.125.108.26]) ([10.125.108.26])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 06:39:20 -0700
+Message-ID: <d6b8e4f3-93e3-454d-acb4-7ba1f49044d8@intel.com>
+Date: Fri, 11 Sep 2026 06:39:19 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH AUTOSEL 6.18-6.12] btrfs: derive f_fsid from on-disk fsid
+ and dev_t
+To: Sasha Levin <sashal@kernel.org>, patches@lists.linux.dev,
+ stable@vger.kernel.org
+Cc: Anand Jain <asj@kernel.org>, David Sterba <dsterba@suse.com>, clm@fb.com,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-164-sashal@kernel.org>
+Content-Language: en-US
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260831133314.4125787-164-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On 8/31/26 06:23, Sasha Levin wrote:
+> To prevent f_fsid collisions between original and cloned filesystems,
+> this implementation hashes the dev_t for single-device btrfs filesystems
+> to ensure uniqueness. This is limited to single-device filesystems as
+> cloned mounts are currently only supported for that configuration. Note
+> that f_fsid will change if the device is replaced.
+> 
+> Additionally, since the kernel cannot distinguish between the original
+> and the cloned filesystem, this new f_fsid derivation is applied to
+> both.
 
-commit 3389c149c68c3fea61910ad5d34f7bf3bff44e32 upstream.
-
-svdm_consume_modes() checks pmdata->altmodes against the array size once
-before the loop over the count, but forgot to check the bound at every
-point in the loop.
-
-In the well-behaved SVDM discovery flow this is harmless because each of
-at most SVID_DISCOVERY_MAX SVIDs contributes at most MODE_DISCOVERY_MAX
-modes, exactly filling altmode_desc[ALTMODE_DISCOVERY_MAX].  But the
-CMDT_RSP_ACK handler in tcpm_pd_svdm() does not correlate an incoming
-ACK with any request the port actually sent.  Once port->partner is set,
-an unsolicited Discover Modes ACK is consumed unconditionally.  A broken
-or malicious port partner can therefore drive altmodes to
-ALTMODE_DISCOVERY_MAX - 1 via the normal flow, and then send one extra
-Discover Modes ACK with seven VDOs.  Because the pre-loop check passes,
-the loop could then writes up to five entries past altmode_desc[].  For
-mode_data_prime the next field in struct tcpm_port is the
-partner_altmode[] pointer array, which then receives partner-chosen
-SVID/VDO bytes.
-
-Move the bound check inside the loop so the array can never be indexed
-past ALTMODE_DISCOVERY_MAX regardless of how many VDOs the partner
-supplies or how the function was reached.
-
-Assisted-by: gkh_clanker_t1000
-Cc: Badhri Jagan Sridharan <badhri@google.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: stable <stable@kernel.org>
-Link: https://patch.msgid.link/2026051351-reshuffle-skillful-90af@gregkh
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[Denis Arefev: adapted for 5.10/6.1: tcpm has no SOP' support here,
-svdm_consume_modes() takes no rx_sop_type argument and has a single
-pre-loop bound check instead of the two in the SOP/SOP' switch;
-drop that one check and add the per-iteration bound check]
-Signed-off-by: Denis Arefev <arefev@swemel.ru>                                    
----
-Backport fix for CVE-2026-63962
-Link: https://nvd.nist.gov/vuln/detail/CVE-2026-63962
----
- drivers/usb/typec/tcpm/tcpm.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 6969db16f07c..c3fac41eb387 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -1541,17 +1541,16 @@ static void svdm_consume_modes(struct tcpm_port *port, const u32 *p, int cnt)
- 	struct typec_altmode_desc *paltmode;
- 	int i;
- 
--	if (pmdata->altmodes >= ARRAY_SIZE(port->partner_altmode)) {
--		/* Already logged in svdm_consume_svids() */
--		return;
--	}
--
- 	if (pmdata->svid_index < 0 || pmdata->svid_index >= pmdata->nsvids) {
- 		tcpm_log(port, "Invalid SVID index %d", pmdata->svid_index);
- 		return;
- 	}
- 
- 	for (i = 1; i < cnt; i++) {
-+		if (pmdata->altmodes >= ALTMODE_DISCOVERY_MAX) {
-+			/* Already logged in svdm_consume_svids() */
-+			return;
-+		}
- 		paltmode = &pmdata->altmode_desc[pmdata->altmodes];
- 		memset(paltmode, 0, sizeof(*paltmode));
- 
--- 
-2.43.0
-
+This commit is causing some real pain to end users that use the FSID to
+encrypt VPN keys. Could we keep it out of the stable kernels for the
+moment, please?
