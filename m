@@ -1,153 +1,152 @@
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F2B36B92C
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.205.69.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D239932779D
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139623; cv=none; b=af9uKvYtO2uCKu/iR7vZfM9V97EqfngSxCDGXANU7FCuP8wDPISqy+NNnB2RUFDIfOk2fl4LBKLdotHQnvWg1kpgBsleEWXN71T980TjAua3OizKC4uvgGOxJRji/42Jt3BMnIAeeMyRxbBUBlrDqfgR/4MZWCzUTdjEJPcyb9o=
+	t=1789139847; cv=none; b=kF2qhUQ1/bjRnnABYpNjHI5LEi4eiQgCaIqsCQ/A5enujN1x2Gb8ea6bNoTcjbFMvhNKBVyC1AYfFYOls4BJH70ck4S+cQrbnwRwdMlt6a44Z1lV43o2o1i3Wm2/eLC42MuG5qKXgDlSqFlBknB3hvU/mlJ0xw6NfibAZC3yvd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139623; c=relaxed/simple;
-	bh=Au+SCB+zNI9l1fOceWRc8EraEyvsCHK/g1ACRBZm0BE=;
-	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:Content-Type; b=O3nQ7lFb5ebq7HLzJ/hgVRsYr42gr2vK1qRbSKr0vOYBuwJozKHQ8jvpA6xWlbIsSwYI/ISa4XOJ98Js7kysF6pxYutCG0OKdlIVp7WHtAsQbDYHJWB+SzLYbCpLn4MWgkNMJSVr6ezi2Htpve7j05+K4Xjh2Jn1QVd9XWa4xYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io; spf=pass smtp.mailfrom=tuta.io; dkim=pass (2048-bit key) header.d=tuta.io header.i=@tuta.io header.b=yftMiiXB; arc=none smtp.client-ip=185.205.69.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	s=arc-20240116; t=1789139847; c=relaxed/simple;
+	bh=efrWbnPzSCOA1sTxkkExMlXP98/KqkN8F1UUFEHHZ90=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=qqY61YmNjcGx21BiFS63qQFJJE5qnOFjDqklCuqw8B54KQA/R2nOABd2S3uGEzQ/FPtLryrruaPDjHjRCtaSpujjqqMeu3x0Z2f2wdH9JkFxRsGd/PE/IoGX9k0JacTq17rwaYSQAPyXhEsrR44vxaRaqXunNoysWh5IptAhkP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QzZIWGFh; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuta.io header.i=@tuta.io header.b="yftMiiXB"
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 54DD4181EF6A1
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:13:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789139613;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
-	bh=i3FS69MrT4+l4qAK7QwAFh7KU8cJ5diW81tkTTXtX6I=;
-	b=yftMiiXByf7eFVuV31HWhbakeGZe1t7A2i6T9nH5i/9HVYwlEjaaDDmkMfrrXZ+h
-	PC2esGTxyX4EpUqen5OqeIsHJ9Rv/gj/yYUbEmUPZF7jyz2D+GHmNW7uFP0TWRVkqou
-	+zwaP4v21kxznYjhvT+Gnv3kkQvl96M+RiI44Yw2iIqAOCzQchwuNuUBTJ/vixAydMs
-	czplm48LAXVeCZ8hIrnkHGA9nlhqT9A02TD+doBal2iUSVN9sKLz08MP1WiHQm0Nu3X
-	eHIYpx/3OiuAd98+n2+SUL8ZhkHYV7MqRU03W0rSfYQAxigvBdBLvwoles3VmO0lGDe
-	oyszmflnTw==
-Date: Fri, 11 Sep 2026 17:13:33 +0200 (CEST)
-From: McKenna Fan <blue_sun@tuta.io>
-To: Rishabh Jain <rishabh.jain1198@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mario Limonciello <superm1@kernel.org>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Linux Usb <linux-usb@vger.kernel.org>,
-	Linux Kernel <linux-kernel@vger.kernel.org>,
-	Stable <stable@vger.kernel.org>
-Message-ID: <P1FsfbW--F-9@tuta.io>
-Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QzZIWGFh"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so1322328a91.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:17:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789139845; x=1789744645; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/VIzH3fcclvw4AXnBO3BO4tZuWWnQl1bNWKdePXc5bI=;
+        b=QzZIWGFhKYDE75z11JeXZpCVWLR1BcDg478I/XJwDMP1+HxRjfUC62g/sfhtjmk16S
+         gSm/rNATAyjLt1sm86KH4nbBE7mvY0Mshjeskt6Qtp+2iJM4gPk1RMgoNxwLd6Oyd6CB
+         HbHQYfvexM6sx8CMrOeTe/q7R4cUkDdcYjqrQF7ZJucEeLGGGEstN9Rp6/4Pb7F8Faff
+         7JIvIVfnrRYsXgQAShquvdGYuOPhdoFTZjMGJABuFqLAEuK2kAMRjvTwT6gso/ytLHlg
+         HJ/FrLAeh1BiWtwlRhZOIi8daaOQT1ITxLoxYxDcPPvC4pCFiuCz6K+UvXykdB4FtpoI
+         7M6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789139845; x=1789744645;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/VIzH3fcclvw4AXnBO3BO4tZuWWnQl1bNWKdePXc5bI=;
+        b=mDp2nEaWfwY9fcj5JDiTNqiDHCEC/8k8B2oM7RV0m4K7CQTe/nopMEWsMxBzF0ejOd
+         KVxHjmahaqTwQUhnnOfQ3bZP8lX116gPxtWPKzMO/xlTPuUKkqJW1ZCbnsIYoSm8C+9X
+         Tv0s2ZrqWAnBxwgIQ79kVAAVvcxPXHNuVD/nhLZrgRdnQtJ1URy8nLe8XvqduvaQvwaH
+         kvUphFCKZ63W+WA4c7B3VukR8N/zUQ9sQub+vPx1ocHuk7feNEvl7ql3sMLc/GkjdTYB
+         6ExhNZJ3cruQ7KCTVPVmmWB7S+ZHHBMmSTP1Pl0otJeG/AJaFQiyqlEymXamH2tDQp+d
+         XuuQ==
+X-Gm-Message-State: AFuF++kNzEffCijDAbI768E+Ot5QDooc0MUxWnK8tkMJHNuaVfcqEiHX
+	Nv2gJy6+sGgszXp23/Nzn/es+eIfOmkfwL6poxyZ/9Yjm3bC86uZ54aD+W1pqNCS2PDc18RN/tY
+	ktwwJYg==
+X-Received: from pjbjx9.prod.google.com ([2002:a17:90b:46c9:b0:38e:b97a:cfa1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2641:b0:398:9bd1:3215
+ with SMTP id 98e67ed59e1d1-39d9c352a63mr7856385a91.22.1789139844897; Fri, 11
+ Sep 2026 08:17:24 -0700 (PDT)
+Date: Fri, 11 Sep 2026 08:17:22 -0700
+In-Reply-To: <20260911141350.763301-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0187c20531a577579818688044ea8b1598dc676ba037cb422bc7fe017ce2170cff1d591c2b409c04f62272b1235757094d7c57ba2d2d5a547d0034541fbd608314:TurnOnPrivacy!:tutamail
+Mime-Version: 1.0
+References: <2026090907-snuff-blot-3cf8@gregkh> <20260911141350.763301-1-sashal@kernel.org>
+Message-ID: <aqQbgijDnBZds1rT@google.com>
+Subject: Re: [PATCH 6.12.y] KVM: x86: Always initialize EFER reserved bits on
+ vendor initialization
+From: Sean Christopherson <seanjc@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Yosry Ahmed <yosry@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Sep 11, 2026, Sasha Levin wrote:
+> From: Yosry Ahmed <yosry@kernel.org>
+>=20
+> [ Upstream commit a4b8acd428ba3f03952ef309d7f438dbc357557b ]
+>=20
+> EFER reserved bits are statically initialized, and do not reset if a
+> vendor module is re-loaded. For example, loading kvm_amd with nested=3D1
+> removes EFER.SVME (and potentially EFER.LMSLE) from the reserved bits.
+> Reloading kvm_amd with nested=3D0 does not add them back, allowing
+> userspace to set EFER.SVME with nested=3D0.
+>=20
+> Re-initializing EFER reserved bits before configuring them on vendor
+> initialization.
+>=20
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> Link: https://patch.msgid.link/20260713181020.2735367-4-yosry@kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> [ placed EFER initialization directly in x86.c=E2=80=99s kvm_x86_vendor_i=
+nit() because this branch lacks kvm_setup_efer_caps() ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  arch/x86/kvm/x86.c | 21 +++++++++++----------
+>  1 file changed, 11 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 9e7c9e3edb5b4..84f8120ac31f8 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -108,16 +108,7 @@ EXPORT_SYMBOL_GPL(kvm_host);
+>  #define emul_to_vcpu(ctxt) \
+>  	((struct kvm_vcpu *)(ctxt)->vcpu)
+> =20
+> -/* EFER defaults:
+> - * - enable syscall per default because its emulated by KVM
+> - * - enable LME and LMA per default on 64 bit KVM
+> - */
+> -#ifdef CONFIG_X86_64
+> -static
+> -u64 __read_mostly efer_reserved_bits =3D ~((u64)(EFER_SCE | EFER_LME | E=
+FER_LMA));
+> -#else
+> -static u64 __read_mostly efer_reserved_bits =3D ~((u64)EFER_SCE);
+> -#endif
+> +static u64 __read_mostly efer_reserved_bits;
+> =20
+>  static u64 __read_mostly cr4_reserved_bits =3D CR4_RESERVED_BITS;
+> =20
+> @@ -9818,6 +9809,16 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *o=
+ps)
+>  	if (boot_cpu_has(X86_FEATURE_ARCH_CAPABILITIES))
+>  		rdmsrl(MSR_IA32_ARCH_CAPABILITIES, kvm_host.arch_capabilities);
+> =20
+> +	/* EFER defaults:
+> +	 * - enable syscall per default because its emulated by KVM
+> +	 * - enable LME and LMA per default on 64 bit KVM
+> +	 */
+> +#ifdef CONFIG_X86_64
+> +	efer_reserved_bits =3D ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
+> +#else
+> +	efer_reserved_bits =3D ~((u64)EFER_SCE);
+> +#endif
 
-This is an independent test report for [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership.
+This is going to conflict with "KVM: x86: Disallow EFER.LME and EFER.LMA if=
+ long
+mode is not supported"[*], it probably makes sense to send a version on top=
+ of
+that, both to avoid a conflict when applying and to make it obvious 6.12.y =
+will
+have the same patch ordering as upstream (though that probably doesn't matt=
+er in
+this case).
 
+[*] https://lore.kernel.org/all/20260911120502.489632-1-sashal@kernel.org
 
-I independently reproduced the problem and tested the proposed ownership behavior on a different AMD Promontory xHCI controller.
-
-My affected controller is:
-
-AMD B550 / Promontory-19 xHCIPCI 1022:43ee0000:02:00.0
-
-The machine runs Manjaro and uses ACPI deep/S3 suspend.
-
-
-I ended up collecting what is, frankly, an absurd amount of evidence while chasing this, including firmware analysis and repeated A/B testing, but the shortest useful version is:
-
-
-Stock Manjaro 7.2.4 kernel, no helper module loaded:
-
-EXTCAP_USBLEGSUP = 0x00000801EXTCAP_USBLEGCTLSTS = 0x40000000HC BIOS Owned = 0
-HC OS Owned = 0
-
-
-
-
-After entering deep S3:
-
-xhci_hcd 0000:02:00.0: xHC error in resume, USBSTS 0x401, Reinit
-
-After the failed resume:
-
-EXTCAP_USBLEGSUP = 0x00000801EXTCAP_USBLEGCTLSTS = 0xc0000000
-
-So HC OS Owned remained clear.
-
-
-I then booted a custom build of the same Manjaro 7.2.4 kernel implementing the proposed behavior of asserting HC OS Owned in the xHCI handoff path. No ownership helper module was loaded.
-
-
-Before S3:
-
-EXTCAP_USBLEGSUP = 0x01000801EXTCAP_USBLEGCTLSTS = 0x40000000
-
-HC BIOS Owned = 0
-
-HC OS Owned = 1
-
-
-
-
-I performed five consecutive deep-S3 suspend/resume cycles, including one approximately four-minute S3 residency.
-
-
-All five resumed without:
-
-xHC error in resumeUSBSTS 0x401Reinit
-
-After the final resume:
-
-EXTCAP_USBLEGSUP = 0x01000801EXTCAP_USBLEGCTLSTS = 0xc0000000
-
-HC OS Owned remained asserted.
-
-
-I then immediately rebooted back into the otherwise matching unmodified Manjaro 7.2.4 kernel. With no helper loaded, USBLEGSUP returned to 0x00000801, and the very first deep-S3 cycle reproduced:
-
-xhci_hcd 0000:02:00.0: xHC error in resume, USBSTS 0x401, Reinit
-
-This also agrees with earlier reversible testing using a very small test module which changed only HC OS Owned in USBLEGSUP:
-
-0x00000801 -> 0x01000801
-
-It did not reset or unbind the controller, clear USBLEGCTLSTS, or make other xHCI MMIO changes. With OS Owned asserted, repeated S3 resumes succeeded; clearing OS Owned again caused the resume failure to return.
-
-
-So on this 1022:43ee controller I can independently reproduce the same causal relationship:
-
-OS Owned clear    -> USBSTS 0x401 / controller reinitOS Owned asserted -> clean S3 resumeOS Owned clear    -> failure returnskernel asserts it -> 5/5 clean resumesstock kernel      -> first S3 fails again
-
-One potentially useful detail is that USBLEGCTLSTS changed from 0x40000000 to 0xc0000000 after resume in both the successful and failed cases. That status change therefore does not distinguish the two outcomes here; HC OS Owned does.
-
-
-This appears to extend the observed problem beyond the 1022:43fc controller in the original report to at least the related 1022:43ee Promontory controller.
-
-
-I have complete logs from the positive and negative-control boots and can provide the longer A/B history or firmware findings if useful.
-
-
-AI assistance disclosure: ChatGPT 5.6 Sol and Astra-medium were used during the investigation for source/code analysis, experimental planning, log comparison, and assistance preparing this report. All commands, kernel builds, suspend/resume experiments, register reads, and reported results were executed and verified on the physical system by me.
-
-
-P.S. If Rishabh happens to enjoy following journalctl warnings farther than is probably reasonable, I have another USB rabbit hole which may be of interest: a kernel.org Bugzilla report on a USB3 Type-C peer-collision / port-power-management warning. The useful part is comment #1, where the issue gets reframed after more investigation:
-
-
-https://bugzilla.kernel.org/show_bug.cgi?id=221987#c1
-
-
-Different bug, but another fairly innocent-looking USB warning that turned out to have considerably more behind it than expected.
-
---
-Secured with Tuta Mail:
-https://tuta.com/free-email
+> +
+>  	r =3D ops->hardware_setup();
+>  	if (r !=3D 0)
+>  		goto out_mmu_exit;
+> --=20
+> 2.53.0
+>=20
