@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F1C4AF9E7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74294AF9DC
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150235; cv=none; b=JqNKenmr51LZ+6tuGOrrgh3jAwsU+W/TgMgW5l9TGrR4Px5eNfDYVx/H1/VzwDJbZPZH1J3vgKs5TlMzgjH38fg1utSrvYKkwqQ+X0Ph+njupZorD4AUnMjA62Hk2wzm6YnwNtOpJuUgfgsZ384REr74aLkUw9l0Jeqq4+ZiNQA=
+	t=1789150236; cv=none; b=VgjMWmi3V7y9Wdh9U3x1qH+rMymYFkI+TJo0q3foByvPEzu7bpbiuKuXZDw+ge3Ev0ZKo8+I5OKTwJD0zQY5AKxzgPVpspraK2FEX5MF3RsispuUzWI8Ck14tz9mkSBRL8OLEaKb6vUKFzkkMuxi1NDW623qPS8onPtpf9rfHso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150235; c=relaxed/simple;
-	bh=9OjeGcMi0T+Ey8jhbQg311RsC8GiWNH0DlvS332bPWk=;
+	s=arc-20240116; t=1789150236; c=relaxed/simple;
+	bh=FEMBIrVEx09XWdNSV9lBj2MgxeUN/flR651Gz31Jmjg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y/Jh7WiGfSxC3QEZJqzG0iz+ZNw5cXazNb1KmVVm1q86rwAPjpCXD6J+ESCk8aOfhBnPLIPvxO7MBE5rkd29lIPrwcXTG33plhtEdpgtSN3Z4yWwMv5b+xrw+kGj/PxNjG65Q0bj1eCybv5Pq1tfxj1Q7qT8jrOiy1Wb1QMggK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ii94yfpv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=vGLG0LSA7lrEvCPvn9pXMdeqLwSwOZVEulz9TlyWdT+skymofM3pwUSC4oAa352ZYkpojW86d0XuWnwtXcTWyDD8hQryaf51XIVkEhCTPf5WhOYV5PGhWWj+CqMkqBtcT+468tURsvPgOo2/IusJncg3Y6cwRmud+nv6N+/zshc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KL46k90a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ii94yfpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71B81F0089A;
-	Fri, 11 Sep 2026 18:10:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KL46k90a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8EA1F00899;
+	Fri, 11 Sep 2026 18:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150229;
-	bh=1aNd6HT6xkV8CppyExIKgMM1Dktd855csObSZV+N51c=;
+	s=k20260515; t=1789150230;
+	bh=3jVR4OD6okUv1Md+oHNCpGKjx7Fd47nyUXoOxwZvTso=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ii94yfpvvrrsniFEfFsw8w5X4xfHZbvQVMoB1TUbIjq1I9omsbcV02LOSvilsrJjA
-	 x2CLuYVpYsIEQLJQdHAziwX/ML7d0vQOxhPpNIFqjXAEem4gMsD61Qb16zjr5P259+
-	 jhy1P+tgMJlL8nNKE55BDmCqDmy5TEFPApUX7CNLMxG922WTlpvZGj3fVq044IZ5nx
-	 1BjM8Vrj7ZJuVZl+RlntnnkVvDL6HsW08X2f453Vmzy3/LebVUjOCi3k072j1JKrk2
-	 bmG5c60sXYves8SdjEdrzl6clfBjeJ3bsKFLt6k9Qi7p1jxZxJCjhMeJSr736aestz
-	 qHaWMYnD4jteA==
+	b=KL46k90afGaZjtE0YsNm2O+QfadxDXWenokWmZV0NkTcwE5X3cxtFVsqqMsQA332c
+	 6ICXSS/DbXT/14A2a74hbw6XPIuPB167RM/ZNLWFf1T6OMh9b0lSJ58q5mPT0RK0pj
+	 u7vf3icab/BrXWxNWffy9n9Vk785toRQeEDQ5PrUnjdLaWJR2hY9tG7D9uynEkcKaf
+	 BEG/vRvpD6t42XIJatmBQ2zeD80qDHixztS64ng1+FLsa7OlkfaI2EPyQ87fc4uPCx
+	 t5HudX6el+s8NLwmjQf7BqOeLX3Oxp+HbLlKXrYvwZ/iA5731+Oz6UOvretY4frnXb
+	 ioUq8AtdrptJA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] scsi: qla2xxx: Skip NVMe LS reject IOCB when FW not started
-Date: Fri, 11 Sep 2026 14:10:24 -0400
-Message-ID: <20260911181026.1306489-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] scsi: qla2xxx: Unlink NVMe unsol ctx before freeing on LS reject error
+Date: Fri, 11 Sep 2026 14:10:25 -0400
+Message-ID: <20260911181026.1306489-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260911181026.1306489-1-sashal@kernel.org>
 References: <2026090924-wildlife-washed-3972@gregkh>
@@ -49,71 +49,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit f7e46ebffc5781aab3f1f5a5d4350addbb5833f4 ]
+[ Upstream commit e46160a5d4fa59bf4d5f3412b6b5cb79edb967dd ]
 
-qla_nvme_xmt_ls_rsp() bails out to the out: label when firmware is not
-started (!ha->flags.fw_started), but the out: path unconditionally calls
-qla_nvme_ls_reject_iocb(), which ends in qla2x00_start_iocbs() and an
-unconditional doorbell write to the request queue in-pointer register.
-This rings the firmware doorbell and queues an IOCB that stopped or
-resetting firmware cannot consume, and touches MMIO during the reset/EEH
-window where fw_started is also clear.
+qla_nvme_xmt_ls_rsp() obtains uctx, which was linked into
+fcport->unsol_ctx_head by qla2xxx_process_purls_iocb() and is still linked
+when the NVMe transport calls back to transmit the LS response. On the
+error (out:) path the function frees uctx with kfree() but never removes
+it from the list. This leaves a freed node in fcport->unsol_ctx_head: the
+next list_add_tail() for that fcport writes through the freed node, and a
+subsequent list_del() can corrupt the list or panic.
 
-Only emit the LS reject IOCB (and ring the doorbell) when fw_started is
-set; otherwise just clean up and return. The post-allocation failure
-cases (SRB alloc / qla2x00_start_sp() failure) run with firmware started
-and still send the reject. Apply the same guard to the reject emission
-in qla2xxx_process_purls_pkt().
+Unlink uctx with list_del() before kfree() on the error path, matching the
+other free sites in qla_nvme_release_lsrsp_cmd_kref() and
+qla2xxx_process_purls_pkt(). qla2x00_rel_sp() in the failure path only
+returns the SRB to its pool and does not invoke sp->put_fn, so the out:
+path is the sole free and uctx is always still linked there.
 
 Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-26-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-27-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Stable-dep-of: 76da0c43c63e ("scsi: qla2xxx: Serialize NVMe unsol ctx list with a per-fcport lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_nvme.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/scsi/qla2xxx/qla_nvme.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index cee7b8f4a8d9c..2a31dc075936b 100644
+index 2a31dc075936b..2c1e0db89140a 100644
 --- a/drivers/scsi/qla2xxx/qla_nvme.c
 +++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -441,9 +441,11 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
- 	a.vp_idx = vha->vp_idx;
- 	a.nport_handle = uctx->nport_handle;
- 	a.xchg_address = uctx->exchange_address;
--	spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
--	qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
--	spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
-+	if (ha->flags.fw_started) {
-+		spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
-+		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
-+		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
-+	}
+@@ -446,6 +446,7 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
+ 		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
+ 		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
+ 	}
++	list_del(&uctx->elem);
  	kfree(uctx);
  	return rval;
  }
-@@ -1203,9 +1205,14 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
- 		a.vp_idx = vha->vp_idx;
- 		a.nport_handle = uctx->nport_handle;
- 		a.xchg_address = uctx->exchange_address;
--		spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr, flags);
--		qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a, true);
--		spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr, flags);
-+		if (vha->hw->flags.fw_started) {
-+			spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr,
-+					  flags);
-+			qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a,
-+						true);
-+			spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr,
-+					       flags);
-+		}
- 		list_del(&uctx->elem);
- 		kfree(uctx);
- 	}
 -- 
 2.53.0
 
