@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83642357CE0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 22:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D25288B9
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 22:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164022; cv=none; b=rJlGrrZARLlotJGWho66o82D1zzROCRYpOdzjdJdOLSi6ajVA6vOKUrFvtGMKBCSYn7RcDWtD7SsK0ILpIZj5b2emSNaLbX5Fz9p39YM5KmrMLMsE6QNcKRXV/ffbLER5s1I3It6gvcpu3Ru+B713mo8xNeei3grJ2AOYVmheIc=
+	t=1789164025; cv=none; b=lQQzQQvJm4CN6HgVOKc0Y7VpOclaI669YOXp6t/LKG1olg7gIhVc12rqAZ0JulGOiXkvEymOHbpYeRARZTefR0OQdYjtLDXapolBnWiRL2bon2BDCiPmyo1IrEtCxWWxZwAKAdOF1zPiOZ6m4BkzNpQ4O6XnFTAycFfmmJ8wOhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789164022; c=relaxed/simple;
-	bh=aZe+Buxts3YECMKdwDYo5Yg87/d4z8fNsUMSyu/czJo=;
+	s=arc-20240116; t=1789164025; c=relaxed/simple;
+	bh=kj9VcDpBt+7HsqzNepH9xRIY2SQSiB3L9DcI2FULcVY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U7LySTmgH7t9zDq4oNO2Z1o1NZXwNLpqYEFWIpRQYuJyOMHqBIv0cSpcOtKY3yAIvtGd3yu4RYpH+N2KhtCxIEBdlokgeurqApb9VxlJm4qoB/eTrsd4vO9vWaI0hsWbLL6R6Yum2Qihhii0dJNppNTULiDW7CwZhEqEJEevmvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxC/4Coo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p/62QKpi0KqVhZjXT9m6jSHXcTsdSEwPYy0YnXQ8yRtv2rtOk+57v2TM3FNofn4JhaW2AGwxara2Nkev8BIm7ezwMhlkGdbLEibP504MDLI6zq+B1snHWWifv0A/a4Nn7v1b0lT3cNKVAAT7xpbuHOnicEB80Cu0+MCTOH2hs9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eq3UO5EW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxC/4Coo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4811F00898;
-	Fri, 11 Sep 2026 22:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eq3UO5EW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A44B1F000FF;
+	Fri, 11 Sep 2026 22:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789164021;
-	bh=ZV7peg1AqpD89/O1QXp5FYDJKrq4+uwxM7ax4aNAx/Q=;
+	s=k20260515; t=1789164023;
+	bh=xViccjbs2bMRrQbVDcIty465AdrSmQqFvxrXr737kig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VxC/4CooGco80aYwJ7PqMvQ6t69J6JtvPcIREFs+dau63d6jBygsVaWaBrBsyW8A/
-	 6m8lgeHBQHsp1mNRQleH8eKAn7yUASRtvydRC94vmzEm/uDio3SZTdBH2wGc6+3uPO
-	 vEQc6ZXDQPo01zGfUTcFoMBHrjF71XcE6we7natK5mSI+6gf5V84yv54mS7J3S4v6E
-	 cDk1nPiIn9hwX52uVCmrc5Urh85ZCVkgA6Fwp8xb/7Bhu0kO+ldCnYmmKROXgzdTkx
-	 Jyb3F2FI5sMwpKGrmJ8hi9OUf64qAsw0p0v+rx45coX8Yf923H7TEdEDdGyMltnrmp
-	 Y6PL/nks9dsCA==
+	b=eq3UO5EWt77Bg1mhWH6a7WX9nDvnX+c8CMATt69GJ2NwIBlbsIUZ7kElc5lA6tZy+
+	 tJOZT99bJBrxyN0c52lg6g2S49TyqZkfOXl/ZHbdOyV2/sLQ8koKGegCC6TlI12m00
+	 Y3CZCqKIvSFGoks0gcqcizUMnitEOTLAMJAMi8NqR3ElvigDvWiNwUzYVtvnlHA2W6
+	 idfOVqhTy+q+oZl0KD/35Q2qfjzZJNJY2/sr00XEMTroXSDgExF7cqc0ObrckFcVUB
+	 +SxiSWs9knAD+tSE04Z6YHf4AQ0svstJQBdQBnWA1iz9QtEsRuoKYJjFinPKa3V+jk
+	 lO0GQiLrXsRow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>,
+Cc: Zhiguo Niu <zhiguo.niu@unisoc.com>,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
-Date: Fri, 11 Sep 2026 18:00:18 -0400
-Message-ID: <20260911220018.1623522-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] f2fs: use new ioprio Macro to get ckpt thread ioprio level
+Date: Fri, 11 Sep 2026 18:00:20 -0400
+Message-ID: <20260911220021.1624116-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911220018.1623522-1-sashal@kernel.org>
-References: <2026090956-broiler-charting-76e8@gregkh>
- <20260911220018.1623522-1-sashal@kernel.org>
+In-Reply-To: <2026090930-parkway-apply-1c3d@gregkh>
+References: <2026090930-parkway-apply-1c3d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,108 +46,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Zhiguo Niu <zhiguo.niu@unisoc.com>
 
-[ Upstream commit fa487f56efba6344aef67d871688f0908fe08af3 ]
+[ Upstream commit 270b09313b4e16cdfd01d8371023a1661dd1112e ]
 
-It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
-otherwise, fallocate() on pinfile will fail easily even there is slash
-space in conventional zone.
+IOPRIO_PRIO_DATA in the new kernel version includes level and hint,
+So Macro IOPRIO_PRIO_LEVEL is more accurate to get ckpt thread
+ioprio data/level, and it is also consisten with the way setting
+ckpt thread ioprio by IOPRIO_PRIO_VALUE(class, data/level).
 
-[Testcase]
-nullblk_create.sh 512 2 1024 1024
-mkfs.f2fs /dev/nullb0 -f -m
-mount /dev/nullb0 /mnt/f2fs/
-touch /mnt/f2fs/pinfile
-f2fs_io pinfile set /mnt/f2fs/pinfile
-mkdir /mnt/f2fs/dir/
-for((i=0;i<3934;i++)) do { dd if=/dev/zero of=/mnt/f2fs/dir/$i bs=1M count=1;} done
-sync
-for((i=0;i<3934;i+=2)) do { rm /mnt/f2fs/dir/$i;} done
-for((i=0;i<1950;i++)) do { rm /mnt/f2fs/dir/$i;} done
-sync
-f2fs_io fallocate 0 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-sync
-stat /mnt/f2fs/pinfile
-f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
+Besides, change variable name from "data" to "level" for more readable.
 
-[Before]
-fallocate failed: Resource temporarily unavailable
-  File: /mnt/f2fs/pinfile
-  Size: 109051904       Blocks: 213208     IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 20:04:02.264000000 +0800
-Modify: 2026-08-12 20:04:26.784000000 +0800
-Change: 2026-08-12 20:04:26.784000000 +0800
- Birth: -
-root@localhost:~#
-root@localhost:~#
-root@localhost:~#
-root@localhost:~# f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000002dc00000 0000000000400000 00001000
-2       0000000000600000 000000002e400000 0000000000600000 00001000
-3       0000000000c00000 000000007a400000 0000000005c00000 00001001
-
-[After]
-  File: /mnt/f2fs/pinfile
-  Size: 1073741824      Blocks: 2099216    IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 19:47:49.428000000 +0800
-Modify: 2026-08-12 19:49:06.808000000 +0800
-Change: 2026-08-12 19:49:06.808000000 +0800
- Birth: -
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000003aa00000 0000000000400000 00001000
-2       0000000000600000 000000003b400000 0000000000200000 00001000
-3       0000000000800000 000000007a200000 0000000005e00000 00001000
-4       0000000006600000 0000000002800000 0000000000200000 00001000
-5       0000000006800000 0000000003200000 0000000000400000 00001000
-6       0000000006c00000 0000000003000000 0000000000200000 00001000
-7       0000000006e00000 0000000003600000 0000000037200000 00001000
-8       000000003e000000 000000003b200000 0000000000200000 00001000
-9       000000003e200000 000000003a800000 0000000000200000 00001000
-10      000000003e400000 000000003ae00000 0000000000400000 00001000
-11      000000003e800000 000000003b600000 0000000001800000 00001001
-
-Cc: stable@kernel.org
-Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
-Cc: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ adjusted context to retain f2fs_up_write() instead of f2fs_up_write_trace() ]
+Stable-dep-of: 5cb33b00c8fb ("f2fs: avoid NULL checkpoint thread access in sysfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/segment.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ fs/f2fs/sysfs.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 5e2789cd96b5e..8e6bea0a1d64d 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3388,10 +3388,13 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
- 		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
- 				true, ZONED_PIN_SEC_REQUIRED_COUNT);
- 		f2fs_up_write(&sbi->gc_lock);
--
--		gc_required = false;
--		if (!err)
-+		if (err)
-+			return err;
-+		err = f2fs_sync_fs(sbi->sb, 1);
-+		if (!err) {
-+			gc_required = false;
- 			goto retry;
-+		}
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index 4cd2d4bde217a..08d8d865f1306 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -339,13 +339,13 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
+ 	if (!strcmp(a->attr.name, "ckpt_thread_ioprio")) {
+ 		struct ckpt_req_control *cprc = &sbi->cprc_info;
+ 		int class = IOPRIO_PRIO_CLASS(cprc->ckpt_thread_ioprio);
+-		int data = IOPRIO_PRIO_DATA(cprc->ckpt_thread_ioprio);
++		int level = IOPRIO_PRIO_LEVEL(cprc->ckpt_thread_ioprio);
+ 
+ 		if (class != IOPRIO_CLASS_RT && class != IOPRIO_CLASS_BE)
+ 			return -EINVAL;
+ 
+ 		return sysfs_emit(buf, "%s,%d\n",
+-			class == IOPRIO_CLASS_RT ? "rt" : "be", data);
++			class == IOPRIO_CLASS_RT ? "rt" : "be", level);
  	}
  
- 	return err;
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+@@ -470,7 +470,7 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+ 		const char *name = strim((char *)buf);
+ 		struct ckpt_req_control *cprc = &sbi->cprc_info;
+ 		int class;
+-		long data;
++		long level;
+ 		int ret;
+ 
+ 		if (!strncmp(name, "rt,", 3))
+@@ -481,13 +481,13 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+ 			return -EINVAL;
+ 
+ 		name += 3;
+-		ret = kstrtol(name, 10, &data);
++		ret = kstrtol(name, 10, &level);
+ 		if (ret)
+ 			return ret;
+-		if (data >= IOPRIO_NR_LEVELS || data < 0)
++		if (level >= IOPRIO_NR_LEVELS || level < 0)
+ 			return -EINVAL;
+ 
+-		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, data);
++		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, level);
+ 		if (test_opt(sbi, MERGE_CHECKPOINT)) {
+ 			ret = set_task_ioprio(cprc->f2fs_issue_ckpt,
+ 					cprc->ckpt_thread_ioprio);
 -- 
 2.53.0
 
