@@ -1,120 +1,137 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219D3FB05A
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 19:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3104078D0
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 19:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153557; cv=none; b=Vxg+S7BFSixktPOgTG6nSbIMbXY+mqowOjReq8mfWD9VBhir3RziNI/pMlFsCMeOZHmJWBkufqQ/jbS/q08MtUMQAJEf1/yek/RAF7LXR4RbthA6cHBMrTduAwDsSUxS0MdPE3freSqTzCrGOuEhM+YB3mXv7QeZjls4QOHcScQ=
+	t=1789153579; cv=none; b=nm/d9m8aahQpIGV4wYfKwEmgJRTrEr3EiPOG4YkRQguxY89QuELY6RNGdmdJ1cC02soe0dy/DzfUQkK1tI6pGfaANT3oJTSLZ/9Cz9AgiMwO3J/fZ8vYZ1B64KrZ4M3eMGhsMkwGwxcaisqezwyFmVUF2G6ZcEycSiupRAHJRGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153557; c=relaxed/simple;
-	bh=l/CirUCwr/L+iTdoKApinwOtHjdHet/I16U4QpNhjhY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=attERk2qTNo9U3cKmylbjRkkc4Pxl4R3NZ0uhpI89eUO3j2hRsRERmH/ATaTu9lkMjG8A3AOfoKrfnxRQrZdzsBCRsgjcvudkNxXUG6XiwdCKIprWBGIOzPJzbEvQaNgMzLksZfqowggEq/dDOnUBmNpfL7Yz+nuEE7j4zpwpvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Un8IMAfB; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789153579; c=relaxed/simple;
+	bh=6YhkbJp1GnUua/BnwV/Uk9eXhGbblMwtm/j+KUHmL9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uzk0/R0o+8ZSKUYsXmoZaPSrZs0wNTwcXxDuuT5iPkYOiAWtW44pJLItIYOo7LNfx2JYzMmLl/8EYRU6Q6wcd/tlYqdn8dpT3/k7+AXRjB1gNIg0lgg5JNjaiygL96eIpwdHwcRVQGgeGG3RX1vZp/LHU7HUqkQULgzAnSfkqJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=I6CtNNG/; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Un8IMAfB"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e6ba045ceso862815e9.1
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:05:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="I6CtNNG/"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso3789126d6.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:05:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789153539; x=1789758339; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cvEgCS4lnVZGuqvTEqApyi1EqjdLQ0vEhWKATFltbNs=;
-        b=Un8IMAfBvC0at2gWXjouapc13yY7ToIb4VLUqTouiRfYPEIvoeeFiFEa3MtUFmgKcr
-         DYN1G3HQYvaER/lLrhQ1k4Rc++lrHei9doH2hVEQZJjaBwB9S4gMTDByjsdMYZzsB4ks
-         xqBewYNbQxI3M+pzm4j+k69gaL8jZ0mjZqOC/DCCBXUqES4/UMma66J/TXqlkkbMf0C+
-         1biKXHk/XquS29BJYsYA1ZhagYPZndLLE2wz4LiliLIskJzps0l4AObKN1vD6b9RO5SL
-         x6cm8LB9VxyJt1ZIa5dAIkwKSX7QrfK/5Jl3tLGrvDvVeqkLes23X/Mx8lgyMlzdlw2J
-         jVIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789153539; x=1789758339;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1789153551; x=1789758351; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cvEgCS4lnVZGuqvTEqApyi1EqjdLQ0vEhWKATFltbNs=;
-        b=NU1qTWhyhnIUEMCCM6tyt57FkMdHzmxHxjgizCYRCB0TSfEo2srXhE3XShr3CPExim
-         EgwnbsUDXQOQqEIkSsfarJ2pk9C8T3FgkSPt2cE8NFi5hjcxW9R5HKrO6CKlGqvY9KLv
-         rKTytPcGcEHfoiuQQvLLFj/k2fren/QoVS/0XHqktC2A8MUUXqEHfPX/bQInffHaiWiL
-         gH/MX5bG0MffBeBaF2Vw6vbna9PpDXyO6C8A/ny0DUeyC+bi5vT7dnv2whsPW459XD4I
-         7thEAwN3o/0H/ZG9g/fds9lWuaTSbPtMaZqYLL7Ifs0nUvwOAt32rHvK8fuWa3HGCjaz
-         nuYg==
-X-Gm-Message-State: AFuF++kSYLRpCyv8anHBnIsZYat8CL2cXiYjZxNldeJBcmO6Attu5Swa
-	9QhyiQdlV3haTJEg8aNLHrWhsKR04/+iI5FvPPsX+zQOXw5FBDvwO5Wu4kk2EILI/crgWc6Cm7Y
-	3t4IK0cs=
-X-Gm-Gg: AYBFou22lyqJdU0hS401X2X/x04D6mmAhX+OSrFaE+LcgQhi+hZ4AVliLakoKFcdGCO
-	XyYDj7EOacEeZXTI5eq8EwK/SlmamYg7/pBTD4XhOmvzGjAPNUiH0l2wUCvgQikhl5581d7n5Ld
-	XkMTDZLV+k0d375AzAWajr2mZQfTAM5zOJMBXd6CYmV6pVOMORKuT5iASD01PQreihkSEg+d+7m
-	oWgeATtJDKcZInqpzOa/uyizT3rp9I9NYE1V2KtFwxTP0Ekbg9shVopOA9WbO5IbI65FscX0YZn
-	77xwNuxehRS9Gbn22ztG6Hl6J+AtMONTXULPN9jLptwxkwwBzekOm9QdSi9bHswVE+OiWOXmPSX
-	QDNQ6CABFDgWT7/Mb3i0Isj21ofah4Pj9ndtHVPEAfuK/U8r2LquZcNoF3suL8kkQTi4E+JrKKc
-	ElLcCbfWasNQ77T3rUOjXQRgLk0req9cLU2VRFAcf2yYl3bheLkhDDNfNFoUY4G86uRJbn/edc1
-	nd9BdAn/BqCs2/d9g==
-X-Received: by 2002:a05:600c:1c10:b0:49c:fc6c:be05 with SMTP id 5b1f17b1804b1-49e619f7187mr77391455e9.28.1789153539618;
-        Fri, 11 Sep 2026 12:05:39 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm170999285e9.2.2026.09.11.12.05.36
+        bh=NmoGr5wjAgJ440TiKD/XfvIcttgRzXNwAMzNiaW8FPE=;
+        b=I6CtNNG/w0rhgQzB9T/lkNZwl2EYrH72MBAKNKAH6N1d6IJVKSjaR8Fne7TLGzH1bQ
+         otcYtJgNUHqEoy/vlKtK1qhY/QLvldAx3/0JyiSc1YVkGtZjqEGWUU5WnuQhhQU8BmVd
+         ioXpiOyMOBrl8gUAZM3xLFx+O9e5D03JPwciG2/g2Qtr8lRzbdzgZ84zKL/H1aFW23/E
+         eb+7u512WiR0Vt+dBJV1dPTtoE4zgQYXUcDt8Z+Z98wwVg8hwMeIcCWusVxWGnOTeBy6
+         aCDdrFkaaDs/3HyPVXQDKVeqf1TMJkB9qbUh8X5E93JFelrSFJ90Z9UrFvkMiszOX+M+
+         xMhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789153551; x=1789758351;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NmoGr5wjAgJ440TiKD/XfvIcttgRzXNwAMzNiaW8FPE=;
+        b=a4lktNj0dI9oD7FBWNsDibxVGfnM+Gp22VdnQs8TKKrUFe+PZJmNRShdDRk8l2Ei8l
+         LiKCoVP9WIWxvqrOZhVTa6hc0A9z6rNzT+CD04+EaKLKC/q/Bj8bniGWDluhI0usdBXE
+         ++Ti0brrELeWdjNAeH5mFP9xM+PaGGYXipWpkBMIbsMMuPs3WpYDeo536LmVW5EqS2Gg
+         vzSUcZObsHlZZVJgpWEEqc9bSKm2YuzPgay316TX9519pypnM+p3lKeoAk3COBxEaR6G
+         sVPERSLUcObcCZQzdExt4/JsYK3f+3j+Bh0T+kzpvxIpRr5GXHe6Y/Lkl6NTc2VobPB+
+         VkxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRqPNDR1P2zT2avg1BTQmWNVNzKfe2Dfl4vW7PCCqu1UUcHeXFptZR+3ug1rsrvlLS9n+EeZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6jc0Db0mdGOopBv96Ln1hfpvL+X2ikXOf2ZIbhXJaCBzOh7K4
+	ST9iUZZNtRBTazMYlmwzSpyP9umPmc3ryEBzxMmnfmfxDLVSQP05EcS6PWs0hIOYKA==
+X-Gm-Gg: AYBFou2V4hAZd+sH6kow6mtK8/scD2ICQumli5hhvckUX2rUwTTJDrtvk/ATlPfyW+1
+	RbDL+lNlCvALQex6g/VY3n0qCNl/IYSy1diSPyG27Dgax6mdnmLJegugL4xXiN6k0/qmxgn+FuC
+	2VjlO7vC9nhcDMbWNaYUv0mpVQJH1rcqAr2Fu+Lg3fy7NfcERwAJaEvM/XL+WPBPRa0L+5shJVl
+	afx0Qsed860+2mhTP8j29sGZwHVa3uACtsbTfBVUmhpl43Nly0so3pEtqkKTzjbbDVtwjNl5g78
+	9xYMOuzadSfFjfO46ECdZgF6PFQM4M2UMwopXWhTryOwXOg3T+l/5oz0fVJEdXZ32QNzN5/jIMj
+	voGo8LCuNHZDp7UaL50SIMG65VhMvPpaiQYFVuNu2w+UHhQYrKeu22oZS0F8jRzyrfFjI6G5zmR
+	8QZJi3NOSA0M718U7RbfHaZ5sDy5HNedTyYftV1+zcewtYRckkex86GDuiURzpQLps3IeOpJ7O
+X-Received: by 2002:ad4:5d6d:0:b0:910:346f:1027 with SMTP id 6a1803df08f44-912120fb756mr87544426d6.37.1789153551126;
+        Fri, 11 Sep 2026 12:05:51 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f2033e7sm28071926d6.4.2026.09.11.12.05.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 12:05:37 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org
-Subject: Re: [PATCH 6.12.y] clk: meson: align gxbb_32k_clk_sel number of
- parents with actual count
-In-Reply-To: <aqRAbyxpEnKlOXOu@laps>
-References: <20260910072139.313775-1-jbrunet@baylibre.com>
- <daily-reply-0030-re-clk-meson-gxbb-6-12@kernel.org>
- <1jik4c6imt.fsf@starbuckisacylon.baylibre.com> <aqRAbyxpEnKlOXOu@laps>
-Date: Fri, 11 Sep 2026 21:05:34 +0200
-Message-ID: <1jfqzf7gn5.fsf@starbuckisacylon.baylibre.com>
+        Fri, 11 Sep 2026 12:05:50 -0700 (PDT)
+Date: Fri, 11 Sep 2026 15:05:47 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <3c6865d9-a4b0-4fd9-a6d2-c4f4e1f94d29@rowland.harvard.edu>
+References: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
+ <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+ <87pkymywth.ffs@fw13>
+ <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+ <aqKu8nJqPsmKOo1d@localhost.localdomain>
+ <541b1db8-8649-46a9-9fa1-1b5f93cded7f@rowland.harvard.edu>
+ <aqPzzMlPpXMNZ5WC@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqPzzMlPpXMNZ5WC@localhost.localdomain>
 
-On ven. 11 sept. 2026 at 13:54, Sasha Levin <sashal@kernel.org> wrote:
+On Fri, Sep 11, 2026 at 02:27:56PM +0200, Frederic Weisbecker wrote:
+> What I would love to see documented for example is our case: acquire semantics,
+> which are described to apply one-way from a single memory target, are also
+> transferrable to other memory targets when there is a data dependency
+> involved between them.
 
-> On Fri, Sep 11, 2026 at 03:07:54PM +0200, Jerome Brunet wrote:
->>On ven. 11 sept. 2026 at 07:20, Sasha Levin <sashal@kernel.org> wrote:
->>
->>>> The following out-of-bounds read has been observed by Christian on a
->>>> GXBB WeTek Hub:
->>>
->>> Queued for 6.12, thanks.
->>
->>Hello Sasha,
->>
->>In those instance where exact same backport applies to multiple versions
->>how do you prefer to handle things ?
->>
->>* Just replying 5 times as I did ?
->>* Just reply once with a note explaining that it applies to other version ?
->
-> Hey!
->
-> Either works - so whatever is easier for you.
->
-> Something along the lines of "[PATCH 6.18-6.1]" is what most folks use.
+"Transferrable" is not the word I would use, nor does it describe the 
+way you should think about this.
 
-Noted. Thanks a lot
+This is just an example of the fact that ordering is transitive.  So if:
 
->
-> -- 
-> Thanks,
-> Sasha
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+	write A is ordered before write B (by an intervening UNLOCK-LOCK 
+	pair), and
 
--- 
-Jerome
+	write B is ordered before read C (because C reads from B and is
+	on a different CPU), and
+
+	read C is ordered before read D (by an address dependency), and
+
+	read D is ordered before read E (because D happens to be a
+	load-acquire)...
+
+then of course A is ordered before E.
+
+The exact nature of the individual orderings -- such as the fact that 
+one of them is a dependency -- doesn't matter.  What matters is that in 
+terms of the times when these operations execute, we have A < B < C < D 
+< E.  Naturally this implies A < E.  As well as B < E, C < E, and so on.
+
+As such, I don't think it's important to send much time on this in the 
+documentation.  It should be pretty obvious.
+
+The one thing to watch out for is the imprecision of the phrase "ordered 
+before".  When writes are involved, the order in which the writes occur 
+is not the only factor; you also have to consider the order in which 
+those writes become visible to other CPUs.  In the example above, we 
+know that the UNLOCK-LOCK pair causes write A to become visible to C's 
+CPU before write B does.  Therefore, since write B definitely is visible 
+to read C, it follows that any read on C's CPU that is ordered after C 
+will observe write A.
+
+Alan Stern
