@@ -1,62 +1,63 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E891E4A68AC
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 16:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002D04A3D3F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 16:59:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145968; cv=none; b=kRq48Oc3JZv+evHB20bJmmLFSEKg2iUk8lVFZhs3KtvzYMSt6qpfQjB2ZmFZwdfv31FtLeEvmsIn6X5mik1KENcj0RQOFvrWJRl5RI5asC9q1Zwvp84y9Q4MFW1cD36z9nGUjyACa6FK+UH5ljabSyhvGJG7/rK6n0oK19mUX3Q=
+	t=1789145967; cv=none; b=d+f9K+33mOhkQ4+JkJ6ygv31Ypb1hjqlGsrxBLlAA1OFea4Oge6DfZxA18Y2mQzAuI7krSJyJcUYaqtE8um3AXnrG4zN6LrNdQS1IxT9qSCKQhJdSCaFGx2L5WovM5veIkT+2jEuMrKkBZx46qI5D3ys447N2zKqHMMxUKThaXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145968; c=relaxed/simple;
-	bh=I2bKxYA16B9Jxv2KbPTyP2I3k2smMe0cL0l7GZLhfvU=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=ejoo2LySBN69BTKTRIoeOvLFZrQvbG2XcU6wSmWmQHZRx6ksszULM2JbZim+RUE06YY4sq09zj9B4DjRknpddHBFm+AQLljZpKYpNqJetUSk4iczfs7u/YBzOq16yboXpTeZx6khNJ8ORo/vt8AcnoeW57pGLsqAXRnp+9wYEFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=G8RjOE1o; arc=none smtp.client-ip=209.85.210.51
+	s=arc-20240116; t=1789145967; c=relaxed/simple;
+	bh=qhiqdIHtYujQGrF+5+QEVuVxSiAvhoJN9ueuN+UnKX0=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=a7fFElx8rQlXp8n39cwL1tT/C9NW79DhmS5KVfuTV6u03kcCDBgmdKsACj2voyJB+Ri/cZZkpRI6niyaDxOUSb5yP9hSaO7w5kaVRo75EKztV42pEwcAIrZKUywPj68ksisFuKNFDCmEVsCO0xtvl839ItCwzXNTPlvcc5bpd2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=i2zbFwLg; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="G8RjOE1o"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-801a52aa540so763362a34.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:59:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="i2zbFwLg"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4d03f95dfso523644a12.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789145947; x=1789750747; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1789145952; x=1789750752; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=JdM/q7Pwh0lmDEF5I1QfV9BS5h/OmnlJrfA959kkwi4=;
-        b=G8RjOE1okEqwKI/cOE2M+EVit9zGaq4KH/oj27V3eXSu9V5bsoS9TDHRMwviRWaPDW
-         +ICtlQMrGmmOYZyF5ffj2uKlkXLrcnubUo2VbMIY0iN2mI+nDz/A1j2yxkAcj8nezyfu
-         NjslahRcRULTV6h42rfy+9kXSr14doY31iHAqONLxzQ2L//Yvz8XFW1DDnh/fzC6yPX8
-         H2jvoH8Dk0I9Ty9MRHarkTxwXGTzi/yUxh1UJ6EqaPXJeds2hpNPwQVRiA77lxE5+6py
-         egXOTNqpiH37Dwt08HSTRarukMCE/yiOezxKehQDhgELzGLSa2pEFOzb/m4+qPG5ahUT
-         W4Mg==
+        bh=RoS3J+Eh0eqOn/NddRHnr0PqtxMtAN0qArSIirbialw=;
+        b=i2zbFwLgxFsl5znMCoHpCXU51R9Kbp4ZsdxbCXTZonFBWZOHgaM+Ge1uN72ziIPowK
+         RwPXD77D5PaC3xzDji8Xu4AIaQ+WxYqzKP+5BhUpkdAnwS7qc6sWaKaBFAqGEGoyhaGo
+         8Cx+W3095hmk0CveELqln+CI/1LCZpiGh90mhKiTvV2JivSRrzXHOe4rUEbx+vtHmpAF
+         Vmrrc4uxGX6G8yTThVznILBFgJCi/zqOllLDyOkychxQVhIFPlJWFKcPqnCYXPyyasSR
+         Z6+x6HLIOeAMJ1yjDmvvT/3IQGcjVCMrSXQpoCxQrDeRVBYixuHcgYBW0c4rH9uUHzDL
+         pEdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789145947; x=1789750747;
+        d=1e100.net; s=20251104; t=1789145952; x=1789750752;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JdM/q7Pwh0lmDEF5I1QfV9BS5h/OmnlJrfA959kkwi4=;
-        b=cPq5B9pgEa6Lt5DBIm7EGUFSMMYFwjHK396QRqggjXM28F9UyeloqIZ4GWtuaTffVb
-         A+dVdt1657T79XWWnH6+krUO2Jx1aKU7yNYHEyTP3rMkJNm5Brf2GtY29PvWQunJMOt0
-         SVFRr8th4y0DeYHsdP2osppCKasilh7FXPKgaQ/UNxQJN44Cn21gNaUc1Oaa90s+63bA
-         K0nkqINXf/4m/zD8CCAGjhDBZD1pC118NwUnh69CMbYLTY1rwME/d7Cf6O6NcqMUdHtX
-         QCUcxHT2VaTZTqLtMZavpTUcrNQYOCoo5I9ln1eyWxGQ04hD8ktDMAq7VNgz9LmUxajf
-         h/sA==
-X-Gm-Message-State: AFuF++ki2OyFli7fhelvxr7+WdfhJ4+6zFxpCwr9KbVChg/JMuX6+4Z+
-	fxynnVPIO7NYATYXRLOnbpZjnQoUFURTTGvJs0gaYsCoa5mq01Kh7nJ0ysuCGZeCAaw=
-X-Gm-Gg: AYBFou3gS0F1o9/egBEhojaIPE5oBzKJqm6S23Uv4Mgrdk+b9ep6qYhu/7+OnWThIHn
-	8ENyWpUugcQZG8mTlYql3Cc7InEsXbcJ201jP/O/sD4B481fid1w1ITaggEg3zHkRyYZnk0dvBA
-	dsx6ogXSRAxQvO8TWKXupN6FoTd1FeZwWoh5VpPRvsHYilO1Vx9pzxyw1qYzH/U9M22NeVgJSkt
-	ketoPHl/f9pyCo525SVsxwTadaZ1/l40iDjI0aRps1Txv5oP+BJ4s2OVa0hNEzemNBPYk226c95
-	fSGZI+98R7a1jQ7HLUVgb6vCc3SgdI2mEv+zZZvABcg+FsQqhdNY0aXnMYte2v/vDvNdJVnqh0p
-	scqrG9jgmVGTIsexfCuwO7okO/DAMsbrOiisRC5tQmtBuniYbCazunfGqSYKIvTgJ74bvy1Qetl
-	WoNsQxSHJTql7kfJ3aY2LfbclbIFQ8W7RLkusk8bls6Mahiy6sPZrPiWcaP1zgpNo=
-X-Received: by 2002:a05:6830:83b7:b0:7dc:4947:36a1 with SMTP id 46e09a7af769-803fda8ecbcmr4002177a34.12.1789145947196;
-        Fri, 11 Sep 2026 09:59:07 -0700 (PDT)
+        bh=RoS3J+Eh0eqOn/NddRHnr0PqtxMtAN0qArSIirbialw=;
+        b=Ok38TjY0uTZZdHtAmpSN1Cm6ud9jI/y4o4igOcSaR2oKXK3AQputrpNUww31wgLojS
+         uRGT7pa22iVIIkpTRr6vAF6TU3up3zSe7GutdWf1OMW8G2Rp4Vj8JXQVUQ/CvCV11Ba8
+         3AAqJh21JhvATieqFjVF8eMbUsG9RWgtFI55bQQVLpiv2HIfon24Xu4MW2YiZegmlKHy
+         j57Zuk4D0j+4g4IPMfac6Fs8nwgVkJXdO+a/PKH6fk5HRnbgC77ExOGcwfrQT9oU9ZQv
+         hu7+ZTlTuqt2AZ/Z4EF5jujdB0sZpJQ3n6OARPZKM/Hj8Zah5LzTLekH6p3lzI8R0SV7
+         1tgg==
+X-Gm-Message-State: AFuF++mAQwM+aTtteoiUCncV7bCueXG+rVo/kjFcQ1fRHlmCOA+QMN98
+	+Aglan6cCB+EDaqYEspRFr19LO5RGZaMGGCkiWFhxwQWzIjx7UtZoFQeGO1CilwxMdk1e1V9LNN
+	/rMY6
+X-Gm-Gg: AYBFou27+X7/+VIKkCph5GQz8lnoZJrL1+LQoGiy0xfcciGZgY801W1AmTx2DW2JKjX
+	3d14Mux3YFhYwNxkWZAkK0ZUn/pxxGvwuWuylC7kYour6ctAd3fvjGAU2oroypm5loai9v3X+bo
+	XZMUkFA7ixpl34IvpXFzkgdN6BAI59iE4m/YCrd6Gfm/WZBkErMkWYJfL6qZpcKuRd+HLb+TPmk
+	9IiQobsPpPdqFeLbzyzTP53DlB+D2+GwMZ5db/jA0UM3Y5HKBfX4Ntk2s7pNep+ToQgqZbMtkuj
+	Oc0qQQ54gIkEtrdXCWKrJAxL5CpUurYUAh+OPPckuPzuYckvIvFuK9GgUBA50eP2GTOp/cd3G9T
+	cwUkCudq5dlYlT/44zPcHhNUPtWuVH2+iH9sC8beHgymUBhMBthth+JDXA7CQ6s2tpHNfRdoA5u
+	Jsl+uYim7E+In7qXiTdPPL23m8fUVViIQ+K+Hj+bXQGZ+rLbDwlweO9BhIw8hBbOo=
+X-Received: by 2002:a05:6a21:3391:b0:3cc:b26a:7686 with SMTP id adf61e73a8af0-3daed1515f5mr10616412637.6.1789145952129;
+        Fri, 11 Sep 2026 09:59:12 -0700 (PDT)
 Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f670eeccsm3018119a34.21.2026.09.11.09.59.06
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ee07f2sm6945964eec.18.2026.09.11.09.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:59:06 -0700 (PDT)
+        Fri, 11 Sep 2026 09:59:11 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,24 +66,29 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.12.y: (build)Error in
- security/integrity/secure_boot.o (scripts/Makefile.build:2...
+Subject: [REGRESSION] stable-rc/linux-6.1.y: (build)undefined reference to
+ `crc32c' in
+ fs/ext4/bitmap (fs/ext4/bitmap.c...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Fri, 11 Sep 2026 16:59:06 -0000
-Message-ID: <178914594609.4423.15632373316886328999@kernelci.org>
+Date: Fri, 11 Sep 2026 16:59:11 -0000
+Message-ID: <178914595126.4423.2404790726810259458@kernelci.org>
 
-New build issue found on stable-rc/linux-6.12.y:
+New build issue found on stable-rc/linux-6.1.y:
 
 ---
-Error in security/integrity/secure_boot.o (scripts/Makefile.build:229) [logspec:kbuild,kbuild.compiler]
+undefined reference to `crc32c' in fs/ext4/bitmap (fs/ext4/bitmap.c) [logspec:kbuild,kbuild.compiler.linker_error]
 ---
 
 Log excerpt:
 =====================================================
-security/integrity/secure_boot.o: failed
+ld: fs/ext4/bitmap.o: in function `ext4_block_bitmap_csum_set':
+bitmap.c:(.text+0x1bd): undefined reference to `crc32c'
+ld: fs/ext4/extents.o: in function `__ext4_ext_check':
+extents.c:(.text+0x767): undefined reference to `crc32c'
+ld: fs/ext4/extents.o:extents.c:(.text+0xa91): more undefined references to `crc32c' follow
 
 =====================================================
 
@@ -94,18 +100,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:d88fb4bb506aa7dccda71589c7bd17de4e935f0d
+- dashboard: https://d.kernelci.org/i/maestro:ac05bcf65b328ed9ac6e71fe7de384a53ab329c3
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  f97429de1ef3e1b6f7986abbcb45bb115b876977
+- commit HEAD:  9f5e4631f281f1f3c92f33dcb2dc004f416196a0
 
 # Builds where the incident occurred:
 
-## i386_defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (i386):
-- compiler: clang-21
-- config: https://files.kernelci.org/kbuild-clang-21-i386-allmodconfig-6aa40d2820239ade9022b02a/.config
-- dashboard: https://d.kernelci.org/build/maestro:6aa40d2820239ade9022b02a
+## i386_defconfig on (i386):
+- compiler: gcc-14
+- config: https://files.kernelci.org/kbuild-gcc-14-i386-6aa40bae20239ade90229bb1/.config
+- dashboard: https://d.kernelci.org/build/maestro:6aa40bae20239ade90229bb1
 
-#kernelci issue maestro:d88fb4bb506aa7dccda71589c7bd17de4e935f0d
+#kernelci issue maestro:ac05bcf65b328ed9ac6e71fe7de384a53ab329c3
 
 --
 This is an experimental report format. Please send feedback in!
