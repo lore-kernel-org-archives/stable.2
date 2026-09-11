@@ -1,346 +1,108 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA74C377ED4;
-	Fri, 11 Sep 2026 08:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CC1434984
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116450; cv=none; b=eHXHMABXdgxhtKYCjlLQ2q9Ei7aG98RyiwAhnR+Avfn40Ut9Iz4cgv/Qe8+tvIctE0vLmNX2Ey4qSznSSeQN0E5VkMzpkjy56I/9cK6x4id5WSXw7tPhFyhALtxnh5KKozbmgfrmt/tgUuU/DmclKcBQ0LD+7LfLOyegKBNibSc=
+	t=1789116996; cv=none; b=rldPanQmPChg+9Q7wU1sacyv66h0LNAtDggjUwbqks4cu4lQJc6nWQ8NhJvyBWOCY9P63p8pea3+A0Hc7hKvXzsu8JbpF7sXKYPhkCOtTW5uNhO92pop0pJi758atRIWOHsgDlGjroE3/g5+S/6K3g0U8vQaAUEFWev4Sbc+R6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116450; c=relaxed/simple;
-	bh=7sqbU5NhlGn1jaGkoMVet5oed2P//p9TFfF5dXOZpW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W5BbxeoPgCu+PunZzGRr+Z1jcQ3S+k9xFNRh9uhim/4NieVS6MsCFe+kot0x9bwya9IFfbGsCFVaZhplaWTfdT27aqrRAzguk3JRlz5saYq6Xi4ExIUZvLKeBfArt4ueqOQ8q6nScpsvQ49XoJ6XZI+vStu+VfdyZB4zuiwwBN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=FF9Sb8v1; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1789116996; c=relaxed/simple;
+	bh=SQeaglE9kgslrPTSoHn94UKmmp/r3+Bn/fGmP2+mi3g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ia4q0WvmulnirdlWatfmjASFXPFYSs+4Ae2tDjit27wEPlCnGMB7pH/2oJgmVrQ7Dqu6ZwkVfFJ+niYeqhh1Wzp1NpQ2IiIrZnSRBfXsXDyvHM/8knCTeezXJchRHOhjv/aTUK6p4T04ltRjCdZjJzQMPZ47E692reSV8KD5E4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=PzwR2YEm; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="FF9Sb8v1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789116447; bh=7sqbU5NhlGn1jaGkoMVet5oed2P//p9TFfF5dXOZpW4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FF9Sb8v1wH8Tz01M2JGP/W/KXQTX2mqLY3wyClB21ixk9ecbG3KEb7hWsR52qhXJb
-	 Qtq/giI2+V+idw9uKDBORv5se9FjmjFjqcyA0Jau6cnSMo2oKlz7IjwXxrqZl7M3mS
-	 sbU17qNjATVZSFN/6gy7VYQcBdLHYH+wWM29vd8cTaol09+xdzk4AiECX9odTrHc72
-	 cnz2OI+XffsGkf1YBLR8lvImg0Zbtd0tDiSW7sHX3WtRDoVSGpIjCohAhG3Vf+SUxA
-	 EUnbWbaPtPdXNOsp8fJMlyG4dFCrP4fYe2i2+eNSOv9Yafv2+6dhtjqf+FVBy1MNe/
-	 OKmj40uK7ytZw==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 3526441444; Fri, 11 Sep 2026 09:47:27 +0100 (BST)
-Date: Fri, 11 Sep 2026 09:47:27 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Rik van Riel <riel@surriel.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 04/19] media: rc: Add missing locking for keymap
-Message-ID: <aqPAH1Tye_3nwXYA@extorris.mess.org>
-References: <cover.1788882189.git.sean@mess.org>
- <c957961ace516127981378f18ec20e2496f79559.1788882189.git.sean@mess.org>
- <3a466e0c-9db2-4b41-a1e2-a52d933d8137@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="PzwR2YEm"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hh7gx3TmjzMlKK;
+	Fri, 11 Sep 2026 10:56:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789116989; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ALcg9Vd2npenlt0/QL85p1BH7ueYmsjnSxLgqn+ltps=;
+	b=PzwR2YEmy86J27En3HvOQRYRRuqhQq4R4lMZ/rk4CoTTFxyZ163J2dIdgHgvBeHci6e6Wc
+	7PZw2Rym2+n0H8gGVrm0Kz52ppShzDKo3v1tj3oXVD0PePAHvLNkRczz4GTbHYMWps2jqL
+	j+LWmcnyS7dZASoQVdbNk5FReahby9dfCmoBLaF2hdyKM1c1JH48zCMH5P/Df6zbpjwCnv
+	0ajDXD3wS8Dq4Lsp8YKJ02M5xyaj+7tZ1Rox0K/yRXhLwuSU7Cg0Yr8OIRhxFoe99VnJWO
+	o7/36ZIEuRpl+lj/pSTGU0r9Yws0wFF4iHrsN+tedzA6RtoA7J/s7vlBsJ2rKg==
+Message-ID: <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
+ Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org
+Date: Fri, 11 Sep 2026 10:56:23 +0200
+In-Reply-To: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3a466e0c-9db2-4b41-a1e2-a52d933d8137@kernel.org>
+X-MBO-RS-META: z9t3txr6jjnc7f1rorymfnawnrafryo9
+X-MBO-RS-ID: af8d3356cabcd556fd9
 
-On Fri, Sep 11, 2026 at 10:08:03AM +0200, Hans Verkuil wrote:
-> On 08/09/2026 17:51, Sean Young wrote:
-> > When the rc_map for an rc_dev gets updated, locking is required but is
-> > missing in places. A concurrent scancode lookup and a call to
-> > rc_{register,unregistered}_device() could result in a use-after-free;
-> > this could happen if IR is decoded during those function calls.
-> > 
-> > We also fix some ugliness like open-coded krealloc() and removing the
-> > pointless alloc member of rc_map.
-> 
-> I would recommend splitting off the krealloc changes etc. into a separate
-> patch. It made it hard to review this patch with that change thrown in.
+On Mon, 2026-09-07 at 14:05 +0100, Tvrtko Ursulin wrote:
+> Prevent pushing a new job to an entity seeing it being the first in the
+> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+> side in drm_sched_entity_pop_job() has de-queued the job but not yet
+> updated the saved virtual time.
 
-You're right, this commit has become to big and needs splitting.
+I think I don't fully get the bug from that message. The bug (is it
+even one?) you address is the performance bottleneck for CFS under high
+load, right?
 
-> > Add lockdep assertions where locks are required.
-> > 
-> > Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-> > Signed-off-by: Sean Young <sean@mess.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  drivers/media/rc/rc-main.c | 122 ++++++++++++++++++++++---------------
-> >  include/media/rc-map.h     |   2 -
-> >  2 files changed, 74 insertions(+), 50 deletions(-)
-> > 
-> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > index 88d8f7d4aab3..04204559959f 100644
-> > --- a/drivers/media/rc/rc-main.c
-> > +++ b/drivers/media/rc/rc-main.c
-> > @@ -17,9 +17,8 @@
-> >  #include <linux/module.h>
-> >  #include "rc-core-priv.h"
-> >  
-> > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
-> > -#define IR_TAB_MIN_SIZE	256
-> > -#define IR_TAB_MAX_SIZE	8192
-> > +#define IR_TAB_MIN_SIZE	32
-> > +#define IR_TAB_MAX_SIZE	1024
-> 
-> It doesn't hurt to keep a comment mentioning that these are the
-> min and max number of entries.
-> 
-> In general I found it a bit confusing that 'size' refers to number
-> of elements in variable names, when it is usually the number of
-> entries. Perhaps something to address in a future patch.
+Anyways, I think I got a better idea:
 
-That is confusing. Let me re-write it.
+>=20
+> We do this by pulling the locked sections out to encompass both the queue
+> push/pop and corresponding rbtree management.
 
-Thanks,
+So basically you move for locking the spsc-queue, the lockless queue
+which is usually used with the locks next to it anyways. That's cool
+stuff. I've suggested this for a while already
 
-Sean
+https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a-loc=
+ked-list
 
-> 
-> Regards,
-> 
-> 	Hans
-> 
-> >  
-> >  static const struct {
-> >  	const char *name;
-> > @@ -105,7 +104,6 @@ static struct rc_map_list *seek_rc_map(const char *name)
-> >  
-> >  struct rc_map *rc_map_get(const char *name)
-> >  {
-> > -
-> >  	struct rc_map_list *map;
-> >  
-> >  	map = seek_rc_map(name);
-> > @@ -202,7 +200,7 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-> >   * ir_create_table() - initializes a scancode table
-> >   * @dev:	the rc_dev device
-> >   * @rc_map:	the rc_map to initialize
-> > - * @name:	name to assign to the table
-> > + * @map_name:	name to assign to the table
-> >   * @rc_proto:	ir type to assign to the new table
-> >   * @size:	initial size of the table
-> >   *
-> > @@ -212,23 +210,33 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-> >   * return:	zero on success or a negative error code
-> >   */
-> >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
-> > -			   const char *name, u64 rc_proto, size_t size)
-> > +			   const char *map_name, u64 rc_proto, size_t size)
-> >  {
-> > -	rc_map->name = kstrdup(name, GFP_KERNEL);
-> > -	if (!rc_map->name)
-> > +	struct rc_map_table *scan;
-> > +	unsigned int alloc;
-> > +	char *name;
-> > +
-> > +	name = kstrdup(map_name, GFP_KERNEL);
-> > +	if (!name)
-> >  		return -ENOMEM;
-> > -	rc_map->rc_proto = rc_proto;
-> > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
-> > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-> > -	if (!rc_map->scan) {
-> > -		kfree(rc_map->name);
-> > -		rc_map->name = NULL;
-> > +
-> > +	alloc = roundup_pow_of_two(size);
-> > +	scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
-> > +	if (!scan) {
-> > +		kfree(name);
-> >  		return -ENOMEM;
-> >  	}
-> >  
-> > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
-> > -		rc_map->size, rc_map->alloc);
-> > +	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-> > +		rc_map->name = name;
-> > +		rc_map->scan = scan;
-> > +		rc_map->rc_proto = rc_proto;
-> > +		rc_map->len = 0;
-> > +		rc_map->size = alloc;
-> > +	}
-> > +
-> > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-> > +		alloc, alloc * sizeof(struct rc_map_table));
-> >  	return 0;
-> >  }
-> >  
-> > @@ -236,16 +244,26 @@ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
-> >   * ir_free_table() - frees memory allocated by a scancode table
-> >   * @rc_map:	the table whose mappings need to be freed
-> >   *
-> > - * This routine will free memory alloctaed for key mappings used by given
-> > + * This routine will free memory allocated for key mappings used by given
-> >   * scancode table.
-> >   */
-> >  static void ir_free_table(struct rc_map *rc_map)
-> >  {
-> > -	rc_map->size = 0;
-> > -	kfree(rc_map->name);
-> > -	rc_map->name = NULL;
-> > -	kfree(rc_map->scan);
-> > -	rc_map->scan = NULL;
-> > +	struct rc_map_table *scan;
-> > +	const char *name;
-> > +
-> > +	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-> > +		name = rc_map->name;
-> > +		scan = rc_map->scan;
-> > +
-> > +		rc_map->size = 0;
-> > +		rc_map->len = 0;
-> > +		rc_map->name = NULL;
-> > +		rc_map->scan = NULL;
-> > +	}
-> > +
-> > +	kfree(name);
-> > +	kfree(scan);
-> >  }
-> >  
-> >  /**
-> > @@ -262,38 +280,38 @@ static void ir_free_table(struct rc_map *rc_map)
-> >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
-> >  			   gfp_t gfp_flags)
-> >  {
-> > -	unsigned int oldalloc = rc_map->alloc;
-> > -	unsigned int newalloc = oldalloc;
-> > -	struct rc_map_table *oldscan = rc_map->scan;
-> > +	unsigned int newsize = rc_map->size;
-> >  	struct rc_map_table *newscan;
-> >  
-> > +	lockdep_assert_held(&rc_map->lock);
-> > +
-> >  	if (rc_map->size == rc_map->len) {
-> >  		/* All entries in use -> grow keytable */
-> > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-> > +		if (newsize >= IR_TAB_MAX_SIZE)
-> >  			return -ENOMEM;
-> >  
-> > -		newalloc *= 2;
-> > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-> > +		newsize *= 2;
-> > +
-> > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
-> >  	}
-> >  
-> > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-> > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_SIZE) {
-> >  		/* Less than 1/3 of entries in use -> shrink keytable */
-> > -		newalloc /= 2;
-> > -		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
-> > +		newsize /= 2;
-> > +		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
-> >  	}
-> >  
-> > -	if (newalloc == oldalloc)
-> > +	if (newsize == rc_map->size)
-> >  		return 0;
-> >  
-> > -	newscan = kmalloc(newalloc, gfp_flags);
-> > +	newscan = krealloc_array(rc_map->scan, newsize,
-> > +				 sizeof(struct rc_map_table), gfp_flags);
-> >  	if (!newscan)
-> >  		return -ENOMEM;
-> >  
-> > -	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
-> >  	rc_map->scan = newscan;
-> > -	rc_map->alloc = newalloc;
-> > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> > -	kfree(oldscan);
-> > +	rc_map->size = newsize;
-> > +
-> >  	return 0;
-> >  }
-> >  
-> > @@ -318,6 +336,8 @@ static unsigned int ir_update_mapping(struct rc_dev *dev,
-> >  	int old_keycode = rc_map->scan[index].keycode;
-> >  	int i;
-> >  
-> > +	lockdep_assert_held(&rc_map->lock);
-> > +
-> >  	/* Did the user wish to remove the mapping? */
-> >  	if (new_keycode == KEY_RESERVED || new_keycode == KEY_UNKNOWN) {
-> >  		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
-> > @@ -373,6 +393,8 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
-> >  {
-> >  	unsigned int i;
-> >  
-> > +	lockdep_assert_held(&rc_map->lock);
-> > +
-> >  	/*
-> >  	 * Unfortunately, some hardware-based IR decoders don't provide
-> >  	 * all bits for the complete IR code. In general, they provide only
-> > @@ -397,7 +419,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
-> >  	/* No previous mapping found, we might need to grow the table */
-> >  	if (rc_map->size == rc_map->len) {
-> >  		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
-> > -			return -1U;
-> > +			return UINT_MAX;
-> >  	}
-> >  
-> >  	/* i is the proper index to insert our new keycode */
-> > @@ -479,16 +501,18 @@ static int ir_setkeytable(struct rc_dev *dev, const struct rc_map *from)
-> >  	if (rc)
-> >  		return rc;
-> >  
-> > -	for (i = 0; i < from->size; i++) {
-> > -		index = ir_establish_scancode(dev, rc_map,
-> > -					      from->scan[i].scancode, false);
-> > -		if (index >= rc_map->len) {
-> > -			rc = -ENOMEM;
-> > -			break;
-> > -		}
-> > +	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-> > +		for (i = 0; i < from->size; i++) {
-> > +			index = ir_establish_scancode(dev, rc_map,
-> > +						      from->scan[i].scancode, false);
-> > +			if (index >= rc_map->len) {
-> > +				rc = -ENOMEM;
-> > +				break;
-> > +			}
-> >  
-> > -		ir_update_mapping(dev, rc_map, index,
-> > -				  from->scan[i].keycode);
-> > +			ir_update_mapping(dev, rc_map, index,
-> > +					  from->scan[i].keycode);
-> > +		}
-> >  	}
-> >  
-> >  	if (rc)
-> > @@ -524,6 +548,8 @@ static unsigned int ir_lookup_by_scancode(const struct rc_map *rc_map,
-> >  {
-> >  	struct rc_map_table *res;
-> >  
-> > +	lockdep_assert_held(&rc_map->lock);
-> > +
-> >  	res = bsearch(&scancode, rc_map->scan, rc_map->len,
-> >  		      sizeof(struct rc_map_table), rc_map_cmp);
-> >  	if (!res)
-> > diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-> > index d95ed3e96de2..f167c37179c8 100644
-> > --- a/include/media/rc-map.h
-> > +++ b/include/media/rc-map.h
-> > @@ -148,7 +148,6 @@ struct rc_map_table {
-> >   * @scan: pointer to struct &rc_map_table
-> >   * @size: Max number of entries
-> >   * @len: Number of entries that are in use
-> > - * @alloc: size of \*scan, in bytes
-> >   * @rc_proto: type of the remote controller protocol, as defined at
-> >   *	     enum &rc_proto
-> >   * @name: name of the key map table
-> > @@ -158,7 +157,6 @@ struct rc_map {
-> >  	struct rc_map_table	*scan;
-> >  	unsigned int		size;
-> >  	unsigned int		len;
-> > -	unsigned int		alloc;
-> >  	enum rc_proto		rc_proto;
-> >  	const char		*name;
-> >  	spinlock_t		lock;
-> 
+So from a maintainability perspective, it would be far cooler if you go
+down this road one step further and kill the spsc_queue for good,
+replacing it with a fully locked list. AFAIR Christian and Danilo also
+have agreed to this.
+
+
+[=E2=80=A6]
+
+> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+> =C2=A0 */
+> =C2=A0void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+> =C2=A0{
+> +	struct drm_sched_rq *rq =3D entity->rq;
+> =C2=A0	struct drm_sched_job *next_job;
+> -	struct drm_sched_rq *rq;
+> +
+> +	lockdep_assert_held(&entity->lock);
+
+btw. I think it *reads* a bit safer if the rq initalization happens
+below the lockdep assertion. Also might make the diff nicer.
+
+
+P.
