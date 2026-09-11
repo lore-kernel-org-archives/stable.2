@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1DF4AEBCB
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD001A3166
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150237; cv=none; b=Nbc+dkEmwFgF+IrvLP2Iwppt1Zwi/Jo5Nd0H3680c/X+XmcYFAxIfhx0pbp8dEy/ILgajhZAB7GzkDttNTqIpjrWBib4w9BzcDEGfExP72nePXzjbavhzDTa7mAvllpLSSWrh4YYN9F2wUVbew+oc9F8lVng9llNwLd7e6sHsEk=
+	t=1789150366; cv=none; b=GNPoxxcMQddaAOC2wAZkCRsvmzAO1hY85H/vhVUvJ7a4fq9ur7HF77Trie6Lbzs1GmDc8AX2C0xxMOK/w+feKdKSvJvj4Cz/dhaje8uVrViIkulCH0VOU2EyYiQ247ppahlS8gZi9ySZ8W4rUONpon93UpgYRQONtm4yH0VHggQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150237; c=relaxed/simple;
-	bh=PzYPQISvVHp00ZqUDrpQjPKPBGDVnBNPSWcrP8FkDDw=;
+	s=arc-20240116; t=1789150366; c=relaxed/simple;
+	bh=sMOCk2EvEplNm5rBlKYcfPk1Ux3TBQXWbDdcOfEdJuA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZYl+iJ+8FmG+oN9VMgC8O02X2IHVNN/mP7jOm2fFzIUll3MDQ2XPzSh0xodZ0go8fGl2yfD2fTMxsURKdma03PEvtSbqH+AzHlHF87pJ4ksbCVW+8szjPHAkBIW31fR+2vVvGxWKFx54l58teWpi35U6oNRYoQEjrxpfNWlshAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNxd20QP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dVWjINb+e1HWD16rsUJvSrZT1bAeiwDMeK0T1Xx2MYc6wXcq5FV10ibRT3E4Y+n4H8osNGYpY2+1IC544Z6BOWw8nKnJRuN8mIU1/yZ6aSqNfiOlixELfwO/gWYmPMLbZwkqC0gcvTXi2QcKqIMqtiR0jnswMUXBKDLU4B1w25E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPLBDg+w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNxd20QP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 935971F00893;
-	Fri, 11 Sep 2026 18:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPLBDg+w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056AB1F000FF;
+	Fri, 11 Sep 2026 18:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150231;
-	bh=xMOuu/6hvNFb0E2s9N7i3FpJlS5u+B+nUWHHEICteV8=;
+	s=k20260515; t=1789150364;
+	bh=mTJgiCnhMcuvfP7xnPcB/FG5pHInJx/Haml+8GtnN2M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TNxd20QP02nMCdtjGByxBe4fhL076q0232ySb4Fi1WgRE+Z0u4zrOuuoDYF2WEOKA
-	 HwuzdNfxYLRmr9VRO3oHJF2co9Kd2j1jpYk+sFopidlpQVZ9MwWMmxQ95gqeX8koPV
-	 OfajLRhbGVoj4emT5KWpIUoqDXZhm5qxD4LlQ/SvOFhpTYWbxlpHO/E/waZ7LDJX0L
-	 eAct8MzeOlw+FjE4LLv86dNP6YwDqbCBaniMJnKxJgadQjl8iaZD5xdDc/scbnMXGV
-	 NMt+mHXo6ayv111LSUzji/L+i+hXweciHzBbgO6tGkEBJB6XGjTv3KR2PrKZoy9uYE
-	 XJ+UWZQajqJ1Q==
+	b=aPLBDg+wSoXKF8EBulVjREzzA5wYz1AJUQ4pXbZVS3oW5KGNlpmVmmaBw1+Tas2zM
+	 KOV4KmK3l1iOL/jTLVkUt8oFJObmtKu4NA3V81uYC2SI7DKlCFdSAewa4UcxVSXm0A
+	 DY+gncU4l0y3BFIbUQxbUUS+eJkxZIQqMQIhPBqyxqUlZheF1sCvCvKEHngq3lN3ua
+	 ETYp4jClrLzPHEFVgXSu6L/i4HzleHTUnssGBhF1JHMoWkfMXIjSyzB9+6PuLfnQwZ
+	 Sppx81vLOPo2Q6/GFmHMEZSoP35UGipgijil5/m2qKhIkfOyIj9CDusxxsRJoNNSh5
+	 Gnqma0iuauS7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
+	Hannes Reinecke <hare@kernel.org>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] scsi: qla2xxx: Serialize NVMe unsol ctx list with a per-fcport lock
-Date: Fri, 11 Sep 2026 14:10:26 -0400
-Message-ID: <20260911181026.1306489-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] scsi: qla2xxx: Hold qpair lock when sending NVMe LS reject
+Date: Fri, 11 Sep 2026 14:12:39 -0400
+Message-ID: <20260911181242.1316158-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911181026.1306489-1-sashal@kernel.org>
-References: <2026090924-wildlife-washed-3972@gregkh>
- <20260911181026.1306489-1-sashal@kernel.org>
+In-Reply-To: <2026090924-roundup-dish-438c@gregkh>
+References: <2026090924-roundup-dish-438c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,112 +48,94 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 76da0c43c63eb0496649e372ac64466364d0fe7d ]
+[ Upstream commit f743488e4a203049f27ec5d8cd0caccc483af01e ]
 
-The fcport->unsol_ctx_head list is modified from several contexts without
-a common lock. Entries are added in qla2xxx_process_purls_iocb() from the
-response queue ISR (under the qpair qp_lock), while they are removed from
-qla2xxx_process_purls_pkt() (DPC/purex worker), qla_nvme_xmt_ls_rsp()
-(NVMe-FC transport callback) and qla_nvme_release_lsrsp_cmd_kref() (SRB
-completion). The qpair qp_lock cannot serialize this per-fcport list since
-multiqueue adapters add entries through different qpairs, so a concurrent
-add and delete (or two concurrent deletes) can corrupt the list pointers.
+qla_nvme_ls_reject_iocb() allocates from and advances the request ring
+through __qla2x00_alloc_iocbs() (which assumes the hardware_lock is
+held) and qla2x00_start_iocbs() (which advances the ring and rings the
+request-in doorbell), but takes no lock itself. Two of its callers
+invoke it without the producer lock held:
 
-Introduce a dedicated per-fcport spinlock, unsol_ctx_lock, initialized in
-qla2x00_alloc_fcport(), and take it around every list_add_tail()/list_del()
-on unsol_ctx_head. The add nests under the existing qp_lock; no delete path
-takes qp_lock, so the lock order is consistent and deadlock free.
+ - qla_nvme_xmt_ls_rsp(), the NVMe-FC .xmt_ls_rsp transport callback, on
+   its error path, and
+
+ - qla2xxx_process_purls_pkt(), run from the purex work/DPC context.
+
+Both use ha->base_qpair, whose qp_lock_ptr is hardware_lock, so they can
+run concurrently with normal I/O submission on the base ring and corrupt
+the ring producer state, leading to duplicated or dropped commands. The
+third caller, qla2xxx_process_purls_iocb(), runs inside
+qla24xx_process_response_queue() with the qpair lock already held and is
+safe; that is also why the lock cannot be taken inside the helper itself
+(it would recursively re-acquire hardware_lock on the response path).
+
+Take qp_lock_ptr around the two unlocked callers and document the helper
+as caller-locked. Both run in process context, so spin_lock_irqsave() is
+used and nothing in the locked region sleeps.
 
 Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-28-njavali@marvell.com
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-53-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Stable-dep-of: 76da0c43c63e ("scsi: qla2xxx: Serialize NVMe unsol ctx list with a per-fcport lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_def.h  | 2 ++
- drivers/scsi/qla2xxx/qla_init.c | 1 +
- drivers/scsi/qla2xxx/qla_nvme.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
+ drivers/scsi/qla2xxx/qla_nvme.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_def.h b/drivers/scsi/qla2xxx/qla_def.h
-index b3265952c4bed..783b6c429224a 100644
---- a/drivers/scsi/qla2xxx/qla_def.h
-+++ b/drivers/scsi/qla2xxx/qla_def.h
-@@ -2570,6 +2570,8 @@ typedef struct fc_port {
- 	struct list_head list;
- 	struct scsi_qla_host *vha;
- 	struct list_head unsol_ctx_head;
-+	/* Serializes unsol_ctx_head against ISR, DPC and NVMe transport. */
-+	spinlock_t unsol_ctx_lock;
- 
- 	unsigned int conf_compl_supported:1;
- 	unsigned int deleted:2;
-diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
-index 2ab1cecda8c75..db2e0a2f24ec3 100644
---- a/drivers/scsi/qla2xxx/qla_init.c
-+++ b/drivers/scsi/qla2xxx/qla_init.c
-@@ -5602,6 +5602,7 @@ qla2x00_alloc_fcport(scsi_qla_host_t *vha, gfp_t flags)
- 	INIT_LIST_HEAD(&fcport->gnl_entry);
- 	INIT_LIST_HEAD(&fcport->list);
- 	INIT_LIST_HEAD(&fcport->unsol_ctx_head);
-+	spin_lock_init(&fcport->unsol_ctx_lock);
- 
- 	INIT_LIST_HEAD(&fcport->sess_cmd_list);
- 	spin_lock_init(&fcport->sess_cmd_lock);
 diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index 2c1e0db89140a..303bf8470d5b3 100644
+index 38cb3281c6350..cfde62464340b 100644
 --- a/drivers/scsi/qla2xxx/qla_nvme.c
 +++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -257,7 +257,9 @@ static void qla_nvme_release_lsrsp_cmd_kref(struct kref *kref)
+@@ -375,6 +375,7 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
+ 	srb_t *sp;
+ 	int rval = QLA_FUNCTION_FAILED;
+ 	uint8_t cnt = 0;
++	unsigned long flags;
  
- 	fd_rsp = uctx->fd_rsp;
- 
-+	spin_lock_irqsave(&uctx->fcport->unsol_ctx_lock, flags);
- 	list_del(&uctx->elem);
-+	spin_unlock_irqrestore(&uctx->fcport->unsol_ctx_lock, flags);
- 
- 	fd_rsp->done(fd_rsp);
- 	kfree(uctx);
-@@ -446,7 +448,9 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
- 		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
- 		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
- 	}
-+	spin_lock_irqsave(&uctx->fcport->unsol_ctx_lock, flags);
- 	list_del(&uctx->elem);
-+	spin_unlock_irqrestore(&uctx->fcport->unsol_ctx_lock, flags);
+ 	if (!fcport || fcport->deleted)
+ 		goto out;
+@@ -441,7 +442,9 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
+ 	a.vp_idx = vha->vp_idx;
+ 	a.nport_handle = uctx->nport_handle;
+ 	a.xchg_address = uctx->exchange_address;
++	spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
+ 	qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
++	spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
  	kfree(uctx);
  	return rval;
  }
-@@ -1214,7 +1218,9 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
- 			spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr,
- 					       flags);
- 		}
-+		spin_lock_irqsave(&uctx->fcport->unsol_ctx_lock, flags);
+@@ -1128,6 +1131,10 @@ static void qla_nvme_lsrjt_pt_iocb(struct scsi_qla_host *vha,
+ 	lsrjt_iocb->rx_byte_count = 0;
+ }
+ 
++/*
++ * Allocates from and advances the request ring, so the caller must hold
++ * qp->qp_lock_ptr (the response-queue caller already holds it).
++ */
+ static int
+ qla_nvme_ls_reject_iocb(struct scsi_qla_host *vha, struct qla_qpair *qp,
+ 			struct qla_nvme_lsrjt_pt_arg *a, bool is_xchg_terminate)
+@@ -1184,6 +1191,7 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
+ {
+ 	struct qla_nvme_unsol_ctx *uctx = item->purls_context;
+ 	struct qla_nvme_lsrjt_pt_arg a;
++	unsigned long flags;
+ 	int ret = 1;
+ 
+ #if (IS_ENABLED(CONFIG_NVME_FC))
+@@ -1196,7 +1204,9 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
+ 		a.vp_idx = vha->vp_idx;
+ 		a.nport_handle = uctx->nport_handle;
+ 		a.xchg_address = uctx->exchange_address;
++		spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr, flags);
+ 		qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a, true);
++		spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr, flags);
  		list_del(&uctx->elem);
-+		spin_unlock_irqrestore(&uctx->fcport->unsol_ctx_lock, flags);
  		kfree(uctx);
  	}
- }
-@@ -1256,6 +1262,7 @@ void qla2xxx_process_purls_iocb(void **pkt, struct rsp_que **rsp)
- 	struct purex_item *item;
- 	port_id_t d_id = {0};
- 	port_id_t id = {0};
-+	unsigned long flags;
- 	u8 *opcode;
- 	bool xmt_reject = false;
- 
-@@ -1321,7 +1328,9 @@ void qla2xxx_process_purls_iocb(void **pkt, struct rsp_que **rsp)
- 	uctx->ox_id = p->ox_id;
- 	qla_rport->uctx = uctx;
- 	INIT_LIST_HEAD(&uctx->elem);
-+	spin_lock_irqsave(&fcport->unsol_ctx_lock, flags);
- 	list_add_tail(&uctx->elem, &fcport->unsol_ctx_head);
-+	spin_unlock_irqrestore(&fcport->unsol_ctx_lock, flags);
- 	item->purls_context = (void *)uctx;
- 
- 	ql_dbg(ql_dbg_unsol, vha, 0x2121,
 -- 
 2.53.0
 
