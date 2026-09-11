@@ -1,123 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E34136B924
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139136; cv=none; b=BGi2NeXDBqJg3s0eOTww/S7VirU2og/ykORWvwZ9hTEGcN8cFePMwe+LcYNDnBVRu37WQ92CKfPBy45C+nw4y8kUuflr2z8MqljxF3U1fxJi+1TFj4o4ZNnyAA+GnDuR63krSOk8oq+NDNoBN9QzKNlogt2d7FDVndFkRmk8ptc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139136; c=relaxed/simple;
-	bh=knQFg2pLlI90hnG3ZFeiwU10Jd4n2DECsFPHNDGYaEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eUCuk9Y4VKupWfpbVoiObeE8I/KhOPo1S77NEZxpQaUd7B3OtyX1nyRilKykxtN3PRzbMgNasMwHTGq4Y5HjN/DMzb7LzzEwpDqpKqbV9Hi//renGt8vS0ilJVcdasoKAqGEqpvotRZw3sKafv3p2FY2ibeprj9S9/zlX2PMYK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWmfqi6k; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWmfqi6k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D59A1F00898;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31473769EF;
 	Fri, 11 Sep 2026 15:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789139134;
-	bh=TL4Gi4ltHMl3cdseogSCaYQyCOOcBuujnPEGSBHBfC8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TWmfqi6kI6jZ+V+cfds2V7slle5AXT+IQiYEHCWMJjMTBTsiKwM++i7zQYQEnNepW
-	 R5kAJ0eU2vtWvz/NUtxxEIlQYsihWtBhp1T4ICramjKPqA8BgM/gpRN9JyB9z/NKAQ
-	 Diicm3Q7BHr6gOpj0QSdXcZ7jIowb5VZYYvTnPiVEwMpEMXkpLJsuEF5GOrzq4rIoz
-	 Dgf/eTEUu+h9G1bHgzj2gxBYRV7lYaAQfs3vUdYLokhPaVOd5VCO4JjHXA6MagKih3
-	 qVJGPWARwFfLCqgNtlBd/WNj9WMDSqPdWRiOHDr2D3cCTM29TbFb1W0IKmFkLCrDFt
-	 CCntfQUkaRD+A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc() error path
-Date: Fri, 11 Sep 2026 11:05:32 -0400
-Message-ID: <20260911150532.1032247-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090958-primp-patio-90a6@gregkh>
-References: <2026090958-primp-patio-90a6@gregkh>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139137; cv=pass; b=LLpWtY8c+ty45hyLAb5+ko8oGEvj6T3R/DX2o3dcQOI/1vztkJls72ZSzTLd475c01EWCn52D7naTn5UxNi6HrvxW3psX3ZZiNG7tBZdv0qSJsdRDRSzIwZDM9zwAOJ1Fmd3WJCS63xWgpeV0s6Kl9injgnOmF5aJHq7NY1oY+o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139137; c=relaxed/simple;
+	bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h8ZJZIEuxfnUW5T7TTz+7ZuUlSQ7nGtInsGbpB+AITpsES8O9CUfXCX7YryYgAhxxEyOkG6l8eWlZkMaf/L1RRFqn0C97hhAPMFNOBvNCXoaq5nwT+Lxcin+UFaV00iTLlPDsVXMM7O4IMFsysfG9fikaykrI+iugc6fehxdmkM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=YmNfACgE; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=MwFCa9ZI; arc=pass smtp.client-ip=85.215.255.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="YmNfACgE";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="MwFCa9ZI"
+ARC-Seal: i=1; a=rsa-sha256; t=1789139119; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=R7lcf5afbXLOaiJSse/4TpvIY41wwWb6uc/jGaAI8x4YP1389UY+u+5GL9rnSgTXzJ
+    NV5FluByMTQkAhBW1t2yvE8bPMMQvn6Stl0eMkqVln40OLgRm7MuA1upBc6iJrH0WnhK
+    7IiQkUdLSgkyeI3SAU/v2VoOAU/SJ7ccdP/nLHZbVVgEiv6q7+tngGfHGpybjI7kR6az
+    ORKaZHkXsIWoXB35aJCHtuUOnU0xj6tGSeptGAlwXOksUNvoJZ2YEDS/BtQsFlHWPaD5
+    HytlQboPxP5UHhSkS88U1PY16TudsOJurbWAY4f1JvFXDNBJha5ecRnuAFTPcw4y9W0T
+    3jCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=PyDrl4AKmyF2PnWdL5BD5I4zNl4O0Gsj2SFUo4EkSgRImhskRSUEMb5YN6VLCgj2ae
+    EJyLEk2xxW08FBbcv2ySKnvOSk98o4V9AJcXEtgdb674XM6a5MrbqtYNKWG9TlNEIBK3
+    OtiD+yUSw9CX/VWQW2GlhAWeIhn/X+7HZ+68qTciIzNzS6lqTL/TlvtL9+iCxrkkwGRi
+    pfXP5YsnR9TiifzN0PNs7WqZLjgGE5+OGLbtSoNIoVv3RcWaAINtXoEGFlVZdGFPpGx/
+    sO2UwCojwrgbx6Gs0rb9qzY0YvR6ZIFC1YH8mD1MGET8x155nvqXyfbVoV9QXO0RrcJE
+    Bjuw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=YmNfACgE2w4HN80jUoBcVhWXlZ4ji2OxyeyV6sdy8cRmUJUSEOD3MInthxQjcQSkfQ
+    MxE5NTs/6NcTHjrfXvbX++eYpSuVaY5jODbGu527/aAURW/gBqqDFOlm0UB0SdbRZjnz
+    U3GJWb8l9e+pry1+Rd/xPA2i37SrZ7Nlb14z4Fr4FEtTJ979i6SgY5CUHFNnwYGm3md4
+    LSrCPsKlHHgJ2pT+yNWljXQ6OEbdeZYsJHbJoQUKhnxOoy/gmWGAFskhVxa1Ul5CI7UA
+    ReExzlNNQpkGqKfQDXhhBmq3pSzH98oBimfDB1CdlptURmfHxqXDv5X9DFdxakoXZfCz
+    EjmA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=MwFCa9ZIKYTfh4A59EINXjLEP3O9OUU613PU4VnHUfCHG+CJ8U4EFcgEpAnHat+2P9
+    buUKG/NrmD0TkX5K/+CQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/63exJG3nKe+1cCDsnKpsYY+u4Ll0RlE="
+Received: from p200300c58729681c3f3e4b76edf8c1cb.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e128BF5JUAD
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 11 Sep 2026 17:05:19 +0200 (CEST)
+Message-ID: <fbbc0c280c004dbc2c4029f1c216143a0a5d6b04.camel@iokpp.de>
+Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron
+ 4100AT
+From: Bean Huo <beanhuo@iokpp.de>
+To: Keith Busch <kbusch@kernel.org>
+Cc: linux-nvme@lists.infradead.org, hch@lst.de, axboe@kernel.dk,
+ sagi@grimberg.me,  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ bob.beckett@collabora.com,  Bean Huo <beanhuo@micron.com>, Gaurav Sinha
+ <gsinha@micron.com>
+Date: Fri, 11 Sep 2026 17:05:18 +0200
+In-Reply-To: <aqQYMR2uaKcHosYD@kbusch-mbp>
+References: <20260904105155.1402065-1-beanhuo@iokpp.de>
+	 <aqQYMR2uaKcHosYD@kbusch-mbp>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Nilesh Javali <njavali@marvell.com>
+On Fri, 2026-09-11 at 09:03 -0600, Keith Busch wrote:
+> On Fri, Sep 04, 2026 at 12:51:55PM +0200, Bean Huo wrote:
+> > From: Bean Huo <beanhuo@micron.com>
+>=20
+> ...
+>=20
+> > Signed-off-by: Gaurav Sinha <gsinha@micron.com>
+> > Signed-off-by: Bean Huo <beanhuo@micron.com>
+>=20
+> I've applied the patch as-is, however usually the first "Signed-off-by"
+> is who the patch is attributed to as being "from".
+>=20
+> Thanks, applied to nvme-7.3.
 
-[ Upstream commit 6d90f0feb929f6c0f3010f9af4747c7230b75993 ]
-
-When qla2x00_mem_alloc() fails, qla2x00_probe_one() jumps to
-probe_hw_failed and calls qla2x00_mem_free(). Several error labels in
-qla2x00_mem_alloc() freed adapter members (elsrej.c, purex_dma_pool,
-flt, sfp_data, loop_id_map, async_pd, sf_init_cb, ex_init_cb, npiv_info)
-but left the pointers dangling. qla2x00_mem_free() then freed them a
-second time. Worse, for the dma_pool members it issued
-dma_pool_free(ha->s_dma_pool, ...) after s_dma_pool had already been
-destroyed and set to NULL at fail_s_dma_pool, dereferencing a NULL pool.
-
-Clear each freed pointer (and its DMA handle) in the error labels so the
-subsequent qla2x00_mem_free() skips them.
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-13-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adjusted cleanup context for the missing fail_flt_data block. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/qla2xxx/qla_os.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index b8631698e2624..ddf972ceb5ba1 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -4482,25 +4482,40 @@ qla2x00_mem_alloc(struct qla_hw_data *ha, uint16_t req_len, uint16_t rsp_len,
- fail_lsrjt:
- 	dma_free_coherent(&ha->pdev->dev, ha->elsrej.size,
- 			  ha->elsrej.c, ha->elsrej.cdma);
-+	ha->elsrej.c = NULL;
-+	ha->elsrej.cdma = 0;
- fail_elsrej:
- 	dma_pool_destroy(ha->purex_dma_pool);
-+	ha->purex_dma_pool = NULL;
- fail_flt:
- 	dma_free_coherent(&ha->pdev->dev, sizeof(struct qla_flt_header) + FLT_REGIONS_SIZE,
- 	    ha->flt, ha->flt_dma);
-+	ha->flt = NULL;
-+	ha->flt_dma = 0;
- 
- fail_flt_buffer:
- 	dma_free_coherent(&ha->pdev->dev, SFP_DEV_SIZE,
- 	    ha->sfp_data, ha->sfp_data_dma);
-+	ha->sfp_data = NULL;
-+	ha->sfp_data_dma = 0;
- fail_sfp_data:
- 	kfree(ha->loop_id_map);
-+	ha->loop_id_map = NULL;
- fail_loop_id_map:
- 	dma_pool_free(ha->s_dma_pool, ha->async_pd, ha->async_pd_dma);
-+	ha->async_pd = NULL;
-+	ha->async_pd_dma = 0;
- fail_async_pd:
- 	dma_pool_free(ha->s_dma_pool, ha->sf_init_cb, ha->sf_init_cb_dma);
-+	ha->sf_init_cb = NULL;
-+	ha->sf_init_cb_dma = 0;
- fail_sf_init_cb:
- 	dma_pool_free(ha->s_dma_pool, ha->ex_init_cb, ha->ex_init_cb_dma);
-+	ha->ex_init_cb = NULL;
-+	ha->ex_init_cb_dma = 0;
- fail_ex_init_cb:
- 	kfree(ha->npiv_info);
-+	ha->npiv_info = NULL;
- fail_npiv_info:
- 	dma_free_coherent(&ha->pdev->dev, ((*rsp)->length + 1) *
- 		sizeof(response_t), (*rsp)->ring, (*rsp)->dma);
--- 
-2.53.0
-
+thanks!
