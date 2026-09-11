@@ -1,64 +1,62 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D5536920D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36125353A75
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138750; cv=none; b=IPlnxtkPBzbjpgW51YeI2hfPuWx3gdQf31X8qGMCys85FEPbVEEKIEOOm5z3vK6r/yXNpKp/29dHz6AX4QSm2z3Wq0fku9jJgSDxSxBOCP3G5RqOM6s91EDf5dUyR5laF+jUH/6Or/XQeSUpyCVzHUFAiOfdWwri4f0FKS3dXWg=
+	t=1789138754; cv=none; b=GXz03Mk6dvbDNFIUCvEl3fE1TAaqgqi/iDYUswVxTQi0R8K8tpap3Gw1zk1Zt9Dzrg219g7ROS4pMXjoPw+2H16W1FMkXkhFCzY3rHK+XMGENaAYKXcQUMP3icNwA0T+Un40WsDJ7+mknT8ILK+X4nfzqWfWs6+2s43marVq4aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138750; c=relaxed/simple;
-	bh=qBl+kMF/qvo9mszduPsTkTd7BB4U/dtuc7fefTEht28=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=g4qtGIVZf2aOJ1q94boDq95Yrr875lPc5ZNmkcFo52kSINyrasD02U5Ll+n/7b6BIZbjjxejG2xG8/ivKDX7eaX9GpMcHiGD7ZeHPmINdToq+LhRjMNtY3mYZQJeusxyKTJa2KKf+UFAhcnSUG90nguv5IlbmUjo6eT/+oSc0KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=OsoyCAtu; arc=none smtp.client-ip=209.85.210.172
+	s=arc-20240116; t=1789138754; c=relaxed/simple;
+	bh=YT6fdcwJ2oY8sBXOi6OzVDatdpWdaFddchD5Y7tFvd0=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=BYlr/OFaBEKmbaJAYKnusTGHB2NQ0s8UC4mPOr5ick961rNAJZpAtJ3PaTzSyvy1JI5IhR/LWfj1YHa4IZ8aEMnFZbqOxhcrcSqjX8MfMLhls/+QJV0m86MPmZxpz/cYPQkczSRSFAlrrNyATFSC+HzslhDKgEjHqdyD+AtAur8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=ahVZrxvY; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="OsoyCAtu"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-869fe350825so1212373b3a.1
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:59:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="ahVZrxvY"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db710396ffso19042675ad.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:59:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789138746; x=1789743546; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1789138748; x=1789743548; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=w4yyiBqB0sp/5dIoaBva/TCgVPoh7GZb6TIIT6yHyNs=;
-        b=OsoyCAtuTzmJPGz2GwN21tXS/0+lWUdaam109KGqfDuAH9tnfLe05TiP5ls6MT1z+U
-         TIv4k/YGCzaWini16uyHc12ts5iVciDsNo58yxd/iiKANTyHNE/Q5HKsu7mpgNtYbfUq
-         PfSMYbgt4FX3vL9T6EczZMcTnvVaoHwZ66U/6Lj/x+S+c+SKdas+RgwL9LlFDuWzPs0N
-         ouNSqtiZrlb+OopLiJyAc8HuRYbd0RD78GLFxm3a0SjcBdfnZwLlWrx5pMkmgCif7Fc7
-         KkCuw75t2k6uOZdgq9nm//4nG5BtAQ1Vf2dpSsqRgwxt2nzZr1Qgo3refPhrq/s5Ycno
-         c2jA==
+        bh=sjPJqCY5Zvx1uJ0EZr6t2o7w7mwBOplsQsUuvN0DXiY=;
+        b=ahVZrxvYqkxRT8T/lKIrMWFP9nF4VlfInuOa2tP8xlvTZTVIsH1czeLPLBgJx85AiS
+         h8cSKwbpM7nJMp7V6Scu1Kox+61yA8VPa5Eq1pkwnCLmvp9HSs+nrXiBPoh1Rdu0KZzG
+         45mxCej8ytHuEUwYESzqYIcvRoBg4yEGiBT10sH5MjKkLGFV+6dKlrXeKPgseW4MWHg+
+         UhCzBcJyzi/TQOMOSISBY9OL+7C406fOrIPYFhxWIl9uNrE6nEkgcrdfS0Dwjv5TnmqE
+         wSuX1kRlSOsBPv7lTFW5kPnVIL9QHGeSOMRQZCZV5Mob6HHpumh0vJESCldWq4xSJ5yL
+         SeYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789138746; x=1789743546;
+        d=1e100.net; s=20251104; t=1789138748; x=1789743548;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w4yyiBqB0sp/5dIoaBva/TCgVPoh7GZb6TIIT6yHyNs=;
-        b=isj/ZHBbxC17hBwVMnka13X8jx7EVK0oTMo0zi8vwFenT62GMLKqE6rmsXHCniJYbG
-         vS6XAjC3gtOIeCjFu2kUOWsnCfzs828JcoaAeUTGae4djVVhjiQ07d2bpWbSEzF7cJzC
-         wOP9xOBv6eSSt3dUYJ4esf+/AiPXsuE2ED+L0W9FZ9RyQnfkOsLY8Dd1t7WgGVFfr9Id
-         c4e48wqs75XA7pXoMey42SYoMPrTuyXEZeX9TKI72kRK3begOx8xWgxH1BvHvwZJ7Pke
-         ggL87AZifGLH7zVaciG1AG381Y+j2wKssGNfba5IIehgSpnqAynRN7W78UOZrLlA5AhN
-         tW/A==
-X-Gm-Message-State: AFuF++l4fzeF3Ze/ju3uj+zFNHp3jYVcyTfLD0KxtHAKYzxRTjEiimFl
-	FOf37O/c+s2R0Fpu9xHRTO0sS90+X4sAoTvfL/TtiwvCYMEQ3IhZ6jTwADypyB0UOq7PaTyHjo0
-	0zR/0
-X-Gm-Gg: AYBFou3qJDQzalSBlBXu+OifF3VD+8XDQhw3GZn3ytZwCqsiHNyGD60kd5p5FTD3KwP
-	IyC8uXnMLuRWh9Us6mIPJKcPxHAaVhxci82IFfse7errYQ3Fit96I0REb+C3PY+k7tTg5+hzW4j
-	4VV+QPrl0d3k3bwmlQTwsSqMAi7lCO7VeloUOnSd3jefKV+EZBNQoyQsuYoTtICY0f8oYArxLfx
-	grBUrj+dMH2lAiIjR7+gP512ES5Z8OQbFff/kW/ejS7gjGNTJ2RqwcM3lEY/CVKsBcsg9oQgba8
-	XhGdnUpG/+3gyDnkuAwC/rbRNozxXj1nUUqCcMi/plUOn72OTtbwWBPXxNbK1691QCqglvaKCQ6
-	1HQwmjRih24Ss0BYjnwasj5PIYJjJkqee0CmaeEKyOrP8UH7FSTNctLux0vw+XU3QePwx7QFKvB
-	whz8+qB5pVCKuz3ImtkD3hWtSIkYlG3aWocTIoCrHeA/ngOgsXiFQAH+8R2lliuYRUphR7M1S5T
-	w==
-X-Received: by 2002:a05:6a20:43ac:b0:3d3:ae40:51e5 with SMTP id adf61e73a8af0-3daed3f74bamr7690840637.25.1789138745962;
-        Fri, 11 Sep 2026 07:59:05 -0700 (PDT)
+        bh=sjPJqCY5Zvx1uJ0EZr6t2o7w7mwBOplsQsUuvN0DXiY=;
+        b=Qpkl/QLVLlXVl9iywB46lFCHFeA81hxzO/zoeCE/Lt0p6EIdv+szTL1VyJwDmF/tKt
+         3onYYe7fYtq2zKwueB7A8toN8xyInRpeWdo3jndv9zWXYMIb5sLGPDD2wMe5KBrd8vb/
+         lgsiRK8RfZHTQN/fXVU+2u+iLTbD5RsnYwZLwcNmzOsQJAT6yLd4AuaYuG0X6fRNt2a/
+         28TvcTKKmTH7xn/bftl+DhBbCzQB2uAh4t09qgyDy/bHeZ8S2ACZ5T2B4XplE90+2p3H
+         1jVNKLcSuydcF1HjRfcEILBJyJBRl+NYJF33EBYrhc7Awv2Re68XDVEVT54Q3cKikehl
+         UzJw==
+X-Gm-Message-State: AFuF++nWlcwqtsZJF1Oy85ZTIhusrMT7dYwtiubb+2/2d3uVnwmfybrL
+	oZZMzvV8VAAYYOhLWMLq6hNWnp9Ecs2LGYk4mFaG2Ap/e508HbrfLTN0ZhquJJEwVsk=
+X-Gm-Gg: AYBFou0I/c3ol0LLYQ8K2pqycUvP68KAPggqSxxanUiJvO5CC5pH12B+quCtdhF6V2Y
+	kg4Lg+zdkTT8qblI3lHVEvak/wMCRQn5iNAelYRT28k6tr4MNL3gX7vlt+DqXbv9oSyzs18ANf1
+	CfoebSFE7+y8cgyAXicDnBXNgCtreFsDVMhZyTLXao9iUUxXxbG8mia696lqvBpPintl9pCoO0k
+	EA6aDSJGeKvnyxVlH8UkkZeTziYf/95R91QeTTtwPT7mug0sh4yfmpByrF4CFFrZoZgApzbGmLK
+	yngwX9SITnNEtar/XxZFu+frHTyb8SRJZFm0Bz8pePfbr3AoQWwSY6AiGNB2tQZ+VUfB8G087aU
+	WCd+uazMsgKiUgC04OunRLfmr1ee4ppRm1fmALuw3c60ZnShz2k9mCnpABRMDXLhcjSL2lcrHl6
+	WjoqZAYz+WyZAV+DYSnbYe82vt01xr7af2yFFUf7BLuTb4XjaCgFWmJtdGNuVJLyQ=
+X-Received: by 2002:a17:90a:bb83:b0:39d:8b8c:3783 with SMTP id 98e67ed59e1d1-39d8b8c3f9bmr5890025a91.6.1789138747820;
+        Fri, 11 Sep 2026 07:59:07 -0700 (PDT)
 Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4b1f409sm8383111eec.0.2026.09.11.07.59.05
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a3casm7220766eec.12.2026.09.11.07.59.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:59:05 -0700 (PDT)
+        Fri, 11 Sep 2026 07:59:07 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -68,29 +66,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjEyLnk6IChidWlsZCnigJhr?=
- =?utf-8?b?bmF2X3FkZXbigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMgZnVuY3Rp?=
- =?utf-8?b?b24pOyBkaWQgeW91IG1lYW4g4oCYLi4u?=
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E6=2Ey=3A_=28build=29/tmp/kci/?=
+ =?utf-8?q?linux/include/linux/fortify-string=2Eh=3A80=3A33=3A_error=3A_?=
+ =?utf-8?q?=E2=80=98=5F=5Fbuil=2E=2E=2E?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Fri, 11 Sep 2026 14:59:05 -0000
-Message-ID: <178913874515.4387.1325769727350387401@kernelci.org>
+Date: Fri, 11 Sep 2026 14:59:07 -0000
+Message-ID: <178913874709.4387.7490198504895505836@kernelci.org>
 
-New build issue found on stable-rc/linux-6.12.y:
+New build issue found on stable-rc/linux-6.6.y:
 
 ---
-‘knav_qdev’ undeclared (first use in this function); did you mean ‘knav_queue’? in drivers/soc/ti/knav_qmss_queue.o (drivers/soc/ti/knav_qmss_queue.c) [logspec:kbuild,kbuild.compiler.error]
+/tmp/kci/linux/include/linux/fortify-string.h:80:33: error: ‘__builtin_strncat’ specified bound 18446744073709551609 exceeds maximum object size 9223372036854775807 [-Werror=stringop-overread] in kernel/trace/trace_events_hist.o (kernel/trace/trace_events_hist.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/drivers/soc/ti/knav_qmss_queue.c:1874:9: error: ‘knav_qdev’ undeclared (first use in this function); did you mean ‘knav_queue’?
- 1874 |         knav_qdev->debugfs_file =
-      |         ^~~~~~~~~
-      |         knav_queue
-/tmp/kci/linux/drivers/soc/ti/knav_qmss_queue.c:1874:9: note: each undeclared identifier is reported only once for each function it appears in
+    inlined from ‘event_hist_trigger_parse’ at /tmp/kci/linux/kernel/trace/trace_events_hist.c:6776:3:
+/tmp/kci/linux/include/linux/fortify-string.h:80:33: error: ‘__builtin_strncat’ specified bound 18446744073709551609 exceeds maximum object size 9223372036854775807 [-Werror=stringop-overread]
+   80 | #define __underlying_strncat    __builtin_strncat
+      |                                 ^
+/tmp/kci/linux/include/linux/fortify-string.h:479:24: note: in expansion of macro ‘__underlying_strncat’
+  479 |                 return __underlying_strncat(p, q, count);
+      |                        ^~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
 
 =====================================================
 
@@ -102,23 +103,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:413c55141537fe4d2ae45aa4df30f177201ca4cd
+- dashboard: https://d.kernelci.org/i/maestro:e9879d2cf5ad796b1982f5eff70fc707a4312f3c
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  f97429de1ef3e1b6f7986abbcb45bb115b876977
+- commit HEAD:  c33bbcf64a1d0e2170b7cdee977e2c00e258a70f
 
 # Builds where the incident occurred:
 
-## multi_v7_defconfig on (arm):
-- compiler: gcc-14
+## x86_64_defconfig+lab-setup+x86-board+kselftest on (x86_64):
+- compiler: gcc-15
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40cdd20239ade9022acd7
+- dashboard: https://d.kernelci.org/build/maestro:6aa40c9520239ade9022a48f
 
-## multi_v7_defconfig+kselftest on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40cea20239ade9022aceb
-
-#kernelci issue maestro:413c55141537fe4d2ae45aa4df30f177201ca4cd
+#kernelci issue maestro:e9879d2cf5ad796b1982f5eff70fc707a4312f3c
 
 --
 This is an experimental report format. Please send feedback in!
