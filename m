@@ -1,212 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D444D2E6CB8
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CA12DA759
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089185; cv=none; b=TeYN7Du0HzDwIKnTDtsewj0Ul4hwvoHqrXlsTVDCyUg5Ze6MTCOjNsqt/6uJtukNFVMv41v70Coj7vhPhMblsft2FtGp3Fao7tJI7uipq+AnaqezcaOnaveuGUOImSN6E9qsLonF1niVLhInvI7KP3uqawUekECvPA6JpcuNHPw=
+	t=1789089190; cv=none; b=kJQxZb3uDo5ck+3V9pmLMSi19BassaxoCnVRSgsITIr8I3OBGfAT2Mggzlt/AFciYscbDH64eIAlYD+sjxhj3zdxz8Su+mKFaUhTm1a6KWtjyx0NpQC7I5v2GPHlty3c6VKObSlpS6PKYBARJKBY4eS4GYmydfLtJxLq0t8eMQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089185; c=relaxed/simple;
-	bh=oOBz3ufeb7CA6uUKDDTFyGW3JNNiisUsB3OWNwAOZ3A=;
+	s=arc-20240116; t=1789089190; c=relaxed/simple;
+	bh=yVO8IFMSbmR38ZYo3zEfQ/+/ZEmhT9jbyZdM5x4RnfU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uv8HTI4ARTSwzESFSgNWdwNzaSwhT8HAbDYUzGk5SaEh4u4NaT5OU39R6II48TVTb/enehEJG56RjwCUZJW7ssRXwh5QGqO1M4FnhAqD5QDrck7uhXdZKq+Wh0XAQU8eML0hDrYUU6xrLK6rtaV9lW8mjZTnXzgPomTv2n2VArs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/+tM09W; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rc5QKuJJ9F0PCgeY6GHiyNY//Hb2ZNhA7jLlZRcLzZ1quLybhLXlTZzwoZvVVyNl+/PD68gcUfRh4rvJZGX7hWZ3VCbs95ifgrcohbDI4EoVEk9kvmq5trz6DwIU9SERgB+kbjGUFhsP03ZDFIbLzW42XKWra3TfTrxE9Q2Egrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIq6GJZd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/+tM09W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4A2F1F00893;
-	Fri, 11 Sep 2026 01:13:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIq6GJZd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3536D1F000FF;
+	Fri, 11 Sep 2026 01:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789089183;
-	bh=l8lHQIF/Pp55oqPekgCRqu8p2/r7YAOFAP6FLfLDtYg=;
+	s=k20260515; t=1789089188;
+	bh=lg7qgUszhR+c+9TpDCszMm8s3iQjCaDGXmOjFN00AEA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E/+tM09W2lDUesT5+Ka1nnlkyUfmNUOfdtEGO0MlphrxL4wWqsoMyiL1gUxMOEksf
-	 FdEY/tyBhBRfkFkXVBDKwlzlKVzH+xMtdAt9Hq6cQtBQYYjxLJ3T0HeTvdT4/LFnCL
-	 EJ/j42BlhwAG6Z/8PDhvIHHsRmf3xWQlQWP10GcXR4jOfguKhG7Jof5zZez3oZnxO5
-	 2ErTCjh1wFUxSmOlOAZp5rsOHacxc5Y3pWvfcl7GvMaisGXKrdOvk78VLJ6dVdAy5y
-	 rtMWeHap8gmo1DQvWzO8wh3YDUX2slbglDjiWjsEsiYhkn4cL1nKOjm+Cj6TuUbtji
-	 UNR3mGZpGG01A==
+	b=MIq6GJZd7kFctJaOGd46sjDXaT/RTZB17woDfLc+TFxWj8jXIB+v/T0Bmjs5d5z5J
+	 m0wUH0y7mZgeaf1v1j6bFOXngvg+EvbhbazAD2pqDwTMbYyyAnM6kxe2IHjCV+bt3l
+	 4CMaUXLFfJz9l3uYFb0Gb06WTox8lK3mYtvfP8OgjHDdynAB3+pRlf1Frraid2LXgQ
+	 x328djfolrk3bvtdooXLhjxGoT+vGB83HflKdIfZ2AFewmrQ9ItHeNJ42KZoIz7hd/
+	 9O2r5o1MBi0yQSR5scFeNz0lwAfleLN2EZRpeESyYNIayjuQkMCEuvKLv02aIGbvFF
+	 RcJfIH5jREH+A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anthony Krowiak <akrowiak@linux.ibm.com>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hugh Dickins <hughd@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] s390/vfio-ap: fix stale pqap_hook pointer on error in vfio_ap_mdev_set_kvm()
-Date: Thu, 10 Sep 2026 21:13:00 -0400
-Message-ID: <20260911011300.4032478-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm: fix incorrect vm_flags usage when checking allowable orders for tmpfs
+Date: Thu, 10 Sep 2026 21:13:05 -0400
+Message-ID: <20260911011305.4032753-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911011300.4032478-1-sashal@kernel.org>
-References: <2026090928-anguished-delighted-2103@gregkh>
- <20260911011300.4032478-1-sashal@kernel.org>
+In-Reply-To: <2026090905-parole-radiated-b379@gregkh>
+References: <2026090905-parole-radiated-b379@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-[ Upstream commit 4400270ec0348d05dc0439d8f0130853ce7f9e20 ]
+[ Upstream commit 2fd4e7693674b17807a6d082feb01a3fbf86f5f8 ]
 
-In vfio_ap_mdev_set_kvm(), kvm->arch.crypto.pqap_hook is set to
-&matrix_mdev->pqap_hook before the update locks are acquired and the
-mdev list is checked for a conflicting assignment. If another mdev is
-already attached to the same KVM instance, the function returns -EPERM
-without restoring the hook pointer, leaving kvm->arch.crypto.pqap_hook
-pointing at the failing matrix_mdev instead of the mdev that legitimately
-owns the KVM.
+Lance reported that when nothing else causes the mm to be considered for
+khugepaged collapse, an MADV_HUGEPAGE-advised tmpfs VMA alone does not
+trigger scanning.
 
-Since matrix_mdev->kvm is never set on this error path,
-vfio_ap_mdev_unset_kvm() will not clean up the hook when matrix_mdev
-is later closed. If matrix_mdev is subsequently freed, any PQAP
-instruction executed by the guest will dereference the stale pointer
-through pqap_hook_rwsem, resulting in a use-after-free.
+After commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
+into shmem_allowable_huge_orders()"), the shmem/tmpfs allowable order
+check reads vma->flags directly.  However, when MADV_HUGEPAGE is handled,
+khugepaged_enter_vma() is called before the VMA's flags have been updated,
+so the check uses stale flags and incorrectly rejects the VMA for
+collapse.  As a result, khugepaged does not collapse the tmpfs file into
+PMD order in time.
 
-Since kvm->arch.crypto.pqap_hook is only set in the vfio_ap_mdev_set_kvm()
-function and is cleared in the vfio_ap_mdev_unset_kvm() function, a check
-for 'kvm->arch.crypto.pqap_hook != NULL' is all that is needed to determine
-whether it belongs to another mdev. This will alleviate the need to iterate
-the matrix_dev->mdev_list list to see if the kvm object is assigned to
-another mdev.This was introduced in v3 to alleviate the need to take the
-mdevs_lock while iterating the list; however, this did not prevent a
-potential race condition.
+Fix this by calling khugepaged_enter_vma() with the new VMA flags in
+madvise_update_vma().  Meanwhile we can remove the khugepaged_enter_vma()
+in hugepage_madvise().
 
-The pqap_hook_rwsem(write) is now performed inside
-get_update_locks_for_kvm(), which is updated to acquire
-pqap_hook_rwsem(write) between kvm->lock and mdevs_lock. This ordering
-is consistent with the PQAP intercept path, which acquires pqap_hook_rwsem
-in read mode while srcu is held under vcpu->mutex, establishing the
-dependency: kvm->lock -> vcpu->mutex -> srcu -> pqap_hook_rwsem(read).
-
-The pqap_hook_rwsem is now released inside the
-release_update_locks_for_kvm(), which is updated to release
-pqap_hook_rwsem(write) between mdevs_lock and kvm->lock.
-
-Additionally, kvm_put_kvm() in vfio_ap_mdev_unset_kvm() is moved
-after release_update_locks_for_kvm(). Previously it was called while
-kvm->lock was held; if it were ever the last reference, kvm_destroy_vm()
-would run under kvm->lock, which would deadlock.
-
-Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
-Cc: stable@vger.kernel.org
-Co-developed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Acked-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260806173435.105044-1-akrowiak@linux.ibm.com>
+Link: https://lore.kernel.org/7d5b5eb27be798f89d563b06254c947ff53db0b2.1787020910.git.baolin.wang@linux.alibaba.com
+Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reported-by: Lance Yang <lance.yang@linux.dev>
+Closes: https://lore.kernel.org/all/20260815181632.21453-1-lance.yang@linux.dev/
+Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted newer VMA flag helpers to the branch’s legacy new_flags bitmask API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 45 ++++++++++++++-----------------
- 1 file changed, 20 insertions(+), 25 deletions(-)
+ mm/khugepaged.c | 6 ------
+ mm/madvise.c    | 8 ++++++++
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 5016c157a3010..93464f9034e23 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -45,15 +45,19 @@ static int vfio_ap_mdev_reset_queue(struct vfio_ap_queue *q, unsigned int retry)
-  * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
-  *			       guest's APCB.
-  * 2. kvm->lock:	       required to update a guest's APCB
-- * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
-+ * 3. kvm->arch.crypto.pqap_hook_rwsem: required to update pqap_hook and
-+ *					serialize against PQAP intercepts
-+ * 4. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
-  *
-- * Note: If @kvm is NULL, the KVM lock will not be taken.
-+ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be taken.
-  */
- static inline void get_update_locks_for_kvm(struct kvm *kvm)
- {
- 	mutex_lock(&matrix_dev->guests_lock);
--	if (kvm)
-+	if (kvm) {
- 		mutex_lock(&kvm->lock);
-+		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
-+	}
- 	mutex_lock(&matrix_dev->mdevs_lock);
- }
- 
-@@ -65,16 +69,19 @@ static inline void get_update_locks_for_kvm(struct kvm *kvm)
-  *
-  * The proper unlocking order is:
-  * 1. matrix_dev->mdevs_lock
-- * 2. kvm->lock
-- * 3. matrix_dev->guests_lock
-+ * 2. kvm->arch.crypto.pqap_hook_rwsem
-+ * 3. kvm->lock
-+ * 4. matrix_dev->guests_lock
-  *
-- * Note: If @kvm is NULL, the KVM lock will not be released.
-+ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be released.
-  */
- static inline void release_update_locks_for_kvm(struct kvm *kvm)
- {
- 	mutex_unlock(&matrix_dev->mdevs_lock);
--	if (kvm)
-+	if (kvm) {
-+		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
- 		mutex_unlock(&kvm->lock);
-+	}
- 	mutex_unlock(&matrix_dev->guests_lock);
- }
- 
-@@ -1526,26 +1533,17 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
- static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
- 				struct kvm *kvm)
- {
--	struct ap_matrix_mdev *m;
--
- 	if (kvm->arch.crypto.crycbd) {
--		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
--		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
--		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
--
- 		get_update_locks_for_kvm(kvm);
--
--		list_for_each_entry(m, &matrix_dev->mdev_list, node) {
--			if (m != matrix_mdev && m->kvm == kvm) {
--				release_update_locks_for_kvm(kvm);
--				return -EPERM;
--			}
-+		if (kvm->arch.crypto.pqap_hook) {
-+			release_update_locks_for_kvm(kvm);
-+			return -EPERM;
- 		}
-+		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
- 
- 		kvm_get_kvm(kvm);
- 		matrix_mdev->kvm = kvm;
- 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
--
- 		release_update_locks_for_kvm(kvm);
- 	}
- 
-@@ -1572,18 +1570,15 @@ static void vfio_ap_mdev_unset_kvm(struct ap_matrix_mdev *matrix_mdev)
- 	struct kvm *kvm = matrix_mdev->kvm;
- 
- 	if (kvm && kvm->arch.crypto.crycbd) {
--		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
--		kvm->arch.crypto.pqap_hook = NULL;
--		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
--
- 		get_update_locks_for_kvm(kvm);
-+		kvm->arch.crypto.pqap_hook = NULL;
- 
- 		kvm_arch_crypto_clear_masks(kvm);
- 		vfio_ap_mdev_reset_queues(matrix_mdev);
--		kvm_put_kvm(kvm);
- 		matrix_mdev->kvm = NULL;
- 
- 		release_update_locks_for_kvm(kvm);
-+		kvm_put_kvm(kvm);
- 	}
- }
- 
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index a6b2c7d7d73b6..84bacd7e19620 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -369,12 +369,6 @@ int hugepage_madvise(struct vm_area_struct *vma,
+ #endif
+ 		*vm_flags &= ~VM_NOHUGEPAGE;
+ 		*vm_flags |= VM_HUGEPAGE;
+-		/*
+-		 * If the vma become good for khugepaged to scan,
+-		 * register it here without waiting a page fault that
+-		 * may not happen any time soon.
+-		 */
+-		khugepaged_enter_vma(vma, *vm_flags);
+ 		break;
+ 	case MADV_NOHUGEPAGE:
+ 		*vm_flags &= ~VM_HUGEPAGE;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index d2b315993a1c0..4abc466d37505 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -158,6 +158,14 @@ static int madvise_update_vma(struct vm_area_struct *vma,
+ 	/* vm_flags is protected by the mmap_lock held in write mode. */
+ 	vma_start_write(vma);
+ 	vm_flags_reset(vma, new_flags);
++	/*
++	 * If the vma become good for khugepaged to scan,
++	 * register it here without waiting a page fault that
++	 * may not happen any time soon.
++	 */
++	if (new_flags & VM_HUGEPAGE)
++		khugepaged_enter_vma(vma, new_flags);
++
+ 	if (!vma->vm_file || vma_is_anon_shmem(vma)) {
+ 		error = replace_anon_vma_name(vma, anon_name);
+ 		if (error)
 -- 
 2.53.0
 
