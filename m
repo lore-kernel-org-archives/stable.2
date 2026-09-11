@@ -1,61 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F0036212C;
-	Fri, 11 Sep 2026 15:03:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B138DC43
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138996; cv=none; b=oRXUyx7yTNhODVU8btDB51g4wSsyZbf6Z3wPoYOOMwdAz74nci5LZ3MHuGUg41gz5Um8oiHfDOP5PvNphr/fUzGfO8yxZkmsY6jLgYdHFHn1PrByZoT8rJwbI93pysxikQ4cBWg4V+iO2MSUjJjzf7ruwlZdLo+t/KyIFn0It+E=
+	t=1789139134; cv=none; b=YaqhAedmrC3+ZjSzKjUp+GiUq6vjYTVkj1iTnhGPWh2j7on6IqRAHHvNloUQmz91sUTC0Go9HdKF1NMMHXnJTcWImulq6ssTd7NMxKWWTL6dd40KIimyaItjUFATKz7KKGozcS1KSLxnfZcnXg4s2rfxOkxol5LQVV2LFw7nT7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138996; c=relaxed/simple;
-	bh=NtWTVquGIF6A3jVgsjHgY3Sb9j0F5MYubIQ9/EHOvQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G6h0LOPiSePB24g4eNA/CH1AC8968IeqwxFeS8NCWmFScKD6bJZNQkRASn89qoLiLGF6PB1dpfQIR2qIIQJM2zEj/c7hFa0gxqrwTeanvNY/B1EDdK+mWVHGLokoeOEfD/vkz2vNjKZQPu/1GGskfPsiAq6JJbRjG0N88ZOECPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbeM/JGD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789139134; c=relaxed/simple;
+	bh=DqlSpcKpwRiFfMrXKJ/DuFczPqJIxeLtma5CeVNaEk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h/JItheClljJKufdTruH6vvg1C7uanwsT+aMR7UrR8/W3AMcotzmfpHFqPrWKwyH2tl/qaWEyBqEmPiS55sRj6cr8+bfIuBebaendOLhpx0u3NcsZm73WniS8HX/8Z3QC+B/VM1/8GN3yQLM1boWQPqYz71NKE9jPFYrH5Qb/Q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA46z02M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbeM/JGD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05841F000FF;
-	Fri, 11 Sep 2026 15:03:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA46z02M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664A91F000FF;
+	Fri, 11 Sep 2026 15:05:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138995;
-	bh=NtWTVquGIF6A3jVgsjHgY3Sb9j0F5MYubIQ9/EHOvQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LbeM/JGDab4DkMoCpxVqado8u3MP6yLSvHpLbQ4FUMItpdQcRqigTnx8wo6TiVOZd
-	 ThLZCyAvqZ3luvs/fQjZ2d91xu1grVyRt06tGtKGGnM0DGmNMW7Cucdl2mMse3ZprU
-	 AO7BrUZ3/cl5ZIJ2ZT6amT3b5eWeV7CbuB2EamKsPAtMxSmKUPYDFebRTlupM3q4GN
-	 ZF0dPrA4RRdB27/PhV0QsAxoEdq2NIcEuLqf1PBM+iPQ9k81nf+pRfPIvLQSMThdiJ
-	 CyTi0jFugvJnKME8Ia1W1T1QeFvr+9U86Co11at3jOQfyl2ZiOn7U+yeqtCyZeRtG4
-	 2qj8UZPVIMtlA==
-Date: Fri, 11 Sep 2026 09:03:13 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Bean Huo <beanhuo@iokpp.de>
-Cc: linux-nvme@lists.infradead.org, hch@lst.de, axboe@kernel.dk,
-	sagi@grimberg.me, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, bob.beckett@collabora.com,
-	Bean Huo <beanhuo@micron.com>, Gaurav Sinha <gsinha@micron.com>
-Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron
- 4100AT
-Message-ID: <aqQYMR2uaKcHosYD@kbusch-mbp>
-References: <20260904105155.1402065-1-beanhuo@iokpp.de>
+	s=k20260515; t=1789139133;
+	bh=a0cpS7NzOz/3G8T9YZ0BNy5jlRdwGX+uOizVj1Ldl6M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dA46z02M7BQvz+HZOZPFD3bPGvJK5YAMDCh6sBloymnWWvFW9wvwP5GIZPF2gR17w
+	 pGkyQZxnSkL3e6daq0NUG9irphtyDwwi5CmVj8rhn/tTXhBilQYMz9JTZm+7b+vIAk
+	 Y8W5qJ5DWPYW7OnshkNsA66K23RYLqe1CWbbJUynkncs43Hct8J7rn8UzCBY6nnGEp
+	 4Q0TFjAccEc60i8Gdmu/yilV/6k812uLbfxPubt4AQnOm9XIg0UcP65MX60/ce11L2
+	 psRryL+eNN6U+jySes/7m0knLk+OSCOZrKx+qdQ3o8NoXzWtK9t/sSi9Ww1723kRHe
+	 am8ODHU0tfcNQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] scsi: qla2xxx: Fix queue teardown NULL dma_free and bitmap locking
+Date: Fri, 11 Sep 2026 11:05:29 -0400
+Message-ID: <20260911150530.1032073-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090919-divided-onion-9b49@gregkh>
+References: <2026090919-divided-onion-9b49@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904105155.1402065-1-beanhuo@iokpp.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 12:51:55PM +0200, Bean Huo wrote:
-> From: Bean Huo <beanhuo@micron.com>
+From: Nilesh Javali <njavali@marvell.com>
 
-...
+[ Upstream commit 34a40e0dff940ac5eba494a69b553ea571e24873 ]
 
-> Signed-off-by: Gaurav Sinha <gsinha@micron.com>
-> Signed-off-by: Bean Huo <beanhuo@micron.com>
+qla25xx_free_req_que() and qla25xx_free_rsp_que() have two pre-existing
+bugs exposed on the error path of qla25xx_create_{req,rsp}_que():
 
-I've applied the patch as-is, however usually the first "Signed-off-by"
-is who the patch is attributed to as being "from".
+ 1. When dma_alloc_coherent() fails during queue creation, the error
+    path calls the free function with req->ring / rsp->ring still NULL
+    (from kzalloc).  The unconditional dma_free_coherent() with a NULL
+    cpu_addr is undefined behavior and can panic.
 
-Thanks, applied to nvme-7.3.
+ 2. The free functions clear req_qid_map / rsp_qid_map under vport_lock,
+    but the create functions protect the same bitmaps with mq_lock.
+    This provides no mutual exclusion.  Additionally, the create error
+    path clears the bit and releases mq_lock before calling the free
+    function, creating a window where another thread can allocate the
+    same que_id and have its ha->req_q_map entry clobbered by the
+    subsequent lockless NULL assignment in the free function.
+
+Fix by:
+
+ - Guarding dma_free_coherent() with a NULL check on the ring pointer.
+
+ - Using mq_lock (the lock held by all creators) in the free functions
+   to atomically NULL the map entry and clear the bitmap bit.
+
+ - Removing the now-redundant clear_bit blocks from the create error
+   paths since the free functions handle it atomically.
+
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-41-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+
+Backport adaptation for the stable tree: the 29xx IOCB size-selection
+helpers are absent, and queue creation still allocates fixed-size entries.
+Initialize the local req_entry_size and rsp_entry_size values with
+sizeof(request_t) and sizeof(response_t), respectively, so DMA freeing
+continues to match allocation without adding helper functions or 29xx
+support. Retain all NULL-ring guards, mq_lock protection, and removal of
+the premature bitmap clears.
+
+Keep the response-ring cleanup layout used by upstream so target commit
+19788a55cab61d78e33e0914a5a31d27843e8a4a applies unchanged.
+
+Stable-dep-of: 19788a55cab6 ("scsi: qla2xxx: Fix use-after-free of qpair work on queue teardown")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/qla2xxx/qla_mid.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 9946899dd83b8..61570f032a8ac 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -574,16 +574,19 @@ qla25xx_free_req_que(struct scsi_qla_host *vha, struct req_que *req)
+ {
+ 	struct qla_hw_data *ha = vha->hw;
+ 	uint16_t que_id = req->id;
++	size_t req_entry_size = sizeof(request_t);
+ 
+-	dma_free_coherent(&ha->pdev->dev, (req->length + 1) *
+-		sizeof(request_t), req->ring, req->dma);
++	if (req->ring)
++		dma_free_coherent(&ha->pdev->dev,
++				  (req->length + 1) * req_entry_size,
++				  req->ring, req->dma);
+ 	req->ring = NULL;
+ 	req->dma = 0;
+ 	if (que_id) {
++		mutex_lock(&ha->mq_lock);
+ 		ha->req_q_map[que_id] = NULL;
+-		mutex_lock(&ha->vport_lock);
+ 		clear_bit(que_id, ha->req_qid_map);
+-		mutex_unlock(&ha->vport_lock);
++		mutex_unlock(&ha->mq_lock);
+ 	}
+ 	kfree(req->outstanding_cmds);
+ 	kfree(req);
+@@ -594,6 +597,7 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
+ {
+ 	struct qla_hw_data *ha = vha->hw;
+ 	uint16_t que_id = rsp->id;
++	size_t rsp_entry_size = sizeof(response_t);
+ 
+ 	if (rsp->msix && rsp->msix->have_irq) {
+ 		free_irq(rsp->msix->vector, rsp->msix->handle);
+@@ -601,15 +605,18 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
+ 		rsp->msix->in_use = 0;
+ 		rsp->msix->handle = NULL;
+ 	}
+-	dma_free_coherent(&ha->pdev->dev, (rsp->length + 1) *
+-		sizeof(response_t), rsp->ring, rsp->dma);
++
++	if (rsp->ring)
++		dma_free_coherent(&ha->pdev->dev,
++				  (rsp->length + 1) * rsp_entry_size,
++				  rsp->ring, rsp->dma);
+ 	rsp->ring = NULL;
+ 	rsp->dma = 0;
+ 	if (que_id) {
++		mutex_lock(&ha->mq_lock);
+ 		ha->rsp_q_map[que_id] = NULL;
+-		mutex_lock(&ha->vport_lock);
+ 		clear_bit(que_id, ha->rsp_qid_map);
+-		mutex_unlock(&ha->vport_lock);
++		mutex_unlock(&ha->mq_lock);
+ 	}
+ 	kfree(rsp);
+ }
+@@ -794,9 +801,6 @@ qla25xx_create_req_que(struct qla_hw_data *ha, uint16_t options,
+ 		if (ret != QLA_SUCCESS) {
+ 			ql_log(ql_log_fatal, base_vha, 0x00df,
+ 			    "%s failed.\n", __func__);
+-			mutex_lock(&ha->mq_lock);
+-			clear_bit(que_id, ha->req_qid_map);
+-			mutex_unlock(&ha->mq_lock);
+ 			goto que_failed;
+ 		}
+ 		vha->flags.qpairs_req_created = 1;
+@@ -908,9 +912,6 @@ qla25xx_create_rsp_que(struct qla_hw_data *ha, uint16_t options,
+ 		if (ret != QLA_SUCCESS) {
+ 			ql_log(ql_log_fatal, base_vha, 0x00e7,
+ 			    "%s failed.\n", __func__);
+-			mutex_lock(&ha->mq_lock);
+-			clear_bit(que_id, ha->rsp_qid_map);
+-			mutex_unlock(&ha->mq_lock);
+ 			goto que_failed;
+ 		}
+ 		vha->flags.qpairs_rsp_created = 1;
+-- 
+2.53.0
+
