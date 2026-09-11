@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554D549E13E
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5B618787A
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:39:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789086879; cv=none; b=OSa+ZCKYq/RzsqvNfyZnbC1ATNK0fHeRdP/VbEwlj66JIJr5JayejXU0mijVlZUVUyyChy0ViPfvzrlfcGSDEBj1u/CkGt2MKaIwNpbQRgRFOHJacJHjFxVLD8TbQkhHLJ3GU0L4dtkTZLEggy4hkMRdhoRGngTf7npDnzVxw6Q=
+	t=1789087169; cv=none; b=Gryz2wilsffTPrmM3PP/qQICPwZ9GeqsguDMTZG8YSHHs3gnBn7ppcpubvmFFyrfyan7iIdC5/G3z7uCZ94gWQE0gXSI75KlpkezRDiw1SlmP9VTyE2Qag19l/g1TEuf4L/kqk/ZRa1m40oP2Vcp4DYsC5fhdEHmr/v5v4UWj8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789086879; c=relaxed/simple;
-	bh=Hp+eeFFT9EAZWI4pfhiN5T+Oz+m4V9oHZTwg5M7dy3s=;
+	s=arc-20240116; t=1789087169; c=relaxed/simple;
+	bh=ziKJg4MrqzCNgKx6U62Gj/zP197cAGaTSEeBBXsescY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UN9E9H5EIqt6Ky5tV5OU1dFzwre0Xw/VnhL0uJIkIbgWaaSuP8ixpKFxOuhowjGt5gElXGosJgJWxCBGd/nr5Qlh/A9BZXJxH+TVC+9S1kpMSHgUnXXXG0t8SzkIilf/pH7un5dj/4Kh46eiLl77NBLb3Go0XWmTly4qf3OflOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLgezaf8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=raHFVvhuRR4owo83VPqaebAv31c4qo+uincxiR5AmGO7hLyXvrMfNFk9q5EeGBihXaDgk+Dfe+0Uyxl/34yhOqvZbi/vvi3/XvJRCTM9KiSdN7DpensOv41fIDI104CJYwO6+D/H2n8ME9SluAN1R6cgbSZmWFCTDq2HwaPAZbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLw12iBs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLgezaf8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F6B1F000FF;
-	Fri, 11 Sep 2026 00:34:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLw12iBs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBE61F000FF;
+	Fri, 11 Sep 2026 00:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789086878;
-	bh=5JaFcRakUiYOHSMkLqKdGaTC600xSu6EKIrD9bYcmnM=;
+	s=k20260515; t=1789087168;
+	bh=/xUIeiDxCU97BV7CkA4x5RD7oYkFR3RXhzMWIMzolQQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jLgezaf8uzwg/S92IGKcnt/OtgR9rj188unti0/kcU+UGvb4nkX7UATEmIYILpNJU
-	 09qkwaPA2BMvx+lOMq8ZVYnnQ5jdNc1cyzowf5yYlSDmasL1230PQHnB0C7b/YBPhG
-	 xmUFX9fbv47ySMzeHF2vrd5K3i9PeNOgD5PCS+j5qU+katXuV3No7JP3gAWcTt86mK
-	 TUhcapqarjHi6tPnnvzh4xoOGtbH+qnp9UIuRuYJzi66jtpBaZVH0kUVnBGW88S2HK
-	 cHIfSSCetXH/bK9y77Ht/DLULRPeXejkN+VPAcOw6PybhHbDtVnMui54Zga+SoS/Db
-	 qzc4mhJh/R4VQ==
+	b=QLw12iBs1U0wtdURNgXsoFRWmuoCn6Mb+xcLRGEPMnVxkDbrA/+Td1B4qMUBzBFZZ
+	 o6exWgsBa6yKWVrmQfj2Ae9Foy7gtDL8C7etu2sKmeCNamFvDVLI6wWbW3SNHM9uhT
+	 67iKzNWZIs7s7YY6mXjwHGY3TBvWUxe8TEVUAMyeOos+y8vJ1yCImdac6wz/CDfFP9
+	 C7t/M4m1n1rYy4r4f+vOBvyne4LDWqjUhrCeLAChr5W3fBjST3cJ4/K6pyr+t1nYiD
+	 yY3MTSOS+rtIoLbFEKVD8a4lnrZUAZSYFAwOLyNb2Ic2Z6iQaGKws+luSJaGmmcY8T
+	 AcHj4wCFCNGLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Anthony Krowiak <akrowiak@linux.ibm.com>,
 	Matthew Rosato <mjrosato@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] s390/vfio-ap: Fix missing lock required to access list of ap_matrix_mdev objects
-Date: Thu, 10 Sep 2026 20:34:35 -0400
-Message-ID: <20260911003435.3490809-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] s390/vfio-ap: Fix missing lock required to access list of ap_matrix_mdev objects
+Date: Thu, 10 Sep 2026 20:39:25 -0400
+Message-ID: <20260911003925.3551684-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090917-landmass-partridge-4557@gregkh>
-References: <2026090917-landmass-partridge-4557@gregkh>
+In-Reply-To: <2026090918-pout-capsule-bd86@gregkh>
+References: <2026090918-pout-capsule-bd86@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -107,10 +107,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 23 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 3bac163057d89..1f10dc332f70b 100644
+index d4151f519e8b2..e54cb1be641bb 100644
 --- a/drivers/s390/crypto/vfio_ap_ops.c
 +++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -779,11 +779,17 @@ static int vfio_ap_mdev_probe(struct mdev_device *mdev)
+@@ -763,11 +763,17 @@ static int vfio_ap_mdev_probe(struct mdev_device *mdev)
  	ret = vfio_register_emulated_iommu_dev(&matrix_mdev->vdev);
  	if (ret)
  		goto err_put_vdev;
@@ -131,7 +131,7 @@ index 3bac163057d89..1f10dc332f70b 100644
  	return 0;
  
  err_put_vdev:
-@@ -2245,6 +2251,8 @@ static struct ap_matrix_mdev *vfio_ap_mdev_for_queue(struct vfio_ap_queue *q)
+@@ -2049,6 +2055,8 @@ static struct ap_matrix_mdev *vfio_ap_mdev_for_queue(struct vfio_ap_queue *q)
  	unsigned long apid = AP_QID_CARD(q->apqn);
  	unsigned long apqi = AP_QID_QUEUE(q->apqn);
  
@@ -140,7 +140,7 @@ index 3bac163057d89..1f10dc332f70b 100644
  	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
  		if (test_bit_inv(apid, matrix_mdev->matrix.apm) &&
  		    test_bit_inv(apqi, matrix_mdev->matrix.aqm))
-@@ -2264,6 +2272,7 @@ static ssize_t status_show(struct device *dev,
+@@ -2068,6 +2076,7 @@ static ssize_t status_show(struct device *dev,
  	struct ap_matrix_mdev *matrix_mdev;
  	struct ap_device *apdev = to_ap_dev(dev);
  
@@ -148,7 +148,7 @@ index 3bac163057d89..1f10dc332f70b 100644
  	mutex_lock(&matrix_dev->mdevs_lock);
  	q = dev_get_drvdata(&apdev->device);
  	matrix_mdev = vfio_ap_mdev_for_queue(q);
-@@ -2294,6 +2303,7 @@ static ssize_t status_show(struct device *dev,
+@@ -2098,6 +2107,7 @@ static ssize_t status_show(struct device *dev,
  	}
  
  	mutex_unlock(&matrix_dev->mdevs_lock);
@@ -156,7 +156,7 @@ index 3bac163057d89..1f10dc332f70b 100644
  
  	return nchars;
  }
-@@ -2699,6 +2709,12 @@ static void vfio_ap_mdev_cfg_add(unsigned long *apm_add, unsigned long *aqm_add,
+@@ -2503,6 +2513,12 @@ static void vfio_ap_mdev_cfg_add(unsigned long *apm_add, unsigned long *aqm_add,
  
  	vfio_ap_filter_apid_by_qtype(apm_add, aqm_add);
  
@@ -169,7 +169,7 @@ index 3bac163057d89..1f10dc332f70b 100644
  	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
  		bitmap_and(matrix_mdev->apm_add,
  			   matrix_mdev->matrix.apm, apm_add, AP_DEVICES);
-@@ -2758,6 +2774,10 @@ void vfio_ap_on_cfg_changed(struct ap_config_info *cur_cfg_info,
+@@ -2562,6 +2578,10 @@ void vfio_ap_on_cfg_changed(struct ap_config_info *cur_cfg_info,
  	if (!cur_cfg_info || !prev_cfg_info)
  		return;
  
