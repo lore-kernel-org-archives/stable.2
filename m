@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D0E4AE8B9;
-	Fri, 11 Sep 2026 18:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA904A9D7C;
+	Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150578; cv=none; b=UIZbMqzSutT2aLT4YPJ2kJPTTg+7QrJtBIvTJmCZr0BLBOhbpn+oruM12sE2SKVgSwN/uViySHzrSIsN/dIIeJIRLKefYp2+SAhpTR5s8z9ddCpt5d9tcsqcI9t9xCh5G04JQx0cXbd4SAk3Eq3smeJcAfuR9eUvfzOQx/yKoOY=
+	t=1789150578; cv=none; b=gACfYXwL4ZRP/yoxvXAoGll4b/KCry2O+4P6gba8giPjhNEmLzAqH/qmHEFDTjMKYOGbR0dUftGIlztW611GkVDN/UqamZeW1AZcOZ9TyGsMNFrdmm7rs0q/Ugb6ynWQTfiFPBj6rnP7773jiGkZE4dvhSlfqlM4uXl/ONa+9fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789150578; c=relaxed/simple;
-	bh=GRy30mPrKsmZqYHkolwR0BH5LGcF8NucrorcdLX3O0U=;
+	bh=vIFLuivCeQ5Xw5/AowTYuazWOvl3GwU4HZGEW5vQMmw=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=QSe5MI1QysgnQQn4n0O7VI6NcuOYiq/avrnzv4SbR6mtU3jt27PAJnMTX+aZFyOlgeuPnGyo4FeKmyjbbK0bB9SKJIHnxVMsOHIfeNpC6KfUW1D5CEEsj2JH+hHxo9uFyuY85QVEANNQvuj7R1duCbSJuI0gmyncAE/LaLuj6e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXSREkg0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=CMb238kXpGeOQdUcZdlQoNPUr4hihr5HTyS1MuFovzt1qzlIUMQE6NQSZ177Pkc4kKmsyWTgjzJiXWkE7gJdkfOT/ng1NOgpji9pZAZ+Z9BbuR22yJe7sBlJ/ZrIHZrFEdqXkXF5VN4hLV4RZUk7hfMbbPbrda0KnZ5Uo+Pfk6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlAz6xK1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXSREkg0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AAD1F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlAz6xK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53C71F0089D;
 	Fri, 11 Sep 2026 18:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789150567;
-	bh=7CZ9L8vKur9/k1BJWSUjY4fdFdddK3Rscatnfc5pQ8I=;
+	bh=lTmwD2rLpAi7kXIGGvh7B7Act95huXSlJg38wH9ougM=;
 	h=Date:From:To:Cc:Subject:References;
-	b=OXSREkg0AZI0Kl/nnS6/ciSvNz6KMtLxndFov6cJHpsnIGDjDzWOUGvDWd7NxpJbl
-	 /50o5ydviGLeeoARrXaZYoAoH/tbwLyUpB+1rulpFsBtE80sr+PCMxt1MdiGWTQI4B
-	 oTMXQAbZDRwXbAmfMWTrf7Rk7VyYCfisbc50svz4XyZ2xpAtfE20HWMwuwn/OoECSs
-	 TgBaA1CYU7syIUUc2HWlTFoVfYTVajWN/GgzkSda6xCvnbJUpw0o3FtREnOd6q5o3r
-	 enii5JB6EOVBTPX45Ph5qA8zCxz6x4AKjC4/HYQw2KauWN7qOrmlSkHLmsUyL7kcDl
-	 s2n1ZhHD4zNHg==
+	b=MlAz6xK16bI9tf/mfS2d2yF9XYw4pqeLAQgY+AWxzfudptxWZv0VRNo9pskQ7iylu
+	 VPjsmAnHmcA0L+XxEeiV76aCP3lQ8ivJG1vTF51DcpiCkpvxA605WLHqQ/L1dBMzR9
+	 6wjEHlT4krDDxe9kAl7loGPKIZRv072gGFo4td1Y8VlkuQjhm1fTUSRX6CvVxO+GvM
+	 Rhsp050x4RwoSS8drPkf6bzjilUgTQu6cuFqlPYURLrQ7jFiYoDNGV+72UjCTBTwZU
+	 F3Rb8f8MVrHC1MrUialvq8T2KGzbMX9H4tMGGftI+OTu6fvqAInKmz1KkIQ3Ml56Y6
+	 f5kLwrkkf4GFA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oX-000000094xE-1gnj;
+	id 1x55oX-000000094xo-2XBO;
 	Fri, 11 Sep 2026 14:17:29 -0400
-Message-ID: <20260911181729.202464280@kernel.org>
+Message-ID: <20260911181729.421437849@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:41 -0400
+Date: Fri, 11 Sep 2026 14:16:42 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,8 +41,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 05/20] tracing: Free histogram var refs regardless of how often they are
- referenced
+Subject: [for-linus][PATCH 06/20] tracing: Free histogram the var ref when its initialization fails
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,93 +53,46 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Using the same variable three or more times in one hist trigger leaks the
-variable reference and its strings when the trigger is removed.
+create_var_ref() allocates a VAR_REF hist_field and then calls
+init_var_ref() to fill it in. When that fails the field is leaked.
 
 commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
-var_refs") made a trigger's var_refs[] array the only owner of a var ref:
-destroy_hist_field() returns early for HIST_FIELD_FL_VAR_REF, so the field
-expressions never destroy one. One entry, freed once, no count needed.
+var_refs") made destroy_hist_field() return early for
+HIST_FIELD_FL_VAR_REF, since var refs are freed by walking the trigger's
+var_refs[] array instead. create_var_ref() adds the field to that array
+only after init_var_ref() has succeeded, so on this path the field is in
+neither place and nothing frees it. The call was correct when it was
+written, before var refs were taken out of destroy_hist_field().
 
-commit 8bcebc77e85f ("tracing: Fix histogram code when expression has same
-var as value") then made repeated references share one object and added a
-count of them. Only the increment side exists, since those expressions
-still return early and never drop a reference, so __destroy_hist_field()
-sees how many references were created rather than how many are left. It
-frees when the decremented count is 0 or 1, so two references work and
-three or more leak.
+init_var_ref() cannot free it either. The caller owns the field, so
+init_var_ref() undoes only its own string allocations and leaves the
+field alone. Freeing it there would leave create_var_ref() passing freed
+memory to destroy_hist_field(), which reads its flags.
 
-Sharing kept one array entry per object, and create_var_ref() searches and
-appends within a single trigger, so nothing outside it holds the object.
-Removing a trigger whose variables are still referenced is already refused
-by check_var_refs() with -EBUSY. Drop the count and free unconditionally.
+Call __destroy_hist_field(), which frees the field without consulting
+the flag.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com
-Fixes: 8bcebc77e85f ("tracing: Fix histogram code when expression has same var as value")
+Link: https://patch.msgid.link/20260906133352.3815019-1-donggeunyoo.kernel@gmail.com
+Fixes: 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy var_refs")
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 963e0d6b61fd..f90680b33a37 100644
+index f90680b33a37..bbdd56208eff 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -169,7 +169,6 @@ struct hist_field {
- 	struct hist_field		*operands[HIST_FIELD_OPERANDS_MAX];
- 	struct hist_trigger_data	*hist_data;
- 	enum hist_field_fn		fn_num;
--	unsigned int			ref;
- 	unsigned int			size;
- 	unsigned int			offset;
- 	unsigned int                    is_signed;
-@@ -1913,16 +1912,8 @@ static int contains_operator(char *str, char **sep)
- 	return field_op;
- }
+@@ -2221,7 +2221,7 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	ref_field = create_hist_field(var_field->hist_data, NULL, flags, NULL);
+ 	if (ref_field) {
+ 		if (init_var_ref(ref_field, var_field, system, event_name)) {
+-			destroy_hist_field(ref_field, 0);
++			__destroy_hist_field(ref_field);
+ 			return NULL;
+ 		}
  
--static void get_hist_field(struct hist_field *hist_field)
--{
--	hist_field->ref++;
--}
--
- static void __destroy_hist_field(struct hist_field *hist_field)
- {
--	if (--hist_field->ref > 1)
--		return;
--
- 	kfree(hist_field->var.name);
- 	kfree(hist_field->name);
- 
-@@ -1969,8 +1960,6 @@ static struct hist_field *create_hist_field(struct hist_trigger_data *hist_data,
- 	if (!hist_field)
- 		return NULL;
- 
--	hist_field->ref = 1;
--
- 	hist_field->hist_data = hist_data;
- 
- 	if (flags & HIST_FIELD_FL_EXPR || flags & HIST_FIELD_FL_ALIAS)
-@@ -2223,10 +2212,8 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
- 	for (i = 0; i < hist_data->n_var_refs; i++) {
- 		ref_field = hist_data->var_refs[i];
- 		if (ref_field->var.idx == var_field->var.idx &&
--		    ref_field->var.hist_data == var_field->hist_data) {
--			get_hist_field(ref_field);
-+		    ref_field->var.hist_data == var_field->hist_data)
- 			return ref_field;
--		}
- 	}
- 	/* Sanity check to avoid out-of-bound write on 'hist_data->var_refs' */
- 	if (hist_data->n_var_refs >= TRACING_MAP_VARS_MAX)
-@@ -3276,7 +3263,6 @@ static struct hist_field *create_var(struct hist_trigger_data *hist_data,
- 		goto out;
- 	}
- 
--	var->ref = 1;
- 	var->flags = HIST_FIELD_FL_VAR;
- 	var->var.idx = idx;
- 	var->var.hist_data = var->hist_data = hist_data;
 -- 
 2.53.0
