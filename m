@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2468E288B2
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B3E329E79
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:35:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789090169; cv=none; b=mFzM5c7sw853ZDSF8qZAW2TQb1u6uIax9Gw/ExYfevw7SdN6LfM+OnkQFv8oDMH5rhDItcUKydGuVq8TPMbShe1GAWd5ArjvgtP9MW66Ba1EcKqi+pM+jNOPFxlxxyUycNXFk5WHNsFGC3nAVLsEidSop3marCBBtMWvCcNagTs=
+	t=1789090510; cv=none; b=roLBDnb1EZfZsJ+uNBMV4yxk4sSkFq1mjqtMLI77sR3iQ6qRCJ7gUAEn8qTozZ0ybhnOgMApbh9tNAlPOKwUEtPUv7B5Wt2kJvfRIG54kZvY9nXn5JTEP9xKWiB6kDCnPDPKstWoMIHR3McyHg2cAkXgAQeqIx0GJWuTF5b77Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789090169; c=relaxed/simple;
+	s=arc-20240116; t=1789090510; c=relaxed/simple;
 	bh=lPSo8tqjqRoni2Fw2YY3PNNB2VMLsC6m3495JyIh7aI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WV66zNZOCQt5qd3iONGG0OBtKGmR1HdxHDrjbr32zJV4uHUSrpitcYb6o77lhC3OU4MAG++S4b5TRemclspUVvNbw055KhtUepkAx07XA9DYQQq2J9MpDRXJighLdZtBKn4MVfEWUgP7mcpcg+kEMm6LJvIQL2s4m9ZSjEmFNpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnxqqsMV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=onJMkTqw343xyLTUrKxpyRJN0/sP/JVOkxSZRZ9CHZydf6QYTdPJWjFyma/ZBBunjQ0C9n9V9+PX0nPhQNv6bkY6opPeswPsilvKNIsHTtTsYwxfgxy/L2Epj8zoSv+vQmdTWYyEzUoMpfbABMIq9Sy0uq9gbj2sgijvZCAzYlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+o0UiH3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnxqqsMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6421F000FF;
-	Fri, 11 Sep 2026 01:29:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+o0UiH3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E78D1F000FF;
+	Fri, 11 Sep 2026 01:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789090167;
+	s=k20260515; t=1789090507;
 	bh=dVrESku6WrxnpsabIHm0v909CUO+2e82fSoO3kP0mlQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DnxqqsMV8cmC3uHSq49DWkFS0T1TBzx+Hx0on/phBijFvzFClxpabyFQazptQIGOO
-	 7lCHVaAbkqZqSnMUQ+M4rJskpmwNCQtomEQm3p4wKcwqLGKHMLzZHCfcpYBmZXkm/l
-	 +UpPTHTZOG9IZS/de+QdoqeTdGcezRS+4YEVCvC5x86x0so7FMGTZHPJk2wvj4h2ra
-	 YGEcDxiQecf4amzMW2bgltCfTK3peh62iuUr/03HD0Uc1/RLu+uvqVVZdRAttUw6Yc
-	 CfdapA6je9tIQe+QyAWZXE0aKpBcH1rEFg5OByMjvVYxdDenRjnv9j7smHX0Jzf68U
-	 lB79lradpVjXA==
+	b=L+o0UiH38TTlp8QQ1BvBs9xMW9pMmylzluCrdMa7GNOq5UBtJHF5XUtAoySui3X9D
+	 fr+mUxN8omMUq6lowGzmbOm7PQ7Ui6shqWqahs0wJj124KWthBdtpNL5EaymvjEP0W
+	 c/wP2uiKVshn1UExvZU47iGyczwKbE6sXYqO07nMQLvxoMtrw7vPDDIpNzcBx/+3DH
+	 6Z6LHpJ5qw76d+MSyTHQjS/8qIRlcshdv9ftXDmHn32jHua+JvDdjekdXBhG1pUF5Z
+	 in9+kebTkkOdK4SxoQECWY4dgHHOrz6CpUMNIq1brdYDgA8ooFrvXuhKBLNLqQYjnU
+	 pXo07gfPb2kKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Imran Shaik <imran.shaik@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
-Date: Thu, 10 Sep 2026 21:29:25 -0400
-Message-ID: <20260911012925.4096962-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
+Date: Thu, 10 Sep 2026 21:35:05 -0400
+Message-ID: <20260911013505.4124326-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090945-hazard-parachute-9428@gregkh>
-References: <2026090945-hazard-parachute-9428@gregkh>
+In-Reply-To: <2026090946-matchbook-corner-21e7@gregkh>
+References: <2026090946-matchbook-corner-21e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
