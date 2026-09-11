@@ -1,160 +1,120 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905A835E1BD
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7797936B92C
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138338; cv=none; b=CjVN9LlM8qvOFWWdg/oJxvsviXwSt3fQP+BzKisnrm936RPCD/KxNoWE1ykXwt5bY+GvylddVCny0Fs5AO4KKnhVusoKfz10QstOUvrYi7biTS1s+AlKZaVt/ljehn0vx8LA9T35ZtEpSiGoaxaXReEWrxwGPCFenyASAt3lTvQ=
+	t=1789138749; cv=none; b=EEG0DoTnp/wdPvElWw2nXKSfQG9hZnRh2T2xW3lyODJ/ATnC+cb8r21C/wswtYIVwNU6zLYuDakCE17c8ZNIXVl0njNSnv9RobdmxvAyToC9U2y/1vNRG6YcSXKyUBWdcUvZVMcsK225LmI4mIiOAV5n7eDM60S6bYa4rA9LPEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138338; c=relaxed/simple;
-	bh=xB7Gjx7oi7AEzV/VUG5hfLvIwZPLCZ4R2dv/uIR6uUc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FV1Rg1x+2VDPgzFgw6XZUzvZXqJQXOS3NmBmuCVibiYTAi59obcg3Osnd2MEfOCkzeQ9EAbvNYUDBpn4Eq+lWCFkHCoV5c2XeQ6WrYxkCpDCR0oRbeRn1ZDw56a7CT50XxLpkHHhb56WtC2rJQfzHb5LvID6OIEFXyG9gJ3mFEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=eXASwIuK; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789138749; c=relaxed/simple;
+	bh=vshJV32wKvCzx+JzhlpC8ZF+0QSlDOPjwJ5dQVyWwbQ=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=eLSYVOYgXcViLFFlc7z9NM6l93e6ZMpz0snZ31jxOa83kiv9MEVNtfEgnCNZ9ZKsqntK57Zfl2OlDvhacomjUfyfIAdM0rj+TwCkvk+k9tiF1+b/jMcp78drQicBjdzee7QD8kluzRuqir4kI1sDo8yghs7N/pBDE4EOdJJwQlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=blDVsYri; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="eXASwIuK"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-939f5e4e919so49648385a.3
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:52:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="blDVsYri"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1861744a91.0
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789138335; x=1789743135; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZhZv1vGSR2vVlo/Lr0l698roU8RNHR6wgwQoRxUqXLI=;
-        b=eXASwIuKdpFQKSvFguXK8WanZ3+6GoXcjlg83VLEwY29poF4nlfT09fOLMzRHE3HQ0
-         GtiFg4Io6L9YFeEskUOsw2mHxhDeCM9vc70HX4v1cNM1qfg/PDVNbJPIqEY5FAACImmY
-         HQLmiHr4EbQhijUCJoeB9xGnASYMFjRpmwHFK1kgIZwIgBzWbPh/AE/3pcFCrqYy6aQ0
-         CUKBFW5ybEBe1VFLfrOWHkf+RB0RkRdS4F52LZWHwrupa3q7RcUGN9nKU/OfQfAbXwAR
-         BzUl7Zt4tHKLqgBRls4RkaQkD2yANz/4qnyrTdYg2iUuT78a+S3yJzImFDu1GX73xRCn
-         lLCA==
+        d=kernelci.org; s=google; t=1789138745; x=1789743545; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CMooXcW+X+VxYx8KkULIIBophb0OKQDX7Sgp83LSpmg=;
+        b=blDVsYriPSEnd1vHdp64bm5Ma6ScPXrOYqx1qUJPJg/huYcRn5cbWYSYId1Q0y3rh8
+         XX0aaQVncL5ZMGrHTZof1rUBnuYEtvvgnhXLF8IbMIk68T0Wn0L8dUIbO4t56XkQ9nUT
+         TVHF9HiSolUHGX5gWMHhCaZGCwWhxqnxCN2WEzSpQDjLDQqPV8st1rUifQa1aNcuGOx8
+         uIGs0wQQDPQLCvAwSYYpmmIKyghY58I7CxFXaLYMx+8RAAfEw5k77lpqMKH1/3udgx5c
+         OLHXa3iomkMLr6H6lpbipO1GboIRxh0jUj3zDp6rb7o3balXJSlKT5ftwVjaopuEreQH
+         wx1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789138335; x=1789743135;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZhZv1vGSR2vVlo/Lr0l698roU8RNHR6wgwQoRxUqXLI=;
-        b=PJzVj2YlJq2IYcAA+Jxc/U190QtVy2awXHiCN+fqoubxZU47KNKCCQwMygQ5WnDcQt
-         pgsBxbnFr1WQ4Z72vd8buTDNButhgj+BBlDytlhIo/q+WEOwexQWi3nTNczKy79qQOZU
-         dkuEHrlieO9pMDbTnicBBlCljWV6B2wVjGaAayT4aQvpQIjHsachT1m9tAi5FrB7ezZ1
-         TaTPwUc01oNziwGCthC7YK2QAz3tn9A/PphGLFpDiG+utm0Vmh9HRW/6CybgOobmnsCw
-         yw2laRmuakLttKHSLCnHlxdLylVjH1fo2Nbf1vQLWBQ2RgOi9zocmJ9xgcBdzpCjgcSx
-         dNFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQFnLLnJRzKpsND9HbkAjWDuyRh3zywO+bOV6epbf5CeDUNyURzGUO18cP8c/ZWTEwY1iIAnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nth7D7oS89cmlyJiEvM7nM1KadoyfKquUUZJzPmjYf+BRSZjYD
-	rQPPzmXXwjbWVRP9ztXwJCi8W9PeCx4c4+15GhrHJJmQogDMDVRbIIiBRfl3/OA15A==
-X-Gm-Gg: AYBFou0QyLKtEcFxvXpweh3oW/+x3TJEG8KM6DruiMAz1DUq3P5txdMUpD8IdQyrsXx
-	DPn5J7jJQaliXz/phwbi2/rlu/7iz6MgK44DruSBOU12kW+e/vqqz/6M7WXK23ZfmfD6RtVUZQo
-	ef2jMtn5Nu76ZP8E9tEn6wj46/yFoC/jw6pLngeIhj7QeoS+D0ij7dRrBMxEXlF2jIacxcNtXXo
-	K53sn7b0RhBb3+WufZKLaLqhXF6heNMIzLx2qbAKR3eX8+GvqMxb1rGdSt2+E8HLLoQBPH7u1zc
-	USiiPLYWQzzPtyecPxJtSqgT4f4vw9EMfLD25Xhdvz+ddUc+8qT3UzeGymjdz9ywAPwaUoB5F/D
-	k/KIQwN8GC/arUwb/2pLLbtCCoe/aPKRwif8/7037dXvDax1d+Q79cnFE41bErsNl9SgokkFFAX
-	r3LErUtoYSNvAOdxIGmQOKcoPfxrmv8FP1G8JPp2Ruug+4QhX8g3hjlMfrg+Kb01lqZ90eWkai
-X-Received: by 2002:a05:620a:17a2:b0:92e:8310:7369 with SMTP id af79cd13be357-939ea030e13mr590476385a.37.1789138335253;
-        Fri, 11 Sep 2026 07:52:15 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm171386185a.43.2026.09.11.07.52.13
+        d=1e100.net; s=20251104; t=1789138745; x=1789743545;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CMooXcW+X+VxYx8KkULIIBophb0OKQDX7Sgp83LSpmg=;
+        b=rnRmawUbSyVk6xwJsiqIhSAZgPTVe+bJEQRKKGhqdVfCmCw3J84D9HXNu377Ksdu9M
+         Qfr9LfRB+Xh7q1xJqDZtxUczHooi+klCAtdxTjH5DHfbjfMO5k4hsacLUfwsN9/jLQCe
+         P9c0F8xqe1d3DS9l0jiUeZHp6ISLK0JzOirsoUlrkt4i4wUOdxk0SlNQcHWJxhC7ys4V
+         kIHDx/UtA82UVM0e1JSSMUcStju9d+bQgUpjcCWLucufdopfUwUEXpSu2QTRfu/pXzZE
+         Ty4JZfb3crK6JlmT1iF7fVIHx5W6jejelXVZkR/caEekghSN6fzJQlHrZcrxHUiS3sur
+         24kA==
+X-Gm-Message-State: AFuF++nfpeU9p7MYzf3WcquD37+G0eCkkR2PfBrwEQbpapj2oY1bgQSv
+	ea3nzjeMRITcx0s7aX/EQkNeFgOz5VoR4LrTj77fBuIi6SzjFL7NdLCP7KeXI35uQh3W5tYjuUc
+	UawGw
+X-Gm-Gg: AYBFou1pvjzNP7Z8SMINRXCB3kcZrERa1BMrQntC45qCJh0gsR0NR4ADkid+PS8LwJ4
+	dE8LotiAnCmlPvDIhEDB11r0ZUL5mp8LSdLqStoPvsy/t84pGl31AUsmMJBCIjDh35UjDiJ84EI
+	tJ5j5Sx9Asyzyv2cOfNyKGyHYMP4HFBYDmfyuNDWcG8F0or8Lukm7WoPIIyH4Ze+ZTKp5yw7Du3
+	jqZDRfwNus5DPcbXN44zp4OOl9Fjl5bUT7+6PK8JV27dCLeo3usoX3VKLkFuvE4WHYbfUvt7ybO
+	65k9/QjXNba0bBEhnkqIOCA2JPg/90qMdP28rdOsJ4YTqqBZ9q5CzdA/b+vXH1MmKDO9Nf9676l
+	43mGPGuPHPB1R0uNoL1R/IFNYNOu7L1Aj6WoQwnCdCZaD9Y2+hPmiY3fsdVR1bPaUDs6qhYqN4J
+	RORaQjy97Ydq6Pqri52+E3LiyySqXbCbDPFD3lJKa0iPORbhiPLNHrG0nPT1fWsZwwF/5sZmccn
+	Q==
+X-Received: by 2002:a17:90b:1ccc:b0:396:d28e:b53 with SMTP id 98e67ed59e1d1-39d77b1d009mr13588262a91.20.1789138744974;
+        Fri, 11 Sep 2026 07:59:04 -0700 (PDT)
+Received: from 41049dfc76e5 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f82c69sm7760451eec.27.2026.09.11.07.59.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:52:14 -0700 (PDT)
-Date: Fri, 11 Sep 2026 10:52:10 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <e8e2bd62-13dc-4a53-af0d-051c83b08f4f@rowland.harvard.edu>
-References: <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
- <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
- <aqKu8nJqPsmKOo1d@localhost.localdomain>
- <20260910132843.GS776954@noisy.programming.kicks-ass.net>
- <aqPQrGWqKfX_5MMj@localhost.localdomain>
- <20260911102203.GF1837346@noisy.programming.kicks-ass.net>
+        Fri, 11 Sep 2026 07:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911102203.GF1837346@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)use of undeclared
+ identifier
+ 'knav_qdev' in drivers/soc/ti/knav_qms...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Fri, 11 Sep 2026 14:59:04 -0000
+Message-ID: <178913874409.4387.14615772113741156329@kernelci.org>
 
-On Fri, Sep 11, 2026 at 12:22:03PM +0200, Peter Zijlstra wrote:
-> On Fri, Sep 11, 2026 at 11:58:04AM +0200, Frederic Weisbecker wrote:
-> > Le Thu, Sep 10, 2026 at 03:28:43PM +0200, Peter Zijlstra a écrit :
-> 
-> > > The way data dependencies work in this case is a LOAD->LOAD ordering.
-> > > The LOAD-ACQUIRE that is part of LOCK must happen after the initial
-> > > load. And then the later load is constrained by the ACQUIRE.
-> > > 
-> > > So LOAD(B) must resolve in order to do LOAD_ACQUIRE(B->lock.value).
-> > 
-> > Ok I must confess that's not a pattern I'm used to and therefore it's
-> > still a bit counter-intuitive to me. I hope we can document that somehow
-> > somewhere.
-> 
-> One way of looking at it is the computation for the address of
-> &B->lock.value.
-> 
-> A	void *r = LOAD(B);			 // B
-> B	r += offsetof(typeof(*B), lock);	 // &B->lock
-> 	spin_lock(r)
-> C	  r += offsetof(typeof(B->lock), value); // &B->lock.value
-> 	  for (;;)
-> D	    v = LOAD_ACQUIRE(r);
-> 	    if (!v && !cmpxchg_relaxed(r, 0, 1))
-> 	      break;
-> 	    cpu_relax();
-> 
-> Note how the LOAD_ACQUIRE() at D depends on the computation of C, and B,
-> which in turn depend on the load of A.
-> 
-> If A does not complete, B,C cannot compute the address for the load of
-> D. Therefore A must come before D.
+New build issue found on stable-rc/linux-6.18.y:
 
-There's one subtle point worth making here, although it doesn't affect 
-the final result.
+---
+use of undeclared identifier 'knav_qdev' in drivers/soc/ti/knav_qmss_queue.o (drivers/soc/ti/knav_qmss_queue.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-We have to be a little careful when talking about when a load happens, 
-because executing a load actually involves two separate things:
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/soc/ti/knav_qmss_queue.c:1871:2: error: use of undeclared identifier 'knav_qdev'
+ 1871 |         knav_qdev->debugfs_file =
+      |         ^~~~~~~~~
+1 error generated.
 
-	Obtaining a value from memory or cache, and
+=====================================================
 
-	Completing (retiring) the load instruction.
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
-These two things don't have to happen at the same time, and in the case 
-of speculative loads they can happen at very different times.  So 
-whenever you talk about when a load occurs, or whether it occurs before 
-or after some other operation, you have to be careful about which part 
-of the load you're referring to.
+Reported-by: kernelci.org bot <bot@kernelci.org>
 
-In theory, a CPU could try to obtain a value from memory speculatively 
-before it knew for certain what address to load from.  This would defeat 
-an address dependency leading to that load.  As mentioned in 
-explanation.txt, none of the archictectures supported by Linux do this, 
-and the LKMM does not allow it.
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
 
-However, if it did happen in the example above, the CPU could read the 
-value of *r at D before A had finished (say, by remembering what address 
-it had used the last time it executed D's load and trying to read 
-speculatively from that old address).  But even if this did happen, the 
-cmpxchg_relaxed() in the line following D would not be able to execute 
-successfully until the CPU knew for certain what the value of *r was, 
-that is, until A had completed.
+- dashboard: https://d.kernelci.org/i/maestro:7951fd23b58ecb73a38a4b9e4b24c594695c25a9
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  ee209bfcc3ce037908356ac4632c57a7e422a024
 
-Alan Stern
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aa40d7e20239ade9022b3fb
+
+#kernelci issue maestro:7951fd23b58ecb73a38a4b9e4b24c594695c25a9
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
