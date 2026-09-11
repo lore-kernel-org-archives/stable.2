@@ -1,137 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33C13FD957
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 19:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A107429CE6;
+	Fri, 11 Sep 2026 19:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154378; cv=none; b=NfvV2IgpIoOF4Q+ifek1bRHgVFv6SJCKl8mMHNiV8ksyGLzKJahN41HXS6MEt2bZ7UJOh6VMXGnZwornLM3ZMk7JxdgsT7pR8/U4Ql6E8MwLhgFzYGd1Rd0RsyciwWrj9gJP3fYpGjaSItdrqHTuhyfoUkFe49uCznHjrjg/seA=
+	t=1789154910; cv=none; b=LTITpFV/9ncfKkT6kBTnhoVw7qaEjQrJsfev9w1uKds2Aia/nmpXMy5XG3Jb4nc0clkrdTfzO9yqP3EJ70E3baxU2SBTbywJoyZIbbIp0r8R+137QYVlg51QjUs+4WvFRA/elSNIunzTZHyvFpYP2y4pKsMyzJos95YqJBuCnDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154378; c=relaxed/simple;
-	bh=hIxXwcVi4FEtsTy2UvBK7p047XXrK83u46nTz/Rg9ZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ChPl2Hdp83Llkp/PKL6Lk3hEF3DX+A/QLME5ZMPoS7+UHlnimQTPQ6gCDKo5/0fcTXz2x/LBWf1CrYcyaxTbPpRRYLmbc/kytVijh8PifcZsoPyyqpizq0L6A9Mc+Sh8A+dWS1VLAhbz2Wt9Jf2OpVRjlBhXHL+nGM+QjpM+JkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ht3SBZml; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789154910; c=relaxed/simple;
+	bh=5MIUT6Vhyy7KPRoS2r1tNcg/7CK6RivVtNvUuQ77BPw=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=fCPpsjaZx/yvqbV3fzlSf8BG5h9eiXzwq2pH7zV6B446nWCa6uZih4QH57FPnySocBWTjy5oNR5FECEWUVUJbV7dCA3KZ3T06FFJYMHDA1y3q+TtxbDo4RsBj+ICb7xKECTD1Sv9RVN1kMLvRBxsN3N+9lOFGx1m1q4eAgt1Xh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=MHP9R2gV; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ht3SBZml"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C539D1F00898;
-	Fri, 11 Sep 2026 19:19:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789154368;
-	bh=s8ngNJfWl8Wp3K8S+hIvaDwh9bbCW/33icyZuqHm2lA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ht3SBZmlzjepliWvALmUIRKnppR/CxC2mNVpBa4lAMqoKOmo9Y22IC4njqnsHxYpG
-	 IUv9YQOzwupeCegtEXsba7GSES0L6QbPHT05N+sUwiSSt8mELkfCzSjluS6kfV7jYF
-	 EHA/AgnJjX1Ie06u8DwqooeLqBzcQagV6/PhUiqQ5sIRgFezBHNwG8qMeUG6ISIQRl
-	 +mtSkjXVG3zvWyI6y6c/Bx4B0P24HdcJhgFTG7YDsmu39/dElpwmnVZBfogg6bQ+MH
-	 u5g4bq+snjcfSofBqTxi5QGCNsMXlRZWGW+vhe69xABE17fUJMXy9WiNbL7N82XmJ1
-	 Vhr6re/JFPoXQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: qla2xxx: Fix soft lockup polling continuation IOCB signature
-Date: Fri, 11 Sep 2026 15:19:26 -0400
-Message-ID: <20260911191926.1378548-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-skillet-scroll-dca0@gregkh>
-References: <2026090957-skillet-scroll-dca0@gregkh>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="MHP9R2gV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=5MIUT6Vhyy7KPRoS2r1tNcg/7CK6RivVtNvUuQ77BPw=; b=MHP9R2gV6+jCk2RtAQ5avTaZMC
+	eivbifxVFQcbrDHGWk28j5PXn4QK0py5qFniKcpe15fvTxt6dG6hJZt9yJdAvoUYl0PFYknhGYFD3
+	zKfoyMnfE2HpXnFhy+nRFcvNwNWFyelK/b54+ky+9CNgIwwUqhN5UgKZsxofYRrw+5pMBHTjbCOeU
+	k8fz4OhkwzaK/vLyggEAmyHd7CQNtOq5yMUHIr8/mwINm4gWcERkulzhoAR0pXX3+sgaQDSltoXsV
+	d8chZcEWoTxaZ48FUjDAG6sxw9jj5zToCR7TxhNJYNvyXTngcJUahm+w5YznPVoaOYwxuLV3p/eTC
+	S7XXMfRg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x56v6-00000001EkJ-0wWV;
+	Fri, 11 Sep 2026 16:28:20 -0300
+Message-ID: <744056887c4419bda8e49bf64f112e95@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: April Cardenas <april.cardenas@canonical.com>, linux-cifs@vger.kernel.org
+Cc: linkinjeon@kernel.org, ronniesahlberg@gmail.com, sprasad@microsoft.com,
+ tom@talpey.com, bharathsm@microsoft.com, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, April Cardenas
+ <april.cardenas@canonical.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
+ for multiuser mounts
+In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
+References: <20260910051649.3806214-1-april.cardenas@canonical.com>
+Date: Fri, 11 Sep 2026 16:28:19 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Nilesh Javali <njavali@marvell.com>
+April Cardenas <april.cardenas@canonical.com> writes:
 
-[ Upstream commit d7e3fa7d06bf7fcaac186d3c4d635caac166d36c ]
+> Currently, when cifs_oplock_break handles a break request from the server
+> it searches for the appropriate tlink to handle the request
+> but incorrectly uses the current fsuid as the search key, eventually
+> causing read errors for users with multiuser mounts on NetApp.
+> Fix this by using the tlink from the cfile struct instead to respond
+> through the correct session.
+> ...
 
-qla27xx_copy_multiple_pkt() and qla27xx_copy_fpin_pkt() poll
-rsp_q->ring_ptr->signature for RESPONSE_PROCESSED (0xDEADDEAD) to decide
-whether the next continuation IOCB has arrived, spinning on cpu_relax()
-without advancing the ring or decrementing the entry count while it has
-not. response_t::signature lives at byte offset 60, but a continuation
-IOCB (sts_cont_entry_t / struct sts_cont_entry_ext) carries raw FC frame
-payload at that offset (data[56..59]). A received frame whose payload
-bytes happen to equal 0xDEADDEAD is therefore misread as "not yet
-arrived", and the loop spins forever in interrupt/DPC context, causing a
-CPU soft lockup.
-
-The poll is also unnecessary: callers of qla27xx_copy_multiple_pkt()
-(PT_LS4_UNSOL and the NVMe purls path) already gate on
-qla_chk_cont_iocb_avail(), which guarantees all entry_count IOCBs are
-present before copying begins. The sibling helper
-__qla_copy_purex_to_buffer() already drops the signature poll and relies
-on the entry_type == STATUS_CONT_TYPE guard instead.
-
-Remove the signature busy-wait from both helpers, keeping the entry_type
-guard, and gate the FPIN path with qla_chk_cont_iocb_avail() so it defers
-and re-processes on the next interrupt once all continuation IOCBs have
-arrived, mirroring the ELS_AUTH_ELS and PT_LS4_UNSOL arms. With this the
-signature field is never read on a continuation IOCB, eliminating the
-payload-aliasing lockup.
-
-Fixes: 9f2475fe7406 ("scsi: qla2xxx: SAN congestion management implementation")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-15-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ replaced unavailable qla_rsp_ring_rewind_to() with direct ring_ptr and ring_index assignments ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/qla2xxx/qla_isr.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/scsi/qla2xxx/qla_isr.c b/drivers/scsi/qla2xxx/qla_isr.c
-index f11de5d1ecbf7..4afc64585ab2d 100644
---- a/drivers/scsi/qla2xxx/qla_isr.c
-+++ b/drivers/scsi/qla2xxx/qla_isr.c
-@@ -1042,14 +1042,6 @@ qla27xx_copy_fpin_pkt(struct scsi_qla_host *vha, void **pkt,
- 
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
- 
-@@ -3960,9 +3952,24 @@ void qla24xx_process_response_queue(struct scsi_qla_host *vha,
- 					       "SCM not active for this port\n");
- 					break;
- 				}
-+				if (qla_chk_cont_iocb_avail(vha, rsp,
-+				    (response_t *)pkt, rsp_in)) {
-+					/*
-+					 * ring_ptr and ring_index were
-+					 * pre-incremented above. Reset them
-+					 * back to current. Wait for next
-+					 * interrupt with all IOCBs to arrive
-+					 * and re-process.
-+					 */
-+					rsp->ring_ptr = (response_t *)pkt;
-+					rsp->ring_index = cur_ring_index;
-+
-+					ql_dbg(ql_dbg_init, vha, 0x5095,
-+					    "Defer processing FPIN...\n");
-+					return;
-+				}
- 				pure_item = qla27xx_copy_fpin_pkt(vha,
- 							  (void **)&pkt, &rsp);
--				__update_rsp_in(is_shadow_hba, rsp, rsp_in);
- 				if (!pure_item)
- 					break;
- 				qla24xx_queue_purex_item(vha, pure_item,
--- 
-2.53.0
-
+Applied.
