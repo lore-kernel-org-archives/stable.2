@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270043D3336
-	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:56:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9244339768F
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120575; cv=none; b=Td6ztkbqVwBpx8mAB7zpuKK3wD36IFAtpAC9gtss5bDzpzZ93zNEkp1gpg81DHHT8bW0bKw0MuhetjGyZv9BSnbKQurNiuYPn8vAWjJ14vCGRCmMLSn5OcONhH6sUgb+tS7PyP9JesuGFe3ZayXT7mCLJDvulpfGyizDD34tRaI=
+	t=1789120579; cv=none; b=tzwozHHkJY22ACSme1oIb0keEXkoYpbMMzYfWvp4ygOhnT5nk/CazkSw2clBfcaw4WYZykKp2n/WkgoEN3pzGURrcegsDj9ad+dyFnyr+XVomq/XEs7DxBesG+XTs5iQg/3mZfj1XWWSsJ+H36EQkTDuhkEpa3G9ZmCV3YsnViw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120575; c=relaxed/simple;
-	bh=2A1SlrgirhK+zFBGl24h2LaaUvubrdR4+Drw4CDyGzw=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=J1mI0LIt5DbI5VMNz1LS4fP2PomptCuqtKqPlZufTvpowHy1/Cxq4qmf7YEYIDjC80eH5JIMXU3dAZk52Qz6KwViGammeMFKGX5r9za2VOSKMoftyqaMUZYrVK9TC/ja7L1dZ8XCFhtAHYb7mv6lxVUNV8FbA4EfOrQRKcSpFng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eQjCf+kC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120579; c=relaxed/simple;
+	bh=2GA92MOAfuAWiubJ118iSwdTrW1g4RDCYoVVlUstxto=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=KUDG3mSpV7gVDVIlTG8NUYSxEnhDCHrVhJm4/eqgQJQ8u6/38GbLQXoFCXUOs1GcLPEvgJREREBpWVKGug/6sDZKBObfKSaiiPBtTSWEu0dAg2Jret00uRBtYzjALXZM2DxzTt8PzcsMzpXASu1S67BLUeP3o8k/lIeTlRkG/RY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DQ/2zlam; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eQjCf+kC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0990E1F000FF;
-	Fri, 11 Sep 2026 09:56:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DQ/2zlam"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE6C1F000FF;
+	Fri, 11 Sep 2026 09:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120572;
-	bh=oO36GO8vuQpFfJBT+C1v5j8WxH2ziNCBhDYFntdOsUc=;
+	s=korg; t=1789120576;
+	bh=i6tlw8/97hjzKbWkaJ19tsA9v+2wubrBSGF4g+IYwZo=;
 	h=Subject:To:From:Date;
-	b=eQjCf+kCNsPXDZdfbp8LU4+oKGPnJ7cHtIYUHqNMD38tVkeLFp7M9Z85t4PwCCPk4
-	 GvaUZbVKQDo/zr/0YeGB1GqAg7Ta1Zk/AEcyY/zJ5UwZ/NFjBxfG+fruQpdxYjnvHH
-	 uZ+ZPiPNA2HfexjdiJ4v7dU/uNGuCQ6WSOZOshgo=
-Subject: patch "iio: adc: rohm-bd79124: Fix rising alarm" added to char-misc-linus
-To: mazziesaccount@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
+	b=DQ/2zlamv25tVbDo92nrNA3QE+r7hgmuQyNngMIH+/cVqHgrrQzrGeQwXcLCb/4pb
+	 BHltYtAQEbzGU+/kvewesxsiILjxAtCT8wylQEQ7s5HHTC+QFNPyoPw7pRwpmbSTmc
+	 NBBHS4l6okShmD62WvMLjlR5EZHnK0RzuIITjVAY=
+Subject: patch "iio: adc: ade9000: fix overlapping scan_index for current and voltage" added to char-misc-linus
+To: antoniu.miclaus@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
 Date: Fri, 11 Sep 2026 11:55:32 +0200
-Message-ID: <2026091132-petted-rumbling-369a@gregkh>
+Message-ID: <2026091132-numeral-deport-4e77@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: rohm-bd79124: Fix rising alarm
+    iio: adc: ade9000: fix overlapping scan_index for current and voltage
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,37 +54,51 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From 0d3f6b5e639f0bca5c1466ec523a94ec4f9f4c24 Mon Sep 17 00:00:00 2001
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-Date: Mon, 10 Aug 2026 10:49:56 +0300
-Subject: iio: adc: rohm-bd79124: Fix rising alarm
+From d01f63f673e18f3a99ce8d6fbf1a5f58b70990f7 Mon Sep 17 00:00:00 2001
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Date: Fri, 7 Aug 2026 11:56:42 +0300
+Subject: iio: adc: ade9000: fix overlapping scan_index for current and voltage
+ channels
 
-The rising alarm is using the cached falling alarm value causing wrong
-value to be used.
+Current channels used scan_index "num" and voltage "num + 1", so with
+phases 0, 1 and 2 the indices overlapped and no longer matched the
+IA=0, VA=1, IB=2, VB=3, IC=4, VC=5 layout expected by
+ade9000_waveform_buffer_config(). Phase B and C buffers were configured
+incorrectly.
 
-Fix this by using the correct cached value for rising alarm.
+Use "num * 2" for current and "num * 2 + 1" for voltage to get the
+non-overlapping 0/1, 2/3, 4/5 layout.
 
-Fixes: 3f57a3b9ab74 ("iio: adc: Support ROHM BD79124 ADC")
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/rohm-bd79124.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/adc/ade9000.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/adc/rohm-bd79124.c b/drivers/iio/adc/rohm-bd79124.c
-index ed5427288961..eab5286763a7 100644
---- a/drivers/iio/adc/rohm-bd79124.c
-+++ b/drivers/iio/adc/rohm-bd79124.c
-@@ -524,7 +524,7 @@ static int bd79124_enable_event(struct bd79124_data *data,
- 		return ret;
- 
- 	if (dir == IIO_EV_DIR_RISING) {
--		limit = &data->alarm_f_limit[channel];
-+		limit = &data->alarm_r_limit[channel];
- 		reg = BD79124_GET_HIGH_LIMIT_REG(channel);
- 	} else {
- 		limit = &data->alarm_f_limit[channel];
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index 51cb43755a1f..167b1f4d6279 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -444,7 +444,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 			      BIT(IIO_CHAN_INFO_CALIBSCALE),		\
+ 	.event_spec = ade9000_current_events,				\
+ 	.num_event_specs = ARRAY_SIZE(ade9000_current_events),		\
+-	.scan_index = num,						\
++	.scan_index = num * 2,						\
+ 	.indexed = 1,							\
+ 	.scan_type = {							\
+ 		.sign = 's',						\
+@@ -464,7 +464,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 			      BIT(IIO_CHAN_INFO_FREQUENCY),		\
+ 	.event_spec = ade9000_voltage_events,				\
+ 	.num_event_specs = ARRAY_SIZE(ade9000_voltage_events),		\
+-	.scan_index = num + 1,	/* interleave with current channels */	\
++	.scan_index = num * 2 + 1, /* interleave with current channels */	\
+ 	.indexed = 1,							\
+ 	.scan_type = {							\
+ 		.sign = 's',						\
 -- 
 2.55.0
 
