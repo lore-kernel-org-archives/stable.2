@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E82353A70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFF353A87
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136545; cv=none; b=Ihc26sGIGegzRK+bLC4Kjqr86O+SKdQA6G2BBUxgX3B4pag4ijNO7L+u1uMwWQKwGo1Sld0tbttboTsyNBnqyN4VF5xC+oI36PZYc4HycS93F+ODF0sEQApyLN37o2zkXoddtNf7rramiOQTllI8UovUCne/6cwZAY1LNIWcSMc=
+	t=1789136545; cv=none; b=gn42MiNHZFt4++vf1tjAwAfD4uXAKFW6Psq6nxmT5WGyXi5sYxh/W7ZVYNL/8IxZrMiRcM+nOGhExxv+jsN/id0Vn1GdIyVFaZ8GNJrjzh/bKbiJZUsIVWxSOE6yEeuP/QHSyoGOwKRL4iIL3M7HUfr5b9pDwVcvTmozs9zQSTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789136545; c=relaxed/simple;
-	bh=ESTvOwDBNctqxMZ56ycvRSOKIR9nIQAQ3PBouQ6VRxM=;
+	bh=cJn4LO8ePH8ipEt+QESDuffyLxn6TC0nk9Rdt0c+jjs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n5ieki/wnX5pzw9UDqrmVkqO0yM7lEPBpAygBec+P+mNyWeu3P8AbnfM3B6ArDE10r2A8ej7LW779fJhuQoN9rg6WGre0DlyA5RAg/WCQejZqmRSWoBOT1/R+CVJVGGNIBRYglIOtXSsW1u+A6RcXUIlNM3H2EQTjkfjBMlANw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wasz1ziv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h9O0VjSr+kPS3iDiH+5u/tgJ0cTXHwziqeC5jBiTOCUv6Q5aXLzmkHzVClQDt/WujqfHQX3HIdEzqcDe3XrCBVPBGSOSCXs6i/7+j8oirncw4D7we/DVgYNGvpOmS/B6ekVu7Wc6nnfSoj5nWjYvVwfqvVseJv4T/Aw9Wq2somI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBNeRiL8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wasz1ziv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 912121F00893;
-	Fri, 11 Sep 2026 14:22:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBNeRiL8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3628A1F00898;
+	Fri, 11 Sep 2026 14:22:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789136543;
-	bh=ISo6noYq8A7RV6V8I6Bj4Afu+1lncjgCunQGdwE4FrI=;
+	bh=ASN2ZPY7SRQGJpOz68DeS3yJuMzMRCfpwK40Wt7Kv4k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wasz1zivUiWDsN/VzkfjZ4NZiGHdrw+JgnPnuca169McpJnfElsusFi3ulLD+KUpV
-	 k3cqyWkYfvSGvjAcR29TGkEp0djJ50UAqT2HSC0hDOJV3IcHhkmo2OCu2dxBEbR5k9
-	 YqDppCaYwJsgHSSW3D8WLUS/5oYWIbevF1Qify8ySj+nMIq3ZquyhJuu8IGgrE4Yer
-	 u8ZDcjKKlbE/3CDqlU/zNaLF1fwms165yqlMzkttYfrxJYK1VT2gMYJPwTukY4bm28
-	 tOHL+5X9ei27m+aBrHo3hxVpkEkkBVew5xXWttN3LpVJhYLm5iiMfa036r6KnxLT9s
-	 Rds1WpFu55rKg==
+	b=cBNeRiL8FiVb2aZT+8OsujttlozysxGKSwe4U3Mv+rMgNeIOAvyN6Hj/r4XH/m4xQ
+	 /10/LeZ54FrlIQ8NZalvKnTdxP5/Fb0jS10e9dw7I955HepcBJNETX3SMjg82QItXE
+	 P0RHDawQXRE3ICZe9sjSai1RLZ5XfUIBK+MObWjhQyn1oOoOk/GBTVq1F/DNzPcwDi
+	 J7ziYOIxWQ9Jjh7huFSY5UPqzVAoxH3q1JbeHYA42lUW5GY2wIZc/UZ62O9HTUm3/D
+	 CCOn2IrActdhEjXvuHirQSIPX+sb8E9HsHF0eNWd+EM47kvAAB9WX9lmwkqLW0J+FW
+	 TmKQSFjAVz05g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hungyu Lin <dennylin0707@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] media: qcom: iris: fix runtime PM reference leaks
-Date: Fri, 11 Sep 2026 10:22:20 -0400
-Message-ID: <20260911142220.889653-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: qla2xxx: Initialize NVMe abort_work once at submission
+Date: Fri, 11 Sep 2026 10:22:21 -0400
+Message-ID: <20260911142221.889690-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911142220.889653-1-sashal@kernel.org>
-References: <2026090908-modulator-ascent-3261@gregkh>
- <20260911142220.889653-1-sashal@kernel.org>
+In-Reply-To: <2026090908-bankbook-slinging-010d@gregkh>
+References: <2026090908-bankbook-slinging-010d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,58 +46,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hungyu Lin <dennylin0707@gmail.com>
+From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit f87d7eda07fca21efe4b96169ae59007db46e60e ]
+[ Upstream commit 7e85f6dbc85616de2172bce8eaf84b387a723cd1 ]
 
-Use pm_runtime_resume_and_get() in iris_enable_power_domains()
-to avoid leaking a runtime PM usage count on failure.
+qla_nvme_fcp_abort() and qla_nvme_ls_abort() ran INIT_WORK() on
+priv->abort_work immediately before schedule_work(). INIT_WORK()
+reinitializes the work_struct, resetting its list head and clearing the
+pending bit. If an abort is issued more than once for the same command
+(for example, concurrent transport teardown and a timeout-driven abort),
+the second INIT_WORK() reinitializes a work item that is already queued,
+which can corrupt the workqueue list and lead to crashes or a looping
+worker.
 
-Also ensure pm_runtime_put_sync() is always called in
-iris_disable_power_domains(), even when iris_opp_set_rate()
-fails, so runtime PM references remain balanced.
+Initialize priv->abort_work once at command submission, next to the
+existing per-command spin_lock_init(&priv->cmd_lock), and leave only
+schedule_work() in the abort paths. schedule_work() already does nothing
+when the work item is still pending, so a repeated abort no longer
+disturbs an in-flight work item. The command is not returned to the
+transport until the final kref_put()/release callback runs after
+abort_work has completed, so the work item is idle before priv is reused
+and the single submission-time INIT_WORK() is safe.
 
-Fixes: bb8a95aa038e ("media: iris: implement power management")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Fixes: e473b3074104 ("scsi: qla2xxx: Add FC-NVMe abort processing")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-52-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/iris/iris_resources.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/scsi/qla2xxx/qla_nvme.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-index 872bd09656b15..6d3339423eec0 100644
---- a/drivers/media/platform/qcom/iris/iris_resources.c
-+++ b/drivers/media/platform/qcom/iris/iris_resources.c
-@@ -78,20 +78,21 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
+index 9746f6debdcb4..f286254ec7750 100644
+--- a/drivers/scsi/qla2xxx/qla_nvme.c
++++ b/drivers/scsi/qla2xxx/qla_nvme.c
+@@ -304,7 +304,6 @@ static void qla_nvme_ls_abort(struct nvme_fc_local_port *lport,
+ 	}
+ 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
  
--	return pm_runtime_get_sync(pd_dev);
-+	return pm_runtime_resume_and_get(pd_dev);
+-	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
+ 	schedule_work(&priv->abort_work);
  }
  
- int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
- {
- 	int ret;
-+	int pm_ret;
+@@ -342,6 +341,7 @@ static int qla_nvme_ls_req(struct nvme_fc_local_port *lport,
+ 	priv->sp = sp;
+ 	kref_init(&sp->cmd_kref);
+ 	spin_lock_init(&priv->cmd_lock);
++	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
+ 	nvme = &sp->u.iocb_cmd;
+ 	priv->fd = fd;
+ 	nvme->u.nvme.desc = fd;
+@@ -386,7 +386,6 @@ static void qla_nvme_fcp_abort(struct nvme_fc_local_port *lport,
+ 	}
+ 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
  
- 	ret = iris_opp_set_rate(core->dev, 0);
--	if (ret)
--		return ret;
- 
--	pm_runtime_put_sync(pd_dev);
-+	pm_ret = pm_runtime_put_sync(pd_dev);
-+	if (!ret)
-+		ret = pm_ret;
- 
--	return 0;
-+	return ret;
+-	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
+ 	schedule_work(&priv->abort_work);
  }
  
- static struct clk *iris_get_clk_by_type(struct iris_core *core, enum platform_clk_type clk_type)
+@@ -646,6 +645,7 @@ static int qla_nvme_post_cmd(struct nvme_fc_local_port *lport,
+ 
+ 	kref_init(&sp->cmd_kref);
+ 	spin_lock_init(&priv->cmd_lock);
++	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
+ 	sp->priv = priv;
+ 	priv->sp = sp;
+ 	sp->type = SRB_NVME_CMD;
 -- 
 2.53.0
 
