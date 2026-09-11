@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0374AEBF9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEEE4AEBF5;
 	Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150580; cv=none; b=p+AB0cEL7H0hEcxUDYUaDiS1BSTCP4u3mswSBh5PJm1PGOiOGo6jtUEi/SNCl6qPqiLj7iNA9EIJQOG2GQ69UbClzaf3qq6+Kqs6TOvz9Yg+kUUQkW3WoGBjVOc6J12VT3taO+BADA4DgrI7Lb0JnGHCw/kceO+jXxF5okK92Gg=
+	t=1789150580; cv=none; b=fJBAfGlk1fw7AAuFvEWKMKY1yVEPldkuiQK6Dw0ScEdTdhD+1Pgtc+7mE9IImDoOrjCIZyFl/ShTz1REIIP4fcU/6POCSeQtIjVRnkPASBAGAujiW8ysz4Eu1VP68fs8Dxku16VfbFMdOLwfbrpWjXqsmzHgj61pA5mQ4ULDRig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789150580; c=relaxed/simple;
-	bh=ESv02GWyTuZyme+ZIbqMPOevUrjH5HoNJruHBg9X3pE=;
+	bh=QSD3eMCLrLuQgTXh7gAKcKxBIwLo7qPxGf2rRAEPZEU=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Vo0GgYMOBj8q/WVAn1i94UmfesgUSNqWiEljQ+N+kbQdtZZQe2HDOYzz6Wptm9vX+PJ5+Z2JECfB2j2GDLX+vd3F055RYR79N8RCfNxQ+/xrAPCMSq4kd4YL/785Zn2pxiuZJLgQ9nRTyMN7jz6sZZ0nKuT2I4Xq+4ozuvt+LVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgFOD70w; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=JhZWqJktRH0JVHs820j3LXFgzFuHwmhjJwenO237pIvFB0/4TO7weRi73iaux93b0PN7D4DSVgPChuO3uPNeGy6UgQ+ZtE5CC9r1FZqEvr98WmF7kw4To1RIi0+q1E35PB4gcPC5sLk9PRTrWF6HS5bm1d09sGRQpi87PMyhCg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3IUTb76; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgFOD70w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BDB61F0089E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3IUTb76"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3105B1F0089C;
 	Fri, 11 Sep 2026 18:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789150568;
-	bh=vIILeZZui+JTV57AhAjUl87zg5bT89Mh3Q5N+4tiYZ0=;
+	bh=bL/rSYTIGCPz2ML0qUfMnK6Kt8ZSclOopkEza4Oddx4=;
 	h=Date:From:To:Cc:Subject:References;
-	b=KgFOD70wbFkqaQvkJuuIVXSjds15VEn+IKaswo9d9f4p5MOazgDr8ublO8dJpsaqO
-	 xki4M31uHu7W7FIalkS21Oc6rcMaHzURqDRMFXuIbNp031TL+22RqHc+ai26P+lDxw
-	 mH+9EdELuv+66QWnxOVpqTPru9L542RBsJZPZxRLCU8sCsX9vRCNtX8ITpwdqC1MBF
-	 m0tswrjb8Z1qiM6EkLOOLjF47qLUvEDlmBJm42NkT10Kein5upxY3ea8jNoeBg5NFW
-	 PEqdJaMmzt/NOmng/enmg0p1fZU5gNxb6SPcPTkxCgO4ycEcp9zMXq0HvhDiJ8VTN8
-	 svAbrAxh3MS7A==
+	b=h3IUTb76WsZKGoO96+ZL26cjzLbvlgRpKICsFfxBuC346VMm7qBdNfDQQLk/giFKW
+	 AjSHpinvkDzHwWOAV6n+mvwNYl74tDrXbIScd32Z/od7RHI4O14JbfYHI+o2YXfrcc
+	 uPpK4r12aQqE3c4L9U10cOY3w0TbMd2uWXoM68FpI27Ae/zAJkEd346WECBqdMtsOz
+	 V4Dzpk4HO5qJFiAJvKw+cSYz4u4VK1KXjjaj6p4yXs/Pm2jTG+T7X5+DkT8HtEcDxu
+	 LvQx84EoycGvgnJDKiR/6x8336TQzbBUlv0m89C+dsIT8LnFCjAaxPLQz4fO3rl972
+	 D8h4B8Wzoz5+A==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oY-000000094yv-02Oa;
-	Fri, 11 Sep 2026 14:17:30 -0400
-Message-ID: <20260911181729.830006531@kernel.org>
+	id 1x55oX-000000094yM-3NFq;
+	Fri, 11 Sep 2026 14:17:29 -0400
+Message-ID: <20260911181729.623284631@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:44 -0400
+Date: Fri, 11 Sep 2026 14:16:43 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,10 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- sashiko-bot@kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 08/20] tracing: Keep the entry count when the histogram stats allocation
- fails
+Subject: [for-linus][PATCH 07/20] tracing: Free histogram the field rejected for a bad modifier
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -55,103 +53,73 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-print_entries() uses n_entries both as the number of sort entries and as
-its own return value, so the -ENOMEM it stores when the stats allocation
-fails overwrites the count that the cleanup still needs:
+Writing a hist trigger whose value or variable carries a modifier that is
+not allowed there leaks the fields that were built for it.
 
-	n_entries = tracing_map_sort_entries(map, ...);
-	if (n_entries < 0)
-		return n_entries;
+__create_val_field() takes the field from parse_expr() and stores it in
+hist_data->fields[] only after the modifier checks have run:
+
+	hist_field = parse_expr(hist_data, file, field_str, flags, var_name,
+				&n_subexprs);
 	...
-			if (!stats) {
-				n_entries = -ENOMEM;
-				goto out;
-			}
-	...
- out:
-	tracing_map_destroy_sort_entries(sort_entries, n_entries);
+	if (hist_field->flags & HIST_FIELD_FL_VAR) {
+		if (hist_field->flags & (...))
+			goto err;
+	} else {
+		if (hist_field->flags & (...))
+			goto err;
+	}
 
-tracing_map_destroy_sort_entries() takes an unsigned int and loops up to
-it, so -ENOMEM arrives as 4294967284. It walks an array of at most
-map->max_elts pointers and calls destroy_sort_entry(), which dereferences
-and frees, on whatever lies past the end.
+	hist_data->fields[val_idx] = hist_field;
 
-Reading the hist file of a trigger with a .percent value, with that
-allocation forced to fail:
+Both checks jump past that store, and the err label returns without
+freeing anything. The error unwinds to create_hist_data(), which calls
+destroy_hist_data() -> destroy_hist_fields(), and that reaches a field
+only by walking fields[]. A field that never got there is unreachable.
 
-  BUG: KASAN: vmalloc-out-of-bounds in tracing_map_destroy_sort_entries+0xa0/0xb0
-  Read of size 8 at addr ffffc90000045000 by task init/1
-   tracing_map_destroy_sort_entries+0xa0/0xb0
-   hist_show+0x6f7/0x1df0
-   seq_read_iter+0x2b8/0x1190
-   vfs_read+0x176/0xa40
-  The buggy address belongs to a 4-page vmalloc region starting at
-  ffffc90000041000 allocated at tracing_map_sort_entries+0x5c/0xd50
+commit e0213434fe3e ("tracing: Do not let histogram values have some
+modifiers") set ret to -EINVAL and fell through to the store, which left
+the field owned by fields[] and freed along with the rest of hist_data.
+Splitting the check into a value case and a variable case replaced that
+fall-through with a goto that skips it.
 
-A few pages further the fault is fatal. The registers at the oops confirm
-the bound: the loop's end pointer less the array start, over the pointer
-size, is 4294967284.
+With CONFIG_DEBUG_KMEMLEAK, 200 writes of
 
-Return the error in a separate variable and leave n_entries holding the
-count, the way tracing_map_sort_entries() does on its own error path.
+  # echo 'hist:keys=prev_pid:vals=next_pid.log2' > \
+	 events/sched/sched_switch/trigger
 
-The stats block is only entered for a value carrying .percent or .graph,
-which __create_val_field() has rejected since v6.3, so this cannot be
-reached in mainline as it stands. It becomes reachable again with
-"tracing: hist: let values keep the percent and graph modifiers", so it
-should be applied first.
+each correctly rejected with -EINVAL, leave 332 unreferenced objects
+(63744 bytes) reported at create_hist_field(); 200 install and remove
+cycles of a valid trigger leave none. A '.log2' field is two
+allocations, since create_hist_field() puts the plain field in
+operands[0] of the log2 field, and both are reported.
+
+Use destroy_hist_field() rather than __destroy_hist_field() so that
+operands[0] is freed as well. It returns early for HIST_FIELD_FL_VAR_REF,
+which is what an operand owned by hist_data->var_refs[] needs; the
+rejected field itself is never a var ref, because a var ref never carries
+a modifier flag.
 
 Cc: stable@vger.kernel.org
-Fixes: abaa5258ce5e ("tracing: Add .percent suffix option to histogram values")
-Link: https://patch.msgid.link/20260907060323.480728-1-donggeunyoo.kernel@gmail.com
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260907053113.1CED91F00A3A@smtp.kernel.org/
+Fixes: e30fbc618e97 ("tracing/histograms: Allow variables to have some modifiers")
+Link: https://patch.msgid.link/20260907034948.240387-1-donggeunyoo.kernel@gmail.com
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ kernel/trace/trace_events_hist.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8cad99a8d01e..8d80562fb502 100644
+index bbdd56208eff..8cad99a8d01e 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -5677,7 +5677,7 @@ static int print_entries(struct seq_file *m,
- {
- 	struct tracing_map_sort_entry **sort_entries = NULL;
- 	struct tracing_map *map = hist_data->map;
--	int i, j, n_entries;
-+	int i, j, n_entries, ret;
- 	struct hist_val_stat *stats = NULL;
- 	u64 val;
- 
-@@ -5687,6 +5687,8 @@ static int print_entries(struct seq_file *m,
- 	if (n_entries < 0)
- 		return n_entries;
- 
-+	ret = n_entries;
-+
- 	/* Calculate the max and the total for each field if needed. */
- 	for (j = 0; j < hist_data->n_vals; j++) {
- 		if (!(hist_data->fields[j]->flags &
-@@ -5695,7 +5697,7 @@ static int print_entries(struct seq_file *m,
- 		if (!stats) {
- 			stats = kzalloc_objs(*stats, hist_data->n_vals);
- 			if (!stats) {
--				n_entries = -ENOMEM;
-+				ret = -ENOMEM;
- 				goto out;
- 			}
- 		}
-@@ -5716,7 +5718,7 @@ static int print_entries(struct seq_file *m,
- out:
- 	tracing_map_destroy_sort_entries(sort_entries, n_entries);
- 
--	return n_entries;
-+	return ret;
+@@ -4317,6 +4317,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
+ 	return ret;
+  err:
+ 	hist_err(file->tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
++	destroy_hist_field(hist_field, 0);
+ 	return -EINVAL;
  }
  
- static void hist_trigger_show(struct seq_file *m,
 -- 
 2.53.0
