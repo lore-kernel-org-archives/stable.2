@@ -1,40 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D121A6838;
-	Fri, 11 Sep 2026 07:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B7B42FCA1;
+	Fri, 11 Sep 2026 07:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111700; cv=none; b=ZSHn0R4eOmztWq7kPg97o2sKjlskKx04MJFXtsJzbZK+aYPOhHmPK3ykVfJ5uJIZJMtlurpN1WaiQlVqkCbyh4HWFFpt0cFI9kIAINWYfz9nhuxCle4k8oJE4dIb1TbdS4bXlbU7om3phE8oiuufDZRlXTM7n8V+0zOfHnIQVlo=
+	t=1789111774; cv=none; b=NaHFbrGlRoiNVd30ftNz/yWyoWWrp16ISCI7hyGioylEHw69Jhq70rr3UNDtodycAPb5Q0JCDWoVrC0GqzcHqegTL3FjPmD+5Li47Dg1KLfHNAuKdlxzoi4b2odYK7fQdIWVk9eFESSL5z2gibYFiwxYayhVWje8HpYhSOfIIeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111700; c=relaxed/simple;
-	bh=im4YJt9/tFyg4A2hOtuhEukgE2LYLWOIe7LJ2pwGswM=;
+	s=arc-20240116; t=1789111774; c=relaxed/simple;
+	bh=0iEsaBiUnVl/KQPGsYLvA0J7EtiEt+vi8tluZiWk544=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GMg0rbxB89KcI/rCsnp6GMo6uy16E6+iLtyvFfhYaDG8CBYEtzsP5zd3p3wpsgG/uiht7uczBAEVm/aSPUyibhvXL0TVpEH5GS6EY2NlcUr06UKTS7IGvncJz8s9+8x1DyyzxtaZ5V+JRD9NKv58TkihOPkJiXJ8CGcSIGhFqk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhxyqPRK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EfdknBzPG9T+/b64JF3D8HQeO7NN2jJbD3/0byQM7iohkcTcueieO6cTleN8O4BGPCP/Ufm3f99irbR1tS6wvku+015c/OEd3zWcOGErTaVbGAJwjheqtJZr69UFyYFlrvbUyswUCoTYuNaGt3qtn2LgcaiFXOLcwbe7WBrQBYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7aULQcS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhxyqPRK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B5E1F000FF;
-	Fri, 11 Sep 2026 07:28:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7aULQcS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859EB1F0089A;
+	Fri, 11 Sep 2026 07:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111699;
-	bh=qH+vzJvTDcO/4OxAU3B3nLkaxlZTJwINDdDABG2MGNU=;
+	s=k20260515; t=1789111773;
+	bh=qypTKPadeM7L2ZB02QIhTZdaEFwUztZ76MZg8zaISxQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nhxyqPRKfA+FhdQTlBvlZdq7LmnCmMyoVHrVzsH1J/5qP9s/AMHkkUXZ794wZ6rsf
-	 yAZAAAc08U/pqcEsiGUFZWrPuHZiNPFLfxl9IA2hvGZnIm1gAwpBm6OIdRK91Fhheg
-	 2RdjniBzKwQ7tbxXXS8ZOpn7sOUXb5n7eg+10pPxuKR3UUKYYSOtLb/dHOB+lJ06fZ
-	 Tmp5Quic/8o0UUCWrRDmNvCrZU4AH72OLe2pteKkxvwnabuLEuvQ99jH+c+u4RPWpP
-	 Nkop6mrkxRh/JCFMcP3dL3N5ul7zJQVBTuPsjjHvkD+755oykkRPpP9FOQACAVaXpt
-	 p6px2hn1EIRPQ==
+	b=k7aULQcSQp4sM/33rpZ0+SGhzT/OiWdCNVDPclK9tYSECKw/eeT9OdjPQjKXWmlpP
+	 RPRd7LOQq58DmKozk0RMDyr6YH6VAUZoAPcZnu4W3TwhEjKUqRhXrrH4SfwJ9StRoK
+	 gCFaPdqMtprMBEscmvRhU9wTqlRscqfFRAAGgid72sEjUbWDHDi9hwt7W22plC3hwg
+	 oftD3IcpI5KVhz9L9FMqSRaXQw5ZNCPdcBTfAuLmFo1H/JeuxzN+Xw0vkrGcNSrkoA
+	 1s2SdrFTIcMPVibywc31b0kOcFEd22yaOGkFChxiY//OkuapUgN6eI7qL4V+Y6XMMw
+	 tJewMWQ9nLb/Q==
 From: Carlos Maiolino <cem@kernel.org>
 To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
-Cc: floss@jetm.me, dgc@kernel.org, stable@vger.kernel.org, 
+Cc: dgc@kernel.org, floss@jetm.me, stable@vger.kernel.org, 
  linux-xfs@vger.kernel.org
-In-Reply-To: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
+In-Reply-To: <20260911044228.GA6265@frogsfrogsfrogs>
 References: <178892936573.4057962.16225191041041958394.stgit@frogsfrogsfrogs>
-Subject: Re: [PATCHSET 2/2] xfs: LLM-inspired bug fixes, part 12
-Message-Id: <178911169750.24885.701052452949200916.b4-ty@kernel.org>
-Date: Fri, 11 Sep 2026 09:28:17 +0200
+ <178892936640.4057962.1916451282677820756.stgit@frogsfrogsfrogs>
+ <20260911044228.GA6265@frogsfrogsfrogs>
+Subject: Re: [PATCH v1.1 1/7] xfs: fix under-reservation of blocks when
+ repairing sf directories
+Message-Id: <178911177124.25559.8200298817554349732.b4-ty@kernel.org>
+Date: Fri, 11 Sep 2026 09:29:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,15 +48,40 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Tue, 08 Sep 2026 23:02:56 -0700, Darrick J. Wong wrote:
-> Here's a twelveth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
-> mwa...
+On Thu, 10 Sep 2026 21:42:28 -0700, Darrick J. Wong wrote:
+> Whilst running QA on XFS for-next as of 7.3-rc2 with MKFS_OPTIONS="-n
+> size=8192", I observed the following (trimmed) dmesg splat:
 > 
-> If you're going to start using this code, I strongly recommend pulling
-> from my git trees, which are linked below.
-> 
-> With a bit of luck, this should all go splendidly.
-> Comments and questions are, as always, welcome.
+>  XFS: Assertion failed: args->total >= dp->i_nblocks - nblks, file: fs/xfs/libxfs/xfs_da_btree.c, line: 2387
+>  WARNING: fs/xfs/xfs_message.c:104 at assfail+0x46/0x4a [xfs], CPU#0: xfs_scrub/1426511
+>  CPU: 0 UID: 0 PID: 1426511 Comm: xfs_scrub Tainted: G        W           7.3.0-rc2-djwx #rc2 PREEMPT(lazy)  6e418570b606a39783b0e7e7b30dc407b965f9e8
+>  Tainted: [W]=WARN
+>  RIP: 0010:assfail+0x46/0x4a [xfs]
+>  RSP: 0018:ffffc900010d7890 EFLAGS: 00010246
+>  RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00000000ffffffd1
+>  RDX: 0000000000000000 RSI: 0000000000000021 RDI: ffffffffa059fd38
+>  RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
+>  R10: 000000000000000a R11: 000000007fffffff R12: ffffc900010d7940
+>  R13: ffff888368d8f980 R14: ffffc900010d7a48 R15: ffffc900010d78d0
+>  FS:  00007f445c5ce680(0000) GS:ffff8884a97ea000(0000) knlGS:0000000000000000
+>  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>  CR2: 00007f443803b9a8 CR3: 0000000107a4b000 CR4: 00000000003506f0
+>  Call Trace:
+>   <TASK>
+>   xfs_da_grow_inode_int+0x2e0/0x300 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xfs_dir2_grow_inode+0x6e/0x150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xfs_dir2_sf_to_block+0x149/0x870 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xrep_dir_swap_prep+0xe2/0x110 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xrep_dir_swap+0xfb/0x2f0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xrep_dir_rebuild_tree+0x99/0x100 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xrep_directory+0x83/0x1c0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xrep_attempt+0x4f/0x1e0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xfs_scrub_metadata+0x393/0x5b0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xfs_ioc_scrubv_metadata+0x306/0x570 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   xfs_file_ioctl+0xa4f/0x1150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+>   __x64_sys_ioctl+0x76/0xc0
+>   do_syscall_64+0x7a/0x3b0
+>   entry_SYSCALL_64_after_hwframe+0x4b/0x53
 > 
 > [...]
 
@@ -61,18 +89,6 @@ Applied to for-next, thanks!
 
 [1/7] xfs: fix under-reservation of blocks when repairing sf directories
       commit: 4d3c07591534517c633945c8d8e6526f10e3fabc
-[1/7] xfs: fix under-reservation of blocks when repairing sf directories
-      commit: 4d3c07591534517c633945c8d8e6526f10e3fabc
-[3/7] xfs: fix rtrmap cross-referencing elision logic
-      commit: 3bdbf472a608aeb7e8e4dc70ee86738ad5256356
-[4/7] xfs: fix termination logic in xchk_bmap
-      commit: d3a6a35a220615c4f4578aedf3b1626b91d3acae
-[5/7] xfs: fix replaying dirent removals into the temporary directory
-      commit: e854f9a28b1fa08dfa5bf18ee4184fae90106180
-[6/7] xfs: reset parent pointer args before each dir tree unlink repair
-      commit: 69e10c2b4a51b4ff3c88a70e90f5180ad58c758f
-[7/7] xfs: advance the findparent inode scan cursor while holding ILOCK
-      commit: ad4497a92caba4630f75c80d49cb947026213280
 
 Best regards,
 -- 
