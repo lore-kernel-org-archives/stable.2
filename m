@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FA33938B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E8E356744
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:08:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150100; cv=none; b=kgl6CXnu9w48g+U4IMKI7euTwaqaTri9KLdl1+Q9YS3832cHaJJ6c++0w4vCTI3RLh/Ur9BpbHOzYDm5ueJ8umL5FI0QvYiTUUrjFgr+P3OqxcT/YDvScqkKC+oj+GSgLML5DDTMbx2ef5HR3XpC4IhVV19OyD7cH2PxHjsWnAE=
+	t=1789150128; cv=none; b=PNj7E5oUWzkTqvRVMyEns8yPRq2QXGu8yivwfsj3LCR78BfKvtccPYd/zD5XBrihfwXn2hhgh9YnM7DUDYN6aSWh+2fxJfjdmMvfGzD9RxEkbl24IKknclR85FgfIzLIrbXP941gyoDvXp0FvepBreGfeV2icSGXQ8GGwr2IboQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150100; c=relaxed/simple;
-	bh=icI6PGs0xjtQXrWblNU8EjwbBbEzd/q+dXaMx0k9OSo=;
+	s=arc-20240116; t=1789150128; c=relaxed/simple;
+	bh=3tmNcFklt55vE27rVUvlQAIq0cy01A586KAoDT7Ib8c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V79/I/RKNm6r/LeSWJA3yq2rP00RxE487seNIH+6MtAIf/bssXwzLl4KVDQg7JFozL1yJIFti++IB3s2M2IcdIyOHeYIwV34rKvteLRACKHXyFmp5Xc9SP/jXzCEOCDfnSM/BSRA8t0UZXo+VNa61I2HLALdW+QczVNxAdOHUo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXJ1+zJw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gLaMDHzqoOSNw1BEfnpdkSy3zQakGpzlsF+XIherjtb6sE/b6uSTBVJpKPu/dgFizhR6ti6r5f7nkPoOnoRgy5KiOlp3QdsQwtdPbFZpS4vHPZAgzh7oIFB0jDOb3q6o2LQRz6dtxY/icDQy4bUNpZb4415bxCZkkTLiYjtEhQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTUlkDdy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXJ1+zJw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECD11F00898;
-	Fri, 11 Sep 2026 18:08:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTUlkDdy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603951F000FF;
+	Fri, 11 Sep 2026 18:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150098;
-	bh=SauwKWNHtENT3Ah7h7H1RLG9Sr/D7KvVPJOeUIpB5y4=;
+	s=k20260515; t=1789150126;
+	bh=Ppd4bNYza3Y/63VJW83HMY0BHmwg0XkM9PBJFjqOdhI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fXJ1+zJww0MJZKvRo0NdaFmqVYmqvBbMBiEk01BfSbRc0ALSO5oRBc0qmnkV/rY7/
-	 6MP7Tdaz45S9n/9XSmVcMWkRBVn1zIkmDQ1CCOx08zhd5Iiu0DWjsyrN2Cqvq+gFdX
-	 /84FsEzhYwYKtbjm8/vld+7rdeF97cVZ8zIQRCsTveDQ+z2Cd4EcTNf3V+pU07ukMW
-	 DPbRQlI6LRrLsY8DY1KtTkPEp6RiNRLd1t5YGpIrZ1XZR1gYz/WMEPcPsYvCLt4gy0
-	 UmMOb9KnwrdmBtPOXfeztTprz6a90RDukCF/PNMCjhK498VZR3yMcbvYHBg7N+30T4
-	 Vxd0hyUs7obDg==
+	b=dTUlkDdyiPkHJGO3dvkbhbnTtGB+/HT1w/lSUwvKSuNYO3FrCsO2P+1htPywZFK+D
+	 g4fi7fxphcjKcchExfjvdI8HjlsBt0+uaxhKG2AQuR7nGGYE0rEXueJ47aFO5ODFhN
+	 rwFSBlOQLOoG7rDVzhoC1/gvt7DW4D2i5xhTAjfaCFD3dJdwqBLJqxzaUXgI93dEv6
+	 lNd84Fr3pzA2n0K+zmIpiuvOlS8g1u/Na62gdwd7BpqXweD36nZ5J3Pp9WPs2bxEut
+	 WCzRJDF5JtNgNMUpiQ3OHtYwywT4cHE5gUTIURew/KLl00JDVZZKhcLpcuO2fiQDF2
+	 RdOvbQePsIlhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap capacity
-Date: Fri, 11 Sep 2026 14:08:16 -0400
-Message-ID: <20260911180816.1299348-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot
+Date: Fri, 11 Sep 2026 14:08:43 -0400
+Message-ID: <20260911180843.1301725-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090903-chug-retype-8098@gregkh>
-References: <2026090903-chug-retype-8098@gregkh>
+In-Reply-To: <2026090951-petri-county-d8f7@gregkh>
+References: <2026090951-petri-county-d8f7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,99 +48,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 2ac6a829843cf3df522d19e091276109b94c4c7a ]
+[ Upstream commit 626e44f3d8a924a97a3848a9fd45833947e081e9 ]
 
-ha->max_npiv_vports is taken from firmware (mcp->mb[11]) and only
-constrained so that (max_npiv_vports + 1) is a multiple of
-MIN_MULTI_ID_FABRIC, which permits values of 63, 127, 191 and 255.
-NPIV vports are then allocated up to that count.
+For QLAFX00 the request ring is ioremapped device I/O memory
+(ha->iobase + req_que_off), not DMA-coherent RAM, which is why the rest
+of the FX00 path accesses it through memcpy_toio() and the wrt_reg_*
+helpers. __qla2x00_alloc_iocbs() however zeroed the producer slot with a
+plain memset(). On architectures such as ARM64 a regular memset() may
+emit unaligned or block-zeroing instructions (e.g. DC ZVA) that are
+invalid on Device memory, leading to a synchronous external abort.
 
-VP enable uses the VP_CONFIG IOCB, which addresses a vport through a
-plain vp_index byte, so a vp_index beyond 128 is enabled without issue.
-VP disable, however, uses the VP_CTRL IOCB, which selects target vports
-through the fixed 128-bit vp_idx_map bitmap. qla24xx_control_vp()
-rejects a vp_index past that bitmap and the IOCB builder cannot set a bit
-beyond 127, yet qla24xx_vport_delete() frees the local state regardless.
-A vport with vp_index > 128 can therefore be created and enabled but
-never disabled, leaving it permanently active in firmware: a resource
-leak.
+Use memset_io() to clear the slot for QLAFX00, matching the I/O
+accessors used elsewhere on this ring. Other adapters keep the plain
+memset() on their DMA-coherent rings. The zero-fill is retained for FX00
+because its IOCB builders (e.g. qlafx00_fxdisc_iocb()) copy only part of
+the entry and rely on the unused tail being pre-zeroed.
 
-Cap ha->max_npiv_vports at init to the vp_idx_map capacity so such
-vports are never created. This collapses 191/255 to 127 (still
-modulo-valid) and leaves the real-world 63/127 cases unaffected.
-
-Fixes: 4d0ea24769c8 ("[SCSI] qla2xxx: Retrieve max-NPIV support capabilities from FW.")
+Fixes: 8ae6d9c7eb10 ("[SCSI] qla2xxx: Enhancements to support ISPFx00.")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-20-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-12-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adapted the qla24xx_control_vp() hunk to include the prerequisite bounds-check block missing from this branch. ]
+[ replaced qla_req_ring_slot() and qla_req_entry_size() with req->ring_ptr and REQUEST_ENTRY_SIZE. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_fw.h   |  4 ++++
- drivers/scsi/qla2xxx/qla_init.c | 13 +++++++++++++
- drivers/scsi/qla2xxx/qla_mid.c  |  8 ++++++++
- 3 files changed, 25 insertions(+)
+ drivers/scsi/qla2xxx/qla_iocb.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_fw.h b/drivers/scsi/qla2xxx/qla_fw.h
-index 6faf7533958f1..4ac91c8eec46b 100644
---- a/drivers/scsi/qla2xxx/qla_fw.h
-+++ b/drivers/scsi/qla2xxx/qla_fw.h
-@@ -1442,6 +1442,10 @@ struct vp_ctrl_entry_24xx {
- 	uint8_t reserved_5[24];
- };
- 
-+/* vp_idx_map is a 128-bit (16-byte) bitmap selecting target VPs. */
-+#define VP_CTRL_IDX_MAP_BITS \
-+	(sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
-+
- /*
-  * Modify Virtual Port Configuration IOCB
-  */
-diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
-index 177b71fae2f89..b633aa273ef69 100644
---- a/drivers/scsi/qla2xxx/qla_init.c
-+++ b/drivers/scsi/qla2xxx/qla_init.c
-@@ -4380,6 +4380,19 @@ qla2x00_setup_chip(scsi_qla_host_t *vha)
- 					    MIN_MULTI_ID_FABRIC))
- 						ha->max_npiv_vports =
- 						    MIN_MULTI_ID_FABRIC - 1;
-+
-+					/*
-+					 * The VP_CTRL IOCB selects target VPs
-+					 * through the fixed vp_idx_map bitmap,
-+					 * so a vp_index beyond it can be enabled
-+					 * via VP_CONFIG but never disabled via
-+					 * VP_CTRL, leaking the VP.  Cap the count
-+					 * to the bitmap capacity.
-+					 */
-+					if (ha->max_npiv_vports >=
-+					    VP_CTRL_IDX_MAP_BITS)
-+						ha->max_npiv_vports =
-+						    VP_CTRL_IDX_MAP_BITS - 1;
- 				}
- 				qla2x00_get_resource_cnts(vha);
- 				qla_init_iocb_limit(vha);
-diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
-index 7e1956d0435d7..8b67267af52c4 100644
---- a/drivers/scsi/qla2xxx/qla_mid.c
-+++ b/drivers/scsi/qla2xxx/qla_mid.c
-@@ -968,6 +968,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
- 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
- 		return QLA_PARAMETER_ERROR;
- 
-+	/*
-+	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
-+	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
-+	 * if firmware advertises more NPIV vports.
-+	 */
-+	if (vp_index > VP_CTRL_IDX_MAP_BITS)
-+		return QLA_PARAMETER_ERROR;
-+
- 	/* ref: INIT */
- 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
- 	if (!sp)
+diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
+index 1752a62031710..327ffa36774e4 100644
+--- a/drivers/scsi/qla2xxx/qla_iocb.c
++++ b/drivers/scsi/qla2xxx/qla_iocb.c
+@@ -2363,11 +2363,13 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
+ 	/* Prep packet */
+ 	req->cnt -= req_cnt;
+ 	pkt = req->ring_ptr;
+-	memset(pkt, 0, REQUEST_ENTRY_SIZE);
+ 	if (IS_QLAFX00(ha)) {
++		memset_io((void __iomem __force *)pkt, 0,
++			  REQUEST_ENTRY_SIZE);
+ 		wrt_reg_byte((u8 __force __iomem *)&pkt->entry_count, req_cnt);
+ 		wrt_reg_dword((__le32 __force __iomem *)&pkt->handle, handle);
+ 	} else {
++		memset(pkt, 0, REQUEST_ENTRY_SIZE);
+ 		pkt->entry_count = req_cnt;
+ 		pkt->handle = handle;
+ 	}
 -- 
 2.53.0
 
