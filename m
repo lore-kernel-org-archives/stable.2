@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498A543304B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E2A4334C9
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:41:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123294; cv=none; b=D0OkEj0hF+XtIM4LuxCvq+Lus1jcS2z2zGFaM7czo4eF4bZNjgCTv+OCMCd0GGw9L535JfzalVzrpcXt9m0ahqdpVkVKDc02vivFkMnbImaimK7hJT95mtvyuQe4iYTleNDhCc6lGjIIHXohgNplwaZtTWOS5m/6Id2muQO8nA4=
+	t=1789123295; cv=none; b=XBZf0qWf118G/GJ3ImtIjuOqB4yheB3qxJpgYIZgDYZDmzXM1XJ9RPPVXkO4qEVpBKoDAxzpeldI6oLdvcLQwlUvSxGw4Hh5k1XO0pH+LrBi11/GtdSBlKv68QN4V5XhLZO3uZTwp5DUe52mdeJLBJdNUv5S278wqg7k2XzcHmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123294; c=relaxed/simple;
-	bh=dS/ScemAf5D0SQoQmtdlyg6wBCgtGNCchXDeYllNhcU=;
+	s=arc-20240116; t=1789123295; c=relaxed/simple;
+	bh=uS3UHvqE3HCZhoHMWrspNbhK1lqLHbnA00oVuYIfjUw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KjDjypQcL4nV/O0woQ+MugZXJYBHWHN3qkO6WXKgG7aEt4MB5XYxSO/XP/Wg+QPeLn7RnSFpX6zaQ6tKlZSeKmWwhGmgo5RqSe0pUT5SIaZpP2Quw4/KmpzlMGLG2z2N34EGHERqf53/+kF21BsfbXWCNEN09xfdjr1KU13pvjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDo15Zuw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=X4fbqh9R0lojZ2bw5KrnchQuSkziydyjmRkZfy9KjSBLKop3qENkQhmeHLHte+G0MvIAyVDIwdbVruxcaytusb794W7efLpVgwhKYVFXF4LH1AEgVjMuSYaHlBaJLVPwUA9pZttrKi84FtHeBWlfyigGzTMBHgq+cHFeR8eiWT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NzyEuVk5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDo15Zuw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA1C1F00898;
-	Fri, 11 Sep 2026 10:41:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NzyEuVk5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35BC51F0089A;
+	Fri, 11 Sep 2026 10:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123291;
-	bh=KrFCtf4oLERZkRyTi5QV8rHUhrC4z+xFCrHlnRqiS5M=;
+	s=k20260515; t=1789123292;
+	bh=pug68Z63YhRnUnDjSnC1Dg9SSlXDz11AL1Kg204qNIc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WDo15ZuwwYXk6XgDANcVCyafTmALfPy7LonZRx6fUp6rxtc4dpVGe8e7FpO+tq0qz
-	 6z6sERKyVZvL8B/iUy6KT77HtONa045Lp09a1pBiu6pnijly4SZZckqqyvswPJg0t5
-	 mUWAyUnCxb7zT5c5FvkX/NIWooYhMtjN4lRjxS2D22yqg6KMz4+G5W9nFQ6J6y1ORB
-	 zq862y/PKwUu1jxydSs/9D5tUI53fYKsBMi1fUJVk2JR05Et0ceUwWwNw5Fzja4A+R
-	 jVl5dvi8X81n/1WhKCTnWlk/c1EoI5IzBDlMvCF7vTdhK8NK1fWVafnHAed1qcxwx1
-	 CWseGrid4E9nw==
+	b=NzyEuVk5IjJJqe0ld2UexBxskYuNBYQD9ZDIYVuz9Ivix/dofb61OCGYvUEz8vHuK
+	 DStH6/6ptGG1tmnyeR/hiesq3guUZWRWnrW0C2WdRzqHeyrRGg8nuu+/cVYlesupP9
+	 xsvtCsZC/euqOmLTgqRUrNRfn1ch+KaklsJpc2aVn0T9aIB8IsTzd9M/RvVLMD+9RC
+	 mIuMoqeGUCmp19XZpqU3+8mw08NtJOROasDusBCNbbfe5NxbjuWpDNnGMkyZRNE30D
+	 6io7+L6yJVbY2M8DHidqwfQCgYkJSCyCOiKwMo/87Onnkttq3/a0doRZ+FpSjadOpf
+	 OyZ37nuTJwO1w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 7/9] KVM: x86: Expose several TSC helpers via x86.h for use by MSR code
-Date: Fri, 11 Sep 2026 06:41:21 -0400
-Message-ID: <20260911104123.189614-7-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] ALSA: hda: Update and expose snd_hda_codec_device_init()
+Date: Fri, 11 Sep 2026 06:41:26 -0400
+Message-ID: <20260911104130.193213-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911104123.189614-1-sashal@kernel.org>
-References: <2026090914-waviness-supermom-9b84@gregkh>
- <20260911104123.189614-1-sashal@kernel.org>
+In-Reply-To: <2026090904-antiques-gallantly-338c@gregkh>
+References: <2026090904-antiques-gallantly-338c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,115 +45,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit 9d13832ced63160ca67b6c72868b794cbcda556d ]
+[ Upstream commit 595511a3ab80d9ec6649bbf22a99bee169026fd1 ]
 
-Begrudgingly move adjust_tsc_offset_{guest,host}() to x86.h as inlines,
-and expose several other TSC helpers in anticipation of moving KVM's MSR
-code to a dedicated msrs.c.  Unfortunately for KVM, several MSRs that KVM
-emulates can affect TSC state.
+With few changes, snd_hda_codec_device_init() can be re-used by ASoC
+drivers. While at it, provide kernel doc for the exposed function.
 
-Opportunistically drop a superfluous local "tsc_offset" variable, whose
-existence causes checkpatch to complain about lack of a blank line.
-
-No functional change intended.
-
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260613000329.732085-14-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: e62392bf39eb ("KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not supported")
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://lore.kernel.org/r/20220214101404.4074026-3-cezary.rojewski@intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 6ad4892c4f5c ("ASoC: hdac_hda: Fix hlink refcount leak on component registration failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/x86.c | 22 +++-------------------
- arch/x86/kvm/x86.h | 19 +++++++++++++++++++
- 2 files changed, 22 insertions(+), 19 deletions(-)
+ include/sound/hda_codec.h |  3 +++
+ sound/pci/hda/hda_codec.c | 45 +++++++++++++++++++++++++--------------
+ 2 files changed, 32 insertions(+), 16 deletions(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index e78dd0c9a066e..7c31ec98ba723 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2639,7 +2639,7 @@ u64 kvm_scale_tsc(u64 tsc, u64 ratio)
- 	return _tsc;
- }
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index 82d9daa178517..5e3cbcca42f07 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -306,6 +306,9 @@ struct hda_codec {
+ /*
+  * constructors
+  */
++__printf(3, 4) struct hda_codec *
++snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			  const char *fmt, ...);
+ int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+ 		      unsigned int codec_addr, struct hda_codec **codecp);
+ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 19be60bb57810..40a34b80e1dfb 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -876,36 +876,48 @@ static void snd_hda_codec_dev_release(struct device *dev)
  
--static u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc)
-+u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc)
+ #define DEV_NAME_LEN 31
+ 
+-static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+-			unsigned int codec_addr, struct hda_codec **codecp)
++/**
++ * snd_hda_codec_device_init - allocate HDA codec device
++ * @bus: codec's parent bus
++ * @codec_addr: the codec address on the parent bus
++ * @fmt: format string for the device's name
++ *
++ * Returns newly allocated codec device or ERR_PTR() on failure.
++ */
++struct hda_codec *
++snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			  const char *fmt, ...)
  {
- 	u64 tsc;
++	va_list vargs;
+ 	char name[DEV_NAME_LEN];
+ 	struct hda_codec *codec;
+ 	int err;
  
-@@ -2680,7 +2680,7 @@ u64 kvm_calc_nested_tsc_multiplier(u64 l1_multiplier, u64 l2_multiplier)
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_calc_nested_tsc_multiplier);
- 
--static void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset)
-+void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset)
- {
- 	if (vcpu->arch.guest_tsc_protected)
- 		return;
-@@ -2794,7 +2794,7 @@ static void __kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 offset, u64 tsc,
- 	kvm_track_tsc_matching(vcpu, !matched);
- }
- 
--static void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
-+void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- {
- 	u64 data = user_value ? *user_value : 0;
- 	struct kvm *kvm = vcpu->kvm;
-@@ -2862,22 +2862,6 @@ static void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- 	raw_spin_unlock_irqrestore(&kvm->arch.tsc_write_lock, flags);
- }
- 
--static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
--					   s64 adjustment)
--{
--	u64 tsc_offset = vcpu->arch.l1_tsc_offset;
--	kvm_vcpu_write_tsc_offset(vcpu, tsc_offset + adjustment);
--}
+-	dev_dbg(card->dev, "%s: entry\n", __func__);
 -
--static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
--{
--	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
--		WARN_ON(adjustment < 0);
--	adjustment = kvm_scale_tsc((u64) adjustment,
--				   vcpu->arch.l1_tsc_scaling_ratio);
--	adjust_tsc_offset_guest(vcpu, adjustment);
--}
--
- #ifdef CONFIG_X86_64
+ 	if (snd_BUG_ON(!bus))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
  
- static u64 read_tsc(void)
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index b7e0f554f804f..fe6ecd1efdb14 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -345,6 +345,25 @@ uint64_t kvm_get_wall_clock_epoch(struct kvm *kvm);
- bool kvm_get_monotonic_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp);
- int kvm_guest_time_update(struct kvm_vcpu *v);
+ 	codec = kzalloc(sizeof(*codec), GFP_KERNEL);
+ 	if (!codec)
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
++
++	va_start(vargs, fmt);
++	vsprintf(name, fmt, vargs);
++	va_end(vargs);
  
-+void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value);
-+u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc);
-+void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset);
-+
-+static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
-+					   s64 adjustment)
-+{
-+	kvm_vcpu_write_tsc_offset(vcpu, vcpu->arch.l1_tsc_offset + adjustment);
-+}
-+
-+static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
-+{
-+	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
-+		WARN_ON(adjustment < 0);
-+	adjustment = kvm_scale_tsc((u64) adjustment,
-+				   vcpu->arch.l1_tsc_scaling_ratio);
-+	adjust_tsc_offset_guest(vcpu, adjustment);
-+}
-+
- int kvm_read_guest_virt(struct kvm_vcpu *vcpu,
- 	gva_t addr, void *val, unsigned int bytes,
- 	struct x86_exception *exception);
+-	sprintf(name, "hdaudioC%dD%d", card->number, codec_addr);
+ 	err = snd_hdac_device_init(&codec->core, &bus->core, name, codec_addr);
+ 	if (err < 0) {
+ 		kfree(codec);
+-		return err;
++		return ERR_PTR(err);
+ 	}
+ 
++	codec->bus = bus;
+ 	codec->core.type = HDA_DEV_LEGACY;
+-	*codecp = codec;
+ 
+-	return err;
++	return codec;
+ }
++EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
+ 
+ /**
+  * snd_hda_codec_new - create a HDA codec
+@@ -919,11 +931,13 @@ static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+ int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+ 		      unsigned int codec_addr, struct hda_codec **codecp)
+ {
+-	int ret;
++	struct hda_codec *codec;
+ 
+-	ret = snd_hda_codec_device_init(bus, card, codec_addr, codecp);
+-	if (ret < 0)
+-		return ret;
++	codec = snd_hda_codec_device_init(bus, codec_addr, "hdaudioC%dD%d",
++					  card->number, codec_addr);
++	if (IS_ERR(codec))
++		return PTR_ERR(codec);
++	*codecp = codec;
+ 
+ 	return snd_hda_codec_device_new(bus, card, codec_addr, *codecp);
+ }
+@@ -950,7 +964,6 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	codec->core.dev.release = snd_hda_codec_dev_release;
+ 	codec->core.exec_verb = codec_exec_verb;
+ 
+-	codec->bus = bus;
+ 	codec->card = card;
+ 	codec->addr = codec_addr;
+ 	mutex_init(&codec->spdif_mutex);
 -- 
 2.53.0
 
