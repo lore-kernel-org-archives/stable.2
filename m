@@ -1,108 +1,104 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CC1434984
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116996; cv=none; b=rldPanQmPChg+9Q7wU1sacyv66h0LNAtDggjUwbqks4cu4lQJc6nWQ8NhJvyBWOCY9P63p8pea3+A0Hc7hKvXzsu8JbpF7sXKYPhkCOtTW5uNhO92pop0pJi758atRIWOHsgDlGjroE3/g5+S/6K3g0U8vQaAUEFWev4Sbc+R6o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116996; c=relaxed/simple;
-	bh=SQeaglE9kgslrPTSoHn94UKmmp/r3+Bn/fGmP2+mi3g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ia4q0WvmulnirdlWatfmjASFXPFYSs+4Ae2tDjit27wEPlCnGMB7pH/2oJgmVrQ7Dqu6ZwkVfFJ+niYeqhh1Wzp1NpQ2IiIrZnSRBfXsXDyvHM/8knCTeezXJchRHOhjv/aTUK6p4T04ltRjCdZjJzQMPZ47E692reSV8KD5E4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=PzwR2YEm; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8AF2D9484;
+	Fri, 11 Sep 2026 09:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789117235; cv=pass; b=k6PdbGf8ZZj7QUNV81wlgLwPaJ5AmirqmF53s88KP9e3Q1cbVLxqtsEX9oP12JcBwyaSsU8k3uCTjqoqyj6iZsGnpXj18+EGBIGaORkZ8KCK+1mX9wOkr2rNi0LYTCIDF19RMT3lZXsPLKdo43JCOFDNz9RFXOVUJijan+M/+uA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789117235; c=relaxed/simple;
+	bh=RIQLIPW/lG0A5eiA6gfbl3WMg1gE62YchZlK8GU+8C0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bnvZwEjRmntwTbD/GzuxJzC74bNsyRr18/rDVB8HVrrEX2/uRXc73sv0F+duHGSUki7IzMgxaq0x189SOF3Fr1XHn5AVAgeeggJxNwy0zIWTSJ1g14WB9rMCzEnj76t8vnyMqcI8ZkcGsDymX5cA38nudpzCWb30K6y9zf5/sDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=bV1pnWzV; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=tUDgNbwd; arc=pass smtp.client-ip=85.215.255.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="PzwR2YEm"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hh7gx3TmjzMlKK;
-	Fri, 11 Sep 2026 10:56:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789116989; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ALcg9Vd2npenlt0/QL85p1BH7ueYmsjnSxLgqn+ltps=;
-	b=PzwR2YEmy86J27En3HvOQRYRRuqhQq4R4lMZ/rk4CoTTFxyZ163J2dIdgHgvBeHci6e6Wc
-	7PZw2Rym2+n0H8gGVrm0Kz52ppShzDKo3v1tj3oXVD0PePAHvLNkRczz4GTbHYMWps2jqL
-	j+LWmcnyS7dZASoQVdbNk5FReahby9dfCmoBLaF2hdyKM1c1JH48zCMH5P/Df6zbpjwCnv
-	0ajDXD3wS8Dq4Lsp8YKJ02M5xyaj+7tZ1Rox0K/yRXhLwuSU7Cg0Yr8OIRhxFoe99VnJWO
-	o7/36ZIEuRpl+lj/pSTGU0r9Yws0wFF4iHrsN+tedzA6RtoA7J/s7vlBsJ2rKg==
-Message-ID: <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
- Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
- <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
- stable@vger.kernel.org
-Date: Fri, 11 Sep 2026 10:56:23 +0200
-In-Reply-To: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
-References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="bV1pnWzV";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="tUDgNbwd"
+ARC-Seal: i=1; a=rsa-sha256; t=1789117210; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=obQGEe9jww7dY+YaZBh9EEUOtpQ3rqCkpVDbAlG1vnc3bHO5K7+7nXnN3/yiFj+qbX
+    /SW5bW31HDeKUCMtmM7mXbjJW/OXf8zvxYiH9f3bZB1NzkQiR9SE+AK9p2siWBajTzXZ
+    qvLdYlIcVDn9VULwMyt7M4gb4YYGnO8fZlPx/Zt1DG1BwH348aNdZjO2TRyVj56MbdsO
+    UQ7vfTIuW3Hj16EkPXJDTHuOr12JDwD1Ls6Vt2HWthWB3Gv9MW2EJ65vEbroreG8+RnX
+    LJTY/lujQPsfRFDlwlQmz5mbr5kdVAFTANnzmvaxWmrXBUsmAtCnFRvSBGlFE08v+l3X
+    rvwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789117210;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=RIQLIPW/lG0A5eiA6gfbl3WMg1gE62YchZlK8GU+8C0=;
+    b=otuk6ExhE+x+8VYFy9rYBl6BzmdXKUIB86z8WdPj3uA1N1Z3YMBDcS3kO4P6prAqQb
+    d4ABUfPcJATGrHAod46P9VSbmjNjnxe6R59cHnPBRviSoZloABhtspOuzEPqzXmOQ2dS
+    hCK6Nlsrzckoly2MUOy5bMn8EM/CHulBGqcGaLGZOxr8ZjwmDYTqs61YY1clQbR7asY+
+    CxwuZS8yUnvpDIUymoBQk/jx9VH/+SyG7QSz4/LyUokVFR7Ly2DG/t38gH4A1vPXofq+
+    cv5O1GAnlztXVyprJRqlAnfnTaS3CfT4ql+XGK+gkanxVl3gon3hXHnI4yQ9MoXqMOgw
+    1a7A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789117210;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=RIQLIPW/lG0A5eiA6gfbl3WMg1gE62YchZlK8GU+8C0=;
+    b=bV1pnWzVIns0ap0W2bbMbaxErPCZledc3x4vtnP58RC97MYNlQWgB+gm2gLcvYaBPi
+    eE4gDsleJ630lKM3TaAFW5GMLU8lGGB40gLkHeBbl8v/00XqMoecC4dWOI9PH5Zvo3OR
+    +e5x7uUaa96wgYEI61uesXHf/PQc+bti5o9a+r6J3karurs3Xv+qJF73EjXMT/vE0CqO
+    jNk4w5xB7eRNv9rmgGQUan8+5nJJdQHY02etf4nghQ/QlLrV+cOtCo7iB8Cdad86zjDn
+    AWGiPbUDlUuXUROKflYkq5/mIm0HU04IjY6NOHU8IJtuJzAU9UuMLbCnLAps9izcgKD/
+    U4yA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789117210;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=RIQLIPW/lG0A5eiA6gfbl3WMg1gE62YchZlK8GU+8C0=;
+    b=tUDgNbwduPzEaXa+94TdD9Qcp3iv87hKt9Tq8O4g/Edlntar0RnNF9qaOHwI/+7sys
+    3YbfWpqnTV/JQb5XmFDg==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O256fJ4HnWXON1RP/6IXJ0LLxyHglCTuLc+iTpLgXEQ+UPkzrd1E="
+Received: from Munilab01-lab.speedport.ip
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e128B909Sb5
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 11 Sep 2026 11:00:09 +0200 (CEST)
+From: Bean Huo <beanhuo@iokpp.de>
+To: beanhuo@iokpp.de
+Cc: axboe@kernel.dk,
+	beanhuo@micron.com,
+	bob.beckett@collabora.com,
+	gsinha@micron.com,
+	hch@lst.de,
+	kbusch@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	sagi@grimberg.me,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron 4100AT
+Date: Fri, 11 Sep 2026 10:59:58 +0200
+Message-Id: <20260911085958.1255102-1-beanhuo@iokpp.de>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260904105155.1402065-1-beanhuo@iokpp.de>
+References: <20260904105155.1402065-1-beanhuo@iokpp.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: z9t3txr6jjnc7f1rorymfnawnrafryo9
-X-MBO-RS-ID: af8d3356cabcd556fd9
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, 2026-09-07 at 14:05 +0100, Tvrtko Ursulin wrote:
-> Prevent pushing a new job to an entity seeing it being the first in the
-> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
-> side in drm_sched_entity_pop_job() has de-queued the job but not yet
-> updated the saved virtual time.
+Hi,
 
-I think I don't fully get the bug from that message. The bug (is it
-even one?) you address is the performance bottleneck for CFS under high
-load, right?
+A gentle ping on this one. It is a single id table entry for the
+Micron 4100AT, reusing the existing NVME_QUIRK_DMAPOOL_ALIGN_512.
 
-Anyways, I think I got a better idea:
+Happy to respin if you would prefer a Fixes: tag, or a different
+form for the stable prerequisite lines.
 
->=20
-> We do this by pulling the locked sections out to encompass both the queue
-> push/pop and corresponding rbtree management.
-
-So basically you move for locking the spsc-queue, the lockless queue
-which is usually used with the locks next to it anyways. That's cool
-stuff. I've suggested this for a while already
-
-https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a-loc=
-ked-list
-
-So from a maintainability perspective, it would be far cooler if you go
-down this road one step further and kill the spsc_queue for good,
-replacing it with a fully locked list. AFAIR Christian and Danilo also
-have agreed to this.
-
-
-[=E2=80=A6]
-
-> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
-> =C2=A0 */
-> =C2=A0void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
-> =C2=A0{
-> +	struct drm_sched_rq *rq =3D entity->rq;
-> =C2=A0	struct drm_sched_job *next_job;
-> -	struct drm_sched_rq *rq;
-> +
-> +	lockdep_assert_held(&entity->lock);
-
-btw. I think it *reads* a bit safer if the rq initalization happens
-below the lockdep assertion. Also might make the diff nicer.
-
-
-P.
+Thanks,
+Bean
