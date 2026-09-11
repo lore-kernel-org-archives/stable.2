@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAFC4AA004;
-	Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D0E4AE8B9;
+	Fri, 11 Sep 2026 18:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150575; cv=none; b=VV26Au9RTPCVSR3fOsDUMCjRsJzwkHEqkH062B029Vf1mmaWBvsyd0XcNLYorKPZvt+sEnkIjPswknpOgLJVUP+AMYHQlHqMOD6SYodaUeYP5UXXan9W3BH6hyZqb7JvAZW6RS2ZIfQCEiH8iZ7DimJEUPRvdhdlwUp2cDLFGpE=
+	t=1789150578; cv=none; b=UIZbMqzSutT2aLT4YPJ2kJPTTg+7QrJtBIvTJmCZr0BLBOhbpn+oruM12sE2SKVgSwN/uViySHzrSIsN/dIIeJIRLKefYp2+SAhpTR5s8z9ddCpt5d9tcsqcI9t9xCh5G04JQx0cXbd4SAk3Eq3smeJcAfuR9eUvfzOQx/yKoOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150575; c=relaxed/simple;
-	bh=qYLMiVKK6zjyD8bmH8Esu0n7Bl8j8Sp9pi3Bihw0Fkk=;
+	s=arc-20240116; t=1789150578; c=relaxed/simple;
+	bh=GRy30mPrKsmZqYHkolwR0BH5LGcF8NucrorcdLX3O0U=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=b5aW8Lxott8zZGNQwXw7hwkgf46vtBqlQdVbluSXHnwn3fViXYrYIiEiGtrwaVIehlZ3NJOZz6deaWsTMT4CqDOp7Ai8Q7XLDD7wRnREQHqxoqxFUIAVr2ELwNIbR4Y2mpxW8eYj85fTK79B+g2Ap8dZ2mQFP2jfW3Vq1d74sZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnOPVoyt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=QSe5MI1QysgnQQn4n0O7VI6NcuOYiq/avrnzv4SbR6mtU3jt27PAJnMTX+aZFyOlgeuPnGyo4FeKmyjbbK0bB9SKJIHnxVMsOHIfeNpC6KfUW1D5CEEsj2JH+hHxo9uFyuY85QVEANNQvuj7R1duCbSJuI0gmyncAE/LaLuj6e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXSREkg0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnOPVoyt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7BA1F00898;
-	Fri, 11 Sep 2026 18:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXSREkg0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AAD1F00899;
+	Fri, 11 Sep 2026 18:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150566;
-	bh=+nf/HO39DONnuB58jcSRhWKK+JCveE1e662v4bfwgsM=;
+	s=k20260515; t=1789150567;
+	bh=7CZ9L8vKur9/k1BJWSUjY4fdFdddK3Rscatnfc5pQ8I=;
 	h=Date:From:To:Cc:Subject:References;
-	b=CnOPVoythMVBeMBYbw5yxugxvYMT0nHnwUnTPh/qcORd0jizMVGql91ItpAFZEPIs
-	 gqTZLmEsDuXrubX4OhZLYa7E2EMoyEtig5WeNhvwqCr2i1pxAGbGSac8QlW1L8rwbQ
-	 xMCihn7qQpPxJA02S6vDCSwLoP/eSO3O/NQWeDDrmUb5iLZHwf669NIdM9PYKrwGSz
-	 T4xC8GlDe1Zyg2Wn9dly4Z+u4d+U8MFp94QEOn3Fq0/r9UZdIuoQj23tXE+CYLK3D5
-	 e7wH4QS1wa4lQNytnFKGojDIswDudJyxhoUgzmd6oVM/eRfVqs73p/ij31oGJknkoy
-	 MsSB+xzINloFw==
+	b=OXSREkg0AZI0Kl/nnS6/ciSvNz6KMtLxndFov6cJHpsnIGDjDzWOUGvDWd7NxpJbl
+	 /50o5ydviGLeeoARrXaZYoAoH/tbwLyUpB+1rulpFsBtE80sr+PCMxt1MdiGWTQI4B
+	 oTMXQAbZDRwXbAmfMWTrf7Rk7VyYCfisbc50svz4XyZ2xpAtfE20HWMwuwn/OoECSs
+	 TgBaA1CYU7syIUUc2HWlTFoVfYTVajWN/GgzkSda6xCvnbJUpw0o3FtREnOd6q5o3r
+	 enii5JB6EOVBTPX45Ph5qA8zCxz6x4AKjC4/HYQw2KauWN7qOrmlSkHLmsUyL7kcDl
+	 s2n1ZhHD4zNHg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oW-000000094v1-2Ahp;
-	Fri, 11 Sep 2026 14:17:28 -0400
-Message-ID: <20260911181728.313951151@kernel.org>
+	id 1x55oX-000000094xE-1gnj;
+	Fri, 11 Sep 2026 14:17:29 -0400
+Message-ID: <20260911181729.202464280@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:37 -0400
+Date: Fri, 11 Sep 2026 14:16:41 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,9 +40,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Henry Martin <bsdhenrymartin@gmail.com>,
- Beau Belgrave <beaub@linux.microsoft.com>
-Subject: [for-linus][PATCH 01/20] tracing/user_events: Dont destroy fields when event removal fails
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [for-linus][PATCH 05/20] tracing: Free histogram var refs regardless of how often they are
+ referenced
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,90 +52,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-destroy_user_event() destroys the event's fields before attempting to
-remove the trace event call. If user_event_set_call_visible() fails,
-e.g. because the event is still enabled and trace_remove_event_call()
-returns -EBUSY, the event is left registered with an irreversibly
-destroyed field list. Any subsequent interaction with the event then
-operates on an empty field list while it is still fully visible in
-tracefs.
+Using the same variable three or more times in one hist trigger leaks the
+variable reference and its strings when the trigger is removed.
 
-Move the field destruction after the call removal, and splice the
-field list back onto the event when the removal fails so the event
-remains in a consistent state.
+commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
+var_refs") made a trigger's var_refs[] array the only owner of a var ref:
+destroy_hist_field() returns early for HIST_FIELD_FL_VAR_REF, so the field
+expressions never destroy one. One entry, freed once, no count needed.
+
+commit 8bcebc77e85f ("tracing: Fix histogram code when expression has same
+var as value") then made repeated references share one object and added a
+count of them. Only the increment side exists, since those expressions
+still return early and never drop a reference, so __destroy_hist_field()
+sees how many references were created rather than how many are left. It
+frees when the decremented count is 0 or 1, so two references work and
+three or more leak.
+
+Sharing kept one array entry per object, and create_var_ref() searches and
+appends within a single trigger, so nothing outside it holds the object.
+Removing a trigger whose variables are still referenced is already refused
+by check_var_refs() with -EBUSY. Drop the count and free unconditionally.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260904115223.2976446-1-bsdhenrymartin@gmail.com
-Fixes: 7f5a08c79df35 ("user_events: Add minimal support for trace_event into ftrace")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Reviewed-by: Beau Belgrave <beaub@linux.microsoft.com>
+Link: https://patch.msgid.link/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com
+Fixes: 8bcebc77e85f ("tracing: Fix histogram code when expression has same var as value")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_user.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ kernel/trace/trace_events_hist.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index 93cda2f6f269..f658c3a77aa7 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -1122,10 +1122,9 @@ static void user_event_destroy_validators(struct user_event *user)
- 	}
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 963e0d6b61fd..f90680b33a37 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -169,7 +169,6 @@ struct hist_field {
+ 	struct hist_field		*operands[HIST_FIELD_OPERANDS_MAX];
+ 	struct hist_trigger_data	*hist_data;
+ 	enum hist_field_fn		fn_num;
+-	unsigned int			ref;
+ 	unsigned int			size;
+ 	unsigned int			offset;
+ 	unsigned int                    is_signed;
+@@ -1913,16 +1912,8 @@ static int contains_operator(char *str, char **sep)
+ 	return field_op;
  }
  
--static void user_event_destroy_fields(struct user_event *user)
-+static void user_event_destroy_fields(struct list_head *head)
+-static void get_hist_field(struct hist_field *hist_field)
+-{
+-	hist_field->ref++;
+-}
+-
+ static void __destroy_hist_field(struct hist_field *hist_field)
  {
- 	struct ftrace_event_field *field, *next;
--	struct list_head *head = &user->fields;
+-	if (--hist_field->ref > 1)
+-		return;
+-
+ 	kfree(hist_field->var.name);
+ 	kfree(hist_field->name);
  
- 	list_for_each_entry_safe(field, next, head, link) {
- 		list_del(&field->link);
-@@ -1502,17 +1501,32 @@ static int user_event_set_call_visible(struct user_event *user, bool visible)
+@@ -1969,8 +1960,6 @@ static struct hist_field *create_hist_field(struct hist_trigger_data *hist_data,
+ 	if (!hist_field)
+ 		return NULL;
  
- static int destroy_user_event(struct user_event *user)
- {
-+	LIST_HEAD(fields);
- 	int ret = 0;
+-	hist_field->ref = 1;
+-
+ 	hist_field->hist_data = hist_data;
  
- 	lockdep_assert_held(&event_mutex);
+ 	if (flags & HIST_FIELD_FL_EXPR || flags & HIST_FIELD_FL_ALIAS)
+@@ -2223,10 +2212,8 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	for (i = 0; i < hist_data->n_var_refs; i++) {
+ 		ref_field = hist_data->var_refs[i];
+ 		if (ref_field->var.idx == var_field->var.idx &&
+-		    ref_field->var.hist_data == var_field->hist_data) {
+-			get_hist_field(ref_field);
++		    ref_field->var.hist_data == var_field->hist_data)
+ 			return ref_field;
+-		}
+ 	}
+ 	/* Sanity check to avoid out-of-bound write on 'hist_data->var_refs' */
+ 	if (hist_data->n_var_refs >= TRACING_MAP_VARS_MAX)
+@@ -3276,7 +3263,6 @@ static struct hist_field *create_var(struct hist_trigger_data *hist_data,
+ 		goto out;
+ 	}
  
--	/* Must destroy fields before call removal */
--	user_event_destroy_fields(user);
-+	/*
-+	 * Detach the fields before removing the call. Removing the event
-+	 * frees the field list memory (trace_destroy_fields() is run on
-+	 * successful removal and kmem_cache_free()s the fields), but the
-+	 * fields here are allocated and owned by user_events. Destroy
-+	 * them separately once removal has succeeded.
-+	 */
-+	list_splice_init(&user->fields, &fields);
- 
- 	ret = user_event_set_call_visible(user, false);
- 
--	if (ret)
-+	if (ret) {
-+		/*
-+		 * Removal failed and the event stays registered, recover
-+		 * the fields so it is left in a consistent state.
-+		 */
-+		list_splice(&fields, &user->fields);
- 		return ret;
-+	}
-+
-+	user_event_destroy_fields(&fields);
- 
- 	dyn_event_remove(&user->devent);
- 	hash_del(&user->node);
-@@ -2212,7 +2226,7 @@ static int user_event_parse(struct user_event_group *group, char *name,
- put_user_lock:
- 	mutex_unlock(&event_mutex);
- put_user:
--	user_event_destroy_fields(user);
-+	user_event_destroy_fields(&user->fields);
- 	user_event_destroy_validators(user);
- 	kfree(user->call.print_fmt);
- 
+-	var->ref = 1;
+ 	var->flags = HIST_FIELD_FL_VAR;
+ 	var->var.idx = idx;
+ 	var->var.hist_data = var->hist_data = hist_data;
 -- 
 2.53.0
