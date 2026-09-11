@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9515E39B48D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14003515C5
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149803; cv=none; b=Whcc7EIt2CqLsyyMZvQuQdjk2ypaQxqewzL6eik2o4BGr3l2EwCteOWk02hsNorJMpbvlOV++8znvAPYRbuv1wEQs3UrdCcpj7JLlz7NjT8N1jRKP+SQK67qNLQm2qPTh0YPgQpJ9Zv/wHejYqaMLLA4mQTx+EWE/Y9tVGXGQek=
+	t=1789149805; cv=none; b=oDUuePhecmz/0S00ggk9Skn/WEofUEpbivL0X0tI0L6KnYLrBE15j92b9y13ITEVfVX8MxzwB9uUWjdlS0kSUdbOoq6nmLNDHgz+LvAP/KCvEz+BJCT8K+RleQpbIHp1z2v5M8wQh4pNISbW3VA/Voqu5Y+i+LzQBbLxNbfmTFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149803; c=relaxed/simple;
-	bh=KXo3ybFCRyjbf8yzP3DKga+tFydKDcmX9pYo+dDeJ58=;
+	s=arc-20240116; t=1789149805; c=relaxed/simple;
+	bh=0wqMiCyyGWdU4joxWy5FeojM+jEWb8w6RJ9OjEU3L4w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QT7ii7Iz2p4huJrolvqRwoZ4+clUXHuUJAftQ5parTKcmnGEwwUTGe4OZ5nPn4/kxCm1IVs8xJXRFg5SEDkjJuH0oreJlwU/CQaNusB8qoD505zqk/ftzGerWicoPE+HFYqBTz27KjkDj4CAN+DZuIa/c8Fm2jSzJKkFxoL+NuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GaY34OOA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O/A6WfSdqS0p6I1bX8Ogim6TLfICwky45eXNdHWrexI9eqydpwcU2A3gc+xoXkoQDiy9HCXcFne6jXPBahsU6WXe/HpAvjvQP9n7cOobo0dSNNo5qGJneBQtNP5pVCbbuKgkDI4qcpdU+ctXdlLE5TfncUtBODszkh4dpQr7KoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKGHS5st; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GaY34OOA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ECCB1F000FF;
-	Fri, 11 Sep 2026 18:03:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKGHS5st"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DD01F00893;
+	Fri, 11 Sep 2026 18:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149802;
-	bh=1FaEyC7mCgRE9LB1myPs2RqIIe94aYPaLIao82akWOs=;
+	s=k20260515; t=1789149803;
+	bh=/hE+Dl0qwoZFpjBm04spjsGg1TorwSA0nbtXyyUgS0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GaY34OOA8zuhwosdlUZZGXadLAE9pWEcmHw304HInJ3UWGjj6CxS0yrjJRl8sOR7b
-	 Iza/my8JkaLaluAGWWQJBnKNDGF5vMSufePX4mDyOB4boTOeHVo1keIYck2fDBT8kp
-	 BWYSfgHoWqWzPOUBAO1kxbYeKD707m8q7qnqYQPHnjELrLnetucfBYR9ofJU0Mai7x
-	 a1iDILRnxx/5WgF2LNB6rSR0Him9sjNz6BB5qosxUzSEDNECAEPp2rRGyf2CXb7NG9
-	 BxMnsXqhZvoZy7XsWyajt/krvrMBMrXIeWDqPPjbb9SR8XZ+owSC6/xUcAQfs/rKkZ
-	 UBiwjgBQUyCIw==
+	b=PKGHS5stT80L7d5lDj/SysW+e3SMnq7WVst3TM5yfta3Aa37fi7U1p69+WZ6D2q89
+	 iLazNScWhgcxyw0ntLteND4NPnpYANkL1jcGeKaUkGY/PaORqSydBkvqXK327JDArM
+	 XU9jfZVRNRor+eC5U+UhTiCnG3H6fIKBOFuaNir1aFVSmc+IxI8hkJq06mi511RTff
+	 4L4MeaIscJX97KOkzA/MnaG6XQPejnr1Ru7V/FD04jCDJQNT4/bz9wJXLiMlM+3xIh
+	 3dxWjVp3oWrkeSRThFe8WDwvHT5F8wL88UsN/SwpTy5VAiV7vL59LmOyICjySJiBGL
+	 2DMR99eMXtojA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] scsi: qla2xxx: Fix soft lockup polling continuation IOCB signature
-Date: Fri, 11 Sep 2026 14:03:20 -0400
-Message-ID: <20260911180320.1292376-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] scsi: qla2xxx: Clamp max_npiv_vports to VP_CTRL bitmap capacity
+Date: Fri, 11 Sep 2026 14:03:21 -0400
+Message-ID: <20260911180321.1292428-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-shimmy-settle-01e5@gregkh>
-References: <2026090957-shimmy-settle-01e5@gregkh>
+In-Reply-To: <2026090902-filtrate-overeager-c2b9@gregkh>
+References: <2026090902-filtrate-overeager-c2b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,105 +48,99 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit d7e3fa7d06bf7fcaac186d3c4d635caac166d36c ]
+[ Upstream commit 2ac6a829843cf3df522d19e091276109b94c4c7a ]
 
-qla27xx_copy_multiple_pkt() and qla27xx_copy_fpin_pkt() poll
-rsp_q->ring_ptr->signature for RESPONSE_PROCESSED (0xDEADDEAD) to decide
-whether the next continuation IOCB has arrived, spinning on cpu_relax()
-without advancing the ring or decrementing the entry count while it has
-not. response_t::signature lives at byte offset 60, but a continuation
-IOCB (sts_cont_entry_t / struct sts_cont_entry_ext) carries raw FC frame
-payload at that offset (data[56..59]). A received frame whose payload
-bytes happen to equal 0xDEADDEAD is therefore misread as "not yet
-arrived", and the loop spins forever in interrupt/DPC context, causing a
-CPU soft lockup.
+ha->max_npiv_vports is taken from firmware (mcp->mb[11]) and only
+constrained so that (max_npiv_vports + 1) is a multiple of
+MIN_MULTI_ID_FABRIC, which permits values of 63, 127, 191 and 255.
+NPIV vports are then allocated up to that count.
 
-The poll is also unnecessary: callers of qla27xx_copy_multiple_pkt()
-(PT_LS4_UNSOL and the NVMe purls path) already gate on
-qla_chk_cont_iocb_avail(), which guarantees all entry_count IOCBs are
-present before copying begins. The sibling helper
-__qla_copy_purex_to_buffer() already drops the signature poll and relies
-on the entry_type == STATUS_CONT_TYPE guard instead.
+VP enable uses the VP_CONFIG IOCB, which addresses a vport through a
+plain vp_index byte, so a vp_index beyond 128 is enabled without issue.
+VP disable, however, uses the VP_CTRL IOCB, which selects target vports
+through the fixed 128-bit vp_idx_map bitmap. qla24xx_control_vp()
+rejects a vp_index past that bitmap and the IOCB builder cannot set a bit
+beyond 127, yet qla24xx_vport_delete() frees the local state regardless.
+A vport with vp_index > 128 can therefore be created and enabled but
+never disabled, leaving it permanently active in firmware: a resource
+leak.
 
-Remove the signature busy-wait from both helpers, keeping the entry_type
-guard, and gate the FPIN path with qla_chk_cont_iocb_avail() so it defers
-and re-processes on the next interrupt once all continuation IOCBs have
-arrived, mirroring the ELS_AUTH_ELS and PT_LS4_UNSOL arms. With this the
-signature field is never read on a continuation IOCB, eliminating the
-payload-aliasing lockup.
+Cap ha->max_npiv_vports at init to the vp_idx_map capacity so such
+vports are never created. This collapses 191/255 to 127 (still
+modulo-valid) and leaves the real-world 63/127 cases unaffected.
 
-Fixes: 9f2475fe7406 ("scsi: qla2xxx: SAN congestion management implementation")
+Fixes: 4d0ea24769c8 ("[SCSI] qla2xxx: Retrieve max-NPIV support capabilities from FW.")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-15-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-20-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ replaced unavailable qla_rsp_ring_rewind_to() with direct ring pointer and index assignments ]
+[ adapted the qla24xx_control_vp() hunk to include the prerequisite bounds-check block missing from this branch. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_isr.c | 33 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/scsi/qla2xxx/qla_fw.h   |  4 ++++
+ drivers/scsi/qla2xxx/qla_init.c | 13 +++++++++++++
+ drivers/scsi/qla2xxx/qla_mid.c  |  8 ++++++++
+ 3 files changed, 25 insertions(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_isr.c b/drivers/scsi/qla2xxx/qla_isr.c
-index 38214f8e30fa6..30f41f46f6f83 100644
---- a/drivers/scsi/qla2xxx/qla_isr.c
-+++ b/drivers/scsi/qla2xxx/qla_isr.c
-@@ -910,14 +910,6 @@ qla27xx_copy_multiple_pkt(struct scsi_qla_host *vha, void **pkt,
+diff --git a/drivers/scsi/qla2xxx/qla_fw.h b/drivers/scsi/qla2xxx/qla_fw.h
+index f307beed9d29d..e7ded95afb9a8 100644
+--- a/drivers/scsi/qla2xxx/qla_fw.h
++++ b/drivers/scsi/qla2xxx/qla_fw.h
+@@ -1442,6 +1442,10 @@ struct vp_ctrl_entry_24xx {
+ 	uint8_t reserved_5[24];
+ };
  
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
- 
-@@ -1194,14 +1186,6 @@ qla27xx_copy_fpin_pkt(struct scsi_qla_host *vha, void **pkt,
- 
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
- 
-@@ -4115,9 +4099,24 @@ void qla24xx_process_response_queue(struct scsi_qla_host *vha,
- 					       "SCM not active for this port\n");
- 					break;
- 				}
-+				if (qla_chk_cont_iocb_avail(vha, rsp,
-+				    (response_t *)pkt, rsp_in)) {
-+					/*
-+					 * ring_ptr and ring_index were
-+					 * pre-incremented above. Reset them
-+					 * back to current. Wait for next
-+					 * interrupt with all IOCBs to arrive
-+					 * and re-process.
-+					 */
-+					rsp->ring_ptr = (response_t *)pkt;
-+					rsp->ring_index = cur_ring_index;
++/* vp_idx_map is a 128-bit (16-byte) bitmap selecting target VPs. */
++#define VP_CTRL_IDX_MAP_BITS \
++	(sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
 +
-+					ql_dbg(ql_dbg_init, vha, 0x5095,
-+					    "Defer processing FPIN...\n");
-+					return;
-+				}
- 				pure_item = qla27xx_copy_fpin_pkt(vha,
- 							  (void **)&pkt, &rsp);
--				__update_rsp_in(is_shadow_hba, rsp, rsp_in);
- 				if (!pure_item)
- 					break;
- 				qla24xx_queue_purex_item(vha, pure_item,
+ /*
+  * Modify Virtual Port Configuration IOCB
+  */
+diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
+index b736575e2d9fc..84b90a112317e 100644
+--- a/drivers/scsi/qla2xxx/qla_init.c
++++ b/drivers/scsi/qla2xxx/qla_init.c
+@@ -4374,6 +4374,19 @@ qla2x00_setup_chip(scsi_qla_host_t *vha)
+ 					    MIN_MULTI_ID_FABRIC))
+ 						ha->max_npiv_vports =
+ 						    MIN_MULTI_ID_FABRIC - 1;
++
++					/*
++					 * The VP_CTRL IOCB selects target VPs
++					 * through the fixed vp_idx_map bitmap,
++					 * so a vp_index beyond it can be enabled
++					 * via VP_CONFIG but never disabled via
++					 * VP_CTRL, leaking the VP.  Cap the count
++					 * to the bitmap capacity.
++					 */
++					if (ha->max_npiv_vports >=
++					    VP_CTRL_IDX_MAP_BITS)
++						ha->max_npiv_vports =
++						    VP_CTRL_IDX_MAP_BITS - 1;
+ 				}
+ 				qla2x00_get_resource_cnts(vha);
+ 				qla_init_iocb_limit(vha);
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 9946899dd83b8..e85b4bec91d9b 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -957,6 +957,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
+ 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
+ 		return QLA_PARAMETER_ERROR;
+ 
++	/*
++	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
++	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
++	 * if firmware advertises more NPIV vports.
++	 */
++	if (vp_index > VP_CTRL_IDX_MAP_BITS)
++		return QLA_PARAMETER_ERROR;
++
+ 	/* ref: INIT */
+ 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
+ 	if (!sp)
 -- 
 2.53.0
 
