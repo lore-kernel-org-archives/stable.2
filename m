@@ -1,114 +1,100 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5A643AEF24
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB3331618B;
+	Fri, 11 Sep 2026 10:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122023; cv=none; b=i1/imj4+uvfltFm7eKpR8zcIPJGbhq1+ALkQol8dN+YOch8QvtmR/1BpyrmvEAVOZYl6N/oQPQffwhDPX9Hg0LInnGvKCGK5/TtMw7zW9StiI9ceyOi/IJTWDoVoy0luOlWDu8Oar1GY0+9I+4LbBlb8Z9IxOdJFZsvev8037Xw=
+	t=1789122134; cv=none; b=fQBVTGJHgxUt0lWVIGltJNhS0byUX8CugwKf0Bsds49rtZjPIpHdo2TKkgqDuL6vHCEVWq2NEABedHCDdb/DGNAGr8nZlzNgtUNPuVnY8L4ChlQFdrUq3GFPH/O8zFBVlobTCwevclCA/hAFjvuQPCHkfQn5/AoW/3BD125PeeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122023; c=relaxed/simple;
-	bh=53Dh5QE6fSgJ74oMfOx/5be01PBtu9656F9us9fFU+8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CAAcYHzMCFy2SX7nYgG3vY+gQWdRLIEOSUkMXMylr6SYi6MNz7XzuYgZsHXvTRZjJkrHqwFhV/O/P4a9ezZLHI/xvT9uSAnYk/gtPEfzL5RZ4rQEbaQnvzhtfFoZdF9M07P8VNz91Osdddi/r+f/8c582CktVG1PuGZmT3X5eRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mP6HeeHX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789122134; c=relaxed/simple;
+	bh=gggW4fqvNn5LUiR2HueghSpaVrKnYBdBAMuALnaslig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ls4F8lqSJ62vAXK4D49NNXkC8NiGM4/y5G4lGxQ2Kow1WH4maaTg6a0lWMLKAGXUdcfyPpy/povh5Mt3HxCUVIYXSDYttsKSfYVceCPaCafeHS2sMD242hS99tYZqSgCSoLU50xA9hx4HIw0E2DeaMS5djtvAyrPSAUyGL6hYC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=e2mO8klN; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mP6HeeHX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14485153B;
-	Fri, 11 Sep 2026 03:20:15 -0700 (PDT)
-Received: from [10.0.152.207] (unknown [10.0.152.207])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4514A3F7B4;
-	Fri, 11 Sep 2026 03:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789122018; bh=53Dh5QE6fSgJ74oMfOx/5be01PBtu9656F9us9fFU+8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mP6HeeHXPRZxEdHjOO8oTs+q6Smeu/t8MWvXsEgXSu3DgtgMx9L9ycv4wANLZlF5V
-	 X7/U8jsObc/Im0hX6R4xmKeZ2Smvj9439ipAFwyFg4PNH+bV8pTpxA6Dg+MJFnoICr
-	 JkHIYGnpxaazF5Qa5pHZ6gY9Bl/2EaLMR6x2MhtE=
-Message-ID: <182bd070-d987-45f5-9dca-1a85b07abf2b@arm.com>
-Date: Fri, 11 Sep 2026 11:20:13 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="e2mO8klN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=a4s9x3U3bR8KANQuLnz4euSZpgFDoCaaS8HqfMnlmso=; b=e2mO8klNko7zwu9lZ6HA75URJ4
+	xxxXwoXo7M8R/GYHZkFsM8pvBfGWK7jD6/CTnuDsV8t5o960r6jEfKOL/jEbDbq/enkxgwrQxwTBZ
+	HjvJeMJ1srwscRr5eiaKKz4XRdgjySL1N2o9s53Gx8SiuGryULEKURQGihi8UD8lA4PqaSErezhsB
+	1nrBw9ym1Uz4EL1pXzJwV0lUtmC93wlJxgw3YdMhxQT/geyYDmDZzdP2BgkHSDhKGszMOvs9fSIiM
+	a8kp9BEzr34JyKjgdxuXHqXHossrBAxe9xWRrAACNk71qqRLaJeHL4RhG4Vli5tMcSlCL1e2nmwkh
+	InUT4nig==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4yOS-0000000AviN-2UjR;
+	Fri, 11 Sep 2026 10:22:04 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7F76F300400; Fri, 11 Sep 2026 12:22:03 +0200 (CEST)
+Date: Fri, 11 Sep 2026 12:22:03 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Thomas Gleixner <tglx@kernel.org>, boqun@kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <20260911102203.GF1837346@noisy.programming.kicks-ass.net>
+References: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
+ <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+ <87pkymywth.ffs@fw13>
+ <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+ <aqKu8nJqPsmKOo1d@localhost.localdomain>
+ <20260910132843.GS776954@noisy.programming.kicks-ass.net>
+ <aqPQrGWqKfX_5MMj@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/21] arm64: ptrace: Always inline
- pt_regs_[read,write}_reg()
-To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
- cl@gentwo.org, david@kernel.org, david.laight.linux@gmail.com,
- james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
- ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
- usama.anjum@arm.com, will@kernel.org, yang@os.amperecomputing.com
-References: <20260908151741.394589-1-mark.rutland@arm.com>
- <20260908151741.394589-9-mark.rutland@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20260908151741.394589-9-mark.rutland@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqPQrGWqKfX_5MMj@localhost.localdomain>
 
-On 9/8/26 16:17, Mark Rutland wrote:
-> In subsequent patches we'll want to use pt_regs_read_reg() and
-> pt_regs_write_reg() in noinstr code.
-> 
-> To ensure noinstr safety, both functions must be inlined into their
-> caller. As both functions are marked as 'inline' rather than
-> '__always_inline', that's not strictly guaranteed, and the compiler is
-> permitted to generate out-of-line copies.
-> 
-> Mark both functions as '__always_inline' to ensure this.
-> 
-> There should be no functional change as a result of this patch.
-> 
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yang Shi <yang@os.amperecomputing.com>
-> ---
->  arch/arm64/include/asm/ptrace.h | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
-> index f7dc5fb9427d6..f635c3453a858 100644
-> --- a/arch/arm64/include/asm/ptrace.h
-> +++ b/arch/arm64/include/asm/ptrace.h
-> @@ -266,7 +266,8 @@ static inline u64 regs_get_register(struct pt_regs *regs, unsigned int offset)
->   * Read a register given an architectural register index r.
->   * This handles the common case where 31 means XZR, not SP.
->   */
-> -static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
-> +static __always_inline unsigned long
-> +pt_regs_read_reg(const struct pt_regs *regs, int r)
->  {
->  	return (r == 31) ? 0 : regs->regs[r];
->  }
-> @@ -275,8 +276,8 @@ static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
->   * Write a register given an architectural register index r.
->   * This handles the common case where 31 means XZR, not SP.
->   */
-> -static inline void pt_regs_write_reg(struct pt_regs *regs, int r,
-> -				     unsigned long val)
-> +static __always_inline void
-> +pt_regs_write_reg(struct pt_regs *regs, int r, unsigned long val)
->  {
->  	if (r != 31)
->  		regs->regs[r] = val;
-> -- 2.30.2
-> 
+On Fri, Sep 11, 2026 at 11:58:04AM +0200, Frederic Weisbecker wrote:
+> Le Thu, Sep 10, 2026 at 03:28:43PM +0200, Peter Zijlstra a écrit :
 
-FWIW,
+> > The way data dependencies work in this case is a LOAD->LOAD ordering.
+> > The LOAD-ACQUIRE that is part of LOCK must happen after the initial
+> > load. And then the later load is constrained by the ACQUIRE.
+> > 
+> > So LOAD(B) must resolve in order to do LOAD_ACQUIRE(B->lock.value).
+> 
+> Ok I must confess that's not a pattern I'm used to and therefore it's
+> still a bit counter-intuitive to me. I hope we can document that somehow
+> somewhere.
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+One way of looking at it is the computation for the address of
+&B->lock.value.
 
+A	void *r = LOAD(B);			 // B
+B	r += offsetof(typeof(*B), lock);	 // &B->lock
+	spin_lock(r)
+C	  r += offsetof(typeof(B->lock), value); // &B->lock.value
+	  for (;;)
+D	    v = LOAD_ACQUIRE(r);
+	    if (!v && !cmpxchg_relaxed(r, 0, 1))
+	      break;
+	    cpu_relax();
+
+Note how the LOAD_ACQUIRE() at D depends on the computation of C, and B,
+which in turn depend on the load of A.
+
+If A does not complete, B,C cannot compute the address for the load of
+D. Therefore A must come before D.
