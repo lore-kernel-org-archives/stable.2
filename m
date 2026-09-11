@@ -1,49 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA9A3E1D17
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99EE3DC4C9
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093866; cv=none; b=Uwfoek0jHwXaKLyPbCD6C9CIyohFHec5L70LgIbk2CamvljqNq6bbpd8XRiyJ5XXqZFmSWRmtvte5qxMgvOb2Ltu5V51ODYaJkzWfSFsFzLzz4gw5/gm3dCEu7jJA2KQl2Upwy3htB06ytLocNlFEuU+46so+5d0ekrjb+wWs20=
+	t=1789093869; cv=none; b=HurLqNd4ohIx68eQjT02d8lTk+xbP2twFk/lRrQ/iHBUDqhJGnx0oQrMonhGebG+S6UHQJAE3ea1gJgd+l46Kxy1nfPCOXgt1iEmamDmyVXwfwLdFrM1GEXtKLPOdsOnZSSlm2ziIHFFHHxLgh7LoulluRO/2WLY8D51yZdLpgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093866; c=relaxed/simple;
-	bh=3Edi7nYH0Shvija0l0JMIvf/a4RUDDk7JgJyoQpRTgE=;
+	s=arc-20240116; t=1789093869; c=relaxed/simple;
+	bh=MqXwGzCRRGJz+BoOtxcDlHgz3Gi/1zowiR9L1nJX+d0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mcTH2spmCndq5Y3QOGkWqjZLzrUBdnPK3BEhluDthBC1emZTbhB6/HLfCwXlzg7HEeptNmx/W4TqJOYy01aadQlHiAjHFp/r5olfg+m1bDQ5eRkV9bCEXK0viMTzND0K8Fi5YLnDT1HbihATkXZMMCnNztgxHveUcN8hHYYtclw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oX2b+6qC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RqbJVCVlldzlkAu9BHOlTLJIjzioOCtbOitxMKbYPLvdTlaX9ZtUX9mjNvZXHAcINKUgWNiFEm9BNossjW1Zzo7s6Tm2o9DGiEZv+mKXebLhhdty4BVQ3uIjKgNytjyIhztqMcY6GAxeXoLmFuxqYI1RAcJ8SarUNCuKnf+ScfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFYoMccd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oX2b+6qC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6521F00893;
-	Fri, 11 Sep 2026 02:31:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFYoMccd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0772D1F000FF;
+	Fri, 11 Sep 2026 02:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093864;
-	bh=vn0/U3DmKXL3ev43orKZysFnW6Bee9ype15E9D6bkII=;
+	s=k20260515; t=1789093867;
+	bh=VEB770gRanWZkacp/uUTK7N7BMaGZQCWIeFH1ryJRX4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oX2b+6qCD/itExe/VPU599YT7iWSsTgOF/kidwCx/ZLghWXo9ZKEINQrp1lfHl1J0
-	 spsO5lXPhvpbaC0nGbrjnDQ1OYEoRIDRG6ykdiymsNqQcfgDxZBmCqC09HleT4uwxO
-	 gQidOdneFvJxy4wYayvBg+kq9NtguUOojKoLh7bv1pCt/2DZa4QMM6ZJPUQvzdeJqe
-	 ztO/Lhu5v7OisFG/iMSw66uK05RiyEp22OsO94HVZe6o+F9izb+8AAn9GzeGvgWOrL
-	 ShSrxjNj82N+Q6ibZjXw5XNx0wtVYl8Z5WKygEXKYo5MrItlgKNzBlaTj5NNJErclB
-	 gG2z/7JsdqzJg==
+	b=hFYoMccd6qkQ/CkacUbCV4PMMpLPQGsIC/KKAcKA3GuTc5X7tYM+RJ+GJ8F8jp1Aa
+	 tnb1jh7+tCqGDj4RRS3at0LmxP0d1K7JfvkcUvTSdg+8kEvHLj7rW6FX2oW7hAqPAU
+	 VFCeGjxSeZBx5Cb8pk0/QfweFdC8GtvChzQSx4SwOD6h88J3sIYEahTzIpJR2E/DZo
+	 yU4gRspG53sbAUlLaN7CNPgVjLZdlqdlDyy+pcD/RQpKY95h28wz3VapFuxVQp3rBy
+	 xfazqH3H4V1DpBDQxUQZXYGrIzt7Q1ScubN481pK/VBO1/JXpYD6Q9wlHA3AkEhOIU
+	 s3L/MltiID9uw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Li Xinhai <lixinhai.lxh@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Kai Huang <kai.huang@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-Date: Thu, 10 Sep 2026 22:31:02 -0400
-Message-ID: <20260911023102.76301-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/5] KVM: x86: Extract REGS and SREGS runtime sync code to helpers
+Date: Thu, 10 Sep 2026 22:31:01 -0400
+Message-ID: <20260911023105.76544-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-drearily-trickily-5875@gregkh>
-References: <2026090957-drearily-trickily-5875@gregkh>
+In-Reply-To: <2026090910-manned-fang-c784@gregkh>
+References: <2026090910-manned-fang-c784@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,75 +48,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 35b0fb391b0df57383bc15985bb769f4555c97ba ]
+[ Upstream commit 6a8a98aa9c147eb63f5a360f157f207bf46c05ee ]
 
-Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-a faulted VMA into an unfaulted one.
+Extract the REGS and SREGS portions of {store,sync}_regs() into separate
+helpers in anticipation of moving the register specific code out of x86.c
+and into regs.c.
 
-It does so after the page tables have been moved to the copied VMA with
-MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-as the page tables it had are no longer present.
+No functional change intended.
 
-However, in doing so, it violates the invariant that the anonymous page
-offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-
-This is because a VMA may have been faulted in, mremap()'d (causing a
-delta between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-
-This condition is a violation of a fundamental assumption in mm, but now
-also triggers an assert in assert_sane_pgoff() which explicitly checks for
-this condition.
-
-Correct it by resetting the VMA's page offset at the point of completing
-the MREMAP_DONTUNMAP operation.
-
-Link: https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-Tested-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Li Xinhai <lixinhai.lxh@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted dontunmap_complete() changes to move_vma() using direct vm_pgoff assignment instead of unavailable helpers. ]
+Cc: Yosry Ahmed <yosry@kernel.org>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Message-ID: <20260613000329.732085-2-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 184bd464bdb6 ("KVM: x86: Check EFER validity on KVM_SET_SREGS*")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ arch/x86/kvm/x86.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index d458ef218a372..d35f603c9738e 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -714,8 +714,18 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 * table has been moved.
- 		 */
- 		if (new_vma != vma && vma->vm_start == old_addr &&
--			vma->vm_end == (old_addr + old_len))
-+			vma->vm_end == (old_addr + old_len)) {
-+			const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-+
- 			unlink_anon_vmas(vma);
-+			/*
-+			 * The VMA is now unfaulted and it is an invariant that
-+			 * unfaulted anonymous VMAs have page offset equal to
-+			 * vma->vm_start >> PAGE_SHIFT.
-+			 */
-+			if (vma_is_anonymous(vma) && !vma->vm_file)
-+				vma->vm_pgoff = pgoff_unfaulted;
-+		}
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 47cb9eba113b1..734ef633d24e3 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -12685,7 +12685,7 @@ int kvm_arch_vcpu_ioctl_set_fpu(struct kvm_vcpu *vcpu, struct kvm_fpu *fpu)
+ 	return 0;
+ }
  
- 		/* Because we won't unmap we don't need to touch locked_vm */
- 		return new_addr;
+-static void store_regs(struct kvm_vcpu *vcpu)
++static void kvm_run_sync_regs_to_user(struct kvm_vcpu *vcpu)
+ {
+ 	BUILD_BUG_ON(sizeof(struct kvm_sync_regs) > SYNC_REGS_SIZE_BYTES);
+ 
+@@ -12694,13 +12694,18 @@ static void store_regs(struct kvm_vcpu *vcpu)
+ 
+ 	if (vcpu->run->kvm_valid_regs & KVM_SYNC_X86_SREGS)
+ 		__get_sregs(vcpu, &vcpu->run->s.regs.sregs);
++}
++
++static void store_regs(struct kvm_vcpu *vcpu)
++{
++	kvm_run_sync_regs_to_user(vcpu);
+ 
+ 	if (vcpu->run->kvm_valid_regs & KVM_SYNC_X86_EVENTS)
+ 		kvm_vcpu_ioctl_x86_get_vcpu_events(
+ 				vcpu, &vcpu->run->s.regs.events);
+ }
+ 
+-static int sync_regs(struct kvm_vcpu *vcpu)
++static int kvm_run_sync_regs_from_user(struct kvm_vcpu *vcpu)
+ {
+ 	if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_REGS) {
+ 		__set_regs(vcpu, &vcpu->run->s.regs.regs);
+@@ -12716,6 +12721,14 @@ static int sync_regs(struct kvm_vcpu *vcpu)
+ 		vcpu->run->kvm_dirty_regs &= ~KVM_SYNC_X86_SREGS;
+ 	}
+ 
++	return 0;
++}
++
++static int sync_regs(struct kvm_vcpu *vcpu)
++{
++	if (kvm_run_sync_regs_from_user(vcpu))
++		return -EINVAL;
++
+ 	if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_EVENTS) {
+ 		struct kvm_vcpu_events events = vcpu->run->s.regs.events;
+ 
 -- 
 2.53.0
 
