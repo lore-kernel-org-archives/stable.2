@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9103D9DA0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994C9449EA6
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125678; cv=none; b=QK37kHpPnctNMnV5OxM0iJHVVDJTwfQ0EyRYP0/g8+2pioHgk89rVrigLVgjkv2Rh4SdXwrw+fI4kX+aGkGiLO6SLADunzMzwvMwWj3pGiQtTVu7Zm46wsDAJlm2oDCaGfQvbHY5X8+ikfQj1zd171HLpCg3AYq/EOg5RxE4I2E=
+	t=1789125679; cv=none; b=HTwE+6PVnfifKNOrL9JjC5tHIqAUj8mSSUh9pjB5sPHDUbd1UDr8X0b0UE1W9e9x36y8misYK1jrIjva6R0IXtoItvZdjzi5wcHVl03yzIOzDoQhxAL4iEIxR5L4rAC9aQT5salj2DLxSewAuz0BLVOSIZkgJp7VbEp9R0/CyXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125678; c=relaxed/simple;
-	bh=SXBtN0BK47JLzjUQZnTPG7Hun9u0BCG4pLL8h8EVtC8=;
+	s=arc-20240116; t=1789125679; c=relaxed/simple;
+	bh=WCfrrg2pJ+0QzndVoyRCSk1c6n7fySarrAfiub9NmRw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m/xLpN2XWykFquQjD0zXHsj3yHoO7ixspUVES92InX7VwV7UsSvUcv1bquMV0uk//K27erdjRtbHt38qFbGYICSaS3jtxgh9xfJUQrbR1P/Aktbt9geSMM/c1yj/u352fwqD8a8ouGTuRl4qX1r2PX38F4oAAXT8PFsmOt09eaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8YWGTDa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jAFhvKWb167xtnO/19DcjF8WzSUtCgFYI7DcoSgBTdSdxHWk4mjOiqP9q4mbe+hGY/A33eaalJWIBXAUvtx5a8/eE/UmfcaLL8GYrXaw6UesounWFgd3byggu7autuXoVSS19ov70XZx6EjmmwRHnSsobzBFt3pJGiaCk6OCj54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbdDA/6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8YWGTDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D281F0089B;
-	Fri, 11 Sep 2026 11:21:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbdDA/6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F407D1F0089E;
+	Fri, 11 Sep 2026 11:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125671;
-	bh=biQDpvqIM5rzD50yFod2AakyQjn+Rmjxmaw0odcDpQ0=;
+	s=k20260515; t=1789125674;
+	bh=lp3BdfxaJCjHQqtZdkhRXsB3y/nQFixhY/743vU/MbA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J8YWGTDaUXnSJ/uxowC9YvpTU46h9Jsh36nE7qgB26NyG1HTId0GPPFuvZ7K65L9A
-	 wuKBq9ulq3fF6LxQa9oxXUzybn6pyECGytps5xn/nwOf+SDS9MbLh2NdXYvalKATE7
-	 KHhG7KtyjVQ3D8xzNh7eoqMbWM6JZz+38XszGodBnFAzWREYQJeoENHQ8On2wYNAzR
-	 tpDPv3U4mcLxNW3rFDt0pHmrr4AFvnzJozyBcADKpNeKJYUVCRoqfpSdny4NMziH94
-	 wBMT7zy18vxcTOEgS7CxmHhty9m6VEjca8k6Q6JV0M1Z6GKfFDq7DWJyn4BLLERe7Z
-	 wNrpq8yZQ0y+g==
+	b=VbdDA/6jdMWPrj7sDYa2DWpLFHxNqyPfePyD6OIxOPfEyth9ZEBcBVGf9UE0cVLF3
+	 +HjuSyrdIM1U4qeeMzn3iF9GyekjBW/0YdH9XkTMFHq9DJRXOO9jcSVC9VWku8W1cB
+	 WZM9qJKwHKYjIfr5NylAw8xG7u+HL2/8jtg80/1Ji6jumc54D+g/mOCzKflxf2JU/f
+	 +TyEfy4+rPYdFaxp1m60mcZXuOdlVREGgYLM0+6UiuQvqSgv06u3TGBoUTt31WQvg+
+	 6dwSkJhK5HTBv6rnFaRLA+QIQsB/YREwz/4DMVkUOLp/UQtC44zsG4AUTCpeBX5RN/
+	 LdIM+5bbf5kjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Sven Eckelmann <sven@narfation.org>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 6.18.y] batman-adv: dat: atomically update mac addresses
-Date: Fri, 11 Sep 2026 07:20:28 -0400
-Message-ID: <daily-reply-0009-re-batman-adv-dat-6-18@kernel.org>
+Subject: Re: [PATCH 5.15.y] batman-adv: dat: atomically update mac addresses
+Date: Fri, 11 Sep 2026 07:20:32 -0400
+Message-ID: <daily-reply-0013-re-batman-adv-dat-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909184733.946985-1-sven@narfation.org>
-References: <20260909184733.946985-1-sven@narfation.org>
+In-Reply-To: <20260909191250.1126868-1-sven@narfation.org>
+References: <20260909191250.1126868-1-sven@narfation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,7 +51,7 @@ Content-Transfer-Encoding: 8bit
 > using a simple copy function.  A parallel reader might only see parts
 > of this update.
 
-Queued for 6.18, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
