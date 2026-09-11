@@ -1,134 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747504B1473;
-	Fri, 11 Sep 2026 18:16:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722C04B1285
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:16:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150586; cv=none; b=gYRijB58Dzc5n+yE5dpd2I7ePrvOoWT5wUZo2xavBrSUH/jrceU+EIcjntr68jzhZpxrsJFkWM+b2xlLaaMuY5PC5PsQ+3D2gjctDpQ/kqrRwDV1rR4dCSP9bEA86+KrbTu3fz3imF3i49vtHzec/J0ZkR66D77XkAKF0jZfHrU=
+	t=1789150586; cv=none; b=XTixUEp+TeGG+5tkPMo4kn6S9VmsFC2ocV9w4J/OgBK7LTsPkCZ0GwWBeTUTmq63s3/IF8qXdjTAp8w756ISqZ1uARcvLv9iBQhs9CJ5zy+wbG0VggPFCyOOLHlDA3DopP7gBjHjdsSb+4R4J2inljMRX8+AP7kB+kjiYLSN/v8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789150586; c=relaxed/simple;
-	bh=h8jc8CfPjqwE/cE4ogLFRAF/HxsukaCJ//a5gqGd0yA=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=OCzGklnJomK1LarrdeHPtazz/Cd0OEaZbRJcmv/is3X6I7aX/+9rWKb+un2OD2G8beiTNIvdlYp/72Q9waGALy4Vryk6HN1Ej3t/YeiE75zMhVENNxRjA8ewW83UTmd0UXWrGhpQV/wBh9vtZ+uU/UftljPg4W0rS5mDwhXqYig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2UPb9g3; arc=none smtp.client-ip=100.103.45.18
+	bh=vnN8iba3tHXjRP+M4EK5BGYFuBjC4y73wN6ZcNfacFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gn+FA08GAkDODbWAU9Q/Jq9Ws5jxvDfqgJekHlCIiOmezYorPyX5L8Vw3dpBiULEyYn3B9Brb5MkXxtG95/8ZNCaNtUrCmg0eJJj3HyxLz5Fes/5PcdZfYLcTqcgnVPTdtnhNEkbI/fMqJBQ4EsWtML7uICmjIL7yden4NDvvfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOjh8/EQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2UPb9g3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530151F008A4;
-	Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOjh8/EQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A231F008BF;
+	Fri, 11 Sep 2026 18:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150569;
-	bh=QTuelLlM14RAKfKiCxcUFQNPREEn8bUD3IeV7jrQiac=;
-	h=Date:From:To:Cc:Subject:References;
-	b=j2UPb9g3mFQToQL8uml34DwAw2Rx9fdESnoVao/Be4jpVFu7YnnxylQV0aWkzFb1/
-	 QCtc6KaawqZAoCP6CqwziqUEHlCq5MmfrSMh2utue1lOrxiXiGVffH6LHlDepPkEMP
-	 2GyonIoNFgbKIa6mOGbsckMT9C1KWmuoDT+wkMyHu0VdP5vrGZXcKCC25DqaXpwHss
-	 zymUQjZcn1W8g5go+2PjFzNvhkbWn3JhJ03ywnm0GRl53OCwkOXsa3zyOVTMCP78rS
-	 7UL6VhjmefURempxBXrPZRXj3zvrdt6QftELGc/qbYOzkgXnnX7l+z6PdACNzGmDox
-	 Ir6bzBvhBtK+w==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1x55oZ-0000000951k-03aK;
-	Fri, 11 Sep 2026 14:17:31 -0400
-Message-ID: <20260911181730.835279329@kernel.org>
-User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:49 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Sashiko AI <sashiko-bot@kernel.org>,
- Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
- Tom Zanussi <zanussi@kernel.org>
-Subject: [for-linus][PATCH 13/20] tracing: Take the reference before publishing the named histogram
- trigger
-References: <20260911181636.485043797@kernel.org>
+	s=k20260515; t=1789150575;
+	bh=Tu3axmup/kFTeVCgV5LvYYyJ0Dsh/QW7v+SPF22I4kU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SOjh8/EQfoYUh3D6qso0XKFZaTKzsBbVV5okgqgvbysNCmVrQYIPYqrj6OC7yKF3G
+	 4UrT03TT7POnj+Axy64cTg6YsUEm5L+FJpdwPEApFeQFS+D9xFMD/rCx/tD6xZgrmF
+	 znFY8hiPrZnsKa+6gNHzCdHCI/3kG38OyB5pyH7F8BOxwvuNI+/EaOgsibe0KsLF2c
+	 y1FqkyKnbiEJCy3amPahNZWRDoGeJhy52RxZqLJTmoMAi3IWCSJILuZoRXszDkkxxp
+	 RgRWf4WqsRF0ugZO1Z/AYFjPsDo/WF2K3/X5BXD7CaLzc5TXXjEzH8CW3ap/0G+j3n
+	 R88H0v+c4xOxw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Sashiko <sashiko-dev@google.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] scsi: qla2xxx: Skip NVMe LS reject IOCB when FW not started
+Date: Fri, 11 Sep 2026 14:16:11 -0400
+Message-ID: <20260911181612.1319441-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911181612.1319441-1-sashal@kernel.org>
+References: <2026090902-vividly-swoop-b3ef@gregkh>
+ <20260911181612.1319441-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Nilesh Javali <njavali@marvell.com>
 
-event_hist_trigger_named_init() puts the trigger on the global
-named_triggers list and only then takes the reference on the trigger it
-shares its histogram with:
+[ Upstream commit f7e46ebffc5781aab3f1f5a5d4350addbb5833f4 ]
 
-	data->ref++;
+qla_nvme_xmt_ls_rsp() bails out to the out: label when firmware is not
+started (!ha->flags.fw_started), but the out: path unconditionally calls
+qla_nvme_ls_reject_iocb(), which ends in qla2x00_start_iocbs() and an
+unconditional doorbell write to the request queue in-pointer register.
+This rings the firmware doorbell and queues an IOCB that stopped or
+resetting firmware cannot consume, and touches MMIO during the reset/EEH
+window where fw_started is also clear.
 
-	save_named_trigger(data->named_data->name, data);
+Only emit the LS reject IOCB (and ring the doorbell) when fw_started is
+set; otherwise just clean up and return. The post-allocation failure
+cases (SRB alloc / qla2x00_start_sp() failure) run with firmware started
+and still send the reject. Apply the same guard to the reject emission
+in qla2xxx_process_purls_pkt().
 
-	ret = event_hist_trigger_init(data->named_data);
-	if (ret < 0) {
-		kfree(data->cmd_ops);
-		data->cmd_ops = &trigger_hist_cmd;
-	}
-
-	return ret;
-
-event_hist_trigger_init() fails when alloc_hist_pad() cannot allocate, and
-nothing takes the trigger back off the list on the way out.
-event_hist_trigger_parse() frees it, and the next lookup by name reads the
-freed object:
-
- BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
- Read of size 8 at addr ffff888009346860 by task init/1
-  find_named_trigger+0xac/0xc0
-  hist_register_trigger+0xc1/0xa00
-  event_hist_trigger_parse+0x3146/0x6af0
-  event_trigger_write+0xce/0x160
- Freed by task 67:
-  kfree+0x154/0x420
-  trigger_kthread_fn+0xfd/0x160
-
-Do the reference first and publish once it has succeeded, so that nothing
-which can fail runs after the trigger becomes findable.
-
+Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
 Cc: stable@vger.kernel.org
-Fixes: 7ab0fc61ce73 ("tracing: Move histogram trigger variables from stack to per CPU structure")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
-Link: https://patch.msgid.link/20260907124420.607097-2-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Acked-by: Tom Zanussi <zanussi@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Reported-by: Sashiko <sashiko-dev@google.com>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Link: https://patch.msgid.link/20260730155838.2119230-26-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Stable-dep-of: e46160a5d4fa ("scsi: qla2xxx: Unlink NVMe unsol ctx before freeing on LS reject error")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/scsi/qla2xxx/qla_nvme.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 1889e310b73c..54c95f9bd0a3 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6371,17 +6371,18 @@ static int event_hist_trigger_named_init(struct event_trigger_data *data)
- {
- 	int ret;
- 
--	data->ref++;
--
--	save_named_trigger(data->named_data->name, data);
--
- 	ret = event_hist_trigger_init(data->named_data);
- 	if (ret < 0) {
- 		kfree(data->cmd_ops);
- 		data->cmd_ops = &trigger_hist_cmd;
-+		return ret;
- 	}
- 
--	return ret;
-+	data->ref++;
-+
-+	save_named_trigger(data->named_data->name, data);
-+
-+	return 0;
+diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
+index cee7b8f4a8d9c..2a31dc075936b 100644
+--- a/drivers/scsi/qla2xxx/qla_nvme.c
++++ b/drivers/scsi/qla2xxx/qla_nvme.c
+@@ -441,9 +441,11 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
+ 	a.vp_idx = vha->vp_idx;
+ 	a.nport_handle = uctx->nport_handle;
+ 	a.xchg_address = uctx->exchange_address;
+-	spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
+-	qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
+-	spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
++	if (ha->flags.fw_started) {
++		spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
++		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
++		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
++	}
+ 	kfree(uctx);
+ 	return rval;
  }
- 
- static void event_hist_trigger_named_free(struct event_trigger_data *data)
+@@ -1203,9 +1205,14 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
+ 		a.vp_idx = vha->vp_idx;
+ 		a.nport_handle = uctx->nport_handle;
+ 		a.xchg_address = uctx->exchange_address;
+-		spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr, flags);
+-		qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a, true);
+-		spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr, flags);
++		if (vha->hw->flags.fw_started) {
++			spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr,
++					  flags);
++			qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a,
++						true);
++			spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr,
++					       flags);
++		}
+ 		list_del(&uctx->elem);
+ 		kfree(uctx);
+ 	}
 -- 
 2.53.0
+
