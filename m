@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A840642C50F
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648233BB680
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127620; cv=none; b=joy/w/Fech0jAwKYd2MAkAFh7EuQtqaFGpCCR+siJYod4r0Z3+R65aGqt/rtsqMp727txUQUAPjWzwlcVk0Qf3Oq5U4UFfGpdwjwjlvLq0biIbSPwPQ5SlDCjwurGsRTRz7V3Z69i/bKID2oXuKey5jFDq46lbto3qfrqruwTW8=
+	t=1789128310; cv=none; b=tJxaH36ezCeiO3rbB5HdCwtxm1HIq8uW41/4td63c/AbQLH8g3Au3EIyegbvY6/a6wnenaIOV0f9KNPlqa9QPFOUa/en9tmSs5qMY/rfF4lEUEyzjUJHjUe2mCZym1/8MJdZAD8Bm5jWpiRlbxbeWYHBBzoZTEV1q7Ff/dh1cXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127620; c=relaxed/simple;
-	bh=u5ZMnKhUhMbEAuODpp7Ev/TlxT2w7iJIsoFEy5rn6ZU=;
+	s=arc-20240116; t=1789128310; c=relaxed/simple;
+	bh=rp2kEOEQzOYh7tPo5dirOpFNIXljMryl8YHILx+g4zA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hqu7Ow7rIUB8X1nfAQcGYf61S/Jb41G1IoEZdZ84jsXk/cFiWooT49iO63XlSiyUyArTZgpB2rJIulcFJvJ1ASrtKov30AVF2yZ5X4YQL7nn2mXnutZlRZlKUNmK7vFyvDFk/t6JjpYMwSZcCgg4/ZCntsx6oTe7ELxJ/hhuJMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUzBVv9Z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SO6MsmvpLpfsb/+AsUurfLNGI04v+vZ7wnk4Ri7Un86nuxKUYxVXHZuwDrQGz2cyRj99XDQ554AevxkGc7gsK5R4fDlJOHNlQSQh7UTGMnge3JPPNegXyp2v80ehXnx31kIcpaLsHMYfyfJssEyIqjDveJV7tTVQJSCmdWiUeQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXFI0NRn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUzBVv9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F8B1F000FF;
-	Fri, 11 Sep 2026 11:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXFI0NRn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F17D1F000FF;
+	Fri, 11 Sep 2026 12:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789127619;
-	bh=eTdaXo8FWRAmp7yeTpazvgP5q6Y9E9Kc1wtViwImRb0=;
+	s=k20260515; t=1789128304;
+	bh=xJUt2c/mNqCnCeKZpFqwYVIkwn1Q4jSdrRJpeIKjfQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EUzBVv9ZeGf3PgCmEaTUr85KU40vNGxk0FPkdc3IzpCe8PwCkMBq1R4ipZI/6S+EY
-	 NOrsGToefHdiiuiBH/3JlrDzkRvF5PG4cS2xvoB5R/dOJIQVtaQ9UNimdghdUAzqPj
-	 Qn5KzlPlihLFoOFZdyBJwWX7jiaDwKZrFo3ZzwCjiMI1+POsuE5Ws+cWAelExJuawR
-	 mkgh9cKve1cwoKXLtKpa8E4sQyu8kFsQ7lJpIikJWiZbQQmLCf8RdY6KVmK+fwTqRz
-	 3JOTdUiHrguoDNirAuAPeA8lwLCoxwqWXx76wBj7AUK0Y9PV9nZrczxk8i/NskaTqk
-	 rhYCwYlwgATSA==
+	b=HXFI0NRnv3+WfaFNNJ+BDb+R+NTvK1pZGDyx6+VowjbBj4lb45SMA/A50qHPpPdvX
+	 JjrSW2likZx1Gkk3poXyXm1L9/inrANfhO2PKzb/A88+AjndwEfPvoDaTlGm4S5BqU
+	 i7op7R51Gs2ID/atJ+AOBGkHmaes6kw1br381aOMmi4L3cD1tpFg3C2PVHCCXPrWlv
+	 SuFav3Q1FYQs2PKKFrUhl8qMFA+XhnE3tDq9IR+gPthxAQdyUI/n4o/A7D5veZd5gs
+	 xrADStnXml+eVFj3YQixAIteyMVluahdf1eMCJLaAYdG20SmxTGHpToJtpvLblQEzD
+	 oqkvxgkgj2otg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+Cc: Yosry Ahmed <yosry@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: s390: Zero initialize data structures for inject_pfault_token
-Date: Fri, 11 Sep 2026 07:53:36 -0400
-Message-ID: <20260911115336.468271-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: x86: Disallow EFER.LME and EFER.LMA if long mode is not supported
+Date: Fri, 11 Sep 2026 08:05:02 -0400
+Message-ID: <20260911120502.489632-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090923-boondocks-sulphate-e6e5@gregkh>
-References: <2026090923-boondocks-sulphate-e6e5@gregkh>
+In-Reply-To: <2026090915-drainer-judicial-082f@gregkh>
+References: <2026090915-drainer-judicial-082f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +45,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
+From: Yosry Ahmed <yosry@kernel.org>
 
-[ Upstream commit 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 ]
+[ Upstream commit e62392bf39ebfdf60d1d082799397fe1cbf8dfc5 ]
 
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
+Remove EFER.LME and EFER.LMA from EFER reserved bits only if long mode
+is actually supported. KVM does check long-mode support before allowing
+the bits for guest writes and userspace writes through KVM_SET_SREGS*
+(in __kvm_valid_efer()), but userspace writes through KVM_SET_MSRS only
+check reserved bits.
 
-Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
-but a host user can use the migration ioctls to get to the data.
+In practice, this doesn't really matter. The true motiviation is getting
+rid of the #ifdeffery when initializing efer_reserved_bits.
 
-Fix by zero-initializing the irq struct.
-Do the same for the inti data structure.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
-[ Adjusted context for missing inti_mem and ret declarations in __kvm_inject_pfault_token(). ]
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260713181020.2735367-3-yosry@kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ adapted EFER changes to x86.c, placing the capability check in kvm_x86_vendor_init() because kvm_setup_efer_caps() is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kvm/kvm-s390.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/kvm/x86.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 70d7bbd62120d..e4c9081a317d5 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4598,8 +4598,8 @@ long kvm_arch_fault_in_page(struct kvm_vcpu *vcpu, gpa_t gpa, int writable)
- static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				      unsigned long token)
- {
--	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_interrupt inti = {};
-+	struct kvm_s390_irq irq = {};
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 9e7c9e3edb5b4..5bf719a6a6b9c 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -108,16 +108,8 @@ EXPORT_SYMBOL_GPL(kvm_host);
+ #define emul_to_vcpu(ctxt) \
+ 	((struct kvm_vcpu *)(ctxt)->vcpu)
  
- 	if (start_token) {
- 		irq.u.ext.ext_params2 = token;
+-/* EFER defaults:
+- * - enable syscall per default because its emulated by KVM
+- * - enable LME and LMA per default on 64 bit KVM
+- */
+-#ifdef CONFIG_X86_64
+-static
+-u64 __read_mostly efer_reserved_bits = ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
+-#else
++/* Enable syscall by default because its emulated by KVM */
+ static u64 __read_mostly efer_reserved_bits = ~((u64)EFER_SCE);
+-#endif
+ 
+ static u64 __read_mostly cr4_reserved_bits = CR4_RESERVED_BITS;
+ 
+@@ -9822,6 +9814,9 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops)
+ 	if (r != 0)
+ 		goto out_mmu_exit;
+ 
++	if (kvm_cpu_cap_has(X86_FEATURE_LM))
++		kvm_enable_efer_bits(EFER_LME | EFER_LMA);
++
+ 	kvm_ops_update(ops);
+ 
+ 	for_each_online_cpu(cpu) {
 -- 
 2.53.0
 
