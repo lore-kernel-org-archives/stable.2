@@ -1,149 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1719334D4E9
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A85FF4F1
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138262; cv=none; b=evigS7dgK8kumkpthz2m/bfFUXO19yw7L3I7daDkI+EY6FdFcRXQ0bqzaiQj+xtOEPKKq/b5VjUU5dcc0sdz6cB2UFypNmbqPDzg4ycQ4+rcWVtxeISrLztOG3aEXY068a+RngqVUh82Q41+uHQR7M7JWIw4SoRZUPKgnt1O/cs=
+	t=1789138262; cv=none; b=SEv+VX8XuiISJa1Hin+T5ZHdzxs47+DDiMj1O3ZIR9lTI1Bs5lyQqfGug3qo8LKXSVMx2mNKr7+NmTUQ8/OmksIKzyLx4UX+i2PnByt/gBwwVm5o+bOU3MzFztuhXmLO2GiBY1DGPFdpB2/NkGtcMiyiqfmN7LAKXIutQ69KkN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789138262; c=relaxed/simple;
-	bh=V5WXhA2tqacKrFX23jkeD0cHRFzv1AGUtPoPskbIzl8=;
+	bh=UIkPMPCVg1zi9K309NTtPkpTwmwad4o4lNaTb41G9nE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U9DHxT+BhZ7mWedWioMfRntpUrEiU6uBQq/stewZ+V0xDHhP36uyKMOhVW0myl9BV1KYiCOdfgrbipGXXRgSdjgwxZ55BpmWmumlCC+8yaQQmvxsPLq+nkFAdPJzJHZXkBcdX96zghjp7VtPBufyrasTuvGwuqCdJzuS5xSrQFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iegPUPWi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YTuVFtjnqxN0L6DwrGqowr3j9JvSjW6O/ly7tpqHbPdAul1v1BmEIfDcTI/8UOHJlfoQKwf/qiOLWIK1axgL/35CmH6KQOj2RVlNprBEMpktFoup9Ol6B/lBS34JNegBgShj4+ZKUYcsKGGWPVeGjAJk0Kdk8ntr8+vvONGe/GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrmfmAlA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iegPUPWi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70C11F000FF;
-	Fri, 11 Sep 2026 14:50:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrmfmAlA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB6E1F00893;
+	Fri, 11 Sep 2026 14:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138260;
-	bh=R0a0AC65HnsGhtL4rRXJg9mIA52VTfnM9zZWGzUyawY=;
+	s=k20260515; t=1789138261;
+	bh=xQnbxT+U5vKb27nVfhps8AUOgd0O+irIh2qf462j6NQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iegPUPWiQ1+mUY6pqk5VUPnxEcNNj4cJI0AfnzJyGHESGPmn/bxLkaUZc9GBtfXG2
-	 hfxh09k3Zbr46xACxrcq5RR8B0JA88r8+G1lF7q6L+J9w88YdCWdQrc0GAcVEL+mYF
-	 QZpHkCl7nGzyTujNteInw1i6Hl7FXoCIFbq6qps+y5C6/pBFPKwppkbTj0O6B90Wk4
-	 TosHv6zTOcexMi/a4OG8rHKJJkKPFoNF1AcxG5qyLxHm7kN0nrL/vVJ+qEpEm31vn6
-	 3QTbcrJ1f/QOQbvQmyWkl/lLfcc9UuDeR2CEO9IOFC9Ml6JdiLmnXkluCdxsIZ+v7m
-	 vLgw2sZwwcOYw==
+	b=BrmfmAlA0+Gc94em+KKO6FX8eHTQKCFTFVD1DJRC+3VgjYi/ARV0u38MQ+yr3P+yS
+	 81bF7SUL5H1DzeYAMAkgY5zxgGiqy3LCy0IbNd0KQusjxszDMchzjsGqAxNDH+zzFM
+	 FVgI7NWg2Yy6HkE5IdPuH0Y2fzaN+y2rgWelEcfuAz7TgZvVgdf8VIF4Jc36nuXiRJ
+	 14vLkg995k/vf2h3KSaeHvvZBwC/lO/vFDVXmRp46Z+uzfKNr4ZTeYEnd5VfoSC/rM
+	 Nosjr8fmj7hSsdsYoPQLFSuQgl5eH50UAJx9kokWcScqPvfS7vgkjWjArNtwvCqVWo
+	 gZSG6re/D+qVg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] media: iris: turn platform data into constants
-Date: Fri, 11 Sep 2026 10:50:55 -0400
-Message-ID: <20260911145058.985072-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] media: remove conditional return with no effect
+Date: Fri, 11 Sep 2026 10:50:56 -0400
+Message-ID: <20260911145058.985072-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090908-wobbly-comply-f1b3@gregkh>
+In-Reply-To: <20260911145058.985072-1-sashal@kernel.org>
 References: <2026090908-wobbly-comply-f1b3@gregkh>
+ <20260911145058.985072-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-[ Upstream commit 7a02a8b98419c992faf8ab714cf4df7da99b2c46 ]
+[ Upstream commit 9508676ad8562368bb1aa7d1991fbd50611ddacb ]
 
-Make all struct iris_platform_data instances constant, they are not
-modified at runtime.
+Both branches of the check return the same value, so the check has
+no effect. Remove it and return the value directly.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+This is the result of running the Coccinelle script from
+scripts/coccinelle/misc/cond_return_no_effect.cocci.
+
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Stable-dep-of: f87d7eda07fc ("media: qcom: iris: fix runtime PM reference leaks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../media/platform/qcom/iris/iris_platform_common.h    | 10 +++++-----
- drivers/media/platform/qcom/iris/iris_platform_gen2.c  |  8 ++++----
- .../media/platform/qcom/iris/iris_platform_sm8250.c    |  2 +-
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/media/i2c/mt9p031.c                          |  6 +-----
+ .../media/platform/microchip/microchip-sama7g5-isc.c |  7 +------
+ drivers/media/platform/qcom/iris/iris_resources.c    |  6 +-----
+ drivers/media/platform/qcom/venus/pm_helpers.c       |  7 +------
+ drivers/media/platform/renesas/rcar-csi2.c           |  6 +-----
+ .../media/platform/samsung/s3c-camif/camif-core.c    |  7 +------
+ drivers/media/usb/dvb-usb-v2/mxl111sf.c              | 12 ++----------
+ drivers/media/usb/gspca/jl2005bcd.c                  |  7 +------
+ 8 files changed, 9 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 58d05e0a112ee..69720d6790508 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -41,11 +41,11 @@ enum pipe_type {
- 	PIPE_4 = 4,
- };
+diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
+index 1500ee4db47ec..a0375945e7898 100644
+--- a/drivers/media/i2c/mt9p031.c
++++ b/drivers/media/i2c/mt9p031.c
+@@ -453,11 +453,7 @@ static int mt9p031_set_params(struct mt9p031 *mt9p031)
+ 	ret = mt9p031_write(client, MT9P031_HORIZONTAL_BLANK, hblank - 1);
+ 	if (ret < 0)
+ 		return ret;
+-	ret = mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
+-	if (ret < 0)
+-		return ret;
+-
+-	return ret;
++	return mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
+ }
  
--extern struct iris_platform_data qcs8300_data;
--extern struct iris_platform_data sm8250_data;
--extern struct iris_platform_data sm8550_data;
--extern struct iris_platform_data sm8650_data;
--extern struct iris_platform_data sm8750_data;
-+extern const struct iris_platform_data qcs8300_data;
-+extern const struct iris_platform_data sm8250_data;
-+extern const struct iris_platform_data sm8550_data;
-+extern const struct iris_platform_data sm8650_data;
-+extern const struct iris_platform_data sm8750_data;
+ static int mt9p031_s_stream(struct v4l2_subdev *subdev, int enable)
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index b0302dfc3278d..7383341ec51d6 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -598,13 +598,8 @@ static int __maybe_unused xisc_runtime_suspend(struct device *dev)
+ static int __maybe_unused xisc_runtime_resume(struct device *dev)
+ {
+ 	struct isc_device *isc = dev_get_drvdata(dev);
+-	int ret;
+-
+-	ret = clk_prepare_enable(isc->hclock);
+-	if (ret)
+-		return ret;
  
- enum platform_clk_type {
- 	IRIS_AXI_CLK, /* AXI0 in case of platforms with multiple AXI clocks */
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-index 85beb80476de8..768362683a744 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-@@ -737,7 +737,7 @@ static const u32 sm8550_enc_op_int_buf_tbl[] = {
- 	BUF_SCRATCH_2,
- };
+-	return ret;
++	return clk_prepare_enable(isc->hclock);
+ }
  
--struct iris_platform_data sm8550_data = {
-+const struct iris_platform_data sm8550_data = {
- 	.get_instance = iris_hfi_gen2_get_instance,
- 	.init_hfi_command_ops = iris_hfi_gen2_command_ops_init,
- 	.init_hfi_response_ops = iris_hfi_gen2_response_ops_init,
-@@ -827,7 +827,7 @@ struct iris_platform_data sm8550_data = {
-  * - controller_rst_tbl to sm8650_controller_reset_table
-  * - fwname to "qcom/vpu/vpu33_p4.mbn"
-  */
--struct iris_platform_data sm8650_data = {
-+const struct iris_platform_data sm8650_data = {
- 	.get_instance = iris_hfi_gen2_get_instance,
- 	.init_hfi_command_ops = iris_hfi_gen2_command_ops_init,
- 	.init_hfi_response_ops = iris_hfi_gen2_response_ops_init,
-@@ -912,7 +912,7 @@ struct iris_platform_data sm8650_data = {
- 	.enc_op_int_buf_tbl_size = ARRAY_SIZE(sm8550_enc_op_int_buf_tbl),
- };
+ static const struct dev_pm_ops microchip_xisc_dev_pm_ops = {
+diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
+index cf32f268b703c..42cc707f5bcd2 100644
+--- a/drivers/media/platform/qcom/iris/iris_resources.c
++++ b/drivers/media/platform/qcom/iris/iris_resources.c
+@@ -66,11 +66,7 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
+ 	if (ret)
+ 		return ret;
  
--struct iris_platform_data sm8750_data = {
-+const struct iris_platform_data sm8750_data = {
- 	.get_instance = iris_hfi_gen2_get_instance,
- 	.init_hfi_command_ops = iris_hfi_gen2_command_ops_init,
- 	.init_hfi_response_ops = iris_hfi_gen2_response_ops_init,
-@@ -1000,7 +1000,7 @@ struct iris_platform_data sm8750_data = {
-  * - inst_caps to platform_inst_cap_qcs8300
-  * - inst_fw_caps to inst_fw_cap_qcs8300
-  */
--struct iris_platform_data qcs8300_data = {
-+const struct iris_platform_data qcs8300_data = {
- 	.get_instance = iris_hfi_gen2_get_instance,
- 	.init_hfi_command_ops = iris_hfi_gen2_command_ops_init,
- 	.init_hfi_response_ops = iris_hfi_gen2_response_ops_init,
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_sm8250.c b/drivers/media/platform/qcom/iris/iris_platform_sm8250.c
-index af841f6cd9d2a..d130d18c6543b 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_sm8250.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_sm8250.c
-@@ -314,7 +314,7 @@ static const u32 sm8250_enc_ip_int_buf_tbl[] = {
- 	BUF_SCRATCH_2,
- };
+-	ret = pm_runtime_get_sync(pd_dev);
+-	if (ret < 0)
+-		return ret;
+-
+-	return ret;
++	return pm_runtime_get_sync(pd_dev);
+ }
  
--struct iris_platform_data sm8250_data = {
-+const struct iris_platform_data sm8250_data = {
- 	.get_instance = iris_hfi_gen1_get_instance,
- 	.init_hfi_command_ops = &iris_hfi_gen1_command_ops_init,
- 	.init_hfi_response_ops = iris_hfi_gen1_response_ops_init,
+ int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
+diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
+index 14a4e8311a643..a60af81c17c37 100644
+--- a/drivers/media/platform/qcom/venus/pm_helpers.c
++++ b/drivers/media/platform/qcom/venus/pm_helpers.c
+@@ -645,7 +645,6 @@ static int decide_core(struct venus_inst *inst)
+ 	unsigned long max_freq = ULONG_MAX;
+ 	struct device *dev = core->dev;
+ 	struct dev_pm_opp *opp;
+-	int ret = 0;
+ 
+ 	if (legacy_binding) {
+ 		if (inst->session_type == VIDC_SESSION_TYPE_DEC)
+@@ -693,11 +692,7 @@ static int decide_core(struct venus_inst *inst)
+ 	}
+ 
+ done:
+-	ret = hfi_session_set_property(inst, ptype, &cu);
+-	if (ret)
+-		return ret;
+-
+-	return ret;
++	return hfi_session_set_property(inst, ptype, &cu);
+ }
+ 
+ static int acquire_core(struct venus_inst *inst)
+diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
+index d1b31ab8b8c4a..9948a3aa89476 100644
+--- a/drivers/media/platform/renesas/rcar-csi2.c
++++ b/drivers/media/platform/renesas/rcar-csi2.c
+@@ -2265,11 +2265,7 @@ static int rcsi2_init_phtw_v3u(struct rcar_csi2 *priv,
+ 			return ret;
+ 	}
+ 
+-	ret = rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
+-	if (ret)
+-		return ret;
+-
+-	return ret;
++	return rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
+ }
+ 
+ /* -----------------------------------------------------------------------------
+diff --git a/drivers/media/platform/samsung/s3c-camif/camif-core.c b/drivers/media/platform/samsung/s3c-camif/camif-core.c
+index 221e3c447f361..a3c8b0a10eb3c 100644
+--- a/drivers/media/platform/samsung/s3c-camif/camif-core.c
++++ b/drivers/media/platform/samsung/s3c-camif/camif-core.c
+@@ -302,7 +302,6 @@ static int camif_media_dev_init(struct camif_dev *camif)
+ 	struct media_device *md = &camif->media_dev;
+ 	struct v4l2_device *v4l2_dev = &camif->v4l2_dev;
+ 	unsigned int ip_rev = camif->variant->ip_revision;
+-	int ret;
+ 
+ 	memset(md, 0, sizeof(*md));
+ 	snprintf(md->model, sizeof(md->model), "Samsung S3C%s CAMIF",
+@@ -317,11 +316,7 @@ static int camif_media_dev_init(struct camif_dev *camif)
+ 
+ 	media_device_init(md);
+ 
+-	ret = v4l2_device_register(camif->dev, v4l2_dev);
+-	if (ret < 0)
+-		return ret;
+-
+-	return ret;
++	return v4l2_device_register(camif->dev, v4l2_dev);
+ }
+ 
+ static void camif_clk_put(struct camif_dev *camif)
+diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+index 870ac3c8b085d..6404eb74db32f 100644
+--- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
++++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+@@ -987,11 +987,7 @@ static int mxl111sf_frontend_attach_atsc_mh(struct dvb_usb_adapter *adap)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = mxl111sf_lg2160_frontend_attach(adap, 2);
+-	if (ret < 0)
+-		return ret;
+-
+-	return ret;
++	return mxl111sf_lg2160_frontend_attach(adap, 2);
+ }
+ 
+ static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
+@@ -1007,11 +1003,7 @@ static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
+-	if (ret < 0)
+-		return ret;
+-
+-	return ret;
++	return mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
+ }
+ 
+ static int mxl111sf_frontend_attach_mercury_mh(struct dvb_usb_adapter *adap)
+diff --git a/drivers/media/usb/gspca/jl2005bcd.c b/drivers/media/usb/gspca/jl2005bcd.c
+index a408fcc3a0608..4988fbf5005e6 100644
+--- a/drivers/media/usb/gspca/jl2005bcd.c
++++ b/drivers/media/usb/gspca/jl2005bcd.c
+@@ -148,17 +148,12 @@ static int jl2005c_start_new_frame(struct gspca_dev *gspca_dev)
+ static int jl2005c_write_reg(struct gspca_dev *gspca_dev, unsigned char reg,
+ 						    unsigned char value)
+ {
+-	int retval;
+ 	u8 instruction[2];
+ 
+ 	instruction[0] = reg;
+ 	instruction[1] = value;
+ 
+-	retval = jl2005c_write2(gspca_dev, instruction);
+-	if (retval < 0)
+-			return retval;
+-
+-	return retval;
++	return jl2005c_write2(gspca_dev, instruction);
+ }
+ 
+ static int jl2005c_get_firmware_id(struct gspca_dev *gspca_dev)
 -- 
 2.53.0
 
