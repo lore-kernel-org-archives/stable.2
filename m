@@ -1,74 +1,74 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF210364038
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C19F366816
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139443; cv=none; b=jiZig20D95LnIt+PbSsfG5oh0ontUXIKj9rSgr3IDJEez9zZB3okSfCFsfg+crBX6eXs0tx4YtbZasaTL3yGXIUwOW4EwDgmY+LutAqka180z0pLQIJVyY1jxFGFh3NC55/Rcm3xGO/Svi7s0sHPH4/+T5Nmyl/eapcWM8PGCjc=
+	t=1789139459; cv=none; b=rEAYqd9PjWdYD1JVhceBAI2QSZHux0Qc5gE2DiZl8qxrZqY/ilxGaB3nX7QrJMrm6RDdT0VlhEGhYByaB06VJb0ft/msSsrUkmZ10owAudBFDm+1wfL+G0nvP0mW+SKJECS+BD+ZHbmkRNnGI7T5xFn/3P3lLQ+0mjFHXXmziKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139443; c=relaxed/simple;
-	bh=G3rM67UDJ0CzoZbKf91zscHGOYF2KhPspXfs1aWTX2w=;
+	s=arc-20240116; t=1789139459; c=relaxed/simple;
+	bh=0uNRin7RwyR4UUOnHu/+lUPV01XRwP652BLj8Yzi1Go=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VG+9LGNZ37hKQZGTERaiAGNJ29mwC34iUSabfurkYQNxGphxzKt5Vacmy0DkxdXnAmhanffpsEDIeL/cIUgwElbqr63T3lHxfg08Z9aoqdj5uyHA4/lY04zO1aPWPlvS3MUbyXIsSv+jpore8YtrlXVi2A0w+FeZ6Yhj4wOpOOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxYqtM5/; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=uQfiJu+PZ3Zk5MWpj7resc9Vsba5rMJxCDYY82SNrJuA76ucJKmsRYqAQ/Q0t8OgRxp/2ejNbIKR5uhQmrtOy0TMpkthvUHr6mKMIZrEvO008bhSTDmveqIhpbwlhsgNDvdlYjUuw8qbkKstgI0tEBaQngN/6AzmBUb4340qEIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BLxfnqKr; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxYqtM5/"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso9467125e9.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:10:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BLxfnqKr"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so1087065f8f.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789139440; x=1789744240; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789139455; x=1789744255; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N9Y82R0C47fuAgHN4dCXfXpE0lT64si/Sjtbtosx7jg=;
-        b=nxYqtM5/Nd83Nqsg7mmwfG0Wcxe2BFHwtzxXAR0h/fXb03abOZvtZkXnxCZmoL153a
-         Z7O+3EEac8EUSWPk7bTdsbPYIqIWyxJUqhsGknIawVmfJD5cEoG1LM4Yt2CL+oo6CBUH
-         oa76osazHnZG6Q0D7drxS7xaH93C2TLY0bDbyqZScFMOqaIOs+gXEpYVkdlxnvosuQyA
-         i5GUnjbduy0KgBJ0waPs3jYIaBEcn2p+gY6FQV9Qlq60yI18SxtN2xrzcM890hWW9wnT
-         PELoUSNLMg9CAefKr8eWj3InLRK7Gm6FcK1E/vMUIq4M5AVCyz6FIYmFZJ37kBytDX+w
-         g5UA==
+        bh=1gGUsKvQhYG1pCRze3gkLDb+7mw5GV5AaKPrHn7Xo1M=;
+        b=BLxfnqKrbGGV6q1d+lACKr51lmdWvWiW3bFCZd4jOT/9xN0iIPX4CPN87Q7QFmcl49
+         dnH0+IyKZ0NwTa5k/F5WD0BhhyjJrNBWLbFcAQAan7IZ2GCVWGlxWNcRCJhtjqF8WLlh
+         26a3bktbHHuc4ibfa2tOZg5MsBBJfloUk2SyW+lWMN+7BdZxDkifXjgY08wjE25J+Kgm
+         uVx6S3h68B+FIMrTG0j/wUwKqQO4TnBg2x19YodaKVnAuJZ9p1om9mEAxvhX5lno3Iil
+         J7s68BF3guNlpDG1bY5+1dx7ZFlNPs7Cg9PW9+hC4w4eL8QioP+/7Z8OPxd7tUMEndqd
+         8k9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139440; x=1789744240;
+        d=1e100.net; s=20251104; t=1789139455; x=1789744255;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N9Y82R0C47fuAgHN4dCXfXpE0lT64si/Sjtbtosx7jg=;
-        b=QFIM9sFldn6iywyWBp5zPa1Pc3ohY9ospNDi6GQn9EKwqErcquvfubaleFt4iUI4+i
-         Hzrs8b+H9Us4XCmhb+llMb4BeNbDouE5H9KiLCG02LfOA7Cadp1yqKZinGlBUWmrDxIO
-         W2egiA9pCyOgC9s3IOERwZN9dAkDE/W+XM/6l+N9wYUqH5C0aEtAYdttHbVMwaRLn75e
-         NKuXkWokwbB2VzmHJH8DHTftvUaGWwqEj9Y7sdPH0t3rfNhyJgpZ4YOyB2HRSU8HdV17
-         tvv/FucUgopcxRSNIfRdd9Ypj9vhFv3/dChPwzudbc997TDNPJBy5M2fl5/wBBsump6X
-         EI6w==
-X-Gm-Message-State: AFuF++nCoj+JplMW1Yl1dKsJsWY62BY1MXqFM8571SGruN6m9k1RV+Ou
-	zFWuIYlpTvH6SF4QIPBxXoxPhFYyHe0i0LatL9A5b6bGC9vylMVS7xxp7apvpw==
-X-Gm-Gg: AYBFou3+u83ukXjJXD4IhUDwLBfROFPRaVMNfPp+drObhgL6tJ5EtOqi8bXB4PW8+8g
-	OWz1FHSUHRIL8R+Sm0W17itd2lSPlNMv6QC7nBQy4Jn5A9GiNKZav3MR7ILQv1sqDxDdSWqb3iO
-	XUiHmsnaXRCHQspa53dX2Sv/xZuOIkaGiTukz5TBgUaD1XrlAtXTo+B5//mx4Ej7me/NkN4yzx/
-	lJoCNJoMPvCA/O7NPtVFecesYjZBv69FP/QmgFqgK0ofgG7TlERVrXvi1zcRDKWD9wUMaODEw+q
-	31YQdyTVBtGC5488rvs2i3rZTJSGc2LMCN68ksgueD9adqo+iyfk8XC0bBLj8NrTRRqBCgfykqq
-	s8U8PnZ8vP8chrEkwLDU/Kr9nt6gvl5vgkXjquz6Z84x3NePlcYK+//PrENa1SbnD/kWnlRgvR2
-	GYyguubIz7yAr+4J4jmCdxn486oORQl64xPKSyTs+Zeg7ucDLmtY80z93GPIiIVljvG15w6glZz
-	ml0I2JzMzk4MB3+bg==
-X-Received: by 2002:a05:600d:8496:20b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49e6199234amr38827275e9.14.1789139439896;
-        Fri, 11 Sep 2026 08:10:39 -0700 (PDT)
-Received: from SurHub.localdomain ([102.218.51.185])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ea4fsm6501948f8f.21.2026.09.11.08.10.36
+        bh=1gGUsKvQhYG1pCRze3gkLDb+7mw5GV5AaKPrHn7Xo1M=;
+        b=IrcEpjq/iM98NBgrzRe3joHbn9Lio6g8Ehs6YVogOWPi9Yo4SsPJFe23LNgFqHIJ4C
+         g/YFQ+QoS2E380nNpaOk9qUDh+tnE+SkSbvkFdePI1qZIv8mJZwhqLahbG5pvQeMHib1
+         bJCtsezbxBUmly17bV0/2c6c4xVI9LXH29FgRm87a9yZJwVCCSYd12bl/JN+H1tXrjuJ
+         fch/IsVFBAUdccweVPITFAV+gVBlRWf7oQkcF7+uN75EalQ4M/1rdAJdO+VNaXVGQvzd
+         fhv4u+jMLvgoiZkmIOIt2tz9V6GyfvReX4GQZ+Zr65bPmPrEXoLUvCiyw3o2+pVM7Un9
+         GFCw==
+X-Gm-Message-State: AFuF++kJ81JpZhyDZDV76RonRrIoAHLeSEpYTLgqKXG1fGBA7+TXulsJ
+	1CSQ7T/hAPNn52GA59OuMJ9pFe3v+ePpyNVtoV0bAUBBXuZPLHeL6WZiqF791Q==
+X-Gm-Gg: AYBFou1/kKf+7vKENKWaOrsCe31iOEgqeDCMO1Mtsjw/UhGtpRVD4igNERWpIZBzeml
+	8HdcRutNTHSD7Ebn/k58DiTx9Y4dYiO+dJ2A+uBN+D+8mRP1Rbz8YK4tNLv/d7FWgF+CQBfOslL
+	V5UP0/agq9iZHY7S9e/O0KrYjpzZFpoC0CPL4jWHNrWjdRDbkz5b+8VVYFwSCEbemFDHc7sZf1U
+	RThGaDhHVkapIJLL16tWhb4eo0v2tTamCXU8N/7CTop3835QM+U7G9oCHOdLogD10F770yitYdp
+	uTsVy/qEQGwlcgWFk+DbKulI1BZWUIifgYB2DYB8Nduq/MWar1oI+4us8YiBEZH3oWzIMP4rqsK
+	NCG+m4TsPSvkubMJkbZ75MhwF66UEFBv/o9or1I1g5Rri221Dr/NdXsUaXb8dYjJinVj/b+nRYl
+	xaaUZwAEar7RFYLehH5ZfpIxb/xXMST8L2CwsiPa6W6LU3adW8zDnQpanoFlT6299rJa387/jBd
+	NR3FA==
+X-Received: by 2002:adf:f30b:0:b0:485:8c16:a33d with SMTP id ffacd0b85a97d-486eb34a466mr3919320f8f.50.1789139455313;
+        Fri, 11 Sep 2026 08:10:55 -0700 (PDT)
+Received: from SurHub.localdomain ([102.213.69.34])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6893864f8f.27.2026.09.11.08.10.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:10:39 -0700 (PDT)
+        Fri, 11 Sep 2026 08:10:54 -0700 (PDT)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: stable@vger.kernel.org
 Cc: sashal@kernel.org,
 	linkinjeon@kernel.org,
 	Abdifatah Suruur <suruurism@gmail.com>
-Subject: [PATCH 6.12.y v3] ksmbd: fix use-after-free in oplock break notification
-Date: Fri, 11 Sep 2026 18:10:31 +0300
-Message-ID: <20260911151032.27929-1-suruurism@gmail.com>
+Subject: [PATCH 6.6.y v3] ksmbd: fix use-after-free in oplock break notification
+Date: Fri, 11 Sep 2026 18:10:48 +0300
+Message-ID: <20260911151048.27949-1-suruurism@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <daily-reply-0001-re-ksmbd-oplock-uaf-6-12@kernel.org>
-References: <daily-reply-0001-re-ksmbd-oplock-uaf-6-12@kernel.org>
+In-Reply-To: <20260910072149.9058-1-suruurism@gmail.com>
+References: <20260910072149.9058-1-suruurism@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -128,6 +128,8 @@ v3:
   smb2_oplock_break_conn_get() takes the read lock itself, as in the
   6.18.y backport (Sasha Levin)
 - drop lockdep_assert_held() accordingly
+- oplock_break_add() uses kmalloc() with GFP_KERNEL: this tree predates
+  both kmalloc_obj() and KSMBD_DEFAULT_GFP
 v2:
 - drop the nested down_read()/up_read() in smb2_oplock_break_conn_get();
   in this tree every oplock_break() caller already holds ci->m_lock read
@@ -142,7 +144,7 @@ v2:
  1 file changed, 104 insertions(+), 14 deletions(-)
 
 diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index d83370f53d6f0..935e337a95b8e 100644
+index 6f595756c41fd..296eb3db37355 100644
 --- a/fs/smb/server/oplock.c
 +++ b/fs/smb/server/oplock.c
 @@ -708,31 +708,67 @@ static void __smb2_oplock_break_noti(struct work_struct *wk)
@@ -209,7 +211,7 @@ index d83370f53d6f0..935e337a95b8e 100644
  		return -ENOMEM;
 +	}
  
- 	br_info = kmalloc(sizeof(struct oplock_break_info), KSMBD_DEFAULT_GFP);
+ 	br_info = kmalloc(sizeof(struct oplock_break_info), GFP_KERNEL);
  	if (!br_info) {
  		ksmbd_free_work_struct(work);
 +		ksmbd_conn_put(conn);
@@ -265,7 +267,7 @@ index d83370f53d6f0..935e337a95b8e 100644
 +{
 +	struct oplock_break_entry *ent;
 +
-+	ent = kmalloc_obj(struct oplock_break_entry, KSMBD_DEFAULT_GFP);
++	ent = kmalloc(sizeof(*ent), GFP_KERNEL);
 +	if (!ent)
 +		return -ENOMEM;
 +
