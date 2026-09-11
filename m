@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52E731195B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001D249E14F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089205; cv=none; b=e8dzc6fPrsQad6iKEkA5RWX3PEAvxKPeYPK26RHn3YhJLAWu0mjFYn9qRanDwXMRLhCiKg6JuCmljBzwZ6Ip8iDT3qTFszpjVS8syf+UGUz2agiZePvVNEuIPXZo7lqEDmN7Xuiv9Lo3uP5kv0/pAv6YMCLBLpcheGr0TgBt8cc=
+	t=1789089205; cv=none; b=kesnQ/9s1CUMsZb6RaDKntCrP7sIjToMr9lw3yt0ngr0Oa8f7hs+cfx3+ccT43HQKBa6zmQJvnYWoDGMLGhlfbvwpHFFm7FA7HeTOUDfVME+ULp4nbVEJgf3Q5K+2uKVdOe3oBXRyvw+yANGN9zpiovpuByM73C7lEKe8XmSXsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789089205; c=relaxed/simple;
-	bh=0ECtBVqow8bGmG0+Fp1vCrxXAX5NgJqoOqJ7EQXsb1A=;
+	bh=sj+5U2JeLRM09uIUoPDdBLqFDV8zdMfKQX//N7rUGeg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D07FdpV37LkLB7f2NOGgAtoTslwnDHiN4mKoQJMKfzKKhJZHPMgwyziyNf5R8SDHStdp0YkCRg/KIuyvaEGQbS2uwQ1A4AoNAcsJmcrOdleVg2Bgl+3aT/EZhuQk/immRa9xITv8y3wivBkwgTVrJqKz17T2AnTR2mQ0vWGBeDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k1zhtNZR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CleDP2xhWgiWr/2bDWE/K/QTPNe8CSMwqH5xeIoYN04+XPfTgEobjnx1oIvWp9ijJA9caG9fpyBvEHAfh7ApAk8Hg4tkJs92phqlmcoISzVDFvXbFgMwDouFejZ3i/V4kg9xzldjzc27x+ngTaPJBv/ESdwIBwI1ByZLP72DAs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aTHXaxLh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k1zhtNZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA681F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aTHXaxLh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB741F00898;
 	Fri, 11 Sep 2026 01:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789089202;
-	bh=6s8QVxXz3R8xSd/AnDSQXv44p6XXMHNZLQsentPhUCA=;
+	s=k20260515; t=1789089203;
+	bh=5MN6cbjlcTcfTlCHpQ9v+W6X3B27GX/inDWVhJzju+s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k1zhtNZRyX7R2/JeDaX8AumxufXXmV9gfnj2eUAOB1t/ODgjNFjXedhqmnqmMdyCY
-	 y9l6tvOs34vruQGOuR5vv2fQXXsJ6ynDWo2sqnGSn4XHoUvGJudqbUTbWhdDaIk3B8
-	 WxJGSyFt2ndwfSzWlektyprZr5zNg+ceFO7+Q///jGJ/W9pJiz3E9SVgxG4UCWM28r
-	 78WBYncu581vaF61l+H71WJ/MdWuztK8VSEKiuYEiBZJc0UrsJLXNnwiIYbvAtBtxw
-	 bgnjESXVT4nH6IDkfFQXwXjlMTZMToVgOIN5Dmpi3kMUGfaqtpYUawA56A2IoDk9sA
-	 +12Wwi9AtIhSw==
+	b=aTHXaxLhNDqxG8/NmyE9EB4o0QufKoCgT6+PLO6fmNj4mRDOaedDBMhfzmI58pwGR
+	 9j5xU4sji8M33tFJH5TjUQw1/DW6roc/cZnbA9M34HzyZK4yXO7lZiUH8Y571TzNe4
+	 Td+PmsLQtPK7wOgpf2AJesw11FEyJLGkg1s89dWN96w9CKAnflOkHhZbaj2TqAFtIy
+	 ijhXBSbGcYx9iAbz2CfPyXUraVm0lNSUvXSYiw7S02oacioibFGmphG2xm/5ZjOKIo
+	 Qbxaq+nxZvqMhwatQffxNJV1YM70Q1IHq35nWKq4LdDeK3J7+/ZOqgg1W8ieRAQYCA
+	 9/OO+55PmSjig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrea Scian <andrea.scian@dave.eu>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+Cc: "Miquel Raynal (DAVE)" <miquel.raynal@bootlin.com>,
+	Andrea Scian <andrea.scian@dave.eu>,
+	Michal Simek <michal.simek@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] mtd: rawnand: pl353: Add message about ECC mode
-Date: Thu, 10 Sep 2026 21:13:19 -0400
-Message-ID: <20260911011320.4035300-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] mtd: rawnand: pl353: Make sure we use the monolithic helpers for raw accesses
+Date: Thu, 10 Sep 2026 21:13:20 -0400
+Message-ID: <20260911011320.4035300-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090927-ocelot-praising-df87@gregkh>
+In-Reply-To: <20260911011320.4035300-1-sashal@kernel.org>
 References: <2026090927-ocelot-praising-df87@gregkh>
+ <20260911011320.4035300-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,43 +47,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Scian <andrea.scian@dave.eu>
+From: "Miquel Raynal (DAVE)" <miquel.raynal@bootlin.com>
 
-[ Upstream commit 1e06dbfdfb851170b243d6498e442b449324c664 ]
+[ Upstream commit 80ecacd054ffeb60cd28e46ed5cd6bd0d2de318b ]
 
-This just add some information on kernel log about the selected ECC
+Any access not using the hardware ECC engine should be monolithic
+because the controller has its very own way of handling the end of a
+transaction during operation configuration, so we cannot easily make
+repeated reads.
 
-Signed-off-by: Andrea Scian <andrea.scian@dave.eu>
+This has the side effect of fixing support for software ECC engines.
+
+Suggested-by: Andrea Scian <andrea.scian@dave.eu>
+Cc: stable@vger.kernel.org
+Fixes: 08d8c62164a3 ("mtd: rawnand: pl353: Add support for the ARM PL353 SMC NAND controller")
+Signed-off-by: Miquel Raynal (DAVE) <miquel.raynal@bootlin.com>
+Acked-by: Michal Simek <michal.simek@amd.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Stable-dep-of: 80ecacd054ff ("mtd: rawnand: pl353: Make sure we use the monolithic helpers for raw accesses")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/nand/raw/pl35x-nand-controller.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mtd/nand/raw/pl35x-nand-controller.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/pl35x-nand-controller.c b/drivers/mtd/nand/raw/pl35x-nand-controller.c
-index 5691d78cab98e..c7407e9bda85a 100644
+index c7407e9bda85a..d41b992c6d516 100644
 --- a/drivers/mtd/nand/raw/pl35x-nand-controller.c
 +++ b/drivers/mtd/nand/raw/pl35x-nand-controller.c
-@@ -973,15 +973,18 @@ static int pl35x_nand_attach_chip(struct nand_chip *chip)
+@@ -914,7 +914,6 @@ static int pl35x_nand_init_hw_ecc_controller(struct pl35x_nandc *nfc,
+ 	chip->ecc.steps = mtd->writesize / chip->ecc.size;
+ 	chip->ecc.read_page = pl35x_nand_read_page_hwecc;
+ 	chip->ecc.write_page = pl35x_nand_write_page_hwecc;
+-	chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
+ 	pl35x_smc_set_ecc_pg_size(nfc, chip, mtd->writesize);
  
- 	switch (chip->ecc.engine_type) {
- 	case NAND_ECC_ENGINE_TYPE_ON_DIE:
-+		dev_dbg(nfc->dev, "Using on-die ECC\n");
- 		/* Keep these legacy BBT descriptors for ON_DIE situations */
- 		chip->bbt_td = &bbt_main_descr;
- 		chip->bbt_md = &bbt_mirror_descr;
- 		fallthrough;
+ 	nfc->ecc_buf = devm_kmalloc(nfc->dev, chip->ecc.bytes * chip->ecc.steps,
+@@ -981,7 +980,6 @@ static int pl35x_nand_attach_chip(struct nand_chip *chip)
  	case NAND_ECC_ENGINE_TYPE_NONE:
  	case NAND_ECC_ENGINE_TYPE_SOFT:
-+		dev_dbg(nfc->dev, "Using software ECC (Hamming 1-bit/512B)\n");
- 		chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
+ 		dev_dbg(nfc->dev, "Using software ECC (Hamming 1-bit/512B)\n");
+-		chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
  		break;
  	case NAND_ECC_ENGINE_TYPE_ON_HOST:
-+		dev_dbg(nfc->dev, "Using hardware ECC\n");
- 		ret = pl35x_nand_init_hw_ecc_controller(nfc, chip);
- 		if (ret)
- 			return ret;
+ 		dev_dbg(nfc->dev, "Using hardware ECC\n");
+@@ -995,6 +993,9 @@ static int pl35x_nand_attach_chip(struct nand_chip *chip)
+ 		return -EINVAL;
+ 	}
+ 
++	chip->ecc.read_page_raw = nand_monolithic_read_page_raw;
++	chip->ecc.write_page_raw = nand_monolithic_write_page_raw;
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
