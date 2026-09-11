@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1763B8407
-	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:56:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5693D5643
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:56:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120584; cv=none; b=dTX7bcqBDAaxtpzmYgymO0vQzACrwJfB2nJXT6gjUUzGJiIWewFsygY7fa+87sLBPWOrnAU7K3O0LXmkyFVQRzADNXCeTzXdzGCH5a4/5Cqd9YzjKFIBGmKvN2GeVLY3tMwLCjE3rtOqdWCspZJaoqNCnL5mS6BhEuaIWidygyA=
+	t=1789120587; cv=none; b=YPsQwtrs7uMDR3hKMe1P1kbQQkdNiaeaXT5oeyHI/+bo9sEhCZFbftt+cjzWKGwRpC0lL2rykKbbwcJrx93nndzNIyofuz25ApCsp6fb5pOkN+sDCfdqxKdNW7agAJiC3A7zFuTDoXNp1yQjkGQ1QCvkedKcHiflF5KRmIDwguY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120584; c=relaxed/simple;
-	bh=t8xthvLB34WKlOuJ+NuiDLgely9bY0UwOgmPUZUzplM=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=lGwlB1EFLXBkbc07S3AGWzF4BBsg239iM6e4qaHQ9Kkzt2AI8DiK0P55jRVWCL/jLOTs8RUWzZayibudfyUFeFXoZbmhg44GIWR5tDwiEaGI6Hh2RlMbUrTnRLcO9BTPrwD8q/aoNVM4c7L8XPJQcJQJ43d5dh2rvNw/vnHWqHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BUwnhVXn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120587; c=relaxed/simple;
+	bh=4E/4CXvhW5Q47aTzpjmb3sC5/HY5VgFMHx2WAU9hHds=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=H9On0fVJA48yDoS8wKb8T1MZAzUBjI5iQRgoXtxBdFd7Xz2bemmkkxtFgE8JhdpfDki15zIJYxlXrw9HOOgq5huhPnoXsErlwrGb1mEgG9Eng2j1+ehjwUzbU0BUI9HzzU9o/T2QaneuGNdXhdITaUswkQwF5HnemCHVjQBSnj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WVBE63PS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BUwnhVXn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A06AB1F000FF;
-	Fri, 11 Sep 2026 09:56:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WVBE63PS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411AA1F000FF;
+	Fri, 11 Sep 2026 09:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120581;
-	bh=6Nq5Y6+mQkvadoK2KYaYQ7bLIf0jkYu/1E50ElHGQ5A=;
+	s=korg; t=1789120586;
+	bh=iiHkZsurniY2xHlOB0M5OYkmcZYIW0o3lbR8r1C2+lY=;
 	h=Subject:To:From:Date;
-	b=BUwnhVXnhaH8XokX2hCIOXMspvGcaazb1MIYiL+2tSV+WsDRiZoTUB4C10RrA8ptF
-	 LlOUj2B9+ZEiCpc2FlCI5dgMwwQYlyyIZsdBQdR1/4FqGOd3D+y7kHFuCOMgWDOsgV
-	 B1uLf/+xNbSqUCs81/slbHZ5h0V+jJaB/yRxbbws=
-Subject: patch "iio: adc: rohm-bd79124: Fix GPIO mask check" added to char-misc-linus
+	b=WVBE63PSKG8ZwNEAwfUKCGo/45JvzbjOqWn2gx2dAsuA21xJ3SgAZZTGHdIoU0Rfs
+	 SdH0UJIuHp5gDZFODVwg3Pg+ffx4+yy6Pd8pvFYm/Z3dGce3maV8MrKIIdyQCiewDH
+	 gXqxVIcQZxUA1zLEXaXWbC73+85Rqa83YMwZ1t5Y=
+Subject: patch "iio: adc: rohm-bd79124: Catch regmap errors at measurement start/stop" added to char-misc-linus
 To: mazziesaccount@gmail.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
 Date: Fri, 11 Sep 2026 11:55:33 +0200
-Message-ID: <2026091133-garbage-magazine-0f29@gregkh>
+Message-ID: <2026091133-exemption-manicure-cf4d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: rohm-bd79124: Fix GPIO mask check
+    iio: adc: rohm-bd79124: Catch regmap errors at measurement start/stop
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,43 +54,59 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From d081c116a16489f7808d35fcf1ee9d4b9869d204 Mon Sep 17 00:00:00 2001
+From 196cc715dce3576a54065f5cb07185c75778f9a8 Mon Sep 17 00:00:00 2001
 From: Matti Vaittinen <mazziesaccount@gmail.com>
-Date: Mon, 10 Aug 2026 10:50:49 +0300
-Subject: iio: adc: rohm-bd79124: Fix GPIO mask check
+Date: Mon, 10 Aug 2026 10:51:20 +0300
+Subject: iio: adc: rohm-bd79124: Catch regmap errors at measurement start/stop
 
-The ROHM BD79124 has pins which can be configured as GPOs or as ADC
-inputs. The bd79124gpo_set_multiple() is intended to ensure that a pin
-which is requested to be toggled, is indeed configured as a GPO.
+The bd79124_start_measurement() and bd79124_stop_measurement() ignore
+errors from the regmap reads, causing potential use of uninitialized
+stack variable when deciding whether the measurement is already
+started/stopped. The bd79124_stop_measurement() may also ignore failure
+to clear the sequencer state bits, which may make the hardware to ignore
+the setting and leave hardware and driver states out of sync.
 
-The check uses XOR, causing it to fail if mask is not exactly same as
-GPO configuration. Eg, if not all GPOs are asked to be toggled at once.
-
-Fix this by checking that mask does not contain pins that are not
-configured as GPO, allowing some of the pins which are configured as
-GPO to be untouched.
+Check the return value and bail-out if error is detected.
 
 Fixes: 3f57a3b9ab74 ("iio: adc: Support ROHM BD79124 ADC")
 Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/rohm-bd79124.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/adc/rohm-bd79124.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/iio/adc/rohm-bd79124.c b/drivers/iio/adc/rohm-bd79124.c
-index 2c031a5e9eb0..f5b3096f553f 100644
+index f5b3096f553f..8091a138cca8 100644
 --- a/drivers/iio/adc/rohm-bd79124.c
 +++ b/drivers/iio/adc/rohm-bd79124.c
-@@ -200,7 +200,7 @@ static int bd79124gpo_set_multiple(struct gpio_chip *gc, unsigned long *mask,
- 	if (ret)
- 		return ret;
+@@ -381,6 +381,9 @@ static int bd79124_start_measurement(struct bd79124_data *data, int chan)
  
--	if (all_gpos ^ *mask) {
-+	if (*mask & ~all_gpos) {
- 		dev_dbg(data->dev, "Invalid mux config. Can't set value.\n");
+ 	/* See if already started */
+ 	ret = regmap_read(data->map, BD79124_REG_AUTO_CHANNELS, &val);
++	if (ret)
++		return ret;
++
+ 	if (val & BIT(chan))
+ 		return 0;
  
- 		return -EINVAL;
+@@ -420,11 +423,16 @@ static int bd79124_stop_measurement(struct bd79124_data *data, int chan)
+ 
+ 	/* See if already stopped */
+ 	ret = regmap_read(data->map, BD79124_REG_AUTO_CHANNELS, &enabled_chans);
++	if (ret)
++		return ret;
++
+ 	if (!(enabled_chans & BIT(chan)))
+ 		return 0;
+ 
+ 	ret = regmap_clear_bits(data->map, BD79124_REG_SEQ_CFG,
+ 				BD79124_MSK_SEQ_START);
++	if (ret)
++		return ret;
+ 
+ 	/* Clear the channel from the measured channels */
+ 	enabled_chans &= ~BIT(chan);
 -- 
 2.55.0
 
