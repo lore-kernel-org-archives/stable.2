@@ -1,66 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0A0472068;
-	Fri, 11 Sep 2026 13:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C829748C406
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 13:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134471; cv=none; b=BtgTuZ24aFwFftXrLa4SSQyfikDA68fHR7ZN96HdtL7cJriqMEVbEffaiPom/0JzAmKfYm8/J2M9ez0olpsuahcDkFMtxi/OYdY+nkbkw8i+kbbDrRGAgaiS+jRKw0TP4sl+q7pLDd6VZzIEUBwMshLJr5JxMeebo9PW8Cq4mj8=
+	t=1789134560; cv=none; b=pBMDhT9/g37hSVkLTAlGo9owfyQbm1R9r2ZYcgj55TBJc89HPrHgUD/Xka6bmp6LxLnUHNtVhbhSE89uqu86o3xSa81/HBdkwmlbdCJyfX6avXKGufH2e2BfnXaYp6TFG4XHcIG3rmCXbrfk52WDGK6xfJNrXxV//PM0JL4oHS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134471; c=relaxed/simple;
-	bh=q02BnkdO2sJh/ZuZC/YhgRkZFmAF8Ri3Yezw+KMdQis=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=nuVl51RdqgzycMgCsy70ukGWSSZ4lmV/4u8iElNnxa+TCqGII3Znz4/0QkhOTBZQADr1LMi3PGrByqFf+pyprIrs8MgnsEPgejH5BO6ocYjQPTUUoU5rlsAtMWu6VfGZyKoP6jS358VIAhklORBmm3FuqMH/x7DxLE6J27PDln8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+kyxSUp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789134560; c=relaxed/simple;
+	bh=kdkmqAatzIjtZKxl1W2e6MjWNUcq5Ih9uYD3TIIG4dI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r530moNykGmNsuoNN1i3hcty30wtfSbZpkV2J6kf5HuCEizF8mJu7jeDL9eV3Z0TBkASSKDJy9q/arZoRkpZIR+sMlEVJymtO6FkEZ6+waaHX0U4xgkxA6LEBytNII3DuqbrmOvbKNvDyD6lFfpaM56OnCFkGoqu/MMm0NXQ1GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihuZCf9I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+kyxSUp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA601F000FF;
-	Fri, 11 Sep 2026 13:47:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihuZCf9I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E631F000FF;
+	Fri, 11 Sep 2026 13:49:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789134460;
-	bh=LcihR+7fa3+RNgDoK8hekhRM6EZ1Upp/g6TmCKw6W6w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=B+kyxSUpWbrcE0/fFYdwzG529n+VqZH3wbD1Kl9X//iMG/uNnMmceQ7A7s4ifN1rC
-	 b7JAJC31CcJ1uFtc7JfS0HHdQvEtAgjxwtn2sWCspAeaJ7XntR5iI9QKjVckEB3Wse
-	 hPNfsBzY29ILxSi9b/0zJ9IZ6XRbrWvzjTtO/PLfmmAQS1WMoNmGb4XqUF2Ta1+ccN
-	 xLyRGQcDxHI//wkoXBpd/0K7MHS1TWs7KM3DfGKeBEfjs21Iqzi0SX1heKTrsMDEzj
-	 wY7UhNUWGaMGi41pJ2kAOX+xvv8jFxUCkqB2kcXdpE0+rj0q7kagi2x+cLePCUMM5E
-	 v8RzGXlPp6tGg==
-Date: Fri, 11 Sep 2026 15:47:37 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Lee Jones <lee@kernel.org>
-cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-    Benjamin Tissoires <bentiss@kernel.org>, 
-    Aaron Skomra <aaron.skomra@wacom.com>, 
-    Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-    Peter Hutterer <peter.hutterer@who-t.net>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v10 1/5] HID: wacom: Use hdev->product in
- wacom_setup_touch_input_capabilities
-In-Reply-To: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
-Message-ID: <07snqo29-s1qs-1867-2705-pp6s81qp249p@xreary.bet>
-References: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+	s=k20260515; t=1789134552;
+	bh=G0uYWeyT4fK92rPfsbD17JlqulCmFAAmuH19nLfAWkg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ihuZCf9IxaqozGUp/LTyz0wafslJ8VOHAtndmM4tKFT4N9A9+/0eoGhRh8cvSUXdG
+	 S7pkHBT7C4rl4HYYNWZRiBUFqjF4RgRTHco+hvHpFvKjtqgbmR6koU0hhXcGpMbTW8
+	 W1DKzUjlkX/mj+XwUCFihI+qlwYkOehvXU1yxvX0Tdycanss3G4IkiKkKeFFOsAVVM
+	 mgyLtBwg2nsF3DkQHl96IcICPDc2nrNHvObK7R35crqgbEiR/0nBLWBBzZVfkSYLqy
+	 CSbVHJrSfKKU8qy6Dciv4D3O0PbZzdNeZmft7S4iJlg2hKNJFSzCisfLposLeCmQL7
+	 n7z6z8KxpV3tw==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.18.y v2] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Fri, 11 Sep 2026 06:49:04 -0700
+Message-ID: <20260911134904.96369-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090831-drinkable-maybe-5e01@gregkh>
+References: <2026090831-drinkable-maybe-5e01@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, 9 Sep 2026, Lee Jones wrote:
+Patch series "mm/damon: unurgent fixes for infinite loop, NULL de-ref and
+races", v1.1.
 
-> Replace the lookup-dependent 'wacom_wac->shared->touch->product' references
-> with 'hdev->product' inside wacom_setup_touch_input_capabilities() since
-> 'hdev' is already available (via container_of) and represents the touch
-> device itself.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Sashiko found a few issues in DAMON that could cause infinite loop, NULL
+dereference and monitoring results degradation.  The first two sounds
+scary but the infinite loop happens only under unreasonable user setup.
+The NULL dereference is only in a unit test.  Monitoring results
+degradation is trivial since it is only best-effort, and those happens
+from only unlikely races.  Still those are bugs that better to fix if
+possible.  Fix those.
 
-Applied, thanks.
+This patch (of 6):
 
+Due to online parameter update like events, the number of DAMON regions
+could be higher than the user-set upper limit.  kdamond_merge_regions()
+repeats merge regions until the number meets the limit, while doubling the
+merge threshold up to the theoretical maximum threshold.  It is tried only
+up to the theoretical maximum threshold because even the aggressive
+merging can fail from reducing the number of regions under the
+user-defined upper limit.  For example, there could be many user-defined
+non-contiguous regions that cannot be merged.
+
+The threshold based loop break condition is evaluated by comparing the
+threshold for the next merging try against the theoretical maximum
+threshold.  If max_thres is larger than UINT_MAX / 2, doubling the
+threshold could make it overflow, and bypass the loop break condition.  In
+the case, if the number of regions cannot be reduced under the upper limit
+like explained above, the loop will run infinitely.
+
+Prevent the case by doing the break condition check before doubling the
+threshold.  Also, prevent the threshold exceeding the maximum threshold,
+as it could overflow and apply the wrong merge threshold.
+
+This issue is unlikely to occur in real world, since having the max_thres
+higher than UINT_MAX / 2 require unrealistically large aggregation
+intervals compared to the sampling interval.  Also, it requires an
+unrealistically large number of uncontiguous regions setup.  Nonetheless,
+the consequence is bad and the fix is simple.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260715031002.108504-1-sj@kernel.org
+Link: https://lore.kernel.org/20260715031002.108504-2-sj@kernel.org
+Link: https://lore.kernel.org/20260709145425.96247-1-sj@kernel.org [1]
+Fixes: 310d6c15e910 ("mm/damon/core: merge regions aggressively when max_nr_regions is unmet")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.10.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 123e4619ab6c8ab1c4cb1d7a58311a2af13929cd)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index a9168a03b3402..6fa02025d2af1 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2415,7 +2415,7 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 
+ 	max_thres = c->attrs.aggr_interval /
+ 		(c->attrs.sample_interval ?  c->attrs.sample_interval : 1);
+-	do {
++	while (true) {
+ 		nr_regions = 0;
+ 		damon_for_each_target(t, c) {
+ 			damon_merge_regions_of(t, threshold, sz_limit,
+@@ -2423,9 +2423,14 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+ 			nr_regions += damon_nr_regions(t);
+ 		}
+ 		count_age = false;
+-		threshold = max(1, threshold * 2);
+-	} while (nr_regions > c->attrs.max_nr_regions &&
+-			threshold / 2 < max_thres);
++		if (nr_regions <= c->attrs.max_nr_regions ||
++				max_thres <= threshold)
++			break;
++		if (threshold < max_thres / 2)
++			threshold = max(1, threshold * 2);
++		else
++			threshold = max_thres;
++	}
+ }
+ 
+ /*
 -- 
-Jiri Kosina
-SUSE Labs
+2.47.3
 
