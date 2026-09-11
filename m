@@ -1,124 +1,179 @@
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E1247606F
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129930; cv=none; b=MMdWr06ctLKpmVuSApBdVIVGqYX8hf+UphhVWf/Tbw9oK4QrEA9PjDwzVlplhWzTP+D5FqD3Y5KI5QZukcYXgy/DUiOZCsi2NvQRE5GuUu4XQIejoDr0V4RGLYqDAqpDuKnnaZ6j1r7HOMie7+KEItSTaVXIOBMfn74q+wyYzF8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129930; c=relaxed/simple;
-	bh=A2CvdhG7/vIyoUeGkv5E4Ugr/imarWjFKS/kJBdETX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aeGYlhifGdMaZ4oxFieEgnul6WHuwMSN/SIOuPQ6GtfzZkaqQ1EQbwp5Q3ExYLxf6PMokFYc9hpaRkFYfBOKs1ZSw7Ci7dsccukHeR/Y9RadUqOlvuUDnx0RUiLnBaM5sYFKSUfvLKx8H5RVe5Af3uNnZ/+Psc/6WsUIeAcw2gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTeLwa6L; arc=none smtp.client-ip=74.125.230.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2293E475341
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789129941; cv=pass; b=roDC7ELgUqsqUQNwLw2oEqZ4k+hrwtY2dRxUkuw3bRYVLBEhhStZrARVWwILnqMYGmfMPf0Qo++CiF/BNu/+tpEut0NtlbioKwlXwpALjvmnjIufcl5UBEnNM5v11QtaYqmoL80RNm6yw/VG7fN86fVO4EGuvrvrxUDHdoUObDc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789129941; c=relaxed/simple;
+	bh=GfGY13tQsBIBtgNZNUsiTH0qNAGdLQBQm0DmdUH5d+A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uvcBIoT9M1tHsdVZ7quutjf1oeJO+ZkciWvd5nGBfBjpWsUhDx85wS/jceACgiF0kOfFhBclgJR1yH3/Iz1/SQPthKgI5zcpC2JAYl9tVwQ3skiMn3e4uj1eVIE4sV8plOemEOQ6UqG1vVyC7jqB9qDz+vP+JEs+SSKiPxwLZeE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GDXP98Tj; arc=pass smtp.client-ip=74.125.224.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTeLwa6L"
-Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a46d5c5bd7so5098141fa.1
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 05:32:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GDXP98Tj"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6711f05fb14so866112d50.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 05:32:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789129923; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dy+5k77ahKilDqgLvWYyTgQgg1i7T1BoftbVSRyTio0EGM4IYizmEWmW2X6LHQJctU
+         /YEKknkWJfW4P/i2TnplJkA7EIxN1Q70fggK3lmnEaWppNVIHHKkP1nFgsrCX657UAUw
+         EZgcAT9IrNx9kHS4TOaIK9594i9DNUI72L58K+ymcEP9ZQ1jG9D+XGMzilUitU7LZexm
+         2/Trv976l3YVTuh8CCJGTLLl+nekOtWrLFZQxK6bNcnwDcajdJC/jKLayuMO8D9Jehc3
+         HZQNPzYaryM54c8ZiC6FnU5DL5+6Zz+pBZIB5wMYPZ1LbseKB6NlAnm2J49kkqvMKiij
+         42LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
+        fh=xIM/z7tEAXvY+3fdE+mwSjpqinTTgVJ+eFMWIt1GgEI=;
+        b=WUyoHWgdOm8hvf+SSWWZZsu4+Dd+puMmfaWgXR9AS5gMF0lv5sMbQ2wWCJnsHB0Y3E
+         Iyh20kNRNfK7iiYhak3eq9RIjgmSPuczYyd0UZIkVu9/RZzmsa7EBgIMKmCM0ltzocrX
+         N3PChAi7yXHP3Frvz0YiRMUR3ZcmWIWc9h0fBoJvDEmxrSzC/nPVE78Eq60p0sOPrnoJ
+         p8llziKwV7IHzgQZ8wmlDmMmFAHjNhWQubFut8kk5kNE3Jiu+g5SuD/DLiIbltnsc36r
+         zIbMnMMRja8VOuBKPMW3u0ouxrUwRWOUP5RJNqwhuxxIsvLNWiKSSc1KsibHJmdnf134
+         wOnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789129917; x=1789734717; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
-        b=OTeLwa6LRDrdvM0CXgSsIkzWuO2Yf5+q1U55b8O8Qqd/AbLK4k7enyrGV2/RqenOEj
-         V9X4RUQ7ELDWdYi02ArPQOXtf7XB1Swm1Tjjtl/T3a3/AJcHiy6BZUXTrcrmvlVFu84L
-         zhBpIqa6SvG4eOvh0F+gBATF25vOkt7PqBn4rEa3fNpybAEuuOTVD0iPnfMRlK0D2uvb
-         zaFiUABMEH8xSwsqxzg1ZQK/YdfX2ph38IynUMdFBGcO2VgRgJJgzBpBJ4pgpQjFu5QI
-         cKLspNb4tk0W2qlQDl8Vsx/8NRZZoRz+GGCdz7LzTWseo6QZrlLbmfUeq8Tpv9lgYSgv
-         vdeA==
+        d=gmail.com; s=20251104; t=1789129923; x=1789734723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
+        b=GDXP98TjbTn7dENk33rIPd0Ksa4F7AqCVKcln4PHWCVvu879DL88cLai6ObgxzmMAh
+         TkdvpcbJFO8zkdQJkS+Gu4GTALJFYfGCNFfg5fLsBiSufeWjgxnXJ776BbQOgihAjJ29
+         4oFe2Ft+sy1SzkwQ7kBKDD0wbIYqLSVJRW47OtOz3ejBZ4wF4nacIAmlTyXcSnTDnXSb
+         BfxI//fsRzBmFIUt5uWD/ktmd530t6ZNMchhNjN0DY7tSnjlevGO2+J+hXPQu6c5ij7X
+         4kW8+ANcv/5rm7RVciGrVvcfD4VJObQn33JSlBK9WgtEGfJ8axi3H3YV31M2tBPTppvJ
+         z8Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789129917; x=1789734717;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
-        b=ba8CdzEwMYNED11kAuiN9Lf672Y5+sMK3to7pD6KykzYsG5Ui1XqXVwnZuotkSer2S
-         1U8R9LhRFK/wDbkmhbAkyYzEjzHJiwoYvdu3cCoBmNRqtdFnxAWaOQm6ExLreVdv3ZXM
-         YcxKpCkIrY4vdy6umtqnxWbYT0HviIjq2Ot8/IGJYEwxxvKHhRr3vJifLgfMvowWb9Fp
-         e97ttzYcOw7r7WJew+0psUiEfL/76HV2m8ZrxD4XjUGTYC4k3G8rE971L2CQlNN5R6w7
-         WEJOSqgVaGBCSv5Mu3rQHtgGJC+85qLdoFsVc7lBd2tGAujAPj1xdVVe+wHgdIBbl35E
-         IC0w==
-X-Gm-Message-State: AFuF++nVQq+6WKx4SyFu0Z/2w3Tp4rlS+U98e3ppmCrgLtNo6PXJv1xY
-	w5VCQCBHyVe9iLVAt1C2YB1r/mu+2knWh+Cr86td4oQDuJDaFeVWN0ByVhEu8h120+8=
-X-Gm-Gg: AYBFou32vZ82gg2AA9ZFKv0dZyF2GARbnZGNgL4I25n8jVxjjDwJw9+ZWi0DgT0N7Fg
-	MfE3NwEtpyLJHHJXBYJEIysAwUJLHfuMrvRgR4PA1fHQAeWXo2B4aZ9UOyQMz1fXFIgJZd0nY8/
-	hneOor1PbfjuKZ4gx2kuCSP7DLurgxr3CshB3t/VURYgWfAVPkiymw7hFc06LFhoFhBt9Bj+UwP
-	90ECKu4qQ0SP+oPv0R7HKbfF8KKr82bXuouiep/GJdqyxLUzsqNxJP2laRk6fmitwoKZYlmhkII
-	JYAiW4YHqNtF4/EUDooX6Ii+y3dYVNlfZ5udz6ENoBQ03rINe+UugmfvmRimasVZFbm0i8XjNfR
-	kAwf82RcFZUphcQmuuFdaIfJGliXwaF/fehX2qbBw5iLEvCRlFMODnj9pLGpFYaqsn6kbKCS3yu
-	nLSGKPVeQhz5JuyyU5+e1XzJluM57QLhx/QSgu2GUaYBCkhUw+kgI8vDhyOBnggx9iV2XL/jRrJ
-	6rm5UfqA0/QJsgEGOYkqAy3354=
-X-Received: by 2002:a05:6512:3f25:b0:5b6:1a7c:20 with SMTP id 2adb3069b0e04-5b8a032c8abmr874241e87.35.1789129916639;
-        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a033149fsm576697e87.0.2026.09.11.05.31.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Joachim Vandersmissen <git@jvdsn.com>
-Subject: [PATCH 5.10] crypto: ecdh - explicitly zeroize private_key
-Date: Fri, 11 Sep 2026 15:31:37 +0300
-Message-ID: <20260911123140.137198-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1789129923; x=1789734723;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
+        b=BKLJGMYmkG62Nkscg5vxuDiKGRI2yLmBHf9Dlyke0U9yrkvVnR8AynfX6O0abm8vNv
+         yd7qsxkf0QBTKkp4nImapSiy6M5F5bWGBzGwaQyCFz9PSmZ97SKU68FQwnHbTtLFGVVa
+         dxZoh11IVLdjooYQG+6vJNIxEBP4xOWUyXlLJ7chn+Jpcc6BdMtFaE0CQbfQWRXL9GJw
+         JnJRqAKSD4MnpMoCQqrwUDlRIK+7qZIJqafgeQ0m6nfezEQoUyz+19Xi2I+CIfnIGcV+
+         3R/FYkSd+PuIPttE3cX5oeCxvJJ0Wkpd7iyBVMoBF157JQRDhWdigAViY1bXEPMRAwAx
+         L9Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFU0an4EuaWdhU74e3Fu+KIFUQ82Q7x8an1RT/sE9erMBuUI+ZGku2CsxUiWk+qivz92RX2wg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbMWjJiCJWh0XEoa4/s6pKspwfczFe5QUj1OnsnnMDHHzLaDQm
+	diVcNwyg9hyIgTm3ZwfIqwk6NrdQhkbp11XTULon0gfDtTSOyy5hGxrIdTxqjnhRD4XOHI+vYPK
+	WOPrcNrIsAGj2WkNVfKnCBO66c6nHTuE=
+X-Gm-Gg: AYBFou2r/9Wgdf9lThBRwlhLF+PzN8cnco0ucHT85T/+4eRaupo0n5fn0E7jYr4aj5R
+	wkJany22t6z9uYCgF62IgKWq0wCjykXD097D6k2vDHuNFTAE1Bs/rdRP5Vcgh7sF+yx4X/ysbrO
+	Jg7Oq/weoxIv3gFexT2eZvS23/Y2XUUzl4Rz6+yzLXAPofObKT3MgKLz+ygPVCrnbOvHHmRdXvI
+	87Dd4w/nRYodxCLXbdh0mZ9be+xCc4hUJdXCsnRpBXK3msj8A0Jhf6dnh8YRBgKvTNqYqED/+Jm
+	HOP0UccTav57XIyO3fKRZRQC3RpvbTmiMaeid6wiIJReiRLrKlpK
+X-Received: by 2002:a05:690e:4547:10b0:671:23de:14d9 with SMTP id
+ 956f58d0204a3-67124574c68mr1013303d50.31.1789129923374; Fri, 11 Sep 2026
+ 05:32:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910051649.3806214-1-april.cardenas@canonical.com>
+In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
+From: Bharath SM <bharathsm.hsk@gmail.com>
+Date: Fri, 11 Sep 2026 12:31:52 +0000
+X-Gm-Features: AcwNN1WbsQN-BPoDZ6fJmFMQpIFFBjaprIPiBLElv0YUz9QVJuPOcZeQ_WLxtig
+Message-ID: <CAGypqWxKokujjRHmrJ=iSM4vhqmmTxAPy_GrQQDmeZk271+Rmg@mail.gmail.com>
+Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
+ for multiuser mounts
+To: April Cardenas <april.cardenas@canonical.com>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, linkinjeon@kernel.org, 
+	ronniesahlberg@gmail.com, sprasad@microsoft.com, tom@talpey.com, 
+	bharathsm@microsoft.com, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Joachim Vandersmissen <git@jvdsn.com>
+On Thu, Sep 10, 2026 at 5:17=E2=80=AFAM April Cardenas
+<april.cardenas@canonical.com> wrote:
+>
+> Currently, when cifs_oplock_break handles a break request from the server
+> it searches for the appropriate tlink to handle the request
+> but incorrectly uses the current fsuid as the search key, eventually
+> causing read errors for users with multiuser mounts on NetApp.
+> Fix this by using the tlink from the cfile struct instead to respond
+> through the correct session.
+>
+> As breaks are handled in a worker thread, the current fsuid
+> isn't guaranteed to match the session that the break is intended for.
+> This means that cifs_sb_tlink may search the rbtree using the wrong fsuid=
+,
+> and return a tlink with an incorrect session than
+> the lease break was intended for. As a result, the breaks
+> may be ACKed through an incorrect session.
+>
+> While it seems that Samba/Windows Servers 2016-2025 ignore this as long a=
+s
+> the lease key is correct, we ran into a case where if you're using
+> NetApp ONTAP or Azure NetApp Files they will reject the ACK
+> and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
+> a user may initiate through their still held open file handle,
+> and the server will eventually close the file.
+>
+> In the dmesg logs, the user may see errors like these:
+>
+> CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
+> CIFS: VFS: Send error in read =3D -9
+>
+> With a multiuser mount using NetApp, this issue is really easy
+> for users to hit on a wide variety of kernel versions
+> by attempting to copy a file from the share
+> to the local machine through GNOME Files/Nautilus.
+> This copy will always result in Nautilus throwing
+> a `Bad File Descriptor` error to the user and fail.
+> With this fix, you can copy files through Nautilus without issue.
+>
+> From looking at the traces, it seems that glib will
+> open the file first, and call listxattr before actually attempting
+> to copy the file data. The listxattr call always triggers a break,
+> causing the copy to fail.
+>
+> The proposed fix returns to the way the client grabbed the tlink before
+> commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
+>
+> The bulk of that commit (checking for list empty) remains untouched, and
+> I think the change to using cifs_sb_tlink was intended to avoid a
+> NULL/ERR deference on the tlink as well as update the reference count.
+>
+> I believe this fix should preserve those safety properties, but of course
+> I'd appreciate any corrections here.
+>
+> Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: April Cardenas <april.cardenas@canonical.com>
+> ---
+>  fs/smb/client/file.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+> index 1aa4844f8b8a..0d428517f454 100644
+> --- a/fs/smb/client/file.c
+> +++ b/fs/smb/client/file.c
+> @@ -3354,8 +3354,8 @@ void cifs_oplock_break(struct work_struct *work)
+>         wait_on_bit(&cinode->flags, CIFS_INODE_PENDING_WRITERS,
+>                         TASK_UNINTERRUPTIBLE);
+>
+> -       tlink =3D cifs_sb_tlink(cifs_sb);
+> -       if (IS_ERR(tlink)) {
+> +       tlink =3D cifs_get_tlink(cfile->tlink);
+> +       if (IS_ERR_OR_NULL(tlink)) {
+>                 /* drop the reference taken when the break was queued */
+>                 _cifsFileInfo_put(cfile, false /* do not wait for ourself=
+ */, false);
+>                 goto out;
 
-commit 73e5984e540a76a2ee1868b91590c922da8c24c9 upstream.
-
-private_key is overwritten with the key parameter passed in by the
-caller (if present), or alternatively a newly generated private key.
-However, it is possible that the caller provides a key (or the newly
-generated key) which is shorter than the previous key. In that
-scenario, some key material from the previous key would not be
-overwritten. The easiest solution is to explicitly zeroize the entire
-private_key array first.
-
-Note that this patch slightly changes the behavior of this function:
-previously, if the ecc_gen_privkey failed, the old private_key would
-remain. Now, the private_key is always zeroized. This behavior is
-consistent with the case where params.key is set and ecc_is_key_valid
-fails.
-
-Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ Roman: The zeroing is performed before ecdh_supported_curve() which is
-not present in upstream but this does not change the fix's logic. ]
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for BDU:2025-00987
-
- crypto/ecdh.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/crypto/ecdh.c b/crypto/ecdh.c
-index 96f80c8f8e30..2e7acfc42155 100644
---- a/crypto/ecdh.c
-+++ b/crypto/ecdh.c
-@@ -43,6 +43,8 @@ static int ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 	    params.key_size > sizeof(ctx->private_key))
- 		return -EINVAL;
- 
-+	memset(ctx->private_key, 0, sizeof(ctx->private_key));
-+
- 	ndigits = ecdh_supported_curve(params.curve_id);
- 	if (!ndigits)
- 		return -EINVAL;
--- 
-2.53.0
-
+LGTM. Reviewed-by: Bharath S M <bharathsm@microsoft.com>
