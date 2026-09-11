@@ -1,201 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300BA485CD5;
-	Fri, 11 Sep 2026 13:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F7A47606F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 13:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132129; cv=none; b=QNX6iElifQOG7yoyUm5CUjXF+KP38Yw5bgrdT6tWEih029N60ZgxJOozN0zaVnPK6iYtKLUg0VEeSWJrxbkJDdKhHEcakz5iFjAYbExmIda7ja60W/Xaiyzreph+CDam+4o1nF+NG6nJ6xqr1FMhPRKRKOiMCQifD1HmRcoOPRI=
+	t=1789132958; cv=none; b=PZZrUVlPx7ODTXPmP9rSDj/t0J/zVOLXlDC3NbjYQQVDkPMnXcuhNFetcsCxKpYUr2TQ8jVvwZO/MILzw0vHGKO1yv20iumP8wgBereUYXeXg1GJk0Hrh8CxmGGRkJHPZFh73VIevs3T2i+ESkEjcfbQYSrYycb3YaiLBX5jsoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132129; c=relaxed/simple;
-	bh=iNt6dci9h2IKUvJz0YQiWrA3d8fLeVQdvJoLhn44zZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PMOMG4G6c9NPr11yug3oBbic7SJGa8pfEfLm0ijT3Y8WKvIKslytFxuDuhmx1G7oVCY21ZtX6humV5S362d2T+/odrnK28TcQD1uQ3YyBYtyNBpZNBVcKStVADKGLvUEm9+T1wGMcuOQgo6G3/q+okiXG7eWb3VwhPNisJaUNVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxrkAnAP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789132958; c=relaxed/simple;
+	bh=xHZhA3szZA1hZVZbOIyn030oF1VwprWMhW3TO6nzBXs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YTeK+1RALQEI8/9gYeJhJYZr1NOF/x5s0FN9zePRfOFTe9to13MtkddWAgZH55ew5a2Z8VR1Y7X+3F7TBSs8wp5VKPWwN2CWGRSjNNM6unMa+3hRbfvjohz63biLKROA6q0lID4QkQPVPC4ASVwRui854fOUCu5+WA3XBxgKwvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ebYRm1O/; arc=none smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxrkAnAP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1CB1F000FF;
-	Fri, 11 Sep 2026 13:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789132128;
-	bh=n1VHONHG9ZichJd9nirKCMDvnRx1U9EW/n/kEkPZzuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MxrkAnAPotL3bthM6o+xTjJJds5sVWBgZTE4OWCQHMNFKwy6zd7Zo5mAg/fFuS7g9
-	 +55spiY48eaRfmsYrYBo989ID22+0m+72+BW3A8+pnbvYlI3WcBNUW93ElnZWY76Ct
-	 Zi8TkEfA2i8ytNRgvDyC7xRaxhxhBtEkl8rPxmJq8K7n25bmq9d+8IZEzv9QYvWxhl
-	 i+ly9lZEnuXza/Ix5d6vkeBOXf9JkppTAlhopjfKilY+SB7nQBXIHUBil+N8cSDL6N
-	 GNNdMeIqs9hSltBwg89jeLvzWrN0gS8igILplM5kYeaW5hd6HZFahiKo9bGqxYgreL
-	 FuzDUZDZK2FtA==
-Date: Fri, 11 Sep 2026 15:08:45 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Alan Stern <stern@rowland.harvard.edu>, stable@vger.kernel.org
-Subject: Re: [patch V3 1/8] signal: Prevent exec() race
-Message-ID: <aqP9XYckv9mhLuQf@localhost.localdomain>
-References: <20260911090341.949101445@kernel.org>
- <20260911090541.572536604@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ebYRm1O/"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a2015bbfceso12247481fa.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 06:22:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789132954; x=1789737754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hazyrIg4ggyFOS6emaQbu6dOwEnHBIR0x34bXl3xik0=;
+        b=ebYRm1O/ZBSDz+sc7zIULNyFSbzcYFd9j2tfRtNjaaEns6fXbDP3TRjVzNDC2hRcRN
+         4nRyIQ1RIaJqNgLW1JsglZcdeVDFm3AwGQY4v+5zNjV1rGYaycG/d7cFHt0VWZRmfvJb
+         FHiC1EP5XfI8RmSpsaMeUAs4KNjDvkXCmmlDI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789132954; x=1789737754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hazyrIg4ggyFOS6emaQbu6dOwEnHBIR0x34bXl3xik0=;
+        b=m00J/C5E8+3mU/tjx2DWmgktE53qea0GnJa3C+jEVu+JM8ekSugsiV1Xox6lxNCQX9
+         naeW8Oft5v1bu3UwnlF9x6Xmxdz9n2IWB3ZrLSaB2XQb1bbVWe/RMOHPEeQOd2nM6lK9
+         3uJ0jsHOYTIZubn+r0ZBx6GMw/EEmpug0QvS9Dedex5N5qXyhX4G1oAJorCkKOVvc3Qa
+         F7lsauQBtmKvLfEDTFenq5uKRM62SUbjsTZlHB4Qd046/jmFQ3J5KuXeUcFWsdNxeX/F
+         2go824ywpjqDQSyKedebOR3zaOU+Q4cF/MwGXajHiEMwebK8gGbC2+kj68wBvEtr0Ekq
+         XJng==
+X-Forwarded-Encrypted: i=1; AKwUvByYeUfz62C4PvcG2a6rub+oevKVkIAMg4bJX4nOkF9Sr5uSUdxuQnufraFr7i6yBP+VHM636SQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbNA/gqkl36zdc/wEE0RrT2hpk7QF+PwHYk6qWlj3gNxw2mo+4
+	0STFVwAvz1MtY1jEsvgUCGR0AvErP7Pq8SAkDnbm/DY3z8hV4SG9Hh3NeYt9hONdCQ==
+X-Gm-Gg: AYBFou248kWgU84SLDkvcRrq8lCbqkfIeyPMZ63jOD1yibrEhJQgxOk/q+Y//ZchxtX
+	dvKposgkku1ashDHmBD8HVvklx9uTHcpKOGcqzUnWr3XA0o1Ge7Nab/P0QoTPdxgdB1lHN2n40B
+	nSIqWzH6ckWPCSWrseKobdF+oIVRkwLtFPhfFIa1RrjeBSvnufvQhC4aL7L6uLafkciEw4DxLIg
+	I64jwZGG14o0NZgrxem2OijtbQiyzDgGrVx8Tzyf2fvNSH9zUxDX2P+bosiH4U0wEEIy93rEVbQ
+	RiarPEvxfaX3pIn8Ounr6razEDcf7i072jGcV+D7lhoICFK5tkDNm/21ddAEIgnJGDXkMtvTmJz
+	UNqhzGTi/woSYQ9JJk1MV//s/JfPde2MLBFlYJyOW2fqhatEyt1GfdS9vYZadjGx4LL5h1JP2hB
+	JA5jGppXQ/ZKzATBllT+kKgcR+zHvCpOsTBoPYMKd4+4PmEHD9sj6HatxxWC+uviQLbnAQtte2l
+	sToroyFPojkzl+Hu4oDUqxyFWrVLmTxXNvZN8C6kgW9QdZD5g==
+X-Received: by 2002:a2e:a801:0:b0:3a3:61ec:43c2 with SMTP id 38308e7fff4ca-3a591260d4dmr12294851fa.19.1789132954319;
+        Fri, 11 Sep 2026 06:22:34 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3303fc9sm6677511fa.6.2026.09.11.06.22.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:22:32 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v3 0/5] media: uvcvideo: Automatically handle invalid
+ uvc_versions
+Date: Fri, 11 Sep 2026 13:22:24 +0000
+Message-Id: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911090541.572536604@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJAApGoC/22Myw6CMBBFf4V07Zg+BhFX/odxge0UuoCaVhoN4
+ d9tWalxeW7uOQuLFBxFdqoWFii56PyUQe0qpodu6gmcycwklwfe8gbmpCFRKD/oyJDVqI6oiWX
+ jHsi651a7XDMPLj58eG3xJMr6v5MECFBIWBtLHA2d9RD86OZx70PPSirJD12Ib10CB9XWVjY3j
+ oj6R1/X9Q3hdEN06AAAAA==
+X-Change-ID: 20260907-uvc-version-aedefc4384ce
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Le Fri, Sep 11, 2026 at 11:09:12AM +0200, Thomas Gleixner a écrit :
-> From: Thomas Gleixner <tglx@kernel.org>
-> 
-> Hyunwoo debugged the following KASAN UAF splat:
-> 
->   BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
->   Write of size 8 at addr ffff888007ed80c8 by task poc/79
->   ...
->   Call Trace:
->    __send_signal_locked+0xb27/0xba0
->    do_send_sig_info+0xa7/0x160
->    do_send_specific+0x76/0xa0
->    __x64_sys_tgkill+0x193/0x270
->   ...
->   Allocated by task 80:
->    do_timer_create+0x1a4/0x1030
->    __x64_sys_timer_create+0x145/0x190
->   ...
->   Freed by task 12:
->    kmem_cache_free_bulk+0x1f8/0x4a0
->    kvfree_rcu_bulk+0x14f/0x1c0
->    kfree_rcu_work+0x128/0x1a0
->   ...
->   Last potentially related work creation:
->    kvfree_call_rcu+0x39/0x390
->    __flush_itimer_signals+0x211/0x320
->    flush_itimer_signals+0x47/0x90
->    begin_new_exec+0xa6b/0x28c0
-> 
-> It turned out that this happens with a non-leader exec() as Hyunwoo
-> explained:
-> 
-> de_thread() calls exchange_tids() before release_task(leader), so the
-> struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
-> now points to the thread which called execve(). pid_task() returns that
-> thread and lock_task_sighand() on it succeeds.
-> 
-> If the timer signal is blocked, its sigqueue stays queued on the leader's
-> task::pending. The next expiry of that timer can then run while
-> release_task() flushes the queue.
-> 
-> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-> with a plain list_empty(), which only reads list_head::next.
-> list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
-> before list_head::prev, so the check can pass in between. list_add_tail()
-> queues the entry on the task::pending of the live thread, and the
-> list_head::prev store from the flush then overwrites the list_head::prev
-> link that list_add_tail() has just set.
-> 
-> __flush_itimer_signals() does not undo that either. With list_head::prev
-> pointing at the entry itself, its list_del_init() only stores the same
-> values again, so the entry is not removed from the list. It is still there
-> after the last reference is dropped and the timer is freed by RCU, and the
-> list_add_tail() of a later tgkill() follows that list_head::prev into the
-> freed timer.
-> 
-> This problem surfaced with the recent commit which moved the sigqueue flush
-> out of the sighand lock held region.
-> 
-> Hyonwoo proposed to fix this by using list_del_init_careful(), but that
-> just papers over the problem. After some disucssions and various attempts
-> to solve it, Eric pointed out that there is no reason to flush
-> task::pending late in release_task() and it should be done in
-> exit_signals() already.
-> 
-> As nothing can collect and deliver signals which are queued in a dying
-> task's pending queue, there is no reason to delay it further.
-> 
-> But it has to be ensured that no signals can be queued into it after that
-> point. exit_signals() sets PF_EXITING in task::flags, which can be used as
-> an indicator for this.
-> 
-> Cure it by:
-> 
->   - Preventing signal queueing for task private signals (PIDTYPE_PID) when
->     the task has PF_EXITING set in __send_signal_locked() and in
->     posixtimer_send_sigqueue().
-> 
->   - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
->     task group empty and the group exit case with sighand lock
-> 
->   - Flushing task::pending signals right there.
-> 
->     Optimize that by moving the whole pending list to an on-stack list head
->     under sighand lock and free the signals without the lock held.
-> 
-> There has been quite some discussion about the lockless flush and the
-> non-leader exec case on weakly ordered systems. The problem is that a third
-> party which tries to send a posix timer signal relies on the PID lookup to
-> find the target task and that lookup might result in the new leader when
-> the signal was originaly directed to the old leader. In case that the
-> signal was queued on the old leader then the lockless flush raised a
-> concern over the following situation:
-> 
->    old_leader		new_leader              third party
-> 
-> A: flush_list()	// list_del_init() stores to sigqueue
-> 
->    LOCK (tasklist)
->    old_leader->exit_state = EXIT_ZOMBIE;
-> B: UNLOCK (tasklist)
-> 
-> C:			LOCK (tasklist)
-> 			if (old_leader->exit_state)
-> 			   transfer_tids()
-> D:			     store PID
-> 						posix_timer_send_sigqueue()
-> 						// Observes #D so t = new_leader
-> E:						t = get_target()
-> 
-> F:						LOCK (sighand)
-> 
-> G:						   if (list_empty(sigqueue))
-> 							list_add(sigqueue)
-> 
-> The concern was that the third party might observe #D but not observe #A
-> and therefore would proceed to #G while the list_del() stores (#A) in
-> flush_list() are not visible yet, which could result in list corruption.
-> 
-> That would be possible if looking at it solely from a RELEASE+ACQUIRE
-> ordering point of view, but B-C is a UNLOCK+LOCK hand-over, which is not
-> the same as RELEASE+ACQUIRE:
-> 
->   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
->   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
-> 
-> As B-C is UNLOCK+LOCK, which is RCtso and that does impose store order,
-> A stores must happen before the D store.
-> 
-> Combine with E-F, which has a data dependency from the LOAD to the LOCK and
-> thereby constraints later LOADs, those sigqueue loads in G that come after
-> F must in fact observe the A stores.
-> 
-> Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-> Cc: stable@vger.kernel.org
-> Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+This series changes the way we handle invalid uvc_versions. Instead of
+just failing it will try to continue probing.
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Now that we are at it fix the way we handle device warnings.
 
+The last two patches are "optional". Feel free to ignore them.
+
+Thanks!
+
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v3:
+- Move uvc_video_ctrl_size to uvc_video_init()
+- Fixes for uvc_warn_once
+- Remove bmVideoStandardParsing parsing
+- Link to v2: https://lore.kernel.org/r/20260911-uvc-version-v2-0-395f27b0444c@chromium.org
+
+Changes in v2:
+- Add quirk for Avermedia
+- Change the way the compliance error message is printed and cache
+  ctrl_size
+- Link to v1: https://lore.kernel.org/r/20260907-uvc-version-v1-1-34e45dfe04de@chromium.org
+
+---
+Ricardo Ribalda (5):
+      media: uvcvideo: uvc_warn should warn not info
+      media: uvcvideo: Use uvc_warn_once when it make sense
+      media: uvcvideo: Automatically handle cameras with invalid uvc_version
+      media: uvcvideo: Do not parse bmVideoStandards
+      media: uvcvideo: Force UVC version for Avermedia GC515
+
+ drivers/media/usb/uvc/uvc_driver.c | 17 ++++++++++-----
+ drivers/media/usb/uvc/uvc_video.c  | 42 ++++++++++++++++++++++++--------------
+ drivers/media/usb/uvc/uvcvideo.h   |  6 ++++--
+ 3 files changed, 43 insertions(+), 22 deletions(-)
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260907-uvc-version-aedefc4384ce
+
+Best regards,
 -- 
-Frederic Weisbecker
-SUSE Labs
+Ricardo Ribalda <ribalda@chromium.org>
+
