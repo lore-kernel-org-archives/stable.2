@@ -1,106 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468CA4078CA;
-	Fri, 11 Sep 2026 18:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E816830567B
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152729; cv=none; b=bQS4ae4cI+tztEYZH5iVW2Xmys8XW3RKwx4KMrw2anRZXs0ynG/+4SERwqgAhdSkyzjgGmkups+DiAL9J2qGrT4uyDJ7/wMzdaZftyKZ1i/CWFu6S9DJUEk3k9FwsEFP71dSD7qCHmr05lBNV46yms417WnVVEDi+qGYUmuv0lU=
+	t=1789153053; cv=none; b=AzP5qaE0vunifx/+CVEa0g2UB45rj5TQUEBzCqFaEMPkPESvWqqQyuQaaC2iLN+GuiYaLhrmsovNT4zReqVsyRFHozZTz/ACnzfvOh58LUpkw5a0j4mhedKVqT0QKu8N2axrv4WP6PLckejU5KBLdRyTR0pD77sybzjXgaRbqpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152729; c=relaxed/simple;
-	bh=ATqKkXAynA5QOvitO9FjFGvwl6ctXOXJbMRKDDJf2hI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m0HxwngPT4MlH1VcNEiowo/TGGDB6zKeSPLkM5dGHPu9Dw2HKQfm9TMPvpycQsR0RhHwBpFvfFWNr9B/7hBvrD2EUG68twaU1C78f4Pj/Kd/FFB9KsyavlG/7IhI8Jr1c6osOMA/XatnIuVHMbCpc3pFYJCaRLYam5bto9jrV4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibrceeau; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789153053; c=relaxed/simple;
+	bh=wc9nLSphBOCT1DkhLyV+K0eqkiSCALgzgP5PlYhJbIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CrEboOKnygU/uFuJzTTgOdNHgkIbLeUt13s0PzNseIASJzWpsB0ROc28dsCmRxKBPs4D40+LM7a5wXjefoN+rI1ctgMUqvIIA7Y9X+VG91XO/kUB9pnuWvbGsEEVdZtCroPhWhRpMiAxIOWaNBMAQK+3PHFLoJzDBK7cum/lOvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FVaR9MbJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibrceeau"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE6B1F00898;
-	Fri, 11 Sep 2026 18:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789152727;
-	bh=N+qEtiefGNYeRTxGzeBD3t/Z7q5fIfiPccH3vPmIgB0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ibrceeaukk5kc2bY3x1aA1Djv9txsrZBXBcoOVhJAhluX5OMBOIrDq3yMSs7Lgz77
-	 UQUh1udNEiZwb1vq+7fHYMznCC+YHQhrZp02m6AE8fsfPvv/Zy7F8Dlm3Qdh39snZw
-	 537WP1EcSe1968jTjquqsNTWRXKSLUj8eCeFwyJE2sm4Q/3HaA1c92qRyKOkQpFVRp
-	 +slXJkbfa0qTe9C68xz/9+7wp0dHzD1SmQUBcAJW3Mdrp5RBer/s67x/z9pmYyy7rL
-	 GkmgA2l1v8E7ZEAvhxs4yrjjzhjNMSPb+6CVDWIwUrTujnJJp+D4/DE2rQWRe3ELlX
-	 DeLJbtsrpWxUg==
-Message-ID: <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Date: Fri, 11 Sep 2026 20:52:04 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FVaR9MbJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A1331477;
+	Fri, 11 Sep 2026 11:57:24 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 00CC73F7B4;
+	Fri, 11 Sep 2026 11:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789153048; bh=wc9nLSphBOCT1DkhLyV+K0eqkiSCALgzgP5PlYhJbIA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FVaR9MbJyw2GqzIHwA3ysXfqcfdAaAWFOi+2Ipcd7N4AcQM//flL019SAtbrnoxAt
+	 K8fe7QzwxzUkrvQRomXTzyWAeheFEtuCZ1yOS/pydtS0bdnetFtlfXIoI5rXopMN84
+	 EKhRjZzsVq8/ZulFFDblC1dwHkjbxb072t+XL0cw=
+Date: Fri, 11 Sep 2026 19:57:17 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Cc: Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, ljs@kernel.org, 
+	Shen Yongchao <grayhat@foxmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] KVM: arm64: nv: Fix life cycle of the nested_mmus
+ array
+Message-ID: <klqsux4hc7qalbo7pev3yjpv5tywenjdpinm7tjblhhdf3l2jy@n2s5lqc5jtwd>
+References: <20260911162203.1919330-1-maz@kernel.org>
+ <20260911162203.1919330-2-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-To: Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260911182328.9267-1-iustinivan2002@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911162203.1919330-2-maz@kernel.org>
 
-Hi,
-
-On 11-Sep-26 8:23 PM, Iustin Ivan wrote:
-> The internal keyboard on the Lenovo IdeaPad Slim 3 14IWC11 (83RQ) does
-> not work after boot. The keyboard ACKs every command during probe,
-> including ATKBD_CMD_ENABLE, but never sends any scancodes afterwards.
-> Booting with 'i8042.dumbkbd=1' makes it work at the cost of the
-> CapsLock LED. Adding the atkbd_deactivate_fixup quirk fixes the
-> keyboard and the LED natively.
+On Fri, Sep 11, 2026 at 05:22:02PM +0100, Marc Zyngier wrote:
+> The nested_mmus array holds the shadow page tables that are used when
+> a guest is running a nested context. These structures are allocated on
+> VCPU_INIT for whole guest, which implies that they may have to be
+> relocated as the array grows.
 > 
-> DMI: LENOVO 83RQ/LNVNB161216, BIOS U2CN19WW 03/30/2026
+> Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
+> that the allocation requires relocation, that vcpu will still be
+> running with a pointer to the previous structure, which will have been
+> freed.
 > 
-> Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+> Fix this by turning the array of structures to an array of pointers,
+> which is now allocated at VM creation, sized to the absolute maximum
+> that KVM can handle.
+> 
+> In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
+> reallocation is ever performed, and the life cycle of each object is
+> much clearer:
+> 
+> - the nested_mmus array is allocated in kvm_init_nested(), and freed
+>   in kvm_arch_destroy_vm()
+> 
+> - s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
+>   on kvm_arch_flush_shadow_all()
+> 
+> Finally, the freeing of vcpu->arch.vncr_array is made consistent
+> rather than being done on some failure paths, but not others.
+> 
+> Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> Reported-by: Shen Yongchao <grayhat@foxmail.com>
+> Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Iustin Ivan <iustinivan2002@gmail.com>
 
-I'm starting to wonder if we should not just make this behavior the default.
-
-IIRC the whole deactivate thing was added as a workaround for multi-byte scancodes
-getting split-up during suspend/resume. I wonder if we can come-up with some
-better fix for that ?
-
-Regards,
-
-Hans
-
-
-
-
-
-
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
 > ---
->  drivers/input/keyboard/atkbd.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-> index b9ad2381f885..923f77808381 100644
-> --- a/drivers/input/keyboard/atkbd.c
-> +++ b/drivers/input/keyboard/atkbd.c
-> @@ -1938,6 +1938,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
->  		},
->  		.callback = atkbd_deactivate_fixup,
->  	},
-> +	{
-> +		/* Lenovo IdeaPad Slim 3 14IWC11 (83RQ) */
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "83RQ"),
-> +		},
-> +		.callback = atkbd_deactivate_fixup,
-> +	},
->  	{
->  		/* Xiaomi Book Pro 14 (TM2424) */
->  		.matches = {
 
+[...]
