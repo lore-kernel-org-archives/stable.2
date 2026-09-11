@@ -1,119 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722C04B1285
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:16:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420A04AF149;
+	Fri, 11 Sep 2026 18:16:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150586; cv=none; b=XTixUEp+TeGG+5tkPMo4kn6S9VmsFC2ocV9w4J/OgBK7LTsPkCZ0GwWBeTUTmq63s3/IF8qXdjTAp8w756ISqZ1uARcvLv9iBQhs9CJ5zy+wbG0VggPFCyOOLHlDA3DopP7gBjHjdsSb+4R4J2inljMRX8+AP7kB+kjiYLSN/v8=
+	t=1789150587; cv=none; b=niTHflyrRlLV8K1iyE8tFMxv2MMqaWLKJqx9FgaFEXVdmagvC6iRobu0d98guLI5en8AUzH+lpzLv2hTj1SrFejm6z8Nz2OS6bGmJE6RKs2Flt7CV2XNQo3PC2JI8FaCDuaS770QCg2e1bEvqPkBqKXzte84Py1ZLx2/7oI+Cqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150586; c=relaxed/simple;
-	bh=vnN8iba3tHXjRP+M4EK5BGYFuBjC4y73wN6ZcNfacFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gn+FA08GAkDODbWAU9Q/Jq9Ws5jxvDfqgJekHlCIiOmezYorPyX5L8Vw3dpBiULEyYn3B9Brb5MkXxtG95/8ZNCaNtUrCmg0eJJj3HyxLz5Fes/5PcdZfYLcTqcgnVPTdtnhNEkbI/fMqJBQ4EsWtML7uICmjIL7yden4NDvvfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOjh8/EQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789150587; c=relaxed/simple;
+	bh=qpgQMbI319t5JAx84XjVZXwQAy/SR0qzr4NEOs8NxXc=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=sCL3iDwodyIEaSqvkUYhUh9eq3fQaTi854OW+ss5LD8FBURrLsG7GEgSWQw1s/taEQJVGhaVdMu2Yn49zDPsRzsxTxFJCY7oulSEqJXRsNp5Sag8mfkXF2d4LGgfUxJAoZ43vi9MSwvSBe7ZViFMhxZ5X4nTJt7cQSvo9rY141s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFBzDTL9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOjh8/EQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A231F008BF;
-	Fri, 11 Sep 2026 18:16:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFBzDTL9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E7C1F008A2;
+	Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150575;
-	bh=Tu3axmup/kFTeVCgV5LvYYyJ0Dsh/QW7v+SPF22I4kU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SOjh8/EQfoYUh3D6qso0XKFZaTKzsBbVV5okgqgvbysNCmVrQYIPYqrj6OC7yKF3G
-	 4UrT03TT7POnj+Axy64cTg6YsUEm5L+FJpdwPEApFeQFS+D9xFMD/rCx/tD6xZgrmF
-	 znFY8hiPrZnsKa+6gNHzCdHCI/3kG38OyB5pyH7F8BOxwvuNI+/EaOgsibe0KsLF2c
-	 y1FqkyKnbiEJCy3amPahNZWRDoGeJhy52RxZqLJTmoMAi3IWCSJILuZoRXszDkkxxp
-	 RgRWf4WqsRF0ugZO1Z/AYFjPsDo/WF2K3/X5BXD7CaLzc5TXXjEzH8CW3ap/0G+j3n
-	 R88H0v+c4xOxw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] scsi: qla2xxx: Skip NVMe LS reject IOCB when FW not started
-Date: Fri, 11 Sep 2026 14:16:11 -0400
-Message-ID: <20260911181612.1319441-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911181612.1319441-1-sashal@kernel.org>
-References: <2026090902-vividly-swoop-b3ef@gregkh>
- <20260911181612.1319441-1-sashal@kernel.org>
+	s=k20260515; t=1789150569;
+	bh=seZXANT79DbnVtGgHNwdlFiY9xg5fwxpTHirr7vIpRU=;
+	h=Date:From:To:Cc:Subject:References;
+	b=XFBzDTL9LiO7GVpAIeAWd4uYn51A3oS7KrPNu64E9QnmQ1QBpAd1Ng+ApTKtD3v1s
+	 3iGws0s12oZiExcA4P1gfbqAjcFI1yCR0s3SsiCBJUZVvZwpbpvbQwHSJdhTRCbcZ4
+	 ifi7FXFkNaIn/FQt1WeUufe6nfthKQGr8E3LjLbPvK1025Ccq9wlh6lvF+aO7f9INS
+	 Z0wBIR+WUVDUSMFP51mqzHL4QM5c4DIN8ANEOg/B8ZpXs1cwxOtgt8JMJoWDc65EGO
+	 8aS6hpC3Db+uE3PQObfoJbg447J7O6RptOVpb+gKKbboagXVi6FTB7Sgw9xMkvXJTm
+	 hO8Aol2wTEDvA==
+Received: from rostedt by gandalf with local (Exim 4.99.4)
+	(envelope-from <rostedt@kernel.org>)
+	id 1x55oZ-0000000953Q-2W2w;
+	Fri, 11 Sep 2026 14:17:31 -0400
+Message-ID: <20260911181731.424682594@kernel.org>
+User-Agent: quilt/0.69
+Date: Fri, 11 Sep 2026 14:16:52 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [for-linus][PATCH 16/20] tracing: Fix memory corruption from a "STACKTRACE" histogram key
+References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
 
-From: Nilesh Javali <njavali@marvell.com>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit f7e46ebffc5781aab3f1f5a5d4350addbb5833f4 ]
+"cpu", "CPU", "stacktrace" and "STACKTRACE" are generic fields, defined
+with an offset and a size of zero so that the filter code can match them
+by name. parse_field() maps them onto their common_* equivalents for
+backward compatibility, but unlike the common_* names it hands the
+placeholder back to the caller instead of NULL.
 
-qla_nvme_xmt_ls_rsp() bails out to the out: label when firmware is not
-started (!ha->flags.fw_started), but the out: path unconditionally calls
-qla_nvme_ls_reject_iocb(), which ends in qla2x00_start_iocbs() and an
-unconditional doorbell write to the request queue in-pointer register.
-This rings the firmware doorbell and queues an IOCB that stopped or
-resetting firmware cannot consume, and touches MMIO during the reset/EEH
-window where fw_started is also clear.
+create_hist_field() takes a non-NULL field as a promise that the record
+carries a stacktrace and picks HIST_FIELD_FN_STACK, so the __data_loc
+word is read from offset 0, that is from common_type, and its low 16
+bits are followed as an offset into the record. What is found there
+becomes the length of an unbounded memcpy. Pick an event whose id is
+small enough that the offset stays inside its own record and the length
+is a kernel text address:
 
-Only emit the LS reject IOCB (and ring the doorbell) when fw_started is
-set; otherwise just clean up and return. The post-allocation failure
-cases (SRB alloc / qla2x00_start_sp() failure) run with firmware started
-and still send the reject. Apply the same guard to the reject emission
-in qla2xxx_process_purls_pkt().
+  # cd /sys/kernel/tracing
+  # echo 'hist:keys=STACKTRACE' > events/ftrace/print/trigger
+  # echo hello > trace_marker
 
-Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
+  Oops: general protection fault, probably for non-canonical address
+  RIP: 0010:rb_next+0x23/0x60
+   </IRQ>
+  RIP: 0010:memcpy+0xc/0x30
+   event_hist_trigger+0x2e7/0x12c0
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Leave the field NULL, which is what the comment above the branch says
+the code does and what common_stacktrace already does. FILTER_CPU and
+FILTER_COMM are left alone, their create_hist_field() branches never
+look at the field.
+
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-26-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-Stable-dep-of: e46160a5d4fa ("scsi: qla2xxx: Unlink NVMe unsol ctx before freeing on LS reject error")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 4b512860bdbd ("tracing: Rename stacktrace field to common_stacktrace")
+Link: https://patch.msgid.link/20260907155045.692664-3-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/scsi/qla2xxx/qla_nvme.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ kernel/trace/trace_events_hist.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index cee7b8f4a8d9c..2a31dc075936b 100644
---- a/drivers/scsi/qla2xxx/qla_nvme.c
-+++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -441,9 +441,11 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
- 	a.vp_idx = vha->vp_idx;
- 	a.nport_handle = uctx->nport_handle;
- 	a.xchg_address = uctx->exchange_address;
--	spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
--	qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
--	spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
-+	if (ha->flags.fw_started) {
-+		spin_lock_irqsave(ha->base_qpair->qp_lock_ptr, flags);
-+		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
-+		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
-+	}
- 	kfree(uctx);
- 	return rval;
- }
-@@ -1203,9 +1205,14 @@ qla2xxx_process_purls_pkt(struct scsi_qla_host *vha, struct purex_item *item)
- 		a.vp_idx = vha->vp_idx;
- 		a.nport_handle = uctx->nport_handle;
- 		a.xchg_address = uctx->exchange_address;
--		spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr, flags);
--		qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a, true);
--		spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr, flags);
-+		if (vha->hw->flags.fw_started) {
-+			spin_lock_irqsave(vha->hw->base_qpair->qp_lock_ptr,
-+					  flags);
-+			qla_nvme_ls_reject_iocb(vha, vha->hw->base_qpair, &a,
-+						true);
-+			spin_unlock_irqrestore(vha->hw->base_qpair->qp_lock_ptr,
-+					       flags);
-+		}
- 		list_del(&uctx->elem);
- 		kfree(uctx);
- 	}
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 9bc829c1e876..8af97fd4ee2d 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2404,6 +2404,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
+ 				*flags |= HIST_FIELD_FL_CPU;
+ 			} else if (field && field->filter_type == FILTER_STACKTRACE) {
+ 				*flags |= HIST_FIELD_FL_STACKTRACE;
++				field = NULL;
+ 			} else if (field && field->filter_type == FILTER_COMM) {
+ 				*flags |= HIST_FIELD_FL_COMM | HIST_FIELD_FL_STRING;
+ 			} else {
 -- 
 2.53.0
-
