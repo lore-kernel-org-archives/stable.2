@@ -1,152 +1,123 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D239932779D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EE5374A05
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139847; cv=none; b=kF2qhUQ1/bjRnnABYpNjHI5LEi4eiQgCaIqsCQ/A5enujN1x2Gb8ea6bNoTcjbFMvhNKBVyC1AYfFYOls4BJH70ck4S+cQrbnwRwdMlt6a44Z1lV43o2o1i3Wm2/eLC42MuG5qKXgDlSqFlBknB3hvU/mlJ0xw6NfibAZC3yvd4=
+	t=1789139853; cv=none; b=sdTNLB9I9h/DA1b8ZYlcxe+mia6StjSsNh/jdxIaFHoXVoLWBom6wB/jlqmcKuOHUuPuCO2JQewiHzGzFrhThwbtvvLMSwdlkqcQYKqY/a18vaCgKB4vwcyPjrMP+wJjiZ72/cmruyhcDaKINWTC8JCiZWdQSfYs7RKjGHjEDag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139847; c=relaxed/simple;
-	bh=efrWbnPzSCOA1sTxkkExMlXP98/KqkN8F1UUFEHHZ90=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qqY61YmNjcGx21BiFS63qQFJJE5qnOFjDqklCuqw8B54KQA/R2nOABd2S3uGEzQ/FPtLryrruaPDjHjRCtaSpujjqqMeu3x0Z2f2wdH9JkFxRsGd/PE/IoGX9k0JacTq17rwaYSQAPyXhEsrR44vxaRaqXunNoysWh5IptAhkP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QzZIWGFh; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789139853; c=relaxed/simple;
+	bh=F0QMJl7mabaqmOmcs1ettYRXnWqhdhjmrQ42NDRkYsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jfHpRX7d4qsgnfDdicG6kQnFu1c+NZ4b4T2QbbwNgrk3hMjTUyIjPtG/8wUQxesJi/qUlnBBmS0bZyXYFD2uCgyeyHSSw10qawkzaAvCoCMa8hhLNmsdnXiLkQ7okLuXZAfYDyZsYerBXsdgr0IlPdrafy1LRIQzae74AvvZ9ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2fal0Sx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QzZIWGFh"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so1322328a91.2
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789139845; x=1789744645; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/VIzH3fcclvw4AXnBO3BO4tZuWWnQl1bNWKdePXc5bI=;
-        b=QzZIWGFhKYDE75z11JeXZpCVWLR1BcDg478I/XJwDMP1+HxRjfUC62g/sfhtjmk16S
-         gSm/rNATAyjLt1sm86KH4nbBE7mvY0Mshjeskt6Qtp+2iJM4gPk1RMgoNxwLd6Oyd6CB
-         HbHQYfvexM6sx8CMrOeTe/q7R4cUkDdcYjqrQF7ZJucEeLGGGEstN9Rp6/4Pb7F8Faff
-         7JIvIVfnrRYsXgQAShquvdGYuOPhdoFTZjMGJABuFqLAEuK2kAMRjvTwT6gso/ytLHlg
-         HJ/FrLAeh1BiWtwlRhZOIi8daaOQT1ITxLoxYxDcPPvC4pCFiuCz6K+UvXykdB4FtpoI
-         7M6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139845; x=1789744645;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/VIzH3fcclvw4AXnBO3BO4tZuWWnQl1bNWKdePXc5bI=;
-        b=mDp2nEaWfwY9fcj5JDiTNqiDHCEC/8k8B2oM7RV0m4K7CQTe/nopMEWsMxBzF0ejOd
-         KVxHjmahaqTwQUhnnOfQ3bZP8lX116gPxtWPKzMO/xlTPuUKkqJW1ZCbnsIYoSm8C+9X
-         Tv0s2ZrqWAnBxwgIQ79kVAAVvcxPXHNuVD/nhLZrgRdnQtJ1URy8nLe8XvqduvaQvwaH
-         kvUphFCKZ63W+WA4c7B3VukR8N/zUQ9sQub+vPx1ocHuk7feNEvl7ql3sMLc/GkjdTYB
-         6ExhNZJ3cruQ7KCTVPVmmWB7S+ZHHBMmSTP1Pl0otJeG/AJaFQiyqlEymXamH2tDQp+d
-         XuuQ==
-X-Gm-Message-State: AFuF++kNzEffCijDAbI768E+Ot5QDooc0MUxWnK8tkMJHNuaVfcqEiHX
-	Nv2gJy6+sGgszXp23/Nzn/es+eIfOmkfwL6poxyZ/9Yjm3bC86uZ54aD+W1pqNCS2PDc18RN/tY
-	ktwwJYg==
-X-Received: from pjbjx9.prod.google.com ([2002:a17:90b:46c9:b0:38e:b97a:cfa1])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2641:b0:398:9bd1:3215
- with SMTP id 98e67ed59e1d1-39d9c352a63mr7856385a91.22.1789139844897; Fri, 11
- Sep 2026 08:17:24 -0700 (PDT)
-Date: Fri, 11 Sep 2026 08:17:22 -0700
-In-Reply-To: <20260911141350.763301-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2fal0Sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5FF1F00893;
+	Fri, 11 Sep 2026 15:17:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789139851;
+	bh=NoqbFAN1fl1nPvpJnPQfSpWZBveTcZgEbku7onm8uFI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M2fal0SxX2iUc9CK28mcA9PPk1xA4kEK/fVXjmBOSAXwQ9XhSL1ETvEpMi6DcKrt2
+	 H6TXNEuKDeIirMmw1NJpv6KoKRnAMwonH1P8gG4jhLbigVOTFzLeJIrPxEg3xIt07R
+	 Cd1HZJFW41/p3yGnRLT2z5Vra2VEbeNBaFZvFEvdV1f3UH9pw/dJfM5sMz0YDRLQ7+
+	 v314sR3yIPpUIsVejOjDTT2yzNNT5gP8rLWi6fralAHD7T5lEYf47chc0FvhkR3hTv
+	 xHQnLAi3pn2q80LSsZMETk89HVbGqg/kqq3gic9VrLgR75YddOD8nhXaiXUjm4Fv0Y
+	 3aml7h3mXkZFg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Sashiko <sashiko-dev@google.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc() error path
+Date: Fri, 11 Sep 2026 11:17:29 -0400
+Message-ID: <20260911151729.1061338-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090959-habitant-amenity-e6f0@gregkh>
+References: <2026090959-habitant-amenity-e6f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026090907-snuff-blot-3cf8@gregkh> <20260911141350.763301-1-sashal@kernel.org>
-Message-ID: <aqQbgijDnBZds1rT@google.com>
-Subject: Re: [PATCH 6.12.y] KVM: x86: Always initialize EFER reserved bits on
- vendor initialization
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Yosry Ahmed <yosry@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026, Sasha Levin wrote:
-> From: Yosry Ahmed <yosry@kernel.org>
->=20
-> [ Upstream commit a4b8acd428ba3f03952ef309d7f438dbc357557b ]
->=20
-> EFER reserved bits are statically initialized, and do not reset if a
-> vendor module is re-loaded. For example, loading kvm_amd with nested=3D1
-> removes EFER.SVME (and potentially EFER.LMSLE) from the reserved bits.
-> Reloading kvm_amd with nested=3D0 does not add them back, allowing
-> userspace to set EFER.SVME with nested=3D0.
->=20
-> Re-initializing EFER reserved bits before configuring them on vendor
-> initialization.
->=20
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> Link: https://patch.msgid.link/20260713181020.2735367-4-yosry@kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> [ placed EFER initialization directly in x86.c=E2=80=99s kvm_x86_vendor_i=
-nit() because this branch lacks kvm_setup_efer_caps() ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  arch/x86/kvm/x86.c | 21 +++++++++++----------
->  1 file changed, 11 insertions(+), 10 deletions(-)
->=20
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 9e7c9e3edb5b4..84f8120ac31f8 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -108,16 +108,7 @@ EXPORT_SYMBOL_GPL(kvm_host);
->  #define emul_to_vcpu(ctxt) \
->  	((struct kvm_vcpu *)(ctxt)->vcpu)
-> =20
-> -/* EFER defaults:
-> - * - enable syscall per default because its emulated by KVM
-> - * - enable LME and LMA per default on 64 bit KVM
-> - */
-> -#ifdef CONFIG_X86_64
-> -static
-> -u64 __read_mostly efer_reserved_bits =3D ~((u64)(EFER_SCE | EFER_LME | E=
-FER_LMA));
-> -#else
-> -static u64 __read_mostly efer_reserved_bits =3D ~((u64)EFER_SCE);
-> -#endif
-> +static u64 __read_mostly efer_reserved_bits;
-> =20
->  static u64 __read_mostly cr4_reserved_bits =3D CR4_RESERVED_BITS;
-> =20
-> @@ -9818,6 +9809,16 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *o=
-ps)
->  	if (boot_cpu_has(X86_FEATURE_ARCH_CAPABILITIES))
->  		rdmsrl(MSR_IA32_ARCH_CAPABILITIES, kvm_host.arch_capabilities);
-> =20
-> +	/* EFER defaults:
-> +	 * - enable syscall per default because its emulated by KVM
-> +	 * - enable LME and LMA per default on 64 bit KVM
-> +	 */
-> +#ifdef CONFIG_X86_64
-> +	efer_reserved_bits =3D ~((u64)(EFER_SCE | EFER_LME | EFER_LMA));
-> +#else
-> +	efer_reserved_bits =3D ~((u64)EFER_SCE);
-> +#endif
+From: Nilesh Javali <njavali@marvell.com>
 
-This is going to conflict with "KVM: x86: Disallow EFER.LME and EFER.LMA if=
- long
-mode is not supported"[*], it probably makes sense to send a version on top=
- of
-that, both to avoid a conflict when applying and to make it obvious 6.12.y =
-will
-have the same patch ordering as upstream (though that probably doesn't matt=
-er in
-this case).
+[ Upstream commit 6d90f0feb929f6c0f3010f9af4747c7230b75993 ]
 
-[*] https://lore.kernel.org/all/20260911120502.489632-1-sashal@kernel.org
+When qla2x00_mem_alloc() fails, qla2x00_probe_one() jumps to
+probe_hw_failed and calls qla2x00_mem_free(). Several error labels in
+qla2x00_mem_alloc() freed adapter members (elsrej.c, purex_dma_pool,
+flt, sfp_data, loop_id_map, async_pd, sf_init_cb, ex_init_cb, npiv_info)
+but left the pointers dangling. qla2x00_mem_free() then freed them a
+second time. Worse, for the dma_pool members it issued
+dma_pool_free(ha->s_dma_pool, ...) after s_dma_pool had already been
+destroyed and set to NULL at fail_s_dma_pool, dereferencing a NULL pool.
 
-> +
->  	r =3D ops->hardware_setup();
->  	if (r !=3D 0)
->  		goto out_mmu_exit;
-> --=20
-> 2.53.0
->=20
+Clear each freed pointer (and its DMA handle) in the error labels so the
+subsequent qla2x00_mem_free() skips them.
+
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-dev@google.com>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Link: https://patch.msgid.link/20260730155838.2119230-13-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ adjusted cleanup context for the missing fail_flt_data block. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/qla2xxx/qla_os.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
+index b08abdf5ebf4e..f8b84ccec15b8 100644
+--- a/drivers/scsi/qla2xxx/qla_os.c
++++ b/drivers/scsi/qla2xxx/qla_os.c
+@@ -4480,25 +4480,40 @@ qla2x00_mem_alloc(struct qla_hw_data *ha, uint16_t req_len, uint16_t rsp_len,
+ fail_lsrjt:
+ 	dma_free_coherent(&ha->pdev->dev, ha->elsrej.size,
+ 			  ha->elsrej.c, ha->elsrej.cdma);
++	ha->elsrej.c = NULL;
++	ha->elsrej.cdma = 0;
+ fail_elsrej:
+ 	dma_pool_destroy(ha->purex_dma_pool);
++	ha->purex_dma_pool = NULL;
+ fail_flt:
+ 	dma_free_coherent(&ha->pdev->dev, sizeof(struct qla_flt_header) + FLT_REGIONS_SIZE,
+ 	    ha->flt, ha->flt_dma);
++	ha->flt = NULL;
++	ha->flt_dma = 0;
+ 
+ fail_flt_buffer:
+ 	dma_free_coherent(&ha->pdev->dev, SFP_DEV_SIZE,
+ 	    ha->sfp_data, ha->sfp_data_dma);
++	ha->sfp_data = NULL;
++	ha->sfp_data_dma = 0;
+ fail_sfp_data:
+ 	kfree(ha->loop_id_map);
++	ha->loop_id_map = NULL;
+ fail_loop_id_map:
+ 	dma_pool_free(ha->s_dma_pool, ha->async_pd, ha->async_pd_dma);
++	ha->async_pd = NULL;
++	ha->async_pd_dma = 0;
+ fail_async_pd:
+ 	dma_pool_free(ha->s_dma_pool, ha->sf_init_cb, ha->sf_init_cb_dma);
++	ha->sf_init_cb = NULL;
++	ha->sf_init_cb_dma = 0;
+ fail_sf_init_cb:
+ 	dma_pool_free(ha->s_dma_pool, ha->ex_init_cb, ha->ex_init_cb_dma);
++	ha->ex_init_cb = NULL;
++	ha->ex_init_cb_dma = 0;
+ fail_ex_init_cb:
+ 	kfree(ha->npiv_info);
++	ha->npiv_info = NULL;
+ fail_npiv_info:
+ 	dma_free_coherent(&ha->pdev->dev, ((*rsp)->length + 1) *
+ 		sizeof(response_t), (*rsp)->ring, (*rsp)->dma);
+-- 
+2.53.0
+
