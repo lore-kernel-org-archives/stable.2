@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6784AA004
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:29:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB584A6CDF
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:31:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151390; cv=none; b=ZJRKuMMZNpqI9ZZGqcqKR4rXflqX4YhdF8ArAaSKjOCiZxfJY0d5K8+BH/5/qZsrYJvEatMzvRKgq8KIow4OElX3HFBXnrT3uJQ3SyKyl21H9H0FjjA3Q1g823IerRZ9h6J6oON3KMfeMuybbH9ZM0SAx2TxP1b3EdjGUb3DbOc=
+	t=1789151513; cv=none; b=acW3LFH4ma+E4gdvYmrlOQWkSuaa02nF0zPRPHsNB73Mec15ajQGZVZQH1iTJY1NbBorrg2GUxtklI3zQ4yAM3jtkgBd48fLCL4a3NOWPl0A69edRG6ZE8ACYhV5ESUDcXFjjcf27qDIvEEpepo8+xUrDR7vT++O1YFnBGdCs3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151390; c=relaxed/simple;
-	bh=GcDhRp2a0snXUIxFBhVgomwdxL4Q2NAjamA5lupAYNM=;
+	s=arc-20240116; t=1789151513; c=relaxed/simple;
+	bh=7WU+zyGHFouyZLwlTA1tK5mAlVm1ldBp+TwJqKqL6Ww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m12LZeYgRrPO6p5meHQEVbDgiav1ZmW8ie1lRBbmhY95j8VlOwBh6wmI6AabJxVWpi163nfzaCRV3FbnZAzl4lrGgdFtEseqQuUxevCRrjkLxGKgB9+iXTSO6x+wuIaQ0x5NXyraAoJUZSr+iM257tIhiVMX6gMLYQFNV73wz64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhKFy8cb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ccX7XI6AKmv85bc5z2woi0Zsi2g3elaCx8r3MVYRvvHFKY+DAVZqwEMphQjiOZb/dNrPRevp+CtxbgwjyXGNyRMaLINTJzDQfWxLEKVKY+pN/QHi5svJH3VxtVy4N5oB37wXSQyJjH32J44wzUznEkpscYhP4bTZQwpT7TQ4AwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJsV6Usk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhKFy8cb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08301F000FF;
-	Fri, 11 Sep 2026 18:29:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJsV6Usk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7051F000FF;
+	Fri, 11 Sep 2026 18:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789151388;
-	bh=CVUQvCPv+vMJe2JGKQamYPQr8qIGf2FCx8Ck5EOXdbw=;
+	s=k20260515; t=1789151511;
+	bh=xsQOcxJdi+Uh+1T1Jc6mOJ8o/0qFD6/NT02F2J4VDoA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AhKFy8cbH+I62xss7C3fwPMe3kr8E6DJR/gaQzziS+EbPtZ0/A3swaM9pI2UabwT0
-	 SLUowGz2xMUffBgJrxD6Lg2wDW6h+C+9Hq3OmGPxbxg2YosHke5unu3423ooXor01T
-	 2NWLbolr5zyEjYvzvDRgsCDSLfymnMQUhB0QxCKEt3NyOfBuvzEC2vxOvlTlAnXc9w
-	 IFUGneW+a5iZKM2oOjh0ABQrr2lpCFe6rFnGfbLj9WKeAePgzX9C3s2CfxrlFK+iPS
-	 2nk51aJndUC4WP7zGn6+gZZ99B+C4lkLYKZyJe+45/fu+yCRDV9vmlby09S1+OG3Jf
-	 rC5CYG9juBAIA==
+	b=oJsV6UskzpYIHcCJoTW1Nv35wtpU8+GsESUEgbQWF5zFjoLMO/LzRxccQ5fBbESTU
+	 CJWpjLeL3bDc+aKjVm0arniFC5Q8ChONOzptVeoGpE7Q6OqMnanPqJnjNyX7SJ0Kuu
+	 o8yFF8zobBjYTX+omiIpeA9M6/VYbvH0cnHZlgCfhMIR+zgYkNy7uRI+eNEfpFYe6I
+	 62IiOoDFaYOlwepI4IYbxHeRKJwOglToLrR2/Af1I2N/DqBlfjaWowJ0C0sEnJWSdV
+	 KzGtXdm7gyWbuA2kxAecEb6sfss/pyReO7ySGfuiIEEZ7ZAfNqYyiS23sHlytHNBzs
+	 qc8GIjKTt0k/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: qla2xxx: Validate BSG request_len before reading vendor_cmd[]
-Date: Fri, 11 Sep 2026 14:29:46 -0400
-Message-ID: <20260911182946.1342515-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: qla2xxx: Validate BSG request_len before reading vendor_cmd[]
+Date: Fri, 11 Sep 2026 14:31:49 -0400
+Message-ID: <20260911183149.1345135-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090915-quirk-repressed-d762@gregkh>
-References: <2026090915-quirk-repressed-d762@gregkh>
+In-Reply-To: <2026090915-magnolia-feel-118f@gregkh>
+References: <2026090915-magnolia-feel-118f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,7 +84,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 43 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/qla2xxx/qla_bsg.c b/drivers/scsi/qla2xxx/qla_bsg.c
-index f43969ed87bf9..838c524fc3d86 100644
+index 23779a1f0cee9..3888621c3ce9d 100644
 --- a/drivers/scsi/qla2xxx/qla_bsg.c
 +++ b/drivers/scsi/qla2xxx/qla_bsg.c
 @@ -158,6 +158,12 @@ qla24xx_proc_fcp_prio_cfg_cmd(struct bsg_job *bsg_job)
@@ -167,7 +167,7 @@ index f43969ed87bf9..838c524fc3d86 100644
  	/* Copy the IOCB specific information */
  	piocb_rqst = (struct qla_mt_iocb_rqst_fx00 *)
  	    &bsg_request->rqst_data.h_vendor.vendor_cmd[1];
-@@ -2880,6 +2911,13 @@ qla2x00_process_vendor_specific(struct scsi_qla_host *vha, struct bsg_job *bsg_j
+@@ -2793,6 +2824,13 @@ qla2x00_process_vendor_specific(struct scsi_qla_host *vha, struct bsg_job *bsg_j
  {
  	struct fc_bsg_request *bsg_request = bsg_job->request;
  
@@ -181,7 +181,7 @@ index f43969ed87bf9..838c524fc3d86 100644
  	ql_dbg(ql_dbg_edif, vha, 0x911b, "%s FC_BSG_HST_VENDOR cmd[0]=0x%x\n",
  	    __func__, bsg_request->rqst_data.h_vendor.vendor_cmd[0]);
  
-@@ -3005,8 +3043,11 @@ qla24xx_bsg_request(struct bsg_job *bsg_job)
+@@ -2912,8 +2950,11 @@ qla24xx_bsg_request(struct bsg_job *bsg_job)
  	}
  
  	/* Disable port will bring down the chip, allow enable command */
