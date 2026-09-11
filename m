@@ -1,104 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DC422D7A9
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524F5377545;
+	Fri, 11 Sep 2026 01:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789090516; cv=none; b=tljfkV2C6zp83Ie8b9Cnse/14T/UrReaDjeZihytFbbyncjXISFCNbqC71/GFYDlpL85ynBp+K9cKeuhuvuu7khJMsVm/2uuBlb8zZ6ZS/KhF5duvzBK55xJ+4fkat6an5XbsJcSL1Zc6ioOQv0fb3tsuh58xjCZrKFHw82E4fE=
+	t=1789090869; cv=none; b=RFUAQ8PnBGg94gBklJ8i/FVBwkjs6/ojnM7kOrgYOJcfRIwg1DtxQjM+C/d9zJxPXgkV1034S5qEPJQ7yGxx5t/ri8N0XV9UyQssBm+yc8pzchn5R2oC/zFFnizjShQqVeGNZ2sxFEZkMHloIpe2bxC7Df20NkI/n/mxzEU0k3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789090516; c=relaxed/simple;
-	bh=RAQAMhuT5INDuwlAuBu4zL3YyCNx1tw+hoj63iXOAfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a2qPY6WMHW/4brrkFlkRXhfXcAh2O48RHvbY19q3B+93iJdPhsZa/c75YVtsS7+HB3Y1YjkGCv+BJCaryWmfJil79INE7SzukTGeTO4SdJGmA0c0GSCTI+YgBNv6san8xIQ76hbIYv5j1hs01aILaciiJQntM9ksIkvsy/bviQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWKXfEP7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWKXfEP7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196A81F00898;
-	Fri, 11 Sep 2026 01:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789090515;
-	bh=4cnD4v1m7zxx5okDFPbTBbP+tHS3QkqsrBcxXQR4q/U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KWKXfEP7kLTm++KjjQd+9FoowTyAuBpU5VYRq70Uf+FccEP/QEGfHPhpzQB/ryo96
-	 x7A0mxcd2GeIx8bTiqCRjLYGQ1Yh4PtJQG5qTTU/NrIs5v/xD4V5Dbw5DFxaFiUtui
-	 bWtaGS1ItZUJdAPS5+m6Qmdakvy2O2DIUK4zcDHOEhMAJpnfiTQCUuPWW77iT1NFV8
-	 2u0oZJHmmTlBSuYh0M5mzXVQTj2Z66mIbw7P2PERSVCnJ/lUUyRIZBsh+iGuY7a4AL
-	 /sODI7SMkSY1XKznl3CSE6cYGekoCvw+HFYjVGBEmDCZ1QzUKGH2xwI6v2wbV39Hav
-	 1zuqtiNPyD+nQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jon Hunter <jonathanh@nvidia.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ASoC: tegra: Fix the MIXER enable default value
-Date: Thu, 10 Sep 2026 21:35:12 -0400
-Message-ID: <20260911013512.4124796-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911013512.4124796-1-sashal@kernel.org>
-References: <2026090905-demeaning-relieve-6022@gregkh>
- <20260911013512.4124796-1-sashal@kernel.org>
+	s=arc-20240116; t=1789090869; c=relaxed/simple;
+	bh=9eeSa7wy/fFrLjtPFF9CWGC+26JZptOZSSCeH+aVUCU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Di4cY+tHnsPhgUGXWlCrm7FqlIH0TfZP2xoPxf+uSzaea8LLX3AGDKvrtt0EADQ/uHMvaMD6xcpEHM68zY+1uM6DNEMEaTUZmzTDbPIfH1hi5/j1gfyGhUSZ/HIfVra/e0XjP0gS5zLxEdMF1TTYdab1l4Ab9jnPk31N1TFk7Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d8e8cae2ad8111f19a56ed5b684f684d-20260911
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ea22bced-16c7-4e13-86e0-dc58687ac881,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:ca077e12bcc8d860d6ef4ff0d3b1b1ce,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d8e8cae2ad8111f19a56ed5b684f684d-20260911
+Received: from [10.42.17.251] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <oushixiong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1239253127; Fri, 11 Sep 2026 09:41:02 +0800
+Message-ID: <4a527e66-8aa9-4422-a3b5-7ac1d9919220@kylinos.cn>
+Date: Fri, 11 Sep 2026 09:41:01 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs
+ attributes
+To: Helge Deller <deller@gmx.de>, Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Chintan Patel <chintanlike@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
+References: <20260907021844.25497-1-kmehltretter@gmail.com>
+ <72351d8f-289e-44d1-b241-e68d7d23145a@gmx.de>
+Content-Language: en-US
+From: Shixiong Ou <oushixiong@kylinos.cn>
+In-Reply-To: <72351d8f-289e-44d1-b241-e68d7d23145a@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Jon Hunter <jonathanh@nvidia.com>
 
-[ Upstream commit 5442b8093a2f94ecd4696b3875194be09e2676c5 ]
+On 2026/9/11 05:15, Helge Deller wrote:
+> On 9/7/26 04:18, Karl Mehltretter wrote:
+>> The ovl_* files documented in
+>> Documentation/ABI/testing/sysfs-devices-platform-sh_mobile_lcdc_fb no
+>> longer exist.
+>>
+>> Commit a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through 
+>> driver
+>> core") moved the attributes from each overlay's framebuffer device to
+>> the platform driver's dev_groups and renamed them overlay_*. There is
+>> now only one set of attributes for the whole LCDC. The callbacks still
+>> expect dev_get_drvdata() to return a struct fb_info, but the platform
+>> device holds struct sh_mobile_lcdc_priv, so they access the wrong
+>> structure.
+>>
+>> Restore the documented names and register the group on each overlay's
+>> framebuffer device with device_add_groups(). Remove it with
+>> device_remove_groups() before unregistering the framebuffer. Skip
+>> creation when info->dev is NULL, as the old device_create_file() 
+>> calls did.
+>>
+>> Drop the CONFIG_FB_DEVICE guard, since the driver already depends on it.
+>>
+>> Fixes: a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through 
+>> driver core")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>> ---
+>> Found while reviewing the sysfs ABI documentation.
+>>
+>> Compile-tested only (allmodconfig, W=1), I have no SH-Mobile hardware.
+>
+>
+> This all seems correct, but since it reverts a few of the last patches
+> I'd prefer that some other person could also review it....
+>
+Looks good to me, and I agree .dev_groups is wrong here.
 
-Commit 4b05ccb17f92 ("regcache: Sort the local copy of an unsorted
-reg_defaults array") exposed an issue in the Tegra MIXER driver where
-the register default for the TEGRA210_MIXER_ENABLE is specified as 1,
-but the hardware default is actually 0. After this commit was added the
-MIXER driver is no longer working and so fix this by correcting the
-default value for this register and explicitly configuring the
-MIXER_ENABLE register when runtime resuming the MIXER device.
+Shixiong.
 
-Fixes: 05bb3d5ec64a ("ASoC: tegra: Add Tegra210 based Mixer driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
-Link: https://patch.msgid.link/20260821153734.158426-3-jonathanh@nvidia.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/tegra/tegra210_mixer.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/tegra/tegra210_mixer.c b/sound/soc/tegra/tegra210_mixer.c
-index 3579bc61589fc..71494e97c2a0d 100644
---- a/sound/soc/tegra/tegra210_mixer.c
-+++ b/sound/soc/tegra/tegra210_mixer.c
-@@ -57,7 +57,7 @@ static const struct reg_default tegra210_mixer_reg_defaults[] = {
- 	MIXER_TX_REG_DEFAULTS(3),
- 	MIXER_TX_REG_DEFAULTS(4),
- 
--	{ TEGRA210_MIXER_ENABLE, 0x1 },
-+	{ TEGRA210_MIXER_ENABLE, 0x0 },
- 	{ TEGRA210_MIXER_CG, 0x00000001},
- 	{ TEGRA210_MIXER_GAIN_CFG_RAM_CTRL, 0x00004000},
- 	{ TEGRA210_MIXER_PEAKM_RAM_CTRL, 0x00004000},
-@@ -86,11 +86,15 @@ static int tegra210_mixer_runtime_suspend(struct device *dev)
- static int tegra210_mixer_runtime_resume(struct device *dev)
- {
- 	struct tegra210_mixer *mixer = dev_get_drvdata(dev);
-+	int err;
- 
- 	regcache_cache_only(mixer->regmap, false);
--	regcache_sync(mixer->regmap);
-+	err = regcache_sync(mixer->regmap);
-+	if (err)
-+		return err;
- 
--	return 0;
-+	return regmap_write(mixer->regmap, TEGRA210_MIXER_ENABLE,
-+			    TEGRA210_MIXER_EN);
- }
- 
- static int tegra210_mixer_write_ram(struct tegra210_mixer *mixer,
--- 
-2.53.0
-
+>
+>>   drivers/video/fbdev/sh_mobile_lcdcfb.c | 37 +++++++++++++++++---------
+>>   1 file changed, 24 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c 
+>> b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+>> index e8324b01700f..18fc4e465283 100644
+>> --- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
+>> +++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+>> @@ -1337,22 +1337,24 @@ overlay_rop3_store(struct device *dev, struct 
+>> device_attribute *attr,
+>>       return count;
+>>   }
+>>   -static DEVICE_ATTR_RW(overlay_alpha);
+>> -static DEVICE_ATTR_RW(overlay_mode);
+>> -static DEVICE_ATTR_RW(overlay_position);
+>> -static DEVICE_ATTR_RW(overlay_rop3);
+>> -
+>> -static struct attribute *overlay_sysfs_attrs[] __maybe_unused = {
+>> -    &dev_attr_overlay_alpha.attr,
+>> -    &dev_attr_overlay_mode.attr,
+>> -    &dev_attr_overlay_position.attr,
+>> -    &dev_attr_overlay_rop3.attr,
+>> +static struct device_attribute dev_attr_ovl_alpha =
+>> +    __ATTR(ovl_alpha, 0644, overlay_alpha_show, overlay_alpha_store);
+>> +static struct device_attribute dev_attr_ovl_mode =
+>> +    __ATTR(ovl_mode, 0644, overlay_mode_show, overlay_mode_store);
+>> +static struct device_attribute dev_attr_ovl_position =
+>> +    __ATTR(ovl_position, 0644, overlay_position_show, 
+>> overlay_position_store);
+>> +static struct device_attribute dev_attr_ovl_rop3 =
+>> +    __ATTR(ovl_rop3, 0644, overlay_rop3_show, overlay_rop3_store);
+>> +
+>> +static struct attribute *overlay_sysfs_attrs[] = {
+>> +    &dev_attr_ovl_alpha.attr,
+>> +    &dev_attr_ovl_mode.attr,
+>> +    &dev_attr_ovl_position.attr,
+>> +    &dev_attr_ovl_rop3.attr,
+>>       NULL,
+>>   };
+>>   -#ifdef CONFIG_FB_DEVICE
+>>   ATTRIBUTE_GROUPS(overlay_sysfs);
+>> -#endif
+>>     static const struct fb_fix_screeninfo sh_mobile_lcdc_overlay_fix  
+>> = {
+>>       .id =        "SH Mobile LCDC",
+>> @@ -1513,6 +1515,7 @@ sh_mobile_lcdc_overlay_fb_unregister(struct 
+>> sh_mobile_lcdc_overlay *ovl)
+>>       if (info == NULL || info->dev == NULL)
+>>           return;
+>>   +    device_remove_groups(info->dev, overlay_sysfs_groups);
+>>       unregister_framebuffer(ovl->info);
+>>   }
+>>   @@ -1530,6 +1533,15 @@ sh_mobile_lcdc_overlay_fb_register(struct 
+>> sh_mobile_lcdc_overlay *ovl)
+>>       if (ret < 0)
+>>           return ret;
+>>   +    /* The framebuffer device is optional, see fb_device_create(). */
+>> +    if (info->dev) {
+>
+> I think this needs to be:
+>     if (dev_of_fbinfo(info)) {
+> to avoid compile error when CONFIG_FB_DEVICE=n.
+>
+>
+>> +        ret = device_add_groups(info->dev, overlay_sysfs_groups);
+>
+> same here. dev_of_fbinfo(info).
+>
+>> +        if (ret < 0) {
+>> +            unregister_framebuffer(info);
+>> +            return ret;
+>> +        }
+>> +    }
+>> +
+>>       dev_info(lcdc->dev, "registered %s/overlay %u as %dx%d %dbpp.\n",
+>>            dev_name(lcdc->dev), ovl->index, info->var.xres,
+>>            info->var.yres, info->var.bits_per_pixel);
+>> @@ -2637,7 +2649,6 @@ static int sh_mobile_lcdc_probe(struct 
+>> platform_device *pdev)
+>>   static struct platform_driver sh_mobile_lcdc_driver = {
+>>       .driver        = {
+>>           .name        = "sh_mobile_lcdc_fb",
+>> -        .dev_groups    = overlay_sysfs_groups,
+>>           .pm        = &sh_mobile_lcdc_dev_pm_ops,
+>>       },
+>>       .probe        = sh_mobile_lcdc_probe,
+>>
+>> base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
