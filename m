@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB114252A0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE8643DED4
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125686; cv=none; b=cBPxV3nvjU950iDL0yoEE9yrx3TdWQKq8jKhTla+TvrAUd/2nu6c8OpYR618PtJaAEX7kbbVmJB5rTxkt4ur44NdJ0n+LN4uLlnLkXrrloliXNXae2aJgCRBCLt+1mGSuWwcWAqdW7mGua9cfU1M3XJ5j7PV9o+Cfu1EkjpX8IQ=
+	t=1789125688; cv=none; b=BDKmO/PfI0WibKLKFxjmHYTv8sNPyl4liyb/MgW1ZKF7VLPPdZSTf4lSkyNfZMwBU7FJeXAc0ED9Ej6Y8SmeGC010cmWljwhuf1dHgEVkXnSYI79s0mbLxeaoMT+Jr0oVYC9yQdG5i37Rwaq1UzXlJZ25wXeDIf2if+d0HQPJIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125686; c=relaxed/simple;
-	bh=krdANmTn2oNKVOuf0IjWYGTpH0rRlh9AMr3yXVgGHko=;
+	s=arc-20240116; t=1789125688; c=relaxed/simple;
+	bh=c2LKKRnE9e62RMo8jxTrtTEPcY5IhqXtiqGzWnW9wnc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gnki3pgZqv5H2CZE/8NZks45K4JxYDsgMCrFJw27FEFX8zvHbi+EicRr84gvnfv13VFnvEoSgffaZlFeL0iMxJ0U4cAQ/GOvQxzadXyKC3jk7OeBOgPJmoY4W6l49lDD/xzNrddPtuOSLzURG+3IdBWFHjUFwY10/MHRHll+QGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npTxxln9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=URjph1JDbc4WX0K1RgAd8eILWXX89e0rHVccW3KsokvFvSdzX9MIqsag7TE6zoEx9EyBkTbZ80AJLk7HhqGdmISvfNK2SzM6w1v7T4iHPJ3rXjIb6bdc+nzPEL/hq/mvL/AbsCfmgqxOLBaRvT2c9ZXSK5Z12n8WSA8V0ZAWwGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAQc0/Aw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npTxxln9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985131F0089B;
-	Fri, 11 Sep 2026 11:21:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAQc0/Aw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C121F0089D;
+	Fri, 11 Sep 2026 11:21:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125680;
-	bh=1rj6lpU10nRs0c2WaUDz50Ypnlxq54R/oGMrTMPfnO4=;
+	s=k20260515; t=1789125684;
+	bh=b33qT5Neui8XMEoswOEhD/DPdp9M+0AH420sBS5jRTQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=npTxxln9cfGe3W2V/ZYf8MhyhMn7cBhg0nk0Yk8Qzo0/W8ZQca6f1xFV1IZArTXTz
-	 AEK4SSmaDY3Lt0sE3SsdbelqVBum3Ne9qoV0VmUXPIASBQbrNAOnyUznB3N7SuV06c
-	 8SdkQ2Pr8B5vZeNUsuNEL0MhcqKx5Qq071JvmsPJEfQBN/qG9bzNZrXltI9yVngD4R
-	 6wQdKQycGrTb9oi32ESlOvvWLKWKsw76ohI//F3Y1X7sSghU2a1d+OiRbIobL/cdUc
-	 Pom60i6NomrSq7dloy/Zo6/WaueXvMZdpnTN54ztcIKNfRAq6yA6gai1j50bYIK0QQ
-	 HEnfj0YXLodyg==
+	b=fAQc0/AwW6UyvdHTQpFpecvXAurzjHUtFAM9QuEvSnMJT4VICIqgtcKNRukD5EhGl
+	 AsHqW3PQ9BM3QE0P0m0diIvvDVDuGONeZoJBHt6Z+eT4xcw7pSBM3TZBqDmmKKM2c3
+	 RkMeYs7V3ReHMyhp4PrSpTpk6VIjd3e69Trt8XAE9Jikic41v5oypTaGduZjOGXfHx
+	 09NnCCWRnDbsQCetebNd3aoCDrYutgwkVv7LZxFT1Oy+NwZ0bnrG3NKTgUVR/RYsHl
+	 ZethPgMuNxJhO5p2pa4fBqHzgfD3lW7B8GrnMccGUYAw2Fye78GBsGmOySIFLni8xd
+	 WlK8AVAQ25dfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 5.15.y] batman-adv: bla: avoid CRC corruption due to parallel claim add
-Date: Fri, 11 Sep 2026 07:20:39 -0400
-Message-ID: <daily-reply-0020-re-batman-adv-bla-5-15@kernel.org>
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	doebel@amazon.de
+Subject: Re: [PATCH 5.15.y] perf sched: Fix register_pid() overflow, strcpy, and BUG_ON
+Date: Fri, 11 Sep 2026 07:20:44 -0400
+Message-ID: <daily-reply-0025-re-perf-sched-register-pid-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909191138.1120682-1-sven@narfation.org>
-References: <20260909191138.1120682-1-sven@narfation.org>
+In-Reply-To: <20260909210503.199459-2-doebel@amazon.de>
+References: <20260909210503.199459-2-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,10 +45,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit 08645ab95768b88e2ff85a89211994651710465b upstream.
+> commit 5949d339f5ec98752d56dcd4e36f619a59d513a5 upstream.
 >
-> batadv_bla_add_claim() is used to add claims and modify the backbone
-> of claims for CLAIM frames from remote backbones and local packets.
+> register_pid() has several issues when processing untrusted perf.data:
+>
+> 1. Integer overflow: (pid + 1) * sizeof(struct task_desc *) can wrap
+>    to a small value on 32-bit systems when pid is large.
 
 Queued for 5.15, thanks.
 
