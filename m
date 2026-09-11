@@ -1,214 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25E4309EE2
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F39C3242BA
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089204; cv=none; b=NAq8ptu+wlb3dFGA0gMOpHCv4Q+t1KGpVGJG7A2HdP5EmVYc5Fs67MG3tMfZ2oB4fjzd8Psg+FKP33ExSd/2E/1S4bmqvz1Jctc1Pvw1PsZxtm/uAeoBtNOuWSqAd7NpckuYBci0x5VtD+aaBPzhVvHEU0F8VE4jKiQhLIhPdAk=
+	t=1789089205; cv=none; b=YsEG0tonLFvztzvDUuTdQBUOGA5O6PgF3TGXWK4j7uE2SqLpIQwHn43UUCc+nkwE+zgYEYPqnW9ySPwaIic39hbd2MyvuXkMsg2Sb1mDMDvfVOutZc8SmLuHnSg4SIqy2MBMt5K+y9I8ofgsIYf/f+FTq8BBhlESlF1rFer8DsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089204; c=relaxed/simple;
-	bh=PuindctyhL5yZTdb8iTTs9Cp0sFMNp9mpJJjqjhUzUM=;
+	s=arc-20240116; t=1789089205; c=relaxed/simple;
+	bh=W4iKbohOFMKndN9gJhR7aTQUCH8WPX0lQdyWqZHDwws=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ETQaR8in69ne3ZyVVGxnMsO2vXxyf6bbU6MO5YFOo2NTr/tJdKOogTceZkYFzgImlKs00d0CmgHOE7kdJyXSbrlIc/aIZLek8Bl1bxOMRUKvR9iWbqK/yNN4k/bz3tD/9c2Rom+sFoFrwIFR3rpwhlY2Ns+wViW9rAEEHlNoqHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ct6gneai; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WONxgTFzIbvZIt/bux98fsB3t3hbi/qPKgiE7lrhvs+YVMsWVvmvQRn9dK1QIK72N2rQqq+YMA3c5xWJkfuclyVMPznAwmSwYt/0cbNBjL6d5GbYnKjfGCdt62ioadV6OakSpKlJSEV4ASKIrTxtZIvpDIZkaiRL4AE7s9f/pXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SM/infUh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ct6gneai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103361F0089C;
-	Fri, 11 Sep 2026 01:13:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SM/infUh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39CD1F0089D;
+	Fri, 11 Sep 2026 01:13:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789089199;
-	bh=9a9rCCY/dPHaSwqd5Y+N1YgzO1zqZxwtgaVLsEiNCsk=;
+	s=k20260515; t=1789089200;
+	bh=VisMz8FHKRP5dTAvhsQ6+tBmaH3QNzCDw9l/qFZ+HvQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ct6gneaiIqyp7DcZjS74QxifmpV7Ox7OIZqHeKEHSQoyZlNFzHz30DsocwLd/EfVO
-	 9BHHxEIAfr49SZVEC2w3bFGr3bVei9LijHSZMPZFhw+oGn+8krgZ40zl/7PknYXiOA
-	 q/0Mq2PlJDPoE2XMsVkxQaf0+WSGA41LTfFer1ro+E7t8EsORJgZlk5bL5ChG/DljX
-	 hVdb88qXQwrWf6Lz4UsdpRi4pp7P4u/1kIL0K/cvaX/yslr8Kc4FwMSOyCplZvJz6P
-	 NgZpzd5YZHeKfAlBn1ZFmuLwVBg4loizv1qfpVBAS3xl2ma7kNR0l/aWWjWDbbrqaY
-	 1lui/a1umh0lg==
+	b=SM/infUhS3s3+Kj4V7T3HyFtXdo85iqsws39KsCJ1LiSgJusiI8IVracPOXx6tHpr
+	 /AlzKBQ6G+apvYXfNUKhlrkRtP4z5AJ23Ez0qJRraWw/MWL1Xhe1VweAdcxd6uu2q2
+	 T78Z2VYeHzfP6ePAwueoPKzGrpLxBt2gZwFPHfW5brW28yHfPX3VcihkI2Rspke0cU
+	 i2R0J4OYf0SZqrfWCG7qwr3Na19+YuMkhTePNzc1NVin6anqim0mtiav5IAf5GgheS
+	 E91vElx15ohHpaHnk1K/Dw3+5/0mFXS0h6qnSo7UwlxsRo4ma+po3snEfEh+dD45Q2
+	 CccoB7wsyd2PQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Li Chen <me@linux.beauty>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Anthony Krowiak <akrowiak@linux.ibm.com>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 6/6] nvdimm: virtio_pmem: refcount requests for token lifetime
-Date: Thu, 10 Sep 2026 21:13:13 -0400
-Message-ID: <20260911011313.4034971-6-sashal@kernel.org>
+Subject: [PATCH 6.1.y] s390/vfio-ap: Fix NULL deref in status_show() during queue probe
+Date: Thu, 10 Sep 2026 21:13:17 -0400
+Message-ID: <20260911011317.4035178-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911011313.4034971-1-sashal@kernel.org>
-References: <2026090939-defiance-yelling-974c@gregkh>
- <20260911011313.4034971-1-sashal@kernel.org>
+In-Reply-To: <2026090930-overcrowd-probiotic-71cb@gregkh>
+References: <2026090930-overcrowd-probiotic-71cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Li Chen <me@linux.beauty>
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
 
-[ Upstream commit e57140944b5a47a7fd5a142faab29a02af040bc8 ]
+[ Upstream commit dd6f4ef6f8a37412909ad787c837332fb070159c ]
 
-KASAN reports slab-use-after-free in __wake_up_common():
-BUG: KASAN: slab-use-after-free in __wake_up_common+0x114/0x160
-Read of size 8 at addr ffff88810fdcb710 by task swapper/0/0
+When vfio_ap_mdev_probe_queue() creates the sysfs attribute group,
+the queue's driver data has not yet been set. A concurrent read of
+the 'status' attribute can therefore call dev_get_drvdata() and
+get NULL, which is then passed directly to
+vfio_ap_mdev_for_queue() where q->apqn is unconditionally
+dereferenced, causing a NULL pointer dereference.
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-6.19.0-next-20260220-00006-g1eae5f204ec3 #4 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux
-1.17.0-2-2 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x6d/0xb0
- print_report+0x170/0x4e2
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __virt_addr_valid+0x1dc/0x380
- kasan_report+0xbc/0xf0
- ? __wake_up_common+0x114/0x160
- ? __wake_up_common+0x114/0x160
- __wake_up_common+0x114/0x160
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- __wake_up+0x36/0x60
- virtio_pmem_host_ack+0x11d/0x3b0
- ? sched_balance_domains+0x29f/0xb00
- ? __pfx_virtio_pmem_host_ack+0x10/0x10
- ? _raw_spin_lock_irqsave+0x98/0x100
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- vring_interrupt+0x1c9/0x5e0
- ? __pfx_vp_interrupt+0x10/0x10
- vp_vring_interrupt+0x87/0x100
- ? __pfx_vp_interrupt+0x10/0x10
- __handle_irq_event_percpu+0x17f/0x550
- ? __pfx__raw_spin_lock+0x10/0x10
- handle_irq_event+0xab/0x1c0
- handle_fasteoi_irq+0x276/0xae0
- __common_interrupt+0x65/0x130
- common_interrupt+0x78/0xa0
- </IRQ>
+Fix this by acquiring the update locks before calling
+sysfs_create_group(). The status_show() function acquires
+guests_lock before reading the driver data, so any concurrent
+read will block until after dev_set_drvdata() has been called
+and the update locks are released.
 
-virtio_pmem_host_ack() wakes a request that has already been freed by the
-submitter.
+As a bonus, the APQN no longer needs to be read from the queue
+struct after allocation — it can be read directly from apdev
+before allocation and stored in a local variable, which is then
+assigned to q->apqn once the allocation succeeds.
 
-This happens when the request token is still reachable via the virtqueue,
-but virtio_pmem_flush() returns and frees it.
-
-Fix the token lifetime by refcounting struct virtio_pmem_request.
-virtio_pmem_flush() holds a submitter reference, and the virtqueue holds an
-extra reference once the request is queued. The completion path drops the
-virtqueue reference, and the submitter drops its reference before
-returning.
-
-Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+Fixes: 260f3ea141382 ("s390/vfio-ap: move probe and remove callbacks to vfio_ap_ops.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Chen <me@linux.beauty>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260630092338.2094628-9-me@linux.beauty>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+[ Adjusted queue-initialization context because Linux 6.1 lacks the newer reset fields. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvdimm/nd_virtio.c   | 34 +++++++++++++++++++++++++++++-----
- drivers/nvdimm/virtio_pmem.h |  2 ++
- 2 files changed, 31 insertions(+), 5 deletions(-)
+ drivers/s390/crypto/vfio_ap_ops.c | 33 +++++++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-index 4f40cf85feb40..cbc0f53398f09 100644
---- a/drivers/nvdimm/nd_virtio.c
-+++ b/drivers/nvdimm/nd_virtio.c
-@@ -15,6 +15,14 @@ struct virtio_pmem_flush_work {
- 	struct bio *bio;
- };
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 11fe917fbd9d4..3eb6cd604bed6 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -1768,6 +1768,23 @@ static ssize_t status_show(struct device *dev,
  
-+static void virtio_pmem_req_release(struct kref *kref)
-+{
-+	struct virtio_pmem_request *req;
+ 	mutex_lock(&matrix_dev->mdevs_lock);
+ 	q = dev_get_drvdata(&apdev->device);
 +
-+	req = container_of(kref, struct virtio_pmem_request, kref);
-+	kfree(req);
-+}
++	/*
++	 * Make sure the drvdata has been set before proceeding. There is a
++	 * possibility that the drvdata was not set if the vfio_ap_queue object
++	 * could not be allocated when the queue device was probed. In that case,
++	 * the locks used in vfio_ap_mdev_probe_queue() are released prior to
++	 * removing the sysfs status attribute to avoid a lockdep
++	 * splat. That opens a very small window where the status attribute is
++	 * still available without the vfio_ap_queue object having been
++	 * stored in the device drvdata. In that case, indicate the queue is not
++	 * assigned.
++	 */
++	if (!q) {
++		nchars = sysfs_emit(buf, "%s\n", AP_QUEUE_UNASSIGNED);
++		goto done;
++	}
 +
- static void virtio_pmem_wake_one_waiter(struct virtio_pmem *vpmem)
+ 	matrix_mdev = vfio_ap_mdev_for_queue(q);
+ 
+ 	/* If the queue is assigned to the matrix mediated device, then
+@@ -1795,6 +1812,7 @@ static ssize_t status_show(struct device *dev,
+ 				   AP_QUEUE_UNASSIGNED);
+ 	}
+ 
++done:
+ 	mutex_unlock(&matrix_dev->mdevs_lock);
+ 
+ 	return nchars;
+@@ -1864,13 +1882,16 @@ void vfio_ap_mdev_unregister(void)
+ 
+ int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
  {
- 	struct virtio_pmem_request *req_buf;
-@@ -42,6 +50,7 @@ void virtio_pmem_host_ack(struct virtqueue *vq)
- 		virtio_pmem_wake_one_waiter(vpmem);
- 		WRITE_ONCE(req_data->done, true);
- 		wake_up(&req_data->host_acked);
-+		kref_put(&req_data->kref, virtio_pmem_req_release);
+-	int ret;
++	int ret, apqn;
+ 	struct vfio_ap_queue *q;
+ 	struct ap_matrix_mdev *matrix_mdev;
+ 
++	apqn = to_ap_queue(&apdev->device)->qid;
++	matrix_mdev = get_update_locks_by_apqn(apqn);
++
+ 	ret = sysfs_create_group(&apdev->device.kobj, &vfio_queue_attr_group);
+ 	if (ret)
+-		return ret;
++		goto err_release_locks;
+ 
+ 	q = kzalloc(sizeof(*q), GFP_KERNEL);
+ 	if (!q) {
+@@ -1878,9 +1899,8 @@ int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
+ 		goto err_remove_group;
  	}
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
+ 
+-	q->apqn = to_ap_queue(&apdev->device)->qid;
++	q->apqn = apqn;
+ 	q->saved_isc = VFIO_AP_ISC_INVALID;
+-	matrix_mdev = get_update_locks_by_apqn(q->apqn);
+ 
+ 	if (matrix_mdev) {
+ 		vfio_ap_mdev_link_queue(matrix_mdev, q);
+@@ -1907,8 +1927,13 @@ int vfio_ap_mdev_probe_queue(struct ap_device *apdev)
+ 	return 0;
+ 
+ err_remove_group:
++	release_update_locks_for_mdev(matrix_mdev);
+ 	sysfs_remove_group(&apdev->device.kobj, &vfio_queue_attr_group);
+ 	return ret;
++
++err_release_locks:
++	release_update_locks_for_mdev(matrix_mdev);
++	return ret;
  }
-@@ -72,6 +81,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	if (!req_data)
- 		return -ENOMEM;
  
-+	kref_init(&req_data->kref);
- 	WRITE_ONCE(req_data->done, false);
- 	init_waitqueue_head(&req_data->host_acked);
- 	init_waitqueue_head(&req_data->wq_buf);
-@@ -89,10 +99,23 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 	  * to req_list and wait for host_ack to wake us up when free
- 	  * slots are available.
- 	  */
--	while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
--					GFP_ATOMIC)) == -ENOSPC) {
--
--		dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-+	for (;;) {
-+		err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-+					GFP_ATOMIC);
-+		if (!err) {
-+			/*
-+			 * Take the virtqueue reference while @pmem_lock is
-+			 * held so completion cannot run concurrently.
-+			 */
-+			kref_get(&req_data->kref);
-+			break;
-+		}
-+
-+		if (err != -ENOSPC)
-+			break;
-+
-+		dev_info_ratelimited(&vdev->dev,
-+				     "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
- 		WRITE_ONCE(req_data->wq_buf_avail, false);
- 		list_add_tail(&req_data->list, &vpmem->req_list);
- 		spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-@@ -101,6 +124,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		wait_event(req_data->wq_buf, READ_ONCE(req_data->wq_buf_avail));
- 		spin_lock_irqsave(&vpmem->pmem_lock, flags);
- 	}
-+
- 	err1 = virtqueue_kick(vpmem->req_vq);
- 	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
- 	/*
-@@ -116,7 +140,7 @@ static int virtio_pmem_flush(struct nd_region *nd_region)
- 		err = le32_to_cpu(req_data->resp.ret);
- 	}
- 
--	kfree(req_data);
-+	kref_put(&req_data->kref, virtio_pmem_req_release);
- 	return err;
- };
- 
-diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-index e6dfc10ce0762..3af92588bd9d1 100644
---- a/drivers/nvdimm/virtio_pmem.h
-+++ b/drivers/nvdimm/virtio_pmem.h
-@@ -12,12 +12,14 @@
- 
- #include <linux/module.h>
- #include <uapi/linux/virtio_pmem.h>
-+#include <linux/kref.h>
- #include <linux/libnvdimm.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
- 
- struct virtio_pmem_request {
-+	struct kref kref;
- 	struct virtio_pmem_req req;
- 	struct virtio_pmem_resp resp;
- 
+ void vfio_ap_mdev_remove_queue(struct ap_device *apdev)
 -- 
 2.53.0
 
