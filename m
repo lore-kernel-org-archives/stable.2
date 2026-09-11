@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A85FF4F1
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAC7374A1D
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138262; cv=none; b=SEv+VX8XuiISJa1Hin+T5ZHdzxs47+DDiMj1O3ZIR9lTI1Bs5lyQqfGug3qo8LKXSVMx2mNKr7+NmTUQ8/OmksIKzyLx4UX+i2PnByt/gBwwVm5o+bOU3MzFztuhXmLO2GiBY1DGPFdpB2/NkGtcMiyiqfmN7LAKXIutQ69KkN4=
+	t=1789138263; cv=none; b=qVFmV6lAJVxQBpCADnP/AaLbQNxWUKKwQrZPQnB8WV3KAby5EQvEPIu8fPyauq1IhFXtaGm+rI69IkhVl7F8GJ4zw46DbgdrOkreFVACLBJ2eEUunUoC0EtIqoQC5hel40eIoFa6SizIqKFVGrGamr2XbtqC9Yj1lKr9NiSyc4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138262; c=relaxed/simple;
-	bh=UIkPMPCVg1zi9K309NTtPkpTwmwad4o4lNaTb41G9nE=;
+	s=arc-20240116; t=1789138263; c=relaxed/simple;
+	bh=clZQi9j9bEofnVyZjwpW5eGfOgxD6qp0znJx/6plyRw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YTuVFtjnqxN0L6DwrGqowr3j9JvSjW6O/ly7tpqHbPdAul1v1BmEIfDcTI/8UOHJlfoQKwf/qiOLWIK1axgL/35CmH6KQOj2RVlNprBEMpktFoup9Ol6B/lBS34JNegBgShj4+ZKUYcsKGGWPVeGjAJk0Kdk8ntr8+vvONGe/GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrmfmAlA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RLC2ylbml5y2El10nGt23+aqeJ6MHHJB2JaOXtNOn7Pkeegkh05WF6G/iCcjjmX+AFyEewycdUd669PFzYXhMmRdIfN7Su/lF92Fi5EWH8Lay06rPAiz4HLNsumjYeTvxOCoygxqIh06Ad8bE6JR2Rdk6/rsmfSSwlWxXqkbRy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJu2FBVa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrmfmAlA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB6E1F00893;
-	Fri, 11 Sep 2026 14:51:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJu2FBVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E011F00898;
+	Fri, 11 Sep 2026 14:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138261;
-	bh=xQnbxT+U5vKb27nVfhps8AUOgd0O+irIh2qf462j6NQ=;
+	s=k20260515; t=1789138262;
+	bh=Yg3MAZWeH26CZuqho1lO4G6VZ/MnFejd3ogxUyDROZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BrmfmAlA0+Gc94em+KKO6FX8eHTQKCFTFVD1DJRC+3VgjYi/ARV0u38MQ+yr3P+yS
-	 81bF7SUL5H1DzeYAMAkgY5zxgGiqy3LCy0IbNd0KQusjxszDMchzjsGqAxNDH+zzFM
-	 FVgI7NWg2Yy6HkE5IdPuH0Y2fzaN+y2rgWelEcfuAz7TgZvVgdf8VIF4Jc36nuXiRJ
-	 14vLkg995k/vf2h3KSaeHvvZBwC/lO/vFDVXmRp46Z+uzfKNr4ZTeYEnd5VfoSC/rM
-	 Nosjr8fmj7hSsdsYoPQLFSuQgl5eH50UAJx9kokWcScqPvfS7vgkjWjArNtwvCqVWo
-	 gZSG6re/D+qVg==
+	b=IJu2FBVavrojwlYGxLl2Ar6t18KFIMtmlOUfsdBG1h7q/zWpMBOrzJBKMTpykQ8vt
+	 xn/1LYoRo94Ne/3b/GtOCz36PCsTRvHSencD7Vwnfw8gRguwxRVtYCEcpZF3ficYNK
+	 8Emzyz5EzkHYrR8Hf+7WjABv+02WTSmLYq8I571rzfxfCHBqyuSV9JaQNHUTkDHzc3
+	 PQfWHEi0IVww1+9NmhF7M4rZMb1aszyIfoHb6Q2cyaySg/lJxz5p/Mg0I4fhd0XmHb
+	 Bmjc//oO6WyQVxq0CyLA5gUrcQvuqzS2ZyqGyTEQIyt96NQfEiAsDGTy2Br+/dQWrm
+	 B5f+BlYK7pKhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Hungyu Lin <dennylin0707@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] media: remove conditional return with no effect
-Date: Fri, 11 Sep 2026 10:50:56 -0400
-Message-ID: <20260911145058.985072-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] media: qcom: iris: fix runtime PM reference leaks
+Date: Fri, 11 Sep 2026 10:50:57 -0400
+Message-ID: <20260911145058.985072-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260911145058.985072-1-sashal@kernel.org>
 References: <2026090908-wobbly-comply-f1b3@gregkh>
@@ -45,208 +45,61 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
 
-[ Upstream commit 9508676ad8562368bb1aa7d1991fbd50611ddacb ]
+[ Upstream commit f87d7eda07fca21efe4b96169ae59007db46e60e ]
 
-Both branches of the check return the same value, so the check has
-no effect. Remove it and return the value directly.
+Use pm_runtime_resume_and_get() in iris_enable_power_domains()
+to avoid leaking a runtime PM usage count on failure.
 
-This is the result of running the Coccinelle script from
-scripts/coccinelle/misc/cond_return_no_effect.cocci.
+Also ensure pm_runtime_put_sync() is always called in
+iris_disable_power_domains(), even when iris_opp_set_rate()
+fails, so runtime PM references remain balanced.
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Stable-dep-of: f87d7eda07fc ("media: qcom: iris: fix runtime PM reference leaks")
+Fixes: bb8a95aa038e ("media: iris: implement power management")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+[ used dev_pm_opp_set_rate() instead of the unavailable iris_opp_set_rate(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/mt9p031.c                          |  6 +-----
- .../media/platform/microchip/microchip-sama7g5-isc.c |  7 +------
- drivers/media/platform/qcom/iris/iris_resources.c    |  6 +-----
- drivers/media/platform/qcom/venus/pm_helpers.c       |  7 +------
- drivers/media/platform/renesas/rcar-csi2.c           |  6 +-----
- .../media/platform/samsung/s3c-camif/camif-core.c    |  7 +------
- drivers/media/usb/dvb-usb-v2/mxl111sf.c              | 12 ++----------
- drivers/media/usb/gspca/jl2005bcd.c                  |  7 +------
- 8 files changed, 9 insertions(+), 49 deletions(-)
+ drivers/media/platform/qcom/iris/iris_resources.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
-index 1500ee4db47ec..a0375945e7898 100644
---- a/drivers/media/i2c/mt9p031.c
-+++ b/drivers/media/i2c/mt9p031.c
-@@ -453,11 +453,7 @@ static int mt9p031_set_params(struct mt9p031 *mt9p031)
- 	ret = mt9p031_write(client, MT9P031_HORIZONTAL_BLANK, hblank - 1);
- 	if (ret < 0)
- 		return ret;
--	ret = mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
- }
- 
- static int mt9p031_s_stream(struct v4l2_subdev *subdev, int enable)
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index b0302dfc3278d..7383341ec51d6 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -598,13 +598,8 @@ static int __maybe_unused xisc_runtime_suspend(struct device *dev)
- static int __maybe_unused xisc_runtime_resume(struct device *dev)
- {
- 	struct isc_device *isc = dev_get_drvdata(dev);
--	int ret;
--
--	ret = clk_prepare_enable(isc->hclock);
--	if (ret)
--		return ret;
- 
--	return ret;
-+	return clk_prepare_enable(isc->hclock);
- }
- 
- static const struct dev_pm_ops microchip_xisc_dev_pm_ops = {
 diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-index cf32f268b703c..42cc707f5bcd2 100644
+index 42cc707f5bcd2..dcec4f3460d88 100644
 --- a/drivers/media/platform/qcom/iris/iris_resources.c
 +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-@@ -66,11 +66,7 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
+@@ -66,20 +66,21 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
  	if (ret)
  		return ret;
  
--	ret = pm_runtime_get_sync(pd_dev);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return pm_runtime_get_sync(pd_dev);
+-	return pm_runtime_get_sync(pd_dev);
++	return pm_runtime_resume_and_get(pd_dev);
  }
  
  int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
-diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
-index 14a4e8311a643..a60af81c17c37 100644
---- a/drivers/media/platform/qcom/venus/pm_helpers.c
-+++ b/drivers/media/platform/qcom/venus/pm_helpers.c
-@@ -645,7 +645,6 @@ static int decide_core(struct venus_inst *inst)
- 	unsigned long max_freq = ULONG_MAX;
- 	struct device *dev = core->dev;
- 	struct dev_pm_opp *opp;
--	int ret = 0;
- 
- 	if (legacy_binding) {
- 		if (inst->session_type == VIDC_SESSION_TYPE_DEC)
-@@ -693,11 +692,7 @@ static int decide_core(struct venus_inst *inst)
- 	}
- 
- done:
--	ret = hfi_session_set_property(inst, ptype, &cu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return hfi_session_set_property(inst, ptype, &cu);
- }
- 
- static int acquire_core(struct venus_inst *inst)
-diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
-index d1b31ab8b8c4a..9948a3aa89476 100644
---- a/drivers/media/platform/renesas/rcar-csi2.c
-+++ b/drivers/media/platform/renesas/rcar-csi2.c
-@@ -2265,11 +2265,7 @@ static int rcsi2_init_phtw_v3u(struct rcar_csi2 *priv,
- 			return ret;
- 	}
- 
--	ret = rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
--	if (ret)
--		return ret;
--
--	return ret;
-+	return rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
- }
- 
- /* -----------------------------------------------------------------------------
-diff --git a/drivers/media/platform/samsung/s3c-camif/camif-core.c b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-index 221e3c447f361..a3c8b0a10eb3c 100644
---- a/drivers/media/platform/samsung/s3c-camif/camif-core.c
-+++ b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-@@ -302,7 +302,6 @@ static int camif_media_dev_init(struct camif_dev *camif)
- 	struct media_device *md = &camif->media_dev;
- 	struct v4l2_device *v4l2_dev = &camif->v4l2_dev;
- 	unsigned int ip_rev = camif->variant->ip_revision;
--	int ret;
- 
- 	memset(md, 0, sizeof(*md));
- 	snprintf(md->model, sizeof(md->model), "Samsung S3C%s CAMIF",
-@@ -317,11 +316,7 @@ static int camif_media_dev_init(struct camif_dev *camif)
- 
- 	media_device_init(md);
- 
--	ret = v4l2_device_register(camif->dev, v4l2_dev);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return v4l2_device_register(camif->dev, v4l2_dev);
- }
- 
- static void camif_clk_put(struct camif_dev *camif)
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 870ac3c8b085d..6404eb74db32f 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -987,11 +987,7 @@ static int mxl111sf_frontend_attach_atsc_mh(struct dvb_usb_adapter *adap)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mxl111sf_lg2160_frontend_attach(adap, 2);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return mxl111sf_lg2160_frontend_attach(adap, 2);
- }
- 
- static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
-@@ -1007,11 +1003,7 @@ static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
- }
- 
- static int mxl111sf_frontend_attach_mercury_mh(struct dvb_usb_adapter *adap)
-diff --git a/drivers/media/usb/gspca/jl2005bcd.c b/drivers/media/usb/gspca/jl2005bcd.c
-index a408fcc3a0608..4988fbf5005e6 100644
---- a/drivers/media/usb/gspca/jl2005bcd.c
-+++ b/drivers/media/usb/gspca/jl2005bcd.c
-@@ -148,17 +148,12 @@ static int jl2005c_start_new_frame(struct gspca_dev *gspca_dev)
- static int jl2005c_write_reg(struct gspca_dev *gspca_dev, unsigned char reg,
- 						    unsigned char value)
  {
--	int retval;
- 	u8 instruction[2];
+ 	int ret;
++	int pm_ret;
  
- 	instruction[0] = reg;
- 	instruction[1] = value;
+ 	ret = dev_pm_opp_set_rate(core->dev, 0);
+-	if (ret)
+-		return ret;
  
--	retval = jl2005c_write2(gspca_dev, instruction);
--	if (retval < 0)
--			return retval;
--
--	return retval;
-+	return jl2005c_write2(gspca_dev, instruction);
+-	pm_runtime_put_sync(pd_dev);
++	pm_ret = pm_runtime_put_sync(pd_dev);
++	if (!ret)
++		ret = pm_ret;
+ 
+-	return 0;
++	return ret;
  }
  
- static int jl2005c_get_firmware_id(struct gspca_dev *gspca_dev)
+ static struct clk *iris_get_clk_by_type(struct iris_core *core, enum platform_clk_type clk_type)
 -- 
 2.53.0
 
