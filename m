@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1797339AD2A
-	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61F63D9539
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120623; cv=none; b=pdfZ9oE4U0POH5NtNQqnV8/ZyQEO2zH91i+pzZrYzn1kAMpmkMay//pfqLS+oCiYlrffRvnUjqMFuQR42yhtn/hQkUdtK5tNYFCllGyEyp1YnN3R1BwrZUnv2e20TgiZFRQX/uH5xOmSJk2eaUFugcwC+fkSXiaG73dIKENPZDg=
+	t=1789120639; cv=none; b=ckfJaJALiCVdMrmjO5Tz0ub/X9VkLKIDU6PMxaL1dYmYEQqkiJ6Of6r5BiIfQZjvt/rp5+dsHq4BMRardNHjAvazuCk3vHbm1bOk5oPcC55fsZ6SvKXWlXXjzWzJsYBjq9Lpifi/1sXddJx/inYR+r2lnRc6KoF7zL7NhkXCYhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120623; c=relaxed/simple;
-	bh=+h8q/+iUHrQcxkOPe+cx3+F6Cf3JV4T0GwnrlTKqmHE=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=r9oO6TNtnpidcUOzdKvAZPmUplVt3cUQg3Zesa4VbzBaT8O4cReuHgOxbt+5FUWXb2H7X5oKUBCiVi/MEscrwfP+Fb8QFvmwG1GJsyswzHOhdDB1E1blL27+3snLPPovWTIbIGQ3IFYi60OKJfvwVBD/FPl8sfEBYYD8gxueSpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Js9FAVMP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120639; c=relaxed/simple;
+	bh=A/6udJWtHS0IFvo7nvOjQOCwaoRx4iK0W6U4fWniH10=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=cbouJ8zLkobWqkcdsSLRzlLUzLlnh2vOdICn1ro73dM240lm3/Dx+NbanmesfXULj5lBj9Kf1F1LbErtEFOtHuD/EpE8SNZ/FNDk1S+iw5DWxLq6w/qWg5MR+hwL4XjOCcIRtaOwC9lbOPRYpZAZNRP3Cz/06yVaWB1zp2y2CIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tYVJBGCt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Js9FAVMP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9151D1F000FF;
-	Fri, 11 Sep 2026 09:57:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tYVJBGCt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEA11F000FF;
+	Fri, 11 Sep 2026 09:57:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120621;
-	bh=MVgC9HN3iNyeNqBX6VNzv4CcKDZ7jPhMZhXfbvB4iKU=;
+	s=korg; t=1789120637;
+	bh=SWo6Zcjg65HCmhyiKAIIEPrYxIehsftu+w/a+QdJRTE=;
 	h=Subject:To:From:Date;
-	b=Js9FAVMPK4r8XYUWgs88XUbHU6d3t1iz9TsI0fc5rfMS7OEBF6ZxqeV4kbMCJEZO/
-	 zXp4hIRFdAWnF0Ir1mgP7Dimze94/Zc/gI4gImf/jiCi9Z+nJj91Odq1LSuwT2y+s1
-	 WyYG+zTe+1sXt2p63qFU4TUjde4/aiSrGQ1xjoqM=
-Subject: patch "iio: frequency: adf4377: Fully initialize clk_init_data and" added to char-misc-linus
-To: geert+renesas@glider.be,Stable@vger.kernel.org,bmasney@redhat.com,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com
+	b=tYVJBGCt9Kq833p35lZZaIMIap2yhQniTrWqQUUzjBqMBNGrX5/kaxMWneOlds25b
+	 VRFDHwaMwch3h2ngqvt3wXL91XHyfEeEw/mZ5cIQjF9PsBK2MIvfbI2cbcZLA046j9
+	 iRH4YwlhZOB8NRey8WrL4AQC3/BfsPGDpXZmpzPw=
+Subject: patch "iio: buffer: Ensure bounce buffer used for unaligned case is zeroed." added to char-misc-linus
+To: jonathan.cameron@oss.qualcomm.com,Stable@vger.kernel.org,andriy.shevchenko@intel.com,joshua.crofts1@gmail.com,nuno.sa@analog.com,sashiko-bot@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Fri, 11 Sep 2026 11:55:35 +0200
-Message-ID: <2026091135-strode-sandblast-6148@gregkh>
+Message-ID: <2026091135-alongside-unloaded-a798@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: frequency: adf4377: Fully initialize clk_init_data and
+    iio: buffer: Ensure bounce buffer used for unaligned case is zeroed.
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,57 +54,45 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From e787fd23d5063c61582c3c27522240b6e6703fde Mon Sep 17 00:00:00 2001
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-Date: Thu, 20 Aug 2026 11:19:52 +0200
-Subject: iio: frequency: adf4377: Fully initialize clk_init_data and
- clk_parent_data
+From 5330036bc68d23672bfcc16c60c54701ae123083 Mon Sep 17 00:00:00 2001
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Date: Mon, 3 Aug 2026 02:22:24 +0100
+Subject: iio: buffer: Ensure bounce buffer used for unaligned case is zeroed.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The clk_init_data structure contains several mutually-exclusive members
-for different methods to specify the possible parents of a clock,
-prompting drivers to initialize only the members they need.  However,
-not initializing all members may cause subtle issues, which are only
-exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
-enabled.
+iio_push_to_buffers_with_ts_unaligned() leaks uninitialized heap memory
+to userspace if the data passed in is not a multiple of 8 bytes and the
+timestamp is enabled. Specify __GFP_ZERO for the devm_krealloc()
+to ensure any extra space is cleared.
 
-adf4377_clk_register() fills in init.parent_data, and assumes that
-init.parent_names is NULL.  However, the latter is uninitialized, and
-thus may cause a crash.
-
-Similarly, adf4377_clk_register() fills in only parent_data.fw_name,
-leaving other members of the clk_parent_data structure uninitialized.
-
-Make sure all members are fully initialized, to fix such bugs, and to
-avoid future breakage when converting drivers to a different method for
-specifying the parents.
-
-Fixes: 60e5448ddbec2dc2 ("iio: frequency: adf4377: add clk provider support")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+Fixes: 95ec3fdf2b79 ("iio: core: Introduce iio_push_to_buffers_with_ts_unaligned()")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260529121005.1470-1-kimjinseob88%40gmail.com
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/frequency/adf4377.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/industrialio-buffer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/frequency/adf4377.c b/drivers/iio/frequency/adf4377.c
-index 4dd19a9aa994..7385be62fa6a 100644
---- a/drivers/iio/frequency/adf4377.c
-+++ b/drivers/iio/frequency/adf4377.c
-@@ -988,10 +988,10 @@ static const struct clk_ops adf4377_clk_ops = {
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 2c9ec93dff47..902401be0b67 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -2462,7 +2462,8 @@ int iio_push_to_buffers_with_ts_unaligned(struct iio_dev *indio_dev,
  
- static int adf4377_clk_register(struct adf4377_state *st)
- {
-+	struct clk_parent_data parent_data = { };
- 	struct spi_device *spi = st->spi;
- 	struct device *dev = &spi->dev;
--	struct clk_init_data init;
--	struct clk_parent_data parent_data;
-+	struct clk_init_data init = { };
- 	int ret;
- 
- 	if (!device_property_present(dev, "#clock-cells"))
+ 		bb = devm_krealloc(&indio_dev->dev,
+ 				   iio_dev_opaque->bounce_buffer,
+-				   indio_dev->scan_bytes, GFP_KERNEL);
++				   indio_dev->scan_bytes,
++				   GFP_KERNEL | __GFP_ZERO);
+ 		if (!bb)
+ 			return -ENOMEM;
+ 		iio_dev_opaque->bounce_buffer = bb;
 -- 
 2.55.0
 
