@@ -1,109 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5256472527
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F57947253B
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129795; cv=none; b=i4P8AAYo1/q8HXcz1BBWtNs5AtlKtHgBWV8XqsfSuC6h9CbtgJCcBipq83lNB0KP1Wf36uKMg3lnHhG5qfSbosuHaeKNkb3aWUUkNE1IvX11+Y3NqJDIOJmUKsWBitSWmnGOiTVkThfaC9tnDki14gxzC2LZlLZ2aLkft3KplbA=
+	t=1789129808; cv=none; b=N3vszwr5Nl7l7k+ELcx+ay/GjJI5uWH2yB1hpRzK3EHWOwOfcj0bJA0mgjqFISu2h6Y3V7F6ufvW+mFpJi355Pw4f0anjDAoL64UAv/Fs9+70IhKFEPlMJxXG55tVsyWgdH7YhkN3hvDTwZkWKmrfGzAUSekwAuK149No8G4Jaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129795; c=relaxed/simple;
-	bh=Vew0BYeeHJCE5J6Zr7/fZEOUTuVIB1s1aObe1RlFD4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fvnc1PoDH8sx/Nv0F/PfzbMm8gZKsdSlD1ReZXZN5qDtpOzoxyODM41/u1X2E7/Gu5gzi5WOz5U8X9kDHM+iPUJbpyuZj3FtSFu75Kaa2HdqOrRwm6cXQAWLkHyfkrHFAo03oj0cRLE1T9RUSKwfiHDttLZRui8YL7LbYw70NGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5UH+PF+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789129808; c=relaxed/simple;
+	bh=4D7Whw1c8RNymLayOeDEJynJlq115YLouoFboh6KcMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZrqDYFL15KdHNmrQ6Vczrnfms8Cfu8TIfJyZuAWjMZFS9IEIkQ5FZOzyBTG0A9XfCrh938Rj3zYx6FcIPDXP3clhMPIjzeukuF1/k4cqL5B8Q7vwNgPQzJqPoCz2L4OVOeA9eeRLM9WQPFBVjcNPoLI3SIKNpiGYmavio2ggK9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uw66/N3a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5UH+PF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF61F1F00899;
-	Fri, 11 Sep 2026 12:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789129792;
-	bh=ex8URQs4OOo2r2ABmKC3RxvlLqlB+f6dzRQr4M1GY7k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S5UH+PF+9A3BSpzEG5bbUzWzWXjA09o5YaY9AJyllsops56PGzFfB9v1h76kgd0S2
-	 it2tBXM5I1Ugf9P47l0rmUlMoWtKx+qEZKT/RP8BnFix1nnNanDAOKqOoAPyij81l0
-	 zrb/sohAMs3jMTRI6QpM5y7/izthpZzx7eFD7lAHRDmO+2U3V2xLmUMG3NStwvfavH
-	 l/23yVgKvoM15robM6ONDaaXcw3HtMbGN8Zc1Zi1cTrQpJFWqS9S/9zFXd7uDXI1a7
-	 cZ1x+Pn6f/hfk4BEHpWmh53jLHACc1QZh8rCy7pwIFbuoDJnC0iLHrOTBEeu4S/czb
-	 LZzIG+uF9VxZQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Sean Young <sean@mess.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] media: rc: sunxi-cir: Unregister rc device on probe failure
-Date: Fri, 11 Sep 2026 08:29:49 -0400
-Message-ID: <20260911122949.555717-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911122949.555717-1-sashal@kernel.org>
-References: <2026090910-petal-cupcake-2b81@gregkh>
- <20260911122949.555717-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uw66/N3a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744261F000FF;
+	Fri, 11 Sep 2026 12:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789129803;
+	bh=Dgjle527QyEInV84KwmJW19HbjlErNLhEH4foSpJI1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uw66/N3aBLXwoQrgCafMRJMTKdyuJ7rxrJsr1iyneiHQO+EobJflDOEgbPKd/zMLR
+	 kvWRfXdiSsptOsaiJwRh8V7rBKPs8rh8s1u2yXkKc11QBkl7zzAE2ZUdVdTDkc8To5
+	 1NC2+gSShWmaYPZJs89Pxt6XNS13cUViwT06hk5Q=
+Date: Fri, 11 Sep 2026 14:29:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Roman.Li@amd.com, alex.hung@amd.com, alexander.deucher@amd.com,
+	daniel.wheeler@amd.com, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] drm/amd/display: Set gpuvm min page size
+ to 4K on dcn35/36" failed to apply to 6.18-stable tree
+Message-ID: <2026091133-darkroom-guzzler-66c1@gregkh>
+References: <2026090953-attire-untidy-c602@gregkh>
+ <b2f45802-99cb-42ae-9da8-93b36c6dcc9c@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <b2f45802-99cb-42ae-9da8-93b36c6dcc9c@amd.com>
 
-From: Myeonghun Pak <mhun512@gmail.com>
+On Wed, Sep 09, 2026 at 12:00:21PM -0500, Mario Limonciello wrote:
+> 
+> 
+> On 9/9/26 06:52, gregkh@linuxfoundation.org wrote:
+> > 
+> > The patch below does not apply to the 6.18-stable tree.
+> > If someone wants it applied there, or to any other stable or longterm
+> > tree, then please email the backport, including the original git commit
+> > id to <stable@vger.kernel.org>.
+> > 
+> > To reproduce the conflict and resubmit, you may use the following commands:
+> > 
+> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+> > git checkout FETCH_HEAD
+> > git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
+> > # <resolve conflicts, build, test, etc.>
+> > git commit -s
+> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-attire-untidy-c602@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+> > 
+> > Possible dependencies:
+> > 
+> > 
+> 
+> I'm not sure why this fails to cherry pick here.  I just tried on my side
+> and it works:
+> 
+> ╰─❯ git reset --hard
+> HEAD is now at 1c732c6b94f0f Linux 6.18.49
+> ╰─❯ git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
+> Auto-merging drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+> [linux-6.18.y 40ba5915f3a5f] drm/amd/display: Set gpuvm min page size to 4K
+> on dcn35/36
+>  Author: Roman Li <Roman.Li@amd.com>
+>  Date: Fri Aug 14 18:03:17 2026 -0400
+>  1 file changed, 1 insertion(+)
+> ╰─❯ git log --oneline -3
+> 40ba5915f3a5f (HEAD -> linux-6.18.y) drm/amd/display: Set gpuvm min page
+> size to 4K on dcn35/36
+> 1c732c6b94f0f (tag: v6.18.49, gregkh/linux-6.18.y) Linux 6.18.49
+> 5f08c45bdcfd2 usb: usbfs: fix use-after-free of usb_device in
+> usbdev_release()
+> 
+> And then I tried to compile amdgpu.ko and it compiled just fine.
+> 
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> > 
+> > ------------------ original commit in Linus's tree ------------------
+> > 
+> >  From 9ce3169430f1db035d491481086e2fae2552569c Mon Sep 17 00:00:00 2001
+> > From: Roman Li <Roman.Li@amd.com>
+> > Date: Fri, 14 Aug 2026 18:03:17 -0400
+> > Subject: [PATCH] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
+> > 
+> > [WHY]
+> > Splash screen corruption on some 8K monitors.
+> > 
+> > [HOW]
+> > Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
+> > calculations, avoiding the corruption path observed during splash.
+> > 
+> > Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
+> > Cc: Mario Limonciello <mario.limonciello@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Reviewed-by: Alex Hung <alex.hung@amd.com>
+> > Signed-off-by: Roman Li <Roman.Li@amd.com>
+> > Signed-off-by: Alex Hung <alex.hung@amd.com>
+> > Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > (cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
+> > Cc: stable@vger.kernel.org
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+> > index 166f10b8862f..c82886323a51 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+> > @@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
+> >   		out->smn_latency_us = 2;
+> >   		out->dispclk_dppclk_vco_speed_mhz = 3600;
+> >   		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
+> > +		out->gpuvm_min_page_size_kbytes = 4;
+> >   		break;
+> 
 
-[ Upstream commit 479aa6fa8c50f1052f1451326ef7d4d586d340c3 ]
+Can you send the patch that it results in, perhaps there was a rename
+that a normal 'quilt apply' does not handle.
 
-After rc_register_device() succeeds, later probe failures must undo the
-registration with rc_unregister_device(). The current error path jumps to
-the allocation cleanup label and only calls rc_free_device(), leaving the
-rc device registration and resources created by rc_register_device()
-behind.
+thanks,
 
-Add a registered-device unwind label for the IRQ lookup, IRQ request, and
-hardware initialization failure paths. Keep rc_free_device() for failures
-before rc_register_device() succeeds.
-
-Fixes: b4e3e59fb59c ("[media] rc: add sunxi-ir driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Signed-off-by: Sean Young <sean@mess.org>
-[ adapted cleanup for missing sunxi_ir_hw_init() and rc_unregister_device() implicitly freeing the device. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/rc/sunxi-cir.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
-index 7a67e79d637a3..2c8960365b9e7 100644
---- a/drivers/media/rc/sunxi-cir.c
-+++ b/drivers/media/rc/sunxi-cir.c
-@@ -259,13 +259,13 @@ static int sunxi_ir_probe(struct platform_device *pdev)
- 	ir->irq = platform_get_irq(pdev, 0);
- 	if (ir->irq < 0) {
- 		ret = ir->irq;
--		goto exit_free_dev;
-+		goto exit_unregister_dev;
- 	}
- 
- 	ret = devm_request_irq(dev, ir->irq, sunxi_ir_irq, 0, SUNXI_IR_DEV, ir);
- 	if (ret) {
- 		dev_err(dev, "failed request irq\n");
--		goto exit_free_dev;
-+		goto exit_unregister_dev;
- 	}
- 
- 	/* Enable CIR Mode */
-@@ -296,6 +296,10 @@ static int sunxi_ir_probe(struct platform_device *pdev)
- 	dev_info(dev, "initialized sunXi IR driver\n");
- 	return 0;
- 
-+exit_unregister_dev:
-+	rc_unregister_device(ir->rc);
-+	goto exit_clkdisable_clk;
-+
- exit_free_dev:
- 	rc_free_device(ir->rc);
- exit_clkdisable_clk:
--- 
-2.53.0
-
+greg k-h
