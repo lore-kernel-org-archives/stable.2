@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477D42FD69E
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:55:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3713D3339
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120542; cv=none; b=G0b+rwJR15X8sZa7U4tb1mUnoN5AuJXcu1uAsoDSmxbJF1b6dhV4hqII7yBQ95KY4zE7X0Wwq8HV1wourzFs23DNJhtMD9Z0N6py8CouYXbviYA8bN2kg1naEFKiVYOdESydLqSGUZCaNGG+vK//ujO0Hi8YQrgNihJmec3pt4g=
+	t=1789120551; cv=none; b=unW1bf8hYxX+GlfwZuw6Ivm/NBUdu4oH/XaNOCVNlkwrxNXFk4a8GChbDHJMzIwOgdGZHIk085jZ6OJ+pbFzdvvT67Usr6lmTX4Vqc045kl6SFY/YOmd0SMVqMAh0+jw0v6Szq1EnNZqGEkc1y8ZeloXsmmtBcbWG1LpjhYiOLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120542; c=relaxed/simple;
-	bh=LJubOECF6XWs8IXoBXq14w5Z5iD6zbSLQm/PCQYPue4=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=Ho0GVIo7FMEASgZzojbB5jh4guLs7qbC6PVjTL2Am/QICB/KpcgpIiW1rSa0oqOhBCWra/M3GfQn1sw55M8AI9uH2cA8ZK5zzT3xxp+Sv3aT+T7FoabTrQyDpjnj+Cn7B6PjZL+u1bcYTVkG5k0PqWELobkJWsTs0W4eaHGF6Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TvjdgZnL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120551; c=relaxed/simple;
+	bh=oycDNj85V0wqOOZirdzA4VJD/+XRG25AJh7xF+X+eFQ=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=p7MhUdkw+LRHXMwNjdneEuIsaURb28ingKD2xPFS4imXmHopJ1icFD3sO1sfEDzF5rsZdcCaC/DnhmYe7rtPw22qyrE7T0Z36Lgj2b+71CdPMQoVOvJh9GvmL0Bs0JDcjkHato3EsuGF+f0GearQNUyJ98eK3yj6Wz4wqJa1g8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BWsDfjlL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TvjdgZnL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B31D1F000FF;
-	Fri, 11 Sep 2026 09:55:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BWsDfjlL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380C11F00898;
+	Fri, 11 Sep 2026 09:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120540;
-	bh=DxYtQ+IRmJ6qfSB4ScxqAoQtrxMimid+IqOgENv1Y8M=;
+	s=korg; t=1789120549;
+	bh=dV5LtWr1dsOuTTMF7MqNBsj+nHsDdxSLU7HeZ/cCI7s=;
 	h=Subject:To:From:Date;
-	b=TvjdgZnL9MGsUsH0Y/68KfME17tMX7K5xTAvZ3EgqiAJLQ2vniY0+gB4ZBCIEtLKr
-	 HYmErhbx18BSI8Qx1ESdB7lasIgyFoe5Zpau1bBIwQzEdkzxGi6PWWkm2DLeUkkWFz
-	 UTDa9D/BdJaTJIYCf+1JsVZee1JHT41nTHNlPQVU=
-Subject: patch "iio: health: max30102: fix NULL dereference in interrupt handler" added to char-misc-linus
-To: marcochen.dev@gmail.com,jic23@kernel.org,jonathan.cameron@oss.qualcomm.com,stable@vger.kernel.org
+	b=BWsDfjlL3ROmAinET79jPHBb0cgeAw1m8/kxeKwTzpsB5Tr2L0kxqxje+2wWzpsjj
+	 xVWxpWI/AWCEjJFIrN/xGdr3lNZu1fSL2YE9M99uJ0gG0dAJeJnpRTvC3LVSpjoSON
+	 J9JszeUClCm3AJD9VhAXAZ0ANwzkbUIbmEtCRGz4=
+Subject: patch "iio: adc: adi-axi-adc: Initialize state mutex" added to char-misc-linus
+To: janani.sunil@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 11 Sep 2026 11:55:30 +0200
-Message-ID: <2026091130-geologist-pox-959b@gregkh>
+Date: Fri, 11 Sep 2026 11:55:31 +0200
+Message-ID: <2026091131-envoy-crock-d2c8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: health: max30102: fix NULL dereference in interrupt handler
+    iio: adc: adi-axi-adc: Initialize state mutex
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,61 +54,38 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From f0ea4824deebf21dacfbe397c4b0a5fd3e745a8d Mon Sep 17 00:00:00 2001
-From: Marco Chen <marcochen.dev@gmail.com>
-Date: Sat, 8 Aug 2026 15:54:50 -0400
-Subject: iio: health: max30102: fix NULL dereference in interrupt handler
+From 549b71ce050637dd32678371ad76c445a2f8c9aa Mon Sep 17 00:00:00 2001
+From: Janani Sunil <janani.sunil@analog.com>
+Date: Thu, 13 Aug 2026 15:56:56 +0200
+Subject: iio: adc: adi-axi-adc: Initialize state mutex
 
-The interrupt is requested in max30102_probe() and stays enabled
-for the lifetime of the device, but indio_dev->active_scan_mask is only
-valid while a buffer is enabled. When an interrupt arrives while no
-buffer is enabled, the handler dereferences the NULL active_scan_mask:
+The AXI ADC register access paths serialize transactions with st->lock,
+but probe does not initialize it. Initialize the mutex before registering
+the backend.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  Call trace:
-   __bitmap_weight+0x64/0x98 (P)
-   max30102_interrupt_handler+0x48/0x160 [max30102]
-
-Call max30102_fifo_count() at the top of the handler and return early
-unless it reports a FIFO sample is ready. Because FIFO_RDY is the only
-interrupt source enabled in max30102_chip_init(), an invocation of
-max30102_interrupt_handler() without the FIFO_RDY interrupt status bit
-set carries no data to read and can return before touching
-active_scan_mask. A negative return from max30102_fifo_count()
-indicates a failed interrupt status read and is treated the same way.
-
-Fixes: 90579b69e94b ("iio: health: max30102: Add MAX30105 support")
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Marco Chen <marcochen.dev@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
+Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/health/max30102.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/iio/adc/adi-axi-adc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/iio/health/max30102.c b/drivers/iio/health/max30102.c
-index c37316c86f14..aee96167f01e 100644
---- a/drivers/iio/health/max30102.c
-+++ b/drivers/iio/health/max30102.c
-@@ -290,9 +290,15 @@ static irqreturn_t max30102_interrupt_handler(int irq, void *private)
- {
- 	struct iio_dev *indio_dev = private;
- 	struct max30102_data *data = iio_priv(indio_dev);
--	unsigned int measurements = bitmap_weight(indio_dev->active_scan_mask,
--						  iio_get_masklength(indio_dev));
--	int ret, cnt = 0;
-+	unsigned int measurements;
-+	int ret, cnt;
-+
-+	cnt = max30102_fifo_count(data);
-+	if (cnt <= 0)
-+		return IRQ_HANDLED;
-+
-+	measurements = bitmap_weight(indio_dev->active_scan_mask,
-+				     iio_get_masklength(indio_dev));
+diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
+index 589f03618ecf..fc7cc92b35f0 100644
+--- a/drivers/iio/adc/adi-axi-adc.c
++++ b/drivers/iio/adc/adi-axi-adc.c
+@@ -714,6 +714,10 @@ static int adi_axi_adc_probe(struct platform_device *pdev)
+ 	if (!st)
+ 		return -ENOMEM;
  
- 	mutex_lock(&data->lock);
- 
++	ret = devm_mutex_init(dev, &st->lock);
++	if (ret)
++		return ret;
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
 -- 
 2.55.0
 
