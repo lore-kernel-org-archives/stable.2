@@ -1,75 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2442E3D667F
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:54:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23E54AD7D6
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149298; cv=none; b=srw7ZC4f2vWwBr+wdowhLwvG5i2KrZJtZwld4NTSHhl3TKwxcrvqbnd/RPDc0yypHCJoE+VGaDp6OdHTxFZu2WLPJXmoz5PMeshubXkjv+DM0H3+2Uy805NlPIdwkSlcGAc0GVXlCAyyDhrU+SKd3Q5TsFek2D0pZcjMPdgG7ls=
+	t=1789149499; cv=none; b=rLrarD+04zEMt3Cy4FbJtUqXzybQKrSMk6P0rewsHJIviPVPAbH7l/vCejj09PKfIzC9vfPgCHYZPvh2VKzkGW9z9ZgY6z2bQ/8sw59rUclw0qqC2VxcrtIu9RvrI27vypz1aVpvvUo2gqKPV9O/RJxNAX7eUd7xV9vJphfu9DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149298; c=relaxed/simple;
-	bh=qdg7tdO8nxKyBKo3v6D8xa0WORkKygaX4JxI2N9lrLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SIeuNq/irYvL1lwXiNMuRBy9PGPnoiDZ0UsTIpLQ9QebIXlL7HY3qFcja1h5q2edScRyZxbPIUWXX5w7z8wt52SKVyOliBSgxCstCp2fLDSAQMeSG7fGR65wTXKfnSzqanXdNWqcU0Rgb7ZM88I6wLZ/iyDyCk8P/C+3JuHYNbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+yDUymr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789149499; c=relaxed/simple;
+	bh=3//m8QRjbZghg03XO57Wif8iYDuJixnitAUHjPNqDJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ihjjoivbJgbMbtEO53zlwSTxibf3nAGZvgBzo3IQhTHzCKeBFewWscuzECtf+q4DpOfsRJcNUu/WGbyNujqKa4xZHBLgxAQihqWtezct94IUxZcK80t695aQJPx0djTXzJe40mOUhjB1cRfVHSNdshVJuf/AZipzfUM5kKKCjsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmrizY3t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+yDUymr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D841F000FF;
-	Fri, 11 Sep 2026 17:54:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmrizY3t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099031F000FF;
+	Fri, 11 Sep 2026 17:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149297;
-	bh=8cxjmKiY1sOm4ulmfevoosxn16poSMCFfGh2sHVKhUo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k+yDUymr3tSJlZLIn9Z/GA2guz5UToealWDOSdnAPZ0OHg1NSZrtNcBS/kBhfBze1
-	 peiftt8Ucv3tH03HkY2YeC4icyGtUaU1yJz68k0aMNcZeDybewkMw6tcbvOrAy3uAb
-	 bm51ys9ncDWVy2jGE85HJ0m+v1B8hgaT/xDn31Ff4pTBe7BXK4TdEWfwBuQpSVf4Np
-	 a0v9j7Lbr7cdPEUJefFUve/s+Jzo9cLCy54kMDk+edBm0LhmxAPQ8IBiChbUnsalLD
-	 +2ryb/xnB5yt/ldWKAwqGVZ0ML1iB+NV/HjpgJsFhlqfM7kXifR4AiEEc7NVsLvzRX
-	 t8zZWx4Rq8pcg==
-Date: Fri, 11 Sep 2026 13:54:55 -0400
+	s=k20260515; t=1789149496;
+	bh=jgn2uixE0OQhrPjwxMD1JIcp5qmzd8Ise90VVJzIQSE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lmrizY3tm1C5PWHZCdK84v/qUge3fLmHRAs2/AIA6IdgqUJefStzDB4SYGS0FvIwa
+	 Nz7KYy78ivbcL8o+GAZ8+xieWxTDH1kwZaHuxV2a9aEvlzVQ3zJGn4EbVWuzoEh6Sb
+	 I7hSHDxG+ok1igFQ6EuGXCNtp0f6BxRp9iDT1ICAXRmk4atAByaEfTo1D5dUDzbLKD
+	 DdfDQ17NJoDRhSwbMZ9J0QBaCh+6yefzRieSmh+6ikoIxmTCA23BpreZO/iL9bp4Nx
+	 tkasbMdshMxQ/4WmHOVOKNp89wqyGGkgIwPKWVuBQ2V9kjeBVuJOm5+o4V7eLlrxqc
+	 Y1Sv/x7ylu1bw==
 From: Sasha Levin <sashal@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: stable@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-amlogic@lists.infradead.org
-Subject: Re: [PATCH 6.12.y] clk: meson: align gxbb_32k_clk_sel number of
- parents with actual count
-Message-ID: <aqRAbyxpEnKlOXOu@laps>
-References: <20260910072139.313775-1-jbrunet@baylibre.com>
- <daily-reply-0030-re-clk-meson-gxbb-6-12@kernel.org>
- <1jik4c6imt.fsf@starbuckisacylon.baylibre.com>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Sashiko <sashiko-dev@google.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] scsi: qla2xxx: Skip vport under deletion in report ID acquisition
+Date: Fri, 11 Sep 2026 13:58:14 -0400
+Message-ID: <20260911175814.1283016-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090951-daily-sandbag-a20b@gregkh>
+References: <2026090951-daily-sandbag-a20b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <1jik4c6imt.fsf@starbuckisacylon.baylibre.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 03:07:54PM +0200, Jerome Brunet wrote:
->On ven. 11 sept. 2026 at 07:20, Sasha Levin <sashal@kernel.org> wrote:
->
->>> The following out-of-bounds read has been observed by Christian on a
->>> GXBB WeTek Hub:
->>
->> Queued for 6.12, thanks.
->
->Hello Sasha,
->
->In those instance where exact same backport applies to multiple versions
->how do you prefer to handle things ?
->
->* Just replying 5 times as I did ?
->* Just reply once with a note explaining that it applies to other version ?
+From: Nilesh Javali <njavali@marvell.com>
 
-Hey!
+[ Upstream commit 23582731afa35031c94fadb71a4f3b4afd094649 ]
 
-Either works - so whatever is easier for you.
+qla24xx_report_id_acquisition() format-1 handling walks ha->vp_list under
+vport_slock, takes a vref_count on the matching vport and calls
+qla_update_host_map() to register its port id.
 
-Something along the lines of "[PATCH 6.18-6.1]" is what most folks use.
+A vport teardown via qla24xx_vport_delete() sets VPORT_DELETE, then
+qla24xx_disable_vp() removes the vport from the host_map btree and zeroes
+vha->d_id (RESET_AL_PA). The vport is only unlinked from vp_list later,
+in qla24xx_deallocate_vp_id(), which clears vp_map[idx] (RESET_VP_IDX)
+but does not touch host_map. In the window in between, report ID
+acquisition can still find the vport on vp_list and call
+qla_update_host_map(); with d_id already zeroed it takes the
+btree_insert32() path and re-inserts the dying vport into host_map.
+Nothing cleans that entry afterwards, so once scsi_host_put() frees the
+vha a later host_map lookup dereferences freed memory.
 
+Skip a vport that has VPORT_DELETE set before taking the reference, so it
+is neither re-registered nor scheduled for DPC re-registration. This
+mirrors the existing guard in qla2x00_alert_all_vps().
+
+Fixes: 41dc529a4602 ("qla2xxx: Improve RSCN handling in driver")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-dev@google.com>
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Link: https://patch.msgid.link/20260730155838.2119230-22-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ Adjusted context to use rptid_entry->vp_idx instead of the missing local vp_idx variable. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/qla2xxx/qla_mbx.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
+index 33a499dea7adf..30e2047537cd3 100644
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -4145,6 +4145,8 @@ qla24xx_report_id_acquisition(scsi_qla_host_t *vha,
+ 			spin_lock_irqsave(&ha->vport_slock, flags);
+ 			list_for_each_entry(vp, &ha->vp_list, list) {
+ 				if (rptid_entry->vp_idx == vp->vp_idx) {
++					if (test_bit(VPORT_DELETE, &vp->dpc_flags))
++						break;
+ 					found = 1;
+ 					break;
+ 				}
 -- 
-Thanks,
-Sasha
+2.53.0
+
