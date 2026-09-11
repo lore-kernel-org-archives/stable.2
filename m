@@ -1,185 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04FD29CE9
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C42043DEB7;
+	Fri, 11 Sep 2026 11:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124348; cv=none; b=a4ZDqKq7E8jpUX5cuFHB4OrfA9Bnom1fSnLQnTIbOtgFIWmtKYBs3bmc5Gd7+6Zt1pjiHLv8GN62FB5pbAP9fiP4CuB6+7S8RZTFXjdlX2Rr8YD43ho/Zg98c/v+DSfxhJ5QJ1vCQcK6BIGBEkq6JRM6xhuJMeCSpz9NsgSyCRw=
+	t=1789124934; cv=none; b=q1NMLJF4vPF8vj8ZYjyicP5tsARa2+sxjby6GbSbe0P2iLBexP6rLLgEVYQBIVSNDoVDv0QTGlXQJUz+z2LB4a28nAU5XE7Md0s1x8+kDnDGhH33tCarWhQpc/aRAdNkETDxx777czFz6UHp1sOrf+Sph2JUYEsNRqtBdAvR81E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124348; c=relaxed/simple;
-	bh=goyXvENrkl9cL/kkDSm3v5/IsmDwKwKw90XA0wc82fQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jAn9eCB5RxLIenxGOBwSKxa3SAHSH3/zEN/A+LUR3u0TDyjBgG0EErbzcvlcl5WqsR8D2bJ5Uc68AfLl2qwzLAfrkfgx0gLoki8apY0yiOEFWtrzLfHoRm7CDif6Ke5393u4CB+aPfve5jD//+FNExxdUBZ79KVgpPDDCjervbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBR3NPET; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789124934; c=relaxed/simple;
+	bh=E0Yt69cVRt11IGIn0puB02EStQIs81GWIcAdHTR8RJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mM9KgJiSkZ0s9ZMuy0SuiJUDVg5xah2zdQEuqJrucWg4xmoE4+sgXPNPcvgZ1d5rQG4d4GEu4moQQvbgFHM//2la4fzQdGH2eQFaXYp+KPk7gWwYd5zjf/RTIXIIAT9RzhhsAeZ+nGxS2sGxW2FiDLl7ewZcTtHMYkRuxgTgvbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R+iRbhAD; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBR3NPET"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CCF1F00899;
-	Fri, 11 Sep 2026 10:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789124346;
-	bh=YbnZ+yPnhdxWX11j6HJb42+gyYAF/mAAozVVD2L6GiI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UBR3NPETwUPJR5Ra/VRAoe6XkXD203vXimJNb8fq0x0t4czhDZ5i6BGA/D6xttTWO
-	 ahu4A0YkNcrtfFcClnF/lAGRHRyP8+YIwrzKU5UMogYzlfjGo/DhVMkOHpVF09t5Gr
-	 u6R1IUKJAhir9ehFES8fXHRXpug+F2bhKqJw4sKpc1krbklbLRtRUsn75rH2hwbDkA
-	 owBRQ+DcjyueutlYE/3Gnvj+Q3FSMOyhwIshbeMwNDrXktloUH+MgBA/dwKSISRt/g
-	 S6Ee08/lutRT5i8aWhoplRpiVluYH+6YdTwSh0KLa4FrB7d6ABi2gdOO3irxFKwAYp
-	 Q82Pb27R0SGxw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	sashiko-bot@kernel.org,
-	Yuan Yao <yaoyuan@linux.alibaba.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] KVM: arm64: Handle VNCR TLB invalidation race with vcpu_put() VNCR unmapping
-Date: Fri, 11 Sep 2026 06:59:03 -0400
-Message-ID: <20260911105903.296829-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911105903.296829-1-sashal@kernel.org>
-References: <2026090924-dweeb-huskiness-bd94@gregkh>
- <20260911105903.296829-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R+iRbhAD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789124932; x=1820660932;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=E0Yt69cVRt11IGIn0puB02EStQIs81GWIcAdHTR8RJY=;
+  b=R+iRbhADb694Yfd4jbQzEC856Qw3Z1OOOMyagivEZwSjL57IXuBCJ1kM
+   BheqUDGg+0uh+bZLy3f3/L6hDGHlbWluQnT30tFfGp1XjZStK5zh3tX4t
+   ++Oglyl2lbvs9fAykl0kdd8bDd7wIDWeD6Tg4+pA7oJpeQg+q6Olyjgvj
+   Kq4Tw6OX5BuJfUceUaWdjJyg3aDItBdkdmg78IeHdJk2eLK3LhsZry5j3
+   +VPrfY3SwP573OhP5zHOcrvcHgiQvzFVT8X7kyfB2VKSBKll5A8gHmTHk
+   FtW0+jQyJVt01/+9H7v1pU5pbOCnt5Jdgo8UKoIqe7Q8ShZfAF+zSQn8m
+   Q==;
+X-CSE-ConnectionGUID: AV5mQq7ISCyXZ8BgOCH2Mg==
+X-CSE-MsgGUID: /uCnERyDSteCZqmS5STCPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="100938613"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="100938613"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 04:08:51 -0700
+X-CSE-ConnectionGUID: pX1HYB3dSr6ulwz2veJREw==
+X-CSE-MsgGUID: caEtU+byS7iekhD3pb4/kQ==
+X-ExtLoop1: 1
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 11 Sep 2026 04:08:49 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 5DDF899; Fri, 11 Sep 2026 13:08:48 +0200 (CEST)
+Date: Fri, 11 Sep 2026 13:08:48 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Wayne Chang <waynec@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi_ccg: Add retry mechanism in ccg_read
+Message-ID: <aqPhQPUh6ZkpCPp0@black.igk.intel.com>
+References: <20260909152805.6254-1-waynec@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909152805.6254-1-waynec@nvidia.com>
 
-From: Marc Zyngier <maz@kernel.org>
+On Wed, Sep 09, 2026 at 11:28:05PM +0800, Wayne Chang wrote:
+> CCG4 firmware occasionally fails to respond to I2C read requests,
+> especially when reading cci and intr_reg from the ISR path. In these
+> cases, i2c_transfer() returns -EREMOTEIO.
+> 
+> The CCG4 is EOL, and Infineon no longer supports firmware updates, so
+> a software workaround is necessary.
+> 
+> Retry the read operation up to three times (four attempts total)
+> when -EREMOTEIO is returned, with a 1-2 ms sleep between retries.
+> This allows recovery from transient I2C failures without affecting
+> other error paths.
+> 
+> The sleep is safe because ccg_read() is called both from process
+> context and from ccg_irq_handler(), which runs in threaded IRQ
+> context (registered via request_threaded_irq() with a NULL hard-IRQ
+> handler), so sleeping is allowed in both cases.
+> 
+> Fixes: 247c554a14aa ("usb: typec: ucsi: add support for Cypress CCGx")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wayne Chang <waynec@nvidia.com>
+> ---
+>  drivers/usb/typec/ucsi/ucsi_ccg.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+> index 91c2958a708c..da8beb14d84c 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_ccg.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+> @@ -135,6 +135,8 @@ struct version_format {
+>  #define NVIDIA_FTB_DP_OFFSET	(2)
+>  #define NVIDIA_FTB_DBG_OFFSET	(3)
+>  
+> +#define CCG_READ_MAX_RETRIES	3
+> +
+>  struct version_info {
+>  	struct version_format base;
+>  	struct version_format app;
+> @@ -255,6 +257,7 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+>  	};
+>  	u32 rlen, rem_len = len, max_read_len = len;
+>  	int status;
+> +	int retry_count;
+>  
+>  	/* check any max_read_len limitation on i2c adapter */
+>  	if (quirks && quirks->max_read_len)
+> @@ -266,7 +269,17 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+>  		rlen = min_t(u16, rem_len, max_read_len);
+>  		msgs[1].len = rlen;
+>  		put_unaligned_le16(rab, buf);
+> -		status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
+> +
+> +		for (retry_count = 0; retry_count <= CCG_READ_MAX_RETRIES; retry_count++) {
 
-[ Upstream commit 38640bc32be3fcf9526d477155bc19d3f146231f ]
+That will run up to 4 times even though your maximum is defined 3?
 
-While VNCR TLB invalidation always occurs under the MMU lock,
-vcpu_put() doesn't, while it unmaps the VNCR page.
+> +			status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
+> +
+> +			/* Only retry on -EREMOTEIO, and not after the last attempt */
+> +			if (status != -EREMOTEIO || retry_count == CCG_READ_MAX_RETRIES)
+> +				break;
+> +
+> +			usleep_range(1000, 2000);
 
-The problem is that the invalidation evaluates vncr_tlb::cpu to
-decide whether an unmapping needs to take place (cpu != -1) before
-performing it. On the other hand, this_cpu_reset_vncr_fixmap()
-unconditionally unmaps if L1_VNCR_MAPPED is set.
+fsleep(1000);
 
-These two obviously can race, with a TOCTOU pattern on the TLBI
-path, and a BUG_ON() on the vcpu_put() path. And the two can end-up
-calling vncr_fixmap(-1), with extra lethal effects.
+> +		}
+> +
+>  		if (status < 0) {
+>  			dev_err(uc->dev, "i2c_transfer failed %d\n", status);
+>  			pm_runtime_put_sync(uc->dev);
+> 
+> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+> -- 
+> 2.25.1
 
-Move the reset of vncr_tlb::cpu to -1 to a common function, and make
-this update atomic so that only a single thread can reset the field
-and perform the corresponding unmap. The vcpu_put() still need to
-unconditionally unmap the current VNCR to close another ugly race.
-
-Finally, the assignment of vncr_tlb::cpu is moved to be kept in sync
-with the actual mapping, similar to L1_VNCR_MAPPED being set.
-
-Fixes: 7270cc9157f47 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260801130237.0FD8F1F00ACA@smtp.kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-Link: https://patch.msgid.link/20260806091026.620700-6-maz@kernel.org
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/kvm/nested.c | 42 +++++++++++++++++++++++++++++++----------
- 1 file changed, 32 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 5a297c16bc338..747aad09a40ee 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -27,7 +27,7 @@ struct vncr_tlb {
- 	bool			hpa_writable;
- 
- 	/* -1 when not mapped on a CPU */
--	int			cpu;
-+	atomic_t		cpu;
- 
- 	/*
- 	 * true if the TLB is valid. Can only be changed with the
-@@ -771,16 +771,40 @@ void kvm_vcpu_load_hw_mmu(struct kvm_vcpu *vcpu)
- 	}
- }
- 
-+/*
-+ * Unmapping an L1 VNCR can happen concurrently without the mmu lock being
-+ * effective (vcpu_put() vs TLBI handling). The atomic_xchg below ensures
-+ * that only one CPU sets it to -1 while getting a valid CPU number back.
-+ */
-+static int unmap_l1_vncr(struct vncr_tlb *vt)
-+{
-+	int cpu = atomic_xchg_relaxed(&vt->cpu, -1);
-+
-+	if (cpu != -1)
-+		clear_fixmap(vncr_fixmap(cpu));
-+
-+	return cpu;
-+}
-+
- static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
- {
- 	if (!host_data_test_flag(L1_VNCR_MAPPED))
- 		return;
- 
--	BUG_ON(vcpu->arch.vncr_tlb->cpu != smp_processor_id());
- 	BUG_ON(is_hyp_ctxt(vcpu));
- 
--	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
--	vcpu->arch.vncr_tlb->cpu = -1;
-+	/*
-+	 * Unconditionally unmap the local VNCR if we have lost the race
-+	 * against a concurrent TLBI. Otherwise we could end-up running
-+	 * another vcpu with VNCR still mapped if the TLBI thread is
-+	 * preempted between the exchange and the clear_fixmap().
-+	 *
-+	 * Note that we do not care about the TLBI nuking the fixmap behind
-+	 * the back of an running vcpu. This will only generate a fault and
-+	 * possibly a retranslation.
-+	 */
-+	if (unmap_l1_vncr(vcpu->arch.vncr_tlb) == -1)
-+		clear_fixmap(vncr_fixmap(smp_processor_id()));
- 	host_data_clear_flag(L1_VNCR_MAPPED);
- 	atomic_dec(&vcpu->kvm->arch.vncr_map_count);
- }
-@@ -870,8 +894,7 @@ u16 get_asid_by_regime(struct kvm_vcpu *vcpu, enum trans_regime regime)
- static void invalidate_vncr(struct vncr_tlb *vt)
- {
- 	vt->valid = false;
--	if (vt->cpu != -1)
--		clear_fixmap(vncr_fixmap(vt->cpu));
-+	unmap_l1_vncr(vt);
- }
- 
- static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
-@@ -1321,7 +1344,7 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
- 		vt->hpa = pfn << PAGE_SHIFT;
- 		vt->hpa_writable = writable;
- 		vt->valid = true;
--		vt->cpu = -1;
-+		atomic_set(&vt->cpu, -1);
- 
- 		kvm_make_request(KVM_REQ_MAP_L1_VNCR_EL2, vcpu);
- 		kvm_release_faultin_page(vcpu->kvm, page, false, vt->wr.pw && vt->hpa_writable);
-@@ -1452,8 +1475,6 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
- 	if (vt->wr.nG && get_asid_by_regime(vcpu, TR_EL20) != vt->wr.asid)
- 		return;
- 
--	vt->cpu = smp_processor_id();
--
- 	if (vt->hpa_writable && vt->wr.pw && vt->wr.pr)
- 		prot = PAGE_KERNEL;
- 	else if (vt->wr.pr)
-@@ -1468,7 +1489,8 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
- 	 * FIXME: WO doesn't work at all, need POE support in the kernel.
- 	 */
- 	if (pgprot_val(prot) != pgprot_val(PAGE_NONE)) {
--		__set_fixmap(vncr_fixmap(vt->cpu), vt->hpa, prot);
-+		atomic_set(&vt->cpu, smp_processor_id());
-+		__set_fixmap(vncr_fixmap(atomic_read(&vt->cpu)), vt->hpa, prot);
- 		host_data_set_flag(L1_VNCR_MAPPED);
- 		atomic_inc(&vcpu->kvm->arch.vncr_map_count);
- 	}
 -- 
-2.53.0
-
+heikki
