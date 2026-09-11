@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70754A92F0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508314A99BD
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146994; cv=none; b=q6sA2xdqcen+Ur3T1QcYdzIbAklVcwG5aIVELYTevXCFa2Uazp3P/1D4ApjxmtWYqzV4altPNFTBWPCtBLhj6kJZ4IQJ5ivR2lVJDONVuoRWoXmOcCPSgcWPJD2Tl0feY9w9fTEW8UxziZEYF8Vj00MLrQMef/AJ8rv0lzKIPJ4=
+	t=1789146994; cv=none; b=UHsZd52SR01VMSBYT87t1gXCBSc/dAR/WQRKjUZPYtwl2iRk+mw95HQblKWm3QFHTKW1jIafQxPdWsTmpM8sYP49pZz/jguar23CimpO79scIdh1K53Fs+kJjm8Qgby/t3J9bLdGHcyNqscrTFDl2rYCqpjvjA5z5xnxzGaD878=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789146994; c=relaxed/simple;
-	bh=jCgA/PtEv73UVfOU39fz8CRPEArL+j7KZDABH1vZFk0=;
+	bh=9B3IOEHs1gaFMH3IZ6uQfcfDDHJv0dIjgXS4InKJfBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KPDSfZjuh3C8zK/LkW189j/xc4I7xw2ysf5wxKeVu8pK3O4AwGpAeVFggcRROCR7k4zz69BUifPrG0EahvxtmmIS9MPgsTPFG2e6RILGONnPhAe6/QgXezPuuiZqlSqosn7fhbqkZZ0p/6iTF/rDTBA/SJxWRnP7sDSoAc++WDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhnzT1Ox; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d5z8KpGFghedC/+LFSZXxKu4KC34DpellLT7RDuyuTe1QIRskQ1F74jBbLFJmGX0OHMrzJJu0Cnb8ggzyuT/PtlqQKfeZNSMOuTUf97XJEO5Vk6MHTGkdNYXKTBkie382mKPKsOTr6Z+4r77j4NAH/e+KMTnZS6LZj6p/YPGpXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTbYedye; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhnzT1Ox"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8EC1F00899;
-	Fri, 11 Sep 2026 17:16:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTbYedye"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921341F0089B;
+	Fri, 11 Sep 2026 17:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789146986;
-	bh=cKaZwoinx9O4Yls3xJdMYix/ztBip0qUX8LB3d7R6bc=;
+	s=k20260515; t=1789146987;
+	bh=Gv8IjDN5/hFL45zWCYIQxy2b2EmqHS7FYFlffdE5J7M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nhnzT1OxANEWxfWynS5l4JgmXTq6aLUJv4LSSDlzeW2DRKgfrI8Ri9TPAqh9g37Ur
-	 pIkN7l/xcpZd1QfWyH0Ju3nQUBH/htZjsDTeYuspI2wID982Kq6IRqPsrT8yIWlHIy
-	 hYPYl+Q+gqOapZ/OEb7fHsTuRGr4HrKCkQs2/W3WDIZCW3yZhQsTOKijn+IdSwULgL
-	 mF2/xcZw5CbKFL0Az4ZGdq7LeE6D7Vj14O1StROsr2mHXDneayqpoPJir/ZMSl0SIm
-	 GF3WR1Q1yFSbZq7fo2kaRVuyFeXA1FpXnOCi5ock2b6+l5XH+nDKxSUwzyNpf8jxym
-	 YJCvTl/wm/yBg==
+	b=PTbYedyeGaIFwSY2qfmOvLAltshZ8UisOOr/Dh4NJGHvTAmvor3TZQsmfeT4x7l/3
+	 V6Ltc0iV7ELjqXjEWDbFxVck/DLK/6fcbvxdC2mGNw+Ivn0Usq+2/m1ikWdS5rCK7f
+	 4jK/GjzpdDBDboDp9dImh4SFCeycs+Ehjw+nn+LYo/h2w6h+hcwecwDqjL0H4VZAs8
+	 Q7i5rX6gE2sEWbtbw97GMMX9AJtxRALpeynCKiIXc/wzrlCW6BX4YltoVsGOykJuol
+	 743g4aLD/S0IHCJHdqxkFdVCy3AuN1Io5aHUxnG8g+CPbA1vLSTtBHJvovXi1WnpHH
+	 bgARvl+aB+X3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Hannes Reinecke <hare@kernel.org>,
+	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] scsi: qla2xxx: Use ring-slot helpers in __qla2x00_alloc_iocbs
-Date: Fri, 11 Sep 2026 13:16:23 -0400
-Message-ID: <20260911171624.1221503-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot
+Date: Fri, 11 Sep 2026 13:16:24 -0400
+Message-ID: <20260911171624.1221503-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090949-percent-chivalry-9e9e@gregkh>
+In-Reply-To: <20260911171624.1221503-1-sashal@kernel.org>
 References: <2026090949-percent-chivalry-9e9e@gregkh>
+ <20260911171624.1221503-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,87 +49,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 7e51b6d2d8f6b7f48d9cef1cf87471b55b12f6de ]
+[ Upstream commit 626e44f3d8a924a97a3848a9fd45833947e081e9 ]
 
-__qla2x00_alloc_iocbs() open-codes ring pointer selection and entry size
-based on IS_QLA29XX(ha): 29xx reaches the slot via ring_ext_ptr and
-zeroes REQUEST_ENTRY_SIZE_EXT bytes, while other adapters use ring_ptr
-with REQUEST_ENTRY_SIZE bytes.
+For QLAFX00 the request ring is ioremapped device I/O memory
+(ha->iobase + req_que_off), not DMA-coherent RAM, which is why the rest
+of the FX00 path accesses it through memcpy_toio() and the wrt_reg_*
+helpers. __qla2x00_alloc_iocbs() however zeroed the producer slot with a
+plain memset(). On architectures such as ARM64 a regular memset() may
+emit unaligned or block-zeroing instructions (e.g. DC ZVA) that are
+invalid on Device memory, leading to a synchronous external abort.
 
-Replace the two branches with the qla_req_ring_slot() and
-qla_req_entry_size() helpers, and initialise pkt at declaration.  The
-IS_QLAFX00 register-mapped writes remain guarded because IS_QLAFX00 and
-IS_QLA29XX cannot be true simultaneously.
+Use memset_io() to clear the slot for QLAFX00, matching the I/O
+accessors used elsewhere on this ring. Other adapters keep the plain
+memset() on their DMA-coherent rings. The zero-fill is retained for FX00
+because its IOCB builders (e.g. qlafx00_fxdisc_iocb()) copy only part of
+the entry and rely on the unused tail being pre-zeroed.
 
-No functional change: the bytes written to the firmware-visible IOCB are
-identical.
-
+Fixes: 8ae6d9c7eb10 ("[SCSI] qla2xxx: Enhancements to support ISPFx00.")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-24-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-12-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-
-Stable adaptation:
-This tree has no QLA29xx support, extended request ring, or ring-slot
-helpers. Provide file-local macro helpers mapping to req->ring_ptr and
-REQUEST_ENTRY_SIZE, preserving the existing 64-byte ring behavior without
-adding functions or importing the unrelated QLA29xx support series.
-
-Retain the helper calls and declaration initialization from this change.
-Use a multiline packet-preparation comment so commit 626e44f3d8a9
-("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
-applies unchanged, including its leading context. That commit remains
-responsible for changing the FX00 clearing operation to memset_io().
-
-Stable-dep-of: 626e44f3d8a9 ("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_iocb.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/scsi/qla2xxx/qla_iocb.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
-index 0b41e8a066026..1a3a276925b82 100644
+index 1a3a276925b82..4764d5066caf6 100644
 --- a/drivers/scsi/qla2xxx/qla_iocb.c
 +++ b/drivers/scsi/qla2xxx/qla_iocb.c
-@@ -11,6 +11,10 @@
- 
- #include <scsi/scsi_tcq.h>
- 
-+/* All adapters supported by this tree use the 64-byte request ring. */
-+#define qla_req_ring_slot(ha, req) ((req)->ring_ptr)
-+#define qla_req_entry_size(ha) REQUEST_ENTRY_SIZE
-+
- static int qla_start_scsi_type6(srb_t *sp);
- /**
-  * qla2x00_get_cmd_direction() - Determine control_flag data direction.
-@@ -2286,10 +2290,9 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
- 	struct req_que *req = qpair->req;
- 	device_reg_t *reg = ISP_QUE_REG(ha, req->id);
- 	uint32_t handle;
--	request_t *pkt;
- 	uint16_t cnt, req_cnt;
-+	request_t *pkt = NULL;
- 
--	pkt = NULL;
- 	req_cnt = 1;
- 	handle = 0;
- 
-@@ -2343,10 +2346,12 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
- 		sp->handle = handle;
- 	}
- 
--	/* Prep packet */
-+	/*
-+	 * Prep the current request-ring slot.
-+	 */
+@@ -2351,11 +2351,13 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
+ 	 */
  	req->cnt -= req_cnt;
--	pkt = req->ring_ptr;
--	memset(pkt, 0, REQUEST_ENTRY_SIZE);
-+	pkt = qla_req_ring_slot(ha, req);
-+	memset(pkt, 0, qla_req_entry_size(ha));
+ 	pkt = qla_req_ring_slot(ha, req);
+-	memset(pkt, 0, qla_req_entry_size(ha));
  	if (IS_QLAFX00(ha)) {
++		memset_io((void __iomem __force *)pkt, 0,
++			  qla_req_entry_size(ha));
  		wrt_reg_byte((u8 __force __iomem *)&pkt->entry_count, req_cnt);
  		wrt_reg_dword((__le32 __force __iomem *)&pkt->handle, handle);
+ 	} else {
++		memset(pkt, 0, qla_req_entry_size(ha));
+ 		pkt->entry_count = req_cnt;
+ 		pkt->handle = handle;
+ 	}
 -- 
 2.53.0
 
