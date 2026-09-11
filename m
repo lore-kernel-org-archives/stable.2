@@ -1,120 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9522D5C7A
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBED0348896;
+	Fri, 11 Sep 2026 14:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.68.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136190; cv=none; b=X8nUzHDWGSErY4hY2qENJs0efluA9eBNvnsx7m50lbD+5x7fxMs3Mq1ilsyBNsmliKW7uoTXwQiX8QtP3iKPBRRqjcJ4W4I4222X9ex5IWTPAlLxeRgMUnFhBDjatWyaNG2OP4vm3YtHqvcX2359VDoIecnSMMG6AVoeWMFun58=
+	t=1789136499; cv=none; b=FwMPe3/YcTRTe1UZ1H/uL5rFlrqM6Lb6KmR51LdHQfSNNpXIOanRNQHhjuiT3SRXKCVZVdczzKHqyZbCwJHk9FS3IHsQjsoDz9cmJ7ozTA8Vw/Ds6TeGgTSeP8dUrz4UN++fDSjI4TBAsFfG7tRwuPcvnXEtp1B/NfGcZMumikw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136190; c=relaxed/simple;
-	bh=okggne/WwfobXSSEkO8qeggjxtx5MXTAiXOHhsEwIP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LLjKZ3ffqPZOstta/4tSRaPsT7u4rwm7e4pg0HJMdTMuJoPBvyfS7fYORSOT4SVJbkrh/Kbwk9+/gNVEhHI4wKS99e4nOl6oz0ztFAgZhWxh0hmGD31Qd0vZTWqEGqO1TvQfpUMMtt99CmTls7HKDR9ZspCoQDH/nKfOe35D9Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EA6oxfP/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789136499; c=relaxed/simple;
+	bh=VUEzRwZBbW36v01xG0o83cDpXLNyNmfI9HXo44wIdn4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QHM+ExN9vJVlqjbuhzy6P3tJmOnGrhKxj4ajVreKaoybMzRyINs2XukvN60LnHbPpWxnm0X7n9ofpo1cNEhFHVMhRIOz4eOe9nPnY5MeAu21hfTj+oHYHKexr3v3ogc5fynrJcY7jZGeH0Zjcs7aCYy1HXZZ25Q/MgBzuKhm0S4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=OYDx4bVs; arc=none smtp.client-ip=44.246.68.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EA6oxfP/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C62D1F008A2;
-	Fri, 11 Sep 2026 14:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789136188;
-	bh=dWqBSV/wdZAYat+t3j7r6rG2oS81gD6xXvi3m8OnGRo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EA6oxfP/gD1b4AMaXv4BVbbdOPIvv5ROsMh7Wpq871oLjiswqadqhW3yaLHO6XGj0
-	 S/CPI3K2UEso42Dybywirr9+8xc6SybH1pJxb4R9r2edWvNTCYEobG3qOTonnJr1Wu
-	 R6Q6+PE80+YpOp8HkChebwUwcZUwv3dh9T8VAv3z2myFv3GrKMCZpdncjfcYhfdyc2
-	 9IysVJ9EM4w3L4y7nBdeQYrgnoSJ2i41L02XplYh0KBghrd7EEBlngsw4N1mDDQ3/4
-	 ZWbSKufFDRtwdYgB1/2XFw06EEemJYreOmpBOJcWQIlBNif1fOJkxRx5y1cRhyWEHL
-	 tjeClVVivCIwA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: qla2xxx: Initialize NVMe abort_work once at submission
-Date: Fri, 11 Sep 2026 10:16:26 -0400
-Message-ID: <20260911141626.765367-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090908-emblaze-startup-caf3@gregkh>
-References: <2026090908-emblaze-startup-caf3@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="OYDx4bVs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1789136498; x=1820672498;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gptPpxw0wFk91egaNInUnptSeER0SPdng9bGfnf/tP4=;
+  b=OYDx4bVs8WPzmf1ZCTC6WZ+uu1YRP/M2lVFUTIXC98/4zFEUwY87NTPz
+   0oHsa6QWY9tk0WxX3HAunbKkUdyvNCTnfEsbc68imQ5NiJHWTAlEo+TZH
+   RI+nMjmcSMjNsfrAyw/FFU3q+9FXBo1wZhZWIhbyDrB3+jWaMx2wu5oXi
+   HBcRAnZMAc8Ebu5BThQ5YRSUc2V4m9qPLajoF4z9czcgoeMiZqgJR73L7
+   KwDQDaWx2u3Gru/UmNIZuDunnAEcYkAF85WJ6qRUcSNyZLq0YwXrQcotx
+   Kiqq/IFyPGUdHkcu3dVYFuCvOCnORLHgYv4dEMIYAbZLC5u44OjUd/qDz
+   w==;
+X-CSE-ConnectionGUID: I7XG1V8IQNGYo35kGCunpg==
+X-CSE-MsgGUID: TOfcsjxZS1+qduGqGhMONw==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="28340119"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:21:35 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:24846]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.62.198:2525] with esmtp (Farcaster)
+ id 15edf2e1-39ad-4826-a4a7-d73e88fdd306; Fri, 11 Sep 2026 14:21:35 +0000 (UTC)
+X-Farcaster-Flow-ID: 15edf2e1-39ad-4826-a4a7-d73e88fdd306
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 14:21:34 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 14:21:30 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <linux-kernel@vger.kernel.org>
+CC: <hch@infradead.org>, <abuehaze@amazon.com>, <akpm@linux-foundation.org>,
+	<alisaidi@amazon.com>, <blakgeof@amazon.com>, <brauner@kernel.org>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hannes@cmpxchg.org>, <jackmanb@google.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>, Vlastimil Babka
+	<vbabka@suse.cz>, David Hildenbrand <david@redhat.com>, Christoph Hellwig
+	<hch@lst.de>, Brendan Jackman <brendan.jackman@linux.dev>
+Subject: [PATCH v5] mm/page_alloc: avoid direct compaction for costly  __GFP_NORETRY allocations
+Date: Fri, 11 Sep 2026 14:21:02 +0000
+Message-ID: <20260911142102.2294202-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-From: Nilesh Javali <njavali@marvell.com>
+Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+introduced high-order folio allocations in the iomap buffered write
+path.  When memory is fragmented, each failed costly-order allocation
+enters __alloc_pages_slowpath() which runs direct compaction and
+drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL
+pgbench (simple-update) with 1024 clients on a 96-vCPU arm64 system.
 
-[ Upstream commit 7e85f6dbc85616de2172bce8eaf84b387a723cd1 ]
+The root issue is that direct compaction is too expensive for hot
+allocation paths that have fallbacks to smaller allocations.
+__filemap_get_folio_mpol() already marks higher-order allocations with
+__GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+failure.  However, the page allocator still attempts full direct
+compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+aggressive when the caller will simply retry at a lower order.
 
-qla_nvme_fcp_abort() and qla_nvme_ls_abort() ran INIT_WORK() on
-priv->abort_work immediately before schedule_work(). INIT_WORK()
-reinitializes the work_struct, resetting its list head and clearing the
-pending bit. If an abort is issued more than once for the same command
-(for example, concurrent transport teardown and a timeout-driven abort),
-the second INIT_WORK() reinitializes a work item that is already queued,
-which can corrupt the workqueue list and lead to crashes or a looping
-worker.
+For costly-order allocations with __GFP_NORETRY, suppress direct reclaim
+for the whole slowpath by computing can_direct_reclaim (and hence
+can_compact) as false.  The !can_direct_reclaim check near the top of
+the slowpath then short-circuits to nopage: no direct reclaim, no direct
+compaction and no drain_all_pages() IPI across every CPU.  kswapd (and
+in turn kcompactd) is still woken further down for background
+defragmentation, so compaction keeps working for long-term system health
+while being removed from the latency-critical direct allocation path.
 
-Initialize priv->abort_work once at command submission, next to the
-existing per-command spin_lock_init(&priv->cmd_lock), and leave only
-schedule_work() in the abort paths. schedule_work() already does nothing
-when the work item is still pending, so a repeated abort no longer
-disturbs an in-flight work item. The command is not returned to the
-transport until the final kref_put()/release callback runs after
-abort_work has completed, so the work item is idle before priv is reused
-and the single submission-time INIT_WORK() is safe.
+Allocations that also request __GFP_THISNODE are exempted.  That flag
+pairing identifies the local-node-first THP attempt issued by
+alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+form transparent huge pages.  __GFP_NOFAIL is exempted as well, so a
+must-not-fail allocation is never made to fail.
 
-Fixes: e473b3074104 ("scsi: qla2xxx: Add FC-NVMe abort processing")
+Test environment:
+  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+             12x 1TB IO2 32000 IOPS RAID0 XFS
+  OS:        AL2023
+  Kernel:    v7.3-rc1
+  Database:  PostgreSQL 18.4
+  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+
+Results (average of 3 runs, TPS):
+  Config                                       Avg TPS   % vs baseline
+  AL2023 stock 6.1 kernel (pre-5d8edfb900d5)   136,942           n/a
+  v7.3-rc1 baseline (no patch)                  59,408             -
+  v7.3-rc1 + this patch                        161,994       +172.7%
+
+The patch fully recovers the pre-5d8edfb900d5 performance, bringing
+throughput back above the pre-regression level and well clear of the
+~59k baseline.  The AL2023 6.1 row runs a kernel that predates commit
+5d8edfb900d5 ("iomap: Copy larger chunks from userspace"), so it is not
+directly comparable, but it shows the pre-regression level and confirms
+that the ~59k baseline is the anomaly and not the norm.
+
+
+Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
+Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-52-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-xfs@vger.kernel.org
+Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
 ---
- drivers/scsi/qla2xxx/qla_nvme.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v5: Derive the decision into a local flag instead of mutating gfp_mask
+v4: Clear __GFP_DIRECT_RECLAIM early in the slowpath and exempt
+    __GFP_THISNODE so THP attempt keeps using direct compaction
+v3: Move to mm/page_alloc.c, wake kcompactd instead of avoiding it
+v2: Move from fs/iomap/buffered-io.c to mm/filemap.c
+v1: Avoid compaction in iomap folio allocation
 
-diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
-index 622b11660b67c..2c1b17a594206 100644
---- a/drivers/scsi/qla2xxx/qla_nvme.c
-+++ b/drivers/scsi/qla2xxx/qla_nvme.c
-@@ -309,7 +309,6 @@ static void qla_nvme_ls_abort(struct nvme_fc_local_port *lport,
- 	}
- 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
- 
--	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	schedule_work(&priv->abort_work);
- }
- 
-@@ -347,6 +346,7 @@ static int qla_nvme_ls_req(struct nvme_fc_local_port *lport,
- 	priv->sp = sp;
- 	kref_init(&sp->cmd_kref);
- 	spin_lock_init(&priv->cmd_lock);
-+	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	nvme = &sp->u.iocb_cmd;
- 	priv->fd = fd;
- 	nvme->u.nvme.desc = fd;
-@@ -391,7 +391,6 @@ static void qla_nvme_fcp_abort(struct nvme_fc_local_port *lport,
- 	}
- 	spin_unlock_irqrestore(&priv->cmd_lock, flags);
- 
--	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	schedule_work(&priv->abort_work);
- }
- 
-@@ -657,6 +656,7 @@ static int qla_nvme_post_cmd(struct nvme_fc_local_port *lport,
- 
- 	kref_init(&sp->cmd_kref);
- 	spin_lock_init(&priv->cmd_lock);
-+	INIT_WORK(&priv->abort_work, qla_nvme_abort_work);
- 	sp->priv = priv;
- 	priv->sp = sp;
- 	sp->type = SRB_NVME_CMD;
+ mm/page_alloc.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..be8b0d72a2db 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4784,10 +4784,22 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback to a lower order,
++	 * so don't stall them in direct reclaim or direct compaction.  Exempt
++	 * __GFP_THISNODE (the THP attempt from alloc_pages_mpol() needs direct
++	 * compaction) and __GFP_NOFAIL (must not be made to fail).  Don't
++	 * clear __GFP_DIRECT_RECLAIM from gfp_mask instead: that would also
++	 * change the alloc_flags derived by alloc_flags_slowpath().
++	 */
++	const bool costly_noretry = costly_order &&
++		(gfp_mask & __GFP_NORETRY) &&
++		!(gfp_mask & (__GFP_THISNODE | __GFP_NOFAIL));
++	bool can_direct_reclaim = !costly_noretry &&
++		(gfp_mask & __GFP_DIRECT_RECLAIM);
+ 	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+ 	bool nofail = gfp_mask & __GFP_NOFAIL;
+-	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
 -- 
-2.53.0
+2.50.1
+
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
