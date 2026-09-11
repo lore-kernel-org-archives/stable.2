@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183684AD7C7
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3704AD4B8
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149502; cv=none; b=B/tSyZTM1vh5VpE04Bco5SJ98A7ctD2bVaZkG+Ow3QoYoNTjdWJ9nB5AiRU47wGp6dnYbebR9uwM46wZiL/vehS4PhsutHVz2I0FUcYclZgcVCqAG3Y6DmFRHMYqMLdTgo76XmwVp+erkaUwIjq95xNj2LcPho4JwnVJs5rtR+Y=
+	t=1789149504; cv=none; b=EE25X5utV4kbKyQFiHPe6f6lja8krwnmFOy7jblBQpltagvs868hmDDZEocjTxyIs1CuVSFpzdtVIv5ZDOP0xeau9qfOTIn1obHqE8RSnYkLvNyB0a4V596MyZvIs9gkUZcMWfwz0n5KAZMWwvTWnLDFlL7tBtGpMRaUqHGIAa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149502; c=relaxed/simple;
-	bh=K0QN+3vFsh2bCPMjakdSvE7O0MKuvRPJmkC+F5hJrwE=;
+	s=arc-20240116; t=1789149504; c=relaxed/simple;
+	bh=8rd/1i1lNrtXYWJD0sh+V0bl2V+wQO3xxr53FnsHkrM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tC5ut+zAuru8soqD2cW+rrHYcFk7H7kgKu89gYkh9m2smj+Iouj/Cnd69vHstoW+DHSmjrOjcdGtJ8nJP5IVL1d+19f/RcHghHnLfh3Rp6SpDY/0HHv+Hqip/td43/w220bfL7wu3b7nMAK/BIWCX+EjSrh6LU5aFAEtav3vcPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mTVjHEzs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DOxZFY5xst2mxqxzeHsjp5mvPPjCjUMbpaexphUv3kYtjDfKb7TBEH/NryNxvQP08R/DKEMWj45rz92z65W2HPjxfDpyHGsJPuZdO7b1CHGSa9ZXZjFoZxYrjC0EeXygZxK/Xb0tUrsBAWrHjSL8t/N1/doxilOhXVwGRP1c/ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fP97CQGg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mTVjHEzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29F2A1F00899;
-	Fri, 11 Sep 2026 17:58:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fP97CQGg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8919F1F000FF;
+	Fri, 11 Sep 2026 17:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149500;
-	bh=OnEYW0cOMmDrQDYHOJKgvZ/nQoTZJ8hNcg/x1VD71iM=;
+	s=k20260515; t=1789149502;
+	bh=WrFvFHZo7zM9wzVZyw6rnykFgTP2CMkNUuwQlMBa/MU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mTVjHEzsMrH5/k1SCvuU1nvtRze9/vTwqojc23K5OruBuTjDYpI1T6kcVDZQ9t/2k
-	 FH7XFb9wGvL5/VQBI8vWFLvO4/ycZHxWpbAMIEFDmQN3w8v3r7JAmMN+2bsJ9qv1MI
-	 8jjZsQSXqBKcIoPP1cjPk6V6ZhsfDerSqT/60HB1zdtjix+RQitGfJlbb2Y/swquMX
-	 mvDibLZi0MebXbrqdXwfh+oMWSPelTGw6lXmZFkkWiODnHtFluerdSFztU0AFH0UhF
-	 ddPL/8LrSiqkPCEgOf0Puci9XfW+26sd5xHHrnWVwnvqiY3GO+2jfzaFCAzMfvD1jY
-	 P1HsZAGPaNOsg==
+	b=fP97CQGgT73Kv2igGv4BnACKagcHR22J8h9sUGqQZzKWFDuHyMNAgpYriTrP+ZFW6
+	 9vxafIOPUn670RS4x09B8xqaVOazwhp/rjY/5OjwIohPlOXqIDmI4oxhgpdc6Uosoj
+	 M1HiIKzBfr7j1liRDP+A/fd7QWmAGY2nbmLe1mFBmcu75+3opTxYgpu2jrNZjnmHgE
+	 SUdTdarsP7fUeOCwwS0ggg0E+at1XHJW87F4Uriur9r6XCclZFGFeThpTy3m00neem
+	 27wrX1N9MScipsqzg7ZxGOOEfZU0HyLCARzuxptvh3SkGGP+4466s67RcFet5mhTPT
+	 sNQoKMTiFpw6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Sashiko <sashiko-dev@google.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] scsi: qla2xxx: Quiesce response IRQ before freeing request queue
-Date: Fri, 11 Sep 2026 13:58:18 -0400
-Message-ID: <20260911175818.1283206-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] scsi: qla2xxx: Unlink NVMe unsol ctx before freeing on LS reject error
+Date: Fri, 11 Sep 2026 13:58:19 -0400
+Message-ID: <20260911175820.1283308-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090926-runny-splicing-02b9@gregkh>
-References: <2026090926-runny-splicing-02b9@gregkh>
+In-Reply-To: <2026090923-extortion-uncooked-f8ff@gregkh>
+References: <2026090923-extortion-uncooked-f8ff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,72 +48,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 505753ec2594c6af09a601f0dd60be7d840c1d2d ]
+[ Upstream commit e46160a5d4fa59bf4d5f3412b6b5cb79edb967dd ]
 
-qla2xxx_delete_qpair() deletes the request queue before the response
-queue. qla25xx_delete_req_que() frees the request queue memory
-(kfree(req) in qla25xx_free_req_que()), but the response-queue MSI-X is
-only released later, in qla25xx_free_rsp_que(). In that window the
-response interrupt can still fire, qla2xxx_msix_rsp_q() queues
-qpair->q_work, and qla_do_work() -> qla24xx_process_response_queue()
-dereferences the now-freed rsp->req (LOGINOUT/CT/ELS entries and the
-status path), a use-after-free.
+qla_nvme_xmt_ls_rsp() obtains uctx, which was linked into
+fcport->unsol_ctx_head by qla2xxx_process_purls_iocb() and is still linked
+when the NVMe transport calls back to transmit the LS response. On the
+error (out:) path the function frees uctx with kfree() but never removes
+it from the list. This leaves a freed node in fcport->unsol_ctx_head: the
+next list_add_tail() for that fcport writes through the freed node, and a
+subsequent list_del() can corrupt the list or panic.
 
-The cancel_work_sync() added for the qpair teardown lives in the
-response free path, which runs after the request queue is already freed,
-so it does not protect rsp->req.
+Unlink uctx with list_del() before kfree() on the error path, matching the
+other free sites in qla_nvme_release_lsrsp_cmd_kref() and
+qla2xxx_process_purls_pkt(). qla2x00_rel_sp() in the failure path only
+returns the SRB to its pool and does not invoke sp->put_fn, so the out:
+path is the sole free and uctx is always still linked there.
 
-Release the response-queue interrupt and flush qpair->q_work before
-deleting the request queue, so no late completion can reach the freed
-request queue. Clearing have_irq makes the subsequent
-qla25xx_free_rsp_que() skip its free_irq(), and the firmware
-queue-delete order (request then response) is preserved; the
-request-delete mailbox completes on the default vector and is unaffected
-by dropping the qpair response interrupt early.
-
-Fixes: d74595278f4a ("scsi: qla2xxx: Add multiple queue pair functionality.")
+Fixes: 875386b98857 ("scsi: qla2xxx: Add Unsolicited LS Request and Response Support for NVMe")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-18-njavali@marvell.com
+Link: https://patch.msgid.link/20260730155838.2119230-27-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adjusted context due to missing qla_free_buf_pool() call ]
+Stable-dep-of: 76da0c43c63e ("scsi: qla2xxx: Serialize NVMe unsol ctx list with a per-fcport lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_init.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/scsi/qla2xxx/qla_nvme.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
-index 4a057748ba175..7531e1df1e280 100644
---- a/drivers/scsi/qla2xxx/qla_init.c
-+++ b/drivers/scsi/qla2xxx/qla_init.c
-@@ -9327,9 +9327,26 @@ int qla2xxx_delete_qpair(struct scsi_qla_host *vha, struct qla_qpair *qpair)
- {
- 	int ret = QLA_FUNCTION_FAILED;
- 	struct qla_hw_data *ha = qpair->hw;
-+	struct rsp_que *rsp = qpair->rsp;
- 
- 	qpair->delete_in_progress = 1;
- 
-+	/*
-+	 * The response-queue interrupt schedules qla_do_work(), which
-+	 * dereferences qpair->rsp->req.  Release the interrupt and flush
-+	 * any pending work before the request queue is freed below so a
-+	 * late completion cannot touch the freed request queue.  The
-+	 * firmware queue-delete order (request then response) is kept.
-+	 */
-+	if (rsp && rsp->msix && rsp->msix->have_irq) {
-+		free_irq(rsp->msix->vector, rsp->msix->handle);
-+		rsp->msix->have_irq = 0;
-+		rsp->msix->in_use = 0;
-+		rsp->msix->handle = NULL;
-+	}
-+	if (rsp && ha->wq)
-+		cancel_work_sync(&qpair->q_work);
-+
- 	ret = qla25xx_delete_req_que(vha, qpair->req);
- 	if (ret != QLA_SUCCESS)
- 		goto fail;
+diff --git a/drivers/scsi/qla2xxx/qla_nvme.c b/drivers/scsi/qla2xxx/qla_nvme.c
+index 3160e212fab1f..e57c071eee323 100644
+--- a/drivers/scsi/qla2xxx/qla_nvme.c
++++ b/drivers/scsi/qla2xxx/qla_nvme.c
+@@ -446,6 +446,7 @@ static int qla_nvme_xmt_ls_rsp(struct nvme_fc_local_port *lport,
+ 		qla_nvme_ls_reject_iocb(vha, ha->base_qpair, &a, true);
+ 		spin_unlock_irqrestore(ha->base_qpair->qp_lock_ptr, flags);
+ 	}
++	list_del(&uctx->elem);
+ 	kfree(uctx);
+ 	return rval;
+ }
 -- 
 2.53.0
 
