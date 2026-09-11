@@ -1,200 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB584A6CDF
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C8C4B1473
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151513; cv=none; b=acW3LFH4ma+E4gdvYmrlOQWkSuaa02nF0zPRPHsNB73Mec15ajQGZVZQH1iTJY1NbBorrg2GUxtklI3zQ4yAM3jtkgBd48fLCL4a3NOWPl0A69edRG6ZE8ACYhV5ESUDcXFjjcf27qDIvEEpepo8+xUrDR7vT++O1YFnBGdCs3E=
+	t=1789151693; cv=none; b=BOLPSb92AWRJDlZ2q/3afGgUZsX7/N8Z+rA+gIR4OQr1rSlkKoQp7e15ju8Pjbe95+7uB6YoIABHjzlbjrBjWU2QTuf0PD+DGMojtdyGC1u4Xon8AYicEPAC8nbQyZZ8dOugFyOvMUjTOmA4jv9w7glcXexY/utRGrozPkQHyFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151513; c=relaxed/simple;
-	bh=7WU+zyGHFouyZLwlTA1tK5mAlVm1ldBp+TwJqKqL6Ww=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ccX7XI6AKmv85bc5z2woi0Zsi2g3elaCx8r3MVYRvvHFKY+DAVZqwEMphQjiOZb/dNrPRevp+CtxbgwjyXGNyRMaLINTJzDQfWxLEKVKY+pN/QHi5svJH3VxtVy4N5oB37wXSQyJjH32J44wzUznEkpscYhP4bTZQwpT7TQ4AwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oJsV6Usk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789151693; c=relaxed/simple;
+	bh=OH4TD0T1j9//gFx8Hjs8ilFM6X8S8rbMf9k/5jV8TiE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NwEJDs8Rg5Ca0gzIJkMGiPmj0c/H4gTXPJkdlNBoofLWnWebBctd8HbyUJibZpRN9bgeMcGiK2xSFCt21Boxlw5NMQXoGNV/t/VrpJazwq1BSZoxXPNJboCxO6N+5WjX61ag2KG/cH9a9cR5H3MtF7gFLiFAtZb6LoVPDKw8i6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BH3Gvypw; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oJsV6Usk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7051F000FF;
-	Fri, 11 Sep 2026 18:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789151511;
-	bh=xsQOcxJdi+Uh+1T1Jc6mOJ8o/0qFD6/NT02F2J4VDoA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oJsV6UskzpYIHcCJoTW1Nv35wtpU8+GsESUEgbQWF5zFjoLMO/LzRxccQ5fBbESTU
-	 CJWpjLeL3bDc+aKjVm0arniFC5Q8ChONOzptVeoGpE7Q6OqMnanPqJnjNyX7SJ0Kuu
-	 o8yFF8zobBjYTX+omiIpeA9M6/VYbvH0cnHZlgCfhMIR+zgYkNy7uRI+eNEfpFYe6I
-	 62IiOoDFaYOlwepI4IYbxHeRKJwOglToLrR2/Af1I2N/DqBlfjaWowJ0C0sEnJWSdV
-	 KzGtXdm7gyWbuA2kxAecEb6sfss/pyReO7ySGfuiIEEZ7ZAfNqYyiS23sHlytHNBzs
-	 qc8GIjKTt0k/A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: qla2xxx: Validate BSG request_len before reading vendor_cmd[]
-Date: Fri, 11 Sep 2026 14:31:49 -0400
-Message-ID: <20260911183149.1345135-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090915-magnolia-feel-118f@gregkh>
-References: <2026090915-magnolia-feel-118f@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BH3Gvypw"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-86d43cdee51so13314307b3.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789151685; x=1789756485; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hk2aRK1vwnRKpbCEcf4tT6rBkC59i6gDVNC/VnuWdwc=;
+        b=BH3GvypwzTzf+/oIl4NT6GDRmDXXMjcAHSrFZ4cRo8DRjyQMX3wTU+6QQRpubYyYx9
+         8z5CF1y8IHahAtaSdRTt+3L7xrZINfED0CTwHNaYpn0Yzm07BYK/rImo5Hzg+siyVle0
+         dAjB9jeLLVnAPJFVEQ1iAOJatM4KfTdlpcz6Kd8s1PCj6KZwfsGrJfPhJXmfMVdjFSFv
+         ldFZHmnNZJRofIi/4074FwY4VcpqfKU4K0jRslDR8vjcQCLzcTxLHmXdFUC4V2yZDf4H
+         1Ely8tSPnp6YN8/BXdBjT+y1q/EnpCpLfEBaLpFw0NzSldJ+Yslt7lBG/frIPIaSo9HG
+         pQEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151685; x=1789756485;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hk2aRK1vwnRKpbCEcf4tT6rBkC59i6gDVNC/VnuWdwc=;
+        b=c1UImHMN4dN+l/ei9uNT5jmBw39NADomb6Vgg3TGVXzQy1J3tiI7hV3qJuY7SRtab2
+         T/PVIKCrIo0LjdhlGLdd7rF376xPB8zzgwHJ7RTG5SQxNf86OoE8g+b4FP0mcIkxcTsu
+         sds0Qe4wlt9CVowNy19dshClMtIj0dqb3hYAPKPUIPKwanQqsd5moTb0CiiW/78TXmQq
+         pL0fEq5S+aCSdx9ZGc7AcbCIvSo9eCZvTx6apU8JtEO5FfUrmpNhnn+U5+4GaPR9xCn8
+         worsyq8uMFJMWODGZ1/832pI7pHG0HCr9QALX0k9Uph5G52kX8PlbPcEg+JsQuD+YW74
+         MFuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiZrylW6bR0FUTDlWYTfsD1iY3GN7dxZXidTYap01auq5A1Ih4u7RxPv1j854bxOK1zFgscuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kw6tt9tNVWK878XumzX8rD4VsGfs3WgjglBKtvasUX3aO7opTN
+	EcR7f4E8TGQvcyLh5u7qyz8Q5DLWYOXA/z3CrCJjJ3qEXNeV2CjFYE2c
+X-Gm-Gg: AYBFou18B0NtSh5FMtujhOb/vgYJx4slcsICMmOHhouVp1AtT4n2vHvWDl9Day1w3CV
+	c4v1UkVMpJD85nn9zjGQt/yi8Qb2DXU1OGSU9LbkpIu5g8Of64Zj7Q2/jgLbgaQ9wXorjJObjZR
+	IL7KgMBn15s0nApBrIGkk8zvihif8FecZo0nMns7AFDedZFvRp2t0OF7wladahu2M/juV2e9U18
+	TCylQM6JfTNT9b2hRTBf4RCe4oSyf15WFRPkLe2A6cRJi3WCHawe4wDTapVRK3eADuR2+7sgxCG
+	qxMHNwtUsBuFLImu2TLydYpEfZ6mW4aFt35AGm3vAvMbg9MTuEji/loIsN+c7oBUwAq6D5HeRDR
+	g2nmhM1lkYHycvolqeWiRC7CdFQOsivu1iznE5xL5ejRAXEcKc62pczAHgKRFDC6C8BuQC/eOC9
+	keRAAJloenuH23Hnffw6E7JlfLl+QNZDicYAQXHlV8b5UBijnA3f9wz/xvBWMrYgZ1ebuyTpKwH
+	Q==
+X-Received: by 2002:a05:690c:7107:b0:873:5bb2:6c31 with SMTP id 00721157ae682-884b2eb52bemr20024517b3.56.1789151684818;
+        Fri, 11 Sep 2026 11:34:44 -0700 (PDT)
+Received: from [10.138.10.6] ([185.98.168.14])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488a4c120sm14489077b3.38.2026.09.11.11.34.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 11:34:43 -0700 (PDT)
+Message-ID: <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
+Date: Fri, 11 Sep 2026 14:34:39 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------b6Pv0kWTnPJ4ZTrxShFmchbP"
 
-From: Nilesh Javali <njavali@marvell.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------b6Pv0kWTnPJ4ZTrxShFmchbP
+Content-Type: multipart/mixed; boundary="------------b0zZgz1THSQE2fTDm71bz4rh";
+ protected-headers="v1"; hp="clear"
+Message-ID: <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
+Date: Fri, 11 Sep 2026 14:34:39 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
 
-[ Upstream commit 4cf38dd9465736141263ebb63375868311a0ec81 ]
+--------------b0zZgz1THSQE2fTDm71bz4rh
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The FC BSG transport allocates job->request via memdup_user() using the
-exact user-supplied request_len. For FC_BSG_HST_VENDOR,
-fc_bsg_host_dispatch() only guarantees request_len covers msgcode and
-vendor_id; it does not account for the vendor_cmd[] flexible array.
+On 9/10/26 09:00, Bartosz Golaszewski wrote:
+> This iteration - in addition to the previous fixes - proposes to split
+> the QCE driver into a core part necessary to bind to the QCE DT node an=
+d
+> enable runtime power management in order to allow to drop the
+> interconnect votes, and the crypto part registering the crypto
+> algorithms. The core module is then enabled in arm64 defconfig while th=
+e
+> crypto part stays disabled by default.
+>=20
+> The QCE hardware crypto engine has several limitations that cause it to=
 
-qla2xxx then reads the command selector vendor_cmd[0] and, in several
-sub-handlers, vendor_cmd[1]/[2] or structures overlaid on the vendor
-command area without verifying request_len. A caller holding
-CAP_SYS_RAWIO can submit a short request whose vendor_id matches the
-host, triggering out-of-bounds heap reads (KASAN-detectable, and able to
-mis-select a command or panic).
+> produce incorrect results or stall on certain inputs. This series fixes=
 
-Add a central guard in qla2x00_process_vendor_specific() so the selector
-is always in bounds, restrict the early vendor_cmd[0] read in
-qla24xx_bsg_request() to sufficiently long vendor messages, and add
-request_len checks to the sub-handlers that read further:
-qla24xx_proc_fcp_prio_cfg_cmd(), qla2x00_process_loopback(),
-qla84xx_reset(), qla84xx_updatefw(), qla2x00_read_optrom(),
-qla2x00_update_optrom(), qlafx00_mgmt_cmd() and
-qla28xx_validate_flash_image().
+> several bugs and adds workaround allowing the deiver to pass crypto
+> self-tests.
+>=20
+> The failures addressed are:
+>=20
+> - HMAC self-test failures for empty messages
+> - AES-XTS returning success on zero-length input (should be -EINVAL)
+> - AES-CTR: partial final block causes the engine to stall, output IV
+>   derivation was incorrect
+> - AES-XTS with key1 =3D=3D key2 is not supported by the CE
+> - AES-CCM: partial final block and fragmented payload both stall the
+>   engine
+>=20
+> All fixes were tested on an SM8650 QRD board with
+> CONFIG_CRYPTO_SELFTESTS=3Dy and CONFIG_CRYPTO_SELFTESTS_FULL=3Dy.
+>=20
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.co=
+m>
+For stable, would it be better to not register the algorithms, thus
+preventing their use?  Another option would be to replace the whole
+driver with an always-on stub driver that just does power management.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
 
-Fixes: 01e0e15c8b3b ("scsi: don't use fc_bsg_job::request and fc_bsg_job::reply directly")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-31-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adapted hunks to the existing OPTROM helper and absence of qla28xx_validate_flash_image(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/qla2xxx/qla_bsg.c | 45 ++++++++++++++++++++++++++++++++--
- 1 file changed, 43 insertions(+), 2 deletions(-)
+--------------b0zZgz1THSQE2fTDm71bz4rh--
 
-diff --git a/drivers/scsi/qla2xxx/qla_bsg.c b/drivers/scsi/qla2xxx/qla_bsg.c
-index 23779a1f0cee9..3888621c3ce9d 100644
---- a/drivers/scsi/qla2xxx/qla_bsg.c
-+++ b/drivers/scsi/qla2xxx/qla_bsg.c
-@@ -158,6 +158,12 @@ qla24xx_proc_fcp_prio_cfg_cmd(struct bsg_job *bsg_job)
- 		goto exit_fcp_prio_cfg;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t)) {
-+		ret = -EINVAL;
-+		goto exit_fcp_prio_cfg;
-+	}
-+
- 	/* Get the sub command */
- 	oper = bsg_request->rqst_data.h_vendor.vendor_cmd[1];
- 
-@@ -756,6 +762,10 @@ qla2x00_process_loopback(struct bsg_job *bsg_job)
- 		return -EIO;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 3 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	memset(&elreq, 0, sizeof(elreq));
- 
- 	elreq.req_sg_cnt = dma_map_sg(&ha->pdev->dev,
-@@ -988,6 +998,10 @@ qla84xx_reset(struct bsg_job *bsg_job)
- 		return -EINVAL;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	flag = bsg_request->rqst_data.h_vendor.vendor_cmd[1];
- 
- 	rval = qla84xx_reset_chip(vha, flag == A84_ISSUE_RESET_DIAG_FW);
-@@ -1032,6 +1046,10 @@ qla84xx_updatefw(struct bsg_job *bsg_job)
- 		return -EINVAL;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	sg_cnt = dma_map_sg(&ha->pdev->dev, bsg_job->request_payload.sg_list,
- 		bsg_job->request_payload.sg_cnt, DMA_TO_DEVICE);
- 	if (!sg_cnt) {
-@@ -1482,6 +1500,10 @@ qla2x00_read_optrom(struct bsg_job *bsg_job)
- 	struct qla_hw_data *ha = vha->hw;
- 	int rval = 0;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	if (ha->flags.nic_core_reset_hdlr_active)
- 		return -EBUSY;
- 
-@@ -1519,6 +1541,10 @@ qla2x00_update_optrom(struct bsg_job *bsg_job)
- 	struct qla_hw_data *ha = vha->hw;
- 	int rval = 0;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	mutex_lock(&ha->optrom_mutex);
- 	rval = qla2x00_optrom_setup(bsg_job, vha, 1);
- 	if (rval) {
-@@ -1991,6 +2017,11 @@ qlafx00_mgmt_cmd(struct bsg_job *bsg_job)
- 	struct fc_port *fcport;
- 	char  *type = "FC_BSG_HST_FX_MGMT";
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + sizeof(uint32_t) +
-+	    sizeof(struct qla_mt_iocb_rqst_fx00))
-+		return -EINVAL;
-+
- 	/* Copy the IOCB specific information */
- 	piocb_rqst = (struct qla_mt_iocb_rqst_fx00 *)
- 	    &bsg_request->rqst_data.h_vendor.vendor_cmd[1];
-@@ -2793,6 +2824,13 @@ qla2x00_process_vendor_specific(struct scsi_qla_host *vha, struct bsg_job *bsg_j
- {
- 	struct fc_bsg_request *bsg_request = bsg_job->request;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + sizeof(uint32_t)) {
-+		ql_log(ql_log_warn, vha, 0x7000,
-+		       "BSG request too small for vendor cmd.\n");
-+		return -EINVAL;
-+	}
-+
- 	ql_dbg(ql_dbg_edif, vha, 0x911b, "%s FC_BSG_HST_VENDOR cmd[0]=0x%x\n",
- 	    __func__, bsg_request->rqst_data.h_vendor.vendor_cmd[0]);
- 
-@@ -2912,8 +2950,11 @@ qla24xx_bsg_request(struct bsg_job *bsg_job)
- 	}
- 
- 	/* Disable port will bring down the chip, allow enable command */
--	if (bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_MANAGE_HOST_PORT ||
--	    bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_GET_HOST_STATS)
-+	if (bsg_request->msgcode == FC_BSG_HST_VENDOR &&
-+	    bsg_job->request_len >=
-+		sizeof(struct fc_bsg_request) + sizeof(uint32_t) &&
-+	    (bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_MANAGE_HOST_PORT ||
-+	     bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_GET_HOST_STATS))
- 		goto skip_chip_chk;
- 
- 	if (vha->hw->flags.port_isolated) {
--- 
-2.53.0
+--------------b6Pv0kWTnPJ4ZTrxShFmchbP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqkSb8ACgkQszaHOrMp
+8lO7hg//dbVegiswT9OWuiiGRNL+3ZcajQKPRYop7Furtl8QGFJLNnPvy9HGsoC/
+dNu7zvnyjdvq0yUCPYUDX4FRu91ub4jeLjERVoiVt0vBG4vZ9Q+GaIOQkh8mN4zD
+9LOIe3f4oXZmcP2VNBmngRY74+liMEianyQS1VUum6ARhwG0w6J8lFAjTWcXGt23
+djST7HR04rLN/nhRR1+fNaoAkOVVrNP499u1Db/otch9dmWGXtdFc8x9Cr9Fqi+d
+796xeQyEG3uoRpKj9VAoNrJtKgEUe/ccZCDoBkxEyT6PE45rCj3sN6A0Yim4Pstg
+BCeppYc/tz076CaQ8JPm7/xuOhsm8pXfytihp/zBNQ1nsvm+mp46shmkqZteNo0W
+Xhw/Jjc4ZG+JjuIIGTpoPJ6sIP8atO8meSSmHnLAJnCfsMKZBDeQxNsxSHc+E1Qh
+RQ2JO9O7gF8XPmt0A1XdzuUp19k32ET50Q9/WQQUUG5I0bbBjUiO3OdTju5pYNuZ
+V9NYKGLGoQpSZ2oIHmfDU84rEwdHl1tewrWqtmUmRJ5o/3yzWRElBSmOkd89KJRz
+4ZItImyuy/eerN7T8Z7PP24Klc3mAFgT3cXGsY1yLyvBvJiHoutMvPwSNkGyB4ig
+opXcjqL9WRB65MrV6H1RG864VH4a4dlCmdemgBV2aJuTL4TCj7M=
+=zFw5
+-----END PGP SIGNATURE-----
+
+--------------b6Pv0kWTnPJ4ZTrxShFmchbP--
