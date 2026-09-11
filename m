@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AEA14BF92
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDFA17DFFA
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085739; cv=none; b=DgHhcstYMOySXM/RM8LDjuPFzcFsi3e2X5Vlz2/3P8WHx8VE8MSI5FyueumFaIvtzHUBf8eMU2q11MgVgP/O2Vy5n1NsfOsJPTVm5OXTdWH9fn281LKjkzOs2YVUAcAwRChTK7R/u/Ei73aOqEk6Ycbf/3aAU2CxhbCKJuib0h4=
+	t=1789085742; cv=none; b=KJFyH9Y0GmtzpF+1RcuKtXO4rz/dM/vSczixRKSGGEaR4OgpZAn9BTJkIOcX6PDVAkG5Ll06VdhoGKNnXpSo28wEYBcdXAwetxuddezLZXUstUYmzp+V5SNtNyfopC3blo3ZIflUFJgBkfYC0FF8ywVRXl72HmAOXnplUs8G60k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085739; c=relaxed/simple;
-	bh=OTVLUEAj0XKQPfQxTBRSDQDW5OpaCkS7e9CfjxgS3Aw=;
+	s=arc-20240116; t=1789085742; c=relaxed/simple;
+	bh=qGU+x6ESzLI+BUcd1/Jdw4/hxSJnwlJWuuLAP0OgO3Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dQs98p+8eiXjQIv7Sw7de/mQex+0HHWRtrw7hpHVEX/muTlHnzXN3iT/kHG3qqqJWtnoLpa9krFHRtnUnDNM67NCqrSjmUOwbDlie9ZxsyztLVXr2zUrSIztm4N8h36AvRBE7Hg9JNlmKn2zRzyUzS3T47VOI4v/30SF7Xnp9JU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VM32AG6C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Wno0fQ2h9vmhSiR4BB6IQSaLvLPORN9U1x5bnS4rbtxtrOeY8BbCPOzkFKLK+GDsmbnqKaIwf/YkqwL/2MFYMgNsjF0wA2TvZ5UH1Yuk/emSt4B5JIirrdAj400UKynGSbGyq16VqbsUhNYhMsXbUyAaOJq1zBMSxuJOcOdCc9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ9QuQWq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VM32AG6C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D251F00893;
-	Fri, 11 Sep 2026 00:15:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ9QuQWq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23161F000FF;
+	Fri, 11 Sep 2026 00:15:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789085737;
-	bh=jz3w+31kFPeB+aoB1ducTkb44AndDU5IgYnJnpmee6k=;
+	s=k20260515; t=1789085740;
+	bh=FOo/jaHM9eZa9ewG3h/QGbbnBxR5i+VxiW/ks94Fyjc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VM32AG6CtnXf0eNHDZgPMP7SBOC8D/F5lvOVf0T71ADQzpQiwEeTj3/VX2pz8Kt/H
-	 CIcxkqhBMIQZKlxt0iwyeWxUsOIA9ZodydIPkr121u2tW8OSbexWv04iG7E2ZmiJ7A
-	 AznN7PHfa5BNVMAe2ZKUIZ3zpuNYShyRz27ZgGSUgdemy4fGw84BvRHGNt+aCBRv3V
-	 3NPJ5LZY79A7r751E2iB/m+udG8ZiC8UdllQEr28LVxSj3b1OgI+4Vy2OUKcL9LL3c
-	 yuK1VTnz63G2d7v0riK0wdK/nrS4vdM96c661WhSHeK7w5h4mJjtCMZogN4RY3zvWK
-	 haXV3znzdgvyA==
+	b=hJ9QuQWqd6518IC3k6EPzpW6feIvADyQRs21AW5GYwBOpLOuAPZMVGeGNjlB3mY8m
+	 A5ZHeqkIaGREE4UmQtpKKO1Pxpd0wdJB77uqnB3RNxYsYkRmNTwvy136uFwPWNdpew
+	 pNJwIKMbdNbvyYkGABS9NZ0m49e6zt4YMxxA3PEUXjQdzDpFvtLRv1gMWiXLFulc2V
+	 pRXmvtM7w9K72Ol5CU9azcCTvxfjdxcfN45l3jrGBYVdOIowRmE4u/7RogfAVrj95P
+	 D7fMSAyvQ7dDdFPEph/cQu5vkRNSvQ9Ctf3r+chR1ldKQMwmNipHrvHX5lldVpIFlT
+	 3Cyiq7pSJqQsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Barry Song <baohua@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm: fix incorrect vm_flags usage when checking allowable orders for tmpfs
-Date: Thu, 10 Sep 2026 20:15:33 -0400
-Message-ID: <20260911001534.3302657-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] arm64: mm: Fix the lockless page-table walk in show_pte()
+Date: Thu, 10 Sep 2026 20:15:38 -0400
+Message-ID: <20260911001538.3303072-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090905-parabola-lasso-d089@gregkh>
-References: <2026090905-parabola-lasso-d089@gregkh>
+In-Reply-To: <2026090941-sustainer-talisman-a5d7@gregkh>
+References: <2026090941-sustainer-talisman-a5d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,87 +45,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 2fd4e7693674b17807a6d082feb01a3fbf86f5f8 ]
+[ Upstream commit a77644d009dece1104b6fcc6e322b0e4503db0d6 ]
 
-Lance reported that when nothing else causes the mm to be considered for
-khugepaged collapse, an MADV_HUGEPAGE-advised tmpfs VMA alone does not
-trigger scanning.
+show_pte() walks page tables locklessly and can run with interrupts
+enabled. A concurrent teardown can free a table page while it is being
+walked. It can also clear a parent entry after show_pte() checked it; the
+regular pXd_offset() helpers then reread the cleared entry and can derive a
+bogus lower-level pointer and fault again.
 
-After commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
-into shmem_allowable_huge_orders()"), the shmem/tmpfs allowable order
-check reads vma->flags directly.  However, when MADV_HUGEPAGE is handled,
-khugepaged_enter_vma() is called before the VMA's flags have been updated,
-so the check uses stale flags and incorrectly rejects the VMA for
-collapse.  As a result, khugepaged does not collapse the tmpfs file into
-PMD order in time.
+Use the lockless offset helpers with the saved parent entries, as
+gup_fast() does, and pass the saved PMD to pte_offset_map().
 
-Fix this by calling khugepaged_enter_vma() with the new VMA flags in
-madvise_update_vma().  Meanwhile we can remove the khugepaged_enter_vma()
-in hugepage_madvise().
+For task page tables, arm64 selects MMU_GATHER_RCU_TABLE_FREE. Disable
+local interrupts around the walk to hold off RCU-deferred table frees and
+block the tlb_remove_table_sync_one() IPI until the walk is finished.
 
-Link: https://lore.kernel.org/7d5b5eb27be798f89d563b06254c947ff53db0b2.1787020910.git.baolin.wang@linux.alibaba.com
-Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reported-by: Lance Yang <lance.yang@linux.dev>
-Closes: https://lore.kernel.org/all/20260815181632.21453-1-lance.yang@linux.dev/
-Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted newer VMA flag APIs to the older scalar vm_flags_t interface. ]
+Place the IRQ guard after the header print. This does not make the output a
+consistent snapshot, but prevents the task page-table walk from
+dereferencing a released table page or deriving a pointer from a different
+parent value.
+
+Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ replaced guard(irqsave)() with explicit local_irq_save()/local_irq_restore() to avoid declaration-after-statement warnings. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/khugepaged.c | 6 ------
- mm/madvise.c    | 8 ++++++++
- 2 files changed, 8 insertions(+), 6 deletions(-)
+ arch/arm64/mm/fault.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 6b3ba903ba390..a11e56ef99236 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -353,12 +353,6 @@ int hugepage_madvise(struct vm_area_struct *vma,
- #endif
- 		*vm_flags &= ~VM_NOHUGEPAGE;
- 		*vm_flags |= VM_HUGEPAGE;
--		/*
--		 * If the vma become good for khugepaged to scan,
--		 * register it here without waiting a page fault that
--		 * may not happen any time soon.
--		 */
--		khugepaged_enter_vma(vma, *vm_flags);
- 		break;
- 	case MADV_NOHUGEPAGE:
- 		*vm_flags &= ~VM_HUGEPAGE;
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 73f56b18c337d..b8c25fea4fab9 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -177,6 +177,14 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
- 	vm_flags_reset(vma, new_flags);
-+	/*
-+	 * If the vma become good for khugepaged to scan,
-+	 * register it here without waiting a page fault that
-+	 * may not happen any time soon.
-+	 */
-+	if (new_flags & VM_HUGEPAGE)
-+		khugepaged_enter_vma(vma, new_flags);
-+
- 	if (set_new_anon_name)
- 		return replace_anon_vma_name(vma, anon_name);
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index d8baedd160de0..edf82cced64dd 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -14,6 +14,7 @@
+ #include <linux/mm.h>
+ #include <linux/hardirq.h>
+ #include <linux/init.h>
++#include <linux/irqflags.h>
+ #include <linux/kprobes.h>
+ #include <linux/uaccess.h>
+ #include <linux/page-flags.h>
+@@ -116,6 +117,7 @@ static inline unsigned long mm_to_pgd_phys(struct mm_struct *mm)
+ static void show_pte(unsigned long addr)
+ {
+ 	struct mm_struct *mm;
++	unsigned long flags;
+ 	pgd_t *pgdp;
+ 	pgd_t pgd;
  
+@@ -139,6 +141,9 @@ static void show_pte(unsigned long addr)
+ 	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
+ 		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
+ 		 vabits_actual, mm_to_pgd_phys(mm));
++
++	local_irq_save(flags);
++
+ 	pgdp = pgd_offset(mm, addr);
+ 	pgd = READ_ONCE(*pgdp);
+ 	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
+@@ -152,31 +157,32 @@ static void show_pte(unsigned long addr)
+ 		if (pgd_none(pgd) || pgd_bad(pgd))
+ 			break;
+ 
+-		p4dp = p4d_offset(pgdp, addr);
++		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
+ 		p4d = READ_ONCE(*p4dp);
+ 		pr_cont(", p4d=%016llx", p4d_val(p4d));
+ 		if (p4d_none(p4d) || p4d_bad(p4d))
+ 			break;
+ 
+-		pudp = pud_offset(p4dp, addr);
++		pudp = pud_offset_lockless(p4dp, p4d, addr);
+ 		pud = READ_ONCE(*pudp);
+ 		pr_cont(", pud=%016llx", pud_val(pud));
+ 		if (pud_none(pud) || pud_bad(pud))
+ 			break;
+ 
+-		pmdp = pmd_offset(pudp, addr);
++		pmdp = pmd_offset_lockless(pudp, pud, addr);
+ 		pmd = READ_ONCE(*pmdp);
+ 		pr_cont(", pmd=%016llx", pmd_val(pmd));
+ 		if (pmd_none(pmd) || pmd_bad(pmd))
+ 			break;
+ 
+-		ptep = pte_offset_map(pmdp, addr);
++		ptep = pte_offset_map(&pmd, addr);
+ 		pte = READ_ONCE(*ptep);
+ 		pr_cont(", pte=%016llx", pte_val(pte));
+ 		pte_unmap(ptep);
+ 	} while(0);
+ 
+ 	pr_cont("\n");
++	local_irq_restore(flags);
+ }
+ 
+ /*
 -- 
 2.53.0
 
