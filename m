@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8D6388390
-	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:55:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D02C3D45D4
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120555; cv=none; b=bGIkMeslhhSDXWIy7/6vPPHP3t3POEmzf6XjLDW+HhGXxo27yCiBTKYQWkeBchb6DwycVw0azd50i6sQokMw+Pcz74N3mIXheJ2TXo98nNly9w2F4lifHW2Kjst4YgLTaed4ofPt7ZLy8RDi99s82nS1lAwtahTKoiYIv93+FhI=
+	t=1789120565; cv=none; b=WNPc/fTtbc2s1N1cBdZUyTmmTIZoYWhDEH/55BD4lPNyQB0esuwaaOfZ2jVdm65veWhYKy1yaOZgNB/tFl7ZG6f4Z6BQTgophFEexlVLzNAFraMgafLnSUujlwl2mm9Myh1R90Dw/PAJWiXZ6nYF9kTi1Hjyfm+IGp/oQy4GbqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120555; c=relaxed/simple;
-	bh=VuviMpvIeFgYRASIvXl+KqtnYw1xdTgfVN1by1XKUWM=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=POejKHUgiWtA601XQtlCUmDzLLv0yvXGri/w5sfKUotJ/XZoLgxBgL6fCIE91iyD8shBHtBLwURiY4ziA0Yt7krtTb80tFrCqfnwK6FDqSPwVnJreni2Z0xUUJPLk+x7+5twM2K2YeiYjVEQhz+Vzz9FbbK+peHMeaeiEwRPDrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BOLqy/QD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120565; c=relaxed/simple;
+	bh=+HScJy23i7tAv9pvIkBlX9tVEevfdCzfjZfvXzgCYZE=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=eRR6twVfTqCATVk9jkwtvnLQphS4mdYsg798lCkbiE5kVkZJPzaa5H/ySZxuJ7l92o9AZ4leve5cFA7sfMrqo7w+F2uMwTDcV1A9FP/v9WETR7Ibs9/F1ZWB2gIPSemw2Qa3bmii0efQ7t5qLNGcRkwljPV9qOIb2xb/JeZvjG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sNJoebYr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BOLqy/QD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B201F000FF;
-	Fri, 11 Sep 2026 09:55:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sNJoebYr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF171F000FF;
+	Fri, 11 Sep 2026 09:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120554;
-	bh=Et6annJT+5wLzlqA+4iTtoHXiCMAEqxgYFBn/73TW8Y=;
+	s=korg; t=1789120563;
+	bh=Y8qAX3Iq6mi5y/62rtRpdwrrxbQkXmASTvAyIzrp39c=;
 	h=Subject:To:From:Date;
-	b=BOLqy/QD2lbE7Uu/rE3OSR9J2xaV013aWCcidR2F/DTjk8ulNLOG49gi+aNY9OQDo
-	 D4RQWl2TxO+c/dvXhnl5naTW8CbiCAlin40+8n+ktw2FSt3KUgSlqXCbJX6Ec6B1Hk
-	 AOhvLgQZHVUJztezW869VfDX6INbBS7iDk9QCRnY=
-Subject: patch "iio: adc: ade9000: request interrupts after powering the device" added to char-misc-linus
-To: antoniu.miclaus@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com
+	b=sNJoebYr+DP1kjjdM493GwZYMvZ/JYSjvMAZukOwAxTtm4+ebipdUudthYEGw7gUj
+	 rc8RF8yxAswqYrYUP4l/kiakZvPyVtqxYTBlm5bL1pB6FDNT0hnxlGg7zxM4IrfPv8
+	 WJgSfBdQlHexoGzVt5M6/Kk7o2dzbyM5XYNVQf6Q=
+Subject: patch "iio: adc: ade9000: handle Phase C dip events in IRQ1 handler" added to char-misc-linus
+To: antoniu.miclaus@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 11 Sep 2026 11:55:31 +0200
-Message-ID: <2026091131-fifteen-mammary-24b3@gregkh>
+Date: Fri, 11 Sep 2026 11:55:32 +0200
+Message-ID: <2026091132-tameness-bulginess-ed21@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: ade9000: request interrupts after powering the device
+    iio: adc: ade9000: handle Phase C dip events in IRQ1 handler
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,72 +54,38 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From 88fda1ed51a579eb51980436abc6557006a520a3 Mon Sep 17 00:00:00 2001
+From fafefa925ed7ec10383d9bf0378abf878b7f13cb Mon Sep 17 00:00:00 2001
 From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Date: Fri, 7 Aug 2026 11:56:41 +0300
-Subject: iio: adc: ade9000: request interrupts after powering the device
+Date: Fri, 7 Aug 2026 11:56:43 +0300
+Subject: iio: adc: ade9000: handle Phase C dip events in IRQ1 handler
 
-The IRQ handlers do SPI register accesses, but the interrupts were
-requested before the vdd regulator was enabled. An interrupt arriving
-while the chip is unpowered runs a handler against a dead chip, causing
-SPI errors or garbage reads.
+ADE9000_ST1_CROSSING_DEPTH is the exclusive upper bound for scanning the
+STATUS1 event bits, so a value of 25 left out the highest event bit,
+ADE9000_ST1_DIPC_BIT (bit 25). Phase C dip events were never reported.
 
-Request the interrupts after enabling the regulator. This keeps irq1
-registered before ade9000_reset(), which waits on it, and lets devm free
-the interrupts before the regulator is disabled.
+Bump the value to 26 so bit 25 is scanned.
 
 Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
 Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/ade9000.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/iio/adc/ade9000.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-index c6c3ea953fea..51cb43755a1f 100644
+index 167b1f4d6279..da6caabfe2a4 100644
 --- a/drivers/iio/adc/ade9000.c
 +++ b/drivers/iio/adc/ade9000.c
-@@ -1705,18 +1705,6 @@ static int ade9000_probe(struct spi_device *spi)
- 	if (ret)
- 		return ret;
+@@ -219,7 +219,7 @@
+ #define ADE9000_ST1_ERROR2_BIT		BIT(30)
+ #define ADE9000_ST1_ERROR3_BIT		BIT(31)
+ #define ADE9000_ST1_CROSSING_FIRST	6
+-#define ADE9000_ST1_CROSSING_DEPTH	25
++#define ADE9000_ST1_CROSSING_DEPTH	26
  
--	ret = ade9000_request_irq(dev, "irq0", ade9000_irq0_thread, indio_dev);
--	if (ret)
--		return ret;
--
--	ret = ade9000_request_irq(dev, "irq1", ade9000_irq1_thread, indio_dev);
--	if (ret)
--		return ret;
--
--	ret = ade9000_request_irq(dev, "dready", ade9000_dready_thread, indio_dev);
--	if (ret)
--		return ret;
--
- 	/* External CMOS clock input (optional - crystal can be used instead) */
- 	st->clkin = devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(st->clkin))
-@@ -1736,6 +1724,19 @@ static int ade9000_probe(struct spi_device *spi)
- 		return dev_err_probe(&spi->dev, ret,
- 				     "Failed to get and enable vdd regulator\n");
- 
-+	/* Request IRQs only after powering the chip; the handlers do SPI access. */
-+	ret = ade9000_request_irq(dev, "irq0", ade9000_irq0_thread, indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ade9000_request_irq(dev, "irq1", ade9000_irq1_thread, indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ade9000_request_irq(dev, "dready", ade9000_dready_thread, indio_dev);
-+	if (ret)
-+		return ret;
-+
- 	indio_dev->channels = ade9000_channels;
- 	indio_dev->num_channels = ARRAY_SIZE(ade9000_channels);
- 
+ #define ADE9000_WFB_TRG_DIP_BIT		BIT(0)
+ #define ADE9000_WFB_TRG_SWELL_BIT	BIT(1)
 -- 
 2.55.0
 
