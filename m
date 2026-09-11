@@ -1,116 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043C0366816
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139518; cv=pass; b=BiPoJ5DV7+yxv1XJ0Vs77MwSzADpSw46m5rzXlqqYaTXaSk97pSX0WD1KAySpqeuMm9D8b/WemCUqw70+1+YOOwlrWebNlSGvoGPqMyCHyBKGW3OtcXMu50Z9Ol4wBs4IWxXSEdGDaI4N3TnLebKH712M5jvhqykid3JTidai2A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139518; c=relaxed/simple;
-	bh=a1WAq8z6Lr5iIEubA1slcVW5P1heZAnFuDZolrmXxz4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NBZQmRV1WN0pjTevxCXgDAByaR4/M+hyLTUfobfsdSw9cToFtKRJo0gztVu/K4bf6CQZZ70j7fA3ZQun/sdRJNDHJ3dLWE7WlIJKOkp9OHf5zFz/Xc2xeoGQerFWQlhhB9kRATGkrnPsyxdipvg3ThxGDOhSwzSqnoX4OZKi3TY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BKuu6Wdd; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F2B36B92C
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.205.69.214
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139623; cv=none; b=af9uKvYtO2uCKu/iR7vZfM9V97EqfngSxCDGXANU7FCuP8wDPISqy+NNnB2RUFDIfOk2fl4LBKLdotHQnvWg1kpgBsleEWXN71T980TjAua3OizKC4uvgGOxJRji/42Jt3BMnIAeeMyRxbBUBlrDqfgR/4MZWCzUTdjEJPcyb9o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139623; c=relaxed/simple;
+	bh=Au+SCB+zNI9l1fOceWRc8EraEyvsCHK/g1ACRBZm0BE=;
+	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:Content-Type; b=O3nQ7lFb5ebq7HLzJ/hgVRsYr42gr2vK1qRbSKr0vOYBuwJozKHQ8jvpA6xWlbIsSwYI/ISa4XOJ98Js7kysF6pxYutCG0OKdlIVp7WHtAsQbDYHJWB+SzLYbCpLn4MWgkNMJSVr6ezi2Htpve7j05+K4Xjh2Jn1QVd9XWa4xYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io; spf=pass smtp.mailfrom=tuta.io; dkim=pass (2048-bit key) header.d=tuta.io header.i=@tuta.io header.b=yftMiiXB; arc=none smtp.client-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BKuu6Wdd"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6cso115ad.1
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 08:11:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789139516; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K6pXy29kGpkwfX1eX5K07IECLKyPeIwj0M0Ze9KvKA+a9oeS4qiwWxcTQKRPOJWwux
-         eJvdRllUwVEGJMb+L+H8lrqyr3B6dKcFv6QyLS/F1MJcFe9S8dPXoK65pLIl1IuorseH
-         qQWaGy+LtTwDuJ9Tz0d7ki/KT5BndCGogwlIiiNfdplJhTJB3qMw9wL9djbaf7hU7i6L
-         xKZaglz+9CkLjtPnRRqUymy0ZbiUAO3iKZPH+DZ3OCt/dRSzSP2bIykj9NyKKG9IX5wX
-         TwE6yLGY/uLnxHz0buJ+QS8VXdNDTOhdmovGvyRgP/zJY3OphUogrFWWf4YsyfMK8Li0
-         KRNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        fh=zkNsCI3+RLEljHCVSDRrlCIN9QSu5RMePo5tjGGrPBI=;
-        b=iHMgBzyAX9XeFxIG6XDALXh+fywffWQ2g3URVL2UUfCWSQ8XPkVRZg/UsFzTUsvLN3
-         Q0iZFwgnOS3yjt36QG5zDuCmOsM9lYjUzsrPfgd1X+FRIQ6dQpxSoquM1JQYPLTdn3Z2
-         MgIF1UmpkeIxdPdgXjdb0BFJOVlNrrQ8SmhCyV2g25WmT8gchOFlAHUDaD9PwRa5cuCp
-         0cZSTR6aYfMy+gLH+jgwbmOMlIlBT3hW072NYWWxxq1Ev+QQvU8do9M5810AlCYRX0ZY
-         DkSBzKr5EOsQ9jiakz+kpp68vYBkAxpjipQxPcVG8kQ0rABWr1p7X7ixgn1UViCTAZlZ
-         Mc5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789139516; x=1789744316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        b=BKuu6WddAtNn13Ezu/myWUrl8wRcirs7lJnORviTmc1pNq3zz8wrOYdnDa7K2cWUjn
-         7qIuHQT7YQoVpdZfvYe5Hts8v0BvUZWf2y8Ncz6k/bzDPLJHpU5tPCS6kgo6K1KxYfsP
-         RM1s3g2ne7RHDHhc4E3ULstmP4N+Kjg+OgnrmS1AT/+/AARhli0F8jDgJ6QWLfe9beuU
-         24obPTwjhfvBcjcNQqwnl6G84hD6UML3GjvxMb9kFRnqQudyKTvO/xMmBgONinhnrLa8
-         7oqzOdmbLt8giRI9tnl4yNW2z8EbiYjD1vlBjw2CMS+3WSgOY8iZeZvIZnr6AXfv76CO
-         ffZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139516; x=1789744316;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        b=fArRKa79VCZsl7I59o+EjARUBmkA5aPeVHERRhYLUQ9QHbb7VdgcpsVgm1aZyDUaW0
-         h5M5ZebvOqwD4H6u6CFhjODIr01/C5Clsck074dgpp2BTDs+E679o70bUrFEXndQeD6g
-         osmvTjY8Vwrn7mCiwg4fygtDMjpyt+0/0GJEKNiOPyRH4L+kIZNTIaFYAGfR29Rham01
-         lQSCGHFamlwvlNclhYV8dzIFo2lysBjMpDcjog2dA/DscFvGlzVoBNdP/qEv8ujpzmAe
-         /xyJHIXhJpJFGpjlLviHe6R3pLAY4dIGDdwfVB7fbHN+PqjfT+dJIvdsXaCk5QXqLx/7
-         A1rw==
-X-Forwarded-Encrypted: i=1; AKwUvByFB65/G9oR48Ae6Q6IsRk3rAkMCu+ejcumiN4NMWiZV2ffEmDz73A1JiSORaZJ14SDOl4RfxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYY+J68qBPu615OQewnD6vXWPLz9kOfnj1OTSNDmyTH3ESNCDy
-	oL3wjlSRWJjvxDbrV8qkpICIznYAv6iT5wIrzX60lNJCHQF83LfsvlHaWY9OCj08YWO0mbqIRsT
-	r5k7GVUHeGqrBbum5cLZs8pN6CDMV5VzIvcoPvOBh
-X-Gm-Gg: AYBFou0y5EFphk9sbTuqq5NdykBwXKO5HTCEuBdx+1QawrWDXggGVBDH6s3UowotJgI
-	25cywRseXccHcYf5lKqgD1G3tDBJD5uxku956mQXaW00E7XkErWNR7QKOSkvjR5zgCbilo3khBt
-	jmQZKZgAoM9g1CFmp3EWzLz+7yPg/Ioh6hMmNIugXGwHgltzQIxbkc8FPVd+iuoIhqICRiivtCb
-	Qtu9FT9TF7GlfUjTpovmGT7Lqm4u/mRnIS0DEtsQehfpJtPUpU4C8Dj+vjK4oUa4D1adFbIRIF1
-	f9BbdcjUQ6GdXc4VuBZqF/YnmEdICY4r9e48sYXFEenX5ZwO4fGToMf4hAbcPHjVghg4jId1kLq
-	EP//8bB8CnDFpbgB8huM3FSL5QXZLRHj0PcDVV05yiw==
-X-Received: by 2002:a17:902:dacb:b0:2cf:4353:f117 with SMTP id
- d9443c01a7336-2dd2bf06220mr7129715ad.0.1789139515742; Fri, 11 Sep 2026
- 08:11:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuta.io header.i=@tuta.io header.b="yftMiiXB"
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w14.tutanota.de (Postfix) with ESMTP id 54DD4181EF6A1
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:13:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789139613;
+	s=s1; d=tuta.io;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
+	bh=i3FS69MrT4+l4qAK7QwAFh7KU8cJ5diW81tkTTXtX6I=;
+	b=yftMiiXByf7eFVuV31HWhbakeGZe1t7A2i6T9nH5i/9HVYwlEjaaDDmkMfrrXZ+h
+	PC2esGTxyX4EpUqen5OqeIsHJ9Rv/gj/yYUbEmUPZF7jyz2D+GHmNW7uFP0TWRVkqou
+	+zwaP4v21kxznYjhvT+Gnv3kkQvl96M+RiI44Yw2iIqAOCzQchwuNuUBTJ/vixAydMs
+	czplm48LAXVeCZ8hIrnkHGA9nlhqT9A02TD+doBal2iUSVN9sKLz08MP1WiHQm0Nu3X
+	eHIYpx/3OiuAd98+n2+SUL8ZhkHYV7MqRU03W0rSfYQAxigvBdBLvwoles3VmO0lGDe
+	oyszmflnTw==
+Date: Fri, 11 Sep 2026 17:13:33 +0200 (CEST)
+From: McKenna Fan <blue_sun@tuta.io>
+To: Rishabh Jain <rishabh.jain1198@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mario Limonciello <superm1@kernel.org>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Linux Usb <linux-usb@vger.kernel.org>,
+	Linux Kernel <linux-kernel@vger.kernel.org>,
+	Stable <stable@vger.kernel.org>
+Message-ID: <P1FsfbW--F-9@tuta.io>
+Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-cloexec-before-exec-update-lock-v1-1-8018c201a7df@google.com>
- <87qzj09gau.fsf@email.froward.int.ebiederm.org>
-In-Reply-To: <87qzj09gau.fsf@email.froward.int.ebiederm.org>
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 17:11:18 +0200
-X-Gm-Features: AcwNN1UfWUuTxT6T6m2fFK9oBs0vwCiHpncLk9iQ0jXOn-ma2wM-nV7MC9jABfg
-Message-ID: <CAG48ez3f=-Ydf6rQWRxgeD1jz40LTup3MUmNJgqAaUAgAekDuQ@mail.gmail.com>
-Subject: Re: [PATCH] exec: do_close_on_exec() before taking exec_update_lock
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Benjamin Peterson <benjamin@locrian.net>, Jan Kara <jack@suse.cz>, 
-	Arjan van de Ven <arjan@linux.intel.com>, Jake Edge <jake@lwn.net>, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Feedback-ID: 0187c20531a577579818688044ea8b1598dc676ba037cb422bc7fe017ce2170cff1d591c2b409c04f62272b1235757094d7c57ba2d2d5a547d0034541fbd608314:TurnOnPrivacy!:tutamail
 
-On Fri, Sep 11, 2026 at 1:30=E2=80=AFPM Eric W. Biederman <ebiederm@xmissio=
-n.com> wrote:
-> It has always been a requirement that in exec_update_lock not be held
-> for writing over any userspace accesses.  Which is why it is taken in
-> right after exec_mmap is done updating userspace.
->
-> In the original version I missed that do_close_on_exec calls flush
-> which can block waiting on userspace (Is that just a fuse thing?).
 
-It's particularly egregious in FUSE, but I think network filesystems
-can also block on network I/O in there.
+This is an independent test report for [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership.
 
-> Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
 
-Thanks for the review!
+I independently reproduced the problem and tested the proposed ownership behavior on a different AMD Promontory xHCI controller.
+
+My affected controller is:
+
+AMD B550 / Promontory-19 xHCIPCI 1022:43ee0000:02:00.0
+
+The machine runs Manjaro and uses ACPI deep/S3 suspend.
+
+
+I ended up collecting what is, frankly, an absurd amount of evidence while chasing this, including firmware analysis and repeated A/B testing, but the shortest useful version is:
+
+
+Stock Manjaro 7.2.4 kernel, no helper module loaded:
+
+EXTCAP_USBLEGSUP = 0x00000801EXTCAP_USBLEGCTLSTS = 0x40000000HC BIOS Owned = 0
+HC OS Owned = 0
+
+
+
+
+After entering deep S3:
+
+xhci_hcd 0000:02:00.0: xHC error in resume, USBSTS 0x401, Reinit
+
+After the failed resume:
+
+EXTCAP_USBLEGSUP = 0x00000801EXTCAP_USBLEGCTLSTS = 0xc0000000
+
+So HC OS Owned remained clear.
+
+
+I then booted a custom build of the same Manjaro 7.2.4 kernel implementing the proposed behavior of asserting HC OS Owned in the xHCI handoff path. No ownership helper module was loaded.
+
+
+Before S3:
+
+EXTCAP_USBLEGSUP = 0x01000801EXTCAP_USBLEGCTLSTS = 0x40000000
+
+HC BIOS Owned = 0
+
+HC OS Owned = 1
+
+
+
+
+I performed five consecutive deep-S3 suspend/resume cycles, including one approximately four-minute S3 residency.
+
+
+All five resumed without:
+
+xHC error in resumeUSBSTS 0x401Reinit
+
+After the final resume:
+
+EXTCAP_USBLEGSUP = 0x01000801EXTCAP_USBLEGCTLSTS = 0xc0000000
+
+HC OS Owned remained asserted.
+
+
+I then immediately rebooted back into the otherwise matching unmodified Manjaro 7.2.4 kernel. With no helper loaded, USBLEGSUP returned to 0x00000801, and the very first deep-S3 cycle reproduced:
+
+xhci_hcd 0000:02:00.0: xHC error in resume, USBSTS 0x401, Reinit
+
+This also agrees with earlier reversible testing using a very small test module which changed only HC OS Owned in USBLEGSUP:
+
+0x00000801 -> 0x01000801
+
+It did not reset or unbind the controller, clear USBLEGCTLSTS, or make other xHCI MMIO changes. With OS Owned asserted, repeated S3 resumes succeeded; clearing OS Owned again caused the resume failure to return.
+
+
+So on this 1022:43ee controller I can independently reproduce the same causal relationship:
+
+OS Owned clear    -> USBSTS 0x401 / controller reinitOS Owned asserted -> clean S3 resumeOS Owned clear    -> failure returnskernel asserts it -> 5/5 clean resumesstock kernel      -> first S3 fails again
+
+One potentially useful detail is that USBLEGCTLSTS changed from 0x40000000 to 0xc0000000 after resume in both the successful and failed cases. That status change therefore does not distinguish the two outcomes here; HC OS Owned does.
+
+
+This appears to extend the observed problem beyond the 1022:43fc controller in the original report to at least the related 1022:43ee Promontory controller.
+
+
+I have complete logs from the positive and negative-control boots and can provide the longer A/B history or firmware findings if useful.
+
+
+AI assistance disclosure: ChatGPT 5.6 Sol and Astra-medium were used during the investigation for source/code analysis, experimental planning, log comparison, and assistance preparing this report. All commands, kernel builds, suspend/resume experiments, register reads, and reported results were executed and verified on the physical system by me.
+
+
+P.S. If Rishabh happens to enjoy following journalctl warnings farther than is probably reasonable, I have another USB rabbit hole which may be of interest: a kernel.org Bugzilla report on a USB3 Type-C peer-collision / port-power-management warning. The useful part is comment #1, where the issue gets reframed after more investigation:
+
+
+https://bugzilla.kernel.org/show_bug.cgi?id=221987#c1
+
+
+Different bug, but another fairly innocent-looking USB warning that turned out to have considerably more behind it than expected.
+
+--
+Secured with Tuta Mail:
+https://tuta.com/free-email
