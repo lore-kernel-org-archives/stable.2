@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF540443C3E;
-	Fri, 11 Sep 2026 11:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5924D26ED40;
+	Fri, 11 Sep 2026 11:21:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125696; cv=none; b=bg0FyObH6mTN3ULorXFutMrRqlUuj6vjEaAQancc3nMu0l3dyaxHpy4Fv8NQ4BisbQ1FOpZVRTocdjZ0PIDNnKCVOZA9vvYOGZgRIJkVreXeMW4zIoV27mB6V4ukl2/tAkzguNVxCkrDqDofwFMUyPssNf/UoAm4buDC8qp0I9k=
+	t=1789125701; cv=none; b=LFrlFlK+lFFoVCb7NK6ivfAqTY4mgeSHtKJZB8FW3cttGHHAkkCLJjKDqzCRTNa/bviW91y4IRIj6SZXkbCCYLTir+nwKClx7WtIBUUW5dVzGx8icOggdF7Eidef8y6rlIgtmaoZr5P5IG8SKuv7pvPlPJRvCu2sff/vRZHSEgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125696; c=relaxed/simple;
-	bh=Mu2UQW2MtfDaZ72L0x8Y/YixeO0Wbttc/bXs10fJozE=;
+	s=arc-20240116; t=1789125701; c=relaxed/simple;
+	bh=tHLFDvOdR7llIk43S+tqW6tBjSm/ddh/2wRVgJ8Nm7c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rIeLWgmahotiCHy7ychvZHjrJzzu6JM+nprL3fQ4TVUcHgt+WGvY3wtThzySgVxKtt6lUHf7enFRQa/15UmPRWOSTc7HZSHmfMnB1vpIl8whHWc9Hv6SoYo5QofnSC8jfP3HFAmDxqb/D8mZOfwMyxT74KbklFRc+2noZi0Z7TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pr6w7z9j; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XO7Ky+Hglp9mkwykNpCipmmo0OLzOs/1gwqHeh+9HmJWpvJOPEHHCBbdGIOFu/pGKmHcmDaC11c5BDhHlxtHuL8IY+5zL6RggOxa4fkSLTXjLj2xjrnOeDKMURo+4+cSB0by7Md5CTy47Iyiq4y07mM7bIUOjJMzZsAlMsTvdnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLixis3+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pr6w7z9j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701881F008A0;
-	Fri, 11 Sep 2026 11:21:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLixis3+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455151F00899;
+	Fri, 11 Sep 2026 11:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125687;
-	bh=LC+/Oasy3YzxrJ+xcR6YHpRRPYhekqR2drvQ0c+ugYQ=;
+	s=k20260515; t=1789125695;
+	bh=hse2fI6Uf0v+J3PvcMVWaqRkxJdcI5kiIkoyllGemmw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pr6w7z9jOHBtcBu90TmuUd+SNELbLx52X8SgihZxsdWTcx/Yf/cpGaK7u88rhwOXr
-	 JDi8auGQ5AkB1XyjA3Os5QmtVwZ6+HZnHmS/XfV7Ef2H2jU/mI61GuAx8jfqD/IItu
-	 EO3hzoaPtGNKrm7FnYdmMvXC9wTh8+xCM14qVpChGC1JUiNgoULAPMT2B7qFL+gMPb
-	 6OlvBAglX9dO/QPFxzm/sMVr5aQKRQ1/RFXCmrCn7VNpAPXGK/pQJjopELA1TIalxF
-	 8HbpEiOhjmnH3E4v8jwLx9xmbBmx7M0c+ZJ2NyoUW+df8sqPZhrViM5FRXmmY4nz6D
-	 GqsSBXRwNMuXw==
+	b=eLixis3+Mog+ieywAKIuRZZgx+7KXKJSbAXzWTtnOjfFMJeLpjc3XnB9SgpWoJxMz
+	 EC9QLT8MGwbFuQsZlyZgbLfLynmUWQNaJ/TRZHzPITqk5+eeaZeDHgh7iyL7KYh4OF
+	 MxoOwm6JrEmgnxc+THN1qhbD41qMlqeZZxji/6uFgNJk29BeRIa+hLgWMuWcDmmm4a
+	 FQNgB73lvBEFBtJJ6JAKOHyRXI9tBfbB++YavDn2AvfjY+ZHNhcwa5tGlcjKUY6X6v
+	 jVJBhWihZjO88tAB0vmbVa1tBYv6xWlFoq/6JWkt/9gzgrXbwXR7XH/2cRrlRSNplc
+	 HdV+An3LjShpA==
 From: Sasha Levin <sashal@kernel.org>
-To: jgg@nvidia.com
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	will@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nicolinc@nvidia.com,
-	skolothumtho@nvidia.com,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during devm teardown
-Date: Fri, 11 Sep 2026 07:20:48 -0400
-Message-ID: <daily-reply-0029-re-arm-smmu-v3-devm-teardown-7-2@kernel.org>
+	damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.18.y] mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
+Date: Fri, 11 Sep 2026 07:20:55 -0400
+Message-ID: <daily-reply-0036-re-damon-sysfs-ops-id-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910065429.1703706-1-guanwentao@uniontech.com>
-References: <20260910065429.1703706-1-guanwentao@uniontech.com>
+In-Reply-To: <20260910004154.115973-1-sj@kernel.org>
+References: <20260910004154.115973-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,16 +46,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The Tegra241 CMDQV teardown fix moved VINTF hardware deinitialization
-> into the implementation device_disable() callback.  However, its
-> stable backport preceded the conversion to devm teardown and could
-> only invoke the callback from the shutdown path.
+> damon_sysfs_apply_inputs() reads ops_id twice.  It could race with
+> ops_id_store().  As a result, the min_region_sz could wrongly be set
+> up.
 
-This is a stable-only change for 7.2.y with no upstream commit to point at.
-Since it has no Reviewed-by or Acked-by from an arm-smmu-v3 or tegra241-cmdqv
-maintainer, we need that before queuing a stable-only fix.
-
-Could you get a maintainer ack for this?
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
