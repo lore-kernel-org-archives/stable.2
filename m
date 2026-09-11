@@ -1,63 +1,64 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pz2-f18.google.com (mail-pz2-f18.google.com [74.125.228.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467233FFFA1
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6D04A99D4
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149548; cv=none; b=mmxOhUKGq8fSrk5Q4Ods7X+KZjgUO8mlpK8hlLNjih8LyKgHS15VWBu1cHsI1Qkj4Mj5nRpsge+eaFzBAIKh5YOscihH6vQYHpPfEFf0T2TIIFcxNi7X2xxWfLILTSo0UqIUBih+ffJjYvKp07yg+wV5znfAymE0WhxBkVHl0UQ=
+	t=1789149549; cv=none; b=YJCPSoTy9S1+7G/sumfULTFEUQjd/krhye4PEHEVx2OQtg/BjQ6qT+pFGb9LCNMWgJ30A09shYQ9cLmlgJIFJMuSoNcE5Pftem+FiNIz7O6uz2N7OpJc7Ox/EsgAN5I5MN5OaQffT9ElLdmlQ/i6fQOpgOo/cLX28276Ap+8BHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149548; c=relaxed/simple;
-	bh=x6m73ZcLhWoOlEyU1CN5Lu1TFGmeQYiXDjGqory8Mfg=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=kSS/xAMHyHWVXrdkOofehxQWMtnbC1XL4ohoEpRAr7LE7AFicdEWkZtVKpcB4lDgL4I8lS8+XY1QRiCUjy44szk5V5+HT2XxUwjIphP4hWU7usexn4b9Y6Y7TExS6I3WJnHi26KZArRaY2cetfaPY7d144L8jIynty0W9D63AqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=jhcz1qA+; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1789149549; c=relaxed/simple;
+	bh=qD47CF6gMhrM1kILkkfZeGotlWRqG8+4NAl6QMSlpN8=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=XO9ZAClZXFLixgA6EcA7BVXz85XJNxHH+HdUYcx8z3zLVMm1IdjA3SgQQlGXoTBLT1rDH7+ebFMPK0Y41qwZ3FgKw++6GhnXN0M1CX0cSEpZ3tKdNG3nrf3nvu7uWUwNGxJZGQMAFibJGkw5fPiDo9sXVn9BG/xQYDUpuwqc2y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=MMMGn7l/; arc=none smtp.client-ip=74.125.228.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="jhcz1qA+"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so945531a12.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:59:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="MMMGn7l/"
+Received: by mail-pz2-f18.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso274000a12.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789149546; x=1789754346; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1789149548; x=1789754348; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=EARKhcdb5qqNnALLHQ3ulccRqhPUp7fuFHAjRLg03Oo=;
-        b=jhcz1qA+ypwDmpWlcIP+1OfoHVsRAgSRKCSHKDaIkBGtwAg9ejAPlPyipsx+pa/np+
-         ellz7jsTj5HPaOq+e5XRig3wL4rhw8w7prQoZD7V/Y5iwinfyFCAFlbdubjUTvC2IoDz
-         Zps3PscDL2pIS7ZsqwA4HuD4Re+AorpVz0P1VSKRHpv9fFc7/TIJoXPu6Se4zk6F78dL
-         0BgUYglkPzEKXbUDVL1cnHMKXIHGxMXnWQDVHl4bIeIqiTdcs6HU3PoFwuUo1UeBkHFs
-         nD8JS47RQm6k2Psy5dEZ6XFd2Q6oRj0x6PrKrBh0dIz/tSlHLfQDm3kAhOsBabCD9agZ
-         cFIQ==
+        bh=NG12zH8wn5Fqd9Q2oW1gzTnhAvaniJ4DT43BjEHvrAU=;
+        b=MMMGn7l/9RViWy4ySTRv3ApgDVfX+eaVOQGBzJqAoi17AWmm5oCySWN11ky3bQbVZ0
+         BhruJXUjdy7wKRddlBmuW4BAIggEVmd6TrZCIgA0YGKZ6N0XRZaILmpBX6V0T2HMimZI
+         DX4pqewoVSEWRPdeBCSX2SdvrfnFwqTuYhBDgZ6ZfWtRUpXOhR4DROTeVPhygPLvpjWQ
+         jpsRMyqnc78IPKfuAExxtV41i9DvGTEQzah725sZdGkJ8wfW9B90oivlAPF686jZU9Ok
+         5BD1fyIV5uHCXrYij/XXLT4okzDUH+mTZ8ziE8n7P3XIN4cylDCwk0MXPGxPua0CeJaF
+         0AVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789149546; x=1789754346;
+        d=1e100.net; s=20251104; t=1789149548; x=1789754348;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EARKhcdb5qqNnALLHQ3ulccRqhPUp7fuFHAjRLg03Oo=;
-        b=PHtrtYXhRmd0RHuJiVrMJw5tq/i7sJF77hTQY6HRWHArfPKp3rbESb2mOzJtJLBdvV
-         06NMj+iH2QH+moSkzTL6ri0cbUv84GZ1yBfL2IB2VehLr3UfKrZxoQkVJD8HGVtGxD/q
-         osbR7tJxu9c2141iIpVWxoD4j9tF+4IfmGYJ3kfCpAeSN9OmW22dRbc5lApjfmWXTvrc
-         any2/yQloXtamtIJ0aLHza0RavW3ORuzB/lTwjtPHJkd7+GqAhg1qtEjjAQ1zRlqrkpi
-         ciXLFNu14JBYkVPs5JwUcwfw3+CjRp+PzH3jAlwXAIcFAhUBLpdD6sm2BumBly6RzGKu
-         Xz/A==
-X-Gm-Message-State: AFuF++ny0oEspwVxhLjZm1Cj8NeNw/WwRRPVwFSJUV+EYdPmgVgogkp5
-	fFmCJXH8D/3nnKatxHtf5GQR92k56soCO8t3+sT1b3pS81nkm5Rz9AxlqIT1EEZRzqR2UnGGSId
-	6Iehy
-X-Gm-Gg: AYBFou2ZwABDowOvtvlE4FlF1BNy7QyHPqVw+V7ufkZiAR4eYh6PlyUt/n8Fk8bx04f
-	0xMHXuQBCMX9hc6KwMJPbWrnPFx3cLnEe9hqM6TypV1+k5vbA2TeJVgIHGuPLvLXYJenlFSz2U0
-	YFjS09ELgEyXD/wJ2ok7CgqnGjJvxJdeGWGXXBbQNvHo8Jbn1+cTzeeK1vaW1In/MDyYOMG9n+w
-	XIL+c9ado0i47BHJYZMvprVBuvWZyh+crKpyERdv44aG296WKkhNJ32GW3jxPUW3IKVlBlTceXh
-	gbq0w+H/hhevpy33UIThs7Dx2ZwrH/8SfG/ipDdpU9/keWz+pk0xTPmC+/v9ecAoP7Wb67H6z43
-	OZCNt2xw+WLI+J09el4xQ9lTm5cfPYcPz5c9gPQpCzBhmu5QKzd8VXdMBtRpFIHywO5kpZsoEYM
-	hULtlM85bNaO0X8UdAeVLsBR0AkqFjg7/Ad5FExQQpnDGIMZBtX525T9UiNJuaZg4=
-X-Received: by 2002:a05:6a20:be8f:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3daed424d01mr11630266637.26.1789149546348;
-        Fri, 11 Sep 2026 10:59:06 -0700 (PDT)
+        bh=NG12zH8wn5Fqd9Q2oW1gzTnhAvaniJ4DT43BjEHvrAU=;
+        b=nJfSdtK0SYGJGVwcakhiv4cUpbF/g+jDxB5f/5vZBpL9eOeP0tju4FEGFisGQjhODm
+         DR2TqSVNR/sI5tD4GBjEYY+CERbsG1/+vb7ae+NHyUTp8sRxOK2rq/xzLgVYbKpQFChi
+         pjU/M6kBuyElowLBkdadNh3xKtCQpZzN7B28wzTFXZhOlEbSiDYMIzgy18aeF03pgN9O
+         HqmPJKg9KpX7zmyRWqOElDe3HC1fWAZ6xDVHUkb5ii0milI6pk+AGKjG40zFZLWFqc60
+         vwWB9hh3luRyQuIfjuR/NSYFRUk/858mx+BJG26EHy0sf3Di0B9+DhaMTkCbY0xhZ6Tb
+         SWnw==
+X-Gm-Message-State: AFuF++nsID8GBYEB+PEBizQSAEjE8koqSQFg1D+vaAq/vXml/odbukqP
+	b0nSNp3yMYrTDLRPURAQiz1hu4qtcEvvAwQIdbYCIw2rsf4RixwZIdaxB4dwZHEodolBAdzlLV9
+	MYiCH
+X-Gm-Gg: AYBFou1npnFZRU+6Kt9rtfDPklUDoUww80hPwlGvOYkaaPhwRbsb+TiSkxz+lctayfA
+	JqzbA/UPjryeoaaEGr7rKi3G3P3ZzayFQ0j0MLvlSco8MlN4gL1+DAZNQuVyIjESvjj+ZwOcLOf
+	0LkykVBSV/FISLBxczbZ5WKLiP19M9Nm0k/LXfCovoUQylc8Av3YZW7beua6LwU4WQ0lnd17PQe
+	mneQYZjfnmwN+H0x662GrVHu8ZAbx9fyDHd8wy56etWV/LY5wnYHNJ73x+7V/EBQS1o0JlnOeOB
+	iP9XeXs6/Y4n+9SL8xd28CjxpNwZQlr4JESiMbo6umU0BjZQ/ymI1b47Y2H0p/1zktVrlBOlz0g
+	Diou2HnO/+c2Z/VM73fYSXK2SyESFBf0a8YmPQl1hsc7c4+bD+ydwj0Ry9nQ3wCRXvi3/KuNKld
+	4Thc/6Pnvx2/dS7Sg86fT7bE+aAaq5dmGB/fXm9uZL+sujqyEsjSlogCr+dqcXmWidkQ9hzUYm9
+	A==
+X-Received: by 2002:a17:90b:274b:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-39d9bc6767cmr8659237a91.4.1789149547652;
+        Fri, 11 Sep 2026 10:59:07 -0700 (PDT)
 Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b345a4sm7771049c88.5.2026.09.11.10.59.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba71cesm7988743c88.13.2026.09.11.10.59.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 10:59:05 -0700 (PDT)
+        Fri, 11 Sep 2026 10:59:07 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -66,38 +67,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.1.y: (build)'field_get' macro
- redefined
- [-Werror,-Wmacro-redefined] in drivers/...
+Subject: [REGRESSION] stable-rc/linux-6.12.y: (build)unused function
+ 'hw_breakpoint_cfi_handler' [-Werror,-Wunused-funct...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Fri, 11 Sep 2026 17:59:05 -0000
-Message-ID: <178914954497.4461.14819014430394217357@kernelci.org>
+Date: Fri, 11 Sep 2026 17:59:06 -0000
+Message-ID: <178914954652.4461.15832732054536039571@kernelci.org>
 
-New build issue found on stable-rc/linux-6.1.y:
+New build issue found on stable-rc/linux-6.12.y:
 
 ---
-'field_get' macro redefined [-Werror,-Wmacro-redefined] in drivers/clk/at91/pmc.o (drivers/clk/at91/pmc.h) [logspec:kbuild,kbuild.compiler.error]
+unused function 'hw_breakpoint_cfi_handler' [-Werror,-Wunused-function] in arch/arm/kernel/hw_breakpoint.o (arch/arm/kernel/hw_breakpoint.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/drivers/clk/at91/pmc.h:117:9: error: 'field_get' macro redefined [-Werror,-Wmacro-redefined]
-  117 | #define field_get(_mask, _reg) (((_reg) & (_mask)) >> (ffs(_mask) - 1))
-      |         ^
-/tmp/kci/linux/include/linux/bitfield.h:254:9: note: previous definition is here
-  254 | #define field_get(mask, reg)                                            \
-      |         ^
-In file included from /tmp/kci/linux/drivers/clk/at91/pmc.c:19:
-/tmp/kci/linux/drivers/clk/at91/pmc.h:118:9: error: 'field_prep' macro redefined [-Werror,-Wmacro-redefined]
-  118 | #define field_prep(_mask, _val) (((_val) << (ffs(_mask) - 1)) & (_mask))
-      |         ^
-/tmp/kci/linux/include/linux/bitfield.h:234:9: note: previous definition is here
-  234 | #define field_prep(mask, val)                                           \
-      |         ^
-2 errors generated.
+/tmp/kci/linux/arch/arm/kernel/hw_breakpoint.c:908:13: error: unused function 'hw_breakpoint_cfi_handler' [-Werror,-Wunused-function]
+  908 | static void hw_breakpoint_cfi_handler(struct pt_regs *regs)
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
 
 =====================================================
 
@@ -109,18 +99,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:36f06fa1a4ff538d0dee7315f7a720c23d34326b
+- dashboard: https://d.kernelci.org/i/maestro:f4698a1d9ed868307f47bc5d6953b068245c13e5
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  9f5e4631f281f1f3c92f33dcb2dc004f416196a0
+- commit HEAD:  f97429de1ef3e1b6f7986abbcb45bb115b876977
 
 # Builds where the incident occurred:
 
 ## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
 - compiler: clang-21
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aa40b5420239ade9022974d
+- dashboard: https://d.kernelci.org/build/maestro:6aa40cbd20239ade9022a8bd
 
-#kernelci issue maestro:36f06fa1a4ff538d0dee7315f7a720c23d34326b
+#kernelci issue maestro:f4698a1d9ed868307f47bc5d6953b068245c13e5
 
 --
 This is an experimental report format. Please send feedback in!
