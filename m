@@ -1,137 +1,98 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A7641B8CE
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9431421245
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112091; cv=none; b=BUDradUnso9sZQTXFnHcO1O5CTFfEVrLWD4qclMOpT8yVUTW2lsM7uBLzl6mOzJ2GjleDS76pwPQYdHr9J53FOA+SzGlAZEabrGynBISsfZlsJtY1trrTcxuUY8eM2YfDls7Q5W/DcLichDo2iB3iKuyS08OwWHVrI0/6AzUuhc=
+	t=1789113071; cv=none; b=HqTUaFKIH6zD223yk2pDSWnyln1UdySZKu/9GIIYkYtHOUlxdZy7Hudh933ul6Xjx96HDcOSME02mSnds87jbnXrgans6bpIiYww+h3aiVOjDNnU4T0sVCwnI+orDB2IeeqHxnOB7b71BqVT1xn/KxCJTAjrvpNNer3Pr7K8Af8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112091; c=relaxed/simple;
-	bh=ofD9vuZ8WriYaz45r03nVr4VI+oGJALE7F2gieVLqec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=toHsNAYrtoSmI+jVLb4w4SDXPinxdkUbFSh+dQf6HR/niujtwK8HGLaZ0TEorTGbHar5PCg/NrBQLFFPmrWVqeex3pzzGW/IJcXcxN+WqS+h5zLx5KbfKMm3XorJyWdBRhminWTEqc/15tSOud8sAG+M9O2l+g8f64z0grHHsP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkQ1Y2fU; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789113071; c=relaxed/simple;
+	bh=EQswtJ3POdIXhCALaheNzM1TnP2uc1nhkY47KA385Hw=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R9l2X1wYjq1mt6UqGCW11SPeg3vOXvUcXenzfuO6EdYC2SEoaIotn/mH02AwFbAq/+BdCwf4N6ZiZCKTw7DWRT6FOH7rQCLeRIAtXLaLdzdCEwZz6/n948PCMnEopnFnJ3ascejwZLBnq6F56keIk5Z8ON6VVlZcF7mCqaDiQA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqrNBPLx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkQ1Y2fU"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so5755365ad.2
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:34:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789112088; x=1789716888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6wVmYC8X8kmr5SDuvDPNWubkvtX+YkviT8aumfGWPQ=;
-        b=ZkQ1Y2fUtTtCKjdE5Q1KGflwxOoNneCyA5lRZQdpPLxT0h1BMUgJE0pVHXCpMpK9CK
-         JpnLF06X3+n9Io3ct4Ral5nV/3SDCPiXRL3GVKVqWXe16yP+15qH6BCybptEKGwTtVSK
-         WcYZVZ3zfcIBUt/5ZQgkVZSgPvjLwVX0A9z2piDFkzTQZXJroRvHJE6wBrJYPhRREbrL
-         UGCQD7Gf0hFX/AnwGaQzgtNW6GfC9HLjsO8xUk2V+LayJjsfNNV8uxAH5MnWwIODBcH/
-         tDxfthSUVnyzI99AYnGd3N6IXfVZkMjFOyPq0wmUxq2A1M6pUxSOl0hTpHpH/wXbhzv2
-         L/Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789112088; x=1789716888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6wVmYC8X8kmr5SDuvDPNWubkvtX+YkviT8aumfGWPQ=;
-        b=kgr1MAWVtxXggEVKg8kOBuigyc9Mw9SeotvZMN5o7cJ20YaZVSezfAcnDSlFquQJyQ
-         4HIR3URFt3bn093P2HI0yZKjffuU7KOKGzldqUm1srU/F5IiHUeIh4jOiludtyWuL9pA
-         q55E/jsfD15ZjOPEhlTKtGisgaye3BOAu4jKyGN99/4qF6+YxTYxQvWCWLiD5QPxH5o2
-         EIdhktzrgK/0yp4ChdXQSkf695v3lkD/utw6par64wY/nzoaqYK7Yt9f0MGNOhwmqDuy
-         QWn9WRs++zzUcLfLoppOECv/9PVp33PuncyTZyzKMttSlevLqZiUhiOTpZ/uY6SwtUSu
-         Tftw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMlZsEPonsr98nqiyVHztEqEkSpMo7lPtlSSS+G3zb/6LA2tKC4NwqrH0jmit6MW0yaXjmbSg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAnI5xANuIsSIUYXRQpYqnhxrQGgrJS9FuPoPqAfqZxkyMt5lg
-	8ZMUPCFwW+lko9iJ8RbT1fjWP/SGrI8ey9sPXK7bPKvEhKuSPpbE5KMyqWeAdggu
-X-Gm-Gg: AYBFou2NSreh2ML4wu1chMO3Khrj/+fF+9ZeMnFBJSl+wEXWt4MW4jcnrKjQt+lWGE9
-	37sPuXc4YVvJgqTBOj8HjifOphjwcBpSy90o+uAh03sNtDuz0ECtz2Qy68+KOx8aha0Mnu5UXi/
-	5AcAtaFS8GJCHXgM+f2SPgdPcO4D1osetjL2I4N3i+ncSSdNfTPjFXbeBMXtS/uRPJNlJd8plJb
-	2O8uP/zuP38MRiqCaoLDTp4M45HYeYgOSJXFcte6NptJsxWm98z/vN9QTjqP0VoCfRnsf1AQp5Y
-	TMHDuKL2n+kdf7jt5fjtwWuybBuOABz8FNQMOCjcMxCWwti/j2WNJMU90+E2lodv/2sVPKxWTOx
-	6EIWsfzj8you3Inhu0wOeiTg5My7aNSTNnZixGwk11/U21BcHlvKIuVrf7dqn993tuwCzqaIn4R
-	ieEO1tc4CrcsXrh4aIRepT4com662MsXL7XgKFW3DU9vlXzQQmfYg0/x75AQQqT3sEUo7VwBflm
-	ZLxV0Bni8+XFLY1namMefQGZh/bxskt+vwEyg==
-X-Received: by 2002:a17:90a:ec8c:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-39d9bf0af3fmr5274805a91.11.1789112087592;
-        Fri, 11 Sep 2026 00:34:47 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9947b847sm3357684a91.7.2026.09.11.00.34.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:34:47 -0700 (PDT)
-From: Aohan Mei <ljp1205831794@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Allison Henderson <achender@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] rds: ib: use rds_conn_drop() on protocol version mismatch
-Date: Fri, 11 Sep 2026 15:34:32 +0800
-Message-ID: <20260911073436.3542080-1-ljp1205831794@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqrNBPLx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA501F008BD
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 07:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789113069;
+	bh=EQswtJ3POdIXhCALaheNzM1TnP2uc1nhkY47KA385Hw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=RqrNBPLxbhzBUPms/n1fQBTR3hHYKCm5qrkSS30jGzPNEpgohPF9UqaLZwPRGpoqs
+	 +b71S6HYHHKF4xdorCwgaEyIlRr9EugoKH9AyIU5gEmjNf6NuS1RjyHmfYx0djYXwd
+	 qbjNs95/LuO5o/O/+sz7MVNOcohlNqpCjcyXf1ffvLN+D+mmh2LSY3JP7Ji6jBlkP1
+	 d61YtENjjSH+73REqyMk8tlwrGCLERb6wZUHnCMUOh8EozL3J8l7ug9BaI3VI+FemY
+	 4Sn5ldWKZGfsGvvNRukm7KAtvQK54a2Y1CL0G9wzeHQZtMrFKyt9F4kYgfmc2IfGD2
+	 3tdCkh4y0CLhQ==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a4a82aa383so5086311fa.3
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:51:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgoVUcjhepWjsTkpcw/5jdiFJC699d/bjupKP5prfQnSjDIs6L3S7ayUQICTjIeTUbRgBelCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8fwqXLzAqG00RmMrK2J5xW3ehnA8fGtU27mCWRz13utkrFPCy
+	debdb/vkKUp6QWEy45HFWbFc7+Bic+UQKOT2v/fLK3jNqCiH/4yoBpzfJmk2iSNFSnl0gQsyqVs
+	x6Hucbv/81jC3Sh0gDeiFomq7zsURPuSNfIvbd9U7nQ==
+X-Received: by 2002:a05:6512:238a:b0:5b6:4ad:77b3 with SMTP id
+ 2adb3069b0e04-5b8a02ddf43mr662301e87.27.1789113067582; Fri, 11 Sep 2026
+ 00:51:07 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:51:05 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:51:05 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-1-17ac82dbe226@toradex.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com> <20260910-fw-devlink-nexus-ready-v2-1-17ac82dbe226@toradex.com>
+Date: Fri, 11 Sep 2026 00:51:05 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfmAor3GW1JCd7HqXtALcdsAYw8ARNHseS7k-cVbFqp6w@mail.gmail.com>
+X-Gm-Features: AcwNN1VLX99zdUZYPSL3ecujs_j3--rWZ9Roiou4FjiqsxMWc4tiYDfScmaaJLc
+Message-ID: <CAMRc=MfmAor3GW1JCd7HqXtALcdsAYw8ARNHseS7k-cVbFqp6w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] of: property: fw_devlink: Follow GPIO nexus maps
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Aohan Mei <henrymei@tencent.com>
+On Thu, 10 Sep 2026 16:16:42 +0200, Ernest Van Hoecke
+<ernestvanhoecke@gmail.com> said:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> GPIO consumers use of_parse_phandle_with_args_map() to resolve
+> specifiers through gpio-map properties. fw_devlink instead parses GPIO
+> properties as direct phandle references, so it records the nexus node as
+> the supplier rather than the mapped GPIO provider.
+>
+> A nexus is a translation node, not the GPIO provider, and need not be
+> populated as a device. The resulting fwnode link can therefore remain
+> unresolved and indefinitely defer the consumer while
+> device_links_check_suppliers() waits for the nexus.
+>
+> Use the map-aware parser for all supported GPIO property spellings. This
+> makes fw_devlink resolve the same provider as the GPIO consumer API.
+> Direct GPIO references continue to work because the map-aware parser
+> returns the original provider when no gpio-map property is present.
+>
+> Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt-parent, dmas and -gpio(s)")
+> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
+> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
 
-rds_ib_cm_connect_complete() runs from the RDMA-CM event handler with
-conn->c_cm_lock held.  When the peer negotiates a protocol version
-older than RDS_PROTOCOL_COMPAT_VERSION, the handler calls
-rds_conn_destroy(), which is only safe in the rmmod path: it
-synchronously tears the connection down and flush_work()es the
-shutdown work cp_down_w.
-
-That shutdown work (rds_conn_shutdown()) needs cp_cm_lock, which is
-the very lock the event handler still holds, so the flush never
-completes: the two workers wait on each other and the RDS connection
-workqueues stall for good.
-
-All other RDMA-CM failure paths (REJECTED, CONNECT_ERROR,
-DISCONNECTED) use rds_conn_drop(), which marks the connection
-RDS_CONN_ERROR and schedules the shutdown work asynchronously.  Use
-it here as well.
-
-Fixes: f147dd9ecabf ("RDS/IB: Disallow connections less than RDS 3.1")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
----
-v1 -> v2:
-- Point Fixes at f147dd9ecabf, which introduced the rds_conn_destroy()
-  call in the version check, instead of the later refactor cdc306a5c9cd
-  (Allison)
-- Add Allison's Reviewed-by
-- Link to v1: https://lore.kernel.org/netdev/20260908123356.1163970-1-henrymei@tencent.com/
-
- net/rds/ib_cm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/rds/ib_cm.c b/net/rds/ib_cm.c
-index d46146887ba4..2909da8363f3 100644
---- a/net/rds/ib_cm.c
-+++ b/net/rds/ib_cm.c
-@@ -115,7 +115,7 @@ void rds_ib_cm_connect_complete(struct rds_connection *conn, struct rdma_cm_even
- 				  &conn->c_laddr, &conn->c_faddr,
- 				  RDS_PROTOCOL_MAJOR(conn->c_version),
- 				  RDS_PROTOCOL_MINOR(conn->c_version));
--			rds_conn_destroy(conn);
-+			rds_conn_drop(conn);
- 			return;
- 		}
- 	}
--- 
-2.43.7
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
