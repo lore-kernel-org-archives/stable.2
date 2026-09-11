@@ -1,42 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBDD3AAF7B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD519406261
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123809; cv=none; b=RN+KyyH308byx38Hf286VK04PDvsC/ejwNJtlNemuk1hijBVTvOgGvayLxOXjvu3Fd9JktophB5Bf+FJAc/cV33kj9zfKdmn8AQHqcF3LUs3JDqw2kG8ZrA/W0AYmCX7uooUCkcoMibsI8Btfb3nmEtRH4UeDay/CTvWi+XIonQ=
+	t=1789123809; cv=none; b=BBOpCvHAl89H20v0xdUjVbbS/lIYc4s1qJdNsNpqddSJPbJP+NtumeKHwiUy95xBbqLeOQpOYSX+XY2tT9zK8M1vjYej9eU92azugY/D6VxG7fzDBJr4PmqHDU6WCRhLx9107vP0pIYq4HxUeJsAQPDXHAEAgQfu4Zgmq7Ul+H4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789123809; c=relaxed/simple;
-	bh=BwwodYJ7BjB/DVTaKY11QGv2wAQaNknrzCEwRkYhe+k=;
+	bh=9rh/VQpHg7Jbc/pPX3DrsBrjkRUxgqelNcNGbLkYpqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QBEVOBaOW8w1yTg/BYYBmhcaXiUX6F0FrHtaXiM7NJYQfNs/gg3BI6VqLqilk6WaTFez5N/HTfqbp5PYsKGeTlaPUtcYI+h9ZVZJgLFQR5uMlOc4H6fdbxcP1IjvRuGXQP12YJYoe+FFBLLxbIIlQmDu6VyxfGl/TKGdebJ9iOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZsZhGSsJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nC/dJjv00vyUMh1qoKmD0kFTh0Mleqwe84H/vO08Tf5/PsesbT+LOjqh5E9y4DIeAXa5xVYJgmZNw8PKBrVjxoxmEIXgtDtc91976CmiCNxNtodssH6WsE2ZLY10R2nC3wyb9jK6U4xY3U2n4r3yuUV8TJnzgPzmcjuTA4R3guI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GqXzvLy7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZsZhGSsJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3279F1F000FF;
-	Fri, 11 Sep 2026 10:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GqXzvLy7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328531F00893;
+	Fri, 11 Sep 2026 10:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123807;
-	bh=L+E9PV38BVLYYG+zEIQyCkcmPTCn7hqDtuZAw44nhdc=;
+	s=k20260515; t=1789123808;
+	bh=kh8nf5WOngCRV7CaHmtub/ba2MYIfuiAsAgkpVejZyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZsZhGSsJYtu6A8gr7dAKRAONnJM+6Uers9fYlYSmVNiJyovhu7+cHO+niLbtt2uhp
-	 2VMLUzea58uiRZLkiAJJItE9T5eQ7nTNc1W4nejtE4qntb4IAVkh58jNNnr7P773VW
-	 VYPGPDiCVk79D4J5q1pssHbAinM8yF7ejOozDHIA+XM0bF3krowQH6PUMSv4cyxfnB
-	 +V3XqkFexoPW1+8NQQxfnA29aU5GOSOztOs3nrmXKYJ/rEww4Kr9UYWL0ofARQAeTe
-	 GX25fgAms/RqxvlKVh8zHvLp+inzS7hoXp8fcQSO1+kL8DUm/di0m6SSHohvvuzLAw
-	 VPzRLAHV61JiA==
+	b=GqXzvLy7c344ZOs21qCDAYb8y2p4gcsHAKtOF7Z1HA4ex1VF8AQ6DGZsZs+e3KSlv
+	 FXEBCQ4G5mFuAr4h1OdIF4ZqWCWqOjYS6gRp3UCmzcc3UMqzA9kfJ/Zyu+dYvvCfB1
+	 lbu3zBgPoywodEHGqUVfv1P8+UPIuhb3Fb1kZ3EiuJqH6rf4Gds1Pwf+cBnLOaXebb
+	 5eRv8l5QIDWVTKhiBguc0HykcJJbzHEkJTVgIFLoQWuumgKKOtILVY/TCYPHEHJMrL
+	 Or2E33rhujlZ09g8dBmvBp7+RMrao3JkinybKDCynCr+eAN0Q/t0nMaiJ+sn5tZBXJ
+	 KsEIbocywJ9CA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
 	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/5] ASoC: Intel: Drop hdac_ext usage for codec device creation
-Date: Fri, 11 Sep 2026 06:50:01 -0400
-Message-ID: <20260911105003.268248-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 5/5] ASoC: hdac_hda: Fix hlink refcount leak on component registration failure
+Date: Fri, 11 Sep 2026 06:50:02 -0400
+Message-ID: <20260911105003.268248-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260911105003.268248-1-sashal@kernel.org>
 References: <2026090904-payphone-halved-2f01@gregkh>
@@ -49,89 +46,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit 3fd63658caed9494cca1d4789a66d3d2def2a0ab ]
+[ Upstream commit 6ad4892c4f5cb437a928a02f5b7d37d496aa9268 ]
 
-To make snd_hda_codec_device_init() the only constructor for struct
-hda_codec instances remaining tasks are:
+hdac_hda_dev_probe() gets the HDA link with snd_hdac_ext_bus_link_get()
+before registering the ASoC component. If component registration fails,
+the function returns without dropping the link reference.
 
-1) no struct may wrap struct hda_codec as its base type
-2) bus drivers (skylake and sof) which are the current hdac_ext users
-   need to be adjusted to make use of newly added codec init and exit
-   routines instead
-3) as bus drivers (skylake and sof) are to be responsible for creating
-   codec device and assigning it to hdac_hda_priv->codec,
-   hdac_hda_dev_probe() has to be freed of that job
+Always call snd_hdac_ext_bus_link_put() after the registration attempt so
+the reference taken during probe is balanced on both success and failure.
 
-To keep git bisect happy, all of these in made in one-go.
-
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Acked-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20220816111727.3218543-4-cezary.rojewski@intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-
-[5.15 dependency adaptation]
-Keep the existing embedded codec and hdac_ext allocation model. The
-constructor conversion is unnecessary for the target fix and depends on
-subsequent codec-release changes absent from this stable tree. Dropping
-that conversion also preserves the existing HDAC_DAI_ID_NUM bounds fix
-and avoids the upstream SOF fallback's missing constructor argument.
-
-Retain the driver-data ordering needed by 6ad4892c4f5c by moving
-dev_set_drvdata() before component registration in hdac_hda_dev_probe(),
-rather than moving codec allocation into the bus drivers. This removes
-the assignment between registration and link release while ensuring
-component probing can access its private data. Match the target's
-registration-call context and function-qualified error diagnostic so its
-unmodified patch applies cleanly. Leave the link-refcount fix itself to
-the target commit. No functions are added.
-
-[ sashal: Reduced backport -- upstream 3fd63658caed9 touches 6 file(s), this
-  backport carries 1. Not backported here:
-  sound/soc/codecs/hdac_hda.h
-  sound/soc/intel/boards/hda_dsp_common.c
-  sound/soc/intel/boards/skl_hda_dsp_generic.c
-  sound/soc/intel/skylake/skl.c
-  sound/soc/sof/intel/hda-codec.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 6ad4892c4f5c ("ASoC: hdac_hda: Fix hlink refcount leak on component registration failure")
+Fixes: 6bae5ea94989 ("ASoC: hdac_hda: add asoc extension for legacy HDA codec drivers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Link: https://patch.msgid.link/20260622145645.1184986-1-haoxiang_li2024@163.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/hdac_hda.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/codecs/hdac_hda.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index de5955db0a5f0..3cb5ae7fb5269 100644
+index 3cb5ae7fb5269..3734cc0d7f059 100644
 --- a/sound/soc/codecs/hdac_hda.c
 +++ b/sound/soc/codecs/hdac_hda.c
-@@ -593,16 +593,18 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
- 	if (!hda_pvt)
- 		return -ENOMEM;
+@@ -600,10 +600,8 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 						&hdac_hda_codec, hdac_hda_dais,
+ 						ARRAY_SIZE(hdac_hda_dais));
  
-+	dev_set_drvdata(&hdev->dev, hda_pvt);
-+
- 	/* ASoC specific initialization */
- 	ret = devm_snd_soc_register_component(&hdev->dev,
--					 &hdac_hda_codec, hdac_hda_dais,
--					 ARRAY_SIZE(hdac_hda_dais));
-+						&hdac_hda_codec, hdac_hda_dais,
-+						ARRAY_SIZE(hdac_hda_dais));
-+
- 	if (ret < 0) {
--		dev_err(&hdev->dev, "failed to register HDA codec %d\n", ret);
-+		dev_err(&hdev->dev, "%s: failed to register HDA codec %d\n", __func__, ret);
- 		return ret;
- 	}
+-	if (ret < 0) {
++	if (ret < 0)
+ 		dev_err(&hdev->dev, "%s: failed to register HDA codec %d\n", __func__, ret);
+-		return ret;
+-	}
  
--	dev_set_drvdata(&hdev->dev, hda_pvt);
  	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
  
- 	return ret;
 -- 
 2.53.0
 
