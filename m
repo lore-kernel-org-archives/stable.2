@@ -1,85 +1,233 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6A246D572;
-	Fri, 11 Sep 2026 12:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46B846D572;
+	Fri, 11 Sep 2026 12:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129675; cv=none; b=ohzp022ZoSUrulzM515UBvWQc9NhvdG7ATVWtEoWFkq/ofRrYpzHytMyX9gYabd+A7asn8RRmKFqoYhK/XrT6aep9bDHIPMZJlKRuLu1F5yEs6cj6UPbqrSfwO6kEUtrWlHsihuEl1rjZqh1Vd+urRv2Ty9QYcQEqJSBByZioZA=
+	t=1789129680; cv=none; b=pgxkjNGV/pxuM0DAEJO6C6TbYRsz6c/lCed+CdJ9oW+TzJupKcuWRcBE941KyQZlLo6jywZqmQJEgwM4UxdkU6Kt637FYTAeexyPateCLHs6zDZ3gL+EP0l66ALYcbpStXfrUXxfHTL9Yv3yxKUQs259xcqO/wFKLodEKZFcDWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129675; c=relaxed/simple;
-	bh=/JoWNlL+nQ0SYDHa+uKMdYNQU78oDwK4ffKWAt0iyx4=;
+	s=arc-20240116; t=1789129680; c=relaxed/simple;
+	bh=YAeH4+2OThJSZoVdZ7FZbBOGVXoVVqqKnUvxWgcNCCg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i6nFiehT2DQTXh4s6odWv9Lf/hPOE6X1ozn8oPjURvMVxnhMF50er/AWYcQygffWiSBAqrPv3KsWxR1mzBpBBtnRQfhOjMCxtLlAW6G2giXJFl9HQD2b/+ybjQSJYPDHSVweWss28yqIiWsFOQcY0v4eeIGdlvA7miF1Tqhrano=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdjA7H5j; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ahq98d1V/q+a9Em7zpB1WcBccDaMA1FNUh7y2wY8fKTtkUKAHKAOe5a8hZZfkqTnEwcmmrqmQXrAI8yHA+JRBbQPQG9Nz/LKSjawWvIufPP0xSfqc69J7mIeTQlkWPAUZiQqd1yoexB/2Ix2SBQi4BBvj+xBIb9DgC5vVlnLY+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/7W0HXr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdjA7H5j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728BA1F000FF;
-	Fri, 11 Sep 2026 12:27:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/7W0HXr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097771F000FF;
+	Fri, 11 Sep 2026 12:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789129674;
-	bh=7pJTvovEIjrwVRJGOtnHTbbA0QaxF2m3Tjiosxi6CrE=;
+	s=k20260515; t=1789129679;
+	bh=p0323wJzFjCIFHnb8lSwNrTwo0K2ydueJAeo9wmqFKg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XdjA7H5jSrEhvGG923NQkXtin74+h3sjWaGoUXA6dMDZm8UUK2xJWBmDQvRwAi+jd
-	 ypTJlc0Un94bUYTBF2HK7b3L88+BzOCc5btiVkf4WwrnbS+6S1Hc51kTCKaluE0I5b
-	 i3Mx+a7YeTmzay5I62U5BnnvJ31lNZfSRL+szWgn+6xtbRG8Mv9otAcbTtyaFi0fz6
-	 2gBuw8zdvPDeTEyh3GfAKhJuf31lLweyBNXjaa82peHVDVz68C6mQ0o+aZDOtOdCna
-	 agQg35DMQvjYkfs4lFdM94kkXVC0CTZT/133bsfl5tqH5gdzpzeUhlWCURfaLEgIsQ
-	 xJAYgDt4VcuZQ==
-Date: Fri, 11 Sep 2026 13:27:50 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Christophe Ricard <christophe.ricard@gmail.com>,
-	Samuel Ortiz <sameo@linux.intel.com>, oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nfc: nci: validate CORE_CONN_CREATE response length
- before reading fields
-Message-ID: <20260911122750.GF48209@horms.kernel.org>
-References: <AS8P251MB00015EC8F8C2D4D9B536F94DC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	b=Z/7W0HXr+vjYSORGoTNKE6H5X5NqlkNUMSqgTXh86PKZ1SXGHmpgH/FoMwgH+nLxZ
+	 g216+OrCNzIzycg8p9gwZfRq47tIlktU+eLjy5FhdGmhnJwTJiFzW8024JZFz4KJuZ
+	 Y1PcLBZwNKUvm9NdWH7o/9FqNVwwKfWuT44W9EjrBPINbDnaLzrjBwhq/lphiSZtdy
+	 JPEzlHWuWFdHm18K3SZHkO8z0lFWKQKhL1crjLjRM6Snn+sECvqD3zNQEXXKRZ8h8k
+	 1YntPC27yegq5OZgNIjJdRyRuaDzy8OsHBE7zbT80MrWsMimp4myg0bTXvqdAptXiU
+	 PNvN5Cyl23y3w==
+Date: Fri, 11 Sep 2026 14:27:56 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqPzzMlPpXMNZ5WC@localhost.localdomain>
+References: <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
+ <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+ <87pkymywth.ffs@fw13>
+ <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+ <aqKu8nJqPsmKOo1d@localhost.localdomain>
+ <541b1db8-8649-46a9-9fa1-1b5f93cded7f@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <AS8P251MB00015EC8F8C2D4D9B536F94DC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <541b1db8-8649-46a9-9fa1-1b5f93cded7f@rowland.harvard.edu>
 
-On Mon, Sep 07, 2026 at 06:28:55AM +0000, Aamir Ahmed wrote:
-> nci_core_conn_create_rsp_packet() casts skb->data to struct
-> nci_core_conn_create_rsp and accesses its conn_id,
-> max_ctrl_pkt_payload_len, and credits_cnt fields (offsets 1-3) when
-> the status byte is NCI_STATUS_OK.  However, the NCI transport layer
-> (nci_valid_size) only guarantees that the payload contains at least
-> one byte.  A malformed response with plen=1 and status=0 passes this
-> check, and the handler then reads three bytes past the valid payload,
-> using uninitialised slab data to populate the connection info that is
-> later used for NFC data exchange.
+Le Thu, Sep 10, 2026 at 11:26:38AM -0400, Alan Stern a écrit :
+> On Thu, Sep 10, 2026 at 03:21:54PM +0200, Frederic Weisbecker wrote:
+> > Alan, let me ask you something, because I'm the only one here puzzled by
+> > this data dependency.
+> > 
+> > The following scenario works (the bad outcome never happens) because
+> > UNLOCK+LOCK pairs with smp_load_acquire():
+> > 
+> > 	C MP+polocks
+> > 
+> > 	{}
+> > 
+> > 	P0(int *A, int *B, spinlock_t *mylock)
+> > 	{
+> > 		spin_lock(mylock);
+> > 		WRITE_ONCE(*A, 1);
+> > 		spin_unlock(mylock);
+> > 		spin_lock(mylock);
+> > 		WRITE_ONCE(*B, 1);
+> > 		spin_unlock(mylock);
+> > 	}
+> > 
+> > 	P1(int *A, int *B)
+> > 	{
+> > 		int r0;
+> > 		int r1;
+> > 
+> > 		r0 = smp_load_acquire(B);
+> > 		r1 = READ_ONCE(*A);
+> > 	}
+> > 
+> > 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
+> > 
+> > 
+> > So I understand this one. Now unfortunately litmus doesn't support
+> > structures, but let's suppose it could. I'm taking the previous script
+> > and introduce a small change in P1:
+> > 
+> > 	C MP+polocks
+> > 
+> > 	{}
+> > 
+> > 	P0(int *A, int *B, spinlock_t *mylock)
+> > 	{
+> > 		spin_lock(mylock);
+> > 		WRITE_ONCE(*A, 1);
+> > 		spin_unlock(mylock);
+> > 		spin_lock(mylock);
+> > 		WRITE_ONCE(*B, 1);
+> > 		spin_unlock(mylock);
+> > 	}
+> > 
+> > 	P1(int *A, int *B)
+> > 	{
+> > 		int r0;
+> > 		int r1
+> > 
+> > 		r0 = READ_ONCE(*B);
+> > 		spin_lock(r0->somelock)
+> > 		r1 = READ_ONCE(*A);
+> > 		spin_unlock(r0->somelock)
+> > 	}
+> > 
+> > 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
+> > 
+> > 
+> > So instead of doing a LOAD-ACQUIRE on B, I do a plain READ but I also
+> > do a spin_lock right after on a data that depends on that READ. I can't
+> > run that on litmus but this is the same (simplified) pattern as what we
+> > had in this discussion and therefore I assume that it also works (ie: the
+> > bad outcome shouldn't happen), is that right?
 > 
-> This can be triggered from userspace via the virtual_ncidev interface
-> by injecting a short CORE_CONN_CREATE_RSP frame.
+> Yes.
 > 
-> Add a length check for the full response structure before accessing
-> any field beyond the status byte.
+> > Would it also work if spin_lock() was just a LOAD-ACQUIRE?
 > 
-> Fixes: 736bb9577407 ("NFC: nci: Support logical connections management")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+> Yes.
+> 
+> > Does it mean that data dependency implies sufficient ordering such that
+> > a LOAD-ACQUIRE to a data that depends on B provides the same guarantees as
+> > a LOAD-ACQUIRE to B?
+> 
+> Indeed it does, with the obvious exception that a load-acquire of B 
+> also provides ordering to any statements in between it and the load of 
+> the data depending on B.  That is:
+> 
+> 	r0 = smp_load_acquire(B);
+> 	X;
+> 	r1 = READ_ONCE(r0->A);
+> 
+> orders the load from B before everything that follows, including X, 
+> whereas:
+> 
+> 	r0 = READ_ONCE(B);
+> 	X;
+> 	r1 = smp_load_acquire(r0->A);
+> 
+> orders the load from B before the load from r0->A and everything 
+> following it, but not before X.
 
-This patch looks good to me but as noted collectively by Greg and Paolo
-elsewhere:
-1. Please include an Assisted-by tag
-2. Please keep the number of patches in-flight to 15 or less
+Ok that matches my understanding.
 
-When you repost feel free to include:
+> 
+> > The reason I'm asking that is because, unlike control dependency, data
+> > dependency and its guarantees are not well documented. It is defined in
+> > tools/memory-model/Documentation/explanation.txt but not really described
+> > in Documentation/memory-barriers.txt. There is a mention in a scenario within
+> > the section "MULTICOPY ATOMICITY" just to show that it's not as strong as
+> > a full memory barrier.
+> > 
+> > So if data dependency can provide the guarantee above in my second script
+> > but it's not as strong as a full barrier, this suggests that data dependencies
+> > have their own specific properties that should probably be documentated.
+> 
+> Perhaps so.  Can you suggest a place in explanations.txt that could be 
+> improved?
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+So in explanations.txt, the different kinds of dependencies are defined
+without diving much into properties.
+
+Properties of ordering enforcement tools are typically described in
+Documentation/memory-barriers.txt. Control dependencies has its own
+section and I suspect there is enough to say about data dependencies
+to deserve its own section there.
+
+What I would love to see documented for example is our case: acquire semantics,
+which are described to apply one-way from a single memory target, are also
+transferrable to other memory targets when there is a data dependency
+involved between them.
+
+> Here's how I think about ordering guarantees in general.  Not in terms 
+> of pairing of memory barriers, since (as you pointed out) dependencies 
+> aren't memory barriers, and also since ordering cycles can involve more 
+> than two CPUs (so triples or higher, not just pairs).
+> 
+> Instead there's a hierarchy of ordering classes.  The lowest level only 
+> orders events on a single CPU; it includes dependencies, smp_rmb(), and 
+> load-acquires.
+> 
+> The next level orders cross-CPU events (i.e., writes), but only in a way 
+> that affects two CPUs at a time.  It includes things like smp_wmb() and 
+> store-releases, and it guarantees that if CPU 1 writes A first and B 
+> second, then CPU 2 will observe the store to A before it observes the 
+> store to B.  Likewise for CPU 3, CPU 4, etc., but there is no guarantee 
+> about the order in which differing CPUs will observe the stores.
+> 
+> The highest level orders events in a way that involves all CPUs.  It 
+> includes things like smp_mb() and synchronize_rcu(), and it says that if 
+> CPU 1 writes A first and B second, then _every_ CPU will observe the 
+> store to A before _any_ CPU (including CPU 1!) observes the store to B.
+> 
+> This is a little imprecise, and there are varying details within the 
+> levels, but the overall idea is basically right.
+
+Interesting way of seeing it and I *think* I understand :-)
+
+> 
+> At any rate, the point you're raising is that dependencies and 
+> load-acquires both sit at the lowest level of this hierarchy, so they 
+> provide pretty much the same ordering guarantees.
+> 
+> Alan Stern
+
+Got it.
+
+Thanks a lot for taking the time to explain me all that!
 
 -- 
-pw-bot: changes-requested
+Frederic Weisbecker
+SUSE Labs
