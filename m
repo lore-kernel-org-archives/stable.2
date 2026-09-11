@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5479D4A8A1F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8672F4A8A3A
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:58:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149501; cv=none; b=qY0W6KKEposmq/NQyopVjVfPz3/BZ/i2zNCFZHOCLqKjsVyQ2SVoswiTWFad4ScA0i7wQ3WOcshxl+75gsasLJwnTGNHkbeyk3sbRA4h7qx22Aci9pggdUBagjyJg7u9r6zDK61mL/JoWWslFXePyaziD2/8+mHAA3yVieUzRxU=
+	t=1789149501; cv=none; b=qzYQ0HZN0TmDQAY94eTGXJDO95wo3t6aUYcjUlp8jUIRUIhTI75GOneuaEDvNfU13RXXM30/TiYYDNg8hFp13hRziNigkBXw6PPnfWmgAAQk68J2m4+YSTIwzKI4eHSaEDR3Xm9mYt6tk3G/yfVWfXKDEKKgGUAMRig/B+lKetI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789149501; c=relaxed/simple;
-	bh=F5RjB8TbgTnQG7w34f1Vg4WbZ21FH7vz2UBoLvxn/SM=;
+	bh=aFSCR/O7CJRtaIfXCIRTDJLGUTqFEV13slGbkGMWo10=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a34xFhX/hjgWXzSw08GXraeThmb+w7FjXqquZ4y7ltZE4Pgmns8dnzwkyTobSL7CYNVmcaHgVBtQrhC/kk1N2UQlxhNtN8bJ83xx5JoahVB3Gx46DSrKetsimFJD4Sz5CHXvW2TXL6Qn6mfzftdGF9ckAPON8Saf70T5M2d+U+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvagNmnN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JHlBN8CKdlNaCFDF7Bn1MV7RfwI+cLFz9QrGXKx9CZs1ettOfMMsUI40B+pSE5ZKX/S71UwoO7VP4CfoVHMeOXZBOaODaQKXCBvtQey4q52ABec6NTcJVJ43DXYkRKhtjVQ2yveuz6JVjDjekxgqGOreRT96enB/n2biiAkhT2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUnq/e4k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvagNmnN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4111F00893;
-	Fri, 11 Sep 2026 17:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUnq/e4k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EC31F00898;
+	Fri, 11 Sep 2026 17:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149498;
-	bh=NSJDN7ZPGzLiv66xz7l0vvlTn1DgWKJRBA31R46kPR4=;
+	s=k20260515; t=1789149499;
+	bh=Pa2rK/GA3HXDQDzCQXqNo42zMhKiQPN4wjh4fYprtWs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BvagNmnNHpCyrXPykGYPAE0c+y4VsHuRpyUFY/EBXezk1BoVnkvab8VfWjV8PuCe/
-	 7ix7E9gxZ73cUfAD+QIKVSxqk0T3nkeWPj/qlj4fa/5bYoFiSY/20vBn1N9sg4KlDB
-	 W5h7yUTlbM3aj0wWFSJQqJPXDyzTNi8s59fuVTVQLSqZt78FaH0orHZP+s7AFoBWxW
-	 AYEwLAScuBjFo9Jd6rIfwRFC6pT8hBiz+abhzfOPbUpHnLkmTnW63jKoex4JrEtdX/
-	 CpWenCEVQtVg3FGCLvSavwvkv+RdbGGyXq3DiOiagEvgURwzKyR/XUZT8YxMbeEmH1
-	 9gukM8h7APYdA==
+	b=DUnq/e4k9HM3GEBP1jYWVmp213CsP+kdrkr4hOmaB3qff6nOuGPXg6WkpOPC9WQte
+	 6yqkvC3aY53d6iUFflI/EL9M/EteTT5UhRzE4yNamgWSJP5nnd292k7U08xbBQPtvI
+	 sxw3aXPrIvunDQxPuCXGkIXbjXI1yPJRxob9I7Dyexoyn/yrwx8b217IUsU9fC6Qt3
+	 BTE9S8mQCSSoKDUTsBnJ+Z/eZfxwWnAV09jL5ta0zEy95LbQyCkTspBFJZuWZGN7W7
+	 JzjK09sPcEtVhJhksi9+iKPJE7/9o+hWoEvPd2RvmF/EvZjJl2dZ7C3zuwKVe6xVE5
+	 UynGXOBYMGIHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
+	Hannes Reinecke <hare@kernel.org>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] scsi: qla2xxx: Fix soft lockup polling continuation IOCB signature
-Date: Fri, 11 Sep 2026 13:58:16 -0400
-Message-ID: <20260911175816.1283053-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: qla2xxx: Fix 64G link speed reporting in get_data_rate
+Date: Fri, 11 Sep 2026 13:58:17 -0400
+Message-ID: <20260911175817.1283105-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090956-molasses-octopus-b86b@gregkh>
-References: <2026090956-molasses-octopus-b86b@gregkh>
+In-Reply-To: <2026090900-spyglass-amnesty-95b8@gregkh>
+References: <2026090900-spyglass-amnesty-95b8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,105 +48,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit d7e3fa7d06bf7fcaac186d3c4d635caac166d36c ]
+[ Upstream commit 52fba32317ee631faa878725b2f7cd5c08acacd3 ]
 
-qla27xx_copy_multiple_pkt() and qla27xx_copy_fpin_pkt() poll
-rsp_q->ring_ptr->signature for RESPONSE_PROCESSED (0xDEADDEAD) to decide
-whether the next continuation IOCB has arrived, spinning on cpu_relax()
-without advancing the ring or decrementing the entry count while it has
-not. response_t::signature lives at byte offset 60, but a continuation
-IOCB (sts_cont_entry_t / struct sts_cont_entry_ext) carries raw FC frame
-payload at that offset (data[56..59]). A received frame whose payload
-bytes happen to equal 0xDEADDEAD is therefore misread as "not yet
-arrived", and the loop spins forever in interrupt/DPC context, causing a
-CPU soft lockup.
+qla2x00_get_data_rate() skips updating ha->link_data_rate when the
+firmware returns mcp->mb[1] == 0x7.  That value was a legacy sentinel
+from before 64G hardware existed, but PORT_SPEED_64GB is now defined as
+0x07 and ha->link_data_rate is decoded with the PORT_SPEED_* encoding.
+On a 64G-capable adapter a genuine 64G link is therefore dropped, and
+the port speed is misreported (port_speed sysfs, fc_host speed, FDMI).
 
-The poll is also unnecessary: callers of qla27xx_copy_multiple_pkt()
-(PT_LS4_UNSOL and the NVMe purls path) already gate on
-qla_chk_cont_iocb_avail(), which guarantees all entry_count IOCBs are
-present before copying begins. The sibling helper
-__qla_copy_purex_to_buffer() already drops the signature poll and relies
-on the entry_type == STATUS_CONT_TYPE guard instead.
+Only 28xx and 29xx support 64G, so accept 0x07 on those adapters while
+keeping the legacy filter for older ones.  Also drop the duplicate copy
+of the check at the end of the success branch; it repeated the first
+assignment with no intervening change.
 
-Remove the signature busy-wait from both helpers, keeping the entry_type
-guard, and gate the FPIN path with qla_chk_cont_iocb_avail() so it defers
-and re-processes on the next interrupt once all continuation IOCBs have
-arrived, mirroring the ELS_AUTH_ELS and PT_LS4_UNSOL arms. With this the
-signature field is never read on a continuation IOCB, eliminating the
-payload-aliasing lockup.
-
-Fixes: 9f2475fe7406 ("scsi: qla2xxx: SAN congestion management implementation")
+Fixes: ecc89f25e225 ("scsi: qla2xxx: Add Device ID for ISP28XX")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-15-njavali@marvell.com
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-46-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ replaced unavailable qla_rsp_ring_rewind_to() with direct ring pointer and index assignments ]
+[ Omitted IS_QLA29XX() checks because this branch lacks 29xx adapter support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_isr.c | 33 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/scsi/qla2xxx/qla_mbx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_isr.c b/drivers/scsi/qla2xxx/qla_isr.c
-index 07b08119af0b0..f2f68eb2bde99 100644
---- a/drivers/scsi/qla2xxx/qla_isr.c
-+++ b/drivers/scsi/qla2xxx/qla_isr.c
-@@ -910,14 +910,6 @@ qla27xx_copy_multiple_pkt(struct scsi_qla_host *vha, void **pkt,
+diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
+index 771b323a51942..500d4d40beaa9 100644
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -5643,7 +5643,7 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
+ 		ql_dbg(ql_dbg_mbx, vha, 0x1107,
+ 		    "Failed=%x mb[0]=%x.\n", rval, mcp->mb[0]);
+ 	} else {
+-		if (mcp->mb[1] != 0x7)
++		if (mcp->mb[1] != 0x7 || IS_QLA28XX(ha))
+ 			ha->link_data_rate = mcp->mb[1];
  
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
+ 		if (IS_QLA83XX(ha) || IS_QLA27XX(ha) || IS_QLA28XX(ha)) {
+@@ -5654,8 +5654,6 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
  
-@@ -1194,14 +1186,6 @@ qla27xx_copy_fpin_pkt(struct scsi_qla_host *vha, void **pkt,
+ 		ql_dbg(ql_dbg_mbx + ql_dbg_verbose, vha, 0x1108,
+ 		    "Done %s.\n", __func__);
+-		if (mcp->mb[1] != 0x7)
+-			ha->link_data_rate = mcp->mb[1];
+ 	}
  
- 	do {
- 		while ((total_bytes > 0) && (entry_count_remaining > 0)) {
--			if (rsp_q->ring_ptr->signature == RESPONSE_PROCESSED) {
--				ql_dbg(ql_dbg_async, vha, 0x5084,
--				       "Ran out of IOCBs, partial data 0x%x\n",
--				       buffer_copy_offset);
--				cpu_relax();
--				continue;
--			}
--
- 			new_pkt = (sts_cont_entry_t *)rsp_q->ring_ptr;
- 			*pkt = new_pkt;
- 
-@@ -4109,9 +4093,24 @@ void qla24xx_process_response_queue(struct scsi_qla_host *vha,
- 					       "SCM not active for this port\n");
- 					break;
- 				}
-+				if (qla_chk_cont_iocb_avail(vha, rsp,
-+				    (response_t *)pkt, rsp_in)) {
-+					/*
-+					 * ring_ptr and ring_index were
-+					 * pre-incremented above. Reset them
-+					 * back to current. Wait for next
-+					 * interrupt with all IOCBs to arrive
-+					 * and re-process.
-+					 */
-+					rsp->ring_ptr = (response_t *)pkt;
-+					rsp->ring_index = cur_ring_index;
-+
-+					ql_dbg(ql_dbg_init, vha, 0x5095,
-+					    "Defer processing FPIN...\n");
-+					return;
-+				}
- 				pure_item = qla27xx_copy_fpin_pkt(vha,
- 							  (void **)&pkt, &rsp);
--				__update_rsp_in(is_shadow_hba, rsp, rsp_in);
- 				if (!pure_item)
- 					break;
- 				qla24xx_queue_purex_item(vha, pure_item,
+ 	return rval;
 -- 
 2.53.0
 
