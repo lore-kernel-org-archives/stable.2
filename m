@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3343A4A689B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41253AFD15
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146977; cv=none; b=u5Rh7kt1f3jYya8DyiHAJyNdPH2/Omj0Sj2ADp7Nie/eUlyokDm4mFgulZD4Nx6pCco+dqIUXu3nBTtCqS0XriYQXraBNAEDjloGjLWTsCW7/DEukXDuzvZeSqYztOB1O8WUN5gr/kUYGLjC1yZkGHWg5+awApEd+62QFt+hkMw=
+	t=1789146979; cv=none; b=s/CHI2w2BZ+0uzqBHJFPwzujXdlS7S9o/Nn+Te8QvFMDdhzTIYAOkF1YUrjict6kzaIQc/eqtNW/y1gBy5QZFxGlqjj58WGE8rixd3j4Bb27IVfZnOhB/p1Mw4v/eXIrt+QN9etxM6QG0WW0zyqrRsXa2Gdbhrokmv/5hkaXWi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146977; c=relaxed/simple;
-	bh=Ta4TcJiobvU1kr0Xj0m2ENOrLY56kQuL0ggfSbRuUKA=;
+	s=arc-20240116; t=1789146979; c=relaxed/simple;
+	bh=lHuNKHuNMYo0tRaRVQb1ehC32zZ7+AQ2gLrQeCU7rcA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E64aeUcVSNBWOEUyYCzZe6LBgE0ZnUyBpCGQ69qB4+k2HOmYiaWNEl9Ujqr9QeHUIumyPJklOqHMyhRCNpXZXz1rxtPuBn7qLhD9CBE6s4s+KijXD7ctG5gtVJH75Mzd5KBFWA1DAfHz9m+9Xs33cLhvk5DjnKjgb7CXLMGcI4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmPa0wKi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PbKiT/dZtaEhUXR3nIGsBe4E+0B+4qamfkK2vIsEaBlzggRJ1AyqvQES2eGgoiB7fnX2od16e38IYU0k87uW/HCOSAv9Vvr5ABSxL3TeSO96JJfbAk1IdJ0q8UMutC8rrmhkP771IyKqpAUXsMjt2L9oQVIF1oZ9rKJu0j+bNiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzM39+Bd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmPa0wKi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126371F00893;
-	Fri, 11 Sep 2026 17:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzM39+Bd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9751F000FF;
+	Fri, 11 Sep 2026 17:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789146973;
-	bh=zxVJG/ufbKghUucgvuSUoF8jaN9w8nGBCUEaqcwPznw=;
+	s=k20260515; t=1789146975;
+	bh=tuJpjO5j6kBOCw6eI+RZ4xqRgyP8YZLhM1faoVJBIX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lmPa0wKigKx9p7qDZPFWSZtsLzYwgVZ+miSrf/3EjyYLg3dqkAsVJv5O260qFTyuZ
-	 HI7f6IvDYwQxIL8KVV5OUYYElYvQ0lMOe+0umh+N+fQNvy7j2ubEhpZXZDiC/M3UJy
-	 Qylw6yKEZSnCuWpMekFtTKjL/lVTLQZ+EUjYeUTKj4k/PQlLYUbVpdi7ukOJMD+eJd
-	 DUFryUb22Cfh6X3Sy6LpHJ4yfl3hTXDCwNOwh+GL5+qG+88LgAHTH7WR8LCa5vBqjx
-	 3ylGkH1gBYFOKsvv3f7nbto0T7rEY1+SZu940DOC3Dg/oQ2gHHSH92mvQJD6ZkFg4Q
-	 Kwlkt2/FQH9JA==
+	b=YzM39+BdMAJ8C8St4LCY0IM1vbYwBjHItJeOo0j3V6J0WC03e/gFNzd+6RYbctpF4
+	 /k4dRZzXl2uUuUSskhZkc0kYLQ92WvCw+6NsP6wMti14MuNhTNicKNGu1Io66y2EBs
+	 guGf215YhDMjCGIsHXjk1P2fmhnOVPo9mu4PC+IqR07asaXaZ4vxNMgk9gBsI7Pk72
+	 IYyv6xi6WB/SHgzvO7nTa1qsPA9FTa4MSO9mRLHokJ+nLvdSCNMLDWZ0IpmlOQaY/1
+	 xIAXWBYMRU1kmnPiMFivBOh4WTislDnLEBi3Eq9ovGJpswOxOXgoZq1MyKZz3o1GGb
+	 XmWt3k5BuFLfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
+	Hannes Reinecke <hare@kernel.org>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: qla2xxx: Null out freed pointers in qla2x00_mem_alloc() error path
-Date: Fri, 11 Sep 2026 13:16:11 -0400
-Message-ID: <20260911171611.1214047-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] scsi: qla2xxx: Fix queue teardown NULL dma_free and bitmap locking
+Date: Fri, 11 Sep 2026 13:16:12 -0400
+Message-ID: <20260911171613.1215725-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090959-visitor-pessimism-b0d8@gregkh>
-References: <2026090959-visitor-pessimism-b0d8@gregkh>
+In-Reply-To: <2026090921-foe-those-b6a7@gregkh>
+References: <2026090921-foe-those-b6a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,72 +48,135 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 6d90f0feb929f6c0f3010f9af4747c7230b75993 ]
+[ Upstream commit 34a40e0dff940ac5eba494a69b553ea571e24873 ]
 
-When qla2x00_mem_alloc() fails, qla2x00_probe_one() jumps to
-probe_hw_failed and calls qla2x00_mem_free(). Several error labels in
-qla2x00_mem_alloc() freed adapter members (elsrej.c, purex_dma_pool,
-flt, sfp_data, loop_id_map, async_pd, sf_init_cb, ex_init_cb, npiv_info)
-but left the pointers dangling. qla2x00_mem_free() then freed them a
-second time. Worse, for the dma_pool members it issued
-dma_pool_free(ha->s_dma_pool, ...) after s_dma_pool had already been
-destroyed and set to NULL at fail_s_dma_pool, dereferencing a NULL pool.
+qla25xx_free_req_que() and qla25xx_free_rsp_que() have two pre-existing
+bugs exposed on the error path of qla25xx_create_{req,rsp}_que():
 
-Clear each freed pointer (and its DMA handle) in the error labels so the
-subsequent qla2x00_mem_free() skips them.
+ 1. When dma_alloc_coherent() fails during queue creation, the error
+    path calls the free function with req->ring / rsp->ring still NULL
+    (from kzalloc).  The unconditional dma_free_coherent() with a NULL
+    cpu_addr is undefined behavior and can panic.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
+ 2. The free functions clear req_qid_map / rsp_qid_map under vport_lock,
+    but the create functions protect the same bitmaps with mq_lock.
+    This provides no mutual exclusion.  Additionally, the create error
+    path clears the bit and releases mq_lock before calling the free
+    function, creating a window where another thread can allocate the
+    same que_id and have its ha->req_q_map entry clobbered by the
+    subsequent lockless NULL assignment in the free function.
+
+Fix by:
+
+ - Guarding dma_free_coherent() with a NULL check on the ring pointer.
+
+ - Using mq_lock (the lock held by all creators) in the free functions
+   to atomically NULL the map entry and clear the bitmap bit.
+
+ - Removing the now-redundant clear_bit blocks from the create error
+   paths since the free functions handle it atomically.
+
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-13-njavali@marvell.com
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-41-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adapted cleanup changes for missing fail_lsrjt and fail_flt_data blocks. ]
+
+Backport adaptation for the stable tree: the 29xx IOCB size-selection
+helpers are absent, and queue creation still allocates fixed-size entries.
+Initialize the local req_entry_size and rsp_entry_size values with
+sizeof(request_t) and sizeof(response_t), respectively, so DMA freeing
+continues to match allocation without adding helper functions or 29xx
+support. Retain all NULL-ring guards, mq_lock protection, and removal of
+the premature bitmap clears.
+
+Keep the response-ring cleanup layout used by upstream so target commit
+19788a55cab61d78e33e0914a5a31d27843e8a4a applies unchanged.
+
+Stable-dep-of: 19788a55cab6 ("scsi: qla2xxx: Fix use-after-free of qpair work on queue teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_os.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/scsi/qla2xxx/qla_mid.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index a373c90dfe6df..f912057c90eb6 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -4464,23 +4464,36 @@ qla2x00_mem_alloc(struct qla_hw_data *ha, uint16_t req_len, uint16_t rsp_len,
+diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
+index 1a4a740e118a0..4e2d6e0cfb9b0 100644
+--- a/drivers/scsi/qla2xxx/qla_mid.c
++++ b/drivers/scsi/qla2xxx/qla_mid.c
+@@ -566,16 +566,19 @@ qla25xx_free_req_que(struct scsi_qla_host *vha, struct req_que *req)
+ {
+ 	struct qla_hw_data *ha = vha->hw;
+ 	uint16_t que_id = req->id;
++	size_t req_entry_size = sizeof(request_t);
  
- fail_elsrej:
- 	dma_pool_destroy(ha->purex_dma_pool);
-+	ha->purex_dma_pool = NULL;
- fail_flt:
- 	dma_free_coherent(&ha->pdev->dev, sizeof(struct qla_flt_header) + FLT_REGIONS_SIZE,
- 	    ha->flt, ha->flt_dma);
-+	ha->flt = NULL;
-+	ha->flt_dma = 0;
+-	dma_free_coherent(&ha->pdev->dev, (req->length + 1) *
+-		sizeof(request_t), req->ring, req->dma);
++	if (req->ring)
++		dma_free_coherent(&ha->pdev->dev,
++				  (req->length + 1) * req_entry_size,
++				  req->ring, req->dma);
+ 	req->ring = NULL;
+ 	req->dma = 0;
+ 	if (que_id) {
++		mutex_lock(&ha->mq_lock);
+ 		ha->req_q_map[que_id] = NULL;
+-		mutex_lock(&ha->vport_lock);
+ 		clear_bit(que_id, ha->req_qid_map);
+-		mutex_unlock(&ha->vport_lock);
++		mutex_unlock(&ha->mq_lock);
+ 	}
+ 	kfree(req->outstanding_cmds);
+ 	kfree(req);
+@@ -587,6 +590,7 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
+ {
+ 	struct qla_hw_data *ha = vha->hw;
+ 	uint16_t que_id = rsp->id;
++	size_t rsp_entry_size = sizeof(response_t);
  
- fail_flt_buffer:
- 	dma_free_coherent(&ha->pdev->dev, SFP_DEV_SIZE,
- 	    ha->sfp_data, ha->sfp_data_dma);
-+	ha->sfp_data = NULL;
-+	ha->sfp_data_dma = 0;
- fail_sfp_data:
- 	kfree(ha->loop_id_map);
-+	ha->loop_id_map = NULL;
- fail_loop_id_map:
- 	dma_pool_free(ha->s_dma_pool, ha->async_pd, ha->async_pd_dma);
-+	ha->async_pd = NULL;
-+	ha->async_pd_dma = 0;
- fail_async_pd:
- 	dma_pool_free(ha->s_dma_pool, ha->sf_init_cb, ha->sf_init_cb_dma);
-+	ha->sf_init_cb = NULL;
-+	ha->sf_init_cb_dma = 0;
- fail_sf_init_cb:
- 	dma_pool_free(ha->s_dma_pool, ha->ex_init_cb, ha->ex_init_cb_dma);
-+	ha->ex_init_cb = NULL;
-+	ha->ex_init_cb_dma = 0;
- fail_ex_init_cb:
- 	kfree(ha->npiv_info);
-+	ha->npiv_info = NULL;
- fail_npiv_info:
- 	dma_free_coherent(&ha->pdev->dev, ((*rsp)->length + 1) *
- 		sizeof(response_t), (*rsp)->ring, (*rsp)->dma);
+ 	if (rsp->msix && rsp->msix->have_irq) {
+ 		free_irq(rsp->msix->vector, rsp->msix->handle);
+@@ -594,15 +598,18 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
+ 		rsp->msix->in_use = 0;
+ 		rsp->msix->handle = NULL;
+ 	}
+-	dma_free_coherent(&ha->pdev->dev, (rsp->length + 1) *
+-		sizeof(response_t), rsp->ring, rsp->dma);
++
++	if (rsp->ring)
++		dma_free_coherent(&ha->pdev->dev,
++				  (rsp->length + 1) * rsp_entry_size,
++				  rsp->ring, rsp->dma);
+ 	rsp->ring = NULL;
+ 	rsp->dma = 0;
+ 	if (que_id) {
++		mutex_lock(&ha->mq_lock);
+ 		ha->rsp_q_map[que_id] = NULL;
+-		mutex_lock(&ha->vport_lock);
+ 		clear_bit(que_id, ha->rsp_qid_map);
+-		mutex_unlock(&ha->vport_lock);
++		mutex_unlock(&ha->mq_lock);
+ 	}
+ 	kfree(rsp);
+ 	rsp = NULL;
+@@ -788,9 +795,6 @@ qla25xx_create_req_que(struct qla_hw_data *ha, uint16_t options,
+ 		if (ret != QLA_SUCCESS) {
+ 			ql_log(ql_log_fatal, base_vha, 0x00df,
+ 			    "%s failed.\n", __func__);
+-			mutex_lock(&ha->mq_lock);
+-			clear_bit(que_id, ha->req_qid_map);
+-			mutex_unlock(&ha->mq_lock);
+ 			goto que_failed;
+ 		}
+ 		vha->flags.qpairs_req_created = 1;
+@@ -904,9 +908,6 @@ qla25xx_create_rsp_que(struct qla_hw_data *ha, uint16_t options,
+ 		if (ret != QLA_SUCCESS) {
+ 			ql_log(ql_log_fatal, base_vha, 0x00e7,
+ 			    "%s failed.\n", __func__);
+-			mutex_lock(&ha->mq_lock);
+-			clear_bit(que_id, ha->rsp_qid_map);
+-			mutex_unlock(&ha->mq_lock);
+ 			goto que_failed;
+ 		}
+ 		vha->flags.qpairs_rsp_created = 1;
 -- 
 2.53.0
 
