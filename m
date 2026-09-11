@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1136C2868AB
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:29:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E37F4F1
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 00:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789086565; cv=none; b=oAucfTcNqVbLNmiS4iyjKgPpxqRqPCmeEKfmMrmWXtlrQhF7ozpcqUd/zpCiwmRQcbCLwnsq32e7xqCXICqECe8KuixKCo+ZTaS6prBEyINaChBxUOTzIzT0aZcN9gEEIW7erNUQcDsmEQaXdCYR+aLNVw+fHydzpKl5SOCiRBM=
+	t=1789086566; cv=none; b=flKtIhOhZqUySx4+tSWDVfCIXuxxIo1vvuNewDjoG9JQf5WwKTDJJ/+ZxpCA9kVruj5r5CQpSDEYJlTLDG1vbUCX2V06l3D/wrNe8NTkkb0xiojZ/Qy/r7yjNm7r1yxDVZ5D6aRl9RzH42vGNc+S7pXYXjLCUQNi50zlYy50Wjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789086565; c=relaxed/simple;
-	bh=D47f05Tgu8d9YUjj9oEphIe3EXSUy64XqA8XPLZmC6c=;
+	s=arc-20240116; t=1789086566; c=relaxed/simple;
+	bh=DZx/v9GberCugKDSDCktJkpWp8vSMzL24+T1WMFOWGQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R6veCoHF67eJp5tiuCjDMlmjQYU2nc6yXxLVn/0miFjuc1bBh+PXWLMELCfodZZ7FORh4xU35T2XzydK4Hu4VfGm2ympzR/AAqTuYVaVQa04a+HyI0mjSt9LEyAkTuJHt1gKD4ZXZV/QOxvIHBNe/gnbNQI7e/TlDGABbeCS4Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjepOPfO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ioh5Pq/+rx3L7oJfEH2/HtFmLg5FQ3PrKR6vGabPot2EchcawOGHx3+iCjEKaCEb3dX/hoJh6a3gtRUo5SP5+5BvcmU80fyQma4kFneAwNM3/aUTotfa/JEscYMqAnGtaCsrkPxpM0xTWMBOOfwan5quA0usWRXuDmya9cJrCGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eprWcVQG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjepOPfO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B5B61F000FF;
-	Fri, 11 Sep 2026 00:29:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eprWcVQG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973DD1F00893;
+	Fri, 11 Sep 2026 00:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789086563;
-	bh=iTDQkFSbRDfNf9mqrdGKpi3yufAiwK44zrc2slI/VD8=;
+	s=k20260515; t=1789086565;
+	bh=RAUWuFyX9c6I1XRxDWI83fsHQfdfhc90za0LTNi+Q+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PjepOPfOM98Mvtg8lYo0nJnUgBCY/yLZhQVFs5ZXbdVlTbS3t4EkVS6pCb9QN5XLa
-	 Yr9wwUfEYyACb6T4bBQvLFuDeqIGkTd9kvN+t2DBjOdsOQkqxOmQcDd0EGrDgbMWGQ
-	 0GehU8lWVnD4COxZzcfBdTWALJqgYnBL+0RhpoO5jphOAIC23Zo11bK7UY7rjOG+oa
-	 r+SA9qus/rDmA861ZCEoomsDXJ4kVrAFTMT8en0lM0M0tpFrnzVp9gNjZtQirseq1y
-	 K/HS/YkUmoxY96bXTjRh1hZbbQb6zg9LPgsaKvy3u8bmqkrez3WleMKoGOJp1xZs4t
-	 1j5A5PeAjDTKg==
+	b=eprWcVQG75Oj7eVAEi29uovqNCHxZJKaTLQNpLhBzkkpxfBZuZ/k4EJmcV8PXfjEu
+	 eJDAOfRJM+WzK/NItwiZhdg5Yoor2D848jIP8FbYw+IUA7Q9gl8VpMYwIUgUyQtIWv
+	 8VK2zlqofupuh1Ipqxfgt8Vmw91dIgS36NfAibie2GCG44eMvuCygrkD5nBq/qDrDy
+	 kjJflGcHaDqyMpOySAQBliVjPY9f/HByM0+8F015uTqrXZSZP5keLHvsjLcpxBbnoV
+	 waHbmgC6x+EylN7q6XUvS3Pg1iQlubG9IoUixLOXy9OFG2/xFss6NnPZkTxN2Kb2rP
+	 n9gG99vGUCNNA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tristan Madani <tristan@talencesecurity.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	John Garry <john.g.garry@oracle.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Zide Chen <zide.chen@intel.com>,
+	Thomas Falcon <thomas.falcon@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nvme: add missing SRCU grace period in error path
-Date: Thu, 10 Sep 2026 20:29:20 -0400
-Message-ID: <20260911002920.3427959-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] perf/x86/intel: Remove anythread_deprecated bit from perf_capabilities
+Date: Thu, 10 Sep 2026 20:29:22 -0400
+Message-ID: <20260911002922.3428224-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090941-alumni-snare-26ce@gregkh>
-References: <2026090941-alumni-snare-26ce@gregkh>
+In-Reply-To: <2026090901-snowstorm-sandbar-8bac@gregkh>
+References: <2026090901-snowstorm-sandbar-8bac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,48 +48,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit ef248d5de4469fb6bbaf8dbe0c4c47800080d648 ]
+[ Upstream commit 8767b4d73018bd3143f4c55b672064fad292f11b ]
 
-nvme_alloc_ns() error path at out_unlink_ns removes ns from the
-namespace head siblings list with list_del_rcu(&ns->siblings) but
-does not wait for SRCU readers before freeing the namespace struct.
-Multipath code iterates the head->list under srcu_read_lock() in
-nvme_find_path() and nvme_mpath_revalidate_paths(), so a concurrent
-reader can still hold a reference to ns when kfree(ns) runs.
+AnyThread mode deprecation is enumerated by CPUID.0AH:EDX[15] instead of
+PERF_CAPABILITIES MSR. It's not a good practice to define a bit to
+represent "anythread deprecation" in perf_capabilities. It leads to the
+anythread_deprecated bit could be overwritten by the real value of
+PERF_CAPABILITIES MSR, just like the below code in update_pmu_cap() does.
 
-The normal removal path in nvme_ns_remove() correctly calls
-synchronize_srcu(&ns->head->srcu) after list_del_rcu() to wait for
-in-progress readers. Add the same grace period in the error path.
+if (!intel_pmu_broken_perf_cap()) {
+	/* Perf Metric (Bit 15) and PEBS via PT (Bit 16) are hybrid enumeration */
+	rdmsrq(MSR_IA32_PERF_CAPABILITIES, hybrid(pmu, intel_cap).capabilities);
+}
 
-Fixes: ed754e5deeb1 ("nvme: track shared namespaces")
+It leads to the anythread_deprecated bit is cleared to 0 and the "any"
+attribute is incorrectly shown in the /sys/devices/cpu/format/ folder on
+these support Perfmon v6 platforms, like Clearwater Forest.
+
+$ grep . /sys/devices/cpu/format/*
+/sys/devices/cpu/format/acr_mask:config2:0-63
+/sys/devices/cpu/format/any:config:21
+/sys/devices/cpu/format/cmask:config:24-31
+
+So remove the anythread_deprecated bit from perf_capabilities structure
+and directly depends on CPUID.0AH:EDX[15] to judge if anythread is
+deprecated.
+
+Fixes: cadbaa039b99 ("perf/x86/intel: Make anythread filter support conditional")
+Reported-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Thomas Falcon <thomas.falcon@intel.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: John Garry <john.g.garry@oracle.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ Adjusted patch context to account for missing last_path reference-counting code. ]
+Link: https://patch.msgid.link/20260616044654.3468742-2-dapeng1.mi@linux.intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/x86/events/intel/core.c | 10 +++-------
+ arch/x86/events/perf_event.h |  2 +-
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 0429ddda73be8..783758db4af78 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -3953,6 +3953,9 @@ static void nvme_alloc_ns(struct nvme_ctrl *ctrl, unsigned nsid,
- 	if (list_empty(&ns->head->list))
- 		list_del_init(&ns->head->entry);
- 	mutex_unlock(&ctrl->subsys->lock);
-+
-+	/* guarantee not available in head->list */
-+	synchronize_srcu(&ns->head->srcu);
- 	nvme_put_ns_head(ns->head);
-  out_cleanup_disk:
- 	blk_cleanup_disk(disk);
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 73d1cebddee70..14e2119f9d4b4 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -5022,12 +5022,6 @@ __init int intel_pmu_init(void)
+ 
+ 	x86_add_quirk(intel_arch_events_quirk); /* Install first, so it runs last */
+ 
+-	if (version >= 5) {
+-		x86_pmu.intel_cap.anythread_deprecated = edx.split.anythread_deprecated;
+-		if (x86_pmu.intel_cap.anythread_deprecated)
+-			pr_cont(" AnyThread deprecated, ");
+-	}
+-
+ 	/*
+ 	 * Install the hw-cache-events table:
+ 	 */
+@@ -5554,8 +5548,10 @@ __init int intel_pmu_init(void)
+ 		((1LL << x86_pmu.num_counters_fixed)-1) << INTEL_PMC_IDX_FIXED;
+ 
+ 	/* AnyThread may be deprecated on arch perfmon v5 or later */
+-	if (x86_pmu.intel_cap.anythread_deprecated)
++	if (version >= 5 && edx.split.anythread_deprecated) {
+ 		x86_pmu.format_attrs = intel_arch_formats_attr;
++		pr_cont("AnyThread deprecated, ");
++	}
+ 
+ 	if (x86_pmu.event_constraints) {
+ 		/*
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index bcc40b7850cb0..c63e7df31f8bc 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -587,7 +587,7 @@ union perf_capabilities {
+ 		u64     pebs_baseline:1;
+ 		u64	perf_metrics:1;
+ 		u64	pebs_output_pt_available:1;
+-		u64	anythread_deprecated:1;
++		u64	__reserved:1;
+ 	};
+ 	u64	capabilities;
+ };
 -- 
 2.53.0
 
