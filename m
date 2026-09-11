@@ -1,105 +1,91 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31473769EF;
-	Fri, 11 Sep 2026 15:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139137; cv=pass; b=LLpWtY8c+ty45hyLAb5+ko8oGEvj6T3R/DX2o3dcQOI/1vztkJls72ZSzTLd475c01EWCn52D7naTn5UxNi6HrvxW3psX3ZZiNG7tBZdv0qSJsdRDRSzIwZDM9zwAOJ1Fmd3WJCS63xWgpeV0s6Kl9injgnOmF5aJHq7NY1oY+o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139137; c=relaxed/simple;
-	bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h8ZJZIEuxfnUW5T7TTz+7ZuUlSQ7nGtInsGbpB+AITpsES8O9CUfXCX7YryYgAhxxEyOkG6l8eWlZkMaf/L1RRFqn0C97hhAPMFNOBvNCXoaq5nwT+Lxcin+UFaV00iTLlPDsVXMM7O4IMFsysfG9fikaykrI+iugc6fehxdmkM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=YmNfACgE; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=MwFCa9ZI; arc=pass smtp.client-ip=85.215.255.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EB3369224
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139149; cv=none; b=PS08D9UsTRZPNufKrna1X/FT2Dlk+RlGB1ELQFhm1bVGaCiUeTYV4QYY5ojv3JHfJGWl402d5SU0eyPMLVWy1QqSWtaWYpvc5N5b+WporU4ZrBrBA9YERvSkVMXxFAS8sZ/l/rVIkkWzLwO/+beVTTjDBBh/6gpwOi9BdA6D2eY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139149; c=relaxed/simple;
+	bh=2d0+6cy6f4XhTG7VQJ3ZaGv/foEhDXBCMdiYmNflVOc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q0qX8663sY8c4wxgK+xx2clfVmHzWzprWdtua3FFjZqquBoFVGDW9KHtV5/UyOXQcu/LiQhSaHvjBGIPDveWHJZyc1uJoRDIvx0oIljnV9c58PB1xOqmaK29yUlhPtVV0kWVZugEb/wNe7/tiHpTJCf2V2PX6qlnLXqYRGptCaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLim+o0/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="YmNfACgE";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="MwFCa9ZI"
-ARC-Seal: i=1; a=rsa-sha256; t=1789139119; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=R7lcf5afbXLOaiJSse/4TpvIY41wwWb6uc/jGaAI8x4YP1389UY+u+5GL9rnSgTXzJ
-    NV5FluByMTQkAhBW1t2yvE8bPMMQvn6Stl0eMkqVln40OLgRm7MuA1upBc6iJrH0WnhK
-    7IiQkUdLSgkyeI3SAU/v2VoOAU/SJ7ccdP/nLHZbVVgEiv6q7+tngGfHGpybjI7kR6az
-    ORKaZHkXsIWoXB35aJCHtuUOnU0xj6tGSeptGAlwXOksUNvoJZ2YEDS/BtQsFlHWPaD5
-    HytlQboPxP5UHhSkS88U1PY16TudsOJurbWAY4f1JvFXDNBJha5ecRnuAFTPcw4y9W0T
-    3jCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
-    b=PyDrl4AKmyF2PnWdL5BD5I4zNl4O0Gsj2SFUo4EkSgRImhskRSUEMb5YN6VLCgj2ae
-    EJyLEk2xxW08FBbcv2ySKnvOSk98o4V9AJcXEtgdb674XM6a5MrbqtYNKWG9TlNEIBK3
-    OtiD+yUSw9CX/VWQW2GlhAWeIhn/X+7HZ+68qTciIzNzS6lqTL/TlvtL9+iCxrkkwGRi
-    pfXP5YsnR9TiifzN0PNs7WqZLjgGE5+OGLbtSoNIoVv3RcWaAINtXoEGFlVZdGFPpGx/
-    sO2UwCojwrgbx6Gs0rb9qzY0YvR6ZIFC1YH8mD1MGET8x155nvqXyfbVoV9QXO0RrcJE
-    Bjuw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
-    b=YmNfACgE2w4HN80jUoBcVhWXlZ4ji2OxyeyV6sdy8cRmUJUSEOD3MInthxQjcQSkfQ
-    MxE5NTs/6NcTHjrfXvbX++eYpSuVaY5jODbGu527/aAURW/gBqqDFOlm0UB0SdbRZjnz
-    U3GJWb8l9e+pry1+Rd/xPA2i37SrZ7Nlb14z4Fr4FEtTJ979i6SgY5CUHFNnwYGm3md4
-    LSrCPsKlHHgJ2pT+yNWljXQ6OEbdeZYsJHbJoQUKhnxOoy/gmWGAFskhVxa1Ul5CI7UA
-    ReExzlNNQpkGqKfQDXhhBmq3pSzH98oBimfDB1CdlptURmfHxqXDv5X9DFdxakoXZfCz
-    EjmA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789139119;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
-    b=MwFCa9ZIKYTfh4A59EINXjLEP3O9OUU613PU4VnHUfCHG+CJ8U4EFcgEpAnHat+2P9
-    buUKG/NrmD0TkX5K/+CQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/63exJG3nKe+1cCDsnKpsYY+u4Ll0RlE="
-Received: from p200300c58729681c3f3e4b76edf8c1cb.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e128BF5JUAD
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 11 Sep 2026 17:05:19 +0200 (CEST)
-Message-ID: <fbbc0c280c004dbc2c4029f1c216143a0a5d6b04.camel@iokpp.de>
-Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron
- 4100AT
-From: Bean Huo <beanhuo@iokpp.de>
-To: Keith Busch <kbusch@kernel.org>
-Cc: linux-nvme@lists.infradead.org, hch@lst.de, axboe@kernel.dk,
- sagi@grimberg.me,  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- bob.beckett@collabora.com,  Bean Huo <beanhuo@micron.com>, Gaurav Sinha
- <gsinha@micron.com>
-Date: Fri, 11 Sep 2026 17:05:18 +0200
-In-Reply-To: <aqQYMR2uaKcHosYD@kbusch-mbp>
-References: <20260904105155.1402065-1-beanhuo@iokpp.de>
-	 <aqQYMR2uaKcHosYD@kbusch-mbp>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLim+o0/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6080B1F000FF;
+	Fri, 11 Sep 2026 15:05:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789139148;
+	bh=swMZ7f05zOxqxgeW469i/fL7joP+FMrVsKS+mGew278=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nLim+o0/TTJfr+WkcmazyeYKFlxMFTrvbrEw5nmbxV9z52mNq91tLLVI2wgKQdXKS
+	 ApqTkRszE6lqJhfJXm0vc03zl7ImDlVqsXVOhKOxsXyMuY1vtwTjBkS2aSAdQxUY7o
+	 n8Ny0/giMWwElKoDkqSQOuHPIK0FUlPLY3c/HnZV3sbGRc6tBHoahBQuocGcNuvu0/
+	 /D5s2v+V9RlwcXl4j7sQG81ovCii7jzxMphFj1OzR3bPAvDk1s59o/pA3roFR6dPRG
+	 SbZ1tqgdWITOfhTwFJ9v1rfMMy7X/fpZcwmcYQiUQ002GMhrfKxUf4J1mCbeGTCuI1
+	 MCVvF5LQT4Mmw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] scsi: qla2xxx: Zero dport diagnostics buffer to avoid info leak
+Date: Fri, 11 Sep 2026 11:05:45 -0400
+Message-ID: <20260911150545.1033533-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090929-willpower-demise-a921@gregkh>
+References: <2026090929-willpower-demise-a921@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-09-11 at 09:03 -0600, Keith Busch wrote:
-> On Fri, Sep 04, 2026 at 12:51:55PM +0200, Bean Huo wrote:
-> > From: Bean Huo <beanhuo@micron.com>
->=20
-> ...
->=20
-> > Signed-off-by: Gaurav Sinha <gsinha@micron.com>
-> > Signed-off-by: Bean Huo <beanhuo@micron.com>
->=20
-> I've applied the patch as-is, however usually the first "Signed-off-by"
-> is who the patch is attributed to as being "from".
->=20
-> Thanks, applied to nvme-7.3.
+From: Nilesh Javali <njavali@marvell.com>
 
-thanks!
+[ Upstream commit a152edab3854f01dd2daf3eaf8f32cbabdb3834e ]
+
+qla2x00_do_dport_diagnostics() allocates the qla_dport_diag response
+buffer with kmalloc_obj() (non-zeroing) and, on success, copies the full
+sizeof(*dd) back to user space via sg_copy_from_buffer(). The inbound
+sg_copy_to_buffer() only fills as many bytes as the user request payload
+provides, and qla26xx_dport_diagnostics() zeroes only dd->buf. The
+options and unused[] fields are therefore copied out uninitialized,
+leaking kernel heap contents to user space.
+
+Allocate with kzalloc_obj(), matching qla2x00_do_dport_diagnostics_v2().
+
+Fixes: ec89146215d1 ("qla2xxx: Add bsg interface to support D_Port Diagnostics.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-54-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ Adapted kzalloc_obj(*dd) to kzalloc(sizeof(*dd), GFP_KERNEL) to match the branch’s allocation syntax. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/qla2xxx/qla_bsg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/qla2xxx/qla_bsg.c b/drivers/scsi/qla2xxx/qla_bsg.c
+index f43969ed87bf9..9319b81ea0b8c 100644
+--- a/drivers/scsi/qla2xxx/qla_bsg.c
++++ b/drivers/scsi/qla2xxx/qla_bsg.c
+@@ -2393,7 +2393,7 @@ qla2x00_do_dport_diagnostics(struct bsg_job *bsg_job)
+ 	    !IS_QLA28XX(vha->hw))
+ 		return -EPERM;
+ 
+-	dd = kmalloc(sizeof(*dd), GFP_KERNEL);
++	dd = kzalloc(sizeof(*dd), GFP_KERNEL);
+ 	if (!dd) {
+ 		ql_log(ql_log_warn, vha, 0x70db,
+ 		    "Failed to allocate memory for dport.\n");
+-- 
+2.53.0
+
