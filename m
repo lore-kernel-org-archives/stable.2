@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF56470EA0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323253CD8CC
 	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:19:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129189; cv=none; b=K0UDbCUW1qnP1rISVuQJa3UZc+Ttz/bDRdyRaad1+a0xCFutcIGb5yxvmNOiShByZCKKr0wXJueHdkNZ1wppsZJ8vMatU5F8C5YLsUggrjgyBQBur/VrpQdvIH8man8Ql/1jBtxotjwlsEeiDDhdN10eHOG2w1VoVhzsL6igPuk=
+	t=1789129193; cv=none; b=BSTXNSoUKkDXseDg377Dqh52N74VHKTDvI90l2gjOMc+LuXE3B+KDFiz+SLcxuRClbsG9qLFXmwYSpndRwyWLH73AOpM9xZs08egcwbGVUHbVTj87UdourzKV+5wVu5CLWAWS3LgBy3kLaY4jniKrD9x1kK1tsLk61drEq4CszQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129189; c=relaxed/simple;
-	bh=sPPb6IKqbl9zScPC5lNnekqNiy+JUuJq317JvMdMlKY=;
+	s=arc-20240116; t=1789129193; c=relaxed/simple;
+	bh=kHF4aq9z4VIdgnHMqOiEKjsIgkzYQP3kEy9rPdsckuQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cN8ivUPXy7AzqqD8C9aCYdMVfYOS0HhoCDspdG4wTdL6iu0XgsBbBWxjSle4pSY4uxFBAvKz+wNfFR/yob73RPk072fTDo0zbDYjAvA8YKs37VmWIaJUyxsv+bX/cx8X5i7KfhNZ+r+XWZQRQ5nrIJdQ3H86irFFVIFdzS82Znk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhEc6bPL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NPO6mAlgF1Qes0ych5QiidDdS+Hv22G71x3WGw792LNjB4PVrUrGov+kx5+UVx9z/MCpF4sFrdRIIFJsJPIzcgnPsJe8m4z8aKd8nsLTSncEyYlbWj+mg7kgG0whoQ5ZhArpPmjW6poe6fBaqYt26+tbkWwZsdYAtAQSFPw7KVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VN4iPcxV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhEc6bPL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FA51F000FF;
-	Fri, 11 Sep 2026 12:19:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VN4iPcxV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAD01F00893;
+	Fri, 11 Sep 2026 12:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789129176;
-	bh=PwxSMtqSwHw1pleam0oUOuL6WZdPsbKP917GwZJfy3M=;
+	s=k20260515; t=1789129178;
+	bh=YfvMYDWY/cgYSXj+Ezz6El8BWyU/6+WI3B/14kniyGY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YhEc6bPLe5uiQiaVioTtYCIW3y/uyVXxkrz7Xcf6EdqkR6fFYu0EEdT3rnXpkUEHi
-	 a/6KBff3RUTcJv4LpEBBXdlWjmymIX13bh3SaTqJalfJEKop3miORpLwhEBy+SWKDX
-	 JIlgHX8EjWjPw6NWX2W7mB4OwUYsuE/LuLOpolsjGd146+fEQdHRIki4Qx+lmPu+u5
-	 DmmA3tfgWTIfbaYnFWk8LQSDHT2n6dY71aiDB7MZDatknL2DuM8CPXImPOUSMuPCgL
-	 SjUFvHK2eTRi5BZGAKaNxlQrU1eNPXhSxn8YgSDAiTlUxuL6YRVruP+meYLYH581WU
-	 wll6Vu4eerxSg==
+	b=VN4iPcxVduNYcP1rqo2EHAXr24pOVeCdP7IU05gcJqBQleqpejfAJd46e0rGl9cBz
+	 Fj7vi9x0eZy6CWlJM1adEnkO5RDdqNkfgU3OslOmA6CmTdmnPfQPjPyXDgPxxvL9ze
+	 nqsVGnWgPmlhVhU4LAByTpT0C+cdwoj4zvtoc6/z6lUKwDdlj/XUU+P9WcVe0CS8kl
+	 GyEqI2As9DfyIhbhYYHSx72yaaVEE/bBZWHe3Q9VBIajLUwZ7W5LTeDASGA34RbzAz
+	 IUUgf+4OGvXgRhwIfWq3ybHWdqHIDdUoWUGDaYQYsR8ubz1ftS6brTNYkCRvHOXmQ3
+	 XvvUIHdm+/7kw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] media: saa7164: fix cleanup on resource allocation failure
-Date: Fri, 11 Sep 2026 08:19:34 -0400
-Message-ID: <20260911121934.514642-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] KVM: s390: Zero initialize data structures for inject_pfault_token
+Date: Fri, 11 Sep 2026 08:19:35 -0400
+Message-ID: <20260911121935.514679-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090952-skeletal-related-3a42@gregkh>
-References: <2026090952-skeletal-related-3a42@gregkh>
+In-Reply-To: <2026090924-endurable-recharger-fa78@gregkh>
+References: <2026090924-endurable-recharger-fa78@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,58 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-[ Upstream commit 28e84c6e2e6753ed238ea097b2842a32a6a6879b ]
+[ Upstream commit 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 ]
 
-saa7164_dev_setup() adds the device to the global saa7164_devlist before
-requesting the PCI BAR memory regions.
+__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
+the on-stack struct kvm_s390_irq but the full ext substructure is copied
+into the cpu local variable on inject. ext_params and pad contain stale
+stack values.
 
-If get_resources() fails, saa7164_dev_setup() decrements the device count
-and returns an error, but leaves the device on saa7164_devlist. The probe
-error path then frees the device, leaving a dangling entry on the global
-list.
+Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
+but a host user can use the migration ioctls to get to the data.
 
-Reuse the existing MMIO mapping error path to remove the device from
-saa7164_devlist and decrement the device count before returning.
+Fix by zero-initializing the irq struct.
+Do the same for the inti data structure.
 
-Also release BAR0 if it was successfully requested but the BAR2 request
-fails.
-
-Fixes: 443c1228d505 ("V4L/DVB (12923): SAA7164: Add support for the NXP SAA7164 silicon")
+Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ Inlined err_devlist cleanup with explicit mutex locking because the shared MMIO cleanup path is absent. ]
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
+[ Adjusted context for missing inti_mem and ret declarations in __kvm_inject_pfault_token(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/saa7164/saa7164-core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/s390/kvm/kvm-s390.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/pci/saa7164/saa7164-core.c b/drivers/media/pci/saa7164/saa7164-core.c
-index 3cadfbe60fe6e..791bf4259b1d6 100644
---- a/drivers/media/pci/saa7164/saa7164-core.c
-+++ b/drivers/media/pci/saa7164/saa7164-core.c
-@@ -880,6 +880,9 @@ static int get_resources(struct saa7164_dev *dev)
- 		if (request_mem_region(pci_resource_start(dev->pci, 2),
- 			pci_resource_len(dev->pci, 2), dev->name))
- 			return 0;
-+
-+		release_mem_region(pci_resource_start(dev->pci, 0),
-+				   pci_resource_len(dev->pci, 0));
- 	}
+diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
+index 2a1a3117a5b23..55525b425a96b 100644
+--- a/arch/s390/kvm/kvm-s390.c
++++ b/arch/s390/kvm/kvm-s390.c
+@@ -4427,8 +4427,8 @@ long kvm_arch_fault_in_page(struct kvm_vcpu *vcpu, gpa_t gpa, int writable)
+ static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
+ 				      unsigned long token)
+ {
+-	struct kvm_s390_interrupt inti;
+-	struct kvm_s390_irq irq;
++	struct kvm_s390_interrupt inti = {};
++	struct kvm_s390_irq irq = {};
  
- 	printk(KERN_ERR "%s: can't get MMIO memory @ 0x%llx or 0x%llx\n",
-@@ -993,6 +996,9 @@ static int saa7164_dev_setup(struct saa7164_dev *dev)
- 		       dev->name, dev->pci->subsystem_vendor,
- 		       dev->pci->subsystem_device);
- 
-+		mutex_lock(&devlist);
-+		list_del(&dev->devlist);
-+		mutex_unlock(&devlist);
- 		saa7164_devcount--;
- 		return -ENODEV;
- 	}
+ 	if (start_token) {
+ 		irq.u.ext.ext_params2 = token;
 -- 
 2.53.0
 
