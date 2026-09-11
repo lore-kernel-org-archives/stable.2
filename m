@@ -1,107 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738C330FF1D
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:44:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8E7371860
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 09:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119889; cv=none; b=N/5kjNu95JdBdlqtarmaJsnJEcVmHDxRC/zOJmYrvcai4Mf2mAfh2Iv9JBmXPm1EySRFpoh1wLrnrNAEz2lpES7VKhgSUwXgz+7jSWUKFx42qG9EZ995YQvkSIo09aYCJr2+7h+CBkziEcVt8dle+VPYCJ2NGhOlfn9zeCqBVcY=
+	t=1789120229; cv=none; b=OHtgQZNCqmuo1ZhkfCYKEVZe5PrZYFn5VMfSvZEAwPNOgYAiaiio3FlH6H8Kuc9BvOxv6OOvW5pQ/zVnnNQh87iraeqS7+Yt4QMR/R/O7byeFOeLyGemNEOMl7/dpnLxAboIY2U2IovLo+ECzH4QSb2t3T4Jzqsy72nObwVtHHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119889; c=relaxed/simple;
-	bh=N0UG3ZikMPsVLFuo/p30QgzGJgMzj8ihW/UfwVzRXQk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eM7VWLRkkcUJ5ItYqNT/TpvF/gGqrpFIW746Gm2/zR80nL2VQwS759rqDMs4HxhvbSlmQkkm9/i3a4z0afTtDSEOyn/AT3ZK2ojVtjQz2niTocv04TTc79uHxKy5dmzCGzMmjoiPnZ/LIESboHwUJIl7cYMQBeIemzBjzHAKbBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aP05ygs7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120229; c=relaxed/simple;
+	bh=No71cd5buUUHeBE48TQG44YiouRm3taIpFkpoL0GdvU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FWf56Lxxl/ZDRgkCdZilR6lfKPoR3HkF9XmPZ8cN79DYUWIC3j4JtEck2iYpPl0z4fU0v5A+4bKckJJUhEUpvzPNXyzzLlt4iG2VbtV6L9NJriZCCQEUvtPzDJjbdtw5XfEzKn1y5c9PqBTfLJusuBP8iyq/+mkA3GDw1U8Ih6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=miewqeWi; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aP05ygs7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C6AE1F000FF;
-	Fri, 11 Sep 2026 09:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789119887;
-	bh=S+1a/a2jbnsr/awAWW6kg9s9WvQYjcCWxFNt9QPIvdw=;
-	h=Subject:To:Cc:From:Date;
-	b=aP05ygs7LfXkSLKdN6G/io0AmaXtB+kyuoFWGNcSvb4LeR+jr4VwCeOFGiRPw1JGM
-	 D7/2PT5UHpyq6MqQoeUg+/BlHZ8I/Taw7hCTYbCSQG2olR/Sj9kT3urCi3LU0l0k0P
-	 ZcRc6SIvySM0Xp47HuXO6nmtBgcK+dVJIJk1ayig=
-Subject: FAILED: patch "[PATCH] ksmbd: zero pipe read compound padding" failed to apply to 5.15-stable tree
-To: linkinjeon@kernel.org,cheryl@renat.io
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 11 Sep 2026 11:44:25 +0200
-Message-ID: <2026091125-profusely-shortcut-0dad@gregkh>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="miewqeWi"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a4bef87631so4905381fa.2
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789120225; x=1789725025; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Hdzbs4lJ5S888JvEnLEEzWnpR79iP4hGYQ+NNaIqwIk=;
+        b=miewqeWi19LXZgrZS54WPwI3F+kFKrDhmNZl/OVZnMLPmPvUbNXxJw3Kk4GW1bhSRG
+         FT6VBU4+IHZ4eKF+heZqkJTqXtnzbpD95u0sfsVLrjtLInRzhOEZsGIODO0Ox0QaK7Ur
+         oBEL90BLETJou+W8Fc+mGgXxWyYmqNsUnH1hU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789120225; x=1789725025;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Hdzbs4lJ5S888JvEnLEEzWnpR79iP4hGYQ+NNaIqwIk=;
+        b=hK4XCeNm8vSDOfiLeogKrYmCAG+MyUVgj5ywPkTIdkLrTdR5PVNBU/ZHHnBeTWk9Mb
+         q53CKirnhcKIc6CKMDmaWN+Lzp3uCcM3cSOwBCkduE9PgNZju154U83XQfDg4RrC5Nu6
+         4zKMNFGcbe5dO8e2QHrPnLw2a5roZBFTKNC2zq3Ymq6N3MqwbvNOf1R9PcAEjj9yz21s
+         IEvms6TD/bx1jJVSt1BKAWiSc7+Cqd7WoPEVdmde1OXBj7jT2ILvqIrmW1JDjyV6EzF3
+         mG0ue9rp8jxK8IJNlXq4CUb5t0VOr+sXwoqnhUCeuj9YyQ+KZDeELmGkY40+q1p/Rhu2
+         UWbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLKPkZ8OHE86LGZs1QGywmx/jXi5kSa8pyNnIxTOpOoGivhinDqxEKyFq0sppmVV8EwL9D5Ro=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuY5pNJfBBpUeWfrvYf/ky1a3gbFxz6W7DmeQKO49JsYn/lpyd
+	+BZniTjPUWx8x3k7kVfESDOR5jyAMFioz1lucdwhujPcCL2iHnhijghRqV99SPPXkw==
+X-Gm-Gg: AYBFou1/0BMZngcnPluBWxKU8grs0UVSUtXvq6blOyw/WZMy1mKozyl5rgdoXRSaLkp
+	kyKa78FwLmd7e6Y5UOzcYrLxjw3vQd97goTN5Q/AuDRXbx5oNuzmuh0JyAh4BNT2yQzA+HsA7Sv
+	DsnYIQOLAXv74P40OsTsH7raGgOodLer5whmfKTLAWgTaCqh7XmZ9bVZ96vStMr2hMtVWAKe1DF
+	TYxBb3RgFYBKCfUvZw0hzltOLYDtyWOthszRutvxlVF1IMTQ/kM5IW3hYmQ9Yivy22CfOsDv2Tz
+	O0uU+4ZfMBA2myG6I8JB+TqRLNZCZ80LsSlxBebH0WDixMD328NAKdAmNTr9p8hAUgQtgtmtqoL
+	RClz4uhpSRzZJsGTr57JCngmE2jk0aBw3J/HXovu8P0JDb0C6W11/VuytN7zaNGLm2I2skxfoGT
+	XODMhCuCrnS9YrqgNRhq82W/sRbAxxAoq1+7crHNg0yZZDhMx7Avtxd7kOmywUIpvd1K+ahX+Lf
+	S/Fl8+vK/95uUTBtOqu5TbGGmd23XaNJEzN1wTXWX6G/siZSg==
+X-Received: by 2002:a2e:a551:0:b0:3a3:7741:b43c with SMTP id 38308e7fff4ca-3a5a5082d76mr3491941fa.7.1789120225152;
+        Fri, 11 Sep 2026 02:50:25 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33263ebsm5138231fa.17.2026.09.11.02.50.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 02:50:24 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v2 0/2] media: uvcvideo: Automatically handle invalid
+ uvc_versions
+Date: Fri, 11 Sep 2026 09:50:21 +0000
+Message-Id: <20260911-uvc-version-v2-0-395f27b0444c@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN3Oo2oC/22MOw7DIBAFr2JtnY0wJt8q94hcWLCYLWyiJUaJL
+ O4e7DrlPL2ZFRIJU4J7s4JQ5sRxrqAPDdgwzCMhu8qglT6rm7rgki1mku2HAzny1nRXYwmq8RL
+ y/Nlrz75y4PSO8t3jud3W/53cYoudIXNynpRx9LBB4sTLdIwyQl9K+QHsbC9MqQAAAA==
+X-Change-ID: 20260907-uvc-version-aedefc4384ce
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
+This series changes the way we handle invalid uvc_versions. Instead of
+just failing it will try to continue probing.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Now that we are at it, add a quirk to fix an Avermedia device affected
+by this error.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Why keep using the quirk? Because I think it is more correct to handle
+them that way and the quirk system can give us an idea of what vendors
+are more respectful with the spec.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 73f860489e3be2245598d1819226304fc5b87291
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091125-profusely-shortcut-0dad@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Thanks!
 
-Possible dependencies:
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v2:
+- Add quirk for Avermedia
+- Change the way the compliance error message is printed and cache
+  ctrl_size
+- Link to v1: https://lore.kernel.org/r/20260907-uvc-version-v1-1-34e45dfe04de@chromium.org
 
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Force UVC version for Avermedia GC515
+      media: uvcvideo: Automatically handle cameras with invalid uvc_version
 
+ drivers/media/usb/uvc/uvc_driver.c | 22 +++++++++++++++----
+ drivers/media/usb/uvc/uvc_video.c  | 44 ++++++++++++++++++++++++++------------
+ drivers/media/usb/uvc/uvcvideo.h   |  1 +
+ 3 files changed, 49 insertions(+), 18 deletions(-)
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260907-uvc-version-aedefc4384ce
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 73f860489e3be2245598d1819226304fc5b87291 Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 25 Aug 2026 09:31:35 +0900
-Subject: [PATCH] ksmbd: zero pipe read compound padding
-
-Compound response handling extends the last response iov to an eight-byte
-boundary.
-
-smb2_read_pipe() allocates only the payload size, so the alignment padding
-can expose up to seven bytes of uninitialized kernel heap memory.
-
-Allocate the aligned size and clear the unused tail before pinning the
-response buffer.
-
-Fixes: e2b76ab8b5c9 ("ksmbd: add support for read compound")
-Reported-by: Cheryl Babcock <cheryl@renat.io>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index ba0fe25bf366..8c589110460a 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8657,13 +8657,18 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
- 		}
- 
- 		aux_payload_buf =
--			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
-+			kvmalloc(ALIGN(rpc_resp->payload_sz, 8),
-+				 KSMBD_DEFAULT_GFP);
- 		if (!aux_payload_buf) {
- 			err = -ENOMEM;
- 			goto out;
- 		}
- 
- 		memcpy(aux_payload_buf, rpc_resp->payload, rpc_resp->payload_sz);
-+		if (rpc_resp->payload_sz & 7)
-+			memset(aux_payload_buf + rpc_resp->payload_sz, 0,
-+			       ALIGN(rpc_resp->payload_sz, 8) -
-+			       rpc_resp->payload_sz);
- 
- 		nbytes = rpc_resp->payload_sz;
- 		err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
