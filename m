@@ -1,49 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E713ABD88
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB41FF4F1;
+	Fri, 11 Sep 2026 02:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092854; cv=none; b=mV0HrgjrzPAMaChg2w2ANoM6L8GGFbb1co9dIZu3OlH5MlGt45/ChVC5RT7fP2HmVGP8tdIA4UaCGFW1gD7RugCaxe3FG98hb/VuSiMY4Q3kCYwbHw63RIxmBBe9Ezkg5xbhDmKANlnf+Kqp/VgLwsnvPsIWpYVIQMewUclFhTA=
+	t=1789093068; cv=none; b=HV83nFxDMogRSZrNsJiXMqT6xB5Xu4gcc3wdNkxkloszSt/KduDiRB14coYYYXK20dmVC1MFcXwATrEc3iMCX92hPZN3svO+QDjqK9Wx5yAypxdT2WVtz24SQt2NkkKDmoTXbf6n3QaVR1767PZVt9zUQKKXlLZRKlm4glMaclg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092854; c=relaxed/simple;
-	bh=tSEq//CjDHwYVOFa7uIn6X6EINRCRjVhDiAcPXE0VTQ=;
+	s=arc-20240116; t=1789093068; c=relaxed/simple;
+	bh=XPThG9NnINeUCm1Zi51ahmjFxSycnVvO1IRnCgaZrVY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=quYiA/cs9MOsRZi8dUbjO7wVAHUfnKQxe0YP70WB9RhTs8n01rvz0Ql7hV94ygpNsautgc5oz13GwPwf30SWJE7MhwPiHRtGGwbRvBjDTpcPbaMalKFcLcDlmdKRndn5go7+4fltotgTmRnTc/4pr34X3EOPa9b6XT0GBhTVr9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpCqE+yA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZZiDYHo5TBLWNEZHxwe1nZCWtGA3OjTz/GhM2688gVTvBawfDyomCl09BFLzJKrwCIJ02I1kdw4CMSUx/XCOQSzttOGZUjy+Km/YeUelRKflpT6i66hJWobMLItSg7eCzbImprRsS8gdoB/gyq1glUaGTT/qiXtuhEHF4UtwBuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=NJOMAnRT; arc=none smtp.client-ip=115.124.28.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpCqE+yA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227831F000FF;
-	Fri, 11 Sep 2026 02:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789092853;
-	bh=fWsXq71/VIU/zQr4arwr3cp/OMVjbuADlACUDGS81qo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LpCqE+yA8jYTJVMxGz+if7GykW/uFwzN7BxzpGwotx+6+Y2ftfHsbBhBtPc9Ydj9S
-	 u3WxKKJ+AWgfZA/pT/b2FPAWX03xNaASr4KnKIomSn+iMdZMrIeTmOjEDhbdUlp5J3
-	 sN1HaXXjXuyM6vo8hrC9UE+Q8ld4dW4IRax/HZdlrA/iXWiv7Qfw0ZBHoofa22AmAr
-	 QzgZLJv7ZtmnBqMWC36FnBKSkSOvTee0JjULv0IKafg3TTVoxRctCaclCGh2MldILi
-	 hj1/S3kDW4eXP7ipO9P/5p3nWxVlJVeP18Z+0zQXOsGhJqKZZ1fmibbfmR3CZfJJ1P
-	 +jSHyPX5hODKg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Li Xinhai <lixinhai.lxh@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-Date: Thu, 10 Sep 2026 22:14:10 -0400
-Message-ID: <20260911021410.42929-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-prideful-repulsive-38a0@gregkh>
-References: <2026090957-prideful-repulsive-38a0@gregkh>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="NJOMAnRT"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789093056; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=SKOhE2ExBAAT/4j/RALvlrk5dDEPSaVEE2JDijBjnrk=;
+	b=NJOMAnRTo8Nbh1a5M7UqJP3WGXbQD2u7xceGYWwUFxyLGybekxzxG5GyHI5QnSfsw7HK6Fs5AqkW0iRsVLc+JRhV5LfakzL6Ckm/G1ED1Ym9ENe+i/ht3+YjIa2LQ47N43kZaTQ2Tua0TzE+0hdnRRt0yi6iv7YHqizbf91Sp7E=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1012895|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.124066-0.00440913-0.871525;FP=4546931855683348694|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jArxPkT_1789093054;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jArxPkT_1789093054 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 10:17:35 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+	Liu Haijun <haijun.liu@mediatek.com>,
+	Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: [PATCH v2 1/3] net: wwan: mhi_wwan_mbim: guard against a cyclic NDP chain
+Date: Fri, 11 Sep 2026 10:17:32 +0800
+Message-ID: <20260911021734.1396599-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
+References: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,75 +55,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+The NDP traversal in mhi_mbim_rx() only stops when wNextNdpIndex is
+zero.  Nothing requires the offsets to advance, so a modem that
+points an NDP at itself, or at an earlier NDP, keeps the loop
+spinning forever on one CPU.
 
-[ Upstream commit 35b0fb391b0df57383bc15985bb769f4555c97ba ]
+Break out when the next NDP offset is not larger than the current
+one.
 
-Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-a faulted VMA into an unfaulted one.
+Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+Cc: stable@vger.kernel.org
+Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 
-It does so after the page tables have been moved to the copied VMA with
-MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-as the page tables it had are no longer present.
+Verified in a QEMU guest with a fault injector feeding the driver's
+receive callback an NTB whose single NDP points at itself: the
+unpatched driver spins in mhi_mbim_rx() with one CPU pinned at 100%
+and the thread never returns.  With this check the loop terminates
+within one iteration.
 
-However, in doing so, it violates the invariant that the anonymous page
-offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-
-This is because a VMA may have been faulted in, mremap()'d (causing a
-delta between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-
-This condition is a violation of a fundamental assumption in mm, but now
-also triggers an assert in assert_sane_pgoff() which explicitly checks for
-this condition.
-
-Correct it by resetting the VMA's page offset at the point of completing
-the MREMAP_DONTUNMAP operation.
-
-Link: https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-Tested-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Li Xinhai <lixinhai.lxh@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted dontunmap_complete() changes to move_vma() using direct vm_pgoff assignment instead of unavailable helpers. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Changes in v2: move the non-increasing check to the wNextNdpIndex
+retrieval site, as suggested by Loic Poulain, instead of tracking
+the previous offset in a separate variable.
 ---
- mm/mremap.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/net/wwan/mhi_wwan_mbim.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 12af89b4342a7..9685ea816fde1 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -811,8 +811,18 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 * table has been moved.
- 		 */
- 		if (new_vma != vma && vma->vm_start == old_addr &&
--			vma->vm_end == (old_addr + old_len))
-+			vma->vm_end == (old_addr + old_len)) {
-+			const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-+
- 			unlink_anon_vmas(vma);
-+			/*
-+			 * The VMA is now unfaulted and it is an invariant that
-+			 * unfaulted anonymous VMAs have page offset equal to
-+			 * vma->vm_start >> PAGE_SHIFT.
-+			 */
-+			if (vma_is_anonymous(vma) && !vma->vm_file)
-+				vma->vm_pgoff = pgoff_unfaulted;
-+		}
+diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
+index a949987125..5679948546 100644
+--- a/drivers/net/wwan/mhi_wwan_mbim.c
++++ b/drivers/net/wwan/mhi_wwan_mbim.c
+@@ -349,9 +349,13 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
+ unlock:
+ 		rcu_read_unlock();
+ next_ndp:
+-		/* Other NDP to process? */
+-		ndpoffset = (int)le16_to_cpu(ndp16.wNextNdpIndex);
+-		if (!ndpoffset)
++		/* Other NDP to process?  The offsets must advance, or a
++		 * self-referencing NDP keeps the loop spinning forever.
++		 */
++		n = (int)le16_to_cpu(ndp16.wNextNdpIndex);
++		if (n > ndpoffset)
++			ndpoffset = n;
++		else
+ 			break;
+ 	}
  
- 		/* Because we won't unmap we don't need to touch locked_vm */
- 		return new_addr;
 -- 
-2.53.0
+2.43.0
 
