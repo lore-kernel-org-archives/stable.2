@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAA5446BF8
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47C244F54E
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125691; cv=none; b=nRcy5iKCkaHYEk65EVzvgCmQSdwYtO252dX2KbSj45W2p1hff7etyr7KQa8RSN0u7YL96pFCe7SCDP0UZV9SzBUTePOPsw1UhgEn4FOEZ0V6LOwRNGmDENJ3FpiEktaJW2qL1MonnNS6c4YyvLLt3ukVPTBXBykQEtuVV6cdJCU=
+	t=1789125693; cv=none; b=Hb0PMAQ19Cd1s0e6DhqPoQUliPULVa1cTe9uOjy/P73DoXNFG1lp5yIkjVzhYd3WVhZrQbLfnCJyuSKv/vQFLy0xbjwQYFAUkvX8KpyDYOqjkvAoC7Nyn3Q7K8D2h8u+EX2iujGSNYJAyTjFxBtzOso1Yz/6yZD1dyQ/D+QmVhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125691; c=relaxed/simple;
-	bh=ja9p2+LmKY+fOjxB/v6lQMHrwJzSOXcDXUZD1u4PMB4=;
+	s=arc-20240116; t=1789125693; c=relaxed/simple;
+	bh=/EDma1Q0k7mvlphafIldRCkyRBLZtlLrncaPmf9OI8k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ESOMeM89+sCa3EfYS0NF0q51vNjvUYt+VKforS6kPVLk+xU46TSrtNswZ9m8D3CAzhwCIrIrc6FL5jtMw8xeqAPGdzhNL17juTGqhaw1MDFENKKidz40RPXWIYNFt49wBp9diE48WXjWz6BpwBCr3t6i7oMTB2BfsCbFnk7BBg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKfIYhb0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ryjxRy/xg4VJ2PKqcI2z1vfGxzQCJFJQZsmHX29umnFQwBWvxdmjPIx3scLOXvwL6qFbpR2ERamDo7a9QwJD4S8+sSwYFq0gVZ3Pc6KrdHL4oFg4cYiOJtZi4a4vxf9ZKxXZuSKQEe7STFIyXa7NDtxQGKHVWpDOk7qH6AwPLrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5VaUGkl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKfIYhb0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F0D1F00899;
-	Fri, 11 Sep 2026 11:21:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5VaUGkl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7B01F0089C;
+	Fri, 11 Sep 2026 11:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125688;
-	bh=4pe+LR7D9aXkKO93/gzkVICF9QA1eqK2Dqa7ejkk/S8=;
+	s=k20260515; t=1789125686;
+	bh=EJ8uTiTBpkijfOyalSl+vI45fbb/dmtCwnM1Zc4fByQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mKfIYhb05XlOxrEiAbcxFKTLlqo3aZYp0P8h9hUpTaN06tExLZU7hkke71gyvBcd/
-	 loQb6A1izRDhZpTzaPmuUXidLx/iU6Jhen4qTsV228Sj8k5f/8dSn2GkBHnFZgopIU
-	 P+QS2IdBFQfzKnsyqis5zmMc6jZx1/BuSBLo0V6P9Gl2MtP7yugakDcjB1VAhtned7
-	 SY73V3ApHx8RpoA7uCL6/Wwp+5SY7XIFYsjjJSJZCQ87rBIqbLw0wdHpzuyBKIVtvT
-	 /w6QiZ99hkkAscckXB/KGy9vlJxlofMu9wWicRBzdhQbMRa15AwVgC1rZ4B/08s2WL
-	 zIsisl1RySu9Q==
+	b=A5VaUGklsfm1qX9cd24n2oqHQmC5UVQYa1n/VLcP51B/kwEu37Dci/O/A5iIdVbVh
+	 8Tp68oqtQd38bUZ3cnqhl8PXmpMVBnoaXn30fmVvxfHrOU+BD5lQxap31DHqhCOYk8
+	 1Gtgv+OX8HbY6GV07gaVb4HARdkGmFmVankukSxWVHTmzdC15KLhQurFY24hkndtIH
+	 cid2PYZmN7WMyi6GqwSLXwtajiII5fzpoDZEOob4zG+na3yayfy9OnBKO0m7VEXFXz
+	 Ap2JQfNBIXVd8GtGVLTKz5mNtSGKdHB7eXVfw1zqRX/LmVP+hbx2gxd39BdWJtzDm+
+	 bkGAilQDI+r7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-amlogic@lists.infradead.org,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [PATCH 6.12.y] clk: meson: align gxbb_32k_clk_sel number of parents with actual count
-Date: Fri, 11 Sep 2026 07:20:49 -0400
-Message-ID: <daily-reply-0030-re-clk-meson-gxbb-6-12@kernel.org>
+	tze.yee.ng@altera.com
+Subject: Re: [PATCH 5.10.y] firmware: stratix10-svc: Add mutex in stratix10 memory management
+Date: Fri, 11 Sep 2026 07:20:47 -0400
+Message-ID: <daily-reply-0028-re-stratix10-svc-mutex-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910072139.313775-1-jbrunet@baylibre.com>
-References: <20260910072139.313775-1-jbrunet@baylibre.com>
+In-Reply-To: <893f8169cc68d614ee36efc9151cc60d0f82872e.1789009964.git.tze.yee.ng@altera.com>
+References: <893f8169cc68d614ee36efc9151cc60d0f82872e.1789009964.git.tze.yee.ng@altera.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,10 +44,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The following out-of-bounds read has been observed by Christian on a
-> GXBB WeTek Hub:
+> [ Upstream commit 85f96cbbbc67b59652b2c1ec394b8ddc0ddf1b0b ]
+>
+> Add mutex lock to stratix10_svc_allocate_memory and
+> stratix10_svc_free_memory for thread safety.
 
-Queued for 6.12, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
