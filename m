@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570EF399019
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:28:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE1F3A16B6
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140524; cv=none; b=POPEU25WIJAHZLkOvFuUAm8z7NPNU89iRIlqYEezYLubXOYKGejwpBdEU6gHgEeToQ4zdmk/lJVYR4/AtKBCiyEKmN/fQhV+pCeRIHyH0OBdAC/HOjx4gYhI55PomnCY364fZSW7jDgsFige/rwL+utsNUeTOXLQhqFNKqr0ors=
+	t=1789140619; cv=none; b=TDDnSQWtur4nmNwgl6Kt6NielW/IbcnBaBakjjH1wNvvakCMgcXUNB1V3H67iaxalfm8wdukKUJJy1gFV/hyD9xDNSnKSurfuYJNafJox33uYazyHQ0bZBh509xBhzdwL39Q/9zjASK4O9q9EcEtydZbw+v/LMhfP9nZp/m5aHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140524; c=relaxed/simple;
-	bh=W5A82+lXN0GRGOohWYkQG0NqeQ1EspSzuyxmUiVkme0=;
+	s=arc-20240116; t=1789140619; c=relaxed/simple;
+	bh=nRA/7xZeLkCeDhOx5T8YOfV+tzUAYIfYPSdinQYxapc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t8NGk2088tHHYN5onBE4TwVE1aVmUY3xl0IXn8xhH2UGiQtjSpi5kyYYpE5FL+g1liz6Z+AsvaQK239tsjQ5sNf8OrlcIWG8pCIubs9usxY2M1hXmtWJXXqfF2ky8oBptCoS91SFPBfuQWdQjrtnyTYkPYhtWBhs12uI6tFacmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oz94r2+3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NBgiTyfUv9ktLtQVmxtyoxxp75dd4Ri++ZFwC/x3wZxK+UXMGMAd2XFj6ZVFGDBXXnxYe1HLy5FK9UKA/xOpNSSXvTViIeRdwNqCLn2EegtF9xlJS2GGwcakcxpw/zQv/DNecBzH0VonNwKx4j6bjM6bvV7cRVz7uS7B6096J54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKT8u95l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oz94r2+3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880F81F000FF;
-	Fri, 11 Sep 2026 15:28:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKT8u95l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D46C1F000FF;
+	Fri, 11 Sep 2026 15:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789140523;
-	bh=L0ZbVl0LHQclE0/cqp+QMnFWsPQjEBp+ybgHOdSqBZU=;
+	s=k20260515; t=1789140616;
+	bh=I18TMjbqE/xLxZV2Xnw5pnXxOy0HlLB/OniCvswzYpg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oz94r2+3L9wz9rAT++c8V9Avv/7t/+FvB6TmHGnA/xxHNENkjcsy29y/tC8xH++vJ
-	 UvPnIy3/9RMGCfwoEI6E6/pXKC5eunZC3KX6zkBtdwAIjRKA0LX9Y0sijhnRPqPDRm
-	 dqk+m7NxXrVmxp8ISAcsOy6nlsufg3CI+EdJJ4xYFQjHX4un33XodZ6qD5MarlvOVg
-	 lvOFslyftdSjHK3D+UB7c1GVnRJZgHFtiEpBm+FrtzEGxc67SdrDkzEMOkkBwNCRcK
-	 3QiuzLtkEZtrU0z5Ie4ckEas9fY0mQY8atDLsAT58DAF+m0lpDUoOk0U0bAF4t9Cer
-	 AnKr+bXQk3XTw==
+	b=RKT8u95lyZuLJiwYYgjX0ca5xSgrCxvgwDSggwzovKjdveYldKGslMzUdgax9d/j9
+	 ai8Ai4aU6KJ6uSIj+YxrHicBQMqWDcWPEsdj/fmvqtwWm/bS632edxPcb+Q+OWL8Kh
+	 j7PGPymy+noT7oSSrHhMFd4t1GG4Yp6xb+WYlDEA0E/ClEGH4JZyglDvu/aI35Jzuq
+	 Kx1CwE4fkVJjuyEfrSu8UygwkzMkujC4S4LZSKCdIf25HA97ehCtFl0ye6q/Ptfum2
+	 LsxIG+57NNw6gdQSFPfFEdDTUIFL1dN8tV8mJcml7GXWIiFN06WVAUai4pqwjXM1Bc
+	 A7AGDOdSCVqVA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
 	Hannes Reinecke <hare@kernel.org>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: qla2xxx: Bound VP index against VP_CTRL IOCB bitmap size
-Date: Fri, 11 Sep 2026 11:28:40 -0400
-Message-ID: <20260911152841.1078441-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] scsi: qla2xxx: Use ring-slot helpers in __qla2x00_alloc_iocbs
+Date: Fri, 11 Sep 2026 11:30:13 -0400
+Message-ID: <20260911153014.1083465-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090913-chess-wrinkly-8139@gregkh>
-References: <2026090913-chess-wrinkly-8139@gregkh>
+In-Reply-To: <2026090948-thumb-heritage-b108@gregkh>
+References: <2026090948-thumb-heritage-b108@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,75 +48,87 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 878613ecb5a36db26859c4fd83daf9283a334fa2 ]
+[ Upstream commit 7e51b6d2d8f6b7f48d9cef1cf87471b55b12f6de ]
 
-The VP control IOCB selects its target virtual port by setting one bit
-in vp_idx_map, a fixed 16-byte (128-bit) array in both
-vp_ctrl_entry_24xx and vp_ctrl_entry_24xx_ext. qla25xx_ctrlvp_iocb()
-computes map = (vp_index - 1) / 8 and writes vce->vp_idx_map[map]
-without checking that map stays within the array.
+__qla2x00_alloc_iocbs() open-codes ring pointer selection and entry size
+based on IS_QLA29XX(ha): 29xx reaches the slot via ring_ext_ptr and
+zeroes REQUEST_ENTRY_SIZE_EXT bytes, while other adapters use ring_ptr
+with REQUEST_ENTRY_SIZE bytes.
 
-max_npiv_vports is taken from firmware and only sanitized to a
-MIN_MULTI_ID_FABRIC-aligned boundary, so it can legitimately be 191 or
-255, and qla24xx_control_vp() only rejects vp_index >= max_npiv_vports.
-A vp_index above 128 therefore yields map >= 16 and an out-of-bounds
-write of up to 16 bytes past vp_idx_map, corrupting the trailing IOCB
-fields (or the adjacent request-ring slot on the 64-byte layout).
+Replace the two branches with the qla_req_ring_slot() and
+qla_req_entry_size() helpers, and initialise pkt at declaration.  The
+IS_QLAFX00 register-mapped writes remain guarded because IS_QLAFX00 and
+IS_QLA29XX cannot be true simultaneously.
 
-Reject a vp_index that cannot be represented in the IOCB bitmap in
-qla24xx_control_vp(), and add a defensive ARRAY_SIZE() guard in
-qla25xx_ctrlvp_iocb() before the write. Adapters that report the usual
-63 or 127 NPIV vports are unaffected.
+No functional change: the bytes written to the firmware-visible IOCB are
+identical.
 
-Fixes: 2853192e154b ("scsi: qla2xxx: Use IOCB path to submit Control VP MBX command")
-Cc: stable@vger.kernel.org
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
 Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260723050413.3897522-49-njavali@marvell.com
+Link: https://patch.msgid.link/20260723050413.3897522-24-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ Adjusted guard placement in qla25xx_ctrlvp_iocb() to match the older initialization order. ]
+
+Stable adaptation:
+This tree has no QLA29xx support, extended request ring, or ring-slot
+helpers. Provide file-local macro helpers mapping to req->ring_ptr and
+REQUEST_ENTRY_SIZE, preserving the existing 64-byte ring behavior without
+adding functions or importing the unrelated QLA29xx support series.
+
+Retain the helper calls and declaration initialization from this change.
+Use a multiline packet-preparation comment so commit 626e44f3d8a9
+("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
+applies unchanged, including its leading context. That commit remains
+responsible for changing the FX00 clearing operation to memset_io().
+
+Stable-dep-of: 626e44f3d8a9 ("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_iocb.c | 6 ++++++
- drivers/scsi/qla2xxx/qla_mid.c  | 8 ++++++++
- 2 files changed, 14 insertions(+)
+ drivers/scsi/qla2xxx/qla_iocb.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
-index 7bccd525ee19b..800c1885050fd 100644
+index 3224044f17753..3a97973ed26ac 100644
 --- a/drivers/scsi/qla2xxx/qla_iocb.c
 +++ b/drivers/scsi/qla2xxx/qla_iocb.c
-@@ -3826,6 +3826,12 @@ qla25xx_ctrlvp_iocb(srb_t *sp, struct vp_ctrl_entry_24xx *vce)
- 	 */
- 	map = (sp->u.iocb_cmd.u.ctrlvp.vp_index - 1) / 8;
- 	pos = (sp->u.iocb_cmd.u.ctrlvp.vp_index - 1) & 7;
-+	if (map >= ARRAY_SIZE(vce->vp_idx_map)) {
-+		ql_log(ql_log_warn, sp->vha, 0x307c,
-+		       "ctrlvp: vp_index %u exceeds vp_idx_map capacity\n",
-+		       sp->u.iocb_cmd.u.ctrlvp.vp_index);
-+		return;
-+	}
- 	vce->vp_idx_map[map] |= 1 << pos;
- }
+@@ -11,6 +11,10 @@
  
-diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
-index 79e4319bbbd28..a552b8dea4833 100644
---- a/drivers/scsi/qla2xxx/qla_mid.c
-+++ b/drivers/scsi/qla2xxx/qla_mid.c
-@@ -966,6 +966,14 @@ int qla24xx_control_vp(scsi_qla_host_t *vha, int cmd)
- 	if (vp_index == 0 || vp_index >= ha->max_npiv_vports)
- 		return QLA_PARAMETER_ERROR;
+ #include <scsi/scsi_tcq.h>
  
-+	/*
-+	 * The VP_CTRL IOCB selects the target VP through a fixed 128-bit
-+	 * (16-byte) vp_idx_map bitmap, so vp_index must fit within it even
-+	 * if firmware advertises more NPIV vports.
-+	 */
-+	if (vp_index > sizeof_field(struct vp_ctrl_entry_24xx, vp_idx_map) * 8)
-+		return QLA_PARAMETER_ERROR;
++/* All adapters supported by this tree use the 64-byte request ring. */
++#define qla_req_ring_slot(ha, req) ((req)->ring_ptr)
++#define qla_req_entry_size(ha) REQUEST_ENTRY_SIZE
 +
- 	/* ref: INIT */
- 	sp = qla2x00_get_sp(base_vha, NULL, GFP_KERNEL);
- 	if (!sp)
+ static int qla_start_scsi_type6(srb_t *sp);
+ /**
+  * qla2x00_get_cmd_direction() - Determine control_flag data direction.
+@@ -2286,10 +2290,9 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
+ 	struct req_que *req = qpair->req;
+ 	device_reg_t *reg = ISP_QUE_REG(ha, req->id);
+ 	uint32_t handle;
+-	request_t *pkt;
+ 	uint16_t cnt, req_cnt;
++	request_t *pkt = NULL;
+ 
+-	pkt = NULL;
+ 	req_cnt = 1;
+ 	handle = 0;
+ 
+@@ -2343,10 +2346,12 @@ __qla2x00_alloc_iocbs(struct qla_qpair *qpair, srb_t *sp)
+ 		sp->handle = handle;
+ 	}
+ 
+-	/* Prep packet */
++	/*
++	 * Prep the current request-ring slot.
++	 */
+ 	req->cnt -= req_cnt;
+-	pkt = req->ring_ptr;
+-	memset(pkt, 0, REQUEST_ENTRY_SIZE);
++	pkt = qla_req_ring_slot(ha, req);
++	memset(pkt, 0, qla_req_entry_size(ha));
+ 	if (IS_QLAFX00(ha)) {
+ 		wrt_reg_byte((u8 __force __iomem *)&pkt->entry_count, req_cnt);
+ 		wrt_reg_dword((__le32 __force __iomem *)&pkt->handle, handle);
 -- 
 2.53.0
 
