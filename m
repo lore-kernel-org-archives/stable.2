@@ -1,43 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B26637B40E
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB61305670;
+	Fri, 11 Sep 2026 01:43:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091036; cv=none; b=TEXWI6mmnGgdrfW+fTkP7tueibcsYwChRc8Kmdv3kH1HjuGJLORd55DqxUFdRcwav1QiKg6kxDUYXokK2BaE821rW40G1kXvFfNgtAkTcpawkBevMfbdRaE7k0XxQvlhryKLZMOU3EDjI4z782B991Xq3MlgkeCH5OOju5zdJBk=
+	t=1789091038; cv=none; b=dQikMiRoXwhTckRV9SeO1PVKRbR7oevj33SMqzH+tbyb/RuLooHKn7MA6pt8bcm7b+YIrTb0TjnoSqhQld9gR1LZ32Gd3q5kAxN9XP5D2EEqICkLA7CsJhuBJrcFdDJ4SYAUwo2fxugPjRIfsa6YpRl7w8DBVSDo7PxJo1ZzcHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091036; c=relaxed/simple;
-	bh=eKk1hl5X0ob8Wi4wnNyV9Q7bD79cOHpvzM1mj0jkeSE=;
+	s=arc-20240116; t=1789091038; c=relaxed/simple;
+	bh=iXgmn2uOSBBdjl+KPdKCofG37astsLuhw9GxPjsdAwc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cf4osFGO58N+T6Zx+Qfk26mCNQsuSQN8wbdWGXSZtYx/RZURFgajaDliqngVYaQF98s42uXdp/mRWzJ11mF5qpt+NluIQcNC72qMxINz/AWrNRlXm7gtN8yIWmMzRYQ5If9/Tz4L2Ue+kE/NURi3bOgO/ggx7VNdohZ1Gcu5T98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFt1o7AV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nnYiSWshMCR4AbaWUzLTBRNU5bcSddIn9umEhvzo/cQxkWqdNeBK4WpwyIpbePmbqAby1GyOVGxcdnoSQQ0+Dowof5UEL3txpD6SfG65bAqxTlEYrfGBRp9BTnbeEMroCFGrNPsIzRPHajBfv6ucXqI1I9JHpXK/LNZsBOnoJ9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/32rOQX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFt1o7AV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441701F00893;
-	Fri, 11 Sep 2026 01:43:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/32rOQX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D601F000FF;
+	Fri, 11 Sep 2026 01:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789091034;
-	bh=p8Rsz29K8qG5Nb+pacZC/OQdpxoa+FWe5pJ1zDqE8bs=;
+	bh=s2FQts83Us8TWLpDYKUSvEckML760uaH5kF14k0G0is=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QFt1o7AVjkHNl5CenT+tKgNKHtr5RPuMhYACQd6ukzN7tWuDIbdZNc5MeliFQiadP
-	 Uy4aLaaFdve4zkOTBom8cAN6mpewXKoY4GtnS7I2NFt6/974XH2S76vijttzndMH5o
-	 1wPRHC+q29GLwG/m3mwPiPnBwgf8Gp0HohqJVujsC7e7u0THxTiDppN79nvp/L6let
-	 EDf1ulC4ZW6PBYYPLL/IvHS30EFKSBqY2LL/wyoFD6HrnE7ICE4ZLm89bzyPuivyX4
-	 ixJD1zRA72tSOvOdZ1F/pHSbuk8LSBiHLaNVds+xdgIG1hgTa11ODSzS2hoNTK26vM
-	 9xfsS1gBX94kA==
+	b=g/32rOQXM3uuXzsSo8jWDEhKkAlcmmDFIFkqcBk0M7315yGnFxq/+prBItcTuTha+
+	 tzY2PbUTg6GgSnqgih2LKnoQR/l5M+acACjxa0ZvOKsFWgmCPnWIDNPrsi8FdWZQ3s
+	 Cli26PRHNjpsKt/yvFKaK2ZYdLYYdTqLJD2SK7/u8MxtlNEUfcfokkI8QsmcuJDW0+
+	 85b7C75Y+rcvuwfYLtI5wnwGE5XBC5zPgVpfE93DVGSvVFImH3RU97/VGyyhF1q2S9
+	 j1x+Rnb/AQ5OcWhbyE8Y3rO3KGI94Q5djLAyJq2WYKLBsaSwCo6/koiBIWrEP0jQdk
+	 VxtT+P3K7AE/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+Cc: Peter Rosin <peda@axentia.se>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kirill Marinushkin <kmarinushkin@birdec.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
-Date: Thu, 10 Sep 2026 21:43:52 -0400
-Message-ID: <20260911014352.4149449-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2 registers
+Date: Thu, 10 Sep 2026 21:43:50 -0400
+Message-ID: <20260911014351.4149354-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090946-backstab-laundry-5508@gregkh>
-References: <2026090946-backstab-laundry-5508@gregkh>
+In-Reply-To: <2026090937-awry-woven-fb0a@gregkh>
+References: <2026090937-awry-woven-fb0a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,95 +53,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+From: Peter Rosin <peda@axentia.se>
 
-[ Upstream commit 830ead322c39c99bf972425b3c35323ec56c29de ]
+[ Upstream commit 3f4b57ad07d9237acf1b8cff3f8bf530cacef87a ]
 
-CLK_ALPHA_PLL_TYPE_DEFAULT_EVO type PLLs do not have the PLL_TEST_CTL_U1
-register, so clk_alpha_pll_configure() does not program test_ctl_hi1_val
-for this PLL type.
+Commit 25d27c4f68d2 ("ASoC: pcm512x: Add support for more data formats")
+breaks the TSE-850 device, which is using a pcm5142 in I2S and
+CBM_CFS mode (maybe not relevant). Without this fix, the result
+is:
 
-The GCC PLL configurations for QCM2290, Shikra and SM6115 wrongly use
-test_ctl_hi1_val instead of test_ctl_hi_val, deviating from the hardware
-recommended settings. Fix them to use test_ctl_hi_val.
+pcm512x 0-004c: Failed to set data format: -16
 
-Fixes: 496d1a13d405 ("clk: qcom: Add Global Clock Controller driver for QCM2290")
-Fixes: 01cf3e27824d ("clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC")
-Fixes: e88c533d8a2a ("clk: qcom: gcc-sm6115: Add missing PLL config properties")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260729-pll-test-ctrl-fixup-v1-1-246d79589380@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
-[ Omitted gcc-shikra.c changes because the driver is absent from the target branch. ]
+And after that, no sound.
+
+This fix is not 100% correct. The datasheet of at least the pcm5142
+states that four bits (0xcc) in the I2S_1 register are "RSV"
+("Reserved. Do not access.") and no hint is given as to what the
+initial values are supposed to be. So, specifying defaults for
+these bits is wrong. But perhaps better than a broken driver?
+
+Fixes: 25d27c4f68d2 ("ASoC: pcm512x: Add support for more data formats")
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Kirill Marinushkin <kmarinushkin@birdec.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Peter Rosin <peda@axentia.se>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Link: https://lore.kernel.org/r/2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 767d9ae714e3 ("ASoC: pcm512x: sort the register default table")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/qcom/gcc-qcm2290.c | 6 +++---
- drivers/clk/qcom/gcc-sm6115.c  | 6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/codecs/pcm512x.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clk/qcom/gcc-qcm2290.c b/drivers/clk/qcom/gcc-qcm2290.c
-index 9a6703365e619..4d9dbe53cbffd 100644
---- a/drivers/clk/qcom/gcc-qcm2290.c
-+++ b/drivers/clk/qcom/gcc-qcm2290.c
-@@ -116,7 +116,7 @@ static const struct alpha_pll_config gpll10_config = {
- 	.vco_mask = GENMASK(21, 20),
- 	.main_output_mask = BIT(0),
- 	.config_ctl_val = 0x4001055B,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
+diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
+index 3677e9029f91e..5182777b93b06 100644
+--- a/sound/soc/codecs/pcm512x.c
++++ b/sound/soc/codecs/pcm512x.c
+@@ -116,6 +116,8 @@ static const struct reg_default pcm512x_reg_defaults[] = {
+ 	{ PCM512x_FS_SPEED_MODE,     0x00 },
+ 	{ PCM512x_IDAC_1,            0x01 },
+ 	{ PCM512x_IDAC_2,            0x00 },
++	{ PCM512x_I2S_1,             0x02 },
++	{ PCM512x_I2S_2,             0x00 },
  };
  
- static struct clk_alpha_pll gpll10 = {
-@@ -148,7 +148,7 @@ static const struct alpha_pll_config gpll11_config = {
- 	.vco_mask = GENMASK(21, 20),
- 	.main_output_mask = BIT(0),
- 	.config_ctl_val = 0x4001055B,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
- };
- 
- static struct clk_alpha_pll gpll11 = {
-@@ -309,7 +309,7 @@ static const struct alpha_pll_config gpll8_config = {
- 	.post_div_val = 0x1 << 8,
- 	.post_div_mask = GENMASK(11, 8),
- 	.config_ctl_val = 0x4001055B,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
- };
- 
- static struct clk_alpha_pll gpll8 = {
-diff --git a/drivers/clk/qcom/gcc-sm6115.c b/drivers/clk/qcom/gcc-sm6115.c
-index 4c3804701e243..4bd2ebc158946 100644
---- a/drivers/clk/qcom/gcc-sm6115.c
-+++ b/drivers/clk/qcom/gcc-sm6115.c
-@@ -120,7 +120,7 @@ static const struct alpha_pll_config gpll10_config = {
- 	.vco_mask = GENMASK(21, 20),
- 	.main_output_mask = BIT(0),
- 	.config_ctl_val = 0x4001055b,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
- 	.test_ctl_hi_mask = 0x1,
- };
- 
-@@ -173,7 +173,7 @@ static const struct alpha_pll_config gpll11_config = {
- 	.vco_val = 0x2 << 20,
- 	.vco_mask = GENMASK(21, 20),
- 	.config_ctl_val = 0x4001055b,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
- 	.test_ctl_hi_mask = 0x1,
- };
- 
-@@ -367,7 +367,7 @@ static const struct alpha_pll_config gpll8_config = {
- 	.post_div_val = 0x1 << 8,
- 	.post_div_mask = GENMASK(11, 8),
- 	.config_ctl_val = 0x4001055b,
--	.test_ctl_hi1_val = 0x1,
-+	.test_ctl_hi_val = 0x1,
- 	.test_ctl_hi_mask = 0x1,
- };
- 
+ static bool pcm512x_readable(struct device *dev, unsigned int reg)
 -- 
 2.53.0
 
