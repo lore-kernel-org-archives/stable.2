@@ -1,138 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F57947253B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E1247606F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129808; cv=none; b=N3vszwr5Nl7l7k+ELcx+ay/GjJI5uWH2yB1hpRzK3EHWOwOfcj0bJA0mgjqFISu2h6Y3V7F6ufvW+mFpJi355Pw4f0anjDAoL64UAv/Fs9+70IhKFEPlMJxXG55tVsyWgdH7YhkN3hvDTwZkWKmrfGzAUSekwAuK149No8G4Jaw=
+	t=1789129930; cv=none; b=MMdWr06ctLKpmVuSApBdVIVGqYX8hf+UphhVWf/Tbw9oK4QrEA9PjDwzVlplhWzTP+D5FqD3Y5KI5QZukcYXgy/DUiOZCsi2NvQRE5GuUu4XQIejoDr0V4RGLYqDAqpDuKnnaZ6j1r7HOMie7+KEItSTaVXIOBMfn74q+wyYzF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129808; c=relaxed/simple;
-	bh=4D7Whw1c8RNymLayOeDEJynJlq115YLouoFboh6KcMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZrqDYFL15KdHNmrQ6Vczrnfms8Cfu8TIfJyZuAWjMZFS9IEIkQ5FZOzyBTG0A9XfCrh938Rj3zYx6FcIPDXP3clhMPIjzeukuF1/k4cqL5B8Q7vwNgPQzJqPoCz2L4OVOeA9eeRLM9WQPFBVjcNPoLI3SIKNpiGYmavio2ggK9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uw66/N3a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789129930; c=relaxed/simple;
+	bh=A2CvdhG7/vIyoUeGkv5E4Ugr/imarWjFKS/kJBdETX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aeGYlhifGdMaZ4oxFieEgnul6WHuwMSN/SIOuPQ6GtfzZkaqQ1EQbwp5Q3ExYLxf6PMokFYc9hpaRkFYfBOKs1ZSw7Ci7dsccukHeR/Y9RadUqOlvuUDnx0RUiLnBaM5sYFKSUfvLKx8H5RVe5Af3uNnZ/+Psc/6WsUIeAcw2gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTeLwa6L; arc=none smtp.client-ip=74.125.230.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uw66/N3a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744261F000FF;
-	Fri, 11 Sep 2026 12:30:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789129803;
-	bh=Dgjle527QyEInV84KwmJW19HbjlErNLhEH4foSpJI1A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uw66/N3aBLXwoQrgCafMRJMTKdyuJ7rxrJsr1iyneiHQO+EobJflDOEgbPKd/zMLR
-	 kvWRfXdiSsptOsaiJwRh8V7rBKPs8rh8s1u2yXkKc11QBkl7zzAE2ZUdVdTDkc8To5
-	 1NC2+gSShWmaYPZJs89Pxt6XNS13cUViwT06hk5Q=
-Date: Fri, 11 Sep 2026 14:29:53 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Roman.Li@amd.com, alex.hung@amd.com, alexander.deucher@amd.com,
-	daniel.wheeler@amd.com, stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] drm/amd/display: Set gpuvm min page size
- to 4K on dcn35/36" failed to apply to 6.18-stable tree
-Message-ID: <2026091133-darkroom-guzzler-66c1@gregkh>
-References: <2026090953-attire-untidy-c602@gregkh>
- <b2f45802-99cb-42ae-9da8-93b36c6dcc9c@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTeLwa6L"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a46d5c5bd7so5098141fa.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 05:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789129917; x=1789734717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
+        b=OTeLwa6LRDrdvM0CXgSsIkzWuO2Yf5+q1U55b8O8Qqd/AbLK4k7enyrGV2/RqenOEj
+         V9X4RUQ7ELDWdYi02ArPQOXtf7XB1Swm1Tjjtl/T3a3/AJcHiy6BZUXTrcrmvlVFu84L
+         zhBpIqa6SvG4eOvh0F+gBATF25vOkt7PqBn4rEa3fNpybAEuuOTVD0iPnfMRlK0D2uvb
+         zaFiUABMEH8xSwsqxzg1ZQK/YdfX2ph38IynUMdFBGcO2VgRgJJgzBpBJ4pgpQjFu5QI
+         cKLspNb4tk0W2qlQDl8Vsx/8NRZZoRz+GGCdz7LzTWseo6QZrlLbmfUeq8Tpv9lgYSgv
+         vdeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789129917; x=1789734717;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
+        b=ba8CdzEwMYNED11kAuiN9Lf672Y5+sMK3to7pD6KykzYsG5Ui1XqXVwnZuotkSer2S
+         1U8R9LhRFK/wDbkmhbAkyYzEjzHJiwoYvdu3cCoBmNRqtdFnxAWaOQm6ExLreVdv3ZXM
+         YcxKpCkIrY4vdy6umtqnxWbYT0HviIjq2Ot8/IGJYEwxxvKHhRr3vJifLgfMvowWb9Fp
+         e97ttzYcOw7r7WJew+0psUiEfL/76HV2m8ZrxD4XjUGTYC4k3G8rE971L2CQlNN5R6w7
+         WEJOSqgVaGBCSv5Mu3rQHtgGJC+85qLdoFsVc7lBd2tGAujAPj1xdVVe+wHgdIBbl35E
+         IC0w==
+X-Gm-Message-State: AFuF++nVQq+6WKx4SyFu0Z/2w3Tp4rlS+U98e3ppmCrgLtNo6PXJv1xY
+	w5VCQCBHyVe9iLVAt1C2YB1r/mu+2knWh+Cr86td4oQDuJDaFeVWN0ByVhEu8h120+8=
+X-Gm-Gg: AYBFou32vZ82gg2AA9ZFKv0dZyF2GARbnZGNgL4I25n8jVxjjDwJw9+ZWi0DgT0N7Fg
+	MfE3NwEtpyLJHHJXBYJEIysAwUJLHfuMrvRgR4PA1fHQAeWXo2B4aZ9UOyQMz1fXFIgJZd0nY8/
+	hneOor1PbfjuKZ4gx2kuCSP7DLurgxr3CshB3t/VURYgWfAVPkiymw7hFc06LFhoFhBt9Bj+UwP
+	90ECKu4qQ0SP+oPv0R7HKbfF8KKr82bXuouiep/GJdqyxLUzsqNxJP2laRk6fmitwoKZYlmhkII
+	JYAiW4YHqNtF4/EUDooX6Ii+y3dYVNlfZ5udz6ENoBQ03rINe+UugmfvmRimasVZFbm0i8XjNfR
+	kAwf82RcFZUphcQmuuFdaIfJGliXwaF/fehX2qbBw5iLEvCRlFMODnj9pLGpFYaqsn6kbKCS3yu
+	nLSGKPVeQhz5JuyyU5+e1XzJluM57QLhx/QSgu2GUaYBCkhUw+kgI8vDhyOBnggx9iV2XL/jRrJ
+	6rm5UfqA0/QJsgEGOYkqAy3354=
+X-Received: by 2002:a05:6512:3f25:b0:5b6:1a7c:20 with SMTP id 2adb3069b0e04-5b8a032c8abmr874241e87.35.1789129916639;
+        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a033149fsm576697e87.0.2026.09.11.05.31.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Joachim Vandersmissen <git@jvdsn.com>
+Subject: [PATCH 5.10] crypto: ecdh - explicitly zeroize private_key
+Date: Fri, 11 Sep 2026 15:31:37 +0300
+Message-ID: <20260911123140.137198-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2f45802-99cb-42ae-9da8-93b36c6dcc9c@amd.com>
 
-On Wed, Sep 09, 2026 at 12:00:21PM -0500, Mario Limonciello wrote:
-> 
-> 
-> On 9/9/26 06:52, gregkh@linuxfoundation.org wrote:
-> > 
-> > The patch below does not apply to the 6.18-stable tree.
-> > If someone wants it applied there, or to any other stable or longterm
-> > tree, then please email the backport, including the original git commit
-> > id to <stable@vger.kernel.org>.
-> > 
-> > To reproduce the conflict and resubmit, you may use the following commands:
-> > 
-> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-> > git checkout FETCH_HEAD
-> > git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
-> > # <resolve conflicts, build, test, etc.>
-> > git commit -s
-> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090953-attire-untidy-c602@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-> > 
-> > Possible dependencies:
-> > 
-> > 
-> 
-> I'm not sure why this fails to cherry pick here.  I just tried on my side
-> and it works:
-> 
-> ╰─❯ git reset --hard
-> HEAD is now at 1c732c6b94f0f Linux 6.18.49
-> ╰─❯ git cherry-pick -x 9ce3169430f1db035d491481086e2fae2552569c
-> Auto-merging drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-> [linux-6.18.y 40ba5915f3a5f] drm/amd/display: Set gpuvm min page size to 4K
-> on dcn35/36
->  Author: Roman Li <Roman.Li@amd.com>
->  Date: Fri Aug 14 18:03:17 2026 -0400
->  1 file changed, 1 insertion(+)
-> ╰─❯ git log --oneline -3
-> 40ba5915f3a5f (HEAD -> linux-6.18.y) drm/amd/display: Set gpuvm min page
-> size to 4K on dcn35/36
-> 1c732c6b94f0f (tag: v6.18.49, gregkh/linux-6.18.y) Linux 6.18.49
-> 5f08c45bdcfd2 usb: usbfs: fix use-after-free of usb_device in
-> usbdev_release()
-> 
-> And then I tried to compile amdgpu.ko and it compiled just fine.
-> 
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> > 
-> > ------------------ original commit in Linus's tree ------------------
-> > 
-> >  From 9ce3169430f1db035d491481086e2fae2552569c Mon Sep 17 00:00:00 2001
-> > From: Roman Li <Roman.Li@amd.com>
-> > Date: Fri, 14 Aug 2026 18:03:17 -0400
-> > Subject: [PATCH] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
-> > 
-> > [WHY]
-> > Splash screen corruption on some 8K monitors.
-> > 
-> > [HOW]
-> > Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
-> > calculations, avoiding the corruption path observed during splash.
-> > 
-> > Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
-> > Cc: Mario Limonciello <mario.limonciello@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Reviewed-by: Alex Hung <alex.hung@amd.com>
-> > Signed-off-by: Roman Li <Roman.Li@amd.com>
-> > Signed-off-by: Alex Hung <alex.hung@amd.com>
-> > Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > (cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
-> > Cc: stable@vger.kernel.org
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> > index 166f10b8862f..c82886323a51 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-> > @@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
-> >   		out->smn_latency_us = 2;
-> >   		out->dispclk_dppclk_vco_speed_mhz = 3600;
-> >   		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
-> > +		out->gpuvm_min_page_size_kbytes = 4;
-> >   		break;
-> 
+From: Joachim Vandersmissen <git@jvdsn.com>
 
-Can you send the patch that it results in, perhaps there was a rename
-that a normal 'quilt apply' does not handle.
+commit 73e5984e540a76a2ee1868b91590c922da8c24c9 upstream.
 
-thanks,
+private_key is overwritten with the key parameter passed in by the
+caller (if present), or alternatively a newly generated private key.
+However, it is possible that the caller provides a key (or the newly
+generated key) which is shorter than the previous key. In that
+scenario, some key material from the previous key would not be
+overwritten. The easiest solution is to explicitly zeroize the entire
+private_key array first.
 
-greg k-h
+Note that this patch slightly changes the behavior of this function:
+previously, if the ecc_gen_privkey failed, the old private_key would
+remain. Now, the private_key is always zeroized. This behavior is
+consistent with the case where params.key is set and ecc_is_key_valid
+fails.
+
+Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ Roman: The zeroing is performed before ecdh_supported_curve() which is
+not present in upstream but this does not change the fix's logic. ]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for BDU:2025-00987
+
+ crypto/ecdh.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/crypto/ecdh.c b/crypto/ecdh.c
+index 96f80c8f8e30..2e7acfc42155 100644
+--- a/crypto/ecdh.c
++++ b/crypto/ecdh.c
+@@ -43,6 +43,8 @@ static int ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
+ 	    params.key_size > sizeof(ctx->private_key))
+ 		return -EINVAL;
+ 
++	memset(ctx->private_key, 0, sizeof(ctx->private_key));
++
+ 	ndigits = ecdh_supported_curve(params.curve_id);
+ 	if (!ndigits)
+ 		return -EINVAL;
+-- 
+2.53.0
+
