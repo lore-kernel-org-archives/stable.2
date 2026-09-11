@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323253CD8CC
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391ED37C93F
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129193; cv=none; b=BSTXNSoUKkDXseDg377Dqh52N74VHKTDvI90l2gjOMc+LuXE3B+KDFiz+SLcxuRClbsG9qLFXmwYSpndRwyWLH73AOpM9xZs08egcwbGVUHbVTj87UdourzKV+5wVu5CLWAWS3LgBy3kLaY4jniKrD9x1kK1tsLk61drEq4CszQ=
+	t=1789129198; cv=none; b=H7UG6ID3bYvOLCL2yqfO73T1orX+p+wlP0PE6a7m45Z3yY7why+hAsuHqcLwJIXSmo+YAFFzvX0E+FaDyUGY60wHa+see1+yoBk6tXFqge8QkW6++qy7dCJVvt7Nk5LwMruj0Y8NDC7B1mhwCSdSZVPvmkExzMFhYK4D+OSzKSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129193; c=relaxed/simple;
-	bh=kHF4aq9z4VIdgnHMqOiEKjsIgkzYQP3kEy9rPdsckuQ=;
+	s=arc-20240116; t=1789129198; c=relaxed/simple;
+	bh=E095syJIvhzTpI+mUFWg7LKESfSV29aGPfM58wG0HAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NPO6mAlgF1Qes0ych5QiidDdS+Hv22G71x3WGw792LNjB4PVrUrGov+kx5+UVx9z/MCpF4sFrdRIIFJsJPIzcgnPsJe8m4z8aKd8nsLTSncEyYlbWj+mg7kgG0whoQ5ZhArpPmjW6poe6fBaqYt26+tbkWwZsdYAtAQSFPw7KVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VN4iPcxV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=smqpllgeJrAW1ad2McNrvhaHvWR4udS5Y58qoZZjLIsh1A3uqJsoGRYydKu7/qzvMQTceibmQ4XG/6fU0iMwBTVji1EpMmK7g7IuiXM70LaN9V3yo3zcnzBVrVLWFJYHwVDFEC6CTai1IwrSOOqidbmRN5wlIdQIFNUjbHkR/ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwo4oglX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VN4iPcxV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAD01F00893;
-	Fri, 11 Sep 2026 12:19:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwo4oglX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043A51F00899;
+	Fri, 11 Sep 2026 12:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789129178;
-	bh=YfvMYDWY/cgYSXj+Ezz6El8BWyU/6+WI3B/14kniyGY=;
+	s=k20260515; t=1789129180;
+	bh=wIbQwUod6yifrXwCB84h7NfULL0YyW9mPjursDOAong=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VN4iPcxVduNYcP1rqo2EHAXr24pOVeCdP7IU05gcJqBQleqpejfAJd46e0rGl9cBz
-	 Fj7vi9x0eZy6CWlJM1adEnkO5RDdqNkfgU3OslOmA6CmTdmnPfQPjPyXDgPxxvL9ze
-	 nqsVGnWgPmlhVhU4LAByTpT0C+cdwoj4zvtoc6/z6lUKwDdlj/XUU+P9WcVe0CS8kl
-	 GyEqI2As9DfyIhbhYYHSx72yaaVEE/bBZWHe3Q9VBIajLUwZ7W5LTeDASGA34RbzAz
-	 IUUgf+4OGvXgRhwIfWq3ybHWdqHIDdUoWUGDaYQYsR8ubz1ftS6brTNYkCRvHOXmQ3
-	 XvvUIHdm+/7kw==
+	b=Dwo4oglX6k4DFiDzO5GL8XGXsPIxdGFXBOV4Fh91DrPRbsNkqQM26iCxbTEWeuO8P
+	 RNJ0tyLrcTcLGaKTbhYMg5bUFGae1O2t7B37Jo+xo/XmZxpc+0Sy7OIGr44puHzeTz
+	 FhDBb0t/T/cs7H8ptas0ws7tlEk2RG9rT9Mw7Z0Vqly/FQiTkgwrlcjYaXpqY8Uyet
+	 4KxcvbE5wFA+UQmhU372HQ3iJrMF3v9TEsPIeVPQY5IkyPHj4xcMRn5xqpkHFlIEbM
+	 ojT6l50e6LYNAWcRocHor6Ogm1vjwGkA450dMGFGktom6pSZyPwWAOmU92yxe6FPLw
+	 fOWL4U6hUXPqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
 	Claudio Imbrenda <imbrenda@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] KVM: s390: Zero initialize data structures for inject_pfault_token
-Date: Fri, 11 Sep 2026 08:19:35 -0400
-Message-ID: <20260911121935.514679-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] KVM: s390: Fix memory corruption by not reinjecting CK machine checks
+Date: Fri, 11 Sep 2026 08:19:37 -0400
+Message-ID: <20260911121937.514719-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090924-endurable-recharger-fa78@gregkh>
-References: <2026090924-endurable-recharger-fa78@gregkh>
+In-Reply-To: <20260911121937.514719-1-sashal@kernel.org>
+References: <2026090945-sporting-book-8561@gregkh>
+ <20260911121937.514719-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,47 +49,119 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-[ Upstream commit 4e2c7f7cbc27418f9a290399b986c1b85ff93b90 ]
+[ Upstream commit 546dde823a36d7283dcf46127c2f3d093443860f ]
 
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
+Channel-subsystem damage machine checks are for the host channel
+subsystem. The guest channel subsystem is emulated in the userspace VMM.
+There is no point in forwarding such machine checks into the guest.
 
-Interrupt delivery only uses ext_params2, so nothing leaks to the guest,
-but a host user can use the migration ioctls to get to the data.
+This also simplifies the machine check reinjection and avoids kfree of a
+stack variable as reported by sashiko.  There might be still machine
+checks that have the ck bit set with another bit (like instruction
+damage), mask out the CK bit in s390_backup_mcck_info(), like the CP and
+ED bits already are.
 
-Fix by zero-initializing the irq struct.
-Do the same for the inti data structure.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
+Fixes: 4d62fcc0b692 ("KVM: s390: Inject machine check into the guest")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Acked-by: Heiko Carstens <hca@linux.ibm.com>
+Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
 Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-3-borntraeger@linux.ibm.com>
-[ Adjusted context for missing inti_mem and ret declarations in __kvm_inject_pfault_token(). ]
+Message-ID: <20260806145835.31818-1-borntraeger@linux.ibm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kvm/kvm-s390.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/s390/include/asm/nmi.h |  3 +++
+ arch/s390/kernel/nmi.c      |  5 +----
+ arch/s390/kvm/interrupt.c   | 24 ++++++++----------------
+ 3 files changed, 12 insertions(+), 20 deletions(-)
 
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 2a1a3117a5b23..55525b425a96b 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4427,8 +4427,8 @@ long kvm_arch_fault_in_page(struct kvm_vcpu *vcpu, gpa_t gpa, int writable)
- static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				      unsigned long token)
- {
--	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_interrupt inti = {};
-+	struct kvm_s390_irq irq = {};
+diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
+index d0adaae8f3499..4957ebbde29c7 100644
+--- a/arch/s390/include/asm/nmi.h
++++ b/arch/s390/include/asm/nmi.h
+@@ -23,6 +23,7 @@
+ #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
+ #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
+ #define MCCK_CODE_CP			BIT(63 - 9)
++#define MCCK_CODE_CK			BIT(63 - 11)
+ #define MCCK_CODE_STG_ERROR		BIT(63 - 16)
+ #define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
+ #define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
+@@ -34,6 +35,8 @@
+ #define MCCK_CODE_FC_VALID		BIT(63 - 43)
+ #define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
  
- 	if (start_token) {
- 		irq.u.ext.ext_params2 = token;
++#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE | MCCK_CODE_CK)
++
+ #ifndef __ASSEMBLER__
+ 
+ union mci {
+diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
+index 911e1be5f8cda..abc5d969344e3 100644
+--- a/arch/s390/kernel/nmi.c
++++ b/arch/s390/kernel/nmi.c
+@@ -377,8 +377,7 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
+ 
+ 	sie_page = container_of(sie_block, struct sie_page, sie_block);
+ 	mcck_backup = &sie_page->mcck_info;
+-	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
+-				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
++	mcck_backup->mcic = get_lowcore()->mcck_interruption_code & ~MCCK_CODE_NO_GUEST;
+ 	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
+ 	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
+ }
+@@ -390,8 +389,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
+ #define ED_STP_ISLAND	6	/* External damage STP island check */
+ #define ED_STP_SYNC	7	/* External damage STP sync check */
+ 
+-#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE)
+-
+ /*
+  * machine check handler.
+  */
+diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
+index 7207390bd849e..994f442e117a4 100644
+--- a/arch/s390/kvm/interrupt.c
++++ b/arch/s390/kvm/interrupt.c
+@@ -2856,9 +2856,7 @@ static int set_adapter_int(struct kvm_kernel_irq_routing_entry *e,
+ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
+ 				     struct mcck_volatile_info *mcck_info)
+ {
+-	struct kvm_s390_interrupt_info inti;
+ 	struct kvm_s390_irq irq = {};
+-	struct kvm_s390_mchk_info *mchk;
+ 	union mci mci;
+ 	__u64 cr14 = 0;         /* upper bits are not used */
+ 	int rc;
+@@ -2871,20 +2869,14 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
+ 	if (mci.w)
+ 		cr14 |= CR14_WARNING_SUBMASK;
+ 
+-	mchk = mci.ck ? &inti.mchk : &irq.u.mchk;
+-	mchk->cr14 = cr14;
+-	mchk->mcic = mcck_info->mcic;
+-	mchk->ext_damage_code = mcck_info->ext_damage_code;
+-	mchk->failing_storage_address = mcck_info->failing_storage_address;
+-	if (mci.ck) {
+-		/* Inject the floating machine check */
+-		inti.type = KVM_S390_MCHK;
+-		rc = __inject_vm(vcpu->kvm, &inti);
+-	} else {
+-		/* Inject the machine check to specified vcpu */
+-		irq.type = KVM_S390_MCHK;
+-		rc = kvm_s390_inject_vcpu(vcpu, &irq);
+-	}
++	irq.u.mchk.cr14 = cr14;
++	irq.u.mchk.mcic = mcck_info->mcic;
++	irq.u.mchk.ext_damage_code = mcck_info->ext_damage_code;
++	irq.u.mchk.failing_storage_address = mcck_info->failing_storage_address;
++
++	/* Inject the machine check to specified vcpu */
++	irq.type = KVM_S390_MCHK;
++	rc = kvm_s390_inject_vcpu(vcpu, &irq);
+ 	WARN_ON_ONCE(rc);
+ }
+ 
 -- 
 2.53.0
 
