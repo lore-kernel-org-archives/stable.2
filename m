@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3713D3339
-	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8D6388390
+	for <Stable@vger.kernel.org>; Fri, 11 Sep 2026 09:55:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120551; cv=none; b=unW1bf8hYxX+GlfwZuw6Ivm/NBUdu4oH/XaNOCVNlkwrxNXFk4a8GChbDHJMzIwOgdGZHIk085jZ6OJ+pbFzdvvT67Usr6lmTX4Vqc045kl6SFY/YOmd0SMVqMAh0+jw0v6Szq1EnNZqGEkc1y8ZeloXsmmtBcbWG1LpjhYiOLw=
+	t=1789120555; cv=none; b=bGIkMeslhhSDXWIy7/6vPPHP3t3POEmzf6XjLDW+HhGXxo27yCiBTKYQWkeBchb6DwycVw0azd50i6sQokMw+Pcz74N3mIXheJ2TXo98nNly9w2F4lifHW2Kjst4YgLTaed4ofPt7ZLy8RDi99s82nS1lAwtahTKoiYIv93+FhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120551; c=relaxed/simple;
-	bh=oycDNj85V0wqOOZirdzA4VJD/+XRG25AJh7xF+X+eFQ=;
-	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=p7MhUdkw+LRHXMwNjdneEuIsaURb28ingKD2xPFS4imXmHopJ1icFD3sO1sfEDzF5rsZdcCaC/DnhmYe7rtPw22qyrE7T0Z36Lgj2b+71CdPMQoVOvJh9GvmL0Bs0JDcjkHato3EsuGF+f0GearQNUyJ98eK3yj6Wz4wqJa1g8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BWsDfjlL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120555; c=relaxed/simple;
+	bh=VuviMpvIeFgYRASIvXl+KqtnYw1xdTgfVN1by1XKUWM=;
+	h=Subject:To:From:Date:Message-ID:MIME-Version:Content-Type; b=POejKHUgiWtA601XQtlCUmDzLLv0yvXGri/w5sfKUotJ/XZoLgxBgL6fCIE91iyD8shBHtBLwURiY4ziA0Yt7krtTb80tFrCqfnwK6FDqSPwVnJreni2Z0xUUJPLk+x7+5twM2K2YeiYjVEQhz+Vzz9FbbK+peHMeaeiEwRPDrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BOLqy/QD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BWsDfjlL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380C11F00898;
-	Fri, 11 Sep 2026 09:55:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BOLqy/QD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B201F000FF;
+	Fri, 11 Sep 2026 09:55:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789120549;
-	bh=dV5LtWr1dsOuTTMF7MqNBsj+nHsDdxSLU7HeZ/cCI7s=;
+	s=korg; t=1789120554;
+	bh=Et6annJT+5wLzlqA+4iTtoHXiCMAEqxgYFBn/73TW8Y=;
 	h=Subject:To:From:Date;
-	b=BWsDfjlL3ROmAinET79jPHBb0cgeAw1m8/kxeKwTzpsB5Tr2L0kxqxje+2wWzpsjj
-	 xVWxpWI/AWCEjJFIrN/xGdr3lNZu1fSL2YE9M99uJ0gG0dAJeJnpRTvC3LVSpjoSON
-	 J9JszeUClCm3AJD9VhAXAZ0ANwzkbUIbmEtCRGz4=
-Subject: patch "iio: adc: adi-axi-adc: Initialize state mutex" added to char-misc-linus
-To: janani.sunil@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com
+	b=BOLqy/QD2lbE7Uu/rE3OSR9J2xaV013aWCcidR2F/DTjk8ulNLOG49gi+aNY9OQDo
+	 D4RQWl2TxO+c/dvXhnl5naTW8CbiCAlin40+8n+ktw2FSt3KUgSlqXCbJX6Ec6B1Hk
+	 AOhvLgQZHVUJztezW869VfDX6INbBS7iDk9QCRnY=
+Subject: patch "iio: adc: ade9000: request interrupts after powering the device" added to char-misc-linus
+To: antoniu.miclaus@analog.com,Stable@vger.kernel.org,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com
 From: <gregkh@linuxfoundation.org>
 Date: Fri, 11 Sep 2026 11:55:31 +0200
-Message-ID: <2026091131-envoy-crock-d2c8@gregkh>
+Message-ID: <2026091131-fifteen-mammary-24b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ Content-Transfer-Encoding: 8bit
 
 This is a note to let you know that I've just added the patch titled
 
-    iio: adc: adi-axi-adc: Initialize state mutex
+    iio: adc: ade9000: request interrupts after powering the device
 
 to my char-misc git tree which can be found at
     git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git
@@ -54,38 +54,72 @@ next -rc kernel release.
 If you have any questions about this process, please let me know.
 
 
-From 549b71ce050637dd32678371ad76c445a2f8c9aa Mon Sep 17 00:00:00 2001
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Thu, 13 Aug 2026 15:56:56 +0200
-Subject: iio: adc: adi-axi-adc: Initialize state mutex
+From 88fda1ed51a579eb51980436abc6557006a520a3 Mon Sep 17 00:00:00 2001
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Date: Fri, 7 Aug 2026 11:56:41 +0300
+Subject: iio: adc: ade9000: request interrupts after powering the device
 
-The AXI ADC register access paths serialize transactions with st->lock,
-but probe does not initialize it. Initialize the mutex before registering
-the backend.
+The IRQ handlers do SPI register accesses, but the interrupts were
+requested before the vdd regulator was enabled. An interrupt arriving
+while the chip is unpowered runs a handler against a dead chip, causing
+SPI errors or garbage reads.
 
-Fixes: 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Request the interrupts after enabling the regulator. This keeps irq1
+registered before ade9000_reset(), which waits on it, and lets devm free
+the interrupts before the regulator is disabled.
+
+Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: <Stable@vger.kernel.org>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/adi-axi-adc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/iio/adc/ade9000.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
-index 589f03618ecf..fc7cc92b35f0 100644
---- a/drivers/iio/adc/adi-axi-adc.c
-+++ b/drivers/iio/adc/adi-axi-adc.c
-@@ -714,6 +714,10 @@ static int adi_axi_adc_probe(struct platform_device *pdev)
- 	if (!st)
- 		return -ENOMEM;
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index c6c3ea953fea..51cb43755a1f 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -1705,18 +1705,6 @@ static int ade9000_probe(struct spi_device *spi)
+ 	if (ret)
+ 		return ret;
  
-+	ret = devm_mutex_init(dev, &st->lock);
+-	ret = ade9000_request_irq(dev, "irq0", ade9000_irq0_thread, indio_dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = ade9000_request_irq(dev, "irq1", ade9000_irq1_thread, indio_dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = ade9000_request_irq(dev, "dready", ade9000_dready_thread, indio_dev);
+-	if (ret)
+-		return ret;
+-
+ 	/* External CMOS clock input (optional - crystal can be used instead) */
+ 	st->clkin = devm_clk_get_optional_enabled(dev, NULL);
+ 	if (IS_ERR(st->clkin))
+@@ -1736,6 +1724,19 @@ static int ade9000_probe(struct spi_device *spi)
+ 		return dev_err_probe(&spi->dev, ret,
+ 				     "Failed to get and enable vdd regulator\n");
+ 
++	/* Request IRQs only after powering the chip; the handlers do SPI access. */
++	ret = ade9000_request_irq(dev, "irq0", ade9000_irq0_thread, indio_dev);
 +	if (ret)
 +		return ret;
 +
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
++	ret = ade9000_request_irq(dev, "irq1", ade9000_irq1_thread, indio_dev);
++	if (ret)
++		return ret;
++
++	ret = ade9000_request_irq(dev, "dready", ade9000_dready_thread, indio_dev);
++	if (ret)
++		return ret;
++
+ 	indio_dev->channels = ade9000_channels;
+ 	indio_dev->num_channels = ARRAY_SIZE(ade9000_channels);
+ 
 -- 
 2.55.0
 
