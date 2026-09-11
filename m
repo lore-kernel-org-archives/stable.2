@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EF337F303;
-	Fri, 11 Sep 2026 18:48:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349B63CB544
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 18:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152500; cv=none; b=TBoityTg4rJGwxqsu7quX6cYTwCzX89VljwST1n36fEXB9nGwYXVMiuXvoFMMHCLF0RpyXcPtfxmTfxdsipXFfDi0TvwicjFwlNypq1UsviXTCSoLSl/NStb0oW4BpK0vQdVSH3oyPrqRKrezhryZlhu8tJHUlICnGkrp3biQRA=
+	t=1789152532; cv=none; b=s++BRQAXUA66oFbZieIQTnqAogL14bd7iZ+wIEVRmUmSp1t9QbOGnDoMhKSg7nesNZ2z5YLrCtSVhD5wf+XoJFol4JuZhXIP4aYf2ULkqbwAZBDXmmVXVzO88qZlUSAb2OReKRoJ+EJhy/7NhffCB+bdlIxdO+HDNqY6syGUZ7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152500; c=relaxed/simple;
-	bh=ry4LAoz76/KhXYS+j2KYHfIIT5mZtZGsPRRBJwSX9cM=;
+	s=arc-20240116; t=1789152532; c=relaxed/simple;
+	bh=/sbHAyMvG5+XKFdqu+x6kd2aEnyjZ6EUit0+YYVSCYg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pECPEn7f04X8rhey7HxwI7Ww4F2s5gmmjbH531Ek4bsJm1lGdGQTn7r4h6Ni8e5HMZIxzBZ6hM988FJEvt23VyEjGmTF5iObcKxBjCUeFcADU0FvW4edgTmX0/BjgnGBxuJVVAkaSalRsbVc6BmBgCC2ZjskGeULOYl2E/nsiHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EakbNgI+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OYq8uQvSag6FNNKnm3kEfhLmTp9TvkqyANPszdTRKrJk8aeVEiwFok9S0aV2oAkCpW8G41moOXaNu0Bw2ThBEgbD/T3fL/uCMZM3TAMQkhF1Hp/7tCS0//Z11jWYMDivMnZgshVB4WJ/ZX4861OYadCCQfr+xqakuht8yOtqk3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kp9aLLXI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EakbNgI+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31601F000FF;
-	Fri, 11 Sep 2026 18:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789152497;
-	bh=B0XtFXhhYqLoBp41xXkYUfHoBldSPn8N12PyAWfLPJ8=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kp9aLLXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7660A1F000FF;
+	Fri, 11 Sep 2026 18:48:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789152531;
+	bh=Z3MzbG4+UHJjT+vjOq8qt8DEcRrHHW/ZpeZNiOwDZSI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EakbNgI+BJ8yk3v/wS/uif41UY5RMmfsopoqg2wZfNWEUZhiBepZ9E8sy3r+qyCHj
-	 UdAXShbCKimGE5yxHXKVtPB027lFZsLgnWeO3Glj8I1YavrwA6BuQa9XMsypx6FqES
-	 9Sh60+/Q36RSyztQ6cXYHIOK+tVymcI45EZIu6yY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Kp9aLLXIzB3JhqbQTZkNP2tILIJq+ll/jnHSi6HX5ljLEfyT/t4/CBpg4W0GS5oL+
+	 V/0d8qum0dQEaU6bwa4+5kyx8ORiFxoOxEiGsyQE5lDWBGljqNmRHM7GsjSAey4PxB
+	 OScSMjhjzyvPlIt1+zv8FfWfxAheJ+9FbQnDFXwykdNohmccEOMyTMyPGddCIIg37i
+	 kcu9nTYHvUlcjjRVWsdzKjtWyeom+/b/bUSSktKAcEzjDs2MbZEggMe75tCcAQEFj7
+	 sxZUA+YVhTjLm13OsVEGIVRlz/iprcEqopk1DFEKz2xHnXBEO2gIbM9Kzt9q/j2vbj
+	 Kl8TpIQCNXLpw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Eric Biggers <ebiggers@kernel.org>,
-	Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 6.18 581/583] pidfs: protect PIDFD_GET_* ioctls() via ifdef
-Date: Wed,  9 Sep 2026 15:44:26 +0200
-Message-ID: <20260909134257.924318028@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] f2fs: block cache/dio write during f2fs_enable_checkpoint()
+Date: Fri, 11 Sep 2026 14:48:47 -0400
+Message-ID: <20260911184848.1352437-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090931-unlined-lushness-1f58@gregkh>
+References: <2026090931-unlined-lushness-1f58@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,120 +45,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit 196c81fdd438f7ac429d5639090a9816abb9760a ]
 
-From: Christian Brauner <brauner@kernel.org>
+If there are too many background IOs during f2fs_enable_checkpoint(),
+sync_inodes_sb() may be blocked for long time due to it will loop to
+write dirty datas which are generated by in parallel write()
+continuously.
 
-commit 75ddaa4ddc86d31edb15e50152adf4ddee77a6ba upstream.
+Let's change as below to resolve this issue:
+- hold cp_enable_rwsem write lock to block any cache/dio write
+- decrease DEF_ENABLE_INTERVAL from 16 to 5
 
-We originally protected PIDFD_GET_<ns-type>_NAMESPACE ioctls() through
-ifdefs and recent rework made it possible to drop them. There was an
-oversight though. When the relevant namespace is turned off ns->ops will
-be NULL so even though opening a file descriptor is perfectly legitimate
-it would fail during inode eviction when the file was closed.
+In addition, dump more logs during f2fs_enable_checkpoint().
 
-The simple fix would be to check ns->ops for NULL and continue allow to
-retrieve namespace fds from pidfds but we don't allow retrieving them
-when the relevant namespace type is turned off. So keep the
-simplification but add the ifdefs back in.
+Testcase:
+1. fill data into filesystem until 90% usage.
+2. mount -o remount,checkpoint=disable:10% /data
+3. fio --rw=randwrite  --bs=4kb  --size=1GB  --numjobs=10  \
+--iodepth=64  --ioengine=psync  --time_based  --runtime=600 \
+--directory=/data/fio_dir/ &
+4. mount -o remount,checkpoint=enable /data
 
-Link: https://lore.kernel.org/20251222214907.GA189632@quark
-Link: https://patch.msgid.link/20251224-ununterbrochen-gagen-ea949b83f8f2@brauner
-Fixes: a71e4f103aed ("pidfs: simplify PIDFD_GET_<type>_NAMESPACE ioctls")
-Tested-by: Brendan Jackman <jackmanb@kernel.org>
-Tested-by: Eric Biggers <ebiggers@kernel.org>
-Reported-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Before:
+F2FS-fs (dm-51): f2fs_enable_checkpoint() finishes, writeback:7232, sync:39793, cp:457
+
+After:
+F2FS-fs (dm-51): f2fs_enable_checkpoint end, writeback:5032, lock:0, sync_inode:5552, sync_fs:84
+
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: e533889fc26a ("f2fs: validate MOVE_RANGE destination size")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/pidfs.c |   18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ fs/f2fs/data.c  |  2 ++
+ fs/f2fs/f2fs.h  |  3 ++-
+ fs/f2fs/super.c | 38 ++++++++++++++++++++++++++++++--------
+ 3 files changed, 34 insertions(+), 9 deletions(-)
 
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -511,14 +511,18 @@ static long pidfd_ioctl(struct file *fil
- 	switch (cmd) {
- 	/* Namespaces that hang of nsproxy. */
- 	case PIDFD_GET_CGROUP_NAMESPACE:
-+#ifdef CONFIG_CGROUPS
- 		if (!ns_ref_get(nsp->cgroup_ns))
- 			break;
- 		ns_common = to_ns_common(nsp->cgroup_ns);
-+#endif
- 		break;
- 	case PIDFD_GET_IPC_NAMESPACE:
-+#ifdef CONFIG_IPC_NS
- 		if (!ns_ref_get(nsp->ipc_ns))
- 			break;
- 		ns_common = to_ns_common(nsp->ipc_ns);
-+#endif
- 		break;
- 	case PIDFD_GET_MNT_NAMESPACE:
- 		if (!ns_ref_get(nsp->mnt_ns))
-@@ -526,32 +530,43 @@ static long pidfd_ioctl(struct file *fil
- 		ns_common = to_ns_common(nsp->mnt_ns);
- 		break;
- 	case PIDFD_GET_NET_NAMESPACE:
-+#ifdef CONFIG_NET_NS
- 		if (!ns_ref_get(nsp->net_ns))
- 			break;
- 		ns_common = to_ns_common(nsp->net_ns);
-+#endif
- 		break;
- 	case PIDFD_GET_PID_FOR_CHILDREN_NAMESPACE:
-+#ifdef CONFIG_PID_NS
- 		if (!ns_ref_get(nsp->pid_ns_for_children))
- 			break;
- 		ns_common = to_ns_common(nsp->pid_ns_for_children);
-+#endif
- 		break;
- 	case PIDFD_GET_TIME_NAMESPACE:
-+#ifdef CONFIG_TIME_NS
- 		if (!ns_ref_get(nsp->time_ns))
- 			break;
- 		ns_common = to_ns_common(nsp->time_ns);
-+#endif
- 		break;
- 	case PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE:
-+#ifdef CONFIG_TIME_NS
- 		if (!ns_ref_get(nsp->time_ns_for_children))
- 			break;
- 		ns_common = to_ns_common(nsp->time_ns_for_children);
-+#endif
- 		break;
- 	case PIDFD_GET_UTS_NAMESPACE:
-+#ifdef CONFIG_UTS_NS
- 		if (!ns_ref_get(nsp->uts_ns))
- 			break;
- 		ns_common = to_ns_common(nsp->uts_ns);
-+#endif
- 		break;
- 	/* Namespaces that don't hang of nsproxy. */
- 	case PIDFD_GET_USER_NAMESPACE:
-+#ifdef CONFIG_USER_NS
- 		scoped_guard(rcu) {
- 			struct user_namespace *user_ns;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 05ab77446b716..77f3135e54ec5 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -1468,6 +1468,7 @@ static int __allocate_data_block(struct dnode_of_data *dn, int seg_type)
  
-@@ -560,8 +575,10 @@ static long pidfd_ioctl(struct file *fil
- 				break;
- 			ns_common = to_ns_common(user_ns);
- 		}
-+#endif
- 		break;
- 	case PIDFD_GET_PID_NAMESPACE:
-+#ifdef CONFIG_PID_NS
- 		scoped_guard(rcu) {
- 			struct pid_namespace *pid_ns;
+ static void f2fs_map_lock(struct f2fs_sb_info *sbi, int flag)
+ {
++	f2fs_down_read(&sbi->cp_enable_rwsem);
+ 	if (flag == F2FS_GET_BLOCK_PRE_AIO)
+ 		f2fs_down_read(&sbi->node_change);
+ 	else
+@@ -1480,6 +1481,7 @@ static void f2fs_map_unlock(struct f2fs_sb_info *sbi, int flag)
+ 		f2fs_up_read(&sbi->node_change);
+ 	else
+ 		f2fs_unlock_op(sbi);
++	f2fs_up_read(&sbi->cp_enable_rwsem);
+ }
  
-@@ -570,6 +587,7 @@ static long pidfd_ioctl(struct file *fil
- 				break;
- 			ns_common = to_ns_common(pid_ns);
- 		}
-+#endif
- 		break;
- 	default:
- 		error = -ENOIOCTLCMD;
-
+ int f2fs_get_block_locked(struct dnode_of_data *dn, pgoff_t index)
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index f1d7a22293b37..8b78c8ac80d14 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -287,7 +287,7 @@ enum {
+ #define DEF_CP_INTERVAL			60	/* 60 secs */
+ #define DEF_IDLE_INTERVAL		5	/* 5 secs */
+ #define DEF_DISABLE_INTERVAL		5	/* 5 secs */
+-#define DEF_ENABLE_INTERVAL		16	/* 16 secs */
++#define DEF_ENABLE_INTERVAL		5	/* 5 secs */
+ #define DEF_DISABLE_QUICK_INTERVAL	1	/* 1 secs */
+ #define DEF_UMOUNT_DISCARD_TIMEOUT	5	/* 5 secs */
+ 
+@@ -1727,6 +1727,7 @@ struct f2fs_sb_info {
+ 	long interval_time[MAX_TIME];		/* to store thresholds */
+ 	struct ckpt_req_control cprc_info;	/* for checkpoint request control */
+ 	struct cp_stats cp_stats;		/* for time stat of checkpoint */
++	struct f2fs_rwsem cp_enable_rwsem;	/* block cache/dio write */
+ 
+ 	struct inode_management im[MAX_INO_ENTRY];	/* manage inode cache */
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 6f787cbeefd09..f3023ee25f623 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2641,10 +2641,11 @@ static int f2fs_disable_checkpoint(struct f2fs_sb_info *sbi)
+ static int f2fs_enable_checkpoint(struct f2fs_sb_info *sbi)
+ {
+ 	unsigned int nr_pages = get_pages(sbi, F2FS_DIRTY_DATA) / 16;
+-	long long start, writeback, end;
++	long long start, writeback, lock, sync_inode, end;
+ 	int ret;
+ 
+-	f2fs_info(sbi, "f2fs_enable_checkpoint() starts, meta: %lld, node: %lld, data: %lld",
++	f2fs_info(sbi, "%s start, meta: %lld, node: %lld, data: %lld",
++					__func__,
+ 					get_pages(sbi, F2FS_DIRTY_META),
+ 					get_pages(sbi, F2FS_DIRTY_NODES),
+ 					get_pages(sbi, F2FS_DIRTY_DATA));
+@@ -2663,11 +2664,18 @@ static int f2fs_enable_checkpoint(struct f2fs_sb_info *sbi)
+ 	}
+ 	writeback = ktime_get();
+ 
+-	sync_inodes_sb(sbi->sb);
++	f2fs_down_write(&sbi->cp_enable_rwsem);
++
++	lock = ktime_get();
++
++	if (get_pages(sbi, F2FS_DIRTY_DATA))
++		sync_inodes_sb(sbi->sb);
+ 
+ 	if (unlikely(get_pages(sbi, F2FS_DIRTY_DATA)))
+-		f2fs_warn(sbi, "checkpoint=enable has some unwritten data: %lld",
+-					get_pages(sbi, F2FS_DIRTY_DATA));
++		f2fs_warn(sbi, "%s: has some unwritten data: %lld",
++			__func__, get_pages(sbi, F2FS_DIRTY_DATA));
++
++	sync_inode = ktime_get();
+ 
+ 	f2fs_down_write(&sbi->gc_lock);
+ 	f2fs_dirty_to_prefree(sbi);
+@@ -2676,6 +2684,13 @@ static int f2fs_enable_checkpoint(struct f2fs_sb_info *sbi)
+ 	set_sbi_flag(sbi, SBI_IS_DIRTY);
+ 	f2fs_up_write(&sbi->gc_lock);
+ 
++	f2fs_info(sbi, "%s sync_fs, meta: %lld, imeta: %lld, node: %lld, dents: %lld, qdata: %lld",
++					__func__,
++					get_pages(sbi, F2FS_DIRTY_META),
++					get_pages(sbi, F2FS_DIRTY_IMETA),
++					get_pages(sbi, F2FS_DIRTY_NODES),
++					get_pages(sbi, F2FS_DIRTY_DENTS),
++					get_pages(sbi, F2FS_DIRTY_QDATA));
+ 	ret = f2fs_sync_fs(sbi->sb, 1);
+ 	if (ret)
+ 		f2fs_err(sbi, "%s sync_fs failed, ret: %d", __func__, ret);
+@@ -2683,11 +2698,17 @@ static int f2fs_enable_checkpoint(struct f2fs_sb_info *sbi)
+ 	/* Let's ensure there's no pending checkpoint anymore */
+ 	f2fs_flush_ckpt_thread(sbi);
+ 
++	f2fs_up_write(&sbi->cp_enable_rwsem);
++
+ 	end = ktime_get();
+ 
+-	f2fs_info(sbi, "f2fs_enable_checkpoint() finishes, writeback:%llu, sync:%llu",
+-					ktime_ms_delta(writeback, start),
+-					ktime_ms_delta(end, writeback));
++	f2fs_info(sbi, "%s end, writeback:%llu, "
++				"lock:%llu, sync_inode:%llu, sync_fs:%llu",
++				__func__,
++				ktime_ms_delta(writeback, start),
++				ktime_ms_delta(lock, writeback),
++				ktime_ms_delta(sync_inode, lock),
++				ktime_ms_delta(end, sync_inode));
+ 	return ret;
+ }
+ 
+@@ -4901,6 +4922,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	init_f2fs_rwsem(&sbi->node_change);
+ 	spin_lock_init(&sbi->stat_lock);
+ 	init_f2fs_rwsem(&sbi->cp_rwsem);
++	init_f2fs_rwsem(&sbi->cp_enable_rwsem);
+ 	init_f2fs_rwsem(&sbi->quota_sem);
+ 	init_waitqueue_head(&sbi->cp_wait);
+ 	spin_lock_init(&sbi->error_lock);
+-- 
+2.53.0
 
