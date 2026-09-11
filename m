@@ -1,35 +1,53 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 018D32E7378;
-	Fri, 11 Sep 2026 02:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BFA3CB567;
+	Fri, 11 Sep 2026 02:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092421; cv=none; b=fBpqvxOpvEIUdTv2a48q1+gP56d/SMf4QE4tI41Z+f+MEyOxMIcI96y87RcTx7oviQDg/zIeSjhkRQmh8JPrj+W1fGaRkgI5g4T5VU8M+6mbD61SiRzllYp8uVbkwlOsJn1WXaFthuxs0+gq3bLlrp3nxodWSemd3Zv++nr8f5Q=
+	t=1789092564; cv=none; b=fDBHpU1mSe/daQHsr+Ja9ObawHfbimUBz45wRCY/jHalgw+uR+KpEhTjIaCZSBLKoHNfP2Iurw1uxOhc8Ou80q1eQm9Lk2pKl6+S4qAvSsjeh+GCHVl5EqqjcOeOGou5PhnolJvCB0nh+LF74/RLcVLqJoh1l9VWRwX8bkAMTYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092421; c=relaxed/simple;
-	bh=1dtU5TOUa1+dyx1hn5t0NaQeaDgdhBqRisH1DuW5npI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CH6byATNzZZc49lZH+M+jTWpB2Y9Rk81ASaqL9Xym2Zgcj6K7c6xbHC8bClcq9RYro43IjaqYfVLSw2H1Nf+uwiqzW9u2QSh4kbUO6D7aRKZne5SK5Au0aaRqDacUDb/0UFfZXBxbU/CBs39//jaQYasX38fCAMTwG+m2ZjNb2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHgD8zYqNqgokIAQ--.3500S3;
-	Fri, 11 Sep 2026 10:06:44 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgB3CtEyYqNquF5tBA--.35527S2;
-	Fri, 11 Sep 2026 10:06:42 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: oliver@neukum.org,
-	aliakc@web.de,
-	lenehan@twibble.org
-Cc: James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com,
-	linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1789092564; c=relaxed/simple;
+	bh=uptId5k+YVSOOa7XT+eqPnKSj+g74WfcsvXMwKlWOvA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CscVoCj9h7fj6vcneIwQrtnNoML+++QeBdqd9t47ULAuWfDhMc8sXxt+7OC6XMi7cYh9DzXtu5xYygP6xzOuaxkbFHBtUzplZuK2f3iXa1Hw6fiKEhlg3nhH9om8OJbbgzSKa5QCNx1lwFuhN17cj9mDDNVMFN8m8P669peqkIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: cad3257aad8511f19a56ed5b684f684d-20260911
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5b2c392f-e063-4533-b896-156606fa8865,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:1c6cccad869facd9123a73d5bfeae9e5,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cad3257aad8511f19a56ed5b684f684d-20260911
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1541058956; Fri, 11 Sep 2026 10:09:17 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] scsi: dc395x: sync the waiting_timer before freeing the host
-Date: Fri, 11 Sep 2026 02:05:44 +0000
-Message-Id: <20260911020544.42966-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH v9 4/4] ntfs: persist the dirty state after the final put_super() commits
+Date: Fri, 11 Sep 2026 10:09:08 +0800
+Message-Id: <20260911020908.2376222-5-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260911020908.2376222-1-zenghongling@kylinos.cn>
+References: <20260911020908.2376222-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,85 +55,145 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgB3CtEyYqNquF5tBA--.35527S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?Ss9SQwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2Ua2YcfOqAp+ssWdS7x5LHL3VMvLoD1QUFpGgVgVF9+ilW
-	lzWXXeHfR2Um9GD+FCmp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uw4xAF13KF1ktr17JrWUAwc_yoW8KryDpa
-	ykWw17KF1jqr47tw47Cr4kWFyrAws3JFWDKFW8Wa15uan3Gr1YyF98KFyjvFW7Aan5XFn7
-	AF4kX3Z8Arn0krcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-The waiting_timer callback re-arms itself and takes the host lock.
-adapter_uninit() currently stops it with timer_delete(), which does not
-wait for a callback already running on another CPU. The final
-scsi_host_put() that frees the host (and the host lock the callback
-dereferences) runs right after adapter_uninit(), so a concurrent or just
-re-armed callback can fire after the free, leaving a potential
-use-after-free window.
+The just-in-case mftmirr/mft commits and the final write_inode_now()
+in ntfs_put_super() can record NVolErrors() after the dirty state has
+been persisted, so errors from those points would leave the volume
+unmounted with a clean on-disk dirty bit - contradicting the "cannot
+unmount clean" guarantee ntfs_sync_volume_dirty_state() is meant to
+provide.
 
-Replace timer_delete() with timer_shutdown_sync() at the top of
-adapter_uninit(), before the host-lock section: the timer is dequeued,
-a running callback is waited for and rearming is blocked before the chip
-is halted, so it cannot fire at all once the adapter has ceased to
-function. Waiting outside the lock avoids the self-deadlock that would
-result from syncing a callback blocked on the lock we still hold.
+Move the persistence to the end of ntfs_put_super(): keep the gated
+re-commits and the tail commits where they are, run
+ntfs_sync_volume_dirty_state() and the $Volume commit after the last
+write_inode_now(), and release vol->vol_ino only after the sync.
 
-No shutdown is needed for selto_timer because it has no reachable armer
-or callback.
+The release order of the special inodes matters for the $Volume
+commit: writing the $Volume record mirrors it through
+ntfs_sync_mft_mirror() (record number 3 is below vol->mftmirr_size),
+which fails with -EIO and leaves the mirror stale once
+vol->mftmirr_ino is gone, so the mirror inode is released only after
+that commit.  vol->vol_ino is then put before vol->mft_ino is dropped:
+if the commit failed before it could clear the dirty flag,
+ntfs_evict_big_inode() commits the inode again on its way out, and
+__ntfs_write_inode() resolves the runlist through vol->mft_ino.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
-Cc: Jamie Lenehan <lenehan@twibble.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
-v2:
-  - Move timer_shutdown_sync() before adapter_uninit_chip(), as
-    suggested by Oliver Neukum.
-v1: https://lore.kernel.org/all/20260810055028.119525-1-fanwu01@zju.edu.cn/
+ fs/ntfs/super.c | 75 ++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 52 insertions(+), 23 deletions(-)
 
- drivers/scsi/dc395x.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
-index 6183ce05d..fcd4c0029 100644
---- a/drivers/scsi/dc395x.c
-+++ b/drivers/scsi/dc395x.c
-@@ -3814,13 +3814,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
- static void adapter_uninit(struct AdapterCtlBlk *acb)
- {
- 	unsigned long flags;
--	DC395x_LOCK_IO(acb->scsi_host, flags);
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 733565953302..3574c224fe28 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1812,26 +1812,13 @@ static void ntfs_put_super(struct super_block *sb)
+ 	ntfs_commit_inode(vol->mft_ino);
  
--	/* remove timers */
--	if (timer_pending(&acb->waiting_timer))
--		timer_delete(&acb->waiting_timer);
--	if (timer_pending(&acb->selto_timer))
--		timer_delete(&acb->selto_timer);
-+	/* Drain the self-rearming timer; must not run under host_lock. */
-+	timer_shutdown_sync(&acb->waiting_timer);
+ 	/*
+-	 * If a read-write mount, persist the error state in the volume flags:
+-	 * mark the volume clean if no volume errors have occurred, and make
+-	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
+-	 * next mount.  Also, re-commit all affected inodes.
++	 * If a read-write mount, re-commit all affected inodes once more.
++	 * The dirty state itself is persisted at the end of ntfs_put_super(),
++	 * after the last commits and the final write_inode_now(): those can
++	 * still record errors via __ntfs_write_inode(), and the sync must
++	 * evaluate NVolErrors() with the last setter already run.
+ 	 */
+ 	if (!sb_rdonly(sb)) {
+-		if (ntfs_sync_volume_dirty_state(vol)) {
+-			ntfs_warning(sb,
+-				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+-		} else if (NVolErrors(vol)) {
+-			/*
+-			 * The dirty bit is on disk now; only warn when the
+-			 * sync actually succeeded, or this message would
+-			 * contradict the one above.
+-			 */
+-			ntfs_warning(sb,
+-				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
+-		}
+-		/* Commits the updated volume flags if they were written. */
+-		ntfs_commit_inode(vol->vol_ino);
+ 		if (!NVolErrors(vol)) {
+ 			ntfs_commit_inode(vol->root_ino);
+ 			if (vol->mftmirr_ino)
+@@ -1840,9 +1827,6 @@ static void ntfs_put_super(struct super_block *sb)
+ 		}
+ 	}
+ 
+-	iput(vol->vol_ino);
+-	vol->vol_ino = NULL;
+-
+ 	/* NTFS 3.0+ specific clean up. */
+ 	if (vol->major_ver >= 3) {
+ 		if (vol->extend_ino) {
+@@ -1872,8 +1856,6 @@ static void ntfs_put_super(struct super_block *sb)
+ 		/* Re-commit the mft mirror and mft just in case. */
+ 		ntfs_commit_inode(vol->mftmirr_ino);
+ 		ntfs_commit_inode(vol->mft_ino);
+-		iput(vol->mftmirr_ino);
+-		vol->mftmirr_ino = NULL;
+ 	}
+ 	/*
+ 	 * We should have no dirty inodes left, due to
+@@ -1883,6 +1865,53 @@ static void ntfs_put_super(struct super_block *sb)
+ 	ntfs_commit_inode(vol->mft_ino);
+ 	write_inode_now(vol->mft_ino, 1);
+ 
++	/*
++	 * If a read-write mount, persist the error state in the volume flags:
++	 * mark the volume clean if no volume errors have occurred, and make
++	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
++	 * next mount.
++	 */
++	if (!sb_rdonly(sb)) {
++		if (ntfs_sync_volume_dirty_state(vol)) {
++			ntfs_warning(sb,
++				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
++		} else if (NVolErrors(vol)) {
++			/*
++			 * The dirty bit is on disk now; only warn when the
++			 * sync actually succeeded, or this message would
++			 * contradict the one above.
++			 */
++			ntfs_warning(sb,
++				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
++		}
++		/*
++		 * Commits the updated volume flags if they were written.
++		 * The mft mirror must still be around for this: the
++		 * $Volume record (mft record number 3, below
++		 * vol->mftmirr_size) is mirrored by write_mft_record()
++		 * through ntfs_sync_mft_mirror(), which fails with -EIO
++		 * and leaves the mirror stale once vol->mftmirr_ino is
++		 * gone, so the mirror inode is only released after this
++		 * commit.
++		 */
++		ntfs_commit_inode(vol->vol_ino);
++	}
 +
-+	DC395x_LOCK_IO(acb->scsi_host, flags);
- 
- 	adapter_uninit_chip(acb);
- 	adapter_remove_and_free_all_devices(acb);
++	/*
++	 * Release $Volume while the mft inode is still available: if the
++	 * commit above failed before it could clear the dirty flag,
++	 * ntfs_evict_big_inode() commits the inode again on its way out,
++	 * and __ntfs_write_inode() needs vol->mft_ino to look up the
++	 * runlist of the record to write.
++	 */
++	iput(vol->vol_ino);
++	vol->vol_ino = NULL;
++
++	if (vol->mftmirr_ino) {
++		iput(vol->mftmirr_ino);
++		vol->mftmirr_ino = NULL;
++	}
++
+ 	iput(vol->mft_ino);
+ 	vol->mft_ino = NULL;
+ 	blkdev_issue_flush(sb->s_bdev);
 -- 
-2.34.1
+2.25.1
 
