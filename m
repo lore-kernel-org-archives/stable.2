@@ -1,159 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6EE59E333
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F57643CE7E
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 21:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161360; cv=none; b=A+d8RwYAuqbXuYdUtnmnO9RYVqdoXyl35fR6mVmdwXdeK8vkKiAISG/dtG5WLTeww+IhZsuGpVT0GYTlqf0YgH7XtiTEnn5V/ij4z/wZ7g690gBBerAaJidgJAC1PP9+8ocvjwIAVhKPSKOuC1l/MVGKBFMNbz2aSMeovBINkQw=
+	t=1789161373; cv=none; b=XHlpixyZ/b+T6s+LIPjy+tgEamTX1sAxdxIh695LRbL7bHz9arRd3Ie/QzmVU+VvUqy4dx2suDZ/NB60teutY9P1jETdT6Cq6Zj/2czuuFsKGkOBxZpbmOftxyLqMvIULjKMIC1WV7aRkfg3ZWBp674BxP/IJOoiiYg2xIbWqOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161360; c=relaxed/simple;
-	bh=kysZ0Va4sXk4YJ1G/NLKiIOJNWSuG0Sqw0+aF1/8QR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VfSMPQyIllcdyYbkuHoNUSscTIzUJyySmgX7nn5qOZTYOGVgunm265q3DjUgzn4L46UIr2UW3YUVp+ObNNbf0MIFMB61Zyo7xXscmRYXo0B5YlE2YA/DRnOZnLNh6v9m+aSCYFXiHmot9p3mFsLZLbuJ1DsQQRlBbbGVl02z54E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4oYyj+l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789161373; c=relaxed/simple;
+	bh=CkkoL+Mm5wrXLqQiEf4jOxWLB6Aj63iNCHVgZTJ+iiw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rnNQeQP3/oMC1IDVvxTpfIxc/ahkNUXKOQOKqcLaJU/YCPQauZPX/vS97JbJrENXcgc99W1C8rYJ+WGs1KN+E46+Ch0rVI/Xvs4XIkEjbdpCvS3klsm6ONXXvZL3DJLEZiBxmjYKwDfNABm7yVZV1V1c8QLcWqBY8Birgb1FXFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FLXxup54; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4oYyj+l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03AC1F0089A;
-	Fri, 11 Sep 2026 21:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789161356;
-	bh=Cz2cvjdia/lku21ilyW2PLM6EoI1c1jj2npivgPrm+w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4oYyj+lxaNIpEPglSn5isWDRBSV+3iPaMxQq1HRojY37EjEwd5v3yo+FsdMY66Ka
-	 QStQCaSfLrfjwpZ+QAzWK4Sf30qwZvPGsXG/OG4Drpm0ylZ+ildix4Ob4HwXQn+GAH
-	 02+UGd7Zq7khX1rfm19m4RTc+sSH+SxJCR6NaeR5XK9NFBwPsp2d7AkpmtshyK3ofW
-	 +Uk4EbQ0v6souw/thNI+Ql9WCj9qUmhz9ovfcbw7H020Qxm6P1rNG/iNHDLEnTAi24
-	 IvJG3IpP54EF7aJejaJJy61Fl9YeWj13dBqCbMC6aQ4wQxppqIipqerTFNWEgRZS+/
-	 qmopEUpj8e5wA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wenjie Qi <qwjhust@gmail.com>,
-	stable@kernel.org,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: limit recovery filename logging to stored length
-Date: Fri, 11 Sep 2026 17:15:54 -0400
-Message-ID: <20260911211554.1533186-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090931-skimpily-unvarying-9950@gregkh>
-References: <2026090931-skimpily-unvarying-9950@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FLXxup54"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so1832745e9.3
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 14:16:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789161369; x=1789766169; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pK9Q3uGKA1u0ElzG2dqV80RIYwnVI0Uj5jzztR3o9vo=;
+        b=FLXxup54uCKRJpkw3XRCqMzCjtsGb1MCVo9iEru28s7k6HPBxBMilYz1+haf5GO+6M
+         2cUJBJfTONhwzggLzLt3FTn01PzFbJQfPa2p+3Wm1ZdHgsHnSQZmEVeeT612qlJSz+zb
+         Ng4n+81M8IZ4LtA/NMw/7/LaAKUw5JJeoZpZn5fBBgXvdvEG4C5VgBUQ+vL+TaiYm5uS
+         uLi5ThdOY/Ydt/anJZRMA/68zft9HvTJ0m1PgXCETTagqe8YXtHfndWkCYGewwbhfry4
+         PHcZpJxyR1RtQkigqon0Tj71whbkSSnN0VdsHHM6krvsxINYY0FdKsc28mZltp7Fw8ST
+         SlzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789161369; x=1789766169;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pK9Q3uGKA1u0ElzG2dqV80RIYwnVI0Uj5jzztR3o9vo=;
+        b=mcy82VW4IyG0gpg1rDu67lJKvwOXW5PAezapStfCIZlVDyNd+7cJuH1v4+K0TwTQfh
+         NWWp3j06XZeOY74u3mCF8hRFZRwBNndnnubg1lPxk3tBeqPQJTZspwOvWSeAueEw3MI5
+         q2thzLlsbl2/sqTNJ9oWKnUFMBiNyc/5msRO4tLRJo8GAJNaxs0+hjepcUtYDaVSTHcG
+         7Wkx926Wwj4wwY+YX+gISZ5vXm/XJZv9pprVDz0fvcE+xWMX8Si6aKKfSchEn9Shh3FM
+         RnElamO5bw1el8jiI1gocwqmqWFMGVjqkaH2J4vppByVBvQmYG80EyyXwJxpUu+mVc0v
+         wb9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByypdoPzQZrZ5lFoIYbONd8H8tunNFHx4sQxptHCkb+2hidyMs+KKbLEzH4S3IA0RUeCat+Cds=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZHoKDY3okaB0wED4zMefzzIcpEXx82ne3jxIUqm/pD/OysXDW
+	JwlzKqQjRU+UfWa2ge2PxdNeizAgI5651xKBcmdu3T+8nZJRnQqApNOp
+X-Gm-Gg: AYBFou1Ru83I05vk6Tof2jY19f/0cof7Kbr5RAjD8pg455CwK7AGsMKdF3oFcu4VuYZ
+	Bi9tQdJA7VIJbgMV3hR2gFnnk4xEN8APYiuEBjUNwu1sQrt/gFkPtGcHjIEwTs+H3AYImpQQvtd
+	6oOlwSNN+j5OpX7wxvoX+/8EBexfs9UsbR9mF1IMKPBziiri9paGCB0zn3t8/RwfeWRxgGHlubh
+	XTEKb7tEWSlMaJflkRm0W/4fGa+kmA29pFG5phlYHUU/K3XjVBl8nq/sSEAMO6ON/uldgI2gG7H
+	hd25iTx0kEqGvSCmp/EVa0fqUFoqTsDzovtI1051BPvA/wlJlKyJYqK2JlDaxB0lEsHX32bGeXI
+	zkLmhNhO9iYqL2tGqDNyvlyj1jFx+kbe/Yi97dXDT76nwY1dAxr5hIKw5d/cMDK/hLXk0eiSw3i
+	ectjhJYT7jH6W+DQ52xgjZaaE9cAGbFmZn764zsrSCQphoZgaSBvZFtRM9fBYkZOM6KS81xCLZg
+	lMZNi80fnDs4UiklfRFmaJRcHpLQM1L75EP1guY1npFnzBAO12FoBHqHNW92eeAUL+7Vlswxug=
+X-Received: by 2002:a05:600c:3494:b0:49c:e3c3:5efd with SMTP id 5b1f17b1804b1-49e619aab42mr162972575e9.9.1789161369234;
+        Fri, 11 Sep 2026 14:16:09 -0700 (PDT)
+Received: from tachyon.internal ([194.220.152.228])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm99082465e9.2.2026.09.11.14.16.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:16:08 -0700 (PDT)
+From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+To: shawn.lin@rock-chips.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com
+Cc: robh@kernel.org,
+	heiko@sntech.de,
+	dlemoal@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+Subject: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
+Date: Fri, 11 Sep 2026 22:15:59 +0100
+Message-ID: <20260911211559.207990-1-ehbello@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wenjie Qi <qwjhust@gmail.com>
+Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
+rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
+behind an rk3399 root port almost never becomes usable: the link trains
+normally, but the endpoint's configuration space never answers, so the
+device is not enumerated. On this controller a configuration read that
+gets no usable completion is reported as an external abort rather than
+as an all-ones response, which on arm64 brings the machine down.
 
-[ Upstream commit 01027b2fcb74dade59fb833b51023f6593b6a9a2 ]
+The change added an unconditional 100 ms sleep so that PERST# stays
+asserted for at least Tpvperl after power becomes valid. The wait is
+performed while PERST# is asserted, so it also extends the reset by
+100 ms, and this endpoint does not tolerate the longer assertion.
 
-F2FS stores recovery filenames as a length plus a fixed-size i_name
-buffer.  The buffer is not NUL-terminated, but recover_inode() and
-recover_dentry() print it with %s.
+Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
+sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
+on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
+been valid since boot, seconds before the driver probes, so the
+requirement is already met and the sleep only lengthens the reset.
 
-For a 255-byte filename, recovery logging can read past i_name into the
-following raw inode fields.
+Record whether the supplies were already enabled before the driver
+enabled them, and skip the wait in that case. A supply that is already
+on at probe was brought up either by the bootloader or by the regulator
+core at boot, both of which precede a PCIe probe by far more than
+Tpvperl. When the driver really does bring the rails up the full wait
+still happens, as it does if regulator_is_enabled() cannot tell.
 
-Print the name with a precision bounded by i_namelen and F2FS_NAME_LEN.
+The same check is repeated on resume rather than assuming that power
+was cycled: suspend calls regulator_disable() on the 0.9V supply, which
+only drops a reference, so on a board where that rail is always-on or
+shared with another consumer the power stays valid across the cycle.
 
-Fixes: f356fe0cba0e ("f2fs: add debug msgs in the recovery routine")
-Cc: stable@kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ adapted folio references to pages and retained %lx formatting for unsigned long inode numbers ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Skipping the wait only when every supply is already on is strictly more
+conservative than what this driver did for years: until the change cited
+above there was no Tpvperl wait at all, and PERST# stayed asserted only
+for as long as the register writes in between took.
+
+Measured on a ROCK Pi 4C with a Radxa Penta SATA HAT (JMB585) by
+booting repeatedly and counting how often the endpoint enumerated:
+
+  unmodified ....................................  0 out of 84 boots
+  with this patch ...............................  3 out of 3 boots
+  other ways of dropping the same wait ..........  16 out of 16 boots
+
+Fisher's exact test, pooling the last two rows against the first, gives
+p = 4.1e-21. With the patch the endpoint enumerated on every boot and all
+four disks behind it came up.
+
+Each of the three PERST#-related changes that landed together in
+v6.11-rc1 was also reverted individually; only removing this wait made
+any difference. Moving the wait to before link training is enabled,
+rather than removing it, did not help (0 out of 15 boots), which is
+what identified the length of the PERST# assertion rather than any
+interaction with link training as the cause.
+
+The measurements were taken on 6.18, but the code in question is
+unchanged between v6.11 and v7.2.
+
+Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
 ---
- fs/f2fs/recovery.c | 41 +++++++++++++++++++++++++++--------------
- 1 file changed, 27 insertions(+), 14 deletions(-)
+---
+v2:
+ - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
+   assuming that the 0.9V rail was really turned off. On a board where
+   that rail is always-on or shared, regulator_disable() leaves it on,
+   and forcing the wait there would reintroduce on resume exactly the
+   failure this patch fixes. Spotted by an automated review of v1.
+ - Factor the test into rockchip_pcie_supplies_enabled() now that it
+   has two callers.
 
-diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
-index bc105da3e7460..f05206e32ff51 100644
---- a/fs/f2fs/recovery.c
-+++ b/fs/f2fs/recovery.c
-@@ -157,6 +157,22 @@ static int init_recovered_filename(const struct inode *dir,
+v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
+
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -318,6 +318,7 @@
+ 	struct	regulator *vpcie1v8; /* 1.8V power supply */
+ 	struct	regulator *vpcie0v9; /* 0.9V power supply */
+ 	struct	gpio_desc *perst_gpio;
++	bool	supplies_pre_enabled;
+ 	u32	lanes;
+ 	u8      lanes_map;
+ 	int	link_gen;
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -314,7 +314,9 @@
+ 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
+ 			    PCIE_CLIENT_CONFIG);
+ 
+-	msleep(PCIE_T_PVPERL_MS);
++	if (!rockchip->supplies_pre_enabled)
++		msleep(PCIE_T_PVPERL_MS);
++
+ 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
+ 
+ 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
+@@ -609,11 +611,33 @@
  	return 0;
  }
  
-+static const char *recover_printable_name(struct inode *inode,
-+					  struct f2fs_inode *raw,
-+					  int *name_len)
++/*
++ * Tpvperl is counted from the supplies becoming valid, and the driver waits
++ * for it with PERST# asserted, so the wait also lengthens the reset pulse.
++ * Supplies that are already enabled before this driver enables them were
++ * brought up by the bootloader or by the regulator core at boot, both of
++ * which precede this point by far more than Tpvperl, so the requirement is
++ * already met. Treat an error from regulator_is_enabled() as "not known to
++ * be on" so that the caller waits.
++ */
++static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
 +{
-+	static const char encrypted_name[] = "<encrypted>";
-+
-+	if (file_enc_name(inode)) {
-+		*name_len = sizeof(encrypted_name) - 1;
-+		return encrypted_name;
-+	}
-+
-+	*name_len = min_t(unsigned int, le32_to_cpu(raw->i_namelen),
-+			  F2FS_NAME_LEN);
-+	return raw->i_name;
++	return (IS_ERR(rockchip->vpcie12v) ||
++		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
++	       (IS_ERR(rockchip->vpcie3v3) ||
++		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
++	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
++	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
 +}
 +
- static int recover_dentry(struct inode *inode, struct page *ipage,
- 						struct list_head *dir_list)
+ static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
  {
-@@ -169,7 +185,8 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
- 	struct inode *dir, *einode;
- 	struct fsync_inode_entry *entry;
- 	int err = 0;
--	char *name;
-+	const char *name;
-+	int name_len;
- 
- 	entry = get_fsync_inode(dir_list, pino);
- 	if (!entry) {
-@@ -228,12 +245,9 @@ static int recover_dentry(struct inode *inode, struct page *ipage,
- out_put:
- 	f2fs_put_page(page, 0);
- out:
--	if (file_enc_name(inode))
--		name = "<encrypted>";
--	else
--		name = raw_inode->i_name;
--	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %lx, err = %d",
--		    __func__, ino_of_node(ipage), name,
-+	name = recover_printable_name(inode, raw_inode, &name_len);
-+	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, dir = %lx, err = %d",
-+		    __func__, ino_of_node(ipage), name_len, name,
- 		    IS_ERR(dir) ? 0 : dir->i_ino, err);
- 	return err;
- }
-@@ -281,7 +295,8 @@ static int recover_inode(struct inode *inode, struct page *page)
- {
- 	struct f2fs_inode *raw = F2FS_INODE(page);
- 	struct f2fs_inode_info *fi = F2FS_I(inode);
--	char *name;
-+	const char *name;
-+	int name_len;
+ 	struct device *dev = rockchip->dev;
  	int err;
  
- 	inode->i_mode = le16_to_cpu(raw->i_mode);
-@@ -330,13 +345,11 @@ static int recover_inode(struct inode *inode, struct page *page)
++	rockchip->supplies_pre_enabled =
++		rockchip_pcie_supplies_enabled(rockchip);
++
+ 	if (!IS_ERR(rockchip->vpcie12v)) {
+ 		err = regulator_enable(rockchip->vpcie12v);
+ 		if (err) {
+@@ -890,6 +914,13 @@
+ 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
+ 	int err;
  
- 	f2fs_mark_inode_dirty_sync(inode, true);
- 
--	if (file_enc_name(inode))
--		name = "<encrypted>";
--	else
--		name = F2FS_INODE(page)->i_name;
-+	name = recover_printable_name(inode, raw, &name_len);
- 
--	f2fs_notice(F2FS_I_SB(inode), "recover_inode: ino = %x, name = %s, inline = %x",
--		    ino_of_node(page), name, raw->i_inline);
-+	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %.*s, inline = %x",
-+		    __func__, ino_of_node(page), name_len, name,
-+		    raw->i_inline);
- 	return 0;
- }
- 
--- 
-2.53.0
-
++	/*
++	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
++	 * where it is always-on or shared the rail does not actually drop, so
++	 * re-evaluate instead of assuming that power was cycled.
++	 */
++	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
++
+ 	err = regulator_enable(rockchip->vpcie0v9);
+ 	if (err) {
+ 		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
