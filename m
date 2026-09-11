@@ -1,202 +1,281 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E30547884A;
-	Fri, 11 Sep 2026 12:49:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130962; cv=fail; b=Z98kV5CdlTBI2Vl3J2T8HRcpUYBpEkc/CiMMOpXvnrgVi8HZav4uduGdIcue3GimAHlaCojzR3ZMkcpy7d49h6VBT1tiIP/wtS2NjK93Qz7LDJXwdtKzUkASWWskM21dh9vlZTP/PXt+H8xU0SVbl63AdV8GLGXogDL5jdJNFzQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130962; c=relaxed/simple;
-	bh=FuYTu5s1mUGt7308FJ2t09N0QIo0JbTLVKTCsDBMA4c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=g9Dag/vBvXCfB0haAjmA4t1/X4dkFze+QAPdKnUefMm7AiIORMaRk1fu2Xc8+g2J8kUHazugCif+rg5lt0H/0SBzR+HvwKwvPonUBiYMnDpn+/0pkrlzb0Ycj6bzRI3b/97laXa5k+ZxbxhWGyRx9d9LCCgdjXgMRiBtGH8Ymik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=svYaCS9r; arc=fail smtp.client-ip=52.101.56.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F673AAF7B
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 12:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789130978; cv=none; b=WXnVwosRccA/sa0FKor7dfPO6q7l8FNYP+1wcglxFSweN6TdQXf3DrtTfAI93gUwP32wOo6qP8QiZQ8OAMk+e3eOe6uHdl95SXSNooDkO9dtvXhQpIuyVNsQwipIuZod1dYTDV/ct7HE4PA7NIlm21JyyspRJouM8nqVZMr4akQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789130978; c=relaxed/simple;
+	bh=hyrY0z9hzsUio7djRI2/MVvvQULjUmtSCsZZNRN4FK0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OuIQbIsK7GKHprN0VugV+2TFI9d/e5ulDFRKMvhR7UdBnMc+VhkWOMBUJ4w5MJJmat9b/X86R4e8WGbrsPyRk4XLCHkeneI+jH4VtDHlDhG9RYBvFvokY21fYVNiupf/INPWv1cQghzMkJg2Ap4NJXh/WVnPDtxGFvzb2G3Rx8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=DMvcJfzb; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="svYaCS9r"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xCBxu3SxDYyGZBqNvm0c0hDLhCFrq5UfYHTnJP7W7XHTwqAINXU159rsQmK+GdxdPMjP6mJug79nleFv+/FXb1m6O/UCxlTUWXC/hRQfmCQvP6IZbG9c67rqBdBjiE7DidLw2fI7B9i6p+khCqDVxRCgdaOFGQdnM9aO2odhnouBHNqKnZKILnBK9HKQz40nWBouTFu93ner3mi6b2rvOGOTbrY33MkjI2AyUhotO+5mDLtcyV+21HzHRrvhPpD3B4uBqjW0ZanZ4mLzsNhgj6JK4+WuwxrDG5PAiirMNhhm+SNvN/bICAQ+jyM8bpAijzuf2swvP/5rldNpImphiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rqCJxrK3tTlAXdP+zLntCStQYug6yvFda4QopLTvzB4=;
- b=Bsv+a3zZuBlz3NDmOzFqxRmgIiIBVPxfskIFRPfEsoeJ+UWjjCy8aHM4IdkOdfa9k8I8icBC7Guzc0GZt8yQhIGtIvM/vji/ZAIBTpoXxiOhenYEjyuQBH53JrxMbg2d/lDnjtaY+yVEBQgtxAouFcTVxJTxqaiLYXvagiAXxetsayWfv6IiI7fjquYPGTbhkLLpA8sGLDphla2PABbC+T8LwjL9V5aT7Q9YWU/l+iuRajwhwQazMZWWlauOhHiK+2UNp9oyWjScZNvafI01LihpHUCp5NbBBBDVxurIp50yQLwBZttK6OEKpCkiZiSRJfk77VroMnQccsfxpx4EXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rqCJxrK3tTlAXdP+zLntCStQYug6yvFda4QopLTvzB4=;
- b=svYaCS9r1Gzi5xDK/mTyQvtbeD4dLhMfAN0yMFKNM5tKREaqeXeb2Jq35JtKr23unREv+C3Np1CCA6ydyI8mCSTWwsrpWtWp2nk4SgGi79AZvioCFMjM7K2E4phXgBzsmyN/HMXyhAr7jQjRY2nd7aadquzZDHByw1t1UcHt38LNyV/U7ubGJfBDvxsX319pD7nvMqhb+S7aFoW68MZKP+Q7WH1PrKh5gmrRnacqcPE3Ub6UADlfCrbco0zIzYmPVTX3hH8QErFCa6Yl+SCJWc6q4sY7BZJVcq1Opy/PQgR+Bu6mU/IcAZZB76P6VUn2tc/Vp96ZQbBDU4dHpBbjew==
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com (2603:10b6:a03:47d::17)
- by PH7PR12MB5781.namprd12.prod.outlook.com (2603:10b6:510:1d0::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Fri, 11 Sep
- 2026 12:49:05 +0000
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b]) by SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b%5]) with mapi id 15.21.0406.005; Fri, 11 Sep 2026
- 12:49:05 +0000
-From: Shameer Kolothum Thodi <skolothumtho@nvidia.com>
-To: Wentao Guan <guanwentao@uniontech.com>, "sashal@kernel.org"
-	<sashal@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>
-CC: "will@kernel.org" <will@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Nicolin Chen
-	<nicolinc@nvidia.com>
-Subject: RE: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during
- devm teardown
-Thread-Topic: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during
- devm teardown
-Thread-Index: AQHdQPFkFkV9WGtWYEGMTOjALaeTo7bJVM/Q
-Date: Fri, 11 Sep 2026 12:49:05 +0000
-Message-ID:
- <SJ0PR12MB8614E3D83FC2F5444A197B33ABBE2@SJ0PR12MB8614.namprd12.prod.outlook.com>
-References: <20260910065429.1703706-1-guanwentao@uniontech.com>
-In-Reply-To: <20260910065429.1703706-1-guanwentao@uniontech.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB8614:EE_|PH7PR12MB5781:EE_
-x-ms-office365-filtering-correlation-id: dfd42099-a933-48b9-3815-08df10031058
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|22082099003|18002099003|38070700021|5023799004|56012099006|11063799006|10067099003;
-x-microsoft-antispam-message-info:
- Z0XQCQgGcIuePR/crHIAUEbakTGaE8NU/2RAEUJ8V5lB/XGWw7wxKC6/7DGaqycxhPspNvFUWBtrS41PxNmaBd2jpf67inuM88XaEQQZ+bBEiS3SdAQ1gzMlLSS4wVSMDzlaLoAclpTjl+NgU6AZmX4jKNCoO1rqMRa1TdIzAksUXRPJUvHKo3xz4iu4XX8YJ30mmkQukWGsrt5PUEZlxqiGpzp6D5iD8KkqCIDm7wfrEusFOr2sg8CcVcjKfTLloLW3WHv1CdWb9TMNr6waSjM+SIETpV8Z85IOQn2Jx2eRPEplM8TiqqDQW752avHnX5IuGvwSabe0ck4ZYCtOn7ZPiNQ7X7oLI1ZMxuxlyf+3VdPiWkEEz+owmHPshqy4nRNCefr2Hj8MYu0Wnjlb+CzevVk0jEFb+FCTEtq6DVOErZW9+TIcA3tqFuzRewoYUh6tO19C4pXQ7tO06OCzCIjWQjrpdQeF5gbQocde1fbGJ3mLYYQ2fs7nv0QzVEpxhWT5ar5PEsc02WNgf/DIeJwFtHKe5ygCV52sZfb9vC1a9giiSjfppKofEjnyn9tbSBS9fT++1xDoXR2nprK91KLK6RnhfiG5HrgooR9G2eecYuESmZ81FNyQNSzwFOsJUReLV4TShfw+FqB+u9gUX3Zz3nyoHLp30Jg0uqMqQVFHa5BeHjvtteFSjIPg4hU0BYtjXFp3DhupGhMqPYtiEoHpCKTheM62+gUxS34KkcA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB8614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(38070700021)(5023799004)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?07MeWEtdmEfBrRd9Qa1K3/y1SijO9WRiQL++mXnV6pU1y5ryWD8V2DWUOPLA?=
- =?us-ascii?Q?X7gKNzsk7+LgIWLtugRN0viHoWaiXeA3uW8NEgggmetZb1gHExRBfnXUgZKG?=
- =?us-ascii?Q?bD1KYSZQt9ccEARuq+sp/aAyqVvnqcZgRUxj29BtA5Ra07CS/KJHBjlEBbyl?=
- =?us-ascii?Q?3EzvD29bQKIZBT7QEC9vl+bAoQJtGivAMECLaNrh5I0lyXT7Tw7N5Ry0jkC+?=
- =?us-ascii?Q?a4pS+9RpcNJhJA6K7cZDGkprMrdpvkVyjlL1Z4x22F7ND6aN2yS241mJMG8y?=
- =?us-ascii?Q?FKtHchX9MFHXK23DbkGk6oI6CglAeVlJG3sixIgwaFH59H6aSYyD/jEKjtp6?=
- =?us-ascii?Q?b+wqEt9hjGRkJBs9WLHSXhxED8XSoMDTYiOrJiwioiv5vIy/v1KwaoMShJDL?=
- =?us-ascii?Q?dIwJ7yfBymWZwjO0TSMQhTtTa26qtgJFfuFrIjH728Nizy06q5HMZFre2ElQ?=
- =?us-ascii?Q?JllVfYfwinrYzVHx6ex/TGaXPKnSQ2juRM1ZplCBg6n4RUlAEgZL5gIPoJIv?=
- =?us-ascii?Q?9DBv+kpBOrHzOwk4Oc2TAgH7LaifotvUjlcZes0KVdxlGr0JVOF12Ibi5CX4?=
- =?us-ascii?Q?XDWxA+IS8fCth6y6yxm7YmX/Swl9Ucl1uNT36/n/LcbE85NRXm15JrtBNZ1m?=
- =?us-ascii?Q?v3mJ7J2JAYieGHKzxursMofEjy+CveAx2UVh00HO+scJ7mWnyBj4RYpWk+Wp?=
- =?us-ascii?Q?hGpTVRX4JUIhX9BEGp/7bgMDIa8aI+HvZOelBW7ZMmJFQJntByvfB1X5i401?=
- =?us-ascii?Q?OSmGrSdO4hr/tUo3n5NYTkIs5nr1pkWJVOt+YIvQSEKpzvarDZNCF1acoKpZ?=
- =?us-ascii?Q?BzxqLvY/MGVTmqjfehesFg0AYw5WQeMmaRPXA79lSQ/NmXQ84WD2ZXDMPybb?=
- =?us-ascii?Q?V9ps/o0c9SOQ2ysGhjdcsF2ffq/3ZxWhgQ9r+bYwScNYZEbLAGBJSS6oKHWG?=
- =?us-ascii?Q?Rg4sFY/0Lb1trmCP2bsono7wc4mj0fjSIlxi1sE5morTdr9X4rle3AHa//Yg?=
- =?us-ascii?Q?5CtjgzracneRU4X+pcwFxjZLHcr2AGWYkps7D/XLicZphnKTaQ17Awoedag/?=
- =?us-ascii?Q?wjuJlVqwljV/IrC4XFeZy+YVqBuvXIGaqfpWASIah6cWMGrIfGqFHvY25w+p?=
- =?us-ascii?Q?bwVldy/VP/iA8sBkI/xKnai0osdlU7TBKNokN09AeZOJ/ToTb3nNO9fk1Et5?=
- =?us-ascii?Q?3VQcMizt7ZCjqFJyuqmT8IuVROvRVg2INyMPppvke50MfohmIEXh0ZXZWxZ4?=
- =?us-ascii?Q?GuY5+LkHa1YD+qbha42fGkXoog3ig71ppSPsvj8Pyi38jeuvjxkQ+9Yv7IED?=
- =?us-ascii?Q?hhWGus2YrADRsV37kuYQU2prwL6TWqZFkCjuhvIdMZqPU2I3Niwswbi6zvVJ?=
- =?us-ascii?Q?QvPcwPRIhFkb3vdJ7ZAxX5JG3bg3DfuOZ3REC0zxb+jHxh5+uRUIPVw5AHCf?=
- =?us-ascii?Q?uwTdqQ1963baxpYzmasFsMOFecKL37JP50TZm0lSIwECqfuetRs1jc4X7xQ8?=
- =?us-ascii?Q?EP67cGEd43VIKv7WlmoFDSlB7G71cDgjzV5eCgaA2wNCiq1q3hacHbuWbhrw?=
- =?us-ascii?Q?h1IfdrX/1bwlu8/pXZftRvirWnkLK2GPZWwu/9RVGyY6JAxXfnz0CxaRk5+U?=
- =?us-ascii?Q?kQXLCUboNWBfZ+OAjfi1mSGM9OjtqrUiPynVuXQS87XRl0vrael8123NDoZ2?=
- =?us-ascii?Q?X8ZPzZkaUNrpoPMp9hWUqxG4holnDJByR5k7E6GVDzkURhq+b+en4tZ5NLk2?=
- =?us-ascii?Q?b0ancuD+8A=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="DMvcJfzb"
+Received: by dvalin.narfation.org (Postfix) id 5FE9F2043A;
+	Fri, 11 Sep 2026 12:49:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1789130964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/NBXsLLuMX3VVQsPN/ZlOb4XeUJHs0YeUqa2ZD4+UCg=;
+	b=DMvcJfzbTKJuzXBAQFsYgBz2nCfwpFosLEKZXSvzxgKvgXLRxrbtfDul2Y6Ls+7bQpoNzB
+	5so6Sf5/EXioxGYDFhHluW7t8l5kM/rseVbX7czrweDKoaD+yHQNX6thmf5gjzUCl4XDpo
+	kS/7EmHHGiRPT7tx0OEBacZI9vG1K24=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 5.10.y v2] batman-adv: dat: atomically update mac addresses
+Date: Fri, 11 Sep 2026 14:48:49 +0200
+Message-ID: <20260911124849.3741497-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090934-jarring-washstand-3211@gregkh>
+References: <2026090934-jarring-washstand-3211@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfd42099-a933-48b9-3815-08df10031058
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 12:49:05.4671
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jx5S+/PshVb6l7gx/Lx/c5Ij7ZrKxUwgvYRa3rDD4SOnPJQUsrOH9wULbCpRViKEHaqMihNI1fXthSzjEL1IaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5781
+Content-Transfer-Encoding: 8bit
 
+commit e6de568d3eda3e3c01c868fabd7a9535d5ee4a73 upstream.
 
+When a MAC address is updated in batadv_dat_entry_add(), it is done using a
+simple copy function. A parallel reader might only see parts of this
+update. In worst case, the reader is transporting the half updated MAC
+address over the network or is creating an ARP response using it -
+poisoning the ARP cache.
 
-> -----Original Message-----
-> From: Wentao Guan <guanwentao@uniontech.com>
-> Sent: 10 September 2026 07:54
-> To: sashal@kernel.org; Jason Gunthorpe <jgg@nvidia.com>
-> Cc: will@kernel.org; linux-arm-kernel@lists.infradead.org;
-> iommu@lists.linux.dev; stable@vger.kernel.org; linux-kernel@vger.kernel.o=
-rg;
-> Nicolin Chen <nicolinc@nvidia.com>; Shameer Kolothum Thodi
-> <skolothumtho@nvidia.com>; Wentao Guan <guanwentao@uniontech.com>
-> Subject: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during
-> devm teardown
->=20
-> External email: Use caution opening links or attachments
->=20
->=20
-> The Tegra241 CMDQV teardown fix moved VINTF hardware deinitialization
-> into the implementation device_disable() callback. However, its stable
-> backport preceded the conversion to devm teardown and could only invoke
-> the callback from the shutdown path.
->=20
-> Now that arm_smmu_disable_action() manages normal teardown, invoke the
-> implementation callback there while the command queue is still alive.
-> This prevents the subsequent implementation remove action from releasing
-> resources while the CMDQV hardware remains active.
->=20
-> After ("iommu/arm-smmu-v3: Manage teardown with devm") merged in
-> stable,
-> now keep the shutdown path consistent with mainline, where disabling
-> the base SMMU is sufficient.
->=20
-> It is a fix for stable tree commit to aligned with mainline, so no
-> upstream commit id here.
->=20
-> Fixes: 5994617e09ee ("iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free
-> on teardown")
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index c993e101fab3a..ea908afb0da9d 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -4789,6 +4789,8 @@ static void arm_smmu_disable_action(void *data)
->  {
->         struct arm_smmu_device *smmu =3D data;
->=20
-> +       if (smmu->impl_ops && smmu->impl_ops->device_disable)
-> +               smmu->impl_ops->device_disable(smmu);
->         arm_smmu_device_disable(smmu);
->  }
->=20
-> @@ -5621,8 +5623,6 @@ static void arm_smmu_device_shutdown(struct
-> platform_device *pdev)
->  {
->         struct arm_smmu_device *smmu =3D platform_get_drvdata(pdev);
->=20
-> -       if (smmu->impl_ops && smmu->impl_ops->device_disable)
-> -               smmu->impl_ops->device_disable(smmu);
->         arm_smmu_device_disable(smmu);
->  }
+atomic64_t can be used to store the 48 bit of a mac address. A reader will
+then either see the old mac address or the new one - never a mixture of
+both.
 
-LGTM;
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 2f1dfbe18507 ("batman-adv: Distributed ARP Table - implement local storage")
+[ Context, integrate support for dat_cache debugfs file ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/distributed-arp-table.c | 65 ++++++++++++++++++--------
+ net/batman-adv/types.h                 |  2 +-
+ 2 files changed, 46 insertions(+), 21 deletions(-)
 
-Reviewed-by: Shameer Kolothum <skolothumtho@nvidia.com>
+diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
+index 5b63048fbfbcd..fa7f8abce5f88 100644
+--- a/net/batman-adv/distributed-arp-table.c
++++ b/net/batman-adv/distributed-arp-table.c
+@@ -373,18 +373,19 @@ batadv_dat_entry_hash_find(struct batadv_priv *bat_priv, __be32 ip,
+ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 				 u8 *mac_addr, unsigned short vid)
+ {
++	u64 u64_mac = ether_addr_to_u64(mac_addr);
+ 	struct batadv_dat_entry *dat_entry;
+ 	int hash_added;
+ 
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip, vid);
+ 	/* if this entry is already known, just update it */
+ 	if (dat_entry) {
+-		if (!batadv_compare_eth(dat_entry->mac_addr, mac_addr))
+-			ether_addr_copy(dat_entry->mac_addr, mac_addr);
++		atomic64_set(&dat_entry->mac_addr, u64_mac);
++
+ 		dat_entry->last_update = jiffies;
+ 		batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 			   "Entry updated: %pI4 %pM (vid: %d)\n",
+-			   &dat_entry->ip, dat_entry->mac_addr,
++			   &dat_entry->ip, mac_addr,
+ 			   batadv_print_vid(vid));
+ 		goto out;
+ 	}
+@@ -395,7 +396,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 
+ 	dat_entry->ip = ip;
+ 	dat_entry->vid = vid;
+-	ether_addr_copy(dat_entry->mac_addr, mac_addr);
++	atomic64_set(&dat_entry->mac_addr, u64_mac);
+ 	dat_entry->last_update = jiffies;
+ 	kref_init(&dat_entry->refcount);
+ 
+@@ -411,7 +412,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 	}
+ 
+ 	batadv_dbg(BATADV_DBG_DAT, bat_priv, "New entry added: %pI4 %pM (vid: %d)\n",
+-		   &dat_entry->ip, dat_entry->mac_addr, batadv_print_vid(vid));
++		   &dat_entry->ip, mac_addr, batadv_print_vid(vid));
+ 
+ out:
+ 	if (dat_entry)
+@@ -872,6 +873,8 @@ int batadv_dat_cache_seq_print_text(struct seq_file *seq, void *offset)
+ 	struct hlist_head *head;
+ 	unsigned long last_seen_jiffies;
+ 	int last_seen_msecs, last_seen_secs, last_seen_mins;
++	u8 mac[ETH_ALEN] __aligned(2);
++	u64 u64_mac;
+ 	u32 i;
+ 
+ 	primary_if = batadv_seq_print_text_primary_if_get(seq);
+@@ -893,8 +896,11 @@ int batadv_dat_cache_seq_print_text(struct seq_file *seq, void *offset)
+ 			last_seen_msecs = last_seen_msecs % 60000;
+ 			last_seen_secs = last_seen_msecs / 1000;
+ 
++			u64_mac = atomic64_read(&dat_entry->mac_addr);
++			u64_to_ether_addr(u64_mac, mac);
++
+ 			seq_printf(seq, " * %15pI4 %pM %4i %6i:%02i\n",
+-				   &dat_entry->ip, dat_entry->mac_addr,
++				   &dat_entry->ip, mac,
+ 				   batadv_print_vid(dat_entry->vid),
+ 				   last_seen_mins, last_seen_secs);
+ 		}
+@@ -923,6 +929,8 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 			    struct netlink_callback *cb,
+ 			    struct batadv_dat_entry *dat_entry)
+ {
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int msecs;
+ 	void *hdr;
+ 
+@@ -935,11 +943,12 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 	genl_dump_check_consistent(cb, hdr);
+ 
+ 	msecs = jiffies_to_msecs(jiffies - dat_entry->last_update);
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
+ 
+ 	if (nla_put_in_addr(msg, BATADV_ATTR_DAT_CACHE_IP4ADDRESS,
+ 			    dat_entry->ip) ||
+-	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN,
+-		    dat_entry->mac_addr) ||
++	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN, mac) ||
+ 	    nla_put_u16(msg, BATADV_ATTR_DAT_CACHE_VID, dat_entry->vid) ||
+ 	    nla_put_u32(msg, BATADV_ATTR_LAST_SEEN_MSECS, msecs)) {
+ 		genlmsg_cancel(msg, hdr);
+@@ -1216,6 +1225,8 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 	struct net_device *soft_iface = bat_priv->soft_iface;
+ 	int hdr_size = 0;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1243,6 +1254,9 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_dst, vid);
+ 	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
+ 		/* If the ARP request is destined for a local client the local
+ 		 * client will answer itself. DAT would only generate a
+ 		 * duplicate packet.
+@@ -1251,7 +1265,7 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * additional DAT answer may trigger kernel warnings about
+ 		 * a packet coming from the wrong port.
+ 		 */
+-		if (batadv_is_my_client(bat_priv, dat_entry->mac_addr, vid)) {
++		if (batadv_is_my_client(bat_priv, mac, vid)) {
+ 			ret = true;
+ 			goto out;
+ 		}
+@@ -1261,18 +1275,16 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * the backbone gws belonging to our backbone has claimed the
+ 		 * destination.
+ 		 */
+-		if (!batadv_bla_check_claim(bat_priv,
+-					    dat_entry->mac_addr, vid)) {
++		if (!batadv_bla_check_claim(bat_priv, mac, vid)) {
+ 			batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 				   "Device %pM claimed by another backbone gw. Don't send ARP reply!",
+-				   dat_entry->mac_addr);
++				   mac);
+ 			ret = true;
+ 			goto out;
+ 		}
+ 
+ 		skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-						      dat_entry->mac_addr,
+-						      hw_src, vid);
++						      mac, hw_src, vid);
+ 		if (!skb_new)
+ 			goto out;
+ 
+@@ -1315,6 +1327,8 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	struct batadv_dat_entry *dat_entry = NULL;
+ 	bool ret = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int err;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+@@ -1342,8 +1356,11 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	if (!dat_entry)
+ 		goto out;
+ 
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
++
+ 	skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-					      dat_entry->mac_addr, hw_src, vid);
++					      mac, hw_src, vid);
+ 	if (!skb_new)
+ 		goto out;
+ 
+@@ -1435,6 +1452,8 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	u8 *hw_src, *hw_dst;
+ 	bool dropped = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1463,11 +1482,17 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	 * this frame would lead to doubled receive of an ARP reply.
+ 	 */
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_src, vid);
+-	if (dat_entry && batadv_compare_eth(hw_src, dat_entry->mac_addr)) {
+-		batadv_dbg(BATADV_DBG_DAT, bat_priv, "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
+-			   hw_src, &ip_src, hw_dst, &ip_dst,
+-			   dat_entry->mac_addr,	&dat_entry->ip);
+-		dropped = true;
++	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
++		if (batadv_compare_eth(hw_src, mac)) {
++			batadv_dbg(BATADV_DBG_DAT, bat_priv,
++				   "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
++				   hw_src, &ip_src, hw_dst, &ip_dst,
++				   mac, &dat_entry->ip);
++			dropped = true;
++		}
+ 	}
+ 
+ 	/* Update our internal cache with both the IP addresses the node got
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index 790f62abfe030..49cef1a85639a 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2387,7 +2387,7 @@ struct batadv_dat_entry {
+ 	__be32 ip;
+ 
+ 	/** @mac_addr: the MAC address associated to the stored IPv4 */
+-	u8 mac_addr[ETH_ALEN];
++	atomic64_t mac_addr;
+ 
+ 	/** @vid: the vlan ID associated to this entry */
+ 	unsigned short vid;
+-- 
+2.47.3
 
-Thanks,
-Shameer
