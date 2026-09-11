@@ -1,125 +1,95 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C820935F5E7
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 03:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211F0235BE2;
+	Fri, 11 Sep 2026 03:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096291; cv=none; b=pEM7V8VGvc3DIwrHSuB/o0huYIfk9raICVYfiG1Mjakl29Bv0W+X4xUYkZigh92cvkEg0wwbcSaaytLl47TMn1BQcku6bw8gn3mV5P9cnV8nsH8M/GFWp7p0dPhtneKMnssKxCSMjzMSXmUoywqiWlx9kjIuc08EWndTHpvuY7s=
+	t=1789096773; cv=none; b=kuWkr0wBLWD2nZfr73pCQEKd2hdWD4/5ssbfbgu6JcozQ07vnaAQLiqNS/Vonc6w4gB9rBLog3FIEMZkwou0uiV1DVcTEmRg4TEKi0JrFxnxcjb0fRkx1SdV8OZgxqfpmcuKMS1qkugkixl6Thrbsa3EUi1c58Gr2yXwaX84uJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096291; c=relaxed/simple;
-	bh=IsH/uiXS6PCMYKUcTa6HJLyo15+CD5yZpyixAyCfD84=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q/d9uf/gXdepHacezuHjD2SWiGx7Fs2LPusYlmK3gmEDETtDdCfRiD7+nui7WrEjmaxUQT8C/9gYoJ3Dq/buNgXtlWeVzU6osUBYrKMwCZLDJc00Lz/E06gJ+1OKLBB3qwoLQxdmFhiTo2LeqHUMtbKdcG0p2Wh2tP3kIoYQzvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgm6T8Kx; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789096773; c=relaxed/simple;
+	bh=dzgN+X5DGPRIiE/+fRHu+sZLC7g+kAlktEOlXZPYDRc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dQI458YO84hUWC8ohNTcCkkDxOOfqgOV6Spi6STuKLBkQUs/uIHh0a1aiiS3BO2LdTW128egd9VhBB+Vcb+SSmh6YvW4Bsydh48XTXxGDun3TmFKd5PqlZcb0sSecuzPBxW2nkRVAnuCuwDPWtau20Cx4ypUYRuZCbZe0m9az+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=TsOzOO6g; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgm6T8Kx"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-9399a1c21c1so41761785a.3
-        for <stable@vger.kernel.org>; Thu, 10 Sep 2026 20:11:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789096289; x=1789701089; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
-        b=dgm6T8KxbyCxESOM4r/q/CFHYw+ksIcv+MUJ3BZwIginVpvVqLvs+KULqtJcreG2o7
-         /UdQXv36CbYJ8MwUmKKUJSOsU35ohzJ5onzRDnK1z6uojOhOWuYal6KhFvSGVIJmMDYn
-         Bbapo5gb0sk05iUt/utI5HQO5Ah/vkZDoTsDbljbwMAvM+LZd/AcNcetPwy64WXgZw6z
-         5ZjXrDI5fdOSEr2/mr9cvcNuD60AO4QvtDMxBB7fFdWRujCWC0xRJ3277xO+vFK1ciMX
-         8KtmCCIcgcP2463cBXEl3ZHoQDutfsAxyFbaU5Vz3lYI/nbyA7Od91GKcmUuagGKfdcl
-         3UGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789096289; x=1789701089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
-        b=TkKzT3S0rfTTl0QxU3b/svp9tWRlCGYZqyIJ9OrMupvgzW9CabkJLr6AicUvq3vXTj
-         +0G6nHTh2F7NfTuabG/ehWbQxfU799vWGkkdv1rgEyictBJ/hihcSyBBqQJ/EFP9+IiL
-         vmjKJYUtt77zjpG9Jf441TEfmNWtgK03yIjl9CioS0+IaO4Ks9CIIsYQmTngCPrCIlNL
-         ++8H2piBGNKfxTCU6kr6pOaGAG+nMs93/s4RWy0m1FvVQlBdqOefg86L2GhROVrmgMwV
-         2RCtKfvA0KlPXpgYQIizxmiBmkrt8wiE3xooqVBAgbtDT67RMUVylqi1dzxGXILLQr4K
-         cVeg==
-X-Forwarded-Encrypted: i=1; AKwUvBynpaiZuGphJEqWi1Q8Mrrb5fsZIwP+RMZwrChuZunfwgCsnJDCrXNyAq6S675vHZGOuapgokM=@vger.kernel.org
-X-Gm-Message-State: AFuF++klsv/m/tYwnVvr+o1rfE4PfcLcVP04FEglt7TAhvfjV/0qwz63
-	HwIaSmc+EsD06kYKUBivHDCViTMIVfeFYYB8ZDwXDTuXh7km0+ttGuBPaldq/oWq4nc=
-X-Gm-Gg: AYBFou1gCQ+jQGBCKeLVGoTA8sAbjq8xh8kKVTsedr6I5o7jubACufwaLmlj99OkrZN
-	aNpTwljXDE1rjkChsmPAFrqh71uVmONQhw5uSdgj9WWpe6iUZJspKzu6oma/fWeiaKTCZ5p5Pi3
-	FeYr1GLxsYrZ18CXuM7Rpa61cVfas2HeMWdVawFPl4ZS4zhVIkWpkJTJVn05W0xtuDdoefnHlgv
-	1mL14GsEt/snBi6mzXf+CfXDmynewcCKdodYUPonTJCnB/YGIgncSfDTYbeNX0XMbU4/BPDCtod
-	vMzycZqyUJzjkJWJ6PPdAvWw2vgfGNG1frkF8WTzr3gE686cxfnNy0FYynqSXVImjQZ2SxAprlX
-	S1CM6BfkLVFP+tqox1va7bylKyu9OprSRxGiiHsfiusmhrEGDBVya17t9PrDVXmQEL1xQvBipJ4
-	DPUJMn2VMmp2V+dafA422LLZzuN2VT6Lg150QIPxTJsSr8U0WCXVGP9l9Q4eg6cFWVF+uqVrTkC
-	coWuxyihok9z2OIow==
-X-Received: by 2002:a05:620a:1a08:b0:934:970a:beb2 with SMTP id af79cd13be357-939ea22a13cmr252005985a.26.1789096288727;
-        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80bfc90sm136878085a.37.2026.09.10.20.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: virtualization@lists.linux.dev,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] ALSA: virtio: reset device before deleting virtqueues
-Date: Thu, 10 Sep 2026 23:11:21 -0400
-Message-ID: <20260911031121.1542502-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="TsOzOO6g"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789096761; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=lHye6fXV6O0BwmOSmMkNW8tisA69YmRVUOPP9SEpvNM=;
+	b=TsOzOO6g1o3cbXVRFCH+nDpNjrJT9fzsKuQ0xzluO8j4DTuF1G/62LLdX4GcIGfStujdoWmElrDwqvL1PoYFYCJ483zAMAjPDAQ7ApdC2BiF4dboo5xUfN5bQ5Efti2TAJOKqYGmcZQ9aVJ0wgckC8q1yokqZPZQQ1w6kW4L6QM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XAj1PlA_1789096757;
+Received: from 30.178.68.86(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAj1PlA_1789096757 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 11:19:19 +0800
+Message-ID: <0b1ddfea-4c1b-4726-8a63-abe44edbea66@linux.alibaba.com>
+Date: Fri, 11 Sep 2026 11:19:16 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
+ with non-blocking gfp
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Xunlei Pang <xlpang@linux.alibaba.com>, "Liam R . Howlett"
+ <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
+ <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
+ <6B46E8DF-679B-4254-A4AF-7B992B0F6460@nvidia.com>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <6B46E8DF-679B-4254-A4AF-7B992B0F6460@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-virtsnd_remove() and virtsnd_freeze() delete the virtqueues before
-resetting the device. del_vqs() frees the vring backing, but does not
-provide a generic device quiesce operation. In particular, modern
-virtio-pci keeps enabled queues active until the device is reset.
+On 9/4/26 11:10 PM, Zi Yan wrote:
+> On 3 Sep 2026, at 23:54, Qinyun Tan wrote:
+> 
+>> Anonymous THP faults happening in a kernel loop that does not return
+>> to userspace -- the populate loop of a single mlock() call, or any
+>> GUP-driven population -- can drive a memcg's usage from memory.high
+>> all the way up to memory.max with zero reclaim and zero penalty
+>> sleep.
+>>
+>> This defeats the containment memory.high is supposed to provide:
+>> above high, the documented promise is that "the processes of the
+>> cgroup are throttled and put under heavy reclaim pressure", and
+>> userspace OOM handlers (oomd, Kubernetes) rely on the high..max
+>> buffer as their reaction window.  Only after hitting memory.max does
+>> the non-blocking charge fail, THP fall back to 4K, and
+> 
+> Why not force THP to fall back to 4KB when memory.high is reached?
+> If reaching memory.high means the processes are under heavy reclaim
+> pressure, I do not think it is reasonable to give any more THP.
+> 
 
-Reset the device before deleting the virtqueues so it can no longer
-access the vring memory when that memory is released. This also covers
-probe failures after DRIVER_OK, which unwind through virtsnd_remove().
+Hi Zi Yan,
 
-Fixes: de3a9980d8c3 ("ALSA: virtio: add virtio sound driver")
-Fixes: 575483e90a32 ("ALSA: virtio: introduce device suspend/resume support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
- sound/virtio/virtio_card.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks for the review.
 
-diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index 647190f4d5afc..6f35276416fed 100644
---- a/sound/virtio/virtio_card.c
-+++ b/sound/virtio/virtio_card.c
-@@ -354,8 +354,8 @@ static void virtsnd_remove(struct virtio_device *vdev)
- 	if (snd->card)
- 		snd_card_free(snd->card);
- 
--	vdev->config->del_vqs(vdev);
- 	virtio_reset_device(vdev);
-+	vdev->config->del_vqs(vdev);
- 
- 	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
- 		struct virtio_pcm_substream *vss = &snd->substreams[i];
-@@ -383,8 +383,8 @@ static int virtsnd_freeze(struct virtio_device *vdev)
- 	virtsnd_disable_event_vq(snd);
- 	virtsnd_ctl_msg_cancel_all(snd);
- 
--	vdev->config->del_vqs(vdev);
- 	virtio_reset_device(vdev);
-+	vdev->config->del_vqs(vdev);
- 
- 	for (i = 0; i < snd->nsubstreams; ++i)
- 		cancel_work_sync(&snd->substreams[i].elapsed_period);
--- 
-2.43.0
+I think you're right that this is a policy question. Falling back
+to 4K at memory.high is also workable -- it would even be simpler,
+and the existing fallback machinery would take care of the rest.
+I picked settling the debt mainly to keep memory.high a soft limit
+for all folio sizes, but I don't feel strongly about it. 
 
+I'd be curious to hear what others think here -- happy to rework the
+series either way.
