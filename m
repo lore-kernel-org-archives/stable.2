@@ -1,190 +1,247 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524F5377545;
-	Fri, 11 Sep 2026 01:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B5D245012
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 01:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789090869; cv=none; b=RFUAQ8PnBGg94gBklJ8i/FVBwkjs6/ojnM7kOrgYOJcfRIwg1DtxQjM+C/d9zJxPXgkV1034S5qEPJQ7yGxx5t/ri8N0XV9UyQssBm+yc8pzchn5R2oC/zFFnizjShQqVeGNZ2sxFEZkMHloIpe2bxC7Df20NkI/n/mxzEU0k3A=
+	t=1789091032; cv=none; b=t/OLQsDZjoacGJZaLrRao51mjAd9ijk80/CnAK3HqrhTqVqTLdQ/lzNcgROJpgXwdyU0bgGFo4mRhbcu4I2YeN+jClxo/A583j822T0k/OWchxr7HstaqmfN/MoIW3GXvUZX0OSe26ZEsHjXTy88NlgPQ+s6IeCQsPJgqAv7HnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789090869; c=relaxed/simple;
-	bh=9eeSa7wy/fFrLjtPFF9CWGC+26JZptOZSSCeH+aVUCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Di4cY+tHnsPhgUGXWlCrm7FqlIH0TfZP2xoPxf+uSzaea8LLX3AGDKvrtt0EADQ/uHMvaMD6xcpEHM68zY+1uM6DNEMEaTUZmzTDbPIfH1hi5/j1gfyGhUSZ/HIfVra/e0XjP0gS5zLxEdMF1TTYdab1l4Ab9jnPk31N1TFk7Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d8e8cae2ad8111f19a56ed5b684f684d-20260911
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ea22bced-16c7-4e13-86e0-dc58687ac881,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ca077e12bcc8d860d6ef4ff0d3b1b1ce,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d8e8cae2ad8111f19a56ed5b684f684d-20260911
-Received: from [10.42.17.251] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <oushixiong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1239253127; Fri, 11 Sep 2026 09:41:02 +0800
-Message-ID: <4a527e66-8aa9-4422-a3b5-7ac1d9919220@kylinos.cn>
-Date: Fri, 11 Sep 2026 09:41:01 +0800
+	s=arc-20240116; t=1789091032; c=relaxed/simple;
+	bh=pn37Y98xOIr6R/h+V9od70aqSemqtoWIS6kNKpWY800=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jixbjmtyNL6AH3HcBygGZBqvMn/UI3PnOedxEN0nN9xOKndpB9V9B+ocfdDzUNluz7UUNtrRVvMVtJQGHLJKlLveHGdJ/1nlevw1rjt9Iqp/AbkC67Kh3tkNeWofGgIYCHaiimA1LpKf01hIEQyCnCU1R268uxbfrmIv//6xkmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6Ixr4K9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6Ixr4K9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C959E1F000FF;
+	Fri, 11 Sep 2026 01:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789091030;
+	bh=PbpykEPkv8dB81+Lx7oKWEdYiLSfg0G8CODkHKDLb3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z6Ixr4K9wqYwLN5kvm0cYIVrxGAKqvQTvL1P5SmS90igbK2w2DM4z2JrB9em6mLq6
+	 XiK38S7IyN40MzcgGSc5Cbt/d7/hv+5w8KffowKxzVmiLNIk+m0KIkMzmXWhzAjspP
+	 7Ph/uMkO/cuX61bgxDnObMGd32rGPzBSnVOhfRwEOUsskVJB0K92ApzFceb0uBiVow
+	 2OYE+aIFc+6mDWnILhG+yWGX3dO+ofl6JI06U8wwbh3l/5rvTREESgBS+CDq5HDbz4
+	 Zc29mxYMPnfoD/e3WLRp+shlKQDtgkrkHhHfGHTJJFkFR5ylgE1vlmJFbq7jVUrAjP
+	 /HryQOZ14jRtw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ASoC: hdac_hda: improve error logs
+Date: Thu, 10 Sep 2026 21:43:47 -0400
+Message-ID: <20260911014348.4149148-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090904-opposite-unpadded-c0c6@gregkh>
+References: <2026090904-opposite-unpadded-c0c6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs
- attributes
-To: Helge Deller <deller@gmx.de>, Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Chintan Patel <chintanlike@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>
-References: <20260907021844.25497-1-kmehltretter@gmail.com>
- <72351d8f-289e-44d1-b241-e68d7d23145a@gmx.de>
-Content-Language: en-US
-From: Shixiong Ou <oushixiong@kylinos.cn>
-In-Reply-To: <72351d8f-289e-44d1-b241-e68d7d23145a@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-On 2026/9/11 05:15, Helge Deller wrote:
-> On 9/7/26 04:18, Karl Mehltretter wrote:
->> The ovl_* files documented in
->> Documentation/ABI/testing/sysfs-devices-platform-sh_mobile_lcdc_fb no
->> longer exist.
->>
->> Commit a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through 
->> driver
->> core") moved the attributes from each overlay's framebuffer device to
->> the platform driver's dev_groups and renamed them overlay_*. There is
->> now only one set of attributes for the whole LCDC. The callbacks still
->> expect dev_get_drvdata() to return a struct fb_info, but the platform
->> device holds struct sh_mobile_lcdc_priv, so they access the wrong
->> structure.
->>
->> Restore the documented names and register the group on each overlay's
->> framebuffer device with device_add_groups(). Remove it with
->> device_remove_groups() before unregistering the framebuffer. Skip
->> creation when info->dev is NULL, as the old device_create_file() 
->> calls did.
->>
->> Drop the CONFIG_FB_DEVICE guard, since the driver already depends on it.
->>
->> Fixes: a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through 
->> driver core")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
->> ---
->> Found while reviewing the sysfs ABI documentation.
->>
->> Compile-tested only (allmodconfig, W=1), I have no SH-Mobile hardware.
->
->
-> This all seems correct, but since it reverts a few of the last patches
-> I'd prefer that some other person could also review it....
->
-Looks good to me, and I agree .dev_groups is wrong here.
+[ Upstream commit ea5fee227ff3dae209062ac9544906debe1e9ac1 ]
 
-Shixiong.
+We have a couple of duplicate logs and missing information, add
+__func__ consistently and make sure useful error codes are logged.
 
->
->>   drivers/video/fbdev/sh_mobile_lcdcfb.c | 37 +++++++++++++++++---------
->>   1 file changed, 24 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c 
->> b/drivers/video/fbdev/sh_mobile_lcdcfb.c
->> index e8324b01700f..18fc4e465283 100644
->> --- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
->> +++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
->> @@ -1337,22 +1337,24 @@ overlay_rop3_store(struct device *dev, struct 
->> device_attribute *attr,
->>       return count;
->>   }
->>   -static DEVICE_ATTR_RW(overlay_alpha);
->> -static DEVICE_ATTR_RW(overlay_mode);
->> -static DEVICE_ATTR_RW(overlay_position);
->> -static DEVICE_ATTR_RW(overlay_rop3);
->> -
->> -static struct attribute *overlay_sysfs_attrs[] __maybe_unused = {
->> -    &dev_attr_overlay_alpha.attr,
->> -    &dev_attr_overlay_mode.attr,
->> -    &dev_attr_overlay_position.attr,
->> -    &dev_attr_overlay_rop3.attr,
->> +static struct device_attribute dev_attr_ovl_alpha =
->> +    __ATTR(ovl_alpha, 0644, overlay_alpha_show, overlay_alpha_store);
->> +static struct device_attribute dev_attr_ovl_mode =
->> +    __ATTR(ovl_mode, 0644, overlay_mode_show, overlay_mode_store);
->> +static struct device_attribute dev_attr_ovl_position =
->> +    __ATTR(ovl_position, 0644, overlay_position_show, 
->> overlay_position_store);
->> +static struct device_attribute dev_attr_ovl_rop3 =
->> +    __ATTR(ovl_rop3, 0644, overlay_rop3_show, overlay_rop3_store);
->> +
->> +static struct attribute *overlay_sysfs_attrs[] = {
->> +    &dev_attr_ovl_alpha.attr,
->> +    &dev_attr_ovl_mode.attr,
->> +    &dev_attr_ovl_position.attr,
->> +    &dev_attr_ovl_rop3.attr,
->>       NULL,
->>   };
->>   -#ifdef CONFIG_FB_DEVICE
->>   ATTRIBUTE_GROUPS(overlay_sysfs);
->> -#endif
->>     static const struct fb_fix_screeninfo sh_mobile_lcdc_overlay_fix  
->> = {
->>       .id =        "SH Mobile LCDC",
->> @@ -1513,6 +1515,7 @@ sh_mobile_lcdc_overlay_fb_unregister(struct 
->> sh_mobile_lcdc_overlay *ovl)
->>       if (info == NULL || info->dev == NULL)
->>           return;
->>   +    device_remove_groups(info->dev, overlay_sysfs_groups);
->>       unregister_framebuffer(ovl->info);
->>   }
->>   @@ -1530,6 +1533,15 @@ sh_mobile_lcdc_overlay_fb_register(struct 
->> sh_mobile_lcdc_overlay *ovl)
->>       if (ret < 0)
->>           return ret;
->>   +    /* The framebuffer device is optional, see fb_device_create(). */
->> +    if (info->dev) {
->
-> I think this needs to be:
->     if (dev_of_fbinfo(info)) {
-> to avoid compile error when CONFIG_FB_DEVICE=n.
->
->
->> +        ret = device_add_groups(info->dev, overlay_sysfs_groups);
->
-> same here. dev_of_fbinfo(info).
->
->> +        if (ret < 0) {
->> +            unregister_framebuffer(info);
->> +            return ret;
->> +        }
->> +    }
->> +
->>       dev_info(lcdc->dev, "registered %s/overlay %u as %dx%d %dbpp.\n",
->>            dev_name(lcdc->dev), ovl->index, info->var.xres,
->>            info->var.yres, info->var.bits_per_pixel);
->> @@ -2637,7 +2649,6 @@ static int sh_mobile_lcdc_probe(struct 
->> platform_device *pdev)
->>   static struct platform_driver sh_mobile_lcdc_driver = {
->>       .driver        = {
->>           .name        = "sh_mobile_lcdc_fb",
->> -        .dev_groups    = overlay_sysfs_groups,
->>           .pm        = &sh_mobile_lcdc_dev_pm_ops,
->>       },
->>       .probe        = sh_mobile_lcdc_probe,
->>
->> base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://msgid.link/r/20240325221925.206507-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+
+[Backport to 6.6: omit the firmware-patch-loader logging hunk, since
+this tree lacks the ASoC HDA patch loader introduced by 842a62a75e709.
+Keep the logging changes in existing functions, including the component
+registration error context required by 6ad4892c4f5cb437a928a02f5b7d37d496aa9268.
+Retain the stable stream-format API and do not add patch-loader support.]
+
+Stable-dep-of: 6ad4892c4f5c ("ASoC: hdac_hda: Fix hlink refcount leak on component registration failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/hdac_hda.c | 42 ++++++++++++++++++++-----------------
+ 1 file changed, 23 insertions(+), 19 deletions(-)
+
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 21a00c86a1398..8ed645a3f2a9b 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -224,7 +224,8 @@ static int hdac_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 						 0);
+ 	if (!format_val) {
+ 		dev_err(dai->dev,
+-			"invalid format_val, rate=%d, ch=%d, format=%d, maxbps=%d\n",
++			"%s: invalid format_val, rate=%d, ch=%d, format=%d, maxbps=%d\n",
++			__func__,
+ 			params_rate(params), params_channels(params),
+ 			params_format(params), maxbps);
+ 
+@@ -260,14 +261,12 @@ static int hdac_hda_dai_prepare(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct hda_pcm_stream *hda_stream;
+ 	struct hdac_hda_priv *hda_pvt;
+-	struct hdac_device *hdev;
+ 	unsigned int format_val;
+ 	struct hda_pcm *pcm;
+ 	unsigned int stream;
+ 	int ret = 0;
+ 
+ 	hda_pvt = snd_soc_component_get_drvdata(component);
+-	hdev = &hda_pvt->codec->core;
+ 	pcm = snd_soc_find_pcm_from_dai(hda_pvt, dai);
+ 	if (!pcm)
+ 		return -EINVAL;
+@@ -280,7 +279,7 @@ static int hdac_hda_dai_prepare(struct snd_pcm_substream *substream,
+ 	ret = snd_hda_codec_prepare(hda_pvt->codec, hda_stream,
+ 				    stream, format_val, substream);
+ 	if (ret < 0)
+-		dev_err(&hdev->dev, "codec prepare failed %d\n", ret);
++		dev_err(dai->dev, "%s: failed %d\n", __func__, ret);
+ 
+ 	return ret;
+ }
+@@ -292,6 +291,7 @@ static int hdac_hda_dai_open(struct snd_pcm_substream *substream,
+ 	struct hdac_hda_priv *hda_pvt;
+ 	struct hda_pcm_stream *hda_stream;
+ 	struct hda_pcm *pcm;
++	int ret;
+ 
+ 	hda_pvt = snd_soc_component_get_drvdata(component);
+ 	pcm = snd_soc_find_pcm_from_dai(hda_pvt, dai);
+@@ -302,7 +302,11 @@ static int hdac_hda_dai_open(struct snd_pcm_substream *substream,
+ 
+ 	hda_stream = &pcm->stream[substream->stream];
+ 
+-	return hda_stream->ops.open(hda_stream, hda_pvt->codec, substream);
++	ret = hda_stream->ops.open(hda_stream, hda_pvt->codec, substream);
++	if (ret < 0)
++		dev_err(dai->dev, "%s: failed %d\n", __func__, ret);
++
++	return ret;
+ }
+ 
+ static void hdac_hda_dai_close(struct snd_pcm_substream *substream,
+@@ -361,7 +365,7 @@ static struct hda_pcm *snd_soc_find_pcm_from_dai(struct hdac_hda_priv *hda_pvt,
+ 		pcm_name = "HDMI 3";
+ 		break;
+ 	default:
+-		dev_err(&hcodec->core.dev, "invalid dai id %d\n", dai->id);
++		dev_err(dai->dev, "%s: invalid dai id %d\n", __func__, dai->id);
+ 		return NULL;
+ 	}
+ 
+@@ -375,7 +379,7 @@ static struct hda_pcm *snd_soc_find_pcm_from_dai(struct hdac_hda_priv *hda_pvt,
+ 		}
+ 	}
+ 
+-	dev_err(&hcodec->core.dev, "didn't find PCM for DAI %s\n", dai->name);
++	dev_err(dai->dev, "%s: didn't find PCM for DAI %s\n", __func__, dai->name);
+ 	return NULL;
+ }
+ 
+@@ -405,7 +409,7 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 
+ 	hlink = snd_hdac_ext_bus_get_link(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+-		dev_err(&hdev->dev, "hdac link not found\n");
++		dev_err(&hdev->dev, "%s: hdac link not found\n", __func__);
+ 		return -EIO;
+ 	}
+ 
+@@ -423,7 +427,7 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 	ret = snd_hda_codec_device_new(hcodec->bus, component->card->snd_card,
+ 				       hdev->addr, hcodec, true);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "failed to create hda codec %d\n", ret);
++		dev_err(&hdev->dev, "%s: failed to create hda codec %d\n", __func__, ret);
+ 		goto error_no_pm;
+ 	}
+ 	/*
+@@ -443,13 +447,13 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 
+ 	ret = snd_hda_codec_set_name(hcodec, hcodec->preset->name);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "name failed %s\n", hcodec->preset->name);
++		dev_err(&hdev->dev, "%s: name failed %s\n", __func__, hcodec->preset->name);
+ 		goto error_pm;
+ 	}
+ 
+ 	ret = snd_hdac_regmap_init(&hcodec->core);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "regmap init failed\n");
++		dev_err(&hdev->dev, "%s: regmap init failed\n", __func__);
+ 		goto error_pm;
+ 	}
+ 
+@@ -457,16 +461,16 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 	if (patch) {
+ 		ret = patch(hcodec);
+ 		if (ret < 0) {
+-			dev_err(&hdev->dev, "patch failed %d\n", ret);
++			dev_err(&hdev->dev, "%s: patch failed %d\n", __func__, ret);
+ 			goto error_regmap;
+ 		}
+ 	} else {
+-		dev_dbg(&hdev->dev, "no patch file found\n");
++		dev_dbg(&hdev->dev, "%s: no patch file found\n", __func__);
+ 	}
+ 
+ 	ret = snd_hda_codec_parse_pcms(hcodec);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "unable to map pcms to dai %d\n", ret);
++		dev_err(&hdev->dev, "%s: unable to map pcms to dai %d\n", __func__, ret);
+ 		goto error_patch;
+ 	}
+ 
+@@ -474,8 +478,8 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 	if (!is_hdmi_codec(hcodec)) {
+ 		ret = snd_hda_codec_build_controls(hcodec);
+ 		if (ret < 0) {
+-			dev_err(&hdev->dev, "unable to create controls %d\n",
+-				ret);
++			dev_err(&hdev->dev, "%s: unable to create controls %d\n",
++				__func__, ret);
+ 			goto error_patch;
+ 		}
+ 	}
+@@ -521,7 +525,7 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+ 
+ 	hlink = snd_hdac_ext_bus_get_link(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+-		dev_err(&hdev->dev, "hdac link not found\n");
++		dev_err(&hdev->dev, "%s: hdac link not found\n", __func__);
+ 		return;
+ 	}
+ 
+@@ -597,7 +601,7 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_link(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+-		dev_err(&hdev->dev, "hdac link not found\n");
++		dev_err(&hdev->dev, "%s: hdac link not found\n", __func__);
+ 		return -EIO;
+ 	}
+ 	snd_hdac_ext_bus_link_get(hdev->bus, hlink);
+@@ -613,7 +617,7 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 						ARRAY_SIZE(hdac_hda_dais));
+ 
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "failed to register HDA codec %d\n", ret);
++		dev_err(&hdev->dev, "%s: failed to register HDA codec %d\n", __func__, ret);
+ 		return ret;
+ 	}
+ 
+-- 
+2.53.0
+
