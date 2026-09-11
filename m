@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994C9449EA6
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D4F41228D
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125679; cv=none; b=HTwE+6PVnfifKNOrL9JjC5tHIqAUj8mSSUh9pjB5sPHDUbd1UDr8X0b0UE1W9e9x36y8misYK1jrIjva6R0IXtoItvZdjzi5wcHVl03yzIOzDoQhxAL4iEIxR5L4rAC9aQT5salj2DLxSewAuz0BLVOSIZkgJp7VbEp9R0/CyXg=
+	t=1789125678; cv=none; b=THcHYd6re4l8eI/aDJYWnoTLT+3h/SNA9/JEJ1QoosZRG9mBMYodnlw4jhSbyOBzvQhRYEV9a5Tf3SDV07VLWa14c3XyEOJYAYQUQPwK8K0THqvRxAcXt4mFDmuXkcBZq/ThNmj1hP3ny2v54fObMib5b2CDhFCyO+T4DYKKUDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125679; c=relaxed/simple;
-	bh=WCfrrg2pJ+0QzndVoyRCSk1c6n7fySarrAfiub9NmRw=;
+	s=arc-20240116; t=1789125678; c=relaxed/simple;
+	bh=QNbde7qlwTAizqGd1YwU+3m/i6pqJjAQO5/MLUnVYAI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jAFhvKWb167xtnO/19DcjF8WzSUtCgFYI7DcoSgBTdSdxHWk4mjOiqP9q4mbe+hGY/A33eaalJWIBXAUvtx5a8/eE/UmfcaLL8GYrXaw6UesounWFgd3byggu7autuXoVSS19ov70XZx6EjmmwRHnSsobzBFt3pJGiaCk6OCj54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbdDA/6j; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UGUhj8GtEpghBXPPtLIbUS+4ykc4VRjzkAvqTyU1ey4l46AadOVY7EpKVZVRpeAuGbIYv0ujcAlZtcYj5EP0vsJXCtMobZpqhW0y6U0kQh6a147uLWkjK2OLlq+0LVe3/DxTEKm/tgy3+bELFF6qJM1m73ToVKzYgPWoKIux4m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Csc7ozRB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbdDA/6j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F407D1F0089E;
-	Fri, 11 Sep 2026 11:21:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Csc7ozRB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548A41F00898;
+	Fri, 11 Sep 2026 11:21:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125674;
-	bh=lp3BdfxaJCjHQqtZdkhRXsB3y/nQFixhY/743vU/MbA=;
+	s=k20260515; t=1789125669;
+	bh=u8k9go5Ed00RatU/FlqxAj0JYcj1dIKK1uAAFo32YAs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VbdDA/6jdMWPrj7sDYa2DWpLFHxNqyPfePyD6OIxOPfEyth9ZEBcBVGf9UE0cVLF3
-	 +HjuSyrdIM1U4qeeMzn3iF9GyekjBW/0YdH9XkTMFHq9DJRXOO9jcSVC9VWku8W1cB
-	 WZM9qJKwHKYjIfr5NylAw8xG7u+HL2/8jtg80/1Ji6jumc54D+g/mOCzKflxf2JU/f
-	 +TyEfy4+rPYdFaxp1m60mcZXuOdlVREGgYLM0+6UiuQvqSgv06u3TGBoUTt31WQvg+
-	 6dwSkJhK5HTBv6rnFaRLA+QIQsB/YREwz/4DMVkUOLp/UQtC44zsG4AUTCpeBX5RN/
-	 LdIM+5bbf5kjQ==
+	b=Csc7ozRBTiikzt350RNgEHajOPSIqt4794w4QBBkykMgQD3BiUeh/XbZ9mVTDsZqS
+	 qJKsib4wqacj3TcsEplXqxRYx5t0zwCnhMJbwQRZ+RCuXk3246CVXzCoScj806y3mL
+	 ZZLAjzNsBwZ4HQzRiTfOIVWm0EYMgZxcioaG93UhiV6JqD3PXLcs8Ud+4fvemAsDFs
+	 Qolh1dDnh27bzAK/kjH6wuanrqO4OsZi4QYgCoYcjYpl9XkiixYDAWIG/9rKaS3J2n
+	 VCmeZ92yHNucpx1LtuMgWY2UYL5odqnukjv+K47FVwmb3eMyYSbN5jrWiEXrsMdQR/
+	 Er1nBqC5DEV6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 5.15.y] batman-adv: dat: atomically update mac addresses
-Date: Fri, 11 Sep 2026 07:20:32 -0400
-Message-ID: <daily-reply-0013-re-batman-adv-dat-5-15@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: Please consider these upstream CVE fixes for 6.1.y, 6.6.y, and 6.12.y
+Date: Fri, 11 Sep 2026 07:20:26 -0400
+Message-ID: <daily-reply-0007-re-cve-batch-6-1-6-6-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909191250.1126868-1-sven@narfation.org>
-References: <20260909191250.1126868-1-sven@narfation.org>
+In-Reply-To: <20260909180637.41361-1-artem@trailofbits.com>
+References: <20260909180637.41361-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,13 +45,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit e6de568d3eda3e3c01c868fabd7a9535d5ee4a73 upstream.
->
-> When a MAC address is updated in batadv_dat_entry_add(), it is done
-> using a simple copy function.  A parallel reader might only see parts
-> of this update.
+> The 28 commits below are still missing from one or more affected 6.x
+> trees.  The Linux CNA affected ranges include every target listed
+> here.
 
-Queued for 5.15, thanks.
+Queued for 6.12.y, 6.6.y, and 6.1.y, thanks. A few exceptions:
+
+- 0c22d9511cbd ("ceph: fix BUG_ON in __ceph_build_xattrs_blob() due to stale
+  blob size") is queued for 6.6.y but not 6.1.y: it applies cleanly there but
+does not build, since 6.1.y predates the ceph doutc() logging refactor the
+fix's 'cl' client pointer depends on.
+- 3db440443539 ("md/raid10: wait barrier before returning discard request with
+  REQ_NOWAIT") is not queued anywhere: its own follow-up needs a prerequisite
+that itself needs further follow-ups still missing on 6.6.y, 6.1.y, and 5.15.y.
+- efe24898485c ("drm/panthor: fix for dma-fence safe access rules") was not
+  queued for 6.12.y: its own upstream tag reads 'Cc: stable@vger.kernel.org #
+v6.17+', and the dma-fence infrastructure it depends on is not present before
+6.17.
+
+Everything else on the list is queued as requested.
 
 -- 
 Thanks,
