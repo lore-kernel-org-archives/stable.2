@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE06737F8D7
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:57:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DF643E064
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:57:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124266; cv=none; b=PuKWOkfqrk05toaUDc0eLHGSl7xeire44wVpVoy/Mzveyj/F+K63/6iWy2Z5W9XewTL0DgI8BaCvt0vB4tT5RQ/ZOuy6esJSfY9snFLzO6rZzjNB6NcUqPGZl3d4cTvCcYzUADf6t072y9IuoQcHg8ct2H0kMhZKknTCyMnLiRI=
+	t=1789124271; cv=none; b=jcdTO9BiEpAs4B0lEhVdFZSrusIxmboSB8hsmsvK7BhLK1z/5A/HAHP7oi6pxfammjOmhJddwFGT8rw0mBuP9owpvbUhPzFqB7KQYGHkLFwTV25QsVdfkXE8zQpIsc9GtK5FemcQ7qso1YDU2BE6KEjiViCNNdY1gWgPJviH/dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124266; c=relaxed/simple;
-	bh=hjj1QZcLqivtadCWxI90zf/7AaVPBU6XkJM7tFbH0jk=;
+	s=arc-20240116; t=1789124271; c=relaxed/simple;
+	bh=IXMSi2sOr8RpMIHFB3VZdRMPC7Jet4hSahY8oPcRJWI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K71CTb91YEYjBelu8MXik7pJSjDG+RrxXZHnTTJW2yeXNyeI8XB4PLRrbqla6gEpahw0lFFy9j9E2gS8Oj33DoDjG1Thi6n4UWLETOFMJYAs7BKErX9UbkC0svf8d1J4n5jp0dcQocWr87KaKPXmusaRVuGy3jbUfCqcigom/+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMNruXmA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nVUHPliG5ryGVkRJKEypjc5gnG7IpJyILSzrTkcKYyc4i0VoMMQtVWodnXa5ZWGk8La++uzi6dMlR7MqxDmAm6zO6GtJ6FTxIcrApfLPUE9kqb+WresZq/+6ITs1WJ8ub3/9EoGqkztqqdHqBh20FDumSNzVptHntmv6ehJhaB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBa3hQ5+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMNruXmA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CD71F0089C;
-	Fri, 11 Sep 2026 10:57:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBa3hQ5+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E92C1F000FF;
+	Fri, 11 Sep 2026 10:57:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789124265;
-	bh=/ufsRI20wEKjgI1CK6ePzkxQ+rgQ1Dox/kTmM/NQe/k=;
+	s=k20260515; t=1789124270;
+	bh=DFHjZ0NujT/YJqP4qzy6BAMZbvc5C3Zo7dUA6ff2f6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jMNruXmAMyeE28qoI9VE3sutZTprmpWuVq349JFgxVC4Mfsc4PRNiy8Jc6EUbnYgA
-	 VXKDikSzjCdeEmVswst3Gqoag6G5CiKDzFuZtamJU3LWlvY3zAWR1zBZVJeaTela/F
-	 dDkpdCS0cz83ZPo/6Venm2t4kyyobN2wNR4wnpqxHgm0kumLLdkyYN8VlKHML4o6VB
-	 MGY5c4alkofd6lazUrMjWUuRM5Cv2QkGfxPLWIVwfbtxCJl1ug3x2JBItaI6Tgp1Fu
-	 V9a0t9lvHluOX1eFwUvD9Zg1xevrIsULmqQdUZyMCTJh38qAHokAymbCxsBHtyLO4L
-	 xkEKdmZG/NcHg==
+	b=QBa3hQ5+If1bc6ckaV/yRJ6d4abux6d7YDJPbafD3YZ12rl5IEYJeIGbhUAn88wLX
+	 /DJ4j8DnB+NfPnuFvnVchmp0W+ek33qd0g09RhmdWqHte4rlKF04iAoGe15g/hbDOe
+	 Sufp2+5Xe0FD7rlWqEJ7ABBpD8wtNFkQXLy0RpGJwWK2vEuQPLOftwewx7tFUCqjQV
+	 n9RYnDRo37qKedWJUGolMldExOsAZNKtZmYhViTy8m1d4W61l6vscPDsRet3XlNHjP
+	 UNciqXNA44dLnJ/om0fi6gN25CmTF/bIGZzKGAV3sel+aYiTtuxEN5Dv/vw/CQRxb4
+	 H7ozHacyw8fyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+Cc: Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] KVM: s390: Fix length check __import_wp_info()
-Date: Fri, 11 Sep 2026 06:57:43 -0400
-Message-ID: <20260911105743.292963-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] KVM: arm64: nv: Fully update VNCR fixmap state in kvm_translate_vncr()
+Date: Fri, 11 Sep 2026 06:57:47 -0400
+Message-ID: <20260911105748.293226-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090931-frugality-bullion-6ea4@gregkh>
-References: <2026090931-frugality-bullion-6ea4@gregkh>
+In-Reply-To: <2026090950-contact-impatient-f4fb@gregkh>
+References: <2026090950-contact-impatient-f4fb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,51 +45,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
+From: Oliver Upton <oupton@kernel.org>
 
-[ Upstream commit 4c07680a467e2f7697245bcd11691bffb2a6f0ed ]
+[ Upstream commit 5949004d7032767e8fde1e8c986a33f241b2a192 ]
 
-struct kvm_hw_breakpoint::len is a __u64 that is fully controlled by user
-space. This is then assigned to wp_info->len, which is an int. The bounds
-check is done on the truncated value while the allocation uses the
-untruncated one:
+kvm_translate_vncr() first invalidates the pseudo-TLB entry and
+corresponding fixmap in anticipation of installing a new translation.
 
-	wp_info->len = bp_data->len;
-	[...]
-	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
-		return -EINVAL;
+While the fixmap invalidation does clear the mapping from host stage-1,
+it does not clear the L1_VNCR_MAPPED flag. Depending on the state of the
+VNCR TLB at vcpu_put(), this could potentially precipitate a BUG_ON() if
+vt->cpu is reset.
 
-	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL_ACCOUNT);
+Share a helper with kvm_vcpu_put_hw_mmu(), ensuring that KVM's view of
+the VNCR fixmap is in sync with the state of the VNCR TLB. Give it a
+slightly verbose name to make it obvious that it is meant to be used
+local to a CPU, unlike other VNCR TLB maintenance.
 
-Use the validated value for the allocation as intended. Without this
-fix userspace can trigger >4GB allocations which will fail and result
-in a WARN due to MAX_PAGE_ORDER.
-
-Fixes: 27291e2165b6 ("KVM: s390: hardware support for guest debugging")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-9-borntraeger@linux.ibm.com>
-[ Retained GFP_KERNEL instead of upstream GFP_KERNEL_ACCOUNT in the kmalloc() call. ]
+Fixes: 069a05e535496 ("KVM: arm64: nv: Handle VNCR_EL2-triggered faults")
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260602235450.103057-3-oupton@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Stable-dep-of: c55bc773b6e8 ("KVM: arm64: Remove VM-wide VNCR mapping counter")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kvm/guestdbg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/kvm/nested.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/arch/s390/kvm/guestdbg.c b/arch/s390/kvm/guestdbg.c
-index 394a5f53805ba..de3fa79fb0751 100644
---- a/arch/s390/kvm/guestdbg.c
-+++ b/arch/s390/kvm/guestdbg.c
-@@ -184,7 +184,7 @@ static int __import_wp_info(struct kvm_vcpu *vcpu,
- 	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
- 		return -EINVAL;
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index b69df61f145a5..5a297c16bc338 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -771,18 +771,24 @@ void kvm_vcpu_load_hw_mmu(struct kvm_vcpu *vcpu)
+ 	}
+ }
  
--	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL);
-+	wp_info->old_data = kmalloc(wp_info->len, GFP_KERNEL);
- 	if (!wp_info->old_data)
- 		return -ENOMEM;
- 	/* try to backup the original value */
++static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
++{
++	if (!host_data_test_flag(L1_VNCR_MAPPED))
++		return;
++
++	BUG_ON(vcpu->arch.vncr_tlb->cpu != smp_processor_id());
++	BUG_ON(is_hyp_ctxt(vcpu));
++
++	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
++	vcpu->arch.vncr_tlb->cpu = -1;
++	host_data_clear_flag(L1_VNCR_MAPPED);
++	atomic_dec(&vcpu->kvm->arch.vncr_map_count);
++}
++
+ void kvm_vcpu_put_hw_mmu(struct kvm_vcpu *vcpu)
+ {
+ 	/* Unconditionally drop the VNCR mapping if we have one */
+-	if (host_data_test_flag(L1_VNCR_MAPPED)) {
+-		BUG_ON(vcpu->arch.vncr_tlb->cpu != smp_processor_id());
+-		BUG_ON(is_hyp_ctxt(vcpu));
+-
+-		clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
+-		vcpu->arch.vncr_tlb->cpu = -1;
+-		host_data_clear_flag(L1_VNCR_MAPPED);
+-		atomic_dec(&vcpu->kvm->arch.vncr_map_count);
+-	}
++	this_cpu_reset_vncr_fixmap(vcpu);
+ 
+ 	/*
+ 	 * Keep a reference on the associated stage-2 MMU if the vCPU is
+@@ -1244,7 +1250,8 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 	 * We also prepare the next walk wilst we're at it.
+ 	 */
+ 	scoped_guard(write_lock, &vcpu->kvm->mmu_lock) {
+-		invalidate_vncr(vt);
++		this_cpu_reset_vncr_fixmap(vcpu);
++		vt->valid = false;
+ 
+ 		vt->wi = (struct s1_walk_info) {
+ 			.regime	= TR_EL20,
 -- 
 2.53.0
 
