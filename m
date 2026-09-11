@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBC744F56B
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:22:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32DE46D548
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 11:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125770; cv=none; b=eM0MQxStHfQil1JhFTmBHBnNCeYaRBuEYq5i8fv1TeCJz5UhBPKm+WliIpzHW0WWqZHwXTDYUUlerFYyzF3i84KgzL1FoNyJ75RLs9zK4wH4BbRWwhDrb/3M0ZmBlHkV/zJYPKjXb0Wiaegi+4NEIjH+86qBmWK8Dip9jnvjC90=
+	t=1789125988; cv=none; b=HwhvEvY+tLYScskE1w7Z7CbwhJsmUoLQGqbetBzS+8ciuU5u45KR/60qi32JAPhoijD+T2jZR9whFVh7M2mGDVN62AnkmguwJQtRZ5kQsqjSiGZNRz2Vo6CYeJHOTFFgIvxX9aLH+XAjX0PXpMx+II4bMxV4ipJ+xi2jxEtt7yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125770; c=relaxed/simple;
-	bh=G9NGNldUelDu29VuVCp/tXNLHRyDGRB2ZlXh9y+lrkc=;
+	s=arc-20240116; t=1789125988; c=relaxed/simple;
+	bh=vqORI82zJRBI4y/rME7lSrkws2CB5ui3NnWJ6rsVIwI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JLl0ck1Sk7zpAdtRYRcGtXZ7vHOxj0Q+Pk67U5P0zf/L+RIYYpzsNKNNiY9uPwy0E2MPQvb+RxQwx1lYlGSOUz/722JiHgZokdHISXPESPweB2Gl4roL0OYb1eeipxug+6OeiN4/8f+Y/RleaxaO34Nz2IsMj8stDNql+840VxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUUCbd0q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kThG4KIsTjKg10EKdt5rQ6oNIGHVFmp/Up3PquyFZ66iakNTZlJm7SGG+C9SEmMM9UUUGh015hJsBrRDwInY4uFomCRgVPS6l6X610V4Kc8df80L6fWsEbtSIkIUdDrdakK4B7xyqfEBG7/3iwRllhZnYKuw0VLbL02t1FXx2DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjzAiAHd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUUCbd0q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03ABB1F0089D;
-	Fri, 11 Sep 2026 11:22:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjzAiAHd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC361F000FF;
+	Fri, 11 Sep 2026 11:26:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125732;
-	bh=t9I/hm4JFkdgaAOJkEh0uogxPb8I6MRaDMWY5zgPjQE=;
+	s=k20260515; t=1789125980;
+	bh=JCrAaXsOiHYX8v6IqFGOLIzbHh3KaYbHdmczeAmL22Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IUUCbd0qSrtILc0USLLCQX776bpbsXil9m01J3GJuP47jsjutf3wdBD3arZq+Hsck
-	 JrPKUnQulpB8U/dag+2mM+aSDrUNVjAS/qY22aTi4B6Z+6Ckp/KDhlIYszVP+ggCgf
-	 WX/7qUEjDAPlXantIf7zIOmijHvtbX8FpJyW4O5aHNFRCNDzX6fOP5Y6nbL/fiYVpg
-	 D7Q1kTcLW7J+7XcyzZwxDh36NvqyswTAoAqfFooVtIAIvFgro3tVOYoogjMdAAIXIk
-	 4StbFYHHQzdPuhT07zz3bqEONHpjCIQkOKZLjlb7XqOW7jc+9+PmPnZ9hpwRjF+l2T
-	 lk3MaLGOXGvVA==
+	b=cjzAiAHdVmZxtf9aahECkfdRYtH+48kBGIcodJGE2vsA2vOkuCQEESC2lWYrig3vy
+	 aRSYnIdBEOhj46OftVK3qiS+p44FMjGjkSzILMuHOLmgn0zZuj5yttyc1drmUaPgKa
+	 QZCr8qiIBlmPix6gzRH3i+eO+vSIlH25jSiOnGbbhEG6j2XY7xnFZLH6eWbhbmcK9Q
+	 eXMuo0VOg0d75YwGCNNt/0lzZzybFOp/1TRV/DwOUJ3nUtlW/CtZYjKuYbN+BPoKNV
+	 A+FwQKb5cmLJsmOcE3qoJ/GknnjRDU2c/P9AtCI/txr0haDEEtQIreID87Ldudzeoc
+	 0rsAlRinM3p3w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] KVM: s390: Fix memory corruption by not reinjecting CK machine checks
-Date: Fri, 11 Sep 2026 07:22:09 -0400
-Message-ID: <20260911112209.352376-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] media: i2c: imx355: Replace client->dev usage
+Date: Fri, 11 Sep 2026 07:26:16 -0400
+Message-ID: <20260911112617.381156-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911112209.352376-1-sashal@kernel.org>
-References: <2026090944-either-skid-8b36@gregkh>
- <20260911112209.352376-1-sashal@kernel.org>
+In-Reply-To: <2026090912-lid-cattail-734c@gregkh>
+References: <2026090912-lid-cattail-734c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,121 +47,279 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-[ Upstream commit 546dde823a36d7283dcf46127c2f3d093443860f ]
+[ Upstream commit 49c6ac166cf77cd53eeda69e8ccdcbe4a57a4fdf ]
 
-Channel-subsystem damage machine checks are for the host channel
-subsystem. The guest channel subsystem is emulated in the userspace VMM.
-There is no point in forwarding such machine checks into the guest.
+The driver needs to access the struct device in many places, and
+retrieves it from the i2c_client itself retrieved with
+v4l2_get_subdevdata(). Store it as a pointer in struct imx355 and access
+it from there instead, to simplify the driver.
 
-This also simplifies the machine check reinjection and avoids kfree of a
-stack variable as reported by sashiko.  There might be still machine
-checks that have the ck bit set with another bit (like instruction
-damage), mask out the CK bit in s390_backup_mcck_info(), like the CP and
-ED bits already are.
+While at it, fix a mistake in the sort order of include statements.
 
-Fixes: 4d62fcc0b692 ("KVM: s390: Inject machine check into the guest")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Acked-by: Heiko Carstens <hca@linux.ibm.com>
-Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260806145835.31818-1-borntraeger@linux.ibm.com>
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: ee737bc3ccae ("media: imx355: Avoid calling imx355_power_off twice in error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/include/asm/nmi.h |  3 +++
- arch/s390/kernel/nmi.c      |  5 +----
- arch/s390/kvm/interrupt.c   | 24 ++++++++----------------
- 3 files changed, 12 insertions(+), 20 deletions(-)
+ drivers/media/i2c/imx355.c | 61 +++++++++++++++++++-------------------
+ 1 file changed, 30 insertions(+), 31 deletions(-)
 
-diff --git a/arch/s390/include/asm/nmi.h b/arch/s390/include/asm/nmi.h
-index 6454c15318544..7919b2b9ac9cc 100644
---- a/arch/s390/include/asm/nmi.h
-+++ b/arch/s390/include/asm/nmi.h
-@@ -22,6 +22,7 @@
- #define MCCK_CODE_SYSTEM_DAMAGE		BIT(63)
- #define MCCK_CODE_EXT_DAMAGE		BIT(63 - 5)
- #define MCCK_CODE_CP			BIT(63 - 9)
-+#define MCCK_CODE_CK			BIT(63 - 11)
- #define MCCK_CODE_STG_ERROR		BIT(63 - 16)
- #define MCCK_CODE_STG_KEY_ERROR		BIT(63 - 18)
- #define MCCK_CODE_STG_DEGRAD		BIT(63 - 19)
-@@ -33,6 +34,8 @@
- #define MCCK_CODE_FC_VALID		BIT(63 - 43)
- #define MCCK_CODE_CPU_TIMER_VALID	BIT(63 - 46)
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index b2dce67c0b6bc..2315393f32e7e 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -1,11 +1,12 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (C) 2018 Intel Corporation
  
-+#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE | MCCK_CODE_CK)
+-#include <linux/unaligned.h>
+ #include <linux/acpi.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/unaligned.h>
 +
- #ifndef __ASSEMBLER__
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -97,6 +98,8 @@ struct imx355_hwcfg {
+ };
  
- union mci {
-diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
-index fbd218b6fc8e4..e8d65f87a17df 100644
---- a/arch/s390/kernel/nmi.c
-+++ b/arch/s390/kernel/nmi.c
-@@ -279,8 +279,7 @@ static void notrace s390_backup_mcck_info(struct pt_regs *regs)
+ struct imx355 {
++	struct device *dev;
++
+ 	struct v4l2_subdev sd;
+ 	struct media_pad pad;
  
- 	sie_page = container_of(sie_block, struct sie_page, sie_block);
- 	mcck_backup = &sie_page->mcck_info;
--	mcck_backup->mcic = get_lowcore()->mcck_interruption_code &
--				~(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE);
-+	mcck_backup->mcic = get_lowcore()->mcck_interruption_code & ~MCCK_CODE_NO_GUEST;
- 	mcck_backup->ext_damage_code = get_lowcore()->external_damage_code;
- 	mcck_backup->failing_storage_address = get_lowcore()->failing_storage_address;
- }
-@@ -292,8 +291,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
- #define ED_STP_ISLAND	6	/* External damage STP island check */
- #define ED_STP_SYNC	7	/* External damage STP sync check */
- 
--#define MCCK_CODE_NO_GUEST	(MCCK_CODE_CP | MCCK_CODE_EXT_DAMAGE)
--
- /*
-  * machine check handler.
-  */
-diff --git a/arch/s390/kvm/interrupt.c b/arch/s390/kvm/interrupt.c
-index 3fc07da7fd7a5..afe20a6f91499 100644
---- a/arch/s390/kvm/interrupt.c
-+++ b/arch/s390/kvm/interrupt.c
-@@ -2862,9 +2862,7 @@ static int set_adapter_int(struct kvm_kernel_irq_routing_entry *e,
- void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 				     struct mcck_volatile_info *mcck_info)
+@@ -1136,14 +1139,13 @@ static int imx355_write_reg(struct imx355 *imx355, u16 reg, u32 len, u32 val)
+ static int imx355_write_regs(struct imx355 *imx355,
+ 			     const struct imx355_reg *regs, u32 len)
  {
--	struct kvm_s390_interrupt_info inti;
- 	struct kvm_s390_irq irq = {};
--	struct kvm_s390_mchk_info *mchk;
- 	union mci mci;
- 	__u64 cr14 = 0;         /* upper bits are not used */
- 	int rc;
-@@ -2877,20 +2875,14 @@ void kvm_s390_reinject_machine_check(struct kvm_vcpu *vcpu,
- 	if (mci.w)
- 		cr14 |= CR14_WARNING_SUBMASK;
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+ 	int ret;
+ 	u32 i;
  
--	mchk = mci.ck ? &inti.mchk : &irq.u.mchk;
--	mchk->cr14 = cr14;
--	mchk->mcic = mcck_info->mcic;
--	mchk->ext_damage_code = mcck_info->ext_damage_code;
--	mchk->failing_storage_address = mcck_info->failing_storage_address;
--	if (mci.ck) {
--		/* Inject the floating machine check */
--		inti.type = KVM_S390_MCHK;
--		rc = __inject_vm(vcpu->kvm, &inti);
--	} else {
--		/* Inject the machine check to specified vcpu */
--		irq.type = KVM_S390_MCHK;
--		rc = kvm_s390_inject_vcpu(vcpu, &irq);
--	}
-+	irq.u.mchk.cr14 = cr14;
-+	irq.u.mchk.mcic = mcck_info->mcic;
-+	irq.u.mchk.ext_damage_code = mcck_info->ext_damage_code;
-+	irq.u.mchk.failing_storage_address = mcck_info->failing_storage_address;
-+
-+	/* Inject the machine check to specified vcpu */
-+	irq.type = KVM_S390_MCHK;
-+	rc = kvm_s390_inject_vcpu(vcpu, &irq);
- 	WARN_ON_ONCE(rc);
+ 	for (i = 0; i < len; i++) {
+ 		ret = imx355_write_reg(imx355, regs[i].address, 1, regs[i].val);
+ 		if (ret) {
+-			dev_err_ratelimited(&client->dev,
++			dev_err_ratelimited(imx355->dev,
+ 					    "write reg 0x%4.4x return err %d",
+ 					    regs[i].address, ret);
+ 
+@@ -1178,7 +1180,6 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct imx355 *imx355 = container_of(ctrl->handler,
+ 					     struct imx355, ctrl_handler);
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+ 	s64 max;
+ 	int ret;
+ 
+@@ -1197,7 +1198,7 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	 * Applying V4L2 control value only happens
+ 	 * when power is up for streaming
+ 	 */
+-	if (!pm_runtime_get_if_in_use(&client->dev))
++	if (!pm_runtime_get_if_in_use(imx355->dev))
+ 		return 0;
+ 
+ 	switch (ctrl->id) {
+@@ -1231,12 +1232,12 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
+-		dev_info(&client->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
++		dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
+ 			 ctrl->id, ctrl->val);
+ 		break;
+ 	}
+ 
+-	pm_runtime_put(&client->dev);
++	pm_runtime_put(imx355->dev);
+ 
+ 	return ret;
  }
+@@ -1385,7 +1386,6 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
+ /* Start streaming */
+ static int imx355_start_streaming(struct imx355 *imx355)
+ {
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+ 	const struct imx355_reg_list *reg_list;
+ 	int ret;
  
+@@ -1393,7 +1393,7 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	reg_list = &imx355_global_setting;
+ 	ret = imx355_write_regs(imx355, reg_list->regs, reg_list->num_of_regs);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to set global settings");
++		dev_err(imx355->dev, "failed to set global settings");
+ 		return ret;
+ 	}
+ 
+@@ -1401,7 +1401,7 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	reg_list = &imx355->cur_mode->reg_list;
+ 	ret = imx355_write_regs(imx355, reg_list->regs, reg_list->num_of_regs);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to set mode");
++		dev_err(imx355->dev, "failed to set mode");
+ 		return ret;
+ 	}
+ 
+@@ -1429,13 +1429,12 @@ static int imx355_stop_streaming(struct imx355 *imx355)
+ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct imx355 *imx355 = to_imx355(sd);
+-	struct i2c_client *client = v4l2_get_subdevdata(sd);
+ 	int ret = 0;
+ 
+ 	mutex_lock(&imx355->mutex);
+ 
+ 	if (enable) {
+-		ret = pm_runtime_resume_and_get(&client->dev);
++		ret = pm_runtime_resume_and_get(imx355->dev);
+ 		if (ret < 0)
+ 			goto err_unlock;
+ 
+@@ -1448,7 +1447,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ 			goto err_rpm_put;
+ 	} else {
+ 		imx355_stop_streaming(imx355);
+-		pm_runtime_put(&client->dev);
++		pm_runtime_put(imx355->dev);
+ 	}
+ 
+ 	/* vflip and hflip cannot change during streaming */
+@@ -1460,7 +1459,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ 	return ret;
+ 
+ err_rpm_put:
+-	pm_runtime_put(&client->dev);
++	pm_runtime_put(imx355->dev);
+ err_unlock:
+ 	mutex_unlock(&imx355->mutex);
+ 
+@@ -1470,7 +1469,6 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ /* Verify chip ID */
+ static int imx355_identify_module(struct imx355 *imx355)
+ {
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+ 	int ret;
+ 	u32 val;
+ 
+@@ -1479,7 +1477,7 @@ static int imx355_identify_module(struct imx355 *imx355)
+ 		return ret;
+ 
+ 	if (val != IMX355_CHIP_ID) {
+-		dev_err(&client->dev, "chip id mismatch: %x!=%x",
++		dev_err(imx355->dev, "chip id mismatch: %x!=%x",
+ 			IMX355_CHIP_ID, val);
+ 		return -EIO;
+ 	}
+@@ -1519,7 +1517,6 @@ static const struct v4l2_subdev_internal_ops imx355_internal_ops = {
+ /* Initialize control handlers */
+ static int imx355_init_controls(struct imx355 *imx355)
+ {
+-	struct i2c_client *client = v4l2_get_subdevdata(&imx355->sd);
+ 	struct v4l2_fwnode_device_properties props;
+ 	struct v4l2_ctrl_handler *ctrl_hdlr;
+ 	s64 exposure_max;
+@@ -1600,11 +1597,11 @@ static int imx355_init_controls(struct imx355 *imx355)
+ 				     0, 0, imx355_test_pattern_menu);
+ 	if (ctrl_hdlr->error) {
+ 		ret = ctrl_hdlr->error;
+-		dev_err(&client->dev, "control init failed: %d", ret);
++		dev_err(imx355->dev, "control init failed: %d", ret);
+ 		goto error;
+ 	}
+ 
+-	ret = v4l2_fwnode_device_parse(&client->dev, &props);
++	ret = v4l2_fwnode_device_parse(imx355->dev, &props);
+ 	if (ret)
+ 		goto error;
+ 
+@@ -1689,6 +1686,8 @@ static int imx355_probe(struct i2c_client *client)
+ 	if (!imx355)
+ 		return -ENOMEM;
+ 
++	imx355->dev = &client->dev;
++
+ 	mutex_init(&imx355->mutex);
+ 
+ 	/* Initialize subdev */
+@@ -1697,13 +1696,13 @@ static int imx355_probe(struct i2c_client *client)
+ 	/* Check module identity */
+ 	ret = imx355_identify_module(imx355);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to find sensor: %d", ret);
++		dev_err(imx355->dev, "failed to find sensor: %d", ret);
+ 		goto error_probe;
+ 	}
+ 
+-	imx355->hwcfg = imx355_get_hwcfg(&client->dev);
++	imx355->hwcfg = imx355_get_hwcfg(imx355->dev);
+ 	if (!imx355->hwcfg) {
+-		dev_err(&client->dev, "failed to get hwcfg");
++		dev_err(imx355->dev, "failed to get hwcfg");
+ 		ret = -ENODEV;
+ 		goto error_probe;
+ 	}
+@@ -1713,7 +1712,7 @@ static int imx355_probe(struct i2c_client *client)
+ 
+ 	ret = imx355_init_controls(imx355);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to init controls: %d", ret);
++		dev_err(imx355->dev, "failed to init controls: %d", ret);
+ 		goto error_probe;
+ 	}
+ 
+@@ -1728,7 +1727,7 @@ static int imx355_probe(struct i2c_client *client)
+ 	imx355->pad.flags = MEDIA_PAD_FL_SOURCE;
+ 	ret = media_entity_pads_init(&imx355->sd.entity, 1, &imx355->pad);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to init entity pads: %d", ret);
++		dev_err(imx355->dev, "failed to init entity pads: %d", ret);
+ 		goto error_handler_free;
+ 	}
+ 
+@@ -1736,9 +1735,9 @@ static int imx355_probe(struct i2c_client *client)
+ 	 * Device is already turned on by i2c-core with ACPI domain PM.
+ 	 * Enable runtime PM and turn off the device.
+ 	 */
+-	pm_runtime_set_active(&client->dev);
+-	pm_runtime_enable(&client->dev);
+-	pm_runtime_idle(&client->dev);
++	pm_runtime_set_active(imx355->dev);
++	pm_runtime_enable(imx355->dev);
++	pm_runtime_idle(imx355->dev);
+ 
+ 	ret = v4l2_async_register_subdev_sensor(&imx355->sd);
+ 	if (ret < 0)
+@@ -1747,8 +1746,8 @@ static int imx355_probe(struct i2c_client *client)
+ 	return 0;
+ 
+ error_media_entity_runtime_pm:
+-	pm_runtime_disable(&client->dev);
+-	pm_runtime_set_suspended(&client->dev);
++	pm_runtime_disable(imx355->dev);
++	pm_runtime_set_suspended(imx355->dev);
+ 	media_entity_cleanup(&imx355->sd.entity);
+ 
+ error_handler_free:
+@@ -1769,8 +1768,8 @@ static void imx355_remove(struct i2c_client *client)
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 
+-	pm_runtime_disable(&client->dev);
+-	pm_runtime_set_suspended(&client->dev);
++	pm_runtime_disable(imx355->dev);
++	pm_runtime_set_suspended(imx355->dev);
+ 
+ 	mutex_destroy(&imx355->mutex);
+ }
 -- 
 2.53.0
 
