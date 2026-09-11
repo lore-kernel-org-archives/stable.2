@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2669A38757A;
-	Fri, 11 Sep 2026 05:54:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087493806CC;
+	Fri, 11 Sep 2026 05:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106053; cv=none; b=kmjjLQkR0Il4UgovFRMrb2/edaECuLLPbWzTYKwD6LOaYks/lWUTvPSFeHQYGNlLWSENL9vwzE20ShdBEIurG57UuSOtHhaJQ1h7kL9eSc1XEIfK5BuJwAzPU1o+IbPFt9gNnraqDysAv+e+imBKKLg8fkvDBXDndjstmgyWkj8=
+	t=1789106084; cv=none; b=dn6Hl+O/aN+rpHz1M++C8w/A9cMbgXXtIoSMG9bTvi/wEOWqQs45dSFOaXOC7G2H48dh71PJ6UDjdH39lIBoC8C5v4/zXFV4HjzWC7OW9dxdGiYdPmDz9k/k2R50Ph+GKsnwwaRuNszioVoEBCp10FKj+4UDGGfHalCs/1/oFNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106053; c=relaxed/simple;
-	bh=f+gbMRRi5fYdJbFtI7ppH0ySvwNRA03u80TPmZvpOTg=;
+	s=arc-20240116; t=1789106084; c=relaxed/simple;
+	bh=BrOGas3ai17GV9ESG/lAVMI3V5l2ft6+o/t23y+hfEg=;
 	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SO+Qq4JN1zH7bEn0qbWFrfrqU0ne2AAGIA0kVdeFl4tkpVw1dkxEIgS1SotW/Bo2OjXiOmD59cooIfnOpRG+M+2eYV71ENo7CEmXukQdtVMoP9dwZkBn5nQRzlqPb6omQP8AaY1x7e93CxQhqZuPn4G1tlL6bt3pm7mYxtVpA6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SloFOAjN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rpjdJSEuhtYlv8BeYVsb8GQLUaH3q/ozOf+b1cXstLCAptnRZeR+Fa50fqQOkuAEP+qUAGnp1Cv1575l9EO6EGYaVqHMkUdmUtePkMvn0YifLlRWJKDlPN36W1oJOoKw6mV/wIArZxYkMH8tixB49pvHgBzj6wmVN0S/+1OZqJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMSfP6CE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SloFOAjN"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9D7591F000FF;
-	Fri, 11 Sep 2026 05:54:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMSfP6CE"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D29421F000FF;
+	Fri, 11 Sep 2026 05:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789106051;
-	bh=Y4T4Tieqr4HlNzAHWnMAzda7ntkcPe30MjZxuHX9JJA=;
+	s=k20260515; t=1789106082;
+	bh=KQHKi/S/t+82WXleDX7HEC4Rbeh6Yp3ip7NYyWgiCxk=;
 	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=SloFOAjNayy41RzZQHPKwld5/Tyc18GDXu9pdmu+yN8sWE7sNqux5cIBjKqXiycow
-	 HStSOP3M6zH9XGgOWeVW/pwlPtCQ4ORnqtuf6dBVp9oQv8PRmSx6sNGTS+3gN+CFPI
-	 1J4h14vey7vpDdVYZJFLegWaYeQ+JCe/LSwmEJODsBIU7ijsJ+qeQZotQoHBdU+hmC
-	 Di7T2dEAx3dfmO267wWO+5k8LjhlT+GjBek6CvOwoAtQ5mekqUqWphYRMYYabWVwXT
-	 Lhi29tb1VJwYqi4i3cI9QgHRSbBjOFdmEIbuwf7JKqFpV4hiRNgq6+45O4BPuoTc76
-	 YsatZDg0IeXgA==
-Date: Thu, 10 Sep 2026 22:54:11 -0700
-Subject: [PATCH 3/6] xfs: use the correct reservations for rtrmap/refcount
- recovery
+	b=OMSfP6CE0+N2T3VaY5tiePlfKqci/eFkZSi+S6cbfInXfXrD+1LhBfqXa7fgsYWMH
+	 Ps6PzJ2RccYqy8tC8U/C6q7J4qu3WFBOZGYN9EGDn6e9VBzDOtCx6F8BRI+hlxTqli
+	 DskouXaXTBPJn7qjqDrGpwpIGoeYofM9V5TwM11t97sPU54hHMOeatqMvhOir9QPR4
+	 zKXtWqLbIIhOEW7cWnloXDLWQo5mfzgtxaemAWnXhJmS1LNNwtkPGpl9JF05yoTgw6
+	 +gEabFqs6mnM8IcQ3URJfgdsyHbiFGAk7FZVn4JIK/EwNMdvf1SIP55x/UOIlcWpoR
+	 UZ0i+KLt4tE7g==
+Date: Thu, 10 Sep 2026 22:54:42 -0700
+Subject: [PATCH 5/6] xfs: only flag zero padding for dir3 data blocks,
+ not dir3 block blocks
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: djwong@kernel.org, cem@kernel.org, hch@lst.de
 Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178910162084.174887.6554307015098246037.stgit@frogsfrogsfrogs>
+Message-ID: <178910162126.174887.2134061998195559640.stgit@frogsfrogsfrogs>
 In-Reply-To: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs>
 References: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs>
 Precedence: bulk
@@ -46,69 +46,34 @@ Content-Transfer-Encoding: 7bit
 
 From: Darrick J. Wong <djwong@kernel.org>
 
-LOLLM noticed that we might reserve the wrong number of blocks for
-recovering rtrmap and rtrefcount updates after a crash.  Fix that.
+LOLLM complains that xchk_directory_data_bestfree can be passed a
+directory block that is either in "block" or "data" format, but the
+check here unconditionally treats the dir3_block and dir3_data blocks as
+if they have the same header format (they don't).  Consequently, we can
+incorrectly set the preen state on dir3_block blocks, which of course
+we can't preen away because dir3_block blocks do not have a padding
+field.  Fix this.
 
-Cc: <stable@vger.kernel.org> # v6.14
-Fixes: 5e0679d1c62f25 ("xfs: support recovering rmap intent items targetting realtime extents")
+Cc: <stable@vger.kernel.org> # v7.1-rc4
+Fixes: 939919ccddfcc3 ("xfs: check directory data block header padding in scrub")
 Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 ---
- fs/xfs/xfs_refcount_item.c |    8 ++++++--
- fs/xfs/xfs_rmap_item.c     |    8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ fs/xfs/scrub/dir.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 
-diff --git a/fs/xfs/xfs_refcount_item.c b/fs/xfs/xfs_refcount_item.c
-index 8bccf89a77668b..682c6e1b45e3ee 100644
---- a/fs/xfs/xfs_refcount_item.c
-+++ b/fs/xfs/xfs_refcount_item.c
-@@ -508,6 +508,7 @@ xfs_refcount_recover_work(
- 	struct xfs_cui_log_item		*cuip = CUI_ITEM(lip);
- 	struct xfs_trans		*tp;
- 	struct xfs_mount		*mp = lip->li_log->l_mp;
-+	unsigned int			dblocks;
- 	bool				isrt = xfs_cui_item_isrt(lip);
- 	int				i;
- 	int				error = 0;
-@@ -543,8 +544,11 @@ xfs_refcount_recover_work(
- 	 * full btree split on either end of the refcount range.
- 	 */
- 	resv = xlog_recover_resv(&M_RES(mp)->tr_itruncate);
--	error = xfs_trans_alloc(mp, &resv, mp->m_refc_maxlevels * 2, 0,
--			XFS_TRANS_RESERVE, &tp);
-+	if (isrt)
-+		dblocks = mp->m_rtrefc_maxlevels * 2;
-+	else
-+		dblocks = mp->m_refc_maxlevels * 2;
-+	error = xfs_trans_alloc(mp, &resv, dblocks, 0, XFS_TRANS_RESERVE, &tp);
- 	if (error)
- 		return error;
+diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
+index 2a037aae904d03..19d974c7e2b7a9 100644
+--- a/fs/xfs/scrub/dir.c
++++ b/fs/xfs/scrub/dir.c
+@@ -492,7 +492,7 @@ xchk_directory_data_bestfree(
+ 		goto out;
+ 	xchk_buffer_recheck(sc, bp);
  
-diff --git a/fs/xfs/xfs_rmap_item.c b/fs/xfs/xfs_rmap_item.c
-index 2a3a73a8566d11..000cff1ce324f0 100644
---- a/fs/xfs/xfs_rmap_item.c
-+++ b/fs/xfs/xfs_rmap_item.c
-@@ -573,6 +573,7 @@ xfs_rmap_recover_work(
- 	struct xfs_rui_log_item		*ruip = RUI_ITEM(lip);
- 	struct xfs_trans		*tp;
- 	struct xfs_mount		*mp = lip->li_log->l_mp;
-+	unsigned int			dblocks;
- 	bool				isrt = xfs_rui_item_isrt(lip);
- 	int				i;
- 	int				error = 0;
-@@ -596,8 +597,11 @@ xfs_rmap_recover_work(
- 	}
+-	if (xfs_has_crc(sc->mp)) {
++	if (!is_block && xfs_has_crc(sc->mp)) {
+ 		struct xfs_dir3_data_hdr    *hdr3 = bp->b_addr;
  
- 	resv = xlog_recover_resv(&M_RES(mp)->tr_itruncate);
--	error = xfs_trans_alloc(mp, &resv, mp->m_rmap_maxlevels, 0,
--			XFS_TRANS_RESERVE, &tp);
-+	if (isrt)
-+		dblocks = mp->m_rtrmap_maxlevels;
-+	else
-+		dblocks = mp->m_rmap_maxlevels;
-+	error = xfs_trans_alloc(mp, &resv, dblocks, 0, XFS_TRANS_RESERVE, &tp);
- 	if (error)
- 		return error;
- 
+ 		if (hdr3->pad)
 
