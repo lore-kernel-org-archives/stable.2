@@ -1,128 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83786455623;
-	Fri, 11 Sep 2026 16:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67894A3D2C;
+	Fri, 11 Sep 2026 16:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143865; cv=none; b=fzJLzy2LH/D6/fleIv4ltvYs2wFBXP+zFtzKubThiClhnIjjecTE32+DIOGBk5vMRBRN4vXIaZiCv6vG/Uoi6XJV7fs4wFpG0rsEmk+rvSIkFtRMeWNDHrDAHys4gQ9zzpN+7tZDLGRKE2ALQHNDB4d0Bpj/pgjOueLJFSt6oYo=
+	t=1789143906; cv=none; b=LwP4cFhInBN50m8zXQoYQkW+loV71OoOYZw+9LaCG/ukB41FXquKOX0HfwAU3Om8rInwawpdBGIMF4GfnA7hKGqkDTRapeZpeWG50n/0muLbfvfDGv5bTo52yinpbDjlMhxUsG+copgQ77anPyhD/OrdVSBZDeoW/TzPcwIRftI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143865; c=relaxed/simple;
-	bh=lQoyE24wkikaS7D/5zG7Nvy3qw7xryzYAjVBQ2/y2V0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WjoHrs4K3J1OEiBYjAn72gMFR/SeEo5iYDbp09x7Wi3Z9WXqrcf/e8Nn3DyvdttCaJK8CIV77sZEsmkUpyVB8HCKE7nAtzrArSQYgzFUSrqMKIdgtFJBWUH/pt5blJGAfPCAcvMTZ8UFxQJJdw4KRP7esSp8ouhzqAQb34CGq1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lN22sOny; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789143906; c=relaxed/simple;
+	bh=FEcIJt7tQSydT3mwktV32L3FnG9grt9Jeq1rpY0saHo=;
+	h=Date:To:From:Subject:Message-Id; b=SmYNwsYr2h9vhZJdKHLFZ+xXqHaDY7e9rZq7kyiXWA/ZVtz/PBE8OD+e0+KFBvc3MS9az2CJPaBBMHv991/KTOrwKWRVjlI+0lunWL6jvgVpNDylp+kxWB9mMjlSuJQVtW5EF6RedlmeRDkosAYkpC0MMtTIYp/sZ5GChFEYCpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=N2lx+Pnx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lN22sOny"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789143863; x=1820679863;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lQoyE24wkikaS7D/5zG7Nvy3qw7xryzYAjVBQ2/y2V0=;
-  b=lN22sOny4rxmGKK0kqmEsRc3C20kAsK5nE1OnIFuA2NzYoX5FjJpqB1j
-   jUvkJiLfe2wu3ul+lemZ+lncNbwaHJXkMEqbxqzz38rrYfaOPxaiXw/gw
-   B5+1TVr7nsLI3ZkjtmtozHl0HY7PyjsDlXTg51qg5bxtFzw62FZYEt2Y7
-   KdemV6pgditfV7Is8/W3fFqihEpfP7+pnsJueAVRLZfetdI8fSZBW0MqV
-   4Oks5cFl43tNAJ6v6CTxigLzyhYtspCBbAQaNQXKCZp+1IcGMMOVtMR8z
-   4CVyPDzqA/hrynVc+p59efsduZRpWqVzDYwSfAhSVeuqqojsJcaGmifzo
-   w==;
-X-CSE-ConnectionGUID: tvWMdh1UQBuYUIUnZfaqIA==
-X-CSE-MsgGUID: tyzuE3KgSfqjtTziF1wxrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89741725"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89741725"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:24:23 -0700
-X-CSE-ConnectionGUID: 6LKV0QSpSM+cPWNOoL2p2A==
-X-CSE-MsgGUID: 8+dZhKKESHKxVLx2cNDnsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="277220906"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.203])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:24:21 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 049BC121089;
-	Fri, 11 Sep 2026 19:24:25 +0300 (EEST)
-Date: Fri, 11 Sep 2026 19:24:24 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Steve Longerbeam <slongerbeam@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] media: ov5640: Initialize mutex before probe cleanup
-Message-ID: <aqQrOJ2qcu1d3RBh@kekkonen.localdomain>
-References: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="N2lx+Pnx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BCC81F000FF;
+	Fri, 11 Sep 2026 16:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789143904;
+	bh=omlNb6ikpjmzczdyrS25kWk5Cr2IqqeFgo6I+hQPdyA=;
+	h=Date:To:From:Subject;
+	b=N2lx+PnxfVn+gLZphYHhzBa5WifdzlNobyCA29gAyduE5g1Jo6Me9h66+0AGmNLPe
+	 q3paGiLsQC6vzV1mgiSE7e+2hz9yb3Jz8btmxX582MX6ir0oG4hbgF8W9uZsOAbf6z
+	 o81iSv4hxlG3/nrJsSx/jPxgUKRUB3epiHHOG/IE=
+Date: Fri, 11 Sep 2026 09:25:03 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,vbabka@kernel.org,stable@vger.kernel.org,ritesh.list@gmail.com,mhocko@suse.com,hch@lst.de,hannes@cmpxchg.org,dgc@kernel.org,david@redhat.com,dipiets@amazon.it,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch removed from -mm tree
+Message-Id: <20260911162504.3BCC81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
 
-Hi Runyu,
 
-On Thu, Sep 10, 2026 at 04:16:08PM +0800, Runyu Xiao wrote:
-> ov5640_probe() can jump to entity_cleanup when regulator setup fails,
-> before sensor->lock is initialized. The cleanup path unconditionally
-> destroys the mutex, so this error path passes an uninitialized mutex to
-> mutex_destroy().
-> 
-> Initialize the mutex after media_entity_pads_init() succeeds and before
-> ov5640_get_regulators(). This keeps earlier direct-return paths outside the
-> mutex lifetime while ensuring that every path reaching mutex_destroy() has
-> initialized the mutex.
+The quilt patch titled
+     Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+has been removed from the -mm tree.  Its filename was
+     mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch
 
-A single sentence should be enough to describe what this patch does.
+This patch was dropped because an updated version will be issued
 
-> 
-> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> Cc: stable@vger.kernel.org
-> 
-> Found by PatchProof Module 4 candidates
-> PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
-> 
-> No runtime reproducer was available; the failure path was verified by
-> inspection and the affected object was built successfully.
+------------------------------------------------------
+From: Salvatore Dipietro <dipiets@amazon.it>
+Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Fri, 4 Sep 2026 11:56:28 +0000
 
-This paragraph I'd drop, too. Please keep the tags together.
+Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+introduced high-order folio allocations in the iomap buffered write path. 
+When memory is fragmented, each failed costly-order allocation enters
+__alloc_pages_slowpath() which runs direct compaction and
+drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
+(simple-update) with 1024 clients on a 96-vCPU arm64 system.
 
-> 
-> Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> Assisted-by: LLM Codex
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/media/i2c/ov5640.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 8deb5f550..36c8bb345 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -3930,12 +3930,12 @@ static int ov5640_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
->  
-> +	mutex_init(&sensor->lock);
-> +
->  	ret = ov5640_get_regulators(sensor);
->  	if (ret)
->  		goto entity_cleanup;
->  
-> -	mutex_init(&sensor->lock);
-> -
->  	ret = ov5640_init_controls(sensor);
->  	if (ret)
->  		goto entity_cleanup;
+The root issue is that direct compaction is too expensive for hot
+allocation paths that have fallbacks to smaller allocations. 
+__filemap_get_folio_mpol() already marks higher-order allocations with
+__GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+failure.  However, the page allocator still attempts full direct
+compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+aggressive when the caller will simply retry at a lower order.
 
--- 
-Regards,
+For costly-order allocations with __GFP_NORETRY, clear
+__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
+makes the entire slowpath treat the request as non-blocking: no direct
+reclaim, no direct compaction and no drain_all_pages() IPI across every
+CPU.  kswapd (and in turn kcompactd) is still woken further down for
+background defragmentation, so compaction keeps working for long-term
+system health while being removed from the latency-critical direct
+allocation path.
 
-Sakari Ailus
+Allocations that also request __GFP_THISNODE are exempted.  That flag
+pairing identifies the local-node-first THP attempt issued by
+alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+form transparent huge pages.
+
+Test environment:
+  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+             12x 1TB IO2 32000 IOPS RAID0 XFS
+  OS:        AL2023
+  Kernel:    v7.3-rc1
+  Database:  PostgreSQL 18.4
+  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+
+Results (average of 3 runs, TPS):
+
+  Config                   Avg TPS      % vs Baseline
+  baseline (no patch)       59,408       -
+  With this patch          155,409      +161.6%
+
+Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+Link: https://lore.kernel.org/20260904115629.3993331-1-dipiets@amazon.it
+Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/page_alloc.c |   18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+--- a/mm/page_alloc.c~mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations
++++ a/mm/page_alloc.c
+@@ -4784,10 +4784,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, u
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
+ 
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
++	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
++	    !(gfp_mask & __GFP_THISNODE))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
++
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+_
+
+Patches currently in -mm which might be from dipiets@amazon.it are
+
+
