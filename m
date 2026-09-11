@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEBF4F5E0
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4295375F95
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 15:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139856; cv=none; b=WIjoA6/6GCA2tzSpoEnuoKVKgljvCn/IiQ07lhXWfFn4h5CjF0SQ+7IbfOrBMI4WuHf9YSkN3agICXcaVn43SBboZja8K6d1KtD3NhmmJSOtjaESFHxWUbYh21m5oskWMYhHzwwvpBECj4kEIxQA5GDALeYcMERrKSqlw5+BK6U=
+	t=1789139860; cv=none; b=T083kXg3hqCsFufo/5lpQ+bdM2v/bLWphzAEgUMM5AtWaEE29uMYmdnJoExy1FDaUL3IFBISVU/z0MHqT+fRMCEiRw9Kx95OvWRwsQAbELuk7wJugYMxs0YLf8K/lQnamEepvCQekUIq1VEqfCSiSgQYmYrEeVnT4oi6X8tlFSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139856; c=relaxed/simple;
-	bh=wsQDLzoz9+HDdtaMrf0p1RT9zZX93U2QialCRq1f+2E=;
+	s=arc-20240116; t=1789139860; c=relaxed/simple;
+	bh=auD+xV2JLZmWqTbia70U4ZmpHgkgvM4gI8tSrom4D2o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UcRfT33QLka8opTJ2u6aFSaHxZjxLUDgeyQeO2Y4MF6OfXsrIrwfLVGyfHdJ7yMq9gVwcA1TncU4bsSAa2Cx1vtvpxfYIWJlqXksw7uumV8hqu044NeC30pNePfiZqRkLrvRT0fJermEk83m3a6P1k+gmS5yGK6Ms4FTd74+8pI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZjqC2iTj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gw1RgfQR2Uhiocypqv+OJxH1kqqUe1EKfEMJiXY++5iw3GJIqCRb4a3wn713eafBFeKlbCYZPFcwhUdv0ty/9m/3ML1YuvALfL7oSb47dWnNdQsA+5AmCAeY53MG9/NX/ltau39u+eY2powqoYzVV46HET7KzOEimR27PJftEjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUC4p1n8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZjqC2iTj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109E91F00893;
-	Fri, 11 Sep 2026 15:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUC4p1n8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39F71F00893;
+	Fri, 11 Sep 2026 15:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789139854;
-	bh=vwm7KwaWYmr+etdoWrY77ZB8jE39aMHYrvhFgAr++F8=;
+	s=k20260515; t=1789139858;
+	bh=4VtDjHuope7/MCu4rfSnjsINhUuW44ioxuFucy/8hVA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZjqC2iTjzWVTk/QWFguvEz4DDvh3hqLZ5EyFY779rqc79+8YcMMP+2Bjb2lBYGcNj
-	 0mQWwqTqfdQ6pzTvn2JWmuVZKECpYyhXWmtLbdY2l//wphRlhV7XKMG3HdtCOaGM3Q
-	 IOQxKOOqEEZS/3KXa7mJZo2vfqE+66Bq2uPkNvpNOLDGtO6C2iuhM6Ib5hw3SOoGBz
-	 dZDW5rng36MWE9Juv1JG7ZU0Pa4ys0mjb1p1+Iv7ObIWVy0dtY0aKV/kI2aHDcwMmy
-	 FjmjpsDp33RNNrKEnIoZGwVGd8FMl2DWoOrPISUy+IwXVR9CGn5tRIJ4bnXnfduc1x
-	 P5hzpXA8hTayw==
+	b=DUC4p1n8Tj0m+2UgO5SoA4TtNUPyATn5RFJ5GV3deUE6lg2fUpE4MILwilngjlTGf
+	 LEqn0RnvHofY9GBt/qssM/l/rGBdFtRmNVNDjeXHnVKoDq9hp65AHz6kGrzmOKw6FC
+	 NypSsRAt0s9PJo2vU5J1pNRThshCthFzoCUHm9UENvQ7I3zu7AU2/9SsYiNxQyXG0Y
+	 qUzyRG/6uHeMOT1zipJ4AHIsqQGcd109nOIvxwMVQkpMdH2TTM/H83NrNKfPRtlhvQ
+	 GxHPWdKqw+qKvam3Gf7/neNOAOMqKmFTD+pZqnIbpz1JbePdDcYDre3xRvcrrPYX2E
+	 UlbLcQI7SUiQg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nilesh Javali <njavali@marvell.com>,
-	Sashiko <sashiko-dev@google.com>,
+	Hannes Reinecke <hare@kernel.org>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] scsi: qla2xxx: Fix use-after-free of qpair work on queue teardown
-Date: Fri, 11 Sep 2026 11:17:31 -0400
-Message-ID: <20260911151731.1061390-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y] scsi: qla2xxx: Fix 64G link speed reporting in get_data_rate
+Date: Fri, 11 Sep 2026 11:17:36 -0400
+Message-ID: <20260911151736.1061638-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911151731.1061390-1-sashal@kernel.org>
-References: <2026090919-purple-outdoors-6d42@gregkh>
- <20260911151731.1061390-1-sashal@kernel.org>
+In-Reply-To: <2026090957-garnish-taco-a683@gregkh>
+References: <2026090957-garnish-taco-a683@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,54 +48,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Nilesh Javali <njavali@marvell.com>
 
-[ Upstream commit 19788a55cab61d78e33e0914a5a31d27843e8a4a ]
+[ Upstream commit 52fba32317ee631faa878725b2f7cd5c08acacd3 ]
 
-The response queue MSI-X handler qla2xxx_msix_rsp_q() schedules
-qla_do_work() via queue_work(ha->wq, &qpair->q_work). qla_do_work()
-dereferences the qpair (vha, rsp) and takes qpair->qp_lock.
+qla2x00_get_data_rate() skips updating ha->link_data_rate when the
+firmware returns mcp->mb[1] == 0x7.  That value was a legacy sentinel
+from before 64G hardware existed, but PORT_SPEED_64GB is now defined as
+0x07 and ha->link_data_rate is decoded with the PORT_SPEED_* encoding.
+On a 64G-capable adapter a genuine 64G link is therefore dropped, and
+the port speed is misreported (port_speed sysfs, fc_host speed, FDMI).
 
-During teardown, qla2xxx_delete_qpair() deletes the response queue, which
-calls free_irq() in qla25xx_free_rsp_que(), and then frees the queue and
-the qpair. free_irq() waits for running hardirq handlers but does not
-cancel work already placed on ha->wq. A still-pending q_work then runs
-qla_do_work() against the freed qpair and response queue, causing a
-use-after-free. This is especially likely during full adapter teardown,
-where destroy_workqueue(ha->wq) forces pending work to run after the queue
-pairs have been freed.
+Only 28xx and 29xx support 64G, so accept 0x07 on those adapters while
+keeping the legacy filter for older ones.  Also drop the duplicate copy
+of the check at the end of the success branch; it repeated the first
+assignment with no intervening change.
 
-Flush the work item with cancel_work_sync() in qla25xx_free_rsp_que()
-after free_irq() has released the interrupt (so no new work can be
-queued) and before the response queue and qpair memory are freed (so the
-flushed handler still sees valid memory). Guard on rsp->qpair and ha->wq
-to match the INIT_WORK() condition and avoid operating on an
-uninitialized work_struct.
-
-Fixes: 68ca949cdb04 ("[SCSI] qla2xxx: Add CPU affinity support.")
-Reported-by: Sashiko <sashiko-dev@google.com>
+Fixes: ecc89f25e225 ("scsi: qla2xxx: Add Device ID for ISP28XX")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-5-njavali@marvell.com
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-46-njavali@marvell.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ Omitted IS_QLA29XX() checks because this branch lacks 29xx adapter support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_mid.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/scsi/qla2xxx/qla_mbx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_mid.c b/drivers/scsi/qla2xxx/qla_mid.c
-index 61570f032a8ac..44dd9373bfb12 100644
---- a/drivers/scsi/qla2xxx/qla_mid.c
-+++ b/drivers/scsi/qla2xxx/qla_mid.c
-@@ -606,6 +606,10 @@ qla25xx_free_rsp_que(struct scsi_qla_host *vha, struct rsp_que *rsp)
- 		rsp->msix->handle = NULL;
+diff --git a/drivers/scsi/qla2xxx/qla_mbx.c b/drivers/scsi/qla2xxx/qla_mbx.c
+index f604aab8b161e..005588ebfaeaa 100644
+--- a/drivers/scsi/qla2xxx/qla_mbx.c
++++ b/drivers/scsi/qla2xxx/qla_mbx.c
+@@ -5715,7 +5715,7 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
+ 		ql_dbg(ql_dbg_mbx, vha, 0x1107,
+ 		    "Failed=%x mb[0]=%x.\n", rval, mcp->mb[0]);
+ 	} else {
+-		if (mcp->mb[1] != 0x7)
++		if (mcp->mb[1] != 0x7 || IS_QLA28XX(ha))
+ 			ha->link_data_rate = mcp->mb[1];
+ 
+ 		if (IS_QLA83XX(ha) || IS_QLA27XX(ha) || IS_QLA28XX(ha)) {
+@@ -5726,8 +5726,6 @@ qla2x00_get_data_rate(scsi_qla_host_t *vha)
+ 
+ 		ql_dbg(ql_dbg_mbx + ql_dbg_verbose, vha, 0x1108,
+ 		    "Done %s.\n", __func__);
+-		if (mcp->mb[1] != 0x7)
+-			ha->link_data_rate = mcp->mb[1];
  	}
  
-+	/* Flush any queued response work before freeing the queue/qpair. */
-+	if (rsp->qpair && ha->wq)
-+		cancel_work_sync(&rsp->qpair->q_work);
-+
- 	if (rsp->ring)
- 		dma_free_coherent(&ha->pdev->dev,
- 				  (rsp->length + 1) * rsp_entry_size,
+ 	return rval;
 -- 
 2.53.0
 
