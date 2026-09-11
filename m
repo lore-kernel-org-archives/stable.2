@@ -1,109 +1,90 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901CE4A99B6
-	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148397; cv=pass; b=CqVkKDtsHtDiKscCSfh8/l6dh9pjbu5TviYRehE6dKT2VNxEAj7LdUQnZ6gjs3/AOajYEhqvA+YPyzk+hN8imEuHkYDameFvn3BtLHe400MwceYPIWP5g5mEEtfg2XrC1PeLMkBNCxNsxaa1Cylt/edYlNMP+bCtOhUwZGBUW/s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148397; c=relaxed/simple;
-	bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Rc18VUPlhNG62iadfJAtz+MGg3QEs9whhFvfOG7IFcU9f2kJc7UAhFU5yDGWCJjpph2vMzqpFrAvmznhD027EzUI2et6qsGRHS8xmzZGTNpKOapYGRqdTVLVDWIfjEUiUB1YUnxYMgHSC2Kg3Y0qtBe1mCKaActT0TIp94Tjdgk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y+wzf5gD; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CC44AA413
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 17:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789148573; cv=none; b=oNqzYZVjyfmkJ+KI3J15OyjsTU8Rpg4XFdH6xmZ+SpaT7Vxpq6GtAXsIvz2YcGZW4ghp9g4Z6Z5I5PpG5GRw1NweP99jDokoyzEjBndUOTeYLr6RlQutBdCqRMRIkEr3XZa3Olf3yc79XAXwknRldqQClT5sldm1g7NUAhCVN0U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789148573; c=relaxed/simple;
+	bh=mhnhhQHH4HCzMCITNUkkHbajc5WlsU42xm2VIkHSFMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=meaJZbIwN97INcO1duip2CTCfxZZiIuQe+jI9WaGn4Wq98Gsft+gI6AZY+DRXWUuzYyisPee2txXk1p1RAYYLfRkcsFwM1H+l7UPNE3LPcW6DeuuLDrW/9h41P0BiAvj4Ilr0OAqdUOlhssDTqi+lZTF4bYdKSDHrhjR9orXuwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k07tJGjD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y+wzf5gD"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so2648a12.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 10:39:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789148391; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pnNa4hv1kKpk7WkE8xerhjRFrsZjpo4IZogvjpNqXbnS9ZBNZmQy8KfimMCb6laE6a
-         dgP5CjWdLS8uqHskyJeLZc+aeXFQOve/S0OOL3YI0hw9Mc+OMv4JGYHsPq7R9KD/FzoO
-         C7yo9W/RqkM2d+hUGeOaCG04qUGbusVz0CGX9zpoqykBfcjJfrnLuRPvgG6nyTgxaLzr
-         czG5w0C6Qx3v6So2m8YaIm/HrfbTnaG0+a/jWbzjVWIKb/5WPxMEpgvfg5z8xN4ngtnY
-         vXnf/u8BMF1UZqwNULp/63naUHnY8KNV+TEGodJxFmt7Hqq01vYPsuUy03CLDKU3Bph9
-         NfxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
-        fh=zjgdJHHNUlsc4bixb96NlOct7kraU/uQ1fl9p535/bg=;
-        b=Tt83i0wDOBNUiowCBBYkWESp5trxm32rorZx88q3wVnhOTuC8McGUo0yZnaaDycL7N
-         QZ5fqEAV+oBH6Sl7Y4225KIw9bCphRUPOZ/YseXVvFyC+euAqX6n9xCNVEHhoWPW5iq9
-         HjTMZ7r0vh0+elVbKiAdYVfBO38MlKOXn8T3qYzQN1Qc5q9r6SJ5IwLB15jXbx7Y98IX
-         hVuJP6i2VrKA0iSykSRLCtmU4HZ400SSZB3aK+n5Xaoc4oPKtXknWmC+ok4xAgRoCjG+
-         F+llfmHbgsadF0fpMWangmdoUYZAOmvjGRbWMnSxF5jzyuxUz9SlAjIL2Vvwq9Fngl4R
-         nl7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789148391; x=1789753191; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
-        b=Y+wzf5gDdAjJvN31ndTPQatU9eRlMBR3mwyJqDCJmTCgl5odbeO8CWb+eKRNmsh4wN
-         K5eVgyPeed1zyxXTwlQvLMtI2GO+dwLZuFVXyXQocn1vqPKqzHNxn9kyGcsTBsLYptvB
-         RloRmmWevN1Q2Y+4KX1C4y/YnHOl84yIpT4HGZUDODwczDM93uFBWqP+UhGbfOyoMV9q
-         XQPDNeclUAJt0H1nm22CiPr2G3g0r619shI2eKIx0pEulNQeb4XYiv+xzSZnyrIFs/vy
-         zPLf5zUOj+gSI9uG1AsdLDe/wrUcPXvc50geX83Bj5f6Cqv7vxaeTiau4iZ6CwNWElTd
-         Icpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789148391; x=1789753191;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NO/W4DWn7EPZ1yS2Pt6eiEseQwg1SQfroMdxjcEEl74=;
-        b=eKynd4VsFu4l5ndFN0c0W8bGo3wdK/OaIHvchxDi0vdiCzeMwmjyI3JTjX5Ztgj5To
-         7g1lzdERadcC50N+4lGHpPneWmoh1Yno1rv4aF7Ra86PvTpqIYXcj9zNrLkiPG+usXt6
-         Eebx1cy9yhD3UPZmKTtseZ6+FAjpYSWogCdl02eSrYjYpJdaPQ8RI7lMXPPM6BB/WUZL
-         wT7hZu1QIwx96ZImkvxcQ2sjL4HTsM7pCHlhZczIeGIWIHL2OKgwRHOIpCVo32THLvtL
-         +i+LjHcfZfyH3T7vBNkyqxVOgZWxKS+ZeT2g9Xz5UW56A/KVgMEywWPBMmaxN3wYjinC
-         1d5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx0spqQSkHhxjWnbXGqei8FXtrY9hMF1QuLpPWNVKjZQtf25gzYp79zf45fJjCOfaspVAkY2Dc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUMy6znHv3uRSfh7abazcMqqM1BaVN2m3gtHdH8X0Fnb+7wPxE
-	gHalaFwIu0ILpxX8IjSAOcjHGfyzpR7/BvZ2Dt4zcW3N3vIr9rLRv3wk208yhxVXGEHxfkYkxHJ
-	Cv3JIYSPUOR/DuOD+Y1SCqjJo44yEazmlbvETGw9M
-X-Gm-Gg: AYBFou3hYTB/oM1iWjQfW8JU/rIa6F+6o4r9Vy9avYEZs7n/ssdHsqCrqoHnO+uvNSt
-	BZicDHG9Aih8zwXTw7lpUZNTL8TBZWBgeKJ//J8EQGq3TxEGQNCRYh49gtiVfJvGYgrTLu5fxoX
-	OlrmfzJJP+NBjz+9W6ZdhP02g7/kud2ve4mK3JiK6Kyewds9osAhDEGpDSHtQad8pvhbkV3tw1q
-	O6GfVp413FanhAfLOw0uNxYohF2CpZ0nju2R1PJmFcgrCB4ksWspm+SdVMTTtIUZqLRm1LnWFg8
-	lPD+Eq8uswme0ccYnpmhkEa/Xyxkll3FRerbg5Ox3yw9bQXxb9A4hYo=
-X-Received: by 2002:a05:6402:3987:b0:6a6:967c:3186 with SMTP id
- 4fb4d7f45d1cf-6a9cab59a3dmr2722a12.2.1789148391126; Fri, 11 Sep 2026 10:39:51
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k07tJGjD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668B21F000FF;
+	Fri, 11 Sep 2026 17:42:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789148572;
+	bh=68vGRvPvQQ9Zh1f0ks3sR5aS/V0TgHVERiMGrBKPGhQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=k07tJGjD638ZEwgbsJqxKWX5FpYJHLnejKoAWnefMW8E85uSfoxmfxri9O/CnHwWH
+	 S8oMyw0WKstJVuK+7uL9HP2u/DIhCnrn6j+sOErhbE+DBRgAk52nOmG4tGXq4xnuWn
+	 TmDWZ90Znrt+bJD8KuY6N/ULq5DKGdmZ7UR8D3UC5SA9pn/Ieza13gL3LNyhvF2bxb
+	 vO7DisLB/MbMNe1igq1aPqx+GgcT6ubeWz7oltAm9aim6iMeCBscabCDEAYWg5UwEj
+	 9iEVoY0v4uCiHqTpjWkU+V4e0W77ZcrVIUx/3jxiR1/VrsjDNs1vrCUxYgWoGs/daw
+	 rQubZL5iYrTAw==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+To: stable@vger.kernel.org
+Cc: Roman Li <Roman.Li@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Mario Limonciello <superm1@kernel.org>
+Subject: [PATCH 6.18.y] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
+Date: Fri, 11 Sep 2026 12:42:47 -0500
+Message-ID: <20260911174247.2973758-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090953-attire-untidy-c602@gregkh>
+References: <2026090953-attire-untidy-c602@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908132838.2116068-1-jmattson@google.com> <CADrL8HW3Q=8eBf-=h6BAPdUN_X1Z_-KG=i5a5rA2kF+V4JURww@mail.gmail.com>
- <CALMp9eRJXozpUpdOhqDCWn7VbqHb9G9hn4aZnxS_fef4ad1yTg@mail.gmail.com> <aqGsukcRG6khmxpt@google.com>
-In-Reply-To: <aqGsukcRG6khmxpt@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 11 Sep 2026 10:39:39 -0700
-X-Gm-Features: AcwNN1X2A_hxZ5GZwsDJmDi2mwtjAoPaaSIS9kKhx7UswvNj-QNrz6kZOK723cw
-Message-ID: <CALMp9eSG0F9yv_KfYpWk58Ko6ZPcVArijguF=JF61NVVnuAVVQ@mail.gmail.com>
-Subject: Re: [PATCH] KVM: nVMX: Don't flush shadow VMCS12 to guest memory
- during vCPU teardown
-To: Sean Christopherson <seanjc@google.com>
-Cc: James Houghton <jthoughton@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Yosry Ahmed <yosry@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 12:00=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> So, as an immediate set of changes, what if we do this over ~5 patches, w=
-ith patches
-> 1 and 2 tagged for stable@?
+From: Roman Li <Roman.Li@amd.com>
 
-By "we" here, you do mean the Royal "we," right?
+[WHY]
+Splash screen corruption on some 8K monitors.
 
-I just want to confirm that you aren't expecting anything from me. :)
+[HOW]
+Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
+calculations, avoiding the corruption path observed during splash.
+
+Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
+Cc: stable@vger.kernel.org
+(cherry picked from commit 9ce3169430f1db035d491481086e2fae2552569c)
+Signed-off-by: Mario Limonciello <superm1@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index 3b866e876bf4d..9fea55fddded4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -299,6 +299,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
+ 		out->smn_latency_us = 2;
+ 		out->dispclk_dppclk_vco_speed_mhz = 3600;
+ 		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
++		out->gpuvm_min_page_size_kbytes = 4;
+ 		break;
+ 
+ 	case dml_project_dcn401:
+-- 
+2.53.0
+
