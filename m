@@ -1,52 +1,42 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685F13CFF46;
-	Fri, 11 Sep 2026 02:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECFB3ABD88
+	for <stable@vger.kernel.org>; Fri, 11 Sep 2026 02:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092567; cv=none; b=u5oqp3lT57AT/Kit+GHZuDKCluHCkZ8+LGrK03MaL3PrbvQEt425KplqaAbpIcAwyF6g0xbl29ja34U2TZarN47VDcBJuTCpsgzywFVQz30QKj6/Dvk+2g72hl0OOOExPUAUDNzRHy4sA7aVsYV5o2k6XiX6KQptQisQsRFj+RQ=
+	t=1789092849; cv=none; b=mMlOl+n8PQ4pL2p4JXAsHLblYMCRakBoP6MTkmts73OiJaRYe8ZLmNMoSHGWYayZkOTPERoCySUqAG8Id8p6I9GLQQ2ZvHtdKiskLxUzwqx4dXswdCzmS2M4IrqdruCKgx8TVvzifqM+TY2bRpquwtG+CqWQtJtgm4em/G6j/tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092567; c=relaxed/simple;
-	bh=1eLOnwow/djpmHX7VdGdO1rAK4zqVtvR3BsezklmFPM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NtECQ/iwkIzWswvjBrISzgHjDedBTAFC3Ui/JPmiAB03m35cS9cCzQ9MUvDWVZWHO887y3VmmkrT0TF9Fm1zDCdp4cFgkWuRIIFxnKNJ2WBt/DbH4ROq8sfvc9nJGH94qc/QhUQjB9tFi/ChK46WGDdZ++4ymJCDQ/fRrJrHeTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c9c3ca9aad8511f19a56ed5b684f684d-20260911
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:713e3a3f-43ce-41d9-8c2e-2d90a2395dc1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:59925e246ffd4322073dcca3fb9a96dc,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c9c3ca9aad8511f19a56ed5b684f684d-20260911
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1698572398; Fri, 11 Sep 2026 10:09:15 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v9 1/4] ntfs: fix volume flag update races
-Date: Fri, 11 Sep 2026 10:09:05 +0800
-Message-Id: <20260911020908.2376222-2-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260911020908.2376222-1-zenghongling@kylinos.cn>
-References: <20260911020908.2376222-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1789092849; c=relaxed/simple;
+	bh=zj1oTPKLxympaGY3rMhUWW+F4nP1AriNt92Sq2qC6Kk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FsGnQzP0ViBXGzSJTrljYFutmTg8CrxaOOrtEjQFCWJ4QBT8VdISvbf3GpiBzAultd+oTYfnJ/ym0Kr3FkJGBmKUUVP2flTauly1gZvAXR47aa4ObUEJu++H/fEJMe62aAOsUf+Avrd6SVcPtNScnt2u8RJdj5hwAR/Xdt4bVpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMujAtCz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMujAtCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5521F000FF;
+	Fri, 11 Sep 2026 02:14:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789092847;
+	bh=fPvV10Y8dPUlW5HNDZneRY1k/WFGkBrDcIvkMl9CEDU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EMujAtCzCm/nRyWd2kQn76wGjTQmP9QtAodPbev+6Zqi5+YoNcFdZImpLNan20mtb
+	 os04e0mTd2UGwmXzzQ+IcufmpvdLtVLcYqixcE8wLsy5Gym7CXc9EnulmapWXIvZlA
+	 N9gt3r5zHgemKwkTLtcu28/ndGeXmWVzBWt0NJRrv+4d6JFLroeLLBqNmxKCPn9hcG
+	 VZXlvd3QARQoPvc9wF/evuelRugDpsAHx9qXK/jpMYPnnG+WReiq++A59aM3P+HPrt
+	 YZ0m6z5fDwfFmgdZsjzudphl6wv6nDO1ZfbNv+V0eEj4FLc60bg4/r1dsy+WwaNdyK
+	 12VFFTw8iubuQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] iio: pressure: dps310: fix NULL pointer dereference on ACPI probe
+Date: Thu, 10 Sep 2026 22:14:05 -0400
+Message-ID: <20260911021405.42692-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090922-unread-confused-555a@gregkh>
+References: <2026090922-unread-confused-555a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,158 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-vol->vol_flags outside any lock to compute the new value before handing
-it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-the actual write. The read-modify-write is therefore not atomic, and two
-concurrent callers can lose an update: ntfs_sync_fs() may derive a
-"clean" value from vol->vol_flags while a writer concurrently records an
-error and sets VOLUME_IS_DIRTY; the locked write then silently
-overwrites the freshly-set dirty bit. The on-disk volume looks clean
-despite the recorded errors, so chkdsk will not run on the next mount
-and corrupted metadata can persist.
+From: Rupesh Majhi <zoone.rupert@gmail.com>
 
-Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-to set and to clear separately, and combine them with the current flag
-state under the lock inside ntfs_write_volume_flags(). The set/clear
-helpers pass only the bits to modify, not the complete flag state. The
-bit manipulation is done on CPU-endian values, and the result is
-converted back to little-endian before storing it. The wrappers keep
-their signatures so callers are unchanged.
+[ Upstream commit 26e9213898fc949923188ef0aeea31fc87708836 ]
 
+When the device is enumerated through its ACPI HID (IFX3100),
+i2c_client_get_device_id() returns NULL: the ACPI-derived client name
+does not match the driver's i2c_device_id table. dps310_probe() then
+dereferences that NULL pointer in "iio->name = id->name" and crashes the
+kernel during probe.
+
+The IIO device name is always "dps310", so set it directly and drop the
+now-unused device-id lookup.
+
+Fixes: 72ff282819d0 ("iio: pressure: dps310: Add ACPI HID table")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 18 deletions(-)
+ drivers/iio/pressure/dps310.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f4a73e45773d..6ba19986a598 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
- }
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 519fcd425b6a3..0057e14a45ddc 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -843,7 +843,7 @@ static int dps310_probe(struct i2c_client *client,
+ 	data->client = client;
+ 	mutex_init(&data->lock);
  
- /*
-- * ntfs_write_volume_flags - write new flags to the volume information flags
-+ * ntfs_write_volume_flags - apply flag changes to the volume information flags
-  * @vol:	ntfs volume on which to modify the flags
-- * @flags:	new flags value for the volume information flags
-+ * @set_bits:	bits to set in the volume information flags
-+ * @clear_bits:	bits to clear in the volume information flags
-  *
-  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-  * instead (see below).
-  *
-- * Replace the volume information flags on the volume @vol with the value
-- * supplied in @flags.  Note, this overwrites the volume information flags, so
-- * make sure to combine the flags you want to modify with the old flags and use
-- * the result when calling ntfs_write_volume_flags().
-+ * Combine @set_bits and @clear_bits with the current in-memory flag state and
-+ * write the result back.  The set/clear helpers pass only the bits to modify,
-+ * not the complete flag state.  The read-modify-write happens under
-+ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-+ * All bit manipulation is done on CPU-endian values, and the result is
-+ * converted back to little-endian before storing it.
-  *
-  * Return 0 on success and -errno on error.
-  */
--static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-+static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-+		const __le16 set_bits, const __le16 clear_bits,
-+		const bool skip_if_errors)
- {
- 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
- 	struct volume_information *vi;
- 	struct ntfs_attr_search_ctx *ctx;
-+	u16 flags;
- 	int err;
- 
--	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
--			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
- 	mutex_lock(&ni->mrec_lock);
--	if (vol->vol_flags == flags)
-+
-+	if (skip_if_errors && NVolErrors(vol))
-+		goto done;
-+
-+	flags = le16_to_cpu(vol->vol_flags);
-+	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-+	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-+			le16_to_cpu(vol->vol_flags), flags);
-+
-+	if (le16_to_cpu(vol->vol_flags) == flags)
- 		goto done;
- 
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
- 
- 	vi = (struct volume_information *)((u8 *)ctx->attr +
- 			le16_to_cpu(ctx->attr->data.resident.value_offset));
--	vol->vol_flags = vi->flags = flags;
-+	vol->vol_flags = vi->flags = cpu_to_le16(flags);
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- done:
-@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-  * @flags:	flags to set on the volume
-  *
-  * Set the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-+	return ntfs_write_volume_flags(vol, flags, 0, false);
- }
- 
- /*
-@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * @flags:	flags to clear on the volume
-  *
-  * Clear the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
--	return ntfs_write_volume_flags(vol, flags);
-+	return ntfs_write_volume_flags(vol, 0, flags, false);
-+}
-+
-+/*
-+ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-+ * @vol:	ntfs volume whose dirty bit should be cleared
-+ *
-+ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-+ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-+ * recorded.
-+ */
-+static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+{
-+	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
- }
- 
- int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-@@ -1858,8 +1886,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 		return 0;
- 
- 	/* If there are some dirty buffers in the bdev inode */
--	if (!NVolErrors(vol) &&
--	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-+	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
- 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
+-	iio->name = id->name;
++	iio->name = DPS310_DEV_NAME;
+ 	iio->channels = dps310_channels;
+ 	iio->num_channels = ARRAY_SIZE(dps310_channels);
+ 	iio->info = &dps310_info;
 -- 
-2.25.1
+2.53.0
 
