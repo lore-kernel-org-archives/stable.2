@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16B3B27FB
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E463039061C
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246750; cv=none; b=gHkXNtmtltTz/cJO3vJCmDyS0NMPYsxkpQEeGXOwLkRvozPVZXFqvWFOi4t1dxSEn1nn8Wtp2HyzvE1BS32ipCRelse6MNaXLxZ+CSdJQw4h+Hkl2H8ryiWC54jZvqD7cpRNKNwzJwX57RtV3m5pqWX96gF3PJlK0wE6P35taC8=
+	t=1789246756; cv=none; b=c/jpIy31i4lPqcrGTgBD7nDgI+WMLdqHmb5m3VbQprUocBNbez6ZVu//gK98tzOeCQSz993qtWQiEl2oO6zKZPVDZp4N0FDs3Q6W/0dvSel5C3QKoNnGFITZysXno0NdX8MqPRbaV8wWEj7cIxCK/lyYL47eWm54yBLfL8dIBu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789246750; c=relaxed/simple;
-	bh=q714YL1MJe30WLYdYxtjctqqZd/b6qqXlgrDBXHLRJ0=;
+	s=arc-20240116; t=1789246756; c=relaxed/simple;
+	bh=Uvt+3DLo0BsIgYNUJ8Lgkvq4p5gf3xuy3VzPlbpWF4Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F8H2fi8YZNtnhhNjiJjsBvg5DC3RaLZi0osSwvH4x7KpRVSBqFPT5Sy48NFXEoB84b7GnbNgHBtcOAKLUv4rAXoa4n1QrVOv5q2EcJmAM10lbu1ovTTMTRAw3j5cLT+eyHOcuNiT0J+WE6E5SuHhfDMmueb1EhX1V0CoBanAoz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0qRw0vC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HcDPVf2KYBBWtGWuoTTC4E1kDo5uLKG8sML+gW1TRIgRZeVudW3AgT5SqbOkKEh3Gid4fr1plLDa4kr3e/0mGg4yG6NgQRCW/ClZf+5H+NMhLxt1gtNek9HjvCyMF3/CW5OR+K7ZvZcm/zWKHncnS3vtOSgrIOcB8GkwcZ+ZNck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZIWULba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0qRw0vC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758BE1F00893;
-	Sat, 12 Sep 2026 20:59:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZIWULba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0410F1F000FF;
+	Sat, 12 Sep 2026 20:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789246749;
-	bh=Bp74YD6Ky2EUSdFabFf+/u3MhWyjsrJyVZD9rdYsRig=;
+	s=k20260515; t=1789246754;
+	bh=/clPFs+CK6r373laU8mPMSxj60CXVq6sMHiLRqE0yig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o0qRw0vCLKKSeITuI1baDIZtijLAzAAyxx4nQThW6CMlj235WShHHsol+Km9ig3S3
-	 +gqv4QMxVu9ZElM+PCaVp6iFqS01jmcqaZjX61uPfrHtQcKGx6di9I+wIzAPiTKLuf
-	 nKiGTqvcs+MKjPY8BTUDz3cH1/o7Xc/jFI5lxPtjZQS2+a8v1MY6ghgXijTFCbagPF
-	 6+4Y/enwOUDGM9IOL1v6iKBp2Wu1wi3VyGNLdC7uLBDNoA4rsOM5p2DdD/pwTckVeY
-	 PHr/WSDj0OSbrvZI8MGoLfE/xAmZIg5hVOlXi7up/DayACSaWptPFtbN8IHfUbtO9j
-	 ivEnb/x05fTLA==
+	b=gZIWULbaOoWFbCu/3/BldWfoPVhJtml5nnqB4UjuZTwSaPg0MiV6E+m4QPpt3ulKC
+	 AhsZpWr4sM5XUi4U60Upv5h0d54UqlEv1na5UOsa8aRLk81wdPj3rrdlDn5HdkShPI
+	 M7O6XjU4blgSc5bmLAsf+ocW0oA5S0pykO7Cec3w60cub7bP02bVXW03z8Kiz54xdf
+	 U2s7KPV+hRFW0/QCpxTEd2Tp0mtG8xru/ExqRKXtJrbEk6IiWiLzl13bZIawEbQjyu
+	 O+USwnU7FIEoU/G5M8gtRJGfL+66v+hfWlrlV5jwElyJISaodICNhVTOIxtNoUg5je
+	 a2/pnglQvXqPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <treding@nvidia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
+Cc: Danilo Krummrich <dakr@redhat.com>,
+	Dave Airlie <airlied@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/sysfb: simpledrm: Improve framebuffer-size validation
-Date: Sat, 12 Sep 2026 16:59:06 -0400
-Message-ID: <20260912205907.3933891-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] drm/nouveau: get vmm via nouveau_cli_vmm()
+Date: Sat, 12 Sep 2026 16:59:11 -0400
+Message-ID: <20260912205912.3934099-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090919-unstylish-evade-283b@gregkh>
-References: <2026090919-unstylish-evade-283b@gregkh>
+In-Reply-To: <2026090931-aqueduct-chafe-a114@gregkh>
+References: <2026090931-aqueduct-chafe-a114@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,43 +45,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Danilo Krummrich <dakr@redhat.com>
 
-[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
+[ Upstream commit 7b05a7c0c9ca6e7e2d27181504920987226477e5 ]
 
-Validate the framebuffer size from the firmware against the
-limitations of struct drm_display_mode. The type only stores sizes
-in 16-bit fields. Fail probing on errors.
+Provide a getter function for the client's current vmm context. Since
+we'll add a new (u)vmm context for UMD bindings in subsequent commits,
+this will keep the code clean.
 
-v2:
-- remove unused function simplefb_get_validated_int0() (Sashiko)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Cc: <stable@vger.kernel.org> # v5.14+
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Signed-off-by: Danilo Krummrich <dakr@redhat.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230804182406.5222-5-dakr@redhat.com
+Stable-dep-of: 511585987d27 ("drm/nouveau: unsubscribe the channel-kill event before the fence context")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_bo.c   | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_chan.c | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_drv.h  | 9 +++++++++
+ drivers/gpu/drm/nouveau/nouveau_gem.c  | 6 +++---
+ 4 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 18489779fb8aa..c32b328ff510a 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -50,7 +50,7 @@ static int
- simplefb_get_validated_int0(struct drm_device *dev, const char *name,
- 			    uint32_t value)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index ab571b76b129f..23063a960dce5 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -206,7 +206,7 @@ nouveau_bo_alloc(struct nouveau_cli *cli, u64 *size, int *align, u32 domain,
+ 	struct nouveau_drm *drm = cli->drm;
+ 	struct nouveau_bo *nvbo;
+ 	struct nvif_mmu *mmu = &cli->mmu;
+-	struct nvif_vmm *vmm = cli->svm.cli ? &cli->svm.vmm : &cli->vmm.vmm;
++	struct nvif_vmm *vmm = &nouveau_cli_vmm(cli)->vmm;
+ 	int i, pi = -1;
+ 
+ 	if (!*size) {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
+index 48dea5d0c580f..65033f3a2067a 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_chan.c
++++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+@@ -150,7 +150,7 @@ nouveau_channel_prep(struct nouveau_drm *drm, struct nvif_device *device,
+ 
+ 	chan->device = device;
+ 	chan->drm = drm;
+-	chan->vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
++	chan->vmm = nouveau_cli_vmm(cli);
+ 	atomic_set(&chan->killed, 0);
+ 
+ 	/* allocate memory for dma push buffer */
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
+index 84df5ddae4d06..560ac3939e264 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drv.h
++++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
+@@ -118,6 +118,15 @@ struct nouveau_cli_work {
+ 	struct dma_fence_cb cb;
+ };
+ 
++static inline struct nouveau_vmm *
++nouveau_cli_vmm(struct nouveau_cli *cli)
++{
++	if (cli->svm.cli)
++		return &cli->svm;
++
++	return &cli->vmm;
++}
++
+ void nouveau_cli_work_queue(struct nouveau_cli *, struct dma_fence *,
+ 			    struct nouveau_cli_work *);
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 0ec96d9372cd7..3c490a3860b6d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -100,7 +100,7 @@ nouveau_gem_object_open(struct drm_gem_object *gem, struct drm_file *file_priv)
+ 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
+ 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
+ 	struct device *dev = drm->dev->dev;
+-	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
++	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
+ 	struct nouveau_vma *vma;
+ 	int ret;
+ 
+@@ -177,7 +177,7 @@ nouveau_gem_object_close(struct drm_gem_object *gem, struct drm_file *file_priv)
+ 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
+ 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
+ 	struct device *dev = drm->dev->dev;
+-	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : & cli->vmm;
++	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
+ 	struct nouveau_vma *vma;
+ 	int ret;
+ 
+@@ -266,7 +266,7 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
  {
--	if (!value) {
-+	if (!value || value > U16_MAX) {
- 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
- 			name, value);
- 		return -EINVAL;
+ 	struct nouveau_cli *cli = nouveau_cli(file_priv);
+ 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
+-	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
++	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
+ 	struct nouveau_vma *vma;
+ 
+ 	if (is_power_of_2(nvbo->valid_domains))
 -- 
 2.53.0
 
