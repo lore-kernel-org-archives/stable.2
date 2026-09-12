@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA75A478E36;
-	Sat, 12 Sep 2026 16:03:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEE447277D;
+	Sat, 12 Sep 2026 16:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789229019; cv=none; b=t0DH1Lamb0ViuX7zPDDhuKtL6XtENhyLYhMf5nrJL4Mfxl1pYz2jvz50Un6bNz5IiSHhuPycjpQ44Xoy7Q/LOUn239wdaG9rbDdnVk9NYbCcm6fteAx91Nai9ds8qEk5Hl3NPLcXOiZrqns1Ou/nJrFLXZF3i7eH/AaF9KoLI3c=
+	t=1789229023; cv=none; b=BjcR9sl85MjuCgA78mCuWyVvSzy/phOjqqefphOQGv0m3CQC/fRC6IESXZ1w8TWtxr6RVKXlxN9NWsVUo8nw0brA8JbIEqhxgAmuoZ9wzBmlXBWEU1/9ArQYOVdlTCmIH0gMSiWojnNDMVhTZ4Hc//9kqEpq0HRHosjBBQI11z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789229019; c=relaxed/simple;
-	bh=uOhKmlSHoK6xEvkZ4BxAYCTJWQeRhaLMi6ZkZMfXE6s=;
+	s=arc-20240116; t=1789229023; c=relaxed/simple;
+	bh=5unGlG/wZn2Vig9Pr5cjdbOf2C9Wzt/ACpC+27LSUwA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LbxbcedWm7qHiKsSMbug4/1CNb2OT/gTRcEfolnz8z8VlM0cbook3ZITgb6zsXoev7cN43He7AwdFpdpv1ol9h3Kb9PL4+uhDv42Uee1tSITG2OdSRFCCjQ4WkQmQcgbc8H0gMAox+rPi/UcvA06e2cjw5SftnPGgulX2sPz234=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1fNHY/84; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jEGxeKcFOVVJ3AwfK9jiWS6ElIu0hA7V24NmS81LiQ4bM9j+1pZoEQytBp8kaLUCK4kOcCiDuBWg9/gID6yFaW7sCTvcTu3zbWdzSMwJc0ca0Te/yFUQU9D1uD5ei2drvhojp+AYS9OtwFr7Ja5XRO5gYFB9Vz1mdlmvvOVECS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dl8IuTrN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1fNHY/84"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342981F000FF;
-	Sat, 12 Sep 2026 16:03:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dl8IuTrN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390D21F000FF;
+	Sat, 12 Sep 2026 16:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789229017;
-	bh=k0sQBk7BaoqxKNx95anJ2XXzUGvofGhwVR9sQk4NsX0=;
+	s=korg; t=1789229022;
+	bh=wcY1+RoYK7/F8lggLl4EzPc/VDJZzq34VfvDEmmnxmM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1fNHY/84LCntqdLUKlss9csFciGYQ6v0kRAi/VYvU726pZ4SAPGojpfrdzo4wbq52
-	 Ukm4f6X4fuOZAOA1QgGauZfM8WHnhOIzH8t7uMfwClrp50a3dPrVMsf9Kd2wdfE5fm
-	 Wt9R0t791nS5eO3U205MNgTZg3XLM8gH22IVEiJ4=
+	b=dl8IuTrNYANSPe+1S4nTRL8Xz+xAQmRicrST2tj4Qp+LfC/uWJRMiiTAfqmJPEBFo
+	 bqMe/hBOD9F0cWqXXEe+hX0mABb9tzkbjqu+uRL+nyYJGvi90bv0l6Kv3+3fz3Axeu
+	 qLccbsL4te+3NPeKBJqPc0SMhmtNIMHE2J4KNLPk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yichong Chen <chenyichong@uniontech.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
+	Quentin Monnet <quentin@isovalent.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@corigine.com>,
+	Song Liu <song@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0502/1191] tools/bpf/bpftool: Reset vmlinux BTF after map commands
-Date: Sat, 12 Sep 2026 08:53:50 +0200
-Message-ID: <20260912065559.513422236@linuxfoundation.org>
+Subject: [PATCH 6.1 0503/1191] bpftool: Define _GNU_SOURCE only once
+Date: Sat, 12 Sep 2026 08:53:51 +0200
+Message-ID: <20260912065559.536853005@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
 References: <20260912065548.086904252@linuxfoundation.org>
@@ -46,73 +47,140 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Yichong Chen <chenyichong@uniontech.com>
+From: Quentin Monnet <quentin@isovalent.com>
 
-[ Upstream commit 66d7e39e49b0dd57610c9b63afc65b4d5690983b ]
+[ Upstream commit b3d84af7cdfc079ef86d94f7cf125821559925fa ]
 
-get_map_kv_btf() caches the vmlinux BTF object when a map uses
-btf_vmlinux_value_type_id. map dump released that object when the
-command completed, but left the global pointer stale.
+_GNU_SOURCE is defined in several source files for bpftool, but only one
+of them takes the precaution of checking whether the value is already
+defined. Add #ifndef for other occurrences too.
 
-The same cached object can also be returned to print_key_value(), which
-freed it directly. That leaves btf_vmlinux dangling before the command
-cleanup path runs.
+This is in preparation for the support of disassembling JIT-ed programs
+with LLVM, with $(llvm-config --cflags) passing -D_GNU_SOURCE as a
+compilation argument.
 
-Use free_map_kv_btf() for per-entry cleanup, and reset the cached
-btf_vmlinux pointer when the map command releases the object. This keeps
-batch mode from reusing a freed BTF object.
-
-Fixes: 4e1ea33292ff ("bpftool: Support dumping a map with btf_vmlinux_value_type_id")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Link: https://lore.kernel.org/bpf/9072F43B3F74DF91+20260624025055.1574875-2-chenyichong@uniontech.com
+Signed-off-by: Quentin Monnet <quentin@isovalent.com>
+Tested-by: Niklas Söderlund <niklas.soderlund@corigine.com>
+Acked-by: Song Liu <song@kernel.org>
+Link: https://lore.kernel.org/r/20221025150329.97371-2-quentin@isovalent.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Stable-dep-of: f7f540e19751 ("tools/bpf/bpftool: Reset vmlinux BTF after struct_ops commands")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/bpf/bpftool/map.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ tools/bpf/bpftool/common.c        | 2 ++
+ tools/bpf/bpftool/iter.c          | 2 ++
+ tools/bpf/bpftool/jit_disasm.c    | 2 ++
+ tools/bpf/bpftool/net.c           | 2 ++
+ tools/bpf/bpftool/perf.c          | 2 ++
+ tools/bpf/bpftool/prog.c          | 2 ++
+ tools/bpf/bpftool/xlated_dumper.c | 2 ++
+ 7 files changed, 14 insertions(+)
 
-diff --git a/tools/bpf/bpftool/map.c b/tools/bpf/bpftool/map.c
-index 3087ced658adc..1cbed8d7b2ba3 100644
---- a/tools/bpf/bpftool/map.c
-+++ b/tools/bpf/bpftool/map.c
-@@ -781,6 +781,12 @@ static int maps_have_btf(int *fds, int nb_fds)
+diff --git a/tools/bpf/bpftool/common.c b/tools/bpf/bpftool/common.c
+index eea00bc15b5cc..a1cd6d2ac8ef1 100644
+--- a/tools/bpf/bpftool/common.c
++++ b/tools/bpf/bpftool/common.c
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ /* Copyright (C) 2017-2018 Netronome Systems, Inc. */
  
- static struct btf *btf_vmlinux;
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <ctype.h>
+ #include <errno.h>
+ #include <fcntl.h>
+diff --git a/tools/bpf/bpftool/iter.c b/tools/bpf/bpftool/iter.c
+index f88fdc820d238..a3e6b167153db 100644
+--- a/tools/bpf/bpftool/iter.c
++++ b/tools/bpf/bpftool/iter.c
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ // Copyright (C) 2020 Facebook
  
-+static void free_btf_vmlinux(void)
-+{
-+	btf__free(btf_vmlinux);
-+	btf_vmlinux = NULL;
-+}
-+
- static int get_map_kv_btf(const struct bpf_map_info *info, struct btf **btf)
- {
- 	int err = 0;
-@@ -1046,7 +1052,7 @@ static void print_key_value(struct bpf_map_info *info, void *key,
- 		btf_wtr = get_btf_writer();
- 		if (!btf_wtr) {
- 			p_info("failed to create json writer for btf. falling back to plain output");
--			btf__free(btf);
-+			free_map_kv_btf(btf);
- 			btf = NULL;
- 			print_entry_plain(info, key, value);
- 		} else {
-@@ -1062,7 +1068,7 @@ static void print_key_value(struct bpf_map_info *info, void *key,
- 	} else {
- 		print_entry_plain(info, key, value);
- 	}
--	btf__free(btf);
-+	free_map_kv_btf(btf);
- }
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <unistd.h>
+ #include <linux/err.h>
+ #include <bpf/libbpf.h>
+diff --git a/tools/bpf/bpftool/jit_disasm.c b/tools/bpf/bpftool/jit_disasm.c
+index fe23c9669a876..723a9b799a0c3 100644
+--- a/tools/bpf/bpftool/jit_disasm.c
++++ b/tools/bpf/bpftool/jit_disasm.c
+@@ -11,7 +11,9 @@
+  * Licensed under the GNU General Public License, version 2.0 (GPLv2)
+  */
  
- static int do_lookup(int argc, char **argv)
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <stdio.h>
+ #include <stdarg.h>
+ #include <stdint.h>
+diff --git a/tools/bpf/bpftool/net.c b/tools/bpf/bpftool/net.c
+index 24cafb251ef95..2877e3e4ff53e 100644
+--- a/tools/bpf/bpftool/net.c
++++ b/tools/bpf/bpftool/net.c
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ // Copyright (C) 2018 Facebook
+ 
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+diff --git a/tools/bpf/bpftool/perf.c b/tools/bpf/bpftool/perf.c
+index 226ec2c390524..91743445e4c7c 100644
+--- a/tools/bpf/bpftool/perf.c
++++ b/tools/bpf/bpftool/perf.c
+@@ -2,7 +2,9 @@
+ // Copyright (C) 2018 Facebook
+ // Author: Yonghong Song <yhs@fb.com>
+ 
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <ctype.h>
+ #include <errno.h>
+ #include <fcntl.h>
+diff --git a/tools/bpf/bpftool/prog.c b/tools/bpf/bpftool/prog.c
+index e158e010266d5..3f6b190b71d89 100644
+--- a/tools/bpf/bpftool/prog.c
++++ b/tools/bpf/bpftool/prog.c
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ /* Copyright (C) 2017-2018 Netronome Systems, Inc. */
+ 
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <signal.h>
+diff --git a/tools/bpf/bpftool/xlated_dumper.c b/tools/bpf/bpftool/xlated_dumper.c
+index d9386a1a4df4a..3daa05d9bbb73 100644
+--- a/tools/bpf/bpftool/xlated_dumper.c
++++ b/tools/bpf/bpftool/xlated_dumper.c
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ /* Copyright (C) 2018 Netronome Systems, Inc. */
+ 
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
++#endif
+ #include <stdarg.h>
+ #include <stdio.h>
+ #include <stdlib.h>
 -- 
 2.53.0
 
