@@ -1,196 +1,585 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D30492525;
-	Sat, 12 Sep 2026 20:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884C736EAB1
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245390; cv=none; b=eP7+1fUqMn0nqYOlCXl6T10LX1gVVO+OsZ0VMvyos5Qyvch8uuJOehpD6IOUW2aWrnlKZIIAJK/mO4bsdjmTMI77fzoAD/vLvRJVBIPyeVd7tQN4/oHNUlZdMF4cwBkRBXnbWpkzIc2a2y04eNmytnV731wZNsPyL4mygLt3Mlo=
+	t=1789245670; cv=none; b=rVonp39acuMYnqhE3M4RLC5yKUJoRTgeX3ubjJIyHgMSltK3kOl/4VSXxKUJ0g69x3HezTrS7FD9C/jg7uB58X0D5vJmkqkRx8E3p+qBZXY1w7whobGAPFhyGdfWoXt7hAWytSyv2HhrmCxJP21P0p/DHFl4HbbZCZ/xzhNiOZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245390; c=relaxed/simple;
-	bh=jn9vX+q58BrI+9ioEcXtx3rSiX9KFO2u0GRr8qeaUrY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MRojIeZ/xbQ9xoMAQ5swZjRa6azneo6pnRgKkl8d1cURx/pnLd5qekLc7ZGEYGH+xfiDoNnjBvxXcetUnZXzEqB6FeeASmJo6qULCDniGabnfmYEbGUAh5FDw25SK9X3QY0ZLxAM+PKhpdK6E8q5XxNcn2M+NIMdmqcE0HPA2Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSo/QTgv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789245670; c=relaxed/simple;
+	bh=6VMJWat5t7G8zdV+WBLs3QI0vpN8YrhkAdhFGZ/O4/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wd/f15732Giwx4Rj3xXt9k03fDIZdZquD9MWkhC+IYxLaLUhhnu0CAr/ROH3Z0fwyx85HUOifARr0KEXxVtszwLHstIHgQmK0Z0A2bPW6wHhuyaRoCtw7g3cPjLJDCcmon8vt3cNPji16zf934s/d7ynr7lKvbNTAK4AF2yEcY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=M/uLTFzg; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSo/QTgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EB31F000FF;
-	Sat, 12 Sep 2026 20:36:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789245386;
-	bh=vBtCT1cEpxXIQveby/xZxccmBUQ0gx20Lk8uxT2bWdA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GSo/QTgvDot3uKE2881MBnPz4OV6poe3E/3p7vvF3YWV1/2IU8Rmj33RDj5cInt3W
-	 9IMI19Ie08XdBqKpnrkdGhc4tGpe1k6aKJRy36TvSmt9YvILUg6PleQZK63fn5dvzB
-	 QgN/JtGPUzwoYJmV7SYoKnjq3sOsNUIvWsi7yZdo6amAyVp6JygGyvjevhkUuNV2fY
-	 dQrEUv+xLYekpXM+WNWJpHkAhpMTGAr0X4a81ssZB3QEWbVG6kCcnZwXUNxeLZS6qe
-	 xParvFPqb2kc0ZmoBVpkeK9dqWEO13V/Q05rOy9ofh+hE8Z4UCJ6nTq7NY5AXJTJ+/
-	 aiiqvOZlSgDfA==
-Subject: Re: [PATCH net 2/2] selftests/tc-testing: add hhf hh_limit cap tests
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- vtlam@google.com, stable@vger.kernel.org, victor@mojatatu.com,
- hybris@mojatatu.ai, sashiko-bot@kernel.org
-Date: Sat, 12 Sep 2026 20:36:24 +0000
-Message-ID: <178924538491.3125.17360124122407490999@kernel.org>
-In-Reply-To: <QDISC-B855.v1.20260911153152@mojatatu.com.2>
-References: <QDISC-B855.v1.20260911153152@mojatatu.com.2>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="M/uLTFzg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:From:Reply-To;
+	bh=OfTTaqfDpa7nYBfriiJupOGhdfT+e8gtwkqIw7TJoXE=; b=M/uLTFzgxxSqtO3cNmwPmoT6t4
+	lYE/E2YrpuGmA9FJKVDwEQdBIGsvhKxM6PhJhNnm2YnsJB0t5ZM7XWgE5WQsGbuczT4MijjIxhtLV
+	WYECrveQl+8SpvNB6fKDlExKw2pFHromiFTF/gE5cwZ9UJdR6TJEQ/d35cDNj4TaaC9C1rESr0K08
+	BqcBnrbtp5ySUQJqNAlGvL5iTu7br+INhqy9IKYevkXWl7TfpvELlDa6EfKUP3WlDJyRTNDORTo6J
+	IGUJ+xkiWf0dbzDoyKSW0FE5zptytSkjxluNiKD1RhUst8w2ecKvBMtcoJ75jmefh0BZp8oCGA26f
+	lgPiL/AA==;
+Received: from 179-125-86-120-dinamico.pombonet.net.br ([179.125.86.120] helo=quatroqueijos.cascardo.eti.br)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x5UWt-001EXd-KG; Sat, 12 Sep 2026 22:40:55 +0200
+Date: Sat, 12 Sep 2026 17:40:50 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 6.18.y 1/2] drm/ttm: Tidy usage of local variables a
+ little bit
+Message-ID: <aqW40lwCEnQ8NuPH@quatroqueijos.cascardo.eti.br>
+References: <2026090936-stew-difficult-cba0@gregkh>
+ <20260912143418.2961430-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260912143418.2961430-1-sashal@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Sat, Sep 12, 2026 at 10:34:17AM -0400, Sasha Levin wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> 
+> [ Upstream commit c06da4b3573a2d3c906c185450d0b1059d02820e ]
+> 
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Hi, Sasha.
 
-- [Medium] The three change-path rejection tests (e3cc, f681, 147f)
-  assert a witness value that is identical to the kernel default, so…
-- [Low] Commit message overstates the add-path coverage of the new test
-  file.
+You need to apply 91d7e9df4259 ("drm/ttm: Fix bo resource use-after-free")
+too, otherwise this introduces a UAF.
 
---
+Regards.
+Cascardo.
 
-selftests/tc-testing: add hhf hh_limit cap tests
-
-Adds tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
-with six cases exercising the TCA_HHF_HH_FLOWS_LIMIT policy bound on the hhf
-qdisc, covering rejected out-of-range values, the accepted boundary value
-2048, and an add-time value of 500.
-
-A couple of questions about the coverage claims and the assertions.
-
-> Cover the new TCA_HHF_HH_FLOWS_LIMIT bound: values above 2*HH_FLOWS_CNT
-> (4294967295, 65536, 2049) are rejected with the configured limit left
-> untouched on both the change and the add path, the boundary value 2048 is
-> accepted (installed at 100 first so the boundary change is load-bearing),
-> and an add-time hh_limit 500 is preserved instead of being clobbered by
-> the default.
-
-[Severity: Low]
-Does the file really cover all three values "on both the change and the add
-path"?
-
-In hhf_flows_limit.json the values 4294967295, 65536 and 2049 appear only in
-cmdUnderTest lines that use "qdisc change" (tests e3cc, f681 and 147f).
-
-The only invalid add-path case is ca99, and it uses 4294967295 only:
-
-    "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 4294967295",
-    "expExitCode": "2",
-    "verifyCmd": "$TC qdisc show dev $DUMMY",
-    "matchPattern": "qdisc hhf 1: root",
-    "matchCount": "0",
-
-Also, ca99 asserts that no qdisc exists at all, so there is no "configured
-limit left untouched" property being checked on the add path.
-
-Could the changelog describe the actual matrix, or could add-path cases for
-65536 and 2049 be added?
-
-> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
-> new file mode 100644
-> index 0000000000000..44538b9266b65
-> --- /dev/null
-> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
-> @@ -0,0 +1,128 @@
-> +[
-> +    {
-> +        "id": "e3cc",
-> +        "name": "HHF hh_limit rejects value above 2*HH_FLOWS_CNT cap (4294967295)",
-
-[ ... ]
-
-> +        "setup": [
-> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
-> +        ],
-> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 4294967295",
-> +        "expExitCode": "2",
-> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
-> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
-> +        "matchCount": "1",
-
-[Severity: Medium]
-Can this assertion distinguish "limit left untouched" from "limit reset or
-clamped to the cap"?
-
-The setup adds hhf without hh_limit, so hhf_init() leaves the default in
-place:
-
-net/sched/sch_hhf.c:hhf_init() {
-	...
-	/* Cap max active HHs at twice len of hh_flows table. */
-	q->hh_flows_limit = 2 * HH_FLOWS_CNT;
-	...
-}
-
-With HH_FLOWS_CNT 1024 that default is 2048, which is also the policy bound
-used for the attribute:
-
-	[TCA_HHF_HH_FLOWS_LIMIT] = NLA_POLICY_MAX(NLA_U32, 2 * HH_FLOWS_CNT),
-
-So the matched witness "hh_limit 2048" is the same string that hhf_dump()
-would print if a future implementation validated late and wrote or clamped
-q->hh_flows_limit to 2048 before returning the error. Only expExitCode 2 is
-actually pinned down here.
-
-The same applies to f681 (hh_limit 65536) and 147f (hh_limit 2049) below,
-which use the identical defaulted setup and the identical "hh_limit 2048"
-matchPattern.
-
-Would installing a distinct in-range value in setup, e.g.
-"$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 100" and then matching
-"hh_limit 100" after the rejected change, make these three assertions
-load-bearing? Test 223d further down already uses exactly that technique:
-
-> +        "setup": [
-> +            "$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 100"
-> +        ],
-> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 2048",
-
-[ ... ]
-
-> +    {
-> +        "id": "f681",
-> +        "name": "HHF hh_limit rejects 65536 (above 2*HH_FLOWS_CNT cap)",
-
-[ ... ]
-
-> +        "setup": [
-> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
-> +        ],
-> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 65536",
-> +        "expExitCode": "2",
-> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
-> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
-> +        "matchCount": "1",
-
-[ ... ]
-
-> +    {
-> +        "id": "147f",
-> +        "name": "HHF hh_limit rejects first value above cap (2049)",
-
-[ ... ]
-
-> +        "setup": [
-> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
-> +        ],
-> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 2049",
-> +        "expExitCode": "2",
-> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
-> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
-> +        "matchCount": "1",
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-B855.v1.20260911153152%40mojatatu.com
+> At the moment the TTM code has a few places which exibit sub-optimal
+> patterns regarding local variable usage:
+> 
+>  * Having a local with some object cached but not always using it.
+>  * Having a local for a single use object member access.
+>  * Failed opportunities to use a local to cache a pointer.
+> 
+> Lets tidy this a little bit and apply some more consistency.
+> 
+> It is mostly for consistency and redability but I have also checked that
+> there are not negative code generation effects. In fact there are more
+> positives:
+> 
+> add/remove: 0/0 grow/shrink: 3/9 up/down: 12/-175 (-163)
+> Function                                     old     new   delta
+> ttm_pool_restore_and_alloc                   415     423      +8
+> ttm_bo_vunmap                                147     149      +2
+> ttm_bo_evict                                 521     523      +2
+> ttm_bo_vm_fault_reserved                     972     970      -2
+> ttm_bo_vm_dummy_page                         155     152      -3
+> ttm_bo_vm_fault                              203     196      -7
+> ttm_bo_populate                              158     150      -8
+> ttm_bo_move_memcpy                           600     592      -8
+> ttm_bo_kmap                                  667     644     -23
+> ttm_bo_shrink                                333     305     -28
+> ttm_bo_release                               750     720     -30
+> ttm_bo_swapout_cb                            691     625     -66
+> Total: Before=42717, After=42554, chg -0.38%
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Link: https://lore.kernel.org/r/20250919131530.91247-5-tvrtko.ursulin@igalia.com
+> Acked-by: Christian K�nig <christian.koenig@amd.com>
+> Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+> [tursulin: fixup conflict in ttm_bo_move_pipeline_evict]
+> Stable-dep-of: 941ac10529b3 ("drm/ttm: Drop tt->restore after successful restore")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/gpu/drm/ttm/ttm_bo.c       | 62 +++++++++++++++---------------
+>  drivers/gpu/drm/ttm/ttm_bo_util.c  | 47 +++++++++++-----------
+>  drivers/gpu/drm/ttm/ttm_bo_vm.c    | 12 +++---
+>  drivers/gpu/drm/ttm/ttm_pool.c     | 26 +++++++------
+>  drivers/gpu/drm/ttm/ttm_resource.c |  6 +--
+>  5 files changed, 77 insertions(+), 76 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index cf0e785aa9d3c..d3f0f5e32a351 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -266,8 +266,8 @@ static void ttm_bo_release(struct kref *kref)
+>  					      30 * HZ);
+>  		}
+>  
+> -		if (bo->bdev->funcs->release_notify)
+> -			bo->bdev->funcs->release_notify(bo);
+> +		if (bdev->funcs->release_notify)
+> +			bdev->funcs->release_notify(bo);
+>  
+>  		drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
+>  		ttm_mem_io_free(bdev, bo->resource);
+> @@ -281,7 +281,7 @@ static void ttm_bo_release(struct kref *kref)
+>  			ttm_bo_flush_all_fences(bo);
+>  			bo->deleted = true;
+>  
+> -			spin_lock(&bo->bdev->lru_lock);
+> +			spin_lock(&bdev->lru_lock);
+>  
+>  			/*
+>  			 * Make pinned bos immediately available to
+> @@ -297,7 +297,7 @@ static void ttm_bo_release(struct kref *kref)
+>  			}
+>  
+>  			kref_init(&bo->kref);
+> -			spin_unlock(&bo->bdev->lru_lock);
+> +			spin_unlock(&bdev->lru_lock);
+>  
+>  			INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
+>  
+> @@ -358,7 +358,6 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
+>  static int ttm_bo_evict(struct ttm_buffer_object *bo,
+>  			struct ttm_operation_ctx *ctx)
+>  {
+> -	struct ttm_device *bdev = bo->bdev;
+>  	struct ttm_resource *evict_mem;
+>  	struct ttm_placement placement;
+>  	struct ttm_place hop;
+> @@ -369,7 +368,7 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
+>  	dma_resv_assert_held(bo->base.resv);
+>  
+>  	placement.num_placement = 0;
+> -	bdev->funcs->evict_flags(bo, &placement);
+> +	bo->bdev->funcs->evict_flags(bo, &placement);
+>  
+>  	if (!placement.num_placement) {
+>  		ret = ttm_bo_wait_ctx(bo, ctx);
+> @@ -422,16 +421,16 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+>  			      const struct ttm_place *place)
+>  {
+>  	struct ttm_resource *res = bo->resource;
+> -	struct ttm_device *bdev = bo->bdev;
+>  
+>  	dma_resv_assert_held(bo->base.resv);
+> -	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+> +
+> +	if (res->mem_type == TTM_PL_SYSTEM)
+>  		return true;
+>  
+>  	/* Don't evict this BO if it's outside of the
+>  	 * requested placement range
+>  	 */
+> -	return ttm_resource_intersects(bdev, res, place, bo->base.size);
+> +	return ttm_resource_intersects(bo->bdev, res, place, bo->base.size);
+>  }
+>  EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+>  
+> @@ -1105,10 +1104,13 @@ struct ttm_bo_swapout_walk {
+>  static s64
+>  ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+>  {
+> -	struct ttm_place place = {.mem_type = bo->resource->mem_type};
+> +	struct ttm_resource *res = bo->resource;
+> +	struct ttm_place place = { .mem_type = res->mem_type };
+>  	struct ttm_bo_swapout_walk *swapout_walk =
+>  		container_of(walk, typeof(*swapout_walk), walk);
+>  	struct ttm_operation_ctx *ctx = walk->arg.ctx;
+> +	struct ttm_device *bdev = bo->bdev;
+> +	struct ttm_tt *tt = bo->ttm;
+>  	s64 ret;
+>  
+>  	/*
+> @@ -1117,20 +1119,19 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+>  	 * The driver may use the fact that we're moving from SYSTEM
+>  	 * as an indication that we're about to swap out.
+>  	 */
+> -	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, &place)) {
+> +	if (bo->pin_count || !bdev->funcs->eviction_valuable(bo, &place)) {
+>  		ret = -EBUSY;
+>  		goto out;
+>  	}
+>  
+> -	if (!bo->ttm || !ttm_tt_is_populated(bo->ttm) ||
+> -	    bo->ttm->page_flags & TTM_TT_FLAG_EXTERNAL ||
+> -	    bo->ttm->page_flags & TTM_TT_FLAG_SWAPPED) {
+> +	if (!tt || !ttm_tt_is_populated(tt) ||
+> +	    tt->page_flags & (TTM_TT_FLAG_EXTERNAL | TTM_TT_FLAG_SWAPPED)) {
+>  		ret = -EBUSY;
+>  		goto out;
+>  	}
+>  
+>  	if (bo->deleted) {
+> -		pgoff_t num_pages = bo->ttm->num_pages;
+> +		pgoff_t num_pages = tt->num_pages;
+>  
+>  		ret = ttm_bo_wait_ctx(bo, ctx);
+>  		if (ret)
+> @@ -1144,7 +1145,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+>  	/*
+>  	 * Move to system cached
+>  	 */
+> -	if (bo->resource->mem_type != TTM_PL_SYSTEM) {
+> +	if (res->mem_type != TTM_PL_SYSTEM) {
+>  		struct ttm_resource *evict_mem;
+>  		struct ttm_place hop;
+>  
+> @@ -1171,21 +1172,21 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+>  		goto out;
+>  
+>  	ttm_bo_unmap_virtual(bo);
+> -	if (bo->bdev->funcs->swap_notify)
+> -		bo->bdev->funcs->swap_notify(bo);
+> +	if (bdev->funcs->swap_notify)
+> +		bdev->funcs->swap_notify(bo);
+>  
+> -	if (ttm_tt_is_populated(bo->ttm)) {
+> -		spin_lock(&bo->bdev->lru_lock);
+> -		ttm_resource_del_bulk_move(bo->resource, bo);
+> -		spin_unlock(&bo->bdev->lru_lock);
+> +	if (ttm_tt_is_populated(tt)) {
+> +		spin_lock(&bdev->lru_lock);
+> +		ttm_resource_del_bulk_move(res, bo);
+> +		spin_unlock(&bdev->lru_lock);
+>  
+> -		ret = ttm_tt_swapout(bo->bdev, bo->ttm, swapout_walk->gfp_flags);
+> +		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+>  
+> -		spin_lock(&bo->bdev->lru_lock);
+> +		spin_lock(&bdev->lru_lock);
+>  		if (ret)
+> -			ttm_resource_add_bulk_move(bo->resource, bo);
+> -		ttm_resource_move_to_lru_tail(bo->resource);
+> -		spin_unlock(&bo->bdev->lru_lock);
+> +			ttm_resource_add_bulk_move(res, bo);
+> +		ttm_resource_move_to_lru_tail(res);
+> +		spin_unlock(&bdev->lru_lock);
+>  	}
+>  
+>  out:
+> @@ -1258,6 +1259,7 @@ void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+>  int ttm_bo_populate(struct ttm_buffer_object *bo,
+>  		    struct ttm_operation_ctx *ctx)
+>  {
+> +	struct ttm_device *bdev = bo->bdev;
+>  	struct ttm_tt *tt = bo->ttm;
+>  	bool swapped;
+>  	int ret;
+> @@ -1268,16 +1270,16 @@ int ttm_bo_populate(struct ttm_buffer_object *bo,
+>  		return 0;
+>  
+>  	swapped = ttm_tt_is_swapped(tt);
+> -	ret = ttm_tt_populate(bo->bdev, tt, ctx);
+> +	ret = ttm_tt_populate(bdev, tt, ctx);
+>  	if (ret)
+>  		return ret;
+>  
+>  	if (swapped && !ttm_tt_is_swapped(tt) && !bo->pin_count &&
+>  	    bo->resource) {
+> -		spin_lock(&bo->bdev->lru_lock);
+> +		spin_lock(&bdev->lru_lock);
+>  		ttm_resource_add_bulk_move(bo->resource, bo);
+>  		ttm_resource_move_to_lru_tail(bo->resource);
+> -		spin_unlock(&bo->bdev->lru_lock);
+> +		spin_unlock(&bdev->lru_lock);
+>  	}
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index acbbca9d5c92f..85bb9f9f1f616 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -174,13 +174,13 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object *bo,
+>  
+>  	dst_iter = ttm_kmap_iter_linear_io_init(&_dst_iter.io, bdev, dst_mem);
+>  	if (PTR_ERR(dst_iter) == -EINVAL && dst_man->use_tt)
+> -		dst_iter = ttm_kmap_iter_tt_init(&_dst_iter.tt, bo->ttm);
+> +		dst_iter = ttm_kmap_iter_tt_init(&_dst_iter.tt, ttm);
+>  	if (IS_ERR(dst_iter))
+>  		return PTR_ERR(dst_iter);
+>  
+>  	src_iter = ttm_kmap_iter_linear_io_init(&_src_iter.io, bdev, src_mem);
+>  	if (PTR_ERR(src_iter) == -EINVAL && src_man->use_tt)
+> -		src_iter = ttm_kmap_iter_tt_init(&_src_iter.tt, bo->ttm);
+> +		src_iter = ttm_kmap_iter_tt_init(&_src_iter.tt, ttm);
+>  	if (IS_ERR(src_iter)) {
+>  		ret = PTR_ERR(src_iter);
+>  		goto out_src_iter;
+> @@ -318,11 +318,11 @@ static int ttm_bo_ioremap(struct ttm_buffer_object *bo,
+>  {
+>  	struct ttm_resource *mem = bo->resource;
+>  
+> -	if (bo->resource->bus.addr) {
+> +	if (mem->bus.addr) {
+>  		map->bo_kmap_type = ttm_bo_map_premapped;
+> -		map->virtual = ((u8 *)bo->resource->bus.addr) + offset;
+> +		map->virtual = ((u8 *)mem->bus.addr) + offset;
+>  	} else {
+> -		resource_size_t res = bo->resource->bus.offset + offset;
+> +		resource_size_t res = mem->bus.offset + offset;
+>  
+>  		map->bo_kmap_type = ttm_bo_map_iomap;
+>  		if (mem->bus.caching == ttm_write_combined)
+> @@ -349,7 +349,7 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
+>  	};
+>  	struct ttm_tt *ttm = bo->ttm;
+>  	struct ttm_resource_manager *man =
+> -			ttm_manager_type(bo->bdev, bo->resource->mem_type);
+> +			ttm_manager_type(bo->bdev, mem->mem_type);
+>  	pgprot_t prot;
+>  	int ret;
+>  
+> @@ -428,20 +428,21 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
+>  		unsigned long start_page, unsigned long num_pages,
+>  		struct ttm_bo_kmap_obj *map)
+>  {
+> +	struct ttm_resource *res = bo->resource;
+>  	unsigned long offset, size;
+>  	int ret;
+>  
+>  	map->virtual = NULL;
+>  	map->bo = bo;
+> -	if (num_pages > PFN_UP(bo->resource->size))
+> +	if (num_pages > PFN_UP(res->size))
+>  		return -EINVAL;
+> -	if ((start_page + num_pages) > PFN_UP(bo->resource->size))
+> +	if ((start_page + num_pages) > PFN_UP(res->size))
+>  		return -EINVAL;
+>  
+> -	ret = ttm_mem_io_reserve(bo->bdev, bo->resource);
+> +	ret = ttm_mem_io_reserve(bo->bdev, res);
+>  	if (ret)
+>  		return ret;
+> -	if (!bo->resource->bus.is_iomem) {
+> +	if (!res->bus.is_iomem) {
+>  		return ttm_bo_kmap_ttm(bo, start_page, num_pages, map);
+>  	} else {
+>  		offset = start_page << PAGE_SHIFT;
+> @@ -581,7 +582,7 @@ void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>  		iounmap(map->vaddr_iomem);
+>  	iosys_map_clear(map);
+>  
+> -	ttm_mem_io_free(bo->bdev, bo->resource);
+> +	ttm_mem_io_free(bo->bdev, mem);
+>  }
+>  EXPORT_SYMBOL(ttm_bo_vunmap);
+>  
+> @@ -644,10 +645,9 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
+>  static void ttm_bo_move_pipeline_evict(struct ttm_buffer_object *bo,
+>  				       struct dma_fence *fence)
+>  {
+> -	struct ttm_device *bdev = bo->bdev;
+>  	struct ttm_resource_manager *from;
+>  
+> -	from = ttm_manager_type(bdev, bo->resource->mem_type);
+> +	from = ttm_manager_type(bo->bdev, bo->resource->mem_type);
+>  
+>  	/**
+>  	 * BO doesn't have a TTM we need to bind/unbind. Just remember
+> @@ -719,8 +719,8 @@ EXPORT_SYMBOL(ttm_bo_move_accel_cleanup);
+>  void ttm_bo_move_sync_cleanup(struct ttm_buffer_object *bo,
+>  			      struct ttm_resource *new_mem)
+>  {
+> -	struct ttm_device *bdev = bo->bdev;
+> -	struct ttm_resource_manager *man = ttm_manager_type(bdev, new_mem->mem_type);
+> +	struct ttm_resource_manager *man =
+> +		ttm_manager_type(bo->bdev, new_mem->mem_type);
+>  	int ret;
+>  
+>  	ret = ttm_bo_wait_free_node(bo, man->use_tt);
+> @@ -824,13 +824,12 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
+>  				   struct ttm_buffer_object *bo)
+>  {
+>  	struct ttm_lru_walk_arg *arg = curs->arg;
+> -	struct dma_resv *resv = bo->base.resv;
+>  	int ret;
+>  
+>  	if (arg->ctx->interruptible)
+> -		ret = dma_resv_lock_interruptible(resv, arg->ticket);
+> +		ret = dma_resv_lock_interruptible(bo->base.resv, arg->ticket);
+>  	else
+> -		ret = dma_resv_lock(resv, arg->ticket);
+> +		ret = dma_resv_lock(bo->base.resv, arg->ticket);
+>  
+>  	if (!ret) {
+>  		curs->needs_unlock = true;
+> @@ -1074,7 +1073,7 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
+>  		.num_placement = 1,
+>  		.placement = &sys_placement_flags,
+>  	};
+> -	struct ttm_tt *tt = bo->ttm;
+> +	struct ttm_device *bdev = bo->bdev;
+>  	long lret;
+>  
+>  	dma_resv_assert_held(bo->base.resv);
+> @@ -1096,19 +1095,19 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
+>  		return lret;
+>  
+>  	if (bo->bulk_move) {
+> -		spin_lock(&bo->bdev->lru_lock);
+> +		spin_lock(&bdev->lru_lock);
+>  		ttm_resource_del_bulk_move(bo->resource, bo);
+> -		spin_unlock(&bo->bdev->lru_lock);
+> +		spin_unlock(&bdev->lru_lock);
+>  	}
+>  
+> -	lret = ttm_tt_backup(bo->bdev, tt, (struct ttm_backup_flags)
+> +	lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
+>  			     {.purge = flags.purge,
+>  			      .writeback = flags.writeback});
+>  
+>  	if (lret <= 0 && bo->bulk_move) {
+> -		spin_lock(&bo->bdev->lru_lock);
+> +		spin_lock(&bdev->lru_lock);
+>  		ttm_resource_add_bulk_move(bo->resource, bo);
+> -		spin_unlock(&bo->bdev->lru_lock);
+> +		spin_unlock(&bdev->lru_lock);
+>  	}
+>  
+>  	if (lret < 0 && lret != -EINTR)
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index e6abc7b40b189..a80510489c456 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -186,7 +186,6 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct ttm_buffer_object *bo = vma->vm_private_data;
+> -	struct ttm_device *bdev = bo->bdev;
+>  	unsigned long page_offset;
+>  	unsigned long page_last;
+>  	unsigned long pfn;
+> @@ -205,7 +204,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>  	if (unlikely(ret != 0))
+>  		return ret;
+>  
+> -	err = ttm_mem_io_reserve(bdev, bo->resource);
+> +	err = ttm_mem_io_reserve(bo->bdev, bo->resource);
+>  	if (unlikely(err != 0))
+>  		return VM_FAULT_SIGBUS;
+>  
+> @@ -293,7 +292,6 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct ttm_buffer_object *bo = vma->vm_private_data;
+> -	struct drm_device *ddev = bo->base.dev;
+>  	vm_fault_t ret = VM_FAULT_NOPAGE;
+>  	unsigned long address;
+>  	unsigned long pfn;
+> @@ -305,7 +303,8 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
+>  		return VM_FAULT_OOM;
+>  
+>  	/* Set the page to be freed using drmm release action */
+> -	if (drmm_add_action_or_reset(ddev, ttm_bo_release_dummy_page, page))
+> +	if (drmm_add_action_or_reset(bo->base.dev, ttm_bo_release_dummy_page,
+> +				     page))
+>  		return VM_FAULT_OOM;
+>  
+>  	pfn = page_to_pfn(page);
+> @@ -322,10 +321,9 @@ EXPORT_SYMBOL(ttm_bo_vm_dummy_page);
+>  vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+> -	pgprot_t prot;
+>  	struct ttm_buffer_object *bo = vma->vm_private_data;
+> -	struct drm_device *ddev = bo->base.dev;
+>  	vm_fault_t ret;
+> +	pgprot_t prot;
+>  	int idx;
+>  
+>  	ret = ttm_bo_vm_reserve(bo, vmf);
+> @@ -333,7 +331,7 @@ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+>  		return ret;
+>  
+>  	prot = vma->vm_page_prot;
+> -	if (drm_dev_enter(ddev, &idx)) {
+> +	if (drm_dev_enter(bo->base.dev, &idx)) {
+>  		ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
+>  		drm_dev_exit(idx);
+>  	} else {
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 01083720e4e7f..1f52a1f59d7b7 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -836,32 +836,34 @@ EXPORT_SYMBOL(ttm_pool_alloc);
+>  int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>  			       const struct ttm_operation_ctx *ctx)
+>  {
+> +	struct ttm_pool_tt_restore *restore = tt->restore;
+>  	struct ttm_pool_alloc_state alloc;
+>  
+>  	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
+>  		return -EINVAL;
+>  
+> -	if (!tt->restore) {
+> +	if (!restore) {
+>  		gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
+>  
+>  		ttm_pool_alloc_state_init(tt, &alloc);
+>  		if (ctx->gfp_retry_mayfail)
+>  			gfp |= __GFP_RETRY_MAYFAIL;
+>  
+> -		tt->restore = kzalloc(sizeof(*tt->restore), gfp);
+> -		if (!tt->restore)
+> +		restore = kzalloc(sizeof(*restore), gfp);
+> +		if (!restore)
+>  			return -ENOMEM;
+>  
+> -		tt->restore->snapshot_alloc = alloc;
+> -		tt->restore->pool = pool;
+> -		tt->restore->restored_pages = 1;
+> -	} else {
+> -		struct ttm_pool_tt_restore *restore = tt->restore;
+> -		int ret;
+> +		restore->snapshot_alloc = alloc;
+> +		restore->pool = pool;
+> +		restore->restored_pages = 1;
+>  
+> +		tt->restore = restore;
+> +	} else {
+>  		alloc = restore->snapshot_alloc;
+> -		if (ttm_pool_restore_valid(tt->restore)) {
+> -			ret = ttm_pool_restore_commit(restore, tt->backup, ctx, &alloc);
+> +		if (ttm_pool_restore_valid(restore)) {
+> +			int ret = ttm_pool_restore_commit(restore, tt->backup,
+> +							  ctx, &alloc);
+> +
+>  			if (ret)
+>  				return ret;
+>  		}
+> @@ -869,7 +871,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>  			return 0;
+>  	}
+>  
+> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, tt->restore);
+> +	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> index 2a05fbd075465..8396cab34cb03 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -620,11 +620,11 @@ ttm_resource_cursor_check_bulk(struct ttm_resource_cursor *cursor,
+>  			       struct ttm_lru_item *next_lru)
+>  {
+>  	struct ttm_resource *next = ttm_lru_item_to_res(next_lru);
+> -	struct ttm_lru_bulk_move *bulk = NULL;
+> -	struct ttm_buffer_object *bo = next->bo;
+> +	struct ttm_lru_bulk_move *bulk;
+>  
+>  	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+> -	bulk = bo->bulk_move;
+> +
+> +	bulk = next->bo->bulk_move;
+>  
+>  	if (cursor->bulk != bulk) {
+>  		if (bulk) {
+> -- 
+> 2.53.0
+> 
