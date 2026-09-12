@@ -1,458 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66419369224;
-	Sat, 12 Sep 2026 08:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A2E344DB5
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789203174; cv=none; b=EqTMeWPDs4MAA4W49uwAEHrfhRG1xeKm81Phyo5b5jx+hefin+vvRhzQwbmjovKTV8yc3vhBQDNV1XHyLb80YzpmWY9L7oAXHAtXH0FGBNuIfbqdTH7ddBwoN+CTFm0yCOsySk4xGij003ywu/PS2uOAgCKztrcUygnJTP/Smhg=
+	t=1789203174; cv=none; b=Nmr6Le933LHQD6hxlSQ4WcO/cBIq6qa98RW/kMqKy3UHoXTVMHCW9YzHgGRqRoAQwahKbhggoVl/C4ce4MynQGbUVqc/x0IfQBWD1sjWUmPTxMGeSGGapEMa7eyutzOwOAo4V2D+mYlqNhAkBkE4qJ/y2sNMSxYYOWGVmsYH0lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789203174; c=relaxed/simple;
-	bh=SxoSl2zdvf1mlhzdwzpujyFwTx45qMw6N5WIlZbtN+4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GN6mCzv9qN4M9iixp1MY2S3NY8vuW5bmd+p/+ryEwpqQwYJlWjDgczRk0gpK3Ma1A0To7JdeFUpL1mshcPg7zwSGn8x3Eafd/NP7PMfo5xw3YljAvkT6hqxLW/K8xS7S5vbvaSKPSkIInjbIlXctSUlvW8cdOqX5tMYzqdzmzY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vqSfXwbr; arc=none smtp.client-ip=100.103.45.18
+	bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ERQMp4zbbm0j46TYFHwZqVGq+HyouvTxUij9xQRMmM5dRvXvX9+cL5P+3BDH8xFB4OFj/MxbD3zYRJsqHOcAhrelqq0c1P5UvgBLlDURD5R28yU/R3bUPxT79t6U2EMsI7E8n/b/DbhZB6mkkB1vhbeKAPwiROU3pQomSopLTtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cAAHydwN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e18SaTpT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vqSfXwbr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE791F000FF;
-	Sat, 12 Sep 2026 08:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789203172;
-	bh=N5CcWuvCmewSczAH60jgg1j0YfHPrNZEkneDAN9ag5E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vqSfXwbr5muJnpj6jnr5uCACNgq4Z0ZRdmkKm1EeocGexzq03yo4yUvilHIzaLdxm
-	 KhTm2Q1FIPlNHwBaSGopEqXwawnnpwd0klgFuqZHueFp4wrcGtGJJtddZZgh076E2t
-	 e91fwWyz0oLsIpJ98M9IqFSDqrmgoyDn15giPkh0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mohsin Bashir <hmohsin@meta.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 1327/1815] selftests: drv-net: Test queue stall upon reconfig
-Date: Sat, 12 Sep 2026 08:51:17 +0200
-Message-ID: <20260912065720.175786901@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-References: <20260912065648.999753832@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cAAHydwN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e18SaTpT"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C859Eu3019730
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JBHFKISvb5GpVQD3ZIst72
+	axNU1WVodRSK6PtMFk5sM=; b=cAAHydwN5dNGUGUMFXpisq/Iq0RO/ru1PTNKhK
+	zgjYiDXkNln1quw5I50Sb0gMm+HcficYy3izkgODOkw/NFQtwDGX1JXUJUIWz3Mo
+	/Wtf23DYrFhkN87N6yvH+3JCLxQIBjEZ9NQTMydXhjCjkveTbXv7HxuUHO8YoIAQ
+	zvuWkUX6hPc1M1/no8didy0oBYmUOSZZFBQZfU65re+5FtB1p3HSWXGcfy6rMANp
+	ctPggWEuW9xwZ9MqREqofKCXa+zTGNYOXEYgadusZpCdb2iRvMfNBEklVP6pEqPq
+	Gv9PKaEPu83VwK43p0Fce7HgvaylYYroKO7/TOuO5DLUwjxQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dghfa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso2148315a91.0
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789203171; x=1789807971; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
+        b=e18SaTpT7w9K4ZnNcaORhoMNCx76gTmRjQv3GXtA5M3MNxNXXsnXnc3RhP5ObMAqnW
+         1OJD/XoQ0hiOUCF8ObU0gxA2S4y1sjOEs9OQIn4nfkE7KTvdRwHXAW1XlC3auW8egpgK
+         1qp7z+JjE7gLrugInazxiL59UF2nisF725LV2CWsCyLG8OBxfk3Pg6TEyun+SOiasS2F
+         vS0+L+uSsBJGNk5QSiRi0yflc6Nl0C03oV3F4CrPbms6+uDmFoje2PASpmd3ky/ZHZLN
+         ZwW/sJ7neqmT4uHEo/C+sm3th2/Kaaz/R6OcrBq1p2HE1Z/RCTxoFGXjXJUHpUhukpTp
+         jdiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789203171; x=1789807971;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
+        b=oWkWyo6h+kZa9lvS0dZBM0IYFw63rO5adaZo34veRVlbBMpBmRsUTix0OrB2Tz+sS6
+         L4Y3rn0Aa3WM9t+0/j0cSRToyPkRVaeBpdm8m5liiY5VXwzlxba+r1Fa5XkveRiGN+2p
+         aiF9yyE274ZiPC3pynhAwI85deUmNA6PFH7Smwo+hDuerFlizBeN3gZUilpRaqiibmpz
+         CkNd99YaZJXcSyyHvG/JHAJ+uyKl3R7OS1udaIf1indHSwNArJ+Bnl85lH877JeyRsN+
+         qUJaag6Ao0Ly5hBcZF8a3r/a+DRdg8CdCpVkBnC9Z1yHGxahkTMynm1LgIo/GRP49g9b
+         u85g==
+X-Forwarded-Encrypted: i=1; AKwUvBw1U0c8OZcQtijEGisMKlQXnQdd03KgcI7Ptm4GO7v2FS0MWRtNZeqm3wA4MCl3dyzXmAPolx0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGF1m+RXdm+hO+REzPdkfCeMMggalQKSQYj0dXbJNc/exC/SVB
+	vjR33jPAH5M6rgtZungs86AoCeFjkqhjt3cKVMvJC/mL8sJrc2eCJzmMWoctagnyUBaf1Jwyd0O
+	iRai6clfmO5r4B/edKS1oj3pY/ZnMIj+Whmo5S0S12XSQBu7G9+Ay/GCslfM=
+X-Gm-Gg: AYBFou0PbnWiCUDx49JMmxll3bvdIbOJkOi6H+XWigBjciLYmVPHiJIC9UpA2iHmGNQ
+	2iSSr7NWqVobOpPem2gwA/9n1VweUP/w3938Vjbb2TNfxezObgaBF9Q7nhAxsPrsuCnK8bvTC/R
+	I/Pq6CnEtT7q2mEWHKpOAqtr60PWzJy4Sp3R+Bl918Aiw7HqMdjUezFAVfqSS1cH/BzRp7whUPM
+	L1c52aBnGwnDNVT++sHUnjtXvVTKQ5QxCuQWnrkzxd4TLbr/l8H+2chhaQLlbX3Wnsb2syaPswj
+	TZP0eXD0/a44Q1cb9NCgxzyzPnFwAalOkhFU4g9OkrhZYscfJiUOoi/NeGsUJEEQY6ukW2tN9SA
+	6qNaXUiMhO0mAhIxtYU5535Iva9QNg2TjokUMm8CZpmJOhtlcFcGUiaertXBZrxfCTheXUEw7Rw
+	==
+X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162611a91.9.1789203170748;
+        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
+X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162576a91.9.1789203170296;
+        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
+Received: from congzhan02.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9afa367bsm2721832a91.0.2026.09.12.01.52.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 01:52:49 -0700 (PDT)
+From: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Date: Sat, 12 Sep 2026 16:52:44 +0800
+Subject: [PATCH v2] virtio_blk: use synchronous quiesce in
+ virtblk_freeze_priv()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANsSpWoC/22Nyw6CMBREf8XctSW0PFJc+R+GEChFrgKVXmgkh
+ H+3YNy5meQkM3NWIG1RE1xOK1jtkNAMHsT5BKoth7tmWHsGEYo0zHjIHNqp6p4FLYMqxtlvlWZ
+ ZJZSUdZzEPAU/fVnd4Pu4veVfprl6aDXtX3ujRZqMXQ6v43vvp+D/FY4zzkopo0Y2EReJvBqiY
+ JzLTpm+D3xAvm3bByMsulHRAAAA
+X-Change-ID: 20260910-virtblk_sync_quiesce-9b2c88d45416
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+        Ming Lei <ming.lei@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Cong Zhang <cong.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-38bf1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789203166; l=2165;
+ i=cong.zhang@oss.qualcomm.com; s=20250926; h=from:subject:message-id;
+ bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
+ b=0Ru6H5o7DriZH6nGIn+WEPZQ8StS9Rizbxvz8EIwzzUUBVZ0EF77mcdQDEO7uy9EnjUAdZw7+
+ t7tYlt2DxODCqquyJaKo7mzhK7StK0v9KpZ9C/U5sLB8hfQCB4cYQMQ
+X-Developer-Key: i=cong.zhang@oss.qualcomm.com; a=ed25519;
+ pk=8SBh3ey5igz2nlW+UFC6khFvaNPgG7MmbWtAeO2s6n8=
+X-Proofpoint-GUID: 9L0I7wnmflym2eQjH4B21gQgy0LwrkYH
+X-Proofpoint-ORIG-GUID: 9L0I7wnmflym2eQjH4B21gQgy0LwrkYH
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa512e3 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=roso6HiFfYj01OpyUwUA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfX3V2COy+kUR1/
+ vk0HG5eKRPV3XThSE/lel5NrnOQLXa+ZVYbgg28J6jWaWmGW/9obWLAwSPXcduXFHVHZw8o9GLa
+ nW4OkG7WUH/qTdsff+75yDuG0WC8hUE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfX/DsLnD02Hqwx
+ 6A1FTdTtEW/d3Fn0dAyhQ7AT2Rz7CkVCMtqZU1PtxUcdgQ97R1WZgc6H8gHkfCtx4A2WDWbhTeP
+ sGvXHYLy4kXfWx2h0fSotPI2ueVNcUluig65B6H8eB0sUigU30ctmVZ6UarlWjzrSdsh6oRgSL/
+ naAyAZhNzKrj933YSJNRZ0D0NbwRoqfO6faDdFUMs5z9TVVC+XJ/gRZw1ynitWNYIGOSmgNLBGW
+ ZPEdy4hMHE0ZyMApSw0CxFdDyUTlRLcmyIhG0YlqD/wLF9hXcuBem0DFKqFU8qYFtt3qfrClwOv
+ TahqwMdnMQJ4SjiQgafG3pY2EOKZEms9+4XUP6Y397Tmq0ZSAHP2qYoFoRZZ4qqnPgM+GiWp2hV
+ LD+O1/fFKmbVs1YF9IvOn6RjvfJJjRWA74qxLp4z4rqyD/oRYVri6NqTImzSzhuz50O/J8Db1KI
+ iPRWdk9yUv09wKZPq7Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_03,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1011
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120125
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
+virtblk_freeze_priv().
 
-------------------
+Keep the existing freeze and unfreeze order. The synchronous call waits
+for dispatch code that was already running. The queue remains quiesced
+until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
 
-From: Mohsin Bashir <hmohsin@meta.com>
+Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
 
-[ Upstream commit c98610c2eb7002436f6fca55b21c63200644549a ]
-
-Add a reconfig_tx_stall test that detects the possibility of a TX stall
-after ring reconfiguration. The key observation is that drivers using
-netif_tx_start_all_queues() are prone to experiencing a stall when
-reconfiguration completes compared to drivers using
-netif_tx_wake_all_queues(). start_all_queues only clears DRV_XOFF, while
-wake_all_queues also calls __netif_schedule() to kick the qdisc. Without
-the kick, qdisc backlog present at reconfig time can stay stuck until a
-new trigger is issued.
-
-The test caps the TX ring at 64 entries so it fills quickly, then
-installs FQ on a target TX queue and sends UDP packets with SO_TXTIME
-scheduled in the future. With napi_defer_hard_irqs slowing completions,
-the small ring can fill when FQ releases the burst, leaving requeued
-qdisc backlog with no FQ timer to rescue it. A subsequent ring reconfig
-must wake the queues to drain the backlog. Simply starting the queues can
-leave it stuck.
-
-Some drivers lack backpressure on the TX path and may not be able to
-build up the qdisc backlog the test relies on. In that case report an
-expected failure (xfail) instead of a hard failure.
-
-Testing on some of the existing drivers: Driver-A does not have the bug,
-Driver-B has the bug, Driver-C had the bug but it is fixed now.
-
-Driver-A:
-./drivers/net/ring_reconfig.py -t reconfig_tx_stall
-TAP version 13
-1..1
- Sent 1024 SO_TXTIME packets (+100ms)
- Backlog before reconfig: 1176378 bytes
-ok 1 ring_reconfig.reconfig_tx_stall
- Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-
-Driver-B:
-TAP version 13
-1..1
- Sent 128 SO_TXTIME packets (+100ms)
- Sent 128 SO_TXTIME packets (+200ms)
- Backlog before reconfig: 148372 bytes
- Check| At ./drivers/net/ring_reconfig.py, line 397, in reconfig_tx_stall:
- Check|     ksft_eq(0, backlog,
- Check failed 0 != 148372 qdisc backlog stuck on queue 1 after ring ....
-not ok 1 ring_reconfig.reconfig_tx_stall
- Totals: pass:0 fail:1 xfail:0 xpass:0 skip:0 error:0
-
-Driver-C:
-TAP version 13
-1..1
- Sent 128 SO_TXTIME packets (+100ms)
- Backlog before reconfig: 192278 bytes
-ok 1 ring_reconfig.reconfig_tx_stall
- Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-
-Signed-off-by: Mohsin Bashir <hmohsin@meta.com>
-Link: https://patch.msgid.link/20260731021543.1058526-1-mohsin.bashr@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: ef3d6cca02c8 ("selftests: drv-net: so_txtime: only send test traffic to sch_etf")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
 ---
- tools/testing/selftests/drivers/net/config    |   3 +
- .../selftests/drivers/net/lib/py/env.py       |  11 +-
- .../selftests/drivers/net/ring_reconfig.py    | 255 +++++++++++++++++-
- 3 files changed, 263 insertions(+), 6 deletions(-)
+blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+while the flag is clear. It can then be preempted before it gets a
+request. At that time, it has no queue usage reference, so
+blk_mq_freeze_queue() does not wait for it.
 
-diff --git a/tools/testing/selftests/drivers/net/config b/tools/testing/selftests/drivers/net/config
-index 2070e890e064e..f3933cf3e6be6 100644
---- a/tools/testing/selftests/drivers/net/config
-+++ b/tools/testing/selftests/drivers/net/config
-@@ -4,8 +4,11 @@ CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_INET_PSP=y
- CONFIG_IPV6=y
- CONFIG_MACSEC=m
-+CONFIG_NET_ACT_SKBEDIT=m
- CONFIG_NET_CLS_ACT=y
- CONFIG_NET_CLS_BPF=y
-+CONFIG_NET_CLS_FLOWER=m
-+CONFIG_NET_CLS_MATCHALL=m
- CONFIG_NETCONSOLE=m
- CONFIG_NETCONSOLE_DYNAMIC=y
- CONFIG_NETCONSOLE_EXTENDED_LOG=y
-diff --git a/tools/testing/selftests/drivers/net/lib/py/env.py b/tools/testing/selftests/drivers/net/lib/py/env.py
-index e4ab99b905b16..0156a9572000f 100644
---- a/tools/testing/selftests/drivers/net/lib/py/env.py
-+++ b/tools/testing/selftests/drivers/net/lib/py/env.py
-@@ -114,10 +114,11 @@ class NetDrvEpEnv(NetDrvEnvBase):
-     nsim_v4_pfx = "192.0.2."
-     nsim_v6_pfx = "2001:db8::"
- 
--    def __init__(self, src_path, nsim_test=None):
-+    def __init__(self, src_path, nsim_test=None, queue_count=None):
-         super().__init__(src_path)
- 
-         self._stats_settle_time = None
-+        self._queue_count = queue_count
- 
-         # Things we try to destroy
-         self.remote = None
-@@ -179,9 +180,13 @@ class NetDrvEpEnv(NetDrvEnvBase):
-         self._required_cmd = {}
- 
-     def create_local(self):
-+        nsim_kwargs = {}
-+        if self._queue_count:
-+            nsim_kwargs["queue_count"] = self._queue_count
-+
-         self._netns = NetNS()
--        self._ns = NetdevSimDev()
--        self._ns_peer = NetdevSimDev(ns=self._netns)
-+        self._ns = NetdevSimDev(**nsim_kwargs)
-+        self._ns_peer = NetdevSimDev(ns=self._netns, **nsim_kwargs)
- 
-         with open("/proc/self/ns/net") as nsfd0, \
-              open("/var/run/netns/" + self._netns.name) as nsfd1:
-diff --git a/tools/testing/selftests/drivers/net/ring_reconfig.py b/tools/testing/selftests/drivers/net/ring_reconfig.py
-index f9530a8b08567..2bc329b771340 100755
---- a/tools/testing/selftests/drivers/net/ring_reconfig.py
-+++ b/tools/testing/selftests/drivers/net/ring_reconfig.py
-@@ -5,10 +5,25 @@
- Test channel and ring size configuration via ethtool (-L / -G).
- """
- 
-+import socket
-+import struct
-+import time
-+
- from lib.py import ksft_run, ksft_exit, ksft_pr
- from lib.py import ksft_eq
-+from lib.py import KsftSkipEx, KsftXfailEx
- from lib.py import NetDrvEpEnv, EthtoolFamily, GenerateTraffic
--from lib.py import defer, NlError
-+from lib.py import cmd, defer, rand_port, tc, NlError
-+
-+# Added in Python 3.13; fallback to 61 for x86/ARM/MIPS
-+SO_TXTIME = getattr(socket, "SO_TXTIME", 61)
-+
-+# Not always exported by the socket module; asm-generic value (x86/ARM/MIPS).
-+SO_SNDBUFFORCE = getattr(socket, "SO_SNDBUFFORCE", 32)
-+
-+# TX ring size the test shrinks to so the ring fills quickly.
-+MIN_TX_RING = 32
-+MAX_TX_RING = 1024
- 
- 
- def channels(cfg) -> None:
-@@ -151,14 +166,248 @@ def ringparam(cfg) -> None:
-         GenerateTraffic(cfg).wait_pkts_and_stop(10000)
- 
- 
-+def _write_file(path, val):
-+    """Write val to a file."""
-+    with open(path, "w", encoding="utf-8") as fp:
-+        fp.write(str(val))
-+
-+
-+def _write_sysfs(path, val):
-+    """Write val to a sysfs file, restoring the original value on exit."""
-+    with open(path, "r", encoding="utf-8") as fp:
-+        orig_val = fp.read().strip()
-+    if str(val) == orig_val:
-+        return
-+    _write_file(path, val)
-+    defer(_write_file, path, orig_val)
-+
-+
-+def _get_qdisc_backlog(cfg, mq_handle, queue):
-+    """Return the qdisc backlog (bytes) for the given TX queue's leaf."""
-+    target_parent = f"{mq_handle}{queue + 1:x}"
-+    for q in tc(f"-s qdisc show dev {cfg.ifname}", json=True):
-+        if q.get("parent", "") == target_parent:
-+            return q.get("backlog") or 0
-+    return 0
-+
-+
-+def _setup_fq_qdisc(cfg, port, target_queue, other_queue, flow_limit):
-+    """Put an fq qdisc on target_queue's leaf and return the mq handle in use.
-+
-+    We must not disturb the device's existing TX/RX qdisc policy. On a real
-+    NIC the root mq already has an addressable handle, so we leave the root
-+    and every other queue alone and only swap this one leaf, restoring its
-+    original qdisc afterwards.
-+
-+    @flow_limit raises fq's per-flow packet limit (default 100) so a single
-+    flow can back up more packets than the Tx ring holds and thus overflow it.
-+    """
-+    qdiscs = tc(f"qdisc show dev {cfg.ifname}", json=True)
-+    root = next((q for q in qdiscs if q.get("root")), None)
-+
-+    if root and root["kind"] == "mq" and root["handle"] != "0:":
-+        # Addressable mq (previously-configured): touch only the target queue's
-+        # leaf and restore its original qdisc afterwards.
-+        mq_handle = root["handle"]
-+        parent = f"{mq_handle}{target_queue + 1:x}"
-+        orig = next((q for q in qdiscs if q.get("parent") == parent), None)
-+        orig_kind = orig["kind"] if orig else \
-+            cmd("sysctl -n net.core.default_qdisc").stdout.strip()
-+        defer(tc, f"qdisc replace dev {cfg.ifname} parent {parent} {orig_kind}")
-+    elif root is None or root["kind"] in ("mq", "noqueue"):
-+        # The auto-attached root mq has handle 0: on any device (real or sim),
-+        # which the kernel rejects as a qdisc parent. A 0: handle means the mq
-+        # is the untouched kernel default - no custom child qdiscs can hang off
-+        # an unaddressable parent - so installing a real handle and restoring
-+        # the default mq on exit preserves the device's effective policy.
-+        mq_handle = "1:"
-+        tc(f"qdisc replace dev {cfg.ifname} root handle {mq_handle} mq")
-+        defer(tc, f"qdisc replace dev {cfg.ifname} root mq")
-+        parent = f"{mq_handle}{target_queue + 1:x}"
-+    else:
-+        raise KsftSkipEx(f"root qdisc '{root['kind']}' is not mq; "
-+                         "refusing to disturb existing qdisc policy")
-+
-+    try:
-+        tc(f"qdisc replace dev {cfg.ifname} parent {parent} fq "
-+           f"flow_limit {flow_limit} limit {flow_limit * 2}")
-+    except Exception as exc:
-+        raise KsftSkipEx(
-+            f"fq not available (CONFIG_NET_SCH_FQ): {exc}") from exc
-+
-+    qdisc_j = tc(f"qdisc show dev {cfg.ifname}", json=True)
-+    has_clsact = any(q['kind'] == 'clsact' for q in qdisc_j)
-+    if not has_clsact:
-+        tc(f"qdisc add dev {cfg.ifname} clsact")
-+        defer(tc, f"qdisc del dev {cfg.ifname} clsact")
-+
-+    proto = "ipv6" if int(cfg.addr_ipver) == 6 else "ip"
-+    try:
-+        tc(f"filter add dev {cfg.ifname} egress protocol {proto} "
-+           f"pref 1 flower ip_proto udp dst_port {port} "
-+           f"action skbedit queue_mapping {target_queue}")
-+    except Exception as exc:
-+        raise KsftSkipEx("tc flower/act_skbedit not available") from exc
-+    defer(tc, f"filter del dev {cfg.ifname} egress pref 1")
-+
-+    tc(f"filter add dev {cfg.ifname} egress pref 101 "
-+       f"matchall action skbedit queue_mapping {other_queue}")
-+    defer(tc, f"filter del dev {cfg.ifname} egress pref 101")
-+
-+    return mq_handle
-+
-+
-+def _create_sotxtime_socket(cfg, sndbuf):
-+    """Create a UDP socket with SO_TXTIME enabled, bound to the test device."""
-+    sock = socket.socket(socket.AF_INET6 if cfg.addr_ipver == "6"
-+                         else socket.AF_INET, socket.SOCK_DGRAM)
-+    try:
-+        sock.setsockopt(socket.SOL_SOCKET, SO_TXTIME, struct.pack("Ii", 1, 0))
-+    except OSError as exc:
-+        sock.close()
-+        raise KsftSkipEx("SO_TXTIME not supported") from exc
-+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE,
-+                    cfg.ifname.encode())
-+    # Deferred completions keep every in-flight skb charged to the socket, so
-+    # size the send buffer to hold the whole burst. SO_SNDBUFFORCE bypasses
-+    # net.core.wmem_max (the test runs as root).
-+    try:
-+        sock.setsockopt(socket.SOL_SOCKET, SO_SNDBUFFORCE, sndbuf)
-+    except OSError:
-+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, sndbuf)
-+    return sock
-+
-+
-+def _send_sotxtime_burst(cfg, sock, port, count, delay_ns, pkt_size):
-+    """Send count UDP packets scheduled delay_ns ahead using SO_TXTIME."""
-+    payload = b'\x00' * pkt_size
-+    txtime_ns = time.clock_gettime_ns(time.CLOCK_MONOTONIC) + delay_ns
-+
-+    ancdata = [(socket.SOL_SOCKET, SO_TXTIME, struct.pack("Q", txtime_ns))]
-+    if int(cfg.addr_ipver) == 6:
-+        dest = (cfg.remote_addr, port, 0, 0)
-+    else:
-+        dest = (cfg.remote_addr, port)
-+    for _ in range(count):
-+        sock.sendmsg([payload], ancdata, 0, dest)
-+
-+
-+def _set_small_tx_ring(cfg, ehdr):
-+    """Set the Tx ring to the smallest size the driver accepts.
-+
-+    Start at 32 so the ring fills quickly, then grow exponentially (64,
-+    128, 256, ...) up to 1024. Some drivers enforce a minimum well above 32
-+    (e.g. bnxt needs a large ring for software UDP segmentation), so raise
-+    the lower bound until the driver accepts it, giving up past 1024.
-+    """
-+    size = MIN_TX_RING
-+    while size <= MAX_TX_RING:
-+        try:
-+            cfg.eth.rings_set(ehdr | {'tx': size})
-+            return size
-+        except NlError:
-+            size = size * 2
-+            continue
-+    raise KsftSkipEx("driver rejects all tx ring sizes up to 1024")
-+
-+
-+def reconfig_tx_stall(cfg) -> None:
-+    """Test that qdisc backlog drains after ring reconfiguration."""
-+    target_queue = 1
-+    other_queue = 0
-+
-+    ehdr = {'header': {'dev-index': cfg.ifindex}}
-+    chans = cfg.eth.channels_get(ehdr)
-+
-+    if "combined-max" not in chans:
-+        raise KsftSkipEx("device does not support combined channels")
-+    if chans.get("combined-max", 0) < 2:
-+        raise KsftSkipEx("device does not support 2+ combined channels")
-+    if chans["combined-count"] < 2:
-+        defer(cfg.eth.channels_set,
-+              ehdr | {"combined-count": chans["combined-count"]})
-+        cfg.eth.channels_set(ehdr | {"combined-count": 2})
-+
-+    rings = cfg.eth.rings_get(ehdr)
-+    if 'rx' not in rings or 'tx' not in rings:
-+        raise KsftSkipEx("device does not expose rx/tx ring params")
-+    tx_cur = rings['tx']
-+    if tx_cur <= MIN_TX_RING:
-+        raise KsftSkipEx("tx ring size already at minimum")
-+    defer(cfg.eth.rings_set, ehdr | {'tx': tx_cur})
-+
-+    # Use the smallest Tx ring the driver accepts (32, growing to 1024).
-+    tx_ring = _set_small_tx_ring(cfg, ehdr)
-+
-+    # Slow completions so the ring stays full after FQ releases packets
-+    napi_defer = f"/sys/class/net/{cfg.ifname}/napi_defer_hard_irqs"
-+    gro_timeout = f"/sys/class/net/{cfg.ifname}/gro_flush_timeout"
-+    _write_sysfs(napi_defer, 100)
-+    _write_sysfs(gro_timeout, 1000000000)
-+
-+    port = rand_port()
-+    # A single flow must overflow the ring, so send twice the ring depth and
-+    # let fq hold that many packets for the flow.
-+    pkt_count = tx_ring * 2
-+    mq_handle = _setup_fq_qdisc(cfg, port, target_queue, other_queue,
-+                               tx_ring * 2)
-+
-+    # Size each packet to one MTU (less L3/L4 headers to avoid fragmentation).
-+    pkt_size = cfg.dev['mtu'] - (48 if int(cfg.addr_ipver) == 6 else 28)
-+
-+    # Each queued skb charges the socket its truesize (~2x the payload), so
-+    # budget the send buffer for the whole in-flight burst.
-+    sock = _create_sotxtime_socket(cfg, pkt_count * pkt_size * 2)
-+    defer(sock.close)
-+
-+    for delay_ms in [100, 200, 500]:
-+        _send_sotxtime_burst(cfg, sock, port, pkt_count,
-+                             delay_ms * 1_000_000, pkt_size)
-+        ksft_pr(f"Sent {pkt_count} SO_TXTIME packets (+{delay_ms}ms)")
-+        time.sleep(delay_ms / 1000 + 0.3)
-+
-+        backlog = _get_qdisc_backlog(cfg, mq_handle, target_queue)
-+        if backlog:
-+            break
-+    else:
-+        # A device that completes Tx synchronously (e.g. a software/virtual
-+        # driver like netdevsim) never keeps the ring full long enough for a
-+        # backlog to form, so the wake-vs-start behavior can't be exercised.
-+        # Treat that as an expected failure rather than a hard failure.
-+        raise KsftXfailEx("could not build qdisc backlog")
-+
-+    ksft_pr(f"Backlog before reconfig: {backlog} bytes")
-+
-+    # Trigger ring reconfig — driver should call wake, not just start.
-+    # Grow back to the original size so the driver actually switches channels
-+    # (setting the current size is a no-op the driver short-circuits).
-+    cfg.eth.rings_set(ehdr | {'tx': tx_cur})
-+
-+    # Let completions proceed normally
-+    _write_sysfs(napi_defer, 0)
-+    _write_sysfs(gro_timeout, 0)
-+
-+    # Poll for backlog to drain
-+    for _ in range(100):
-+        backlog = _get_qdisc_backlog(cfg, mq_handle, target_queue)
-+        if not backlog:
-+            break
-+        time.sleep(0.1)
-+
-+    ksft_eq(0, backlog,
-+            comment=f"qdisc backlog stuck on queue {target_queue} "
-+                    f"after ring reconfig")
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
- 
--    with NetDrvEpEnv(__file__) as cfg:
-+    with NetDrvEpEnv(__file__, queue_count=2) as cfg:
-         cfg.eth = EthtoolFamily()
- 
-         ksft_run([channels,
--                  ringparam],
-+                  ringparam,
-+                  reconfig_tx_stall],
-                  args=(cfg, ))
-     ksft_exit()
- 
--- 
-2.53.0
+virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+dispatcher can run again, use its old flag check, get the new request,
+and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+reset the device, delete the virtqueues, and free vblk->vqs. The old
+dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+kernel can crash.
+---
+Changes in v2:
+- Cc stable@vger.kernel.org.
+- Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+---
+ drivers/block/virtio_blk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9d..7a570591e040 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+-	blk_mq_quiesce_queue_nowait(q);
++	blk_mq_quiesce_queue(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
+ 
+ 	/* Ensure we don't receive any more interrupts */
 
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
+
+Best regards,
+--  
+Cong Zhang <cong.zhang@oss.qualcomm.com>
 
