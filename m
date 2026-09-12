@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4E033F368
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201B325A640
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:05:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789178196; cv=none; b=QzkJcjZG/yUjFuKXzRCmXkLvpx250Yb7oKdu2/o2Dh8HlblzAQC/zIuNitfHaRRz6KKejC2hQjmFweKCVMlTorO/NptmWY/MbqhfPiQnQoJqnaOLqAXWebo/5PxmC+pTOnK7LMS9SLEfiJRrACmFLWChsdbywst4YM27BMiqXW8=
+	t=1789178750; cv=none; b=B/P8aB59Fai1qnoi5BuMFG7QZZFikHKm7n/f24W+x0uh4Xxz4mpOaVeAJuHCZnbsVCED1yjy9gFX/pGj5E/cMNWHcszdWmX1qbS5nBDPYrtwMK2kE0TVbyxeON4g11PTORx9dQd9Ksy8/fNYxds0CqHp1rpCvtf8Mco6M8+Usn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789178196; c=relaxed/simple;
-	bh=1ZUWFpBwNOYxkqF1p169ieEYK8PWZG011u5fS3dqQBo=;
+	s=arc-20240116; t=1789178750; c=relaxed/simple;
+	bh=JwjEdlVYzQzW1NZBGzLmjP3ZT14kyOlQ1eLNAfmIxfI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E8zAW7H1keH1EgRVd92QbRJ5EW/8Dt+Kc7XQVkDgwES4NlvIIi/V1/5F+AVYYNnPGbFnhyaBxfxwH+9mPO58o6fiozu3dbPN2aar7lvU8QR+5GtepKicFAb75+Fx8vQJ98h36H3WBPYlSHcWyB3+PaRSsHCnWwr4QwiqOAjRrgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYNWA7ZX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=In0cRW7qBG63igU7ghDb+2h91nrAsFpzqia+7EenePPPhRo5mRqS8Ih6LMCXYR1mTj2/0hYwD+crNXNej2Wyu+xWyfU7vI09DJH6umdbTJ6NC6wQ/5+U9nGA5ksu3LbIFKkbhjbB0VDlfW2w9wje1beXhovpqjq2rqDy2X+sz0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgDpnChj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYNWA7ZX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A39D1F000FF;
-	Sat, 12 Sep 2026 01:56:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgDpnChj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7521F000FF;
+	Sat, 12 Sep 2026 02:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789178194;
-	bh=VAMS9RT0eYfeeGq5QJ6g6Q89ZIs8emXwN28LTAQaMfo=;
+	s=k20260515; t=1789178748;
+	bh=ZD8WRV03JbnR9tAbpvHNEi470H6SJq+/Pa4IMFur6iE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PYNWA7ZXP7OctExEQaDWE00fzAZIH+Qh8w5QKTWdQl9StJGGGqS69CJXde9xnVTZZ
-	 6/Alw2tdmyjt9BhJEPR65onkfKY/GUVypfB9OeDywF73HCk5JTCZVyS0QvnmDg3bS9
-	 aeps0cOtbTHr9vd042ImioYDVsqGXe2Bb0O1JyvtrxvAqeCLptCHWD2sgZp9dqOswk
-	 +zJLGXmuT+3PLfmgpM6V+LYjtzQc3rYV/lJdBrNdT8nkSj0o6LH1yDKNDAoHs7vTNO
-	 hnoTONyH/p+H6zFUyGT/XBYbUJkGkdMo7uNOSYAlXjUqhzRoRtTLyws475FReKJlaF
-	 +4gB5HnkAKkBA==
+	b=jgDpnChjlA73fSIjCVcz2hXSkwokA/LHmu0Sbdm5sqsLtUOdhaFk65We56gSd4PhN
+	 3P4HjNtbXsAPkVz1s0/AOqrJoz592X6H2wyVQU96zy3tIPpwjNVwjRDD7cASUTCrb1
+	 ZQJinBzsu/9GueOBPwLf8rfxlVxf9vcxRzFmmyTEobHXIeE0in9tVVAJUWzMe7MQwE
+	 EYcy0TYiXvDaGd+63l2H7kIas/eDxfBVHVV9f9dfdpzznsy8ug8oULJ/VPSVE8wJB7
+	 rkCe2bA4lQ5pEIJcyl/xTrlhwCBI49L1SwXOCLXq8GjHw6rrRwssji1XnXOG57V0/d
+	 CazMt4b4TSxCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Sunmin Jeong <s_min.jeong@samsung.com>,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
-Date: Fri, 11 Sep 2026 21:56:31 -0400
-Message-ID: <20260912015631.1863870-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y] f2fs: accurately adjust free_sections during free_segment_range
+Date: Fri, 11 Sep 2026 22:05:46 -0400
+Message-ID: <20260912020546.1948109-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-skintight-librarian-4737@gregkh>
-References: <2026090957-skintight-librarian-4737@gregkh>
+In-Reply-To: <2026090935-shortness-sheep-ddfc@gregkh>
+References: <2026090935-shortness-sheep-ddfc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,112 +47,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit fa487f56efba6344aef67d871688f0908fe08af3 ]
+[ Upstream commit 8c963d1738fdca400082ff5f9d99e083de4f4e70 ]
 
-It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
-otherwise, fallocate() on pinfile will fail easily even there is slash
-space in conventional zone.
+In free_segment_range(), MAIN_SECS(sbi) is temporarily reduced by `secs`
+to restrict block allocation to the safe remaining main area while valid
+blocks in the truncated range are evacuated by GC.
 
-[Testcase]
-nullblk_create.sh 512 2 1024 1024
-mkfs.f2fs /dev/nullb0 -f -m
-mount /dev/nullb0 /mnt/f2fs/
-touch /mnt/f2fs/pinfile
-f2fs_io pinfile set /mnt/f2fs/pinfile
-mkdir /mnt/f2fs/dir/
-for((i=0;i<3934;i++)) do { dd if=/dev/zero of=/mnt/f2fs/dir/$i bs=1M count=1;} done
-sync
-for((i=0;i<3934;i+=2)) do { rm /mnt/f2fs/dir/$i;} done
-for((i=0;i<1950;i++)) do { rm /mnt/f2fs/dir/$i;} done
-sync
-f2fs_io fallocate 0 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-sync
-stat /mnt/f2fs/pinfile
-f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
+However, FREE_I(sbi)->free_sections tracks the total number of free
+sections across the whole filesystem. If any sections within the
+truncated range were already free upon entering free_segment_range(),
+failing to deduct them from free_sections causes the filesystem to
+overestimate available free sections in the active, reduced main area.
+This leads to inconsistent free section accounting during GC data
+migration and can trigger unexpected allocation failures or assertion
+errors when space is tight.
 
-[Before]
-fallocate failed: Resource temporarily unavailable
-  File: /mnt/f2fs/pinfile
-  Size: 109051904       Blocks: 213208     IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 20:04:02.264000000 +0800
-Modify: 2026-08-12 20:04:26.784000000 +0800
-Change: 2026-08-12 20:04:26.784000000 +0800
- Birth: -
-root@localhost:~#
-root@localhost:~#
-root@localhost:~#
-root@localhost:~# f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000002dc00000 0000000000400000 00001000
-2       0000000000600000 000000002e400000 0000000000600000 00001000
-3       0000000000c00000 000000007a400000 0000000005c00000 00001001
+Fix this by calculating the number of already-free sections in the
+truncated range, deducting them from free_sections upon entering
+free_segment_range(), and restoring them on exit.
 
-[After]
-  File: /mnt/f2fs/pinfile
-  Size: 1073741824      Blocks: 2099216    IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 19:47:49.428000000 +0800
-Modify: 2026-08-12 19:49:06.808000000 +0800
-Change: 2026-08-12 19:49:06.808000000 +0800
- Birth: -
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000003aa00000 0000000000400000 00001000
-2       0000000000600000 000000003b400000 0000000000200000 00001000
-3       0000000000800000 000000007a200000 0000000005e00000 00001000
-4       0000000006600000 0000000002800000 0000000000200000 00001000
-5       0000000006800000 0000000003200000 0000000000400000 00001000
-6       0000000006c00000 0000000003000000 0000000000200000 00001000
-7       0000000006e00000 0000000003600000 0000000037200000 00001000
-8       000000003e000000 000000003b200000 0000000000200000 00001000
-9       000000003e200000 000000003a800000 0000000000200000 00001000
-10      000000003e400000 000000003ae00000 0000000000400000 00001000
-11      000000003e800000 000000003b600000 0000000001800000 00001001
-
-Cc: stable@kernel.org
-Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
-Cc: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
+Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ adapted the GC error check to capture the previously ignored f2fs_gc_range() return value. ]
+[ retained gc_mode and gc_type declarations needed by the older inline GC reset logic. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/segment.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ fs/f2fs/gc.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 9c27353f384be..f4bff680e9e0c 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3148,11 +3148,16 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 1eda818619747..750cf46721c13 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -2194,8 +2194,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ static int free_segment_range(struct f2fs_sb_info *sbi,
+ 				unsigned int secs, bool dry_run)
+ {
+-	unsigned int next_inuse, start, end;
++	unsigned int secno, next_inuse, start, end, end_secno;
+ 	struct cp_control cpc = { CP_RESIZE, 0, 0, 0 };
++	unsigned int freed_secs = 0;
+ 	int gc_mode, gc_type;
+ 	int err = 0;
+ 	int type;
+@@ -2204,6 +2205,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+ 	MAIN_SECS(sbi) -= secs;
+ 	start = MAIN_SECS(sbi) * SEGS_PER_SEC(sbi);
+ 	end = MAIN_SEGS(sbi) - 1;
++	end_secno = GET_SEC_FROM_SEG(sbi, end);
  
- 	if (f2fs_sb_has_blkzoned(sbi) && err && gc_required) {
- 		f2fs_down_write(&sbi->gc_lock);
--		f2fs_gc_range(sbi, 0, GET_SEGNO(sbi, FDEV(0).end_blk), true, 1);
-+		err = f2fs_gc_range(sbi, 0, GET_SEGNO(sbi, FDEV(0).end_blk),
-+				    true, 1);
- 		f2fs_up_write(&sbi->gc_lock);
--
--		gc_required = false;
--		goto retry;
-+		if (err)
-+			return err;
-+		err = f2fs_sync_fs(sbi->sb, 1);
-+		if (!err) {
-+			gc_required = false;
-+			goto retry;
-+		}
+ 	mutex_lock(&DIRTY_I(sbi)->seglist_lock);
+ 	for (gc_mode = 0; gc_mode < MAX_GC_POLICY; gc_mode++)
+@@ -2215,6 +2217,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+ 			sbi->next_victim_seg[gc_type] = NULL_SEGNO;
+ 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
+ 
++	spin_lock(&FREE_I(sbi)->segmap_lock);
++	for (secno = MAIN_SECS(sbi); secno <= end_secno; secno++) {
++		if (!test_bit(secno, FREE_I(sbi)->free_secmap))
++			freed_secs++;
++	}
++	FREE_I(sbi)->free_sections -= freed_secs;
++	spin_unlock(&FREE_I(sbi)->segmap_lock);
++
+ 	/* Move out cursegs from the target range */
+ 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_TYPE; type++) {
+ 		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
+@@ -2239,6 +2249,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+ 		f2fs_bug_on(sbi, 1);
  	}
- 
+ out:
++	spin_lock(&FREE_I(sbi)->segmap_lock);
++	FREE_I(sbi)->free_sections += freed_secs;
++	spin_unlock(&FREE_I(sbi)->segmap_lock);
+ 	MAIN_SECS(sbi) += secs;
  	return err;
+ }
 -- 
 2.53.0
 
