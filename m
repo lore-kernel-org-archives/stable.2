@@ -1,585 +1,120 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884C736EAB1
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3F93ED5C9
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245670; cv=none; b=rVonp39acuMYnqhE3M4RLC5yKUJoRTgeX3ubjJIyHgMSltK3kOl/4VSXxKUJ0g69x3HezTrS7FD9C/jg7uB58X0D5vJmkqkRx8E3p+qBZXY1w7whobGAPFhyGdfWoXt7hAWytSyv2HhrmCxJP21P0p/DHFl4HbbZCZ/xzhNiOZM=
+	t=1789246744; cv=none; b=S/2rB/cIFvLixo9r2Q+h7LR04N7lYo4QmuOh+t/hmWQhcoX0Jf+BgjhvhVMW+5DVvGtlk/E7M9BkAqxsr+xGg+y+sfmorXA6MaFIXZ+stN8152XpzIGW6sReJTjxjC1yb0HVN6Xe44YBGLQ4zkrsOuxn56nZ3tK4wSPAs1vcp0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245670; c=relaxed/simple;
-	bh=6VMJWat5t7G8zdV+WBLs3QI0vpN8YrhkAdhFGZ/O4/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wd/f15732Giwx4Rj3xXt9k03fDIZdZquD9MWkhC+IYxLaLUhhnu0CAr/ROH3Z0fwyx85HUOifARr0KEXxVtszwLHstIHgQmK0Z0A2bPW6wHhuyaRoCtw7g3cPjLJDCcmon8vt3cNPji16zf934s/d7ynr7lKvbNTAK4AF2yEcY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=M/uLTFzg; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789246744; c=relaxed/simple;
+	bh=CM/SZlCMyUWdhem6eFQujkxIJFQ9oso5bltG+mD3DDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J4Z0IvKOPdfncVudKrTWJE3IfNEdAAp8UJd8q1+rvtCkAjzeRc1gayb0DLTA1ExEdGjIP8xPn5MSuqs0VJCtBUDelUXksMJnYA0KN0AN+zVpe84/o7ZW6h375DrzP48XrevhzWHGSHemCbu1okIkENoKyPQ/POfSTc58S5GrT78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1w92YYC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="M/uLTFzg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:From:Reply-To;
-	bh=OfTTaqfDpa7nYBfriiJupOGhdfT+e8gtwkqIw7TJoXE=; b=M/uLTFzgxxSqtO3cNmwPmoT6t4
-	lYE/E2YrpuGmA9FJKVDwEQdBIGsvhKxM6PhJhNnm2YnsJB0t5ZM7XWgE5WQsGbuczT4MijjIxhtLV
-	WYECrveQl+8SpvNB6fKDlExKw2pFHromiFTF/gE5cwZ9UJdR6TJEQ/d35cDNj4TaaC9C1rESr0K08
-	BqcBnrbtp5ySUQJqNAlGvL5iTu7br+INhqy9IKYevkXWl7TfpvELlDa6EfKUP3WlDJyRTNDORTo6J
-	IGUJ+xkiWf0dbzDoyKSW0FE5zptytSkjxluNiKD1RhUst8w2ecKvBMtcoJ75jmefh0BZp8oCGA26f
-	lgPiL/AA==;
-Received: from 179-125-86-120-dinamico.pombonet.net.br ([179.125.86.120] helo=quatroqueijos.cascardo.eti.br)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x5UWt-001EXd-KG; Sat, 12 Sep 2026 22:40:55 +0200
-Date: Sat, 12 Sep 2026 17:40:50 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 6.18.y 1/2] drm/ttm: Tidy usage of local variables a
- little bit
-Message-ID: <aqW40lwCEnQ8NuPH@quatroqueijos.cascardo.eti.br>
-References: <2026090936-stew-difficult-cba0@gregkh>
- <20260912143418.2961430-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1w92YYC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FB31F000FF;
+	Sat, 12 Sep 2026 20:59:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789246743;
+	bh=gCZpj8jKunnCsPAwAWqM25SOn1f64oV56k8y9JPWQK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z1w92YYCHxdHUYgGc6K11C6/gzYAfK7nw61Yz42gdrc7NtYCa3gI26MiRK9vtrFmZ
+	 DVIUTixtR6043GyJHibUq1ry4l7eSpjYFZw3bM+WON6JBX7tqK42NuD/OWXKxw2tIs
+	 kUgBOANaHGOJxBSqxHgmE1QwMZ0Wgd657kyKN06CrmfuO02UiI9to1kYNOnIHMB300
+	 LMm8IDClnqEvKLALLicy+8Ou7SnF+k3wDqAdEKqWQWHtYMXjCBMvBPlezXe6E2c5Rj
+	 ISCjh9rwI3lNGEzIWHifrE1S4pJcAW78yY6MaO2gwqE8gUg482QZZw4xZ+8AQVUSsq
+	 00Y7KRNLAf8Rw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] ksmbd: use __GFP_RETRY_MAYFAIL
+Date: Sat, 12 Sep 2026 16:58:59 -0400
+Message-ID: <20260912205900.3933723-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091124-spout-outward-c397@gregkh>
+References: <2026091124-spout-outward-c397@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260912143418.2961430-1-sashal@kernel.org>
 
-On Sat, Sep 12, 2026 at 10:34:17AM -0400, Sasha Levin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> [ Upstream commit c06da4b3573a2d3c906c185450d0b1059d02820e ]
-> 
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Hi, Sasha.
+[ Upstream commit 0066f623bce8f98b69b752ee03d46a5047c281b8 ]
 
-You need to apply 91d7e9df4259 ("drm/ttm: Fix bo resource use-after-free")
-too, otherwise this introduces a UAF.
+Prefer to report ENOMEM rather than incur the oom for allocations in
+ksmbd. __GFP_NORETRY could not achieve that, It would fail the allocations
+just too easily. __GFP_RETRY_MAYFAIL will keep retrying the allocation
+until there is no more progress and fail the allocation instead go OOM
+and let the caller to deal with it.
 
-Regards.
-Cascardo.
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 
-> At the moment the TTM code has a few places which exibit sub-optimal
-> patterns regarding local variable usage:
-> 
->  * Having a local with some object cached but not always using it.
->  * Having a local for a single use object member access.
->  * Failed opportunities to use a local to cache a pointer.
-> 
-> Lets tidy this a little bit and apply some more consistency.
-> 
-> It is mostly for consistency and redability but I have also checked that
-> there are not negative code generation effects. In fact there are more
-> positives:
-> 
-> add/remove: 0/0 grow/shrink: 3/9 up/down: 12/-175 (-163)
-> Function                                     old     new   delta
-> ttm_pool_restore_and_alloc                   415     423      +8
-> ttm_bo_vunmap                                147     149      +2
-> ttm_bo_evict                                 521     523      +2
-> ttm_bo_vm_fault_reserved                     972     970      -2
-> ttm_bo_vm_dummy_page                         155     152      -3
-> ttm_bo_vm_fault                              203     196      -7
-> ttm_bo_populate                              158     150      -8
-> ttm_bo_move_memcpy                           600     592      -8
-> ttm_bo_kmap                                  667     644     -23
-> ttm_bo_shrink                                333     305     -28
-> ttm_bo_release                               750     720     -30
-> ttm_bo_swapout_cb                            691     625     -66
-> Total: Before=42717, After=42554, chg -0.38%
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> Link: https://lore.kernel.org/r/20250919131530.91247-5-tvrtko.ursulin@igalia.com
-> Acked-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
-> [tursulin: fixup conflict in ttm_bo_move_pipeline_evict]
-> Stable-dep-of: 941ac10529b3 ("drm/ttm: Drop tt->restore after successful restore")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/ttm/ttm_bo.c       | 62 +++++++++++++++---------------
->  drivers/gpu/drm/ttm/ttm_bo_util.c  | 47 +++++++++++-----------
->  drivers/gpu/drm/ttm/ttm_bo_vm.c    | 12 +++---
->  drivers/gpu/drm/ttm/ttm_pool.c     | 26 +++++++------
->  drivers/gpu/drm/ttm/ttm_resource.c |  6 +--
->  5 files changed, 77 insertions(+), 76 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index cf0e785aa9d3c..d3f0f5e32a351 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -266,8 +266,8 @@ static void ttm_bo_release(struct kref *kref)
->  					      30 * HZ);
->  		}
->  
-> -		if (bo->bdev->funcs->release_notify)
-> -			bo->bdev->funcs->release_notify(bo);
-> +		if (bdev->funcs->release_notify)
-> +			bdev->funcs->release_notify(bo);
->  
->  		drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
->  		ttm_mem_io_free(bdev, bo->resource);
-> @@ -281,7 +281,7 @@ static void ttm_bo_release(struct kref *kref)
->  			ttm_bo_flush_all_fences(bo);
->  			bo->deleted = true;
->  
-> -			spin_lock(&bo->bdev->lru_lock);
-> +			spin_lock(&bdev->lru_lock);
->  
->  			/*
->  			 * Make pinned bos immediately available to
-> @@ -297,7 +297,7 @@ static void ttm_bo_release(struct kref *kref)
->  			}
->  
->  			kref_init(&bo->kref);
-> -			spin_unlock(&bo->bdev->lru_lock);
-> +			spin_unlock(&bdev->lru_lock);
->  
->  			INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
->  
-> @@ -358,7 +358,6 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
->  static int ttm_bo_evict(struct ttm_buffer_object *bo,
->  			struct ttm_operation_ctx *ctx)
->  {
-> -	struct ttm_device *bdev = bo->bdev;
->  	struct ttm_resource *evict_mem;
->  	struct ttm_placement placement;
->  	struct ttm_place hop;
-> @@ -369,7 +368,7 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
->  	dma_resv_assert_held(bo->base.resv);
->  
->  	placement.num_placement = 0;
-> -	bdev->funcs->evict_flags(bo, &placement);
-> +	bo->bdev->funcs->evict_flags(bo, &placement);
->  
->  	if (!placement.num_placement) {
->  		ret = ttm_bo_wait_ctx(bo, ctx);
-> @@ -422,16 +421,16 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->  			      const struct ttm_place *place)
->  {
->  	struct ttm_resource *res = bo->resource;
-> -	struct ttm_device *bdev = bo->bdev;
->  
->  	dma_resv_assert_held(bo->base.resv);
-> -	if (bo->resource->mem_type == TTM_PL_SYSTEM)
-> +
-> +	if (res->mem_type == TTM_PL_SYSTEM)
->  		return true;
->  
->  	/* Don't evict this BO if it's outside of the
->  	 * requested placement range
->  	 */
-> -	return ttm_resource_intersects(bdev, res, place, bo->base.size);
-> +	return ttm_resource_intersects(bo->bdev, res, place, bo->base.size);
->  }
->  EXPORT_SYMBOL(ttm_bo_eviction_valuable);
->  
-> @@ -1105,10 +1104,13 @@ struct ttm_bo_swapout_walk {
->  static s64
->  ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
->  {
-> -	struct ttm_place place = {.mem_type = bo->resource->mem_type};
-> +	struct ttm_resource *res = bo->resource;
-> +	struct ttm_place place = { .mem_type = res->mem_type };
->  	struct ttm_bo_swapout_walk *swapout_walk =
->  		container_of(walk, typeof(*swapout_walk), walk);
->  	struct ttm_operation_ctx *ctx = walk->arg.ctx;
-> +	struct ttm_device *bdev = bo->bdev;
-> +	struct ttm_tt *tt = bo->ttm;
->  	s64 ret;
->  
->  	/*
-> @@ -1117,20 +1119,19 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
->  	 * The driver may use the fact that we're moving from SYSTEM
->  	 * as an indication that we're about to swap out.
->  	 */
-> -	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, &place)) {
-> +	if (bo->pin_count || !bdev->funcs->eviction_valuable(bo, &place)) {
->  		ret = -EBUSY;
->  		goto out;
->  	}
->  
-> -	if (!bo->ttm || !ttm_tt_is_populated(bo->ttm) ||
-> -	    bo->ttm->page_flags & TTM_TT_FLAG_EXTERNAL ||
-> -	    bo->ttm->page_flags & TTM_TT_FLAG_SWAPPED) {
-> +	if (!tt || !ttm_tt_is_populated(tt) ||
-> +	    tt->page_flags & (TTM_TT_FLAG_EXTERNAL | TTM_TT_FLAG_SWAPPED)) {
->  		ret = -EBUSY;
->  		goto out;
->  	}
->  
->  	if (bo->deleted) {
-> -		pgoff_t num_pages = bo->ttm->num_pages;
-> +		pgoff_t num_pages = tt->num_pages;
->  
->  		ret = ttm_bo_wait_ctx(bo, ctx);
->  		if (ret)
-> @@ -1144,7 +1145,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
->  	/*
->  	 * Move to system cached
->  	 */
-> -	if (bo->resource->mem_type != TTM_PL_SYSTEM) {
-> +	if (res->mem_type != TTM_PL_SYSTEM) {
->  		struct ttm_resource *evict_mem;
->  		struct ttm_place hop;
->  
-> @@ -1171,21 +1172,21 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
->  		goto out;
->  
->  	ttm_bo_unmap_virtual(bo);
-> -	if (bo->bdev->funcs->swap_notify)
-> -		bo->bdev->funcs->swap_notify(bo);
-> +	if (bdev->funcs->swap_notify)
-> +		bdev->funcs->swap_notify(bo);
->  
-> -	if (ttm_tt_is_populated(bo->ttm)) {
-> -		spin_lock(&bo->bdev->lru_lock);
-> -		ttm_resource_del_bulk_move(bo->resource, bo);
-> -		spin_unlock(&bo->bdev->lru_lock);
-> +	if (ttm_tt_is_populated(tt)) {
-> +		spin_lock(&bdev->lru_lock);
-> +		ttm_resource_del_bulk_move(res, bo);
-> +		spin_unlock(&bdev->lru_lock);
->  
-> -		ret = ttm_tt_swapout(bo->bdev, bo->ttm, swapout_walk->gfp_flags);
-> +		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
->  
-> -		spin_lock(&bo->bdev->lru_lock);
-> +		spin_lock(&bdev->lru_lock);
->  		if (ret)
-> -			ttm_resource_add_bulk_move(bo->resource, bo);
-> -		ttm_resource_move_to_lru_tail(bo->resource);
-> -		spin_unlock(&bo->bdev->lru_lock);
-> +			ttm_resource_add_bulk_move(res, bo);
-> +		ttm_resource_move_to_lru_tail(res);
-> +		spin_unlock(&bdev->lru_lock);
->  	}
->  
->  out:
-> @@ -1258,6 +1259,7 @@ void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
->  int ttm_bo_populate(struct ttm_buffer_object *bo,
->  		    struct ttm_operation_ctx *ctx)
->  {
-> +	struct ttm_device *bdev = bo->bdev;
->  	struct ttm_tt *tt = bo->ttm;
->  	bool swapped;
->  	int ret;
-> @@ -1268,16 +1270,16 @@ int ttm_bo_populate(struct ttm_buffer_object *bo,
->  		return 0;
->  
->  	swapped = ttm_tt_is_swapped(tt);
-> -	ret = ttm_tt_populate(bo->bdev, tt, ctx);
-> +	ret = ttm_tt_populate(bdev, tt, ctx);
->  	if (ret)
->  		return ret;
->  
->  	if (swapped && !ttm_tt_is_swapped(tt) && !bo->pin_count &&
->  	    bo->resource) {
-> -		spin_lock(&bo->bdev->lru_lock);
-> +		spin_lock(&bdev->lru_lock);
->  		ttm_resource_add_bulk_move(bo->resource, bo);
->  		ttm_resource_move_to_lru_tail(bo->resource);
-> -		spin_unlock(&bo->bdev->lru_lock);
-> +		spin_unlock(&bdev->lru_lock);
->  	}
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index acbbca9d5c92f..85bb9f9f1f616 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -174,13 +174,13 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object *bo,
->  
->  	dst_iter = ttm_kmap_iter_linear_io_init(&_dst_iter.io, bdev, dst_mem);
->  	if (PTR_ERR(dst_iter) == -EINVAL && dst_man->use_tt)
-> -		dst_iter = ttm_kmap_iter_tt_init(&_dst_iter.tt, bo->ttm);
-> +		dst_iter = ttm_kmap_iter_tt_init(&_dst_iter.tt, ttm);
->  	if (IS_ERR(dst_iter))
->  		return PTR_ERR(dst_iter);
->  
->  	src_iter = ttm_kmap_iter_linear_io_init(&_src_iter.io, bdev, src_mem);
->  	if (PTR_ERR(src_iter) == -EINVAL && src_man->use_tt)
-> -		src_iter = ttm_kmap_iter_tt_init(&_src_iter.tt, bo->ttm);
-> +		src_iter = ttm_kmap_iter_tt_init(&_src_iter.tt, ttm);
->  	if (IS_ERR(src_iter)) {
->  		ret = PTR_ERR(src_iter);
->  		goto out_src_iter;
-> @@ -318,11 +318,11 @@ static int ttm_bo_ioremap(struct ttm_buffer_object *bo,
->  {
->  	struct ttm_resource *mem = bo->resource;
->  
-> -	if (bo->resource->bus.addr) {
-> +	if (mem->bus.addr) {
->  		map->bo_kmap_type = ttm_bo_map_premapped;
-> -		map->virtual = ((u8 *)bo->resource->bus.addr) + offset;
-> +		map->virtual = ((u8 *)mem->bus.addr) + offset;
->  	} else {
-> -		resource_size_t res = bo->resource->bus.offset + offset;
-> +		resource_size_t res = mem->bus.offset + offset;
->  
->  		map->bo_kmap_type = ttm_bo_map_iomap;
->  		if (mem->bus.caching == ttm_write_combined)
-> @@ -349,7 +349,7 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
->  	};
->  	struct ttm_tt *ttm = bo->ttm;
->  	struct ttm_resource_manager *man =
-> -			ttm_manager_type(bo->bdev, bo->resource->mem_type);
-> +			ttm_manager_type(bo->bdev, mem->mem_type);
->  	pgprot_t prot;
->  	int ret;
->  
-> @@ -428,20 +428,21 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
->  		unsigned long start_page, unsigned long num_pages,
->  		struct ttm_bo_kmap_obj *map)
->  {
-> +	struct ttm_resource *res = bo->resource;
->  	unsigned long offset, size;
->  	int ret;
->  
->  	map->virtual = NULL;
->  	map->bo = bo;
-> -	if (num_pages > PFN_UP(bo->resource->size))
-> +	if (num_pages > PFN_UP(res->size))
->  		return -EINVAL;
-> -	if ((start_page + num_pages) > PFN_UP(bo->resource->size))
-> +	if ((start_page + num_pages) > PFN_UP(res->size))
->  		return -EINVAL;
->  
-> -	ret = ttm_mem_io_reserve(bo->bdev, bo->resource);
-> +	ret = ttm_mem_io_reserve(bo->bdev, res);
->  	if (ret)
->  		return ret;
-> -	if (!bo->resource->bus.is_iomem) {
-> +	if (!res->bus.is_iomem) {
->  		return ttm_bo_kmap_ttm(bo, start_page, num_pages, map);
->  	} else {
->  		offset = start_page << PAGE_SHIFT;
-> @@ -581,7 +582,7 @@ void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map *map)
->  		iounmap(map->vaddr_iomem);
->  	iosys_map_clear(map);
->  
-> -	ttm_mem_io_free(bo->bdev, bo->resource);
-> +	ttm_mem_io_free(bo->bdev, mem);
->  }
->  EXPORT_SYMBOL(ttm_bo_vunmap);
->  
-> @@ -644,10 +645,9 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
->  static void ttm_bo_move_pipeline_evict(struct ttm_buffer_object *bo,
->  				       struct dma_fence *fence)
->  {
-> -	struct ttm_device *bdev = bo->bdev;
->  	struct ttm_resource_manager *from;
->  
-> -	from = ttm_manager_type(bdev, bo->resource->mem_type);
-> +	from = ttm_manager_type(bo->bdev, bo->resource->mem_type);
->  
->  	/**
->  	 * BO doesn't have a TTM we need to bind/unbind. Just remember
-> @@ -719,8 +719,8 @@ EXPORT_SYMBOL(ttm_bo_move_accel_cleanup);
->  void ttm_bo_move_sync_cleanup(struct ttm_buffer_object *bo,
->  			      struct ttm_resource *new_mem)
->  {
-> -	struct ttm_device *bdev = bo->bdev;
-> -	struct ttm_resource_manager *man = ttm_manager_type(bdev, new_mem->mem_type);
-> +	struct ttm_resource_manager *man =
-> +		ttm_manager_type(bo->bdev, new_mem->mem_type);
->  	int ret;
->  
->  	ret = ttm_bo_wait_free_node(bo, man->use_tt);
-> @@ -824,13 +824,12 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
->  				   struct ttm_buffer_object *bo)
->  {
->  	struct ttm_lru_walk_arg *arg = curs->arg;
-> -	struct dma_resv *resv = bo->base.resv;
->  	int ret;
->  
->  	if (arg->ctx->interruptible)
-> -		ret = dma_resv_lock_interruptible(resv, arg->ticket);
-> +		ret = dma_resv_lock_interruptible(bo->base.resv, arg->ticket);
->  	else
-> -		ret = dma_resv_lock(resv, arg->ticket);
-> +		ret = dma_resv_lock(bo->base.resv, arg->ticket);
->  
->  	if (!ret) {
->  		curs->needs_unlock = true;
-> @@ -1074,7 +1073,7 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
->  		.num_placement = 1,
->  		.placement = &sys_placement_flags,
->  	};
-> -	struct ttm_tt *tt = bo->ttm;
-> +	struct ttm_device *bdev = bo->bdev;
->  	long lret;
->  
->  	dma_resv_assert_held(bo->base.resv);
-> @@ -1096,19 +1095,19 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
->  		return lret;
->  
->  	if (bo->bulk_move) {
-> -		spin_lock(&bo->bdev->lru_lock);
-> +		spin_lock(&bdev->lru_lock);
->  		ttm_resource_del_bulk_move(bo->resource, bo);
-> -		spin_unlock(&bo->bdev->lru_lock);
-> +		spin_unlock(&bdev->lru_lock);
->  	}
->  
-> -	lret = ttm_tt_backup(bo->bdev, tt, (struct ttm_backup_flags)
-> +	lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
->  			     {.purge = flags.purge,
->  			      .writeback = flags.writeback});
->  
->  	if (lret <= 0 && bo->bulk_move) {
-> -		spin_lock(&bo->bdev->lru_lock);
-> +		spin_lock(&bdev->lru_lock);
->  		ttm_resource_add_bulk_move(bo->resource, bo);
-> -		spin_unlock(&bo->bdev->lru_lock);
-> +		spin_unlock(&bdev->lru_lock);
->  	}
->  
->  	if (lret < 0 && lret != -EINTR)
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> index e6abc7b40b189..a80510489c456 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> @@ -186,7 +186,6 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	struct ttm_buffer_object *bo = vma->vm_private_data;
-> -	struct ttm_device *bdev = bo->bdev;
->  	unsigned long page_offset;
->  	unsigned long page_last;
->  	unsigned long pfn;
-> @@ -205,7 +204,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
->  	if (unlikely(ret != 0))
->  		return ret;
->  
-> -	err = ttm_mem_io_reserve(bdev, bo->resource);
-> +	err = ttm_mem_io_reserve(bo->bdev, bo->resource);
->  	if (unlikely(err != 0))
->  		return VM_FAULT_SIGBUS;
->  
-> @@ -293,7 +292,6 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	struct ttm_buffer_object *bo = vma->vm_private_data;
-> -	struct drm_device *ddev = bo->base.dev;
->  	vm_fault_t ret = VM_FAULT_NOPAGE;
->  	unsigned long address;
->  	unsigned long pfn;
-> @@ -305,7 +303,8 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
->  		return VM_FAULT_OOM;
->  
->  	/* Set the page to be freed using drmm release action */
-> -	if (drmm_add_action_or_reset(ddev, ttm_bo_release_dummy_page, page))
-> +	if (drmm_add_action_or_reset(bo->base.dev, ttm_bo_release_dummy_page,
-> +				     page))
->  		return VM_FAULT_OOM;
->  
->  	pfn = page_to_pfn(page);
-> @@ -322,10 +321,9 @@ EXPORT_SYMBOL(ttm_bo_vm_dummy_page);
->  vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
-> -	pgprot_t prot;
->  	struct ttm_buffer_object *bo = vma->vm_private_data;
-> -	struct drm_device *ddev = bo->base.dev;
->  	vm_fault_t ret;
-> +	pgprot_t prot;
->  	int idx;
->  
->  	ret = ttm_bo_vm_reserve(bo, vmf);
-> @@ -333,7 +331,7 @@ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
->  		return ret;
->  
->  	prot = vma->vm_page_prot;
-> -	if (drm_dev_enter(ddev, &idx)) {
-> +	if (drm_dev_enter(bo->base.dev, &idx)) {
->  		ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
->  		drm_dev_exit(idx);
->  	} else {
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 01083720e4e7f..1f52a1f59d7b7 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -836,32 +836,34 @@ EXPORT_SYMBOL(ttm_pool_alloc);
->  int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->  			       const struct ttm_operation_ctx *ctx)
->  {
-> +	struct ttm_pool_tt_restore *restore = tt->restore;
->  	struct ttm_pool_alloc_state alloc;
->  
->  	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
->  		return -EINVAL;
->  
-> -	if (!tt->restore) {
-> +	if (!restore) {
->  		gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
->  
->  		ttm_pool_alloc_state_init(tt, &alloc);
->  		if (ctx->gfp_retry_mayfail)
->  			gfp |= __GFP_RETRY_MAYFAIL;
->  
-> -		tt->restore = kzalloc(sizeof(*tt->restore), gfp);
-> -		if (!tt->restore)
-> +		restore = kzalloc(sizeof(*restore), gfp);
-> +		if (!restore)
->  			return -ENOMEM;
->  
-> -		tt->restore->snapshot_alloc = alloc;
-> -		tt->restore->pool = pool;
-> -		tt->restore->restored_pages = 1;
-> -	} else {
-> -		struct ttm_pool_tt_restore *restore = tt->restore;
-> -		int ret;
-> +		restore->snapshot_alloc = alloc;
-> +		restore->pool = pool;
-> +		restore->restored_pages = 1;
->  
-> +		tt->restore = restore;
-> +	} else {
->  		alloc = restore->snapshot_alloc;
-> -		if (ttm_pool_restore_valid(tt->restore)) {
-> -			ret = ttm_pool_restore_commit(restore, tt->backup, ctx, &alloc);
-> +		if (ttm_pool_restore_valid(restore)) {
-> +			int ret = ttm_pool_restore_commit(restore, tt->backup,
-> +							  ctx, &alloc);
-> +
->  			if (ret)
->  				return ret;
->  		}
-> @@ -869,7 +871,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->  			return 0;
->  	}
->  
-> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, tt->restore);
-> +	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 2a05fbd075465..8396cab34cb03 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -620,11 +620,11 @@ ttm_resource_cursor_check_bulk(struct ttm_resource_cursor *cursor,
->  			       struct ttm_lru_item *next_lru)
->  {
->  	struct ttm_resource *next = ttm_lru_item_to_res(next_lru);
-> -	struct ttm_lru_bulk_move *bulk = NULL;
-> -	struct ttm_buffer_object *bo = next->bo;
-> +	struct ttm_lru_bulk_move *bulk;
->  
->  	lockdep_assert_held(&cursor->man->bdev->lru_lock);
-> -	bulk = bo->bulk_move;
-> +
-> +	bulk = next->bo->bulk_move;
->  
->  	if (cursor->bulk != bulk) {
->  		if (bulk) {
-> -- 
-> 2.53.0
-> 
+[Stable dependency adaptation for 73f860489e3be2245598d1819226304fc5b87291]
+Retain only the KSMBD_DEFAULT_GFP definition and its use for the existing
+smb2_read_pipe() payload allocation. These two hunks provide the allocation
+policy and exact patch context needed by "ksmbd: zero pipe read compound
+padding" on Linux 6.6.
+
+Drop the other allocation conversions, which are unrelated to the target.
+This preserves the stable tree's IDA helper, RPC locking, preallocated lease
+tables, ACL scratch sizing, and network-interface lifecycle changes instead
+of importing obsolete upstream context. No functions are added. The target's
+aligned allocation and padding initialization remain in the target commit.
+
+[ sashal: Reduced backport -- upstream 0066f623bce8f touches 24 file(s), this
+  backport carries 2. Not backported here:
+  fs/smb/server/asn1.c
+  fs/smb/server/auth.c
+  fs/smb/server/connection.c
+  fs/smb/server/crypto_ctx.c
+  fs/smb/server/ksmbd_work.c
+  fs/smb/server/mgmt/ksmbd_ida.c
+  fs/smb/server/mgmt/share_config.c
+  fs/smb/server/mgmt/tree_connect.c
+  ... and 14 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 73f860489e3b ("ksmbd: zero pipe read compound padding")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/glob.h    | 2 ++
+ fs/smb/server/smb2pdu.c | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/glob.h b/fs/smb/server/glob.h
+index 5b8f3e0ebdb36..3ce12b60e46fe 100644
+--- a/fs/smb/server/glob.h
++++ b/fs/smb/server/glob.h
+@@ -46,4 +46,6 @@ extern int ksmbd_debug_types;
+ 
+ #define UNICODE_LEN(x)		((x) * 2)
+ 
++#define KSMBD_DEFAULT_GFP	(GFP_KERNEL | __GFP_RETRY_MAYFAIL)
++
+ #endif /* __KSMBD_GLOB_H */
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index d97ffe3d2a710..93185ea112014 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6717,7 +6717,7 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+ 		}
+ 
+ 		aux_payload_buf =
+-			kvmalloc(rpc_resp->payload_sz, GFP_KERNEL);
++			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
+ 		if (!aux_payload_buf) {
+ 			err = -ENOMEM;
+ 			goto out;
+-- 
+2.53.0
+
