@@ -1,73 +1,44 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6307347FFE
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A6835CBD7;
+	Sat, 12 Sep 2026 14:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224094; cv=none; b=EN+zrnpU11/gtu0fG6pNDEu4hurcpMmVr0W+yrvkLugcQzl7lnXE9WIKuonIe6Mn8f2s7IIk9bsQ/RzBenv4c02JyYz+TORqBd2+biLtM9bJpQNdw6jvSCPqP1MhMlkpUImrDt1yGH+YoZAbiEX7IhR8TaVQfRfvyG224uzl6Fk=
+	t=1789224094; cv=none; b=L4WJIr/YCRJgFenPbc5APja+nZBrkLBZg2lLmsXSuI4gFR/b/7vhIlX3PVakwLGcJ8GvvehpPdNC9LzUVA1cSLJ8cc8zzKPBl/zKaeD9AdW0SvcBhfzteqc50KMxNbE2YvLLgAgDgblXGMd1QetSZlyDt8PWGAeTPRQ8El6uaFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789224094; c=relaxed/simple;
-	bh=jJUwvssp7BgAozkd0V89n4c6un4uRRFWxtfNl6AYC6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OEa7bnqpJDIuK33fz+K3M+n2vNm4VvGNyTt8FYR9KM0QE2E18q+vmCmalVLf2qETRx8uIQbHoYzgKhh4AOOXMXd/2zQOQLiHmdrU7ZOLjDVm4UIIYR6CJ54BNBjujQKQv0diIeTIoAOoVRyA410Ww/lNbZLpZE9nDXUl5qcOzbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQ/rLwO4; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=uqXUk/N3vNdTQN09ndcUSq7jxe9v4bTihC9ZKCyEsqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FDrmCtcWPgYecyAIBt1o0G08NFNyqQhNDRokNy5GgSapTYAnym8gyUrwDt8vZMvVNutdFxIIEs4gTXDA3RvWGoyyjOOUViGhKnxCFH5NCm6p5RUldTiqGkhtJPU2MjERfoCuWwpjdSuQM98TGEVN195pRHeMeTcU0IJ4PmFswX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OAwF/nhe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQ/rLwO4"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso532499a91.1
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 07:41:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789224088; x=1789828888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iIsKkBRVqKHVlP9edUOYmG2b5QsoU5qyf6y8sJGrYtM=;
-        b=nQ/rLwO43nAkQ9uAZK9C0K0P+lmIPrA9Y50Ghd+6vzT2l6dtVZzxA9bidBPftsb2a1
-         QfpvaQBFddJ/mo8HKUxIhRltiqhZYKI6MxDF7aCUR8uHDU0VAkpqxudhlaUQjQe2mM70
-         bO6Sli5m7RsEhB12bgDJSjobxDeVHMm/4QAII3beruf88NnV5j89VWo5aXAWpy+v10vh
-         L6GihFzxHlzNiWU/l59EVkQiuOAJr0Sw2aXgEyzKcAyFzJbBKGKnzsmSFbL20oqaO7bC
-         D5/aIvS6p8Y0QcuRaDH+KOw/emot6O76mZzv5+l8L5aExBx2dTpXl+nM9XMpJQWmmYmh
-         LYsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789224088; x=1789828888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iIsKkBRVqKHVlP9edUOYmG2b5QsoU5qyf6y8sJGrYtM=;
-        b=LiBoP2hFxLPF5Qz08A2kqJDVFFxySWedqHI/huagA15rBDnrAz3LVed4w64isyPqdk
-         wCyO2R5O/S06WNg81zBv3r/TDB7dZo1gONfatTt59+QsTeqiZOzAkdRaiJ4qzptZgVzA
-         TFzVbuGUBcpnLwtq14yFGzEOr4hTyVWjZCdYNcLAfPRi1Lsh581/1b7F0uLqc4KJlLpL
-         iqIzDRuw1K8ZFYw+5FCodMKxfQOsNv22EAPA6sRsd96KHlsey6U0OkqJ6+k+cDOKSErJ
-         ntgC7vCsT16rn34vR05PG0xoTAEJGC/abgx0EbXd3mSufDy8TABx0iX6+aMwBt5mKlmf
-         3cJw==
-X-Forwarded-Encrypted: i=1; AKwUvByRDFZ2g2wL3W9OUKxRxelyKhol7mHJFrrVM+Ex8kIRFfhOYzUm6fHNW8ZhNaNePaDvA9EL7oY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwhIJPR3sz9Yz0Kw5VxH8XZNnLtW01z7YmfB5+5szTcvy+2xTJ
-	kwnoMO2pq5iLyx/0L1rOeEjyS9ujx9sjXFk4m7pK44Va2phbzAzxA6dTKGL/ZGHU
-X-Gm-Gg: AYBFou0lQkgocLKDMpKKROyh1bq8Jb11SEqwd432RjdGThxO4OYUAGhRI9ivRYagkyB
-	CaynbwaPpWyY1ynu4dcIwZ8RkkeYb7obDi9n9obvy+PUhTsQwHlilktqTiRkwGGR+6cNcNMnz8p
-	kAzQav0IqXnvPcJQfzZnQRDzBRTr5IoXPM1ikXpbz+xyhUVl3oYNn65w0vqsV/eyD9pESgxwnjh
-	50O+RcQHh3FzIb91XcwmHayJMn6eD6Pxz/JA5mExA2NjVegYJYodV10enUEt/E/njNYbx2euU7m
-	ei8YxVXKD3gXZ2hqdueCN2Q8Gv8eipmcFLs8ANIsaKUWxUtHWFbP9s5JmeMn8XZmWMw/T3ObtFb
-	VD9nTEhUXQdUL56N8cJnY6pDCk6gnxfHeH2whbtPIPV8fDv6KMGADSPylfQIOLaTqQ3t93S06Dd
-	WuJk7okX3KPpvYI49fhOw1N1HQEJBdC8NA2rLww1wk79dB8VvIvlxmOw==
-X-Received: by 2002:a17:90b:548f:b0:392:b509:b1a5 with SMTP id 98e67ed59e1d1-39d9c1db3d4mr16333966a91.14.1789224087801;
-        Sat, 12 Sep 2026 07:41:27 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e60484sm10380257a91.4.2026.09.12.07.41.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 07:41:27 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: omap-des: fix crypto engine cleanup
-Date: Sat, 12 Sep 2026 22:41:16 +0800
-Message-ID: <20260912144116.993932-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OAwF/nhe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C1E1F00893;
+	Sat, 12 Sep 2026 14:41:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789224088;
+	bh=qA8Pcw+RMW0Yh0RMwoCtQUATjYw1FWeVvq24BaXgT3I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OAwF/nhelWfDjMo9Zyddwudxmx2vp+yx/YAsd4q/bkFwa1ADyMKL7Iya2kd/MsaCB
+	 qiDfhRuk6wMZYHVnoCAkQq0OyLiTOTbhHPoIeaM6Cc83InVLgdqrn2kz2ozUmgQGye
+	 NHsh0vlCifSrzzi+S1PFm3QWsnFQhC3KmHpjWNWk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0923/1424] spi: davinci: switch to managed controller allocation
+Date: Sat, 12 Sep 2026 08:55:55 +0200
+Message-ID: <20260912065627.994080665@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,40 +47,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-omap_des_probe() allocates and starts a crypto engine, but the remove
-path does not call the matching crypto_engine_exit(). The probe failure
-path already performs this cleanup.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-crypto_engine_alloc_init() creates a kthread worker for processing
-requests. Without crypto_engine_exit() during driver removal, the
-worker is left running after the device is removed.
+------------------
 
-Call crypto_engine_exit() after unregistering the algorithms and before
-tearing down the remaining request handling resources. This stops the
-engine and destroys its worker.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-This issue was found by manual code inspection.
+[ Upstream commit ea408a05dc8f18b4a184b88d6e19d2fd1acc1527 ]
 
-Fixes: f1b77aaca85a ("crypto: omap-des - Integrate with the crypto engine framework")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+The controller is allocated with the non-managed spi_alloc_host() while
+the interrupt is registered with devm_request_threaded_irq().  During
+removal, spi_bitbang_stop() only unregisters the controller; the
+subsequent spi_controller_put() then frees the controller together with
+its embedded davinci_spi devdata, which is the IRQ handler's dev_id.
+The devm_request_threaded_irq() release action (free_irq()), which
+drains the handler, does not run until after .remove() returns.  A late
+or latched interrupt can therefore reach davinci_spi_irq() and
+dereference already-freed memory.
+
+Switch to devm_spi_alloc_host() so that the devres LIFO order releases
+the controller only after free_irq() has drained the handler, and drop
+the now-redundant spi_controller_put() from .remove().  The probe error
+path is simplified to direct returns.
+
+The clock is acquired with devm_clk_get_enabled(), which is registered
+after the IRQ and thus released before it by the devres LIFO order.
+Drain the interrupt explicitly with devm_free_irq() before disabling the
+controller so that a late interrupt cannot access the registers of a
+clock-gated controller.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 5b3bb5963ff2 ("spi: davinci: Use devm_*() functions")
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260719010014.3163356-2-fanwu01@zju.edu.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/omap-des.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/spi/spi-davinci.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/crypto/omap-des.c b/drivers/crypto/omap-des.c
-index 3b7104cb4487..4b5a8d13f505 100644
---- a/drivers/crypto/omap-des.c
-+++ b/drivers/crypto/omap-des.c
-@@ -1082,6 +1082,8 @@ static void omap_des_remove(struct platform_device *pdev)
+diff --git a/drivers/spi/spi-davinci.c b/drivers/spi/spi-davinci.c
+index 80c5c26f8d961..72f36ee4568b1 100644
+--- a/drivers/spi/spi-davinci.c
++++ b/drivers/spi/spi-davinci.c
+@@ -862,7 +862,7 @@ static int davinci_spi_probe(struct platform_device *pdev)
+ 	int ret = 0;
+ 	u32 spipc0;
  
- 	omap_des_unregister_algs(dd->pdata);
+-	host = spi_alloc_host(&pdev->dev, sizeof(struct davinci_spi));
++	host = devm_spi_alloc_host(&pdev->dev, sizeof(struct davinci_spi));
+ 	if (host == NULL) {
+ 		ret = -ENOMEM;
+ 		goto err;
+@@ -992,7 +992,6 @@ static int davinci_spi_probe(struct platform_device *pdev)
+ 		dma_release_channel(dspi->dma_tx);
+ 	}
+ free_host:
+-	spi_controller_put(host);
+ err:
+ 	return ret;
+ }
+@@ -1016,6 +1015,8 @@ static void davinci_spi_remove(struct platform_device *pdev)
  
-+	crypto_engine_exit(dd->engine);
+ 	spi_bitbang_stop(&dspi->bitbang);
+ 
++	devm_free_irq(&pdev->dev, dspi->irq, dspi);
 +
- 	cancel_work_sync(&dd->done_task);
- 	omap_des_dma_cleanup(dd);
- 	pm_runtime_disable(dd->dev);
+ 	/* This bit needs to be cleared to disable dpsi->clk */
+ 	clear_io_bits(dspi->base + SPIGCR1, SPIGCR1_POWERDOWN_MASK);
+ 
+@@ -1023,8 +1024,6 @@ static void davinci_spi_remove(struct platform_device *pdev)
+ 		dma_release_channel(dspi->dma_rx);
+ 		dma_release_channel(dspi->dma_tx);
+ 	}
+-
+-	spi_controller_put(host);
+ }
+ 
+ static struct platform_driver davinci_spi_driver = {
 -- 
-2.43.0
+2.53.0
+
+
 
