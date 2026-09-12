@@ -1,64 +1,64 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC6E13D53C
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 03:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF49B330D25
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 03:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789184920; cv=none; b=DRX1TxHQ4wzTo+Joh3YJd3egAcsAe0gLpgHYoYchViGnqtQQCotBDqOD+jWISB1QXzdfIUMvtpM8gx76LbRXFV29CJ4JxK4lBSoAUsReoJ+GPYEuejo2Br2gqaf1buGx0cigUCFpqT99aQ4Z4Ll/h6sRIAhR/Wfe91Y2VJEEpNQ=
+	t=1789184922; cv=none; b=rSdMfITI5/UZzSI2ZJ+4I1qfhjHdhqEHF+QbUESaUCpycMyOcOFnbl6avIyHOjrQ/6uWgwRWPCa/hZ8k8OF9LwcEGmVRm3orv2ZQpEKjKdT2QLR+RLXBdTt08w2nShupdDIIxpi47WQcaqvZQpz+8gAUTGLuX5PNPHbekzUjZVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789184920; c=relaxed/simple;
-	bh=uYFJnnnm2NR9mXD5b/fiPbuo/WUiVhKYOc1vVeIcaro=;
+	s=arc-20240116; t=1789184922; c=relaxed/simple;
+	bh=zSuNyhA8z6CuADMjjJbueqDpMT37tnxyY9ZERde6xgc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QmamkQIxmgONtpXIrVL5T4EiFmXikKPvAtp8g9Cokv4jUV0agpWwIr2o6B6Rby+BplO+D4EKqMAjzOk+vGb2WBIqKDEfT3wqw3GA44RVRwZFWUoTwSxAKiKZoAs3buN/rforKdNVtVLPZpPnzVsxHB6ivUzK81+YhPXvcAk8uro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LD2AAdjF; arc=none smtp.client-ip=209.85.219.45
+	 MIME-Version; b=Ve1IvzToPei+qwOGkZCNyXU+oDO07OIeqdTXRAgcArsojNz0OyieM55P3ham7NlrrPxzwRQkxpTKYIMv8pgjkKbf5ZxfmyLNYk5gMmlJJHuek2tAWJGYLs+x+1neXVbCIFq92jHhhQjOnoZZbPkD5y0N3Rh01BtTjVvTJXNJebU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=a4EGe5/1; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LD2AAdjF"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-9103228ef53so17106396d6.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 20:48:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="a4EGe5/1"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcbe207so3482496d6.3
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 20:48:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789184918; x=1789789718; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1789184920; x=1789789720; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5SE/qOas+/SI2EvNxtEJVx4SSxOPMNxV+dkdmLC2H+E=;
-        b=LD2AAdjFCN0FPQA8tvBoez0vdfwDEQZQCk8JOq11DdDmz1R+Ia0Xcj7+Gn7EN63vom
-         RGDIduyByP5MUffxetSnY78Am+ZOWhrR1MkhPW1i3r0nMDmi49GD3ivE63x3b2nOUZAO
-         lGB5igjWUC7nSmDzmzLUQy61TnGGXyXSN7UcwTdC+g4aGfKXLFgIbeqBBvN/KEFGCMqN
-         b25Q4aiJ1CVNKZe2ne8qKqwfXLcP63fpy54ZL96e4f9ztTWDtNqvDSLzxngwQ1uQlfVL
-         XyE9Q3VwG6YeUs4Y4+ranF5CNmAZ/DGbbvfS4B0dL36cl342FvrQu9HuOVYDtJ9UdZOO
-         YtEQ==
+        bh=gwin+KqMEV68jY1s8XlWs9NOlkNCNlU9QmB5425skrY=;
+        b=a4EGe5/19wlf/LCg1zi3K3IX0xD2Fwg3ZfB/alo1MwEGSGe+dh/mj+E0SwhYR/mYZ2
+         y0ZvJPZ3Wp3DGNry7egpC19h1GZBWhI8lZZki5tT+GfLX6Bw5rntQTd+IxYNOCYdS7zZ
+         iylS8VpISeqnfYnnY/iXYCvavexr8W7w3uigtstqJpu19A8Ff7IBu1ZedeTsPPRTr2HZ
+         6EgtdyVaERJQlRc7rqQpT+fg4WYcOAUIYg+j4a0W5ZXqS7WaS5eIZN7Q5pnkPkU0qK43
+         F6Bej37FJAB+zxSWs5YhQJSBm1v8NfIcI/wMbNQILEA08XpvXajQ9XX6XalOHlgG6t9x
+         APNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789184918; x=1789789718;
+        d=1e100.net; s=20251104; t=1789184920; x=1789789720;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5SE/qOas+/SI2EvNxtEJVx4SSxOPMNxV+dkdmLC2H+E=;
-        b=pfjWe8bj/9hD624VPmm3BkjoSUkTXp7xg+BdVUes5grb/DkYHE42INEqMqlbFFoj9K
-         e4w81cO9kZDLOo6Ur1TZREq3tCNqI1RYz4fWRR/G4gjSm0Hj96rw8JjC9ZEunrAVhGfA
-         EVJQ9C3sXAYDr/WTieNI8PMON54+DEaLhVJlF9Zbt9TUdeZrRX0CkrTHAgWFdYVT/8g9
-         xM0BXcdb0Vv0NeLskD/y0Lth2MCLPBhzbBuSwWrXH3pDT8nLHCoyOUYorzBgkQHtd36l
-         DTXgTusq5f6fy8PKrg93oIHy8kIYD76DLwrNLNRAXj9tYbshVoFIpcUxoE3o+gGjxDeK
-         4Juw==
-X-Forwarded-Encrypted: i=1; AKwUvByR6FhFTXC1lSMFkRtkgX+PIy5+tNBgW1y7Q9yCNnBZsnElacd65aeOnr4AlB2VZG0NSLkpfPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKSfkSN9BeER0VVAUFj/jrzQTVZlA+Qx2t+7A22klB6ejZ/rjm
-	CVU5639XG5Seq8UsVgO9GSKLJRyAg0XQkEuYZCyUZFltXvkLqFP4M9O+fpiyHocgPQo=
-X-Gm-Gg: AYBFou3WLeu2WCw0sRpG+UB5FYnjIBDEUYJbIQsLekqJpjsEgs1q6VzcntfmLiv/852
-	pnBl0Sp1Z3s4NhFt/q1ZYI6iHTQvYZE4J3NhpXg0IgGvrMHj75VEzdkTDgzN02y5WrSQm3kvzCO
-	ZlmKvS55VKAe9DI7Z6g5RhSsiu98HlEtoj0lkpF02tVGvYacN32l+vtrGz8Ppz+/W9aSudayXJP
-	wtjUcMCldsxJhlHEc2OBK/d19sjpNBAmu5QgROWGyv+Ny3pu0sxxBsB9mYuxBlGxkSrJJTfJIH/
-	v5E2I0Y22YyB0tOjRTPOG0eWCEH95lCHvH2KVcH7Ce0WBFbhYeHgzmkoAN/Vv0sPjpNDgZAmmNF
-	bws0Z4DZzafsBHjkWtcqLURSH88/IndkqGkKJ/SLLj1XkjByjUS3TEsYCPyqJQYUNfKt1cxr4iC
-	MO+waV3RIDAB00A4HFvH1yePRSUsd9wIfKj25A8kouJfrry5tFhRH8YvjytdHdUN7/xEVOC+Wj/
-	HGzn/7VVKlLxsOdA/b7h9k+cBadJ/J1vELRuebFCG5tBnLvGcPw6KVZnsi6
-X-Received: by 2002:a05:6214:29ef:b0:912:289:647f with SMTP id 6a1803df08f44-912121145f1mr108338996d6.33.1789184918116;
-        Fri, 11 Sep 2026 20:48:38 -0700 (PDT)
+        bh=gwin+KqMEV68jY1s8XlWs9NOlkNCNlU9QmB5425skrY=;
+        b=XIarLmz4NdDKGKybCe20efSszzfpw+s8BT32eF/JCDC1tn3a8xgZgAqS81YFus97gy
+         MMRBZRRZVgFn//oDi9fLLh3XqmtftWvKHnlnDEa667suY4ZSiSckNf+FWt/tIel6Mz4k
+         HR4K9NNsRZtyyHMCfI544EytsNOxFtSh+Dz5mNtz0Vzk4KePpjZtmdiddf4ve6RUBhpt
+         5G/j374njlRkxdPF+QFfmhyKeps2lVpbg37ebNb6RkIumwd+nftjFnM0gnnytMSppAtY
+         +YgnRg7sd2VHz6/uHwNRZrtr/ekYyImWSTbnjG7xojmYPUpLz5UbhNgSaw9lhtVz1p0q
+         krFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxB8XQL8qNEMywVjlNtDarCrQihPGoF+1SIR6vnxCUORLuLuugIgcW1jKgF80g08Ns4Ypwc6eU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEG23n63A+2KgAiAMaFVV6AuSFzFs1NFkfftxmfnLNcx7bKn0T
+	7zIZFAGqd2qlfrMyzVJSehIhxPcZ5q07mZ7zQiOff5xzixi/KaG6tZYIOvWxjsx+qts=
+X-Gm-Gg: AYBFou2EVE6I9E1DIjHYZRPcS3SmaMyrRJ0yWlE0Cl0j51H4NdfG5UP7ITiFr1HvMl6
+	S6tdca3907jPzrwVUZEX1e/hMs5bpB97KHCsQnkjLrqY7PS1OazW5IwwVhI5QA14VX54VTeqRMa
+	xwhDuZuSaVjC0n0/RMZKiIUhG6Pwje+OnT1XgcCUr9Q2vvWMEOfJi/BkhM9il2I9afm+Hh2NL56
+	FkaljwuZNtTFSfGnB974b5/p1W/aZ7A2tsn4LG8LnWIx2wk/FhG582NBEwl8eg5LogE2UGzXjZ0
+	zBogQRLHu5Mpt+aJvoFhGtOH2icVL49V0WWfj3lxojqdBgSsBQBkdlAoptk2AaQY41pkf4pcEM2
+	hLPdYD3030At3GURZCb9WHPNyofd5yEro0tvxSMf1+nIxJB+bzDvgzRAcXpSV/8LNYROMh1X3eT
+	RwuZeEs7q0juNGs/FejS9LFAMb3uW/bMbK7qXebulnRQnRhRCCguIpmx/xCToPP11ivrMVXiEpw
+	blWKwRYOTDMW3fYwSf8IYlUkmgov6VLKm/pnlTBjL4Dt/TY2d1v8iqIarlD
+X-Received: by 2002:ad4:5ae9:0:b0:910:46e1:7bac with SMTP id 6a1803df08f44-9121dabf7b3mr19465126d6.26.1789184919640;
+        Fri, 11 Sep 2026 20:48:39 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f494620sm36252476d6.28.2026.09.11.20.48.37
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f494620sm36252476d6.28.2026.09.11.20.48.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 20:48:37 -0700 (PDT)
+        Fri, 11 Sep 2026 20:48:39 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -81,9 +81,9 @@ Cc: linux-kernel@vger.kernel.org,
 	jgg@ziepe.ca,
 	sashiko-bot <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
-Date: Fri, 11 Sep 2026 23:48:32 -0400
-Message-ID: <20260912034833.2952750-2-gourry@gourry.net>
+Subject: [PATCH v2 2/2] mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
+Date: Fri, 11 Sep 2026 23:48:33 -0400
+Message-ID: <20260912034833.2952750-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912034833.2952750-1-gourry@gourry.net>
 References: <20260912034833.2952750-1-gourry@gourry.net>
@@ -95,96 +95,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
+to open - then:
 
-	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+  madvise(p, PMD_SIZE, MADV_PAGEOUT);
 
 With a stand-in module for the driver:
 
-  BUG: unable to handle page fault for address: fffff96dc0000008
-  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+  BUG: unable to handle page fault for address: fffff587c0000008
+  RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
    walk_pgd_range+0x52b/0xaf0
    __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   queue_pages_range+0x64/0xa0
-   do_mbind+0x25e/0x640
+   walk_page_range_vma_unsafe+0x8e/0x120
+   madvise_pageout+0xb2/0x180
+   madvise_vma_behavior+0x46b/0xa90
+   do_madvise+0x108/0x190
+   __x64_sys_madvise+0x26/0x30
 
-queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
-is raw MMIO with no memmap entry, so the folio lands in unpopulated
-vmemmap.  Neither guard stops the walk:
+Nothing validates the pfn on the way in:
 
-  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
-                           supplies ->test_walk, so it never runs
-  queue_pages_test_walk()  honours vma_migratable(), but only while
-                           MPOL_MF_STRICT is clear
+  can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
+  can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
+  vmf_insert_pfn_pmd()   no pfn_valid() check
+  pmd_folio()            pfn_to_page() -> unpopulated vmemmap
 
-A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-mapping.
+Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
+folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
+folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
+folio this mapping does not own.
 
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-queue_folios_pte_range() already does with vm_normal_folio().  On the NULL
-path, retain ACTION_CONTINUE handling for the huge zero PMD.
-
-mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-rather than -EIO.  The PTE loop already returned 0 there.
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
+walker already does with vm_normal_folio().  This also filters the huge
+zero PMD, so its separate check is no longer needed.
 
 Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Cc: stable@vger.kernel.org
+Cc: stable@vger.kernel.org # v6.19+
 Assisted-by: LLM
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/mempolicy.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ mm/madvise.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 2ad0a5f18280..8fc8a975657e 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
- 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
- }
+diff --git a/mm/madvise.c b/mm/madvise.c
+index f75a9d139980..fbb72ab49aa6 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -395,16 +395,15 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 			return 0;
  
--static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-+static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-+			     struct mm_walk *walk)
- {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-@@ -678,13 +679,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- 			qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(pmdval);
--	if (folio_is_zone_device(folio))
--		return;
--	if (is_huge_zero_folio(folio)) {
--		walk->action = ACTION_CONTINUE;
-+	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-+	if (!folio) {
-+		if (is_huge_zero_pmd(pmdval))
-+			walk->action = ACTION_CONTINUE;
- 		return;
- 	}
-+	if (folio_is_zone_device(folio))
-+		return;
- 	if (!queue_folio_required(folio, qp))
- 		return;
- 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-@@ -717,7 +719,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
+ 		orig_pmd = *pmd;
+-		if (is_huge_zero_pmd(orig_pmd))
+-			goto huge_unlock;
+-
+ 		if (unlikely(!pmd_present(orig_pmd))) {
+ 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
+ 					!pmd_is_device_private_entry(orig_pmd));
+ 			goto huge_unlock;
+ 		}
  
- 	ptl = pmd_trans_huge_lock(pmd, vma);
- 	if (ptl) {
--		queue_folios_pmd(pmd, walk);
-+		queue_folios_pmd(pmd, addr, walk);
- 		spin_unlock(ptl);
- 		goto out;
- 	}
+-		folio = pmd_folio(orig_pmd);
++		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
++		if (!folio)
++			goto huge_unlock;
+ 
+ 		if (folio_is_zone_device(folio))
+ 			goto huge_unlock;
 -- 
 2.55.0
 
