@@ -1,98 +1,164 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78693630AE
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 17:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEC83630AE
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 17:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789233750; cv=none; b=sPyfKIeaQDGegkxLCT2c0/rWETHgpcz9AIx39qIRTQkpwtdeJCW8CYMI6WdKGv68GNp4tweQtYAAFU5Qb1bxSSjnNioFI1Yz9oghPAe10JL5/3OoIZ1ji3P0guTA9yeoGn2megFvp9Lm5DudV3Reg04uikJkeLsnPT0pINl38Cc=
+	t=1789233755; cv=none; b=U2GH5XuuMjvzmxqo/UYjDhMvqm6rTEXRPtOE4ZEzeNOCv2zI5tAqkKszw+xpo5RM5lGSjj0k9+ruH6XTAErXbly5b5x9SIujss5lVEze4W0AJBi4KP/JwKwJN7CHY9+ZGW9ALqHoF03dtXpmY6QuxfB5K+tizoEyNJp6XMdthPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789233750; c=relaxed/simple;
-	bh=hpBsZXNBeHPrFJK9Lbz0PnTnlPM0COJh6UkqAnbYP0Q=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References; b=r9mmVeOO+/AytlWIklOgCQbSjD7crAPVLIyyqGKaj04jYctCvJTVBFy4OuPffOHV0XS2cEY04BOVWvDgAXUwJbiISvcS7TqfYASQePS8aaR9MiRzBzTsw72KOG1loGY0r8z5lyBR57qzQaCxf+kMRqeVcyT11N1JpDbP+6hlv9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SpuHY/I3; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789233755; c=relaxed/simple;
+	bh=GEIa8yeTfBDKfm0+esAvYxmkhSG5yBhHVHX+Q2lvzg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nnEilbiaoH6GxpenLzs2e0321YYqmR3ni7pqR/IORxi4H7j2/pEwqST2mG8LKb7qcV0uKoFCZG7lXzaf8RUorvuhuyb1UA2u8XnKIVpppFS+KnOn4doTDvK98aAERUw2wJQaiFfQ56kA3D1Wntw1Rl89BnnpABlAR0sW2Mniuv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dxm8wNB7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OwRau+Xk; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SpuHY/I3"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so2820205e9.1
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 10:22:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dxm8wNB7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OwRau+Xk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789233753;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WDIk7QPciUhOZoKe2zZLtnCcqNHQ6ULI7Gtb5/oDKCk=;
+	b=dxm8wNB7wM2bqGvvaCrkpSNdHlSK2gVPIlJE36EvNlLqpcQPrgOCjD9xhmuY3xOGyeJ9Rh
+	KKoizG1Xy2VwtMCRj7Ns1T6+ZDNvL+7fxjkvuuoX7uJ/WkD6KBi1x9vmHAxAFvP2O8nnlZ
+	zZpvyomi+o+Pu+Ojb8p/bZwInQ4WPck=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-128-fRq4Q6xeNZG9Bdy13BpECQ-1; Sat, 12 Sep 2026 13:22:29 -0400
+X-MC-Unique: fRq4Q6xeNZG9Bdy13BpECQ-1
+X-Mimecast-MFC-AGG-ID: fRq4Q6xeNZG9Bdy13BpECQ_1789233748
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49d156c917cso19627775e9.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 10:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789233747; x=1789838547; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7htttlEbVC3R3ww5ajtrz8G1FuecAdq74SLVWP0a2Gw=;
-        b=SpuHY/I37o4Agby3kdV7/gMwEmDJqI9wefuHljnwF4Wga8Lvg5JWgHtoselbavShMF
-         GwqDp+G1MpL2eOELCN0IoEfXthWx62MegRK1lIEsLH1GjqoIusd/He/PXTY/cJrRo1n6
-         468X8419rJcbXSKwnqR14+0mJ+InzxWCeAJ9hcsMrTqqn+On8xm3fK44sIYl+fMK2n6k
-         OkexfbwsR+RdTQL6FRv6SmMhlkjGc3S1MHzg4chJW/438zEaYQxisiE1QhksNX833BQA
-         biV/Vn36x62m5H2emHsdlU4+H+u4C6aDRlK5VR57ILTviny4HVVcrDFtq/vlnD4mEVif
-         JNVg==
+        d=redhat.com; s=google; t=1789233748; x=1789838548; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WDIk7QPciUhOZoKe2zZLtnCcqNHQ6ULI7Gtb5/oDKCk=;
+        b=OwRau+XklKpcvKbmCFw7yeRi8vJFoKh1FPVfaBzWikOx0mwNwB/UoABzk11iQfWZpS
+         7cGgsPH7e6EvM40aPFKMd3m34CDeOKM00OXd8Q/miP52O1ryfHUXS+FXQlG8Jz0FItPa
+         fE6cit8GLxId7uMWvDijM3dlss64BzdjP0uaR5rdhfGsFgilf91QRkdS33mE3SNdPXbm
+         RfL/JvM40t7mzFAtCByi7FRgm7yv2CRJ1x9CxOXQ3Uarnm5Ht2hbSEOIXGb+Dzeiw8vt
+         5uy1BZp1VIJoqxLsh1FTfPMDPuvYz9YR8fxQn5CGyczn4I5Om7X72MFQTbj4RulcwZCF
+         pGJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789233747; x=1789838547;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+        d=1e100.net; s=20251104; t=1789233748; x=1789838548;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7htttlEbVC3R3ww5ajtrz8G1FuecAdq74SLVWP0a2Gw=;
-        b=gOJguI2F2vkK/YIy1vFDMCUy8T7EWw+slGJwP8iOtEugfcatKgO9HA5b2sxPfMcBJr
-         FgI5an455qyN7b2XKzLC0VmcF0uTjrzstLiH78Zk68dYwIy+QLx9FXlhx+B2X/j2/Vir
-         4B4DlNbzCJMPEeu/2K+tIltRO1W8Mt1gAUEvsWzNjc7xIl2Iutw9go0N8P3d+ND1YEWe
-         3wcZmHAgbyftCpyf3uc8XtuUk0bwU3cdH2V3ibnMwdNbKfRznzMoJrj+U9hKF68h+UW/
-         PkQPZQvwVNQBkWKEr2mojgY5dTFSURjcDJ7KT1VDR8bFlRYTk2gm9n/yBD4NblXDeCrH
-         4gJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEvZ2l1ZUl1OdsJRh+go1h1IwPkjvy6iqKVFs7aU5gnXkjKQFKlgt3ojeIela7Hvenyi02zBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljPU7swLUnJN3Gzl2gIO6pd+yXPrxm6egOZpJA0yqePtEHkhOv
-	tgPuCa7GONx/+X/4D+OMYxOOsRtaE551XOzYrup52Sbea+9yz7E97jdj+zI9ug==
-X-Gm-Gg: AYBFou2X2FqmKWPKxCIctj4E3eDSKfNtiEMheiUX8+x3hPgLEy6tlMGSECBwkwSqASV
-	IJXMYEvsScoZYwYQSqtt40yU10pqIZmanHEP++jwImi04fLpfdLlsZyV++usFIpBuifK5O9lUQy
-	uiLEAsi+JTzMDNyzyyMdSa0gJL1WStJ4PyBBpC53tgowLOFms3VzS//IfUOcsLw1IZbbB/7ME9s
-	TQFblNJL+aZDU+l1ceWjxeqQFu/bQkX9YB613IaPT2zWxY9x2UKxJhGuqJMoXcVZxwBZ4LQAeh6
-	wKkys6+Xz2zl7ObzFuWAkihvJTy2FVdYgDTX9p0zkeZvKtEIoqjjz56fkuJfnIaJ+qyUOggQsnU
-	8WbrByOooD5U85ELyQieiZLhZgs9SL631+idCYYr17YLhamofBj4reYX+iw9/+5Cv+RvYReJWZh
-	4Qvp2rsZZveQrfYep2xQd1B3IiYtF3A1F0fh9lbTnhhUEu38msY8/waUTyUTvrWgMxAOg6NLF5f
-	4ruzQ==
-X-Received: by 2002:a05:600c:c490:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49e619c0423mr109285725e9.16.1789233746663;
-        Sat, 12 Sep 2026 10:22:26 -0700 (PDT)
-Received: from SurHub.localdomain ([102.213.68.188])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e81asm14491404f8f.7.2026.09.12.10.22.24
+        bh=WDIk7QPciUhOZoKe2zZLtnCcqNHQ6ULI7Gtb5/oDKCk=;
+        b=XQFWki5dqsE0DklvZWZ0M5gXE9zanNjETPOmtqxAP4vxT5KStsLRu2gbmgMD95CuTB
+         p7FHWFVB3JI1lYoDFd6JoGVKlnlxS4k2lTbF3H2MN9qcFcRKwfRq7mGD2qHSSJJ4tfIC
+         j6EIvqJBAqoQcQEedlHcCa8rsEKYHU3OPcQqTZrmOa9m4Tkak9vRqhyzeJU2nM2PvZku
+         Yj/Cenf3fSKaYVTAUYeg6cMIFZM97GtqhhhKezRJyw7KZjQAwQqn6/MghQaCl9BskdI2
+         KWPjIHjE/xAyXwtQhyEjb2Y/Sg8iGEtHLdKpwtUwt+Hzs+xVFKeD9awKz8JArIt4zcZU
+         5XDA==
+X-Gm-Message-State: AFuF++lZ06S9wrOFmT4FYWGUtFbIQQMoQ+vQlXEkwuyu8zXQxvbz4wT4
+	WOkJSO5zgoQg87x3ZsKkhZsVowvLfD2g+92EuC4be9GB4WklYUN4fcZeD3UjXnkx++EgdegrtYy
+	KhegAMrMlvl3yP+YvBU4mVq1aMY/7SjT9xLBJ793f0gU2xoIM6iCI1xDV5T5X32FmsA==
+X-Gm-Gg: AYBFou1e+Ct5bFTy3Psfsbb6BFowrngOu9ONdnYS5kdnGtqcBcVyPCfiedQnOHDkPnB
+	8mcI/+fso1AMDjud8kugrynESVF0HBamsKtpIsL3vRh1zqw2mbffswlBDH7GpT0y4bbw5BnQg9d
+	WGx2/EehOpg4gXPoGDvHBvBLEtTviy3MsRvU+4C36GjKyjRXUksXG03NbAxmQ58PfOwbEjdnI8P
+	GKgUFeloH3z3Gqqy/DyQxcO9S9Y2IA5dXPd2Wj1km/A4LF66klBA4VvwWw3ywo8Iv0yfYRNV6XR
+	CmxOJj+0ktv8RNy/8lXExtsOr4qlxgulqmaf5OLGIWdHc1BsChzv3SSjZ68D4+Ao+R8=
+X-Received: by 2002:a05:600c:628f:b0:49e:6836:5386 with SMTP id 5b1f17b1804b1-49e6b2a07c1mr49084665e9.0.1789233748323;
+        Sat, 12 Sep 2026 10:22:28 -0700 (PDT)
+X-Received: by 2002:a05:600c:628f:b0:49e:6836:5386 with SMTP id 5b1f17b1804b1-49e6b2a07c1mr49084445e9.0.1789233747833;
+        Sat, 12 Sep 2026 10:22:27 -0700 (PDT)
+Received: from redhat.com ([147.235.223.59])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e706d0c1fsm56847975e9.1.2026.09.12.10.22.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 10:22:26 -0700 (PDT)
-Content-Type: text/plain; charset="us-ascii"
+        Sat, 12 Sep 2026 10:22:27 -0700 (PDT)
+Date: Sat, 12 Sep 2026 13:22:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.1 1069/1191] virtio_balloon: disable indirect
+ descriptors
+Message-ID: <20260912132127-mutt-send-email-mst@kernel.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+ <20260912065612.183814840@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: linkinjeon@kernel.org
-Cc: sashal@kernel.org, gregkh@linuxfoundation.org, stable@vger.kernel.org
-Subject: Re: [PATCH 6.18.y] ksmbd: defer oplock break until m_lock is released
-Date: Sat, 12 Sep 2026 20:22:22 +0300
-Message-ID: <178923374277.30348.14595304921780051144@gmail.com>
-In-Reply-To: <20260911151056.27965-1-suruurism@gmail.com>
-References: <20260911151056.27965-1-suruurism@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912065612.183814840@linuxfoundation.org>
 
-Hi Namjae,
+On Sat, Sep 12, 2026 at 09:03:17AM +0200, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Michael S. Tsirkin <mst@redhat.com>
+> 
+> [ Upstream commit 281eb4732aae5473141b84e106fe906c69b2ff3d ]
+> 
+> The page reporting callback submits an sg list to the reporting
+> virtqueue.  With VIRTIO_RING_F_INDIRECT_DESC negotiated and
+> total_sg > 1 (which it typically is), virtqueue_add reports it to the
+> host by allocating an indirect descriptor via kmalloc(GFP_KERNEL).
+> 
+> This is not pretty: the reporting worker isolates potentially hundreds
+> of MB of free pages from the buddy allocator (reported pages are at
+> least pageblock_order, and the sg can contain up to
+> PAGE_REPORTING_CAPACITY entries of varying orders).  As the result,
+> very theoretically, the kmalloc might trigger OOM when we have in fact a
+> ton of free memory.
+> 
+> Clear VIRTIO_RING_F_INDIRECT_DESC, to avoid using indirect descriptors.
+> 
+> Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+> Assisted-by: Claude:claude-opus-4-6
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> Message-ID: <73fac8a629fd9aca7bb3265ac243a769c28af25d.1783232420.git.mst@redhat.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Sasha is holding this 6.18.y follow-up pending a maintainer review:
+this is, as the patch description says, theoretical.
+Doesn't that make it ineligible for stable?
 
-  https://lore.kernel.org/stable/20260911151056.27965-1-suruurism@gmail.com/
+> ---
+>  drivers/virtio/virtio_balloon.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+> index 41fa694d82577..e9abd958f69e3 100644
+> --- a/drivers/virtio/virtio_balloon.c
+> +++ b/drivers/virtio/virtio_balloon.c
+> @@ -7,6 +7,7 @@
+>   */
+>  
+>  #include <linux/virtio.h>
+> +#include <uapi/linux/virtio_ring.h>
+>  #include <linux/virtio_balloon.h>
+>  #include <linux/swap.h>
+>  #include <linux/workqueue.h>
+> @@ -1095,6 +1096,11 @@ static int virtballoon_validate(struct virtio_device *vdev)
+>  	else if (!virtio_has_feature(vdev, VIRTIO_BALLOON_F_PAGE_POISON))
+>  		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_REPORTING);
+>  
+> +	/*
+> +	 * Disable indirect descriptors to avoid memory allocation in
+> +	 * virtqueue_add during page reporting.
+> +	 */
+> +	__virtio_clear_bit(vdev, VIRTIO_RING_F_INDIRECT_DESC);
+>  	__virtio_clear_bit(vdev, VIRTIO_F_ACCESS_PLATFORM);
+>  	return 0;
+>  }
+> -- 
+> 2.53.0
+> 
+> 
 
-The 6.18.y backport of the oplock UAF fix (c8279ae8df68, shipped in
-6.18.51) calls oplock_break() directly while holding ci->m_lock, and
-the backported smb2_oplock_break_conn_get() takes down_read(ci->m_lock)
-internally -- a self-nested read lock that deadlocks as soon as a
-writer queues behind it.  The patch ports the oplock_break_add()/
-oplock_break_drain() machinery you have on newer branches so the three
-walks collect the breaks and drain them after releasing m_lock,
-matching the 7.2.y and 6.12.y shape of the fix.
-
-Could you give it a Reviewed-by/Ack when you get a chance?
-
-Thanks,
-Abdifatah
