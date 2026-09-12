@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2511F496D29;
-	Sat, 12 Sep 2026 20:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D30492525;
+	Sat, 12 Sep 2026 20:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245387; cv=none; b=tnY3t5Qw5rv1QnEONiSn1h0abKjMQnmvegF4S6RpoDNr1TG6vbhBTw5bNMjC3+/mWUFqFhAhwhHUG4CsMoLD4jNBZk1ZxqIzXz+B9jnRpTcdJa1wkfPAc7h2T4IztoufjlXlQN8T0JFPcxHWRI8WIUMYqed815LW3k+FC4cEAuA=
+	t=1789245390; cv=none; b=eP7+1fUqMn0nqYOlCXl6T10LX1gVVO+OsZ0VMvyos5Qyvch8uuJOehpD6IOUW2aWrnlKZIIAJK/mO4bsdjmTMI77fzoAD/vLvRJVBIPyeVd7tQN4/oHNUlZdMF4cwBkRBXnbWpkzIc2a2y04eNmytnV731wZNsPyL4mygLt3Mlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245387; c=relaxed/simple;
-	bh=oCxvQAow13m+FFNPe36hLQ8WAlLRu7Xg3vTdxkKfffw=;
+	s=arc-20240116; t=1789245390; c=relaxed/simple;
+	bh=jn9vX+q58BrI+9ioEcXtx3rSiX9KFO2u0GRr8qeaUrY=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=F8YfWHkWHbz6dWQdro5HcRznR25J5c0HAprQTypGnAWVGLtyKES3RI1saC/3sSUIgLr4EZZdgckXmZlsCCNJpA48BVRcsmfPF3CtmNfDte8AOCgEdONhOBLei7QPZ4y4/2531Ad/mJrnbdW5ralY+eavnsie1YKrJEqUqdfUFHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OAg0HaQ+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=MRojIeZ/xbQ9xoMAQ5swZjRa6azneo6pnRgKkl8d1cURx/pnLd5qekLc7ZGEYGH+xfiDoNnjBvxXcetUnZXzEqB6FeeASmJo6qULCDniGabnfmYEbGUAh5FDw25SK9X3QY0ZLxAM+PKhpdK6E8q5XxNcn2M+NIMdmqcE0HPA2Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSo/QTgv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OAg0HaQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC911F00899;
-	Sat, 12 Sep 2026 20:36:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSo/QTgv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EB31F000FF;
+	Sat, 12 Sep 2026 20:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789245384;
-	bh=ukweA8Ivw43RoWAeuxce+R7YQQKROPLpamA0k7U27mo=;
+	s=k20260515; t=1789245386;
+	bh=vBtCT1cEpxXIQveby/xZxccmBUQ0gx20Lk8uxT2bWdA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OAg0HaQ+g4JWhqALvRReLsSz/qwbXXM0Mnfm9JN5GDDKn28n5uKFh2C0Wi83rE737
-	 sdNj5CbQaVKnuSpWtbyVqRqjhVlp7wPYlGY0cX26QQstfw+GEAzgMsFUDOd4vOmlkt
-	 6xBvQeyqb8VW8UBPqjHt8tFQcmA7mm3xFvK8jK0nc4ixTExzMtQ2q/c3U5TaThpvE3
-	 uK/RtAWie6mNHWW7gc2FVQaTS4PyUzNiDS0/Yy47iiIkPdEzGrmfh21feEUODyuRqm
-	 ID7C59ClSA36OsSnagv3J+aL9nyBeacoC8wbz4ITNNx1kstmoqSKM4qlHG3lpeFyDA
-	 rxnplN9NAyygQ==
-Subject: Re: [PATCH net 1/2] net/sched: hhf: cap hh_flows_limit at change time
+	b=GSo/QTgvDot3uKE2881MBnPz4OV6poe3E/3p7vvF3YWV1/2IU8Rmj33RDj5cInt3W
+	 9IMI19Ie08XdBqKpnrkdGhc4tGpe1k6aKJRy36TvSmt9YvILUg6PleQZK63fn5dvzB
+	 QgN/JtGPUzwoYJmV7SYoKnjq3sOsNUIvWsi7yZdo6amAyVp6JygGyvjevhkUuNV2fY
+	 dQrEUv+xLYekpXM+WNWJpHkAhpMTGAr0X4a81ssZB3QEWbVG6kCcnZwXUNxeLZS6qe
+	 xParvFPqb2kc0ZmoBVpkeK9dqWEO13V/Q05rOy9ofh+hE8Z4UCJ6nTq7NY5AXJTJ+/
+	 aiiqvOZlSgDfA==
+Subject: Re: [PATCH net 2/2] selftests/tc-testing: add hhf hh_limit cap tests
 From: netdev-bot+sashiko@kernel.org
 To: jhs@mojatatu.com
 Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
  vtlam@google.com, stable@vger.kernel.org, victor@mojatatu.com,
  hybris@mojatatu.ai, sashiko-bot@kernel.org
-Date: Sat, 12 Sep 2026 20:36:23 +0000
-Message-ID: <178924538361.3125.3706649335976216385@kernel.org>
-In-Reply-To: <QDISC-B855.v1.20260911153152@mojatatu.com>
-References: <QDISC-B855.v1.20260911153152@mojatatu.com>
+Date: Sat, 12 Sep 2026 20:36:24 +0000
+Message-ID: <178924538491.3125.17360124122407490999@kernel.org>
+In-Reply-To: <QDISC-B855.v1.20260911153152@mojatatu.com.2>
+References: <QDISC-B855.v1.20260911153152@mojatatu.com.2>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -47,131 +47,150 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [Medium] net/sched/sch_hhf.c: the new `[TCA_HHF_HH_FLOWS_LIMIT] =
-  NLA_POLICY_MAX(NLA_U32, 2 * HH_FLOWS_CNT)` policy entry (line 530) is…
+- [Medium] The three change-path rejection tests (e3cc, f681, 147f)
+  assert a witness value that is identical to the kernel default, so…
+- [Low] Commit message overstates the add-path coverage of the new test
+  file.
 
 --
 
-net/sched: hhf: cap hh_flows_limit at change time
+selftests/tc-testing: add hhf hh_limit cap tests
 
-The patch bounds TCA_HHF_HH_FLOWS_LIMIT with NLA_POLICY_MAX() at
-2*HH_FLOWS_CNT, passes extack down to the nested parse so the rejected
-value is reported, and moves the hh_flows_limit default in hhf_init()
-ahead of the hhf_change() call so a user-supplied value at add time is no
-longer overwritten.
+Adds tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
+with six cases exercising the TCA_HHF_HH_FLOWS_LIMIT policy bound on the hhf
+qdisc, covering rejected out-of-range values, the accepted boundary value
+2048, and an add-time value of 500.
 
-Closes: https://sashiko.dev/#/patchset/20260822195509.112717-1-jhs@mojatatu.com
+A couple of questions about the coverage claims and the assertions.
 
-> diff --git a/net/sched/sch_hhf.c b/net/sched/sch_hhf.c
-> index fc72f825fbd92..5dec1ed969adf 100644
-> --- a/net/sched/sch_hhf.c
-> +++ b/net/sched/sch_hhf.c
-> @@ -527,7 +527,7 @@ static void hhf_destroy(struct Qdisc *sch)
->  static const struct nla_policy hhf_policy[TCA_HHF_MAX + 1] = {
->  	[TCA_HHF_BACKLOG_LIMIT]	 = { .type = NLA_U32 },
->  	[TCA_HHF_QUANTUM]	 = { .type = NLA_U32 },
-> -	[TCA_HHF_HH_FLOWS_LIMIT] = { .type = NLA_U32 },
-> +	[TCA_HHF_HH_FLOWS_LIMIT] = NLA_POLICY_MAX(NLA_U32, 2 * HH_FLOWS_CNT),
+> Cover the new TCA_HHF_HH_FLOWS_LIMIT bound: values above 2*HH_FLOWS_CNT
+> (4294967295, 65536, 2049) are rejected with the configured limit left
+> untouched on both the change and the add path, the boundary value 2048 is
+> accepted (installed at 100 first so the boundary change is load-bearing),
+> and an add-time hh_limit 500 is preserved instead of being clobbered by
+> the default.
+
+[Severity: Low]
+Does the file really cover all three values "on both the change and the add
+path"?
+
+In hhf_flows_limit.json the values 4294967295, 65536 and 2049 appear only in
+cmdUnderTest lines that use "qdisc change" (tests e3cc, f681 and 147f).
+
+The only invalid add-path case is ca99, and it uses 4294967295 only:
+
+    "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 4294967295",
+    "expExitCode": "2",
+    "verifyCmd": "$TC qdisc show dev $DUMMY",
+    "matchPattern": "qdisc hhf 1: root",
+    "matchCount": "0",
+
+Also, ca99 asserts that no qdisc exists at all, so there is no "configured
+limit left untouched" property being checked on the add path.
+
+Could the changelog describe the actual matrix, or could add-path cases for
+65536 and 2049 be added?
+
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
+> new file mode 100644
+> index 0000000000000..44538b9266b65
+> --- /dev/null
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
+> @@ -0,0 +1,128 @@
+> +[
+> +    {
+> +        "id": "e3cc",
+> +        "name": "HHF hh_limit rejects value above 2*HH_FLOWS_CNT cap (4294967295)",
+
+[ ... ]
+
+> +        "setup": [
+> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 4294967295",
+> +        "expExitCode": "2",
+> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
+> +        "matchCount": "1",
 
 [Severity: Medium]
-Does this policy entry also change the behaviour of the qdisc creation
-path?  The subject says "cap hh_flows_limit at change time", but hhf_init()
-calls hhf_change(), so the same policy is applied on add.
+Can this assertion distinguish "limit left untouched" from "limit reset or
+clamped to the cap"?
 
-validate_nla() dispatches the max check from the pt->validation_type
-switch, independently of the validation level:
+The setup adds hhf without hh_limit, so hhf_init() leaves the default in
+place:
 
-lib/nlattr.c:validate_nla() {
+net/sched/sch_hhf.c:hhf_init() {
 	...
-	case NLA_VALIDATE_MAX:
-		err = nla_validate_int_range(pt, nla, extack, validate);
-		if (err)
-			return err;
+	/* Cap max active HHs at twice len of hh_flows table. */
+	q->hh_flows_limit = 2 * HH_FLOWS_CNT;
 	...
 }
 
-so even the NL_VALIDATE_LIBERAL level used by
-nla_parse_nested_deprecated() returns -ERANGE, and hhf_init() propagates
-it:
+With HH_FLOWS_CNT 1024 that default is 2048, which is also the policy bound
+used for the attribute:
 
-	if (opt) {
-		int err = hhf_change(sch, opt, extack);
+	[TCA_HHF_HH_FLOWS_LIMIT] = NLA_POLICY_MAX(NLA_U32, 2 * HH_FLOWS_CNT),
 
-		if (err)
-			return err;
-	}
+So the matched witness "hh_limit 2048" is the same string that hhf_dump()
+would print if a future implementation validated late and wrote or clamped
+q->hh_flows_limit to 2048 before returning the error. Only expExitCode 2 is
+actually pinned down here.
 
-At baseline, tc qdisc add dev X root hhf hh_limit 4294967295 returned
-success, because hhf_init() unconditionally reassigned the safe default
-after hhf_change():
+The same applies to f681 (hh_limit 65536) and 147f (hh_limit 2049) below,
+which use the identical defaulted setup and the identical "hh_limit 2048"
+matchPattern.
 
-	if (!q->hh_flows) {
-		...
-		/* Cap max active HHs at twice len of hh_flows table. */
-		q->hh_flows_limit = 2 * HH_FLOWS_CNT;
+Would installing a distinct in-range value in setup, e.g.
+"$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 100" and then matching
+"hh_limit 100" after the rejected change, make these three assertions
+load-bearing? Test 223d further down already uses exactly that technique:
 
-With this change the same command fails with -ERANGE and no qdisc is
-installed.  Is that intended for a Cc: stable patch, and should it be
-mentioned in the changelog?
+> +        "setup": [
+> +            "$TC qdisc add dev $DUMMY handle 1: root hhf hh_limit 100"
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 2048",
 
-The commit message says:
+[ ... ]
 
-    Configs relying on hh_limit above the default were relying
-    on unbounded, unsafe behaviour and are not supported going forward.
+> +    {
+> +        "id": "f681",
+> +        "name": "HHF hh_limit rejects 65536 (above 2*HH_FLOWS_CNT cap)",
 
-Is that accurate for the add path?  A setup doing tc qdisc add ... hh_limit
-<value above 2048> was running with hh_flows_limit clobbered to 2048, so it
-was not exposed to the unbounded allocation behaviour described earlier in
-the changelog; only tc qdisc change could reach that state.
+[ ... ]
 
-The sibling knob in the same function is clamped rather than rejected, from
-the referenced eb56a495f59b:
+> +        "setup": [
+> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 65536",
+> +        "expExitCode": "2",
+> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
+> +        "matchCount": "1",
 
-	if (tb[TCA_HHF_QUANTUM])
-		new_quantum = max(256U, nla_get_u32(tb[TCA_HHF_QUANTUM]));
+[ ... ]
 
-Would a min() on hh_flows_limit in hhf_change() give the same memory bound
-without turning previously-successful add commands into failures?  If
-rejection is preferred, could the changelog state that the add path now
-returns -ERANGE for values above 2*HH_FLOWS_CNT?
+> +    {
+> +        "id": "147f",
+> +        "name": "HHF hh_limit rejects first value above cap (2049)",
 
-> @@ -546,7 +546,7 @@ static int hhf_change(struct Qdisc *sch, struct nlattr *opt,
->  	u32 new_hhf_non_hh_weight = q->hhf_non_hh_weight;
->  
->  	err = nla_parse_nested_deprecated(tb, TCA_HHF_MAX, opt, hhf_policy,
-> -					  NULL);
-> +					  extack);
->  	if (err < 0)
->  		return err;
->  
-> @@ -624,6 +624,9 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
->  	q->hhf_evict_timeout = HZ;      /* 1  sec */
->  	q->hhf_non_hh_weight = 2;
->  
-> +	/* Cap max active HHs at twice len of hh_flows table. */
-> +	q->hh_flows_limit = 2 * HH_FLOWS_CNT;
-> +
->  	if (opt) {
->  		int err = hhf_change(sch, opt, extack);
->  
-> @@ -639,8 +642,6 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
->  		for (i = 0; i < HH_FLOWS_CNT; i++)
->  			INIT_LIST_HEAD(&q->hh_flows[i]);
->  
-> -		/* Cap max active HHs at twice len of hh_flows table. */
-> -		q->hh_flows_limit = 2 * HH_FLOWS_CNT;
->  		q->hh_flows_overlimit = 0;
->  		q->hh_flows_total_cnt = 0;
->  		q->hh_flows_current_cnt = 0;
+[ ... ]
 
-Moving the default ahead of hhf_change() is what makes the add-time value
-effective for the first time, so this hunk and the policy hunk together
-produce the new add-path failure described above.
+> +        "setup": [
+> +            "$TC qdisc add dev $DUMMY handle 1: root hhf"
+> +        ],
+> +        "cmdUnderTest": "$TC qdisc change dev $DUMMY handle 1: root hhf hh_limit 2049",
+> +        "expExitCode": "2",
+> +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> +        "matchPattern": "qdisc hhf 1: root refcnt [0-9]+.*hh_limit 2048",
+> +        "matchCount": "1",
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-B855.v1.20260911153152%40mojatatu.com
