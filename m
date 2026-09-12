@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BD941F35E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69842EC09B
 	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211830; cv=none; b=ZEdTd1JaUDbQue+f7bAfuab002R3BtEAV10ejN0ynmcf5XE0xRu51k4rHohww90CGVrkxyDG+iuDcYLKUlw+bjuG2PltfL3dI4joj8Ik4Fk+KpIyaCfP4gUVL0UyDuJFONLsRwkNmNP2tC7wfp8S777/GcBocqJun68XKb/nb7Q=
+	t=1789211830; cv=none; b=g5NMB0HRPmBJmIeXCAVBv/oeQnCFfDZn116J08/eRrxGGrw7+n1zli9n+9W5gsERKynAddu7DZgzbd64tBJMW4Mk0dDqoKrU0pIVsrtosWQSQk+7kiPMZSdym7k1x/VIoNTgX4rETXHRYZ4EKh3gqCFVDg0t4rrvQ18AkN5omW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789211830; c=relaxed/simple;
-	bh=DRbY5vfbhzQ9ZZyJtA8E8Wlr4F/gv4ZYy3xCB8uO0Ts=;
+	bh=zZNXoMgPOuSjsSkNW/Nsgod4ywdq9nsKrrLhxOWRhM0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lZCIfx7rbS6tH18mG6weiPFVcAT+hbi5k4NjgZoSkdQGtThPhZjn48KqHehR3sOwiSMg9tI5cxA2ToUUO5B6RrJLwi4BKp2f2YE3cUQP3s9qzGKR4an0F7v1dAKVT3hE6Rlda2JQW1e3yIlyni4WwAKsnmZ0CwEFBzB4ZBFz8ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GiKpMHzH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XLRa7OwZPjGLhYTv4bPE6KzHQvQX7nZ9nDZHxZolh5elFWPtaM1vXNFs9uPQAnNJEoPewqYWL6McHE+gjCljS56M3ULDdac5KGSfUW34EnwjQtmf4yIg9ulC3YshKhVvmR6dvmcg5WIKozgR982gdLps4HqxIvzexzbkhT2wEHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AROVGoD6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GiKpMHzH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8C41F00893;
-	Sat, 12 Sep 2026 11:17:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AROVGoD6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D18A1F000FF;
+	Sat, 12 Sep 2026 11:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789211828;
-	bh=3F56qTz4+CXbQm6112np7ZLEZbGNpt6ws9pjLvsB45s=;
+	s=k20260515; t=1789211829;
+	bh=uB4G6CHbV7okoVLvbjqnebNG/Ii5RrmA1eLE49HAxEs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GiKpMHzHhun7icc2fse0/z41ZU5PsQoOZ929bHn9SROW5uGhd9jPh6n9ndakNrtdJ
-	 OTU3+iwLIOpZYRgbQs9/MQuAmIvwuzlcj6lAkWebslnU9UflCulgxJlvW4f5uTQX1Q
-	 +QSCEdCFEsIMymc2yVd2fHdqAtR/ZNyuDj/W83WIDDgvkGvRKlf6EUwYFvw/gMRqWi
-	 zurl/6CQI40K2HOfZawu7kJ0M8jpHKnnR03AYRzCCU2Yid8Pbte4NRWHV+Qkzp2XK4
-	 B9d+BK8+Qd3M/4A/TrmAUnboh+sXuUTJYyjeIva3S/k5/o5IT98PHm5SfecNRkRkyE
-	 IWzoBp0+GtfiA==
+	b=AROVGoD6H+GH+8dGWA5erdBv2RLLK9ISPyd7FUiyKztOnZgKs90lMgco5jMgL0x+1
+	 +qXBlsKi0gLHAPY/Fa4WSOhpF88ezC9YR+iz8CnwSzkLb52QvSENmMzjFBA700rjCf
+	 3ORLaUKUauDTABtW5CjP6kOyuS8WUnDFBMslQPiXRUu61Ng9I0GjHM9JaJlJaNfYVK
+	 IIAm9ackGi6GuCDX494ic4FWXLNTFzwsk6gspDywX43tZJNrTf+XwLsCHuEPouQQ10
+	 EYLykFXJCnGRzILyeWfWITcsafIJWRYjhEuzwOxkgkkGd72WyxEJWLZ7d0SYPW5+Es
+	 1uTjPnu5ZKT8Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/6] f2fs: Add f2fs_new_node_folio()
-Date: Sat, 12 Sep 2026 07:17:01 -0400
-Message-ID: <20260912111706.2282608-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/6] f2fs: Add f2fs_get_node_folio()
+Date: Sat, 12 Sep 2026 07:17:02 -0400
+Message-ID: <20260912111706.2282608-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-spectacle-juniper-fbdf@gregkh>
+In-Reply-To: <20260912111706.2282608-1-sashal@kernel.org>
 References: <2026090957-spectacle-juniper-fbdf@gregkh>
+ <20260912111706.2282608-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,10 +49,9 @@ Content-Transfer-Encoding: 8bit
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit cfa809146f8223c2953e7553f830c0877921f9de ]
+[ Upstream commit aa220cede54ed671f7be413d8dacb91263a9d218 ]
 
-Convert f2fs_new_node_page() to f2fs_new_node_folio() and add
-a compatibility wrapper.  Removes five hidden calls to compound_head().
+The folio equivalent of f2fs_get_node_page().
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Reviewed-by: Chao Yu <chao@kernel.org>
@@ -59,98 +59,38 @@ Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Stable-dep-of: ce366bfa821e ("f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/f2fs.h |  8 +++++++-
- fs/f2fs/node.c | 28 ++++++++++++++--------------
- 2 files changed, 21 insertions(+), 15 deletions(-)
+ fs/f2fs/f2fs.h | 1 +
+ fs/f2fs/node.c | 5 +++++
+ 2 files changed, 6 insertions(+)
 
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 63d3450f895ee..6bcc60b02bd00 100644
+index 6bcc60b02bd00..8f6c1079d48f0 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3680,7 +3680,7 @@ int f2fs_wait_on_node_pages_writeback(struct f2fs_sb_info *sbi,
- 					unsigned int seq_id);
- int f2fs_remove_inode_page(struct inode *inode);
+@@ -3682,6 +3682,7 @@ int f2fs_remove_inode_page(struct inode *inode);
  struct page *f2fs_new_inode_page(struct inode *inode);
--struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs);
-+struct folio *f2fs_new_node_folio(struct dnode_of_data *dn, unsigned int ofs);
+ struct folio *f2fs_new_node_folio(struct dnode_of_data *dn, unsigned int ofs);
  void f2fs_ra_node_page(struct f2fs_sb_info *sbi, nid_t nid);
++struct folio *f2fs_get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid);
  struct page *f2fs_get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid);
  struct page *f2fs_get_node_page_ra(struct page *parent, int start);
-@@ -3708,6 +3708,12 @@ void f2fs_destroy_node_manager(struct f2fs_sb_info *sbi);
- int __init f2fs_create_node_manager_caches(void);
- void f2fs_destroy_node_manager_caches(void);
- 
-+static inline
-+struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs)
-+{
-+	return &f2fs_new_node_folio(dn, ofs)->page;
-+}
-+
- /*
-  * segment.c
-  */
+ int f2fs_move_node_page(struct page *node_page, int gc_type);
 diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 586a90643ddd2..bf4bf31b73416 100644
+index bf4bf31b73416..0aff16c5e1b5d 100644
 --- a/fs/f2fs/node.c
 +++ b/fs/f2fs/node.c
-@@ -1326,19 +1326,19 @@ struct page *f2fs_new_inode_page(struct inode *inode)
- 	return f2fs_new_node_page(&dn, 0);
- }
- 
--struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs)
-+struct folio *f2fs_new_node_folio(struct dnode_of_data *dn, unsigned int ofs)
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(dn->inode);
- 	struct node_info new_ni;
--	struct page *page;
-+	struct folio *folio;
- 	int err;
- 
- 	if (unlikely(is_inode_flag_set(dn->inode, FI_NO_ALLOC)))
- 		return ERR_PTR(-EPERM);
- 
--	page = f2fs_grab_cache_page(NODE_MAPPING(sbi), dn->nid, false);
--	if (!page)
--		return ERR_PTR(-ENOMEM);
-+	folio = f2fs_grab_cache_folio(NODE_MAPPING(sbi), dn->nid, false);
-+	if (IS_ERR(folio))
-+		return folio;
- 
- 	if (unlikely((err = inc_valid_node_count(sbi, dn->inode, !ofs))))
- 		goto fail;
-@@ -1369,12 +1369,12 @@ struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs)
- 	new_ni.version = 0;
- 	set_node_addr(sbi, &new_ni, NEW_ADDR, false);
- 
--	f2fs_wait_on_page_writeback(page, NODE, true, true);
--	fill_node_footer(page, dn->nid, dn->inode->i_ino, ofs, true);
--	set_cold_node(page, S_ISDIR(dn->inode->i_mode));
--	if (!PageUptodate(page))
--		SetPageUptodate(page);
--	if (set_page_dirty(page))
-+	f2fs_folio_wait_writeback(folio, NODE, true, true);
-+	fill_node_footer(&folio->page, dn->nid, dn->inode->i_ino, ofs, true);
-+	set_cold_node(&folio->page, S_ISDIR(dn->inode->i_mode));
-+	if (!folio_test_uptodate(folio))
-+		folio_mark_uptodate(folio);
-+	if (folio_mark_dirty(folio))
- 		dn->node_changed = true;
- 
- 	if (f2fs_has_xattr_block(ofs))
-@@ -1382,10 +1382,10 @@ struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs)
- 
- 	if (ofs == 0)
- 		inc_valid_inode_count(sbi);
--	return page;
-+	return folio;
- fail:
--	clear_node_page_dirty(page);
--	f2fs_put_page(page, 1);
-+	clear_node_page_dirty(&folio->page);
-+	f2fs_folio_put(folio, true);
+@@ -1524,6 +1524,11 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
  	return ERR_PTR(err);
  }
  
++struct folio *f2fs_get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid)
++{
++	return __get_node_folio(sbi, nid, NULL, 0, NODE_TYPE_REGULAR);
++}
++
+ struct page *f2fs_get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid)
+ {
+ 	return __get_node_page(sbi, nid, NULL, 0);
 -- 
 2.53.0
 
