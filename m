@@ -1,174 +1,160 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67AB416842;
-	Sat, 12 Sep 2026 09:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D310B3B47D5
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 09:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789206070; cv=none; b=hXjcbyGHSz1u2IroadJunMtYAaMCpKAm3XHr4A8C3nR2Ba9gs/iNQ6DZsRw7ocBrCBt9OdLplyXvRQ4I8EQehebbcQSQH8PaO4Th6RL4TwkBvR/+iSm+2SWpe05BvOZDfilG3FIsPg2fMRiRzMzDr5YV1E+N2SW3QVYm9hbrWBk=
+	t=1789206072; cv=none; b=Pijyhx+zEc/kzm9SzlJiW1cdzLITHTGvssBkAbRnraR3E17B4em3T7IpWZ4S7Tk3WMka3J3AgYBm/0ZoR10VaELCOpMUg9jrX71pXRrQrQwRBsXz9N0l5tshSNFCSvq7PhZHEu2L/M1KAOckIeOFMNzAU5LBUwIPMVS2SSbn83o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789206070; c=relaxed/simple;
-	bh=ddGcxI1iJxi2m2MhRVKWXwBPpir+KlK0dMvBt9NihKA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WZJTGc7vQjikNQM4xQ8/UU/rcG2YidN9L9Wvx7ysR/ZuOOUQA+B29+2sD4Zp4gEZYwllQCrEcwcKjWswdxSvOs2g8JLz468mvOHjInC94nb8RQvQ6HY1BBNg0BRLLp3qqN7KJkyEQtXbXDT8WJyxcJHJ3DtMO1PyvBoXpR71xDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=bf7Y37Bf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wbI5F+KE; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1789206072; c=relaxed/simple;
+	bh=fvzxqf7pM0EWszKj6MSRzE26zroEJddeoZwwP/wHf68=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=FKrxRW69KeV8d8EILEAI+oaZrevXLKExc4S2BjUvVEo3+fLZ5vvjxWZ6jXHetxFavw53H2t4yhtAvFXIG/oHdbjulAPaPxfvz8KOuKR24bXQecGIATOZfjEXZD0eZH+tLYgtkbzc3G+xaksACU5TvQw+Ij1GPuZtYdprAGFIIiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZpsZfOPM; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="bf7Y37Bf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wbI5F+KE"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 33163EC0092;
-	Sat, 12 Sep 2026 05:41:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sat, 12 Sep 2026 05:41:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm3; t=1789206065; x=1789292465; bh=hg
-	elB1aNZIxrLEiIkWEq3TlDBqZxOBKRli3gG0SLtmI=; b=bf7Y37BfiRHP4lQkTk
-	j9gtd0h8bVr6CJyisVl2Q5PqvijKSybxvV7vr5OjM0XzLhnmeOEAqJgOtLZeDtwB
-	S2YLmwG9ueGf6MdJOMXu7PBSce7f2B0VONzbOFLp2UsyPg6K8Z3UsSx9iMRFqO7x
-	VLMDO3iOa8F2EALkDc84RexHUfhHTSGLtoD7vXEm29HOfSlvETqMOSt7knW73Oz6
-	9kh1cNct0fhFSRe3llUd5ObIwwiIoo3Hh75QkSCjCM0weEI3Ygn9+DzxcFw6qFQe
-	1+arzcAFq1uuxOVDwZipsSqtFu/Mc/j3EAGVgZNwY/EOI3QK7cGruIJy4Txj2wGC
-	MwYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1789206065; x=1789292465; bh=hgelB1aNZIxrLEiIkWEq3TlDBqZx
-	OBKRli3gG0SLtmI=; b=wbI5F+KEnfOi2BCL8e+RcTVonaVA4FSrgcHr/dQ8eOnY
-	w1Atf7aA6rRQXUwstvsWBN8iyV2QLeZZAJhBn58ibw4nYDx3wYzyRW6L2uHW7w55
-	0WEn+iRuUrynPZHlZvvsRoTm0QLqPhjCCY2WNMF7988fSCq6MdQIwPlA4DX3hbRP
-	Of8gqZSY7kzeyt0tQc/8UHUj2Na/NTzQC6/tboj2WHWtiqDbifYbO7JFbinKJZZY
-	M355HucrUDXGKnhIGejlS6igo4r7yVQIF6yXc47ifcCnVegsvCr4SBVqDOT3/wlT
-	aYNFseZlQcqSmgh+Wo6muCKk80dCVisMkdWR6tPqow==
-X-ME-Sender: <xms:MB6laosLFTmM9uvmL2mozEd9LJ7w7ypu51LxSldHyhCaRQC0xec2Gw>
-    <xme:MB6laqoT-ZTWaZadFYFRSbPmCLpouKVEuzwqn8i5r9lW2nGCVU8MIuQP9__6j2hQP
-    RPvwVuVkxK2bj8nG2gz5yMPhMyqZ2FzLT2LtEBmH0YEgLYS27pyYRw>
-X-ME-Received: <xmr:MB6lanKj2uFwtv9aPk1QTQPrRKMeTmwyBIipffzBrzvgp-TmFonbX7fiGP3hNnRSP__N0kbzqniUZ9OQiptbuCF1edojXxChR9yzXA>
-X-ME-Proxy-Cause: dmFkZTGMMXxsWH1QA8Yl0LAzl/pT4bdCejj2Kw6+qtO58AApVjKHspXnqQhgwf2GP2kCJ6
-    AWZpTBnfySAXQUTWeBOifuFmR0WrLuTnzTavcovK63y77UMk7exYrU44UVWz/tzgneH6h7
-    XlM32+xqTqxJRK4OGRK0KG1HoN9KKCuv18DjEJZlvEnGPO2fsjS8XjI49W0KUtb8/FlqY5
-    yMVGyVfoltZFC3FuavBhr5e/KfKmlVcnsnYZ2y0d5blQirggJqcso87oKaM3sCdVChw5wT
-    OlVTpUIFQzgrqZ0e90NMewDqIsxeAr+T/gB6c33/uzTHNjksqOl/d2OEvoUsm0aHNkiGk/
-    umj68XXlUq3TiXFeGN87pSEnDNSSzPyxTSwRN19nmdT5nzBfAd5nfxNiLDnjVE07CTUJRf
-    VQnDBv1NmrC6srdTuhke3muqchoqPGbTvSk/Abm8qcSU/AIrnV6o6vjDlw2+XQl5LLSbbK
-    uDPy3x6CkXZH8uqcn5kW7BkAdSJc+KuYhSCaaykHZQqbpTv2SkTwhwFIx8tLiA9Obj9buZ
-    bAIYoh9IG/VAjPGTDHtGrO18T73t2EUQVJzacmimMIt0sEe4Dk7NC4uSkAu4fd9sppLa8C
-    ZIKr9UHSPSTc2Rj5sTMTn/cn9JsADF01i8TEzY2XKxPNCkYHLY6MaIS4BHpA
-X-ME-Proxy: <xmx:MB6laqtCJsBKIRnuV--rCgVifyycg_Xs4WxVcootbmwM1hjMC_f7dA>
-    <xmx:MB6lakCYT9Jzj3cic1No8RD3G7x0sG-BFaEdTBrw8ZgLVXAb8w2Iqg>
-    <xmx:MB6lai7TjSps0ZCi8fV4QxvbuYWDDgHIqYiAsF_KtX4NBnA5dSAFIA>
-    <xmx:MB6lasDPQV_fx5r0HhP8-vYHp5yu_e1y1Abv6EczySY4KqnZlrS8TA>
-    <xmx:MR6larFXeElB3ac3b9EM0uq9OnyT59sjcLqpASKkf8tfEvvMIvZQH4T7>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 12 Sep 2026 05:41:04 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Sat, 12 Sep 2026 11:40:51 +0200
-Subject: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way
- HS offload
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZpsZfOPM"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4afc810bfso2809834a12.0
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789206070; x=1789810870; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MEw03QC+JSmM4SSD/Ogrqaba9N735GaiSihiR65530I=;
+        b=ZpsZfOPMuoAbor6qEtVbCOC0AZ9ot/XYm8/peLnSCkqVR0Yy2t2noNct2TOBLjKOMk
+         NTQaHso8bK7XoeEJtjZERyS24jqehc9ZLhCQTsKg5OR1TPoH+0ll9rwnW+ufFbfT2YaA
+         Ni8QM/xgkVyRu54qx7/3F1kF7u5EMus/mPjtePQYuQ+9psI7+UsmI/JqzxloC5m9Tapq
+         bPifiydJzgsTR9+QlSzKRTCWnsUukkxWZwIQCX8qt0LXz0uhsjuZkUd+T8UkDrot6D1T
+         FANKpzSdnsM1saao8nqp5pM3oApJD9qkSHC4WLobtVBVnV3pK9OkMVrTT+CMZ9Wq4ZiW
+         Xvlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789206070; x=1789810870;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MEw03QC+JSmM4SSD/Ogrqaba9N735GaiSihiR65530I=;
+        b=Krr0fq6F5mHkNqwmrCcoLaK5MSgGtevTltsE1PiAK5Kjc2YM0ZyDXbM9BxDLHFNeV5
+         Brc2letwC3zPr331xG+skYxpEtS+1Ku028fZbwnoNofs7qEJa3GYZsmqGDIQiPC+AaCa
+         /NfJgphe6B/kjt1BFNxv39a5K/R2bUy1/td9Nz8wWXGwkv6fWY/gnmkp8lrwVAo/3sak
+         P5dIAfAoaTyoBSy+UHcye9QQXUeocbCCWMUEEICa1TpesQrjOm2cpN3vGMcLkMVGa4E8
+         YdadFjciS/blksPOga0+G2GQnQFrRkakenUITrcCD8CDlx7bie8cGYkEgV6/dkmqAUFt
+         +5oA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxzoKDD2KhOnKXRe9W8rktCNCXHTLbZueh0MMocEYAN4OV1b45BM+AW1Vf1WjobGLRw/Eak2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWBpAE68z1fTF7ZdzngZpo+2BK9c9GFUhgpAU7+j5ByplugZTe
+	6MeQG6ZOKQtShk+x9k0EDJh/zdJTdgoFLfu2BrkNaoGc6opl+5TyUt5kEn4ZHsozF8h0o0LY9l0
+	UbNG8VXB60gA8Sf0oBnNs5A==
+X-Received: from pjbmv23.prod.google.com ([2002:a17:90b:1997:b0:39d:9080:e1e1])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:581:b0:39d:b4a8:92f3 with SMTP id 98e67ed59e1d1-39db4a89bf3mr2048256a91.1.1789206069981;
+ Sat, 12 Sep 2026 02:41:09 -0700 (PDT)
+Date: Sat, 12 Sep 2026 17:41:07 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQrCMBBFr1Jm7UCaWqleRVyMyYwZtIkksSqld
- ze4ew8e/69QOCsXOHUrZF60aIpN+l0HLlC8MapvDtbYgzn2Fq/ZzTKTw/2bvtgSXwLdGZPII5F
- HetXAsaqjyh55aYzTOMg4EVszMLTlZ2bRz//1fNm2H3DI07SFAAAA
-X-Change-ID: 20260912-brcmfmac-4way-handshake-offload-authenticated-event-853f58ae203e
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
- Hante Meuleman <meuleman@broadcom.com>, 
- "Gautam Shukla (Gautam Kumar)" <gautams@broadcom.com>, 
- Kalle Valo <kvalo@kernel.org>, 
- Pieter-Paul Giesberts <pieterpg@broadcom.com>
-Cc: Jason Huang <jason.huang2@infineon.com>, linux-wireless@vger.kernel.org, 
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3353; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=ddGcxI1iJxi2m2MhRVKWXwBPpir+KlK0dMvBt9NihKA=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqylcno2wmmeAd0NXEvfPY6XSDE82LJYsOv6FWb3tCOtJ
- Xf+TK/oKGVhEONikBVTZEnSftnBsLpGMab2QRjMHFYmkCEMXJwCMJGzRQz/LJ9k/JTZslopdkJM
- +bXcA/vWWZ6ds3PW2pOKxYfinolV3mL4p24Xs1ji4CGz4LAjp4svvPZVXXvs+bMitxm1moK/z8+
- NZwUA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260912094107.2098303-1-stanleyjhu@google.com>
+Subject: [PATCH v2] scsi: ufs: core: Quiesce SCSI devices instead of host
+ tagset during error handling
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org
+Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
-This will conflict with the "brcmfmac: add FT/OKC roaming offload
-support" [3] series but is written in a way to easily resolve the
-conflicts.
+Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+switched UFS internal commands to allocate requests on
+hba->host->pseudo_sdev->request_queue, which shares the host tagset with
+regular LUNs.
 
-The "Fixes:" tag is not fully accurate as this has only become an issue
-after userspace changes years later. Since the change is expected to be
-required in all active stable branches for wpa_supplicant 2.11 / 2.12
-compatibility it is helpful even though BRCMF_PROFILE_FWSUP_SAE did not
-exists then.
+During error recovery, ufshcd_err_handling_prepare() calls
+blk_mq_quiesce_tagset(&hba->host->tag_set), marking all queues in the
+tagset as quiesced, including pseudo_sdev->request_queue. When
+ufshcd_verify_dev_init() subsequently issues internal commands (e.g. NOP
+OUT UPIU) via blk_execute_rq(), blk_mq_run_hw_queue() skips running the
+quiesced queue, resulting in an unrecoverable circular wait deadlock.
 
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+Resolve this by quiescing only the logical units attached to the host via
+shost_for_each_device() during error handling. Because
+shost_for_each_device() skips pseudo SCSI devices (via
+scsi_device_is_pseudo_dev() in __scsi_iterate_devices()), pseudo_sdev
+stays unquiesced and internal commands can be dispatched and completed.
+
+Keeping the logical units quiesced preserves behaviour that predates the
+current call. Until commit 2a36646012fc ("scsi: ufs: core: Simplify
+ufshcd_err_handling_prepare()"), the prepare path called
+ufshcd_scsi_block_requests() to hold off new commands in addition to
+blk_mq_wait_quiesce_done() to wait for the ongoing ones; folding both
+into blk_mq_quiesce_tagset() kept that behaviour. Waiting without
+quiescing would drop the first half, so the queues stay quiesced here.
+
+Clock scaling and command pause (ufshcd_pause_command_processing) paths
+continue to use blk_mq_quiesce_tagset() as they require freezing all
+queues including internal commands.
+
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
 Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
+Link: https://lore.kernel.org/all/6f78c4bd-a70b-402d-abfd-599091b67674@acm.org/
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v2:
+- Commit message only; no functional change.
+- Fix the Link: tag, which cited a Message-ID that is not in the archive.
+- Explain why the logical units stay quiesced, referring to the behaviour
+  that predates 2a36646012fc, instead of the vague claim about retry storms.
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 872c48806d09..9fd0ec6255b0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6504,6 +6504,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
- 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
- 	struct cfg80211_connect_resp_params conn_params;
-+	bool authorized;
- 
- 	brcmf_dbg(TRACE, "Enter\n");
- 
-@@ -6528,7 +6529,15 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.req_ie_len = conn_info->req_ie_len;
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
-+		authorized = completed &&
-+			     ((profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE) ||
-+			      (profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK));
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
-+		if (authorized) {
-+			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
-+						 GFP_KERNEL);
-+			brcmf_dbg(CONN, "Report port authorized\n");
-+		}
- 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
- 			  completed ? "succeeded" : "failed");
+ drivers/ufs/core/ufshcd.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index a25b6a0cb5c6..1ca731675ad1 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6781,6 +6781,23 @@ static void ufshcd_clk_scaling_suspend(struct ufs_hba *hba, bool suspend)
  	}
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260912-brcmfmac-4way-handshake-offload-authenticated-event-853f58ae203e
-
-Best regards,
+ }
+ 
++static void ufshcd_quiesce_all_sdevs(struct ufs_hba *hba)
++{
++	struct scsi_device *sdev;
++
++	shost_for_each_device(sdev, hba->host)
++		blk_mq_quiesce_queue_nowait(sdev->request_queue);
++	blk_mq_wait_quiesce_done(&hba->host->tag_set);
++}
++
++static void ufshcd_unquiesce_all_sdevs(struct ufs_hba *hba)
++{
++	struct scsi_device *sdev;
++
++	shost_for_each_device(sdev, hba->host)
++		blk_mq_unquiesce_queue(sdev->request_queue);
++}
++
+ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ {
+ 	/*
+@@ -6816,13 +6833,13 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ 		ufshcd_clk_scaling_allow(hba, false);
+ 	}
+ 	/* Wait for ongoing ufshcd_queuecommand() calls to finish. */
+-	blk_mq_quiesce_tagset(&hba->host->tag_set);
++	ufshcd_quiesce_all_sdevs(hba);
+ 	cancel_work_sync(&hba->eeh_work);
+ }
+ 
+ static void ufshcd_err_handling_unprepare(struct ufs_hba *hba)
+ {
+-	blk_mq_unquiesce_tagset(&hba->host->tag_set);
++	ufshcd_unquiesce_all_sdevs(hba);
+ 	ufshcd_release(hba);
+ 	if (ufshcd_is_clkscaling_supported(hba))
+ 		ufshcd_clk_scaling_suspend(hba, false);
 -- 
-Janne Grunau <j@jannau.net>
+2.55.0.1007.g17ff1f9808-goog
 
