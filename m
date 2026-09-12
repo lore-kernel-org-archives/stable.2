@@ -1,44 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0567E2D0C75;
-	Sat, 12 Sep 2026 11:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF46B37FF60;
+	Sat, 12 Sep 2026 11:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789214252; cv=none; b=TK7oqXdTsZotx3CJj0ol1IOtOqVNd5OHUfA5EmeFf+InfqU4Uea4dyZy1REr9kats8Db18F3ZX6cp0/RZowzQPJnUg/7ONowI9SgTL5Bn8rIWPYSjntG2vzEC112ORk54rs/rXWDMVYS4N7eH+7l2nO/coPGPR2NQ3pNbpt+Pas=
+	t=1789214256; cv=none; b=kkV4/j2uJh6iyGiBzUvwG3K3IX//lN1stOCUsfIst4XdPxY/KerzI1b5mBXwvCYS0OB134Egi1M2v/Uz2Qv3j10psoltjdV3JVh3bOawor+xA9cEWu66luu1AG4B8XZZcEvH3OHsSzYGkMWX2uxfLovILgR5sZGKyd/kMpfanxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789214252; c=relaxed/simple;
-	bh=L7KjX4fjriHfpVma3l6rTmn7klZv5+Bp+h34LGAsl5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tmy176C6MumSF4RcDavn7oQ2PX/RvvUchjhjSn/xNnzAncMXTt9vYr+ENqBqziIgaHRlbhU9hgsMRaVNrJejo3Bm1k/WZ//MdMWm3g2iW/1h4q68LFiY9MY637diDke6dUgZU3lBWjtwxaV5nfaY1KvxEkyR5oVJNaPTELZ1dRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=esm9aBL7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789214256; c=relaxed/simple;
+	bh=oxnaw/S07fLZLNhfUCmG8Jdfft9O1LmkILUr998ltG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWCrAow+l6qEl+s185Tf4Dubli/q82VRhB/9l3NV/uyPvmypccfEsHwikRhHKy6MHpeAKJCeCqJQoSeoIQRW9CYKW9djbMod22hJCa8sHXdKalQTSvgOQ+kpM8fn3ziPyMrElcp0PVp0Fl/5LApwXpFiAebknJzBXHVZInsqBLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=dwoFo4OL; arc=none smtp.client-ip=115.124.28.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="esm9aBL7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D511F000FF;
-	Sat, 12 Sep 2026 11:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789214250;
-	bh=6u/cgGKDR0Kv9CQ09T8gVlpzgh2YTgpMx3F82Tj/mlY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=esm9aBL7idqHNu/S0fiUDo+5e3uLk44e+bffzAa2K9KVxRhAjOhUSIZDQukB1suWB
-	 waFF33BCL6OQMAvx1Ge5a8s5BMjQWzhw2aPVwsxunpaTlPY0wvwh/JMNYNSZz8HdWe
-	 FRkx14WbGJ4lIyKCUkTSZbZZc9/2wunLJumIiXjI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: [PATCH 6.12 0257/1376] f2fs: fix to zero post-EOF data when extending file size
-Date: Sat, 12 Sep 2026 08:44:43 +0200
-Message-ID: <20260912065613.266435190@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-References: <20260912065607.535295758@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="dwoFo4OL"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789214244; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=1dmRRpmX7RaifRKwzqGF3Fys4RZt3UY5YzhrH7tJyOg=;
+	b=dwoFo4OL+itgG3gQroTAdkNsgt9ihk5c8IjvRG8PKZFgNsWa1noDldiffr4GVqLd/kvX1zX/AKkHVi/Z/jT0TtNB1WKZ5oiNMkQuHWP3aMeZ06bxsGSddfm5W5rN3Mo6ozQZVBpM/GhMzpScS250/E352Uc7FMLDimQA7xdDj1Y=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1221488|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00565148-0.00223755-0.992111;FP=12569559143964794011|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jC.MeCA_1789214242;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jC.MeCA_1789214242 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 12 Sep 2026 19:57:23 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] nfc: hci: add bounds checking in nfc_hci_create_pipe()
+Date: Sat, 12 Sep 2026 19:57:20 +0800
+Message-ID: <20260912115720.530715-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,269 +49,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+The "pipe" value comes from the controller ADM_CREATE_PIPE response
+and can be anything in the 0-255 range, while hdev->pipes[] only has
+NFC_HCI_MAX_PIPES (128) entries.  A response carrying a pipe id above
+127 makes the caller, nfc_hci_connect_gate(), write past the end of
+hdev->pipes[].
 
-------------------
+The response length is also not validated before the cast to struct
+hci_create_pipe_resp, so a short response leads to reading past the
+end of the received data.
 
-From: Chao Yu <chao@kernel.org>
+The notification path in nfc_hci_cmd_received() already validates both
+the length and the pipe id for the very same structure; do the same
+for the command response path.  Set *result so that the caller does
+not mistake a rejected pipe for success, which is why this differs
+slightly from the NCI side fix, commit 110b43ef0534 ("NFC: nci: Add
+bounds checking in nci_hci_create_pipe()").
 
-commit 5eced87b7d19dbc76ebdddaf322046f9ac582fcb upstream.
-
-generic/794  4s ... - output mismatch (see /share/git/fstests/results//generic/794.out.bad)
-#    --- tests/generic/794.out   2026-06-12 08:46:32.766426241 +0800
-#    +++ /share/git/fstests/results//generic/794.out.bad 2026-07-05 18:32:55.000000000 +0800
-#    @@ -1,4 +1,16 @@
-#     QA output created by 794
-#     append_write
-#    +FAIL: non-zero data in gap [4080,4096) after shutdown+remount
-#    +000000 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a  >ZZZZZZZZZZZZZZZZ<
-#    +*
-#    +001000
-#     truncate_up
-#    ...
-#    (Run 'diff -u /share/git/fstests/tests/generic/794.out /share/git/fstests/results//generic/794.out.bad'  to see the entire diff)
-Ran: generic/794
-Failures: generic/794
-Failed 1 of 1 tests
-
-Steps of generic/794:
-1. write 4096 bytes to file w/ 0x5a
-2. use fiemap to get PBA of first block in file
-3. truncate file to 4080
-4. umount; write 4096 bytes to file w/ 0x5a directly via PBA; mount
-5. extend filesize via
-   a) append 4096 from offset 4096, or
-   b) truncate 8192, or
-   c) fallocate 4096 from offset 4096
-6. verify the gap is zeroed in memory [4080,4096)
-7. sync range 4096 from offset 4096; shutdown -f (flush meta before shutdown)
-8. umount; mount; verify [4080,4096) is zeroed or not.
-
-When extending file size (e.g. via truncate, fallocate, or write) across an
-unaligned EOF boundary, we need to ensure that post-EOF data in the partial
-page is zeroed out in pagecache and marked dirty, then writeback the cache to
-persist zeroed data before committing inode w/ updated i_size.
-
-This help to prevent stale disk data beyond the previous EOF from being exposed
-after remounting or crash recovery.
-
-Since f2fs is a LFS filesystem, we only support direct write via PBA in pinfile,
-and pinfile has section-aligned filesize, so in Android, there should no problem,
-but for other usage in different environment, let's fix this w/ fsync_mode=strict
-mount option.
-
-Cc: stable@kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 118278f20aa8 ("NFC: hci: Add pipes table to reference them with a tuple {gate, host}")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- fs/f2fs/file.c |  100 +++++++++++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 84 insertions(+), 16 deletions(-)
+ net/nfc/hci/command.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -35,16 +35,52 @@
- #include <trace/events/f2fs.h>
- #include <uapi/linux/f2fs.h>
+diff --git a/net/nfc/hci/command.c b/net/nfc/hci/command.c
+index af6bacb3b..9c8bcb98b 100644
+--- a/net/nfc/hci/command.c
++++ b/net/nfc/hci/command.c
+@@ -225,10 +225,19 @@ static u8 nfc_hci_create_pipe(struct nfc_hci_dev *hdev, u8 dest_host,
+ 	if (*result < 0)
+ 		return NFC_HCI_INVALID_PIPE;
  
--static void f2fs_zero_post_eof_page(struct inode *inode,
--					loff_t new_size, bool lock)
-+static int fill_zero(struct inode *inode, pgoff_t index,
-+					loff_t start, loff_t len);
-+
-+static int do_zero_post_eof_page(struct inode *inode, loff_t new_size)
-+{
-+	loff_t old_size = i_size_read(inode);
-+	unsigned int offset, len;
-+	pgoff_t index;
-+	int err;
-+
-+	offset = old_size & (PAGE_SIZE - 1);
-+
-+	if (!offset)
-+		return 0;
-+
-+	len = min_t(loff_t, PAGE_SIZE - offset, new_size - old_size);
-+	index = old_size >> PAGE_SHIFT;
-+
-+	if (f2fs_has_inline_data(inode)) {
-+		/* data post eof should be always zero */
-+		if (new_size <= MAX_INLINE_DATA(inode))
-+			return 0;
-+		err = f2fs_convert_inline_inode(inode);
-+		if (err)
-+			return err;
++	if (skb->len < sizeof(*resp)) {
++		kfree_skb(skb);
++		*result = -EPROTO;
++		return NFC_HCI_INVALID_PIPE;
 +	}
-+
-+	err = fill_zero(inode, index, offset, len);
-+	if (err)
-+		return err;
-+	return filemap_write_and_wait_range(inode->i_mapping,
-+				old_size, old_size + len - 1);
-+}
-+
-+static int f2fs_zero_post_eof_page(struct inode *inode,
-+					loff_t new_size, bool lock, bool writeback)
- {
- 	loff_t old_size = i_size_read(inode);
-+	bool strict =
-+		F2FS_OPTION(F2FS_I_SB(inode)).fsync_mode == FSYNC_MODE_STRICT;
+ 	resp = (struct hci_create_pipe_resp *)skb->data;
+ 	pipe = resp->pipe;
+ 	kfree_skb(skb);
  
- 	if (old_size >= new_size)
--		return;
-+		return 0;
++	if (pipe >= NFC_HCI_MAX_PIPES) {
++		*result = -EINVAL;
++		return NFC_HCI_INVALID_PIPE;
++	}
+ 	pr_debug("pipe created=%d\n", pipe);
  
--	if (mapping_empty(inode->i_mapping))
--		return;
-+	if (!strict && mapping_empty(inode->i_mapping))
-+		return 0;
- 
- 	if (lock)
- 		filemap_invalidate_lock(inode->i_mapping);
-@@ -52,6 +88,16 @@ static void f2fs_zero_post_eof_page(stru
- 	truncate_inode_pages_range(inode->i_mapping, old_size, new_size - 1);
- 	if (lock)
- 		filemap_invalidate_unlock(inode->i_mapping);
-+
-+	if (!writeback || !strict)
-+		return 0;
-+	/*
-+	 * In fsync_mode=strict, when we expand an unaligned EOF size, we
-+	 * should zero post EOF data and writeback the data immediately,
-+	 * so that it can avoid exposing stale data after metadata flush
-+	 * and POR.
-+	 */
-+	return do_zero_post_eof_page(inode, new_size);
- }
- 
- static vm_fault_t f2fs_filemap_fault(struct vm_fault *vmf)
-@@ -122,7 +168,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(s
- 
- 	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
- 
--	f2fs_zero_post_eof_page(inode, (folio->index + 1) << PAGE_SHIFT, true);
-+	err = f2fs_zero_post_eof_page(inode,
-+		(folio->index + 1) << PAGE_SHIFT, true, false);
-+	if (err)
-+		goto out_pagefault;
- 
- 	file_update_time(vmf->vma->vm_file);
- 	filemap_invalidate_lock_shared(inode->i_mapping);
-@@ -179,7 +228,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(s
- 
- out_sem:
- 	filemap_invalidate_unlock_shared(inode->i_mapping);
--
-+out_pagefault:
- 	sb_end_pagefault(inode->i_sb);
- out:
- 	ret = vmf_fs_error(err);
-@@ -1097,8 +1146,12 @@ int f2fs_setattr(struct mnt_idmap *idmap
- 		f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
- 		filemap_invalidate_lock(inode->i_mapping);
- 
--		if (attr->ia_size > old_size)
--			f2fs_zero_post_eof_page(inode, attr->ia_size, false);
-+		if (attr->ia_size > old_size) {
-+			err = f2fs_zero_post_eof_page(inode,
-+				attr->ia_size, false, true);
-+			if (err)
-+				goto err_out;
-+		}
- 		truncate_setsize(inode, attr->ia_size);
- 
- 		if (attr->ia_size <= old_size)
-@@ -1107,6 +1160,7 @@ int f2fs_setattr(struct mnt_idmap *idmap
- 		 * do not trim all blocks after i_size if target size is
- 		 * larger than i_size.
- 		 */
-+err_out:
- 		filemap_invalidate_unlock(inode->i_mapping);
- 		f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 		if (err)
-@@ -1217,7 +1271,9 @@ static int f2fs_punch_hole(struct inode
- 	if (ret)
- 		return ret;
- 
--	f2fs_zero_post_eof_page(inode, offset + len, true);
-+	ret = f2fs_zero_post_eof_page(inode, offset + len, true, false);
-+	if (ret)
-+		return ret;
- 
- 	pg_start = ((unsigned long long) offset) >> PAGE_SHIFT;
- 	pg_end = ((unsigned long long) offset + len) >> PAGE_SHIFT;
-@@ -1502,7 +1558,9 @@ static int f2fs_do_collapse(struct inode
- 	f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	filemap_invalidate_lock(inode->i_mapping);
- 
--	f2fs_zero_post_eof_page(inode, offset + len, false);
-+	ret = f2fs_zero_post_eof_page(inode, offset + len, false, false);
-+	if (ret)
-+		goto out_unlock;
- 
- 	f2fs_lock_op(sbi);
- 	f2fs_drop_extent_tree(inode);
-@@ -1510,6 +1568,7 @@ static int f2fs_do_collapse(struct inode
- 	ret = __exchange_data_block(inode, inode, end, start, nrpages - end, true);
- 	f2fs_unlock_op(sbi);
- 
-+out_unlock:
- 	filemap_invalidate_unlock(inode->i_mapping);
- 	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	return ret;
-@@ -1631,7 +1690,9 @@ static int f2fs_zero_range(struct inode
- 	if (ret)
- 		return ret;
- 
--	f2fs_zero_post_eof_page(inode, offset + len, true);
-+	ret = f2fs_zero_post_eof_page(inode, offset + len, true, false);
-+	if (ret)
-+		return ret;
- 
- 	pg_start = ((unsigned long long) offset) >> PAGE_SHIFT;
- 	pg_end = ((unsigned long long) offset + len) >> PAGE_SHIFT;
-@@ -1765,7 +1826,9 @@ static int f2fs_insert_range(struct inod
- 	f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	filemap_invalidate_lock(mapping);
- 
--	f2fs_zero_post_eof_page(inode, offset + len, false);
-+	ret = f2fs_zero_post_eof_page(inode, offset + len, false, false);
-+	if (ret)
-+		goto out_unlock;
- 	truncate_pagecache(inode, offset);
- 
- 	while (!ret && idx > pg_start) {
-@@ -1781,6 +1844,7 @@ static int f2fs_insert_range(struct inod
- 					idx + delta, nr, false);
- 		f2fs_unlock_op(sbi);
- 	}
-+out_unlock:
- 	filemap_invalidate_unlock(mapping);
- 	f2fs_up_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
- 	if (ret)
-@@ -1823,7 +1887,9 @@ static int f2fs_expand_inode_data(struct
- 	if (err)
- 		return err;
- 
--	f2fs_zero_post_eof_page(inode, offset + len, true);
-+	err = f2fs_zero_post_eof_page(inode, offset + len, true, true);
-+	if (err)
-+		return err;
- 
- 	f2fs_balance_fs(sbi, true);
- 
-@@ -4839,8 +4905,10 @@ static ssize_t f2fs_write_checks(struct
- 	if (err)
- 		return err;
- 
--	f2fs_zero_post_eof_page(inode,
--		iocb->ki_pos + iov_iter_count(from), true);
-+	err = f2fs_zero_post_eof_page(inode,
-+		iocb->ki_pos + iov_iter_count(from), true, true);
-+	if (err)
-+		return err;
- 	return count;
- }
- 
+ 	return pipe;
 
+base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+-- 
+2.50.1
 
