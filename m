@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF59332A3DA
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:27:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F0A18A93F;
+	Sat, 12 Sep 2026 14:27:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223239; cv=none; b=RTc+FRf8IZvPU6S5JV08C0ekGIbGJZAgGVYgYPSTxosrkSjQQWgf9lBZh5Hc1xcgCb+FV4vMBmEpSJTZF+xx6xx9yfUki1jI+B3fogKzKpmMMz/8Ey62CmkRPgOcRkD1x6OF7AYMUGgHzFf082pBRNF1XMkkrux6mYOlennN5as=
+	t=1789223243; cv=none; b=P7Ue0VauRQxH7CS92dyMUbMrMTiLaFFStX/OgjzUUw2oGezgw1EyHJs5ZgfA7Sk4Lxr9n8sx0Bc+vj8UXbO9puXVjpHyONt8s/KLy3KTfx8zx3rhSiTmnaWgcSiKojVIYuzXirDyI9W0l7pJCajhGFukkFUDYLUC+GkNw83fmg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223239; c=relaxed/simple;
-	bh=qlkYq+12dyWRXmnuSd7He3oRSe5LHuGyvwUXOMs7rr8=;
+	s=arc-20240116; t=1789223243; c=relaxed/simple;
+	bh=FatiuWmGEA8MuHLIO8QwPhZwSiIF7Xi0m7LIeXCGR1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WENB0LLbQlxCVyKnJu9lsYhvyNnGA+qm9Afpg6uRe5TmCIvKGlMze7u9vYrgLyb+HHfWm68/Xt+8zjDUL6rQ7vzDUrcN+s106yPkPfbCxuv/XqwVHu+hUFCticAkp1Kgioyo3INFME0mqdMsIkm/y81ET4gxjt0mIyKmkXZMKks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIbIGsDZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SuLHSaQemfdP+ZEnp7hKuXKy/iglq/ha92B3aKZFBJwV5ldpKtqgcmiFuYpA55yw3BOJg/4Yqg3zaEg+LZ3DlrSxuuWsL055S12g76Q4nRf08RpLU3amws99SJgmcPHU450xkKZteeIf4UWvpNgxpT2nZOSUbZuSd9MKbFNO+z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fvkUOswj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIbIGsDZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC401F000FF;
-	Sat, 12 Sep 2026 14:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789223237;
-	bh=KbZ/kkLNyFZjNQlRirInt6CntEhhIOIL0UlFyxXakKw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fvkUOswj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1C81F000FF;
+	Sat, 12 Sep 2026 14:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789223242;
+	bh=pf4KZjbxnQlJVIRKr0EbFZO2K+NLhJwleYQZaClX98o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIbIGsDZz5Lc9T0+dDy6zwphiqWek61+qtwYw57jegX+V6X0gpBdIyjSfuG06j5q8
-	 7mSATiQcwB3gER23fWIcBo8OQ7Cy9fCQlo8gqF3YKar3zLpzJHE+fk5UDfTiqUGIe7
-	 Ta5apovVtXJY/aa8QUN8We6oTWZ22hs72cpsrOxANKbWeG+MqBckRCYUEH4x1/++Bb
-	 6I+j2WtaapIvhrw0CxC/QwpvYj6O3Mv1QgJ9gPtNj+y3hySpAQOE0KHNo/M9iBVEwK
-	 eYDZpTV9Jj/GTyNlJ1Z9/1BiZHclucrVoRceqOwVR+dOO2AD0rrgtjazZCbVWhhEil
-	 e37IqntRjaqnA==
-From: Sasha Levin <sashal@kernel.org>
+	b=fvkUOswjmZYotLKo0lUg+plsEvK/eLfd5eMX/JxoU9IhYwnPNUhQyDJz3R100spbE
+	 +bbL5Ccgw2o0E0n3kCuFNCNWliL+mPs0n+PjEYWZcTfqchPWSMIbwD9LIkeyCnyCzY
+	 7CQZMxnDzc+Vrinio6ZQ7/3S0c/cwcO5Usz83iIE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Roman Li <Roman.Li@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
-Date: Sat, 12 Sep 2026 10:27:15 -0400
-Message-ID: <20260912142715.2937882-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090953-snowshoe-unlovely-1c25@gregkh>
-References: <2026090953-snowshoe-unlovely-1c25@gregkh>
+Subject: [PATCH 6.6 0723/1424] hwrng: ks-sa - Fix runtime PM cleanup on registration failure
+Date: Sat, 12 Sep 2026 08:52:35 +0200
+Message-ID: <20260912065623.483202088@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,44 +47,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Roman Li <Roman.Li@amd.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9ce3169430f1db035d491481086e2fae2552569c ]
+------------------
 
-[WHY]
-Splash screen corruption on some 8K monitors.
+From: Yuho Choi <dbgh9129@gmail.com>
 
-[HOW]
-Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
-calculations, avoiding the corruption path observed during splash.
+[ Upstream commit 1c17b601fafb09c9ec074fd097737d20eafe7d63 ]
 
-Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 2cbfb03dead5088a7bdfe2ce392a5caa3d1b3719)
-Cc: stable@vger.kernel.org
+ks_sa_rng_probe() enables runtime PM and resumes the device before
+registering the hwrng. If devm_hwrng_register() fails, probe returns
+without dropping the runtime PM usage count or disabling runtime PM.
+
+Unwind the runtime PM state on the registration failure path, matching
+the cleanup done by remove().
+
+Fixes: eb428ee0e3ca ("hwrng: ks-sa - add hw_random driver")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/char/hw_random/ks-sa-rng.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-index c768306ca69e8..0118b398044da 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-@@ -297,6 +297,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
- 		out->smn_latency_us = 2;
- 		out->dispclk_dppclk_vco_speed_mhz = 3600;
- 		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
-+		out->gpuvm_min_page_size_kbytes = 4;
- 		break;
+diff --git a/drivers/char/hw_random/ks-sa-rng.c b/drivers/char/hw_random/ks-sa-rng.c
+index 8cd186fa1107f..3e032ef2ccc74 100644
+--- a/drivers/char/hw_random/ks-sa-rng.c
++++ b/drivers/char/hw_random/ks-sa-rng.c
+@@ -247,7 +247,14 @@ static int ks_sa_rng_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
- 	case dml_project_dcn401:
+-	return devm_hwrng_register(&pdev->dev, &ks_sa_rng->rng);
++	ret = devm_hwrng_register(dev, &ks_sa_rng->rng);
++	if (ret) {
++		pm_runtime_put_sync(dev);
++		pm_runtime_disable(dev);
++		return ret;
++	}
++
++	return 0;
+ }
+ 
+ static int ks_sa_rng_remove(struct platform_device *pdev)
 -- 
 2.53.0
+
+
 
