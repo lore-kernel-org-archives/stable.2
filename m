@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B91B478870
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8D14BEE32;
+	Sat, 12 Sep 2026 11:21:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212092; cv=none; b=EKZ6cGDIspsQu8IUb1GK0cqlDiCVwh32q4UpyLiBNUr9iG/oK66He27NmOvYZXhSX2zqkbnZjQPCaOXqR2yJtY51ZIXOIqGQ1fysGXIVxTnukWS5mFr8bnK6ysueDSx+W/nA4OhZkP2qQ5D7yRHdQrTdi1iK7nQYsNfqGng3ks8=
+	t=1789212095; cv=none; b=azbp/Ld7LeOJHCMpqz6QKsmQ2SH0+tgzXNASXUm41aTy0wp/PkWuC4Ioa6tw174V0syrVZWO9XNZTlnNPzvQLLyT5YEuxpIriPo1nZPZc5Do8fg3hkbiWq+IkCcpi6PaDWlWNYOLfMfJVFm7KKjyZfWZlXHoXywSwiZjcEpMyvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212092; c=relaxed/simple;
-	bh=B1zTjTrlGSAKbsOJArx3tl7R+JKPkG+sZrA+h6OLsq0=;
+	s=arc-20240116; t=1789212095; c=relaxed/simple;
+	bh=thQSjUEkXan6MrctIcyZn9/Xyelcb28eVlSGVm2HUAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oXW4ia77jFPOip8Vlohutw7JZhej1Xv5Bl1OMiboBfO3hNjBphOamdGILWEyrApAkBlMXzaDzVohmirS+aIMGK1nJhQla+spNE3XdJiJj52NpmBDd0bIIcZbjoLWi7soC9YmAcKlUX6kUXHvyT4wUzF3H5ExfOOtVzgSzeSFAhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEvG1FK1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JEw8afcilpFUPKJvekgFLjUaUTqhBXhq+NwO+QWfKN+NTR2e65TDRHLaZLcmdqzdvtAdM/jqMa/EKMpZ32RsfWNdkFTja71uN87q5ffG23RXUaYABBVIbStl5Pp9o6SGU5jI6pKD78jz83C7li2O1ZzvwhT6fFdF55z9g+OBAAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1oreiSWS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEvG1FK1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5A41F000FF;
-	Sat, 12 Sep 2026 11:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789212091;
-	bh=3g0mpgL/i9umFRUvlRgdgq6kYQS/kH0xRIn4ZG28+ow=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1oreiSWS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF491F000FF;
+	Sat, 12 Sep 2026 11:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789212094;
+	bh=aYQ4iwJaNgsf17fwbhQxJzDNjkZCoHsCXImm8VmOMjk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FEvG1FK1FFZxa+1RFKKxaL2Q8tOJiu/KxIlguh5/SewVRsfRhkAsoGrzTByQIN4oF
-	 kXiXmDLfd2joxWR7VBt+0HcLBk+ew8UzqB+m1qcln/Kg5B4D9kyuHdXYwIcsCWMYzq
-	 5UklqhXa6JvjM3Qeie8CTgHKj6fLB9irMteKrAxWZrs7OAQewID0Ib7o+noEnZuXF0
-	 QIzVF09q/uBeto+KOcgTLCPFjx+udnA9ZMfXojfDm4QL/VIXXxwmeG9TXIuOb2NOKL
-	 f0TJdllrnB4bON20bmhQXoudpK0A3OcnuPq6NgkAXbTCmMdT2SaDW/27B57b9I5hLk
-	 ugXSQG4PT58uQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=1oreiSWS9vpaD6qUOJ19Z4xW+5WkNqZdzIw+4EzXJyUCd2aWVFZtIiDCz/0mSPw8A
+	 BuvGh5lOVAQ4twQAaqOn2yo9fA464CJVYQPzQDuKW7dpbaL9xys3HGkPXN4BeqA0ZB
+	 CLq1zl2ab9wgwUMErkvISnYJ1allnlKG3WxQ3Tgk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hidayath Khan <hidayath@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 6/6] f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
-Date: Sat, 12 Sep 2026 07:21:24 -0400
-Message-ID: <20260912112124.2312624-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912112124.2312624-1-sashal@kernel.org>
-References: <2026090958-headband-sturdy-0f93@gregkh>
- <20260912112124.2312624-1-sashal@kernel.org>
+Subject: [PATCH 6.18 1365/1518] net/smc: free pending qentry in smc_llc_flow_stop() before memset
+Date: Sat, 12 Sep 2026 08:58:54 +0200
+Message-ID: <20260912065654.416088005@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +48,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ce366bfa821ec81dd45bde547ee31e659306cc61 ]
+------------------
 
-There is potential deadloop in race condition:
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
 
-Thread A				Thread B
-- fsync
- - f2fs_do_sync_file
-  - f2fs_fsync_node_pages
-   - last_fsync_dnode
-    - folio_get(last_folio)
-					- f2fs_setattr
-					 - f2fs_truncate
-					  - f2fs_truncate_blocks
-					   - f2fs_do_truncate_blocks
-					    - f2fs_truncate_inode_blocks
-					     - truncate_dnode
-					      - truncate_node
-					       - invalidate_mapping_pages
-					        - folio->mapping = NULL
-   - is_node_folio alwasy return false
-   - atomic && !marked is always true,
-     then goto retry
+[ Upstream commit 5ee0ceddc7785c6dcf4a8107fef01f0414a354f4 ]
 
-Cc: stable@kernel.org
-Fixes: 608514deba38 ("f2fs: set fsync mark only for the last dnode")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+smc_llc_flow_stop() resets a flow struct with a blind memset:
+
+	spin_lock_bh(&lgr->llc_flow_lock);
+	memset(flow, 0, sizeof(*flow));
+	flow->type = SMC_LLC_FLOW_NONE;
+	spin_unlock_bh(&lgr->llc_flow_lock);
+
+If flow->qentry is non-NULL at this point the pointer is overwritten without the
+allocation being freed, leaking one kmalloc object.
+
+A late-arriving duplicate CONFIRM_LINK or ADD_LINK_CONT message can set
+flow->qentry after the legitimate message has been consumed by the waiter via
+smc_llc_flow_qentry_clr() (which NULLs the pointer but leaves flow->type
+non-zero) but before the flow completes and smc_llc_flow_stop() runs.  In that
+window the duplicate is stashed into flow->qentry, and then lost when
+smc_llc_flow_stop() zeros the struct.
+
+Call smc_llc_flow_qentry_del() inside the lock before the memset.
+smc_llc_flow_qentry_del() already checks flow->qentry before freeing, so the
+normal case where no entry is pending is a no-op.
+
+Fixes: 555da9af827d ("net/smc: add event-based llc_flow framework")
+Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
+Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Link: https://patch.msgid.link/20260818073943.1108383-1-mjambigi@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/smc/smc_llc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 32296fc08f386..c150e4e78870f 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1885,6 +1885,11 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
- 			   ino, last_folio->index);
- 		folio_lock(last_folio);
-+		if (unlikely(!is_node_folio(last_folio))) {
-+			f2fs_folio_put(last_folio, true);
-+			ret = -EAGAIN;
-+			goto out;
-+		}
- 		f2fs_folio_wait_writeback(last_folio, NODE, true, true);
- 		folio_mark_dirty(last_folio);
- 		folio_unlock(last_folio);
+diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
+index cfc027435e5c3..65cf07bb30d8d 100644
+--- a/net/smc/smc_llc.c
++++ b/net/smc/smc_llc.c
+@@ -341,6 +341,7 @@ int smc_llc_flow_initiate(struct smc_link_group *lgr,
+ void smc_llc_flow_stop(struct smc_link_group *lgr, struct smc_llc_flow *flow)
+ {
+ 	spin_lock_bh(&lgr->llc_flow_lock);
++	smc_llc_flow_qentry_del(flow);
+ 	memset(flow, 0, sizeof(*flow));
+ 	flow->type = SMC_LLC_FLOW_NONE;
+ 	spin_unlock_bh(&lgr->llc_flow_lock);
 -- 
 2.53.0
+
+
 
