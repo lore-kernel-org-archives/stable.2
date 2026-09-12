@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDECA39061C
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16B3B27FB
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246749; cv=none; b=BG8CsKELfoW6xGjSnfIdObi6EeLNwD6CqsQg02/uPkLV4WAE6E6ImvxEahnH89KnKhgzmQCGbN12dPqF8z/pmrIAt3knQbunXTm6+vHc1umEPzIaaAanQUWvtjgwnxjjLQdNWyCmO/TflUos1gLi9fvFiIHp5+ksWnrRmVDqG/4=
+	t=1789246750; cv=none; b=gHkXNtmtltTz/cJO3vJCmDyS0NMPYsxkpQEeGXOwLkRvozPVZXFqvWFOi4t1dxSEn1nn8Wtp2HyzvE1BS32ipCRelse6MNaXLxZ+CSdJQw4h+Hkl2H8ryiWC54jZvqD7cpRNKNwzJwX57RtV3m5pqWX96gF3PJlK0wE6P35taC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789246749; c=relaxed/simple;
-	bh=5cQ7/Y4Nut/tXOthlvc3Dukp5hWDwbukC1Kj2fzgeOg=;
+	s=arc-20240116; t=1789246750; c=relaxed/simple;
+	bh=q714YL1MJe30WLYdYxtjctqqZd/b6qqXlgrDBXHLRJ0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AclSfmUG9jIWWMLqEnKjNAcWv4eq47eczDskKEB8Gr2yPO9XCVemQa4Mi+KGD8G02+2fCkPzbkFC5qYPsmmsOejJiNI9lXgFrz8tbzk/rrMDycloA3fK4rIqg6MSQzGwrwoVdpXRVhHxd8LyWgiLE9PISfCFLTPdXp/PRNs3n5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQ5aEIjG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F8H2fi8YZNtnhhNjiJjsBvg5DC3RaLZi0osSwvH4x7KpRVSBqFPT5Sy48NFXEoB84b7GnbNgHBtcOAKLUv4rAXoa4n1QrVOv5q2EcJmAM10lbu1ovTTMTRAw3j5cLT+eyHOcuNiT0J+WE6E5SuHhfDMmueb1EhX1V0CoBanAoz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0qRw0vC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQ5aEIjG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD94C1F000FF;
-	Sat, 12 Sep 2026 20:59:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0qRw0vC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758BE1F00893;
+	Sat, 12 Sep 2026 20:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789246747;
-	bh=8hBZFnvAJ9Rr5fPkdhQIIbM1dR+tSjE6lg8LwW4vQoo=;
+	s=k20260515; t=1789246749;
+	bh=Bp74YD6Ky2EUSdFabFf+/u3MhWyjsrJyVZD9rdYsRig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GQ5aEIjGYSMtWRNM8iuRT5twYjYcJCfzHuIJHefRx0gPVDRwSYsWI9mRsxUE/Q4QZ
-	 7MzUjgqa07QqAa+iphZRzvAfHdGHXDALYB5th+b9kB929m6+taVuqeWqcI3npMMqP4
-	 SOHe27unYCpxYAnRsuvvPKAbBE+SM0pWwBO/wXrIkIq+QFtC4OXsOePYdUMugDFbxt
-	 z6aEWO4aEDMskOVpAINQaenuwbzXUuy9BsaCXmFcFr2xGumORweJWUErrsjiJecg2Y
-	 aSNa8u6N7fGkiZUCTXSt/As11gJ/+F8jqHZzDPHW8dLe6WW6zf81qHMdBTki7UMjpa
-	 9gQnzXUc/VMdQ==
+	b=o0qRw0vCLKKSeITuI1baDIZtijLAzAAyxx4nQThW6CMlj235WShHHsol+Km9ig3S3
+	 +gqv4QMxVu9ZElM+PCaVp6iFqS01jmcqaZjX61uPfrHtQcKGx6di9I+wIzAPiTKLuf
+	 nKiGTqvcs+MKjPY8BTUDz3cH1/o7Xc/jFI5lxPtjZQS2+a8v1MY6ghgXijTFCbagPF
+	 6+4Y/enwOUDGM9IOL1v6iKBp2Wu1wi3VyGNLdC7uLBDNoA4rsOM5p2DdD/pwTckVeY
+	 PHr/WSDj0OSbrvZI8MGoLfE/xAmZIg5hVOlXi7up/DayACSaWptPFtbN8IHfUbtO9j
+	 ivEnb/x05fTLA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <treding@nvidia.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] f2fs: embed f2fs_gc_kthread in f2fs_sb_info
-Date: Sat, 12 Sep 2026 16:59:04 -0400
-Message-ID: <20260912205904.3933803-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/sysfb: simpledrm: Improve framebuffer-size validation
+Date: Sat, 12 Sep 2026 16:59:06 -0400
+Message-ID: <20260912205907.3933891-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090905-spoiler-zeppelin-dc38@gregkh>
-References: <2026090905-spoiler-zeppelin-dc38@gregkh>
+In-Reply-To: <2026090919-unstylish-evade-283b@gregkh>
+References: <2026090919-unstylish-evade-283b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,224 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 3d7bca9d583793bb7d0bac0d95a24ddd2e129eed ]
+[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
 
-Instead of allocating f2fs_gc_kthread dynamically, embed it in
-f2fs_sb_info. This simplifies lifetime management and prepares for
-fixing race conditions during teardown.
+Validate the framebuffer size from the firmware against the
+limitations of struct drm_display_mode. The type only stores sizes
+in 16-bit fields. Fail probing on errors.
 
-- __sbi_store			- remount|shutdown
-				 - f2fs_stop_gc_thread
- - access sbi->gc_thread
-				  - sbi->gc_thread = NULL
- - access sbi->gc_thread->f2fs_gc_task
+v2:
+- remove unused function simplefb_get_validated_int0() (Sashiko)
 
-Fixes: 52190933c37a ("f2fs: sysfs: introduce critical_task_priority")
-Fixes: 7950e9ac638e ("f2fs: stop gc/discard thread after fs shutdown")
-Cc: stable@kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ Omitted hunks for upstream GC features absent from Linux 5.10. ]
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Cc: <stable@vger.kernel.org> # v5.14+
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/debug.c |  4 ----
- fs/f2fs/f2fs.h  | 16 +++++++++++++++-
- fs/f2fs/gc.c    | 30 +++++++++++-------------------
- fs/f2fs/gc.h    | 14 --------------
- fs/f2fs/super.c |  4 ++--
- fs/f2fs/sysfs.c |  8 ++++----
- 6 files changed, 32 insertions(+), 44 deletions(-)
+ drivers/gpu/drm/tiny/simpledrm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-index 5f52d004105ae..4e2a350ca8457 100644
---- a/fs/f2fs/debug.c
-+++ b/fs/f2fs/debug.c
-@@ -261,10 +261,6 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
- get_cache:
- 	si->cache_mem = 0;
- 
--	/* build gc */
--	if (sbi->gc_thread)
--		si->cache_mem += sizeof(struct f2fs_gc_kthread);
--
- 	/* build merge flush thread */
- 	if (SM_I(sbi)->fcc_info)
- 		si->cache_mem += sizeof(struct flush_cmd_control);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 948e3512f60ff..cead30cab94bc 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1373,6 +1373,20 @@ struct decompress_io_ctx {
- #define MAX_COMPRESS_LOG_SIZE		8
- #define MAX_COMPRESS_WINDOW_SIZE(log_size)	((PAGE_SIZE) << (log_size))
- 
-+struct f2fs_gc_kthread {
-+	struct task_struct *f2fs_gc_task;
-+	wait_queue_head_t gc_wait_queue_head;
-+
-+	/* for gc sleep time */
-+	unsigned int urgent_sleep_time;
-+	unsigned int min_sleep_time;
-+	unsigned int max_sleep_time;
-+	unsigned int no_gc_sleep_time;
-+
-+	/* for changing gc mode */
-+	unsigned int gc_wake;
-+};
-+
- struct f2fs_sb_info {
- 	struct super_block *sb;			/* pointer to VFS super block */
- 	struct proc_dir_entry *s_proc;		/* proc entry */
-@@ -1488,7 +1502,7 @@ struct f2fs_sb_info {
- 						 * semaphore for GC, avoid
- 						 * race between GC and GC or CP
- 						 */
--	struct f2fs_gc_kthread	*gc_thread;	/* GC thread */
-+	struct f2fs_gc_kthread gc_thread;	/* GC thread */
- 	struct atgc_management am;		/* atgc management */
- 	unsigned int cur_victim_sec;		/* current victim section num */
- 	unsigned int gc_mode;			/* current GC state */
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 379839f5b4b74..651dd392b5b93 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -30,8 +30,8 @@ static unsigned int count_bits(const unsigned long *addr,
- static int gc_thread_func(void *data)
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 18489779fb8aa..c32b328ff510a 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -50,7 +50,7 @@ static int
+ simplefb_get_validated_int0(struct drm_device *dev, const char *name,
+ 			    uint32_t value)
  {
- 	struct f2fs_sb_info *sbi = data;
--	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
--	wait_queue_head_t *wq = &sbi->gc_thread->gc_wait_queue_head;
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
-+	wait_queue_head_t *wq = &sbi->gc_thread.gc_wait_queue_head;
- 	unsigned int wait_ms;
- 
- 	wait_ms = gc_th->min_sleep_time;
-@@ -130,16 +130,10 @@ static int gc_thread_func(void *data)
- 
- int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
- {
--	struct f2fs_gc_kthread *gc_th;
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
- 	dev_t dev = sbi->sb->s_bdev->bd_dev;
- 	int err = 0;
- 
--	gc_th = f2fs_kmalloc(sbi, sizeof(struct f2fs_gc_kthread), GFP_KERNEL);
--	if (!gc_th) {
--		err = -ENOMEM;
--		goto out;
--	}
--
- 	gc_th->urgent_sleep_time = DEF_GC_THREAD_URGENT_SLEEP_TIME;
- 	gc_th->min_sleep_time = DEF_GC_THREAD_MIN_SLEEP_TIME;
- 	gc_th->max_sleep_time = DEF_GC_THREAD_MAX_SLEEP_TIME;
-@@ -147,27 +141,25 @@ int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
- 
- 	gc_th->gc_wake= 0;
- 
--	sbi->gc_thread = gc_th;
--	init_waitqueue_head(&sbi->gc_thread->gc_wait_queue_head);
--	sbi->gc_thread->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
-+	init_waitqueue_head(&gc_th->gc_wait_queue_head);
-+	gc_th->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
- 			"f2fs_gc-%u:%u", MAJOR(dev), MINOR(dev));
- 	if (IS_ERR(gc_th->f2fs_gc_task)) {
- 		err = PTR_ERR(gc_th->f2fs_gc_task);
--		kfree(gc_th);
--		sbi->gc_thread = NULL;
-+		gc_th->f2fs_gc_task = NULL;
- 	}
--out:
- 	return err;
- }
- 
- void f2fs_stop_gc_thread(struct f2fs_sb_info *sbi)
- {
--	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
--	if (!gc_th)
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
-+
-+	if (!gc_th->f2fs_gc_task)
- 		return;
-+
- 	kthread_stop(gc_th->f2fs_gc_task);
--	kfree(gc_th);
--	sbi->gc_thread = NULL;
-+	gc_th->f2fs_gc_task = NULL;
- }
- 
- static int select_gc_type(struct f2fs_sb_info *sbi, int gc_type)
-diff --git a/fs/f2fs/gc.h b/fs/f2fs/gc.h
-index 0c8dae12dc512..f29c3ca07d70c 100644
---- a/fs/f2fs/gc.h
-+++ b/fs/f2fs/gc.h
-@@ -30,20 +30,6 @@
- /* Search max. number of dirty segments to select a victim segment */
- #define DEF_MAX_VICTIM_SEARCH 4096 /* covers 8GB */
- 
--struct f2fs_gc_kthread {
--	struct task_struct *f2fs_gc_task;
--	wait_queue_head_t gc_wait_queue_head;
--
--	/* for gc sleep time */
--	unsigned int urgent_sleep_time;
--	unsigned int min_sleep_time;
--	unsigned int max_sleep_time;
--	unsigned int no_gc_sleep_time;
--
--	/* for changing gc mode */
--	unsigned int gc_wake;
--};
--
- struct gc_inode_list {
- 	struct list_head ilist;
- 	struct radix_tree_root iroot;
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 8ab7d3f9a764b..ad0f29f579463 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -1982,11 +1982,11 @@ static int f2fs_remount(struct super_block *sb, int *flags, char *data)
- 	 */
- 	if ((*flags & SB_RDONLY) ||
- 			F2FS_OPTION(sbi).bggc_mode == BGGC_MODE_OFF) {
--		if (sbi->gc_thread) {
-+		if (sbi->gc_thread.f2fs_gc_task) {
- 			f2fs_stop_gc_thread(sbi);
- 			need_restart_gc = true;
- 		}
--	} else if (!sbi->gc_thread) {
-+	} else if (!sbi->gc_thread.f2fs_gc_task) {
- 		err = f2fs_start_gc_thread(sbi);
- 		if (err)
- 			goto restore_opts;
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index f57df76ee71cc..f777c3285fa14 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -53,7 +53,7 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
- static unsigned char *__struct_ptr(struct f2fs_sb_info *sbi, int struct_type)
- {
- 	if (struct_type == GC_THREAD)
--		return (unsigned char *)sbi->gc_thread;
-+		return (unsigned char *)&sbi->gc_thread;
- 	else if (struct_type == SM_INFO)
- 		return (unsigned char *)SM_I(sbi);
- 	else if (struct_type == DCC_INFO)
-@@ -406,10 +406,10 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 			sbi->gc_mode = GC_NORMAL;
- 		} else if (t == 1) {
- 			sbi->gc_mode = GC_URGENT_HIGH;
--			if (sbi->gc_thread) {
--				sbi->gc_thread->gc_wake = 1;
-+			if (sbi->gc_thread.f2fs_gc_task) {
-+				sbi->gc_thread.gc_wake = 1;
- 				wake_up_interruptible_all(
--					&sbi->gc_thread->gc_wait_queue_head);
-+					&sbi->gc_thread.gc_wait_queue_head);
- 				wake_up_discard_thread(sbi, true);
- 			}
- 		} else if (t == 2) {
+-	if (!value) {
++	if (!value || value > U16_MAX) {
+ 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
+ 			name, value);
+ 		return -EINVAL;
 -- 
 2.53.0
 
