@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC253BD659;
-	Sat, 12 Sep 2026 10:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73047013F;
+	Sat, 12 Sep 2026 10:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789210772; cv=none; b=q97t+FEBn6RKcbD8L4LltRyi1Fqr28A6mR8wAsfUXppOtV1YCThuSk6R0neujeyMHLe4vVXUKXspTt2cTjLS7S8hZjJMuCDfCuuNWZ2CT0Jnmpzwzy1r4DlYVpkCcClpoKU7k168l425LeuxcsXe49KymKPaG4QQPdDSwUejH0U=
+	t=1789210783; cv=none; b=GE5ytDw3Y1HbDZpqa3rSVFTDtBc32XIr681pdWLM3aKeMWe4IwlahkXCB7jFsoSWQnmTItyfr5ptioDyarZzimsHVYdKky6n4h4Gky/LDHQmFvlEplaqHt4beMULcN3ZOWSLSZ2YSvIflIau5JrxDGeeWuW4Ple3VKKieBGXe9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789210772; c=relaxed/simple;
-	bh=vvCCA5r2C5xxcijv6GEMW7IGYA7oj12kVu1aVJK461s=;
+	s=arc-20240116; t=1789210783; c=relaxed/simple;
+	bh=epX0L/Aa71ftrcn03h4CWf/2Y0iFau4Qsy4RskN6sTY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c5OuI1zN+coZnJG2E2R4FPFUvrmsgL2U6NLiu/nli9M+IwFtBX2578a3+8k41B5CzH4KQVU9tk7NPmfKZTkt9j45PbxEH1BUD3DZNBo0txNmyg0E2T39+oXtoAMbOnrfwgQHEDh9HQRSEJX1+rn4fOyUp1+5cPCAMwl5daQk0fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xIN84Fct; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=seSRmbl5nqEBieTrTYZZtpwMmXJRC8afqiLAnZcaGp83KTJtGJckB5mc7VjwFd/VvMpt73uMSblWL8gle5TOCSB7b64S7LPt67VDnwZLci/9aE1z7vsRJyyoExTT4MzkC/373fWBMpcbC5soy5d2fHDdxCUXKwqR1dNRHVnFlQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EWOvtCct; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xIN84Fct"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AD71F000FF;
-	Sat, 12 Sep 2026 10:59:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EWOvtCct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E66D1F00898;
+	Sat, 12 Sep 2026 10:59:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789210769;
-	bh=mWsQDvDjP0taIdxGYoeEhWizSjiluNu4Z0IcgXipyLo=;
+	s=korg; t=1789210779;
+	bh=RXSzMVh5OMwDyXx1vtHWo7Z+3PpgWpO1TmaDPqF3x5g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xIN84Fct0W04BCWYcUq2x6KeLvsVYq6yfDKgE6zMyqBMHsb+FyHASPDWKliiYhvHp
-	 KRGfAF+eVktgNnYMFw18B6BhzntyxViMc88HKrATsum6WShOWyz5wLEVMB59CQyMlF
-	 y2C6d4juQ+PM7NFWiY3gLcCfVyuuSmfL8yMx8YVc=
+	b=EWOvtCct0e2xzDievtH4/T9uU63WQy624b8RnIqsNPPRoNsSHK6IjstF+V7jw5UN5
+	 R+cfZ049gTMYo1bi6ODX82pOo9+6ZU0bMlgR8wAFoFsm44g9C5PAaJ+pA1cTebHRBk
+	 V2mhV/a4vMx24Y5Cg14jLhJqv7WyLDXiEyg6tZxk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Georgia Garcia <georgia.garcia@canonical.com>,
-	John Johansen <john.johansen@canonical.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1093/1518] apparmor: split xxx_in_ns into its two separate semantic use cases
-Date: Sat, 12 Sep 2026 08:54:22 +0200
-Message-ID: <20260912065648.177127684@linuxfoundation.org>
+Subject: [PATCH 6.18 1059/1518] fbdev: tdfxfb: fix PCI enable cleanup with pcim_enable_device()
+Date: Sat, 12 Sep 2026 08:53:48 +0200
+Message-ID: <20260912065647.407511691@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
 References: <20260912065623.398859879@linuxfoundation.org>
@@ -51,457 +52,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: John Johansen <john.johansen@canonical.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 796c146fa6c8289afc9e18004c21bfe05c75a487 ]
+[ Upstream commit 95a627143a696f70e17be5ed3b1e733bb6724b46 ]
 
-This patch doesn't change current functionality, it switches the two
-uses of the in_ns fns and macros into the two semantically different
-cases they are used for.
+tdfxfb_probe() enables the PCI device with pci_enable_device(), but
+several failure paths after that point return without disabling it. The
+framebuffer_alloc() failure path returns -ENOMEM directly, and the later
+shared out_err path releases the framebuffer and returns -ENXIO without
+balancing the PCI enable state.
 
-xxx_in_scope for checking mediation interaction between profiles
-xxx_in_view to determine which profiles are visible.The scope will
-always be a subset of the view as profiles that can not see each
-other can not interact.
+The successful probe path has the same imbalance because tdfxfb_remove()
+releases the framebuffer, mappings and regions, but never calls
+pci_disable_device().
 
-The split can not be completely done for label_match because it has to
-distinct uses matching permission against label in scope, and checking
-if a transition to a profile is allowed. The transition to a profile
-can include profiles that are in view but not in scope, so retain this
-distinction as a parameter.
+Use pcim_enable_device() so the PCI device is disabled automatically on
+probe failure and driver detach.
 
-While at the moment the two uses are very similar, in the future there
-will be additional differences. So make sure the semantics differences
-are present in the code.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Reviewed-by: Georgia Garcia <georgia.garcia@canonical.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Stable-dep-of: 08c2f7c8d4b1 ("apparmor: fix unconfined user namespace restriction forced stack")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/apparmor/af_unix.c     |  2 +-
- security/apparmor/apparmorfs.c  |  2 +-
- security/apparmor/domain.c      | 58 +++++++++++++++++----------------
- security/apparmor/include/lib.h | 19 +++++++++--
- security/apparmor/label.c       | 26 +++++++--------
- 5 files changed, 61 insertions(+), 46 deletions(-)
+ drivers/video/fbdev/tdfxfb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-index 1e061345c0b16..834a3b1c2f0af 100644
---- a/security/apparmor/af_unix.c
-+++ b/security/apparmor/af_unix.c
-@@ -416,7 +416,7 @@ static int profile_peer_perm(struct aa_profile *profile, u32 request,
- 				      unix_sk(sk),
- 				      peer_addr, peer_addrlen, &p, &ad->info);
+diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
+index c5095358209e1..eb8f33ae94e77 100644
+--- a/drivers/video/fbdev/tdfxfb.c
++++ b/drivers/video/fbdev/tdfxfb.c
+@@ -1383,7 +1383,7 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	if (err)
+ 		return err;
  
--		return fn_for_each_in_ns(peer_label, peerp,
-+		return fn_for_each_in_scope(peer_label, peerp,
- 				match_label(profile, rules, state, request,
- 					    peerp, p, ad));
- 	}
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 515cc80064c60..4dfca0c6e938d 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -877,7 +877,7 @@ static ssize_t query_label(char *buf, size_t buf_len,
- 
- 	perms = allperms;
- 	if (view_only) {
--		label_for_each_in_ns(i, labels_ns(label), label, profile) {
-+		label_for_each_in_scope(i, labels_ns(label), label, profile) {
- 			profile_query_cb(profile, &perms, match_str, match_len);
- 		}
- 	} else {
-diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-index cf9feed1306de..e56dc0f2c73fa 100644
---- a/security/apparmor/domain.c
-+++ b/security/apparmor/domain.c
-@@ -116,7 +116,7 @@ static inline aa_state_t match_component(struct aa_profile *profile,
-  * @label: label to check access permissions for
-  * @stack: whether this is a stacking request
-  * @state: state to start match in
-- * @subns: whether to do permission checks on components in a subns
-+ * @inview: whether to match labels in view or only in scope
-  * @request: permissions to request
-  * @perms: perms struct to set
-  *
-@@ -128,7 +128,7 @@ static inline aa_state_t match_component(struct aa_profile *profile,
-  */
- static int label_compound_match(struct aa_profile *profile,
- 				struct aa_label *label, bool stack,
--				aa_state_t state, bool subns, u32 request,
-+				aa_state_t state, bool inview, u32 request,
- 				struct aa_perms *perms)
- {
- 	struct aa_ruleset *rules = profile->label.rules[0];
-@@ -136,9 +136,9 @@ static int label_compound_match(struct aa_profile *profile,
- 	struct label_it i;
- 	struct path_cond cond = { };
- 
--	/* find first subcomponent that is visible */
-+	/* find first subcomponent that is in view and going to be interated with */
- 	label_for_each(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, tp, stack, state);
- 		if (!state)
-@@ -152,7 +152,7 @@ static int label_compound_match(struct aa_profile *profile,
- 
- next:
- 	label_for_each_cont(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = aa_dfa_match(rules->file->dfa, state, "//&");
- 		state = match_component(profile, tp, false, state);
-@@ -178,7 +178,7 @@ static int label_compound_match(struct aa_profile *profile,
-  * @label: label to check access permissions for
-  * @stack: whether this is a stacking request
-  * @start: state to start match in
-- * @subns: whether to do permission checks on components in a subns
-+ * @inview: whether to match labels in view or only in scope
-  * @request: permissions to request
-  * @perms: an initialized perms struct to add accumulation to
-  *
-@@ -190,7 +190,7 @@ static int label_compound_match(struct aa_profile *profile,
-  */
- static int label_components_match(struct aa_profile *profile,
- 				  struct aa_label *label, bool stack,
--				  aa_state_t start, bool subns, u32 request,
-+				  aa_state_t start, bool inview, u32 request,
- 				  struct aa_perms *perms)
- {
- 	struct aa_ruleset *rules = profile->label.rules[0];
-@@ -202,7 +202,7 @@ static int label_components_match(struct aa_profile *profile,
- 
- 	/* find first subcomponent to test */
- 	label_for_each(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, tp, stack, start);
- 		if (!state)
-@@ -219,7 +219,7 @@ static int label_components_match(struct aa_profile *profile,
- 	aa_apply_modes_to_perms(profile, &tmp);
- 	aa_perms_accum(perms, &tmp);
- 	label_for_each_cont(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, tp, stack, start);
- 		if (!state)
-@@ -246,26 +246,26 @@ static int label_components_match(struct aa_profile *profile,
-  * @label: label to match (NOT NULL)
-  * @stack: whether this is a stacking request
-  * @state: state to start in
-- * @subns: whether to match subns components
-+ * @inview: whether to match labels in view or only in scope
-  * @request: permission request
-  * @perms: Returns computed perms (NOT NULL)
-  *
-  * Returns: the state the match finished in, may be the none matching state
-  */
- static int label_match(struct aa_profile *profile, struct aa_label *label,
--		       bool stack, aa_state_t state, bool subns, u32 request,
-+		       bool stack, aa_state_t state, bool inview, u32 request,
- 		       struct aa_perms *perms)
- {
- 	int error;
- 
- 	*perms = nullperms;
--	error = label_compound_match(profile, label, stack, state, subns,
-+	error = label_compound_match(profile, label, stack, state, inview,
- 				     request, perms);
- 	if (!error)
- 		return error;
- 
- 	*perms = allperms;
--	return label_components_match(profile, label, stack, state, subns,
-+	return label_components_match(profile, label, stack, state, inview,
- 				      request, perms);
- }
- 
-@@ -881,14 +881,16 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
- 	AA_BUG(!bprm);
- 	AA_BUG(!buffer);
- 
--	/* TODO: determine how much we want to loosen this */
--	error = fn_for_each_in_ns(label, profile,
-+	/* TODO: determine how much we want to loosen this
-+	 * only check profiles in scope for permission to change at exec
-+	 */
-+	error = fn_for_each_in_scope(label, profile,
- 			profile_onexec(subj_cred, profile, onexec, stack,
- 				       bprm, buffer, cond, unsafe));
- 	if (error)
- 		return ERR_PTR(error);
- 
--	new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-+	new = fn_label_build_in_scope(label, profile, GFP_KERNEL,
- 			stack ? aa_label_merge(&profile->label, onexec,
- 					       GFP_KERNEL)
- 			      : aa_get_newest_label(onexec),
-@@ -898,7 +900,7 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
- 		return new;
- 
- 	/* TODO: get rid of GLOBAL_ROOT_UID */
--	error = fn_for_each_in_ns(label, profile,
-+	error = fn_for_each_in_scope(label, profile,
- 			aa_audit_file(subj_cred, profile, &nullperms,
- 				      OP_CHANGE_ONEXEC,
- 				      AA_MAY_ONEXEC, bprm->filename, NULL,
-@@ -1151,7 +1153,7 @@ static struct aa_label *change_hat(const struct cred *subj_cred,
- 	/*find first matching hat */
- 	for (i = 0; i < count && !hat; i++) {
- 		name = hats[i];
--		label_for_each_in_ns(it, labels_ns(label), label, profile) {
-+		label_for_each_in_scope(it, labels_ns(label), label, profile) {
- 			if (sibling && PROFILE_IS_HAT(profile)) {
- 				root = aa_get_profile(profile->parent);
- 			} else if (!sibling && !PROFILE_IS_HAT(profile)) {
-@@ -1187,7 +1189,7 @@ static struct aa_label *change_hat(const struct cred *subj_cred,
- 	 * change_hat.
- 	 */
- 	name = NULL;
--	label_for_each_in_ns(it, labels_ns(label), label, profile) {
-+	label_for_each_in_scope(it, labels_ns(label), label, profile) {
- 		if (!list_empty(&profile->base.profiles)) {
- 			info = "hat not found";
- 			error = -ENOENT;
-@@ -1198,7 +1200,7 @@ static struct aa_label *change_hat(const struct cred *subj_cred,
- 	error = -ECHILD;
- 
- fail:
--	label_for_each_in_ns(it, labels_ns(label), label, profile) {
-+	label_for_each_in_scope(it, labels_ns(label), label, profile) {
- 		/*
- 		 * no target as it has failed to be found or built
- 		 *
-@@ -1217,7 +1219,7 @@ static struct aa_label *change_hat(const struct cred *subj_cred,
- 	return ERR_PTR(error);
- 
- build:
--	new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-+	new = fn_label_build_in_scope(label, profile, GFP_KERNEL,
- 				   build_change_hat(subj_cred, profile, name,
- 						    sibling),
- 				   aa_get_label(&profile->label));
-@@ -1280,7 +1282,7 @@ int aa_change_hat(const char *hats[], int count, u64 token, int flags)
- 		bool empty = true;
- 
- 		rcu_read_lock();
--		label_for_each_in_ns(i, labels_ns(label), label, profile) {
-+		label_for_each_in_scope(i, labels_ns(label), label, profile) {
- 			empty &= list_empty(&profile->base.profiles);
- 		}
- 		rcu_read_unlock();
-@@ -1367,7 +1369,7 @@ int aa_change_hat(const char *hats[], int count, u64 token, int flags)
- 	perms.kill = AA_MAY_CHANGEHAT;
- 
- fail:
--	fn_for_each_in_ns(label, profile,
-+	fn_for_each_in_scope(label, profile,
- 		aa_audit_file(subj_cred, profile, &perms, OP_CHANGE_HAT,
- 			      AA_MAY_CHANGEHAT, NULL, NULL, target,
- 			      GLOBAL_ROOT_UID, info, error));
-@@ -1475,7 +1477,7 @@ int aa_change_profile(const char *fqname, int flags)
- 		 */
- 		stack = true;
- 		perms.audit = request;
--		(void) fn_for_each_in_ns(label, profile,
-+		(void) fn_for_each_in_scope(label, profile,
- 				aa_audit_file(subj_cred, profile, &perms, op,
- 					      request, auditname, NULL, target,
- 					      GLOBAL_ROOT_UID, stack_msg, 0));
-@@ -1521,7 +1523,7 @@ int aa_change_profile(const char *fqname, int flags)
- 	 *
- 	 * if (!stack) {
- 	 */
--	error = fn_for_each_in_ns(label, profile,
-+	error = fn_for_each_in_scope(label, profile,
- 			change_profile_perms_wrapper(op, auditname,
- 						     subj_cred,
- 						     profile, target, stack,
-@@ -1535,7 +1537,7 @@ int aa_change_profile(const char *fqname, int flags)
- check:
- 	/* check if tracing task is allowed to trace target domain */
- 	error = may_change_ptraced_domain(subj_cred, target, &info);
--	if (error && !fn_for_each_in_ns(label, profile,
-+	if (error && !fn_for_each_in_scope(label, profile,
- 					COMPLAIN_MODE(profile)))
- 		goto audit;
- 
-@@ -1551,7 +1553,7 @@ int aa_change_profile(const char *fqname, int flags)
- 
- 	/* stacking is always a subset, so only check the nonstack case */
- 	if (!stack) {
--		new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-+		new = fn_label_build_in_scope(label, profile, GFP_KERNEL,
- 					   aa_get_label(target),
- 					   aa_get_label(&profile->label));
- 		if (IS_ERR_OR_NULL(new))
-@@ -1599,7 +1601,7 @@ int aa_change_profile(const char *fqname, int flags)
- 	perms.allow = 0;
- 
- audit:
--	error = fn_for_each_in_ns(label, profile,
-+	error = fn_for_each_in_scope(label, profile,
- 			aa_audit_file(subj_cred,
- 				      profile, &perms, op, request, auditname,
- 				      NULL, new ? new : target,
-diff --git a/security/apparmor/include/lib.h b/security/apparmor/include/lib.h
-index 26df19c1df4f8..ede5728a0def4 100644
---- a/security/apparmor/include/lib.h
-+++ b/security/apparmor/include/lib.h
-@@ -76,6 +76,19 @@ int aa_print_debug_params(char *buffer);
- /* Flag indicating whether initialization completed */
- extern int apparmor_initialized;
- 
-+/* semantic split of scope and view */
-+#define aa_in_scope(SUBJ, OBJ)						\
-+	aa_ns_visible(SUBJ, OBJ, false)
-+
-+#define aa_in_view(SUBJ, OBJ)						\
-+	aa_ns_visible(SUBJ, OBJ, true)
-+
-+#define label_for_each_in_scope(I, NS, L, P)				\
-+	label_for_each_in_ns(I, NS, L, P)
-+
-+#define fn_for_each_in_scope(L, P, FN)					\
-+	fn_for_each_in_ns(L, P, FN)
-+
- /* fn's in lib */
- const char *skipn_spaces(const char *str, size_t n);
- const char *aa_splitn_fqname(const char *fqname, size_t n, const char **ns_name,
-@@ -318,7 +331,7 @@ __done:									\
- })
- 
- 
--#define __fn_build_in_ns(NS, P, NS_FN, OTHER_FN)			\
-+#define __fn_build_in_scope(NS, P, NS_FN, OTHER_FN)			\
- ({									\
- 	struct aa_label *__new;						\
- 	if ((P)->ns != (NS))						\
-@@ -328,10 +341,10 @@ __done:									\
- 	(__new);							\
- })
- 
--#define fn_label_build_in_ns(L, P, GFP, NS_FN, OTHER_FN)		\
-+#define fn_label_build_in_scope(L, P, GFP, NS_FN, OTHER_FN)		\
- ({									\
- 	fn_label_build((L), (P), (GFP),					\
--		__fn_build_in_ns(labels_ns(L), (P), (NS_FN), (OTHER_FN))); \
-+		__fn_build_in_scope(labels_ns(L), (P), (NS_FN), (OTHER_FN))); \
- })
- 
- #endif /* __AA_LIB_H */
-diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-index d382ac772ca1d..836a0af44afec 100644
---- a/security/apparmor/label.c
-+++ b/security/apparmor/label.c
-@@ -1278,7 +1278,7 @@ static inline aa_state_t match_component(struct aa_profile *profile,
-  * @rules: ruleset to search
-  * @label: label to check access permissions for
-  * @state: state to start match in
-- * @subns: whether to do permission checks on components in a subns
-+ * @inview: whether to match labels in view or only in scope
-  * @request: permissions to request
-  * @perms: perms struct to set
-  *
-@@ -1291,7 +1291,7 @@ static inline aa_state_t match_component(struct aa_profile *profile,
- static int label_compound_match(struct aa_profile *profile,
- 				struct aa_ruleset *rules,
- 				struct aa_label *label,
--				aa_state_t state, bool subns, u32 request,
-+				aa_state_t state, bool inview, u32 request,
- 				struct aa_perms *perms)
- {
- 	struct aa_profile *tp;
-@@ -1299,7 +1299,7 @@ static int label_compound_match(struct aa_profile *profile,
- 
- 	/* find first subcomponent that is visible */
- 	label_for_each(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, rules, tp, state);
- 		if (!state)
-@@ -1313,7 +1313,7 @@ static int label_compound_match(struct aa_profile *profile,
- 
- next:
- 	label_for_each_cont(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = aa_dfa_match(rules->policy->dfa, state, "//&");
- 		state = match_component(profile, rules, tp, state);
-@@ -1334,7 +1334,7 @@ static int label_compound_match(struct aa_profile *profile,
-  * @rules: ruleset to search
-  * @label: label to check access permissions for
-  * @start: state to start match in
-- * @subns: whether to do permission checks on components in a subns
-+ * @subns: whether to match labels in view or only in scope
-  * @request: permissions to request
-  * @perms: an initialized perms struct to add accumulation to
-  *
-@@ -1347,7 +1347,7 @@ static int label_compound_match(struct aa_profile *profile,
- static int label_components_match(struct aa_profile *profile,
- 				  struct aa_ruleset *rules,
- 				  struct aa_label *label, aa_state_t start,
--				  bool subns, u32 request,
-+				  bool inview, u32 request,
- 				  struct aa_perms *perms)
- {
- 	struct aa_profile *tp;
-@@ -1357,7 +1357,7 @@ static int label_components_match(struct aa_profile *profile,
- 
- 	/* find first subcomponent to test */
- 	label_for_each(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, rules, tp, start);
- 		if (!state)
-@@ -1372,7 +1372,7 @@ static int label_components_match(struct aa_profile *profile,
- 	tmp = *aa_lookup_perms(rules->policy, state);
- 	aa_perms_accum(perms, &tmp);
- 	label_for_each_cont(i, label, tp) {
--		if (!aa_ns_visible(profile->ns, tp->ns, subns))
-+		if (!aa_ns_visible(profile->ns, tp->ns, inview))
- 			continue;
- 		state = match_component(profile, rules, tp, start);
- 		if (!state)
-@@ -1397,24 +1397,24 @@ static int label_components_match(struct aa_profile *profile,
-  * @rules: ruleset to search
-  * @label: label to match (NOT NULL)
-  * @state: state to start in
-- * @subns: whether to match subns components
-+ * @subns: whether to match labels in view or only in scope
-  * @request: permission request
-  * @perms: Returns computed perms (NOT NULL)
-  *
-  * Returns: the state the match finished in, may be the none matching state
-  */
- int aa_label_match(struct aa_profile *profile, struct aa_ruleset *rules,
--		   struct aa_label *label, aa_state_t state, bool subns,
-+		   struct aa_label *label, aa_state_t state, bool inview,
- 		   u32 request, struct aa_perms *perms)
- {
--	aa_state_t tmp = label_compound_match(profile, rules, label, state, subns,
--					request, perms);
-+	aa_state_t tmp = label_compound_match(profile, rules, label, state,
-+					      inview, request, perms);
- 	if ((perms->allow & request) == request)
- 		return tmp;
- 
- 	/* failed compound_match try component matches */
- 	*perms = allperms;
--	return label_components_match(profile, rules, label, state, subns,
-+	return label_components_match(profile, rules, label, state, inview,
- 				      request, perms);
- }
- 
+-	err = pci_enable_device(pdev);
++	err = pcim_enable_device(pdev);
+ 	if (err) {
+ 		printk(KERN_ERR "tdfxfb: Can't enable pdev: %d\n", err);
+ 		return err;
 -- 
 2.53.0
 
