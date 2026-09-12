@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D54223328;
-	Sat, 12 Sep 2026 15:55:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A50C3328FC
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228553; cv=none; b=iQ66E1GDi/2oLsNbSjC8gZeCyGAyb7vb3EFGCtmn9ZIvtSBVWSzOYwkRyhIFc+R9Mj6TWSVJFw4Sis1l1Wn6I2scXiwOf2yrNelR1m++U22/QDQHTWYKPkfC1zZ3+Nvnl7FQFGMmYshdwHOYHmI2ulkOWXSTvob91NubmYJt03Y=
+	t=1789228554; cv=none; b=St0i1GhIEJ15noGGRNl4hpwDU3D/iFnNdvVwipgsPISV0LuoRQjbz/jFCkwi/E1Zy8/xMmIjGrD2QvxaFqvEUFrU0jG2XjX7ifzivROU+ptcVdcSM8i2/z+MiWrkSMoaZfcWU/wMqfVJCLhc4VB6CGtZkyzb7QyxH48prTgXzeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228553; c=relaxed/simple;
-	bh=2NQwFJdN0vQPg3k1g2ElIKOez83vg7zHQ/fON5sfFNc=;
+	s=arc-20240116; t=1789228554; c=relaxed/simple;
+	bh=eO9zRV0hdudEPTVey3EQoS66SC9Hn2d5OchSIbQ4KHs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cR06j9BVmJjQ24GNZSZWJaAwAik3C75zNgPc6cMtIcrEUIRi4+3Xr6JpxqZb96AK/MhuLXwFGYi1wPUvknG53QlJQmvq3pWL3yjOjzB+AQ70FMx+HrrzZ/eW8MHZwoYbbYlY6F5i0qx5RlWvyVgoq2At7NJmKuf82/0QBQh3fXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nFjzDbhN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cOuu1tZiD6HQCFtS6hNXzHS9XLIi0FmKU0XSqoktldi/LqGLiikGwnl21nwDpEySfaI+e1ff4LFb4mPazlZArSBQBqWVGDrKfa6MV5zaUGsMxR0p7mosVZOA3WSdE1y+azMrIT8olUHGeCbIwtzvN0cD81zsklLtUFhijsTy1F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3IilgE4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nFjzDbhN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2541F000FF;
-	Sat, 12 Sep 2026 15:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789228551;
-	bh=eN5kyTvWPgjkmgvC6y9vD59qiJ2wdDLuvJBaRx1Q6fc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3IilgE4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FB431F00893;
+	Sat, 12 Sep 2026 15:55:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789228553;
+	bh=fht7c6ZfmCugWyMqJQfeB6xwTrNalXdRtGWzbThUAWU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFjzDbhN6Ws8bkywUtoc5V7E1um04eGc7XxjnLHjW+tCUGqbvlvx+GXJnluZn+0MV
-	 BsA8PLaxSRAzHwy471YDk7WUNmrIV83Tda6cflgmPGwOwLIinZU67Z8ufcunng78O7
-	 cPvR5fG40fZ57aHDtFmtDeV7Tl62w9v8QkBF5JgE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=F3IilgE4aOiA3G7zBw1IoqIE9Iy7U1VmCOh+4tb4NajUBg6dEK+J5PEoZo2T+/5Ym
+	 9whMxiV4kU+YY5qZbFIRHNofaJpQzcSRWxgQN+3agecHK3BAtLpZDd2LVTjmZgVkg/
+	 e3dvAge3E3aAVOGMZk2F51ZrS34EzlHXWne0zl9zyy5g/nzlzw0CPP+I6JPTtACBKt
+	 rRKV3T8o81j3CYSKJ/8tUVzaNgoD4p6WWUUeKV+VkWFViGzCuuyS34SY83I5S0y82j
+	 yDaF+6BNfDj4Gnc/gAXsRV/MMghwxmRXTzuK7ogIxrhmbc1juq36FZNoonvCavVtIj
+	 bIPvgEGOWEUxA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-dev@google.com>,
-	Nilesh Javali <njavali@marvell.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
-Subject: [PATCH 6.1 0407/1191] scsi: qla2xxx: Drop vport reference under lock in report ID acquisition
-Date: Sat, 12 Sep 2026 08:52:15 +0200
-Message-ID: <20260912065557.380868233@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <treding@nvidia.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/sysfb: simpledrm: Improve framebuffer-size validation
+Date: Sat, 12 Sep 2026 11:55:50 -0400
+Message-ID: <20260912155550.3568526-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090920-slot-cushy-44a8@gregkh>
+References: <2026090920-slot-cushy-44a8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,59 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-------------------
+[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
 
-From: Nilesh Javali <njavali@marvell.com>
+Validate the framebuffer size from the firmware against the
+limitations of struct drm_display_mode. The type only stores sizes
+in 16-bit fields. Fail probing on errors.
 
-commit 1154b16439ffc562f9461494c4508c63446eb684 upstream.
+v2:
+- remove unused function simplefb_get_validated_int0() (Sashiko)
 
-qla24xx_report_id_acquisition() format-1 handling takes the vport
-reference under vport_slock but drops it outside the lock, after setting
-vp->vp_flags and vp->dpc_flags:
-
-	set_bit(VP_IDX_ACQUIRED, &vp->vp_flags);
-	set_bit(REGISTER_FC4_NEEDED, &vp->dpc_flags);
-	set_bit(REGISTER_FDMI_NEEDED, &vp->dpc_flags);
-
-	atomic_dec(&vp->vref_count);
-
-Neither set_bit() nor atomic_dec() imply a memory barrier, so on a weakly
-ordered architecture the decrement can become visible before the flag
-stores. qla24xx_deallocate_vp_id() polls vref_count under vport_slock and
-unlinks the vport once it reads zero, after which qla24xx_vport_delete()
-frees it via scsi_host_put(). The poller could therefore observe
-vref_count == 0 early and tear the vport down while the pending vp_flags/
-dpc_flags stores land on freed memory.
-
-Drop the reference under vport_slock, as is done for the matching
-increment and by every other vref_count user. The unlock release pairs
-with the deallocate poller's lock acquire so the flag stores are ordered
-before vref_count == 0 can be observed.
-
-Fixes: 793cedee296f ("scsi: qla2xxx: Hold vport reference in qla24xx_report_id_acquisition()")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-23-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Cc: <stable@vger.kernel.org> # v5.14+
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
+[ adapted shared drm_sysfb validation changes to the existing local simplefb_get_validated_int0() helper. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/qla2xxx/qla_mbx.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/tiny/simpledrm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/scsi/qla2xxx/qla_mbx.c
-+++ b/drivers/scsi/qla2xxx/qla_mbx.c
-@@ -4167,7 +4167,9 @@ qla24xx_report_id_acquisition(scsi_qla_h
- 			set_bit(REGISTER_FC4_NEEDED, &vp->dpc_flags);
- 			set_bit(REGISTER_FDMI_NEEDED, &vp->dpc_flags);
- 
-+			spin_lock_irqsave(&ha->vport_slock, flags);
- 			atomic_dec(&vp->vref_count);
-+			spin_unlock_irqrestore(&ha->vport_slock, flags);
- 		}
- 		set_bit(VP_DPC_NEEDED, &vha->dpc_flags);
- 		qla2xxx_wake_dpc(vha);
-
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index f3c2c173ca4b5..7091af5a18109 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -58,7 +58,7 @@ static int
+ simplefb_get_validated_int0(struct drm_device *dev, const char *name,
+ 			    uint32_t value)
+ {
+-	if (!value) {
++	if (!value || value > U16_MAX) {
+ 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
+ 			name, value);
+ 		return -EINVAL;
+-- 
+2.53.0
 
