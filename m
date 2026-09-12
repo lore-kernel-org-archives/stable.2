@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7AE3A9DBA;
-	Sat, 12 Sep 2026 20:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99F13AFAEB;
+	Sat, 12 Sep 2026 20:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243497; cv=none; b=D3bsFN8+EX2o3hDevbfudsZhQVh0j8pn+wtlV/IjvzygPW98n+V6i3Gt6i39frr5iz5Fy8UgzeN9N+1yUf2VfPDzmLVmTbPaHM1ro2fOVZogCLR5HPWY7NskxsRBWy7tSwOI8MYKBmHmFBwr9UsPkrVlllhUkJd4yp9yV/HoDd0=
+	t=1789243500; cv=none; b=jziXVE+p4utdPEpLqqLFGVe0ZWw0BZXc6RyfgEpm2V2L2KuyotUhAS4maffmFfH6vGZv6RX81tJUEvWY6SLBCZgHJMXkykJz0BSPZvx+iml975LLDVHK4GXwF2n6wKAUnhopmh5B7Tl86iipTRrt4fuTBMoM8HVDCqKC76VEPzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243497; c=relaxed/simple;
-	bh=J6YrC3rBRQ8rcif/k5kpaqI+ZAMvkwt5LE3Z4cEFJ1Q=;
+	s=arc-20240116; t=1789243500; c=relaxed/simple;
+	bh=71cK9X0zuuh4ioDMC1R4B1IQ8S2rgWVWRYGbYZo/5FY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mWgcEFaGv8DoNFrj72MngZ0knp+NVm5OUMfx57S3WH0jpbNX1BsTooVYE0iCSHD9P0r4KcsPvujCO+NeTykyR/3p/Uu4nsSMedBePOFoByVC/vrUnxblQr4SafLki15xmDtGn5taIcPUTioAyw83whYxSwsjQbjeRZzJGcnMatQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KWV1N4l5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=anHRihu+nGoiJ678B5gjqtm6FgNy0y/fVbVKXbTxuQ08aOm2MYVLbSa17krlO97TeaRoowaPhRi6TpGd1gENsIFusnM+NC4zPcRmdZL2htqYvOtFnVS4cbCPaZuYBvdvhOoOpMCFkoDdBaxrCXqYwZIYWe8Mi4BkUBvC7ZFlSK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C8aAX6Vs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KWV1N4l5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3751F00893;
-	Sat, 12 Sep 2026 20:04:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C8aAX6Vs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A141F00898;
+	Sat, 12 Sep 2026 20:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789243487;
-	bh=w8DzU2fmwp5NBipx974eHX23a614TKFWNio8WxN8M74=;
+	s=korg; t=1789243490;
+	bh=DSjnXtVj6y5bpxWDpowVPFCCs9urJ8GmCnLgaBxdFbA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KWV1N4l5S6s0yytTPfCMxJJqieWyfuvlluClQ9A1/n5Ye1JpZLE3XwgJ6Sf1jTTb7
-	 /W6okwSnrpxybd44qCC0upk0Mn3KlIQn+lY2lH7nvTIt/U4zAY9PSBYYP7hhYfVjFb
-	 3+fsRzeIDRT/RiQHQegi8F83BvDd60Dj0xfnqKcQ=
+	b=C8aAX6VsYv7kYgVICnQok153fCJvY/YqI/X+RAbvzuXN934+C7QOR8+wZIODuP7qK
+	 j+LsGwWynroinCkbp+oySnKVPfF0bGZRR6Zc3Fq29//nrwFZRmi0byN5L9gnLSZ1Y6
+	 ZxvcnvD1HBl/1HVa1jqjPVwVbodKxet7HvS8KzCY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 771/798] ASoC: dapm: Fix off-by-one check on the second enum channel
-Date: Sat, 12 Sep 2026 09:06:39 +0200
-Message-ID: <20260912065534.741491019@linuxfoundation.org>
+Subject: [PATCH 5.10 772/798] net: ethernet: sun4i-emac: Fix IRQ error handling
+Date: Sat, 12 Sep 2026 09:06:40 +0200
+Message-ID: <20260912065534.763978903@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
 References: <20260912065516.948645775@linuxfoundation.org>
@@ -51,48 +52,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-[ Upstream commit 14511c9b54ceeeef487409d73947c89ee8563590 ]
+[ Upstream commit 991c2be78257cba5bf53cf935fe70f8836964288 ]
 
-The snd_soc_dapm_put_enum_double() rejects item[0] once it reaches
-e->items, but it lets item[1] be equal to it.  Both go on to
-snd_soc_enum_item_to_val(), which indexes e->values with no bound of
-its own, so an enum with a value table reads one element past the end.
+irq_of_parse_and_map() returns 0 when parsing or mapping an IRQ fails.
+The current code checks for -ENXIO and therefore does not detect the
+failure.
 
-The indexing arrived with the MUX consolidation, which relaxed the
-item[1] check in the same hunk.  The value MUX handler it deleted used
->= there, and the snd_soc_put_enum_double() in soc-ops.c still does.
+Check for a zero return value and convert it to -ENXIO.
 
-Only adav80x pairs a value table with two shifts, and its second
-channel looks accidental, but the control does report two values.
-Writing three into it reads off the end of adav80x_mux_values.  The
-core catches that only under CONFIG_SND_CTL_INPUT_VALIDATION, which
-defaults off.
-
-Fixes: 3727b4968453 ("ASoC: dapm: Consolidate MUXs and value MUXs")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Link: https://patch.msgid.link/20260825125745.932832-1-sammiee5311@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 492205050d77 ("net: Add EMAC ethernet driver found on Allwinner A10 SoC's")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+Link: https://patch.msgid.link/20260824100901.31675-1-phucduc.bui@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-dapm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/allwinner/sun4i-emac.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index a3bebea5879b1..74043c1bb4584 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3516,7 +3516,7 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
- 	mask = e->mask << e->shift_l;
- 	if (e->shift_l != e->shift_r) {
--		if (item[1] > e->items)
-+		if (item[1] >= e->items)
- 			return -EINVAL;
- 		val |= snd_soc_enum_item_to_val(e, item[1]) << e->shift_r;
- 		mask |= e->mask << e->shift_r;
+diff --git a/drivers/net/ethernet/allwinner/sun4i-emac.c b/drivers/net/ethernet/allwinner/sun4i-emac.c
+index 5ed80d9a6b9fe..8ce1fb0a8d554 100644
+--- a/drivers/net/ethernet/allwinner/sun4i-emac.c
++++ b/drivers/net/ethernet/allwinner/sun4i-emac.c
+@@ -819,9 +819,9 @@ static int emac_probe(struct platform_device *pdev)
+ 	/* fill in parameters for net-dev structure */
+ 	ndev->base_addr = (unsigned long)db->membase;
+ 	ndev->irq = irq_of_parse_and_map(np, 0);
+-	if (ndev->irq == -ENXIO) {
++	if (!ndev->irq) {
+ 		netdev_err(ndev, "No irq resource\n");
+-		ret = ndev->irq;
++		ret = -ENXIO;
+ 		goto out_iounmap;
+ 	}
+ 
 -- 
 2.53.0
 
