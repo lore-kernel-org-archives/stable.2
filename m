@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB7C4BEE57
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDB118FDDE
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176724; cv=none; b=q9DDsELrkDQv2mVanJqF+bokmvTrYm6O27PS/hM2I244IdSbQOlsLI+tfh8U/CxQciV2t3nDPUldRERn0VH6MAuCK8rcjSuOsd7KZqE9FyIJJUNq7zVMc15T78BeJGMw5/2IpqYu9oC4Qn6QNZ5BDEqOihFHrYHb7pyGW+5PtDY=
+	t=1789176728; cv=none; b=Klig+Q8q7hiVp2jG3BLjxXkdNrfw5vgqnLGjokypubQWCbZKSTCrTpmsxnRhvvoz47fAYu9oKEQfLUVrs7OKoAcM4iMvy+pC8Q9v0QGFOZrM3USzVbEazBreTkVV7xJ7fgieqPfyYrF8JEjnSV/98BYUB7+HrrPhNPLy2PzrdmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176724; c=relaxed/simple;
-	bh=twviBL+amQ6DJAIam9dfV9joRD1cyoNnemBqAS19KeA=;
+	s=arc-20240116; t=1789176728; c=relaxed/simple;
+	bh=FuX09+/RVb4ojHyL8CdUkFC4ug5sZWqvqk2/lRpBHyM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RFYjyZmOKhrVSupHC1V/ZJkootoIsUuvsJaK10AZXFEKSK4is97n5pEczkTrnNFR1piOhsW1+CAQuRwxlB66cRwUJRH223s+X7LxSZP+UvfJSFjP7BIShOFis0i4dxWT/DaFTMZpfxcOTmwZQ5hVcVpvEwSBmUtCStdDRvMr4S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=le+h49mx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oJAYDU068UX+aN1HJUOPc5oTsYaSG86twyJsnEO4KH0Pwx3Mto4nqJowf/Pc/AWTChXNCpABo6fBVqAS0sp8kQr0t5F0PiH+19HaJpkk0ehk52aAA1ILJMQ066Vn4fQIZm8zDqne6fshJCUa9YkT5+UtSBF7Q/adWmKn/Wgx0e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7q8hXro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="le+h49mx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4DD21F000FF;
-	Sat, 12 Sep 2026 01:32:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7q8hXro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBAA51F000FF;
+	Sat, 12 Sep 2026 01:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789176723;
-	bh=CvVu+hHQTsARzOuJii+Ay7WbaR1NBLWb1rtDPvnqMes=;
+	s=k20260515; t=1789176726;
+	bh=KkVB4ml4l6mk3Olu6XYkylIdK/rjM0+y3SbZ0niS/c0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=le+h49mxgfPqtECgRAz2IE4IJoHlzZvdC2yOK5dEW/Azy2y5+0ts50XcxKQnTDk7a
-	 fgptHYH+aQdXPUvCwa8KEE46r9wUeOVIrodzjnG1l32Ypi33nAAoI7CMyr+yXKVGaa
-	 kZeyHEPaEcBMOaLTF7lAc2ZmeQCUkoYrnfux83z55Tyj3pOehbPNJZo/cktXNevNYV
-	 z6PoaGCqsW4R0DBL4G9g76wh6YYwyHnDWcpyDgHuotoZ0ajcRFvsojQIIustkN65t/
-	 TBZ8neP6ro1KvYXk2M9nVipV8VoUpWNjSWVHVeCJYhksB96sCn7yMzjmUCmBjRvR0S
-	 FQYugOUCbY6+g==
+	b=F7q8hXroP+u9Ne7Sq+s6dwcZT3ZEg5/YjO1W2WrIWURHUN/GYbSjWixeLqJkWsGe4
+	 10h2qOxMz9iU2KGuW5BqZ1iQsCcZ45IO7X2jeWV1Vk9/nTkOBRNfv0wGTSWKjzirXe
+	 iSxNQzudsM7crV4PfRBZ4pVZty9XWG6FRUpqyQZzjlQwKNtdiNkOtdAyFs/q0rllX0
+	 bvLMxW1ICxesacYRIb7IwTK+vbr56hO87c6Rhz4rUqXEsuEoqnZFZ3rnvH4kSvybA+
+	 C3PndB3lWeVB6WxIRvQAob21LCG3ZXxdd+8pUHviud3cny9bl9NkeWy4BxOt6bPYv5
+	 J6347VI/BcxyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chao Yu <chao@kernel.org>,
 	stable@kernel.org,
+	Daeho Jeong <daehojeong@google.com>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] f2fs: embed f2fs_gc_kthread in f2fs_sb_info
-Date: Fri, 11 Sep 2026 21:32:01 -0400
-Message-ID: <20260912013201.1758904-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
+Date: Fri, 11 Sep 2026 21:32:04 -0400
+Message-ID: <20260912013204.1759032-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090904-bless-finite-ea62@gregkh>
-References: <2026090904-bless-finite-ea62@gregkh>
+In-Reply-To: <2026090957-scariness-crudely-46a1@gregkh>
+References: <2026090957-scariness-crudely-46a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,275 +49,106 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 3d7bca9d583793bb7d0bac0d95a24ddd2e129eed ]
+[ Upstream commit fa487f56efba6344aef67d871688f0908fe08af3 ]
 
-Instead of allocating f2fs_gc_kthread dynamically, embed it in
-f2fs_sb_info. This simplifies lifetime management and prepares for
-fixing race conditions during teardown.
+It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
+otherwise, fallocate() on pinfile will fail easily even there is slash
+space in conventional zone.
 
-- __sbi_store			- remount|shutdown
-				 - f2fs_stop_gc_thread
- - access sbi->gc_thread
-				  - sbi->gc_thread = NULL
- - access sbi->gc_thread->f2fs_gc_task
+[Testcase]
+nullblk_create.sh 512 2 1024 1024
+mkfs.f2fs /dev/nullb0 -f -m
+mount /dev/nullb0 /mnt/f2fs/
+touch /mnt/f2fs/pinfile
+f2fs_io pinfile set /mnt/f2fs/pinfile
+mkdir /mnt/f2fs/dir/
+for((i=0;i<3934;i++)) do { dd if=/dev/zero of=/mnt/f2fs/dir/$i bs=1M count=1;} done
+sync
+for((i=0;i<3934;i+=2)) do { rm /mnt/f2fs/dir/$i;} done
+for((i=0;i<1950;i++)) do { rm /mnt/f2fs/dir/$i;} done
+sync
+f2fs_io fallocate 0 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
+sync
+stat /mnt/f2fs/pinfile
+f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
 
-Fixes: 52190933c37a ("f2fs: sysfs: introduce critical_task_priority")
-Fixes: 7950e9ac638e ("f2fs: stop gc/discard thread after fs shutdown")
+[Before]
+fallocate failed: Resource temporarily unavailable
+  File: /mnt/f2fs/pinfile
+  Size: 109051904       Blocks: 213208     IO Block: 4096   regular file
+Device: 250,0   Inode: 4           Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-08-12 20:04:02.264000000 +0800
+Modify: 2026-08-12 20:04:26.784000000 +0800
+Change: 2026-08-12 20:04:26.784000000 +0800
+ Birth: -
+root@localhost:~#
+root@localhost:~#
+root@localhost:~#
+root@localhost:~# f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
+Fiemap: offset = 0 len = 1073741824
+        logical addr.    physical addr.   length           flags
+0       0000000000000000 0000000002e00000 0000000000200000 00001000
+1       0000000000200000 000000002dc00000 0000000000400000 00001000
+2       0000000000600000 000000002e400000 0000000000600000 00001000
+3       0000000000c00000 000000007a400000 0000000005c00000 00001001
+
+[After]
+  File: /mnt/f2fs/pinfile
+  Size: 1073741824      Blocks: 2099216    IO Block: 4096   regular file
+Device: 250,0   Inode: 4           Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-08-12 19:47:49.428000000 +0800
+Modify: 2026-08-12 19:49:06.808000000 +0800
+Change: 2026-08-12 19:49:06.808000000 +0800
+ Birth: -
+Fiemap: offset = 0 len = 1073741824
+        logical addr.    physical addr.   length           flags
+0       0000000000000000 0000000002e00000 0000000000200000 00001000
+1       0000000000200000 000000003aa00000 0000000000400000 00001000
+2       0000000000600000 000000003b400000 0000000000200000 00001000
+3       0000000000800000 000000007a200000 0000000005e00000 00001000
+4       0000000006600000 0000000002800000 0000000000200000 00001000
+5       0000000006800000 0000000003200000 0000000000400000 00001000
+6       0000000006c00000 0000000003000000 0000000000200000 00001000
+7       0000000006e00000 0000000003600000 0000000037200000 00001000
+8       000000003e000000 000000003b200000 0000000000200000 00001000
+9       000000003e200000 000000003a800000 0000000000200000 00001000
+10      000000003e400000 000000003ae00000 0000000000400000 00001000
+11      000000003e800000 000000003b600000 0000000001800000 00001001
+
 Cc: stable@kernel.org
+Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
+Cc: Daeho Jeong <daehojeong@google.com>
 Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ omitted changes to newer GC tuning and task-priority features absent from Linux 6.6. ]
+[ Adjusted context to use f2fs_up_write() instead of f2fs_up_write_trace(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/debug.c   |  4 ----
- fs/f2fs/f2fs.h    | 22 +++++++++++++++++++++-
- fs/f2fs/gc.c      | 30 ++++++++++++------------------
- fs/f2fs/gc.h      | 20 --------------------
- fs/f2fs/segment.c |  9 ++++-----
- fs/f2fs/super.c   |  4 ++--
- fs/f2fs/sysfs.c   | 14 +++++++-------
- 7 files changed, 46 insertions(+), 57 deletions(-)
+ fs/f2fs/segment.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-index 68773b48ed4d1..eeb37785de7c9 100644
---- a/fs/f2fs/debug.c
-+++ b/fs/f2fs/debug.c
-@@ -286,10 +286,6 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
- get_cache:
- 	si->cache_mem = 0;
- 
--	/* build gc */
--	if (sbi->gc_thread)
--		si->cache_mem += sizeof(struct f2fs_gc_kthread);
--
- 	/* build merge flush thread */
- 	if (SM_I(sbi)->fcc_info)
- 		si->cache_mem += sizeof(struct flush_cmd_control);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 63d3450f895ee..bcc3b76f3f4ac 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1556,6 +1556,26 @@ struct decompress_io_ctx {
- #define MAX_COMPRESS_LOG_SIZE		8
- #define MAX_COMPRESS_WINDOW_SIZE(log_size)	((PAGE_SIZE) << (log_size))
- 
-+struct f2fs_gc_kthread {
-+	struct task_struct *f2fs_gc_task;
-+	wait_queue_head_t gc_wait_queue_head;
-+
-+	/* for gc sleep time */
-+	unsigned int urgent_sleep_time;
-+	unsigned int min_sleep_time;
-+	unsigned int max_sleep_time;
-+	unsigned int no_gc_sleep_time;
-+
-+	/* for changing gc mode */
-+	bool gc_wake;
-+
-+	/* for GC_MERGE mount option */
-+	wait_queue_head_t fggc_wq;		/*
-+						 * caller of f2fs_balance_fs()
-+						 * will wait on this wait queue.
-+						 */
-+};
-+
- struct f2fs_sb_info {
- 	struct super_block *sb;			/* pointer to VFS super block */
- 	struct proc_dir_entry *s_proc;		/* proc entry */
-@@ -1677,7 +1697,7 @@ struct f2fs_sb_info {
- 						 * semaphore for GC, avoid
- 						 * race between GC and GC or CP
- 						 */
--	struct f2fs_gc_kthread	*gc_thread;	/* GC thread */
-+	struct f2fs_gc_kthread gc_thread;	/* GC thread */
- 	struct atgc_management am;		/* atgc management */
- 	unsigned int cur_victim_sec;		/* current victim section num */
- 	unsigned int gc_mode;			/* current GC state */
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index ac21950f53cd2..e5cf3cb940fab 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -31,9 +31,9 @@ static unsigned int count_bits(const unsigned long *addr,
- static int gc_thread_func(void *data)
- {
- 	struct f2fs_sb_info *sbi = data;
--	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
--	wait_queue_head_t *wq = &sbi->gc_thread->gc_wait_queue_head;
--	wait_queue_head_t *fggc_wq = &sbi->gc_thread->fggc_wq;
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
-+	wait_queue_head_t *wq = &sbi->gc_thread.gc_wait_queue_head;
-+	wait_queue_head_t *fggc_wq = &sbi->gc_thread.fggc_wq;
- 	unsigned int wait_ms;
- 	struct f2fs_gc_control gc_control = {
- 		.victim_segno = NULL_SEGNO,
-@@ -171,13 +171,9 @@ static int gc_thread_func(void *data)
- 
- int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
- {
--	struct f2fs_gc_kthread *gc_th;
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
- 	dev_t dev = sbi->sb->s_bdev->bd_dev;
- 
--	gc_th = f2fs_kmalloc(sbi, sizeof(struct f2fs_gc_kthread), GFP_KERNEL);
--	if (!gc_th)
--		return -ENOMEM;
--
- 	gc_th->urgent_sleep_time = DEF_GC_THREAD_URGENT_SLEEP_TIME;
- 	gc_th->min_sleep_time = DEF_GC_THREAD_MIN_SLEEP_TIME;
- 	gc_th->max_sleep_time = DEF_GC_THREAD_MAX_SLEEP_TIME;
-@@ -185,16 +181,14 @@ int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
- 
- 	gc_th->gc_wake = false;
- 
--	sbi->gc_thread = gc_th;
--	init_waitqueue_head(&sbi->gc_thread->gc_wait_queue_head);
--	init_waitqueue_head(&sbi->gc_thread->fggc_wq);
--	sbi->gc_thread->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
-+	init_waitqueue_head(&gc_th->gc_wait_queue_head);
-+	init_waitqueue_head(&gc_th->fggc_wq);
-+	gc_th->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
- 			"f2fs_gc-%u:%u", MAJOR(dev), MINOR(dev));
- 	if (IS_ERR(gc_th->f2fs_gc_task)) {
- 		int err = PTR_ERR(gc_th->f2fs_gc_task);
- 
--		kfree(gc_th);
--		sbi->gc_thread = NULL;
-+		gc_th->f2fs_gc_task = NULL;
- 		return err;
- 	}
- 
-@@ -203,14 +197,14 @@ int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
- 
- void f2fs_stop_gc_thread(struct f2fs_sb_info *sbi)
- {
--	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
-+	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
- 
--	if (!gc_th)
-+	if (!gc_th->f2fs_gc_task)
- 		return;
-+
- 	kthread_stop(gc_th->f2fs_gc_task);
-+	gc_th->f2fs_gc_task = NULL;
- 	wake_up_all(&gc_th->fggc_wq);
--	kfree(gc_th);
--	sbi->gc_thread = NULL;
- }
- 
- static int select_gc_type(struct f2fs_sb_info *sbi, int gc_type)
-diff --git a/fs/f2fs/gc.h b/fs/f2fs/gc.h
-index 28a00942802c2..0ff8138f0174f 100644
---- a/fs/f2fs/gc.h
-+++ b/fs/f2fs/gc.h
-@@ -32,26 +32,6 @@
- 
- #define NR_GC_CHECKPOINT_SECS (3)	/* data/node/dentry sections */
- 
--struct f2fs_gc_kthread {
--	struct task_struct *f2fs_gc_task;
--	wait_queue_head_t gc_wait_queue_head;
--
--	/* for gc sleep time */
--	unsigned int urgent_sleep_time;
--	unsigned int min_sleep_time;
--	unsigned int max_sleep_time;
--	unsigned int no_gc_sleep_time;
--
--	/* for changing gc mode */
--	bool gc_wake;
--
--	/* for GC_MERGE mount option */
--	wait_queue_head_t fggc_wq;		/*
--						 * caller of f2fs_balance_fs()
--						 * will wait on this wait queue.
--						 */
--};
--
- struct gc_inode_list {
- 	struct list_head ilist;
- 	struct radix_tree_root iroot;
 diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 9c27353f384be..d71038c98ce3a 100644
+index 4e47826b570a5..9895d5534350b 100644
 --- a/fs/f2fs/segment.c
 +++ b/fs/f2fs/segment.c
-@@ -440,15 +440,14 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
- 	f2fs_submit_merged_write(sbi, DATA);
- 	f2fs_submit_all_merged_ipu_writes(sbi);
+@@ -3268,10 +3268,13 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
+ 		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
+ 				true, ZONED_PIN_SEC_REQUIRED_COUNT);
+ 		f2fs_up_write(&sbi->gc_lock);
+-
+-		gc_required = false;
+-		if (!err)
++		if (err)
++			return err;
++		err = f2fs_sync_fs(sbi->sb, 1);
++		if (!err) {
++			gc_required = false;
+ 			goto retry;
++		}
+ 	}
  
--	if (test_opt(sbi, GC_MERGE) && sbi->gc_thread &&
--				sbi->gc_thread->f2fs_gc_task) {
-+	if (test_opt(sbi, GC_MERGE) && sbi->gc_thread.f2fs_gc_task) {
- 		DEFINE_WAIT(wait);
- 
--		prepare_to_wait(&sbi->gc_thread->fggc_wq, &wait,
-+		prepare_to_wait(&sbi->gc_thread.fggc_wq, &wait,
- 					TASK_UNINTERRUPTIBLE);
--		wake_up(&sbi->gc_thread->gc_wait_queue_head);
-+		wake_up(&sbi->gc_thread.gc_wait_queue_head);
- 		io_schedule();
--		finish_wait(&sbi->gc_thread->fggc_wq, &wait);
-+		finish_wait(&sbi->gc_thread.fggc_wq, &wait);
- 	} else {
- 		struct f2fs_gc_control gc_control = {
- 			.victim_segno = NULL_SEGNO,
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 95adc2c4c3c08..bd08245cce626 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -2457,11 +2457,11 @@ static int f2fs_remount(struct super_block *sb, int *flags, char *data)
- 	if ((*flags & SB_RDONLY) ||
- 			(F2FS_OPTION(sbi).bggc_mode == BGGC_MODE_OFF &&
- 			!test_opt(sbi, GC_MERGE))) {
--		if (sbi->gc_thread) {
-+		if (sbi->gc_thread.f2fs_gc_task) {
- 			f2fs_stop_gc_thread(sbi);
- 			need_restart_gc = true;
- 		}
--	} else if (!sbi->gc_thread) {
-+	} else if (!sbi->gc_thread.f2fs_gc_task) {
- 		err = f2fs_start_gc_thread(sbi);
- 		if (err)
- 			goto restore_opts;
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 4cd2d4bde217a..58def29e99750 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -74,7 +74,7 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
- static unsigned char *__struct_ptr(struct f2fs_sb_info *sbi, int struct_type)
- {
- 	if (struct_type == GC_THREAD)
--		return (unsigned char *)sbi->gc_thread;
-+		return (unsigned char *)&sbi->gc_thread;
- 	else if (struct_type == SM_INFO)
- 		return (unsigned char *)SM_I(sbi);
- 	else if (struct_type == DCC_INFO)
-@@ -579,20 +579,20 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 			sbi->gc_mode = GC_NORMAL;
- 		} else if (t == 1) {
- 			sbi->gc_mode = GC_URGENT_HIGH;
--			if (sbi->gc_thread) {
--				sbi->gc_thread->gc_wake = true;
-+			if (sbi->gc_thread.f2fs_gc_task) {
-+				sbi->gc_thread.gc_wake = true;
- 				wake_up_interruptible_all(
--					&sbi->gc_thread->gc_wait_queue_head);
-+					&sbi->gc_thread.gc_wait_queue_head);
- 				wake_up_discard_thread(sbi, true);
- 			}
- 		} else if (t == 2) {
- 			sbi->gc_mode = GC_URGENT_LOW;
- 		} else if (t == 3) {
- 			sbi->gc_mode = GC_URGENT_MID;
--			if (sbi->gc_thread) {
--				sbi->gc_thread->gc_wake = true;
-+			if (sbi->gc_thread.f2fs_gc_task) {
-+				sbi->gc_thread.gc_wake = true;
- 				wake_up_interruptible_all(
--					&sbi->gc_thread->gc_wait_queue_head);
-+					&sbi->gc_thread.gc_wait_queue_head);
- 			}
- 		} else {
- 			return -EINVAL;
+ 	return err;
 -- 
 2.53.0
 
