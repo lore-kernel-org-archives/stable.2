@@ -1,45 +1,34 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3A229B799;
-	Sat, 12 Sep 2026 07:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199288; cv=none; b=HHEASN90PfaepJJcwD2aWl65NZEX1tGJxhkU1C3wjX75sVmAZEWzRHJHwNpLODYp0NUSbLzcATIvYgCtOybwebVgWMQ/OifnEPHlleRnSHr8rhASkTRfb0fv/5pB2d4869UUNyofz3c9BEoIVrcVzlmjD4hu/ezTVBIQYfGTaok=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199288; c=relaxed/simple;
-	bh=zVZFQq9PPmfzV1i3Hs/hmN8NwCx2x87YZmkOOH2qGuI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bi37KhzuvBDizrGwlJNJtalP3jB4lQ94DhS3yepzcULacyCHS69okOPOjnno2rjtKLzSNH8IJo61MTkF7VDlkkIpd1D2hVlEZfwxKywDKRYOwhi/3YuWUzwUKIzZB5sX+TDwrPnos5oy0pQF1PYIzFle4wt8+o7WSxYUiT1Meqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=flRYpHZB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="flRYpHZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8856A1F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAFF2D8382;
 	Sat, 12 Sep 2026 07:48:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789199287;
-	bh=0+JPYji+dYEZRVUf/nzjXTT9PsRcJAo68CilFW0rOBA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=flRYpHZBubtwKGtZXz1esOQfLy0OWIWU4FLC/RHqGaNWlzhuMR7tDob9TLpvvrbB/
-	 0J0ioFilumexfOdN6NkH/RUPyx+1EhiKNb98koJvrpLdR3rgtgcSPSF7kiogpP5N7L
-	 2YAU2XVo0xjc9NyMjU4/Z2aYvUcarcYfLJSQhdMc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Leon Romanovsky <leon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 0555/1815] RDMA/nldev: validate dynamic counter attribute length
-Date: Sat, 12 Sep 2026 08:38:25 +0200
-Message-ID: <20260912065701.912749162@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-References: <20260912065648.999753832@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789199294; cv=none; b=T/dOAgX0RNoU+dw8W3SA4+xbbSzXf0Qv+gGo2OALMlWeIdg/CIATYpBgF+O6Bama/iJlMY2KwEIBLpZPITllf5wt4SIBA4DVxBep5loT+heAOetcq9lVx1ZEtLaKY6axpJGOd2L68cl8XdMSrWhXEGq7pg5szF8aOVAo4sEKxFE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789199294; c=relaxed/simple;
+	bh=g+thXLaVzZeLKjj7wi7oagUK+H7sISWDAQKOPEGzHy0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ac8BrxQfW1UC2qY4KtWEWermGUy9nk0SLG1NKO1dn1e+Bm0AoUuNKY5H0I0MiRBeqQdaLw1EIfFxX4LFhNbYRkW5ip3tvk/0DDy5A5H1y2QmwV/8iHVZ5JdhXEyaJof1ccG3ACLgozjee6HAFk3+MtbRMihLGhVKw/sDbge8aV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=liQu4yD7; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="liQu4yD7"
+Received: from tju.edu.cn (gy-adaptive-ssl-proxy-1-entmail-virt204.gy.ntes [183.242.150.9])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8263c19;
+	Sat, 12 Sep 2026 15:47:54 +0800 (GMT+08:00)
+From: Yibo Tan <lhfff@tju.edu.cn>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: Wenchao Hao <haowenchao2@huawei.com>,
+	Douglas Gilbert <dgilbert@interlog.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] scsi: scsi_debug: Drain RCU callbacks before module exit
+Date: Sat, 12 Sep 2026 15:47:37 +0800
+Message-Id: <20260912074737.972055-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,49 +36,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0949650ab03a1kunmba0e1024207ae7
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTRpJVkMfSh4ZSkhDHxgdSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lPT0
+	9LVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=liQu4yD7kKD/BFGg0wmr9vOjOc7ARkgsxlP+Wws7kR9jUtqNpqO5hDsXwpSMwDVYKRnKc2ywJkOMBlOXCACq11dARzu+lfBIATh4HKCW07/KbEkwTEsVHpaKPD4ZYXTKGLu8/mB1vWe2PARouBr5GYnx8/vpyFlVOjc1AsYYHVU=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=0HcXmb4vP4kcSsXp8HlCncD4DDQeBwH68MBh/XEiDwc=;
+	h=date:mime-version:subject:message-id:from;
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+Replacing or removing a debugfs error-injection rule queues
+sdebug_err_free() through call_rcu(). Device teardown also queues this
+callback for every remaining rule. The callback resides in scsi_debug
+module text, but scsi_debug_exit() does not wait for queued callbacks
+before returning.
 
-------------------
+With lazy, offloaded RCU callbacks enabled, two runs replaced the same
+error-injection rule 16 times and successfully unloaded scsi_debug.
+Eleven seconds later rcuop/0 executed at the former module text base plus
+0x1f0, the exact ELF offset of sdebug_err_free(), and hit the module
+unload poison.
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Call rcu_barrier() after teardown has stopped future callback submissions
+so that all queued callbacks finish before the module text is released.
+Two runs with the fix completed the 30-second post-unload observation
+without an Oops, KASAN report, warning or panic.
 
-[ Upstream commit 74f49255492a62658f36bf2578d7916f1c6ffad1 ]
+The tested scsi_debug.c is byte-identical to the file in current mainline
+and the current SCSI for-next branch.
 
-RDMA_NLDEV_ATTR_STAT_HWCOUNTERS is a nested attribute whose children are
-consumed directly with nla_get_u32(). The top-level policy validates only
-the container, so it does not establish the fixed shape of each child.
+A source reproducer, kernel configuration, complete serial logs and the
+vulnerable/fixed result table are available at:
 
-Require every child payload to be exactly one u32 before reading it.
+https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/main/cases/scsi-debug-rcu-callback-after-unload
 
-Fixes: 3c3c1f141639 ("RDMA/nldev: Allow optional-counter status configuration through RDMA netlink")
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260720114918.70323-1-pengpeng@iscas.ac.cn
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a9996d722b11 ("scsi: scsi_debug: Add interface to manage error injection for a single device")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 ---
- drivers/infiniband/core/nldev.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/scsi/scsi_debug.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/infiniband/core/nldev.c b/drivers/infiniband/core/nldev.c
-index 02a0a9c0a4a6a..f0f09670956d6 100644
---- a/drivers/infiniband/core/nldev.c
-+++ b/drivers/infiniband/core/nldev.c
-@@ -2133,6 +2133,11 @@ static int nldev_stat_set_counter_dynamic_doit(struct nlattr *tb[],
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 3346562275f8..2fdb1cbe470b 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -8676,6 +8676,7 @@ static void __exit scsi_debug_exit(void)
+ 	sdebug_erase_all_stores(false);
+ 	xa_destroy(per_store_ap);
+ 	debugfs_remove(sdebug_debugfs_root);
++	rcu_barrier();
+ }
  
- 	nla_for_each_nested(entry_attr, tb[RDMA_NLDEV_ATTR_STAT_HWCOUNTERS],
- 			    rem) {
-+		if (nla_len(entry_attr) != sizeof(u32)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
- 		index = nla_get_u32(entry_attr);
- 		if ((index >= stats->num_counters) ||
- 		    !(stats->descs[index].flags & IB_STAT_FLAG_OPTIONAL)) {
+ device_initcall(scsi_debug_init);
 -- 
-2.53.0
-
-
+2.39.5
 
