@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C6E2EC09B;
-	Sat, 12 Sep 2026 11:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1543F471D03
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211833; cv=none; b=Rqtdi4KufPLMVMHCioGigCPzBPYF/u9mu5wSRGlUF6M4/Rw6QdzNCQHg6F2P7aJXLqnYGnL9IFr01PrBwnPY8rSudpSp/g+Kn8L6NLmnsqUGjSj/bE1Eb7cozXFcsKET7JTxHX9VDjXOr1/TaExJHMXBlDjUxGK0m5+qY2p39Vs=
+	t=1789211833; cv=none; b=qvKtoyH7M+JNkKY0VOMjGJ14liRWEBFOe2SC+5Bvk/58i+/3lT7huDz+iyB5IYQ8+iaRSr1IZB81lFAkT3U3bhFbAnKGkDO26cbS0sf/lgCXDaq/wo7oTrTyn5jrD/d9oEj1Vc/iUh+YiHzokMguzsHMY3UGRlspk95i0F6OBrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789211833; c=relaxed/simple;
-	bh=liiEIbPnmcWWPIw+qwXCXGEsG4EgU+1xzOgISEJ1Vvs=;
+	bh=9TeHeI71b3vmnTzGPR5ZI5wyv1dfHjk8ImBGGzjhhCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p/cITQ4vg0iRVdDckUTGJZGYbth2tba8KWk7Qw0uWy6c8oZtUDJqiPQgW+ETSV4TdwLbj/sETcxNY0bayCinBrjH6Dl6etC4MRG4AlcHrAljdQ6GsGsNay0KdjqcEfWitygTw/CliPuh8+DhVEYoyeZX0QVWjB2182DHcmBKvKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Aa8UsCEC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h0KynMQ/MRfvnASOqtO6LOvTevn8NWH7eatQvAlZx1TCttz0EQm35fnkTjbkVziQJvORx7mhm7xABeQRJr8uRNLIX4RfpgmsDwsm2mzoK9IC9iSf+HeHdnmQWm+QNsO+lAxHNeyNv/h5yB3IksUORV7Yb6QtqvJAbWOulIS02cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRxzfWWx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Aa8UsCEC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE131F000FF;
-	Sat, 12 Sep 2026 11:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789211831;
-	bh=GlnXTcVn+DQvx2oGQ7TcCLgCz1cuwRLktWyoVCAiIOs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRxzfWWx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA67C1F00893;
+	Sat, 12 Sep 2026 11:17:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789211831;
+	bh=g9GAzUI/RrAZp7jTb78MmVaKj4uehWZjXmDER5QnoDQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Aa8UsCECw8Ru1CuFQCcTr09nblQzAB4wMfCO24WF/Vlxgp2CFN4+PgG7ieCpsfcBb
-	 IPAq7G8xu7+57MjAeIwfvSqsNI8TJUPTIDAENw86xnQrHKxVb24ZPIYhXnjCjcZHsJ
-	 KBFW2jBvgylQD6LcJCXJQd/2QhDfw2vsLZ5MeS68=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=RRxzfWWxYVdnQZT6nBgi+BseN0xPRrIbd1yzsCd8XhIpAr3Bv6QYABY6E0vrcd2Wu
+	 x1OsajZ8lbDe/D2k+gG+jUom9dVMrmAUSXtkWitO2y/ZabTwMaDJN/3RiO9rz7GsD7
+	 aQ4dJn57nhe+p0hFSFEdALThDb59bohwES8QLBJYiprk7hk+vlSOret9zaehBkyUcm
+	 IZ7ZKJ/iwRW/Uf15USCq5XhMx+qOC00F9XotS4/VBTWP8FhrKDTcJPoH8fJjvMBytB
+	 mTpQC6Yl3DVCxm62puwrg9JueurNjBIRUQ1O6PduumtaUDxwqxkafv6VPSJuJHxFvX
+	 BzCOQwoXf00DQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1312/1518] irqchip/gic-v5: Synchronize CPU interface disable
-Date: Sat, 12 Sep 2026 08:58:01 +0200
-Message-ID: <20260912065653.205901526@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 4/6] f2fs: Use folios in truncate_partial_nodes()
+Date: Sat, 12 Sep 2026 07:17:04 -0400
+Message-ID: <20260912111706.2282608-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260912111706.2282608-1-sashal@kernel.org>
+References: <2026090957-spectacle-juniper-fbdf@gregkh>
+ <20260912111706.2282608-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +47,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-------------------
+[ Upstream commit d68833a0b74e46edc678340cdff5ad22782c6609 ]
 
-From: Sascha Bischoff <Sascha.Bischoff@arm.com>
+Removes two calls to compound_head().
 
-[ Upstream commit ac6db0e0bee18cd4385418c752a007e1aba4ec14 ]
-
-The write disabling the GICv5 CPU interface is only guaranteed to take
-effect after a context synchronization event. Without one, execution can
-return from gicv5_cpu_disable_interrupts() while an interrupt is still
-able to be taken.
-
-Add an ISB after the ICC_CR0_EL1 write to ensure interrupts are
-disabled before the function returns. No corresponding ISB is added
-when enabling the interface, as interrupt delivery is asynchronous and
-there is no obvious benefit to waiting for it.
-
-Fixes: 7ec80fb3f025 ("irqchip/gic-v5: Add GICv5 PPI support")
-Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260724104819.1296803-1-sascha.bischoff@arm.com?part=6
-Link: https://patch.msgid.link/20260811152630.942023-3-sascha.bischoff@arm.com
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: ce366bfa821e ("f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/irqchip/irq-gic-v5.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/f2fs/node.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
-index fa86dd03e307c..a04dd56652027 100644
---- a/drivers/irqchip/irq-gic-v5.c
-+++ b/drivers/irqchip/irq-gic-v5.c
-@@ -925,6 +925,7 @@ static void gicv5_cpu_disable_interrupts(void)
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index c0de044fac304..b6a57d3706722 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1074,7 +1074,7 @@ static int truncate_nodes(struct dnode_of_data *dn, unsigned int nofs,
+ static int truncate_partial_nodes(struct dnode_of_data *dn,
+ 			struct f2fs_inode *ri, int *offset, int depth)
+ {
+-	struct page *pages[2];
++	struct folio *folios[2];
+ 	nid_t nid[3];
+ 	nid_t child_nid;
+ 	int err = 0;
+@@ -1088,45 +1088,45 @@ static int truncate_partial_nodes(struct dnode_of_data *dn,
+ 	/* get indirect nodes in the path */
+ 	for (i = 0; i < idx + 1; i++) {
+ 		/* reference count'll be increased */
+-		pages[i] = f2fs_get_node_page(F2FS_I_SB(dn->inode), nid[i]);
+-		if (IS_ERR(pages[i])) {
+-			err = PTR_ERR(pages[i]);
++		folios[i] = f2fs_get_node_folio(F2FS_I_SB(dn->inode), nid[i]);
++		if (IS_ERR(folios[i])) {
++			err = PTR_ERR(folios[i]);
+ 			idx = i - 1;
+ 			goto fail;
+ 		}
+-		nid[i + 1] = get_nid(pages[i], offset[i + 1], false);
++		nid[i + 1] = get_nid(&folios[i]->page, offset[i + 1], false);
+ 	}
  
- 	cr0 = FIELD_PREP(ICC_CR0_EL1_EN, 0);
- 	write_sysreg_s(cr0, SYS_ICC_CR0_EL1);
-+	isb();
- }
+-	f2fs_ra_node_pages(pages[idx], offset[idx + 1], NIDS_PER_BLOCK);
++	f2fs_ra_node_pages(&folios[idx]->page, offset[idx + 1], NIDS_PER_BLOCK);
  
- static void gicv5_cpu_enable_interrupts(void)
+ 	/* free direct nodes linked to a partial indirect node */
+ 	for (i = offset[idx + 1]; i < NIDS_PER_BLOCK; i++) {
+-		child_nid = get_nid(pages[idx], i, false);
++		child_nid = get_nid(&folios[idx]->page, i, false);
+ 		if (!child_nid)
+ 			continue;
+ 		dn->nid = child_nid;
+ 		err = truncate_dnode(dn);
+ 		if (err < 0)
+ 			goto fail;
+-		if (set_nid(pages[idx], i, 0, false))
++		if (set_nid(&folios[idx]->page, i, 0, false))
+ 			dn->node_changed = true;
+ 	}
+ 
+ 	if (offset[idx + 1] == 0) {
+-		dn->node_page = pages[idx];
++		dn->node_page = &folios[idx]->page;
+ 		dn->nid = nid[idx];
+ 		err = truncate_node(dn);
+ 		if (err)
+ 			goto fail;
+ 	} else {
+-		f2fs_put_page(pages[idx], 1);
++		f2fs_folio_put(folios[idx], true);
+ 	}
+ 	offset[idx]++;
+ 	offset[idx + 1] = 0;
+ 	idx--;
+ fail:
+ 	for (i = idx; i >= 0; i--)
+-		f2fs_put_page(pages[i], 1);
++		f2fs_folio_put(folios[i], true);
+ 
+ 	trace_f2fs_truncate_partial_nodes(dn->inode, nid, depth, err);
+ 
 -- 
 2.53.0
-
-
 
