@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6CF33B6E8
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1190C3290D1;
+	Sat, 12 Sep 2026 16:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789231035; cv=none; b=ti5LZpdzfYZXyDoMk/X/Pzj6Y74pt8oExdI/2luWbDw7IBYopYEYrbgddHraPCG8bLiJDZrV+Tyr4bOleO/472W+cX3Pn6WpnGJLUAtclWtlpj/B+tHZirsh66d5FYqFab6ielT++uoh5XIKrXwyZsnyVC+sWJejokRXPri/++Q=
+	t=1789231039; cv=none; b=stz3MRLaVR69SyXLpWM0HJ6PaG7tVk1ekEo0ePbpTOLRmqZ/Q4x1cYLqGbSQYTyDNZFyVaz5N1xtrRl+cItZNFQ3sA5+jG6YYxQKX5mKmKdZCpqwZPAWcldV6AK6N9zecvwD2VMYD0AJ9Fa675IDmeVYqzdOMwXQw5Kl63BGzFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789231035; c=relaxed/simple;
-	bh=ncdGORt4YTsa3caxYQVmUIrI0T5j6xXD8OSgGGCpVXY=;
+	s=arc-20240116; t=1789231039; c=relaxed/simple;
+	bh=Y+cvxsl5HWcQReWHlciXkQMgQFJrQrx512NQVe/NeIM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pcBQeXOxbbkXlbt3wa+ah3Szcks9UtRAChz3vjVAjNRmX+9krI5DXxZUYv7bi8mXmGJwEq1YSV1AAQvxnaJZ7Ll8WL3UXBblF23wmT9eLfgWzwUpNQgYAhzxsqL2UW6cD39mzq7nFv1XLqXrbZdhGtXXo0G73KkiJhcqjbBhGMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQ85dFbH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hwfWUbciV8s2s5Ps6Zo14FvcbBl5+mfMUM4l6DX1AQpru1wpm1weSG/Fl/qXUdTwJfezu+jMoCJw2cLuIVSvW2oJ6s20LOa3R68l498Fip1M2O3olV3YjevNtPDX2A9NhfMBfCEk46wJi7c8K7FtztxZLvCtx0cuLWvSnQRfqeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WOr+jedI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQ85dFbH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09FC1F0089E;
-	Sat, 12 Sep 2026 16:37:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789231033;
-	bh=IyY75ZktjG+8xYUMFXOFc8IuGytW0oy2EcipOSDbcQU=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WOr+jedI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03B11F000FF;
+	Sat, 12 Sep 2026 16:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789231038;
+	bh=e8WizM2mBWHioaNexRrJfz8OQ9uAhhLzsdiyzlk+gaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BQ85dFbHpyy+fs/gUKc+13vIz1nlJz79d1sTBTx6eEj848ZPhOD9Cv1wDlxAI6Oib
-	 2t1TIUgC1+84zvzRVN59Q7H5OIlOoTYq9rASOXradihYVbn8q5sd8gPK7m1EE+ogQs
-	 5h8nuCpl4iB+KKYKNZnjl1tMJDYEeLVGRjLvkD3PkYpoC4DWSqlc9RXKO0WmHFJJ2s
-	 4R79KPO5YKTFA43dxVmfGr+UWsy65hs65YGfR6bDKcZNkNwIwcEEnW/sStgkWbP0Ao
-	 dsSCQvR5DBCIsQFMMZJ4AXa2GATtgTXYkksJ2VpBd5ho+kTSQ/EEsbvG9FaXk3b/+y
-	 U/lpkdrUoTp2w==
-From: Sasha Levin <sashal@kernel.org>
+	b=WOr+jedIW0Je0pksbLFyC00pY+aH5P/vfZ4xOv5nF5jYWeiYu2UqtJ/ue+NaZoIR4
+	 jwCMQkiCQQF9KW6DAoN4oHo307icSaxLxskgVQxAzXvKdHE34TBj9dx+Z9x3VmUVB4
+	 WmZxx0uNX1euz1AvsF8mqE33wUficRV8PLlXi6BU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Marek Czernohous <marek@czernohous.de>,
-	Lyude Paul <lyude@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linkai Gong <gonglinkai@kylinos.cn>,
+	Maxim Kochetkov <fido_max@inbox.ru>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] drm/nouveau: unsubscribe the channel-kill event before the fence context
-Date: Sat, 12 Sep 2026 12:37:09 -0400
-Message-ID: <20260912163709.3673876-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912163709.3673876-1-sashal@kernel.org>
-References: <2026090931-importer-stinging-410c@gregkh>
- <20260912163709.3673876-1-sashal@kernel.org>
+Subject: [PATCH 6.1 0915/1191] soc: fsl: qe: check platform_driver_register() in qe_ic_of_init()
+Date: Sat, 12 Sep 2026 09:00:43 +0200
+Message-ID: <20260912065608.785274247@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +48,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marek Czernohous <marek@czernohous.de>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 511585987d27d8cb668acebd399fc4deda23404c ]
+------------------
 
-nouveau_channel_del() tears the fence context down first and only drops
-the channel-kill subscription later, in the middle of the nvif object
-teardown:
+From: Linkai Gong <gonglinkai@kylinos.cn>
 
-	if (chan->fence)
-		nouveau_fence(chan->cli->drm)->context_del(chan);
-	...
-	nvif_object_dtor(&chan->vram);
-	nvif_event_dtor(&chan->kill);
+[ Upstream commit fbdba2a67fa7c0e7570bcbf9f28b782d6100270d ]
 
-The subscribed handler is nouveau_channel_killed(), which calls
-nouveau_channel_kill() and from there nouveau_fence_context_kill() on
-chan->fence. A kill event delivered in that window takes fctx->lock and
-walks fctx->pending on a fence context that context_del() has already
-freed.
+qe_ic_of_init() ignored the return value of platform_driver_register()
+and always returned success. Propagate the error to the initcall.
 
-Nothing reaches this below Fermi today, because the subscription is
-gated on FERMI_CHANNEL_GPFIFO and nothing kills a channel there. On
-Fermi and newer the window is real but narrow, since a kill has to land
-exactly while the channel is being destroyed. That is reason enough on
-its own, which is why this carries a Fixes: tag. The last patch in this
-series subscribes Tesla channels as well; nothing kills those today, so
-it does not widen the exposure now, but it is the groundwork for a
-recovery path that would, and the ordering is better fixed before that
-lands than alongside it.
-
-Drop the subscription before anything it depends on is torn down.
-
-Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Marek Czernohous <marek@czernohous.de>
-Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260812231330.705425-2-mczernohous@gmail.com
+Fixes: be7ecbd240b2 ("soc: fsl: qe: convert QE interrupt controller to platform_device")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
+Link: https://lore.kernel.org/r/20260731094608.1883391-1-gonglinkai@kylinos.cn
+Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/nouveau/nouveau_chan.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/soc/fsl/qe/qe_ic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
-index b706b6dd9a88b..c6ee2bfe27873 100644
---- a/drivers/gpu/drm/nouveau/nouveau_chan.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-@@ -90,6 +90,14 @@ nouveau_channel_del(struct nouveau_channel **pchan)
- {
- 	struct nouveau_channel *chan = *pchan;
- 	if (chan) {
-+		/*
-+		 * Drop the kill-event subscription first.  Its handler
-+		 * dereferences chan->fence, which the fence context teardown
-+		 * below frees, so leaving it armed across the teardown leaves
-+		 * a window for a use-after-free.
-+		 */
-+		nvif_event_dtor(&chan->kill);
-+
- 		if (chan->fence)
- 			nouveau_fence(chan->cli->drm)->context_del(chan);
+diff --git a/drivers/soc/fsl/qe/qe_ic.c b/drivers/soc/fsl/qe/qe_ic.c
+index bbae3d39c7bed..f17de6000ff24 100644
+--- a/drivers/soc/fsl/qe/qe_ic.c
++++ b/drivers/soc/fsl/qe/qe_ic.c
+@@ -481,7 +481,6 @@ static struct platform_driver qe_ic_driver =
  
-@@ -100,7 +108,6 @@ nouveau_channel_del(struct nouveau_channel **pchan)
- 		nvif_object_dtor(&chan->nvsw);
- 		nvif_object_dtor(&chan->gart);
- 		nvif_object_dtor(&chan->vram);
--		nvif_event_dtor(&chan->kill);
- 		nvif_object_dtor(&chan->user);
- 		nvif_mem_dtor(&chan->mem_userd);
- 		nvif_object_dtor(&chan->push.ctxdma);
+ static int __init qe_ic_of_init(void)
+ {
+-	platform_driver_register(&qe_ic_driver);
+-	return 0;
++	return platform_driver_register(&qe_ic_driver);
+ }
+ subsys_initcall(qe_ic_of_init);
 -- 
 2.53.0
+
+
 
