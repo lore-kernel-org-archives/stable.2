@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192B938DC48;
-	Sat, 12 Sep 2026 19:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11F238331B;
+	Sat, 12 Sep 2026 19:22:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240920; cv=none; b=YvVl375RkRatX4Hko9EwT/RE4coZBaCKfqh0sOI2nKpLYEycOSzkW/3IoUHPS4I2KsNmwvJjx/2iq1C1dtI8K48lxhEXLJ+uYQ0CDEequyy55S2JP27Lry0Szwy6/OGUgS+snd+ITNLxyubB13khLHaBNVvh57o+bqrZ2O6Ynfs=
+	t=1789240922; cv=none; b=m+tYJ/UBvd+rMRoWw3AdKP1MglSZSuuSWF8oymHnzICLsgsyT6+P233rxGkcQZpJ2Lv0PZAnI9vOg3bGhnMVPzjM60xrkBSjFkrkpe/NVhZwRGz5sVoktzgsfNR6gPNbk4q75C66gI6tIenLRhRUt0YEVQ8AP3CfAlP176iq1nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240920; c=relaxed/simple;
-	bh=VcTk38w6+9Yxzn1t9fo/89ONTXH7uKSorlkApBBDbIw=;
+	s=arc-20240116; t=1789240922; c=relaxed/simple;
+	bh=Ns6bMAzVgSRpx4kIYgvmRi8hIrjAKEftI9obQFdBWYo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p2zLzDMYDD6926m+SrywCWj5lGFXazb65qIGJVgrDnipl/vEJ8SzLG9msyPV2xS/D0pl6tsmZLIKMVkDZKqRQlHTqT4pkLYDSdLF4hicr5v666FanpkKgcTBho6c/JwAMfcheY/wlGP3uQ2NB1H9YxjR3mfXBFFY1Z208hSDu5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lVF8P2Rr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hljRitEAT7OlW89nP61I+DUnHF517Pal6yMWBm0jqo9Q2e6JxHO81yuPR8qg3npVP3fLpyCSKpeZNvFeFfsXTt26L3pMRCJ08ytIdItSMG2KDhRa9tJPAn9FU/jUf3QqSy8BcisOOLdwBKGnE/qzv2cx10jvHNBHdR0LgmZoDuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VTEFOqu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lVF8P2Rr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98281F00893;
-	Sat, 12 Sep 2026 19:21:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VTEFOqu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 838E01F000FF;
+	Sat, 12 Sep 2026 19:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789240909;
-	bh=t1onNDH7rXFgJ2MzGCyQArpzYlyOIRPUMLAy/lWnSss=;
+	s=korg; t=1789240919;
+	bh=BWxzkO8VIaH/ItPA/zb/JfMQ2fBMqNTwG/mmromgvW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lVF8P2RrWKan7RuFpfdMLtI6zvtee5zHn/3ONx6qySSY63kn1ugK2hvPoDjPkL+9m
-	 SgtgK2Q72VQkPY/L2JOjAOiXS5PpLKgE4ovJqyw9iGIF/1YIAe+yF/tO02Browo00D
-	 HNg3AUPdZ8vSFASiyTrJZNTT9Ct32TO4Ni5cr4m0=
+	b=VTEFOqu0pabfyhR6bvdussdMoAN9AmXez9udJP9OBVuHLQOqdo7lHXre+LQgYtHj3
+	 ycBrZd5H96D3p34T4yB8HFm4vI6nz3gSnVriMLVjp1sOaEg53XUxtZ6ZD7CGiBDvQC
+	 GufSuOOgEaAwqUQ21pFR29fIhTzff9vcs6uCnMvU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 5.10 011/798] powerpc/powermac: fix OF node refcount
-Date: Sat, 12 Sep 2026 08:53:59 +0200
-Message-ID: <20260912065517.216759962@linuxfoundation.org>
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Chuck Lever <chuck.lever@oracle.com>
+Subject: [PATCH 5.10 030/798] NFSD: restart ssc_expire_umount walk after dropping nfsd_ssc_lock
+Date: Sat, 12 Sep 2026 08:54:18 +0200
+Message-ID: <20260912065517.652119008@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
 References: <20260912065516.948645775@linuxfoundation.org>
@@ -50,38 +50,99 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-commit bd0abfe6b013aeb2a1aebc5fbc7ceeb50355bda3 upstream.
+commit 036c1b182f4da65363e79ec0ac276edc6b7296e5 upstream.
 
-Platform devices created with platform_device_alloc() call
-platform_device_release() when the last reference to the device's
-kobject is dropped. This function calls of_node_put() unconditionally.
-This works fine for devices created with platform_device_register_full()
-but users of the split approach (platform_device_alloc() +
-platform_device_add()) must bump the reference of the of_node they
-assign manually. Add the missing call to of_node_get().
+nfsd4_ssc_expire_umount() walks nn->nfsd_ssc_mount_list with
+list_for_each_entry_safe(ni, tmp, ...).  For each expired entry it
+sets nsui_busy = true, drops nfsd_ssc_lock to run mntput() on the
+source vfsmount, then reacquires the lock to list_del + kfree the
+entry and continue iterating via the macro's saved tmp pointer.
 
+The nsui_busy flag protects the current ni from concurrent
+nfsd4_ssc_setup_dul() finders during the lock-drop window, but it
+does not pin tmp.  Another nfsd RPC thread that fails its source-
+server mount and reaches nfsd4_ssc_cancel_dul() will, during that
+same window, take nfsd_ssc_lock, list_del + kfree its own ssc_umount
+item, and release the lock.  If that item is the saved tmp of the
+expire walk, the next iteration dereferences a freed
+nfsd4_ssc_umount_item.
+
+Restart the walk from the head after the mntput() unlock window so
+no saved next pointer survives the lock-drop.  The list is bounded
+by the number of active inter-server source mounts (typically small)
+and the expire delayed-work runs periodically rather than per-IO,
+so the restart is cheap.
+
+Fixes: f4e44b393389 ("NFSD: delay unmount source's export after inter-server copy completed.")
 Cc: stable@vger.kernel.org
-Fixes: 81e5d8646ff6 ("i2c/powermac: Register i2c devices from device-tree")
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260706-pdev-fwnode-ref-v3-1-1ff028e33779@oss.qualcomm.com
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Link: https://patch.msgid.link/20260524130654.1924556-1-michael.bommarito@gmail.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/powerpc/platforms/powermac/low_i2c.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nfsd/nfs4state.c |   44 +++++++++++++++++++++++++-------------------
+ 1 file changed, 25 insertions(+), 19 deletions(-)
 
---- a/arch/powerpc/platforms/powermac/low_i2c.c
-+++ b/arch/powerpc/platforms/powermac/low_i2c.c
-@@ -1501,7 +1501,7 @@ static int __init pmac_i2c_create_platfo
- 		if (bus->platform_dev == NULL)
- 			return -ENOMEM;
- 		bus->platform_dev->dev.platform_data = bus;
--		bus->platform_dev->dev.of_node = bus->busnode;
-+		bus->platform_dev->dev.of_node = of_node_get(bus->busnode);
- 		platform_device_add(bus->platform_dev);
- 	}
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -6014,30 +6014,36 @@ static void nfsd4_ssc_shutdown_umount(st
+ static void nfsd4_ssc_expire_umount(struct nfsd_net *nn)
+ {
+ 	bool do_wakeup = false;
+-	struct nfsd4_ssc_umount_item *ni = NULL;
+-	struct nfsd4_ssc_umount_item *tmp;
++	struct nfsd4_ssc_umount_item *ni;
  
++restart:
+ 	spin_lock(&nn->nfsd_ssc_lock);
+-	list_for_each_entry_safe(ni, tmp, &nn->nfsd_ssc_mount_list, nsui_list) {
+-		if (time_after(jiffies, ni->nsui_expire)) {
+-			if (refcount_read(&ni->nsui_refcnt) > 1)
+-				continue;
++	list_for_each_entry(ni, &nn->nfsd_ssc_mount_list, nsui_list) {
++		if (!time_after(jiffies, ni->nsui_expire))
++			break;
++		if (refcount_read(&ni->nsui_refcnt) > 1)
++			continue;
+ 
+-			/* mark being unmount */
+-			ni->nsui_busy = true;
+-			spin_unlock(&nn->nfsd_ssc_lock);
+-			mntput(ni->nsui_vfsmount);
+-			spin_lock(&nn->nfsd_ssc_lock);
++		/* Prevent concurrent setup during unmount */
++		ni->nsui_busy = true;
++		spin_unlock(&nn->nfsd_ssc_lock);
++		mntput(ni->nsui_vfsmount);
++		spin_lock(&nn->nfsd_ssc_lock);
+ 
+-			/* waiters need to start from begin of list */
+-			list_del(&ni->nsui_list);
+-			kfree(ni);
++		/* Force concurrent scanners to restart */
++		list_del(&ni->nsui_list);
++		kfree(ni);
+ 
+-			/* wakeup ssc_connect waiters */
+-			do_wakeup = true;
+-			continue;
+-		}
+-		break;
++		/* wakeup ssc_connect waiters */
++		do_wakeup = true;
++		/*
++		 * Concurrent nfsd4_ssc_cancel_dul() can free any item
++		 * on the list under nfsd_ssc_lock while mntput() runs
++		 * above.  Restart from the head; the list is short and
++		 * the expire worker is periodic, so this is cheap.
++		 */
++		spin_unlock(&nn->nfsd_ssc_lock);
++		goto restart;
+ 	}
+ 	if (do_wakeup)
+ 		wake_up_all(&nn->nfsd_ssc_waitq);
 
 
