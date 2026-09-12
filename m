@@ -1,46 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3E830ACF6;
-	Sat, 12 Sep 2026 15:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEBF31618C
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225900; cv=none; b=OvM1agK9omDjoIVTZSYfPJ/X2zfRjPYgtKaqr6/F9LM8azhK47QGVMe1VcKTjoIZADi4m24OaWgjVcps93rCbsN5ZOW65o0gYujlsH+JB7bGJpC0b0+z6TPb+hjuJAJ4ywxQMOtPg++pU41o4vSppihajILFaVw6FTUOd0ZCs8g=
+	t=1789225902; cv=none; b=bMJhFAhU3/mxCWJWeWXXaIq0++mpxIYkZBu7dYWlrpUpEVXQN28StPrevT53TS/erW1ztADemy1ZOZme+Uw/LBo8kH1bfXOBKYW3ro0IqrJI2URmLQy3ctv97t3abk3excOuHAS5RdwT3IIO4gYDdJjHHZJe2wfMiLLN0fRZx3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225900; c=relaxed/simple;
-	bh=/0fhjOLS/FiTykXhncxj28l1IHhPAAcsDM1SlDhaSS4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F798FCkjrmV/VzxXAdOE3KZYbXqLum/Acv6pBqAjwcPAMW1AfyKTfSbeN1q/V3cL5iGxc+LBRiKJ2YROWXByZThFwhRG98fLUVgluoFo4jcJ56TbYDWM7uspGB37IAbzMKeoluA6gACtn1S7kMT3LpEPYrj9FWjh2GExdz2Y/GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vHu1aBT9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789225902; c=relaxed/simple;
+	bh=lSNHqvRhMHGwhckSbpdghGzhXyliVNB3ylXTKjvZ0Oo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tsLG5+NUZwqaQzTgJ3kKEP5F1YkvhSYShVfcDmWcsxw8Ls1ZuM4Zd/IGSwgGhU3jkCnP5u/plAarAznjD4yYnYtMtTf9uMBhkzZV7zHIaS4bDhu4TmNfqjnMIToF0ojhOH2zENGykMllrLNFviWUEKMbR0MMqYnJMMcsBY7o1vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz; spf=pass smtp.mailfrom=aheymans.xyz; dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b=lzGz5IHt; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vHu1aBT9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7181F000FF;
-	Sat, 12 Sep 2026 15:11:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789225899;
-	bh=n/6T5VqXEkeanFe9ncDAzkvVNHAxJZaBGvd6HmjRo6M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vHu1aBT9ckH8HGr0VJWMlUGnYCGpq33fCkAUjigxbDoKmCElyZqXuPgnVqxt6FPqZ
-	 XILNyAz64mYamKmGNlRf7O+pNrpmE9p+88fTSvuvB4Gk7h/QZmW5ocpLs7kjWcAKtX
-	 c2xTgyUN2+Pis91XLlxMDVBFDyqyWUMn4L/NHGw4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ido Schimmel <idosch@nvidia.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1292/1424] vxlan: mdb: Add MDB bulk deletion support
-Date: Sat, 12 Sep 2026 09:02:04 +0200
-Message-ID: <20260912065636.203902331@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b="lzGz5IHt"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so3850145e9.3
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:11:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=aheymans-xyz.20251104.gappssmtp.com; s=20251104; t=1789225899; x=1789830699; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
+        b=lzGz5IHtdYHxzmzApAljNy2K7DMePqMft9KM2wG7lt/0tn7y13ypuPr3nodlREZiDO
+         WAZknuqnJ6z2mxMyInRrJq8DNZovJvKKmgVQbbcF6fd4k32hrerIiAWL3raDMpdatdbL
+         AZs83vf3a2qBnI89M07tzY/G1HPvRUiVcartsPUIrXGSJxE+OPLiODXWfJVyTyqHtIrL
+         qa1mrEBHvL7knK1VdpKvNm3a5rLnsaVoPw4jgerNrSl5NnuhdpZkioBfY7Fjz42czn09
+         L1USwypVcgmvfXWqSB5v99oDgj30RTn7cwtwgBwn1s2FRvCrLH0taOSSDhZvIzhe/nlU
+         6uRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789225899; x=1789830699;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
+        b=mUoJM0OP0uc9zlPjbggGRH3amBlxB3UUG7o+FzDp6y5ucMlUbfg7YseZdN/iOQE36E
+         SuIAgJTSIRQlizxoPAMxj6+oUglVzJ6L4jkBlahN6xfVuyZUXl57kj8KvWrCIaVXClU+
+         IyggNJOY/ZdiWK/xdvxyY35+Bpo5J66MJgS+GOLJovGX3tDTCdttyy6KBI0RgxxosPc6
+         PhJScH5HoHqt+Ju9UaxcaYTgMlwOjNeGm9JtVhcegab4Ofh6wvu2uofP1Z+3auhEggDh
+         BlSuq87vJLQv+ksmCqW18jISQ3lXif1dqFtKYe/kMqzCfxpC8RSdiP5XnlLiKvgAl9uA
+         L5cQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxPhuzJFodjdtxhACKhSHqQsDKWN19ctTrt0emzHv+m0rSLWFL3biv+KoYaCa2tRzGhmr/33o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiLl0aPtWY6BEWYXL9bIRtr9f21h5UEg2DTZuTH+1gX5l0Ld38
+	qF1vun8bMelgV0eob4CvnWHPn4UtPnphpWH3VsfEFhDRYZQ6vOgsKvQyRQ2egbrJe0o=
+X-Gm-Gg: AYBFou2h4mVkyYknZb+rg55f8Ne4b3mzsstwkmGa3zp30gBxnRPQhgwucwenPogaUFI
+	Z20MhKsgnxFkpe/egQ7M2isJ618FEBI3XUuFb4lDGNBZczWJEQGeO6ZDZ9DhmvQFh/nKp8lFaVd
+	fobwAWliUYHs/WkjH1R94QJMEe/YrGhzk6JYnosYZ5ReR4V8pnJ/3hDo/AeM4h0ehek8OQyJBXS
+	WSqKsgzuCQqRjUOOH7bhQtyDak4bDGX8fc1g5rgIajhm/BLjTOKf3a2h84wgoef53xQ8Fv87wg5
+	nqTzm9jujnDXMEJpizCPFh+GUBJl/or2f6+XasE4quO6NfrJ1y0If5q4mIlHoApYXs6wE6TK9zL
+	Xfmyg9y4VrscrSlMMQ77SnUJoUDAklOxH2GhIcnRVwDvIOi0kKOFNu9mX2klasCbAevWYmeLHU+
+	8xH1fQf2fyTYdJ0Pyr2VGZz4nMiP0cafe9aWyfpQ4A3KraaZd/x4b7SR2s6uldQQbOb5qg06YLy
+	MTFfyk12p5ZRXSKDEVYqmbhGBFoqjfvFHUtudMAK0q0dFa+k9/lPnLPimo38VStQe645hl4Scyo
+	OW81ieSauAWtrsRmwNCJ0BFjrU5gyF94FGimkks=
+X-Received: by 2002:a05:600c:2301:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49e619cbf88mr155925425e9.16.1789225898398;
+        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
+Received: from localhost (2a02-1810-b422-d400-af60-1d41-c104-7560.ip6.access.telenet.be. [2a02:1810:b422:d400:af60:1d41:c104:7560])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaeefsm162063135e9.12.2026.09.12.08.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
+From: Arthur Heymans <arthur@aheymans.xyz>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	michael.mityushkin@amd.com,
+	nicholas.kazlauskas@amd.com,
+	qingqing.zhuo@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Arthur Heymans <arthur@aheymans.xyz>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure
+Date: Sat, 12 Sep 2026 17:11:37 +0200
+Message-ID: <20260912151137.3913987-1-arthur@aheymans.xyz>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,262 +84,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
+reinitializing hardware") made ASSR failure fall back to the default panel
+mode unless eDP mode had previously been applied.
 
-------------------
+However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
+Before the first call to dp_set_panel_mode(), panel_mode therefore looks
+like a previously applied default mode. If ASSR setup fails during the
+first link training attempt, the driver incorrectly trains the eDP link
+using the default scrambling mode.
 
-From: Ido Schimmel <idosch@nvidia.com>
+On a Google Vilboz Chromebook running self-built coreboot firmware and
+PSP verstage, this leaves the panel mostly black with corrupted output
+along the top edge.
 
-[ Upstream commit 4cde72fead4cebb5b6b2fe9425904c2064739184 ]
+Track whether panel_mode has actually been initialized, and only consult
+the saved mode after it has been applied. This retains the recovery
+behavior while preserving eDP mode during initial link training.
 
-Implement MDB bulk deletion support in the VXLAN driver, allowing MDB
-entries to be deleted in bulk according to provided parameters.
-
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Petr Machata <petrm@nvidia.com>
-Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: bc2dc66a6693 ("vxlan: mdb: Fix use-after-free in vxlan_mdb_flush()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
+Cc: stable@vger.kernel.org # v6.4+
+Assisted-by: Pi:gpt-5.6-sol
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
 ---
- drivers/net/vxlan/vxlan_core.c    |   1 +
- drivers/net/vxlan/vxlan_mdb.c     | 174 +++++++++++++++++++++++++-----
- drivers/net/vxlan/vxlan_private.h |   2 +
- 3 files changed, 153 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
+ .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index a1ff8a9ae60ea..dd7c4c50ce589 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -3181,6 +3181,7 @@ static const struct net_device_ops vxlan_netdev_ether_ops = {
- 	.ndo_fdb_get		= vxlan_fdb_get,
- 	.ndo_mdb_add		= vxlan_mdb_add,
- 	.ndo_mdb_del		= vxlan_mdb_del,
-+	.ndo_mdb_del_bulk	= vxlan_mdb_del_bulk,
- 	.ndo_mdb_dump		= vxlan_mdb_dump,
- 	.ndo_mdb_get		= vxlan_mdb_get,
- 	.ndo_fill_metadata_dst	= vxlan_fill_metadata_dst,
-diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
-index 91272344e9c83..8b8b4d052a9c6 100644
---- a/drivers/net/vxlan/vxlan_mdb.c
-+++ b/drivers/net/vxlan/vxlan_mdb.c
-@@ -75,6 +75,14 @@ struct vxlan_mdb_config {
- 	u8 rt_protocol;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 4ecd5699ac5e..0db55a73da0c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1912,6 +1912,7 @@ struct dc_scratch_space {
+ 	struct ddc_service *ddc;
  
-+struct vxlan_mdb_flush_desc {
-+	union vxlan_addr remote_ip;
-+	__be32 src_vni;
-+	__be32 remote_vni;
-+	__be16 remote_port;
-+	u8 rt_protocol;
-+};
-+
- static const struct rhashtable_params vxlan_mdb_rht_params = {
- 	.head_offset = offsetof(struct vxlan_mdb_entry, rhnode),
- 	.key_offset = offsetof(struct vxlan_mdb_entry, key),
-@@ -1312,6 +1320,145 @@ int vxlan_mdb_del(struct net_device *dev, struct nlattr *tb[],
- 	return err;
+ 	enum dp_panel_mode panel_mode;
++	bool panel_mode_initialized;
+ 	bool aux_mode;
+ 
+ 	/* Private to DC core */
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 9883216dcc9d..cd90576bc6f0 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+ 	}
+ 
+ 	link->panel_mode = panel_mode;
++	link->panel_mode_initialized = true;
+ 	DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
+ 				 link->link_index,
+ 				 link->dpcd_caps.panel_mode_edp,
+@@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
+ 
+ 		result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
+ 
+-		if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
++		if (!result && link->panel_mode_initialized &&
++		    link->panel_mode != DP_PANEL_MODE_EDP)
+ 			*panel_mode = DP_PANEL_MODE_DEFAULT;
+ 	}
  }
- 
-+static const struct nla_policy
-+vxlan_mdbe_attrs_del_bulk_pol[MDBE_ATTR_MAX + 1] = {
-+	[MDBE_ATTR_RTPROT] = NLA_POLICY_MIN(NLA_U8, RTPROT_STATIC),
-+	[MDBE_ATTR_DST] = NLA_POLICY_RANGE(NLA_BINARY,
-+					   sizeof(struct in_addr),
-+					   sizeof(struct in6_addr)),
-+	[MDBE_ATTR_DST_PORT] = { .type = NLA_U16 },
-+	[MDBE_ATTR_VNI] = NLA_POLICY_FULL_RANGE(NLA_U32, &vni_range),
-+	[MDBE_ATTR_SRC_VNI] = NLA_POLICY_FULL_RANGE(NLA_U32, &vni_range),
-+	[MDBE_ATTR_STATE_MASK] = NLA_POLICY_MASK(NLA_U8, MDB_PERMANENT),
-+};
-+
-+static int vxlan_mdb_flush_desc_init(struct vxlan_dev *vxlan,
-+				     struct vxlan_mdb_flush_desc *desc,
-+				     struct nlattr *tb[],
-+				     struct netlink_ext_ack *extack)
-+{
-+	struct br_mdb_entry *entry = nla_data(tb[MDBA_SET_ENTRY]);
-+	struct nlattr *mdbe_attrs[MDBE_ATTR_MAX + 1];
-+	int err;
-+
-+	if (entry->ifindex && entry->ifindex != vxlan->dev->ifindex) {
-+		NL_SET_ERR_MSG_MOD(extack, "Invalid port net device");
-+		return -EINVAL;
-+	}
-+
-+	if (entry->vid) {
-+		NL_SET_ERR_MSG_MOD(extack, "VID must not be specified");
-+		return -EINVAL;
-+	}
-+
-+	if (!tb[MDBA_SET_ENTRY_ATTRS])
-+		return 0;
-+
-+	err = nla_parse_nested(mdbe_attrs, MDBE_ATTR_MAX,
-+			       tb[MDBA_SET_ENTRY_ATTRS],
-+			       vxlan_mdbe_attrs_del_bulk_pol, extack);
-+	if (err)
-+		return err;
-+
-+	if (mdbe_attrs[MDBE_ATTR_STATE_MASK]) {
-+		u8 state_mask = nla_get_u8(mdbe_attrs[MDBE_ATTR_STATE_MASK]);
-+
-+		if ((state_mask & MDB_PERMANENT) && !(entry->state & MDB_PERMANENT)) {
-+			NL_SET_ERR_MSG_MOD(extack, "Only permanent MDB entries are supported");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	if (mdbe_attrs[MDBE_ATTR_RTPROT])
-+		desc->rt_protocol = nla_get_u8(mdbe_attrs[MDBE_ATTR_RTPROT]);
-+
-+	if (mdbe_attrs[MDBE_ATTR_DST])
-+		vxlan_nla_get_addr(&desc->remote_ip, mdbe_attrs[MDBE_ATTR_DST]);
-+
-+	if (mdbe_attrs[MDBE_ATTR_DST_PORT])
-+		desc->remote_port =
-+			cpu_to_be16(nla_get_u16(mdbe_attrs[MDBE_ATTR_DST_PORT]));
-+
-+	if (mdbe_attrs[MDBE_ATTR_VNI])
-+		desc->remote_vni =
-+			cpu_to_be32(nla_get_u32(mdbe_attrs[MDBE_ATTR_VNI]));
-+
-+	if (mdbe_attrs[MDBE_ATTR_SRC_VNI])
-+		desc->src_vni =
-+			cpu_to_be32(nla_get_u32(mdbe_attrs[MDBE_ATTR_SRC_VNI]));
-+
-+	return 0;
-+}
-+
-+static void vxlan_mdb_remotes_flush(struct vxlan_dev *vxlan,
-+				    struct vxlan_mdb_entry *mdb_entry,
-+				    const struct vxlan_mdb_flush_desc *desc)
-+{
-+	struct vxlan_mdb_remote *remote, *tmp;
-+
-+	list_for_each_entry_safe(remote, tmp, &mdb_entry->remotes, list) {
-+		struct vxlan_rdst *rd = rtnl_dereference(remote->rd);
-+		__be32 remote_vni;
-+
-+		if (desc->remote_ip.sa.sa_family &&
-+		    !vxlan_addr_equal(&desc->remote_ip, &rd->remote_ip))
-+			continue;
-+
-+		/* Encapsulation is performed with source VNI if remote VNI
-+		 * is not set.
-+		 */
-+		remote_vni = rd->remote_vni ? : mdb_entry->key.vni;
-+		if (desc->remote_vni && desc->remote_vni != remote_vni)
-+			continue;
-+
-+		if (desc->remote_port && desc->remote_port != rd->remote_port)
-+			continue;
-+
-+		if (desc->rt_protocol &&
-+		    desc->rt_protocol != remote->rt_protocol)
-+			continue;
-+
-+		vxlan_mdb_remote_del(vxlan, mdb_entry, remote);
-+	}
-+}
-+
-+static void vxlan_mdb_flush(struct vxlan_dev *vxlan,
-+			    const struct vxlan_mdb_flush_desc *desc)
-+{
-+	struct vxlan_mdb_entry *mdb_entry;
-+	struct hlist_node *tmp;
-+
-+	/* The removal of an entry cannot trigger the removal of another entry
-+	 * since entries are always added to the head of the list.
-+	 */
-+	hlist_for_each_entry_safe(mdb_entry, tmp, &vxlan->mdb_list, mdb_node) {
-+		if (desc->src_vni && desc->src_vni != mdb_entry->key.vni)
-+			continue;
-+
-+		vxlan_mdb_remotes_flush(vxlan, mdb_entry, desc);
-+		/* Entry will only be removed if its remotes list is empty. */
-+		vxlan_mdb_entry_put(vxlan, mdb_entry);
-+	}
-+}
-+
-+int vxlan_mdb_del_bulk(struct net_device *dev, struct nlattr *tb[],
-+		       struct netlink_ext_ack *extack)
-+{
-+	struct vxlan_dev *vxlan = netdev_priv(dev);
-+	struct vxlan_mdb_flush_desc desc = {};
-+	int err;
-+
-+	ASSERT_RTNL();
-+
-+	err = vxlan_mdb_flush_desc_init(vxlan, &desc, tb, extack);
-+	if (err)
-+		return err;
-+
-+	vxlan_mdb_flush(vxlan, &desc);
-+
-+	return 0;
-+}
-+
- static const struct nla_policy vxlan_mdbe_attrs_get_pol[MDBE_ATTR_MAX + 1] = {
- 	[MDBE_ATTR_SOURCE] = NLA_POLICY_RANGE(NLA_BINARY,
- 					      sizeof(struct in_addr),
-@@ -1581,29 +1728,6 @@ static void vxlan_mdb_check_empty(void *ptr, void *arg)
- 	WARN_ON_ONCE(1);
- }
- 
--static void vxlan_mdb_remotes_flush(struct vxlan_dev *vxlan,
--				    struct vxlan_mdb_entry *mdb_entry)
--{
--	struct vxlan_mdb_remote *remote, *tmp;
--
--	list_for_each_entry_safe(remote, tmp, &mdb_entry->remotes, list)
--		vxlan_mdb_remote_del(vxlan, mdb_entry, remote);
--}
--
--static void vxlan_mdb_entries_flush(struct vxlan_dev *vxlan)
--{
--	struct vxlan_mdb_entry *mdb_entry;
--	struct hlist_node *tmp;
--
--	/* The removal of an entry cannot trigger the removal of another entry
--	 * since entries are always added to the head of the list.
--	 */
--	hlist_for_each_entry_safe(mdb_entry, tmp, &vxlan->mdb_list, mdb_node) {
--		vxlan_mdb_remotes_flush(vxlan, mdb_entry);
--		vxlan_mdb_entry_put(vxlan, mdb_entry);
--	}
--}
--
- int vxlan_mdb_init(struct vxlan_dev *vxlan)
- {
- 	int err;
-@@ -1619,7 +1743,9 @@ int vxlan_mdb_init(struct vxlan_dev *vxlan)
- 
- void vxlan_mdb_fini(struct vxlan_dev *vxlan)
- {
--	vxlan_mdb_entries_flush(vxlan);
-+	struct vxlan_mdb_flush_desc desc = {};
-+
-+	vxlan_mdb_flush(vxlan, &desc);
- 	WARN_ON_ONCE(vxlan->cfg.flags & VXLAN_F_MDB);
- 	rhashtable_free_and_destroy(&vxlan->mdb_tbl, vxlan_mdb_check_empty,
- 				    NULL);
-diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
-index 89c8ef1e7fdde..76a351a997d51 100644
---- a/drivers/net/vxlan/vxlan_private.h
-+++ b/drivers/net/vxlan/vxlan_private.h
-@@ -235,6 +235,8 @@ int vxlan_mdb_add(struct net_device *dev, struct nlattr *tb[], u16 nlmsg_flags,
- 		  struct netlink_ext_ack *extack);
- int vxlan_mdb_del(struct net_device *dev, struct nlattr *tb[],
- 		  struct netlink_ext_ack *extack);
-+int vxlan_mdb_del_bulk(struct net_device *dev, struct nlattr *tb[],
-+		       struct netlink_ext_ack *extack);
- int vxlan_mdb_get(struct net_device *dev, struct nlattr *tb[], u32 portid,
- 		  u32 seq, struct netlink_ext_ack *extack);
- struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
 -- 
-2.53.0
-
-
+2.55.0
 
