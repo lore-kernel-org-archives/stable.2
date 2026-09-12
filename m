@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F014A36657B
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51B0368D62
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:01:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246918; cv=none; b=nNKY5VBbJK8LyqJM+/Zb4EvD00kjBSQobkFp6MlIx1G/bSjakqBSu9MYjr1kmPRNFduZBAhbBXuq/4Oapo9LqYXswIyutKg/FYJuXKNWF6J/YchVwRGQyqLbHusuIARpn+uL7hNsOEQZPoGAqYewpJynZ8pRhzk1tkFMrLqSXok=
+	t=1789246918; cv=none; b=do0Xv/HX7ad3ZumEIwLDYZY2EWxd01zh7Iaa0Dk1CB7Qg2iasZvx5wJosx4Ib7qLpS/GI1jiaxvrawibrQellVcpZvFK9DmTgEHO6/uHYehk0Vq/MOtLg4jLDRxA16Mohn6bohkO1uyeqxvf6oUCDa1V67PFKayUJXK3Mck/4jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789246918; c=relaxed/simple;
-	bh=zx7KZMzT1nKHiUv4ewyhMqzHETz4e7PD8VMgWMgrMWs=;
+	bh=FCp9RDnTquy35QphyE5o6HKV7kHJqXwy8TzPwqOvCO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oeku4RiPCoArNuXQTEKytPr3mxw55kslfdWE1Lf8SgmzEvmFGVP5fRZwhZugWV1+v4Gl0LDYFmNMS4eLtCHI1OQ2e+R5Ds5PeIMJbSAQPe/JXYvaW1IibRQr+VT2pf6U44IvzkTjoDouEUCzLYg9NfA+rtqdMPXqWX3Q4iDzQV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2NYB9hD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rLkDKvSb0nlHnrLg3uI+xIKcdkQ1748fjjaeEL7XT41zx5RhQrfd8MF42O9R1ZBNxkuleb7PQCPCujLG5Ouo18kR5f1kLlE04/RkIiZX8BtL8w2T02NMbMsc7ez37TrRsHdeCcpVoQxc6l2VLEQbZnodsz3a8Bie5rmwV+oZOOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJWDcVqt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2NYB9hD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99D21F000FF;
-	Sat, 12 Sep 2026 21:01:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJWDcVqt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5D31F00899;
+	Sat, 12 Sep 2026 21:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789246916;
-	bh=DD88Ea5fJRsEXyLdxEBnpllEspM+FqbJP+gk01oFHQk=;
+	s=k20260515; t=1789246917;
+	bh=uYkV2LE9pdlRCtKE+X3NedOXxTK0fqIxWoIleB+qDWI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K2NYB9hDBzKi8tnHA31KakT+YMGrx+F8YRDBaSxIVqrQ1TTAFpae47KIaR8p7n35K
-	 B0x7gg+XF6haqGSGqIwa5yTQ3zaNRHpGUc9wgKv8dnwAh0jdQJ6HN+uSlYvj0CFBx/
-	 GJnTRSC4D2prjegDOPDAKOse3l0RkBodGRvdP3zxD7c1ShmVlJJLn88WfnDwowJXH0
-	 qlitz3rylCQmkVZyWKV355QlmqJOi/r3Tf+Mb/4BOuomyEH9qYq5uy3bOwH8hbmHN9
-	 6MHpG9tJj5M0XJ2WJZOlFZlaqdWSzmrbbic2EQbdHNPbQyscF6AABYAtDm1zwVEaNS
-	 OkiOc0nIo0DPw==
+	b=iJWDcVqt4h4+pBOJQrluyuiTlNQWX+9mMUDB/Ob2bbFUeITH/VDsjxA0v0PJun+ZK
+	 LaPo/nu0+i8meP6HD6YCG+fxmIV0HFZiIRv+LiYjO+lk4amS85/Dzfr6Md2QRqrxEL
+	 k3rN6hFfryTwYLe3u+ypUKSzZm2x0AFUM6YTwb2cBrT1zQ69Rigd5VRUPXtD+4nBMB
+	 XmVExZlbIqqTUhLqADTzB1lL50x+VRXKekfFJRLEqIfhhcbdle8rwamsnEoBUo2zMo
+	 qgvY7jlKykldWQiBmVd75XUyYHPFRRUF+PyTYqfELDocb+Ioi34l5x/CeIneBRGDAa
+	 XzPNZ0jfI5H4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+	Cheryl Babcock <cheryl@renat.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] ksmbd: use __GFP_RETRY_MAYFAIL
-Date: Sat, 12 Sep 2026 17:01:53 -0400
-Message-ID: <20260912210154.3935717-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] ksmbd: zero pipe read compound padding
+Date: Sat, 12 Sep 2026 17:01:54 -0400
+Message-ID: <20260912210154.3935717-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091124-undefined-monsieur-f0fc@gregkh>
+In-Reply-To: <20260912210154.3935717-1-sashal@kernel.org>
 References: <2026091124-undefined-monsieur-f0fc@gregkh>
+ <20260912210154.3935717-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,74 +48,49 @@ Content-Transfer-Encoding: 8bit
 
 From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 0066f623bce8f98b69b752ee03d46a5047c281b8 ]
+[ Upstream commit 73f860489e3be2245598d1819226304fc5b87291 ]
 
-Prefer to report ENOMEM rather than incur the oom for allocations in
-ksmbd. __GFP_NORETRY could not achieve that, It would fail the allocations
-just too easily. __GFP_RETRY_MAYFAIL will keep retrying the allocation
-until there is no more progress and fail the allocation instead go OOM
-and let the caller to deal with it.
+Compound response handling extends the last response iov to an eight-byte
+boundary.
 
+smb2_read_pipe() allocates only the payload size, so the alignment padding
+can expose up to seven bytes of uninitialized kernel heap memory.
+
+Allocate the aligned size and clear the unused tail before pinning the
+response buffer.
+
+Fixes: e2b76ab8b5c9 ("ksmbd: add support for read compound")
+Reported-by: Cheryl Babcock <cheryl@renat.io>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-[Stable dependency adaptation for 73f860489e3be2245598d1819226304fc5b87291]
-Retain only the KSMBD_DEFAULT_GFP definition and its use for the existing
-smb2_read_pipe() payload allocation. These two hunks provide the allocation
-policy and exact patch context needed by "ksmbd: zero pipe read compound
-padding" on Linux 6.6.
-
-Drop the other allocation conversions, which are unrelated to the target.
-This preserves the stable tree's IDA helper, RPC locking, preallocated lease
-tables, ACL scratch sizing, and network-interface lifecycle changes instead
-of importing obsolete upstream context. No functions are added. The target's
-aligned allocation and padding initialization remain in the target commit.
-
-[ sashal: Reduced backport -- upstream 0066f623bce8f touches 24 file(s), this
-  backport carries 2. Not backported here:
-  fs/smb/server/asn1.c
-  fs/smb/server/auth.c
-  fs/smb/server/connection.c
-  fs/smb/server/crypto_ctx.c
-  fs/smb/server/ksmbd_work.c
-  fs/smb/server/mgmt/ksmbd_ida.c
-  fs/smb/server/mgmt/share_config.c
-  fs/smb/server/mgmt/tree_connect.c
-  ... and 14 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 73f860489e3b ("ksmbd: zero pipe read compound padding")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/glob.h    | 2 ++
- fs/smb/server/smb2pdu.c | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ fs/smb/server/smb2pdu.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/glob.h b/fs/smb/server/glob.h
-index 5b8f3e0ebdb36..3ce12b60e46fe 100644
---- a/fs/smb/server/glob.h
-+++ b/fs/smb/server/glob.h
-@@ -46,4 +46,6 @@ extern int ksmbd_debug_types;
- 
- #define UNICODE_LEN(x)		((x) * 2)
- 
-+#define KSMBD_DEFAULT_GFP	(GFP_KERNEL | __GFP_RETRY_MAYFAIL)
-+
- #endif /* __KSMBD_GLOB_H */
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index cefdac6e8cedc..1d073acc9c027 100644
+index 1d073acc9c027..d586633fd168c 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -6271,7 +6271,7 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+@@ -6271,13 +6271,18 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
  		}
  
  		aux_payload_buf =
--			kvmalloc(rpc_resp->payload_sz, GFP_KERNEL);
-+			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
+-			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
++			kvmalloc(ALIGN(rpc_resp->payload_sz, 8),
++				 KSMBD_DEFAULT_GFP);
  		if (!aux_payload_buf) {
  			err = -ENOMEM;
  			goto out;
+ 		}
+ 
+ 		memcpy(aux_payload_buf, rpc_resp->payload, rpc_resp->payload_sz);
++		if (rpc_resp->payload_sz & 7)
++			memset(aux_payload_buf + rpc_resp->payload_sz, 0,
++			       ALIGN(rpc_resp->payload_sz, 8) -
++			       rpc_resp->payload_sz);
+ 
+ 		nbytes = rpc_resp->payload_sz;
+ 		err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
 -- 
 2.53.0
 
