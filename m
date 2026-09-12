@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F44534E774;
-	Sat, 12 Sep 2026 14:21:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9357345CCE
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:21:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222868; cv=none; b=iEe9/f2vyOJj97KWmpyGRH40HZzqBTAiPYOhyEjpXBGRCoeqjOk1zDPtZ42axoUF5llC+Wc8ELRwzlF1pwcHGMo0AIHKlPEEW8YeQZuGrkDDHB7JL22ed/ApLVkVtTx2bvr5VhHBR/MLBNdqtNe8gHfMbjoq2Y9kLvwbNxG7WIU=
+	t=1789222868; cv=none; b=EFCIPHHrla4jlsXFczn1gReCSa2W7QX1qCbdidbnR1P4tLhT9MRjCQQzyutoEdeK59/OvtG0gupYIvbbWNU81wttfgju5oyG8gxvUmAlrJfMLrT8NhHWjZgUgHN8VU7TQ+1ZltmV4U9UeqG2FsMBjlwQuvjdyutLBl4GTFU9uB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789222868; c=relaxed/simple;
-	bh=ryou2anJy/nNBWfV2SVTR1JNKLfpNlWOdHZqSCHl478=;
+	bh=KxzPjLohlFAH6PF3LFKne0Qcxo0HoJfolzPn7mmBB4Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J92z64lQT2oVAB4iac2Vx21CvEgNXAKV/PynR7kGxy2IY51Ue+ytIgNlJfJo7tmaS7z40tNrodk/3RwV4gb+mu40oBDTW7PnutXBNclWS0D4a0HfM5gqFFvBpMT75UY7rDLrKEL91Hm8nhO8SddeRlbTp+v7PxwLCuwtxOK6VDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vXAk1Nyw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OXQhPnqdSl9FogGXkfre0+o0Cp4PzJpXqD469s8QagSEvT51PzQKk3wAjB0+D9I951s6NJh04JVCE8Ws5BgWmifnYxv6H+xGU1cW5wAXTl1i1BX8iGO02rLjaj6iZSD70KGo9lgDInFW/o5ThcvsjjcgpS3Ce7Liz9nh1umHOrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=omF5NHEE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vXAk1Nyw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2011F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="omF5NHEE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69011F0089C;
 	Sat, 12 Sep 2026 14:21:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789222865;
-	bh=oNK9AlDkmqcP6SJ8hIE3eNw2erc0vVKCK2idICV3P2c=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789222865;
+	bh=w01ZsIeSq6SNGFRzrL6JMa4IoouG8Pf255dKec+5eOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vXAk1NywC8NqDXg4HOESF2fWnSXhrnHX2uthDnKHFP4KWYLdI6oUmUz2zcR9vdyoj
-	 pN8iNoLgJAsAKiMqXlE1TO5fDL9TqyXuu9rCIvvccq02Lqbq/NeIkdOnucc/YLIKxq
-	 iPtjyTA/sWsgTA1BfnjAzjd6ZTLplfZz3V+bKDkM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=omF5NHEEE9WtA4cOBJJNGXPrTENCXPaeQiA7uwYyvbv2WrMjpoMCt59jC/42ZhOCB
+	 ZmEaTq4IIs2ZEeYrhk0uluG1skKhfL5VwQmRdl8sJ9P1rPxFxeIoOeYA4aBl3fa5c9
+	 1NEimS3wAIn8f/nPV26tlth//1gfSAHrMvhWUbbdJdLmfsKu3RKT2o3eDlmYk2gCer
+	 nSLGcUEN0WGj+8+5Vxr+EZZ7/V9zDFYAP+7rVUZeL6Y1sssq0g9vsSgw27EQFl3+SF
+	 CWON9g7uCfjTmHPRWfmRKEhVfoSX67oRDRUHh+GgRvABLqhixPkdWxGT9SkR4WJapd
+	 QnlGv5ETwgl1Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Thomas Gleixner <tglx@kernel.org>,
-	John Stultz <jstultz@google.com>,
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0671/1424] selftests: timers: leap-a-day: Fix -w option and update usage comment
-Date: Sat, 12 Sep 2026 08:51:43 +0200
-Message-ID: <20260912065622.323131560@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.2.y 3/3] drm/xe/i2c: Fix the interrupt handling
+Date: Sat, 12 Sep 2026 10:21:01 -0400
+Message-ID: <20260912142101.2914515-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260912142101.2914515-1-sashal@kernel.org>
+References: <2026090944-turf-outthink-f4fa@gregkh>
+ <20260912142101.2914515-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,82 +48,570 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-------------------
+[ Upstream commit f43fa4b8522ba6038b77e86e5f0d94be35effcde ]
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+The platforms that support the interrupt from the I2C
+adapter can not handle the amount of interrupts the adapter
+generates because of the way the IRQ is routed in the
+hardware. The I2C controller driver has to be kept in
+polling mode because of that.
 
-[ Upstream commit b4b66151a71445f3a71574136ddc82968c7b175e ]
+The AMC MCU can still generate critical alerts that have to
+be handled. The interrupt from SMBus Alert is left enabled
+and handled separately in the Xe. The alerts from the AMC
+will cause the device to be declared wedged for now.
 
-Commit 98b74e1f3104 ("kselftests: timers: leap-a-day: Change default
-arguments to help test runs") replaced the -s option with -w and made
-"wait for the leap second" the non-default behaviour, but it only
-updated the switch/case handling. Two things were left inconsistent:
-
-  - The getopt() option string still lists 's' instead of 'w', so
-    passing -w is rejected as an invalid option and the new behaviour
-    cannot be selected at all.
-
-  - The file header comment still documents the removed -s option and
-    an outdated default for -i.
-
-Fix the getopt() string to accept 'w' (matching the existing case 'w':
-handler) and update the header comment to describe -w, -t and the
-current -i default.
-
-Fixes: 98b74e1f3104 ("kselftests: timers: leap-a-day: Change default arguments to help test runs")
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Acked-by: John Stultz <jstultz@google.com>
-Link: https://patch.msgid.link/20260702093915.2652638-1-yijiangshan@kylinos.cn
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Co-developed-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260811121008.1493015-3-heikki.krogerus@linux.intel.com
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+(cherry picked from commit a55b76b8bc2c49b11d753c1c6d06ec3a2c61c85e)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/timers/leap-a-day.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/xe/Makefile           |   4 +-
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h |   2 +
+ drivers/gpu/drm/xe/xe_amc.c           | 197 ++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_amc.h           |  25 ++++
+ drivers/gpu/drm/xe/xe_i2c.c           | 128 +++++++----------
+ drivers/gpu/drm/xe/xe_i2c.h           |  13 +-
+ 6 files changed, 282 insertions(+), 87 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.h
 
-diff --git a/tools/testing/selftests/timers/leap-a-day.c b/tools/testing/selftests/timers/leap-a-day.c
-index 23eb398c8140a..23d9ed05af65b 100644
---- a/tools/testing/selftests/timers/leap-a-day.c
-+++ b/tools/testing/selftests/timers/leap-a-day.c
-@@ -9,16 +9,19 @@
-  *  kernel's leap-second behavior, as well as how well applications
-  *  handle the leap-second discontinuity.
-  *
-- *  Usage: leap-a-day [-s] [-i <num>]
-+ *  Usage: leap-a-day [-w] [-i <num>] [-t]
-  *
-  *  Options:
-- *	-s:	Each iteration, set the date to 10 seconds before midnight GMT.
-- *		This speeds up the number of leapsecond transitions tested,
-- *		but because it calls settimeofday frequently, advancing the
-- *		time by 24 hours every ~16 seconds, it may cause application
-- *		disruption.
-+ *	-w:	Only set the leap-second flag and wait for the leap second
-+ *		each iteration, instead of advancing the time. By default the
-+ *		date is set to 10 seconds before midnight GMT, which speeds up
-+ *		the number of leapsecond transitions tested, but because it
-+ *		calls settimeofday frequently, advancing the time by 24 hours
-+ *		every ~16 seconds, it may cause application disruption.
-  *
-- *	-i:	Number of iterations to run (default: infinite)
-+ *	-i:	Number of iterations to run (-1 = infinite, default: 10)
-+ *
-+ *	-t:	Print TAI time.
-  *
-  *  Other notes: Disabling NTP prior to running this is advised, as the two
-  *		 may conflict in their commands to the kernel.
-@@ -186,7 +189,7 @@ int main(int argc, char **argv)
- 	int opt;
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 8e7b146880f46..a11c619080659 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -152,7 +152,9 @@ xe-y += xe_bb.o \
+ 	xe_wait_user_fence.o \
+ 	xe_wopcm.o
  
- 	/* Process arguments */
--	while ((opt = getopt(argc, argv, "sti:")) != -1) {
-+	while ((opt = getopt(argc, argv, "wti:")) != -1) {
- 		switch (opt) {
- 		case 'w':
- 			printf("Only setting leap-flag, not changing time. It could take up to a day for leap to trigger.\n");
+-xe-$(CONFIG_I2C)	+= xe_i2c.o
++xe-$(CONFIG_I2C)	+= xe_i2c.o \
++			   xe_amc.o
++
+ xe-$(CONFIG_DRM_XE_GPUSVM) += xe_svm.o
+ xe-$(CONFIG_DRM_GPUSVM) += xe_userptr.o
+ 
+diff --git a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+index f2e455e2bfe45..37550e4a20f80 100644
+--- a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+@@ -20,4 +20,6 @@
+ #define I2C_CONFIG_CMD			XE_REG(I2C_CONFIG_SPACE_OFFSET + PCI_COMMAND)
+ #define I2C_CONFIG_PMCSR		XE_REG(I2C_CONFIG_SPACE_OFFSET + 0x84)
+ 
++#define I2C_REG(reg)			XE_REG((reg) + I2C_MEM_SPACE_OFFSET)
++
+ #endif /* _XE_I2C_REGS_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_amc.c b/drivers/gpu/drm/xe/xe_amc.c
+new file mode 100644
+index 0000000000000..8ecadee6eea39
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.c
+@@ -0,0 +1,197 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Intel Corporation.
++ */
++
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/pci_ids.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/workqueue.h>
++
++#include "regs/xe_i2c_regs.h"
++
++#include "xe_amc.h"
++#include "xe_device.h"
++#include "xe_i2c.h"
++#include "xe_mmio.h"
++
++/**
++ * DOC: Add-In Management Controller (AMC)
++ *
++ * Handler for the SMBus Alerts from the AMC. All the alerts from AMC will cause
++ * the device to be declared wedged.
++ */
++
++#define AMC_COMMAND		0x0f
++#define AMC_GPU_I2C_ADDR	0x8f
++#define AMC_VERSION_V1		0x01
++#define AMC_DESTINATION_ID	12
++#define AMC_SOURCE_ID		8
++#define AMC_FLAGS		0xc8
++
++#define AMC_MSG_TYPE		0x7e
++#define AMC_GET_ALERT_REASON	0x01
++
++enum xe_amc_alert {
++	AMC_ALERT_UNKNOWN,
++	AMC_ALERT_FW_DOWNLOAD,
++	AMC_ALERT_THERMAL_TRIP,
++	AMC_ALERT_OOB_REQUEST,
++	AMC_ALERT_OOB_RESET,
++	AMC_ALERT_CATERR,
++};
++
++static const char * const amc_alert[] = {
++	[AMC_ALERT_FW_DOWNLOAD]		= "Firmware Download",
++	[AMC_ALERT_THERMAL_TRIP]	= "Thermal Trip",
++	[AMC_ALERT_OOB_REQUEST]		= "OOB Request",
++	[AMC_ALERT_OOB_RESET]		= "OOB Reset",
++	[AMC_ALERT_CATERR]		= "Catastrophic",
++};
++
++struct xe_amc {
++	struct xe_i2c *i2c;
++	struct work_struct work;
++};
++
++struct amc_header {
++	u8 command;
++	u8 len;
++	u8 address;
++	u8 version;
++	u8 destination;
++	u8 source;
++	u8 flags;
++} __packed;
++
++struct amc_message {
++	u8 type;
++	u16 vendor;
++	u8 command;
++} __packed;
++
++struct amc_request {
++	struct amc_header header;
++	struct amc_message message;
++	u32 reserved;
++} __packed;
++
++struct amc_response {
++	struct amc_header header;
++	struct amc_message message;
++	u8 error;
++	u8 value;
++} __packed;
++
++static const struct amc_request amc_get_alert_reason = {
++	.header = {
++		.command	= AMC_COMMAND,
++		.len		= sizeof(struct amc_request) - 2,
++		.address	= AMC_GPU_I2C_ADDR,
++		.version	= AMC_VERSION_V1,
++		.destination	= AMC_DESTINATION_ID,
++		.source		= AMC_SOURCE_ID,
++		.flags		= AMC_FLAGS,
++	},
++	.message = {
++		.type		= AMC_MSG_TYPE,
++		.vendor		= htons(PCI_VENDOR_ID_INTEL),
++		.command	= AMC_GET_ALERT_REASON,
++	},
++};
++
++static void xe_amc_work(struct work_struct *work)
++{
++	const struct amc_request *request = &amc_get_alert_reason;
++	struct xe_amc *amc = from_work(amc, work, work);
++	u8 alert_reason = AMC_ALERT_UNKNOWN;
++	struct amc_response response;
++	struct i2c_client *client;
++	int ret;
++
++	client = amc->i2c->client[XE_I2C_CLIENT_AMC];
++	if (IS_ERR_OR_NULL(client))
++		goto out_reassert_interrupt;
++
++	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to send request (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	/* AMC needs 20ms to generate the response. */
++	fsleep(20 * USEC_PER_MSEC);
++
++	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read response (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	if (!response.header.len) {
++		dev_err(&client->dev, "empty response from AMC\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
++		dev_err(&client->dev, "response does not match the request\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (response.error) {
++		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
++		goto out_reassert_interrupt;
++	}
++
++	alert_reason = response.value;
++	dev_dbg(&client->dev, "Alert reason: %d\n", alert_reason);
++
++out_reassert_interrupt:
++	xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++
++	switch (alert_reason) {
++	case AMC_ALERT_FW_DOWNLOAD:
++	case AMC_ALERT_THERMAL_TRIP:
++	case AMC_ALERT_OOB_REQUEST:
++	case AMC_ALERT_OOB_RESET:
++	case AMC_ALERT_CATERR:
++		dev_warn(amc->i2c->drm_dev, "AMC Alert: %s\n", amc_alert[alert_reason]);
++		xe_device_declare_wedged(i2c_client_to_xe_device(client));
++		break;
++	default:
++		dev_warn(amc->i2c->drm_dev, "unknown AMC alert: %d\n", alert_reason);
++		break;
++	}
++}
++
++void xe_amc_handle_alert(struct xe_i2c *i2c)
++{
++	queue_work(system_long_wq, &i2c->amc->work);
++}
++
++int xe_amc_init(struct xe_i2c *i2c)
++{
++	struct xe_amc *amc;
++
++	amc = kzalloc(sizeof(*amc), GFP_KERNEL);
++	if (!amc)
++		return -ENOMEM;
++
++	INIT_WORK(&amc->work, xe_amc_work);
++	i2c->amc = amc;
++	amc->i2c = i2c;
++
++	return 0;
++}
++
++void xe_amc_exit(struct xe_i2c *i2c)
++{
++	if (i2c->amc) {
++		cancel_work_sync(&i2c->amc->work);
++		kfree(i2c->amc);
++	}
++}
+diff --git a/drivers/gpu/drm/xe/xe_amc.h b/drivers/gpu/drm/xe/xe_amc.h
+new file mode 100644
+index 0000000000000..b1d5311fee536
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _XE_AMC_H_
++#define _XE_AMC_H_
++
++#include <linux/i2c.h>
++
++#include "xe_device.h"
++
++struct xe_i2c;
++
++static inline struct xe_device *i2c_adapter_to_xe_device(struct i2c_adapter *adapter)
++{
++	return kdev_to_xe_device(adapter->dev.parent->parent);
++}
++
++static inline struct xe_device *i2c_client_to_xe_device(struct i2c_client *client)
++{
++	return i2c_adapter_to_xe_device(client->adapter);
++}
++
++int xe_amc_init(struct xe_i2c *i2c);
++void xe_amc_exit(struct xe_i2c *i2c);
++void xe_amc_handle_alert(struct xe_i2c *i2c);
++
++#endif /* _XE_AMC_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index f05f23221c1b7..5504cd9dd3596 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -12,8 +12,6 @@
+ #include <linux/err.h>
+ #include <linux/i2c.h>
+ #include <linux/ioport.h>
+-#include <linux/irq.h>
+-#include <linux/irqdomain.h>
+ #include <linux/notifier.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+@@ -24,9 +22,12 @@
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #include "regs/xe_i2c_regs.h"
+ #include "regs/xe_irq_regs.h"
+ 
++#include "xe_amc.h"
+ #include "xe_device.h"
+ #include "xe_i2c.h"
+ #include "xe_mmio.h"
+@@ -61,16 +62,32 @@ static inline void xe_i2c_read_endpoint(struct xe_mmio *mmio, void *ep)
+ 	val[1] = xe_mmio_read32(mmio, REG_SG_REMAP_ADDR_POSTFIX);
+ }
+ 
++static void xe_i2c_handle_smbus_alert(struct xe_i2c *i2c)
++{
++	u32 stat;
++
++	stat = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_SMBUS_INTR_STAT));
++	if (!stat)
++		return;
++
++	xe_mmio_write32(i2c->mmio, I2C_REG(DW_IC_CLR_SMBUS_INTR), stat);
++
++	if (stat & DW_IC_SMBUS_INTR_ALERT && i2c->amc)
++		xe_amc_handle_alert(i2c);
++	else
++		xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++}
++
+ static void xe_i2c_client_work(struct work_struct *work)
+ {
+ 	struct xe_i2c *i2c = container_of(work, struct xe_i2c, work);
+ 	struct i2c_board_info info = {
+ 		.type	= "amc",
+ 		.flags	= I2C_CLIENT_HOST_NOTIFY,
+-		.addr	= i2c->ep.addr[1],
++		.addr	= i2c->ep.addr[XE_I2C_CLIENT_AMC],
+ 	};
+ 
+-	i2c->client[0] = i2c_new_client_device(i2c->adapter, &info);
++	i2c->client[XE_I2C_CLIENT_AMC] = i2c_new_client_device(i2c->adapter, &info);
+ }
+ 
+ static int xe_i2c_notifier(struct notifier_block *nb, unsigned long action, void *data)
+@@ -115,16 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+ 		goto err_fwnode_remove;
+ 	}
+ 
+-	if (i2c->adapter_irq) {
+-		struct resource res;
+-
+-		res = DEFINE_RES_IRQ_NAMED(i2c->adapter_irq, "xe_i2c");
+-
+-		ret = platform_device_add_resources(pdev, &res, 1);
+-		if (ret)
+-			goto err_pdev_put;
+-	}
+-
+ 	pdev->dev.parent = i2c->drm_dev;
+ 	pdev->dev.fwnode = fwnode;
+ 	i2c->adapter_node = fwnode;
+@@ -166,7 +173,8 @@ bool xe_i2c_present(struct xe_device *xe)
+ 
+ static bool xe_i2c_irq_present(struct xe_device *xe)
+ {
+-	return xe->i2c && xe->i2c->adapter_irq;
++	return xe->i2c && xe->i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ &&
++		!xe_survivability_mode_is_boot_enabled(xe);
+ }
+ 
+ /**
+@@ -179,18 +187,10 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
+  */
+ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+ {
+-	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+-
+ 	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
+ 		return;
+ 
+-	/* Forward interrupt to I2C adapter */
+-	generic_handle_irq_safe(xe->i2c->adapter_irq);
+-
+-	/* Deassert after I2C adapter clears the interrupt */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+-	/* Reassert to allow subsequent interrupt generation */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++	xe_i2c_handle_smbus_alert(xe->i2c);
+ }
+ 
+ void xe_i2c_irq_reset(struct xe_device *xe)
+@@ -215,45 +215,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
+ 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+-static int xe_i2c_irq_map(struct irq_domain *h, unsigned int virq,
+-			  irq_hw_number_t hw_irq_num)
+-{
+-	irq_set_chip_and_handler(virq, &dummy_irq_chip, handle_simple_irq);
+-	return 0;
+-}
+-
+-static const struct irq_domain_ops xe_i2c_irq_ops = {
+-	.map = xe_i2c_irq_map,
+-};
+-
+-static int xe_i2c_create_irq(struct xe_device *xe)
+-{
+-	struct xe_i2c *i2c = xe->i2c;
+-	struct irq_domain *domain;
+-
+-	if (!(i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ) ||
+-	    xe_survivability_mode_is_boot_enabled(xe))
+-		return 0;
+-
+-	domain = irq_domain_create_linear(dev_fwnode(i2c->drm_dev), 1, &xe_i2c_irq_ops, NULL);
+-	if (!domain)
+-		return -ENOMEM;
+-
+-	i2c->adapter_irq = irq_create_mapping(domain, 0);
+-	i2c->irqdomain = domain;
+-
+-	return 0;
+-}
+-
+-static void xe_i2c_remove_irq(struct xe_i2c *i2c)
+-{
+-	if (!i2c->irqdomain)
+-		return;
+-
+-	irq_dispose_mapping(i2c->adapter_irq);
+-	irq_domain_remove(i2c->irqdomain);
+-}
+-
+ static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	struct xe_i2c *i2c = context;
+@@ -267,8 +228,16 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
++	switch (reg) {
++	case DW_IC_SMBUS_INTR_MASK:
++		/* Make sure the Alert is never masked. */
++		val |= DW_IC_SMBUS_INTR_ALERT;
++		break;
++	default:
++		break;
++	}
+ 
++	xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
+ 	return 0;
+ }
+ 
+@@ -310,12 +279,15 @@ static void xe_i2c_remove(void *data)
+ 	struct xe_i2c *i2c = data;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++)
++	xe_amc_exit(i2c);
++
++	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+ 		i2c_unregister_device(i2c->client[i]);
++		i2c->client[i] = NULL;
++	}
+ 
+ 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+ 	xe_i2c_unregister_adapter(i2c);
+-	xe_i2c_remove_irq(i2c);
+ }
+ 
+ /**
+@@ -366,22 +338,18 @@ int xe_i2c_probe(struct xe_device *xe)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = xe_i2c_create_irq(xe);
+-	if (ret)
+-		goto err_unregister_notifier;
+-
+ 	ret = xe_i2c_register_adapter(i2c);
+-	if (ret)
+-		goto err_remove_irq;
++	if (ret) {
++		bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++		return ret;
++	}
++
++	ret = xe_amc_init(i2c);
++	if (ret) {
++		xe_i2c_remove(i2c);
++		return ret;
++	}
+ 
+ 	xe_i2c_irq_postinstall(xe);
+ 	return devm_add_action_or_reset(drm_dev, xe_i2c_remove, i2c);
+-
+-err_remove_irq:
+-	xe_i2c_remove_irq(i2c);
+-
+-err_unregister_notifier:
+-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+-
+-	return ret;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+index 425d8160835f4..b200966b00484 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.h
++++ b/drivers/gpu/drm/xe/xe_i2c.h
+@@ -11,18 +11,21 @@ struct device;
+ struct fwnode_handle;
+ struct i2c_adapter;
+ struct i2c_client;
+-struct irq_domain;
+ struct platform_device;
++struct xe_amc;
+ struct xe_device;
+ struct xe_mmio;
+ 
+-#define XE_I2C_MAX_CLIENTS		3
+-
+ #define XE_I2C_EP_COOKIE_DEVICE		0xde
+ 
+ /* Endpoint Capabilities */
+ #define XE_I2C_EP_CAP_IRQ		BIT(0)
+ 
++enum XE_I2C_CLIENT {
++	XE_I2C_CLIENT_AMC = 1,
++	XE_I2C_MAX_CLIENTS = 3,
++};
++
+ struct xe_i2c_endpoint {
+ 	u8 cookie;
+ 	u8 capabilities;
+@@ -38,13 +41,11 @@ struct xe_i2c {
+ 	struct notifier_block bus_notifier;
+ 	struct work_struct work;
+ 
+-	struct irq_domain *irqdomain;
+-	int adapter_irq;
+-
+ 	struct xe_i2c_endpoint ep;
+ 	struct device *drm_dev;
+ 
+ 	struct xe_mmio *mmio;
++	struct xe_amc *amc;
+ };
+ 
+ #if IS_ENABLED(CONFIG_I2C)
 -- 
 2.53.0
-
-
 
