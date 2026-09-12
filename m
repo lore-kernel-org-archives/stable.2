@@ -1,43 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40EA32B13F
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:24:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CBD38398F;
+	Sat, 12 Sep 2026 16:24:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230254; cv=none; b=qPYIvOw5O65TQzm83rAYeWRaPUt3bykcHa/Tyo94VtAK4crZs6u54o1RWm1nq5B8RG1+T0ZWshDVMIvpMAzPz9QFK1yiuDO5hUr+v60GeRpxrCrzhNcZugiFBOcgpKuyKu9VLPKdMvi68NHv+0wznKtGS8cdtFR+/3CxisnLUwU=
+	t=1789230255; cv=none; b=D5cx/Ggy4b0zXNUZ/9s3YMhgWUItcsyGvfdWIR2Y0ADGZa3EaE69WqO0izQUfPD4Vn1nOYx1p2oDhIzaylaVw3Ep8thtqNdB6E5bB2fN7AmJ7MU5H0bnSZ8Z3XzxnCQPc7OUiXLZmYFkco3SAkb9PT8UltCJ29RY2Y1zRYfHJtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230254; c=relaxed/simple;
-	bh=BvQey/MdJ/SWlvz6rS+VQT0glfkJWcFYwbJh9AGHgGE=;
+	s=arc-20240116; t=1789230255; c=relaxed/simple;
+	bh=//I6Z2oAmEFvYoIciHYNh7wmXzCE75Zj7LiHAFaJlIw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FyPa4FPTjTVDC+pmVzs/MTCGazcTHZs1nGJaRy18H3GEF5bmcDF/+VDcnPkMOe3UKJhoKGeiGSc6k/AOV0XBvkeFjB8fytdL7TBpFIkssjSSk4jk6nMkPRder7tSnEjO+s0+M3EuZRelKXEilq2eF+qDvkV5woEFwDN301tqvmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onQCAhNg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BC2rP4u158fs5CmA0brNaVHSgm1eK8N58N28MNjCia/jYuNcfiF6TtKstBcNBODUCkICrpn9BLso7n4VtaXyxIuEpUuKTiTZ5TWLxjkHR/ut7BEPTQr4KGJ98hcnhU2xv1U6B3KpVvxo8ZHQoDlZHW5MA47RATBpDNGaFMbQkKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Tnnmny/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onQCAhNg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48CCC1F00893;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Tnnmny/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A507B1F00898;
 	Sat, 12 Sep 2026 16:24:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789230252;
-	bh=czOVBfnKOiiVnsr7LDnxPCCLOJRyWay19z7d6IzUQF0=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789230253;
+	bh=hKlozSuTjZq3zlT3n5JWnEHrKVBmnm2jh2oxyuJFGzo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=onQCAhNgxrVXTQJs9gl7n4qUc+VTpRXt97Ij++dM4UNCqRadfaLS37zEukT8khQmd
-	 UrygLe29XMmZBXz9wjqfPyc2UVljR83cMs96LOWP8pu5qfsteYNVatloYTeJR34egL
-	 g2aeaIMJebHTLTbWvhwaM2PDbchZOqQCT7+mjAUp1XUmLtoiBil3zEcziSurW0PU5w
-	 lNHx62WuZI/pnbdhOs0ob+kpFDpJSwUPYxzj6uZnzBQIjtN1jO7/yNDcUcxuySzRDB
-	 a/N7xJ17M3gA2LNKA5ULUrzAKfI/tbvBpHc76pODElEumrLzvJldkXlUbE6pqBkmC+
-	 dLZbXDhGFdmpg==
-From: Sasha Levin <sashal@kernel.org>
+	b=Tnnmny/ePXfU8Ft8KsSbIz0bK0txUYt3OAHYFFMK4Acv47zakscybHUjIbEOn6Tej
+	 KU6aV43Gy++/zRgT2zfQkOvYMLRuJU/BOwDk1f9zsjzLu1N89h1XdR97nkTvcgslAp
+	 pG/t4taWiGsMmoFBPa09jsOLmK7v3IXyDhW0r8a0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Sam Ravnborg <sam@ravnborg.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Suggested-by: Clark Williams" <williams@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	Daniel Bristot de Oliveira <bristot@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] drm/atomic-helper: Move DRM_PLANE_HELPER_NO_SCALING to atomic helpers
-Date: Sat, 12 Sep 2026 12:24:08 -0400
-Message-ID: <20260912162409.3654862-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912162409.3654862-1-sashal@kernel.org>
-References: <2026090953-parka-swoop-b3c1@gregkh>
- <20260912162409.3654862-1-sashal@kernel.org>
+Subject: [PATCH 6.1 0756/1191] tracing/osnoise: Add preempt and/or irq disabled options
+Date: Sat, 12 Sep 2026 08:58:04 +0200
+Message-ID: <20260912065605.258960945@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,214 +52,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 382fc1f681324bb38bedfe763107a60256c4ddc8 ]
+------------------
 
-The macro DRM_PLANE_HELPER_NO_SCALING is only useful with the interfaces
-in drm_atomic_helper.h, but defined in drm_plane_helper.h. So half of
-DRM includes the latter header file for using this macro. Move the macro
-and remove the include statements.
+From: Daniel Bristot de Oliveira <bristot@kernel.org>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20220720083058.15371-3-tzimmermann@suse.de
+[ Upstream commit b5dce2002567a9b1a83ef3e3a8678d8c32be2a78 ]
 
-Stable adaptation for 5.10 and target 715c5db68bdb:
+The osnoise workload runs with preemption and IRQs enabled in such
+a way as to allow all sorts of noise to disturb osnoise's execution.
+hwlat tracer has a similar workload but works with irq disabled,
+allowing only NMIs and the hardware to generate noise.
 
-Keep the macro move but omit the optional driver include cleanup. Several
-upstream drivers do not exist in 5.10 and others still have older header
-dependencies. Define DRM_PLANE_NO_SCALING as an alias so the target can use
-the newer spelling without renaming existing callers.
+While thinking about adding an options file to hwlat tracer to
+allow the system to panic, and other features I was thinking
+to add, like having a tracepoint at each noise detection, it
+came to my mind that is easier to make osnoise and also do
+hardware latency detection than making hwlat "feature compatible"
+with osnoise.
 
-The target also expects HIBMC's plane check to receive the full atomic
-state. Add an optional atomic_check_state member to the existing plane
-helper table and dispatch it from drm_atomic_helper_check_planes(), with
-the legacy atomic_check path retained for all other drivers. Convert only
-HIBMC's existing check to this entry and match the target's local state
-names. Its validation behavior is unchanged until the target is applied.
-Use 5.10's struct drm_atomic_state rather than the later drm_atomic_commit
-name. No function definitions are added.
+Other points are:
+ - osnoise already has an independent cpu file.
+ - osnoise has a more intuitive interface, e.g., runtime/period vs.
+   window/width (and people often need help remembering what it is).
+ - osnoise: tracepoints
+ - osnoise stop options
+ - osnoise options file itself
 
-[ sashal: Reduced backport -- upstream 382fc1f681324 touches 31 file(s), this
-  backport carries 5. Not backported here:
-  drivers/gpu/drm/arm/hdlcd_crtc.c
-  drivers/gpu/drm/ast/ast_mode.c
-  drivers/gpu/drm/drm_simple_kms_helper.c
-  drivers/gpu/drm/i915/display/i9xx_plane.c
-  drivers/gpu/drm/i915/display/intel_cursor.c
-  drivers/gpu/drm/i915/display/intel_sprite.c
-  drivers/gpu/drm/i915/display/skl_universal_plane.c
-  drivers/gpu/drm/imx/ipuv3-plane.c
-  ... and 21 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+Moreover, the user-space side (in rtla) is simplified by reusing the
+existing osnoise code.
 
-Stable-dep-of: 715c5db68bdb ("drm/hibmc: Use drm_atomic_helper_check_plane_state()")
+Finally, people have been asking me about using osnoise for hw latency
+detection, and I have to explain that it was sufficient but not
+necessary. These options make it sufficient and necessary.
+
+Adding a Suggested-by Clark, as he often asked me about this
+possibility.
+
+Link: https://lkml.kernel.org/r/d9c6c19135497054986900f94c8e47410b15316a.1670623111.git.bristot@kernel.org
+
+Cc: Suggested-by: Clark Williams <williams@redhat.com>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Bagas Sanjaya <bagasdotme@gmail.com>
+Cc: Daniel Bristot de Oliveira <bristot@kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Signed-off-by: Daniel Bristot de Oliveira <bristot@kernel.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: 27d73e81195b ("rcu: Mark accesses to ->rcu_urgent_qs and ->rcu_need_heavy_qs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_helper.c           |  9 +++++--
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 26 ++++++++++---------
- include/drm/drm_atomic_helper.h               | 10 +++++++
- include/drm/drm_modeset_helper_vtables.h      | 11 ++++++++
- include/drm/drm_plane_helper.h                |  9 -------
- 5 files changed, 42 insertions(+), 23 deletions(-)
+ kernel/trace/trace_osnoise.c | 48 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 43 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 0ff208876b853..d6d7099f1ac7f 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -982,10 +982,15 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
- 
- 		drm_atomic_helper_check_plane_damage(state, new_plane_state);
- 
--		if (!funcs || !funcs->atomic_check)
-+		if (!funcs)
- 			continue;
- 
--		ret = funcs->atomic_check(plane, new_plane_state);
-+		if (funcs->atomic_check_state)
-+			ret = funcs->atomic_check_state(plane, state);
-+		else if (funcs->atomic_check)
-+			ret = funcs->atomic_check(plane, new_plane_state);
-+		else
-+			continue;
- 		if (ret) {
- 			DRM_DEBUG_ATOMIC("[PLANE:%d:%s] atomic driver check failed\n",
- 					 plane->base.id, plane->name);
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index 4d57ec688f827..1d235dbe51ab4 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -55,27 +55,29 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
- #define PADDING(align, data) (((data) + (align) - 1) & (~((align) - 1)))
- 
- static int hibmc_plane_atomic_check(struct drm_plane *plane,
--				    struct drm_plane_state *state)
-+				    struct drm_atomic_state *state)
- {
--	struct drm_framebuffer *fb = state->fb;
--	struct drm_crtc *crtc = state->crtc;
-+	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-+										 plane);
-+	struct drm_framebuffer *fb = new_plane_state->fb;
-+	struct drm_crtc *crtc = new_plane_state->crtc;
- 	struct drm_crtc_state *crtc_state;
--	u32 src_w = state->src_w >> 16;
--	u32 src_h = state->src_h >> 16;
-+	u32 src_w = new_plane_state->src_w >> 16;
-+	u32 src_h = new_plane_state->src_h >> 16;
- 
- 	if (!crtc || !fb)
- 		return 0;
- 
--	crtc_state = drm_atomic_get_crtc_state(state->state, crtc);
-+	crtc_state = drm_atomic_get_crtc_state(state, crtc);
- 	if (IS_ERR(crtc_state))
- 		return PTR_ERR(crtc_state);
- 
--	if (src_w != state->crtc_w || src_h != state->crtc_h) {
-+	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
- 		drm_dbg_atomic(plane->dev, "scale not support\n");
- 		return -EINVAL;
- 	}
- 
--	if (state->crtc_x < 0 || state->crtc_y < 0) {
-+	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
- 		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
- 		return -EINVAL;
- 	}
-@@ -83,15 +85,15 @@ static int hibmc_plane_atomic_check(struct drm_plane *plane,
- 	if (!crtc_state->enable)
- 		return 0;
- 
--	if (state->crtc_x + state->crtc_w >
-+	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
- 	    crtc_state->adjusted_mode.hdisplay ||
--	    state->crtc_y + state->crtc_h >
-+	    new_plane_state->crtc_y + new_plane_state->crtc_h >
- 	    crtc_state->adjusted_mode.vdisplay) {
- 		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
- 		return -EINVAL;
- 	}
- 
--	if (state->fb->pitches[0] % 128 != 0) {
-+	if (new_plane_state->fb->pitches[0] % 128 != 0) {
- 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
- 		return -EINVAL;
- 	}
-@@ -153,7 +155,7 @@ static struct drm_plane_funcs hibmc_plane_funcs = {
- static const struct drm_plane_helper_funcs hibmc_plane_helper_funcs = {
- 	.prepare_fb	= drm_gem_vram_plane_helper_prepare_fb,
- 	.cleanup_fb	= drm_gem_vram_plane_helper_cleanup_fb,
--	.atomic_check = hibmc_plane_atomic_check,
-+	.atomic_check_state = hibmc_plane_atomic_check,
- 	.atomic_update = hibmc_plane_atomic_update,
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 37653a871d75d..366d8c288f5fa 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -55,10 +55,17 @@ enum osnoise_options_index {
+ 	OSN_DEFAULTS = 0,
+ 	OSN_WORKLOAD,
+ 	OSN_PANIC_ON_STOP,
++	OSN_PREEMPT_DISABLE,
++	OSN_IRQ_DISABLE,
+ 	OSN_MAX
  };
  
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index 908ee3f417825..c33d852cd9d7f 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -34,6 +34,16 @@
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_util.h>
+-static const char * const osnoise_options_str[OSN_MAX] = { "DEFAULTS", "OSNOISE_WORKLOAD", "PANIC_ON_STOP" };
++static const char * const osnoise_options_str[OSN_MAX] = {
++							"DEFAULTS",
++							"OSNOISE_WORKLOAD",
++							"PANIC_ON_STOP",
++							"OSNOISE_PREEMPT_DISABLE",
++							"OSNOISE_IRQ_DISABLE" };
  
-+/*
-+ * Drivers that don't allow primary plane scaling may pass this macro in place
-+ * of the min/max scale parameters of the plane-state checker function.
-+ *
-+ * Due to src being in 16.16 fixed point and dest being in integer pixels,
-+ * 1<<16 represents no scaling.
-+ */
-+#define DRM_PLANE_HELPER_NO_SCALING (1<<16)
-+#define DRM_PLANE_NO_SCALING DRM_PLANE_HELPER_NO_SCALING
-+
- struct drm_atomic_state;
- struct drm_private_obj;
- struct drm_private_state;
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index 4efec30f8badc..e6574a6219a3a 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1252,6 +1252,17 @@ struct drm_plane_helper_funcs {
- 	int (*atomic_check)(struct drm_plane *plane,
- 			    struct drm_plane_state *state);
+ #define OSN_DEFAULT_OPTIONS	0x2
+ unsigned long osnoise_options	= OSN_DEFAULT_OPTIONS;
+@@ -1309,18 +1316,26 @@ static void notify_new_max_latency(u64 latency)
+  */
+ static int run_osnoise(void)
+ {
++	bool disable_irq = test_bit(OSN_IRQ_DISABLE, &osnoise_options);
+ 	struct osnoise_variables *osn_var = this_cpu_osn_var();
+ 	u64 start, sample, last_sample;
+ 	u64 last_int_count, int_count;
+ 	s64 noise = 0, max_noise = 0;
+ 	s64 total, last_total = 0;
+ 	struct osnoise_sample s;
++	bool disable_preemption;
+ 	unsigned int threshold;
+ 	u64 runtime, stop_in;
+ 	u64 sum_noise = 0;
+ 	int hw_count = 0;
+ 	int ret = -1;
  
-+	/**
-+	 * @atomic_check_state:
-+	 *
-+	 * This hook is equivalent to @atomic_check, but receives the full
-+	 * atomic state. Drivers should implement only one of these hooks.
-+	 * drm_atomic_helper_check_planes() calls this hook in preference to
-+	 * @atomic_check when both are set.
++	/*
++	 * Disabling preemption is only required if IRQs are enabled,
++	 * and the options is set on.
 +	 */
-+	int (*atomic_check_state)(struct drm_plane *plane,
-+				  struct drm_atomic_state *state);
++	disable_preemption = !disable_irq && test_bit(OSN_PREEMPT_DISABLE, &osnoise_options);
 +
- 	/**
- 	 * @atomic_update:
- 	 *
-diff --git a/include/drm/drm_plane_helper.h b/include/drm/drm_plane_helper.h
-index 331ebd60b3a39..ff85ef41cb332 100644
---- a/include/drm/drm_plane_helper.h
-+++ b/include/drm/drm_plane_helper.h
-@@ -29,15 +29,6 @@
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_modeset_helper.h>
+ 	/*
+ 	 * Considers the current thread as the workload.
+ 	 */
+@@ -1336,6 +1351,15 @@ static int run_osnoise(void)
+ 	 */
+ 	threshold = tracing_thresh ? : 5000;
  
--/*
-- * Drivers that don't allow primary plane scaling may pass this macro in place
-- * of the min/max scale parameters of the update checker function.
-- *
-- * Due to src being in 16.16 fixed point and dest being in integer pixels,
-- * 1<<16 represents no scaling.
-- */
--#define DRM_PLANE_HELPER_NO_SCALING (1<<16)
--
- void drm_primary_helper_destroy(struct drm_plane *plane);
- extern const struct drm_plane_funcs drm_primary_helper_funcs;
++	/*
++	 * Apply PREEMPT and IRQ disabled options.
++	 */
++	if (disable_irq)
++		local_irq_disable();
++
++	if (disable_preemption)
++		preempt_disable();
++
+ 	/*
+ 	 * Make sure NMIs see sampling first
+ 	 */
+@@ -1423,16 +1447,21 @@ static int run_osnoise(void)
+ 		 * cond_resched()
+ 		 */
+ 		if (IS_ENABLED(CONFIG_PREEMPT_RCU)) {
+-			local_irq_disable();
++			if (!disable_irq)
++				local_irq_disable();
++
+ 			rcu_momentary_dyntick_idle();
+-			local_irq_enable();
++
++			if (!disable_irq)
++				local_irq_enable();
+ 		}
  
+ 		/*
+ 		 * For the non-preemptive kernel config: let threads runs, if
+-		 * they so wish.
++		 * they so wish, unless set not do to so.
+ 		 */
+-		cond_resched();
++		if (!disable_irq && !disable_preemption)
++			cond_resched();
+ 
+ 		last_sample = sample;
+ 		last_int_count = int_count;
+@@ -1451,6 +1480,15 @@ static int run_osnoise(void)
+ 	 */
+ 	barrier();
+ 
++	/*
++	 * Return to the preemptive state.
++	 */
++	if (disable_preemption)
++		preempt_enable();
++
++	if (disable_irq)
++		local_irq_enable();
++
+ 	/*
+ 	 * Save noise info.
+ 	 */
 -- 
 2.53.0
+
+
 
