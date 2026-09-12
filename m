@@ -1,117 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B668214A84;
-	Sat, 12 Sep 2026 12:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B59B2F531B
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216348; cv=none; b=bEUK8Dfh7yEW5zJXK7jPhWZA9lrypI8FPtFoa5mhXV4AePUabGSMMWPvivf2TadSCWEfB+tokuVk4BczyI/8/QhbSLiZYXTILxmOuC70I6Wv6woN3yqU2ifWnRAzuTb8VSlabOwGYhXLitSecOxgnizFKb4NqfIo9wLoK8SdwT0=
+	t=1789216348; cv=none; b=leH8/43wV0L3qO13JTYEICXW4DEdC1fwFNORpcVpsP4TNcB3Z+qeB+4+ORkyZCMq686SrUUfGrc3oKvTzjvVAOhAP3F4rrQCEqY+UDbXxD2JcPb9Ug1VLP3ZfI+j6+XFL4fl2JVj3uOOHYOkw8qEADntdhfs7FV/DKAlADCn5os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789216348; c=relaxed/simple;
-	bh=/kZDd/PbiSsUKJM9E5HttOTRPrab7Eh0utZVEdO7j+Y=;
+	bh=7AjZ9kH9Re1kynDJlWKePkLxkDHCt7Rsw0kLTiGVMY4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dMxs3e3RYIrYz7iK5HZkXvO+LT7UYFF5asuBzbMYvKoCt+TvYz5FCz0s2qAvNc+ymmMzrUDu/IRXHBJ7onxMOtVkGk4EDZigIbMISrzG4vyx2b8eQQNk/MIIXh3N2TDvRP7rHvUDpRs9o4rnllF8dXlsdKspCypu67AsinUsj5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nmcwLgdu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KDFvTBmWqvHTOVApCa+7SHDtVoo0BFCezcGW/Br0JF6Q1jF+XGBOvQGVKCSHX1CW0c1hNGu5EJCElrxcK0yc1i7N0MoVernv+G9kGNQqkPW6ptjTgbewdJob8T0UpBMbQb10Zr+Ruo9jY0gJoWaER0X+J6jJl5xw5MycdESoBzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG/Nv0s4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nmcwLgdu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02611F000FF;
-	Sat, 12 Sep 2026 12:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789216347;
-	bh=SI8a+xhGwQ9kK3rFWVnq7Y9wgjVafeDSs7YN0r8drRQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG/Nv0s4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0481F00893;
+	Sat, 12 Sep 2026 12:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789216347;
+	bh=WWdsuHVLFdjQKKeBCfs4MxhpYgXm95nxTmEeBZ6wmVY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nmcwLgduxnIxisTN3qJ9seniQomBd4Sii4TBRCZ0zQ0GkFQoFLV3a1TweVeQyQhUy
-	 qF4Vb2x14U6+qRYbMTvamXTUI9UrwIrN8UzboUANe9o+xNexu/A1Zt9F4HIMf4jv91
-	 WTlGBfvjWavVLqO/DsICFAhrSlckLHimUtsFi2c4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=ZG/Nv0s4SDt/IMr16ldHaBnOjfNSCgJW2rGurvqHsApMbhhkXFGKL3pSgw5mA5dIW
+	 9YdmBsyDqZ7fnU8V3rZ6VO1DuMmtnndYn4AMRIFyiAagb2hV6ln4s+bvzZ4Q3mSwmZ
+	 dxSBMMJ9U6oLamEwIB4e6yWVuLxwt00VPE8m+sRg6LhFJxhfr2iCRhVJOXaa6YoCtg
+	 87QR9FGxuAWpxCYh6eiYTz4jqX9c+StdfWpmWB/ud+c+34lI+ve7XRKSDyNBuVWLVH
+	 lwJ+XSuvxRXxU/aA1cz3vnoPO+mEv0hnjKSvG/UTHkQHTsesig4D5KDEsnHpfNNeks
+	 L7BUDhfHOv/YQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Alexey Charkov <alchark@flipper.net>,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Heiko Stuebner <heiko@sntech.de>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0718/1376] clk: rockchip: Fix the fractional part denominator on RK3588/RK3576 PLLs
-Date: Sat, 12 Sep 2026 08:52:24 +0200
-Message-ID: <20260912065623.544020719@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-References: <20260912065607.535295758@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
+Date: Sat, 12 Sep 2026 08:32:25 -0400
+Message-ID: <20260912123225.2618391-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090958-plastic-payee-9f0a@gregkh>
+References: <2026090958-plastic-payee-9f0a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit ce366bfa821ec81dd45bde547ee31e659306cc61 ]
 
-From: Alexey Charkov <alchark@flipper.net>
+There is potential deadloop in race condition:
 
-[ Upstream commit 52aef653c3d0c24013dfa9eccf692594eacdbe17 ]
+Thread A				Thread B
+- fsync
+ - f2fs_do_sync_file
+  - f2fs_fsync_node_pages
+   - last_fsync_dnode
+    - folio_get(last_folio)
+					- f2fs_setattr
+					 - f2fs_truncate
+					  - f2fs_truncate_blocks
+					   - f2fs_do_truncate_blocks
+					    - f2fs_truncate_inode_blocks
+					     - truncate_dnode
+					      - truncate_node
+					       - invalidate_mapping_pages
+					        - folio->mapping = NULL
+   - is_node_folio alwasy return false
+   - atomic && !marked is always true,
+     then goto retry
 
-According to the TRM, the fractional PLL coefficient should be divided by
-65536 rather than 65535 to obtain the output rate.
-
-Fix the denominator and add a comment with the TRM provided clock formulae
-for future reference.
-
-See RK3576 TRM Part 1 V1.2 section 2.13.1.4 Setting Guide on P, M, S and K
-or equivalently RK3588 TRM part 1 V1.0 section 2.17.1.4 Setting Guide on P,
-M, S and K.
-
-Fractional PLL rates don't seem to be used by any current mainline
-consumers, so this is purely a correctness fix. It will also be important
-to properly support DisplayPort output going forward, as the video output
-controller derives its pixel clock from system PLLs with no dedicated PHY
-PLL option for DP unlike HDMI, and some display modes are only achievable
-with fractional PLL rates.
-
-Fixes: 8f6594494b1c ("clk: rockchip: add pll type for RK3588")
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
-Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de>
-Link: https://patch.msgid.link/20260723-rk3588-fracpll-v2-1-3adfb9dda235@flipper.net
-Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+Cc: stable@kernel.org
+Fixes: 608514deba38 ("f2fs: set fsync mark only for the last dnode")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ Adapted folio operations to Linux 5.15’s page-based API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/rockchip/clk-pll.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ fs/f2fs/node.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/clk/rockchip/clk-pll.c b/drivers/clk/rockchip/clk-pll.c
-index fe76756e592e9..dfe02f463e249 100644
---- a/drivers/clk/rockchip/clk-pll.c
-+++ b/drivers/clk/rockchip/clk-pll.c
-@@ -893,6 +893,13 @@ static void rockchip_rk3588_pll_get_params(struct rockchip_clk_pll *pll,
- 	rate->k = ((pllcon >> RK3588_PLLCON2_K_SHIFT) & RK3588_PLLCON2_K_MASK);
- }
- 
-+/*
-+ * 2250 MHz <= Fvco <= 4500 MHz
-+ * For Fvco > 3 GHz: period jitter +-1% frac PLL, +-0.75% int PLL
-+ * For Fvco < 3 GHz: period jitter +-2% frac PLL, +-1.50% int PLL
-+ * Fvco = ((m + k / 65536) * Fin) / p
-+ * Fout = ((m + k / 65536) * Fin) / (p * 2^s)
-+ */
- static unsigned long rockchip_rk3588_pll_recalc_rate(struct clk_hw *hw, unsigned long prate)
- {
- 	struct rockchip_clk_pll *pll = to_rockchip_clk_pll(hw);
-@@ -908,7 +915,7 @@ static unsigned long rockchip_rk3588_pll_recalc_rate(struct clk_hw *hw, unsigned
- 		/* fractional mode */
- 		u64 frac_rate64 = prate * cur.k;
- 
--		postdiv = cur.p * 65535;
-+		postdiv = cur.p * 65536;
- 		do_div(frac_rate64, postdiv);
- 		rate64 += frac_rate64;
- 	}
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index e5a06a65a5398..34a590d500819 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1847,6 +1847,11 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+ 			   ino, last_page->index);
+ 		lock_page(last_page);
++		if (unlikely(last_page->mapping != NODE_MAPPING(sbi))) {
++			f2fs_put_page(last_page, 1);
++			ret = -EAGAIN;
++			goto out;
++		}
+ 		f2fs_wait_on_page_writeback(last_page, NODE, true, true);
+ 		set_page_dirty(last_page);
+ 		unlock_page(last_page);
 -- 
 2.53.0
-
-
 
