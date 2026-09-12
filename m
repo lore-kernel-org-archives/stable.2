@@ -1,81 +1,65 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8BD47ACD7
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FCE344DBD;
+	Sat, 12 Sep 2026 20:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789244396; cv=none; b=Bbv5U7+Xyb0zu0gTunsHvDQkbo0/bjZF858/A0JFS7TACNd2LinqXv3BCVqUboMgY2Fynr75vHRC14vLXh9p1XnTVU0KBPsXQgL43hoFskp5Y+kPUoX5gLj3tGdyfjN3SuZtYGUhIEJsfQVIdZFORMya2Owwz977S5J++wr7drw=
+	t=1789245009; cv=none; b=pJ+cvDYrWK6eJ7+3uGDm7SG+cD+qqSKSLAUajZzLf5PdOiFOZnoLKWvSOx+eJ7Dfv4SHPbewaYvhKiRmwvdOR5viqIE0HKkQ544t6MSKoD6BMPzGKgANe4LFlD8jlnPX1O65Kl2lGRnKL/u2y5fyYuO7acQvIIhv7k1kv9rJKW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789244396; c=relaxed/simple;
-	bh=txURU+K8mrxI98s4PbzewGVHcFWr+Th149VPC2FxOHw=;
+	s=arc-20240116; t=1789245009; c=relaxed/simple;
+	bh=WSrktti+GrZhcetEGyJkVS4hoQa2xPTYan99xmH3LaM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hiJ/bhzmwlMjLI0z/aFLRX4iAQeEBAVzm8xhuerrKQAolKynAny/WIdAF7zFipaA5lpS5RerFZkvUEZYYC2N8RFetWanWuSCgF/d0h3WTg0zsNGVAmme5uKWx4MjXR2JYiln4mVYm0i1u3VA1+0ZhBQ80IeZeMm8PKXvhOCL/2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJ0iX3HM; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=cm40oZwGWO5kZ2AhHohYKt/DPiCV44DxaGIGQ8csajAtPTD94u7MWXGOJ/WhB5sOUUJDYAXV+TjaqXI0IaMT31Bf3nzxTFUtcYej2mApuKtNnj2YwOzyULmPc6dMmTJSHS7pzB3Yz4N16EiNPL6zB15tEnQgBh3xW6BXfdpNdUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=PUG6z/iu; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJ0iX3HM"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so22642355e9.1
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 13:19:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789244391; x=1789849191; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=txURU+K8mrxI98s4PbzewGVHcFWr+Th149VPC2FxOHw=;
-        b=rJ0iX3HMldwTFU/FeS623RlgP+7XPco6cKhgRbfd8iTZmnSql8zRmykXFUI9IAOqiN
-         f25CCfCr52QEHXV4hT4tW6rNgJBjaHRt/W/PedUDBxzKOsi7hm1uV8VQuRsp9Qr6mpJD
-         2NGCDEXQRE6f9Jr3/pC3TVrUdUlBcho2Azg+Gqu51jMc+ynyUjrJ2LSdMj6wP7OT2yRu
-         7UilUp4TNNRAWRheekVCvf5rP0i7l56B3+F8AzqREevLyHE42F6Z9VFIwTGkZWCjyTJX
-         noqA4t70aHjvNiz8r/XEgSEg7bAwZcoxMkfj4LmaNYdLBHZBfIZ+MU2crh+Ap4q7zaCB
-         vCaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789244391; x=1789849191;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=txURU+K8mrxI98s4PbzewGVHcFWr+Th149VPC2FxOHw=;
-        b=Syst9Ffb5TL2tvcweDfvR+2KYhsiyrf2VFC75u4dgFvYRnzFuBUrFFIUU2PKONCOEs
-         AzGmfmm8aT3CwdzVsjZ3porNP8Fjnbj56m1P4cwiQEUuAjQOgcEQgRVe1/5iA3FE7SQe
-         AMynh4DsJQ/4MRMgOeZc2CBmgg8MW0P+ixrZFT3vlfmloxjWpgtZapMwmNxztFoKC0vt
-         jcEUIg07iltjIlMNVst6Gb+B4gyp8C2b+ydOufa8cFysgDo7JpnOL62ovtHbOIUXsPaJ
-         JksXwaXqlkXvKhO6EZ20OQOnVeK3kFqhNuWYHS9U1nJ2N6w7QQnJBFlOoUYcvlwY4zg9
-         l36Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw729LTNW+z9j/hp9CV+sPgb5kUEmceOAcvyX0No0lZTvx3mn4Xjx9A56L4V74BCXXNICMu07I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM+QqhRD62m+6dB8fyUDrfDW6X9xXgsNNCtrz9LZawykXjdFgm
-	4bXvqVfsuNJWRcosHlmaSDPPchaQXx38KK1KqKOO97ZT346z8IiyRkyD
-X-Gm-Gg: AYBFou3tuS+W5I8ObInmNA67z5pPMAcOIuzt9ztB9Ank2CUDPgxxbRFDXJFsQsv0B29
-	XOKuILws3NtV5M05FDffGRwlHlHSJ/XJ8z9F4fConmf09llBnsipBHiCQJnIOP4hjs4xgM/0GMZ
-	YWrQlvExd6zzs9DMwvVm99JtBUJWNJDO3hHaj0DDzlQhTKOTj2S9O6gGT03esu9El3FIAmbTmzS
-	AnrJGCti6nORGROgDimRQqod7zt34z7Rr6ziU9IfTSJsinsL8m9nKaDMzHcN+OSxMPcVLshjUz8
-	3zFaF2unbgtwiiWNJ6lsXi9nnuFS5xzZFW8DAC3cOSBYoUBg9tWyiLKqE93m6948dQZaafuDw0u
-	ZClxI35IaFrTGEgIU5eWYr7UpPApDIDdLMzOCNUk55zJF1qVW3NTzT0lKGvQahMhBfma3GfJqYH
-	LpkLTMFE6sgogArOsW343FhxlZM7V/9PsexnqvqOXSQgzC4wMO3Fpk9uvbv8WYHDNWni7PyYdYc
-	P3JVyzYdj9WNKA7qsg448sKeDfAYEBTk8O4IDuhrHkOIJIGv4tRO21HKP3Lr2VF4DW7bDIiRV+z
-	Ws53Qq9XIOpxc7g7GhRjSVm7zHo4wje5gN97xuK5OIM1ImY0FWabUa/AbEmplQsyBJbfDaW1fRe
-	O9lsmyAE=
-X-Received: by 2002:a05:600c:8b41:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49e6198865dmr131747885e9.8.1789244391211;
-        Sat, 12 Sep 2026 13:19:51 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a81943sm119571285e9.1.2026.09.12.13.19.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 13:19:50 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	stable@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="PUG6z/iu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789244926;
+	bh=WSrktti+GrZhcetEGyJkVS4hoQa2xPTYan99xmH3LaM=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=PUG6z/iukqUbd179AOk+Cm5gXZCqyYZ+fGzS2MA4qZRBKcxV3qxjtu7QkAiypnrWD
+	 0o/8GIVDyXIHTBDfOOW6/ECW5QeJgCxqX5uN4/oeo5EobUYQsrI9ObfDFTUx0f6MgS
+	 ukQIlWBhoXTtsoZApwNDAv+r2Y7WcMZU6qxnWsZc=
+X-QQ-mid: esmtpsz17t1789244921t2bebcfaa
+X-QQ-Originating-IP: adESL1oPrDbLyPerAqF+h9ml0r83KhLlsXsqKcJ8MFg=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 13 Sep 2026 04:28:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7332631638747606567
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
 	patches@lists.linux.dev,
-	tianshuo han <hantianshuo233@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 5.15 836/935] ksmbd: limit repeated connections from clients with the same IP
-Date: Sat, 12 Sep 2026 22:19:46 +0200
-Message-Id: <20260912201946.77500-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260912065545.998510042@linuxfoundation.org>
-References: <20260912065526.833703348@linuxfoundation.org> <20260912065545.998510042@linuxfoundation.org>
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
+Date: Sun, 13 Sep 2026 04:28:34 +0800
+Message-Id: <20260912202834.849869-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,21 +67,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: ML07xMZF0r5+gDaD0jaenyQ8F7HZI7xhaQi4/o5zg06tv9TkZ8JRJ5yV
+	pAbMPRxagnJgIUl1QSJhCQgz0Ko92XD6XclJmzYr8QNqfttQbTo2d1ns04c0PQfvq0qqyRo
+	r+IlUjP6cYvLVl5MHQWbkCN2WWayc1/dNJf76GkkY4O5Cg19523U7MmTiEOL8NNaxAVivrB
+	cRdCXntgLY9zW+qCi6G3w9SiVWO0Ep9jdKqK7Rcqx1LJkSKw9PgzJMkr6aMESl65mx3+L3J
+	dG6EhYkfDm2W5dxBM6oFpLjTsLxGA99rEl+eQo4IJJzYx2EKYWTOMvorQvW/mtjK7yk5W2U
+	E4CMYC9jGgCxT1gNwHHgfKQXR+4fOVzTZqUKTAb5zz8OO9hRZ3KWTMR8zCJOR0rgNmMiGaH
+	f2sjljOXJ5a+OfuY4vgi4mficSpDwlk0PtM1r4JIr3KkHs47FU9uKjare4hZSctxKH01csr
+	S+qSrBm0vLsGlPxWvhRvpjmEu/GGkzjDAbDpRoiuujDqjbb0UrjxZLLGWRhqpTl9OoofKPJ
+	dRNu+IK2FzWw9GUfCneIoOIfeqj9MVGrxUqry/QDyrnqVv+pJjV2etG4E5phrzzsV2dulPr
+	HcZsTXu01NyINY6ae0S4v169MxHctDEqg7Dq5anHZdKh2w/GKoqBfs5c1FB9fOJJy/zWEr2
+	W8FCLKr8e2wx89fW1ONyR3Wd2uqh6xu6v7UwHuGjvwjgO3GQkvS47HJIg8YwaZLVrOqz2Jv
+	AorPFoktY90Ez+Pj0iTyYodgZe4sxR+EpahbmX9gPj3huMBslTvKmF74D8KZd3JLqE1rUi4
+	KH8xOKSYzZNDIaWmExSP5gLBgAEF9FbcvKQAzXKkgjbexyL/LQcV47aDqL4RWO0OP6y6QsA
+	a/5s92ajG0ecoZ1ZYWD84B13Bc00mQWQQ2Rm3+2qS6aRM7KtpnPn7r32zyggGEq/JzWOflM
+	epFFNkulOoU6RCL5j2W/OQNriIHKJtBaKbH/J/8rrg8Kn1Att0RGXGAJbQQIioGltFsabaZ
+	E7/GX/juf1cmL09RSZlE08B4SBCDhnYIgu6+/h6ppf2iZeQA1OnHONlKfCxGXEMjdhucUT7
+	pYJgaO1bWYKgGDnW5rAShU=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Please hold this patch unless a 5.15 backport of upstream commit
-98a5fd31cbf7 ("ksmbd: close accepted socket when per-IP limit rejects
-connection") can also be included.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-The new -EAGAIN path continues after kernel_accept() without releasing
-client_sk.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-I reproduced this on 5.15.221-rc1 in QEMU: with one connection
-held open, five rejected connections from the same address left five
-server-side port-445 sockets in CLOSE_WAIT and raised "sockets: used" from
-4 to 9.
+Best Regards
+Wentao Guan
 
-With only the applicable 98a5fd31cbf7 hunk applied, the same test
-left no sockets in CLOSE_WAIT and the used count stayed at 4.
+Log:
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sun Sep 13 03:24:51 CST 2026
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sun Sep 13 03:42:03 CST 2026
+Linux version 6.18.52-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.18.52-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sun Sep 13 04:02:26 CST 2026
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.52-rc1-gbda8b5c5a396 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sun Sep 13 03:01:12 CST 2026
 
-Thanks,
-Karl
