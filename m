@@ -1,301 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7139A230BDB;
-	Sat, 12 Sep 2026 15:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AD632E757
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225725; cv=none; b=TyRyVPtD6VPBmVIM1U2FEwAQvKmMAQoCZtErwSOEgcbX9mjybMFNHtsfMuZj6+cG3nm6rwVUwfwhRmlMcvDtc84jRIE0wjRqYyZYEZ0PHNV706xx0LKKPDHgFxvrbgYDnKjDjXD14Qy6LQTvhtmgmnb2EGIs8a/HXl+44Z1mORo=
+	t=1789225726; cv=none; b=h8ue+ExHnMhIxLwPqDtQkAsUQD8lVRe+L+wT8qTrca1WzjIAr8c7EYDkPVnpczGix3N0jsm90+H0kCnwvlBXT6yOOKH8tb0c6z8NxbpQWvsdi3GwHrgJUvXkhSUFVg2U3UJblEusufJhhmHB8HOMAX7MdKUveQ68v2+PltP2rhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225725; c=relaxed/simple;
-	bh=51fPgJhfAZWm5WF/EM7ScTMjjFR2FOvIQGEt6Nvp7Sg=;
+	s=arc-20240116; t=1789225726; c=relaxed/simple;
+	bh=4emaHt+skKImllJm813iqP0i5mKXSLEaaRFwHtzvCnI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q8m5xbaFoCJ1qmjkzun1xn2lbX2nh0kYTODu37AZpkh3VcxAi6qHbPz4s6xBWGCc9QUsRPrOKQ5pX8EANTOLDOXZtieCP9C8QdwqlZe4djJSGwkoLbpus5GQXsN4O5+VDP6J+VtK1Yj6N8jF/ThiM3NDua+D4nVBaHMfMM+nezg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ROgB0+uu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=T3bzRfStSOvTRgjLS2ifFb0MEG4xJ2hasrq0CR45TY1MvhXoL61ihAVw6YtrJyyfvbVyUIyGIIECx08PqYWcRZAaUce4w5TsYjFr3QViV4NfZFZ+WKny/G+LL86VC705a9tGrotpQNWSya5aco6qYglEszUbdZ1m+sKzhSJVXtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EflxYgQ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ROgB0+uu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDF81F000FF;
-	Sat, 12 Sep 2026 15:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789225724;
-	bh=7Gyjx/22va45LRyshYUWWmvMf/JcY7GxU38OxxguHoI=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EflxYgQ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2DE1F00893;
+	Sat, 12 Sep 2026 15:08:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789225725;
+	bh=wdDKwZD2UUJ+M7Ct6a3P8dxCOKUxdROcLHE+M7YTGtg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ROgB0+uut11CVGPScYOMTb3u1VGBX2xsV4Gdsqbo0x6fVFJbS3PSN81BHLWWnT6a+
-	 XGFICE9iYwv3oZmHFVSIyNXy1XVJdFjwD1Nb9x53oK7E4xGN3+uqPNMKuOLDBXWLFv
-	 REr548in3/GK9F3pwHBPiXftF6hvtHZFzv41ekOE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=EflxYgQ6VSabOFoE10qBDZl7K5MIeYsYOkSQ4O9A8E1H8jd8kJj71EYk0cCBOJYNe
+	 dp95ZJM1RURaXC8UMjWWo4ygiqwJ78QgoLOI9Yxq5V1z2UkiC7up/zp8YdeHJSSTP7
+	 vHTZ1ffXZwuGU3dB7BiPh/cZLjhJhlRSsAjdXcjBYH8NHP4tZY8KROE+P+9HOx4WCM
+	 779OpAzE9rFhC+Jvsxu0zyAj6sJY18N1OF8TWzk5DhjAd8E3bb4IMEUsC4mEpAZE9O
+	 rMXC1264MZlJ0BgmJOBKgSvggdBJySW8vOKaBrKwYJCcyQv6pvvbBXv0NrZveNvwDL
+	 IXtplW78bYp2A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Adam Young <admiyo@os.amperecomputing.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Yongbang Shi <shiyongbang@huawei.com>,
+	Rongrong Zou <zourongrong@gmail.com>,
+	Sean Paul <seanpaul@chromium.org>,
+	Xinliang Liu <xinliang.liu@linaro.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Baihan Li <libaihan@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1229/1424] mailbox/pcc: support mailbox management of the shared buffer
-Date: Sat, 12 Sep 2026 09:01:01 +0200
-Message-ID: <20260912065634.804197030@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+Date: Sat, 12 Sep 2026 11:08:42 -0400
+Message-ID: <20260912150842.3054257-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090953-parka-swoop-b3c1@gregkh>
+References: <2026090953-parka-swoop-b3c1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-------------------
+[ Upstream commit 715c5db68bdbd4a524b79ebf20fb61e880fffea0 ]
 
-From: Adam Young <admiyo@os.amperecomputing.com>
+Call drm_atomic_helper_check_plane_state() from the primary plane's
+atomic-check helper and replace the custom implementation.
 
-[ Upstream commit 5378bdf6a611a32500fccf13d14156f219bb0c85 ]
+All plane's implementations of atomic_check should call the shared
+_check_plane_state() helper first. It adjusts the plane state for
+correct positioning, rotation and scaling of the plane. Do this
+even if the plane's CRTC has been disabled by setting the parameter
+can_update_disabled. The original code returned early in this case,
+but it's safe to so and cleaner to have all plane state initialized.
 
-Define a new, optional, callback that allows the driver to
-specify how the return data buffer is allocated.  If that callback
-is set,  mailbox/pcc.c is now responsible for reading from and
-writing to the PCC shared buffer.
+As we don't set can_position, drm_atomic_helper_check_plane_state()'s
+visibility check tests if the plane covers all of the CRTC. This is
+a small change from the original code, which tested if the plane is
+exactly the size of the CRTC. With the new test, the plane still has
+to cover all of the CRTC, but can be larger than the CRTC's size. A
+later patch can fully implement this feature in hibmc.
 
-This also allows for proper checks of the Commnand complete flag
-between the PCC sender and receiver.
+If the plane is disabled, the helper clears the visibility flag in the
+plane state. On errors or if the plane is not visible, the atomic-check
+helper can return early. Implement all this in hibmc and drop the custom
+code that does some of it.
 
-For Type 4 channels, initialize the command complete flag prior
-to accepting messages.
+v2:
+- extend the commit description (Yongbang)
 
-Since the mailbox does not know what memory allocation scheme
-to use for response messages, the client now has an optional
-callback that allows it to allocate the buffer for a response
-message.
-
-When an outbound message is written to the buffer, the mailbox
-checks for the flag indicating the client wants an tx complete
-notification via IRQ.  Upon receipt of the interrupt It will
-pair it with the outgoing message. The expected use is to
-free the kernel memory buffer for the previous outgoing message.
-
-Signed-off-by: Adam Young <admiyo@os.amperecomputing.com>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
-Stable-dep-of: 3360b088175d ("mailbox: pcc: Fix command timeout due to missed interrupt")
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
+Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+Cc: Rongrong Zou <zourongrong@gmail.com>
+Cc: Sean Paul <seanpaul@chromium.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Baihan Li <libaihan@huawei.com>
+Cc: Yongbang Shi <shiyongbang@huawei.com>
+Cc: <stable@vger.kernel.org> # v4.10+
+Link: https://patch.msgid.link/20260618123142.92298-2-tzimmermann@suse.de
+[ adapted atomic checks to Linux 5.10’s drm_plane_state callback API and DRM_PLANE_HELPER_NO_SCALING constant. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mailbox/pcc.c | 102 ++++++++++++++++++++++++++++++++++++++++--
- include/acpi/pcc.h    |  29 ++++++++++++
- 2 files changed, 127 insertions(+), 4 deletions(-)
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 43 ++++++-------------
+ 1 file changed, 13 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
-index 890a187fb63c7..e52197f40716f 100644
---- a/drivers/mailbox/pcc.c
-+++ b/drivers/mailbox/pcc.c
-@@ -316,6 +316,22 @@ static void check_and_ack(struct pcc_chan_info *pchan, struct mbox_chan *chan)
- 		pcc_chan_reg_read_modify_write(&pchan->cmd_update);
- }
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+index 4d57ec688f827..f8321c1db7122 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+@@ -17,6 +17,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_gem_vram_helper.h>
++#include <drm/drm_plane_helper.h>
+ #include <drm/drm_vblank.h>
  
-+static void *write_response(struct pcc_chan_info *pchan)
-+{
-+	struct pcc_header pcc_header;
-+	void *buffer;
-+	int data_len;
-+
-+	memcpy_fromio(&pcc_header, pchan->chan.shmem,
-+		      sizeof(pcc_header));
-+	data_len = pcc_header.length - sizeof(u32) + sizeof(struct pcc_header);
-+
-+	buffer = pchan->chan.rx_alloc(pchan->chan.mchan->cl, data_len);
-+	if (buffer != NULL)
-+		memcpy_fromio(buffer, pchan->chan.shmem, data_len);
-+	return buffer;
-+}
-+
- /**
-  * pcc_mbox_irq - PCC mailbox interrupt handler
-  * @irq:	interrupt number
-@@ -327,6 +343,8 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
+ #include "hibmc_drm_drv.h"
+@@ -57,44 +58,26 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
+ static int hibmc_plane_atomic_check(struct drm_plane *plane,
+ 				    struct drm_plane_state *state)
  {
- 	struct pcc_chan_info *pchan;
- 	struct mbox_chan *chan = p;
-+	struct pcc_header *pcc_header = chan->active_req;
-+	void *handle = NULL;
+-	struct drm_framebuffer *fb = state->fb;
+-	struct drm_crtc *crtc = state->crtc;
+-	struct drm_crtc_state *crtc_state;
+-	u32 src_w = state->src_w >> 16;
+-	u32 src_h = state->src_h >> 16;
+-
+-	if (!crtc || !fb)
+-		return 0;
+-
+-	crtc_state = drm_atomic_get_crtc_state(state->state, crtc);
+-	if (IS_ERR(crtc_state))
+-		return PTR_ERR(crtc_state);
+-
+-	if (src_w != state->crtc_w || src_h != state->crtc_h) {
+-		drm_dbg_atomic(plane->dev, "scale not support\n");
+-		return -EINVAL;
+-	}
++	struct drm_crtc_state *new_crtc_state = NULL;
++	int ret;
  
- 	pchan = chan->con_priv;
+-	if (state->crtc_x < 0 || state->crtc_y < 0) {
+-		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
+-		return -EINVAL;
+-	}
++	if (state->crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state->state, state->crtc);
  
-@@ -350,7 +368,17 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
- 	 * required to avoid any possible race in updatation of this flag.
- 	 */
- 	pchan->chan_in_use = false;
--	mbox_chan_received_data(chan, NULL);
-+
-+	if (pchan->chan.rx_alloc)
-+		handle = write_response(pchan);
-+
-+	if (chan->active_req) {
-+		pcc_header = chan->active_req;
-+		if (pcc_header->flags & PCC_CMD_COMPLETION_NOTIFY)
-+			mbox_chan_txdone(chan, 0);
-+	}
-+
-+	mbox_chan_received_data(chan, handle);
- 
- 	check_and_ack(pchan, chan);
- 
-@@ -394,9 +422,24 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
- 	pcc_mchan = &pchan->chan;
- 	pcc_mchan->shmem = acpi_os_ioremap(pcc_mchan->shmem_base_addr,
- 					   pcc_mchan->shmem_size);
--	if (pcc_mchan->shmem)
--		return pcc_mchan;
-+	if (!pcc_mchan->shmem)
-+		goto err;
-+
-+	pcc_mchan->manage_writes = false;
- 
-+	/* This indicates that the channel is ready to accept messages.
-+	 * This needs to happen after the channel has registered
-+	 * its callback. There is no access point to do that in
-+	 * the mailbox API. That implies that the mailbox client must
-+	 * have set the allocate callback function prior to
-+	 * sending any messages.
-+	 */
-+	if (pchan->type == ACPI_PCCT_TYPE_EXT_PCC_SLAVE_SUBSPACE)
-+		pcc_chan_reg_read_modify_write(&pchan->cmd_update);
-+
-+	return pcc_mchan;
-+
-+err:
- 	mbox_free_channel(chan);
- 	return ERR_PTR(-ENXIO);
- }
-@@ -427,8 +470,38 @@ void pcc_mbox_free_channel(struct pcc_mbox_chan *pchan)
- }
- EXPORT_SYMBOL_GPL(pcc_mbox_free_channel);
- 
-+static int pcc_write_to_buffer(struct mbox_chan *chan, void *data)
-+{
-+	struct pcc_chan_info *pchan = chan->con_priv;
-+	struct pcc_mbox_chan *pcc_mbox_chan = &pchan->chan;
-+	struct pcc_header *pcc_header = data;
-+
-+	if (!pchan->chan.manage_writes)
-+		return 0;
-+
-+	/* The PCC header length includes the command field
-+	 * but not the other values from the header.
-+	 */
-+	int len = pcc_header->length - sizeof(u32) + sizeof(struct pcc_header);
-+	u64 val;
-+
-+	pcc_chan_reg_read(&pchan->cmd_complete, &val);
-+	if (!val) {
-+		pr_info("%s pchan->cmd_complete not set", __func__);
-+		return -1;
-+	}
-+	memcpy_toio(pcc_mbox_chan->shmem,  data, len);
-+	return 0;
-+}
-+
-+
- /**
-- * pcc_send_data - Called from Mailbox Controller code. Used
-+ * pcc_send_data - Called from Mailbox Controller code. If
-+ *		pchan->chan.rx_alloc is set, then the command complete
-+ *		flag is checked and the data is written to the shared
-+ *		buffer io memory.
-+ *
-+ *		If pchan->chan.rx_alloc is not set, then it is used
-  *		here only to ring the channel doorbell. The PCC client
-  *		specific read/write is done in the client driver in
-  *		order to maintain atomicity over PCC channel once
-@@ -444,17 +517,37 @@ static int pcc_send_data(struct mbox_chan *chan, void *data)
- 	int ret;
- 	struct pcc_chan_info *pchan = chan->con_priv;
- 
-+	ret = pcc_write_to_buffer(chan, data);
+-	if (!crtc_state->enable)
++	ret = drm_atomic_helper_check_plane_state(state, new_crtc_state,
++						  DRM_PLANE_HELPER_NO_SCALING,
++						  DRM_PLANE_HELPER_NO_SCALING,
++						  false, true);
 +	if (ret)
 +		return ret;
-+
- 	ret = pcc_chan_reg_read_modify_write(&pchan->cmd_update);
- 	if (ret)
- 		return ret;
++	else if (!state->visible)
+ 		return 0;
  
- 	ret = pcc_chan_reg_read_modify_write(&pchan->db);
+-	if (state->crtc_x + state->crtc_w >
+-	    crtc_state->adjusted_mode.hdisplay ||
+-	    state->crtc_y + state->crtc_h >
+-	    crtc_state->adjusted_mode.vdisplay) {
+-		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
+-		return -EINVAL;
+-	}
+-
+ 	if (state->fb->pitches[0] % 128 != 0) {
+ 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
+ 		return -EINVAL;
+ 	}
 +
- 	if (!ret && pchan->plat_irq > 0)
- 		pchan->chan_in_use = true;
- 
- 	return ret;
+ 	return 0;
  }
  
-+
-+static bool pcc_last_tx_done(struct mbox_chan *chan)
-+{
-+	struct pcc_chan_info *pchan = chan->con_priv;
-+	u64 val;
-+
-+	pcc_chan_reg_read(&pchan->cmd_complete, &val);
-+	if (!val)
-+		return false;
-+	else
-+		return true;
-+}
-+
-+
-+
- /**
-  * pcc_startup - Called from Mailbox Controller code. Used here
-  *		to request the interrupt.
-@@ -500,6 +593,7 @@ static const struct mbox_chan_ops pcc_chan_ops = {
- 	.send_data = pcc_send_data,
- 	.startup = pcc_startup,
- 	.shutdown = pcc_shutdown,
-+	.last_tx_done = pcc_last_tx_done,
- };
- 
- /**
-diff --git a/include/acpi/pcc.h b/include/acpi/pcc.h
-index 0462bb9da6513..cb34b6937a74f 100644
---- a/include/acpi/pcc.h
-+++ b/include/acpi/pcc.h
-@@ -17,6 +17,35 @@ struct pcc_mbox_chan {
- 	u32 latency;
- 	u32 max_access_rate;
- 	u16 min_turnaround_time;
-+
-+	/* Set to true to indicate that the mailbox should manage
-+	 * writing the dat to the shared buffer. This differs from
-+	 * the case where the drivesr are writing to the buffer and
-+	 * using send_data only to  ring the doorbell.  If this flag
-+	 * is set, then the void * data parameter of send_data must
-+	 * point to a kernel-memory buffer formatted in accordance with
-+	 * the PCC specification.
-+	 *
-+	 * The active buffer management will include reading the
-+	 * notify_on_completion flag, and will then
-+	 * call mbox_chan_txdone when the acknowledgment interrupt is
-+	 * received.
-+	 */
-+	bool manage_writes;
-+
-+	/* Optional callback that allows the driver
-+	 * to allocate the memory used for receiving
-+	 * messages.  The return value is the location
-+	 * inside the buffer where the mailbox should write the data.
-+	 */
-+	void *(*rx_alloc)(struct mbox_client *cl,  int size);
-+};
-+
-+struct pcc_header {
-+	u32 signature;
-+	u32 flags;
-+	u32 length;
-+	u32 command;
- };
- 
- /* Generic Communications Channel Shared Memory Region */
 -- 
 2.53.0
-
-
 
