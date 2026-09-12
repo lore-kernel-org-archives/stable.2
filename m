@@ -1,249 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9970B2DC321;
-	Sat, 12 Sep 2026 14:23:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE41345EDF
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223034; cv=none; b=nIX3zaIOOYUZ2KapZDe2sr0h4ZF8h9HzFluydO+2qKXS9lMMrKr9uxM5RxstX8VNOvkdhTE8ub5OTpe+dSGo9CddHX6rasTdJ7R8y5mJHBHFY0KSlXhXLSG+2BnPbLOSZzODLGtZl5MmLQYLAGW9B4X21sYdSGQZseHOhIAQ/R4=
+	t=1789223037; cv=none; b=boF+DX6715mpt6ItcSXik6Upckltfe3V00ThFISlDBLO+ZHeFk6GS069emw93GI+VieqZjBZGndesTrB6fv6JhbCzui5WVUsYEDSx9/wHjvDfLYXG67t+XBcYZzkCthSpiZd4UkYiMHuoi19GnoWoY56E75mzdQTKba+Po8ualo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223034; c=relaxed/simple;
-	bh=mZqKJJYasQujCyX4EraeMPwUTWogr9NVQR9FOE64Re0=;
+	s=arc-20240116; t=1789223037; c=relaxed/simple;
+	bh=ol1664MreL4ZD744kDlGDiiv4nsc8heXto4YCOF6PSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nAvE6qtxGv99H/guTu+iSiSQkpZRvy0mivVOKzsJH67Pl0SUEwxp1DTvNaKh7X06aBPeDBPfelisPufJRnXiLKhGemozPADh+wGVuBA2IwBk/bLwDB2Of4lzSdZ128TY80JWU5TV63ct9Gzv8IEZwcU4S8GBsGsa/F9rY3QdnFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DIge7UV4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UarKte0/p7V3Q4QBub3lq2wnUeyoPWwmdejReCP75hIahbzVS5Z0MwV4Bshh7lqoZOrY5BGhwTFARhB63AJ4ESMOnNVPcY2EDFllO/hLttkQ2HY3q/ed9Xgs+6JpUPrcKQNKMzydJXK0YxBhUvHboP4xCAtz/7TKTwhSshaaaqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3Uk3Mb4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DIge7UV4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A0631F000FF;
-	Sat, 12 Sep 2026 14:23:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789223033;
-	bh=Dx2GMMF3WpjXlspvE8Y3Q5Avy9A57EqS6EvNGonCDkE=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3Uk3Mb4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33791F00893;
+	Sat, 12 Sep 2026 14:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789223035;
+	bh=2mRKmjntnG3QktKP/1aQxnPP3s+HMkLSeMuWg21zqY0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DIge7UV4c64npEv/S8zW9NcOlBAMU24MLOLx+9WoXZeFgOQ2qYINY9EhJh/cao4uy
-	 JRIm5H+re/yqFvHUndac8HohVu+NW5t2+RJAf/yilPzV2/XK+GUrHIC/OI8zPnuqT0
-	 mnBLRdep7pDzW6O/dwmquvh7t1wBsB9cvFxoBVcc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=A3Uk3Mb4DocSryEJZPZ+BrWQ5LTrVtCopfbR50rKQ1kCgwtjPE/kVLeD0u8BviKY/
+	 InQF5IEaqaJRFuyiUif/CSYDGZhn7FJXl9qXWDPHEaZ29ncVANSjRuXqQspJWhPlS8
+	 EejBwvJGImGn24vz0p1YhNC089sm0LrHha3BbNeqCT3WvMCdrMsncYQad/xv7FdE45
+	 vZjJ2B0xedDWlRaB7ZQWlAbGdRl7Kh4vah2bdoWXVkTv3KEkwpSRoI2n0JynM099Qo
+	 4zAVlhWhdcytXuyDJfnTvZ1dIONeKLMiVCozD4uzk4JejcfBtK+jlpLZV4D9D310Fa
+	 aKpGJ/oH9p88Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Johan Hovold <johan@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Grant Grundler <grundler@chromium.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Yajun Deng <yajun.deng@linux.dev>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-usb@vger.kernel.org,
+Cc: Nemesa Garg <nemesa.garg@intel.com>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Animesh Manna <animesh.manna@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0706/1424] USB: make single lock for all usb dynamic id lists
-Date: Sat, 12 Sep 2026 08:52:18 +0200
-Message-ID: <20260912065623.110486812@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
+Date: Sat, 12 Sep 2026 10:23:53 -0400
+Message-ID: <20260912142353.2927508-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090953-gravel-panama-02e2@gregkh>
+References: <2026090953-gravel-panama-02e2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Nemesa Garg <nemesa.garg@intel.com>
 
-------------------
+[ Upstream commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a ]
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
+crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
+selective fetch had been turned off, the guard fired early and left the
+register's enable bit set in hardware.
 
-[ Upstream commit 0b3144da31f855fce652303f588416a60991bdef ]
+The bit is harmless until selective fetch is re-enabled.  When it is, the
+hardware resumes fetching for the now-disabled plane and keeps its old DDB
+range reserved.
 
-There are a number of places where we accidentally pass in a constant
-structure to later cast it off to a dynamic one, and then attempt to
-grab a lock on it, which is not a good idea.  To help resolve this, move
-the dynamic id lock out of the dynamic id structure for the driver and
-into one single lock for all USB dynamic ids.  As this lock should never
-have any real contention (it's only every accessed when a device is
-added or removed, which is always serialized) there should not be any
-difference except for some memory savings.
+i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
+and is fixed the same way.
 
-Note, this just converts the existing use of the dynamic id lock to the
-new static lock, there is one place that is accessing the dynamic id
-list without grabbing the lock, that will be fixed up in a follow-on
-change.
+v2: Add same check for cursor also. [sashiko]
 
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Cc: Grant Grundler <grundler@chromium.org>
-Cc: Oliver Neukum <oneukum@suse.com>
-Cc: Yajun Deng <yajun.deng@linux.dev>
-Cc: Douglas Anderson <dianders@chromium.org>
-Cc: linux-usb@vger.kernel.org
-Link: https://lore.kernel.org/r/2024111322-kindly-finalist-d247@gregkh
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: ef8154d8b52d ("usb: fix UAF when probe runs concurrent to dyn ID removal")
+Cc: stable@vger.kernel.org
+Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
+(cherry picked from commit 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+[ Adjusted context for missing pixel-normalizer code in icl_plane_disable_arm(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/common/common.c     |  3 +++
- drivers/usb/core/driver.c       | 15 +++++----------
- drivers/usb/serial/bus.c        |  4 +---
- drivers/usb/serial/usb-serial.c |  4 +---
- include/linux/usb.h             |  2 +-
- 5 files changed, 11 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
+ .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
+ 2 files changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/usb/common/common.c b/drivers/usb/common/common.c
-index b84efae26e154..532c1965392d1 100644
---- a/drivers/usb/common/common.c
-+++ b/drivers/usb/common/common.c
-@@ -417,6 +417,9 @@ EXPORT_SYMBOL_GPL(usb_of_get_companion_dev);
- struct dentry *usb_debug_root;
- EXPORT_SYMBOL_GPL(usb_debug_root);
- 
-+DEFINE_MUTEX(usb_dynids_lock);
-+EXPORT_SYMBOL_GPL(usb_dynids_lock);
-+
- static int __init usb_common_init(void)
- {
- 	usb_debug_root = debugfs_create_dir("usb", NULL);
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index f64910e4f7c04..b0181fd4bdce7 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -95,9 +95,9 @@ ssize_t usb_store_new_id(struct usb_dynids *dynids,
- 		}
- 	}
- 
--	spin_lock(&dynids->lock);
-+	mutex_lock(&usb_dynids_lock);
- 	list_add_tail(&dynid->node, &dynids->list);
--	spin_unlock(&dynids->lock);
-+	mutex_unlock(&usb_dynids_lock);
- 
- 	retval = driver_attach(driver);
- 
-@@ -160,7 +160,7 @@ static ssize_t remove_id_store(struct device_driver *driver, const char *buf,
- 	if (fields < 2)
- 		return -EINVAL;
- 
--	spin_lock(&usb_driver->dynids.lock);
-+	guard(mutex)(&usb_dynids_lock);
- 	list_for_each_entry_safe(dynid, n, &usb_driver->dynids.list, node) {
- 		struct usb_device_id *id = &dynid->id;
- 
-@@ -171,7 +171,6 @@ static ssize_t remove_id_store(struct device_driver *driver, const char *buf,
- 			break;
- 		}
- 	}
--	spin_unlock(&usb_driver->dynids.lock);
- 	return count;
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index aeadb834d3328..104009cf5f412 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
  }
  
-@@ -220,12 +219,11 @@ static void usb_free_dynids(struct usb_driver *usb_drv)
+ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					      struct intel_plane *plane,
+-					      const struct intel_crtc_state *crtc_state)
++					      struct intel_plane *plane)
  {
- 	struct usb_dynid *dynid, *n;
+ 	struct intel_display *display = to_intel_display(plane->base.dev);
+ 	enum pipe pipe = plane->pipe;
  
--	spin_lock(&usb_drv->dynids.lock);
-+	guard(mutex)(&usb_dynids_lock);
- 	list_for_each_entry_safe(dynid, n, &usb_drv->dynids.list, node) {
- 		list_del(&dynid->node);
- 		kfree(dynid);
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The cursor may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
+@@ -588,7 +593,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		if (crtc_state->enable_psr2_su_region_et)
+ 			wa_16021440873(dsb, plane, crtc_state, plane_state);
+ 		else
+-			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
  	}
--	spin_unlock(&usb_drv->dynids.lock);
  }
  
- static const struct usb_device_id *usb_match_dynamic_id(struct usb_interface *intf,
-@@ -233,14 +231,12 @@ static const struct usb_device_id *usb_match_dynamic_id(struct usb_interface *in
- {
- 	struct usb_dynid *dynid;
+@@ -699,7 +704,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 	if (plane_state)
+ 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
+ 	else
+-		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
  
--	spin_lock(&drv->dynids.lock);
-+	guard(mutex)(&usb_dynids_lock);
- 	list_for_each_entry(dynid, &drv->dynids.list, node) {
- 		if (usb_match_one_id(intf, &dynid->id)) {
--			spin_unlock(&drv->dynids.lock);
- 			return &dynid->id;
- 		}
- 	}
--	spin_unlock(&drv->dynids.lock);
- 	return NULL;
+ 	if (plane->cursor.base != base ||
+ 	    plane->cursor.size != fbc_ctl ||
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 7f77a76309bd5..52a38d3ada24d 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -770,13 +770,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
  }
  
-@@ -1059,7 +1055,6 @@ int usb_register_driver(struct usb_driver *new_driver, struct module *owner,
- 	new_driver->driver.owner = owner;
- 	new_driver->driver.mod_name = mod_name;
- 	new_driver->driver.dev_groups = new_driver->dev_groups;
--	spin_lock_init(&new_driver->dynids.lock);
- 	INIT_LIST_HEAD(&new_driver->dynids.list);
- 
- 	retval = driver_register(&new_driver->driver);
-diff --git a/drivers/usb/serial/bus.c b/drivers/usb/serial/bus.c
-index 6c812d01b37d7..a1dde939f3115 100644
---- a/drivers/usb/serial/bus.c
-+++ b/drivers/usb/serial/bus.c
-@@ -136,12 +136,11 @@ static void free_dynids(struct usb_serial_driver *drv)
+ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					    struct intel_plane *plane,
+-					    const struct intel_crtc_state *crtc_state)
++					    struct intel_plane *plane)
  {
- 	struct usb_dynid *dynid, *n;
+ 	struct intel_display *display = to_intel_display(plane->base.dev);
+ 	enum pipe pipe = plane->pipe;
  
--	spin_lock(&drv->dynids.lock);
-+	guard(mutex)(&usb_dynids_lock);
- 	list_for_each_entry_safe(dynid, n, &drv->dynids.list, node) {
- 		list_del(&dynid->node);
- 		kfree(dynid);
- 	}
--	spin_unlock(&drv->dynids.lock);
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The plane may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
+@@ -797,7 +802,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
+ 
+ 	skl_write_plane_wm(dsb, plane, crtc_state);
+ 
+-	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++	icl_plane_disable_sel_fetch_arm(dsb, plane);
+ 	intel_de_write_dsb(display, dsb, PLANE_CTL(pipe, plane_id), 0);
+ 	intel_de_write_dsb(display, dsb, PLANE_SURF(pipe, plane_id), 0);
+ }
+@@ -1512,7 +1517,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
+ 				   SEL_FETCH_PLANE_CTL_ENABLE);
+ 	else
+-		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		icl_plane_disable_sel_fetch_arm(dsb, plane);
  }
  
- const struct bus_type usb_serial_bus_type = {
-@@ -157,7 +156,6 @@ int usb_serial_bus_register(struct usb_serial_driver *driver)
- 	int retval;
- 
- 	driver->driver.bus = &usb_serial_bus_type;
--	spin_lock_init(&driver->dynids.lock);
- 	INIT_LIST_HEAD(&driver->dynids.list);
- 
- 	retval = driver_register(&driver->driver);
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index fff16bd34fea0..bd90af9b3dbcb 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -706,14 +706,12 @@ static const struct usb_device_id *match_dynamic_id(struct usb_interface *intf,
- {
- 	struct usb_dynid *dynid;
- 
--	spin_lock(&drv->dynids.lock);
-+	guard(mutex)(&usb_dynids_lock);
- 	list_for_each_entry(dynid, &drv->dynids.list, node) {
- 		if (usb_match_one_id(intf, &dynid->id)) {
--			spin_unlock(&drv->dynids.lock);
- 			return &dynid->id;
- 		}
- 	}
--	spin_unlock(&drv->dynids.lock);
- 	return NULL;
- }
- 
-diff --git a/include/linux/usb.h b/include/linux/usb.h
-index 00e67827a9bfd..21358e1600216 100644
---- a/include/linux/usb.h
-+++ b/include/linux/usb.h
-@@ -1128,8 +1128,8 @@ static inline int usb_make_path(struct usb_device *dev, char *buf, size_t size)
- /* ----------------------------------------------------------------------- */
- 
- /* Stuff for dynamic usb ids */
-+extern struct mutex usb_dynids_lock;
- struct usb_dynids {
--	spinlock_t lock;
- 	struct list_head list;
- };
- 
+ static void
 -- 
 2.53.0
-
-
 
