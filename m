@@ -1,141 +1,135 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-oa1-f66.google.com (mail-oa1-f66.google.com [209.85.160.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB04381B0F
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789248157; cv=pass; b=uDOEIj3Zq8C9YOr5PjFhVpJLLCJ2rDusbbC+IYUylk1Agq6OhbiV9GG1jmz2bKRqAISXedVHIBaek4nqx38Q2NeM+YKQxm+rabjGSH4rbbcb5rgIf36GrDIz4NhScECnDy9g+Ix1QFc78+BtJSuTDpAfYoGZkjeEc8JRjlicHnY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789248157; c=relaxed/simple;
-	bh=K6b4Y85zB8F+BBk4idWUHIeZSzCGOJi00zwSBhhsVs8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bG/no9qqDnhtkrCddSrhWq8G/wGPrEuuF42ts63wbSd+PCqCTVRhJePq0neIukOS6ETHw/dvJ8Cjbx1Npda/Vk9RRypsBEnrrC68aLy3vxczb0lEEqBD/IhbLcazaaK1zY6poC4bB5fk+n/jrYDqKiSgE+z3A0BCqEBXFj6kYwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=JfeUDq53; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35D033FE0A
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789249494; cv=none; b=BdUGXhjebTZnM8MlW/tWhkz4XRJ6lYtFG0cA+R6nq+XRcyzVxi7zq1YUnmcfRu3Gl4xrpilwbxWErQ5J9UhY9nmXcWUCZvPSaDJJ9Wd0AEsf1MEqohXvTg6QVotIqjbRQtKFD92oWxonUs/h4igmJuDWm6GfbSYOVTD6udSRqCE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789249494; c=relaxed/simple;
+	bh=kecUb0pDwLA3hY9/mqgnFWz1AIwI3Kabqzm0uxvNC3g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WAgUemQhdONtIVkbsx83tAy8DWJqVgldR557CfirNguueMN++2V3bQHvpxr9o+pajjxQvokhEZgSDg1YwOnXGUYS1Fil972lJEgwqDkAPbemIBzJGF39yiwheqIKMT6MOE/L292ibwP+Pc4Lnh5G8oqV4D22aV6EtDBrJRY8nYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UT/ehlUK; arc=none smtp.client-ip=209.85.160.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="JfeUDq53"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so192286866b.0
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789248154; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KSXP3OzXfjjVA4Z7YfKvTsTofWUU3smxVhQEM8JjyvjBdukfeZYw/ZUtdqcQI8j7ig
-         KhF7Z9it9E/M2vkB++ipyW7yg3bJgA9Ma/KatCOVoCNF0GjFHViKHDXWoVEfZh4YLq3A
-         arDmXBE/bZxGKXOitonj1jzvfunRSvZb4wRwIZJ9RSEtPSjwcBp3MBk81zbkMIgLHTI+
-         f6y3Rf9qLrSc+NU1VMhz7ROdblw6eis6Qnu4oIFREQtHK8qIKOVlnv4ECXh7xymtZnyq
-         XIqgkmjVMs1WJVezUseR2ms1L0FU5oO5vBqT1JXaWqo4DP52r1OnhV77HQ9CERvEDpXX
-         ttGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=IB0gEwnnMQIVXK86/wgUTthm+lj+put930s+6SSC/hiCSpGjq1OfXio3KA66o+NdQc
-         NKaPsDqhaduSyA62rDCI2Z3lw6ecAJkrzd1Jt4xaIK9zrg2CDjlZxqIphAy7y/ib+VXJ
-         Y0hw/CxZ9ujdjjpxkCxpkzl/AyC19/EWKI8DZXJ/3+S9zCmWG1Ak9xGDJjhWwiH+W2/I
-         zEMo/P5BIcAqL/8XBPsGyawFhHY10QBlZl/aP0SIbqtZz/6ihVN4hQak0EgVmw7ZVO3a
-         P0ysji+i44sDTNPJwgfO3QX2H/jIhXG9PDwpYfWHgI0jyqIuiN+fu0NNlFkFvzqGGSRl
-         aHSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UT/ehlUK"
+Received: by mail-oa1-f66.google.com with SMTP id 586e51a60fabf-46ac530b9ebso1602505fac.0
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:44:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1789248154; x=1789852954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
-        b=JfeUDq53jcdRKrQtu7bUXKjMkqNRBIw2Mepg5BfAFgnwbA0AyFAWkgIDpk7aDbBXl5
-         57htJO/RZodMMddRa7PYLwqyuxoe2vn+6S40SErhnc66WyDdnRhtwHAODXuok/Q3N2W9
-         2as7MRbhayh/YiGSjsfBECs4VFVEzPjb/ebv3w0Tymh+EdoeW6hB5L5TG9wKxCMS+TVq
-         PwS5LL5YV3iGEHzAdZ+lq4QZmVfodSY9KsB3PYm6nXuk9P9WLO3D9OHOZkSI+TeBkEfA
-         ZNjUlUnQcru8rE3uQoEeuS/Vhp740i6cqYzcUCRsKdrv1o/TmJmQAfKY0bbmGzjjdBCf
-         SYAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789248154; x=1789852954;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789249491; x=1789854291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
-        b=qtqRstj59RXQsOsKYBj1/b5SbXMLwIadE4RWRKT8fYxAxOfZproznvE35GByRQyqrM
-         YlThXR/2f30JQ7VxudEjfcokNnDuPZe/39iekME62wDZ2VMbQ6dinU7EGGYViDDvGfmW
-         RlF5ARB9maQmL8hMuLxXGSvSYkReBLwGbD+U4yBVI73xQzmZJwLfK/rA0Flb67SiexOp
-         L2i8ZYIf4lAKAaFKFNQEEyNyanPJAZirBvqAWzQpr+8xK+WoikQj54NjbzAusotxCpYA
-         BhWjf9Lsli0njfCyIF3z0p9/d357JjGrpQzXbhvTWf3H2tAUM4w+gUYOnmSu5Vm3/Aik
-         gL0Q==
-X-Gm-Message-State: AFuF++lDjLxRJBU0vrc4ZGF+pIVhmPxrkuRhDK6L0vqE0J7RBQDpHE4x
-	8fKnCB/qJGMDEloK4HjzrczTE+NtcKvz+3SLY7mRa7zYcr73ZEY86zMWIcVN7k9VSKOzc7f3ozm
-	sYBvpPfoP3U/7rJzAgwAy5ihfM/tJn0sYMsuV28JrDA==
-X-Gm-Gg: AYBFou1iwUeFs3/Sl7w+6xUT2+5CH62Q1dcsmN1pb7kMErHEbC0kOHNcGBJQHJw20UH
-	AhLFsb9dYS3pPlSTmufkyEWfyBJtvvRh5xM8dugfrraYW0ArFef2KJeeq9zVEJ1X2ldZD1bTHB9
-	s35JqymxcSZ/w+Byy7tdz+URLU5rsVuFJwM5DcqbHkceA5NI/WyZGhspWaoeKN0eSrjDCzW8zvL
-	gJ2wAqD/4cp2s5vKRG6Vo+v3ONeALuEcNIvcRyb4G8uRe7ARJyRG1ihbxhaPZgz1xi3hJiZ65hE
-	IxR/6oS2XvdiM05GD40GWZqR94iYhxKb4jPMPLQNX+k2DAl3BzlDHj3k
-X-Received: by 2002:a17:907:1c82:b0:c29:6291:e38a with SMTP id
- a640c23a62f3a-c29665acdfbmr1025781366b.1.1789248153717; Sat, 12 Sep 2026
- 14:22:33 -0700 (PDT)
+        bh=HhWhTVqsOkpUdCAWPzbi+pVqLfh+oq55gUD464xfMJg=;
+        b=UT/ehlUKiXKL0Z1mhtYHh9tv3SrIK488nAFPWA4XusbWDpLxUAqAu62tLcKcAP4sjM
+         rfJNefj7Lh49C3Tk9HWCm+fHL3rJMfU8sPY+FMlKx8Zjg1YX7f4Jz4JDKoWa5v/UoVeV
+         P5luHM4ER618xOSMHGDWqEDzzFaXlq7k459EE/Q9ZgEsGZyaDN4KH89g8/MqaMuZP5si
+         lGLfV8p8pvX+Qxyc8QZf4hnH41Darn8ogmTalIjdLmdPr3smcOr2uFw53wUQP3iuRsQa
+         48jWCAsgXMWgnMWKl7QNZNdz+D6Q92y3RyjWNFhi0d83ECDYxbyTGZCp3JofxDkWs8tb
+         ZE2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789249491; x=1789854291;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HhWhTVqsOkpUdCAWPzbi+pVqLfh+oq55gUD464xfMJg=;
+        b=qWF8cLOyFM8+ZT8tz5uN+jwPtWEJRtgPR205AHcMt0TTrYLeRHUHaiB8WmQBU3UFGo
+         znKJNRUcySClJVOcw4hE0F1CjBHgzs/rNQ88NgkLcfxr/D9PVv8gX2tdLW4ApTQqe4LI
+         7yKEwO2IUMZ9RMiVgNG0tkMs4IVa1exZ0iYBQ5IPk+VlSFatsA49zoHfajjiRcuyGb3w
+         uH/z1Mtb6F+Ijego2C5KaMCnZhnd3tAieKf8mKlISirwsZvqRbPNmG6wqauY2Gt87PGj
+         DecKd1X8o5uX4GcO+5u2bL/R1EjLLlJ3z2P5TeEUELHlkGZIneFH1yz3TbM5XXxpbzvq
+         WW6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzDZqo6nkrlcFKbxmkX2BMd8cFj92To6XZA2zHgYfkVpWcXvv9s8VXDzyO4tLilbb3UMLl9Nt4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7Rr6G0Wz1p9UvOFD1A52AzAFYJDLui0ECgMWuGclYF7ghO6Si
+	wA0x4vLshqZvpIN+r5ZDgAKWVK0+CrmsnNxDpxJMnb4a1rTmDY+vZya9
+X-Gm-Gg: AYBFou0Z194nzFRw4WrOOJmG8amL+bOssV/xVRxAhx3A6VC+mv9qZscpZ5yUxiVpJ5O
+	oDnfP2lQYMlr2D/c2cKMpbmboqCLjh9sP3J8pICBQj/+Yz/4RJyzE3YIBtcsPLPxa9svoL9tFqz
+	76/nAZTIrH4/8fK2YrK1ibWBQcGxmcr/ijuP/8LRT/yyULoueINbF05vBWlH9DDXj3swTEROkPa
+	W49v2RI+GQFxJf+E0PpP68MJX2MgZ4jfgu3mzsFkj11EmNzFM9nqr3aj8WOgYiyFadDVlzL712u
+	ziKKd1z+6BNqXjjcb0Qy2bv4NsWueI32zJA0tyaHlN7mkGtvmtpchf8Ju3qktGcMpOBsbu63nP9
+	prJSym4nn0ymoW82bZhaykCP7HbkGtKxbZKopDjiIhgocevdDoWe/n3EENWqFspTIml1ZuMhaV9
+	h0W0eJ1phGWdfKpj78Lz0Gv3YRW9cszKcgUlgxpYPOmqZv5G+e/kkCXutZOUDDcgvKWX6kRWWhD
+	0gZyk4kEQZpPZwHO5AjFiiXKcQ=
+X-Received: by 2002:a05:6870:e89:b0:469:fb8a:b5b0 with SMTP id 586e51a60fabf-47c978e0ae3mr8164063fac.9.1789249491570;
+        Sat, 12 Sep 2026 14:44:51 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::c389? ([2600:8804:5716:d800::c389])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df42b4699sm6246514fac.0.2026.09.12.14.44.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 14:44:50 -0700 (PDT)
+Message-ID: <688b15d1-a85b-492e-ba1e-b4da548ebd06@gmail.com>
+Date: Sat, 12 Sep 2026 16:44:48 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912065648.999753832@linuxfoundation.org>
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Sun, 13 Sep 2026 06:22:17 +0900
-X-Gm-Features: AcwNN1XKQfCG5_IOzoP0tn84TLT5vhownt9emT4x-a22NExaXwsm-snsvHub1FI
-Message-ID: <CAKL4bV4_Pdw=pFU5RcCTpNuWmbYNeEB1jkCtwuaVNWJcMSfBsw@mail.gmail.com>
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and
+ 16AHP9 Nvidia GPUs
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, stable@vger.kernel.org
+References: <20260821200607.621341-1-lyude@redhat.com>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260821200607.621341-1-lyude@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Greg
-
-On Sat, Sep 12, 2026 at 4:07=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
+On 8/21/26 3:04 PM, Lyude Paul wrote:
+> On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
+> firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
+> GPU enters D3Cold. This means that every time the GPU is runtime suspended,
+> ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
+> the GPU. Once it falls asleep again, the cycle repeats.
 >
-> This is the start of the stable review cycle for the 7.2.6 release.
-> There are 1815 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
 >
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
+> Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
+> nova as well, and it even seems possible for this to happen without any
+> driver loaded.
 >
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.6-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
+> This seems to simply be a bug. Luckily, there is nothing that we actually
+> need ACPI wakeup events for on the GPU. Events such as display connector
+> hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
+> affected by this quirk.
 >
-> thanks,
+> Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: stable@vger.kernel.org
+> Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
 >
-> greg k-h
+> ---
+> V2:
+> * Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
+> * Check if parent_adev is NULL (could happen if booted with acpi=off), just
+>    consider it a no-op if it is.
+> * Base the patch off Linux master instead, I based it off drm-misc-next by
+>    mistake because I'm too used to working on DRM drivers :).
+>
+>   drivers/pci/quirks.c | 79 ++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 79 insertions(+)
+FWIW, this has been tested by me, with positive results, on my Lenovo 
+Legion Slim 5 16APH8. Not sure if this warrants a Tested-by trailer 
+since I'm a co-author, but just in case.
 
-Linux version 7.2.6-rc1 tested.
+In the thread [1], we have had another user report positive results on 
+their 16AHP9 (note that Lenovo seems to have switched the P and the H 
+around for the laptop one generation up for some reason). Said user 
+tested on both OpenRM and nouveau on top of kernel 7.1.10.
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+This means we have tested 16APH8 on nouveau, and 16AHP9 on both OpenRM 
+and nouveau.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+[1] 
+https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905#issuecomment-5444071160 
 
-[    0.000000] Linux version 7.2.6-rc1rv-g048ea6124e84
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Sun Sep 13 05:45:30 JST 2026
-
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
