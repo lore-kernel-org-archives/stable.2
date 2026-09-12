@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A072425B098
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:43:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C914BEE43
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789177424; cv=none; b=QIG712hXzmqV5WhIUxnTPBx+kjSiR9/LbAGkq+g3yR4PY3/2sn4Oub3BBvhL11wX4olfQ7/QH3vt2JegUyhopZTjzsf9J9qL3ygYjEBzgjbSJRRZhe68FciL+vf+v0uEbOn5s8dGgEiseoTH27QHwG0y7K1jCk3wyPu2rRxtmO4=
+	t=1789177426; cv=none; b=Fl+cjEJl6wt4AoXTlmexJ+s2jULpXGL8Tq/aN3xd0mAw12cUGG2GvuQ0vnk+AqCtaATsZAhDOZk2spOUlqr9vdpvnNtIwWrgqMAlje4FBHqsMI9p3w7JFunS1ortRobzVOxuQEYl+Oq/smk6/qEAAP3DvN87/MEJcy7K1Rho47U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789177424; c=relaxed/simple;
-	bh=2IhgwsEqWpb/AwBPnEv0tAa91V9Cx2nJX3ixktP5cQo=;
+	s=arc-20240116; t=1789177426; c=relaxed/simple;
+	bh=ADGreUnivR2m/8YiWfsIwEjpfav5ecLrinyhCL9skKY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DuE/H9//+UzVMPAKeBMxYlurNm/bRG6smgttxEXc1WpnalYiahs6+CKAjEDjz9lDh4JbBwKhFnSIF15SNpoIEfDaV10gBYkR94/OmBb78ywqtyG7afYFfTq7RZes2S4RzOrIgM3ObzFLJJiNBjElM4VHKKs/OHH626jvjjKNIs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9BFG3Ej; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NDvpLhmzo7bbsXvMVsz59E749aXeAp/A9D5ZdZ2OgCk4iWElruqp4uQaud90q8TrVnsvBdFHKMkkL9kp5IJpvfNjvRzJ8iVF/lN5CaYZqEvs6LB78ymJ9+zxgZ3AFH+1L9uWSmV+mvL8piDtGW9JQF9qjRGmevXkwqSzWuTJ3SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrdXAepi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9BFG3Ej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99511F00893;
-	Sat, 12 Sep 2026 01:43:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrdXAepi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765F71F000FF;
+	Sat, 12 Sep 2026 01:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789177423;
-	bh=i31CoRgO2ELmKj/8ySedfROtlX1num44DEz7Pp+9jY8=;
+	s=k20260515; t=1789177425;
+	bh=t4JELfo/kBbq8F6sLc/EM1zWdgPSE1Nj4ujwzpJY+n0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B9BFG3EjPb40mNfTB2n2mOG2QcumfW2w4X5VfehqrzqJx21nioN7Q2Pg1DHBBAOF5
-	 CncZqaZ0UG1ClsAnVzV+aRLwA4oEcZ/HOAWs3dJdEB10bnblg9l+PYmAX0K7+Tb0SN
-	 bss9SKojnHB5k/scw2GOvzFD/kCKi9yX8rVZs7RDESg1VgattvQOdTv7ZBU3y0i6w1
-	 MbgsiNa/6hwKBnCKP3KcWx5x5jrJHaGlNiBAvLo8v5YYzLzlDHNG7aY3gxMWmxi7qv
-	 goTEoUhJ5yOdRf0VXWDToMygNxVNDCgzSPwF3uJptzNnxJVy2K06tkKElcyH7sm2Jd
-	 iT/fWLnb9aqMg==
+	b=BrdXAepi/wAPQ8emt6UAixa/hwd//pmacKSyU/WTKXzNx4+/qNlD8lIVV+tPDOjsO
+	 Yowrr++4FKWXJaGJGTDwI0NiKKE1VT9WW9xgenAAm5LFd3x3EczcXum3aHUcNtwGnW
+	 8/3XZIDk0MCHPkWnPt+u3ztrCmLf0arq3h51XqkaF0NkgjrrnQVvxvqpYbntKyob9q
+	 UOsTXARMs8l5PMSxvyZOXrR69Pyam9Xf5CsdnsvCnVMOpPZiDG+TZ1jX6vxtYq4xWS
+	 ir81SVPgTFzEeHeRcimpTII0XxTqZfZ2MBcZ6XmYMH95NZ6+DzM6dZJmdIraN4/xaj
+	 6T2DYJFbPmLeg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guanghui Yang <3497809730@qq.com>,
+Cc: Yangtao Li <frank.li@vivo.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: fix dentry folio leak in find_in_level
-Date: Fri, 11 Sep 2026 21:43:41 -0400
-Message-ID: <20260912014341.1817739-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] f2fs: convert to use sysfs_emit
+Date: Fri, 11 Sep 2026 21:43:40 -0400
+Message-ID: <20260912014343.1817848-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090915-unstuck-shrill-bdea@gregkh>
-References: <2026090915-unstuck-shrill-bdea@gregkh>
+In-Reply-To: <2026090930-appease-drainpipe-8027@gregkh>
+References: <2026090930-appease-drainpipe-8027@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,41 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guanghui Yang <3497809730@qq.com>
+From: Yangtao Li <frank.li@vivo.com>
 
-[ Upstream commit cca7d3e30bf30333314e31bc70b9a739f1342167 ]
+[ Upstream commit 084e15ea14bbb1ad40163438cfa74a76a1521c16 ]
 
-find_in_level() gets a dentry folio with f2fs_find_data_folio() before
-calling find_in_block().  If find_in_block() returns an error, the
-function stores the error in res_folio and breaks out of the loop without
-dropping the dentry folio.
+Let's use sysfs_emit.
 
-This leaks the folio reference on the find_in_block() error path.  Drop
-the dentry folio before returning the error to the caller.
-
-Fixes: 7ad08a58bf67 ("f2fs: Handle casefolding with Encryption")
-Cc: stable@vger.kernel.org
+Signed-off-by: Yangtao Li <frank.li@vivo.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ Replaced f2fs_folio_put(dentry_folio, false) with f2fs_put_page(dentry_page, 0) for the page-based API. ]
+Stable-dep-of: 5cb33b00c8fb ("f2fs: avoid NULL checkpoint thread access in sysfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/dir.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/f2fs/sysfs.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index da717e4d6aee7..8ec23b8af64e1 100644
---- a/fs/f2fs/dir.c
-+++ b/fs/f2fs/dir.c
-@@ -372,6 +372,7 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index cb13d47725432..9e6f13e82dec3 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -302,19 +302,14 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
  
- 		de = find_in_block(dir, dentry_page, fname, &max_slots, use_hash);
- 		if (IS_ERR(de)) {
-+			f2fs_put_page(dentry_page, 0);
- 			*res_page = ERR_CAST(de);
- 			de = NULL;
- 			break;
+ 	if (!strcmp(a->attr.name, "ckpt_thread_ioprio")) {
+ 		struct ckpt_req_control *cprc = &sbi->cprc_info;
+-		int len = 0;
+ 		int class = IOPRIO_PRIO_CLASS(cprc->ckpt_thread_ioprio);
+ 		int data = IOPRIO_PRIO_DATA(cprc->ckpt_thread_ioprio);
+ 
+-		if (class == IOPRIO_CLASS_RT)
+-			len += scnprintf(buf + len, PAGE_SIZE - len, "rt,");
+-		else if (class == IOPRIO_CLASS_BE)
+-			len += scnprintf(buf + len, PAGE_SIZE - len, "be,");
+-		else
++		if (class != IOPRIO_CLASS_RT && class != IOPRIO_CLASS_BE)
+ 			return -EINVAL;
+ 
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d\n", data);
+-		return len;
++		return sysfs_emit(buf, "%s,%d\n",
++			class == IOPRIO_CLASS_RT ? "rt" : "be", data);
+ 	}
+ 
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
 -- 
 2.53.0
 
