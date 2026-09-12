@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C805B478E2B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCCD45629C
 	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228961; cv=none; b=eeNsBoOpAQ7mDbCLKmKw0jpjaTjskA+MRiB7XAIZwIxRzHRjeEpAECKp2q9l4cJnyrhs5tJOtMa0GWMfWh1TV+eyrDFcIWLN9Kn+xU2336UpJbGzNb60kgWDg2nqaKEDec4mrKGIfq5IsMfIhFTCZyHDBZghWJddpxyao6uQaZY=
+	t=1789228962; cv=none; b=j31Uet+PqLg/psqZzt7ml6a1WLVGJv92wwVHSS75JLyjHnEHba4MhYh7EXdEL4DRlDPU8Kbwa2HF4s6UWx6Q65bow2uAkxP0mUjObXxi+/w94ySLAHwGVxHL8oek+py1r//A8HC2NfDUclCz1qQsmNs901GEaIMQfYoskCqGprs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228961; c=relaxed/simple;
-	bh=+wpib8FGjH1leiTPPxcPSkuHbcpa+RuMpRYy6rtmQxU=;
+	s=arc-20240116; t=1789228962; c=relaxed/simple;
+	bh=T8Ls4pemznkbUA81TIUyiMzz9BpM8c483UQZJJu4+WA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bq4Sd0GW0cvnA0cSvmhWeQF9b9zEQhZR4CShDtETArjcrRanDvDLZoKdDc9x7WJVZhJ/kFHZ0TCmmFXdeJzq1UoQEkvQ0Rmzxk/xSmUW1l4PUrNVNQavYzgAk/JuqaaElGbnZZ57lZQqGHnZpnPGQ5iAK+9lAYx1rMUG7ZEWaFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnKKE9w2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aE1RLmg7ZJWCil0B33kAcETEPG3+E1jcRz97m062UgkHg3BvBwI+tWruNbcnvWtAsWDXQraclB4To2GuUxodJqA5RPTYVfWDwInpsw1BiB6usEVTuMGqcc78wgggKKBDYvqcdwKaKRD3V4IgZKBEeN46rM1o9PLYhrtV6IL3THo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RplsCikg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnKKE9w2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399361F00899;
-	Sat, 12 Sep 2026 16:02:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RplsCikg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BEBF1F00893;
+	Sat, 12 Sep 2026 16:02:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789228959;
-	bh=51wKnOmPetp6AgGZBy9BdzR+e8phm62LcDw1CqcZGVU=;
+	bh=BYhEiCjcX6BiCZeIuAyFz9XxQ29QjOc3IVGO3if9FBk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gnKKE9w2hUMugIN+14vpsc5++eoIVg9WHNDayzhbsUixCUY6VQU4scoCUDDqr62b7
-	 7y1nzTlPxJjuOENq9oKaBPOSZuHrh6ExE1u17U0JdQi5GEYBQPxaHWbRhpFlt7osQy
-	 Qr3TRpX9eWhZ33sZWEi0fVsWB/eY0AvXCgfKREK3w9JRZ/VWm5VSRuu1HpsLuJkPGq
-	 AFfzuv/1oeSbNsWTT2IkSQK/Guz36XSX9sTp7nJZ5UvoYEHfcmFPchJ9Nbaax2d4nL
-	 9+Sc4XjtrkfXTCEzej7zEhW68EK/ZSzqnFBHzRsdIII2MpD7EzXFzagS8UlpHgyElI
-	 nnWHfiZ40yAlQ==
+	b=RplsCikgNWZg5w+yLP6jAnrBDIk8myqiLAGTql8lunp/rUfDoRY6etFxkCy6S1rEU
+	 XgM1KoTDY1QxW8xBOYMCKLp6ap+bosAXSXVQHEcuPDeHMwQ7VTANTsYCv/oxPTYYZD
+	 ZEr6MFCV7sInV4pD/w79T8FrPKs6kI9Y7WS4OgvF8Wu28MVfPkJFBwPPZGJ/+6ceZm
+	 vj+ejIEM0EHnhNtqdQ5MQK9Zj+X+0GKql3IaWxFyD+j+sWLkexI2fT5RawlK59IeJd
+	 PSZllZuNkTyzuFzXxfurhstGKpFoHRSANx8ylMjiEqYjc2nCOjoBWd9SHrEa3JuGFh
+	 gp/Q2Mxd/oVww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] drm/xe/i2c: Keep the i2c controller always enabled
-Date: Sat, 12 Sep 2026 12:02:36 -0400
-Message-ID: <20260912160236.3590141-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] i2c: designware: Global register definitions
+Date: Sat, 12 Sep 2026 12:02:35 -0400
+Message-ID: <20260912160236.3590141-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912160236.3590141-1-sashal@kernel.org>
+In-Reply-To: <2026090913-blazer-trash-f040@gregkh>
 References: <2026090913-blazer-trash-f040@gregkh>
- <20260912160236.3590141-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,125 +50,379 @@ Content-Transfer-Encoding: 8bit
 
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-[ Upstream commit 244abef7f280a6a84297bfab5fd2e77147bc419a ]
+[ Upstream commit 874ef9a6f2fc45d3f6021842d92fa5420fa4c825 ]
 
-Some platforms make an assumption that the i2c controller's
-enabled state indicates also the power state of the
-controller. This can create a problem when the controller is
-in disabled state, because the hardware may assume
-incorrectly that it is then also in low-power state.
+Moving the register definitions to a global header file
+include/linux/designware_i2c.h. That removes the need to
+duplicate them in the adaptation layers for this driver
+outside of drivers/i2c/busses/. There is at least one of
+those in drivers/gpu/drm/xe/xe_i2c.c.
 
-To fix this, the controller is kept enabled by taking over
-the IC_ENABLE register. The controller has to be disabled
-when the configuration is updated and when the target
-address or the slave address are assigned, so disabling it
-when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-then re-enabling it again.
-
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Cc: stable@vger.kernel.org
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Suggested-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Link: https://patch.msgid.link/20260811121008.1493015-4-heikki.krogerus@linux.intel.com
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Link: https://patch.msgid.link/20260811121008.1493015-2-heikki.krogerus@linux.intel.com
 Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-(cherry picked from commit 76cc14e2faed1adae20f4ee144ead0e3a7566c49)
+(cherry picked from commit 2ab2fb31411a494e4579dfacda986a2672f80e65)
 Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+Backport notes for 6.18:
+Move the register definitions already present in this tree to the shared
+header. Omit the surrounding register-access and FIFO-depth constants
+from 518edab3ad4f6, since that independent cleanup is absent here.
+
+Prepare the existing Xe register-write callback for 244abef7f280 by
+including the shared definitions, providing I2C_REG(), and adding a
+pass-through DW_IC_SMBUS_INTR_MASK case. Keep the adapter driver's mask
+unchanged: the newer SMBus alert handler from f43fa4b8522ba is absent.
+Include bitfield.h explicitly for the target's FIELD_MODIFY() use.
+This lets the target cherry-pick cleanly without importing the newer
+interrupt implementation or adding any functions to this dependency.
+
+Stable-dep-of: 244abef7f280 ("drm/xe/i2c: Keep the i2c controller always enabled")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 49 ++++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_i2c.h |  1 +
- 2 files changed, 49 insertions(+), 1 deletion(-)
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
+ drivers/gpu/drm/xe/xe_i2c.c                |  12 ++-
+ drivers/i2c/busses/i2c-designware-common.c |   2 +
+ drivers/i2c/busses/i2c-designware-core.h   |  85 +---------------
+ drivers/i2c/busses/i2c-designware-master.c |   2 +
+ drivers/i2c/busses/i2c-designware-slave.c  |   2 +
+ include/linux/designware_i2c.h             | 107 +++++++++++++++++++++
+ 8 files changed, 129 insertions(+), 84 deletions(-)
+ create mode 100644 include/linux/designware_i2c.h
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8262a885a6994..3dc42fdcb7054 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24961,6 +24961,7 @@ R:	Jan Dabros <jsd@semihalf.com>
+ L:	linux-i2c@vger.kernel.org
+ S:	Supported
+ F:	drivers/i2c/busses/i2c-designware-*
++F:	include/linux/designware_i2c.h
+ 
+ SYNOPSYS DESIGNWARE I2C DRIVER - AMDISP
+ M:	Nirujogi Pratap <pratap.nirujogi@amd.com>
+diff --git a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+index af781c8e4a804..88f416322c14a 100644
+--- a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+@@ -17,4 +17,6 @@
+ #define I2C_CONFIG_CMD			XE_REG(I2C_CONFIG_SPACE_OFFSET + PCI_COMMAND)
+ #define I2C_CONFIG_PMCSR		XE_REG(I2C_CONFIG_SPACE_OFFSET + 0x84)
+ 
++#define I2C_REG(reg)			XE_REG((reg) + I2C_MEM_SPACE_OFFSET)
++
+ #endif /* _XE_I2C_REGS_H_ */
 diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 10b5c85e5e4d9..25c7eb725ce26 100644
+index 2788dc6510d6a..10b5c85e5e4d9 100644
 --- a/drivers/gpu/drm/xe/xe_i2c.c
 +++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -8,6 +8,7 @@
+@@ -6,6 +6,7 @@
+  */
+ 
  #include <linux/array_size.h>
- #include <linux/bitfield.h>
++#include <linux/bitfield.h>
  #include <linux/container_of.h>
-+#include <linux/delay.h>
  #include <linux/device.h>
  #include <linux/err.h>
- #include <linux/i2c.h>
-@@ -220,11 +221,40 @@ static void xe_i2c_remove_irq(struct xe_i2c *i2c)
- 	irq_domain_remove(i2c->irqdomain);
- }
+@@ -23,6 +24,8 @@
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
  
-+/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
-+static void xe_i2c_disable(struct xe_i2c *i2c)
-+{
-+	int timeout = 100;
-+	u32 status;
++#include <linux/designware_i2c.h>
 +
-+	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), DW_IC_ENABLE_ENABLE, 0);
-+
-+	do {
-+		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
-+		if (!(status & DW_IC_ENABLE_ENABLE))
-+			return;
-+		/* Can't sleep here. */
-+		udelay(25);
-+	} while (timeout--);
-+
-+	dev_warn(i2c->drm_dev, "timeout in disabling i2c adapter\n");
-+}
-+
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ #include "regs/xe_i2c_regs.h"
+ #include "regs/xe_irq_regs.h"
+ 
+@@ -230,8 +233,15 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
  {
  	struct xe_i2c *i2c = context;
  
--	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-+	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
-+
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
 +	switch (reg) {
-+	case DW_IC_ENABLE:
-+	case DW_IC_ENABLE_STATUS:
-+		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
-+			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
++	case DW_IC_SMBUS_INTR_MASK:
++		/* Preserve the interrupt mask requested by the adapter driver. */
 +		break;
 +	default:
 +		break;
 +	}
  
++	xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
  	return 0;
  }
-@@ -234,6 +264,23 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
- 	struct xe_i2c *i2c = context;
  
- 	switch (reg) {
-+	case DW_IC_CON:
-+	case DW_IC_TAR:
-+	case DW_IC_SAR:
-+		/* Disable the controller. */
-+		xe_i2c_disable(i2c);
-+
-+		/* Write the register. */
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+
-+		/* Enable the controller. */
-+		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, DW_IC_ENABLE_ENABLE);
-+		return 0;
-+	case DW_IC_ENABLE:
-+		i2c->ic_enable = val;
-+		/* Other fields can be updated except the enable bit. */
-+		val |= DW_IC_ENABLE_ENABLE;
-+		break;
- 	case DW_IC_SMBUS_INTR_MASK:
- 		/* Preserve the interrupt mask requested by the adapter driver. */
- 		break;
-diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index ecd5f10358e29..6192e20feaa3f 100644
---- a/drivers/gpu/drm/xe/xe_i2c.h
-+++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -34,6 +34,7 @@ struct xe_i2c {
- 	struct platform_device *pdev;
- 	struct i2c_adapter *adapter;
- 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-+	unsigned int ic_enable;
+diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
+index 5b1e8f74c4acf..5cefbc66b9e70 100644
+--- a/drivers/i2c/busses/i2c-designware-common.c
++++ b/drivers/i2c/busses/i2c-designware-common.c
+@@ -32,6 +32,8 @@
+ #include <linux/types.h>
+ #include <linux/units.h>
  
- 	struct notifier_block bus_notifier;
- 	struct work_struct work;
++#include <linux/designware_i2c.h>
++
+ #include "i2c-designware-core.h"
+ 
+ static const char *const abort_sources[] = {
+diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
+index 436555543c79d..05e8f1301ee6b 100644
+--- a/drivers/i2c/busses/i2c-designware-core.h
++++ b/drivers/i2c/busses/i2c-designware-core.h
+@@ -17,6 +17,8 @@
+ #include <linux/regmap.h>
+ #include <linux/types.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #define DW_IC_DEFAULT_FUNCTIONALITY		(I2C_FUNC_I2C | \
+ 						 I2C_FUNC_SMBUS_BYTE | \
+ 						 I2C_FUNC_SMBUS_BYTE_DATA | \
+@@ -24,82 +26,9 @@
+ 						 I2C_FUNC_SMBUS_BLOCK_DATA | \
+ 						 I2C_FUNC_SMBUS_I2C_BLOCK)
+ 
+-#define DW_IC_CON_MASTER			BIT(0)
+-#define DW_IC_CON_SPEED_STD			(1 << 1)
+-#define DW_IC_CON_SPEED_FAST			(2 << 1)
+-#define DW_IC_CON_SPEED_HIGH			(3 << 1)
+-#define DW_IC_CON_SPEED_MASK			GENMASK(2, 1)
+-#define DW_IC_CON_10BITADDR_SLAVE		BIT(3)
+-#define DW_IC_CON_10BITADDR_MASTER		BIT(4)
+-#define DW_IC_CON_RESTART_EN			BIT(5)
+-#define DW_IC_CON_SLAVE_DISABLE			BIT(6)
+-#define DW_IC_CON_STOP_DET_IFADDRESSED		BIT(7)
+-#define DW_IC_CON_TX_EMPTY_CTRL			BIT(8)
+-#define DW_IC_CON_RX_FIFO_FULL_HLD_CTRL		BIT(9)
+-#define DW_IC_CON_BUS_CLEAR_CTRL		BIT(11)
+-
+-#define DW_IC_DATA_CMD_DAT			GENMASK(7, 0)
+-#define DW_IC_DATA_CMD_FIRST_DATA_BYTE		BIT(11)
+-
+-/*
+- * Registers offset
+- */
+-#define DW_IC_CON				0x00
+-#define DW_IC_TAR				0x04
+-#define DW_IC_SAR				0x08
+-#define DW_IC_DATA_CMD				0x10
+-#define DW_IC_SS_SCL_HCNT			0x14
+-#define DW_IC_SS_SCL_LCNT			0x18
+-#define DW_IC_FS_SCL_HCNT			0x1c
+-#define DW_IC_FS_SCL_LCNT			0x20
+-#define DW_IC_HS_SCL_HCNT			0x24
+-#define DW_IC_HS_SCL_LCNT			0x28
+-#define DW_IC_INTR_STAT				0x2c
+-#define DW_IC_INTR_MASK				0x30
+-#define DW_IC_RAW_INTR_STAT			0x34
+-#define DW_IC_RX_TL				0x38
+-#define DW_IC_TX_TL				0x3c
+-#define DW_IC_CLR_INTR				0x40
+-#define DW_IC_CLR_RX_UNDER			0x44
+-#define DW_IC_CLR_RX_OVER			0x48
+-#define DW_IC_CLR_TX_OVER			0x4c
+-#define DW_IC_CLR_RD_REQ			0x50
+-#define DW_IC_CLR_TX_ABRT			0x54
+-#define DW_IC_CLR_RX_DONE			0x58
+-#define DW_IC_CLR_ACTIVITY			0x5c
+-#define DW_IC_CLR_STOP_DET			0x60
+-#define DW_IC_CLR_START_DET			0x64
+-#define DW_IC_CLR_GEN_CALL			0x68
+-#define DW_IC_ENABLE				0x6c
+-#define DW_IC_STATUS				0x70
+-#define DW_IC_TXFLR				0x74
+-#define DW_IC_RXFLR				0x78
+-#define DW_IC_SDA_HOLD				0x7c
+-#define DW_IC_TX_ABRT_SOURCE			0x80
+-#define DW_IC_ENABLE_STATUS			0x9c
+-#define DW_IC_CLR_RESTART_DET			0xa8
+-#define DW_IC_SMBUS_INTR_MASK			0xcc
+-#define DW_IC_COMP_PARAM_1			0xf4
+-#define DW_IC_COMP_VERSION			0xf8
+ #define DW_IC_SDA_HOLD_MIN_VERS			0x3131312A /* "111*" == v1.11* */
+-#define DW_IC_COMP_TYPE				0xfc
+ #define DW_IC_COMP_TYPE_VALUE			0x44570140 /* "DW" + 0x0140 */
+ 
+-#define DW_IC_INTR_RX_UNDER			BIT(0)
+-#define DW_IC_INTR_RX_OVER			BIT(1)
+-#define DW_IC_INTR_RX_FULL			BIT(2)
+-#define DW_IC_INTR_TX_OVER			BIT(3)
+-#define DW_IC_INTR_TX_EMPTY			BIT(4)
+-#define DW_IC_INTR_RD_REQ			BIT(5)
+-#define DW_IC_INTR_TX_ABRT			BIT(6)
+-#define DW_IC_INTR_RX_DONE			BIT(7)
+-#define DW_IC_INTR_ACTIVITY			BIT(8)
+-#define DW_IC_INTR_STOP_DET			BIT(9)
+-#define DW_IC_INTR_START_DET			BIT(10)
+-#define DW_IC_INTR_GEN_CALL			BIT(11)
+-#define DW_IC_INTR_RESTART_DET			BIT(12)
+-#define DW_IC_INTR_MST_ON_HOLD			BIT(13)
+-
+ #define DW_IC_INTR_DEFAULT_MASK			(DW_IC_INTR_RX_FULL | \
+ 						 DW_IC_INTR_TX_ABRT | \
+ 						 DW_IC_INTR_STOP_DET)
+@@ -109,16 +38,6 @@
+ 						 DW_IC_INTR_RX_UNDER | \
+ 						 DW_IC_INTR_RD_REQ)
+ 
+-#define DW_IC_ENABLE_ENABLE			BIT(0)
+-#define DW_IC_ENABLE_ABORT			BIT(1)
+-
+-#define DW_IC_STATUS_ACTIVITY			BIT(0)
+-#define DW_IC_STATUS_TFE			BIT(2)
+-#define DW_IC_STATUS_RFNE			BIT(3)
+-#define DW_IC_STATUS_MASTER_ACTIVITY		BIT(5)
+-#define DW_IC_STATUS_SLAVE_ACTIVITY		BIT(6)
+-#define DW_IC_STATUS_MASTER_HOLD_TX_FIFO_EMPTY	BIT(7)
+-
+ #define DW_IC_SDA_HOLD_RX_SHIFT			16
+ #define DW_IC_SDA_HOLD_RX_MASK			GENMASK(23, 16)
+ 
+diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
+index 45bfca05bb300..c4bab532eed1e 100644
+--- a/drivers/i2c/busses/i2c-designware-master.c
++++ b/drivers/i2c/busses/i2c-designware-master.c
+@@ -25,6 +25,8 @@
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #include "i2c-designware-core.h"
+ 
+ #define AMD_TIMEOUT_MIN_US	25
+diff --git a/drivers/i2c/busses/i2c-designware-slave.c b/drivers/i2c/busses/i2c-designware-slave.c
+index 6eb16b7d75a6d..4498ca4d72ca6 100644
+--- a/drivers/i2c/busses/i2c-designware-slave.c
++++ b/drivers/i2c/busses/i2c-designware-slave.c
+@@ -19,6 +19,8 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #include "i2c-designware-core.h"
+ 
+ static void i2c_dw_configure_fifo_slave(struct dw_i2c_dev *dev)
+diff --git a/include/linux/designware_i2c.h b/include/linux/designware_i2c.h
+new file mode 100644
+index 0000000000000..53f37f18a7229
+--- /dev/null
++++ b/include/linux/designware_i2c.h
+@@ -0,0 +1,107 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Synopsys DesignWare I2C register definitions
++ *
++ * Copyright (C) 2026, Intel Corporation
++ */
++
++#ifndef __LINUX_DESIGNWARE_I2C_H
++#define __LINUX_DESIGNWARE_I2C_H
++
++#include <linux/bits.h>
++
++/*
++ * Registers offset
++ */
++#define DW_IC_CON				0x00
++#define DW_IC_TAR				0x04
++#define DW_IC_SAR				0x08
++#define DW_IC_DATA_CMD				0x10
++#define DW_IC_SS_SCL_HCNT			0x14
++#define DW_IC_SS_SCL_LCNT			0x18
++#define DW_IC_FS_SCL_HCNT			0x1c
++#define DW_IC_FS_SCL_LCNT			0x20
++#define DW_IC_HS_SCL_HCNT			0x24
++#define DW_IC_HS_SCL_LCNT			0x28
++#define DW_IC_INTR_STAT				0x2c
++#define DW_IC_INTR_MASK				0x30
++#define DW_IC_RAW_INTR_STAT			0x34
++#define DW_IC_RX_TL				0x38
++#define DW_IC_TX_TL				0x3c
++#define DW_IC_CLR_INTR				0x40
++#define DW_IC_CLR_RX_UNDER			0x44
++#define DW_IC_CLR_RX_OVER			0x48
++#define DW_IC_CLR_TX_OVER			0x4c
++#define DW_IC_CLR_RD_REQ			0x50
++#define DW_IC_CLR_TX_ABRT			0x54
++#define DW_IC_CLR_RX_DONE			0x58
++#define DW_IC_CLR_ACTIVITY			0x5c
++#define DW_IC_CLR_STOP_DET			0x60
++#define DW_IC_CLR_START_DET			0x64
++#define DW_IC_CLR_GEN_CALL			0x68
++#define DW_IC_ENABLE				0x6c
++#define DW_IC_STATUS				0x70
++#define DW_IC_TXFLR				0x74
++#define DW_IC_RXFLR				0x78
++#define DW_IC_SDA_HOLD				0x7c
++#define DW_IC_TX_ABRT_SOURCE			0x80
++#define DW_IC_ENABLE_STATUS			0x9c
++#define DW_IC_CLR_RESTART_DET			0xa8
++#define DW_IC_SMBUS_INTR_STAT			0xc8
++#define DW_IC_SMBUS_INTR_MASK			0xcc
++#define DW_IC_CLR_SMBUS_INTR			0xd4
++#define DW_IC_COMP_PARAM_1			0xf4
++#define DW_IC_COMP_VERSION			0xf8
++#define DW_IC_COMP_TYPE				0xfc
++
++/* DW_IC_CON bits */
++#define DW_IC_CON_MASTER			BIT(0)
++#define DW_IC_CON_SPEED_STD			(1 << 1)
++#define DW_IC_CON_SPEED_FAST			(2 << 1)
++#define DW_IC_CON_SPEED_HIGH			(3 << 1)
++#define DW_IC_CON_SPEED_MASK			GENMASK(2, 1)
++#define DW_IC_CON_10BITADDR_SLAVE		BIT(3)
++#define DW_IC_CON_10BITADDR_MASTER		BIT(4)
++#define DW_IC_CON_RESTART_EN			BIT(5)
++#define DW_IC_CON_SLAVE_DISABLE			BIT(6)
++#define DW_IC_CON_STOP_DET_IFADDRESSED		BIT(7)
++#define DW_IC_CON_TX_EMPTY_CTRL			BIT(8)
++#define DW_IC_CON_RX_FIFO_FULL_HLD_CTRL		BIT(9)
++#define DW_IC_CON_BUS_CLEAR_CTRL		BIT(11)
++
++/* DW_IC_DATA_CMD bits */
++#define DW_IC_DATA_CMD_DAT			GENMASK(7, 0)
++#define DW_IC_DATA_CMD_FIRST_DATA_BYTE		BIT(11)
++
++/* DW_IC_INTR_* bits */
++#define DW_IC_INTR_RX_UNDER			BIT(0)
++#define DW_IC_INTR_RX_OVER			BIT(1)
++#define DW_IC_INTR_RX_FULL			BIT(2)
++#define DW_IC_INTR_TX_OVER			BIT(3)
++#define DW_IC_INTR_TX_EMPTY			BIT(4)
++#define DW_IC_INTR_RD_REQ			BIT(5)
++#define DW_IC_INTR_TX_ABRT			BIT(6)
++#define DW_IC_INTR_RX_DONE			BIT(7)
++#define DW_IC_INTR_ACTIVITY			BIT(8)
++#define DW_IC_INTR_STOP_DET			BIT(9)
++#define DW_IC_INTR_START_DET			BIT(10)
++#define DW_IC_INTR_GEN_CALL			BIT(11)
++#define DW_IC_INTR_RESTART_DET			BIT(12)
++#define DW_IC_INTR_MST_ON_HOLD			BIT(13)
++
++/* DW_IC_ENABLE bits */
++#define DW_IC_ENABLE_ENABLE			BIT(0)
++#define DW_IC_ENABLE_ABORT			BIT(1)
++
++/* DW_IC_STATUS bits */
++#define DW_IC_STATUS_ACTIVITY			BIT(0)
++#define DW_IC_STATUS_TFE			BIT(2)
++#define DW_IC_STATUS_RFNE			BIT(3)
++#define DW_IC_STATUS_MASTER_ACTIVITY		BIT(5)
++#define DW_IC_STATUS_SLAVE_ACTIVITY		BIT(6)
++#define DW_IC_STATUS_MASTER_HOLD_TX_FIFO_EMPTY	BIT(7)
++
++/* DW_IC_SMBUS_INTR_* bits */
++#define DW_IC_SMBUS_INTR_ALERT			BIT(10)
++
++#endif /* __LINUX_DESIGNWARE_I2C_H */
 -- 
 2.53.0
 
