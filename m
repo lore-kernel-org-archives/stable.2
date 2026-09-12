@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F05A4766BB
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1093F356A0D;
+	Sat, 12 Sep 2026 11:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212090; cv=none; b=H5YkidpuV1ZBxW9jH4ZRtIcXOX5p1C14ZWjPNNwSjzTqeC357UwgwACnbi1x27H3t+QurGhL7QT+k3VIvFsBt/F1NV9OztlNjjUbCOEHaiSyXNxoIL88bxgjIyGvUT5qNx6ch/g1aMFstKIXF9XU79dKrYAGuJ7hFxDn+kl5HyQ=
+	t=1789212091; cv=none; b=riBVISRnhE5jxY4/SHFE9pf5y1zEV02CfuFmS4xqRVlqpEmoCAwksM6dElhgJ0SE9aKFxZzb8ywA7m32NXOraiP5ywJbf5WPXSynR6a9VQ+bSjfshg31A7gZdZUa1wkpcmcZLxNfyGF76Hs6jSjEntuPFKImrBghqDf9JgTPu4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212090; c=relaxed/simple;
-	bh=7yb10EzJSCOOJj4xNT91h7kjoxGDOj9BT70ZDWoK278=;
+	s=arc-20240116; t=1789212091; c=relaxed/simple;
+	bh=UGbV4/w/1gk/FFpYalxsTGOlfL4cfnF3KyDKWfX14DQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aNbkTP/LjAsHwbzcyRE7kme8odeZDjmcPycGU+13QvqhtYUunJ0ivymEnvY5yjyDiMeWHbttjNbd4pD5p3Mb7U2+QwO1CInYOuFP29Q82I0GNpcEY2ot8+gO1e/NOEy1SQHgge3vgWEWU89h4+i7nwVffLbxFBaNIFzDAEHcv14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDMLmUYJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=agvskg78ZxLRK0IvxA6yt+WbgcxkJs74FpQa760WBw7asz/sqDLdIR8HGmlke8it7P6r+nNe/idLAvwgQaIB4X1GsVsdotrGhQD8/YHtoPYffpVDwO4+yPs/Tjbo4IIrhRKj6bLWsKHeX2lw6dX8cLJZhCmSa9PNj4xooqZiwrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ADbiTTQX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDMLmUYJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19441F0089B;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ADbiTTQX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DC71F0089A;
 	Sat, 12 Sep 2026 11:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789212089;
-	bh=eOgR8CwEvnY64q1hojtEndzP/4pUEQ+3/kalgMXn6AI=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789212090;
+	bh=pmo2AfE1w8uEQEs7FgK3lE23EU/Ca81aYqBbLVkti/8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bDMLmUYJsWHWj0zv+Rs2r/oGknT7jpi+e5e9oOQPEp3woaEnYZ7fV29XPlwVwOvF7
-	 +Q9q0rXfsqpO0mOZAoypYW8pfoaVx7DvwuGuRzpXJi1j+BpHrhdmSmV2NMojOtk1qA
-	 4qs8qluyGou6ge1DYbukoKJe4R/1EVAyWVrWh3J0tJW/Rq+GfrG+T3Jr6GkESvMYIa
-	 jCyZMQzBN6c9Uj3erWEFVbJ/88M617n9TU0te+uB05r/mDz0UcvwdKKbbCub1gXuoP
-	 kvhlDuEPgbFSzkZiWppuU24XSFM+u2c5CJ86hXlaUd2Lrn031MJ4BaFT7f27zCrjv6
-	 Vj12Idf8VmvYw==
-From: Sasha Levin <sashal@kernel.org>
+	b=ADbiTTQXO0CxLXRHaHxcdsvBs16s8ePIecUGenJ2LpM/Bc9/VqPJ0xEyycTUCTVTN
+	 9gp21DxtMSBdbsFALoggqpj4aJQ4UZPX/i48qJZwfu6Vv6HVP89dnw4f8pEwGQxh+9
+	 zPBNCo4Nh8VBS2kF+8srbFJYvslLuzw1GKJvZ3qQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hidayath Khan <hidayath@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/6] f2fs: Use folios in truncate_partial_nodes()
-Date: Sat, 12 Sep 2026 07:21:22 -0400
-Message-ID: <20260912112124.2312624-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912112124.2312624-1-sashal@kernel.org>
-References: <2026090958-headband-sturdy-0f93@gregkh>
- <20260912112124.2312624-1-sashal@kernel.org>
+Subject: [PATCH 6.18 1364/1518] net/smc: free stashed qentry before overwrite in REQ_ADD_LINK to ADD_LINK transition
+Date: Sat, 12 Sep 2026 08:58:53 +0200
+Message-ID: <20260912065654.392904357@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,90 +48,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit d68833a0b74e46edc678340cdff5ad22782c6609 ]
+------------------
 
-Removes two calls to compound_head().
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Stable-dep-of: ce366bfa821e ("f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()")
+[ Upstream commit 036322025d6e440cb75fc6fecbba9a16b271a2ae ]
+
+When smc_llc_event_handler() transitions the local LLC flow from
+SMC_LLC_FLOW_REQ_ADD_LINK to SMC_LLC_FLOW_ADD_LINK on arrival of an ADD_LINK
+request, it calls smc_llc_flow_qentry_set() unconditionally:
+
+	if (lgr->llc_flow_lcl.type == SMC_LLC_FLOW_REQ_ADD_LINK) {
+		lgr->llc_flow_lcl.type = SMC_LLC_FLOW_ADD_LINK;
+		smc_llc_flow_qentry_set(&lgr->llc_flow_lcl, qentry);
+		...
+	}
+
+A CONFIRM_LINK or ADD_LINK_CONT arriving while flow->type is
+SMC_LLC_FLOW_REQ_ADD_LINK is stashed into flow->qentry via the
+SMC_LLC_CONFIRM_LINK / SMC_LLC_ADD_LINK_CONT handler (which stores into
+flow->qentry for any non-NONE flow type).  When the subsequent ADD_LINK
+arrives, the REQ_ADD_LINK branch overwrites flow->qentry with the new pointer
+without first freeing the stashed allocation, leaking one kmalloc object.
+
+The stashed entry has no consumer: smc_llc_wait() is only called from
+llc_add_link_work, which is not yet scheduled while the flow type remains
+REQ_ADD_LINK.  No waiter is sleeping on llc_msg_waiter at this point.
+It is safe to unconditionally free any stashed qentry before
+the overwrite.
+
+Call smc_llc_flow_qentry_del() before smc_llc_flow_qentry_set() in the
+REQ_ADD_LINK branch.  smc_llc_flow_qentry_del() already checks flow->qentry
+before freeing, so the normal path where no entry is stashed is a no-op.
+
+Fixes: b4ba4652b3f8 ("net/smc: extend LLC layer for SMC-Rv2")
+Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
+Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Link: https://patch.msgid.link/20260818073107.466506-1-mjambigi@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ net/smc/smc_llc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 236f4644f62e0..9df3e8fb23089 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1052,7 +1052,7 @@ static int truncate_nodes(struct dnode_of_data *dn, unsigned int nofs,
- static int truncate_partial_nodes(struct dnode_of_data *dn,
- 			struct f2fs_inode *ri, int *offset, int depth)
- {
--	struct page *pages[2];
-+	struct folio *folios[2];
- 	nid_t nid[3];
- 	nid_t child_nid;
- 	int err = 0;
-@@ -1066,45 +1066,45 @@ static int truncate_partial_nodes(struct dnode_of_data *dn,
- 	/* get indirect nodes in the path */
- 	for (i = 0; i < idx + 1; i++) {
- 		/* reference count'll be increased */
--		pages[i] = f2fs_get_node_page(F2FS_I_SB(dn->inode), nid[i]);
--		if (IS_ERR(pages[i])) {
--			err = PTR_ERR(pages[i]);
-+		folios[i] = f2fs_get_node_folio(F2FS_I_SB(dn->inode), nid[i]);
-+		if (IS_ERR(folios[i])) {
-+			err = PTR_ERR(folios[i]);
- 			idx = i - 1;
- 			goto fail;
- 		}
--		nid[i + 1] = get_nid(pages[i], offset[i + 1], false);
-+		nid[i + 1] = get_nid(&folios[i]->page, offset[i + 1], false);
- 	}
- 
--	f2fs_ra_node_pages(pages[idx], offset[idx + 1], NIDS_PER_BLOCK);
-+	f2fs_ra_node_pages(&folios[idx]->page, offset[idx + 1], NIDS_PER_BLOCK);
- 
- 	/* free direct nodes linked to a partial indirect node */
- 	for (i = offset[idx + 1]; i < NIDS_PER_BLOCK; i++) {
--		child_nid = get_nid(pages[idx], i, false);
-+		child_nid = get_nid(&folios[idx]->page, i, false);
- 		if (!child_nid)
- 			continue;
- 		dn->nid = child_nid;
- 		err = truncate_dnode(dn);
- 		if (err < 0)
- 			goto fail;
--		if (set_nid(pages[idx], i, 0, false))
-+		if (set_nid(&folios[idx]->page, i, 0, false))
- 			dn->node_changed = true;
- 	}
- 
- 	if (offset[idx + 1] == 0) {
--		dn->node_page = pages[idx];
-+		dn->node_page = &folios[idx]->page;
- 		dn->nid = nid[idx];
- 		err = truncate_node(dn);
- 		if (err)
- 			goto fail;
- 	} else {
--		f2fs_put_page(pages[idx], 1);
-+		f2fs_folio_put(folios[idx], true);
- 	}
- 	offset[idx]++;
- 	offset[idx + 1] = 0;
- 	idx--;
- fail:
- 	for (i = idx; i >= 0; i--)
--		f2fs_put_page(pages[i], 1);
-+		f2fs_folio_put(folios[i], true);
- 
- 	trace_f2fs_truncate_partial_nodes(dn->inode, nid, depth, err);
- 
+diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
+index 51937265203c8..cfc027435e5c3 100644
+--- a/net/smc/smc_llc.c
++++ b/net/smc/smc_llc.c
+@@ -1945,6 +1945,8 @@ static void smc_llc_event_handler(struct smc_llc_qentry *qentry)
+ 			if (lgr->llc_flow_lcl.type ==
+ 					SMC_LLC_FLOW_REQ_ADD_LINK) {
+ 				/* server started add_link processing */
++				/* free any qentry stashed in REQ_ADD_LINK state */
++				smc_llc_flow_qentry_del(&lgr->llc_flow_lcl);
+ 				lgr->llc_flow_lcl.type = SMC_LLC_FLOW_ADD_LINK;
+ 				smc_llc_flow_qentry_set(&lgr->llc_flow_lcl,
+ 							qentry);
 -- 
 2.53.0
+
+
 
