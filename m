@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A19CA6F
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:14:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD6ECA6F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:14:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226044; cv=none; b=l4iCqMRtInuaFcdKpvs4EylS2f3rLBSGfCtjBsNS9Hf6aNxFkgIfYu7+DWn9Ii8yl/iVDtcpG7z8ht1uy32i1+loc+1OI5by5QccmJQXMCK32rjBovRL15f+c+RbknUrJqTtdYMAPzAw1vD/3sa18aKnBkbP4NBSqFe5F8xvPf4=
+	t=1789226046; cv=none; b=KY/oB7nH/slaWaurmoobyJ+nU6VPtL6T/6anMk//ThWP9SY1juLmuE15DqOG9LhqPZhDQVw5KhLSN8yRIFQDqLVgxAwNB/lb1FSC+hz9QKmJ/8HOJn6Nwlzo+ZRIfvz/+8NLKN0zPGIbCG2Vnkd7sGEL9TtbZZoxIsaQZwA9oeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226044; c=relaxed/simple;
-	bh=tZ0vcwJxtqRX31vi1bWmPPh4roCcv2W2YDGZO61GGa8=;
+	s=arc-20240116; t=1789226046; c=relaxed/simple;
+	bh=uNkcvNZgkZTOf3TS8c44MSQelRf3Ny5HTsdeth5WZag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PODPxVUKUXlZYbtbCGrs6+Irqb7rO0qn0jfkjYtV3KPPu+yeRg+Np1UX7MXpsUNob+iMpsImg0/RbuHqZGyCVkqkYs+RyKROedJCabK3wve87QKjAymqh/1RDv+/ZRtRnaPhIiQJrweEku3z5gRulHwigda21KCveGtUH49Q5JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbqTgsi7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k516Mjiai9mK+IG0l5fculP/KZT+P4SGrOZ3DCVxBPTbPRJdcHAEK+bSOm+HxAPIMHMk9M+J80auGpGVaaahBOGPMb9TCdxJbVs/UgUpUrYPksLULGpFLV4u4MYbye8eBUz4P9RJSIq4OeZxkMfCIKTbR9qbG9B0kTRdaEzn8SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYvEQzrY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbqTgsi7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C9D1F00893;
-	Sat, 12 Sep 2026 15:14:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYvEQzrY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE0B1F000FF;
+	Sat, 12 Sep 2026 15:14:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789226042;
-	bh=Vtru4iSBYJppNS61AlPrctUhxWCvCdDeASUQmgCqlWk=;
+	s=k20260515; t=1789226045;
+	bh=Fbmicft9ZuYC5qDeNIRCDS8x//GAxEEVj8aNvdG1yjs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VbqTgsi70x9E/9h/ui4tpdqnoudI7knVf3Dq/TDKu0anbtYtcQKtqPgOk4vduqlpN
-	 fA7ZMOeAIXLFXniYZhsKcjSrdfSaldXnCGYMXP8UTCLIpJeHXeTXaxfT92eJJjocfX
-	 FfyGCr0lPwzCiL4c0j+bgJUtJPipXxvKzU1XLQfgPfHK4tYwexi2Ey92rL/Phlfq2d
-	 kcBdjGhPIaI7MGAm8rw64nhlS0/v/3WH+UbXLUPayCdRICtcWHmP5rALsaaODknBXV
-	 X8zsdFPRoswXif5wbI+FbcBKS6G+o/PhdllQ7LevVb+GKBWNTvWaGgtANwY1ILrFpl
-	 w4OWqjRui8mSg==
+	b=MYvEQzrYCcMqOhW5gC+XCXMJ127s9XYbb3sW9hCsRae8Oc34sOjWADWq17jv4W2ki
+	 YzDSBa5nqynwwBlCyj3PfLrDnrVqz94aRfSNZsLf8Hmbb6c4IKWcJmo5qH2bevNkRP
+	 fZd0nzmlff/aIbq5RcTKa0JNzPkLghrTt2nRxizrP3xfBP6hwpme06doEb0cCUwbDo
+	 Djy8wiXsFv7k05LZKeClW/ST+Qz5QWaxr/7M1z2p4Ral5LZ9vqJcDtroqB+pRpSk8Q
+	 ULIjKSEMopfJdVVEJAnj2Icj25Lsk4tW0w0anrGKzLUEpzS0PVYCCjQXt1v6VYzppS
+	 y9DD7HYujoWTw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <treding@nvidia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Rayyan Ansari <rayyan@ansari.sh>,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Evan Quan <evan.quan@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/sysfb: simpledrm: Improve panel-size validation
-Date: Sat, 12 Sep 2026 11:14:00 -0400
-Message-ID: <20260912151400.3070794-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] drm/amdgpu: move runtime pm init after drm and fbdev init
+Date: Sat, 12 Sep 2026 11:14:02 -0400
+Message-ID: <20260912151403.3071211-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090929-granddad-turkey-01e8@gregkh>
-References: <2026090929-granddad-turkey-01e8@gregkh>
+In-Reply-To: <2026090919-halt-gusto-67b7@gregkh>
+References: <2026090919-halt-gusto-67b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +45,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 3a75a0761914d01c7362adf1f906cc1d1762c189 ]
+[ Upstream commit d0d66b8c66d04363eff3a5b09da4074fc1dfc758 ]
 
-Validate the panel size from the device-tree node against the
-limitations of struct drm_display_mode. The type only stores sizes
-in 16-bit fields. Fail transparently on errors; do not warn.
+Seems more logical to enable runtime pm at the end of
+the init sequence so we don't end up entering runtime
+suspend before init is finished.
 
-v3:
-- move comments to a more prominent place (Thierry)
-v2:
-- only use initialized values in debugging output (Sashiko)
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Fixes: 2a6d731a8f16 ("drm/simpledrm: Allow physical width and height configuration via panel node")
-Cc: Rayyan Ansari <rayyan@ansari.sh>
-Cc: <stable@vger.kernel.org> # v6.4+
-Link: https://patch.msgid.link/20260625094509.157581-3-tzimmermann@suse.de
+Stable dependency adaptation for ef5fcf2a6c320676bf8be2dadac93d9023b468b7:
+Retain only the runtime-PM teardown relocation into amdgpu_pci_remove()
+and remove the corresponding load-failure pm_runtime_put_noidle(), since
+amdgpu_driver_unload_kms() no longer takes that reference.
+
+The target adds autosuspend cleanup to this removal block. Moving runtime
+PM initialization and the audio helper is unnecessary for that fix, so
+leave both in amdgpu_kms.c. This also avoids the insertion conflict with
+the stable-only amdgpu_is_fw_framebuffer() helper and adds no functions.
+Keep the stable adev->runpm condition; the target merges cleanly with it.
+
+Stable-dep-of: ef5fcf2a6c32 ("drm/amdgpu: fix autosuspend cleanup during removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 49 ++++++++++++++++++++++++++++++--
- 1 file changed, 46 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 11 +----------
+ 2 files changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 07abaf27315f7..44f7203cd534d 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -212,6 +212,39 @@ simplefb_get_memory_of(struct drm_device *dev, struct device_node *of_node)
- 	return res;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 58292a296875b..7f2e71a51e0e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2115,8 +2115,15 @@ static void
+ amdgpu_pci_remove(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
++	struct amdgpu_device *adev = drm_to_adev(dev);
  
-+static int __simplefb_get_panel_size_mm_of(struct drm_device *dev,
-+					   struct device_node *of_panel_node,
-+					   const char *name)
-+{
-+	int ret;
-+	u32 value;
+ 	drm_dev_unplug(dev);
 +
-+	ret = of_property_read_u32(of_panel_node, name, &value);
-+	if (ret) {
-+		drm_dbg(dev, "simplefb: cannot parse panel %s: error %d\n",
-+			name, ret);
-+		return ret;
-+	} else if (value > U16_MAX) {
-+		drm_dbg(dev, "simplefb: panel %s of %u exceeds maximum value\n",
-+			name, value);
-+		return -EINVAL;
++	if (adev->runpm) {
++		pm_runtime_get_sync(dev->dev);
++		pm_runtime_forbid(dev->dev);
 +	}
 +
-+	return value;
-+}
-+
-+static int simplefb_get_panel_width_mm_of(struct drm_device *dev,
-+					  struct device_node *of_panel_node)
-+{
-+	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "width-mm");
-+}
-+
-+static int simplefb_get_panel_height_mm_of(struct drm_device *dev,
-+					   struct device_node *of_panel_node)
-+{
-+	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "height-mm");
-+}
-+
- /*
-  * Simple Framebuffer device
-  */
-@@ -781,7 +814,7 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
- 	struct simpledrm_device *sdev;
- 	struct drm_device *dev;
- 	int width, height, stride;
--	int width_mm = 0, height_mm = 0;
-+	u16 width_mm = 0, height_mm = 0;
- 	struct device_node *panel_node;
- 	const struct drm_format_info *format;
- 	struct resource *res, *mem = NULL;
-@@ -844,8 +877,18 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
- 			return ERR_CAST(mem);
- 		panel_node = of_parse_phandle(of_node, "panel", 0);
- 		if (panel_node) {
--			simplefb_read_u32_of(dev, panel_node, "width-mm", &width_mm);
--			simplefb_read_u32_of(dev, panel_node, "height-mm", &height_mm);
-+			/*
-+			 * Ignore errors from parsing the physical panel
-+			 * size. Using the pre-initialized sizes of 0 will
-+			 * make drm_sysfb_mode() calculate a default physical
-+			 * size based on a resolution of 96 dpi.
-+			 */
-+			ret = simplefb_get_panel_width_mm_of(dev, panel_node);
-+			if (ret > 0)
-+				width_mm = ret;
-+			ret = simplefb_get_panel_height_mm_of(dev, panel_node);
-+			if (ret > 0)
-+				height_mm = ret;
- 			of_node_put(panel_node);
- 		}
- 	} else {
+ 	amdgpu_driver_unload_kms(dev);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index b8b0b819de72b..d18221f7d17d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -98,11 +98,6 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
+ 	if (adev->rmmio == NULL)
+ 		return;
+ 
+-	if (adev->runpm) {
+-		pm_runtime_get_sync(dev->dev);
+-		pm_runtime_forbid(dev->dev);
+-	}
+-
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DRV_UNLOAD))
+ 		DRM_WARN("smart shift update failed\n");
+ 
+@@ -273,12 +268,8 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 		DRM_WARN("smart shift update failed\n");
+ 
+ out:
+-	if (r) {
+-		/* balance pm_runtime_get_sync in amdgpu_driver_unload_kms */
+-		if (adev->rmmio && adev->runpm)
+-			pm_runtime_put_noidle(dev->dev);
++	if (r)
+ 		amdgpu_driver_unload_kms(dev);
+-	}
+ 
+ 	return r;
+ }
 -- 
 2.53.0
 
