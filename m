@@ -1,78 +1,43 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69272431A3E
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 18:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FEC38F64D;
+	Sat, 12 Sep 2026 18:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789236566; cv=none; b=XEjb1gbHVwHH7RB04CIlP0NvTCzmtSrmnpvlp4vNdNF4bNQK08C4GnHZ7XFi/P9GuYO1Rbt3lPF934gjT03Ot/W7HTiZ6Tx361zKPG1y+DYf1mAfn5J5SV18g1Kn7DE0Sya2Iuh+oNwAWe0A+kdlElwgqabxO6BUQ5SZEhc8jh0=
+	t=1789236874; cv=none; b=NhFUYR+B2NjBdYWmrwc1VYRp2Oib1Y999u8K05xpa5XNwDbImTqd8MzU0r7jMqAFt1jMM0U6SXwIGnrn+C14BfU4Xw1aC4gCJZVM3UktMDdWuLSdRi8Sd5NDJvHEgJ9fVQK4LkSbhTMLkld74+NeSVUmr0a6s1HLHMUIFnuujvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789236566; c=relaxed/simple;
-	bh=NinSsXmfOfgPvxnBoe7vC+IiUfHvMJVbWS0gsHPYMJE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gfAQ57yHccWVW+9jvvh+H4+UETCNeYJUFOs2uakICCYVgktke/bp9SAD5TBzoLw1HfA0ghknueTL4CEzWh5vMwwQY7iDD78QjTtMbLmRCT4LQthbo8gXLy1uNe8dCMxLmj1+yP5eoMK7m4YGtNQgrFRanXKn4Lx4CvpZCE63P6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=O/aQMIwP; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1789236874; c=relaxed/simple;
+	bh=zr1GYbsoyhKyY+sHxlLbyXgxYn7uCz1mcHY9ToI3n2o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WfJww3LwnO03O+EysIFvGPYQ0+BaoRaatIQ8412eggzz6U/CVgNHHODxkmjD80Rgjl5SpUeWQAoKxVqlz+hCtkFXHCu6H3Jb1w2MSr42zK/ydAQ+JJRg/OJWYI91sH04T8tNu3l7zROkvjJGTDAm2uQMULMJIaNeo2YgK2QQWUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZmkaQgWW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="O/aQMIwP"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91064d2d54fso9176776d6.0
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:09:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1789236564; x=1789841364; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SRBaZYE5z7xsuSNFqidS68BnKXd+kuHah3BsDyd5EZg=;
-        b=O/aQMIwP+urfIINCnlfLfXO/hoNh8ErszlX1Q+0lQJpY0sdW3mInHYoZHtuQHBhjsH
-         acaHL/AodHw9nC2rdS1bKQCOw3MkpjOt963X4ur5hUq11YLJLj92A+oCGRZizdUeXDOm
-         4mKahZBHkqgTFfRzcpxUFsspLNMfNkRvh3m68=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789236564; x=1789841364;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SRBaZYE5z7xsuSNFqidS68BnKXd+kuHah3BsDyd5EZg=;
-        b=N0O7stRTDt7z/WRyDXlRzjfFnluexCWk7Zs+LCyGmOWI9NsK7Cs7f9It1Tq8+GLjJl
-         HpNijp0amZ4qImUI4NevAFO2NE+o1rTsvG8DPf1qcGG/Y36Nt8ufo4B0EEN/jQE19qMo
-         t8Gf79dlWK7yV5EB6aBVXkbYoxdM6Pd1NGzeDURCeIW81QUyd3mXChf8tVOGvayiehLc
-         sNH6B0GNtqkofjrDFodELF9RE33xcVhEfmN/34C/mgtBMtnrrHXEfoeBppwGxFPsi59a
-         /7lyyI0Ed+NvbUuKrUCIjdTLK75870W0cADKde9N+IHZ4x/9dTW0EnAF507pNC+gGdZM
-         fJDg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8zLaI1+K1w3JkYVfC0VOmYEdBpoG5Hvqhu7xToWLeZWP1GDzwqzbCK3m3RjR4Ow/7TLRFY2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m79kJa90RtlOX5vQle2csGJw8te2agdutYfq74G6Z+1QwUylym
-	RLuMJJDzzlKvs0p3U8EXtYBYxXPx3+DdVtd/JvelM/uriNyJb394Z1x30jwS1R4PtA==
-X-Gm-Gg: AYBFou1oBdO1FpDop1gEaMRy+gvmTK7UIMkjC9aLR/THbk44K1UOg/ATVj78OWUn7tH
-	36TnJMCyfm3Rmqx3Mk9zPIxoQeYqA6klcnfhai14OatlVGAOpZY76dTVOFAjHj6my48qLb/Pel7
-	mbn49MzWAXhiHYMV+qC7ZYc+sO3C6KBN0HvH3wjFM54TUAPYAFNW6aFe1mFegVUPqfTy3stOmd9
-	IWFI5hCwvjDtQvR9GXHo/I+efOe87K6Q/LSDUpvnhqWPSgD0kDeOTF9E4H19WmhIBJpMZmbHAeY
-	zPW9cwEuYomz3aQ+aOmA5jwJ7rqT1slolMdxoZZIlWjiUQVWdwO47iaABxUT71gdTAtQ+C8DChf
-	0cElx/2X4DmoOftnGq1yy7H0d6crLHA5fV8+JmzDos3/3rwufu2FOMkOISL7OQAAAE6O8M0oYFV
-	DLmKkLAHOTTE4rbJR9fMbmT56mGNqymSZh6EqUPbfol2b1AvS02Ak6WDcr9a17nJh6mi+Q5Tb8F
-	g69mQa9Bl94Te8V9ljAz+YurBLB8OPK2wezJxBE9N7zU2kzkAaKtlibNAN7m3LKdlbQst/01bC9
-	4URFbBwnnWy1jw+KzQrr6+Y=
-X-Received: by 2002:a05:620a:2b42:b0:939:16f6:4d01 with SMTP id af79cd13be357-93a03673558mr519299785a.21.1789236564218;
-        Sat, 12 Sep 2026 11:09:24 -0700 (PDT)
-Received: from majuu.waya (pool-174-112-106-84.cpe.net.cable.rogers.com. [174.112.106.84])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e811cffdsm549888285a.46.2026.09.12.11.09.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 11:09:23 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Terry Lam <vtlam@google.com>,
-	stable@vger.kernel.org,
-	Victor Nogueira <victor@mojatatu.com>,
-	hybris <hybris@mojatatu.ai>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net 1/2] net/sched: hhf: cap hh_flows_limit at change time
-Date: Sat, 12 Sep 2026 14:09:19 -0400
-Message-Id: <QDISC-B855.v1.20260911153152@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZmkaQgWW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06611F000FF;
+	Sat, 12 Sep 2026 18:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789236872;
+	bh=Xs05vHPM5MoOsCQC9eR5qcLpZs5gxaGV2B+FgCMh/7E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZmkaQgWWDQHw73Q3iHYCcCdTOgk5fwIcYgYe8AjpGFrJGN1Ji3uWZNnN/eF2IWODY
+	 sCZFZr2BU9m2TsYKjxRne6WLscK2DEg4FlL1hlMNJXURqGlojd93yFvaJfDBwYiQTN
+	 rKcyJzBOoMIP88fDCgKOmU2cEQWVrsrSV1C1mTTU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 5.15 144/935] nvme-tcp: reject a read that transferred too few bytes
+Date: Sat, 12 Sep 2026 08:52:54 +0200
+Message-ID: <20260912065530.123456300@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
+References: <20260912065526.833703348@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,86 +46,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hhf_change() stores TCA_HHF_HH_FLOWS_LIMIT with no upper bound. A huge
-hh_flows_limit lets each new heavy-hitter flow pass the
-hh_flows_current_cnt check in alloc_new_hh() and forces a fixed-size
-kzalloc(GFP_ATOMIC) per flow under spoofed traffic, for unbounded memory
-growth.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Bound the attribute with NLA_POLICY_MAX() at 2*HH_FLOWS_CNT (the
-hhf_init() default) and report the rejected value via extack. The
-deprecated nested parse is kept: legacy tc does not set NLA_F_NESTED on
-TCA_OPTIONS. Configs relying on hh_limit above the default were relying
-on unbounded, unsafe behaviour and are not supported going forward.
+------------------
 
-hhf_init() also ran hhf_change() before setting the default
-hh_flows_limit, so a user-supplied hh_limit at add time was clobbered
-back to 2048. Set the default before hhf_change() so the configured
-value sticks.
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-This is a follow-up to commit eb56a495f59b ("net/sched: hhf: clamp
-quantum in change and init paths"), which bounded the quantum of the
-same qdisc; the hh_flows_limit bound is the remaining unbounded knob of
-that series' scope.
+commit 7fa3f73f6c8ddc5f0425b50fb2a626a782ef7d12 upstream.
 
-Conditions to recreate the bug: CAP_NET_ADMIN in a user namespace;
-tc qdisc change dev X root hhf hh_limit 4294967295 succeeds and the
-value is echoed by tc qdisc show, unbounding heavy-hitter flow
-allocations; also tc qdisc add dev X root hhf hh_limit 500 stores 2048
-instead of 500.
+nvme_tcp_recv_data() completes a request once the current C2HData PDU
+has been consumed. Nothing compares the total bytes received against
+the length the command asked for: struct nvme_tcp_request has no
+receive-side counter, queue->data_remaining is per queue, and
+blk_mq_end_request() completes for blk_rq_bytes(rq) unconditionally
+with no residual concept anywhere above.
 
-Fixes: 10239edf86f1 ("net-qdisc-hhf: Heavy-Hitter Filter (HHF) qdisc")
+A controller can therefore answer a 4096-byte read with 512 bytes and
+have it reported as a complete read; user space then gets 4096 bytes of
+which 3584 are whatever was already in the page. I reproduced that with
+a test target.
+
+Count the bytes received and refuse to complete a successful read whose
+count does not match, at the two NVME_TCP_F_DATA_SUCCESS paths and in
+nvme_tcp_process_nvme_cqe(). The success test shifts req->status right
+by one, because the driver keeps the wire value there and shifts it on
+completion, so the check must see what the completion path will see.
+Only REQ_OP_READ is checked, because there the length comes from the
+sectors the request covers; a passthrough command is built by its
+submitter, which picks both command and buffer, so the kernel has
+nothing to compare against.
+
+Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260822195509.112717-1-jhs@mojatatu.com
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Tested-by: hybris <hybris@mojatatu.ai>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/sched/sch_hhf.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/nvme/host/tcp.c |   34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/net/sched/sch_hhf.c b/net/sched/sch_hhf.c
-index fc72f825fbd9..5dec1ed969ad 100644
---- a/net/sched/sch_hhf.c
-+++ b/net/sched/sch_hhf.c
-@@ -527,7 +527,7 @@ static void hhf_destroy(struct Qdisc *sch)
- static const struct nla_policy hhf_policy[TCA_HHF_MAX + 1] = {
- 	[TCA_HHF_BACKLOG_LIMIT]	 = { .type = NLA_U32 },
- 	[TCA_HHF_QUANTUM]	 = { .type = NLA_U32 },
--	[TCA_HHF_HH_FLOWS_LIMIT] = { .type = NLA_U32 },
-+	[TCA_HHF_HH_FLOWS_LIMIT] = NLA_POLICY_MAX(NLA_U32, 2 * HH_FLOWS_CNT),
- 	[TCA_HHF_RESET_TIMEOUT]	 = { .type = NLA_U32 },
- 	[TCA_HHF_ADMIT_BYTES]	 = { .type = NLA_U32 },
- 	[TCA_HHF_EVICT_TIMEOUT]	 = { .type = NLA_U32 },
-@@ -546,7 +546,7 @@ static int hhf_change(struct Qdisc *sch, struct nlattr *opt,
- 	u32 new_hhf_non_hh_weight = q->hhf_non_hh_weight;
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -90,6 +90,7 @@ struct nvme_tcp_request {
  
- 	err = nla_parse_nested_deprecated(tb, TCA_HHF_MAX, opt, hhf_policy,
--					  NULL);
-+					  extack);
- 	if (err < 0)
- 		return err;
+ 	struct bio		*curr_bio;
+ 	struct iov_iter		iter;
++	u32			data_recvd;
  
-@@ -624,6 +624,9 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
- 	q->hhf_evict_timeout = HZ;      /* 1  sec */
- 	q->hhf_non_hh_weight = 2;
+ 	/* send state */
+ 	size_t			offset;
+@@ -525,6 +526,29 @@ static void nvme_tcp_error_recovery(stru
+ 	queue_work(nvme_reset_wq, &to_tcp_ctrl(ctrl)->err_work);
+ }
  
-+	/* Cap max active HHs at twice len of hh_flows table. */
-+	q->hh_flows_limit = 2 * HH_FLOWS_CNT;
++/*
++ * NVMe has no short read: a read that completes successfully must
++ * have transferred everything it asked for.
++ */
++static bool nvme_tcp_data_in_short(struct nvme_tcp_queue *queue,
++				   struct request *rq)
++{
++	struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
 +
- 	if (opt) {
- 		int err = hhf_change(sch, opt, extack);
++	if (le16_to_cpu(req->status) >> 1)
++		return false;
++	if (req_op(rq) != REQ_OP_READ || !req->data_len)
++		return false;
++	if (likely(req->data_recvd == req->data_len))
++		return false;
++
++	dev_err(queue->ctrl->ctrl.device,
++		"queue %d tag %#x short data-in: got %u of %u\n",
++		nvme_tcp_queue_id(queue), rq->tag,
++		req->data_recvd, req->data_len);
++	return true;
++}
++
+ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ 		struct nvme_completion *cqe)
+ {
+@@ -544,6 +568,9 @@ static int nvme_tcp_process_nvme_cqe(str
+ 	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
+ 		req->status = cqe->status;
  
-@@ -639,8 +642,6 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
- 		for (i = 0; i < HH_FLOWS_CNT; i++)
- 			INIT_LIST_HEAD(&q->hh_flows[i]);
++	if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++		return -EPROTO;
++
+ 	if (!nvme_try_complete_req(rq, req->status, cqe->result))
+ 		nvme_complete_rq(rq);
+ 	queue->nr_cqe++;
+@@ -800,6 +827,7 @@ static int nvme_tcp_recv_data(struct nvm
+ 		*len -= recv_len;
+ 		*offset += recv_len;
+ 		queue->data_remaining -= recv_len;
++		req->data_recvd += recv_len;
+ 	}
  
--		/* Cap max active HHs at twice len of hh_flows table. */
--		q->hh_flows_limit = 2 * HH_FLOWS_CNT;
- 		q->hh_flows_overlimit = 0;
- 		q->hh_flows_total_cnt = 0;
- 		q->hh_flows_current_cnt = 0;
--- 
-2.43.0
+ 	if (!queue->data_remaining) {
+@@ -808,6 +836,8 @@ static int nvme_tcp_recv_data(struct nvm
+ 			queue->ddgst_remaining = NVME_TCP_DIGEST_LENGTH;
+ 		} else {
+ 			if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
++				if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++					return -EPROTO;
+ 				nvme_tcp_end_request(rq,
+ 						le16_to_cpu(req->status));
+ 				queue->nr_cqe++;
+@@ -856,6 +886,9 @@ static int nvme_tcp_recv_ddgst(struct nv
+ 					pdu->command_id);
+ 		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
+ 
++		if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++			return -EPROTO;
++
+ 		nvme_tcp_end_request(rq, le16_to_cpu(req->status));
+ 		queue->nr_cqe++;
+ 	}
+@@ -2403,6 +2436,7 @@ static blk_status_t nvme_tcp_setup_cmd_p
+ 	req->status = cpu_to_le16(NVME_SC_SUCCESS);
+ 	req->offset = 0;
+ 	req->data_sent = 0;
++	req->data_recvd = 0;
+ 	req->pdu_len = 0;
+ 	req->pdu_sent = 0;
+ 	req->data_len = blk_rq_nr_phys_segments(rq) ?
+
 
