@@ -1,202 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED5D455162
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEED3D9DC0;
+	Sat, 12 Sep 2026 11:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789214207; cv=none; b=tMH7YUzVhiYrPdET4krYOt4TrfqAo96O/XY1KDUPrhBOy2U1OWpHShlJ51rbahLtTi1kVZlgLO0SdgqyqmfHGzY4j+rOdtpmQiECcHcxC68tnG62BUViGcbLrC4EL6+u92tGt/jPRo1TLdXA3iUNxEhbbq9QMkvAPhT5fF6T48g=
+	t=1789214208; cv=none; b=a/cRHvCjLhF2R8eGqDn2s1ubrAa7dZb3mqvhOW1QuCgRDIAmI3vUPJxL5+xtw7Gt7If8FYBGit1hJtKvGF1PbgxvtzVChQ7MxMK8Xy/oAw9XEMmWkJHFmzc0I9mtsNXyd3ylIlNv5MLUtNvm8cFOOuZ+xWZm4LGlpXk5fn210X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789214207; c=relaxed/simple;
-	bh=OOuP2SQQeaiVcbfNNbUcPA8Yw7YJWODMeD3v0dxqotg=;
+	s=arc-20240116; t=1789214208; c=relaxed/simple;
+	bh=OyIm6Kc/cIZrgfq88mTZ8slHmKFSKuUGFddXpg4YtwA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dHmmKgDIPceTF+GuLNq2Tytk93zQHEKo4r8OkrvNJ33ajYW1eo4HDvTfb2D8K8oqkPm9Gwf7kpAYcPp2IyGPNaWIQyEVMansBw1usWXvKNGLaWx/gAxfRb0rVgjUVvgv/TdSgqZ1RTgk9yLnjxJnqaLxQdd9LbxhHlWQoi0eOyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyCnjcCJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=r2/IlHDpccHpVF9E2DfW/uLYF8INFwl2C43HFPR5mORl78AmcQqMKywauEjKePkXf/GfV/xL0qDZ5JAgQx6VKtr4XGZ78L4IE8NAQjDnI/7G6E1Vf6p22WQYB1zKx8LRR7pUVX4BQyiVD6rge8deowCFknln1DFb4qEf7ErrIoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nttrc68Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyCnjcCJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC361F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nttrc68Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76081F00893;
 	Sat, 12 Sep 2026 11:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789214206;
-	bh=DA2Hi4MW+s1e+1WZ7Blj5RZMfdLFl64GCViineVV2w0=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789214206;
+	bh=+KXdiI73XsEDnP4tHxUNTkFap7hQOyNqRr2vOlX9mJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IyCnjcCJyGxFfCG+YEV97XZfhtP6Fm5sC0LgwY6xzJbv/AdN8tkrzFR2hyvD+5MiS
-	 a2BzCoiwYzaFLh+xUwcNWH8eknonUrKSvhmdN3aLXmswV97xwEp/5UXH4nmcQ91exK
-	 J6bRZeLOe5yv+G5n8U8oKcTKM2+HYaZnlt2M3YzCq40iFOqkSYFoaoab791c5eLcYS
-	 1ngVIjYk2hZ62SKZbUfmedZHY8T4W/KB3S7+Zh6dYtgvIbh0PvgNGHjn4T2F8aSFxe
-	 wnhiUmcHEkz2hHmU1obACS7gSBC5t2KfvBLwy5WNoWOywj/BKmns1Xy0z52jjWRTDE
-	 62Ve2nuRjtkEA==
-From: Sasha Levin <sashal@kernel.org>
+	b=nttrc68YL7FtX2eC+EgzHF0UvgUUrJ3HdjglsjPbSjerAiKG0/mDMN+TCORXXkOsJ
+	 DHFpK+8DDnLgYxBFpmhP1f1G/YMJaIm/whLq8sgExaqFvIzG7tayHmjyrY6nKtWBPX
+	 CoyKdLUSVenXwaG1qBtVCEzNaV9dqs0zhVEU8nt0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
-Date: Sat, 12 Sep 2026 07:56:42 -0400
-Message-ID: <20260912115644.2476312-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090944-celtic-lavender-8b43@gregkh>
-References: <2026090944-celtic-lavender-8b43@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 6.12 0279/1376] drm/amdkfd: guard against NULL restore_mqd in CRIU queue restore
+Date: Sat, 12 Sep 2026 08:45:05 +0200
+Message-ID: <20260912065613.764926899@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+References: <20260912065607.535295758@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit fa487f56efba6344aef67d871688f0908fe08af3 ]
+------------------
 
-It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
-otherwise, fallocate() on pinfile will fail easily even there is slash
-space in conventional zone.
+From: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
 
-[Testcase]
-nullblk_create.sh 512 2 1024 1024
-mkfs.f2fs /dev/nullb0 -f -m
-mount /dev/nullb0 /mnt/f2fs/
-touch /mnt/f2fs/pinfile
-f2fs_io pinfile set /mnt/f2fs/pinfile
-mkdir /mnt/f2fs/dir/
-for((i=0;i<3934;i++)) do { dd if=/dev/zero of=/mnt/f2fs/dir/$i bs=1M count=1;} done
-sync
-for((i=0;i<3934;i+=2)) do { rm /mnt/f2fs/dir/$i;} done
-for((i=0;i<1950;i++)) do { rm /mnt/f2fs/dir/$i;} done
-sync
-f2fs_io fallocate 0 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-sync
-stat /mnt/f2fs/pinfile
-f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
+commit 6aa530642f95d5c48aa336416f94a35e7949b647 upstream.
 
-[Before]
-fallocate failed: Resource temporarily unavailable
-  File: /mnt/f2fs/pinfile
-  Size: 109051904       Blocks: 213208     IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 20:04:02.264000000 +0800
-Modify: 2026-08-12 20:04:26.784000000 +0800
-Change: 2026-08-12 20:04:26.784000000 +0800
- Birth: -
-root@localhost:~#
-root@localhost:~#
-root@localhost:~#
-root@localhost:~# f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000002dc00000 0000000000400000 00001000
-2       0000000000600000 000000002e400000 0000000000600000 00001000
-3       0000000000c00000 000000007a400000 0000000005c00000 00001001
+Both create_queue_cpsch() and create_queue_nocpsch() unconditionally
+call mqd_mgr->restore_mqd() when a CRIU restore is in progress
+(qd != NULL), with no NULL guard. On any system where restore_mqd is
+not implemented for the given queue type, a user holding
+CAP_CHECKPOINT_RESTORE can trigger a kernel NULL pointer dereference
+and panic the machine by issuing KFD_IOC_CRIU_OP_RESTORE with a
+crafted queue restore object. Note that checkpoint_mqd is likewise
+unimplemented on GFX12, so no legitimate CRIU image can reach this
+path — only a hand-crafted restore payload.
 
-[After]
-  File: /mnt/f2fs/pinfile
-  Size: 1073741824      Blocks: 2099216    IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 19:47:49.428000000 +0800
-Modify: 2026-08-12 19:49:06.808000000 +0800
-Change: 2026-08-12 19:49:06.808000000 +0800
- Birth: -
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000003aa00000 0000000000400000 00001000
-2       0000000000600000 000000003b400000 0000000000200000 00001000
-3       0000000000800000 000000007a200000 0000000005e00000 00001000
-4       0000000006600000 0000000002800000 0000000000200000 00001000
-5       0000000006800000 0000000003200000 0000000000400000 00001000
-6       0000000006c00000 0000000003000000 0000000000200000 00001000
-7       0000000006e00000 0000000003600000 0000000037200000 00001000
-8       000000003e000000 000000003b200000 0000000000200000 00001000
-9       000000003e200000 000000003a800000 0000000000200000 00001000
-10      000000003e400000 000000003ae00000 0000000000400000 00001000
-11      000000003e800000 000000003b600000 0000000001800000 00001001
+Add a NULL guard for restore_mqd immediately after mqd_mgr is
+resolved, unwinding via the existing error labels and returning
+-EOPNOTSUPP if the callback is not implemented. This mirrors the
+existing checkpoint_mqd guard in checkpoint_mqd().
 
-Cc: stable@kernel.org
-Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
-Cc: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-
-Backport to 6.12: retain the existing f2fs_up_write() lock API; this
-branch does not have the upstream lock tracing context. Preserve the
-checkpoint after successful range GC, outside gc_lock, before retrying
-the pinned-section allocation.
-
-Also route the existing f2fs_gc_range() error returns through a shared
-per-iteration exit. This preserves the stable branch's return values and
-loop behavior while matching the patch context needed by target commit
-2b8704b6a8b2896ccad1f5941d9a3e2c5031a470 ("f2fs: fix to reset all pinned
-status during fggc"). No functions or newer GC locking APIs are added.
-
-Stable-dep-of: 2b8704b6a8b2 ("f2fs: fix to reset all pinned status during fggc")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 48f0bdf4e38e ("drm/amdkfd: Added MQD manager files for GFX12.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/f2fs/gc.c      | 12 +++++++++---
- fs/f2fs/segment.c |  9 ++++++---
- 2 files changed, 15 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index b8a9412ca1dc8..01cefe00449eb 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2119,6 +2119,7 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
- 			.ilist = LIST_HEAD_INIT(gc_list.ilist),
- 			.iroot = RADIX_TREE_INIT(gc_list.iroot, GFP_NOFS),
- 		};
-+		int err = 0;
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -617,6 +617,11 @@ static int create_queue_nocpsch(struct d
  
- 		/*
- 		 * avoid migrating empty section, as it can be allocated by
-@@ -2133,14 +2134,19 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
- 		do_garbage_collect(sbi, segno, &gc_list, FG_GC, true, false);
- 		put_gc_inode(&gc_list);
+ 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 			q->properties.type)];
++	if (qd && !mqd_mgr->restore_mqd) {
++		pr_debug("restore_mqd not implemented for this GPU\n");
++		retval = -EOPNOTSUPP;
++		goto deallocate_vmid;
++	}
+ 	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE) {
+ 		retval = allocate_hqd(dqm, q);
+ 		if (retval)
+@@ -1967,6 +1972,11 @@ static int create_queue_cpsch(struct dev
  
--		if (!dry_run && get_valid_blocks(sbi, segno, true))
--			return -EAGAIN;
-+		if (!dry_run && get_valid_blocks(sbi, segno, true)) {
-+			err = -EAGAIN;
-+			goto next;
-+		}
- 		if (dry_run && dry_run_sections &&
- 		    !get_valid_blocks(sbi, segno, true) && --gc_secs == 0)
- 			break;
+ 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 			q->properties.type)];
++	if (qd && !mqd_mgr->restore_mqd) {
++		pr_debug("restore_mqd not implemented for this GPU\n");
++		retval = -EOPNOTSUPP;
++		goto out_deallocate_doorbell;
++	}
  
- 		if (fatal_signal_pending(current))
--			return -ERESTARTSYS;
-+			err = -ERESTARTSYS;
-+next:
-+		if (err)
-+			return err;
- 	}
- 
- 	return 0;
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 4e47826b570a5..9895d5534350b 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3268,10 +3268,13 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
- 		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
- 				true, ZONED_PIN_SEC_REQUIRED_COUNT);
- 		f2fs_up_write(&sbi->gc_lock);
--
--		gc_required = false;
--		if (!err)
-+		if (err)
-+			return err;
-+		err = f2fs_sync_fs(sbi->sb, 1);
-+		if (!err) {
-+			gc_required = false;
- 			goto retry;
-+		}
- 	}
- 
- 	return err;
--- 
-2.53.0
+ 	if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
+ 		q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)
+
 
