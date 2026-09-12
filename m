@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD07430F924
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C888038D3F0
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789179739; cv=none; b=dxjzjo40Q7ajuXWgCDq+as7qyKO9NdAhT7UL4nWiCmmzE2tQDtudfqfVAQu1ASH3yNJBQYaz7dg9x5ExoIhh0N4SwggSU4riw8FGveweG1gYMwzjMqOLQekanHsyFeajGITsuIWzts1UQGBQpu6185Zp8rY1oaWfg+26pldkvD4=
+	t=1789179745; cv=none; b=myvuyYV+DJm0K5ZeNlBf2hO6w8o/EjwrJU5voUsandqoWICCr2gpeznDx9zFuRlLtROhTZ7X+YkIiteobNbtWRUbmpfDZtjZF7hR9WFIK3EHlvvGa7ZDVfK2ubQlMS15TCk0g8BkOkZ+vwF7uRagBMirng0q2AMyEBQhNNMRHT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789179739; c=relaxed/simple;
-	bh=jdyx0zJ2DKOsbeNSolEtKsQd5mg+CXC18gPYetcUlXU=;
+	s=arc-20240116; t=1789179745; c=relaxed/simple;
+	bh=uA6ayX1WTJUhqgmhkmk2wTCgOA5Ypjq99ksbJBRpS/A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GsAYF/LQzQb/BXSgcusasPss26g7z9gy3scclXgWnbptn8BzB7RMjaQjvb+aDm2O3tH53m22c24107/NaiE+KhLxU0YV9XRp0xghziCAygYEgPcP3nhpfWz9hhOBwmCNiGxAiIzc9Qm3+HD3RASM0g/2HlqD9IuVZR0S38WNdLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbGDmyOC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KXodCRhjdn2k47kBhC0SV8YY+xCy7E8/JwrqnfW6QygnYGepepx4GYKpYfz0XcXMjUewNPLSreooMnuAdeQt7XDTiTH0GhIVkx+3mR0tvoGX9yj15piDJ/hgK8qEFF+9N7ln3Z0+V/aCn45tfB/mMItL7lP5Rgt3+5u3JWURR9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQxZqUfh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbGDmyOC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B381F000FF;
-	Sat, 12 Sep 2026 02:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQxZqUfh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDCC1F000FF;
+	Sat, 12 Sep 2026 02:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789179737;
-	bh=vS9H0N9cFx1fLrtBa5P3TtEzcTMSK9fEqZNwvmygSfw=;
+	s=k20260515; t=1789179743;
+	bh=xyhJivSN6JNebxNVqFxVup6FxoG65+eNvrdDDwfO8pI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dbGDmyOC6+ThsnEq2fZuLXPx90BN7zfSLAuQYTfRAHbkkD8D3Z8ncBZltpxt1GBua
-	 3HdaHao4dGzrIeOC74ldcBmA0UDL4dl+5Ki8+bMaoiBSwhSM57d2FSLNlj3a0WLRG6
-	 XG0YSGEFjlC9RPBENCjkvY7NkUqLTh0E1g0zOMCljABOyE/A9KDSabCgPWaz71h/dT
-	 o6EAHfvV9/IrT61sbE1a6JXSaTTps3u347+Z1Vhe9ISE0blzwjCx4T6xwBkn54ECrU
-	 boFJ4fw9e0chNWA+34o7DwFv27H/j4DsgIqwL4G7DHhu8nyLTswUOmVNLry1yzOTwl
-	 VQSDl/23fDzlQ==
+	b=VQxZqUfhfmDV+7RSrVMc+Fb4lnD8pn/xuPNrvRDuGiIpK9Dc7AdhCl07A8bLIupIk
+	 pHS1Cxewgvv0Z8QcbzxI2Bh+H9lSdxcnZt5gnP4+iOG7h87bWhbYIRHimsbW0Bm6fA
+	 jdiw1dvij/J7ZhqrexKLpPOcMGsQP7xoQgJzgCvdQuWJRePgf+qRYPBd/ztP3UiJbC
+	 4FV6/u3Bof36bzkP0Y4AQFONVTrbZTfnfgxO7vxUL/DpQeTLVLpbpoRWAgYx0sqVuC
+	 3bJhMMA7TbTDPHLLVTxSOEYSLCi8Iu8N6O9+UDg2I3nyQ0cajOAXk7Gne9r/W/t88M
+	 hXorSUTmtF2Ow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
-	Chao Yu <chao@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	Daeho Jeong <daehojeong@google.com>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] f2fs: accurately adjust free_sections during free_segment_range
-Date: Fri, 11 Sep 2026 22:22:15 -0400
-Message-ID: <20260912022215.1969281-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] f2fs: fix to shrink gc_lock coverage in f2fs_gc_range()
+Date: Fri, 11 Sep 2026 22:22:20 -0400
+Message-ID: <20260912022221.1969770-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090936-revert-steersman-98a8@gregkh>
-References: <2026090936-revert-steersman-98a8@gregkh>
+In-Reply-To: <2026090944-feline-renewable-9808@gregkh>
+References: <2026090944-feline-renewable-9808@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,87 +46,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 8c963d1738fdca400082ff5f9d99e083de4f4e70 ]
+[ Upstream commit 5d49025a4e596c4c9ac0c519ef9f9a2c91396856 ]
 
-In free_segment_range(), MAIN_SECS(sbi) is temporarily reduced by `secs`
-to restrict block allocation to the safe remaining main area while valid
-blocks in the truncated range are evacuated by GC.
+In f2fs_allocate_pinning_section(), we will hold gc_lock before calling
+f2fs_gc_range() to migrate section in conventional zone, we may suffer
+worse case because we may need to traverse and migrate multiple sections
+if we failed to move blocks in section due to lot of reasons: ENOMEM,
+fail to migrate block of pinfile, racing on i_gc_rwsem.
 
-However, FREE_I(sbi)->free_sections tracks the total number of free
-sections across the whole filesystem. If any sections within the
-truncated range were already free upon entering free_segment_range(),
-failing to deduct them from free_sections causes the filesystem to
-overestimate available free sections in the active, reduced main area.
-This leads to inconsistent free section accounting during GC data
-migration and can trigger unexpected allocation failures or assertion
-errors when space is tight.
+To avoid hold gc_lock for long time to block checkpoint, let's hold
+the lock and only try to migrate one section.
 
-Fix this by calculating the number of already-free sections in the
-truncated range, deducting them from free_sections upon entering
-free_segment_range(), and restoring them on exit.
-
-Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Cc: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ retained gc_mode and gc_type declarations needed by the older inline GC reset logic. ]
+
+Backport notes for Linux 7.2:
+The stable tree lacks eae3faf210bdc ("f2fs: support dynamic
+reserve/release for device aliasing"). Drop the file.c hunk for the absent
+f2fs_ioc_reserve_dev_alias() caller and omit the unrelated
+f2fs_reset_gc_victim_resource() declaration from the header resolution.
+Keep the per-section gc_lock handling, updated f2fs_gc_range() prototype,
+and both callers present in this tree. No functions are added.
+
+This preserves the context needed for 2b8704b6a8b2 ("f2fs: fix to reset
+all pinned status during fggc"); its patch applies without conflicts.
+
+[ sashal: Reduced backport -- upstream 5d49025a4e596 touches 4 file(s), this
+  backport carries 3. Not backported here:
+  fs/f2fs/file.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 2b8704b6a8b2 ("f2fs: fix to reset all pinned status during fggc")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ fs/f2fs/f2fs.h    |  2 +-
+ fs/f2fs/gc.c      | 34 +++++++++++++++++++++++++---------
+ fs/f2fs/segment.c |  4 +---
+ 3 files changed, 27 insertions(+), 13 deletions(-)
 
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 8011bbdf2c688..93ffd1aa6a238 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4255,7 +4255,7 @@ int f2fs_gc(struct f2fs_sb_info *sbi, struct f2fs_gc_control *gc_control);
+ void f2fs_build_gc_manager(struct f2fs_sb_info *sbi);
+ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ 		unsigned int start_seg, unsigned int end_seg,
+-		bool dry_run, unsigned int dry_run_sections);
++		bool dry_run, unsigned int dry_run_sections, bool lock);
+ int f2fs_resize_fs(struct file *filp, __u64 block_count);
+ int __init f2fs_create_garbage_collection_cache(void);
+ void f2fs_destroy_garbage_collection_cache(void);
 diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index ac21950f53cd2..9de8ccad2212f 100644
+index 1eda818619747..e5bae53278fbd 100644
 --- a/fs/f2fs/gc.c
 +++ b/fs/f2fs/gc.c
-@@ -2076,8 +2076,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
- static int free_segment_range(struct f2fs_sb_info *sbi,
- 				unsigned int secs, bool dry_run)
+@@ -2150,8 +2150,9 @@ void f2fs_build_gc_manager(struct f2fs_sb_info *sbi)
+ 
+ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ 		unsigned int start_seg, unsigned int end_seg,
+-		bool dry_run, unsigned int dry_run_sections)
++		bool dry_run, unsigned int dry_run_sections, bool lock)
  {
--	unsigned int next_inuse, start, end;
-+	unsigned int secno, next_inuse, start, end, end_secno;
- 	struct cp_control cpc = { CP_RESIZE, 0, 0, 0 };
-+	unsigned int freed_secs = 0;
- 	int gc_mode, gc_type;
- 	int err = 0;
- 	int type;
-@@ -2086,6 +2087,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 	MAIN_SECS(sbi) -= secs;
- 	start = MAIN_SECS(sbi) * SEGS_PER_SEC(sbi);
- 	end = MAIN_SEGS(sbi) - 1;
-+	end_secno = GET_SEC_FROM_SEG(sbi, end);
++	struct f2fs_lock_context lc;
+ 	unsigned int segno;
+ 	unsigned int gc_secs = dry_run_sections;
  
- 	mutex_lock(&DIRTY_I(sbi)->seglist_lock);
- 	for (gc_mode = 0; gc_mode < MAX_GC_POLICY; gc_mode++)
-@@ -2097,6 +2099,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 			sbi->next_victim_seg[gc_type] = NULL_SEGNO;
- 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
- 
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	for (secno = MAIN_SECS(sbi); secno <= end_secno; secno++) {
-+		if (!test_bit(secno, FREE_I(sbi)->free_secmap))
-+			freed_secs++;
-+	}
-+	FREE_I(sbi)->free_sections -= freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
+@@ -2164,28 +2165,43 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ 			.ilist = LIST_HEAD_INIT(gc_list.ilist),
+ 			.iroot = RADIX_TREE_INIT(gc_list.iroot, GFP_NOFS),
+ 		};
++		int err = 0;
 +
- 	/* Move out cursegs from the target range */
- 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++)
- 		f2fs_allocate_segment_for_resize(sbi, type, start, end);
-@@ -2118,6 +2128,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 		f2fs_bug_on(sbi, 1);
++		if (lock)
++			f2fs_down_write_trace(&sbi->gc_lock, &lc);
+ 
+ 		/*
+ 		 * avoid migrating empty section, as it can be allocated by
+ 		 * log in parallel.
+ 		 */
+ 		if (!get_valid_blocks(sbi, segno, true))
+-			continue;
++			goto next;
+ 
+ 		if (is_cursec(sbi, GET_SEC_FROM_SEG(sbi, segno)))
+-			continue;
++			goto next;
+ 
+ 		do_garbage_collect(sbi, segno, &gc_list, FG_GC, true, false);
+ 		put_gc_inode(&gc_list);
+ 
+-		if (!dry_run && get_valid_blocks(sbi, segno, true))
+-			return -EAGAIN;
++		if (!dry_run && get_valid_blocks(sbi, segno, true)) {
++			err = -EAGAIN;
++			goto next;
++		}
+ 		if (dry_run && dry_run_sections &&
+-		    !get_valid_blocks(sbi, segno, true) && --gc_secs == 0)
+-			break;
++			!get_valid_blocks(sbi, segno, true)) {
++			--gc_secs;
++			goto next;
++		}
+ 
+ 		if (fatal_signal_pending(current))
+-			return -ERESTARTSYS;
++			err = -ERESTARTSYS;
++next:
++		if (lock)
++			f2fs_up_write_trace(&sbi->gc_lock, &lc);
++		if (err)
++			return err;
++		if (dry_run && dry_run_sections && !gc_secs)
++			return 0;
  	}
- out:
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	FREE_I(sbi)->free_sections += freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 	MAIN_SECS(sbi) += secs;
- 	return err;
- }
+ 
+ 	return 0;
+@@ -2223,7 +2239,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+ 	}
+ 
+ 	/* do GC to move out valid blocks in the range */
+-	err = f2fs_gc_range(sbi, start, end, dry_run, 0);
++	err = f2fs_gc_range(sbi, start, end, dry_run, 0, false);
+ 	if (err || dry_run)
+ 		goto out;
+ 
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 091bfb170d615..b8e360b055baf 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3357,10 +3357,8 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
+ 	f2fs_unlock_op(sbi, &lc);
+ 
+ 	if (f2fs_sb_has_blkzoned(sbi) && err == -EAGAIN && gc_required) {
+-		f2fs_down_write_trace(&sbi->gc_lock, &lc);
+ 		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
+-				true, ZONED_PIN_SEC_REQUIRED_COUNT);
+-		f2fs_up_write_trace(&sbi->gc_lock, &lc);
++				true, ZONED_PIN_SEC_REQUIRED_COUNT, true);
+ 		if (err)
+ 			return err;
+ 		err = f2fs_sync_fs(sbi->sb, 1);
 -- 
 2.53.0
 
