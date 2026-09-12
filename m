@@ -1,134 +1,499 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3CA2DC321
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3432DC321;
+	Sat, 12 Sep 2026 14:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223027; cv=none; b=WeWpHjkmJs89DJR5fEDTDS/kvUQpDxoL8rKCtqgV/3AmlJyQCjAO4Gnwo8PG7lwyCAnCMfpQUlpNsXK8ZmyOTi+CvEDmr/uF5IDgVsQPcyWYTKGGPNo6S4UpJ9u5H9EHcB+wBWnN6NZKQUPqik4yqUQ2JCMwz95ftOCOk+pfO+g=
+	t=1789223030; cv=none; b=aBDw3xkbiZF0NsDT6I4aUl03zqMCVbgeSM2qUVQXSyeIvy34hiVegqb1hms1pWUctRMNkmmcJy+eQgym/SHnx2r2r4CjjyCze9GL4maiWeYilVP5uHdamo2Q0hIBiTPt4UashVVTfcfpceDJ1GB/zcPcwNrFY7GG53tVguFhtYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223027; c=relaxed/simple;
-	bh=VfA47a79+f1af2gISh5Xdk/X6jth3MAkD0RvDbZp7eI=;
+	s=arc-20240116; t=1789223030; c=relaxed/simple;
+	bh=xyNPmceRaBn/1sCiCVZ8e4+43bvXwcoG2OIcYFig/z8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nip3Oil3MCPIY5/ywk9t8KR7bLfQConHV8u0GBv2yMR6qBeAGCEKY9JYtpM300sYAU89QMQkM7jlUNNndPk3OFVUqEPzYX18LIVQxLWZ+mp0jZZMYtXPjGyS1fS3FQKW/ty82jUzI26iKCjcrzu7yeCEd/S5GYkJPuLPH7HZ5Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ds8iXXF6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iLZoztI7o1W3ToX/34/wZ5z36/8IWI1AcNRpLqYH4TdpD5w8XIMaZ/1P17ARqclru7rhWAswliauje77ahf89UndR7TAkRFSwplMKzGCHYIQhuCZ4KUeauU9ILJO9cnrhjs6+8GM/1eOnNt4ZkzCasKUSU8oInTye8XBrxGWd0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DrSTxHVq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ds8iXXF6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC511F000FF;
-	Sat, 12 Sep 2026 14:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789223026;
-	bh=SlhlWNLLJM9mVRmoPIFHbyrXTEZY6Q0bsj5Mb9WF4ls=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DrSTxHVq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B232C1F000FF;
+	Sat, 12 Sep 2026 14:23:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789223028;
+	bh=6MoRWvW0AE/qk6VJY3GrpN4XPqiOkhmtQfg1wCdsw2s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ds8iXXF6i9yodVqJyJmnBqlA8nELwIL5aL2atSoNUsYZAaNepVAhZcehURj1C/8Tv
-	 mRRKO2QLRhwZ4mOflm72NP9xDEBp/uHBzjF7N+bRiEQ84cqMKKhOYfpTwVcaYgQGyV
-	 wvsQwq+iJ8VVUZgeyINj47dU6qqYJYHOCVWgs3wVZKPwuQ8+TbLcIaoAXkrmKGFPZO
-	 QM5XfCN2Na85OxHhN+/57xGjfL6iGk48qlINp47pU+g5yb3CMkCcRfMUnsdIC/S6Hb
-	 ZDwWD8gb5ZuZGaC8u1SUp7w7vM4/gunH1Ygk1itrjUjV+g1VtIjTuv60B/APcehAT5
-	 J/fdPkFTdP7wQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=DrSTxHVq32kUOmMlc2zgh+0CcO9koke9jSFvwwOQqhJuza03qcf58rZb1GCpfL/0I
+	 3oE2klufj9SJNULqx1ogfFjAWJp2cP3afcTl/TzHspT3PDATca1t7ZX6kWUkWN5+t+
+	 5XbSqO4Dx/zVb2On4oMq8TdNzsW57lJiSCWl39ks=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yajun Deng <yajun.deng@linux.dev>,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] f2fs: accurately adjust free_sections during free_segment_range
-Date: Sat, 12 Sep 2026 10:23:44 -0400
-Message-ID: <20260912142344.2926672-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090938-stress-gallery-d468@gregkh>
-References: <2026090938-stress-gallery-d468@gregkh>
+Subject: [PATCH 6.6 0705/1424] USB: core: Use device_driver directly in struct usb_driver and usb_device_driver
+Date: Sat, 12 Sep 2026 08:52:17 +0200
+Message-ID: <20260912065623.087017896@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 8c963d1738fdca400082ff5f9d99e083de4f4e70 ]
+------------------
 
-In free_segment_range(), MAIN_SECS(sbi) is temporarily reduced by `secs`
-to restrict block allocation to the safe remaining main area while valid
-blocks in the truncated range are evacuated by GC.
+From: Yajun Deng <yajun.deng@linux.dev>
 
-However, FREE_I(sbi)->free_sections tracks the total number of free
-sections across the whole filesystem. If any sections within the
-truncated range were already free upon entering free_segment_range(),
-failing to deduct them from free_sections causes the filesystem to
-overestimate available free sections in the active, reduced main area.
-This leads to inconsistent free section accounting during GC data
-migration and can trigger unexpected allocation failures or assertion
-errors when space is tight.
+[ Upstream commit 49a78b05d5ca1e23fd737747a8757b8bdc319b30 ]
 
-Fix this by calculating the number of already-free sections in the
-truncated range, deducting them from free_sections upon entering
-free_segment_range(), and restoring them on exit.
+There is usbdrv_wrap in struct usb_driver and usb_device_driver, it
+contains device_driver and for_devices. for_devices is used to
+distinguish between device drivers and interface drivers.
 
-Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ adapted the changes to free_segment_range()’s inline GC logic because the newer helper functions are absent. ]
+Like the is_usb_device(), it tests the type of the device. We can test
+that if the probe of device_driver is equal to usb_probe_device in
+is_usb_device_driver(), and then the struct usbdrv_wrap is no longer
+needed.
+
+Clean up struct usbdrv_wrap, use device_driver directly in struct
+usb_driver and usb_device_driver. This makes the code cleaner.
+
+Signed-off-by: Yajun Deng <yajun.deng@linux.dev>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://lore.kernel.org/r/20240104032822.1896596-1-yajun.deng@linux.dev
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: ef8154d8b52d ("usb: fix UAF when probe runs concurrent to dyn ID removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/bluetooth/btusb.c                     |  6 +-
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c  |  2 +-
+ .../broadcom/brcm80211/brcmfmac/usb.c         |  2 +-
+ drivers/net/wireless/marvell/mwifiex/usb.c    |  2 +-
+ drivers/usb/core/driver.c                     | 59 ++++++++++---------
+ drivers/usb/core/usb.c                        |  2 +-
+ drivers/usb/core/usb.h                        |  8 +--
+ drivers/usb/misc/onboard_usb_hub.c            |  2 +-
+ drivers/usb/serial/bus.c                      |  2 +-
+ drivers/usb/serial/usb-serial.c               |  2 +-
+ drivers/usb/storage/uas.c                     |  2 +-
+ drivers/usb/usbip/stub_main.c                 |  8 +--
+ include/linux/usb.h                           | 24 +++-----
+ 13 files changed, 53 insertions(+), 68 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 379839f5b4b74..1831970b929c2 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1855,8 +1855,9 @@ void f2fs_build_gc_manager(struct f2fs_sb_info *sbi)
- static int free_segment_range(struct f2fs_sb_info *sbi,
- 				unsigned int secs, bool gc_only)
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 176c365e82eb5..4f2dd32d39b04 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -4348,10 +4348,8 @@ static struct usb_driver btusb_driver = {
+ 	.disable_hub_initiated_lpm = 1,
+ 
+ #ifdef CONFIG_DEV_COREDUMP
+-	.drvwrap = {
+-		.driver = {
+-			.coredump = btusb_coredump,
+-		},
++	.driver = {
++		.coredump = btusb_coredump,
+ 	},
+ #endif
+ };
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+index 8fd064db17176..3a13aecf7eb70 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+@@ -1142,7 +1142,7 @@ static void __exit peak_usb_exit(void)
+ 	int err;
+ 
+ 	/* last chance do send any synchronous commands here */
+-	err = driver_for_each_device(&peak_usb_driver.drvwrap.driver, NULL,
++	err = driver_for_each_device(&peak_usb_driver.driver, NULL,
+ 				     NULL, peak_usb_do_device_exit);
+ 	if (err)
+ 		pr_err("%s: failed to stop all can devices (err %d)\n",
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
+index 906591bae5382..21cfc97542c59 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
+@@ -1586,7 +1586,7 @@ static int brcmf_usb_reset_device(struct device *dev, void *notused)
+ 
+ void brcmf_usb_exit(void)
  {
--	unsigned int segno, next_inuse, start, end;
-+	unsigned int segno, secno, next_inuse, start, end, end_secno;
- 	struct cp_control cpc = { CP_RESIZE, 0, 0, 0 };
-+	unsigned int freed_secs = 0;
- 	int gc_mode, gc_type;
- 	int err = 0;
- 	int type;
-@@ -1865,6 +1866,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 	MAIN_SECS(sbi) -= secs;
- 	start = MAIN_SECS(sbi) * sbi->segs_per_sec;
- 	end = MAIN_SEGS(sbi) - 1;
-+	end_secno = GET_SEC_FROM_SEG(sbi, end);
+-	struct device_driver *drv = &brcmf_usbdrvr.drvwrap.driver;
++	struct device_driver *drv = &brcmf_usbdrvr.driver;
+ 	int ret;
  
- 	mutex_lock(&DIRTY_I(sbi)->seglist_lock);
- 	for (gc_mode = 0; gc_mode < MAX_GC_POLICY; gc_mode++)
-@@ -1876,6 +1878,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 			sbi->next_victim_seg[gc_type] = NULL_SEGNO;
- 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
+ 	brcmf_dbg(USB, "Enter\n");
+diff --git a/drivers/net/wireless/marvell/mwifiex/usb.c b/drivers/net/wireless/marvell/mwifiex/usb.c
+index d3ab9572e7115..515e6db410f28 100644
+--- a/drivers/net/wireless/marvell/mwifiex/usb.c
++++ b/drivers/net/wireless/marvell/mwifiex/usb.c
+@@ -687,7 +687,7 @@ static struct usb_driver mwifiex_usb_driver = {
+ 	.suspend = mwifiex_usb_suspend,
+ 	.resume = mwifiex_usb_resume,
+ 	.soft_unbind = 1,
+-	.drvwrap.driver = {
++	.driver = {
+ 		.coredump = mwifiex_usb_coredump,
+ 	},
+ };
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index f58a0299fb3bd..f64910e4f7c04 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -189,13 +189,13 @@ static int usb_create_newid_files(struct usb_driver *usb_drv)
+ 		goto exit;
  
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	for (secno = MAIN_SECS(sbi); secno <= end_secno; secno++) {
-+		if (!test_bit(secno, FREE_I(sbi)->free_secmap))
-+			freed_secs++;
-+	}
-+	FREE_I(sbi)->free_sections -= freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
-+
- 	/* Move out cursegs from the target range */
- 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++)
- 		f2fs_allocate_segment_for_resize(sbi, type, start, end);
-@@ -1913,6 +1923,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 		f2fs_bug_on(sbi, 1);
+ 	if (usb_drv->probe != NULL) {
+-		error = driver_create_file(&usb_drv->drvwrap.driver,
++		error = driver_create_file(&usb_drv->driver,
+ 					   &driver_attr_new_id);
+ 		if (error == 0) {
+-			error = driver_create_file(&usb_drv->drvwrap.driver,
++			error = driver_create_file(&usb_drv->driver,
+ 					&driver_attr_remove_id);
+ 			if (error)
+-				driver_remove_file(&usb_drv->drvwrap.driver,
++				driver_remove_file(&usb_drv->driver,
+ 						&driver_attr_new_id);
+ 		}
  	}
- out:
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	FREE_I(sbi)->free_sections += freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 	MAIN_SECS(sbi) += secs;
- 	return err;
+@@ -209,9 +209,9 @@ static void usb_remove_newid_files(struct usb_driver *usb_drv)
+ 		return;
+ 
+ 	if (usb_drv->probe != NULL) {
+-		driver_remove_file(&usb_drv->drvwrap.driver,
++		driver_remove_file(&usb_drv->driver,
+ 				&driver_attr_remove_id);
+-		driver_remove_file(&usb_drv->drvwrap.driver,
++		driver_remove_file(&usb_drv->driver,
+ 				   &driver_attr_new_id);
+ 	}
  }
+@@ -549,7 +549,7 @@ int usb_driver_claim_interface(struct usb_driver *driver,
+ 	if (!iface->authorized)
+ 		return -ENODEV;
+ 
+-	dev->driver = &driver->drvwrap.driver;
++	dev->driver = &driver->driver;
+ 	usb_set_intfdata(iface, data);
+ 	iface->needs_binding = 0;
+ 
+@@ -612,7 +612,7 @@ void usb_driver_release_interface(struct usb_driver *driver,
+ 	struct device *dev = &iface->dev;
+ 
+ 	/* this should never happen, don't release something that's not ours */
+-	if (!dev->driver || dev->driver != &driver->drvwrap.driver)
++	if (!dev->driver || dev->driver != &driver->driver)
+ 		return;
+ 
+ 	/* don't release from within disconnect() */
+@@ -947,7 +947,7 @@ static int __usb_bus_reprobe_drivers(struct device *dev, void *data)
+ 	int ret;
+ 
+ 	/* Don't reprobe if current driver isn't usb_generic_driver */
+-	if (dev->driver != &usb_generic_driver.drvwrap.driver)
++	if (dev->driver != &usb_generic_driver.driver)
+ 		return 0;
+ 
+ 	udev = to_usb_device(dev);
+@@ -961,6 +961,11 @@ static int __usb_bus_reprobe_drivers(struct device *dev, void *data)
+ 	return 0;
+ }
+ 
++bool is_usb_device_driver(const struct device_driver *drv)
++{
++	return drv->probe == usb_probe_device;
++}
++
+ /**
+  * usb_register_device_driver - register a USB device (not interface) driver
+  * @new_udriver: USB operations for the device driver
+@@ -980,15 +985,14 @@ int usb_register_device_driver(struct usb_device_driver *new_udriver,
+ 	if (usb_disabled())
+ 		return -ENODEV;
+ 
+-	new_udriver->drvwrap.for_devices = 1;
+-	new_udriver->drvwrap.driver.name = new_udriver->name;
+-	new_udriver->drvwrap.driver.bus = &usb_bus_type;
+-	new_udriver->drvwrap.driver.probe = usb_probe_device;
+-	new_udriver->drvwrap.driver.remove = usb_unbind_device;
+-	new_udriver->drvwrap.driver.owner = owner;
+-	new_udriver->drvwrap.driver.dev_groups = new_udriver->dev_groups;
++	new_udriver->driver.name = new_udriver->name;
++	new_udriver->driver.bus = &usb_bus_type;
++	new_udriver->driver.probe = usb_probe_device;
++	new_udriver->driver.remove = usb_unbind_device;
++	new_udriver->driver.owner = owner;
++	new_udriver->driver.dev_groups = new_udriver->dev_groups;
+ 
+-	retval = driver_register(&new_udriver->drvwrap.driver);
++	retval = driver_register(&new_udriver->driver);
+ 
+ 	if (!retval) {
+ 		pr_info("%s: registered new device driver %s\n",
+@@ -1020,7 +1024,7 @@ void usb_deregister_device_driver(struct usb_device_driver *udriver)
+ 	pr_info("%s: deregistering device driver %s\n",
+ 			usbcore_name, udriver->name);
+ 
+-	driver_unregister(&udriver->drvwrap.driver);
++	driver_unregister(&udriver->driver);
+ }
+ EXPORT_SYMBOL_GPL(usb_deregister_device_driver);
+ 
+@@ -1048,18 +1052,17 @@ int usb_register_driver(struct usb_driver *new_driver, struct module *owner,
+ 	if (usb_disabled())
+ 		return -ENODEV;
+ 
+-	new_driver->drvwrap.for_devices = 0;
+-	new_driver->drvwrap.driver.name = new_driver->name;
+-	new_driver->drvwrap.driver.bus = &usb_bus_type;
+-	new_driver->drvwrap.driver.probe = usb_probe_interface;
+-	new_driver->drvwrap.driver.remove = usb_unbind_interface;
+-	new_driver->drvwrap.driver.owner = owner;
+-	new_driver->drvwrap.driver.mod_name = mod_name;
+-	new_driver->drvwrap.driver.dev_groups = new_driver->dev_groups;
++	new_driver->driver.name = new_driver->name;
++	new_driver->driver.bus = &usb_bus_type;
++	new_driver->driver.probe = usb_probe_interface;
++	new_driver->driver.remove = usb_unbind_interface;
++	new_driver->driver.owner = owner;
++	new_driver->driver.mod_name = mod_name;
++	new_driver->driver.dev_groups = new_driver->dev_groups;
+ 	spin_lock_init(&new_driver->dynids.lock);
+ 	INIT_LIST_HEAD(&new_driver->dynids.list);
+ 
+-	retval = driver_register(&new_driver->drvwrap.driver);
++	retval = driver_register(&new_driver->driver);
+ 	if (retval)
+ 		goto out;
+ 
+@@ -1074,7 +1077,7 @@ int usb_register_driver(struct usb_driver *new_driver, struct module *owner,
+ 	return retval;
+ 
+ out_newid:
+-	driver_unregister(&new_driver->drvwrap.driver);
++	driver_unregister(&new_driver->driver);
+ 
+ 	pr_err("%s: error %d registering interface driver %s\n",
+ 		usbcore_name, retval, new_driver->name);
+@@ -1099,7 +1102,7 @@ void usb_deregister(struct usb_driver *driver)
+ 			usbcore_name, driver->name);
+ 
+ 	usb_remove_newid_files(driver);
+-	driver_unregister(&driver->drvwrap.driver);
++	driver_unregister(&driver->driver);
+ 	usb_free_dynids(driver);
+ }
+ EXPORT_SYMBOL_GPL(usb_deregister);
+diff --git a/drivers/usb/core/usb.c b/drivers/usb/core/usb.c
+index da6d5e5f79e7a..477b05df35e7a 100644
+--- a/drivers/usb/core/usb.c
++++ b/drivers/usb/core/usb.c
+@@ -431,7 +431,7 @@ struct usb_interface *usb_find_interface(struct usb_driver *drv, int minor)
+ 	struct device *dev;
+ 
+ 	argb.minor = minor;
+-	argb.drv = &drv->drvwrap.driver;
++	argb.drv = &drv->driver;
+ 
+ 	dev = bus_find_device(&usb_bus_type, NULL, &argb, __find_interface);
+ 
+diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
+index 60363153fc3f3..bfecb50773b6b 100644
+--- a/drivers/usb/core/usb.h
++++ b/drivers/usb/core/usb.h
+@@ -175,13 +175,7 @@ static inline int is_root_hub(struct usb_device *udev)
+ 	return (udev->parent == NULL);
+ }
+ 
+-/* Do the same for device drivers and interface drivers. */
+-
+-static inline int is_usb_device_driver(struct device_driver *drv)
+-{
+-	return container_of(drv, struct usbdrv_wrap, driver)->
+-			for_devices;
+-}
++extern bool is_usb_device_driver(const struct device_driver *drv);
+ 
+ /* for labeling diagnostics */
+ extern const char *usbcore_name;
+diff --git a/drivers/usb/misc/onboard_usb_hub.c b/drivers/usb/misc/onboard_usb_hub.c
+index d72130eda57d6..cce3bd4da8e2e 100644
+--- a/drivers/usb/misc/onboard_usb_hub.c
++++ b/drivers/usb/misc/onboard_usb_hub.c
+@@ -233,7 +233,7 @@ static void onboard_hub_attach_usb_driver(struct work_struct *work)
+ {
+ 	int err;
+ 
+-	err = driver_attach(&onboard_hub_usbdev_driver.drvwrap.driver);
++	err = driver_attach(&onboard_hub_usbdev_driver.driver);
+ 	if (err)
+ 		pr_err("Failed to attach USB driver: %d\n", err);
+ }
+diff --git a/drivers/usb/serial/bus.c b/drivers/usb/serial/bus.c
+index 3eb8dc3a1a8f5..6c812d01b37d7 100644
+--- a/drivers/usb/serial/bus.c
++++ b/drivers/usb/serial/bus.c
+@@ -113,7 +113,7 @@ static ssize_t new_id_store(struct device_driver *driver,
+ 	if (retval >= 0 && usb_drv->usb_driver != NULL)
+ 		retval = usb_store_new_id(&usb_drv->usb_driver->dynids,
+ 					  usb_drv->usb_driver->id_table,
+-					  &usb_drv->usb_driver->drvwrap.driver,
++					  &usb_drv->usb_driver->driver,
+ 					  buf, count);
+ 	return retval;
+ }
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index be81d4a2f79f9..fff16bd34fea0 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1516,7 +1516,7 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
+ 
+ 	/* Now set udriver's id_table and look for matches */
+ 	udriver->id_table = id_table;
+-	rc = driver_attach(&udriver->drvwrap.driver);
++	rc = driver_attach(&udriver->driver);
+ 	return 0;
+ 
+ err_deregister_drivers:
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index b54b4bfeb45eb..00b1b6f5ca626 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -1257,7 +1257,7 @@ static struct usb_driver uas_driver = {
+ 	.suspend = uas_suspend,
+ 	.resume = uas_resume,
+ 	.reset_resume = uas_reset_resume,
+-	.drvwrap.driver.shutdown = uas_shutdown,
++	.driver.shutdown = uas_shutdown,
+ 	.id_table = uas_usb_ids,
+ };
+ 
+diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
+index 0a6624d37929e..79110a69d697c 100644
+--- a/drivers/usb/usbip/stub_main.c
++++ b/drivers/usb/usbip/stub_main.c
+@@ -377,14 +377,14 @@ static int __init usbip_host_init(void)
+ 		goto err_usb_register;
+ 	}
+ 
+-	ret = driver_create_file(&stub_driver.drvwrap.driver,
++	ret = driver_create_file(&stub_driver.driver,
+ 				 &driver_attr_match_busid);
+ 	if (ret) {
+ 		pr_err("driver_create_file failed\n");
+ 		goto err_create_file;
+ 	}
+ 
+-	ret = driver_create_file(&stub_driver.drvwrap.driver,
++	ret = driver_create_file(&stub_driver.driver,
+ 				 &driver_attr_rebind);
+ 	if (ret) {
+ 		pr_err("driver_create_file failed\n");
+@@ -402,10 +402,10 @@ static int __init usbip_host_init(void)
+ 
+ static void __exit usbip_host_exit(void)
+ {
+-	driver_remove_file(&stub_driver.drvwrap.driver,
++	driver_remove_file(&stub_driver.driver,
+ 			   &driver_attr_match_busid);
+ 
+-	driver_remove_file(&stub_driver.drvwrap.driver,
++	driver_remove_file(&stub_driver.driver,
+ 			   &driver_attr_rebind);
+ 
+ 	/*
+diff --git a/include/linux/usb.h b/include/linux/usb.h
+index e49e5ab57813c..00e67827a9bfd 100644
+--- a/include/linux/usb.h
++++ b/include/linux/usb.h
+@@ -1145,16 +1145,6 @@ extern ssize_t usb_store_new_id(struct usb_dynids *dynids,
+ 
+ extern ssize_t usb_show_dynids(struct usb_dynids *dynids, char *buf);
+ 
+-/**
+- * struct usbdrv_wrap - wrapper for driver-model structure
+- * @driver: The driver-model core driver structure.
+- * @for_devices: Non-zero for device drivers, 0 for interface drivers.
+- */
+-struct usbdrv_wrap {
+-	struct device_driver driver;
+-	int for_devices;
+-};
+-
+ /**
+  * struct usb_driver - identifies USB interface driver to usbcore
+  * @name: The driver name should be unique among USB drivers,
+@@ -1195,7 +1185,7 @@ struct usbdrv_wrap {
+  *	is bound to the driver.
+  * @dynids: used internally to hold the list of dynamically added device
+  *	ids for this driver.
+- * @drvwrap: Driver-model core structure wrapper.
++ * @driver: The driver-model core driver structure.
+  * @no_dynamic_id: if set to 1, the USB core will not allow dynamic ids to be
+  *	added to this driver by preventing the sysfs file from being created.
+  * @supports_autosuspend: if set to 0, the USB core will not allow autosuspend
+@@ -1243,13 +1233,13 @@ struct usb_driver {
+ 	const struct attribute_group **dev_groups;
+ 
+ 	struct usb_dynids dynids;
+-	struct usbdrv_wrap drvwrap;
++	struct device_driver driver;
+ 	unsigned int no_dynamic_id:1;
+ 	unsigned int supports_autosuspend:1;
+ 	unsigned int disable_hub_initiated_lpm:1;
+ 	unsigned int soft_unbind:1;
+ };
+-#define	to_usb_driver(d) container_of(d, struct usb_driver, drvwrap.driver)
++#define	to_usb_driver(d) container_of(d, struct usb_driver, driver)
+ 
+ /**
+  * struct usb_device_driver - identifies USB device driver to usbcore
+@@ -1267,7 +1257,7 @@ struct usb_driver {
+  * @resume: Called when the device is being resumed by the system.
+  * @dev_groups: Attributes attached to the device that will be created once it
+  *	is bound to the driver.
+- * @drvwrap: Driver-model core structure wrapper.
++ * @driver: The driver-model core driver structure.
+  * @id_table: used with @match() to select better matching driver at
+  * 	probe() time.
+  * @supports_autosuspend: if set to 0, the USB core will not allow autosuspend
+@@ -1276,7 +1266,7 @@ struct usb_driver {
+  *	resume and suspend functions will be called in addition to the driver's
+  *	own, so this part of the setup does not need to be replicated.
+  *
+- * USB drivers must provide all the fields listed above except drvwrap,
++ * USB drivers must provide all the fields listed above except driver,
+  * match, and id_table.
+  */
+ struct usb_device_driver {
+@@ -1289,13 +1279,13 @@ struct usb_device_driver {
+ 	int (*suspend) (struct usb_device *udev, pm_message_t message);
+ 	int (*resume) (struct usb_device *udev, pm_message_t message);
+ 	const struct attribute_group **dev_groups;
+-	struct usbdrv_wrap drvwrap;
++	struct device_driver driver;
+ 	const struct usb_device_id *id_table;
+ 	unsigned int supports_autosuspend:1;
+ 	unsigned int generic_subclass:1;
+ };
+ #define	to_usb_device_driver(d) container_of(d, struct usb_device_driver, \
+-		drvwrap.driver)
++		driver)
+ 
+ /**
+  * struct usb_class_driver - identifies a USB driver that wants to use the USB major number
 -- 
 2.53.0
+
+
 
