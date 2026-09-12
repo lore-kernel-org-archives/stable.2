@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1093F356A0D;
-	Sat, 12 Sep 2026 11:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AB847884A
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212091; cv=none; b=riBVISRnhE5jxY4/SHFE9pf5y1zEV02CfuFmS4xqRVlqpEmoCAwksM6dElhgJ0SE9aKFxZzb8ywA7m32NXOraiP5ywJbf5WPXSynR6a9VQ+bSjfshg31A7gZdZUa1wkpcmcZLxNfyGF76Hs6jSjEntuPFKImrBghqDf9JgTPu4E=
+	t=1789212091; cv=none; b=XvHS2L0TUNLVf+cqpYQz1T7UMOs27IuKVsxhwvzeIZWLEKfSOUiFwZY8Fc45HwEg4fcl7Hx0QgHWpmB021w4A+C2Z30iZvZ1qedlxv1zJOmowlYApUdCwUIjMrbtvXvkdNesh6PcHBILSH1NzCi+XSOzeq1lR7BdBy09C7HpAxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789212091; c=relaxed/simple;
-	bh=UGbV4/w/1gk/FFpYalxsTGOlfL4cfnF3KyDKWfX14DQ=;
+	bh=MXel9W2TKgOxLpr4L2mWkFoutlYbnlyggUHa3OVNuWY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=agvskg78ZxLRK0IvxA6yt+WbgcxkJs74FpQa760WBw7asz/sqDLdIR8HGmlke8it7P6r+nNe/idLAvwgQaIB4X1GsVsdotrGhQD8/YHtoPYffpVDwO4+yPs/Tjbo4IIrhRKj6bLWsKHeX2lw6dX8cLJZhCmSa9PNj4xooqZiwrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ADbiTTQX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PBvG5fE6TXm+5qHobdNqAgBjE9YnpISdfhzLFtZZ9DRUHYVKAQAYwVQWzgtdNBLJIAnG7vGB+UaSWogWvyPZAFi7VewSNWT7xVBJdpfTfzZzYqT31jxFflYmQhkfxYWwoBtB5PxMEh1FkknzQCbcrbYIYqvOaq0bX05SvPIIWFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtPyL1Hg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ADbiTTQX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DC71F0089A;
-	Sat, 12 Sep 2026 11:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789212090;
-	bh=pmo2AfE1w8uEQEs7FgK3lE23EU/Ca81aYqBbLVkti/8=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtPyL1Hg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99E61F0089E;
+	Sat, 12 Sep 2026 11:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789212090;
+	bh=Jr0s5dJwqWDKbo+BFbmhJAdBf3OB/ncXTwoodLuMH1w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ADbiTTQXO0CxLXRHaHxcdsvBs16s8ePIecUGenJ2LpM/Bc9/VqPJ0xEyycTUCTVTN
-	 9gp21DxtMSBdbsFALoggqpj4aJQ4UZPX/i48qJZwfu6Vv6HVP89dnw4f8pEwGQxh+9
-	 zPBNCo4Nh8VBS2kF+8srbFJYvslLuzw1GKJvZ3qQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=GtPyL1HglNcop771dLXaiqGk5IJ86CdFC9xpuf39CvOWK9uAJMd8fpsHDtnrr+1du
+	 +P/IjK0u7hFKewgEGw+CERn17LdvOo3cVjgpM6NH37HCfqIhpGyviZa12NAHhD3OcZ
+	 C8dtroLwGH+jzHpOMTdBnexWA2TgYfLuOxC5LAt5YgnCWftvyrtxQNJu8Ut8UBG/O3
+	 hoQrtky4VSnBvX1uk2fjIc/D+C/5Vvn0YzP8C8RFKQHI0JfhAmj6dqAGFFQFCgzmKF
+	 n6iOl8nHLgm5Ep7XchSp87UxRAnDgZ9V8xVA1EQOr4RzrGonAbsDtNjlf136tEqMey
+	 GbcooFXmpk4iw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hidayath Khan <hidayath@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1364/1518] net/smc: free stashed qentry before overwrite in REQ_ADD_LINK to ADD_LINK transition
-Date: Sat, 12 Sep 2026 08:58:53 +0200
-Message-ID: <20260912065654.392904357@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y 5/6] f2fs: introduce is_{meta,node}_folio
+Date: Sat, 12 Sep 2026 07:21:23 -0400
+Message-ID: <20260912112124.2312624-5-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260912112124.2312624-1-sashal@kernel.org>
+References: <2026090958-headband-sturdy-0f93@gregkh>
+ <20260912112124.2312624-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,66 +46,186 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit 019a8912425e231511042a4eae48b7a9e459453c ]
 
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Just cleanup, no changes.
 
-[ Upstream commit 036322025d6e440cb75fc6fecbba9a16b271a2ae ]
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-When smc_llc_event_handler() transitions the local LLC flow from
-SMC_LLC_FLOW_REQ_ADD_LINK to SMC_LLC_FLOW_ADD_LINK on arrival of an ADD_LINK
-request, it calls smc_llc_flow_qentry_set() unconditionally:
+Adapt this dependency to the page-based stable tree so that the unchanged
+ce366bfa821e fsync retry fix applies cleanly.
 
-	if (lgr->llc_flow_lcl.type == SMC_LLC_FLOW_REQ_ADD_LINK) {
-		lgr->llc_flow_lcl.type = SMC_LLC_FLOW_ADD_LINK;
-		smc_llc_flow_qentry_set(&lgr->llc_flow_lcl, qentry);
-		...
-	}
+Keep the node mapping checks in last_fsync_dnode() and
+f2fs_fsync_node_pages(). Implement is_node_folio() as a macro which checks
+for a NULL mapping before looking up the superblock. The upstream helper
+would dereference a detached folio's NULL mapping in the race that the
+target addresses. Drop the unrelated metadata, data I/O, GC and other
+node cleanup hunks instead of importing their missing folio conversions.
 
-A CONFIRM_LINK or ADD_LINK_CONT arriving while flow->type is
-SMC_LLC_FLOW_REQ_ADD_LINK is stashed into flow->qentry via the
-SMC_LLC_CONFIRM_LINK / SMC_LLC_ADD_LINK_CONT handler (which stores into
-flow->qentry for any non-NONE flow type).  When the subsequent ADD_LINK
-arrives, the REQ_ADD_LINK branch overwrites flow->qentry with the new pointer
-without first freeing the stashed allocation, leaking one kmalloc object.
+Use a local last_folio in the fsync retry block and provide macro adapters
+for folio put and writeback wait operations using the stable page APIs.
+Normalize existing node-write failures to -EIO at their source, then
+return ret unchanged so the target's new -EAGAIN result is preserved.
+Existing error behavior is unchanged before the target is applied.
 
-The stashed entry has no consumer: smc_llc_wait() is only called from
-llc_add_link_work, which is not yet scheduled while the flow type remains
-REQ_ADD_LINK.  No waiter is sleeping on llc_msg_waiter at this point.
-It is safe to unconditionally free any stashed qentry before
-the overwrite.
+Earlier dependencies already converted node allocation and truncation to
+folios without supplying all prerequisites. Adapt the existing
+f2fs_new_node_folio() and f2fs_get_node_folio() implementations to the
+available page allocation and lookup functions, retaining allocation
+failure and error-pointer handling. The put/writeback adapters also
+resolve the missing APIs in those earlier conversions.
 
-Call smc_llc_flow_qentry_del() before smc_llc_flow_qentry_set() in the
-REQ_ADD_LINK branch.  smc_llc_flow_qentry_del() already checks flow->qentry
-before freeing, so the normal path where no entry is stashed is a no-op.
+No functions are added by this backport; the adaptation uses macros and
+changes existing functions only. Leave the retry mapping guard itself
+to the target commit.
 
-Fixes: b4ba4652b3f8 ("net/smc: extend LLC layer for SMC-Rv2")
-Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
-Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Link: https://patch.msgid.link/20260818073107.466506-1-mjambigi@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Reduced backport -- upstream 019a8912425e2 touches 5 file(s), this
+  backport carries 2. Not backported here:
+  fs/f2fs/checkpoint.c
+  fs/f2fs/data.c
+  fs/f2fs/gc.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: ce366bfa821e ("f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/smc/smc_llc.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/f2fs/f2fs.h | 14 ++++++++++++++
+ fs/f2fs/node.c | 33 +++++++++++++++++++++------------
+ 2 files changed, 35 insertions(+), 12 deletions(-)
 
-diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
-index 51937265203c8..cfc027435e5c3 100644
---- a/net/smc/smc_llc.c
-+++ b/net/smc/smc_llc.c
-@@ -1945,6 +1945,8 @@ static void smc_llc_event_handler(struct smc_llc_qentry *qentry)
- 			if (lgr->llc_flow_lcl.type ==
- 					SMC_LLC_FLOW_REQ_ADD_LINK) {
- 				/* server started add_link processing */
-+				/* free any qentry stashed in REQ_ADD_LINK state */
-+				smc_llc_flow_qentry_del(&lgr->llc_flow_lcl);
- 				lgr->llc_flow_lcl.type = SMC_LLC_FLOW_ADD_LINK;
- 				smc_llc_flow_qentry_set(&lgr->llc_flow_lcl,
- 							qentry);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 93b0bafcb0888..425ac7ac30dac 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2055,6 +2055,12 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+ 	return sbi->node_inode->i_mapping;
+ }
+ 
++/* The caller must stabilize folio->mapping before testing it. */
++#define is_node_folio(folio) ({						\
++	struct address_space *__mapping = (folio)->mapping;		\
++	__mapping && __mapping == NODE_MAPPING(F2FS_M_SB(__mapping));	\
++})
++
+ static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+ {
+ 	return test_bit(type, &sbi->s_flag);
+@@ -2771,6 +2777,12 @@ static inline void f2fs_put_page(struct page *page, int unlock)
+ 	put_page(page);
+ }
+ 
++#define f2fs_folio_put(_folio, unlock) do {				\
++	struct folio *__folio = (_folio);					\
++	if (!IS_ERR_OR_NULL(__folio))					\
++		f2fs_put_page(&__folio->page, (unlock));			\
++} while (0)
++
+ static inline void f2fs_put_dnode(struct dnode_of_data *dn)
+ {
+ 	if (dn->node_page)
+@@ -3694,6 +3706,8 @@ void f2fs_update_device_state(struct f2fs_sb_info *sbi, nid_t ino,
+ 					block_t blkaddr, unsigned int blkcnt);
+ void f2fs_wait_on_page_writeback(struct page *page,
+ 			enum page_type type, bool ordered, bool locked);
++#define f2fs_folio_wait_writeback(folio, type, ordered, locked)	\
++	f2fs_wait_on_page_writeback(&(folio)->page, type, ordered, locked)
+ void f2fs_wait_on_block_writeback(struct inode *inode, block_t blkaddr);
+ void f2fs_wait_on_block_writeback_range(struct inode *inode, block_t blkaddr,
+ 								block_t len);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 9df3e8fb23089..32296fc08f386 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1309,14 +1309,16 @@ struct folio *f2fs_new_node_folio(struct dnode_of_data *dn, unsigned int ofs)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(dn->inode);
+ 	struct node_info new_ni;
+ 	struct folio *folio;
++	struct page *page;
+ 	int err;
+ 
+ 	if (unlikely(is_inode_flag_set(dn->inode, FI_NO_ALLOC)))
+ 		return ERR_PTR(-EPERM);
+ 
+-	folio = f2fs_grab_cache_folio(NODE_MAPPING(sbi), dn->nid, false);
+-	if (IS_ERR(folio))
+-		return folio;
++	page = f2fs_grab_cache_page(NODE_MAPPING(sbi), dn->nid, false);
++	if (!page)
++		return ERR_PTR(-ENOMEM);
++	folio = page_folio(page);
+ 
+ 	if (unlikely((err = inc_valid_node_count(sbi, dn->inode, !ofs))))
+ 		goto fail;
+@@ -1499,7 +1501,11 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 
+ struct folio *f2fs_get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid)
+ {
+-	return __get_node_folio(sbi, nid, NULL, 0, NODE_TYPE_REGULAR);
++	struct page *page = __get_node_page(sbi, nid, NULL, 0);
++
++	if (IS_ERR(page))
++		return ERR_CAST(page);
++	return page_folio(page);
+ }
+ 
+ struct page *f2fs_get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid)
+@@ -1581,7 +1587,7 @@ static struct page *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+ 
+ 			lock_page(page);
+ 
+-			if (unlikely(page->mapping != NODE_MAPPING(sbi))) {
++			if (unlikely(!is_node_folio(page_folio(page)))) {
+ continue_unlock:
+ 				unlock_page(page);
+ 				continue;
+@@ -1811,7 +1817,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			lock_page(page);
+ 
+-			if (unlikely(page->mapping != NODE_MAPPING(sbi))) {
++			if (unlikely(!is_node_folio(page_folio(page)))) {
+ continue_unlock:
+ 				unlock_page(page);
+ 				continue;
+@@ -1855,6 +1861,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 			if (ret) {
+ 				unlock_page(page);
+ 				f2fs_put_page(last_page, 0);
++				ret = -EIO;
+ 				break;
+ 			} else if (submitted) {
+ 				nwritten++;
+@@ -1873,18 +1880,20 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 			break;
+ 	}
+ 	if (!ret && atomic && !marked) {
++		struct folio *last_folio = page_folio(last_page);
++
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+-			   ino, last_page->index);
+-		lock_page(last_page);
+-		f2fs_wait_on_page_writeback(last_page, NODE, true, true);
+-		set_page_dirty(last_page);
+-		unlock_page(last_page);
++			   ino, last_folio->index);
++		folio_lock(last_folio);
++		f2fs_folio_wait_writeback(last_folio, NODE, true, true);
++		folio_mark_dirty(last_folio);
++		folio_unlock(last_folio);
+ 		goto retry;
+ 	}
+ out:
+ 	if (nwritten)
+ 		f2fs_submit_merged_write_cond(sbi, NULL, NULL, ino, NODE);
+-	return ret ? -EIO : 0;
++	return ret;
+ }
+ 
+ static int f2fs_match_ino(struct inode *inode, unsigned long ino, void *data)
 -- 
 2.53.0
-
-
 
