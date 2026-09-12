@@ -1,124 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E220436D9F5
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF89368D62;
+	Sat, 12 Sep 2026 21:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789247080; cv=none; b=Cx619V79nRSHX91R+YHmp7bfoGuSydtJYfqimYbthw8CsFFjbfGnJbq83B7CmNVJGGXBbC1ewPB3ew1gzPnd2JgboDUqLFldz4LfbI7Q0gel6LYK5JZBgAPbBPalRWsyLecS5LrHMU5M3CUDXFadyD+nTIKNv5ja1ndzgCM0iEc=
+	t=1789247509; cv=none; b=RLwzKaLU/paadIX+cDbKNK+ukb8fG5+AeBO5BgeTQBLN6a4cKdRKRpO4aX9xMtZ/Orv/JI1ryomTBoEveX/kelBlVVPCNgbT9Ze4m+1GbrugOvBroIWXEg4ISukvAbId02TwxzLHMl+FeGbNRgRfbStSv+1/RUivkvVgal94BnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789247080; c=relaxed/simple;
-	bh=26+4uDMqHSjkecVezK2n0989DgUHxKLblb9AeRgPeV8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y6YQDqQbEYqU4vVWW9kKPSDZkRtcu8B9kPtZU07XPNyXxMUqPiueCi6DieZNermodjl7F1HgQtf3X97qvJVZNALlpJESGBRV2Qz0rrWWRSuHgi5O/c266OkBRv+1VzlZs4igSIhW34sz8AhlWBTVMuOdaZPTbECNBQyLRIEEfto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMEhfeHW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789247509; c=relaxed/simple;
+	bh=8BBQ6kjnp+uP5XIue0haE/J//P2ZW6vcDmkaSWv0rJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrYfZ0PTu9XSLDfBQjA7ySB0CPnL4OhYnjkS1w0abQ5Lkd/hBtVJGTvSnSQCyX4t4RgE5xxY/NXs3qbT20AJuQf1Z6ux6njDq5GpIn47rVoi+Kh8L9pxGaQqy1SSUN8AK7eY5QWczs8VoTyOuMP/vyDMc02P78+RCI3Bl/tbtYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=mNWXpPBU; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMEhfeHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54E591F0089C;
-	Sat, 12 Sep 2026 21:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789247078;
-	bh=Wnpb1FzDq/KUuj4lI0HQQTwsLdQNnuL4DvQlQuAKtmc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JMEhfeHWR6ihdeK8ew4TV2U8tNWsYEeYzpdrb8fX/Jb3VRFw92ZVDtWzp/OU5a0QH
-	 71LdBeRefPl3qgdeldzzZHUACTj8nmxn3kwMPEb4Zp/VK/B3MvFZcvU3YmB1b5QMN5
-	 oDLAi3Z/oD1H3dMvVRiTntg1OO6HO6G40KN8CaEEPXztimR1G8kA+B1g6YO5nF6eNa
-	 AQVzcXvAk7e/4WXE1lwkAKG3m7Jt3fkq3oSGumkrLMO/EqEXJwqJyGzW68lfQBkHDW
-	 F7SZgVfW6NLqef5Ng5rgunqCHWGa1GKd85WBO0ronsLYfR2ICiuE+Lrs30z3bJVtS4
-	 zftnfEX8BI14w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Marek Czernohous <marek@czernohous.de>,
-	Lyude Paul <lyude@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] drm/nouveau: unsubscribe the channel-kill event before the fence context
-Date: Sat, 12 Sep 2026 17:04:36 -0400
-Message-ID: <20260912210436.3939374-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912210436.3939374-1-sashal@kernel.org>
-References: <2026090932-swab-frostlike-a716@gregkh>
- <20260912210436.3939374-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="mNWXpPBU"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 54C8414C2D6;
+	Sat, 12 Sep 2026 23:11:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789247503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mab7f1B9PnjhcruwvAv5KUtu38AlUoK6V3lDJRX9oSM=;
+	b=mNWXpPBU48wU5cpMmum60E6bnS7i3SuUGPwflZPnD98B4m84mED8zUSMjs3LF0GVib//85
+	FAPWzqtJEgekrbUmQKHHhkkmmgH0L94MmO5LWfPSEKUSUSTk1+MspsD5F7I6CLkYWg6/4E
+	baShRVKFL5QVig9IaaQFWaapw/BMga02eSYjRXRA50bygUfd1CASMNBislCo9Q63WvWmr2
+	QsjaCUky94n1FaLATa38qmJM/D2jOHd38XeovZzjW2o+MM2dmbxf8dhz7LeVw9dQZo67mm
+	fLjtrOH96exPnuk6WMOlF7kR1liEC1NPjrbGu3qqv/22NBuXOqiSVYD8tKrH+w==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id d69e7534;
+	Sat, 12 Sep 2026 21:11:36 +0000 (UTC)
+Date: Sun, 13 Sep 2026 06:11:21 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+Message-ID: <aqW_-W2l3YYARUJE@codewreck.org>
+References: <20260912065607.535295758@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
 
-From: Marek Czernohous <marek@czernohous.de>
+Greg Kroah-Hartman wrote on Sat, Sep 12, 2026 at 08:40:26AM +0200:
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-[ Upstream commit 511585987d27d8cb668acebd399fc4deda23404c ]
+Tested 5915db8cc000 ("Linux 6.12.110-rc1") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-nouveau_channel_del() tears the fence context down first and only drops
-the channel-kill subscription later, in the middle of the nvif object
-teardown:
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
 
-	if (chan->fence)
-		nouveau_fence(chan->cli->drm)->context_del(chan);
-	...
-	nvif_object_dtor(&chan->vram);
-	nvif_event_dtor(&chan->kill);
-
-The subscribed handler is nouveau_channel_killed(), which calls
-nouveau_channel_kill() and from there nouveau_fence_context_kill() on
-chan->fence. A kill event delivered in that window takes fctx->lock and
-walks fctx->pending on a fence context that context_del() has already
-freed.
-
-Nothing reaches this below Fermi today, because the subscription is
-gated on FERMI_CHANNEL_GPFIFO and nothing kills a channel there. On
-Fermi and newer the window is real but narrow, since a kill has to land
-exactly while the channel is being destroyed. That is reason enough on
-its own, which is why this carries a Fixes: tag. The last patch in this
-series subscribes Tesla channels as well; nothing kills those today, so
-it does not widen the exposure now, but it is the groundwork for a
-recovery path that would, and the ordering is better fixed before that
-lands than alongside it.
-
-Drop the subscription before anything it depends on is torn down.
-
-Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Marek Czernohous <marek@czernohous.de>
-Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260812231330.705425-2-mczernohous@gmail.com
-[ replaced nvif_event_dtor() with the older nvif_notify_dtor() API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/nouveau/nouveau_chan.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
-index bef84589130eb..33badbc4161a9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_chan.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-@@ -93,6 +93,14 @@ nouveau_channel_del(struct nouveau_channel **pchan)
- 			cli->base.super = true;
- 		}
- 
-+		/*
-+		 * Drop the kill-event subscription first.  Its handler
-+		 * dereferences chan->fence, which the fence context teardown
-+		 * below frees, so leaving it armed across the teardown leaves
-+		 * a window for a use-after-free.
-+		 */
-+		nvif_notify_dtor(&chan->kill);
-+
- 		if (chan->fence)
- 			nouveau_fence(chan->drm)->context_del(chan);
- 
-@@ -102,7 +110,6 @@ nouveau_channel_del(struct nouveau_channel **pchan)
- 		nvif_object_dtor(&chan->nvsw);
- 		nvif_object_dtor(&chan->gart);
- 		nvif_object_dtor(&chan->vram);
--		nvif_notify_dtor(&chan->kill);
- 		nvif_object_dtor(&chan->user);
- 		nvif_object_dtor(&chan->push.ctxdma);
- 		nouveau_vma_del(&chan->push.vma);
+(didn't actually check patch content yet, but there are way too many
+commits for a sunday morning so will reply again later this week if
+I spot anything concerning)
 -- 
-2.53.0
-
+Dominique Martinet
