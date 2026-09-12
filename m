@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAFE5475F;
-	Sat, 12 Sep 2026 14:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D31330B14
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224130; cv=none; b=M249ni3NyFxfv1KQqLdkmbjM+DuTXnMVp0rNbrLxyi8M6z83uzfiAvl0kk0G+W5//nrxfnDvA1av6+U1xQeOWYN3O1/KzkjRjwAMt3ADLr5uoXbGuswkr9Ln1V1qfwbyQng4SWaWYPKhrdI4bQ9XtBS/hUCbCSAmo1HdeM4xf/g=
+	t=1789224132; cv=none; b=XuRDHnaZe5aL3xFMW173zzGBh0i6ydZVHRFh/5cEkEcIxapDCvU64vQPMI2d0BwojSJZHpp7jacR8QUAnPh0S3KshzVHABAwQln6ZCj34ZTG6gsmLOSV3PED3AhvWE7nbg9b3fIDO7dHCIl7gvy3iCClFrdnMMU3fgRxZY9sEd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789224130; c=relaxed/simple;
-	bh=2CXAOmotUNgl8XPTQllWn8csQFiqAH22milwogYmixE=;
+	s=arc-20240116; t=1789224132; c=relaxed/simple;
+	bh=zCQgTa8YlLBfapyWyjQN3FuylDRruRlLgWD2Lr8Jm+k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AGXkmEmg4odXEdJNFmHZCxPGb91YzfiDIAQX5k4jp2BC+vS2xNY2saMw4UJ1QJuHHMQLAagDSdQ1iVgQO6/7e4hsaftWzmvwjS85CAQFoIDKLSKTMOQuvdgo8/1vIzUjyJpgTTnpzZUYSwyz5050o7igtwoWKHsDSmQdYk8vtEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V6vbR+nZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jYvUX/tPY7ahF0lkUto39Ni6sm796oJopbGNYy9ZV2kXl95aaSdD+TynvgbGuX0i40SVZOtfkkPKYGtSw0S8iOe9rMp4gQmxtJ50shWLTG5n7njJmz/gcAKXfPjCeWTx+4KzXVBJY2uLgr9xNzB+OtAwGXIqt+BuAJd8bolGRaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3azY9Gq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V6vbR+nZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA951F000FF;
-	Sat, 12 Sep 2026 14:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789224129;
-	bh=BMm81lgafU4bYHHHUovGXIM3m5GaV/9Svzo3LwGXAZY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3azY9Gq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDDB1F00893;
+	Sat, 12 Sep 2026 14:42:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789224130;
+	bh=8Q+E3XEHGFLgEna6EQUmCgEv+T0/H6YtF6miDIMZH4g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V6vbR+nZ+/ubIpJKvZwx6mtMgAG7HsqjfKCzCxlW0vnfO5owG01JN/ETujTvzeWSv
-	 0LDDLoYaYvQdfT3hIJSANdy18jnyLjTzhZLFrmIq28YZtKX8hHASnkKQXG5ZDYeRza
-	 JtzLcy+5fXvApynW3aZXkXj+sA5Th0+ARkNxGys8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=F3azY9GqNOA8dhSxoh4K8Fha+dS9/GSYGcAzEg6FewEkcCa0bHFbKM4a8mwSf+H1z
+	 NUTx5HXwlYYVKSQoz9NZlJjKlBhdD3jTjDyvl9LKLleS5gVeKTbi8nRNcBoPYuqSw8
+	 8qe+WgfIEOk/CDp44Jt6sdEm+avn+fsbmY97SjxPYI/2tMkMQZX19Bo6cjxABYPS0T
+	 fRAsHDs0SIbRnuaevFiH0MxnekQ4hQdMQTt7BNSdpMeQY1hNXZjZNdrOmcxqO+9FYJ
+	 G4PvFK4wIJHtWr/Q2grO1gqsNraMvknHIBdzkkx6Yt6r7ZEuE54yV6+WdR+ZNqvobP
+	 CY2J/j4dER++w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hongyan Xu <getshell@seu.edu.cn>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
+Cc: Lizhi Hou <lizhi.hou@amd.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0930/1424] platform/chrome: cros_ec_debugfs: Unregister panic notifier
-Date: Sat, 12 Sep 2026 08:56:02 +0200
-Message-ID: <20260912065628.149874891@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.2.y 1/3] accel/amdxdna: Disable device buffer exporting
+Date: Sat, 12 Sep 2026 10:42:06 -0400
+Message-ID: <20260912144208.2989900-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090957-lilac-mocha-69d6@gregkh>
+References: <2026090957-lilac-mocha-69d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,49 +45,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Lizhi Hou <lizhi.hou@amd.com>
 
-------------------
+[ Upstream commit 9480dd7ec3fcadd4217503e4bb32c16e19e4b21f ]
 
-From: Hongyan Xu <getshell@seu.edu.cn>
+Device buffers are never intended to be exported. Disable exporting
+support explicitly.
 
-[ Upstream commit e5954d3031fb55dd31aa59bae477d63c68e941c0 ]
-
-cros_ec_debugfs_probe() registers notifier_panic with the EC panic
-notifier chain. The remove path tears down debugfs and the console log,
-but leaves the notifier registered. A later panic notification can call
-back into the removed instance and queue work that accesses released
-data.
-
-Unregister the panic notifier before tearing down the debugfs and
-console log state.
-
-This issue was found by a static analysis tool.
-
-Fixes: d90fa2c64d59 ("platform/chrome: cros_ec: Poll EC log on EC panic")
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-Link: https://lore.kernel.org/r/f3ab74ef8034be63bb45a325f3d54656d658817f.1785320940.git.getshell@seu.edu.cn
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Link: https://patch.msgid.link/20260526185058.1780869-1-lizhi.hou@amd.com
+Stable-dep-of: 244abef7f280 ("drm/xe/i2c: Keep the i2c controller always enabled")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/chrome/cros_ec_debugfs.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/accel/amdxdna/amdxdna_gem.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/platform/chrome/cros_ec_debugfs.c b/drivers/platform/chrome/cros_ec_debugfs.c
-index 0c01ffd72de26..f0289839c029e 100644
---- a/drivers/platform/chrome/cros_ec_debugfs.c
-+++ b/drivers/platform/chrome/cros_ec_debugfs.c
-@@ -540,6 +540,8 @@ static int cros_ec_debugfs_remove(struct platform_device *pd)
- {
- 	struct cros_ec_dev *ec = dev_get_drvdata(pd->dev.parent);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 2a16de96e6a4e..d18de7eb7af47 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -758,9 +758,15 @@ static int amdxdna_gem_dev_obj_vmap(struct drm_gem_object *obj, struct iosys_map
+ 	return 0;
+ }
  
-+	blocking_notifier_chain_unregister(&ec->ec_dev->panic_notifier,
-+					   &ec->debug_info->notifier_panic);
- 	debugfs_remove_recursive(ec->debug_info->dir);
- 	cros_ec_cleanup_console_log(ec->debug_info);
++static struct dma_buf *amdxdna_gem_dev_obj_export(struct drm_gem_object *gobj, int flags)
++{
++	return ERR_PTR(-EOPNOTSUPP);
++}
++
+ static const struct drm_gem_object_funcs amdxdna_gem_dev_obj_funcs = {
+ 	.free = amdxdna_gem_dev_obj_free,
+ 	.vmap = amdxdna_gem_dev_obj_vmap,
++	.export = amdxdna_gem_dev_obj_export,
+ };
  
+ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
 -- 
 2.53.0
-
-
 
