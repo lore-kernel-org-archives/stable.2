@@ -1,144 +1,141 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8BD3321DE
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789247723; cv=none; b=Fs+uLwcnltiLRV4nE0g0w3gPxH25NySvRh5wzxIoquwAqhWRAlOpwjgsr5n3Bn2MAnijHzyLzxGYjF4e1OaRSJZQIz1rJJ1X+2TbbvrkgQdh0awbnY59LaMtSd862LULxYguMcDlZ4WXXwQ73v0FJlbZ8HnFigDWx9mLpHLy6bc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789247723; c=relaxed/simple;
-	bh=pgLeJ7lbYd/VmJJyHy7zS6Ae3vYXECbsVtUpoN4gxKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RsMgjowVKKhFfKM2tuewJUVMxU0dXn/jDyJJnkZvGVrghQdgh2EqsOb0SnPhRoGouF/ER6Th/z3f43pjHohm3FkJL4QliQ/ry1xX4gEinx33HdFUjIsXUHuH6i8uglvi4V+KuC9DQpqEVi+iuYTzLvyUXAFdB1XkXlSCKSREOIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=MaHgSS13; arc=none smtp.client-ip=209.85.167.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB04381B0F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789248157; cv=pass; b=uDOEIj3Zq8C9YOr5PjFhVpJLLCJ2rDusbbC+IYUylk1Agq6OhbiV9GG1jmz2bKRqAISXedVHIBaek4nqx38Q2NeM+YKQxm+rabjGSH4rbbcb5rgIf36GrDIz4NhScECnDy9g+Ix1QFc78+BtJSuTDpAfYoGZkjeEc8JRjlicHnY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789248157; c=relaxed/simple;
+	bh=K6b4Y85zB8F+BBk4idWUHIeZSzCGOJi00zwSBhhsVs8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bG/no9qqDnhtkrCddSrhWq8G/wGPrEuuF42ts63wbSd+PCqCTVRhJePq0neIukOS6ETHw/dvJ8Cjbx1Npda/Vk9RRypsBEnrrC68aLy3vxczb0lEEqBD/IhbLcazaaK1zY6poC4bB5fk+n/jrYDqKiSgE+z3A0BCqEBXFj6kYwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=JfeUDq53; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="MaHgSS13"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4b28df1f600so1903394b6e.2
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:15:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="JfeUDq53"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so192286866b.0
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:22:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789248154; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KSXP3OzXfjjVA4Z7YfKvTsTofWUU3smxVhQEM8JjyvjBdukfeZYw/ZUtdqcQI8j7ig
+         KhF7Z9it9E/M2vkB++ipyW7yg3bJgA9Ma/KatCOVoCNF0GjFHViKHDXWoVEfZh4YLq3A
+         arDmXBE/bZxGKXOitonj1jzvfunRSvZb4wRwIZJ9RSEtPSjwcBp3MBk81zbkMIgLHTI+
+         f6y3Rf9qLrSc+NU1VMhz7ROdblw6eis6Qnu4oIFREQtHK8qIKOVlnv4ECXh7xymtZnyq
+         XIqgkmjVMs1WJVezUseR2ms1L0FU5oO5vBqT1JXaWqo4DP52r1OnhV77HQ9CERvEDpXX
+         ttGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=IB0gEwnnMQIVXK86/wgUTthm+lj+put930s+6SSC/hiCSpGjq1OfXio3KA66o+NdQc
+         NKaPsDqhaduSyA62rDCI2Z3lw6ecAJkrzd1Jt4xaIK9zrg2CDjlZxqIphAy7y/ib+VXJ
+         Y0hw/CxZ9ujdjjpxkCxpkzl/AyC19/EWKI8DZXJ/3+S9zCmWG1Ak9xGDJjhWwiH+W2/I
+         zEMo/P5BIcAqL/8XBPsGyawFhHY10QBlZl/aP0SIbqtZz/6ihVN4hQak0EgVmw7ZVO3a
+         P0ysji+i44sDTNPJwgfO3QX2H/jIhXG9PDwpYfWHgI0jyqIuiN+fu0NNlFkFvzqGGSRl
+         aHSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789247716; x=1789852516; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jn+jkXZgmdqQdeTiGXA67KlphU8PH0hw9LcDIFI9mXU=;
-        b=MaHgSS13XzwrZKp8JkPlWnkILeagBN1XIzJ2gmqGL516gplI1A+PatW2SrHKOii+0I
-         uaxPxv1euZ+NaLHp6X2SoCxnk0GbjmvsXaY3oEaLKR8O1/hV/iG/zVr0NHtCKRAtMHBJ
-         f81+mKas58R7cGZSMTuP/H3tPFYC2belLpnwB4L5ewbJPfaPjtwyTucnEsxFNoyxEPzk
-         l94/sSLodoa7olsFB61LUcoAzR3nRIeYLKmlxuizvU/8if5UADtNRMEh3djXokqgsrNT
-         qU7fUj54CfMHs5oixXqp6rjnlpS3mntlKMocoYvjfzul49sgMKYxoR9BXSPDoUK9mJvt
-         sn1w==
+        d=futuring-girl.com; s=google; t=1789248154; x=1789852954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
+        b=JfeUDq53jcdRKrQtu7bUXKjMkqNRBIw2Mepg5BfAFgnwbA0AyFAWkgIDpk7aDbBXl5
+         57htJO/RZodMMddRa7PYLwqyuxoe2vn+6S40SErhnc66WyDdnRhtwHAODXuok/Q3N2W9
+         2as7MRbhayh/YiGSjsfBECs4VFVEzPjb/ebv3w0Tymh+EdoeW6hB5L5TG9wKxCMS+TVq
+         PwS5LL5YV3iGEHzAdZ+lq4QZmVfodSY9KsB3PYm6nXuk9P9WLO3D9OHOZkSI+TeBkEfA
+         ZNjUlUnQcru8rE3uQoEeuS/Vhp740i6cqYzcUCRsKdrv1o/TmJmQAfKY0bbmGzjjdBCf
+         SYAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789247716; x=1789852516;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jn+jkXZgmdqQdeTiGXA67KlphU8PH0hw9LcDIFI9mXU=;
-        b=aciSCKnM0pJhzXbLeV6TCGgZTuf7AjYamsOEwN1pYBgMyVWegvPa6biqwqL9U0o6Tr
-         Qn95cJ1kDcOiXLXQ2YFTqe4asDDSY9EcHmE1Y7P6yCJtr4Axg6O2nGqF0pTSpSEsFo8u
-         rZdPSNBMqoR1aWuQvMXwzHTXH9wto8HPnEXkIhvhjZQQCxKnhsCsUzHK0RrWaAucKue+
-         jb7pOhW8ntzJrkZisSocUIIxv89A19fYQz4offHrK4UaqpYm4niXhumJzIWQW/HptyT4
-         NgFSE1r6T3UYaTm51KIV8nJksST8gH5bsdV0ujarvpHSne59FEdb9PvVNF52vwtiAyEr
-         oLag==
-X-Forwarded-Encrypted: i=1; AKwUvBwyeEGrDkdFPxvt3A6Ys53zp0DBZKdehSmgsctw7APz83hbZMq+jRdwViG0xF7Jb5q/Q37Kgkg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKNZYdYX3ISnP45pxvb4mQEpnywAht8Z44DRjcongdzHfHLmw6
-	yu66GnGcIOgmfOABUwqaKJwQlTGTWAbrymxEmuwIxT69+ZXWPChWyXEDiy/9bs2M/g==
-X-Gm-Gg: AYBFou0DOUs9bGCFP9pW/gMKz7EE0LSAyc9VTz3RuqaknXKUY7huCaOQii8xkFp0oeg
-	/YuryIAMuk3gREiMrPDnBOMUptWcdBPI9Y7SAnS0fe1k1N9BdSIP13+lWD82zRpnzyA6CrH0gsh
-	ZpULGtsZEUetwVxY4h1hbpreD+ktw46v9oZnPyz3HJH3OtgtDakkmh8elWsDDAM/6Fx++LTfRtz
-	ST+Ilmhbk1akNOVvXJAsxyLOIzVEwDSiPor6Q4TRvnde6k2l++1awgAq8K3oaWpW656YhaY1GIM
-	vww0vInLir5M/yNnIuSSzv9z+4ktWDXg1SUv83tnXu6k7xryG9+kV4vLXudbAJnTBTznwmu5o3T
-	aSsEiZI/xHoTKaUHJy5AkPalP4/dgdAwtJV8m81RFrEcM2FXtEdJGEW7cw6GeCWj9IqydFD3aD9
-	WhZySQpRnxGvzYEemXW68o5cpq9cqCWQBk/8pKFqEyAaAxpfzmlRoz1lpncm1tjCx+scWO4nl8E
-	W5O6FPqrbjqdC7+Oy+d+aJkeV9teHlnNt/F/TN7OLNVsD3qow==
-X-Received: by 2002:a05:6808:2224:b0:4c3:cd49:bbf7 with SMTP id 5614622812f47-4c3cd49bf95mr7236782b6e.42.1789247716315;
-        Sat, 12 Sep 2026 14:15:16 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c331bc937bsm6003521b6e.11.2026.09.12.14.15.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 14:15:15 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: bernie@plugable.com,
-	deller@gmx.de,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: gregkh@linuxfoundation.org,
-	co+ed9902f2e44184d9@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: udlfb: don't rebuild the mode list while the framebuffer is in use
-Date: Sat, 12 Sep 2026 14:15:12 -0700
-Message-ID: <20260912211512.2049147-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789248154; x=1789852954;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4+uRYIalsrhw+jlcX18QMk7mu25CKrBRK7xynbg1dqE=;
+        b=qtqRstj59RXQsOsKYBj1/b5SbXMLwIadE4RWRKT8fYxAxOfZproznvE35GByRQyqrM
+         YlThXR/2f30JQ7VxudEjfcokNnDuPZe/39iekME62wDZ2VMbQ6dinU7EGGYViDDvGfmW
+         RlF5ARB9maQmL8hMuLxXGSvSYkReBLwGbD+U4yBVI73xQzmZJwLfK/rA0Flb67SiexOp
+         L2i8ZYIf4lAKAaFKFNQEEyNyanPJAZirBvqAWzQpr+8xK+WoikQj54NjbzAusotxCpYA
+         BhWjf9Lsli0njfCyIF3z0p9/d357JjGrpQzXbhvTWf3H2tAUM4w+gUYOnmSu5Vm3/Aik
+         gL0Q==
+X-Gm-Message-State: AFuF++lDjLxRJBU0vrc4ZGF+pIVhmPxrkuRhDK6L0vqE0J7RBQDpHE4x
+	8fKnCB/qJGMDEloK4HjzrczTE+NtcKvz+3SLY7mRa7zYcr73ZEY86zMWIcVN7k9VSKOzc7f3ozm
+	sYBvpPfoP3U/7rJzAgwAy5ihfM/tJn0sYMsuV28JrDA==
+X-Gm-Gg: AYBFou1iwUeFs3/Sl7w+6xUT2+5CH62Q1dcsmN1pb7kMErHEbC0kOHNcGBJQHJw20UH
+	AhLFsb9dYS3pPlSTmufkyEWfyBJtvvRh5xM8dugfrraYW0ArFef2KJeeq9zVEJ1X2ldZD1bTHB9
+	s35JqymxcSZ/w+Byy7tdz+URLU5rsVuFJwM5DcqbHkceA5NI/WyZGhspWaoeKN0eSrjDCzW8zvL
+	gJ2wAqD/4cp2s5vKRG6Vo+v3ONeALuEcNIvcRyb4G8uRe7ARJyRG1ihbxhaPZgz1xi3hJiZ65hE
+	IxR/6oS2XvdiM05GD40GWZqR94iYhxKb4jPMPLQNX+k2DAl3BzlDHj3k
+X-Received: by 2002:a17:907:1c82:b0:c29:6291:e38a with SMTP id
+ a640c23a62f3a-c29665acdfbmr1025781366b.1.1789248153717; Sat, 12 Sep 2026
+ 14:22:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260912065648.999753832@linuxfoundation.org>
+In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Sun, 13 Sep 2026 06:22:17 +0900
+X-Gm-Features: AcwNN1XKQfCG5_IOzoP0tn84TLT5vhownt9emT4x-a22NExaXwsm-snsvHub1FI
+Message-ID: <CAKL4bV4_Pdw=pFU5RcCTpNuWmbYNeEB1jkCtwuaVNWJcMSfBsw@mail.gmail.com>
+Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dlfb_setup_modes() frees info->modelist with fb_destroy_modelist() and
-rebuilds it, but fbcon holds raw pointers into that list in
-fb_display[i].mode and nothing un-publishes them the way
-do_unregister_framebuffer() and store_modes() do with
-fbcon_delete_modelist(). The function does refuse to install a new mode
-while the framebuffer has users (dlfb->fb_count != 0), but only after the
-list is already destroyed. Reached from the 0666 "edid" sysfs attribute,
-an unprivileged write to /sys/class/graphics/fb0/edid therefore fails with
--EINVAL and still leaves every fb_display[i].mode dangling; the next
-console switch reads the freed fb_videomode in fb_videomode_to_var().
+Hi Greg
 
-Test fb_count before touching the list. fbcon takes a reference through
-fbcon_open(), so that condition covers exactly the states in which
-fb_display[] points into the list, and the errno returned to userspace is
-unchanged.
+On Sat, Sep 12, 2026 at 4:07=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.6 release.
+> There are 1815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.6-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-  BUG: KASAN: slab-use-after-free in fb_videomode_to_var (drivers/video/fbdev/core/modedb.c:905)
-  Read of size 4 at addr ffff8880107b449c by task kworker/1:1/47
-  Workqueue: events console_callback
-  Call Trace:
-   fb_videomode_to_var (drivers/video/fbdev/core/modedb.c:905)
-   display_to_var (drivers/video/fbdev/core/fbcon.c:998)
-   fbcon_switch (drivers/video/fbdev/core/fbcon.c:2182)
-   redraw_screen (drivers/tty/vt/vt.c:994)
-   complete_change_console (drivers/tty/vt/vt_ioctl.c:1141)
-   console_callback (drivers/tty/vt/vt.c:3358)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  ...
-  The buggy address is located 28 bytes inside of
-   freed 96-byte region [ffff8880107b4480, ffff8880107b44e0)
+Linux version 7.2.6-rc1 tested.
 
-Cc: stable@vger.kernel.org
-Fixes: 7d9485e2c53c ("Staging: udlfb: Add functions to expose sysfs metrics and controls")
-Reported-by: co+ed9902f2e44184d9@bugs.sh
-Closes: https://lore.kernel.org/all/1jSCSNaDKmuUG7h40rTsSl1rMaSwdlJef4rp%40bugs.sh/
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- drivers/video/fbdev/udlfb.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
-index e78d6f95c9c5..92b352bc7e96 100644
---- a/drivers/video/fbdev/udlfb.c
-+++ b/drivers/video/fbdev/udlfb.c
-@@ -1293,6 +1293,11 @@ static int dlfb_setup_modes(struct dlfb_data *dlfb,
- 		goto error;
- 	}
- 
-+	if (dlfb->fb_count) {
-+		result = -EINVAL;
-+		goto error;
-+	}
-+
- 	fb_destroy_modelist(&info->modelist);
- 	memset(&info->monspecs, 0, sizeof(info->monspecs));
- 
--- 
-2.43.0
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
+[    0.000000] Linux version 7.2.6-rc1rv-g048ea6124e84
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Sun Sep 13 05:45:30 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
