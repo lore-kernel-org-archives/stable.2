@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDE62F6931;
-	Sat, 12 Sep 2026 19:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B368437F316;
+	Sat, 12 Sep 2026 19:18:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240695; cv=none; b=ctX85sq93WR6fOrVLfT9UxsHnv2NOlvCrDJ8j5XZCDoe/lhaLTMVH/+wvZS5Mq1OPRMXCB5wjyq0mLnOocx7LBQbK/J6YQaMF/u7jA5xVzjQtZASlzZjOrJCU/vpEE2xLgGQeiWmHk5lB9C6mkxh1qBGNJn3nAPZQfAGUNZjXHk=
+	t=1789240697; cv=none; b=q7VpJCbZRjNAGdgNNtohUEQaBHoPxQWv8f2Do8S2zbjrkjqDsl8gsCV3579A0AIQ0wpxOX4xlLlfDlx6t8dcwS8BmeAz/wAQ6+rjF+9GWgDRICfzP0Sw+90vEE1ZUoHz/vJ4kT7a7QLd22osEGxm1Xy+YCOqrajPVYudhVT/CQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240695; c=relaxed/simple;
-	bh=I2LG+F4dJdEVCdeyod5GIYQOyMo/GbeLh7a5RJ7uAII=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RbrUa/0c/jBnKcW7JOf7a2cSFvTxMmEj8oiQpp5M+apA92fQ6h/+h2yHwirwl03C7vd/FadSukRGl7E1V0Z9mRsXM9mZQnhnbwv49gSB25+3dOR2LGLhAroE9TicrqVV2o7B0gEEa8J+rU9e/R0MLmBfn4W9ob8JxPZohvlhxCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hOqoi6xX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789240697; c=relaxed/simple;
+	bh=qxbwmdSBo1AepIKamHaGaUiYAH4RQkV7NDLZ2s1hytM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g4mHkC1x0rUR8xLioqdRBusQ8wuDBSplEjfsRU2s+V6OSXdzXJzs+c9QZlUBxxEC7o12ug6sMt9rxPBnRYRSI959g4tCXxZZclCUv1XHDz6aUeORh1WFSuAxz4pewGEUacS6P3Zr0Xq5rQ5CQcUKUbF5fro/+S7dAerTg+hgyYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ou+P7NXI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hOqoi6xX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FB01F000FF;
-	Sat, 12 Sep 2026 19:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789240693;
-	bh=Acowysr3CnZejPdCSDjOf8j0UhAQ3lTe03h2SpJrKi4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hOqoi6xX27Gpen8uP2CEDbgkhwKZGasBE9u0VK1nmlTV4eHfyjkZVaoBiMmw5U2Us
-	 q+8iZrHykN/X2ouxc8xT4AQBbdJEEMv56QGgX9dffSAypaPWp1tC+7Vvp/IT1eRg/f
-	 6Q7KsBNf2zrUBIg5wei0olgyGDvc8b/D9tcREpW0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	vega@nebusec.ai,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 921/935] net/sched: bound qdisc_pkt_len to prevent qdisc soft lockup
-Date: Sat, 12 Sep 2026 09:05:51 +0200
-Message-ID: <20260912065547.943618245@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
-References: <20260912065526.833703348@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ou+P7NXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E201F00893;
+	Sat, 12 Sep 2026 19:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789240695;
+	bh=vOYEln47T2FyN4vw1wuAHSZbTpeajPzH83Ujt47M+Zg=;
+	h=From:To:Cc:Subject:Date;
+	b=Ou+P7NXIJR/S+2iTvxe+RbilEBP2hV3MFAWs4vaegoABZ5ejRgcMjRRpmvU39AYq2
+	 e09ZImxHjfuKCJwenOe1KRXV0WoMJuoUZuvGyRYkjqoIHUgqgSaTxeJo9IpKMzNvcT
+	 UBZmB0rKSDjqQPIDQb6FQcXEv60mDWgpnX+12OOCrIAty9ENEIkC4whQI6D+1oVq5U
+	 JszFjfGs06m+gs5szf/27ILaaFZyfBfzykinB8V0lKD8onVhNB3PyVf4Ia0OkAlnz6
+	 ZDG5CmNZkDi2FGBgrMp74HCM3d635rQea8s3cqnNZlYaqdkryX43kmajDu8BVibC9l
+	 USASFmlwJxXFQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 0/8] mm/damon: move damos filter range arguments validation to core
+Date: Sat, 12 Sep 2026 12:17:58 -0700
+Message-ID: <20260912191807.138502-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,90 +50,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+DAMOS filter range arguments are being validated in the DAMON sysfs
+interface.  Some of those have minor time-of-check to time-of-use
+(TOCTOU) bugs.  In future, other callers might have duplicated
+validations with similar bugs.
 
-------------------
+Fix the bugs and further refactor the code to move the validation to the
+core layer.  Also add kunit test cases for the validations.
 
-From: Jamal Hadi Salim <jhs@mojatatu.com>
+Patches 1 and 2 fix the existing TOCTOU bugs.  Patches 3 and 4 adds the
+validation in the core layer.  Patch 5 drops the replicated validation
+in DAMON sysfs interface.  Patch 6 further cleanup the code.  Patches 7
+and 8 extends kunit tests to test the validation.
 
-[ Upstream commit 8f735d64382dcf162f4276d6699d03ad2f859c0b ]
+SJ Park (8):
+  mm/damon/sysfs-schemes: read sysfs_filter->addr_range only once
+  mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
+  mm/damon/core: return an error from damos_commit_filter_arg()
+  mm/damon/core: disallow max < min damos filter range arguments commit
+  mm/damon/sysfs-schemes: drop centralized filter range arg validations
+  mm/damon/sysfs-schemes: use switch-case in add_scheme_filters()
+  mm/damon/core-kunit: extend damos_commit_filter_for() for wrong input
+  mm/damon/core-kunit: test invalid damos filter commits
 
-qdisc_get_stab() accepts a user-supplied size table, and
-__qdisc_calculate_pkt_len() amplifies qdisc_pkt_len() through the
-overhead, the size-table data (u16), and size_log (up to
-STAB_SIZE_LOG_MAX). A crafted stab can therefore set qdisc_pkt_len()
-to ~1 GiB for an ordinary skb. Per-flow deficit schedulers such as
-DRR and ETS replenish one quantum per loop iteration; with a tiny
-quantum (1) they spin billions of times under the qdisc lock,
-producing a soft lockup / RCU stall as illustrated by vega@nebusec.ai.
+ mm/damon/core.c             | 24 ++++++++++++++++-------
+ mm/damon/sysfs-schemes.c    | 32 +++++++++++++------------------
+ mm/damon/tests/core-kunit.h | 38 ++++++++++++++++++++++++++++---------
+ 3 files changed, 59 insertions(+), 35 deletions(-)
 
-Cap the final qdisc_pkt_len() to QDISC_PKT_LEN_MAX so the size-table
-amplification cannot drive deficit schedulers into an unbounded loop.
-A legitimate size table (e.g. qfq's overhead 999999999, which is
-handled by dropping) is still accepted.
 
-Introduce cap QDISC_PKT_LEN_MAX (1 << 20) = 1 MiB which is well above
-any legitimate single-skb wire length: the largest current skb->len
-is GSO_MAX_SIZE (524280), and an ATM-style size table (53/48 cell tax)
-amplifies that to ~578 KB, both comfortably below 1 MiB. At the same
-time, 1 MiB bounds the deficit refill loop to ~1M iterations per
-packet with quantum=1, which completes in a few milliseconds well
-under the demonstrated softlockup threshold (~10^9 iterations).
-
-Conditions to recreate the bug:
-- CONFIG_NET_SCHED=y, CONFIG_NET_SCH_DRR=y (or CONFIG_NET_SCH_ETS=y).
-- Attach a DRR (or ETS) root qdisc with a crafted TCA_STAB that
-  amplifies qdisc_pkt_len to ~1 GiB (e.g. size_log=15, data=[32768]).
-- Add a class with a tiny quantum of 1 and send one small packet; the
-  deficit loop spins billions of times under the qdisc lock and trips
-  the softlockup detector (panic with kernel.softlockup_panic=1).
-- Reachable as root or from an unprivileged user in a fresh user+net
-  namespace (unshare -Urn) with namespace-local CAP_NET_ADMIN.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: vega@nebusec.ai
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260825081403.133992-1-jhs@mojatatu.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/pkt_sched.h | 1 +
- net/sched/sch_api.c     | 7 +++++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/include/net/pkt_sched.h b/include/net/pkt_sched.h
-index 8443c2853333b..4f7f75e8f293d 100644
---- a/include/net/pkt_sched.h
-+++ b/include/net/pkt_sched.h
-@@ -12,6 +12,7 @@
- 
- #define DEFAULT_TX_QUEUE_LEN	1000
- #define STAB_SIZE_LOG_MAX	30
-+#define QDISC_PKT_LEN_MAX	(1 << 20)	/* 1 MiB */
- 
- struct qdisc_walker {
- 	int	stop;
-diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index cbb6c2e0dbff1..42b7b5f3159cc 100644
---- a/net/sched/sch_api.c
-+++ b/net/sched/sch_api.c
-@@ -604,8 +604,11 @@ void __qdisc_calculate_pkt_len(struct sk_buff *skb,
- 
- 	pkt_len <<= stab->szopts.size_log;
- out:
--	if (unlikely(pkt_len < 1))
--		pkt_len = 1;
-+	/* A size table can inflate qdisc_pkt_len() beyond any real packet
-+	 * (via overhead, the data table, or size_log); cap it so deficit
-+	 * schedulers such as DRR/ETS terminate their refill loops.
-+	 */
-+	pkt_len = clamp_t(int, pkt_len, 1, QDISC_PKT_LEN_MAX);
- 	qdisc_skb_cb(skb)->pkt_len = pkt_len;
- }
- 
+base-commit: ec1b9fab95fbfd9c5dbdfb841d91929c2cb63518
 -- 
-2.53.0
-
-
-
+2.47.3
