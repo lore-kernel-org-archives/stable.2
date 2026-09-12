@@ -1,47 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EF02D739C
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:52:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1083B2FDC30;
+	Sat, 12 Sep 2026 14:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224741; cv=none; b=A9Jl/WE8xsctA+rB4wMC1RuxanOP43oyAVJWf2AA57KcT7GUkmYU0S+In9anzjk+JHo5JunrGNJb1jwEn5kueftMcO5VCsML0+968fP3CbMChq0+3KDxvfPeMu23D8d9y2UQcvnJdOJuqk1morg1rUnGO10cwbHLi6GxNPtk8FU=
+	t=1789224741; cv=none; b=i6BfZYm8BBHiz5K/+oIfnPSHFeiqwxO4exIfa9ogwoUzyx5/Du50qV2+7fGOlGb3uP7jzSctHSGZvMs0y6x3+96gwzC2FaCYr0J7dsI7NYflZKfCIr/rb/QcTvY7lIAoyP50/SWiRO97OFfREwNvdMcx56EgYw55qfKyU2XgtTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789224741; c=relaxed/simple;
-	bh=vVVWgigP0oASY5kjt63DBkSEPua6+Qzl7HvlbkE5igg=;
+	bh=bbv+tUdldgUwlcVjheuxdwVqbAo0q7eVTc5tpx1McMA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pNTkcXV2Xd/dMzW8qXVGsJP0l9Z5VFb5qTyoDfNhZM+n27h66eXAy0FhPUel8sPIfupxTj9d0j4G54jT59IM2NDO+92TFKwp19qDncdTF8xZA9YEqZmbDoYZDieBKkxaMms/+mWlft+DzLTICj0rRg7jSVi/6Ai3v7LYSrJcHXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbM4l8vF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Rx0/sAzQaCX843QARjhWI7hSAyrPDSf+sLkTUEl+KS+VrXezGR6isIGnxCA8YiqHf3gGandr7nnFr3jCBMlyzS3SWJSPS/B8hLUNHYGZLEXouwBIvAgpkx6PQD8p9TkmijUVJEGTUS8mSsElF0X8nbApUbPZAuos4cq4HB3oVqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yjszKrzS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbM4l8vF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F7611F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yjszKrzS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EDF1F00893;
 	Sat, 12 Sep 2026 14:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789224739;
-	bh=QuKPxV1rUQWS4V0x7OGtyvXtTPc3qmDaVcs41IJOFso=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789224739;
+	bh=BZzXNUxtBeTJMSw9mhCx8oJzxqmOAgZfINRMIhl6SeI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dbM4l8vFqMFMRecgB1GyBNlLAD+Rhk/f6kz0ErYukRYTynbRX9vh8slsBpSB9FP1H
-	 TuWS0MFyv2PCHBw67OWGnCaPzxzKRaJagNFKeIBh5s2p4IlcgawJxo6u7sL6fvaCZV
-	 ipW4H4g1qa6I4IlEt6T4WYIwS/vL/jtbuBlDla2kq9QXFxt4SPVQCPNB15nYBDyy9T
-	 0buG9OK8oGTniVFmv+Gyn0myp+9ptEbw2+ya4+4WlPCGdG1kYP7qfhp010Rd4sopJV
-	 cg/jv+Z3rCao853BYKDnki7dRMd+zzIuT+K0y6Wl2cgYrcEiRZ+/DKVVlWS9sVu9sz
-	 gPmK2p2siRtxg==
-From: Sasha Levin <sashal@kernel.org>
+	b=yjszKrzS4vKsY94ARZ1WEIi84zJCzjxneapCK42j3JFLXlu1ZCEIXVDXnZIKT73Kt
+	 ZkQ03GQEHHgg5tD/hvO1wSq/fDBm+xzxIkhl/Eal5uuRfEyTKSW0HQ8jSWxg06s4Me
+	 sxbSX4QkW2r4YElzfomWUiy6VtsOfKm2LJEpgPSE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Yongbang Shi <shiyongbang@huawei.com>,
-	Rongrong Zou <zourongrong@gmail.com>,
-	Sean Paul <seanpaul@chromium.org>,
-	Xinliang Liu <xinliang.liu@linaro.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Baihan Li <libaihan@huawei.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Li Wang <liwang@redhat.com>,
+	Aruna Ramakrishna <aruna.ramakrishna@oracle.com>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Hildenbrand <david@redhat.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Keith Lucas <keith.lucas@oracle.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-Date: Sat, 12 Sep 2026 10:52:17 -0400
-Message-ID: <20260912145217.3022626-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090902-sequester-penpal-1d95@gregkh>
-References: <2026090902-sequester-penpal-1d95@gregkh>
+Subject: [PATCH 6.6 1056/1424] ksm_tests: skip hugepage test when Transparent Hugepages are disabled
+Date: Sat, 12 Sep 2026 08:58:08 +0200
+Message-ID: <20260912065630.954889331@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,125 +58,249 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 715c5db68bdbd4a524b79ebf20fb61e880fffea0 ]
+------------------
 
-Call drm_atomic_helper_check_plane_state() from the primary plane's
-atomic-check helper and replace the custom implementation.
+From: Li Wang <liwang@redhat.com>
 
-All plane's implementations of atomic_check should call the shared
-_check_plane_state() helper first. It adjusts the plane state for
-correct positioning, rotation and scaling of the plane. Do this
-even if the plane's CRTC has been disabled by setting the parameter
-can_update_disabled. The original code returned early in this case,
-but it's safe to so and cleaner to have all plane state initialized.
+[ Upstream commit fdc3bc3497946c6b416a17628907581657102e60 ]
 
-As we don't set can_position, drm_atomic_helper_check_plane_state()'s
-visibility check tests if the plane covers all of the CRTC. This is
-a small change from the original code, which tested if the plane is
-exactly the size of the CRTC. With the new test, the plane still has
-to cover all of the CRTC, but can be larger than the CRTC's size. A
-later patch can fully implement this feature in hibmc.
+Some systems (e.g.  minimal or real-time kernels) may not enable
+Transparent Hugepages (THP), causing MADV_HUGEPAGE to return EINVAL.  This
+patch introduces a runtime check using the existing THP sysfs interface
+and skips the hugepage merging test (`-H`) when THP is not available.
 
-If the plane is disabled, the helper clears the visibility flag in the
-plane state. On errors or if the plane is not visible, the atomic-check
-helper can return early. Implement all this in hibmc and drop the custom
-code that does some of it.
+To avoid those failures:
 
-v2:
-- extend the commit description (Yongbang)
+  # -----------------------------
+  # running ./ksm_tests -H -s 100
+  # -----------------------------
+  # ksm_tests: MADV_HUGEPAGE: Invalid argument
+  # [FAIL]
+  not ok 1 ksm_tests -H -s 100 # exit=2
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Rongrong Zou <zourongrong@gmail.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Baihan Li <libaihan@huawei.com>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
-Cc: <stable@vger.kernel.org> # v4.10+
-Link: https://patch.msgid.link/20260618123142.92298-2-tzimmermann@suse.de
-[ retained the drm_atomic_state callback signature and used DRM_PLANE_HELPER_NO_SCALING with its required drm_plane_helper.h include. ]
+  # --------------------
+  # running ./khugepaged
+  # --------------------
+  # Reading PMD pagesize failed# [FAIL]
+  not ok 1 khugepaged # exit=1
+
+  # --------------------
+  # running ./soft-dirty
+  # --------------------
+  # TAP version 13
+  # 1..15
+  # ok 1 Test test_simple
+  # ok 2 Test test_vma_reuse dirty bit of allocated page
+  # ok 3 Test test_vma_reuse dirty bit of reused address page
+  # Bail out! Reading PMD pagesize failed# Planned tests != run tests (15 != 3)
+  # # Totals: pass:3 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 soft-dirty # exit=1
+  # SUMMARY: PASS=0 SKIP=0 FAIL=1
+
+  # -------------------
+  # running ./migration
+  # -------------------
+  # TAP version 13
+  # 1..3
+  # # Starting 3 tests from 1 test cases.
+  # #  RUN           migration.private_anon ...
+  # #            OK  migration.private_anon
+  # ok 1 migration.private_anon
+  # #  RUN           migration.shared_anon ...
+  # #            OK  migration.shared_anon
+  # ok 2 migration.shared_anon
+  # #  RUN           migration.private_anon_thp ...
+  # # migration.c:196:private_anon_thp:Expected madvise(ptr, TWOMEG, MADV_HUGEPAGE) (-1) == 0 (0)
+  # # private_anon_thp: Test terminated by assertion
+  # #          FAIL  migration.private_anon_thp
+  # not ok 3 migration.private_anon_thp
+  # # FAILED: 2 / 3 tests passed.
+  # # Totals: pass:2 fail:1 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 migration # exit=1
+
+It's true that CONFIG_TRANSPARENT_HUGEPAGE=y is explicitly enabled in
+tools/testing/selftests/mm/config, so ideally the runtime environment
+should also support THP.
+
+However, in practice, we've found that on some systems:
+
+- THP is disabled at boot time (transparent_hugepage=never)
+- Or manually disabled via sysfs
+- Or unavailable in RT kernels, containers, or minimal CI environments
+
+In these cases, the test will fail with EINVAL on madvise(MADV_HUGEPAGE),
+even though the kernel config is correct.
+
+To make the test suite more robust and avoid false negatives, this patch
+adds a runtime check for /sys/kernel/mm/transparent_hugepage/enabled.
+
+If THP is not available, the hugepage test (-H) is skipped with a clear
+message.
+
+Link: https://lkml.kernel.org/r/20250624032748.393836-1-liwang@redhat.com
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Aruna Ramakrishna <aruna.ramakrishna@oracle.com>
+Cc: Bagas Sanjaya <bagasdotme@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Joey Gouly <joey.gouly@arm.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Keith Lucas <keith.lucas@oracle.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 15828a150c58 ("selftests/mm: fix ksm NUMA merge test for systems with memoryless NUMA nodes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 47 ++++++-------------
- 1 file changed, 15 insertions(+), 32 deletions(-)
+ tools/testing/selftests/mm/khugepaged.c   |  5 +++++
+ tools/testing/selftests/mm/ksm_tests.c    |  6 ++++++
+ tools/testing/selftests/mm/migration.c    |  8 ++++++++
+ tools/testing/selftests/mm/soft-dirty.c   |  9 ++++++++-
+ tools/testing/selftests/mm/thp_settings.c | 11 +++++++++++
+ tools/testing/selftests/mm/thp_settings.h |  2 ++
+ 6 files changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index db7fce4e8cc34..0b619ad8741ae 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -17,6 +17,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_vram_helper.h>
-+#include <drm/drm_plane_helper.h>
- #include <drm/drm_vblank.h>
+diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+index 56d4480e8d3cb..25def60201fea 100644
+--- a/tools/testing/selftests/mm/khugepaged.c
++++ b/tools/testing/selftests/mm/khugepaged.c
+@@ -1190,6 +1190,11 @@ int main(int argc, char **argv)
+ 		.read_ahead_kb = 0,
+ 	};
  
- #include "hibmc_drm_drv.h"
-@@ -72,46 +73,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
- static int hibmc_plane_atomic_check(struct drm_plane *plane,
- 				    struct drm_atomic_state *state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
--										 plane);
--	struct drm_framebuffer *fb = new_plane_state->fb;
--	struct drm_crtc *crtc = new_plane_state->crtc;
--	struct drm_crtc_state *crtc_state;
--	u32 src_w = new_plane_state->src_w >> 16;
--	u32 src_h = new_plane_state->src_h >> 16;
--
--	if (!crtc || !fb)
--		return 0;
-+	struct drm_plane_state *new_plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
- 
--	crtc_state = drm_atomic_get_crtc_state(state, crtc);
--	if (IS_ERR(crtc_state))
--		return PTR_ERR(crtc_state);
-+	if (new_plane_state->crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
- 
--	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
--		drm_dbg_atomic(plane->dev, "scale not support\n");
--		return -EINVAL;
--	}
--
--	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
--		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
--		return -EINVAL;
--	}
--
--	if (!crtc_state->enable)
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_HELPER_NO_SCALING,
-+						  DRM_PLANE_HELPER_NO_SCALING,
-+						  false, true);
-+	if (ret)
-+		return ret;
-+	else if (!new_plane_state->visible)
- 		return 0;
- 
--	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
--	    crtc_state->adjusted_mode.hdisplay ||
--	    new_plane_state->crtc_y + new_plane_state->crtc_h >
--	    crtc_state->adjusted_mode.vdisplay) {
--		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
--		return -EINVAL;
--	}
--
- 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
- 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
- 		return -EINVAL;
- 	}
++	if (!thp_is_enabled()) {
++		printf("Transparent Hugepages not available\n");
++		return KSFT_SKIP;
++	}
 +
- 	return 0;
- }
+ 	parse_test_type(argc, argv);
  
+ 	setbuf(stdout, NULL);
+diff --git a/tools/testing/selftests/mm/ksm_tests.c b/tools/testing/selftests/mm/ksm_tests.c
+index b748c48908d9d..faa3d053994df 100644
+--- a/tools/testing/selftests/mm/ksm_tests.c
++++ b/tools/testing/selftests/mm/ksm_tests.c
+@@ -15,6 +15,7 @@
+ #include "../kselftest.h"
+ #include <include/vdso/time64.h>
+ #include "vm_util.h"
++#include "thp_settings.h"
+ 
+ #define KSM_SYSFS_PATH "/sys/kernel/mm/ksm/"
+ #define KSM_FP(s) (KSM_SYSFS_PATH s)
+@@ -555,6 +556,11 @@ static int ksm_merge_hugepages_time(int merge_type, int mapping, int prot,
+ 	unsigned long scan_time_ns;
+ 	int pagemap_fd, n_normal_pages, n_huge_pages;
+ 
++	if (!thp_is_enabled()) {
++		printf("Transparent Hugepages not available\n");
++		return KSFT_SKIP;
++	}
++
+ 	map_size *= MB;
+ 	size_t len = map_size;
+ 
+diff --git a/tools/testing/selftests/mm/migration.c b/tools/testing/selftests/mm/migration.c
+index d0854ecb139a6..0faeead0113bb 100644
+--- a/tools/testing/selftests/mm/migration.c
++++ b/tools/testing/selftests/mm/migration.c
+@@ -5,6 +5,8 @@
+  */
+ 
+ #include "../kselftest_harness.h"
++#include "thp_settings.h"
++
+ #include <strings.h>
+ #include <pthread.h>
+ #include <numa.h>
+@@ -181,6 +183,9 @@ TEST_F_TIMEOUT(migration, private_anon_thp, 2*RUNTIME)
+ 	uint64_t *ptr;
+ 	int i;
+ 
++	if (!thp_is_enabled())
++		SKIP(return, "Transparent Hugepages not available");
++
+ 	if (self->nthreads < 2 || self->n1 < 0 || self->n2 < 0)
+ 		SKIP(return, "Not enough threads or NUMA nodes available");
+ 
+@@ -210,6 +215,9 @@ TEST_F_TIMEOUT(migration, shared_anon_thp, 2*RUNTIME)
+ 	uint64_t *ptr;
+ 	int i;
+ 
++	if (!thp_is_enabled())
++		SKIP(return, "Transparent Hugepages not available");
++
+ 	if (self->nthreads < 2 || self->n1 < 0 || self->n2 < 0)
+ 		SKIP(return, "Not enough threads or NUMA nodes available");
+ 
+diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
+index 7095b95d19ae2..bfc2cb06af4eb 100644
+--- a/tools/testing/selftests/mm/soft-dirty.c
++++ b/tools/testing/selftests/mm/soft-dirty.c
+@@ -6,8 +6,10 @@
+ #include <stdint.h>
+ #include <malloc.h>
+ #include <sys/mman.h>
++
+ #include "../kselftest.h"
+ #include "vm_util.h"
++#include "thp_settings.h"
+ 
+ #define PAGEMAP_FILE_PATH "/proc/self/pagemap"
+ #define TEST_ITERATIONS 10000
+@@ -78,8 +80,13 @@ static void test_hugepage(int pagemap_fd, int pagesize)
+ {
+ 	char *map;
+ 	int i, ret;
+-	size_t hpage_len = read_pmd_pagesize();
+ 
++	if (!thp_is_enabled()) {
++		ksft_test_result_skip("Transparent Hugepages not available\n");
++		return;
++	}
++
++	size_t hpage_len = read_pmd_pagesize();
+ 	if (!hpage_len)
+ 		ksft_exit_fail_msg("Reading PMD pagesize failed");
+ 
+diff --git a/tools/testing/selftests/mm/thp_settings.c b/tools/testing/selftests/mm/thp_settings.c
+index 577eaab6266fd..38f70155bfbf1 100644
+--- a/tools/testing/selftests/mm/thp_settings.c
++++ b/tools/testing/selftests/mm/thp_settings.c
+@@ -381,3 +381,14 @@ unsigned long thp_shmem_supported_orders(void)
+ {
+ 	return __thp_supported_orders(true);
+ }
++
++bool thp_is_enabled(void)
++{
++	if (access(THP_SYSFS, F_OK) != 0)
++		return false;
++
++	int mode = thp_read_string("enabled", thp_enabled_strings);
++
++	/* THP is considered enabled if it's either "always" or "madvise" */
++	return mode == 1 || mode == 3;
++}
+diff --git a/tools/testing/selftests/mm/thp_settings.h b/tools/testing/selftests/mm/thp_settings.h
+index 876235a23460c..079a58a662b0e 100644
+--- a/tools/testing/selftests/mm/thp_settings.h
++++ b/tools/testing/selftests/mm/thp_settings.h
+@@ -84,4 +84,6 @@ void thp_set_read_ahead_path(char *path);
+ unsigned long thp_supported_orders(void);
+ unsigned long thp_shmem_supported_orders(void);
+ 
++bool thp_is_enabled(void);
++
+ #endif /* __THP_SETTINGS_H__ */
 -- 
 2.53.0
+
+
 
