@@ -1,44 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D7B388895;
-	Sat, 12 Sep 2026 14:46:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C9C38837C
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224380; cv=none; b=msLhIjWvJLqRi6BRbhZLW3jTELr6Eweis1vgyxun7LD94K0Dy8Q7cDKw4eQlMUDjjMDg1CgI15ViYEYEmyKj1RmlWy/KG4kwE9SXWYIRJxoFauMstiI/nQGdOEBqYUgF+AFJkORiPh4+SjYAFDG9qPjCtaXzZeoL2zxcR2qFwSU=
+	t=1789224383; cv=none; b=piRd2TT+tOvd9o/jEt1+V5VauABIzRWRYHbypkDQ6pM8b8JF/DyuB9ZRcg5e3a52ccNlrLKaZa8Al3LIu80Vwv0uYn0+T0njSqbUQc1Q/IDqzXz/x6xd2uC2kIXAixVt31RpyUD5gG7EaISPmgZotrlxgsnmgJCC1GW/9Ya6Q3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789224380; c=relaxed/simple;
-	bh=a3Jw17N3FIUngjOQjg+//vVndQ5tBwPLJ0wGqaQDZ2o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lAfJeoBNaVVbHJ7o4vnLL0chjmQk9wue/EzszuMRzjiQ7Uu62ddzApmq7Oj3hmsRbzbUGmU69RPy4fqhdGWGjGL54j3FjAmPRw3IjoLr1qJXxdzGMb2kxgPjXUurctJwKea+whvbUUF9t+GjcTtAB0kfVi1nqOqZwQKPbfAz2Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=q+g0HFpv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789224383; c=relaxed/simple;
+	bh=GAg2KcHj6vIzVzvOv0EEQoUKS+sOiIbdJa3s/8hSw+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N0zBH7r0o6RUUNU+6A2RHo6HzjeqXkA6BlMRW5vWynaVACNU2VVWpgBMs+Wu3WPiKxRblDRLlXDgbYDX6RO010V/xT9nZ2zpBaksyjoA9sXnQWPZNLJT8mYN7D8H1zhMPndPvDHYf7H2qLSJOJyQgQYauqgg/7EEtYrPEfYzrWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gPq7Wr2P; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="q+g0HFpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED771F00893;
-	Sat, 12 Sep 2026 14:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789224377;
-	bh=EXR5ZlQPnTPcYhTD48LNpHty5FDc6/FuhqNNk5u0AzM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=q+g0HFpvKsyF61VK/dBZxMV3JVeQyhBgaobW4pM4LdELFOVpaSepxcIGpbdJB1JWb
-	 HDkAUhCmPGRcC422RJTPqpAOR7FLDVbw/RsQMSSMaZi5DbdbN/MjwITzcaiea4ttQw
-	 J3f30lc52EMa3qF+OqfaP6OS0nSAANeIFPE+N4gA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Huisong Li <lihuisong@huawei.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0980/1424] ACPI: processor: idle: Optimize ACPI idle driver registration
-Date: Sat, 12 Sep 2026 08:56:52 +0200
-Message-ID: <20260912065629.262202659@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gPq7Wr2P"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso774392a12.2
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 07:46:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789224380; x=1789829180; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TmaoDFxzQKVyaXm36B4ffdDPK6QYqEtkuSAzwPXlrsc=;
+        b=gPq7Wr2PLo1XnI52+zR7mv+T6kM+yhLU3I9uuxGGVhh4M63utKJYsgv5o3yQVhagEP
+         qf2++SHF65zzSxtIwmRjC2EkJkeVOCQa6Kv/SkVX/4cacnIS6qIv7llloPvZpeKCtN97
+         N4jmndHQQ9WhoRW0HyKliGIAS4hX6jgvvbIKgc7eQt37OoWcafzeX3tWkA+GZ4XfFoRh
+         QSvNXlqADbom9O0CjA3J7/c2LV6BJLueYDt4GtoJ9k38ghjiV9DXzli6cAZPPvR4Jg9i
+         DEklXCrZcOBYMR5ySQbbmTIFvzpHSWguAGuxta4OCOcq6x1H7n3BCxJrl7sqkzpOt98K
+         rGZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789224380; x=1789829180;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TmaoDFxzQKVyaXm36B4ffdDPK6QYqEtkuSAzwPXlrsc=;
+        b=L+PUxaiMQgsaXvspRNBm1Y+v4S6yNOIl5ulWzLxpc3MdEo4DDfZeLo32j0DZty1D0h
+         wVFFXEs2R7tTEBz0Gd/Jdv5dcoO4NsGfV69FpvSslYxQMXMU4Z+HdFVmdu5MKt5pgIBK
+         5QEPkf+/VllEEkimRzSLXqLHOLkolytbbfUcAjA8AjhqDYRCw1w6mn55HJcXutSSwStJ
+         cwivrWm3ta9r/AKHT3GOktIeh2oTHo/EtkNGi52TWmGIkt4tKPqUffQ+XZfknLZNGGrD
+         FANZ7PJiZ+NC5PH3Pw4dd8Dh+AQmf2G5Rt472g/KiLQTud3mFJ9WQgXJY6sdCSrYK5hk
+         YgYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxa6i8sLE234UvaEdQq99pGMFFL9NHXyRYkLvsFyWCLtxNV+rmC3pf7mKN6juOJcMO8F2oTDyk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mP3LcWyDY3hN55UO2CEhmVtOOxVXtxrDfQkPFPG7wW4/mJM1CT
+	9hmY9ZCL2YCqILu3y4no6r+itZtS6oRIe4en1ZI0kUqPei7WDCSxxx4+
+X-Gm-Gg: AYBFou3fF+SUnCDsVLPqEXcyR5Wr8U6m+mSxh31Kykcjx2GH8F0WgA83U69G6HCtP9V
+	d9xyXvXkAL1kCX87OKe2tH1nDm/URFiKw4sDlJDwgwJbfYjThd5rH4gl+KkCwjB55zDf0ttOaGU
+	qqpMmBjKqjUWB3GGYf/VCXj9LZHYrLfVMOEkjyvyQagy8tonI5KHC0gF8oAn1S+dsUS8UBWHLEQ
+	2WjENxF+lWZha7ht16AqJKmqkBIFpZCy4zsXY7HaIBHBslqzqOj9A8ZUEGew6akb85s6B3aKsGV
+	JDNdVXdFYneONvgYvVWF2G/87Z1Ii6aOjzmZyK2bq4QkjnWiGv2bWVlXCxi3WBrtkp/dxzW6T2k
+	E/Y62ayeNDF91+eWY1WbE7Cehgh1u/CapEMryZNaOerPNOPPLXQil0+X2UEX3YMEbngovaMnoYM
+	AvysQkuGVvNjzijjFne9ubHpvqOE8OisL5uxX6vhWGDf4xycJHxepW3g==
+X-Received: by 2002:a17:90b:5383:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-39d9bc44d58mr18616906a91.7.1789224380269;
+        Sat, 12 Sep 2026 07:46:20 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e60484sm10398006a91.4.2026.09.12.07.46.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 07:46:19 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Tero Kristo <t-kristo@ti.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: omap-sham: fix crypto engine cleanup
+Date: Sat, 12 Sep 2026 22:46:08 +0800
+Message-ID: <20260912144608.994510-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,207 +76,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+omap_sham_probe() allocates and starts a crypto engine, but the remove
+path does not call the matching crypto_engine_exit(). The probe failure
+path already performs this cleanup.
 
-------------------
+crypto_engine_alloc_init() creates a kthread worker for processing
+requests. Without crypto_engine_exit() during driver removal, the
+worker is left running after the device is removed.
 
-From: Huisong Li <lihuisong@huawei.com>
+Call crypto_engine_exit() after unregistering the algorithms and before
+tearing down the remaining request handling resources. This stops the
+engine and destroys its worker.
 
-[ Upstream commit 7a8c994cbb2db3c5335cee35fd486557f5aaf7e1 ]
+This issue was found by manual code inspection.
 
-Currently, the ACPI idle driver is registered from within a CPU
-hotplug callback. Although this didn't cause any functional issues,
-this is questionable and confusing. And it is better to register
-the cpuidle driver when all of the CPUs have been brought up.
-
-So add a new function to initialize acpi_idle_driver based on the
-power management information of an available CPU and register cpuidle
-driver in acpi_processor_driver_init().
-
-Signed-off-by: Huisong Li <lihuisong@huawei.com>
-Link: https://patch.msgid.link/20250728070612.1260859-3-lihuisong@huawei.com
-[ rjw: Added missing inline modifiers ]
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-
-This commit has four changes under the commit 7a8c994cbb2d (ACPI:
-processor: idle: Optimize ACPI idle driver registration):
-
- 1) move acpi_processor_register_idle_driver() ahead of the
-    driver_register().
- 2) add acpi_processor_cstate_first_run_checks() before calling
-    acpi_processor_get_power_info().
- 3) squash the commit 9d68320b2bca (ACPI: processor: idle: Fix
-    function defined but not used warning) into this change.
- 4) use for_each_possible_cpu(cpu) to scan all possible cpus.
-
-[ rjw: New comment edits, changelog tweak ]
-
-Stable-dep-of: 06f32dd67e6b ("ACPI: processor: Unregister cpufreq notifier on init failure")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/acpi/processor_driver.c | 10 ++++-
- drivers/acpi/processor_idle.c   | 66 +++++++++++++++++++++------------
- include/acpi/processor.h        |  2 +
- 3 files changed, 54 insertions(+), 24 deletions(-)
+ drivers/crypto/omap-sham.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/acpi/processor_driver.c b/drivers/acpi/processor_driver.c
-index 4bd16b3f07814..ccf8d93c314b7 100644
---- a/drivers/acpi/processor_driver.c
-+++ b/drivers/acpi/processor_driver.c
-@@ -269,9 +269,11 @@ static int __init acpi_processor_driver_init(void)
- 		acpi_processor_ignore_ppc_init();
- 	}
- 
-+	acpi_processor_register_idle_driver();
-+
- 	result = driver_register(&acpi_processor_driver);
- 	if (result < 0)
--		return result;
-+		goto unregister_idle_drv;
- 
- 	result = cpuhp_setup_state_nocalls(CPUHP_AP_ONLINE_DYN,
- 					   "acpi/cpu-drv:online",
-@@ -284,8 +286,13 @@ static int __init acpi_processor_driver_init(void)
- 
- 	acpi_processor_throttling_init();
- 	return 0;
-+
- err:
- 	driver_unregister(&acpi_processor_driver);
-+
-+unregister_idle_drv:
-+	acpi_processor_unregister_idle_driver();
-+
- 	return result;
- }
- 
-@@ -303,6 +310,7 @@ static void __exit acpi_processor_driver_exit(void)
- 	cpuhp_remove_state_nocalls(hp_online);
- 	cpuhp_remove_state_nocalls(CPUHP_ACPI_CPUDRV_DEAD);
- 	driver_unregister(&acpi_processor_driver);
-+	acpi_processor_unregister_idle_driver();
- }
- 
- module_init(acpi_processor_driver_init);
-diff --git a/drivers/acpi/processor_idle.c b/drivers/acpi/processor_idle.c
-index 0b0d5680832ae..1309254f51871 100644
---- a/drivers/acpi/processor_idle.c
-+++ b/drivers/acpi/processor_idle.c
-@@ -1379,7 +1379,49 @@ int acpi_processor_power_state_has_changed(struct acpi_processor *pr)
- 	return 0;
- }
- 
--static int acpi_processor_registered;
-+void acpi_processor_register_idle_driver(void)
-+{
-+	struct acpi_processor *pr;
-+	int ret = -ENODEV;
-+	int cpu;
-+
-+	/*
-+	 * ACPI idle driver is used by all possible CPUs.
-+	 * Use the processor power info of one in them to set up idle states.
-+	 * Note that the existing idle handler will be used on platforms that
-+	 * only support C1.
-+	 */
-+	for_each_possible_cpu(cpu) {
-+		pr = per_cpu(processors, cpu);
-+		if (!pr)
-+			continue;
-+
-+		acpi_processor_cstate_first_run_checks();
-+		ret = acpi_processor_get_power_info(pr);
-+		if (!ret) {
-+			pr->flags.power_setup_done = 1;
-+			acpi_processor_setup_cpuidle_states(pr);
-+			break;
-+		}
-+	}
-+
-+	if (ret) {
-+		pr_debug("No ACPI power information from any CPUs.\n");
-+		return;
-+	}
-+
-+	ret = cpuidle_register_driver(&acpi_idle_driver);
-+	if (ret) {
-+		pr_debug("register %s failed.\n", acpi_idle_driver.name);
-+		return;
-+	}
-+	pr_debug("%s registered with cpuidle.\n", acpi_idle_driver.name);
-+}
-+
-+void acpi_processor_unregister_idle_driver(void)
-+{
-+	cpuidle_unregister_driver(&acpi_idle_driver);
-+}
- 
- int acpi_processor_power_init(struct acpi_processor *pr)
- {
-@@ -1394,22 +1436,7 @@ int acpi_processor_power_init(struct acpi_processor *pr)
- 	if (!acpi_processor_get_power_info(pr))
- 		pr->flags.power_setup_done = 1;
- 
--	/*
--	 * Install the idle handler if processor power management is supported.
--	 * Note that we use previously set idle handler will be used on
--	 * platforms that only support C1.
--	 */
- 	if (pr->flags.power) {
--		/* Register acpi_idle_driver if not already registered */
--		if (!acpi_processor_registered) {
--			acpi_processor_setup_cpuidle_states(pr);
--			retval = cpuidle_register_driver(&acpi_idle_driver);
--			if (retval)
--				return retval;
--			pr_debug("%s registered with cpuidle\n",
--				 acpi_idle_driver.name);
--		}
--
- 		dev = kzalloc(sizeof(*dev), GFP_KERNEL);
- 		if (!dev)
- 			return -ENOMEM;
-@@ -1422,14 +1449,11 @@ int acpi_processor_power_init(struct acpi_processor *pr)
- 		 */
- 		retval = cpuidle_register_device(dev);
- 		if (retval) {
--			if (acpi_processor_registered == 0)
--				cpuidle_unregister_driver(&acpi_idle_driver);
- 
- 			per_cpu(acpi_cpuidle_device, pr->id) = NULL;
- 			kfree(dev);
- 			return retval;
- 		}
--		acpi_processor_registered++;
- 	}
- 	return 0;
- }
-@@ -1443,10 +1467,6 @@ int acpi_processor_power_exit(struct acpi_processor *pr)
- 
- 	if (pr->flags.power) {
- 		cpuidle_unregister_device(dev);
--		acpi_processor_registered--;
--		if (acpi_processor_registered == 0)
--			cpuidle_unregister_driver(&acpi_idle_driver);
--
- 		kfree(dev);
- 	}
- 
-diff --git a/include/acpi/processor.h b/include/acpi/processor.h
-index 3f34ebb275253..f85bbb7b8c6ca 100644
---- a/include/acpi/processor.h
-+++ b/include/acpi/processor.h
-@@ -418,6 +418,8 @@ int acpi_processor_power_init(struct acpi_processor *pr);
- int acpi_processor_power_exit(struct acpi_processor *pr);
- int acpi_processor_power_state_has_changed(struct acpi_processor *pr);
- int acpi_processor_hotplug(struct acpi_processor *pr);
-+void acpi_processor_register_idle_driver(void);
-+void acpi_processor_unregister_idle_driver(void);
- #else
- static inline int acpi_processor_power_init(struct acpi_processor *pr)
- {
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index 6d2dd0b88f15..207fc7680c8f 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -2129,6 +2129,7 @@ static void omap_sham_remove(struct platform_device *pdev)
+ 	list_del(&dd->list);
+ 	spin_unlock_bh(&sham.lock);
+ 	omap_sham_unregister_algs(dd->pdata);
++	crypto_engine_exit(dd->engine);
+ 	cancel_work_sync(&dd->done_task);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
 -- 
-2.53.0
-
-
+2.43.0
 
