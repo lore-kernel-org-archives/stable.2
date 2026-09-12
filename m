@@ -1,45 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AFD3B3C10;
-	Sat, 12 Sep 2026 20:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811673B442B
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243541; cv=none; b=EMzNPXHm08oaCWq70jEoNTXJ3vvjrKDCupkjkC85y2f/RERy5LuDy6vwGPq+nUTMNPkdBBuMmj8PxpFguEA8+epUOsX3YwcBOAMYkyWmWMt7txhVEXXtP1u0+quW9QmNppqzL0VE4ozr7FoH+T8tJb3snVZQEbo84QOP7FrMoy0=
+	t=1789243542; cv=none; b=VkhZyczKA8rNEWIiXMnNy39N1aXDxl1s8b71xx93n/4OIBtpn4EAQ1dLqtGzpmzIrCi44itwj2IJqeZFiQzavi9EmsawevCeJR5xg+MP99PIhP9dy+VDB4+nWW2dSUmEg51XyKLiYRO/T69Rb/SrXZqPFLpL6AY2xjd2p4DCE9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243541; c=relaxed/simple;
-	bh=1SliTD0cFPb4Lf2tirHhdQyA47yn1M6OLfq5deThFIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XbJ6TVtzPgtsk3z0kdBk39ZQgD8xU26+/Fa3ITX0klIK2KRY0x9Ui8vuc+KEZUSXuWODxH05KCc1m3X2I/vP2CSUt4p8o+t2QVdBF86VtiDVy9fVtp8nVE49qI0eJvQOH4/D8/NixY2R6J4RBLuuMdMQW8a3l8CJs8UvG/Qpe+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1XsDFHjw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789243542; c=relaxed/simple;
+	bh=CuZ3ffQ8Hm5jQhayUPc9pN7MNyme//qilaeYwIzrWH4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N6BfTeP2fodaPHDt3NKRWOyCtlLxAgq+oXAM+Y7uSHWO3XrZpwkHBTQiHCkvojfmMJpJXcwIRUjWmnVoGFrT8ClIEYBRiNAIHMiJpn+D/TbxUiNdAygWUis67FcV3dYo1AmxVlKQ2ScatNN8XCTlKhf1jTTgmYQYhJu9iLzvZhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=LNWvFBL6; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1XsDFHjw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BDE1F000FF;
-	Sat, 12 Sep 2026 20:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789243535;
-	bh=KV6G4ZqWy5nMfYubpIYE9crbcYLWWKKpUEr+8WPmRuQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1XsDFHjwaQ+LzNy+e/0hqiKn5xGOZgzlVqnuqB8oEe0tndMAQiTu66CozeVB88Esc
-	 QjrDqC12K25L9DPXKQjZsuk1Z8FN9ua0hTQ90/PfOtVllB8JJ7a6RhNArjf6iEW8k9
-	 a9MGbOiLsyuSh160vrgLGZWYe+bmU8Y9b2x4BUgY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	Junrui Luo <moonafterrain@outlook.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 746/798] NFSv4/pnfs: key the data server cache on the NFS version
-Date: Sat, 12 Sep 2026 09:06:14 +0200
-Message-ID: <20260912065534.171915505@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
-References: <20260912065516.948645775@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="LNWvFBL6"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2dd020a2e44so18769085ad.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 13:05:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789243533; x=1789848333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6LRU4U2K2fkRgvqWBTzhPzJ23ce9gNrBNZs6QKd0OBo=;
+        b=LNWvFBL6tOjZMG2e9DNivqXJyrCbYTNDLEgJDqx1ggCY7eARBMEdZbCQsUEz7P54nU
+         9TNLYOETVtR48V+gJ9eWaHpmxOMY1iYnNJqfPDZLVf8fE9i/ooM18ctugS0B6l7UJhf/
+         AYtKISq3Hzpwj/eHtXcklv0qC3bvuwSTjslFqFRIes48vt+R7PKM3S08QWKyANH612cb
+         axhC+JQMZQqpE+4rbFI5BRfc1Hy6RMtBTDsr7I8iX7Aoih3WRbl+/P0dmdTpvegsNhDq
+         xvvy4/Ycr8YAFpjSr7fB4IbTQRJW+0PahCXjU8BJW3w7JoVRGqVrUxy5b7kTQ6ZIiskk
+         FcYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789243533; x=1789848333;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LRU4U2K2fkRgvqWBTzhPzJ23ce9gNrBNZs6QKd0OBo=;
+        b=Gfne/T2kzJSfFWrI/Y/RrLgKIG1bg8ZYt0lX1OeFG2WPg5Fk57qUv5baGZzKS3h0cn
+         mKNgxWcFxroeVFeDicsPA595zGH28hPhZHvXieqev4sAVqnBjsqNVYGKpmdkqsJJD6wz
+         Cv3l085iPP3hp9YYkUqCqBGVKVzRZYIc3WyymlI4vuO95+FwT6FhK53oR/21iW4JZY6o
+         HTiax2efYkBx8SG6z5FDCJRY5EWKXm7/Qz4AOuzEhrsmU+XuVtwruvCZG7AUamw+6egR
+         7u5wd8FXJQ8AdsSbR8XuR6ShbV6H2R2nfHXfDbX5BZBcd9fkGsEAWGYuJoN/B8K3pNEc
+         +A1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzTmUvVX4p2tKVDrDFw2gYH9pvvTZh/aF43EKRog0QetnT20r28zhRhbrlTFNIdRY+9rbo0B6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0G5YhgjkMjYxj0d6LW8DCWZHFg9ElYxjVd+DZGwzwFjqx5oEl
+	wygRjPPcwPg9eO3GowIWxwzDQG0OrIe1NOubab+t8ioS5t3UiznhabytCvJxhJuD/Q==
+X-Gm-Gg: AYBFou1m+g0emBBE6Wjx28XTCunyuo5HjpJkFp6eo23gT+wXmzJc1842fSEJsRfNpYX
+	xr0AEFrKXTxzFbFbvFuTFyD/CHkkTp7sads2BFGkxYxag+vpcGE24Dv08JnzY6AT+yUXyKHk9I5
+	iyB+D8wbUCuMxJgvhKvcyGtJwPtgU7A0CTLB2EDUQ6/R/cZ9s2GmZijrwv1GTTHwh/VYRoEsu6F
+	dOgcpBT4QAn0KVE/nOZXM8WswoU/htY0cLRlXn+Sn6sUM0eyhzyQQFKkgQ4H3ajCb547BskDNvx
+	duMycYmGNyt2/SDnADJiBVwHXke6yZTWyCV4SY3CFiPmHM30Oc+0xA+pVPRG5CRyAsQLPifLf/s
+	/7B7ZmTE0OVyyorfvAWIR0bckwxa5LfQYpuJbyI7oPYNpR02k6K/rHWwzia40zvbXGFHqUtPVhk
+	IAh38rCbSBJIzpu3aQW+D0VWZDRbJsRpLHTAd0li+/aDRhu2usGHKlMs7d8g+IOlGFUIJUmOs8+
+	vCiPEXoeTFcU1GtXoDc89wFuOPktJNxmriZ7ItQdeA0bopX
+X-Received: by 2002:a17:902:dac9:b0:2d9:1dee:43e3 with SMTP id d9443c01a7336-2dd2a35cf96mr174633375ad.18.1789243533241;
+        Sat, 12 Sep 2026 13:05:33 -0700 (PDT)
+Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm15351412eec.13.2026.09.12.13.05.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 13:05:32 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	co+8eacd4fa193b1b28@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
+Date: Sat, 12 Sep 2026 13:05:30 -0700
+Message-ID: <20260912200530.1955491-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,149 +77,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+data_ep_set_params() allocates each data URB for exactly u->packets
+isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
+ctx->packets is the driver's only record of that limit. For an implicit
+feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
+sync source's packet count, which is calculated independently from the
+capture endpoint's parameters. When that count is larger,
+prepare_playback_urb() and prepare_silent_urb() can write
+iso_frame_desc[] past the allocation; their existing bounds limit payload
+bytes, not the descriptor index.
 
-------------------
+The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
+implicit feedback capture (8 packets) and bInterval 4 for playback
+(1 packet). On the first capture completion after the stream starts, it
+accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
 
-From: Junrui Luo <moonafterrain@outlook.com>
+  BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
+  Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
+   prepare_playback_urb (sound/usb/pcm.c:1560)
+   prepare_outbound_urb (sound/usb/endpoint.c:340)
+   snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
+   snd_complete_urb (sound/usb/endpoint.c:1834)
+   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+   kthread (kernel/kthread.c:436)
+  The buggy address belongs to the object at ffff88801e696a00
+   which belongs to the cache kmalloc-256 of size 256
+  The buggy address is located 0 bytes to the right of
+   allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
 
-[ Upstream commit 13c23c5cb977f66390795437fd3837887ce1fd75 ]
+Record the allocated packet count per endpoint and clamp both the adopted
+count and the packet-size copy to it. Fold the Format Type II delimiter
+into urb_packs before the allocation loop so the recorded limit matches
+every URB.
 
-nfs4_pnfs_ds_add() keys the per-net data server cache on the multipath
-address set alone, and struct nfs4_pnfs_ds records no version. That
-suffices for the files layout driver, which always connects with version
-4, but flexfiles takes its version tuple from GETDEVICEINFO per device,
-and one address can legitimately serve both NFSv3 and NFSv4.
-
-Two deviceids on one address with different ds_versions[0].version
-therefore share a single nfs4_pnfs_ds, and whichever mirror connects
-first pins ds_clp to its own version. The other one is handed that
-client anyway, so it selects rpc_call_ops for a version the connection
-does not speak, and the mismatched sequence-slot handling dereferences
-NULL.
-
-Add the version to the cache key so the two cannot alias, giving each
-version its own nfs4_pnfs_ds and connection while both mirrors stay
-usable. Only the major version is compared, since that is what selects
-rpc_call_ops and rpc_ops; v4.0 and v4.1 keep sharing a client. The files
-layout driver passes the 4 it already hardcodes at connect time.
-
-Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
+Reported-by: co+8eacd4fa193b1b28@bugs.sh
+Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
+Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- fs/nfs/filelayout/filelayoutdev.c         |  3 ++-
- fs/nfs/flexfilelayout/flexfilelayoutdev.c |  3 ++-
- fs/nfs/pnfs.h                             |  3 ++-
- fs/nfs/pnfs_nfs.c                         | 14 +++++++++-----
- 4 files changed, 15 insertions(+), 8 deletions(-)
+ sound/usb/card.h     |  1 +
+ sound/usb/endpoint.c | 12 +++++++-----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/fs/nfs/filelayout/filelayoutdev.c b/fs/nfs/filelayout/filelayoutdev.c
-index e6bf55e37521f..4391d88e78759 100644
---- a/fs/nfs/filelayout/filelayoutdev.c
-+++ b/fs/nfs/filelayout/filelayoutdev.c
-@@ -171,7 +171,8 @@ nfs4_fl_alloc_deviceid_node(struct nfs_server *server, struct pnfs_device *pdev,
- 			goto out_err_free_deviceid;
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index e34d92d576a2..8299ac241c60 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -116,6 +116,7 @@ struct snd_usb_endpoint {
+ 	unsigned int phase;		/* phase accumulator */
+ 	unsigned int maxpacksize;	/* max packet size in bytes */
+ 	unsigned int maxframesize;      /* max packet size in frames */
++	unsigned int max_urb_packs;	/* packets allocated per data URB */
+ 	unsigned int max_urb_frames;	/* max URB size in frames */
+ 	unsigned int curpacksize;	/* current packet size in bytes (for capture) */
+ 	unsigned int curframesize;      /* current packet size in frames (for capture) */
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 0835943d7b0e..b72ce1e9bfb1 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -492,9 +492,10 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 
+ 		/* copy over the length information */
+ 		if (implicit_fb) {
+-			ctx->packets = packet->packets;
++			ctx->packets = min_t(int, packet->packets,
++					     ep->max_urb_packs);
+ 			memcpy(ctx->packet_size, packet->packet_size,
+-			       packet->packets * sizeof(packet->packet_size[0]));
++			       ctx->packets * sizeof(packet->packet_size[0]));
  		}
  
--		dsaddr->ds_list[i] = nfs4_pnfs_ds_add(net, &dsaddrs, gfp_flags);
-+		dsaddr->ds_list[i] = nfs4_pnfs_ds_add(net, &dsaddrs, 4,
-+						      gfp_flags);
- 		if (!dsaddr->ds_list[i])
- 			goto out_err_drain_dsaddrs;
+ 		/* call the data handler to fill in playback data */
+@@ -1242,15 +1243,16 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 			ep->nurbs = min(max_urbs, urbs_per_period * ep->cur_buffer_periods);
+ 	}
  
-diff --git a/fs/nfs/flexfilelayout/flexfilelayoutdev.c b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-index 35cac4d3f2e8a..d5aff162348ad 100644
---- a/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-@@ -147,7 +147,8 @@ nfs4_ff_alloc_deviceid_node(struct nfs_server *server, struct pnfs_device *pdev,
- 	new_ds->ds_versions = ds_versions;
- 	new_ds->ds_versions_cnt = version_count;
- 
--	new_ds->ds = nfs4_pnfs_ds_add(net, &dsaddrs, gfp_flags);
-+	new_ds->ds = nfs4_pnfs_ds_add(net, &dsaddrs, ds_versions[0].version,
-+				      gfp_flags);
- 	if (!new_ds->ds)
- 		goto out_err_drain_dsaddrs;
- 
-diff --git a/fs/nfs/pnfs.h b/fs/nfs/pnfs.h
-index f88b0cf00f21e..bed76c18eae0d 100644
---- a/fs/nfs/pnfs.h
-+++ b/fs/nfs/pnfs.h
-@@ -60,6 +60,7 @@ struct nfs4_pnfs_ds {
- 	const struct net	*ds_net;
- 	struct nfs_client	*ds_clp;
- 	refcount_t		ds_count;
-+	u32			ds_version;	/* cache key, with ds_addrs */
- 	unsigned long		ds_state;
- #define NFS4DS_CONNECTING	0	/* ds is establishing connection */
- };
-@@ -408,7 +409,7 @@ void pnfs_generic_write_commit_done(struct rpc_task *task, void *data);
- void nfs4_pnfs_ds_put(struct nfs4_pnfs_ds *ds);
- struct nfs4_pnfs_ds *nfs4_pnfs_ds_add(const struct net *net,
- 				      struct list_head *dsaddrs,
--				      gfp_t gfp_flags);
-+				      u32 version, gfp_t gfp_flags);
- void nfs4_pnfs_v3_ds_connect_unload(void);
- int nfs4_pnfs_ds_connect(struct nfs_server *mds_srv, struct nfs4_pnfs_ds *ds,
- 			  struct nfs4_deviceid_node *devid, unsigned int timeo,
-diff --git a/fs/nfs/pnfs_nfs.c b/fs/nfs/pnfs_nfs.c
-index 6abab15ea7dcb..503d04d39bca1 100644
---- a/fs/nfs/pnfs_nfs.c
-+++ b/fs/nfs/pnfs_nfs.c
-@@ -649,15 +649,17 @@ _same_data_server_addrs_locked(const struct list_head *dsaddrs1,
- }
- 
- /*
-- * Lookup DS by addresses.  nfs4_ds_cache_lock is held
-+ * Lookup DS by addresses and NFS version.  nfs4_ds_cache_lock is held
-  */
- static struct nfs4_pnfs_ds *
--_data_server_lookup_locked(const struct nfs_net *nn, const struct list_head *dsaddrs)
-+_data_server_lookup_locked(const struct nfs_net *nn,
-+			   const struct list_head *dsaddrs, u32 version)
- {
- 	struct nfs4_pnfs_ds *ds;
- 
- 	list_for_each_entry(ds, &nn->nfs4_data_server_cache, ds_node)
--		if (_same_data_server_addrs_locked(&ds->ds_addrs, dsaddrs))
-+		if (ds->ds_version == version &&
-+		    _same_data_server_addrs_locked(&ds->ds_addrs, dsaddrs))
- 			return ds;
- 	return NULL;
- }
-@@ -751,7 +753,8 @@ nfs4_pnfs_remotestr(struct list_head *dsaddrs, gfp_t gfp_flags)
-  * uncached and return cached struct nfs4_pnfs_ds.
-  */
- struct nfs4_pnfs_ds *
--nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_flags)
-+nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, u32 version,
-+		 gfp_t gfp_flags)
- {
- 	struct nfs_net *nn = net_generic(net, nfs_net_id);
- 	struct nfs4_pnfs_ds *tmp_ds, *ds = NULL;
-@@ -770,7 +773,7 @@ nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_fla
- 	remotestr = nfs4_pnfs_remotestr(dsaddrs, gfp_flags);
- 
- 	spin_lock(&nn->nfs4_data_server_lock);
--	tmp_ds = _data_server_lookup_locked(nn, dsaddrs);
-+	tmp_ds = _data_server_lookup_locked(nn, dsaddrs, version);
- 	if (tmp_ds == NULL) {
- 		INIT_LIST_HEAD(&ds->ds_addrs);
- 		list_splice_init(dsaddrs, &ds->ds_addrs);
-@@ -779,6 +782,7 @@ nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_fla
- 		INIT_LIST_HEAD(&ds->ds_node);
- 		ds->ds_net = net;
- 		ds->ds_clp = NULL;
-+		ds->ds_version = version;
- 		list_add(&ds->ds_node, &nn->nfs4_data_server_cache);
- 		dprintk("%s add new data server %s\n", __func__,
- 			ds->ds_remotestr);
++	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
++		urb_packs++; /* for transfer delimiter */
++	ep->max_urb_packs = urb_packs;
++
+ 	/* allocate and initialize data urbs */
+ 	for (i = 0; i < ep->nurbs; i++) {
+ 		struct snd_urb_ctx *u = &ep->urb[i];
+ 		u->index = i;
+ 		u->ep = ep;
+ 		u->packets = urb_packs;
+-
+-		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+-			u->packets++; /* for transfer delimiter */
+ 		u->buffer_size = maxsize * u->packets;
+ 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+ 		if (!u->urb)
 -- 
-2.53.0
-
-
+2.43.0
 
