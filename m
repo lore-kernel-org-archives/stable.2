@@ -1,123 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA5E3542F8;
-	Sat, 12 Sep 2026 09:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67AB416842;
+	Sat, 12 Sep 2026 09:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789206071; cv=none; b=fn/Rvxbs3A0LlQhF06cbjMra9C2k7AJD+yTiJ9QlwAdkp2SbyCCP2JBmA3aG2m+U1+mOUfhIEgyNJLKOQK/XD/1Yol+xktNgYXp1Tdu0GscCcBtTDPOd2A4cTYhqa/+41ELY0txbfJG8TrvL1tqF4hH8QkVP7bdMSXFFZNChXtE=
+	t=1789206070; cv=none; b=hXjcbyGHSz1u2IroadJunMtYAaMCpKAm3XHr4A8C3nR2Ba9gs/iNQ6DZsRw7ocBrCBt9OdLplyXvRQ4I8EQehebbcQSQH8PaO4Th6RL4TwkBvR/+iSm+2SWpe05BvOZDfilG3FIsPg2fMRiRzMzDr5YV1E+N2SW3QVYm9hbrWBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789206071; c=relaxed/simple;
-	bh=93hiN+zgFtJv8NiZuZmnAfiPDk5K0DXfcv1jROmjbE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZWU+EubveyZTm96BPCjDgmlBNVPEOia+2kDMLAB+D6xRaDxTA+8vPN9yDqg5ZrXGRJaD122703i9wqnVssCQnx6mLe6yLRedQY5NvVlTc3+dplSFfDU119wK6hdHiJL7qu6nUyOX42d22QczFfS4EgImtMnNIS13+Xe9u+ULDho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PMS2Kuff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789206070; c=relaxed/simple;
+	bh=ddGcxI1iJxi2m2MhRVKWXwBPpir+KlK0dMvBt9NihKA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WZJTGc7vQjikNQM4xQ8/UU/rcG2YidN9L9Wvx7ysR/ZuOOUQA+B29+2sD4Zp4gEZYwllQCrEcwcKjWswdxSvOs2g8JLz468mvOHjInC94nb8RQvQ6HY1BBNg0BRLLp3qqN7KJkyEQtXbXDT8WJyxcJHJ3DtMO1PyvBoXpR71xDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=bf7Y37Bf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wbI5F+KE; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PMS2Kuff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1201F000FF;
-	Sat, 12 Sep 2026 09:41:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789206069;
-	bh=tjD4zH5zF+2i5DjrP0YcdzsobigVFM7z6jTaWFDykNI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PMS2Kuff54Y9l2vVggHAQMvgi62xK5lMy+ZDWbfT+WFaZJX1WLs0Rzbkkv3WkQjrx
-	 arrJfY6UkgagBMFlAjZje4UGfRQ+0KkphWGizwSSUytIcj3QUH9H0efkGMD+G80Hve
-	 3RF3ogWdjEGJo+XjGS8utvhyqGeNY9/s0wDCXG6A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	Liu Ying <victor.liu@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0094/1518] drm: lcdif: Wait for vblank before disabling DMA
-Date: Sat, 12 Sep 2026 08:37:43 +0200
-Message-ID: <20260912065625.603284057@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="bf7Y37Bf";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wbI5F+KE"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 33163EC0092;
+	Sat, 12 Sep 2026 05:41:05 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Sat, 12 Sep 2026 05:41:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1789206065; x=1789292465; bh=hg
+	elB1aNZIxrLEiIkWEq3TlDBqZxOBKRli3gG0SLtmI=; b=bf7Y37BfiRHP4lQkTk
+	j9gtd0h8bVr6CJyisVl2Q5PqvijKSybxvV7vr5OjM0XzLhnmeOEAqJgOtLZeDtwB
+	S2YLmwG9ueGf6MdJOMXu7PBSce7f2B0VONzbOFLp2UsyPg6K8Z3UsSx9iMRFqO7x
+	VLMDO3iOa8F2EALkDc84RexHUfhHTSGLtoD7vXEm29HOfSlvETqMOSt7knW73Oz6
+	9kh1cNct0fhFSRe3llUd5ObIwwiIoo3Hh75QkSCjCM0weEI3Ygn9+DzxcFw6qFQe
+	1+arzcAFq1uuxOVDwZipsSqtFu/Mc/j3EAGVgZNwY/EOI3QK7cGruIJy4Txj2wGC
+	MwYA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1789206065; x=1789292465; bh=hgelB1aNZIxrLEiIkWEq3TlDBqZx
+	OBKRli3gG0SLtmI=; b=wbI5F+KEnfOi2BCL8e+RcTVonaVA4FSrgcHr/dQ8eOnY
+	w1Atf7aA6rRQXUwstvsWBN8iyV2QLeZZAJhBn58ibw4nYDx3wYzyRW6L2uHW7w55
+	0WEn+iRuUrynPZHlZvvsRoTm0QLqPhjCCY2WNMF7988fSCq6MdQIwPlA4DX3hbRP
+	Of8gqZSY7kzeyt0tQc/8UHUj2Na/NTzQC6/tboj2WHWtiqDbifYbO7JFbinKJZZY
+	M355HucrUDXGKnhIGejlS6igo4r7yVQIF6yXc47ifcCnVegsvCr4SBVqDOT3/wlT
+	aYNFseZlQcqSmgh+Wo6muCKk80dCVisMkdWR6tPqow==
+X-ME-Sender: <xms:MB6laosLFTmM9uvmL2mozEd9LJ7w7ypu51LxSldHyhCaRQC0xec2Gw>
+    <xme:MB6laqoT-ZTWaZadFYFRSbPmCLpouKVEuzwqn8i5r9lW2nGCVU8MIuQP9__6j2hQP
+    RPvwVuVkxK2bj8nG2gz5yMPhMyqZ2FzLT2LtEBmH0YEgLYS27pyYRw>
+X-ME-Received: <xmr:MB6lanKj2uFwtv9aPk1QTQPrRKMeTmwyBIipffzBrzvgp-TmFonbX7fiGP3hNnRSP__N0kbzqniUZ9OQiptbuCF1edojXxChR9yzXA>
+X-ME-Proxy-Cause: dmFkZTGMMXxsWH1QA8Yl0LAzl/pT4bdCejj2Kw6+qtO58AApVjKHspXnqQhgwf2GP2kCJ6
+    AWZpTBnfySAXQUTWeBOifuFmR0WrLuTnzTavcovK63y77UMk7exYrU44UVWz/tzgneH6h7
+    XlM32+xqTqxJRK4OGRK0KG1HoN9KKCuv18DjEJZlvEnGPO2fsjS8XjI49W0KUtb8/FlqY5
+    yMVGyVfoltZFC3FuavBhr5e/KfKmlVcnsnYZ2y0d5blQirggJqcso87oKaM3sCdVChw5wT
+    OlVTpUIFQzgrqZ0e90NMewDqIsxeAr+T/gB6c33/uzTHNjksqOl/d2OEvoUsm0aHNkiGk/
+    umj68XXlUq3TiXFeGN87pSEnDNSSzPyxTSwRN19nmdT5nzBfAd5nfxNiLDnjVE07CTUJRf
+    VQnDBv1NmrC6srdTuhke3muqchoqPGbTvSk/Abm8qcSU/AIrnV6o6vjDlw2+XQl5LLSbbK
+    uDPy3x6CkXZH8uqcn5kW7BkAdSJc+KuYhSCaaykHZQqbpTv2SkTwhwFIx8tLiA9Obj9buZ
+    bAIYoh9IG/VAjPGTDHtGrO18T73t2EUQVJzacmimMIt0sEe4Dk7NC4uSkAu4fd9sppLa8C
+    ZIKr9UHSPSTc2Rj5sTMTn/cn9JsADF01i8TEzY2XKxPNCkYHLY6MaIS4BHpA
+X-ME-Proxy: <xmx:MB6laqtCJsBKIRnuV--rCgVifyycg_Xs4WxVcootbmwM1hjMC_f7dA>
+    <xmx:MB6lakCYT9Jzj3cic1No8RD3G7x0sG-BFaEdTBrw8ZgLVXAb8w2Iqg>
+    <xmx:MB6lai7TjSps0ZCi8fV4QxvbuYWDDgHIqYiAsF_KtX4NBnA5dSAFIA>
+    <xmx:MB6lasDPQV_fx5r0HhP8-vYHp5yu_e1y1Abv6EczySY4KqnZlrS8TA>
+    <xmx:MR6larFXeElB3ac3b9EM0uq9OnyT59sjcLqpASKkf8tfEvvMIvZQH4T7>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 12 Sep 2026 05:41:04 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Sat, 12 Sep 2026 11:40:51 +0200
+Subject: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way
+ HS offload
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQrCMBBFr1Jm7UCaWqleRVyMyYwZtIkksSqld
+ ze4ew8e/69QOCsXOHUrZF60aIpN+l0HLlC8MapvDtbYgzn2Fq/ZzTKTw/2bvtgSXwLdGZPII5F
+ HetXAsaqjyh55aYzTOMg4EVszMLTlZ2bRz//1fNm2H3DI07SFAAAA
+X-Change-ID: 20260912-brcmfmac-4way-handshake-offload-authenticated-event-853f58ae203e
+To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
+ Hante Meuleman <meuleman@broadcom.com>, 
+ "Gautam Shukla (Gautam Kumar)" <gautams@broadcom.com>, 
+ Kalle Valo <kvalo@kernel.org>, 
+ Pieter-Paul Giesberts <pieterpg@broadcom.com>
+Cc: Jason Huang <jason.huang2@infineon.com>, linux-wireless@vger.kernel.org, 
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+ asahi@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Janne Grunau <j@jannau.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3353; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=ddGcxI1iJxi2m2MhRVKWXwBPpir+KlK0dMvBt9NihKA=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqylcno2wmmeAd0NXEvfPY6XSDE82LJYsOv6FWb3tCOtJ
+ Xf+TK/oKGVhEONikBVTZEnSftnBsLpGMab2QRjMHFYmkCEMXJwCMJGzRQz/LJ9k/JTZslopdkJM
+ +bXcA/vWWZ6ds3PW2pOKxYfinolV3mL4p24Xs1ji4CGz4LAjp4svvPZVXXvs+bMitxm1moK/z8+
+ NZwUA
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Since commit 416386060 ("Mark authorization completed on driver
+indication during 4-way HS offload") [0] wpa_supplicant expects
+NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
+driver supports 4-way handshake offload.
+This was apparently never tested with the upstream brcmfmac driver as it
+does not report this. This broke authentication on Apple silicon devices
+(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
+2.11 was released [1]. This was initially dealt with by reverting the
+commit in Fedora [2] and other Linux distributions.
+Instead of carrying the revert over to wpa_supplicant 2.12 add the
+expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
+This will conflict with the "brcmfmac: add FT/OKC roaming offload
+support" [3] series but is written in a way to easily resolve the
+conflicts.
 
-------------------
+The "Fixes:" tag is not fully accurate as this has only become an issue
+after userspace changes years later. Since the change is expected to be
+required in all active stable branches for wpa_supplicant 2.11 / 2.12
+compatibility it is helpful even though BRCMF_PROFILE_FWSUP_SAE did not
+exists then.
 
-From: Paul Kocialkowski <paulk@sys-base.io>
-
-[ Upstream commit 351af554edd994898db12217c3be39979e168d35 ]
-
-It is necessary to wait for the full frame to finish streaming
-through the DMA engine before we can safely disable it by removing
-the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-hardware confused and unable to resume streaming for the next frame.
-
-This causes the FIFO underrun and empty status bits to be set and
-a single solid color to be shown on the display, coming from one of
-the pixels of the previous frame. The issue occurs sporadically when
-a new mode is set, which triggers the crtc disable and enable paths.
-
-Setting the shadow load bit and waiting for it to be cleared by the
-DMA engine allows waiting for completion.
-
-The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
-
-Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant")
-Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
-Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
-Reviewed-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-Tested-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-Acked-by: Liu Ying <victor.liu@nxp.com>
-Link: https://patch.msgid.link/20260402183351.3281123-3-paulk@sys-base.io
-Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
+Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
+Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+Cc: stable@vger.kernel.org
+Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
+Signed-off-by: Janne Grunau <j@jannau.net>
 ---
- drivers/gpu/drm/mxsfb/lcdif_kms.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-index 1c3b33be6c40f..d9499d8c71288 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-@@ -373,14 +373,23 @@ static void lcdif_disable_controller(struct lcdif_drm_private *lcdif)
- 	int ret;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 872c48806d09..9fd0ec6255b0 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -6504,6 +6504,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
+ 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
+ 	struct cfg80211_connect_resp_params conn_params;
++	bool authorized;
  
- 	reg = readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
-+	/* Disable the layer for DMA. */
- 	reg &= ~CTRLDESCL0_5_EN;
-+	/*
-+	 * It is necessary to wait for the full frame to finish streaming
-+	 * through the DMA engine before we can safely disable it by removing
-+	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-+	 * hardware confused and unable to resume streaming for the next frame.
-+	 */
-+	reg |= CTRLDESCL0_5_SHADOW_LOAD_EN;
- 	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
+ 	brcmf_dbg(TRACE, "Enter\n");
  
-+	/* Wait for the frame to finish or timeout after 50 ms. */
- 	ret = readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
--				 reg, !(reg & CTRLDESCL0_5_EN),
--				 0, 36000);	/* Wait ~2 frame times max */
-+				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
-+				 200, 50000);
- 	if (ret)
--		drm_err(lcdif->drm, "Failed to disable controller!\n");
-+		drm_err(lcdif->drm, "Timed out waiting for final vblank!\n");
- 
- 	reg = readl(lcdif->base + LCDC_V8_DISP_PARA);
- 	reg &= ~DISP_PARA_DISP_ON;
+@@ -6528,7 +6529,15 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 		conn_params.req_ie_len = conn_info->req_ie_len;
+ 		conn_params.resp_ie = conn_info->resp_ie;
+ 		conn_params.resp_ie_len = conn_info->resp_ie_len;
++		authorized = completed &&
++			     ((profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE) ||
++			      (profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK));
+ 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
++		if (authorized) {
++			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
++						 GFP_KERNEL);
++			brcmf_dbg(CONN, "Report port authorized\n");
++		}
+ 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
+ 			  completed ? "succeeded" : "failed");
+ 	}
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260912-brcmfmac-4way-handshake-offload-authenticated-event-853f58ae203e
+
+Best regards,
 -- 
-2.53.0
-
-
+Janne Grunau <j@jannau.net>
 
