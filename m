@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429DD1DE4EF;
-	Sat, 12 Sep 2026 15:42:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE47C25A640
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227769; cv=none; b=ZOuMR9xcMSfki93cPhVWbuYvnVlmCKJSIW4iauB7uKHoD+8B/QgVFwX7b0Xdd+SeDBREinK6Y61IL5MnU7eTH4QeesFEzEoTcU0kldQH6+1tCoFi/c6iMF1PBteXCdU28bD/v29UQNQR85EqK+2nyfUPTpTzLzhQCo3QB/WKkCE=
+	t=1789227773; cv=none; b=VAZRQJAXsZvFfKGXW+IKbIMupuT1xhvfZyp1IRLWNDVlyyAKVSyDBYSastBULkJI5SdicFLEG/JQBSig4SAmUcqprKHk0emsCCJqrsJal2p8OxEYLDvZjHi9JSzL7b89LA3/2nLVQXklvu9ePOCawbzvVt5pR96QrunVvz9hkOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227769; c=relaxed/simple;
-	bh=i5m1mRQltKoiiVR3fwuFQrLPz2WOmYQ615HCgdWxtBc=;
+	s=arc-20240116; t=1789227773; c=relaxed/simple;
+	bh=NEHQ/1Qe/RTOEtu+Wug9lY7lQLyS3Pv3W1dv1ilLJxc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YH3CY/w7LX6ePaYDfSMI47MjMBKd7ynN9KjpvCNuVBU3o4pix5VaBpg0lWdJSh6xko0Pqho37cpVwdfycbhTpuyB6/vLG1RUUm8KVbdt08+VMed4JDUe1b2BsAgNZB70+qmK5usmlYzCT7ilD4Y+f+jc5+sionpxU0l1N25yyXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=um5VZf0O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=l4BLmwP+/Kx8IKKTtgnCF6ywHStjg40V7SAQiVmC9qx8T+/EE/GtU/XibPOaoPfYsGRZ4vh+JcjGkGQnQkkeeaus4zSzAYtxUpZgEWpIZl6Ufm7g0QWAvnx18Kj/WxPuzbKwnstRyIm97VDQxu9cjPRzqIxWRHWykv4KLhphgBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrugR7ui; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="um5VZf0O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23DC1F000FF;
-	Sat, 12 Sep 2026 15:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789227768;
-	bh=m3kulppaiWAGdzcMqS+vhSkWoNCKRARbMDZjjjL0q64=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrugR7ui"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040BA1F000FF;
+	Sat, 12 Sep 2026 15:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789227771;
+	bh=w3O3EgNH93tMajWUoDh9kT3W/tuhwSJBQEOmnCg2MFs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=um5VZf0OyWEH+uukwFw9FTyYpbIPfrCDtjz0pMSUFAJcNZ1NN1h9tu84WM56zKR6d
-	 fEWRl6lA6JbAzqxRT/xn7cMrd0hxuZoyXtqElqMVPYUm1n9TYhWh1kxYHGV/vGbDp8
-	 CfyiUqhJ1T7bKtPvmfYVNv1wmUIE0S0gGoKgl8D8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=PrugR7uiHyu6EYJughXPf3QfNiWSPNSqLCTTlXVaQmq++qKTuVEA6AqhbTEix3WBW
+	 HelkGoNcfYGd/eGKBT8ir1CCk5bvmhBUFn7eu14A5SLrbtTroPvTI5VCnJW1eFNErK
+	 2cfHjz1w5bJMxZRvnd+qqpTsqdQf+a7/jD6Y13U2WbyteNhA12C1kRzM1lWmbCKn4Q
+	 V1DgwG9DDh7wP7TVqN2M9s7j5CDSSTGD1JcO5Us0CJYN6AKBQ/sDRKrbNPAnogFcUQ
+	 zZrjzu924YPaVYWnfaDFC7ALgZkx+XXbvXjhGkaiQGmkbOvYS0BE8AjCMDG39THnwz
+	 y7oU1N4al9Y/w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Jan Kara <jack@suse.cz>
-Subject: [PATCH 6.1 0250/1191] udf: Fix i_lenExtents truncation on 32-bit kernels
-Date: Sat, 12 Sep 2026 08:49:38 +0200
-Message-ID: <20260912065553.833360908@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Shixiong Ou <oushixiong@kylinos.cn>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/sysfb: ofdrm: Fix integer overflow in fb_size calculation
+Date: Sat, 12 Sep 2026 11:42:49 -0400
+Message-ID: <20260912154249.3279831-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090950-unstamped-slather-7c9d@gregkh>
+References: <2026090950-unstamped-slather-7c9d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-------------------
+[ Upstream commit c6f48e59ece0123f6a11527ad4d89b21c2d65b87 ]
 
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+The framebuffer size calculation `fb_size = linebytes * height` can
+overflow when both values are large (e.g., 46341 * 46341 > INT_MAX).
+Since linebytes and height are both int types, the multiplication is
+performed as int * int, which results in undefined behavior on overflow.
 
-commit a5a5ed23b1340ff0f32a14a7ca8585f7c4e9b2e2 upstream.
+Use check_mul_overflow() to detect and prevent this overflow, consistent
+with the approach used in simpledrm.c and corebootdrm.c.
 
-In udf_do_extend_file() the total extent length is rounded up to a block
-boundary with:
-
-	iinfo->i_lenExtents = (iinfo->i_lenExtents + sb->s_blocksize - 1) &
-			      ~(sb->s_blocksize - 1);
-
-i_lenExtents is a __u64, but sb->s_blocksize is unsigned long.  On 32-bit
-kernels unsigned long is 32-bit, so ~(sb->s_blocksize - 1) is a 32-bit
-value (e.g. 0xfffff800 for a 2 KiB block) that is zero-extended in the AND,
-clearing the upper 32 bits of i_lenExtents.  For UDF files whose total
-extent length exceeds 4 GiB this truncates i_lenExtents when the file is
-extended, corrupting the tracked extent length.
-
-Cast the block size to 64-bit before forming the mask.  64-bit kernels are
-unaffected.
-
-Fixes: 48d6d8ff7dca ("udf: cache struct udf_inode_info")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Link: https://patch.msgid.link/20260722082425.213311-1-zhanxusheng@xiaomi.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: c8a17756c425 ("drm/ofdrm: Add ofdrm for Open Firmware framebuffers")
+Cc: <stable@vger.kernel.org> # v6.2+
+Link: https://patch.msgid.link/20260825104134.669676-1-oushixiong1025@163.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/inode.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/tiny/ofdrm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -398,7 +398,7 @@ static int udf_do_extend_file(struct ino
- 			  sb->s_blocksize - 1) & ~(sb->s_blocksize - 1));
- 		iinfo->i_lenExtents =
- 			(iinfo->i_lenExtents + sb->s_blocksize - 1) &
--			~(sb->s_blocksize - 1);
-+			~((u64)sb->s_blocksize - 1);
+diff --git a/drivers/gpu/drm/tiny/ofdrm.c b/drivers/gpu/drm/tiny/ofdrm.c
+index cc90e0035d034..b3e42130c3e7c 100644
+--- a/drivers/gpu/drm/tiny/ofdrm.c
++++ b/drivers/gpu/drm/tiny/ofdrm.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ 
+ #include <linux/of_address.h>
++#include <linux/overflow.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+ 
+@@ -1182,7 +1183,10 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+ 			return ERR_PTR(-EINVAL);
  	}
  
- 	/* Can we merge with the previous extent? */
-
+-	fb_size = linebytes * height;
++	if (check_mul_overflow(linebytes, height, &fb_size)) {
++		drm_err(dev, "framebuffer size exceeds maximum\n");
++		return ERR_PTR(-EINVAL);
++	}
+ 
+ 	/*
+ 	 * Try to figure out the address of the framebuffer. Unfortunately, Open
+-- 
+2.53.0
 
