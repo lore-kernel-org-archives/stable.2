@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7373AE707;
-	Sat, 12 Sep 2026 07:06:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF6E3B05BD;
+	Sat, 12 Sep 2026 07:06:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789196765; cv=none; b=rvGZg2v3CNjbwy2BWvyUswq2JBMEjrkicMFj+TB7LnhyFMLX5rM7l5rZiJbojzBgXYtoJaeMBaiwrUcgHA9OdJ9tBB5YsPzC8iXiYUGHKTcgMosKJgS+1RUgXotpWwAy74qf5iCAuSmZ/k63beIcRsuibMofLNWYIwNnAQY/FAk=
+	t=1789196775; cv=none; b=pZpCGQ5wWt1MbE/H8VYoncfHWpuWZUi0hLVta3FuYYerhjwXENDNYxlv2v+ryaQhaDfYHOSKYn9lOtpzaJdK0cecH+JF49D4blorWhBXpJ/0k95fLWQR4EUVnrvdsMnzbLNkQJ0t6t03tjb6Zc6nGXwlQnq8KQP4p1Th6+X3oIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789196765; c=relaxed/simple;
-	bh=8JUVxz0dQJ+9ysMcx3lf36ycYdl92Z44MVir4gDvJrw=;
+	s=arc-20240116; t=1789196775; c=relaxed/simple;
+	bh=ppd1whV1W71683S0jADoRfdRriMsAQ6w2/WJCRqG4tc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QMRWMwmxSrtcoZhBdjNY6B2fmD/QWb19Db1Y6kKwL0DsGe499CAYtpi0iSaunstkTJKF6Okx6Pu87wZaM3HYH7WigJuUvKZSprCBM/YqaiDv/59ZCeHO1089sRmLWnhFpZQofD5BUTC9kCDNYnqmc9B/VsSHr3G+Z7fQRDiLd8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dDiYL3+g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JO0Tsi++EXoLld7EfnRO58znxBiAHCbDjh61Uooz33MicWKWHXVGL2m+XWCo7bsj0463nVxmKj18rhqbm3r/udOkdwQL4Rr0U/xxW8UrzWAnngLvJjipMOUlLRdb97B7tkUaJGG1P2BQKYtdNCRXyUnrp89XrCNQ96S88354y+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vjNRLa+L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dDiYL3+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 259FA1F00893;
-	Sat, 12 Sep 2026 07:06:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vjNRLa+L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6039C1F00898;
+	Sat, 12 Sep 2026 07:06:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789196762;
-	bh=+fuZWKC8cEfWSBf1FxQHNFuOJfCzAJQRYvoiMPpNWdU=;
+	s=korg; t=1789196772;
+	bh=iN7AixIRizttU2+2M/dJWHG+uefRCrPwlCt42AM1FA4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dDiYL3+gcUR5UPIUa5Hvbh7NrMF7l4KB91aQHX4wu6jlSBSJrOtqyuZhldwtdaHMX
-	 UD7pJvgD0/r129bsoVQsR1Zfqa/BvWDe1GvSuqV/qBAEPqzwe0sgS199c302u33hWL
-	 paMCqzH6sbGHIkul4RABbYRzIXkXhpBEFRwO9zpw=
+	b=vjNRLa+Lt/PCThsQJ1c0mSa4rIs37N7/pa8vcmfNfCur5dt0fSBmRyoreKWW0kSUs
+	 JSqHQnAWyUlC4veV5htZbt62L/KHv7BD/BCaLMARwViTxIQ2GN7vLs4KUPds/BOCAN
+	 H6iaffCcut0LcnkNkr4NH0QUXotU7Kq39nkVn8co=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	Yosry Ahmed <yosry@kernel.org>,
 	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 0031/1815] KVM: x86: Rename __{g,s}et_sregs2() => kvm_vcpu_ioctl_x86_{g,s}et_sregs2()
-Date: Sat, 12 Sep 2026 08:29:41 +0200
-Message-ID: <20260912065649.741324492@linuxfoundation.org>
+Subject: [PATCH 7.2 0033/1815] KVM: x86: Check EFER validity on KVM_SET_SREGS*
+Date: Sat, 12 Sep 2026 08:29:43 +0200
+Message-ID: <20260912065649.793108336@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
 References: <20260912065648.999753832@linuxfoundation.org>
@@ -53,83 +51,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sean Christopherson <seanjc@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
 
-[ Upstream commit bd130c8d72a1c7dde5523b3f3fae9867eafaa1dc ]
+[ Upstream commit 184bd464bdb66daa9173670904f24c29c7b7f7d4 ]
 
-Rename the KVM_{G,S}ET_SREGS2 helpers in anticipation of moving them out of
-x86.c (while leaving the ioctl dispatch behind).  Having globally visible
-APIs named __{g,s}et_sregs2() would be "fine", but ugly, given that
-__{g,s}et_sregs() will NOT be globally visible.  As a bonus, this makes it
-a bit more obvious that the helpers implement newer versions of
-kvm_arch_vcpu_ioctl_set_sregs().
+When handling userspace SREGS writes, check the validity of EFER (i.e.
+allowed bits) before writing the new value of EFER through the
+per-vendor set_efer callbacks. This prevents userspace from writing
+bogus values (e.g. EFER.SVME=1 with nested=0).
 
-No functional change intended.
+Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
+caps, not guest caps, so it is possible to set EFER bits that are
+supported by KVM but not by the guest CPUID. Potentially allowing
+userspace to set msrs before CPUID.
 
-Cc: Yosry Ahmed <yosry@kernel.org>
+However, for KVM_SET_SREGS*, check the validity of the set bits against
+both KVM and guest caps. This is consistent with other validity checks
+(e.g. for CR4) that check validity against guest caps, which already
+imposes the need to set CPUID before SREGS.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260713180153.2728382-2-yosry@kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Message-ID: <20260613000329.732085-4-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: 184bd464bdb6 ("KVM: x86: Check EFER validity on KVM_SET_SREGS*")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/x86/kvm/x86.c |   16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ arch/x86/kvm/regs.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -133,8 +133,10 @@ static void __kvm_set_rflags(struct kvm_
- static void store_regs(struct kvm_vcpu *vcpu);
- static int sync_regs(struct kvm_vcpu *vcpu);
- 
--static int __set_sregs2(struct kvm_vcpu *vcpu, struct kvm_sregs2 *sregs2);
--static void __get_sregs2(struct kvm_vcpu *vcpu, struct kvm_sregs2 *sregs2);
-+static int kvm_vcpu_ioctl_x86_set_sregs2(struct kvm_vcpu *vcpu,
-+					 struct kvm_sregs2 *sregs2);
-+static void kvm_vcpu_ioctl_x86_get_sregs2(struct kvm_vcpu *vcpu,
-+					  struct kvm_sregs2 *sregs2);
- 
- static DEFINE_MUTEX(vendor_module_lock);
- static void kvm_load_guest_fpu(struct kvm_vcpu *vcpu);
-@@ -6623,7 +6625,7 @@ long kvm_arch_vcpu_ioctl(struct file *fi
- 		r = -ENOMEM;
- 		if (!u.sregs2)
- 			goto out;
--		__get_sregs2(vcpu, u.sregs2);
-+		kvm_vcpu_ioctl_x86_get_sregs2(vcpu, u.sregs2);
- 		r = -EFAULT;
- 		if (copy_to_user(argp, u.sregs2, sizeof(struct kvm_sregs2)))
- 			goto out;
-@@ -6642,7 +6644,7 @@ long kvm_arch_vcpu_ioctl(struct file *fi
- 			u.sregs2 = NULL;
- 			goto out;
- 		}
--		r = __set_sregs2(vcpu, u.sregs2);
-+		r = kvm_vcpu_ioctl_x86_set_sregs2(vcpu, u.sregs2);
- 		break;
+--- a/arch/x86/kvm/regs.c
++++ b/arch/x86/kvm/regs.c
+@@ -563,7 +563,8 @@ static bool kvm_is_valid_sregs(struct kv
  	}
- 	case KVM_HAS_DEVICE_ATTR:
-@@ -12221,7 +12223,8 @@ static void __get_sregs(struct kvm_vcpu
- 			(unsigned long *)sregs->interrupt_bitmap);
+ 
+ 	return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
+-	       kvm_is_valid_cr0(vcpu, sregs->cr0);
++	       kvm_is_valid_cr0(vcpu, sregs->cr0) &&
++	       kvm_valid_efer(vcpu, sregs->efer);
  }
  
--static void __get_sregs2(struct kvm_vcpu *vcpu, struct kvm_sregs2 *sregs2)
-+static void kvm_vcpu_ioctl_x86_get_sregs2(struct kvm_vcpu *vcpu,
-+					  struct kvm_sregs2 *sregs2)
- {
- 	int i;
- 
-@@ -12489,7 +12492,8 @@ static int __set_sregs(struct kvm_vcpu *
- 	return 0;
- }
- 
--static int __set_sregs2(struct kvm_vcpu *vcpu, struct kvm_sregs2 *sregs2)
-+static int kvm_vcpu_ioctl_x86_set_sregs2(struct kvm_vcpu *vcpu,
-+					 struct kvm_sregs2 *sregs2)
- {
- 	int mmu_reset_needed = 0;
- 	bool valid_pdptrs = sregs2->flags & KVM_SREGS2_FLAGS_PDPTRS_VALID;
+ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
 
 
