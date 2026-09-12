@@ -1,60 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB369274B46;
-	Sat, 12 Sep 2026 21:00:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F014A36657B
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:01:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246828; cv=none; b=EbNCRCNa9LVH/+vTXy/et7AzPEXplS1t1SFjUxAT8CETXtgsLjki/Hp5CmZTn3BbiiNsbCCmZBSrhHnxPASxwY+hEElo8CL1bV5Qm/S66HRA1MF7qk1ZdPl2I1pUfEA9OB4Z3Jr2D/VZATS71qnadO17uAhcZ68PsZPah5Fu8ug=
+	t=1789246918; cv=none; b=nNKY5VBbJK8LyqJM+/Zb4EvD00kjBSQobkFp6MlIx1G/bSjakqBSu9MYjr1kmPRNFduZBAhbBXuq/4Oapo9LqYXswIyutKg/FYJuXKNWF6J/YchVwRGQyqLbHusuIARpn+uL7hNsOEQZPoGAqYewpJynZ8pRhzk1tkFMrLqSXok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789246828; c=relaxed/simple;
-	bh=x+F5Z79v4rSZ3wceitueV4YhlkbVKPML8huK9r9jA0g=;
+	s=arc-20240116; t=1789246918; c=relaxed/simple;
+	bh=zx7KZMzT1nKHiUv4ewyhMqzHETz4e7PD8VMgWMgrMWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wv59Iijmdc0TcwV6hJaJsXTRyEHRA+FhBz5uHBE1h/8H6fZPrEgQF2FquBZEpDAKTx+kcsjENl51eUmdZw3W6NO/iE/p3evwVyj3+dfANsi/RcqWy86+j1JXPKz6a6neyCZ79OsP+yP4F6su7NE7UKGpL3HBq1jGFH0er1B9nfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iyH9In3j; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Oeku4RiPCoArNuXQTEKytPr3mxw55kslfdWE1Lf8SgmzEvmFGVP5fRZwhZugWV1+v4Gl0LDYFmNMS4eLtCHI1OQ2e+R5Ds5PeIMJbSAQPe/JXYvaW1IibRQr+VT2pf6U44IvzkTjoDouEUCzLYg9NfA+rtqdMPXqWX3Q4iDzQV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2NYB9hD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iyH9In3j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB671F00893;
-	Sat, 12 Sep 2026 21:00:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2NYB9hD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99D21F000FF;
+	Sat, 12 Sep 2026 21:01:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789246827;
-	bh=HftyFHiSMIQ3QbPeBYmnKRNhXlJEsJvo2oMEuF0mzx8=;
+	s=k20260515; t=1789246916;
+	bh=DD88Ea5fJRsEXyLdxEBnpllEspM+FqbJP+gk01oFHQk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iyH9In3jVA7VrSII8lOSLeu8DESbmC69e6RjYJFjviFRZbEhxhu+At6SBH4JbEfgy
-	 cGNqWMo98ONf17kOXr0onVjBMfq/663MFMZm0v8yff4S0z51irsYY8zDTDr6AqkZI4
-	 whUH42x1SNiufEN4TCaoL+Z9kZS52IVmnYHo19tZQucr4DMvim/MmEtW/qcDa5aoKZ
-	 oNoUQRTVok+5Ico5TBoewoSGZiUwxQQJsDDakut/OeS7jPXobUYT9qT4S3wsrpsJBK
-	 zIusSW0/AromBPI1cUKlT/Q46Uu8XjaKy0qKSfByRKKBwmr57moEQSNIfKga5brfPl
-	 54FGdPP57Uacw==
+	b=K2NYB9hDBzKi8tnHA31KakT+YMGrx+F8YRDBaSxIVqrQ1TTAFpae47KIaR8p7n35K
+	 B0x7gg+XF6haqGSGqIwa5yTQ3zaNRHpGUc9wgKv8dnwAh0jdQJ6HN+uSlYvj0CFBx/
+	 GJnTRSC4D2prjegDOPDAKOse3l0RkBodGRvdP3zxD7c1ShmVlJJLn88WfnDwowJXH0
+	 qlitz3rylCQmkVZyWKV355QlmqJOi/r3Tf+Mb/4BOuomyEH9qYq5uy3bOwH8hbmHN9
+	 6MHpG9tJj5M0XJ2WJZOlFZlaqdWSzmrbbic2EQbdHNPbQyscF6AABYAtDm1zwVEaNS
+	 OkiOc0nIo0DPw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-Date: Sat, 12 Sep 2026 17:00:20 -0400
-Message-ID: <7d59416a584847be@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ksmbd: use __GFP_RETRY_MAYFAIL
+Date: Sat, 12 Sep 2026 17:01:53 -0400
+Message-ID: <20260912210154.3935717-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c3fa7e6e-e736-4560-9477-88cfb6c56332@nvidia.com>
-References: <20260909134237.773280130@linuxfoundation.org> <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com> <2026091059-smudgy-boogieman-5af3@gregkh> <c3fa7e6e-e736-4560-9477-88cfb6c56332@nvidia.com>
+In-Reply-To: <2026091124-undefined-monsieur-f0fc@gregkh>
+References: <2026091124-undefined-monsieur-f0fc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,15 +45,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
->> I can drop all of the "sort the register table" patches if you want from
->> all branches, just let me know.
-> Yes, I think that is best to drop them unless Peter thinks
-> otherwise.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Dropped both again from 6.18: "ASoC: tegra: Fix the MIXER enable default value"
-and its "sort the register table" dependency, "ASoC: tegra210_mixer: sort the
-register default table".
+[ Upstream commit 0066f623bce8f98b69b752ee03d46a5047c281b8 ]
 
+Prefer to report ENOMEM rather than incur the oom for allocations in
+ksmbd. __GFP_NORETRY could not achieve that, It would fail the allocations
+just too easily. __GFP_RETRY_MAYFAIL will keep retrying the allocation
+until there is no more progress and fail the allocation instead go OOM
+and let the caller to deal with it.
+
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+
+[Stable dependency adaptation for 73f860489e3be2245598d1819226304fc5b87291]
+Retain only the KSMBD_DEFAULT_GFP definition and its use for the existing
+smb2_read_pipe() payload allocation. These two hunks provide the allocation
+policy and exact patch context needed by "ksmbd: zero pipe read compound
+padding" on Linux 6.6.
+
+Drop the other allocation conversions, which are unrelated to the target.
+This preserves the stable tree's IDA helper, RPC locking, preallocated lease
+tables, ACL scratch sizing, and network-interface lifecycle changes instead
+of importing obsolete upstream context. No functions are added. The target's
+aligned allocation and padding initialization remain in the target commit.
+
+[ sashal: Reduced backport -- upstream 0066f623bce8f touches 24 file(s), this
+  backport carries 2. Not backported here:
+  fs/smb/server/asn1.c
+  fs/smb/server/auth.c
+  fs/smb/server/connection.c
+  fs/smb/server/crypto_ctx.c
+  fs/smb/server/ksmbd_work.c
+  fs/smb/server/mgmt/ksmbd_ida.c
+  fs/smb/server/mgmt/share_config.c
+  fs/smb/server/mgmt/tree_connect.c
+  ... and 14 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 73f860489e3b ("ksmbd: zero pipe read compound padding")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/glob.h    | 2 ++
+ fs/smb/server/smb2pdu.c | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/glob.h b/fs/smb/server/glob.h
+index 5b8f3e0ebdb36..3ce12b60e46fe 100644
+--- a/fs/smb/server/glob.h
++++ b/fs/smb/server/glob.h
+@@ -46,4 +46,6 @@ extern int ksmbd_debug_types;
+ 
+ #define UNICODE_LEN(x)		((x) * 2)
+ 
++#define KSMBD_DEFAULT_GFP	(GFP_KERNEL | __GFP_RETRY_MAYFAIL)
++
+ #endif /* __KSMBD_GLOB_H */
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index cefdac6e8cedc..1d073acc9c027 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6271,7 +6271,7 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+ 		}
+ 
+ 		aux_payload_buf =
+-			kvmalloc(rpc_resp->payload_sz, GFP_KERNEL);
++			kvmalloc(rpc_resp->payload_sz, KSMBD_DEFAULT_GFP);
+ 		if (!aux_payload_buf) {
+ 			err = -ENOMEM;
+ 			goto out;
 -- 
-Thanks,
-Sasha
+2.53.0
+
