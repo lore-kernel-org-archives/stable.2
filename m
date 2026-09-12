@@ -1,129 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0518A3909A4;
-	Sat, 12 Sep 2026 19:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A08639150B
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 19:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789242969; cv=none; b=bSG9h8fj9U1zrqwzfbG7h4yrusK3GAqSh7rc36MbevoSiU8CsjekEMu3ufqS35azB8UehFIPAcwoeFWrWpth6iuvV2oE0Z3WXg0Q2yYv1ZhLyIYD/05idcsXmBjQIv9KGqI+M30nuvcr726qZ9kA9DLkK6oASVV1Zp73uY/3Wd0=
+	t=1789242969; cv=none; b=ZLhso4O1uPL+9vQKfn9guTlzTmX7Z/z0fvzQCsm3kc02e8JQYGTd4TIWQHylOWWebUqwHxYkkET1FnKwGIRbaIRV0E+hp9zUC/OCrH/pFGxARK1ye/GCyXRDtBShF2Jjek3cWg/eeWl2mdLOTdeuas+Ujcgbfh2MfWwoM/JSQlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789242969; c=relaxed/simple;
-	bh=ntoLZI3QGn4DK1KNvYAM7NQrjz6q79pmtkR/UfoUvZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fn+l61rmPAacHjh4ltuyYYtxZ6XUt8rmSabJ5fOhGxJpVmruG2aPhcsxOJN8haWE5h8x2fBEu8VhASdRNI3nXi1vfAZtsPyl6VRnQXE+GebRD8Db3redtqxhgajB8i/w0aiMmh8iHKV3ZvQ4cq8NkOmfB7H53ttaw8kXi5aEVXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J52ogngA; arc=none smtp.client-ip=100.103.45.18
+	bh=BdaqS2x93aAnR7qyDRmryncl463GVVC0Ab+SSxVjyQw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=G2sE9lOkjXhdEOTrPrGCAUYT9/yrgzfYVIpazhHraAF8ZdPHxrPOcboiijmbO0+kEYMLvGtoEglrm2MxMYiFWzkc+m+vw7ni9r3GX/4W1vepxaPte+W/buDy3Vc8sLRCr2Gs/0WySaL+UvvbxzBcpf43PaJp03YY9KuE/7XTnrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKZzlIWF; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J52ogngA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDFC1F00893;
-	Sat, 12 Sep 2026 19:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789242961;
-	bh=AiyLFBQUI/sJnzG9Hs6xeo/6u1W1B5aPJaAS5tCMkVQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J52ogngA1BWWx3LjK0zqvRdGhho7kj5eUTDfbBf5Wo0Qo1BsXNQevSd2XF8GA2hdZ
-	 p8BVvKaeSOiY6bbJ7VlWaKmcE74bMkyjs8NuExWHcYLoVzcCc8QE7k+e4CGBxGprbX
-	 5HQMRXPDcOKLrKuSgKcIguzKudbdv64Cv0vaQvII=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	James Clark <james.clark@linaro.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 587/798] perf auxtrace: Fix queue grow overflow and old array leak
-Date: Sat, 12 Sep 2026 09:03:35 +0200
-Message-ID: <20260912065530.578987005@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
-References: <20260912065516.948645775@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKZzlIWF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so3028205e9.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:56:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789242962; x=1789847762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iv5Y9hzbKwVTvwjYbkj7A4OWiAYcXcebXQ5vuapgDoU=;
+        b=JKZzlIWF2Hhf7sHDs2OR+/W3Ob/eqWuuK205rP1cjCOb0YkrqFkY3FKvPYcAf+KbDX
+         BKiEGcWcBccnp8UPZHahTIYC/A2b9sU9nvxqS61chU+Z2WM04kSefu87edIP6Ndg2uNp
+         JPA0fozdZ1w6uk/0qTfu4SqiMhYapvdc7P6su185RngKDBwCy/uwRFIewFKu8FUf736q
+         DrvdKprxOlUVcG/XT9GuC5MojX8uQdLXpem1kuOoXca5SQM34gGvalICdFwTrhxrN0Sh
+         LjsshcZGDhOtmrLV1egiFQHg1jfJ+hH3qJxJ5RNhFLw8xKeAF9yNr6utfxoJSU+Ve5p1
+         I8qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789242962; x=1789847762;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iv5Y9hzbKwVTvwjYbkj7A4OWiAYcXcebXQ5vuapgDoU=;
+        b=Fzq9wnnFTHEGjJvDhoacFhQBlCjVUXBivNKdgq902mfCA1tQEOmGz9H6Dk7o8Zc804
+         86oO2owHJecfRmsrqIeKLY4Gv7Dv1kYR80JL+kD34NUHsgDuLF3cEQgp/mnYqpYMMxKC
+         eKtRdqhjPFlmkH/Mr+jEcf4WI9Hlxj+gMHPGqP43JIshG2XbLeSs0SOQXPB8IXL2XmdA
+         DpcSe6jQ3+8PKx//AOVHTFJ6hCXvC5pKVr7MDNDc3bmwVTzcxgOtBNfT5Vhva+SHGqSg
+         pL1Pho50zxKf5Bq5JyijwzOy3cAOeEQp5bvG0eZn9XveZZrMXtcIp/3+LwhDgwN5XZjY
+         jv9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAl9UBO7TJtZn8x1b1l01l7fr4cdEId4VzzmRCDWY4ISYHkcHv3BqsyWphNHkUNtZ9K+u2yCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjF6ZXAOLj2ggEpEz7FEdZj4Va4QCpnDErU+Nw8exWx0eOJXkR
+	CT4KxXmpP18TGTgB0cKYDhhUf0DBccbVbcjO/KmBzCfNS8wESRU55dkb
+X-Gm-Gg: AYBFou1TqLzVjlbz2AOBPH6G1VSjP/GI5WGCLRkv7aMpxRVbaAHyCq930migxLvAsq/
+	PADWNwTgUO60L2q1Wa9osMgTroHM6GQYYJVeZhsjQYMtsColZhbvtFfkbuxqIx0u3kLx5TXT/ym
+	qQ9jRyAB/2dL0o9go45N8IsQqKysDE6VffOqd6xJ4L8NDC+UNAJK8x4UA1GdOecsHKcA8KG9DZU
+	hL0sixsyuxSvmognxija1yYl4vZVB0KUtN7x3GaKlMQKB85uEKlv5R6ruE0/2x6N5BQg+5x4bTk
+	vP8dyJt+Bjhvem7YYQ1vzO5+yAoMbZNN5WkRFORLgb3pv1ocxjhW2z6tmA7EDcWKWoGtIC5fkz4
+	iHkk297EyVh/LZs8RmZ+RWUlzHO2dc3nmkI98bI33hPpW+pDwYN2F3S2VNz9D770xOT6+08IWQA
+	ii1/LSgsStdFGi0SqwmyMnQI1i6A2FqkAGBmH8VdGvtkWhxynzj+4kfoTJ280mmjTdhV8wmqsZD
+	co/FnzHv6CEeRvz1Nyv45AC3XVRPD8zBWZTPJ6kuq6RtzFmhV1cZkswe5cTmUF85FxZoN2xcwNN
+	OD2Sn4VJWrsoU0Ku57t88nOC1saX772IMLMauX2I9JlSKCeJv2RnBndM21UYZMNl2o6RxMm1RTB
+	YgbBVYl8=
+X-Received: by 2002:a05:600d:4452:20b0:499:b65d:124f with SMTP id 5b1f17b1804b1-49e6198c2aemr79301175e9.11.1789242962176;
+        Sat, 12 Sep 2026 12:56:02 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm267089045e9.14.2026.09.12.12.56.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 12:56:01 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Radu Rendec <rrendec@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 3/4] ARM: cacheinfo: guard the CLIDR read in populate_cache_leaves()
+Date: Sat, 12 Sep 2026 21:55:51 +0200
+Message-Id: <20260912195552.76673-4-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260912195552.76673-1-kmehltretter@gmail.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+ARM1176 and ARM11 MPCore can be reported as ARMv7 by
+cpu_architecture() even though they lack CLIDR. populate_cache_leaves()
+therefore needs the CTR-format check used by detect_cache_level().
 
-------------------
+DT-based early allocation bypasses init_cache_level(), so its check
+no longer protects populate_cache_leaves(). A combined ARMv6/ARMv7
+SMP kernel can reach this path on BCM2835, whose DT describes its
+caches.
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Share the CLIDR capability check between detection and population.
+Return -ENOENT from population when CLIDR is unavailable, preserving
+the existing absence of cacheinfo and avoiding a new topology warning.
 
-[ Upstream commit 96fcc9ea5f18c083a1fa73da23afef7e953f7dca ]
-
-auxtrace_queues__grow() has two bugs:
-
-1. When idx is UINT_MAX, the caller passes new_nr_queues = idx + 1 = 0.
-   The function skips growing (since any nr_queues >= 0), returns
-   success, and the caller accesses queue_array[UINT_MAX] — an OOB
-   heap write.  Fix by rejecting new_nr_queues == 0 up front.
-
-2. The function allocates a new queue_array via calloc and copies
-   elements from the old array, but never frees the old array.  Fix
-   by saving the old pointer and freeing it after the copy.
-
-Fixes: e502789302a6ece9 ("perf auxtrace: Add helpers for queuing AUX area tracing data")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Assisted-by: Claude:claude-opus-4.6
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- tools/perf/util/auxtrace.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+Reproduced on QEMU realview-eb-mpcore (ARM11 MPCore, reported as ARMv7
+by cpu_architecture()) with a device tree carrying i-cache-size and
+d-cache-size on the cpu nodes like bcm2835.dtsi: with patch 4 and
+without this patch populate_cache_leaves() reads CLIDR, which QEMU
+returns as zero, so every leaf becomes CACHE_TYPE_NOCACHE. Real ARM11
+does not implement the register. With this patch the read is skipped,
+the boot is silent and cacheinfo stays absent as before the series.
 
-diff --git a/tools/perf/util/auxtrace.c b/tools/perf/util/auxtrace.c
-index 41dd4c266cc00..0d71c0a74f964 100644
---- a/tools/perf/util/auxtrace.c
-+++ b/tools/perf/util/auxtrace.c
-@@ -229,8 +229,12 @@ static int auxtrace_queues__grow(struct auxtrace_queues *queues,
- {
- 	unsigned int nr_queues = queues->nr_queues;
- 	struct auxtrace_queue *queue_array;
-+	struct auxtrace_queue *old_array = queues->queue_array;
- 	unsigned int i;
- 
-+	if (!new_nr_queues)
-+		return -EINVAL;
-+
- 	if (!nr_queues)
- 		nr_queues = AUXTRACE_INIT_NR_QUEUES;
- 
-@@ -245,16 +249,17 @@ static int auxtrace_queues__grow(struct auxtrace_queues *queues,
- 		return -ENOMEM;
- 
- 	for (i = 0; i < queues->nr_queues; i++) {
--		list_splice_tail(&queues->queue_array[i].head,
-+		list_splice_tail(&old_array[i].head,
- 				 &queue_array[i].head);
--		queue_array[i].tid = queues->queue_array[i].tid;
--		queue_array[i].cpu = queues->queue_array[i].cpu;
--		queue_array[i].set = queues->queue_array[i].set;
--		queue_array[i].priv = queues->queue_array[i].priv;
-+		queue_array[i].tid = old_array[i].tid;
-+		queue_array[i].cpu = old_array[i].cpu;
-+		queue_array[i].set = old_array[i].set;
-+		queue_array[i].priv = old_array[i].priv;
- 	}
- 
- 	queues->nr_queues = nr_queues;
- 	queues->queue_array = queue_array;
-+	free(old_array);
- 
- 	return 0;
+ arch/arm/kernel/cacheinfo.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
+index 31591c947254..993c8a134786 100644
+--- a/arch/arm/kernel/cacheinfo.c
++++ b/arch/arm/kernel/cacheinfo.c
+@@ -80,19 +80,21 @@ static void ci_leaf_init(struct cacheinfo *this_leaf,
+ 	this_leaf->type = type;
  }
+ 
+-static int detect_cache_level(unsigned int *level_p, unsigned int *leaves_p)
++static bool clidr_present(void)
+ {
+-	unsigned int ctype, level, leaves;
+-	u32 ctr, format;
+-
+ 	/* CLIDR is not present before ARMv7/v7m */
+ 	if (cpu_architecture() < CPU_ARCH_ARMv7)
+-		return -EOPNOTSUPP;
++		return false;
+ 
+ 	/* Don't try reading CLIDR if CTR declares old format */
+-	ctr = read_cpuid_cachetype();
+-	format = FIELD_GET(CTR_FORMAT_MASK, ctr);
+-	if (format != CTR_FORMAT_ARMV7)
++	return FIELD_GET(CTR_FORMAT_MASK, read_cpuid_cachetype()) == CTR_FORMAT_ARMV7;
++}
++
++static int detect_cache_level(unsigned int *level_p, unsigned int *leaves_p)
++{
++	unsigned int ctype, level, leaves;
++
++	if (!clidr_present())
+ 		return -EOPNOTSUPP;
+ 
+ 	for (level = 1, leaves = 0; level <= MAX_CACHE_LEVEL; level++) {
+@@ -150,11 +152,10 @@ int populate_cache_leaves(unsigned int cpu)
+ 	enum cache_type type;
+ 	struct cpu_cacheinfo *this_cpu_ci = get_cpu_cacheinfo(cpu);
+ 	struct cacheinfo *infos = this_cpu_ci->info_list;
+-	unsigned int arch = cpu_architecture();
+ 
+-	/* CLIDR is not present before ARMv7/v7m */
+-	if (arch < CPU_ARCH_ARMv7)
+-		return -EOPNOTSUPP;
++	/* The device tree can describe caches CLIDR cannot fill in. */
++	if (!clidr_present())
++		return -ENOENT;
+ 
+ 	for (idx = 0, level = 1; level <= this_cpu_ci->num_levels &&
+ 	     idx < this_cpu_ci->num_leaves; level++) {
 -- 
 2.53.0
-
-
 
