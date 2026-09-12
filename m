@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDB118FDDE
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADDD4BEE57
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176728; cv=none; b=Klig+Q8q7hiVp2jG3BLjxXkdNrfw5vgqnLGjokypubQWCbZKSTCrTpmsxnRhvvoz47fAYu9oKEQfLUVrs7OKoAcM4iMvy+pC8Q9v0QGFOZrM3USzVbEazBreTkVV7xJ7fgieqPfyYrF8JEjnSV/98BYUB7+HrrPhNPLy2PzrdmU=
+	t=1789176731; cv=none; b=CK6mQiP3gEVBIubI8OKMAuTixQeIobJ2W7t7mDR/XbQZp38f+T/oDuGz4ibK7QhxrDs5DfO8Vnn5IYJhvVLF/67D1CwBNSAd0yrwSjxmkTNDP9kdw1q/dcVJeo1adgoVvKF/Bot7ZtPfxe+Cc3nDaCPaIMSGxrxJfaZ7GXEvUTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176728; c=relaxed/simple;
-	bh=FuX09+/RVb4ojHyL8CdUkFC4ug5sZWqvqk2/lRpBHyM=;
+	s=arc-20240116; t=1789176731; c=relaxed/simple;
+	bh=8D3C8ylAr+ihsmz4AQ8QYZGKp1LnlRV2UPu3QgEnXG4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oJAYDU068UX+aN1HJUOPc5oTsYaSG86twyJsnEO4KH0Pwx3Mto4nqJowf/Pc/AWTChXNCpABo6fBVqAS0sp8kQr0t5F0PiH+19HaJpkk0ehk52aAA1ILJMQ066Vn4fQIZm8zDqne6fshJCUa9YkT5+UtSBF7Q/adWmKn/Wgx0e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7q8hXro; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CqM0rzRrWUB1tyrVuh7YNoEYJKv1S2YIpGRAdCRmVPDIucq4FGUB2cW6+/Cbpa+MCGfK7sUyDcMzIKPbVSldV978EPgafe7ZB7qak+sO/y3aRkm5kyUtXiDgRTEh7AikUfHiBcaC7wVhxu9VpZlL2gudykROBbGw4dFO1PKKOCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtPUr0Rx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7q8hXro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBAA51F000FF;
-	Sat, 12 Sep 2026 01:32:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtPUr0Rx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F221F000FF;
+	Sat, 12 Sep 2026 01:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789176726;
-	bh=KkVB4ml4l6mk3Olu6XYkylIdK/rjM0+y3SbZ0niS/c0=;
+	s=k20260515; t=1789176730;
+	bh=5+uA1JehT8hp235OMqFsOkkrWopy+SaSiCBJPANXH58=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F7q8hXroP+u9Ne7Sq+s6dwcZT3ZEg5/YjO1W2WrIWURHUN/GYbSjWixeLqJkWsGe4
-	 10h2qOxMz9iU2KGuW5BqZ1iQsCcZ45IO7X2jeWV1Vk9/nTkOBRNfv0wGTSWKjzirXe
-	 iSxNQzudsM7crV4PfRBZ4pVZty9XWG6FRUpqyQZzjlQwKNtdiNkOtdAyFs/q0rllX0
-	 bvLMxW1ICxesacYRIb7IwTK+vbr56hO87c6Rhz4rUqXEsuEoqnZFZ3rnvH4kSvybA+
-	 C3PndB3lWeVB6WxIRvQAob21LCG3ZXxdd+8pUHviud3cny9bl9NkeWy4BxOt6bPYv5
-	 J6347VI/BcxyA==
+	b=QtPUr0RxoVdDrO2/TWdNxaidFxvO4wVfoCSo2kkZTnLhc3fishvO1+3STX6BKJ4QI
+	 PNRRiCA/MgR//EBPlTkZnS79DxhLNXg5dubcF9sT+FnZj0t/lZp6VWKM1yzBpZOKwY
+	 9vGpv1B0wI5FC8VA3ZqwnS2QYTd0dpdh/VuEN12ro1SdwYcJHmEb0RU/Iyg7EQ5fSP
+	 qxQpNkb2pYwe19Sodn0rhBcxUJVCywoAJcEZ6fIHOpqRLA0yt+hpWiKigYfieq9Zql
+	 pCPfghsmlrQoFJiDcCHwZiteIpgvHkRgc5R+Ek5EbBtityoxayCspgHlZQbuT3lokk
+	 I6gwsszpLwtOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Daeho Jeong <daehojeong@google.com>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
-Date: Fri, 11 Sep 2026 21:32:04 -0400
-Message-ID: <20260912013204.1759032-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] f2fs: Convert clear_node_page_dirty() to clear_node_folio_dirty()
+Date: Fri, 11 Sep 2026 21:32:06 -0400
+Message-ID: <20260912013207.1759566-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090957-scariness-crudely-46a1@gregkh>
-References: <2026090957-scariness-crudely-46a1@gregkh>
+In-Reply-To: <2026090930-yummy-brim-dc39@gregkh>
+References: <2026090930-yummy-brim-dc39@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,108 +46,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit fa487f56efba6344aef67d871688f0908fe08af3 ]
+[ Upstream commit f16ebe0de73274fd1cf885b30cc4fe42d2a1821a ]
 
-It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
-otherwise, fallocate() on pinfile will fail easily even there is slash
-space in conventional zone.
+Both callers have a folio so pass it in, removing five calls to
+compound_head().
 
-[Testcase]
-nullblk_create.sh 512 2 1024 1024
-mkfs.f2fs /dev/nullb0 -f -m
-mount /dev/nullb0 /mnt/f2fs/
-touch /mnt/f2fs/pinfile
-f2fs_io pinfile set /mnt/f2fs/pinfile
-mkdir /mnt/f2fs/dir/
-for((i=0;i<3934;i++)) do { dd if=/dev/zero of=/mnt/f2fs/dir/$i bs=1M count=1;} done
-sync
-for((i=0;i<3934;i+=2)) do { rm /mnt/f2fs/dir/$i;} done
-for((i=0;i<1950;i++)) do { rm /mnt/f2fs/dir/$i;} done
-sync
-f2fs_io fallocate 0 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-sync
-stat /mnt/f2fs/pinfile
-f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-
-[Before]
-fallocate failed: Resource temporarily unavailable
-  File: /mnt/f2fs/pinfile
-  Size: 109051904       Blocks: 213208     IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 20:04:02.264000000 +0800
-Modify: 2026-08-12 20:04:26.784000000 +0800
-Change: 2026-08-12 20:04:26.784000000 +0800
- Birth: -
-root@localhost:~#
-root@localhost:~#
-root@localhost:~#
-root@localhost:~# f2fs_io fiemap 0 $((1024*1024*1024)) /mnt/f2fs/pinfile
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000002dc00000 0000000000400000 00001000
-2       0000000000600000 000000002e400000 0000000000600000 00001000
-3       0000000000c00000 000000007a400000 0000000005c00000 00001001
-
-[After]
-  File: /mnt/f2fs/pinfile
-  Size: 1073741824      Blocks: 2099216    IO Block: 4096   regular file
-Device: 250,0   Inode: 4           Links: 1
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2026-08-12 19:47:49.428000000 +0800
-Modify: 2026-08-12 19:49:06.808000000 +0800
-Change: 2026-08-12 19:49:06.808000000 +0800
- Birth: -
-Fiemap: offset = 0 len = 1073741824
-        logical addr.    physical addr.   length           flags
-0       0000000000000000 0000000002e00000 0000000000200000 00001000
-1       0000000000200000 000000003aa00000 0000000000400000 00001000
-2       0000000000600000 000000003b400000 0000000000200000 00001000
-3       0000000000800000 000000007a200000 0000000005e00000 00001000
-4       0000000006600000 0000000002800000 0000000000200000 00001000
-5       0000000006800000 0000000003200000 0000000000400000 00001000
-6       0000000006c00000 0000000003000000 0000000000200000 00001000
-7       0000000006e00000 0000000003600000 0000000037200000 00001000
-8       000000003e000000 000000003b200000 0000000000200000 00001000
-9       000000003e200000 000000003a800000 0000000000200000 00001000
-10      000000003e400000 000000003ae00000 0000000000400000 00001000
-11      000000003e800000 000000003b600000 0000000001800000 00001001
-
-Cc: stable@kernel.org
-Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
-Cc: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ Adjusted context to use f2fs_up_write() instead of f2fs_up_write_trace(). ]
+
+Backport to 6.12: retain the page-based node interfaces and pass
+page_folio() at the two existing cleanup call sites. Use
+F2FS_M_SB(folio->mapping), since this tree has no F2FS_F_SB() helper.
+
+Keep a folio reference in __get_node_page() and convert its existing
+uptodate clearing and error reporting to use that folio. This preserves
+behavior while allowing the one-line error-path change in upstream
+commit 5b86eab84ac8e9289b5afc52ef88ab18ba5bacab to cherry-pick cleanly.
+No new functions or wider node-interface conversions are needed.
+
+Stable-dep-of: 5b86eab84ac8 ("f2fs: fix to clear dirty flag on folio in error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/segment.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ fs/f2fs/node.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 4e47826b570a5..9895d5534350b 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3268,10 +3268,13 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
- 		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
- 				true, ZONED_PIN_SEC_REQUIRED_COUNT);
- 		f2fs_up_write(&sbi->gc_lock);
--
--		gc_required = false;
--		if (!err)
-+		if (err)
-+			return err;
-+		err = f2fs_sync_fs(sbi->sb, 1);
-+		if (!err) {
-+			gc_required = false;
- 			goto retry;
-+		}
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 1f4f68e56d432..fba4e5d085235 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -125,14 +125,14 @@ bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type)
+ 	return res;
+ }
+ 
+-static void clear_node_page_dirty(struct page *page)
++static void clear_node_folio_dirty(struct folio *folio)
+ {
+-	if (PageDirty(page)) {
+-		f2fs_clear_page_cache_dirty_tag(page_folio(page));
+-		clear_page_dirty_for_io(page);
+-		dec_page_count(F2FS_P_SB(page), F2FS_DIRTY_NODES);
++	if (folio_test_dirty(folio)) {
++		f2fs_clear_page_cache_dirty_tag(folio);
++		folio_clear_dirty_for_io(folio);
++		dec_page_count(F2FS_M_SB(folio->mapping), F2FS_DIRTY_NODES);
+ 	}
+-	ClearPageUptodate(page);
++	folio_clear_uptodate(folio);
+ }
+ 
+ static struct page *get_current_nat_page(struct f2fs_sb_info *sbi, nid_t nid)
+@@ -941,7 +941,7 @@ static int truncate_node(struct dnode_of_data *dn)
+ 		f2fs_inode_synced(dn->inode);
  	}
  
- 	return err;
+-	clear_node_page_dirty(dn->node_page);
++	clear_node_folio_dirty(page_folio(dn->node_page));
+ 	set_sbi_flag(sbi, SBI_IS_DIRTY);
+ 
+ 	index = page_folio(dn->node_page)->index;
+@@ -1394,7 +1394,7 @@ struct page *f2fs_new_node_page(struct dnode_of_data *dn, unsigned int ofs)
+ 		inc_valid_inode_count(sbi);
+ 	return page;
+ fail:
+-	clear_node_page_dirty(page);
++	clear_node_folio_dirty(page_folio(page));
+ 	f2fs_put_page(page, 1);
+ 	return ERR_PTR(err);
+ }
+@@ -1476,6 +1476,7 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 					struct page *parent, int start)
+ {
+ 	struct page *page;
++	struct folio *folio;
+ 	int err;
+ 
+ 	if (!nid)
+@@ -1487,6 +1488,7 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 	if (!page)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	folio = page_folio(page);
+ 	err = read_node_page(page, 0);
+ 	if (err < 0) {
+ 		goto out_put_err;
+@@ -1526,11 +1528,11 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 	f2fs_handle_error(sbi, ERROR_INCONSISTENT_FOOTER);
+ 	err = -EFSCORRUPTED;
+ out_err:
+-	ClearPageUptodate(page);
++	folio_clear_uptodate(folio);
+ out_put_err:
+ 	/* ENOENT comes from read_node_page which is not an error. */
+ 	if (err != -ENOENT)
+-		f2fs_handle_page_eio(sbi, page_folio(page), NODE);
++		f2fs_handle_page_eio(sbi, folio, NODE);
+ 	f2fs_put_page(page, 1);
+ 	return ERR_PTR(err);
+ }
 -- 
 2.53.0
 
