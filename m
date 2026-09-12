@@ -1,134 +1,440 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3364311967
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF0831B10B;
+	Sat, 12 Sep 2026 14:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222847; cv=none; b=cZ4tMuvetFcV/T3Su1yRIpgbevCkBDnhLtusx/t3glH2a2gADFyGAtOl4AkHz6llx5nQwuHqwe0B3PuoLIIbNv+zjibjRXBmB++e6RsjRZD9AyVFB6L3ZNYjb8QXoMoUGaeh/2FcCUle2bTVmCyg8soxEgRmF4Zn9euM4OwXfSU=
+	t=1789222847; cv=none; b=FpBHtutHSYTBt/QlH2EW7uOlPsGvBzl/pXwJTsh6JphY+d2j4qyPi9h5XL3YYMLzZp22mWTd5cnWMRGY9Le/SU1mLa5XFWdwgk+28Z3fcfCniKMiI0z9qIjbZjvfIW/KH1pVyR/3E8FQ7ebOUkh17GhaGwTpIUBqsmY2BGD5Mf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789222847; c=relaxed/simple;
-	bh=YcUkPq6A1uzKeOdA1LgDNyLViQ6bIc69TwqGL6/mtHw=;
+	bh=ZshJ9M1MiWESjYRTcXrk3YUqQWxyypwH/4tTSWQVuws=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YIjVaWHFvfdVbyYvAOw0qbyQ4bZfCUMc15YwLPNMZw2vdUG28adQyDC8PupUyKM51nBiEw5tAkP+FjcMf15+m+NVPyabKVfL9NlPar17Vg1ATCvO6a1OF3skUj0nNS1Zjmf45cw5lT7jEO6Ev3rrqntmBPGTDzYvqAAv3sHuKvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FF1gW+Jg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KVAEdAV1IgWh4jVIyF6k8uoIWLd9gTwNwRFVPLHX3IYbkCBUwoD43rGR1bfYmDyi5uRWEjkjEw6vINZrSRc3ylod2GPpTrze+W3N5AiiFWSNfWf01JSFi35RISO4RtYNKXLQepBXLqmtl57+PISHg+oXkKvT3d7tzq9/0VuorZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H3RNUv24; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FF1gW+Jg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C321F00893;
-	Sat, 12 Sep 2026 14:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789222845;
-	bh=sEmqzGFNUIsSG654ovMtGTlk/U4cLuGo16rgE+CPoQA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H3RNUv24"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56061F000FF;
+	Sat, 12 Sep 2026 14:20:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789222845;
+	bh=RYVVqrVVBLC+vPehGmekhGVdqw6t6D/3zrL/LLLILnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FF1gW+JgM8Whc/tYA2zM+0oeIXumYIANSuJImwnFn7+FZFaDhmWlpzhNkmUvswO4v
-	 3i1vg/hDPIADRx17Ndx0ZK8ADCF1mazLzOELvFm558iGgzPAua7j8UARj9djl/+Ih5
-	 Id6CSjKb9Xee53FKPnXxpT/Bb704XXNkPvJXIkUBNINAORJbAawbLpVV3VqTefjhYi
-	 NVTc4cKA9TGB6w24Nt8HXZ95Opkcei3x1ZLC0n1AsFpLRngcYdDDFSUgeWMF2gDzxd
-	 ctLgUCPYNtaywY8WgzVeCnv1YZeL+l2YTrM4L7uGyp+ubxIL9id2CTXO6IhSk39X52
-	 C18k+DXxFLpOw==
-From: Sasha Levin <sashal@kernel.org>
+	b=H3RNUv244TcXVLEvoCdp3XYkjxGcEQG4eX/iv4Pg4eLN8RFxkoS4WBSJKOPni3TZ4
+	 GuBtp4P4mSilaCeyk/Pk4+Kau1ZwDGEpeYIkKQDRd6vxMo/rAB39SY0C0oASK8sagM
+	 fSg4+twS4nNoldDzYyLxEwe8Ij15evHgto8ZmxPk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Mike Leach <mike.leach@linaro.org>,
+	James Clark <james.clark@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Leo Yan <leo.yan@arm.com>,
+	Suzuki Poulouse <suzuki.poulose@arm.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Ian Rogers <irogers@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Garry <john.g.garry@oracle.com>,
+	Kan Liang <kan.liang@linux.intel.com>,
+	Leo Yan <leo.yan@linux.dev>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: accurately adjust free_sections during free_segment_range
-Date: Sat, 12 Sep 2026 10:20:43 -0400
-Message-ID: <20260912142043.2911100-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090937-smith-unblessed-344f@gregkh>
-References: <2026090937-smith-unblessed-344f@gregkh>
+Subject: [PATCH 6.6 0632/1424] perf cs-etm: Create decoders after both AUX and HW_ID search passes
+Date: Sat, 12 Sep 2026 08:51:04 +0200
+Message-ID: <20260912065621.441301415@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 8c963d1738fdca400082ff5f9d99e083de4f4e70 ]
+------------------
 
-In free_segment_range(), MAIN_SECS(sbi) is temporarily reduced by `secs`
-to restrict block allocation to the safe remaining main area while valid
-blocks in the truncated range are evacuated by GC.
+From: James Clark <james.clark@arm.com>
 
-However, FREE_I(sbi)->free_sections tracks the total number of free
-sections across the whole filesystem. If any sections within the
-truncated range were already free upon entering free_segment_range(),
-failing to deduct them from free_sections causes the filesystem to
-overestimate available free sections in the active, reduced main area.
-This leads to inconsistent free section accounting during GC data
-migration and can trigger unexpected allocation failures or assertion
-errors when space is tight.
+[ Upstream commit b6aa0de9a53a231eb068ce1e62b5e7ec9e30e627 ]
 
-Fix this by calculating the number of already-free sections in the
-truncated range, deducting them from free_sections upon entering
-free_segment_range(), and restoring them on exit.
+Both of these passes gather information about how to create the
+decoders. AUX records determine formatted/unformatted, and the HW_IDs
+determine the traceID/metadata mappings.
 
-Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ adapted the changes to free_segment_range()’s inline GC logic because the newer helper functions are absent. ]
+Therefore it makes sense to cache the information and wait until both
+passes are over until creating the decoders, rather than creating them
+at the first HW_ID found.
+
+This will allow a simplification of the creation process where
+cs_etm_queue->traceid_list will exclusively used to create the decoders,
+rather than the current two methods depending on whether the trace is
+formatted or not.
+
+Previously the sample CPU from the AUX record was used to initialize
+the decoder CPU, but actually sample CPU == AUX queue index in per-CPU
+mode, so saving the sample CPU isn't required.
+
+Similarly formatted/unformatted was used upfront to create the decoders,
+but now it's cached until later.
+
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Reviewed-by: Mike Leach <mike.leach@linaro.org>
+Signed-off-by: James Clark <james.clark@arm.com>
+Signed-off-by: James Clark <james.clark@linaro.org>
+Tested-by: Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
+Tested-by: Leo Yan <leo.yan@arm.com>
+Acked-by: Suzuki Poulouse <suzuki.poulose@arm.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Ian Rogers <irogers@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: John Garry <john.g.garry@oracle.com>
+Cc: Kan Liang <kan.liang@linux.intel.com>
+Cc: Leo Yan <leo.yan@linux.dev>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Will Deacon <will@kernel.org>
+Link: https://lore.kernel.org/r/20240722101202.26915-2-james.clark@linaro.org
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Stable-dep-of: 50cd0d54f1f6 ("perf cs-etm: Fix thread leaks on trace queue init failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ tools/perf/util/cs-etm.c | 182 ++++++++++++++++++++++++---------------
+ 1 file changed, 113 insertions(+), 69 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 69a51fcfbead4..668a43721249b 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1878,8 +1878,9 @@ void f2fs_build_gc_manager(struct f2fs_sb_info *sbi)
- static int free_segment_range(struct f2fs_sb_info *sbi,
- 				unsigned int secs, bool gc_only)
- {
--	unsigned int segno, next_inuse, start, end;
-+	unsigned int segno, secno, next_inuse, start, end, end_secno;
- 	struct cp_control cpc = { CP_RESIZE, 0, 0, 0 };
-+	unsigned int freed_secs = 0;
- 	int gc_mode, gc_type;
- 	int err = 0;
- 	int type;
-@@ -1888,6 +1889,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 	MAIN_SECS(sbi) -= secs;
- 	start = MAIN_SECS(sbi) * sbi->segs_per_sec;
- 	end = MAIN_SEGS(sbi) - 1;
-+	end_secno = GET_SEC_FROM_SEG(sbi, end);
+diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+index 1fb104357eebb..9077072994b23 100644
+--- a/tools/perf/util/cs-etm.c
++++ b/tools/perf/util/cs-etm.c
+@@ -97,12 +97,19 @@ struct cs_etm_traceid_queue {
+ 	struct cs_etm_packet_queue packet_queue;
+ };
  
- 	mutex_lock(&DIRTY_I(sbi)->seglist_lock);
- 	for (gc_mode = 0; gc_mode < MAX_GC_POLICY; gc_mode++)
-@@ -1899,6 +1901,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 			sbi->next_victim_seg[gc_type] = NULL_SEGNO;
- 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
- 
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	for (secno = MAIN_SECS(sbi); secno <= end_secno; secno++) {
-+		if (!test_bit(secno, FREE_I(sbi)->free_secmap))
-+			freed_secs++;
-+	}
-+	FREE_I(sbi)->free_sections -= freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
++enum cs_etm_format {
++	UNSET,
++	FORMATTED,
++	UNFORMATTED
++};
 +
- 	/* Move out cursegs from the target range */
- 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++)
- 		f2fs_allocate_segment_for_resize(sbi, type, start, end);
-@@ -1936,6 +1946,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 		f2fs_bug_on(sbi, 1);
- 	}
- out:
-+	spin_lock(&FREE_I(sbi)->segmap_lock);
-+	FREE_I(sbi)->free_sections += freed_secs;
-+	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 	MAIN_SECS(sbi) += secs;
- 	return err;
+ struct cs_etm_queue {
+ 	struct cs_etm_auxtrace *etm;
+ 	struct cs_etm_decoder *decoder;
+ 	struct auxtrace_buffer *buffer;
+ 	unsigned int queue_nr;
+ 	u8 pending_timestamp_chan_id;
++	enum cs_etm_format format;
+ 	u64 offset;
+ 	const unsigned char *buf;
+ 	size_t buf_len, buf_used;
+@@ -693,7 +700,7 @@ static void cs_etm__set_trace_param_ete(struct cs_etm_trace_params *t_params,
+ 
+ static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
+ 				     struct cs_etm_auxtrace *etm,
+-				     bool formatted,
++				     enum cs_etm_format format,
+ 				     int sample_cpu,
+ 				     int decoders)
+ {
+@@ -702,7 +709,7 @@ static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
+ 	u64 architecture;
+ 
+ 	for (t_idx = 0; t_idx < decoders; t_idx++) {
+-		if (formatted)
++		if (format == FORMATTED)
+ 			m_idx = t_idx;
+ 		else {
+ 			m_idx = get_cpu_data_idx(etm, sample_cpu);
+@@ -735,8 +742,7 @@ static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
+ 
+ static int cs_etm__init_decoder_params(struct cs_etm_decoder_params *d_params,
+ 				       struct cs_etm_queue *etmq,
+-				       enum cs_etm_decoder_operation mode,
+-				       bool formatted)
++				       enum cs_etm_decoder_operation mode)
+ {
+ 	int ret = -EINVAL;
+ 
+@@ -746,7 +752,7 @@ static int cs_etm__init_decoder_params(struct cs_etm_decoder_params *d_params,
+ 	d_params->packet_printer = cs_etm__packet_dump;
+ 	d_params->operation = mode;
+ 	d_params->data = etmq;
+-	d_params->formatted = formatted;
++	d_params->formatted = etmq->format == FORMATTED;
+ 	d_params->fsyncs = false;
+ 	d_params->hsyncs = false;
+ 	d_params->frame_aligned = true;
+@@ -1038,81 +1044,34 @@ static u32 cs_etm__mem_access(struct cs_etm_queue *etmq, u8 trace_chan_id,
+ 	return ret;
  }
+ 
+-static struct cs_etm_queue *cs_etm__alloc_queue(struct cs_etm_auxtrace *etm,
+-						bool formatted, int sample_cpu)
++static struct cs_etm_queue *cs_etm__alloc_queue(void)
+ {
+-	struct cs_etm_decoder_params d_params;
+-	struct cs_etm_trace_params  *t_params = NULL;
+-	struct cs_etm_queue *etmq;
+-	/*
+-	 * Each queue can only contain data from one CPU when unformatted, so only one decoder is
+-	 * needed.
+-	 */
+-	int decoders = formatted ? etm->num_cpu : 1;
+-
+-	etmq = zalloc(sizeof(*etmq));
++	struct cs_etm_queue *etmq = zalloc(sizeof(*etmq));
+ 	if (!etmq)
+ 		return NULL;
+ 
+ 	etmq->traceid_queues_list = intlist__new(NULL);
+ 	if (!etmq->traceid_queues_list)
+-		goto out_free;
+-
+-	/* Use metadata to fill in trace parameters for trace decoder */
+-	t_params = zalloc(sizeof(*t_params) * decoders);
+-
+-	if (!t_params)
+-		goto out_free;
+-
+-	if (cs_etm__init_trace_params(t_params, etm, formatted, sample_cpu, decoders))
+-		goto out_free;
+-
+-	/* Set decoder parameters to decode trace packets */
+-	if (cs_etm__init_decoder_params(&d_params, etmq,
+-					dump_trace ? CS_ETM_OPERATION_PRINT :
+-						     CS_ETM_OPERATION_DECODE,
+-					formatted))
+-		goto out_free;
+-
+-	etmq->decoder = cs_etm_decoder__new(decoders, &d_params,
+-					    t_params);
+-
+-	if (!etmq->decoder)
+-		goto out_free;
+-
+-	/*
+-	 * Register a function to handle all memory accesses required by
+-	 * the trace decoder library.
+-	 */
+-	if (cs_etm_decoder__add_mem_access_cb(etmq->decoder,
+-					      0x0L, ((u64) -1L),
+-					      cs_etm__mem_access))
+-		goto out_free_decoder;
++		free(etmq);
+ 
+-	zfree(&t_params);
+ 	return etmq;
+-
+-out_free_decoder:
+-	cs_etm_decoder__free(etmq->decoder);
+-out_free:
+-	intlist__delete(etmq->traceid_queues_list);
+-	free(etmq);
+-
+-	return NULL;
+ }
+ 
+ static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
+ 			       struct auxtrace_queue *queue,
+-			       unsigned int queue_nr,
+-			       bool formatted,
+-			       int sample_cpu)
++			       unsigned int queue_nr, enum cs_etm_format format)
+ {
+ 	struct cs_etm_queue *etmq = queue->priv;
+ 
++	if (etmq && format != etmq->format) {
++		pr_err("CS_ETM: mixed formatted and unformatted trace not supported\n");
++		return -EINVAL;
++	}
++
+ 	if (list_empty(&queue->head) || etmq)
+ 		return 0;
+ 
+-	etmq = cs_etm__alloc_queue(etm, formatted, sample_cpu);
++	etmq = cs_etm__alloc_queue();
+ 
+ 	if (!etmq)
+ 		return -ENOMEM;
+@@ -1120,7 +1079,9 @@ static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
+ 	queue->priv = etmq;
+ 	etmq->etm = etm;
+ 	etmq->queue_nr = queue_nr;
++	queue->cpu = queue_nr; /* Placeholder, may be reset to -1 in per-thread mode */
+ 	etmq->offset = 0;
++	etmq->format = format;
+ 
+ 	return 0;
+ }
+@@ -2851,7 +2812,7 @@ static int cs_etm__process_auxtrace_event(struct perf_session *session,
+ 		 * formatted in piped mode (true).
+ 		 */
+ 		err = cs_etm__setup_queue(etm, &etm->queues.queue_array[idx],
+-					  idx, true, -1);
++					  idx, FORMATTED);
+ 		if (err)
+ 			return err;
+ 
+@@ -2972,7 +2933,7 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
+ 	union perf_event auxtrace_fragment;
+ 	__u64 aux_offset, aux_size;
+ 	__u32 idx;
+-	bool formatted;
++	enum cs_etm_format format;
+ 
+ 	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
+ 						   struct cs_etm_auxtrace,
+@@ -3055,9 +3016,10 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
+ 			return err;
+ 
+ 		idx = auxtrace_event->idx;
+-		formatted = !(aux_event->flags & PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW);
+-		return cs_etm__setup_queue(etm, &etm->queues.queue_array[idx],
+-					   idx, formatted, sample->cpu);
++		format = (aux_event->flags & PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW) ?
++				UNFORMATTED : FORMATTED;
++
++		return cs_etm__setup_queue(etm, &etm->queues.queue_array[idx], idx, format);
+ 	}
+ 
+ 	/* Wasn't inside this buffer, but there were no parse errors. 1 == 'not found' */
+@@ -3241,6 +3203,84 @@ static int cs_etm__clear_unused_trace_ids_metadata(int num_cpu, u64 **metadata)
+ 	return 0;
+ }
+ 
++/*
++ * Use the data gathered by the peeks for HW_ID (trace ID mappings) and AUX
++ * (formatted or not) packets to create the decoders.
++ */
++static int cs_etm__create_queue_decoders(struct cs_etm_queue *etmq)
++{
++	struct cs_etm_decoder_params d_params;
++
++	/*
++	 * Each queue can only contain data from one CPU when unformatted, so only one decoder is
++	 * needed.
++	 */
++	int decoders = etmq->format == FORMATTED ? etmq->etm->num_cpu : 1;
++
++	/* Use metadata to fill in trace parameters for trace decoder */
++	struct cs_etm_trace_params  *t_params = zalloc(sizeof(*t_params) * decoders);
++
++	if (!t_params)
++		goto out_free;
++
++	if (cs_etm__init_trace_params(t_params, etmq->etm, etmq->format,
++				      etmq->queue_nr, decoders))
++		goto out_free;
++
++	/* Set decoder parameters to decode trace packets */
++	if (cs_etm__init_decoder_params(&d_params, etmq,
++					dump_trace ? CS_ETM_OPERATION_PRINT :
++						     CS_ETM_OPERATION_DECODE))
++		goto out_free;
++
++	etmq->decoder = cs_etm_decoder__new(decoders, &d_params,
++					    t_params);
++
++	if (!etmq->decoder)
++		goto out_free;
++
++	/*
++	 * Register a function to handle all memory accesses required by
++	 * the trace decoder library.
++	 */
++	if (cs_etm_decoder__add_mem_access_cb(etmq->decoder,
++					      0x0L, ((u64) -1L),
++					      cs_etm__mem_access))
++		goto out_free_decoder;
++
++	zfree(&t_params);
++	return 0;
++
++out_free_decoder:
++	cs_etm_decoder__free(etmq->decoder);
++out_free:
++	zfree(&t_params);
++	return -EINVAL;
++}
++
++static int cs_etm__create_decoders(struct cs_etm_auxtrace *etm)
++{
++	struct auxtrace_queues *queues = &etm->queues;
++
++	for (unsigned int i = 0; i < queues->nr_queues; i++) {
++		bool empty = list_empty(&queues->queue_array[i].head);
++		struct cs_etm_queue *etmq = queues->queue_array[i].priv;
++		int ret;
++
++		/*
++		 * Don't create decoders for empty queues, mainly because
++		 * etmq->format is unknown for empty queues.
++		 */
++		if (empty)
++			continue;
++
++		ret = cs_etm__create_queue_decoders(etmq);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++
+ int cs_etm__process_auxtrace_info_full(union perf_event *event,
+ 				       struct perf_session *session)
+ {
+@@ -3389,6 +3429,10 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
+ 	if (err)
+ 		goto err_free_queues;
+ 
++	err = cs_etm__queue_aux_records(session);
++	if (err)
++		goto err_free_queues;
++
+ 	/*
+ 	 * Map Trace ID values to CPU metadata.
+ 	 *
+@@ -3411,7 +3455,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
+ 	 * flags if present.
+ 	 */
+ 
+-	/* first scan for AUX_OUTPUT_HW_ID records to map trace ID values to CPU metadata */
++	/* Scan for AUX_OUTPUT_HW_ID records to map trace ID values to CPU metadata */
+ 	aux_hw_id_found = 0;
+ 	err = perf_session__peek_events(session, session->header.data_offset,
+ 					session->header.data_size,
+@@ -3429,7 +3473,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
+ 	if (err)
+ 		goto err_free_queues;
+ 
+-	err = cs_etm__queue_aux_records(session);
++	err = cs_etm__create_decoders(etm);
+ 	if (err)
+ 		goto err_free_queues;
+ 
 -- 
 2.53.0
+
+
 
