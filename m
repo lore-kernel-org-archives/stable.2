@@ -1,47 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F0F38F92F;
-	Sat, 12 Sep 2026 19:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96F9386C3F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 19:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789242962; cv=none; b=j276OrZrgQmup92Pq4ivZb5JYO3gMf+rXIiGL8oUB9Wn+MVyeW2i1OK8n4yWW8wJZLuegPyaH1kp9WBhfHyMTn6Li1D8sJvbzrJSmEz+KuAsfn9iOScyUCcqRZduHc3j7vwI5l7qNq+QyZ4YBWwB52pC7ruu9zIDUUsT/8WoDYw=
+	t=1789242965; cv=none; b=dk2lSZAFgVUXJ0OlQouB8zB9J5vq8hcyWc/0WitvWrVySXVSL+RUGscpyGutRnFf0T1cX7uxhCg5AStgbRynRZKZ/OMth2sc7E5ILVlRFkbN2uNWyHXuC+tikbKFohlJp+ChGXd4yeREpvAn9ZkPKm8sS0AYExm5yM7g8HBrrQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789242962; c=relaxed/simple;
-	bh=CaiTGsXBBMYsQWDnUZR6d4XiWcBwnx/bhMLn+IvxAYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tUX5LZZ+TnoBy5SmuCQQdpBNYY0GHzsL2PuhfJtfIa3tmyunL/hMRxXpfLQqRR3qhVqtsUoD+3SF6ffg3xtIKygR0u5OEsiIwRMGH0J3Jq8rSYKQj5AibrossjEdoksbLFA+3U8dUoZRzwwyEXqptIzNCvw0I3RvZ/v2tARPXbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UXEr4+7Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789242965; c=relaxed/simple;
+	bh=lambDYX2lwAsI5keUktYfmRvkhvX1OmYUKy53CnCprs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Fuxwx10DPZWoAhpQbD/yjUZCidnLhGVqd3NZvZY2SYqM8troWJtYRU6NYr9+jkb6ahEXWz7zq9NFDpCPO7CMTtuOv+j0G9MeaC7KF8uF4YfB0sZKvm4+SxcY2Jlv16fLD7BqPma3SDGJSpJsp0YI2b+iidJuORRX86VPATEJ1S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUivE7Es; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UXEr4+7Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730461F000FF;
-	Sat, 12 Sep 2026 19:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789242959;
-	bh=JnfRRCbKl3+npuawIiNInyeaw8+GivKcIBrXB6A5Qd4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UXEr4+7ZM6C9kiZr23LFJYboSYkrUHWGeurzHPU2Yayb3KXzN0uni1eD4J8yj2jVv
-	 oxbnlYvMia0tkQcOF9rS/TjyRqncSFkMyz5/1W+rv63L4eMtBIgSHqcRJYwrEiQB0x
-	 j/kL9in9c55bzb2h0nX/gwEoPlKh54il2jmmZgik=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	James Clark <james.clark@linaro.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 586/798] perf thread-stack: Fix heap buffer overflow on branch stack wrap copy
-Date: Sat, 12 Sep 2026 09:03:34 +0200
-Message-ID: <20260912065530.556049656@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
-References: <20260912065516.948645775@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUivE7Es"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso10924385e9.2
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:56:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789242960; x=1789847760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NwiXawn/cOlpKopFTshA1Oy47KkInxpQCTdPgG/ctyc=;
+        b=HUivE7Es62sxR+XLVXov6xp7S3xA7zc5sHg2aPtEm1D76vGg1cOSKxrjCSovHeU7zj
+         Z4XWperoqM/Nf13+t4OeR96Ig/PZiaG2eMVn+b0aS7RQPAwJkd3oF2hhQCIal448eu+Q
+         LbRCIw7BZceNKu2BD2oaddvMuIswR0fMS3mUzgdptZG/8oCVm1fUvgSLnzjGlMgs4Aws
+         IN5tIEcKDkmdm2wkY02rHkEkzo7Fkxw4i+mTh/TKaEIKoEUQFgEpw+6G5930rkhshcrp
+         jjDGbby1UGLM/3SL5Loma2LMNtsSftBmNfAbsju/FlhLg7AT08XO9A5ce0zRqZD3F5FB
+         X6PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789242960; x=1789847760;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NwiXawn/cOlpKopFTshA1Oy47KkInxpQCTdPgG/ctyc=;
+        b=r/zMqTFVtHqz7l3p1b90OYaVTkpK85O/DNg7pC983/eqvg0nVfFTdoFAFotf+fJhsq
+         q2A9m9c4wGIR5CFW5TVUM/oG65k23cGthJLdP8USONAFB37QkXnG0N5iIb+OUiDSWe8v
+         o3kaehweTCH5NebB3lC9B+oLyVxLFkxdRBLn6SEIJXo4QH+GYiE0aGLChxKe2uepaOTA
+         BnZvSI6cWDdaK7VvFZ5GtOpgG+2y2oo7bM/hqZE5GgmZb5Lv6pHXe5JSDNvtBVx6bn4w
+         qOUmkWDBPOpI6PrYrGzk/Q0M0z+e5eQ9NVy87IY2IVSwoAgHzoc4NmrYD0+Pz5h8BGGv
+         85Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfA0aox3b02+FlKSi/z3+QF30/CXqZ6QK68IzvnXokiaMkS0JO6XhTXzBtwg7wlvBXapf2O2o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxOseqYoVDTlab4ptTneQrUcqAarTL4tAVk32qZw4wqTW6qEeq
+	ZieQvv1A31+6zViJisPNwo4APt+HdodlGe64i4rK5VGOLuwyiznqhOjn
+X-Gm-Gg: AYBFou2RKnKHIPAuTDqwPlEpP74urfiXrSQAFfnLNpyXVvtnfRncfkMNaGaPJ32i5Mm
+	Me6a03e94SE4yjTAaDzRfDpK4inXq6j17DZn7EXfA9PMpl2hZjirsw/d2OCYPvKtMrNlNkRCgXi
+	0EdFrNwrY485irvMxNOhMJDnEr1h0ffVC4B61jl0nOKUMP/IKbrp+30D4O0AcnzmkLmRp6F3rw4
+	TwOWS7G2TVk56nuEy5lXKu2WnbTar0qIRGRLe5D10J3Y/swG7Jc+TFXASZnmw5frJ9Syh8rfHwv
+	lppEW7Cy+u4OC+NbmdjgfQ0yaxDt6l+ENy4Ptt/X27f/IUBn++BSxwTOrcNjI94kkcckZ/snVJI
+	p+XowtwmverDdhirw9xRKbbGS2s6u+Z/DEsEA/s1IcuV4iH6s+98TYUewth1/vw0CnjywMcLQ6A
+	CyUucxlrI5ggzZC1XOUejrPSVOVpwz1YsGuqCTWjNBPVY4RlOl4tnIdVtPvZLIwXrtdZ/EeEJDU
+	Uzpx9oKZHwyBvwBGkgkcZ5JxU6xDa7/KtFlvh4DnAkCYISarBar4aZGFv2wj09SeKZKaRg4x31Y
+	OUDSx9humTJ3zmmQlzvhOz7K+0w5ltAwjUQYJdVvvixmiJmjBhYHlIU8GBJkH01zBBtc64vFevL
+	JCBsDk8s=
+X-Received: by 2002:a05:600c:8b38:b0:49d:272d:74b4 with SMTP id 5b1f17b1804b1-49e619a1e56mr222951175e9.2.1789242959747;
+        Sat, 12 Sep 2026 12:55:59 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm267089045e9.14.2026.09.12.12.55.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 12:55:59 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Radu Rendec <rrendec@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] ARM: cacheinfo: avoid out-of-bounds write in populate_cache_leaves()
+Date: Sat, 12 Sep 2026 21:55:49 +0200
+Message-Id: <20260912195552.76673-2-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260912195552.76673-1-kmehltretter@gmail.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,55 +90,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+populate_cache_leaves() advances its bounds-checking index once per
+cache level, but split instruction/data caches consume two entries.
+CLIDR-based allocation supplies enough entries. Early allocation from
+the device tree can supply fewer and expose an out-of-bounds write.
 
-------------------
+Count each written leaf and stop before a split level that does not
+fit. This prepares ARM for DT-based early allocation and matches
+commit 875d742cf532 ("arm64: cacheinfo: Avoid out-of-bounds write to
+cacheinfo array").
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
-
-[ Upstream commit ab9c84d1cd59e6b3b73de34982a35a76e3a9b032 ]
-
-thread_stack__br_sample() copies the wrap-around portion of the branch
-stack ring buffer with:
-
-  nr = min(ts->br_stack_pos, sz);
-  memcpy(be, &src->entries[0], bsz * ts->br_stack_pos);
-
-'nr' is correctly bounded to min(br_stack_pos, sz) but the memcpy uses
-the unbounded ts->br_stack_pos directly.  When br_stack_pos exceeds
-the remaining destination space 'sz', this writes past the destination
-buffer.
-
-Use 'nr' (the bounded value) in the memcpy size, matching the pattern
-of the first memcpy in the same function.
-
-Fixes: 86d67180b920 ("perf thread-stack: Add branch stack support")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Assisted-by: Claude:claude-opus-4.6
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a9ff94477836 ("ARM: 9433/2: implement cacheinfo support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- tools/perf/util/thread-stack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The overrun was reproduced with KASAN on QEMU virt, cortex-a15, using
+a device tree whose cpu nodes carry only d-cache-size, so one leaf.
+With patch 4 alone the boot reports a slab-out-of-bounds write in
+populate_cache_leaves(). With this patch the boot is clean.
 
-diff --git a/tools/perf/util/thread-stack.c b/tools/perf/util/thread-stack.c
-index 1b992bbba4e8e..b1766d62eb718 100644
---- a/tools/perf/util/thread-stack.c
-+++ b/tools/perf/util/thread-stack.c
-@@ -641,7 +641,7 @@ void thread_stack__br_sample(struct thread *thread, int cpu,
- 		sz -= nr;
- 		be = &dst->entries[nr];
- 		nr = min(ts->br_stack_pos, sz);
--		memcpy(be, &src->entries[0], bsz * ts->br_stack_pos);
-+		memcpy(be, &src->entries[0], bsz * nr);
+ arch/arm/kernel/cacheinfo.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
+index e1469b641780..860eeb03cfe5 100644
+--- a/arch/arm/kernel/cacheinfo.c
++++ b/arch/arm/kernel/cacheinfo.c
+@@ -151,7 +151,7 @@ int populate_cache_leaves(unsigned int cpu)
+ 	unsigned int level, idx;
+ 	enum cache_type type;
+ 	struct cpu_cacheinfo *this_cpu_ci = get_cpu_cacheinfo(cpu);
+-	struct cacheinfo *this_leaf = this_cpu_ci->info_list;
++	struct cacheinfo *infos = this_cpu_ci->info_list;
+ 	unsigned int arch = cpu_architecture();
+ 
+ 	/* CLIDR is not present before ARMv7/v7m */
+@@ -159,13 +159,15 @@ int populate_cache_leaves(unsigned int cpu)
+ 		return -EOPNOTSUPP;
+ 
+ 	for (idx = 0, level = 1; level <= this_cpu_ci->num_levels &&
+-	     idx < this_cpu_ci->num_leaves; idx++, level++) {
++	     idx < this_cpu_ci->num_leaves; level++) {
+ 		type = get_cache_type(level);
+ 		if (type == CACHE_TYPE_SEPARATE) {
+-			ci_leaf_init(this_leaf++, CACHE_TYPE_DATA, level);
+-			ci_leaf_init(this_leaf++, CACHE_TYPE_INST, level);
++			if (idx + 1 >= this_cpu_ci->num_leaves)
++				break;
++			ci_leaf_init(&infos[idx++], CACHE_TYPE_DATA, level);
++			ci_leaf_init(&infos[idx++], CACHE_TYPE_INST, level);
+ 		} else {
+-			ci_leaf_init(this_leaf++, type, level);
++			ci_leaf_init(&infos[idx++], type, level);
+ 		}
  	}
- }
  
 -- 
 2.53.0
-
-
 
