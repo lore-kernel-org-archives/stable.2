@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B395C4248C6;
-	Sat, 12 Sep 2026 15:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB0C4322FC
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228280; cv=none; b=dDXLlcAIQ++8jgOeGYw21CK8c85qlibtisJLF2BZwDWBImYQxjPuxZF+OhFX9PfxrqFxNP1hRw5RHOfpN9uKNzwT6utbTzjUlUrjMQUvqBsOnboNq9AfZQCz2MrgZffvlPAsnPtQm8TWnZMsn7x4TB94NK10XMd0jlRjuijTNes=
+	t=1789228283; cv=none; b=dpi/dCvZz8dTusb63JNxmdUDsq3kuLw3EHlUkOeSee1z7rbCPOdOmJ49RKoU+p9Sg+6qdxLNrAFvUCxVWhAebEGXuF3KWIxfy7pyGkmMU5/fqB9lPOZwPPZQQBv5gDqnKXJViKnhIu2xkFOB9vlMaeOKXokd8ecgTwxTt/tROW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228280; c=relaxed/simple;
-	bh=pXCspgpTITyLV3wm9Hq63lcypdD2TO2Cp9KwMsrccI0=;
+	s=arc-20240116; t=1789228283; c=relaxed/simple;
+	bh=kLMc6297bPuMZ/wzJjems2aWQXJ3M/GWe3VMiXhCFqs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ryayx8DPwhK/bDAcQRtDJjzE0/waTRwo19LIQ2p9sK6SOvMR8ARJDSQNq00BMBQ/qHUcF3i/Igu43NL6ZVeyLsqWdLwqXHKwGtoBUTNn6X0yDpqWSvoVrNBxkMjemxmIkYJC4p2zJ21yWL2lD25HUbUxl01JeTb+UR/sDO80XpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QtYqdhJo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lVarzyiyjp6/9hn+kc/kCiZryVsnSt3RSMcnV72mR9obvifmb6ZRNO3kpQkjosvM3qXLrBH7qRjR9TgkH6EeXTZHEzCDwKOWcbZcaWTwKKiRp+DpiJc8tp48IIfN/zXBbWK9OEGf9AHx6S/Zzzqo/RCvXH5iyxweCZh/+EdMlwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Upr5aAly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QtYqdhJo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660071F000FF;
-	Sat, 12 Sep 2026 15:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789228279;
-	bh=en2iQi1CBJ5zZm/BjHB8AWp4oIaY2n0arphHtZaIn5U=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Upr5aAly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AFB1F000FF;
+	Sat, 12 Sep 2026 15:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789228282;
+	bh=4LnDrQOL0cEFaNUKVFM63Os93zGTbIpInhkS08VN/8E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QtYqdhJoycSNfUnRdEn+ouJzBsU18us1WXlRxo3yFhPgqdLsbLVA3YmN2XwQJU5wK
-	 Z9tisbdkXBWOFd/NdBBH8JLV8UWPzknCSm5u0WyoCwdr0dMecllmetKmzJS1/Oh7MA
-	 prxpM7WK54PSXgfvwXZMv9pf8eOd/47gOCvgFzV8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Upr5aAlyukSmA9KHRmVQT6Zox+ehvhGKoi1HmXWP+xUIUWVzqISne4cJzRikW/RAQ
+	 mWohneU5z+IqE9Y19W7v0rvnMEqRzy0NfqGRTf/Guh6cK7Oapgq7uQBGcsRTskxn6d
+	 m+7RmkF6oDcQGPstnD01qp2dGrGTllCJjQ4Un92b1L1G1vWT8OPcpexPIQBKbevP9G
+	 ukssOpoUTTxckedR/l7Ee15yGWVJa5hHCkAQYeLX3WE/imViIQpdcPd0l7SSVwaCkB
+	 DXInBR8N6fwtqERpQ+kw5APhSY+DMKSWLxArX7WReeQeJaNMyhQ1f5JeXeV3RMQxsi
+	 vQ4ctlELVB8sw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>
-Subject: [PATCH 6.1 0353/1191] KVM: s390: Fix length check __import_wp_info()
-Date: Sat, 12 Sep 2026 08:51:21 +0200
-Message-ID: <20260912065556.158607215@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <treding@nvidia.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/sysfb: simpledrm: Improve framebuffer-size validation
+Date: Sat, 12 Sep 2026 11:51:20 -0400
+Message-ID: <20260912155120.3559750-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090919-unstylish-evade-283b@gregkh>
+References: <2026090919-unstylish-evade-283b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,51 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-------------------
+[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
 
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
+Validate the framebuffer size from the firmware against the
+limitations of struct drm_display_mode. The type only stores sizes
+in 16-bit fields. Fail probing on errors.
 
-commit 4c07680a467e2f7697245bcd11691bffb2a6f0ed upstream.
+v2:
+- remove unused function simplefb_get_validated_int0() (Sashiko)
 
-struct kvm_hw_breakpoint::len is a __u64 that is fully controlled by user
-space. This is then assigned to wp_info->len, which is an int. The bounds
-check is done on the truncated value while the allocation uses the
-untruncated one:
-
-	wp_info->len = bp_data->len;
-	[...]
-	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
-		return -EINVAL;
-
-	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL_ACCOUNT);
-
-Use the validated value for the allocation as intended. Without this
-fix userspace can trigger >4GB allocations which will fail and result
-in a WARN due to MAX_PAGE_ORDER.
-
-Fixes: 27291e2165b6 ("KVM: s390: hardware support for guest debugging")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Message-ID: <20260805110455.7200-9-borntraeger@linux.ibm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Cc: <stable@vger.kernel.org> # v5.14+
+Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
+Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
+[ adapted shared drm_sysfb validation changes to the existing local simplefb_get_validated_int0() helper. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kvm/guestdbg.c |    2 +-
+ drivers/gpu/drm/tiny/simpledrm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/arch/s390/kvm/guestdbg.c
-+++ b/arch/s390/kvm/guestdbg.c
-@@ -184,7 +184,7 @@ static int __import_wp_info(struct kvm_v
- 	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 18489779fb8aa..c32b328ff510a 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -50,7 +50,7 @@ static int
+ simplefb_get_validated_int0(struct drm_device *dev, const char *name,
+ 			    uint32_t value)
+ {
+-	if (!value) {
++	if (!value || value > U16_MAX) {
+ 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
+ 			name, value);
  		return -EINVAL;
- 
--	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL_ACCOUNT);
-+	wp_info->old_data = kmalloc(wp_info->len, GFP_KERNEL_ACCOUNT);
- 	if (!wp_info->old_data)
- 		return -ENOMEM;
- 	/* try to backup the original value */
-
+-- 
+2.53.0
 
