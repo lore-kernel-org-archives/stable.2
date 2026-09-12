@@ -1,176 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE41345EDF
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F14F331EC0;
+	Sat, 12 Sep 2026 14:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223037; cv=none; b=boF+DX6715mpt6ItcSXik6Upckltfe3V00ThFISlDBLO+ZHeFk6GS069emw93GI+VieqZjBZGndesTrB6fv6JhbCzui5WVUsYEDSx9/wHjvDfLYXG67t+XBcYZzkCthSpiZd4UkYiMHuoi19GnoWoY56E75mzdQTKba+Po8ualo=
+	t=1789223039; cv=none; b=jvT/WXdPbTL8BVOb1W5IkmvFbg2UoAysMCYP04B0KzkMKlDVuqM3Gs1MNEcziCpeB3xz1WtV/nQ9twi/iFKiSuRzaRs39wQyEiFBhcKJ4kmnM0xXr+/8PhN3SVHFitVsxSkWVo52LN9B/jGQY6TnYUgL1zQLASkXS6kiRZ1jiPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223037; c=relaxed/simple;
-	bh=ol1664MreL4ZD744kDlGDiiv4nsc8heXto4YCOF6PSA=;
+	s=arc-20240116; t=1789223039; c=relaxed/simple;
+	bh=K4jBe+d+V1najhz/n9Bc/Hi/hb3Kd4Rc5ENUmVW+bo0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UarKte0/p7V3Q4QBub3lq2wnUeyoPWwmdejReCP75hIahbzVS5Z0MwV4Bshh7lqoZOrY5BGhwTFARhB63AJ4ESMOnNVPcY2EDFllO/hLttkQ2HY3q/ed9Xgs+6JpUPrcKQNKMzydJXK0YxBhUvHboP4xCAtz/7TKTwhSshaaaqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3Uk3Mb4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QzSnh/BrskTtRDV7KtJGQ7YsDEG24g4jKaOBmBFaUXXl5wNbAW0y0uoTiTo8MB8tidOL2vSh9k5LlKLn9AYYCPW0YCUX6Z7pa51ehmhT6A/gE6V1JA48gW1pO8t0k7sPKX8fR/7xtClrSvGo3TtqmPWHOGA6LzxtLh8x1XsfSwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BVv6pXER; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3Uk3Mb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33791F00893;
-	Sat, 12 Sep 2026 14:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789223035;
-	bh=2mRKmjntnG3QktKP/1aQxnPP3s+HMkLSeMuWg21zqY0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BVv6pXER"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDBA1F000FF;
+	Sat, 12 Sep 2026 14:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789223038;
+	bh=wUFqCHIPK5iOGRTDs1PygsOpb0cj6y9DYTK/ykJjOLo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A3Uk3Mb4DocSryEJZPZ+BrWQ5LTrVtCopfbR50rKQ1kCgwtjPE/kVLeD0u8BviKY/
-	 InQF5IEaqaJRFuyiUif/CSYDGZhn7FJXl9qXWDPHEaZ29ncVANSjRuXqQspJWhPlS8
-	 EejBwvJGImGn24vz0p1YhNC089sm0LrHha3BbNeqCT3WvMCdrMsncYQad/xv7FdE45
-	 vZjJ2B0xedDWlRaB7ZQWlAbGdRl7Kh4vah2bdoWXVkTv3KEkwpSRoI2n0JynM099Qo
-	 4zAVlhWhdcytXuyDJfnTvZ1dIONeKLMiVCozD4uzk4JejcfBtK+jlpLZV4D9D310Fa
-	 aKpGJ/oH9p88Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=BVv6pXERBaSkISDeMfZQjlpjUtHlcbvFY00T3G1GGXsMJtXW0Wv21aL45AignYWr0
+	 s/kmil1gsIMVJJU7kPvs2e6oXvIT6jQ5l8+M5KAnR/4c7hnzUHoUjRE+ZH8NFBbYxs
+	 WcZLEpQJVyvBFv3goXSXeiXfvbzfUnS1FUaFb/Kw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Animesh Manna <animesh.manna@intel.com>,
-	Jani Nikula <jani.nikula@intel.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Johan Hovold <johan@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Grant Grundler <grundler@chromium.org>,
+	Yajun Deng <yajun.deng@linux.dev>,
+	Oliver Neukum <oneukum@suse.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-usb@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-Date: Sat, 12 Sep 2026 10:23:53 -0400
-Message-ID: <20260912142353.2927508-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090953-gravel-panama-02e2@gregkh>
-References: <2026090953-gravel-panama-02e2@gregkh>
+Subject: [PATCH 6.6 0707/1424] USB: make to_usb_driver() use container_of_const()
+Date: Sat, 12 Sep 2026 08:52:19 +0200
+Message-ID: <20260912065623.132617070@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nemesa Garg <nemesa.garg@intel.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a ]
+------------------
 
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
+[ Upstream commit 2f3aab7aecb827ba93c6222646eb0faa8228d590 ]
 
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
+Turns out that we have some const pointers being passed to
+to_usb_driver() but were not catching this.  Change the macro to
+properly propagate the const-ness of the pointer so that we will notice
+when we try to write to memory that we shouldn't be writing to.
 
-v2: Add same check for cursor also. [sashiko]
+This requires fixing up the usb_match_dynamic_id() function as well,
+because it can handle a const * to struct usb_driver.
 
-Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
-(cherry picked from commit 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-[ Adjusted context for missing pixel-normalizer code in icl_plane_disable_arm(). ]
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Cc: Grant Grundler <grundler@chromium.org>
+Cc: Yajun Deng <yajun.deng@linux.dev>
+Cc: Oliver Neukum <oneukum@suse.com>
+Cc: Douglas Anderson <dianders@chromium.org>
+Cc: linux-usb@vger.kernel.org
+Link: https://lore.kernel.org/r/2024111339-shaky-goldsmith-b233@gregkh
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: ef8154d8b52d ("usb: fix UAF when probe runs concurrent to dyn ID removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/usb/core/driver.c | 4 ++--
+ include/linux/usb.h       | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index aeadb834d3328..104009cf5f412 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index b0181fd4bdce7..2b2eb04b57f4a 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -227,7 +227,7 @@ static void usb_free_dynids(struct usb_driver *usb_drv)
  }
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
+ static const struct usb_device_id *usb_match_dynamic_id(struct usb_interface *intf,
+-							struct usb_driver *drv)
++							const struct usb_driver *drv)
  {
- 	struct intel_display *display = to_intel_display(plane->base.dev);
- 	enum pipe pipe = plane->pipe;
+ 	struct usb_dynid *dynid;
  
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
+@@ -873,7 +873,7 @@ static int usb_device_match(struct device *dev, struct device_driver *drv)
  
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -588,7 +593,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 	}
- }
+ 	} else if (is_usb_interface(dev)) {
+ 		struct usb_interface *intf;
+-		struct usb_driver *usb_drv;
++		const struct usb_driver *usb_drv;
+ 		const struct usb_device_id *id;
  
-@@ -699,7 +704,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ 		/* device drivers never match interfaces */
+diff --git a/include/linux/usb.h b/include/linux/usb.h
+index 21358e1600216..502a2f4f13bae 100644
+--- a/include/linux/usb.h
++++ b/include/linux/usb.h
+@@ -1239,7 +1239,7 @@ struct usb_driver {
+ 	unsigned int disable_hub_initiated_lpm:1;
+ 	unsigned int soft_unbind:1;
+ };
+-#define	to_usb_driver(d) container_of(d, struct usb_driver, driver)
++#define	to_usb_driver(d) container_of_const(d, struct usb_driver, driver)
  
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 7f77a76309bd5..52a38d3ada24d 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -770,13 +770,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane->base.dev);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -797,7 +802,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 	intel_de_write_dsb(display, dsb, PLANE_CTL(pipe, plane_id), 0);
- 	intel_de_write_dsb(display, dsb, PLANE_SURF(pipe, plane_id), 0);
- }
-@@ -1512,7 +1517,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
- }
- 
- static void
+ /**
+  * struct usb_device_driver - identifies USB device driver to usbcore
 -- 
 2.53.0
+
+
 
