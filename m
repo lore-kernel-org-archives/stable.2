@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21894457E7A
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F21834752E;
+	Sat, 12 Sep 2026 11:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211813; cv=none; b=r1b+kIWB+LkFNpdsjySN/BcgZ50OwbBbwgCj9+INmjUjGr4k93DEzzBkQIeuDXfBuavGYcEYdFunOBSb9yhGNetgH4eRxKfbYrYejPGQhNINDnH+qpu4M07meFSxrvWbxhsQCCBPjbjioMQFT8Hb0v/XSKZvYvSPkWyUaYJN788=
+	t=1789211814; cv=none; b=RHsa2KCyd3fc6yHQ+u9YDnCKQQ9u87mfq4fIKVWXH359xHDPqLXh0JXY1BYGWX2SCbqY9m8WMcv7RgWNBm587PG6JmixHo8v0bhgHpzWNpXgl0XMaNvGvxrhS3lU21oPYEj5B0IS/BUVXNCXqEm26F0KuBs8hQeYXJWjJf6NG7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789211813; c=relaxed/simple;
-	bh=WHyt+d6e621hfOJ1gGKbcHrXNpdoEXzoeR9fodP5C0c=;
+	s=arc-20240116; t=1789211814; c=relaxed/simple;
+	bh=XPMawFBlHZsv1pB4coDy9cLE9prOsRVOK2MxJ9Wgs3Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r9JscoguHAo+5NHXyvnuYMlq+Kid/Pa29Zo6g9IPPgsjquxtraUd+h1/w6/P6FQYUjRMptYSX1AfYd1voGgkFxGELOmB+gVfrPCg9G0QrdKMZbZZkhEyUwFc5NZfPWReAsZbI4u+Sc5JeBIObEr3hhXnFfTxRnjLEHbW+yoRwac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKkn+9Gr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UmGWSkoR2G6iFQ7M+ZnKy7GvEsJJXyxHn1sTxY8ml5UdJFx/HOoblfv9XJ8O8mpxC2aADdal6ioNNkj7qaC6UIvB5F+65FZSjdqY9DiHQoEDrin+iA26V7DLM25al+e89CUVEyi+YtQL0mkx8Fjxu0XcnNoytI2AOQlyPK+S2do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=csumiHmh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKkn+9Gr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE451F00893;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="csumiHmh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2CB1F00898;
 	Sat, 12 Sep 2026 11:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789211811;
-	bh=ZacMNv4RY9yv86FdDy8SHb2Ua/itqgVkz7TKmI++PL0=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789211813;
+	bh=jDtoOqNMEIEcXn9t1bjhf1b0hm6aCVjDSIQRjrGcMPU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hKkn+9Gr/FPggRgut/CdW5V0+QVlGqgMNF+0uiMrTyj9GQnxo3SQHxYwQEegmCvPf
-	 5MZl3SnM5Kj3Ms+B/1TUHadFlpZZG+MF+wLrqwflSCVbE1mC8QgE0qmubloZAoPbW/
-	 9dHDCHRPycTsMzac485zjOxOe0EmMzsEmS9ByB8gnwJn14SOjWTSXpCnPQt6izVKcx
-	 BUpBRnaX9qdwiq941Nn4/mka/tqDa+FeWjRkZ8EyaOQCNRSsfXwSWA4S2hbNUVqwNP
-	 qFrRJIZeZBMpxP5Xnhr/4EGzolRucyAoqNIuMNh/LgEWv6NIu0WTFeahdi5cWoX4rm
-	 eeIJurecVuCBQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=csumiHmhEieNGwMrrBkgdax5Z0xl0olS4ll2klKnRzc8b1lQkTfrERecaDzI0npeS
+	 dIOZ4/bN5UVUG0jjQNK1w85tqrD4dvZ94X96LsVWv0OR/aVJPg+c3QqKmzhYSyacER
+	 wz0GUgm8hZCURO7rJwJetd5gVQdA9wos0ITgGXTA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Wei Yang <richard.weiyang@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] f2fs: fix to clear dirty flag on folio in error path
-Date: Sat, 12 Sep 2026 07:16:49 -0400
-Message-ID: <20260912111649.2272406-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912111649.2272406-1-sashal@kernel.org>
-References: <2026090930-constable-bacon-8c5d@gregkh>
- <20260912111649.2272406-1-sashal@kernel.org>
+Subject: [PATCH 6.18 1308/1518] lib/interval_tree: fix allocation warning messages
+Date: Sat, 12 Sep 2026 08:57:57 +0200
+Message-ID: <20260912065653.114654916@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,36 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 5b86eab84ac8e9289b5afc52ef88ab18ba5bacab ]
+------------------
 
-If node block is corrupted due to chksum mismatch or inconsistent
-footer info, it needs to drop clear flag of node folio, in order
-to persist inconsistent node data to storage.
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Cc: stable@kernel.org
-Fixes: b42b179bda9f ("f2fs: fix to do checksum even if inode page is uptodate")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ Upstream commit d9c0fd5533fb23bc445bd581feb140e966195936 ]
+
+WARN_ON_ONCE() takes a condition, not a message.  The string literals are
+always true, so the warnings still trigger but the messages are never
+printed.
+
+Use WARN_ONCE(1, ...) instead to print the messages and keep the once-only
+behavior.
+
+Found with a Coccinelle script.  Clang's -Wstring-conversion also flags
+such calls but is not enabled in kernel builds.
+
+Link: https://lore.kernel.org/20260808123608.73613-1-kmehltretter@gmail.com
+Fixes: 82114e45131f ("lib/interval_tree: add test case for interval_tree_iter_xxx() helpers")
+Assisted-by: Claude:claude-fable-5 coccinelle
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/interval_tree_test.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 3b40ee49b3721..4cbae61870752 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1519,7 +1519,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
- 	if (!err)
- 		return folio;
- out_err:
--	folio_clear_uptodate(folio);
-+	clear_node_folio_dirty(folio);
- out_put_err:
- 	/* ENOENT comes from read_node_folio which is not an error. */
- 	if (err != -ENOENT)
+diff --git a/lib/interval_tree_test.c b/lib/interval_tree_test.c
+index 5fd62656f42e3..c479d9176b759 100644
+--- a/lib/interval_tree_test.c
++++ b/lib/interval_tree_test.c
+@@ -139,13 +139,13 @@ static int intersection_range_check(void)
+ 
+ 	intxn1 = bitmap_alloc(nnodes, GFP_KERNEL);
+ 	if (!intxn1) {
+-		WARN_ON_ONCE("Failed to allocate intxn1\n");
++		WARN_ONCE(1, "Failed to allocate intxn1\n");
+ 		return -ENOMEM;
+ 	}
+ 
+ 	intxn2 = bitmap_alloc(nnodes, GFP_KERNEL);
+ 	if (!intxn2) {
+-		WARN_ON_ONCE("Failed to allocate intxn2\n");
++		WARN_ONCE(1, "Failed to allocate intxn2\n");
+ 		bitmap_free(intxn1);
+ 		return -ENOMEM;
+ 	}
 -- 
 2.53.0
+
+
 
