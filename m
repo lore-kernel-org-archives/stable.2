@@ -1,121 +1,145 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625493AA1A8;
-	Sat, 12 Sep 2026 22:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DB8301486
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 23:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789251007; cv=none; b=KQqTU+hLb3iVlZ0Qc0rsEmnDG4UjkaQo6Vm7062USfpOijxrItYlfe/rvc4JBwrKrirL6MdgK2ulMrde54CBLC2oA0GymVvdGGuj9Li0Q7gr6IlhPw0EQi5Dq+FonKz5avOa/iCKdUQUYveKLbMe9nJSlpXXO3D9P8L652LXDIk=
+	t=1789254430; cv=none; b=kSlASU3Eo3GoYh027DHlTtbg9j+3vZOzM6mDZEp00rDWdeyLUc/PSdphnpq4kwRfMhkYlNdUbC/VTTv4D/1nKFh51nY6twI+akfQ4q+oxn21cZnSCiHIblrFjSzn1JR45EExgKACf9UZ75FBcZngZezyZ/tXbGYS6MxlWcBXyS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789251007; c=relaxed/simple;
-	bh=Vov+j5lDlp1u7/WYFDRXdYXsByK1/9uAFGJpfSM7sxQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H/LcVtPS+Ov1bCvSACF9OWMenddzrGYmOCDjlSA0inOs58rxzQYJ/SSSzBS3k1DgmNJDY1aYZZwbjHa2x+48HWYpcv+jqK7mLSQKMwjEI7LuoNATgiAtq6zrXi2NYRbMdIscJEY7Lok9swYBlqrL1JRFZTVzyUCeEZsup4K0vkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=fzyMLKJA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OSHxRMlT; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789254430; c=relaxed/simple;
+	bh=TdzRwhjQNVmDU9bqekeCy1JbqM5euo3ldm/AuhuZlxw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VoXTMu02mSW9W2A2GwKxrbzdFURWGug4INTEj6zuOzAvD9MSnaatWIRAf4oMREOVR6naNQst3N2kFztvHgYx9/HRPXot1DvCkO5H8s1N2DkE4L8YJBfykrozc9HFGM9OjH2STRRMrFWdq1g91CXhbvbHT6wm+sPxbCtZf0LamAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=WRPWUoEq; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="fzyMLKJA";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OSHxRMlT"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 10D657A0067;
-	Sat, 12 Sep 2026 18:10:04 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Sat, 12 Sep 2026 18:10:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789251003;
-	 x=1789337403; bh=Q/4eVZLXIfFPSy8zK95spoqi1UGawTiBDjAwPmkQG+U=; b=
-	fzyMLKJABRKrBxQVddgR4MxWXT83PP8nVRhlb6YOTNObBOM1TkaEbww/jkt7fPgo
-	eC+eVd8wPQKYkYcdKSNR2MWUvLBxm1PDWbqkXExpE4qh4qLkn8JkqUG36IqlPljT
-	QyjnzmEL3PWCde0LxQmICxG+5nj8hrRt7DDLB/0WsvbLxDdj2yZxlamslbRcSN3G
-	nWCCkTz4vLGXsNBIf/Je3qyghPGCD4dlBrqueSHCHR6u85rchYbpzTAKwVJ/zKaZ
-	PJ9CEHbFhiY+oisyjZMy3aVlSUK6s1C53PB0ZBv2KwpPuo2sxXiK7GZzY0d0Z5e3
-	uIpKchB1t239qMaxFZaPyg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789251003; x=
-	1789337403; bh=Q/4eVZLXIfFPSy8zK95spoqi1UGawTiBDjAwPmkQG+U=; b=O
-	SHxRMlTwYirUyVTN3E8r8qu7ozXRXNtZakr7ggfCgEvH7hd8aGPlLl/z65QskKBQ
-	R4YcMeCrmVwWHkqLOum6q6cmE73SJYyjtG8UeERBS4Y3YKuXaxdf+0EGPqmu66TW
-	nNH6iOSYdaU2b3Y/+6M2R61qgVGRB1SprF0UzfdaQdSxVLxmte70/FV7WPDGRB8D
-	oUhaxEnu6GX8nQQ/v4HMq92f+DvjQv6FKG2K3tCA+asgQJIoEhHiW05q6Xe2QdM4
-	Lhv21OqpI7TAJrfFwSPT5aPIKH7jgp8SVcoHTy4aqkDWlL8MWy3Tlk8x9DBx1PNt
-	nMkP2K4qvJEAzVPsQjPbQ==
-X-ME-Sender: <xms:us2larMliekMjWFiwQ3Gh-H609vI-No396LNDFDG0Je3N6cN8dIOiQ>
-    <xme:us2lah0uS36FwdjODV2izhVLkpOscLEBmZ0pEY_zTob-5fga0jv1Z6qbYdXGyYnlc
-    9iP6WWtIJaQbcPgGZmxo64EjOlgjfJq4YpEWGj4NhHC9yR5mRHZAY8>
-X-ME-Received: <xmr:us2lalyXQAPIUJfCs-KzZEMcujPQQ50H4kSBJR4J-Fjn3uRm5DuMEiLkQAgPV92jFQQ8JEaOw8DIwWi7ZIm2GGuF_kDqKPBB>
-X-ME-Proxy-Cause: dmFkZTEOd4URmgIQpVJmQCf+djr9zQftB7RfzWwwY4Q2Q/htCvy0vFlU+SMqBFByQvVW7g
-    5o3r5JILiFMigy5B6SLxMMj6kBcuv3T+zpyMglOh0sgq6+4EzvHMQSk8Sqettco54cSeJ3
-    Blu3ySgnrQfZPtVMq+dkZCJ72/aEebSIvHNc5TIP/qm8hwU5BCzGw8pwIA4lVxoo6pNKZa
-    22dr+MxgXBfYMxpOqb3vGfodBNUvYifpoi9LLLKbIFHWTcH+OGZIudaAcMS5KmY6F7P2X0
-    32JuHQa2Vbnz23oDNezsqbY8kUZKIcEmsIJ/lfuiatCmBDHxVqFH09TGXdy0Wtu9pMjJnS
-    P+pD0rWyZpqer15WkVfmWBdrQdrniPFPLZRRXG1gdfcaPeMSQWu5Q7OVOJGFnqhjGTuo01
-    0HNMwoUcXq7GlcOCHDrpPxI5g+DrG/LbmxQP1mzDtK9kNYschCONHgE/iZbYAKZZ8bGTRN
-    l/l0mF7T4jz5msqPux8s3zVBOjS+v0hu973r2SHCmZAYo760bAQl/MvtNfDxdE+psYAKf8
-    JqW6Z5en78/Q/1Ll0xZtAeRPmPl9eRNk2MnF+L0A3HAvCpEqLLAusPBA/WbBvtteoZz6bY
-    uSvedHWy2gsh/LKaI3f8NblHrS6N0opBKbnc1qeAksCwtpBgO5BY1WZnwt7A
-X-ME-Proxy: <xmx:us2lajoEwA6k3nF-s1yTO6t-roiqTFHSq-PveCU895-2MDZzG9y9Zw>
-    <xmx:u82larWhcXjOYWbqJGG-_JvIIbenvkaXM8GzCrPVnTjW7dW7iE07gw>
-    <xmx:u82laqoO4iiNIslZJejrPUzj4QiMglJs9RSvPT_10iJhScp-wuzyhw>
-    <xmx:u82lavEb73tOTjRuyMxvFO-HPTaa9qVdKfbo-wPIjC8_5Odg7gTv-A>
-    <xmx:u82lati4iHMNyUihPOvA-t0UjqQMc4bXc0iW9ZH-BHBclB-cxHcOzpmN>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 12 Sep 2026 18:10:00 -0400 (EDT)
-Message-ID: <96b9da03-cf5c-467e-891c-387704647f62@pobox.com>
-Date: Sat, 12 Sep 2026 15:09:59 -0700
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="WRPWUoEq"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-86ffc11abc1so253997b3.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:07:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789254427; x=1789859227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EjEDdvlxexIZGgyTpilEkHXXYYzPdhgUTGEAelW9epE=;
+        b=WRPWUoEq8KqClE3UBRwuvBMiCQ1Yq/riEo4iFkHHqoPjYiuF2qPYqn8R4LbZ/PQPFx
+         for0uxHxxirVasytUbdHoo5HfIv4S7EOjOvjov1d5ev20bUcoWKO/fYaWdVZ24QtYKLl
+         De39KH0EyP2hZyXM2TQVxrGwlDiMLaJ4nQ53Fv7lOzsCjkAd2JNu7IaW7qivM0KfuqWo
+         GA1VFOQ25S6yBXUy6AS5oFixnLpMqv2xB/37rct/f9G8nVElOLT/tGQKTDMp1r5DRpbA
+         rGepIRFNifI1OtUQt5n/pSVotDsbNcuskeb6/gUJxdUBlViXC8K7ZrSeP1r4GEArI64i
+         PK6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789254427; x=1789859227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EjEDdvlxexIZGgyTpilEkHXXYYzPdhgUTGEAelW9epE=;
+        b=XlbW4t0tp1h9oVMc3MJR6Jtgttv9NB+TGuqEehH9WT1IncEpmgTEbyZvqPugO5x8sN
+         49mHQeFoXoZ3yXbVb0+mYLR1MUly3OL/1PAg5OsuDmNbeczA9LI13Mr6ae6omLWa0HM4
+         8mUnlu4I1uQeH9aJSxQ1JDdCuDp3Qnq24us+ZJDChSr+UlTHqRsvWhpXVfV1ofrWlkfM
+         RyVLjKJkL4pJJS7O2MT2d56gZZmDPOAV0YErTVrHRRtepl2M+QT8Au6wKWoFiyBk3q3a
+         MxoZZDBJiJC6tSMlsDlFq78SPLdu17NGLZDq3RzXTu/NaLvDhjEe9Yyj8071aHHaMvVz
+         Z05Q==
+X-Forwarded-Encrypted: i=1; AKwUvBziIJgEtJf7iNyLWi29JoFFanCszFgE54f3kEjtrtHKKTpnFyFBu+h7cv93wOKoRvfzh2ezEWU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lez95QsNzwfIt9ZliNWmdjGgNKilF8mZCYcc57tACR2N6NQofv
+	aBfGZFQlkpQXrw43lD/KOtpgla5eHBOb+JtDJAcFBirQJEMeS5yOybOGLoes2BgFnTLR
+X-Gm-Gg: AYBFou3iBZRi4mcTgLWLNPPbzlkGIEVEM9lva0f/Yj4nAZKSSauLJGgkOHuOMpuiPDh
+	G7mCAZP6+/7iyiJEoR6fCQE59353NA3aVCSHOLkxm0Itr/7coMnB2j6i5UnPFg/WZiEvyy8/laW
+	oKR09fzgwmcjh8pVQa+rBdHzFKeGsblPLi/uUdqQ94JUdXlatL6MluczeFM6K3CDavLnuMKt/XC
+	MxP/y+lgQQ1lJ6dFMsNQSHGUT3A+JgWBDnaKBp4C2BaDu3025c7fcfrc2ooaTPYyu/T7W6+DLjA
+	2Pikuc7ceyO3jI7qX37/V/vGImSb9h7oCl65Kjxc1WZ/FmDq4tXkdEVx3KiCIwS3TSasimANSPD
+	cdETlOnEOLn7YlDoVofqELCIREAtStlUKbBzzcBJ3cBPdjNLgD1IzNAPzmCrsIywPpGb2T9pLGJ
+	Pl4xog7Lhswh4i7Z5ZsV6tjo3XvWLy2TGusuEsm5RUPYGae7qjNxUl3ffmTFs89zVp9fNFbUgKH
+	LwGT0cl4p2+1K6hR7ou4A63qWaWuE8WYroQKjo=
+X-Received: by 2002:a05:690c:2602:b0:820:18ab:ff72 with SMTP id 00721157ae682-884b6c2e93emr41536317b3.3.1789254427333;
+        Sat, 12 Sep 2026 16:07:07 -0700 (PDT)
+Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488856486sm23622947b3.37.2026.09.12.16.07.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 16:07:06 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: Greg Ungerer <gerg@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Will Drewry <wad@chromium.org>,
+	Michael Schmitz <schmitzmic@gmail.com>,
+	linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] m68k: Fix seccomp filtering on ColdFire and 68000
+Date: Sat, 12 Sep 2026 19:06:51 -0400
+Message-ID: <20260912230651.461269-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065607.279695368@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 11:40 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.157 release.
-> There are 1424 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.157-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
+ColdFire and 68000 syscall entry paths only branch to
+syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
+through to syscall dispatch, leaving installed filters ineffective.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Test TIF_SECCOMP in both paths and route it through the existing slow
+path, matching the classic MMU syscall entry implementation.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Validated under QEMU mcf5208evb (ColdFire): a task installing a seccomp
+filter denying getpid() still executed the syscall before this change and
+returns -EPERM with it; likewise for a filter denying
+openat/unlinkat/reboot. A classic-MMU control (q800) denied the filtered
+syscall both before and after, confirming the gap is specific to the
+ColdFire/68000 entry paths. The 68000 path shares the same source-level
+omission and receives the identical fix but was not separately emulated.
+Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on m5208evb_defconfig.
 
+Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
+Cc: stable@vger.kernel.org # v6.3+
+Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+---
+
+Notes:
+    No in-tree m68k defconfig selects the pure-68000/DragonBall path.
+    Compile-tested W=1 with a custom no-MMU UCSIMM configuration and
+    CONFIG_SECCOMP_FILTER=y; arch/m68k/68000/entry.o and vmlinux both built
+    successfully. The added gate is form-identical to the ColdFire and
+    classic-MMU gates.
+
+ arch/m68k/68000/entry.S    | 2 ++
+ arch/m68k/coldfire/entry.S | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
+index c257cc415..093be0a66 100644
+--- a/arch/m68k/68000/entry.S
++++ b/arch/m68k/68000/entry.S
+@@ -81,6 +81,8 @@ ENTRY(system_call)
+ 	getthreadinfo
+ 	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
+ 	jne	do_trace
++	btst	#(TIF_SECCOMP%8),%a2@(TINFO_FLAGS+(31-TIF_SECCOMP)/8)
++	jne	do_trace
+ 	cmpl	#NR_syscalls,%d0
+ 	jcc	badsys
+ 	lsl	#2,%d0
+diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
+index 4ea08336e..b73de9585 100644
+--- a/arch/m68k/coldfire/entry.S
++++ b/arch/m68k/coldfire/entry.S
+@@ -74,6 +74,8 @@ ENTRY(system_call)
+ 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
+ 	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
+ 	bnes	1f
++	btst	#(TIF_SECCOMP%8),%a0@(TINFO_FLAGS+(31-TIF_SECCOMP)/8)
++	bnes	1f
+ 
+ 	movel	%d3,%a0
+ 	jbsr	%a0@
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.55.0
+
