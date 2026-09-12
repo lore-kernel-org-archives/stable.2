@@ -1,221 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38C241A503;
-	Sat, 12 Sep 2026 13:16:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCB341A503
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 13:16:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789218987; cv=none; b=TW6ZdiWcYV5MUqNG364tdpwRPoVJ+LrttT+WY/sIyaZDh9RgUCvQkC55fHRgtVANc7e7B8SMvUlzl+z7oWwy2skpKSRcKTHjsRj0JiP4nrK8A+5eH/GXu0I/iy2U7iHRJcHG1TuMAGiSgH6+LQOy4EcWX4LINcwPr8BMoRO3cl0=
+	t=1789218989; cv=none; b=lwW+57D2lhZmjLQQxZDjm1v9PNW9lfbANKHNVdp3j/GHFNmuB2Z8mUSbJyLpuOZ6Rnx7XlfEdkzUdJA/yJLOhIBijGBQP2zOYfQO0caHSOh7Az3dLpUQ0xQyhzkUi1fhs1JsMRuSKBKFpIw+7lp4vEbHy+yfW5DHTpVGGsbgCGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789218987; c=relaxed/simple;
-	bh=Kn9uN2gwImwKBOKtbQpxVLYmAd/uY/7PHtVPCG0AYHk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m1AEQSyaocF4Os7NiPSNMhG46HPx2VeWpptBgfyiWvyqzSJXm286ba0x01AZkzH+BFjrG90Fy4j0jQ2+srBSgNEW7IjsrWmBbBLdLLHA5E4k2ynUmjrfK89rFi37VS9lMPmZnKgTLhZ/wOLhBH74rHVrd1Xplun9fPp+W3dCA9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cuRq6d19; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789218989; c=relaxed/simple;
+	bh=WBefzjrz2/CjXAIfyansE/nMcdxDRp4c0Q4PEl3UA9g=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=PUE6OcH9bIkeBYLi5bsXsKt9hs7UakRHE6SblcT0c0ru/KN4QKyMZi889NxLwDPqT2GYsGv/u7hoSLAW2kpbdPydFQ3HuSTeTAtIlWrnnsMVi9RprVrpfrrLLt2yOFJwfNhwTC0Q3vQ99kd5pfBuo+MX5KQ3eWG7spg2JBMAI9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eVeH/fYg; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cuRq6d19"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5501F000FF;
-	Sat, 12 Sep 2026 13:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789218985;
-	bh=qmSI3VDA2LBo6IpYBDQL4tc6C5MiT6XH3isubaqYvCo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cuRq6d19ztaI9d9Oj9akJrEFz0niHaz8np2Nm3UuD11Q3nUZV8QHIrG8OFHH73zeT
-	 W9kh9Bv+e7U9IIMYXhVV/hgum6/EkLN3qXUF8ZMfOSYAleMmRs6LgEr6rSzCl9nqFq
-	 dGpsT4pAVQoeF8lsrLJBN1mmSWI08x7dCwA9HqwE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sargun Dillon <sargun@sargun.me>,
-	Jeff Layton <jlayton@kernel.org>,
-	Benjamin Coddington <bcodding@redhat.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1259/1376] nfs: move the nfs4_data_server_cache into struct nfs_net
-Date: Sat, 12 Sep 2026 09:01:25 +0200
-Message-ID: <20260912065635.600423043@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-References: <20260912065607.535295758@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eVeH/fYg"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so2851100a91.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 06:16:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789218987; x=1789823787; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5+xx9uV4GIqiOlAAcl6ZWviwUg5PixHQSZ2d4jk5TG4=;
+        b=eVeH/fYgj6rcHPDWc+/lYmutrRZ37RcG53qpL5qqhkJDqq0NqbQEPsB1ouVUPd4ahK
+         C9YI3HMoAd0QcXy30U9MaG9wMwyVqjChUcu3BrIcMrl8E+4PrhUNDXCUJ+4reP+7pK5s
+         rPr8zxEjTWqpjsPBNNaWuGeDMhG0QrMOvfBa1IS0QSB/D2BTe8Z94TDvDlKmaiVzGYJf
+         uYULPh4dainBBeemDh/zB2ZJ6PsXPeN+prJ9s0V9lQn/uD8DRVnl2afVKQAl00lXtnbX
+         UUuxou8ZluZAWiikwbYm98DwAlBwso/kRfj1XFlHqvLEit4TBwLfz40J77G73H3w9Fab
+         CGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789218987; x=1789823787;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+xx9uV4GIqiOlAAcl6ZWviwUg5PixHQSZ2d4jk5TG4=;
+        b=ngTPyXTwswBgbI6CkhcjNWMFGvU4s4eLfabPoHM67LhbrtoVG9LLLEAn2HlVL43/M7
+         MkCA4fqILcm8oLJZlw+N2ZGMSoM00K/NrIwLIuwVfzwHP1A1dvX/lnn2YPnpV22ZCnEA
+         9s4sbdtDBs4pBiALjsunwqZHXOPBWSBrAHvjFXYXLgYB6lMDm9r+Q0u63AyOsBamqteA
+         LAY5ZWeNacq/Og5zFTyF9K4B5apc2UGR1CzQDwrIVze7nhPfyS4TciBMYcIw2mdwfeev
+         bBAbsKKTVcICo3kTzIO51xY3NNQLooKIibgS3w500qrieE0seNUJ2EAzwRKqqwM1MP3U
+         sz2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxRAHZAgBy7BtWKPa+/V2WYAO+n7myLd3vtVJXWCaBYiKLeSW7RWowUS9D4cDyW1NyCA9jWsu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFxbcG4zzhVArOF8YBnUWn0YUFfrg7EnR8r6TwZrhUoRPkth6o
+	R+DdTSgG7OslzeAv8XbzjH4GgX8l37XJ6Z4cU7d/1ju2d633jXJa6tlQ1ycFiFNN7VDHdxdvuWZ
+	GvMM6m15NOhxZAu9eF0yZuQ==
+X-Received: from pjwo14.prod.google.com ([2002:a17:90a:d24e:b0:39d:c293:4b7])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:134f:b0:39d:8eb5:e096 with SMTP id 98e67ed59e1d1-39dbc6a3e2emr4979778a91.15.1789218986868;
+ Sat, 12 Sep 2026 06:16:26 -0700 (PDT)
+Date: Sat, 12 Sep 2026 21:16:25 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260912131625.2301486-1-stanleyjhu@google.com>
+Subject: [PATCH v3] scsi: ufs: core: Keep internal commands dispatchable
+ during error handling
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org
+Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+switched UFS internal commands to allocate requests on
+hba->host->pseudo_sdev->request_queue, which shares the host tagset with
+regular LUNs.
 
-------------------
+During error recovery, ufshcd_err_handling_prepare() calls
+blk_mq_quiesce_tagset(&hba->host->tag_set), marking all queues in the
+tagset as quiesced, including pseudo_sdev->request_queue. When
+ufshcd_verify_dev_init() subsequently issues internal commands (e.g. NOP
+OUT UPIU) via blk_execute_rq(), blk_mq_run_hw_queue() skips running the
+quiesced queue, resulting in an unrecoverable circular wait deadlock.
 
-From: Jeff Layton <jlayton@kernel.org>
+Keep quiescing the tagset and unquiesce the pseudo SCSI device on top of
+that, so internal commands stay dispatchable while the logical units
+remain quiesced. Re-quiesce the pseudo device before unquiescing the
+tagset so that quiesce_depth stays balanced.
 
-[ Upstream commit d5fb22a7c585b12ec3e6cef150689f7386e8cfd0 ]
+Clock scaling and ufshcd_pause_command_processing() are unaffected: they
+keep quiescing the whole tagset, internal commands included.
 
-Since struct nfs4_pnfs_ds should not be shared between net namespaces,
-move from a global list of objects to a per-netns list and spinlock.
-
-Tested-by: Sargun Dillon <sargun@sargun.me>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: Benjamin Coddington <bcodding@redhat.com>
-Link: https://lore.kernel.org/r/20250410-nfs-ds-netns-v2-2-f80b7979ba80@kernel.org
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-Stable-dep-of: 13c23c5cb977 ("NFSv4/pnfs: key the data server cache on the NFS version")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/6f78c4bd-a70b-402d-abfd-599091b67674@acm.org/
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- fs/nfs/client.c   |  7 +++++++
- fs/nfs/netns.h    |  6 +++++-
- fs/nfs/pnfs_nfs.c | 31 +++++++++++++++++--------------
- 3 files changed, 29 insertions(+), 15 deletions(-)
+Changes since v2:
+- Keep blk_mq_quiesce_tagset() and unquiesce only the pseudo SCSI device,
+  instead of iterating over SCSI devices, which skipped devices already
+  being removed and left their request queues quiesced.
+- Dropped Bart's Reviewed-by since the implementation changed.
 
-diff --git a/fs/nfs/client.c b/fs/nfs/client.c
-index 4b9b82ddf521e..bb3f882d8c240 100644
---- a/fs/nfs/client.c
-+++ b/fs/nfs/client.c
-@@ -1260,6 +1260,10 @@ void nfs_clients_init(struct net *net)
- 	INIT_LIST_HEAD(&nn->nfs_volume_list);
- #if IS_ENABLED(CONFIG_NFS_V4)
- 	idr_init(&nn->cb_ident_idr);
-+#endif
-+#if IS_ENABLED(CONFIG_NFS_V4_1)
-+	INIT_LIST_HEAD(&nn->nfs4_data_server_cache);
-+	spin_lock_init(&nn->nfs4_data_server_lock);
- #endif
- 	spin_lock_init(&nn->nfs_client_lock);
- 	nn->boot_time = ktime_get_real();
-@@ -1277,6 +1281,9 @@ void nfs_clients_exit(struct net *net)
- 	nfs_cleanup_cb_ident_idr(net);
- 	WARN_ON_ONCE(!list_empty(&nn->nfs_client_list));
- 	WARN_ON_ONCE(!list_empty(&nn->nfs_volume_list));
-+#if IS_ENABLED(CONFIG_NFS_V4_1)
-+	WARN_ON_ONCE(!list_empty(&nn->nfs4_data_server_cache));
-+#endif
- }
- 
- #ifdef CONFIG_PROC_FS
-diff --git a/fs/nfs/netns.h b/fs/nfs/netns.h
-index a68b21603ea9a..6ba3ea39e928c 100644
---- a/fs/nfs/netns.h
-+++ b/fs/nfs/netns.h
-@@ -31,7 +31,11 @@ struct nfs_net {
- 	unsigned short nfs_callback_tcpport;
- 	unsigned short nfs_callback_tcpport6;
- 	int cb_users[NFS4_MAX_MINOR_VERSION + 1];
--#endif
-+#endif /* CONFIG_NFS_V4 */
-+#if IS_ENABLED(CONFIG_NFS_V4_1)
-+	struct list_head nfs4_data_server_cache;
-+	spinlock_t nfs4_data_server_lock;
-+#endif /* CONFIG_NFS_V4_1 */
- 	struct nfs_netns_client *nfs_client;
- 	spinlock_t nfs_client_lock;
- 	ktime_t boot_time;
-diff --git a/fs/nfs/pnfs_nfs.c b/fs/nfs/pnfs_nfs.c
-index bf6abca0c29db..26dcb3bb711d1 100644
---- a/fs/nfs/pnfs_nfs.c
-+++ b/fs/nfs/pnfs_nfs.c
-@@ -16,6 +16,7 @@
- #include "nfs4session.h"
- #include "internal.h"
- #include "pnfs.h"
-+#include "netns.h"
- 
- #define NFSDBG_FACILITY		NFSDBG_PNFS
- 
-@@ -504,14 +505,14 @@ EXPORT_SYMBOL_GPL(pnfs_generic_commit_pagelist);
- /*
-  * Data server cache
-  *
-- * Data servers can be mapped to different device ids.
-- * nfs4_pnfs_ds reference counting
-+ * Data servers can be mapped to different device ids, but should
-+ * never be shared between net namespaces.
-+ *
-+ * nfs4_pnfs_ds reference counting:
-  *   - set to 1 on allocation
-  *   - incremented when a device id maps a data server already in the cache.
-  *   - decremented when deviceid is removed from the cache.
-  */
--static DEFINE_SPINLOCK(nfs4_ds_cache_lock);
--static LIST_HEAD(nfs4_data_server_cache);
- 
- /* Debug routines */
- static void
-@@ -604,12 +605,12 @@ _same_data_server_addrs_locked(const struct list_head *dsaddrs1,
-  * Lookup DS by addresses.  nfs4_ds_cache_lock is held
-  */
- static struct nfs4_pnfs_ds *
--_data_server_lookup_locked(const struct net *net, const struct list_head *dsaddrs)
-+_data_server_lookup_locked(const struct nfs_net *nn, const struct list_head *dsaddrs)
- {
- 	struct nfs4_pnfs_ds *ds;
- 
--	list_for_each_entry(ds, &nfs4_data_server_cache, ds_node)
--		if (ds->ds_net == net && _same_data_server_addrs_locked(&ds->ds_addrs, dsaddrs))
-+	list_for_each_entry(ds, &nn->nfs4_data_server_cache, ds_node)
-+		if (_same_data_server_addrs_locked(&ds->ds_addrs, dsaddrs))
- 			return ds;
- 	return NULL;
- }
-@@ -653,10 +654,11 @@ static void destroy_ds(struct nfs4_pnfs_ds *ds)
- 
- void nfs4_pnfs_ds_put(struct nfs4_pnfs_ds *ds)
- {
--	if (refcount_dec_and_lock(&ds->ds_count,
--				&nfs4_ds_cache_lock)) {
-+	struct nfs_net *nn = net_generic(ds->ds_net, nfs_net_id);
-+
-+	if (refcount_dec_and_lock(&ds->ds_count, &nn->nfs4_data_server_lock)) {
- 		list_del_init(&ds->ds_node);
--		spin_unlock(&nfs4_ds_cache_lock);
-+		spin_unlock(&nn->nfs4_data_server_lock);
- 		destroy_ds(ds);
+ drivers/ufs/core/ufshcd.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index a25b6a0cb5c6..91270f8e45a2 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6817,11 +6817,17 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
  	}
+ 	/* Wait for ongoing ufshcd_queuecommand() calls to finish. */
+ 	blk_mq_quiesce_tagset(&hba->host->tag_set);
++	/*
++	 * Internal commands are submitted on the pseudo SCSI device. Let them
++	 * through so that the error handler can recover the link.
++	 */
++	blk_mq_unquiesce_queue(hba->host->pseudo_sdev->request_queue);
+ 	cancel_work_sync(&hba->eeh_work);
  }
-@@ -718,6 +720,7 @@ nfs4_pnfs_remotestr(struct list_head *dsaddrs, gfp_t gfp_flags)
- struct nfs4_pnfs_ds *
- nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_flags)
+ 
+ static void ufshcd_err_handling_unprepare(struct ufs_hba *hba)
  {
-+	struct nfs_net *nn = net_generic(net, nfs_net_id);
- 	struct nfs4_pnfs_ds *tmp_ds, *ds = NULL;
- 	char *remotestr;
- 
-@@ -733,8 +736,8 @@ nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_fla
- 	/* this is only used for debugging, so it's ok if its NULL */
- 	remotestr = nfs4_pnfs_remotestr(dsaddrs, gfp_flags);
- 
--	spin_lock(&nfs4_ds_cache_lock);
--	tmp_ds = _data_server_lookup_locked(net, dsaddrs);
-+	spin_lock(&nn->nfs4_data_server_lock);
-+	tmp_ds = _data_server_lookup_locked(nn, dsaddrs);
- 	if (tmp_ds == NULL) {
- 		INIT_LIST_HEAD(&ds->ds_addrs);
- 		list_splice_init(dsaddrs, &ds->ds_addrs);
-@@ -743,7 +746,7 @@ nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_fla
- 		INIT_LIST_HEAD(&ds->ds_node);
- 		ds->ds_net = net;
- 		ds->ds_clp = NULL;
--		list_add(&ds->ds_node, &nfs4_data_server_cache);
-+		list_add(&ds->ds_node, &nn->nfs4_data_server_cache);
- 		dprintk("%s add new data server %s\n", __func__,
- 			ds->ds_remotestr);
- 	} else {
-@@ -755,7 +758,7 @@ nfs4_pnfs_ds_add(const struct net *net, struct list_head *dsaddrs, gfp_t gfp_fla
- 			refcount_read(&tmp_ds->ds_count));
- 		ds = tmp_ds;
- 	}
--	spin_unlock(&nfs4_ds_cache_lock);
-+	spin_unlock(&nn->nfs4_data_server_lock);
- out:
- 	return ds;
- }
++	blk_mq_quiesce_queue_nowait(hba->host->pseudo_sdev->request_queue);
+ 	blk_mq_unquiesce_tagset(&hba->host->tag_set);
+ 	ufshcd_release(hba);
+ 	if (ufshcd_is_clkscaling_supported(hba))
 -- 
-2.53.0
-
-
+2.55.0.1007.g17ff1f9808-goog
 
