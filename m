@@ -1,129 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF2A472777
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D550A45563C
 	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211835; cv=none; b=hIkemaeqRi8WXOQcHEdTQ0IBXYG0ny+JUp0Zh7eHYjrMWcDwPHPaJjYqlsOCnMHXjPkvrHkDNshBwRaiqefaDTtabaLrR+ZiXNXnOPgPTOKNGm2BvEvQGPDVxk/WMurx8YgbHyGC6YkAXKW/GhKLFceswGQbkNpG1vv5nuWVDDU=
+	t=1789211836; cv=none; b=nzNG0U3PYCV6LY0Ge6OYec0Xe0g1jFWUd9U11w82twyJzgJ8eqUkXjgFuwJnHqdcFCapIEDXBzX/LUqAFaXTS4Gt1AmT66uE1Du/cN9EDU55s5CiXrC6rXp8RjiOf0ru1i40PTOH2/XGKD01CWEAiDroYVckr+TIjosec022alw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789211835; c=relaxed/simple;
-	bh=2WENdPgB7lpLNjZRMAuj/V4QE7tNMiPN/kdZ1Yd6hZo=;
+	s=arc-20240116; t=1789211836; c=relaxed/simple;
+	bh=Cax4XiLENYfTbVU4wjtlXO/fSQe/nApsz87qSLP07Jk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G41ZfT/rkxeRUxmzMyhoe0CA2EbS/G/cNv8O29jINUOMr9bYceCVCw0VhkElFWJi/qnoPZ4HT551NNO+IbqsjWwVVtHrbFs8FQ6oYq3o82MJcluPRThfBf/zaIybAenO2KvH60QWnSsioCe2Tb9Cy51qPRgBL0HUmo2XJ598dHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuslKP7H; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qtgVZ079ZtvxZvgGshKzbA6s1o7v/ZlWxkv9y3Lsr26jO3WvIuSfW5lNNkKTk0Bu64/uIqM6XTDWdqtAyaqaBXxj9YQCW0isOgSCZNcZOtdxiPf+p5ePNB3AMro/83qMgad8p0zM3kjkJVNDUZRuyOelLtPnsuBBwUHXhaDmG2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJtePRWQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuslKP7H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592E21F00893;
-	Sat, 12 Sep 2026 11:17:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJtePRWQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E091F00899;
+	Sat, 12 Sep 2026 11:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789211834;
-	bh=U3UfwldC0nTbqLbZrDm29Iory+9qNJwQK+E02g1nzgc=;
+	bh=Ckgw7Jizy9G7vjKhQfafZVqX+yvDwB5BG2hr6JszJ9U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IuslKP7HcYfFje3yfbj+0Pw11PH0anIMb4ZEsw7rk4qsN/eSr0yZ6U1iDyNaxmobR
-	 yyNEZ2nnccrgweDyZUVnQdNjPfGjYhs+fOBVAnqLDQBA+WarOrYXsxHFySY+w6Gi06
-	 spvJPOZIj1XHmC9qKgdUvcXOwccDyZfW64h57vu3+kG5d/ckO9BDUXQRbvAHI+ef8c
-	 bOWujMuEQKRNuPf2CT1YUKIb43LXpALJtkCyy0BOFKv20FDSk//PUvhxKAaKIs/i8N
-	 /0BFbzqiB/3btWwNNfRq8ww7UBKAMK+2+0REGHTN653MsHYanT+vVyfqwLBsyjEDeK
-	 EOKT0PsHnjy3Q==
+	b=UJtePRWQKLNacrq97IfsWnl7wPbaTflrPzXTh6BmTmMmyHTVu7VZfL8sXtW5lYCAe
+	 1F4V3th2Bx2jvEAf2R+qrmtfmvtgrEmPwVdTZE40qRbyenQ4Zc+ANiJGt5PXcOl2KU
+	 2/SZ/9n5ATG70stplo0Qmmxidx8D+Dlxk15NJxDyrA7a1f0TS5iSb2utO2s8mGnskd
+	 s5xGgWuBjbx4SKlNTV16Bp90JIdLGNCvG7k3b4pW9XPPQjL87btQsnJBPdVoUpgVF/
+	 eXBXn+qI0a5zbM+BWT5Sb1SR3VIvY6Sgua7AR2sxyzT9sPHrWiwLBoaGQYjE96YbnE
+	 NPu515G34MMAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/6] drm/amdgpu: Fix missing unwind in amdgpu_ib_schedule() error path
-Date: Sat, 12 Sep 2026 07:17:06 -0400
-Message-ID: <20260912111711.2285466-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/6] drm/amdgpu: add a helper to calculate ring distance
+Date: Sat, 12 Sep 2026 07:17:07 -0400
+Message-ID: <20260912111711.2285466-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090943-snugness-plexiglas-e964@gregkh>
+In-Reply-To: <20260912111711.2285466-1-sashal@kernel.org>
 References: <2026090943-snugness-plexiglas-e964@gregkh>
+ <20260912111711.2285466-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit ba038065655c45728be346d0b174a6da08d8a5c5 ]
+[ Upstream commit 08e7d6c3cee880bd3ec3eb14c478f9fa805b0bdc ]
 
-amdgpu_ib_schedule() returns early after calling amdgpu_ring_undo().
-This skips the common free_fence cleanup path.  Other error paths were
-already changed to use goto free_fence, but this one was missed.
+Add a helper to calculate the distance in DWs between
+two wptrs.
 
-Change the early return to goto free_fence so all error paths clean up
-the same way.
-
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c:232 amdgpu_ib_schedule()
-warn: missing unwind goto?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-    124 int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
-    125                        struct amdgpu_ib *ibs, struct amdgpu_job *job,
-    126                        struct dma_fence **f)
-    127 {
-
-    ...
-
-    224
-    225         if (ring->funcs->insert_start)
-    226                 ring->funcs->insert_start(ring);
-    227
-    228         if (job) {
-    229                 r = amdgpu_vm_flush(ring, job, need_pipe_sync);
-    230                 if (r) {
-    231                         amdgpu_ring_undo(ring);
---> 232                         return r;
-
-	The patch changed the other error paths to goto free_fence but
-	this one was accidentally skipped.
-
-    233                 }
-    234         }
-    235
-    236         amdgpu_ring_ib_begin(ring);
-
-    ...
-
-    338
-    339 free_fence:
-    340         if (!job)
-    341                 kfree(af);
-    342         return r;
-    343 }
-
-Fixes: f903b85ed0f1 ("drm/amdgpu: fix possible fence leaks from job structure")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Stable-dep-of: 6760f5cb12d2 ("drm/amdgpu: avoid force-completing uninitialized UVD rings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 9581643dbb726..f0ba6ac431632 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -222,7 +222,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		r = amdgpu_vm_flush(ring, job, need_pipe_sync);
- 		if (r) {
- 			amdgpu_ring_undo(ring);
--			return r;
-+			goto free_fence;
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 0098b1eadfc87..1f1dadba92d75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -516,6 +516,17 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+ 	ring->count_dw -= count_dw;
+ }
  
++static inline unsigned int amdgpu_ring_get_dw_distance(struct amdgpu_ring *ring,
++						       u64 start_wptr, u64 end_wptr)
++{
++	unsigned int start = start_wptr & ring->buf_mask;
++	unsigned int end = end_wptr & ring->buf_mask;
++
++	if (end < start)
++		end += ring->ring_size >> 2;
++	return end - start;
++}
++
+ /**
+  * amdgpu_ring_patch_cond_exec - patch dw count of conditional execute
+  * @ring: amdgpu_ring structure
+@@ -526,18 +537,13 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+ static inline void amdgpu_ring_patch_cond_exec(struct amdgpu_ring *ring,
+ 					       unsigned int offset)
+ {
+-	unsigned cur;
+-
+ 	if (!ring->funcs->init_cond_exec)
+ 		return;
+ 
+ 	WARN_ON(offset > ring->buf_mask);
+ 	WARN_ON(ring->ring[offset] != 0);
+ 
+-	cur = (ring->wptr - 1) & ring->buf_mask;
+-	if (cur < offset)
+-		cur += ring->ring_size >> 2;
+-	ring->ring[offset] = cur - offset;
++	ring->ring[offset] = amdgpu_ring_get_dw_distance(ring, offset, ring->wptr - 1);
+ }
+ 
+ int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
 -- 
 2.53.0
 
