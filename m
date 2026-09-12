@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFFC2EC09B;
-	Sat, 12 Sep 2026 11:21:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C6F37A498
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212086; cv=none; b=e6kbNmsEoHFf2mTiupI8tLFn5eF+r3mDwoEeVJRZLunz38XXYcal9JpU2a8f2MLCUqScdlRLnxeLBtI8+U8oLaDGHHoKlWU4+eRHyBEZ2AgO+vjAmYVd5QerXRdcY8NWjyFiHHlUICwjaonFo7AjIV9hB/hv20K5EUvEgqUfPyI=
+	t=1789212086; cv=none; b=Jro362PhL5fDiagay803Jm6bktAvHgmGDE250P0CmftV7BndfCPm+VR9suyd+RrBigEl7dErLl/PEZYOvYm+/NbqauzVVvMNYkc9CXaWEXjgHdS+m9epsiqNsi1RBcwS9M/0cKUSFxyIPDY39AWLfoeIHFgPuor8YXlPNAiqU8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789212086; c=relaxed/simple;
-	bh=qBM6M1tGkBE2kaTw86ragUnTfeL8mdABus1n/7jVXa4=;
+	bh=aEbnawLe6+x81eRuVUJme+jorGrnZIFmy9sdGWqqfx0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QIj68WSMKnGlTMs/imkKw3fPF5TKRfIOR2CSRu2fyLzbR35gAb2v5Mr+bLX+8CmT1gBY58myJFV+Wlx3MFq04w7IGARcP4sYm2hEzqBuWEhMLDoE6/GzanWrG7Il7rrDbHmzOu3q4T8ab0sFtTC1agVE3gb0SbdSL9g7UsiSch0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pTgq46/3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tmCnX7jztFXMlCHIJ4gXHIe8wNVHMfPoTfUrQQhyk682/mxGddqrI+xOc60aSHv+QpWFAB8bndw2zzwMhYGXUNaH7V6WYE1jYWvXPcxnwSXr5P1KGChXUi6Hqh1mutbRWdJgzihlppynXATl5gvPk3J/neo/EWYsLJCTb9h69ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ikv+H8gp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pTgq46/3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9341F00893;
-	Sat, 12 Sep 2026 11:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789212085;
-	bh=9bohqHRl2cwMAFJJ1zRKCezqn2wqbRm95yhINvRSb30=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ikv+H8gp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D571F00898;
+	Sat, 12 Sep 2026 11:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789212085;
+	bh=q7JmNwIhTO/HeF9169Wc9QnZGR/m8+AzHk2RhyKSsnE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pTgq46/3ugac9cl/K++Q27qEMUDJzvHeZAn7XkbPvggXncRhSQRxvCv8E93oxQhrk
-	 hJJI6bVb9oQFpOr86bByd71DT4j8Dk0tXCGrgjZ9o3eDn9Btm0X+HHMPJhvFQCmWs1
-	 gx6ox4lAOVzyLuoRwMDL6k/zSf79UngccfqIonJA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Ikv+H8gprt9LYz5xnIbgr9VD9L8jSFDBHGttd1LHX3cCCZPsXv/QPgxDnJLRGYlaD
+	 5PxG5l1xaeIWkaeGpPN42iha2/aOA6GQGAmn5kxA2icR8gFroL5HWRWN7FblznviM+
+	 CVh64qDF65afah+NkbBZ7lwgicrew+Nl5DNboHet3rncXUsym3zaAzRv+o+LmKIO8t
+	 tmclMlhX5JMgKgCHVZYtM8WgruJ/qm1qVHHfnktpHMyRc3Y38NpWFlmLNxaV+sWhgz
+	 A8OyY/VqgwVC7LjWVpB2tRVlgF9GEjBrUcq2tlunUlP27jZqi/ODVsgv4H65NHjiiI
+	 X/5m4AWlTg48w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	vega@nebusec.ai,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1363/1518] net: sched: fix 32-bit backlog wrap in gred, bfifo and plug enqueue
-Date: Sat, 12 Sep 2026 08:58:52 +0200
-Message-ID: <20260912065654.368292546@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y 1/3] f2fs: delete f2fs_get_new_segment() declaration
+Date: Sat, 12 Sep 2026 07:21:21 -0400
+Message-ID: <20260912112123.2312505-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090947-bankable-stroller-237b@gregkh>
+References: <2026090947-bankable-stroller-237b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,103 +45,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit e24e8333d0f3110473c6e6a20afd51911984e901 ]
 
-From: Jamal Hadi Salim <jhs@mojatatu.com>
+Commit 093749e296e2 ("f2fs: support age threshold based garbage
+collection") added this declaration, but w/ definition, delete
+it.
 
-[ Upstream commit 4c660ee8c809637909f4f7eb1017f7b9401c75c4 ]
-
-gred_enqueue(), bfifo_enqueue() and plug_enqueue() admit a packet when the
-current backlog plus the packet length fits within the queue limit:
-
-  sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (gred default VQ)
-  gred_backlog+qdisc_pkt_len(skb) <= q->limit  (gred configured VQ)
-  sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (bfifo)
-  sch->qstats.backlog + skb->len <= q->limit             (plug)
-
-sch->qstats.backlog and q->backlog are u32, and qdisc_pkt_len()/skb->len
-are unsigned int, so all sums are computed in 32 bits and wrap at 2^32.
-Once the true backlog exceeds 4 GiB the wrapped sum becomes small and
-admission keeps succeeding, so the queue grows without bound and the kernel
-can be driven to OOM.
-
-Promote the sums to u64 so admission stops once the true backlog exceeds
-the limit.  The limit is u32, so the bounded queue stays below 2^32 and
-the stored u32 backlog never wraps.
-
-The bug can only be reproduced as root (albeit with ridiculous setup):
- attach a gred (or bfifo/plug) qdisc with a limit near 4 GiB,
- leaving the default VQ unconfigured (for gred), and drive >4 GiB of
- queued traffic (e.g. via a size table / stab to inflate qdisc_pkt_len,
- or sustained high-rate traffic). The u32 backlog+len sum wraps at 2^32,
- admission keeps succeeding, and the queue grows unboundedly to OOM.
-
-Fixes: a3eb95f891d6 ("net_sched: gred: add TCA_GRED_LIMIT attribute")
-Reported-by: vega@nebusec.ai
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260818095927.15901-1-jhs@mojatatu.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: 8ec06f50ddd8 ("f2fs: fix to migrate all curseg types during free_segment_range")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/sch_fifo.c | 2 +-
- net/sched/sch_gred.c | 4 ++--
- net/sched/sch_plug.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ fs/f2fs/f2fs.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/net/sched/sch_fifo.c b/net/sched/sch_fifo.c
-index e6bfd39ff3396..1b6388d50967f 100644
---- a/net/sched/sch_fifo.c
-+++ b/net/sched/sch_fifo.c
-@@ -19,7 +19,7 @@
- static int bfifo_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 			 struct sk_buff **to_free)
- {
--	if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
-+	if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
- 		   READ_ONCE(sch->limit)))
- 		return qdisc_enqueue_tail(skb, sch);
- 
-diff --git a/net/sched/sch_gred.c b/net/sched/sch_gred.c
-index 532fde548b88f..8503621289bb5 100644
---- a/net/sched/sch_gred.c
-+++ b/net/sched/sch_gred.c
-@@ -179,7 +179,7 @@ static int gred_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 			 * if no default DP has been configured. This
- 			 * allows for DP flows to be left untouched.
- 			 */
--			if (likely(sch->qstats.backlog + qdisc_pkt_len(skb) <=
-+			if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
- 					sch->limit))
- 				return qdisc_enqueue_tail(skb, sch);
- 			else
-@@ -244,7 +244,7 @@ static int gred_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 		break;
- 	}
- 
--	if (gred_backlog(t, q, sch) + qdisc_pkt_len(skb) <= q->limit) {
-+	if ((u64)gred_backlog(t, q, sch) + qdisc_pkt_len(skb) <= q->limit) {
- 		q->backlog += qdisc_pkt_len(skb);
- 		return qdisc_enqueue_tail(skb, sch);
- 	}
-diff --git a/net/sched/sch_plug.c b/net/sched/sch_plug.c
-index cefb65201e178..b60ddfee6a68a 100644
---- a/net/sched/sch_plug.c
-+++ b/net/sched/sch_plug.c
-@@ -89,7 +89,7 @@ static int plug_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- {
- 	struct plug_sched_data *q = qdisc_priv(sch);
- 
--	if (likely(sch->qstats.backlog + skb->len <= q->limit)) {
-+	if (likely((u64)sch->qstats.backlog + skb->len <= q->limit)) {
- 		if (!q->unplug_indefinite)
- 			q->pkts_current_epoch++;
- 		return qdisc_enqueue_tail(skb, sch);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 948e3512f60ff..c99436e829af1 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -3365,8 +3365,6 @@ bool f2fs_segment_has_free_slot(struct f2fs_sb_info *sbi, int segno);
+ void f2fs_init_inmem_curseg(struct f2fs_sb_info *sbi);
+ void f2fs_save_inmem_curseg(struct f2fs_sb_info *sbi);
+ void f2fs_restore_inmem_curseg(struct f2fs_sb_info *sbi);
+-void f2fs_get_new_segment(struct f2fs_sb_info *sbi,
+-			unsigned int *newseg, bool new_sec, int dir);
+ void f2fs_allocate_segment_for_resize(struct f2fs_sb_info *sbi, int type,
+ 					unsigned int start, unsigned int end);
+ void f2fs_allocate_new_section(struct f2fs_sb_info *sbi, int type, bool force);
 -- 
 2.53.0
-
-
 
