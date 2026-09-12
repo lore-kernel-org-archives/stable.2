@@ -1,48 +1,45 @@
-Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B0A2C15A9;
-	Sat, 12 Sep 2026 13:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D34547ECC8;
+	Sat, 12 Sep 2026 13:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219480; cv=none; b=R+jMeCJGWjzdHRRAGyg0vFk4qOqLTtHbnOH7tDoElWvSb2hcCY79RxnoVR0yYtCncflAONbTt6Nui0W1W8MMisVmzbj/M4Bv1sNdS0vheZf+5pbBDavCTEIK2xDwSo5UBQj9fwrX1WYYwZv88Q9b0kPMBEnbqCXpbebY4V8tFbw=
+	t=1789219480; cv=none; b=YCSZg6N+tdpEn/Y5HQERXSxFWehSVb0N+zaKfPqCUMi/ksuWNOLlOsYFhvZjb2aS4WIknMDE5WXRb1NA+RuAEWCrmlpdGRAihYVu85pve/enelv6RJ5lXD0rl/Y01cLFP90SKgcGFnV/8DIZ/pZMMWR1OmBQ6AHADCYzYPzMUxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789219480; c=relaxed/simple;
-	bh=EeRUEGaUI/l+gIttlzTmjXNyzT67+Kcox7nrq949sM8=;
+	bh=fFdvjoYFIr2dDAmKAYDjVGEBRYd30eV2OOie+x7gPt0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dQaGhw7AGv8jLV2sQuXsE+ledAJ5T3RqsBMZin4WRIK9PCjm7N91p8EyRRxKsFH/127BDCLeyjgKchMv7Gpi47dTNLl2PVC41X3DQ5BDDCZREwrRA7EKQNoFwZEvIYYEz8//XkiZAwYLHCBW3AHWuuV60+ixNs5ahUxi17CxHBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=bl6elPa7; arc=none smtp.client-ip=115.124.28.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	 MIME-Version; b=CTC+D4DSlMNqLXvmLiEBS2ATAWGhDBZEPEZNnF18YFLcqQTtTygMmZXxNNieDAa1InuvCPekVWObPPwTEi1kaZU9YBg2+r3k345sWOgCUMXHbHrsZxc7CkwufQJunuzgkV1Kj6Qc75GFWxUymjph4fxP+piyx932pKVNVcaXvyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zs6oR5uv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="bl6elPa7"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789219467; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=e42qm3Szy1dc4vy+qruNQCu8MyY8IeIWrKOr0rQ95CQ=;
-	b=bl6elPa7Fj0xmBc48cmCC12BWBB+0bEIqHvlx37SvT3XRpZC203mrVHrQsqaVBnw0gbKBJoW5tKnwb8f6J98so2G4y9JdkjRjy1V9yy4TfVRgIdd89qInwgoEadQ1kczVgLVqszLGLHwDxnAqC7UrKws+Xuei4Jv8RF3CV5c2gA=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08329333|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00867436-0.00152383-0.989802;FP=10302340803894709571|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jC..lBP_1789219139;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jC..lBP_1789219139 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 12 Sep 2026 21:19:01 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] nfc: digital: check resp length in digital_tg_send_atr_res_complete()
-Date: Sat, 12 Sep 2026 21:18:52 +0800
-Message-ID: <20260912131852.1651462-3-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260912131852.1651462-1-liuc63@xiaopeng.com>
-References: <20260912131852.1651462-1-liuc63@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zs6oR5uv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1671F000FF;
+	Sat, 12 Sep 2026 13:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789219478;
+	bh=DHfEpeMuJL4aMDAXcUbN1cJKrEJimaKtGTLUsCHwNgA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=zs6oR5uvaoxa1I/jefIm6SmRr0qwP7DxUaebAVd6/hwuXM7wIIURwUl0EpAelDgmI
+	 ONr55Cng0L696TaMO5nH9Qbjc8hCwveseFU+UvrFm5KEfSe0wpx3qpPYhqglXn+jFa
+	 L/Qhjns7QFXtyF/VjGomhANJ8ihLDE6EvVU1DOfU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Arnd Bergmann <arnd@arndb.de>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 1359/1376] Bluetooth: btmtk: hide unused btmtk_mt6639_devs[] array
+Date: Sat, 12 Sep 2026 09:03:05 +0200
+Message-ID: <20260912065637.823679039@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+References: <20260912065607.535295758@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,65 +48,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-digital_tg_send_atr_res_complete() reads resp->data[0] and
-resp->data[offset] (offset 2 or 3) without checking resp->len.
-The resp skb comes from the remote NFC peer, which controls its
-length.  A short frame causes reads past the end of the received
-data.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-The downstream handlers (digital_tg_recv_psl_req, digital_tg_recv_dep_req)
-each have their own length checks, so the consequence is a misdirected
-dispatch on stale data rather than memory corruption.  Add the missing
-check as hardening.
+------------------
 
-Fixes: 1c7a4c24fbfd ("NFC Digital: Add target NFC-DEP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+From: Arnd Bergmann <arnd@arndb.de>
+
+[ Upstream commit 81f971c6abec59240e2bcfc38756bda8172fa788 ]
+
+When USB support is disabled, the array is not referenced anywhere,
+causing a warning:
+
+drivers/bluetooth/btmtk.c:35:3: error: 'btmtk_mt6639_devs' defined but not used [-Werror=unused-const-variable=]
+   35 | } btmtk_mt6639_devs[] = {
+      |   ^~~~~~~~~~~~~~~~~
+
+Move it into the #ifdef block.
+
+Fixes: 28b7c5a6db74 ("Bluetooth: btmtk: Add MT6639 (MT7927) Bluetooth support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/nfc/digital_dep.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/bluetooth/btmtk.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-index 6d8e662a3..5093b7b81 100644
---- a/net/nfc/digital_dep.c
-+++ b/net/nfc/digital_dep.c
-@@ -1467,16 +1467,19 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
- static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
- 					     void *arg, struct sk_buff *resp)
+diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+index 7e7ce595d5923..e7d01f1e26b8a 100644
+--- a/drivers/bluetooth/btmtk.c
++++ b/drivers/bluetooth/btmtk.c
+@@ -25,22 +25,6 @@
+ /* It is for mt79xx iso data transmission setting */
+ #define MTK_ISO_THRESHOLD	264
+ 
+-/* Known MT6639 (MT7927) Bluetooth USB devices.
+- * Used to scope the zero-CHIPID workaround to real MT6639 hardware,
+- * since some boards return 0x0000 from the MMIO chip ID register.
+- */
+-static const struct {
+-	u16 vendor;
+-	u16 product;
+-} btmtk_mt6639_devs[] = {
+-	{ 0x0489, 0xe13a },	/* ASUS ROG Crosshair X870E Hero */
+-	{ 0x0489, 0xe0fa },	/* Lenovo Legion Pro 7 16ARX9 */
+-	{ 0x0489, 0xe10f },	/* Gigabyte Z790 AORUS MASTER X */
+-	{ 0x0489, 0xe110 },	/* MSI X870E Ace Max */
+-	{ 0x0489, 0xe116 },	/* TP-Link Archer TBE550E */
+-	{ 0x13d3, 0x3588 },	/* ASUS ROG STRIX X870E-E */
+-};
+-
+ struct btmtk_patch_header {
+ 	u8 datetime[16];
+ 	u8 platform[4];
+@@ -471,6 +455,22 @@ int btmtk_process_coredump(struct hci_dev *hdev, struct sk_buff *skb)
+ EXPORT_SYMBOL_GPL(btmtk_process_coredump);
+ 
+ #if IS_ENABLED(CONFIG_BT_HCIBTUSB_MTK)
++/* Known MT6639 (MT7927) Bluetooth USB devices.
++ * Used to scope the zero-CHIPID workaround to real MT6639 hardware,
++ * since some boards return 0x0000 from the MMIO chip ID register.
++ */
++static const struct {
++	u16 vendor;
++	u16 product;
++} btmtk_mt6639_devs[] = {
++	{ 0x0489, 0xe13a },	/* ASUS ROG Crosshair X870E Hero */
++	{ 0x0489, 0xe0fa },	/* Lenovo Legion Pro 7 16ARX9 */
++	{ 0x0489, 0xe10f },	/* Gigabyte Z790 AORUS MASTER X */
++	{ 0x0489, 0xe110 },	/* MSI X870E Ace Max */
++	{ 0x0489, 0xe116 },	/* TP-Link Archer TBE550E */
++	{ 0x13d3, 0x3588 },	/* ASUS ROG STRIX X870E-E */
++};
++
+ static void btmtk_usb_wmt_recv(struct urb *urb)
  {
--	int offset;
-+	unsigned int offset;
- 
- 	if (IS_ERR(resp)) {
- 		digital_poll_next_tech(ddev);
- 		return;
- 	}
- 
--	offset = 2;
--	if (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB)
--		offset++;
-+	if (!resp->len)
-+		goto bad_frame;
-+
-+	offset = (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB) ? 3 : 2;
-+	if (resp->len <= offset)
-+		goto bad_frame;
- 
- 	ddev->atn_count = 0;
- 
-@@ -1484,6 +1487,12 @@ static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
- 		digital_tg_recv_psl_req(ddev, arg, resp);
- 	else
- 		digital_tg_recv_dep_req(ddev, arg, resp);
-+
-+	return;
-+
-+bad_frame:
-+	kfree_skb(resp);
-+	digital_poll_next_tech(ddev);
- }
- 
- static int digital_tg_send_atr_res(struct nfc_digital_dev *ddev,
+ 	struct hci_dev *hdev = urb->context;
 -- 
-2.50.1
+2.53.0
+
+
 
