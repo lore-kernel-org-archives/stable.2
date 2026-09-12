@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9D3282F1F
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F36E38757A;
+	Sat, 12 Sep 2026 15:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227594; cv=none; b=JzmIDHKWr3sXgbZqagxV2d4pVMnVuVgr5HnqT3OA/CxMfLjOyQR24t4bDS3um4O14gc8Ilib1dZgfAzxKyDKrxc4zfEgV6Z7d+4kUd2FL3ElTkr3GOIFFqAQIFHxwQ17EwBpS1cg4voefh3QqtBpgwqi7D9AMUmJK55c0//Y1LI=
+	t=1789227595; cv=none; b=tXee+SpBaHWEzdqGzWpNf5HshbkF57A/8qpYwnMaxB/gCRlmQRWdeap/quApiCIa9OxdpuObNsY3JIWL5OBkHnfrdT1oBhWlAHgGh+sKaCTbbTUUJZavB9enc7TN5ZkS2QIduqJqmHR5GVkeTwHEFiBV2q34aFQY7CTcfR5w4tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227594; c=relaxed/simple;
-	bh=ikJFrdaXEVAPrGxnWcXjH9DZpKPb9RXaeQNYak02PAE=;
+	s=arc-20240116; t=1789227595; c=relaxed/simple;
+	bh=6+SCr9QmB7X2KRX3ZwhU5QB8nzThdv04nJati22mdS0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ji66JtostT2ZI1OnrZiKB+K/ree8r0r+uhqOgBSLrYc7eGZ0c0MPDZ8LrCiVEtNN2PNV8qopgywHAn8CRqGv0nyPLFU8PBOhBE/HN85u3jzlGGsmQfnvSGq4vsWBS2X+SnEMbtt2+tDKGMywmIcRESxeNi6MoZycdBx37T8Y/8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dyhBFpnR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZXtDvR2uetQwGj06dzs/5O45VNhce2u7zqY8Kg3l8mv2PLJpPwr/1E/bC9UYyBuO4ut/osQlUEJx0HVzHpBCe3pmhSOPQepTqVdotQCh4nRgcnJGF4rEy4jWyiQvMCjWU1vJi76mDeSAt3UGv3s2zJxuJ9QUatvSREWu9wxhz1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FxKyGAYn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dyhBFpnR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6867D1F000FF;
-	Sat, 12 Sep 2026 15:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789227593;
-	bh=lhY1CyadawTI/pRiyeEQpQ/PENLIkoBvXJuOFcYu01s=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FxKyGAYn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE441F00893;
+	Sat, 12 Sep 2026 15:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789227594;
+	bh=4ndfcMgFMa1FygtmCj40OSVhLdOaU+OP7DrVzc7lh2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dyhBFpnRxFWlvATvPqo6KD3haBGTJwM6bP7PIkeIFC0CO2EOVLXmVOr6LgnHo49Z1
-	 /6V2GSN1t9BCwi0zBXd3GEI1k0gP6Bky0cxe7mkmHiT70Wzf/c2o8ti0E2SJLCoTYd
-	 9bRXpa96GbhUVlvepYacWnA/ZWyLkNJrI0HhXQDx5eBu3Uoj49njlEneg4P6Jwzioy
-	 4cYXNtzGzeROnX+kIqSutT9AUEMgX8ZCpVE4VqpgNhlVesgLQtfpxBMLQ7llBjo5Gf
-	 D4hFNcH7LJM7rb6guwKAYA6G0UYgf2sjoGeiavC8iei+PBDGzyuKlSprsg2vGL2G/9
-	 Nw+1Z0/TiMoxQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=FxKyGAYn16JyaP47Ef14O2evXv5/c+BivAlOuUho0aCf8qBypxm1OqmyGdKHauRiX
+	 6COvE9rqMgdJ+FQ2fDXnv/x/txmKBo9UTPFZxILk+08B7VNc0tsPx7fM/hnEo0AGTh
+	 3f/NSffz3m7NE13tXNuaFlHw73EbMQw21RPLI/gM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <treding@nvidia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/sysfb: simpledrm: Improve stride validation
-Date: Sat, 12 Sep 2026 11:39:50 -0400
-Message-ID: <20260912153950.3238234-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090939-outsell-gallantly-799e@gregkh>
-References: <2026090939-outsell-gallantly-799e@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Koichiro Den <den@valinux.co.jp>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.1 0213/1191] net: ntb_netdev: Count packets dropped on RX refill failure
+Date: Sat, 12 Sep 2026 08:49:01 +0200
+Message-ID: <20260912065552.995943796@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,46 +46,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit df6533f11688aa30be3bb883c7637f4ffdbb7cbd ]
+------------------
 
-Validate the computed stride against the maximum value INT_MAX.
+From: Koichiro Den <den@valinux.co.jp>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Fixes: 7bfa5c7b28d6 ("drm/simpledrm: Compute linestride with drm_format_info_min_pitch()")
-Cc: <stable@vger.kernel.org> # v6.1+
-Link: https://patch.msgid.link/20260625094509.157581-5-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+commit 31ded341c375bb2faac1d77ab0012a732ba3e2a6 upstream.
+
+When replacement skb allocation fails, ntb_netdev drops a packet that
+was received successfully and requeues the original buffer. The drop is
+counted, but rx_packets and rx_bytes are not.
+
+Count every good packet before allocating its replacement.
+
+Fixes: d2121faf133a ("NTB: ntb_netdev: Preserve RX queue depth on allocation failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Link: https://patch.msgid.link/20260819172539.1450821-3-den@valinux.co.jp
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/net/ntb_netdev.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 18489779fb8aa..4b5ccbb13ecfe 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -693,9 +693,15 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
- 		return ERR_PTR(-ENODEV);
- 	}
- 	if (!stride) {
--		stride = drm_format_info_min_pitch(format, 0, width);
--		if (drm_WARN_ON(dev, !stride))
-+		u64 pitch = drm_format_info_min_pitch(format, 0, width);
-+
-+		if (drm_WARN_ON(dev, !pitch)) {
-+			return ERR_PTR(-EINVAL); /* driver bug */
-+		} else if (pitch > INT_MAX) {
-+			drm_warn(dev, "stride of %llu exceeds maximum\n", pitch);
- 			return ERR_PTR(-EINVAL);
-+		}
-+		stride = pitch;
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -115,6 +115,9 @@ static void ntb_netdev_rx_handler(struct
+ 		goto enqueue_again;
  	}
  
- 	sdev->mode = simpledrm_mode(width, height);
--- 
-2.53.0
++	ndev->stats.rx_packets++;
++	ndev->stats.rx_bytes += len;
++
+ 	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
+ 	if (!new_skb) {
+ 		ndev->stats.rx_dropped++;
+@@ -126,8 +129,6 @@ static void ntb_netdev_rx_handler(struct
+ 	skb->ip_summed = CHECKSUM_NONE;
+ 
+ 	netif_rx(skb);
+-	ndev->stats.rx_packets++;
+-	ndev->stats.rx_bytes += len;
+ 
+ 	skb = new_skb;
+ 
+
 
