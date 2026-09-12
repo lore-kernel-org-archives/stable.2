@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D550A45563C
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9459346EF77
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211836; cv=none; b=nzNG0U3PYCV6LY0Ge6OYec0Xe0g1jFWUd9U11w82twyJzgJ8eqUkXjgFuwJnHqdcFCapIEDXBzX/LUqAFaXTS4Gt1AmT66uE1Du/cN9EDU55s5CiXrC6rXp8RjiOf0ru1i40PTOH2/XGKD01CWEAiDroYVckr+TIjosec022alw=
+	t=1789211836; cv=none; b=CtdkTpF5TvUbTyZyOCdkVJMRHZB32lmIrVFPqck1N9vlp/e3ciK3M7rp5U0e0crElK/l/GYfsWmquPDvgWYvnPYpxUdjZ8ibwVqBDosTUIOu9iZKkSH+404FX7Rt9djGEsjs4NHA6h3nEbwqpOAB0VZUlKJy3/2zz6tTMb7JJQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789211836; c=relaxed/simple;
-	bh=Cax4XiLENYfTbVU4wjtlXO/fSQe/nApsz87qSLP07Jk=;
+	bh=qmr37u0NuX19B5BzE+kyyLAzAoFQmfwMr2Ua/zdKtjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qtgVZ079ZtvxZvgGshKzbA6s1o7v/ZlWxkv9y3Lsr26jO3WvIuSfW5lNNkKTk0Bu64/uIqM6XTDWdqtAyaqaBXxj9YQCW0isOgSCZNcZOtdxiPf+p5ePNB3AMro/83qMgad8p0zM3kjkJVNDUZRuyOelLtPnsuBBwUHXhaDmG2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJtePRWQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nep7F+JGhCQdXxDHJekadmg+rdPljERid+epxAvFxNPGjl5oQyFwo4/4DKzhrVGoeYhRWZNiR4yfwOCvmY5OM+KK/KbFutQEhHGdxrgcX0fhPBmItq33ZFrftOeEsrPNNVbJ9fEV9QiVeQRTjh96MxVEdunAQqnoYJ0AOyiZwGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HePWhu0e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJtePRWQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E091F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HePWhu0e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E6B1F00898;
 	Sat, 12 Sep 2026 11:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789211834;
-	bh=Ckgw7Jizy9G7vjKhQfafZVqX+yvDwB5BG2hr6JszJ9U=;
+	s=k20260515; t=1789211835;
+	bh=W+pK+bVsGVjird2Ffrac7BwFjWe2+x53X/yau/nQSgg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UJtePRWQKLNacrq97IfsWnl7wPbaTflrPzXTh6BmTmMmyHTVu7VZfL8sXtW5lYCAe
-	 1F4V3th2Bx2jvEAf2R+qrmtfmvtgrEmPwVdTZE40qRbyenQ4Zc+ANiJGt5PXcOl2KU
-	 2/SZ/9n5ATG70stplo0Qmmxidx8D+Dlxk15NJxDyrA7a1f0TS5iSb2utO2s8mGnskd
-	 s5xGgWuBjbx4SKlNTV16Bp90JIdLGNCvG7k3b4pW9XPPQjL87btQsnJBPdVoUpgVF/
-	 eXBXn+qI0a5zbM+BWT5Sb1SR3VIvY6Sgua7AR2sxyzT9sPHrWiwLBoaGQYjE96YbnE
-	 NPu515G34MMAw==
+	b=HePWhu0et77q6wgacWho7+cSK487S69FlDz6qExHWVCguZ3E4imtakUYwbupsdrjw
+	 5N784tve9HV2o+MtIyNdsTk+BhZzH8/yGoY+FVWl+DZQXz7kOcdlZhCxYnetnQ//ny
+	 EnWpX4ItRdaj8ASv9GLXhhtfFcQ2/JsTZXbNG7y7fJP34TrF9qw+69EkF0lTaJMyPG
+	 QAKrWlP5/914euERcIbUA3kJGn02cCaKL0rJ8TcvCdO+UKvMMs0Y5ISbaH3A0I6v6t
+	 nxhj8nC8KSYJLFlNja2cW7r3YyB/N/X1fAJXgSuI7/HFLf9B80eVXqMA8CLaGk4gbr
+	 S1tfjRAxq2+bA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
 	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/6] drm/amdgpu: add a helper to calculate ring distance
-Date: Sat, 12 Sep 2026 07:17:07 -0400
-Message-ID: <20260912111711.2285466-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/6] drm/amdgpu: reorder IB schedule sequence
+Date: Sat, 12 Sep 2026 07:17:08 -0400
+Message-ID: <20260912111711.2285466-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912111711.2285466-1-sashal@kernel.org>
 References: <2026090943-snugness-plexiglas-e964@gregkh>
@@ -48,61 +48,100 @@ Content-Transfer-Encoding: 8bit
 
 From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 08e7d6c3cee880bd3ec3eb14c478f9fa805b0bdc ]
+[ Upstream commit d3499de3b737f3f6a2058382f7bff641c74f52a4 ]
 
-Add a helper to calculate the distance in DWs between
-two wptrs.
+This reorders the IB schedule sequence to cleanly
+separate the vm operation from the IB submission.
+This makes the two independent so we can cleanly
+associate each one with its respective fence.
 
-Reviewed-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+v2: fixes for VCN
+
+Acked-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Stable-dep-of: 6760f5cb12d2 ("drm/amdgpu: avoid force-completing uninitialized UVD rings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 22 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 11 +++++++++++
+ 2 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 0098b1eadfc87..1f1dadba92d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -516,6 +516,17 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 	ring->count_dw -= count_dw;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index f0ba6ac431632..908401ad5cdc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -208,16 +208,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		dma_fence_put(tmp);
+ 	}
  
-+static inline unsigned int amdgpu_ring_get_dw_distance(struct amdgpu_ring *ring,
-+						       u64 start_wptr, u64 end_wptr)
-+{
-+	unsigned int start = start_wptr & ring->buf_mask;
-+	unsigned int end = end_wptr & ring->buf_mask;
-+
-+	if (end < start)
-+		end += ring->ring_size >> 2;
-+	return end - start;
-+}
-+
- /**
-  * amdgpu_ring_patch_cond_exec - patch dw count of conditional execute
-  * @ring: amdgpu_ring structure
-@@ -526,18 +537,13 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- static inline void amdgpu_ring_patch_cond_exec(struct amdgpu_ring *ring,
- 					       unsigned int offset)
- {
--	unsigned cur;
+-	if ((ib->flags & AMDGPU_IB_FLAG_EMIT_MEM_SYNC) && ring->funcs->emit_mem_sync)
+-		ring->funcs->emit_mem_sync(ring);
 -
- 	if (!ring->funcs->init_cond_exec)
- 		return;
+-	if (ring->funcs->emit_wave_limit &&
+-	    ring->hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH)
+-		ring->funcs->emit_wave_limit(ring, true);
+-
+-	if (ring->funcs->insert_start)
+-		ring->funcs->insert_start(ring);
+-
+ 	if (job) {
+ 		r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+ 		if (r) {
+@@ -228,6 +218,16 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
  
- 	WARN_ON(offset > ring->buf_mask);
- 	WARN_ON(ring->ring[offset] != 0);
+ 	amdgpu_ring_ib_begin(ring);
  
--	cur = (ring->wptr - 1) & ring->buf_mask;
--	if (cur < offset)
--		cur += ring->ring_size >> 2;
--	ring->ring[offset] = cur - offset;
-+	ring->ring[offset] = amdgpu_ring_get_dw_distance(ring, offset, ring->wptr - 1);
- }
++	if (ring->funcs->insert_start)
++		ring->funcs->insert_start(ring);
++
++	if ((ib->flags & AMDGPU_IB_FLAG_EMIT_MEM_SYNC) && ring->funcs->emit_mem_sync)
++		ring->funcs->emit_mem_sync(ring);
++
++	if (ring->funcs->emit_wave_limit &&
++	    ring->hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH)
++		ring->funcs->emit_wave_limit(ring, true);
++
+ 	if (ring->funcs->emit_gfx_shadow && adev->gfx.cp_gfx_shadow)
+ 		amdgpu_ring_emit_gfx_shadow(ring, shadow_va, csa_va, gds_va,
+ 					    init_shadow, vmid);
+@@ -312,6 +312,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 	    ring->hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH)
+ 		ring->funcs->emit_wave_limit(ring, false);
  
- int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
++	amdgpu_ring_ib_end(ring);
+ 	/* Save the wptr associated with this fence.
+ 	 * This must be last for resets to work properly
+ 	 * as we need to save the wptr associated with this
+@@ -320,7 +321,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 	 */
+ 	amdgpu_fence_save_wptr(*f);
+ 
+-	amdgpu_ring_ib_end(ring);
+ 	amdgpu_ring_commit(ring);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index d9f6a42859822..6aae94ca7dcb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -814,6 +814,17 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		return 0;
+ 
+ 	amdgpu_ring_ib_begin(ring);
++
++	/* There is no matching insert_end for this on purpose for the vm flush.
++	 * The IB portion of the submission has both.  Having multiple
++	 * insert_start sequences is ok, but you can only have one insert_end
++	 * per submission based on the way VCN FW works.  For JPEG
++	 * you can as many insert_start and insert_end sequences as you like as
++	 * long as the rest of the packets come between start and end sequences.
++	 */
++	if (ring->funcs->insert_start)
++		ring->funcs->insert_start(ring);
++
+ 	if (ring->funcs->init_cond_exec)
+ 		patch = amdgpu_ring_init_cond_exec(ring,
+ 						   ring->cond_exe_gpu_addr);
 -- 
 2.53.0
 
