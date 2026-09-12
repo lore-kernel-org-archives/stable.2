@@ -1,172 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8232BDC0E;
-	Sat, 12 Sep 2026 11:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6B47124F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212323; cv=none; b=qj5Sj/OhzWeIKLK8+6Z0HExkOpLZ4mh6sCmXZT8FmCBUJgzLMoMUiDqYclq+VKlqy97I/GB7R8ZTQRLZSyU6t/dwqdwZfYYUWqstinU5phy9LE2fvi4Ef/icM7rhPNBOJ+MFUMMk8Q3mLf5d8XfyoEZYzNnikFopD/gBV7/tUSs=
+	t=1789212326; cv=none; b=Cajc3Aswd9DXuCP5DqPfJq/OGSGM3CP52EjjyNMpe8inaHop7YsWTmaygB9EuCBnHJelfFTaJ6TmW2uOeQTCmY93yBNhmIx4UT0M+F9EovKWR5wuohWoxcLLuvKef54f4yMOGDLftQl1HTL6Bi0LAfxmju/2NJm8o+O4J9pkKKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212323; c=relaxed/simple;
-	bh=DIz1nPovK5TgmeEN0QXZVY2xMpgrtgUFy1FHEM+aHWc=;
+	s=arc-20240116; t=1789212326; c=relaxed/simple;
+	bh=c8ZB1YFdzthxAHA7Fy8n4tR+r6TCkv/jJuvtZOA/nwQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=adAVtEcVqL6P+LXGnkzm5FWAuNDZQqMRlRWkMEn/i1epKzNqdHj1KN0/1YfustkelTpcnapV+AKTGQrcWr4J9swYoKgmzj1xoDZmBaun8wb44YXYXRtbhTqZP4JTvngFFoJe5Q5WTHqXEXdNLaSz8QMiE4wsUfUftPAMPSjBoGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NtuCDCkn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tNMxMFJqNHNQwHONpvZKQEinnj/relMHhdi1s+LaYHFB7RMoQvDmrQk6u6tcT4cO+wwfSZwHaCNapszISV+c0mkQwv8NO8WMNGu9vD8nyghjVho70y1ZYgKA5ZucxFbyNPIDqVALOuoyeZWRBLfAnVYlSpme3nkgRTJHmK8mCj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNvMwfES; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NtuCDCkn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B461F000FF;
-	Sat, 12 Sep 2026 11:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789212322;
-	bh=/yL8YxtTPjE6n/Jv77Fgis0nwkezuJsBBvqOYQraQSs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNvMwfES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDD621F000FF;
+	Sat, 12 Sep 2026 11:25:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789212324;
+	bh=FXExQjpA+cYDAGmd7x4GYaqI+dFTkJ4GCt4OAoxIi8w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NtuCDCknd0M8l0gg2QcJ05TA6VqPAqj6T3gl6AKJPHQp3ktgA5q0feC/SIDnoPnUy
-	 /UuYOpSYc/503a6/fN4+bq/8/OCZVVSX73c9QRMxPN3udBmXeJsTEGJHk1daa4VDST
-	 0+G0PgNOqTpLqhBVzpPJVHbTQYjkHpr/nezbclU0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=UNvMwfESVGxADoUnLwo1Cg7yrQYKp/Cpui9ileVe8JXql1uISFDGlBJMgqi8xzGqg
+	 XFppa9qVIr0Xg2lFEdc5OAV2qC2TcQLETjJrlrQrlCCmDYrORg0H6LmCyxvWFIzZMK
+	 rmpW/8KCPHYh0t4Q1xGugBda3VS4XoeoeA6DGQjQr7eBYvYlnt4upSIBx/hC1lZUpa
+	 H2fnulv+CrXxHwRxtNe7MkU13sXVOAe/769rURaSn0gDtAnbh+wiaVyYNLgW2qDEQj
+	 OrEIXenDfB87LV7WwgF+aa4wZ0AILA/ZTLWwekArs1ng4vXAVx+8RZP3mAc5WRnMmd
+	 s/5vAGblock9Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Liam R. Howlett (Oracle)" <liam@infradead.org>,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <cel@kernel.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Breno Leitao <leitao@debian.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joe Perches <joe@perches.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Rik van Riel <riel@surriel.com>,
-	Waiman Long <longman@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Joanne Chang <joannechien@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1412/1518] maple_tree: catch race in mas_alloc_cyclic()
-Date: Sat, 12 Sep 2026 08:59:41 +0200
-Message-ID: <20260912065655.492079048@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] f2fs: dirty directory inodes on mtime/ctime update
+Date: Sat, 12 Sep 2026 07:25:22 -0400
+Message-ID: <20260912112522.2333995-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090951-only-erratic-27cc@gregkh>
+References: <2026090951-only-erratic-27cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Joanne Chang <joannechien@google.com>
 
-------------------
+[ Upstream commit 9ec09d5f4b317a417c8655c14056f70cbe71eb6c ]
 
-From: Liam R. Howlett (Oracle) <liam@infradead.org>
+Xfstests generic/547 sometimes fail with mismatched directory metadata
+before and after a power failure. This happens because when a directory
+entry is added, renamed, or deleted, its mtime and ctime are updated and
+the inode is marked dirty via
+f2fs_mark_inode_dirty_sync(dir, sync=false). The sync=false flag means
+the dirty inode is not added to the global DIRTY_META list. Therefore,
+subsequent checkpoints skip flushing these updated directory blocks,
+causing directory timestamps to revert to stale values after a sudden
+power failure.
 
-[ Upstream commit 35f1342e5b893a740eff2ef9ab337bfaa63ab76d ]
+Address this by changing the dirtying parameter to sync=true during
+directory entry mutations and renames. This forces F2FS to immediately
+queue the updated directory blocks on the global DIRTY_META list,
+ensuring timestamps are committed to checkpoints.
 
-If mas_alloc_cyclic() is called during a low memory situation, it is
-possible the lock may be dropped so reclaim can occur.  There is a window
-where some other task may allocate the same id and cause the mas_insert()
-to fail with -EEXIST.  In this scenario the function will return -EEXIST,
-which is not expected.
-
-Modifying the retry on mas_nomem() to re-search for a slot means that any
-race with other writes will not matter as the lock will be held between
-finding the index and writing the index.
-
-Moving the flag logic avoids cases where the flag is modified on drop
-lock/reacquire or when the write fails after clearing the flag.
-
-No existing users are exposed to this issue.
-
-Link: https://lore.kernel.org/20260821192627.4085470-13-liam@infradead.org
-Fixes: 9b6713cc7522 ("maple_tree: Add mtree_alloc_cyclic()")
-Signed-off-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-Reported-by: Chris Mason <clm@meta.com>
-Reviewed-by: Chuck Lever <cel@kernel.org>
-Cc: Boqun Feng <boqun.feng@gmail.com>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Joe Perches <joe@perches.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Waiman Long <longman@redhat.com>
-Cc: Will Deacon <will@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoint")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joanne Chang <joannechien@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ adjusted context to retain Linux 6.1’s direct timestamp assignments and page APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/maple_tree.c | 43 ++++++++++++++++++++++++-------------------
- 1 file changed, 24 insertions(+), 19 deletions(-)
+ fs/f2fs/dir.c    | 6 +++---
+ fs/f2fs/inline.c | 2 +-
+ fs/f2fs/namei.c  | 6 +++---
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 5aa4c95000188..cff42ec10f4bf 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -4026,35 +4026,40 @@ int mas_alloc_cyclic(struct ma_state *mas, unsigned long *startp,
- 		void *entry, unsigned long range_lo, unsigned long range_hi,
- 		unsigned long *next, gfp_t gfp)
- {
--	unsigned long min = range_lo;
--	int ret = 0;
--
--	range_lo = max(min, *next);
--	ret = mas_empty_area(mas, range_lo, range_hi, 1);
--	if ((mas->tree->ma_flags & MT_FLAGS_ALLOC_WRAPPED) && ret == 0) {
--		mas->tree->ma_flags &= ~MT_FLAGS_ALLOC_WRAPPED;
--		ret = 1;
--	}
--	if (ret < 0 && range_lo > min) {
--		mas_reset(mas);
--		ret = mas_empty_area(mas, min, range_hi, 1);
--		if (ret == 0)
--			ret = 1;
--	}
--	if (ret < 0)
--		return ret;
-+	int ret;
-+	unsigned long min;
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index c6348e346851f..ada31e2fabcf5 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -445,7 +445,7 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+ 	set_page_dirty(page);
  
-+	min = range_lo;
- 	do {
-+		range_lo = max(min, *next);
-+		ret = mas_empty_area(mas, range_lo, range_hi, 1);
-+		if (ret < 0 && range_lo > min) {
-+			mas_reset(mas);
-+			ret = mas_empty_area(mas, min, range_hi, 1);
-+			if (ret == 0)
-+				ret = 1;
-+		}
-+		if (ret < 0)
-+			goto out;
-+
- 		mas_insert(mas, entry);
- 	} while (mas_nomem(mas, gfp));
--	if (mas_is_err(mas))
--		return xa_err(mas->node);
- 
-+	if (mas_is_err(mas)) {
-+		ret = xa_err(mas->node);
-+		goto out;
-+	}
-+
-+	if ((mas->tree->ma_flags & MT_FLAGS_ALLOC_WRAPPED) && ret == 0) {
-+		mas->tree->ma_flags &= ~MT_FLAGS_ALLOC_WRAPPED;
-+		ret = 1;
-+	}
- 	*startp = mas->index;
- 	*next = *startp + 1;
- 	if (*next == 0)
- 		mas->tree->ma_flags |= MT_FLAGS_ALLOC_WRAPPED;
- 
-+out:
- 	mas_destroy(mas);
- 	return ret;
+ 	dir->i_mtime = dir->i_ctime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 	f2fs_put_page(page, 1);
  }
+ 
+@@ -581,7 +581,7 @@ void f2fs_update_parent_metadata(struct inode *dir, struct inode *inode,
+ 		clear_inode_flag(inode, FI_NEW_INODE);
+ 	}
+ 	dir->i_mtime = dir->i_ctime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (F2FS_I(dir)->i_current_depth != current_depth)
+ 		f2fs_i_depth_write(dir, current_depth);
+@@ -886,7 +886,7 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	dir->i_ctime = dir->i_mtime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 8cd6383be3325..2d921bc9da187 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -691,7 +691,7 @@ void f2fs_delete_inline_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	dir->i_ctime = dir->i_mtime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index 3f716028ca74d..b034418d7ef68 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -1056,7 +1056,7 @@ static int f2fs_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 	up_write(&F2FS_I(old_inode)->i_sem);
+ 
+ 	old_inode->i_ctime = current_time(old_inode);
+-	f2fs_mark_inode_dirty_sync(old_inode, false);
++	f2fs_mark_inode_dirty_sync(old_inode, true);
+ 
+ 	f2fs_delete_entry(old_entry, old_page, old_dir, NULL);
+ 	old_page = NULL;
+@@ -1229,7 +1229,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(old_dir, old_nlink > 0);
+ 		up_write(&F2FS_I(old_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(old_dir, false);
++	f2fs_mark_inode_dirty_sync(old_dir, true);
+ 
+ 	/* update directory entry info of new dir inode */
+ 	f2fs_set_link(new_dir, new_entry, new_page, old_inode);
+@@ -1248,7 +1248,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(new_dir, new_nlink > 0);
+ 		up_write(&F2FS_I(new_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(new_dir, false);
++	f2fs_mark_inode_dirty_sync(new_dir, true);
+ 
+ 	if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT) {
+ 		f2fs_add_ino_entry(sbi, old_dir->i_ino, TRANS_DIR_INO);
 -- 
 2.53.0
-
-
 
