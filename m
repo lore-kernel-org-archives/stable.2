@@ -1,102 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E95C47124F
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF2A472777
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211834; cv=none; b=RgpONt8uqz2APfsOmFFK+rjWgA5BIBOGgz9fCi6QcDYxSkUmxkQEceH4hHZs6FQIG5KtxBVAUyRThzYF2/Dg4bFPIwoPgvunIguk6TuD+Sh49esmuQGQnmT+/AXKwYB95tp65JACsE2OeghfV1bC0X/tIiF6jK4VeuZqr/OqtBc=
+	t=1789211835; cv=none; b=hIkemaeqRi8WXOQcHEdTQ0IBXYG0ny+JUp0Zh7eHYjrMWcDwPHPaJjYqlsOCnMHXjPkvrHkDNshBwRaiqefaDTtabaLrR+ZiXNXnOPgPTOKNGm2BvEvQGPDVxk/WMurx8YgbHyGC6YkAXKW/GhKLFceswGQbkNpG1vv5nuWVDDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789211834; c=relaxed/simple;
-	bh=qLFB7ZBmvy3rkNraO/0q8mPiMKXUO1rcDgFYWt1uquM=;
+	s=arc-20240116; t=1789211835; c=relaxed/simple;
+	bh=2WENdPgB7lpLNjZRMAuj/V4QE7tNMiPN/kdZ1Yd6hZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fY0X/0hNdVwjMSILO3orfBjkFDAMaY2Iohr399Hrfof7rFfOSiokl2REfdrCgzHIoAbbStbj9rrD/Jn1HvkV3NIVWpjGZSJJcIql5rGcfnKMokMDx5Q9icrSKDGNsQLeKqxFX70g5EpEU3m1/H3hnWXIESwV1+wzdzKrrVvq/RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d15weG25; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=G41ZfT/rkxeRUxmzMyhoe0CA2EbS/G/cNv8O29jINUOMr9bYceCVCw0VhkElFWJi/qnoPZ4HT551NNO+IbqsjWwVVtHrbFs8FQ6oYq3o82MJcluPRThfBf/zaIybAenO2KvH60QWnSsioCe2Tb9Cy51qPRgBL0HUmo2XJ598dHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuslKP7H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d15weG25"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB6A1F00898;
-	Sat, 12 Sep 2026 11:17:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuslKP7H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592E21F00893;
+	Sat, 12 Sep 2026 11:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789211833;
-	bh=tMwJKAigdg6g7WX/L41alIOCYCcp2C02FI7yS695P4w=;
+	s=k20260515; t=1789211834;
+	bh=U3UfwldC0nTbqLbZrDm29Iory+9qNJwQK+E02g1nzgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d15weG25tSDveGKPBadRzC0QlcpfAYYVVSpgfrB2DtYlKj7pg2jan8KUV6SCMyTOn
-	 /haNJ2zY89qHWc7pWT4wmC0KJbf6KMetwoJKwikP4o10ny2oNvx+CxLhLh/DJfv0+Z
-	 LLNd4jii1t9Qc5EXXGScvwuprKnlOKRhzLOLyV76sqQZd8XbjV+lcJdJLNoSCspdcd
-	 CNfY4QGX1WPss3Wbf9u9RzAIwOBSJS7uz3dO4IpYiArHjTxqWiBGyGU4x5Qo4VUENw
-	 WT6x0z0DZ09kjnuHGscRuUu/Vv5Ak/sxOct70M9yXDot2ZZIWH7eVEyzcDMmHyiutj
-	 dLRhieeNVL1Fw==
+	b=IuslKP7HcYfFje3yfbj+0Pw11PH0anIMb4ZEsw7rk4qsN/eSr0yZ6U1iDyNaxmobR
+	 yyNEZ2nnccrgweDyZUVnQdNjPfGjYhs+fOBVAnqLDQBA+WarOrYXsxHFySY+w6Gi06
+	 spvJPOZIj1XHmC9qKgdUvcXOwccDyZfW64h57vu3+kG5d/ckO9BDUXQRbvAHI+ef8c
+	 bOWujMuEQKRNuPf2CT1YUKIb43LXpALJtkCyy0BOFKv20FDSk//PUvhxKAaKIs/i8N
+	 /0BFbzqiB/3btWwNNfRq8ww7UBKAMK+2+0REGHTN653MsHYanT+vVyfqwLBsyjEDeK
+	 EOKT0PsHnjy3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
+Subject: [PATCH 6.18.y 1/6] drm/amdgpu: Fix missing unwind in amdgpu_ib_schedule() error path
 Date: Sat, 12 Sep 2026 07:17:06 -0400
-Message-ID: <20260912111706.2282608-6-sashal@kernel.org>
+Message-ID: <20260912111711.2285466-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912111706.2282608-1-sashal@kernel.org>
-References: <2026090957-spectacle-juniper-fbdf@gregkh>
- <20260912111706.2282608-1-sashal@kernel.org>
+In-Reply-To: <2026090943-snugness-plexiglas-e964@gregkh>
+References: <2026090943-snugness-plexiglas-e964@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-[ Upstream commit ce366bfa821ec81dd45bde547ee31e659306cc61 ]
+[ Upstream commit ba038065655c45728be346d0b174a6da08d8a5c5 ]
 
-There is potential deadloop in race condition:
+amdgpu_ib_schedule() returns early after calling amdgpu_ring_undo().
+This skips the common free_fence cleanup path.  Other error paths were
+already changed to use goto free_fence, but this one was missed.
 
-Thread A				Thread B
-- fsync
- - f2fs_do_sync_file
-  - f2fs_fsync_node_pages
-   - last_fsync_dnode
-    - folio_get(last_folio)
-					- f2fs_setattr
-					 - f2fs_truncate
-					  - f2fs_truncate_blocks
-					   - f2fs_do_truncate_blocks
-					    - f2fs_truncate_inode_blocks
-					     - truncate_dnode
-					      - truncate_node
-					       - invalidate_mapping_pages
-					        - folio->mapping = NULL
-   - is_node_folio alwasy return false
-   - atomic && !marked is always true,
-     then goto retry
+Change the early return to goto free_fence so all error paths clean up
+the same way.
 
-Cc: stable@kernel.org
-Fixes: 608514deba38 ("f2fs: set fsync mark only for the last dnode")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c:232 amdgpu_ib_schedule()
+warn: missing unwind goto?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+    124 int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+    125                        struct amdgpu_ib *ibs, struct amdgpu_job *job,
+    126                        struct dma_fence **f)
+    127 {
+
+    ...
+
+    224
+    225         if (ring->funcs->insert_start)
+    226                 ring->funcs->insert_start(ring);
+    227
+    228         if (job) {
+    229                 r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+    230                 if (r) {
+    231                         amdgpu_ring_undo(ring);
+--> 232                         return r;
+
+	The patch changed the other error paths to goto free_fence but
+	this one was accidentally skipped.
+
+    233                 }
+    234         }
+    235
+    236         amdgpu_ring_ib_begin(ring);
+
+    ...
+
+    338
+    339 free_fence:
+    340         if (!job)
+    341                 kfree(af);
+    342         return r;
+    343 }
+
+Fixes: f903b85ed0f1 ("drm/amdgpu: fix possible fence leaks from job structure")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 6760f5cb12d2 ("drm/amdgpu: avoid force-completing uninitialized UVD rings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 48064c9c8d8c7..3fa81132f18f9 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1916,6 +1916,11 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
- 			   ino, last_folio->index);
- 		folio_lock(last_folio);
-+		if (unlikely(!is_node_folio(last_folio))) {
-+			f2fs_folio_put(last_folio, true);
-+			ret = -EAGAIN;
-+			goto out;
-+		}
- 		f2fs_folio_wait_writeback(last_folio, NODE, true, true);
- 		folio_mark_dirty(last_folio);
- 		folio_unlock(last_folio);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 9581643dbb726..f0ba6ac431632 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -222,7 +222,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+-			return r;
++			goto free_fence;
+ 		}
+ 	}
+ 
 -- 
 2.53.0
 
