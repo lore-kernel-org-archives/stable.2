@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3006471249
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:24:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEB9345EA2;
+	Sat, 12 Sep 2026 16:24:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230268; cv=none; b=g3CAV2sniKcC/zruPGKZtyl9JGDS4x6dFR16aS6PA2ZWTiPTuH6D4x2mQP+T4j9WRLiDOzlnG5X4IVHMEVOY+8Jd61CuM68Gbivv+aBW7LAm0ozmUit6l5I39hCXi/NITHLmTtfE/GIGrNnx0oJS5+9zFPbDcJqvdjK1I+xTi00=
+	t=1789230269; cv=none; b=pEeG6pcl6aplI06jorZEq+NGGpkRlbjLJjyIid0hxS0lEZMUeCGtPM+E+6zULf+r7HdCiidGnwf2K+DtdKzzmW/hauRK/GvOwgz8rUpAJvPFoCOT1PfdSVDJawSUSjpBjWbefmHIBd3egWCI/EsE1yT52mHsTbQIw6DYOLab2Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230268; c=relaxed/simple;
-	bh=WL5lN4qtnFMkoCrQFyHausgNAdqESXih2wYX1Y0I+0w=;
+	s=arc-20240116; t=1789230269; c=relaxed/simple;
+	bh=J0N15StmE0jps9Q2KN21NP9m7DksWz0l0c8X1Iv1DBc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Iu3A/UvJT1+jyVtTCd062sA7w58flik+62jEnrbkRatjLgkq3STGvJGzGp0mNxivfj+LkX7fLaWLuLiSh2zhm7dstwJnGPiJxN8Qg3lDMX/7CZ8gaw9VK4vk7e07hUavJGjKovZWNDIA5Vq86J6PLb6YGlidb/7hUFlKvHIkgrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rb1SUa5c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r5+BmdDj/oRNaMdenBE1QJG1uGiEAClDJ9jqSxJcGfLiVp6TjV7DQ66i3e/Ax9xmrbtPEWRF3ohVz5GRCRX3SyiPFy82KqPI8c4fJLVAlhxfPP6gLRe0wRw0c0CCSA6aEkSQ4nH5GjjmqtsxtqkrBXlWe+l6a7c1WuJPk41RB1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kxvltz2p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rb1SUa5c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD011F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kxvltz2p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62CB1F00893;
 	Sat, 12 Sep 2026 16:24:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789230266;
-	bh=8gT66Kj+49eBwyZYcP13OJ4QGjU9L0A4c0M+RpiVcVo=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789230268;
+	bh=tvAZWrspFs84IflLjnco1U7KpLB0AlfODkPLXHd30Mk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rb1SUa5cI6upDj+87fGbAaCHFTwbTF0U+GjKsjLDYLXKwipJglxuFibI75XozIS3s
-	 MSF+hNb1fVdkqY8uZBAcQ0RO1zzw0lgqP1keZXfcbieHp6g5RbTMPQPHZ/1CqQsq+F
-	 YM76mTV/EtZGeg/YAelXcyMIMgSqueDDYog4OHI4KJosMLImOwT81DoPG10/zSkCDH
-	 CZaSqHc7ZjvhVYShKn1kAR5izID36N60a3iqsL2ADnF1LqXbIkdiQqvyc39MvB8aWu
-	 DIGVpahGURLR0c/Q6p2QnZBgVR3nNF8+XBULtcA6SYWDQgTa/2K89FMURlYxV5uljw
-	 6IpVa/ntYIhAA==
-From: Sasha Levin <sashal@kernel.org>
+	b=kxvltz2pjjnUJtssRBLRkbmIKy61M3TgemXJbb9L41nEhgGVhKioJ3JeiVQyNL/Va
+	 KVY/BcBXh/oh0hZgxRN04+/YMA1ImWs/AqG4jAm8FVOyjFLSBYslx18FEnQZyzJBPW
+	 ixCWHDWGaS+2KFm/SUwEXVvZ+s08kvsKcXlC0EEc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Itai Handler <itai.handler@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] drm/amdgpu: fix autosuspend cleanup during removal
-Date: Sat, 12 Sep 2026 12:24:23 -0400
-Message-ID: <20260912162423.3655323-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912162423.3655323-1-sashal@kernel.org>
-References: <2026090919-washstand-timothy-3b64@gregkh>
- <20260912162423.3655323-1-sashal@kernel.org>
+Subject: [PATCH 6.1 0759/1191] rcu: Mark accesses to ->rcu_urgent_qs and ->rcu_need_heavy_qs
+Date: Sat, 12 Sep 2026 08:58:07 +0200
+Message-ID: <20260912065605.323930525@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,54 +47,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ef5fcf2a6c320676bf8be2dadac93d9023b468b7 ]
+------------------
 
-amdgpu_pci_probe() calls pm_runtime_use_autosuspend(), but
-amdgpu_pci_remove() does not call the matching
-pm_runtime_dont_use_autosuspend().
+From: Itai Handler <itai.handler@gmail.com>
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+[ Upstream commit 27d73e81195b395270117ff77c47be2ed9b09b12 ]
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+rcu_all_qs() and rcu_note_context_switch() read/clear the per-CPU
+->rcu_urgent_qs and ->rcu_need_heavy_qs flags with plain raw_cpu_read()
+and this_cpu_write(), while the RCU core clears them with WRITE_ONCE() in
+rcu_disable_urgency_upon_qs().  KCSAN flags the resulting same-CPU race:
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+  BUG: KCSAN: data-race in rcu_all_qs / rcu_disable_urgency_upon_qs
 
-This issue was found by manual code inspection.
+It is benign -- the flags are advisory and rcu_all_qs() re-reads
+->rcu_urgent_qs with smp_load_acquire() before acting on it -- but these
+are the last unmarked accesses to the two flags; every other access
+already uses READ_ONCE()/WRITE_ONCE()/smp_*.  Mark them to match.  No
+functional change.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Link: https://patch.msgid.link/20260808120934.2813010-1-lgs201920130244@gmail.com
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reproduced on a PREEMPT_NONE, CONFIG_KCSAN_INTERRUPT_WATCHER=y kernel with
+a pthreads program whose threads (two per CPU) loop reading a large file:
+
+	for (;;) {
+		int fd = open("/proc/kallsyms", O_RDONLY);
+		while (read(fd, buf, sizeof(buf)) > 0)
+			;
+		close(fd);
+	}
+
+The read()s drive cond_resched() -> rcu_all_qs() while the busy CPUs keep
+the grace period urgent, so the RCU core clears the flags concurrently.
+
+Fixes: 2dba13f0b6c2 ("rcu: Switch urgent quiescent-state requests to rcu_data structure")
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/rcu/tree_plugin.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a75c988b4be89..ec7c1e44f4cfb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1294,6 +1294,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
- 	if (adev->runpm) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-+		pm_runtime_dont_use_autosuspend(dev->dev);
- 	}
+diff --git a/kernel/rcu/tree_plugin.h b/kernel/rcu/tree_plugin.h
+index 4996125222b04..4cb5c901a2049 100644
+--- a/kernel/rcu/tree_plugin.h
++++ b/kernel/rcu/tree_plugin.h
+@@ -880,7 +880,7 @@ void rcu_all_qs(void)
+ {
+ 	unsigned long flags;
  
- 	amdgpu_driver_unload_kms(dev);
+-	if (!raw_cpu_read(rcu_data.rcu_urgent_qs))
++	if (!READ_ONCE(*raw_cpu_ptr(&rcu_data.rcu_urgent_qs)))
+ 		return;
+ 	preempt_disable();  // For CONFIG_PREEMPT_COUNT=y kernels
+ 	/* Load rcu_urgent_qs before other flags. */
+@@ -888,8 +888,8 @@ void rcu_all_qs(void)
+ 		preempt_enable();
+ 		return;
+ 	}
+-	this_cpu_write(rcu_data.rcu_urgent_qs, false);
+-	if (unlikely(raw_cpu_read(rcu_data.rcu_need_heavy_qs))) {
++	WRITE_ONCE(*this_cpu_ptr(&rcu_data.rcu_urgent_qs), false);
++	if (unlikely(READ_ONCE(*this_cpu_ptr(&rcu_data.rcu_need_heavy_qs)))) {
+ 		local_irq_save(flags);
+ 		rcu_momentary_eqs();
+ 		local_irq_restore(flags);
+@@ -909,8 +909,8 @@ void rcu_note_context_switch(bool preempt)
+ 	/* Load rcu_urgent_qs before other flags. */
+ 	if (!smp_load_acquire(this_cpu_ptr(&rcu_data.rcu_urgent_qs)))
+ 		goto out;
+-	this_cpu_write(rcu_data.rcu_urgent_qs, false);
+-	if (unlikely(raw_cpu_read(rcu_data.rcu_need_heavy_qs)))
++	WRITE_ONCE(*this_cpu_ptr(&rcu_data.rcu_urgent_qs), false);
++	if (unlikely(READ_ONCE(*this_cpu_ptr(&rcu_data.rcu_need_heavy_qs))))
+ 		rcu_momentary_eqs();
+ out:
+ 	rcu_tasks_qs(current, preempt);
 -- 
 2.53.0
+
+
 
