@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB0C4322FC
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7734611E1
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:51:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228283; cv=none; b=dpi/dCvZz8dTusb63JNxmdUDsq3kuLw3EHlUkOeSee1z7rbCPOdOmJ49RKoU+p9Sg+6qdxLNrAFvUCxVWhAebEGXuF3KWIxfy7pyGkmMU5/fqB9lPOZwPPZQQBv5gDqnKXJViKnhIu2xkFOB9vlMaeOKXokd8ecgTwxTt/tROW0=
+	t=1789228284; cv=none; b=fjGidcsCfl9JCaaNQbYR+WHMruWPyzppmPvXM7OVjOIuAvqdhIW2eMpLnt9pcFyNEiFTbX4lnPIcBN80q+iWT1EH6VqvHmhfWvgj0VKLTQ8WT0+W9f3zfVlb0UMyTcivgFm7Zy1mvAOdbQgKlLRvSP1ptSwoovP5XJfCn0381V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228283; c=relaxed/simple;
-	bh=kLMc6297bPuMZ/wzJjems2aWQXJ3M/GWe3VMiXhCFqs=;
+	s=arc-20240116; t=1789228284; c=relaxed/simple;
+	bh=M8fI5sKkXit8Bz8ROla676Q9oaVNP9xr3oK5igApULg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lVarzyiyjp6/9hn+kc/kCiZryVsnSt3RSMcnV72mR9obvifmb6ZRNO3kpQkjosvM3qXLrBH7qRjR9TgkH6EeXTZHEzCDwKOWcbZcaWTwKKiRp+DpiJc8tp48IIfN/zXBbWK9OEGf9AHx6S/Zzzqo/RCvXH5iyxweCZh/+EdMlwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Upr5aAly; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rHh9bJvYA1gZGFKEYhCYr1fB9GotdURVJaURiT1/xhu3DNEOczBcD78BFkzG60nqYo4JQoPMN4tY8rjW08oGw7r9EYKdE8rTSL7cJ/kQ6DDCkZ+d9+vLS0e3nEOtRpC66e+azJO4pR6zkv/VpcRl2ZIn/Y9Dk3Ha8Gfa2ICNe1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J15e6TcW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Upr5aAly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AFB1F000FF;
-	Sat, 12 Sep 2026 15:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J15e6TcW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197D31F00893;
+	Sat, 12 Sep 2026 15:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789228282;
-	bh=4LnDrQOL0cEFaNUKVFM63Os93zGTbIpInhkS08VN/8E=;
+	s=k20260515; t=1789228283;
+	bh=/SxDHxzITmdZRI1yfYHhRNtjNZ+AWtnMyrkjvye3IRY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Upr5aAlyukSmA9KHRmVQT6Zox+ehvhGKoi1HmXWP+xUIUWVzqISne4cJzRikW/RAQ
-	 mWohneU5z+IqE9Y19W7v0rvnMEqRzy0NfqGRTf/Guh6cK7Oapgq7uQBGcsRTskxn6d
-	 m+7RmkF6oDcQGPstnD01qp2dGrGTllCJjQ4Un92b1L1G1vWT8OPcpexPIQBKbevP9G
-	 ukssOpoUTTxckedR/l7Ee15yGWVJa5hHCkAQYeLX3WE/imViIQpdcPd0l7SSVwaCkB
-	 DXInBR8N6fwtqERpQ+kw5APhSY+DMKSWLxArX7WReeQeJaNMyhQ1f5JeXeV3RMQxsi
-	 vQ4ctlELVB8sw==
+	b=J15e6TcWQW05Q28i9F4EsKi6+g21eP1TxK3IDImzZzvFipcgLSQ7UW1eguHgfTjLX
+	 PEsBYSeNRkb3dfiT9RXAChHtvwxO9eqDnI5z3XtL7BzLHlG8yzQrR3yCE43zzXXji5
+	 0f8lJfBysSGfSQrQVDul3pUX/b3IDXXF83VQOMGDWNSKxwXMZxdzR+AJFaocUcDwQ+
+	 zErvBK4WFc4E7vfHOgRjCoXPmejSVHD2lndbrhtydjSlyPRHXuVXAf+bLNlIwl7ZBb
+	 539AiEm3GpZFSaVHPa6MZhgwp2h80eWaPe4tQtijzljQUALFQh7WHdct5rvdKvQfGN
+	 8xD0VYv52NXHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <treding@nvidia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
+Cc: Shixiong Ou <oushixiong@kylinos.cn>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/sysfb: simpledrm: Improve framebuffer-size validation
-Date: Sat, 12 Sep 2026 11:51:20 -0400
-Message-ID: <20260912155120.3559750-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/sysfb: ofdrm: Fix is_avivo() constant comparison bug
+Date: Sat, 12 Sep 2026 11:51:21 -0400
+Message-ID: <20260912155121.3559788-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090919-unstylish-evade-283b@gregkh>
-References: <2026090919-unstylish-evade-283b@gregkh>
+In-Reply-To: <2026090959-implicate-skintight-5af9@gregkh>
+References: <2026090959-implicate-skintight-5af9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +45,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
+[ Upstream commit 958f35cbb8955ca3fa439cd9f2092cb42414aa8c ]
 
-Validate the framebuffer size from the firmware against the
-limitations of struct drm_display_mode. The type only stores sizes
-in 16-bit fields. Fail probing on errors.
+The is_avivo() function has a logic error where it compares a constant
+to another constant instead of checking the device parameter:
 
-v2:
-- remove unused function simplefb_get_validated_int0() (Sashiko)
+  (PCI_VENDOR_ID_ATI_R600 >= 0x9400)
 
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: f496834e1674 ("drm/ofdrm: Add per-model device function")
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Cc: <stable@vger.kernel.org> # v5.14+
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
-[ adapted shared drm_sysfb validation changes to the existing local simplefb_get_validated_int0() helper. ]
+Cc: <stable@vger.kernel.org> # v6.2+
+Link: https://patch.msgid.link/20260731111729.703116-1-oushixiong1025@163.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 2 +-
+ drivers/gpu/drm/tiny/ofdrm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 18489779fb8aa..c32b328ff510a 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -50,7 +50,7 @@ static int
- simplefb_get_validated_int0(struct drm_device *dev, const char *name,
- 			    uint32_t value)
- {
--	if (!value) {
-+	if (!value || value > U16_MAX) {
- 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
- 			name, value);
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/tiny/ofdrm.c b/drivers/gpu/drm/tiny/ofdrm.c
+index cc90e0035d034..32857514fe369 100644
+--- a/drivers/gpu/drm/tiny/ofdrm.c
++++ b/drivers/gpu/drm/tiny/ofdrm.c
+@@ -231,7 +231,7 @@ static bool is_avivo(u32 vendor, u32 device)
+ 	/* This will match most R5xx */
+ 	return (vendor == PCI_VENDOR_ID_ATI) &&
+ 	       ((device >= PCI_VENDOR_ID_ATI_R520 && device < 0x7800) ||
+-		(PCI_VENDOR_ID_ATI_R600 >= 0x9400));
++		(device >= PCI_VENDOR_ID_ATI_R600));
+ }
+ 
+ static enum ofdrm_model display_get_model_of(struct drm_device *dev, struct device_node *of_node)
 -- 
 2.53.0
 
