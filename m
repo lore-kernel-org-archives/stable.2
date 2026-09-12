@@ -1,135 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A0333EAF3;
-	Sat, 12 Sep 2026 16:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789229542; cv=none; b=YqMtd6o45P174+YDb8QpB9VKXcjSVN27qyRw0Mq2M2gSK4aNHRV74yrbyXDOnRlVsL9HgheMgu5h2TYw8OkKlS+pRv7yDHVeQKPnfKopCi/kbbIwf9zlT9/J9jFBcWTFcuYD6k2D5JhrauJzM2bHO0L7ed99bOMrdhr6KyzP6W8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789229542; c=relaxed/simple;
-	bh=y/sSr5/1+Cg5nh7kUxIVmBBHBRPg7EFNWLw8f+8VQ1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p4CCAHeVgQFpv4DiEoSqrQGhYJQrpcu1oLQml+iMcHzYVGV9VmxoHRPBNxRmeLlvD/KlotG2/4Mzip8wYfX8ueti44nbJcfLcLP8HAM5bydZr3TkxGkqrqwSP1AMmtQKmpaWiza92kZ5RxsIZvoDHSlGG4LZs4wF77o3dh1GGzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cU2kdCVs; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cU2kdCVs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6274D1F00893;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5AB31F9B1;
 	Sat, 12 Sep 2026 16:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789229541;
-	bh=EmPs6UUIJPVJ20/buL1WZ8FHHq37N2Sp9BoxyjXFS5U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cU2kdCVs4e2bg7y4EoxNIKlk1Ko0VIGeyKlVLY/vFxQgPwmWsEGrre9+0G9yE2l/h
-	 rUESCDxXhrGCAtt6mtcKEM4cBG56CXd5SkC0J9shn6vpfTLgQXDBd/mjLu/+3h5jHK
-	 t5/cSije0re/8Sn7Nqg3jTZAQKH66lhW3Y3a0apo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-	Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0612/1191] rpmsg: glink: fix deadlock in endpoint destroy during driver detach
-Date: Sat, 12 Sep 2026 08:55:40 +0200
-Message-ID: <20260912065601.998877093@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789229544; cv=none; b=GxRNOKRPH2piLz2VSG/64rKbFNSiSwM8TdohFscT9jjiFETnCuoY6EnWXGFxfMD2WsoU270yUFSj88j4GDju7V6MKxybn8p/H/1+33M3k4KU5iMzdh+6iiDMbpGhYeA6PkrZns6tuATau8OhjwoXCq3xz4RdR4ZpcoOXpDYeSPM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789229544; c=relaxed/simple;
+	bh=gYyEEGxM144WobPG0PkEu1gZ4Dhzeyc0tdt0Aa5yEFk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XrGcTml9H0wQqlRdX10NsGDsx2e99hTu5qiJ0TnhA8WNBUFurVixl5uJ4UBT98DnbOmZ2Gjqor+cZVflUCqU+oslY/8N4HDHu+D+UtKwooJAWoa8uBuouthJOJ+tSMy/yzIa3Y9TKU+K9TM4iieSATiRlvzzLxyqKBq/h39JSUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=OR/kKeYc; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="OR/kKeYc"
+Received: from tju.edu.cn (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [183.242.150.9])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d867e247;
+	Sun, 13 Sep 2026 00:12:06 +0800 (GMT+08:00)
+From: Yibo Tan <lhfff@tju.edu.cn>
+To: Andy Shevchenko <andy@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: =?UTF-8?q?Jean-Fran=C3=A7ois=20Lessard?= <jefflessard3@gmail.com>,
+	Surendra Singh Chouhan <kr494167@gmail.com>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] auxdisplay: linedisp: prepare message before registration
+Date: Sun, 13 Sep 2026 00:11:52 +0800
+Message-Id: <20260912161152.1683002-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa09663ed8603a1kunm4452ca3d21d6b8
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx9KVhgaSB8fQ0oZTB8aTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
+	xOVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=OR/kKeYcyxopjxIg1be77v2laqN4phWcvnrFPWOWPolEA60MokP657PKixI8Vfq0j6sIW2x+vVQLbEQg+A9oUkw94iqMta1skMxNbikcpJr35gzgdT8bcQj5BvsCKZuS76UEzwvpW80/ZdsTdINl9eTDk0lY95C/+SfT609I4+c=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=b/HE8L6+deoaN+E+/Sb/hspBLwOnnLTTfe61QrIbmpc=;
+	h=date:mime-version:subject:message-id:from;
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+Since the line-display attachment support was added, linedisp_register()
+has displayed its initial message before calling device_add().  The
+HT16K33, MAX6959 and GPIO segment drivers implement display updates with
+delayed work, so that display operation can publish driver-owned work
+before the final fallible registration step.
 
-------------------
+If device_add() fails, the registration error path releases the display
+buffers and the caller's probe failure releases its managed private data.
+The admitted worker can then access both freed objects.  In an HT16K33
+KASAN reproducer, a real device_add() -EEXIST failure produced a
+slab-use-after-free first in __pwq_activate_work() and then in
+ht16k33_seg7_update().
 
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+The vulnerable kernel queued and executed the freed HT16K33 work in three
+of three runs.  With this change, the same three runs reached the same
+device_add() failure without queuing the update and produced no KASAN,
+WARNING, Oops or panic.
 
-[ Upstream commit 5a5a48e788e02fd8a8eb7188ce440572d6c12418 ]
+Separate message preparation from the hardware update.  Prepare the
+initial message before registering the device or attribute groups, and
+only invoke the non-failing update after registration succeeds.  Apply the
+same ordering to linedisp_attach(), which has the same static pattern but
+currently has no in-tree caller.
 
-During driver detach, the device core holds the device mutex throughout
-the driver's remove callback chain.  When the rpmsg endpoint is
-destroyed as part of that teardown, the GLINK endpoint destroy
-implementation attempts to unregister the underlying rpmsg device.
-That unregistration calls device_del(), which tries to re-acquire the
-same device mutex already held higher up the stack, causing rmmod to
-hang indefinitely.
-
-The deadlock manifests with the following call chain:
-
-[<0>] device_del+0x44/0x414  <- tries to acquire same mutex
-[<0>] device_unregister+0x18/0x34
-[<0>] rpmsg_unregister_device+0x28/0x4c
-[<0>] qcom_glink_remove_rpmsg_device+0x70/0xc0
-[<0>] qcom_glink_destroy_ept+0x58/0xbc
-[<0>] rpmsg_dev_remove+0x50/0x60
-[<0>] device_remove+0x4c/0x80
-[<0>] device_release_driver_internal+0x1cc/0x228  <- acquires device mutex
-[<0>] driver_detach+0x4c/0x98
-[<0>] bus_remove_driver+0x6c/0xbc
-[<0>] driver_unregister+0x30/0x60
-[<0>] unregister_rpmsg_driver+0x10/0x1c
-[<0>] fastrpc_exit+0x28/0x38 [fastrpc]
-[<0>] __arm64_sys_delete_module+0x1b8/0x294
-[<0>] invoke_syscall+0x48/0x10c
-[<0>] el0_svc_common.constprop.0+0xc0/0xe0
-[<0>] do_el0_svc+0x1c/0x28
-[<0>] el0_svc+0x34/0x108
-[<0>] el0t_64_sync_handler+0xa0/0xe4
-[<0>] el0t_64_sync+0x198/0x19c
-
-The rpmsg device unregistration inside endpoint destroy is redundant.
-In both contexts where endpoint destruction is triggered:
-
-- Driver detach path: the driver core already tears down the rpmsg
-  device.
-
-- Channel close path: the rpmsg device is already unregistered before
-  endpoint destruction is reached.
-
-Remove the redundant unregistration to fix the deadlock.
-
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Tested-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Fixes: a53e356df548 ("rpmsg: glink: fix rpmsg device leak")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260604-rpmsg-glink-fix-deadlock-destroy-ept-v1-1-b8a54ad1e4fd@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3ba5c78fe7c5 ("auxdisplay: linedisp: support attribute attachment to auxdisplay devices")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 ---
- drivers/rpmsg/qcom_glink_native.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/auxdisplay/line-display.c | 63 +++++++++++++++++++++----------
+ 1 file changed, 43 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-index 4040fdf4fdbaf..9c67d07cc9e2e 100644
---- a/drivers/rpmsg/qcom_glink_native.c
-+++ b/drivers/rpmsg/qcom_glink_native.c
-@@ -1261,9 +1261,6 @@ static void qcom_glink_destroy_ept(struct rpmsg_endpoint *ept)
- 	channel->ept.cb = NULL;
- 	spin_unlock_irqrestore(&channel->recv_lock, flags);
- 
--	/* Decouple the potential rpdev from the channel */
--	qcom_glink_remove_rpmsg_device(glink, channel);
--
- 	qcom_glink_send_close_req(glink, channel);
+diff --git a/drivers/auxdisplay/line-display.c b/drivers/auxdisplay/line-display.c
+index 915eb5cd96b2..d5854a9ac9b0 100644
+--- a/drivers/auxdisplay/line-display.c
++++ b/drivers/auxdisplay/line-display.c
+@@ -149,20 +149,8 @@ static void linedisp_scroll(struct timer_list *t)
+ 	mod_timer(&linedisp->timer, jiffies + linedisp->scroll_rate);
  }
  
+-/**
+- * linedisp_display() - set the message to be displayed
+- * @linedisp: pointer to the private data structure
+- * @msg: the message to display
+- * @count: length of msg, or -1
+- *
+- * Display a new message @msg on the display. @msg can be longer than the
+- * number of characters the display can display, in which case it will begin
+- * scrolling across the display.
+- *
+- * Return: 0 on success, -ENOMEM on memory allocation failure
+- */
+-static int linedisp_display(struct linedisp *linedisp, const char *msg,
+-			    ssize_t count)
++static int linedisp_set_message(struct linedisp *linedisp, const char *msg,
++				ssize_t count)
+ {
+ 	char *new_msg;
+ 
+@@ -181,8 +169,6 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
+ 		kfree(linedisp->message);
+ 		linedisp->message = NULL;
+ 		linedisp->message_len = 0;
+-		memset(linedisp->buf, ' ', linedisp->num_chars);
+-		linedisp->ops->update(linedisp);
+ 		return 0;
+ 	}
+ 
+@@ -195,6 +181,16 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
+ 	linedisp->message = new_msg;
+ 	linedisp->message_len = count;
+ 	linedisp->scroll_pos = 0;
++	return 0;
++}
++
++static void linedisp_update(struct linedisp *linedisp)
++{
++	if (!linedisp->message_len) {
++		memset(linedisp->buf, ' ', linedisp->num_chars);
++		linedisp->ops->update(linedisp);
++		return;
++	}
+ 
+ 	if (should_scroll(linedisp)) {
+ 		/* display scrolling message */
+@@ -206,7 +202,30 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
+ 		       umin(linedisp->num_chars, linedisp->message_len));
+ 		linedisp->ops->update(linedisp);
+ 	}
++}
+ 
++/**
++ * linedisp_display() - set the message to be displayed
++ * @linedisp: pointer to the private data structure
++ * @msg: the message to display
++ * @count: length of msg, or -1
++ *
++ * Display a new message @msg on the display. @msg can be longer than the
++ * number of characters the display can display, in which case it will begin
++ * scrolling across the display.
++ *
++ * Return: 0 on success, -ENOMEM on memory allocation failure
++ */
++static int linedisp_display(struct linedisp *linedisp, const char *msg,
++			    ssize_t count)
++{
++	int err;
++
++	err = linedisp_set_message(linedisp, msg, count);
++	if (err)
++		return err;
++
++	linedisp_update(linedisp);
+ 	return 0;
+ }
+ 
+@@ -461,8 +480,7 @@ int linedisp_attach(struct linedisp *linedisp, struct device *dev,
+ 	if (err)
+ 		goto out_del_timer;
+ 
+-	/* display a default message */
+-	err = linedisp_display(linedisp, LINEDISP_INIT_TEXT, -1);
++	err = linedisp_set_message(linedisp, LINEDISP_INIT_TEXT, -1);
+ 	if (err)
+ 		goto out_del_attach;
+ 
+@@ -471,6 +489,9 @@ int linedisp_attach(struct linedisp *linedisp, struct device *dev,
+ 	if (err)
+ 		goto out_del_attach;
+ 
++	/* display the prepared default message */
++	linedisp_update(linedisp);
++
+ 	return 0;
+ 
+ out_del_attach:
+@@ -557,8 +578,7 @@ int linedisp_register(struct linedisp *linedisp, struct device *parent,
+ 	if (err)
+ 		goto out_del_timer;
+ 
+-	/* display a default message */
+-	err = linedisp_display(linedisp, LINEDISP_INIT_TEXT, -1);
++	err = linedisp_set_message(linedisp, LINEDISP_INIT_TEXT, -1);
+ 	if (err)
+ 		goto out_del_attach;
+ 
+@@ -566,6 +586,9 @@ int linedisp_register(struct linedisp *linedisp, struct device *parent,
+ 	if (err)
+ 		goto out_del_attach;
+ 
++	/* display the prepared default message */
++	linedisp_update(linedisp);
++
+ 	return 0;
+ 
+ out_del_attach:
 -- 
-2.53.0
-
-
+2.39.5
 
