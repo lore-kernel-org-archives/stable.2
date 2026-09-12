@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670153AC17
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7228434E774;
+	Sat, 12 Sep 2026 15:08:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225729; cv=none; b=XNdnMKpgxxlSyyALF1MSl690QIV7RvHZJ0J1Cl4DG9Ahimf4FkjH2b5GaOccmGD6LuiB3QyaZIrCNgLEupB1eNOu+AYRXXhC3mSGY25srD+bi9cwbZMQzQ81VYescF7SCwjrNh0MY0lIMcCiO1ivxvlPdBV+PzcPpWWwEUZu6hU=
+	t=1789225730; cv=none; b=Vu66PBqSCaqazHJBhvFn5ex2LWiyjNmDJpwjadMAt4aPmPxhohRAnLUOhGylEBD13AOEqwAjPL5SgBRP7wGn30XLhaI6l06tShV1in/j/+oRnswpA6CoWYt4IXmL0WQ2Puj6zFq59zwV9Rn6vQjh9vVK2wp9lvN1oriB5m34gcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225729; c=relaxed/simple;
-	bh=JVC14T0NlR91z9MdhqWTlHIW6Ij3gw2JjdgenNfnY/s=;
+	s=arc-20240116; t=1789225730; c=relaxed/simple;
+	bh=k/gZC63uwahlPRoX6JNPhXv6Wd3RLB3xyJhbfIDysag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HaCSAJH+4DWQotQZtwdbgaIvGJ27aWhsTDDB8FgUxqf/t1xZTjk/6XLiZxa/kwvWqDeKU4dwZO6e4c+VXBALefob0Sa3jPez8eC/MBOpPOa8/m22gczhUsJpPEfepY/lbq8npqCGMt5WBJXXfUjtL+tR94+lZBX7v8KzQCfyV4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ky3SFMKI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q/1PsHniq/KvCYBuqG7KilprATyoCBHj77dTIx2us81nLg6GZEI0VVYMR8/yYbiI/iMWNsX4okrgHN3YjGkdTKNs6InuQQXrB7yRcLQ+EQVEPTiJ5Pl+S9XN7y/F2LCl+0U4YQlYUOCnorG3+oxNiO2cUR/HSAnys9q1ZDhj600=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TZCSQqmK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ky3SFMKI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940501F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TZCSQqmK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E237E1F00893;
 	Sat, 12 Sep 2026 15:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789225728;
-	bh=pdKRAcOJqkWunvBEfX61EFAN3Mj+gdKa5faqq6sm9Pw=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789225729;
+	bh=K5dgJ4vwBFPUSos+viGHV7H8yiL+9vtDlhTjfa/Mvbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ky3SFMKIbIPfiyrWJUKUWT4XmRiqK362JtqzP4/EHkWMHSa7yHmkdtuzLLKa//KUE
-	 KBWT+v2jmAy9Cq0H9NZ5oMXma5rp4uTR1cVrIrvp8IgwcT8RdAl8MXZMCH61kiZDdd
-	 EXqzd2irou/qj7rOR1mFuxgjr5cDdZD+DzzngsrW8Y8x+jVayMzjcw65J0T9Vfc4jD
-	 ZWb7pPHwBqYikByQoyPKoTgw7e0b/9EcXhgLFyVAeZzbyYEGYyFaQOEzR6WwimlayE
-	 aDAr3VEJhjjSZwU9+18LjgP1ipAo1z6jPsx3ogtURj3b2TR2uSdAXdaAhOjBvmmd0D
-	 seVu0RTHyTfGQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=TZCSQqmKz2B750x7u3gtbzImeqNnZphyGpddSRotvk9FUFUGvVPjZ26bnga4eiwyu
+	 nEbAwNEPBTihn5I8QjkUqg30VFNm5vpE8Mh3xMhuLC00HwAfArAh7eeeKLGvsTdok2
+	 1EWD3hQyy0XS3bdvGlJqtpUr2yxLNnvbIsBAedk8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Rob Clark <robdclark@chromium.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] drm/msm/dsi: do not enable PHYs when called for the slave DSI interface
-Date: Sat, 12 Sep 2026 11:08:44 -0400
-Message-ID: <20260912150846.3054393-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090910-activist-busily-77c5@gregkh>
-References: <2026090910-activist-busily-77c5@gregkh>
+Subject: [PATCH 6.6 1256/1424] ksmbd: disconnect on SMB3 decryption failure
+Date: Sat, 12 Sep 2026 09:01:28 +0200
+Message-ID: <20260912065635.408908217@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,46 +46,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit a14440042fe8dac6b7c507a946f46a6f50c9c05d ]
+------------------
 
-Move the call to dsi_mgr_phy_enable after checking whether the DSI
-interface is slave, so that PHY enablement happens together with the
-host enablement.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Link: https://lore.kernel.org/r/20210609211211.2561090-1-dmitry.baryshkov@linaro.org
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Stable-dep-of: 6cd33b6f4155 ("drm/msm/dsi: round 6G byte clock rate to the PLL-achievable value")
+[ Upstream commit 12a6680ce59bcd431730c9f049caddb017964c64 ]
+
+MS-SMB2 requires the server to disconnect a connection when an
+encrypted transform cannot be associated with a session or fails
+authenticated decryption. This includes an encrypted request that
+still carries a SessionId invalidated through PreviousSessionId.
+
+Move the connection to EXITING and shut down its transport when
+decrypt_req() fails. Add the missing TCP shutdown callback so a receive
+blocked in kernel_recvmsg() is released; SMB Direct already provides
+the corresponding callback.
+
+Plaintext requests using an invalidated SessionId do not take this
+path and continue to receive STATUS_USER_SESSION_DELETED.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/smb/server/connection.c    | 16 ++++++++++++++++
+ fs/smb/server/connection.h    |  1 +
+ fs/smb/server/server.c        |  4 +++-
+ fs/smb/server/transport_tcp.c |  6 ++++++
+ 4 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index fb421ca56b3da..5736665da97b5 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -381,14 +381,14 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 	if (!msm_dsi_device_connected(msm_dsi))
- 		return;
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index 672c7f56546c3..8edae6eada3d1 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -255,6 +255,22 @@ void ksmbd_all_conn_set_status(u64 sess_id, u32 status)
+ 	up_read(&conn_list_lock);
+ }
  
--	ret = dsi_mgr_phy_enable(id, phy_shared_timings);
--	if (ret)
--		goto phy_en_fail;
--
- 	/* Do nothing with the host if it is slave-DSI in case of dual DSI */
- 	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
- 		return;
- 
-+	ret = dsi_mgr_phy_enable(id, phy_shared_timings);
-+	if (ret)
-+		goto phy_en_fail;
++void ksmbd_conn_abort(struct ksmbd_conn *conn)
++{
++	bool shutdown = false;
 +
- 	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi);
- 	if (ret) {
- 		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
++	spin_lock(&conn->request_lock);
++	if (!ksmbd_conn_exiting(conn) && !ksmbd_conn_releasing(conn)) {
++		ksmbd_conn_set_exiting(conn);
++		shutdown = true;
++	}
++	spin_unlock(&conn->request_lock);
++	wake_up_all(&conn->req_running_q);
++
++	if (shutdown && conn->transport->ops->shutdown)
++		conn->transport->ops->shutdown(conn->transport);
++}
++
+ void ksmbd_conn_wait_idle(struct ksmbd_conn *conn)
+ {
+ 	wait_event(conn->req_running_q, atomic_read(&conn->req_running) < 2);
+diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
+index e277c224ef34c..01b9020146a41 100644
+--- a/fs/smb/server/connection.h
++++ b/fs/smb/server/connection.h
+@@ -165,6 +165,7 @@ struct ksmbd_conn *ksmbd_conn_alloc(void);
+ void ksmbd_conn_free(struct ksmbd_conn *conn);
+ struct ksmbd_conn *ksmbd_conn_get(struct ksmbd_conn *conn);
+ void ksmbd_conn_put(struct ksmbd_conn *conn);
++void ksmbd_conn_abort(struct ksmbd_conn *conn);
+ int ksmbd_conn_wq_init(void);
+ void ksmbd_conn_wq_destroy(void);
+ bool ksmbd_conn_lookup_dialect(struct ksmbd_conn *c);
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 21869bcd7f2cd..247595d8cb90b 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -170,8 +170,10 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 	if (conn->ops->is_transform_hdr &&
+ 	    conn->ops->is_transform_hdr(work->request_buf)) {
+ 		rc = conn->ops->decrypt_req(work);
+-		if (rc < 0)
++		if (rc < 0) {
++			ksmbd_conn_abort(conn);
+ 			return;
++		}
+ 		work->encrypted = true;
+ 	}
+ 
+diff --git a/fs/smb/server/transport_tcp.c b/fs/smb/server/transport_tcp.c
+index b3a1df597d50c..faf6f7a34a2be 100644
+--- a/fs/smb/server/transport_tcp.c
++++ b/fs/smb/server/transport_tcp.c
+@@ -468,6 +468,11 @@ static void ksmbd_tcp_disconnect(struct ksmbd_transport *t)
+ 		atomic_dec(&active_num_conn);
+ }
+ 
++static void ksmbd_tcp_shutdown(struct ksmbd_transport *t)
++{
++	kernel_sock_shutdown(TCP_TRANS(t)->sock, SHUT_RDWR);
++}
++
+ static void tcp_destroy_socket(struct socket *ksmbd_socket)
+ {
+ 	int ret;
+@@ -721,5 +726,6 @@ static struct ksmbd_transport_ops ksmbd_tcp_transport_ops = {
+ 	.read		= ksmbd_tcp_read,
+ 	.writev		= ksmbd_tcp_writev,
+ 	.disconnect	= ksmbd_tcp_disconnect,
++	.shutdown	= ksmbd_tcp_shutdown,
+ 	.free_transport = ksmbd_tcp_free_transport,
+ };
 -- 
 2.53.0
+
+
 
