@@ -1,148 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DD732D43C;
-	Sat, 12 Sep 2026 17:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78693630AE
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 17:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789233090; cv=none; b=irtpKJ+gV42nJG2CKNx7yHvXiu+Es3EgO5KEZ73gY6mJq2Lu2D7UPitKs88MX/AEghs4g1ZmDbQCTMPRC+dJVcZ4b7P1/V2h1YG8kJt8jo28SIzQQDXIGha32Hi7BhS+spFGh0eabdyDCgx2yuAIEpTzLMf53wnkhaJ2KJtc0Bc=
+	t=1789233750; cv=none; b=sPyfKIeaQDGegkxLCT2c0/rWETHgpcz9AIx39qIRTQkpwtdeJCW8CYMI6WdKGv68GNp4tweQtYAAFU5Qb1bxSSjnNioFI1Yz9oghPAe10JL5/3OoIZ1ji3P0guTA9yeoGn2megFvp9Lm5DudV3Reg04uikJkeLsnPT0pINl38Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789233090; c=relaxed/simple;
-	bh=hX0X3/xQJeaRCWn5LOm16b38Ny4OARre6TmJGfw3F2M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oDTPkCgOpionUYhJS4KYzWLdpPPnEiHYsPencHEJBMzIHWqDzpf98c7H4RRxVSAlnG2VqFA2pYZDq9/msbgyKpNrW8aE/H9YIFYNTxMVOUnH7Xc28U50Ukp5icvJ0iKpQYQI9b4alfdCgBCV+knuj4icM3aZGIRRvRD1ius0yv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PdWT7Y5N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789233750; c=relaxed/simple;
+	bh=hpBsZXNBeHPrFJK9Lbz0PnTnlPM0COJh6UkqAnbYP0Q=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References; b=r9mmVeOO+/AytlWIklOgCQbSjD7crAPVLIyyqGKaj04jYctCvJTVBFy4OuPffOHV0XS2cEY04BOVWvDgAXUwJbiISvcS7TqfYASQePS8aaR9MiRzBzTsw72KOG1loGY0r8z5lyBR57qzQaCxf+kMRqeVcyT11N1JpDbP+6hlv9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SpuHY/I3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PdWT7Y5N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A721F000FF;
-	Sat, 12 Sep 2026 17:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789233089;
-	bh=5ekjnNkZMFm0lKrnXL1Tgm8nHLJzGJ3lunjq51JOxnI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PdWT7Y5NW/A+mn0r+VZtSEQBK29KmKXgVWoyql9PwS64kSykekyWB8j7F2KmGWyMx
-	 BfR51T+V2NcD9A6tZucvFctgmu40E/IkrrfccUUtQL2SA7apjLZdIsLb8RFfaVw7FF
-	 F9t5U0Qfj5NI7OrTpRNZ5sez36612/iOmWL+TB8Q=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	Keith Busch <kbusch@kernel.org>
-Subject: [PATCH 5.15 143/935] nvme-tcp: do not accept C2HData based on blk_rq_payload_bytes() alone
-Date: Sat, 12 Sep 2026 08:52:53 +0200
-Message-ID: <20260912065530.100223108@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
-References: <20260912065526.833703348@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SpuHY/I3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so2820205e9.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 10:22:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789233747; x=1789838547; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7htttlEbVC3R3ww5ajtrz8G1FuecAdq74SLVWP0a2Gw=;
+        b=SpuHY/I37o4Agby3kdV7/gMwEmDJqI9wefuHljnwF4Wga8Lvg5JWgHtoselbavShMF
+         GwqDp+G1MpL2eOELCN0IoEfXthWx62MegRK1lIEsLH1GjqoIusd/He/PXTY/cJrRo1n6
+         468X8419rJcbXSKwnqR14+0mJ+InzxWCeAJ9hcsMrTqqn+On8xm3fK44sIYl+fMK2n6k
+         OkexfbwsR+RdTQL6FRv6SmMhlkjGc3S1MHzg4chJW/438zEaYQxisiE1QhksNX833BQA
+         biV/Vn36x62m5H2emHsdlU4+H+u4C6aDRlK5VR57ILTviny4HVVcrDFtq/vlnD4mEVif
+         JNVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789233747; x=1789838547;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7htttlEbVC3R3ww5ajtrz8G1FuecAdq74SLVWP0a2Gw=;
+        b=gOJguI2F2vkK/YIy1vFDMCUy8T7EWw+slGJwP8iOtEugfcatKgO9HA5b2sxPfMcBJr
+         FgI5an455qyN7b2XKzLC0VmcF0uTjrzstLiH78Zk68dYwIy+QLx9FXlhx+B2X/j2/Vir
+         4B4DlNbzCJMPEeu/2K+tIltRO1W8Mt1gAUEvsWzNjc7xIl2Iutw9go0N8P3d+ND1YEWe
+         3wcZmHAgbyftCpyf3uc8XtuUk0bwU3cdH2V3ibnMwdNbKfRznzMoJrj+U9hKF68h+UW/
+         PkQPZQvwVNQBkWKEr2mojgY5dTFSURjcDJ7KT1VDR8bFlRYTk2gm9n/yBD4NblXDeCrH
+         4gJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzEvZ2l1ZUl1OdsJRh+go1h1IwPkjvy6iqKVFs7aU5gnXkjKQFKlgt3ojeIela7Hvenyi02zBY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljPU7swLUnJN3Gzl2gIO6pd+yXPrxm6egOZpJA0yqePtEHkhOv
+	tgPuCa7GONx/+X/4D+OMYxOOsRtaE551XOzYrup52Sbea+9yz7E97jdj+zI9ug==
+X-Gm-Gg: AYBFou2X2FqmKWPKxCIctj4E3eDSKfNtiEMheiUX8+x3hPgLEy6tlMGSECBwkwSqASV
+	IJXMYEvsScoZYwYQSqtt40yU10pqIZmanHEP++jwImi04fLpfdLlsZyV++usFIpBuifK5O9lUQy
+	uiLEAsi+JTzMDNyzyyMdSa0gJL1WStJ4PyBBpC53tgowLOFms3VzS//IfUOcsLw1IZbbB/7ME9s
+	TQFblNJL+aZDU+l1ceWjxeqQFu/bQkX9YB613IaPT2zWxY9x2UKxJhGuqJMoXcVZxwBZ4LQAeh6
+	wKkys6+Xz2zl7ObzFuWAkihvJTy2FVdYgDTX9p0zkeZvKtEIoqjjz56fkuJfnIaJ+qyUOggQsnU
+	8WbrByOooD5U85ELyQieiZLhZgs9SL631+idCYYr17YLhamofBj4reYX+iw9/+5Cv+RvYReJWZh
+	4Qvp2rsZZveQrfYep2xQd1B3IiYtF3A1F0fh9lbTnhhUEu38msY8/waUTyUTvrWgMxAOg6NLF5f
+	4ruzQ==
+X-Received: by 2002:a05:600c:c490:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49e619c0423mr109285725e9.16.1789233746663;
+        Sat, 12 Sep 2026 10:22:26 -0700 (PDT)
+Received: from SurHub.localdomain ([102.213.68.188])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e81asm14491404f8f.7.2026.09.12.10.22.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 10:22:26 -0700 (PDT)
+Content-Type: text/plain; charset="us-ascii"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: linkinjeon@kernel.org
+Cc: sashal@kernel.org, gregkh@linuxfoundation.org, stable@vger.kernel.org
+Subject: Re: [PATCH 6.18.y] ksmbd: defer oplock break until m_lock is released
+Date: Sat, 12 Sep 2026 20:22:22 +0300
+Message-ID: <178923374277.30348.14595304921780051144@gmail.com>
+In-Reply-To: <20260911151056.27965-1-suruurism@gmail.com>
+References: <20260911151056.27965-1-suruurism@gmail.com>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hi Namjae,
 
-------------------
+Sasha is holding this 6.18.y follow-up pending a maintainer review:
 
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+  https://lore.kernel.org/stable/20260911151056.27965-1-suruurism@gmail.com/
 
-commit 3a4aa9e6ad3e35f8e24d5eaf38ee4d437075fb36 upstream.
+The 6.18.y backport of the oplock UAF fix (c8279ae8df68, shipped in
+6.18.51) calls oplock_break() directly while holding ci->m_lock, and
+the backported smb2_oplock_break_conn_get() takes down_read(ci->m_lock)
+internally -- a self-nested read lock that deadlocks as soon as a
+writer queues behind it.  The patch ports the oplock_break_add()/
+oplock_break_drain() machinery you have on newer branches so the three
+walks collect the breaks and drain them after releasing m_lock,
+matching the 7.2.y and 6.12.y shape of the fix.
 
-Commit 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes
-processing") established that blk_rq_payload_bytes() must not be read
-without first checking blk_rq_nr_phys_segments(), and recorded the
-result in nvme_tcp_setup_cmd_pdu() as req->data_len. The receive side
-was left as it was.
+Could you give it a Reviewed-by/Ack when you get a chance?
 
-The two differ for REQ_OP_WRITE_ZEROES, which has no physical segments
-but a non-zero blk_rq_bytes(), so setup leaves req->iter untouched
-while the receive gate lets a C2HData through and nvme_tcp_recv_data()
-copies into whatever the previous command on that tag left there. The
-driver-private area is zeroed only when the tag set is allocated.
-
-Reproduced with a test target that leaves a residual iterator on a tag
-and then sends a C2HData for a WRITE_ZEROES command on the same tag:
-
-BUG: KASAN: wild-memory-access in _copy_to_iter+0x642/0x1330
-Write of size 512 at addr ffe728c2175dfa81 by task kworker/0:1H/103
-
-CPU: 0 UID: 0 PID: 103 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMETCP-gf5098b6bae76 #1 PREEMPT(lazy)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvme_tcp_wq nvme_tcp_io_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- kasan_report+0xce/0x100
- ? _copy_to_iter+0x642/0x1330
- kasan_check_range+0x105/0x1b0
- __asan_memcpy+0x3c/0x60
- _copy_to_iter+0x642/0x1330
- ? __pfx_sock_has_perm+0x10/0x10
- ? worker_thread+0x45b/0xd10
- ? __pfx__copy_to_iter+0x10/0x10
- ? _raw_spin_lock_bh+0x83/0xe0
- ? __pfx__raw_spin_lock_bh+0x10/0x10
- __skb_datagram_iter+0xf3/0x820
- ? __pfx_simple_copy_to_iter+0x10/0x10
- ? __asan_memcpy+0x3c/0x60
- ? skb_copy_bits+0x58d/0x830
- skb_copy_datagram_iter+0x37/0x120
- nvme_tcp_recv_skb+0xa07/0x4320
- ? __pfx_nvme_tcp_recv_skb+0x10/0x10
- __tcp_read_sock+0x1ab/0x810
- ? __pfx_nvme_tcp_recv_skb+0x10/0x10
- ? __pfx_lock_sock_nested+0x10/0x10
- ? __pfx___tcp_read_sock+0x10/0x10
- nvme_tcp_try_recv+0x152/0x1e0
- ? __pfx_nvme_tcp_try_recv+0x10/0x10
- ? __pfx_mutex_unlock+0x10/0x10
- nvme_tcp_io_work+0x1e4/0x6c0
- ? __schedule+0x181a/0x49f0
- ? __pfx_nvme_tcp_io_work+0x10/0x10
- process_one_work+0x633/0x1030
-
-Keep the blk_rq_payload_bytes() test and add req->data_len to it. The
-old test is what rejects a C2HData naming a tag that is no longer in
-flight, because blk_update_request() zeroes rq->__data_len on
-completion; req->data_len and req->curr_bio are driver-private and
-survive completion, so they cannot stand in for it. Setup initialises
-the iterator only when both req->curr_bio and req->data_len are set, so
-the gate now tests the same two.
-
-Fixes: 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes processing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/nvme/host/tcp.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -554,6 +554,7 @@ static int nvme_tcp_process_nvme_cqe(str
- static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
- 		struct nvme_tcp_data_pdu *pdu)
- {
-+	struct nvme_tcp_request *req;
- 	struct request *rq;
- 
- 	rq = nvme_find_rq(nvme_tcp_tagset(queue), pdu->command_id);
-@@ -564,7 +565,8 @@ static int nvme_tcp_handle_c2h_data(stru
- 		return -ENOENT;
- 	}
- 
--	if (!blk_rq_payload_bytes(rq)) {
-+	req = blk_mq_rq_to_pdu(rq);
-+	if (!blk_rq_payload_bytes(rq) || !req->curr_bio || !req->data_len) {
- 		dev_err(queue->ctrl->ctrl.device,
- 			"queue %d tag %#x unexpected data\n",
- 			nvme_tcp_queue_id(queue), rq->tag);
-
-
+Thanks,
+Abdifatah
