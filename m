@@ -1,175 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73658191F93
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:42:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76603019D8;
+	Sat, 12 Sep 2026 14:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224123; cv=none; b=liXMf1+d+pftEShV8TR4LcLmd1I5taza0cFaLUzMgYyztNo0s8VusE2A60dOllE3jbavZWvOj+h1loCNf1YFvhg4S7Vxr1H13jsBD3Ws3ueoo+vTgRpj694gMhyJ3nEPNxe/eqkRmjSCpCt99f8gyhweTEsvTPVsypcqLl5ZaHE=
+	t=1789224125; cv=none; b=iHGDj+tEt/svWFDbZeyVRWK420HaLSwDf6JZ081iPUvoABKowd/95fRhvxEaV4wpOjlO6jPxamGGMorLKH0pYY1mZOA5wJOLBLqfJvjqQQWnKoWUqTAzqRuqjTd4qUrt8n21shR6ejEBnv6WzOSJobXM+vL4bTR97RPzHQ7kX9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789224123; c=relaxed/simple;
-	bh=a7IZfIHGr3vFTvIdxAws+ryoZlq87jxysoMferfbWfk=;
+	s=arc-20240116; t=1789224125; c=relaxed/simple;
+	bh=9NLnFAiBDZotKb7xbgGs9ddVdcFmKh6O/Y+wvD8RdOw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PEhCSl8/rc42Zxb5Zsd59vckzu+Wb1L9byARdC5+cQFaPjxKYkfolZydz31/4n+TSllF4/0wkTYUXNoY8YEeHCmibx5aJuxGidIfP9tXS1FAgNyEEboPjLOC0L9sVwreDdAnUL48TCw7vU/+4M/4yNtN92UEaohj3gBpkP2Wpak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Undm9dh0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EzbFCX7CJCek3v2N7CeNG2NmXn1pYbXgCXfmiK9GafFuSfYm6IIjSVnG9Y8gHfWWzHkp5mgLHdoqw8llwXwLq1Qlw66SHzTXVASW6uROieyT6t0Fk0f4SSUXLHhq1i4WsrE8iariJiPbdZH6PUWVCiU4qnyoB5ysVG/whAzv4aY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=muaD/aUO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Undm9dh0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B82D1F000FF;
-	Sat, 12 Sep 2026 14:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789224122;
-	bh=PTWDdiZc+qUX892OUbIxUHea70Qb9nFYXz2iNTZnf8o=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="muaD/aUO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC3A91F00893;
+	Sat, 12 Sep 2026 14:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789224123;
+	bh=jzt4VqN3hg7397v1S4KGo6vToGP1EfCtynKUN38tWLQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Undm9dh0c+lkAAJFESKfQ4rj0bWSzLVfor0Zkkz5fCM1iJ8wGF1mOTFLhnNN08r+I
-	 xSUQREAhEw2/rqR0gxZtUTjlqO/q/qbPdeyt0SDsoIgRDgc96oj6g7AGqz2zubfYAN
-	 TmcEbbIHZT+9FNgNs3bfEpUF7B+1OdL6I/MoTIxAV7L6AigwDeUtJITDzFRsbqHyap
-	 4kcpZkXayufUxYhcT38gW6R3xsYxKrd+FsDbL4SkDyN0o67bp/p+nWcrSPkQp4HYrZ
-	 gRIflX6QdQ1grA/sBVHN7X7DHTRxIvrhxzihAmXoRHsz/8AW1PvyCYe09SFDJECQog
-	 wUsl27Ud4/pMw==
-From: Sasha Levin <sashal@kernel.org>
+	b=muaD/aUOjMsRbvJyNjazgHMQR49ME3kPgpvdYTJ+2JqymSStmE8lIVkOe+574GJK8
+	 WnFUKiRPCqT4e5xSFC9zThhoRw0lMeEnjpGMxRQC0vCSM9oZzMNQtTRy+a0y0CA+Wv
+	 qrZkZhHBs8DyfRUkGqBD5xsAlwIMh+GjfBGVHpJk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Yongbang Shi <shiyongbang@huawei.com>,
-	Rongrong Zou <zourongrong@gmail.com>,
-	Sean Paul <seanpaul@chromium.org>,
-	Xinliang Liu <xinliang.liu@linaro.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Baihan Li <libaihan@huawei.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hongyan Xu <getshell@seu.edu.cn>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-Date: Sat, 12 Sep 2026 10:41:59 -0400
-Message-ID: <20260912144159.2988791-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090902-sequester-penpal-1d95@gregkh>
-References: <2026090902-sequester-penpal-1d95@gregkh>
+Subject: [PATCH 6.6 0929/1424] platform/chrome: cros_ec_debugfs: Clean up console log on probe failure
+Date: Sat, 12 Sep 2026 08:56:01 +0200
+Message-ID: <20260912065628.127648459@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 715c5db68bdbd4a524b79ebf20fb61e880fffea0 ]
+------------------
 
-Call drm_atomic_helper_check_plane_state() from the primary plane's
-atomic-check helper and replace the custom implementation.
+From: Hongyan Xu <getshell@seu.edu.cn>
 
-All plane's implementations of atomic_check should call the shared
-_check_plane_state() helper first. It adjusts the plane state for
-correct positioning, rotation and scaling of the plane. Do this
-even if the plane's CRTC has been disabled by setting the parameter
-can_update_disabled. The original code returned early in this case,
-but it's safe to so and cleaner to have all plane state initialized.
+[ Upstream commit 5d187600c4603b8f7812b12ce359a11ad7a7fd3a ]
 
-As we don't set can_position, drm_atomic_helper_check_plane_state()'s
-visibility check tests if the plane covers all of the CRTC. This is
-a small change from the original code, which tested if the plane is
-exactly the size of the CRTC. With the new test, the plane still has
-to cover all of the CRTC, but can be larger than the CRTC's size. A
-later patch can fully implement this feature in hibmc.
+Add a dedicated error label for failures after successful console log
+setup.
 
-If the plane is disabled, the helper clears the visibility flag in the
-plane state. On errors or if the plane is not visible, the atomic-check
-helper can return early. Implement all this in hibmc and drop the custom
-code that does some of it.
-
-v2:
-- extend the commit description (Yongbang)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-Cc: Rongrong Zou <zourongrong@gmail.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Baihan Li <libaihan@huawei.com>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
-Cc: <stable@vger.kernel.org> # v4.10+
-Link: https://patch.msgid.link/20260618123142.92298-2-tzimmermann@suse.de
-[ adapted to 5.15’s drm_atomic_state signature and DRM_PLANE_HELPER_NO_SCALING constant from drm_plane_helper.h. ]
+Fixes: d90fa2c64d59 ("platform/chrome: cros_ec: Poll EC log on EC panic")
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Link: https://lore.kernel.org/r/c00974953a1b952f51f0f021d7f9fad134159909.1785320940.git.getshell@seu.edu.cn
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 47 ++++++-------------
- 1 file changed, 15 insertions(+), 32 deletions(-)
+ drivers/platform/chrome/cros_ec_debugfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index db7fce4e8cc34..0b619ad8741ae 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -17,6 +17,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_vram_helper.h>
-+#include <drm/drm_plane_helper.h>
- #include <drm/drm_vblank.h>
+diff --git a/drivers/platform/chrome/cros_ec_debugfs.c b/drivers/platform/chrome/cros_ec_debugfs.c
+index 793c8c4bf35ba..0c01ffd72de26 100644
+--- a/drivers/platform/chrome/cros_ec_debugfs.c
++++ b/drivers/platform/chrome/cros_ec_debugfs.c
+@@ -521,7 +521,7 @@ static int cros_ec_debugfs_probe(struct platform_device *pd)
+ 	ret = blocking_notifier_chain_register(&ec->ec_dev->panic_notifier,
+ 					       &debug_info->notifier_panic);
+ 	if (ret)
+-		goto remove_debugfs;
++		goto cleanup_console_log;
  
- #include "hibmc_drm_drv.h"
-@@ -72,46 +73,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
- static int hibmc_plane_atomic_check(struct drm_plane *plane,
- 				    struct drm_atomic_state *state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
--										 plane);
--	struct drm_framebuffer *fb = new_plane_state->fb;
--	struct drm_crtc *crtc = new_plane_state->crtc;
--	struct drm_crtc_state *crtc_state;
--	u32 src_w = new_plane_state->src_w >> 16;
--	u32 src_h = new_plane_state->src_h >> 16;
--
--	if (!crtc || !fb)
--		return 0;
-+	struct drm_plane_state *new_plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
+ 	ec->debug_info = debug_info;
  
--	crtc_state = drm_atomic_get_crtc_state(state, crtc);
--	if (IS_ERR(crtc_state))
--		return PTR_ERR(crtc_state);
-+	if (new_plane_state->crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+@@ -529,6 +529,8 @@ static int cros_ec_debugfs_probe(struct platform_device *pd)
  
--	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
--		drm_dbg_atomic(plane->dev, "scale not support\n");
--		return -EINVAL;
--	}
--
--	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
--		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
--		return -EINVAL;
--	}
--
--	if (!crtc_state->enable)
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_HELPER_NO_SCALING,
-+						  DRM_PLANE_HELPER_NO_SCALING,
-+						  false, true);
-+	if (ret)
-+		return ret;
-+	else if (!new_plane_state->visible)
- 		return 0;
- 
--	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
--	    crtc_state->adjusted_mode.hdisplay ||
--	    new_plane_state->crtc_y + new_plane_state->crtc_h >
--	    crtc_state->adjusted_mode.vdisplay) {
--		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
--		return -EINVAL;
--	}
--
- 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
- 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
- 		return -EINVAL;
- 	}
-+
  	return 0;
- }
  
++cleanup_console_log:
++	cros_ec_cleanup_console_log(debug_info);
+ remove_debugfs:
+ 	debugfs_remove_recursive(debug_info->dir);
+ 	return ret;
 -- 
 2.53.0
+
+
 
