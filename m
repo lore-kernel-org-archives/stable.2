@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03E83ABD96;
-	Sat, 12 Sep 2026 20:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEA23AEF35;
+	Sat, 12 Sep 2026 20:04:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243487; cv=none; b=aRUGLqWq91ATTKYI4iX+H23hCemml+mJAiJYrHmyUb0wd+Xuj80J3mxqZfCwCLDklnQt3fE719V99Npr7I3Qq1mwH+8dxV1LECin9g2k3XMTie5V6zCzpGw3cH0HmeH2QAgKMzN7HWHcxGClzkqJmswPA2KKQkcIuHdM44qATCk=
+	t=1789243499; cv=none; b=K7/W2j68RsY2a17f3F+LBDkUJApMMhfg0ybzHfIsvqTU0ZiwTocvgjMN8WYHo/Y79X5Hgc5lTY66G/mDor+092sOs5BXdHKMvX1pYdvnQznw0Qrv7OmMvwjXpcr+F6uQ8C7jaXFgvctVUz1/svTexiolrhxJe6tihlRxM3vh/ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243487; c=relaxed/simple;
-	bh=+tVI98R5QDKbQFVW2Gy7yJIaRyAJf16jEz4JOh2CICQ=;
+	s=arc-20240116; t=1789243499; c=relaxed/simple;
+	bh=qBdp26eLdwkLOTgW8drZWNUxwvLP9yii5Y3uFQlT1e0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ag/cWppkDSK7oS6U9z5s/4xuI6bl8Cd6FirxizaDuqm37NrOox4HTAtQl3A80aFBMWF/jjNoAMaurzHYZUPubJe1TBkKUv7eD7XjCCRAtQzcCp29nLlYmhI1MLaO1+Jmlg+QRj4ObX4hCuW65znzNAwjRro8JkNY9MHhSt3+d3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wwq0XFeV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Jp/N5oeYfpu1pC625Sg2RG1AEK8idrks2pGdl0cj1iUI4W5+ZqPHQSrgitu3Ac1Clx0AUZ0FBW707SFYCS/uboYDaW7NfGpzYESAdVCD3UHs4tlPijJdpx3stbblMIA5Ww9tSaaN8JxyYOn0WU0jB2FKX3F39FbjQVhEOlnfnuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PAz0s5zb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wwq0XFeV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFCD1F0089B;
-	Sat, 12 Sep 2026 20:04:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PAz0s5zb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7358A1F0089B;
+	Sat, 12 Sep 2026 20:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789243481;
-	bh=c0Dbkt5cOs2mqRZDjhEz/oXXbYYlM9fBUzMvCesInC8=;
+	s=korg; t=1789243496;
+	bh=MWiOUYZZUagKMdUB2d6LtO3uN+zvg9hwgjv+Qw13uMw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wwq0XFeVwXmD/u+V/62v38HWd83C3Qw7NioKroJNFgqDOzmD0N/XQ9bNwN9JQaQN7
-	 +jON7IyhEOtc0rsb3LC5dJf/uQ5BJlNbvQzp9U/OcPYNwe7apIHnZBTsZ3K4t4cikl
-	 bDsF7tyARznFAEWhExqsenOb8+f6P/S9MFitT+Z8=
+	b=PAz0s5zbzcqolKPRX2ghekeveAcsc/hvuGOAzOsy7KDZy31K+6vlo54k/3l4BXclh
+	 B4uY2KTdnLUXwqrZ2H0rcCvmbO/AS4W5lwx2wfk5CpFBunPLmZwyQVoVOg4kAuNt6p
+	 eQ+r8RFp0fBwlmHt8t7/ckybIKVMvkP80jQ5iOTc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Hidayath Khan <hidayath@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Jan Engelhardt <ej@inai.de>,
+	Florian Westphal <fw@strlen.de>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 743/798] net/smc: free pending qentry in smc_llc_flow_stop() before memset
-Date: Sat, 12 Sep 2026 09:06:11 +0200
-Message-ID: <20260912065534.103441046@linuxfoundation.org>
+Subject: [PATCH 5.10 774/798] netfilter: xt_cgroup: Make it independent from net_cls
+Date: Sat, 12 Sep 2026 09:06:42 +0200
+Message-ID: <20260912065534.807652858@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
 References: <20260912065516.948645775@linuxfoundation.org>
@@ -46,59 +47,99 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+From: Michal Koutný <mkoutny@suse.com>
 
-[ Upstream commit 5ee0ceddc7785c6dcf4a8107fef01f0414a354f4 ]
+[ Upstream commit 3ba0032afea888d0edebf5ece3c6b36417189b63 ]
 
-smc_llc_flow_stop() resets a flow struct with a blind memset:
+The xt_group matching supports the default hierarchy since commit
+c38c4597e4bf3 ("netfilter: implement xt_cgroup cgroup2 path match").
+The cgroup v1 matching (based on clsid) and cgroup v2 matching (based on
+path) are rather independent. Downgrade the Kconfig dependency to
+mere CONFIG_SOCK_GROUP_DATA so that xt_group can be built even without
+CONFIG_NET_CLS_CGROUP for path matching.
+Also add a message for users when they attempt to specify any clsid.
 
-	spin_lock_bh(&lgr->llc_flow_lock);
-	memset(flow, 0, sizeof(*flow));
-	flow->type = SMC_LLC_FLOW_NONE;
-	spin_unlock_bh(&lgr->llc_flow_lock);
-
-If flow->qentry is non-NULL at this point the pointer is overwritten without the
-allocation being freed, leaking one kmalloc object.
-
-A late-arriving duplicate CONFIRM_LINK or ADD_LINK_CONT message can set
-flow->qentry after the legitimate message has been consumed by the waiter via
-smc_llc_flow_qentry_clr() (which NULLs the pointer but leaves flow->type
-non-zero) but before the flow completes and smc_llc_flow_stop() runs.  In that
-window the duplicate is stashed into flow->qentry, and then lost when
-smc_llc_flow_stop() zeros the struct.
-
-Call smc_llc_flow_qentry_del() inside the lock before the memset.
-smc_llc_flow_qentry_del() already checks flow->qentry before freeing, so the
-normal case where no entry is pending is a no-op.
-
-Fixes: 555da9af827d ("net/smc: add event-based llc_flow framework")
-Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
-Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Link: https://patch.msgid.link/20260818073943.1108383-1-mjambigi@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lists.opensuse.org/archives/list/kernel@lists.opensuse.org/thread/S23NOILB7MUIRHSKPBOQKJHVSK26GP6X/
+Cc: Jan Engelhardt <ej@inai.de>
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Michal Koutný <mkoutny@suse.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Stable-dep-of: 793d9eda4821 ("netfilter: x_tables: replace pr_{info,err}() by pr_info_ratelimited()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/smc/smc_llc.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/netfilter/Kconfig     |  2 +-
+ net/netfilter/xt_cgroup.c | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
-index 572d02bfd3eda..e4d2abec8ec86 100644
---- a/net/smc/smc_llc.c
-+++ b/net/smc/smc_llc.c
-@@ -276,6 +276,7 @@ int smc_llc_flow_initiate(struct smc_link_group *lgr,
- void smc_llc_flow_stop(struct smc_link_group *lgr, struct smc_llc_flow *flow)
+diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
+index 8bf70ce03f951..09ab1328e838c 100644
+--- a/net/netfilter/Kconfig
++++ b/net/netfilter/Kconfig
+@@ -1131,7 +1131,7 @@ config NETFILTER_XT_MATCH_CGROUP
+ 	tristate '"control group" match support'
+ 	depends on NETFILTER_ADVANCED
+ 	depends on CGROUPS
+-	select CGROUP_NET_CLASSID
++	select SOCK_CGROUP_DATA
+ 	help
+ 	Socket/process control group matching allows you to match locally
+ 	generated packets based on which net_cls control group processes
+diff --git a/net/netfilter/xt_cgroup.c b/net/netfilter/xt_cgroup.c
+index bfc98719684e2..b182b9e0882b6 100644
+--- a/net/netfilter/xt_cgroup.c
++++ b/net/netfilter/xt_cgroup.c
+@@ -23,6 +23,8 @@ MODULE_DESCRIPTION("Xtables: process control group matching");
+ MODULE_ALIAS("ipt_cgroup");
+ MODULE_ALIAS("ip6t_cgroup");
+ 
++#define NET_CLS_CLASSID_INVALID_MSG "xt_cgroup: classid invalid without net_cls cgroups\n"
++
+ static int cgroup_mt_check_v0(const struct xt_mtchk_param *par)
  {
- 	spin_lock_bh(&lgr->llc_flow_lock);
-+	smc_llc_flow_qentry_del(flow);
- 	memset(flow, 0, sizeof(*flow));
- 	flow->type = SMC_LLC_FLOW_NONE;
- 	spin_unlock_bh(&lgr->llc_flow_lock);
+ 	struct xt_cgroup_info_v0 *info = par->matchinfo;
+@@ -30,6 +32,11 @@ static int cgroup_mt_check_v0(const struct xt_mtchk_param *par)
+ 	if (info->invert & ~1)
+ 		return -EINVAL;
+ 
++	if (!IS_ENABLED(CONFIG_CGROUP_NET_CLASSID)) {
++		pr_info(NET_CLS_CLASSID_INVALID_MSG);
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -51,6 +58,11 @@ static int cgroup_mt_check_v1(const struct xt_mtchk_param *par)
+ 		return -EINVAL;
+ 	}
+ 
++	if (info->has_classid && !IS_ENABLED(CONFIG_CGROUP_NET_CLASSID)) {
++		pr_info(NET_CLS_CLASSID_INVALID_MSG);
++		return -EINVAL;
++	}
++
+ 	info->priv = NULL;
+ 	if (info->has_path) {
+ 		if (strnlen(info->path, sizeof(info->path)) >= sizeof(info->path))
+@@ -86,6 +98,11 @@ static int cgroup_mt_check_v2(const struct xt_mtchk_param *par)
+ 		return -EINVAL;
+ 	}
+ 
++	if (info->has_classid && !IS_ENABLED(CONFIG_CGROUP_NET_CLASSID)) {
++		pr_info(NET_CLS_CLASSID_INVALID_MSG);
++		return -EINVAL;
++	}
++
+ 	info->priv = NULL;
+ 	if (info->has_path) {
+ 		if (strnlen(info->path, sizeof(info->path)) >= sizeof(info->path))
 -- 
 2.53.0
 
