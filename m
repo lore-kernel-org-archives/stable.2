@@ -1,65 +1,49 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8651397B1C;
-	Sat, 12 Sep 2026 18:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BB24908DE;
+	Sat, 12 Sep 2026 18:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789238047; cv=none; b=JbHuCo2fRcHcRsb7U6pMqiSoMfigtRjdze8W5LinYBjEcMfboIKBWe58L1U69Vmf9v0jzJP/FvEv0j69LL0OP9QiSQSVeXG6G0H/WrdIa4WBQjSED3vWwDp14SK+ize9srZSfXSytnVhNh0z/ebC7CgKQkU9q1A9l2BiYGQclaA=
+	t=1789238051; cv=none; b=XSPbxkSkJ230q1ifDjtfWIsd58jyXVQrBX5vUQNXEl+uXgtvLpikIEPgfU5OaO5HyGn1O3Ady/Yy1fPV6WKZSGd0jxAAbI1cpwUgKUfXEf2Vt8Gdsb4kYIJUdk1K8lMYwJlcJAmOPnVndqtloucT31OiISQ3+bkMwB48aRq//s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789238047; c=relaxed/simple;
-	bh=EehspJWxBfgxZxcXNmhaNSb76TeoQuQnC6cupWen7fs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rRcwgUW8lWU6X6iv1raORR0NzyKl1nzyzvm0BQt9XgOHpTgSXRQCJE5ZoMUBmFkh3l1SmP+UQQ96w8MBCRZkE6X5Ai6BGQtRiuKKnd4oHiAijZY3ynpTUy7t6wjkYxhOcG0jsXVsUZK7ANOKbIrDrihHq2KX3TYC0zddmTn2Xg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kMACDoA7; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789238051; c=relaxed/simple;
+	bh=EDetCfHeBVXN7L3EuoQymeVFSnkFW1/kBQ5We6lpmnc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j7Ql/XX41NuQQr5GDUz4UqgiF7rNrs49X6GySdv4N0hgu2MhnyRlVZ9TKZ6OBiRDwfwGq5/hUPIMRMycvvGwbfLYgGWJZRlyoUjmLgtbc1mBRDddnYDwpXF+K9leeupGzgik1GQGNpfYC02W+oLTWM18wlVPrz1zg8SatHmcQRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mUq5HQnm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kMACDoA7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789237960;
-	bh=EehspJWxBfgxZxcXNmhaNSb76TeoQuQnC6cupWen7fs=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=kMACDoA7MXi4fLkLTMUa3dByZanIlgKCnh3bD2kcdv1xEC4g6Tbbtp2iMNsLxahBm
-	 cdrocxj8r3x7a3CF9/rmw6DeYWbMaB8yk4WVVVhyO6mQi+HPrZpMem4BT6nKPpgK12
-	 bVzqYWJowYHrjPQlLHUFTaE36kbei7IloAL5pqfc=
-X-QQ-mid: zesmtpsz9t1789237955teb9d1e36
-X-QQ-Originating-IP: 2MiFuFD/tKLMHaKg2sO6/FCDBS7Mac1mwUPIvJjgmmc=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 13 Sep 2026 02:32:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10537202822548573077
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mUq5HQnm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BCB1F000FF;
+	Sat, 12 Sep 2026 18:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789238049;
+	bh=3M3wUT5KrNC3TnItCS/f+imcG4w5lpmbmv0jiyNMfRY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mUq5HQnmmdH1NL4Um+KDqqF3IOvIv7lciITdY1XB2Y3wt4PUVs9mql9NLvgucuZeB
+	 H3Uhv+mgZ/wsLXOZeoBWgpe+rqWVXc/V+PZ3IpQYWPjYZbn6Qp0nVEBuB5Nw8C27SW
+	 xTHFOF1CwgEtonnIUVzqStiMLtrRLj9C/Fa4pu2Q=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
-Date: Sun, 13 Sep 2026 02:32:28 +0800
-Message-Id: <20260912183228.840180-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Xiao Liu <lx24@stu.ynu.edu.cn>,
+	Zhengchuan Liang <zcliangcn@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 382/935] net: af_key: zero aligned sockaddr tail in PF_KEY exports
+Date: Sat, 12 Sep 2026 08:56:52 +0200
+Message-ID: <20260912065535.582043626@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
+References: <20260912065526.833703348@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,41 +51,150 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Ob956G9wEH2TWSnm5UbP+4jMykKXAuhqZK9T/TKRAR45AaCmZ99Hd1cw
-	gqF+N41baCrIgPRv8rCsBiVuFxKyH+rYIhWrBULESsLdlWbTylfCxSUG6/lmiRzWkdtrLLX
-	I06LWKFcPdXcaHZDbohLPipLPupCG1KXZabP/D4PY+HsGc+nCsYbgt9D1yYDLi6MRCqJYn3
-	jDe0o6YPh5GLK/zZWjUSDUpHa1ES6S5DyGpuq9Ul6Ag6Ag+bbHSxpDzP2IfwzaGhEwaithd
-	HweF3zfznNAIAr9biFsv2b3jJ4PKgR1mRXIVkbqWbfP2A7Dl3Y8n+rDGrCt2ZzaUygJh9BK
-	nVSDm3fvd22ZZn/AWbQmSe3GbtInQ5Mqfqcd4cQR4ysENUhqZQoHAR39eMNdCyYQewslknX
-	56bL/ljyt6MAbwle2nekDo0tFiWwmvIXNpOewffRGOYMHQ1pWkcLK8b6xM5k+qUJL78BS1N
-	TuFG+41J/wjVCSTUtSMWPiPbIVTEsI1nX9FV/geIF9koAQCZ/hHjbvO/q+zyNupqZUMfWbm
-	N/IDn2g0sCZ522nj24pIZT4z/1ygtXD8JoL9DugddPnN1n3cS4LrY+G4PIEmFcwXRbTPhPZ
-	0BmBzjxFJJXCJT7PiGgPYYMd0Ii1HGIv8XBC97G31aj9IpQwjMuQr+Ng0Flk2P+aOWcQ/nQ
-	3SdribuHo7grgJri8crigh8XxveggwbT04hOw08yUaJwQYPLKkFAd99XsPWNa1eVt97a3WI
-	I26Ni2BrUdHoQIsbrpVregwCtC+PaTgwGp+tkNd/JYWEgIINVFcHJQRC+KsGzcRF5QkpSsc
-	KKVfHsvMLhRUy53Phc7K6NLnl706py9D8CXd6AxiCnrTAlCTwLOf+8YhNoQgUvoSmF7hs/H
-	lS6S/kop/rdfteLojXEeNYSOvnA1/aohRtZ2T3ovA4gmFBCCuvbJTn5LYarnMKcDInrQgGR
-	hk2uN8pT4JBbbFTaNablVlWivkwcLoblrXZgamGvGUFWJpzG8pVYeC75UTm1AHyeUY4Uszy
-	sRPjt/ryUtfv3BEy0Ja4msgvdLXhnOiNe9xlxjZCExb2jrNbjHAIhtuacmfi8=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+------------------
 
-Best Regards
-Wentao Guan
+From: Zhengchuan Liang <zcliangcn@gmail.com>
 
-Log:
-Linux version 6.6.157-rc1-arm64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.157-rc1-arm64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #34 SMP PREEMPT Sun Sep 13 01:43:27 CST 2026
-Linux version 6.6.157-rc1-loong64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.157-rc1-loong64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #35 SMP PREEMPT Sun Sep 13 01:58:15 CST 2026
-Linux version 6.6.157-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
-Linux version 6.6.157-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #36 SMP Sun Sep 13 02:14:33 CST 2026
-Linux version 6.6.157-rc1-amd64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.6.157-rc1-amd64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #33 SMP PREEMPT_DYNAMIC Sun Sep 13 01:22:56 CST 2026
+[ Upstream commit 426c355742f02cf743b347d9d7dbdc1bfbfa31ef ]
+
+PF_KEY export paths use `pfkey_sockaddr_size()` when reserving sockaddr
+payload space, so IPv6 addresses occupy 32 bytes on the wire. However,
+`pfkey_sockaddr_fill()` initializes only the first 28 bytes of
+`struct sockaddr_in6`, leaving the final 4 aligned bytes uninitialized.
+
+Not every PF_KEY message is affected. The state and policy dump builders
+already zero the whole message buffer before filling the sockaddr
+payloads. Keep the fix to the export paths that still append aligned
+sockaddr payloads with plain `skb_put()`:
+
+  - `SADB_ACQUIRE`
+  - `SADB_X_NAT_T_NEW_MAPPING`
+  - `SADB_X_MIGRATE`
+
+Fix those paths by clearing only the aligned sockaddr tail after
+`pfkey_sockaddr_fill()`.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 08de61beab8a ("[PFKEYV2]: Extension for dynamic update of endpoint address(es)")
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Co-developed-by: Yuan Tan <yuantan098@gmail.com>
+Signed-off-by: Yuan Tan <yuantan098@gmail.com>
+Suggested-by: Xin Liu <bird@lzu.edu.cn>
+Tested-by: Xiao Liu <lx24@stu.ynu.edu.cn>
+Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/key/af_key.c | 52 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 34 insertions(+), 18 deletions(-)
+
+diff --git a/net/key/af_key.c b/net/key/af_key.c
+index e7ea58cc3a3a7..d1bf0d7b53640 100644
+--- a/net/key/af_key.c
++++ b/net/key/af_key.c
+@@ -757,6 +757,22 @@ static unsigned int pfkey_sockaddr_fill(const xfrm_address_t *xaddr, __be16 port
+ 	return 0;
+ }
+ 
++static unsigned int pfkey_sockaddr_fill_zero_tail(const xfrm_address_t *xaddr,
++						  __be16 port,
++						  struct sockaddr *sa,
++						  unsigned short family)
++{
++	unsigned int prefixlen;
++	int sockaddr_len = pfkey_sockaddr_len(family);
++	int sockaddr_size = pfkey_sockaddr_size(family);
++
++	prefixlen = pfkey_sockaddr_fill(xaddr, port, sa, family);
++	if (sockaddr_size > sockaddr_len)
++		memset((u8 *)sa + sockaddr_len, 0, sockaddr_size - sockaddr_len);
++
++	return prefixlen;
++}
++
+ static struct sk_buff *__pfkey_xfrm_state2msg(const struct xfrm_state *x,
+ 					      int add_keys, int hsc)
+ {
+@@ -3207,9 +3223,9 @@ static int pfkey_send_acquire(struct xfrm_state *x, struct xfrm_tmpl *t, struct
+ 	addr->sadb_address_proto = 0;
+ 	addr->sadb_address_reserved = 0;
+ 	addr->sadb_address_prefixlen =
+-		pfkey_sockaddr_fill(&x->props.saddr, 0,
+-				    (struct sockaddr *) (addr + 1),
+-				    x->props.family);
++		pfkey_sockaddr_fill_zero_tail(&x->props.saddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      x->props.family);
+ 	if (!addr->sadb_address_prefixlen)
+ 		BUG();
+ 
+@@ -3222,9 +3238,9 @@ static int pfkey_send_acquire(struct xfrm_state *x, struct xfrm_tmpl *t, struct
+ 	addr->sadb_address_proto = 0;
+ 	addr->sadb_address_reserved = 0;
+ 	addr->sadb_address_prefixlen =
+-		pfkey_sockaddr_fill(&x->id.daddr, 0,
+-				    (struct sockaddr *) (addr + 1),
+-				    x->props.family);
++		pfkey_sockaddr_fill_zero_tail(&x->id.daddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      x->props.family);
+ 	if (!addr->sadb_address_prefixlen)
+ 		BUG();
+ 
+@@ -3422,9 +3438,9 @@ static int pfkey_send_new_mapping(struct xfrm_state *x, xfrm_address_t *ipaddr,
+ 	addr->sadb_address_proto = 0;
+ 	addr->sadb_address_reserved = 0;
+ 	addr->sadb_address_prefixlen =
+-		pfkey_sockaddr_fill(&x->props.saddr, 0,
+-				    (struct sockaddr *) (addr + 1),
+-				    x->props.family);
++		pfkey_sockaddr_fill_zero_tail(&x->props.saddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      x->props.family);
+ 	if (!addr->sadb_address_prefixlen)
+ 		BUG();
+ 
+@@ -3444,9 +3460,9 @@ static int pfkey_send_new_mapping(struct xfrm_state *x, xfrm_address_t *ipaddr,
+ 	addr->sadb_address_proto = 0;
+ 	addr->sadb_address_reserved = 0;
+ 	addr->sadb_address_prefixlen =
+-		pfkey_sockaddr_fill(ipaddr, 0,
+-				    (struct sockaddr *) (addr + 1),
+-				    x->props.family);
++		pfkey_sockaddr_fill_zero_tail(ipaddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      x->props.family);
+ 	if (!addr->sadb_address_prefixlen)
+ 		BUG();
+ 
+@@ -3475,15 +3491,15 @@ static int set_sadb_address(struct sk_buff *skb, int sasize, int type,
+ 	switch (type) {
+ 	case SADB_EXT_ADDRESS_SRC:
+ 		addr->sadb_address_prefixlen = sel->prefixlen_s;
+-		pfkey_sockaddr_fill(&sel->saddr, 0,
+-				    (struct sockaddr *)(addr + 1),
+-				    sel->family);
++		pfkey_sockaddr_fill_zero_tail(&sel->saddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      sel->family);
+ 		break;
+ 	case SADB_EXT_ADDRESS_DST:
+ 		addr->sadb_address_prefixlen = sel->prefixlen_d;
+-		pfkey_sockaddr_fill(&sel->daddr, 0,
+-				    (struct sockaddr *)(addr + 1),
+-				    sel->family);
++		pfkey_sockaddr_fill_zero_tail(&sel->daddr, 0,
++					      (struct sockaddr *)(addr + 1),
++					      sel->family);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+-- 
+2.53.0
+
+
 
