@@ -1,40 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC7331ED5
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83E118FDDE
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 01:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176736; cv=none; b=LSvUQ7O7N2beHM08MV9hMU9OebYPtKp94Rr6EXQHLH0AGyjNaGmKsFWiJVaKZcd6ATotq7BaOWKqNfGneDzu1HMsjuV2SLMrNuk27rrDSjx6jMrhMKZtP/IWc0XQjUXP2nX0qw/llMWgNDz6+IJNMIQwut39wrhqTat39c5AAE8=
+	t=1789176737; cv=none; b=nTsC5ctsvOJe4yir2Z852BvVH3hIpp9Fvi7IHDIs4UHAAKRkF+EAntgwjzkkKAUvlIQg/06OEknTNfZVg5Lh7c4AYPY/YoTwIjVUeQQ1BrsEyZ1slO2Z99I9FzVK3zgoivtDe3+rkOIIppkFD+ea3PSesfj/d8od1PHlhCpgWCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176736; c=relaxed/simple;
-	bh=tDztb2aWRRrnNrNsiuwy3YXhaoiek/qp1/+lTRzkbEk=;
+	s=arc-20240116; t=1789176737; c=relaxed/simple;
+	bh=5rz9YEDGoZZ8lkDe8nkk3TqZKCFd9o/mUfo2gkV/22I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o4vsbu5KzRY9Yd0jamytcr5SSzwIi6KMNUnyqSq0Nl63oUbxHxA7QObd5HzCBj7EvIi7aqZ5PUiOatgYq3geSkpUzktuBt64RLmQglLdZXCvofYgQIdd2+2kvNMtMdt8Qf085YY4RtqqUOcdMqdojDxG5+ofuLryI0QchAkUnMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e1zr0dzf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FtGCwWC6S/Ob4PObSdjQnLuk9wuHVL4Fc9fY3NnuIrUwZtk220BjNUBmFuR3Ae3DIhdUbMZ4JIKcF+VH+96gAlRp8pU93aoenSBBQYXZRmGINgP+991BFFMoz+qo1DhQSuzmeUnhfGM9UsF9/EkhjKLR/adNfP9k4T0IjmmIF1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJUh1w9b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e1zr0dzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45951F00898;
-	Sat, 12 Sep 2026 01:32:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJUh1w9b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F35E1F0089A;
+	Sat, 12 Sep 2026 01:32:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789176735;
-	bh=vNbyiRPgPpGnY3m3mN5+9Nk4KWo05S2ZSkB+d8mguSk=;
+	s=k20260515; t=1789176736;
+	bh=dHuTVlL8hV0EqKyCEL0f3RncnE3GspKmX3RQvCqhhWo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e1zr0dzfFLfoMl3rUo7kajXgX/N7I9yz0Arwax3kCLb89ZucPWqeLvHMrwEcL+TbO
-	 i3gvvZNjZKdE+QL7Mu459w2CsLx3c2wbyQ4dQPx6cATLc0YAVUwrqiCswklZ7suePv
-	 XR5BxwimBARcZq4a4Ak2/50T4LSppe1cknnL3UiJ8K771lhyrFUKx2RdEXh4DWBuDP
-	 ElRcr+2e6AoFxIHsxL22sfjzNpiCKQhkWayciiXvAvmQld7Vaaqec0RUivChjRIA+Q
-	 hpp/STkPejChGVvzfEiVb+U9noXKxkoEQVRqs7qVfrTrIiET0thSIJD9hFZKO37VJZ
-	 vULo+wySUgocw==
+	b=NJUh1w9bwWxW5kPUFzvdyE7UU/AMq7GX1Z4RJb8Kq1KLV8gzSilVZkm1OK3o9z9uM
+	 naDRSsu0KFgicVvReqAQwELv6ez84WIvN6ore2TXisTna1nr8SLeX2poST0Zxz0vCl
+	 45q31rKbossUJuBAlBP1FTwwcCvwTEgxhCnKwJPeKkjGOnyZeDNBPIPzfF4DAWBf7y
+	 G1Qz3nWRKrJWe8uU5oKoQoTS2HCO1oW6ljBH0S+/R0sajNNDyJgPIlAPAD/9nUwy7W
+	 7NMkGVoOAkUgNZrTYwQnCWvM+wR8Ebj1SeTAmH6uTmFNGr9QmKiQTE+cjkFLmtpSot
+	 VRK3mVXgrv+og==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiguo Niu <zhiguo.niu@unisoc.com>,
+Cc: Wenjie Qi <qwjhust@gmail.com>,
+	stable@kernel.org,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] f2fs: use new ioprio Macro to get ckpt thread ioprio level
-Date: Fri, 11 Sep 2026 21:32:10 -0400
-Message-ID: <20260912013211.1760018-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] f2fs: avoid NULL checkpoint thread access in sysfs
+Date: Fri, 11 Sep 2026 21:32:11 -0400
+Message-ID: <20260912013211.1760018-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912013211.1760018-1-sashal@kernel.org>
 References: <2026090930-ricotta-unpledged-5906@gregkh>
@@ -47,72 +49,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiguo Niu <zhiguo.niu@unisoc.com>
+From: Wenjie Qi <qwjhust@gmail.com>
 
-[ Upstream commit 270b09313b4e16cdfd01d8371023a1661dd1112e ]
+[ Upstream commit 5cb33b00c8fbb6e8f1fa3d281c3036d5f7c7c41f ]
 
-IOPRIO_PRIO_DATA in the new kernel version includes level and hint,
-So Macro IOPRIO_PRIO_LEVEL is more accurate to get ckpt thread
-ioprio data/level, and it is also consisten with the way setting
-ckpt thread ioprio by IOPRIO_PRIO_VALUE(class, data/level).
+checkpoint_merge can be enabled even when no checkpoint merge thread is
+running. A read-only mount is one case: f2fs does not start
+f2fs_issue_ckpt there, but ckpt_thread_ioprio is still writable through
+sysfs.
 
-Besides, change variable name from "data" to "level" for more readable.
+The ckpt_thread_ioprio store path updates the saved ioprio value and,
+when checkpoint_merge is enabled, calls set_task_ioprio() for the
+checkpoint thread. If cprc->f2fs_issue_ckpt is NULL, that dereferences a
+NULL task pointer.
 
-Signed-off-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Protect ckpt_thread_ioprio sysfs writes with s_umount as well, so the
+checkpoint thread cannot disappear under the store path while updating
+its ioprio.
+
+Fixes: e65920661708 ("f2fs: add ckpt_thread_ioprio sysfs node")
+Cc: stable@kernel.org
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Stable-dep-of: 5cb33b00c8fb ("f2fs: avoid NULL checkpoint thread access in sysfs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/sysfs.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/f2fs/sysfs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 75e9f3166b1b7..a83e17636c054 100644
+index a83e17636c054..f5d1faec2210b 100644
 --- a/fs/f2fs/sysfs.c
 +++ b/fs/f2fs/sysfs.c
-@@ -327,13 +327,13 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
- 	if (!strcmp(a->attr.name, "ckpt_thread_ioprio")) {
- 		struct ckpt_req_control *cprc = &sbi->cprc_info;
- 		int class = IOPRIO_PRIO_CLASS(cprc->ckpt_thread_ioprio);
--		int data = IOPRIO_PRIO_DATA(cprc->ckpt_thread_ioprio);
-+		int level = IOPRIO_PRIO_LEVEL(cprc->ckpt_thread_ioprio);
- 
- 		if (class != IOPRIO_CLASS_RT && class != IOPRIO_CLASS_BE)
+@@ -471,7 +471,7 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
  			return -EINVAL;
  
- 		return sysfs_emit(buf, "%s,%d\n",
--			class == IOPRIO_CLASS_RT ? "rt" : "be", data);
-+			class == IOPRIO_CLASS_RT ? "rt" : "be", level);
- 	}
- 
- #ifdef CONFIG_F2FS_FS_COMPRESSION
-@@ -453,7 +453,7 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 		const char *name = strim((char *)buf);
- 		struct ckpt_req_control *cprc = &sbi->cprc_info;
- 		int class;
--		long data;
-+		long level;
- 		int ret;
- 
- 		if (!strncmp(name, "rt,", 3))
-@@ -464,13 +464,13 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 			return -EINVAL;
- 
- 		name += 3;
--		ret = kstrtol(name, 10, &data);
-+		ret = kstrtol(name, 10, &level);
- 		if (ret)
- 			return ret;
--		if (data >= IOPRIO_NR_LEVELS || data < 0)
-+		if (level >= IOPRIO_NR_LEVELS || level < 0)
- 			return -EINVAL;
- 
--		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, data);
-+		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, level);
- 		if (test_opt(sbi, MERGE_CHECKPOINT)) {
+ 		cprc->ckpt_thread_ioprio = IOPRIO_PRIO_VALUE(class, level);
+-		if (test_opt(sbi, MERGE_CHECKPOINT)) {
++		if (cprc->f2fs_issue_ckpt) {
  			ret = set_task_ioprio(cprc->f2fs_issue_ckpt,
  					cprc->ckpt_thread_ioprio);
+ 			if (ret)
+@@ -703,13 +703,14 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
+ 	ssize_t ret;
+ 	bool gc_entry = (!strcmp(a->attr.name, "gc_urgent") ||
+ 					a->struct_type == GC_THREAD);
++	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio");
+ 
+-	if (gc_entry) {
++	if (gc_entry || thread_entry) {
+ 		if (!down_read_trylock(&sbi->sb->s_umount))
+ 			return -EAGAIN;
+ 	}
+ 	ret = __sbi_store(a, sbi, buf, count);
+-	if (gc_entry)
++	if (gc_entry || thread_entry)
+ 		up_read(&sbi->sb->s_umount);
+ 
+ 	return ret;
 -- 
 2.53.0
 
