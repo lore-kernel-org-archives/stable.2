@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3392D0C75;
-	Sat, 12 Sep 2026 12:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3AF3DB31A
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789215799; cv=none; b=Kicg5/ngefLRWVVocUsoCSzbD1qVktyAy05OSL05iad8Ra0LhmWrP8g7jUSooH+oVkR4sbyTvZsPgyYTWLwIzpFwzhz9iH+ZylPzSib06aiTxm3iAYUGGstf2u44ttRruDdAvjObmdNni2blwK3K51OyVgrGJoXBWt+xcQcvfiE=
+	t=1789215800; cv=none; b=BBeOcGuqWIo/VAqjjrSOyFuQEmMIlm03OqOw8ZVYrQJqoWujvFe35iIrSFOBKKCx2uh3uOmahCc8C3kaJlKaXCLntKR1umLekujuvxN2FNIcaSMvwfYMkYX2Qbktn0FfNTRAL9qwlNbRfJ0NkrrIOGs/OvKS4hypILe/xJCBxug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789215799; c=relaxed/simple;
-	bh=fmv8bJVc/5MpK+Zvr1JJcHdNLwYJ8cojNipsBwE98xQ=;
+	s=arc-20240116; t=1789215800; c=relaxed/simple;
+	bh=5t2Ji3PVnr7oqYz7j0Uz/Y7UGS5MkKBxEZr0G0AHak8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IPLbjtoKlBM6IZqzt1l8yCFpANHMqxuiEpBYdVDXyrvlbZmYhFHQb/lZLGHpZ36L0UfNTCACalN9OiegwxQwDE1I2H/qTylGhR6rVGploXCNq/eg2dOpGj04Aq3uV15xkUSv7TnUcW2tIFQyX1uXOVqpGtTUfg1pgsrb6F7V7/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oPReopL5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KGchEdUMstHMYUEZbr36JSVUk+YEOniVGPOMTAIxkz0Ap0Re4GBoYEJxcw2dAGStV0GTipwxAjKeZW/v4IIlz7ucRzG4hT16Y8xxafWb8EWEZwkp3MQNLc+LS1Y9dcGpEGCm3EWKWt81rFYeda3QbcANxnA9f5LJT9CQCA2l/8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgAsgYnw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oPReopL5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C611F000FF;
-	Sat, 12 Sep 2026 12:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789215798;
-	bh=xOdoMBohon5glxJ+u76kDbMvyY788Vv+phtCyghXydY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgAsgYnw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED2E1F00893;
+	Sat, 12 Sep 2026 12:23:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789215798;
+	bh=LVhrnmXdblqjRtAyxWIWEf7kmXieSYq1zvP2Y0JiC6Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oPReopL5oNUvJIBdmygRmWAbSiP3/jfnI9Q10QSkvr47noZHFYSFWNog1b3uPJLkI
-	 fJbvG/yHxlvw2rEJ/QXVXBRtUH5N1ia8NUt9WU0QmBTiwE7O/rBR7o25jMRP3iAxTZ
-	 ZBKBh5LVAu4cLh8zZFM8vB2SaVH+1CM+6LoJ/lBs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=NgAsgYnw4enMdHXSd2ksswYRUuwdHaSeCfF40sFOytfo9NWADaH5NznchfdPsre1W
+	 lqElR8U6le4MqzQDO9V7R3rccWIv/cUydYqNF5RqfnOyZx/9K2RvqSSdTdHBJ3IlCA
+	 l5xKh4goxKKT5sQP4pjLVzc5UxP1Dk/dGY9XPW8IATM5Gq/m4smtG+MM13ZA7tnS+l
+	 JNPMCCMnixpvUDCzAZ0N7phMMdq4N2m/fs9ILANlMKRTDSJ/VezOBkBnlyTZUarZDd
+	 xPRaVBSkhBvGRW8/xECPxPsoA1e8uA+BofvhGB0IsxLL2NBetMlUWD4tfrirIAsAWf
+	 4hXd8kI+C+BZA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nazar Kazakov <nazar.kazakov@codethink.co.uk>,
-	Ian Rogers <irogers@google.com>,
-	Namhyung Kim <namhyung@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0563/1376] perf jevents: Add more components to the metric sorting order
-Date: Sat, 12 Sep 2026 08:49:49 +0200
-Message-ID: <20260912065620.081788615@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-References: <20260912065607.535295758@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] f2fs: fix to clear dirty flag on folio in error path
+Date: Sat, 12 Sep 2026 08:23:16 -0400
+Message-ID: <20260912122316.2591560-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090931-unpack-bankroll-095f@gregkh>
+References: <2026090931-unpack-bankroll-095f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,70 +46,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit 5b86eab84ac8e9289b5afc52ef88ab18ba5bacab ]
 
-From: Ian Rogers <irogers@google.com>
+If node block is corrupted due to chksum mismatch or inconsistent
+footer info, it needs to drop clear flag of node folio, in order
+to persist inconsistent node data to storage.
 
-[ Upstream commit 557f8b3ca8c8e58d5bc3084734bc7a470b043922 ]
-
-Nazar Kazakov reported non-deterministic builds due to the metrics
-being reordered in the jevents.py output. The metrics were largely
-only being sorted by name, add in the expressions and descriptions.
-
-Reported-by: Nazar Kazakov <nazar.kazakov@codethink.co.uk>
-Closes: https://lore.kernel.org/linux-perf-users/20260706175624.692736-1-nazar.kazakov@codethink.co.uk/
-Fixes: 40769665b63d ("perf jevents: Parse metrics during conversion")
-Tested-by: Nazar Kazakov <nazar.kazakov@codethink.co.uk>
-Signed-off-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Cc: stable@kernel.org
+Fixes: b42b179bda9f ("f2fs: fix to do checksum even if inode page is uptodate")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ Changed clear_node_folio_dirty(folio) to clear_node_page_dirty(page) for the older page-based API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/pmu-events/jevents.py | 5 +++--
- tools/perf/pmu-events/metric.py  | 6 +++++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ fs/f2fs/node.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 4145e02777531..87cbbafb41e08 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -540,13 +540,14 @@ const struct pmu_table_entry {_pending_events_tblname}[] = {{
- def print_pending_metrics() -> None:
-   """Optionally close metrics table."""
- 
--  def metric_cmp_key(j: JsonEvent) -> Tuple[bool, str, str]:
-+  def metric_cmp_key(j: JsonEvent) -> Tuple[str, str, str, str]:
-     def fix_none(s: Optional[str]) -> str:
-       if s is None:
-         return ''
-       return s
- 
--    return (j.desc is not None, fix_none(j.pmu), fix_none(j.metric_name))
-+    return (fix_none(j.pmu), fix_none(j.metric_name), j.metric_expr.ToPerfJson(),
-+            fix_none(j.desc))
- 
-   global _pending_metrics
-   if not _pending_metrics:
-diff --git a/tools/perf/pmu-events/metric.py b/tools/perf/pmu-events/metric.py
-index 92acd89ed97aa..ac322891c4f1b 100644
---- a/tools/perf/pmu-events/metric.py
-+++ b/tools/perf/pmu-events/metric.py
-@@ -445,7 +445,11 @@ class Metric:
- 
-   def __lt__(self, other):
-     """Sort order."""
--    return self.name < other.name
-+    if self.name != other.name:
-+      return self.name < other.name
-+    if not self.expr.Equals(other.expr):
-+      return self.expr.ToPerfJson() < other.expr.ToPerfJson()
-+    return self.description < other.description
- 
-   def AddToMetricGroup(self, group):
-     """Callback used when being added to a MetricGroup."""
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index e5a06a65a5398..667a8def8b305 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1473,7 +1473,7 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 		set_sbi_flag(sbi, SBI_NEED_FSCK);
+ 		err = -EINVAL;
+ out_err:
+-		ClearPageUptodate(page);
++		clear_node_page_dirty(page);
+ 		f2fs_put_page(page, 1);
+ 		return ERR_PTR(err);
+ 	}
 -- 
 2.53.0
-
-
 
