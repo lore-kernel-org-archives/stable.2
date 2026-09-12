@@ -1,112 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38BF33F5A7
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414A9311967;
+	Sat, 12 Sep 2026 14:20:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222856; cv=none; b=ntM6OJdarSifCfxo0xwuo+JEeEbFFSdNFrpBvrcqa47JbC6B2WxwoXqVOfsIdyOyPE2PQ95kkihUFE+cDEpT+d+tD66/xcWSiS+NCbf8yMiZRi6hEm4fCP4HW8ffUdZ4aLcB4wIVV1rKmywhVG1sfx/wWbS2xsMJQLJMRu8bEuc=
+	t=1789222857; cv=none; b=C/wd5DkLGqElk+d9r5xdeSptBrM4SdiVdO6gcd58OZGvdsgphh1TsMGT3SREBrogFsGE3rCJQGjZ6mGcBbaoZGmyyCxdwC/XN66BHIiVMeUgqsgsSGh9eHgCG3TmR9agNKqCgI/Wr0Mrp4yaolKxZgc2ujaGsMvGD2OiLc3GmLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222856; c=relaxed/simple;
-	bh=peu0gk6IMy5p68Kl5LsiJdj/CqVdoqRIXc5STxuTm3Y=;
+	s=arc-20240116; t=1789222857; c=relaxed/simple;
+	bh=VNVA/6tTlbAlgOETN/SjVVvoWk6wc7pPSYD3HTH4anU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f30n0Uh+Jle6o6bajjbH8uvxPUJNy/ZCeWjmXxsfzh2qxgv17vSzM5Vno+71h9drkqXRKZymbpIGj8K9W66xkGtG6sOKgKQCq4Voa0O51Z6N5ogCd1UN4OxO8+zIkb/Sq+uPUXsOWazuRHQSBtd1SHsiQdJ810z0ZptVoOrw67A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIy9Huq3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JLZJehkGF6WDo5ZYIIb9ajaMvj36IPvl67w2zHvkAuys0EoMEmMSgyGyABXEOxBJ8XeWg8M8Dbj6EOn9P57Lesa/nKbWHTv/RCm3zy7CKCxsE45Z4O8p2aSNz9P2nxAA0LkXIdq2kr+ySE+ioo27Y6BCzUNkwPsR/9L4LKilWiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oYJoQcpJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIy9Huq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF15B1F00898;
-	Sat, 12 Sep 2026 14:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789222854;
-	bh=efGsY/cNr9zY8QeDBNkdepUd4zBZ9u39I8JUcIOEcKg=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oYJoQcpJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13CB11F00893;
+	Sat, 12 Sep 2026 14:20:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789222856;
+	bh=sTizl8vhV2XGhzQYvyWU/Yt2Xq/2jDoH1IjqpgxMJUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cIy9Huq34RTOggteUs9LKZwbE+ZQVUaabgNqXa6mzvNwn8F0G3r0vTwsQIlk1CaZ2
-	 8TtTcIKMKhI/dhWgc3Dn8btjAIrfDBdc+pCgWC3dd01g7sjLIpd4+IpYrsAXTsWwDr
-	 0xOf59H2n1h0/ue01A4HrmEkC7/4lmqIfYNUDb/0c7haEh+VFsqNEuovxvfETqxAOR
-	 8/NG6vKqjN1FEUtOu5bcIlp2dR5DGhUq6vnVs/rlNKJ0Q6eUaO7unfu6XZExJiXxpV
-	 E8OdoqCPJidyGd8lNORrH9Lg3gwZKl9Qcthyrzhabjf8dUsxQCO/SJiIK3HK/0CYjw
-	 uJPeXN6y3COOg==
-From: Sasha Levin <sashal@kernel.org>
+	b=oYJoQcpJZITU9WKTXKTF1eeAbJydrB6a7JGYh25JBfn2F1+8YvDRD5TvdFqnxsSN1
+	 90v6BE/caa0wWl8fFW3i5cegZcHD1DkKEc0AYmzI2NM+YkH8tzvaKs2eUT0FZz+00y
+	 u3IHZu4PKRQQyNhz4iirRNNvOgEEgp1Sx4tCQN+g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] drm/panel-edp: fix i2c adapter leak on probe failure
-Date: Sat, 12 Sep 2026 10:20:51 -0400
-Message-ID: <20260912142051.2911653-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912142051.2911653-1-sashal@kernel.org>
-References: <2026090912-bulginess-yearning-759f@gregkh>
- <20260912142051.2911653-1-sashal@kernel.org>
+Subject: [PATCH 6.6 0669/1424] irqchip/gic-v3-its: Fix memleak in its_probe_one()
+Date: Sat, 12 Sep 2026 08:51:41 +0200
+Message-ID: <20260912065622.278793429@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e2a9e291275a74e309a21cbb1def6296a72d6aed ]
+------------------
 
-Make sure to drop the i2c adapter reference on probe failure (e.g.
-probe deferral) and on driver unbind also if a devicetree redundantly
-uses the 'ddc-i2c-bus' property to point to the aux ddc bus.
+From: Kemeng Shi <shikemeng@huaweicloud.com>
 
-Fixes: cc5a3fc041f0 ("drm/panel: panel-simple: Stash DP AUX bus; allow using it for DDC")
-Cc: stable@vger.kernel.org	# 5.15
-Reported-by: Douglas Anderson <dianders@chromium.org>
-Link: https://lore.kernel.org/r/CAD=FV=VZPhzHU+Pet2m3L+Pqc7mOPfZC-f5p0OuNL79wNZPxRg@mail.gmail.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260717143119.1815106-2-johan@kernel.org
-[ Replaced panel-edp.c’s managed cleanup helper with a ddc_ref flag in panel-simple.c. ]
+[ Upstream commit 1efffab6fe336a5c4fd3c2886f255cd2f998e65f ]
+
+Fix collection leak when its_init_domain() failed in its_probe_one().
+
+Fixes: 4c21f3c26ecc2 ("irqchip: GICv3: ITS: DT probing and initialization")
+Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Link: https://patch.msgid.link/20260702033050.1583-2-shikemeng@huaweicloud.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/panel/panel-simple.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-gic-v3-its.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 539b58af565ee..addad8c81b92c 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -187,6 +187,7 @@ struct panel_simple {
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index d3ff3ab57d4db..8160557c1acd4 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5168,7 +5168,7 @@ static int __init its_probe_one(struct its_node *its)
  
- 	struct regulator *supply;
- 	struct i2c_adapter *ddc;
-+	bool ddc_ref;
- 	struct drm_dp_aux *aux;
+ 	err = its_init_domain(its);
+ 	if (err)
+-		goto out_free_tables;
++		goto out_free_collection;
  
- 	struct gpio_desc *enable_gpio;
-@@ -712,6 +713,7 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
- 
- 		if (!panel->ddc)
- 			return -EPROBE_DEFER;
-+		panel->ddc_ref = true;
- 	} else if (aux) {
- 		panel->ddc = &aux->ddc;
- 	}
-@@ -816,7 +818,7 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
- 	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_disable(dev);
- free_ddc:
--	if (panel->ddc && (!panel->aux || panel->ddc != &panel->aux->ddc))
-+	if (panel->ddc_ref)
- 		put_device(&panel->ddc->dev);
- 
- 	return err;
-@@ -832,7 +834,7 @@ static int panel_simple_remove(struct device *dev)
- 
- 	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_disable(dev);
--	if (panel->ddc && (!panel->aux || panel->ddc != &panel->aux->ddc))
-+	if (panel->ddc_ref)
- 		put_device(&panel->ddc->dev);
+ 	raw_spin_lock(&its_lock);
+ 	list_add(&its->entry, &its_nodes);
+@@ -5176,6 +5176,8 @@ static int __init its_probe_one(struct its_node *its)
  
  	return 0;
+ 
++out_free_collection:
++	kfree(its->collections);
+ out_free_tables:
+ 	its_free_tables(its);
+ out_free_cmd:
 -- 
 2.53.0
+
+
 
