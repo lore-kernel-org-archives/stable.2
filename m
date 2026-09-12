@@ -1,440 +1,312 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF0831B10B;
-	Sat, 12 Sep 2026 14:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E958C4BEE20
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:20:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222847; cv=none; b=FpBHtutHSYTBt/QlH2EW7uOlPsGvBzl/pXwJTsh6JphY+d2j4qyPi9h5XL3YYMLzZp22mWTd5cnWMRGY9Le/SU1mLa5XFWdwgk+28Z3fcfCniKMiI0z9qIjbZjvfIW/KH1pVyR/3E8FQ7ebOUkh17GhaGwTpIUBqsmY2BGD5Mf0=
+	t=1789222850; cv=none; b=DSvzmIBBH6FyU8qi5QG/KLaZDq2VhUM0pE15H4dg9dsvNKOoHP1I+XGqu3ziuAW+c3RDySXJ3i/z7JjQdq9oGhr/c8/Tpng1lT7/yKwViLyG1jVXipEO1p2PnuOcFB3FVUa2oeGjy6CVKujSd/6GL5lEsfps1SOwH/jOvnPXQJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222847; c=relaxed/simple;
-	bh=ZshJ9M1MiWESjYRTcXrk3YUqQWxyypwH/4tTSWQVuws=;
+	s=arc-20240116; t=1789222850; c=relaxed/simple;
+	bh=O/Ty0kLM90XEdhh+W4abmf5WeMZevFfuhT8DpDkbCCE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KVAEdAV1IgWh4jVIyF6k8uoIWLd9gTwNwRFVPLHX3IYbkCBUwoD43rGR1bfYmDyi5uRWEjkjEw6vINZrSRc3ylod2GPpTrze+W3N5AiiFWSNfWf01JSFi35RISO4RtYNKXLQepBXLqmtl57+PISHg+oXkKvT3d7tzq9/0VuorZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H3RNUv24; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=urx9cDrnFGi1XXSrSoLNEjoNrn5mGD/gYsqK4SPfxnotm3Jr5eXJ85fP8WrutW+nt/jwhr/Ju/k8i2PTBhY08rbceP8GJKZsAVZEWHHaD/Z0wdVCWY4ihFefmJTUemp7rDnjDSqk9IVIwHHLWdkt6fWcbFI/+63p/Srx9gGvOXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSjOu1j3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H3RNUv24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56061F000FF;
-	Sat, 12 Sep 2026 14:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789222845;
-	bh=RYVVqrVVBLC+vPehGmekhGVdqw6t6D/3zrL/LLLILnI=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSjOu1j3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366B11F000FF;
+	Sat, 12 Sep 2026 14:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789222848;
+	bh=mC2OHIcVuyvQc9aCPB4eZ71wn+U4/POWj9M4RcsQ2Ig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H3RNUv244TcXVLEvoCdp3XYkjxGcEQG4eX/iv4Pg4eLN8RFxkoS4WBSJKOPni3TZ4
-	 GuBtp4P4mSilaCeyk/Pk4+Kau1ZwDGEpeYIkKQDRd6vxMo/rAB39SY0C0oASK8sagM
-	 fSg4+twS4nNoldDzYyLxEwe8Ij15evHgto8ZmxPk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=nSjOu1j3frokwFhNoIfRNl14seLyPxY3E0FawCSuJ1M7Tyc5mzZhd6ttBNFT+l+N9
+	 hPQAIoFL0oXcEFysIOmqc37yG/rF0jNcNbOWIwOsCtMsIlhizdSmlW27OCQ1nDOyP7
+	 uP3vigp+en6QnZs0oGeXVkLa0UMSMCTuZnePxwGXKDrUpyKdGy0GPLAyJJifuFsmDH
+	 eDKgZIEiTYksDsXcI9/zdXB3iKgzvJft3mQ6BXxElDslf0nwrcejTuJzyw41T+sb9I
+	 d3K9Vw2cl8zNEHF4n5dbKQwbUSDui5or/4pbyaAk6VNFBTIy5MlzVAc1Pfq+JPtjF+
+	 2jlOkK/j1HZtw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Mike Leach <mike.leach@linaro.org>,
-	James Clark <james.clark@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
-	Leo Yan <leo.yan@arm.com>,
-	Suzuki Poulouse <suzuki.poulose@arm.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Ian Rogers <irogers@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Garry <john.g.garry@oracle.com>,
-	Kan Liang <kan.liang@linux.intel.com>,
-	Leo Yan <leo.yan@linux.dev>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0632/1424] perf cs-etm: Create decoders after both AUX and HW_ID search passes
-Date: Sat, 12 Sep 2026 08:51:04 +0200
-Message-ID: <20260912065621.441301415@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] f2fs: embed f2fs_gc_kthread in f2fs_sb_info
+Date: Sat, 12 Sep 2026 10:20:46 -0400
+Message-ID: <20260912142046.2911258-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090904-humpback-deferred-9103@gregkh>
+References: <2026090904-humpback-deferred-9103@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Chao Yu <chao@kernel.org>
 
-------------------
+[ Upstream commit 3d7bca9d583793bb7d0bac0d95a24ddd2e129eed ]
 
-From: James Clark <james.clark@arm.com>
+Instead of allocating f2fs_gc_kthread dynamically, embed it in
+f2fs_sb_info. This simplifies lifetime management and prepares for
+fixing race conditions during teardown.
 
-[ Upstream commit b6aa0de9a53a231eb068ce1e62b5e7ec9e30e627 ]
+- __sbi_store			- remount|shutdown
+				 - f2fs_stop_gc_thread
+ - access sbi->gc_thread
+				  - sbi->gc_thread = NULL
+ - access sbi->gc_thread->f2fs_gc_task
 
-Both of these passes gather information about how to create the
-decoders. AUX records determine formatted/unformatted, and the HW_IDs
-determine the traceID/metadata mappings.
-
-Therefore it makes sense to cache the information and wait until both
-passes are over until creating the decoders, rather than creating them
-at the first HW_ID found.
-
-This will allow a simplification of the creation process where
-cs_etm_queue->traceid_list will exclusively used to create the decoders,
-rather than the current two methods depending on whether the trace is
-formatted or not.
-
-Previously the sample CPU from the AUX record was used to initialize
-the decoder CPU, but actually sample CPU == AUX queue index in per-CPU
-mode, so saving the sample CPU isn't required.
-
-Similarly formatted/unformatted was used upfront to create the decoders,
-but now it's cached until later.
-
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
-Reviewed-by: Mike Leach <mike.leach@linaro.org>
-Signed-off-by: James Clark <james.clark@arm.com>
-Signed-off-by: James Clark <james.clark@linaro.org>
-Tested-by: Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
-Tested-by: Leo Yan <leo.yan@arm.com>
-Acked-by: Suzuki Poulouse <suzuki.poulose@arm.com>
-Cc: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Ian Rogers <irogers@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Jiri Olsa <jolsa@kernel.org>
-Cc: John Garry <john.g.garry@oracle.com>
-Cc: Kan Liang <kan.liang@linux.intel.com>
-Cc: Leo Yan <leo.yan@linux.dev>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Will Deacon <will@kernel.org>
-Link: https://lore.kernel.org/r/20240722101202.26915-2-james.clark@linaro.org
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Stable-dep-of: 50cd0d54f1f6 ("perf cs-etm: Fix thread leaks on trace queue init failure")
+Fixes: 52190933c37a ("f2fs: sysfs: introduce critical_task_priority")
+Fixes: 7950e9ac638e ("f2fs: stop gc/discard thread after fs shutdown")
+Cc: stable@kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ adapted GC structure access changes to Linux 5.15’s existing fields and APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/util/cs-etm.c | 182 ++++++++++++++++++++++++---------------
- 1 file changed, 113 insertions(+), 69 deletions(-)
+ fs/f2fs/debug.c   |  4 ----
+ fs/f2fs/f2fs.h    | 22 +++++++++++++++++++++-
+ fs/f2fs/gc.c      | 33 ++++++++++++---------------------
+ fs/f2fs/gc.h      | 20 --------------------
+ fs/f2fs/segment.c |  9 ++++-----
+ fs/f2fs/super.c   |  4 ++--
+ fs/f2fs/sysfs.c   |  8 ++++----
+ 7 files changed, 43 insertions(+), 57 deletions(-)
 
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 1fb104357eebb..9077072994b23 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -97,12 +97,19 @@ struct cs_etm_traceid_queue {
- 	struct cs_etm_packet_queue packet_queue;
- };
+diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+index cd21b4edeca1c..9298847d7549f 100644
+--- a/fs/f2fs/debug.c
++++ b/fs/f2fs/debug.c
+@@ -275,10 +275,6 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
+ get_cache:
+ 	si->cache_mem = 0;
  
-+enum cs_etm_format {
-+	UNSET,
-+	FORMATTED,
-+	UNFORMATTED
+-	/* build gc */
+-	if (sbi->gc_thread)
+-		si->cache_mem += sizeof(struct f2fs_gc_kthread);
+-
+ 	/* build merge flush thread */
+ 	if (SM_I(sbi)->fcc_info)
+ 		si->cache_mem += sizeof(struct flush_cmd_control);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index fe17f10257371..bd13a38ab57fe 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1561,6 +1561,26 @@ struct decompress_io_ctx {
+ #define MAX_COMPRESS_LOG_SIZE		8
+ #define MAX_COMPRESS_WINDOW_SIZE(log_size)	((PAGE_SIZE) << (log_size))
+ 
++struct f2fs_gc_kthread {
++	struct task_struct *f2fs_gc_task;
++	wait_queue_head_t gc_wait_queue_head;
++
++	/* for gc sleep time */
++	unsigned int urgent_sleep_time;
++	unsigned int min_sleep_time;
++	unsigned int max_sleep_time;
++	unsigned int no_gc_sleep_time;
++
++	/* for changing gc mode */
++	unsigned int gc_wake;
++
++	/* for GC_MERGE mount option */
++	wait_queue_head_t fggc_wq;		/*
++						 * caller of f2fs_balance_fs()
++						 * will wait on this wait queue.
++						 */
 +};
 +
- struct cs_etm_queue {
- 	struct cs_etm_auxtrace *etm;
- 	struct cs_etm_decoder *decoder;
- 	struct auxtrace_buffer *buffer;
- 	unsigned int queue_nr;
- 	u8 pending_timestamp_chan_id;
-+	enum cs_etm_format format;
- 	u64 offset;
- 	const unsigned char *buf;
- 	size_t buf_len, buf_used;
-@@ -693,7 +700,7 @@ static void cs_etm__set_trace_param_ete(struct cs_etm_trace_params *t_params,
- 
- static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
- 				     struct cs_etm_auxtrace *etm,
--				     bool formatted,
-+				     enum cs_etm_format format,
- 				     int sample_cpu,
- 				     int decoders)
+ struct f2fs_sb_info {
+ 	struct super_block *sb;			/* pointer to VFS super block */
+ 	struct proc_dir_entry *s_proc;		/* proc entry */
+@@ -1677,7 +1697,7 @@ struct f2fs_sb_info {
+ 						 * semaphore for GC, avoid
+ 						 * race between GC and GC or CP
+ 						 */
+-	struct f2fs_gc_kthread	*gc_thread;	/* GC thread */
++	struct f2fs_gc_kthread gc_thread;	/* GC thread */
+ 	struct atgc_management am;		/* atgc management */
+ 	unsigned int cur_victim_sec;		/* current victim section num */
+ 	unsigned int gc_mode;			/* current GC state */
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 69a51fcfbead4..663835527298f 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -30,9 +30,9 @@ static unsigned int count_bits(const unsigned long *addr,
+ static int gc_thread_func(void *data)
  {
-@@ -702,7 +709,7 @@ static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
- 	u64 architecture;
+ 	struct f2fs_sb_info *sbi = data;
+-	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
+-	wait_queue_head_t *wq = &sbi->gc_thread->gc_wait_queue_head;
+-	wait_queue_head_t *fggc_wq = &sbi->gc_thread->fggc_wq;
++	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
++	wait_queue_head_t *wq = &sbi->gc_thread.gc_wait_queue_head;
++	wait_queue_head_t *fggc_wq = &sbi->gc_thread.fggc_wq;
+ 	unsigned int wait_ms;
  
- 	for (t_idx = 0; t_idx < decoders; t_idx++) {
--		if (formatted)
-+		if (format == FORMATTED)
- 			m_idx = t_idx;
- 		else {
- 			m_idx = get_cpu_data_idx(etm, sample_cpu);
-@@ -735,8 +742,7 @@ static int cs_etm__init_trace_params(struct cs_etm_trace_params *t_params,
+ 	wait_ms = gc_th->min_sleep_time;
+@@ -146,16 +146,10 @@ static int gc_thread_func(void *data)
  
- static int cs_etm__init_decoder_params(struct cs_etm_decoder_params *d_params,
- 				       struct cs_etm_queue *etmq,
--				       enum cs_etm_decoder_operation mode,
--				       bool formatted)
-+				       enum cs_etm_decoder_operation mode)
+ int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
  {
- 	int ret = -EINVAL;
+-	struct f2fs_gc_kthread *gc_th;
++	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
+ 	dev_t dev = sbi->sb->s_bdev->bd_dev;
+ 	int err = 0;
  
-@@ -746,7 +752,7 @@ static int cs_etm__init_decoder_params(struct cs_etm_decoder_params *d_params,
- 	d_params->packet_printer = cs_etm__packet_dump;
- 	d_params->operation = mode;
- 	d_params->data = etmq;
--	d_params->formatted = formatted;
-+	d_params->formatted = etmq->format == FORMATTED;
- 	d_params->fsyncs = false;
- 	d_params->hsyncs = false;
- 	d_params->frame_aligned = true;
-@@ -1038,81 +1044,34 @@ static u32 cs_etm__mem_access(struct cs_etm_queue *etmq, u8 trace_chan_id,
- 	return ret;
- }
- 
--static struct cs_etm_queue *cs_etm__alloc_queue(struct cs_etm_auxtrace *etm,
--						bool formatted, int sample_cpu)
-+static struct cs_etm_queue *cs_etm__alloc_queue(void)
- {
--	struct cs_etm_decoder_params d_params;
--	struct cs_etm_trace_params  *t_params = NULL;
--	struct cs_etm_queue *etmq;
--	/*
--	 * Each queue can only contain data from one CPU when unformatted, so only one decoder is
--	 * needed.
--	 */
--	int decoders = formatted ? etm->num_cpu : 1;
+-	gc_th = f2fs_kmalloc(sbi, sizeof(struct f2fs_gc_kthread), GFP_KERNEL);
+-	if (!gc_th) {
+-		err = -ENOMEM;
+-		goto out;
+-	}
 -
--	etmq = zalloc(sizeof(*etmq));
-+	struct cs_etm_queue *etmq = zalloc(sizeof(*etmq));
- 	if (!etmq)
- 		return NULL;
+ 	gc_th->urgent_sleep_time = DEF_GC_THREAD_URGENT_SLEEP_TIME;
+ 	gc_th->min_sleep_time = DEF_GC_THREAD_MIN_SLEEP_TIME;
+ 	gc_th->max_sleep_time = DEF_GC_THREAD_MAX_SLEEP_TIME;
+@@ -163,30 +157,27 @@ int f2fs_start_gc_thread(struct f2fs_sb_info *sbi)
  
- 	etmq->traceid_queues_list = intlist__new(NULL);
- 	if (!etmq->traceid_queues_list)
--		goto out_free;
--
--	/* Use metadata to fill in trace parameters for trace decoder */
--	t_params = zalloc(sizeof(*t_params) * decoders);
--
--	if (!t_params)
--		goto out_free;
--
--	if (cs_etm__init_trace_params(t_params, etm, formatted, sample_cpu, decoders))
--		goto out_free;
--
--	/* Set decoder parameters to decode trace packets */
--	if (cs_etm__init_decoder_params(&d_params, etmq,
--					dump_trace ? CS_ETM_OPERATION_PRINT :
--						     CS_ETM_OPERATION_DECODE,
--					formatted))
--		goto out_free;
--
--	etmq->decoder = cs_etm_decoder__new(decoders, &d_params,
--					    t_params);
--
--	if (!etmq->decoder)
--		goto out_free;
--
--	/*
--	 * Register a function to handle all memory accesses required by
--	 * the trace decoder library.
--	 */
--	if (cs_etm_decoder__add_mem_access_cb(etmq->decoder,
--					      0x0L, ((u64) -1L),
--					      cs_etm__mem_access))
--		goto out_free_decoder;
-+		free(etmq);
+ 	gc_th->gc_wake = 0;
  
--	zfree(&t_params);
- 	return etmq;
--
--out_free_decoder:
--	cs_etm_decoder__free(etmq->decoder);
--out_free:
--	intlist__delete(etmq->traceid_queues_list);
--	free(etmq);
--
--	return NULL;
- }
- 
- static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
- 			       struct auxtrace_queue *queue,
--			       unsigned int queue_nr,
--			       bool formatted,
--			       int sample_cpu)
-+			       unsigned int queue_nr, enum cs_etm_format format)
- {
- 	struct cs_etm_queue *etmq = queue->priv;
- 
-+	if (etmq && format != etmq->format) {
-+		pr_err("CS_ETM: mixed formatted and unformatted trace not supported\n");
-+		return -EINVAL;
-+	}
-+
- 	if (list_empty(&queue->head) || etmq)
- 		return 0;
- 
--	etmq = cs_etm__alloc_queue(etm, formatted, sample_cpu);
-+	etmq = cs_etm__alloc_queue();
- 
- 	if (!etmq)
- 		return -ENOMEM;
-@@ -1120,7 +1079,9 @@ static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
- 	queue->priv = etmq;
- 	etmq->etm = etm;
- 	etmq->queue_nr = queue_nr;
-+	queue->cpu = queue_nr; /* Placeholder, may be reset to -1 in per-thread mode */
- 	etmq->offset = 0;
-+	etmq->format = format;
- 
- 	return 0;
- }
-@@ -2851,7 +2812,7 @@ static int cs_etm__process_auxtrace_event(struct perf_session *session,
- 		 * formatted in piped mode (true).
- 		 */
- 		err = cs_etm__setup_queue(etm, &etm->queues.queue_array[idx],
--					  idx, true, -1);
-+					  idx, FORMATTED);
- 		if (err)
- 			return err;
- 
-@@ -2972,7 +2933,7 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 	union perf_event auxtrace_fragment;
- 	__u64 aux_offset, aux_size;
- 	__u32 idx;
--	bool formatted;
-+	enum cs_etm_format format;
- 
- 	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
- 						   struct cs_etm_auxtrace,
-@@ -3055,9 +3016,10 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 			return err;
- 
- 		idx = auxtrace_event->idx;
--		formatted = !(aux_event->flags & PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW);
--		return cs_etm__setup_queue(etm, &etm->queues.queue_array[idx],
--					   idx, formatted, sample->cpu);
-+		format = (aux_event->flags & PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW) ?
-+				UNFORMATTED : FORMATTED;
-+
-+		return cs_etm__setup_queue(etm, &etm->queues.queue_array[idx], idx, format);
+-	sbi->gc_thread = gc_th;
+-	init_waitqueue_head(&sbi->gc_thread->gc_wait_queue_head);
+-	init_waitqueue_head(&sbi->gc_thread->fggc_wq);
+-	sbi->gc_thread->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
++	init_waitqueue_head(&gc_th->gc_wait_queue_head);
++	init_waitqueue_head(&gc_th->fggc_wq);
++	gc_th->f2fs_gc_task = kthread_run(gc_thread_func, sbi,
+ 			"f2fs_gc-%u:%u", MAJOR(dev), MINOR(dev));
+ 	if (IS_ERR(gc_th->f2fs_gc_task)) {
+ 		err = PTR_ERR(gc_th->f2fs_gc_task);
+-		kfree(gc_th);
+-		sbi->gc_thread = NULL;
++		gc_th->f2fs_gc_task = NULL;
  	}
- 
- 	/* Wasn't inside this buffer, but there were no parse errors. 1 == 'not found' */
-@@ -3241,6 +3203,84 @@ static int cs_etm__clear_unused_trace_ids_metadata(int num_cpu, u64 **metadata)
- 	return 0;
+-out:
+ 	return err;
  }
  
-+/*
-+ * Use the data gathered by the peeks for HW_ID (trace ID mappings) and AUX
-+ * (formatted or not) packets to create the decoders.
-+ */
-+static int cs_etm__create_queue_decoders(struct cs_etm_queue *etmq)
-+{
-+	struct cs_etm_decoder_params d_params;
-+
-+	/*
-+	 * Each queue can only contain data from one CPU when unformatted, so only one decoder is
-+	 * needed.
-+	 */
-+	int decoders = etmq->format == FORMATTED ? etmq->etm->num_cpu : 1;
-+
-+	/* Use metadata to fill in trace parameters for trace decoder */
-+	struct cs_etm_trace_params  *t_params = zalloc(sizeof(*t_params) * decoders);
-+
-+	if (!t_params)
-+		goto out_free;
-+
-+	if (cs_etm__init_trace_params(t_params, etmq->etm, etmq->format,
-+				      etmq->queue_nr, decoders))
-+		goto out_free;
-+
-+	/* Set decoder parameters to decode trace packets */
-+	if (cs_etm__init_decoder_params(&d_params, etmq,
-+					dump_trace ? CS_ETM_OPERATION_PRINT :
-+						     CS_ETM_OPERATION_DECODE))
-+		goto out_free;
-+
-+	etmq->decoder = cs_etm_decoder__new(decoders, &d_params,
-+					    t_params);
-+
-+	if (!etmq->decoder)
-+		goto out_free;
-+
-+	/*
-+	 * Register a function to handle all memory accesses required by
-+	 * the trace decoder library.
-+	 */
-+	if (cs_etm_decoder__add_mem_access_cb(etmq->decoder,
-+					      0x0L, ((u64) -1L),
-+					      cs_etm__mem_access))
-+		goto out_free_decoder;
-+
-+	zfree(&t_params);
-+	return 0;
-+
-+out_free_decoder:
-+	cs_etm_decoder__free(etmq->decoder);
-+out_free:
-+	zfree(&t_params);
-+	return -EINVAL;
-+}
-+
-+static int cs_etm__create_decoders(struct cs_etm_auxtrace *etm)
-+{
-+	struct auxtrace_queues *queues = &etm->queues;
-+
-+	for (unsigned int i = 0; i < queues->nr_queues; i++) {
-+		bool empty = list_empty(&queues->queue_array[i].head);
-+		struct cs_etm_queue *etmq = queues->queue_array[i].priv;
-+		int ret;
-+
-+		/*
-+		 * Don't create decoders for empty queues, mainly because
-+		 * etmq->format is unknown for empty queues.
-+		 */
-+		if (empty)
-+			continue;
-+
-+		ret = cs_etm__create_queue_decoders(etmq);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
- int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 				       struct perf_session *session)
+ void f2fs_stop_gc_thread(struct f2fs_sb_info *sbi)
  {
-@@ -3389,6 +3429,10 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 	if (err)
- 		goto err_free_queues;
+-	struct f2fs_gc_kthread *gc_th = sbi->gc_thread;
++	struct f2fs_gc_kthread *gc_th = &sbi->gc_thread;
  
-+	err = cs_etm__queue_aux_records(session);
-+	if (err)
-+		goto err_free_queues;
+-	if (!gc_th)
++	if (!gc_th->f2fs_gc_task)
+ 		return;
 +
- 	/*
- 	 * Map Trace ID values to CPU metadata.
- 	 *
-@@ -3411,7 +3455,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 	 * flags if present.
- 	 */
+ 	kthread_stop(gc_th->f2fs_gc_task);
++	gc_th->f2fs_gc_task = NULL;
+ 	wake_up_all(&gc_th->fggc_wq);
+-	kfree(gc_th);
+-	sbi->gc_thread = NULL;
+ }
  
--	/* first scan for AUX_OUTPUT_HW_ID records to map trace ID values to CPU metadata */
-+	/* Scan for AUX_OUTPUT_HW_ID records to map trace ID values to CPU metadata */
- 	aux_hw_id_found = 0;
- 	err = perf_session__peek_events(session, session->header.data_offset,
- 					session->header.data_size,
-@@ -3429,7 +3473,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 	if (err)
- 		goto err_free_queues;
+ static int select_gc_type(struct f2fs_sb_info *sbi, int gc_type)
+diff --git a/fs/f2fs/gc.h b/fs/f2fs/gc.h
+index 3fe145e8e594f..f29c3ca07d70c 100644
+--- a/fs/f2fs/gc.h
++++ b/fs/f2fs/gc.h
+@@ -30,26 +30,6 @@
+ /* Search max. number of dirty segments to select a victim segment */
+ #define DEF_MAX_VICTIM_SEARCH 4096 /* covers 8GB */
  
--	err = cs_etm__queue_aux_records(session);
-+	err = cs_etm__create_decoders(etm);
- 	if (err)
- 		goto err_free_queues;
+-struct f2fs_gc_kthread {
+-	struct task_struct *f2fs_gc_task;
+-	wait_queue_head_t gc_wait_queue_head;
+-
+-	/* for gc sleep time */
+-	unsigned int urgent_sleep_time;
+-	unsigned int min_sleep_time;
+-	unsigned int max_sleep_time;
+-	unsigned int no_gc_sleep_time;
+-
+-	/* for changing gc mode */
+-	unsigned int gc_wake;
+-
+-	/* for GC_MERGE mount option */
+-	wait_queue_head_t fggc_wq;		/*
+-						 * caller of f2fs_balance_fs()
+-						 * will wait on this wait queue.
+-						 */
+-};
+-
+ struct gc_inode_list {
+ 	struct list_head ilist;
+ 	struct radix_tree_root iroot;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 6c47cebbd0f11..0d10bea639372 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -522,15 +522,14 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
+ 		f2fs_submit_merged_write(sbi, DATA);
+ 		f2fs_submit_all_merged_ipu_writes(sbi);
  
+-		if (test_opt(sbi, GC_MERGE) && sbi->gc_thread &&
+-					sbi->gc_thread->f2fs_gc_task) {
++		if (test_opt(sbi, GC_MERGE) && sbi->gc_thread.f2fs_gc_task) {
+ 			DEFINE_WAIT(wait);
+ 
+-			prepare_to_wait(&sbi->gc_thread->fggc_wq, &wait,
++			prepare_to_wait(&sbi->gc_thread.fggc_wq, &wait,
+ 						TASK_UNINTERRUPTIBLE);
+-			wake_up(&sbi->gc_thread->gc_wait_queue_head);
++			wake_up(&sbi->gc_thread.gc_wait_queue_head);
+ 			io_schedule();
+-			finish_wait(&sbi->gc_thread->fggc_wq, &wait);
++			finish_wait(&sbi->gc_thread.fggc_wq, &wait);
+ 		} else {
+ 			down_write(&sbi->gc_lock);
+ 			f2fs_gc(sbi, false, false, false, NULL_SEGNO);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 757f0bd843dde..a40dc08b3a1e8 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2349,11 +2349,11 @@ static int f2fs_remount(struct super_block *sb, int *flags, char *data)
+ 	if ((*flags & SB_RDONLY) ||
+ 			(F2FS_OPTION(sbi).bggc_mode == BGGC_MODE_OFF &&
+ 			!test_opt(sbi, GC_MERGE))) {
+-		if (sbi->gc_thread) {
++		if (sbi->gc_thread.f2fs_gc_task) {
+ 			f2fs_stop_gc_thread(sbi);
+ 			need_restart_gc = true;
+ 		}
+-	} else if (!sbi->gc_thread) {
++	} else if (!sbi->gc_thread.f2fs_gc_task) {
+ 		err = f2fs_start_gc_thread(sbi);
+ 		if (err)
+ 			goto restore_opts;
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index cb13d47725432..70bdc2a6a5a24 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -58,7 +58,7 @@ static ssize_t f2fs_sbi_show(struct f2fs_attr *a,
+ static unsigned char *__struct_ptr(struct f2fs_sb_info *sbi, int struct_type)
+ {
+ 	if (struct_type == GC_THREAD)
+-		return (unsigned char *)sbi->gc_thread;
++		return (unsigned char *)&sbi->gc_thread;
+ 	else if (struct_type == SM_INFO)
+ 		return (unsigned char *)SM_I(sbi);
+ 	else if (struct_type == DCC_INFO)
+@@ -499,10 +499,10 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+ 			sbi->gc_mode = GC_NORMAL;
+ 		} else if (t == 1) {
+ 			sbi->gc_mode = GC_URGENT_HIGH;
+-			if (sbi->gc_thread) {
+-				sbi->gc_thread->gc_wake = 1;
++			if (sbi->gc_thread.f2fs_gc_task) {
++				sbi->gc_thread.gc_wake = 1;
+ 				wake_up_interruptible_all(
+-					&sbi->gc_thread->gc_wait_queue_head);
++					&sbi->gc_thread.gc_wait_queue_head);
+ 				wake_up_discard_thread(sbi, true);
+ 			}
+ 		} else if (t == 2) {
 -- 
 2.53.0
-
-
 
