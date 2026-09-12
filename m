@@ -1,51 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BFB309EF2
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 14:24:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5177133A9E2;
+	Sat, 12 Sep 2026 14:24:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223068; cv=none; b=H03LTRTUsmBnB9aPvcXG62abPJ8sXtmsqDCrkfsmFAaWiq5OQkHUEyyafB40pU4u4K2t6wHBLQTp8xvYU5M+ICqzm+vOhhkGCOO59l7duEVcKO8ErxJOUckbyzf5/3YZUxuTPKlZLW4aFq9pPWIZNMAZcZgWdvTokz/SseBD5Ps=
+	t=1789223069; cv=none; b=bIv2omS724rozRAyvXHIJNiz57LGiq79LTFMD3DeKI3xNM/pcAlirEVnIILCKQLy28usMWiBSdUA0oc03B2y6QhuPo9HkDmBBw9snT+56zB/tdW4Te+hYNIog6slruK9V94+6Con3fgv3kinqyUjIWvlFyU9/2sAFRRXItKbT4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223068; c=relaxed/simple;
-	bh=cp4spMfo8ki2DWWRNH6mj183l3M54RRGPnxV9QFGzjg=;
+	s=arc-20240116; t=1789223069; c=relaxed/simple;
+	bh=f+gG5yHXEHoFL8qREnQ8PnP6LwsggVucZhE2o66Aqq4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CaTY6TlaHK9AwODSVshzV7AEMlXnDw283QrHFaMtOTKz6PQ6YnGQpMIwGgzQVfo9VZBF0G3ZDaxmwM0LPwWWj/7bEpVukBLZcfzikqYdGpC9OzNrhmr11+UkBV42XPv7p8CDUd1fh0cXOsIj2vAiRRBj/mVrnFS3+p8INqCeLiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig1wkTS3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bLRYfc11ULlpceNJlLySUrENVeezsZcT7KSPV7mjnOWUF8wkx9XPvH72qKQYH8dbdfxX5JHo8uJtyooddON4HFPX71GKZPdkSP3A9Xw3QXi4NPEDn4KDGRNQl6+VeFXJfx7Lo9tcFcU3msg2QK8VnugClxbHgwQn1k81gnXui6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ndMR4aCU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig1wkTS3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4896D1F000FF;
-	Sat, 12 Sep 2026 14:24:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789223066;
-	bh=AYrhTrg41o14N5pXcDM4tTv+Bt6BIy7YQEDVaDrmMmU=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ndMR4aCU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887AE1F00893;
+	Sat, 12 Sep 2026 14:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789223068;
+	bh=hIfb/OJrh4gmDx2jer3m7JsPzdvdoE46H4TRDzUkomk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ig1wkTS3XQi9yavS3Hx9MNOk8WZHDfqbRZaOQIWiv7J0GP5RRfjKjSnOhi95tpF0v
-	 lixxpnsLgHLwwkq3pA5TXbS2DUUXE89X8pXDqDlcimloAiLFAbprIQs8Aszkh/njc1
-	 +COki9YOFKZj+9dnbl4vlkdx0LYz/qnpXta3eXNweyDqIb7SaZ0SNYHf6h6njCJ0tN
-	 jybis8aohOhtNO2lozLK5KAY+kq2W1cdHH+tpawO1qFj/prGDuiaeCbnBUjAKZAt0i
-	 7hwCyvIC0PBFISkbmSJCoyeoW9it3I1IJ7O9q6vvm+JdSTkxO4i5s7ZI++aFU2c991
-	 NI0EpWV4XFcwQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=ndMR4aCU4lJodcM0nc+TKl40fJOfqq6ifthjHdvC+8zoticmWHdIeg/Rucifabxos
+	 KM/XfvJCbPiJ14jhbBLfdNtKeIdXF/9zMgq5Xn88jzz7L/mkKjZzEDEXHYF51nxyz8
+	 D0Hb/nHu/XiYrlu+dw09uYIhhT+UXt/4jSvlYwRw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Lyude Paul <lyude@redhat.com>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Ben Skeggs <bskeggs@nvidia.com>,
-	James Jones <jajones@nvidia.com>,
-	Faith Ekstrand <faith.ekstrand@collabora.com>,
-	Suraj Kandpal <suraj.kandpal@intel.com>,
-	Aaron Kling <webgeek1234@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Zhang Enpei <zhang.enpei@zte.com.cn>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/nouveau/disp/r535: Add scanline position support + head state support
-Date: Sat, 12 Sep 2026 10:24:23 -0400
-Message-ID: <20260912142423.2930179-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090922-celibate-moisten-846b@gregkh>
-References: <2026090922-celibate-moisten-846b@gregkh>
+Subject: [PATCH 6.6 0713/1424] drm/panel: samsung-s6d16d0: Power off on prepare failure
+Date: Sat, 12 Sep 2026 08:52:25 +0200
+Message-ID: <20260912065623.264661809@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,105 +47,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lyude Paul <lyude@redhat.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 804cb093b245c752f15d17186e0d404f10303593 ]
+------------------
 
-That's right! It looks like this never actually got finished, something
-which I just noticed today when I saw this fun message spamming one of my
-test machine's kernel logs when enabling display debug output for nouveau:
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 
-  [drm:drm_crtc_vblank_helper_get_vblank_timestamp_internal] crtc 0 : scanoutpos query failed.
+[ Upstream commit a9f950adfe2147318d75e7a6eab5e814851802ac ]
 
-So it looks like we've been falling back to DRM's core fallback for a while
-now, whoops.
+If enabling tearing mode or exiting sleep mode fails after the
+regulator is enabled, s6d16d0_prepare() returns without asserting
+reset or disabling the supply. Since the DRM panel core leaves the
+panel unprepared, a later unprepare call skips the driver callback
+and the supply remains enabled.
 
-So, while it seems that we do have the option of doing this through GSP -
-that doesn't seem like a great idea. Mainly because reading this from GSP
-would involve a lot more latency then we should have for vblank handling
-due to the RPC communication. So instead of implementing that, just use
-gv100_head_state and gv100_head_rgpos for implementing .state and .rgpos.
-It seems to work perfectly fine!
+Assert reset and disable the supply before returning the DSI command error.
 
-Fixes: 9e9944449023 ("drm/nouveau/disp/r535: initial support")
-Cc: Ben Skeggs <bskeggs@redhat.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Timur Tabi <ttabi@nvidia.com>
-Cc: Ben Skeggs <bskeggs@nvidia.com>
-Cc: James Jones <jajones@nvidia.com>
-Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Aaron Kling <webgeek1234@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Zhang Enpei <zhang.enpei@zte.com.cn>
-Cc: <stable@vger.kernel.org> # v6.7+
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Link: https://patch.msgid.link/20260429030348.3930866-1-lyude@redhat.com
+Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260704070648.35249-1-acharyalaxman8848@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c | 4 ++--
- drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h  | 2 ++
- drivers/gpu/drm/nouveau/nvkm/engine/disp/r535.c  | 8 ++------
- 3 files changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-index cfa3698d3a2fd..0aee9967d1d34 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-@@ -253,7 +253,7 @@ gv100_head_vblank_get(struct nvkm_head *head)
- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000004, 0x00000004);
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+index 79f611963c618..f73b603be0b0b 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+@@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
+ 				       MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+ 	if (ret) {
+ 		dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
+-		return ret;
++		goto err_power_off;
+ 	}
+ 	/* Exit sleep mode and power on */
+ 	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+ 	if (ret) {
+ 		dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
+-		return ret;
++		goto err_power_off;
+ 	}
+ 
+ 	return 0;
++
++err_power_off:
++	gpiod_set_value_cansleep(s6->reset_gpio, 1);
++	regulator_disable(s6->supply);
++
++	return ret;
  }
  
--static void
-+void
- gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
- {
- 	struct nvkm_device *device = head->disp->engine.subdev.device;
-@@ -263,7 +263,7 @@ gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
- 	*hline = nvkm_rd32(device, 0x616334 + hoff) & 0x0000ffff;
- }
- 
--static void
-+void
- gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
- {
- 	struct nvkm_device *device = head->disp->engine.subdev.device;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-index 856252bf559a4..b642729c254fe 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-@@ -53,6 +53,8 @@ void gf119_head_rgclk(struct nvkm_head *, int);
- 
- int gv100_head_cnt(struct nvkm_disp *, unsigned long *);
- int gv100_head_new(struct nvkm_disp *, int id);
-+void gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state);
-+void gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline);
- 
- #define HEAD_MSG(h,l,f,a...) do {                                              \
- 	struct nvkm_head *_h = (h);                                            \
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/r535.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/r535.c
-index 99110ab2f44dc..f80f9c0f85a71 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/r535.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/r535.c
-@@ -623,14 +623,10 @@ r535_head_vblank_get(struct nvkm_head *head)
- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000002);
- }
- 
--static void
--r535_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
--{
--}
--
- static const struct nvkm_head_func
- r535_head = {
--	.state = r535_head_state,
-+	.state = gv100_head_state,
-+	.rgpos = gv100_head_rgpos,
- 	.vblank_get = r535_head_vblank_get,
- 	.vblank_put = r535_head_vblank_put,
- };
+ static int s6d16d0_enable(struct drm_panel *panel)
 -- 
 2.53.0
+
+
 
