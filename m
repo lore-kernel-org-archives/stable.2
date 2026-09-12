@@ -1,99 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541D147126B;
-	Sat, 12 Sep 2026 11:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528A54BEE32
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212081; cv=none; b=Ed/7/MmUdO/BOT2pycWvSugBPQR1iUfgIsUTjOkZKUx5OCZzTzBFwlCzQDl2lH/E8c7X7KctwFSKxfxEuBpvdmOZXFbek6aJS/kqSQ8EUgz5fDuHiPr57ZSbO74xKOuDGt/0ziezBw0JVrWFxcGh57dAhY5O5co7VVGmtpw9YGs=
+	t=1789212085; cv=none; b=W/ju7H8t9cY9QQeml1YFhLY9NX5oCCD0t6xWUlKvDjd44LINHLZrqAfyN2fooIJdvKlaPTxxGoM4xRbSLHhOEQu1YStfrlMEspjhk6Ac2Yh093C8X4P3jyEVvsedRHP5XKzXrFW4XK/pPzI6Qgn5d9yPPsVz+qqqnhpQ5FMDgK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212081; c=relaxed/simple;
-	bh=7csVpdxxi5L5AUhr1ZFHrhvTzySKyQvzkv7RCm1r0EY=;
+	s=arc-20240116; t=1789212085; c=relaxed/simple;
+	bh=JC3Lp/Q2zEVl9cjbTSYsi3GO5trn4oYyrtkK5z1fqzU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iiWL9NHBamdhEidGVhXn2JxikU6DPmfl6aXQbMEoM5+qyOJlFBOpiyoEbICzketlP0f0Tt9tYPVXszC32f0RIG+FY7W+16Z3p9NTdFqUbLDd7MrvB+PBoZjTYHJSnu+R2VzForU6alL9nOEyPppWiUINWoBup7Gh2OKbVQHxk38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BfEOTFBC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GJ0lDBjbjtTKdH6WWpQf9cByvdlQ/TSWUhqNRXSODuGgmKPLeYIZt+NUSl2XZinUeVK9p6MnbOaFmkLvZR0TLAjlqYaHBOtY/mU6zuKQmCv1nqGdBuo2CtYq9IsLepSo1hkBJRJMLl73hZ5tdn8bP13wQ4ngGX8PDKmk87JWEn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4VSpI8S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BfEOTFBC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B5A1F000FF;
-	Sat, 12 Sep 2026 11:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789212080;
-	bh=4QpE5BibWMefg3uKNu4P5gro8bQL1BFdymOKfnqmMBE=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4VSpI8S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7281F000FF;
+	Sat, 12 Sep 2026 11:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789212084;
+	bh=LMesSbjdoIdK6Nu0uZQXkt5H+65zZsRfmHY1FObGd28=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BfEOTFBCRNUU+fkDrJHLbv1KHHl7khwOsHtSikc5UyA+KgeK2tcrkh3RSCE36j5o4
-	 fohddqqrQ1xV2Xs1swwsIXV4kqHlnhT402xk6cqE58RuexoctO8uHr+HT9MiqSKDLn
-	 ORcVhwu1tqVLznO7ouiGIJsV12ac8EfkOnV+aNzg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=i4VSpI8S3s1ESpRA+oM+4ZC1J2kEhYS+Uo77lzJIa+KoMEsLeGBoQizsXg1gM3Gkl
+	 EIpIKSaJ1xvJewjCluYespjGcNcUcIrFWYRmSQYfxOziDPNA/tTO0r7F7y7nyepYYX
+	 cznsjd15leSxwjJ5ytFYsVj23vw8zY86KOED+1zPURO59RXLAWH8b3TOZUnksbmSKD
+	 w9UjUiQLK1ujwZamzbH8WJ7d1aoIxQOsMhJWnAnpUEeFdvxGEllBune9+hq93lFcOh
+	 h/XGb9sW5D9wG6F+RHqbetPyzbFlocHAyLehOmVfTKzSlpOv1wcmpyeu6ieiBOrdKA
+	 4aZ0Pw0O6fxnA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Eric Dumazet <edumazet@google.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Bobby Eshleman <bobbyeshleman@gmail.com>,
-	Mina Almasry <almasrymina@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Joanne Chang <joannechien@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1362/1518] net: tcp: block mixing readable and unreadable frags
-Date: Sat, 12 Sep 2026 08:58:51 +0200
-Message-ID: <20260912065654.345030910@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] f2fs: dirty directory inodes on mtime/ctime update
+Date: Sat, 12 Sep 2026 07:21:21 -0400
+Message-ID: <20260912112121.2312390-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090950-penalize-amusement-962a@gregkh>
+References: <2026090950-penalize-amusement-962a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Joanne Chang <joannechien@google.com>
 
-------------------
+[ Upstream commit 9ec09d5f4b317a417c8655c14056f70cbe71eb6c ]
 
-From: Mina Almasry <almasrymina@google.com>
+Xfstests generic/547 sometimes fail with mismatched directory metadata
+before and after a power failure. This happens because when a directory
+entry is added, renamed, or deleted, its mtime and ctime are updated and
+the inode is marked dirty via
+f2fs_mark_inode_dirty_sync(dir, sync=false). The sync=false flag means
+the dirty inode is not added to the global DIRTY_META list. Therefore,
+subsequent checkpoints skip flushing these updated directory blocks,
+causing directory timestamps to revert to stale values after a sudden
+power failure.
 
-[ Upstream commit d9c56501c72fdac937e8b770f31655c46832f1a5 ]
+Address this by changing the dirtying parameter to sync=true during
+directory entry mutations and renames. This forces F2FS to immediately
+queue the updated directory blocks on the global DIRTY_META list,
+ensuring timestamps are committed to checkpoints.
 
-Protect tcp_sendmsg_locked() from mistakenly mixing readable and
-unreadable page fragments in the same SKB.
-
-Check that the devmem binding matches the existing SKB's readability.
-If a mismatch is detected, avoid collapsing and create a new segment.
-
-Fixes: bd61848900bff ("net: devmem: Implement TX path")
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Cc: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Link: https://patch.msgid.link/20260814191336.187243-2-almasrymina@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoint")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joanne Chang <joannechien@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ adjusted context to retain Linux 6.1’s direct timestamp assignments and page APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/tcp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/f2fs/dir.c    | 6 +++---
+ fs/f2fs/inline.c | 2 +-
+ fs/f2fs/namei.c  | 6 +++---
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index db80b81a74cbb..02f5d53245547 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -1203,7 +1203,8 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index da717e4d6aee7..943bb20d72239 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -509,7 +509,7 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+ 	set_page_dirty(page);
  
- 		trace_tcp_sendmsg_locked(sk, msg, skb, size_goal);
+ 	dir->i_mtime = dir->i_ctime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 	f2fs_put_page(page, 1);
+ }
  
--		if (copy <= 0 || !tcp_skb_can_collapse_to(skb)) {
-+		if (copy <= 0 || !tcp_skb_can_collapse_to(skb) ||
-+		    unlikely(skb_frags_readable(skb) != !binding)) {
- 			bool first_skb;
+@@ -663,7 +663,7 @@ void f2fs_update_parent_metadata(struct inode *dir, struct inode *inode,
+ 		clear_inode_flag(inode, FI_NEW_INODE);
+ 	}
+ 	dir->i_mtime = dir->i_ctime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
  
- new_segment:
+ 	if (F2FS_I(dir)->i_current_depth != current_depth)
+ 		f2fs_i_depth_write(dir, current_depth);
+@@ -972,7 +972,7 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	dir->i_ctime = dir->i_mtime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index d0efb4a02ea9d..0444586f400cc 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -701,7 +701,7 @@ void f2fs_delete_inline_entry(struct f2fs_dir_entry *dentry, struct page *page,
+ 	f2fs_put_page(page, 1);
+ 
+ 	dir->i_ctime = dir->i_mtime = current_time(dir);
+-	f2fs_mark_inode_dirty_sync(dir, false);
++	f2fs_mark_inode_dirty_sync(dir, true);
+ 
+ 	if (inode)
+ 		f2fs_drop_nlink(dir, inode);
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index 5227e911eab21..bb9c085665541 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -1009,7 +1009,7 @@ static int f2fs_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 	up_write(&F2FS_I(old_inode)->i_sem);
+ 
+ 	old_inode->i_ctime = current_time(old_inode);
+-	f2fs_mark_inode_dirty_sync(old_inode, false);
++	f2fs_mark_inode_dirty_sync(old_inode, true);
+ 
+ 	f2fs_delete_entry(old_entry, old_page, old_dir, NULL);
+ 	old_page = NULL;
+@@ -1182,7 +1182,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(old_dir, old_nlink > 0);
+ 		up_write(&F2FS_I(old_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(old_dir, false);
++	f2fs_mark_inode_dirty_sync(old_dir, true);
+ 
+ 	/* update directory entry info of new dir inode */
+ 	f2fs_set_link(new_dir, new_entry, new_page, old_inode);
+@@ -1201,7 +1201,7 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		f2fs_i_links_write(new_dir, new_nlink > 0);
+ 		up_write(&F2FS_I(new_dir)->i_sem);
+ 	}
+-	f2fs_mark_inode_dirty_sync(new_dir, false);
++	f2fs_mark_inode_dirty_sync(new_dir, true);
+ 
+ 	if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT) {
+ 		f2fs_add_ino_entry(sbi, old_dir->i_ino, TRANS_DIR_INO);
 -- 
 2.53.0
-
-
 
