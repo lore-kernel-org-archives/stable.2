@@ -1,46 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FA1274B39;
-	Sat, 12 Sep 2026 15:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD673264D4;
+	Sat, 12 Sep 2026 15:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226411; cv=none; b=Sbj11Hs0O6EZZ4rJg06zvgpnHuX9041A7H3nXksAMae5VZMccIUFCijGVnKClfrDn3vXLlEj+b4rpJEZnGV5Sqg5GQ1vsrbsFsqG4zGZpnB4VY4NpDRdnmj6EkgxCgoAJuz8XT+mMRU2cCg1FSJ07iNTGA5t10FA6z4dlbddZ/g=
+	t=1789226416; cv=none; b=hsUZL+9pMYzchLl/m6DBszoTDjoSMoEJ8LyIZimZDpYvYY23IvMClw8l5K1G7IUbIq+86zepxipzW/qOSYqql6oXYI7bUDazLdhg7LfLBpnss0IuqZf3cyv3VU7m5Tgt0yJg7ijYKUQW5ALxgAWHM8bUQSV4BT+rvewTPWUQSDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226411; c=relaxed/simple;
-	bh=C6S8rcGdP4Ux2iqLpgoo6YzDCXirwlBBLwj9lbmp/JE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XNL3IEGx6XpkPDE1p3E2+N+WtR6X7Ww9z+g/oXdlCaLlY20AMiOd7SRdUmVNrAZ0AspElSow2A0rd9Ik9QKUTmP25bA/0ln9nb/FCtIrJVv8lNnYMJq3RccC600xICQEM0Fg1fw0ouOnqxRqN9qZDrxeEAXqxp1agIlnsHFDqC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ygFsXLWv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789226416; c=relaxed/simple;
+	bh=BrpOjzRvfMacMNezEnHboF2vo8DDz14l/uX51eIv46I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QcUzIAN+cdEDoG6mC8fRELYuz4Pruvp9uZMY6hK7UsWLO8zg9zVLvI2hmf+rjsp2mMa4wYPH4+5OmodtxB5rlfBNKr+Igr14YIl0MnwpeopeHPvcP/lMQ8xTxJA0uD4i6vYwqnKM+jpsPAieXx2lIdFuXgv5ipV2I9Dd2ud9Jvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=7fpvNKw0; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ygFsXLWv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308591F000FF;
-	Sat, 12 Sep 2026 15:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789226410;
-	bh=DDvVU7xOBhPgRtIv+hOtsrIAjIowInQ8otlq5aTTZjg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ygFsXLWvxP70/UY8aWulnJMhyp79kcjQ2TrJI/JuxnfKj/zi4OOB13XowU7Vp/JWg
-	 zd9Loc5INpQQXp+4GhBJxhEhW7Jzig3kkCqsIPh2CCde19OSbfrQnahKD+vNRtZc2z
-	 w7WUY++U+8D7j+dkGKzxQ/i/Fk/pW5N4QJX30GGo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+6665d3db5fef15914802@syzkaller.appspotmail.com,
-	Eric Dumazet <edumazet@google.com>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1395/1424] usb: atm: usbatm: fix invalid ci_range initialization
-Date: Sat, 12 Sep 2026 09:03:47 +0200
-Message-ID: <20260912065638.501517005@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="7fpvNKw0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=m+z8IGBcOx5mhev39atHGZpRwjVfvx6kUraHWgM4et8=; b=7fpvNKw012eTxZLyGANTiZIvvP
+	/UazygCBsTu+1HagcvVyR8sPDyTAgqKQaE1cqN1ZuZkuPN8BCFVfP3BhQ1IXLeGzHRyXhmCOymvyJ
+	SDKYyFLByMJjEi+9GyEKUs63LBJTbpcAQV/WM4k21r4agKf7BhFOIIEaMalHRELTUZbUKt1NVfwgQ
+	yrIaLtBCJ1IqeET68ao7jjsRz3iXXy7UuBATWRi1UDCvtOJBNWXrjC3q49/OAQoIDYxLoLmPHaB/V
+	2YkvraXVSaICUGWRnJu4qIVe/O2QMky/sQKcdFn6kuSnn+B2oiCRuzRPNWQZIaw9+JbVDuDNTO2kv
+	Jan0JIwQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x5PWT-00000001Hhm-0HAg;
+	Sat, 12 Sep 2026 12:20:09 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org
+Cc: syzbot+5003556314abc915a71f@syzkaller.appspotmail.com,
+	David Howells <dhowells@redhat.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: cancel reconnect work in clean_demultiplex_info()
+Date: Sat, 12 Sep 2026 12:20:08 -0300
+Message-ID: <20260912152008.392251-1-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,80 +50,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+clean_demultiplex_info() cancels server->echo delayed work but not
+server->reconnect, which can cause a use-after-free when the
+demultiplex thread exits while a reconnect work is still queued:
 
-------------------
+  cifs_demultiplex_thread()
+    cifs_readv_from_socket()
+      cifs_reconnect()
+        __cifs_reconnect()
+          cifs_queue_server_reconn()
+            mod_delayed_work(cifsiod_wq, &server->reconnect, 0)
+    clean_demultiplex_info()
+      cancel_delayed_work_sync(&server->echo)   // echo canceled
+                                                 // reconnect NOT canceled
+      kfree_sensitive(server)                    // server freed
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+  ...later, on cifsiod_wq:
 
-[ Upstream commit a60fd8c6dbaa76da4163cf225ed2b9e982540f39 ]
+  smb2_reconnect_server()
+    server->srv_count  // UAF read of freed server
 
-syzbot reported a shift-out-of-bounds in __vcc_connect():
+Fix this by canceling server->reconnect delayed work in
+clean_demultiplex_info() before the server is freed, the same way
+cifs_put_tcp_session() already does.
 
-  UBSAN: shift-out-of-bounds in net/atm/common.c:382:32
-  shift exponent -1 is negative
-  CPU: 0 UID: 0 PID: 5987 Comm: syz.0.18 Not tainted syzkaller #0 PREEMPT(full)
-  Hardware name: Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
-   ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
-   __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
-   __vcc_connect+0x14b4/0x19c0 net/atm/common.c:382
-   vcc_connect+0x328/0x8f0 net/atm/common.c:498
-   pvc_bind+0x272/0x380 net/atm/pvc.c:52
-   __sys_bind+0x2e3/0x410 net/socket.c:1976
-   __x64_sys_bind+0x7a/0x90 net/socket.c:1979
-   ...
-
-ATM device ci_range fields (vpi_bits and vci_bits) represent the
-number of bits supported for VPI and VCI addressing on the device.
-net/atm/common.c directly uses these fields as bit shift counts:
-  vpi >> dev->ci_range.vpi_bits
-  vci >> dev->ci_range.vci_bits
-  1 << vcc->dev->ci_range.vpi_bits
-  1 << vcc->dev->ci_range.vci_bits
-
-usbatm_atm_init() sets ci_range.vpi_bits and ci_range.vci_bits to
-ATM_CI_MAX (-1), which is defined in <uapi/linux/atmdev.h> as a
-sentinel value for userspace ATM_SETCIRANGE requests, not a valid bit
-count. Shifting by -1 is undefined behavior and triggers UBSAN
-warnings.
-
-ATM UNI cell headers allow up to 8 bits for VPI (0..255) and 16 bits
-for VCI (0..65535). Initialize vpi_bits to 8 and vci_bits to 16, as
-done by solos-pci.
-
-Fixes: c59bba75fa50 ("[PATCH] USB ATM: new usbatm core")
-Reported-by: syzbot+6665d3db5fef15914802@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6665d3db5fef15914802
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Link: https://lore.kernel.org/all/20260824024620.23485-1-kartikey406@gmail.com/T/ [v1]
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Link: https://patch.msgid.link/20260826133258.8306-1-kartikey406@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: syzbot+5003556314abc915a71f@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/r/6aa4a12d.f81106d8.2ab401.0023.GAE@google.com
+Fixes: 53e0e11efe92 ("CIFS: Fix a possible memory corruption during reconnect")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: stable@vger.kernel.org
 ---
- drivers/usb/atm/usbatm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/client/connect.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
-index 1cdb8758ae01b..bbee6bfed5b88 100644
---- a/drivers/usb/atm/usbatm.c
-+++ b/drivers/usb/atm/usbatm.c
-@@ -917,8 +917,8 @@ static int usbatm_atm_init(struct usbatm_data *instance)
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index b6e98eb31673..bef710d9a3c3 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1067,6 +1067,7 @@ clean_demultiplex_info(struct TCP_Server_Info *server)
+ 	spin_unlock(&server->srv_lock);
  
- 	instance->atm_dev = atm_dev;
+ 	cancel_delayed_work_sync(&server->echo);
++	cancel_delayed_work_sync(&server->reconnect);
  
--	atm_dev->ci_range.vpi_bits = ATM_CI_MAX;
--	atm_dev->ci_range.vci_bits = ATM_CI_MAX;
-+	atm_dev->ci_range.vpi_bits = 8;
-+	atm_dev->ci_range.vci_bits = 16;
- 	atm_dev->signal = ATM_PHY_SIG_UNKNOWN;
- 
- 	/* temp init ATM device, set to 128kbit */
+ 	spin_lock(&server->srv_lock);
+ 	server->tcpStatus = CifsExiting;
 -- 
-2.53.0
-
-
+2.55.0
 
