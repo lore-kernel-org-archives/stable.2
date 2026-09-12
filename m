@@ -1,132 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021108.outbound.protection.outlook.com [52.101.100.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33F7479863;
-	Sat, 12 Sep 2026 16:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230604; cv=none; b=RfZmqiRti9hjeJmEC+9PNwcGS6II30x6PiP44ft/vwvQZySqmY1rNlKTOHKn1SzWVN8tYkiqAgDIReKT42sJM4QYFIW4SpRumuuWpt2iVO3eMpiLu6T7dko08FZu7slnmp1rYgBdMOo7J1sTMYbtmUOKRqdbVe78QAeqymGEbdk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230604; c=relaxed/simple;
-	bh=0jZjoEcNAn3fUqevCr6opbllmP5PaKfiBxhtQ6xBwGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ehBzuUwQMQvqlrUh2dKmB3UADsUXPRG0TFNxgiWmR+ZkTSF1fxysEKksxA86ee0fuDiD3k3OUr3z8CZD4GBAJEJ11wSNabF9rTNFVfhAo8PrtpMvPL+QUclpHbSndl2MAHCnMb73gkC44VYAf0TmDf5IZpQtMleQbL9mUS3fNkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YQz66AWf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13373429CC6;
+	Sat, 12 Sep 2026 16:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789230606; cv=fail; b=gaswzp4duMX+UlDF+vYjsmMyOfCJARB8fHZwSVQqDcONuUs5ZK0pfdM262xsk1koPZ1JfDYWkjYuP1Roao0gZrPq0UjwlUfHJdZsiFRDU7wfwH9w6tK66CsMq0h1Oj2sPd4xrUrFKOk+2UC/jJSjNzGpDy1R5q6jgd9DW1Qk3yU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789230606; c=relaxed/simple;
+	bh=oDDHURki/VMQrZdkuw6milAY0aB5dhN8cMtwqsOQHp4=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=IM+nszCSszWL/csbmNCyzze2bydMuPeIuTbRh5Wfwq090da1xabU1/Vq2TWWa2I+F9WeWLjXW3b6uXmnJtcEcxmsXZH8/t/as1gXWzaKgLNHFBPo5EoYHARDaYD1rb5oxTjghKFmLHhA5sCC/d149hgbOuxo1apg4wA5xZ2NXx8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=VYojUTna; arc=fail smtp.client-ip=52.101.100.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YQz66AWf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F011F000FF;
-	Sat, 12 Sep 2026 16:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789230600;
-	bh=2diYo0HfCnS3QkGl3S1cif1B77Bm8cNB1LGtOxUOtZE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YQz66AWfsMTErID2t2N787MVNaG/KXfUA/DvtdLkCgY7jB2zQESBNVUh8ObfIYAEd
-	 OBoCNoiM3TYtD/f8shuGO+mSuadxG1dW9yj4a4qt//0JQIksQDSxKbC00fbh8xDfLL
-	 cVb39xAcea/0Q+vBo7sraTitjqmN1oFpilOVcLl4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Linghui Wu <linghui.wu@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0825/1191] wifi: ath10k: snoc: use memcpy_fromio() for MSA ramdump
-Date: Sat, 12 Sep 2026 08:59:13 +0200
-Message-ID: <20260912065606.797136967@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="VYojUTna"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xYf+x+zcti62YBI5ldCdV3KXLgzDoBxqMx0FM5jGNKqLJlPTiNZfmy4p6OTimde/+rA/TWJkZXQ8Dt7cw8AE01m+PvCnd58ZEjVw7IXnkh7wcNQpD7Xa8WPg1MOaFlBwj8Pw6ceOaKdHrZp8vQ+usY55ZRPPlgArzEVZiqP3IsrkBPPx021fAm2cg9unnLwEExK6in+Cc+OEajVxy0RNGoGMrflh5MGFeYjemOvltcwzfmqVxd1okd902Oy9u3mPrjOXXA+7KK+InjMTfB6m3590NVxdCAqc71ACcnVrA5TaCI6C+XJel53/BhdIBr76TuoK75K7MWxNv5B3cVs+dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tc3HNi2OLVxs28CGnwu51BdEmgHzutbKPHFIjNRJYFE=;
+ b=UdIVPLDjt424Ww4tx87KydQpv9iWVfyrk4ZDOvAGTUPoGHX2ofyU5C1RIuVuJagZmClHH/caLDxjOepdMyxVcJABfl5SHf4jeYKm+DsAEOyefjvEnbLx6zYotJxFqnyKqmBlsvpZhut4AQbVs2NHkHm/dEkuLfvl11H/EQj7/lP2EQnOZQ7Ttiwz82wt/J/VhdSFWV11LcUi3q+eDDyPIbehuSzafdwkrW2xjbGyZ3Jprx8AkBDnPodeClUVCmizRTIkxrTkCP/x0EOxGfGJw3xaUa9d3sZVcAqgLQ25Hsnnf1QDn2iOMG5/bIjX1j9hPdKSKBIrKbRXyJ71QUyP8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tc3HNi2OLVxs28CGnwu51BdEmgHzutbKPHFIjNRJYFE=;
+ b=VYojUTnaAmss0UkSHNlWKGTOvZN+xj8pMFnvlBotPB5Y5kjkFdTKi2vEhDr8JIP5WcyyfIwZlNpNnrgQFMFVqQf/UpjvewRwN6HHYUZc5SFeU5QjjUGagVil9qaqUhAMv16mTqSi5bXggrH3uzOjsklMnpM9SvXT3emhNn4Mirw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO2P265MB3547.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:1b5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Sat, 12 Sep
+ 2026 16:29:58 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 16:29:58 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 17:29:57 +0100
+Message-Id: <DLDHB99HCXCB.S9V6QLDVSW3N@garyguo.net>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Miguel Ojeda" <ojeda@kernel.org>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ <rust-for-linux@vger.kernel.org>, "LKML" <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH] rust: allow `unknown_lints` in the generated bindings
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260911195209.442715-1-jhubbard@nvidia.com>
+In-Reply-To: <20260911195209.442715-1-jhubbard@nvidia.com>
+X-ClientProxiedBy: LO4P265CA0289.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:38f::12) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB3547:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fdfe745-16cb-48c1-a0cd-08df10eb1617
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10070799003|6133799003|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qMU3rWd9NCXBiHWxX4VzDlHmpC1DRUuRft28t1CiqIkgGgHifHp+XXN1aXOIFaUxxtxIvtnZoGbgPvr6gOwoYpcMCIJN4aF8jXHNUdB7ZnNaUnYZIviCkhF7pedftf0fwMGhsd9xgscTmVFVd0xA9gJcuuSowj2y60z7aS+23KqzUlT3IAXJB48BwdIj3p0x8rCT3i40lGMZBgioLv4LgaytLEecCx5MO5SOttovA+hyGdS6GOabRrvlc+CTs/kM56PvU/EIaibRRGkx19UTL5eVesLDEyiuwbf9FlB/RF8SMY+T4rTo9ws2Rv7ieDDYtn+NQte73V8bdeF/L5okykcNt4Gp2K9ZRfRVOjuSUxufegZ9wTd2d1XsF8MqEXqMeA3OtftwylSYGrONHF3aBhfGwiF85VJ9i0xZU3ldibKv7jbnmzn9yjrE3wr9nC+etXWvk/JKwA0CKlzdNtMnQB/NZlDFkc2OhluusR3x4gxtmug8ediVH85a5WLby6VmFICeaoG/S0DyORbdcQILYYqmmJQ+6BznYYIK31T86lk4b5vYXtto9gO4K44dbkU6Vef6HpNo+VmakPvETUXp9IqZdJ0RXP9KI3hORBauiW+G4WSSW7e78rIZDERteEv6t7It/FcYwef5pXvLgvTbOmu4gowRs7ZdmSXWrFCy9jg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10070799003)(6133799003)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?amh3aTg3MTJNWkdDMmM4bTU2UnhjN3hMa24zdGNTYm9ybW1RWGRXaGtreGxx?=
+ =?utf-8?B?TUMvRXN6b1FEUysycFB1emRDYzJWZGRmampLVEZSZVUzK0hNVFBMNWhlWERF?=
+ =?utf-8?B?Z3lpR2g5bEFIUlh0UFJpTTEvc0Z1M3ZLZDZVSk90bU5PR2VLTWl2TjBmTmhC?=
+ =?utf-8?B?M1VtY29YZVhnSWJpSUM5OGd2Rmh6S2M0UnVIc3l0WWpoSXJaOFMrN21CTkVt?=
+ =?utf-8?B?VFllRUNmK1ZqODZ5QjJ2YmtCdysyamdnY3dBSkFQenBLUEN5eDFubm5zU1Fi?=
+ =?utf-8?B?VDJUMjlzeVlSOXU2U1BDSmlLMFhMaTk5UnA4QUdPZ2dta0pLT3FldUJXZ0hI?=
+ =?utf-8?B?NDIvRU9Panp4bmg5MHpHU2lTQWcvT3hUU2VoYzdBc2phY0RibkxUaGthL0xo?=
+ =?utf-8?B?NU5mSm1ZMklLYkRsZGRGQi9aSlpMV1VLK3RuRU0yY3RsV3JRSWdhK1ZRTDRm?=
+ =?utf-8?B?QmR3a29taUhEVWlUblVnMGNVYXk5SjhUbzNhSU5TWlNTTnl0Mld4aHcvTWRK?=
+ =?utf-8?B?M04rSHhCMjg2Qnl0eEtXaEdmQWNWRFFQVDJKZmdzWjFhTUFwM3NRYzU1YU5X?=
+ =?utf-8?B?ZWRPc09JaHNzeFQwQUVmZkNJL2NLZnVDUGp3TXowWUtkZno2UFJ1TmZnUXcz?=
+ =?utf-8?B?VGxWSG16b1h4czVlczJ5WHByR3dUS05walBBSVh6RGRuSFpUT0laODlBYzNy?=
+ =?utf-8?B?dEpqbTUxMXA3TDRCSUEybFpEZ1orbXN5VzIvbFFEajFtMm42VkpXNERHdnpV?=
+ =?utf-8?B?R3REb1RYb1lEa3dKVnBieE05ajVMQzBWT29sUHd1SnBCdWZaM3RqR051czZX?=
+ =?utf-8?B?TTBTTFZnb3Y4K0dZT2lQbnBwbGRjVWtpMXhpRDlmcWYrUFF5c1hmdVBQOEYw?=
+ =?utf-8?B?bExBSjhrYmFJZitIMlRwSjVscXJVbTJTYUZhYlVDOVhoL0E2NEcyMDdLRnhj?=
+ =?utf-8?B?WVJsaDA2S2dQZHNpejB2UmFtczM0QVFpalk0TkYvZDZwUWJKR0J3SFVDMXI0?=
+ =?utf-8?B?UmJJMUFUZkVYY3BjZS9xRS9VNWlQVzNZdFRrdHJhb3J5OUhQQ0ZYUTU3YTdu?=
+ =?utf-8?B?MkpmeE14eXE0cDlWNGtEM1FlUUtCME5iNWNKaDd2ekZ2WGUvRjloblNYdnl6?=
+ =?utf-8?B?ZmFydXJRck1Ob2tENnQzN0RJNEI1STJQVExwUlU2TmUrdjVyTlYxdjNyTnBm?=
+ =?utf-8?B?alIxUUZ0NUYvdVVjWE5XRzJVaHhPWVRMWUcrYTFiQSt4MXN3SmoySjJQMVRk?=
+ =?utf-8?B?Zmcyei9VTXlYaUx5QnVDUGkyd1ZScTFuZTMxMjIyYWw3Yy9ybUhhaDAzb1VS?=
+ =?utf-8?B?WmtqbmZxUUFLTU9pR200ZjhxU3pYaDdlZENUU29ZeVRpa1kwVDMzZXcyMWc1?=
+ =?utf-8?B?alpqMktZdUVBWDBzYVBlU25YWDIvTWo0VkhSclQ5MTNRbDBtMG96L2ZodFBh?=
+ =?utf-8?B?ZUhKd2tKdjFDSzQxUmUwTi9LNVJRYklxTk1aOU9sdFY4RXFHRWRMRU9FTHl1?=
+ =?utf-8?B?SlBFSHQzamdweTVPdWZBbVpDSUlpOUppV0xicmtwUlVnVTBwVnppeXRmVXh2?=
+ =?utf-8?B?NWRvR3hic0RsaG5sVGpsVXZRc1JvcUxpTEc0MjdNOHQ2QXVtM3U2SVlwSEp5?=
+ =?utf-8?B?cGt4ZVQwUG5LVklNTjJPU3hVbU95NHFwdkhBYjZxRDFNYm9SUnpwUzJlWkRR?=
+ =?utf-8?B?YjR4WkFRckxUcXQwRFl6NWl2L3ZjV0lRN2grc25yQnJDQ251MEovc0dIdjVR?=
+ =?utf-8?B?ODhzeDBlY1U3VFdWRjUvanc5R0tUZzE5R3laUW81MnViNll0SFdOQXJ4bGZH?=
+ =?utf-8?B?TG1vd3dtRnRzem1QTlhqendLaWJSeW5lQlVuZHREMUNvTklWaFF5Ukxzb20r?=
+ =?utf-8?B?QStZTmlXMXpad05BYXZuOGlvb2JtTmorWEZHWU4xVVZjWjU3N0FXVEhKVzBC?=
+ =?utf-8?B?Ny9UVUgrdnlVVXFhY200WEZEbCtKYkVmUHQrT0lGRnFPbUJoSzJmNEwzOWto?=
+ =?utf-8?B?cUtUQXNKakM0UExhZFFRQ2hZa3dOTktXa1hxSlY1UE9mQWJsNDBpRkEwSHVs?=
+ =?utf-8?B?MGxXM3ZGcEFTL1J2L01FZTJoZVhhWithUHZLc2t2RUsycmt4UEVDRk5pT2Q3?=
+ =?utf-8?B?bEhJV2YwckNrOUpMOStYVUQ1eUt4T3pHTVhRMHFmQUFBYm82RE9LV1kvWW0y?=
+ =?utf-8?B?bm5UWHp1eFIrWVNWYk1GUVZUYkV4VDlIRzRXZ2dyZHQxTW14cWdiTXM1UTZJ?=
+ =?utf-8?B?QTRvY0hXWVd0R0lFUDFYWENxQzQ5NU44bTZMbCt6SjRTSGZvYmdSOE1yR2Y3?=
+ =?utf-8?B?UVZOUXZ0WDhZR2dkaVJyalRxcFhoSWk5cm8zNU9uUWRBOG5raWZYUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fdfe745-16cb-48c1-a0cd-08df10eb1617
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 16:29:58.4980
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lk+huLhCbBjeWcUJ7XfRKfv2Rj+FmUUIGvP4AEChRvg1v8BpGwplNjfkbMmy5wp4Ro6Ygk2Y2Ay3JLsUxNVCqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3547
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Fri Sep 11, 2026 at 8:52 PM BST, John Hubbard wrote:
+> A build with bindgen 0.73.2 and the minimum supported rustc, 1.85.0,
+> emits about 12000 `unknown_lints` warnings, all of them in bindgen's
+> generated output. CONFIG_WERROR or W=3De turns them into a failed build.
+>
+> Starting with 0.73.0, bindgen writes `#[allow(unnecessary_transmutes)]`
+> onto every bitfield accessor and constructor it generates. It does so
+> regardless of `--rust-target`, which rust/Makefile already sets to 1.85.
+> That lint exists only since rustc 1.88.0.
+>
+> Commit 7129ea6e242b ("rust: clean Rust 1.88.0's `unnecessary_transmutes`
+> lint") made the kernel's own attribute conditional, to keep
+> `unknown_lints` enabled. That condition cannot be put on an attribute
+> that bindgen writes.
+>
+> Allow `unknown_lints` in the bindings and uapi crates.
 
-------------------
+Already fixed: https://lore.kernel.org/rust-for-linux/CANiq72=3DfEYa1PygH-X=
+JHONQKqf53dZFuGc-Z7wd4M7yeREq8Vw@mail.gmail.com/
 
-From: Linghui Wu <linghui.wu@oss.qualcomm.com>
+Best,
+Gary
 
-[ Upstream commit 4f25071afe9218aaae1c63fbf75e229aa6405319 ]
-
-On WCN3990/SNOC the MSA region is mapped with devm_memremap(MEMREMAP_WT).
-On arm64 such a mapping is not Normal-cacheable, so unaligned accesses to
-it are not permitted. ath10k_msa_dump_memory() copies the region with a
-plain memcpy(), whose optimized __pi_memcpy_generic implementation issues
-wide/unaligned loads. This triggers an alignment fault (FSC=0x21) Oops in
-ath10k_snoc_fw_crashed_dump() while collecting the devcoredump:
-
-  Unable to handle kernel paging request ... FSC=0x21: alignment fault
-  pc : __pi_memcpy_generic
-  lr : ath10k_snoc_fw_crashed_dump [ath10k_snoc]
-
-The Oops both leaves the firmware RAM dump buffer zeroed (no dump is
-captured) and crashes the kernel, which in turn breaks modem SSR
-recovery.
-
-Use memcpy_fromio(), which only performs accesses that are valid for such
-a device-memory mapping. The generic memcpy_fromio() implementation aligns
-the source before issuing word-sized reads and stores the destination with
-put_unaligned(), so it is also safe for the coherent DMA allocation used on
-the non-reserved-memory path. ath11k and ath12k use the same pattern
-when copying target memory into crash dumps, so call it unconditionally
-here too.
-The MEMREMAP_WT pointer is a plain void *, so an explicit __iomem cast is
-needed; use __force to keep sparse happy.
-
-Tested-on: WCN3990 hw1.0 SNOC WLAN.HL.3.3.7.c5-00107-QCAHLSWMTPL-1
-
-Fixes: 3f14b73c3843 ("ath10k: Enable MSA region dump support for WCN3990")
-Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260727072629.2297208-1-linghui.wu@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/ath/ath10k/snoc.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath10k/snoc.c b/drivers/net/wireless/ath/ath10k/snoc.c
-index b43658b016844..9e6e614c0a2b2 100644
---- a/drivers/net/wireless/ath/ath10k/snoc.c
-+++ b/drivers/net/wireless/ath/ath10k/snoc.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/bits.h>
- #include <linux/clk.h>
-+#include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -1451,11 +1452,15 @@ static void ath10k_msa_dump_memory(struct ath10k *ar,
- 	hdr->length = cpu_to_le32(ar->msa.mem_size);
- 
- 	if (current_region->len < ar->msa.mem_size) {
--		memcpy(buf, ar->msa.vaddr, current_region->len);
-+		memcpy_fromio(buf,
-+			      (const void __iomem __force *)ar->msa.vaddr,
-+			      current_region->len);
- 		ath10k_warn(ar, "msa dump length is less than msa size %x, %x\n",
- 			    current_region->len, ar->msa.mem_size);
- 	} else {
--		memcpy(buf, ar->msa.vaddr, ar->msa.mem_size);
-+		memcpy_fromio(buf,
-+			      (const void __iomem __force *)ar->msa.vaddr,
-+			      ar->msa.mem_size);
- 	}
- }
- 
--- 
-2.53.0
-
+>
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
+n older LTSs).
+> Assisted-by: LLM
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  rust/bindings/lib.rs | 2 ++
+>  rust/uapi/lib.rs     | 2 ++
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
+> index 812f8e5a08d5..a3af57d7d137 100644
+> --- a/rust/bindings/lib.rs
+> +++ b/rust/bindings/lib.rs
+> @@ -26,6 +26,8 @@
+>  #[allow(clippy::ptr_as_ptr)]
+>  #[allow(clippy::ref_as_ptr)]
+>  #[allow(clippy::undocumented_unsafe_blocks)]
+> +// `bindgen` emits `#[allow(...)]` for lints newer than the minimum supp=
+orted `rustc`.
+> +#[allow(unknown_lints)]
+>  #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_tr=
+ansmutes))]
+>  #[cfg_attr(
+>      CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+> diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
+> index 797ead5b5626..361b490acc25 100644
+> --- a/rust/uapi/lib.rs
+> +++ b/rust/uapi/lib.rs
+> @@ -23,6 +23,8 @@
+>      unreachable_pub,
+>      unsafe_op_in_unsafe_fn
+>  )]
+> +// `bindgen` emits `#[allow(...)]` for lints newer than the minimum supp=
+orted `rustc`.
+> +#![allow(unknown_lints)]
+>  #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_t=
+ransmutes))]
+>  #![cfg_attr(
+>      CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+>
+> base-commit: 3026c6e4f223bdded6448fefe53ff85d9cbe51bd
 
 
