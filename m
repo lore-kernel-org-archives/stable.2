@@ -1,141 +1,104 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538EC18DF80
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99E7224B05;
+	Sat, 12 Sep 2026 03:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789181840; cv=none; b=OJtfSMJdu1Qzuood8tNB13GieRzIX/he9/OZgZupKHaz6uNk25OUgukSC9HAKqs/ganlyCpc3VLX4loaSokuOVdu7dz4NLgCBYPY5GR5T5pfboWmY7hGEb/4g5dOM4PQe2+H9RYY3uklmJjqDY6bG2kL2F0IPlFM4FdVlAeKc6s=
+	t=1789184178; cv=none; b=mw/9sbaItFldKfuaTrgfH831K81TlfagJ+BWirhJ0JKlq0woZy34rFnpnBOplr2HqTcoNgTzT9g2AYDG1zxETxrXsT5ihE6GO3d4O0xcxOoHXXWLEWYk/7YSgwbWnl2Ohd8MU55l5sRlwMu3nBz2DbIcWLMlXShhUl/JXD8tQvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789181840; c=relaxed/simple;
-	bh=aRmA38fLQQW2la5to94eGZ+mEq/IwIZqpvXOmzW5gd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZdN0wFSuIpq4hZaSz7z6GsbPRoN7lPpfTfrwOn4MB6GSGYfYgBTAU2xtU3FjzCv/hQLLL5sLUly6OljnoRh9xMBfHrLRzXPCqfqfGvWjLlY1PXI+dWXYAmwb/uloarw+sgrUpu4qTB0YoboNteWTeFlh0WcwaU7EDKquyonp1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJnFP+Tw; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789184178; c=relaxed/simple;
+	bh=EpZ6j2bTxc/TQ71LdovCHSO2o+cU1b+DPT7FT1SlkCk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MAwXVeh65Fd/Zbqwc9qrONImiZIe0AjfuudlwyDqFgOjizcnMoqNuiIZwZxA8MVDOfBXAbecHcXN2jS5hcQXdzXrR9n5e5AvznLCyyvsCSHwGh3f0UtKh0c+vkWtEEn8WVPDguNA7LTiUW0GWy0OcgOY5gVlUHAiOkAmPJHlDDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=O8VKpYDp; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJnFP+Tw"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb751so410488a91.2
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 19:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789181839; x=1789786639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZChHh/4B9HUVQ4ZUWlKc1VE04E7v5RYeUYSFt/vXmVc=;
-        b=DJnFP+TwUMf3OQ/1SkbSsht6aAllf7t7pm79Js8JrzK/Y6EPJmPkpdD7fE6gCqqF3x
-         B7rgPNU7Ifea3o77dhw0zTJBZDvg4DK40FscjvQ0ShVdFnAPiGJEu/Pk91hsQYXE/CSd
-         D7lR3MwUfd9ZyZhwEst1Z05D1PMJ6fx87vvSWmQlW+iQLxLvgEajdmCDg24j03UH/WNn
-         FPEmXDrE2UrP78Dx5OeLesrWrfPxKyOpzrMBnvrx8w61dioSBmUFmBSFX0BQpH+kCnRR
-         fPIKtPsTkaW+rSXRAmr6zm2ty7l8fYzEgFw2LA3MQ9mx0FeAgx3TAZkUAsBRVkc8EnlG
-         IyZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789181839; x=1789786639;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZChHh/4B9HUVQ4ZUWlKc1VE04E7v5RYeUYSFt/vXmVc=;
-        b=VYmoamFjeZ5xoAkTbNGo5arbZD8q4iBw39QYB7aV+lgXYfnPt7igcJprtLu09cu5ME
-         MBNDRgS9avq6RPy2D/7ZrnGzLDoDUSVHcnJpaqZwFGXlpYr9eNORUWP1/e3dYq5TjQvI
-         rq1qyXKWSD9In/Iaq8DaNQaZIBerUJ8H+XvNrjT1dgRpaG8S1q6Gq8h7kuNau7gjXU4l
-         9P+g3NRItCQsVZNydl19eCSlzwl+nZIyuH68UTYVVmghF5beuCVgly0GZUvPNNW4CKk7
-         vv7qe9MCLqyLGd54DsBoVKKQXEaKccRADf9WKAo2oHM3YVHL/59xJjjqkqh9SFYBABoG
-         F7dQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkmuTF21I0hibRQJBrWCw/IAmQkbOu4mJDCcRiu9DELlazBn57nO5YpWsKPLgWdjEigavOfis=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDQQXKT0nHVA34OImmoK80tcFIl5poxba0dfC+08W1JCxdazmp
-	8Ie0G7I2ihh1O+XnZbL4UUV7exbBdGRi5jcOWwTpmdq3T25J/I4SfrHT
-X-Gm-Gg: AYBFou2Qggcy+ji+pQT9mnkvWqqhRzlqJYdF6UM3Rlz6gPN6ZBQlFKK2S1sQrN8NcPr
-	qvLGq4hrs7wstuDo+FHZqZd17YFKArQXaJF9EJWYs9qKekAxM+EXaOHu4Eau3QsQBYZWnmATD/C
-	3C61t3GoQ34pTD30qdI4+svSld4OaMiOwI6OD2oZQoi0EkJ1simyYuXAewzhGzt/XK/CCmPh9Z/
-	B62GvTsfeU4bUZMVW1VTHNVq/AUyGFAO+IwyxaTloVqmEjIoKhvcNrwbGNgLEfgWdaMi4oh5LLv
-	6Ik8HIvIJwrayzkz6xRdPkP/+vOO+73C0PWKIUfKCuyj1HyfaERkr+J+iUZzpDynOm+IhA2ubI7
-	8+gmNk2wz817g+DDNvazW9a9wSyT3XLjFK5IcDhVEJpFdS2M3I0vIiWg6+yL7o0uj2bLWmuxZag
-	nXUac1GeM9kBG375aNaw12eCVfF3mDMoEbaRpGaZt0KuGezSu0eSOC
-X-Received: by 2002:a17:90b:57ce:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39d9c1dbb3emr12783798a91.12.1789181838654;
-        Fri, 11 Sep 2026 19:57:18 -0700 (PDT)
-Received: from linux.. ([2409:8a28:a63:d170:c5de:2f75:4ae3:11de])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d554220sm2344737a91.2.2026.09.11.19.57.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 19:57:18 -0700 (PDT)
-From: Binglei Wang <l3b2w1@gmail.com>
-X-Google-Original-From: Binglei Wang
-To: linux-erofs@lists.ozlabs.org
-Cc: xiang@kernel.org,
-	chao@kernel.org,
-	shengyong1@xiaomi.com,
-	linux-kernel@vger.kernel.org,
-	Binglei Wang <l3b2w1@gmail.com>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="O8VKpYDp"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hhcWr616szKnW5;
+	Sat, 12 Sep 2026 05:36:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789184168;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=or6iSFDqXd+CZU1JKZS6bDuUBfaHBa3v2MYKJQpV0z4=;
+	b=O8VKpYDpouBVk4IdgBvg//9oqP/8SAVYAhiAo0uc2bxwFeZpAQ+NzBmJRSRn0JJXYwLlEP
+	C6DOBYq1e3oMylz+UUiF/xicd2Q/Z41CohvG9f2DTCT9C4pXhiy5crqq1dsZDDJ/DEbZto
+	BV/z6i2RMBRV7Qr9OYGZ29L9Tz8HurX+U8fHmzTCDvyUS6c+WdxHifvsjOvof+AMMepbTt
+	IsOgFcXSlurldQMKVjeszhMU9vPrkcg4Jquk3sOTolU2YDxCvsJMB2KGALIIdbDmGfJJQE
+	ARHDNeWBrJseqeVBGO55YpDcH4k3RJdRXXUSiSL41OMyEGs/eQNFn3FDEKUH8A==
+Date: Fri, 11 Sep 2026 20:35:56 -0700
+From: Roman Kisel <vdso@mailbox.org>
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: glx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	decui@microsoft.com, yunhong.jiang@linux.intel.com,
+	ricardo.neri-calderon@linux.intel.com, rahul.tanwar@linux.intel.com,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] erofs: fix unbalanced buf->off handling in erofs_bread()
-Date: Sat, 12 Sep 2026 10:57:09 +0800
-Message-ID: <20260912025709.25604-1-l3b2w1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] x86/init: Initialize wall clock in get_rtc_noop()
+Message-ID: <aqTInOmsyr8AiciA@xps-8930>
+References: <20260831082528.1623843-1-namjain@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831082528.1623843-1-namjain@linux.microsoft.com>
+X-MBO-RS-META: jtxs5yqspmypysgsh4udaqisz4pi914f
+X-MBO-RS-ID: 47d219f6da6d1010c08
 
-From: Binglei Wang <l3b2w1@gmail.com>
+On Mon, Aug 31, 2026 at 08:25:28AM +0000, Naman Jain wrote:
+> get_rtc_noop() is used when an RTC is unavailable, but leaves its output
+> argument untouched. When CONFIG_INIT_STACK_ALL_ZERO is not enabled,
+> timekeeping_init() may therefore receive a nonzero invalid persistent
+> clock value and warn:
+> "Persistent clock returned invalid value"
+> 
+> Initialize the output to zero, the documented representation of an
+> unsupported persistent clock.
+> 
+> Fixes: c311ed6183f4 ("x86/init: Allow DT configured systems to disable RTC at boot time")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+> ---
+>  arch/x86/kernel/x86_init.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
+> index 252c5827d0634..3b9b41820c84c 100644
+> --- a/arch/x86/kernel/x86_init.c
+> +++ b/arch/x86/kernel/x86_init.c
+> @@ -37,7 +37,7 @@ static void iommu_shutdown_noop(void) { }
+>  bool __init bool_x86_init_noop(void) { return false; }
+>  void x86_op_int_noop(int cpu) { }
+>  int set_rtc_noop(const struct timespec64 *now) { return -EINVAL; }
+> -void get_rtc_noop(struct timespec64 *now) { }
+> +void get_rtc_noop(struct timespec64 *now) { *now = (struct timespec64){0}; }
 
-erofs_bread() locates the target folio with
+Hi Naman,
 
-	index = (buf->off + offset) >> PAGE_SHIFT;
+Could be
 
-but computes the in-folio offset without taking buf->off into account:
+*now = (struct timespec64){};
 
-	return buf->base + (offset & ~PAGE_MASK);
+to save a byte :)
 
-If buf->off is not page-aligned, the returned pointer misses the in-page
-component of buf->off, so callers end up fetching data from a wrong
-offset.
+LGTM.
+Reviewed-by: Roman Kisel <vdso@mailbox.org>
 
-buf->off is set to sbi->dif0.fsoff in erofs_init_metabuf(), and fsoff can
-be specified via the "fsoffset=" mount option, which only requires
-block-size alignment.  Therefore, on an image with a sub-page block size
-(e.g. 512 bytes), a non-page-aligned fsoff (e.g. 512) triggers the issue,
-since 512 is a multiple of the block size but not of PAGE_SIZE.
-
-It can be reproduced by mounting an image that is placed at a
-non-page-aligned offset:
-
-	mkfs.erofs -b512 -zlz4hc sub.erofs src/
-	# prepend 512 bytes of padding to the image
-	mount -t erofs -o loop,fsoffset=512 padded.erofs /mnt
-
-which fails with
-
-	erofs (device loop0): cannot find valid erofs superblock
-
-because the on-disk superblock (at offset 1024 within the image, i.e.
-1536 within the padded file) is read from a wrong in-folio offset.  With
-this fixed, the very same image mounts successfully and its file contents
-match those read from the unpadded image.
-
-Fix it by including buf->off in the in-folio offset calculation, so that
-it is consistent with the folio index calculation.
-
-Fixes: c36ec00d7f67 ("erofs: add 'fsoffset' mount option to specify filesystem offset")
-Cc: <stable@vger.kernel.org> # 6.16+
-Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
----
- fs/erofs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/erofs/data.c b/fs/erofs/data.c
-index 0885b1f2fc92..be63b89f0862 100644
---- a/fs/erofs/data.c
-+++ b/fs/erofs/data.c
-@@ -48,7 +48,7 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
- 		return NULL;
- 	if (!buf->base)
- 		buf->base = kmap_local_page(buf->page);
--	return buf->base + (offset & ~PAGE_MASK);
-+	return buf->base + ((buf->off + offset) & ~PAGE_MASK);
- }
-
- int erofs_init_metabuf(struct erofs_buf *buf, struct super_block *sb,
---
-2.33.0
-
+>  
+>  static __initconst const struct of_device_id of_cmos_match[] = {
+>  	{ .compatible = "motorola,mc146818" },
+> -- 
+> 2.43.0
+> 
