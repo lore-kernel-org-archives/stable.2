@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF17F33D505
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:33:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7112C237E;
+	Sat, 12 Sep 2026 15:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227224; cv=none; b=TkZGym/nLIWc8dyXSEVTnCjiEZPfn7we3vQETGkyQ0DDTkTsRtCxEdZG7IbGs6a5HUDQZOeNjr5qt9dBXIb7ErWxiB5qb0sST1jfgkuM6pvcJTV5IASC9AO4KogQrmdvjcsrsJSY2V49IlZDdTY6ORWYPSfOnjWyrdmvtYhsC2c=
+	t=1789227227; cv=none; b=H4lUQrq5dtAVGj0FgLALZQ13UaB+E+s7eflmiX/BVEvF2ZEnmXqo/oqu5aVCg652Q9T+oUlTvDGyzdSafC3dU+9SvWrq0Ghr2KlZZ6bt5u2A8+A+fF9EUHLxWv/0qTs4zsdxlCmx9Ki9mC2YZjGF3dyrpY729feDoMQhGwXVSiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227224; c=relaxed/simple;
-	bh=1xsN4pELrtjyl1qeOwoiLcMy9rhg7HOkHL24s0OlEBw=;
+	s=arc-20240116; t=1789227227; c=relaxed/simple;
+	bh=PZJ7dDT5A8vcIqCBVTgIik+l8u9VFc+ddDy8k/MdS8I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H4sMUKiSuKiWjDcEGTS4I75h8BqdPdnwEAymMhfS1rU4PPsHccL5f0rp7qJoZpyPXYBUlQB5YojcIwcLWYitGUopkHycTkFJCAo4HF2wWerFz01CsfNBa+d7jsC76Bhh7VEsIYIsKgYvUyjrDSPbi27pAiKgefoKh8Vt628qUKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NUKCxekj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NdYbxNYEDJPVS0lNeXhafB69ixy8fQvs8aoNo6mIZ9Z5LQttrfRrDgDQMUbmRy+mL0vPHqzPalzp5rhQlYzon36rs+yagkqnjCF4JDjCDLERjn9OJcNxMSCIfN2X+6BCHKUZOMY/teBeplmJ7C+xmTPEZV8eBpTtomfJvSiRxio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VAjBLuiE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NUKCxekj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E4E1F00898;
-	Sat, 12 Sep 2026 15:33:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789227222;
-	bh=d1hYkJEWy/Y5PWwvwR+Ge9vDOcgx7nsi39bNSuAzm6E=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VAjBLuiE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DA81F000FF;
+	Sat, 12 Sep 2026 15:33:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789227226;
+	bh=rfIWo8ZZ0lyz77QylgXTOGC9BmTpEmnKNu624SAj01s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NUKCxekjXS/sar9H86EUOVe8SnofmlzgUvIjQyXF46LJBpEL9RThVo3f5XSlv49J5
-	 sEFJwSrQQ1AW1zKhbes44NSL+T9tzuzjC1JffaU9JG+z5OwBmjX7rNk7EPQxMVT64l
-	 TdlTKXJp1Z/3GuufVn85uzSEJWZ1rhWgsnPtjwU3uoJUcCOanUpP1Zb+vgkJfYBdER
-	 0R0j61QaBkrNHrN1cV+tP5jsWvU1SMV+l90nojpxxKWD1njIzilYGIx437suUX/o08
-	 O3MxBZRX8+SlF+/W7BCp+RXG6Zh/ZDLMxW8nksN2r4/ATTA17wpFubiioZlRdKv9Hq
-	 Q2rGbjHedqp5g==
-From: Sasha Levin <sashal@kernel.org>
+	b=VAjBLuiEmVt2EhIfriq9p+8UoY7UaxS5hH1WdQQQ9bK48eMQTDp5VfTotGOgZlOKu
+	 jqoBqzAGOQla5WjvOs7Ll229Y0JUxSG1r0y4AsRBhz1rZ3RsiIfI7pcPOmetDemEOV
+	 AF5W95kyZg4XoDcFJpG2jWKRPncS8Wm92mJZ3dkc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <treding@nvidia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] drm/sysfb: simpledrm: Improve framebuffer-size validation
-Date: Sat, 12 Sep 2026 11:33:39 -0400
-Message-ID: <20260912153339.3234260-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912153339.3234260-1-sashal@kernel.org>
-References: <2026090919-operation-hull-a6ea@gregkh>
- <20260912153339.3234260-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	David Lee <david.lee@trailofbits.com>,
+	Jan Kara <jack@suse.cz>
+Subject: [PATCH 6.1 0136/1191] udf: reject VAT indexes equal to the entry count
+Date: Sat, 12 Sep 2026 08:47:44 +0200
+Message-ID: <20260912065551.251915844@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,44 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 03f1a3545b721fa7fdadd00080e237519a286a97 ]
+------------------
 
-Validate the framebuffer size from the firmware against the
-limitations of struct drm_display_mode. The type only stores sizes
-in 16-bit fields. Fail probing on errors.
+From: David Lee <david.lee@trailofbits.com>
 
-v2:
-- remove unused function simplefb_get_validated_int0() (Sashiko)
+commit cac0cb07f29ccfb373fd4a36c81e908ef3ce608c upstream.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Cc: <stable@vger.kernel.org> # v5.14+
-Fixes: 11e8f5fd223b ("drm: Add simpledrm driver")
-Link: https://patch.msgid.link/20260625094509.157581-2-tzimmermann@suse.de
-[ adapted shared-validator changes to the existing simplefb_get_validated_int0() helper in drm/tiny/simpledrm.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+UDF 1.50 virtual partition mapping uses the VAT as an array of physical
+block mappings. s_num_entries stores the number of entries in that array,
+not the highest valid index. The valid VAT indexes are therefore below
+s_num_entries.
+
+udf_get_pblock_virt15() currently rejects only indexes greater than
+s_num_entries. A crafted image can request index s_num_entries, pass the
+bounds check, and make the kernel read one entry past the allocated VAT table.
+
+Change the check to reject block >= s_num_entries, so the count is handled as
+an exclusive upper bound.
+
+A crafted UDF image reproduced this on origin/master commit
+0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53 with a KASAN slab-out-of-bounds
+report in udf_get_pblock_virt15().
+
+Trail of Bits has a reproducer that triggers kernel panic demonstrating the bug, and can share it if needed.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+Assisted-by: Codex:gpt-5.5
+Link: https://patch.msgid.link/20260708101712.1706564-1-david.lee@trailofbits.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 2 +-
+ fs/udf/partition.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 07abaf27315f7..b5df36aea6575 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -54,7 +54,7 @@ static int
- simplefb_get_validated_int0(struct drm_device *dev, const char *name,
- 			    uint32_t value)
- {
--	if (!value) {
-+	if (!value || value > U16_MAX) {
- 		drm_err(dev, "simplefb: invalid framebuffer %s of %u\n",
- 			name, value);
- 		return -EINVAL;
--- 
-2.53.0
+--- a/fs/udf/partition.c
++++ b/fs/udf/partition.c
+@@ -58,7 +58,7 @@ uint32_t udf_get_pblock_virt15(struct su
+ 	map = &sbi->s_partmaps[partition];
+ 	vdata = &map->s_type_specific.s_virtual;
+ 
+-	if (block > vdata->s_num_entries) {
++	if (block >= vdata->s_num_entries) {
+ 		udf_debug("Trying to access block beyond end of VAT (%u max %u)\n",
+ 			  block, vdata->s_num_entries);
+ 		return 0xFFFFFFFF;
+
 
