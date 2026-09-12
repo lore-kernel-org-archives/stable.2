@@ -1,43 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3071345EA7;
-	Sat, 12 Sep 2026 15:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC8436167B
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228211; cv=none; b=J0jRJwXXed0er4Dx2omsgmPdq8v231KNRdBW+3bIgAdOO4Lof1DScJ+Q/HC9fQWyT/0ddwqcbe2xKzliYaRd0Kdv6e2Un6hg1mTyslyMnCxR4/Bg7Z1hecmsWSFlJrRKIGhD8n98VJdcwKU3zZr4m4CpDfTnwGyBKyb8NIYoFb8=
+	t=1789228213; cv=none; b=ABQfx66Cz4UrgIxaS5ZgpPVPDaNfbYiyKsVgmBpwRTwP6yOYtJC20q3WeZ478REQ8/L8QJFNb2bUqNsXPv3PwmE6ToCLB/uUnGoPQ+Yq11CtPXGtMJsdRXHuWvTYRECdvLo4Qtqz6l8s9+iRtdUudpeNj6nUFwOAkDVvHBvbc3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228211; c=relaxed/simple;
-	bh=OGroMhFjZtuLA+G3AOECwUWM2A+XZ24b7j4sPqyJoEk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W17ycfsI4f4kOsWCKXTr1Xp3dxJeSjMLr5s6N1BZSKb0qLiNlSHHZxUppaNiMFAQJEFPFMTMhdPYLXnI2SeD8lj/Gd/uyoPNiu/OF2E7zFMDXQHYA+15+n/+b9nlTSpj1rYPkfPpL4lUZuGZ8Tz4iehFuUrhoDWaHhi2zKwjZwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BiTjPVnr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789228213; c=relaxed/simple;
+	bh=Lfsv9Jwo/NzR90UQ1GpGURPwlmgOG/eX7X5dgvB+LHg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EME0KHpMESyPDoHRiwoZZHQwyt4xPj9snPCVosUe79rlU0at9bRzPPIPCQ91IvCNMGHkeB9+4ODWnW0mNpy1W6ju1Dtj9PDrjcblZpqZgNK0JLy1aXYh9SEora6hnKmig6y6alRGmbD8EtZbcVL+4mKmCb0OMG8LRuih2uyGK1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YBhnj4rS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BiTjPVnr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1321F000FF;
-	Sat, 12 Sep 2026 15:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789228210;
-	bh=MsGVI4sRt3bHgqPTIN+cffH6xWy4urDoixLTl2wdpYs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BiTjPVnrS9y7YyKFecLBuFgXdKD/gv5ufcTGwLvpVN6TJ7uvxRt5iyKS5VNRJv0XQ
-	 IJrVaVhKxaz/dNRwRAJEKbeXZ4eZuqYdH8Vv0k5lb8S2RhveC5N70VP2oNhHxnfXgN
-	 78bYCbwBOOwdGAjM488H4JdvdX0fVWUoIRS3oUFQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 6.1 0340/1191] AsoC: intel: sst: fix PCI device reference leak on probe failure
-Date: Sat, 12 Sep 2026 08:51:08 +0200
-Message-ID: <20260912065555.863651290@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YBhnj4rS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7355e411so2219855e9.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789228211; x=1789833011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1u4A7LzZi2E3L85+KAE+JWL0cNDqMgSzTA0AyhQoIvU=;
+        b=YBhnj4rSZx8eJ8tbO+qf2Gjx1IRm9opByLD7WsAgHorAAuN4uFkszYN8QMISQZ8gy3
+         zF05sZQCcfIZcc0IphwM+mXSRslD6/DnnV3IJDiYPDXRjKRZmPpF7sk0BkEnZ06bWpO4
+         2miMsuqVFw2Rh9seOQIFqKZv07lpdBzzKj2k0YX+r0Q5cDvCFoWS4Un9BaDE4ddKdBP4
+         Ls0IdnUpQFQFeOXLK9xsWrWv6zFrEIePu4odjZcbCTqVZHnIilBDpGVrin0cOyLbpsWJ
+         Ehr78G3bHyShsLDyVQASBSbXz2WzTpwgymMKp35Lg7Rd3r+cinbEiw43TkU1bwalPC9L
+         DMew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789228211; x=1789833011;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1u4A7LzZi2E3L85+KAE+JWL0cNDqMgSzTA0AyhQoIvU=;
+        b=IJWAuihAQTr4toC6J22IzsBruqhP4Q1IJXzaA7M+KjenmC9DmyW09d1VMRi9wMv7N0
+         t+cdjBBjK2HCPMkaAo6FuPUq61/EROOQgqBul+LugHuy8QLFCDR6MxaSKOlMSQ//McG0
+         ZkdneXnb3UkDjfqd8sITV2U/LiToP1mrQ8WCqIhwRACpss/h6KY5+bZ+OpnQ9bnEJiGB
+         M4KrD18sgbb1sew2T444gPapcx6qBNmsz1S3ke5GLA/q/NqW1biuBB/7YUZHY+mPHNfl
+         YW+UEILY3Ig6sFWjbOMCP5E8oe2ATF+hqRb/6Ouk8HNNmY7g5SxBgFhjfvOI5kWlqKe6
+         VmmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzl4KGmRjskZHlqDEtJi0yjvN9lkuig0HR5jTiXuimalyYWeCfabvTkU736ilzEh6ix7BGkGvM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcnjjRIeVx3Ah7OsbijtZbL5s5yUWfhScdEy6gSYKLiu3l5W1G
+	flL6ZuJYkFFK5Iuw/mQKt7jpBoTjgCttCb7OAaeORNMToXYkM0T77H1v
+X-Gm-Gg: AYBFou05ObUf/inUd4RrsQ0x7u72OgnfMqERhHT1RnwswJNr4NdrC1TzvGtBQ+IAwgo
+	73SslU8bEWFfbF1J4ypg+ioB0FLP9f7iQVuuhvv9LA2dw54eI0Q5+B61owmrWoFGK7a3riJDBr2
+	lWpbjWJBaNWqyqlPWPhNLvOZBNih7BdPj/tTWoEYnagC0VY6X9zAbZ24IjtgjP0d1hbTcSVOzgm
+	SRlVVz5Y1zf08Rpdk/B+hV0GeVVPDN5aCOI15AQVsUVwfnew+bmEjXiqcz4QJrHAx/qR8OimlPJ
+	PJyvPtCPfQjt3DG++eWSwl8fTrXYpyoyVgZxV/E/1Psoa4v3EEqZ5EqApi9Nd7CRXwdTPJaHvFY
+	jrmXqbxEd6CpOdO9dUIt5nyQHSNy9RImdtkLCcdxLQtrgtUyCRSrN2JZayGH04v20yDaEVb8f+5
+	i2cB8zyn1PV+D8asiiJfB2v9ecgwW39JbKqOCIQ369JBi4uH45BLz4fthBNVAVR0bLvygF7ckLP
+	wflnNvGcGfN82gAoaVIkU6VhudzGjX0MbHDNbrBjOQz06i6+yNfR5KYmZnurcwY/eyoLmV9aQKe
+	pqtindlQhmDkV3bfdCjzrFNNzWF9vvqqnhcleJFFndY+KByin4rwWEPzp8vXTM4rxTylqRVlnnP
+	BNg==
+X-Received: by 2002:a05:600c:c178:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49e61a15c31mr205481115e9.14.1789228210445;
+        Sat, 12 Sep 2026 08:50:10 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fd3bsm13682386f8f.19.2026.09.12.08.50.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 08:50:10 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Arnd Bergmann" <arnd@arndb.de>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+	"Sebastian Andrzej Siewior" <bigeasy@linutronix.de>,
+	"Russell King" <rmk+kernel@armlinux.org.uk>,
+	"Sasha Levin" <sashal@kernel.org>
+Subject: Re: [PATCH 7.2 1107/1815] ARM: 9483/1: select HAVE_POSIX_CPU_TIMERS_TASK_WORK
+Date: Sat, 12 Sep 2026 17:50:03 +0200
+Message-Id: <20260912155003.96209-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <d6e2ea6a-0297-41ec-bdbd-ae06b5e2f952@app.fastmail.com>
+References: <20260912065648.999753832@linuxfoundation.org> <20260912065715.005565892@linuxfoundation.org> <d6e2ea6a-0297-41ec-bdbd-ae06b5e2f952@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +83,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Sat, Sep 12, 2026, at 12:50, Arnd Bergmann wrote:
+> Are you backporting the RT enablement as well? That may need additional
+> patches, while without RT support, this patch is not needed.
 
-------------------
+RT on arm32 is already in 7.2. It went in with 7.1:
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+  c6e61c06d606 ("ARM: 9463/1: Allow to enable RT")   v7.1-rc1
 
-commit 016f29997ebd29d6ab59c8162ce0e7f73bd1e517 upstream.
+So a 7.2 kernel can be built with PREEMPT_RT as it is, and nothing else
+needs to come along with this patch.
 
-intel_sst_probe() takes a reference to the PCI device with pci_dev_get().
-If sst_platform_get_resources() fails afterwards, the probe error path
-cleans up the driver context but does not drop the PCI device reference.
+I have tested this rc1 series on arm32 with PREEMPT_RT in QEMU and RT
+works correctly. cyclictest, signaltest, pi_stress and the posix_timers
+selftest all pass.
 
-Add a pci_dev_put() error path for failures after pci_dev_get().
+One thing worth knowing: the symbol this selects is not RT only. Non-RT
+arm kernels also get CPU timer expiry moved out of the timer interrupt
+into task context. That is how x86, arm64, riscv, loongarch and s390 have
+worked for years, arm was just the last one without it.
 
-Fixes: f533a035e4da ("ASoC: Intel: mrfld - create separate module for pci part")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Link: https://patch.msgid.link/20260622091620.897478-1-haoxiang_li2024@163.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- sound/soc/intel/atom/sst/sst_pci.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/sound/soc/intel/atom/sst/sst_pci.c
-+++ b/sound/soc/intel/atom/sst/sst_pci.c
-@@ -141,13 +141,15 @@ static int intel_sst_probe(struct pci_de
- 	sst_drv_ctx->pci = pci_dev_get(pci);
- 	ret = sst_platform_get_resources(sst_drv_ctx);
- 	if (ret < 0)
--		goto do_free_drv_ctx;
-+		goto do_put_pci;
- 
- 	pci_set_drvdata(pci, sst_drv_ctx);
- 	sst_configure_runtime_pm(sst_drv_ctx);
- 
- 	return ret;
- 
-+do_put_pci:
-+	pci_dev_put(sst_drv_ctx->pci);
- do_free_drv_ctx:
- 	sst_context_cleanup(sst_drv_ctx);
- 	dev_err(sst_drv_ctx->dev, "Probe failed with %d\n", ret);
-
-
+Karl
