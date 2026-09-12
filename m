@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F1D37F75B;
-	Sat, 12 Sep 2026 19:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46677383985;
+	Sat, 12 Sep 2026 19:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240697; cv=none; b=QJHYu1m9ojb2WEOQGP95Okm6Kba+diMIpDXQUdIQW2tqCLL0YrWsSSfFgPemWzJhPRcRQhKDs26AJ7x639aal4fatLbmbBtLJIan5d6jrhF/rWhwgsU+nwEp7YXdWtBkVdp667oNiaOIFJ+Y+K/h8M4/yixGfkfhW5zXQ1DEy1s=
+	t=1789240699; cv=none; b=l8CjXD6eRp+L41Lk3a9WTbi9jzvGbI0LwxN+IVBhVcE/w0ifkV1ZtCF2pMS11xst3uNgE/ISJdwsiIEXa5fSkgQLREdlxykYDRHWwKXntpGlYFTfJ7BLF180wLt2Ba3IGT9ixH/GEmeV/e9G2u3xGziSJLtEOkvwabRUXVF/BzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240697; c=relaxed/simple;
-	bh=coOKyd0rtvaMCxH/mKUGhnrdea7b8MWsrIPmIS/QuxI=;
+	s=arc-20240116; t=1789240699; c=relaxed/simple;
+	bh=aHXmmT8KE090uuhhPlidJDEbS9OttgzGQISuTdXjtgE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hag6CP9vinEOQFkYepRPtQk/BJQMCXwVmy3aiw7aoz9tUtd/Cu99v+CoHCyn3vdGe4REAdzr5RP+GdTjpMunbxEztyDkUVF6UoV1btZCeGZslD6wm6zvLF4ajSXLKO8gB3JpF6jUKDdKmpYHS2tgZ4q/AQ5dg5d8z4PSHR38IUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pb2rwd3i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bEkdwbk1yTbzl9ZLHC+s6YE6kqwqu8MiNMw+/+fP5Lu1dtnfYcQKtljmLvJ43/lFsx4EC4GzGMfeppiUTdssg0X6TZLDsvfJ1widNu8PrVS2iYjWSvrDcloQJWEmGckE2dEAStebt1nWLNc239hzics+GeSoQNKbYUqvHH/r8rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fw7lpkPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pb2rwd3i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41E81F00898;
-	Sat, 12 Sep 2026 19:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789240696;
-	bh=hAIupWOiZk1Nz5VeipyYWCDtbEHKa9N+XsP7giaox3I=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fw7lpkPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D91B1F00899;
+	Sat, 12 Sep 2026 19:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789240698;
+	bh=T9vp7Y+ru1anqEeePDMK/vAOMSlDrUuUBEz1/OB+Enc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pb2rwd3i7YJEayi20uaPGc3CcA5bXzPFyUFJ6I+PnkBjhyagDQ/JtJWVamOJZF+QZ
-	 GOBKiyeMwZ2GNRSpemAIE2yOVYItKsiz4HeJIasjJF1H5qRlhCmaYsdsXBXGAf71Cs
-	 f6nfS73vDuIkg1HclAThaPxtO/A0l6G2sVUFkjxrWD2axGUwu1JD4t/zORtLzmv03T
-	 sJwuVILiLssQCHhr8TbmtAavsdYwv1yVDyvdGmvvpC4XgP5d2RNC/j77EjuD4XsH1r
-	 N5pcZq3qd2B3sCy6+ISy6uggHu+ZC3xFc8mETLPmp0lWmE5pqCmYuZ156H/9E8vh3u
-	 FEBDLK2vkmtew==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 2/8] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
-Date: Sat, 12 Sep 2026 12:18:00 -0700
-Message-ID: <20260912191807.138502-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260912191807.138502-1-sj@kernel.org>
-References: <20260912191807.138502-1-sj@kernel.org>
+	b=Fw7lpkPCBfOWlqg53fv5gmZq54haEdpqYWPExrVIZz3xofVJbqm4GzX9oygOYtY8H
+	 vJjH+etpctjto9IUkj/V7TXPZMKZw23t0rvVgrLWrRmBiczJ0OpgQYnZ14A8PmDyZx
+	 Mx1/U3I0Yd/Ck3kCq0PPjY6DbArZ4qw43YNEXh/E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 904/935] ASoC: dapm: Fix off-by-one check on the second enum channel
+Date: Sat, 12 Sep 2026 09:05:34 +0200
+Message-ID: <20260912065547.547170727@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
+References: <20260912065526.833703348@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,49 +47,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMON sysfs interface reads the user-provided size range arguments for
-hugepage_size type DAMOS filter twice.  Once for validation, and once
-again for assignments to the variable that will be passed to the core
-layer.  If the user updates the arguments in parallel, an invalid size
-range could be passed to the core layer.  Avoid it by doing the
-assignments first, and then validating the assigned variables before
-passing those to the core layer.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-User impact of the bug should be trivial.  From the core layer's
-perspective, the invalid size range is not really invalid.  It just
-works as having a weird size range.  No critical issues such as a crash
-or a leak could happen.  And sane users ain't do such parallel arguments
-update anyway.  If they do, such racy behavior is arguably somewhat
-expected and deserved.  That said, there is no reason to keep such
-races.
+------------------
 
-Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
-Cc: <stable@vger.kernel.org> # 6.15.x
-Signed-off-by: SJ Park <sj@kernel.org>
+From: HyeongJun An <sammiee5311@gmail.com>
+
+[ Upstream commit 14511c9b54ceeeef487409d73947c89ee8563590 ]
+
+The snd_soc_dapm_put_enum_double() rejects item[0] once it reaches
+e->items, but it lets item[1] be equal to it.  Both go on to
+snd_soc_enum_item_to_val(), which indexes e->values with no bound of
+its own, so an enum with a value table reads one element past the end.
+
+The indexing arrived with the MUX consolidation, which relaxed the
+item[1] check in the same hunk.  The value MUX handler it deleted used
+>= there, and the snd_soc_put_enum_double() in soc-ops.c still does.
+
+Only adav80x pairs a value table with two shifts, and its second
+channel looks accidental, but the control does report two values.
+Writing three into it reads off the end of adav80x_mux_values.  The
+core catches that only under CONFIG_SND_CTL_INPUT_VALIDATION, which
+defaults off.
+
+Fixes: 3727b4968453 ("ASoC: dapm: Consolidate MUXs and value MUXs")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Link: https://patch.msgid.link/20260825125745.932832-1-sammiee5311@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/soc-dapm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 3c1c1cb387fec..8c8ab82c8facc 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2840,13 +2840,12 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
--			if (sysfs_filter->range_min >
--					sysfs_filter->range_max) {
-+			filter->sz_range.min = sysfs_filter->range_min;
-+			filter->sz_range.max = sysfs_filter->range_max;
-+			if (filter->range_min > filter->range_max) {
- 				damos_destroy_filter(filter);
- 				return -EINVAL;
- 			}
--			filter->sz_range.min = sysfs_filter->range_min;
--			filter->sz_range.max = sysfs_filter->range_max;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 469ffc31068e6..aacca8beda462 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3517,7 +3517,7 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
+ 	mask = e->mask << e->shift_l;
+ 	if (e->shift_l != e->shift_r) {
+-		if (item[1] > e->items)
++		if (item[1] >= e->items)
+ 			return -EINVAL;
+ 		val |= snd_soc_enum_item_to_val(e, item[1]) << e->shift_r;
+ 		mask |= e->mask << e->shift_r;
 -- 
-2.47.3
+2.53.0
+
+
+
