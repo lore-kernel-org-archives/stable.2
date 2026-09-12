@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3AF3DB31A
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E452A3BE643;
+	Sat, 12 Sep 2026 12:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789215800; cv=none; b=BBeOcGuqWIo/VAqjjrSOyFuQEmMIlm03OqOw8ZVYrQJqoWujvFe35iIrSFOBKKCx2uh3uOmahCc8C3kaJlKaXCLntKR1umLekujuvxN2FNIcaSMvwfYMkYX2Qbktn0FfNTRAL9qwlNbRfJ0NkrrIOGs/OvKS4hypILe/xJCBxug=
+	t=1789215805; cv=none; b=FFOO4ULnue8fX+vbxx9J+bxDW0syftKWcWq524z9qq5AKnjGeoHsQxsnjrR9SzJk7YgKb5enGt3+NPQ3aXqVG6t5RlK6PdPnNNsd4roxws4EU8DakETSHMve+MbHrhONYvUDEbNkpuRYuSNPsfhqtlDzZiA6fKUdcUo95R2GqPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789215800; c=relaxed/simple;
-	bh=5t2Ji3PVnr7oqYz7j0Uz/Y7UGS5MkKBxEZr0G0AHak8=;
+	s=arc-20240116; t=1789215805; c=relaxed/simple;
+	bh=VpMVsm8uIVtSMLPjhU9OLye3SSRlnYSd39SSiaCGI6k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KGchEdUMstHMYUEZbr36JSVUk+YEOniVGPOMTAIxkz0Ap0Re4GBoYEJxcw2dAGStV0GTipwxAjKeZW/v4IIlz7ucRzG4hT16Y8xxafWb8EWEZwkp3MQNLc+LS1Y9dcGpEGCm3EWKWt81rFYeda3QbcANxnA9f5LJT9CQCA2l/8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgAsgYnw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e9QZpu3sMlKo3y89c7EkBO50Ov5uSdcKoQ6npR32NSvt/TfByUROuxYqG9fDXWJlKBT1KQvNN+aZZXmcPXkKQ1IzNom9ReN0sr9HensohQyTe9QBIk79jIpovquAYcMUE0Wj84KhCrBW66Jp7Pjflr6TkcsK2tqiYErdtvGPH1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z0hERjDP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgAsgYnw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED2E1F00893;
-	Sat, 12 Sep 2026 12:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789215798;
-	bh=LVhrnmXdblqjRtAyxWIWEf7kmXieSYq1zvP2Y0JiC6Y=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z0hERjDP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD8C1F000FF;
+	Sat, 12 Sep 2026 12:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789215803;
+	bh=NvRXsKkbIPmKXnu01DTdPjHXjrtbcFcRNHqiLcBBSAA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NgAsgYnw4enMdHXSd2ksswYRUuwdHaSeCfF40sFOytfo9NWADaH5NznchfdPsre1W
-	 lqElR8U6le4MqzQDO9V7R3rccWIv/cUydYqNF5RqfnOyZx/9K2RvqSSdTdHBJ3IlCA
-	 l5xKh4goxKKT5sQP4pjLVzc5UxP1Dk/dGY9XPW8IATM5Gq/m4smtG+MM13ZA7tnS+l
-	 JNPMCCMnixpvUDCzAZ0N7phMMdq4N2m/fs9ILANlMKRTDSJ/VezOBkBnlyTZUarZDd
-	 xPRaVBSkhBvGRW8/xECPxPsoA1e8uA+BofvhGB0IsxLL2NBetMlUWD4tfrirIAsAWf
-	 4hXd8kI+C+BZA==
-From: Sasha Levin <sashal@kernel.org>
+	b=Z0hERjDPbpOXTnTpQAJ5C/gZnmgxduo6U0qy7EeaUqfxzWk86jIuFxLu4RlxcL5N4
+	 9cV8poRE77kW8hpw6pu1dJatHwhp/CpJs0PqpA3v7S6hCcxWt0Wav8/t1A8zl/dj0w
+	 0BHD7ehFdJ0SqxrXD3P5/6XvMJ7V8MrJykgZE1S4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: fix to clear dirty flag on folio in error path
-Date: Sat, 12 Sep 2026 08:23:16 -0400
-Message-ID: <20260912122316.2591560-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090931-unpack-bankroll-095f@gregkh>
-References: <2026090931-unpack-bankroll-095f@gregkh>
+Subject: [PATCH 6.12 0564/1376] wifi: iwlwifi: fix counter type in iwl_fwrt_dump_error_logs
+Date: Sat, 12 Sep 2026 08:49:50 +0200
+Message-ID: <20260912065620.103619363@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+References: <20260912065607.535295758@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,37 +47,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 5b86eab84ac8e9289b5afc52ef88ab18ba5bacab ]
+------------------
 
-If node block is corrupted due to chksum mismatch or inconsistent
-footer info, it needs to drop clear flag of node folio, in order
-to persist inconsistent node data to storage.
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-Cc: stable@kernel.org
-Fixes: b42b179bda9f ("f2fs: fix to do checksum even if inode page is uptodate")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ Changed clear_node_folio_dirty(folio) to clear_node_page_dirty(page) for the older page-based API. ]
+[ Upstream commit 71e67b4b59337b2f9f4fef976a27de2dad7aabf2 ]
+
+The loop counter 'count' was declared as u8 while num_pc is u32.
+If firmware advertises more than 255 PC entries the counter wraps
+back to zero and the loop never terminates potentially causing an
+infinite loop or reading past the allocated pc_data array.
+
+Change the declaration to u32 to match num_pc.
+
+Fixes: 2b69d242e29b ("wifi: iwlwifi: fw: print PC register value instead of address")
+Assisted-by: GitHubCopilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260715220243.a61c65f34e87.Ie5f1a7ca43e0cc5a0ddc8305b0448ddffc09cd18@changeid
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 2 +-
+ drivers/net/wireless/intel/iwlwifi/fw/dump.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index e5a06a65a5398..667a8def8b305 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1473,7 +1473,7 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
- 		set_sbi_flag(sbi, SBI_NEED_FSCK);
- 		err = -EINVAL;
- out_err:
--		ClearPageUptodate(page);
-+		clear_node_page_dirty(page);
- 		f2fs_put_page(page, 1);
- 		return ERR_PTR(err);
- 	}
+diff --git a/drivers/net/wireless/intel/iwlwifi/fw/dump.c b/drivers/net/wireless/intel/iwlwifi/fw/dump.c
+index 8f107ceec4076..0aa53212a9933 100644
+--- a/drivers/net/wireless/intel/iwlwifi/fw/dump.c
++++ b/drivers/net/wireless/intel/iwlwifi/fw/dump.c
+@@ -488,7 +488,7 @@ static void iwl_fwrt_dump_fseq_regs(struct iwl_fw_runtime *fwrt)
+ void iwl_fwrt_dump_error_logs(struct iwl_fw_runtime *fwrt)
+ {
+ 	struct iwl_pc_data *pc_data;
+-	u8 count;
++	u32 count;
+ 
+ 	if (!test_bit(STATUS_DEVICE_ENABLED, &fwrt->trans->status)) {
+ 		IWL_ERR(fwrt,
 -- 
 2.53.0
+
+
 
