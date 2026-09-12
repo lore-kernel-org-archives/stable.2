@@ -1,113 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1629418DB35
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0AE39061C
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246760; cv=none; b=iwrf55BOJQ7KFj4kOk4skN/9or3m5I6uJG8aB5DOmxndhkcTvY4sA3Gf/CVNmugj+q/cSKmMtskukXyfVp13jorWHVC5kQ/wjO2s1Mzq8YKwqbEgM0VmqiAV50yQUCbtMeIo0ax7N6Vsz7H2tE0eD0aKVMhTfEmMGWDK156MOxQ=
+	t=1789246767; cv=none; b=i8R93AnYTSk2qZK1XI0ZJdpQYW0Cc4EzXrLNadMxuMVINFEOd6q2fzPaBptdWf/F4jjQjWdHPQxG90j8G1mvXOstyYyJU4hITUX+T+Ew7TY6a3ZBfEePoYkcniHqfWGnFFnswM9PcJYRb37rwtHdn+jvY3Y34e0DRU4/iZ+RIuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789246760; c=relaxed/simple;
-	bh=tUaKYYe7CqtWwBM0LbahrfhgOlwPGTGYaYwgayclEVw=;
+	s=arc-20240116; t=1789246767; c=relaxed/simple;
+	bh=5Nr4SvFGwWxFUiohq2O0EZpsOgxWub3ER2CVb++UN3o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kbYOlcv4f0cFKmEmwN4jPTY6jy6oGir4n+xvrMnUnatNKo5Z9rKv2t3e/ZHfdlYQ6MBFNNcz+9VdCpVvQEjeSJ4NVRW5YtbtQsQTm5c9T2XQVcBsKxTb5TVQBNjGDVTxmA7cfxJGu2EtarssE0phe4WSIuGrV2DWLx6FiqRDjeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EX2kHQfe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XJZGFqyZ7X5NkjpYSAAWayN2igVCclQYqo0lsLkhW3KKCxLUO7C//7HsGV0DWF8XQAE5kwmtaOLVEZEb+wL3WLGh+wI1o76Twf3EVRzO4o+MHJfcqr0VSavAmvtAm161Cx57c4DXNAs7XDciZTbqRDsGnMq9DNXBr7El8XSmm1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofUJ5Iqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EX2kHQfe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB031F000FF;
-	Sat, 12 Sep 2026 20:59:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofUJ5Iqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F070E1F00893;
+	Sat, 12 Sep 2026 20:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789246758;
-	bh=0LMpwG9k0cPAinnBM7HcTVcRbojeiPh93zaGeXJYvfQ=;
+	s=k20260515; t=1789246765;
+	bh=2vtO0tnhyIpdLmR8zChdW5VHVEEP6sEoXUW6ywwaAXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EX2kHQfehEaIfQTctdXT9ga3N44V+wn+PBhQl5tUNFlw2RaD797PuRMttI1q6xIH8
-	 ua7Il77lb2+bjfjYvjAqZZkWG/vvFTpbqe3QZgDJqPNn3l8GZyhw+cAuydUKXKmTBu
-	 7tYVjrfrcREokMLEaO9mMVpvOVsVsPrAF9+oUudMQdkjr4YW6J0F4Dm7RBci38EF6a
-	 Fws81mX+6rbFKam7INeYdbJHXBjyLyJgvL+m7BliK34/0VQewjgukhnyuHgllrSzJ1
-	 TGPN639HZygcUnBmO4bkJAQ745TjEbYcJLLZys5JQZiOJwjyVbkdQJzShKaNrDg86n
-	 dCssAwkT0Puug==
+	b=ofUJ5IqalL29IUlF34cIjO15LtSvuVEFw0GdlKQLQt75jQjVbyQ/WE1KAk87Nv4xu
+	 mOEd3n14KYBcP3eiC4ZIDTB0+PK8UKjTPv3J8NJ8KGp8O+521ZaqQsibvOPgpI5VdY
+	 awT3T9Lvubx4mnuEshuOJhoiDyvLbWftuD6d5mAQ3mNyhUi6i2uLy2ZJ2qul1PQVxn
+	 juNfqt5332WWsr96ZPFck4DCj5/iPD9rclbFYWXehRi4esdORfn78z05pxVbBrTsEP
+	 ENFiKiQTkcne+tN0wn6p4RqywQl06wYXK48tyS/FwKIKvA3lHnMyysCmoZ4osLfzfi
+	 ub8Ioj/xkvs4A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/pagemap: dma-unmap pages before handling migration errors
-Date: Sat, 12 Sep 2026 16:59:16 -0400
-Message-ID: <20260912205916.3934353-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] drm/amdgpu: Fix missing unwind in amdgpu_ib_schedule() error path
+Date: Sat, 12 Sep 2026 16:59:21 -0400
+Message-ID: <20260912205923.3934930-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090928-junkyard-knee-1e95@gregkh>
-References: <2026090928-junkyard-knee-1e95@gregkh>
+In-Reply-To: <2026090944-uranium-paramedic-0401@gregkh>
+References: <2026090944-uranium-paramedic-0401@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Matthew Brost <matthew.brost@intel.com>
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-[ Upstream commit 9e6372ec2a3990662ae0a67f56ac0aee19848d5b ]
+[ Upstream commit ba038065655c45728be346d0b174a6da08d8a5c5 ]
 
-drm_pagemap_migrate_unmap_pages() relies on the pages array to determine
-which pages require DMA unmapping. However,
-drm_pagemap_migration_unlock_put_pages() clears the array as part of its
-cleanup, leaving drm_pagemap_migrate_unmap_pages() with no valid page
-information if it is called afterward.
+amdgpu_ib_schedule() returns early after calling amdgpu_ring_undo().
+This skips the common free_fence cleanup path.  Other error paths were
+already changed to use goto free_fence, but this one was missed.
 
-Call drm_pagemap_migrate_unmap_pages() before
-drm_pagemap_migration_unlock_put_pages() so the pages array remains
-valid during DMA unmapping.
+Change the early return to goto free_fence so all error paths clean up
+the same way.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: f86ad0ed620c ("drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Link: https://patch.msgid.link/20260902063504.3024362-1-matthew.brost@intel.com
-[ Adapted DMA-unmap calls to the older helper signature without destination-page or IOVA-state arguments. ]
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c:232 amdgpu_ib_schedule()
+warn: missing unwind goto?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+    124 int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+    125                        struct amdgpu_ib *ibs, struct amdgpu_job *job,
+    126                        struct dma_fence **f)
+    127 {
+
+    ...
+
+    224
+    225         if (ring->funcs->insert_start)
+    226                 ring->funcs->insert_start(ring);
+    227
+    228         if (job) {
+    229                 r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+    230                 if (r) {
+    231                         amdgpu_ring_undo(ring);
+--> 232                         return r;
+
+	The patch changed the other error paths to goto free_fence but
+	this one was accidentally skipped.
+
+    233                 }
+    234         }
+    235
+    236         amdgpu_ring_ib_begin(ring);
+
+    ...
+
+    338
+    339 free_fence:
+    340         if (!job)
+    341                 kfree(af);
+    342         return r;
+    343 }
+
+Fixes: f903b85ed0f1 ("drm/amdgpu: fix possible fence leaks from job structure")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 6760f5cb12d2 ("drm/amdgpu: avoid force-completing uninitialized UVD rings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_pagemap.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 445cf0e6589fa..4cd5182f82051 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -606,12 +606,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 		goto err_finalize;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 806ec5d021995..2cce0a378ecb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -217,7 +217,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+-			return r;
++			goto free_fence;
+ 		}
+ 	}
  
- err_finalize:
-+	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, npages,
-+					DMA_FROM_DEVICE);
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, dst);
- 	migrate_device_pages(src, dst, npages);
- 	migrate_device_finalize(src, dst, npages);
--	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, npages,
--					DMA_FROM_DEVICE);
- err_free:
- 	kvfree(buf);
- err_out:
-@@ -742,13 +742,13 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 		goto err_finalize;
- 
- err_finalize:
-+	if (dev)
-+		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, npages,
-+						DMA_FROM_DEVICE);
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
- 	migrate_vma_pages(&migrate);
- 	migrate_vma_finalize(&migrate);
--	if (dev)
--		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, npages,
--						DMA_FROM_DEVICE);
- err_free:
- 	kvfree(buf);
- err_out:
 -- 
 2.53.0
 
