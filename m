@@ -1,194 +1,205 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F85C40B6E2
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 09:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789204945; cv=pass; b=oJBPyl0KGQckhLmDlpDYl2moXk7mWobSken3vbumZuDpOg/qJr7CPikxr2ofRI8+7qB5ot+26afFb8ph7YgZHPmJ4azz+SPk6vvHpbbECFSJU7yRC3h2L5scmdWK1IuDo5eN2ixPLRkSgzv36gLoPzyfOIrBemkaDJhlgoiPFvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789204945; c=relaxed/simple;
-	bh=aO9zUlhZ/cIsv4TahIImjijy5eZpJLxUISCtfDgt/zQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mGHZBLZGWNIqzo4CTizTRzesZ6iuKx0nktSjsC/nV+QJgz0HwRR2iVHOLowNfrtt1kMI60YYTSMpbV2WGtfzSoboaQEWEluGk3m8CkQFNqMQ/bDad9d8Mv9S802VaK8Zbb5WEELW8nVLu0jGD+iEIOXAY+nmiH+dsCPvqkEMOps=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Aan9x3L1; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C0F386455;
+	Sat, 12 Sep 2026 09:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789204946; cv=none; b=u2qND1GoHaXIUMTQnX8xhmwBrx39XDGSShX8N8Fpr3o0h8w2zWQR1vT+EcLCd3TPzy5Mva9ZoM2x2R1+bMy35Fpazb+RS4tnS2e2JqeAjuOUS1HSu1oM6unZtLOs39LfQ7fE8AFMDvvilfZ6zN8whAiYDz3WA0CtrDmI87t+pvQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789204946; c=relaxed/simple;
+	bh=5W0ZvQXCwKRk9pnJeeFJR+iyNjt2Tksz/Z8DCOxniGQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X2Cz8k4ASWx2PpnL3X2XyS373bWhEXmf+pZGtdsN6FhZtCDE+q6mYBFBinf32ln7OGHUo7Y+BfuxvDruWyfW2tksViZu9rAuY5U4RznPgN8l+t2lafxUH34DuuSXZQRWDNQEKjhZGKCRDEEaRibBhts5Zqgu1hi/oOaqlU98O1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AdVjx8++; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Aan9x3L1"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76ef19aso7887691cf.2
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:22:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789204943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JP20TWFNPL3nSMTkONyMgts19rMqzPyFwr4sS2Cg4Gv/eNAI7aZvC7+svRgeaL5v4X
-         HmQXQ17uRPzrbe/b9/O/hJhkovzGy7IXVlnYP6njIakIjf4IbrQe1agwQpmCQ+pmitMf
-         Fk0ixiBY5XUkIGYnzWDcLLshw7/cl/aa04ebKPuJBTC/U0sLP8ir6z7WI3XYqzlK89il
-         t8diG36OHJBv3E+3ntsglHuZIQ6WakgzRZOIMiZBl2FwQjcHNGvPlMN8YAsNczoe8bFO
-         c/Syi5x6+np1ShpnSKUlMJu0dpXMqR71JC/ucU/HVuEARpdKhuTyG7KVRiqgYl1kz75n
-         j5lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Po/KtSuUEH8MfPngI4Th6eiOf/oind2PYZNZlItxXP8=;
-        fh=6VrRJItRpipKekH3yIf5uCDnnaDZru7ad8f9vvvpgak=;
-        b=MwFotimjG3H0RTSpbkZ8H+lZSuf2DktA6HM7r/WeCZFsXhSTiy0PVDMD3G4CCM1DNV
-         E80AsXtCq8wM6eEsWu3JmXNLgc/oi2RnF6M7Z8jG0pat/hU+g1WH14AB89PK7b3AExmj
-         HTUDHqBdWFABULNQoR8xaGhe+TWV9egaYwRW6kxqS4BzxK4ZAADaUvH68Rsi8W/ZkDZ6
-         sdC89+vcGfOjtaiN6SZORgxdgywK9Q1H6rhHlh9/htdgSKXOLyOdpzecqh6NNiVugf6a
-         21tEy0FuHFqwNbyVAeWbt8rFArCEeVtcLqzoxSdMtqyHuDnYQxIDi+imIMbnzR/e7x+d
-         D7yw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789204943; x=1789809743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Po/KtSuUEH8MfPngI4Th6eiOf/oind2PYZNZlItxXP8=;
-        b=Aan9x3L1Lt5oHgui16Ioup1xXWhpqxzzNO2wiUMssNcxnhXGG13f9316vSC60/ytw0
-         Tnp17vAc6ly0XcjzgytE0uxOjpeEu0RERMMIWn7x4iDgmOS7q/vqpVyY4HZVYtCFQg88
-         9k2OcIS6j6Euv2kVxq+jn1v8sQl+T8azF0stGteBQ2ppEsYMFlWUeHi7F89Mp6hYolPu
-         t13BGKo9rgnCb0iSQTewddHGq9OdNmnszSnIqvhR/WyDrV6MLvWmSYZKuyi2eMPj7fMT
-         /8LE+1K/fOMkWsC6WB2FMaTnBOnhWvWRwWJWKVOnxZ++kxGZcYStPXLkCvpUHcmI6VEb
-         RJrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789204943; x=1789809743;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Po/KtSuUEH8MfPngI4Th6eiOf/oind2PYZNZlItxXP8=;
-        b=ZXS5m5bMIM3j+EDy120loh0XWwuc4mfDZUA8kWdxPmKbaEVWWcnO/Bhp+7SqinRrnZ
-         v/rASGZAjVwXKZ9cbge+7op5gEq42Zn4qHCVK2rYhCnA09bdNMqtrYIMHSHa+dgMnGlL
-         wU9VUsZ5iu1LrgGdfVptBcaSF+7aMoVoB1YT884jwNRqVc6eUcknzSMNXPkYfX+fjxeN
-         L4ArH0rpotLKq73VLmQ+flsiWefkR+ayBQDemNbXu/rX+WAjyK6jBwe8Egd0X78Tf6cC
-         TSj6Tz2WL+eqVqqFZ3qA9k4mczGCqbVdzIHnRA3FMQKLhxUxvRYG++FG4k+rpKeLAqJO
-         iNfg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMlj+5xBvt/lMhZ33ZWLKf0p81+XCGQEJSwFAOHI2zeru25wPLe+c+kwvKrbAZnwFMaOwDMlM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCcsJmY50TCMxQ92jAnsAw5o8DGJjEA0nHyWjALwi5CUxaGRGE
-	8wgFlUNVku/RYMGmREW8EaggjvaPZpI51NACqA/8Vr7iEydvNqtBx7WRbXfjrgkW6WcEKLJdXp+
-	rvKnJvuMpigCUm4ry/BB1yhPe5GwEaK78ZSnPql5p
-X-Gm-Gg: AYBFou32J+H6IlCXH9PLxedNVvmkdTfUYBvYhOXRPjjf7PNkJxAlxg1dwMuEZVG6bxa
-	UbP4/a2YrNlOKZUeU5Z5CuhMJnmyMkkHleNoJLZ7JLCYo5cOpiNSN/0voKjHcMUFl0D/e8S6ebu
-	nVUvJ6WbAJVSKvuprRZtrWN6cmqZuh2MxQfjLNmDwwBwcJJdilqqj+aD/1/i6Gf+/b3zcB3DdSB
-	CNpKzJ/o0vWmx+N4VqYni9bB5N2Hl1u7rtS/eGSfRNTsN1/msNLa5K3qGuB7EtdDEaquN/1FbtO
-	aU41oh68N/IY3MCNZyakp8bp1oVFHVMcq9EqVpvx1KZIy8JsAd2Mb2R1D0cHsN5F6JcLW65q+iG
-	tH39FBsD46UiQaggrc4Rwxh2HDd5GpnpE+QRcxC8C9ghnooy8HpKYeDsBnsT0z4a2A+g=
-X-Received: by 2002:a05:622a:13d4:b0:530:e080:93be with SMTP id
- d75a77b69052e-530e0809981mr66816991cf.46.1789204942535; Sat, 12 Sep 2026
- 02:22:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AdVjx8++"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82611F000FF;
+	Sat, 12 Sep 2026 09:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789204944;
+	bh=gU0JLM5VqlDTHGdryzwNwPHr/6RKtPApYrnOYok9WiI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AdVjx8++G5IIRRKymSURT0ikreu0iclPDxC4in6WkmefrvPO6HBkBAZkERifacNiK
+	 Dt98xxnbd9AiLnBTAb46Bn1vVYtLa8cE36Y0qBYT4eR7ovHoP8cdd80r/5A0+yQJvK
+	 37KRloSC04Wn4fqBvJ9a9cMaf7JGRuro3pCWt6og=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pavel Shpakovskiy <pashpakovskii@salutedevices.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 1717/1815] Bluetooth: mgmt: fix hdev->discovery.uuids NULL dereference
+Date: Sat, 12 Sep 2026 08:57:47 +0200
+Message-ID: <20260912065729.283825353@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
+References: <20260912065648.999753832@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912055304.1415016-1-cnfourt@gmail.com>
-In-Reply-To: <20260912055304.1415016-1-cnfourt@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Sat, 12 Sep 2026 02:22:11 -0700
-X-Gm-Features: AcwNN1V9Y4R_ylpJWfxtuU1JoTDq0Gs2lcrzQUAf6_3bVo65JvmOfd5F0cefuwQ
-Message-ID: <CANn89iKk2smjZ5OVJGQBw+F1KJ8DDdfMUmquSKAUq16rMcHg8A@mail.gmail.com>
-Subject: Re: [PATCH] net: ip_tunnel: initialize `options_len` before
- referencing options
-To: Gris Ge <cnfourt@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Cosmin Ratiu <cratiu@nvidia.com>, Gal Pressman <gal@nvidia.com>, 
-	Kees Cook <kees@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	"open list:NETWORKING [IPv4/IPv6]" <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 10:53=E2=80=AFPM Gris Ge <cnfourt@gmail.com> wrote:
->
-> The following command triggers a kernel panic:
->
->   ip link add d0 type dummy; ip link set d0 up
->   ip route add 10.30.0.0/16 \
->     encap ip id 300 geneve_opts 4660:66:11223344 dev d0
->
->   memcpy: detected buffer overflow: 4 byte write of buffer size 0
->   kernel BUG at lib/string_helpers.c:1044!
->   ...
->   ip_tun_parse_opts.part.0.cold+0x10/0x10
->   ip_tun_build_state+0x116/0x2a0
->
-> On kernels built with GCC 15+ and `CONFIG_FORTIFY_SOURCE`, the fortified
-> `memcpy()` got 0 sized destination with request of 4 bytes length:
->
->   static int ip_tun_parse_opts_geneve(...)
->   {
->       ...
->       attr =3D tb[LWTUNNEL_IP_OPT_GENEVE_DATA];
->       data_len =3D nla_len(attr); /* =3D=3D 4 */
->
->       struct geneve_opt *opt =3D ip_tunnel_info_opts(info) + opts_len;
->       memcpy(opt->opt_data, nla_data(attr), data_len);
->       /*     ^^^^^^^^^^^^^ 0 since options_len is assigned afterwards */
->
-> Fixed by initializing the counter before the options are referenced
-> matching what `ip_tunnel_info_opts_set()` already does
->
-> Fixes: bb5e62f2d547 ("net: Add options as a flexible array to struct ip_t=
-unnel_info")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gris Ge <cnfourt@gmail.com>
-> ---
->  net/ipv4/ip_tunnel_core.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/net/ipv4/ip_tunnel_core.c b/net/ipv4/ip_tunnel_core.c
-> index 5168d546ea2f..8fb4742aca92 100644
-> --- a/net/ipv4/ip_tunnel_core.c
-> +++ b/net/ipv4/ip_tunnel_core.c
-> @@ -711,6 +711,7 @@ static int ip_tun_build_state(struct net *net, struct=
- nlattr *attr,
->         new_state->type =3D LWTUNNEL_ENCAP_IP;
->
->         tun_info =3D lwt_tun_info(new_state);
-> +       tun_info->options_len =3D opt_len;
->
->         err =3D ip_tun_set_opts(tb[LWTUNNEL_IP_OPTS], tun_info, extack);
->         if (err < 0) {
-> @@ -753,7 +754,6 @@ static int ip_tun_build_state(struct net *net, struct=
- nlattr *attr,
->         }
->
->         tun_info->mode =3D IP_TUNNEL_INFO_TX;
-> -       tun_info->options_len =3D opt_len;
->
->         *ts =3D new_state;
->
-> @@ -1005,6 +1005,7 @@ static int ip6_tun_build_state(struct net *net, str=
-uct nlattr *attr,
->         new_state->type =3D LWTUNNEL_ENCAP_IP6;
->
->         tun_info =3D lwt_tun_info(new_state);
-> +       tun_info->options_len =3D opt_len;
->
->         err =3D ip_tun_set_opts(tb[LWTUNNEL_IP6_OPTS], tun_info, extack);
->         if (err < 0) {
-> @@ -1040,7 +1041,6 @@ static int ip6_tun_build_state(struct net *net, str=
-uct nlattr *attr,
->         }
->
->         tun_info->mode =3D IP_TUNNEL_INFO_TX | IP_TUNNEL_INFO_IPV6;
-> -       tun_info->options_len =3D opt_len;
->
->         *ts =3D new_state;
->
-> --
-> 2.55.0
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-You forgot a 'net' in [PATCH net] . Please read
-Documentation/process/maintainer-netdev.rst
+------------------
 
-Looks good, but please add a comment on the assignment stating
-it must precede the option parsing, otherwise a future cleanup might move
-it back down?
+From: Pavel Shpakovskiy <pashpakovskii@salutedevices.com>
 
-Or maybe use something similar than tunnel_key_opts_set() in
-net/sched/act_tunnel_key.c
-for consistency.
+[ Upstream commit 59eecbe2f2f38d8f3e1104bd11da97f9a2c58998 ]
+
+'uuid_count' member of struct 'discovery_state' is assigned and read
+without any locks, so there is a chance of situation when
+uuid_count != 0, but uuids is NULL and there will be NULL pointer
+dereference.
+
+Possible race:
+'hci_update_passive_scan_sync'
+  'hci_discovery_filter_clear'
+    hdev->discovery.uuid_count = 0;
+      <----------------------preempted----------------------------->
+                        'start_service_discovery'
+                          // Set uuid_count to value != 0
+                          hdev->discovery.uuid_count = uuid_count;
+                          hdev->discovery.uuids = kmemdup(...);
+      <----------------------preempted----------------------------->
+    spin_lock(&hdev->discovery.lock);
+    kfree(hdev->discovery.uuids);
+    hdev->discovery.uuids = NULL;
+    spin_unlock(&hdev->discovery.lock);
+
+Now uuids == NULL and uuid_count != 0.
+So 'mgmt_device_found' -> 'is_filter_match' -> 'eir_has_uuids' receives
+non consistent discovery state, where NULL dereference of uuids happens.
+
+To fix it let's add discovery.lock around every read/write of uuid_count,
+uuids pair of struct members. It is also important to assign uuid_count
+value only after success kmemdup() allocation in
+start_service_discovery(), otherwise uuids is NULL, because kmemdup failed,
+but uuid_count is already assigned to non zero value.
+
+The following panic happens:
+
+[ ] ------------[ cut here ]------------
+[ ] Unable to handle kernel NULL pointer dereference at virtual
+address 0000000000000000
+[ ] Internal error: Oops: 0000000096000006 [#1] PREEMPT SMP
+[ ] CPU: 0 PID: 15056 Comm: kworker/u9:2
+[ ] Workqueue: hci0 hci_rx_work
+[ ] pstate: 10400009 (nzcV daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[ ] pc : eir_has_uuids+0x2d8/0x590
+[ ] lr : is_filter_match+0x258/0x320
+...
+[ ] Call trace:
+[ ]  eir_has_uuids+0x2d8/0x590
+[ ]  is_filter_match+0x258/0x320
+[ ]  mgmt_device_found+0x5b0/0xafc
+[ ]  process_adv_report.part.0+0x8c8/0xf14
+[ ]  hci_le_adv_report_evt+0x338/0x3f0
+[ ]  hci_le_meta_evt+0x1f0/0x4c8
+[ ]  hci_event_packet+0x440/0xc9c
+[ ]  hci_rx_work+0x44c/0xaf8
+[ ]  process_one_work+0x54c/0x103c
+[ ]  worker_thread+0x6c4/0x10c4
+[ ]  kthread+0x274/0x2ec
+[ ]  ret_from_fork+0x10/0x20
+[ ] Code: 14000004 91004021 eb14003f 54000180 (f9400024)
+[ ] ---[ end trace 0000000000000000 ]---
+
+Fixes: 2935e556850e ("Bluetooth: hci_sync: fix double free in 'hci_discovery_filter_clear()'")
+Signed-off-by: Pavel Shpakovskiy <pashpakovskii@salutedevices.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/bluetooth/hci_core.h |  2 +-
+ net/bluetooth/mgmt.c             | 18 +++++++++++++-----
+ 2 files changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 3df59849dcbea..8115435b5d2af 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -919,9 +919,9 @@ static inline void hci_discovery_filter_clear(struct hci_dev *hdev)
+ 	hdev->discovery.result_filtering = false;
+ 	hdev->discovery.report_invalid_rssi = true;
+ 	hdev->discovery.rssi = HCI_RSSI_INVALID;
+-	hdev->discovery.uuid_count = 0;
+ 
+ 	spin_lock(&hdev->discovery.lock);
++	hdev->discovery.uuid_count = 0;
+ 	kfree(hdev->discovery.uuids);
+ 	hdev->discovery.uuids = NULL;
+ 	spin_unlock(&hdev->discovery.lock);
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index aae0330bbc6aa..deced8a5bc2d6 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -6163,6 +6163,7 @@ static int start_service_discovery(struct sock *sk, struct hci_dev *hdev,
+ 	struct mgmt_pending_cmd *cmd;
+ 	const u16 max_uuid_count = ((U16_MAX - sizeof(*cp)) / 16);
+ 	u16 uuid_count, expected_len;
++	u8 (*uuids)[16] = NULL;
+ 	u8 status;
+ 	int err;
+ 
+@@ -6239,12 +6240,10 @@ static int start_service_discovery(struct sock *sk, struct hci_dev *hdev,
+ 	hdev->discovery.result_filtering = true;
+ 	hdev->discovery.type = cp->type;
+ 	hdev->discovery.rssi = cp->rssi;
+-	hdev->discovery.uuid_count = uuid_count;
+ 
+ 	if (uuid_count > 0) {
+-		hdev->discovery.uuids = kmemdup(cp->uuids, uuid_count * 16,
+-						GFP_KERNEL);
+-		if (!hdev->discovery.uuids) {
++		uuids = kmemdup(cp->uuids, uuid_count * sizeof(*uuids), GFP_KERNEL);
++		if (!uuids) {
+ 			err = mgmt_cmd_complete(sk, hdev->id,
+ 						MGMT_OP_START_SERVICE_DISCOVERY,
+ 						MGMT_STATUS_FAILED,
+@@ -6254,6 +6253,11 @@ static int start_service_discovery(struct sock *sk, struct hci_dev *hdev,
+ 		}
+ 	}
+ 
++	spin_lock(&hdev->discovery.lock);
++	hdev->discovery.uuids = uuids;
++	hdev->discovery.uuid_count = uuid_count;
++	spin_unlock(&hdev->discovery.lock);
++
+ 	err = hci_cmd_sync_queue(hdev, start_discovery_sync, cmd,
+ 				 start_discovery_complete);
+ 	if (err < 0) {
+@@ -10383,6 +10387,7 @@ static bool is_filter_match(struct hci_dev *hdev, s8 rssi, u8 *eir,
+ 	     !hci_test_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER))))
+ 		return  false;
+ 
++	spin_lock(&hdev->discovery.lock);
+ 	if (hdev->discovery.uuid_count != 0) {
+ 		/* If a list of UUIDs is provided in filter, results with no
+ 		 * matching UUID should be dropped.
+@@ -10391,9 +10396,12 @@ static bool is_filter_match(struct hci_dev *hdev, s8 rssi, u8 *eir,
+ 				   hdev->discovery.uuids) &&
+ 		    !eir_has_uuids(scan_rsp, scan_rsp_len,
+ 				   hdev->discovery.uuid_count,
+-				   hdev->discovery.uuids))
++				   hdev->discovery.uuids)) {
++			spin_unlock(&hdev->discovery.lock);
+ 			return false;
++		}
+ 	}
++	spin_unlock(&hdev->discovery.lock);
+ 
+ 	/* If duplicate filtering does not report RSSI changes, then restart
+ 	 * scanning to ensure updated result with updated RSSI values.
+-- 
+2.53.0
+
+
+
