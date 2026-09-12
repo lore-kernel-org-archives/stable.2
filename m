@@ -1,103 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B59B2F531B
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 12:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470E9214A84;
+	Sat, 12 Sep 2026 12:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216348; cv=none; b=leH8/43wV0L3qO13JTYEICXW4DEdC1fwFNORpcVpsP4TNcB3Z+qeB+4+ORkyZCMq686SrUUfGrc3oKvTzjvVAOhAP3F4rrQCEqY+UDbXxD2JcPb9Ug1VLP3ZfI+j6+XFL4fl2JVj3uOOHYOkw8qEADntdhfs7FV/DKAlADCn5os=
+	t=1789216353; cv=none; b=FMkhVa2DNKKkl4uhK06KEsiGePF06RAU8cDYtezlqS1qeVaYTFvIV+VNcQ0P/EcUtZ4fok+8I4LPYCk2j/mI9MU0BDazhBJLuUi4SqnrU7OcRUqzVx6XPFoeF/JKWiBaZecI3yRYpfHMtBUp09P6bi9AXFq3x0PAr7gpa3A3xYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216348; c=relaxed/simple;
-	bh=7AjZ9kH9Re1kynDJlWKePkLxkDHCt7Rsw0kLTiGVMY4=;
+	s=arc-20240116; t=1789216353; c=relaxed/simple;
+	bh=HDrtCgUxrWlLopiH3tV49xLRR7xE6ODyCr4VPQJ3yME=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KDFvTBmWqvHTOVApCa+7SHDtVoo0BFCezcGW/Br0JF6Q1jF+XGBOvQGVKCSHX1CW0c1hNGu5EJCElrxcK0yc1i7N0MoVernv+G9kGNQqkPW6ptjTgbewdJob8T0UpBMbQb10Zr+Ruo9jY0gJoWaER0X+J6jJl5xw5MycdESoBzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG/Nv0s4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ulMUWzLKSjOwqC+7pYQyQBd9aJzClbu6VaPc4r2rb55kM6bjYTmc2sN900T9y3GtxgxLJAf1im8ZfCwgN31aoyJmSxlB7ScbLId/S5hPalHH4CEsut7FRONC1dLOPJ7nMtLFvUkGN36rtiyTttgfjDeyDdk5/YLZ1CAkuxAJfHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zCBI3VZA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG/Nv0s4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0481F00893;
-	Sat, 12 Sep 2026 12:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789216347;
-	bh=WWdsuHVLFdjQKKeBCfs4MxhpYgXm95nxTmEeBZ6wmVY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zCBI3VZA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006591F000FF;
+	Sat, 12 Sep 2026 12:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789216352;
+	bh=dzHna9Hbg92RBRWKEqUdCiaFK6VUDNesBwidyFBF6bs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZG/Nv0s4SDt/IMr16ldHaBnOjfNSCgJW2rGurvqHsApMbhhkXFGKL3pSgw5mA5dIW
-	 9YdmBsyDqZ7fnU8V3rZ6VO1DuMmtnndYn4AMRIFyiAagb2hV6ln4s+bvzZ4Q3mSwmZ
-	 dxSBMMJ9U6oLamEwIB4e6yWVuLxwt00VPE8m+sRg6LhFJxhfr2iCRhVJOXaa6YoCtg
-	 87QR9FGxuAWpxCYh6eiYTz4jqX9c+StdfWpmWB/ud+c+34lI+ve7XRKSDyNBuVWLVH
-	 lwJ+XSuvxRXxU/aA1cz3vnoPO+mEv0hnjKSvG/UTHkQHTsesig4D5KDEsnHpfNNeks
-	 L7BUDhfHOv/YQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=zCBI3VZAEnbzj9a7iFbLrSBIhEMKZzPkAH50AQooKFeo2wNDSeDNQGZgPKnfOlCb0
+	 v6RwMnWyiMpWSIOL3SwrhaTi3PbQeeOzS4JMCnuEN4ZvSqFIWF8O+tXV1NxNBjBzwA
+	 EKtRx1BxfAZz7+2bUpJ8iS46CX4+LzSO53IOuJHA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+cae54346a70bbceeff2c@syzkaller.appspotmail.com,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
-Date: Sat, 12 Sep 2026 08:32:25 -0400
-Message-ID: <20260912123225.2618391-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090958-plastic-payee-9f0a@gregkh>
-References: <2026090958-plastic-payee-9f0a@gregkh>
+Subject: [PATCH 6.12 0719/1376] nilfs2: fix infinite loop in nilfs_clean_segments()
+Date: Sat, 12 Sep 2026 08:52:25 +0200
+Message-ID: <20260912065623.566444227@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+References: <20260912065607.535295758@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ce366bfa821ec81dd45bde547ee31e659306cc61 ]
+------------------
 
-There is potential deadloop in race condition:
+From: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Thread A				Thread B
-- fsync
- - f2fs_do_sync_file
-  - f2fs_fsync_node_pages
-   - last_fsync_dnode
-    - folio_get(last_folio)
-					- f2fs_setattr
-					 - f2fs_truncate
-					  - f2fs_truncate_blocks
-					   - f2fs_do_truncate_blocks
-					    - f2fs_truncate_inode_blocks
-					     - truncate_dnode
-					      - truncate_node
-					       - invalidate_mapping_pages
-					        - folio->mapping = NULL
-   - is_node_folio alwasy return false
-   - atomic && !marked is always true,
-     then goto retry
+[ Upstream commit ce5a5ad1a8330a2fcfdd9ec2ab341be739e89a18 ]
 
-Cc: stable@kernel.org
-Fixes: 608514deba38 ("f2fs: set fsync mark only for the last dnode")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ Adapted folio operations to Linux 5.15’s page-based API. ]
+syzbot reported a hung task in nilfs_transaction_begin(). This occurs
+because the cleaner ioctl falls into an infinite loop if
+nilfs_segctor_construct() repeatedly returns -EROFS (e.g. the device
+is remounted as read-only after an I/O error).
+
+Currently in nilfs_clean_segments(), if err is non-zero, it logs the
+error and sleeps but doesn't abort when it encounters a terminal error
+like -EROFS. This causes the thread to loop forever.
+
+Fix this by breaking out of the loop if nilfs_segctor_construct()
+returns -EROFS. This matches the behaviour in
+nilfs_segctor_write_out(), which also handles -EROFS.
+
+Reported-by: syzbot+cae54346a70bbceeff2c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cae54346a70bbceeff2c
+Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
+Assisted-by: gemini:gemini-3.1-pro
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/nilfs2/segment.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index e5a06a65a5398..34a590d500819 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1847,6 +1847,11 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
- 			   ino, last_page->index);
- 		lock_page(last_page);
-+		if (unlikely(last_page->mapping != NODE_MAPPING(sbi))) {
-+			f2fs_put_page(last_page, 1);
-+			ret = -EAGAIN;
-+			goto out;
-+		}
- 		f2fs_wait_on_page_writeback(last_page, NODE, true, true);
- 		set_page_dirty(last_page);
- 		unlock_page(last_page);
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index 657a72f941b90..c598c2a4262a1 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -2580,6 +2580,10 @@ int nilfs_clean_segments(struct super_block *sb, struct nilfs_argv *argv,
+ 			break;
+ 
+ 		nilfs_warn(sb, "error %d cleaning segments", err);
++
++		if (unlikely(err == -EROFS))
++			goto out_unlock;
++
+ 		set_current_state(TASK_INTERRUPTIBLE);
+ 		schedule_timeout(sci->sc_interval);
+ 	}
 -- 
 2.53.0
+
+
 
