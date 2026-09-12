@@ -1,88 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0C0472074
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:17:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523E941A554;
+	Sat, 12 Sep 2026 11:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789211840; cv=none; b=p0VJxTzKIaMtWBNBNZ3vvMQp4HaXgYh/jb0+73VQtFKaSqtMxiNoTULja7ZJFZ/2b/VZkdIF7jPLwHP+Lr9fkxO97GsEpoyW+o+BvqLu4yF9a1jD1+iQYmPeSW3w2tepufM9f73Y++vFcavzsbLrh2HY2PxlhDedbRcLtV61go4=
+	t=1789211841; cv=none; b=DTE70qKVRMMxrKZlagoanmtkxi9xA3zoQjgSLJMvtg+3YVRsCJ+suHrvMkjiP0DglLCoPm2S3eWRmCb4KvfR2KM592UFCaZ/joiQWV+5nf9gEhYJ3uU58Yw0phbL+of4CDqPhXOlc0vUt5T4RH9j4ZHGwAJeNIye8hTb+5Eioo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789211840; c=relaxed/simple;
-	bh=J9pRy4gnolSLIEztJeEqGhoBbdvM3B6ShoALJt/6bNU=;
+	s=arc-20240116; t=1789211841; c=relaxed/simple;
+	bh=HL19gW+29jEbcdlh85GbcVIrY82z/EV6Dl7ZwKXl/Ug=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FwkLlxJRxZnoscZ8dszyf1bZ0oHTrUxSV+yWWyWqjaIp1U2A8LGluvDbZM/EESNFWciNT+jwNhrofJ/nKl9vUorYrpltgnFvMmPdAjcYqfhP/HL4nF3DnNInZCpiPxYCt3w7vM3uOlUW69uvfZsJSiCxBlen9Gb+P8krT9cgHJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTXkzjGc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=loCGyUHL2Zf7PIzVZ0FS3EN8RDEebaLWeIhNvfmm1k/1ULts35NphsDGoHhFjFkq01GN4x76EKNtMqdJcebl/R+cIsRNyXPwJyTzkYUhVvSmzyHsqw7+yvRV/8yEzg7hzuWxzfxu20a2TjeVOx+PiJIbg44MOO0Qfnp4pk2Wr8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NsHHxuKt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTXkzjGc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569801F00898;
-	Sat, 12 Sep 2026 11:17:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789211838;
-	bh=16Cyg4+aVYzw282Z1wEz41KnTB6JiwYaDc8Er7dHCRw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NsHHxuKt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966811F000FF;
+	Sat, 12 Sep 2026 11:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789211840;
+	bh=Eow34Vv6RSjzzJ3JclC6UwyUsTd70qPNd5lVIav6unc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTXkzjGcCRiPvUZXpRUxriYdqsX02VcdQtd758PvC7qOH6hiZXX8yNlMF85Fe77xq
-	 hA3MUFg2afTPxhkdQpaFDJyIScza8EbjmPL0zLW5lLUzYf42LdFeb/FHWBVsvBsyCr
-	 qZtKSIeRgWBhL8Sl0xYeAtLgRumFDzHXlAorfZ6uYHMUaJOAYKvs30YmkaLmTblnIJ
-	 8dqGwxBLci/XVo4a1B237sV6baoVZ3brbllqSVsohx0qNwruNMC8LfjcPb26XAsJZ8
-	 7fv/oXG8MKmnJelxRBgyOdqQB5x3CM8qQI0mSFpnH/zIgiYqqqHN3m252MXryPtm/I
-	 1o80So7XO35Og==
-From: Sasha Levin <sashal@kernel.org>
+	b=NsHHxuKtA4UJgw9Gf5niUxMCMJ+wL1emxXs8wIiRUHiAabTVmsEIXZABnPq5TOXZd
+	 60mi9ngMInYd3poT307RPShrrTIQFqYwQ6cfJIPzJrTl6aJU0UsEhN1yCX3chp1JZ1
+	 bfFmYMq0bn9PV7FfGG1FoNVKDeEi37EQAPlSrlGs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Bob Zhou <bobzhou2@amd.com>,
-	Leo Liu <leo.liu@amd.com>,
-	Frank Min <Frank.Min@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 6/6] drm/amdgpu: avoid force-completing uninitialized UVD rings
-Date: Sat, 12 Sep 2026 07:17:11 -0400
-Message-ID: <20260912111711.2285466-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912111711.2285466-1-sashal@kernel.org>
-References: <2026090943-snugness-plexiglas-e964@gregkh>
- <20260912111711.2285466-1-sashal@kernel.org>
+Subject: [PATCH 6.18 1287/1518] platform/x86/amd/hsmp: Reject negative power cap writes in hwmon
+Date: Sat, 12 Sep 2026 08:57:36 +0200
+Message-ID: <20260912065652.627730574@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bob Zhou <bobzhou2@amd.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6760f5cb12d2366ddd58a2d8637f7583d73f596b ]
+------------------
 
-uvd_v7_0_sw_init() does not initialize the UVD decode ring for an
-SR-IOV VF. However, amdgpu_uvd_resume() unconditionally force-completes
-the decode ring when restoring its fence sequence.
+From: Hemanth Selam <hemanth.selam@gmail.com>
 
-Skip fence completion when the fence driver is not initialized.
+[ Upstream commit 3921bb8635ff2836622df1cdf3194d4f3c1835a4 ]
 
-Fixes: 0a33b11d26c6 ("drm/amdgpu: mark force completed fences with -ECANCELED")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bob Zhou <bobzhou2@amd.com>
-Acked-by: Leo Liu <leo.liu@amd.com>
-Acked-by: Frank Min <Frank.Min@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+hsmp_hwmon_write() takes the user-supplied hwmon value as a signed long
+and assigns "val / MICROWATT_PER_MILLIWATT" to msg.args[0], which is a
+__u32.  MICROWATT_PER_MILLIWATT is an unsigned long, so a negative write
+to power1_cap (e.g. "echo -1 > power1_cap") is first converted to a huge
+unsigned value by the division and then stored into the u32 argument.
+
+As a result a nonsensical, multi-gigawatt socket power limit is sent to
+the SMU via HSMP_SET_SOCKET_POWER_LIMIT instead of the write being
+rejected.
+
+Reject negative values with -EINVAL before the conversion.
+
+Tested with HSMP enabled:
+
+  CAP=$(dirname $(grep -l amd_hsmp_hwmon \
+        /sys/class/hwmon/hwmon*/name | head -1))/power1_cap
+
+  # negative write
+  echo -1000000 > $CAP ; echo "ret=$?"
+  # valid positive write must still work
+  echo 400000000 > $CAP ; echo "ret=$?"
+
+Before:
+  # echo -1000000 > $CAP ; echo "ret=$?"
+  ret=0                             <- accepted; bogus limit sent to SMU
+  # echo 400000000 > $CAP ; echo "ret=$?"
+  ret=0
+
+After:
+  # echo -1000000 > $CAP ; echo "ret=$?"
+  bash: echo: write error: Invalid argument
+  ret=1                             <- rejected with -EINVAL
+  # echo 400000000 > $CAP ; echo "ret=$?"
+  ret=0                             <- valid write still works
+
+Fixes: 92c025db52bb ("platform/x86/amd/hsmp: Report power via hwmon sensors")
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Link: https://patch.msgid.link/20260812090012.140193-1-hemanth.selam@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/platform/x86/amd/hsmp/hwmon.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index f10268de0ea3c..5f8c036773552 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -516,7 +516,8 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
- 			}
- 			memset_io(ptr, 0, size);
- 			/* to restore uvd fence seq */
--			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
-+			if (adev->uvd.inst[i].ring.fence_drv.initialized)
-+				amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
- 		}
- 	}
- 	return 0;
+diff --git a/drivers/platform/x86/amd/hsmp/hwmon.c b/drivers/platform/x86/amd/hsmp/hwmon.c
+index 0cc9a742497fc..c8314eee06f4f 100644
+--- a/drivers/platform/x86/amd/hsmp/hwmon.c
++++ b/drivers/platform/x86/amd/hsmp/hwmon.c
+@@ -31,6 +31,9 @@ static int hsmp_hwmon_write(struct device *dev, enum hwmon_sensor_types type,
+ 	if (attr != hwmon_power_cap)
+ 		return -EOPNOTSUPP;
+ 
++	if (val < 0)
++		return -EINVAL;
++
+ 	msg.num_args = 1;
+ 	msg.args[0] = val / MICROWATT_PER_MILLIWATT;
+ 	msg.msg_id = HSMP_SET_SOCKET_POWER_LIMIT;
 -- 
 2.53.0
+
+
 
