@@ -1,30 +1,30 @@
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com [115.124.28.101])
+Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2353A47ECC8;
-	Sat, 12 Sep 2026 13:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B0A2C15A9;
+	Sat, 12 Sep 2026 13:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219476; cv=none; b=OWHykf5cq9dcftKQySKQn30GEE+BUVEVb8BBrCyA5DOs5FBzPVRFlWU5paFPq6NBeryhtAzPhJA87covIhClKVJPtPIJL18IOdZ2iBlal8w5qJtT/S9mBpYNMGZFmMsAA5H29J6bdbQSiRChmYJN9LCVflsPEXqfFGKWfoG5sGs=
+	t=1789219480; cv=none; b=R+jMeCJGWjzdHRRAGyg0vFk4qOqLTtHbnOH7tDoElWvSb2hcCY79RxnoVR0yYtCncflAONbTt6Nui0W1W8MMisVmzbj/M4Bv1sNdS0vheZf+5pbBDavCTEIK2xDwSo5UBQj9fwrX1WYYwZv88Q9b0kPMBEnbqCXpbebY4V8tFbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789219476; c=relaxed/simple;
-	bh=cx8ElelaTV7eZyiBsfE1V8uwUvvjA5+KksKIAI5ELz4=;
+	s=arc-20240116; t=1789219480; c=relaxed/simple;
+	bh=EeRUEGaUI/l+gIttlzTmjXNyzT67+Kcox7nrq949sM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nfuGAn09OFuJ01MEybOPLeiY4Y9TTq1Sc0OW+mVLccXkfYM48Ds6iQkQNcLgDcCnk1I7aj1oDtHWlZmHo7tSJ60Sg3VDCrvhtGQ11+9LvTmIqEBwYKIkQOs6IaqcdWfOomLsCZHTrz6Ty0xR5cFJcY56/ui2TAeINxlkW8MAlow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=mOLGufma; arc=none smtp.client-ip=115.124.28.101
+	 MIME-Version; b=dQaGhw7AGv8jLV2sQuXsE+ledAJ5T3RqsBMZin4WRIK9PCjm7N91p8EyRRxKsFH/127BDCLeyjgKchMv7Gpi47dTNLl2PVC41X3DQ5BDDCZREwrRA7EKQNoFwZEvIYYEz8//XkiZAwYLHCBW3AHWuuV60+ixNs5ahUxi17CxHBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=bl6elPa7; arc=none smtp.client-ip=115.124.28.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="mOLGufma"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="bl6elPa7"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1789219465; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=jzV7XDeWKgThRsxfS2R0FUhAhuKHogRQYt9imK9hL9Q=;
-	b=mOLGufmaDSZrZoCh7fIN7ahAsfNUbL8hR2At35w6rONAphkUk45wBLSN6mu/tpYsl32TSSusIKpNvQb8I9R/B6GMocx5sI14nHKkhz/o1ICELrUKd1P5JJjlgE5e9t7T2opf2i8i8bHKv0rVHVanjhADrU3yEfX/5kpUXUD+/94=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07535123|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0104515-0.012407-0.977142;FP=17212780250025952569|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jC..l8z_1789219136;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jC..l8z_1789219136 cluster:ay29)
+	t=1789219467; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=e42qm3Szy1dc4vy+qruNQCu8MyY8IeIWrKOr0rQ95CQ=;
+	b=bl6elPa7Fj0xmBc48cmCC12BWBB+0bEIqHvlx37SvT3XRpZC203mrVHrQsqaVBnw0gbKBJoW5tKnwb8f6J98so2G4y9JdkjRjy1V9yy4TfVRgIdd89qInwgoEadQ1kczVgLVqszLGLHwDxnAqC7UrKws+Xuei4Jv8RF3CV5c2gA=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08329333|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00867436-0.00152383-0.989802;FP=10302340803894709571|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jC..lBP_1789219139;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jC..lBP_1789219139 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Sat, 12 Sep 2026 21:18:59 +0800
+          Sat, 12 Sep 2026 21:19:01 +0800
 From: Liu Chao <liuc63@xiaopeng.com>
 To: David Heidelberg <david@ixit.cz>
 Cc: Eric Dumazet <edumazet@google.com>,
@@ -37,9 +37,9 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	linux-kernel@vger.kernel.org,
 	Liu Chao <liuc63@xiaopeng.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net 1/2] nfc: digital: reserve proper headroom for chaining_skb
-Date: Sat, 12 Sep 2026 21:18:51 +0800
-Message-ID: <20260912131852.1651462-2-liuc63@xiaopeng.com>
+Subject: [PATCH net 2/2] nfc: digital: check resp length in digital_tg_send_atr_res_complete()
+Date: Sat, 12 Sep 2026 21:18:52 +0800
+Message-ID: <20260912131852.1651462-3-liuc63@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260912131852.1651462-1-liuc63@xiaopeng.com>
 References: <20260912131852.1651462-1-liuc63@xiaopeng.com>
@@ -51,64 +51,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-digital_recv_dep_data_gather() allocates chaining_skb with
-nfc_alloc_recv_skb(), which only reserves 1 byte of headroom.
-Once the chained payload is fully gathered, it is passed to
-digital_tg_send_dep_res() or digital_in_send_dep_req(), both of
-which push a 3-byte DEP header plus up to 2 bytes of SoD, needing
-at least 5 bytes of headroom.
+digital_tg_send_atr_res_complete() reads resp->data[0] and
+resp->data[offset] (offset 2 or 3) without checking resp->len.
+The resp skb comes from the remote NFC peer, which controls its
+length.  A short frame causes reads past the end of the received
+data.
 
-skb_push() unconditionally calls skb_under_panic() when headroom is
-insufficient, so this is a guaranteed kernel BUG.  A remote NFC peer
-can trigger it in target mode by sending MI-flagged DEP_REQ fragments
-followed by an ACK with matching PNI, or in initiator mode via the
-symmetric chaining ACK path.  Normal DEP frames use digital_skb_alloc()
-which gets headroom from ddev->tx_headroom, so the bug only manifests
-through the chaining_skb path.
+The downstream handlers (digital_tg_recv_psl_req, digital_tg_recv_dep_req)
+each have their own length checks, so the consequence is a misdirected
+dispatch on stale data rather than memory corruption.  Add the missing
+check as hardening.
 
-The skb_copy_expand() reallocation in the same function preserves the
-original 1-byte headroom and does not add tailroom for the CRC or DID
-byte appended by the send path.
-
-Switch to digital_skb_alloc() which reserves the same headroom and
-tailroom that every other send buffer in this file uses, and pass
-ddev->tx_headroom and ddev->tx_tailroom to skb_copy_expand().
-
-Fixes: c12715ab3f01 ("NFC: digital: Add NFC-DEP Receive Chaining Support")
+Fixes: 1c7a4c24fbfd ("NFC Digital: Add target NFC-DEP support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- net/nfc/digital_dep.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ net/nfc/digital_dep.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-index 3982fa084..6d8e662a3 100644
+index 6d8e662a3..5093b7b81 100644
 --- a/net/nfc/digital_dep.c
 +++ b/net/nfc/digital_dep.c
-@@ -240,8 +240,8 @@ digital_recv_dep_data_gather(struct nfc_digital_dev *ddev, u8 pfb,
+@@ -1467,16 +1467,19 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
+ static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
+ 					     void *arg, struct sk_buff *resp)
+ {
+-	int offset;
++	unsigned int offset;
  
- 	if (DIGITAL_NFC_DEP_MI_BIT_SET(pfb) && (!ddev->chaining_skb)) {
- 		ddev->chaining_skb =
--			nfc_alloc_recv_skb(8 * ddev->local_payload_max,
--					   GFP_KERNEL);
-+			digital_skb_alloc(ddev,
-+					  8 * ddev->local_payload_max);
- 		if (!ddev->chaining_skb) {
- 			rc = -ENOMEM;
- 			goto error;
-@@ -251,9 +251,9 @@ digital_recv_dep_data_gather(struct nfc_digital_dev *ddev, u8 pfb,
- 	if (ddev->chaining_skb) {
- 		if (resp->len > skb_tailroom(ddev->chaining_skb)) {
- 			new_skb = skb_copy_expand(ddev->chaining_skb,
--						  skb_headroom(
--							  ddev->chaining_skb),
--						  8 * ddev->local_payload_max,
-+						  ddev->tx_headroom,
-+						  8 * ddev->local_payload_max +
-+							  ddev->tx_tailroom,
- 						  GFP_KERNEL);
- 			if (!new_skb) {
- 				rc = -ENOMEM;
+ 	if (IS_ERR(resp)) {
+ 		digital_poll_next_tech(ddev);
+ 		return;
+ 	}
+ 
+-	offset = 2;
+-	if (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB)
+-		offset++;
++	if (!resp->len)
++		goto bad_frame;
++
++	offset = (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB) ? 3 : 2;
++	if (resp->len <= offset)
++		goto bad_frame;
+ 
+ 	ddev->atn_count = 0;
+ 
+@@ -1484,6 +1487,12 @@ static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
+ 		digital_tg_recv_psl_req(ddev, arg, resp);
+ 	else
+ 		digital_tg_recv_dep_req(ddev, arg, resp);
++
++	return;
++
++bad_frame:
++	kfree_skb(resp);
++	digital_poll_next_tech(ddev);
+ }
+ 
+ static int digital_tg_send_atr_res(struct nfc_digital_dev *ddev,
 -- 
 2.50.1
 
