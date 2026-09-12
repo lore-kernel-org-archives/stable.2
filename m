@@ -1,102 +1,135 @@
-Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629FA26A0D5
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 05:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53D237C0E2
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 05:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789191385; cv=none; b=sYub1YwgUcyXEhRUQ2AzbKVzGD5iN4IC4np1DKZbKYEbljzDOwM5Hebc8SZHKjhRKhHtWNs7g1TWBZyR4Wff0HCI9Go810TNYEDzliBaib9aOF8w+aXMgLldDQglkfxfLVEVvYjv59h3jWb0sj1Slr+GA6IfyMQ5tJe3rJef6oQ=
+	t=1789191578; cv=none; b=W1E5EWGDObzBSB0XRRxKXFn8iIAUSYwVaFyRo9kujYPOiUFnmZ1cTALJK5YY4nWkEtlOAwUaI7u4ryWf2suVP/ZxOp+5NQKkc2X1/mqORUQc7lDl2LxITegDsf5YLhratgVKZKOS9Xv0v43iQMEVaBGXebe8EdDySdWZqqEofQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789191385; c=relaxed/simple;
-	bh=YS6Bmi3ur/g06pxTgi2HZpCx66s+nN/m2XgLl6TIFoc=;
-	h=From:Subject:Date:Message-Id:To:References:Cc:Mime-Version:
-	 Content-Type:In-Reply-To; b=EvQUvNUFscXWDpUOwA8fQwOTBdRIsmN6ybpTVyXKbcAczvPGAqsk2Ux1Y+1L9kTyMa5x2u+FZDJdJxNDG4LIoQ8c0P7or4IsFSrKJg15xfm01TEFqCkXQINX20XjnoFLwrA7icq9OmAdwVhXFsTTMu5rGcH9GITKxfHgovuEHIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=C5NCI/ga; arc=none smtp.client-ip=209.127.231.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1789191578; c=relaxed/simple;
+	bh=V9+Wek3JYur97ZhIPpkT85Lp4D1DQ4ZZg1gbh7CpQcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hP38991xU+3nNEckKrT6rPNCkqCxZJVHQ0aXsENTW2OKJ4bK8ncj4WbSwjfP5G0Qoc91xwLCnuNvPxXwqJcsFFp+6E4R3jDAdRTFUHJVy9mhJNJelLlwW1t5aKP/G2dKMFbfCo9NOL7U8FIuLwCOLggJpqTe4MfgzgAgLbxhvXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VM/pc/qk; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="C5NCI/ga"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789191375;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=x+1CHNOPbt8KaGgVhkriM21cLehyfxKo3I2vYEiFVTs=;
- b=C5NCI/gaNmTQJVI8mi6MRMxoYDZ02O3ptav1cEtNf/TaFf5ASu1MK6A5khFKV2bjvyEbkz
- ZNe0FwP/Aar/GGTKG/eNTFDvvQ7dfUmSgCtfXG4NAreiwU0378bRsf2/HsGQzY+DR87aA8
- 6sOfGb4shG4oPVRdTKBBf466TfLwZ5t89zc7muVyV7SlbhRFZkWC9dQP32QY5MiKdb3zum
- Vtk1nGk7mXqMEzmwwCZvchKbioFvcR9U8EWwdJWDbY5R6OCfJeGBw2ZP0LZXi/Qa11Md73
- Be1udthljMXXCPkETu5Legc9wLI2vExyd48+9gxPm4dx0mAwFsam8OKB0WkwVw==
-X-Original-From: yu kuai <yukuai@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH v4] md/raid5: validate payload size before calculating payload_len
-Date: Sat, 12 Sep 2026 13:36:10 +0800
-Message-Id: <f55e0683-efec-4447-9c12-bd400470c281@fygo.io>
-Reply-To: yukuai@fygo.io
-To: "Martin Wilck" <martin.wilck@suse.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.161]) by smtp.larksuite.com with ESMTPS; Sat, 12 Sep 2026 05:36:14 +0000
-User-Agent: Mozilla Thunderbird
-References: <20260907155103.2325511-1-mwilck@suse.com>
-Cc: "Xiao Ni" <xiao@kernel.org>, "Li Nan" <magiclinan@didiglobal.com>, 
-	<linux-raid@vger.kernel.org>, "Martin Wilck" <mwilck@suse.com>, 
-	"Junrui Luo" <moonafterrain@outlook.com>, <stable@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VM/pc/qk"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso8477596d6.1
+        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 22:39:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789191575; x=1789796375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qckB9LNa3JhbaBuwM5JiRvIMbAmzkycMcDwtsjXKuIQ=;
+        b=VM/pc/qkprO5HoZ3Donqn3VKqoFFIQ9oxg9floWq4sTd5/1s8vfTel9SKWs5wSDuK5
+         QV2FBr8zylG2mb0MLtvRsXeo09OwLn97Nya/eLSOzoi9be4nJoYMFrX4UtR2/Lee/klc
+         zuKZ2LE4b0tSwUmZhktKIYN+FMvj5Fu79aM2+i3/1sJeDVwFAO+1DuTOd9npc5FZ6o0U
+         VnPaN1/FYBGmtwP5VG6xUGFuoPxPKme0fao5Qs8dJjxF3I9v5mNAjWbwN5sUGqaHOw+2
+         aEdPZRrPCMdjP81OkAI2/ACuSM6jwHn4l0E7Cyv1IXbxSlk1vkZYehG9khU6nF0cam0r
+         CqzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789191575; x=1789796375;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qckB9LNa3JhbaBuwM5JiRvIMbAmzkycMcDwtsjXKuIQ=;
+        b=NWWmRhnoT50ONZDVpSYCLwe7z335pgNvrOfaQeH9JS6YjYgMvhmJF9gvoiaINFT0AN
+         SOkC8LVH9LSiiImdprsA9MtK4w/lpyBo/o/okJta1c9VL1pvDaTj+lwC8GMtNWUdhueb
+         4o0adDe0q0f/7IXNtdKDbjW4gUq7a3euZ4v82+920fJjZhNi1clCkdTsMWIHgNzG/m5E
+         wDsF9VhrP5/NJHNf6wA23DpIAYxw+UJPLKHC4x05skLevv2uXuYMOeNBZUh1Sva3gVNM
+         AoJWar8wENF4g8+P/Ec/2Wiy2ppp/dK2Hx9mzwVYb3wFX8dJLVWON412stL8MtjQixHL
+         yT9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxgD7y2WlIlzIQrbsv2kp3CG9GWv/6D7RLO7Wx3eZ7egoaqFaZgP9JJU+/dtToC565odNBpjdo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOzYqBX/DRlJFoEBEmpchz3Q8EEzy9lHv75axAauFeXLg7+FU+
+	ghLX3QtJdAfYUNpcLZ5X/MK98h6iuMLsaRS3XCAlocfm3WocAMUVt8jw
+X-Gm-Gg: AYBFou1MLsTvJtH3UIlyQj+MnSB/RPG44BjYU+2dKtJ1wWUIk0zbddsvOdLMZBEbZfu
+	7YaeVYoYzUqSlkd5Ky2l8oXTIXGhwDKpGjiE0OVu08p7gbK44pR/3/nd/AGMPuKKTOmGiC+52Dn
+	3/I+rFLJJgeCHr7h7AiYlXORWs1syTHGU2rtG0RpcGl0EAJuWs4NDg8gEvKyj8FnM9fcECOMgx7
+	atTqIIgJ/CFOpaUVsCGD2ZnIfxuWUuh+vrOKWp4AsLpaQbUJTiKl9j2aCmeBxe18OP6GGNagQ0E
+	C7Qm5w5cJ4Ss1De0XAgpClLASPl59CDonwrc1eTtIfSjkl6W3IdQw1LlPBfe8WjKnJQTXszwJiz
+	XRDr+O4m1Xly7jtxk2idWuSNxT+mScvn8LEynii0BjaJBC2X7IH0JvlgNulvYTl+U6A7dhvwQUW
+	T9FNYZUjMPQb4c8rxkgNjKsFPgOX46G0vAPCWrSaiMwl3Yp17gXV6ZijNPooAKIlIFb5KL5VaMd
+	qY0neb00LVBbpWoZtfGxAIXNM3jkERlIafOHGL7fXbfcZ36fQ==
+X-Received: by 2002:a05:622a:449:b0:530:b2e3:86c3 with SMTP id d75a77b69052e-530c878a9c0mr125432321cf.53.1789191575466;
+        Fri, 11 Sep 2026 22:39:35 -0700 (PDT)
+Received: from shivam-EliteMini-Series.tail1fee36.ts.net ([128.230.213.33])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca47efa2sm38400961cf.11.2026.09.11.22.39.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 22:39:35 -0700 (PDT)
+From: Shivam Kumar <kumar.shivam43666@gmail.com>
+To: linux-nvme@lists.infradead.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: Greg KH <greg@kroah.com>,
+	security@kernel.org,
+	stable@vger.kernel.org,
+	Shivam Kumar <kumar.shivam43666@gmail.com>
+Subject: [PATCH v2] nvmet-tcp: fix a hang on queue teardown with data digest
+Date: Sat, 12 Sep 2026 01:39:21 -0400
+Message-ID: <20260912053921.49151-1-kumar.shivam43666@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <d040bea9-711d-4638-9d64-50516709b41b@grimberg.me>
+References: <d040bea9-711d-4638-9d64-50516709b41b@grimberg.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aa4e4cf+b95795+vger.kernel.org+yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260907155103.2325511-1-mwilck@suse.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026/9/7 23:51, Martin Wilck =E5=86=99=E9=81=93:
+A command that has received all its data but whose data digest is still
+outstanding is stalled in NVMET_TCP_RECV_DDGST, where
+nvmet_tcp_need_data_in() is false. nvmet_tcp_uninit_data_in_cmds()
+therefore skips it during teardown, leaking its submission queue
+reference, and nvmet_sq_destroy() then blocks forever waiting on it.
 
-> Commit b0cc3ae97e89 ("md/raid5: validate payload size before accessing
-> journal metadata") introduced a bounds check to verify that a given paylo=
-ad
-> fits into the current metadata block. In order to calculate the payload
-> size, it has to access the members payload->header.type and payload->size=
-,
-> the offset of which may already be past the end of the metadata block,
-> because the loop condition only checks that the first byte of the payload
-> is inside, and the payload entries have variable sizes. Later on,
-> payload->checksum[0] and payload->checksum[1] are accessed without
-> verifying that payload->size is large enough.
->
-> Add another check to make sure that payload->size can be safely
-> accessed, and make sure that the checksum fields are accessible.
->
-> This issue has been found by AI (gemma4, Gemini) during a backport
-> review.
->
-> Cc: Junrui Luo<moonafterrain@outlook.com>
-> Cc:stable@vger.kernel.org
-> Fixes: b0cc3ae97e89 ("md/raid5: validate payload size before accessing jo=
-urnal metadata")
-> Signed-off-by: Martin Wilck<mwilck@suse.com>
-> ---
-> Changes v3 -> v4 (Yu Kuai)
->
-> * use u32 instead of uint32_t
-> * use <=3D in loop condition
->
-> Changes v2 -> v3: Fixed another issue reported by Sashiko
->
-> * Modify loop condition to make sure the payload->header.type can be acce=
-ssed
->
-> Changes v1 -> v2: Fixed issues reported by Sashiko
->
-> * fix use of wrong variable name payload_len instead of mb_offset
-> * add checks to ensure payload->size is large enough to hold the checksum=
- values
-> ---
->   drivers/md/raid5-cache.c | 34 ++++++++++++++++++++++++++--------
->   1 file changed, 26 insertions(+), 8 deletions(-)
-Applied to md-7.3
+Release such a command in nvmet_tcp_uninit_data_in_cmds(), and reset
+rcv_state after that call.
 
---=20
-Thanks,
-Kuai
+Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+---
+ drivers/nvme/target/tcp.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index e59810175262..3bf344b184e8 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -1608,6 +1608,11 @@ static void nvmet_tcp_uninit_data_in_cmds(struct nvmet_tcp_queue *queue)
+ 			nvmet_req_uninit(&cmd->req);
+ 	}
+ 
++	if (queue->rcv_state == NVMET_TCP_RECV_DDGST && queue->cmd &&
++	    !nvmet_tcp_need_data_in(queue->cmd) &&
++	    !(queue->cmd->flags & NVMET_TCP_F_INIT_FAILED))
++		nvmet_req_uninit(&queue->cmd->req);
++
+ 	if (!queue->nr_cmds && nvmet_tcp_need_data_in(&queue->connect)) {
+ 		/* failed in connect */
+ 		nvmet_req_uninit(&queue->connect.req);
+@@ -1636,11 +1641,12 @@ static void nvmet_tcp_release_queue_work(struct work_struct *w)
+ 	nvmet_tcp_restore_socket_callbacks(queue);
+ 	cancel_delayed_work_sync(&queue->tls_handshake_tmo_work);
+ 	cancel_work_sync(&queue->io_work);
+-	/* stop accepting incoming data */
+-	queue->rcv_state = NVMET_TCP_RECV_ERR;
+ 
+ 	nvmet_sq_put_tls_key(&queue->nvme_sq);
+ 	nvmet_tcp_uninit_data_in_cmds(queue);
++	/* stop accepting incoming data */
++	queue->rcv_state = NVMET_TCP_RECV_ERR;
++
+ 	nvmet_sq_destroy(&queue->nvme_sq);
+ 	nvmet_cq_put(&queue->nvme_cq);
+ 	cancel_work_sync(&queue->io_work);
+-- 
+2.53.0
+
