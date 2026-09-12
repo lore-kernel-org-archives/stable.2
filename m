@@ -1,97 +1,269 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F4519E7F7;
-	Sat, 12 Sep 2026 08:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CEB19E7F7;
+	Sat, 12 Sep 2026 08:21:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789201280; cv=none; b=mHgFYh2R9Ic7RDe5nTiIRSYXL2GsHqdICi8xDJuBY0CB+JzxcjrLrdjm0Og5SS2oiYmrARh5eQxdtymd8RYCwtn5zFlnOhjAy//mg9wKLlwICsuMcTJvqj5rtaDTJCZ9CgdqUm4dRUDejUVgZRPuHoqtRneebxYbpCVezewdFDc=
+	t=1789201283; cv=none; b=DZzSVNlUBE99p3FebONIR88b8F/4psPVpKxbj8O4r5aLBehsz8f2KtmP/pOrN+m9izczjXH1+C1NCrAqLvIv9zZ7XWDI13jSBkrKbJi7f5s+kPvKFNL1bVSUxJaDYn4pDdta1Brv8oDtFBOzUCQcbOQppjhA1caTl4StepCfZN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789201280; c=relaxed/simple;
-	bh=dS0NDQgbRdGv6Is29+rbim373ffsjrcPdvqyLna/KN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GsMFehBzgna7IRv7+by0pvLIqlsqSBx81WZefrioURbsxbDAJ2pNzmxVIu1qKx0PjCpgLM6WmT1LXCSeWCHCczBFdV3sFBLIL2Mj3CZN3vGSTp3g3BVj7scI6p3hZl/7XUUgTRvZbLHUWP7t9kDbmpMcG60CRJjZAAAcNjRt4Ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZErjNO5V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789201283; c=relaxed/simple;
+	bh=Tg3ahdZ1QM94aQGM5wICGlvsx45JlDxHZ9vrWGsOLPw=;
+	h=Date:To:From:Subject:Message-Id; b=cjx3x8W6/Ssv8d6y+rhgPyBfTilnIfFJwSPkC3ziXB+oQOzsparjW/Db/4fXYFgZl6zoJmyo1KC74SRsN6ZN7rDUNc5J/3oBtwkHO9fuJq10p9f4hSw3/Ixvqs45P5m1G38jbVDohlNsOhtZKjhU5hbDjGH0o6H4SOlEuCDQylI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=olQYO7Wo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZErjNO5V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C601F000FF;
-	Sat, 12 Sep 2026 08:21:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789201279;
-	bh=lBxbhvdgfr+zfuL4l3F7NzrWMiIP2/29SrMbrDUgNmA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZErjNO5VqAO62w6GW7zvPlQcLkZOpLr40avDwzVBZswigsC8IZiDHaUJ6SjpCp2U6
-	 DC2AKM4kPCWKdVHNOefb8uIvzBnWVZl04djhdulygwn9WxDLfyElh9Z+f08N1IuxF5
-	 MnRPbiWGTMXNjetXZpymvrxXAEWnDNmsQFLT1DGQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Leo Yan <leo.yan@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 0911/1815] perf: arm_spe: Make wakeup range check overflow safe
-Date: Sat, 12 Sep 2026 08:44:21 +0200
-Message-ID: <20260912065710.308226864@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-References: <20260912065648.999753832@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="olQYO7Wo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0221F000FF;
+	Sat, 12 Sep 2026 08:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789201281;
+	bh=15xDciyUOqlWkOGpxmIXGED92hrdHvDAKr+bTicclgE=;
+	h=Date:To:From:Subject;
+	b=olQYO7WozXHiZGggbaqg26g1J5SlENFFP8EKDra2y9ll5/0Kcpj0akf4CjiMrmTTd
+	 Eh4kpoSUDg3EDKENtrCFAXxeQXimsBmsc+zzg+L/RbojUlTJZHDaGYTCVhmD2Uhw/E
+	 TT0xaJWkHqBTy5zZq3XCGKZkdmwrMhCiNdWGHFKw=
+Date: Sat, 12 Sep 2026 01:21:20 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,rakie.kim@sk.com,peterx@redhat.com,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,joshua.hahnjy@gmail.com,jgg@ziepe.ca,jannh@google.com,david@kernel.org,byungchul@sk.com,apopple@nvidia.com,gourry@gourry.net,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch added to mm-new branch
+Message-Id: <20260912082121.4A0221F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
+The patch titled
+     Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
 
-From: Leo Yan <leo.yan@arm.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
 
-[ Upstream commit fcc5eaea2d234162dfb8258372dd897bc2a1b862 ]
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-The current code checks whether the wakeup point is in the current
-writable range by comparing it with handle->head + handle->size.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-The perf AUX head is a monotonically increasing index, so that addition
-can overflow when head is close to ULONG_MAX. In that case, a wakeup
-point which is still inside the free space range can be missed.
+The mm-new branch of mm.git is not included in linux-next
 
-Use unsigned subtraction to compare the distance from head to wakeup
-against the handle->size. This can dismiss the issue when addition
-overflow.
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-This is unlikely to happen in practice, but the change makes the
-watermark check logically correct.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fixes: d5d9696b0380 ("drivers/perf: Add support for ARMv8.2 Statistical Profiling Extension")
-Signed-off-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Gregory Price <gourry@gourry.net>
+Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+Date: Fri, 11 Sep 2026 23:48:32 -0400
+
+Patch series "mm: stop calling pmd_folio() on special PMDs", v2.
+
+Two page table walkers resolve the folio behind a PMD with pmd_folio(),
+which is only valid for a PMD mapping a refcounted struct page:
+
+  madvise_cold_or_pageout_pte_range()   mm/madvise.c
+  queue_folios_pmd()                    mm/mempolicy.c
+
+vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
+have a memmap entry at all.  Both walkers can reach one and fault on the
+first folio field read.  The PTE halves of both already use
+vm_normal_folio(); these two patches make the PMD halves match.
+
+The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+
+  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
+  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
+  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
+  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+
+can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
+madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
+supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
+never runs and vfio-pci is reachable by any process holding the device fd.
+Hence the different stable tags.
+
+One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
+region now returns 0 rather than -EIO.  The PTE loop already returned 0
+there.  drm_gem_shmem and panthor are where this is observable, since they
+PMD map pages that do have a memmap entry and so never faulted.
+
+Reproducer
+==========
+
+No hardware needed.  An out of tree module stands in for the drivers
+above: three misc devices, each with a ->huge_fault calling
+vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
+branch.
+
+  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+
+Userspace maps the device into a PMD aligned window, reads one byte to
+fault the PMD in, checks a module parameter to confirm it went in, then
+issues the operation.
+
+  vng --run <bzImage> --user root --memory 4G --verbose \
+      --append "numa=fake=2" \
+      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+
+numa=fake=2 gives a node 1 to bind to; the module allocates its real page
+on node 0, which is what makes queue_folio_required() true.
+
+  subtest        operation                              parent   series
+  --------------------------------------------------------------------
+  madv_cold      madvise(MADV_COLD)                     oops     ret=0
+  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
+  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
+  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
+  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+
+Two things the table shows that are easy to miss in the code:
+
+  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
+    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
+    vma_migratable() is true for VM_MIXEDMAP.
+
+  - mbind_real demonstrates the user visible change (-EIO -> 0)
+
+
+This patch (of 2):
+
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+
+With a stand-in module for the driver:
+
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
+
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
+
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
+
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
+
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  On the NULL
+path, retain ACTION_CONTINUE handling for the huge zero PMD.
+
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
+
+Link: https://lore.kernel.org/20260912034833.2952750-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260912034833.2952750-2-gourry@gourry.net
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Assisted-by: LLM
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/perf/arm_spe_pmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
-index dbd0da1116390..b64cf2313a20c 100644
---- a/drivers/perf/arm_spe_pmu.c
-+++ b/drivers/perf/arm_spe_pmu.c
-@@ -577,7 +577,7 @@ static u64 __arm_spe_pmu_next_off(struct perf_output_handle *handle)
- 	 * the page boundary following it. Keep the tail boundary if
- 	 * that's lower.
- 	 */
--	if (handle->wakeup < (handle->head + handle->size) && head <= wakeup)
-+	if ((handle->wakeup - handle->head) < handle->size && head <= wakeup)
- 		limit = min(limit, round_up(wakeup, PAGE_SIZE));
+ mm/mempolicy.c |   16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd
++++ a/mm/mempolicy.c
+@@ -667,7 +667,8 @@ static inline bool queue_folio_required(
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
  
- 	if (limit > head)
--- 
-2.53.0
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++			     struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -678,13 +679,14 @@ static void queue_folios_pmd(pmd_t *pmd,
+ 			qp->nr_failed++;
+ 		return;
+ 	}
+-	folio = pmd_folio(pmdval);
+-	if (folio_is_zone_device(folio))
+-		return;
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
++	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
++	if (!folio) {
++		if (is_huge_zero_pmd(pmdval))
++			walk->action = ACTION_CONTINUE;
+ 		return;
+ 	}
++	if (folio_is_zone_device(folio))
++		return;
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -717,7 +719,7 @@ static int queue_folios_pte_range(pmd_t
+ 
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
+_
 
+Patches currently in -mm which might be from gourry@gourry.net are
 
+mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
+mm-mempolicy-use-srcu-for-the-weighted-interleave-state.patch
+mm-mempolicy-stop-copying-the-nodemask-in-the-interleave-paths.patch
+mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch
+mm-madvise-skip-zone-device-folios-in-cold-pageout-pmd-range.patch
+mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch
+mm-memory_hotplug-factor-out-node_is_memoryless.patch
+mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
+mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
+mm-refactor-find_next_best_node-to-find_next_best_node_in.patch
+mm-page_alloc-refactor-build_node_zonelist-out-of-build_zonelists.patch
 
