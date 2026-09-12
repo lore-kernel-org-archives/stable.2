@@ -1,82 +1,98 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAED36404D;
-	Sat, 12 Sep 2026 08:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEA735F184;
+	Sat, 12 Sep 2026 08:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200300; cv=none; b=JHF6SSww5BiapKRkdIwFFTCLlndPbs0ui/fPeCtiVxwAkyTSIne3VlpKkqiZaOzWspuMkDLC0Ix2Rq9kjgpZHx7HBKZ3xpO8mMUtzoe0iR8z/F/hSEhlE1pXiu8najZeTsaJGQk89Dv7HS3FKvVV5xZQvQC+ROXqeAy1XojR3LM=
+	t=1789200300; cv=none; b=s0Kv0FfH5Jf2HIsQLOd/0idD7DlmQXFk6jw1x2VobgoqbXKzBv0s8GNn2TaEz99KGmymTtT4Tz+e1x3aT4VO+RjQLKlj9uDhCBpp6SDPHoohrNZPswtC9LnqAXuzBV54PLRKiUug6c99wn4PcZl4gJ+9iyUYoqAe+ViceWo9Un4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789200300; c=relaxed/simple;
-	bh=4+THOZS0vuucX1GtvwsUqalQ26e4hn0JKpJvj3JFnU0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dKE/ALwnhbhDL3aftZQMWYgRtjDKHXguMyHtPcRW9ds+yFrzpMDcZErvjlkJO/kfheGMZ1fCU2Kv0XcmPSAVT9pcApG1tl/54Tex60a2hh1afWA9C68hPO7IDRHSMTDpLOs1+sPW+sY1M3C15OlWRjLbs4CvBx3q69nYilF2VOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PA0tsTU1; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	bh=Evgp1VJQ7Cj4hBS4KiapSsMaAJL4aC5a8uSBszEWANs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MrXS4GqcUtOOiokTgki7brDtSWVIlXUltgwXlLQTl5+Fba25IMwVDAuLpBOAht/aukcxTZxMWUERkZKgXadlat/1ax/WSBQVChLiHa8d+3O2Ngph/A52jDUJOTfVzcoUNybiZw+kDsgfEYe3whQBNDhVKnmujvgrVf6ONNIxA/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x+SVL2/g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PA0tsTU1"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8263d52;
-	Sat, 12 Sep 2026 16:04:51 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 ath-current] wifi: ath12k: convert scan timeout to wiphy delayed work
-Date: Sat, 12 Sep 2026 16:04:45 +0800
-Message-Id: <20260912080445.14184-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <dded65dd-56df-4637-b3f5-c244651435a6@oss.qualcomm.com>
-References: <20260717025602.262916-1-runyu.xiao@seu.edu.cn> <49600545-3e13-452c-8940-c3e775ac3856@oss.qualcomm.com> <dded65dd-56df-4637-b3f5-c244651435a6@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x+SVL2/g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F201F000FF;
+	Sat, 12 Sep 2026 08:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789200299;
+	bh=CGeFCy9AY9QFLqVPMJFboE/pOlvNNapwcUH+SS9eodw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=x+SVL2/g/NXV8FHETiYf/upynp2Edrt53zqwQ6Jwpfo0YZWgSlR7RUWvSq8t33diY
+	 oQ9EFt/7WsWkQhCnBsy6h2ufPeu2JEhfH94GRQpn7eaNR2lQPL6OsKn6Ty/2i4g7G/
+	 jWXGlzYW2PLzKTSk6X9hIxinw4kiiJbEp/jQLFyM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 0761/1815] bus: mhi: host: Fix controller cleanup on EDL sysfs failure
+Date: Sat, 12 Sep 2026 08:41:51 +0200
+Message-ID: <20260912065706.773406527@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
+References: <20260912065648.999753832@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa094a5d59503a1kunm70f9fefd2086a4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0xNVktKTkoeTE5LGBkdTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVU
-	pLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PA0tsTU1+tX07cBxPpVlFFJKU5ONDffvsLfa+qV+ZEk3drZnFhvE7oAEnqYTaF71l5JVfsLuV/XPGgS56no8RnTPWGaFlgdGNFIxHydNc1SH0BCVPkxNgxCNLu1KE/Qn7pyzSJWQgKdGSXAvtp+kIbi+gtbd1BSKN17pyXE03+k=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=4+THOZS0vuucX1GtvwsUqalQ26e4hn0JKpJvj3JFnU0=;
-	h=date:mime-version:subject:message-id:from;
 
-On Fri, Sep 11, 2026 at 01:36:47PM -0700, Jeff Johnson wrote:
-> You never responded to my response. However, since this seems to be a
-> legitimate issue I did a little more research and now see why the
-> finish_queued flag is needed. A better commit text should explain that since
-> the current commit text is confusing
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Sorry for the delay. I was unsure how this part should be resolved, so I
-held off on replying.
+------------------
 
-> There is, however, one additional issue with the scan complete path.
-> wiphy_delayed_work_cancel() requires the wiphy mutex, but
-> __ath12k_mac_scan_finish() is called from WMI event handlers under
-> data_lock only, without the wiphy mutex. The existing code can call
-> cancel_delayed_work() there directly, but that is no longer valid when
-> using wiphy_delayed_work. Instead, set a finish_queued flag and queue
-> vdev_clean_wk, which runs under the wiphy mutex and performs the
-> cancel. Add a check in the timeout worker so that if it was already
-> queued before finish_queued was set, it exits without aborting a scan
-> that is already finishing.
+From: Yuho Choi <dbgh9129@gmail.com>
 
-Agreed. Your explanation clarifies why the finish_queued flag is needed.
+[ Upstream commit 0d5b9e66591d4e2a4376ac82c8cda889a29ba3ee ]
 
-I will keep the finish_queued logic and update the commit message accordingly
-in the next revision.
+mhi_register_controller() adds the controller device before creating the
+optional trigger_edl sysfs file. If sysfs_create_file() fails, the error
+path only drops the device reference and leaves the device registered.
 
-Thanks for taking another look.
+Hence, call device_del() in the error path before put_device().
+
+Fixes: 17553ba8e19d ("bus: mhi: host: Add sysfs entry to force device to enter EDL")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/bus/mhi/host/init.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bus/mhi/host/init.c b/drivers/bus/mhi/host/init.c
+index 12dcb1a2753c7..fd3050889412d 100644
+--- a/drivers/bus/mhi/host/init.c
++++ b/drivers/bus/mhi/host/init.c
+@@ -1029,7 +1029,7 @@ int mhi_register_controller(struct mhi_controller *mhi_cntrl,
+ 	if (mhi_cntrl->edl_trigger) {
+ 		ret = sysfs_create_file(&mhi_dev->dev.kobj, &dev_attr_trigger_edl.attr);
+ 		if (ret)
+-			goto err_release_dev;
++			goto err_del_dev;
+ 	}
+ 
+ 	mhi_cntrl->mhi_dev = mhi_dev;
+@@ -1038,6 +1038,8 @@ int mhi_register_controller(struct mhi_controller *mhi_cntrl,
+ 
+ 	return 0;
+ 
++err_del_dev:
++	device_del(&mhi_dev->dev);
+ err_release_dev:
+ 	put_device(&mhi_dev->dev);
+ error_setup_irq:
+-- 
+2.53.0
+
+
+
