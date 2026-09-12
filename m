@@ -1,89 +1,53 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03636377EBA
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 03:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28906BA45;
+	Sat, 12 Sep 2026 04:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789185432; cv=none; b=iTymyX54PU1LR3zHEiUXYfnLmDCfw+kKwXlKJRN9X4Tx7B7tc2OhUpWnRng1RAGGZKzV91BP1dF768fx4SdoRUSagtsvbp8/JbFlwj2rV/ui3IqZdYY4T6+yGj+vRSZEcmvKzHZHQ1A9QgYXT4QCgDym4Cmn9oXw7Egoxn1aEKU=
+	t=1789187513; cv=none; b=r2Y0FSL3elRoFn4A4b1HRw4ezluiy7/YXAK+PCI22SfHq3KYTUYxUCEleng/+YuCBzIQbaj7D7RLQa4MDarMORINVEgDc7DnVxO//U951B2jOQcHgqAdTyxM+ZpU9LrF2JmbhIuS/+KDpqYwTxwXqbJOXzRhSx+L94prLjENZlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789185432; c=relaxed/simple;
-	bh=nEYVPwCFDnBCF24sANEBFZ55tkqiF4LKtVf0rB2hQ2E=;
+	s=arc-20240116; t=1789187513; c=relaxed/simple;
+	bh=sfKCzdxaib4+pasocL4R9qT+1CZ6GpvPWb0b0BSuC3E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PfP2LVTEJ/BXo6yyhRb9cZYvsUUL9t9B4+WA0hN81u1gpzxU2jgWSEttFc5xS2dDrB0MhaQB/HDQmzCLFYHfbHm7sTuOC7yAnwNvcrr/vEmNhIhk9GJBZLLp3YO/51kJIy1yUtEEonyw895XBwvmmOUWNdKePO5gmB7oCQwQM00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=fJz+kNp+; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 MIME-Version; b=hRwbP21ztzTNcoxf/g/eqVeyFkt/Tkwb4JB3m1H+FnTfKcmAJRxP4y5gqTFunBeSvneUpe/EfPmbFlz1utbI//mI1eFh4QlYcHDjhttRn9mX5LcwIh5YWlCNhLv9UGdrz0DjJ2WW0Um0YRmj3sWRn9KigBd6qYp0V1jji7sshEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=t+5szApF; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="fJz+kNp+"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db858d60e0so15958655ad.0
-        for <stable@vger.kernel.org>; Fri, 11 Sep 2026 20:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1789185430; x=1789790230; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gFsPOOs+5rcBWfV3FhiHZ78dDluV27U/FXNygCAg6wI=;
-        b=fJz+kNp+PQHDjlOwmmBpg5hdejlfojifH1hARbglIneEihYwuIPaVaUtOj2uRd/U4/
-         mscD1dKSHaVZWCHHLeh8RBToTvbNo7qdvB1j9zZ+nGmmuyhy3xQuOk62F4c2SDJDVXRj
-         fTxOdUlgap2qJAou2q1exUyb/0meghRURtYGyDr+zMAqo44cy7XuUPQCiaaKH3nXbYUP
-         lQq/uSoE7iSrwpbx0cyOcq33CboIFqAVjsSPXTsGiAV0l0jZaGBqzXXXtYCYJ0tjkKsr
-         CJMmQhvhYCUruOyfRTJPFV887LpPKsMYW2tC3Ic23M4E7n+xi5res8H+UbZLYHzULeCL
-         DUSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789185430; x=1789790230;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gFsPOOs+5rcBWfV3FhiHZ78dDluV27U/FXNygCAg6wI=;
-        b=mPypiyFOHX8QGHrEvbwOlgR2ELykVK+LyZkxYKsRXWvC3RxRQmpW2z0MRnOy7QdYV9
-         R8w9D3JZ1/MtzAxgObFFfo+t7Ws78K0ZRt+l0Yo23guUeHTmUZed8dj6iTnqsy2iwAUk
-         ZjZ0MyivZMDUdQnVsmdusQt9I+6N+QFh5PV6KxOYhV294iFLK+PLVL0+Pn2+yUIhl1Fy
-         jy1XaNSQgUH+mehorrllCupxuGvHg7P0PYz36mnwiQKkvvROo6vWEmzZFi5NPzn/Fm0L
-         gmzX6ftcDHF9mSGiCBsrVceXegNDtVLu5jAjGDZ60K7YkKn/i1pHHAvEH1T+R1Hd3FqY
-         AEBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHLptEsVSdPLWoBwXf0Dlr61WrFN2xR+HC2uz79ji2a4bWathn6Nm0TCjYAtl60QEgJf9p4vo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsrW7jj5e5ab2Q/SRq7m8QihKr+3nj/TJ6pMhrYSBiIcxmG2ju
-	paKNxeaZ3S1noDEGY6NfPaebKNgk7cfpwfyiZ2sVRShnPeFJKPC1biJlB3DkoZ0unP6H
-X-Gm-Gg: AYBFou2bLndXYwc5ZV6Sq4jFRwHxN7yJe6PSSPES5DOo1K0mipgSW3lAAoQrPCgrZv1
-	K38G1yFxZqSIi0ulQf38LHupA0MN2eVxCLwfnBAofOJuOL3eVELlz6e3LyEAd/lmnRHtHkL3uOJ
-	qBjAhwq3MACh5cKPkYBB9l65k1UGdC6/4VQgISjW99dAWz+OeB/XXbc9ZAUFOh6OPpwtsYEVYKg
-	lLrdJwHktkRv+3/cJsMEl8W10nSio7TteUWuHvFIownU4UAY7nf/GRhuECydx7nKLoSV9zbSxKw
-	5Ruu7EhPIjnR/TGVCMWy4FislUgGFFnQhKIks+r2iZ6u75UQ0SIwbPrGBmOpjRUuHYNubovIK+F
-	YHkthCczRW6HO1swlXVS2x48tnkSnFK3yGX61mlXZosujwNt2WYmU0JmkVQSeRAuhTMonFIcVHo
-	PZSGFANsoB7JO3NpTVR1J7oYSDXY/uTnbKfNNP8JFRpKMnKmcdFkgy9tKXz+YC2YJgeHm2mW+Qf
-	ftM62PPesD0BYWe17o1BZz8ZKoYMw==
-X-Received: by 2002:a17:90b:2b50:b0:380:21b7:e727 with SMTP id 98e67ed59e1d1-39d9c1c199dmr12405499a91.14.1789185430385;
-        Fri, 11 Sep 2026 20:57:10 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95864b4fsm8454407a91.15.2026.09.11.20.57.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 20:57:09 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: horms@verge.net.au,
-	ja@ssi.bg,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: zihanx@nebusec.ai,
-	phil@nwl.cc,
-	netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="t+5szApF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789187500; x=1789446700;
+	bh=sSqoYH0c21mEhcvpAIK0bj7Pj0T2Ip9t6Lb6uBWDPEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=t+5szApFwbaQf07puBq1wdaNfHt8OmNvVMBDX4683NUam9S1ARn5ywllB5KVYes/n
+	 LiQitvej4j4I5gUR2kQGK3Ln/bkUQhBtNQb55cXh52qgs7BCDIs/KrMJt2E6f323xW
+	 DskuLMkmX5LSPZiYGvlb0J6EA5O2zEziPdrAvouxyZ9JSj2Ze4RbbN++P9HIFSs0z8
+	 aAOsd2tqv0fgx8rQFBohaVDnoZzqUE+hHHdgwJ3P5RwjK+Nm67rbTchIGkJgtRRldL
+	 /pjzky2+aT6ft+bqtGJvppgBlyA4oQGpQQMVvOS08sW6pVgrudpjcgLKtJ2P5O3GVq
+	 Q3EHZXTL1UpCg==
+X-Pm-Submission-Id: 4hhdln4Rlvz1DDLV
+From: Angel J <iamanaws@httpd.dev>
+To: linux-pci@vger.kernel.org,
+	bhelgaas@google.com
+Cc: robh@kernel.org,
+	herve.codina@bootlin.com,
+	lizhi.hou@amd.com,
+	andrea.porta@suse.com,
+	florian.fainelli@broadcom.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
 	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf 1/1] ipvs: avoid stack overflow from recursive connection expiration
-Date: Sat, 12 Sep 2026 03:56:51 +0000
-Message-ID: <a127d72fa8bf59646fcd6f856cf63834f7a7c888.1789110326.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1789110326.git.zihanx@nebusec.ai>
-References: <cover.1789110326.git.zihanx@nebusec.ai>
+	linux-rpi-kernel@lists.infradead.org,
+	Angel J <iamanaws@httpd.dev>
+Subject: [PATCH v2] PCI: of_property: Omit bus properties without a subordinate bus
+Date: Fri, 11 Sep 2026 21:31:06 -0700
+Message-ID: <20260912043106.10715-1-iamanaws@httpd.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260911230420.26244-1-iamanaws@httpd.dev>
+References: <20260911230420.26244-1-iamanaws@httpd.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,64 +56,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a controlled IPVS connection expires, its controller may be expired
-synchronously if it has no remaining controlled connections. A chain of
-controlled connections can then cause recursive calls to
-ip_vs_conn_expire() and exhaust the kernel stack during namespace cleanup.
+A device can satisfy pci_is_bridge() without having a subordinate bus.
+The dynamic OF helpers for bus-range and interrupt-map dereference
+pdev->subordinate without checking it.
 
-Defer controller expiration to its timer instead of expiring it
-synchronously. Set its timeout to zero, expedite its pending timer with
-ip_vs_conn_expire_now(), and drop the temporary reference. This preserves
-the existing cleanup semantics while limiting cleanup to one controller per
-timer callback.
+On a Dell XPS 8940, device 0000:00:00.0 [8086:4c43] has no subordinate
+bus, and enabling CONFIG_PCI_DYNAMIC_OF_NODES causes an early boot hang.
 
-Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
+Generate bus-range and interrupt-map only when a subordinate bus exists.
+Keep the node and its remaining properties for bridges without one.
+
+Boot-tested on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y. The
+system boots and the node for 00:00.0 retains device_type, reg and
+compatible. The other bridges retain their nodes and bus ranges.
+
+Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Signed-off-by: Angel J <iamanaws@httpd.dev>
 ---
- net/netfilter/ipvs/ip_vs_conn.c | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+Changes in v2:
+- Keep the dynamic OF node and skip only bus-range and interrupt-map
+  when no subordinate bus exists, following review of v1.
+- Tested on Linux 6.18.44 with the v1 guard removed.
 
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index 6fa3e1dc534c3..023c01707d862 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -1330,20 +1330,6 @@ static void ip_vs_conn_del(struct ip_vs_conn *cp)
- 	}
- }
+ drivers/pci/of_property.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index 75a358f73..acd2e0f70 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+ 		if (ret)
+ 			return ret;
  
--/* Try to delete connection while holding reference */
--static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
--{
--	if (timer_delete(&cp->timer)) {
--		/* Drop cp->control chain too */
--		if (cp->control)
--			cp->timeout = 0;
--		__ip_vs_conn_put(cp);
--		ip_vs_conn_expire(&cp->timer);
--	} else {
--		__ip_vs_conn_put(cp);
--	}
--}
--
- static void ip_vs_conn_expire(struct timer_list *t)
- {
- 	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
-@@ -1372,7 +1358,9 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
- 			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
- 				IP_VS_DBG(4, "drop controlling connection\n");
--				ip_vs_conn_del_put(ct);
-+				ct->timeout = 0;
-+				ip_vs_conn_expire_now(ct);
-+				__ip_vs_conn_put(ct);
- 			} else if (has_ref) {
- 				__ip_vs_conn_put(ct);
- 			}
+-		ret = of_pci_prop_bus_range(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++		if (pdev->subordinate) {
++			ret = of_pci_prop_bus_range(pdev, ocs, np);
++			if (ret)
++				return ret;
+ 
+-		ret = of_pci_prop_intr_map(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++			ret = of_pci_prop_intr_map(pdev, ocs, np);
++			if (ret)
++				return ret;
++		}
+ 	} else {
+ 		ret = of_pci_prop_intr_ctrl(pdev, ocs, np);
+ 		if (ret)
 -- 
-2.43.0
+2.54.0
 
