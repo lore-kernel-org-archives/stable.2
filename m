@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFBF275AEB;
-	Sat, 12 Sep 2026 15:33:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D3C2C237E
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227217; cv=none; b=AEdtsJycyRkTFfqSnFhXFKCY1zPzynCU4hOd1WKEv3cxzxoXJXGm3pv1NdJHtN/LWWVuRfNm8ouO7akZaXQj0Rx59uMs5DvxN6rLMcqrQR6RxJbTr17IC0bMywckjTaNZMJnjkg19SxyyLPCFt9l6AGrjBHqu/Uyck7yeN4ZJ80=
+	t=1789227217; cv=none; b=gnUuTg/LB1+YpJ9o/tZG+eWONht3ZBBQqVW2In3qMQSZiJyYluu4Y2hbytn5lEuf0YQ7VsPcnGH9tJhmi/uh86nNsGal5ICkANLQ51uuFzSI5WghWf6y1s1mPn5oNZsYaga5cVtn+GFDIJNWi1LTb9ZWq3qCwhHrkU/okVH/2ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789227217; c=relaxed/simple;
-	bh=C/O/hx+/98qhmRkco/DF7HkRlF5BjGv2X+ueLvsqDMw=;
+	bh=7ooQLM/mzalC2cFK9z81LC3H0Po3AhL7ZHhPKUjGAkE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JCtRI3UqI0ICzXVDsMfIwPExoBSiF5ghH3bp6VRwYKhEljCRRateHDrutTNd6YCtmgfaU376DGkV+wQeow63H7GCECcPMqVW8uh4kb09nFXF+WMrc4dX+zi8VsrHfzmDZ6wUyVe7/jDBsLN+PMo1Ob5FJ9l6wE4jjXByCDlKwgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XUlPpYO4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=auuR6cl+93C68OZ5vweYEuXP0N914eNsL/97tls+IuJbhxTtDO8kZGWGU6lkTBtctO3bkmJzYEl6GLxa2vd+Dy5dxlpV8Uc+nkFbVZYE5jE6KB0x8gHJLfDn2fHtOMkfRTmREBV/R5XXpltbkDMv5qw4XjQMfhcz8zDI2Q0FRMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ksp8GtJT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XUlPpYO4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F961F000FF;
-	Sat, 12 Sep 2026 15:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789227216;
-	bh=FytSHy/p1gbGE9Bq20j6H9rgSQR47I1NyRJJMkkopBc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ksp8GtJT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC241F00893;
+	Sat, 12 Sep 2026 15:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789227216;
+	bh=+eHDu5cQYGsA63iZ0otjtQ6ANoiJ6P3fo8Qzz3IXL9Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XUlPpYO4+u0lVS2XVRUsrrUCpGXQftf6hWFMk0AflSbbZ+d3X4DT/AhctG/ZFfZG9
-	 6H8h2N4Ko0JU9CtxVDdvJ51Bp9QBnvf/DFlCT0d1tKkFasftM1EJJGfL0hmKMcPaVm
-	 kmZwfTcmybU2UAnPBgDyqjGRQBDVHI5h/X2y7wRM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=ksp8GtJTpp93Kps/TvMesiqXsp2d8F1+Jz1kYexLmM9cvrtaN6ch61Jl2TvoOC9/M
+	 CTcdai5QJ93/uEIOvChXzIFz5H8QsTeJI1cd2QvOQyheaFTYz0XGTgQpL18BO/1z5v
+	 3Tqi3kcQYu8fSTLJ4MfHVvufwMJLYqMDqVYI+tn+2AY1IyoA3hvArcds/oWIeir0IU
+	 9u5Xa1O6SHv+KTjHqgGXgHScVHrYStKK/INNblS1mfqVT5ZgtHs8eA9eKW1K9tyDd2
+	 CAh4sEmOXMaWjWpleSns4z+tIE3S43KwqWCzkrUAlPF78Atuu/dEcltfmZfA1w2gPC
+	 MH4mgT+a+nXyA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>
-Subject: [PATCH 6.1 0134/1191] svcrdma: Fix offset arithmetic in read_chunk_range
-Date: Sat, 12 Sep 2026 08:47:42 +0200
-Message-ID: <20260912065551.205155408@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <treding@nvidia.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/sysfb: simpledrm: Improve stride validation
+Date: Sat, 12 Sep 2026 11:33:34 -0400
+Message-ID: <20260912153334.3234026-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090939-yanking-taekwondo-915c@gregkh>
+References: <2026090939-yanking-taekwondo-915c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,107 +47,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-------------------
+[ Upstream commit df6533f11688aa30be3bb883c7637f4ffdbb7cbd ]
 
-From: Chris Mason <clm@meta.com>
+Validate the computed stride against the maximum value INT_MAX.
 
-commit 4a44c140cc2f3643a39e258bb0c0ab9d0f494f5e upstream.
-
-svc_rdma_read_chunk_range() walks a Read chunk's segment list to
-build a sub-range starting at byte offset and spanning length bytes
-for a Position-Zero or Call chunk. Two arithmetic defects in the
-per-segment loop produce wrong DMA lengths and a u32 underflow:
-
-    pcl_for_each_segment(segment, chunk) {
-            if (offset > segment->rs_length) {
-                    offset -= segment->rs_length;
-                    continue;
-            }
-
-            dummy.rs_handle = segment->rs_handle;
-            dummy.rs_length = min_t(u32, length,
-                                    segment->rs_length) - offset;
-            dummy.rs_offset = segment->rs_offset + offset;
-
-First, the skip predicate uses '>' instead of '>='. When offset
-equals the segment's full rs_length, the segment is fully consumed
-and should be skipped, but the loop falls through into the body.
-The resulting dummy.rs_length is min_t(u32, length, rs_length) -
-rs_length, which underflows to a near-UINT_MAX u32 when length is
-smaller than rs_length, or is zero otherwise.
-
-Second, the length formula subtracts offset from the min_t() result
-rather than from segment->rs_length before the cap. For offset > 0
-the segment's residual is rs_length - offset, not rs_length, so the
-cap must be applied to the residual. With the current bracketing,
-whenever length is smaller than rs_length - offset the per-segment
-length becomes length - offset instead of length, silently dropping
-offset bytes from the rebuilt chunk. Combined with the boundary
-case above it also enables the u32 underflow path, which propagates
-a huge nr_bvec into svc_rdma_build_read_segment() and a multi-MiB
-kmalloc_array_node() in svc_rdma_get_rw_ctxt().
-
-Additionally, svc_rdma_read_call_chunk() can invoke this function
-with length == 0 when the last Read chunk ends exactly at the end
-of the Call chunk. With the corrected >= predicate, every segment
-is skipped and the function returns the initial -EINVAL, rejecting
-a valid request. Return success immediately when length is zero.
-Also break out of the loop once length is fully consumed to avoid
-passing zero-length segments to svc_rdma_build_read_segment().
-
-Fix by using '>=' so a fully-consumed segment is skipped, by
-moving '- offset' inside min_t() so the cap is applied to the
-segment's residual length, by returning success for zero-length
-requests, and by stopping iteration when the requested range has
-been consumed.
-
-Fixes: d7cc73972661 ("svcrdma: support multiple Read chunks per RPC")
-Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-2-e251306ccca9@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 7bfa5c7b28d6 ("drm/simpledrm: Compute linestride with drm_format_info_min_pitch()")
+Cc: <stable@vger.kernel.org> # v6.1+
+Link: https://patch.msgid.link/20260625094509.157581-5-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_rw.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tiny/simpledrm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -974,17 +974,20 @@ static int svc_rdma_read_chunk_range(str
- 	const struct svc_rdma_segment *segment;
- 	int ret;
- 
-+	if (!length)
-+		return 0;
-+
- 	ret = -EINVAL;
- 	pcl_for_each_segment(segment, chunk) {
- 		struct svc_rdma_segment dummy;
- 
--		if (offset > segment->rs_length) {
-+		if (offset >= segment->rs_length) {
- 			offset -= segment->rs_length;
- 			continue;
- 		}
- 
- 		dummy.rs_handle = segment->rs_handle;
--		dummy.rs_length = min_t(u32, length, segment->rs_length) - offset;
-+		dummy.rs_length = min_t(u32, length, segment->rs_length - offset);
- 		dummy.rs_offset = segment->rs_offset + offset;
- 
- 		ret = svc_rdma_build_read_segment(info, &dummy);
-@@ -993,6 +996,8 @@ static int svc_rdma_read_chunk_range(str
- 
- 		info->ri_totalbytes += dummy.rs_length;
- 		length -= dummy.rs_length;
-+		if (!length)
-+			break;
- 		offset = 0;
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 30676b1073034..15e763d6c1995 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -694,9 +694,15 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 		return ERR_PTR(-ENODEV);
  	}
- 	return ret;
-
+ 	if (!stride) {
+-		stride = drm_format_info_min_pitch(format, 0, width);
+-		if (drm_WARN_ON(dev, !stride))
++		u64 pitch = drm_format_info_min_pitch(format, 0, width);
++
++		if (drm_WARN_ON(dev, !pitch)) {
++			return ERR_PTR(-EINVAL); /* driver bug */
++		} else if (pitch > INT_MAX) {
++			drm_warn(dev, "stride of %llu exceeds maximum\n", pitch);
+ 			return ERR_PTR(-EINVAL);
++		}
++		stride = pitch;
+ 	}
+ 
+ 	/*
+-- 
+2.53.0
 
