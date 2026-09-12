@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B8433ADA7
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEBC381EBB
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 02:10:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789178867; cv=none; b=jKPs7WSoVFuHp+KS1ghOqAEbHvL+BPV2DKjhJ6J6Mz92+SsfaQ6WgjwwpRTtSxPDWuibz/Z2IrZ7zywZFvfR6sIs3IrTc4vPQ2C2Cy48DCczYKNHfMOzm6/VaAx03qUxvnPRjlG+V20yevso8BOBjdJk7VJ5a7O9zxvo37a//Tw=
+	t=1789179043; cv=none; b=URDB0Gzp/X1+lc2R6Qu3XNLOxXcx4u5/Elt0IGAAqGCWnEas6K7EyzuwMdNS5DV5Db8Gsx92ZfounZ/J15XbKUQLiG/nOEntHe4S/xyMyPfG8b1Q3JobODqD5cH4bAmPf+C5JfxjDYRB1QFhUxfn5KXATCvzBJIx3fUpLHoeEGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789178867; c=relaxed/simple;
-	bh=EQ4FHCe9Zox099VDU/793c5IJbsuozFqjoCnIpA2Vo0=;
+	s=arc-20240116; t=1789179043; c=relaxed/simple;
+	bh=sLpNe74YZEpx6hWMfnprSROEjO4yfu+01e/mPfIz98I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iQrKPFNxXiZ09+Nk4FxeYSyuZ+QPuaOBSQGmKkZNDZbafOGjlIU4xoPZhGR8VLmf+p8qudSGI5slapwtdhoy9YF+qIYzwBQ0r1HERcw8LgJNrm2QEz5LfOPWlz2uyEz1/2LV3FxRrw6dZtqUht2M51M7K+d0BvU9E+OCqZvvM8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGZRHG+I; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gVQN0RpBNL0IxLHxSZyHo9edEHCB1c/T2GIYwIsKZcMAyeMChIkngEyOmpptnGNhBJMNH3fQ7bkwSdAfLoW7PqC9rBfSNiqme9uakbKtUkq6cl3mKRWFBHzPwcCpxOKbXoinuj5vooR7gU3KNOcKv0sFNusIEYgEg+MRaWwE79w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OoPo+9na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGZRHG+I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6821F000FF;
-	Sat, 12 Sep 2026 02:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OoPo+9na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076FC1F000FF;
+	Sat, 12 Sep 2026 02:10:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789178865;
-	bh=gpfXTgpiUDlFhMTroNsCCyQtT0wJR8C92JjWS+sTgTE=;
+	s=k20260515; t=1789179038;
+	bh=hWe0otrKZng1bSOONNuslEcUCYS4uds83EAZrdgzA0A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IGZRHG+ILgfFHj4z7ncNedn3CIo1rhh12PAK9jtPe4aSdTKeLK+FJvWOje+p2az5s
-	 eHJWER2yjqNnhmPjl1MX03EvI6JCO7dMqpGFiRbaMq+JkLu174Yq9ihDAD857i1icH
-	 CfPVixhbAJnJrd7v/yhlicT9w+PEdu2tW63Ds8aRLQQc3k09Ht9FuJTOWXT+otGF4Q
-	 3v7bvcmx9FH1cYlE4hXurPCkZzsHxTH4AJxcMc0npPVNLYXNVllU4N5A87Y5dgyAbr
-	 fEyEF70oqPEhtlLIkk0hr+B1VWW7WGK1IzV9vejT2yBnatcIE/u8MFILOsBoxTkqb9
-	 MGExOMxM56ePA==
+	b=OoPo+9na2hLec9XA815kUDu+gSmVDQkjdCFBveBj0VW3Hxl2dm0Cqj1rhvJrCm6uZ
+	 guPVYEQ+Yeu3yWPPqjf0dSSgpkmwHlNYyPTUBAXEHhJskEbGpUaNsU7OzySO7g/fvS
+	 N9akXe1tiZJ+Faneifs5+dwi2YWg0QojwfXa1sNPs1gmEyRIteO3lttNDqECOskKfc
+	 eC6ygW+E7BOcI30nKrejSrSpDEwWbHvHfg2ljUmOB8CXSS8mO2RY50YX4+yY7Yo0XR
+	 2eQnUy5WM/343p58WqsjirwnIp3Ey7M1RGEMM+7cNr/bBW/7y6Jbh6Gmg9oG682+yv
+	 vnh6A37vrw0Aw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Daeho Jeong <daehojeong@google.com>,
@@ -33,12 +33,12 @@ Cc: Daeho Jeong <daehojeong@google.com>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] f2fs: accurately adjust free_sections during free_segment_range
-Date: Fri, 11 Sep 2026 22:07:43 -0400
-Message-ID: <20260912020743.1949179-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: accurately adjust free_sections during free_segment_range
+Date: Fri, 11 Sep 2026 22:10:36 -0400
+Message-ID: <20260912021036.1952718-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090936-harmonica-dagger-40f3@gregkh>
-References: <2026090936-harmonica-dagger-40f3@gregkh>
+In-Reply-To: <2026090936-removed-polymer-17ea@gregkh>
+References: <2026090936-removed-polymer-17ea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,10 +81,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 429fc5bd4ae0d..268a31ec87c81 100644
+index b8a9412ca1dc8..f4a65eb63ac5a 100644
 --- a/fs/f2fs/gc.c
 +++ b/fs/f2fs/gc.c
-@@ -2170,8 +2170,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+@@ -2149,8 +2149,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
  static int free_segment_range(struct f2fs_sb_info *sbi,
  				unsigned int secs, bool dry_run)
  {
@@ -95,7 +95,7 @@ index 429fc5bd4ae0d..268a31ec87c81 100644
  	int gc_mode, gc_type;
  	int err = 0;
  	int type;
-@@ -2180,6 +2181,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+@@ -2159,6 +2160,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
  	MAIN_SECS(sbi) -= secs;
  	start = MAIN_SECS(sbi) * SEGS_PER_SEC(sbi);
  	end = MAIN_SEGS(sbi) - 1;
@@ -103,7 +103,7 @@ index 429fc5bd4ae0d..268a31ec87c81 100644
  
  	mutex_lock(&DIRTY_I(sbi)->seglist_lock);
  	for (gc_mode = 0; gc_mode < MAX_GC_POLICY; gc_mode++)
-@@ -2191,6 +2193,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+@@ -2170,6 +2172,14 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
  			sbi->next_victim_seg[gc_type] = NULL_SEGNO;
  	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
  
@@ -116,9 +116,9 @@ index 429fc5bd4ae0d..268a31ec87c81 100644
 +	spin_unlock(&FREE_I(sbi)->segmap_lock);
 +
  	/* Move out cursegs from the target range */
- 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_TYPE; type++) {
+ 	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
  		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
-@@ -2215,6 +2225,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
+@@ -2194,6 +2204,9 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
  		f2fs_bug_on(sbi, 1);
  	}
  out:
