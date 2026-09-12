@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B86936D9F5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261EC346E6D
 	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789246919; cv=none; b=YpicI/g3Zz/orPr54l5Nca0nqSWcQKj7EoUoJK2q40iOAIbA4fw8z81/j0+E8ZtvEJ6UcspSuZ/1mETHB/cpdF2z0Y1qNNflc9pVbgKQjhfu014pWqsYmegS6KFtGU5WZT/uDCIlJ1f6KbUdlZHJDx8S/hoU4k8M29yu7fJ45pw=
+	t=1789246920; cv=none; b=T9bvHgYZgAq7WsdwAYjriaDb417H/m2gM1XAwCRl8dM0tS1H1nf5beBgaWrt1D3olOtV7s+aZjQu1KUPygvBM1x4mODhfKqoSNZlqe82hDMiyUshuLIWTaa/7nZ9lHX1SktFQaA1+uZLQZdI3SuaTWeISLruZpFwmJgvgP7tR7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789246919; c=relaxed/simple;
-	bh=lxm1T17icEfnAO+7NYYxBgwc8n9czGuhXUygPHt7AOY=;
+	s=arc-20240116; t=1789246920; c=relaxed/simple;
+	bh=e0oJB8ggHjykOdK2WiZad4gVFm03Z/+y2C9PY5Jk8Os=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c5ODeKFwp2lzMpD1zFOQbWe7mUvZRrApR7bjyMMbF1sVYWqjtJljm5BB/wmLLYIPkDsiWajRvturTlfsg9me4vmU6GK0ExDFvaPGOFuWX7iYr89Q2JQB+h8HcxxTx6purfu5XsQNdZEG1+jWonhh+nG6C2B/aKbibeDsSz8tdY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mr1YXRgX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=giSbGZDN8sXTDwSd0yvVqEiyHI58WQBc1aXED+BR7VFwQdw1QCRyW2omT0A56DyO7Sw/Vos5szq/b6PA99cY15cpT8PPUlh9W8Nk/lIZSCQY7ABGzr3u/w5hg/meeqgY8yyJPMuUZ15Jyt7/75RaL8V8aGxAeZBA6B+75UArsHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUptBtZV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mr1YXRgX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8066D1F00893;
-	Sat, 12 Sep 2026 21:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUptBtZV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FAA1F0089C;
+	Sat, 12 Sep 2026 21:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789246918;
-	bh=Cd0TmIKNNIkUA//7UOs7GOXVWVmaS7rYILI5cQZjSk8=;
+	bh=rlZZN1/aACrp3RCT6mQV0wKEunp9OTnPWK7SXpQW3b4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mr1YXRgX7KEGB3XXcxXzeoKKKezE1lmPoca1uHxBhbpdVqMMf7aMQVC5Fo9tYiPcY
-	 /shgzYUQOa71+y8q16TyYKS0byykghy2JvXvj0WN8pUmuGhreu/W3qsWzs3AeA/IfU
-	 1VmdH0ynjhxif3VU5KB3J+/U08ZlrGGwLyZZGm0Gp+cu18VL7Km20uyQZc6hz3/yPF
-	 3BROvS+CUOAtkRjfLqM/HIPgK7lEsdNuHn3BNwu/exFR86lOq8u7+oL71VBbSr7fXv
-	 HQNFxJkSqZqTlLNr5SPHAUTqG0UlQNurq2EIL9eBbFCLLdr3XscInadU+QehJ6znv7
-	 WPCBGLxgTl1ww==
+	b=PUptBtZVxv1T5ZLX8DmEtjdNbB16Yh3ZqC66KVbmObSprZ03Z4vDFjDrik3aNhTsj
+	 AGBC+RmJzqYQtUo5mUYeUsd+ybHsTUXl73R803CgRC1cFrUQAbEulvKK5zGPWU221X
+	 qa3KtCMm8Whvnx+ha/kwMprvKeBtqHwVkkEPCYGh3YcwwdMHzW1w1P5eFdfqvZgKEe
+	 Mj0xEcwB5z2byC2fPMFhof4SH2RqI2DVWt3tQHQUYt4pnm7kET/VGMXmNLpuiC2UvZ
+	 C0e+GGCQW4zLQldy61UqWS+D0WVoicdHhyxGyrsBWt1iIczbjVocWCGSCnMFTKT8jW
+	 DqE16oEMPb4Kg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Danilo Krummrich <dakr@redhat.com>,
-	Dave Airlie <airlied@redhat.com>,
+Cc: Marek Czernohous <marek@czernohous.de>,
+	Lyude Paul <lyude@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] drm/nouveau: get vmm via nouveau_cli_vmm()
-Date: Sat, 12 Sep 2026 17:01:55 -0400
-Message-ID: <20260912210156.3935765-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] drm/nouveau: unsubscribe the channel-kill event before the fence context
+Date: Sat, 12 Sep 2026 17:01:56 -0400
+Message-ID: <20260912210156.3935765-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090932-flatbed-quotable-d5a9@gregkh>
+In-Reply-To: <20260912210156.3935765-1-sashal@kernel.org>
 References: <2026090932-flatbed-quotable-d5a9@gregkh>
+ <20260912210156.3935765-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,103 +46,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Danilo Krummrich <dakr@redhat.com>
+From: Marek Czernohous <marek@czernohous.de>
 
-[ Upstream commit 7b05a7c0c9ca6e7e2d27181504920987226477e5 ]
+[ Upstream commit 511585987d27d8cb668acebd399fc4deda23404c ]
 
-Provide a getter function for the client's current vmm context. Since
-we'll add a new (u)vmm context for UMD bindings in subsequent commits,
-this will keep the code clean.
+nouveau_channel_del() tears the fence context down first and only drops
+the channel-kill subscription later, in the middle of the nvif object
+teardown:
 
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-Signed-off-by: Danilo Krummrich <dakr@redhat.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230804182406.5222-5-dakr@redhat.com
-Stable-dep-of: 511585987d27 ("drm/nouveau: unsubscribe the channel-kill event before the fence context")
+	if (chan->fence)
+		nouveau_fence(chan->cli->drm)->context_del(chan);
+	...
+	nvif_object_dtor(&chan->vram);
+	nvif_event_dtor(&chan->kill);
+
+The subscribed handler is nouveau_channel_killed(), which calls
+nouveau_channel_kill() and from there nouveau_fence_context_kill() on
+chan->fence. A kill event delivered in that window takes fctx->lock and
+walks fctx->pending on a fence context that context_del() has already
+freed.
+
+Nothing reaches this below Fermi today, because the subscription is
+gated on FERMI_CHANNEL_GPFIFO and nothing kills a channel there. On
+Fermi and newer the window is real but narrow, since a kill has to land
+exactly while the channel is being destroyed. That is reason enough on
+its own, which is why this carries a Fixes: tag. The last patch in this
+series subscribes Tesla channels as well; nothing kills those today, so
+it does not widen the exposure now, but it is the groundwork for a
+recovery path that would, and the ordering is better fixed before that
+lands than alongside it.
+
+Drop the subscription before anything it depends on is torn down.
+
+Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+Fixes: ea13e5abf807 ("drm/nouveau: signal pending fences when channel has been killed")
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260812231330.705425-2-mczernohous@gmail.com
+[ replaced nvif_event_dtor() with the older nvif_notify_dtor() API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/nouveau/nouveau_bo.c   | 2 +-
- drivers/gpu/drm/nouveau/nouveau_chan.c | 2 +-
- drivers/gpu/drm/nouveau/nouveau_drv.h  | 9 +++++++++
- drivers/gpu/drm/nouveau/nouveau_gem.c  | 6 +++---
- 4 files changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_chan.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 21e81546b1570..559f9218e4e07 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -206,7 +206,7 @@ nouveau_bo_alloc(struct nouveau_cli *cli, u64 *size, int *align, u32 domain,
- 	struct nouveau_drm *drm = cli->drm;
- 	struct nouveau_bo *nvbo;
- 	struct nvif_mmu *mmu = &cli->mmu;
--	struct nvif_vmm *vmm = cli->svm.cli ? &cli->svm.vmm : &cli->vmm.vmm;
-+	struct nvif_vmm *vmm = &nouveau_cli_vmm(cli)->vmm;
- 	int i, pi = -1;
- 
- 	if (!*size) {
 diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
-index ea7769135b0dc..da345b50769cf 100644
+index da345b50769cf..baba2f4509496 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-@@ -150,7 +150,7 @@ nouveau_channel_prep(struct nouveau_drm *drm, struct nvif_device *device,
+@@ -87,6 +87,14 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+ 	if (chan) {
+ 		struct nouveau_cli *cli = (void *)chan->user.client;
  
- 	chan->device = device;
- 	chan->drm = drm;
--	chan->vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
-+	chan->vmm = nouveau_cli_vmm(cli);
- 	atomic_set(&chan->killed, 0);
- 
- 	/* allocate memory for dma push buffer */
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
-index b2a970aa9bf4b..5446eab6dd57f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drv.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
-@@ -119,6 +119,15 @@ struct nouveau_cli_work {
- 	struct dma_fence_cb cb;
- };
- 
-+static inline struct nouveau_vmm *
-+nouveau_cli_vmm(struct nouveau_cli *cli)
-+{
-+	if (cli->svm.cli)
-+		return &cli->svm;
++		/*
++		 * Drop the kill-event subscription first.  Its handler
++		 * dereferences chan->fence, which the fence context teardown
++		 * below frees, so leaving it armed across the teardown leaves
++		 * a window for a use-after-free.
++		 */
++		nvif_notify_dtor(&chan->kill);
 +
-+	return &cli->vmm;
-+}
-+
- void nouveau_cli_work_queue(struct nouveau_cli *, struct dma_fence *,
- 			    struct nouveau_cli_work *);
+ 		if (chan->fence)
+ 			nouveau_fence(chan->drm)->context_del(chan);
  
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 7de846a919232..b53ea8ef7f38b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -100,7 +100,7 @@ nouveau_gem_object_open(struct drm_gem_object *gem, struct drm_file *file_priv)
- 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
- 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
- 	struct device *dev = drm->dev->dev;
--	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
-+	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
- 	struct nouveau_vma *vma;
- 	int ret;
- 
-@@ -177,7 +177,7 @@ nouveau_gem_object_close(struct drm_gem_object *gem, struct drm_file *file_priv)
- 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
- 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
- 	struct device *dev = drm->dev->dev;
--	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : & cli->vmm;
-+	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
- 	struct nouveau_vma *vma;
- 	int ret;
- 
-@@ -266,7 +266,7 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
- {
- 	struct nouveau_cli *cli = nouveau_cli(file_priv);
- 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
--	struct nouveau_vmm *vmm = cli->svm.cli ? &cli->svm : &cli->vmm;
-+	struct nouveau_vmm *vmm = nouveau_cli_vmm(cli);
- 	struct nouveau_vma *vma;
- 
- 	if (is_power_of_2(nvbo->valid_domains))
+@@ -96,7 +104,6 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+ 		nvif_object_dtor(&chan->nvsw);
+ 		nvif_object_dtor(&chan->gart);
+ 		nvif_object_dtor(&chan->vram);
+-		nvif_notify_dtor(&chan->kill);
+ 		nvif_object_dtor(&chan->user);
+ 		nvif_object_dtor(&chan->push.ctxdma);
+ 		nouveau_vma_del(&chan->push.vma);
 -- 
 2.53.0
 
