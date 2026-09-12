@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8AC2D739C;
-	Sat, 12 Sep 2026 15:14:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A19CA6F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:14:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226042; cv=none; b=SVLesDIHFw2oPETBBtJPu8qpS7m7r+oIunVh+qoPHqx3w9GvRvUGdLM5yUv/Cjc84SEZrdODdY0sMSjBtUal4lAwcddKvRNGIoZe2Q89ZOczL+/tjoqgaGLmYB70K0I/+pALdmEpmj+I5Nngzl5M3P1F7XBiWlT5rIT3SYOMstc=
+	t=1789226044; cv=none; b=l4iCqMRtInuaFcdKpvs4EylS2f3rLBSGfCtjBsNS9Hf6aNxFkgIfYu7+DWn9Ii8yl/iVDtcpG7z8ht1uy32i1+loc+1OI5by5QccmJQXMCK32rjBovRL15f+c+RbknUrJqTtdYMAPzAw1vD/3sa18aKnBkbP4NBSqFe5F8xvPf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226042; c=relaxed/simple;
-	bh=yq0I1nY5x65ZApYo7Dzee3JgorDIoZGSvDDpFtSgUC8=;
+	s=arc-20240116; t=1789226044; c=relaxed/simple;
+	bh=tZ0vcwJxtqRX31vi1bWmPPh4roCcv2W2YDGZO61GGa8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jyO6e7uGWT7J72bYIobmrgjjEjQqWkDZy9SBgedzJe4kMHtlkmGUvZXxqPddd356mlc3BDsMDZkZmVJ+v6dbGSfOcbRZIOMVbBN6CQDOQFoOYx/cPSEt577QiFT/I7Url6nqpCwjFvwUZV734PXjWfTFYavla7qr1py7KnTCix4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G/rsa1xW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PODPxVUKUXlZYbtbCGrs6+Irqb7rO0qn0jfkjYtV3KPPu+yeRg+Np1UX7MXpsUNob+iMpsImg0/RbuHqZGyCVkqkYs+RyKROedJCabK3wve87QKjAymqh/1RDv+/ZRtRnaPhIiQJrweEku3z5gRulHwigda21KCveGtUH49Q5JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbqTgsi7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G/rsa1xW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8F41F000FF;
-	Sat, 12 Sep 2026 15:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789226041;
-	bh=6DBADpBwHQ1Ok3k+N2FRIs96RayhZILPeCCQLpNuFPk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbqTgsi7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C9D1F00893;
+	Sat, 12 Sep 2026 15:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789226042;
+	bh=Vtru4iSBYJppNS61AlPrctUhxWCvCdDeASUQmgCqlWk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G/rsa1xWdObnptTYLaJZUSByW3yDeHN3C7qu5spV3UCT5AkrVsPWc3k3jYWKUJj9Z
-	 QKKcKnEBAhB+FqOYAW+vI+mFi+8Z3XDrpe7JZDQnsQ8cqgvNBwzobG2lWRJmXy48qD
-	 tx2I/gBwB5Xz8NxlLuRa6wtUKy8Fzo6Cr001z3to=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=VbqTgsi70x9E/9h/ui4tpdqnoudI7knVf3Dq/TDKu0anbtYtcQKtqPgOk4vduqlpN
+	 fA7ZMOeAIXLFXniYZhsKcjSrdfSaldXnCGYMXP8UTCLIpJeHXeTXaxfT92eJJjocfX
+	 FfyGCr0lPwzCiL4c0j+bgJUtJPipXxvKzU1XLQfgPfHK4tYwexi2Ey92rL/Phlfq2d
+	 kcBdjGhPIaI7MGAm8rw64nhlS0/v/3WH+UbXLUPayCdRICtcWHmP5rALsaaODknBXV
+	 X8zsdFPRoswXif5wbI+FbcBKS6G+o/PhdllQ7LevVb+GKBWNTvWaGgtANwY1ILrFpl
+	 w4OWqjRui8mSg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jeff Layton <jlayton@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <treding@nvidia.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Rayyan Ansari <rayyan@ansari.sh>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1278/1424] fuse: convert to new timestamp accessors
-Date: Sat, 12 Sep 2026 09:01:50 +0200
-Message-ID: <20260912065635.895387691@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] drm/sysfb: simpledrm: Improve panel-size validation
+Date: Sat, 12 Sep 2026 11:14:00 -0400
+Message-ID: <20260912151400.3070794-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090929-granddad-turkey-01e8@gregkh>
+References: <2026090929-granddad-turkey-01e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,177 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-------------------
+[ Upstream commit 3a75a0761914d01c7362adf1f906cc1d1762c189 ]
 
-From: Jeff Layton <jlayton@kernel.org>
+Validate the panel size from the device-tree node against the
+limitations of struct drm_display_mode. The type only stores sizes
+in 16-bit fields. Fail transparently on errors; do not warn.
 
-[ Upstream commit 3c0d5df2d03d797e66f6eef08859930a01d5d6ad ]
+v3:
+- move comments to a more prominent place (Thierry)
+v2:
+- only use initialized values in debugging output (Sashiko)
 
-Convert to using the new inode timestamp accessor functions.
-
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://lore.kernel.org/r/20231004185347.80880-37-jlayton@kernel.org
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 928f659a3e36 ("fuse: check for NULL root inode in fuse_fill_super_submount")
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 2a6d731a8f16 ("drm/simpledrm: Allow physical width and height configuration via panel node")
+Cc: Rayyan Ansari <rayyan@ansari.sh>
+Cc: <stable@vger.kernel.org> # v6.4+
+Link: https://patch.msgid.link/20260625094509.157581-3-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/control.c |  2 +-
- fs/fuse/dir.c     | 10 +++++-----
- fs/fuse/inode.c   | 29 ++++++++++++++---------------
- fs/fuse/readdir.c |  6 ++++--
- 4 files changed, 24 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/tiny/simpledrm.c | 49 ++++++++++++++++++++++++++++++--
+ 1 file changed, 46 insertions(+), 3 deletions(-)
 
-diff --git a/fs/fuse/control.c b/fs/fuse/control.c
-index edb2b867118c4..2944f823f7623 100644
---- a/fs/fuse/control.c
-+++ b/fs/fuse/control.c
-@@ -235,7 +235,7 @@ static struct dentry *fuse_ctl_add_dentry(struct dentry *parent,
- 	inode->i_mode = mode;
- 	inode->i_uid = fc->user_id;
- 	inode->i_gid = fc->group_id;
--	inode->i_atime = inode->i_mtime = inode_set_ctime_current(inode);
-+	simple_inode_init_ts(inode);
- 	/* setting ->i_op to NULL is not allowed */
- 	if (iop)
- 		inode->i_op = iop;
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 4a7991d53c2b8..82ce279fe3bd5 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -1819,12 +1819,12 @@ int fuse_flush_times(struct inode *inode, struct fuse_file *ff)
- 	memset(&outarg, 0, sizeof(outarg));
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 07abaf27315f7..44f7203cd534d 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -212,6 +212,39 @@ simplefb_get_memory_of(struct drm_device *dev, struct device_node *of_node)
+ 	return res;
+ }
  
- 	inarg.valid = FATTR_MTIME;
--	inarg.mtime = inode->i_mtime.tv_sec;
--	inarg.mtimensec = inode->i_mtime.tv_nsec;
-+	inarg.mtime = inode_get_mtime_sec(inode);
-+	inarg.mtimensec = inode_get_mtime_nsec(inode);
- 	if (fm->fc->minor >= 23) {
- 		inarg.valid |= FATTR_CTIME;
--		inarg.ctime = inode_get_ctime(inode).tv_sec;
--		inarg.ctimensec = inode_get_ctime(inode).tv_nsec;
-+		inarg.ctime = inode_get_ctime_sec(inode);
-+		inarg.ctimensec = inode_get_ctime_nsec(inode);
- 	}
- 	if (ff) {
- 		inarg.valid |= FATTR_FH;
-@@ -1964,7 +1964,7 @@ int fuse_do_setattr(struct dentry *dentry, struct iattr *attr,
- 	/* the kernel maintains i_mtime locally */
- 	if (trust_local_cmtime) {
- 		if (attr->ia_valid & ATTR_MTIME)
--			inode->i_mtime = attr->ia_mtime;
-+			inode_set_mtime_to_ts(inode, attr->ia_mtime);
- 		if (attr->ia_valid & ATTR_CTIME)
- 			inode_set_ctime_to_ts(inode, attr->ia_ctime);
- 		/* FIXME: clear I_DIRTY_SYNC? */
-diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
-index 96050028d91b0..ac7603f2352df 100644
---- a/fs/fuse/inode.c
-+++ b/fs/fuse/inode.c
-@@ -220,12 +220,10 @@ void fuse_change_attributes_common(struct inode *inode, struct fuse_attr *attr,
- 	attr->mtimensec = min_t(u32, attr->mtimensec, NSEC_PER_SEC - 1);
- 	attr->ctimensec = min_t(u32, attr->ctimensec, NSEC_PER_SEC - 1);
- 
--	inode->i_atime.tv_sec   = attr->atime;
--	inode->i_atime.tv_nsec  = attr->atimensec;
-+	inode_set_atime(inode, attr->atime, attr->atimensec);
- 	/* mtime from server may be stale due to local buffered write */
- 	if (!(cache_mask & STATX_MTIME)) {
--		inode->i_mtime.tv_sec   = attr->mtime;
--		inode->i_mtime.tv_nsec  = attr->mtimensec;
-+		inode_set_mtime(inode, attr->mtime, attr->mtimensec);
- 	}
- 	if (!(cache_mask & STATX_CTIME)) {
- 		inode_set_ctime(inode, attr->ctime, attr->ctimensec);
-@@ -308,12 +306,12 @@ void fuse_change_attributes(struct inode *inode, struct fuse_attr *attr,
- 		attr->size = i_size_read(inode);
- 
- 	if (cache_mask & STATX_MTIME) {
--		attr->mtime = inode->i_mtime.tv_sec;
--		attr->mtimensec = inode->i_mtime.tv_nsec;
-+		attr->mtime = inode_get_mtime_sec(inode);
-+		attr->mtimensec = inode_get_mtime_nsec(inode);
- 	}
- 	if (cache_mask & STATX_CTIME) {
--		attr->ctime = inode_get_ctime(inode).tv_sec;
--		attr->ctimensec = inode_get_ctime(inode).tv_nsec;
-+		attr->ctime = inode_get_ctime_sec(inode);
-+		attr->ctimensec = inode_get_ctime_nsec(inode);
- 	}
- 
- 	if ((attr_version != 0 && fi->attr_version > attr_version) ||
-@@ -322,7 +320,7 @@ void fuse_change_attributes(struct inode *inode, struct fuse_attr *attr,
- 		return;
- 	}
- 
--	old_mtime = inode->i_mtime;
-+	old_mtime = inode_get_mtime(inode);
- 	fuse_change_attributes_common(inode, attr, sx, attr_valid, cache_mask);
- 
- 	oldsize = inode->i_size;
-@@ -376,8 +374,7 @@ static void fuse_init_inode(struct inode *inode, struct fuse_attr *attr,
- {
- 	inode->i_mode = attr->mode & S_IFMT;
- 	inode->i_size = attr->size;
--	inode->i_mtime.tv_sec  = attr->mtime;
--	inode->i_mtime.tv_nsec = attr->mtimensec;
-+	inode_set_mtime(inode, attr->mtime, attr->mtimensec);
- 	inode_set_ctime(inode, attr->ctime, attr->ctimensec);
- 	if (S_ISREG(inode->i_mode)) {
- 		fuse_init_common(inode);
-@@ -1498,17 +1495,19 @@ EXPORT_SYMBOL_GPL(fuse_dev_free);
- static void fuse_fill_attr_from_inode(struct fuse_attr *attr,
- 				      const struct fuse_inode *fi)
- {
-+	struct timespec64 atime = inode_get_atime(&fi->inode);
-+	struct timespec64 mtime = inode_get_mtime(&fi->inode);
- 	struct timespec64 ctime = inode_get_ctime(&fi->inode);
- 
- 	*attr = (struct fuse_attr){
- 		.ino		= fi->inode.i_ino,
- 		.size		= fi->inode.i_size,
- 		.blocks		= fi->inode.i_blocks,
--		.atime		= fi->inode.i_atime.tv_sec,
--		.mtime		= fi->inode.i_mtime.tv_sec,
-+		.atime		= atime.tv_sec,
-+		.mtime		= mtime.tv_sec,
- 		.ctime		= ctime.tv_sec,
--		.atimensec	= fi->inode.i_atime.tv_nsec,
--		.mtimensec	= fi->inode.i_mtime.tv_nsec,
-+		.atimensec	= atime.tv_nsec,
-+		.mtimensec	= mtime.tv_nsec,
- 		.ctimensec	= ctime.tv_nsec,
- 		.mode		= fi->inode.i_mode,
- 		.nlink		= fi->inode.i_nlink,
-diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
-index eb715a502613f..fca0671322afd 100644
---- a/fs/fuse/readdir.c
-+++ b/fs/fuse/readdir.c
-@@ -480,7 +480,7 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
- 	if (!fi->rdc.cached) {
- 		/* Starting cache? Set cache mtime. */
- 		if (!ctx->pos && !fi->rdc.size) {
--			fi->rdc.mtime = inode->i_mtime;
-+			fi->rdc.mtime = inode_get_mtime(inode);
- 			fi->rdc.iversion = inode_query_iversion(inode);
- 		}
- 		spin_unlock(&fi->rdc.lock);
-@@ -492,8 +492,10 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
- 	 * changed, and reset the cache if so.
- 	 */
- 	if (!ctx->pos) {
-+		struct timespec64 mtime = inode_get_mtime(inode);
++static int __simplefb_get_panel_size_mm_of(struct drm_device *dev,
++					   struct device_node *of_panel_node,
++					   const char *name)
++{
++	int ret;
++	u32 value;
 +
- 		if (inode_peek_iversion(inode) != fi->rdc.iversion ||
--		    !timespec64_equal(&fi->rdc.mtime, &inode->i_mtime)) {
-+		    !timespec64_equal(&fi->rdc.mtime, &mtime)) {
- 			fuse_rdc_reset(inode);
- 			goto retry_locked;
++	ret = of_property_read_u32(of_panel_node, name, &value);
++	if (ret) {
++		drm_dbg(dev, "simplefb: cannot parse panel %s: error %d\n",
++			name, ret);
++		return ret;
++	} else if (value > U16_MAX) {
++		drm_dbg(dev, "simplefb: panel %s of %u exceeds maximum value\n",
++			name, value);
++		return -EINVAL;
++	}
++
++	return value;
++}
++
++static int simplefb_get_panel_width_mm_of(struct drm_device *dev,
++					  struct device_node *of_panel_node)
++{
++	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "width-mm");
++}
++
++static int simplefb_get_panel_height_mm_of(struct drm_device *dev,
++					   struct device_node *of_panel_node)
++{
++	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "height-mm");
++}
++
+ /*
+  * Simple Framebuffer device
+  */
+@@ -781,7 +814,7 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 	struct simpledrm_device *sdev;
+ 	struct drm_device *dev;
+ 	int width, height, stride;
+-	int width_mm = 0, height_mm = 0;
++	u16 width_mm = 0, height_mm = 0;
+ 	struct device_node *panel_node;
+ 	const struct drm_format_info *format;
+ 	struct resource *res, *mem = NULL;
+@@ -844,8 +877,18 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+ 			return ERR_CAST(mem);
+ 		panel_node = of_parse_phandle(of_node, "panel", 0);
+ 		if (panel_node) {
+-			simplefb_read_u32_of(dev, panel_node, "width-mm", &width_mm);
+-			simplefb_read_u32_of(dev, panel_node, "height-mm", &height_mm);
++			/*
++			 * Ignore errors from parsing the physical panel
++			 * size. Using the pre-initialized sizes of 0 will
++			 * make drm_sysfb_mode() calculate a default physical
++			 * size based on a resolution of 96 dpi.
++			 */
++			ret = simplefb_get_panel_width_mm_of(dev, panel_node);
++			if (ret > 0)
++				width_mm = ret;
++			ret = simplefb_get_panel_height_mm_of(dev, panel_node);
++			if (ret > 0)
++				height_mm = ret;
+ 			of_node_put(panel_node);
  		}
+ 	} else {
 -- 
 2.53.0
-
-
 
