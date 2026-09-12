@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758D541C302;
-	Sat, 12 Sep 2026 15:26:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CEF4248DB
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:26:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226790; cv=none; b=bR94VfR4r+ig7qaFqvX0VbwxpOP9n4G2RTeyKnVCCp9Rfm6qqxveWg8637FOpj6X56/jiVBGmXT5LrOf3/e691DqsRNq7D/0HAPCBfRK+3UujXjl1xTmjF9gyR59BWXrbOLs8YQFls1DzZWTtVe1nvbrxSACzMGiJ3BSHOEQm5E=
+	t=1789226791; cv=none; b=QHuAteSeJs6LQEJceHeY3OWIK51kXqFCQH7C0gOXy7AThbQMYaV3SP3hWuB98l+EVJEKZJV/3kyzqg4Pa5RpRe2IJ49JLft0e5RXv26IuoFsWyREYNCOYfb4llYiQMtIwHYcHOUK8PRVeQ48sn6BkpDT6GotomgjYD+MUg8EUKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226790; c=relaxed/simple;
-	bh=RqoQ4NQY5giKO6fos4kTbVXhupKkIkEQ9xvWfjC1fzI=;
+	s=arc-20240116; t=1789226791; c=relaxed/simple;
+	bh=KFMtdZvuBS4VCzlHDXONjM0mXX/j8rjDQTBH1rIegj4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EB2586JT8UA2hTLXnIugyZNpPBVt7ifvkBHK79g8i7Z8oI2vy3ztnX8BtV1afSjsMcDF/RwLjb5g7pB/z4E6C9qBoRWbL40p4NDBiBYzU9gRHnx60lGu4yGc76bzFh2BEpTeHDoJMl3i8FQGYMB/d8g6ONYCfRvgxxkGJhG/5OY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P5QSo50G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gXzG0fICUbjWD4mnO15WTEAbhrHhVmP7SJ2OvoQJFx5d4oU6iuA2CPOTtfs+VZUVZo/ibsTfI9vlu7nzFZyrmE9D0DnANn7l9sTRiT2RM+ETwGHQsEd2eQ3LRDVPhyozz6Kn/6Jv9oVlzEG1us1rGE59DmRXfH3UYrW9MhWNfhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hd3kv5Lt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P5QSo50G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130251F00898;
-	Sat, 12 Sep 2026 15:26:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789226789;
-	bh=Hjixfi4DL1Hm4WDa0Tfz93M1xmlDwB5BcB+PjnEae9k=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hd3kv5Lt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A1A1F00899;
+	Sat, 12 Sep 2026 15:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789226790;
+	bh=kBtrkWYgy3pw+A+IEacQYAVtdyhoEgp95bbo7Cu83mE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P5QSo50GszRMxq5hjKEAv4FezxAWTkJ2IUqPDsaz2ElOCXnwM0wxQcKPxa0gU1uS9
-	 MvBbvRsweOKhqh6RsHXoyG0jDmnh6Fd06VQyWX1wldWZ/Hw92XEdN7+iWlkwZgXoIh
-	 SjnUrBv7BHMSxmb/FWI7PQA3vvYQ7v6KcLS+5eo8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Hd3kv5LtudGPgVZKMV0SCaXaAE4nx47+nvThYW70Pjl2oqWRH/nfI/aweHv7W3lem
+	 fIgeXfn4cxcCSv9HjxsIy1zb9HZiO215m0IbGrmqFmyKwIsaErAIcN1KiEX8OCXFPY
+	 fS2CQlAc9kBtBsTTv7eI0o7qvh59mUONPlea2o/64Nv9kuA3P1xJRBYOX/yig2z2UN
+	 sUgp0AOIOo6sesfOLJ5Sdt2/PKg0Mac+tzfCOJQ1RZjS8VLLsvrn1Yix9iRfMb/lkC
+	 h+oiUprU3jPbgubD6SFxv6Kx3URjcSOJsWf/20yvkpksGApbaH68loZZgSzcHeJPop
+	 b3Gac3q1JQg9g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH 6.1 0048/1191] nfsd: add filehandle match check to nfsd4_delegreturn()
-Date: Sat, 12 Sep 2026 08:46:16 +0200
-Message-ID: <20260912065549.220656568@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Sasha Levin <sashal@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.18.y v2] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
+Date: Sat, 12 Sep 2026 11:26:18 -0400
+Message-ID: <daily-reply-0010-re-damon-merge-regions-6-18-v2@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911134904.96369-1-sj@kernel.org>
+References: <20260911134904.96369-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +45,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+> Due to online parameter update like events, the number of DAMON regions
+> could be higher than the user-set upper limit. kdamond_merge_regions()
+> repeats merge regions until the number meets the limit, while doubling the
+> merge threshold up to the theoretical maximum threshold.
 
-------------------
+Queued for 6.18, thanks.
 
-From: Jeff Layton <jlayton@kernel.org>
-
-commit 04cce9d79f2b1a114f7128e08bf60a473e10f1ec upstream.
-
-nfsd4_delegreturn() is the only stateful NFSv4 operation that does
-not call nfs4_check_fh() to verify the delegation's file matches
-cstate->current_fh. A client can DELEGRETURN with a mismatched
-filehandle, destroying the correct delegation but waking the wrong
-inode's waiters.
-
-Add the missing nfs4_check_fh() call after the generation check.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-6-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- fs/nfsd/nfs4state.c |    4 ++++
- 1 file changed, 4 insertions(+)
-
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -7118,6 +7118,10 @@ nfsd4_delegreturn(struct svc_rqst *rqstp
- 	if (status)
- 		goto put_stateid;
- 
-+	status = nfs4_check_fh(&cstate->current_fh, &dp->dl_stid);
-+	if (status)
-+		goto put_stateid;
-+
- 	trace_nfsd_deleg_return(stateid);
- 	wake_up_var(d_inode(cstate->current_fh.fh_dentry));
- 	destroy_delegation(dp);
-
-
+-- 
+Thanks,
+Sasha
