@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE2737A498
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0A04766BB
 	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212088; cv=none; b=Oo9rMTt27V5uDIn/MUn/Xy6iQx+2rIhvwNXFZ+V1+u6l+UTCCUvr2eS2o3CxEfJYRKsEFNHw58oJze+yBvw0On1vDRw1n2YoQjLCLNRAv5L7QXlkjecbq0ZwABYUMo4ksteDmFpVhR7vUd4H5Ec5yF/cSs8U2gPGz81N/jhfy0Q=
+	t=1789212089; cv=none; b=iMExOn5qdBCsL+QH+GKBF5ZFdpSWQOQ1lCVZq+/nHIo6x/9dhptaWLwgv/wYRc4kC6oH3I5zGPQ6A/hQJ0At9NInK3DM8FH4fxnzk5FC+LFBOLRvhl1SCOMu7cFxpQr43Ulov50U0kVILz0wONxoL8Qk2jZeTAmOVyhwd+7wO4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212088; c=relaxed/simple;
-	bh=ifiXzJsJZ6dkGXysA/iuFzDzvzdnHyok2r5J+063ueQ=;
+	s=arc-20240116; t=1789212089; c=relaxed/simple;
+	bh=KB7o9ijvKqoau+aU41M+RYLsnm4KgF4QzU/S+GyFHfk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ohd4mVagcJ0nj49CiJS+kjz06TyGvSQKJBNqsy5e3CQ/+urMD4Wn7nkd061+RlrE3xkegC83IXfPsNwra5lstjVq4SZ0B8G3g5ODYr0jYb9Qw4KBVjCLljnyt4i5Xk73yZSHaz8VfuTO7KQNo6745LsTcWr25FFihw1j4FWmLvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ux1oHJDG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=t4pAZ0CSk3mUknorH6weP5IF37x32mgSD4/lI5EuKR63T6cyMqH7CP5FD/zU5sxHcsR4ffZNFy8yNVx2L/c58uw/LQUvQ6wScj1H4kewKsFFegB7PZB030pE+Cr0LWfeSfvc+COcpJV/d13w85qOkea/OE68j6561rb9OEtvurs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GqNagkFD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ux1oHJDG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74EB81F0089B;
-	Sat, 12 Sep 2026 11:21:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GqNagkFD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4349F1F0089C;
+	Sat, 12 Sep 2026 11:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789212087;
-	bh=GNDmbIu4+PNBwM+6EJXbV2E232Pps/aHoCSkV9O4iGA=;
+	bh=D/so0diuHrFBdy4nX3/3cWI89KTR4rsn9nhaweMSPvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ux1oHJDGFqwUvkC984wDEO4ktW2mQtWymKbjG16FqHhdo5Kr/zVgwXRiWlL9O5zgy
-	 hA5ec2ilm+e0XBjoHECeS06L9Gyww7aAvtbpBjAoHeDhGlUnRJKReCVc/GeudBeyL5
-	 QwnNQ+eCCQ2vqFxejtTSO7MTFQ7uitJ0868p1rdOSaIt8EroKl+EfsjsrXqA/qmBez
-	 ULvAukfz4R265tVA8SzsgfZs2Os8hm1hJEGjrCQNgtYe8PBYNIjYuOGshpRsHJuwUt
-	 LlTL2yAZ6WSAZ+WaXoyJ8MLcwmp+MJ7ImrXh0cermnQlqOiChpVXrOV2n8gh/2XVBX
-	 /XP+9OVOz3rdg==
+	b=GqNagkFDl/d4gn0snlDeOir/5ldT7frhHsqJVJTNjcvWjov9QJ7bTcPNx2xoxhbI8
+	 +UOf0JMLd5Twd2r5kFq1kfItMg4ms8X1iR3Sp52wMd+U41cVOaECGmGPEYplSQxhWo
+	 MBDDxBW4sqQpVfYMX+yuaxx2wFvnNqKp3KPxgybrgXbYreWMIZw8rYGGbSy+XnFspR
+	 RqoTGWKNXjisdRrCgpDjF7BQGWn4FWJSa6Og65pKx0iV7esmsA6ybCUvIU2c6+W59h
+	 VcxA9zwgNnxFuUtfmbFGnNnVzU/qijE7qAe2v6MZhvUTIYg8H2istlJD3bn69vKksr
+	 7QdRLJHOzskFA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Sunmin Jeong <s_min.jeong@samsung.com>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] f2fs: fix to migrate all curseg types during free_segment_range
-Date: Sat, 12 Sep 2026 07:21:23 -0400
-Message-ID: <20260912112123.2312505-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/6] f2fs: Add f2fs_get_node_folio()
+Date: Sat, 12 Sep 2026 07:21:20 -0400
+Message-ID: <20260912112124.2312624-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912112123.2312505-1-sashal@kernel.org>
-References: <2026090947-bankable-stroller-237b@gregkh>
- <20260912112123.2312505-1-sashal@kernel.org>
+In-Reply-To: <20260912112124.2312624-1-sashal@kernel.org>
+References: <2026090958-headband-sturdy-0f93@gregkh>
+ <20260912112124.2312624-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +47,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit 8ec06f50ddd8d201bd7e55b896ae28ed9d4cb7d1 ]
+[ Upstream commit aa220cede54ed671f7be413d8dacb91263a9d218 ]
 
-In free_segment_range(), the curseg evacuation loop only iterates up to
-NR_CURSEG_PERSIST_TYPE (0..5), missing non-persistent in-memory curseg
-types such as CURSEG_COLD_DATA_PINNED and CURSEG_ALL_DATA_ATGC.
+The folio equivalent of f2fs_get_node_page().
 
-Even though these in-memory curseg types are not saved in the on-disk
-checkpoint header, they still occupy active physical segments at runtime.
-If an active in-memory curseg happens to be allocated within the segment
-range being truncated during filesystem shrink, failing to evacuate it
-will cause subsequent writes to the curseg attempting out-of-bounds I/O
-on the truncated storage range.
-
-Fix this by expanding the curseg evacuation loop upper bound to
-NR_CURSEG_TYPE to ensure all active curseg types are safely migrated
-out of the target range.
-
-Fixes: d0b9e42ab615 ("f2fs: introduce inmem curseg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: ce366bfa821e ("f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/gc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/f2fs.h | 1 +
+ fs/f2fs/node.c | 5 +++++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 33a2079b77c2b..d090ddc4be755 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1877,7 +1877,7 @@ static int free_segment_range(struct f2fs_sb_info *sbi,
- 	mutex_unlock(&DIRTY_I(sbi)->seglist_lock);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 4afc0cc6e588d..93b0bafcb0888 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -3597,6 +3597,7 @@ int f2fs_remove_inode_page(struct inode *inode);
+ struct page *f2fs_new_inode_page(struct inode *inode);
+ struct folio *f2fs_new_node_folio(struct dnode_of_data *dn, unsigned int ofs);
+ void f2fs_ra_node_page(struct f2fs_sb_info *sbi, nid_t nid);
++struct folio *f2fs_get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid);
+ struct page *f2fs_get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid);
+ struct page *f2fs_get_node_page_ra(struct page *parent, int start);
+ int f2fs_move_node_page(struct page *node_page, int gc_type);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 3f003cfe055a6..c7696b7ad4dce 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1497,6 +1497,11 @@ static struct page *__get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 	return ERR_PTR(err);
+ }
  
- 	/* Move out cursegs from the target range */
--	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
-+	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_TYPE; type++) {
- 		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
- 		if (err)
- 			goto out;
++struct folio *f2fs_get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid)
++{
++	return __get_node_folio(sbi, nid, NULL, 0, NODE_TYPE_REGULAR);
++}
++
+ struct page *f2fs_get_node_page(struct f2fs_sb_info *sbi, pgoff_t nid)
+ {
+ 	return __get_node_page(sbi, nid, NULL, 0);
 -- 
 2.53.0
 
