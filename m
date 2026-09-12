@@ -1,81 +1,46 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEBF31618C
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F0F41687C;
+	Sat, 12 Sep 2026 15:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225902; cv=none; b=bMJhFAhU3/mxCWJWeWXXaIq0++mpxIYkZBu7dYWlrpUpEVXQN28StPrevT53TS/erW1ztADemy1ZOZme+Uw/LBo8kH1bfXOBKYW3ro0IqrJI2URmLQy3ctv97t3abk3excOuHAS5RdwT3IIO4gYDdJjHHZJe2wfMiLLN0fRZx3c=
+	t=1789225906; cv=none; b=MHCq3GUW5Hax75D2hLw50tIIcxCkpXUqXrj1l51XA1PbPzFbLXHo5LGDaHxoj9UMdNQ1KLy6yihfPJ+icDi6XEQ4zY0NjZK0TwEndfgQNIktsuesp5vaPjEtRAuqRNOfhbgXEjx1B4LvW64Wtnv1n5D6I+1DoXyRY/Fzahp3ueg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225902; c=relaxed/simple;
-	bh=lSNHqvRhMHGwhckSbpdghGzhXyliVNB3ylXTKjvZ0Oo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tsLG5+NUZwqaQzTgJ3kKEP5F1YkvhSYShVfcDmWcsxw8Ls1ZuM4Zd/IGSwgGhU3jkCnP5u/plAarAznjD4yYnYtMtTf9uMBhkzZV7zHIaS4bDhu4TmNfqjnMIToF0ojhOH2zENGykMllrLNFviWUEKMbR0MMqYnJMMcsBY7o1vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz; spf=pass smtp.mailfrom=aheymans.xyz; dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b=lzGz5IHt; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
+	s=arc-20240116; t=1789225906; c=relaxed/simple;
+	bh=koh5S0UPJ/0dLG4fHf9EtOkfZXziyizWOHy0thCDZyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gd62DqJBSb15Df+hwTQNR39WSNc7hjDcp9bVxbbCbU43edI5Jx4NRQ9jdqUXuJGKsYHlUtTB56br5yJ0wP4aOrLr9mf0a1Np3osEuQKBdTQ2QodNzYuyhZI298vsPO/oFs7K8gKQfdhIAmbXDmTbUGkKWUeG+zHxizeCUIX6i0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QrLven77; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b="lzGz5IHt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so3850145e9.3
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 08:11:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aheymans-xyz.20251104.gappssmtp.com; s=20251104; t=1789225899; x=1789830699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
-        b=lzGz5IHtdYHxzmzApAljNy2K7DMePqMft9KM2wG7lt/0tn7y13ypuPr3nodlREZiDO
-         WAZknuqnJ6z2mxMyInRrJq8DNZovJvKKmgVQbbcF6fd4k32hrerIiAWL3raDMpdatdbL
-         AZs83vf3a2qBnI89M07tzY/G1HPvRUiVcartsPUIrXGSJxE+OPLiODXWfJVyTyqHtIrL
-         qa1mrEBHvL7knK1VdpKvNm3a5rLnsaVoPw4jgerNrSl5NnuhdpZkioBfY7Fjz42czn09
-         L1USwypVcgmvfXWqSB5v99oDgj30RTn7cwtwgBwn1s2FRvCrLH0taOSSDhZvIzhe/nlU
-         6uRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789225899; x=1789830699;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
-        b=mUoJM0OP0uc9zlPjbggGRH3amBlxB3UUG7o+FzDp6y5ucMlUbfg7YseZdN/iOQE36E
-         SuIAgJTSIRQlizxoPAMxj6+oUglVzJ6L4jkBlahN6xfVuyZUXl57kj8KvWrCIaVXClU+
-         IyggNJOY/ZdiWK/xdvxyY35+Bpo5J66MJgS+GOLJovGX3tDTCdttyy6KBI0RgxxosPc6
-         PhJScH5HoHqt+Ju9UaxcaYTgMlwOjNeGm9JtVhcegab4Ofh6wvu2uofP1Z+3auhEggDh
-         BlSuq87vJLQv+ksmCqW18jISQ3lXif1dqFtKYe/kMqzCfxpC8RSdiP5XnlLiKvgAl9uA
-         L5cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxPhuzJFodjdtxhACKhSHqQsDKWN19ctTrt0emzHv+m0rSLWFL3biv+KoYaCa2tRzGhmr/33o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiLl0aPtWY6BEWYXL9bIRtr9f21h5UEg2DTZuTH+1gX5l0Ld38
-	qF1vun8bMelgV0eob4CvnWHPn4UtPnphpWH3VsfEFhDRYZQ6vOgsKvQyRQ2egbrJe0o=
-X-Gm-Gg: AYBFou2h4mVkyYknZb+rg55f8Ne4b3mzsstwkmGa3zp30gBxnRPQhgwucwenPogaUFI
-	Z20MhKsgnxFkpe/egQ7M2isJ618FEBI3XUuFb4lDGNBZczWJEQGeO6ZDZ9DhmvQFh/nKp8lFaVd
-	fobwAWliUYHs/WkjH1R94QJMEe/YrGhzk6JYnosYZ5ReR4V8pnJ/3hDo/AeM4h0ehek8OQyJBXS
-	WSqKsgzuCQqRjUOOH7bhQtyDak4bDGX8fc1g5rgIajhm/BLjTOKf3a2h84wgoef53xQ8Fv87wg5
-	nqTzm9jujnDXMEJpizCPFh+GUBJl/or2f6+XasE4quO6NfrJ1y0If5q4mIlHoApYXs6wE6TK9zL
-	Xfmyg9y4VrscrSlMMQ77SnUJoUDAklOxH2GhIcnRVwDvIOi0kKOFNu9mX2klasCbAevWYmeLHU+
-	8xH1fQf2fyTYdJ0Pyr2VGZz4nMiP0cafe9aWyfpQ4A3KraaZd/x4b7SR2s6uldQQbOb5qg06YLy
-	MTFfyk12p5ZRXSKDEVYqmbhGBFoqjfvFHUtudMAK0q0dFa+k9/lPnLPimo38VStQe645hl4Scyo
-	OW81ieSauAWtrsRmwNCJ0BFjrU5gyF94FGimkks=
-X-Received: by 2002:a05:600c:2301:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49e619cbf88mr155925425e9.16.1789225898398;
-        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
-Received: from localhost (2a02-1810-b422-d400-af60-1d41-c104-7560.ip6.access.telenet.be. [2a02:1810:b422:d400:af60:1d41:c104:7560])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaeefsm162063135e9.12.2026.09.12.08.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
-From: Arthur Heymans <arthur@aheymans.xyz>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	michael.mityushkin@amd.com,
-	nicholas.kazlauskas@amd.com,
-	qingqing.zhuo@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Arthur Heymans <arthur@aheymans.xyz>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure
-Date: Sat, 12 Sep 2026 17:11:37 +0200
-Message-ID: <20260912151137.3913987-1-arthur@aheymans.xyz>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QrLven77"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4CD1F000FF;
+	Sat, 12 Sep 2026 15:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789225903;
+	bh=dswti/kPA7c2s28vs2Tcs0temqJ5t+8fO+QNutjLRDs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QrLven77BmalSUZr68fdym0Lq0F/1KPVwpMCFbYQkSW12pLVycT4dRPQ7R9froUhP
+	 w5d8uZ0CGWqUzw5SGfNqwTckZw0ohaffTvgGx6fZbZc6H+B4IjiG0c79aCLEXWdmEv
+	 /ENv2UzvRsrOTtdy47qXghwgFOG01cYitJ8TffZI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Baul Lee <baul.lee@xbow.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 1293/1424] vxlan: mdb: Fix use-after-free in vxlan_mdb_flush()
+Date: Sat, 12 Sep 2026 09:02:05 +0200
+Message-ID: <20260912065636.226049905@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+References: <20260912065607.279695368@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,67 +49,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-reinitializing hardware") made ASSR failure fall back to the default panel
-mode unless eDP mode had previously been applied.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-like a previously applied default mode. If ASSR setup fails during the
-first link training attempt, the driver incorrectly trains the eDP link
-using the default scrambling mode.
+------------------
 
-On a Google Vilboz Chromebook running self-built coreboot firmware and
-PSP verstage, this leaves the panel mostly black with corrupted output
-along the top edge.
+From: Baul Lee <baul.lee@xbow.com>
 
-Track whether panel_mode has actually been initialized, and only consult
-the saved mode after it has been applied. This retains the recovery
-behavior while preserving eDP mode during initial link training.
+[ Upstream commit bc2dc66a6693a78f8c1e6ca2dbebd50f16e2c366 ]
 
-Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-Cc: stable@vger.kernel.org # v6.4+
-Assisted-by: Pi:gpt-5.6-sol
-Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+vxlan_mdb_flush() iterates over the MDB entries using
+hlist_for_each_entry_safe(), which only tolerates the removal of the
+current entry. Contrary to the comment above the loop, the removal of an
+entry can trigger the removal of another entry.
+
+Flushing the remotes of a (*, G) entry also removes the (S, G) entries
+that were created for its source list, once they are left without
+remotes:
+
+vxlan_mdb_remotes_flush()
+-> vxlan_mdb_remote_del()
+   -> vxlan_mdb_remote_srcs_del()
+      -> vxlan_mdb_remote_src_del()
+         -> vxlan_mdb_remote_src_fwd_del()
+            -> __vxlan_mdb_del()
+               -> vxlan_mdb_entry_put()
+
+Such an entry can be located after the (*, G) entry in the list, as
+vxlan_mdb_entry_get() returns an existing entry without moving it to the
+head of the list. This order is obtained by adding the (S, G) entry
+before the (*, G) entry, the latter with NLM_F_REPLACE, as the addition
+of the source otherwise fails with -EEXIST. The (S, G) entry is then the
+entry saved by hlist_for_each_entry_safe() and it is freed while the
+(*, G) entry is processed. The next iteration calls hlist_del() on it
+again, writing LIST_POISON1 to LIST_POISON2 [1].
+
+Besides device deletion, the flush is also reachable from RTM_DELMDB
+with NLM_F_BULK.
+
+Fix by re-reading the next entry after the remotes were flushed. The
+current entry cannot be removed by this flush, as source lists can only
+be configured on (*, G) entries and the removed entries are (S, G)
+entries. It is therefore still linked and its next pointer reflects the
+removals.
+
+[1]
+BUG: KASAN: wild-memory-access in vxlan_mdb_entry_put.part.0+0x328/0x588
+Write of size 8 at addr dead000000000122 by task ip/327
+
+CPU: 3 UID: 1000 PID: 327 Comm: ip Not tainted 7.2.0-rc7 #2 PREEMPT
+Call trace:
+ vxlan_mdb_entry_put.part.0+0x328/0x588
+ vxlan_mdb_flush+0x1d8/0x25c
+ vxlan_mdb_fini+0x8c/0x100
+ vxlan_uninit+0x1c/0x7c
+ unregister_netdevice_many_notify+0x954/0xd4c
+ rtnl_dellink+0x210/0x530
+ rtnetlink_rcv_msg+0x434/0x4d0
+ netlink_rcv_skb+0xc4/0x204
+ rtnetlink_rcv+0x18/0x24
+ netlink_unicast+0x4b8/0x548
+ netlink_sendmsg+0x29c/0x560
+ ____sys_sendmsg+0x390/0x3ec
+ ___sys_sendmsg+0x114/0x188
+ __sys_sendmsg+0xf0/0x178
+ __arm64_sys_sendmsg+0x48/0x60
+ invoke_syscall.constprop.0+0x58/0x180
+ el0_svc_common.constprop.0+0x74/0x140
+ do_el0_svc+0x30/0x40
+ el0_svc+0x38/0x98
+ el0t_64_sync_handler+0xa0/0xe4
+ el0t_64_sync+0x198/0x19c
+
+Fixes: a3a48de5eade ("vxlan: mdb: Add MDB control path support")
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260814153547.29567-1-baul.lee@xbow.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
- .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/vxlan/vxlan_mdb.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4ecd5699ac5e..0db55a73da0c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1912,6 +1912,7 @@ struct dc_scratch_space {
- 	struct ddc_service *ddc;
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index 8b8b4d052a9c6..2c40e489ff8b2 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -1428,14 +1428,17 @@ static void vxlan_mdb_flush(struct vxlan_dev *vxlan,
+ 	struct vxlan_mdb_entry *mdb_entry;
+ 	struct hlist_node *tmp;
  
- 	enum dp_panel_mode panel_mode;
-+	bool panel_mode_initialized;
- 	bool aux_mode;
+-	/* The removal of an entry cannot trigger the removal of another entry
+-	 * since entries are always added to the head of the list.
+-	 */
+ 	hlist_for_each_entry_safe(mdb_entry, tmp, &vxlan->mdb_list, mdb_node) {
+ 		if (desc->src_vni && desc->src_vni != mdb_entry->key.vni)
+ 			continue;
  
- 	/* Private to DC core */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 9883216dcc9d..cd90576bc6f0 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+ 		vxlan_mdb_remotes_flush(vxlan, mdb_entry, desc);
++		/* The flush can remove the (S, G) entries created for the
++		 * source list of this entry, including the one saved by
++		 * hlist_for_each_entry_safe(), so re-read it while this entry
++		 * is still linked.
++		 */
++		tmp = mdb_entry->mdb_node.next;
+ 		/* Entry will only be removed if its remotes list is empty. */
+ 		vxlan_mdb_entry_put(vxlan, mdb_entry);
  	}
- 
- 	link->panel_mode = panel_mode;
-+	link->panel_mode_initialized = true;
- 	DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
- 				 link->link_index,
- 				 link->dpcd_caps.panel_mode_edp,
-@@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
- 
- 		result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
- 
--		if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-+		if (!result && link->panel_mode_initialized &&
-+		    link->panel_mode != DP_PANEL_MODE_EDP)
- 			*panel_mode = DP_PANEL_MODE_DEFAULT;
- 	}
- }
 -- 
-2.55.0
+2.53.0
+
+
 
