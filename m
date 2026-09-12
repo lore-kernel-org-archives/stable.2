@@ -1,44 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99BF1A9F83;
-	Sat, 12 Sep 2026 11:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FA635201F
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 11:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212873; cv=none; b=cJETzMPWIzi7fkJDQoCVnGjd3EhoW7+SVVKfjhG4wAPF1sBd21BEWBVO4ROczA1Mnk6Aa6aGIfuzJzVS+lrN/1Wvaurq9y7ct7ZeAcOPtZw6kIaFiMUhgvNXeKiYxfgidpzJ7/py2aqdbxJEpD5i5ueqXrUva6sB7tBkpCChE/g=
+	t=1789212876; cv=none; b=dTNZqCYrNLQphg4cLHptcb+X37/zCvrvUFDq/OchoL05gH/s7JIR5ncXZ+q6bi8G5SbesdpPOVxcR3r8sLZKtPLgUHWUeRqkySjOVjOVjJZCYyOurXUcuSWA0KoebIS/ZkjyfTL4pbLfoW1XIyhv5yHgiAfN6Mi4aMlgXaVOSGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212873; c=relaxed/simple;
-	bh=z1u/aB+PMQZQ9RMplEWvfmFb7H3McrhUzY6CkkY2jkE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BOILiWzEdkw4vt1x0b6hfoXB2V7SrVqG0nBRcBkEV4n/TP6ja9jj5h4lTRIO64xUDIRmvQgGruQmsjXNRbPRHl3LQr79+7IfH4+gkOQvNLnNbLuXT6RljWQmA+qA/1DReBt9zi7vgizwYV6O9h8yQ1BZeIdj9UlwFCxfFgN3L1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GpXHrnp+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789212876; c=relaxed/simple;
+	bh=cC1YOs027YlAqZAqs9J6yM8CSZ469b20i+ByfNS783s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sUEsqp3SuOwthpEH7kfOW7CFc8rbz+i0QL3eBomURd+k9aak0wkgKU+p3ZGrX6N4SYV004QtJvloL3NIQLR78x7K/yQ1y432kjcHxX4j0zo5OhCvfQ7+WEGIj1T2ZsDNY230JQpY3HyK+mESI5pZw/PHJ5sQBoPwghegvoAOnOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dO4U2jF+; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GpXHrnp+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E87851F00893;
-	Sat, 12 Sep 2026 11:34:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789212871;
-	bh=TvpxSXhUA+WRq4EYz1UULrPK3HMDSTUEHBHx3TKADNM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GpXHrnp+pJ/xOUUoFlkLv9yqHE2V92DgoKg8Td5LUm03GTyMBQS8gU+UHtWMb742k
-	 rmzwnRaf0gj95425nw2+kTvkzcrvN2ep/2Wk4g/t0m5r5PTE+jit9u5vG53v44jkzW
-	 VPYA4wUkomXAOe30LwjLQSYf5P+l3mgQNY5KHNnc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Felix Fietkau <nbd@nbd.name>
-Subject: [PATCH 6.18 1518/1518] wifi: mt76: fix airoha_npu dependency tracking
-Date: Sat, 12 Sep 2026 09:01:27 +0200
-Message-ID: <20260912065657.905984722@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dO4U2jF+"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so597141a91.2
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 04:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789212874; x=1789817674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AX3b+/Rd5JBxR9PSq0SxNQZUrSxVi/vmNM1MS2Zuudo=;
+        b=dO4U2jF+uWlD0zxfHqXNtLWuweFU8mwlmiEsl4RAgvLMD72o9K25yAm/sUbCEr4JKu
+         hG07vrMLF7lnBIb4dMfF+Ba3XHLPKkVZYLKphaOsih+VkEZJGPppu1/sbxoVrsCW9dPe
+         uW40yukbc0JrPxBuL6oP8C3DRbTkv7PZs1dF7rqaJqIdBh9VpZq2kjVRzXcKYkgHAiGX
+         pvVpajqzP2woWP683xa5j45OSQAhHOCRLNPgeB9bDAa0wpxWTy3FJw5V7oQjzeJfyjZ2
+         P1POKPF737kdsKt9LFBzRZLLFOIenJI6lpxhWz0EHzC2czOhkmlcTqv1lVbqOETUyyzd
+         lG4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789212874; x=1789817674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AX3b+/Rd5JBxR9PSq0SxNQZUrSxVi/vmNM1MS2Zuudo=;
+        b=hdPii/n2/BaFQ9wb8tYxvYf3XMWwC8WAAXaDIROSw4FYr3KOx6vjCmGhNsm5ppopbC
+         DDIi0rpuQ0RmBRR0YeCT+6Ickw79Sh8hYs7cba+7b7ObjSfx4Y+C1PIUgNvheF9L/7u3
+         e7VPaRO1fFZlPR4VcNMl9ld2JS7wSSxGydps/xHCFkWKEBfDRiMcov+osZCgYSlAT3Ai
+         4871nhsd2QTfQzsYonTJRM/PmkB2+cx/jRnJVrhbxG2JYmi6DHQFP1L824HDN6R6WXJB
+         fhHkj7U6TmgPFTMAlD9siOQ+SD2jm33Nyl/nDEfksxgLZMSmU6aJd7pmuDUvibM22VY1
+         s7Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBzZp3VGbEx78VyX4edBfg1y3l2pSVQkeuDFWQu/tfrRNvBMWzz3lKjNVWGJGGUb95p0bkFgJDo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3Y5Op9sRfiAkw1X2AMeOivwA8bdLI1lfFzAoOj9uHho55cKyp
+	rJ9Ea5eUQAfbMpZPcDew/bDzXLRJb5KOQp/o1D7ds8HodgD4hEZ/P90W
+X-Gm-Gg: AYBFou10CKW/Ki8zOuXSqYe2vIAWlUsJ/jHRswLcWpqtlkz/G0PqcwHYeljY44amASm
+	k7Pcmh9bEnmSZwBtgbAttcdlQpHBDzK3ycPVtbq/RlIOUtWHAIoG3UhVGEBYC6xECixF2iOwKOJ
+	9X78d909bRyLzRVQ4TYRTY+0ZYaajqVrLw7QLhdvDPR2ibBNQKw0G/6Utgtgk5IUq8ruvYNIq5I
+	sKaVRtD1LUyGa+A3CdMrdjmgCeuGNwuRLCUBcCuKF2y5Rls8vtW+iASSg8kUM06+fIonmNzFIUv
+	5eO8Y4rgH2Dv5EpP7BMcTdqRvzonqWUgGEET1mJ2UnfjlReA52/1comuAelOxpI3dzX4WFJMm/A
+	glckngFWm5zIcYeuiG49cjaoT1vCawbemgRakpCc+Q9tNwotfX2tlP6fSBSjrFqeSk9bgPH554k
+	4ukBhCxK7q1ZF05m68SQvWO5yKaymbG7ozMXqfIagmPJqszEHW867U3A==
+X-Received: by 2002:a17:90b:1dc9:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39d9c0b79efmr15378795a91.13.1789212874173;
+        Sat, 12 Sep 2026 04:34:34 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95752809sm10046220a91.13.2026.09.12.04.34.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 04:34:33 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: SBS: Fix NULL pointer dereference on allocation failure
+Date: Sat, 12 Sep 2026 19:33:55 +0800
+Message-ID: <20260912113355.644238-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,78 +75,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+acpi_sbs_probe() jumps to the common error path when kzalloc_obj()
+fails, but platform_set_drvdata() is only called after the allocation
+succeeds.
 
-------------------
+The error path calls acpi_sbs_remove(), which retrieves the unset
+driver data and dereferences the resulting NULL pointer when locking
+sbs->lock, causing a NULL pointer dereference.
 
-From: Arnd Bergmann <arnd@arndb.de>
+Return -ENOMEM directly when the allocation fails, since no resources
+have been initialized at that point and there is nothing to clean up.
 
-commit 7cd57ff6c6263519e6e463cbc2e0898828a70c42 upstream.
+This issue was found by manual code inspection.
 
-There is a new build failure with MT7996E=m MT76_CORE=y and NET_AIROHA_NPU=m:
-
-ld.lld: error: undefined symbol: airoha_npu_get
-ld.lld: error: undefined symbol: airoha_npu_put
->>> referenced by npu.c
->>>               drivers/net/wireless/mediatek/mt76/npu.o:(mt76_npu_init) in archive vmlinux.a
-
-Fix this by reworking the dependency for the MT7996_NPU to only
-allow enabling that when mt76_core can link against the npu driver.
-
-To make sure this gets caught more easily in the future when additional
-mt76 variants need the same dependency, also turn CONFIG_MT76_NPU into
-a tristate symbol that has the same dependency.
-
-Fixes: 7fb554b1b623 ("wifi: mt76: Introduce the NPU generic layer")
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Link: https://patch.msgid.link/20260612201519.4054683-1-arnd@kernel.org
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 9460eaae2ee42 ("ACPI: SBS: Convert the driver to a platform one")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/net/wireless/mediatek/mt76/Kconfig  |    4 ++--
- drivers/net/wireless/mediatek/mt76/Makefile |    6 +++++-
- drivers/net/wireless/mediatek/mt76/mt76.h   |    2 +-
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/acpi/sbs.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
---- a/drivers/net/wireless/mediatek/mt76/Kconfig
-+++ b/drivers/net/wireless/mediatek/mt76/Kconfig
-@@ -38,8 +38,8 @@ config MT792x_USB
- 	select MT76_USB
+diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+index 86b7c7975852..4b84b3cd11e3 100644
+--- a/drivers/acpi/sbs.c
++++ b/drivers/acpi/sbs.c
+@@ -639,10 +639,8 @@ static int acpi_sbs_probe(struct platform_device *pdev)
+ 		return -ENODEV;
  
- config MT76_NPU
--	bool
--	depends on MT76_CORE
-+	tristate
-+	depends on NET_AIROHA_NPU=y || MT76_CORE=NET_AIROHA_NPU
+ 	sbs = kzalloc_obj(struct acpi_sbs);
+-	if (!sbs) {
+-		result = -ENOMEM;
+-		goto end;
+-	}
++	if (!sbs)
++		return -ENOMEM;
  
- source "drivers/net/wireless/mediatek/mt76/mt76x0/Kconfig"
- source "drivers/net/wireless/mediatek/mt76/mt76x2/Kconfig"
---- a/drivers/net/wireless/mediatek/mt76/Makefile
-+++ b/drivers/net/wireless/mediatek/mt76/Makefile
-@@ -12,7 +12,11 @@ mt76-y := \
- 	mmio.o util.o trace.o dma.o mac80211.o debugfs.o eeprom.o \
- 	tx.o agg-rx.o mcu.o wed.o scan.o channel.o
+ 	mutex_init(&sbs->lock);
  
--mt76-$(CONFIG_MT76_NPU) += npu.o
-+ifdef CONFIG_MT76_NPU
-+# CONFIG_MT76_NPU is tristate to simplify dependency tracking,
-+# but it behaves as a bool symbol here.
-+mt76-y += npu.o
-+endif
- mt76-$(CONFIG_PCI) += pci.o
- mt76-$(CONFIG_NL80211_TESTMODE) += testmode.o
- 
---- a/drivers/net/wireless/mediatek/mt76/mt76.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-@@ -1626,7 +1626,7 @@ int mt76_testmode_dump(struct ieee80211_
- int mt76_testmode_set_state(struct mt76_phy *phy, enum mt76_testmode_state state);
- int mt76_testmode_alloc_skb(struct mt76_phy *phy, u32 len);
- 
--#ifdef CONFIG_MT76_NPU
-+#if IS_ENABLED(CONFIG_MT76_NPU)
- void mt76_npu_check_ppe(struct mt76_dev *dev, struct sk_buff *skb,
- 			u32 info);
- int mt76_npu_dma_add_buf(struct mt76_phy *phy, struct mt76_queue *q,
-
+-- 
+2.43.0
 
