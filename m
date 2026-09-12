@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96082ECE86;
-	Sat, 12 Sep 2026 16:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99E72D5C68
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 16:05:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789229136; cv=none; b=aPr2xvy2JyL7NAgYTLFxpYrDFgdqxAMMV8ELiUF6ZjfxfacqjNZ2bWFp8ek5BrVLNSfdFxYeyhKsHylruapXGAQORuqZSsmmTf7VFUQg9EAWOR6q8AT7WMMPdu5lORzQEyWp8CeOSAl8TAMviKicFa8h4+eC6l4XXfSra8gYUmk=
+	t=1789229139; cv=none; b=UgVc/nkKfs9Uh0c4KbO8yusCMC1hSRYn8bbPbPGQFGGUl4dJ0wDYSuz7vmVbVnI2raVpjzus4RtVF+hVdA1x0N7lDU8VA+1xxPJs305xvvUJIVVVHmqf2hTfXtliwpI3taX4TqDZoygLA0OPaTF5pfv4MecgpA6FsHp5ZkKE0ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789229136; c=relaxed/simple;
-	bh=Mx2WKte0JrpoPWcemQYfr9HMm51DEoLtMAYiJcTaJWw=;
+	s=arc-20240116; t=1789229139; c=relaxed/simple;
+	bh=gjTlVJdgnAaL22btZ8k1APr9zTZjSEXJecksj4vA3RQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jwIAe0YeRyuWdEUFpxFUhwMkq3mcT2/3EaWBN8Y8z516HAna+Za8yCXspjYuPsJVhaHz7aUaRBxaAUHaptDnjwMDy/UN9ItmHrHwQcJYzQejMj9wGVU1aV/SRFNDSQhLR/qHKrTbWhpAf7osD8qnPUEZi+DrVSOzZs3d0x9+D28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lLEM9B1V; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=udxqQRatvDedlkOH65WnD2O7NKbuluGJQnPhivOzCMnEf0oh0rFjeFe+m2VIsDFXtjZ+d9nathi8puAWhgtlFUB61d+bwFI4i/sC8iCZWgCe1EkRhUcvSO8MIE6RdSXuTrz/tLZQK2L1k/dTaErtGG5p4ETiDOC894DnoKxII/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxOsjT1x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lLEM9B1V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30371F000FF;
-	Sat, 12 Sep 2026 16:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789229134;
-	bh=Bf6KdXp3+SYOI5J8OUQRuIGDkBWAa7u5S+JQX/qXMzE=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxOsjT1x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012601F000FF;
+	Sat, 12 Sep 2026 16:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789229138;
+	bh=5GCXF6Bvp4Fbng8CT18aiyS4cyovxgq49pp33BwNfJQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lLEM9B1V4841GcKFZDy9SglbzwuRagARaoG/gZVcyym0vmcwmMmeTdjNvIxwv83Q5
-	 uSwirTVz5ZP5bvf++xMxnUEABZN7tGF3FNk6yoJYapcYVsZAd5/fJgf+U9IBg7lw+7
-	 jxOlV3v4ljFz5iwNFXihzjEOCUQgvBpq406E1vqc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=RxOsjT1xxeFjRPltcbMfpfrkXlTIyKX9KlZrlG3Uf9/S8b0g1qj0oUaVEcma15S+L
+	 NFvRr/cJzoeJHKzfFD5C4f1zpe/nvnE7/x/pgr05Un2d/59W+0OXLHJpcNiVuKt7PN
+	 /vjMl9qqIImuDd5PPv/GwJnTApBY3KYjggWbSgExJ5NOHMpISlwD0FIfoHkt4bDS26
+	 usnrJ3T/x54gPzW1/CFpdcB0+HzmJ4ekTYZ8piThDwvj6wvzyLpMHs/51qSGqXipaD
+	 pz3PIlKPvJCwFgLNApNytZboneN4Alvhq4T81L/uFOkO4CpihgomV+3Wgs9APHH1nC
+	 DgJxsCOnlvs0w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yuho Choi <dbgh9129@gmail.com>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	"Kevin Hilman (TI)" <khilman@baylibre.com>,
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0528/1191] bus: ti-sysc: Fix /chosen node reference leak
-Date: Sat, 12 Sep 2026 08:54:16 +0200
-Message-ID: <20260912065600.107918194@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-References: <20260912065548.086904252@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.2.y] drm/pagemap: dma-unmap pages before handling migration errors
+Date: Sat, 12 Sep 2026 12:05:36 -0400
+Message-ID: <20260912160536.3614798-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090928-daisy-vitamins-0900@gregkh>
+References: <2026090928-daisy-vitamins-0900@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,70 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Matthew Brost <matthew.brost@intel.com>
 
-------------------
+[ Upstream commit 9e6372ec2a3990662ae0a67f56ac0aee19848d5b ]
 
-From: Yuho Choi <dbgh9129@gmail.com>
+drm_pagemap_migrate_unmap_pages() relies on the pages array to determine
+which pages require DMA unmapping. However,
+drm_pagemap_migration_unlock_put_pages() clears the array as part of its
+cleanup, leaving drm_pagemap_migrate_unmap_pages() with no valid page
+information if it is called afterward.
 
-[ Upstream commit 6342de0aed216b6df460b492ddb532b3e0ed16f1 ]
+Call drm_pagemap_migrate_unmap_pages() before
+drm_pagemap_migration_unlock_put_pages() so the pages array remains
+valid during DMA unmapping.
 
-sysc_init_stdout_path() gets the /chosen node with
-of_find_node_by_path() to read stdout-path. The function then overwrites
-the local node pointer with the stdout-path lookup result, or exits on
-error, without dropping the /chosen reference.
-
-Keep the /chosen node in a separate variable and put it after the
-stdout-path value has been used for the lookup. The successful stdout
-node lookup remains referenced by the cached stdout_path pointer.
-
-Fixes: 3bb37c8e6e6a ("bus: ti-sysc: Handle stdout-path for debug console")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-Link: https://patch.msgid.link/20260615200540.770205-1-dbgh9129@gmail.com
-Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: f86ad0ed620c ("drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Link: https://patch.msgid.link/20260902063504.3024362-1-matthew.brost@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bus/ti-sysc.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_pagemap.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
-index 42037b15594a8..f2b6cc154aeac 100644
---- a/drivers/bus/ti-sysc.c
-+++ b/drivers/bus/ti-sysc.c
-@@ -694,6 +694,7 @@ static struct device_node *stdout_path;
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 05eb7254028f7..51c6f12e42560 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -1260,12 +1260,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+ 		goto err_finalize;
  
- static void sysc_init_stdout_path(struct sysc *ddata)
- {
-+	struct device_node *chosen;
- 	struct device_node *np = NULL;
- 	const char *uart;
+ err_finalize:
++	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
++					DMA_FROM_DEVICE, &state);
+ 	if (err)
+ 		drm_pagemap_migration_unlock_put_pages(npages, dst);
+ 	migrate_device_pages(src, dst, npages);
+ 	migrate_device_finalize(src, dst, npages);
+-	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+-					DMA_FROM_DEVICE, &state);
  
-@@ -703,15 +704,18 @@ static void sysc_init_stdout_path(struct sysc *ddata)
- 	if (stdout_path)
- 		return;
+ err_free:
+ 	kvfree(buf);
+@@ -1383,14 +1383,14 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+ 		goto err_finalize;
  
--	np = of_find_node_by_path("/chosen");
--	if (!np)
-+	chosen = of_find_node_by_path("/chosen");
-+	if (!chosen)
- 		goto err;
- 
--	uart = of_get_property(np, "stdout-path", NULL);
--	if (!uart)
-+	uart = of_get_property(chosen, "stdout-path", NULL);
-+	if (!uart) {
-+		of_node_put(chosen);
- 		goto err;
-+	}
- 
- 	np = of_find_node_by_path(uart);
-+	of_node_put(chosen);
- 	if (!np)
- 		goto err;
- 
+ err_finalize:
+-	if (err)
+-		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+-	migrate_vma_pages(&migrate);
+-	migrate_vma_finalize(&migrate);
+ 	if (dev)
+ 		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+ 						npages, DMA_FROM_DEVICE,
+ 						&state);
++	if (err)
++		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
++	migrate_vma_pages(&migrate);
++	migrate_vma_finalize(&migrate);
+ err_free:
+ 	kvfree(buf);
+ err_out:
 -- 
 2.53.0
-
-
 
