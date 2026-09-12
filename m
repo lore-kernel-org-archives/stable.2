@@ -1,48 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B206147A872
-	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41EA479892
+	for <stable@vger.kernel.org>; Sat, 12 Sep 2026 15:26:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226793; cv=none; b=KCP9bvaR7na/9/py1bNIeBH/WlO0ZGYeVr6h1MrgljS/Rw2PhKozF7Gn/C1SKQY1D1NMs/LLgGte+PzMK65mYaAgn6WFaPdoQJ2ozdSsDOJoZ1HeMbd4cby2y7OCrAgQ06pp/3JfNp/dlU3IpXgxSHVsqnus4FbGmnbvpIN9Mug=
+	t=1789226794; cv=none; b=Uos+t/5NfUEYw8bwS0nk3DFQ6mYW8g5buYENpf/dJcTvEQ5MVUOTaN69OybijEhhcSzXwjYc3lvX3X7cRrYArRjM1Sd+yVJRnvEsuDA6m1lC2G4UGw8MU5BINIAomx3AH2Y3VHJLjxnQWHyHeB+/fd2WmGBrn4K2Bh39z39GasI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226793; c=relaxed/simple;
-	bh=ZYOo8rH0aU15noryshfs5y1PVMFZhgghc7rDOS33Tow=;
+	s=arc-20240116; t=1789226794; c=relaxed/simple;
+	bh=H6q/DuWlj4OlRx5Y1QxJg+Bkt4jNFbPu30+Egq3Zxtw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VZL3V9LnPMHXrBmGqu7y/rXs7WAD0BW74rlz6fWR3edsVBPX2Ttk/chSLrk0scgzIiw1K5MGi6RfRKLijpE1qrvVFg3iHPIEpjyxFKON1fua0wLZzHQ09LRw1aMwQql1YTEZQ4AsHJp+10OZGJjkmjRJWMh1/paa8U+FTjk1LY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNBkYk1G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A/E5EhH1zwatM45x8k7n9qNeJYgIW42nZP8xLiyWT5qn0KQlwEbrCXrG5pgoDz1Gz866TLms+/EKCVaRm3CKMEjsGbNFoQNONnI/eA3pm48h0krkJqax/vxQKdQKiudboig949GMJVLUywXJLi0s4T0aoH2lU4bnHL5onNMy4UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Etv3vxFL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNBkYk1G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4B11F0089B;
-	Sat, 12 Sep 2026 15:26:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Etv3vxFL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FA31F000FF;
+	Sat, 12 Sep 2026 15:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789226791;
-	bh=oFWB0puLuVcH/HhuMjfTDP6CevVsCQWlQbSJsp5bwng=;
+	s=k20260515; t=1789226793;
+	bh=JigTpzYsSDw3lc+JIkHyL4ph9twNe9lbkaGP8rXlvRI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aNBkYk1GmmTHgvrSLKZLVGBNR7g632j5QpytbQpF4Ftc3bioHWp4opbpRhcKt7nRM
-	 JKHehvZEYMuJxR2c/oVtqmgTgHWk+Zgv1QoktcJoQHCI7+emjHV1xlHeQU+nyoy+PT
-	 fqW2cQO60erefEWQGQx+HsASDMFdV59jIXTc7oz1x2CbUXphiSxjc3B1AZN3Jsil9l
-	 FPiuU9VPs5TZL3kW6J0vQveHsPmwXTcqtuRI5EoAe7YfQ0yOqIo6BKekh/amDv8fMd
-	 TKOloXPIMcErLSKAj+LclMT44EfXhJNe0ueVbR5bntAYxqBBNEc8dKZPv9MkKEyB2y
-	 4MRLWFmVinVEA==
+	b=Etv3vxFLObWf//Iq3Xqh7OsoNcjfwa6OktFh6Zl+LmtlHfYrt2jhRLZXAoxRPW9Vj
+	 xtZFU+orLdurshrvH3HKw+EZjFPPC4EP3pgcOYoEzOwA8Fjf1rgPMch0SDChp9hmq8
+	 hwHgnPEoG52v4dT7FA2Z6KrgjQEzm3dbGSWobBqskp+OJc+itE4yNqMl7SV8EMJA/I
+	 R4f75PkGL9lDiPWUNXVMXO0U2SQxUyvkIhwbPwsip3olDRK/LNjgpvmE1m3JEfWT1L
+	 vCyvW4yJGZYFzRvo1M8aq5n876XkYZRJove6Lxsl7R+mwKPz8fQZRNmgr9+0w6ugHs
+	 xqwGUDRSz5ttg==
 From: Sasha Levin <sashal@kernel.org>
-To: Sudheendra S <giveback4fun@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
-	almaz.alexandrovich@paragon-software.com,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	syzbot+7bdfe1182e4c50d2a21d@syzkaller.appspotmail.com,
-	Miguel Garcia Roman <miguelgarciaroman8@gmail.com>
-Subject: Re: [PATCH 5.15.y v3 v3] fs/ntfs3: Change new sparse cluster processing
-Date: Sat, 12 Sep 2026 11:26:19 -0400
-Message-ID: <daily-reply-0013-re-ntfs3-sparse-cluster-5-15@kernel.org>
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.6.y] mm/huge_memory: use folio's memcg inside __folio_split()
+Date: Sat, 12 Sep 2026 11:26:20 -0400
+Message-ID: <daily-reply-0014-re-huge-memory-6-6-ask-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CADggw7+k+B7xFnWztHP_BD6G6a3T0tyoG=7JpYWJ6KmjkgyxKw@mail.gmail.com>
-References: <20260908192213.1169088-1-giveback4fun@gmail.com> <2026090924-idly-theology-e828@gregkh> <CADggw7+k+B7xFnWztHP_BD6G6a3T0tyoG=7JpYWJ6KmjkgyxKw@mail.gmail.com>
+In-Reply-To: <aqMDyxhGXZyhcm5H@cmpxchg.org>
+References: <20260904022657.2656810-1-ziy@nvidia.com> <2026-09-05-daily-reply-0043-folio-split-memcg-6-6-bounce-v2@kernel.org> <DL8LKM3Q9LGZ.DENNSVG6XK1C@nvidia.com> <aqMDyxhGXZyhcm5H@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,23 +56,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Few issues...
+Thanks for the review, Johannes.
 
-First, the backport is incomplete. c380b52f6c57 ("fs/ntfs3: Change new sparse
-cluster processing") needs d7ea8495fd30 ("fs/ntfs3: fix missing run load for
-vcn0 in attr_data_get_block_locked()") alongside it.  That second commit fixes
-a WARN_ON(1) and -EINVAL return that becomes reachable through the very vcn0
-path this patch introduces, and it is absent from 5.15.y. Taking the first
-without the second trades one bug for another.
+I'm holding the 6.6.y patch for now, because 6.12.y needs this first.
+c299a2285d9d ("mm/huge_memory: use folio's memcg inside
+__folio_split()") is absent from 6.12.y, and we don't queue a fix on an
+older tree while a newer one still lacks it.
 
-Second, the commit message doesn't make sensetogether. The author attribution
-doesn't match the upstream commit, the syzbot tags don't correspond to the
-reports they name, and the provenance line is garbled. For a stable backport
-the trailers are the audit trail, so they need to be exactly right.
+6.12.y also needs its own version rather than this one. I tried your 6.6.y
+patch against it and it fails at mm/huge_memory.c:2646. The two trees have
+different shapes here: 6.6.y has split_huge_page_to_list(page, list) using
+XA_STATE, while 6.12.y has split_huge_page_to_list_to_order(page, list,
+new_order) using XA_STATE_ORDER.
 
-Please resend both commits, each with the upstream author preserved, a
-correct "commit <sha> upstream." line, and your own Signed-off-by added
-at the end of the chain.
+Zi Yan, could you send a 6.12.y backport? Once that one is in I'll take
+both together.
 
 -- 
 Thanks,
