@@ -1,34 +1,44 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5AB31F9B1;
-	Sat, 12 Sep 2026 16:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E205447A865;
+	Sat, 12 Sep 2026 16:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789229544; cv=none; b=GxRNOKRPH2piLz2VSG/64rKbFNSiSwM8TdohFscT9jjiFETnCuoY6EnWXGFxfMD2WsoU270yUFSj88j4GDju7V6MKxybn8p/H/1+33M3k4KU5iMzdh+6iiDMbpGhYeA6PkrZns6tuATau8OhjwoXCq3xz4RdR4ZpcoOXpDYeSPM=
+	t=1789229547; cv=none; b=VjTad3mYkyZyLE0MFmCH35zFMg0ku83F4dtZRkTsMYNmqSlVbC/K79wnng60YuhHWhFiHkmFQo1QMkrlzsRI/k1XSv2LuDlxyjCm9150n/TldL/QEl09cRv12f5bBmAortzfv06qDpL2B+S4NFWcx6wC7wppzvYVAzadyNzudqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789229544; c=relaxed/simple;
-	bh=gYyEEGxM144WobPG0PkEu1gZ4Dhzeyc0tdt0Aa5yEFk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XrGcTml9H0wQqlRdX10NsGDsx2e99hTu5qiJ0TnhA8WNBUFurVixl5uJ4UBT98DnbOmZ2Gjqor+cZVflUCqU+oslY/8N4HDHu+D+UtKwooJAWoa8uBuouthJOJ+tSMy/yzIa3Y9TKU+K9TM4iieSATiRlvzzLxyqKBq/h39JSUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=OR/kKeYc; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789229547; c=relaxed/simple;
+	bh=n69Emyy/9aEcozFjYCOWtfB3g8pbxz+CIsHVMAc6JiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=geaFsoAOBZ0ITGURv1OBPrW9pIpEnf7aFLhBdW1UkaqxvOf3wP6AbXViREa0QohuhI0p0CV/2MYaWUqmPnohq7KSgiMeMAPeMlSe478Wbv8aRFTo8eomk+NtLDAzohSZ10bnNapLhl8qpYA5RBPjHNSZ0r9YlThOjZRcNMlOcz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TvkPTzcE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="OR/kKeYc"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d867e247;
-	Sun, 13 Sep 2026 00:12:06 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Andy Shevchenko <andy@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: =?UTF-8?q?Jean-Fran=C3=A7ois=20Lessard?= <jefflessard3@gmail.com>,
-	Surendra Singh Chouhan <kr494167@gmail.com>,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] auxdisplay: linedisp: prepare message before registration
-Date: Sun, 13 Sep 2026 00:11:52 +0800
-Message-Id: <20260912161152.1683002-1-lhfff@tju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TvkPTzcE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9071F00893;
+	Sat, 12 Sep 2026 16:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789229545;
+	bh=xb0pokydnjKnMTMWkH6VCp5lqep+kho7hxfGWnZIGlk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TvkPTzcEdMB25sWP6ZjV1eOLkwBftNo+E+wN4mYv/wbn4zeOohAsgNazcW0I3ESkF
+	 Tq4fRTcX2pIGQvbOHENoRcJCJW6q4tOUgMwg1toHjakq9Rua5IryDyNsQ7ofZJqhfD
+	 560AmfTENj8d5dLZ3fzR9qn8KQCX1dBDt8JVRqzg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kyle Zeng <kylebot@openai.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0613/1191] hfsplus: validate thread record before delete key rebuild
+Date: Sat, 12 Sep 2026 08:55:41 +0200
+Message-ID: <20260912065602.020349192@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+References: <20260912065548.086904252@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,173 +46,117 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa09663ed8603a1kunm4452ca3d21d6b8
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx9KVhgaSB8fQ0oZTB8aTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
-	xOVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=OR/kKeYcyxopjxIg1be77v2laqN4phWcvnrFPWOWPolEA60MokP657PKixI8Vfq0j6sIW2x+vVQLbEQg+A9oUkw94iqMta1skMxNbikcpJr35gzgdT8bcQj5BvsCKZuS76UEzwvpW80/ZdsTdINl9eTDk0lY95C/+SfT609I4+c=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=b/HE8L6+deoaN+E+/Sb/hspBLwOnnLTTfe61QrIbmpc=;
-	h=date:mime-version:subject:message-id:from;
 
-Since the line-display attachment support was added, linedisp_register()
-has displayed its initial message before calling device_add().  The
-HT16K33, MAX6959 and GPIO segment drivers implement display updates with
-delayed work, so that display operation can publish driver-owned work
-before the final fallible registration step.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-If device_add() fails, the registration error path releases the display
-buffers and the caller's probe failure releases its managed private data.
-The admitted worker can then access both freed objects.  In an HT16K33
-KASAN reproducer, a real device_add() -EEXIST failure produced a
-slab-use-after-free first in __pwq_activate_work() and then in
-ht16k33_seg7_update().
+------------------
 
-The vulnerable kernel queued and executed the freed HT16K33 work in three
-of three runs.  With this change, the same three runs reached the same
-device_add() failure without queuing the update and produced no KASAN,
-WARNING, Oops or panic.
+From: Kyle Zeng <kylebot@openai.com>
 
-Separate message preparation from the hardware update.  Prepare the
-initial message before registering the device or attribute groups, and
-only invoke the non-failing update after registration succeeds.  Apply the
-same ordering to linedisp_attach(), which has the same static pattern but
-currently has no in-tree caller.
+[ Upstream commit e2ea5cac61acfc11dad22f1d2d4bc71d56c52a20 ]
 
-Fixes: 3ba5c78fe7c5 ("auxdisplay: linedisp: support attribute attachment to auxdisplay devices")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+hfsplus_delete_cat() is called with str == NULL when the last open
+reference to an unlinked HFS+ hardlink backing inode is closed. In that
+case, the function finds the catalog thread by CNID and rebuilds the
+catalog key from thread.nodeName.
+
+That reconstruction path reads thread.nodeName.length directly from the
+catalog B-tree into fd.search_key and then copies length * 2 bytes into
+fd.search_key->cat.name.unicode. It does not first check that the found
+record is a thread record or that its size matches the thread name.
+
+A corrupted image can therefore provide an oversized thread name length
+and make hfs_bnode_read() write past the catalog search-key allocation.
+
+Read the CNID record through hfsplus_brec_read_cat(), which bounds the
+record read to sizeof(hfsplus_cat_entry) and verifies that a thread
+record's size exactly matches nodeName.length. Together, these checks
+ensure an accepted thread name fits HFSPLUS_MAX_STRLEN. Reject non-thread
+records before building the delete key from the validated thread name.
+
+Share the thread-record-type helper between hfsplus_find_cat() and
+hfsplus_delete_cat().
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Link: https://lore.kernel.org/r/20260709010203.49664-1-kylebot@openai.com
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/auxdisplay/line-display.c | 63 +++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 20 deletions(-)
+ fs/hfsplus/catalog.c    | 25 ++++++++++++-------------
+ fs/hfsplus/hfsplus_fs.h |  6 ++++++
+ 2 files changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/auxdisplay/line-display.c b/drivers/auxdisplay/line-display.c
-index 915eb5cd96b2..d5854a9ac9b0 100644
---- a/drivers/auxdisplay/line-display.c
-+++ b/drivers/auxdisplay/line-display.c
-@@ -149,20 +149,8 @@ static void linedisp_scroll(struct timer_list *t)
- 	mod_timer(&linedisp->timer, jiffies + linedisp->scroll_rate);
+diff --git a/fs/hfsplus/catalog.c b/fs/hfsplus/catalog.c
+index 136aa1017af2b..9a82bdf4caf24 100644
+--- a/fs/hfsplus/catalog.c
++++ b/fs/hfsplus/catalog.c
+@@ -204,7 +204,7 @@ int hfsplus_find_cat(struct super_block *sb, u32 cnid,
+ 		return err;
+ 
+ 	type = be16_to_cpu(tmp.type);
+-	if (type != HFSPLUS_FOLDER_THREAD && type != HFSPLUS_FILE_THREAD) {
++	if (!is_hfs_thread_record_type(type)) {
+ 		pr_err("found bad thread record in catalog\n");
+ 		return -EIO;
+ 	}
+@@ -350,23 +350,22 @@ int hfsplus_delete_cat(u32 cnid, struct inode *dir, const struct qstr *str)
+ 		goto out;
+ 
+ 	if (!str) {
+-		int len;
++		hfsplus_cat_entry entry = {0};
+ 
+ 		hfsplus_cat_build_key_with_cnid(sb, fd.search_key, cnid);
+-		err = hfs_brec_find(&fd, hfs_find_rec_by_key);
++		err = hfsplus_brec_read_cat(&fd, &entry);
+ 		if (err)
+ 			goto out;
+ 
+-		off = fd.entryoffset +
+-			offsetof(struct hfsplus_cat_thread, nodeName);
+-		fd.search_key->cat.parent = cpu_to_be32(dir->i_ino);
+-		hfs_bnode_read(fd.bnode,
+-			&fd.search_key->cat.name.length, off, 2);
+-		len = be16_to_cpu(fd.search_key->cat.name.length) * 2;
+-		hfs_bnode_read(fd.bnode,
+-			&fd.search_key->cat.name.unicode,
+-			off + 2, len);
+-		fd.search_key->key_len = cpu_to_be16(6 + len);
++		type = be16_to_cpu(entry.type);
++		if (!is_hfs_thread_record_type(type)) {
++			pr_err("found bad thread record in catalog\n");
++			err = -EIO;
++			goto out;
++		}
++
++		hfsplus_cat_build_key_uni(fd.search_key, dir->i_ino,
++					  &entry.thread.nodeName);
+ 	} else {
+ 		err = hfsplus_cat_build_key(sb, fd.search_key, dir->i_ino, str);
+ 		if (unlikely(err))
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 005f9648e1d97..9192637ed739e 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -542,6 +542,12 @@ static inline u32 hfsplus_cat_thread_size(const struct hfsplus_cat_thread *threa
+ 	       be16_to_cpu(thread->nodeName.length) * sizeof(hfsplus_unichr);
  }
  
--/**
-- * linedisp_display() - set the message to be displayed
-- * @linedisp: pointer to the private data structure
-- * @msg: the message to display
-- * @count: length of msg, or -1
-- *
-- * Display a new message @msg on the display. @msg can be longer than the
-- * number of characters the display can display, in which case it will begin
-- * scrolling across the display.
-- *
-- * Return: 0 on success, -ENOMEM on memory allocation failure
-- */
--static int linedisp_display(struct linedisp *linedisp, const char *msg,
--			    ssize_t count)
-+static int linedisp_set_message(struct linedisp *linedisp, const char *msg,
-+				ssize_t count)
- {
- 	char *new_msg;
- 
-@@ -181,8 +169,6 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
- 		kfree(linedisp->message);
- 		linedisp->message = NULL;
- 		linedisp->message_len = 0;
--		memset(linedisp->buf, ' ', linedisp->num_chars);
--		linedisp->ops->update(linedisp);
- 		return 0;
- 	}
- 
-@@ -195,6 +181,16 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
- 	linedisp->message = new_msg;
- 	linedisp->message_len = count;
- 	linedisp->scroll_pos = 0;
-+	return 0;
++static inline
++bool is_hfs_thread_record_type(u16 type)
++{
++	return type == HFSPLUS_FOLDER_THREAD || type == HFSPLUS_FILE_THREAD;
 +}
 +
-+static void linedisp_update(struct linedisp *linedisp)
-+{
-+	if (!linedisp->message_len) {
-+		memset(linedisp->buf, ' ', linedisp->num_chars);
-+		linedisp->ops->update(linedisp);
-+		return;
-+	}
+ int hfsplus_brec_read_cat(struct hfs_find_data *fd, hfsplus_cat_entry *entry);
  
- 	if (should_scroll(linedisp)) {
- 		/* display scrolling message */
-@@ -206,7 +202,30 @@ static int linedisp_display(struct linedisp *linedisp, const char *msg,
- 		       umin(linedisp->num_chars, linedisp->message_len));
- 		linedisp->ops->update(linedisp);
- 	}
-+}
- 
-+/**
-+ * linedisp_display() - set the message to be displayed
-+ * @linedisp: pointer to the private data structure
-+ * @msg: the message to display
-+ * @count: length of msg, or -1
-+ *
-+ * Display a new message @msg on the display. @msg can be longer than the
-+ * number of characters the display can display, in which case it will begin
-+ * scrolling across the display.
-+ *
-+ * Return: 0 on success, -ENOMEM on memory allocation failure
-+ */
-+static int linedisp_display(struct linedisp *linedisp, const char *msg,
-+			    ssize_t count)
-+{
-+	int err;
-+
-+	err = linedisp_set_message(linedisp, msg, count);
-+	if (err)
-+		return err;
-+
-+	linedisp_update(linedisp);
- 	return 0;
- }
- 
-@@ -461,8 +480,7 @@ int linedisp_attach(struct linedisp *linedisp, struct device *dev,
- 	if (err)
- 		goto out_del_timer;
- 
--	/* display a default message */
--	err = linedisp_display(linedisp, LINEDISP_INIT_TEXT, -1);
-+	err = linedisp_set_message(linedisp, LINEDISP_INIT_TEXT, -1);
- 	if (err)
- 		goto out_del_attach;
- 
-@@ -471,6 +489,9 @@ int linedisp_attach(struct linedisp *linedisp, struct device *dev,
- 	if (err)
- 		goto out_del_attach;
- 
-+	/* display the prepared default message */
-+	linedisp_update(linedisp);
-+
- 	return 0;
- 
- out_del_attach:
-@@ -557,8 +578,7 @@ int linedisp_register(struct linedisp *linedisp, struct device *parent,
- 	if (err)
- 		goto out_del_timer;
- 
--	/* display a default message */
--	err = linedisp_display(linedisp, LINEDISP_INIT_TEXT, -1);
-+	err = linedisp_set_message(linedisp, LINEDISP_INIT_TEXT, -1);
- 	if (err)
- 		goto out_del_attach;
- 
-@@ -566,6 +586,9 @@ int linedisp_register(struct linedisp *linedisp, struct device *parent,
- 	if (err)
- 		goto out_del_attach;
- 
-+	/* display the prepared default message */
-+	linedisp_update(linedisp);
-+
- 	return 0;
- 
- out_del_attach:
+ /*
 -- 
-2.39.5
+2.53.0
+
+
 
