@@ -1,91 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF713F4DC2
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:16:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF9E3F54A0;
+	Sun, 13 Sep 2026 18:17:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789323412; cv=none; b=FYfLFkzPwc0qKSOMiwk5UZy0GyHZpKFBGkXx+BWyxpq6P672Rj1rIUFyXTCtwhCTTMCX5eplglFNleqZWxpS0+udSrV+qrC6IpAUgpVZuoo0VVPlG9XhudsH1ToGM0wCy8gUU+5R4zBQqjabR6XWPXBplgZtxtij+XN0NGz5I8E=
+	t=1789323432; cv=none; b=TGSL98uLoYHf/x3U4DuIOIBT6tRxFxIPogojdydvnx8s8tHSjLGTfZN4ZkOZaqiKwSGqGAYWTQ0+zM9jhRsGZry9IlY6zPvUEn+suVOG9heEtpeUiyKxeaVJdjkWs5Mki/FQYA3aSR3jofrtUoWmk+PC6WquOxK6pJjwITBz3jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789323412; c=relaxed/simple;
-	bh=1QzAB9p90Qh27J4J7gZjVOxRVC4biyKLymcKKMOew8A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rt3IEW+G0pzH3nO03hKyXwrnUu2exXhMLnu0BsswP7k8LGBQXb4uwD6rRW5d3wc1zEackXevk+31CzTSa2wZbVtxm4nlfl6M2E5Gh9cYng1+4POyDbC40YVNIRzG+7btrAyqR5MWjIkF//wzOeXfbTs+D1VzPSt8brSKW0TFaIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KBqNvLj8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789323432; c=relaxed/simple;
+	bh=2ay6uYNiAvfzm+LVUR52j3HSlIOFM2i8nvtj5febeoM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=cYHa2zr0mPSGZ0dXIT/hRGtO3wbATPGhvIttBD65C9i3L4tUZBEDrZCVxZ2f59sY0h+O/RPX04jZAWF1xcznZG4m8OhSCBV9L++Wkf66v7dM8/WIH83EzoadLKAeDAt1kk3FaJ02qxOiVIE3h703h1StdMC14EHysRT9Vuu3o98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=CH2uAWDP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KBqNvLj8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DF81F00899
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:16:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789323391;
-	bh=B68nppT0QcAiLKpkM0HEbPdldxHI7O8D13NwaFCKN2U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KBqNvLj8M30QvF8wNwTMLMAO7d7WHXsFbnJq+0hZtOnrQ2FTs2QmCu5vDGt9GatNy
-	 DYFidwu6cV2RV1odUeUGg3Db/gCaKVMQ/tFlTl+/tqHOMHuUNovSoC0sojF2YTsYpp
-	 Xh3+ibmfSVtrkNKiEpwm6bcnAqbkc+9oaPkd9ScLKfkkrysHkjpbm4+xGCoFp6zedi
-	 8O8i7V+6uL/eyzjPsc097bVQXhk8Se00sd5OMAVlaJIJU7gDBs1/oCabQbhfK69AZ7
-	 k7zXzNfOewM96VRBxLjkJvLtYJXoy1gH7plUc0qlPiVSNjSqAkypLTBaa54WYn8Xv0
-	 2MFrzfRyiEUcg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f12so1525288e87.1
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 11:16:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByfJbPr0GqmqUShGxnaaWKB1dk5x7xpssiuQjqPTO6UoplzSyBNt+2qYwiGL3ZldUeNTAIlBn4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbWIMcqmWyWW/w7fd1Sg0xE18lM26bQf/o50/vkBSao+VlOhIw
-	BZ1tz2MSac6IgjZlbGt0PRIPU1+WxM2GdxaT7r4kJdjSOPq+zCEtX/kjvb1lQ15sXuUZ463pAmU
-	IDHHl3exiyrthwJGax7mT4jBMVjvIszQ=
-X-Received: by 2002:a05:6512:32c8:b0:5b8:99b0:6565 with SMTP id
- 2adb3069b0e04-5b8a02dcf81mr5093133e87.6.1789323390098; Sun, 13 Sep 2026
- 11:16:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="CH2uAWDP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7899E1F000FF;
+	Sun, 13 Sep 2026 18:17:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789323422;
+	bh=KU9uwymn0LP9fWhntovos+AUWynKcZgGYx2o/2j+a04=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CH2uAWDPfwJyNBnFFm4FV6Qp6lxylRxMjUnlTHRYBRgV6ogXRxUnAeAuICkUT9bW0
+	 3HeCA7cuIqR5q9Gk6G14cSFkh+hoeSXKNcYBE8tMpgn6AhbDt/j1m+ZslOy2aDmnqI
+	 cubMNgGpEpRteAyW+WxLtkz+6XEEN/wL+Q/XueLA=
+Date: Sun, 13 Sep 2026 11:17:00 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
+ Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Matthew Wilcox <willy@infradead.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>
+Subject: Re: [PATCH v2] khugepaged: hold invalidate_lock across
+ collapse_file() readahead
+Message-Id: <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
+In-Reply-To: <20260913163644.122133-1-ngocthang2710.1999@gmail.com>
+References: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
+	<20260913163644.122133-1-ngocthang2710.1999@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260913120458.1608186-1-liuc63@xiaopeng.com>
-In-Reply-To: <20260913120458.1608186-1-liuc63@xiaopeng.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 13 Sep 2026 20:16:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnUz=GKfHd6j5svCNu9e6zL6jsK-xRMd21SrwaAR3yQZA@mail.gmail.com>
-X-Gm-Features: AcwNN1XsHvl-bnev7PrSVwTkVmzQlXlyVTNsLE8toU-j9kSrl2CejoCFliw7gTE
-Message-ID: <CAD++jLnUz=GKfHd6j5svCNu9e6zL6jsK-xRMd21SrwaAR3yQZA@mail.gmail.com>
-Subject: Re: [PATCH] usb: fotg210: validate endpoint index in ep0 handlers
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 2:05=E2=80=AFPM Liu Chao <liuc63@xiaopeng.com> wrot=
-e:
+On Sun, 13 Sep 2026 23:36:44 +0700 Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com> wrote:
 
-> fotg210_set_feature(), fotg210_clear_feature() and fotg210_get_status()
-> use wIndex from the USB setup packet to index the fotg210->ep[] array
-> without verifying that the endpoint number falls below
-> FOTG210_MAX_NUM_EP (5).  USB_ENDPOINT_NUMBER_MASK is 0x0f, so a
-> malicious host can issue a setup packet with wIndex 5..15, resulting in
-> an out-of-bounds array read.  The resulting wild pointer is then
-> dereferenced in fotg210_set_epnstall() or fotg210_is_epnstall(), which
-> compute an MMIO register offset from ep->epnum and perform iowrite32
-> through it.
->
-> fotg210_clear_feature() is especially problematic: the out-of-bounds
-> access occurs at function entry (source-level) regardless of which
-> USB_RECIP_* case is taken, because the ep pointer is computed before the
-> switch statement.
->
-> Add upper-bound checks on the endpoint number derived from wIndex in
-> all three functions.  Invalid endpoint numbers in clear_feature now
-> trigger fotg210_request_error() (STALL) instead of silently falling
-> through to fotg210_set_cxdone().  Also add the missing le16_to_cpu()
-> conversion for ctrl->wIndex in fotg210_get_status() to fix a sparse
-> endianness warning.
->
-> Fixes: b84a8dee23fd ("usb: gadget: add Faraday fotg210_udc driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> collapse_file() calls page_cache_sync_readahead() to fault in missing
+> pages before collapsing them into a THP. That helper takes
+> mapping->invalidate_lock itself for the duration of the call, then
+> drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
+> takes invalidate_lock and then waits on each page's folio lock while
+> holding it. If collapse_file() has already locked one of those folios
+> by the time truncate reaches it, and then tries to acquire
+> invalidate_lock again (e.g. on the first readahead call, since
+> invalidate_lock is not yet held at that point), the two paths can
+> deadlock/hang on each other's lock: truncate blocked on the folio lock
+> collapse holds, and collapse blocked waiting for invalidate_lock that
+> truncate holds.
+> 
+> Reproducing this over ~150,000 collapse iterations with truncate
+> racing concurrently reliably hits hung_task: blocked tasks within
+> about 20 seconds on an unpatched kernel.
+> 
+> Fix it by taking invalidate_lock_shared once for the whole scan, after
+> alloc_charge_folio() succeeds and before locking any folio, and using
+> page_cache_ra_unbounded() directly in the readahead call site instead
+> of page_cache_sync_readahead(), since the latter would try to retake
+> the lock we already hold. page_cache_ra_unbounded() does not clamp to
+> EOF like the helper it replaces, so clamp the requested range
+> explicitly.
+> 
+> 730633f0b7f9 added invalidate_lock acquisition around readahead but
+> missed collapse_file(), which already locks pages while calling
+> readahead; later filesystem conversions made the deadlock reachable by
+> taking invalidate_lock before waiting on page locks during truncate.
+> 
+> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 
-That's a good catch.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+(You forgot to cc the original author)
 
-Yours,
-Linus Walleij
+Five years.  
+
+I wonder why this hasn't been discovered by lockdep, AI, syzbot or any
+other of the tools we've been using for so long.
+
+Thanks for doing all this.
+
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -2257,6 +2257,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	enum scan_result result = SCAN_SUCCEED;
+>  	int nr_none = 0;
+>  	bool is_shmem = shmem_file(file);
+> +	bool need_unlock = false;
+>  
+>  	/*
+>  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+> @@ -2271,6 +2272,15 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	if (result != SCAN_SUCCEED)
+>  		goto out;
+>  
+> +	/*
+> +	 * Take invalidate_lock before any folio lock: the readahead below
+> +	 * needs it, and truncate holds it while waiting on folio locks.
+> +	 */
+> +	if (!is_shmem) {
+
+Is the shmem special-case a red flag?
+
+Probably this fix an acceptable minimal-thing-for-backporting.
+
+Question for maintainers as well as for yourself: but does this
+indicate a need for a more architected redo?
+
