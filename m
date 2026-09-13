@@ -1,44 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5548F19F121;
-	Sun, 13 Sep 2026 05:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFFF37F30E
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 05:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789277604; cv=none; b=poW/Yg1p82J8M5riWe4/Q2B3dHk8ck1h5xeuwBIfSDX8rtCEHO2VowzZyZOCe6DWnxKz85fi2nppSeJbe/3AHRVgee8a4etJlvnbQC9PQiRZ/AGiSwRFvFanCUgjDi3KFUiN3Rbao40AxBl50mOXSamWH7xI5yoYGJqq2EnDIZA=
+	t=1789277744; cv=none; b=f5fm9s+C87GeD2F4T4UmBZsfMSKqjo9cWVKdqkD7VBctHvl3PkRqRVelqemsvJESlZqHkqct9+H9Q6SBBLmDDflQyLE2UkAt1iWg9fL8cH+ga9GopTbmwuEdDMUadVlanpSsawmN5HMQPUBBhwg1OI88ON/3e8E/RmRn6jGENYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789277604; c=relaxed/simple;
-	bh=an9yCD/Oaw514gf7e29eHtDQw+/MO8kuJJFXQJW/Qrs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SgE82B1zYnU6IHzjAu6IgnrrQ6YE4qKTvhaFpIrpeWoDIkPcHbppTecQCcxQRCxSJcA6I+0MntgjzoHSt5bJyzTnao5w7Cz0mYXCBTdOZfDxs8CxiY1ZifrABZm28I768woW3nFQWFyXEpnkpIi38phOIEjCUlE+xQOqdG2zRmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ycEdmZED; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789277744; c=relaxed/simple;
+	bh=g3UkdkpCWLnZGOnt0s3r1JZYTobd2xUzpt7kHCypGs4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PSCfty7GseBozCNJuQoFVK6+lNwyaFfVRkk+6hP7aWs829cbi1Pkow2hv+phGLdkF43lD3RyZtPwdxaeVKtX8GH/fEs6JIH766EjFiQqpVpsHVHQUJd3Q623tQ8nl8XxuG/5OIwE8fs5m0hypscDXt5NoKIw5eo/jD04T3Bfov0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJiHx042; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ycEdmZED"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F821F000FF;
-	Sun, 13 Sep 2026 05:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789277601;
-	bh=tQHfuLZAVyPSleAqHmoqNE5r6Or5+mHj62d/7SIUBRI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ycEdmZEDgrmexLMyhGXu+4rjVWzXrRP5RuVwI2GOm42iDePMwl8FGrq/n6iOSUnq2
-	 pjTbRf/AoSSR8sE3Mo+ob0vRXc4vogSdrWKDHywHz4WXGIDKvZN2KTdx9GHBPXPgKr
-	 G8aL1c45NQ59PCmkDXvypGxM888f8DQ+tJaCRGWQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Denis Benato <denis.benato@linux.dev>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 1004/1815] HID: asus: refactor the two workqueues and init sequence
-Date: Sat, 12 Sep 2026 08:45:54 +0200
-Message-ID: <20260912065712.577462854@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-References: <20260912065648.999753832@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJiHx042"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so977768a91.2
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 22:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789277742; x=1789882542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dEi52B8rAYhWrqmn6XsExZbTrS6LSYARttaUbapzORo=;
+        b=FJiHx042TR+0fsP6tvu2pVf2uzcBP/43QTPIynsOu4ZvzwIb9jX3YAMQAYd4hQfB/d
+         QyWjO1fJIv6o6XucjkCWl7cv6ezvMKvcXc9s7L+83/vQIomrdQZA0c24kb9MBMCfxiix
+         I4mh2kzFtIEIHWK+rGlUgeRHOTlSOYfcPizdfRjb2wjlfi3ZS/0JIPUk19S6SN+papBU
+         cK4e9pB9mVa9c043FbO8yWeIGXlV8BrgZnSpKpCU8eq5xTteuCpk1P8+Fr90lGDvr/f0
+         ezTy59LnrmJNLYUUB0PXCDrLRHkQtFmFwvPOIwUbbHg4+oVBUk8oWuHSJlrK9DwRLJYT
+         ibhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789277742; x=1789882542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dEi52B8rAYhWrqmn6XsExZbTrS6LSYARttaUbapzORo=;
+        b=WKZ9gwF6OKu3tA5WIOUOnUhD0zqDlgKujEpsKgmFdV+N0zaEN4l080kqZM6DMUURTK
+         jaz8zfnsm4tyiQhVXbxcMICRX1v0y5bDgZfyYemt/hJTi1AF/2Ma31uE4zaH96DAqLBv
+         HEQsSDZb+ChCYCzuWNldHpzTLA57JWbKh7SK87y37afxMcy9PcOm/oS2fmGfcUK4Wokn
+         +80TfN7xCK6/Rap9b3JWVDc7qauxtZCQ8RMaOvIpfy7mu0SdgxdEwIGcNEKcR6IYNt3F
+         +0cpdwXX9JCeQgRjgWhsj5cJtM/GA+/8c9lzssQTSyl0C9OAoOkGLVLYELd4Bb2M59zb
+         Q/Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBynA64y8s68oof7qhdsVA7zp5AZc9luFx7R5hESkridqWiEiasRZ1fTN7NaL2XdjzCZE68zfBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6WfAESGMyxdhE8tB0KyzMk8hZYOLm7/I7idwGRIWb67MXlbYa
+	YMVLfuMF8vAUMdIeqtSrnhc+kNSHoNZYhJw9620B8sQps+Xi//jP3UU2o0ifK14+
+X-Gm-Gg: AYBFou3PsbiIsKIfZaWxGMX23H5aAgt6IpNeewojEY7tU//+ziP+IwCQTH6T/jFkJa5
+	iqs5k+qRsS5EgsedKjLC82PWKiNXWWCcEGbRnAhZBzc2POqNNNhjl38Qt3R2afooG5dvcIhOM2+
+	en1d5hC/taeZC3lhYfuTIvUYVjYQZmk6drLEAFyzaCckWEBbXZhLyOTlmoV/X4hevAJLD2SoM9N
+	Cjg9D/eSEO3MQ5qqeD0OzKTzgqpOah3wpTgBHWX6L+lDiQXMfnW4OqdhOvkbMNHzQlkFp512438
+	N9pJvDI1sZlmM6ZTo0NY+EjzmWsSjcMuiatA4/SaVa7eiyGUvEnhvo/Bvm8JCeYp3Q73etV0rty
+	jNY+4gSSXOyriG971BIWySX/YMOd3cOwoh5MSjjI1wSSSNGhnnK6D4AKbLDfBFnLaZON/rKp42b
+	l6gwJy58sWArQWr+H5vhlW/WuZF8sJE/tn37UizF3p06T1a/lIlo0CFEHxaLokvy/L
+X-Received: by 2002:a17:90b:4fc5:b0:399:149a:3f27 with SMTP id 98e67ed59e1d1-39d9bd71246mr21202876a91.9.1789277742198;
+        Sat, 12 Sep 2026 22:35:42 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d1056sm13277134a91.7.2026.09.12.22.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 22:35:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] EDAC/versalnet: fix remoteproc reference leak
+Date: Sun, 13 Sep 2026 13:35:32 +0800
+Message-ID: <20260913053532.1324671-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,590 +76,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+mc_probe() acquires a reference to the remote processor with
+rproc_get_by_phandle(), but mc_remove() does not release the reference.
 
-------------------
+rproc_shutdown() only balances the power reference acquired by
+rproc_boot(); it does not drop the device reference acquired by
+rproc_get_by_phandle(). As a result, successful driver removal leaves
+the remoteproc reference unbalanced.
 
-From: Denis Benato <denis.benato@linux.dev>
+Call rproc_put() during removal to release the reference acquired in
+mc_probe().
 
-[ Upstream commit 47669bec44fe12fe2c7adf2b299e980d7935a2ce ]
+This issue was found by manual code inspection.
 
-Multiple issues have been found within the hid-asus driver:
-- unchecked size in asus_raw_event()
-- unclean teardown of asus_probe on failure
-- possible use-after-free in asus_probe
-- multiple workqueue used for jobs where one was enough
-- sleeping calls in atomic context
-- packets of incorrect size being sent to the keyboard controller
-
-Join the two workqueues into one reusing the stopping mechanism
-of the brightness workqueue, use the joined workqueue to also
-move the asus_wmi_send_event() sleeping call away from atomic
-context and add a size check in asus_raw_event().
-
-Fixes: f631011e36b8 ("HID: hid-asus: Implement fn lock for Asus ProArt P16")
-Fixes: 1489a34e97ef ("HID: asus: Implement Fn+F5 fan control key handler")
-Fixes: b34b5945a769 ("HID: asus: listen to the asus-wmi brightness device instead of creating one")
-Reported-by: sahiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260613154732.60A4B1F000E9@smtp.kernel.org/
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: d5fe2fec6c40d ("EDAC: Add a driver for the AMD Versal NET DDR controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/hid/hid-asus.c | 392 ++++++++++++++++++++++++++++++-----------
- 1 file changed, 286 insertions(+), 106 deletions(-)
+ drivers/edac/versalnet_edac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index befa990b3210e..00c5bbfd706f3 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -109,11 +109,36 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
- 
- #define TRKID_SGN       ((TRKID_MAX + 1) >> 1)
- 
--struct asus_kbd_leds {
--	struct asus_hid_listener listener;
-+enum asus_work_action_type {
-+	FN_LOCK_SYNC,
-+	BRIGHTNESS_SET,
-+	WMI_FAN,
-+};
-+
-+struct hid_raw_event_data {
-+	u8 report_data[FEATURE_KBD_REPORT_SIZE];
-+	size_t report_size;
-+};
-+
-+struct asus_work_action {
-+	struct list_head node;
-+	enum asus_work_action_type type;
-+	union {
-+		/* Data for BRIGHTNESS_SET */
-+		unsigned int brightness;
-+
-+		/* Data for FN_LOCK_SYNC */
-+		bool fn_lock;
-+
-+		/* Data for WMI_FAN */
-+		struct hid_raw_event_data fan_hid_data;
-+	} data;
-+};
-+
-+struct asus_worker {
- 	struct hid_device *hdev;
- 	struct work_struct work;
--	unsigned int brightness;
-+	struct list_head actions;
- 	spinlock_t lock;
- 	bool removed;
- };
-@@ -133,7 +158,8 @@ struct asus_drvdata {
- 	struct hid_device *hdev;
- 	struct input_dev *input;
- 	struct input_dev *tp_kbd_input;
--	struct asus_kbd_leds *kbd_backlight;
-+	struct asus_worker *worker;
-+	unsigned int kbd_backlight_brightness;
- 	const struct asus_touchpad_info *tp;
- 	struct power_supply *battery;
- 	struct power_supply_desc battery_desc;
-@@ -141,7 +167,7 @@ struct asus_drvdata {
- 	int battery_stat;
- 	bool battery_in_query;
- 	unsigned long battery_next_query;
--	struct work_struct fn_lock_sync_work;
-+	struct asus_hid_listener listener;
- 	bool fn_lock;
- };
- 
-@@ -211,6 +237,29 @@ static const u8 asus_report_id_init[] = {
- 	FEATURE_KBD_LED_REPORT_ID2
- };
- 
-+/*
-+ * Send events to asus-wmi driver for handling special keys
-+ */
-+static int asus_wmi_send_event(struct asus_drvdata *drvdata, u8 code)
-+{
-+	int err;
-+	u32 retval;
-+
-+	err = asus_wmi_evaluate_method(ASUS_WMI_METHODID_DEVS,
-+				       ASUS_WMI_METHODID_NOTIF, code, &retval);
-+	if (err) {
-+		pr_warn("Failed to notify asus-wmi: %d\n", err);
-+		return err;
-+	}
-+
-+	if (retval != 0) {
-+		pr_warn("Failed to notify asus-wmi (retval): 0x%x\n", retval);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
- static void asus_report_contact_down(struct asus_drvdata *drvdat,
- 		int toolType, u8 *data)
- {
-@@ -331,25 +380,71 @@ static int asus_e1239t_event(struct asus_drvdata *drvdat, u8 *data, int size)
- }
- 
- /*
-- * Send events to asus-wmi driver for handling special keys
-+ * Used in atomic contexts to schedule work involving sleeps operations or
-+ * asus-wmi interactions.
-+ *
-+ * Caller is responsible to store relevant data in the structure to carry out
-+ * the required action.
-+ *
-+ * This function must be called while the spin lock protecting the workqueue
-+ * is already being held.
-  */
--static int asus_wmi_send_event(struct asus_drvdata *drvdata, u8 code)
-+static void asus_worker_schedule(struct asus_worker *worker, struct asus_work_action *action)
- {
--	int err;
--	u32 retval;
--
--	err = asus_wmi_evaluate_method(ASUS_WMI_METHODID_DEVS,
--				       ASUS_WMI_METHODID_NOTIF, code, &retval);
--	if (err) {
--		pr_warn("Failed to notify asus-wmi: %d\n", err);
--		return err;
-+	if (worker->removed) {
-+		kfree(action);
-+		return;
- 	}
- 
--	if (retval != 0) {
--		pr_warn("Failed to notify asus-wmi (retval): 0x%x\n", retval);
--		return -EIO;
-+	list_add_tail(&action->node, &worker->actions);
-+	schedule_work(&worker->work);
-+}
-+
-+static int asus_kbd_fn_lock_set(struct asus_drvdata *drvdata, bool enabled)
-+{
-+	struct asus_work_action *action;
-+	unsigned long flags;
-+
-+	action = kzalloc(sizeof(struct asus_work_action), GFP_ATOMIC);
-+	if (!action)
-+		return -ENOMEM;
-+
-+	drvdata->fn_lock = enabled;
-+	action->type = FN_LOCK_SYNC;
-+	action->data.fn_lock = drvdata->fn_lock;
-+	INIT_LIST_HEAD(&action->node);
-+
-+	spin_lock_irqsave(&drvdata->worker->lock, flags);
-+	asus_worker_schedule(drvdata->worker, action);
-+	spin_unlock_irqrestore(&drvdata->worker->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int asus_kbd_wmi_fan_send(struct asus_drvdata *drvdata, u8 *report_data,
-+				 size_t report_size)
-+{
-+	struct asus_work_action *action;
-+	unsigned long flags;
-+
-+	if (report_size > FEATURE_KBD_REPORT_SIZE) {
-+		hid_err(drvdata->hdev, "Invalid report size for fan event: %zu\n", report_size);
-+		return -EINVAL;
- 	}
- 
-+	action = kzalloc(sizeof(struct asus_work_action), GFP_NOWAIT);
-+	if (!action)
-+		return -ENOMEM;
-+
-+	action->type = WMI_FAN;
-+	action->data.fan_hid_data.report_size = report_size;
-+	memcpy(action->data.fan_hid_data.report_data, report_data, report_size);
-+	INIT_LIST_HEAD(&action->node);
-+
-+	spin_lock_irqsave(&drvdata->worker->lock, flags);
-+	asus_worker_schedule(drvdata->worker, action);
-+	spin_unlock_irqrestore(&drvdata->worker->lock, flags);
-+
- 	return 0;
- }
- 
-@@ -357,6 +452,7 @@ static int asus_event(struct hid_device *hdev, struct hid_field *field,
- 		      struct hid_usage *usage, __s32 value)
- {
- 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	int ret;
- 
- 	if ((usage->hid & HID_USAGE_PAGE) == HID_UP_ASUSVENDOR &&
- 	    (usage->hid & HID_USAGE) != 0x00 &&
-@@ -375,8 +471,11 @@ static int asus_event(struct hid_device *hdev, struct hid_field *field,
- 			return !asus_hid_event(ASUS_EV_BRTTOGGLE);
- 		case KEY_FN_ESC:
- 			if (drvdata->quirks & QUIRK_HID_FN_LOCK) {
--				drvdata->fn_lock = !drvdata->fn_lock;
--				schedule_work(&drvdata->fn_lock_sync_work);
-+				ret = asus_kbd_fn_lock_set(drvdata, !drvdata->fn_lock);
-+				if (ret) {
-+					hid_err(hdev, "Error while toggling FN lock: %d\n", ret);
-+					return ret;
-+				}
- 			}
- 			break;
- 		}
-@@ -389,6 +488,12 @@ static int asus_raw_event(struct hid_device *hdev,
- 		struct hid_report *report, u8 *data, int size)
- {
- 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	int ret;
-+
-+	if (size < 2) {
-+		hid_dbg(hdev, "Unexpected keyboard report size %d\n", size);
-+		return 0;
-+	}
- 
- 	if (drvdata->battery && data[0] == BATTERY_REPORT_ID)
- 		return asus_report_battery(drvdata, data, size);
-@@ -414,19 +519,13 @@ static int asus_raw_event(struct hid_device *hdev,
- 			 * pass to userspace so it can implement its own fan control.
- 			 */
- 			if (data[1] == ASUS_FAN_CTRL_KEY_CODE) {
--				int ret = asus_wmi_send_event(drvdata, ASUS_FAN_CTRL_KEY_CODE);
-+				ret = asus_kbd_wmi_fan_send(drvdata, data, size);
- 
--				if (ret == 0) {
--					/* Successfully handled by asus-wmi, block event */
-+				/* if execution deferred successfully block event */
-+				if (ret == 0)
- 					return -1;
--				}
- 
--				/*
--				 * Warn if asus-wmi failed (but not if it's unavailable).
--				 * Let the event reach userspace in all failure cases.
--				 */
--				if (ret != -ENODEV)
--					hid_warn(hdev, "Failed to notify asus-wmi: %d\n", ret);
-+				return ret;
- 			}
- 
- 			/*
-@@ -569,59 +668,157 @@ static int asus_kbd_disable_oobe(struct hid_device *hdev)
- 	return 0;
- }
- 
--static int asus_kbd_set_fn_lock(struct hid_device *hdev, bool enabled)
-+static void asus_kbd_set_fn_lock(struct hid_device *hdev, bool enabled)
- {
--	u8 buf[] = { FEATURE_KBD_REPORT_ID, 0xd0, 0x4e, !!enabled };
-+	const u8 buf[FEATURE_KBD_REPORT_SIZE] = { FEATURE_KBD_REPORT_ID, 0xd0, 0x4e, !!enabled };
-+	int ret;
- 
--	return asus_kbd_set_report(hdev, buf, sizeof(buf));
-+	ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
-+	if (ret < 0)
-+		hid_err(hdev, "Asus failed to set fn lock: %d\n", ret);
- }
- 
--static void asus_sync_fn_lock(struct work_struct *work)
-+static void asus_kbd_set_brightness(struct hid_device *hdev, u8 brightness)
- {
--	struct asus_drvdata *drvdata =
--	container_of(work, struct asus_drvdata, fn_lock_sync_work);
-+	const u8 buf[FEATURE_KBD_REPORT_SIZE] = {
-+		FEATURE_KBD_REPORT_ID, 0xba, 0xc5, 0xc4, brightness
-+	};
-+	int ret;
- 
--	asus_kbd_set_fn_lock(drvdata->hdev, drvdata->fn_lock);
-+	ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
-+	if (ret < 0)
-+		hid_err(hdev, "Asus failed to set keyboard backlight: %d\n", ret);
- }
- 
--static void asus_schedule_work(struct asus_kbd_leds *led)
-+static void asus_kbd_wmi_fan(struct hid_device *hdev, struct hid_raw_event_data *data)
- {
-+	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	int ret;
-+
-+	ret = asus_wmi_send_event(drvdata, ASUS_FAN_CTRL_KEY_CODE);
-+
-+	/*
-+	 * Warn if asus-wmi failed (but not if it's unavailable).
-+	 * Let the event reach userspace in all failure cases.
-+	 */
-+	switch (ret) {
-+	case -ENODEV:
-+		break;
-+	case 0:
-+		return;
-+	default:
-+		hid_warn(hdev, "Failed to notify asus-wmi: %d\n", ret);
-+		break;
-+	}
-+
-+	/*
-+	 * Fallback: pass the raw event to the HID core; to avoid
-+	 * racing against the hid_report_raw_event() that generated
-+	 * this event use the same locking mechanism and wait for
-+	 * that function to terminate and signal the deferred execution
-+	 * before raising the stored event.
-+	 */
-+	down(&hdev->driver_input_lock);
-+	hid_report_raw_event(hdev, HID_INPUT_REPORT,
-+			     data->report_data, data->report_size,
-+			     data->report_size, 1);
-+	up(&hdev->driver_input_lock);
-+}
-+
-+static void asus_kbd_backlight_set(struct asus_hid_listener *listener, int brightness)
-+{
-+	struct asus_drvdata *drvdata = container_of(listener, struct asus_drvdata, listener);
-+	struct asus_worker *worker = drvdata->worker;
-+	struct asus_work_action *action;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&led->lock, flags);
--	if (!led->removed)
--		schedule_work(&led->work);
--	spin_unlock_irqrestore(&led->lock, flags);
-+	drvdata->kbd_backlight_brightness = brightness;
-+
-+	action = kzalloc(sizeof(struct asus_work_action), GFP_NOWAIT);
-+	if (!action)
-+		return;
-+
-+	action->type = BRIGHTNESS_SET;
-+	action->data.brightness = brightness;
-+	INIT_LIST_HEAD(&action->node);
-+
-+	spin_lock_irqsave(&worker->lock, flags);
-+	asus_worker_schedule(worker, action);
-+	spin_unlock_irqrestore(&worker->lock, flags);
- }
- 
--static void asus_kbd_backlight_set(struct asus_hid_listener *listener,
--				   int brightness)
-+static void asus_work(struct work_struct *work)
- {
--	struct asus_kbd_leds *led = container_of(listener, struct asus_kbd_leds,
--						 listener);
-+	struct asus_worker *worker = container_of(work, struct asus_worker, work);
-+	struct asus_work_action *action = NULL;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&led->lock, flags);
--	led->brightness = brightness;
--	spin_unlock_irqrestore(&led->lock, flags);
-+	/* Save the action to be performed and clear the flag */
-+	spin_lock_irqsave(&worker->lock, flags);
-+	if (!list_empty(&worker->actions)) {
-+		action = list_first_entry(&worker->actions,
-+					  struct asus_work_action, node);
-+		list_del(&action->node);
-+	}
-+	spin_unlock_irqrestore(&worker->lock, flags);
-+
-+	if (!action)
-+		return;
-+
-+	switch (action->type) {
-+	case BRIGHTNESS_SET:
-+		asus_kbd_set_brightness(worker->hdev, action->data.brightness);
-+		break;
-+	case FN_LOCK_SYNC:
-+		asus_kbd_set_fn_lock(worker->hdev, action->data.fn_lock);
-+		break;
-+	case WMI_FAN:
-+		asus_kbd_wmi_fan(worker->hdev, &action->data.fan_hid_data);
-+		break;
-+	default:
-+		hid_err(worker->hdev, "Invalid action type: %d\n", action->type);
-+		break;
-+	}
-+
-+	kfree(action);
- 
--	asus_schedule_work(led);
-+	/* Re-schedule if there are more pending actions */
-+	spin_lock_irqsave(&worker->lock, flags);
-+	if (!list_empty(&worker->actions))
-+		schedule_work(&worker->work);
-+	spin_unlock_irqrestore(&worker->lock, flags);
- }
- 
--static void asus_kbd_backlight_work(struct work_struct *work)
-+static int asus_worker_create(struct hid_device *hdev, struct asus_drvdata *drvdata)
- {
--	struct asus_kbd_leds *led = container_of(work, struct asus_kbd_leds, work);
--	u8 buf[] = { FEATURE_KBD_REPORT_ID, 0xba, 0xc5, 0xc4, 0x00 };
--	int ret;
-+	drvdata->worker = devm_kzalloc(&hdev->dev, sizeof(struct asus_worker), GFP_KERNEL);
-+	if (!drvdata->worker)
-+		return -ENOMEM;
-+
-+	drvdata->worker->removed = false;
-+	drvdata->worker->hdev = hdev;
-+	INIT_LIST_HEAD(&drvdata->worker->actions);
-+
-+	INIT_WORK(&drvdata->worker->work, asus_work);
-+	spin_lock_init(&drvdata->worker->lock);
-+
-+	return 0;
-+}
-+
-+static void asus_worker_stop(struct asus_worker *worker)
-+{
-+	struct asus_work_action *action, *tmp;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&led->lock, flags);
--	buf[4] = led->brightness;
--	spin_unlock_irqrestore(&led->lock, flags);
-+	spin_lock_irqsave(&worker->lock, flags);
-+	worker->removed = true;
-+	list_for_each_entry_safe(action, tmp, &worker->actions, node) {
-+		list_del(&action->node);
-+		kfree(action);
-+	}
-+	spin_unlock_irqrestore(&worker->lock, flags);
- 
--	ret = asus_kbd_set_report(led->hdev, buf, sizeof(buf));
--	if (ret < 0)
--		hid_err(led->hdev, "Asus failed to set keyboard backlight: %d\n", ret);
-+	cancel_work_sync(&worker->work);
- }
- 
- /*
-@@ -760,23 +957,11 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
- 			le16_to_cpu(udev->descriptor.idProduct));
- 	}
- 
--	drvdata->kbd_backlight = devm_kzalloc(&hdev->dev,
--					      sizeof(struct asus_kbd_leds),
--					      GFP_KERNEL);
--	if (!drvdata->kbd_backlight)
--		return -ENOMEM;
--
--	drvdata->kbd_backlight->removed = false;
--	drvdata->kbd_backlight->brightness = 0;
--	drvdata->kbd_backlight->hdev = hdev;
--	drvdata->kbd_backlight->listener.brightness_set = asus_kbd_backlight_set;
--	INIT_WORK(&drvdata->kbd_backlight->work, asus_kbd_backlight_work);
--	spin_lock_init(&drvdata->kbd_backlight->lock);
--
--	ret = asus_hid_register_listener(&drvdata->kbd_backlight->listener);
-+	drvdata->listener.brightness_set = asus_kbd_backlight_set;
-+	ret = asus_hid_register_listener(&drvdata->listener);
- 	if (ret < 0) {
--		/* No need to have this still around */
--		devm_kfree(&hdev->dev, drvdata->kbd_backlight);
-+		hid_err(hdev, "Unable to register kbd brightness listener: %d\n", ret);
-+		drvdata->listener.brightness_set = NULL;
- 	}
- 
- 	return ret;
-@@ -998,11 +1183,9 @@ static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 
- 	drvdata->input = input;
- 
--	if (drvdata->quirks & QUIRK_HID_FN_LOCK) {
--		drvdata->fn_lock = true;
--		INIT_WORK(&drvdata->fn_lock_sync_work, asus_sync_fn_lock);
--		asus_kbd_set_fn_lock(hdev, true);
--	}
-+	if ((drvdata->quirks & QUIRK_HID_FN_LOCK) &&
-+	    (asus_kbd_fn_lock_set(drvdata, true)))
-+		hid_warn(hdev, "Error while setting FN lock to ON\n");
- 
- 	return 0;
- }
-@@ -1165,20 +1348,16 @@ static int asus_start_multitouch(struct hid_device *hdev)
- static int __maybe_unused asus_resume(struct hid_device *hdev)
- {
- 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
--	int ret = 0;
- 
--	if (drvdata->kbd_backlight) {
--		const u8 buf[] = { FEATURE_KBD_REPORT_ID, 0xba, 0xc5, 0xc4,
--				drvdata->kbd_backlight->brightness };
--		ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
--		if (ret < 0) {
--			hid_err(hdev, "Asus failed to set keyboard backlight: %d\n", ret);
--			goto asus_resume_err;
--		}
--	}
-+	/*
-+	 * If we have a backlight listener registered, restore the previous state,
-+	 * in case of error do not fail: most models restore the backlight
-+	 * automatically, and the error is non-fatal.
-+	 */
-+	if (drvdata->listener.brightness_set)
-+		asus_kbd_backlight_set(&drvdata->listener, drvdata->kbd_backlight_brightness);
- 
--asus_resume_err:
--	return ret;
-+	return 0;
- }
- 
- static int __maybe_unused asus_reset_resume(struct hid_device *hdev)
-@@ -1288,8 +1467,15 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 			is_vendor = true;
- 	}
- 
-+	ret = asus_worker_create(hdev, drvdata);
-+	if (ret) {
-+		hid_warn(hdev, "Failed to initialize worker: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
- 	if (ret) {
-+		asus_worker_stop(drvdata->worker);
- 		hid_err(hdev, "Asus hw start failed: %d\n", ret);
- 		return ret;
- 	}
-@@ -1337,6 +1523,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	return 0;
- err_stop_hw:
-+	if (drvdata->listener.brightness_set)
-+		asus_hid_unregister_listener(&drvdata->listener);
-+
-+	asus_worker_stop(drvdata->worker);
- 	hid_hw_stop(hdev);
- 	return ret;
- }
-@@ -1344,21 +1534,11 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
- static void asus_remove(struct hid_device *hdev)
- {
- 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
--	unsigned long flags;
--
--	if (drvdata->kbd_backlight) {
--		asus_hid_unregister_listener(&drvdata->kbd_backlight->listener);
--
--		spin_lock_irqsave(&drvdata->kbd_backlight->lock, flags);
--		drvdata->kbd_backlight->removed = true;
--		spin_unlock_irqrestore(&drvdata->kbd_backlight->lock, flags);
--
--		cancel_work_sync(&drvdata->kbd_backlight->work);
--	}
- 
--	if (drvdata->quirks & QUIRK_HID_FN_LOCK)
--		cancel_work_sync(&drvdata->fn_lock_sync_work);
-+	if (drvdata->listener.brightness_set)
-+		asus_hid_unregister_listener(&drvdata->listener);
- 
-+	asus_worker_stop(drvdata->worker);
- 	hid_hw_stop(hdev);
+diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
+index 97ec05d68bbb..3a06b41c1d84 100644
+--- a/drivers/edac/versalnet_edac.c
++++ b/drivers/edac/versalnet_edac.c
+@@ -953,6 +953,7 @@ static void mc_remove(struct platform_device *pdev)
+ 	remove_versalnet(priv);
+ 	rproc_shutdown(priv->mcdi->r5_rproc);
+ 	cdx_mcdi_finish(priv->mcdi);
++	rproc_put(priv->mcdi->r5_rproc);
+ 	kfree(priv->mcdi);
  }
  
 -- 
-2.53.0
-
-
+2.43.0
 
