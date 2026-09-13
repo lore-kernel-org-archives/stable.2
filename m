@@ -1,202 +1,172 @@
-Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f9.google.com (mail-qv2-f9.google.com [74.125.230.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23644366048
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 16:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D167D18A93F
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 16:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789317478; cv=none; b=RepqoOxvuKS+ZrIbS9JfEYk/IZgxLMmzsHxRI/MIn6Ce57U2kU7j+GlxJPvdhFo2ePfaJr2GF4jH/rEcnERuqGXnq6/rLQ7CZ9ySA3BZAowuRD18DVC+koqyllIL9mdWAbE4JE370KZbpCWWiLPOi/L6FVUlCSdZeOkLqz3AlGo=
+	t=1789318317; cv=none; b=PfldiPGbuqQjPGxd76qKulal8VuJn5AeMGlXJ6uyi4W36jXefd6Ap0uFSqaGnYGXwXVw5sT+/k5HJrNwnsdw5wmGVsBhUFvoXqZJHNx41hWYaitZ6hWkWqaD+/pwyPIlFe9wPwQHL/usHuZwyt/jBs/lvwEuqNlROofGSzOKexc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789317478; c=relaxed/simple;
-	bh=foVvBTZGZiEy5Y1kEdmNf1VrmnTJmUtwTC9xMqYUlio=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xxj9yasnVuS53UqMM5yMoTqyp0MVVBHaVAy0XYh4Hb0BNZtrNVPmifdYGsogccpcIK+gfkPFOt8CV+YeMrV7/QRGUsorIhjbqhb/uFaxDb+Bc4kaCE6ELHlK5jpan2uOVoT93Wz7OW8RAuTnGrucFlLFdeTo5NwTiax50s0vyu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=gzHO04Ae; arc=none smtp.client-ip=133.167.8.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
+	s=arc-20240116; t=1789318317; c=relaxed/simple;
+	bh=E0AasrEnz6UNpYVgyLH7I4qkPIndff9cZpvpirWnO4E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A8mNUp/HrW4IVn1CKI5P11I2zYxWTEJLZOVMEb4oJvqDCq/gk7zg6f4iEvu79dY9CP2vBGnXMhLmN9eeLNDsxV3KbrO76LbRQX30v8F3Pts8/IfSKAKjUQIrNeS+m3BJtTxPPl7D8DUQuT0lIwcUdKCmYc+P6PnpOktUdg0Qzc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dzSOKvSF; arc=none smtp.client-ip=74.125.230.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="gzHO04Ae"
-Received: from fedora (p3233127-ipxg00b01tokaisakaetozai.aichi.ocn.ne.jp [180.17.90.127])
-	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68DFtZEB020593
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Mon, 14 Sep 2026 00:55:48 +0900 (JST)
-	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=0meUkPycroKNsH/2KAUZCp1jRFq4WmTTXqEz0it/ReU=;
-        c=relaxed/relaxed; d=mgml.me;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250315; t=1789314948; v=1;
-        b=gzHO04AeVgHcRnYldIG2qzeH6jYLxJsgR1Hhh0i1tgIIpOuuZN5dqzZvfB/n3Ea7
-         3NinJLuGAZvEwglgNJ01X01Z0l0CSnDZeeV8JRAWqceWMWSU+/wtg/zZKboFzMll
-         KzzYAUU0X1veZBsrZXQIDLa+4+6OdjVEs0qTX5C2KeUizwlqsIQ3MeYB3X2o5vA9
-         X3TTSm2rXAiL9VsQ7uNH/j9UvgkXoEVN7WlQXVAjMLOGzIHiQwzW84mQqCVjl7Mw
-         kGANPf9LANNSV173EqD2QSibz4jR5S1Gxe63nMQ1PEPZP+phej0k52H5ES71+ix0
-         Oie9szYxfkfCBSDx+E1uVw==
-From: Kenta Akagi <k@mgml.me>
-To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Alexander Bulekov <bkov@amazon.com>,
-        Fred Griffoul <fgriffo@amazon.co.uk>, Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v3 6/7] KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-Date: Mon, 14 Sep 2026 00:55:22 +0900
-Message-ID: <20260913155523.7423-7-k@mgml.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913155523.7423-1-k@mgml.me>
-References: <20260913155523.7423-1-k@mgml.me>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dzSOKvSF"
+Received: by mail-qv2-f9.google.com with SMTP id 6a1803df08f44-91033ce28ceso13047066d6.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 09:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1789318313; x=1789923113; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R9M1uj4pUaKwiC9/+FnQyofG3DqOQ9lTmtW19DRrpaY=;
+        b=dzSOKvSFn/WN4mcbNnsPS5CTbLrxZSt3IKFi/WYc7Tqbdod2yBSCWwpd+8RctKv8IN
+         LJaNm6MDAOlQAw3HwNBP1f6bgm2AlKlaxSr5ZAKd6ZUOBV3SgA3Oj6fYlUDKqRg7AxOa
+         8Ccy111QrrsTYGSF5hHQQgxwjpkvLyRBPM59NxwApzP68AHzfAlornPZLGM33Afj3pRE
+         ZYNfeeppFFUB7euVVHNMRZ8p9ybdCvwHPmIhdVK65GxX4awkxzFYEe/rOzeSoV8HsMco
+         wVfLmZOsIC3WUEvyU0BxM4DQMcCo6C9L6sBU9u0yuW6pCRbCCbM1TWXdBBZ/x5suFdCU
+         sVeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789318313; x=1789923113;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R9M1uj4pUaKwiC9/+FnQyofG3DqOQ9lTmtW19DRrpaY=;
+        b=Cj+IcnAecO2iCvJCZlGpoTdfLFhekSlqPy1Gu3ehHs2hPl/r8wRSOY+RNYUfEG8Aiu
+         MT4XhOJbJzb6pKijhmnz8vns5dPqzO64YT5cus3awyZ3/tkefi9vADUas2e6lOKGUVDG
+         4Vv4PTom6wsn2wdPlASyGHxV/VBbx76fLeO/c44hVLCU5P2iq3GX8xhl3UJigVRkPoYM
+         A5TARNKEAEVS4JYE/1l5gZEF7l8SJFt6EBlNYEQG80+ARxHgJMkUmQdV03fZWBNkUHtz
+         qKSrLfam4JZ1DeVVag+6Uy+7Ad5AJ4h/vi9m7jYbirgyB/vkP3C5dQjk8gXYqB9ObJkw
+         UnLA==
+X-Forwarded-Encrypted: i=1; AKwUvByyjUpRuVw2yz43cVZM5S2T8RfZA1x6sjjZDycoFIbxa4eRc1o+s8wMIAgV/3NtJaERbWe41/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQJh2XawZ9091JqCTuXefWs15UENzfAXoSUcnRp+BzFLNND/UH
+	4ZAhcE5z6OVODu46b0SjgzNR3lP4bzmybq+fSuVXZk2SiZ/KrzcN8m4sZQmTYIxgrQY=
+X-Gm-Gg: AYBFou31Of+4HhroSpjufoa/v1U9vDFMCh9lVTywNGCBItAhySZnkQlMNbmPLxbxaoR
+	dCApA3mS+NTyIrUhe1Zmr+abIna8AhJGaYpa1ygoC8EY5jJZTbKAv7u4bxspimigRoun5lVAKUt
+	fm6nzdZ89COrkqx0xX/FU3AwRIxnss2McyXNRIMBc9ZYk4HVxY68AsV08bPR+fFVCeVX6cCFP00
+	o2Zs8nMe5+R1v2ZyWyK0m+L2+Z22iL2A5ZB3Qv1wc/Xqwnj4Z9FXZjZgCAujkkw19wo0rve7A+G
+	DI/9qiscCOZv6yZiOvae+XLj+QIZTN6JpEOyEFT9jp+9Q9ZbdGaOdM+K+a/xAbtm0kcZQFPq2Cs
+	zFTetvCo6hG6wFFvMVsWLa+vIOlU0ROrML1sdJffDQK/24NY6T67+taD6xnYahu7U4jM8Rx9a38
+	xPxuN8tTyInHiaNRIhDgvpRxIKuh3/3w5R+dduzmC8XVmolt1OYt4ACxZjVsVB4xom91gBr2Y=
+X-Received: by 2002:ad4:5ca3:0:b0:90e:94e5:79f8 with SMTP id 6a1803df08f44-912120f012dmr209740706d6.23.1789318313572;
+        Sun, 13 Sep 2026 09:51:53 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d35a9sm74175506d6.41.2026.09.13.09.51.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 09:51:52 -0700 (PDT)
+Date: Sun, 13 Sep 2026 12:51:50 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, mm-commits@vger.kernel.org,
+	ziy@nvidia.com, vbabka@suse.cz, stable@vger.kernel.org,
+	ritesh.list@gmail.com, mhocko@suse.com, hch@lst.de, dgc@kernel.org,
+	david@redhat.com, dipiets@amazon.it
+Subject: Re: +
+ mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch
+ added to mm-hotfixes-unstable branch
+Message-ID: <aqbUpoPSdoAlveeZ@cmpxchg.org>
+References: <20260911163243.808DF1F000FF@smtp.kernel.org>
+ <aqYKsTHkyJXCyh_-@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqYKsTHkyJXCyh_-@casper.infradead.org>
 
-From: Sean Christopherson <seanjc@google.com>
+On Sun, Sep 13, 2026 at 03:30:09AM +0100, Matthew Wilcox wrote:
+> On Fri, Sep 11, 2026 at 09:32:43AM -0700, Andrew Morton wrote:
+> > From: Salvatore Dipietro <dipiets@amazon.it>
+> > Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+> > Date: Fri, 11 Sep 2026 14:21:02 +0000
+> > 
+> > Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> > introduced high-order folio allocations in the iomap buffered write path. 
+> > When memory is fragmented, each failed costly-order allocation enters
+> > __alloc_pages_slowpath() which runs direct compaction and
+> > drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
+> > (simple-update) with 1024 clients on a 96-vCPU arm64 system.
+> > 
+> > The root issue is that direct compaction is too expensive for hot
+> > allocation paths that have fallbacks to smaller allocations. 
+> > __filemap_get_folio_mpol() already marks higher-order allocations with
+> > __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+> > failure.  However, the page allocator still attempts full direct
+> > compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+> > aggressive when the caller will simply retry at a lower order.
+> > 
+> > For costly-order allocations with __GFP_NORETRY, suppress direct reclaim
+> > for the whole slowpath by computing can_direct_reclaim (and hence
+> > can_compact) as false.  The !can_direct_reclaim check near the top of the
+> > slowpath then short-circuits to nopage: no direct reclaim, no direct
+> > compaction and no drain_all_pages() IPI across every CPU.  kswapd (and in
+> > turn kcompactd) is still woken further down for background
+> > defragmentation, so compaction keeps working for long-term system health
+> > while being removed from the latency-critical direct allocation path.
+> > 
+> > Allocations that also request __GFP_THISNODE are exempted.  That flag
+> > pairing identifies the local-node-first THP attempt issued by
+> > alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+> > form transparent huge pages.  __GFP_NOFAIL is exempted as well, so a
+> > must-not-fail allocation is never made to fail.
+> > 
+> > Test environment:
+> >   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+> >              12x 1TB IO2 32000 IOPS RAID0 XFS
+> >   OS:        AL2023
+> >   Kernel:    v7.3-rc1
+> >   Database:  PostgreSQL 18.4
+> >   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+> > 
+> > Results (average of 3 runs, TPS):
+> >   Config                                       Avg TPS   % vs baseline
+> >   AL2023 stock 6.1 kernel (pre-5d8edfb900d5)   136,942           n/a
+> >   v7.3-rc1 baseline (no patch)                  59,408             -
+> >   v7.3-rc1 + this patch                        161,994       +172.7%
+> > 
+> > The patch fully recovers the pre-5d8edfb900d5 performance, bringing
+> > throughput back above the pre-regression level and well clear of the ~59k
+> > baseline.  The AL2023 6.1 row runs a kernel that predates commit
+> > 5d8edfb900d5 ("iomap: Copy larger chunks from userspace"), so it is not
+> > directly comparable, but it shows the pre-regression level and confirms
+> > that the ~59k baseline is the anomaly and not the norm.
+> > 
+> > Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+> > Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+> > Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+> > Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
+> > Link: https://lore.kernel.org/20260911142102.2294202-1-dipiets@amazon.it
+> > Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> > Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+> > Acked-by: Zi Yan <ziy@nvidia.com>
+> > Cc: Vlastimil Babka <vbabka@suse.cz>
+> > Cc: David Hildenbrand <david@redhat.com>
+> > Cc: Michal Hocko <mhocko@suse.com>
+> > Cc: Johannes Weiner <hannes@cmpxchg.org>
+> > Cc: Matthew Wilcox <willy@infradead.org>
+> > Cc: Christoph Hellwig <hch@lst.de>
+> > Cc: Dave Chinner <dgc@kernel.org>
+> > Cc: Ritesh Harjani <ritesh.list@gmail.com>
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> 
+> i'm just back from vacation, but i think the patch i posted was the
+> better way to fic this.  at this point i'm confused why this one is
+> being considered, but i'll review all the email from the last two weeks
+> and see what's happened to cause this one to be included.
 
-commit 0cb2af2ea66ad8ff195c156ea690f11216285bdf upstream.
+Welcome back, Willy.
 
-The shadow MMU computes GFNs for direct shadow pages using sp->gfn plus
-the SPTE index. This assumption breaks for shadow paging if the guest
-page tables are modified between VM entries (similar to commit
-aad885e77496, "KVM: x86/mmu: Drop/zap existing present SPTE even
-when creating an MMIO SPTE", 2026-03-27).  The flow is as follows:
+The alternate proposal didn't seem to solve Salvatore's problem:
+https://lore.kernel.org/all/20260714120204.542300-1-dipiets@amazon.it/
 
-- a PDE is installed for a 2MB mapping, and a page in that area is
-  accessed.  KVM creates a kvm_mmu_page consisting of 512 4KB pages;
-  the kvm_mmu_page is marked by FNAME(fetch) as direct-mapped because
-  the guest's mapping is a huge page (and thus contiguous).
-
-- the PDE mapping is changed from outside the guest.
-
-- the guest accesses another page in the same 2MB area.  KVM installs
-  a new leaf SPTE and rmap entry; the SPTE uses the "correct" GFN
-  (i.e. based on the new mapping, as changed in the previous step) but
-  that GFN is outside of the [sp->gfn, sp->gfn + 511] range; therefore
-  the rmap entry cannot be found and removed when the kvm_mmu_page
-  is zapped.
-
-- the memslot that covers the first 2MB mapping is deleted, and the
-  kvm_mmu_page for the now-invalid GPA is zapped.  However, rmap_remove()
-  only looks at the [sp->gfn, sp->gfn + 511] range established in step 1,
-  and fails to find the rmap entry that was recorded by step 3.
-
-- any operation that causes an rmap walk for the same page accessed
-  by step 3 then walks a stale rmap and dereferences a freed kvm_mmu_page.
-  This includes dirty logging or MMU notifier invalidations (e.g., from
-  MADV_DONTNEED).
-
-The underlying issue is that KVM's walking of shadow PTEs assumes that
-if a SPTE is present when KVM wants to install a non-leaf SPTE, then the
-existing kvm_mmu_page must be for the correct gfn.  Because the only way
-for the gfn to be wrong is if KVM messed up and failed to zap a SPTE...
-which shouldn't happen, but *actually* only happens in response to a
-guest write.
-
-That bug dates back literally forever, as even the first version of KVM
-assumes that the GFN matches and walks into the "wrong" shadow page.
-However, that was only an imprecision until 2032a93d66fa ("KVM: MMU:
-Don't allocate gfns page for direct mmu pages") came along.
-
-Fix it by checking for a target gfn mismatch and zapping the existing
-SPTE.  That way the old SP and rmap entries are gone, KVM installs
-the rmap in the right location, and everyone is happy.
-
-Fixes: 2032a93d66fa ("KVM: MMU: Don't allocate gfns page for direct mmu pages")
-Fixes: 6aa8b732ca01 ("kvm: userspace interface")
-Reported-by: Alexander Bulekov <bkov@amazon.com>
-Reported-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Link: https://patch.msgid.link/20260503201029.106481-1-pbonzini@redhat.com/
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Kenta Akagi <k@mgml.me>
----
- arch/x86/kvm/mmu/mmu.c  | 33 ++++++++++++++-------------------
- arch/x86/kvm/mmu/spte.h |  5 +++++
- 2 files changed, 19 insertions(+), 19 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 78c7e77bfdd0..0610198b1f74 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -188,6 +188,8 @@ static struct percpu_counter kvm_total_used_mmu_pages;
- static void mmu_spte_set(u64 *sptep, u64 spte);
- static union kvm_mmu_page_role
- kvm_mmu_calc_root_page_role(struct kvm_vcpu *vcpu);
-+static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
-+			    u64 *spte, struct list_head *invalid_list);
- 
- struct kvm_mmu_role_regs {
- 	const unsigned long cr0;
-@@ -1180,18 +1182,6 @@ static void drop_spte(struct kvm *kvm, u64 *sptep)
- 		rmap_remove(kvm, sptep);
- }
- 
--static void drop_large_spte(struct kvm *kvm, u64 *sptep)
--{
--	struct kvm_mmu_page *sp;
--
--	sp = sptep_to_sp(sptep);
--	WARN_ON(sp->role.level == PG_LEVEL_4K);
--
--	drop_spte(kvm, sptep);
--	kvm_flush_remote_tlbs_with_address(kvm, sp->gfn,
--			KVM_PAGES_PER_HPAGE(sp->role.level));
--}
--
- /*
-  * Write-protect on the specified @sptep, @pt_protect indicates whether
-  * spte write-protection is caused by protecting shadow page table.
-@@ -2192,7 +2182,8 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
- {
- 	union kvm_mmu_page_role role;
- 
--	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep))
-+	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep) &&
-+	    spte_to_child_sp(*sptep) && spte_to_child_sp(*sptep)->gfn == gfn)
- 		return ERR_PTR(-EEXIST);
- 
- 	role = kvm_mmu_child_role(sptep, direct, access);
-@@ -2270,12 +2261,16 @@ static void __link_shadow_page(struct kvm_vcpu *vcpu,
- 
- 	BUILD_BUG_ON(VMX_EPT_WRITABLE_MASK != PT_WRITABLE_MASK);
- 
--	/*
--	 * If an SPTE is present already, it must be a leaf and therefore
--	 * a large one.  Drop it and flush the TLB before installing sp.
--	 */
--	if (is_shadow_present_pte(*sptep))
--		drop_large_spte(vcpu->kvm, sptep);
-+	if (is_shadow_present_pte(*sptep)) {
-+		struct kvm_mmu_page *parent_sp;
-+		LIST_HEAD(invalid_list);
-+
-+		parent_sp = sptep_to_sp(sptep);
-+		WARN_ON_ONCE(parent_sp->role.level == PG_LEVEL_4K);
-+
-+		mmu_page_zap_pte(vcpu->kvm, parent_sp, sptep, &invalid_list);
-+		kvm_mmu_remote_flush_or_zap(vcpu->kvm, &invalid_list, true);
-+	}
- 
- 	spte = make_nonleaf_spte(sp->spt, sp_ad_disabled(sp));
- 
-diff --git a/arch/x86/kvm/mmu/spte.h b/arch/x86/kvm/mmu/spte.h
-index 31d6456d8ac3..31d03d15415c 100644
---- a/arch/x86/kvm/mmu/spte.h
-+++ b/arch/x86/kvm/mmu/spte.h
-@@ -267,6 +267,11 @@ static inline bool is_executable_pte(u64 spte)
- 	return (spte & (shadow_x_mask | shadow_nx_mask)) == shadow_x_mask;
- }
- 
-+static inline struct kvm_mmu_page *spte_to_child_sp(u64 spte)
-+{
-+	return to_shadow_page(spte & PT64_BASE_ADDR_MASK);
-+}
-+
- static inline kvm_pfn_t spte_to_pfn(u64 pte)
- {
- 	return (pte & PT64_BASE_ADDR_MASK) >> PAGE_SHIFT;
--- 
-2.53.0
-
+Apologize if you were referring to something more recent, this one was
+from mid-July.
