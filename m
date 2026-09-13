@@ -1,157 +1,109 @@
-Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.76.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C7F33BBAF;
-	Sun, 13 Sep 2026 20:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.76.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9FB3CF20E
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 20:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789331314; cv=none; b=AA4QtFxeMzij/msA+zDr7Q58Ve1OuJBOIDbHFeqRA/Txj958tFGSZRGLCuTSN84HUnO6Q2fPWspbC+0KBh9PvRCKwto2ECpRVPoNRPqSxXSki6MI+va2NII3H2SF4Advo4Cv6tgbSwj2+SMwnv7M05mg1hb8vHYtZVAZ2GdN+a0=
+	t=1789331359; cv=none; b=HQbeh4FjD8/zJJ7VvUWzNEJgdDeYu7PslYEz68pnlOQML0HwHuHIcuY94a5rVX/GeelqfKmkEeB3sHtIyHMZ7nLty+Y4vCIH5BsmtRQ5gSn0+LEDyiVlY3cns0/b/cTXaoAzMtJTIRxUG3JtCMHCFUG5zesQhBndQ/zKGXMsCSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789331314; c=relaxed/simple;
-	bh=bw7og3oUzy8UHTf3vFmCgYQlEDF78JSx4jQrcmwEZQI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=B616KfWkLcyEGsZQ39S7H7sCfUzlaDtKHOAOMbirImqA1rIXT2s6WX1Mzk3uzMznstNRSL/Vln8/f1YBF13RJl6OrAsNuFk/+yW2xMS8A+OnZ7pCwYNL33nAIfF25ar7qEcLuFBGxfMz+q9SrFwvoDk3YNvTECTM1hIrt+k/ACA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz; spf=pass smtp.mailfrom=podgorny.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=LA5L07vX; arc=none smtp.client-ip=77.75.76.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=podgorny.cz
+	s=arc-20240116; t=1789331359; c=relaxed/simple;
+	bh=zzJJc0BvZyAD8faAxTr2KVe8l09VN4/GOFqySLP4k2k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oxEigzupFjARwYzORxgH1eZe6kZy15VIyKinfK0fH6g2MVADrwJha5saqLIDJxnu5UALlcijjNG/W9H+6Em95UXsSa8a0KIris2wxxnIwEMMYdZWljyDAXr6hDZ7h+r2MPVhQPWZqr3ldT6/vmTN10ohPPwkIfVZAFaDMvZUyEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BCIEuBK0; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="LA5L07vX"
-Received: from email.seznam.cz
-	by smtpc-mxb-7c4f5d49cf-t2kxx
-	(smtpc-mxb-7c4f5d49cf-t2kxx [2a02:598:128:8a00::1000:90d])
-	id 35f69b2583cc363c3079816d;
-	Sun, 13 Sep 2026 22:28:09 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=emailprofi.seznam.cz; s=szn1; t=1789331289;
-	bh=1pKsv0RnQ3KYdaC4eeqV4HCeBs4zRaYdQNenxWAwM7o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc;
-	b=LA5L07vXbvDzJbvVNf4tqEf75Yyq6D6/RyEJxgj2/4sqXV/Eos9ye/ll4rIRIe39k
-	 pRdAfdBu3ERThB9j/9jZYyZSQecUrAoTJ3dgZ7v+FYB2VEgyUdGsCFY/Blkj+vclSw
-	 8QtvJwS46vqJBl26lYtIAMGV5OhFHx2p/Uii8498pDNvSqCs58etAR5ZRr4pE43mc9
-	 mQrkoFLjPYTaeGlMpRd38MFJteLb/xOTrbWcFk4L43clyLMrkvSFvEpXDZ1Axb+BDv
-	 EJGXjaMhd67pfz74HfftgRHjS1v5gNDPAswqqAbndNIP3QhzV8Yy4A9mcUZGbTTSzq
-	 OkhEbaPBohcPA==
-Received: from [192.168.31.51] ([2a01:9422:904:1ee:272:eeff:feab:4ab4])
-	by smtpd-relay-5d885666ff-tvljn (szn-email-smtpd/2.0.83) with ESMTPA
-	id 7fa8645d-c269-4122-87d2-b863a06ea0d1;
-	Sun, 13 Sep 2026 22:28:03 +0200
-From: Radek Podgorny <radek@podgorny.cz>
-Date: Sun, 13 Sep 2026 22:28:02 +0200
-Subject: [PATCH v2] Bluetooth: keep dst_type with dst when reusing an LE
- connection
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BCIEuBK0"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so4219375e9.0
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:29:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789331356; x=1789936156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zzJJc0BvZyAD8faAxTr2KVe8l09VN4/GOFqySLP4k2k=;
+        b=BCIEuBK0Ppc6U+TWgpPfU7oaSMn02tkg3cug0dPbidTDnxsuE1uryfT7ZPxR8hfgiU
+         ftluy6J1PZvpvZUSqIn+zvp3JEfcT8FPJihTCDvpIG+GRVSgzAHe0pBE5pwrunt2NvQ3
+         Lt+nGVtn0WRYVHAZ/4wFLkQQsxlduflFr5/3hxGz7ldvJBNMs1Lxv2/8u3yBlf6pZM10
+         Ef9wH+K9rtz3qXyGZdvfYDvsMVu4xyAIlTw7bxaODRk8zjkbMRjxyywiefnO/YZDp4kZ
+         EHT9ZLdgF8saDNA15KEfumlhkAZcW+XSruVUFPP6wOsvfU6+5smbAQekkMpllmAX3Q+Q
+         6oNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789331356; x=1789936156;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zzJJc0BvZyAD8faAxTr2KVe8l09VN4/GOFqySLP4k2k=;
+        b=MBPX8112zv0VjotMMW/hp9Wt6D4SJ0zc/ZwwrAiG6EWC9Il9oPFSObmZ1EnLdg4pPB
+         Ad+rbx0j5OqmUjHsRv7R1Y+gY3Vdir/tPfsXTSysvJq0FPxXezzu3DK+7omWyrm6JKkQ
+         UTRUEktZyrL2U+sPZeY2K8HAmJ228r0nySLurhG/KtQB95DvMFkZ5EoLT33tMbZ2BzZz
+         FwLDZsVRKgY2QPkR3gVq9FsCNFHM+jDXI2Q4c86Zb+fTQGAIEQ4pkmet1lfIpoTQYTix
+         ufnmyEu0uk83Rom754hepl4tkmyGD5JD8fVNP0YuQCEUL2J7mGDLopMe0cZ/6t0ga08h
+         yt/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByM76+PXLrIK0qtktEZ3e9C8dyOW0/eHJql7P6m8Yi0tRgjbgC2vXLPxMzmIlpw0pxdfXkNfsU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtR8WZCWrrZVeMnhynWCazQZIPWvQ+cJ4Ih+/Mbm8387r33yp1
+	v8bsy9MNOpGTnFIJIuyIY/uE8wS0ukv8xf5mupBleIWNrwdlKBz8YJvWujXnzA==
+X-Gm-Gg: AYBFou3HZSctRLSCvNa/QLfpC5Jf96NmZP4Ycjs24ROXWlR8D3w6XeS3pxIthTjDduE
+	1BxFrNSKDTLY9CrjuFESWaCf8o62UIr/7/e8baxm4E7Cejo3OV4Wq+0UdEbFvyu3tc48XU4V+ur
+	wGIPHLhQgCNFq/M6k8CiTTRv/1cXCXpCFNx1St3lb6OL/ZEt94+BYo3rVAiZ4NqjM4bCMgGh1Hr
+	FCZu9+dfV01nzOOdxUeZJpiEu+GYJkC+e65HUjlQuM7J5WAOor4eALILWSqz6Fe5hcW/aSrhLIp
+	4+R6KFvK/G3O1XvJ642Z5pzAmhFOOrhReMiIQ2a8AyTIk/Sm0Nz2hxnYmj3gWJLAAiPeKVDWzi6
+	RykxanVZ3nNy0OgLTz9iSmWQ4eY4jpGlc7eWo89Mk8PN21CWCfB4Ms9ctimmFVRU7xM8pG7mGIC
+	g83Av7Xq87OF2DYE98h95L//en5hxGJ9fLfrwok9yL29nKFuhSobjhTaHEAWtv25F6D9gYDFauH
+	gknHT3/rNqxoEp/nQdxF4F/00EnBBruFE949dl5RTG/c+zOOJZunMJiMLESsEGuZNupodEsljZz
+	4NqYDKmvOKbA4+3U9xKAxjxveMMvlYS9TzTlI/QqKHKFRVhD+BXnr9pEmgINtw/S20oXjj2gwCX
+	5Av8qajHi/fY=
+X-Received: by 2002:a05:600c:1989:b0:49e:71cf:7088 with SMTP id 5b1f17b1804b1-49e76036362mr36886325e9.7.1789331356085;
+        Sun, 13 Sep 2026 13:29:16 -0700 (PDT)
+Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-a0e6-2301-7846-2cfb-35f5-6359.310.pool.telefonica.de. [2a02:3100:a0e6:2301:7846:2cfb:35f5:6359])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6aac22bbsm124123255e9.0.2026.09.13.13.29.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 13:29:15 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Edward Adam Davis <eadavis@qq.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
+Subject: Re: [PATCH 5.15 879/935] bluetooth/l2cap: sync sock recv cb and release
+Date: Sun, 13 Sep 2026 22:29:07 +0200
+Message-Id: <20260913202907.3100-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260912065546.976652519@linuxfoundation.org>
+References: <20260912065526.833703348@linuxfoundation.org> <20260912065546.976652519@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-for-upstream-le-conn-reuse-dst-type-v2-1-ed1d5dd4ae37@podgorny.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw6CQBBEr0J6bUcYEwJexbiYTyNjZCDdPQZDu
- LuDLl+l6tUGQhxJ4FptwPSOEudUwJwq8KNND8IYCoOpTVv3TYPDzJgXUSY74YvQzykhUxbCIIr
- 6WQiHi+ubNnS+6wMU08I0xPX3crv/WbJ7ktdDfTScLXvHNvnxiJxiolXPkxUlhn3/AjCVwzmoA
- AAA
-X-Change-ID: 20260911-for-upstream-le-conn-reuse-dst-type-f3b916d8c89d
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Radek Podgorny <radek@podgorny.cz>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-hci_connect_le() swaps the caller's identity address for the peer's
-cached RPA when one is known, and stamps the matching
-ADDR_LE_DEV_RANDOM on the local dst_type. On the conn-reuse path only
-the address is copied into the connection:
+Please hold this patch unless the applicable L2CAP hunks from upstream
+commit f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock") can also be
+included.
 
-  if (conn) {
-          bacpy(&conn->dst, dst);
+The connected receive path already holds chan->lock when it calls
+l2cap_sock_recv_cb(), so the lock added here recursively acquires the same
+mutex and blocks hci_rx_work.
 
-so conn->dst ends up holding an RPA while conn->dst_type still names the
-identity it was resolved from, and hci_le_create_conn_sync() puts that
-pair on air unchanged. An RPA declared as a public address is not
-something any peer can answer.
+I reproduced this on the exact 5.15.221-rc1 tip
+0dce236725a538e8ddc0601eb0fb0bc43fc2c87b in QEMU with two linked virtual
+BR/EDR controllers. One normal 64-byte basic-mode L2CAP SDU triggered
+lockdep's recursive-lock deadlock report, left the hci0 receive worker
+blocked in __mutex_lock(), and was not delivered to the receiver.
 
-Measured on a CYW43438 against a peer advertising an RPA the host holds
-the IRK for, connecting to the identity address over a raw L2CAP socket.
-The first attempt creates the connection, the second takes the reuse
-path:
+With the two applicable f1a8f402f13f hunks applied, the same test received
+all 64 bytes, both endpoints completed, lockdep stayed silent and no worker
+was blocked.
 
-  LE Create Connection  3C:78:95:78:37:C3  type public
-  LE Create Connection  5B:75:A2:26:D6:18  type public
-  LE Connection Complete: Unknown Connection Identifier (0x02)
+The tested adaptation removes the callback's channel hold and lock, and
+adds channel locking within l2cap_conless_channel().
 
-The second address is the peer's RPA. btmon annotates it with an OUI
-lookup rather than "(Resolvable)" precisely because the command declares
-it public; the same bit pattern annotates as resolvable once the type is
-right.
-
-The mistyped pair is also why nothing downstream repairs it.
-hci_bdaddr_is_rpa() tests the type before the address, so an RPA carrying
-a public type is not recognised as one, and hci_find_irk_by_addr() then
-searches for an identity address that does not match it either.
-
-Copy the type along with the address.
-
-The assignment used to be unconditional just below this block and covered
-both paths; it moved into hci_conn_add_unset(), which the reuse path does
-not go through.
-
-Cc: stable@vger.kernel.org
-Fixes: 14b06c3a88f7 ("Bluetooth: HCI: Always use the identity address when initializing a connection")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radek Podgorny <radek@podgorny.cz>
----
-Changes in v2:
- - no functional change: the diff is byte for byte the one sent in v1
- - reindent the two quoted lines of code in the commit message with
-   spaces instead of tabs, so gitlint stops failing the patch on B3
-   (hard tab characters). That was the only red check on v1 that was
-   not one of the two known flaky testers
- - rebase onto bt-next/master, which now carries the "dial the address
-   the peer is actually on air with" series. That series changed which
-   address __hci_conn_add() stores for a new connection; it did not
-   touch the reuse path in hci_connect_le(), which still copies
-   conn->dst without conn->dst_type, so this fix is still needed and
-   applies unchanged
- - per Documentation/process/generated-content.rst: developed with the
-   Claude coding assistant (model as in the Assisted-by trailer). The
-   prompts described the misdirected create-connection and the btmon
-   captures taken before and after, and asked where dst_type is set on
-   each of the two paths through hci_connect_le(). The measurement on
-   real hardware, the analysis and the review are the human author's
-
-v1: https://lore.kernel.org/linux-bluetooth/20260908012048.3681904-1-radek@podgorny.cz/
----
- net/bluetooth/hci_conn.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index c9466cb2c7c0..fa72cf8aaa7a 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1518,7 +1518,15 @@ struct hci_conn *hci_connect_le(struct hci_dev *hdev, bdaddr_t *dst,
- 	}
- 
- 	if (conn) {
-+		/* dst may just have been swapped for the peer's RPA above, and
-+		 * dst_type describes dst -- it has to travel with it. Leaving
-+		 * the identity type behind makes the pair describe a peer that
-+		 * does not exist, and nothing downstream repairs it:
-+		 * hci_bdaddr_is_rpa() tests the type before the address, so
-+		 * the RPA is never treated as one.
-+		 */
- 		bacpy(&conn->dst, dst);
-+		conn->dst_type = dst_type;
- 	} else {
- 		conn = hci_conn_add_unset(hdev, LE_LINK, dst, dst_type, role);
- 		if (IS_ERR(conn))
-
----
-base-commit: e40edfa049b967f0b9379bf549c59431302ad181
-change-id: 20260911-for-upstream-le-conn-reuse-dst-type-f3b916d8c89d
-
--- 
-Radek Podgorny <radek@podgorny.cz>
-
+Thanks,
+Karl
