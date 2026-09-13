@@ -1,281 +1,235 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B591E384CF0
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 03:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DC94BEE4C
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 03:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789270599; cv=none; b=foex1eTufOEboqt/pyEqxmqS2DZxN2Wrmx3SRVlKGdOkjw6Uc7QojL29g7/LunRs4vQS46f2vYbGjp6R8RzPUPmvq2paNh9OKurIVYjCRJuXTRewFxnX6JPuy2EyIsy6CcyLr48THPzv8pl38zumN0edIKT3XVCeGT9nJ0qaVmU=
+	t=1789270920; cv=none; b=i4dDu2xvJC0BWugu4aPKd8S7CCuEwXwM0I4sfjAPZ8jJWqzh+jW7U8x21p70RpKEQJ6DoGEhxBu6kTM5nAeTo1XIp/ZbXOl6spskLrxUho/MIomlZ93BDmCIVnX3sUDc9Z+OaplHftT7p8ruJxUyEw4OxoEExcX+hOwkCh6ZQmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789270599; c=relaxed/simple;
-	bh=Q7N55ZKGMhUVafnhQytlmQyt5wlMWqJxtit4S7G1Bmk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZbRyrFnGJFQW8Y53FAX+3TnHNEIkD3lDOHmfCSt45Nbw8M7XEeeU0DmMdoNyjUcxA4uUq/M86DewFAhe+EuGphfEC/6FieP730LwCO9UvkEWebNj55rWDuMmirFIHrPshgZFErwBNZ52qprnCv3z7MD9Y01ppt0wVSo3weAKOZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AVsL3icE; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789270920; c=relaxed/simple;
+	bh=MQi0CJ/fz7tg5s+eLvlNcw0LS2EBxH9xVWjWGdQ246o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aBGheVLfOkG46R0HnG1N7jJ5m00A+v+U1JxjxMCbvIp0vmmmkZ0N3AByR/HkyWkfSky0yNouucvRr0aBElgI6PmvJ7MUu05bttrLFIqvv/8spVlzG+ywsXHbjjS8f2Rqca8Nx9M+KRsNB+OaHcwoNYL5gygD6P4Yy/BVJJtQLUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDF799cq; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AVsL3icE"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc18ced1a5aso4263990a12.1
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:36:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDF799cq"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a135ffb08so53516685a.2
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789270597; x=1789875397; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fs6YuwwYNgKZrcAVirPLF9TAZSnieT4vB0v2ARdNeLY=;
-        b=AVsL3icEivUKLI1imZpyNIlnWX/QL2QEz5HFVi6hUo3SKjEuDXFqjUyOU5FKK5NTXq
-         lM/0ysM7cAiMJug8FHxRYsR+5lpAR7EP8kc9DR4prZGO1j2W7M60MAnTVOqp94NHnrPD
-         fe7fRu1/dD6NdPaVAtXpEkkY6iq4l2za4vi1jpsfu1b5vdCpOkCJi1OAPP6ckuhTcJt3
-         QOs+M/WpQwYScYvCyoZypJYBrL+ix3WcIrBidt/g/uDB6Jq+TP3puxzwoR7qrg55qXBS
-         TJx+/Ts3lHZz0WpuYW5Za2i6kjb5FYy88vHVZA+59ilgfdd8yKIhHeoYdUNNbVirLWkZ
-         dyrg==
+        d=gmail.com; s=20251104; t=1789270918; x=1789875718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uJp5ud/myTFefNhCI2ZzWiRr2kbld/3n70B98OUzWtQ=;
+        b=kDF799cqAa+MUyHN0lyY+sVQ6Bd/JIgTBMz0jogn9Ri+HGcyixWki6ER/ebPBggcV6
+         jKWEtI3GRn2ng1byPwX9IhHpLv8CdzUsskW06GNZDVTu7NujZsvyfJBI8sXy4z8GfSsa
+         zfhYAFgeewf14W0dSe876eKi4/5FIyNKOuPqa6/fGJ4AXTPKejwKe689DZ7YzRuJhpgF
+         kgKrI1A9QW38gZSga+79dLl2jMLPsbSfS1EbjsjIIPmHO5EoTgo4s06gWCuILvJoullR
+         WsdJFCvyJVM3Qxqs80+7gWdxqSw2O1N7kfEj4JkiyqSdND2JSsjwJTjprpuB24G5l8zA
+         njOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789270597; x=1789875397;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789270918; x=1789875718;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fs6YuwwYNgKZrcAVirPLF9TAZSnieT4vB0v2ARdNeLY=;
-        b=VDfpCjn8vJardlFJ8mETGrBUW0SSM+v7WvnQvMZi/piDu+l9qXSO9RDP7Vhcd92zNa
-         OjeB+qFab8/H/03OjN0CGUwRMydEndFKp360LxbAlR6JVxDJb+gvVMhlV9XSxrovWMzw
-         Uz6tQH1V4r9bWpyBvRhKMzbGVmueapl7BO/BKWWm81qoEykX9kRTzajA4j16UEcOIJfZ
-         JqyCihRyfTouLfZYHf8FK6XLfa1AoIi494Y10UK+lKB0GQma3AAYEATLfjqcoiHUB0n2
-         rWHtrPuCJyQs97vzUDA7PdLyfwRRJpJJgcUxySLTAqdT5lIPBBuplMPZ7wAqgId3jJmY
-         ySwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwX5i9NGz9zUQye9JJWBs5Kx5gWmCqafSFL9Q0+cpIJJoEZTO59s7yoUOJ1Te/fS0I4nOU2qJ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nw/hgdrtNx7DPTNZussPK2Bmx1h1IRex7/bnPPJi4DbbKM1NRU
-	RjFRGUCD60WClb1LZB3AmQ1D5E2bc3j7UPXI94z/kvIH0S5R3Ty8yvWh3qSwWwEHZOP6jSAlsne
-	NrtVNGqlpTdALko7vZmx0Wg==
-X-Received: from pjsd15.prod.google.com ([2002:a17:90a:bf8f:b0:39d:c24e:697b])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:d64c:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-39d9bd6197bmr20361369a91.10.1789270596929;
- Sat, 12 Sep 2026 20:36:36 -0700 (PDT)
-Date: Sun, 13 Sep 2026 11:36:31 +0800
-In-Reply-To: <20260913033633.3159296-1-stanleyjhu@google.com>
+        bh=uJp5ud/myTFefNhCI2ZzWiRr2kbld/3n70B98OUzWtQ=;
+        b=BhrQ9hMuu/glH/PyHAM/UptC5hVaKDVGHbg9gQUVxwecMDJm2uhEWdOP2q7f95BVTz
+         yrxM7vj8cTHnIp8v8z9PUbXMxA929j4q8nvUBjcdnfNIi+fx+RW2vaFKVQPA7Cj1MmQV
+         rbwbpkUJ3isFE+TKmVqei586BMAYF6+yHRxxM61x7kzqc4BbWgv46cHDYwIqRpTr17se
+         8m5tt8LFk87V5oxsZmof4vHuYoNrtSGJzuwjNPUDkbZqrIG+eyNZYihcCfYZBxz6Hnvc
+         AQcxV6WPcxQ6Uq6n87y3C13muaKaOXGQ4MUPffNZnq6ZE6bbh1KV5dYbXfczkGFCO8Mh
+         GBTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPtw1Xb6InxtPlmSw95BZjzO1ZDq5XbzngvwbOK+OJAHWZ0Az88VtXXfksSJ44gTF4q04jqYE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3OOIG3TEmceMCZVAq25gcVbh4R/nEEKKqGGSo+twNVYMhlovk
+	32i/c1fMCd+/gVqUoUmpfQPxdbZEhYVLLuc5v5Qi3olEptYqv/1JzTw=
+X-Gm-Gg: AYBFou0SSpHboyb8jVRuf6WFW91EcABsVXWvObZr8TWhVvTwfUao3jm0xecXQMRQL0+
+	APQbtNhtH5hVoeX5I7xmSEaW+BQR0Uf7y4PZESX2MEek0Q8fUR7K+I+UVEf8sOqa7qPV8fS175f
+	WkhXCVlCPmPqqxepxZxjuzu3szhc+/eowoAWJlfcj7XFiUwf5TlSsPSO8j527sKuOg9i7mGuV+i
+	UwjTR+1fRsSXbqo+BU19tnkaFFttFS9sKnDS8cbdHtmYpCEVvFUSVqWK2wt78L6UiKkAjLD2xCN
+	ZP8hsXo4BA5LALzdwSTNB62SS9vu5YoDJ4vw1L7ibu+GuRni/h+Rh9aWewMlTfWBIzX0/NRtqUU
+	O9rd0oJpd8Kw4Zov8glqylY9vOr0GvWJRH52NxuvLkxv+qKGi44ZyD5pcPRRsK5DWpTlQIDRoph
+	DmYnZrrSROGh4c02pUHPHw4+BIE5oUa0mD7UUKjTTa9guklqP0dFHW3Z6F+WF8pga5xpsXZSc1x
+	6MXovRlLhELj9LPz1CAZ1aEXGtVuqJq/kV23PpRufcqVARrYAl2wwTd7TKKAsvqHzsvgoau6zF9
+	YJgCO9u42neVBjU6GjagzYfufvv5
+X-Received: by 2002:a05:620a:d8d:b0:939:597:e7af with SMTP id af79cd13be357-93a038fa617mr775671985a.35.1789270918119;
+        Sat, 12 Sep 2026 20:41:58 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80d453esm652916385a.38.2026.09.12.20.41.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 20:41:57 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Dmitry Rokosov <ddrokosov@sberdevices.ru>,
+	linux-serial@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] tty: serial: meson: fix UART driver lifetime
+Date: Sat, 12 Sep 2026 23:41:48 -0400
+Message-ID: <20260913034148.15068-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260913033633.3159296-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260913033633.3159296-2-stanleyjhu@google.com>
-Subject: [PATCH v4 1/3] rpmb: core: Guard frame requests and teardown with mutex
-From: Stanley Jhu <stanleyjhu@google.com>
-To: jenswi@kernel.org, mkp@kernel.org
-Cc: gregkh@linuxfoundation.org, arnd@arndb.de, bvanassche@acm.org, 
-	avri.altman@sandisk.com, alim.akhtar@samsung.com, beanhuo@micron.com, 
-	can.guo@oss.qualcomm.com, ulfh@kernel.org, linusw@kernel.org, 
-	tomas.winkler@intel.com, shyamsaini@linux.microsoft.com, 
-	alex.bennee@linaro.org, James.Bottomley@HansenPartnership.com, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-rpmb_route_frames() has no serialisation. That has two independent
-consequences.
+Moving Amlogic UART registration into probe left the first driver
+registration behind if uart_add_one_port() failed. Adding the separate
+ttyS driver later also exposed a global last-port test: removing the last
+port of one driver kept it registered whenever the other had a port.
 
-Concurrent requests on one rpmb_dev corrupt each other. Two kthreads on
-different CPUs issuing RPMB_GET_WRITE_COUNTER against the same UFS RPMB
-region, 20000 iterations each:
+Track whether probe registered the driver and undo it when port addition
+fails. On remove, retain the current driver only if a remaining port maps
+to that driver. Serialize the shared lifecycle decisions against parallel
+probe and remove operations.
 
-  thread 0 done: 20000 iterations, mismatches=10889, errors=0
-  thread 1 done: 20000 iterations, mismatches=6141, errors=0
-  race complete: MISMATCH=17030 ERRORS=0
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-A mismatch is a response whose echoed nonce belongs to the other thread,
-so 43% of requests returned somebody else's frame. The errors count is
-transport failures, so nothing failed and the corruption is silent to
-the caller. An authenticated RPMB operation is not one command. The UFS
-provider issues SECURITY PROTOCOL OUT carrying the request, then
-SECURITY PROTOCOL IN to collect the response, with a result read request
-in between for write-type operations. JESD220F 12.4.7 states that any
-request other than a result read overwrites the result register of the
-region, so a request landing in the middle of another initiator's
-sequence destroys its response. The same chapter states that a region
-processes one authenticated operation at a time, so the rpmb_dev is the
-granularity the device itself assumes.
-
-A request can also still be in flight when the provider tears down. The
-core reaches the provider through rdev->dev.parent, and the provider is
-free to release that device as soon as rpmb_dev_unregister() returns.
-Reference counting on the rpmb_dev does not prevent this:
-rpmb_dev_unregister() calls device_del(), which drops the reference that
-device_add() took on the parent, so the parent can be freed while the
-rpmb_dev is still alive and still routable. Unbinding a UFS host while a
-consumer holds an rpmb_dev reference and keeps issuing requests:
-
-  BUG: KASAN: slab-use-after-free in ufs_rpmb_route_frames+0x328/0x420
-  Read of size 8 at addr fff00000c833bce8 by task rpmb_hold/100
-  Call trace:
-   ufs_rpmb_route_frames+0x328/0x420
-   rpmb_route_frames+0x64/0xd0
-  Freed by task 1:
-   kfree+0x2b8/0x5c4
-   ufs_rpmb_device_release+0x3c/0x60
-   device_release+0xa0/0x1fc
-   device_unregister+0x20/0x38
-   ufs_rpmb_remove+0x130/0x230
-   ufshcd_remove+0x54/0x22c
-
-Both measurements needed patches 2/3 and 3/3 of this series applied,
-because UFS RPMB registration fails on mainline. The stable tag is for
-eMMC, which registers today. mmc_route_rpmb_frames() packs the whole
-sequence into one block request, so eMMC is not exposed to the
-interleaving above, but it does have the teardown window:
-mmc_blk_remove() reaches rpmb_dev_unregister() through
-mmc_blk_remove_parts() near its start, while the queue that
-mmc_route_rpmb_frames() submits to is only torn down at the end by
-mmc_blk_remove_req(), whose comment notes that it is freeing the queue
-that stops new requests being accepted. The eMMC window is from source
-reading; I have not reproduced it.
-
-The kerneldoc change is part of the fix. Calling rpmb_dev_unregister()
-from a release callback cannot work, because the child rpmb_dev holds a
-reference on its parent, so the parent's release callback never runs.
-The UFS provider does exactly that today, inert only because its
-registration fails; patch 2/3 moves the call to the remove path.
-
-Add a mutex and a dead flag to struct rpmb_dev. rpmb_route_frames()
-holds the mutex across the whole sequence and returns -ENODEV once the
-flag is set. rpmb_dev_unregister() sets the flag under the mutex before
-device_del(), so it cannot return while a request is inside the
-provider. Closing the teardown window requires excluding unregistration
-for the whole duration of a request, which is the same exclusion that
-serialises two requests, so one mutex covers both.
-
-On the same test with this patch applied, MISMATCH=0 and the unbind is
-clean.
-
-Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Fixes: bcb5645f99ef ("tty: serial: meson: redesign the module to platform_driver")
+Fixes: e71aab9d6132 ("tty: serial: meson: apply ttyS devname instead of ttyAML for new SoCs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/misc/rpmb-core.c | 34 +++++++++++++++++++++++++++++-----
- include/linux/rpmb.h     |  6 ++++++
- 2 files changed, 35 insertions(+), 5 deletions(-)
+ drivers/tty/serial/meson_uart.c | 52 +++++++++++++++++++++++++--------
+ 1 file changed, 40 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
-index ecf14acf230a..bbc3c404ad6f 100644
---- a/drivers/misc/rpmb-core.c
-+++ b/drivers/misc/rpmb-core.c
-@@ -45,16 +45,28 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
-  * @rsp:	rpmb response frames
-  * @rsp_len:	length of rpmb response frames in bytes
-  *
-+ * Context: Might sleep.
-+ *
-  * Returns: < 0 on failure
-  */
- int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
- 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
- {
--	if (!req || !req_len || !rsp || !rsp_len)
-+	int ret;
-+
-+	if (!rdev || !req || !req_len || !rsp || !rsp_len)
- 		return -EINVAL;
- 
--	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
--					rsp, rsp_len);
-+	mutex_lock(&rdev->lock);
-+	if (rdev->dead) {
-+		mutex_unlock(&rdev->lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = rdev->descr.route_frames(rdev->dev.parent, req, req_len,
-+				       rsp, rsp_len);
-+	mutex_unlock(&rdev->lock);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(rpmb_route_frames);
- 
-@@ -62,6 +74,7 @@ static void rpmb_dev_release(struct device *dev)
- {
- 	struct rpmb_dev *rdev = to_rpmb_dev(dev);
- 
-+	mutex_destroy(&rdev->lock);
- 	ida_free(&rpmb_ida, rdev->id);
- 	kfree(rdev->descr.dev_id);
- 	kfree(rdev);
-@@ -123,8 +136,9 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
-  * rpmb_dev_unregister() - unregister RPMB partition from the RPMB subsystem
-  * @rdev: the rpmb device to unregister
-  *
-- * This function should be called from the release function of the
-- * underlying device used when the RPMB device was registered.
-+ * This function should be called from the remove or unbind callback of the
-+ * underlying device used when the RPMB device was registered, never from
-+ * a device release callback.
-  *
-  * Returns: < 0 on failure
-  */
-@@ -133,6 +147,14 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
- 	if (!rdev)
- 		return -EINVAL;
- 
-+	mutex_lock(&rdev->lock);
-+	if (rdev->dead) {
-+		mutex_unlock(&rdev->lock);
-+		return 0;
-+	}
-+	rdev->dead = true;
-+	mutex_unlock(&rdev->lock);
-+
- 	device_del(&rdev->dev);
- 
- 	rpmb_dev_put(rdev);
-@@ -164,6 +186,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- 	rdev = kzalloc_obj(*rdev);
- 	if (!rdev)
- 		return ERR_PTR(-ENOMEM);
-+	mutex_init(&rdev->lock);
- 	rdev->descr = *descr;
- 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
- 				     GFP_KERNEL);
-@@ -194,6 +217,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- err_free_dev_id:
- 	kfree(rdev->descr.dev_id);
- err_free_rdev:
-+	mutex_destroy(&rdev->lock);
- 	kfree(rdev);
- 	return ERR_PTR(ret);
- }
-diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
-index ed3f8e431eff..814ac3e69337 100644
---- a/include/linux/rpmb.h
-+++ b/include/linux/rpmb.h
-@@ -7,6 +7,7 @@
- #define __RPMB_H__
- 
- #include <linux/device.h>
+diff --git a/drivers/tty/serial/meson_uart.c b/drivers/tty/serial/meson_uart.c
+index a6cb2a535..4bd9d9826 100644
+--- a/drivers/tty/serial/meson_uart.c
++++ b/drivers/tty/serial/meson_uart.c
+@@ -12,6 +12,7 @@
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
 +#include <linux/mutex.h>
- #include <linux/types.h>
+ #include <linux/kernel.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -80,6 +81,7 @@ static struct uart_driver meson_uart_driver_ttyAML;
+ static struct uart_driver meson_uart_driver_ttyS;
  
- /**
-@@ -48,15 +49,20 @@ struct rpmb_descr {
-  * struct rpmb_dev - device which can support RPMB partition
-  *
-  * @dev              : device
-+ * @lock             : protects in-flight operations against teardown
-  * @id               : device_id
-  * @list_node        : linked list node
-  * @descr            : RPMB description
-+ * @dead             : set to true when device is unregistered
-  */
- struct rpmb_dev {
- 	struct device dev;
-+	/* Protects in-flight operations against teardown */
-+	struct mutex lock;
- 	int id;
- 	struct list_head list_node;
- 	struct rpmb_descr descr;
-+	bool dead;
- };
+ static struct uart_port *meson_ports[AML_UART_PORT_NUM];
++static DEFINE_MUTEX(meson_uart_mutex);
  
- #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
+ struct meson_uart_data {
+ 	struct uart_driver *uart_driver;
+@@ -692,6 +694,16 @@ static struct uart_driver *meson_uart_current(const struct meson_uart_data *pd)
+ 		pd->uart_driver : &meson_uart_driver_ttyAML;
+ }
+ 
++static bool meson_uart_has_ports(struct uart_driver *uart_driver)
++{
++	for (int id = 0; id < AML_UART_PORT_NUM; id++)
++		if (meson_ports[id] &&
++		    meson_uart_current(meson_ports[id]->private_data) == uart_driver)
++			return true;
++
++	return false;
++}
++
+ static int meson_uart_probe(struct platform_device *pdev)
+ {
+ 	const struct meson_uart_data *priv_data;
+@@ -702,6 +714,7 @@ static int meson_uart_probe(struct platform_device *pdev)
+ 	int ret = 0;
+ 	int irq;
+ 	bool has_rtscts;
++	bool registered = false;
+ 
+ 	if (pdev->dev.of_node)
+ 		pdev->id = of_alias_get_id(pdev->dev.of_node, "serial");
+@@ -731,11 +744,6 @@ static int meson_uart_probe(struct platform_device *pdev)
+ 	of_property_read_u32(pdev->dev.of_node, "fifo-size", &fifosize);
+ 	has_rtscts = of_property_read_bool(pdev->dev.of_node, "uart-has-rtscts");
+ 
+-	if (meson_ports[pdev->id]) {
+-		return dev_err_probe(&pdev->dev, -EBUSY,
+-				     "port %d already allocated\n", pdev->id);
+-	}
+-
+ 	port = devm_kzalloc(&pdev->dev, sizeof(struct uart_port), GFP_KERNEL);
+ 	if (!port)
+ 		return -ENOMEM;
+@@ -748,11 +756,22 @@ static int meson_uart_probe(struct platform_device *pdev)
+ 
+ 	uart_driver = meson_uart_current(priv_data);
+ 
++	mutex_lock(&meson_uart_mutex);
++
++	if (meson_ports[pdev->id]) {
++		ret = dev_err_probe(&pdev->dev, -EBUSY,
++				    "port %d already allocated\n", pdev->id);
++		goto out_unlock;
++	}
++
+ 	if (!uart_driver->state) {
+ 		ret = uart_register_driver(uart_driver);
+-		if (ret)
+-			return dev_err_probe(&pdev->dev, ret,
+-					     "can't register uart driver\n");
++		if (ret) {
++			ret = dev_err_probe(&pdev->dev, ret,
++					    "can't register uart driver\n");
++			goto out_unlock;
++		}
++		registered = true;
+ 	}
+ 
+ 	port->iotype = UPIO_MEM;
+@@ -781,9 +800,14 @@ static int meson_uart_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = uart_add_one_port(uart_driver, port);
+-	if (ret)
++	if (ret) {
+ 		meson_ports[pdev->id] = NULL;
++		if (registered)
++			uart_unregister_driver(uart_driver);
++	}
+ 
++out_unlock:
++	mutex_unlock(&meson_uart_mutex);
+ 	return ret;
+ }
+ 
+@@ -794,15 +818,19 @@ static void meson_uart_remove(struct platform_device *pdev)
+ 
+ 	port = platform_get_drvdata(pdev);
+ 	uart_driver = meson_uart_current(port->private_data);
++
++	mutex_lock(&meson_uart_mutex);
+ 	uart_remove_one_port(uart_driver, port);
+ 	meson_ports[pdev->id] = NULL;
+ 
+-	for (int id = 0; id < AML_UART_PORT_NUM; id++)
+-		if (meson_ports[id])
+-			return;
++	if (meson_uart_has_ports(uart_driver))
++		goto out_unlock;
+ 
+ 	/* No more available uart ports, unregister uart driver */
+ 	uart_unregister_driver(uart_driver);
++
++out_unlock:
++	mutex_unlock(&meson_uart_mutex);
+ }
+ 
+ static struct meson_uart_data meson_g12a_uart_data = {
 -- 
-2.55.0.1007.g17ff1f9808-goog
+2.47.1
 
