@@ -1,74 +1,81 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF333E715E
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A151CAAC
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305088; cv=none; b=Lv9NM4NSKE443a88VIt5ELIh4gaLSB5skOK27KoS+d9zr9cqxqJfOW+LATKHu6LIg9+H5dNeTD7JdLhryhBx6VxwXhy3uXX4NhpMGAFMusHVWyoMlyZ1w6fFGj3SzcJLPJ2Q6cqRrJ1lz6CG5dms6oHo/WBVecsBSM/Yss9EoEs=
+	t=1789305494; cv=none; b=LJZDk4yk/XRsB3MwB0CbP4jMRJwXyFFZiIBGJcuKuMTtAxyRN+lypTlgpjd2/gk2l/3FtjE6PYd8B+XzB1Io5i4EFvOlkBGQb7V5M+j4iGeUNcALrMzISw+H2o5W5ijyUtt+9Wd+yuwsGrdNz3RQ1C22nCD+RTZKQp5owWAE+4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305088; c=relaxed/simple;
-	bh=qqeGZdBsfTGT8sWTFkLqBBuQnUEpLCxHLifJb7OU5Mk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q25fdOFpk4DwAwyENtYN+Vkiw32tjTBRK2OrGLq0HPbq83/TRAJnGNs42Fj5PkT9+QitUr6GXOlsLrhfD8xUxQhD7GRxX4S6Mpw8YNF5bVO6mN5ekA/wRDDDe+0lxIQL0BmBI5KlPU0/+1egoK3bO8D/XuEtsNlpjTumGCK/xF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=axCB8uze; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789305494; c=relaxed/simple;
+	bh=4PBfJSsN7kfeIgqBGeuu+hMW/kpXMUAKD5X6y3N1qrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WygSsQJ6l9lU89l0MG1OYjtyLmZePXNqPKDRrB5KWC+X5YTu2p4xkQ+Ngi098GSMs8JvzVmBO1S7n4NhmSSZ/AkkAZr4eZYshYW0o08B8Vl5SeleLcqYaHcEzfieYXM4iCdqd3lZnQMzkpj/DImmAtRATW3KadHNTWY7kHrSEH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=uwI2thGO; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="axCB8uze"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so1031970b3a.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 06:11:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="uwI2thGO"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-858facc86fdso715827b3.3
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 06:18:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789305086; x=1789909886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OvV6HGYmGnPtM6s9K0ynk2MdK/BwOFAfbX5o4RmVGAg=;
-        b=axCB8uze4W79s+Kbbl0QaPpowh18AY8gHG11DL0x/PaPUdHOSOkeEHRQGXWeKn29c1
-         Atyd7S7hEpLYDWBTCyXht3pJKlSp3evyvZJwvMu6h+hPs+P1YLMInR2U31/Ywt93GP0J
-         oV+ptO+n2VbrZEfZU0vyNpZxitzBy1flLfhCtMF64HqvK1MX97CFwY8RPJ/8sTRf615k
-         OFG1fcJZ8ZjwtJmlRpu5SQOo750OZxN5K6E2BFGMoMHdBNGygUCPJea7RoSR4KrkNu3b
-         Z1bJTs6kI3r+X7Ul32r52bE6uzhJVj8NV/2BVELqmFQdGy8esCIsYLsRkyOc6UWpWOU8
-         QJSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789305086; x=1789909886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789305491; x=1789910291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OvV6HGYmGnPtM6s9K0ynk2MdK/BwOFAfbX5o4RmVGAg=;
-        b=CVKlZX2LlgiU6FdazA9bMg/0pKc+2NJXv2ryOOgH/byenV6/r0uIIbVPjVBk1Ya1/u
-         70VayJ8swKeqk5HJZxPuhq5g8yUFAA5xPULmmf2DGFN6b8YNih5q56GbZwjMWjcnnVLZ
-         IoW0lXmOOHdVkQsYlU21QHqhu5siGblSmnkDeC4YNPNqAQlDpuoh5vGBra525FwEMPrj
-         OwkNd1ZcT6jgJtGK3g6X5mazWWQ8AIgbOm4qnWGSV2pZijAsbke1Wa00DXVECd478P74
-         e9v7kkeNBUeF8nAE6TcFEtWR/HKcZ0LPOQm+uDPFtYUfajmjmC9xVL/QdEfwv3s1hyXm
-         58bA==
-X-Forwarded-Encrypted: i=1; AKwUvByYObYR9WJ0w87U0TlMD4YFJPWe/rhR/zB/hkw93R7aRZ3vox4Fcua0E5EgV/hf10NJbjTqXRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkPGtrmYfgsuo2wypUlk8uTqT+18PaoydQJq2XgnQ8x1FBOCvF
-	cLMaTDowIuLpwJIzemLyLf/RbjhXwV1K5kdoECcnxLR5Y386MdjnfCX/
-X-Gm-Gg: AYBFou1rHCAK3Zh96JoTMw6JB7jvuM2uhfDsDuD+eyGTzcVtZGzFltqqndAdYyJXC47
-	v9o2J/pmVXVbX3UZPSr04mxpmtaG+0L8vauXvvMcMROkogU4Fs0O/Z2VabZzoqsgKp1gVhwGfBj
-	lwyuxE8htQn1JFKpYbk5Ag4+0+PiuOhw7+d9Wk5Ls+IsIjOVhp0Cz713HPFGc1Ici/dAvxmNW7e
-	f7IZAFWij6cNN5OjcxgnhBQuL7as1fH/yVzC44/yIz5buCnhkFgIRa8OW5n66qGF89p7NlR2kk/
-	kzFbd7U6R+/zSCyZp8QMfRYXSzRlxiKXhm0U5gwQYyDNU/aRHoo6fUn9V3FEtExjY26E2MN6HhO
-	aal82at4Dhq2gWckSpPSzdiOeDWszLn0YAfXWjvQekP5oa10SMZ/A07PTTOquz/jilq5zptfA86
-	4KyZDG5bub4o7nyro/XCDLfeqhPlLIwXtTbehUAR/U6+o3VlNHbALt0Sy0Hfk5QANW
-X-Received: by 2002:a05:6a00:a254:b0:86a:9ddc:7ee5 with SMTP id d2e1a72fcca58-86b30413307mr23451242b3a.2.1789305086376;
-        Sun, 13 Sep 2026 06:11:26 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86c7b4922b2sm1891882b3a.2.2026.09.13.06.11.22
+        bh=LSb+qxGlYbynh0pp1CPDDM0oB9qczgGLF2ehmN4RM+4=;
+        b=uwI2thGODyouTNLNKuvdqOaTUrTfyCv308eDUvk2GA2LYHRVQTucfNrSmlub5bdM3q
+         gT8lSuDfyjieTRKY1ST/W8mzbtRWJmMF++mmp/riLcsmrOctEsb4IOyoz0GydsMJK9PV
+         eAzVPignTDacljuf747q4tJ9QSUpfQPx1o/lbLrt/rf6Mvnz7HxAcMvrycUGJzO+S9NL
+         yWzGvBkYqdAFUFEN4RDXOf2yAtsAjyPXFVuf1mTx266lHCcf0jfJg8Vhx75jos1mXmZT
+         B91ehDThZS7MWobTILEmvGM2kh3aapfujD5MJKjAtQeUBAVvzS8x67Fa0W7ujDwULIF5
+         pDpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789305491; x=1789910291;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LSb+qxGlYbynh0pp1CPDDM0oB9qczgGLF2ehmN4RM+4=;
+        b=WGsQNTIxsYRC5MK3KU8ytFLwoxq4FX21Xtd4NCKUXiXZNDcuDyNWm5y8ucO6cNk/Bt
+         73fmXXz1KwB2L6uTcSbDCXUZtTAoH7j7nwlgF+ZY/zRqZIP+CNPOAPSXeR9erqwauZzN
+         i8E3AbbWnAPya3XGyt8luhxottmOSelkiCxYKUAN9r4oSrkD2w/a3G8dQqaj1RytFZsx
+         jb65UF+FUnCAEMJYZtNBcBtWKbxs3WrssKzpJsQk+OXrLVNes/pUAvdwT7sYeICv/vCe
+         NY3ehu3iRf8KdPluyge55mj7azhVguw68ZJn8Q4X8wOKPGFUgMSVPixVa9BwUXhCKwX4
+         Ogjw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7r57mqvkKSDw1Mt8h9y47TZuP4x21HKZ1Kmw2ga9NHFSSlXOMM5QyubfDa8m5prAublGSoas=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI3cqXuRGdFr/6qtP/YRCrbz5RNGFZN//OcDJtsbDImPw85kiL
+	IVMnuawr5g7xzsLhD4Q5oQn3pelQ7sqQMOFAT9BEOsaj7ICvjfS1UgZuxWRHdXVDQrTc
+X-Gm-Gg: AYBFou1HHrpJnDB++MfeyWKu99NToScdkoVr0GlVU0JnnwsHc3KCoSzf/RQ9JNzVmsW
+	EpD3fOWhoyMtmgGWJ8xZfFkvppKcNl4589T0E2VuDhB+mHqaLai3zNN8wFBXi5TPjjpOnRrs/UG
+	B8aere+ZCDpKP2eKIaxnkMA9fy+UcB0KYqXgrbDsntb2xtK6YkmFNqdEbIu7zm1xQ7gdKIVpk21
+	t5HnRnYabePhAK99Fzaj6TBaZ7MNjTsG1XCgQsZWa7jCLoSHy51W/FI68t8xEx301PTbnRkJYZC
+	FKy2ujky1Gmiqp2WMzPoR0Z6K70da0rt1SnBxMkEQKPLaaEItCNzG/YcJZlVqH2Z41M8/eorBNe
+	VncgWjrP43jwMsduPOykhc6EPxqJ1of9KoKIHKneEunWQx/p5XhJJ+xdWBFEfs30xld65x0zTtl
+	kFE2pjYwAeQcbd9Vb7a53no2p/oiYOwfJo8xa6uJKT6/6Ue32cJ36bJEESlHKyFEf9FL4ARBTeE
+	iHPjCf72GuURdFyA/UUlsdLTEceFbITu3sZR3Yk
+X-Received: by 2002:a05:690c:b06:b0:862:1f26:d489 with SMTP id 00721157ae682-884b1a2f84bmr50752127b3.3.1789305491416;
+        Sun, 13 Sep 2026 06:18:11 -0700 (PDT)
+Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488c3ab26sm27731697b3.40.2026.09.13.06.18.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:11:25 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+        Sun, 13 Sep 2026 06:18:10 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: Greg Ungerer <gerg@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Will Drewry <wad@chromium.org>,
+	Michael Schmitz <schmitzmic@gmail.com>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] gpu: ipu-v3: prg: fix clock cleanup on remove
-Date: Sun, 13 Sep 2026 21:11:17 +0800
-Message-ID: <20260913131117.1561280-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] m68k: Fix seccomp filtering on ColdFire and 68000
+Date: Sun, 13 Sep 2026 09:17:53 -0400
+Message-ID: <20260913131753.605893-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912230651.461269-1-clusk@northecho.dev>
+References: <20260912230651.461269-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,52 +84,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipu_prg_probe() enables the IPG and AXI clocks before enabling runtime
-PM. The clocks are subsequently controlled by the runtime suspend and
-resume callbacks.
+m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
+ColdFire and 68000 syscall entry paths only branch to
+syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
+through to syscall dispatch, leaving installed filters ineffective.
 
-However, ipu_prg_remove() only removes the PRG from the global list and
-does not disable runtime PM or shut down the clocks when the device is
-still runtime active. As a result, removing the driver while the device
-is active leaves both clocks enabled.
+Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
+and route either flag through the existing slow path. Leave the classic
+MMU syscall entry implementation unchanged.
 
-Disable runtime PM during removal so that pending runtime PM operations
-are completed and no new runtime PM callbacks can change the device
-state. If the device is still runtime active afterwards, disable the
-AXI and IPG clocks explicitly.
+Validated the combined test under QEMU mcf5208evb (ColdFire): filters
+denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
+classic-MMU control (q800) denied the filtered getpid syscall both before
+and after this change. The 68000 path shares the same source-level
+omission and receives the identical masked test but was not separately
+emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
+m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
+built arch/m68k/68000/entry.o and vmlinux.
 
-Check the runtime PM state before disabling the clocks because the
-runtime suspend callback may already have disabled them. This avoids
-unbalancing the clock enable counts when removing an already suspended
-device.
-
-This issue was found by manual code inspection.
-
-Fixes: ea9c260514c1 ("gpu: ipu-v3: add driver for Prefetch Resolve Gasket")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
+Cc: stable@vger.kernel.org # v6.3+
+Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
+Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
 ---
- drivers/gpu/ipu-v3/ipu-prg.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/ipu-v3/ipu-prg.c b/drivers/gpu/ipu-v3/ipu-prg.c
-index d38d3ba54d72..93033e847d0e 100644
---- a/drivers/gpu/ipu-v3/ipu-prg.c
-+++ b/drivers/gpu/ipu-v3/ipu-prg.c
-@@ -426,6 +426,13 @@ static void ipu_prg_remove(struct platform_device *pdev)
- 	mutex_lock(&ipu_prg_list_mutex);
- 	list_del(&prg->list);
- 	mutex_unlock(&ipu_prg_list_mutex);
-+
-+	pm_runtime_disable(&pdev->dev);
-+
-+	if (!pm_runtime_status_suspended(&pdev->dev)) {
-+		clk_disable_unprepare(prg->clk_axi);
-+		clk_disable_unprepare(prg->clk_ipg);
-+	}
- }
+Notes:
+    Changes in v2:
+    - Combine the TRACE/SECCOMP tests into a single masked branch per Andreas
+      Schwab; scoped to the ColdFire/68000 paths, classic MMU unchanged.
+    
+    No in-tree m68k defconfig selects the pure-68000/DragonBall path.
+    Compile-tested W=1 with a custom no-MMU UCSIMM configuration and
+    CONFIG_SECCOMP_FILTER=y; arch/m68k/68000/entry.o and vmlinux both built
+    successfully. The combined gate uses the same flags byte as the classic-MMU
+    entry path.
+
+ arch/m68k/68000/entry.S    | 3 ++-
+ arch/m68k/coldfire/entry.S | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
+index c257cc415..0d3cbeded 100644
+--- a/arch/m68k/68000/entry.S
++++ b/arch/m68k/68000/entry.S
+@@ -79,7 +79,8 @@ ENTRY(system_call)
  
- #ifdef CONFIG_PM
+ 	/* Doing a trace ? */
+ 	getthreadinfo
+-	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a2@(TINFO_FLAGS+2),%d1
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
+ 	jne	do_trace
+ 	cmpl	#NR_syscalls,%d0
+ 	jcc	badsys
+diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
+index 4ea08336e..d658abdc5 100644
+--- a/arch/m68k/coldfire/entry.S
++++ b/arch/m68k/coldfire/entry.S
+@@ -72,7 +72,8 @@ ENTRY(system_call)
+ 	movel	%d2,%a0
+ 	movel	%a0@,%a1		/* save top of frame */
+ 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
+-	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a0@(TINFO_FLAGS+2),%d2
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
+ 	bnes	1f
+ 
+ 	movel	%d3,%a0
 -- 
-2.43.0
+2.55.0
 
