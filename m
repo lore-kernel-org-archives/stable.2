@@ -1,118 +1,85 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00CA34A79D;
-	Sun, 13 Sep 2026 14:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A635C3F076E;
+	Sun, 13 Sep 2026 14:12:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.227.220.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789308715; cv=none; b=iCe+RUfiBb3WLquvwtGv767FBsYZAhNBuooVtmXIcwzas/9KjHVL0tXunS6/wtnq4uazgmjMHOmgRXHEdDoCeO0mt2Nmf5g+8TcXpHroJFR3+GhvbC1LJwXR8kOStN1x/+RKAv33mnKjLs0JijcvH9MWz4ONw8MBmpDPs+0+uRk=
+	t=1789308729; cv=none; b=Z90ldE02lQNEYb42RDQq58Csubo67+IvQFEPhi3hW/OFFFQ5YarGeBHnSoiuo4ROCjZSobuc9vmCM+eNgm5GWKWRkuTZjqveH23wkTywBL7tQEGJMesCJ/LCMNbYlL/bderZ3TMI6A0MM/CtT+cNHpasxfJqoC3OlWpPkm/xwvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789308715; c=relaxed/simple;
-	bh=mJnOZtn5cuGbI2017nzUjEmKRHaxUcFGidgrANxD3uY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A2JyEKxw/ql5bxHiuA952VaLCBNfwisaffRI6CjpahTtoYpgl69qXdGrBQveotOFfWJVJlgU3o4FNkGwX7xkhqpN99DNY97nrkhj9e5TrjXVDrhHe7RsnHlqftWFabN102ZAao1jz++7OMouDTNOT3R57SlMwCTrpjRcd34FCYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Tvfjnhzs; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789308729; c=relaxed/simple;
+	bh=kpm9Z5rPraMR5sv9b5y0BYTDA4THMiISIwcKZhWfIzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cn1f0c6OTWnrJHd5wtnwKdrRgHsTj3zP6I7iS8AdIP/NdQzhmU+Fv7tahYePTKbF+MyX8aY6NpKmYeg5zXvUGm0eRRQ+nwybVm2YC0xVp1rvVUgpMKQHOM/VkKUUGXwNB2zz0tK9I4cjC2OihJjqhtKw8EBFENRnLhTtFa3fUX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com; spf=pass smtp.mailfrom=mareichelt.com; dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b=GyjgciLs; arc=none smtp.client-ip=91.227.220.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Tvfjnhzs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=MK
-	a+Yb5kJ73XpCnhjg1Ux1w8fUhPw2uP6nQz6HAv/h0=; b=TvfjnhzsoECyoYtzLU
-	jY7Zy/4G5uhlnOGDG40g8AzYx5rLn7KZnpApQ+IuIfsojhvIWJQNaaH5vjIaeQMX
-	kOgucVmVODkTphpSjUB+8G7pT92XQQyuiuk4ZeYxbCS/qkNAx1BWfLe0/LtTsQQK
-	yib9td4CJNUtp97NchPIw7ufM=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3d7DirqZq7EjeAQ--.56354S2;
-	Sun, 13 Sep 2026 22:10:43 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: peterz@infradead.org
-Cc: mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	shuah@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Hui Su <sh_def@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] sched/core: Propagate pointer hash errors from PR_SCHED_CORE_GET
-Date: Sun, 13 Sep 2026 23:10:39 +0900
-Message-ID: <20260913141040.2338964-2-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913141040.2338964-1-sh_def@163.com>
-References: <20260913141040.2338964-1-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b="GyjgciLs"
+Date: Sun, 13 Sep 2026 16:10:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
+	s=202107; t=1789308642;
+	bh=hj/8UvDs6nBtIVcsR9ooz8uD6akaByG2WS6Lz17qDzQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
+	 author:from:to:subject:message-id:in-reply-to:references:
+	 mail-followup-to:openpgp:mime-version:content-type:
+	 content-transfer-encoding:author:from:subject:date:to:cc:
+	 resent-author:resent-date:resent-from:resent-sender:resent-to:
+	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
+	 mime-version:content-type:content-transfer-encoding:
+	 content-disposition:content-id:content-description:message-id:
+	 mail-followup-to:openpgp;
+	b=GyjgciLsJlcsWF1A7l6/3NUNt0bQMb0PmN6d/q5qpfGkeQq3b9kXHPH4F5epcBkT4
+	 Yirfj15KMYOkxEnTkCR1mc2PaK1k2h9AbI/pQxzfUs40WqcZJYuBrXqGsCxgexKvGW
+	 GOKtoUAOoFXbi6I8CPSECp0KewT3h3CN8E3OXw2CuhGLiKpYEhIINNFXpYd1XZ7bc6
+	 FVlleqGAN4PEvkz93T9p2jZBjtP18uUVFkTCxkrv8I342kUlsOn9uTU2edtGUabb0e
+	 28zMaN8fbOYQPxxQW0uzhn/flRwYgJXGjocl9yGfK3x2PyrPKqUto47Ic8DcpTZ2hw
+	 +PrIdyHVL29pQ==
+From: Markus Reichelt <lkt+2023@mareichelt.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
+Message-ID: <20260913141041.GC2693@pc21.mareichelt.com>
+Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+References: <20260912065648.999753832@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3d7DirqZq7EjeAQ--.56354S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWkJrWkKr1kKFWDGF4xCrg_yoW8ZF18pr
-	s8W3yxKrs7Kay8KF18Aw48JFyrGr12kFW3Wr4kJ34fKr4FvryaqryFyryaqF4UKrW0kFW0
-	yr129asIvryqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piNJ55UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgMoh2qmruNQpQAA3a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
 
-PR_SCHED_CORE_GET hashes the internal core scheduling cookie before
-returning an opaque identifier to userspace.
+* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-ptr_to_hashval() returns -EBUSY until the random key used for pointer
-hashing has been initialized. However, PR_SCHED_CORE_GET currently
-ignores that return value.
+> This is the start of the stable review cycle for the 7.2.6 release.
+> There are 1815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
 
-Since id is initialized to zero, a failed hash is therefore reported
-as a successful GET with cookie 0. Cookie 0 represents the default
-core scheduling cookie, so a task which already has a core scheduling
-cookie can temporarily appear to have the default cookie during early
-boot.
+7.2.6-rc1 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
+and boots & runs on x86_64 (AMD Ryzen 5 7520U, Slackware64-current).
+No regressions observed during boot & my custom tests.
 
-Propagate errors from ptr_to_hashval() instead. In particular, this
-allows userspace to retry PR_SCHED_CORE_GET when pointer hashing is
-temporarily unavailable.
-
-An early-boot x86_64 QEMU reproducer observed the following before the
-fix:
-
-  CREATE ret=0 errno=0 (Success)
-  GET ret=0 errno=0 (Success) cookie=0x0000000000000000
-
-With this fix, the same GET correctly returned:
-
-  GET ret=-1 errno=16 (Device or resource busy)
-
-The full cs_prctl_test also failed seven cookie assertions on the
-unfixed kernel after PR_SCHED_CORE_CREATE succeeded but subsequent GETs
-continued to report cookie 0.
-
-Fixes: 7ac592aa35a6 ("sched: prctl() core-scheduling interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
----
-v2:
-- No changes.
-
- kernel/sched/core_sched.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index 43e0bde3038e..f119a2973ca8 100644
---- a/kernel/sched/core_sched.c
-+++ b/kernel/sched/core_sched.c
-@@ -177,8 +177,9 @@ int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
- 		}
- 		cookie = sched_core_clone_cookie(task);
- 		if (cookie) {
--			/* XXX improve ? */
--			ptr_to_hashval((void *)cookie, &id);
-+			err = ptr_to_hashval((void *)cookie, &id);
-+			if (err)
-+				goto out;
- 		}
- 		err = put_user(id, (u64 __user *)uaddr);
- 		goto out;
--- 
-2.55.0
-
+Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
