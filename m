@@ -1,65 +1,58 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA78023643F;
-	Sun, 13 Sep 2026 13:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957B73A5E78
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789306230; cv=none; b=D/LmauyC+QlDh1qS3IqIRFvaCI4ifmMPe1dKafqxZtc6jAT6zhyGCTw4/VFmXvydpBaxIzbz8vqO3JZ7bJg8jaFPHFJFD3XaSB80ZxA5txjgGiWcVJIwN3G0n8cm2unwZzy+QOsZi8QOICwpcnYDOFE9bjHbdSMK7MDb6Bma7VI=
+	t=1789306645; cv=none; b=c4OBd61Qqicjsf7gvv8/qe42ev3/dSNCgjI2Gkd/LWUgUI/D0NaQLwflbmoM0p6/ecZ5DUQtYzsxHnTK9h2OkbE3ChjmT3b1G2Pka1I15Wp0Sya2NR4osnrw7NMkU5hfPGzNNFGWvKaVmzIPkrHxnxGmACvze6fV6lvQJqSwgGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789306230; c=relaxed/simple;
-	bh=v67ykjHquTpdhGJFC1Yg0Bc8WcnPj76gEMicvECakh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KrTgf2hfFpAHnwKK5xc85crKbLqrw1gxSw21STv4MWcShzGxcr/8r3/EGYJ4ut5yjZTM5Um3OgVBF//VjX+OhEhAy2rpTVy/6j/SLjLJWB6qMOr54AWGMxvMtwYsmbG+tAx6NPuJdKHYVs34xXspPtvlZuBB6qGuHKT0LwJsCJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ENyAmWH+; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789306645; c=relaxed/simple;
+	bh=et5AaVl1GGw7u21SrV5WZcepSMG5oem3/WgVlHyAmqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ez/2GyGXuzrMVsL6++ejQzY4HEUxbO4LuYEvv8ow267An84BHBFsKlC+enduwOxaLGiLM11Zd8ulC89dYtgEtThwF0Adw1kUqXROe5MS5RTsc8B99ydHc6/llm75DyzstdiJVdyX60mNdA7WQQbYJnaXf5ngbQkzZ3+tceBS/O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DCN144VQ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ENyAmWH+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789306228; x=1820842228;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=v67ykjHquTpdhGJFC1Yg0Bc8WcnPj76gEMicvECakh0=;
-  b=ENyAmWH+mLESN3laKi0Saz59rkefb4qqMAL/9m7uJa19yAxhrHjJGxBf
-   En6N2x9Qi0WCtKFrQSnhUpJznnsKsB+5Wb1tj3/Bx0ku6m/LKbZ1cy6oU
-   3XIQANe9J0j9WNrTSR2AI/rmaWrRIKj0H2EnJUDeXlLLYJRYG2LQ7voHU
-   IRLNp7yWXZgL/twlVfi2LHcjAZJr85Tzh04JFBSVgs8VoQJYUvTgNvY9m
-   GxaHD+WFLymZYkIn82q8OCDStC8NQxhr6KyckXJu2xK20Yg95lRekmPrF
-   59ZdjsNR8kND6F2Upa0javjGPHfjuFpLt4EcWibJecUNCmgf/rd9YMPXn
-   g==;
-X-CSE-ConnectionGUID: iafcZtGiQQaiffrWTz+p0g==
-X-CSE-MsgGUID: r8PA0QrcS2mIoboES/uqiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="100018305"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="100018305"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 06:30:28 -0700
-X-CSE-ConnectionGUID: oL0M0WpWRMy+KGLosSg7Fw==
-X-CSE-MsgGUID: JJdBRzNoRk624Y71PLnYvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="295882722"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 06:30:25 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Kate Hsuan <hpa@redhat.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Spencer Bull <spencer@omarchy.org>,
-	"jan p . springer" <regnirpsj@gmail.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
-Date: Sun, 13 Sep 2026 21:30:17 +0800
-Message-ID: <20260913133017.624919-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DCN144VQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789306642;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+NWO1Hub6RBRUSQmKYFmH/2juClvSCDZCkaUOtzmRRo=;
+	b=DCN144VQy9PkyWfO7wAvMu5KsI//2V9Z7cku6OG06COo1cY70th7tUCBpxIsesdhLsUNbC
+	wAOzSvtym+QQre+kuqNFpauNE7ySEAEDLi4ZGO7fyzzPVubf83IjkO6JoDFNNP2UTvLTPX
+	1+JXoLQB8wGMKW6hG6R+Vr6KjiCDbsA=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-477-TX1bL66jPCuDfPA-yerwnA-1; Sun,
+ 13 Sep 2026 09:37:19 -0400
+X-MC-Unique: TX1bL66jPCuDfPA-yerwnA-1
+X-Mimecast-MFC-AGG-ID: TX1bL66jPCuDfPA-yerwnA_1789306637
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 17026195423D;
+	Sun, 13 Sep 2026 13:37:17 +0000 (UTC)
+Received: from F43 (unknown [10.64.240.27])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8DC82180049F;
+	Sun, 13 Sep 2026 13:37:12 +0000 (UTC)
+From: Juhee Kang <juhee.kang@redhat.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Dustin Black <dblack@redhat.com>,
+	stable@vger.kernel.org,
+	Juhee Kang <juhee.kang@redhat.com>
+Subject: [PATCH] clocksource/drivers/nxp-stm: Register sched_clock once
+Date: Sun, 13 Sep 2026 22:36:45 +0900
+Message-ID: <20260913133645.1102997-1-juhee.kang@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,88 +60,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The wake line is only used as an IRQ source, yet the driver requests
-it with devm_gpiod_get(). On the Dell XPS 14 DA14260 (Panther Lake)
-that request lands on the pin the four CS35L57 amplifiers read their
-speaker ID from. Each amplifier's _CRS carries
+Each probe updates stm_sched_clock before calling sched_clock_register()
+again. The call then subtracts the counter value saved during the
+previous registration from the new STM's counter. If the new counter is
+smaller, the subtraction wraps and the timestamp jumps forward.
+(e.g. from 0.4 to 32.9 seconds below)
 
-  GpioIo (Shared, PullNone, 0, 0, IoRestrictionInputOnly,
-          "\_SB.GPI1", 0, ResourceConsumer,,) {20}
+  [    0.403653] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
+  [    0.404056] clocksource: timer@40120000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
+  [   32.890509] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
+  [   32.890882] clocksource: timer@40124000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
 
-and INTC10E1 builds its _CRS at runtime from pad numbers kept in NVS:
-a GpioInt (Edge, ActiveLow, Shared) first, then an Exclusive
-output-only GpioIo for reset and two lines on the USB GPIO expander.
-The driver maps index 0 to "wake". While it holds the line, cs35l56
-fails and does not retry:
+To fix this, register sched_clock once at the end of the first
+successful probe. Clocksource and per-CPU clockevent registration
+remain unchanged.
 
-  cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
-
-All four fail and no card is registered. Fedora 7.1.13 is the first
-Fedora kernel with the driver enabled; 7.1.12 on the same board
-creates the card, and 7.2.4 creates it again with intel_cvs
-blacklisted. Where ipu-bridge does not expose the CSI endpoints, CSI
-init returns -EPROBE_DEFER and every retry claims the line again for
-the length of the handshake, which is how 7.1 fails as well.
-
-Take the IRQ from the GpioInt entry with acpi_dev_gpio_irq_get_by(),
-as the I2C core does for client->irq; this also applies the trigger
-type from _CRS. The vendor driver in intel/vision-drivers does the
-same. The driver binds as a platform device too, hence the explicit
-lookup. A DKMS build of the patched driver on a DA14260 running
-7.2.4 binds with all four amplifiers probing and the camera working
-(third link).
-
-Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
-Cc: stable@vger.kernel.org
-Reported-by: jan p. springer <regnirpsj@gmail.com>
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529031
-Link: https://github.com/thesofproject/sof/issues/11152
-Link: https://github.com/omacom/omarchy-pkgs/pull/419
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Timer Module for the s32gx platforms")
+Reported-by: Dustin Black <dblack@redhat.com>
+Signed-off-by: Juhee Kang <juhee.kang@redhat.com>
 ---
-v2: decode the INTC10E1 _CRS from the reporter's acpidump; add the
-    blacklist confirmation and the tested DKMS build; Reported-by and
-    Closes. Code unchanged.
-v1: https://lore.kernel.org/r/20260908105717.496232-1-junjie.cao@intel.com
+ drivers/clocksource/timer-nxp-stm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
- drivers/media/i2c/cvs/core.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index d4a3b9c3bab1e..8d857bbd8ab51 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -725,8 +725,6 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
+index 6fe098a4a33f..7572cd20732f 100644
+--- a/drivers/clocksource/timer-nxp-stm.c
++++ b/drivers/clocksource/timer-nxp-stm.c
+@@ -211,10 +211,6 @@ static int nxp_stm_clocksource_init(struct device *dev, struct stm_timer *stm_ti
+ 	if (ret)
+ 		return ret;
+ 
+-	stm_sched_clock = stm_timer;
+-
+-	sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
+-
+ 	dev_dbg(dev, "Registered clocksource %s\n", name);
+ 
+ 	return 0;
+@@ -473,6 +469,11 @@ static int nxp_stm_timer_probe(struct platform_device *pdev)
+ 			return ret;
  	}
  
- 	if (ctx->res == ICVS_FULLCAP) {
--		struct gpio_desc *wake;
--
- 		ctx->rst = devm_gpiod_get(dev, "rst", GPIOD_OUT_HIGH);
- 		if (IS_ERR(ctx->rst)) {
- 			ret = dev_err_probe(dev, PTR_ERR(ctx->rst),
-@@ -734,14 +732,12 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
- 			goto err_put_ipu;
- 		}
++	if (!stm_sched_clock) {
++		stm_sched_clock = stm_timer;
++		sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
++	}
++
+ 	return 0;
+ }
  
--		wake = devm_gpiod_get(dev, "wake", GPIOD_IN);
--		if (IS_ERR(wake)) {
--			ret = dev_err_probe(dev, PTR_ERR(wake),
--					    "failed to get wake GPIO\n");
--			goto err_put_ipu;
--		}
--
--		ctx->irq = gpiod_to_irq(wake);
-+		/*
-+		 * Do not request the line: another device's _CRS may list
-+		 * the same pin, and its driver would then fail with -EBUSY.
-+		 */
-+		ctx->irq = acpi_dev_gpio_irq_get_by(ACPI_COMPANION(dev),
-+						    "wake", 0);
- 		if (ctx->irq < 0) {
- 			ret = dev_err_probe(dev, ctx->irq,
- 					    "failed to get wake IRQ\n");
 -- 
-2.43.0
+2.55.0
 
