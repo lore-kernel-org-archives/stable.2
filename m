@@ -1,116 +1,145 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8EAD23817E
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789310360; cv=none; b=TsHVdntcenBJiue76fAYMWpmBOs2XioDW6O9xMHBESRF6pycGB23aNFn2aIoHpaS1duksx5BtSyNadcp9VWn0dlZPMW31Gj57DrQJOKSho0F7Cc2pijrqRdEqxQbuidT3AjZpVmdDBZWJV6ididujNeCWBtapSQ3VuJhsgIbgaI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789310360; c=relaxed/simple;
-	bh=jiMrzmDOfg1nWOBVZ7m2UVnsQM7VW5f1VNF2Ud+H8Lc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTGEh6/Yr0Ylj8iHAZ/gUJf+N/0Cb1VJHiNPbhGMZLye2r0eGUPN5+v4uGYzLiW2UpnmWi5PhR+eU0ORlG7jpFHJup9ws8QHPDhLPuFJE7Wdi6C6XNrxGuKYknyGFc5MmMhr3JVGnf/Qg7elzzvzQ7D88SwjARbdGzW0Q/L7QhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUxtCzFk; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5811031E840
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 15:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789312178; cv=pass; b=mxLgPjKfrB/1Wf7ixliVguJ3/xdWNK++KLOmc0zPPf7u2VY1DWTRmwstlcUI0nc4C3ypo/2HvyJmVgvzMP4EzVT6pu8EO4dmWaAT7CPF4bTkZ4bOAZj2H5Mnb0z7EpgtSjqaKHCoLuNJ6KFGCgO7UjmAeUDyfTqyEfGEKpXynfI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789312178; c=relaxed/simple;
+	bh=6mFuurljPX4icUeSSuxhnmYjx7ggtb2P7Q8jZv2FjKI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gC/t51gWBW7Rts3NwAFb1+kFbo37U56MFtLhuJXc4cRYfG9WHjCS84xDhRE74l3otUaZnzqfT8qKy4Sd9uU8sYaBOGlVir+MiiSTrdefxrOIEkHr1hrHF6+FAcPnHw82AaBxk/Ii/i0KBHHdoz70qfujyFtaWZGhUtl798WAbU0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njctwVTo; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUxtCzFk"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso24613155ad.3
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njctwVTo"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-399026951a2so349150a91.2
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 08:09:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789312177; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fpZAwYntPTCbJzs30D4n+5gicQzjSj/C4/vlSJJJTVy0sjZgnzIHSLpzQJCG5OZgOD
+         pAutGju9Fw0SXAsLJ0O/FkIAz2C42DY+BKnCnls7Y4RfHKs+GxqzoJL98sVYYv0hEnPO
+         7/ot7ofI63kKSB1NDE5oXo84IYJlkeQkOBallhhn5LFu6MG2sv0oUW/RgNNRBqQuWxWB
+         MfmHtO7slKGhhgrb2ysGvK/y29uOHfvky1Tcf1FG81E32buHmTc1ZEVgsiJlTMjSTDU/
+         qBC/6PTNeXhS3dAuJDEwiqmog1DawlD5Fwdf+IgsVbycvUyHg30Ew/lRmIgRtIaw+EcU
+         tXfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MHdelo62IoLAZ62QrJnv/AKdJJRSQm0JYdG8GL2JCRQ=;
+        fh=oMxQE66TlEzFyd7h93eBKspaWp1ZOY4ZDz3xE0giAvw=;
+        b=fkKtS+lLphwOAmGlsu71+Cl035zPDL6MunMkJ1yDyOS+AjwRZg6EnQccevJyYeEpC2
+         4L1XKlPy2cax5av6Q8ncTvMvMxXg3Jy75XH1K3B5G82CvE0qeyzfvByVZrJ1SBifJGS+
+         Tf7aFzJmSIjKam8T9sa9SMKoKPhgLRhUfVQ+HVmBSxz6W3+qYgupn+YpZXM83dVPZlFR
+         b0ZrZqiNyzhYKiHWUeZjA7wsZ/kaxlo7h6vaun7dXfrdJcC8T4j1/B9AZJ7YoozQShcn
+         zFjdHdcPuW0PxyiIRwSPAd1WT7nwGhwJ+MOzYDZI1YRLGIuKZy4j2rpLW6jAKKrsEaow
+         jZ7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789310358; x=1789915158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
-        b=cUxtCzFkLmq6MFlqJtPpUjAgHRMRTt+4EBAGEr3y4fg4ShlXgcRbqe5QIDX1jGi6Lq
-         20CY8MnscPil2KI5hf1g8fE/ifrlr1rGdoapzJzKYAp+y5ZGOUYQLzX0CbyGtU0cjgCS
-         l0ovV4LuFLwe/O8rGSwTbozIodOafMBrTj1sswZKYoVyvDbaEuRCFbkxvswcCS3SExUa
-         UgEWhUOm4X5xcMg0nfZcGvOx/wFkc5PW2JJ9GgtLlQenmn8T8GV3GEKcfXHSTfxlNVvL
-         XnyMt84vNnLxdm+fkdDFgFpxWU22xTWRP1EJRarYEaG1YFVUkSpLA8ZGr9NSozD7JdK1
-         2FQQ==
+        d=gmail.com; s=20251104; t=1789312177; x=1789916977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MHdelo62IoLAZ62QrJnv/AKdJJRSQm0JYdG8GL2JCRQ=;
+        b=njctwVToN6941jkzY+EPAlgBHVkYkAvyc1UKsLX7Gpu8We7oWHXABsQXI8ZydEqEpX
+         N76rUrNGUHevF5ohCSvKLx3SpZp6ztXdp3bQHJz8y06yjEkYpd02IT+yuM81OCnCEPxT
+         PfuV0o+HEVGNeqTeqawGo83DLVwzBuOC+0fILEHLPky5LfDoRNPFAmjC6elPnxqU8vv9
+         fIocFluKYR/1JwsgTFY+QuhkLD7d405xBMK3TwRaiDMFzxApbRuMmEfC8FPnyj0Ir7n+
+         uiuGG1bZw31zGkOUq3mE9p9zyk3B0ZrJ4GkWxELrwcEBCM+ZMAVEN9qYYiz/osD7wsJB
+         hGeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789310358; x=1789915158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
-        b=b660zYTe7CcBHeRnhMquah3mN5flR+v1bPK3vx6ECQ02axyqfOKngk43RPtyVokS4G
-         YPyey8UTWDiyjUPKlMEJXVaD4ZWlf1sS+DG5s6faViNntU2lB8hmIPFYdVVssY1rMRpK
-         XZ0m1dWjUn918VdkwdMd7C0zlD5U/00OI2re3Yp38XhhwrI21TW//nOweHMGKAJsdaQ0
-         mH2ae+14kHSr0EpWuHOLPnsFIHJHnT9Rko+dDOnJaMZLRrzhcagkYvBZ5sg0aczxLBi1
-         9a1K3JMXXY58jpEJA9Nax/lSWlTT5BTr3wsBoz2D1k+rC2dbg+LaE5Fig/9qbidyZtE2
-         ApWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxz5oRV9m7IiT0NpVwxNMT521jY3lwzdDcht7IGTiYqEf4+Fblq26OaR+ryO5YFbhsVl7k7g04=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6n52PHw8ZydeLhCfkIxypCKmEGmOYgcy53d0CjupexeW/RQZz
-	B4EGozLRDnHWQ46J/5U4W+7k0nAur7aZpCda96a6GjA0TOnVTChP0B8V
-X-Gm-Gg: AYBFou1kiALlcWBzh6sGTa9K+pBY3s+vLLOCrjbGd6yjJ1wd5QE/xNck5YjbjJVoiCW
-	Ixe9VfXx/LJzN6plQcOPBbOZ5XbkGeeF1ufsNSSfGyGDC8OWa+GuZS6OcB7SgCxQ2yR7E99HZt6
-	P/XphWv2+rKRkjv0UxqjDwTEKPvGnvF3Tvop5ds4A4dQtUuh8yg5N5hxk2BLW0ETYtv7w/IlvJp
-	AqKWlb7VIO8HIe0biIf5JsDQDSoKlL71r79camSHwDNRxCpV0ubJqD15qIH5ILOMV5YVIr16ymI
-	4UL++LuqzeUchsSibe/WkGy959ZHQfnlyKb8lJoI1i4DFU0+JRgIk0BKX3mVAySff8KHCdI2YiM
-	0ajnmOhBIFP3hLtXSnLrVaibpxqYsCE0VbtuKJ6v6j4zkkFY88TRX4/rLvsUdJULDJG9noRp2VM
-	H+VXywBPUsCCiPftKotp0OBwrFyc8ezVD4pgIrjO1fqS9T3hWhPS19OA==
-X-Received: by 2002:a17:90b:4a8d:b0:39d:8222:6436 with SMTP id 98e67ed59e1d1-39d9bd8f51cmr22611245a91.7.1789310358118;
-        Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bb0119sm16289560a91.2.2026.09.13.07.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 07:39:17 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Ivan Gorinov <linux-kernel@altimeter.info>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: winwing: remove unpaired hid_hw_close()
-Date: Sun, 13 Sep 2026 22:39:09 +0800
-Message-ID: <20260913143909.1589019-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789312177; x=1789916977;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MHdelo62IoLAZ62QrJnv/AKdJJRSQm0JYdG8GL2JCRQ=;
+        b=rsCJLvADUZV5DxXFXtFSsbLJLsaePvbzbg3dkP0QlDqA9LrckGnCgPu7BKepRxVWmH
+         WSuhyFyOh4ejoPy+fMXGXmrLGBKmcV3MzwMPTqYSf4eAGqgHaIlgdB9+vUzOHzc1EQ7W
+         QZA69RQAzDkze2vLXZCbmsIMnEw9bTG7LVr4bE0FecS+NhgnHLpjEWimOXrwOXP0vec/
+         jbI85Sf2ZmdpOUbkq4JfpUs5Q+vE6G40XD+RrYM0ZWvpBxYhuFgiCZjORty/aISPbp1e
+         VPEkcftfb4phLIhwLYPPzbemCf1Alw7rwN8LHwHRn25qVrOfAzADON2oFQeCJ+fRY1aE
+         MDwg==
+X-Gm-Message-State: AFuF++ltaUSkP+sLxkwCiZoq0BpcJdo+DVOokuvRDkP1R7RuXnjqG/X3
+	EOyz4Kf5NcTryH1yorXRX+hTwnWYEUkbK7fml9STnQqkSZpejF5fCGTrqji+XL66Nl2W0Kj14Bg
+	lT7Ndlc1hZdHgbObByrKqQZf0I586lqo=
+X-Gm-Gg: AYBFou2lnpqGJZaORkONrDD/x6OwgJiJZz8aTOKFLwxNeVrjD5ZfHKr6QTjguZKbS5S
+	EsmfZmJKdpiZDy6oCY9lok01uLvu9p2SSOWUgl4fWM0C61vm+jiUeYALhhLTcSaFETsws11yOdi
+	p+h/Dhp4KpubTFFHWMDUMa9iDXdOCpJu/Hw4m61Wo6tUfy3T0C/gibBoESGf90Tzb7YXxNUzhtL
+	7pFlMZyzl2r0qy3BhyLo1vaoTmLJyYVal3gsJhFW6TjYs0NWjT7Xg/xCilzkI9fqNIrVAVc3gNJ
+	w58cGGXg15HMiNV1IaunLCosd+wlX7xp0hdkNlTtRVWsjDwr2STn2EUozMamlsfllOsQ8Tdbjqw
+	BVrUGCSb8lCZAvyY2dpmDczxas/RTbkaP0HQBI1lWosEr2RBNeNW5BbwwmNL77RwxaYMSxMz+Yd
+	KFnYWvp21R4+osWSXbYVEU/zEu0oPGswTjDGN4ypMrJw0lq4kcFrw=
+X-Received: by 2002:a17:90b:5605:b0:390:3936:8760 with SMTP id
+ 98e67ed59e1d1-39d9b99eb0bmr13862044a91.0.1789312176607; Sun, 13 Sep 2026
+ 08:09:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260912065516.948645775@linuxfoundation.org> <20260912065531.127040984@linuxfoundation.org>
+In-Reply-To: <20260912065531.127040984@linuxfoundation.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 13 Sep 2026 17:09:23 +0200
+X-Gm-Features: AcwNN1W7V8fpp-JOiHk7mjvYf6ZP2l5Wo-7SLaXie7gHW4e_0T_-vGqsRI72fQo
+Message-ID: <CANiq72m7L0E7kjJA8hS2mzJSCV6CeFNc_+8jtre0hD953js3jQ@mail.gmail.com>
+Subject: Re: [PATCH 5.10 611/798] scripts/tags.sh: Prevent binary files
+ appearing in cscope.files
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	Sergei Litvin <litvindev@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Nicolas Schier <n.schier@fritz.com>, Nicolas Schier <nsc@kernel.org>, Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-winwing_probe() starts the HID hardware with hid_hw_start(), but never
-calls hid_hw_open(). Despite this, winwing_remove() calls
-hid_hw_close() before hid_hw_stop().
+On Sat, Sep 12, 2026 at 9:59=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> 5.10-stable review patch.  If anyone has any objections, please let me kn=
+ow.
+>
+> ------------------
+>
+> From: Sergei Litvin <litvindev@gmail.com>
+>
+> [ Upstream commit a9b93c34625a27bed5dc0f80ee2a359ceb955172 ]
+>
+> When executing the command `make COMPILED_SOURCE=3D1 cscope`, the resulti=
+ng
+> `cscope.files` file contains filenames with the extensions *.rlib, *.rmet=
+a,
+> and *.so.
+>
+> To fix this, modify the regular expression in the `all_compiled_sources()=
+`
+> function so that only files with the extensions *.h, *.c, *.S, and *.rs a=
+re
+> accepted.
+>
+> The issue has been introduced by commit 4f491bb6ea2a ("scripts/tags.sh:
+> collect compiled source precisely") which implemented the parsing of
+> compiled sources from *.cmd files instead of using the "find" command.
+>
+> Fixes: 4f491bb6ea2a ("scripts/tags.sh: collect compiled source precisely"=
+)
+> Signed-off-by: Sergei Litvin <litvindev@gmail.com>
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> Tested-by: Nicolas Schier <n.schier@fritz.com>
+> Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+> Link: https://patch.msgid.link/20260714083331.69482-1-litvindev@gmail.com
+> [nsc: cleaned-up commit message line breaks and removed cc trailers]
+> Signed-off-by: Nicolas Schier <nsc@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-hid_hw_close() decrements hdev->ll_open_count. Calling it without a
-matching hid_hw_open() can therefore underflow the count when there are
-no open users, or incorrectly consume an open reference owned by
-another HID user. A subsequent legitimate close may then underflow the
-count instead.
+Before 6.1 there was no Rust, so in principle this may not be needed
+(at least for the `*.rlib`, `*.rmeta` and the Rust `*.so`s from proc
+macros), but it shouldn't hurt.
 
-hid_hw_stop() disconnects the HID users, allowing them to release their
-own open references, and is the proper counterpart to hid_hw_start().
-Remove the unpaired hid_hw_close() call.
-
-This issue was found by manual code inspection.
-
-Fixes: 42d020b54edc ("HID: winwing: Enable rumble effects")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/hid/hid-winwing.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/hid/hid-winwing.c b/drivers/hid/hid-winwing.c
-index 9cd25a77999e..e18728f215ae 100644
---- a/drivers/hid/hid-winwing.c
-+++ b/drivers/hid/hid-winwing.c
-@@ -388,7 +388,6 @@ static void winwing_remove(struct hid_device *hdev)
- 	if (data)
- 		cancel_work_sync(&data->rumble_work);
- 
--	hid_hw_close(hdev);
- 	hid_hw_stop(hdev);
- }
- 
--- 
-2.43.0
-
+Cheers,
+Miguel
