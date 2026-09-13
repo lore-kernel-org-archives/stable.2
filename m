@@ -1,180 +1,176 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC6F37E5D1
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 20:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE48366045
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332628; cv=none; b=T6xqRhfXWALRBwv4YkPq11vdUFDPKUOrFZG99ciGwA/0omdIQK02G1aeLMN8FszC1Jd1pLaMsFBfMDpPxeo/vBM4cVRmGfmH2OzcPWTKbg8JyoZyZL3/rmG7i8BK5PBmsQ2r4mEkGzTw5QL44RH97GXruX62LFuK28PbEvxwC+Q=
+	t=1789333617; cv=none; b=CzDUxguuhKSBrqFTgsn4W6LZ5doSKcKvMdwRPd+QBK+VeKPQrLjqAll1kB6ZO9YXIg/36HT2K64qV0LVE/HRzwmh2/hivP9yWZXtekzfLljNqpir+x1Z2bgKtxHEORQuO9xxo7FCWAbfDDUB/Q8FLEYMFBwy5+xWeqyNUjdSvLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332628; c=relaxed/simple;
-	bh=cjSdxH7baFihtM/V1AMCnUMKfob28Q3GgdzY21w2Wkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XpJvwi6YYqSUSg8nmK/lCAku3ECcDD8FeaXUUdUIvWpQYQWbMuMC0sRG9mlsWqFKQbUhT0gQ4BDrVYWxx8ekEP2fYqbqToKxVuAcB2ykj6x1IHFP1ZCd7XkB3qM10/kKUcHRohsmJGlp4sM1DQvMr2ZkL2OzXPf6djBTK+oLfH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgYAjW+p; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789333617; c=relaxed/simple;
+	bh=Rc3rXnon0EQSw8KwGfyrwFTj1nXUy4ld2WfIZRqodMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dr++56JvtoslYUsg9VI3ou3odXAoLlHQ2ToWtU/sbUajAN6EcpP2n9mNmOKB0qRqJJN3uGddIKmyHGEbemIgLTCDeBfgz3lBG3zSsCcRX0DCHJW7+XZnWun4GUjhNFrfR5GkEkhNyfSSFiY6IKjFT1e8GuQpIvTYgrrBdGEMxno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IUJA4TFa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a/Xnk5m9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgYAjW+p"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb7692a57so16535901cf.1
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:50:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IUJA4TFa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/Xnk5m9"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DJxiW62848945
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:06:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=CuOZZ+1bOWWW+56MFTScBnnN
+	4DrpUl8zDP2tJWpYYOw=; b=IUJA4TFabIVCWVLJ1k/WNtI+t+aNF4Qx/N+NuPlV
+	68/LKjTRHsxloRbPMOP9GROn1MsxIvCQ1y5nvma6lCKtf7fzdgWpv1Um4mzXF6Lp
+	vDgBaJX6lMidWRDmOdD6xYM6Y1KG+tVTu6Vm6+PiG4nApUNcMMpJx0Qw3+/o7vE9
+	AZf9HERE6fg7jIDNVYOS1KXlGSHugVq+a5dAI5+iEOj+fMrdiIomtb2LELvBXz9B
+	r7UUwg90f2kNKp3gYNVEVDoGykOu6t/W414oHG13WMIlXeu9x+aPUdulM7Dz7GCo
+	K9zOfaNb6rwR9aWEwP1uPuaPwvkFjyzg2IENHs/MkcctOg==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cc4c2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:06:55 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-78f4d6af128so484934137.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:06:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789332624; x=1789937424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FMTgWivp0e7gelEPDHuWnCELoEKFxvhsWudexAHdLaU=;
-        b=rgYAjW+pVNZoKaN9MRpHGtgEaRWlfwxDn5USyH4j+xgkWLa0f+idy+PW83mktI0fWA
-         F5Z3t21dSe0Gnj/jl/EGeFLS2MccVIMrBWMLYG7gfqpWb+tmc7VToz+nD4ZQA+80Nmag
-         dbgowVCqAaH9m9SDJFluappms85Tc+dkEvL8DoAkFZhl6asn8DicYq2B705p0grGFrvT
-         T2XtnmK2/jTNKXfwB88wr293pUkbnc3Esq0ysyRMh7hK9CVTzhSiikXQpMvbSb6C1BF7
-         VkMqq1l+2UTQvPjd7KiJ42+6aX7IMI31JcYNadwaWmeWlxg8KTGYc/8H/gOOQZQUSMJ4
-         vhAw==
+        d=oss.qualcomm.com; s=google; t=1789333614; x=1789938414; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CuOZZ+1bOWWW+56MFTScBnnN4DrpUl8zDP2tJWpYYOw=;
+        b=a/Xnk5m9ur5GT3zURzA6w8fnIrBnR1v9Sl+MsrNm9RE9ZEEKXyJPYJBNh3BDb8eLkz
+         68GFyzafEEzlN3dR9/v3FoJvCp7ehd1UdpTXzrmaIzV1DIpXbCzFN4esjFLNLzW4Z0fJ
+         TlDiwYFC0o7JvVIADDrWUGmIaI3893tl5snQeUeRABDElC4WHFhlfHIWaQqnelfGAw5x
+         Djri66Yvwu55YBmkd0CG/Nk5MwaFQIo2aAbt9DE86QUg1s3NKt42sjxPqoZzWcxque5Z
+         CZoKM/8uz8Ch0u4gyTiOV7FNxki3T39mWJ49SdIxUuggQkfyBKXQuvbuNtTOvpbURrfA
+         Qbiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789332624; x=1789937424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FMTgWivp0e7gelEPDHuWnCELoEKFxvhsWudexAHdLaU=;
-        b=S4IzetQvXkPbQVSX2O/cDyFuVbuKWJSbTuhYO10WPz04dvdLErEZwJ7A0aCdfx0fcS
-         0XEMWNqpNOEjaiboDhD664T27W2mP3lZC4jQcWoIotYa+M+h1ys7Il/QJ9TmUMOQgDZJ
-         cBdgvdX/R8LUjoLwjXJfJH7lTmaFWxud43nlYmSnDPV8qOOLI0lycA1LsuuV8xbXcMzZ
-         weG650fGmGj5ix2sH4lGaZWtSl58Ui806T/6hhjbbUT7PSfq0Nu4HvuhT9hkNFmCrD6J
-         Pm1YZAgp7VxvUFoNljtdcr/CEV+QpnQIhqunBE1YfJZIoxU4Ybh80Y6NTuOLYv92jS6X
-         +56g==
-X-Forwarded-Encrypted: i=1; AKwUvBzKW12WzCRgz+i2VP6GyZoK3WdbgwglrMCcwpjrrQcOjoSSr99FksP6Ok4+YeWDt0jHUonxsOg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK9yKyz9wnOXDRXWotvJ5KL9I8OWrIxAtGsbpS2iQl0oSIQOpY
-	/A0MczKCYpC7xFVayURJL+naj6T/xNmcxSnEbK1pSsF2AOFB2YbAbCw=
-X-Gm-Gg: AYBFou3WdRc5RHGUQ54I+K1oMpe1kxr6Yf3mk8g1DR2nXFSN0eNtj3MwAKzHZoN8AZ4
-	tZO9j1+jiqxtgJpp1DcaG5pwrUJosEdDpbTWEPsC81scF/1we/Owb+AvRgf6eV9YGGHgLpQNaDh
-	adVzseeItRShyIVzCKa44lcl6bIblvntjaFc3y51gM4slCEYpcrlJfJUn0emmlkdeinirzaJiib
-	k4cyVlborYpDLinj1IcUbcAlanvYFKvEcTQaRjNItFApQTBCdSRjZsfp1UuuP7beTdxq5y+NELo
-	CevB3ETlz4suJjwe0nuuyOhLRYwAZYUdYDe3rG4Pp94zGElYUQpV1cjXDVMfnCjhUC0mOifSVsX
-	HzuYXJUZ2vB6deHU+Q+klNgB4RAujsAVwCeSsPlZzMt7yLcu25fC+QyK8MyBzJ4/HN2aqAOyn5R
-	AbK9NiQ00N8HU2QB281dobLHsuJcq3MlXhjqlNX5qriG86zp28JimqrdbZc7qYwulZyCSXTgZMB
-	pdjWUAaOTtob5sthq4A29PBxS516rZjaq5u26ymBIjtN+od4HRVL7/+4jrCsxcuTuesI56DIYYG
-	LGFJeU/rEhAPUORcwT0PVL6Gr9qmZn8s1w==
-X-Received: by 2002:a05:622a:1355:b0:530:ba79:edd3 with SMTP id d75a77b69052e-530e832fe99mr121931421cf.62.1789332624296;
-        Sun, 13 Sep 2026 13:50:24 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4ba156sm79460671cf.19.2026.09.13.13.50.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 13:50:22 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] mfd: twl-core: unregister the auxiliary platform device on unbind
-Date: Sun, 13 Sep 2026 16:50:12 -0400
-Message-ID: <20260913205013.54777-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20251104; t=1789333614; x=1789938414;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CuOZZ+1bOWWW+56MFTScBnnN4DrpUl8zDP2tJWpYYOw=;
+        b=BTQlf5vYfl7MWisRpTGKnk0ZCmBwbXNo01F//ZalcbJCKNVM7N8nUhYMLBA0WkqfXk
+         qLMMRRppkB97bJ8LY5zmk1Zq+RGXnF0PK/airAWUNS8eqzimeH4fA1b1TK2PwGy7ZIS0
+         tPOsXg51Wi7yn2hT64fjhsXHth7HWYFGUJeEAZLpFiS2U0F3wP9RTJ/CNkIJbnDHquGY
+         Jg/mVLTznaLvikHD6S7EYy6cpjQWq/d2dX/NGZ1YLLYDarfo38gqDjQAdKPKDq73Nz5d
+         57o8wZWiPKxTEwO5z4crSK89emQtKmhbPzzH6uzyPhnlzvQxa6fXSPafdJWT132jA+pk
+         tnWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWYXVPyc9rb5eP+s8QFCpJqzPXtr1EnKTYlY4nDr3icDOgsw0I4pGAxnKxNqOj1gdkXDUcS4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kF1kfNXcG4Vil+qS9yT7xHeE5AFF8S1L4VbOkmdOfMkZplBoQA
+	hk3lGAwpVW9JjYdQQyQUjg53WIjQWkD4t2nc2Q2fnQNkwflzkBasqn1oxH+5N6dzRLUvmFeWPcL
+	9N5hKHHwJBkMsAPLawo6JKceep6BVd0LGerOssMXnHJgx89hmHyGgGpXwa0Y=
+X-Gm-Gg: AYBFou0jo7JAuaRLbK07+WLzDqT53dFLrOrPU4XU07sxdry+4tu8T+HcL4Hc092FpBx
+	czK2wAmIOjVpwoMyJJimAEjoW/7lmM6P3OHsm+OMLzq++O7LVlrba+nfuq25UIcYwaVOPTfEqpg
+	kK0JcyOfJSBKiAZbYBCTarBulMHn0KmSrr8cqvVCNCLujujp7QhTcbnTslaxJRw8h96jfUNtco5
+	m8tYwCLm6a8KYqkNFq/dRP5NPwFVs7iS26OSqL3jLg9Lf6YnmQKOdLueLsYRRiZiF3EkFvaKgVc
+	j56fQGclFUoD58giQbkKEkaL8l8d0dZ0AJKzU+pXXwKphzmhEdWt7dgZfIPZ69tY/nZOQh8rM3k
+	VJtGUccfUdBkyF0/Hzjfc2JWgUB9borWJOiZ099BUXqNyr5JVxaEUCvyIYQlVXodFwP+SBCIJlk
+	nkcpOMlHOAhvN8
+X-Received: by 2002:a05:6102:8607:10b0:78f:5bab:4761 with SMTP id ada2fe7eead31-792a93b4e87mr2736743137.8.1789333610781;
+        Sun, 13 Sep 2026 14:06:50 -0700 (PDT)
+X-Received: by 2002:a05:6102:8607:10b0:78f:5bab:4761 with SMTP id ada2fe7eead31-792a93b4e87mr2736729137.8.1789333610333;
+        Sun, 13 Sep 2026 14:06:50 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a045f6f3sm1914073e87.35.2026.09.13.14.06.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 14:06:49 -0700 (PDT)
+Date: Mon, 14 Sep 2026 00:06:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+Message-ID: <vwnlgp3ysnoimdxlx6gowktonakwpita2ted7tcdfd3a6vyjy2@p3slguu75r6d>
+References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+ <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=e+mT2qp/ c=1 sm=1 tr=0 ts=6aa7106f cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=owhB9EOPmpqNCIfoPYQA:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMwMSBTYWx0ZWRfX6dIvnsjgRh1Y
+ 0Dest5AoSwEWHkZmKWi+yPalv3gtRjqAUNBD33ENpLhjt37ZDYkhNeYDy9vXWJJIWi9bWZ5BDhU
+ zUcO9mGlh6uEny0jIni5VnSDP2CzUWg=
+X-Proofpoint-ORIG-GUID: mck-BW850Vbj870ldYdVPtQ1hbUpY_R5
+X-Proofpoint-GUID: mck-BW850Vbj870ldYdVPtQ1hbUpY_R5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMwMSBTYWx0ZWRfX5bT90qOW2twi
+ nbx68dc+CpJeJ5vLrP1zKpRKNXEVm3EpV6gWfMQsf8HcosUmIQKYOFG0Ra9I9KaNncYaOHYaDkI
+ GmK66pXj8sp3Px0wbCAVZeggDsPU2QTU2kIZBFXJcnw3G7L5TgtybxslYscGayCsHWoDG8pGrtX
+ mR65BzrRIeb6raKJbamxXcobguv1UpNTPhd88N1Mk3x5BbVCseEz/HYJ+TIHGKAV7TGWSPBoqcX
+ g8cXf3aDctazAcvqHRb1po/E8O6ktqM16DkluN1wHRrs9eDefoWkkgesTQhyw/xtqGJTZ4m8047
+ AS9tE+nOCQvJk/R9ah3WXBtuul6GIAddHYy1b6HypRNdb7KWxN7dHUzqsB96jP9s/VG5uH9S18d
+ gN9Y1WRlBEX7I9VA33SyDBuPFhqgD73erbiyC5xNtw1LBhSCHTWBj6YXCFlHt6iBLt1agZ5Fqba
+ 7CuAV8y25x6kCLNxfxw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130301
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+On Tue, Aug 18, 2026 at 12:40:27PM +0200, Konrad Dybcio wrote:
+> On 8/8/26 3:16 PM, Guangshuo Li wrote:
+> > adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
+> > adreno_gpu_cleanup() does not call the matching
+> > pm_runtime_dont_use_autosuspend() during teardown.
+> > 
+> > If the autosuspend delay is set to a negative value while autosuspend
+> > is enabled, the runtime PM core increments usage_count to prevent
+> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> > during teardown, this reference is not dropped and usage_count remains
+> > unbalanced.
+> > 
+> > The documentation for pm_runtime_use_autosuspend() also notes that it
+> > is important to undo it with pm_runtime_dont_use_autosuspend() at
+> > driver exit time, unless runtime PM was initially enabled with
+> > devm_pm_runtime_enable().
+> > 
+> > Add the missing pm_runtime_dont_use_autosuspend() call to
+> > adreno_gpu_cleanup().
+> > 
+> > This issue was found by manual code inspection.
+> > 
+> > Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> 
+> I think we can use devm_pm_runtime_enable() instead, which will take
+> care of cleaning up both the autosuspend and runpm halves
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+Not really, beacause the driver's group device is DPU / MDP4 / MDP5
+(in case of a merged display+GPU), so the patch seems to be correct.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
 
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/mfd/twl-core.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index c024a28b0..128cd3f6c 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
- 
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
- 		return status;
- 	}
- 
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
- 
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
- 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
- 					      cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto out;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
--
-+out:
- 	return status;
- }
- 
 -- 
-2.39.5
+With best wishes
+Dmitry
