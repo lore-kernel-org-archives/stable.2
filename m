@@ -1,51 +1,54 @@
 Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAC22BE65B;
-	Sun, 13 Sep 2026 09:45:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8C2377A97;
+	Sun, 13 Sep 2026 09:57:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292738; cv=none; b=SSaRSDxHA5tHlQbdsXI1XG6KW2l3oU571agrVWXCyEU8LBaqSsj5nIS4PyaVE4LwFe813P9zOQwf6uFJ9FpX/XvQmS6MWN2dafs3kDsYvpDsTxMsEdL63HJ06CLVDFLS0Sx0vvcFjOnqHhPI8f/bV6jC49heLW/UqUMpwxZfwws=
+	t=1789293478; cv=none; b=eZL5zPgNCgM8Y1npIYt/lsvNfC+qp9ydenUUQFdR/rOMA/PlZipqS+8qDGHyD97D5xELd3pbfdrvfaYitl9ZM6w/Nz7loIJQoYuHWdXJhbcvRExxF2pzuKg4TtvXIDe/8Mb8jYRDitFiYtIYK7LjLTXEJgFmE6aY2YbRCNHjv9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292738; c=relaxed/simple;
-	bh=fxZfcUwrGuLbBq1at1NH+rfhj1ofaZCGvEtNjvvI0V0=;
+	s=arc-20240116; t=1789293478; c=relaxed/simple;
+	bh=unQ/0uzY3D7cYZwKkeOa1X7gfYdcMIvLK16kqdbWZzI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kdLPsHrBEohpns6/xMj0HkbAo31A9Vm1DE6ATOvgiklhTZFWaHBgBnPhLnm5nHynb4OPUcBywCQdxNM9mpQlAVNJ0MTatw/R060LyoIGEY8A301DjCXpsaOgRQAD9SEVO9vIJKv8Dver7+n+ANL+mU+SGftFL3ixAszU3KNItRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=lLcxZi1D; arc=none smtp.client-ip=62.210.214.84
+	 Content-Type:Content-Disposition:In-Reply-To; b=qVES2HUAasH19ySshWiABbg9jYC7JYFQTEX6AEw8wdy4i+rlH+Z/SRTd2lpJsw4dh8dVSzAJA8PjQV4Hl53Rap7v9NbcqDBYqmIqyW2E3O/TClnz+wjRVih35IEFNGGu9x4CNJTvt7kzHCwdK/5lXmiPTL8xTMa7d3oRSYdgohk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=I8x3cEXO; arc=none smtp.client-ip=62.210.214.84
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="lLcxZi1D"
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="I8x3cEXO"
 Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id F20A414C2D6;
-	Sun, 13 Sep 2026 11:45:29 +0200 (CEST)
+	by submarine.notk.org (Postfix) with ESMTPS id 3885A14C2D6;
+	Sun, 13 Sep 2026 11:57:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789292733;
+	s=2; t=1789293471;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mntXXygWBINUxvtj0AxV1Eods6rKk9GuaqJdGpeqf70=;
-	b=lLcxZi1DJDTuc9DOL9tOMNq83rN637b7422Twq9WU2UpAUQmN2e20QvI/T5+p2Bt+APcGo
-	j1ENMo5Zev1GVftNtJCDZVg3kqVMSTx9RAAmMbCFwomMlq3FYmNrc9NEar+qfRlwchZR/h
-	RAtfjnHvPgkKpYih9D2yA4s10XrYhVKI27OkgpmPG+cpUpgHQAs+jsyLlzFbVraZnM4QhR
-	ckS37ADtM63Xfre+GphP1mnQPMEsDP5rDc1Jwc4ejFBFKbY+bUZeQiVaSEX7acDDxAUzwx
-	VrpELkWF5E/YigawYLegUgI7q4+/1xxxiB6Ruba7N1FdKwUQwRJ+INYedaRslg==
+	bh=ojc3Gf8XdcHrzIe5027BZcw/ZHmTep5+/EMX7/cpuQs=;
+	b=I8x3cEXOrG0+DRO4ErfU7WXllrlpn1ZY9SxOSJnGpp4NmSMqs/nI1zmAid5c87Tk04wOVz
+	9e72wxFXuw7ra/qr3Yk6tk0A0XCriYPhZORmodOQbLN5UPTMjId1z9W1oIcIZ5dM42R+vZ
+	Lu0BknfzS8Y4enR2uURKgMjLEE3jZw5uxjCrBG82XKlATKAHlZNEu9uaqsayQ4EnI3RXjI
+	ASaMCoEXB1Sn6HAXM+/C1emdjJCf5LSSxEA2dmyurrghSrLZKvFsYE7Q5Bx/DfZERSG7EX
+	ThFL/ALnEhkiqknZ57nFQWYzX/LguD+SZDvmP2WThznjfmMW/RDRBw/Sr7K4vQ==
 Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 42fff295;
-	Sun, 13 Sep 2026 09:45:28 +0000 (UTC)
-Date: Sun, 13 Sep 2026 18:45:13 +0900
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 7a5da7f6;
+	Sun, 13 Sep 2026 09:57:46 +0000 (UTC)
+Date: Sun, 13 Sep 2026 18:57:31 +0900
 From: Dominique Martinet <asmadeus@codewreck.org>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>, linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+To: Yifei Gao <gyf161023@gmail.com>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>, v9fs@lists.linux.dev,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] 9p/trans_virtio: bound RERROR copy by mapped pages
-Message-ID: <aqZwqdnm7PW8OUv-@codewreck.org>
-References: <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
+Subject: Re: [PATCH v2] 9p/xen: fix refcount leak in p9_xen_response() on
+ wrong tag
+Message-ID: <aqZziy3RqeiJeHKW@codewreck.org>
+References: <20260804213550.3409638-1-gyf161023@gmail.com>
+ <20260806144255.4167019-1-gyf161023@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,36 +57,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <20260806144255.4167019-1-gyf161023@gmail.com>
 
-Yizhou Zhao wrote on Sun, Jun 07, 2026 at 10:06:01PM +0800:
-> handle_rerror() copies the variable-length error string of a zero-copy
-> RERROR response from the receive pages into the request's static response
-> buffer.  The amount copied is bounded by P9_ZC_HDR_SZ, so the data can
-> span at most two pages, but the helper is not told how many receive pages
-> were actually mapped.
+Yifei Gao wrote on Thu, Aug 06, 2026 at 02:42:54PM +0000:
+> p9_xen_response() looks up the request for an incoming reply with
+> p9_tag_lookup(), which takes a reference on the returned p9_req_t. When
+> the tag does not resolve to a request in REQ_STATUS_SENT, the function
+> warns and continues the loop without dropping that reference, permanently
+> leaking the p9_req_t and its msize buffers. The reply header, including
+> the tag, is supplied by the backend, so a malicious or buggy 9P backend
+> can leak kernel memory on every crafted response.
 > 
-> If a malicious or broken virtio 9p device reports an RERROR length that
-> exceeds the remaining bytes in the first mapped receive page, the error
-> string is treated as crossing into a second page.  When only one receive
-> page was mapped, handle_rerror() still advances the page pointer and
-> dereferences the next entry, reading past the allocated in_pages array.
+> Drop the reference before continuing.
+> 
+> Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-I'm not sure that can actually happen:
-If there was an "in page" (if there wasn't this is all noop anyway and
-data was written directly to req->rc.sdata), then req->rc.size amount of
-data was received into the pages, so if it does happen to span over a
-page boundary then there are at least two pages and we don't need to
-double-check here.
+Thanks, I've picked this up for 7.4
 
-Christian, do you agree with me this patch is not required?
+If someone is interested in the 9pfs xen backend security then sashiko
+had a lot of "pre-existing issues" to talk about[1]... I tend to agree
+with Stefano's point of view that the 9p backend is mostly trusted
+though, so I'll take patches if someone wants to spend the effort, but
+won't actively be able to contribute much more.
 
-> Pass the number of mapped receive pages to handle_rerror().  If the error
-> string would cross a page boundary but only one page is available, copy the
-> bytes that fit in that page and leave the response truncated, matching the
-> existing behavior for overlong RERROR messages.  Otherwise continue with
-> the second-page copy as before.
-
+[1] https://sashiko.dev/#/patchset/20260806144255.4167019-1-gyf161023@gmail.com
 
 -- 
-Dominique Martinet | Asmadeus
+Dominique
