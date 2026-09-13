@@ -1,44 +1,44 @@
 Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B26374E6D;
-	Sun, 13 Sep 2026 16:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CF2366048;
+	Sun, 13 Sep 2026 16:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789317468; cv=none; b=WnqVeHjt5+5r5oGFZh0jitwxD9nER9+rpOW3BwXpFwJcYxCJ9l4v9n33jlO/9JA3PBlaxbEPmqjXfj0vZfs1okkIhZM50ZgOfMGtA98FV7y9K9kx1Xjz7Co2k266sy//OIo3s6D6wLNjTNHC+jSnZG6Tsu/6buAUAum26SuKsJ0=
+	t=1789317470; cv=none; b=aSrBtutgymxjix6DNX0uURq8Tj65+4z0xk4Zw1lbWxtGIi8N7puLzX3iyo6wFZpt8XqXXabC1YPdpSYpMEyXD9dmjPRG0ZdHahq8f/N9Vlr2Q7jPe8DtF5asdUbOos2eCRGmnPpDlqxx5+j7dtpPdVgLTvFfIKSxyT4x3KrvEWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789317468; c=relaxed/simple;
-	bh=8fjRi2R+1cVXeHL2jiDyWQgVzHtJyUWsiopOwcBNSHA=;
+	s=arc-20240116; t=1789317470; c=relaxed/simple;
+	bh=fF6BrxNabZ8uYURYJMaZdKHpbdY2dl7YO/LwAZZNXE4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nxYyrup6sit4KFFvWSLjk4grRbOrcro7xAMSYROJNdiTLH+vnYb2jkavCK84R5DW4HY/Sbw7ev88xXDlpagMO0d3bJJXftSycAYmJFsQC3IhtCIFanauK+xq1O6tYNGatjfnjZfR0N8sNJcxI05tpGZfzLL6lSl6VKRu2XnXitc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=d7DJEgDv; arc=none smtp.client-ip=133.167.8.150
+	 MIME-Version; b=YotNdtZxZ7Cj7BuxIjOE+nxNqpPLmd6L/EXbmA18bsHlnmqDXsOwxjSvAkN6ONv6CxWA+/Aj94JCYwApGaUILbNZBUN9R3ddxLzVjNovvMPlPGcaXSlE/9rUlROeanQBGX8uAxCDFWYCuQgibmNuix8jGFobKJwGTw+yzfxsBgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=W2qQG+77; arc=none smtp.client-ip=133.167.8.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="d7DJEgDv"
+	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="W2qQG+77"
 Received: from fedora (p3233127-ipxg00b01tokaisakaetozai.aichi.ocn.ne.jp [180.17.90.127])
 	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68DFtZEA020593
+	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68DFtZE7020593
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
 	Mon, 14 Sep 2026 00:55:48 +0900 (JST)
 	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=L6aTFnd5HwgNh95Yx+fpQUD5wbe0WLrQfvUznwq7/nE=;
+DKIM-Signature: a=rsa-sha256; bh=ONwTd27hGGlJTVKeH/5etwyHj4/yEw8xYsr/hYa0hl0=;
         c=relaxed/relaxed; d=mgml.me;
         h=From:Message-ID:To:Subject:Date;
         s=rs20250315; t=1789314948; v=1;
-        b=d7DJEgDvODBEy+2BlWJ1bQZkNykY59/DIdIHtHPfSf05aCZbhNB6a48Cg9JTd5cN
-         Jnb78s/VLqrONxin/norGa3vwatwGVzQOebc1qrP9I+haXIZPbb/yBxu3hpQ/pwB
-         h1ta6cUmtCEd0QoSuu9yIAmP0v289y2gRw15dMfVmRlAtHFeW8AP3w7BQ87oVZ1i
-         cMpsCuOTXF2DT2EKS3YRtnNvWuqlHEX0rahtUoYs9tb6uXTLXp2DTzwyIOIFclzK
-         uLHNo14EqwSrE0chClGex8ki0chtib8McY1//imEZrQzP8v8oB5ukhCDSdkx6HKV
-         DTIuvGXmri36esh8AAv2ag==
+        b=W2qQG+77hKKEw+pjoo2QxESJ7S3WxU4j6BskQ6iqO2DZRyYg04Z0ahTg1L1UCW+h
+         6H/DXYYt+2gY8QXa7a3Xm8N4ygiVBR590Fs3Jhx+ZKU/Ds+rPNhYb2BTLILBbm4e
+         JxGWK9IvicCZPLs9OJ18Nscs6GYf0y52CCuEzgcUCywNJ//SFuFXl5Tgr9u1TWe7
+         4MTyhVZENFhZUvi5LcsF6u35si/aO3AnbXFmSQRW3qCh/JhhzZ6PU7IxF+WTIr/w
+         5IONLLvMxI7vJRwNxwkIqWwpx9RK9eRoS1MTEdX9tNcwd2b8S1sRouU9/1Xj4/vU
+         X+AwU5tvw5j4eruvm6TtrQ==
 From: Kenta Akagi <k@mgml.me>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>, Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v3 5/7] KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
-Date: Mon, 14 Sep 2026 00:55:21 +0900
-Message-ID: <20260913155523.7423-6-k@mgml.me>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Matlack <dmatlack@google.com>,
+        Lai Jiangshan <jiangshanlai@gmail.com>, Kenta Akagi <k@mgml.me>
+Subject: [PATCH 5.15.y v3 2/7] KVM: x86/mmu: Stop passing "direct" to mmu_alloc_root()
+Date: Mon, 14 Sep 2026 00:55:18 +0900
+Message-ID: <20260913155523.7423-3-k@mgml.me>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260913155523.7423-1-k@mgml.me>
 References: <20260913155523.7423-1-k@mgml.me>
@@ -50,190 +50,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: David Matlack <dmatlack@google.com>
 
-commit 0cd8dc739833080aa0813cbd94d907a93e3a14c3 upstream.
+commit 86938ab6925b8fe174ca6abf397e6ea9d3c054a4 upstream.
 
-Before allocating a child shadow page table, all callers check
-whether the parent already points to a huge page and, if so, they
-drop that SPTE.  This is done by drop_large_spte().
+The "direct" argument is vcpu->arch.mmu->root_role.direct,
+because unlike non-root page tables, it's impossible to have
+a direct root in an indirect MMU.  So just use that.
 
-However, dropping the large SPTE is really only necessary before the
-sp is installed.  While the sp is returned by kvm_mmu_get_child_sp(),
-installing it happens later in __link_shadow_page().  Move the call
-there instead of having it in each and every caller.
-
-To ensure that the shadow page is not linked twice if it was present,
-do _not_ opportunistically make kvm_mmu_get_child_sp() idempotent:
-instead, return an error value if the shadow page already existed.
-This is a bit more verbose, but clearer than NULL.
-
-Finally, now that the drop_large_spte() name is not taken anymore,
-remove the two underscores in front of __drop_large_spte().
-
-Reviewed-by: Sean Christopherson <seanjc@google.com>
+Suggested-by: Lai Jiangshan <jiangshanlai@gmail.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
+Message-Id: <20220516232138.1783324-4-dmatlack@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Kenta Akagi <k@mgml.me>
 ---
- arch/x86/kvm/mmu/mmu.c         | 49 +++++++++++++++++++---------------
- arch/x86/kvm/mmu/paging_tmpl.h | 29 +++++++++-----------
- 2 files changed, 40 insertions(+), 38 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index b7801690ea17..78c7e77bfdd0 100644
+index f5cfbf973e85..9f193b1620a9 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -1180,26 +1180,16 @@ static void drop_spte(struct kvm *kvm, u64 *sptep)
- 		rmap_remove(kvm, sptep);
+@@ -3439,8 +3439,9 @@ static int mmu_check_root(struct kvm_vcpu *vcpu, gfn_t root_gfn)
  }
  
--
--static bool __drop_large_spte(struct kvm *kvm, u64 *sptep)
-+static void drop_large_spte(struct kvm *kvm, u64 *sptep)
+ static hpa_t mmu_alloc_root(struct kvm_vcpu *vcpu, gfn_t gfn, gva_t gva,
+-			    u8 level, bool direct)
++			    u8 level)
  {
--	if (is_large_pte(*sptep)) {
--		WARN_ON(sptep_to_sp(sptep)->role.level == PG_LEVEL_4K);
--		drop_spte(kvm, sptep);
--		return true;
--	}
--
--	return false;
--}
-+	struct kvm_mmu_page *sp;
++	bool direct = vcpu->arch.mmu->mmu_role.base.direct;
+ 	struct kvm_mmu_page *sp;
  
--static void drop_large_spte(struct kvm_vcpu *vcpu, u64 *sptep)
--{
--	if (__drop_large_spte(vcpu->kvm, sptep)) {
--		struct kvm_mmu_page *sp = sptep_to_sp(sptep);
-+	sp = sptep_to_sp(sptep);
-+	WARN_ON(sp->role.level == PG_LEVEL_4K);
+ 	sp = kvm_mmu_get_page(vcpu, gfn, gva, level, direct, ACC_ALL);
+@@ -3466,7 +3467,7 @@ static int mmu_alloc_direct_roots(struct kvm_vcpu *vcpu)
+ 		root = kvm_tdp_mmu_get_vcpu_root_hpa(vcpu);
+ 		mmu->root_hpa = root;
+ 	} else if (shadow_root_level >= PT64_ROOT_4LEVEL) {
+-		root = mmu_alloc_root(vcpu, 0, 0, shadow_root_level, true);
++		root = mmu_alloc_root(vcpu, 0, 0, shadow_root_level);
+ 		mmu->root_hpa = root;
+ 	} else if (shadow_root_level == PT32E_ROOT_LEVEL) {
+ 		if (WARN_ON_ONCE(!mmu->pae_root)) {
+@@ -3478,7 +3479,7 @@ static int mmu_alloc_direct_roots(struct kvm_vcpu *vcpu)
+ 			WARN_ON_ONCE(IS_VALID_PAE_ROOT(mmu->pae_root[i]));
  
--		kvm_flush_remote_tlbs_with_address(vcpu->kvm, sp->gfn,
-+	drop_spte(kvm, sptep);
-+	kvm_flush_remote_tlbs_with_address(kvm, sp->gfn,
- 			KVM_PAGES_PER_HPAGE(sp->role.level));
--	}
- }
+ 			root = mmu_alloc_root(vcpu, i << (30 - PAGE_SHIFT),
+-					      i << 30, PT32_ROOT_LEVEL, true);
++					      i << 30, PT32_ROOT_LEVEL);
+ 			mmu->pae_root[i] = root | PT_PRESENT_MASK |
+ 					   shadow_me_mask;
+ 		}
+@@ -3541,7 +3542,7 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
+ 	 */
+ 	if (mmu->root_level >= PT64_ROOT_4LEVEL) {
+ 		root = mmu_alloc_root(vcpu, root_gfn, 0,
+-				      mmu->shadow_root_level, false);
++				      mmu->shadow_root_level);
+ 		mmu->root_hpa = root;
+ 		goto set_root_pgd;
+ 	}
+@@ -3587,7 +3588,7 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
+ 		}
  
- /*
-@@ -2202,6 +2192,9 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
- {
- 	union kvm_mmu_page_role role;
- 
-+	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep))
-+		return ERR_PTR(-EEXIST);
-+
- 	role = kvm_mmu_child_role(sptep, direct, access);
- 	return kvm_mmu_get_page(vcpu, gfn, role);
- }
-@@ -2269,13 +2262,21 @@ static void shadow_walk_next(struct kvm_shadow_walk_iterator *iterator)
- 	__shadow_walk_next(iterator, *iterator->sptep);
- }
- 
--static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
--			     struct kvm_mmu_page *sp)
-+static void __link_shadow_page(struct kvm_vcpu *vcpu,
-+			       struct kvm_mmu_memory_cache *cache, u64 *sptep,
-+			       struct kvm_mmu_page *sp)
- {
- 	u64 spte;
- 
- 	BUILD_BUG_ON(VMX_EPT_WRITABLE_MASK != PT_WRITABLE_MASK);
- 
-+	/*
-+	 * If an SPTE is present already, it must be a leaf and therefore
-+	 * a large one.  Drop it and flush the TLB before installing sp.
-+	 */
-+	if (is_shadow_present_pte(*sptep))
-+		drop_large_spte(vcpu->kvm, sptep);
-+
- 	spte = make_nonleaf_spte(sp->spt, sp_ad_disabled(sp));
- 
- 	mmu_spte_set(sptep, spte);
-@@ -2286,6 +2287,12 @@ static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
- 		mark_unsync(sptep);
- }
- 
-+static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
-+			     struct kvm_mmu_page *sp)
-+{
-+	__link_shadow_page(vcpu, &vcpu->arch.mmu_pte_list_desc_cache, sptep, sp);
-+}
-+
- static void validate_direct_spte(struct kvm_vcpu *vcpu, u64 *sptep,
- 				   unsigned direct_access)
- {
-@@ -3069,11 +3076,9 @@ static int direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 error_code,
- 		if (it.level == level)
- 			break;
- 
--		drop_large_spte(vcpu, it.sptep);
--		if (is_shadow_present_pte(*it.sptep))
--			continue;
--
- 		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn, true, ACC_ALL);
-+		if (sp == ERR_PTR(-EEXIST))
-+			continue;
- 
- 		link_shadow_page(vcpu, it.sptep, sp);
- 		if (is_tdp && huge_page_disallowed &&
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 003383e2a309..0d50270e4f2f 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -698,15 +698,13 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 		gfn_t table_gfn;
- 
- 		clear_sp_write_flooding_count(it.sptep);
--		drop_large_spte(vcpu, it.sptep);
- 
--		sp = NULL;
--		if (!is_shadow_present_pte(*it.sptep)) {
--			table_gfn = gw->table_gfn[it.level - 2];
--			access = gw->pt_access[it.level - 2];
--			sp = kvm_mmu_get_child_sp(vcpu, it.sptep, table_gfn,
--						  false, access);
-+		table_gfn = gw->table_gfn[it.level - 2];
-+		access = gw->pt_access[it.level - 2];
-+		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, table_gfn,
-+					  false, access);
- 
-+		if (sp != ERR_PTR(-EEXIST)) {
- 			/*
- 			 * We must synchronize the pagetable before linking it
- 			 * because the guest doesn't need to flush tlb when
-@@ -735,7 +733,7 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 		if (FNAME(gpte_changed)(vcpu, gw, it.level - 1))
- 			goto out_gpte_changed;
- 
--		if (sp)
-+		if (sp != ERR_PTR(-EEXIST))
- 			link_shadow_page(vcpu, it.sptep, sp);
+ 		root = mmu_alloc_root(vcpu, root_gfn, i << 30,
+-				      PT32_ROOT_LEVEL, false);
++				      PT32_ROOT_LEVEL);
+ 		mmu->pae_root[i] = root | pm_mask;
  	}
  
-@@ -761,15 +759,14 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 
- 		validate_direct_spte(vcpu, it.sptep, direct_access);
- 
--		drop_large_spte(vcpu, it.sptep);
-+		sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn,
-+					  true, direct_access);
-+		if (sp == ERR_PTR(-EEXIST))
-+			continue;
- 
--		if (!is_shadow_present_pte(*it.sptep)) {
--			sp = kvm_mmu_get_child_sp(vcpu, it.sptep, base_gfn,
--						  true, direct_access);
--			link_shadow_page(vcpu, it.sptep, sp);
--			if (huge_page_disallowed && req_level >= it.level)
--				account_huge_nx_page(vcpu->kvm, sp);
--		}
-+		link_shadow_page(vcpu, it.sptep, sp);
-+		if (huge_page_disallowed && req_level >= it.level)
-+			account_huge_nx_page(vcpu->kvm, sp);
- 	}
- 
- 	ret = mmu_set_spte(vcpu, it.sptep, gw->pte_access, write_fault,
 -- 
 2.53.0
 
