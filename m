@@ -1,97 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B9C370D41;
-	Sun, 13 Sep 2026 17:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C613876C5;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319836; cv=none; b=ECDpstBhsm/gTKR4zLqBBKp5SZupGt0X2hk2xgZKp9TLslMiR4d3ikeY9b4yn1JGn9k+e5YaaVgCRKYw8XLCAfgijVFKtqymuy/pwW31HOSErF6lgv0f0nvhoifEWCxon3qpk/dkmxuC35qUm1845xJIwrxdeivt0WVCgf1VAI0=
+	t=1789319849; cv=none; b=uYgvuBAvHD+r55Hm1SFRvYrMLPM0Ttfo6VdsCMjlTG4S6DGtceDC6A0yh/5cS8ZNDp3vrnwwQL46HJxFHWn6GOVm83xtGMrf7tjvvOqsFMb+V+pufk83bFOgvNq1iwMQDpNCHaV2hSArSfuZ67lMLSoB4tGUpXqFYYoedHdMEok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319836; c=relaxed/simple;
-	bh=coOKyd0rtvaMCxH/mKUGhnrdea7b8MWsrIPmIS/QuxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fftd7LhkGm+RMmzRkGWHknXH10xDcr5JW+32yVRN7eeS6rc8/jfevENtzFVK8IC8VOCTF4g2Thx5JDEbxG5X09TbeWLHcZjF43guOh0F+4MZ9fiJsyFkLF1t/bGMgq+7GhVeNIfqQX3sTzedJ+8/Mx6rtTIlUEjmqPZSOCEt3ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4JVabPr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789319849; c=relaxed/simple;
+	bh=PCrMvJZRXyZvSFsHKytg5k3o8+DFbRdxMwl6rjj4o3M=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=FlJeGkwVjRo8wIc3s5rjc3Fby5GKeJZS59VG+18L2scvbIi0ZSCo1iVNbWE7kTPtQvT9nIFg/lzGqgbpsqpf4kbhM7Tek4a59Bn4naqCI9XeSxJyUDPfNvHq+pQOO9GSuYi6/A8PuDglSV9UbyD6Z6NKROLUw8cv2wMe+A5wQWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Se9QN1en; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4JVabPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3108F1F00899;
-	Sun, 13 Sep 2026 17:17:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Se9QN1en"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6121F00893;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319835;
-	bh=hAIupWOiZk1Nz5VeipyYWCDtbEHKa9N+XsP7giaox3I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M4JVabPr5tlEOIeYIplnfYT0Jag0gmzQIJfF7+bhSEhJBzdlSiVJ5AIOObS7DEA2U
-	 Yi+Od02z8zbTQYmRUu0zi3Bg8x4hvohK8dJbPx95zCKSiMVQFiXTipmQginA7IFj9U
-	 mho/tBP8zswcf81rltqN8mN8kOKnPH3DAOHylzBiIHsmX5xo3MhvZx269rJ3SbHiYj
-	 DaGUef5aQCdfamdWKcth/YDiYtgDx4jo6puUf417+W/6KfzZxDGNJe15HDuDRAagK4
-	 mOb/iNTAeGek/ZYHTo9WlI+uS4n/mmpFV9VguPlO6DceJBx0exlxB6ByhImS3OvgoU
-	 D/6IdS/x2OvMA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v2 2/8] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
-Date: Sun, 13 Sep 2026 10:16:59 -0700
-Message-ID: <20260913171706.103052-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260913171706.103052-1-sj@kernel.org>
-References: <20260913171706.103052-1-sj@kernel.org>
+	s=k20260515; t=1789319843;
+	bh=GbJxA/XWPkGKugAgSRyy9K65mtSnbgmieUz75IVn5K4=;
+	h=Date:From:To:Cc:Subject:References;
+	b=Se9QN1enyUFIhJAukCjf8aVzEMHHQHNfn+O4syFnG+khabQapulZMw1nol4uA9vqH
+	 bmLnqf10+/bKt883CpnTk59ZwUtLGEvBhk1jcBVAW+P4D7DY+OSIGqBlzlPzPT3dyp
+	 TJUZ15ik1Cy2RFUcmrwgmRLCWguwrcltr5NHY8Yh1nzNKaoUDyYNIqRpRaLA220JnC
+	 2Em4apzoFtVOxhkg8l5RSN9SYyeVV5L48jrqRUa737LMaYGBV/XHdpjiMVcaEO9Ett
+	 wUsTa+QPIvEIZv8I/7d/h8/8xBt17oT28w4Sh1qLvZUja1UKSK2vWAuM39m/rXSHvL
+	 iOLxOk9tHwn8w==
+Received: from rostedt by gandalf with local (Exim 4.99.4)
+	(envelope-from <rostedt@kernel.org>)
+	id 1x5nqr-0000000AQZ4-2jYA;
+	Sun, 13 Sep 2026 13:18:49 -0400
+Message-ID: <20260913171849.455534017@kernel.org>
+User-Agent: quilt/0.69
+Date: Sun, 13 Sep 2026 13:18:00 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ kernel test robot <lkp@intel.com>,
+ Leon Hwang <leon.hwang@linux.dev>
+Subject: [for-linus][PATCH 1/5] ftrace: Use rcu_assign_pointer() for tmp_ops filter hash
+References: <20260913171759.469375546@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
 
-DAMON sysfs interface reads the user-provided size range arguments for
-hugepage_size type DAMOS filter twice.  Once for validation, and once
-again for assignments to the variable that will be passed to the core
-layer.  If the user updates the arguments in parallel, an invalid size
-range could be passed to the core layer.  Avoid it by doing the
-assignments first, and then validating the assigned variables before
-passing those to the core layer.
+From: Leon Hwang <leon.hwang@linux.dev>
 
-User impact of the bug should be trivial.  From the core layer's
-perspective, the invalid size range is not really invalid.  It just
-works as having a weird size range.  No critical issues such as a crash
-or a leak could happen.  And sane users ain't do such parallel arguments
-update anyway.  If they do, such racy behavior is arguably somewhat
-expected and deserved.  That said, there is no reason to keep such
-races.
+tmp_ops.func_hash->filter_hash is annotated __rcu, but
+update_ftrace_direct_mod() assigns hash to it directly. Sparse reports an
+address-space mismatch.
 
-Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
-Cc: <stable@vger.kernel.org> # 6.15.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Use rcu_assign_pointer() for the assignment.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260911142512.19344-1-leon.hwang@linux.dev
+Fixes: 50b35c9e50a8 ("ftrace: Use hash argument for tmp_ops in update_ftrace_direct_mod")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609110704.Q3M5vCDV-lkp@intel.com/
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- mm/damon/sysfs-schemes.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ kernel/trace/ftrace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 3c1c1cb387fec..8c8ab82c8facc 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2840,13 +2840,12 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
--			if (sysfs_filter->range_min >
--					sysfs_filter->range_max) {
-+			filter->sz_range.min = sysfs_filter->range_min;
-+			filter->sz_range.max = sysfs_filter->range_max;
-+			if (filter->range_min > filter->range_max) {
- 				damos_destroy_filter(filter);
- 				return -EINVAL;
- 			}
--			filter->sz_range.min = sysfs_filter->range_min;
--			filter->sz_range.max = sysfs_filter->range_max;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 53d5db60bfa5..673a54fdf392 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -6675,7 +6675,7 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 
+ 	/* Enable the tmp_ops to have the same functions as the hash object. */
+ 	ftrace_ops_init(&tmp_ops);
+-	tmp_ops.func_hash->filter_hash = hash;
++	rcu_assign_pointer(tmp_ops.func_hash->filter_hash, hash);
+ 
+ 	err = register_ftrace_function_nolock(&tmp_ops);
+ 	if (err)
 -- 
-2.47.3
+2.53.0
