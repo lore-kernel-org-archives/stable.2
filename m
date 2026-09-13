@@ -1,111 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25158379993;
-	Sun, 13 Sep 2026 23:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313043CF67F
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 23:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789340972; cv=none; b=t6PpR1yu9W3s3Kl3oza1B7fLRLGOEnGvTtKS0ZSi8uxE5X3kb5E8qltcUFI1VrYi7f4SpzILXgzJkdf03ce3vd+Q5Gwt+FIxF27TcYd1rm0ui9XQxnL6iVdJg7thtCze91a+aNUh/gzjrCCnu+OBoky2AfjxaOdJmcOS0+egB+o=
+	t=1789341313; cv=none; b=UCtPXFShO3lm9t289mlX1Q3hBrAUCg0apP/RXjuOQpRvmHjMsIfOZcn2LA6Vv/krrN0YIy4z3gs629GnB1nmwovvDv7VYWsJKwuP3mqBUF8Zs0UNz9bl0fz0R5eVYKsTRj1YaCOx2C4zuewrzWtIdoSDl0RWxmVY4sy00RJH5ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789340972; c=relaxed/simple;
-	bh=McisCuoDJAzv7/DvApnIRk83zKXBrmus6JEH/3vaOxE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OzvNe9pmkOsZGfC2WmMx8yKOvrauY204Uh4YTmJ7fXmPYSGZYKg62aiWc9mey+fZHoGREyq7rFH6CHjAbjQcU6uztcJlHGzTBp+zOzWiF/uztXKIUW2pKUNbNUsFrfsNNFFFh5pGsT0O9/e+QeRJvADSxsPD2vR+mFl2oaNTMfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mrh0ggxR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789341313; c=relaxed/simple;
+	bh=M0AUe6EoSdBKCMt/ZoILgDUcpvH05m13IHeVeD49njs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fpmhwfvqhA+yYJ+hXHgP3G8jce4QAcqdg7PCHtpQ5DZG7pmZL0246Emew1xD3hzoYWLuUgp6yN57rztvKmoGdFogmJvQEJl87Ber3bXFyr8n5bJoSZFzZV3KbEPTU4zv2X8Zqxfjm4KUcA+hCiNuoFgMipHDssi54OT5I2WzYPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=4rbVwlX4; arc=none smtp.client-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mrh0ggxR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21FF1F000FF;
-	Sun, 13 Sep 2026 23:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789340970;
-	bh=eX0K33Erd6KchpUfLPQiE+mK+G5TuFBmX6Lx8FiEtNc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Mrh0ggxRgUCBEnJlM76AURlMM/0fk0ys2iom1/iZQZU9bXa1J+7uAMxfZrG5R2mJZ
-	 rNETcHkROQQtarCs5y5WZN798lfv+kK1R1clGvq4o9qSS4NBylqt7FxnmyoFixBYqj
-	 NrBG7M1OzT/MkJ5pqABRvwI9caNmn5KzH5rFd3CBy2UE4VB8/98WGSc9uZ0ANHEG0y
-	 IAIVwU3+y1sV1wZteuYe7KmT3SRZiV8CtFXsPsypQzIDnGD4Z86IXMpge6K4TgM6Wt
-	 r/JHjizqWCPKYXJO7O1gSxf9ZvzAaebg3jlnk236af2okWmho9a44u4qVq7sq4sT+Q
-	 KwhCrlw7ZuX6g==
-Date: Mon, 14 Sep 2026 00:09:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
- <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, Christoph
- Muellner <christoph.muellner@theobroma-systems.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Joshua Crofts
- <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v8 2/9] iio: accel: mma8452: Fix use-after-free bug in
- error error path
-Message-ID: <20260914000924.165405fc@jic23-hlaptop>
-In-Reply-To: <20260907-mma8452-open-drain-v8-2-c17407e22118@geanix.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-2-c17407e22118@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="4rbVwlX4"
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id 5YZfxDBqouFzg5tPjxUg3N; Sun, 13 Sep 2026 23:15:11 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 5tPixl9ut9tXG5tPixHlKe; Sun, 13 Sep 2026 23:15:10 +0000
+X-Authority-Analysis: v=2.4 cv=KK1aDEFo c=1 sm=1 tr=0 ts=6aa72e7e
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=0hTlX_r29Uef9z-4MVkA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=CZcktUzriNTAAYMXbnWHn5jDYdx8tVszpC76pKHqsFM=; b=4rbVwlX4FarbzxggzRjHdxe8nc
+	pIRbmStyUtjd80ME29LEPxmmFZxE0bF7ONjCTTh1ty5rpLjrnkxivgWZUBhC4MH72IBEfkGgGGKEr
+	hCc4Fr4kfNUbX/fk4tU+bnzUY3GwgxV4FQfmwRSxNvG69alee+jXaAmt445MC7tqTlcO7NfazOCqt
+	8f9DqgfGXlPZJQG/fbFXcoZ8qSYMyYwzhnZd2r9ruWmizqwsCtVmfynPe0IReqyIAVs6FOx55sGvN
+	HQtVtvvGFVjZtaooK3ueb0AxL+C8H+FAu4opQi3op4iBr60H4biMOlE7DBXYrmlN9IXJ1JF/1MciZ
+	LPoyoDyQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52514 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x5tPh-00000002T9R-2ukV;
+	Sun, 13 Sep 2026 17:15:09 -0600
+Message-ID: <a30618e9-3613-457b-8ae0-23453c75ab9c@w6rz.net>
+Date: Sun, 13 Sep 2026 16:15:08 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065548.086904252@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x5tPh-00000002T9R-2ukV
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52514
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 59
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGphZWRfZRVfdKD7rigRfFfMjVdqA3VxObxl2IH359FeNLYu/U1/mPTEtR34O575dne5vqHfJQ/reqjR0yfH59vQMil9yapDubN6jWsPDQ5dYiNVGi3j
+ Wtqv5wggyHxy6J/XC2RU2QiW/i0KkS2Q8H6a0QuzNTAvPldLfNX4Yl5IWBsX6qX6JZ0KpIjY3XutRg==
 
-On Mon, 07 Sep 2026 16:50:57 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+On 9/11/26 23:45, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.188 release.
+> There are 1191 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-> If mma8452_probe() fails in iio_device_register() or later, we could end up
-> with runtime suspend callback being called with a now freed device pointer.
-> 
-> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Sashiko calls out some preexisting stuff that is worth a look
-https://sashiko.dev/#/patchset/20260907-mma8452-open-drain-v8-0-c17407e22118%40geanix.com
-
-Why freefall mode is set after the iio_device_register() is indeed an interesting
-question. Any idea?
-
-As far as it goes this patch is fine. I'm not sure about the other sashiko
-comment about making sure the device is suspended. Given pm_runtime_set_active()
-is called I would assume that one of the register sequences has indeed
-turned on the device (maybe the reset?) and we should be turning it off again.
-
-Jonathan
-
-> ---
->  drivers/iio/accel/mma8452.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index fe62a903f0e2..a937cbd84f30 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -1681,7 +1681,7 @@ static int mma8452_probe(struct i2c_client *client)
->  
->  	ret = iio_device_register(indio_dev);
->  	if (ret < 0)
-> -		goto free_irq;
-> +		goto runtime_suspend;
->  
->  	ret = mma8452_set_freefall_mode(data, false);
->  	if (ret < 0)
-> @@ -1692,6 +1692,10 @@ static int mma8452_probe(struct i2c_client *client)
->  unregister_device:
->  	iio_device_unregister(indio_dev);
->  
-> +runtime_suspend:
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +
->  free_irq:
->  	if (client->irq)
->  		free_irq(client->irq, indio_dev);
-> 
+Tested-by: Ron Economos <re@w6rz.net>
 
