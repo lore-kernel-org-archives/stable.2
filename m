@@ -1,144 +1,129 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B924D37C0FC
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 04:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00D937C0FC
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 04:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789275016; cv=none; b=OJ1ypfp6iBXSZOeBDjEfHmew3d83qjlhIS1izFzuge3v+AcGZpNIAOFKzaxtouRfNwopOv58MI5dtaNOOaZG4at0lZ+ZDhHFvtF1sHy2X9j4Xfpd3auzLOrwySjyIlyIHRO5WhjxFYEy2CuHDN8wdC5a1jflYHlr0uaC0hU7HZU=
+	t=1789275100; cv=none; b=KwviBv1n6/MK7sSW3T0tzBsSK7sfxts7nsaWJRChr1UuEJQXsyom+YTfTuYrKDo2t6XTkQg6vm/5O61tz+tsUId7ej24+qxDhVHOleNBGUf8x99LvPB0jJvdPUfmSKGVCQnMm531S9jnBczyBVrStj+IOFrPCjbwak4mWSgTZvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789275016; c=relaxed/simple;
-	bh=jiBek9fBBVmga54FLaDSIboQGEfdZWeiLHQR6tbPb3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CLuoYWItku/j682JLCLwmUn1K/RfxLmkLNWzPfuZaLLR9pMfUUzuwuRl6dQRQRBpcPxMxiXIXLLUrmKMMNhUahXa450fn5Ifgivcp9wKT/nOZiP0bJdl5p9kOm/IF3I7dIDoclKMO3U1cEp/AhLYMA2zZ0XnkP+UZq5hALJHKms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=krRxM2B3; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789275100; c=relaxed/simple;
+	bh=riqhjdxkRBkvxB3LDmbneXn9/sVUuHNIXDRY5M7fZ7I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DJcssIdXKE4B01S0x4wotTVI62c3Vdk+S2AFGFZKsnboaAXKAvY//7Mg11W7uYbZ1sgDYmtCSEyWvAZg6Nb24WARdyCMYQfif1tek7fSpsGmdrDpbQi6FmfsarrMuFFJFK2Dd3Wqlo6o0kJcag2/+Pyy74tRSAMtPby60v+7yUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=dxurdNaP; arc=none smtp.client-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="krRxM2B3"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f9bso11487715ad.3
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 21:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789275013; x=1789879813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IcspykAp8b/TAa5Da1Y1EJbB5NATcWKA3cjbFzlW/ok=;
-        b=krRxM2B3d7h8nG+kxu9QxzOMG/updkTHgHw/0T1IeNsoHQDLUsmZENNnTBruGjO7JF
-         +DjgwdKTZv6HmD/QON8Cmb7OSPO1ad5F/bIO43j9/tyo5/q10Y+6EEo61RVdrQi4LoJr
-         dgIhZ5R5R6J7YdswZIcRKzG2Ke2FB+2p1nunApljq4yWlTRZnzetEukodBvDLrekdLPd
-         cHM/glQTAxMDIDp7GIyqUU4TLyfJTn6kxH0K1WG6+ba5hfXUEQzzL3F+4albtyUnwaQV
-         2mWziu0eH7nJzB6jS+xO42XeF2ad4hVvR1yg9m1nYZ2ohws/QgDUk6FctUjUPDYD1fag
-         cczw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789275013; x=1789879813;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IcspykAp8b/TAa5Da1Y1EJbB5NATcWKA3cjbFzlW/ok=;
-        b=W2bRTz4vfxBPVTF7h+4DWZVdGaycP6w8HHobypO/+WeaMinPcdbIPl5DY0J6TRW3Bx
-         YQzU4OECc16Q4tf0LC+G9VAaSpYvoILtZTqIdDLwVXkGh691bcqzAQepXak+SeL87Y2B
-         S4AugzN1quhGLY+puMomp6irxEwwcyaDtZb3yLrgPj2jXmP7wn5Gb0Y82IuKpnFR6d24
-         1f7uSNM7vscVJvVRqGdGfs2z4Unj0LjaeTtgf4cz8/MA3dNwgfvBFIUr0OtJ1YgT5rSr
-         HQqX1MYrddoe/stNyVW5FUCbwmlzc2euEIhqIOyyD0ZB/jIZ5VUy5Sq9m6wChNGaE/At
-         EpAw==
-X-Gm-Message-State: AFuF++naEgL3V0GDtoiFt6YNmnDd9Emjol6W0KT13mb5fQVWR6Lv+ujr
-	GOTTej1IPl5zXtd6Zon0bpH+Niie3JLy8o13W2Kh3p9CQ98oYonCAoYz
-X-Gm-Gg: AYBFou0rHVPXT3MvHl0wxsm/i930g4r5iWk2A/tyns02bdDlBeWhm7epzilXgG5yBR7
-	ockvT97RqgHl2IdisIVucsjkwj2ZE/tsCztWyeH5KOEKyfxjlTTO7hydYGyZs8Ecsl6RVB4MxmY
-	LBQWcou7yZzRaeWNvpiQGgWU3Fn0AEnLsvJOqYWIvzTYaHTYqcRAnEUQCj/P3sM6xZUxLAdtGjF
-	j+WDys2wAaOn8MDmwXn5lHWr2/eX+JRVFhk1yD6a6hjHwKXqZbMwwphWts8/4W0PKEVQOhTKPUh
-	hO0YcxRC6NLp70Hs+s6ZOXF+pyW7ZybKIrD2II2iObyqWCMhdbZrWeHKAX+MB6cM5H3J0MzpgDz
-	3lcRcTUIgnzYBkanRULuDOwOpYv5ENIYVnOZm9tyH+x0dhXM/el6UHjRYbmhhIa2TzyblooLQ+9
-	sEqOE0ckr9SBuN0qe1bpUsTsI+h8M4Zt6vNSrIJHH3hHaRbpKDeRAKLYg=
-X-Received: by 2002:a17:902:d549:b0:2db:56da:6a0b with SMTP id d9443c01a7336-2dd2a34638bmr217738655ad.13.1789275013002;
-        Sat, 12 Sep 2026 21:50:13 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ceb1c94sm29276815ad.31.2026.09.12.21.50.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 21:50:12 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Peng Ma <peng.ma@nxp.com>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
-Date: Sun, 13 Sep 2026 12:50:01 +0800
-Message-ID: <20260913045001.1126563-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="dxurdNaP"
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id 5WimxCuEKuFzg5cBgxRF60; Sun, 13 Sep 2026 04:51:32 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 5cBfxxvZtadLA5cBfxiR1m; Sun, 13 Sep 2026 04:51:32 +0000
+X-Authority-Analysis: v=2.4 cv=Aqzu3P9P c=1 sm=1 tr=0 ts=6aa62bd4
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=ce1hCls_XIKHtnsIUTMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=HFYvZV0lkk5YLOyNX4ir+GTDpvVKyz1OJRjbRGZmw5c=; b=dxurdNaPhGR88mVAYxsmdbPY+p
+	b+VGBI1FAsPwgp+FihCnYOViuCmAanKDJQ8Ss4iQ0Ub8LyMeFV6oPTMNDsbR3CKz4ZbPJtUvC8pot
+	1UN1tlxB56EZKmRO1081v+9EzcpJQMcM0VBCnEfEoGJh1QKF8jz4WwdJve1a694QKj17mZWX2wwt6
+	GdTXEZaR79qmeidUs+SvVdB6QkV405B8KbwHADPRDSluBP/7XBpUUKmLMVNCHYDHBnN74Pcu9EeSl
+	UK9DE8rVTxts1xqriQIcTYoKViQD4Q4HQbROSZ0LMeVG1Ree+x6TPSKrQhaPitOx28RZozrqxqMPj
+	oveiVYFw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:34500 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x5cBe-00000003rtM-387K;
+	Sat, 12 Sep 2026 22:51:30 -0600
+Message-ID: <aa7f30f5-5fdb-4d68-8adf-b70f1286067c@w6rz.net>
+Date: Sat, 12 Sep 2026 21:51:28 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065607.279695368@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x5cBe-00000003rtM-387K
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:34500
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfKXCB8AV74A6y46smfZXL0LmIveS4rfDlRIfeg2Cx3LnrrwfP3YOOzggB4CPW3e6FGwarNltmjdPinfidzSkHI4wX36uFrshzVPYNlgIWyMC3phy6g6m
+ ZjAPFIspDlzXAxvmNEqC++zppqvURbHNd7kFECEPE8h9INop8qIIpgdqp8jDs7Fi/9h3QLPPoAlyBA==
 
-dpaa2_qdma_setup() allocates priv->ppriv separately from priv, but the
-allocation is not released on all teardown paths.
+On 9/11/26 23:40, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.157 release.
+> There are 1424 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.157-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
+>
+The build fails with:
 
-If dpdmai_get_rx_queue() or dpdmai_get_tx_queue() fails after
-priv->ppriv has been allocated, dpaa2_qdma_setup() returns through the
-error path without freeing it.
+sound/soc/fsl/fsl_audmix.c:461:12: warning: 'fsl_audmix_runtime_resume' used but never defined
+   461 | static int fsl_audmix_runtime_resume(struct device *dev);
+       |            ^~~~~~~~~~~~~~~~~~~~~~~~~
+sound/soc/fsl/fsl_audmix.c:462:12: warning: 'fsl_audmix_runtime_suspend' used but never defined
+   462 | static int fsl_audmix_runtime_suspend(struct device *dev);
+       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+ERROR: modpost: "fsl_audmix_runtime_suspend" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
+ERROR: modpost: "fsl_audmix_runtime_resume" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
+make[2]: *** [scripts/Makefile.modpost:145: Module.symvers] Error 1
+make[1]: *** [/media/re/nvme/linux-stable-rc/Makefile:1885: modpost] Error 2
+make: *** [Makefile:234: __sub-make] Error 2
 
-The normal remove path has the same issue. dpaa2_qdma_remove() frees
-priv without first releasing priv->ppriv, losing the only reference to
-the separately allocated array.
-
-Free priv->ppriv on setup failures that occur after its allocation and
-during normal driver removal before freeing priv.
-
-This issue was found by manual code inspection.
-
-Fixes: 7fdf9b05c73b ("dmaengine: fsl-dpaa2-qdma: Add NXP dpaa2 qDMA controller driver for Layerscape SoCs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c b/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-index bf771251264d..0f0fe0291a06 100644
---- a/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-+++ b/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-@@ -365,7 +365,7 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
- 					  i, 0, &priv->rx_queue_attr[i]);
- 		if (err) {
- 			dev_err(dev, "dpdmai_get_rx_queue() failed\n");
--			goto exit;
-+			goto err_free_ppriv;
- 		}
- 		ppriv->rsp_fqid = priv->rx_queue_attr[i].fqid;
- 
-@@ -373,7 +373,7 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
- 					  i, 0, &priv->tx_queue_attr[i]);
- 		if (err) {
- 			dev_err(dev, "dpdmai_get_tx_queue() failed\n");
--			goto exit;
-+			goto err_free_ppriv;
- 		}
- 		ppriv->req_fqid = priv->tx_queue_attr[i].fqid;
- 		ppriv->prio = DPAA2_QDMA_DEFAULT_PRIORITY;
-@@ -382,6 +382,9 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
- 	}
- 
- 	return 0;
-+
-+err_free_ppriv:
-+	kfree(priv->ppriv);
- exit:
- 	dpdmai_close(priv->mc_io, 0, ls_dev->mc_handle);
- 	return err;
-@@ -787,6 +790,7 @@ static void dpaa2_qdma_remove(struct fsl_mc_device *ls_dev)
- 	dpaa2_dpdmai_free_channels(dpaa2_qdma);
- 
- 	dma_async_device_unregister(&dpaa2_qdma->dma_dev);
-+	kfree(priv->ppriv);
- 	kfree(priv);
- 	kfree(dpaa2_qdma);
- }
--- 
-2.43.0
+This is due to commit "ASoC: fsl_audmix: rework runtime PM handling in probe" commit id d1bfda1ae2d648da3967ee969d65caac0e47fa81 and 
+I have CONFIG_PM=n in my config.
 
