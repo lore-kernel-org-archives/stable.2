@@ -1,129 +1,281 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A9237B00C
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 02:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B591E384CF0
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 03:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268042; cv=none; b=cvDvYGa2myZ6H+CcTdEAsbDTiyVdl9CbfXFEgpGtCy8Tt/EEF9lxBvAv8W7ybZIFEHOcMOewLPkdFjbH4M6yK3KFSt+6PaUPI0ZBS3IcKAJPvdo8438Fxcxs4K4n5GRkMWIAjzZ9/wUcGtFiOIfaAy2Nxr7yS2YJ9cFDWfJfjGQ=
+	t=1789270599; cv=none; b=foex1eTufOEboqt/pyEqxmqS2DZxN2Wrmx3SRVlKGdOkjw6Uc7QojL29g7/LunRs4vQS46f2vYbGjp6R8RzPUPmvq2paNh9OKurIVYjCRJuXTRewFxnX6JPuy2EyIsy6CcyLr48THPzv8pl38zumN0edIKT3XVCeGT9nJ0qaVmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268042; c=relaxed/simple;
-	bh=vF+aeKGhCKYZ1UEkmMolYzoJb09niBwtklJFl1X+Vok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SJ2TIkAifdVbvBjs2AFxRdy3Mt46PSLZ6+6xNZs+V8e8uibYj/IqGjAe+qIm4ZDlSjitqy2gnUm2rcwR2IzHm18P/lvoOzc5oMZYPeyO0FX8sOidAk2YFTiFiRPC8AKhJ8dFTE2yKyYdZMk0BNbHyw8hu2AP2JzJMEG+J0EwulU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=muTQRO+f; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789270599; c=relaxed/simple;
+	bh=Q7N55ZKGMhUVafnhQytlmQyt5wlMWqJxtit4S7G1Bmk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZbRyrFnGJFQW8Y53FAX+3TnHNEIkD3lDOHmfCSt45Nbw8M7XEeeU0DmMdoNyjUcxA4uUq/M86DewFAhe+EuGphfEC/6FieP730LwCO9UvkEWebNj55rWDuMmirFIHrPshgZFErwBNZ52qprnCv3z7MD9Y01ppt0wVSo3weAKOZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AVsL3icE; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="muTQRO+f"
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id 5Z7TxEM5Kc3Xs5aLpxovZi; Sun, 13 Sep 2026 02:53:53 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 5aLpxzIvogxfo5aLpxyz4H; Sun, 13 Sep 2026 02:53:53 +0000
-X-Authority-Analysis: v=2.4 cv=B7G50PtM c=1 sm=1 tr=0 ts=6aa61041
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=GTIYFbPaAdCZB4xclWkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=EzwfAeO9SfU5RaxzbNcwEZ+2pbDKDWm4/VnHl1VhfkY=; b=muTQRO+f499lYEJKYTCdNZZQiF
-	gnL3u6W6KDjL8ksq75ZVgUQDidqcvzrOB9wHgUIZEXmodh0SPbOaghYgzsxThYI11TCcd1xodAobH
-	DgrP2X5ll6iYSIIjsgV9sR8j9Fubtw6N+e5MvEAqccsSwCymAPsKSkWDfwPmL1/WB69igJgCn/5Ty
-	Cvup6EmXo3hVwyrg/eWn/RCVh3uDUx+tOdtGUNCJtppfRlXpHyB2A+G/muyTOc9X3GwF8PH0Isf4L
-	JR5dMx4pOQP6k2tkxjY553bII1Ph4cUEa7fMRz5Rxzfd8rHXTTixKZ9VT5vYI7wZUgLg6Stu3zm+q
-	kfs5hGyQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:51804 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x5aLo-00000002pqg-2P2B;
-	Sat, 12 Sep 2026 20:53:52 -0600
-Message-ID: <82fb64b5-4273-4cb3-be34-ed9fd2d0dd94@w6rz.net>
-Date: Sat, 12 Sep 2026 19:53:51 -0700
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AVsL3icE"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc18ced1a5aso4263990a12.1
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 20:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789270597; x=1789875397; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fs6YuwwYNgKZrcAVirPLF9TAZSnieT4vB0v2ARdNeLY=;
+        b=AVsL3icEivUKLI1imZpyNIlnWX/QL2QEz5HFVi6hUo3SKjEuDXFqjUyOU5FKK5NTXq
+         lM/0ysM7cAiMJug8FHxRYsR+5lpAR7EP8kc9DR4prZGO1j2W7M60MAnTVOqp94NHnrPD
+         fe7fRu1/dD6NdPaVAtXpEkkY6iq4l2za4vi1jpsfu1b5vdCpOkCJi1OAPP6ckuhTcJt3
+         QOs+M/WpQwYScYvCyoZypJYBrL+ix3WcIrBidt/g/uDB6Jq+TP3puxzwoR7qrg55qXBS
+         TJx+/Ts3lHZz0WpuYW5Za2i6kjb5FYy88vHVZA+59ilgfdd8yKIhHeoYdUNNbVirLWkZ
+         dyrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789270597; x=1789875397;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fs6YuwwYNgKZrcAVirPLF9TAZSnieT4vB0v2ARdNeLY=;
+        b=VDfpCjn8vJardlFJ8mETGrBUW0SSM+v7WvnQvMZi/piDu+l9qXSO9RDP7Vhcd92zNa
+         OjeB+qFab8/H/03OjN0CGUwRMydEndFKp360LxbAlR6JVxDJb+gvVMhlV9XSxrovWMzw
+         Uz6tQH1V4r9bWpyBvRhKMzbGVmueapl7BO/BKWWm81qoEykX9kRTzajA4j16UEcOIJfZ
+         JqyCihRyfTouLfZYHf8FK6XLfa1AoIi494Y10UK+lKB0GQma3AAYEATLfjqcoiHUB0n2
+         rWHtrPuCJyQs97vzUDA7PdLyfwRRJpJJgcUxySLTAqdT5lIPBBuplMPZ7wAqgId3jJmY
+         ySwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwX5i9NGz9zUQye9JJWBs5Kx5gWmCqafSFL9Q0+cpIJJoEZTO59s7yoUOJ1Te/fS0I4nOU2qJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nw/hgdrtNx7DPTNZussPK2Bmx1h1IRex7/bnPPJi4DbbKM1NRU
+	RjFRGUCD60WClb1LZB3AmQ1D5E2bc3j7UPXI94z/kvIH0S5R3Ty8yvWh3qSwWwEHZOP6jSAlsne
+	NrtVNGqlpTdALko7vZmx0Wg==
+X-Received: from pjsd15.prod.google.com ([2002:a17:90a:bf8f:b0:39d:c24e:697b])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:d64c:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-39d9bd6197bmr20361369a91.10.1789270596929;
+ Sat, 12 Sep 2026 20:36:36 -0700 (PDT)
+Date: Sun, 13 Sep 2026 11:36:31 +0800
+In-Reply-To: <20260913033633.3159296-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/935] 5.15.221-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065526.833703348@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x5aLo-00000002pqg-2P2B
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:51804
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDfhmVqMO3ZGFhnf7mENlWVHbFdKfgSUknYIzC592R5R8L0S0AiRijRSvKhNeEWL4oeHf2M0GbB7FHswiwD1bO+U0T1rYJs1sTl7pqYm7/cZ+PKatCiG
- InesCisuRTVXM9lFP+obvAuPgTbLS9Jm+HDRY7zCzg6c9+u7Jy68+QIjwGhexCWqZErG0yjPyPmIPg==
+Mime-Version: 1.0
+References: <20260913033633.3159296-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260913033633.3159296-2-stanleyjhu@google.com>
+Subject: [PATCH v4 1/3] rpmb: core: Guard frame requests and teardown with mutex
+From: Stanley Jhu <stanleyjhu@google.com>
+To: jenswi@kernel.org, mkp@kernel.org
+Cc: gregkh@linuxfoundation.org, arnd@arndb.de, bvanassche@acm.org, 
+	avri.altman@sandisk.com, alim.akhtar@samsung.com, beanhuo@micron.com, 
+	can.guo@oss.qualcomm.com, ulfh@kernel.org, linusw@kernel.org, 
+	tomas.winkler@intel.com, shyamsaini@linux.microsoft.com, 
+	alex.bennee@linaro.org, James.Bottomley@HansenPartnership.com, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/11/26 23:50, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.221 release.
-> There are 935 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.221-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
->
-The build fails with:
+rpmb_route_frames() has no serialisation. That has two independent
+consequences.
 
-sound/soc/fsl/fsl_audmix.c:469:12: warning: 'fsl_audmix_runtime_resume' used but never defined
-   469 | static int fsl_audmix_runtime_resume(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/fsl/fsl_audmix.c:470:12: warning: 'fsl_audmix_runtime_suspend' used but never defined
-   470 | static int fsl_audmix_runtime_suspend(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~
-ERROR: modpost: "fsl_audmix_runtime_resume" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-ERROR: modpost: "fsl_audmix_runtime_suspend" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-make[1]: *** [scripts/Makefile.modpost:133: modules-only.symvers] Error 1
-make[1]: *** Deleting file 'modules-only.symvers'
-make: *** [Makefile:1843: modules] Error 2
+Concurrent requests on one rpmb_dev corrupt each other. Two kthreads on
+different CPUs issuing RPMB_GET_WRITE_COUNTER against the same UFS RPMB
+region, 20000 iterations each:
 
-This is due to commit "ASoC: fsl_audmix: rework runtime PM handling in probe" commit id 9145b2e38db943434df708bb818190f4a9e003b0 and 
-I have CONFIG_PM=n in my config.
+  thread 0 done: 20000 iterations, mismatches=10889, errors=0
+  thread 1 done: 20000 iterations, mismatches=6141, errors=0
+  race complete: MISMATCH=17030 ERRORS=0
+
+A mismatch is a response whose echoed nonce belongs to the other thread,
+so 43% of requests returned somebody else's frame. The errors count is
+transport failures, so nothing failed and the corruption is silent to
+the caller. An authenticated RPMB operation is not one command. The UFS
+provider issues SECURITY PROTOCOL OUT carrying the request, then
+SECURITY PROTOCOL IN to collect the response, with a result read request
+in between for write-type operations. JESD220F 12.4.7 states that any
+request other than a result read overwrites the result register of the
+region, so a request landing in the middle of another initiator's
+sequence destroys its response. The same chapter states that a region
+processes one authenticated operation at a time, so the rpmb_dev is the
+granularity the device itself assumes.
+
+A request can also still be in flight when the provider tears down. The
+core reaches the provider through rdev->dev.parent, and the provider is
+free to release that device as soon as rpmb_dev_unregister() returns.
+Reference counting on the rpmb_dev does not prevent this:
+rpmb_dev_unregister() calls device_del(), which drops the reference that
+device_add() took on the parent, so the parent can be freed while the
+rpmb_dev is still alive and still routable. Unbinding a UFS host while a
+consumer holds an rpmb_dev reference and keeps issuing requests:
+
+  BUG: KASAN: slab-use-after-free in ufs_rpmb_route_frames+0x328/0x420
+  Read of size 8 at addr fff00000c833bce8 by task rpmb_hold/100
+  Call trace:
+   ufs_rpmb_route_frames+0x328/0x420
+   rpmb_route_frames+0x64/0xd0
+  Freed by task 1:
+   kfree+0x2b8/0x5c4
+   ufs_rpmb_device_release+0x3c/0x60
+   device_release+0xa0/0x1fc
+   device_unregister+0x20/0x38
+   ufs_rpmb_remove+0x130/0x230
+   ufshcd_remove+0x54/0x22c
+
+Both measurements needed patches 2/3 and 3/3 of this series applied,
+because UFS RPMB registration fails on mainline. The stable tag is for
+eMMC, which registers today. mmc_route_rpmb_frames() packs the whole
+sequence into one block request, so eMMC is not exposed to the
+interleaving above, but it does have the teardown window:
+mmc_blk_remove() reaches rpmb_dev_unregister() through
+mmc_blk_remove_parts() near its start, while the queue that
+mmc_route_rpmb_frames() submits to is only torn down at the end by
+mmc_blk_remove_req(), whose comment notes that it is freeing the queue
+that stops new requests being accepted. The eMMC window is from source
+reading; I have not reproduced it.
+
+The kerneldoc change is part of the fix. Calling rpmb_dev_unregister()
+from a release callback cannot work, because the child rpmb_dev holds a
+reference on its parent, so the parent's release callback never runs.
+The UFS provider does exactly that today, inert only because its
+registration fails; patch 2/3 moves the call to the remove path.
+
+Add a mutex and a dead flag to struct rpmb_dev. rpmb_route_frames()
+holds the mutex across the whole sequence and returns -ENODEV once the
+flag is set. rpmb_dev_unregister() sets the flag under the mutex before
+device_del(), so it cannot return while a request is inside the
+provider. Closing the teardown window requires excluding unregistration
+for the whole duration of a request, which is the same exclusion that
+serialises two requests, so one mutex covers both.
+
+On the same test with this patch applied, MISMATCH=0 and the unbind is
+clean.
+
+Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/misc/rpmb-core.c | 34 +++++++++++++++++++++++++++++-----
+ include/linux/rpmb.h     |  6 ++++++
+ 2 files changed, 35 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
+index ecf14acf230a..bbc3c404ad6f 100644
+--- a/drivers/misc/rpmb-core.c
++++ b/drivers/misc/rpmb-core.c
+@@ -45,16 +45,28 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
+  * @rsp:	rpmb response frames
+  * @rsp_len:	length of rpmb response frames in bytes
+  *
++ * Context: Might sleep.
++ *
+  * Returns: < 0 on failure
+  */
+ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
+ 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
+ {
+-	if (!req || !req_len || !rsp || !rsp_len)
++	int ret;
++
++	if (!rdev || !req || !req_len || !rsp || !rsp_len)
+ 		return -EINVAL;
+ 
+-	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
+-					rsp, rsp_len);
++	mutex_lock(&rdev->lock);
++	if (rdev->dead) {
++		mutex_unlock(&rdev->lock);
++		return -ENODEV;
++	}
++
++	ret = rdev->descr.route_frames(rdev->dev.parent, req, req_len,
++				       rsp, rsp_len);
++	mutex_unlock(&rdev->lock);
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(rpmb_route_frames);
+ 
+@@ -62,6 +74,7 @@ static void rpmb_dev_release(struct device *dev)
+ {
+ 	struct rpmb_dev *rdev = to_rpmb_dev(dev);
+ 
++	mutex_destroy(&rdev->lock);
+ 	ida_free(&rpmb_ida, rdev->id);
+ 	kfree(rdev->descr.dev_id);
+ 	kfree(rdev);
+@@ -123,8 +136,9 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
+  * rpmb_dev_unregister() - unregister RPMB partition from the RPMB subsystem
+  * @rdev: the rpmb device to unregister
+  *
+- * This function should be called from the release function of the
+- * underlying device used when the RPMB device was registered.
++ * This function should be called from the remove or unbind callback of the
++ * underlying device used when the RPMB device was registered, never from
++ * a device release callback.
+  *
+  * Returns: < 0 on failure
+  */
+@@ -133,6 +147,14 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+ 	if (!rdev)
+ 		return -EINVAL;
+ 
++	mutex_lock(&rdev->lock);
++	if (rdev->dead) {
++		mutex_unlock(&rdev->lock);
++		return 0;
++	}
++	rdev->dead = true;
++	mutex_unlock(&rdev->lock);
++
+ 	device_del(&rdev->dev);
+ 
+ 	rpmb_dev_put(rdev);
+@@ -164,6 +186,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ 	rdev = kzalloc_obj(*rdev);
+ 	if (!rdev)
+ 		return ERR_PTR(-ENOMEM);
++	mutex_init(&rdev->lock);
+ 	rdev->descr = *descr;
+ 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
+ 				     GFP_KERNEL);
+@@ -194,6 +217,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ err_free_dev_id:
+ 	kfree(rdev->descr.dev_id);
+ err_free_rdev:
++	mutex_destroy(&rdev->lock);
+ 	kfree(rdev);
+ 	return ERR_PTR(ret);
+ }
+diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
+index ed3f8e431eff..814ac3e69337 100644
+--- a/include/linux/rpmb.h
++++ b/include/linux/rpmb.h
+@@ -7,6 +7,7 @@
+ #define __RPMB_H__
+ 
+ #include <linux/device.h>
++#include <linux/mutex.h>
+ #include <linux/types.h>
+ 
+ /**
+@@ -48,15 +49,20 @@ struct rpmb_descr {
+  * struct rpmb_dev - device which can support RPMB partition
+  *
+  * @dev              : device
++ * @lock             : protects in-flight operations against teardown
+  * @id               : device_id
+  * @list_node        : linked list node
+  * @descr            : RPMB description
++ * @dead             : set to true when device is unregistered
+  */
+ struct rpmb_dev {
+ 	struct device dev;
++	/* Protects in-flight operations against teardown */
++	struct mutex lock;
+ 	int id;
+ 	struct list_head list_node;
+ 	struct rpmb_descr descr;
++	bool dead;
+ };
+ 
+ #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
