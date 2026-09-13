@@ -1,127 +1,81 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E03274B39;
-	Sun, 13 Sep 2026 12:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id B2D1337FF6D;
+	Sun, 13 Sep 2026 12:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304097; cv=none; b=F7O/bBHsL6nXSyzX23q0Fdi/NcT0ZaEfp+NmoOZJvCUKSSFkoU5hg4a6EDukdaxIhtYciph4MyQyh/H2Q18/gS3/AiQOArwPuHG2aVpNDJJQiTBZyX3zZLqQePaGw/BshgoeZFwm6VZBZk9tl8DFtEF9Ep6SxymJYE7/IKwC2nA=
+	t=1789304371; cv=none; b=RXi63+Wge97UZraO5J1YNe3JziBKkuL92vTAttGkU+2mX1OqMdcAFgaer284BBifhJDe5/TLcTXRQckVWo9kUQ8noR01wevk0ainrr9/UcUQoLOxpgAudS+BWEWqNuF6s7B+7fbmS80cJGV1+sZNZ5YKwL85ElfAkykNyzSY380=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304097; c=relaxed/simple;
-	bh=wC65E8dd+IeMd273lx+z9CXI30/NYD7CVMw65WDd/6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UznRLCFzH2jfvcR50sSoLukk4NVfmI0/IBiX327RqG2/b9Q+Gb45TmT9Jq/HV9wWEDVpRjuo+J+Mm3sSJwEJh1NpPdnfucCDPM6kEBbeHkJw/MUEwLw6wSr8d5qdRfbnNoVJfcB9U2NZorta7B+KLzEjzZ6XljMbCCo7wAVo5zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DZI120Tn; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789304371; c=relaxed/simple;
+	bh=zDlw6V0PtRlhjN26GnafC+FxR1y6BBk8TOEVrB57KCA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BcrhEKvPRed76vfGyqptWUTPDkmj/GgpKzBR5Z9LzgHFH/3EHh3IwNqj1PchYizmt0yBg0XFsPOTJx5sGZoutl6ySzoGs6uxo6tEZVc0B/HHyQal5o0eGIfrp4HKI0R0lKHvb1JeWjx969m5qGzJExSvpK/3o9YjNTv9ni4qgq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=GCeMUhNC; arc=none smtp.client-ip=220.181.50.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DZI120Tn"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hjSsy09rQz8thm;
-	Sun, 13 Sep 2026 14:54:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789304086;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2F1z9crfC0BI+4IFUtzMAidHdMiOyKDeHfWHnfRJ6KI=;
-	b=DZI120TnC+YpfL7KNF0sE6jN14q+MYn1jouSBstsAEKxXW5NP4ynnd21cndANPsU1bCJgb
-	tL5sfAwztUhzSORtRaQLaEYuNQr9WmcuDEF3reqE1HLY3icQzWSVKrcWQGcfNeh9B4qlZA
-	i6BE8/s9P0xfuODK5tmQwZcsKUPUhupg0u6Z73jRyBktz1qBjjdj0x4gYwbvZICSKLFVim
-	Kw9PF98tsVMUci+Pvst2AQxVkm4cMzJG6rm2wJtyJVy6qB/KcMIWgp4wR2Zvoz8fTkyb6s
-	B09vQvkFRekyxA65gSHts5/O90YA+2Swt0LPbkvBYDwZvkXL0cq1jivsyakJfg==
-Date: Sun, 13 Sep 2026 14:54:39 +0200
-From: Benjamin Boortz <bennib@mailbox.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, 
-	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, 
-	sr@sladewatkins.com, Linux kernel regressions list <regressions@lists.linux.dev>
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-Message-ID: <aqabqJHW_tHhQn3v@bb-82jq>
-References: <20260912065648.999753832@linuxfoundation.org>
- <5babfab4-ebf7-42b8-88f2-ac2f5b6b2d7f@leemhuis.info>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="GCeMUhNC"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jiri Pirko
+	<jiri@resnulli.us>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>, <stable@vger.kernel.org>
+Subject: [PATCH] bonding: alb: Fix overflow in TLB gap calculation
+Date: Sun, 13 Sep 2026 20:58:59 +0800
+Message-ID: <20260913125859.2349-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5babfab4-ebf7-42b8-88f2-ac2f5b6b2d7f@leemhuis.info>
-X-MBO-RS-META: 5efubqy6gemdyiir7bgxrquqtd1qrby5
-X-MBO-RS-ID: 343d53b3bbcc94788df
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc7.internal.baidu.com (172.31.50.51) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1789304354;
+	bh=gnJR7tPojdxPKnkvCbICGOEhsQF4X44trF83MxAXOLg=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=GCeMUhNCdZUlN0ITkEAePmjBUy6il0IL04Y76Ck2UkBL17AA309TEk0u1k2fPSY+q
+	 J7PdUHjPTKaNYjyGZyGhBUCtOJpw8SEW5ebhi37LF5zocLesmhz4dbGNWFvCtdbzGH
+	 gEbJF42TAOtVkcrpQhumygdeICDDlFmBQ+EBt/yfM+jL9udLnMNc5ifsZwTGfFWs+4
+	 JkEEv17xMerNqUv53wg8fHvAZyzR3E3H6/380snfj/sXR0gMfa8sbZ0s9+8GQUmkTs
+	 XBxM5VtXLq194Gux1FoDptbfNdIjMqv+urTTn3sBj3Ijc2O2hrjMfSLKQkaA1T27PR
+	 EYsPg2NZm7izw==
 
-On Sat, Sep 12, 2026 at 12:18:56PM +0200, Thorsten Leemhuis wrote:
+From: Li RongQing <lirongqing@baidu.com>
 
->On 9/12/26 08:29, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 7.2.6 release.
->> There are 1815 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
->> [...]
->
->My builds failed while compiling perf:
->
->>> ui/browsers/hists.c: In function ‘evsel__hists_browse’:
->>> ui/browsers/hists.c:3191:41: error: ‘hotkey_act’ undeclared (first use in this function)
->>>  3191 |                                 memset(&hotkey_act, 0, sizeof(hotkey_act));
->>>       |                                         ^~~~~~~~~~
->>> ui/browsers/hists.c:3191:41: note: each undeclared identifier is reported only once for each function it appears in
->Reverting "perf ui hists: In report UI ensure thread is set with
->reference counting" fixes this. Haven't tried, but maybe including
->bd86119c3ee6ed ("perf ui hists: Fix dso_filter reference leak and exit
->zoom cleanup") will fix this, too.
->
->That got me a little further, but then I ran into this:
->
->>> tools/perf/util/python.c: In function ‘pyrf_evsel__open’:
->>> tools/perf/util/python.c:1104:9: error: implicit declaration of function ‘CHECK_INITIALIZED’ [-Wimplicit-function-declaration]
->>>  1104 |         CHECK_INITIALIZED(evsel, "evsel");
->>>       |         ^~~~~~~~~~~~~~~~~
->>> tools/perf/util/python.c: In function ‘pyrf_evsel__set_tracking’:
->>> tools/perf/util/python.c:1295:9: error: implicit declaration of function ‘CHECK_INITIALIZED_INT’ [-Wimplicit-function-declaration]
->>>  1295 |         CHECK_INITIALIZED_INT(pevsel->evsel, "evsel");
->>>       |         ^~~~~~~~~~~~~~~~~~~~~
->
->Only looked briefly, but didn't spot a simple way to work around that
->through a simple revert or two (but it's quite likely I missed something).
->
->Ciao, Thorsten
->
+compute_gap() shifts 32-bit values before converting them to s64,
+which can overflow for high speed network devices. The overflowed
+value is then incorrectly used in the TLB load balancing calculation.
 
+Convert the operands to s64 before shifting so the arithmetic is done
+in 64-bit width.
 
-build-tested and reproduced the 2 issues on x86_64 with:
+Fixes: 097811bb48c7 ("bonding: optimize tlb_get_least_loaded_slave")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ drivers/net/bonding/bond_alb.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-   make -j$(nproc) -C ./tools/perf O=/tmp/perf-build
-
-observed errors:
-
-1) tools/perf/ui/browsers/hists.c:3191:41: error: 'hotkey_act' undeclared
-
-2ec3b9858725 — "perf hists browser: Increase MAX_OPTIONS to prevent stack buffer overflow"
-   prerequisite: bd86119c3ee6 expects MAX_OPTIONS=32; stable-rc still has 16
-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2ec3b985872594031cc1000b830344de5c26633d
-bd86119c3ee6 — declares hotkey_act, fixes dso_filter reference leak
-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bd86119c3ee6ed7b8fc9be8298fe49f1a5355a46
-
-
-2) tools/perf/util/python.c:1104:9: error: implicit declaration of function 'CHECK_INITIALIZED'
-
-01fa2d416ace — defines CHECK_INITIALIZED
-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=01fa2d416aceab51f97ec2769e8da9971a605eeb
-
-
-With the 3 patches applied, perf build successful.
-
-Benni
+diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
+index 43ac8e2..b520040 100644
+--- a/drivers/net/bonding/bond_alb.c
++++ b/drivers/net/bonding/bond_alb.c
+@@ -160,8 +160,8 @@ static void tlb_deinitialize(struct bonding *bond)
+ 
+ static long long compute_gap(struct slave *slave)
+ {
+-	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
+-	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
++	return ((s64)slave->speed << 20) - /* Convert to Megabit per sec */
++	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+ }
+ 
+ static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+-- 
+2.9.4
 
