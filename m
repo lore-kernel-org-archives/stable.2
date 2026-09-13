@@ -1,84 +1,79 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0383909A5
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 09:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53C82F90C5
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 09:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789290557; cv=none; b=UmBpQpuwTv48kqih7iqPiG2T/dH1hhK9aammeIAfhfQ8Wvd2JylIvoV4Tn0ubFlvV1cl462Enjtbt2kjIJc/MYbZ8v0inUZcqcsVKv9BzyQIve7bEmXaHCKH21nVoxuXiX4kjAS0A+aUf/CCgi4ZFNareQm8gslGWobtg9CCkBU=
+	t=1789291021; cv=none; b=k5YJo8m/NmYaxM0uEeJbFJSgper+drfauuBQdh8HSf4n1KEvy6m9NDHX+cigyPKjUIEXJx1hi3VKWSGnpKH3y2AdmXF+ve45OSyMyy1ehCWQVjgr2aqopcahZa64BeqnENkKj1vXzDwawAmhb7ZUG0GDtdrpkAAL6/qqYCmVWas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789290557; c=relaxed/simple;
-	bh=azu3uLy0Mux7GpCyqwyRDXjjYjMQ9/gZOf8vjQLgseM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0KARmTIe1vXxxCN32X8EGv3v26Xow+PQDi9HWmoCdqJJ/m43jTIFbEqGS81uoVbcEKSzrr9xkH0KAerketqDXXu5P9u5RhZLIpaDlFD6yCNwWLwi4JXpVGjSq0vP35bQvPKdtQtPf1uN+Htfnyu2ufBrtB4Xg7NhiSvwFxKafY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6Ew7KoU; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1789291021; c=relaxed/simple;
+	bh=cMiptzkByQhLBMfPKZ95f4RtbJX+VASD+YXlH7rsAmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YA5waId1mqjMmLTqUV7uSmTaVcHJjxOdMHI4K8Pa76YPG/MelFuxMIMTP4mcKNuQNXPN+yp56ognlgelRdg8/QV/R22bBWJE7JBdwMZoUATUIn6fOl2vfSg84LBFlbVOm+IGhD6EQ2oQf0HpcQB0kbflSgFT4kcNZoMOu5E/urE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Klo2sO7v; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6Ew7KoU"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d8f265cbe6so22572435ad.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 02:09:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Klo2sO7v"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so8232305ad.3
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 02:16:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789290555; x=1789895355; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789291019; x=1789895819; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MFJlL+9O/jXoy6I1rLj9f7uyrPfSM21JuJ5Ws/dqJiQ=;
-        b=k6Ew7KoUyTssO/21sbBg54LSSdxnRMvRYHm/x51jFDsGbHnJPRP9SBwCxr31xfK+LV
-         u937QnroBRg0S6CYTx1EatPpf2KJeex+T0L/RIPBZyGuIchEKpuddryze7cdy1i/ivRH
-         MhXYW8U7MNIJ06TCyxpvd2uBU0Zhz3JMUiiB7m4dibPMQAClkxIviHQLO4IJf3ItAzNI
-         fQg+ZHPkG3cvq6KWpZ2OszapxObv5wC+owjnJAxsFA2GRt7RrH1JXLAG477DW8UwYgJj
-         lngY8boHDZuU7t0tXusI0FpQEgYj5qaYLlvYEodXqodPhn7yDVDa54Ez2U1L2cEGbl/c
-         rQ1A==
+        bh=hl7UPP4ejrps6ty9GNEkOxkDv0jyU5q+6jxLFrutl80=;
+        b=Klo2sO7vApGC/mdbM7sR466wLYFqnkzM4PfFL2nSB/QYUMW3Cx3883M2gZV5R9ZpeF
+         itk1EVK6jGVKXJqQ9UZkuSTrMtH4mNMdmjg95OvWXgaa6RbaaqwS/tsuqhAWLGgpZcDK
+         mI2p+nUqc2ByTuGjL4SbSL+ewuV7QkQop6L2+BRoWBC8pcgjhhixUrhKnE7Q9ZMDF283
+         9JnroTAtMxDsANSrPU/1nCnGhwHauu5psijsQvRo5kwBbqpKuHe1BI8tWnXxv+dqw6xL
+         FUOQO+WGkqQozHF8kJYc7b870gj87swgXgPBS4xrbv8S5yErV6AXqlKH64k9daKkFWQg
+         iXyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789290555; x=1789895355;
+        d=1e100.net; s=20251104; t=1789291019; x=1789895819;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MFJlL+9O/jXoy6I1rLj9f7uyrPfSM21JuJ5Ws/dqJiQ=;
-        b=kUBZGAMrxNqKIundYuitbokuOrgy3WkNznsgeg997Y1YpXUtchvyYznoYBmREr5a8k
-         WVqh3XQb2ybrJ4uH5GvrLy6P3pGPkC2OKHXhW9Genfr16erQocTCD0D4FcF2lJIrqe1F
-         J9iNVdn19pxeT9mbasMu+VUgnEc8p4xW3ZdTu69EgRJAApxUZVYdrB61BATFnKWhZbKl
-         s+pP7pIrC4IQHPaQ3eiDPvFVZ6rG+MkHbHtnFZ+ZvTWFtQg5HkM3bRPINW18/a5MF62P
-         aSH2ubuTUlYPD5RX8G12SbqFzrNdvq/YijZINzkBjDRGjwbNRwR3XtRgmhMyZX5n5F3H
-         7dWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfbJf3TjVbZ29sRUTg6P8h9ELUDc1Eqz3mTQZ/gRQh1DMWcVZm0pns/2+8G6MjljpJxJAAduk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXCCPOVmVEHCkR9RO9vMzuRRK+8cURf30VCvd0l8+emwtPyq3k
-	EL41NgQnu+UOWkUwJ6dH+5DxbQMC2D4JXpx+8sOTyLSm1M9c0diXg/pp
-X-Gm-Gg: AYBFou01ACLne+uP4fatgkEWrt2HoVenoiH7OycNBSJlZohgSnH4arFqo52P1U11Qxp
-	X/5MmnwLnyB2z311ZXz7ca/g/E0H8KAbIThJga+3Zz8JR4vAztch/eIg80aP7yPHKP1O4Alkj5Q
-	uXXGfw9KWNn/kB3M8nBdZaz+cWOrPbLzRrtiFOMsKiz7uR/2IIaLMEzeDKG6T2qWdsAY4ZvSOI/
-	gaf9pyzN17ktHE/NfjkDaTmmlHHAsIsmGNZSd6wo61CJV9WvotIEDiSsj3rcX8q74CREZGEl1Ls
-	m+h/Hpha++/mH3JJD9GFabMqm42lrNr6L6uuPbix7VzLQ5i5XDcDe7vYrWCRVnFGI7JHcuOcXve
-	ZkrisFX5bAz788c2PPjmqskrinpodedj2S3D2KCz1dDxuqVF9Vu/Mp26Wf706LG9PV3rl+um2pT
-	A4tEZhRvoeBhJj+KSskwWivNgGCBjVq8nb4+1f30NMMRI5zKqdXQkbF3BuveSWOnmP1rS2Ntwwp
-	cmRkwfHQO1ygNHDNMv0CSruvrpE8UrzI7w=
-X-Received: by 2002:a17:903:1b04:b0:2d8:d4ce:9f37 with SMTP id d9443c01a7336-2dd2a470a45mr200065545ad.21.1789290554993;
-        Sun, 13 Sep 2026 02:09:14 -0700 (PDT)
-Received: from Gris-Laptop ([14.31.107.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bc03ac1ecsm6570186eec.10.2026.09.13.02.09.09
+        bh=hl7UPP4ejrps6ty9GNEkOxkDv0jyU5q+6jxLFrutl80=;
+        b=f98GVBtNnux9hG5UlnFs6c69tNbP/XpttFBDxCw6SBELO5BFpBWp0PLYi9t5+05rvs
+         LaL91Ry6scN9Ro83Q9FqCETAd1lO5ZcLAVfctOPna/plCZ2rLYJu7fOnfETmbgcE1gU/
+         kz0mRRrJj43tVVC5j3+X+TZe+VKFNQ2E5QSgxUrLjj0sVDVPfPzcPqezG/b8cKK0ygRI
+         wj1KvLxS6h1K5VzrwcF7cuum2MnRP7KWLn8ux+g9shB/gqkMSf9GvZ/lfauMk/BHIgw5
+         +ik6jPrTIFqwhlFkOnz5dKgTZSGeO7JkhRctPoFwVmwZlUFuzDE4gHb9YtX7wFo9mtn5
+         HDWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxn8doJBfIiQeo4m/K2t9/PsG+2vzJfMvFTmyVO89sixPS6xW3WUXTgG/xyPLeAkCVwrfjkq+s=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6Lc4vAhBjE0Aa6xDYIVZ8Qw8nQ50njU5nnKQ0Nk9W+FPzuZzo
+	5PvAwDJiIY0s29dvM75MiqBIbJ6wmAe9jU5iMFsg0pXlhksW7cSs40yn
+X-Gm-Gg: AYBFou0GQZNuW32SclEsHl7OZZxbB7nFfWmig4077odE8xMgJTcBidACy57SKghxvjZ
+	XiYKhDRiKjSsWZgqDdDsvI+zDyzjHBNo/KrgPBldy6e8PYHG6sMnHU5mMkGDGXOrNfWKXPe+LOI
+	EmyK+RqKXIymYvvTjX/4g0WnGv2ynymU9i2H++/KOW6eABZUy2Ik0c4Mmmr1DXoOqZ6lF+zrahB
+	VwEjRCppUXUctbh68aSXpUWlNMeAqhHfinprR8LkYWH/Gfn4yCdVRCv2PNFRG/hIMy961xkGkc/
+	bx4gcyiUTH4sByqDdrk+wlnI2k9aNPAJ10lmfgr7zpqWlcBfArm9wFkm1zvp7CU+7laTc2lCOUY
+	UHDplxeCWsHoR2t0c/UhnUY5KtiV0FjblQuhitrfKciP053Re/Q1KmV3bYBqmiuS/NkmsY8l7FL
+	+X3f7p7fAzMlCg6vTpLHVlslZsPmhecoihbCyqP7keOj55XyxWMW7y0A==
+X-Received: by 2002:a17:903:390d:b0:2ca:e19c:986 with SMTP id d9443c01a7336-2dd4bc3302bmr114612235ad.1.1789291018960;
+        Sun, 13 Sep 2026 02:16:58 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ceb7720sm32169865ad.37.2026.09.13.02.16.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 02:09:14 -0700 (PDT)
-From: Gris Ge <cnfourt@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Gris Ge <cnfourt@gmail.com>,
-	stable@vger.kernel.org,
-	Simon Horman <horms@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH net v2] net: ip_tunnel: initialize `options_len` before referencing options
-Date: Sun, 13 Sep 2026 17:08:50 +0800
-Message-ID: <20260913090851.468216-1-cnfourt@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 13 Sep 2026 02:16:58 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Andy Gross <andy.gross@ti.com>,
+	Rob Clark <rob@ti.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/omap: dmm_tiler: fix invalid cleanup on probe failure
+Date: Sun, 13 Sep 2026 17:16:44 +0800
+Message-ID: <20260913091644.1510151-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,102 +82,195 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following command triggers a kernel panic:
+omap_dmm_probe() uses omap_dmm_remove() to clean up all probe failures,
+but the remove path assumes that the MMIO mapping and IRQ registration
+have completed successfully.
 
-  ip link add d0 type dummy; ip link set d0 up
-  ip route add 10.30.0.0/16 \
-    encap ip id 300 geneve_opts 4660:66:11223344 dev d0
+If probe fails before the MMIO resource is mapped, omap_dmm_remove()
+attempts to disable DMM interrupts through an uninitialized MMIO base,
+which can result in an invalid memory access.
 
-  memcpy: detected buffer overflow: 4 byte write of buffer size 0
-  kernel BUG at lib/string_helpers.c:1044!
-  ...
-  ip_tun_parse_opts.part.0.cold+0x10/0x10
-  ip_tun_build_state+0x116/0x2a0
+There is a similar issue with the IRQ. The IRQ number is stored in
+omap_dmm before request_irq() is called, so a later probe failure can
+make omap_dmm_remove() call free_irq() even though the IRQ was never
+successfully requested.
 
-On kernels built with GCC 15+ and `CONFIG_FORTIFY_SOURCE`, the fortified
-`memcpy()` got 0 sized destination with request of 4 bytes length:
+Initialize the stored IRQ to -1 and keep the IRQ number local until
+request_irq() succeeds. Only access the interrupt registers and free
+the IRQ when it has been successfully registered. Also avoid unmapping
+the MMIO region when it has not been mapped.
 
-  static int ip_tun_parse_opts_geneve(...)
-  {
-      ...
-      attr = tb[LWTUNNEL_IP_OPT_GENEVE_DATA];
-      data_len = nla_len(attr); /* == 4 */
+Propagate errors returned by platform_get_irq() while at it.
 
-      struct geneve_opt *opt = ip_tunnel_info_opts(info) + opts_len;
-      memcpy(opt->opt_data, nla_data(attr), data_len);
-      /*     ^^^^^^^^^^^^^ 0 since options_len is assigned afterwards */
+This issue was found by manual code inspection.
 
-Fixed by initializing the counter before the options are referenced.
-Matching what `tunnel_key_opts_set()` already does.
-
-Fixes: bb5e62f2d547 ("net: Add options as a flexible array to struct ip_tunnel_info")
+Fixes: 71e8831f6407 ("drm/omap: DMM/TILER support for OMAP4+ platform")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gris Ge <cnfourt@gmail.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-v2:
-  - pass opt_len into ip_tun_set_opts() and initialize options_len there,
-    matching tunnel_key_opts_set(), as suggested by Eric Dumazet.
-v1: https://lore.kernel.org/netdev/20260912055304.1415016-1-cnfourt@gmail.com/
+ drivers/gpu/drm/omapdrm/omap_dmm_tiler.c | 65 ++++++++++++++++++------
+ 1 file changed, 49 insertions(+), 16 deletions(-)
 
- net/ipv4/ip_tunnel_core.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/net/ipv4/ip_tunnel_core.c b/net/ipv4/ip_tunnel_core.c
-index 5168d546ea2f..bab42b9e277f 100644
---- a/net/ipv4/ip_tunnel_core.c
-+++ b/net/ipv4/ip_tunnel_core.c
-@@ -680,8 +680,14 @@ static int ip_tun_get_optlen(struct nlattr *attr,
- }
-
- static int ip_tun_set_opts(struct nlattr *attr, struct ip_tunnel_info *info,
--			   struct netlink_ext_ack *extack)
-+			   int opts_len, struct netlink_ext_ack *extack)
+diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
+index a2c702b831a7..169a158e5e9d 100644
+--- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
++++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
+@@ -769,14 +769,14 @@ static void omap_dmm_remove(struct platform_device *dev)
+ 
+ static int omap_dmm_probe(struct platform_device *dev)
  {
-+	/* `options_len` is the __counted_by() annotation of the `options`
-+	 * flexible array, it must be initialized before parsing writes
-+	 * into it.
-+	 */
-+	info->options_len = opts_len;
+-	int ret = -EFAULT, i;
++	int ret, i;
+ 	struct tcm_area area = {0};
+ 	u32 hwinfo, pat_geom;
+ 	struct resource *mem;
+ 
+ 	omap_dmm = kzalloc_obj(*omap_dmm);
+ 	if (!omap_dmm)
+-		goto fail;
++		return -ENOMEM;
+ 
+ 	/* initialize lists */
+ 	INIT_LIST_HEAD(&omap_dmm->alloc_head);
+@@ -791,7 +791,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 		if (!match) {
+ 			dev_err(&dev->dev, "failed to find matching device node\n");
+ 			ret = -ENODEV;
+-			goto fail;
++			goto err_free_dmm;
+ 		}
+ 
+ 		omap_dmm->plat_data = match->data;
+@@ -801,7 +801,8 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 	mem = platform_get_resource(dev, IORESOURCE_MEM, 0);
+ 	if (!mem) {
+ 		dev_err(&dev->dev, "failed to get base address resource\n");
+-		goto fail;
++		ret = -ENODEV;
++		goto err_free_dmm;
+ 	}
+ 
+ 	omap_dmm->phys_base = mem->start;
+@@ -809,12 +810,15 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 
+ 	if (!omap_dmm->base) {
+ 		dev_err(&dev->dev, "failed to get dmm base address\n");
+-		goto fail;
++		ret = -ENOMEM;
++		goto err_free_dmm;
+ 	}
+ 
+ 	omap_dmm->irq = platform_get_irq(dev, 0);
+-	if (omap_dmm->irq < 0)
+-		goto fail;
++	if (omap_dmm->irq < 0) {
++		ret = omap_dmm->irq;
++		goto err_unmap;
++	}
+ 
+ 	omap_dmm->dev = &dev->dev;
+ 
+@@ -864,13 +868,13 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 	if (!omap_dmm->dummy_page) {
+ 		dev_err(&dev->dev, "could not allocate dummy page\n");
+ 		ret = -ENOMEM;
+-		goto fail;
++		goto err_workaround;
+ 	}
+ 
+ 	/* set dma mask for device */
+ 	ret = dma_set_coherent_mask(&dev->dev, DMA_BIT_MASK(32));
+ 	if (ret)
+-		goto fail;
++		goto err_free_dummy;
+ 
+ 	omap_dmm->dummy_pa = page_to_phys(omap_dmm->dummy_page);
+ 
+@@ -881,7 +885,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 	if (!omap_dmm->refill_va) {
+ 		dev_err(&dev->dev, "could not allocate refill memory\n");
+ 		ret = -ENOMEM;
+-		goto fail;
++		goto err_free_dummy;
+ 	}
+ 
+ 	/* alloc engines */
+@@ -889,7 +893,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 					 omap_dmm->num_engines);
+ 	if (!omap_dmm->engines) {
+ 		ret = -ENOMEM;
+-		goto fail;
++		goto err_free_refill;
+ 	}
+ 
+ 	for (i = 0; i < omap_dmm->num_engines; i++) {
+@@ -907,7 +911,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 	omap_dmm->tcm = kzalloc_objs(*omap_dmm->tcm, omap_dmm->num_lut);
+ 	if (!omap_dmm->tcm) {
+ 		ret = -ENOMEM;
+-		goto fail;
++		goto err_free_engines;
+ 	}
+ 
+ 	/* init containers */
+@@ -921,7 +925,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 		if (!omap_dmm->tcm[i]) {
+ 			dev_err(&dev->dev, "failed to allocate container\n");
+ 			ret = -ENOMEM;
+-			goto fail;
++			goto err_free_tcm;
+ 		}
+ 
+ 		omap_dmm->tcm[i]->lut_id = i;
+@@ -958,7 +962,7 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 		dev_err(&dev->dev, "couldn't register IRQ %d, error %d\n",
+ 			omap_dmm->irq, ret);
+ 		omap_dmm->irq = -1;
+-		goto fail;
++		goto err_free_tcm;
+ 	}
+ 
+ 	/* Enable all interrupts for each refill engine except
+@@ -980,8 +984,37 @@ static int omap_dmm_probe(struct platform_device *dev)
+ 
+ 	return 0;
+ 
+-fail:
+-	omap_dmm_remove(dev);
++err_free_tcm:
++	for (i = 0; i < ARRAY_SIZE(containers); i++)
++		containers[i] = NULL;
 +
- 	return ip_tun_parse_opts(attr, info, extack);
++	for (i = 0; i < omap_dmm->num_lut; i++)
++		if (omap_dmm->tcm[i])
++			omap_dmm->tcm[i]->deinit(omap_dmm->tcm[i]);
++	kfree(omap_dmm->tcm);
++
++err_free_engines:
++	kfree(omap_dmm->engines);
++
++err_free_refill:
++	dma_free_wc(omap_dmm->dev,
++		    REFILL_BUFFER_SIZE * omap_dmm->num_engines,
++		    omap_dmm->refill_va, omap_dmm->refill_pa);
++
++err_free_dummy:
++	__free_page(omap_dmm->dummy_page);
++
++err_workaround:
++	if (omap_dmm->dmm_workaround)
++		dmm_workaround_uninit(omap_dmm);
++
++err_unmap:
++	iounmap(omap_dmm->base);
++
++err_free_dmm:
++	kfree(omap_dmm);
++	omap_dmm = NULL;
++
+ 	return ret;
  }
-
-@@ -712,7 +718,8 @@ static int ip_tun_build_state(struct net *net, struct nlattr *attr,
-
- 	tun_info = lwt_tun_info(new_state);
-
--	err = ip_tun_set_opts(tb[LWTUNNEL_IP_OPTS], tun_info, extack);
-+	err = ip_tun_set_opts(tb[LWTUNNEL_IP_OPTS], tun_info, opt_len,
-+			      extack);
- 	if (err < 0) {
- 		lwtstate_free(new_state);
- 		return err;
-@@ -753,7 +760,6 @@ static int ip_tun_build_state(struct net *net, struct nlattr *attr,
- 	}
-
- 	tun_info->mode = IP_TUNNEL_INFO_TX;
--	tun_info->options_len = opt_len;
-
- 	*ts = new_state;
-
-@@ -1006,7 +1012,8 @@ static int ip6_tun_build_state(struct net *net, struct nlattr *attr,
-
- 	tun_info = lwt_tun_info(new_state);
-
--	err = ip_tun_set_opts(tb[LWTUNNEL_IP6_OPTS], tun_info, extack);
-+	err = ip_tun_set_opts(tb[LWTUNNEL_IP6_OPTS], tun_info, opt_len,
-+			      extack);
- 	if (err < 0) {
- 		lwtstate_free(new_state);
- 		return err;
-@@ -1040,7 +1047,6 @@ static int ip6_tun_build_state(struct net *net, struct nlattr *attr,
- 	}
-
- 	tun_info->mode = IP_TUNNEL_INFO_TX | IP_TUNNEL_INFO_IPV6;
--	tun_info->options_len = opt_len;
-
- 	*ts = new_state;
-
---
-2.55.0
+ 
+-- 
+2.43.0
 
