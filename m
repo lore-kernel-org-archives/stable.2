@@ -1,170 +1,263 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA8323817E
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58541CAAC
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305544; cv=none; b=fCUcugSBrIeqDZbll3j5cuRo+Awkr8iPG0GKWYNQUrNmFGr3WidqJ75YEbdkFGCQDbpznsUNk8k4VpLrZrL3Oya2nKN6lpEWB1A1gUoQ4+GfQ92sTOASrGegVLDG516Rr0+dul+5KL//ljQwLNsE3oWaSDydKHuTqynReAHz09s=
+	t=1789305681; cv=none; b=gRpQNrlyKD4WJGV2DoVe/736HmwsrOMjt/+Kum71TLCc+joXZWh01M+JB//7IoCgTR+CBh6XoLymmGyDWSuAdmJ/FzO2fxkBrzquiZD4o+dvrNytrql/SfLxvoqs4olbGXv8Ff9hbDlvatGpds0Jkp5C82lB46RFXd85FvAubL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305544; c=relaxed/simple;
-	bh=MNEB3uM9fk17gH3lCK0TQ0HdXUzZavXN7I2Fq7ejFto=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OKfORKH4+kTf7ewDYG/hOrOMtn+bmkqKEKR0+H5AAZPAaZ0Ihc7ZDRQwl2vd/vJs16H/kyvul71pKQVBgfhYGpXuCb6IibbR1+CwryjBf5NcmIEOhtKxpYedOXU1tGkG7Ds/GGXIBxqIjmExzGIBsRQiWQHpHnBeBOItGgUZFBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDhwE2Dw; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789305681; c=relaxed/simple;
+	bh=Phi07PPMJdWHszbQDLkmYpvn2FXNZIvtH//ocNjPnZ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d/ORnEuY9ptqRqCJGEI0/nHVrrBIRzrzgkP0vT4qM7xIEjDxk1h08LPyx7AaHPP/LW/ogclmNWMilHsu2xYJih9EOLEXr0DIFknZVQIg2+iezFo63W2u2M2Ee0VrkMQNuoChIUX+BSSPe75zcQyY/Z/3ieuWvKDgdMmQyGfY938=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=HcrsK/JJ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDhwE2Dw"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1260599a91.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 06:19:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="HcrsK/JJ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so504102f8f.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 06:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789305541; x=1789910341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
-        b=TDhwE2Dw/ai1Crpx2VWu1BelXZ4CKT1kqlcorok3bs7xwYdIM/uwT6wiR8NIsaOsYX
-         kSw6pEYIv1YU3kdoOnMuUXf+Ppx07DrFXsRlAkt4wIkh44TJle94rG68P1ZOFZXLYTNg
-         +emi43Emd31AfBRQskLy46fyZr/UkVsloPqebPgVqAONXpWxNsvikupaH6tAnHXW4/0b
-         CNVP61h3hq/WFQMZQrMpKjkWyhGJRDHisWwdu6h6ND5sGA7sMj7o52ravNHoGQnJwmKw
-         GC8QZKYPBxUmBLoyRARt2mnJl1QZ0k9/2l5xqonAdHTYfyFcG+DlAHI+XJ5Sfs8pxxdy
-         we+Q==
+        d=googlemail.com; s=20251104; t=1789305678; x=1789910478; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ilAntqs10N3cuZV3xb1rPgVYySTl8brlVvPmSH3oaLw=;
+        b=HcrsK/JJlOy+3d1BfEmJ/3QAuwI8070Hd64Rp8suFgB9uL00RBG+gGgHPElhsIbjli
+         F2qCbf/vAMj2qW5HwCgbpGrKd7iNPpPgFIyqRCjYrH05zB0rtYZq7FmHC4sNr5YUBkEe
+         vGkpP+Q00K9UZN5G7ql+6gI7V4XrxPfOmTugvk5TF+hzh06L27/aYHTAkBrX2WOcYZzL
+         4cNf686+LyzvvpzJ9yGmAf2A5z1oaMogo+zP7KQiWn3/s+ZI3VmV6k+H51YQPzNkYeer
+         iHFgXgfYVpTs7YJ655mHXeih0khG7n3JGGaiOHYOX0pgC8PxKnwwxMUsDfq2HZqoYz4o
+         tf+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789305541; x=1789910341;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789305678; x=1789910478;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
-        b=Z+bWHBXQPuMZaSIoVdqBFisT+hnua40GiyT91jXW+ThUjfOe3N6XU9wtqsEAG63TxE
-         MhqBOCiNhWMi3ks+0Q55JdmrKMbQa0T+M+cQXGLQYfMTtVGGCwHeE2Zbm2NTgysw8lBI
-         CxG16b0eHKKs+gfQFn2cErE7LU75vD+Cx73FpWjBaFk3rTSqO8MyY+gAe6fBQYF5USjJ
-         K8vFDvPJQ+dy/j8XG5AKPJjODqQc46a2Kz8qD1iVO6nYUmLmB0evhfztjQgpCLdix8wv
-         EdKw8BfM19GS2/ZFf8ldcnuR/54WhW+6lxsuJ6qz3jQTSddzx1nPIjjAeAb27PtDvgNd
-         pdWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTntk6txms1XYNj70PAIhwp/tnTkppaFAzwstcgwgg9CxmtoyBlkic/zHm8VEuIuRlSHrvelo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k10L+Ynx1iHzZscSPO+5ocR2p2o4aaUpJ5t8Ze84LO1XUV999A
-	SBaLLfAJs2kLVH0kf7yFXWZGdbxabuyQZ26Z7MXxMB5vZjsWvPKldc2O
-X-Gm-Gg: AYBFou1sEJVMc71EF0D19xxPtqE3J1ikZpDtZjR7Ts4Er9qwKiibwIu1bPnVXV8/DTO
-	V0azG1qh9nIOOa6+MUNIIKFmO8UUnGVPNdgnXfDZGJLYg/xUKr3yDwK1BRXEbHYYMZaKmaksh9M
-	iY+jTdofCd5qVEMKjcaGQe3vGYpA/pLF5iIP3xKUHnB5WDbiK7uqpk8JDmy0+ciGT8IR7WA6ger
-	BV7EDwMGzhftkTxT0ktb9GQjxNclWkDuk1jF4IUYLbUBjKqChYoQ1iN8qY0o8dpqTurVn0rsfss
-	xbuR9grzYngwszuaT6+0x1B9tD6bsX39IQEMWwBI5xyBzTk3rikU9R51GLVPc6koPNJGWnkbwWG
-	2fERqfQwk+CfSw2Z3tI6oln23cKxTU52OsiglknmG3fuot3BsBe4meLOcAcAGQ8+sj0hNaNmcpN
-	pkNEbzO/Xw52TvgLlnpkypRh+To0uxc53IOU+ForcNHuzXWe9w2r6cqj9B3ZhvZl624g==
-X-Received: by 2002:a17:90a:d64e:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39d9c1db130mr26350180a91.13.1789305540739;
-        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm15749780a91.5.2026.09.13.06.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panel: novatek-nt35950: fix potential use-after-free on attach failure
-Date: Sun, 13 Sep 2026 21:18:49 +0800
-Message-ID: <20260913131849.1561742-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=ilAntqs10N3cuZV3xb1rPgVYySTl8brlVvPmSH3oaLw=;
+        b=as82kcpzZAqvTZVr3a26BsoD4oDOIRvvbyucbnR+5AXVtbj33SxOmS+pCLKWSFhpHQ
+         mpUARmvTg7N2tS54oxx+GoM8hFzNemynj2wWPKY4XiNOffn8085zp3Ts0cx7BpoSUart
+         7NKPDHF++R8H/TvT1FnFe480VdTZDdFzaTyN03F4YgPd0L8Sgp3O/r+NGna4CKTWh9qI
+         x1RuIafitSvBuvBTWwXXdFLiTLKQgQI1IRwChjtGVyD46IBvmxI7eEgzY/Gq0hgs+e4g
+         sp5Z9Bc8fuFs7/5lapyOoju7K60TR/uOx8Qpj0vYRLZBOVVFc4Fdql2eWp28IgLWxFGJ
+         yrQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9AyRUD6A46jkYIbc2wJBhQ+dhPWnhlgkJYiBZDJP/9SYo6I6SJueaVsLZ8HjyKarCDydKAtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYaff0sQgbkPAS2rNJ3It8ZOwzQMaHV9U6S3uiCUWRpa9A062d
+	W3m0pN0Ga7gV5ABnbOTjqy+QagFiTueORlk6InHzmBN0qM7fDEtcAHA=
+X-Gm-Gg: AYBFou1l7jMn1cbIQQY3GOF9k7UtlRydJAEq1VDpzKiX5iE9evs6JuWqTrPVw/4OxdC
+	lQVZMU2Z2n/CV6rilMYuVmXmx/UTUDJ8ZSC8rD3HTTYjHNSYruMXWR6HRefj5I2xEJHw0hyhT5V
+	rJ8usPLMhpxUqIKBElw295FY/nU2GjTuSqirwy5oppQ894ZPz3uBjXm/u6K39FHF9EK4f6x/1le
+	8Wkl+tl85N2ZhS3FbEL37SchBw7e6o5pn6/0SlwhJYNaht5pJmRV/QHZsXsEV/9HcuT/Z28T5Bx
+	FCVGnNOmQC54lVcevl6rP+bqXjjDkIM7FfQESqpz6GIhJOeH9L3JzPBrCq7XeK79biKeXC5yDa2
+	b9GrkUsT+/TrrXKcvLl+wLsutZW0w79Izc77c0ftF0zDNb8Slcoo3AJhk87ekdpJxuO5dDOAMNm
+	lqQTSDsadqgKb84LXJnZFv+jv8LbOjFwSDhqBOA48EiJwe8akWF/HJzilYycbHgUCti6StnyFiO
+	FJvHn3k0kUxblfgLcT6LB3gDDjhqDA2qFslaCzDVMdz9eBn
+X-Received: by 2002:a05:6000:2902:b0:486:f620:63bd with SMTP id ffacd0b85a97d-486f6a7d6d1mr6273755f8f.0.1789305677847;
+        Sun, 13 Sep 2026 06:21:17 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b4716.dip0.t-ipconnect.de. [91.43.71.22])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d5f1sm20960810f8f.12.2026.09.13.06.21.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 06:21:17 -0700 (PDT)
+Message-ID: <e6152171-5c2c-4243-8b64-0a619a0f44e3@googlemail.com>
+Date: Sun, 13 Sep 2026 15:21:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 0977/1376] scsi: core: sysfs: Make use of bus
+ callbacks
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, Peter Wang <peter.wang@mediatek.com>,
+ Bart Van Assche <bvanassche@acm.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Sasha Levin <sashal@kernel.org>, Wentao Guan <guanwentao@uniontech.com>,
+ linux-scsi@vger.kernel.org
+References: <20260912065607.535295758@linuxfoundation.org>
+ <20260912065629.342165847@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260912065629.342165847@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-nt35950_probe() registers the panel before attaching it to the DSI
-hosts. If mipi_dsi_attach() fails, the probe error path returns without
-removing the panel from the DRM panel registry.
+Am 12.09.2026 um 08:56 schrieb Greg Kroah-Hartman:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> 
+> [ Upstream commit f7d4f1bf5724e52de049c619beddd53c62206624 ]
+> 
+> Introduce a bus-specific probe, remove and shutdown function. For now
+> this only allows to get rid of a cast of the generic device to a SCSI
+> device in the drivers and changes the remove prototype to return
+> void---a non-zero return value is ignored anyhow.
+> 
+> The objective is to get rid of users of struct device_driver callbacks
+> .probe(), .remove() and .shutdown() to eventually remove these. Until
+> all SCSI drivers are converted, this results in a runtime warning about
+> the drivers needing an update because there is a bus probe function and
+> a driver probe function. The in-tree drivers are fixed by the following
+> commits.
+> 
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> Link: https://patch.msgid.link/a54e363a3fd2054fb924afd7df44bca7f444b5f1.1766133330.git.u.kleine-koenig@baylibre.com
+> Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+> Stable-dep-of: bb31844d88b7 ("scsi: sd: Fix special_vec mempool leak when scsi_alloc_sgtables() fails")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   drivers/scsi/scsi_sysfs.c  | 73 ++++++++++++++++++++++++++++++++++++--
+>   include/scsi/scsi_driver.h |  3 ++
+>   2 files changed, 74 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/scsi/scsi_sysfs.c b/drivers/scsi/scsi_sysfs.c
+> index 7f69f0613c08c..0b29cbcbd7e1f 100644
+> --- a/drivers/scsi/scsi_sysfs.c
+> +++ b/drivers/scsi/scsi_sysfs.c
+> @@ -554,10 +554,48 @@ static int scsi_bus_uevent(const struct device *dev, struct kobj_uevent_env *env
+>   	return 0;
+>   }
+>   
+> +static int scsi_bus_probe(struct device *dev)
+> +{
+> +	struct scsi_device *sdp = to_scsi_device(dev);
+> +	struct scsi_driver *drv = to_scsi_driver(dev->driver);
+> +
+> +	if (drv->probe)
+> +		return drv->probe(sdp);
+> +	else
+> +		return 0;
+> +}
+> +
+> +static void scsi_bus_remove(struct device *dev)
+> +{
+> +	struct scsi_device *sdp = to_scsi_device(dev);
+> +	struct scsi_driver *drv = to_scsi_driver(dev->driver);
+> +
+> +	if (drv->remove)
+> +		drv->remove(sdp);
+> +}
+> +
+> +static void scsi_bus_shutdown(struct device *dev)
+> +{
+> +	struct scsi_device *sdp = to_scsi_device(dev);
+> +	struct scsi_driver *drv;
+> +
+> +	if (!dev->driver)
+> +		return;
+> +
+> +	drv = to_scsi_driver(dev->driver);
+> +
+> +	if (drv->shutdown)
+> +		drv->shutdown(sdp);
+> +}
+> +
+> +
+>   const struct bus_type scsi_bus_type = {
+> -        .name		= "scsi",
+> -        .match		= scsi_bus_match,
+> +	.name		= "scsi",
+> +	.match		= scsi_bus_match,
+>   	.uevent		= scsi_bus_uevent,
+> +	.probe		= scsi_bus_probe,
+> +	.remove		= scsi_bus_remove,
+> +	.shutdown	= scsi_bus_shutdown,
+>   #ifdef CONFIG_PM
+>   	.pm		= &scsi_bus_pm_ops,
+>   #endif
+> @@ -1609,6 +1647,30 @@ void scsi_remove_target(struct device *dev)
+>   }
+>   EXPORT_SYMBOL(scsi_remove_target);
+>   
+> +static int scsi_legacy_probe(struct scsi_device *sdp)
+> +{
+> +	struct device *dev = &sdp->sdev_gendev;
+> +	struct device_driver *driver = dev->driver;
+> +
+> +	return driver->probe(dev);
+> +}
+> +
+> +static void scsi_legacy_remove(struct scsi_device *sdp)
+> +{
+> +	struct device *dev = &sdp->sdev_gendev;
+> +	struct device_driver *driver = dev->driver;
+> +
+> +	driver->remove(dev);
+> +}
+> +
+> +static void scsi_legacy_shutdown(struct scsi_device *sdp)
+> +{
+> +	struct device *dev = &sdp->sdev_gendev;
+> +	struct device_driver *driver = dev->driver;
+> +
+> +	driver->shutdown(dev);
+> +}
+> +
+>   int __scsi_register_driver(struct scsi_driver *sdrv, struct module *owner)
+>   {
+>   	struct device_driver *drv = &sdrv->gendrv;
+> @@ -1616,6 +1678,13 @@ int __scsi_register_driver(struct scsi_driver *sdrv, struct module *owner)
+>   	drv->bus = &scsi_bus_type;
+>   	drv->owner = owner;
+>   
+> +	if (!sdrv->probe && drv->probe)
+> +		sdrv->probe = scsi_legacy_probe;
+> +	if (!sdrv->remove && drv->remove)
+> +		sdrv->remove = scsi_legacy_remove;
+> +	if (!sdrv->shutdown && drv->shutdown)
+> +		sdrv->shutdown = scsi_legacy_shutdown;
+> +
+>   	return driver_register(drv);
+>   }
+>   EXPORT_SYMBOL(__scsi_register_driver);
+> diff --git a/include/scsi/scsi_driver.h b/include/scsi/scsi_driver.h
+> index 40aba9a9349a6..249cea724abd1 100644
+> --- a/include/scsi/scsi_driver.h
+> +++ b/include/scsi/scsi_driver.h
+> @@ -12,6 +12,9 @@ struct request;
+>   struct scsi_driver {
+>   	struct device_driver	gendrv;
+>   
+> +	int (*probe)(struct scsi_device *);
+> +	void (*remove)(struct scsi_device *);
+> +	void (*shutdown)(struct scsi_device *);
+>   	int (*resume)(struct device *);
+>   	void (*rescan)(struct device *);
+>   	blk_status_t (*init_command)(struct scsi_cmnd *);
 
-The panel is allocated with devm_drm_panel_alloc(), so its storage is
-released after probe returns an error. Leaving the panel registered
-therefore leaves the global panel list pointing at freed memory, which
-can result in a potential use-after-free when the stale entry is later
-accessed.
 
-There is an additional cleanup issue for dual-DSI panels. If attaching
-DSI0 succeeds but attaching DSI1 fails, the error path unregisters the
-secondary DSI device without detaching the already attached DSI0.
+As Wentao Guan pointed out, this is the patch that caused the dmesg warnings I encountered in boot-testing 6.12.110-rc1 
+and 6.18.52-rc1 on my machine:
 
-The failure sequence is:
+[    2.397237] Driver 'sr' needs updating - please use bus_type methods
+...
+[   84.031323] Driver 'ses' needs updating - please use bus_type methods
 
-  drm_panel_add()
-        |
-        v
-  attach DSI0
-        |
-        | success
-        v
-  attach DSI1
-        |
-        | failure
-        v
-  probe cleanup
-        |
-        +-- DSI0 remains attached
-        |
-        +-- panel remains registered
-        |
-        v
-  probe returns error
-        |
-        v
-  devm panel storage is released
-        |
-        v
-  panel registry contains a dangling pointer
+Is this really stable material? I feel that a new stable release should not trigger new warning messages. Feels like a 
+regression, even if it does no harm... No?!
 
-Detach any DSI hosts that were successfully attached before the
-failure and remove the panel from the DRM panel registry before
-returning the probe error.
+Or are there some driver patches missing that still need proper backports?
 
-This issue was found by manual code inspection.
+CC'ing linux-scsi list, too.
 
-Fixes: 623a3531e9cf ("drm/panel: Add driver for Novatek NT35950 DSI DriverIC panels")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/panel/panel-novatek-nt35950.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Beste Grüße,
+Peter Schneider
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-index 94aa6489d99f..8edd0aa363ce 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-@@ -514,12 +514,19 @@ static int nt35950_probe(struct mipi_dsi_device *dsi)
- 
- 		ret = mipi_dsi_attach(nt->dsi[i]);
- 		if (ret < 0) {
--			/* If we fail to attach to either host, we're done */
-+			dev_err_probe(dev, ret,
-+				      "Cannot attach to DSI%d host.\n", i);
-+
-+			/* Detach from all previously attached DSI hosts */
-+			while (i--)
-+				mipi_dsi_detach(nt->dsi[i]);
-+
- 			if (num_dsis == 2)
- 				mipi_dsi_device_unregister(nt->dsi[1]);
- 
--			return dev_err_probe(dev, ret,
--					     "Cannot attach to DSI%d host.\n", i);
-+			drm_panel_remove(&nt->panel);
-+
-+			return ret;
- 		}
- 	}
- 
 -- 
-2.43.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
