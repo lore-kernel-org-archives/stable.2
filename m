@@ -1,129 +1,129 @@
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00D937C0FC
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 04:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCAC126BE1
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 05:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789275100; cv=none; b=KwviBv1n6/MK7sSW3T0tzBsSK7sfxts7nsaWJRChr1UuEJQXsyom+YTfTuYrKDo2t6XTkQg6vm/5O61tz+tsUId7ej24+qxDhVHOleNBGUf8x99LvPB0jJvdPUfmSKGVCQnMm531S9jnBczyBVrStj+IOFrPCjbwak4mWSgTZvY=
+	t=1789276813; cv=none; b=h80f10sF3KQ9oMJgMoxhkDTXY9LxiWAfBZBmEOofGlIu/X2EO3/gUdhAIZFkxtVdyDy5XEHEB/2nYa2J0W7/w3FKYG7dzBaGdeCyVQGTQgmI6wpsW8cmyocM15sgZEwUIH0DTKj3wu8llZG3C4xc8YV8oifdpkO8ozZaozoNW5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789275100; c=relaxed/simple;
-	bh=riqhjdxkRBkvxB3LDmbneXn9/sVUuHNIXDRY5M7fZ7I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DJcssIdXKE4B01S0x4wotTVI62c3Vdk+S2AFGFZKsnboaAXKAvY//7Mg11W7uYbZ1sgDYmtCSEyWvAZg6Nb24WARdyCMYQfif1tek7fSpsGmdrDpbQi6FmfsarrMuFFJFK2Dd3Wqlo6o0kJcag2/+Pyy74tRSAMtPby60v+7yUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=dxurdNaP; arc=none smtp.client-ip=44.202.169.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789276813; c=relaxed/simple;
+	bh=NMYn3pbfZMJwwPcgVnZkDAC09qrdHDK3+hZHa3z6uk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pgETGH5zYvQTSqoMzdy1OsoaIB0zw89nRPOgbrbwLS39NSJohW4DN5CdAwBepMkkroUUm8thkt4ipzjh00v8MHMh/YjSU9EBkWVZRF22crvq6dkASMH7kRuPC56pc1kZU7KmwzdhjzZYQNM8ZyyGI2zpLBzrpF6l9z2uP0hgtqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Yo+prUFH; arc=none smtp.client-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="dxurdNaP"
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id 5WimxCuEKuFzg5cBgxRF60; Sun, 13 Sep 2026 04:51:32 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 5cBfxxvZtadLA5cBfxiR1m; Sun, 13 Sep 2026 04:51:32 +0000
-X-Authority-Analysis: v=2.4 cv=Aqzu3P9P c=1 sm=1 tr=0 ts=6aa62bd4
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=ce1hCls_XIKHtnsIUTMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=HFYvZV0lkk5YLOyNX4ir+GTDpvVKyz1OJRjbRGZmw5c=; b=dxurdNaPhGR88mVAYxsmdbPY+p
-	b+VGBI1FAsPwgp+FihCnYOViuCmAanKDJQ8Ss4iQ0Ub8LyMeFV6oPTMNDsbR3CKz4ZbPJtUvC8pot
-	1UN1tlxB56EZKmRO1081v+9EzcpJQMcM0VBCnEfEoGJh1QKF8jz4WwdJve1a694QKj17mZWX2wwt6
-	GdTXEZaR79qmeidUs+SvVdB6QkV405B8KbwHADPRDSluBP/7XBpUUKmLMVNCHYDHBnN74Pcu9EeSl
-	UK9DE8rVTxts1xqriQIcTYoKViQD4Q4HQbROSZ0LMeVG1Ree+x6TPSKrQhaPitOx28RZozrqxqMPj
-	oveiVYFw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:34500 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x5cBe-00000003rtM-387K;
-	Sat, 12 Sep 2026 22:51:30 -0600
-Message-ID: <aa7f30f5-5fdb-4d68-8adf-b70f1286067c@w6rz.net>
-Date: Sat, 12 Sep 2026 21:51:28 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Yo+prUFH"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NMYn3pbfZMJwwPcgVnZkDAC09qrdHDK3+hZHa3z6uk4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789276806; v=1; x=1789881606;
+ b=Yo+prUFHLs/xWM/XhCDAN8KP6uq2i1UCGPQgoXKEvxYTlntSRFCGhqDu5XrUaCha/s4IEVzA
+ 4ko+nQkhugGu79Z0UVGNmNUxRgK5o/WNU6DYx3ggwwafBEky3UbU7cjaTO9Cv8/GHxi+gTQFWFz
+ WOPFqBXhyyQ5WQ7PWpH9UPHk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8181c55abab0265d;
+	Sun, 13 Sep 2026 05:19:56 +0000
+X-Mizu-Trace-ID: 8181c55abab0265d
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	surenb@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero PMDs
+Date: Sun, 13 Sep 2026 13:19:42 +0800
+Message-ID: <20260913051942.40889-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065607.279695368@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x5cBe-00000003rtM-387K
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:34500
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfKXCB8AV74A6y46smfZXL0LmIveS4rfDlRIfeg2Cx3LnrrwfP3YOOzggB4CPW3e6FGwarNltmjdPinfidzSkHI4wX36uFrshzVPYNlgIWyMC3phy6g6m
- ZjAPFIspDlzXAxvmNEqC++zppqvURbHNd7kFECEPE8h9INop8qIIpgdqp8jDs7Fi/9h3QLPPoAlyBA==
 
-On 9/11/26 23:40, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.157 release.
-> There are 1424 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.157-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
->
-The build fails with:
+From: Lance Yang <lance.yang@linux.dev>
 
-sound/soc/fsl/fsl_audmix.c:461:12: warning: 'fsl_audmix_runtime_resume' used but never defined
-   461 | static int fsl_audmix_runtime_resume(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/fsl/fsl_audmix.c:462:12: warning: 'fsl_audmix_runtime_suspend' used but never defined
-   462 | static int fsl_audmix_runtime_suspend(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~
-ERROR: modpost: "fsl_audmix_runtime_suspend" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-ERROR: modpost: "fsl_audmix_runtime_resume" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-make[2]: *** [scripts/Makefile.modpost:145: Module.symvers] Error 1
-make[1]: *** [/media/re/nvme/linux-stable-rc/Makefile:1885: modpost] Error 2
-make: *** [Makefile:234: __sub-make] Error 2
+has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
+PMD has a deposited PTE page table. That also accepts raw PFN mappings
+of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
+table on x86.
 
-This is due to commit "ASoC: fsl_audmix: rework runtime PM handling in probe" commit id d1bfda1ae2d648da3967ee969d65caac0e47fa81 and 
-I have CONFIG_PM=n in my config.
+Zapping such a mapping would call pgtable_trans_huge_withdraw() without
+a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
+a NULL pointer dereference.
+
+Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
+page tables are allocated, deposited and moved.
+
+- For anonymous page faults that install a huge zero PMD,
+  do_huge_pmd_anonymous_page() allocates a PTE page table and
+  set_huge_zero_folio() deposits it before installing the PMD.
+
+- On fork, copy_huge_pmd() allocates and deposits a PTE page table when
+  copying a huge zero PMD into an anonymous VMA.
+
+- Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
+  vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
+  which deposits a PTE page table only when arch_needs_pgtable_deposit()
+  requires it.
+
+- Moving an anonymous huge PMD preserves its deposited PTE page table.
+  move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
+  both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
+  deposit as well.
+
+Keep arch_needs_pgtable_deposit() first so architectures that require a
+deposited PTE page table still return true regardless of the VMA type.
+
+Commit d80a9cb1a64a ("mm/huge_memory: add and use
+normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
+in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
+non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
+mappings to the incorrect !vma_is_dax() test.
+
+Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+---
+ mm/huge_memory.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 6895b38e4704..0ed997a97416 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2529,11 +2529,11 @@ static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
+ 		return true;
+ 
+ 	/*
+-	 * Huge zero always deposited except for DAX which handles itself, see
+-	 * set_huge_zero_folio().
++	 * Huge zero PMDs have a deposited page table only for anonymous VMAs,
++	 * see set_huge_zero_folio().
+ 	 */
+ 	if (is_huge_zero_pmd(pmdval))
+-		return !vma_is_dax(vma);
++		return vma_is_anonymous(vma);
+ 
+ 	/*
+ 	 * Otherwise, only anonymous folios are deposited, see
+-- 
+2.39.3 (Apple Git-146)
 
