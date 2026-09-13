@@ -1,82 +1,82 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C8539150B
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27E338758C
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789335921; cv=none; b=N+l+V24em3FY0N4Cb9NoSQCw3tLAFyhIqnWhFHlzRu405Z+pu+s5PYG4VqrefaeVCX4eblrU7Pp3EK0XvUrihE/eW1V/vTodjQUWskgKWNAxYDUBHn/uT0AxciUjWqd9ZLNap90v3KDghxPIoQZQlKw2MmJqdMucYC022Bh8uDU=
+	t=1789335923; cv=none; b=G9kJ+IYoP4DRMhCHwWp2LM4yyhc6PTih+4zOTxOBLTw70k+2FrvlIwv+DOGbTG7nE3GvVrECiptWNHauq6iTB7CaMGZi9X0sAwKfK+rND5H8uIGEb+J5WvPPyKI7FhJjo/+QnaYPVpDUjAGsV2JV3GvGpdtc3DM1K0eF1fCXg6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789335921; c=relaxed/simple;
-	bh=wk6vygH8NJfDOcKXAaJfgbMl5gGSxrJpO6cdJSZ6zZ0=;
+	s=arc-20240116; t=1789335923; c=relaxed/simple;
+	bh=qqqqhAcoTazT3zDcG36T/OFmfZ0W7gsqaDYv/oilvnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DZ8Eaum2PA/nW7+hDqEUxKa+9ufMDjwpopWq5RMO7VbBkr5VUH91wf9O+J9/V9GNgrtopfuRdqVXesMYGoe1ht9bNOHzDhDgwWxfQddCJYwzetYMQOTm3PS+yYh7mus6WQfHhT7q79bUriCMNfrDLfY2AckEtZPZ1YweIZbkf5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HH7OrD65; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Piidv2NT; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=hGaj1aVEzA9oZ6ogDZdbLS3hH3I4HC9G0QdcGts7DeYaTfB73RFyafTWLBAOnnpM+MJjJH8hcWQS4UGeRcfglHkRQ7Nwe4ULmv75wzVDAXFH9k8DCsqx+2fUKj3NaVVdHi2f6f+Ld0WeXS7P+mbk43UVcZWpoQnKOgUx+wiXNIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J5/X6zrY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ol+27LzM; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HH7OrD65";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Piidv2NT"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J5/X6zrY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ol+27LzM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789335918;
+	s=mimecast20190719; t=1789335920;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9V0qAlXWmLruJLZFHIdq+0l21ICiVDZYVMxBS+fFubs=;
-	b=HH7OrD65/hEY68J/hFOzGb14k/p9qISy29kVt09ELW/SLM/dNcirtmGJFO+xhTmpoKRtN1
-	kY/wEpRpUIfByIHwhGNkTGIFriMYDJJuT8MRKNXjAggVDP+FOEyWo/kkgsYyBXox3H/bSm
-	2Enw+aBDEcynumUOjUg85sYuLqweCKE=
+	bh=jDQ6J6doFiv43Hl1XC1fv6A2Y0AiG/CVhsbe9ThB2Cs=;
+	b=J5/X6zrYCu83rrt9d/PJ4vCTKZ89nAcw3WmCqM8YMvmsgywxxyWr6Ijl5IbdJOI/9Aww6r
+	yXaxE1EgjIywoWS5txbUD44f3ymtPenBG7AkpiqHYetQEaznDE8hGJmn9pmyGcKT3O56wT
+	3tEehyVDPjViaQ7yYBnDOR85jv9lec8=
 Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
  [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-205--RUkg1BuPPi-SZOhWD97Jg-1; Sun, 13 Sep 2026 17:45:16 -0400
-X-MC-Unique: -RUkg1BuPPi-SZOhWD97Jg-1
-X-Mimecast-MFC-AGG-ID: -RUkg1BuPPi-SZOhWD97Jg_1789335916
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e8dd8be81so34568166d6.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:45:16 -0700 (PDT)
+ us-mta-617-k4S-pHSnP-yRjenPumiTFA-1; Sun, 13 Sep 2026 17:45:19 -0400
+X-MC-Unique: k4S-pHSnP-yRjenPumiTFA-1
+X-Mimecast-MFC-AGG-ID: k4S-pHSnP-yRjenPumiTFA_1789335919
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e87478402so68718926d6.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789335915; x=1789940715; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1789335919; x=1789940719; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9V0qAlXWmLruJLZFHIdq+0l21ICiVDZYVMxBS+fFubs=;
-        b=Piidv2NTNGSVotANO0/eqlV+YR3aHeaFXAz2p2NE0DjvFVZGFgbjdRkCrFiSBuizjQ
-         B0Y2QeyMUU8aGhawvKRk4Bo64izedYay6HMaSupivRFKubZnnPwMBLPu+Nqeb+A0PZ4v
-         cdFLh5Nracb9Xx0yBZs2I8zUNK9vVk+7Fg7RFIci43v60d08BxiasKypTsbyN9g/mgm9
-         xj632A9pUK4FG7HsDcWIIRCCi658T9XtVfb0cCJ8pnJ4HroGTnNNPHpG9pjGZJrrZiRX
-         Kg2FRRQq2QSXovp289Frh/Mv9aiN9Xly/8GbNq5SsGbyFENz49yaUxwoB6hCS/VurayA
-         aGNQ==
+        bh=jDQ6J6doFiv43Hl1XC1fv6A2Y0AiG/CVhsbe9ThB2Cs=;
+        b=Ol+27LzMZdauGe+b4tCHmEfatBH2+fkaDl+DXCRPH2mhb2e9rTgduXOj4cKRMQBsKV
+         EIbdWkgDkYTUTtgJme05XPzQjcLqEew8dcjMNu4YJhfYkBHj2I9aZcqnspaJ9u+/sXHv
+         cog/j+Vy/LAahdby4tglYCxMY0decUg49HEwq2Pu7OOdzhX9uMvKovI3NHUH9MFPswn3
+         +WAEkZ40u3nEpHD6A4HmliUCtI2CbLG750TUh9mB9Bl0ROuhgWluNeiMjy4a2QG7XXLV
+         3rqZxv3elJ6ilG8sy3DOrL5N4q0oVaCWj/TfFhrP+G4PnLUu1HVWslv8kyx8rjBrlXgy
+         6EeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789335915; x=1789940715;
+        d=1e100.net; s=20251104; t=1789335919; x=1789940719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9V0qAlXWmLruJLZFHIdq+0l21ICiVDZYVMxBS+fFubs=;
-        b=tWpaXry5tHA2jp+k0mJNouk49inWIMxFKC6SuEd81Mw3fccKHiEoVJgPe3c5Fu7l6N
-         q4Ri8DY1rOerXkACMuynKDeAsGnJt71OSuNYXBPViUGxe9vB9OffeqfccOfHEBbyWlyd
-         yzEqFBJ9gEf6oeA3FYZHporABJkxN4v24LhmNBzCVm2Njz/EMfpIODA4ZqsOiOp+z7S0
-         oJERk10F/giKJWMjDJC05u90F2ew6Jzrzmjzp01bKQRMD6nTikbSizzw1iGE/nlBaBte
-         Wr7E9NjdwqT0tIgKu6R4nmCMteWnWASVYgn4f24imF6dKNApPWk9qXx6iOCaFK5hxgOS
-         fGYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLIXt80403hWgmeStIOroF62zNTH0eFCotuWe+AB6TOPdvPJms2QgSJggvHgv9J7Qt+DSLxDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfEBLXVKyFikL8nUGS3+NW0ViIKhCLavLOFT4y4fxGcj9KgY93
-	W+YjArUvPI0ssMsxqO7DPhN972S0z/2HlVS6RosQr2nL305279qZc5NkQl6p9bQd/51k7i8pRvL
-	jjxazZ7A6S4HZisICUNqifw4mAQoq1ehhCe2YUzEc+976Rujc298YplB1ow==
-X-Gm-Gg: AYBFou3Q5PEj7rX3cLZr9qMIhDuMDoor3m/GKuMbrm3TQ3CcUPs0jpD5YgrH7fGeihs
-	CBm57gSKgp3rFRH5fJ+0/4olvA0Zb6Sp7rpJqOyt6md0HvDFmsdjdxnx11he0Kfhit7R/ZuiboM
-	PEcSCC+/deFJuf/du8ZsNYeIfH+EsWZC//vZDuk4oe/c/O4vCYeIpzLRm/m/Ev8P2DX6dGJN4lO
-	MP4iJHr8cxkqWPcTAqKDNEdjE2U+aGBcq4BK0Xci+Yz7QuWRYSpOJcpPSv322HjUytJIl4Dt9Yg
-	643z3DgKPQRTeVMF/mbxZ6I+FYTD0YvcKD5kYaQPTbIEljcOfnXdpCklyc8TuMenMkuG42iPviY
-	usbfAUx+qKJfKBTVySaZehzRvCvo0EbbHiBEaNVRzFDxw9os3f5vsW+jNhBVDeid9bg==
-X-Received: by 2002:ad4:4ea8:0:b0:910:6aa0:5cdf with SMTP id 6a1803df08f44-9122e4cc793mr129036d6.2.1789335915487;
-        Sun, 13 Sep 2026 14:45:15 -0700 (PDT)
-X-Received: by 2002:ad4:4ea8:0:b0:910:6aa0:5cdf with SMTP id 6a1803df08f44-9122e4cc793mr128596d6.2.1789335915017;
-        Sun, 13 Sep 2026 14:45:15 -0700 (PDT)
+        bh=jDQ6J6doFiv43Hl1XC1fv6A2Y0AiG/CVhsbe9ThB2Cs=;
+        b=Xu122nSOvmQ3/pMyAfq81pwoNUvBc9HL1B3F6zw89fudwhoom4ToLQexFUE1sdA738
+         6HgPnXanCPY8kBTITxra7rDhM9ltbzjvPfG0ykKGA3eIuq35k3RpXbFUg7koN5DyEj9c
+         ZagJWZm1xaoCYkLAjFv5Hgc7BQp6/Rp3qflx2ppsrVnUGr8LqWC6Ome/b2WjfQA5nXNe
+         XxDpD1+FinrgrBPYGJ2GHuvL6t8qq8yiHk/IgMsrAcfbAxKw8XWTzM91qnE9HBD/S/NE
+         VT+Lj+G6IrZPXSERKMoXWakYF/69zG6wX8XnjNXS9CKa2Rd0CwXejj4ci1xj8p6yv25h
+         IN/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwQVTwwGlc9x+TNsOrco5cp8llTWifE7i5dF+tQ9UyhZMBZueuiwmF+YTYTAzJVY0HdS4T5q3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVg36I5zE9exZZL4BSX6gg6tkfyBiknRkeFrOck3SVeHeJJpe3
+	1AJgP7OyOLxfLrgJyZj5bmWxPngYjomqJkyFm/sDDxX+aXZ7Kyg4tp4iWKhIRzBgxsDmmIEj1M7
+	di/4Q8XJgGReDjS0QT4lQ45CHnfgnGkxd8qZCUgyQiO1jydNdB0zG2X2Srw==
+X-Gm-Gg: AYBFou3e7cy+5cjLzUfx/OYrGPR2Ha5fPHsQkDmKr28zsuFG16w9pKemUwnDE2boGyf
+	PwnehstgoZm8jYOqY3B0tCJ1DGFU+HD7/SyZpnV2cX2V7987SDFTV00SKIkpHIZtQTKR19125AP
+	UknXS7iZk/JN4Rp61hyF3zm4Cc06Sa0dqiNfpY5LJP6VkxMSeo0/9AjNbjaw8TLd+4mAbchzgbI
+	hHr59Jkzp2vfTFkYas2lz7EGLJKrC0ZzvNa5Z1PS+A9jglt1UHX+hmJ7MPqQG3+05cIJOm5DVZ1
+	JY/FhSnH7rYuvkhN07mwW+n+fTamozVLwO7Rw7obSHJ3xaP5z4Ejb/MZX0G8blVhPN3ZJYu8hde
+	Glbh4mkx6ijfbFew4/QEx8W20ayaRpbBmCUyff+66IEzsa3cK5ZCaZ9Gr8DYVxjmsuw==
+X-Received: by 2002:a05:6214:5087:b0:910:47af:7b5b with SMTP id 6a1803df08f44-9121da764f3mr135221966d6.20.1789335918714;
+        Sun, 13 Sep 2026 14:45:18 -0700 (PDT)
+X-Received: by 2002:a05:6214:5087:b0:910:47af:7b5b with SMTP id 6a1803df08f44-9121da764f3mr135221436d6.20.1789335918250;
+        Sun, 13 Sep 2026 14:45:18 -0700 (PDT)
 Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f49444bsm78581126d6.29.2026.09.13.14.45.13
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f49444bsm78581126d6.29.2026.09.13.14.45.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:45:14 -0700 (PDT)
+        Sun, 13 Sep 2026 14:45:17 -0700 (PDT)
 From: Frank Sorenson <sorenson@redhat.com>
 To: linux-cifs@vger.kernel.org,
 	pc@manguebit.org
@@ -86,9 +86,9 @@ Cc: linkinjeon@kernel.org,
 	tom@talpey.com,
 	bharathsm@microsoft.com,
 	stable@vger.kernel.org
-Subject: [PATCH v4 01/10] smb: client: fix next_buffer UAF and NextCommand bounds in compound PDUs
-Date: Sun, 13 Sep 2026 16:44:59 -0500
-Message-ID: <20260913214510.3071370-2-sorenson@redhat.com>
+Subject: [PATCH v4 03/10] smb: client: fix server->total_read for compound encrypted PDUs
+Date: Sun, 13 Sep 2026 16:45:01 -0500
+Message-ID: <20260913214510.3071370-4-sorenson@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260913214510.3071370-1-sorenson@redhat.com>
 References: <20260913214510.3071370-1-sorenson@redhat.com>
@@ -100,64 +100,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix several related bounds checking and pointer lifecycle issues in
-receive_encrypted_standard()'s handling of compound encrypted frames:
+In receive_encrypted_standard(), server->total_read is left at the
+full decrypted frame size when walking sub-PDUs of a compound encrypted
+frame. As a result, cifs_handle_standard() passes this full size
+to smb2_check_message(), causing the PDU length guards to incorrectly
+validate the entire compound frame instead of the current sub-PDU.
 
-- Clear next_buffer after assigning it to server->bigbuf. A stale
-  next_buffer pointer can lead to a use-after-free on subsequent
-  error paths.
-- Update pdu_length to the decrypted plaintext size (buf_size). Using
-  the pre-decryption length allows NextCommand to point into stale
-  ciphertext residue.
-- Reject next_cmd values smaller than MID_HEADER_SIZE(server).
-- Fix an integer overflow in the upper bound check by verifying
-  pdu_length - next_cmd < MID_HEADER_SIZE(server), ensuring the
-  trailing slice is large enough for a header.
+This allows truncated non-last sub-PDUs to bypass length validation,
+leading to out-of-bounds reads in smb2_get_data_area_len().
+
+Fix this by setting server->total_read to the true length of the
+current sub-PDU: next_cmd for non-last sub-PDUs, and the remaining
+pdu_length for the last one.
 
 Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 ---
- fs/smb/client/smb2ops.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ fs/smb/client/smb2ops.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index cb4fd09f996e..fcf7033889c7 100644
+index fcf7033889c7..7f2177f6fc01 100644
 --- a/fs/smb/client/smb2ops.c
 +++ b/fs/smb/client/smb2ops.c
-@@ -5365,6 +5365,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
- 	length = decrypt_raw_data(server, buf, buf_size, NULL, false);
- 	if (length)
- 		return length;
-+	pdu_length = buf_size;
- 
- 	next_is_large = server->large_buf;
+@@ -5371,6 +5371,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
  one_more:
-@@ -5377,8 +5378,15 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
- 	}
+ 	shdr = (struct smb2_hdr *)buf;
+ 	next_cmd = le32_to_cpu(shdr->NextCommand);
++	server->total_read = next_cmd ? next_cmd : pdu_length;
  
- 	if (next_cmd) {
--		if (WARN_ON_ONCE(next_cmd > pdu_length))
-+		if (next_cmd < MID_HEADER_SIZE(server) ||
-+		    next_cmd > pdu_length ||
-+		    pdu_length - next_cmd < MID_HEADER_SIZE(server)) {
-+			unsigned int max_next = pdu_length > (unsigned int)MID_HEADER_SIZE(server) ?
-+					pdu_length - (unsigned int)MID_HEADER_SIZE(server) : 0;
-+			cifs_server_dbg(VFS, "invalid NextCommand offset %u out of range [%zu, %u]\n",
-+					next_cmd, MID_HEADER_SIZE(server), max_next);
- 			return -1;
-+		}
- 		if (next_is_large)
- 			next_buffer = (char *)cifs_buf_get();
- 		else
-@@ -5414,6 +5422,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
- 			server->bigbuf = buf = next_buffer;
- 		else
- 			server->smallbuf = buf = next_buffer;
-+		next_buffer = NULL;
- 		goto one_more;
- 	} else if (ret != 0) {
- 		/*
+ 	if (*num_mids >= MAX_COMPOUND) {
+ 		cifs_server_dbg(VFS, "too many PDUs in compound\n");
 -- 
 2.55.0
 
