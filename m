@@ -1,86 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out198-177.us.a.mail.aliyun.com (out198-177.us.a.mail.aliyun.com [47.90.198.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956A02853F3
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 00:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720D12D8399
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 01:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789260318; cv=none; b=XdghJNTMXGn9razg38eGv5xqc549MuDWgjQU+zcmaNGZmYMrRJfeHdzHLcWl1uSYG1uqexsOLf1cEkH+kavlW79KW0TR7bsiLaSfqzZ6hF0GhqGLYT/L+MVmy/hLuJi6ofhWC8FS6NE83jL/ynMehQ086efvX+QvEq2d6dSSXyQ=
+	t=1789261960; cv=none; b=pfo7z38GWtGV5OKaywwTkgOoIr5KlCByEhqyqhYw3ksooJp7cqc/Hj1Pn4xRNX+xF4e0AR29z8O2MBAoILXnZcqzjzx8K07ElS/D4Z7DzMhX9Hc028mkKvOWg8woWyNacV8u6kBQp/CLysxGWN8/5/0kepu3FSf0HjKzPQDtwqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789260318; c=relaxed/simple;
-	bh=NUcbszGp5tUNERew/7VfMlM/MVzhmtWvUZP6CSY+x2o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FRjZKl+V/QeN2VqdvYHo6zYVqrC1oaplEpR4ymVoG/e58avC8nRjn9QCEDToojC6oR1SopdFyjNH/AB8YmMYeK7/0GIzF1MIDd+6gF31oQ5K8Yq5S0bRGNa6tqJnyCsJVRUKWXYwKlwrT+TSFfZ5khd+Ey9B3ojfLqX+K5gQsWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzKTdT7+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzKTdT7+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AE31F000FF
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 00:45:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789260317;
-	bh=ULB/Au0giQJsbmdaaBd+KQN+LPLOz+eyRpSt00+Fetc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OzKTdT7+ssH+F0q+rCktk/69kALO1KpIjp3G49JQ1POMFuj4DIVNVVske1d325ftm
-	 KrjyUxPPRAknVvROq0bafOmGvS42QU2GmDUzYhnN1qSLGJOR3/6LnHz/TxknrHeIVm
-	 qYvHeVsLV1508iqJV232akLn2dVX02WyuN6IQTbW+WsR4+AAkhkPcq7FN+OczEKmxb
-	 hIBOJFU9BOH3TDqhD3wYxSu8g9HhHBDkhK2ADLTMPnolLx84ayjib2/E97r4SNjCg9
-	 bqkA3+0ZvFAxbrzN+eSiE+yFUERUadtfAq8n4+8iWsDDBNZE3ZOmXT+pmcDfuaEi8L
-	 tuVdg/Un/QQzA==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so1431452a12.2
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 17:45:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx82HKD8KH0z1M4z8AvYD4jzvWaV5kcI1ShO+exocn9c+aN1HA0QpjqAxmrX8J+La1/+g1TA6M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUk4lSwxfpDMVpQfdrhmAmcWekw2Qw+F47eBNdF9gFDXvDC5UI
-	fhKXTdowSvZ4E6q1ApEqSYdi0kMXlwlEBZdwDEuzeMWDho6Kz6D2qb/Me5txIQ0XiMvTYxUhf7a
-	U5OixoTS2gYMlHnc/NgGrjUtLUBsD+jc=
-X-Received: by 2002:a05:6402:1f47:b0:6a5:f4f4:5c10 with SMTP id
- 4fb4d7f45d1cf-6a9b5605f43mr10800506a12.3.1789260315855; Sat, 12 Sep 2026
- 17:45:15 -0700 (PDT)
+	s=arc-20240116; t=1789261960; c=relaxed/simple;
+	bh=b7WY0ahVn/aE/5FGCh46x1pEbKQLLTPOFjFRjZxGpQ8=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:Message-Id:
+	 MIME-Version:Content-Type; b=DOPCEy9aWSWiNcNKU9+MsuwiKXKLbCENxRo2u2hioKgYkoqXOfuN4fpj5cxqwGbk9frjDGL/yi/2OmxhEgms39S09T7ncrxlhCQYubx0k7w4BJUo+SpgmJF84cM7ur8m1xRQgTW+OLTc/yc9nwZoesH9jqRt3Cxm13fNNZzS0ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com; spf=pass smtp.mailfrom=e16-tech.com; arc=none smtp.client-ip=47.90.198.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e16-tech.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04675983|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.00318378-2.85123e-05-0.996788;FP=16853340347964188643|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=wangyugui@e16-tech.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jCJT4pX_1789261007;
+Received: from 192.168.2.112(mailfrom:wangyugui@e16-tech.com fp:SMTPD_---.jCJT4pX_1789261007 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 13 Sep 2026 08:56:49 +0800
+Date: Sun, 13 Sep 2026 08:56:49 +0800
+From: Wang Yugui <wangyugui@e16-tech.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.18 0908/1518] perf c2c: Use perf_env e_machine rather than arch
+Cc: stable@vger.kernel.org,
+ patches@lists.linux.dev,
+ Ian Rogers <irogers@google.com>,
+ Namhyung Kim <namhyung@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Honglei Wang <jameshongleiwang@126.com>,
+ Jan Polensky <japo@linux.ibm.com>,
+ Sumanth Korikkar <sumanthk@linux.ibm.com>,
+ Thomas Richter <tmricht@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Arnaldo Carvalho de Melo <acme@redhat.com>,
+ Sasha Levin <sashal@kernel.org>
+In-Reply-To: <20260912065643.993908175@linuxfoundation.org>
+References: <20260912065623.398859879@linuxfoundation.org> <20260912065643.993908175@linuxfoundation.org>
+Message-Id: <20260913085648.B79E.409509F4@e16-tech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912172509.542168-1-pc@manguebit.org>
-In-Reply-To: <20260912172509.542168-1-pc@manguebit.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 13 Sep 2026 09:45:04 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-H==fMY_nSLD+9KG_ZwVz+KQQ4noA6qzVhT07Sq=SjMA@mail.gmail.com>
-X-Gm-Features: AcwNN1UA5CgVF2Ye1Qmc29G3GqG5WA2lLA8XhbjY_FtoocwVRS6zpmOMRf0fof0
-Message-ID: <CAKYAXd-H==fMY_nSLD+9KG_ZwVz+KQQ4noA6qzVhT07Sq=SjMA@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: fix smbd_connection leak on
- cifs_get_tcp_session() error
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: linux-cifs@vger.kernel.org, Tom Talpey <tom@talpey.com>, 
-	Stefan Metzmacher <metze@samba.org>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Bharath SM <bharathsm@microsoft.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Becky! ver. 2.83.03 [en]
 
-On Sun, Sep 13, 2026 at 2:25=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
-wrote:
->
-> When an RDMA connection is successfully established via
-> smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
-> kthread_create() returns an error), the error path frees tcp_ses
-> without first destroying the smbd_connection.
->
-> Fix this by calling smbd_destroy() in the out_err cleanup path before
-> kfree(tcp_ses).  smbd_destroy() safely handles the case where
-> smbd_conn is NULL, so it can be called unconditionally.
->
-> Closes: https://sashiko.dev/#/patchset/20260912165503.521597-1-pc%40mangu=
-ebit.org
-> Fixes: 2f8946464b11 ("CIFS: SMBD: Upper layer connects to SMBDirect sessi=
-on")
-> Cc: Tom Talpey <tom@talpey.com>
-> Cc: Stefan Metzmacher <metze@samba.org>
-> Cc: Shyam Prasad N <sprasad@microsoft.com>
-> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-> Cc: Bharath SM <bharathsm@microsoft.com>
-> Cc: Namjae Jeon <linkinjeon@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks!
+Hi,
+
+> 6.18-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Ian Rogers <irogers@google.com>
+> 
+> [ Upstream commit 70b3c4f734bbfd5664cd6e4eb007c108bf2b1c43 ]
+> 
+> Use the e_machine rather than arch string matching for AARCH64.
+> 
+> Add include of dwarf-regs.h in case the EM_AARCH64 isn't defined, sort
+> the headers given this include.
+> 
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> Acked-by: Namhyung Kim <namhyung@kernel.org>
+> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> Cc: Heiko Carstens <hca@linux.ibm.com>
+> Cc: Honglei Wang <jameshongleiwang@126.com>
+> Cc: Jan Polensky <japo@linux.ibm.com>
+> Cc: Sumanth Korikkar <sumanthk@linux.ibm.com>
+> Cc: Thomas Richter <tmricht@linux.ibm.com>
+> Cc: Vasily Gorbik <gor@linux.ibm.com>
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> Stable-dep-of: f53f5c2437c1 ("perf c2c: Fix error masking, OOM, and unchecked caller errors in hpp_list__parse()")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  tools/perf/builtin-c2c.c | 40 ++++++++++++++++++++++------------------
+>  1 file changed, 22 insertions(+), 18 deletions(-)
+
+Please drop this patch for 6.18.y because of build failure.
+
+builtin-c2c.c:3277:21: warning: implicit declaration of function 'perf_env__e_machine'; did you mean 'thread__e_machine'? [-Wimplicit-function-declaration]
+ 3277 |                 if (perf_env__e_machine(env, /*e_flags=*/NULL) == EM_AARCH64)
+      |                     ^~~~~~~~~~~~~~~~~~~
+      |                     thread__e_machine
+
+Best Regards
+Wang Yugui (wangyugui@e16-tech.com)
+2026/09/13
+
