@@ -1,162 +1,112 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096F22F28FC
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6E738D3EE
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789335971; cv=none; b=G4VWSx1WRSZcQVRmqt6PIwfyxiIU9xo9KVopVys/t3U9D6qJXf+Es0ZuzUhjsBdQngPNhAYFPQjXfIP99AupnuImPjKX/NAGxVKxf1tuePP+sJGGrmLE9qDc40xw0Pn1+szTxikVFhePayze6sR8mg+q6M5ebRVEsY5yvnhlAqY=
+	t=1789336460; cv=none; b=C/GZigrUzAt1usaWCeRgxN+qMMfHw2R1xWWzXdSijZwtigZ2iFtHqBsV7/KgNxMQGd7ZpwHi1BdYYIwlOxO2YTBbPt6jaEhKOmIGjS0rtb0lUm6ad2JZKr89Wt3gmc4fx4xk8tvhEkgiqRsm9INnVAgmqw5qqucpz34QioHXTlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789335971; c=relaxed/simple;
-	bh=ZkAksoF7ZmwppBOX4liC5lkJMiOS/s1heEZxMpA7zt4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cEYqq/1Zp8M4awfdVz9IhYvQx7Luz+LTRFYW8VIcf16DKVwt56H/0r4s3wo4DkPOtmmGJyiacA1raIgfIB7zmSCOlC2cAgF33/NmsukvBJ7goXkg5Ywpp2MiY1wG57PHSEnva7Oby5RisiI3z2k2PlK2aXX0uHGjXUvNrAc1rB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NQ70ZX31; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TAz4rLQI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789336460; c=relaxed/simple;
+	bh=/6yRs6phWpHS9WKXgR+JCwbaMv92lsqYofJsXkDL7d8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=BOHfiwofiljBCvMq1QLJrzpa7bcF8dFrrPNyUrNMi25l1tVInbBuQ2IKrbmM7uDJLKvPH1Vmtc2vqyNFfIch2rQY3VXpUdOiftZDEB0z2WH6Db1wkMzdltITtxuvL5fX0PuNfGwek3zd/tUYlxtVBqADmqjqqEu0NfYJ3eGysKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FGjnlbfy; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQ70ZX31";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TAz4rLQI"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DK03qS2632626
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:46:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=vbAlXC0DW5rovY2mimpWnBtg
-	9Fpne77lgrVF++LV5Ls=; b=NQ70ZX31srNGMLUNu1TbIFmX017U5TDAwdZh4+IT
-	GHgBjBs6FEe4oLQwvAEt7OLthE0zK0FQRx/Tb2lmqC6xeipYB8OpoYKaK5t8gGUl
-	szMg4hhlXrJXNlsLY+YOKXCsjuX66gTAxEiNMJiG+KBzxE6hdzTdfQlZexG0Wxnx
-	RDAfgGPwT07AEBCJd9hR/4+sEAzV8+x+AxwD+JHhXhx1k6d4lj33Sr4HrgMS/Lid
-	9ZS30EfGICfwJBPGpe9ErLt1xOVxRLvj9cJs3qUhaYwfsC6GcqZWfL7/STrTPTTV
-	vTT/m40rlPjxtWX8iZUeWx2TFRw8PyO1VxHt8iir3X7O2A==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c4761-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 21:46:08 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-980989f5030so2260169241.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:46:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FGjnlbfy"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so4210715e9.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 14:54:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789335968; x=1789940768; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vbAlXC0DW5rovY2mimpWnBtg9Fpne77lgrVF++LV5Ls=;
-        b=TAz4rLQIWuZ2cU1BRCPHC9rXtnT8VCNmCjwd04cTb+kGOKAD/opzSBAP7QiF6PBP75
-         lpVVWAAII+cCUxnOMU3uEqmgKxH2f8h0+grewKhGDAiw1DJppl4pdu3e7miJLCTIY4Ba
-         dnctihWDl7SOwD45MScCq5Ce02i8rNwBTbo4G+Y7sySuYn0XB3OHXQyM5PIQe9DUoHdA
-         hpiPZB9ZM3Mog3bDkXmbmkrQQkPdT9eh6fuQcu36pulxWTP3iPL63l5/mkWDT1p1AQzZ
-         JcKIq1QUA5IMe6gENNVQFbs5E61+P7Kq79TOHGYF72HUwTvW/tytJWJOCFK40f1wdDAK
-         DWyA==
+        d=gmail.com; s=20251104; t=1789336456; x=1789941256; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/6yRs6phWpHS9WKXgR+JCwbaMv92lsqYofJsXkDL7d8=;
+        b=FGjnlbfyl+IVlKfP4YUAjH6olqzs5YGQuEKc9PQ/OyCqfieE4y5auJa/uW1bADqmZ+
+         9XFxz9xnhmgBxn8gMUSKwFvo2ofsdl7QXntGf4Fnv87r/tScovnUgVUoMNLN01sUPpTx
+         zEO3xbw2TExfNNvOEfmk2/HTdAdsKgHyhYBQltQoJm1yWfd7BC/AEtLi93lfrRQeCz9/
+         bJ1Kie7rpo5NvG6pVVyVDvoKrtImBWpY9VPnmLecn9eFtIiqTxUm+3G0gC4C42K9kbsk
+         9dHMX5FzoL0SITxjJ3c56PVlwBdLPy31yMr8walT5acDItzJ4OTm7Hwj16w7ExSGYylj
+         zHFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789335968; x=1789940768;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbAlXC0DW5rovY2mimpWnBtg9Fpne77lgrVF++LV5Ls=;
-        b=SMqhjvYZne8ZhmUuCK2g0ecWAvxZ7KAgHi+exgHSu4d/HVC8UjkYMqxsYbPcfI/fNV
-         XqjzEM6GW5Ot+EVzA73k0O06xWUcZ/eAs32/q9hrfLLY5XWi6rKgu5N/fk3zcBdh0vop
-         0EGsjpYAoqyp6Ioq+EtCT7LDlE8UXJcEgFmb8VpBMVZIwJS7xX7a4zS5tcblfNUMBL1A
-         dSbI3aY01qqZgndOFbecRBc27o67MphNsMnxFGt2lF0yx7rZZh0dFifnzskdhQDs4hpy
-         51XUiKtgxL0Lj/haHu9P8Ds2ak6FjaR1r3bSXpobMA56W0/a57yyd0ci5G9MLRDPLzSE
-         be4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwPF5wPolOwY9WaIPhV6BssSDL03Ix+TgwSnEKzNIwAU6tR7av3Jxkofwy6QGc5WIXM1op3bv0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOW7+wz/BYJxKYvk6q6ltSFrcty2aoJw3SJcvtc4RYYDBAyWVL
-	6LIiOqxd769QkAcRJpc3oZtVaIE66QvhzsiHhLjFrcYybbNfu0Kqc48YI0u8U3lqMy9ezSF5VWu
-	PyvrfTv/bEGsPWQReq2NxdXHZQJQhO9qoFCEASVD1yNheNz21X3ePsDxYkOs=
-X-Gm-Gg: AYBFou32gLFgazY5suktruabDQ40sKgEYDG7vmvGuEYsI1CjS1cxg7R9A8mqLBK7BoT
-	pRv2/yQnUdE7E6U7pbTc1Xubg1JeZ5ZXJgrZnD/MGSUPkk5UBBY/as0iAMsXN9iVBsyoxnEIPoG
-	3fS6zPnVlPuHfxXo1H65sCVmnBGSV7Pfff8FHqQL2j60GXS3VT3R+bGY35m1Bo2tNTdy73fo0lr
-	AqnxA2LE9LfwxHGIgxKqGGv6MvQh92KqjbSByLvoXTpMgjmeNTzsIUrIlRRD8tJwTuk6n6KBuli
-	wvL2Nd2TYyUxddfc89QK1CbaJJQaiZNx5SVXn67kGZ/HNSOwmmEM4zTCLSv90F2JPUOkVsMAD2l
-	Ypls68/jSn7PWPM9orOJ1qgBYtyjTECnwGUoto6WKAwNLUNsc3p5cHOfc76awFe7vsswpCamvGM
-	lqs1llhgGqykdV
-X-Received: by 2002:a05:6102:578f:b0:79b:1b6c:4f66 with SMTP id ada2fe7eead31-79b1b6c5faemr48532137.1.1789335968019;
-        Sun, 13 Sep 2026 14:46:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:578f:b0:79b:1b6c:4f66 with SMTP id ada2fe7eead31-79b1b6c5faemr48479137.1.1789335966559;
-        Sun, 13 Sep 2026 14:46:06 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0474df5sm1981637e87.64.2026.09.13.14.46.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:46:04 -0700 (PDT)
-Date: Mon, 14 Sep 2026 00:46:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Saim Shujah <saimzst@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Paloma Arellano <quic_parellan@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: clear pending peripheral flush state
-Message-ID: <skz4w7uewtxgmiuhyfav6krul6b7itlfb6io2ysmcypql4dka7@ar5hawrzijaw>
-References: <20260828065440.140410-1-saimzst@gmail.com>
+        d=1e100.net; s=20251104; t=1789336456; x=1789941256;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/6yRs6phWpHS9WKXgR+JCwbaMv92lsqYofJsXkDL7d8=;
+        b=UBaoWv3kWKv/lz9MGkYlalh9BuqYBEC/D5JxcvHuB1KtGrJGSo7MirzqMpTwg/1hkO
+         xkRvx3xePeB9h1YAiD/NB8zIdk0EjsVpUyJpjI4pnC64jhiy5f4dEMKrswtudMn47X2k
+         ip++Gj5RKLL+9pa9y/N4tvmNO/AVNXovXVBd0dZZrH1nT3hINA6255euhBYc/UocbNpI
+         ts4zfqWZwdh2R1TPtvccGSnKNpHZWMz6D4oF4jbrT9G/huIsK22Y3SsE4uAFvuA3SgZj
+         3yj/NH7Xjo0vVuP919acZ4NFVtdkD6IAqQiCYh9/Iu8gRL8OdBExK8yXTKW5O2ezAJR3
+         qsqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfWoHhir2k9uUZ8qDD41Mq1m65yYBTI5vk/jgxrRjhUPAUGXWE7s3jtBofAoYaU2Y/TDlFuDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBM0iAaTdrW8FnrvmyJpB/8h2L8HiHB8NLc59oM0DJm8Y5pGu3
+	55esxChSAcbc+CH/oGpn/xw8rr9Xf/AlMS0TLS8i4ycW6GpHciVw8XQF
+X-Gm-Gg: AYBFou1NbEfV+o39n4a9VS/HnGPJDUSX0iIWNcYu1UvLfOmYQ8qKMYQV96c9eo2vPBU
+	weXfW/QPbWLSGo11/i8iwBtIiMXU81+ffxDduUU7zCpF9AwjLzVv79IzXKjgS3Hp/lZcywGCI/x
+	Y4z0RUqiODGyW7YdybFnqPWmwY5gngn4TbKd9aGo2qKLoNNnT6YQhAp/RTDfyMngp75Rqeq5mo7
+	fSsij7ewfJw2dUTNs/mZUU4PSnY3p/9M0ZHis8ZKJIK3FISowOQYUfA0KjNZNbvIzU1zkbjgBWi
+	33fj36X6C0we9UKOkdXIRLLoR97oK2urPQSTaMWNvWNBoLwj1iSEF97EmyUNjNqSF+veNBTE+SO
+	HbMYOnIKJJJiB7p1OpY4QJNnYcCUO/i27PVcR2AHHB3mVy72zsVBTEOnp2tyCFhEjwPwXU6DRex
+	rTon0hiyIQCkONH5QSBDvFghV6hjKCadyLjCq3GdF3McfwgTbSGxLi4DSdaLKRmD88bR9TRwegX
+	NENzhkMiCVPkWLQdgPqbaoPwb33kZs3kA94hzfKH0meGs+fmdVCWjphSYXYsdr4ocvdvj87ERPf
+	pzUlvw6dgThEdhHpmmHQLA9MHc/0FUtLrwKiP7k00AOFL9TNiUIrgwZIMgKDP0FikRdiVQ4pAjQ
+	sTMo=
+X-Received: by 2002:a05:600c:8b72:b0:49e:6a76:77bf with SMTP id 5b1f17b1804b1-49e6cad489emr77938265e9.15.1789336456197;
+        Sun, 13 Sep 2026 14:54:16 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a0e6-2301-7846-2cfb-35f5-6359.310.pool.telefonica.de. [2a02:3100:a0e6:2301:7846:2cfb:35f5:6359])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6fc9c027sm156932495e9.1.2026.09.13.14.54.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 14:54:15 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Meng Yu <yumeng18@huawei.com>,
+	Zaibo Xu <xuzaibo@huawei.com>,
+	kernel test robot <lkp@intel.com>,
+	Hui Tang <tanghui20@huawei.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 5.10 369/798] crypto: ecdh - move curve_id of ECDH from the key to algorithm name
+Date: Sun, 13 Sep 2026 23:54:12 +0200
+Message-Id: <20260913215412.5975-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260912065525.614310014@linuxfoundation.org>
+References: <20260912065516.948645775@linuxfoundation.org> <20260912065525.614310014@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828065440.140410-1-saimzst@gmail.com>
-X-Proofpoint-ORIG-GUID: stshMR0aYEjdQFgqKrmy4o2mUt_KUmuj
-X-Proofpoint-GUID: stshMR0aYEjdQFgqKrmy4o2mUt_KUmuj
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa719a0 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=RN2DTS20WyuIpY-t6BoA:9 a=CjuIK1q_8ugA:10
- a=zgiPjhLxNE0A:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMxMSBTYWx0ZWRfXzq2raAHqtRB8
- grxWEsU6srlOwZUN5hrVyIXrkuVwLqpsxh/YHthUO+Cio1YnY6aXnuHm9wPBlmAhYx/DHdWXJM5
- QXRSG0C0vM/xMaIa+hJ3ikPWiM8YAwWpdO1VDE5yPvK77RfSvNP8y/wfafBB7k53UTETc+aEmm+
- S+vmnjfYqmeBj8vlwt8d+98htH0VW6+FsQ8iQrlrjzFaOpGCItwaUZcFPf9J1rYQ2GWbThN8xfh
- wFun6zevd0FLGpRgfms4M3JKN7HldKI2v/NzIIou52mlmutDadBlO3Wgx5OIS7OtGaUdIo9YFhZ
- P023st3bvlO5ID8jmefEQByTGrfIANlWib98IgOkXrLbEJG4yMgYx/Zyre/BoQhe/D6+FolhTmA
- dO81oVuotq0ICGcSbGIvHAYvPx+FRxzCtb/R7p+RijBvn+BHzEAA6YbSERsNhtQO0yH+owszAVE
- MTLGQF2KsacyfsejcAw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMxMSBTYWx0ZWRfXxwPFHYDbrIQJ
- DNzQAlfSOhBc7WkC4V8aZrUc2X36J4eoPnSL3paFQ098KpYNNuQFJuF1MgUWq/6K5fCXnPUE5p0
- bnWQh+2lBaBkQ6gVGlo3Ea/cgCGQzjg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130311
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 11:54:40AM +0500, Saim Shujah wrote:
-> dpu_hw_ctl_clear_pending_flush() resets the cached per-block state after a
-> flush transaction, but misses pending_periph_flush_mask.
-> 
-> The peripheral flush updater accumulates interface bits in this mask. A
-> later transaction which sets the top-level peripheral flush bit can write
-> stale interface bits to CTL_PERIPH_FLUSH together with the current state.
-> 
-> Peripheral flush support was added after the helper started clearing every
-> individual pending flush mask. Clear the peripheral mask together with the
-> other cached child masks.
-> 
-> Fixes: 64f7b81f0358 ("drm/msm/dpu: add support of new peripheral flush mechanism")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Saim Shujah <saimzst@gmail.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Please hold this patch unless 5.10 backports of upstream commits
+8fd28fa5046b ("crypto: ecdh - fix 'ecdh_init'") and 6889fc2104e5
+("crypto: ecdh - fix ecdh-nist-p192's entry in testmgr") can also be
+included.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+This backport can leave P-192 registered after a failed module load, with
+the crypto registry pointing into freed module memory. It also lets P-192
+register without its known-answer test and be used in FIPS mode.
 
-> 
+I reproduced both issues on the exact 5.10.270-rc1 tip
+f69aa74a82509ee94a2aac2822b4189496f267a8 in QEMU.
 
--- 
-With best wishes
-Dmitry
+For the unwind case, a test module pre-registered the P-256 driver name to
+make its registration fail after P-192 had registered. The ecdh module was
+then freed, and a P-192 lookup hit the stale registry entry and panicked in
+__crypto_alg_lookup() under KASAN. With both fixes applied, P-192 was
+unregistered and the same lookup returned -ENOENT.
+
+With fips=1, the unmodified rc1 registered P-192 and a lookup succeeded.
+With both fixes applied, P-192 was rejected and the lookup returned
+-ELIBBAD.
+
+Thanks,
+Karl
