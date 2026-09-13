@@ -1,79 +1,81 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8846526159E
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 20:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541DB24501D
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 20:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789331507; cv=none; b=ru+Oo6wIMvlEGnwrEZFcyjp+r8JI/l2JV0g4qZKqIDxHw5btO+nOZKb+6R9/PaypnGI7abKRlzD6UCBgFxr0MAX2uBtgGt6sJ54EZLWy9k26So330vh+TItr7uSpCT/oTgWeC2vtXyUEgrI91LfITZju1n2D8y0AqDzVBklZm9Q=
+	t=1789331640; cv=none; b=rJIjPxwMPDFTM9HNjVi4noefJ5fsSlgmpcJWKVQg38AwUo3308WmO/Gc4018+Iu37nmcnI2FoMaPxePJ44bmGGF5DYdQCgIpOs+oSVA1/LLjZudwnRi/8yZRJI7LpPkrniGrppEM9E8qL9Mq9OWKCNvzyo28DwqSuQItDWfDKYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789331507; c=relaxed/simple;
-	bh=ZxKFKkRM8oXFOFl97A/fFfxND2n+rPDeZs/wlH5nD1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cid7HTj824iHhpga+b6+ifNncIquWBQQeOdXisI9UPWeDdPL2vZzI6ph38MJlM8hydb++ly8KkUuxpznPil2WiZHJaBvoWIkP0sqUv+RCuRnr1MYSyZ6gIi3dlwzWXbSQhd8fCNWxIcg11OVbVOcdnFwyYpDoGt6tfNNO1WySFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7JWDkOt; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789331640; c=relaxed/simple;
+	bh=ZImNFxIOMPZzklYZUNsRSmel6jjVlfotzjbWSm0W0co=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Kaa8wTvTVStQPHvPnFBvnj66eVvtB/RPPZ0HMof32Re4WLlpp8Prz5A5tWUCpuRRr+34CA+utG26zEc8RelUw4EVjucX2rJUeUFJl3k/JtCZnV9+YOn6AX4Zpk5QRJm5ybFf/l6er8jvyAJ7VW/jXZlyadwXaelBmQKJGMOWTs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cMs0Qwc7; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7JWDkOt"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso972562a91.3
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:31:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMs0Qwc7"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-486fa798933so741770f8f.0
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:33:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789331505; x=1789936305; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789331637; x=1789936437; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d5jASMuUqBprwXkBkHSWhbe8r2/E5/xJ7OJmCuBUolA=;
-        b=a7JWDkOt+9MeYruo4fRFTgsm6zQ88d8VrKV3jMuHYErofOEDhMrbzM8eFlwrZS5DPf
-         k+Dcl5h3zP1i9gptSWPjNBLOUJE9uxZSJ5RYDv24OU993pAx8lmJpq6YWxuUscniOVjb
-         ExwGraszTG9uUbdKUrfB4HpPYQOMd1V57hhWINpFZ3VFolsI/MjdS8JGpochhEZAYgyh
-         fBH+oLVuUiICxpRSpijY3zMUxSY/l1r9aCxefFGIO6oRSzQxxk3JYJzgH3CTZO8C/Xu2
-         POH7cKsS4XHsK9akATj1RsveY6lQQYytoBcR6jjS7Pmiyf0wQARmoaoAkT4XTLIu5O1E
-         eB8A==
+        bh=ZImNFxIOMPZzklYZUNsRSmel6jjVlfotzjbWSm0W0co=;
+        b=cMs0Qwc7Ktpdnxj+oak0YLCH9QZz1Mqj6+pUqgfSzrtcdrbhet71ay+2FpRCzyNZ2p
+         cVbCDEYEx4RpzLhY3BE2I6+BuDgTR9bqnezlEs645N7JQEsNaZV11RQaZyKsKCrAjWcC
+         Z3lXxua6CyiLczDiN8Q86duaNXei9935RpsJey+GuEQtSCeZUMr88x7sOBKflx43BFxn
+         SjdKHQm+i56CJvsNtmJuToVzUk29WWCLwPxtvFSsmJ4BzfsK1TImTE/xtwl7dwBaXpmd
+         TNbeTD5rSkkKYIJU95M0t8hU6NVGfNUL5t4raWrr2NI2v1NZN1tOrkhzSfGFxLsSkyx8
+         kSSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789331505; x=1789936305;
+        d=1e100.net; s=20251104; t=1789331637; x=1789936437;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d5jASMuUqBprwXkBkHSWhbe8r2/E5/xJ7OJmCuBUolA=;
-        b=dnCNSnYRT5WC5j+ArTkH8QrF+2SKXpayd42f49ecvYqU29Jyf+I6W3CH2cBRgPtvgl
-         /q7R/g6Y+DemVsGZ3O+HVwnMG69KD9aTmaoBmINX67F3H4VhLsxmWyvdliVHlpruddY0
-         GUzMz8QuwwvNE9Y5V9sur+zegaw3SIfwfRzfE0PiT6KpjF6zN79eItUbByYcVrC84v2i
-         8V3DO4a2l5KBUTWEgsuZtMyXPO1FsttiD03X/9OI3eMO2mVbZLw55CYmv+v/oMcggJKa
-         bH2XfHoOV88s0eOVxcMLRROS5alkpXHLLt1W6tVdi4C4OeeE7PN8uxh6RjwEm7YrpEfD
-         wT0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzSQOyrnlt/HFCavGXOj/d3NN4MEP8eT6qSaLHLL01UW0L88W6AmVgFVMK21hzqG7bDF63RkUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDTEz+/9iXsR0rmU3km3cRzGqXFqrFnkN3Kg3z7H04THLKFbQZ
-	aCFX6OvBhWjUadB7snWMz1lqxgAlVpzBqAS8dqOfj/8lG6YqDTScSjQ=
-X-Gm-Gg: AYBFou1FjzodNprq1YXJLl8j/PWW3Db85SMbnIYszPpCZ0wvKJZzvXx4mYR1JAUs5M3
-	Ivx5ICuq/4AGXqUK+jdoLukajkeNTe+hSwXwrUet9ZbaX/Ahz1pSV/TeLmM9jCCwPGvaeQb/Wv2
-	QbBOXQC39+2z/RJCh4JafqS/Z7JPmUTRAKrRfnb8T8J1S8GtvWX3PDvi8GEkeNy5DR5LXxvO9rf
-	AylwE0noVA3J58aSJimncAHm4DVpilk5bplFFz7LLVqu2J0jMs1kQz31D5zcYxFvetY5U0ZsJV1
-	2El84ROC3h6RjXm8C9ZBfRNvBNlGOM7euPtFfpFEfRi8pg8Pz6pi5IOkposeIqPzrFjACoQXgVm
-	Dwe0XvaESb2wIec8Xl0xRb4l+DWOIlVoLK2NuIsVSI3ZrzfXGrtCBN6dlH+uu+uY/WOOtzMloQl
-	UDv5uVetwOro4A03KPz+zqSXMXUCb/TMgO6SwrTr3uHa0wODG9j6EXafLO/fwgIbY9Y+ATgwZX4
-	wfp7aHf2tH2a5OIu3dui/RkVw==
-X-Received: by 2002:a17:90b:5785:b0:39d:e9b6:cec9 with SMTP id 98e67ed59e1d1-39de9b6d48bmr415809a91.7.1789331505011;
-        Sun, 13 Sep 2026 13:31:45 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm17530220a91.0.2026.09.13.13.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:31:44 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <zanussi@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] tracing: Fix NULL dereference when copying keys for a field variable
-Date: Mon, 14 Sep 2026 05:31:29 +0900
-Message-ID: <20260913203129.941270-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
-References: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
+        bh=ZImNFxIOMPZzklYZUNsRSmel6jjVlfotzjbWSm0W0co=;
+        b=PL3HyitynRDOsu95i3yrDdk/YuoOg2auHlhnyG7m3eP9S+ppzESyG+T5rI3SJ9GMMQ
+         T4J8T6HqCk3jL/niT69oYcWB3Z0nq9QrcAbPv2kEJrjOZT5khL/xQNjdVpXr972AQ2TK
+         EPLMdXjm7nrv4tFsFUcKI5AVtd9jAvhNqkM2YPPsDTK/qGRlHhRJMcf+riv/Dwr0Dz90
+         N6iOGvr3C2I+IKkmoCfbkaAiQjdSiIyQSjghdFYe6PSm4QwABwizjMdKeN2UHCZ2YHLA
+         butBzUNGFntWtkNpEQ2WOyrmKquDDPDghW6mBitFBhXERw01a6KPY9H60DfDHqVnVpa+
+         53gg==
+X-Forwarded-Encrypted: i=1; AKwUvBylaGDAWDDrNjT2XmqBTMTUdole6wTzElnEwf3Q2aMHL/3zhHjEluElkyaAwIET+xVsrp4tRD4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mP4w37t/fw8Ygc84+WFsnLZ8l1u0EESRERcnws/rL5n+Cp1rPo
+	dVzZlZ/L2AfvDFH/WnnnpUqGeKkSj4Z3lnrCc4S7nidSZIBnSadDIrdE
+X-Gm-Gg: AYBFou1GMh5a4RH37eiHg6gS7y9h+H/csmCyJUGueKUdgaAeKFMhlhy4d7LSKjiZ8Ao
+	MeSu2bXWKxzs/HBbbng5Sa0iIVy7MzTIAdYb4d9FQ1tYLGVEEw0oO1NTx0QzUb43/ZFuw3khuCJ
+	SFsoNBxi70Lb8nR1JiIHn3CjW1rsPYdn2TLE4IXSTpg3EDmsqIDqaPaPD9Mb1GOHAnzFgU5G7tQ
+	1HQPbVVWmea6vygP7FKy2Qge5RW0i7oipXP6Crnyb43KexxxXFIyq8vsnx+rp5MTwlmTJXJr4Un
+	IIMGp4hjawMREWjMYK8DjV5dFMufplAmrOIQ5T1eWWSEQQnIhKkdsbTdpCWlBbLtPUUCGMVia35
+	AiyUBv/ESWEx7SNnRbhf4E8kjFL7LYfc6tkaCHcmEKQnvdZSyuKeeIfesAnjyvSiURLyQeyXYGg
+	8pFlrl/O9QFCx7lSlghz60YD2V5/3FDh5HTWyEx6eLCJQFpHP+DdtYjeCioXwqdgz73XAXz3kJr
+	fCWJvOWYxGWnbpRt0vWJ1hwyzVBeVb1ufmrltzrj/aMN1iAJ1TeWQn3pJHiFE5994+bLkV6drOg
+	CH+L0yBvYxdXupJ1q03n7sGF71k+8s9OhHpZzB+i+QfEHZ7SA7VUuky3g9tWozZI6JyDASWOMLM
+	OxP0QW+jiY9Sy
+X-Received: by 2002:a05:6000:2211:b0:486:fa3b:7830 with SMTP id ffacd0b85a97d-486fa3b7866mr6070871f8f.15.1789331637349;
+        Sun, 13 Sep 2026 13:33:57 -0700 (PDT)
+Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-a0e6-2301-7846-2cfb-35f5-6359.310.pool.telefonica.de. [2a02:3100:a0e6:2301:7846:2cfb:35f5:6359])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e74esm21719486f8f.25.2026.09.13.13.33.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 13:33:56 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Edward Adam Davis <eadavis@qq.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
+Subject: Re: [PATCH 5.10 749/798] bluetooth/l2cap: sync sock recv cb and release
+Date: Sun, 13 Sep 2026 22:33:53 +0200
+Message-Id: <20260913203353.3295-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260912065534.238252948@linuxfoundation.org>
+References: <20260912065516.948645775@linuxfoundation.org> <20260912065534.238252948@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,64 +84,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In event_hist_trigger_parse() where it needs to create actions like
-"onmatch", it calls:
+Please hold this patch unless the applicable L2CAP hunks from upstream
+commit f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock") can also be
+included.
 
-  event_hist_trigger_parse() {
-    create_actions() {
-      action_create() {
-        trace_action_create() {
-          trace_action_create_field_var() {
-            create_field_var_hist()
+The connected receive path already holds chan->lock when it calls
+l2cap_sock_recv_cb(), so the lock added here recursively acquires the same
+mutex and blocks hci_rx_work.
 
-Where create_field_var_hist() does a loop on the hist_data
-representing the keys. The issue is, if the keys uses one of the
-pseudo field types (like common_cpu), the hist_data field element
-will have NULL for its field member causing a NULL pointer
-dereference when accessing the key_field->field->name.
+I reproduced this on the exact 5.10.270-rc1 tip
+f69aa74a82509ee94a2aac2822b4189496f267a8 in QEMU with two linked virtual
+BR/EDR controllers. One normal 64-byte basic-mode L2CAP SDU triggered
+lockdep's recursive-lock deadlock report, left the hci0 receive worker
+blocked in __mutex_lock(), and was not delivered to the receiver.
 
-  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int prio' > synthetic_events
-  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
-      events/sched/sched_switch/trigger
+With the two applicable f1a8f402f13f hunks applied, the same test received
+all 64 bytes, both endpoints completed, lockdep stayed silent and no worker
+was blocked.
 
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:create_field_var_hist+0x771/0x1380
-  Call Trace:
-   trace_action_create_field_var+0x360/0x600
-   trace_action_create+0x393/0xe80
-   event_hist_trigger_parse+0x3e47/0x69e0
-   trigger_process_regex+0x1a6/0x250
-   event_trigger_write+0xce/0x160
+The tested adaptation removes the callback's channel hold and lock, and
+adds channel locking within l2cap_conless_channel().
 
-Instead of accessing it directly, use the proper handler
-expr_field_str() to get the name.
-
-A .buckets key needs the previous patch to render, so apply that first.
-
-Cc: stable@vger.kernel.org
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 9d7ce01fda36..b43b83d7c6f3 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3097,7 +3097,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
- 	}
- 
--- 
-2.53.0
-
+Thanks,
+Karl
