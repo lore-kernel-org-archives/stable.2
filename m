@@ -1,123 +1,80 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A9B3EC808;
-	Sun, 13 Sep 2026 18:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B267437E304;
+	Sun, 13 Sep 2026 18:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789323580; cv=none; b=Mmkrx5u22OYnoCQWZcI34kx6QK4XwM08brNQ2dziNq1fPl4OUphAcsMWOibPIUI17Q5lCG6uEe2MEy0LhhmY1XV/mnrr6tTFY8p/zJeevDwCm/Fcqd4fYcA9AOQwUQG/E0X5fUw96kyjCewQa8wvH2wr3cIyKrnNrLN1izuAo7M=
+	t=1789323984; cv=none; b=WQGCQQ9EyKpC+RcTR3Aab2aIdolxBVFSDAHIbyP1/iU9QbNjJ9fGD3RdjY6LzGj13zTUcCEXqotdbGpeRJiftVeMCHBM7f1WvzO6WWnAaJ8t8znPR63U3yq6TyxCQkaBBSwp+o/pTUoDqUZQQJJVBM57VN27wBRsmW4TXMMUvoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789323580; c=relaxed/simple;
-	bh=p1h05sLqiUMH12fkllX1CsrbInUrqKMFt4kPBqvdxPY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0pbSpNPNMKtCkrqor611u7o7c5ZoQM7KYVGfZqezkkfbivWvER/Zw+xj0H1wT5pB5iAms/yj7N4KkCfszSM+mOrmw14RlrVfWhb661PNR11pYT/tIVt0KBq5XSH2dejs+34Y3Mi7TqClEu0QVvezrwkSgn6ZtmT7E9mR3q6JgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=s5BeSu2B; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ur14Yuqo; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789323984; c=relaxed/simple;
+	bh=aMz3LhyvzL0UNX+fKfz5MaMvXA88V+072oEqKjTlUrY=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=GccaZIC1Rid9EC9Q0bJktIdr9tAMXnKHtg/vAtnOi/YHYzBks1K7sLjaHVYDPgl3ltTiO9o/6XNoytY41gOZ35XWdxXFYiZQ6jJEU3LvvD3Vii3+4if1Whm8v1SNiaCP105gLsd0bqlfairQnIRJXUfzLzz7RGu49ffhh+vSVAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=Ej0G+AaO; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="s5BeSu2B";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ur14Yuqo"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1B92F7A0096;
-	Sun, 13 Sep 2026 14:19:36 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-05.internal (MEProxy); Sun, 13 Sep 2026 14:19:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789323575;
-	 x=1789409975; bh=PhpdmKFF4GKf25MNWIgC2ATD0QnH7wyB1H44aYeETLU=; b=
-	s5BeSu2BWQTE8yrpV7b6cmbzU27xv/tmm8NwcHZFjsIf5b+m8bE2P30qMa0MDQ3o
-	lcbBnU9pWfZAlCInmMSIJ9kmUta48QjhglNWXI7+A94rvmL+M5cRUU5uE+Bt7YZu
-	8U5qyZS+TK2C8xxRPNUyQx9eKNwX5CXDLXjL9N3oR0+GUBrvZ8pY01IHus9Qrqho
-	GUSzV3WEWtcqZ1f0RNTauRI55OQSzm4i/GDTWsnouvmXVQsBhrLax+6Izjk+RTbD
-	z0mAxTuxzNqA3XnsdJk2DosrVH5Ytl29xEktVc2nIzAOK8LCgo18HJWS45H6sRg4
-	a76pqzIkKs0yYZAf62iTAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789323575; x=
-	1789409975; bh=PhpdmKFF4GKf25MNWIgC2ATD0QnH7wyB1H44aYeETLU=; b=U
-	r14YuqoMHmHzQE0/AUVofjjJZHIUxdk4HR4ZsZxa3BbSsvRKmVyYx4gbp//QQ0SC
-	zbWq8pSyHLtpAo/LKthOV7aQuDmuk3kjeOhDsWbgVd2Mvpdepk3d6FATT1hT5gu1
-	oCL5GVK9MkGcdvw2pQw8bfzyklFMKRqAxC9G4pE/0ohE2et6vpq/i7E0MAUo+G9o
-	fqxpDsQvJWSWkY27Fa1F1XBgY7p1XFKWnySdl83mHCl+VWq+MPlSG0XytXR7IrvS
-	/x/Nl2Ivcu8PKrnZYm8/P5l/J3SFhgZQTzVXF/bWS+LgICpDrmuvoC9JX8edRrt/
-	PqZ8AIGgBZhr6C3WmieIw==
-X-ME-Sender: <xms:N-mmakn2hRixtB958whhZY5pcAhaxIqgHgwxzGllZrQTuQq4Ez4nVw>
-    <xme:N-mmavvBngF5pfYiSPmhDgXotMtiKR3lBqsZEhVOCASmt4CK7wbygOh9Qj8i1cV7z
-    m9Nn5JEcfAaXk5uNu9ijLSzg8O7YSLoGGxlhAB2zofwwz5aXmD1Ojc>
-X-ME-Received: <xmr:N-mmauIAWNnTsrFQP1qT5f_tcqlr6EtFwV8-IjXB6TkEJFgHS9bWaGzVVK6ItHY-uxyY-bf4x2Ed4WliACCBEFloe44iflA_>
-X-ME-Proxy-Cause: dmFkZTGVIe2lg9RCSkygrajC88+qgMM5GByuT+fLtPL9eQIqzjvQbPcRbCtHdceXg15BId
-    21NxmSYn3EvxUtTwF7Jh3G3nXAa0q/qrRrtqZlMRUcB51rC5wKrcez9J0Gu88Y4K+pAMKi
-    B5ULlMOYfnvYs8/4csWQwOBiZMXwIikDyips2EYA6cxXzHJCHKlMEgyarEl99QoGC9tThz
-    SseXnd0DNgFqwpiXgjUWsBTM3EtW6+j4HoWasrrsDyVwNUWZ7gkWfjykkQyKW+qVISrosl
-    1aD3xp8PtvhN0Llky9kS+ItxcwuDmrAYJ4QpnZ69MfkpWpVoB3JBKlMmad6UNYorPLx9k2
-    46z45FEngR/amAlYBSLC0btDp7O1YjTjvmVIs3NLMQOB84pepXb2+QpQ2aK4/4+tTFKESu
-    k5RUCc27vCKZCKclBRVB1BVh9z6azTFr26UVWd+tXhpBQX4Raw4fOLboGhGDpcrrsQuUWM
-    lek4Ws24saxPnzjYa80+Bu3EV7cai5kHGkGx+vDcEVGANRVZtuz+q6v9+CcWozHWYkyAqx
-    TRyY+l0xCvyBYhV/VPcshG8awP39EAuVYXVYiXUDwUcKq+YPonF4/sqcrvRtOr2hEyXixC
-    bRN5F8Yh5a8yYq+09pXsbO/JxPOP5egcYkKoU3Nd7HzEoTK5UFrQ3YfXuS2Q
-X-ME-Proxy: <xmx:N-mmakhWDrtDrAfxzlyQqKM6jTeabOsx1XZpWfE0-Y7i1TE_AdFjFg>
-    <xmx:N-mmaqsla_zjyPV1IgH7zI_eGVSjBSKFFp99ibAlqyB41lojCvlK0A>
-    <xmx:N-mmamhCdoGV_N21jjoLOVQW3I7NQks3_YZqKDouN7_JlH-AzzSVwg>
-    <xmx:N-mmatfXrdAoIHn6FSLDQ3Gil5-P8NbovF4QGX3ouZdZ-j5mfyV6aw>
-    <xmx:N-mmaqJ5kD55Fhxt1pSPXImW09ghDJQM-F1ibnMqDQsePfVjRzj39yYF>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 13 Sep 2026 14:19:32 -0400 (EDT)
-Message-ID: <75359a50-409f-452b-a455-780de8344a01@pobox.com>
-Date: Sun, 13 Sep 2026 11:19:30 -0700
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="Ej0G+AaO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ppfZBqrKZfnd3U/kNsshWPsEGj74HFB25woC8i2RF7s=; b=Ej0G+AaOzSYcGkTEjAO4cwHLjo
+	aisgARYX/5UgFaJuC/jPP2J4OF0DUzoLiSW+vECox5sJxeg0w76GSoQbjIAQNhIygUlBtYHn5fjBX
+	nauPq3n1gX5MWnLFm+Vdt2dkScnuiFt1JqS5LKpOL7aN/kzhxc5ew/meTB+wTdwjsbFJOa9ccvZwg
+	J7f/vS35+uHz8tLoMX5oOat1KqFz9cLhV91c3+awKEp69UX+2jG6ye+LeTxcLDSFBkl2bpgr5Ijkw
+	PU7Q/+ly51q+fYIBVanN40sLgjJR1ZdGCqzJ6aBHUspXL7eRt86a/u0ewWx47XsLUO8hm8K8XU58r
+	WFbEs7Wg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x5ou2-00000001LCP-1GWL;
+	Sun, 13 Sep 2026 15:26:10 -0300
+Message-ID: <dacbe87f887b4ce6c93846c8d34c162e@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org
+Cc: syzbot+5003556314abc915a71f@syzkaller.appspotmail.com, David Howells
+ <dhowells@redhat.com>, Shyam Prasad N <sprasad@microsoft.com>, Ronnie
+ Sahlberg <ronniesahlberg@gmail.com>, Tom Talpey <tom@talpey.com>, Bharath
+ SM <bharathsm@microsoft.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] smb: client: cancel reconnect work in
+ clean_demultiplex_info()
+In-Reply-To: <20260912152008.392251-1-pc@manguebit.org>
+References: <20260912152008.392251-1-pc@manguebit.org>
+Date: Sun, 13 Sep 2026 15:26:09 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065648.999753832@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/11/26 11:29 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.6 release.
-> There are 1815 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.6-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Paulo Alcantara <pc@manguebit.org> writes:
 
-I tested 7.2.5 + stable-queue as of commit
-5bd01cb1b5d8bdc0b5480752350d2b0f2d487986
-("drop 3 orphaned perf prerequisite patches from 6.18")
-on my Lenovo ThinkPad T14 Gen 1. Working well, no regressions observed.
+> clean_demultiplex_info() cancels server->echo delayed work but not
+> server->reconnect, which can cause a use-after-free when the
+> demultiplex thread exits while a reconnect work is still queued:
+>
+>   cifs_demultiplex_thread()
+>     cifs_readv_from_socket()
+>       cifs_reconnect()
+>         __cifs_reconnect()
+>           cifs_queue_server_reconn()
+>             mod_delayed_work(cifsiod_wq, &server->reconnect, 0)
+>     clean_demultiplex_info()
+>       cancel_delayed_work_sync(&server->echo)   // echo canceled
+>                                                  // reconnect NOT canceled
+>       kfree_sensitive(server)                    // server freed
+>
+>   ...later, on cifsiod_wq:
+>
+>   smb2_reconnect_server()
+>     server->srv_count  // UAF read of freed server
+>
+> Fix this by canceling server->reconnect delayed work in
+> clean_demultiplex_info() before the server is freed, the same way
+> cifs_put_tcp_session() already does.
+> ...
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Applied.
