@@ -1,92 +1,137 @@
-Received: from out198-177.us.a.mail.aliyun.com (out198-177.us.a.mail.aliyun.com [47.90.198.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720D12D8399
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 01:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCD32DCF67
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 01:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789261960; cv=none; b=pfo7z38GWtGV5OKaywwTkgOoIr5KlCByEhqyqhYw3ksooJp7cqc/Hj1Pn4xRNX+xF4e0AR29z8O2MBAoILXnZcqzjzx8K07ElS/D4Z7DzMhX9Hc028mkKvOWg8woWyNacV8u6kBQp/CLysxGWN8/5/0kepu3FSf0HjKzPQDtwqk=
+	t=1789263824; cv=none; b=jLO7ZKlmQOdQpXNjHCKx8IWAwE4YcwTc+i3sHu4boDmTlIaHi8k7S1+1GIhvazMBMXJB+L56F+CJSZWSe1oPzAaMMRdzPe434Kt5XifwI4FNmvoFyn0FegjaDAyKsbKt90qwcZRMM2bTFaAVm2y3iDQU/bg007CI3PLJCFSAayI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789261960; c=relaxed/simple;
-	bh=b7WY0ahVn/aE/5FGCh46x1pEbKQLLTPOFjFRjZxGpQ8=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:Message-Id:
-	 MIME-Version:Content-Type; b=DOPCEy9aWSWiNcNKU9+MsuwiKXKLbCENxRo2u2hioKgYkoqXOfuN4fpj5cxqwGbk9frjDGL/yi/2OmxhEgms39S09T7ncrxlhCQYubx0k7w4BJUo+SpgmJF84cM7ur8m1xRQgTW+OLTc/yc9nwZoesH9jqRt3Cxm13fNNZzS0ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com; spf=pass smtp.mailfrom=e16-tech.com; arc=none smtp.client-ip=47.90.198.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e16-tech.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04675983|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.00318378-2.85123e-05-0.996788;FP=16853340347964188643|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=wangyugui@e16-tech.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jCJT4pX_1789261007;
-Received: from 192.168.2.112(mailfrom:wangyugui@e16-tech.com fp:SMTPD_---.jCJT4pX_1789261007 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 13 Sep 2026 08:56:49 +0800
-Date: Sun, 13 Sep 2026 08:56:49 +0800
-From: Wang Yugui <wangyugui@e16-tech.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.18 0908/1518] perf c2c: Use perf_env e_machine rather than arch
-Cc: stable@vger.kernel.org,
- patches@lists.linux.dev,
- Ian Rogers <irogers@google.com>,
- Namhyung Kim <namhyung@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>,
- Honglei Wang <jameshongleiwang@126.com>,
- Jan Polensky <japo@linux.ibm.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>,
- Thomas Richter <tmricht@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Arnaldo Carvalho de Melo <acme@redhat.com>,
- Sasha Levin <sashal@kernel.org>
-In-Reply-To: <20260912065643.993908175@linuxfoundation.org>
-References: <20260912065623.398859879@linuxfoundation.org> <20260912065643.993908175@linuxfoundation.org>
-Message-Id: <20260913085648.B79E.409509F4@e16-tech.com>
+	s=arc-20240116; t=1789263824; c=relaxed/simple;
+	bh=xbqmWE7TjVXjZipAzoB6FiWnOv6WAhfUg92RHYzDPuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LW9pvKJm2Z1P6oc04+X5d2ILRhkbFsa0mxPqoeIw3EvDDHAVKUIGZOZJnq4EReRr8xYvPDAFDbfi8ri+p2kb7idw30M/+E0mXkvxSdvFX/FAnyTGGgfxsV5wzNsoI1i4kE9WW3cAqLSHZyX5cAbWx0dQdAWAA+mgexadnsMwohA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV1702K3; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV1702K3"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76c9df1so12953151cf.3
+        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 18:43:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789263822; x=1789868622; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
+        b=LV1702K31p9vOXXy4tMlpZ17y2Ok8J6yKTTmvV7uishbEAxzinjkbXFqK/m55hR2nG
+         SV23I2+vuHaRJ+6yRl0H8aUSY9AjU0y7gR5LP49lQxwVcf1wWtOxVC/DuGOURyYlfsbw
+         TTzhgweGhF2Vp2glF5bgAdiitoj0LWRyitc04pBmzIXdSpiI7Wc85MroXtmZiJgFwu0x
+         ZDQLYESd2G/vfTgzIajFGV22FXwpnZ1OifvHfHRTuF3sKOwTbhQLGv2LA63ScC3y5JPp
+         9kbMXSv34k8FzayiVrZJYG56c82QZgittsZBBE0JlFL5gnw5wX43EoEddIUJYGGmyZET
+         XJAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789263822; x=1789868622;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
+        b=bUvF2zDLmx+DZVFm4Qq91p62bAv2qAtCnAHS0NSYEtdwiXRZMyY7si8+2+u6/DEG6e
+         Cv8LpYDrwhhpuzt099d1uVa7AL2KlxxpiDvPuBf+Xmc8o9Ghu/J/6kZNHYsQl2vFXWO1
+         4nl3oDzJVTFFYPHFX8QZ2gViopmMVbISV0VC/wDZPImxgkA7ARqgduw1DI4XtBvb/rVM
+         mRXoxbEOD4Ec76RVRf2Mdc82csSL7QsRmkblA2eRav758LhmI/8NG04YEgD45F5fL4dV
+         EA4kHIxgXABcTmyrYBz6DR6SHoBiKA6HM6DPT3EUcv7IAz5Zr1tFMIhd59MmJUY1WeFw
+         RZjw==
+X-Forwarded-Encrypted: i=1; AKwUvBygfBNM1WvCNaBXnxdXoriV8m46DQCen5kP09U3Y4ArOWx1QE3J1w37IxPNE4qN1t12vZYP4RE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7ULvgtq1CRAjYuF0kShgLCAeUIgOsRs8bCeaY7X07T/5C1JCh
+	dIrW+YFThZEjwOtYUy2afWYG3Z1vE9s29yyTCN5RWj3d4mTXOzIUh64=
+X-Gm-Gg: AYBFou2E8GVAbsVjc2qx3+qq96uLWjxKHa0CPxZfbd7wb0+Y1OYpnL9FITHdK1dvl20
+	lANCSud8fT8W8eFX1siYRSB5pSVldAiEv6AzoCNETb/mu8A8uvL4jd6YtNkrRCq2rtTeOmElwLB
+	GhX66JXiNrTd1T2Rh3XIcm7CeCQcpAusFLlSW9+FNqmIIaVhHG2//WWvoClEAqYNeiXHdJPtxVA
+	F2Bux6VPZviB0Rqu6ZQEJcNx4nJGhOPpik24u6exUIHBVIY7+XoWBYgKfAk5HSb6MvOJDFyFmte
+	e/yt6Ha/PzpnMxLj/D1b+vYcdBHGCXx2kfCQB48PK5w/9mvARb0xcSgWG17tGVgFYAhhiUrE0uu
+	GF9XdopTQ/YHq/EoZYdsr0X5uAspyoLaD1htrXLsvthBZyGu9zE3QxUOncxDpTCZaLsINR9+ZWp
+	RBU2HH6I3HtzPOEddzz4H+Bm6SfdXoT2Tq0w31pmJGNLH+lUUXTg2KSJXwGJ1mIvp/P+m2xU0tN
+	z/u34YxdeqJ4ZdUfnffsj2YZ9NOjJXak0I3Ack3ZYT1WjThXDr2vq1Po7ycTmZIi911PK58wtZm
+	aB1zzsSAY5UptCWSf/k5ZxJkHCZYB+EqHg==
+X-Received: by 2002:a05:622a:138c:b0:530:fc42:f4bf with SMTP id d75a77b69052e-530fc42f6fbmr4960731cf.24.1789263821700;
+        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm59685581cf.6.2026.09.12.18.43.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Jacopo Mondi <jacopo@jmondi.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Akinobu Mita <akinobu.mita@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: i2c: ov772x: power off sensor on ID read errors
+Date: Sat, 12 Sep 2026 21:43:35 -0400
+Message-ID: <20260913014335.37568-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Becky! ver. 2.83.03 [en]
+Content-Transfer-Encoding: 8bit
 
-Hi,
+ov772x_video_probe() powers on the sensor before reading the product and
+manufacturer IDs. Since the register read error checks were added, any read
+failure returns directly and leaves the clock enabled and the powerdown
+GPIO asserted.
 
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Ian Rogers <irogers@google.com>
-> 
-> [ Upstream commit 70b3c4f734bbfd5664cd6e4eb007c108bf2b1c43 ]
-> 
-> Use the e_machine rather than arch string matching for AARCH64.
-> 
-> Add include of dwarf-regs.h in case the EM_AARCH64 isn't defined, sort
-> the headers given this include.
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> Acked-by: Namhyung Kim <namhyung@kernel.org>
-> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-> Cc: Heiko Carstens <hca@linux.ibm.com>
-> Cc: Honglei Wang <jameshongleiwang@126.com>
-> Cc: Jan Polensky <japo@linux.ibm.com>
-> Cc: Sumanth Korikkar <sumanthk@linux.ibm.com>
-> Cc: Thomas Richter <tmricht@linux.ibm.com>
-> Cc: Vasily Gorbik <gor@linux.ibm.com>
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> Stable-dep-of: f53f5c2437c1 ("perf c2c: Fix error masking, OOM, and unchecked caller errors in hpp_list__parse()")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/perf/builtin-c2c.c | 40 ++++++++++++++++++++++------------------
->  1 file changed, 22 insertions(+), 18 deletions(-)
+Route those failures through the existing power-off path. This covers the
+old OV7720 and OV7725 sensors while preserving the direct return when
+power-on itself fails, the product-ID mismatch path, and control setup
+behavior.
 
-Please drop this patch for 6.18.y because of build failure.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-builtin-c2c.c:3277:21: warning: implicit declaration of function 'perf_env__e_machine'; did you mean 'thread__e_machine'? [-Wimplicit-function-declaration]
- 3277 |                 if (perf_env__e_machine(env, /*e_flags=*/NULL) == EM_AARCH64)
-      |                     ^~~~~~~~~~~~~~~~~~~
-      |                     thread__e_machine
+Fixes: 30f3b17eaf49 ("media: ov772x: add checks for register read errors")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/i2c/ov772x.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Best Regards
-Wang Yugui (wangyugui@e16-tech.com)
-2026/09/13
+diff --git a/drivers/media/i2c/ov772x.c b/drivers/media/i2c/ov772x.c
+index be3ba284ee..e20a109d60 100644
+--- a/drivers/media/i2c/ov772x.c
++++ b/drivers/media/i2c/ov772x.c
+@@ -1280,10 +1280,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
+ 	/* Check and show product ID and manufacturer ID. */
+ 	ret = regmap_read(priv->regmap, PID, &pid);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 	ret = regmap_read(priv->regmap, VER, &ver);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 
+ 	switch (VERSION(pid, ver)) {
+ 	case OV7720:
+@@ -1301,10 +1301,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
+ 
+ 	ret = regmap_read(priv->regmap, MIDH, &midh);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 	ret = regmap_read(priv->regmap, MIDL, &midl);
+ 	if (ret < 0)
+-		return ret;
++		goto done;
+ 
+ 	dev_info(&client->dev,
+ 		 "%s Product ID %0x:%0x Manufacturer ID %x:%x\n",
+-- 
+2.47.1
 
