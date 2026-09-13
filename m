@@ -1,78 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF373CB2FD;
-	Sun, 13 Sep 2026 10:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89723A05C2
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 11:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789296258; cv=none; b=CmeJOXEVnG1EO88eqzYLo02P4SvNd2qGFsF6jREMmKMnreogEIAB0lnqMEXpYPwu+fpxr6GdiaEOEr6g2SGPHhdFXXioOc2dJMLJRHBZ/tfXqi0PZk6sMy9Vovlwcc2bgHBFwZPfUMU0lwq2f4/v2K+05zcoqxviDBLtQSUgfYc=
+	t=1789297877; cv=none; b=moJLKS+lATlxwlJqSA4Gy0E4sgHporqOhHy0oR3E1k7/QWsczAGWkC38P5BD5ZCdMAG8GhJeG7GFSj/LlAIBTWF5lQiQdnIzcouLJTpiuXbAt5SWdgRbojIhTCbWghs4+GJPZxO4L45fWSe3ylYwUmi62kCkfLMbwgVIUBw7gqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789296258; c=relaxed/simple;
-	bh=R4zv/+qgaxKYYjj4ptEKF3BHXO7w7M4iLZZ2AlXw7R8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tXyc+Fjdkv/5xW6NRBPGSYYsZP1D2Kpq5j0e8DC+Y1Wfonx+HHUwy9UoUyBOlZbwB2diNSXAgXbw1PmJvMgpnR83vXv/aGaRBqHNFaz5/JuJT5xSrKXzD3Dtin+PWd81anZDZb696n5afKsq4SgsA3wLP+OZMDc+Va5S/vORgbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djcJx+Tl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789297877; c=relaxed/simple;
+	bh=o/crwe87fYD7qW90Fm+rwOvNErVmvLHTv/kmQxU6Cxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lNOrpfcbooH8GOU4465YdcI+Ga/0DA6G3hYyCCfsE2ATi+tTCQ0kT5sI9Bjrpw2YiEDHDhq/z15EbvNTuRScGSkjpn7VHM5uzHgzcfzMFIZGEIjXBS8LgNZ6S0WHAeGoY7GeDhnf630DzhoD7+bIkGoUNN710NsFuRyOZxamTvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=FUrP9qBP; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djcJx+Tl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EFF1F000FF;
-	Sun, 13 Sep 2026 10:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789296257;
-	bh=cS1Ju2GfKqEA/FP9zJHnQJwF6JmphHpLlloN1nGWOQo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=djcJx+TlSn6dwlhznxWXYMpg0j3ZzKupXcM4XcdsbX954BAsSfnM7DO6mf+ug5sbE
-	 3pk9f3ZGOCsDG/tBpL2eqrSq0iAisZnZidiB3WIMYvz6d6q4rnetQd2wjIYBnlkp4P
-	 Rjwt+KFcl0wrv/VtEgBYuz1yDLTWj2KVre2rO7wVU8VFzSl+cLLaZ4rNfqcsEdrFNa
-	 vNt9x7a0ROJK4rdc/hHg2eKENGsFtdf02yeWmRRbmsNhmgTjvnJYTQGsQlkSlTmpcA
-	 hx8oQsSyVpLbRyA4TTDQWnHeIghwSXZMGgrQR3H/oIvYeobJ30ikpMQmzCMr5oDocw
-	 wRXutpvjPQrug==
-From: Vinod Koul <vkoul@kernel.org>
-To: yoshihiro.shimoda.uh@renesas.com, neil.armstrong@linaro.org, 
- geert+renesas@glider.be, magnus.damm@gmail.com, 
- prabhakar.mahadev-lad.rj@bp.renesas.com, 
- Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org, 
- Pavel Machek <pavel@nabladev.com>, Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-In-Reply-To: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
-References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
-Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
- atomic context
-Message-Id: <178929625199.194170.14605036307704113858.b4-ty@kernel.org>
-Date: Sun, 13 Sep 2026 16:14:11 +0530
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="FUrP9qBP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1789297868;
+	bh=o/crwe87fYD7qW90Fm+rwOvNErVmvLHTv/kmQxU6Cxc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FUrP9qBP68NCSH2N0GSVG7tv1tgMOsq07FGl6q8Lfu1wCg4yiqh+0E8lrQbremPE4
+	 Dn5b5uusF8oe7PINveHJyOnQQqnic9bBzZSr/MBMDpInnNnxuQZDDaC8ugi1BhKgxU
+	 HCUCMNGOMqdEY2s3lGwKZWNMAlPyltulRRUDK1kk=
+Date: Sun, 13 Sep 2026 13:11:07 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Thomas Gleixner <tglx@kernel.org>, 
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.18 0248/1518] timens: Remove dependency on the vDSO
+Message-ID: <836d73d0-163b-458b-8481-60185f88d577@t-8ch.de>
+References: <20260912065623.398859879@linuxfoundation.org>
+ <20260912065629.093403177@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912065629.093403177@linuxfoundation.org>
 
+Hi Greg,
 
-On Thu, 16 Jul 2026 21:32:46 +0300, Claudiu Beznea wrote:
-> The OTG PHY initialization sequence needs to wait for 20 ms at a specific
-> step, as described in commit 72c0339c115b ("phy: renesas:
-> rcar-gen3-usb2: follow the hardware manual procedure").
-> 
-> Commit 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware
-> registers and driver data") tried to address various problems in the
-> rcar-gen3-usb2 driver and converted the mutex protecting HW register
-> accesses to a spin lock, leaving, however, a long delay in the critical
-> section protected by the spin lock. This may become a problem,
-> especially on RT kernels.
-> 
-> [...]
+On 2026-09-12 08:40:17+0200, Greg Kroah-Hartman wrote:
+> 6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Applied, thanks!
+I object.
 
-[1/1] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
-      commit: 48e97c59a49c9e90270f5e3d221db253b76de5da
+This now lets SPARC enable time namespaces. But the SPARC vDSO can not
+handle those (yet, in v6.18). Userspace will read incorrect data
+from the vDSO inside a time namespace.
 
-Best regards,
--- 
-~Vinod
+(...)
 
+> Stable-dep-of: 06aba58e5849 ("time/namespace: Validate nanosecond field in proc_timens_set_offset()")
 
+This does not look reasonable to me. The mentioned commit should be
+backportable as-is, without pulling in four additional patches.
+
+If you want to keep this patch, at least drop the deletion of
+
+	"depends on GENERIC_GETTIMEOFDAY"
+
+Thomas
+
+(...)
