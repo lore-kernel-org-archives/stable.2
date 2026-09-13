@@ -1,69 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E64935F197
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39ED37DAD5;
+	Sun, 13 Sep 2026 18:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789324769; cv=none; b=Bw4BE9w/di7/YZA9EJ5hFfO6MtKVfho0glBrV6MLfRlRlfj3jzkcPOcBhyrKThAUH5qE2lT+wfQzZ7VvexSMg+BrYvJQ0BxkH9vkVMHFYRReyrxqnOzEyZ+V5Slb2dyND6nHtoozSnc33nhZDawK6miW8ZOiBBziT3wzQmHPBWU=
+	t=1789325333; cv=none; b=WA5+pwjRIX2B+BhPs63of++TeOv7yMaSLPuB+TZf+DU87HdixaVdca4fD0eU9Uc+EYfnv1ohMdHLM3oRunKLxYPyoPKNNBSWhA3rlnrACQw6JwAKNx8I7PArsc28AhjkqR723Cf2hFst6HBj6EIqbBXVulqVAW4maD9hwyi1bz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789324769; c=relaxed/simple;
-	bh=S/dTRtwG+DbDGzbQHvsbKx3/xNFn74bHGIAb8QCFSps=;
+	s=arc-20240116; t=1789325333; c=relaxed/simple;
+	bh=YpHQsc2Iy2Bk0FTSZfSYiNgSZKWCUQ3aj1Ad5T/x6Os=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y3jifTvHH9sIRnWJuEmX6TRvdM45/lss5dY/w7Ubr3HfnAwWxedFqICwkG+Dot2WIWYaMe2VkOk6gCwNpOqOzTkbP2LDK006VXiqd1AFiGJmCmkAmkyR+ZBPbtf/nMxnrBDX5BXyYSveA0Hw8wWHPIkayA5Xf+RafxvqXdRGRnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UnvfAmbm; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CGJR7a2FT23XtmmL/idjCtMvVcpOLVQXODkfpoIFNCrtc4hbwwGqzIN5Z0ZVC77QQM671Df+pcMFccwEzcx5mnmlOQw3OvPt8rMsL3+74+sn4ISrbCnSoGpeFAziNMQmgtXKuNC+99Dn24Qol9uz385HfCYzzQbBt04KEVnyphw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItY4COLM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UnvfAmbm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789324766; x=1820860766;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S/dTRtwG+DbDGzbQHvsbKx3/xNFn74bHGIAb8QCFSps=;
-  b=UnvfAmbmAgjnf11oFeWKS9mc02Hw/upQGmPC4PbgC6kvhAJw/xVceJrV
-   VVJqmJ4Dk5xddbAOaUrNKwbM2ObLRoKdrY/es+OVMdl/hiMAYzuUCZMpB
-   rI2ltxsf8qmQX0vK72uzN6YG+hsTEBOSyvjDZIvsFszDj1Lj6zTQoxg0u
-   GZvaIrt/gJ/8KMzfmEhSfZa7aW1tu5i4ee0BIbnlMptldsM/7HbNbAjQh
-   RLaxhUrdPNlIjDHxJPnQfaacn0nsbfe0RoNGlH2z3wbQc68n4wbPqdhS8
-   3cDLi8OqwnCT2JNyXeVVgRPaxl0pnSi5lPAKJZO8bBaTtZoD1FDhOtxDh
-   w==;
-X-CSE-ConnectionGUID: WdxWV5/JR5Ca1t7lgff9Jw==
-X-CSE-MsgGUID: Yk8pGqD/QDKJ7tzbvl27kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="202774"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="202774"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 11:39:25 -0700
-X-CSE-ConnectionGUID: 3fgEI9voSUaVKSeMfqMVaQ==
-X-CSE-MsgGUID: vOP+KrZSQJ2pN5TWGrb7YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="297457864"
-Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 11:39:25 -0700
-Date: Sun, 13 Sep 2026 11:39:23 -0700
-From: Andi Kleen <ak@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	James Clark <james.clark@linaro.org>,
-	Ian Rogers <irogers@google.com>,
-	Colin Ian King <colin.i.king@gmail.com>,
-	Howard Chu <howardchu95@gmail.com>,
-	Weilin Wang <weilin.wang@intel.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Athira Jajeev <atrajeev@linux.vnet.ibm.com>,
-	Michael Petlan <mpetlan@redhat.com>,
-	Veronika Molnarova <vmolnaro@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.12 1009/1376] perf test: Display number of active
- running tests
-Message-ID: <aqbt2-Kh76GZxmPK@tassilo>
-References: <20260912065607.535295758@linuxfoundation.org>
- <20260912065630.052286725@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItY4COLM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79701F000FF;
+	Sun, 13 Sep 2026 18:48:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789325331;
+	bh=jb/hhwiK/UcdPAYGlSzJUb1U4vkmWKdi+D5nmTCyiwc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ItY4COLMkAOPfq5upFo8+NRTEgTDJTWe71lMpMoYvx0ForD2G2ynjMLUv2Mnqq/Jo
+	 C6CeqeBAIXxivARXiF0/4f1ecs//FHJoa5wN0EJkQq+rGGS9/FtWk79Jh/I5fzCZqr
+	 hwZMMnyXadBtXtpmEgWarpdPi/AIA3J8c2CWRh5gPKngo4zKqcGydp/CKNne6/zAAA
+	 xhozv6PlZTBw0YRIbYlFzREHen/VOfCFQhbe5rxQ9EHEZqVlV/OGyByRAIrjc6ugl4
+	 2+ME+jKjjsts8211xwWo0ZHPTCfQl7vVJN1Ht8x9Tq0kbu4rKkT8V0GtXuT6+HfY08
+	 SX9dpAjXFMf0g==
+Date: Sun, 13 Sep 2026 19:48:44 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Hugh Dickins <hughd@google.com>
+Subject: Re: [PATCH v2] khugepaged: hold invalidate_lock across
+ collapse_file() readahead
+Message-ID: <aqbvFtlXd3Jdnfbm@gremlin>
+References: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
+ <20260913163644.122133-1-ngocthang2710.1999@gmail.com>
+ <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,238 +51,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260912065630.052286725@linuxfoundation.org>
+In-Reply-To: <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
 
-On Sat, Sep 12, 2026 at 08:57:15AM +0200, Greg Kroah-Hartman wrote:
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
+(Nguyen - do not send v2 in reply to v1, look across mm and see how things are
+done here).
 
-It's hard to see how these 6 perf test patches are stable material.
+somebody who has a
 
-They seem at best be nice to have.
+On Sun, Sep 13, 2026 at 11:17:00AM -0700, Andrew Morton wrote:
+> On Sun, 13 Sep 2026 23:36:44 +0700 Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com> wrote:
+>
+> > collapse_file() calls page_cache_sync_readahead() to fault in missing
+> > pages before collapsing them into a THP. That helper takes
+> > mapping->invalidate_lock itself for the duration of the call, then
+> > drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
+> > takes invalidate_lock and then waits on each page's folio lock while
+> > holding it. If collapse_file() has already locked one of those folios
+> > by the time truncate reaches it, and then tries to acquire
+> > invalidate_lock again (e.g. on the first readahead call, since
+> > invalidate_lock is not yet held at that point), the two paths can
+> > deadlock/hang on each other's lock: truncate blocked on the folio lock
+> > collapse holds, and collapse blocked waiting for invalidate_lock that
+> > truncate holds.
+> >
+> > Reproducing this over ~150,000 collapse iterations with truncate
+> > racing concurrently reliably hits hung_task: blocked tasks within
+> > about 20 seconds on an unpatched kernel.
+> >
+> > Fix it by taking invalidate_lock_shared once for the whole scan, after
+> > alloc_charge_folio() succeeds and before locking any folio, and using
+> > page_cache_ra_unbounded() directly in the readahead call site instead
+> > of page_cache_sync_readahead(), since the latter would try to retake
+> > the lock we already hold. page_cache_ra_unbounded() does not clamp to
+> > EOF like the helper it replaces, so clamp the requested range
+> > explicitly.
+> >
+> > 730633f0b7f9 added invalidate_lock acquisition around readahead but
+> > missed collapse_file(), which already locks pages while calling
+> > readahead; later filesystem conversions made the deadlock reachable by
+> > taking invalidate_lock before waiting on page locks during truncate.
+> >
+> > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> > Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+>
+> (You forgot to cc the original author)
 
+Also a change log, and that mm doesn't like sending a respin in-reply-to a
+previous version. Which is all consistent with somebody using e.g. openclaw to
+pepper generated patches across the kernel...
 
--Andi
+>
+> Five years.
+>
+> I wonder why this hasn't been discovered by lockdep, AI, syzbot or any
+> other of the tools we've been using for so long.
+>
+> Thanks for doing all this.
 
+See https://lore.kernel.org/linux-mm/aqbtfms0_2ULBIT7@gremlin/
 
-> 
-> ------------------
-> 
-> From: Ian Rogers <irogers@google.com>
-> 
-> [ Upstream commit 0e036dcad4e62b89f8df3e41402babb9345521af ]
-> 
-> Before polling or sleeping to wait for a test to complete, print out
-> ": Running (<num> active)" where the number of active tests is
-> determined by iterating over the tests and seeing which return false
-> for check_if_command_finished. The line erasing and printing out only
-> occur if the number of runnings tests changes to avoid the line
-> flickering excessively. Knowing tests are running allows a user to
-> know a test is running and in parallel mode how many of the tests are
-> waiting to complete. If color mode is disabled then avoid displaying
-> the "Running" message as deleting the line isn't reliable.
-> 
-> Tested-by: James Clark <james.clark@linaro.org>
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> Cc: Colin Ian King <colin.i.king@gmail.com>
-> Cc: Howard Chu <howardchu95@gmail.com>
-> Cc: Weilin Wang <weilin.wang@intel.com>
-> Cc: Ilya Leoshkevich <iii@linux.ibm.com>
-> Cc: Thomas Richter <tmricht@linux.ibm.com>
-> Cc: Andi Kleen <ak@linux.intel.com>
-> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Cc: Athira Jajeev <atrajeev@linux.vnet.ibm.com>
-> Cc: Michael Petlan <mpetlan@redhat.com>
-> Cc: Veronika Molnarova <vmolnaro@redhat.com>
-> Link: https://lore.kernel.org/r/20241025192109.132482-3-irogers@google.com
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> Stable-dep-of: 44e82c4d2ff3 ("perf test: Fix skiplist leak in cmd_test")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/perf/tests/builtin-test.c | 93 ++++++++++++++++++++++-----------
->  tools/perf/util/color.h         |  1 +
->  2 files changed, 63 insertions(+), 31 deletions(-)
-> 
-> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-> index 4f2f941bd1feb..3b6743a3232c1 100644
-> --- a/tools/perf/tests/builtin-test.c
-> +++ b/tools/perf/tests/builtin-test.c
-> @@ -246,7 +246,10 @@ static int run_test_child(struct child_process *process)
->  	return -err;
->  }
->  
-> -static int print_test_result(struct test_suite *t, int i, int subtest, int result, int width)
-> +#define TEST_RUNNING -3
-> +
-> +static int print_test_result(struct test_suite *t, int i, int subtest, int result, int width,
-> +			     int running)
->  {
->  	if (has_subtests(t)) {
->  		int subw = width > 2 ? width - 2 : width;
-> @@ -256,6 +259,9 @@ static int print_test_result(struct test_suite *t, int i, int subtest, int resul
->  		pr_info("%3d: %-*s:", i + 1, width, test_description(t, subtest));
->  
->  	switch (result) {
-> +	case TEST_RUNNING:
-> +		color_fprintf(stderr, PERF_COLOR_YELLOW, " Running (%d active)\n", running);
-> +		break;
->  	case TEST_OK:
->  		pr_info(" Ok\n");
->  		break;
-> @@ -277,14 +283,17 @@ static int print_test_result(struct test_suite *t, int i, int subtest, int resul
->  	return 0;
->  }
->  
-> -static int finish_test(struct child_test *child_test, int width)
-> +static int finish_test(struct child_test **child_tests, int running_test, int child_test_num,
-> +		       int width)
->  {
-> +	struct child_test *child_test = child_tests[running_test];
->  	struct test_suite *t = child_test->test;
->  	int i = child_test->test_num;
->  	int subi = child_test->subtest;
->  	int err = child_test->process.err;
-> -	bool err_done = err <= 0;
-> +	bool err_done = false;
->  	struct strbuf err_output = STRBUF_INIT;
-> +	int last_running = -1;
->  	int ret;
->  
->  	/*
-> @@ -298,7 +307,7 @@ static int finish_test(struct child_test *child_test, int width)
->  	 * Busy loop reading from the child's stdout/stderr that are set to be
->  	 * non-blocking until EOF.
->  	 */
-> -	if (!err_done)
-> +	if (err > 0)
->  		fcntl(err, F_SETFL, O_NONBLOCK);
->  	if (verbose > 1) {
->  		if (has_subtests(t))
-> @@ -312,38 +321,60 @@ static int finish_test(struct child_test *child_test, int width)
->  			  .events = POLLIN | POLLERR | POLLHUP | POLLNVAL,
->  			},
->  		};
-> -		char buf[512];
-> -		ssize_t len;
-> -
-> -		/* Poll to avoid excessive spinning, timeout set for 100ms. */
-> -		poll(pfds, ARRAY_SIZE(pfds), /*timeout=*/100);
-> -		if (!err_done && pfds[0].revents) {
-> -			errno = 0;
-> -			len = read(err, buf, sizeof(buf) - 1);
-> -
-> -			if (len <= 0) {
-> -				err_done = errno != EAGAIN;
-> -			} else {
-> -				buf[len] = '\0';
-> -				if (verbose > 1)
-> -					fprintf(stdout, "%s", buf);
-> -				else
-> +		if (perf_use_color_default) {
-> +			int running = 0;
-> +
-> +			for (int y = running_test; y < child_test_num; y++) {
-> +				if (check_if_command_finished(&child_tests[y]->process) == 0)
-> +					running++;
-> +			}
-> +			if (running != last_running) {
-> +				if (last_running != -1) {
-> +					/*
-> +					 * Erase "Running (.. active)" line
-> +					 * printed before poll/sleep.
-> +					 */
-> +					fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
-> +				}
-> +				print_test_result(t, i, subi, TEST_RUNNING, width, running);
-> +				last_running = running;
-> +			}
-> +		}
-> +
-> +		err_done = true;
-> +		if (err <= 0) {
-> +			/* No child stderr to poll, sleep for 10ms for child to complete. */
-> +			usleep(10 * 1000);
-> +		} else {
-> +			/* Poll to avoid excessive spinning, timeout set for 100ms. */
-> +			poll(pfds, ARRAY_SIZE(pfds), /*timeout=*/100);
-> +			if (pfds[0].revents) {
-> +				char buf[512];
-> +				ssize_t len;
-> +
-> +				len = read(err, buf, sizeof(buf) - 1);
-> +
-> +				if (len > 0) {
-> +					err_done = false;
-> +					buf[len] = '\0';
->  					strbuf_addstr(&err_output, buf);
-> +				}
->  			}
->  		}
-> +		if (err_done)
-> +			err_done = check_if_command_finished(&child_test->process);
-> +	}
-> +	if (perf_use_color_default && last_running != -1) {
-> +		/* Erase "Running (.. active)" line printed before poll/sleep. */
-> +		fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
->  	}
->  	/* Clean up child process. */
->  	ret = finish_command(&child_test->process);
-> -	if (verbose == 1 && ret == TEST_FAIL) {
-> -		/* Add header for test that was skipped above. */
-> -		if (has_subtests(t))
-> -			pr_info("%3d.%1d: %s:\n", i + 1, subi + 1, test_description(t, subi));
-> -		else
-> -			pr_info("%3d: %s:\n", i + 1, test_description(t, -1));
-> +	if (verbose > 1 || (verbose == 1 && ret == TEST_FAIL))
->  		fprintf(stderr, "%s", err_output.buf);
-> -	}
-> +
->  	strbuf_release(&err_output);
-> -	print_test_result(t, i, subi, ret, width);
-> +	print_test_result(t, i, subi, ret, width, /*running=*/0);
->  	if (err > 0)
->  		close(err);
->  	return 0;
-> @@ -359,7 +390,7 @@ static int start_test(struct test_suite *test, int i, int subi, struct child_tes
->  		pr_debug("--- start ---\n");
->  		err = test_function(test, subi)(test, subi);
->  		pr_debug("---- end ----\n");
-> -		print_test_result(test, i, subi, err, width);
-> +		print_test_result(test, i, subi, err, width, /*running=*/0);
->  		return 0;
->  	}
->  
-> @@ -384,7 +415,7 @@ static int start_test(struct test_suite *test, int i, int subi, struct child_tes
->  	err = start_command(&(*child)->process);
->  	if (err || !sequential)
->  		return  err;
-> -	return finish_test(*child, width);
-> +	return finish_test(child, /*running_test=*/0, /*child_test_num=*/1, width);
->  }
->  
->  #define for_each_test(j, k, t)					\
-> @@ -469,7 +500,7 @@ static int __cmd_test(int argc, const char *argv[], struct intlist *skiplist)
->  	}
->  	for (i = 0; i < child_test_num; i++) {
->  		if (!sequential) {
-> -			int ret  = finish_test(child_tests[i], width);
-> +			int ret  = finish_test(child_tests, i, child_test_num, width);
->  
->  			if (ret)
->  				return ret;
-> diff --git a/tools/perf/util/color.h b/tools/perf/util/color.h
-> index 01f7bed21c9b2..4b9f8d5d44395 100644
-> --- a/tools/perf/util/color.h
-> +++ b/tools/perf/util/color.h
-> @@ -22,6 +22,7 @@
->  #define MIN_GREEN	0.5
->  #define MIN_RED		5.0
->  
-> +#define PERF_COLOR_DELETE_LINE	"\033[A\33[2K\r"
->  /*
->   * This variable stores the value of color.ui
->   */
-> -- 
-> 2.53.0
-> 
-> 
-> 
+I am not really entirely happy with somebody who has sent a flurry of patches
+across disparate subsystems with no previous track record being in charge of a
+potentially backported fix.
+
+It's David's decision but I think this fix should be taken over by somebody
+else.
+
+See https://lore.kernel.org/all/?q=f%3ANguyen+Ngoc+Thang
+
+>
+> > --- a/mm/khugepaged.c
+> > +++ b/mm/khugepaged.c
+> > @@ -2257,6 +2257,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >  	enum scan_result result = SCAN_SUCCEED;
+> >  	int nr_none = 0;
+> >  	bool is_shmem = shmem_file(file);
+> > +	bool need_unlock = false;
+> >
+> >  	/*
+> >  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+> > @@ -2271,6 +2272,15 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >  	if (result != SCAN_SUCCEED)
+> >  		goto out;
+> >
+> > +	/*
+> > +	 * Take invalidate_lock before any folio lock: the readahead below
+> > +	 * needs it, and truncate holds it while waiting on folio locks.
+> > +	 */
+> > +	if (!is_shmem) {
+>
+> Is the shmem special-case a red flag?
+>
+> Probably this fix an acceptable minimal-thing-for-backporting.
+>
+> Question for maintainers as well as for yourself: but does this
+> indicate a need for a more architected redo?
+>
+
+--
+Cheers, Lorenzo
