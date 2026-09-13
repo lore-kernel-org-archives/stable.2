@@ -1,163 +1,132 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EAE1A3166
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 02:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF13A3624AE;
+	Sun, 13 Sep 2026 02:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789265646; cv=none; b=KiA2KjdktDCZXwQ6VlSVNO30VnYJq2nKQ9VZD7nxRCo+OUPZCjeU5OW/z0RwuR8iHwkSeUhkQUV21U6AhnT7kwVsSaBxwhtPv5atHwdUzU3+/GdmY4S9hfiO9BPX52IqTLcimmqdwvjfURmUjtJ1aSvgD7GkofImcv+LpAbbge4=
+	t=1789266624; cv=none; b=CHrOGTYjAI4yQi886RJiKIFXpNSBr/thApBbJTackNPp4ln3quAejtKmW01YcySHoCNbYgwbF56rWCCgWmaHrk8xViVFYEUqZu75WelODs27/RWH89HvDMPYGnOVzegMXWTX2lLucIr08nd2rSdvnI23m44HsFyVCpc1loYhEG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789265646; c=relaxed/simple;
-	bh=+0JcbwgDBAnCe37S1lbW1di/g8nThyfXp0uPh67aoJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KGyr67bIObb0jrLBAhmy2y1EiiS+On0wgI0w/FGIvRghypgFidUEMF6g/gz4sVhGjUechtbYpBy+S7Ko5m4TGTYFDuYS/BBBhB9iUrFFWTmoD+avddKAxuyX0cI2Yril4fjrdndUHc/nq5iOXMrG6HzlBa5pHx2D2ABV7TRXGzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptsTaoOg; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789266624; c=relaxed/simple;
+	bh=ffrHo7KBlcbUcbaxpYn2M3wwjPBUNVivSsESVeyPPQo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LvmBpbk5obp9f9y9LKsLuR+Y5EqqHU+Krse3knL164tqKm4ZSTuC16sFdBqk864EO005iUw8m5vVs275+9Qt5ZVewhC2+jqMXhYoXOS6xompxGb+whVOrvA03a57N9ZM/Y9NixAlW326UKbLuvJEVL847w2M9QbfThCiTakjNAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=L5C+khZ0; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptsTaoOg"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93a0fd41a7bso53796285a.1
-        for <stable@vger.kernel.org>; Sat, 12 Sep 2026 19:14:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789265643; x=1789870443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=88ICzwtScsGBN29oTXuL8hAaTuiJVGtZYlaw6P8iREg=;
-        b=ptsTaoOgWBFz21BIqyw2zsxvI+XBkXCYeB1zkpDXlZ87Uhv4zQJinlkUe/ReTPUYsU
-         yo1mv/fDtq++xQ+G7cG7xkCfqYaEOf/TrFnUwjTow/tmlNvQ0JauY8ZqVDwEiCrpHoqw
-         U8tK8dSwItuiutFGjU8nTLHN3wYYNWHrTtYHiHXLRkJ7hAbxzwbdVZTXX09j9H2yypU0
-         tNLs5OykV0qL+Bjvtz2FBsfmbLoxVHd3iR4RETuPMYJlinK/w07IF5WB7+Yoym/F48Gv
-         DN+1DhBqew6V9aJbfu7SWZin3nshKS5VpqcvbmltIwrGx8NCX7H008H47weSdidA8AG0
-         D2zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789265643; x=1789870443;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=88ICzwtScsGBN29oTXuL8hAaTuiJVGtZYlaw6P8iREg=;
-        b=jlvXUboPV6yg8KtqMpCGTGMywK+x5SvDNk6nVhmI6tBfxFlZ3cBNE+M9nJICtsd8bu
-         sEyaFLoRYvXW3UrBytKrogXR13edHzqZgNZtn/HL5aN7URCGJGNpAl80gPUOW0oZZzty
-         /0038CFCRee9y9u48HZCG3tkBFm8nIFf1JugZ4cyFdNQm/gLID6uI3rbX8tFVDXFpeMD
-         3JyldsMLTuLwIkcP1s8XWdWuF0IDsO/3WGppxe4jeNEqJHub+WYpgc9HYum86JPxPfbM
-         l8NyrmN9bRLyUObJZs5vqCoB8/11hBaLcsGYraBhT2jLYYKvWnqTNeCVhOFKaHeJtfOa
-         UwIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPIQPh9jhq/WnOCPcHbXUujGJ5RjmSGigyDy+rWLrdr9lGEfggljeQvfau3caO0dIFutdqS5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRxyqILc7q1uiQ+ZLJaFLNgyYJWDzndwazxxS8kB78sIo9NpHr
-	58LhoO3Uu2Ali0vlcbTRmH38Wq+/vZbJ2wMa7wcraZxHDBb6+0Lfya+UQK//koWL4A==
-X-Gm-Gg: AYBFou1GTyZM6s8khn417zEyUwDW1EKG9E/8ODljM8JGxfUIXoE8Pu8b0jvDdmUUZ0M
-	1QufMV2kkUg9PeOeLCkCdtNEruEJl7rzr2WLaUlY2E9+lsCPmvyg4SuPiiwTMvkGQVlxwv8eCp1
-	ZAcWa8jzutW+iXGty8e5OxbxCxt7jKxzjkBQEZVpoU2LTZhL32eBaizk/8BPW4ItXQwRDEWEnbX
-	j/vbbTZqR/mx3xLm2hjCTIrl3g5nx22AmE2GCRvz5lS54mszyWHJWIB+tnaWTYzighXfghOM4Av
-	KODjOJH4bON0BoPDxbcYOoKwsbxCsiuGoYCjDlxz8DwRDDzA2Z9XNxuaZdxVnWcJQFCc0oZGHzT
-	KvJkOQo0zUXQMhgAR61bpcJwmA/Znwfd5hkGCb/OW1s5rJSxGc/sbNiyAaj6hgPGQH9/90q5WVD
-	tv5b3OlYz32qT/k0Y+ZW+4lxIPrkXmofW6weciBx84fjKiEYogr3bBmGHJcW5kc8wUSh6cMAH13
-	4OmWjVBTSUw9dDn9B2T6cNLtkZEr8jaQPN5mraa5+6tmSCXmcMLGMFVMk0r1G2saMx+YJ2vHDmq
-	qH/f6Rp786rFLKGEfiiG09/OjDrwp3x/Dw==
-X-Received: by 2002:a05:620a:838b:b0:939:9bcf:8d35 with SMTP id af79cd13be357-93a03886412mr757341585a.35.1789265643185;
-        Sat, 12 Sep 2026 19:14:03 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8045d9fsm629778085a.19.2026.09.12.19.14.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 19:14:01 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] soundwire: qcom: quiesce runtime PM before removing bus
-Date: Sat, 12 Sep 2026 22:13:56 -0400
-Message-ID: <20260913021356.60079-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="L5C+khZ0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9dTBsiwJfktNL2QsBuec8A3PSDJVNgal1A3WSKl12Yo=; b=L5C+khZ08uNISAzw9Q0NecT8GL
+	wHfFOe16HB2b54Dta8Jp06P46HzMyjLNZRbAk3auDIaSA2WSGPHR/8lWh+9UkC0VI8nh5JEiokNFh
+	ZL+NPkf34hL09xtWoyLQyBAxrcKLD+W38ag25levzioLEVrteT0VW9bab26nVeCU8dZg2sd2y6DW+
+	mYiSiEgrFVQmQaljYqi4WRRbj1egnnbBIycHJI+pkxQhUbztV/3HlEP4AFgMCo157HSPklEVPYLZd
+	QiYbJVY8Mvvh+pyCsUJogtKV8UtDBU1CU/rbqTC0rzk4gd/zj+2FJBflQgrUFAjE7DKD6P02WVziK
+	E7rr3PkA==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x5Zyr-00000003Fml-1gT2;
+	Sun, 13 Sep 2026 02:30:09 +0000
+Date: Sun, 13 Sep 2026 03:30:09 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: mm-commits@vger.kernel.org, ziy@nvidia.com, vbabka@suse.cz,
+	stable@vger.kernel.org, ritesh.list@gmail.com, mhocko@suse.com,
+	hch@lst.de, hannes@cmpxchg.org, dgc@kernel.org, david@redhat.com,
+	dipiets@amazon.it
+Subject: Re: +
+ mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch
+ added to mm-hotfixes-unstable branch
+Message-ID: <aqYKsTHkyJXCyh_-@casper.infradead.org>
+References: <20260911163243.808DF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911163243.808DF1F000FF@smtp.kernel.org>
 
-Qualcomm SoundWire controllers enable runtime PM after registering the bus,
-but remove tears down the bus and iface clock while runtime callbacks and
-the main or optional in-band wake IRQ handlers can still run. A controller
-that is already runtime-suspended also has its iface clock disabled, so the
-unconditional clock disable in remove unbalances that clock.
+On Fri, Sep 11, 2026 at 09:32:43AM -0700, Andrew Morton wrote:
+> From: Salvatore Dipietro <dipiets@amazon.it>
+> Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+> Date: Fri, 11 Sep 2026 14:21:02 +0000
+> 
+> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> introduced high-order folio allocations in the iomap buffered write path. 
+> When memory is fragmented, each failed costly-order allocation enters
+> __alloc_pages_slowpath() which runs direct compaction and
+> drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
+> (simple-update) with 1024 clients on a 96-vCPU arm64 system.
+> 
+> The root issue is that direct compaction is too expensive for hot
+> allocation paths that have fallbacks to smaller allocations. 
+> __filemap_get_folio_mpol() already marks higher-order allocations with
+> __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+> failure.  However, the page allocator still attempts full direct
+> compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+> aggressive when the caller will simply retry at a lower order.
+> 
+> For costly-order allocations with __GFP_NORETRY, suppress direct reclaim
+> for the whole slowpath by computing can_direct_reclaim (and hence
+> can_compact) as false.  The !can_direct_reclaim check near the top of the
+> slowpath then short-circuits to nopage: no direct reclaim, no direct
+> compaction and no drain_all_pages() IPI across every CPU.  kswapd (and in
+> turn kcompactd) is still woken further down for background
+> defragmentation, so compaction keeps working for long-term system health
+> while being removed from the latency-critical direct allocation path.
+> 
+> Allocations that also request __GFP_THISNODE are exempted.  That flag
+> pairing identifies the local-node-first THP attempt issued by
+> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+> form transparent huge pages.  __GFP_NOFAIL is exempted as well, so a
+> must-not-fail allocation is never made to fail.
+> 
+> Test environment:
+>   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+>              12x 1TB IO2 32000 IOPS RAID0 XFS
+>   OS:        AL2023
+>   Kernel:    v7.3-rc1
+>   Database:  PostgreSQL 18.4
+>   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+> 
+> Results (average of 3 runs, TPS):
+>   Config                                       Avg TPS   % vs baseline
+>   AL2023 stock 6.1 kernel (pre-5d8edfb900d5)   136,942           n/a
+>   v7.3-rc1 baseline (no patch)                  59,408             -
+>   v7.3-rc1 + this patch                        161,994       +172.7%
+> 
+> The patch fully recovers the pre-5d8edfb900d5 performance, bringing
+> throughput back above the pre-regression level and well clear of the ~59k
+> baseline.  The AL2023 6.1 row runs a kernel that predates commit
+> 5d8edfb900d5 ("iomap: Copy larger chunks from userspace"), so it is not
+> directly comparable, but it shows the pre-regression level and confirms
+> that the ~59k baseline is the anomaly and not the norm.
+> 
+> Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+> Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+> Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+> Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
+> Link: https://lore.kernel.org/20260911142102.2294202-1-dipiets@amazon.it
+> Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Johannes Weiner <hannes@cmpxchg.org>
+> Cc: Matthew Wilcox <willy@infradead.org>
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Dave Chinner <dgc@kernel.org>
+> Cc: Ritesh Harjani <ritesh.list@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Disable runtime PM first to cancel pending requests and drain any callback.
-Free both controller IRQs synchronously before deleting SoundWire children,
-then disable the iface clock only when runtime suspend has not already done
-so. Record the powered-down state for a later rebind. Bus deletion does not
-require a resume: the Qualcomm master has no put_device_num operation. The
-core disables slave runtime PM before unregistering each SoundWire child.
-
-A pending runtime resume can run while runtime PM is being disabled. Make
-its clock enable failure visible to the PM core and restore the wake IRQ in
-that case, so the runtime status continues to describe the clock state.
-
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 74e79da9fd46 ("soundwire: qcom: add runtime pm support")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/soundwire/qcom.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 55678a30c..35e552cc0 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -1713,23 +1713,42 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 
- static void qcom_swrm_remove(struct platform_device *pdev)
- {
--	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
-+	struct device *dev = &pdev->dev;
-+	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
-+	bool suspended;
-+
-+	pm_runtime_disable(dev);
-+	suspended = pm_runtime_status_suspended(dev);
-+
-+	devm_free_irq(dev, ctrl->irq, ctrl);
-+	if (ctrl->wake_irq > 0)
-+		devm_free_irq(dev, ctrl->wake_irq, ctrl);
- 
- 	sdw_bus_master_delete(&ctrl->bus);
--	clk_disable_unprepare(ctrl->hclk);
-+	if (!suspended)
-+		clk_disable_unprepare(ctrl->hclk);
-+	pm_runtime_set_suspended(dev);
- }
- 
- static int __maybe_unused swrm_runtime_resume(struct device *dev)
- {
- 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
-+	bool wake_irq_disabled = false;
- 	int ret;
- 
- 	if (ctrl->wake_irq > 0) {
--		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq)))
-+		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq))) {
- 			disable_irq_nosync(ctrl->wake_irq);
-+			wake_irq_disabled = true;
-+		}
- 	}
- 
--	clk_prepare_enable(ctrl->hclk);
-+	ret = clk_prepare_enable(ctrl->hclk);
-+	if (ret) {
-+		if (wake_irq_disabled)
-+			enable_irq(ctrl->wake_irq);
-+		return ret;
-+	}
- 
- 	if (ctrl->clock_stop_not_supported) {
- 		reinit_completion(&ctrl->enumeration);
+i'm just back from vacation, but i think the patch i posted was the
+better way to fic this.  at this point i'm confused why this one is
+being considered, but i'll review all the email from the last two weeks
+and see what's happened to cause this one to be included.
