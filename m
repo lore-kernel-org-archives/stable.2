@@ -1,263 +1,154 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58541CAAC
-	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 13:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA78023643F;
+	Sun, 13 Sep 2026 13:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305681; cv=none; b=gRpQNrlyKD4WJGV2DoVe/736HmwsrOMjt/+Kum71TLCc+joXZWh01M+JB//7IoCgTR+CBh6XoLymmGyDWSuAdmJ/FzO2fxkBrzquiZD4o+dvrNytrql/SfLxvoqs4olbGXv8Ff9hbDlvatGpds0Jkp5C82lB46RFXd85FvAubL4=
+	t=1789306230; cv=none; b=D/LmauyC+QlDh1qS3IqIRFvaCI4ifmMPe1dKafqxZtc6jAT6zhyGCTw4/VFmXvydpBaxIzbz8vqO3JZ7bJg8jaFPHFJFD3XaSB80ZxA5txjgGiWcVJIwN3G0n8cm2unwZzy+QOsZi8QOICwpcnYDOFE9bjHbdSMK7MDb6Bma7VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305681; c=relaxed/simple;
-	bh=Phi07PPMJdWHszbQDLkmYpvn2FXNZIvtH//ocNjPnZ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d/ORnEuY9ptqRqCJGEI0/nHVrrBIRzrzgkP0vT4qM7xIEjDxk1h08LPyx7AaHPP/LW/ogclmNWMilHsu2xYJih9EOLEXr0DIFknZVQIg2+iezFo63W2u2M2Ee0VrkMQNuoChIUX+BSSPe75zcQyY/Z/3ieuWvKDgdMmQyGfY938=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=HcrsK/JJ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1789306230; c=relaxed/simple;
+	bh=v67ykjHquTpdhGJFC1Yg0Bc8WcnPj76gEMicvECakh0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KrTgf2hfFpAHnwKK5xc85crKbLqrw1gxSw21STv4MWcShzGxcr/8r3/EGYJ4ut5yjZTM5Um3OgVBF//VjX+OhEhAy2rpTVy/6j/SLjLJWB6qMOr54AWGMxvMtwYsmbG+tAx6NPuJdKHYVs34xXspPtvlZuBB6qGuHKT0LwJsCJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ENyAmWH+; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="HcrsK/JJ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so504102f8f.1
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 06:21:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789305678; x=1789910478; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilAntqs10N3cuZV3xb1rPgVYySTl8brlVvPmSH3oaLw=;
-        b=HcrsK/JJlOy+3d1BfEmJ/3QAuwI8070Hd64Rp8suFgB9uL00RBG+gGgHPElhsIbjli
-         F2qCbf/vAMj2qW5HwCgbpGrKd7iNPpPgFIyqRCjYrH05zB0rtYZq7FmHC4sNr5YUBkEe
-         vGkpP+Q00K9UZN5G7ql+6gI7V4XrxPfOmTugvk5TF+hzh06L27/aYHTAkBrX2WOcYZzL
-         4cNf686+LyzvvpzJ9yGmAf2A5z1oaMogo+zP7KQiWn3/s+ZI3VmV6k+H51YQPzNkYeer
-         iHFgXgfYVpTs7YJ655mHXeih0khG7n3JGGaiOHYOX0pgC8PxKnwwxMUsDfq2HZqoYz4o
-         tf+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789305678; x=1789910478;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ilAntqs10N3cuZV3xb1rPgVYySTl8brlVvPmSH3oaLw=;
-        b=as82kcpzZAqvTZVr3a26BsoD4oDOIRvvbyucbnR+5AXVtbj33SxOmS+pCLKWSFhpHQ
-         mpUARmvTg7N2tS54oxx+GoM8hFzNemynj2wWPKY4XiNOffn8085zp3Ts0cx7BpoSUart
-         7NKPDHF++R8H/TvT1FnFe480VdTZDdFzaTyN03F4YgPd0L8Sgp3O/r+NGna4CKTWh9qI
-         x1RuIafitSvBuvBTWwXXdFLiTLKQgQI1IRwChjtGVyD46IBvmxI7eEgzY/Gq0hgs+e4g
-         sp5Z9Bc8fuFs7/5lapyOoju7K60TR/uOx8Qpj0vYRLZBOVVFc4Fdql2eWp28IgLWxFGJ
-         yrQg==
-X-Forwarded-Encrypted: i=1; AKwUvBy9AyRUD6A46jkYIbc2wJBhQ+dhPWnhlgkJYiBZDJP/9SYo6I6SJueaVsLZ8HjyKarCDydKAtI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYaff0sQgbkPAS2rNJ3It8ZOwzQMaHV9U6S3uiCUWRpa9A062d
-	W3m0pN0Ga7gV5ABnbOTjqy+QagFiTueORlk6InHzmBN0qM7fDEtcAHA=
-X-Gm-Gg: AYBFou1l7jMn1cbIQQY3GOF9k7UtlRydJAEq1VDpzKiX5iE9evs6JuWqTrPVw/4OxdC
-	lQVZMU2Z2n/CV6rilMYuVmXmx/UTUDJ8ZSC8rD3HTTYjHNSYruMXWR6HRefj5I2xEJHw0hyhT5V
-	rJ8usPLMhpxUqIKBElw295FY/nU2GjTuSqirwy5oppQ894ZPz3uBjXm/u6K39FHF9EK4f6x/1le
-	8Wkl+tl85N2ZhS3FbEL37SchBw7e6o5pn6/0SlwhJYNaht5pJmRV/QHZsXsEV/9HcuT/Z28T5Bx
-	FCVGnNOmQC54lVcevl6rP+bqXjjDkIM7FfQESqpz6GIhJOeH9L3JzPBrCq7XeK79biKeXC5yDa2
-	b9GrkUsT+/TrrXKcvLl+wLsutZW0w79Izc77c0ftF0zDNb8Slcoo3AJhk87ekdpJxuO5dDOAMNm
-	lqQTSDsadqgKb84LXJnZFv+jv8LbOjFwSDhqBOA48EiJwe8akWF/HJzilYycbHgUCti6StnyFiO
-	FJvHn3k0kUxblfgLcT6LB3gDDjhqDA2qFslaCzDVMdz9eBn
-X-Received: by 2002:a05:6000:2902:b0:486:f620:63bd with SMTP id ffacd0b85a97d-486f6a7d6d1mr6273755f8f.0.1789305677847;
-        Sun, 13 Sep 2026 06:21:17 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b4716.dip0.t-ipconnect.de. [91.43.71.22])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d5f1sm20960810f8f.12.2026.09.13.06.21.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 06:21:17 -0700 (PDT)
-Message-ID: <e6152171-5c2c-4243-8b64-0a619a0f44e3@googlemail.com>
-Date: Sun, 13 Sep 2026 15:21:16 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ENyAmWH+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789306228; x=1820842228;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=v67ykjHquTpdhGJFC1Yg0Bc8WcnPj76gEMicvECakh0=;
+  b=ENyAmWH+mLESN3laKi0Saz59rkefb4qqMAL/9m7uJa19yAxhrHjJGxBf
+   En6N2x9Qi0WCtKFrQSnhUpJznnsKsB+5Wb1tj3/Bx0ku6m/LKbZ1cy6oU
+   3XIQANe9J0j9WNrTSR2AI/rmaWrRIKj0H2EnJUDeXlLLYJRYG2LQ7voHU
+   IRLNp7yWXZgL/twlVfi2LHcjAZJr85Tzh04JFBSVgs8VoQJYUvTgNvY9m
+   GxaHD+WFLymZYkIn82q8OCDStC8NQxhr6KyckXJu2xK20Yg95lRekmPrF
+   59ZdjsNR8kND6F2Upa0javjGPHfjuFpLt4EcWibJecUNCmgf/rd9YMPXn
+   g==;
+X-CSE-ConnectionGUID: iafcZtGiQQaiffrWTz+p0g==
+X-CSE-MsgGUID: r8PA0QrcS2mIoboES/uqiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="100018305"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="100018305"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 06:30:28 -0700
+X-CSE-ConnectionGUID: oL0M0WpWRMy+KGLosSg7Fw==
+X-CSE-MsgGUID: JJdBRzNoRk624Y71PLnYvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="295882722"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 06:30:25 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Kate Hsuan <hpa@redhat.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Spencer Bull <spencer@omarchy.org>,
+	"jan p . springer" <regnirpsj@gmail.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
+Date: Sun, 13 Sep 2026 21:30:17 +0800
+Message-ID: <20260913133017.624919-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 0977/1376] scsi: core: sysfs: Make use of bus
- callbacks
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, Peter Wang <peter.wang@mediatek.com>,
- Bart Van Assche <bvanassche@acm.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Sasha Levin <sashal@kernel.org>, Wentao Guan <guanwentao@uniontech.com>,
- linux-scsi@vger.kernel.org
-References: <20260912065607.535295758@linuxfoundation.org>
- <20260912065629.342165847@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260912065629.342165847@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 12.09.2026 um 08:56 schrieb Greg Kroah-Hartman:
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-> 
-> [ Upstream commit f7d4f1bf5724e52de049c619beddd53c62206624 ]
-> 
-> Introduce a bus-specific probe, remove and shutdown function. For now
-> this only allows to get rid of a cast of the generic device to a SCSI
-> device in the drivers and changes the remove prototype to return
-> void---a non-zero return value is ignored anyhow.
-> 
-> The objective is to get rid of users of struct device_driver callbacks
-> .probe(), .remove() and .shutdown() to eventually remove these. Until
-> all SCSI drivers are converted, this results in a runtime warning about
-> the drivers needing an update because there is a bus probe function and
-> a driver probe function. The in-tree drivers are fixed by the following
-> commits.
-> 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-> Link: https://patch.msgid.link/a54e363a3fd2054fb924afd7df44bca7f444b5f1.1766133330.git.u.kleine-koenig@baylibre.com
-> Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Stable-dep-of: bb31844d88b7 ("scsi: sd: Fix special_vec mempool leak when scsi_alloc_sgtables() fails")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   drivers/scsi/scsi_sysfs.c  | 73 ++++++++++++++++++++++++++++++++++++--
->   include/scsi/scsi_driver.h |  3 ++
->   2 files changed, 74 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/scsi/scsi_sysfs.c b/drivers/scsi/scsi_sysfs.c
-> index 7f69f0613c08c..0b29cbcbd7e1f 100644
-> --- a/drivers/scsi/scsi_sysfs.c
-> +++ b/drivers/scsi/scsi_sysfs.c
-> @@ -554,10 +554,48 @@ static int scsi_bus_uevent(const struct device *dev, struct kobj_uevent_env *env
->   	return 0;
->   }
->   
-> +static int scsi_bus_probe(struct device *dev)
-> +{
-> +	struct scsi_device *sdp = to_scsi_device(dev);
-> +	struct scsi_driver *drv = to_scsi_driver(dev->driver);
-> +
-> +	if (drv->probe)
-> +		return drv->probe(sdp);
-> +	else
-> +		return 0;
-> +}
-> +
-> +static void scsi_bus_remove(struct device *dev)
-> +{
-> +	struct scsi_device *sdp = to_scsi_device(dev);
-> +	struct scsi_driver *drv = to_scsi_driver(dev->driver);
-> +
-> +	if (drv->remove)
-> +		drv->remove(sdp);
-> +}
-> +
-> +static void scsi_bus_shutdown(struct device *dev)
-> +{
-> +	struct scsi_device *sdp = to_scsi_device(dev);
-> +	struct scsi_driver *drv;
-> +
-> +	if (!dev->driver)
-> +		return;
-> +
-> +	drv = to_scsi_driver(dev->driver);
-> +
-> +	if (drv->shutdown)
-> +		drv->shutdown(sdp);
-> +}
-> +
-> +
->   const struct bus_type scsi_bus_type = {
-> -        .name		= "scsi",
-> -        .match		= scsi_bus_match,
-> +	.name		= "scsi",
-> +	.match		= scsi_bus_match,
->   	.uevent		= scsi_bus_uevent,
-> +	.probe		= scsi_bus_probe,
-> +	.remove		= scsi_bus_remove,
-> +	.shutdown	= scsi_bus_shutdown,
->   #ifdef CONFIG_PM
->   	.pm		= &scsi_bus_pm_ops,
->   #endif
-> @@ -1609,6 +1647,30 @@ void scsi_remove_target(struct device *dev)
->   }
->   EXPORT_SYMBOL(scsi_remove_target);
->   
-> +static int scsi_legacy_probe(struct scsi_device *sdp)
-> +{
-> +	struct device *dev = &sdp->sdev_gendev;
-> +	struct device_driver *driver = dev->driver;
-> +
-> +	return driver->probe(dev);
-> +}
-> +
-> +static void scsi_legacy_remove(struct scsi_device *sdp)
-> +{
-> +	struct device *dev = &sdp->sdev_gendev;
-> +	struct device_driver *driver = dev->driver;
-> +
-> +	driver->remove(dev);
-> +}
-> +
-> +static void scsi_legacy_shutdown(struct scsi_device *sdp)
-> +{
-> +	struct device *dev = &sdp->sdev_gendev;
-> +	struct device_driver *driver = dev->driver;
-> +
-> +	driver->shutdown(dev);
-> +}
-> +
->   int __scsi_register_driver(struct scsi_driver *sdrv, struct module *owner)
->   {
->   	struct device_driver *drv = &sdrv->gendrv;
-> @@ -1616,6 +1678,13 @@ int __scsi_register_driver(struct scsi_driver *sdrv, struct module *owner)
->   	drv->bus = &scsi_bus_type;
->   	drv->owner = owner;
->   
-> +	if (!sdrv->probe && drv->probe)
-> +		sdrv->probe = scsi_legacy_probe;
-> +	if (!sdrv->remove && drv->remove)
-> +		sdrv->remove = scsi_legacy_remove;
-> +	if (!sdrv->shutdown && drv->shutdown)
-> +		sdrv->shutdown = scsi_legacy_shutdown;
-> +
->   	return driver_register(drv);
->   }
->   EXPORT_SYMBOL(__scsi_register_driver);
-> diff --git a/include/scsi/scsi_driver.h b/include/scsi/scsi_driver.h
-> index 40aba9a9349a6..249cea724abd1 100644
-> --- a/include/scsi/scsi_driver.h
-> +++ b/include/scsi/scsi_driver.h
-> @@ -12,6 +12,9 @@ struct request;
->   struct scsi_driver {
->   	struct device_driver	gendrv;
->   
-> +	int (*probe)(struct scsi_device *);
-> +	void (*remove)(struct scsi_device *);
-> +	void (*shutdown)(struct scsi_device *);
->   	int (*resume)(struct device *);
->   	void (*rescan)(struct device *);
->   	blk_status_t (*init_command)(struct scsi_cmnd *);
+The wake line is only used as an IRQ source, yet the driver requests
+it with devm_gpiod_get(). On the Dell XPS 14 DA14260 (Panther Lake)
+that request lands on the pin the four CS35L57 amplifiers read their
+speaker ID from. Each amplifier's _CRS carries
 
+  GpioIo (Shared, PullNone, 0, 0, IoRestrictionInputOnly,
+          "\_SB.GPI1", 0, ResourceConsumer,,) {20}
 
-As Wentao Guan pointed out, this is the patch that caused the dmesg warnings I encountered in boot-testing 6.12.110-rc1 
-and 6.18.52-rc1 on my machine:
+and INTC10E1 builds its _CRS at runtime from pad numbers kept in NVS:
+a GpioInt (Edge, ActiveLow, Shared) first, then an Exclusive
+output-only GpioIo for reset and two lines on the USB GPIO expander.
+The driver maps index 0 to "wake". While it holds the line, cs35l56
+fails and does not retry:
 
-[    2.397237] Driver 'sr' needs updating - please use bus_type methods
-...
-[   84.031323] Driver 'ses' needs updating - please use bus_type methods
+  cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
 
-Is this really stable material? I feel that a new stable release should not trigger new warning messages. Feels like a 
-regression, even if it does no harm... No?!
+All four fail and no card is registered. Fedora 7.1.13 is the first
+Fedora kernel with the driver enabled; 7.1.12 on the same board
+creates the card, and 7.2.4 creates it again with intel_cvs
+blacklisted. Where ipu-bridge does not expose the CSI endpoints, CSI
+init returns -EPROBE_DEFER and every retry claims the line again for
+the length of the handshake, which is how 7.1 fails as well.
 
-Or are there some driver patches missing that still need proper backports?
+Take the IRQ from the GpioInt entry with acpi_dev_gpio_irq_get_by(),
+as the I2C core does for client->irq; this also applies the trigger
+type from _CRS. The vendor driver in intel/vision-drivers does the
+same. The driver binds as a platform device too, hence the explicit
+lookup. A DKMS build of the patched driver on a DA14260 running
+7.2.4 binds with all four amplifiers probing and the camera working
+(third link).
 
-CC'ing linux-scsi list, too.
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Cc: stable@vger.kernel.org
+Reported-by: jan p. springer <regnirpsj@gmail.com>
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529031
+Link: https://github.com/thesofproject/sof/issues/11152
+Link: https://github.com/omacom/omarchy-pkgs/pull/419
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+---
+v2: decode the INTC10E1 _CRS from the reporter's acpidump; add the
+    blacklist confirmation and the tested DKMS build; Reported-by and
+    Closes. Code unchanged.
+v1: https://lore.kernel.org/r/20260908105717.496232-1-junjie.cao@intel.com
 
-Beste Grüße,
-Peter Schneider
+ drivers/media/i2c/cvs/core.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index d4a3b9c3bab1e..8d857bbd8ab51 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -725,8 +725,6 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 	}
+ 
+ 	if (ctx->res == ICVS_FULLCAP) {
+-		struct gpio_desc *wake;
+-
+ 		ctx->rst = devm_gpiod_get(dev, "rst", GPIOD_OUT_HIGH);
+ 		if (IS_ERR(ctx->rst)) {
+ 			ret = dev_err_probe(dev, PTR_ERR(ctx->rst),
+@@ -734,14 +732,12 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 			goto err_put_ipu;
+ 		}
+ 
+-		wake = devm_gpiod_get(dev, "wake", GPIOD_IN);
+-		if (IS_ERR(wake)) {
+-			ret = dev_err_probe(dev, PTR_ERR(wake),
+-					    "failed to get wake GPIO\n");
+-			goto err_put_ipu;
+-		}
+-
+-		ctx->irq = gpiod_to_irq(wake);
++		/*
++		 * Do not request the line: another device's _CRS may list
++		 * the same pin, and its driver would then fail with -EBUSY.
++		 */
++		ctx->irq = acpi_dev_gpio_irq_get_by(ACPI_COMPANION(dev),
++						    "wake", 0);
+ 		if (ctx->irq < 0) {
+ 			ret = dev_err_probe(dev, ctx->irq,
+ 					    "failed to get wake IRQ\n");
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.43.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
