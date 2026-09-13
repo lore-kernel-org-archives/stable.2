@@ -1,64 +1,309 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BB733FE33;
-	Sun, 13 Sep 2026 18:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E64935F197
+	for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789324006; cv=none; b=H2FKsIqFnxs9qxTUAJw1PdbS86TeS1GhtKMkJMEUDI1hz7JaLRf+sqvbwdBIxBx4ufqmGGcJ+O1WSqKBMHvh4R8qFtVp02IbwvTAsoQT0T1HT8GZ3yQxLyeW000DNWWb3M04AVE/iMpyhXSt8QwAPm+QTLDKFMoqQ0mKp5frVtQ=
+	t=1789324769; cv=none; b=Bw4BE9w/di7/YZA9EJ5hFfO6MtKVfho0glBrV6MLfRlRlfj3jzkcPOcBhyrKThAUH5qE2lT+wfQzZ7VvexSMg+BrYvJQ0BxkH9vkVMHFYRReyrxqnOzEyZ+V5Slb2dyND6nHtoozSnc33nhZDawK6miW8ZOiBBziT3wzQmHPBWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789324006; c=relaxed/simple;
-	bh=0lHpDg4wiCvQ8dRvDkIVwnY44coK3ufgTX6pVmPqFnU=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=R7bSW2MY+rWOPLH+if8Dkk7/Sj0jWMWNS7H0HUcX4ixPE9JtOrILZciTyVSjLRSUGRW3pJf9n1C+UY3NKOlK5o7k8TCzRRRc3DYpoc8rdq+t1/qiiS3/+tpTnWdwb9YYImu9keq8E+iKs5EG2cHcTRzeKUtgZmZ4Ncw1lzjRSxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=XuMefVcw; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1789324769; c=relaxed/simple;
+	bh=S/dTRtwG+DbDGzbQHvsbKx3/xNFn74bHGIAb8QCFSps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3jifTvHH9sIRnWJuEmX6TRvdM45/lss5dY/w7Ubr3HfnAwWxedFqICwkG+Dot2WIWYaMe2VkOk6gCwNpOqOzTkbP2LDK006VXiqd1AFiGJmCmkAmkyR+ZBPbtf/nMxnrBDX5BXyYSveA0Hw8wWHPIkayA5Xf+RafxvqXdRGRnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UnvfAmbm; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="XuMefVcw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KoMuCdx7kZxKDpPrG7xHNwM5JObihGkseKKYn+IDzp8=; b=XuMefVcwzmkCUsPIHch732LHtV
-	v4oP4qSFdUvXzz+NyWGvjjBFnBFUBuIYwQsZQyA5ithF6ZSoH0JDfiGsT4JCJ6KgHIdftJitT4z+f
-	N6cOSi2RD0yIZfmaU195D5CBL7Rid0FYbuRIZ2nk+9elJXiiFWH7ya/XUNmgTlcJ2Xv1cyL2Hyfpt
-	hkyeneI5KjzoSTmVe3gdk/mdgE7Vln1TOlAdwaSmpT31PjfzxUz/uX0HE3EvTzuRLCJNmnZViGlqr
-	YYGhENLFFMrxX5Sl1WfCo6oJNvY+N0njyp1GVahJDL00ddJYItqj9Pc64D8H0s5YzkE/iYZwZsNPf
-	D7gTMzpw==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x5ouY-00000001LDB-2DGn;
-	Sun, 13 Sep 2026 15:26:42 -0300
-Message-ID: <336654e0c5002de5a69333a07d1c03c8@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org
-Cc: Tom Talpey <tom@talpey.com>, Stefan Metzmacher <metze@samba.org>, Shyam
- Prasad N <sprasad@microsoft.com>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Bharath SM <bharathsm@microsoft.com>, Namjae
- Jeon <linkinjeon@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] smb: client: fix smbd_connection leak on
- cifs_get_tcp_session() error
-In-Reply-To: <20260912172509.542168-1-pc@manguebit.org>
-References: <20260912172509.542168-1-pc@manguebit.org>
-Date: Sun, 13 Sep 2026 15:26:42 -0300
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UnvfAmbm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789324766; x=1820860766;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=S/dTRtwG+DbDGzbQHvsbKx3/xNFn74bHGIAb8QCFSps=;
+  b=UnvfAmbmAgjnf11oFeWKS9mc02Hw/upQGmPC4PbgC6kvhAJw/xVceJrV
+   VVJqmJ4Dk5xddbAOaUrNKwbM2ObLRoKdrY/es+OVMdl/hiMAYzuUCZMpB
+   rI2ltxsf8qmQX0vK72uzN6YG+hsTEBOSyvjDZIvsFszDj1Lj6zTQoxg0u
+   GZvaIrt/gJ/8KMzfmEhSfZa7aW1tu5i4ee0BIbnlMptldsM/7HbNbAjQh
+   RLaxhUrdPNlIjDHxJPnQfaacn0nsbfe0RoNGlH2z3wbQc68n4wbPqdhS8
+   3cDLi8OqwnCT2JNyXeVVgRPaxl0pnSi5lPAKJZO8bBaTtZoD1FDhOtxDh
+   w==;
+X-CSE-ConnectionGUID: WdxWV5/JR5Ca1t7lgff9Jw==
+X-CSE-MsgGUID: Yk8pGqD/QDKJ7tzbvl27kA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="202774"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="202774"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 11:39:25 -0700
+X-CSE-ConnectionGUID: 3fgEI9voSUaVKSeMfqMVaQ==
+X-CSE-MsgGUID: vOP+KrZSQJ2pN5TWGrb7YQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="297457864"
+Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 11:39:25 -0700
+Date: Sun, 13 Sep 2026 11:39:23 -0700
+From: Andi Kleen <ak@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	James Clark <james.clark@linaro.org>,
+	Ian Rogers <irogers@google.com>,
+	Colin Ian King <colin.i.king@gmail.com>,
+	Howard Chu <howardchu95@gmail.com>,
+	Weilin Wang <weilin.wang@intel.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Thomas Richter <tmricht@linux.ibm.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Athira Jajeev <atrajeev@linux.vnet.ibm.com>,
+	Michael Petlan <mpetlan@redhat.com>,
+	Veronika Molnarova <vmolnaro@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.12 1009/1376] perf test: Display number of active
+ running tests
+Message-ID: <aqbt2-Kh76GZxmPK@tassilo>
+References: <20260912065607.535295758@linuxfoundation.org>
+ <20260912065630.052286725@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912065630.052286725@linuxfoundation.org>
 
-Paulo Alcantara <pc@manguebit.org> writes:
+On Sat, Sep 12, 2026 at 08:57:15AM +0200, Greg Kroah-Hartman wrote:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
 
-> When an RDMA connection is successfully established via
-> smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
-> kthread_create() returns an error), the error path frees tcp_ses
-> without first destroying the smbd_connection.
->
-> Fix this by calling smbd_destroy() in the out_err cleanup path before
-> kfree(tcp_ses).  smbd_destroy() safely handles the case where
-> smbd_conn is NULL, so it can be called unconditionally.
-> ...
+It's hard to see how these 6 perf test patches are stable material.
 
-Applied.
+They seem at best be nice to have.
+
+
+-Andi
+
+
+> 
+> ------------------
+> 
+> From: Ian Rogers <irogers@google.com>
+> 
+> [ Upstream commit 0e036dcad4e62b89f8df3e41402babb9345521af ]
+> 
+> Before polling or sleeping to wait for a test to complete, print out
+> ": Running (<num> active)" where the number of active tests is
+> determined by iterating over the tests and seeing which return false
+> for check_if_command_finished. The line erasing and printing out only
+> occur if the number of runnings tests changes to avoid the line
+> flickering excessively. Knowing tests are running allows a user to
+> know a test is running and in parallel mode how many of the tests are
+> waiting to complete. If color mode is disabled then avoid displaying
+> the "Running" message as deleting the line isn't reliable.
+> 
+> Tested-by: James Clark <james.clark@linaro.org>
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> Cc: Colin Ian King <colin.i.king@gmail.com>
+> Cc: Howard Chu <howardchu95@gmail.com>
+> Cc: Weilin Wang <weilin.wang@intel.com>
+> Cc: Ilya Leoshkevich <iii@linux.ibm.com>
+> Cc: Thomas Richter <tmricht@linux.ibm.com>
+> Cc: Andi Kleen <ak@linux.intel.com>
+> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Cc: Athira Jajeev <atrajeev@linux.vnet.ibm.com>
+> Cc: Michael Petlan <mpetlan@redhat.com>
+> Cc: Veronika Molnarova <vmolnaro@redhat.com>
+> Link: https://lore.kernel.org/r/20241025192109.132482-3-irogers@google.com
+> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> Stable-dep-of: 44e82c4d2ff3 ("perf test: Fix skiplist leak in cmd_test")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  tools/perf/tests/builtin-test.c | 93 ++++++++++++++++++++++-----------
+>  tools/perf/util/color.h         |  1 +
+>  2 files changed, 63 insertions(+), 31 deletions(-)
+> 
+> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+> index 4f2f941bd1feb..3b6743a3232c1 100644
+> --- a/tools/perf/tests/builtin-test.c
+> +++ b/tools/perf/tests/builtin-test.c
+> @@ -246,7 +246,10 @@ static int run_test_child(struct child_process *process)
+>  	return -err;
+>  }
+>  
+> -static int print_test_result(struct test_suite *t, int i, int subtest, int result, int width)
+> +#define TEST_RUNNING -3
+> +
+> +static int print_test_result(struct test_suite *t, int i, int subtest, int result, int width,
+> +			     int running)
+>  {
+>  	if (has_subtests(t)) {
+>  		int subw = width > 2 ? width - 2 : width;
+> @@ -256,6 +259,9 @@ static int print_test_result(struct test_suite *t, int i, int subtest, int resul
+>  		pr_info("%3d: %-*s:", i + 1, width, test_description(t, subtest));
+>  
+>  	switch (result) {
+> +	case TEST_RUNNING:
+> +		color_fprintf(stderr, PERF_COLOR_YELLOW, " Running (%d active)\n", running);
+> +		break;
+>  	case TEST_OK:
+>  		pr_info(" Ok\n");
+>  		break;
+> @@ -277,14 +283,17 @@ static int print_test_result(struct test_suite *t, int i, int subtest, int resul
+>  	return 0;
+>  }
+>  
+> -static int finish_test(struct child_test *child_test, int width)
+> +static int finish_test(struct child_test **child_tests, int running_test, int child_test_num,
+> +		       int width)
+>  {
+> +	struct child_test *child_test = child_tests[running_test];
+>  	struct test_suite *t = child_test->test;
+>  	int i = child_test->test_num;
+>  	int subi = child_test->subtest;
+>  	int err = child_test->process.err;
+> -	bool err_done = err <= 0;
+> +	bool err_done = false;
+>  	struct strbuf err_output = STRBUF_INIT;
+> +	int last_running = -1;
+>  	int ret;
+>  
+>  	/*
+> @@ -298,7 +307,7 @@ static int finish_test(struct child_test *child_test, int width)
+>  	 * Busy loop reading from the child's stdout/stderr that are set to be
+>  	 * non-blocking until EOF.
+>  	 */
+> -	if (!err_done)
+> +	if (err > 0)
+>  		fcntl(err, F_SETFL, O_NONBLOCK);
+>  	if (verbose > 1) {
+>  		if (has_subtests(t))
+> @@ -312,38 +321,60 @@ static int finish_test(struct child_test *child_test, int width)
+>  			  .events = POLLIN | POLLERR | POLLHUP | POLLNVAL,
+>  			},
+>  		};
+> -		char buf[512];
+> -		ssize_t len;
+> -
+> -		/* Poll to avoid excessive spinning, timeout set for 100ms. */
+> -		poll(pfds, ARRAY_SIZE(pfds), /*timeout=*/100);
+> -		if (!err_done && pfds[0].revents) {
+> -			errno = 0;
+> -			len = read(err, buf, sizeof(buf) - 1);
+> -
+> -			if (len <= 0) {
+> -				err_done = errno != EAGAIN;
+> -			} else {
+> -				buf[len] = '\0';
+> -				if (verbose > 1)
+> -					fprintf(stdout, "%s", buf);
+> -				else
+> +		if (perf_use_color_default) {
+> +			int running = 0;
+> +
+> +			for (int y = running_test; y < child_test_num; y++) {
+> +				if (check_if_command_finished(&child_tests[y]->process) == 0)
+> +					running++;
+> +			}
+> +			if (running != last_running) {
+> +				if (last_running != -1) {
+> +					/*
+> +					 * Erase "Running (.. active)" line
+> +					 * printed before poll/sleep.
+> +					 */
+> +					fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
+> +				}
+> +				print_test_result(t, i, subi, TEST_RUNNING, width, running);
+> +				last_running = running;
+> +			}
+> +		}
+> +
+> +		err_done = true;
+> +		if (err <= 0) {
+> +			/* No child stderr to poll, sleep for 10ms for child to complete. */
+> +			usleep(10 * 1000);
+> +		} else {
+> +			/* Poll to avoid excessive spinning, timeout set for 100ms. */
+> +			poll(pfds, ARRAY_SIZE(pfds), /*timeout=*/100);
+> +			if (pfds[0].revents) {
+> +				char buf[512];
+> +				ssize_t len;
+> +
+> +				len = read(err, buf, sizeof(buf) - 1);
+> +
+> +				if (len > 0) {
+> +					err_done = false;
+> +					buf[len] = '\0';
+>  					strbuf_addstr(&err_output, buf);
+> +				}
+>  			}
+>  		}
+> +		if (err_done)
+> +			err_done = check_if_command_finished(&child_test->process);
+> +	}
+> +	if (perf_use_color_default && last_running != -1) {
+> +		/* Erase "Running (.. active)" line printed before poll/sleep. */
+> +		fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
+>  	}
+>  	/* Clean up child process. */
+>  	ret = finish_command(&child_test->process);
+> -	if (verbose == 1 && ret == TEST_FAIL) {
+> -		/* Add header for test that was skipped above. */
+> -		if (has_subtests(t))
+> -			pr_info("%3d.%1d: %s:\n", i + 1, subi + 1, test_description(t, subi));
+> -		else
+> -			pr_info("%3d: %s:\n", i + 1, test_description(t, -1));
+> +	if (verbose > 1 || (verbose == 1 && ret == TEST_FAIL))
+>  		fprintf(stderr, "%s", err_output.buf);
+> -	}
+> +
+>  	strbuf_release(&err_output);
+> -	print_test_result(t, i, subi, ret, width);
+> +	print_test_result(t, i, subi, ret, width, /*running=*/0);
+>  	if (err > 0)
+>  		close(err);
+>  	return 0;
+> @@ -359,7 +390,7 @@ static int start_test(struct test_suite *test, int i, int subi, struct child_tes
+>  		pr_debug("--- start ---\n");
+>  		err = test_function(test, subi)(test, subi);
+>  		pr_debug("---- end ----\n");
+> -		print_test_result(test, i, subi, err, width);
+> +		print_test_result(test, i, subi, err, width, /*running=*/0);
+>  		return 0;
+>  	}
+>  
+> @@ -384,7 +415,7 @@ static int start_test(struct test_suite *test, int i, int subi, struct child_tes
+>  	err = start_command(&(*child)->process);
+>  	if (err || !sequential)
+>  		return  err;
+> -	return finish_test(*child, width);
+> +	return finish_test(child, /*running_test=*/0, /*child_test_num=*/1, width);
+>  }
+>  
+>  #define for_each_test(j, k, t)					\
+> @@ -469,7 +500,7 @@ static int __cmd_test(int argc, const char *argv[], struct intlist *skiplist)
+>  	}
+>  	for (i = 0; i < child_test_num; i++) {
+>  		if (!sequential) {
+> -			int ret  = finish_test(child_tests[i], width);
+> +			int ret  = finish_test(child_tests, i, child_test_num, width);
+>  
+>  			if (ret)
+>  				return ret;
+> diff --git a/tools/perf/util/color.h b/tools/perf/util/color.h
+> index 01f7bed21c9b2..4b9f8d5d44395 100644
+> --- a/tools/perf/util/color.h
+> +++ b/tools/perf/util/color.h
+> @@ -22,6 +22,7 @@
+>  #define MIN_GREEN	0.5
+>  #define MIN_RED		5.0
+>  
+> +#define PERF_COLOR_DELETE_LINE	"\033[A\33[2K\r"
+>  /*
+>   * This variable stores the value of color.ui
+>   */
+> -- 
+> 2.53.0
+> 
+> 
+> 
