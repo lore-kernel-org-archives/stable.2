@@ -1,111 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7B338655D;
-	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56F036998A;
+	Sun, 13 Sep 2026 17:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319851; cv=none; b=dlEKoqwjPc1qL/kCRvoeaOZduyE9gj+k99YLZ9ZgojUlaupVATz1Pqv+I4075iKhGzqMlDGF/2ZREQDt2NeVNhCuadWW6wbxPoPiEHbgigyR9TJdxgxFXzAPMx68S1Z6O5dPvJISfManRwE82/sKhBh0Tt6H6e5/CFp8E18guOA=
+	t=1789320101; cv=none; b=RU0eKN5BvtftGM6o1cIRwX/Hi669XBdV1dVjrDdBs6XKu91cXcrmZrraqjYkUzA1GWPT1KiioioNa8WWO0IACnCQ2dW5U+ImDFsMX18piyuIyj7GuAdPI03Bdtfwc6O+ANoYct2w94WfD5E6+WHWTf+uOoP9PQoy+lmCiWewQAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319851; c=relaxed/simple;
-	bh=Hjb3jb3USV71UqUDGp095Qnz40Hf9kgKYHVuv3k5n7s=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=MLMwOjEZFpJdg5/KMCXeVxz+cckVAzNJsNPfWjuAVWs6KrMqlX1+xC1IF4p/U9XASNIwCGLd58wAOololuwdE+PnrPXe22tNwslsk+IbISDtxRVJ17GGu2jb+5gWJWIYZthBZ1k77kKGoWdzQHlHnPUaHz2C0/5jlNpkd1G6GDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nL2fkYtQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789320101; c=relaxed/simple;
+	bh=9HtwBV3HnwCxn/Qf8Px3hIWck2pVOB4dC7tfkLsWUHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uuT3R5S3mc76AnvnjoP5465VBhN2cUybdUFl0u0DJjNOUV7YKC0g+Af4Bv/hanDOXC/QvmUrYFZvNliNWn6+r5k4L2/ly4ApxY019PpcNknMiPLBdIX76q3aerxIIrVnzXkeEVYkgWB+KHwNV2NvmZE7hMqREOm1wifn5n/jcjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=WmMlGfnN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A1OkUX8n; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nL2fkYtQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BFE1F00898;
-	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319843;
-	bh=Raxewkw96Z82Y9nRPZmzJgCe1hQ47cf/cMMXBMB6o0o=;
-	h=Date:From:To:Cc:Subject:References;
-	b=nL2fkYtQ8ohLg8H5gnFrc29W83XppU0ipP2Riu+6c88MNitCroygteSukxj/cqAKr
-	 94lMk263pDoVyHIfRW2O5VATDjVFjAq43EvYrihLWCrtddTcH3Gq7ttSIIgMYpGy/g
-	 ZSDCV/QK/m5zUU6UTpLx8YDHcDguRUc1g0+ldFs8eY5zS27IFzedrnXyQ2pMkSc5O9
-	 8K1OLQ8wpmrlHWikZOjBKsIHxkNW72favqWKn5GQ5+7SbCt3qHm0s5KwXh76kJP+ce
-	 rm73oyPzU8xk/LSbM4TQPL6N/P++5D0qYwgYSz2R7V1mp5ObTI6EUiBed8KrFTUucN
-	 Olr/y2IsT3u2w==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1x5nqr-0000000AQZc-3fRE;
-	Sun, 13 Sep 2026 13:18:49 -0400
-Message-ID: <20260913171849.676672435@kernel.org>
-User-Agent: quilt/0.69
-Date: Sun, 13 Sep 2026 13:18:01 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-Subject: [for-linus][PATCH 2/5] tracing: Dont dereference trace_event_file in deferred trigger free
-References: <20260913171759.469375546@kernel.org>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="WmMlGfnN";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A1OkUX8n"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 55DF51D0005A;
+	Sun, 13 Sep 2026 13:21:38 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-04.internal (MEProxy); Sun, 13 Sep 2026 13:21:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789320098;
+	 x=1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=
+	WmMlGfnN0cOysNeR9OKGHhroxsqNhWLB3J8saLxfwBEU5RkZuEEWLqoif8j+Beji
+	ZZIv6sq19pQjLZ7uz3hP/iv7fnnOHOgGrpbazhd8eS/valf3qaGSJSNI3F3Y6j5y
+	0FlJfemx8gVdSNQC3sMsSlcSwp8QpGP0w0RuVK25/WZquwV6loDytFYRXQd07YWR
+	QQf8o3SHZ39X4V6VLPyEZfUxAZHc84f2JUa4/hfVjx6tWiG4BfpilV1U1cLiBUNm
+	UkRQtdXNukWqTfg1J7rcdY7aOGo4LEAvVNNgB5hzEfFZ4FdqYh86q1Wm7wCVY+Sl
+	zA2Nj9NQRcOVc3CbOmdqzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789320098; x=
+	1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=A
+	1OkUX8nTB+fjCMmjRnQb2JX+8a3T9Jl4bvtcznUP18+mc65TNmf3wdN9ZlonNnpy
+	iW65cgahoYwDjuCPczlpVNAQ+ELVcdYni+sz0/UZcRWvWyc9m7fEaybQk8luTFCW
+	C3Cstw0hLvogg7rCyeo7mawD+wSFUSVJvznTFNXqObci1C9GBCN3doPW9Bj7ajq+
+	+hNrmD5ao2FMe1Dr7bdqw4JnbkLtqQo7SlhwPSvilDWjqr6AR2d3quTl+9tMTRCV
+	N6s15MjlNUcat6upy+XhL/kkwRo+TmhQrvEhWBTd/WFG2sdGp0RXDw2Z2i0a2Zl2
+	/j5ACrtSgDBQ6OYkAqXsw==
+X-ME-Sender: <xms:oNumah82HKK6w-jEsFwXiwXU7rXCnZNvIbZPB04RMiBKw1lNHVRRlg>
+    <xme:oNumahk0OgFSPDUxalmzM8uO42wZKcTGmToxX0bq-1RN6cG27q2DJVRwgbYoRdd6b
+    BxfiZm-oJ9EIq7yTNG3XE3qKSHkBY15ZoSmoJSuCJ3JFa4VGMsp8gtJ>
+X-ME-Received: <xmr:oNumaqiLto6SSsuyO-qgb1mAV8dnQZ8kwXz5N9ebQkJaXc6HTMQR_K1TsZ7-CiKO73WOWg-6l89C7pP1NoHqRVf0Ixq-NUST>
+X-ME-Proxy-Cause: dmFkZTG1P5L/qc8Ww8ObqIaRahkcjWAlSIQoDJh1N1/amAGyEVrpLILRnaS54SDZVVPZtG
+    PZ/eQUJ8O3QqqdvY4u8Ex05dZie4MFfBhB3zMYb9cpq9xs5xkdHnmpoMPnrjkf3IgPG/Tl
+    k49S+eDqB4X1nxpgVn2JwpX438YTl3fQS6FP8p3ExegP5KzX3s/pfZyAxC5r7ScnnmYrYz
+    Q5JM56SSTMTV+d1t1zvEYSFt+99GICuRv2/Mclm5t/eR7xS7+dm7Zf2XxA3rKWNVnJs6Fp
+    4lZdoblR6OJSSV/3unzZaRrqrcE0cUrqauGM37hCnKINnH1fvmGjjEXz3uNejFinS4caHp
+    et3i9fdS/WjtRlWo1dcbfS+mtHcVlMOrLyAzIz/gzS8z8ujNJrY1ni3J4MGXVWJvPOtNJj
+    h29Ee6qaS8WZZ9qIrv032j2GbotBeOZU9F4yVr4GbXBfZKR9AwAK9BmvzM+LACOJv2ZOjF
+    8GTRsX11+1U8vI+cqW9DgpzsbDN01Vdg5DILeEf4Tb8il805B8Yzhr021xm3NteNmk97Mz
+    Kv2qT4lXMD0Yvqv/eXqGjXkLLkPfqtPyF1wEOONBepEUqxX1C64LfE46W9Z1NsQN5GIbw1
+    +oHHttIdAuA5D6bx0nTzNKYXOWlRLiSuUYESC2i5GfJmEEtrhQcDRS8CBl3g
+X-ME-Proxy: <xmx:oNumapZQhYeAReeq1ShLbZhRVP-KtFkUHRuad1mthT-Hyo3Y0gx2cQ>
+    <xmx:oNumauHM3VPJByNhHT8PruCwX9wKSrpN6xDhl6K_A66yxtB3szUKdQ>
+    <xmx:oNumamb4Sblrlm0ny19aXgb5fdhgsMGWPmd7WzoiHgY3RrM3BUtqjQ>
+    <xmx:oNumav2IfNXGTf8IRPANlQ7j8XggmxHPt-g8wzHFpw9-BpLt_U4Sww>
+    <xmx:otumagQOY5LSn7XGZ9drH2fwHbaa3XEBadB18BA-Q0rAkejAJx1knIGJ>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 13 Sep 2026 13:21:34 -0400 (EDT)
+Message-ID: <fcd0319e-02a4-4975-996c-fa74f521814d@pobox.com>
+Date: Sun, 13 Sep 2026 10:21:33 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065623.398859879@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+On 9/11/26 11:36 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.52 release.
+> There are 1518 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.52-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-The enable_event trigger defers trace_event_put_ref() to the
-trigger free kthread, but the trace_event_file can already be freed
-when the instance is removed.
+Tested on 2 different amd64 systems and an arm64 virtual machine.
 
-Keep the trace_event_call directly in enable_trigger_data so the
-deferred free does not access the freed trace_event_file.
+I'm seeing the same "needs updating" warnings in dmesg that Peter
+Schneider reported on 6.12.110-rc1 and 6.18.52-rc1, but otherwise it's
+working well and I have not observed any other regressions.
 
-Cc: stable@vger.kernel.org
-Fixes: e091351b3881 ("tracing: Delay module ref count for "enable_event" trigger")
-Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
-Closes: https://lore.kernel.org/all/20260828134340.2501683A24-agordeev@linux.ibm.com/
-Link: https://patch.msgid.link/20260911155650.354844-1-aliamemis@disroot.org
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/trace.h                | 1 +
- kernel/trace/trace_events_trigger.c | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index bd3c8f80300f..3749485a7d85 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1953,6 +1953,7 @@ struct event_trigger_data {
- 
- struct enable_trigger_data {
- 	struct trace_event_file		*file;
-+	struct trace_event_call		*call;
- 	bool				enable;
- 	bool				hist;
- };
-diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
-index 149300cc5e8a..4d2fde996c0f 100644
---- a/kernel/trace/trace_events_trigger.c
-+++ b/kernel/trace/trace_events_trigger.c
-@@ -1728,7 +1728,8 @@ static void enable_trigger_private_data_free(struct event_trigger_data *data)
- {
- 	struct enable_trigger_data *enable_data = data->private_data;
- 
--	trace_event_put_ref(enable_data->file->event_call);
-+	/* The file may already be freed here, only the call is kept alive */
-+	trace_event_put_ref(enable_data->call);
- 	kfree(enable_data);
- }
- 
-@@ -1801,6 +1802,7 @@ int event_enable_trigger_parse(struct event_command *cmd_ops,
- 	enable_data->hist = hist;
- 	enable_data->enable = enable;
- 	enable_data->file = event_enable_file;
-+	enable_data->call = event_enable_file->event_call;
- 
- 	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, enable_data);
- 	if (!trigger_data)
 -- 
-2.53.0
+-Barry K. Nathan  <barryn@pobox.com>
