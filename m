@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47309370D41;
-	Sun, 13 Sep 2026 17:17:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7B338655D;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319849; cv=none; b=N86BkyKy8bqdcCp3DqGCcxlQISguxAFslQGVxFJrSDP8JJQjKpmEeaatCrLJwHTBHFfCzcXemovPEMHrGoGI7Lmlz1I7rpTqbhY4xUognXtq27qVeIh3p+93uKE4HR6xa6wQ8yRl2j9Aa+CpDKAafelQazzR+IMMznKdmNdKY14=
+	t=1789319851; cv=none; b=dlEKoqwjPc1qL/kCRvoeaOZduyE9gj+k99YLZ9ZgojUlaupVATz1Pqv+I4075iKhGzqMlDGF/2ZREQDt2NeVNhCuadWW6wbxPoPiEHbgigyR9TJdxgxFXzAPMx68S1Z6O5dPvJISfManRwE82/sKhBh0Tt6H6e5/CFp8E18guOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319849; c=relaxed/simple;
-	bh=LWejCjAZqJWklyv2DB7hafpF4LepG0wucncy9KBYSUE=;
+	s=arc-20240116; t=1789319851; c=relaxed/simple;
+	bh=Hjb3jb3USV71UqUDGp095Qnz40Hf9kgKYHVuv3k5n7s=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=DmJvfL3Ah9QFYKnv5hfuYN6S5RXpekO+x8Ln5N1oK4iwLx40drXCBWmcYSmcgMCWq2GCqT3IeROyUo4OFaMugIEKdYl/ZGGiGxbut9YOLdKOi8hrKkHt52ePRHNS1SOXBz0A58UcFESwjuc1Ze4ARqEHFyRA1xhDBI/R53SQBNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sly3kvFF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=MLMwOjEZFpJdg5/KMCXeVxz+cckVAzNJsNPfWjuAVWs6KrMqlX1+xC1IF4p/U9XASNIwCGLd58wAOololuwdE+PnrPXe22tNwslsk+IbISDtxRVJ17GGu2jb+5gWJWIYZthBZ1k77kKGoWdzQHlHnPUaHz2C0/5jlNpkd1G6GDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nL2fkYtQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sly3kvFF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672861F0089C;
-	Sun, 13 Sep 2026 17:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nL2fkYtQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BFE1F00898;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319844;
-	bh=JL3u3PskqYHAUCtact9lBPOcYoii5FVMGre3nlXY8EY=;
+	s=k20260515; t=1789319843;
+	bh=Raxewkw96Z82Y9nRPZmzJgCe1hQ47cf/cMMXBMB6o0o=;
 	h=Date:From:To:Cc:Subject:References;
-	b=Sly3kvFFmi90eFduiQdlZtWLKK7+QDPVtE12bzwTZhTfgpzcuEMjkbpOKQey7J/Y3
-	 Mj3gR5a5YFLZmuKrxW+CyZ80aDQ2keotTzW0DpAmVm0nwBET/Bcu4EjYLd3dQDPB5/
-	 TC50I/+oNvAwqdjTr5Se22e+zyRpi7GwxkE2yg9eVVHg/AXV/7cK/jNX5Aj1CsfoYT
-	 Eqftq4OSVHpHVyNLRopZf+g1US30KT+e93sAd3R5h7u45qMpvVvp139vVTNIjWGwbC
-	 wghIrx/3u6114gqs+LNtBUdlQ/fi5QAMsKtnGbEuDKX7j+d5gMEvRDzkOlB0iKz4Uv
-	 hQ1V9DU/vMrCg==
+	b=nL2fkYtQ8ohLg8H5gnFrc29W83XppU0ipP2Riu+6c88MNitCroygteSukxj/cqAKr
+	 94lMk263pDoVyHIfRW2O5VATDjVFjAq43EvYrihLWCrtddTcH3Gq7ttSIIgMYpGy/g
+	 ZSDCV/QK/m5zUU6UTpLx8YDHcDguRUc1g0+ldFs8eY5zS27IFzedrnXyQ2pMkSc5O9
+	 8K1OLQ8wpmrlHWikZOjBKsIHxkNW72favqWKn5GQ5+7SbCt3qHm0s5KwXh76kJP+ce
+	 rm73oyPzU8xk/LSbM4TQPL6N/P++5D0qYwgYSz2R7V1mp5ObTI6EUiBed8KrFTUucN
+	 Olr/y2IsT3u2w==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x5nqs-0000000AQbI-2B8j;
-	Sun, 13 Sep 2026 13:18:50 -0400
-Message-ID: <20260913171850.328757114@kernel.org>
+	id 1x5nqr-0000000AQZc-3fRE;
+	Sun, 13 Sep 2026 13:18:49 -0400
+Message-ID: <20260913171849.676672435@kernel.org>
 User-Agent: quilt/0.69
-Date: Sun, 13 Sep 2026 13:18:04 -0400
+Date: Sun, 13 Sep 2026 13:18:01 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,9 +40,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- David Carlier <devnexen@gmail.com>
-Subject: [for-linus][PATCH 5/5] ring-buffer: Check resize_disabled before publishing the new subbuf
- order
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+Subject: [for-linus][PATCH 2/5] tracing: Dont dereference trace_event_file in deferred trigger free
 References: <20260913171759.469375546@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,44 +52,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: David Carlier <devnexen@gmail.com>
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
 
-ring_buffer_subbuf_order_set() stores the new order and only then walks
-the CPUs, returning -EBUSY if any of them has resizing disabled. A user
-mapped buffer has resizing disabled, and __rb_map_vma() reads
-buffer->subbuf_order without buffer->mutex, so an mmap of an already
-mapped CPU racing the failing order change sizes the mapping with the
-new order and inserts pages past the sub-buffer into the VMA.
+The enable_event trigger defers trace_event_put_ref() to the
+trigger free kthread, but the trace_event_file can already be freed
+when the instance is removed.
 
-Check the CPUs before storing the new order.
+Keep the trace_event_call directly in enable_trigger_data so the
+deferred free does not access the freed trace_event_file.
 
 Cc: stable@vger.kernel.org
-Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-Link: https://patch.msgid.link/20260912103938.1127021-1-devnexen@gmail.com
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Fixes: e091351b3881 ("tracing: Delay module ref count for "enable_event" trigger")
+Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Closes: https://lore.kernel.org/all/20260828134340.2501683A24-agordeev@linux.ibm.com/
+Link: https://patch.msgid.link/20260911155650.354844-1-aliamemis@disroot.org
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ring_buffer.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ kernel/trace/trace.h                | 1 +
+ kernel/trace/trace_events_trigger.c | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 9bc8ce8c5676..04bb94c29f58 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7473,6 +7473,14 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index bd3c8f80300f..3749485a7d85 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1953,6 +1953,7 @@ struct event_trigger_data {
  
- 	old_capacity = rb_subbuf_capacity(buffer);
+ struct enable_trigger_data {
+ 	struct trace_event_file		*file;
++	struct trace_event_call		*call;
+ 	bool				enable;
+ 	bool				hist;
+ };
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 149300cc5e8a..4d2fde996c0f 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -1728,7 +1728,8 @@ static void enable_trigger_private_data_free(struct event_trigger_data *data)
+ {
+ 	struct enable_trigger_data *enable_data = data->private_data;
  
-+	/* The mmap fast path reads subbuf_order without buffer->mutex. */
-+	for_each_buffer_cpu(buffer, cpu) {
-+		if (!cpumask_test_cpu(cpu, buffer->cpumask))
-+			continue;
-+		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
-+			return -EBUSY;
-+	}
-+
- 	atomic_inc(&buffer->record_disabled);
+-	trace_event_put_ref(enable_data->file->event_call);
++	/* The file may already be freed here, only the call is kept alive */
++	trace_event_put_ref(enable_data->call);
+ 	kfree(enable_data);
+ }
  
- 	/* Make sure all commits have finished */
+@@ -1801,6 +1802,7 @@ int event_enable_trigger_parse(struct event_command *cmd_ops,
+ 	enable_data->hist = hist;
+ 	enable_data->enable = enable;
+ 	enable_data->file = event_enable_file;
++	enable_data->call = event_enable_file->event_call;
+ 
+ 	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, enable_data);
+ 	if (!trigger_data)
 -- 
 2.53.0
