@@ -1,158 +1,101 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f25.google.com (mail-pz2-f25.google.com [74.125.228.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D93C2BD00C;
-	Mon, 14 Sep 2026 01:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516A61F1513
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348260; cv=none; b=piJjegBkeRPOb+ceTl85yUyUTLUzNBBhwS/nyuhtmypW3UcAm04G9idRMnhGc9ewCrKytnsJkX9VmlZ/tQszPuGlcWt2jH58ONnFGl2lLWB0ZIJQLuiTS9S1GwmG+Cx3SCK0tK+uAJsAZ5flyerJcmQKIuTFWHkLRdiHp6huaEs=
+	t=1789349043; cv=none; b=vD+jPHoxOzSclmtEeb7EO7sVWCZ/Cehr9o0jEutWjfESBLlWOaeVDpXNHz/M5ake/le9J+Q7GxuMQF0u6SVG+FyZJgsIwe+VCV0R1BPGRuFfygMIV64Ry3gHZ5vc5Z+8dnfoqqLbNL97tvrRzEl9PnLZwDwKXoRXJLH5lcNd+cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348260; c=relaxed/simple;
-	bh=B0i56RUFfvYfjE7+JYj2NPdCwqVDUqvzGWeABnFeUoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vsq/47bB3piiU5lEkMoJGsSKPY1pUTQi+nuTVsTsakWsqtr9bZS8vmbpMU5qEMr1bcbVl4tS/tP4KzYWWNyk1I0lVWG8+qJMjp+UUIglZ6Jd7kRCMw7Vv5lfzap5MwESZQUU3tXKvLzTKZBhmui3LbEaYST4fOPxHClsWl+E+3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=RfaL8rbV; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1789349043; c=relaxed/simple;
+	bh=jFM/DwXHjkKXAHQoUXYqUXKTlLXJhLvu/J7v6hlyZnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mn5txNYmQ1IxFno1jDOB9KeoE4oE2VY6bx08xiNYPdRO9Z/ny2dr057g/MBUgiIl6ytcXMdUtQTfwzOqKymo0E5vxks3A3bupVcXkx2qggKEs2hTRCjtr4J5D44qrYBtZX9tCRsJkV9zw5HgVWgTJUrfCNOgAQsAf5PMm+XDtMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0BWg6mJ; arc=none smtp.client-ip=74.125.228.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="RfaL8rbV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=vvogwQEyF91SCR+49Sgt22LmU7mWdMDmhjfhbp8SKu4=; b=RfaL8rbVrGwBhdPUpBj5sfFfNh
-	1BP9FKAywqPwCq7b39C7A2LLgf1xQsnCEKwhXoeEKUNfdNdCkGGQk7ORQp7RZ9aZdGvIhbt2l4y5H
-	f0hnxVmvW48L3IIOr4LQzOE6aPWLNAODx375SM6hulYUVGtkR1tbWOjvfAPfa/RSL8VhjqDXqjLGv
-	cEXZfWBUb7k22tEmsb2CErl13zGTeYLyYZJxUL96xJhPkaBFCJbRElwXb35eNSpcQQhOTaznoUZC3
-	Xa6p44K2JMYDmn0Hzu+r3EW3Hgg7OstSutLFk/JtUWCIQFL0knuYUxQ6miAF9w0FeRGQoDeyftLek
-	I3nWjXdA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x5vDh-00000001M8H-0xNO;
-	Sun, 13 Sep 2026 22:10:53 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Tom Talpey <tom@talpey.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] smb: client: fix fattr leaking on wsl_to_fattr() failure
-Date: Sun, 13 Sep 2026 22:10:52 -0300
-Message-ID: <20260914011052.809774-2-pc@manguebit.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914011052.809774-1-pc@manguebit.org>
-References: <20260914011052.809774-1-pc@manguebit.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0BWg6mJ"
+Received: by mail-pz2-f25.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso1370187a12.2
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:24:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789349041; x=1789953841; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hnFkbktqoVqh7KvfNL372TtJBe46jI4r1nKfWafzrAI=;
+        b=I0BWg6mJKTHFG3nGKLsrqQ8/73BBIFltQA8KnZ2K1B8YSyy5hpzd8CA0pb5kiL5gyD
+         fRSLfKuJfTGIu/Eb5OPAqFMaAYPQ5nryUdskcZTfMyn/0/2so48vXFc8+0czd2gfyTRm
+         FA9IFsOL5C11iBIpxxvAA9DWv0Dw+uv75OyGXHaVTPA9BJxiIebM3rswBXFB5V7O+TkP
+         m6d3cTX+chg2io9KG3kkGe70QW2iRCmwe/0kWObYe29sRK6aoxn6d6DdHxjgzlxICGYi
+         YU6N/AE2H9e5S10Asypw/9SZ0ZfGJmQhN9AXwyUXRnFJ8sD45cGvktgnI7kz2Lx07zab
+         QJSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789349041; x=1789953841;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hnFkbktqoVqh7KvfNL372TtJBe46jI4r1nKfWafzrAI=;
+        b=qeIy/e9qrdAWq7VR7yZpz6rPwKn/V9bxwHpenRCzbTdkJ3tOhekB+0bo2z244omVox
+         TB5x9tDkc/36apQUlYTvuh0KD4dUAzgydvOugHoY9Dpas5rspO/Ah2Yjo4ihBqQNnWkv
+         kwuqyLgHuwtL0Bi+GBFfZc6gaADEZ0DtBnNa2o7yt5LVWvCd/J/wQFAJlqgctcYnQe0f
+         j/Ne98SR/2WXN2eQno2u4mY3eHoVpWSqN4244JwjJeO2SxvuZwtlWiPZ9Wq8gpihlASE
+         ueyKMQb1JeUI59ch6X/VUZvBhD/NhxBhd3B1M4BcO6mXtw9xvFEN/62kHdQXvJHu4yvU
+         ub6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxjMtbSK/OdN77P5LMIijdf1oToHgsdmKwtlh/39GGvdjXdliTOFkq6ko36ZqIWf64v4nVhCLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo+MCep997VonYx6TG5ax+PmMQoiGytof2htoFgw1got/l8XqD
+	7oAY7S/n9OdkZ656A9opS9wCzM3Nnid1kyXdPaT71eVJ81Gig/v7HBtT
+X-Gm-Gg: AYBFou2wszSTmSA2Sy+NCiHtAm7SQJcGaz+kWxkbyWvRgwvdRX78XutsUXm4Q6vyAqV
+	teYLHxs7nwwwFIsK8JG0pxtpBvqpB8X4wl3KdEpdIoI6rf++Rp+81F2hmiXA7WpQl0Gg7/MrAlO
+	Yi01MEE7qy2a5BBYmnvhR3irPXQXm3PDCLg/tsUkWz78X+5IdtRPZmpUqiKJGW4ku+mg2QLmHWB
+	x0eOXaZLOCMxxlYI/dREDv6e8TMw1ldv1wDOTIGZ7UvLgfUSZjazaVOOv8xfhflz6oRaDpylRLd
+	TA5jWVZCOIhiVCqgcFBMKDcGRD9jbbebX8PNgqiMwNsZz8UBZneVzruZCVKHtgJZrav7r0QWiId
+	slyDVqAG2DfnQhkFKzdnEN9bbm/kVWLTmsiOfTiKRR2XUodFWmwLz5pQ/+alryOz72c801xfcLO
+	PoLKts9s0/GL18JZIJHRHycHiMQNyzOtZiI+WNiGPdLEduSHN+MufnWdZ3TDwfRv/YKOS+ZqNts
+	I8/n/QBuSVVSpFcV0XKY8QPuDif5F3B7LWSSyC64VojCCX5ZoI=
+X-Received: by 2002:a17:90b:39cc:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-39debf547abmr1067411a91.5.1789349040552;
+        Sun, 13 Sep 2026 18:24:00 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fb3ddasm20363582eec.30.2026.09.13.18.23.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 18:23:59 -0700 (PDT)
+Date: Sun, 13 Sep 2026 18:23:56 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, linux-parisc@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] Input: hp_sdc: shut down kicker timer on module exit
+Message-ID: <aqdMplrLuOrSU08z@google.com>
+References: <20260902154004.3595416-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902154004.3595416-1-runyu.xiao@seu.edu.cn>
 
-wsl_to_fattr() mutates fattr fields as it parses each WSL EA.  If
-validation later fails, the function returns false with partially
-mutated fattr fields that callers do not reset.
+On Wed, Sep 02, 2026 at 11:40:04PM +0800, Runyu Xiao wrote:
+> hp_sdc_kicker() rearms hp_sdc.kicker with mod_timer() after scheduling the
+> tasklet.  The module exit path uses timer_delete_sync().  That waits for a
+> callback already running but can still leave the timer rearmed.
+> 
+> A callback can therefore leave the timer pending while hp_sdc_exit() tears
+> down the driver, allowing timer activity to access dismantled driver state.
+> 
+> Use timer_shutdown_sync() for final teardown.  It waits for a running
+> callback and prevents rearming after module exit begins.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Fix this by parsing into local variables and only committing them to
-fattr on success.
+Applied, thank you.
 
-Closes: https://sashiko.dev/#/patchset/20260906200517.725015-1-pc%40manguebit.org
-Fixes: 78e26bec4d6d ("smb: client: parse uid, gid, mode and dev from WSL reparse points")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: stable@vger.kernel.org
----
- fs/smb/client/reparse.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
-
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 6ac69f4d391a..3a27773186ae 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1149,29 +1149,30 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 			 u32 tag, struct cifs_fattr *fattr)
- {
- 	unsigned int sbflags = cifs_sb_flags(cifs_sb);
-+	kuid_t uid = cifs_sb->ctx->linux_uid;
-+	kgid_t gid = cifs_sb->ctx->linux_gid;
- 	struct smb2_file_full_ea_info *ea;
- 	bool have_xattr_dev = false;
-+	dev_t rdev = 0;
-+	umode_t mode;
- 	u32 next = 0;
- 
--	fattr->cf_uid = cifs_sb->ctx->linux_uid;
--	fattr->cf_gid = cifs_sb->ctx->linux_gid;
--
--	fattr->cf_mode &= ~S_IFMT;
-+	mode = fattr->cf_mode & ~S_IFMT;
- 	switch (tag) {
- 	case IO_REPARSE_TAG_LX_SYMLINK:
--		fattr->cf_mode |= S_IFLNK;
-+		mode |= S_IFLNK;
- 		break;
- 	case IO_REPARSE_TAG_LX_FIFO:
--		fattr->cf_mode |= S_IFIFO;
-+		mode |= S_IFIFO;
- 		break;
- 	case IO_REPARSE_TAG_AF_UNIX:
--		fattr->cf_mode |= S_IFSOCK;
-+		mode |= S_IFSOCK;
- 		break;
- 	case IO_REPARSE_TAG_LX_CHR:
--		fattr->cf_mode |= S_IFCHR;
-+		mode |= S_IFCHR;
- 		break;
- 	case IO_REPARSE_TAG_LX_BLK:
--		fattr->cf_mode |= S_IFBLK;
-+		mode |= S_IFBLK;
- 		break;
- 	}
- 
-@@ -1195,26 +1196,29 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 
- 		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen)) {
- 			if (!(sbflags & CIFS_MOUNT_OVERR_UID))
--				fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
-+				uid = wsl_make_kuid(cifs_sb, v);
- 		} else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen)) {
- 			if (!(sbflags & CIFS_MOUNT_OVERR_GID))
--				fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
-+				gid = wsl_make_kgid(cifs_sb, v);
- 		} else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
- 			/* File type in reparse point tag and in xattr mode must match. */
--			if (S_DT(fattr->cf_mode) != S_DT(get_unaligned_le32(v)))
-+			if (S_DT(mode) != S_DT(get_unaligned_le32(v)))
- 				return false;
--			fattr->cf_mode = (umode_t)get_unaligned_le32(v);
-+			mode = get_unaligned_le32(v);
- 		} else if (!strncmp(name, SMB2_WSL_XATTR_DEV, nlen)) {
--			fattr->cf_rdev = reparse_mkdev(v);
-+			rdev = reparse_mkdev(v);
- 			have_xattr_dev = true;
- 		}
- 	} while (next);
- out:
--
- 	/* Major and minor numbers for char and block devices are mandatory. */
- 	if (!have_xattr_dev && (tag == IO_REPARSE_TAG_LX_CHR || tag == IO_REPARSE_TAG_LX_BLK))
- 		return false;
- 
-+	fattr->cf_uid = uid;
-+	fattr->cf_gid = gid;
-+	fattr->cf_mode = mode;
-+	fattr->cf_rdev = rdev;
- 	return true;
- }
- 
 -- 
-2.55.0
-
+Dmitry
