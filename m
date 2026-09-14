@@ -1,83 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1523A483817;
-	Mon, 14 Sep 2026 15:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCCF49F108
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399874; cv=none; b=GVXXCBP9OTKuZ/rka5JCBFl7GqOU8bRl4F3IPRNdgYiJEurdi60yWiXjCDF1aBHhVnInmdDwn+3K+TnC7iTtgWZReGbNGRDD1b6+EF4kcCZeNFW5nGNBoXo9Nd04Fp+95RxPnrLUiO4bp0gD0e4po2QZD46mWYF5afVlgdHNulE=
+	t=1789399891; cv=none; b=VqYxYzh/4G2T/h1aqeSYnxbqxqwSJLYTd4qI/BLnxJUB8iJBegydYPqogi6ZnrC+683jgDUl4Pj7dv66LuQHN+5LPPd9vIjMZcB+A8eEU4i6Df1EedoUmZniAGEtlCVUOvfJDcDs6STM1Zo57hXGdlehSxjGW2L5l4IahytCLaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399874; c=relaxed/simple;
-	bh=dHibTyz/FQavpIDAMGGkANkIWHNNJvPA1wzYTrjMY+Q=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=CuvjIUJVrSNpLts37OeT2ggBg1MWgcDmm2/ZK4QMZNMxp52rRwFSUZvbNt1vZf0uzBK0W/cpw4TfASoLGXAQIlaV5W3RWsVoS+qe+U5puALuKJz4TyRnvyss8AOhSBR5K16int41mMbBLAGP/TFl8uAoQKB1ao/zvDFKBIheZtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeX8xs9g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789399891; c=relaxed/simple;
+	bh=NMWkk7VqLSEb5X08dhPbCYxV9CArNelOzi5HrhzTRB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mRwCKmVKb13nsGR3x34g4JFJUDAoR/DrDhKzq0j5xgcN9rTnRgIOY/y2BY0bWQVuesIhSomQXQV7FCPPi0+m9BZSGEV+gZQbjeKGH+z41qf2p4Da9yaGo2/c1pp9ThJlTry/BCVtupMOFMcJfNWJ4mbDOBmZUvg/Da8nk8uUKr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h8ZpZK4x; arc=none smtp.client-ip=74.125.228.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeX8xs9g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99951F000FF;
-	Mon, 14 Sep 2026 15:31:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789399873;
-	bh=HpY76s3GnvgYwaOhvoeara9xLcQyChW2rfV0iG9R79s=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=WeX8xs9gBfGaaTuMrrISuW8ri4bHEZHRM7gyZyJSKwacYUn6fzMakRQ1lfmK/vRgD
-	 Ivk+aNbHeaa8lpnC18Q2uKCn2CmT8ebd3u/yLxXXyfYGlrolYlmhoQ74/ENrvVjq7X
-	 YAns5CutTvpYE0WQ/a60iaN4yJ7GD8r3uXVq76kYEWWFUsnNPrpYnwVowtAXs1bRz/
-	 y6lyTy0nWuX3g5KKLtfKD9AYQNPDIXPPenIBtDU1zQhKvN/iPIONM5Om8y3LTifSje
-	 jOR2Q6iRzJln9wzEfFw5Kx/EfM87q4/fz/+2Rs6zPrxTl0gQZgIl5jssfC3FMU5MfC
-	 ek86ng5fJ0n5Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A843924A79;
-	Mon, 14 Sep 2026 15:30:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h8ZpZK4x"
+Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so699907a12.2
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789399888; x=1790004688; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=80/p2r+sK8JMp9zNzEgv5gzx5JVorvjEM6vLrigBwZw=;
+        b=h8ZpZK4xMWTqOqn0FwqEmd00rSPtXSkB2uXS520GtEXk4X547vQ5wSCxBrYebbPUw+
+         VDjHsKUDZ8pCxo1fOZRsIavf90DRgWetwNHC1o9t3Kq+VhNGLzYuDF88iCpr5AOJw9xc
+         190C1rRzIXf4Y2qkhJVggnqzwC18TkBNdit0LqMe/6RHusZxwmNA7pG8Bh5t70SFln5Y
+         miHSF5EMxZOEpNgCRLTPlfofSRzFG71XZA0Rihyc2YWqUdKhRKeaOrXi8ek9QBcM6SsD
+         fRzT3wrTuyl7SRyYwaqSOaj/EdpzPJUDXEAAfn65v4Qa9XtNQDaP2hs6o2OLEJTHh5GU
+         SXzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789399888; x=1790004688;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=80/p2r+sK8JMp9zNzEgv5gzx5JVorvjEM6vLrigBwZw=;
+        b=RC6w2kk9D3Tqoh7gJpsKCwtXfBex1DV9q9QG28bUdk7kw39TnUtgXxCMvuIq84d3PE
+         gib0qMe9ETBkNIHJ4QRHp8CCL8WqTI59IIbbU5d4Gj3VNEhpvQ1tYFL1tqLHKm7X3ts8
+         LKQX4OXVTCbiPIlPBnFcmnhJXd605alJS1rD+ySSaFlLl3INiCB0apAyQhEp7lSt+jMh
+         NvflRSZjad/v9gEdKC51r1pjMM1jSXeE9TxMyfSNpupR081d5GfiRotZb8J0UXyGbkjI
+         nvsSnmsRNKusQCo1CsDgVfMun5oZJMHiw11AJ3AR/NXcfBWeOxiD3J7cUSaOOGGjg5RO
+         ih1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByprg1lGyHOOomHloI6fOozfksfjLZjn/k8sh9b3b1YpzFDeHlvWK04zqTi1TiWXanOVQEOSCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++niRfnkRUCnPJyHo3ios9V23c5opgrWODTscUT++TlrTlniOKQu
+	lzjHHu6KamWP7G06qXUIeBGGLWBzsgxIGJUq8gf8DRRVwd6FRhegBEQVsHWT2dBi
+X-Gm-Gg: AYBFou1gOMt2AzLvPUYrjddnyuNLXigufncN3FfAnJG5Orrip0FHMdicIj01E4Vs5x1
+	vL1EU57WMQvVN9f49f4QWUwiJZNjHUZVRoOnrjWbzbM/VVx7wYu/cW4YPCidVTFYCU6FnlkjG1H
+	OxadN5az+fRFSh664oIbXKUN2VBuE5EmBZE1Dw4CjcJ6sXhVZhan5VO2KU48ElQlIFJPKIxJQIM
+	VfOLshZWDX/lQD3PWbjH1DB1RyEjet2AofYPJFNxQYakHyBUlYtlEDqW6JysjyfI7m0qdbhCq5E
+	1V3SaWbBylqw+zSsloQwlkOabTK9q6kw7kRY3pYhcZDQ3xnUDZ9Z06KNFz7LaCiX4+pFWXX+cPl
+	hGOYtEJHkQxvO0e48/NjIay/1A9lz4v7tctquAqaAlpTKhv5WkcabygtGMb3iQF4a1d+QQWQg79
+	VvvQRblzv3jKvD9qD39xCTrr+/z0f0HYZy78HBtSv04+9xOCqv8RK4cO0nYaAduFclGmf0xgMC2
+	KY/69gin33+OA==
+X-Received: by 2002:a05:6a20:6a0d:b0:3d3:af86:fb94 with SMTP id adf61e73a8af0-3db406baa5fmr6579605637.26.1789399885429;
+        Mon, 14 Sep 2026 08:31:25 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29ebc712sm4804163b3a.49.2026.09.14.08.31.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:31:24 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 14 Sep 2026 08:31:23 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Rudolf Marek <r.marek@assembler.cz>, Sven Anders <anders@anduras.de>,
+	Jean Delvare <khali@linux-fr.org>, Hans de Goede <hansg@kernel.org>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (w83793) release probe data through kref
+Message-ID: <49f5d298-e250-4d18-b99c-aebbfe0ef458@roeck-us.net>
+References: <20260914073638.1662500-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: force out-place update for all writes on
- compressed file
-From: patchwork-bot+f2fs@kernel.org
-Message-Id: 
- <178939980787.647967.18277345902202465744.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Sep 2026 15:30:07 +0000
-References: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-In-Reply-To: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-To: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org,
- devnull+jiucheng.xu.amlogic.com@kernel.org, jianxin.pan@amlogic.com,
- tuan.zhang@amlogic.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, tao.zeng@amlogic.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914073638.1662500-1-lgs201920130244@gmail.com>
 
-Hello:
-
-This patch was applied to jaegeuk/f2fs.git (dev)
-by Jaegeuk Kim <jaegeuk@kernel.org>:
-
-On Mon, 07 Sep 2026 19:35:42 +0800 you wrote:
-> From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+On Mon, Sep 14, 2026 at 03:36:38PM +0800, Guangshuo Li wrote:
+> w83793_probe() initializes data->kref to manage the lifetime of the
+> driver data. The normal remove path drops the driver-owned reference
+> with kref_put(), while watchdog users take and release additional
+> references through the same kref.
 > 
-> For compressed file, compressed write may fail and fall back to raw
-> write.
+> However, the probe error path still frees data directly with kfree().
+> This bypasses the kref-managed lifetime and discards the initial
+> reference without a matching kref_put(), leaving the reference
+> accounting unbalanced.
 > 
-> -Thread A                                         - Thread B
->   - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
->    - f2fs_write_compressed_pages                    - ...
->     - f2fs_trylock_op                               - ...
->      - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
->    - f2fs_write_raw_pages                           - ...
+> Drop the probe-owned reference with kref_put() instead and let
+> w83793_release_resources() perform the final free, matching the normal
+> remove path.
 > 
-> [...]
+> This issue was found by manual code inspection.
+> 
+> Fixes: 5852f9609d21 ("hwmon: (w83793) Add watchdog functionality")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Here is the summary with links:
-  - [f2fs-dev] f2fs: force out-place update for all writes on compressed file
-    https://git.kernel.org/jaegeuk/f2fs/c/a64a3fec11e7
+Applied.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Guenter
