@@ -1,96 +1,114 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B7445D5CC;
-	Mon, 14 Sep 2026 12:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CE446DFFC;
+	Mon, 14 Sep 2026 12:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389382; cv=none; b=fpg0PHJxq4C/SO0SWwPr2G3JeX9kFFHpbnl9AiM3I1rzO+/iWMs8y1pWn00tlCoZjsLM/2o8mYXS9AJLeIO3qpv++dAA6jiG6Yvmmw9jRG9bUqG0tRCgm0HLTleXU6/R4ApN8UWkOLPaUBjLKwES2LQ8tZQbK1GvlseU6gcN4js=
+	t=1789389682; cv=none; b=WCaIPp2+aC+t56mwL+01BoqiCu3gdY/QgBZ8CKRZYkuMnxvAZ2cdR2GJ1M8N3+wDT5zzLwJZyM5MLjBR+3cDyxQHLvswoZ7OQkyVWyUIS9IVJELO1EWxrwBc7B+O1hUJVMY0XxBWpMpfdwGDmJjNRAtNqRxyHIMmuSjXPGG6+nU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389382; c=relaxed/simple;
-	bh=UJ2r+DIdSWg4RDwYkHkxMWw4tiGTfXUq6IKdgvtGVmM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V7XIUeDZqXnMkP6BbNSHL5rK+wrUb8/WpFC2lJh6oulNgTNQnA13PG84nxeGmj1byH0okTYlpVWEr69HyWda7gjXuOxKzetaev+rUlX0iw8YzaESCX543R8qGrblTjihx3BG+AuzrJ2bKBjrYVg4DNYY1xeMHmLCKKKM+3KlLmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=Tq8ZuVN3; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1789389682; c=relaxed/simple;
+	bh=Tst/gkuYm77XHX34KHxK3ewavYdSJA5DNW/zjPpoDBI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=OnX3QaJNC9QytWlUu0QeawlU93xs7N9SwdYx+UIplpOefXKihj7ikoMzQ9FdF4BqId9ZnIyKD+Nc0NF3f4z4vkaVbFssmga3XKbVriV9isaDH+Lqpluaxc+ujJyJtWueJ+JzWJ+y5lckOaayBGIwFoMg976uT/w+feF+hzVSlWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rv/C2vGe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="Tq8ZuVN3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1789389378;
-	bh=NP+qx6KPd2izD8GZkscicDmC9TOW22fQf6ELEFHElZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Tq8ZuVN3iZkAfg3dOEdfoRL+QtFHyJLGJZp/2y+u+jIk8HyNzCujdqS+PxG30U7jD
-	 TFQBCNlcFWq5/QALnLSjnB3cnrxn2Gqb72rEJ+/2nOBfu7/d00tODb1jzso0eGoevJ
-	 G9W4Fri8sl6qFYDgFmwBIMJnJPRi78Mr7I0Rzs2VDRzI2kK+91sAShyH6SI1geF+mF
-	 VeyIcIz1F+eNEf56PcPkHYXEz+3D1IPraw/MRNus7Gsn1aeNoX+XRxEHLgPAO/HMPX
-	 TRKon8vWMUW3T69vXK8WJXdAkwnaBgcHWRhYCSBa/0S2bye4+hvo6botT30i73woIq
-	 UnjpNrGz2pDNA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id CE6D260055;
-	Mon, 14 Sep 2026 14:36:18 +0200 (CEST)
-Date: Mon, 14 Sep 2026 14:36:16 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Hauke Mehrtens <hauke@hauke-m.de>
-Cc: stable@vger.kernel.org,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	netfilter-devel@vger.kernel.org
-Subject: Re: network flow offloading broken in 6.18.45+
-Message-ID: <aqfqQPP2Y7iG3kM_@chamomile>
-References: <7dfa42f6-64c1-4084-bfea-d57500c245cf@hauke-m.de>
- <aqcfvRE3aHoAx8s7@chamomile>
- <aqcgG0y-nYz4DWz3@chamomile>
- <aqfofgtUfyXlfHLr@chamomile>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rv/C2vGe"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C05CF1F000FF;
+	Mon, 14 Sep 2026 12:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789389680;
+	bh=Tst/gkuYm77XHX34KHxK3ewavYdSJA5DNW/zjPpoDBI=;
+	h=Date:From:To:Subject:Cc:References:In-Reply-To;
+	b=Rv/C2vGe7WkLGwuhP9jXnFEXcjrsmNOPAzPudfslA521TVBLb2VEZWJefjnjfsEFh
+	 xamCGE/Xa/i9ip1fRSkkzfKfb7PL44rgu4BTjO6JeTbzTfVY2VokoNJUP4hc2fGthw
+	 tPT5WDIIgWr89aPyPVL6cKZxGcRUJ/nqP0zrXQvn5rbdFUEbNO/JAOIIre8NZr7n3Z
+	 WuJraoLWO+GQ/HbagQVnNTqOrbJttFQAArshxr9EzOCN7gd1tabGWZGZY8WMvWfoPE
+	 cyxrfSSpjX/7lucJKqk1z+O7wXtO+ie/nwdC1hOPEgs9mDNaBpY8S3vguUSBN+gTZx
+	 dcLvdtkZ918pg==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqfofgtUfyXlfHLr@chamomile>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=bf82c561be75f375517875bce1e7e11225900b8e43d462a84e4d39fe35d1;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 14 Sep 2026 14:41:16 +0200
+Message-Id: <DLF1P95EJSHN.37NQ86W91QPUU@kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Miquel Raynal" <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v2 1/3] mtd: spi-nor: fix the lock left held by
+ spi_nor_rww_start_exclusive()
+Cc: "Itai Handler" <itai.handler@gmail.com>, <pratyush@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+ <vigneshr@ti.com>, <richard@nod.at>, <takahiro.kuwano@infineon.com>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260914081149.1916589-1-itai.handler@gmail.com>
+ <20260914081149.1916589-2-itai.handler@gmail.com>
+ <87ld94owzj.fsf@bootlin.com> <DLF191CC4QMM.1SNYEHUFJ9GK2@kernel.org>
+ <874ifsovtz.fsf@bootlin.com>
+In-Reply-To: <874ifsovtz.fsf@bootlin.com>
 
-On Mon, Sep 14, 2026 at 02:28:49PM +0200, Pablo Neira Ayuso wrote:
-> Hi,
-> 
-> On Mon, Sep 14, 2026 at 12:13:50AM +0200, Pablo Neira Ayuso wrote:
-> > On Mon, Sep 14, 2026 at 12:12:16AM +0200, Pablo Neira Ayuso wrote:
-> > > Hi Hauke,
-> > > 
-> > > On Wed, Sep 09, 2026 at 06:29:50PM +0200, Hauke Mehrtens wrote:
-> > > > Hi,
-> > > > 
-> > > > flow offloading is currently broken in Linux 6.18.45.
-> > > > 
-> > > > Since the backport of commit b5964aac51e0 ("netfilter: flowtable:
-> > > > consolidate xmit path") to Linux 6.18.45. This is happening in a router with
-> > > > traffic from wifi to the Ethernet device when mac80211 returns -EOPNOTSUPP.
-> > > > 
-> > > > Upstream fixed it in 871df5007eda ("netfilter: flowtable: bail out if
-> > > > forward path cannot be discovered") by not offloading the flow at all.
-> > > > backporting this change looks more complicated.
-> > > > 
-> > > > This cam up in a discussion in an OpenWrt PR:
-> > > > https://github.com/openwrt/openwrt/pull/24800
-> > > > 
-> > > > An LLM suggested this change: https://github.com/openwrt/openwrt/pull/24800/changes/394d741e6e76ecd172dbbf1d9ba171e378211734
-> > > 
-> > > Patch went away.
-> > > 
-> > > > It seams to work, but I do not understand this part of the code god enough
-> > > > to judge if this is correct.
-> > > 
-> > > Could you attach the patch to this email for review?
-> > 
-> > I've found it :)
-> > 
-> > https://github.com/openwrt/openwrt/commit/d2b53b8043e17087b877bfc2335cbba87dffb4e0
-> 
-> I've proposed the following fix:
-> 
-> https://lore.kernel.org/netfilter-devel/20260914122456.1963453-1-pablo@netfilter.org/
+--bf82c561be75f375517875bce1e7e11225900b8e43d462a84e4d39fe35d1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Actually, this v2 should work:
+On Mon Sep 14, 2026 at 2:34 PM CEST, Miquel Raynal wrote:
+> On 14/09/2026 at 14:20:05 +02, "Michael Walle" <mwalle@kernel.org> wrote:
+>
+>>> Michael, since we already got a cycle with AI walls of text just to tel=
+l
+>>> "fix that damn conversion", can I (or you) apply that other patch, so w=
+e
+>>> can get rid of these? Let me know what you prefer, although I don't
+>>> remember where that thread is.
+>>
+>> It's already in spi-nor/next since last friday.
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git/log/?h=3Ds=
+pi-nor/next
+>> https://lore.kernel.org/linux-mtd/178913311701.1915651.47916242157873961=
+87.b4-ty@b4/T/#me3b51a242469a4d9722089e18547e87fdc65d7c9
+>>
+>> -michael
+>
+> Since that one is "big" I would have merged it through a fixes PR. I
 
-https://lore.kernel.org/netfilter-devel/20260914123334.1964397-1-pablo@netfilter.org/
+A big one nobody cared until the rise of AI agents actively searching
+for it? :)
+
+> usually send one around -rc4. So either you push the patch to mtd/fixes
+> (or I do it) and drop it from the spi-nor/next branch, or we keep things
+> like this, which is also kind of ok.
+
+I can move it into fixes though.
+
+> Regarding the use of `git push -f`, I know Richard, Pratyush & Tudor
+> highly dislike it and avoid to use it. I find this tool pretty useful on
+> branches like ours and prefer to drop a patch rather than carrying its
+> revert, or messing around with merges. I prefer a clean history rather
+> than the absolute lack of -f. We already have the (Linus) master branch
+> milestone which is set in stone, I don't get the need to create one
+> ourselves.
+
+Yeah, I'll probably use a force push as I prefer the clean history
+too.
+
+-michael
+
+--bf82c561be75f375517875bce1e7e11225900b8e43d462a84e4d39fe35d1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqfrbBIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/gRgQF/XoPoGaXw3p8qCLuOz5PYHYF1BVcAbGa2
+3yP6x7R66ihbclmy7cQmVK6Tow16TjbCAX9HiUB0cjuGGIn4ZTNluGxjK1lbFJTo
+L1DJS7ASKZpRQ1PykvKqc9omfy8QGHlYL9E=
+=I02L
+-----END PGP SIGNATURE-----
+
+--bf82c561be75f375517875bce1e7e11225900b8e43d462a84e4d39fe35d1--
