@@ -1,234 +1,109 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFD249BD8B
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399621; cv=pass; b=QTPhk55wbB7hFoxlCP/6DNLbUIyYqiXNPAnd05/waICykXoN+Tgy8UqwTcWiRy4NICLae2cy56hLoKYyIsnkfZ0LuBS0iugqS4543YTNPaylohXbak+bqjJ5ID3hTJJ4wC+HaSo9DY2Mvw8dDkYfj9o5Aih/I1muAYyoNBCb0Cw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399621; c=relaxed/simple;
-	bh=C5lqWZYRcdT+xV+Ag/2xtxUo/YeIYupOIT7BEys5X94=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mVAJQsf+PgXjCKTXqMTBW8ikyLtv5vsbMKrdZi9ZBYdl3TGSxLQ9ua92M/n/VCr02AnjTxiu148SmyhOHlLHmZ582+OsrBNq2pz5vAraKundk6durJns+u3d996qHB6Lso0Lj5+O2jcfNNokfgCoOgICquqm/+Za7zpwsyOkNk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fcTukhZT; arc=pass smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7313E48095A
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789399819; cv=none; b=jxMY8kZENT46V1exiM8PYG1e5l0piF8zN29lf1nVImuVVsWRtUdTcl9WjEDRHBioTD4MKbcorMjI1jgIlgstbvy6f1yQ2zm+21F+Sgk1QT8SLCHWCXf9Cjigylp1wZQjm0do7tm0fnbVuEbycwrIDZwaM5FkVEMc5FWclFqOHIk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789399819; c=relaxed/simple;
+	bh=h/wDH6nToVf/TAYvuwPjg2RAFl5iJ36CneD4aSoPqTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AJEkNAbVlylJpp8OR9Xd3+Ap/lsSgdnwWdnTJ2IkrjsvAfNeTiMYd4e92PGETP/eHmIk8/dxe3gfCpbcm0FB4eQU+KrNdrEAcGxt7EO2MXDx4n5wAnw0bEUptedEXcFIo1VJxBcrsANSljAzxN48dzW2MD7GGjKtu4xEUc95oGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWEKv4fk; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fcTukhZT"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-90e92b99ab9so28763366d6.2
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:26:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789399618; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SSMPXpUE6BwH0Ql+HcA3dPXTQRoM2ffz4roGRWkiYsWYYOtvZ+fB6LjJ1eUjfOdrWk
-         URq7GGP/iAACVQxigHRdw3CJzUU7zR7pNf4IkKiBmhiWW7m9hqjcFHK/aBfHfzTMgEwb
-         OskOikNfeeG0C3sDU4DOCQhlMxdIvKqbuRtNCKK6LmtWC2IuUB2bCnnbyOut92D0ikbY
-         raU0Pslwx3n0aNP6jWL5542CbSxQq66ksHnY05LlYgaiuCoEGrqalw2HoXMJ14b59tAR
-         ujrv3GsuvNcyLeXXu/WdIdhNs18R6ZvbyydZ2xOY+cKMmtx4IIBDAkytsyITElKCgNgT
-         uYnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=Mcn1aLlH7H+x4GqfxFrf2tZYu3mAVZpDuMSayy1t56g=;
-        fh=IVCFDoWaRKWpEMaT7LV1Ch9/H5uN7112o3NTtKbQ4fg=;
-        b=VZ6BOR5R6cf3whfhTH9oDG20HdZUk0XjP7DpjZlZQOR7ZUR7jvIkT9rYAKdHdN236H
-         P+GSs12QUgrSYi9IJqiveGiVn7rBUlR3ZYfvubWSyLLdLbh85Cw2peWFlmt8z5ugXBLZ
-         nRS+A+wQqXfxVlfIZ/vbS6oS/JX6h5e95czAaYsBZZYYos7YPiQ5ounAdG/yFj2UISft
-         sfiHXJxbUEGCOmNTUaEFv68M9C03Hb8gG0Q6ViKUq0jHyGW/bVNwzwTyN0CdZA35Bsik
-         5aPKxTCDt9w8xW7xki/is3CPE2NznGg90PIBs6IAuKVvyv5Sf46xEzLkd7COLYv2Px4S
-         RJoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWEKv4fk"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334ddcso21736675ad.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:30:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789399618; x=1790004418; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mcn1aLlH7H+x4GqfxFrf2tZYu3mAVZpDuMSayy1t56g=;
-        b=fcTukhZTA2LR0jf9Yp9pguMhcmysn0p9NvAxo5pqhyDWe+6sFrWv/7oA0vvvH8mutV
-         wsIX0ZZIbtfuk2uazn3JkQ8Y7zo1eXqy35g2A4uPdRB2MMfVd6TkRR6mDipNwZoz6G1T
-         cgTzPfJQQLhlZ5+72fQWhC0xf4pbjpW3bd4T8CYJ9SRSkFt6gmATkfopdZiyA8jVk52p
-         CFbq9pCmnMQiovQ0WFnowvQk6c5N9fQmBnw3Bfen3bwq2N1y5sVtDES8y+hw0Eemdm7R
-         a1rovPf9FpugAFdddcN4Om0Kbyxtdz98t/l801eQOokLSfnIknZtQcrxVyjFLydwMJQX
-         L1cA==
+        d=gmail.com; s=20251104; t=1789399817; x=1790004617; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Az8tNuJvyLtzVr3TXGzXDdP8iMuPRIZTqheTTOwSHa0=;
+        b=dWEKv4fk4ZwbkYulN4HVXxzUvwe80b3iGC7osKGmhrxiWUVUjYjuTExddjCwWUXrph
+         paCp/xCBnvIctXgHtHaF6/1NnuVwQp/dqoW+wpGfZ/I6UvyrYQiYUfMNxJkcv6UzBQDw
+         WI+I+3M2NWgqsql5EIICGdLOPJ8Xg80Jdb2IWWm8EWUQrQy4W89jjqbXTwem9zUlabS+
+         nB2WEcAFbRq0msiSpdmBDXkd0l0W6ok29MGf9bZ9DjZJFgv4y2WDg9BUKXQ918AQ/0SH
+         mZramtUEoiP9z8zRo+NPymU6NqUa5MZfRM/EsxIWz/ARJBOWo43BjoFhRd8Kds89Bm1T
+         /QuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399618; x=1790004418;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mcn1aLlH7H+x4GqfxFrf2tZYu3mAVZpDuMSayy1t56g=;
-        b=Q2OD1a6fKKBR/uiNROYz0HjrYlNP+IqGqm0YzuFeWtpj0PTQL50UZOSZ1RO9iCSLQN
-         ulmNcrPg6ompwKteCMaNTOw1sfQqhi6ByFH1yBWMZk8pOdmPaHrlKzQAc+lCkEzCfNXS
-         zQjsBITVT9Bo/s+JYn5GmIO5R3q1zx2uPgWhp/MNC9dPmVXUfi1nncumiqINYO3cj83g
-         srXuLB4faJIZpTL0Tx7VMgpH6k33xmdoM8JI72DtppwyzPdmDUl2OXodsajA4s1mV3/Z
-         ZfPmS/H4CP6npk9T8Nngvb8+neErSDDoXMlCkhn8nraBG/GsMZxBJ+pGRKwZ47waZ6mG
-         W7KA==
-X-Forwarded-Encrypted: i=1; AKwUvBx61BA/7zL6Zfl/GnI3wTf9yoN9cKfAur7344fmxwG5Dj+sanqf42yjhVNt8mVgp54vZLFRLmY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0Cjb33yGIeItheoPfQGC/F4voMhIGQHa23oW9EhDjL05K6m3N
-	suv205LjZOwr02Krc3FF0cCjWzmJV2BpcsoVA7Iac4C0X1k1UA4za834yeXmWQOQf7Cq6KGqIBj
-	we8o8zFkfkcAkkVwd3ZR2hVk27tD9vtIKQjbmTCfQ
-X-Gm-Gg: AYBFou3PFrBb2FSJWOAC3yHYzv73qpfk1Gbhj0jJV6NwV4tEG+s2U6XzVNaU8Faoe4F
-	LwmvV3oSAcoPBHDjAFdW1niHBkGLCG1tjXLGOu8Bm0sAXBLx14ihOaLQycO/y4P3ltZSFH1pEJp
-	an1W//jdrl732W8JPoG1KETEwU7TMsJNQLNV16JwcsGA57wY4KoITz0R+rlBFXQTU9K2QEqhPCB
-	XVkscFoUrxL8MhYgyXS1vQvAXfcxzwh62RC9vXJTlC6Oy0Lcv0B4vSDQQpLSs0Ed8KucQxX7WB5
-	eEi53b1PNNiR9dZ9UpbYy0tV2CLkKIpC4FI4tQLTEj3FflRVNev2ubh/GbkBKObsHeGt5mjReP3
-	viXu7TFADWQ==
-X-Received: by 2002:a05:6214:451a:b0:90e:9665:71b9 with SMTP id
- 6a1803df08f44-9122e65b41emr46757376d6.27.1789399617103; Mon, 14 Sep 2026
- 08:26:57 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 08:26:56 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 08:26:56 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260910195800.3459455-1-joshua.hahnjy@gmail.com>
-References: <20260910195800.3459455-1-joshua.hahnjy@gmail.com>
+        d=1e100.net; s=20251104; t=1789399817; x=1790004617;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Az8tNuJvyLtzVr3TXGzXDdP8iMuPRIZTqheTTOwSHa0=;
+        b=hf7CCX8tMLcvFa8K5uedVrjbntGGUJLtcFkFkWBvv6QcyBnh4mXtsD5RxQdI9nnCSR
+         K0GeYOoUzyRZoUg8ISREu2mk7xbPyGvra22rVY/BY14hfZzcbyy/SvEwE9753zYnihzu
+         Z8LiDqeqMHG9d0DpYl2uVjn6u9vGJi0fT1zGhEXXpMvF9IrrJ09AbTZrmSnleHomhbsK
+         sX9HrnXKsHHhJek4ztyM/SC3bq8aoD6X3sKeDmT7JcxTaK1+YqbbSqP4KAKtGuOklRAi
+         5VjsWkyA8K4XI+lTSRiUF/ktZtMFGQRhhqdc3XcC/C1liiaDOTbzsbsITutTTwiUt+mu
+         Vzog==
+X-Forwarded-Encrypted: i=1; AKwUvBxTDOnCKG39jq/l+DIggS45RQJWfuuPB0+IF25FN+jIP9uKhrsX0O4oANlBCwF3LwABOqLgqtY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBRylqWH3a0TVSBk3V4lht/eLWkpsNye79quwzLp14EFCDPQbT
+	gD6KmnQolx62OvHaqRIvC7sQiVQ3w5G327u7YiAlA52t3rlTDF8G2Dgf
+X-Gm-Gg: AYBFou2kuH/H5+SfGvlM0dw/kAgD5K3xtH73zpuQDZQ1Gk8fHwqkpiQ4Kbjatu1K8WR
+	0Par+F5e4JwkWhWtibyrR+w0BtZj2J54/7kX8OhxILM5XMD4a5VjxHVsFwvkspDsNHhdPtB0qD+
+	sxRXtT6YLZDPLxOLKGHhldWCCUPU4hy+SHXnxqZzmMJunrHuwsTFKK4YSRIUluZdCs9j3d2Tuq7
+	PRce2zhL8U/t0WEaifhQOhB32GKpypQhW0mW6QENhfe5WtrdPC9Jl7gtTQ7ydXiezSw7nOqpHtm
+	p+W7hgNK028rpXuRTcPw/0+ozsU6DsG5cB40+q8MRT+ofoCcbzq9Tln7znce5k/o5ddga+drxNd
+	f87vpIycZSvv5N1azBD0ibZ14+R4vG63tBiZxshko26E/XYBxU+S+hdp3/J3MTvu3E+B7ZKTo7M
+	rtL1rx/0I223XqvnyIJ5l35v4kZSOMEMZ8f8LM7QdVd2pHj32E88MuyA3JiA+4RH7CRTDS2iQ36
+	RKA/aEpYF/EWw==
+X-Received: by 2002:a17:902:f64c:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd6c6fef53mr67714745ad.16.1789399816489;
+        Mon, 14 Sep 2026 08:30:16 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ce92ea4sm51503935ad.20.2026.09.14.08.30.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:30:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 14 Sep 2026 08:30:15 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Marc Hulsman <m.hulsman@tudelft.nl>, Jean Delvare <khali@linux-fr.org>,
+	Hans de Goede <j.w.r.degoede@hhs.nl>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (w83791d) remove fan/pwm 4-5 sysfs group on remove
+Message-ID: <c5416dc9-f814-453f-ad2d-497d21dd8dd4@roeck-us.net>
+References: <20260914062809.1650538-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 08:26:56 -0700
-X-Gm-Features: AcwNN1WXsa-zr5yhxjh8RtbW6G0xYf0DGleOaP88Iype7y1bZYBjUUrEH2Yb5dI
-Message-ID: <CAEvNRgHbzY30n1hz2vv7BiBMMhci+NEv_ubP1LjQNmBuu6Kjgw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: Fix subpool usage leak on allocation failure
-To: Joshua Hahn <joshua.hahnjy@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
-	rientjes@google.com, vannapurve@google.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
-	Zhao Li <enderaoelyther@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914062809.1650538-1-lgs201920130244@gmail.com>
 
-Joshua Hahn <joshua.hahnjy@gmail.com> writes:
+On Mon, Sep 14, 2026 at 02:28:09PM +0800, Guangshuo Li wrote:
+> When the fan/pwm 4-5 pins are not used as GPIO, w83791d_probe()
+> creates the w83791d_group_fanpwm45 sysfs group on the I2C client
+> device.
+> 
+> The probe error path removes this group when a later initialization
+> step fails, but the normal remove path only removes w83791d_group.
+> As a result, the optional fan/pwm 4-5 sysfs files can remain after the
+> driver is unbound.
+> 
+> The callbacks associated with these files access the driver data,
+> which is devm allocated and released after driver unbind. Leaving the
+> sysfs files behind can therefore result in accesses to stale driver
+> data.
+> 
+> Remove w83791d_group_fanpwm45 during normal teardown as well.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 6e1ecd9b8f13 ("hwmon: (w83791d) fan 4/5 pins can also be used for gpio")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-> */
-> On Wed, 9 Sep 2026 15:54:59 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
->
->> On Wed, 09 Sep 2026 14:49:28 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
->>
->> > From: Ackerley Tng <ackerleytng@google.com>
->> >
->> > When folio allocation fails early (e.g. buddy allocation failure or
->> > cgroup charging failure) and a reservation was not used (meaning an
->> > unreserved global page was needed), the subpool page acquired during the
->> > allocation attempt must still be returned.
->> >
->> > Currently, the subpool cleanup error path only returns the page to the
->> > subpool if a reservation was used. If no reservation was used, it skips
->> > releasing the page back to the subpool, permanently leaking the subpool's
->> > used pages counter.
->> >
->> > With subpools now always tracking used pages, always release the page
->> > back to the subpool whenever a subpool page was acquired.
->> >
->> > Opportunistically rename the local variables tracking global reservations
->> > needed and global reservations returned. This clarifies the accounting:
->> > a value of zero for needed global reservations indicates an existing
->> > reservation satisfies the allocation, while a non-zero value indicates
->> > new global pages are required.
->> >
->> > Adjust global reservations using the difference between reservations
->> > needed and reservations returned to properly handle races where concurrent
->> > threads interact with the same subpool.
->>
->> This one conflicts with "mm/hugetlb: fix max-only subpool accounting on
->> alloc_hugetlb_folio failure".
->> https://lore.kernel.org/20260428113037.88766-2-enderaoelyther@gmail.com.
->>
->>
->> > @@ -3074,13 +3074,10 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
->> >  	return folio;
->> >
->> >  out_subpool_put:
->> > -	/*
->> > -	 * put page to subpool iff the quota of subpool's rsv_hpages is used
->> > -	 * during hugepage_subpool_get_pages.
->> > -	 */
->> > -	if (map_chg && !gbl_chg) {
->> > -		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
->> > -		hugetlb_acct_memory(h, -gbl_reserve);
->> > +	if (map_chg) {
->> > +		long gbl_resv_put = hugepage_subpool_put_pages(spool, 1);
->> > +
->> > +		hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
->> >  	}
->> >
->> >  out_end_reservation:
->>
->> Here.
->>
->> I presently have Zhao Li's patch staged in mm.git's
->> mm-hotfixes-unstable branch, awaiting review.
->>
->> What to do?
+Applied.
 
-My vote is to drop [2] from Zhao and switch over to this series.
-
->
-> Hi Andrew, I hope you are having a good day!
->
-> Yeah, I also noticed this too [1]. There are actually 4 proposed
-> solutions for this in the mailing list which is a good indication that
-> something is wrong here : -) But unfortunately it seems like there was
-> no resolution the last time I pointed this out : -(
->
-> I CC-ed all the authors previously on that chain but wasn't able to
-> get a response, maybe we'll give it another shot here?
->
-> Ackerley, Zhao, David, Song, hopefully we can align here.
->
-
-[2] from Zhao could be one of the components to get -stable out of
-trouble as Andrew requested at [3], but I think small changes on -stable
-leave lots of gaps.
-
-[2] does not address these issues with alloc_hugetlb_folio():
-
-Firstly, there's a condition in the fix checking that min_hpages is not
-requested and max_hpages is requested. That looks like if min_hpages
-were requested, used_hpages wouldn't be restored even if it was being
-tracked.
-
-I could be wrong about the above, and we could also iterate on [2] to
-cover the edge cases, but I think [2] would then just become bigger and
-harder to understand.
-
-Beyond that, [2] relies on local variables in alloc_hugetlb_folio() to
-determine whether to update subpool tracking (a global state), so if
-there's any kind of race between threads doing subpool get/put, any
-local variable state would be updating the global subpool state wrongly.
-
-> Personally I'm partial to Ackerley's approach here since I think the
-> get/put semantics that he proposes is the easiest to understand for me.
->
-
-I think it's hard to use smaller changes to fix the global state
-changes, I'd prefer not digging to find all the edge cases in favor of a
-cleaner fix.
-
-I'm not super familiar with upstream backports to stable, but I'd rather
-backport an understandable fix than more open-coding.
-
-(Understandable is subjective, of course, I'm biased towards the fix
-here.)
-
-> It would be great if we could sort this out since I think it's been
-> a while since we've had all of these proposals in flight.
->
-> Thank you everyone!
-> Joshua
->
-> [1] https://lore.kernel.org/all/20260713144557.3845941-1-joshua.hahnjy@gmail.com/
-[2] https://lore.kernel.org/20260428113037.88766-2-enderaoelyther@gmail.com
-[3] https://lore.kernel.org/all/20260909155003.e6c2f4fe3c0bbee3b34578fd@linux-foundation.org/
+Thanks,
+Guenter
