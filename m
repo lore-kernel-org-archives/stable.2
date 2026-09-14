@@ -1,185 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE8F3AA4EF
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6833F383983
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789411439; cv=none; b=Va2mwGRkn5MBiU01s7eeHmgM9UmxMeWko5VCJOaenLK6HwD5lACU0ZVTGaTX4fy4hdFn9wg4hd95dh3ltqftUNTdJ35XEcU95fhyCpuFPJSnfcdxJN1WjpDUoJYV0k4qAXgLEPITltTvRpWfIagx1hp4dpQdkzt2uIZr67iFSzc=
+	t=1789411588; cv=none; b=awhYsRH+6AlzpBxphQ90EqrjaND7YuRJUM2oVN9CRBWA54Pd3YC4vQgE0Ap9PRkO0ID5ufcIQpdylldpAqO2poY7qOjB/8jIzemvS5s3bqAB33PinWbJAYK7WpEUQ611f1bIoeId5jZre1yvyHhko3KCPBu97PXxSCz5+7/4N+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789411439; c=relaxed/simple;
-	bh=TEGRJ+l64A+zTv09YFwt/ONaWyjC8VPgOXfMQ5lISlQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ttJAWr27Lz7jSXUyKEdbbCag5Twq24zjhLk29YzAOOf/d/gjIv+3BqZxrQh46/fL74G1LcOWlYfkX/Wkp33I6wEHoaWaHdhmE9WZs/y9p6bBME8Zh8fdAY5gmRnL9l3ZCSh1dSTAU4DNiTAWausp5BzlUtpDDhFecVYbIHDmGfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAyQoK2n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789411588; c=relaxed/simple;
+	bh=/8g8dechR+/Vj9t/nQ46EGGHn4SiPMwOZ/GvTtA80Yc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Lr7jW04uAF/LXEJw2IBnGSom+QmZn7enQw4ueIC4c/DgjLUBy0e2WcBqC9tjuQ1E2tWRxxXz67zqfF+j7EYMV8RsIPUJqJxbXnpvVvqnScN9LcS0ZO2T1VcsQ7W57SQPw7eBDtciJ4kHcTfqeHohF3r+WfzeBbGEvM4RKvpidNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nxQz1vLc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ujsbd5zU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAyQoK2n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770A31F0089A;
-	Mon, 14 Sep 2026 18:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789411436;
-	bh=Gfqg4iDevTnbIBBrg/8MdseO/kl5THoldZCChzjm4ok=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TAyQoK2n2P3Pv0ClNCDYmW6Fv3dpEUId92z9CAN3iQCgSnAhypkTN1DgbAP1xX75y
-	 kMz8mihViqwqHYKOIq4PnV2NmllL1rFOu3ntufGxUfxAaL2P7FajoGMp2HX9/4bqhA
-	 VFqQBEFs0zU/LbCN2cOsYK1JQZB5TvJo2L5w73xHZ19AtN+DEowqcl0QSoD/b6lMug
-	 g+z9jRNhDuAgy/RdcdcmMvH1fT1HiJeFzTIyh6DjwhEI51CoacqZc3QPCWDQou3XcW
-	 EbFn+eVoVVqb0GGwbuYZfmLTR3kKxl9qJWzhWPmqTIp64tOrhWj431PmOgaDIvDBCw
-	 QFt7LM7ysB5Ig==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Kanishka De Silva <kpskanna1915@gmail.com>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 5/5] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Mon, 14 Sep 2026 14:43:50 -0400
-Message-ID: <20260914184350.571525-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914184350.571525-1-sashal@kernel.org>
-References: <2026091413-gills-macarena-de56@gregkh>
- <20260914184350.571525-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nxQz1vLc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ujsbd5zU"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EHYqMV1297380
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:46:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Nfvq+5Yyj0sd0gHJP35ZxMIsGdDSYDtwVPF1iXJOIRY=; b=nxQz1vLcXvGcV5q2
+	O0SsczMHIbYthUogD8pwdoQYjF60BfbYFqhah3UkEiBrLpK3fm6x7FqC+uTQXRJb
+	RfbWLX0u4dTpgkElA1dbRPv+Cq0TuTdCa+cPW+TpaqdKStomNWT4PiGiBOXZcLow
+	6wYJJyj8qC8JJxV/0NKgOgF5gEfiNIX4u5yvgS3SD76B4fu0Joa9uY3JCV6aAcLG
+	65H5qftG2kzo7lIGY0AbefV++lBPQkiSOI0cIapcu2Zs+VlIuVGBEBwB453aNVzh
+	NBPRKAc2XYwINQeVzKXiWeAjdD5aDiWhkuOszyJawgM8zLc+bSNQcWFQ5t/WEG9O
+	/mPoeg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpnet08jt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:46:26 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso2824573a12.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:46:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789411586; x=1790016386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nfvq+5Yyj0sd0gHJP35ZxMIsGdDSYDtwVPF1iXJOIRY=;
+        b=Ujsbd5zUo4RWJqWMwc8dVjaR8mIinGcmBHDFqHTWtixbpreI0qaVeQ908LUsgYQ3U8
+         LNFVgYPsIAWX15d7pJeCJ8TVTcrdgeg5xZnuL6BU7o/ikPYU7Fy7lfrU9BghgsOiwCAl
+         43QB2TuUqO4A88EVBuGG8CnpLa00ksaR4iasYKKJXlHmWT6CNmTvycRodEXiwdFIaVVr
+         Fmo7zZdQtlJuaPCpTeQlZVMCQIi0nNbBtj08sfKqd7d5OrmE/ToAGQSJcF64eUYby2rZ
+         jTv+COV4SGT074PWil8k3dWFZ97Ila7CC64oRqMMCG96aRUk4p+e1BFokqK3x5pAjubf
+         yq8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789411586; x=1790016386;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nfvq+5Yyj0sd0gHJP35ZxMIsGdDSYDtwVPF1iXJOIRY=;
+        b=IqVvFF8u0YgII/Fd3d/HW6DtjHraWsvQqL+spQWBMETbhXiCkoYElWRl42Zq0FcRdu
+         4piDDTuQVPf6eZhkXTedKaOTvFfI+ucpsCYhnTgnYhlgQFy0IJLCPkas6XD3ojv5LdMe
+         wWrEfNSiK3sTbMk0B01VPNaGKYJ5vnoX0jsjNO73lgd8dyjXcEOeE5iDkBAaUJzk5f3t
+         t6cDzhiBwvFOsMeHN6CU686bztFHRCWV0Tgz9QI9Gi/ro6HCC5Wnl+Ji7ABFJz85r0bb
+         NUcZXIvqXQwO+shf7tc0xSlQ2Tt+zcGTLidHFIBQAo5nDB2e2vHttNhSWiP/e7GbEH00
+         n+iQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAehkO2pd3jI5tYL3tlNaCeSnjGB2Rj/mE8tyIPIb3hmhiWxXdF0ZJMMXITHWpseaGh1X1qvA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgE5zC3i9PVmASLWIyi3vOKpUqhSlMsm7YPMiy6K/N4iQdczSe
+	gwhRs+0O6Eeim3RktmiCaRixtvsqAJUafDIAyUJJpisI6xI9Q+771sr10NJpddOOCj3r8M6JfnE
+	BLKzFhqq0c8Hs975YGooxN4FC6JDChAanb2elqUhI0ZVA04Cdn7Ni1FRy6yE=
+X-Gm-Gg: AYBFou1yB8wnrEZNzeHv1OM9rTXF6Ux0E6S4kEvYzCP24psh8aZKXc4BIlfSatoL1AD
+	YJkEphrn7j/9hx/R9U5kQjQcjDpjEkQm2oxovhmD1q+9SlSryHFUhjYsq2nbNY5x4EUrbxrl/c7
+	Tybh3Z+mIR8ym3QcnEpLxJbfuROAbdCxiRRrBniRanXwqUrdZ3MELJnFiuUrMl+cDuUJn47uOzT
+	TmsfXETQ7290nAOtHqjvpPKBHAnTKotT+DtFSK3/VDUsUTMX8AywRRsd77c4i9hG8+B9ULUHpq/
+	xEuEPeqTpeweMiMoWFh8fbEP2P3hqc+CsRwB3XWwy6vSVa5OOvZ+VpshYaE4xJYfpmXkaexXvYA
+	WPG1KFVMGKUTJY6kwaCVteT7ODSPjIOuACAGh71Ity0pEsce6BAjq6qA=
+X-Received: by 2002:a17:903:388d:b0:2dd:143:d5 with SMTP id d9443c01a7336-2dd6c75a396mr93751215ad.22.1789411585926;
+        Mon, 14 Sep 2026 11:46:25 -0700 (PDT)
+X-Received: by 2002:a17:903:388d:b0:2dd:143:d5 with SMTP id d9443c01a7336-2dd6c75a396mr93750535ad.22.1789411585532;
+        Mon, 14 Sep 2026 11:46:25 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f06423sm32032524eec.20.2026.09.14.11.46.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 11:46:25 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, wcn36xx@lists.infradead.org,
+        Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Song Li <songl@zju.edu.cn>
+In-Reply-To: <20260910020907.3353-1-fanwu01@zju.edu.cn>
+References: <20260910020907.3353-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH] wifi: wcn36xx: Fix potential use-after-free in TX ack
+ timer teardown
+Message-Id: <178941158481.2896945.12592794463351144107.b4-ty@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 11:46:24 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI2NyBTYWx0ZWRfXy4RxVSMLyxBV
+ fsMSe8nHXpRVoetB4xL5woiD8olatmWb2vthYFZOwwjV40SbYHzkvdGV7dsquvFmoDJ74IM+soo
+ HF7kPTcrOp64jtNO6EaQC0rSuy53HcU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI2NyBTYWx0ZWRfXwSKX9fnofwET
+ 7l/6jD0ejmPYjctXi4Q4Oa5ZGMfnALlKAVyREnqE61fmiVzYsnW4CIsiKGsqOZYVXyanKHsxTzD
+ DS6Xb6DMAkoQJQKHJJQfyHt4Lrc3a5J0/c07ZxhtkdOS1Ukj/FLkU49qLr5tDvSbT2XzErEbXWT
+ 8GIaNdMbns/vJ3nmEprAk8Sa9/LJG5La85xfMAXHRPlF58fxo6FkWqvpSOxYA2O0iQ9tqxGJieS
+ 7kKL9tioruKosfw3XLujEChGZy9pyISFRZguUDMK+VPXIzy9Rwe3L7TbhN1EEsBavoF6i4Zhj9p
+ Kt5b0HrLVKrY+Ft/Ro9rXp7vbm/+yB4AbCD8cMPBTAq/WTR9Herzw4pEIkUug6pQUOSj5uhHlcW
+ Wyb+rbVoVPjCzESfp89idm8ZFVRRiAhQK692RMIYE69ANF/rDqWVexGjpYNdNqbQ22Xj40JyLf6
+ DgF6wDE12Gkxf71j2Ig==
+X-Authority-Analysis: v=2.4 cv=PKKaavqC c=1 sm=1 tr=0 ts=6aa84102 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=0lvdRgit-FxgUHpCPWcA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: rJIkxllkaGkYCKkDSRzTh0Ph5wVu08oN
+X-Proofpoint-ORIG-GUID: rJIkxllkaGkYCKkDSRzTh0Ph5wVu08oN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140267
 
-From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
+On Thu, 10 Sep 2026 02:09:07 +0000, Fan Wu wrote:
+> wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
+> which only dequeues the timer and does not wait for a callback that is
+> already executing; the preceding free_irq() calls synchronize the
+> interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
+> therefore be running past the teardown and use the wcn freed along
+> with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
+> reads wcn->tx_ack_skb and passes wcn->hw to
+> ieee80211_tx_status_irqsafe().
+> 
+> [...]
 
-Validate IPC share configuration payload sizes before consuming
-variable-length fields. Bound veto list parsing and account for
-the separator byte when deriving the path length.
+Applied, thanks!
 
-Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ksmbd/mgmt/share_config.c | 40 ++++++++++++++++++++++++------------
- fs/ksmbd/transport_ipc.c     | 21 ++++++++++++-------
- 2 files changed, 41 insertions(+), 20 deletions(-)
+[1/1] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
+      commit: d9be5e75530772fc31637070d51e5717d6aeaa2a
 
-diff --git a/fs/ksmbd/mgmt/share_config.c b/fs/ksmbd/mgmt/share_config.c
-index bd31f4c75201e..695c9e78603a9 100644
---- a/fs/ksmbd/mgmt/share_config.c
-+++ b/fs/ksmbd/mgmt/share_config.c
-@@ -87,9 +87,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
- 
- static int parse_veto_list(struct ksmbd_share_config *share,
- 			   char *veto_list,
--			   int veto_list_sz)
-+			   size_t veto_list_sz)
- {
--	int sz = 0;
-+	size_t sz;
- 
- 	if (!veto_list_sz)
- 		return 0;
-@@ -97,7 +97,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 	while (veto_list_sz > 0) {
- 		struct ksmbd_veto_pattern *p;
- 
--		sz = strlen(veto_list);
-+		sz = strnlen(veto_list, veto_list_sz);
- 		if (!sz)
- 			break;
- 
-@@ -105,7 +105,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 		if (!p)
- 			return -ENOMEM;
- 
--		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-+		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
- 		if (!p->pattern) {
- 			kfree(p);
- 			return -ENOMEM;
-@@ -113,6 +113,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 
- 		list_add(&p->list, &share->veto_list);
- 
-+		if (sz == veto_list_sz)
-+			break;
-+
- 		veto_list += sz + 1;
- 		veto_list_sz -= (sz + 1);
- 	}
-@@ -158,17 +161,28 @@ static struct ksmbd_share_config *share_config_request(struct unicode_map *um,
- 	share->name = kstrdup(name, KSMBD_DEFAULT_GFP);
- 
- 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
--		int path_len = PATH_MAX;
--
--		if (resp->payload_sz)
--			path_len = resp->payload_sz - resp->veto_list_sz;
-+		size_t path_len;
- 
--		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
--				      KSMBD_DEFAULT_GFP);
--		if (!share->path) {
--			ret = -ENOMEM;
-+		if (resp->payload_sz <= resp->veto_list_sz) {
-+			ret = -EINVAL;
- 		} else {
--			ret = 0;
-+			path_len = resp->payload_sz - resp->veto_list_sz;
-+			if (resp->veto_list_sz)
-+				path_len--;
-+
-+			if (!path_len) {
-+				ret = -EINVAL;
-+			} else {
-+				share->path = kstrndup(
-+					ksmbd_share_config_path(resp),
-+					path_len, KSMBD_DEFAULT_GFP);
-+				if (!share->path)
-+					ret = -ENOMEM;
-+				else
-+					ret = 0;
-+			}
-+		}
-+		if (share->path) {
- 			share->path_sz = strlen(share->path);
- 			while (share->path_sz > 1 &&
- 			       share->path[share->path_sz - 1] == '/')
-diff --git a/fs/ksmbd/transport_ipc.c b/fs/ksmbd/transport_ipc.c
-index 15ec5d8bd776b..c4d7681679952 100644
---- a/fs/ksmbd/transport_ipc.c
-+++ b/fs/ksmbd/transport_ipc.c
-@@ -495,14 +495,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
- 			return -EINVAL;
- 
--		if (resp->payload_sz) {
--			if (resp->payload_sz < resp->veto_list_sz)
--				return -EINVAL;
-+		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-+		    sizeof(resp->share_name))
-+			return -EINVAL;
- 
--			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
--					       resp->payload_sz, &msg_sz))
--				return -EINVAL;
--		}
-+		if (resp->veto_list_sz > resp->payload_sz)
-+			return -EINVAL;
-+
-+		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-+		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-+		    resp->payload_sz <= resp->veto_list_sz)
-+			return -EINVAL;
-+
-+		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-+				       resp->payload_sz, &msg_sz))
-+			return -EINVAL;
- 		break;
- 	}
- 	}
+Best regards,
 -- 
-2.53.0
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
