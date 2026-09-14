@@ -1,36 +1,68 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7764963D1;
-	Mon, 14 Sep 2026 17:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3A849B5BB
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408351; cv=none; b=TynkmEHAIf0R0ppK6XfnNwYQvlGD1MabGociG4sGHc4Homr93F5vSbSsruCsI3GjTvQlY7sqn3gRIoQxc2sVM4s7kWbNL7CoL6oHCaAQCrzlzi8AHXaGTeFt7zNrfb5W32yQZLImPEZOtDDUBsFf7r73H1UCTTn4R3gy7+hIP6w=
+	t=1789408902; cv=none; b=SgC5snnupsY+/Ml85pdGf6lQn40eDBkY2vBYdjDbpFbAholeS6g0mc5bUcoYVWXcqFlfkGNjubkN+LNXlWFAmE9SIZhm8isJKQD4wt9bhpUYo8UHpC0fxKIwM2I109EBpQp0eQKXp0oVv3y615/O9/yhplx6n9vK2UxNLrzrXZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408351; c=relaxed/simple;
-	bh=hIGCNT+2LZvL+KWuscB/Q2xFWBHXWCB/eXAyk2v9S9w=;
+	s=arc-20240116; t=1789408902; c=relaxed/simple;
+	bh=9ZswKmHYV3hQPdJPCFwuJCVbZNz9gP0vODDqdoni8oE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DAP40uT5ma+OmgSVHqAaao/+Bcv3KSiAZh7fGP7rg9hxK3GCXy0XV9tPL76ocmgGKFzqdl6VsC8nvZ2w46wQ0Fuo5KMyakrC0Mh82ObBSP2gYH7KvSZrEPoWzTmsvEZgs7xzbfsWAKeP13wQnUYEgZZEqajNNUagsdV4eR51uXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=jzDmawAY; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	 In-Reply-To:Content-Type; b=OP4Kl4oyFYVd7wxwoG4W8WJ+iRmOSA1F7+zP1/5s+3+rrgs1SE8n6V/os17EHEhHLbiPF9TWlE5kzwU/453iOkOK32TYAZFehPMoU+JntUc0lE4drd0RDU5sx64mJ8wEDSPQ9wrrh4LCHcP0qtYVPs8As4KF53DLM9BxHdIpaAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Px56acUZ; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="jzDmawAY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=R10hLRJV2usgexCzt27YZIdBumqvqsGh1RvG2sVwRR0=; b=jzDmawAYsN8mzxGnJepLG0vZJ3
-	+UyEBewVq7wgQBY7gwIbWS/DBITpIm7O3gfDYQPn9iJJ5ii24Jl0zafskVj0/ta58HSUS32hk3Owl
-	EWRM7pJZksJrj6TSGEak97OX9veG13EAvACQKp/lYQJdOneHaQjxGyhtSHcSOXQE+0u3TlnSC8Y88
-	mp11V1+dMtZPFUX72tldyUiwCbAjymuYK3lvUPh8BOUTOcPpZJAJIUZBsnOQK3agt48WuSLZNYS+y
-	To4v22lwl8zNQ5kmkH/6lUmRiQr5oSxMgo3sNe99A1QHrcH4oqppBxZ5oTe/lo2LI653lilT0p19o
-	yjoeISYA==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x6Aqb-0021Rz-Sy; Mon, 14 Sep 2026 19:52:05 +0200
-Message-ID: <b8239f0d-e5cb-459e-8ef9-d7691bfc2441@igalia.com>
-Date: Mon, 14 Sep 2026 14:51:58 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Px56acUZ"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6714af30a2cso1411567d50.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:01:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789408899; x=1790013699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KMesPQp0VJUensHvMGRs3/WPWJMCG93L+QYn2rj5VFk=;
+        b=Px56acUZCbPA6UDQkcUrKzZxSq6bxbmfwSSxGxhck2yO+iAkzFqwKBQbPzERKVKhRG
+         zs3U8JJpP1AkyIUBBwQUc7faxf3L/g55sKsz3708EQNvBPlNOKrguCf5IZWJ7WQjZ74Y
+         OKnNlggXzu8lsDHBll9IbWT4AQvS/Re/zi67TYPj1s9d93kpxd6P1LcyplCtEuheBHP5
+         LyItl8IadZT9MPUHAcarfztJ995H/wCvO7iyCFnNq+aNpfCmO0Pl4NoovlG247jz9bTr
+         qdaOgPwdEHKlPAqIfRA7cv8IiJr5G40IXr4DZ+oT8TsF78Dpft+qkPIwFcx9a4go3gME
+         5dcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789408899; x=1790013699;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KMesPQp0VJUensHvMGRs3/WPWJMCG93L+QYn2rj5VFk=;
+        b=dSTMjlUzNlVuTn04XLl4QW4Lg0I9ixaEINbD6xibMIjWsOPoFRtAaInurpN2ACc6NN
+         q/MlyaxL7+ythZpLvjfPytKEiMNkZ5jbNoUi1E0ROoXCfBcEQJOaI6yvHgqi3YPGfTOE
+         8zxGSbpQRQ8S9fM+DUhW2pDibDfw8VDiqZo+JezhB0r396WfQHIJZ9xu7geDkDX/LJJz
+         KLv/qhKSD0VwVkfpPcLNjLatQTy12eVHjNJXAnmHl6TudXEUAcIYRqCAVxg7plWxhCP8
+         52eue1QAQl872WPbhmO+oKZ7jmEMCGRwdmq5nUegemSVExSZVo90SiJJMxSd82VEDNbh
+         Nzrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDz3Syr3zp8N/Os2CbKdWkE3sIA83ysZKsxLwlDBM8JPGmWQf8gVAWG6tTBKD9u9rLA9QHZS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWyNmzdqGlEePxet+Ir5FxmQQwMo5fzT3q9WoSqtrzeODT9/aA
+	u9CivKLXC2TYCDiDdsDg8svD7hdBw0iprnJdakpiVoZfWVjwC5o1He2n6oeF+Q==
+X-Gm-Gg: AYBFou0JGwCAMX9q5JUM4oUeTQC1FpQKrjqDIEFGDzu7hGBjnTBbZAwR6nPLLk46kF+
+	DYaDzwXSmXELmNAJRyq37D778kAvAQCwt0mIAsGfvgSiG7esaxircnTPPomfQ9xbjn/BcLPVsho
+	a0kl30cAArnVcKDAciSUQApONW3oiFe7Zm4FFe6XbOiybIddzvLiD63OaYi1KHLbHofE6q08YnK
+	dCH2FvXUtE62CpI1Zemx7wayXs/QFbGBC3CP3EoWE8Z67uomDHWr2ov1FqMm5WNCQkhgxBenfPD
+	W/zs0BOtwdazfxxR3At54owA6NUqt8g99zwpCOWGZ6ekdLWJLRYCARzCxhjQGokc5WMOuHhFD1k
+	muqDl6SYRwY0afI43JNadTWWMIo8VUg7krs53L9XYrscD9UYR3i+h7J+D/ns+GBfWpyOsXA5mQP
+	EmLomqUNfk7g0xO8Q6stHd+2Tt6XtcKY33JQbLvFG6xATEDeHO7PmwGV+p/ckRwuSNFat/Gy8GN
+	xyz5A7P2TrHLPthYLQPao9UMw==
+X-Received: by 2002:a05:6214:4993:b0:912:122d:174 with SMTP id 6a1803df08f44-9122e691c88mr56601806d6.34.1789408874114;
+        Mon, 14 Sep 2026 11:01:14 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a6ebsm100587596d6.22.2026.09.14.11.01.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 11:01:13 -0700 (PDT)
+Message-ID: <c293d5c7-ee3b-4fe4-af58-f232c8b9efbc@gmail.com>
+Date: Mon, 14 Sep 2026 11:01:10 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,119 +70,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D
- unbind
-To: Fan Wu <fanwu01@zju.edu.cn>, mripard@kernel.org
-Cc: dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, eric@anholt.net, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260909053509.657074-1-fanwu01@zju.edu.cn>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260912065607.535295758@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Fan Wu,
-
-On 09/09/26 02:35, Fan Wu wrote:
-> The hangcheck timer, which every submitted job arms and which queues
-> reset_work once a job stops making progress, and the job_done_work,
-> which the render-done interrupt queues to release completed jobs, are
-> never drained at teardown: vc4_irq_disable() cancels only
-> overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
-> release, after vc4_v3d_unbind() has already uninstalled the V3D
-> interrupt and cleared vc4->v3d.
+On 9/11/26 23:40, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> A timer still armed by then reads V3D registers through the NULL
-> vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
-> them after it has been freed.
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
 > 
-> Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
-> cancel reset_work before the interrupt is taken down, because
-> vc4_irq_reset() in a straggler reset re-enables it, then cancel
-> job_done_work once no source is left, before vc4->v3d is cleared.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 > 
-> This issue was found by an in-house static analysis tool.
+> thanks,
 > 
-> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-> Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
->   drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-> index f32410420d3e..11d4df3164b4 100644
-> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
-> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-> @@ -9,6 +9,7 @@
->   #include <linux/component.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/timer.h>
->   
->   #include <drm/drm_print.h>
->   
-> @@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
->   	struct drm_device *drm = data;
->   	struct vc4_dev *vc4 = to_vc4_dev(drm);
->   
-> +	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
+> greg k-h
 
-This comment provides no insight about the code, it's just describing
-it.
+perf fails to build on arm/arm64/mips:
 
-> +	if (vc4->gen == VC4_GEN_4) {
+   CC 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/symbol.o
+In file included from ../include/linux/build_bug.h:5,
+                  from ../include/linux/bits.h:22,
+                  from ../include/linux/bitops.h:14,
+                  from util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c:12:
+util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c: In function 
+'hisi_ptt_4dw_print_dw0':
+util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.h:28:41: warning: implicit 
+declaration of function 'GENMASK_U32'; did you mean 'GENMASK_ULL'? 
+[-Wimplicit-function-declaration]
+    28 | #define HISI_PTT_HEAD0_4DW_FORMAT       GENMASK_U32(31, 30)
+       |                                         ^~~~~~~~~~~
+../include/linux/compiler.h:17:23: note: in definition of macro 
+'__compiletime_assert'
+    17 |                 if (!(condition)) 
+         \
+       |                       ^~~~~~~~~
+../include/linux/compiler.h:37:9: note: in expansion of macro 
+'_compiletime_assert'
+    37 |         _compiletime_assert(condition, msg, 
+__compiletime_assert_, __COUNTER__)
+       |         ^~~~~~~~~~~~~~~~~~~
 
-No need for this guards, as this function only runs on VC4_GEN_4.
-
-> +		timer_shutdown_sync(&vc4->hangcheck.timer);
-> +		cancel_work_sync(&vc4->hangcheck.reset_work);
-> +	}
-> +
->   	vc4_irq_uninstall(drm);
->   
-> +	/* Nothing can queue job_done_work any more; drain it. */
-> +	if (vc4->gen == VC4_GEN_4)
-> +		cancel_work_sync(&vc4->job_done_work);
-
-Check Sashiko's feedback about this.
-
-Best regards,
-- Maíra
-
-> +
->   	/* Disable the binner's overflow memory address, so the next
->   	 * driver probe (if any) doesn't try to reuse our old
->   	 * allocation.
-> 
-
+-- 
+Florian
