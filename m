@@ -1,176 +1,140 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACC7357D0C
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 16:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789401649; cv=pass; b=G2Mo9+w/9SIBO/bkinZJSvTGEKOgJvGHXA7JKp7sIyIGwk/e4/Je404Mmu76ERICbYqKuJDQ2EXzjQZ6+g1pl+MrDwcfeSC58IWXIfMinP5qvf7iaDuyHNosz3dHv8mdA1wrzhDI0n/8SgjUUfnmEH4HgvflwYE4RmUEqdyItYE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789401649; c=relaxed/simple;
-	bh=AUHhF/E2fQxhW/g6jyemlRTJNX6eDQwBBKIp7y9MRJ0=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q4R7/X3qHE7xd95/8/xGVoRsmzCMYgvMDKZ3+zXw5+83lkhKj6oZ0xCPJ6RZlZV6KnzUX8zOU4kXTJ0KMWnj60IYEIp6/pnaYMOB9yU8ihKbREVlf2LaT2Dbx/4eH49KlbRKABom4ZS6mUYOE5iUNRs8LW3q7WzXUSfSmtFGUOo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dIHey0xC; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A35641441F
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 16:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789402088; cv=none; b=Q8B4Pfgb6TemKXpKbFtIcEvTaohaKB1UBBkUwzEeouNPsAllX5GjZmFT5pxuLYdQbc12Mf/VPkj8K3uLqbhnCH0APIHX8YNFRcLh9h93NXRQJHUXBYfiuXLn2dNHf2YFgJwyO320ZprlRpC61i/2G0aivFwAFX5Ld9qdyUWWrS4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789402088; c=relaxed/simple;
+	bh=4JpqBF0U8ok2c1bU1R2ZgN0dtcOkgvd6/IXu/350qDk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UKEsfi0ECfyKjDQUPa6kWNV7KHGwVHAweS1F1K4Ph04wxfmHdI7EUmGY5zVooGKho3gxAlCVBttw3i5ijBn2uVhywmy6A2/IYaDUnvOQV+q08VGkmP1JCgah+aP7H8BO81QvhyH7xA/qAp4mc/yGgeg3zK6iro2T1hbWHBMhbLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HDPwWLLp; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dIHey0xC"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-857ff9fef54so26479597b3.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 09:00:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789401645; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F13mM6dd/DfjBv3VuCI09KfN02wtTsExfoEP23vqX1lzcfid5mGZNWSY7eC6zuYb+V
-         9i24XJE9B3CztolVFEs02YFX3+1x+Gl/TLJRxc7UHO0kuHvhwvBgEg+GidupJ4sucaKi
-         e1llv6iCG34oPagpItiVfAA0fY5vetl63/PW+BNNdCFjasnOjBHySDe8NGGyJUvhoM3U
-         k4OnCAdJopRmmwQbR+NbvNRY+4ar8M2zlxjWTrJX7+fg96pbwDK20DU6d/m6yJCaJkTk
-         /A2k5fo6+L0Y23W8QVvYWZLcjM4w+P/qEHlKzRxGJ+v/WGKIECU4VzVdsuPtxyEl2Swp
-         mVcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=vnhKlSBSQOh8ZFl8Jf+/YlwJHlkv+MXRYwatR7ezOHY=;
-        fh=QtHC99rKSZh8QZluQVT40D9eXxFEqsgw37dbRi96BfY=;
-        b=MsV1/r7B59NZo8mS/a8+CUrsVBH3mXy2k3X5WFnfrfpsq+0pwAla865Kc1W8zBsJBd
-         J9ytiq3la+pK8vzq1cG5PRQq/cdUlebCx2MyNuH8kjx+h1/TCQBI4I2zi5HH5IOPvl/X
-         gnMh72nn6I77wHLUFH8a/xP67QoUpyCvlTNuegZOUsJsRqBEVrIx0S4GuBkk2aVge2KV
-         m+4gcKqxwOlHsN/BWxTj1BGqOXGGpvwhKD9V9/Dm7tsqUQ7Dwc0Gl8ZbhyAg0TTjqUxk
-         Jagy54lyd+9aLvyUfpYxISVxKy2nf/y5HTXhwMnZsDRwyI7PMSHMriUbDyptuCDEtLkY
-         Z+ww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HDPwWLLp"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae6f5fc7so1308817eaf.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 09:08:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789401645; x=1790006445; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1789402085; x=1790006885; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vnhKlSBSQOh8ZFl8Jf+/YlwJHlkv+MXRYwatR7ezOHY=;
-        b=dIHey0xCG9zCD3Fud294ousPBx1CBm69N2UfmH9aQOT5X1fUX1LBLCMZVv9eBNwv9T
-         f3PR33NmX3XkjmSK2xtWfsjSn7eKCTbJYZ70h3v+N4hVGauDZ27t39w5h2QfPOjK8Z6l
-         WzFIbyH6iVBUJACXdL5RcTI4TplrDEIoS4JIaXKB9+uHdJUGqUxjzLaE8PfqL3543jXg
-         EJEatK+38VLzpY5yGUmGH7+yVmJff9/WnIpm6K1mmD2h7YsusMq2j6umCEnJFAoA0v/j
-         4hHVt/LQhf9yHXc1FyPsDUCZ2CY5ktNxRsUOP8TjvO/X0C+vV7jHDLSMW2Hz8spEY+lR
-         AHBA==
+        bh=hhBnpIqJR8cSwH8SLHGlHrOYOv2zJDR1Rl7Ewp9l8a8=;
+        b=HDPwWLLpGuYZ2na7MhghRHTLBi1EVyb9huFu2Q1Bu9Uw54EfNn78S/40m8nMU8QlWL
+         TAKnhn2aJrnzwCEXuSdO0mmPh9K5I5uFcGQ6tCYcXZEwoXD1Z5YDIgtet9agxZYOn7Sq
+         4oTNossulTMss2sU1BqlSsfuQVGh/l55kbFoMzH6N8J2A6oekdgZqcCyCFijqfdQNFyF
+         HKYIn89clAHd6tbE1n2mAaqCKiQmlYjp1z2KN418wtS6HBsSJmB+BLEgLIEo3YSqhIDp
+         dSi5pRE/n0MCzJiUL2Q5DIGa9b6xSuyftQ7GtnrZBCm5+EM85U0ccGVB34leabNXf28i
+         6/og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789401645; x=1790006445;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789402085; x=1790006885;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vnhKlSBSQOh8ZFl8Jf+/YlwJHlkv+MXRYwatR7ezOHY=;
-        b=P6sDxj4DdSQBoTPapOvyM+AD0ljgmXtDDcLT4j8HcuTK/Uay0CjnwVWO4GGpK7JSub
-         bPY/Enigs4pDyBFkxiUqrTmYXJvGoHO88BP+GWnhGxT2sPk1KyCajcfgYEQNZ2w2U4B+
-         ooLKO1Mov7RA4yF6Iqbj7X3ac8CoKwUkn3ElNmnBVTVX9Xe1TtVTz4uT7nuQbP2V0xB0
-         gu1m4K/tOuuuSzAY2XkgY027ADufI4loMUhSRm7VAJ5j2woKmgy+LsmyoQABSiobsi89
-         EoMqpDBa0nXMTDEMcRkuhkylHL9SlLx+jlGywjwS5NiXFvVzCD3N+TPjpRbyOplwNtG1
-         k73g==
-X-Forwarded-Encrypted: i=1; AKwUvBym+oDMrxvpS48MyjvSz2AdS5hd93jQ/d5/j1k5DBhfHzrtbrTpkgt8Zbo+qHOBIGBWFXZb4HI=@vger.kernel.org
-X-Gm-Message-State: AFuF++llEFNol/NEyBpyErOzPRg0NsMwel/Ne0m7+vhPvL+bIlgfFSi6
-	o4ssstlE+mliL00Rxbrq4SrWR1ddwKxrNYy6aVFdM8oqTMGxlTxujpY8xMokz1PxAZ0Dfr2J41b
-	PgLOZq9KSKJTQAHzy5kOib4Vp8zs7O/yKaw7D6w0B
-X-Gm-Gg: AYBFou0JdsgQfChQ/JCFDYeH2iNN0/lGi0IX9j4GT6hvhwCHs8S7lVWmWRlvblFXWfU
-	wwJKWHEBHW3r2YjOR4+bWSKWBeHHNRxXnmHsxvDfflzpf6X/PZLJTMi9aPfNy4zOSpPUr/l8CdR
-	HQ++UEwFn7f5vml5va9XbKM1MVw7+1jwIGtay2fH0vLb2aYuzGY5bXJJLklFIzO8+V1mQrxXjtD
-	FzcvImeuh/u6fDUdot9Ei+Vrh0h61K5bJxOB/zsfZ154rYt+0Xwcab6O4lU68wTRGC4buNCYkcC
-	pIQN72rUmJckOGqRt34vuLCrNB7+JbRq6YBqiLtysSWRGrzkKJkUIWp35y4NA3wnLf+mIESvYUt
-	RvktJsKjGYw3aDr+3N/no
-X-Received: by 2002:a05:690c:7483:b0:85b:946f:129e with SMTP id
- 00721157ae682-88d21832f4cmr13001707b3.33.1789401644112; Mon, 14 Sep 2026
- 09:00:44 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 09:00:43 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 09:00:43 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260911143726.3689114-1-joshua.hahnjy@gmail.com>
-References: <20260911143726.3689114-1-joshua.hahnjy@gmail.com>
+        bh=hhBnpIqJR8cSwH8SLHGlHrOYOv2zJDR1Rl7Ewp9l8a8=;
+        b=T7eJUD7MTDI8TVlcsWmrOF2dSVSllp+ZOkhqM4cdxnrKxAvXyWOYFPattN+nBEIOuw
+         /Mgy2pK8z0NsT7btZ+Xy0/x8tcLDU7eBd7CqA83/Cw2Un7/14UHUoFjGnPksR6hrd7zc
+         hRdRgT9CgiGrYlBNlXjT2zPdy4fK+mXFAkF5rXuH3ua3WKgiBItem8Nu6RowTdOI8xbQ
+         ZQ6A/40gH0DEfKhI9prep7hmBxMfG175KIpHsle1y5eQdwQqT6zwRv+BVCotbK+ohkJs
+         orQMWnkjlz/+2gCd5YFD+Tx71LYTYn1Gh1A3AvgooHLu50GKi1TxjUuEIubyMfPsQpNG
+         u5vA==
+X-Gm-Message-State: AFuF++kXOFAY8KVa0tHLZ6CE23VBXde/HDVKXu9UQsgrepCDaB8QuX9n
+	66uPxOwEabZ7O1ZJ9NjZUhzkUHj+nqmIdo9zduo1ikv6m2o8tj4oyNhE8i4xnh4FrYA=
+X-Gm-Gg: AYBFou33INUkcgIZft2+zGwJ69EtpyPJ+wfOiCMoXRDtkq1Ewupi69jnDH+LrH3283z
+	GqmCxHBSdS6ISftwdaBqsk7isOrTGHvsrfzJIGyKhrZgdnQEWfDXRpsxCV0WxWXDoFnqLwS1SkR
+	qQ7RnCxkk7TzGGthECheX5I6c0MmM05z5u8Te/qUogKgVn+TOBxWO8xOq4Yp4H7d0ItES8f624J
+	3AhF9cdm/2n+MXzJHmgX2e8Fd4xrMGYADIUCgTHUW9j2FNjJqKq/D38g+dQLSCS0shiAn9jMBy7
+	l7j975ugwS/jA2K345IGHT1n/WNwC8j+bpm2rTYwtrHUZWBTiMq6iOXl7O9nyrgHUZ0LcQV5RhL
+	f5nDKtFkCjVeEStwt/zCI8UGj3+80pahkklNFiMtS0N8w2Oldzw/8RSGj+RxF9YfRg/jiu8a29a
+	d1tm+v5V698Y1JRQ9vD0C0Re6cZRYcREFyoDH9xKE5Uu8asrTAPhOofIU9RNZByRBp72smZ/OXw
+	M6qX3+IdqifpYP0jqYgECetoYxa4DySlKp/VRHlijWTX6wo5g==
+X-Received: by 2002:a05:6820:1988:b0:6c1:fd93:5292 with SMTP id 006d021491bc7-6c541d3ff08mr3216204eaf.17.1789402084949;
+        Mon, 14 Sep 2026 09:08:04 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:d8f9:ae1c:d229:aec1? ([2600:8803:e7e4:500:d8f9:ae1c:d229:aec1])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c342ec1ff5sm6543816eaf.14.2026.09.14.09.08.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 09:08:04 -0700 (PDT)
+Message-ID: <feea59da-055e-4faf-999a-c275f42a99a6@baylibre.com>
+Date: Mon, 14 Sep 2026 11:08:03 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 09:00:43 -0700
-X-Gm-Features: AcwNN1VDnqeI0nANt9JGLFAAqZR4p_p34VigeOi4yaGir0FMb_J4_8lM3yPMIDM
-Message-ID: <CAEvNRgHsJKS5gszvJRpoJ2YHn3A3n_V4F_zgpFQMPdVcRvKffQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] mm: hugetlb: Fix out_put_pages subpool reserve calculation
-To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
-	rientjes@google.com, vannapurve@google.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iio: dummy: free software device on configfs release
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Kees Cook <kees@kernel.org>, Daniel Baluta <daniel.baluta@intel.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Joshua Hahn <joshua.hahnjy@gmail.com> writes:
+On 9/14/26 6:54 AM, Guangshuo Li wrote:
+> iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
+> The error paths free it, but after successful registration the normal
+> removal path only frees the contained IIO device, leaving the software
+> device allocation behind.
+> 
+> The software device embeds a config_group. device_drop_group() calls
+> iio_sw_device_destroy() and then drops the config_item reference with
+> config_item_put(). Therefore, freeing the software device directly from
+> iio_dummy_remove() would free the embedded config_item before that
+> final put.
+> 
+> Configfs requires dynamically allocated config_items to provide a
+> release callback which frees the containing object when the reference
+> count reaches zero.
+> 
+> Add a release callback to iio_dummy_type and free the software device
+> there.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+> index 19fcdbbc11c6..7d2ff1d4a06e 100644
+> --- a/drivers/iio/dummy/iio_simple_dummy.c
+> +++ b/drivers/iio/dummy/iio_simple_dummy.c
+> @@ -23,7 +23,19 @@
+>  #include <linux/iio/sw_device.h>
+>  #include "iio_simple_dummy.h"
+>  
+> +static void iio_dummy_release(struct config_item *item)
+> +{
+> +	struct iio_sw_device *swd = to_iio_sw_device(item);
+> +
+> +	kfree(swd);
+> +}
+> +
+> +static const struct configfs_item_operations iio_dummy_item_ops = {
+> +	.release = iio_dummy_release,
+> +};
+> +
+>  static const struct config_item_type iio_dummy_type = {
+> +	.ct_item_ops = &iio_dummy_item_ops,
+>  	.ct_owner = THIS_MODULE,
+>  };
+>  
 
->
-> [...snip...]
->
->> @@ -6821,26 +6823,21 @@ long hugetlb_reserve_pages(struct inode *inode,
->>  	}
->>  	return chg;
->>
->> -out_put_pages:
->> -	spool_resv = chg - gbl_reserve;
->> -	if (spool_resv) {
->> -		/* put sub pool's reservation back, chg - gbl_reserve */
->> -		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
->> -		/*
->> -		 * subpool's reserved pages can not be put back due to race,
->> -		 * return to hstate.
->> -		 */
->> -		hugetlb_acct_memory(h, -gbl_resv);
->> -	}
->> -	/* Restore used_hpages for pages that failed global reservation */
->> -	if (gbl_reserve && spool) {
->> -		unsigned long flags;
->> + out_put_pages:
->
-> I'm not sure if this section warrants these two comment blocks anymore.
-> The logic is quite straightforward now that we don't have to worry about
-> managing the global / subpool reservations separately and rather just
-> simply do the subtraction to account the memory.
->
->> +	/*
->> +	 * Return all that was requested from the subpool, let subpool
->> +	 * tell us the new number of reservations that need to be
->> +	 * returned to the global pool.
->> +	 */
-
-I think this could be removed if you think it's obvious enough.
-
->> +	gbl_resv_put = hugepage_subpool_put_pages(spool, chg);
->> +	/*
->> +	 * There may be a difference between the number of
->> +	 * reservations to consume and the number to restore now if
->> +	 * there are multiple threads interacting with the subpool -
->> +	 * restore the difference.
->> +	 */
-
-However, this other thing about threads racing needs to be emphasized
-imo. Both subpool and hstate tracking are global. I believe pretty much
-anything that updates global state based on local variables only in 1
-thread is going to mess up the global state.
-
->> +	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
->>
->> -		spin_lock_irqsave(&spool->lock, flags);
->> -		if (spool->max_hpages != -1)
->> -			spool->used_hpages -= gbl_reserve;
->> -		unlock_or_release_subpool(spool, flags);
->> -	}
->>  out_uncharge_cgroup:
->>  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
->>  					    chg * pages_per_huge_page(h), h_cg);
->>
->> --
->> 2.55.0.1007.g17ff1f9808-goog
+Should we switch the alloc to a devm_ function instead to keep it
+simpler?
