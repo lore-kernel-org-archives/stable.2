@@ -1,166 +1,147 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE663F4DC2
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C8E3AD52F
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373561; cv=none; b=jUpM1mwiRnHFG0075samih7TlEptiJo52Ks0ERwLsUOpmug95010VOGV3jpFfkEiMdSvj5QuC8ejDB6Ojo7Ce8h6FwpA0uxwMiZ2KkiUGftmqYpmnapD3QM0yKLdykvoJxmHxYWGfIBCYoHM4pY4YCvN7rgrS7DDADYIpRArL30=
+	t=1789373641; cv=none; b=kMGhtp3M6h38e4UmpZcZlKGZi8stzNFuJB1WiTZ3Fy0nRoWc9E7zMwt8TH7Tio/BNm8IT5YG3vRsHMFC/OdK7ntY/f1ZiZpupnJBfZRYZ8JYbCxc75JRdg0tA+8uYvJTUdrNPHJS7YjR3nOfYYAh6tVreqH1XfRej/zTLVPGkpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373561; c=relaxed/simple;
-	bh=QFaOVSaXo24SfPWobdaFHZRuDdTnE2qTXwVifB86x00=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rvzNzzBULFjnDQT2fprsilU1JAVuaUoOBDMfb4uJN1YpsoeRnJU4eDxwcbW+ePbjpzwxLEvGn/bbIeInj8X2lKV5mgvAFfXqksVCq0uZpvSkjftULtoTO1Xya+c7chz6uY8naBC29xfpFoqDkdQX1nzsUMmDIeBwewS4ip1/Azk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jekJlX6t; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789373641; c=relaxed/simple;
+	bh=1qAturnWzQariAYGkFzim5QAVMrBYTGsi09OCtKLOwg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fmWipe7tKgkCbcQxTBm8uWoON5qLyLUHjCkz/V5TvKysXugqn8D+sKhqH/vocFv56Vd2rsNtBsIIYJGk6qyg2tZDCsjG9pWuz/vMcgWlGBkCqRhiF9TBkbidVyLdvaQb3cc32xUwLbNppHNUZ5b4Hw7iOKTqeH/+7X6J5n0UOos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMw1TT8S; arc=none smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jekJlX6t"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6af07e08so756445e9.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:12:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMw1TT8S"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1651bso1371036e87.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:13:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373557; x=1789978357; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aj7IiomPonUj9qywT6/YurZdwlPYR2aG7U6PbbSw37I=;
-        b=jekJlX6tBY33oG2iw2w/02lsBFrVP5pjNjIEaaZ0k7x5tPqSacnT8UnyuD/xLZH8H/
-         r3pG+DgiBtKzgsVgVIX/PxcjFOT9AU3jG5C1z9krtacehnIgGWYJC2MHqRBafy2WES6j
-         /csH5PyKvUo2ZjqJ1UUVT93vmGvYdlGOUvTtr+vWrkA6Kd2zJVEJg3OogoUeHyito6Rr
-         QsNXmmwqR3J7KOYRm668h6sxSoJMeNSDOTrC9c+KM0+Szl/KuX0cA2o5JVESNgElFQ4I
-         eYV6VjKgQ5RCFBJRBwPieCrGJHuTT15RWavYUjPR5AjYXxQmFLzxNqXmAh58FlVTVJJa
-         yFJA==
+        d=gmail.com; s=20251104; t=1789373638; x=1789978438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=euFeN8L1qX1vuAtmRRhYoG7+Fn8wfxabvK2hQ7ks/1Q=;
+        b=EMw1TT8SJD+n0qCptlg151++uqb57r1DuvoJ9W3WOFL7wp1QFlV7+8b4+o+cr/IePo
+         kyxoh2KEncpSBhKClJGMj6LtwN/5v8sRb1xBRDrrPLlSTYYmv3R95ItMcGPowsEx8YNm
+         BynmZloiNnvWjf5f0HOnXf3dMwwpn0cqX/yuoDPP3PjMCdCoxzKmiww+7amMT1cYjxWD
+         +rlX3/Y+KFX635y322DTGnksSpsTqJO/KoSIHHHNU4G0cyuoWGz+d/I8fNOD+SVdp2yr
+         SN+dZuhyekAR/8Vf5vAHYZjRl8tGfwDEM8jP1V43UCHpdVKVHPge6n81lfXU0/QCferL
+         jeuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373557; x=1789978357;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aj7IiomPonUj9qywT6/YurZdwlPYR2aG7U6PbbSw37I=;
-        b=j84TqwRq7ne8FGp+Ion0BXZp2r3pAtoGpsVcwuEI8Muvf8sRkB1gQROtZfqPaG+CmK
-         yAGlgvQaTxxUZ7KcpnVWvfMTvMaHg+gQOLHoSVrIEymW06Q9BJ5+uJWKkQqJxg2e3Njq
-         TT/DQ+l+rXA8CR8j0vegD8UbRaXEvgoqGjCH75PDxOR/2u73Mgrxt4NOppf000CvH10C
-         MbbPA5o+NU2cLZRswtVsIBMPKnl+Jemw7CyZAKp3O+n/FIGbQBXmbGY3rpft61OMfcYX
-         ZimeMdCQ8FHf4rp1nUP7ZzwdypxghqXlieQ59z8/2MwCN135uSQlr7IQs/IKCovDTULy
-         h3nw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSYuK0TIIzANmJEUFkvly2SpkDkhqBLazD5uLcIwhao6LXZ0unSl7JMZ3KaI9xjmzIuzQ4K88=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOR9tM4s9lQVi3PsxTjNDYH/MMzf4K9m3GGm+E5Hovq6oHi7pO
-	KudxSouM4jdE2tPudtFXS1YxII7pG2LyJLOzINjNSKsTFRvSsF1tVuZI
-X-Gm-Gg: AYBFou0j+w3oglSYxFRnLUkvRF91YsalL8iaA3yQKEMOUYZ51WMv6qoPVVypDzz22S4
-	Abp5Fkl01WCdVsAKFmWbNcz5pKR3deth7WgO9mkIgwxc0hezC/2bLBlXzEIFu8TzpjROFnNsaNE
-	vUktWmmV2vIk4pwR+rxc4+5V0QaxP92c8k6ES7WDA7z4s5rEOmV7Bc1XSP4ZsbjiUIM0p9ntXMk
-	Bsx5fTzMIYksH8XmBwPTIwPQ2TzeCAf2gfOGQb6qgygOhMW7sJnLUtcAO+4RIXQM+XgdBPd2Gzv
-	t5vEF4Ojr1ymrMEgcv4zaLPFh9LmL6q+jHPTnM+MsRQvG8zfL903So7NSYc9yiZdhTwgKxdbAms
-	EIaDn5In/Ni3cNLdDW6sC1frmFgmO7QZaIgMlkpGhPM2GqdWf+tEfrc/dwCB8Z9nof968B50AIl
-	QqadmWAVVTVLehkH2ueu2p/BrTJS43QxY3FfvYX30J30NSdyuyBC+sqyXn18Pi9+nEy4mg5q+Mb
-	QVUdQcbuvtZ0+u1JPQ=
-X-Received: by 2002:a05:600c:3b9f:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49e7a5f1f60mr19047885e9.0.1789373557305;
-        Mon, 14 Sep 2026 01:12:37 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm301434385e9.9.2026.09.14.01.12.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:12:36 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: mwalle@kernel.org,
-	pratyush@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	vigneshr@ti.com,
-	richard@nod.at,
-	miquel.raynal@bootlin.com,
-	takahiro.kuwano@infineon.com,
-	Itai Handler <itai.handler@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
-Date: Mon, 14 Sep 2026 11:11:48 +0300
-Message-Id: <20260914081149.1916589-3-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260914081149.1916589-1-itai.handler@gmail.com>
-References: <20260914081149.1916589-1-itai.handler@gmail.com>
+        d=1e100.net; s=20251104; t=1789373638; x=1789978438;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=euFeN8L1qX1vuAtmRRhYoG7+Fn8wfxabvK2hQ7ks/1Q=;
+        b=YT7IaGptOMYCV6WQckxkZkij+pGtCC4ZHFnn3mPIle1ZEQ2dpL9uSqUxhSXOlEpJ6+
+         eyM8rngcpWvCa3RGc0UWbubprH6WgmiQFpWAbyYNLMNDRhfx5zal5i58aVn67ViH/g4d
+         TFtm8sPAXiLJ7LLnJhwDk+BY+C/q48JdGVXQIpYW68BMNpDZ/Yo1UeizsWHVPc6iCXSc
+         NX0BQPdbynFIwCdbnn6m/hLvqtex7eHmlmmh5QHqqjXK3/pNQbfl3RzCk3UwlaB7J+Um
+         UqgxEFnAUYMvF5qi0uH5WDRKhswlsxDMPsWU8i2sqoMaBm11DezmmBJjHKneUJCmUaD/
+         QATw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNaNNmlq85ksBtFXnoaa+kLsg43pSZPMlOmQevKJ0JlHJG7YstOPxUKHtUD+DPaHWMME6S2No=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0F9SaX6hE9H38Z2Ghafqa+wRev+Us3mNVVP2K9IaUFJk1AxZZ
+	bq77fzYmCTaKlHLMFBYIdu7IQGiqWsXJBwBswPSg1rqI/8W0Gpv91/zK
+X-Gm-Gg: AYBFou2TKso+inck2TkRgWAQG6rsX7LQzaKg8fW3Ev2sc8gKnR8xCM6ad45qB4+yUH2
+	vTIQi3XfDMubrgdoEb6LJL7BjJhxh+KmrofiEoQ9ShH1YFeW5n9s0aGz32cFAUtHaSuMQ303er8
+	oxzkwe6KaT57r1OE54kHzIw9gtDdhcdhJacYPFReOb2HWxFGnBm763ePamrie52LYxzmN9/bNFE
+	2eOANHNZmOIzo/H4s9FNQv7v6NNsZRQwAXFth5CkX1d26An9/SfCUquHhVe5g8jJ3boc4Spvz6t
+	8B9N8+nd7ibPzee75YbaINVcFn6D+LtVlv8pSuN67vsmSIEjYcxhFRRb61Xb66DCqQR3UtaUbkf
+	BPfOr0BT67PXDXvvk59lZoFPL278FeQZJQYXs8aJovnk7D1s14BsLN4o1Ut67SjDgFFLqk4Djsm
+	upDFVrdIJReO/JsXLEMnGlkI4hvYS1aU7KPxGN2PqvnSkZYal8EVmbsbqT/y4bSl2IKsrxNqv6i
+	1SKEuT9NWd40x9JGvGVycrasGmlRSc7eEF6xdKOTbdhikCsSL8CVX0=
+X-Received: by 2002:a05:6512:6181:b0:5b6:184c:7da8 with SMTP id 2adb3069b0e04-5b8ae6b8b5bmr368579e87.49.1789373637454;
+        Mon, 14 Sep 2026 01:13:57 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a8778sm2275500e87.2.2026.09.14.01.13.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 01:13:56 -0700 (PDT)
+Message-ID: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+Date: Mon, 14 Sep 2026 11:13:54 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Herve Codina <herve.codina@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kalle Niemi <kaleposti@gmail.com>
+References: <20260722142834.868902312@linuxfoundation.org>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260722142834.868902312@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-spi_nor_shutdown() calls spi_nor_restore() to put the flash back into
-3-byte addressing before the system reboots or kexecs. It does so
-without taking nor->lock, which every other path that talks to the chip
-acquires through spi_nor_prep_and_lock().
+On 22/07/2026 17:31, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.97 release.
+> There are 1202 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> Anything received after that time might be too late.
 
-device_shutdown() does not freeze userspace and does not stop kernel
-threads; it walks the device list calling ->shutdown with all CPUs
-online. Another thread can therefore be in the middle of an operation,
-with the restore running concurrently with it. A write and a read are
-both damaged, in different ways.
+Oh, time flies. :) Well, statement understood...
 
-A program or erase leaves the flash busy, and a busy flash accepts only
-status register reads and ignores everything else, including the EX4B
-that spi_nor_restore() sends. Neither spi_nor_write_enable() nor
-spi_nor_set_4byte_addr_mode() reads anything back, so the restore
-reports success while the flash is left in 4-byte addressing. The next
-boot stage then addresses it with 3 bytes and reads the wrong data,
-which is the failure commit 59b356ffd0b0 ("mtd: m25p80: restore the
-status of SPI flash when exiting") introduced this restore to prevent.
+... Still, even though I know I am late - I am seeing our tests failing 
+for stable 6.12.x. Other stables as well as mainline releases and 
+linux-next are passing.
 
-A read, by contrast, does not ignore the restore - it is corrupted by
-it. spi_nor_read() holds the lock across a loop that issues one
-spi_nor_read_data() per chunk, each using nor->addr_nbytes.
-spi_nor_set_4byte_addr_mode() updates nor->params->addr_nbytes and not
-nor->addr_nbytes, so a restore landing between two chunks switches the
-chip to 3-byte addressing while the driver carries on sending 4 address
-bytes. The rest of the transfer is addressed wrongly and returns wrong
-data, and nothing reports an error. A restore may also soft reset the
-chip in the middle of that same read.
+The actual failure seems identical to one discussed here:
+https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
 
-Take nor->lock for the restore, so it runs between operations instead of
-during one: a program or erase has finished waiting on the chip, and a
-read has issued its last chunk. This is a locking fix rather than a
-missing wait - each operation already waits for completion at the site
-that started it.
+I believe above was fixed by Herve.
 
-This narrows the race without closing it. The restore still runs while
-MTD users are attached, so an operation that starts after it has
-completed will address a chip that is now in 3-byte mode while
-nor->addr_nbytes is still 4. Closing that as well would mean having MTD
-stop accepting operations before ->shutdown runs, which is a larger
-change; serialising against the operations already in flight is what
-keeps the restore itself from being issued into a busy chip.
+Bisecting stable points the:
 
-Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when exiting")
-Cc: stable@vger.kernel.org
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
- drivers/mtd/spi-nor/core.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> Saravana Kannan <saravanak@google.com>
+>      Revert "treewide: Fix probing of devices in DT overlays"
+which matches the issue in discussion.
 
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index 8bc117b46e02..647bf8dce719 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
- static void spi_nor_shutdown(struct spi_mem *spimem)
- {
- 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
-+	int ret;
-+
-+	/*
-+	 * Wait for an operation started by another thread to finish.
-+	 * device_shutdown() runs with MTD users still active: a busy flash
-+	 * ignores the commands spi_nor_restore() issues, leaving it in
-+	 * 4-byte address mode, and a restore landing mid-read changes the
-+	 * chip's address width under the transfer.
-+	 */
-+	ret = spi_nor_prep_and_lock(nor);
-+	if (ret)
-+		return;
- 
- 	spi_nor_restore(nor);
-+	spi_nor_unlock_and_unprep(nor);
- }
- 
- /*
+Maybe the 6.12 stable is missing Herve's latest fix(es)?
+
+As explained in original report, the issue is seen with our out-of-tree 
+device-tree overlay stuff. I have no idea if there is any in-tree stuff 
+impacted but I guess the overlay stuff Geert has in Renesas tree might 
+also be impacted - if it was based on 6.12.
+
+I believe there is an "existing easy fix", in a form of a patch which is 
+already applied to other stables. Unfortunately I lost track of the 
+relevant fixes during the discussion so I can't point the relevant one.
+
+Herve, do you happen to know what might be missing?
+
+I suppose this would be worth fixing because 6.12 is expected to be 
+alive for a while.
+
+
+Ps. I am not sure if this mail thread is the right place to report 
+issues _after_ the stable is out? I'd appreciate a pointer if there is a 
+better place (for the future reports).
+
+Yours,
+	-- Matti
+
 -- 
-2.34.1
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
+~~ When things go utterly wrong vim users can always type :help! ~~
