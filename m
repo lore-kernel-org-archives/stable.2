@@ -1,65 +1,51 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A386316199;
-	Mon, 14 Sep 2026 02:19:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C24F3254A9;
+	Mon, 14 Sep 2026 02:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352381; cv=none; b=KEs/aERhd5Vzq9mVC9dVKXtRfRYjQqNZqDSVWi9v5RBcXauAna2pL2wK//RDSPeiq0zn/77Zg9W3D+GchXYXWmSokeIUMPDAh13ItzXqraQnq0fhNZDBOB/MT7MCCJj3iehdGzXZryrwg9reTXjaL6je24ojbK5ga1hB/gI9p4Y=
+	t=1789352908; cv=none; b=GZPOILq10NFh4I26emC3gd+AMx5vk9WSKx7IF8ZdcUUW+0I8RCvV4EUq/7lpIGQKZHVQxQ5JdY+TojpUsoW0uljXeR9HaAy3TbwXoAkw4uTyBQnc0wMOLRvzIPqnNKeGh+jxcVO0yeYaMhCmkxwSw1eTs5vFUQRPEG2kdSYgozE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352381; c=relaxed/simple;
-	bh=anEtDGRQWaTzffV5J9EUHyQbMJKu2KszfFnkssnb3qs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DBLuPJn7KMQDro8wajI6CsRKtW5oapVUjxu7JRc3mTWTM+wSVMAdVnHKDTfhipyLuQTbwRJFVMGCfaZaW2FqZdFyERdllC1UEjCqBvX7BW0C5tgaXeRkxAVVjOZv30s72T0Rhie9tEGJmTan0SFr3CSUM7Jbf2XqNaPNxB12yLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=sQUS/Kng; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789352908; c=relaxed/simple;
+	bh=x4qiHX9gxf5WG0f9svuvHCOR1UDGcg2Dh7YBfTEDT3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mzIq6h7+X8bNXZVpUbm2UkmoSMKkCTutCp6UdCgKy9qxqoayEd317bPIS78yf4aGDxApe4eDgHMszQjuliRjWdAK7eYe2fcDb56CP2YuadGnjoRCUqsIAzoUVStO4L6xnEsyao4WtFNBIbL8+6R6RHwuUKr6l5YxNctRF/fxjJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com; spf=pass smtp.mailfrom=ugreen.com; dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b=N6fMr8r7; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="sQUS/Kng"
-X-UUID: b4b73268afe211f18dc8c9802ae25ab1-20260914
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=sA478DaC1kQ5BkUJJthxmPoh+OuKqAkvinPcE7BvToY=;
-	b=sQUS/KngRsTTtuy4d7G2sCx8XVojt4OXffVCrAzuitxsWZ6Kj26kmmlrMKtLv6sqx8aT5gTZcm3NYKdB4CoS4VAs+AcanYKilR7kSulgJqMdkPJc62NiZEy51iygn5+8Qqgl0jUtJytD/8RT5u0pXB8JpYiu0cxxgFjqVpCCFEU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:03fb39f3-3b78-4392-b057-95b65498318e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:bffc5f10-b0ca-45fb-a2c7-7f923da2cfe3,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b4b73268afe211f18dc8c9802ae25ab1-20260914
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <eason.lai@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 138749685; Mon, 14 Sep 2026 10:19:25 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 14 Sep 2026 10:19:24 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 14 Sep 2026 10:19:24 +0800
-From: Eason Lai <eason.lai@mediatek.com>
-To: <nbd@nbd.name>, <lorenzo@kernel.org>
-CC: <linux-wireless@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
-	<kun.wu@mediatek.com>, <deren.wu@mediatek.com>, <sean.wang@mediatek.com>,
-	<quan.zhou@mediatek.com>, <ryder.lee@mediatek.com>, <leon.yen@mediatek.com>,
-	<litien.chang@mediatek.com>, <jb.tsai@mediatek.com>,
-	<lucid_duck@justthetip.ca>, <eason.lai@mediatek.com>,
-	<stable@vger.kernel.org>, Hans Buchheim <hbuchheim@gmail.com>, Sergei
- Melnichenko <sergei.melnichenko@gmail.com>
-Subject: [PATCH v5 2/2] wifi: mt76: fix memory leak in USB TX path
-Date: Mon, 14 Sep 2026 10:19:20 +0800
-Message-ID: <20260914021920.32246-3-eason.lai@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260914021920.32246-1-eason.lai@mediatek.com>
-References: <20260827083526.1621600-1-eason.lai@mediatek.com>
- <20260914021920.32246-1-eason.lai@mediatek.com>
+	dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b="N6fMr8r7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+	s=pkvm2402; t=1789352878;
+	bh=QS1750WvOEqPH5k6i+R3qHKrRc8HMJtl7mpzuMFix5s=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=N6fMr8r7aUgQUvDetWG2Y3ANXo/XRkoeToC7j0NJoJvkD6hFALBh0lwA3X7ed11FG
+	 rv5D3NY52LyjBNrVAru5IBnxEZwXHA8h8jp519NvKhftLS98ykKyzbNZmbLH3uQ6TR
+	 cCpQQldPjR/sZIApzsYhxwIg4qI07vI8Op6o5IOg=
+X-QQ-mid: esmtpgz16t1789352871tcc7d0c22
+X-QQ-Originating-IP: Sq8fha/UJpP7+fZwVAdK+HpvJLGpF0QMBBQxXYu1wH4=
+Received: from 9DFG3.ugreendc.com ( [113.90.157.158])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 14 Sep 2026 10:27:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6281952500295723294
+EX-QQ-RecipientCnt: 7
+From: Haowen Bai <calvin.bai@ugreen.com>
+To: mathias.nyman@linux.intel.com
+Cc: lukas@wunner.de,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Haowen Bai <calvin.bai@ugreen.com>
+Subject: [PATCH v2] usb: pci-quirks: abort xHCI handoff if MMIO is inaccessible
+Date: Mon, 14 Sep 2026 10:27:43 +0800
+Message-ID: <02C44DCEA968C75D+20260914022743.30852-1-calvin.bai@ugreen.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <aqacxOz0jPWIfXGs@wunner.de>
+References: <aqacxOz0jPWIfXGs@wunner.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,101 +53,149 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: NUTz4BkILuKLs48koJu8gk9ZqAxlzGjw9zHpYjmxNC+fpulNLnzZilR2
+	IiSZnyEJCNsQVAX43rYnM6y2gAgP2vkZfxnQrbjV0DybX85P5kJcjKjfuMGqPXJoV51+8FV
+	SdF6HCSxbLroQCBEsacp+TvB+MRHh2dQACG/pYEIavdc8fHNdWvUOi+CWR0CCIiQipfuChf
+	ZQsAhwNuXt/mQn6BZnvZT4Q9FncmgXuZ5bLNYdi2KVS8Ut6OcIW5932F+SbmJoz90wthe8m
+	7fKgkjoHHrlTZa238YRqoF5knEhs8DUsQ2bWEwF0E2+jOZcPn10rWclLcb4vQg5lmvtwO0P
+	Xjd8HC7D2NpLie3clJnocOf2sYoLSU4OGGXTmmqPKEQmMFy26B5AKyXJOX5l0sX436qlUk5
+	59HLsY6SKL6Z3J32ykbBwcZBVJRM2pnktjZ2c2b3p0qF0WMGmjodXm37JOtthFisg5Ckkx0
+	iCL6DLJHv3FSIKn8twhxaSaMmanBiBKJWQANIMnUMF1U+SB+LAyhtGttPfyujO82mX4RoQA
+	svQ4df+tffNLAdJ1p/i5cBjjtylbb+SdDfr22ND5Q44XAIH2YGbiWX8OMGCPFpbuyrMZrjT
+	gy5S1Z+k0kbTE+oK5rm6zXrj3t9iB0MpQrQkkXWaK1SzHglwO33L1jXebmHW7Y6yUoHwvid
+	a0DLU6po080Ofkh2vVzpwmNXCbq1Vn0j2gXhSrW2ahkPz6B7mtty1TfIC+cxjesPbUok35f
+	7nnILq+ekMVBc1LPrXvVzq4/H7Nqix7nTAiqqRZpd2LFmIS+UAxmEIs2HOUXKMNauGFNGvE
+	R/q1X5xkSwU1QRQN6hjS8/KSMUrfKrRDvJGseA1d51py4iHhez++mKrfEtQKSL9ZHC3u/vf
+	O/u+94y0u18T7tKQTMJpeCUysiE6hhFxPMMo55TAifmbNV0BoUdk1BNdmt8u68/pagi4Mm1
+	mPGBU6URM2Lv5Zi/A5qQiyhSJcyHWwfkaPL9Ggz8e9ER4xbdPkr8w4EgkjEIIbxxPV7G4I2
+	6dhDaumMpBjFDO1tW3
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-When errors occur in mt76u_tx_queue_skb(), the skb is not properly
-freed, leading to memory leaks. This happens when:
-- The queue is full
-- tx_prepare_skb() drops zero-length frames (such as WMM NULL frames)
-  to prevent hardware TX hangs
-- Buffer setup fails
+The xHCI early handoff quirk polls the BIOS ownership, CNR, and HALT bits
+with readl_poll_timeout_atomic(). Unlike xhci_handshake(), handshake()
+does not treat an all-ones read as an inaccessible controller.
 
-Fix by properly releasing the skb with ieee80211_tx_status_ext() when
-the queue is full or tx_prepare_skb() fails, and using
-mt76_tx_complete_skb() when mt76u_tx_setup_buffers() fails (since
-tx_prepare_skb() has already succeeded and may have allocated resources
-that need cleanup)
+If the controller becomes inaccessible, readl() can return U32_MAX. The CNR
+bit then never clears, and the atomic poll keeps retrying. The atomic poll
+budget is decremented using the requested delay and loop iterations, but
+not the time spent in readl(). Slow failed MMIO reads can therefore keep
+the PCI hotplug thread spinning far beyond the nominal timeout and trigger
+a soft lockup. The 26-second value in the first warning is the watchdog
+threshold, not the handshake timeout; repeated warnings showed the thread
+still stuck up to 260 seconds before a controlled reboot, leaving the
+system unavailable to normal management. Comparing the watchdog timestamps
+with the RBP loop counter in the dumps (about 1,372 iterations in 26 s and
+15,638 in 260 s) implies roughly 16-19 ms per polling iteration, despite
+configured 10 us delay; these values are inferred, not direct measurements
+of an individual readl().
 
-Fixes: b40b15e1521f ("mt76: add usb support to mt76 layer")
+Return -ENODEV when the polled register reads U32_MAX and stop the handoff
+before issuing further accesses. This prevents an inaccessible xHCI from
+keeping the PCI hotplug thread busy and making the system unavailable. An
+eGPU may still fail to enumerate, but that failure must remain controlled
+rather than causing a kernel Soft Lockup and taking down SSH or desktop
+management. The existing timeout behavior for non-all-ones reads is
+preserved, matching xhci_handshake().
+
+A Thunderbolt-attached AMD Radeon Pro W5700 in a Razer Core X enclosure
+reproduced this on an x86_64 UGREEN DXP8800 Plus with an Intel Core
+i5-1235U. The GPU's xHCI function 0000:06:00.2 (1002:7316) triggered
+the soft lockup in irq/123-pciehp; the register dump contained
+RAX=U32_MAX:
+
+  watchdog: BUG: soft lockup - CPU#6 stuck for 26s! [irq/123-pciehp:139]
+  RIP: 0010:quirk_usb_early_handoff+0x552/0x7e0
+  register state: RAX=00000000ffffffff
+
+The call trace was:
+
+  pci_do_fixups
+  pci_bus_add_device
+  pci_bus_add_devices
+  pciehp_configure_device
+  pciehp_handle_presence_or_link_change
+  pciehp_ist
+  irq_thread_fn
+
+The failure reproduced on two hot-plug attempts and did not occur when the
+enclosure was connected before boot.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
 Cc: stable@vger.kernel.org
-Tested-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Closes: https://github.com/morrownr/mt76/issues/83
-Signed-off-by: Eason Lai <eason.lai@mediatek.com>
-Tested-by: Hans Buchheim <hbuchheim@gmail.com>
-Reported-by: Sergei Melnichenko <sergei.melnichenko@gmail.com>
+Acked-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Signed-off-by: Haowen Bai <calvin.bai@ugreen.com>
 ---
-v2:
-  - add error handling for queue full and tx_prepare_skb()
-  - correct error handling for mt76u_tx_setup_buffers()
-v3: add Tested-by: Devin Wittmayer and cc stable
-v4: add Closes line
-v5: add Tested-by: Hans Buchheim and Reported-by: Sergei Melnichenko
----
- drivers/net/wireless/mediatek/mt76/usb.c | 31 ++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 5 deletions(-)
+Changes in v2:
+- Use PCI_POSSIBLE_ERROR() for both all-ones checks, as suggested by
+  Lukas Wunner.
+- Carry Mathias Nyman's Acked-by.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/usb.c b/drivers/net/wireless/mediatek/mt76/usb.c
-index a9af3aa6b80a..dfc12f6944a7 100644
---- a/drivers/net/wireless/mediatek/mt76/usb.c
-+++ b/drivers/net/wireless/mediatek/mt76/usb.c
-@@ -893,6 +893,9 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 		   enum mt76_txq_id qid, struct sk_buff *skb,
- 		   struct mt76_wcid *wcid, struct ieee80211_sta *sta)
+ drivers/usb/host/pci-quirks.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+index 0404489c2f6a..1167973382d9 100644
+--- a/drivers/usb/host/pci-quirks.c
++++ b/drivers/usb/host/pci-quirks.c
+@@ -1026,15 +1026,22 @@ static void quirk_usb_disable_ehci(struct pci_dev *pdev)
+  * Returns 0 when the mask bits have the value done.
+  * Returns -ETIMEDOUT if this condition is not true after
+  * wait_usec microseconds have passed.
++ * Returns -ENODEV if the register reads as all-ones (hardware removed).
+  */
+ static int handshake(void __iomem *ptr, u32 mask, u32 done,
+ 		int wait_usec, int delay_usec)
  {
-+	struct ieee80211_tx_status status = {
-+		.sta = sta,
-+	};
- 	struct mt76_tx_info tx_info = {
- 		.skb = skb,
- 	};
-@@ -900,17 +903,27 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	u16 idx = q->head;
- 	int err;
+ 	u32	result;
++	int	ret;
  
--	if (q->queued == q->ndesc)
--		return -ENOSPC;
-+	if (q->queued == q->ndesc) {
-+		err = -ENOSPC;
-+		goto err_free_skb;
-+	}
- 
- 	skb->prev = skb->next = NULL;
- 	err = dev->drv->tx_prepare_skb(dev, NULL, qid, wcid, sta, &tx_info);
- 	if (err < 0)
--		return err;
-+		goto err_free_skb;
- 
- 	err = mt76u_tx_setup_buffers(dev, tx_info.skb, q->entry[idx].urb);
--	if (err < 0)
--		return err;
-+	if (err < 0) {
-+		/*
-+		 * mt76_tx_status_skb_get() walks the idr and dereferences
-+		 * a freed skb. This SKB is not counted in non-AQL counter
-+		 * due to error return, so using 0xffff as wcid to keep
-+		 * balanced.
-+		 */
-+		mt76_tx_complete_skb(dev, 0xffff, tx_info.skb);
-+		goto err_ret;
-+	}
- 
- 	mt76u_fill_bulk_urb(dev, USB_DIR_OUT, q->ep, q->entry[idx].urb,
- 			    mt76u_complete_tx, &q->entry[idx]);
-@@ -921,6 +934,14 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	q->queued++;
- 
- 	return idx;
+-	return readl_poll_timeout_atomic(ptr, result,
+-					 ((result & mask) == done),
+-					 delay_usec, wait_usec);
++	ret = readl_poll_timeout_atomic(ptr, result,
++					(result & mask) == done ||
++					PCI_POSSIBLE_ERROR(result),
++					delay_usec, wait_usec);
++	if (PCI_POSSIBLE_ERROR(result))
++		return -ENODEV;
 +
-+err_free_skb:
-+	status.skb = tx_info.skb;
-+	spin_lock_bh(&dev->rx_lock);
-+	ieee80211_tx_status_ext(dev->hw, &status);
-+	spin_unlock_bh(&dev->rx_lock);
-+err_ret:
-+	return err;
++	return ret;
  }
  
- static void mt76u_tx_kick(struct mt76_dev *dev, struct mt76_queue *q)
+ /*
+@@ -1203,6 +1210,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+ 		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+ 				0, 1000000, 10);
+ 
++		if (timeout == -ENODEV)
++			goto iounmap;
++
+ 		/* Assume a buggy BIOS and take HC ownership anyway */
+ 		if (timeout) {
+ 			dev_warn(&pdev->dev,
+@@ -1231,6 +1241,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+ 	 */
+ 	timeout = handshake(op_reg_base + XHCI_STS_OFFSET, XHCI_STS_CNR, 0,
+ 			5000000, 10);
++	if (timeout == -ENODEV)
++		goto iounmap;
++
+ 	/* Assume a buggy HC and start HC initialization anyway */
+ 	if (timeout) {
+ 		val = readl(op_reg_base + XHCI_STS_OFFSET);
+@@ -1247,6 +1260,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+ 	/* Wait for the HC to halt - poll every 125 usec (one microframe). */
+ 	timeout = handshake(op_reg_base + XHCI_STS_OFFSET, XHCI_STS_HALT, 1,
+ 			XHCI_MAX_HALT_USEC, 125);
++	if (timeout == -ENODEV)
++		goto iounmap;
++
+ 	if (timeout) {
+ 		val = readl(op_reg_base + XHCI_STS_OFFSET);
+ 		dev_warn(&pdev->dev,
 -- 
-2.45.2
+2.47.3
 
