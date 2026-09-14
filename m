@@ -1,90 +1,89 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EC11E7660;
-	Mon, 14 Sep 2026 02:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED6A1E7660;
+	Mon, 14 Sep 2026 02:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353966; cv=none; b=Ygxt/epW+TMuaZa7cnNl20jRwwZKP/h/teSpLMj/oJ0h8HF4ZOIwWPDtAo1QolRxc2U7RggyBN1COJpTDD9txrBf7eSVvo4jL31RRyYNt474iDXCNQMfjUJl5IQRLpt89KqifeAn6TXGqIuOarANCr8qfqNIIrVO/gvxZThx0XU=
+	t=1789353981; cv=none; b=tyiZadT6JyrAkBcLpumxBTC7ZekOTUMy2GjjJALDOtW6kjHtepnVKfQ35vaFb2qm/y+QcpXNrb4BzI3AVAZJjpUm0VuoHkH2M4Doavar29YFGLhAnmQH81JjF00NpjGO7fJyEMQWQd3yw4AOCuR+rJrgr67EWxg9k1uHssWzYas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353966; c=relaxed/simple;
-	bh=qK+5lPCa8HUX5/ezxo8mKK0h5kxCv4PDkQne1qYc3z8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=vBQc925poUT7jvO2gvf1NQcTnEsuRgEE0Z0cWQ36jyOM8/KgbzVKsbARPjpSCEuDBcaDi6TZ8QkenBc9A5O04iJtzWoTMvZKA2A4h6DTGC6C6p1Hmybok9qCvXLzRdl1W8BKo/iJVZCHqRUD1jFwEwTUKeuAhl0TN5NTSp2Yirk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6ad32522afe611f19a56ed5b684f684d-20260914
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:bbe0c4a3-3b29-4f5b-9302-20e446aab4f0,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:828b17566f75bd7eb8976c8866957840,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6ad32522afe611f19a56ed5b684f684d-20260914
-X-User: liuqiqi@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuqiqi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1935826873; Mon, 14 Sep 2026 10:45:59 +0800
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Qiqi Liu <liuqiqi@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/page_alloc: apply per-task GFP context in bulk allocator
-Date: Mon, 14 Sep 2026 10:45:55 +0800
-Message-Id: <20260914024555.138125-1-liuqiqi@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789353981; c=relaxed/simple;
+	bh=Ggv7iiKSnJ//YXcRsLNIhsICt70COz7t+5Va241/BH8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=VVhDnSikIK5h1KVB0TWkEx6y9ph2n3MaryDeG6sW4BWG5/V0RmRTkYQ7IosV3+J8qfEw+v7CnnhR4i0wbkQpe5P+KU48tCJhVudZq4wH6lPjDn5eRyR/P7ZtMudyifgavzoyQ+tVG78GdxfgevGCjhjgoSveYZ706lZAN79CmHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vjTonrjZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vjTonrjZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FC11F000FF;
+	Mon, 14 Sep 2026 02:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789353979;
+	bh=yv+aHnaOZ2/MmPPiwQdl4d3Iiw3sTv+0+gOwBC8ojuA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=vjTonrjZGHAtABmztdeAkNyp2YCTSg1hcvPpxl2hGbuavMFxABpIw2SS42ROp4V+P
+	 b/fM0/GPmW3vPLG7clxQaYRx1foWn4CkDoCAm4Bt9O5fnCMTZ2ZZSqHUiRi/si4cch
+	 HEvHwkjxFWqLMoTC+cbr8q7OC1mRnKG65s/GpCBA=
+Date: Sun, 13 Sep 2026 19:46:19 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matt Turner <mattst88@gmail.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Alain Knaff <alain@knaff.lu>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] lib/decompress_bunzip2: fix off-by-one in run-length
+ bounds check
+Message-Id: <20260913194619.f495704b6d28bf67a50570cd@linux-foundation.org>
+In-Reply-To: <CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
+References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com>
+	<20260913190707.413136686f78887287764f0a@linux-foundation.org>
+	<CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-alloc_pages_bulk_noprof() does not call current_gfp_context(), so
-per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
-PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk fast
-path.
+On Sun, 13 Sep 2026 22:16:16 -0400 Matt Turner <mattst88@gmail.com> wrote:
 
-The most direct consequence is PF_MEMALLOC_PIN: without clearing
-__GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for the
-PCP list, and a task under memalloc_pin_save() receives movable
-pages from the bulk allocator.
+> On Sun, Sep 13, 2026 at 10:07 PM Andrew Morton
+> <akpm@linux-foundation.org> wrote:
+> >
+> > On Sat, 12 Sep 2026 14:17:35 -0400 Matt Turner <mattst88@gmail.com> wrote:
+> >
+> > > The run-length path rejects a block when dbufCount+t equals dbufSize,
+> > > but the loop that follows writes exactly t bytes starting at dbufCount,
+> > > so a block that fills the buffer exactly is legal. bzip2 allows it too:
+> > > its decompressor bounds a block at 100000 * blockSize100k and checks
+> > > that limit per byte appended. Use > instead of >=.
+> > >
+> > > bzip2's encoder stops filling a block 19 bytes early, so nothing it
+> > > produces ever reaches the limit and the bug stays hidden. Compressors
+> > > that use the full block size do reach it: an lbzip2 -9 image whose block
+> > > ends on a run fails to decode, and a self-extracting kernel built that
+> > > way does not boot.
+> > >
+> > > This code came from busybox, which fixed the same line in 2013 in commit
+> > > 932e233a491b ("bunzip2: fix off-by-one check").
+> >
+> > Thanks.
+> >
+> > > Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and lzma decompression")
+> > > Cc: stable@vger.kernel.org
+> >
+> > Why is a backport proposed?  Hopefully because downstream users need
+> > this change, but the changelog doesn't tell anyone the reasons why.
+> 
+> I ran into this because my system uses lbzip2 as /bin/bzip2 -- a
+> common thing on Gentoo I believe. As far as I can tell, anyone using
+> lbzip2 as their system bzip2 would run into this and it's only because
+> it's very uncommon these days to compress a kernel with bzip2 that no
+> one has noticed. I only noticed because I was adding support for
+> various compression formats on alpha.
 
-Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
----
- mm/page_alloc.c | 1 +
- 1 file changed, 1 insertion(+)
+OK, thanks.  A real-world i-hit-this is compelling.
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..3be7288a1aa7 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 
- 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
- 	gfp &= gfp_allowed_mask;
-+	gfp = current_gfp_context(gfp);
- 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
- 		goto out;
- 
--- 
-2.25.1
+> No strong preference for a backport from me. Just thought it would be desirable.
 
+np, I;ll retain the cc:stable.
