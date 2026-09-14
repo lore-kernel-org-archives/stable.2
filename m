@@ -1,19 +1,19 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A3741378D;
-	Mon, 14 Sep 2026 10:46:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041093BFAF5;
+	Mon, 14 Sep 2026 10:47:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382792; cv=none; b=tO5NRlOMwOCoUXmMlnGRknEtSyuhvnYKO8qNB6wUYPCTZdiVsVY/jfCXlE6yg8/4qkbL+Lq4NdsaIZxpcwPEt4kcxXK7QY3IYwxuRRvFl+I+EVCSFjdIb4Da7tnL1ZFhvcBtS/M2cYlRGPilNousLACCtb3tJhP1Bq0CPHlY7w0=
+	t=1789382876; cv=none; b=lf+71CXRKDZMha0KdzJfhPtvswGDM35+eubWlInfBLbAMn+h3g+eH4jxs52OlhlTUaiMBuu775SnyMDPFu3ivu2FcnMLhWRz/UBxhluvc6KWZFgkvf3sOz/wphLQSmlKqIifAkslycd15neNSCv9A/JIR+fTL2B+wPe5lW4N0gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382792; c=relaxed/simple;
-	bh=PZuSGw/Ymu7WjLMEku7ELyyKyZJ7PytmyFoNcs5hVcw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PmxcIZ6LjjMVRmZ4VN8qejfSxBE+PwdBnb78LayiBRAAbfCeXOGa7s4+1FNuKYC2ogkhhT/kE9l3xoi2CgFHbuP1pJaT13J+NX5gxGNiEr49O2ZrkDypsJoUmPUzSNGULkEx33N5ohUaUtPbbOwa0j96SpFNsJEGxUhiRYhu8Qs=
+	s=arc-20240116; t=1789382876; c=relaxed/simple;
+	bh=YphhuIEr0fTPZFFG0wioG82gi0Gb9B0j7EjpZe3MlgM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L5TCq5OZJyyRQT4qxgs+ClJD9QxnJWYOMmETO5lDtZ4f4XlpH2cs/wiTuhyvcghwqcbr7rRoI8+18TH7da5pdrkgHfiVNPerpWpnb7fT4MOCXBv43IZsTRlBMChoBg7ba96An7/0wrnU1i9V619JxbilgwzYQbIxviNhahONp6I=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 82c9ceb8b02911f19a56ed5b684f684d-20260914
+X-UUID: b46b8df8b02911f19a56ed5b684f684d-20260914
 X-CTIC-Tags:
 	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
 	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
@@ -24,14 +24,14 @@ X-CTIC-Tags:
 	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
 	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a4b47acc-e02b-400a-ab9c-ea5094c1ec1c,IP:15,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:15
-X-CID-INFO: VERSION:1.3.19,REQID:a4b47acc-e02b-400a-ab9c-ea5094c1ec1c,IP:15,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:15
-X-CID-META: VersionHash:7db8b62,CLOUDID:f008fbf9ccd15f380d4ae6ca61bfb65b,BulkI
-	D:260914184619FTH1BCPW,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+X-CID-O-INFO: VERSION:1.3.19,REQID:07cdf5b0-a8b5-4a06-b3f0-b04b8cae2a9b,IP:15,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-10
+X-CID-INFO: VERSION:1.3.19,REQID:07cdf5b0-a8b5-4a06-b3f0-b04b8cae2a9b,IP:15,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-10
+X-CID-META: VersionHash:7db8b62,CLOUDID:9bd63d9ec08bc900a0d253bc3b4fd0df,BulkI
+	D:260914184743QP54VZ76,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
 	C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
 	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
 	0
@@ -39,27 +39,27 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 82c9ceb8b02911f19a56ed5b684f684d-20260914
+X-UUID: b46b8df8b02911f19a56ed5b684f684d-20260914
 X-User: yijiangshan@kylinos.cn
 Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
 	(envelope-from <yijiangshan@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 116968193; Mon, 14 Sep 2026 18:46:15 +0800
+	with ESMTP id 1120140500; Mon, 14 Sep 2026 18:47:39 +0800
 From: Jiangshan Yi <yijiangshan@kylinos.cn>
 To: oder_chiou@realtek.com,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com
-Cc: derek.fang@realtek.com,
+Cc: shumingf@realtek.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	13667453960@163.com,
 	Jiangshan Yi <yijiangshan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: rt1017-sdca-sdw: fix uninitialized stream_config->type
-Date: Mon, 14 Sep 2026 18:45:51 +0800
-Message-Id: <20260914104551.377880-1-yijiangshan@kylinos.cn>
+Subject: [PATCH] ASoC: codecs: rt712-sdca-dmic: fix uninitialized stream_config->type
+Date: Mon, 14 Sep 2026 18:47:12 +0800
+Message-Id: <20260914104712.379574-1-yijiangshan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,73 +78,54 @@ Zero-initialize stream_config so type defaults to SDW_STREAM_PCM.
 While at it, use snd_sdw_params_to_config() helper instead of
 open-coding the same logic.
 
-Fixes: 2b7aecd58528 ("ASoC: rt1017: Add RT1017 SDCA amplifier driver")
+Fixes: 63a511284c9e ("ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
- sound/soc/codecs/rt1017-sdca-sdw.c | 27 ++++++++-------------------
- 1 file changed, 8 insertions(+), 19 deletions(-)
+ sound/soc/codecs/rt712-sdca-dmic.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1017-sdca-sdw.c b/sound/soc/codecs/rt1017-sdca-sdw.c
-index caf75e5657ef..01cc2511a7d0 100644
---- a/sound/soc/codecs/rt1017-sdca-sdw.c
-+++ b/sound/soc/codecs/rt1017-sdca-sdw.c
-@@ -15,6 +15,7 @@
+diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
+index 8860d81134e7..a9f3aa4e143a 100644
+--- a/sound/soc/codecs/rt712-sdca-dmic.c
++++ b/sound/soc/codecs/rt712-sdca-dmic.c
+@@ -13,6 +13,7 @@
+ #include <sound/core.h>
+ #include <sound/pcm.h>
  #include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <sound/soc-dapm.h>
 +#include <sound/sdw.h>
- #include <sound/initval.h>
  #include <sound/tlv.h>
-
-@@ -573,11 +574,10 @@ static int rt1017_sdca_pcm_hw_params(struct snd_pcm_substream *substream,
+ #include "rt712-sdca.h"
+ #include "rt712-sdca-dmic.h"
+@@ -632,10 +633,10 @@ static int rt712_sdca_dmic_hw_params(struct snd_pcm_substream *substream,
  {
  	struct snd_soc_component *component = dai->component;
- 	struct rt1017_sdca_priv *rt1017 = snd_soc_component_get_drvdata(component);
+ 	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
 -	struct sdw_stream_config stream_config;
 +	struct sdw_stream_config stream_config = {0};
  	struct sdw_port_config port_config;
--	enum sdw_data_direction direction;
  	struct sdw_stream_runtime *sdw_stream;
--	int retval, port, num_channels, ch_mask;
-+	int retval, port;
+-	int retval, num_channels;
++	int retval;
  	unsigned int sampling_rate;
 
  	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
-@@ -591,28 +591,17 @@ static int rt1017_sdca_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -647,13 +648,8 @@ static int rt712_sdca_dmic_hw_params(struct snd_pcm_substream *substream,
+ 	if (!rt712->slave)
+ 		return -EINVAL;
 
- 	/* SoundWire specific configuration */
- 	/* port 1 for playback */
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		direction = SDW_DATA_DIR_RX;
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
- 		port = 1;
--	} else {
--		direction = SDW_DATA_DIR_TX;
-+	else
- 		port = 2;
--	}
+-	stream_config.frame_rate = params_rate(params);
+-	stream_config.ch_count = params_channels(params);
+-	stream_config.bps = snd_pcm_format_width(params_format(params));
+-	stream_config.direction = SDW_DATA_DIR_TX;
 -
 -	num_channels = params_channels(params);
--	ch_mask = (1 << num_channels) - 1;
--
--	stream_config.frame_rate = params_rate(params);
--	stream_config.ch_count = num_channels;
--	stream_config.bps = snd_pcm_format_width(params_format(params));
--	stream_config.direction = direction;
-
--	port_config.ch_mask = ch_mask;
+-	port_config.ch_mask = GENMASK(num_channels - 1, 0);
++	/* SoundWire specific configuration */
 +	snd_sdw_params_to_config(substream, params, &stream_config, &port_config);
- 	port_config.num = port;
+ 	port_config.num = 2;
 
- 	dev_dbg(dai->dev, "frame_rate %d, ch_count %d, bps %d, direction %d, ch_mask %d, port: %d\n",
--		params_rate(params), num_channels, snd_pcm_format_width(params_format(params)),
--		direction, ch_mask, port);
-+		stream_config.frame_rate, stream_config.ch_count, stream_config.bps,
-+		stream_config.direction, port_config.ch_mask, port);
-
- 	retval = sdw_stream_add_slave(rt1017->sdw_slave, &stream_config,
- 				&port_config, 1, sdw_stream);
+ 	retval = sdw_stream_add_slave(rt712->slave, &stream_config,
 --
 2.25.1
 
