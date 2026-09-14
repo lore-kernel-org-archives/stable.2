@@ -1,133 +1,153 @@
-Received: from mail-lr2-f4.google.com (mail-lr2-f4.google.com [74.125.230.68])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B523D411A
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 07:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104C83EF0AA
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372602; cv=none; b=Z2twcYCp4Q+Po+Kpodvzpe8QiwExWwSgNKnfInk6MeLjlvgOijk+jeuGap80KPHh+LqvdGCbiAKU9JyG0kOF2S8hgPg2JpVDwyEwl2W14BXGLUjYrr7+R9axqmnYnpnnzZPM/9OKGfOJD/Ku0M9xfhK0LEFymT0e/BLidHPMeag=
+	t=1789372985; cv=none; b=P4E41QGP/Mixyf+YgDgcLGFHWphH0JxwlxJeVTTDGiEjULPawoxiP67NTpBnoI50kTVPTNy6JzEn2bnLoDO1vSgpNiA+x5M+z/Tcpt6GZVuqheSp+Z/jsnP1DJujOsRVWWHN6ubNfpMaLpvWv26BPAOwSc07N2MMBAgHQoTxGoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372602; c=relaxed/simple;
-	bh=YA/Zt5Rp3A+cv1udmI30pynM10rZrp/ZOB5JXnp18OI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sFmcHDCyP4IC3EyIu2W2X+DJJaaDAYpukaV3vx4DbCE0qABj5JYBfDZ8QIZz1tRbXfGtlG/9IgvEo4rP2vOtKyuJ4PDneHj7uMH14wYvTS9kEDEVc1oS2feSEiuZy2Iubq9+QhePsnF2hDZ53/qGTgJ5NTC51EqXecBYqk1jrrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tNLIjZOA; arc=none smtp.client-ip=74.125.230.68
+	s=arc-20240116; t=1789372985; c=relaxed/simple;
+	bh=50eSPHox2Zsfj7F9UKH3Tuowfr6Y0XyNXGmvAoGBepI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JErgQME2k+i9ib9POWGqoB1w1WAbXDkeb8HC5XeYxMOHni5IZMp+tiwdDVpBNTrs2y8to+Ku8P0V6gHx0LQuxDjq22U3pUqHV5yKrlBh1lVEpohB2dxsSzWGjuj1UQ+xpiucOpznIGMlZ/Wq1RBxQkiMLWpZoT712kRmiUyHaew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mlLkcFNf; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tNLIjZOA"
-Received: by mail-lr2-f4.google.com with SMTP id 38308e7fff4ca-3a49bfe419aso18371991fa.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 00:56:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mlLkcFNf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso16059505e9.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:03:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789372598; x=1789977398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4SXkJ61xh36bbhjQO3MwznVY3pjw6v2KKNzzDKE9IK4=;
-        b=tNLIjZOAhhx7LnwZ8WXXw8zGUA4ITwBbS3XntzmrTulikKKtWFCi+kqbxz4jdNheFI
-         8o72cSVGde9gDYASAGIpjf1sI5M3ekiM+OPohDYo7YQOYbBwd+rxmtYetld4XK1nt9lZ
-         d50lUH3FuYtWHNyauwYcF2405D0Ukq/3ltGetcjt5bqscDcMnkwkumwhHe+RzSeOgLC6
-         CnjqKPL3Byvh3wD24Wqu4KzKhEK7ms6oPGMJ4aBdSQYvLcQ40GucAgkFq5HIvMSqSIuA
-         bsvSHaxB+BWe20Wde8EG3veecIDUvcvSLzDKDEHmYYDXDjPQ4KAUNcWzAF8j/Hxt53dy
-         /GSw==
+        d=gmail.com; s=20251104; t=1789372982; x=1789977782; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nFvY4nvrp8jk1FFzx/RVet+XhGQRlYHVzbRdGgTlNOU=;
+        b=mlLkcFNf3YzGcBxUFp3/WbWyXNtIgfmGgEKKAveM/br/e15J1ZMXSRR0hdXUjLA/5s
+         wchZlHEvHlgJn5m9e+OHFeA8aBfFgFb1V8nCA6h4ve8xLEyhi66IMrItUUdGO32nU9VE
+         aUNGu8fTMSQ5LEII8Wp0eIRh6/xqy7ZVmYgCyRWirfYz1aV2lq8ekr8d6FlqyHfuQHq5
+         LzelKDWb+uoAlFYAMU1TKPtLsBEyv/XXe1jCiE/bPXzsUgZ78DqLzBQzxzJnmhBu0uNN
+         PX50Qjq+6k5n6I0mbU2zZYftFwrukqO6mZDhi+2ZJzI+UGDX2TOiVFd4izONLR2wDnG0
+         hWXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789372598; x=1789977398;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4SXkJ61xh36bbhjQO3MwznVY3pjw6v2KKNzzDKE9IK4=;
-        b=CZykHT8UZ8O/yJHd2WTDvJZpvB8Wt4RlnXNcY/DXCxMK+zFkjZrBzCABzx4EDfkrXv
-         /Xahz2/LjWSDwQyqN2KH4yWAI+vcsUVNQbkwMF2G7p8xKvmjelM0iDHUdOkAREknqPVV
-         gIduQVa2h0wcMe6GdkYiOcpyricV95jg4w9qHHFdHmr0CHSt2An9xLpFuYYxkLWeT6fO
-         v++tluIqPTvo8liBlOmELOvEDFDFbLlOp0GU6s/tVsR4squct0rHwkc8KRq8h+ZpYywI
-         OhCyCSgJxm1CiyQt4UL+MhUNuLi1ZUTEs84bd3VP6amn3S+O8ynQk71U3qCQZZC+VYNR
-         t8Dg==
-X-Gm-Message-State: AFuF++klCR3SYjprzNwYvtRdnJTEF14qnQHMwrlNfemzEo/CGvPo/SX7
-	VK0KJkjxNnjOHKO8/Fv9gYeg1iO4Q4sj7IQRf95zNC/vk2tuvv811qDIap8/Ljgc/Ug=
-X-Gm-Gg: AYBFou1/qNFxX205X+oOWTw6wFReTB2ueX76AttM1z3tyQ5fe86jCsccu4YTfBGnCMQ
-	oB3X7rJ3CWamiiJ1w/RlpoSG2vO45nolav52zGame9yBU1j4olUnurcQRxq+/6TYVvOC2rqqs/0
-	rVsmTZqhHekmYK90PpFzleSWuX0//Um6Ul7+x3DyeKks3AFx8FpGrUdUATsdDTftSmWXHSvc+Ht
-	9BFDiMBIvM7+AUoYYWF85oY1IV8x7izHWvfvxyjJfdKGjsEQU8DKKv978u/YscRqYGwlMp6yFs1
-	dr9Y/lAcRBN0OMU/i65CjUveQRIcGup5VG+tek5NKDognnLwrR1hWFsZv8i6yXp4I5W/57RcL/o
-	qXPJrYkLozBgj9cd7OccYNKdiuzk7s8SOzyeoZ9ItYlza2s3wOhzxBZMnIKT8pY8qYWZvWDDEC5
-	5nXQDtQMxv44nd5VZLSozFL83GUJRcsRj7jqtolhf5hw1RlGB4qZdm+8fFTa8o9dhRVfC7diS2k
-	f0X+rRtxWr4mO1BDLO80hN8b++0
-X-Received: by 2002:a05:6512:1241:b0:5b4:ac27:6bb0 with SMTP id 2adb3069b0e04-5b8ae6b89famr713138e87.25.1789372597734;
-        Mon, 14 Sep 2026 00:56:37 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047113esm2231327e87.55.2026.09.14.00.56.36
+        d=1e100.net; s=20251104; t=1789372982; x=1789977782;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nFvY4nvrp8jk1FFzx/RVet+XhGQRlYHVzbRdGgTlNOU=;
+        b=E6Pfhfjeq7dYRO1VFl1X5yjwEF0wOlDPzjEYftGpS8qBBYZZwrAaCPX8gm6qt9RNgB
+         eeb/JwgMUsOkair47npX4TLhDOfJnwUvfe0YB37cTB3OHTvcIIYCtCohvhYT45a3d7UG
+         x37vaKInuP7bALDK3EcA/HrzzmJFcYi1ZuV8p1PmA1UuxA0Fkloo/tV18l+cS6yzE38U
+         sBgYXvnu266IVNYUfBQkC/a3iZ4Uv7fQ2i3fj3SEi30PYL65ldd+ZWWCLZl5ZSr820UZ
+         U+fUyw30s+4y6WqgP/Nw3VzxrmMqzKYpI0FBdxh+JT4+ila9qYC1D24ZQxGmJVOQOTkT
+         ITzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzisfSoEF5y5CdUAqrp5mHGtJRcxs3cW9CGa+w04P55am/hKN6wbmAASZtVMwF9UD+knX5FD1U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkki2gI9arxDepHk+lGe2gQhx0WzBem0OC6JX9ozBp1YF5nyCs
+	7Ae02zyCDWSO5fGf/LTFxaW0zVtWFggN3dDdChu2094+h/94E4BavWkIM3GRNWnj
+X-Gm-Gg: AYBFou0+7HYSFTi/t8mAwBthZRfS39aavBFvg+dn4XgJbrT7E/YWw9WG084AE5u6dFj
+	NjPHshOTmVr+J0PKrCktnR+0akkg+x/6EKH0RlCzJ8DcsjlEZj6uoYJUtuQ8Mgdh7qXRLjNUWCg
+	wH0pv3XS7KLt1nT5AkHPGlewMtPya5si0PanoRt/kM0tsIifwZCK3ELSLc7CbAx/HQ7UeLfYmuU
+	P7G3wrjWPtT9h0zt5g9eZo/n0gztWPaYn+BKMjDFWHO5pjQQg34Xx9uUqDkXhpLcYS9RkkCWGYq
+	cno4yCeASzOpYBT97p6jJCHkyWeBqexeEpOnzgQZBCoLI4pX5lmM2doejzkACA14nflSLjmXLHY
+	4pq23JLmJUzMLu2dkZIbB2crurfaWMQDCjgvHS3hkvr84Wo/IWH/5QQ2FUk6Jqzqzu/GpdgZ1rd
+	Ei2MaXIAv12du9+4WSBLbhEStex3bbzDy1VT6X2bzSrpkPbW0g7225SQDfTyZuBaYajOOyZ9r7D
+	ESHqldDwILEVVkvME4mG7ZDDubpimAl92y4
+X-Received: by 2002:a05:600c:4e89:b0:49d:7f5:4cdd with SMTP id 5b1f17b1804b1-49e7a68d80emr14744645e9.27.1789372981897;
+        Mon, 14 Sep 2026 01:03:01 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e71861d71sm172806235e9.11.2026.09.14.01.03.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:56:37 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Xiubo Li <xiubli@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	ceph-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
-Subject: [PATCH 5.10] libceph: Reject monmaps advertising zero monitors
-Date: Mon, 14 Sep 2026 10:56:19 +0300
-Message-ID: <20260914075620.11202-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 14 Sep 2026 01:03:01 -0700 (PDT)
+Date: Mon, 14 Sep 2026 09:03:00 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Zihan Xi <zihanx@nebusec.ai>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, willemb@google.com, kuniyu@google.com, kees@kernel.org,
+ richardbgobert@gmail.com, jiayuan.chen@linux.dev, stable@vger.kernel.org,
+ Vega <vega@nebusec.ai>, Luxing Yin <root@tr0jan.top>
+Subject: Re: [PATCH net 1/1] net: gso: limit recursive IP-in-IP segmentation
+Message-ID: <20260914090300.6ad169c0@pumpkin>
+In-Reply-To: <willemdebruijn.kernel.57ad3a4d0955@gmail.com>
+References: <cover.1789302084.git.zihanx@nebusec.ai>
+	<a4f108b00c7d3c0997bfcee84a9e7e481c07ad5b.1789302084.git.zihanx@nebusec.ai>
+	<willemdebruijn.kernel.57ad3a4d0955@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
+On Sun, 13 Sep 2026 18:46:53 -0400
+Willem de Bruijn <willemdebruijn.kernel@gmail.com> wrote:
 
-commit 40480eee361ed9676b3f844d532ac28b47251634 upstream.
+> Zihan Xi wrote:
+> > IPIP GSO/TSO support makes IP-in-IP GSO dispatch re-enter
+> > inet_gso_segment() or ipv6_gso_segment() for every nested IP header. The
+> > only state that tracks this nesting is encap_level, which records header
+> > bytes and has no recursion bound. A sufficiently deep chain can consume the
+> > kernel stack before a transport GSO callback is reached.
+> > 
+> > The unbounded callback nesting was introduced when inet_gso_segment() was
+> > made stackable by "ipv4: gso: make inet_gso_segment() stackable". GRE GSO
+> > support predated that change, and IP-in-IP GSO/TSO support later made the
+> > affected path reachable.
+> > 
+> > Track the number of IP GSO callbacks in skb_gso_cb and reject the 15th
+> > callback entry. Thus 14 callback entries are allowed to complete;
+> > GSO_RECURSION_LIMIT is the rejection threshold, not the number of
+> > successful callbacks. Initialize the counter for each top-level GSO
+> > operation and check it in both IPv4 and IPv6 handlers so mixed IP-in-IP
+> > nesting is bounded.
+> > 
+> > Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Co-developed-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> > ---
+> >  include/net/gso.h      | 9 +++++++++
+> >  net/core/gso.c         | 1 +
+> >  net/ipv4/af_inet.c     | 3 +++
+> >  net/ipv6/ip6_offload.c | 3 +++
+> >  4 files changed, 16 insertions(+)
+> > 
+> > diff --git a/include/net/gso.h b/include/net/gso.h
+> > index 29975440cad5..2665acbb9205 100644
+> > --- a/include/net/gso.h
+> > +++ b/include/net/gso.h
+> > @@ -19,10 +19,19 @@ struct skb_gso_cb {
+> >  	int	encap_level;
+> >  	__wsum	csum;
+> >  	__u16	csum_start;
+> > +	/* Number of GSO callbacks this packet already went through. */
+> > +	u8	recursion_counter;
+> >  };
+> >  #define SKB_GSO_CB_OFFSET	32
+> >  #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
+> >  
+> > +#define GSO_RECURSION_LIMIT	15	/* First callback depth to reject. */
+> > +static inline int gso_recursion_inc_test(struct sk_buff *skb)  
+> 
+> What is 15 based on? Is that where in your test stack overflow occurs?
+> 
+> A realistic practical limit would likely already be smaller.
+> 
 
-A message of type CEPH_MSG_MON_MAP contains a monmap that is sent from a
-monitor to the client. This monmap contains information about the
-existing monitors in the cluster. Currently, a monmap indicating that
-there are zero monitors in the cluster is treated as valid. However, it
-is impossible to have zero monitors in the cluster and still receive a
-valid monmap from a monitor. Therefore, such a monmap must be corrupted
-and should be treated as invalid. Furthermore, a monmap with a monitor
-count of zero can subsequently crash the client when attempting to open
-a session with a monitor in __open_session(). This happens because the
-"BUG_ON(monc->monmap->num_mon < 1)" assertion in pick_new_mon() is
-triggered.
+What is the recursion limit on sparc64?
+(The minimum stack frame is 176 bytes.)
 
-This patch extends a check in ceph_monmap_decode() to also reject
-arriving mon_maps with num_mon == 0 rather than only with
-num_mon > CEPH_MAX_MON.
+It would be more sensible to check the 'amount of stack remaining' than
+the number of levels of recursion.
+Even though that is still asking 'how long is a piece of string'.
 
-[ idryomov: drop "log output for unusual values of num_mon" part ]
-
-Signed-off-by: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
-Reviewed-by: Ilya Dryomov <idryomov@gmail.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-68155
-
- net/ceph/mon_client.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ceph/mon_client.c b/net/ceph/mon_client.c
-index e1f01aef263e..fac52fe7a587 100644
---- a/net/ceph/mon_client.c
-+++ b/net/ceph/mon_client.c
-@@ -59,7 +59,7 @@ static struct ceph_monmap *ceph_monmap_decode(void *p, void *end)
- 
- 	num_mon = ceph_decode_32(&p);
- 
--	if (num_mon > CEPH_MAX_MON)
-+	if (num_mon == 0 || num_mon > CEPH_MAX_MON)
- 		goto bad;
- 	m = kmalloc(struct_size(m, mon_inst, num_mon), GFP_NOFS);
- 	if (m == NULL)
--- 
-2.53.0
-
+David
