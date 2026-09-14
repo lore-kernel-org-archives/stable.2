@@ -1,30 +1,48 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F382199EAD;
-	Mon, 14 Sep 2026 20:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB6D492E22;
+	Mon, 14 Sep 2026 20:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789417076; cv=none; b=RIp/SeDz8EI9bIAffufRO6evgFKa6PY+5XJYWFT8JblOCvwdClwR9j81WRZeZ4pzXmT7qi0qpTLynGR46nbFXkn1jbubZy7ZVsGHliNSErUknLMmB4JyaVXCRFdBIZB7dJYEMEgftluSya7//kSu1T8KsowmXSh2gG8rFFsRQ+k=
+	t=1789418085; cv=none; b=syu1HuMTJ1sO8F6PHasRYZSMgP8ljYmTsS6z76TegI7YgACUQFxlKZLAC9f822UOOmQ+rzW6j92Mose7LoVad95KoT6mhphh1MaBsmOOFn67lq60BUx69IFHxPZFn8q5seQm4Gs02cZiGDi41huIRvjPoycDqMKgPvTKoP4MbdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789417076; c=relaxed/simple;
-	bh=ZNspXXoo+dfPTFPPQyXEBwDtTzS6AnZNJIycwnLE6zk=;
+	s=arc-20240116; t=1789418085; c=relaxed/simple;
+	bh=jEQ8CE7CKU2UnvxHX9+tcJ3HwSmZhySR1mXh0FnP6GU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D8vvZsxsxnM8LKxu6IJcM1GbYjaVJf3DBcskltP8C/PDdLcgJnI99Te/KdiPkmZUgQpN1miiX3+nIsUYR0BCNeJyP6aifZelpQ3i1yDN9FKUWL2rgzkZfdc37oNnOCm8o9xsT06kRK2jlCbVxHLb5m+yytSnoTxAnnIoUbJaAUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=Onun/M5C; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+	 In-Reply-To:Content-Type; b=BidmlnNYMD/RP8IbUgIVnaqFIuaTmdxxbWpkcj+782fjBqki/ocsfcau2IQho58zf3dbBeOEeRaijdxqwu+Efar5tv8hLUrh4/MC9/Kv4gGJV8y39hgy2Ct0Zd45+hFa2pq+ih2arQ1oSBt8j531wj3uAGdyoYxgyo87jqe/P8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Cay9H5rv; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="Onun/M5C"
-Received: from [192.168.0.150] (ip5f5af454.dynamic.kabel-deutschland.de [95.90.244.84])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Cay9H5rv"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hkH295w4Mzlfvq2;
+	Mon, 14 Sep 2026 20:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1789418077; x=1792010078; bh=jEQ8CE7CKU2UnvxHX9+tcJ3H
+	wSmZhySR1mXh0FnP6GU=; b=Cay9H5rvJRLxvk93raGnVXZZgmypbSJjyzBCYEdX
+	p0ZGstV7yJECM0z6J4EM0PhJ5kcNJCikB6ZTm9hFReHEfLFkhVLhXg8jMKCR9x3u
+	oREhwH5C8fK+IyHzk8rSwdjqZB7LqJ0DPytlAZ1M0H/z7mYXqcwYkuxPpAE75tFf
+	onXd1ShyH29GLqNQWzV7fuQAcWg7WDF464jWogbPawcTshMFRAf6UQUzEK/eNzQj
+	OQAUV1PZatjiAJrhjGphctxPvhD2ulSsYqrOuHtWsho5EEymQRSLBu7Zo9cn6gKK
+	ay9m0lRRFlDcfdLhjZNTttcnTBV/ls4/0cIvwC/KsY0d0w==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 6lYq-wfZVHpw; Mon, 14 Sep 2026 20:34:37 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:e88:b67e:bf8c:1880] (unknown [104.135.182.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 423EB4C2C37D66;
-	Mon, 14 Sep 2026 22:08:23 +0200 (CEST)
-Message-ID: <00e575df-526a-4e1f-87b1-a084ace25f96@molgen.mpg.de>
-Date: Mon, 14 Sep 2026 22:08:17 +0200
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hkH226SDBzlfvq1;
+	Mon, 14 Sep 2026 20:34:34 +0000 (UTC)
+Message-ID: <88818f5d-d730-40c8-b935-180df1924bb6@acm.org>
+Date: Mon, 14 Sep 2026 13:34:33 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -32,103 +50,24 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] e1000e: roll back registered MSI-X IRQs on failure
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-References: <20260914142014.428184-1-runyu.xiao@seu.edu.cn>
+Subject: Re: [PATCH v3] scsi: ufs: core: Keep internal commands dispatchable
+ during error handling
+To: Stanley Jhu <stanleyjhu@google.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>,
+ Brian Kao <powenkao@google.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260912131625.2301486-1-stanleyjhu@google.com>
 Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260914142014.428184-1-runyu.xiao@seu.edu.cn>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260912131625.2301486-1-stanleyjhu@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
-	t=1789416503; 
-	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
-	bh=17omEsBkSdIGbP1denohxoZc3O5NXS7kzLEED9AccTg=; 
-	b=Onun/M5C3PXaFeWCaUYqBNJSGYuKCUsKfuSN8hRv3Cm+FjW+t9SeOYKrY0fiaGjmya/w78QMcFQh
-	eTMZshh55uLQj9SiheBSpi4MurNPb3hYfCJYFUPy8FPxdvsLcACQ8Er1Cf6XU2AooIOYIpIdXUVHLQ
-	yL3WfsTKCC5k/K6WWteEmAHsezm2Hp/HGas5Uvzef4nYWajBNDus1Q6UW/Dova5Ynq/2MItPbLrsT3
-	Fiw6JceKiKY9ztRSasI+DstXyKzvBdliep4I0+n6LfK6kvO1lpqRuZOdijNIJbFTsjkAlHOwF/YDX4
-	Vw1NgYEd4oY3gnvj9E4sU8ZQhExbEUKg==
 
-Dear Runyu,
-
-
-Thank you for your patch.
-
-Am 14.09.26 um 16:20 schrieb Runyu Xiao:
-> e1000_request_msix() requests the RX, TX, and other-cause interrupt
-> handlers sequentially. If a later request_irq() fails, the function
-> returns without releasing handlers that were registered earlier. The
-> caller then disables MSI-X and falls back to MSI or legacy interrupts,
-> leaving those handlers registered against disabled MSI-X vectors.
-> 
-> Free all handlers registered before the failing request in reverse order
-> before returning the error. The failed vector is not freed, and the
-> existing fallback path can then disable MSI-X without retaining stale
-> handlers.
-> 
-> A QEMU e1000e test with deterministic failure injection at the third
-> request_irq() reproduced a residual IRQ entry and warning on the
-> unfixed kernel. The fixed kernel reached the same fallback without the
-> residual entry. The injection is deliberate and does not claim that a
-> third request_irq() failure occurs spontaneously during normal operation.
-
-Could you please amend the commit message, and give more information how 
-to reproduce this exactly, and get the warning?
-
-> Fixes: 4662e82b2cb4 ("e1000e: add support for new 82574L part")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM Codex
-
-Please add the version.
-
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->   drivers/net/ethernet/intel/e1000e/netdev.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-> index 844f31ab37ad4..f55aec340342b 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -2139,7 +2139,7 @@ static int e1000_request_msix(struct e1000_adapter *adapter)
->   			  e1000_intr_msix_tx, 0, adapter->tx_ring->name,
->   			  netdev);
->   	if (err)
-> -		return err;
-> +		goto err_irq;
->   	adapter->tx_ring->itr_register = adapter->hw.hw_addr +
->   	    E1000_EITR_82574(vector);
->   	adapter->tx_ring->itr_val = adapter->itr;
-> @@ -2148,11 +2148,16 @@ static int e1000_request_msix(struct e1000_adapter *adapter)
->   	err = request_irq(adapter->msix_entries[vector].vector,
->   			  e1000_msix_other, 0, netdev->name, netdev);
->   	if (err)
-> -		return err;
-> +		goto err_irq;
->   
->   	e1000_configure_msix(adapter);
->   
->   	return 0;
-> +
-> +err_irq:
-> +	while (vector)
-> +		free_irq(adapter->msix_entries[--vector].vector, netdev);
-> +	return err;
->   }
->   
->   /**
-
-The diff looks good.
-
-
-Kind regards,
-
-Paul
+On 9/12/26 6:16 AM, Stanley Jhu wrote:
+> Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+> switched UFS internal commands to allocate requests on
+> hba->host->pseudo_sdev->request_queue, which shares the host tagset with
+> regular LUNs.
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
