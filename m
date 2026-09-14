@@ -1,140 +1,140 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB78313E21
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351821; cv=none; b=VSimVbOxcuDOC23a6AqIAjkFtw6MfPaKRGxv3iAcUC9gmTNjAdP5xYoe3Mg0RBDs+Tx0MWCNHtTWUAO2kRHhTRIlll7Quh68yjiBsZAqkZ2QUc2eHngBiYMRAQSRtKroXArOAn8QCTqt0jGhy1XLWLH+P41jRjSE/w8dVEAF44c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351821; c=relaxed/simple;
-	bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qNVaGtLFoW6YVOxyqfjMYMyQbjV1Ak0EwW+3/0PfnBrbyREMF91bGhmWgKii9BGrRIQlbNb1i89Qn1q6d9kFdSKUuygkPM7/JxqEtIb2dpKhArlGXUL2pB8eothx7tWZHCehtwx6+7hW6GW53zx8J4sTctcosxnuaDe45h9vRgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3D7XFKf; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3921233929
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789352192; cv=pass; b=hFt2yFFxwqTcSNewC7H3L7t4EENeqEFVoEFcZyG8uR1PUFNKXqrAi0q06oHMnoUx+LRamq4NTz4Cdjt97qGOzSMwNc3RMxgaLTkatiPU7ryKNYAVqUTEwCSbSaMApXsJxJ5vTaqZfrM8XMje+33CKpwdOb6FEM9+kfIpxoUF+XY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789352192; c=relaxed/simple;
+	bh=5MdLv94iEPVs3xiNujxsMPtCysxyX09G4pIUwr0YlK4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KJUkjrgBUyG56s7nrIBjXVG/aBY4ZxeEL6Co2213AqchuUsT/2jbeVUIOBA0FaNRXoTshSsEt9x/3TEaoC6//RX/w9sGSeMN/xeOVihpTVgElSafik91AGgcNfIBEtZRd4p22jNqCUy+cILucbt0rewUF9wrmb3VeoMLa0kuXGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbvJYfyg; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3D7XFKf"
-Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f4d7dee074so169139a34.0
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:10:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbvJYfyg"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b7aso1759778e87.3
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:16:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789352189; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MpQ6FeC9F42iCqOjmWyerYnBvfhY93kPBDfI7kXbXinr8+64E9egy6m8vSS8uIt6P+
+         s4YD8EZ5JdW4MTE+J3YkXqgLkUcn37KOllrkiFfBHxgiyjDyHIYN/UhY8gbzlPLnARI0
+         iHF1/HnO4TURyvLuaiTKRw3baQzTf06niCKEl6WMcE8Dv2WGyunVfS22Kh8e3vbFEAOh
+         YovFzL98x40HzyKpJ0rlDc7kh6PUodnZAAiDWtxuBASJaM9GsNZVEq5pbdzn8ayKs1cW
+         ATSD4DKOTVDwmHgDDy2zh+VANvtN+I7Edq3UlMnv5rnUvmZ5mLZtNYpAIuap1G4JRjra
+         yyBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
+        fh=5rh9Oza/wOrI/MCENGas8lvirIqdjIVyOe6ay/RUisM=;
+        b=RaQbIYRG+Teze4P4ajslAZHvDxC9awSRhqpsNWn4lxwGniXeW2VJrq/arG0048Z5A9
+         lirxIwAp+YHGQYahfLQRWIDjnGMToFp+x4mxMRyUQP280h7UkljP6SuQ3Id8nJZvR2Oi
+         v2xGzb+NqdXHVgQY5/siWGnGJHn9FVcXgKjqHnGZDybC/jDFGj7Zi4PJRwwGrTrG/+RE
+         WVEZQX2/MAU+CsLw3FdAsd2vF5j+bvJzkZxc12JuHbEE5dEjJb1CLASDmjE+7QdC9YYu
+         7GjOyf8fkt1q7Tem3Hg6NJz8bWd6hajSjBQuTfaWWe8F8os6OtAAqY3tB0vWUwXZQAsT
+         xJig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789351819; x=1789956619; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
-        b=b3D7XFKfHqsLVfQKG2TiPW+iYSKzigASyTdAkcdaMF3XMANEb9JnI46WHKcdKmz3MG
-         LSUOcGfj8n2omjKwEesuQS4f6VGSfFs4ISrrHxUDh4iGXWR8q0zocORJvM3tvgtZs8Fq
-         YNRaaoC1w0yN2QxVGHSWCfLynhRhyIGe3n5lmswRR7YYlErSHETPxhRFkHe3/oHqC7Ke
-         ZyhcD15nC4ickp3eWKrE3g+xPkcDeHGCzRpU2fk+R0sYt3tEI6UpOldlGNv7rKGzMT/e
-         tMI+C15lDe1mbL9NXJJfZrXQjC0q5ZyHIpfXFwcSZKFqsgfC3hICYYoZLNfkIt5FKZ8v
-         Qieg==
+        d=gmail.com; s=20251104; t=1789352189; x=1789956989; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
+        b=LbvJYfygCVwanjcOyH52EYjzdBnPtGqB7Y6pO0L4M2h8Dqcyg1sjGY/jJ25btxKu8G
+         iTcHlAUBVf5vgzUmWWWJ39GdiD8gzCQtN/lqGzbxAbMZdrI71C5gKQYpITDE7/zJxJNz
+         pCri4r4kE4O+2o2HfXUjFrjzgbWe6jCBMad3glirK2JFhvBSSECxMa4/2s56kSBhID14
+         oN19JBiaxCF4g/v9HFBQwG/QW7xDnwRPMbui3HtpbsfZBGovxQlC+Tvvh/3HpceWyJZN
+         Kq4q2SxyoiL9Aytxh46wyn72F88M0ZUxfc2dq1WViNIzvZfw8vxpce8rmryjxqDs78+D
+         HZyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789351819; x=1789956619;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1789352189; x=1789956989;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
-        b=KFNNi2Y07LiQ4W8+CbC6seZZXyyQonUTcNty58kesbMxgdm41YHvF8DkSXYpu4QDb/
-         1sOPUADm1RqrqKvY6oPbU/7KdlLQC9pOxAh8iOn+AZ4MaRPFqG1VzPnulfYIPFXi1QHJ
-         zHj+wNONs/iQehKtbZChFL15iP/NhhrW+SHr7ZXy0zynaY8DutHZEnN9sWCTiQN+mJdt
-         ECAiXxP7YDXa5ztiwp5k/SZaHaWs8pnjnKZl5ZALZpVURT7PaWFEuK0KaX9WM/cfnyZP
-         qn5x+I2NPZebhIu30WltGy7ItpfT4iOz4AbzYmhDaaK66JagAdIlMCqZl4EgzoI8Af0g
-         GEXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwR0S9Vrnx3//XvYL87AL4Gfo7cM6r+3wdMWPO5LvBioQPS35Es+DQwIUY/CSo0rrnepwoSLJg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzNx2xXEP/meAZEoZvnuY4n7S9XCQOjLe5QZ/C/+B+Wk/VACNN
-	glbogfo1u/FcdzNEMdmDTsFPBI2r2S5YwsfW2ztpwufQqVmOC+oQCTdn
-X-Gm-Gg: AYBFou1rJ4P5qBevQa/ykYQ3ZoC0/JYMfPjrRqRA1NFv7adkZXiWZ5toGjnYNlJDl/W
-	kNtnm9s/w0Q2nLRCf9J/Dyx7lACE4hocL44V+2YMAsLxUCZtAWs2f1RG4GkEMjuiUgMaQttOLq1
-	TZDw0UdR9E/Gjz9WvEyo7/QwZZk3lHXE3z2JlUxoJZtCEIIVfxhfV5ROxyFxOJSd4hrMBL1HO+7
-	YuRpxE3CxDrN8E/oLNkHT7cP3T7YjxQf1mzyIK9zYssjikBd4XyURfhbVMA7HobOPT+uO+9h9c1
-	W2xEosla5M+Xx/ZOWxOPk6HHwie2ADlbUbBA8pMsH2UnkKZ533V07WCzb/Z16p83gh32Gia5cOL
-	J+vzVOzdXuul0BwT2wUWFCFkzDv8Bv/jr20Ia4mih6VDsGv6hIhNg6+hhvjbXxf0fcj7pxsJG8p
-	aRVsL2raHkt9jtD2Od7cE4xKmIDPZuv7QdE45EKx8H2wPgORnqeAXc6Pf3HvyK6Dkcw5M=
-X-Received: by 2002:a05:6830:6f81:b0:7dc:e78b:158 with SMTP id 46e09a7af769-808846c49d6mr223406a34.4.1789351819296;
-        Sun, 13 Sep 2026 19:10:19 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:10:18 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 21:09:55 -0500
-Subject: [PATCH v3 4/4] drm/imagination: suspend the GPU for system sleep,
- not just runtime PM
+        bh=5yXzplmWjCBukJ3GrFEzSXQyy+tsHQh5scTlYkCUf/A=;
+        b=ecWUDPeDFPcP5xXhhTc0AfdcfwaH1Cw2U9Axu42zMhctdRpjBabVzYIHLI0aP4MD6U
+         k5IhCmkD+h9PoLa5mNPKF1fbkj7+J/6xO97SYywZIjSPn+fcOEAdPUGuJ3hYXlqa+Ti1
+         g6YygbH4v0ivY/RltEvy7jTHVFjQ4XVWwEqO/6IoqWiNWBTRQmYeoCFEmbCRSL0JL1Au
+         CU6SCsmmkVpJ3ahnGfnIl+5v+pAUPmmdcdMRf0fFAIiidizoi+fJYiAXoa1r5zDG9JFd
+         89JZZAmJ64hvs5ND8AB5paXKBeelO+EhrTxsEyX4N3Gh63+mVDDBx/k/iJ7AacZY+Wby
+         9UmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgpIw0aZDxbJ+LoLYqhZ+/E0cJL0W1AlWuux5iIXUs/VFofS96ywTr97FsgJC9Tsudcu502Ag=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWa+m0dthjclJxoRrfWO29CLpr4ynOjQCHRsqEBLHSxUWPixnx
+	1wxhXfCY1C2tarD87KN+8wiILYC1M/iA/WfF797Bi6XUGuJpEl7RmsmsCBy7v8Ij+PLlDiegM8V
+	kiAzqb2KZclPjscasiTRpI+zQPxWVXGo=
+X-Gm-Gg: AYBFou2IaTBjeB2rJzwshY2Fi+cysPNRMqcjALysGdvQ3YQpBprfK+9/gQmk330BM8n
+	xCtkse6ORK252i9Mqf9l3wVcZgadxUzKvHyytCOVii6BMdChqordklOtCweuLTf6tdBjoihc1in
+	ybnUA6KXOGmHlslj1ZHD+IQaNT5XsOsGeY/Y1IKwzSyJiHKp3kjk/GvMfOJdIfxajiMW86qIM5a
+	xKPzJhEZJkduad0nkINN8MELpAu+ULhsvXdpzzFcFaGhdgAdK1U1r5z8+KtLKxuOkRnHQvGQX3+
+	1ymYT1YV9z570Ht/b8Rhg7GwncFgDsw5YcHJROtHujQXnB+nPOgfMcpzDeGvqpkZhILmfXRqdgo
+	0J4lOUKjKcFoTAISGtyC9bo6k
+X-Received: by 2002:a05:6512:124c:b0:5b5:e092:c3ee with SMTP id
+ 2adb3069b0e04-5b8ae67d26cmr161163e87.1.1789352188506; Sun, 13 Sep 2026
+ 19:16:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
-References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2092;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
- b=sogxAc49G5Crj4suR69BUpnafPaK3iEZJ21gP+/t5/X1rHiNPL/wGtJylh4kP0QilF0ofUwbs
- zFmkUpjGYCjBpyiOvH7tdGZx1THU442gXZOr+oZFMppu9B+n33ZMqen
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+References: <20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com> <20260913190707.413136686f78887287764f0a@linux-foundation.org>
+In-Reply-To: <20260913190707.413136686f78887287764f0a@linux-foundation.org>
+From: Matt Turner <mattst88@gmail.com>
+Date: Sun, 13 Sep 2026 22:16:16 -0400
+X-Gm-Features: AcwNN1Xf8e1ajVkMm3ueVyiMktER8R-UYl1cGQHz_MkdxJ2eIL-j1FsuK6s3yJY
+Message-ID: <CAEdQ38HY2wYptnqo_yF=GX9PsY7akUVB2z64HbErATOF=R5vKg@mail.gmail.com>
+Subject: Re: [PATCH] lib/decompress_bunzip2: fix off-by-one in run-length
+ bounds check
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Alain Knaff <alain@knaff.lu>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for
-system suspend. That works only while it happens to be runtime-suspended
-when the system goes down. If it is runtime-active, genpd counts it as
-suspended anyway and turns the power domain off. After resume the driver
-still believes its firmware is running, the first firmware operation
-times out, and pvr_power_reset() is entered from inside an ioctl's
-drm_dev_enter() section, where its drm_dev_unplug() waits for that very
-section: the caller is left in an unkillable D state and the GPU is dead
-until reboot. On mt8173 it is deterministic:
+On Sun, Sep 13, 2026 at 10:07=E2=80=AFPM Andrew Morton
+<akpm@linux-foundation.org> wrote:
+>
+> On Sat, 12 Sep 2026 14:17:35 -0400 Matt Turner <mattst88@gmail.com> wrote=
+:
+>
+> > The run-length path rejects a block when dbufCount+t equals dbufSize,
+> > but the loop that follows writes exactly t bytes starting at dbufCount,
+> > so a block that fills the buffer exactly is legal. bzip2 allows it too:
+> > its decompressor bounds a block at 100000 * blockSize100k and checks
+> > that limit per byte appended. Use > instead of >=3D.
+> >
+> > bzip2's encoder stops filling a block 19 bytes early, so nothing it
+> > produces ever reaches the limit and the bug stays hidden. Compressors
+> > that use the full block size do reach it: an lbzip2 -9 image whose bloc=
+k
+> > ends on a run fails to decode, and a self-extracting kernel built that
+> > way does not boot.
+> >
+> > This code came from busybox, which fixed the same line in 2013 in commi=
+t
+> > 932e233a491b ("bunzip2: fix off-by-one check").
+>
+> Thanks.
+>
+> > Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and l=
+zma decompression")
+> > Cc: stable@vger.kernel.org
+>
+> Why is a backport proposed?  Hopefully because downstream users need
+> this change, but the changelog doesn't tell anyone the reasons why.
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+I ran into this because my system uses lbzip2 as /bin/bzip2 -- a
+common thing on Gentoo I believe. As far as I can tell, anyone using
+lbzip2 as their system bzip2 would run into this and it's only because
+it's very uncommon these days to compress a kernel with bzip2 that no
+one has noticed. I only noticed because I was adding support for
+various compression formats on alpha.
 
-With the default 50ms autosuspend delay the same bug is intermittent in
-ordinary use, depending only on whether the GPU was idle at the instant
-of suspend.
-
-pvr_power_device_suspend() already disables the firmware and powers the
-GPU off and pvr_power_device_resume() is its inverse, so drive both for
-system sleep with the force helpers. The reset-path deadlock is a
-separate bug; this only stops the system-sleep path from reaching it.
-
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_drv.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 20b27a468327..b7931f75832f 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1527,6 +1527,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
- 
- static struct platform_driver pvr_driver = {
-
--- 
-2.55.0
-
+No strong preference for a backport from me. Just thought it would be desir=
+able.
