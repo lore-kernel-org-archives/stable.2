@@ -1,114 +1,76 @@
-Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C8F3A59A8;
-	Mon, 14 Sep 2026 22:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4758936B927;
+	Mon, 14 Sep 2026 22:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789423556; cv=none; b=tMYETjjH5PMQ1rZ2jwno/YLf+g5XLpCcCL96Su+uxVua0NjX9AkZ66Fg9nf392e60M7pF0Atsd+h2gfHlog6+eVJXPIkf0LRTbXrTEnidveEwGILmhW817D8+UmnZedbT9Y2KksnmIWimKOTZaxCZ0PQoVViC4IGj/1sk8KVSgs=
+	t=1789424008; cv=none; b=RGpAT6cee+n+fYQP0Wb+JvYC+yPv64AKj5DX8NYuNNFqfXchHM1xdQCYpB+ZDKmKvzcjD/0tt4qaKIf1q8rzPcpq609d/B0oX8f6+g+Vu4b2VyZPFFkp9voZ+aDUFcWdChnFqZrSW4cEhSdSCac/Yn+TbkyxIfRGQBsYj1sVWSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789423556; c=relaxed/simple;
-	bh=YHFgBNwlBuPlwY9TiBTmQDMECMDowJ+LRsmJZnVM6rU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SX5PT4V1HFHUEroCCT9ZAajep2kEv9eoM4OtdAZZGlP8PtZQ8pgPze2/DhIQN2fhyJ/gieGu9bR9hqyCL6uYhBd8z3cYGxHtBFRp9veg5lvFM56SSYIOQGP8j+F3iOR5YxZjFNez9ax/4bGKKjsTotXnEZ/nF7FA6QJvZGu1bqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=pdNahPvt; arc=none smtp.client-ip=185.70.43.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	s=arc-20240116; t=1789424008; c=relaxed/simple;
+	bh=wYYFAQImsMaUcxCGe3bH3Wi9+6++MQbNHU+QCsuQT2w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=DKopmbTN235us9z2T3xuFfkxMacK/nyz0yIOMTF/RV7yVrn0AijIrbMiY3waoBKQPGu56wVkV6mb9KzgEXVE/1qaEj25Jx4yCAeIGfvdHiNPufofpNWoxLCK5MZJL5mpSUgryxcKME4rMkYWYqcNQK9H2KjlIE//hbnLQN9VHj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uj4LsHMO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="pdNahPvt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail3; t=1789423545; x=1789682745;
-	bh=Rdh6BpsS2ZBxSHoCL6MTLR/CvIG3h3H+FjSL8fIoDu0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=pdNahPvt2BB1arBQ5v4qpXo5bg0zP5s7HIn1+olJ5jwfSiSWVs5GqlWAMyBRC6W/+
-	 Td5w7dSFUHAPGdGckpsobUvkUMd4YKYd8QimIqNnEnxJ5UnvPCCbILOi2zskv7bi7w
-	 iQIOg9PdLQ+gJePd/ksOQct9pnGdxsXUkVRtuxtQF1bNVDLehfYhFwqX+o9j8q5DNH
-	 9IsQs1c2iW320N8nrXGJ0uS2DlC3We8v0hvP6ZMPCI7PHruH6wvPEiVflf1x5WKEGz
-	 jC98VmtX2VTSb4gE0k/0O0sS4EnL3/0XsZmG6Id4EebUCwLSwhPa3qH0U9XWIqsejy
-	 9IQJ1Accj3XAw==
-Date: Mon, 14 Sep 2026 22:05:42 +0000
-To: Andrea della Porta <andrea.porta@suse.com>
-From: Angel J <iamanaws@httpd.dev>
-Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
-Message-ID: <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
-In-Reply-To: <aqfgUUkZYZg6ZABF@apocalypse>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev> <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev> <aqfgUUkZYZg6ZABF@apocalypse>
-Feedback-ID: 163474212:user:proton
-X-Pm-Message-ID: 6d3df382b75293d9f22cbe8d8632a381269862fa
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uj4LsHMO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20CF1F000FF;
+	Mon, 14 Sep 2026 22:13:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789424007;
+	bh=w5ZxICt6RyNBBcsv8PtuLdI0PmtZ+1CM9RWdDcC0spw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Uj4LsHMOv2FGfDoF9rWK4Yze9xM1bckOL93wswNtVvUhZxSgcjGobFHCA3legYEIw
+	 qsbSTOfaIsKO8gOagLSl+HlizS+wzUUECQp8mypuIrE8OVuKJaNccmbQfMe5ne4zz1
+	 SE7nA3NPqBzTanCWwpeO6pCYdaB/25q5w0IzON2HWvSSxFXkslM17EdRoDorwbqyFx
+	 CSjQp2UXqmRjJKux3r+XWHoJ1nSJYG5epBiodyfgPI6H9YKwQXrTjFqig7pGWqRXbH
+	 I8MSYSOwTFxGhbyonjMZtVtkkNk+TTEO3gKDakx0BFyzAbLDL/I+5JplKm1DkGaT7f
+	 nVzAqJTOmscbg==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Finley Xiao <finley.xiao@rock-chips.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Alexey Charkov <alchark@flipper.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+Subject: Re: (subset) [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses
+ from the OTP CPU ID
+Message-Id: <178942400455.686568.7345103522777056647.b4-ty@kernel.org>
+Date: Mon, 14 Sep 2026 23:13:24 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------5cd21dd00fc3eadb7c45d7f6769116ebf5fbf2df01333f68e813fd9b368d6e9d"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------5cd21dd00fc3eadb7c45d7f6769116ebf5fbf2df01333f68e813fd9b368d6e9d
-Content-Type: multipart/mixed;boundary=---------------------857f455b86085cc7d31d35501c9f818e
-
------------------------857f455b86085cc7d31d35501c9f818e
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
-
-Hi Andrea,
-
-> Could you please test adding a quirk as PCI_FIXUP_HEADER
-> in which you downgrade the class from 0604 to 0600 and see it works even=
- without
-> your proposed check in of_pci_make_dev_node()?
-
-I tested this on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy.
-Changing only the class to 0600 still doesn't boot with both OF fixes
-removed.
-
-pci_is_bridge() checks the header type. I confirmed the class quirk runs
-by restoring the v2 property checks, which lets it boot and log:
-
-  class=3D060000 header=3D01 is_bridge=3D1
-
-I then tried changing both the class to 0600 and the header type to 00.
-That boots without either OF fix and logs:
-
-  class=3D060000 header=3D00 is_bridge=3D0
-
-These changes affect the kernel's cached values. The raw registers still
-report class 0604 and header 01. With the header override, 00:00.0 no
-longer gets an OF node; the other bridges still do.
-
-The v2 patch also boots without any device quirk. It keeps the node for
-00:00.0 and skips only bus-range and interrupt-map when there is no
-subordinate bus.
-
-Changing the header type as well made it boot here. I'll send the quirk
-for 8086:4c43 with both changes. I'll also keep the check in
-of_pci_make_dev_node() and add an error message before returning when a
-bridge has no subordinate bus, as you suggested.
-
-Thanks,
-Angel J
-
------------------------857f455b86085cc7d31d35501c9f818e--
-
---------5cd21dd00fc3eadb7c45d7f6769116ebf5fbf2df01333f68e813fd9b368d6e9d
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0Fgmqob6kJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmfLDBAjI4XUj8aqiPkUFeLTm6ZqIS0El3XJNZ97
-RP41eRYhBEAFf9htFyVnqZzmVhoBbwppzUxnAABCLgEAqa3AkxdlMpgQTkAa
-7MYv78X3W51xL2LSBaxL/BlExe0A/1HLZKvHUd+0sOEyXuzhzJNKlelqtmSA
-a2fltJbpD6QP
-=PK0d
------END PGP SIGNATURE-----
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
 
---------5cd21dd00fc3eadb7c45d7f6769116ebf5fbf2df01333f68e813fd9b368d6e9d--
+On Wed, 02 Sep 2026 17:07:51 +0400, Alexey Charkov wrote:
+> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> memory, and Rockchip bootloaders use it to give boards which have no
+> dedicated storage for a MAC address a stable one anyway: they hash the CPU
+> ID and patch the resulting addresses into the device tree they hand over.
+> 
+> Kernels started without that fixup, e.g. straight from the SPL in Falcon
+> mode or by any other loader which does not implement Rockchip's derivation,
+> fall back to random MAC addresses which change on every boot.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/4] nvmem: rockchip-otp: Serialize reads
+      commit: 798be42019957b28b4fb897d7f9f6cf6712247db
+
+Best regards,
+-- 
+Srinivas Kandagatla <srini@kernel.org>
 
