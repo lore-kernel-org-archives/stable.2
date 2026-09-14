@@ -1,165 +1,186 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45A143C7D3
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 10:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382431; cv=pass; b=TW6Yu9f/F7S1MmV2dcUd+cYMtCLRKpaEhskuVJQVaiz3TmvJ//N95MjCJqzCNAFuF9I0QItvHNiNEk79jNKGyWLWK3plbz3jDj0rNgc1cFjYiobIfv8359UApaWEZNix+0qvYkbhXKO1niVPJvZxzpQC9QNrLV8EsW0eNy+wRdo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382431; c=relaxed/simple;
-	bh=uRtnttauUpfeIGypcutrfS/HLykzoQ06BKczAkGSR14=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lw4QtFArrzXe6CSoHcm5PQArxULkOqaYD6/Ea/HQou63kFwVk9J0Z9id5nu9rO0hxjMP+TF++fK9ORsl5/V83EtVlHefR5lxTNMvPG5JrVAr0bfyqtqWCPQf61IeHZf2F4uimnYzYGYTu2vs7W0hXzCvKw+O0K880XlyGCbyIxM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LYkCx/gS; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4817243CE77
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 10:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789382445; cv=none; b=l+eGV/LEC1+AnR/clQ+rqVhe7Kf8Ko3sBpD2luw/gb8MTGcHMXR7/ymdmWdsVps8NX/fTmHkCDFR1mNWpgNXWqFamud+dyoty8+NakGBhKEPraI4L3joSAfTDk+EhzNr6tNgzsOQgFg1pNBpQmzAo6I4dJu//2TbUrmOh6uMcoU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789382445; c=relaxed/simple;
+	bh=GoNTHpmWIseG1FgYRLB02Ui/Fmpaj1eRK8oQos1DfcQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ia4ZuviSkkr1a4hZv7DzUADAjvReV+udsKRVLTSm4ZUL9UUbJ/WyQubppMN7NFwzo7B/hoifqj2chPndoQaVQu0NInHYY/Fl1h3oiyumftloY0jlKJhAKYvWtDPC4TO4NWRaVE9zU05e/iPFXaAANRcj1NstyZzpiodTYelyb6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDkgCcKY; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LYkCx/gS"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309a20a55bso19130631cf.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 03:40:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789382428; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nMwm+u7E/PO47oN0zEfLUysm3WDU//XimgWPIhxtBDSfVg8Aog0KmlJtwkkQgAj6yD
-         zoFdftC2NQeVXF+XFVjNVdRubXXFONvdOQPPB9kP1jGf6exWmJOk32SH2fqqmUEtZxGP
-         m5AzxmHULnTPZUG0k9/EvAKJlMP+iUWJyZ2g/Oo/MogDFbxkRKGNNfPf/nktEHvjCLgd
-         nIsPYQ99gCMuJWS71a36DiZx1eENxbYNLTzimyHrE7erwDWgtg+djfzytys7m4846g2a
-         M5TbEQ8VVJtf1osqZogqDVLHMWB1se6858w/QmSiONgRlgrnaCIRGtjEipkLX/FhQv5w
-         GgfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GAKmENrqU15QTtr2B6AdmjiozxUTftLDYrpEGIkKWIg=;
-        fh=RosOkB5pMS1C808BwYLV8pLoFF/afxDitf0Zuxprbh8=;
-        b=nQiJmkK3OYX/NfVj3Lm3iqYnD6WLrzfVa/VE5OjX5TCFLHUb5VucRwZgbGHf9hlBbA
-         WRv7w1MRbv0urCdtQ4q25BkZChJMnzzFKgJctM6lsAbM2C7Z1/4fZRVrEGiWpPfPJU7f
-         7aR3GDYbI9bEekIYtBEu3x2t9HCnXj+GU+NTKU7dpvCGJTfuKFsC8Wf7vRVxPE3uDNkp
-         riFafL3YgyMjAua2Kd5/qKJOjXghTpiB4DhyGC5L+RWus8zXPsHRza216njCxiP8XehK
-         oVBnt2tLbuEbNnX64qY2WWRN8BB6iM4rYlG3+hq7v5IVymj6LkAe9oHiqSMW2bZrUVvI
-         gDqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDkgCcKY"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-86309e1a213so1276277b3a.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 03:40:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789382428; x=1789987228; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GAKmENrqU15QTtr2B6AdmjiozxUTftLDYrpEGIkKWIg=;
-        b=LYkCx/gS7QPVcr6ioAD7fXJwmgwVOxBSugUgtawV9OIf5SMgWXZLsTsG0o5kQQBPHl
-         Bi81kAshdL8Mkpnvx2tGuj6qOEWQr/TI8xS23/lN0rsfJw82uhZ5nxkwriPjc1mh/G8Q
-         zqKQhyMxxvCS+D+y6dEU24DKZGp966cQ7MBoOrXD3Vl/zzsLesa8QWKSHdmJ7bQIbsLt
-         evQUHNvQ5AJqILSs4lcOBHv3Lvwzg95Z86H9y6GZj7w6n34dH6SfD6PKmydvnyHUgcSL
-         2p5mzw8yrS6UJlprxi+3qyJbJp7ePvRZUu+o5NnvGaBaA6kJD0YRB1iF5kL3pyP31U+Q
-         WqFA==
+        d=gmail.com; s=20251104; t=1789382443; x=1789987243; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ITP8YnoGoJGYNciFDsIfLG4MQrrfwApvPNq3/p06wBI=;
+        b=ZDkgCcKYs1VUyzgmiCOjTl1/8zgJfzecGHV3H4HlNzAmiE6LQyodAo+ocFoLzap1DJ
+         0YNfWAl9UNMsUJCrhAQDX21t3FsxINNdRGVT3F7uOhKopatHFkA9MlRZ7VWcjYHDcg43
+         fPcbNNDa9DsTsO510qu9xnuSZi9OSt/WyqPD3a9Q+WAz8orhrNuLPfu1BClGx18Ol54y
+         ClikhAmhOKsGebdLYfr36AlWCZGWbc6anjvVW2b78A4M59mee5PXDbjUb/7SmC8MamjD
+         SYbYaOvelhIGAwjIqjrY3CYK1exue7LBLX2QCoXZ0hkQaSTOiwjfym9LXxFcK5HBu9/O
+         2EEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789382428; x=1789987228;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GAKmENrqU15QTtr2B6AdmjiozxUTftLDYrpEGIkKWIg=;
-        b=aHdhVXfNA7BKOXr4j4THLhlxKm4hp8wrt0wZFur+fh9DBLvtF7Fx5l0vpAZRV6yuLP
-         KKwVO8qjxZDfmmWWb4EPv9/EDfDMqpuzHZ9zo6KVHJyxBlTbiqBq+KgDqX62Yns3WO0c
-         BGwd/1mQ17w4o4IRHdQIDOraCJdx7UCVjbQMZzqiD1oTSJn6vpPQJypJ1sFdHLEgAGXG
-         Pp+OxqYLF9sGaElK/zCtJ6kDcShTECLCn88kcXGqc/9Ycg1+df81zdWV7UYmA/LFA25s
-         ARGCvpJW+2lAEZdIkVrXeyycxGqW9BiaNIpRefcIrbxwerKmt01R5X00H/Ytma9u+mQ7
-         u5Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfMqti1Ww2KupCr6ZuctWR3SKoZ095BRCzPq3GBJ9+ijmgzxj0K+fnsF3nYpW/tY1w5SWWCbc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7Da/m4ipaYAMcN2AAwxe7WiypcsBU3da2HZC+DSpJu4tXuAUB
-	cd4peEB/m10VScW7g81E0EWf5W/Q9NGOkXvkm7f6/NuuzwOgVQewK2+PnVgNdnJ8fkxmN5Ds2lP
-	dMqR6Isgy6a9Vi9IRVrE7dJx1ilG1eetCq16iCL8y
-X-Gm-Gg: AYBFou2WbiOAtIQo0nBKheFZxHt92smxUi6h/exlZyyXHbnIlM2rPsn0FpxUFRn+jH+
-	eIwv6egLLVldw/wi5wM0vVz9ubSLD9Zv24y8m0HGLV6TUOAU0wKqglkDqeGr8XTRpXSLz/9Tgms
-	sciSEZVeSlJTeQk8AhUNqANIkBhfQE43axfdAM1u7Xx9RAD+8ka4Tr+SupHRxRJaw5tIv+BNmmu
-	YPuHjuzv3rt/Kd73O0Lnps7sHm4L3J5EaX1bNTcspyahiQqITGeaa3R+oqGust31JiBj8IsFK2n
-	f+UX/eJXiM+lYD5G82mk1t53S8LZLLR1Jkt7IevHPH6eJcyxIlg4KKXafPRTryHywtsRUDjDakM
-	LAA7QYxMCwAeMiPTin58+u2alTqxYH4fWBwCzvsJycjeSuj6K+UtJhs7bG4UOfIyepKc=
-X-Received: by 2002:a05:622a:4005:b0:530:f3b2:9c8b with SMTP id
- d75a77b69052e-5310d093592mr28405701cf.48.1789382427670; Mon, 14 Sep 2026
- 03:40:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789382443; x=1789987243;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ITP8YnoGoJGYNciFDsIfLG4MQrrfwApvPNq3/p06wBI=;
+        b=Cp194Hf/yNAO8PphpzMu6+D6N52+2CJ5h6cE6d5tUJ8Sq/yo1aB6C+33YEDg97eCv7
+         VaUgrkxo6+JeCg0M18RRDutVuVxapu10v7lsRChV9R20BJ1DLOMbNYB8LlnhWKp3NBuA
+         yt7gZCg7cvQyRNW0J6XuwHeiNOY1leOloECvalcyMYJJ2N6MpGmTM8lggLat39urUf4l
+         LJBu9QPzUFZul5r0CDvf5Do6AAeeWncDimK1b5oR3ZPz3tzKupDm8wkTlWjQ5KA9t4xN
+         ORJbJXG6ekdEyc8I3uHn/15tEdjpPEAOH8ROVrVwm5Xx/b4D/yHVpLCz88uQB7KY/iTA
+         a1VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwb+CXwxBzfM+d0PM20NJnHBbQrlrH5KcXteIvhJiGqsqVl+IobxFqvnjzFWLlRSbQgF+kZ8m4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6XmpBI9cA/KCZNQYdWNhcuHv6BQonqpqXMlcNq0pmquyWPg2d
+	K1hfAM+/TfJv6dcwMD0JNd16YWo6J2C2GN6vJ3Alu/1dwiYGzZdDamG6mUob4a0=
+X-Gm-Gg: AYBFou39Hfal9qLpSt6fF3wHRYolclO2HI5e7/ZiB/D9ND+hsineD9RmtlulOpk8xai
+	bw7x+kcevEL7ka4ZEpKL6JjYJ7lfnyK/b3X/lHg4s6hMR1YT46006NXZgailT9ZtahEMaaqgt1A
+	ncrnDt2eY2NfAQgrDiJP6loBKW/+o1Ttciisa3JRkKO55Y4FMOjv2+EvjCMAxusnI7sbZiCC54p
+	2wUlBrwVfiXfvgtqttbNj/B28MxkcRTSDzKPEEtYJJBHgUpSNAN8fjXaXgCax48S1zXVEPVM5Sd
+	EhiyvCWHOSrx7IagOS83jvjHguc1ndc215uYuPvRxWXidzZ1328eYJ+zM7QRPMARZif6ueU1qOa
+	ixQv2LzWKgFBdQVIQMmw7LiVDUtJFLbaGGDvQ3dUY9y7V0tRFhLepQFV5QErytSBBkCAJns/WU3
+	uQe/JREBMIceSTs5RapUZazd45l/wsQH87qoHiJkqmkdBuYPvGZgTRNnMCT7S1CvsmaUPNqB63C
+	D/tw/IrpeBRDJO2g95C1GooxGQ=
+X-Received: by 2002:a05:6a21:d83:b0:3cc:c7cf:5a44 with SMTP id adf61e73a8af0-3db4037ccfcmr4309572637.2.1789382443334;
+        Mon, 14 Sep 2026 03:40:43 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:3b80:bc61:4619:5346])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652aa9asm4632560a12.9.2026.09.14.03.40.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 03:40:42 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	zanussi@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH] tracing: Unregister field variable histograms when the command fails
+Date: Mon, 14 Sep 2026 19:40:36 +0900
+Message-ID: <20260914104036.1768529-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914090408.1435080-1-inbal.lipshtat@mail.huji.ac.il> <20260914090408.1435080-2-inbal.lipshtat@mail.huji.ac.il>
-In-Reply-To: <20260914090408.1435080-2-inbal.lipshtat@mail.huji.ac.il>
-From: Eric Dumazet <edumazet@google.com>
-Date: Mon, 14 Sep 2026 03:40:16 -0700
-X-Gm-Features: AcwNN1XeWYhpp_YIEh50XzUKFPCtVBpqJefPYlt_FATnNskzQk5FMIx10HNP2b0
-Message-ID: <CANn89iLBHj=LnPgxtm6z2iLDUt894yKcUU-wFBrD7vzvz576mw@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/2] tcp: exclude old ACKs from tcp fast path
-To: Inbal Schussheim <inbal.lipshtat@mail.huji.ac.il>
-Cc: netdev@vger.kernel.org, ncardwell@google.com, kuniyu@google.com, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	shuah@kernel.org, linux-kselftest@vger.kernel.org, amit.klein@mail.huji.ac.il, 
-	Tamir Shahar <tamir.shahar1@mail.huji.ac.il>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 2:04=E2=80=AFAM Inbal Schussheim
-<inbal.lipshtat@mail.huji.ac.il> wrote:
->
-> Exclude old ACKs before SND.UNA from the tcp fast path
-> as well as ACKs after SND.NXT.
->
-> Such ACKs will fall through to the slow path, where tcp_ack()
-> performs the appropriate validation and challenge ACK handling
-> according to RFC5961 and Commit 3d501dd326fb1c7 ("tcp: do not
-> accept ACK of bytes we never sent").
->
-> This prevents old ACKs from being accepted
-> or modifying connection state as part of the fast path before
-> appropriate ACK validation is applied.
-> In particular, this prevents payload carried by a segment with
-> an excessively old ACK from advancing RCV.NXT before the ACK
-> is rejected.
->
-> Fixes: 31770e34e43d ("tcp: Revert "tcp: remove header prediction"")
-> Reported-by: Amit Klein <amit.klein@mail.huji.ac.il>
-> Reported-by: Tamir Shahar <tamir.shahar1@mail.huji.ac.il>
-> Reported-by: Inbal Schussheim <inbal.lipshtat@mail.huji.ac.il>
+An action that names a field on another event needs that field as a
+variable, so create_field_var_hist() registers a second hist trigger on
+that event to provide it, and records it in
+target_hist_data->field_var_hists[].
 
-nit: (no need for a new version)
-You are the patch author, the " Reported-by: Inbal Schussheim
-<inbal.lipshtat@mail.huji.ac.il>"
-is redundant with Signed-off-by from the same person.
+If a later part of the same command fails, create_actions() returns an
+error and event_hist_trigger_parse() jumps to out_free. The write fails
+with -EINVAL and sched_switch gets no trigger, but:
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+  # echo 'hist:keys=pid:ts0=common_timestamp.usecs' >> \
+      events/sched/sched_waking/trigger
+  # echo 'my_synth u64 lat; int a; int b' >> synthetic_events
+  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0:\
+      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio,nosuchfld)'\
+      >> events/sched/sched_switch/trigger
+  # cat events/sched/sched_waking/trigger
+  hist:keys=pid:vals=hitcount:ts0=common_timestamp.usecs:sort=hitcount:size=2048:clock=global [active]
+  hist:keys=pid:vals=hitcount:synthetic_prio=prio:sort=hitcount:size=2048 [active]
 
-> Suggested-by: Eric Dumazet <edumazet@google.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Inbal Schussheim <inbal.lipshtat@mail.huji.ac.il>
-> ---
->  net/ipv4/tcp_input.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-> index daff93d51342..03d317a58132 100644
-> --- a/net/ipv4/tcp_input.c
-> +++ b/net/ipv4/tcp_input.c
-> @@ -6490,6 +6490,7 @@ static bool tcp_validate_incoming(struct sock *sk, =
-struct sk_buff *skb,
->   *       or pure receivers (this means either the sequence number or the=
- ack
->   *       value must stay constant)
->   *     - Unexpected TCP option.
-> + *     - ACK sequence number is outside [SND.UNA, SND.NXT].
->   *
->   *     When these conditions are not satisfied it drops into a standard
->   *     receive procedure patterned after RFC793 to handle all cases.
-> @@ -6539,7 +6540,7 @@ void tcp_rcv_established(struct sock *sk, struct sk=
-_buff *skb)
->
->         if ((tcp_flag_word(th) & TCP_HP_BITS) =3D=3D tp->pred_flags &&
->             TCP_SKB_CB(skb)->seq =3D=3D tp->rcv_nxt &&
-> -           !after(TCP_SKB_CB(skb)->ack_seq, tp->snd_nxt)) {
-> +           between(TCP_SKB_CB(skb)->ack_seq, tp->snd_una, tp->snd_nxt)) =
-{
->                 int tcp_header_len =3D tp->tcp_header_len;
->                 s32 delta =3D 0;
->                 int flag =3D 0;
-> --
-> 2.43.0
->
+The second histogram is the one created for 'prio'. It is still active and
+still counting.
+
+out_free reaches destroy_field_var_hists(), which frees the
+field_var_hists[] entries, but never unregister_field_var_hists(), which is
+what removes the triggers and runs only from event_hist_trigger_free(). The
+entry is freed and the trigger is left with nothing tracking it.
+
+Unregister the field variable histograms in out_free as well, and record
+each one as soon as its trigger is registered rather than after the lookup
+that follows it, so no exit can leave a registered trigger untracked. The
+entry then belongs to field_var_hists[] and is released by
+destroy_field_var_hists(), so freeing it on that exit would be a double
+free.
+
+Cc: stable@vger.kernel.org
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260913204302.DB2551F000FF@smtp.kernel.org/
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+---
+Tested under QEMU on 704340f1cd0d, x86_64, KASAN + PROVE_LOCKING, 2 vCPU,
+unfixed arm first.
+
+  command                                      before     after
+  valid onmatch on another event's field       works      works
+  removing that trigger                        works      works
+  onmatch with a trailing bad field            orphan     clean
+  the same bad command, five more times        orphan     clean
+  two field variables, then a bad field        2 orphans  clean
+  '!hist' that matches nothing                 clean      clean
+
+orphan = an extra [active] histogram left on the matched event.
+
+ftracetest test.d/trigger: identical per-test verdicts on both arms.
+trigger-synthetic-event-dynstring.tc fails on both because busybox execs
+its ping applet as /proc/self/exe, so the test's grep cannot match.
+
+The exit that reports a missing synthetic variable is not reachable
+through onmatch, so no run covers it.
+
+ kernel/trace/trace_events_hist.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4ee2d..90e6e3990c25 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -3134,20 +3134,18 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 
+ 	kfree(cmd);
+ 
++	n = target_hist_data->n_field_var_hists;
++	target_hist_data->field_var_hists[n] = var_hist;
++	target_hist_data->n_field_var_hists++;
++
+ 	/* If we can't find the variable, something went wrong */
+ 	event_var = find_synthetic_field_var(target_hist_data, subsys_name,
+ 					     event_name, field_name);
+ 	if (IS_ERR_OR_NULL(event_var)) {
+-		kfree(var_hist->cmd);
+-		kfree(var_hist);
+ 		hist_err(tr, HIST_ERR_SYNTH_VAR_NOT_FOUND, errpos(field_name));
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	n = target_hist_data->n_field_var_hists;
+-	target_hist_data->field_var_hists[n] = var_hist;
+-	target_hist_data->n_field_var_hists++;
+-
+ 	return event_var;
+ }
+ 
+@@ -6980,6 +6978,8 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 
+ 	trigger_data_free(trigger_data);
+ 
++	unregister_field_var_hists(hist_data);
++
+ 	destroy_hist_data(hist_data);
+ 	goto out;
+ }
+-- 
+2.53.0
+
