@@ -1,135 +1,131 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3A849B5BB
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD96486433;
+	Mon, 14 Sep 2026 18:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408902; cv=none; b=SgC5snnupsY+/Ml85pdGf6lQn40eDBkY2vBYdjDbpFbAholeS6g0mc5bUcoYVWXcqFlfkGNjubkN+LNXlWFAmE9SIZhm8isJKQD4wt9bhpUYo8UHpC0fxKIwM2I109EBpQp0eQKXp0oVv3y615/O9/yhplx6n9vK2UxNLrzrXZs=
+	t=1789409049; cv=none; b=CwjtfRH3ur2hJcfx6Bb4EeCOVoHdWkROlotte/03gqNvl+3uhtEEFpyRzs9STqqkknOEQFDqansJ3JJ557+mAsvgYeUY9vNenLNIZhraDJ8vVnVP7Ey+xoYtryOpMTG8PpgywBJxFH2ymSyX5OsjpJTGzcgNu9RB4KsaJoNSk7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408902; c=relaxed/simple;
-	bh=9ZswKmHYV3hQPdJPCFwuJCVbZNz9gP0vODDqdoni8oE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OP4Kl4oyFYVd7wxwoG4W8WJ+iRmOSA1F7+zP1/5s+3+rrgs1SE8n6V/os17EHEhHLbiPF9TWlE5kzwU/453iOkOK32TYAZFehPMoU+JntUc0lE4drd0RDU5sx64mJ8wEDSPQ9wrrh4LCHcP0qtYVPs8As4KF53DLM9BxHdIpaAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Px56acUZ; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789409049; c=relaxed/simple;
+	bh=ZUnyJvSfvQf/+1qB1TzF9Mo2CZ07AJi/g0lVpvGkQ2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dwlc6OiIQpwWCTvSA6ra2nHyv4jxUMRTDREjMPmFVICpB8ar57fXPcr+B5jtEWFcXvy4uWWq2uu6tmaob2jW+VdrPjQueXsSUAOjnnVfI4uYZLtFSqbJUhHVenwP78rrU/q/+xc+vCgrU2CmxLsAs2Zpkw7uNdsWnfb8zKEyjhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=GLx9D2Gd; arc=none smtp.client-ip=115.124.28.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Px56acUZ"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6714af30a2cso1411567d50.3
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:01:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789408899; x=1790013699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KMesPQp0VJUensHvMGRs3/WPWJMCG93L+QYn2rj5VFk=;
-        b=Px56acUZCbPA6UDQkcUrKzZxSq6bxbmfwSSxGxhck2yO+iAkzFqwKBQbPzERKVKhRG
-         zs3U8JJpP1AkyIUBBwQUc7faxf3L/g55sKsz3708EQNvBPlNOKrguCf5IZWJ7WQjZ74Y
-         OKnNlggXzu8lsDHBll9IbWT4AQvS/Re/zi67TYPj1s9d93kpxd6P1LcyplCtEuheBHP5
-         LyItl8IadZT9MPUHAcarfztJ995H/wCvO7iyCFnNq+aNpfCmO0Pl4NoovlG247jz9bTr
-         qdaOgPwdEHKlPAqIfRA7cv8IiJr5G40IXr4DZ+oT8TsF78Dpft+qkPIwFcx9a4go3gME
-         5dcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789408899; x=1790013699;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KMesPQp0VJUensHvMGRs3/WPWJMCG93L+QYn2rj5VFk=;
-        b=dSTMjlUzNlVuTn04XLl4QW4Lg0I9ixaEINbD6xibMIjWsOPoFRtAaInurpN2ACc6NN
-         q/MlyaxL7+ythZpLvjfPytKEiMNkZ5jbNoUi1E0ROoXCfBcEQJOaI6yvHgqi3YPGfTOE
-         8zxGSbpQRQ8S9fM+DUhW2pDibDfw8VDiqZo+JezhB0r396WfQHIJZ9xu7geDkDX/LJJz
-         KLv/qhKSD0VwVkfpPcLNjLatQTy12eVHjNJXAnmHl6TudXEUAcIYRqCAVxg7plWxhCP8
-         52eue1QAQl872WPbhmO+oKZ7jmEMCGRwdmq5nUegemSVExSZVo90SiJJMxSd82VEDNbh
-         Nzrg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDz3Syr3zp8N/Os2CbKdWkE3sIA83ysZKsxLwlDBM8JPGmWQf8gVAWG6tTBKD9u9rLA9QHZS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWyNmzdqGlEePxet+Ir5FxmQQwMo5fzT3q9WoSqtrzeODT9/aA
-	u9CivKLXC2TYCDiDdsDg8svD7hdBw0iprnJdakpiVoZfWVjwC5o1He2n6oeF+Q==
-X-Gm-Gg: AYBFou0JGwCAMX9q5JUM4oUeTQC1FpQKrjqDIEFGDzu7hGBjnTBbZAwR6nPLLk46kF+
-	DYaDzwXSmXELmNAJRyq37D778kAvAQCwt0mIAsGfvgSiG7esaxircnTPPomfQ9xbjn/BcLPVsho
-	a0kl30cAArnVcKDAciSUQApONW3oiFe7Zm4FFe6XbOiybIddzvLiD63OaYi1KHLbHofE6q08YnK
-	dCH2FvXUtE62CpI1Zemx7wayXs/QFbGBC3CP3EoWE8Z67uomDHWr2ov1FqMm5WNCQkhgxBenfPD
-	W/zs0BOtwdazfxxR3At54owA6NUqt8g99zwpCOWGZ6ekdLWJLRYCARzCxhjQGokc5WMOuHhFD1k
-	muqDl6SYRwY0afI43JNadTWWMIo8VUg7krs53L9XYrscD9UYR3i+h7J+D/ns+GBfWpyOsXA5mQP
-	EmLomqUNfk7g0xO8Q6stHd+2Tt6XtcKY33JQbLvFG6xATEDeHO7PmwGV+p/ckRwuSNFat/Gy8GN
-	xyz5A7P2TrHLPthYLQPao9UMw==
-X-Received: by 2002:a05:6214:4993:b0:912:122d:174 with SMTP id 6a1803df08f44-9122e691c88mr56601806d6.34.1789408874114;
-        Mon, 14 Sep 2026 11:01:14 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a6ebsm100587596d6.22.2026.09.14.11.01.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 11:01:13 -0700 (PDT)
-Message-ID: <c293d5c7-ee3b-4fe4-af58-f232c8b9efbc@gmail.com>
-Date: Mon, 14 Sep 2026 11:01:10 -0700
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="GLx9D2Gd"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789409043; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=KoqZItCTin+6stOEbAOp7G8XLkIXJ9u/snZJG1JONh0=;
+	b=GLx9D2Gd+80Sf2zdV5htgldO3yDOcZYfJxp3bfxk7c6ZJu+mzbQ/py6Q9Q0/c01fyGaD91zxahqBb3YhKBmZhotlDMhDcsCZno/yLRH4UWLlWCiIyB2Q+8W9yjEQ6CudisWhnvOKh5t1wMDGKnYew6XEaSG0T2bHTcXJ+OVtOi8=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04477426|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0082244-0.000528985-0.991247;FP=10884422329824779518|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jDU33YF_1789409024;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jDU33YF_1789409024 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 02:04:02 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: jason.wessel@windriver.com,
+	danielt@kernel.org,
+	dianders@chromium.org
+Cc: kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kgdb: Fix buffer overflow in the 'm' packet handler
+Date: Tue, 15 Sep 2026 02:03:44 +0800
+Message-ID: <20260914180344.15485-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260912065607.535295758@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 23:40, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.110 release.
-> There are 1376 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+gdb_cmd_memread() passes the length of the 'm' packet straight to
+kgdb_mem2hex(), which hex-encodes the reply into
+remcom_out_buffer[BUFMAX] without checking that the reply fits. A
+client on the KGDB I/O console can ask for a read of any size, and
+the hex encoding runs off the end of the buffer. kgdb_mem2hex() takes
+that length as an int count, so 2^31 truncates to a negative value
+and copy_from_kernel_nofault() is handed buf + count as its
+destination.
 
-perf fails to build on arm/arm64/mips:
+On x86 BUFMAX is 1024, so a read of 512 bytes overruns by the single
+byte that terminates the hex string:
 
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/symbol.o
-In file included from ../include/linux/build_bug.h:5,
-                  from ../include/linux/bits.h:22,
-                  from ../include/linux/bitops.h:14,
-                  from util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c:12:
-util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c: In function 
-'hisi_ptt_4dw_print_dw0':
-util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.h:28:41: warning: implicit 
-declaration of function 'GENMASK_U32'; did you mean 'GENMASK_ULL'? 
-[-Wimplicit-function-declaration]
-    28 | #define HISI_PTT_HEAD0_4DW_FORMAT       GENMASK_U32(31, 30)
-       |                                         ^~~~~~~~~~~
-../include/linux/compiler.h:17:23: note: in definition of macro 
-'__compiletime_assert'
-    17 |                 if (!(condition)) 
-         \
-       |                       ^~~~~~~~~
-../include/linux/compiler.h:37:9: note: in expansion of macro 
-'_compiletime_assert'
-    37 |         _compiletime_assert(condition, msg, 
-__compiletime_assert_, __COUNTER__)
-       |         ^~~~~~~~~~~~~~~~~~~
+  BUG: KASAN: global-out-of-bounds in kgdb_mem2hex+0x1dd/0x230
+  Write of size 1 at addr ffffffff87651780 by task sh/1
+  ...
+  The buggy address belongs to the variable:
+   remcom_out_buffer+0x400/0x420
 
+Bounds check the length before the hex encoding:
+
+		if (length > (BUFMAX - 1) / 2) {
+			error_packet(remcom_out_buffer, -EINVAL);
+			return;
+		}
+
+gdbstub_msg_write() already bounds the count it hex-encodes
+against BUFMAX. Reads over the limit never returned valid data,
+so an error reply loses nothing.
+
+Fixes: dc7d55270521 ("kgdb: core")
+Cc: stable@vger.kernel.org
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+
+The scanner is a taint-style review of the packet handlers in
+kernel/debug/gdbstub.c. write_mem_msg() ('M' and 'X' packets) trusts
+the same length field and looks like the same class of problem; I can
+send that separately if there is interest.
+
+Reproducer: attach to a kgdboc console and send an 'm' packet with a
+length above (BUFMAX - 1) / 2, e.g. "m<addr>,200" on x86. Before this
+change the hex encoding runs off the end of remcom_out_buffer; after
+it the stub answers E22 and the guest resumes.
+
+Both cases were run on 704340f1cd0d (v7.3-rc4): x86_64 defconfig plus
+CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG. The two kernels are
+built from byte-identical .config files and differ only by this patch.
+
+Two details of the setup are not obvious. CONFIG_KGDB_KDB has to be
+off: dbg_kdb_mode starts at 1, so with kdb built in a sysrq-g break
+lands in kdb_stub() and the packet is never parsed.
+
+A minimal over-the-limit length reproduces better than a large one.
+copy_from_kernel_nofault() copies through raw asm accessors that KASAN
+does not instrument, so length = 0x10000 writes 64 KiB past the buffer
+with no report at all and the kernel simply stops answering. length =
+0x200 keeps that copy inside the buffer, which leaves the terminating
+store as the only out-of-bounds access and gives the report above.
+
+ kernel/debug/gdbstub.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
+index e271a43..5774292 100644
+--- a/kernel/debug/gdbstub.c
++++ b/kernel/debug/gdbstub.c
+@@ -563,6 +563,14 @@ static void gdb_cmd_memread(struct kgdb_state *ks)
+ 
+ 	if (kgdb_hex2long(&ptr, &addr) > 0 && *ptr++ == ',' &&
+ 					kgdb_hex2long(&ptr, &length) > 0) {
++		/*
++		 * The hex-encoded reply needs 2 * length + 1 bytes
++		 * in remcom_out_buffer[BUFMAX].
++		 */
++		if (length > (BUFMAX - 1) / 2) {
++			error_packet(remcom_out_buffer, -EINVAL);
++			return;
++		}
+ 		err = kgdb_mem2hex((char *)addr, remcom_out_buffer, length);
+ 		if (!err)
+ 			error_packet(remcom_out_buffer, -EINVAL);
 -- 
-Florian
+2.50.1 (Apple Git-155)
+
