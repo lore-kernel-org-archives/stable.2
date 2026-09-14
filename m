@@ -1,75 +1,75 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A716B443E43
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8713F126BE1
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386721; cv=none; b=OrjCqokaTRi4AuFVlzuofrBc05IQ1E3HdxYPkteDzojfEdh0Y+UA11EXvgT9TZMawURCNJlZ3bOCnuMfAtqR3EmEGiFxHUStv1VTt9uljgHe7QuCFY+s/A66nPKEcRpwdbBOMCSf+35B8Xz65qLFWL83Qbuidq67KunBFpedf04=
+	t=1789386857; cv=none; b=Na01vEtBNfiVcqQmLQH/3UfoHRIW4MsKnxjvPCJGPZMQyXByteJhrZfZfBC/3d2UJqwSNnJOhgsAzg1046xVf5TtOdmdjqatRCqgX08zGnyp1kgjz6LXdtIuRaW4E3vI8vQ+lZX11Q+caGrCiUpiSOfJ1+T9/Y49Q1dl7t7DuKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386721; c=relaxed/simple;
-	bh=mkOn9nUqrfUVleranEM9ERRJUce7DlZpXPdGbyI6jW0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EgZcnwkptM+dFBtdc8wf7dykw+jNr1z4c8ctgaZgNL7POrjO3W87z2g0vW/NtlLd9Sn+PWOJO4wH/vxEAYqpZQOsTZBLtU9fVV7/iz39TJ7tzfvfOfNDG8aE422hpOeAVItq0k1YSe90Rrp6yoQFQuGuQtNTimkluWKJGuuLrWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rVLnIwBl; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1789386857; c=relaxed/simple;
+	bh=HHcwdsUXEm2ayaVu7SSBBQ8NDirWwcRsDg4gbWZ/4ak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ii4qJZZuRnJWKQXBdOgJ22fQjpoqi3HsSvM2HQXy4XyhlRYFH5J23AcPcuc6tBKz9if4xI8T4wo6cH8CSBIaTcpz2/xZ/UJUM1lM+WulY5pmpgOk29G+NsjOJKuj/xdqJ5uZV1CEEXXrlXL3yVWw5Rcl5d7lTTN5r5tG3TVEs7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPg28wpb; arc=none smtp.client-ip=209.85.128.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rVLnIwBl"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2772205a91.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 04:51:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPg28wpb"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86d43cdee51so26974867b3.2
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 04:54:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789386719; x=1789991519; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789386855; x=1789991655; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tjo/LDgf0JT3PbDxyOorKF5SRzRGH019Y7Xsb5x2tuo=;
-        b=rVLnIwBlPoo6rmcbNNO1UradaC8lv2KMOR9etcvBrw+5bIpcK7GRi0LGQEQEMK9lPF
-         ADnuTnIBp0MKw7iZbcscsdDqrbz0WhOXEpRM1CqBLehKWYSTpqZLTMy2rJ7KbT2HHt0b
-         XXUEFKBcBnE612S6MoCOiaLj4+ZCH8L0mkkhMr4dajOAtxfo9541v1DXtbFL9ht2Wy++
-         tpKkhA7m6QcRXSwNjNWqAKRSVbXiSKRkhHWpGdbGCYUJZ98feC4u8Oqdrn0Q6johK6l/
-         NJCd7QCNRMAru4bIUH2rp/sLhH2TkD76jdBUa8TnGEIkQOgebzdk6UQjqz77h/oibMtU
-         W6mA==
+        bh=vvOpnlEvc0lDTY/fJ/50aU18KEAzaXSSdE1MwD9cp2Y=;
+        b=KPg28wpbhqcywZNrpCMyZUph12lU+ataZdQcM+1ZZZvqPcmAXy3DW89af7FGZ1ySBY
+         7jPQjBkEAW6AZqJQmAXT+veQrH9sgj/Crs8qyna0R0fS9KFEfjdmV8F6yratCHUFjWZv
+         gCAuUAhkSnsX/iIOmKF7WF8Y5WBbB/HSq5HrYQTHyn7mYhcqfD9258OBsEgA0h4oRb6D
+         gpowLoZnyz83JYjcabD4UOoQSzE1Tt+Ka88RSaM5NhTzs+Vj5HCHj4R3JL0WQPePm1Pk
+         i0LkaN/lPUXq327nql1CnCF4RqJNwEZjhCpDpIvTJlPRNp2IwgWkGpMkK+XN56FP7Ol/
+         O0Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386719; x=1789991519;
+        d=1e100.net; s=20251104; t=1789386855; x=1789991655;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tjo/LDgf0JT3PbDxyOorKF5SRzRGH019Y7Xsb5x2tuo=;
-        b=kHU9MwMCfHi26uLSXI6Y7ozCcC+vpVtSMJrMxrOdEejxMv1ti9IjKYCt8+uM3kBq5E
-         oKbL7iwSijUAxPDR5SgGMHBxKVOT3+iEGmBn3y1TUrTjIRSqNiPOYJyXum20CSIVPzmP
-         c01DZW2+SuIb8DpOgboJuxqwVt7sv/fo2A0AHAGW345U0A3w0DukLrtUx1CEA6l5jxun
-         o1JhsjpRp9zGKwHv+1Swm+lqDXvLWwjdhoASLcr7lMz2NarDEjWakgGjnAA1Tu/Nwl/W
-         VshMUhZlF9PEKx6WJWfJDJWcLa0+kxmQyKV0POX3Z49MM6uYnqDRaf5J3K0+8ysiVSv6
-         w2Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBzO9NGhDSj1PpDbs/r8T5DqAghtlet98jrWbD+GI+8LLHz56NFSxfBFfiL6Ab4hPWKOvKZWgHk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/9I6p33Lf3xOVtH1T1VNjGBaJ9yCNFDNO+PjHITTkrC6RS9Bm
-	FEwgGBdOcZrGza+qy47n9Kb883q2UY1oX8ta88dzA+IjF4a/MIL9A0Fo
-X-Gm-Gg: AYBFou1XIvW/oOnfAYCbrz1htFfIXh+3HcvfXYEdbL0CmngboMC4hnQDwBwJbRVdYx7
-	VM5K+LovGNeXQ/5ehKzfx64nh/ggHGIUpJjqR84sNUSsadd+sMwilS94YBmWXiwxd0Xlo1qurn6
-	QFkzVsxj8UtZ8ah7xQ0S14wlQzCiK9f3O6kWv3HUADrq7qTFZHTqkvNaupG8MHHjlpM+6LR7LyE
-	AKpxG9xwAdgPX1X6k7Zkt3w2Sge/P8GNRklyZgVQNdA63GfKgA0dbc7NP0H4SSlJn1nr0We+6XE
-	CRix6W2r5wFMjfmcpFztONP22neMV8jzDjHHadl+bcvfAcz2yPui2aE1lwtNWYBtvRuDZvAkQtb
-	Mr2EZLxUrW7nVw/lwuCrrVqLjFfy2H+q6OSuTvWYfaXRVKJoKO0jFnh+I4t32Cq+rnWChsUMifG
-	ZajF45lhRmlIgZ0VeEE2sQ+KejHlEBps0zHZbvsH3xgPxALRQFSKIA9PshekiKYM/3bhzAr2fur
-	oKWVQ+Z/R+N4yYejOtidnwRx2aiNWoscD5Q4Q95n+vnG9o=
-X-Received: by 2002:a17:90b:2dd0:b0:39a:e983:d4bd with SMTP id 98e67ed59e1d1-39dec15c01cmr4922034a91.24.1789386718894;
-        Mon, 14 Sep 2026 04:51:58 -0700 (PDT)
-Received: from localhost.localdomain ([117.88.121.70])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d7ff2c5sm5076020a91.2.2026.09.14.04.51.55
+        bh=vvOpnlEvc0lDTY/fJ/50aU18KEAzaXSSdE1MwD9cp2Y=;
+        b=ZUAeEmt0w2gFdRBGjFyOEUl0Z7LnOe1dq0sZfG/qh10sjsKife6sqD6wDDtXtNjabB
+         lyhUSjiCgocx8loTLve1OUsxuqfcBMFR0SXwHITpsmg5Ii/sS5wPhHSqVYI3+njyHOT9
+         prZRNoy4KZcMk6YDtPrgsssXec64b/+OjbXa4gtxKV3z7DtsKl0C0RPt7zRMAn/en1Xu
+         n8LGg56jB4Hp9ihNEsa2bqYpyT/Xip3vjStQaf5YX1GK8gXDMDaz9M51omP8rTsjHBNe
+         L7FfmNPVkSiZSHWHmcayuZPboeSlRjgQaTsT6Cb0Tx5ROTjTIze6Oconv1S2f9OO6Irj
+         wEqA==
+X-Gm-Message-State: AFuF++kyJgnzHzpJ5RFlG7jRH0X73XbpJcdYMV4CwKet1zuDYH7b8tVY
+	+lsQcJ9GyErpKy2Eiv6XtkYypqz/8+oyvgT8kAELkzjIbK9CNiDduQxa
+X-Gm-Gg: AYBFou2y3ibBlDTsd8GG7PVbCeeBuhwO8us59Tlg7+eNbsdzm0dSUwXYgN5iQHWL04K
+	XOGKLTCeX252zuQ2ZrxHvcOmrg9+AaPKjebfswB/D+H/SZvN3B59J4oQtFNoCctWdEJGhnTqD9Y
+	MZ+HCRYG43BSHa6xvUEoniOZKta6g862bgdUWxRbciPHaTKerQRh/EVrbbXB8s1d8SYW5b2lTHB
+	4pUE9JxmzYBNqiaSUsD+3126OKdRjalbWCL4d0m5g0P7Ti8bAkwwaHIUHNFASNqJJi5obtKPChY
+	hKP5eywFCLTZkLRpSP0xe4Yn0J0kEvt9+GN7ryMYIWVz3OSt6dO9iJ87lOz4pv8SWt9iQfXLNAp
+	dnytHNlxaKGw6AaIacGLFaTo6MCCaxrwz6cpSbCn6/mOjfr6nqnpIMTVJ3Hd4ZNk2uQ40QJCeqy
+	AytOErBV850wxZv7PLFTyJ1ZXkdKv3l9ANloRg4uQSL26cPTP4hH68Dg==
+X-Received: by 2002:a05:690c:e15b:b0:873:5bb2:6c37 with SMTP id 00721157ae682-88d2426b390mr3468467b3.62.1789386855441;
+        Mon, 14 Sep 2026 04:54:15 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88487ea9478sm34802197b3.34.2026.09.14.04.54.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:51:58 -0700 (PDT)
-From: Aohan Mei <ljp1205831794@gmail.com>
-To: netfilter-devel@vger.kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	coreteam@netfilter.org,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v3] netfilter: nf_tables: skip expired catchall elements on insert and delete
-Date: Mon, 14 Sep 2026 19:51:47 +0800
-Message-ID: <20260914115150.3470734-1-ljp1205831794@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        Mon, 14 Sep 2026 04:54:15 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Daniel Baluta <daniel.baluta@intel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] iio: dummy: free software device on configfs release
+Date: Mon, 14 Sep 2026 19:54:04 +0800
+Message-ID: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,82 +78,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
+iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
+The error paths free it, but after successful registration the normal
+removal path only frees the contained IIO device, leaving the software
+device allocation behind.
 
-nft_setelem_catchall_insert() looks up duplicates with
-nft_set_elem_active() only, while nft_set_catchall_lookup() and the
-dump path additionally skip expired elements.
+The software device embeds a config_group. device_drop_group() calls
+iio_sw_device_destroy() and then drops the config_item reference with
+config_item_put(). Therefore, freeing the software device directly from
+iio_dummy_remove() would free the embedded config_item before that
+final put.
 
-Once a catchall element with a timeout expires, this predicate drift
-makes it invisible to userspace dumps, yet it still blocks
-re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
-without it the request reports success but silently inserts nothing.
-The stale entry only goes away when the (user-tunable) gc interval
-elapses, so the catchall rule may silently stop matching for an
-arbitrarily long time after its first expiration.
+Configfs requires dynamically allocated config_items to provide a
+release callback which frees the containing object when the reference
+count reaches zero.
 
-The delete path shows the same drift: nft_setelem_catchall_deactivate()
-picks the first active-next entry in the catchall list, so with an
-expired entry still pending GC it retires the stale entry instead of
-the fresh one, and it deactivates an element that userspace no longer
-sees instead of failing with -ENOENT.
+Add a release callback to iio_dummy_type and free the software device
+there.
 
-Align both walks with the lookup and dump predicates: only an element
-that is active and not expired counts as a duplicate or delete
-candidate, using the per-netns timestamp taken at transaction start,
-in line with the set backend .insert/.deactivate and catchall GC sync
-paths.
+This issue was found by manual code inspection.
 
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
 Cc: stable@vger.kernel.org
-Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-v3: use the per-netns transaction timestamp via nft_net_tstamp() instead
-    of sampling current time, per Pablo's review: control plane insert
-    and deactivate paths must not let an element expire mid-transaction.
-v2: drop the is_dead check, it does not belong to this dedup walk;
-    also skip expired catchall elements in the delete path.
-v1: https://lore.kernel.org/netfilter-devel/REPLACE-WITH-V1-MESSAGE-ID
+ drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
- net/netfilter/nf_tables_api.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 765a92fa90d62..7ef2e19e6655a 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -6991,11 +6991,13 @@ static int nft_setelem_catchall_insert(const struct net *net,
- {
- 	struct nft_set_elem_catchall *catchall;
- 	u8 genmask = nft_genmask_next(net);
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
+diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+index 19fcdbbc11c6..7d2ff1d4a06e 100644
+--- a/drivers/iio/dummy/iio_simple_dummy.c
++++ b/drivers/iio/dummy/iio_simple_dummy.c
+@@ -23,7 +23,19 @@
+ #include <linux/iio/sw_device.h>
+ #include "iio_simple_dummy.h"
  
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (nft_set_elem_active(ext, genmask)) {
-+		if (nft_set_elem_active(ext, genmask) &&
-+		    !__nft_set_elem_expired(ext, tstamp)) {
- 			*priv = catchall->elem;
- 			return -EEXIST;
- 		}
-@@ -7088,11 +7090,13 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
- 					   struct nft_set_elem *elem)
- {
- 	struct nft_set_elem_catchall *catchall;
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
++static void iio_dummy_release(struct config_item *item)
++{
++	struct iio_sw_device *swd = to_iio_sw_device(item);
++
++	kfree(swd);
++}
++
++static const struct configfs_item_operations iio_dummy_item_ops = {
++	.release = iio_dummy_release,
++};
++
+ static const struct config_item_type iio_dummy_type = {
++	.ct_item_ops = &iio_dummy_item_ops,
+ 	.ct_owner = THIS_MODULE,
+ };
  
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (!nft_is_active_next(net, ext))
-+		if (!nft_is_active_next(net, ext) ||
-+		    __nft_set_elem_expired(ext, tstamp))
- 			continue;
- 
- 		kfree(elem->priv);
 -- 
-2.43.7
+2.43.0
 
