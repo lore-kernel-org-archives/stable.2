@@ -1,91 +1,95 @@
-Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C462EEE99
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 03:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21869363095;
+	Mon, 14 Sep 2026 03:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789356313; cv=none; b=qVvu9Jhm3wy8kUw3DFn2u8lPkLdMcD4jnvloZdCz28srVqOnx0TlBFNfpkIFMHnBijByxVFJMTO9m9tFdi8H0KFSfp5hFx0zHaMjTuiCKT8vqMpdC6apN64IJD1K1it+hrPDLKCigV7OanBPqzjisiOGX123CpqW+7hhQcTB3s4=
+	t=1789357334; cv=none; b=nUizIFqri/oq98vDCeE4LEv96TbpMpNRsGvqIw3dIejcoUhUvO8EWkRvc1pGkdbrzO9JiG3uudVTdOWNxgyh8Hpk5Lgtban1RWPQz3tFBHAoIzj+31TpkjzH/REqbEdodxUSPT1FQj5x6qIQVI4G5JYB/b8MgP5WTweZkYppBxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789356313; c=relaxed/simple;
-	bh=WjqZVWhWelClT7YdgOmsrZ36uXsXlPIhwcyup00iM5I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CyJxUj/GvnX+WSQoGjL3QO1sHUFm4Jm6S7fdpg3wYkNnmwOmb06nSaz6jpU1BHupVnPG0KZZ0Nl9wNAMQvjPGepMcp7O3m00Y3tQh+II6DOIlFFfQMKnNqFyDYH9zLYdJpQzpHvoilmMgHOHpba2Yg+ZJnI1TYbWJ5DkI0ntiBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WhHcIcjr; arc=none smtp.client-ip=91.218.175.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WhHcIcjr"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WjqZVWhWelClT7YdgOmsrZ36uXsXlPIhwcyup00iM5I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789356306; v=1; x=1789961106;
- b=WhHcIcjrFG+DrZdPVh5p+F/gs8OGa61E8G3FYqLtkkELfxpl44fIoN6lFdRLXbJ0TvltFLRd
- 6XfjsrauQFSlxWnSbTstjdoPQ6g/NDNBxYMtOhggR60ILRXcdS09QqLMh6JVJCw3VeAY+jt7FrS
- n8AQCw8JbQoI5RGr95HoAgEc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3ae4c64fb9fec7c0;
-	Mon, 14 Sep 2026 03:24:56 +0000
-X-Mizu-Trace-ID: 3ae4c64fb9fec7c0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <49df8a8c-c7a3-44a8-995b-0ec6fc194a3b@linux.dev>
-Date: Mon, 14 Sep 2026 11:24:51 +0800
+	s=arc-20240116; t=1789357334; c=relaxed/simple;
+	bh=kkTR6F/wUkW+il1lGGH5wEVFKnviI8/3ctXCE0TZhJ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eaTrwiUtlZ1kQAYRZ5SCCUFEIpgHf2cOdfr2UTEXaHU3ObdNWOIFsspdHr2+eByfBuXL9URF3LoD7j2pCY2NODyPP3/bCJIVThVZejPv2Ndhe5gWqj4U6o/NTNWGgNX/olEWmshvLk7VZTpKmJ0gDop6I2fTUeyL4eJowVoFyow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4199fe26afee11f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:90b5acb6-eabd-44c5-a39b-8a8ec5087a4a,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:94ca796e3ccf2675eb6f445c78681014,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4199fe26afee11f19a56ed5b684f684d-20260914
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 149147248; Mon, 14 Sep 2026 11:42:06 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: mount hibernated volumes read-only regardless of  errors=
+Date: Mon, 14 Sep 2026 11:42:02 +0800
+Message-Id: <20260914034202.52011-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bonding: alb: Fix overflow in TLB gap calculation
-To: lirongqing <lirongqing@baidu.com>
-Cc: stable@vger.kernel.org, Jay Vosburgh <jv@jvosburgh.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260913125859.2349-1-lirongqing@baidu.com>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260913125859.2349-1-lirongqing@baidu.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/9/13 20:58, lirongqing 写道:
-> From: Li RongQing <lirongqing@baidu.com>
-> 
-> compute_gap() shifts 32-bit values before converting them to s64,
-> which can overflow for high speed network devices. The overflowed
-> value is then incorrectly used in the TLB load balancing calculation.
-> 
-> Convert the operands to s64 before shifting so the arithmetic is done
-> in 64-bit width.
-> 
-> Fixes: 097811bb48c7 ("bonding: optimize tlb_get_least_loaded_slave")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> ---
->   drivers/net/bonding/bond_alb.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
-> index 43ac8e2..b520040 100644
-> --- a/drivers/net/bonding/bond_alb.c
-> +++ b/drivers/net/bonding/bond_alb.c
-> @@ -160,8 +160,8 @@ static void tlb_deinitialize(struct bonding *bond)
->   
->   static long long compute_gap(struct slave *slave)
->   {
-> -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
-> -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
-> +	return ((s64)slave->speed << 20) - /* Convert to Megabit per sec */
-> +	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
->   }
->   
->   static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
-This appears to have already been fixed by Hangbin Liu.
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-Please see:
-https://lore.kernel.org/all/20260831-bond_overflow-v6-2-ffb0ed1f7268@kylinos.cn/
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/super.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 2d4132aa39d3..fd7e5dbd1115 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1660,8 +1660,13 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
++		/*
++		 * A Windows hibernation image is not a filesystem error, so
++		 * this is a safety interlock rather than something the
++		 * errors= policy may downgrade: always convert a read-write
++		 * mount to read-only.
++		 */
++		if (!sb_rdonly(sb)) {
+ 			sb->s_flags |= SB_RDONLY;
+ 			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		}
+-- 
+2.25.1
+
