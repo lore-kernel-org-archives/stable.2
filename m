@@ -1,158 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D212631ED93;
-	Mon, 14 Sep 2026 18:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CEB384245;
+	Mon, 14 Sep 2026 18:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409727; cv=none; b=jvfJUF85uavMRGyGXRJTM3Ymlw+KjcPB1jUUkxlCdtdCYkewirMPx0SrWEU/s1+rJj5DwKJV7gZkBSU6YL11OHjvp/h/M6KUJuU93jsrsGxHqDWzUwW6mZ+0Msx6AMl0zSd8YUt5IGYJP4ATy8rWLpmf7wGReHvxAHrPvq3dvio=
+	t=1789409983; cv=none; b=hCZooqgUYK+3w1G2JeZQ8ZsEAlKCNNrwTaHl9TrwcFTI34i4wF6K8Txchcd3bH10gxw3dwmM24bEHqc5C3A3EBgv9q0QzAHwv6eznAv/B+UdzdahX1ZI799jXrTeDSWiLhA7lKk6fC9PBILq3MP4OrOb2QHKgG9e/eh7Q2+AXrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409727; c=relaxed/simple;
-	bh=yeBvKC2LOwf89yHVeSSHjI1k0DaAXsPVPQuDbsxMyZg=;
-	h=Date:To:From:Subject:Message-Id; b=ovfxvCbH6GFc88Jo7777wAEQ7eIzbX3LaAp5b+1z04G5pM05McBThPppHRpvfgp6k7ZMNRFty25+BZ0Szkej0iNQnvuKSJsX7jzyBvAJKNpdNhzxuaG9etCyQcwBNP5YlQAAT9ku7LiNyJGCfo3u7GWd6UhIe2wOugRAPj5sMyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WQ2YVaoP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789409983; c=relaxed/simple;
+	bh=G0mIIrJvt2wcv6ID4m2Trh4N74dGIV1/R1kU7vWY/zE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kRWByUkX+IRyOJuDtJPcCQzCLj62rm5RSJwV9O1yMve8rlNqnd0DGUgiuIbNkB9j3haRaiMsP+9PBxiI+S/NBzrVc9hx4/l1u1fK/tzA5xhUCkDTswYMlYiVS2nYdNZ1J0Co3dh4k2+1t64RKh6Tex3qXJ3iLIj8J8LEtc5lHko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1AbA6KGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WQ2YVaoP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6EA1F000FF;
-	Mon, 14 Sep 2026 18:15:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1AbA6KGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1621F000FF;
+	Mon, 14 Sep 2026 18:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789409725;
-	bh=r2gNGhfigd2h71kFa7KAWNdSkIvZ7GBGekrCie3osg4=;
-	h=Date:To:From:Subject;
-	b=WQ2YVaoPWq+nr5ZmkX9bBiNSQWpLtLWSCTjkoBGmcpAOv8Xsj0aSMRPw7PGPa2Pyk
-	 ZHKkBfWwy1O6O0evbOlvznJMVxVQNB3gvpFo2gBQ1MTbIMC2JwEF3CwpUP2q8KyFL+
-	 2ygKqm2izD1Vp/UPOt2kqD6q1I0nzBouOgwNQG4o=
-Date: Mon, 14 Sep 2026 11:15:24 -0700
-To: mm-commits@vger.kernel.org,thomas.weissschuh@linutronix.de,stable@vger.kernel.org,sashiko-bot@kernel.org,ryan.roberts@arm.com,mark.rutland@arm.com,leitao@debian.org,ekffu200098@gmail.com,dianders@chromium.org,chenhuacai@kernel.org,brauner@kernel.org,mhiramat@kernel.org,akpm@linux-foundation.org
+	d=linux-foundation.org; s=korg; t=1789409980;
+	bh=VsN3qekiQiOy09Vr8Cs8x5ZTMlfTLINzP6aEinGBmkQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=1AbA6KGuVDMishj6sWpf+J0Yo8lpG41mjxhzMvhE4n/2vzd6pSMPclU1hqG7IBrEj
+	 wFwinYN1rKC+IPUWW4zmpuNC75nrU+ShelM6YUViiCar2Mr6EUTbekti8s1lj0Ibz5
+	 lf05BQ8f4aek3KJ/cqOmZg1bvjb79gPZha2U3Ouc=
+Date: Mon, 14 Sep 2026 11:19:40 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged] bootconfig-fix-integer-overflow-in-initrd-size-check.patch removed from -mm tree
-Message-Id: <20260914181525.3A6EA1F000FF@smtp.kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge
+ zero PMDs
+Message-Id: <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
+In-Reply-To: <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+	<20260913072312.52111-1-lance.yang@linux.dev>
+	<aqfRCPheDYTgTdAk@thinkstation>
+	<f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-The quilt patch titled
-     Subject: bootconfig: fix integer overflow in initrd size check
-has been removed from the -mm tree.  Its filename was
-     bootconfig-fix-integer-overflow-in-initrd-size-check.patch
+> On 9/14/26 12:59, Kiryl Shutsemau wrote:
+> > On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
+> >>
+> >> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+> >>>
+> >>>
+> >>> That's the sort of thing we'd prefer to avoid.
+> >>>
+> >>>
+> >>> How real is this?  Is there a reported-by:?  Do you have a reproducer? 
+> >>
+> >> Yes, I reproduced it on x86 with a small test module. It sets
+> >> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+> >> huge_zero_pfn, without touching the page tables directly. A full-PMD
+> >> munmap() crashes before the split series[1] as well.
+> > 
+> > Ah. So there's no real bug upstream, right?
+> 
+> Matches my understanding.
 
-This patch was dropped because it was merged into mainline or a subsystem tree
-
-------------------------------------------------------
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Subject: bootconfig: fix integer overflow in initrd size check
-Date: Fri, 11 Sep 2026 00:15:34 +0900
-
-Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-arithmetic:
-
-    data = ((void *)hdr) - size;
-
-to wrap around on 32-bit systems (or when pointer subtraction overflows). 
-Because data wraps around, the subsequent bounds check:
-
-    if ((unsigned long)data < initrd_start)
-
-evaluates to false, bypassing the check.  The kernel then calls
-xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-hitting unmapped pages and triggering a fatal kernel page fault during
-early boot.  Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-unbounded 32-bit size can similarly bypass the initrd_start check.
-
-Fix this by:
-1. Ensuring the initrd is at least large enough to contain the bootconfig
-   footer and verifying hdr is within the initrd bounds.
-2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-   the available space between initrd_start and hdr before performing
-   pointer subtraction.
-
-Link: https://lore.kernel.org/178905333479.213925.1358412668943562406.stgit@devnote2
-Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Doug Anderson <dianders@chromium.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Marc Rutland <mark.rutland@arm.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Cc: <stable@vger.kernel.org>
----
-
- init/main.c |   25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
-
---- a/init/main.c~bootconfig-fix-integer-overflow-in-initrd-size-check
-+++ a/init/main.c
-@@ -277,7 +277,8 @@ static void * __init get_boot_config_fro
- 	u8 *hdr;
- 	int i;
- 
--	if (!initrd_end)
-+	if (!initrd_end || initrd_end < initrd_start ||
-+	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
- 		return NULL;
- 
- 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@ -294,16 +295,26 @@ static void * __init get_boot_config_fro
- 
- found:
- 	hdr = (u8 *)(data - 8);
-+	if ((unsigned long)hdr < initrd_start)
-+		return NULL;
-+
- 	size = get_unaligned_le32(hdr);
- 	csum = get_unaligned_le32(hdr + 4);
- 
--	data = ((void *)hdr) - size;
--	if ((unsigned long)data < initrd_start) {
--		pr_err("bootconfig size %d is greater than initrd size %ld\n",
-+	if (size > XBC_DATA_MAX) {
-+		pr_err("bootconfig size %u is greater than max size %d\n",
-+			size, XBC_DATA_MAX);
-+		return NULL;
-+	}
-+
-+	if (size > ((unsigned long)hdr - initrd_start)) {
-+		pr_err("bootconfig size %u is greater than initrd size %lu\n",
- 			size, initrd_end - initrd_start);
- 		return NULL;
- 	}
- 
-+	data = ((void *)hdr) - size;
-+
- 	if (xbc_calc_checksum(data, size) != csum) {
- 		pr_err("bootconfig checksum failed\n");
- 		return NULL;
-@@ -394,12 +405,6 @@ static void __init setup_boot_config(voi
- 		return;
- 	}
- 
--	if (size >= XBC_DATA_MAX) {
--		pr_err("bootconfig size %ld greater than max size %d\n",
--			(long)size, XBC_DATA_MAX);
--		return;
--	}
--
- 	ret = xbc_init(data, size, &msg, &pos);
- 	if (ret < 0) {
- 		if (pos < 0)
-_
-
-Patches currently in -mm which might be from mhiramat@kernel.org are
-
-tools-bootconfig-fix-integer-overflow-and-truncation-in-size-checks.patch
-bootconfig-reject-unexpected-data-after-null-character.patch
-tools-bootconfig-consolidate-xbc_init-to-error-message-wrapper.patch
-bootconfig-skip-internal-tree-sanity-checks-in-kernel.patch
-bootconfig-move-bootconfig_footer_size-to-include-linux-bootconfigh.patch
-
+Thanks.  I'll remove cc:stable, move this into mm-unstable as a
+next-merge-window thing.
