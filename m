@@ -1,47 +1,49 @@
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85057369D40;
-	Mon, 14 Sep 2026 17:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9B13783AE;
+	Mon, 14 Sep 2026 17:50:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408031; cv=none; b=pxzf+yGzNTEtxG9y4FfLInKSI/ekH/3f02daNaCcvXkiSO8raAvqkD0QVi5QP5rrMJHQQiso+9KEnBzJ7cFSOtdTpUYZkxD7fjZD8eemAN5hdfzWB0v+POpjk49IPxSrMOywMW3Z4ZO9Q64sOL+sPhS6wE3ZWd0Cgg2YPP2kEKs=
+	t=1789408239; cv=none; b=rvaSwx0BJ4BSqb7DqG0diWqdvaP7cBJdLCV1yGLjfLhskGCtYQinLa58VL6D8pD8p9NdxNUhlWFcV1cHWtGcs5vWzS8BiGxFhb/hr+dLeHC33keJUhGeowuxAKV1qry1r+zOMh1s82PCaRHTwKZuHd5SU8EGbfeFCe8djAJypv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408031; c=relaxed/simple;
-	bh=xXI9AvULH0ZWHacBFgKFrM6IavdHT+Zbc8dLwuT5l0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MLnUnrcO3A6DF333vd0dtQkt75Oe20TirQZavvjh2Mi7UuD1XVDYZjTuNegPf/TJrhNfEMkC+nN8H8FQkwuc37+pQDjXFFc9J3BLO5TQSPrETEPSgdxQ3Vy/mCsOIW0ehVFKz2XWwltECscIr7pwCnnYxQJd+hbyrR5AL7QvhLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=p2xJk0+x; arc=none smtp.client-ip=217.194.8.81
+	s=arc-20240116; t=1789408239; c=relaxed/simple;
+	bh=TgeGrIiPIHJm53FJZt2pjOAk9G4q19vRduQ8eKL8nl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NlmQKFhIr0NzcwxFIFmHyGO+6oOT4J2XxaCEQRvvCKagzVRRHf8ocT1HZ6NuNI5EZFkN0njh1QlIBxp0qqOswjHPyePL2j1Kb/HWAXBbFrhWmwFGjJLu2jD0zQ1rVP99ySXgz6RYJAtvBDaJLEHPcPqFGoA1IKQGBjJyU8LhU18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=aphJpyXF; arc=none smtp.client-ip=217.194.8.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="p2xJk0+x"
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="aphJpyXF"
 Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 6E45B1F8D1;
-	Mon, 14 Sep 2026 19:46:58 +0200 (CEST)
+	by mail11.truemail.it (Postfix) with ESMTPA id 7DD6E1F8BD;
+	Mon, 14 Sep 2026 19:50:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789408018;
-	bh=fEcFOKk4u49+lu8i7wUIHe8SeOyKWEe5+xW0wFXymbk=; h=From:To:Subject;
-	b=p2xJk0+xjnA7FvkwtcukQ1EX2uhEWzgnkNSASC4gC+INwmUOeYdyXvTw48hW4FOT5
-	 hPC1bLTQXdn1vfelAsySRSL2FmFrMJe2lW/wgis7Q2ewMZPsEK1Tecx5fpaELvzQuU
-	 tvUS6i9hpngk5shrYWAC3StaFNdW6FhiXy+rqBpAqcWeCqz28qCPmuU10f1ZhZi2hu
-	 q0kwKshkqkG7cR2Vuo2shrmuqFj98UgJQ0xA8BO60/bt/QTpMC4k+OWrDXarjF+UwH
-	 G3tc5AWrde+lvDYm7T8zyoV0Jb63BUse6OjOiCJ7W1AMHWZihMH+eEVokBcbeia7fi
-	 FbjQedu/oesfA==
+	s=default; t=1789408234;
+	bh=3u/ykhDq7r4ShX9I3fmkI3JbzbVWqdHF9eVM1GGm0Qg=; h=From:To:Subject;
+	b=aphJpyXFY95Q860grTyLZRiMtTsyeLB5QUr/dbj2o0jQ1pp9WiT/TYcqq278/GzPf
+	 QHFqvnRR8DBRYKFBAGXsQfkzlu+m94GZ2AOMXKmzITFNm770fMBC0OOT8YTK/Zl6k+
+	 NvS1j1/lZfqmmjlI/JqtA87xwDkUWL+wG6sZiQLzVJPKhFz6XD8L4FGfQg/JPtT8n5
+	 0sUocTsHgK8nc7E1GqOWDbVA12IxF/7Gz+SGrKKLQYBinmyCFLOJMkcVloGOXfsD8T
+	 HKZGPRAYqDff0vtfIie98PFm3DsVQv4u8+Cqq9PIFfNjAI9uASz69QcKQWGWujKESA
+	 AwfCImET6O/+w==
 From: Francesco Dolcini <francesco@dolcini.it>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
 Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: ti: k3-am62p5-verdin: build zinnia dtbs
-Date: Mon, 14 Sep 2026 19:46:50 +0200
-Message-ID: <20260914174651.6195-1-francesco@dolcini.it>
+Subject: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: enable Wi-Fi SD interface
+Date: Mon, 14 Sep 2026 19:50:26 +0200
+Message-ID: <20260914175027.9097-1-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -53,39 +55,28 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Add the zinnia dtbs to the Makefile, they were forgotten when zinnia
-support was added and were therefore never built.
+Enable usdhc3, used for the on-module u-blox MAYA-W260 Wi-Fi/BT module,
+it was left disabled by mistake in the initial commit.
 
-Fixes: 71c2a8124527 ("arm64: dts: ti: k3-am62p-verdin: Add Zinnia")
+Fixes: 90bbe88e0ea6 ("arm64: dts: freescale: add Toradex SMARC iMX95")
 Cc: stable@vger.kernel.org
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
-in our OE build the dtb files are built from an explicit list, so we did not
-notice ...
----
- arch/arm64/boot/dts/ti/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index fcfec8ea3165..e3ca60a30433 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -91,6 +91,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-yavia.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-ov5640-24mhz.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-dahlia.dtb
-@@ -98,6 +99,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-yavia.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-zinnia.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
+index a6c5398a81e3..4c102f213214 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
+@@ -839,6 +839,7 @@ &usdhc3 {
+ 	keep-power-in-suspend;
+ 	non-removable;
+ 	vmmc-supply = <&reg_wifi_en>;
++	status = "okay";
+ };
  
- # Common overlays for SK-AM62* family of boards
- dtb-$(CONFIG_ARCH_K3) += k3-am62x-sk-csi2-ov5640.dtbo
+ &scmi_bbm {
 -- 
 2.47.3
 
