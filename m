@@ -1,147 +1,140 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com [74.125.230.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C8E3AD52F
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4943518A93F
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373641; cv=none; b=kMGhtp3M6h38e4UmpZcZlKGZi8stzNFuJB1WiTZ3Fy0nRoWc9E7zMwt8TH7Tio/BNm8IT5YG3vRsHMFC/OdK7ntY/f1ZiZpupnJBfZRYZ8JYbCxc75JRdg0tA+8uYvJTUdrNPHJS7YjR3nOfYYAh6tVreqH1XfRej/zTLVPGkpw=
+	t=1789373816; cv=none; b=hkJPUmmEMI+NSztdXW+zo+qmtxbNY3JxPXMsJ8SHNyrhTz63FeMjasrFu9pVGhjpbVff5KYwU3C/2od4zActqh1d7dHqr7rA2o83T172w7iK/Czsysij43WvhMMXUS7eFzsCTqDK2SOPYXKpYIZsOeKMyPjNtMZad5GZvHYnx3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373641; c=relaxed/simple;
-	bh=1qAturnWzQariAYGkFzim5QAVMrBYTGsi09OCtKLOwg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fmWipe7tKgkCbcQxTBm8uWoON5qLyLUHjCkz/V5TvKysXugqn8D+sKhqH/vocFv56Vd2rsNtBsIIYJGk6qyg2tZDCsjG9pWuz/vMcgWlGBkCqRhiF9TBkbidVyLdvaQb3cc32xUwLbNppHNUZ5b4Hw7iOKTqeH/+7X6J5n0UOos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMw1TT8S; arc=none smtp.client-ip=74.125.229.205
+	s=arc-20240116; t=1789373816; c=relaxed/simple;
+	bh=DKZ5vtkPHXpunfwC1+ArGnyFJmrNPzcNvOvYpvbQ5MU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=phxWD9Pl1mcVe4Mkfa9dPyK1kOvSFUJ6954TDnLATCTn5SN2jtMRfYc6D6ZQ9kFC+R2kBnBU1X0z6RjWN/ebJKCCDwmo6r++Ep5LZDLthHFFPjqG6p2r95e25JM8ZHolPpx0TqMrvrnDgCuju+J0eS2Dvb9/aKc/dznVGgvZpp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IipA4YkY; arc=none smtp.client-ip=74.125.230.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMw1TT8S"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1651bso1371036e87.3
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:13:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IipA4YkY"
+Received: by mail-lr2-f11.google.com with SMTP id 38308e7fff4ca-3a49e9e7cd8so18428311fa.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:16:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373638; x=1789978438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=euFeN8L1qX1vuAtmRRhYoG7+Fn8wfxabvK2hQ7ks/1Q=;
-        b=EMw1TT8SJD+n0qCptlg151++uqb57r1DuvoJ9W3WOFL7wp1QFlV7+8b4+o+cr/IePo
-         kyxoh2KEncpSBhKClJGMj6LtwN/5v8sRb1xBRDrrPLlSTYYmv3R95ItMcGPowsEx8YNm
-         BynmZloiNnvWjf5f0HOnXf3dMwwpn0cqX/yuoDPP3PjMCdCoxzKmiww+7amMT1cYjxWD
-         +rlX3/Y+KFX635y322DTGnksSpsTqJO/KoSIHHHNU4G0cyuoWGz+d/I8fNOD+SVdp2yr
-         SN+dZuhyekAR/8Vf5vAHYZjRl8tGfwDEM8jP1V43UCHpdVKVHPge6n81lfXU0/QCferL
-         jeuQ==
+        d=gmail.com; s=20251104; t=1789373813; x=1789978613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
+        b=IipA4YkYsG7UQGsFqzP1MdhFLRizwi1v+r0xMRgkFrvJeoNFiyziWAVJ4QJtvNg4u7
+         bDi1XwsS8ErVudafjAWCdQZ/qpdZbAH2qBLiTib76wYf8TRnneWoWVHBIRU9Lnz6RIJy
+         CF4UdaD7bY8E3s0VEGxXbqsJwajXZYHAubuZCANdpjRBFEtGahdXr1Bd9PdJnWef1YbA
+         TEgBWKSX9PFPIp7Kf1h6gvcQfPX12+dL4K+Tg5E+SARvXh4f+dGiuOtnS2QavfuoLDDc
+         B64zgZlyDr0Y4qA97xD2sqOTeASzY4M5nZfhSC89ieDLqgYhnUu7q5H5wXVeLVl7SUc/
+         I4QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373638; x=1789978438;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789373813; x=1789978613;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=euFeN8L1qX1vuAtmRRhYoG7+Fn8wfxabvK2hQ7ks/1Q=;
-        b=YT7IaGptOMYCV6WQckxkZkij+pGtCC4ZHFnn3mPIle1ZEQ2dpL9uSqUxhSXOlEpJ6+
-         eyM8rngcpWvCa3RGc0UWbubprH6WgmiQFpWAbyYNLMNDRhfx5zal5i58aVn67ViH/g4d
-         TFtm8sPAXiLJ7LLnJhwDk+BY+C/q48JdGVXQIpYW68BMNpDZ/Yo1UeizsWHVPc6iCXSc
-         NX0BQPdbynFIwCdbnn6m/hLvqtex7eHmlmmh5QHqqjXK3/pNQbfl3RzCk3UwlaB7J+Um
-         UqgxEFnAUYMvF5qi0uH5WDRKhswlsxDMPsWU8i2sqoMaBm11DezmmBJjHKneUJCmUaD/
-         QATw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNaNNmlq85ksBtFXnoaa+kLsg43pSZPMlOmQevKJ0JlHJG7YstOPxUKHtUD+DPaHWMME6S2No=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0F9SaX6hE9H38Z2Ghafqa+wRev+Us3mNVVP2K9IaUFJk1AxZZ
-	bq77fzYmCTaKlHLMFBYIdu7IQGiqWsXJBwBswPSg1rqI/8W0Gpv91/zK
-X-Gm-Gg: AYBFou2TKso+inck2TkRgWAQG6rsX7LQzaKg8fW3Ev2sc8gKnR8xCM6ad45qB4+yUH2
-	vTIQi3XfDMubrgdoEb6LJL7BjJhxh+KmrofiEoQ9ShH1YFeW5n9s0aGz32cFAUtHaSuMQ303er8
-	oxzkwe6KaT57r1OE54kHzIw9gtDdhcdhJacYPFReOb2HWxFGnBm763ePamrie52LYxzmN9/bNFE
-	2eOANHNZmOIzo/H4s9FNQv7v6NNsZRQwAXFth5CkX1d26An9/SfCUquHhVe5g8jJ3boc4Spvz6t
-	8B9N8+nd7ibPzee75YbaINVcFn6D+LtVlv8pSuN67vsmSIEjYcxhFRRb61Xb66DCqQR3UtaUbkf
-	BPfOr0BT67PXDXvvk59lZoFPL278FeQZJQYXs8aJovnk7D1s14BsLN4o1Ut67SjDgFFLqk4Djsm
-	upDFVrdIJReO/JsXLEMnGlkI4hvYS1aU7KPxGN2PqvnSkZYal8EVmbsbqT/y4bSl2IKsrxNqv6i
-	1SKEuT9NWd40x9JGvGVycrasGmlRSc7eEF6xdKOTbdhikCsSL8CVX0=
-X-Received: by 2002:a05:6512:6181:b0:5b6:184c:7da8 with SMTP id 2adb3069b0e04-5b8ae6b8b5bmr368579e87.49.1789373637454;
-        Mon, 14 Sep 2026 01:13:57 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a8778sm2275500e87.2.2026.09.14.01.13.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:13:56 -0700 (PDT)
-Message-ID: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
-Date: Mon, 14 Sep 2026 11:13:54 +0300
+        bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
+        b=KldVddab/frJlNhXrqvGExqZYzTV7F3RmFqAIUFDWTGE0RNOyr1c/0TWXDSGAF2t/i
+         jTzAVFjuN5W9uoJK/8YbaB+R83fWi5rsJfeoFx0x2B4GrT0W3tgdTVUHXn6wWXLC5kNJ
+         I1VEYNmB47y75AEH82wGSAlogo0jlqHFdROwZs93tqB1/8MQMB0tbAzppfkcm7VYbywF
+         gJqUpBxiTyygk6JvyC9Sv5BmL/H9X0vClSKgkeu3zYdEsQFB2dOcX5PY6tU6xzX11Y/T
+         HmWSHDZPDd/I3Y8xFx0eMhUsDW6P/K2BOrU7A/WoReXkmqRosy1k6LRUeXc6tx5STgg6
+         hvtQ==
+X-Gm-Message-State: AFuF++mwv5lj4EQefgs37R1GwNRQw/z2lHYDnEoa7W5pDvKirHpwfwpu
+	RNadiX8S5S4Z95pJNWfErxV8MWrHX7Rc2T8+v1RpNNoEE3HIpNMtr1vAiKGsWiHdOSw=
+X-Gm-Gg: AYBFou1AJXGKihy+QgWbDl27hDJqJWpMNvGSxhFevSLV1r5EIBXn5Y4//EfkaEAcLZe
+	QJH8APtFtRSPxDPX2GGjgqq117Ilstr/9YRSVYsmyX0QdGVyHScUDlGh+LT0kdKIusdpwqcYJrR
+	7uC+uC9rNQMyFtmzXCMwYuAUzFgwHn6R2BKJPCFIANrKoHcXXBPrJUreLC7egUmxdjYSsRy7E/k
+	NoLjEhNxzyBoVZ19RtZKuVnsjQKcc+EIsRlYhXULmfvbmdY2tsFEImAXldMlzfi034P2Qw55ehd
+	5Mfzdf6fz7nOS13Dxj/V4Y9Gyvu5dyE/o3MNEDb1nEbyCYYH9hAIp+uumlw09X3bgWHTR+2lMEH
+	60UxKNq9xGjgxQ5GcoG0s3TnubRN29869cV4tN8t3F8eZxFmiM61KqvkfSksqFsFdaH58MLZDvw
+	fPnNARbVGUgnX6XFL71aiVI2LJJtGPBT9PMzXD7tumSmcMsy5p4bpOeZ/lGFLvmczhLo7kHwtrJ
+	EOLVJ6XdD0bU+mt/w==
+X-Received: by 2002:a05:6512:3052:b0:5b6:1a7c:fd94 with SMTP id 2adb3069b0e04-5b8ae6a92b4mr321128e87.58.1789373813016;
+        Mon, 14 Sep 2026 01:16:53 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047ab97sm2326043e87.76.2026.09.14.01.16.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 01:16:52 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Xinhui Pan <Xinhui.Pan@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sasha Levin <sashal@kernel.org>,
+	Wayne Lin <Wayne.Lin@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Fangzhi Zuo <Jerry.Zuo@amd.com>,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>,
+	Melissa Wen <mwen@igalia.com>,
+	Alex Hung <alex.hung@amd.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	George Zhang <george.zhang@amd.com>
+Subject: [PATCH 5.10/6.1] drm/amd/display: set new_stream to NULL after release
+Date: Mon, 14 Sep 2026 11:16:35 +0300
+Message-ID: <20260914081639.12512-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Herve Codina <herve.codina@bootlin.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kalle Niemi <kaleposti@gmail.com>
-References: <20260722142834.868902312@linuxfoundation.org>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260722142834.868902312@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/07/2026 17:31, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.97 release.
-> There are 1202 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
+From: WenTao Liang <vulab@iscas.ac.cn>
 
-Oh, time flies. :) Well, statement understood...
+commit 9fa26b9eed6195bf840f39ac183b9a6237548755 upstream.
 
-... Still, even though I know I am late - I am seeing our tests failing 
-for stable 6.12.x. Other stables as well as mainline releases and 
-linux-next are passing.
+In dm_update_crtc_state(), the skip_modeset path releases new_stream
+via dc_stream_release() but does not set the pointer to NULL.
 
-The actual failure seems identical to one discussed here:
-https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
+If a later error (e.g., color management failure) triggers the fail
+label, the error path calls dc_stream_release() again on the same
+dangling pointer, causing a double release and potential use-after-free.
 
-I believe above was fixed by Herve.
+Fix this by setting new_stream to NULL after the initial release.
 
-Bisecting stable points the:
+Fixes: 9b690ef3c704 ("drm/amd/display: Avoid full modeset when not required")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Reviewed-by: George Zhang <george.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-68236
 
-> Saravana Kannan <saravanak@google.com>
->      Revert "treewide: Fix probing of devices in DT overlays"
-which matches the issue in discussion.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Maybe the 6.12 stable is missing Herve's latest fix(es)?
-
-As explained in original report, the issue is seen with our out-of-tree 
-device-tree overlay stuff. I have no idea if there is any in-tree stuff 
-impacted but I guess the overlay stuff Geert has in Renesas tree might 
-also be impacted - if it was based on 6.12.
-
-I believe there is an "existing easy fix", in a form of a patch which is 
-already applied to other stables. Unfortunately I lost track of the 
-relevant fixes during the discussion so I can't point the relevant one.
-
-Herve, do you happen to know what might be missing?
-
-I suppose this would be worth fixing because 6.12 is expected to be 
-alive for a while.
-
-
-Ps. I am not sure if this mail thread is the right place to report 
-issues _after_ the stable is out? I'd appreciate a pointer if there is a 
-better place (for the future reports).
-
-Yours,
-	-- Matti
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bb5e3a6086f2..deaf98957cb7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9293,6 +9293,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	/* Release extra reference */
+ 	if (new_stream)
+ 		 dc_stream_release(new_stream);
++	new_stream = NULL;
+ 
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+2.53.0
 
-~~ When things go utterly wrong vim users can always type :help! ~~
