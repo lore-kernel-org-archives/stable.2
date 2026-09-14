@@ -1,162 +1,233 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5AA2D5926;
-	Mon, 14 Sep 2026 00:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789347557; cv=fail; b=OT/ABszOMQCVDjTHlv+9XmeDNeCkVT2VzxoPnTmcC9yjoiKZBL5aASBwI0MRXOu60KVHRld8rSjSgBsFEGKCg0qb35P5KrCfveVyBeTQA4NW1jFj65zAZY7f5FzyU6O1LNs85fWBVJjs7CsziUPgkBLuRBvY3vl+lfY+Ls3VMHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789347557; c=relaxed/simple;
-	bh=tWfP2theVb+FGi6Df/pDgswTIV8hFpXpyLeYFndKyFg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mrdFrP2HKDYSOimFaUi81bGwX0+WyIcHkXdLha3NwUOKfZ+ktyzYqhvVoz0yZzQw16EqrigF/ev1ijIKsUeoReLpdU1bj+J4v62OYC8e0g9aSy1aBJadj6wqRTxU7MB/ntA3N4YUrFpHxRzh9JKX+f1G6o4BkOoX4F1JzD8CyEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aULzuy+S; arc=fail smtp.client-ip=52.101.57.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7FE23392D
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789348185; cv=none; b=TuiL56WHu1YnkuaB3hVxuDoFnK5dQBj3lUlrG7YDlUVAVDYvUpzJvjUjdu+bvyXKe65PR13X4Id8Pmeo05lxF21FM6puA4qbjwL2LFi5Mfl0oQjXAKR2w+tREY0fYSYn7iVl6qeztYTCnmz3Pa33RNhPTv0WRMo4yIQ0uymJBmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789348185; c=relaxed/simple;
+	bh=n1xjytiEmtJb2DX0y2NLkgCfVqlqN7ZA1i7C3afS57I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dz5tp0zTNJMxDEgG4a8ByzbX9SB86ZTOsNjtvy49YypKBn8JrgRhaUzieJddPmIbvJHE9H87rDaWoR08py6hz+ErK5GXN5ik8ZiQCN7yAcDFi+RuO0uL893YTrV51aAaJM97jdtVGWH50EoORb0gtOFlHLg5FwinXx+BWg1EUAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCW7fxAz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aULzuy+S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UBpIL66UVbh76bPd3dKiKprjcHxfsbLmYqVSXjhRjg3MOk1izQM9h1oqxUekLy8CYCJUT42m9a8fI0EC2oqtubTh90pUPB0OqqcyZwXGOGr4a/eolwyFPQwmP1LRjrd8EnADVXzx47VuEo4vkvsDquMSCqw8I3ri9SyJlGo0d173GGSAD/QeMzz3JUTYTs1vFlyOhcByKHavgv1OE7wre6tIhz+qqFy3BuxgJ+xRFAvZQ2kiSlkh83cCLIfq+FU8E+ww35X7BNPxZJJTjX0Wv3XQaRaqDsCXwOSmmqrxD5WOxtJozx0NTQTWx3RBVWfQ5zNb0YBPK+2y49qxyDInjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
- b=LwwsW23p/b6Gpa13DreenzmJcZwUUTNfeGtikGkGdRm0D8EFtuXTLnY9bWImuLS8C8OdhTG1qlbPYQYMNlq4+P/K70dK5HkYwcySoNjRG8MA/esmSB9OkAXfNc2EZKA+BPZKsIcaoGBdkOt4fttzUUXknnLocuVhH+Kx0xLUFGP+Otn+Avckb4Ba4UNRVE2UI31q55ABivwgqoCbeCh6zL2iljDChn8/a/BUUCIyGtmSZeZbhrDpB+3A9NHbQHJ9ZQ4LOrlcZSl2OwYyKZb+eSDiLi1oEFY89+TPkoq0lC/8rw5h0zdJmtmoDx4EXO55ARAjMXOJ/vuBoZSz1137qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
- b=aULzuy+SKlnaoGXBUPkuVkXHVby3Y832I5M0LwMixdxyLMVQZ/ewSvu1NOvhgi2zij7N0PhGzBDDCadcaW5VH0JUk1KGmyR9J9r7JdEWubaeuF2qqeNoLR60YQaWhL34ZkA16ed2B5BPbuxiTJkym2x77GTv9p15fV/5m6MRAc0=
-Received: from BN0PR04CA0023.namprd04.prod.outlook.com (2603:10b6:408:ee::28)
- by DS7PR12MB5840.namprd12.prod.outlook.com (2603:10b6:8:7b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 00:57:55 +0000
-Received: from BN7PEPF00000094.namprd03.prod.outlook.com
- (2603:10b6:408:ee:cafe::2c) by BN0PR04CA0023.outlook.office365.com
- (2603:10b6:408:ee::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 00:57:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000094.mail.protection.outlook.com (10.167.245.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 00:57:54 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 13 Sep
- 2026 19:57:53 -0500
-From: Melody Wang <huibo.wang@amd.com>
-To: <x86@kernel.org>
-CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Melody Wang <huibo.wang@amd.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v2 1/8] x86/sev: Make SVSM calls preemption-safe
-Date: Mon, 14 Sep 2026 00:57:17 +0000
-Message-ID: <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1789345277.git.huibo.wang@amd.com>
-References: <cover.1789345277.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCW7fxAz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46C71F0089B
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:09:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789348183;
+	bh=4ndSNsr2rSjtlZsOTZb7f4dR7eAAlwrJ58BLG0WJdXg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TCW7fxAzHNuqev2i1C/rBmI02474P77pm4O27dKtfNyEpY+h+xwSsD+3isGzVVGne
+	 v1TnbmFegLg6HSkvEVYpldRPBLzMq+Si+r3RWu7iqusXjyzxKJrpvLY9FUzEIWw0f3
+	 o05VLC80aHNb+CnAdERGAdEQ2ZgGNNFrF+UmtiVOUZJxpXbwPnFCWuctKhC+x2Zs1z
+	 WaEVQL2qWaJ3WDAXvSVEUZL/xqBtR10jABOzBjgEyOxSJaNc4TIGHDjCQQCfCZZTHN
+	 OdB02P372dN8uzJNypD5mAjg3ORVDIF1vSqBJphBaNaqRP24ERNhtCQ71aMl51tERG
+	 tDqGLcCa4ujUw==
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93a00298c53so113275885a.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 18:09:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwauwbsaSHyOMK2YSOCEB/6e8aa88R7rHgumO6uGOR1V4+PXIIn+CgGM7MIZCWKf30lY+6z5lE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRSO8nRE4J6I4Gn5U7bdd2zUncqVdOD/4TBhQDgMvfH89Tpi+V
+	4Be7n2IMfULmPf9J35Y9ArkFL/QmVE6u7wp692QRHilvqkre/KidHBA4jZaHOYaO+5IXvxBYwt4
+	Cgn1Ph7NdNPdDzQ5NiwbYkfBrPZvSJ3c=
+X-Received: by 2002:a05:620a:2707:b0:939:bd4e:b2fe with SMTP id
+ af79cd13be357-93a29a12d15mr69398285a.40.1789348183191; Sun, 13 Sep 2026
+ 18:09:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|DS7PR12MB5840:EE_
-X-MS-Office365-Filtering-Correlation-Id: e73cbcd7-e9dc-445b-5479-08df11fb35a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	11LxPV/ULTNPzZfr4s3RYtt1C+4IKV95/+1zVSHUqfDWaSomQ9UaTLFD3IRfPdBS6dQX/kPrjDb8pb/GhA5GDs/sU8MA6x9tFAepRsGtA+pKNCYfclj/IIYkO4/a52aMqVcKD4CYqJD+IbFR3+GClilHc7+qBOQ3INOevw/Q7hCw7/3J2s0qXiBS7sVBWc9cI3Hj0zmyV0NchwkKddoFvqZH06wArqcHlJkas6AKqaY1vRidmyYWZ1Thqxq/QRwfQQLJF7qzt+lSCx4KRmOdqIyfr4xz/Ejq3UwcJkcpm9nRErVGDV+jpgvdKDlldyPkJ5P+rmY/HUH/U68UNxsIT/as4GnpbZQMnksiZ/Ti3urTEGEwyyn7YJOHu7jI/QGl05/mi/WMq+3AqpU2pnuLjJBJLRzB1LfZgobkOv3gEV+xmYYUEAvr/icLFFsAL8PNis+7r1qjKxpJIm8FeBcBgF6E+/sBdFXhN0iC+R5ctV37Vx6CFnbq2v3M4nvzvJ0l7yRWykOcKjwusJ1gf9wwxLkshNxJxpKvnWqGXC6InKhclHqDnYk/DH5pUo16g7Zd9fZ7Cr0DfbPlTEssFRsjlPDf/iAnqPIj5Nwj2ErmLtwcMh5zAMZhsZbvyEK5aeMsfxwvVsROMQYlpVLzJ4Cn/srPZNCqOfo0t5quIdFDTOI9SeIEYyzr5LuNtsnhLtZuO37gGMVQcIZ73MqvMsEcbQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	koTFeN3XDkM7+AQBWQPai7VbIcsuXF/pk26ePptYgFtxKf8stWZkXUUvIkGBeGcLP/t/UV8c3dkTh9oyTyxe2lIZq7/pYtMhFs6ftmM0xYmuMTO6P90hAK5Y9jWpqE1v1JQ8CsOQhtRY+zcJ1Yx6JMU9twM6nhVlhFkYBM3v9hRLNZ/VBFS8zsVheJBx6w3HDrg0FUnx4T39oGJu7V7B17IQwslIGnfafMiotjIn8x2ngLP5WZPIoYI43LlQ7gInNDoe4scD3DKM5TrFREUrZDfLs79SYNNqZFRkJlJg2m9Nl5vA6C2jTAFVpI6QE+171Rk3Fq7CNvnQc3G8EhLbE/+4r/1w7S4ye1nqDEPTAqH4VYujJzyWq7wcsOmYGNtd4e7BQT3JBNlacy6dt9PK3McQF+2ZLhLXAlUcpj+Cer3G4Hw3QtAeK1dmLUaxlHdf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 00:57:54.3765
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e73cbcd7-e9dc-445b-5479-08df11fb35a2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF00000094.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5840
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+ <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu> <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
+ <1e5118a5-6b61-49d0-85e1-825e22059241@columbia.edu> <CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-cHaDWLkxaQ@mail.gmail.com>
+ <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
+In-Reply-To: <65a2c7df-0d2e-46de-9580-01e9c35a7e32@columbia.edu>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 14 Sep 2026 09:09:32 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+X-Gm-Features: AcwNN1UFRWFTcqC6hN8ctMIRvI1_rCC0AM5x7mAixBPPm5RLTzvAhNItNpawqdI
+Message-ID: <CAGsJ_4zS+UehT4wuTuTVjK3s3mhzp+dku8M-Of9cF=CN82aRow@mail.gmail.com>
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Wenjie Qi <qwjhust@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	akpm@linux-foundation.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
+	trond.myklebust@hammerspace.com, jaegeuk@kernel.org, chao@kernel.org, 
+	qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two functions in the the SVSM vTPM guest implementation do not disable
-preemption when fetching the SVSM Calling Area Address (CAA).
+On Mon, Sep 14, 2026 at 7:34=E2=80=AFAM Tal Zussman <tz2294@columbia.edu> w=
+rote:
+>
+> On 9/13/26 6:51 PM, Barry Song wrote:
+> > On Fri, Sep 4, 2026 at 6:36=E2=80=AFAM Tal Zussman <tz2294@columbia.edu=
+> wrote:
+> >>
+> >> On 9/4/26 12:28 AM, Barry Song wrote:
+> >> > On Sun, Aug 30, 2026 at 7:59=E2=80=AFPM Tal Zussman <tz2294@columbia=
+.edu> wrote:
+> >> >>
+> >> >> On 8/30/26 6:25 AM, Wenjie Qi wrote:
+> >> >> > From: Wenjie Qi <qiwenjie@xiaomi.com>
+> >> >> >
+> >> >> > Fault-around can map ready dropbehind folios without going throug=
+h the
+> >> >> > normal page-cache lookup that clears dropbehind. A mapping repres=
+ents a
+> >> >> > competing cached user, but writeback completion can currently unm=
+ap that
+> >> >> > folio. A later mmap access must then fault it back in.
+> >> >> >
+> >> >> > Retain mapped folios instead. For a mapped folio,
+> >> >> > folio_unmap_invalidate() can call unmap_mapping_folio(), which ta=
+kes
+> >> >> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this =
+path when
+> >> >> > folio_end_dropbehind() runs in non-preemptible task context.
+> >> >> >
+> >> >> > Unmapped dropbehind folios continue through the existing invalida=
+tion path.
+> >> >> >
+> >> >> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages w=
+hen writeback completes")
+> >> >> > Cc: stable@vger.kernel.org
+> >> >> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> >> >> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> >> >> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> >> >> > ---
+> >> >> > The mapped-plus-dropbehind state was reproduced in QEMU. The patc=
+hed
+> >> >> > kernel retained the mapped folio and continued to evict the unmap=
+ped
+> >> >> > dontcache folio. I did not reproduce the sleeping-in-atomic warni=
+ng and
+> >> >> > am not aware of an existing report.
+> >> >> >
+> >> >>
+> >> >> I was able to trigger the sleeping-while-atomic BUG on current main=
+line with
+> >> >> some help from Claude. The reproducer itself is straightforward eno=
+ugh, but the
+> >> >> configuration was a little finicky. The atomic context comes from u=
+sing
+> >> >> threadirqs so that virtblk_done() completes requests from the irq t=
+hread under
+> >> >> local_bh_disable() and the vq spinlock with irqs off, so in_task() =
+is true but
+> >> >> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so comp=
+letion stays
+> >> >> in the irq thread rather than softirq) and ext4 -o dioread_lock (so=
+ end_io runs
+> >> >> inline instead of on a workqueue). With v4 applied the bug is gone,=
+ so:
+> >> >>
+> >> >
+> >> > Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
+> >> > patch, we are no longer going to sleep for dropbehind in `filemap.c`=
+,
+> >> > do we still need all the complex logic in the block device and file
+> >> > system layers to move dropbehind to a workqueue task context?
+> >> >
+> >>
+> >> Hi Barry,
+> >>
+> >> Let me clarify. Wenjie's patch prevents sleeping in a very specific ca=
+se.
+> >> The existing in_task() check covered most other cases, in that it just
+> >> doesn't do dropbehind invalidation if we're not executing in task cont=
+ext
+> >> (for example, block device writeback completing in interrupt context).
+> >>
+> >> However, dropping the invalidation defeats the point of dropbehind, as=
+ it
+> >> leaves the pages in the page cache. If we get rid of the task-context
+> >> deferral mechanism, we wouldn't sleep, but we also wouldn't invalidate=
+.
+> >> Wenjie's change is largely unrelated to this.
+> >
+> > Hi Tal,
+> >
+> > Thanks for the clarification. However, I=E2=80=99m still not convinced.
+> >
+> > If `unmap_mapping_folio()` is the only place where we might
+> > sleep =E2=80=94 where we might take `mapping->i_mmap_rwsem` through
+> > `i_mmap_lock_read()`, as Wenjian pointed out in [1] =E2=80=94 we have n=
+ow
+> > prevented that from happening with `if (!folio_mapped(folio))`.
+> >
+> > So no mapped folio should call `folio_unmap_invalidate()`:
+> >
+> > static void filemap_end_dropbehind(struct folio *folio)
+> > {
+> >          struct address_space *mapping =3D folio->mapping;
+> >
+> >          VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+> >
+> >          if (folio_test_writeback(folio) || folio_test_dirty(folio))
+> >                  return;
+> >          if (!folio_test_clear_dropbehind(folio))
+> >                  return;
+> >          if (mapping && !folio_mapped(folio))
+> >                  folio_unmap_invalidate(mapping, folio, 0);
+> > }
+> >
+> > Why do we still need the `in_task()` check in
+> > `folio_end_dropbehind()`?
+> >
+> > void folio_end_dropbehind(struct folio *folio)
+> > {
+> >          if (!folio_test_dropbehind(folio))
+> >                  return;
+> >
+> >          /*
+> >           * Hitting !in_task() should not happen off RWF_DONTCACHE writ=
+eback,
+> >           * but can happen if normal writeback just happens to find dir=
+ty folios
+> >           * that were created as part of uncached writeback, and that w=
+riteback
+> >           * would otherwise not need non-IRQ handling. Just skip the
+> >           * invalidation in that case.
+> >           */
+> >          if (in_task() && folio_trylock(folio)) {
+> >                  filemap_end_dropbehind(folio);
+> >                  folio_unlock(folio);
+> >          }
+> > }
+> >
+> > Could any other operation in `folio_unmap_invalidate()` sleep for
+> > unmapped folios? Otherwise, it seems we don't need `in_task()` at
+> > all?
+> >
+>
+> So I think you're right about the sleeping aspect, but the problem is
+> that this still gets called from interrupt context. folio_unmap_invalidat=
+e()
+> grabs a number of locks in a non-IRQ safe way. Just at a glance, the
+> spin_lock(&mapping->host->i_lock) call could lead to a deadlock, since ot=
+her
+> paths don't call it with interrupts disabled. And xa_unlock_irq() enables
+> interrupts unconditionally, which would be incorrect from hardirq I belie=
+ve.
 
-The SVSM CAA is a per-CPU structure. When a thread is preempted and
-migrated to a different CPU after fetching the per-CPU CAA, the SVSM
-call will execute on the new CPU with the original CPU's CAA. Which is
-wrong.
+That makes sense to me. If that's the case, it seems the
+comment above
 
-Move the CAA fetching operation inside svsm_perform_call_protocol()
-which disables interrupts around the SVSM call and thus runs
-preemption-safe.
+`if (in_task() && folio_trylock(folio))`
 
-Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
-Cc: stable@vger.kernel.org
----
- arch/x86/coco/sev/svsm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+is no longer relevant at all.
 
-diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
-index 916d62cd17dc..2d493d55ff2e 100644
---- a/arch/x86/coco/sev/svsm.c
-+++ b/arch/x86/coco/sev/svsm.c
-@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
- 
- 	flags = native_local_irq_save();
- 
-+	/*
-+	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
-+	 * 'caa' if the task is preempted or migrated to another CPU after it
-+	 * is fetched, always fetch 'caa' and then issue the SVSM call with
-+	 * interrupts disabled. This ensures the correct 'caa' is used.
-+	 */
-+	call->caa = svsm_get_caa();
-+
- 	ghcb = __sev_get_ghcb(&state);
- 
- 	do {
-@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
- {
- 	struct svsm_call call = {};
- 
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
- 	call.rcx = __pa(buffer);
- 
-@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
- 	if (!snp_vmpl)
- 		return false;
- 
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
- 
- 	if (svsm_perform_call_protocol(&call))
--- 
-2.43.0
+BTW, if we use `spin_lock_irqsave(&mapping->host->i_lock)` in
+other places and also restore IRQs when unlocking the xarray, then
+we shouldn't need the `in_task()` check anymore, should we?
 
+Best Regards
+Barry
