@@ -1,120 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CE441DDEA;
-	Mon, 14 Sep 2026 09:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [207.226.244.123])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 378BC41D22E;
+	Mon, 14 Sep 2026 09:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.226.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377550; cv=none; b=M+kyhbu4I9KCDIH0GhHtDlgfULd670iwIIcZhXK0re7vB+FzWUAmWMPyQPY9otR3Vl3Vq+6sQI+lm4E5RPXLxS7K20LxIfWtaAeZlDgNfUK/MztJcu7RrtOgOwSuVuepaRx0inOaMCmVVlbBL3yZpne/TSefHG6hq7OfoOjoX3g=
+	t=1789377610; cv=none; b=SMiFwzG9q5jh9nA72vHC1ynSBRTm6U06cAo2BUaUDPa7KmYF6ymsUu5xg/WTQ3Sd1/CfCFTDl5HtbGiReImct2eJ7B1yrGdoFSsy/kIfKk2jd7vV/QWnHGMgzNat987m61jZNwInSeJ+d3wkpMzgacWj9W7Tw0gLJPYHz4HyEP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377550; c=relaxed/simple;
-	bh=zgHNssUAU7P6eNdP3GzHYgOH+o0aGipgW2wMtrhfn4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ebaoc+5XXJMnBhRtw6dCp/grRQHvOEIuZFJ5EedyoSN2oJgFdZL8tBeUC+WvUuu9fjxCB3EMrCKf07gc+v8AqI+yPSYEmKqQmAMbXVyt6/3CUkDgmFASYPF6QnoJps0kfbHn/7X4m+hPvQTuDBAIQY8rZk0IXXrzO2h3KsHWSHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vbY2Uou8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vbY2Uou8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A771F000FF;
-	Mon, 14 Sep 2026 09:19:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789377546;
-	bh=yX8V2mP8O1NdNarEn3J4AGxExpZl1EtOkA4r2T5UKqs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=vbY2Uou8n6fuwvRotBVqzMQvokDZhXQIutK6quBbvDFUWmUCgu/WmAuyzBOdBLVga
-	 aArnxdmJWym2uICWFr63OqbVL/Bn4AVtOL6UJhUY4U4cpZLPaYVeWvbLzaNimMtzM+
-	 3lY1Hq9a1YmPLs0R6dX8hh7htlcq02F9seLh5ODA=
-Date: Mon, 14 Sep 2026 11:18:57 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Benjamin Boortz <bennib@mailbox.org>
-Cc: Thorsten Leemhuis <linux@leemhuis.info>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com,
-	Linux kernel regressions list <regressions@lists.linux.dev>
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-Message-ID: <2026091443-silenced-maximum-c398@gregkh>
-References: <20260912065648.999753832@linuxfoundation.org>
- <5babfab4-ebf7-42b8-88f2-ac2f5b6b2d7f@leemhuis.info>
- <aqabqJHW_tHhQn3v@bb-82jq>
+	s=arc-20240116; t=1789377610; c=relaxed/simple;
+	bh=Dbt/u2Th7DInX9UOvRT729AxlZ4woY/FSOLDAOOROOQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CutSNQd4fbqSWbzicedjV98+MQ8GmGU3kPJC/mbaG31vTkTQzrFkbR2GWApRHDUK+1LiZ2zdDHN4KBbR8VCnDk20+3sI9QDXiz6K+K6zC9I5jcEtutDenMpBR1xe64SymlHkhiIVLG801nwlpsYgddsr6ijEp2lPXoJh1ctCn2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=207.226.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
+X-CSE-ConnectionGUID: xABupc/+Qz+KpllhNGSJOg==
+X-CSE-MsgGUID: vMlld0GyQ1qLoyD+FDr+5g==
+X-IronPort-AV: E=Sophos;i="6.27,102,1786982400"; 
+   d="scan'208";a="188847208"
+From: Shaobo Huang <huangshaobo3@xiaomi.com>
+To: <ljs@kernel.org>
+CC: <akpm@linux-foundation.org>, <bsegall@google.com>, <david@kernel.org>,
+	<dietmar.eggemann@arm.com>, <huangshaobo3@xiaomi.com>,
+	<juri.lelli@redhat.com>, <kees@kernel.org>, <kprateek.nayak@amd.com>,
+	<liam@infradead.org>, <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<mgorman@suse.de>, <mhocko@suse.com>, <mingo@redhat.com>,
+	<peterz@infradead.org>, <rostedt@goodmis.org>, <rppt@kernel.org>,
+	<ryabinin.a.a@gmail.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<vbabka@kernel.org>, <vincent.guittot@linaro.org>, <vschneid@redhat.com>
+Subject: Re: [PATCH] fork: reset pointer tag of vmapped thread stack before vfree
+Date: Mon, 14 Sep 2026 17:19:56 +0800
+Message-ID: <20260914091956.100424-1-huangshaobo3@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <anSVlVpUXrA8ra_z@lucifer>
+References: <anSVlVpUXrA8ra_z@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="yes"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqabqJHW_tHhQn3v@bb-82jq>
+X-ClientProxiedBy: BJ-MBX13.mioffice.cn (10.237.8.133) To BJ-MBX01.mioffice.cn
+ (10.237.8.121)
 
-On Sun, Sep 13, 2026 at 02:54:39PM +0200, Benjamin Boortz wrote:
-> On Sat, Sep 12, 2026 at 12:18:56PM +0200, Thorsten Leemhuis wrote:
-> 
-> > On 9/12/26 08:29, Greg Kroah-Hartman wrote:
-> > > This is the start of the stable review cycle for the 7.2.6 release.
-> > > There are 1815 patches in this series, all will be posted as a response
-> > > to this one.  If anyone has any issues with these being applied, please
-> > > let me know.
-> > > [...]
-> > 
-> > My builds failed while compiling perf:
-> > 
-> > > > ui/browsers/hists.c: In function ‘evsel__hists_browse’:
-> > > > ui/browsers/hists.c:3191:41: error: ‘hotkey_act’ undeclared (first use in this function)
-> > > >  3191 |                                 memset(&hotkey_act, 0, sizeof(hotkey_act));
-> > > >       |                                         ^~~~~~~~~~
-> > > > ui/browsers/hists.c:3191:41: note: each undeclared identifier is reported only once for each function it appears in
-> > Reverting "perf ui hists: In report UI ensure thread is set with
-> > reference counting" fixes this. Haven't tried, but maybe including
-> > bd86119c3ee6ed ("perf ui hists: Fix dso_filter reference leak and exit
-> > zoom cleanup") will fix this, too.
-> > 
-> > That got me a little further, but then I ran into this:
-> > 
-> > > > tools/perf/util/python.c: In function ‘pyrf_evsel__open’:
-> > > > tools/perf/util/python.c:1104:9: error: implicit declaration of function ‘CHECK_INITIALIZED’ [-Wimplicit-function-declaration]
-> > > >  1104 |         CHECK_INITIALIZED(evsel, "evsel");
-> > > >       |         ^~~~~~~~~~~~~~~~~
-> > > > tools/perf/util/python.c: In function ‘pyrf_evsel__set_tracking’:
-> > > > tools/perf/util/python.c:1295:9: error: implicit declaration of function ‘CHECK_INITIALIZED_INT’ [-Wimplicit-function-declaration]
-> > > >  1295 |         CHECK_INITIALIZED_INT(pevsel->evsel, "evsel");
-> > > >       |         ^~~~~~~~~~~~~~~~~~~~~
-> > 
-> > Only looked briefly, but didn't spot a simple way to work around that
-> > through a simple revert or two (but it's quite likely I missed something).
-> > 
-> > Ciao, Thorsten
-> > 
-> 
-> 
-> build-tested and reproduced the 2 issues on x86_64 with:
-> 
->   make -j$(nproc) -C ./tools/perf O=/tmp/perf-build
-> 
-> observed errors:
-> 
-> 1) tools/perf/ui/browsers/hists.c:3191:41: error: 'hotkey_act' undeclared
-> 
-> 2ec3b9858725 — "perf hists browser: Increase MAX_OPTIONS to prevent stack buffer overflow"
->   prerequisite: bd86119c3ee6 expects MAX_OPTIONS=32; stable-rc still has 16
->   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2ec3b985872594031cc1000b830344de5c26633d
-> bd86119c3ee6 — declares hotkey_act, fixes dso_filter reference leak
->   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bd86119c3ee6ed7b8fc9be8298fe49f1a5355a46
-> 
-> 
-> 2) tools/perf/util/python.c:1104:9: error: implicit declaration of function 'CHECK_INITIALIZED'
-> 
-> 01fa2d416ace — defines CHECK_INITIALIZED
->   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=01fa2d416aceab51f97ec2769e8da9971a605eeb
-> 
-> 
-> With the 3 patches applied, perf build successful.
+On Thu, Aug 06, 2026 at 03:13:31PM +0100, Lorenzo Stoakes (ARM) wrote:
+> This looks AI-generated but I see no Assisted-by tag, please follow kernel
+> procedure on this please.
+>
+> https://docs.kernel.org/process/coding-assistants.html
+>
+> None of your 4 patches pre-dating the slopularity look anything like this.
+>
+> Also please use a real name.
 
-Thanks for that, it fixes it for me too, I'll go queue these up now.
+Thanks for the review.  v2 addresses all of these:
 
-greg k-h
+  - Added Assisted-by: tag per Documentation/process/coding-assistants.rst.
+  - Used my real name (Shaobo Huang).
+  - Dropped the verbose comment; the fix is a one-liner.
+  - Fixed the Fixes: tag (see below).
+  - Trimmed the commit message; removed the full KASAN dump.
+
+> Output from a repro that you don't share, brilliant.
+
+Fair — should have included it from the start.  Here it is:
+
+  Prerequisites:
+    - CONFIG_KASAN_SW_TAGS + CONFIG_KASAN_STACK + CONFIG_VMAP_STACK
+    - /sys/power/mem_sleep set to "deep" (s2idle does not enter
+      cpu_suspend and will not trigger the bug)
+    - A wake source (RTC alarm, power button, etc.)
+
+  Method 1 (deterministic, single command):
+
+    # rtcwake -m mem -s 3
+
+    rtcwake writes "mem" to /sys/power/state, driving suspend-to-RAM.
+    At _cpu_resume, kasan_unpoison_task_stack_below() rewrites the
+    rtcwake process's kernel stack shadow [base, sp] to
+    KASAN_TAG_KERNEL (0xff).  On resume, rtcwake exits; its thread
+    stack is freed via RCU callback (thread_stack_free_rcu -> vfree
+    -> vfree_atomic), and the llist_add write trips KASAN.
+
+  Method 2 (how the original report was captured):
+
+    1. Trigger system suspend (screen off, or `echo mem >
+       /sys/power/state` with an RTC alarm) -- the suspend-driving
+       task's stack gets 0xff'd on resume.
+    2. Trigger reboot/shutdown (`reboot bootloader`) -- during
+       shutdown, init kills services; the suspend-driving thread
+       exits, its stack is RCU-freed, and vfree_atomic trips.
+
+  The original KASAN report in v1 was from method 2 on a Xiaomi
+  Xring_o1 (arm64, 4K pages, SW_TAGS).
+
+> A 2016 Fixes for some KASAN state bug? Really?
+
+Fixed in v2: Fixes: 9f7d416c3612 ("kprobes: Unpoison stack in jprobe_return()
+for KASAN") -- the commit that introduced kasan_unpoison_task_stack_below(),
+adding both the function definition and the _cpu_resume() call site that
+writes 0xff to the stack shadow on every CPU resume.  The v1's Fixes
+(0f110a9b956c, the vfree_atomic commit) was incorrect: vfree_atomic is
+fine; the issue is the shadow/pointer tag divergence introduced by
+kasan_unpoison_task_stack_below().
+
+> And of course Cc: stable...
+
+Cc: stable is retained in v2: the fix is one line, and the bug affects
+any stable kernel with SW_TAGS + KASAN_STACK + VMAP_STACK where a
+non-idle task drives system suspend and later exits.  Happy to drop it
+if you'd prefer the stable team evaluate separately.
+
+> Nobody in their right mind does a comment like this for a kasan_reset_tag().
+
+Agreed -- dropped in v2.
+
+v2 will follow shortly.
+
+Cheers,
+Shaobo
