@@ -1,119 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11773B6C1C;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C58C3BB9FE;
+	Mon, 14 Sep 2026 06:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365931; cv=none; b=uelUM5VMYUv3yM+G0j1eKSlk+oI0xfuBX1GVSmhJ3clTSr+RPpV1uSpO76PfJMEKlVjNpX/nDPjL57ws5Gdj+/uxTNVaUvMiwRqzdkkmxYaX7pFJA0uuH/xuoJtgbhH87FZ5bAsHzL6GLYeEIauLHw+2Gbq26Qp2nQVBbpGzj8o=
+	t=1789366033; cv=none; b=ka5EiOyzvMvOECADYDDTsD7CE28rNMbOSWFJE7nfFtHxTuhrHG+EgGJxTB7ihQL1do5+JyFJLrk5JykIHAUdBtbzHF1ZyPfhh6cD5BNCuBCuYG5M/qGTMGuEWJNz0Scd0fxcLP5PN9em23Z1SCuH1tX2O8OTbt69Ee1V8pH4TAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365931; c=relaxed/simple;
-	bh=koHbA//Hd+oUKb54XBErlAxnAOsqGyqZY8Sh/PB5Tdg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y7Jsaq9PediICep6YXAzE9DoTAe/Y3buwYT/y1G/yrJojPgI65cwkgLa6oHZG3o1ZiZ4kZ0XFWuBSczEYytPqkvRUWGLMvkLUlQBYyr+YI43FNWZWSDWSSYfSK+2UdfZjU0RnfzfcNggf8Pf5Z+mn3Z2areDGx8sRAu1IjDZRvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO+OA0+2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789366033; c=relaxed/simple;
+	bh=UDCrdDr2Z4QRtCb9eXSARB5kp4OgIYJ+nZD3APdV9xY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=udpZesIVRAri9gbb4GDVilZFMwLTpJUs3BgdNB6JxfOGu7+Y6GUzREiA72kwQ96XMSaxX/CZvOe09q63OCM7460qYD49Y1O5Z0nn2yLe/Xbw76WKDmhmyA6dwR7m9Z4koJZ5HQ57+CtiiccogZMnRpQW+fWkDeT0iFV/+/EdRk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LykWJtMa; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO+OA0+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CC20C4AF09;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789365930;
-	bh=koHbA//Hd+oUKb54XBErlAxnAOsqGyqZY8Sh/PB5Tdg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PO+OA0+2YAXDnl9S4oOMmfvGmP9rny4vxyBg29gGjC5Pn2le9YBX5Z7/NfeaNOT9G
-	 4aF9DVGFGo3PrySO81q19JaO6ZcbmXInswFif5/3AE0gkmNdiGr3iR02d2IfB8vDgw
-	 9oh6hn45Dw3iusV0gmOLMZFvKOESvXngLTHiTPjcusMLrTwM1z4F9AqP5CXCY1gvvk
-	 o34vKk+uvZUV41Ey9pgbp979ZEFS0Hyn8VSyBsRq9aaaNuMb7sBgQjjOXBc/PxKF04
-	 JOmTNc2Z10nVqKxUfgm63Eqv+2DJ3etJdYNG8TGIgfD3NDvs53pGZt13/SrfHMdtjs
-	 z3Wh2T7S8tKOA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BA8AC88E6A;
-	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
-From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Mon, 14 Sep 2026 08:05:02 +0200
-Subject: [PATCH v2 2/3] usb: typec: mux: ps883x: add a delay after writing
- config regs
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LykWJtMa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789366030; x=1820902030;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UDCrdDr2Z4QRtCb9eXSARB5kp4OgIYJ+nZD3APdV9xY=;
+  b=LykWJtMajWRnyGxkqZNnLZvtU9BMbCdQobSH23k0CrkIxyDtOTAtaVyb
+   M7A/LFOv/iqkHr3MutBZzF+3rt5YWVR21LWu9cIH3ith+CpRSYDhgIJu1
+   xthHr3Y6CNmL6NRH4CEW963F3j7JHxjjGZfrcZi2hTz+VDirlG36niDsq
+   jRvB0mCvSnSIxEN5a0GB9N+sFM7MKbbeoJV1UXYudujFmH20MQscMyx+4
+   sXJXyRCemBt9gCTPGCPHcyK669j3LPGE93uctR7ykE0yBpU6XpGegOrvS
+   wzWbJ/BmMezxa421YSM719JkEjrBgccQ4+5YE5V8gxM3rAo8XLcbPwSJg
+   g==;
+X-CSE-ConnectionGUID: gOK/7/L7T4+6WktoAwHeeg==
+X-CSE-MsgGUID: rQ40SIrvQPW9eUgtLJAAcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89729536"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89729536"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 23:07:07 -0700
+X-CSE-ConnectionGUID: Yvj2c5dBQ7elpb9hUbickQ==
+X-CSE-MsgGUID: C+vBA5QDS76Os5swCQEy8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="270749630"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 13 Sep 2026 23:07:05 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5zqH-000000002X1-3qQx;
+	Mon, 14 Sep 2026 06:07:01 +0000
+Date: Mon, 14 Sep 2026 14:06:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dominik Karol =?utf-8?Q?Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+Message-ID: <202609141321.qGDHzSqJ-lkp@intel.com>
+References: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ps883x-disable-usb4-v2-2-523c32b4e4d7@oldschoolsolutions.biz>
-References: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
-In-Reply-To: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
- "Dr. David Alan Gilbert" <dave@treblig.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789365928; l=1571;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=D8avNZp7mg36tQCbaHtlJAlu07OwE/RGBF2BKM3mSKA=;
- b=ykLpnS2xe9wbd3cF9M/OrCl8S8CJDgPNPAjC/pE47LWBVSQ2IbnFEFHljr37A5Y1aqSrqUsCk
- R7MAKqOmctTAaDkeiV0Jp+pwabScLgh/rNUIlMs7J7vjx/Ysi7GALBJ
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reply-To: jens.glathe@oldschoolsolutions.biz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Hi Guangshuo,
 
-The connection-status registers need time to propagate through the
-analog front-end (PLLs, lane training) after they are written. A 30 ms
-delay after ps883x_configure() brings DisplayPort Alt Mode hotplug on
-the Lenovo 40B0 to a reliable success rate.
+kernel test robot noticed the following build errors:
 
-Tested with T14s G6 and IdeaCentre Mini with the 40B0 dock on the HDMI
-port with a Type-C host cable. Qualcomm firmware that programs this
-retimer from an MCU uses a similar post-config delay.
+[auto build test ERROR on kees/for-next/kspp]
+[also build test ERROR on linus/master kees/for-next/pstore v7.3-rc3 next-20260911]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Assisted-by: Grok(xAI):4.6
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
----
- drivers/usb/typec/mux/ps883x.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/gpib-tnt4882-fix-memory-leak-on-probe-failure/20260913-143603
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/kspp
+patch link:    https://lore.kernel.org/r/20260913063603.1443403-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+config: x86_64-randconfig-r133-20260914 (https://download.01.org/0day-ci/archive/20260914/202609141321.qGDHzSqJ-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609141321.qGDHzSqJ-lkp@intel.com/reproduce)
 
-diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-index c185d8897e3a4..e93e958065f6f 100644
---- a/drivers/usb/typec/mux/ps883x.c
-+++ b/drivers/usb/typec/mux/ps883x.c
-@@ -7,6 +7,7 @@
- 
- #include <drm/bridge/aux-bridge.h>
- #include <linux/clk.h>
-+#include <linux/delay.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/kernel.h>
-@@ -184,6 +185,15 @@ static int ps883x_configure(struct ps883x_retimer *retimer, int cfg0,
- 		return ret;
- 	}
- 
-+	/*
-+	 * The retimer needs time after the connection-status registers are
-+	 * written for the analog front-end (PLLs, lane training) to settle.
-+	 * Without this, DisplayPort Alt Mode hotplug is unreliable on some
-+	 * docks (e.g. Lenovo 40B0). Qualcomm firmware on platforms that
-+	 * program this chip from an MCU uses a similar post-config delay.
-+	 */
-+	fsleep(30000);
-+
- 	return 0;
- }
- 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609141321.qGDHzSqJ-lkp@intel.com/
 
--- 
-2.53.0
+All errors (new ones prefixed by >>):
+
+   drivers/gpib/tnt4882/tnt4882_gpib.c: In function 'ni_gpib_probe':
+>> drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: error: 'ret' undeclared (first use in this function); did you mean 'net'?
+    1588 |         ret = ni_gpib_config(link);
+         |         ^~~
+         |         net
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1595:1: warning: control reaches end of non-void function [-Wreturn-type]
+    1595 | }
+         | ^
 
 
+vim +1588 drivers/gpib/tnt4882/tnt4882_gpib.c
+
+  1557	
+  1558	/*
+  1559	 * ni_gpib_probe() creates an "instance" of the driver, allocating
+  1560	 * local data structures for one device.  The device is registered
+  1561	 * with Card Services.
+  1562	 */
+  1563	
+  1564	static int ni_gpib_probe(struct pcmcia_device *link)
+  1565	{
+  1566		struct local_info_t *info;
+  1567		//struct struct gpib_board *dev;
+  1568	
+  1569		/* Allocate space for private device-specific data */
+  1570		info = kzalloc_obj(*info);
+  1571		if (!info)
+  1572			return -ENOMEM;
+  1573	
+  1574		info->p_dev = link;
+  1575		link->priv = info;
+  1576	
+  1577		/*
+  1578		 * General socket configuration defaults can go here.  In this
+  1579		 * client, we assume very little, and rely on the CIS for almost
+  1580		 * everything.  In most clients, many details (i.e., number, sizes,
+  1581		 * and attributes of IO windows) are fixed by the nature of the
+  1582		 * device, and can be hard-wired here.
+  1583		 */
+  1584		link->config_flags = CONF_ENABLE_IRQ | CONF_AUTO_SET_IO;
+  1585	
+  1586		/* Register with Card Services */
+  1587		curr_dev = link;
+> 1588		ret = ni_gpib_config(link);
+  1589		if (ret) {
+  1590			kfree(info);
+  1591			link->priv = NULL;
+  1592		}
+  1593	
+  1594		return ret;
+  1595	}
+  1596	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
