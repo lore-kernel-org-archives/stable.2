@@ -1,201 +1,153 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0179E466B77
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 13:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F1344A3FE
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 13:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393129; cv=none; b=KJVpA0pDFgXW9rQfGRrh+/6QlF1W16ZJ8gMYY2b1MdOlYpkoSlaYZ8DBOq6n9oaxTA/5/eQ4HoIo0k+eXoK0+8IHVVQ1a8F5PmxN1KbNRrFBtKn5W2xqywkGpHEkdpKHqPeVw2Ug+L6LWOy7f0jO5tDtHA7WbU3mIG1VTMxH0qQ=
+	t=1789393331; cv=none; b=C2zETusZj8CrA3JswYxTimdJNjuoKTBB2a6mVZWAWgFE6Let2JmzmrOr7aIdey31l/KolnlFfk3JXFeHFDGyB1sXdVQ0ji77Q1HlolYOwbsY/s/DzJVXf3W7SFmgMpPXJ/rd8k3rIa/4WPs5b90QXsLUD8YlPvwl1e72tVLGwSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393129; c=relaxed/simple;
-	bh=G5Q4YusG7EhC2+49TlZOe2QDcwWJ1o9+e8sn8lUHz8s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DW6x1KFcJ7VXXu0Codd4H3WCppBvXGI5TZXqms7X6DX1Ue4SUlZ04a9xiFgtL9yR+mZnk1CElBan72337vy+ePZbNIYkmRPTXzoWpAsqlGJID1nFKhwObMwTjP4onV8J8sIHCwRBajEQpj+5OQXE1JggDOA1foT5ttLX+MEhcTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nwA3Lq0U; arc=none smtp.client-ip=74.125.228.40
+	s=arc-20240116; t=1789393331; c=relaxed/simple;
+	bh=CawgkxGKJ3UxmVB/3oUOcDhftc9MGZruLp+O+HF6Ukg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CprkAmeEOMgamDqkQjqsQKMI1JmJO5I3+gMI7O6JwDwbLJV3jFqi1CG2dVX5WIStY75bxnQJaQOWQSiDF9DKGas6TldshtIXXlgYNgJrAqwPq3uiDVaIhZbsVUy2AJGOMGYKdXEtlOk585BeDvIHO6ByWfCC9Fuq9I6/cuQgEqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pT2Ycofu; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nwA3Lq0U"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc1ab16a9b0so167337a12.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pT2Ycofu"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e78adf099so12926925e9.2
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 06:42:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789393127; x=1789997927; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
-        b=nwA3Lq0U4Mgd8/xczWKN4pbtIz1N3ZbjIo4FdXFoMquzJLSGSB4bKOeFe/DAFiCp66
-         ZhJswuo5U9oBy58VYzqA8FOTYRI1qJ4pct5aUNSt0w7NxYwPRBpBAJDx0mMwezbpp661
-         iON2PuMCfagaY/AkOmO4e9l5XKQsy+LfwOyWkIDxoc/ekm4a5phfF7/+MTO2VV3RW/Q1
-         4/pY19ZzXPXHbq8mOGe0JAYliP3VHrCA6tocg3EZIEHC8qGuDHQrDqgbbDXqKmEStpS/
-         URxGpq/MVYKOsL2245r/cK03r4dWqJH4/a2G1QKzUUFATK2q/DKbLbEidV1d0Vwhji3H
-         rVMA==
+        d=gmail.com; s=20251104; t=1789393326; x=1789998126; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8Hg2g/k6LjK6PKUxnUuBlrddBnQ+AWzC6JwaHgy/hfc=;
+        b=pT2YcofujVTFumGc9Btch1YhhPmBTZjmEHVA55JnGPjVnbsvSnE9eRriE44vkqIC6U
+         IiARbAbQZx3op2aoGs/2KGe/YLOX6wrfFuEC0BE39VIFF1Jj4gzf3zdaWQXnmNpbQlq9
+         /fP4oydVkCw7Fld7SqzZL1yGDRmF08cgumOabi2SdCADcHUooo1ad6ipePtwM35Bbxft
+         fL8X8zejMmWhasiHDlKZ0irwkDdJ8npVHO0IwYz1vLSyzuNflXtraBSJBDBr82Hrt3iN
+         T7jGVCQ+3Bph8EiWqZdEXgKQEzxd+N/XlcswIMcl60tOL0D8OQtqgjSyD2e7iDNp7jxZ
+         3EYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393127; x=1789997927;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
-        b=ipQAsMDdQrUQmlxslIsJqcHvmbhCWgnQIZ3amev4LASNx4A5e7OGH5RF4QSdiXhWk+
-         b1gk2Zw+71RBHXNvD/3s5OXY7rZ8Fz0TZK5/lsjSJk/QL4tpXrLuxPt/bGfLCL80D1SO
-         EOIhPm1jP54sgGHBGoeaOVH39gpTkcpZk427VLUYunIxBRd95cv6ymFoZ7a5/Vy2v6Us
-         HXwhWByGHCYvwZmVSyOHkuPMDg5qghY2ozwg61W551Gpnz4n9vqoYDH02VCE0spgT7v3
-         3C0RdiiqSU6mTS5oC+B1dS9erR82fyRwNaFFhcscFp6b2iXGAV0KhvyT4H+SXl46Rv7P
-         tYmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVQxxErBvOo/nCae68+vXI1R60/6j2zA29seckG21C5zKYav8lII3BEeAVHM/42e8siP9Ft3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkOswsHlRrDFK81SnE7fMra8ZIEEoD4KQe8xsMqhIOLv+Uo1wa
-	PWLoyzctuF8+SPBkB6hB1M6rA9h+/k+kY1prBHpdX/Vkm83Kgr2yp9lf
-X-Gm-Gg: AYBFou2UEKhAxX9yN9VV4SRDJ+636KW844aJdLxCsJsg3nod+HAuSvzDk1NVtSKs4E7
-	q+rX3NSjcxFbo0FwrgUhYgqrRgoFyEuMs3NmJ6FuXMZRqoRSgZN1t6+TUe64Mejou3vw/FPNuZr
-	4rOKWR03R8NoZb24+pzHZhsQxTA80mSk31dKQWN4J+ihOrJjy2u6RvmTzwcYc37byh/tlnBfQmx
-	plgovhImRD5ejCd1JUG4sDn4QRmt3ajUQCVu3UT/aMrLRTgerEqviamgyCgnWknuVVxybc0LpSg
-	AuQh+IQjC0/vS4crafqleAypsjTOpNZxC9eYPAHU2BoRmuqtx/BCGQ6wx7DBjDEjgAp1AKSSb3w
-	BlZ8iIuO2dkvkNPBaF0XLqGb6uVgimZPFEqbAxDVtAT3qHgMiM4uQB6BdEjNEE1m+04UNaJfhBp
-	2hXwFN/u6wLoK4SZj35kWA6fNXdSCfHT1HO+xcIUeBVGRxg/KM+Cl9tH5w+yIM89Ci1berw3LcU
-	sOakfDzF3y0lUf+oc52Pr/PyKpK+I/ZErQ2kMEXFq27j4naPlXCvl5cs5KdDkGKXA==
-X-Received: by 2002:a17:90b:3e4f:b0:396:a47f:d38f with SMTP id 98e67ed59e1d1-39dec0bbc54mr3706908a91.3.1789393127161;
-        Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365bb6ba0sm24565602c88.15.2026.09.14.06.38.44
+        d=1e100.net; s=20251104; t=1789393326; x=1789998126;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Hg2g/k6LjK6PKUxnUuBlrddBnQ+AWzC6JwaHgy/hfc=;
+        b=jLj+2NaGDrLsjpS1yDflPEriuHkdUk7dYt/rWHHobx3dmSEfHEBs25KpX0+Cw/FrpX
+         G1jsoJaydCiJUZC19vxWLSPh3+6p/F5APZX88zrA+NZa9Gc8pt5LZtKkQN7hXTstL3bG
+         Qze/RtnrOWT8v7pcwOeJ5bfHnaHffZXLuh8N7Mp8M0KNTO8kBwP6jIjUQp4ql6sXBbEn
+         ftraBa+vdNxvtoWdr/aXuKMans/pd7KXX0KXid6iuXrfczptpMbdFERqpO/+vCQIGE6g
+         ADu9rvWMwY3PAxm3XL8yuovnshHLbXS90vcO0uou/cQkZm8EuBF51qm3JWZC8YmRMH4p
+         XjIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0vvCEQh8kvVrYJYT+LzXbzTTa3gAycYqpNraZDeCkPejLRCkZIq6/6E53OLFBjY1CFIindyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lf6Pp30rRAqKMg82xJGGoWQy8ZqSudozu2k683qPsiscBERCtz
+	kovyCWEmc0ZSg8L/fIMjjxchzx2e3zhWbX9KXcKAv86cAKDx0rwV25G4
+X-Gm-Gg: AYBFou2eik9Dfdv1UMxRK7U8eRqg2sb77a20fK7y1/DJR1LYtVWNl/0SJoYl+8mBS3m
+	SChzqhA8XM4Vu1H3cxNcLb64D8S+Jo4JxFMmCHsbRZU0KRueRTYTEZNXZxetgw4+TT0V2mpsH90
+	sv2/yyIrX8TqvNlXPJzDgQH1/okKG77By4eog2p/+sWjqv6h7nr36Vg6j4Wi6psHKooYawfjyjM
+	YjF64xqYVlbW5QsbULE2zHkcaQ+PVStWYXjrlOGT8x1AqeNuR582g//4xdBTRRM4J4jgUIGfe5D
+	At3w4sIROllq50xq3NgTiH7PLoQsbVas0edBqKLV2GyCWtzddLiwpRX+8Qwkb7/l7haPcge67Te
+	gQ4wSXWeHvYIMjfO+6qTFCXOKR3MkJfOzshK/X7gAVaYaH4dh6t9ngo6hXq8VTmQ7BnJlmAKhdK
+	W4rrEeaWXcIwg2CuqvPcxnGzVqN93G0ySbipFV4qZQUB8Qo719qjhDNlCxOg5j48klg4W2tkHYD
+	5f8AGm4WIP5WKqQZIfXlX+Wt/bvjAiHDT4VYPfM2IRm7HkFA3m5CtBiSZk5s/hiUJpWl3C+Wn1D
+	Bx3suIcGV9n3tobh7TOrAv06xoyhs6F8txYBQJmB6Q4bYb+ZU2eGZcI3baA1Cpd8L82zfavt3EN
+	aKABUGimaC4we/2lATMlIrtd/6loBM7l9Iofd8Y9CPBL5r9LrEtrlqk5bDTi2D1ExYkujra1Q7g
+	zYrYUT
+X-Received: by 2002:a05:600c:a012:b0:49e:799a:8952 with SMTP id 5b1f17b1804b1-49e7a67798fmr33274475e9.26.1789393326105;
+        Mon, 14 Sep 2026 06:42:06 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e71e300f3sm224253015e9.7.2026.09.14.06.42.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:38:46 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH ipsec v2] xfrm: fix races in device state cleanup
-Date: Mon, 14 Sep 2026 21:35:40 +0800
-Message-ID: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 14 Sep 2026 06:42:05 -0700 (PDT)
+Date: Mon, 14 Sep 2026 15:42:04 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, Daniel
+ Baluta <daniel.baluta@intel.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: dummy: free software device on configfs release
+Message-ID: <20260914154204.000028fa@gmail.com>
+In-Reply-To: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+References: <20260914115404.1691763-1-lgs201920130244@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The deferred-device pass in xfrm_dev_state_flush() finds states under
-xfrm_state_dev_gc_lock, but drops the lock before calling
-xfrm_dev_state_free() because the driver callback may sleep. The device
-GC list does not hold an xfrm_state reference, so the state GC worker can
-destroy the same state concurrently.
+On Mon, 14 Sep 2026 19:54:04 +0800
+Guangshuo Li <lgs201920130244@gmail.com> wrote:
 
-The race can proceed as follows:
+> iio_dummy_probe() allocates struct iio_sw_device with kzalloc_obj().
+> The error paths free it, but after successful registration the normal
+> removal path only frees the contained IIO device, leaving the software
+> device allocation behind.
+> 
+> The software device embeds a config_group. device_drop_group() calls
+> iio_sw_device_destroy() and then drops the config_item reference with
+> config_item_put(). Therefore, freeing the software device directly from
+> iio_dummy_remove() would free the embedded config_item before that
+> final put.
+> 
+> Configfs requires dynamically allocated config_items to provide a
+> release callback which frees the containing object when the reference
+> count reaches zero.
+> 
+> Add a release callback to iio_dummy_type and free the software device
+> there.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 3d85fb6f8104 ("iio: dummy: Convert IIO dummy to configfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/iio/dummy/iio_simple_dummy.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+> index 19fcdbbc11c6..7d2ff1d4a06e 100644
+> --- a/drivers/iio/dummy/iio_simple_dummy.c
+> +++ b/drivers/iio/dummy/iio_simple_dummy.c
+> @@ -23,7 +23,19 @@
+>  #include <linux/iio/sw_device.h>
+>  #include "iio_simple_dummy.h"
+>  
+> +static void iio_dummy_release(struct config_item *item)
+> +{
+> +	struct iio_sw_device *swd = to_iio_sw_device(item);
+> +
+> +	kfree(swd);
+> +}
+> +
+> +static const struct configfs_item_operations iio_dummy_item_ops = {
+> +	.release = iio_dummy_release,
+> +};
+> +
+>  static const struct config_item_type iio_dummy_type = {
+> +	.ct_item_ops = &iio_dummy_item_ops,
+>  	.ct_owner = THIS_MODULE,
+>  };
+>  
 
-  CPU 0                               CPU 1
-  find x on the device GC list
-  drop xfrm_state_dev_gc_lock
-                                      xfrm_state_gc_destroy(x)
-                                        xfrm_dev_state_free(x)
-                                        xfrm_state_free(x)
-  xfrm_dev_state_free(x)
+Seems legit.
 
-Both paths can invoke the driver callback and drop the device reference.
-CPU 0 can also access the xfrm_state after CPU 1 has freed it.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-KASAN reported:
+Sashiko also pointed out that the same issue is in industrialio-sw-trigger.c:
 
-  BUG: KASAN: slab-use-after-free in xfrm_dev_state_free+0x24c/0x2a0
-  Read of size 8 at addr ffff88810bbaa960 by task poc/102
+https://sashiko.dev/#/patchset/20260914115404.1691763-1-lgs201920130244%40gmail.com
 
-  Call Trace:
-   xfrm_dev_state_free+0x24c/0x2a0
-   xfrm_dev_state_flush+0x353/0x400
-   xfrm_dev_event+0x26d/0x3a0
-   notifier_call_chain+0xc0/0x280
-   __dev_notify_flags+0x169/0x250
-   netif_change_flags+0xe7/0x160
-   dev_change_flags+0x96/0x220
-   devinet_ioctl+0x7f4/0x1880
-
-  Freed by task 57:
-   kmem_cache_free+0xcb/0x3d0
-   xfrm_state_gc_task+0x4a8/0x650
-   process_one_work+0x63a/0x1070
-
-A third xfrm_dev_state_free() caller in xfrm_state_find() can also race
-with the deferred pass. Both callers can sample the same device before
-either clears xso->dev, then invoke the callback and netdev_put() twice.
-Since hlist_del() leaves the node poisoned rather than unhashed, they can
-also unlink the device GC node twice.
-
-Acquire a state reference while the deferred pass still holds
-xfrm_state_dev_gc_lock. If the reference count is already zero, leave
-destruction to the state GC worker. Also claim device cleanup under the
-same lock by clearing xso->dev and unlinking the node with
-hlist_del_init(). Only the caller that claims the device invokes the
-callback and drops the device reference. The deferred pass releases its
-temporary state reference after cleanup.
-
-Fixes: 07b87f9eea0c ("xfrm: Fix unregister netdevice hang on hardware offload.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-
-Changes in v2:
-- Replace the global mutex with a temporary state reference acquired
-  while walking the device GC list.
-- Claim device cleanup under xfrm_state_dev_gc_lock so concurrent
-  callers cannot run the callback or netdev_put() twice.
-- Use hlist_del_init() to leave the device GC node unhashed.
-- Cover the xfrm_state_find() cleanup path identified during review.
-
-v1: https://lore.kernel.org/netdev/20260730103543.2077749-1-nicoyip.dev@gmail.com/
-
- net/xfrm/xfrm_state.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index 36a4f6793ede..282d09d0c247 100644
---- a/net/xfrm/xfrm_state.c
-+++ b/net/xfrm/xfrm_state.c
-@@ -780,17 +780,20 @@ EXPORT_SYMBOL_GPL(xfrm_dev_state_delete);
- void xfrm_dev_state_free(struct xfrm_state *x)
- {
- 	struct xfrm_dev_offload *xso = &x->xso;
--	struct net_device *dev = READ_ONCE(xso->dev);
-+	struct net_device *dev;
- 
-+	spin_lock_bh(&xfrm_state_dev_gc_lock);
-+	dev = READ_ONCE(xso->dev);
- 	if (dev && dev->xfrmdev_ops) {
--		spin_lock_bh(&xfrm_state_dev_gc_lock);
-+		WRITE_ONCE(xso->dev, NULL);
- 		if (!hlist_unhashed(&x->dev_gclist))
--			hlist_del(&x->dev_gclist);
--		spin_unlock_bh(&xfrm_state_dev_gc_lock);
-+			hlist_del_init(&x->dev_gclist);
-+	}
-+	spin_unlock_bh(&xfrm_state_dev_gc_lock);
- 
-+	if (dev && dev->xfrmdev_ops) {
- 		if (dev->xfrmdev_ops->xdo_dev_state_free)
- 			dev->xfrmdev_ops->xdo_dev_state_free(dev, x);
--		WRITE_ONCE(xso->dev, NULL);
- 		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
- 		netdev_put(dev, &xso->dev_tracker);
- 	}
-@@ -1005,9 +1008,10 @@ int xfrm_dev_state_flush(struct net *net, struct net_device *dev, bool task_vali
- 	hlist_for_each_entry_safe(x, tmp, &xfrm_state_dev_gc_list, dev_gclist) {
- 		xso = &x->xso;
- 
--		if (xso->dev == dev) {
-+		if (xso->dev == dev && xfrm_state_hold_rcu(x)) {
- 			spin_unlock_bh(&xfrm_state_dev_gc_lock);
- 			xfrm_dev_state_free(x);
-+			xfrm_state_put(x);
- 			spin_lock_bh(&xfrm_state_dev_gc_lock);
- 			goto restart_gc;
- 		}
-
-base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
 -- 
-2.43.0
-
+Kind regards,
+Joshua Crofts
