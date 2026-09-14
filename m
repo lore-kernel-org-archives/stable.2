@@ -1,153 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B909481A9E;
-	Mon, 14 Sep 2026 15:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C5E477298
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789400961; cv=none; b=bvPO24CMJGLnfbScoTZKZEwCp3rAgQ7pkPk6HdSiXqlAzNsV48thTUMj1xh3ya68fOWOW/a2mqqijF9F5VRVYhL/Z4nOd7B4CD/Z0iWz+sEthIAM24Pakx74dwnrQBtJCLoOMM+UAii1KxNETW+ginoep/ToeKEJ0FHDBUxs/cc=
+	t=1789401056; cv=none; b=dTvvJ4iO1rrqrFcWfRJ6KgFBR4rfdKZPjnxJuLJogREkeRGtZNnkcB9Y81Ty3N18Tug1Y4WaNo6q2ugLdU5GROsuqxH/1zbgal7Re3Lg5i41UZON9OCo5HbQwxYXG236g8vyNQaXrobVEArXTeZa6YCQ0Bq6qA0obYLg+6LkUxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789400961; c=relaxed/simple;
-	bh=E8tjVWXwO+8EdCuNkyjyH95QEBkYUUfGm2BVhvoyOP0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=njQkFXRKVxKF4n4S3SGrEXkFX6i18TAQGRPPic6zqxWnugthLi4uQZeRjPgv+yv+OJaqwuuvRf5Q/TSDz/ElyVhmZWj9MDEA4Ad3th2eTlXrkvX5xzmnmiUcdDLnpSLLmyEfUACIRDq6qSDokOJfKpju55y4sUwic66FrHuizB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaWiuxe6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789401056; c=relaxed/simple;
+	bh=p2hR4i0PtZDYm3RY39xCiepe3yjrbz58yhqd2vSyzJ8=;
+	h=Message-ID:In-Reply-To:References:From:To:Subject:Date:
+	 MIME-Version:Content-Type; b=b86nzVWz/W6QGzk3ZtbcW4sPJ4gHIbBIG8cocG9O1GeGPKrGAknr4LGBEl/mxywY1Jp7fWDmHViyzTtkX89WMIEcSXuofYvFJhtUS+NHQqLeWx3NIlrVvxyVGcu8Q8cbbU6/xIrc2G1RcmRNgtH6xidT/yXlHmxlN3DxGvR6JKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz; spf=pass smtp.mailfrom=swiftden.buzz; dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b=Q5z5Za34; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swiftden.buzz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaWiuxe6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527301F000FF;
-	Mon, 14 Sep 2026 15:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789400959;
-	bh=edl9EHBzE8Mh2FGf3Ke+RZmWB9164se0RagjspZeMpA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZaWiuxe6TbxR/OQg8ph2mwK9MBBU0wt8iKh1wwOet5UtTosU4mZi+S+BcrNfxiqxs
-	 TU+3sHWHkhkoyZ2NMvbcVhektQI5i1i/LBN4vzVJBXglLfpiqhXyysW5Qg2hCdVLnU
-	 vqEOUZJ7JqcBbUjeYjLIywDEwHwWa963lRu/eeCATCCYBeuu7H0GtCvwjKUKt3frGa
-	 ynTLDz+JuOfJ4cgj7K56n0Rj41Hi7ijqkipHGvFyYwkU6kZgByOZQajNsZIaljdHuK
-	 O2DgjyFz4addNG6TF1g+g4499srp8WrpcC0ndzhWU9wDKBm4WOzPB1aaFXC9WkqB8P
-	 2zWNGAPuEQmew==
-Message-ID: <5abdc1b7-5fd9-4b1d-975b-eceb3ba57a82@kernel.org>
-Date: Mon, 14 Sep 2026 17:49:07 +0200
+	dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b="Q5z5Za34"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa7so253411185a.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:50:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=swiftden.buzz; s=google; t=1789401053; x=1790005853; darn=vger.kernel.org;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p2hR4i0PtZDYm3RY39xCiepe3yjrbz58yhqd2vSyzJ8=;
+        b=Q5z5Za34i6nrFwzrvft6O0pVtk/MhTcA/TpaAfJRVKGwsKmqyUunyPReRetgGaRWjk
+         aM5BVJKyOOysDCs9bsPGrCapfo6Ji5I4lSGpDUvyG7wvPdZDxOww18+m8mQ8LSrkw16p
+         ITowCreUszW/4UFKeMzG2dGWAanvdn/0GAH11iETH9RVktQVQYnVMrRzrs6ypv0xoMR7
+         +KomUNR0byU2nzUD90xrh1Ma2sNjUcqiXMAOtprUQpG3FjtuQtFjyA+fuJnxzxC9odxX
+         sKAWg0z0aXmNKtT3hEVjUfzhoIpyDnH2MPqv5fRVAf3gflIFT70/m14mkWXSn5mHZRUt
+         PzpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789401053; x=1790005853;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p2hR4i0PtZDYm3RY39xCiepe3yjrbz58yhqd2vSyzJ8=;
+        b=eTEO33VAwRmI9q9FWspD5uSan9CIqgLqteeUF0gfZ3ozS/Y/hvaWww6ZvfxhShyVcw
+         M+vxN3VjjuWbSp5eNgrQglvyaxSgJbUMA0X08bDb8anmf9jawubIWhqd/WOo4ytlXNpe
+         w1uv5GhpycfprJJT2caugb/B/EaeeBEtJ/BhpRNvdLxMvg27kmTTcnrZ13a0hbJwi83v
+         nOdpMRwFkZHVAGmH5X5BqtqCpUQcUXpFa7xUcFowOL2ob9KDfbG5FrYPAqVCVhqeiq93
+         ODfzrNE6/tcumUpfyqIFmaLjHI9Y9QK49ErFt9GkI5VRayjxOu5S0alOzHc9UB6udZ9F
+         I+3Q==
+X-Gm-Message-State: AFuF++l0V0GONYRT939rZMnV166uJOHHmjtAWjN/3mPMS5poXphXBtKH
+	KWyGHBq0DXI5YRH0GKpD66bHYHj9vL7lkA2FtD2aC1xrb2+WyLNNk9RDzFI9x8i7xg1610sU6a3
+	3PgBySQ==
+X-Gm-Gg: AYBFou2xtfB2mrfNC9YyzNus4SK6AgMgBdjpg4BT1AeRSIcC9KalkJ6OLS+704sZb/0
+	RhQZRCp+J+gpPJ6mP1R8/2MC5iqDqlF7esA5SAyyE46CDqh4nwkF12wQkZxQjIqA65z2fGeyCTK
+	WILqx+pJKkxSHwkJ3Rlr0qaqVvLa6I6T78AJwXe02twOQoUWv/BKMR29q4V+waLkNIqVqwQSp+G
+	qRE3P0bwKKmZpzwDX+rugG93Pkw5NNK0zDFICk0O2vQsMN1M6WLglpXwGasEDMlaZlLYhUtO/Ap
+	dsja7mqctlBQcpkh85o3WoCsr3msvcNuBpSK8ibkgk/iLMr8VdSplPfY7c83gjE6UkEDBucguoc
+	4LpfADOF2R05TQXfyV3QBntLWvdC35qy103vW1o537HPWzyDMzwTFuynijytMumCSANkpYQrwRt
+	7GzwcUAaHGXwKcJ+O7efuaBo0y/PKY90HzabbYpXqjFYFGgep2FC2G8DZXcntaHGSHUCEZ+pLZO
+	axk7ZNRz09GCB725nxUj+kQCT035h/vnKSUfqc+b3r0hMwcFgHo2Cimns70F6bdfb0IUlknhgvo
+	Rrhq7Gd73/Jq
+X-Received: by 2002:a05:620a:170b:b0:939:d38:3ab8 with SMTP id af79cd13be357-93a297e8fadmr449869685a.12.1789401053349;
+        Mon, 14 Sep 2026 08:50:53 -0700 (PDT)
+Received: from 01a0a09d-3541-71f6-9bf2-3ece56b80167.local (ec2-54-91-206-84.compute-1.amazonaws.com. [54.91.206.84])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9121a4fb3e4sm78414266d6.24.2026.09.14.08.50.52
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:50:52 -0700 (PDT)
+Message-ID: <01a0a09d-3541-71f6-9bf2-3ece56b80167@swiftden.buzz>
+In-Reply-To: <01a08bce-0a4c-7572-824c-296398214cf0@swiftden.buzz>
+References: <01a08bce-0a4c-7572-824c-296398214cf0@swiftden.buzz>
+X-Mail-Abuse-Inquiries:
+ https://app.instantly.ai/privacy/report-abuse/01a0a09d-3541-71f6-9bf2-3ece56b80167
+From: Todd Ford <todd@swiftden.buzz>
+To: stable@vger.kernel.org
+Subject: Re: Offline bad review
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 15:50:52 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
-To: Frank Li <Frank.li@oss.nxp.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- stable@vger.kernel.org
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
- <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
- <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
- <aqf835LdzdNZR8rh@SMW015318>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <aqf835LdzdNZR8rh@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
 
-On 14/09/2026 15:55, Frank Li wrote:
-> On Mon, Sep 14, 2026 at 12:37:06PM +0100, Bryan O'Donoghue wrote:
->> On 11/09/2026 21:56, Frank Li wrote:
->>> suggested subject:
->>>
->>> phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
->>
->> A pattern I try to encourage and role-model is making fixes very explicit
->> and obvious - frequently I'll ask people to prefix their patches fixing
->> things with Fix.
-> 
-> Generally, I got feedback from most maintainer is
-> 
-> 	do something to fix ...
+Reaching out one last time,
 
-You got it wrong, I think.
+It seems like getting rid of unfavorable =
+feedback and bringing in new customers isn't the focus at the moment?
 
-> 
-> "do something" become more important. the most maintaniner dont like simple
-> said
+Kind regards,
+Todd
 
-"Do something" is not more important, because you repeat the diff.
+On Thu, September 10, 2026 2:52 PM, Todd Ford =
+<todd@swiftden.buzz>
+[todd@swiftden.buzz]> wrote:
 
-> 	- fix build warning
-> 	- simplify code
-> 	- fix UAF
-> 	- fix memory leask
-> 
-
-Exactly all above are "do something"...
-
-> I think it is reasonable, git log --oneline ..., if just list
-> 	"fix build warning", which is hard to locate patch because there
-> are too much "fix build warning".
-
-And "rename function to fix build warning" is not better, because rename
-is obvious from the diff. Title should not say what you are doing, but
-explain the nature of the bug being fixed, so "fix build warning due to
-typo in foo bar" would be better.
-
-Best regards,
-Krzysztof
+> Hey, I'm a real person=
+ not a bot lol
+>=20
+> Would removing a few of the negative reviews help =
+bring in more clients?
+>=20
+> Open to explore this?
+>=20
+> All the best,
+> Todd
+> On Wed, September 2, 2026 4:49 PM, Todd Ford <todd@swiftden.buzz>
+> [todd@swiftden.buzz]> wrote:
+>=20
+> > Greetings, just wanted to follow up=
+,
+> >=20
+> > I also came across Wendy left a review saying "This was my =
+first visit to the store. There were lots of cute clothes and some good =
+prices. However, when we checked out, an item rang up as 25% off instead of=
+ the 40% off that was advertised. When we questioned it, the cashier said =
+that was how it rang up, so it was only 25% off.
+> >=20
+> > I walked back to the sign, which originally stated 40% off, and it had =
+been switched to 25%. I=E2=80=99m thankful that the customer behind me in =
+line spoke up and said she also thought it was 40% off, especially since =
+the sign had been changed while we were still shopping.
+> >=20
+> > Another employee later told us that only the sweatshirts on the rack =
+were 40% off, which was not stated anywhere on the sign. This felt like =
+false advertising and was very disappointing, especially since the only =
+response we received was a brief =E2=80=9Csorry=E2=80=9D from the cashier."=
+.
+> >=20
+> > We can eliminate multiple bad reviews to strengthen your =
+online image.
+> >=20
+> > Can I give you a quick call?
+> >=20
+> > Best,
+> > Todd
+> > On Thu, August 20, 2026 2:35 PM, Todd Ford <todd@swiftden.=
+buzz>
+> > [todd@swiftden.buzz]> wrote:
+> >=20
+> > > Hi there, are you in =
+charge of Offline?
+> > >=20
+> > > I was browsing some of your Google =
+reviews, and one from Angela Russell caught my eye. If you=E2=80=99re =
+interested, I can have it deleted for you.
+> > >=20
+> > > They commented, "Had a staff member order me sweat pants to ship, but=
+ they ordered me the wrong pair. Apon the returning I was asked if I wanted=
+ a refund to original payment or gift card. I asked for my original payment=
+ refund and they are now saying a week later they can't (only able to do =
+gift card apparently) and now I'm out my own money because I will not be =
+returning. Worst online customer service with little to no help and a bunch=
+ of "I'm sorrys"
+> > >=20
+> > > Would you prefer this review gone from your=
+ profile? We focus on removing unfavorable reviews, and I observed you have=
+ a couple of other critical reviews we could help remove.
+> > >=20
+> > > Looking forward to your thoughts
+> > >=20
+> > > Stay awesome,
+> > > Todd
+> > >
