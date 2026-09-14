@@ -1,53 +1,39 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDA7331EBC;
-	Mon, 14 Sep 2026 03:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0624339363;
+	Mon, 14 Sep 2026 03:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355343; cv=none; b=pFr+NH9I1aBgo0SMqzynl2tOY2EzKqD/kDd9ri5jZlO+0sJoPuB4bWxJfuG2yBL3vbrHkEAfskuzHQ5n8ueu6xbH5CFWGLeJWIe1MScZPe5n8C8GGtQ7BtCMhRp07GmQcCqfcYNzPMU4D5//R8uhwPH+Yh1AJh5rpbwSyDYKoBM=
+	t=1789355554; cv=none; b=Pt1TbgLX+YbbvQ37c1AP6Feo2VB5/L+dfVYXo2X7yUdM/5Q/5SOGhkgWHla9smHQJtLRHeSNv0gr3DZIDen3ut/iNNneLAdtLHeNho2KwgpXr3XkLLWzR/NzW+XsrO4TxrOfB1YMOU5uFulwwkPjWMLJUgJit/VPltfby72ZL/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355343; c=relaxed/simple;
-	bh=GkO24pEVp5NerBkEbREgUyOGABNCXSjZI6KMKfhw8tw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=A7B4BxNxv0RSZSu3sdaadQt4QICL4i/QjDuxmtpc7AAv5rYRYX6IaqGFPiUwN4ZuEMRKKpWTJuiNTqEBjWaoazXA3+haTG3sA6WQpkAvPsB8LfDk6TXuf/yjY7C86kolS2eAog3WrObZg6BXmuWDXQIEhjq/wj+lfKRDVJ7BWuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9b36405cafe911f19a56ed5b684f684d-20260914
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c02a1bfe-6a6f-41e0-9a9a-ac24db736a42,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:84d620b82c189cd083556f27db09d2dd,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9b36405cafe911f19a56ed5b684f684d-20260914
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 776400560; Mon, 14 Sep 2026 11:08:49 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1789355554; c=relaxed/simple;
+	bh=huKWwb8rlJf3+N6r/GnqyXXU00p1lhy5cN8M9ZjYp0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LLHOzzUQyQDokwyTa0KqtO2cJkVRs4jtowKJNyZdA/w1eyD/uPOfQ13GAG7TSDyvt7SadSbY+WTXcs7zE4YIFMdFSaoZl29ckV3lsT5t3Niz+N8a6CjaOoxpd3YaNVukdOcox+X6Bqy5posQbPvZmS0zQqvC5qEsLOGU/t4zuAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from k3-03 (unknown [159.226.43.8])
+	by APP-05 (Coremail) with SMTP id zQCowABn0Tv4ZadqJ0crCA--.15303S2;
+	Mon, 14 Sep 2026 11:11:59 +0800 (CST)
+From: Tan Chi <tanchi25@mails.ucas.ac.cn>
+To: Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	kvm-riscv@lists.infradead.org
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andrew Jones <ajones@ventanamicro.com>,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>,
+	Tan Chi <tanchi25@mails.ucas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v10 6/6] ntfs: check the dirty-state commit on remount and unmount
-Date: Mon, 14 Sep 2026 11:08:41 +0800
-Message-Id: <20260914030841.46389-7-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260914030841.46389-1-zenghongling@kylinos.cn>
-References: <20260914030841.46389-1-zenghongling@kylinos.cn>
+Subject: [PATCH] RISC-V: KVM: Fix HSM hart status error propagation
+Date: Mon, 14 Sep 2026 11:11:46 +0800
+Message-ID: <20260914031146.446157-1-tanchi25@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,154 +41,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABn0Tv4ZadqJ0crCA--.15303S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur47GF48ZrWrZrW8JFWxtFb_yoW8Xr4rpr
+	ZrGa1DurWFkFy0gasFya1q9FW5uFsagrnakw1kKw4Fv3yjvFW5Xr4vg34aqry5Aa48Wr1I
+	9FWYqF90v3Z8Ja7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUP014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67
+	AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
+	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
+	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+	xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
+	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjfb15UU
+	UUU==
+X-CM-SenderInfo: pwdquxrlsvqzpdlo2hpxfd2hldfou0/
 
-The remount-to-read-only path commits the updated volume flags with
-ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-ignores the blkdev_issue_flush() return value, so a failed commit or
-flush is reported as success.  Once the remount has succeeded no
-persistence point is ever reached again: ntfs_put_super() skips
-read-only superblocks and the VFS never syncs one, so fail the
-remount unless the commit and the flush succeed.  The superblock
-then stays read-write and ntfs_put_super() retries the persistence
-at unmount.  The errors=remount-ro downgrade does not go through
-ntfs_reconfigure() and is unchanged.
+kvm_sbi_hsm_vcpu_get_status() returns SBI_ERR_INVALID_PARAM when
+the requested hart does not exist. However, the HART_STATUS case
+returns from the SBI handler without storing this error in
+retdata->err_val.
 
-A zero-return commit is not trusted blindly: write_mft_record()
-redirties the record on allocation failure and reports success, so
-the $Volume inode is required to be clean afterwards.
+As a result, a guest querying the status of a non-existent hart
+observes SBI_SUCCESS instead of SBI_ERR_INVALID_PARAM.
 
-ntfs_put_super() discards the same commit error.  Call
-__ntfs_write_inode() there with the same dirty re-check and warn on
-failure, as put_super() cannot return an error.  The commit is
-skipped when the dirty-state sync itself failed, as that could write
-back an inconsistent flag state; a record left dirty by an earlier
-update is still committed at evict time.
+Use the common SBI error handling path for HART_STATUS after
+saving a valid hart state in retdata->out_val. This preserves
+the returned error when kvm_sbi_hsm_vcpu_get_status() fails.
 
-NVolErrors() is deliberately not used to detect the failure: it is
-sticky for the lifetime of the mount, so it cannot distinguish a
-fresh commit failure from errors recorded before the remount.
-
-Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-them and never dirties the $Volume inode on such a mount, since the
-on-disk flags are already dirty and ntfs_set_volume_flags() has
-nothing to change.  The commit only runs if something dirtied the
-inode independently, as before this patch; mounting hibernated
-volumes read-only removes even that.
-
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+Fixes: bae0dfd74e01 ("RISC-V: KVM: Modify SBI extension handler to return SBI error code")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Assisted-by: LLM
+Signed-off-by: Tan Chi <tanchi25@mails.ucas.ac.cn>
 ---
- fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 54 insertions(+), 22 deletions(-)
+ arch/riscv/kvm/vcpu_sbi_hsm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f58b9cd86b27..cc2229b5e702 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -268,6 +268,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
- {
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-+	int err;
- 
- 	ntfs_debug("Entering with remount");
- 
-@@ -324,14 +325,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		 * and ntfs_put_super() skips them, so the only remaining
- 		 * write would be the evict-time commit at unmount, which
- 		 * a crash never reaches.  An error recorded only after
--		 * the remount is still never persisted.
-+		 * the remount is still never persisted; a failed commit
-+		 * or flush fails the remount, leaving the superblock
-+		 * read-write so ntfs_put_super() retries at unmount.
- 		 */
--		if (ntfs_sync_volume_dirty_state(vol)) {
-+		err = ntfs_sync_volume_dirty_state(vol);
-+		if (err) {
- 			ntfs_warning(sb,
- 				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
--			ntfs_commit_inode(vol->vol_ino);
--			blkdev_issue_flush(sb->s_bdev);
-+			return err;
-+		}
-+		if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+			/* ntfs_commit_inode() would discard the error. */
-+			err = __ntfs_write_inode(vol->vol_ino, 1);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+				return err;
-+			}
-+			/*
-+			 * write_mft_record() redirties the record on
-+			 * -ENOMEM and still reports success.
-+			 */
-+			if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+				return -EIO;
-+			}
-+			err = blkdev_issue_flush(sb->s_bdev);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to flush volume information flags.  Run chkdsk.");
-+				return err;
-+			}
+diff --git a/arch/riscv/kvm/vcpu_sbi_hsm.c b/arch/riscv/kvm/vcpu_sbi_hsm.c
+index f26207f84bab..06a15629c26b 100644
+--- a/arch/riscv/kvm/vcpu_sbi_hsm.c
++++ b/arch/riscv/kvm/vcpu_sbi_hsm.c
+@@ -95,9 +95,9 @@ static int kvm_sbi_ext_hsm_handler(struct kvm_vcpu *vcpu, struct kvm_run *run,
+ 		ret = kvm_sbi_hsm_vcpu_get_status(vcpu);
+ 		if (ret >= 0) {
+ 			retdata->out_val = ret;
+-			retdata->err_val = 0;
++			ret = 0;
  		}
- 	}
- 
-@@ -1875,26 +1901,32 @@ static void ntfs_put_super(struct super_block *sb)
- 		if (ntfs_sync_volume_dirty_state(vol)) {
- 			ntfs_warning(sb,
- 				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NVolErrors(vol)) {
-+		} else {
- 			/*
--			 * The dirty bit is on disk now; only warn when the
--			 * sync actually succeeded, or this message would
--			 * contradict the one above.
-+			 * __ntfs_write_inode(), not the void
-+			 * ntfs_commit_inode() wrapper: the error can only
-+			 * be warned about here.  The mirror inode is only
-+			 * released below: writing the $Volume record (mft
-+			 * record number 3, below vol->mftmirr_size) mirrors
-+			 * it through ntfs_sync_mft_mirror(), which fails
-+			 * with -EIO once vol->mftmirr_ino is gone.
- 			 */
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			if (__ntfs_write_inode(vol->vol_ino, 1)) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+			} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+			} else if (NVolErrors(vol)) {
-+				/*
-+				 * Only warn once the commit has succeeded,
-+				 * or this could contradict a failure
-+				 * reported above.
-+				 */
-+				ntfs_warning(sb,
-+					"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			}
- 		}
--		/*
--		 * Commits the updated volume flags if they were written.
--		 * The mft mirror must still be around for this: the
--		 * $Volume record (mft record number 3, below
--		 * vol->mftmirr_size) is mirrored by write_mft_record()
--		 * through ntfs_sync_mft_mirror(), which fails with -EIO
--		 * and leaves the mirror stale once vol->mftmirr_ino is
--		 * gone, so the mirror inode is only released after this
--		 * commit.
--		 */
--		ntfs_commit_inode(vol->vol_ino);
- 	}
- 
- 	/*
+-		return 0;
++		break;
+ 	case SBI_EXT_HSM_HART_SUSPEND:
+ 		switch (lower_32_bits(cp->a0)) {
+ 		case SBI_HSM_SUSPEND_RET_DEFAULT:
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-2.25.1
+2.53.0
 
