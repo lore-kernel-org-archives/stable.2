@@ -1,166 +1,225 @@
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FF433A9DA
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 05:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D917737F309;
+	Mon, 14 Sep 2026 05:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364806; cv=none; b=A2+oV8KBWgdjsHzcoyj6gKn7rJph4hBTWWeNW/xz/G7FrQ6U79QNHZkg8ACj4manGnKWAPkczGTt3K0vV+VN2XItc3a9dISV+AFgEyMXThKI9QOik++Zx8QMLK3Z0GzgsC0iXLztK11885etaVAF2oTvySJOpo2CvZgKR37kAnE=
+	t=1789364982; cv=none; b=OoVAmzjrPhv8EcXi4SDJjrMZwaoMYwuwpg7x+VbDx3dy1YbJG058/VmAPV091JqwlXV0Q7fv22XZec9/GWq1jULLS6Ey4/hRPB5e3rZV0dfKzXSfNL6kq9dat38vWGAK34hTiIoni1Mu7xvRqmtA6wza1ebfvkMu6LXIQRDNoZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364806; c=relaxed/simple;
-	bh=k/jLuXN0egJkl+RuDIoVDRcHVwABb4ahl7sxOPoZDY0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H5q8/oqjUBNx9lk5mKjLK0n+KOY3/MD6TW6A6XDjrNyii5tHiDAljKfRfgEQMLEQVNNB7ZvHa9xUTUKM9GBhFr1wGEzOl/WPjnFUJLxMXEXgjzyUNajqR8bMIX+N/6lh1stO0jwka2RPbum/7lkmVjth0z25l8zVS1W6Dy/PRio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=GX5YH3eo; arc=none smtp.client-ip=35.89.44.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="GX5YH3eo"
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id 5nYhxqdZMusRS5zWexF3RP; Mon, 14 Sep 2026 05:46:44 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 5zWdxYKGHadLA5zWexEG2t; Mon, 14 Sep 2026 05:46:44 +0000
-X-Authority-Analysis: v=2.4 cv=Aqzu3P9P c=1 sm=1 tr=0 ts=6aa78a44
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=VwQbUJbxAAAA:8
- a=Zo5euW2OAAAA:8 a=Eac8uTGAbMeodF28N9oA:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=FKmISGsBCPqJ53Kvp3Q4p2bWngpj+u3FfgcCqvkQWbo=; b=GX5YH3eoc5y/
-	cIesr7qjeO2tIfaqFjj6d1sF0xR44ShbNkFI8PDImBXqgziH08CaPo+M8fnTYBQvv+fzeZa4oBGZ9
-	FPD8S5jZ4V3CXuM0XwDScfFj0G2P/xMMs8nsr/yNRmphZRVUR3ZNSdVUROlU9OQRwCKZ03Oi2aiWH
-	w3frKEQRDd2iyIchvu1TtsmcwYmYTDQHGIWglhq1Yt7OvaLLo+Z5KohHEGP3WYi4KZyLWOf7ez/dd
-	W0GAebSuhYsTu1kPJ/n9nxxt540C91zhp7mxHS6ofEkQ51VgDM/sOZ/fc3brDZRl2k/qCiezDRm44
-	YLyOKTdjDfmjB9wxyE0ixg==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:40280 helo=[10.203.100.11])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x5zWd-00000003pDO-1F9C;
-	Mon, 14 Sep 2026 00:46:43 -0500
-Message-ID: <0ed541fe-5583-4cd2-a794-6890478ad7de@embeddedor.com>
-Date: Mon, 14 Sep 2026 14:46:39 +0900
+	s=arc-20240116; t=1789364982; c=relaxed/simple;
+	bh=A09OHkw0psSLkx6FKOss/BUH+O/19kPKvUcWwko7h00=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=o2T8ASVO/fI5aWpjnshBVPxWL3UGMi6bGtO2tuvgKHhVu7K5cdFAuXbH8aTX5LhTx6dwaNifInCmQGs1BdAy2ajbvBkPu6JOUBHdBXrvDuEdfWO2lV2LlR5tpyD+p5YfehJ0PiOVn/f2I2nPw7tb9hyhnzK9iWBBA1McGyp7HaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0f104ac0b00011f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7d5fdb5a-0fee-4fba-bdee-2ece3cbab930,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:34ea739899712a946a605e90b900336f,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0f104ac0b00011f19a56ed5b684f684d-20260914
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 15398452; Mon, 14 Sep 2026 13:49:32 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v11 2/6] ntfs: set the volume dirty bit unconditionally on metadata changes
+Date: Mon, 14 Sep 2026 13:49:22 +0800
+Message-Id: <20260914054926.78808-3-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260914054926.78808-1-zenghongling@kylinos.cn>
+References: <20260914054926.78808-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rtc: ac100: Assign .num before accessing .hws
-To: Aamir Ahmed <elb12345@hotmail.co.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
- Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
- stable@vger.kernel.org
-References: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x5zWd-00000003pDO-1F9C
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.11]) [125.195.69.90]:40280
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 18
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPupwrWu3iEzuLqh0Se8Qi6tcSAZ8NMooesXSddxvyINg5XTbwuDRBByOriaV4CL1OMexpIU27bP34zQrzD2lAI7pwOlnz2moTh4YSZk4GIt6pjg8bXZ
- QLRee64ebkD+Gpah3QvT5eGtrBxp+ql7kVa0Lo20j5cj5lKRS3HmEll/jHQfgLYqZr6njyRGzc2DF56ILlvGtU6yWktbfeK41x4=
+Content-Transfer-Encoding: 8bit
 
+The callers in file.c and namei.c skip ntfs_set_volume_flags() when
+the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
+runs without any lock: if it observes the bit set and ntfs_sync_fs()
+clears it under the mrec_lock before the caller's metadata update
+completes, the set is skipped and the volume can end up clean on disk
+despite the modification, so chkdsk will not run on the next mount.
 
+Drop the caller-side checks and call ntfs_set_volume_flags()
+unconditionally: ntfs_write_volume_flags() already skips the write
+under the mrec_lock when the combined value is unchanged.  That
+unconditional call costs one mrec_lock acquisition per metadata
+operation even in the already-dirty steady state; it cannot be
+avoided, because deciding to skip the call without the lock is itself
+what allows a concurrent ntfs_sync_fs() clear to lose the set.
 
-On 9/6/26 03:38, Aamir Ahmed wrote:
-> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
-> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
-> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
-> about the number of elements in .hws[], so that it can warn when .hws[]
-> is accessed out of bounds. As noted in that change, the __counted_by
-> member must be initialized with the number of elements before the first
-> array access happens, otherwise there will be a warning from each access
-> prior to the initialization because the number of elements is zero.
-> This occurs in ac100_rtc_register_clks() due to .num being assigned only
-> after every clkout clock has been stored in .hws[]. With
-> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
-> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
-> during probe, and with CONFIG_UBSAN_TRAP the first store traps.
-> 
-> Initialize .num with AC100_CLKOUT_NUM, the number of elements .hws[] was
-> allocated with, right after the allocation. That is the value the loop
-> counter ends up at on the success path anyway, so the provider's
-> behaviour is unchanged.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with __counted_by")
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+The IOCB_NOWAIT path in ntfs_file_write_iter() goes through the same
+sleeping call: a RWF_NOWAIT write can block in the marking, as it
+already could before this change whenever the volume appeared clean.
+Giving that path a non-blocking variant is left as follow-up work.
+The callers keep the pre-existing behavior of proceeding when the
+marking fails, so the dirty bit remains best-effort.
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+This closes the variant where the set is skipped outright.  A clear
+for a concurrent, error-free sync can still land between the set and
+the end of the metadata operation; that mark-at-start lifecycle is
+pre-existing and is not changed by this patch.
 
-Thanks
--Gustavo
+Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/file.c  | 20 +++++++++++---------
+ fs/ntfs/namei.c | 24 ++++++++----------------
+ 2 files changed, 19 insertions(+), 25 deletions(-)
 
-> ---
-> Found while auditing the remaining clk_hw_onecell_data users that assign
-> .num only after touching .hws[], following the fixes already merged for
-> clk-s2mps11 (3e14c7207a97), exynos-clkout (cf33f0b7df13) and
-> clk-raspberrypi (6dc445c19050). The audit, the fix and this changelog
-> were drafted with an LLM assistant and reviewed by hand.
-> 
-> Compile-tested only (W=1, no warnings) on x86_64 with GCC 13.3, with
-> CONFIG_RTC_DRV_AC100=m forced on the make command line because the
-> driver has no COMPILE_TEST option. GCC 13.3 does not implement
-> __counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang 20.1+), so the
-> build only confirms that the change compiles; the sanitizer path was not
-> exercised. I do not have the hardware, so this is not runtime-tested and
-> no UBSAN report was captured.
-> 
-> Based on v7.3-rc1.
-> 
->   drivers/rtc/rtc-ac100.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/rtc/rtc-ac100.c b/drivers/rtc/rtc-ac100.c
-> index bba7115ff3a..a2f465438fd 100644
-> --- a/drivers/rtc/rtc-ac100.c
-> +++ b/drivers/rtc/rtc-ac100.c
-> @@ -317,6 +317,8 @@ static int ac100_rtc_register_clks(struct ac100_rtc_dev *chip)
->   	if (!chip->clk_data)
->   		return -ENOMEM;
->   
-> +	chip->clk_data->num = AC100_CLKOUT_NUM;
-> +
->   	chip->rtc_32k_clk = clk_hw_register_fixed_rate(chip->dev,
->   						       AC100_RTC_32K_NAME,
->   						       NULL, 0,
-> @@ -360,7 +362,6 @@ static int ac100_rtc_register_clks(struct ac100_rtc_dev *chip)
->   		chip->clk_data->hws[i] = &clk->hw;
->   	}
->   
-> -	chip->clk_data->num = i;
->   	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get, chip->clk_data);
->   	if (ret)
->   		goto err_unregister_rtc_32k;
-> 
-> base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 007d1614b9ac..cfc7b36b7dff 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		goto out;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
+ 		err = ntfs_setattr_size(vi, attr);
+@@ -620,8 +619,13 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		goto out_lock;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	/*
++	 * The volume must be marked dirty before the modification is made,
++	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
++	 * can clear the bit concurrently and the modification would then
++	 * land on a volume that is clean on disk.
++	 */
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	pos = iocb->ki_pos;
+ 	count = ret;
+@@ -1153,11 +1157,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 			return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+-		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+-		if (err)
+-			return err;
+-	}
++	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	if (err)
++		return err;
+ 
+ 	old_size = i_size_read(vi);
+ 
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index fdf52fac4329..3e0adb9a0ea4 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 		new_dir_first = is_subdir(new_dentry->d_parent,
+ 					  old_dentry->d_parent);
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	if (new_ni)
+@@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		goto out;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+ 			   symname, symlen);
+@@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	switch (mode & S_IFMT) {
+ 	case S_IFCHR:
+@@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ihold(vi);
+ 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+-- 
+2.25.1
 
