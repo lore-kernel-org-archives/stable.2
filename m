@@ -1,83 +1,83 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935F24A33F5
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8B747ACD5
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390284; cv=none; b=Z3D8UXYCuxZ+wjPzErqXriuzdYKAkkyAyJ5FEkcFJ1WDVGGtY39t7MZkG/SDr+sPrHsoOt/CuhJW/XFHHvhoTZL95q1CGaAnSXufnUx5Jd9uBPAT39S/nxngp3JLOJGmABE5e3y6XSKvhsoWHHomni0sSgYCwxpjCLbLagLCm3A=
+	t=1789390426; cv=none; b=aMl+z4B0xqwHjI2vEDNHa5LJ4IB+EYoJxcKBioQ9xZCBVV+KgZ0014RNxr7/vOsaPeNt/0M6g0Y4fJ+xEKcWzu5jQcDlZfSilPr3uHEzCqOts3f2+c9AGKtQgPCUfJiw02VSFNVEqzjJzV6HYnq3+rrl7XzEO7u9r6NYbz/HuiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390284; c=relaxed/simple;
-	bh=RUOT7D+R6XRFK6ZDB58sR8ABaVNr55aigsppqxnh9T4=;
+	s=arc-20240116; t=1789390426; c=relaxed/simple;
+	bh=QFR4oJCQoT55aHU4M/DQq6HQtEWMLxoilJJqgI/UOQI=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D2UFJyubZ8LhkOeVcGrXScPvvdsYh82dvepJZ3d5eLvPlK/cgBdiMFXPfGdZ3k92s6OCqTHg3B1vNV6v5FAX9QgYaW5WXj0qyllDe1i/iFHqKrI9q2e61pBezNcKUfV0XtUrv3zftvSYhr5oD/waL0nY+oLqfWd7n/WdGpcH3vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y00wAIrj; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version:Content-Type; b=kHa2VFwT52m/JgUNQGnbRuvOWKj/LeUkYkC5syRA/9L+QGm0ixt0lBE8IHrUFVkXCxiR7y492cXXMy8F4v0Wx5av/R2hAGeNEHrmDhUr4e1WzM1Hfkdgd/v/JqNBPjlp2whjqdi5LbycH1cnmZz1nRdjkRlHEbJTTLrbKx8xCgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdWL0Jbn; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y00wAIrj"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49e6e69d528so20078175e9.2
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 05:51:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdWL0Jbn"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso611578f8f.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 05:53:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789390281; x=1789995081; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789390422; x=1789995222; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rgQC1Yl5RhRkFvfEBoKl0QIvsiqz4jd8a1ncnGvXLCI=;
-        b=Y00wAIrjzP5NyVDNPzPu1Kf6i+gtyWosj4TxHuzUwqGnwuw/GoY8Lt15Wggpq2lCd4
-         /dtmKKIWNehNh7YOCucMxSGDXYisJh8JX/CTnG8AhfzCsP621g2bprgA+zWSLsURJui5
-         iWiEavIHoudV16OSUufIfmaBxNEFrMVm4lDN6jrg4GPiyFsEdP2k3eg3vEUnKssV1K34
-         Fu3ZzFw7Ttd7qz21XjYJACIbCxgJvPW0d1Dr3+ZdSnL0Cdqc8yDwC04qGeXy1iDTm9Bm
-         EyoYljHIDK/8Aa44P6j387hELQEoHCm30v+IdsUIRAHFOF2Oe3p8v74MTQtYi5qi8Y4g
-         ETPQ==
+        bh=UNtSulrcCSblkD0zfddb8JAGFbCKZWTczcGLRiEHaKU=;
+        b=qdWL0JbnDozphQNdlP1muH1HnmyszbEu4UE9OHf6KlfTAqiYdLyrLYWyxQx1KHbqu2
+         oZBFmUkXmJIlGwRz43T4Yj1JoPT/bZFNxd2cDsf4YrDmOZ1HcUAJkkJ3qpyWP4SZpvCx
+         M/K5hDW64yoCoseFLbn0DIbGqmLJ6M0Cl6kFL3hYt1vIqt36GWk1KWrA899UpCOUMdfj
+         i8HWUyIDh272zW7xFEfqXbZkMrsv+8TOSJqLECp0PUZH9GJ850+ldv1pUmv04L0m70U4
+         PxP9lNmJuc1tvBYHKNEDAiF/fHFfXJ7ABjkLRWlhXSZKiRupQ2gnRpPiy5DRShHNSeV+
+         UYqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789390281; x=1789995081;
+        d=1e100.net; s=20251104; t=1789390422; x=1789995222;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rgQC1Yl5RhRkFvfEBoKl0QIvsiqz4jd8a1ncnGvXLCI=;
-        b=IAZxCoKmN5gpXZFMU2PDgduBmr8hlzBwegoDIVextG6Gyse6dKhEOY1DF3+Zovt2nb
-         PqvpIl6j8EXo5Y8A6aUeuW58HOFDd0ZUS7U+n35Hgbjw0Zz8pI9SK7/Q1DS6m1UEBTYd
-         zkZHwg1xAPi2jbNEKSeapEaBkDMLybMkFM+s5/Qee0oJZzcOLqu0WtQsD423vN8zofMA
-         jn7BKCP8q0Qb7TVGyGvcVuuK3c3IqvCfcNZjdofygs8T0svNKQoM7RscEWIcjJZXICQV
-         wG6cAtx77MMNMYHcp0GICGG1MMY+yKp4I1DdU5uz/yixQWCwuoV2RR7RwB6/Q6BJUY4I
-         C/VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfoyBPu3RN7SPBydDB1814c5Rh0hppxpL2aDF+5krnoBSNuRoXWPVHJ/JlaGVQWw1EJLBSz9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpkR74iIzpm17yx2LHYli2UJUlpmzGl455J5SJpTtHOK9C51Xy
-	l2XbTsblI4rdeLV6sAn5BBg1wLQQCRxCJbwmwJ4I+SJp/15rVXgfu3yJ
-X-Gm-Gg: AYBFou05kLpxJS4oiA2ItDd2YlykbzWaxJuoLXEjnz+vWMcC9ekwdgTijJDZva4Keqt
-	LkPkqrSX7kb37ci+MVpDci3w4fD3M8qSg+VpV+MeDZvGTORC3gcO8uJjFU5Ytjq+2Uwm7IZXy5n
-	Wk59o3UTJmzJWrxrudjYu6GLBpAxrmn6aNNv2w+ErA2V3Y1kSoYPpBhXhtoZK7/HF/ZF8OPR4Ow
-	0YxJuxaao46DyHdgq/vuNID01WvDGipwcJsTIfzzaFfxAlNigtd2w0LC21Y4vD5KC2dskPj2f0f
-	I7chwqlL/TJO1AdQeU28jLtwuYFp0cmZb7Mgnsi1ZVmelLe169EYOmWtiWwNC4Sibd5gX8CSIQZ
-	uRZVMObiou6qp2RzgOMhPfEhiCEardQdJ3smzOvtuAGm2SdBuHtBWHJYBdsGVolYRddJ/xJvYtH
-	jgOjF0J/To+0VSxHqu7i2WQrEN/kkePZVDob6vGA8Qmp61+hP3hDW8Ew2A0goK8MB2fz+smkUgf
-	Ju/SbgJYEDQuaLNIC99X9SisTKAX8ObRQRneGsBQV56Cu1aLBIE6i0H/1xesrB9lr9uijjGEw++
-	QbmhfXLEZX4C4zS0yuMMr3klJjEUAZpuhSxoo5YYcIT/f1lePvtiHeWNbVetp9VDX/GjX/kB4hP
-	W3PigihazX6zHLV2esF/il9uWJcpZVJThtIqrmLbLuMCsvnjbLXPxqCNeet3oto1J18pGCnkjBK
-	WMtBC1
-X-Received: by 2002:a05:600c:4f41:b0:49c:cedc:3c36 with SMTP id 5b1f17b1804b1-49e7a685a1amr32353785e9.16.1789390280541;
-        Mon, 14 Sep 2026 05:51:20 -0700 (PDT)
+        bh=UNtSulrcCSblkD0zfddb8JAGFbCKZWTczcGLRiEHaKU=;
+        b=DieBLd+bFCJywPBMEO72PCSlasNSNr6UZuwNoKVqvVFKU4mkJ55QjUvUsEZcsA7otG
+         oblVd2Wqwc5fW9vQPKsH6C9p00sdzQ+/OlWnQ+d9VVb6OWHJbOzbfCYjDC6DsavAal5Y
+         mhwe85THOk5LM/bqGqOUARAHwwD0PSpCZEhlAk5Du0hWk/DlPFnO71PhiAxGLkRz6txP
+         9dFqNAib9LR0lewtQIBS9psWm7EoNPcOMpiWKKG9V8UM20830lEmbAMBRGnx6HVZS4uj
+         VnnrMjpMB7O8wnXcAN4Yc5YWM2qaJvB9CGCP4TTtfF7l9TZOJBMisaCx+dvhOnQhEr8r
+         jUwA==
+X-Forwarded-Encrypted: i=1; AKwUvBykc9qdGWJQRQXbqsbGtbODxmnH7TtIrWI33svZwajlvwiAjiBIJjzUC2aEiXj26V8OXPsulfA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mV0ILo096yjni2Xhw3t2QlHjRl+IxYV4KPdXMu1xHBvh27aNtt
+	TfaYi++JO+xE/IePii69Df6vjme85NnWsdrHC2Rdn68fHzSYBPfKLDSw
+X-Gm-Gg: AYBFou0hmqb4vvtiTr12znBjo52qaV+I01bHVtAnvl2Ikh7z30aDFTvPpG14qzTWwMH
+	B6dyu6sPrICzMPW+5/EWitCHjg7quDJJX6bolbThwgjOjsg+ffUlytuGzIAh6ygm/4ciAteuyzN
+	75uxQhpHnEmScr/pu8ANvMYkLjqXwStvEQ4kotpGKrvqgGXwOhaGx1bK4DrU723+s+9vCoZOLL5
+	aqwTmQvkm8GJ1hklK6aRuI6XmLTC7SBwYLtFbTN7P0fwtPJKClGONGuazOC+5cM0iVdRfWe3fAJ
+	rrwXGSTQa4kCTvsDLzPmeHJMyuRnsMb+HWqvzOF8i9OxkfRFBd7QnaEF/rYM/3jTo404XN8fJgu
+	xu+k9PMkqXa4MMwiPq4BPYzNlMd1lRta+Yti6Qg1sg0Nt3hMWf57U7uRZDwNOavyPPaOqJmkIkY
+	PHOtO9seqOVRF0liapVbPHiefQiJyEqW9ah6nwfXUOTArCdZt8VjPnOS4iLlNwB8KVj1Lnpo/D0
+	V6hDq5S9XH60vmTOB6qi1EmkiVfgPlwpmbK6iKH7aB7lTut1E061U57S25wu6HXxlesiuZGyWaO
+	y0wOAlM/ViYKFDsNNImhpIRbEEN0OF6bia8c2rPua4m41I+o1pUVUh2an7qWgG3S9kvQ8q50hbW
+	Uwg7vzf2j/rwW3PKmt4RNwYYVtfFqGIyjAQ8v6DuTjb5G2fGT3Cvozn7cGiEsGNwBg9B8O1/H0c
+	l/lVVQ
+X-Received: by 2002:a05:600d:8490:10b0:49d:1e79:35d6 with SMTP id 5b1f17b1804b1-49e7cf551e6mr4118455e9.14.1789390422542;
+        Mon, 14 Sep 2026 05:53:42 -0700 (PDT)
 Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm378995405e9.3.2026.09.14.05.51.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e62231360sm218704995e9.4.2026.09.14.05.53.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 05:51:20 -0700 (PDT)
-Date: Mon, 14 Sep 2026 14:51:18 +0200
+        Mon, 14 Sep 2026 05:53:42 -0700 (PDT)
+Date: Mon, 14 Sep 2026 14:53:39 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, "Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
- (The Capable Hub)" <u.kleine-koenig@baylibre.com>, Danilo Krummrich
- <dakr@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>, Pan Chuang
- <panchuang@vivo.com>, Irina Tirdea <irina.tirdea@intel.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: Eugen Hristev <ehristev@kernel.org>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre
+ Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, linux-iio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: Re: [PATCH] iio: accel: mma9553: disable autosuspend on remove
-Message-ID: <20260914145118.00007445@gmail.com>
-In-Reply-To: <20260914113012.1688043-1-lgs201920130244@gmail.com>
-References: <20260914113012.1688043-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
+Message-ID: <20260914145339.00002f0b@gmail.com>
+In-Reply-To: <20260914113422.1689331-1-lgs201920130244@gmail.com>
+References: <20260914113422.1689331-1-lgs201920130244@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -88,10 +88,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026 19:30:12 +0800
+On Mon, 14 Sep 2026 19:34:22 +0800
 Guangshuo Li <lgs201920130244@gmail.com> wrote:
 
-> mma9553_probe() enables runtime PM autosuspend with
+> at91_adc_probe() enables runtime PM autosuspend with
 > pm_runtime_use_autosuspend(). The probe error path correctly undoes
 > this setting with pm_runtime_dont_use_autosuspend(), but the normal
 > remove path only disables runtime PM.
@@ -107,25 +107,25 @@ Guangshuo Li <lgs201920130244@gmail.com> wrote:
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: 40cb761306d6 ("iio: add driver for Freescale MMA9553")
+> Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/iio/accel/mma9553.c | 1 +
+>  drivers/iio/adc/at91-sama5d2_adc.c | 1 +
 >  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/iio/accel/mma9553.c b/drivers/iio/accel/mma9553.c
-> index 8e7aaac89d47..5a36d415a837 100644
-> --- a/drivers/iio/accel/mma9553.c
-> +++ b/drivers/iio/accel/mma9553.c
-> @@ -1136,6 +1136,7 @@ static void mma9553_remove(struct i2c_client *client)
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
+> index e8a5285bb6d4..e68632e628c7 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
+> @@ -2487,6 +2487,7 @@ static void at91_adc_remove(struct platform_device *pdev)
 >  
->  	iio_device_unregister(indio_dev);
+>  	pm_runtime_disable(st->dev);
+>  	pm_runtime_set_suspended(st->dev);
+> +	pm_runtime_dont_use_autosuspend(st->dev);
+>  	clk_disable_unprepare(st->per_clk);
 >  
-> +	pm_runtime_dont_use_autosuspend(&client->dev);
->  	pm_runtime_disable(&client->dev);
->  	pm_runtime_set_suspended(&client->dev);
->  
+>  	regulator_disable(st->vref);
 
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
