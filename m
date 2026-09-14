@@ -1,36 +1,68 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74624908BE;
-	Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E5748094D
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 17:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407311; cv=none; b=Dhbv1+aO5pRugs9TFkJUV2VG+fY1wHIt+t6IY907HoQI+hPxNDNqe9RrvdMH/V3aBjLPFWRpGO5e4mXCHsj36Ik4arMSr/lcjEnTLFu60KvZM1Im/zHVypq/VSnPCupIkbowaJ5zp0T/UGfHEJbmaOYthAzNXDpb4CbT2SRDJEo=
+	t=1789407530; cv=none; b=YmJ/QIBR463CvQuDUccr/EewtnRYCYyP9SzLUCMPPqPxmihm/Jh++3vsid6AaZp1KidhnoKCjIQtyD4kP+DhOnr+xFIDIt8jRfBMqZYepSuA55XZhTFA05g0pg1A/ISTTjW5+M00k6nSqiX1VNRKUZIxJhVMh/AjSg8/zbR5ydw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407311; c=relaxed/simple;
-	bh=yA0xjPmbWso9PL4zhMVJecfESEqBadcWXFQAEM8YhAg=;
+	s=arc-20240116; t=1789407530; c=relaxed/simple;
+	bh=SbuWO6K3oJD2LhlEEwqlQxpEpDLEqVohKRUVF6OSZS0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HEv78vV3Vo4xuUQfabAX+0D1yLZ1jggwFCkoQi0JZgulZRfFJoicLyFZT2gJO47nmUWHUSWN0GzMnrfwueobSrRrHDJDtskqaSKXAi5VxzlNkMYqKHsXRuGcYoaoJIHeLgE97d2hRXrytOc9tZ/vYAvORf+qYE3wNhZByqtvo18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=sY3vF3wP; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	 In-Reply-To:Content-Type; b=uXAouJg+De5fQ6KPDD6LB1iNa+Hec2mx+b7w/qaFF3gKtoMOwtwDwJx7CYR0R06RGAvntnNuNonmI7UVhdyvcLQN8dKJjtwQZxyPpzGkmV4ovHyZTTZCoFNkWsOJI0a0meejjk9lrJngmgZY/Sl80ZVd1RycQTCU6nSmGGLrWz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVaP0o5V; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="sY3vF3wP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=qDVSXqIm/ZZ7NqZ7O46ll556+WfE6c0OGZaZTBmNtws=; b=sY3vF3wPMfV24E7Dcni58ZXMe3
-	ibRgguOwwLQcKEQ9HKgwLdG1ruIx/1aKEdVd8inZyLeSRuR7x3TuLWHJ8DRgJcZI4Nj/fZgvcq54q
-	9iKpAyphvZsmC/48vIGUoVX5yBZrOfwsP6VD8wZseeqKt08rHwEzDZPTRy4xrWDvBURku0FBVCjVg
-	7dQkU6P+t2WBudH700oWI7gb9iI8lxXDcMp6Voa52PeMMmcus6Iu63I6H/kHw0id++gY9cE1AdfHe
-	5BCRkTk1MbfSj/W+j7m1LQeDmDyu+11lB+sf029bSaUWOFVtp7F3YhVSi8bZgI10O4+UlRcW9iDj/
-	fqigvzsw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x6AZt-00214e-Ga; Mon, 14 Sep 2026 19:34:49 +0200
-Message-ID: <c1388b5f-9077-4161-8fd8-3b8ebf24fbde@igalia.com>
-Date: Mon, 14 Sep 2026 14:34:41 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVaP0o5V"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c6so2341314b3a.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 10:38:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789407529; x=1790012329; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rnT0qav7UwFgOqf+kbm0vIaYG2Z1UVdPy7kC+ivpDo0=;
+        b=UVaP0o5V5+ztgTGfG8oqqA7zASZFarfqskHoqB37SH21G1JU1cystmhZmKCDP/X7Ao
+         c0TudD1UGgB+Fn7zEbN5eDDPoAOLLBvGZyIpI6yc3QOBAKIKNJ3HkqEzTQ5E+DazWHR/
+         ndtnUe50+BjFqwnvZYdw7P9Xpq96O2MdpX1jKN0n6fXjURhyKgKFjG8YS59T3a32dmP3
+         iv2osSu9ODma1Tf7aKtBXATvJZfxC29GPBvHhMDmVHlGCcplpGccWB1zxJdGZoBgdwHG
+         wtq5dEDCKCSX79Hv35wsINUfTlpmFgZmQeAsQ25tH9CjhJvbtQJPoP+Vi9cFV10qcSRR
+         7egg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789407529; x=1790012329;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rnT0qav7UwFgOqf+kbm0vIaYG2Z1UVdPy7kC+ivpDo0=;
+        b=PuzK2GSqHesX7rLOZj+ygFQsIQOeHp+tR180Dpotx5B4OaJ4pzChbwc+lcFBznll5x
+         eqUbwS1PlDb3Bsq0mRL0/c+Cbe3SzW8VWxh03CymGD70Wina3TyC0jBUymGnUZJr43Xp
+         A2jgyr019lx4GdeQWeM+tgmwuxb6R6I/FnmudcK/Dy2ZlK7WZ0DVsa9KZZlrmnC6//jb
+         zB3ThCBHlYbWv/bvObnVpNcbI4VuRbyeKPz3tRnwwm5WdESaTHZhZN5dDBOBFneQyTnC
+         2bA9bTDrr0Z17pOLixDSwwnTqUoyHYIZwqNdkmr5hpDTPcAdqRShJuVGiRar9S+jKd1/
+         NLuw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8WI3KCerLOe0nqdH4SaFXdwTllYpHSQFxxFZW+ZMb9krVHMxkIFDLF3JYAlUHqESEUYhWG5I=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+uE2SbtQEj5TbBGH786rnbU87pP2BkDmEQhPBdYtyDoVnSvBu
+	5MppQWftFjPXifSiPjtzaHLZyJf1QPJW4mR7SH30xEe/tLuwkOG8fjkEOU5d8w==
+X-Gm-Gg: AYBFou1z5Rf98ndLdzMhsF4num/yewhEQ13a4w6ihYKdMYm3mfIpdp3iLD9ANQykP+1
+	7MC4LdkwbAKuwfNwgL55fspNMqwWLdr2r484yekVy/79+uEiNvmW9nD+zaOw1zDH8YFgbSJLYS8
+	Fo5/IZvUPkqVhFS4xEcP278uM+YHBsrcP02A0Gk7PwAFAglpMeOu/XeOgwEQHcPF1HtUMtcyFhb
+	kCJdZG+Tkltv6Ptb0tCAJZueSExtgaOFmgFHOo+DcHPgJ1zEeQD6THo61TFxGLQotPtD908+vnY
+	xlNHdS0MS8+SPoxosdP9Hy/3HTKy0w8S0DBRgGcZpYoRqqBOdLFUQe6OWMDqPZAChuznlqF0MXv
+	2yXnY/bVDhjXavXrPjOBgqliMFdE4xOXGsOgbb7M4lMUDGjHHPLkdO9fuyBUTY/9gujVbBNlxBE
+	5pqMdoH5QSBWcf4OmuwvZMi35sBfwQzbA9Uf5+0b11VGAgyrGWmWZd5YjSzKhLf2tC3We3M56A/
+	Gae/dF0cGgJrZnCQ2XCzZhO3A==
+X-Received: by 2002:a05:6a00:1791:b0:86b:43f6:67b7 with SMTP id d2e1a72fcca58-86f82e5c9admr6736506b3a.4.1789407528681;
+        Mon, 14 Sep 2026 10:38:48 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a1b827esm5006038b3a.51.2026.09.14.10.38.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 10:38:48 -0700 (PDT)
+Message-ID: <64dd0faa-fdfa-45a4-812f-638574beca26@gmail.com>
+Date: Mon, 14 Sep 2026 10:38:45 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,111 +70,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: Hold a GEM reference while purging userspace BOs
-To: Kazuki Hanai <hnkz.64@gmail.com>, mripard@kernel.org,
- dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
- bbrezillon@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260830130700.680041-1-hnkz.64@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260830130700.680041-1-hnkz.64@gmail.com>
+Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260912065548.086904252@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Kazuki,
-
-On 30/08/26 10:07, Kazuki Hanai wrote:
-> vc4_bo_userspace_cache_purge() removes a BO from the purgeable list and
-> then drops the list lock before taking the BO madvise lock. A concurrent
-> final GEM put can therefore release the BO while the purge path still
-> holds only a raw pointer.
+On 9/11/26 23:45, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.188 release.
+> There are 1191 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Acquire a non-zero GEM reference while the purgeable list lock still
-> protects the lookup. If final release has already started, drop the list
-> lock so the release path can remove the entry and retry. Put the temporary
-> reference after dropping the madvise lock to avoid recursing into final
-> release while that lock is held.
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
 > 
-> Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-> ---
->   drivers/gpu/drm/vc4/vc4_bo.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-> index 49ea2ed0996b4..5289e69f3345f 100644
-> --- a/drivers/gpu/drm/vc4/vc4_bo.c
-> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
-> @@ -319,6 +319,19 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
->   		struct drm_gem_object *obj = &bo->base.base;
->   		size_t purged_size = 0;
->   
-> +		/*
-> +		 * The last GEM reference can be dropped concurrently. Its free
-> +		 * callback removes the BO from this list before releasing it, so
-> +		 * the list lock makes an unless-zero get safe. Never carry only a
-> +		 * raw list pointer across the lock drop below.
-> +		 */
-> +		if (!kref_get_unless_zero(&obj->refcount)) {
-> +			mutex_unlock(&vc4->purgeable.lock);
-> +			cond_resched();
-> +			mutex_lock(&vc4->purgeable.lock);
-> +			continue;
-> +		}
+> thanks,
+> 
+> greg k-h
 
-Hum, your fix doesn't look correct to me. First, I don't understand why
-you are using something like cond_resched() here. Next, with this
-approach, the BO with refcount=0 will never be removed from the list.
+perf fails to build on arm/arm64/bmips with:
 
-> +
->   		vc4_bo_remove_from_purgeable_pool_locked(bo);
+   CC 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/zlib.o
+util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c:14:10: fatal error: 
+linux/unaligned.h: No such file or directory
+    14 | #include <linux/unaligned.h>
+       |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+   CC 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/lzma.o
+make[7]: *** 
+[/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/build/Makefile.build:97: 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.o] 
+Error 1
+   CC 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/cap.o
+   CC 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/demangle-ocaml.o
+make[6]: *** 
+[/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/build/Makefile.build:143: 
+hisi-ptt-decoder] Error 2
+make[6]: *** Waiting for unfinished jobs....
+In file included from util/hisi-ptt.c:24:
+util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.h:13:10: fatal error: 
+linux/bitfield.h: No such file or directory
+    13 | #include <linux/bitfield.h>
+       |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-What you could do instead is calling:
-
-if (!kref_get_unless_zero(&obj->refcount))
-       continue;
-
-here.
-
-Best regards,
-- Maíra
-
->   
->   		/* Release the purgeable lock while we're purging the BO so
-> @@ -345,6 +358,7 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
->   			vc4_bo_purge(obj);
->   		}
->   		mutex_unlock(&bo->madv_lock);
-> +		drm_gem_object_put(obj);
->   		mutex_lock(&vc4->purgeable.lock);
->   
->   		if (purged_size) {
-
+this is due to 6c4b82b50c46842683a3a39e1bc8291581e8b1cb ("perf hisi-ptt: 
+Fix PTT trace TLP header parsing")
+-- 
+Florian
