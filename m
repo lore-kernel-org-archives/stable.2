@@ -1,52 +1,52 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52E6442B0B
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A3443E43
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387793; cv=none; b=iwZiTQEieJBd8zJOf90y+eI4UZSAywkszcDFGJ9ZAqDQrKyVds8W55LU64ocvkRCLnr6TLXg87IWw1loVaigcoRdhizS2ng1jwCUpqgNIGDpzJbGt/+CfirHNUtQPnBgqoOmI9RNpu1N1mfHZEarLbM61qrFUMqir5um9dTAWZg=
+	t=1789388158; cv=none; b=cLwHEPQQ207tfjSQa9WTutdHkle85PQ08PfCfBJBVTHzvXSr5d4ShuGaUumyg7Od4QEPrX1wZMMx/usJ8yC/qYGBx2uCfreCCQhrv8PZy6sxg8mJyiLoo9w3VhAGLmuSXkAO4KNwb9mT7B2DeIGZvVq6uL2EZtGdUzjzunEpFlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387793; c=relaxed/simple;
-	bh=DIFbZRJbfGdhKYVNBWgps2T9SIYINBUqv550FvJbPnQ=;
+	s=arc-20240116; t=1789388158; c=relaxed/simple;
+	bh=gErqX5CkJ3k5ZE0RlQFl1YtciVW68CeEp9/eczdgOiU=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=U0JW2xdjhfwXvF9yBk89LgMGF2Ht/rh2I06tL4CEoTpJytXMRBPtZD9N7ZKzBy4XZpsc/5LV3uMOQ19OzHPLbwLvmdZyQjzLt1bzp60t/po0E13tVvvRBpTTUSA3WLsFRdH9tce9ua94sdWrYW8GABE1ahmG/qd/5Ml+sTZ4WTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qanpWb6b; arc=none smtp.client-ip=185.246.85.4
+	 MIME-Version:Content-Type; b=EsV0e7KLVIkC1FOIrAvMSgiO4n/7+4LXm2vzeYv681JDUEjvVqqsNq2UhGtrAZA9XHJfVhtym0/BaYMmcX9w0frXSduehR29z+Zz/88EtZx6LJDFh1gt+jcJ1ZMOBzIpHW0L/jLiX2yhUwHURBzv5wfvpoBiGKaNen3CTeIpqYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ltcMcIpu; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qanpWb6b"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ltcMcIpu"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D9D1A4E4059C;
-	Mon, 14 Sep 2026 12:09:47 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 815A4C6220A;
+	Mon, 14 Sep 2026 12:16:37 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AD8AA60323;
-	Mon, 14 Sep 2026 12:09:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 00C7E11C7AFEA;
-	Mon, 14 Sep 2026 14:09:36 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 62FF960323;
+	Mon, 14 Sep 2026 12:15:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A183E11C7AF9D;
+	Mon, 14 Sep 2026 14:15:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789387787; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1789388149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=imnBdl+Y6imr4XHv64a6LJ2Rk4vo6DK7imSA+6oOEmY=;
-	b=qanpWb6bTANqCQiqendoxvJEOtm+FThRWr7Wufa6tx8owz2Ve3ibimrT5eyKlS4BjM+XzV
-	MyCgowQ3UhWagZCsZj360UTbNMLCze4f2xZaUBLu/HERDJwK+8YLuqUeDQp9I+Bsh7tH3S
-	HHJ6YjV0nZNPf4LU8OKZJpqdmFL268SOSwg61jNaOWnteRz0rc2jvyEsl+jxEZfEAxz/Ie
-	mJlmpt0wO4aDtlRslaTupTYvbKjSSWqmp4Z026T2sx1iDVlwQksO8ulsX92osfEirbOIP0
-	F1zV6r8laK0HKPJxQ2cw0H4b2kIZjYfl6Vdl31JrDcHRJsN7oeH+590KDdfiRg==
+	bh=c/j2KSqoeXBO/q3tfC1ALuuQTrGhFj6j1QP0rTOkUU8=;
+	b=ltcMcIpu7KTkiliv/Sa0/XOryVq+Iy4OOrpOQXGT2bqQF6+9WInj1c1ZBbTrmJ5ot6lWQm
+	Stl2p/qa3c0UzIiZzikOiSv/uzemiocQXjLBEt1EkLLiruLlvqQ+xAHPTeyfy0Kkbh+SBi
+	yPgJEoV3KwEtUjjvPKieD5XEoBZ4Gn9GNI1wcgbpIYFeMIDKOM6a1+MGA342Omian1E5s8
+	yCWPVI9SpOZ0q0y7DspWzcMTCFSND9Q6X5KNJO8+QhCtIFUvVDm42CtmqCHUYu2+4E8XVa
+	2xir+AEUZ4JBCqTSyMywT/x5Lujn6FuOnvy1rJD3quvJ/q78zI0DFjucYACBgg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Itai Handler <itai.handler@gmail.com>
 Cc: mwalle@kernel.org,  pratyush@kernel.org,  linux-kernel@vger.kernel.org,
   linux-mtd@lists.infradead.org,  vigneshr@ti.com,  richard@nod.at,
   takahiro.kuwano@infineon.com,  stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] mtd: spi-nor: fix the lock left held by
- spi_nor_rww_start_exclusive()
-In-Reply-To: <20260914081149.1916589-2-itai.handler@gmail.com> (Itai Handler's
-	message of "Mon, 14 Sep 2026 11:11:47 +0300")
+Subject: Re: [PATCH v2 2/3] mtd: spi-nor: take the flash lock in
+ spi_nor_shutdown()
+In-Reply-To: <20260914081149.1916589-3-itai.handler@gmail.com> (Itai Handler's
+	message of "Mon, 14 Sep 2026 11:11:48 +0300")
 References: <20260914081149.1916589-1-itai.handler@gmail.com>
-	<20260914081149.1916589-2-itai.handler@gmail.com>
+	<20260914081149.1916589-3-itai.handler@gmail.com>
 User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 14 Sep 2026 14:09:36 +0200
-Message-ID: <87ld94owzj.fsf@bootlin.com>
+Date: Mon, 14 Sep 2026 14:15:46 +0200
+Message-ID: <87fqzcowp9.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,48 +57,83 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 14/09/2026 at 11:11:47 +03, Itai Handler <itai.handler@gmail.com> wrote:
+On 14/09/2026 at 11:11:48 +03, Itai Handler <itai.handler@gmail.com> wrote:
 
-> spi_nor_rww_start_exclusive() takes nor->lock and never drops it. It
-> returns with the mutex held whether it hands out the exclusive claim or
-> reports the flash busy, leaving the caller holding a lock it does not
-> know it has.
+> spi_nor_shutdown() calls spi_nor_restore() to put the flash back into
+> 3-byte addressing before the system reboots or kexecs. It does so
+> without taking nor->lock, which every other path that talks to the chip
+> acquires through spi_nor_prep_and_lock().
 >
-> Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
-> helpers") turned its "goto busy" into a plain "return false" and deleted
-> the busy: label that did the mutex_unlock(), but kept the mutex_lock()
-> at the top instead of replacing it with guard(mutex). It is now the only
-> one of the ten spi_nor_rww_{start,end}_* helpers that does not use the
-> guard.
+> device_shutdown() does not freeze userspace and does not stop kernel
+> threads; it walks the device list calling ->shutdown with all CPUs
+> online. Another thread can therefore be in the middle of an operation,
+> with the restore running concurrently with it. A write and a read are
+> both damaged, in different ways.
 >
-> Its only caller is spi_nor_prep_and_lock(), so on a flash with
-> SNOR_F_RWW set:
+> A program or erase leaves the flash busy, and a busy flash accepts only
+> status register reads and ignores everything else, including the EX4B
+> that spi_nor_restore() sends. Neither spi_nor_write_enable() nor
+> spi_nor_set_4byte_addr_mode() reads anything back, so the restore
+> reports success while the flash is left in 4-byte addressing. The next
+> boot stage then addresses it with 3 bytes and reads the wrong data,
+> which is the failure commit 59b356ffd0b0 ("mtd: m25p80: restore the
+> status of SPI flash when exiting") introduced this restore to prevent.
 >
->  - if the flash is idle it returns true with nor->lock held, and the
->    matching spi_nor_unlock_and_unprep() calls
->    spi_nor_rww_end_exclusive(), whose guard(mutex)(&nor->lock) then
->    deadlocks on the non-recursive mutex;
+> A read, by contrast, does not ignore the restore - it is corrupted by
+> it. spi_nor_read() holds the lock across a loop that issues one
+> spi_nor_read_data() per chunk, each using nor->addr_nbytes.
+> spi_nor_set_4byte_addr_mode() updates nor->params->addr_nbytes and not
+> nor->addr_nbytes, so a restore landing between two chunks switches the
+> chip to 3-byte addressing while the driver carries on sending 4 address
+> bytes. The rest of the transfer is addressed wrongly and returns wrong
+> data, and nothing reports an error. A restore may also soft reset the
+> chip in the middle of that same read.
 >
->  - if the flash is busy it returns false with nor->lock held, and
->    wait_event_killable() sleeps holding it, so the operation that would
->    clear ongoing_* can never take the lock to do so.
+> Take nor->lock for the restore, so it runs between operations instead of
+> during one: a program or erase has finished waiting on the chip, and a
+> read has issued its last chunk. This is a locking fix rather than a
+> missing wait - each operation already waits for completion at the site
+> that started it.
 >
-> Nothing reaches this today: the only flash with SPI_NOR_RWW is the
-> MX25UW51245G, which has neither OTP nor locking ops, so none of the
-> existing spi_nor_prep_and_lock() callers in otp.c, swp.c and sst.c apply
-> to it. It becomes reachable as soon as any common path takes the
-> exclusive lock.
->
-> Use guard(mutex) as the other helpers do.
->
-> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers=
-")
+> This narrows the race without closing it. The restore still runs while
+> MTD users are attached, so an operation that starts after it has
+> completed will address a chip that is now in 3-byte mode while
+> nor->addr_nbytes is still 4. Closing that as well would mean having MTD
+> stop accepting operations before ->shutdown runs, which is a larger
+> change; serialising against the operations already in flight is what
+> keeps the restore itself from being issued into a busy chip.
+
+6 paragraphs to tell "Accesses to the flash should be
+serialized". Please reduce it.
+
+> Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when e=
+xiting")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Itai Handler <itai.handler@gmail.com>
+> ---
+>  drivers/mtd/spi-nor/core.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 8bc117b46e02..647bf8dce719 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
+>  static void spi_nor_shutdown(struct spi_mem *spimem)
+>  {
+>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
+> +	int ret;
+> +
+> +	/*
+> +	 * Wait for an operation started by another thread to finish.
+> +	 * device_shutdown() runs with MTD users still active: a busy flash
+> +	 * ignores the commands spi_nor_restore() issues, leaving it in
+> +	 * 4-byte address mode, and a restore landing mid-read changes the
+> +	 * chip's address width under the transfer.
+> +	 */
 
-Michael, since we already got a cycle with AI walls of text just to tell
-"fix that damn conversion", can I (or you) apply that other patch, so we
-can get rid of these? Let me know what you prefer, although I don't
-remember where that thread is.
+I'm fine with the diff, but please drop this comment.
 
+Thanks,
 Miqu=C3=A8l
+
