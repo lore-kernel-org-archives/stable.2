@@ -1,67 +1,68 @@
 Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CBF2E7165
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D515311C1B
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351807; cv=none; b=soy04P9sA/ldlp75UUDHdHlbccblRTaxLX4VSGIdkA6Y4fVYTCzOGbkoSQZNSkVCYua7Hdzg1JZhzpHGHrOxDnCWLdC81rpM3XJVnZvVEnx4ipWhH6HfCoJUMpOqIzr21Rml7P/uNbEGm8oea//4J0nKsKy5/gL9ibG8kuzqP88=
+	t=1789351812; cv=none; b=afpHM3Kc6/8Hv3ptyof7Xs6S7XQ5RBai6ixUycM0AHKt/aDRsxUdl0zcSAVUCetWGiNCKPhgLmBMAV/ZC5aT1Pj7d818+43uKPmXZi52I5PdPv7d6MGgmn5cOItqIUtPCQXTH9UNo/D3fIoFcbGLY8kTiK2EtAFZkjCDmrtxWqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351807; c=relaxed/simple;
-	bh=r9Aq0smRbtGVXoOkB0wcDk///UPxMJx1xjzV3KGy6PI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JYL1L1biFDG0fCcDYSKr3eeVv/gqofkwKCs8DKHl0t5JE+j9hEjxaXs3kUgSs2KeibSbbGHKJNl+7Fm6NsDDSHIZp2F67cLc2dNfvvz2wvr7drd6SY39TTjeZRgbw09HC8ReeSoB7cm2RKND2dEN/HfVDyS7G4UhkGzkgMxQ1nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bH+kHCYL; arc=none smtp.client-ip=74.125.231.192
+	s=arc-20240116; t=1789351812; c=relaxed/simple;
+	bh=B0FAHrSWVXGHaqZILibkK+o++O0wPS8q+cwkcADrHJk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=E0t6/qNjnmy0dKfZ7uk0YHP+Rd91WpVuXJTVt4+bR+wPIAYr5PFfxkRQMS9v521B79Ss4vxw58tAPNHK9xc06pID/1WCgLPrds1iJu9h7TX1d8klxZUVVgg1sUUASubvjV0wgJ9s1NNCW52KyqqBfHn8daHOsJ12OUc/We82jYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jMhYpaHD; arc=none smtp.client-ip=74.125.231.192
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bH+kHCYL"
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a4492f5cd1so366589b6e.1
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:10:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jMhYpaHD"
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a4492f5cd1so366597b6e.1
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:10:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789351805; x=1789956605; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VyFl8OR0uDUO8uKxg8rNc5Dxixa51YMSLn7xjZ2lM5o=;
-        b=bH+kHCYL2rZIYFJv1kV3aY3u8nV2i8zLtOwUYI7HbJvXvv8Pib8VUoA0kGULwYC84i
-         dxBeuroZ1lKFn5UK4srWuWLeSra05g5WrpU92uRGLxzOcbedYR2HNZppceD2mhGKwhvH
-         YyIZMwKdEvsr8Bw5X/zE6xx8hDX+JMsJ3YX7wu2ELsnR8KoXbS8I8xUbEemeYYptp/TF
-         OJCXhprimy+61UTx4F4i5K5H01r9yQezX0qhGXO3EK2la1lWE6frko+sjhU3AC9eZRe8
-         1wXcInqu17lsmCm+wN5nVZQeCL7TNQwwphJKN7XclULqVZQG1n0XMUf9tvnjUGfiCkXH
-         XqqQ==
+        d=gmail.com; s=20251104; t=1789351809; x=1789956609; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dXWWEPWR1eTf24c4piCmTsBKFKIOYSQEhaTgS6fa4xg=;
+        b=jMhYpaHD25glrbNFCZY7N3myS5Va4Yy1yKfh8kwtcxHm8npygF+60cH/NArCGfy+bX
+         7E/uk5TmNSjnrhrtvry/lRMIYLiLQpsgnOPGMrOqixKzBHy/mTY3a/w9/wVWZoCErj33
+         /Tum4wE7vsktKOXNciKT4BzGScbFKDUssqr6jPtP+GmXUbVtxYHHxgzFzF0oIFOqiFRa
+         6FegTJ5MhNLSZ6YlJzxfUpHxTDWRjFdtUbWLmIugJHnN9JB+EXHJbNGcWcE8MuksL3bC
+         3x4LLuv/Og9OrXhl5LCFktkue7ni0TuobRSyHNjFGVwJdKvnTJDbSgrxgkeh7nEp7D5y
+         OOnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789351805; x=1789956605;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VyFl8OR0uDUO8uKxg8rNc5Dxixa51YMSLn7xjZ2lM5o=;
-        b=tBfkmPSa+fIDJtGdMIKA1zWWgzsrkmxKl9Qi1VnyKKfieB0nc0CA7WFx8TIQJFFdEa
-         b8a8X2b1jG59pcbgfiVv9iDxvj/42DmmoIaZ4YPOUBizCjcNxtyFNgH+SfLUFG8e2SKY
-         Dsnrws/dUox63yMNpBhuPVm5sl94aQFeL+jRq/f3tqsFVBoL2/R2qDxSTsl61yxRNPxb
-         +YCssFVQtMZQHgk2aszDoxrSMTv48CIBYjPAySmf52f4GDKOp5jXBRmThh1u5vaP703r
-         Zg0+o+St2gUS+1TEfTFjUxrGxl95qWbhb22wUhAzkAdiURmCUfmgTaqUYjppAyohH1RU
-         wuow==
-X-Forwarded-Encrypted: i=1; AKwUvBycu1Un5VgdrWevw4ohCYvUR6ULMJIELQf/GHY2l9lI4ONRydG86nfGtNroYaTFPy+71tSKvLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lf9ZTvS0HcpDTis9uljPZEGJjnBE/vzd2azwHIu2p2DSt0suWU
-	K3Ig54uUiNIqUngw/Y/dHOiXKB8AwmttjYo5HbQr9ET9OZeX1+ECgpaa
-X-Gm-Gg: AYBFou3OkSLFalFR+9pSBO768AX5MIxqb0ft4ImQcCgmuuOCsik51T7LoCNsO04XNNh
-	FXdJbr/o3Qjo47W5B3oBgMWRGvK348UTb73MVvharYyrvCEcBPontlYeKzVlPy0MucnScQh63wM
-	guPbKa95v4nD+543SSAMJtVZJAm9sVTlRMbmD/6zvxbdD3i+Gn032ZLkx2F5+YvWIkuqQKoSONd
-	zdX7Ik8CiqjZMXnDdNI1ffIPFk1t9qqd2P3diAMW6pMF4qQaH/vRA9+VviEANaiHnB3g19UvVsF
-	QB9P7sEI3tWflcLK0+kRQWQn0ZwKF/qEPoknznnWV29aI2ya1VDP7QeMx8MRDqz32mWlAkyCcbJ
-	eFFF5N6LmJ6yetHXy0WpIb6A1hqxzn33Pgr5iIwQKmjts9c0FVC9XVP9y+1h6a1DvtHxrksoMrP
-	Xk0Oouf6N4nFg/YwDRdC09Z2Oeq+DRfmXEGnyVcCojnPfMu9xhFdPNHJjWnBKk5wLKauE=
-X-Received: by 2002:a05:6830:3692:b0:7fa:ab72:9dff with SMTP id 46e09a7af769-80899b59dcbmr170262a34.23.1789351805145;
-        Sun, 13 Sep 2026 19:10:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789351809; x=1789956609;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dXWWEPWR1eTf24c4piCmTsBKFKIOYSQEhaTgS6fa4xg=;
+        b=Fbxz3PD5iGXLkoBx71rYeYeoV7P0GczbX5uje9C/viHC24YH9eKF+kWAdMkGnk7+dT
+         2OIyxoLi11VegRH2cPL5iNrfjsdowDJP7yLg5NnIA/o8cMSinLApXOa5IMEEEVgcRzL8
+         /7s0MMAFYx/s+aCDIdivmMA/r5mywW7e2OtvkMe7DOTerMbcFosmafh0sJ9w5gt3KzE1
+         TWNxhRS1tU71eGCBL2AR7p/F7VM/m4DQG+GX5jLtne2nVPN5PrnrSmMds7nj7lEVmTvk
+         Rr3evvq0rcSuZrfGhV/lwixW2jIoXZKawjtUMlT/v4ZwFRTq0WfEkV2SmPy9lDwa5r9j
+         +yBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBLTy8oWAxyWnUCAxb31LmxyQY8wuMPBMGL51NsXcmHZKXD7FgXxQgrcCn3HtvAY5sO/fEaK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8esf1zsF+ydgVccu14Vn1EzKEeU75ulif1mYOTNGpPo5Fvlmm
+	AGIvWEgAMhOMs8cClJOiGcnOLeXHjQW9H1GztWc5HeEIDDQeztbT3Hcq
+X-Gm-Gg: AYBFou1ViHyVKiqSmYKw3DKane97Finav3LrQE6cXIu8ABWfPONl4xpN/IyBwdKCKcV
+	v6ThlH6RJJsd3E7ZP374bJpQDN41RgdPzcSNnFoi/GRvLcj7SFkQg7roeWAWKqLQSSsf9Atcbv0
+	X2REgggDx46xG0Cf4NIgIng9aiP4ZLoqGRHg7Cq7EfByX9X8FWIaYhiDGlXkB+qAnoS7coh2Fg3
+	0Ymv6KAmH9ukN8jfZZZE9vVRcigRM3x+zKLyrh+gRDFMtbDxRN4pmXZmBDE7d0oqHhQGBm6FK4K
+	KY+RoZQy5FJQtVhg7DDJsNy+Hdd+EUhrEYuLShLjcztGD3auCb2+rTLxd64PcQVCCVMesbNXp8y
+	xW/C6gAWNPoEOc1QhTvFG14VFRQuCeWYYkLfxgflpqv9f2jXHFMKzGSEQaaPfwWQn7HUsuUwNgM
+	djzpC2GJ8RLddlxhQSdgu5OsZo7DV7i2qKWLbQjM7Ohze2nWOWbetdcC3ZAjf7BPEs4vw=
+X-Received: by 2002:a05:6830:6a95:b0:805:6a93:d9ba with SMTP id 46e09a7af769-80899266f27mr185481a34.15.1789351809265;
+        Sun, 13 Sep 2026 19:10:09 -0700 (PDT)
 Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.01
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:10:03 -0700 (PDT)
+        Sun, 13 Sep 2026 19:10:07 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH v3 0/4] drm/imagination: fix system suspend, and the
- callback design underneath it
-Date: Sun, 13 Sep 2026 21:09:51 -0500
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
+Date: Sun, 13 Sep 2026 21:09:52 -0500
+Subject: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
+ callbacks on drm_dev_enter()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,11 +71,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/62OQQ6CMBBFr0K6dkwpCtSV9zAuKAxYA6Xp0EYk3
- N2iG/e6fJOfeW9hhE4jsVOyMIdBkx5NhGyXsPpWmQ5BN5GZ4CLnkktwynkE8vgEb2lyWA3adGC
- Di0eyaBrorAeaacIBqEe0oFolm7YpOC8Ui5+tw1Y/3tbL9cPk1R3raVNti5umaXTzOyuk2+63g
- pBCCu3hWB4KVctjqs7dUOl+X48D2wqC+INDREeeVzIrUQpVFt+OdV1fWAbGk2wBAAA=
-X-Change-ID: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
+Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
+In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -84,99 +83,133 @@ Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=4695;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=4009;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=r9Aq0smRbtGVXoOkB0wcDk///UPxMJx1xjzV3KGy6PI=;
- b=CiWuBsJLTwBQZxeWjo/KaH9V7N9Md5YIjsdxwa8si31Q7IRnNpuHYvMmQd6nQ2z/6NpWjR99J
- CfH6p3TTFkADDVel90drI3YbtOSjnZ6Gipp8L5HH14UG1wEiUFt/Ais
+ bh=B0FAHrSWVXGHaqZILibkK+o++O0wPS8q+cwkcADrHJk=;
+ b=m0nuDmmhwVrLfYPrLL6ql7pVKv9N25E76iOoE06iKNPUoksHHY7cDxzgdfxNiEHBncqvkJPZO
+ omdWCiOyDUoAX3gisn8eY+hxz2rX+Vqz3A726TzxwQSuwuOn3F1GHuS
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-The GPU has no system-sleep callbacks, only runtime PM ones. If it is
-runtime-active when the system suspends, genpd drops the power domain
-behind the driver's back and the first firmware operation after resume
-wedges its caller in an unkillable D state. Patch 4 is that fix, and is
-what went out as v1 and v2.
+pvr_power_device_suspend() and pvr_power_device_resume() take
+drm_dev_enter() for their whole body and return -EIO once the device is
+unplugged. The section protects nothing: the callbacks run on the
+platform device, which stays bound until pvr_remove() returns. It is
+being used as a "device lost" test, and pvr_dev->lost already is one.
 
-The v2 review showed that wiring the force helpers in raw was not safe
-as the driver stood. The cause is one design fault: the runtime PM
-callbacks use drm_dev_enter() as a "device lost" test and hold the SRCU
-section while waiting for the watchdog worker. That makes a lost device
-fail every later suspend and makes pm_runtime_force_suspend() deadlock
-against a worker that loses the device. Patch 1 fixes the callbacks,
-which lets patch 2 unplug first in pvr_remove() and lets patch 4 go
-back to v1's one-liner. Patch 3 fixes a watchdog-vs-teardown race found
-on the way.
+Used that way it causes two problems. The suspend callback waits for
+the watchdog worker in pvr_power_fw_disable() while holding the section,
+and a worker losing the device calls drm_dev_unplug(), which waits in
+synchronize_srcu() for that section: neither finishes. Runtime PM never
+lets the two overlap because the worker holds a usage-count reference,
+but pm_runtime_force_suspend() ignores the count, so a system-sleep
+implementation on top of these callbacks deadlocks. Reproduced on
+mt8173 with the worker delayed between taking its reference and losing
+the device: system suspend froze until the hardware watchdog fired. And
+once the device is lost the callbacks fail forever, which leaves runtime
+PM in runtime_error and would abort every system suspend.
 
-On the v2 review's remaining finding, that pvr_power_fw_disable() can
-return without re-arming the watchdog: after a failed runtime suspend
-the device is in runtime_error with a zero usage count, and the
-worker's pm_runtime_get_if_in_use() returns 0 in that state, so a
-re-armed watchdog could not act. No change made for it.
+Test pvr_dev->lost instead and hold no section; a lost device is a
+no-op for both callbacks. Re-test the flag after the cancel in
+pvr_power_fw_disable(), since the worker just waited for may be the one
+that lost the device.
 
-All four were measured on mt8173 (Rogue GX6250), both arms from one
-build switched at runtime; the details are in the individual messages.
-Lockdep cannot report the patch 1 deadlock: cancel_delayed_work_sync()
-only touches the work's lockdep map when a worker is executing, so the
-srcu -> work edge is never recorded unless the cancel races a running
-worker.
-
+Fixes: 727538a4bbff ("drm/imagination: Implement power management")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Changes in v3:
-- Restructured as a four-patch series. Instead of wrapping the force
-  helpers to work around the runtime PM callbacks, 1/4 fixes the
-  callbacks: they test pvr_dev->lost rather than drm_dev_enter(), and
-  hold no SRCU section while waiting for the watchdog worker. That
-  removes the [Critical] AB-BA deadlock and the [High] TOCTOU at their
-  source, and 4/4 returns to v1's raw pm_runtime_force_suspend()/resume().
-- 2/4 fixes the pre-existing remove() ordering the review reported, and
-  can now put drm_dev_unplug() first.
-- 3/4 fixes a pre-existing watchdog-vs-teardown race found while
-  reviewing the above.
-- The review's "watchdog not re-armed" finding is answered in the cover
-  letter rather than patched; see above for why.
-- Added hardware evidence for both arms of every patch; v2 asserted the
-  failure without showing it.
-- Link to v2: https://patch.msgid.link/20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v2-1-66a938e92b87@gmail.com
-
-Changes in v2:
-- Don't wire pm_runtime_force_suspend/resume in directly. Once the GPU
-  has been lost, drm_dev_enter() fails, pvr_power_device_suspend() returns
-  -EIO, and the force helper hands that to the PM core, which aborts the
-  system suspend -- permanently, since a lost device never becomes
-  suspendable again. v1 would have traded a GPU that dies on suspend for a
-  machine that cannot suspend at all. v2 wraps the helpers and skips the
-  transition when the device is already unplugged. Caught by the Sashiko
-  AI review bot.
-- Commit message: say why the wrappers exist, and note that
-  pvr_power_fw_disable() leaves the watchdog cancelled on its error path
-  -- pre-existing, but system sleep is a new way to reach it.
-- Cc'd Chen-Yu Tsai, Icenowy Zheng and YoungJoon Lee, who are testing this
-  same GPU in the MT8173 powervr thread [1] and are the people best placed
-  to say whether this reproduces on a Chromebook. That thread doesn't
-  mention suspend at all.
-- Dropped sarah.walker@imgtec.com and donald.robson@imgtec.com, both of
-  which bounced on v1.
-[1] https://lore.kernel.org/all/20260728091804.382753-1-wenst@chromium.org/
-
-- Link to v1: https://patch.msgid.link/20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com
-
----
-Ryan Brue (4):
-      drm/imagination: don't gate the runtime PM callbacks on drm_dev_enter()
-      drm/imagination: unplug the device before tearing it down in pvr_remove()
-      drm/imagination: stop the watchdog before tearing the device down
-      drm/imagination: suspend the GPU for system sleep, not just runtime PM
-
- drivers/gpu/drm/imagination/pvr_drv.c   | 17 ++++++++++---
  drivers/gpu/drm/imagination/pvr_power.c | 44 +++++++++++++--------------------
- 2 files changed, 31 insertions(+), 30 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
+ 1 file changed, 17 insertions(+), 27 deletions(-)
 
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index eb4b6ecdf4f4..8d82b9a79daf 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -97,6 +97,10 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspe
+ 	if (!hard_reset) {
+ 		cancel_delayed_work_sync(&pvr_dev->watchdog.work);
+ 
++		/* The worker just cancelled may have lost the device. */
++		if (pvr_dev->lost)
++			return -EIO;
++
+ 		err = pvr_power_request_idle(pvr_dev);
+ 		if (err)
+ 			return err;
+@@ -372,24 +376,19 @@ pvr_power_device_suspend(struct device *dev)
+ 	struct platform_device *plat_dev = to_platform_device(dev);
+ 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+ 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+-	int err = 0;
+-	int idx;
++	int err;
+ 
+-	if (!drm_dev_enter(drm_dev, &idx))
+-		return -EIO;
++	/* A lost device is left as the failed reset left it. */
++	if (pvr_dev->lost)
++		return 0;
+ 
+ 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
+ 		err = pvr_power_fw_disable(pvr_dev, false, true);
+ 		if (err)
+-			goto err_drm_dev_exit;
++			return pvr_dev->lost ? 0 : err;
+ 	}
+ 
+-	err = pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+-
+-err_drm_dev_exit:
+-	drm_dev_exit(idx);
+-
+-	return err;
++	return pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+ }
+ 
+ int
+@@ -398,33 +397,24 @@ pvr_power_device_resume(struct device *dev)
+ 	struct platform_device *plat_dev = to_platform_device(dev);
+ 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+ 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+-	int idx;
+ 	int err;
+ 
+-	if (!drm_dev_enter(drm_dev, &idx))
+-		return -EIO;
++	if (pvr_dev->lost)
++		return 0;
+ 
+ 	err = pvr_dev->device_data->pwr_ops->power_on(pvr_dev);
+ 	if (err)
+-		goto err_drm_dev_exit;
++		return err;
+ 
+ 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
+ 		err = pvr_power_fw_enable(pvr_dev, true);
+-		if (err)
+-			goto err_power_off;
++		if (err) {
++			pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
++			return err;
++		}
+ 	}
+ 
+-	drm_dev_exit(idx);
+-
+ 	return 0;
+-
+-err_power_off:
+-	pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+-
+-err_drm_dev_exit:
+-	drm_dev_exit(idx);
+-
+-	return err;
+ }
+ 
+ int
+
+-- 
+2.55.0
 
