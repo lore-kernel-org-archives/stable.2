@@ -1,146 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72BA3D7D7E
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 10:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E7F3DB626;
+	Mon, 14 Sep 2026 11:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383581; cv=none; b=n3wJ1iXOtjycaBuK57H4ifnfIQOCLkT17Fh5DbWXSjt6MEfAogoPDp/EYsap7yN83oc326zO9IYO1/KuY0zVpfwCwDu3uM2Yf0CBwoYgTENM2aPvB4QbKP1Jti/iyN1BpkRQG2T4VfXEmb50B+FwwdJp/fdIcVJAed+N702HxQY=
+	t=1789383690; cv=none; b=Jht1h6F9+kZtMYAGqB+aUx3/DadRLg5nLL7RtJ6kwIEtYBSc/y+rsGq9VqLz7EyFV46BnXhcFYnV8NpRGkXs8Nycl94ud8Ckqh1SL0TmrVJIdT/3MZFgG3O4xWcIK3eUMZvt9W6+W0mx2wyk3CdeD98LxzL98MudjBOJ+ZS8+vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383581; c=relaxed/simple;
-	bh=PgkI0z9SON09RoaG0Eo1dzgmmu3lPuYvERolAIKtbyY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKHb1L2AB1Z9IIelwI4HvLkDODz19g8qbjkhd1afm113/TuyXk6wC5s0wki42qLBwYEXHQ7OTHpkF4AGYSFeV7ZS6V5z0RI3lkfW363pFSr18+1gN3wSEKWL+ncan0YPvYkmzs5IkqokLIT5yCLCzp66q9A+gbutgLC7d0iMKjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zuk9D7+m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789383690; c=relaxed/simple;
+	bh=iN/uqvYh5oGbyMuPH/icSsXbIxVktkW44wWAepl+wkw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=SPDzFZLVg8ghhhIEgA2tuWE9nmtrqnI1ZZRl8XCL9mm+av/EDXHwKuwwxwryiSxiKKUOEXL/9dFkbh3VlJ2LBxHC+NM5HHbhJXBmNdF4TT8GMcl3wrMFun5rYQcYoRP1j2nrdpQlCugJIvub7M/FcI3Qi/vcB9EasKPHDs02ONY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tM2Wck3U; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zuk9D7+m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA341F00898;
-	Mon, 14 Sep 2026 10:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789383576;
-	bh=k/820N3jYr2GH3WCO3bqlo3T1Ji36Ja7L774u/GuoxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zuk9D7+mhbmETqyGx+b6NA4d8RWyYcLoNEy1TLPy0e/Dn014vxpUU1WikKC0T0r/7
-	 Ov0mc/YucGBUfMHEKxaz4Szf0RCtFDXTL2j+5EaEU684rqf7h1KAeJsVLwHuCgvnNX
-	 rrJ4Xmspi5n/zFEUrfvdeasWfnfQdQ//QstsUMkPh0bcblv1/EHVAl33TI/hLAazdJ
-	 cNEMhFVSfrV3SbjJoJY0rIhS5ju09P/WvIdRLw6sRKPkBBYVNX+nnLSUjbs4KwUuXb
-	 r7jP6cKkSNV3pXSLrkE2Il3/ucxD2s/GuuCvD6IxvGqiJOIuaAAs2eYk6liRWao171
-	 MU1WgEBpP/keA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 90776198004A;
-	Mon, 14 Sep 2026 06:59:31 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 14 Sep 2026 06:59:34 -0400
-X-ME-Sender: <xms:k9OnaqHYjWotVJxbnp41r1vGY8JgRiwaCeF8ZUhFdpvWFG7d-4QyPg>
-    <xme:k9OnatqGa77SeWvVYXGCWqC6KA_p51VWUT3QfNN8pXhsTf97SBefGebz3M2f4GUQM
-    efQkSQbQBgk5TetMsyHfOTnRZs1MvplpYV0c_QnK22bo74jwpjhdFbC7Q>
-X-ME-Received: <xmr:k9Onai2kuygq_g1aR0atLTaZwY5SGosh2LTQ7AUPw54UU8OogHShrHUYt1s>
-X-ME-Proxy-Cause: dmFkZTEa4sevxAV6Q4GAtMmH3bNgFi9bBl2P5MgBoETq78GI1x+H4CqfJcXgtyg8PZSHj5
-    LvBOUCzISOeMcJoRas58P2quezxpo3JC6BH90ravhEQYsyOcJAJXikWX7542hpMGHON4L7
-    i7k6Zwylw09Q7uXYpekWt9ouQUuEpeXnzySfB+XsC6DRIfmU+wT5NEO4827CpZTmvhRRw5
-    c6Kmio2ItUEUefEPyDnOD+8oAQJ/XhY/CYU1LoF4MPhTOKywPDF6hfnX5h1iFSclCvFQYr
-    kcrXR0C/DEDl7eglkfSInGXgUWVUj950lWrgzDvr/sTLu+HwJpLB5xSuAE4a5sKhKXt3Ip
-    PAy8KT9QsKuOTuZHH23753Aasww8q9BumVuQkb4ZSLnqUwyQwh0wDgZdyuVJSqKWgmm7ym
-    N2ZaTFzPy4JKby6jkjg9S1XjwbxdToO/GANDuV2z6KCDq2De5oJAgSC83nQ3xY+T78TA7Q
-    hJdkQHaht+xAzKVkzoiC6y2OZ0JKyqEHq6uBWIKe7wAViEPip3UJ6AELJ5Wc8yO3cB/hml
-    5Yn0mDJEYYjhvcZM6qxXkCfnYOK3NyW3sHKdEzTU+jVaDB6T4AuSwnL9tpWBkqTl87Gi4l
-    8ZlwpGwz0CZcFI/a9uqBNKj0fHONB5xJe9RxjfmyiTvEPvjRZDq3KhXsVX9A
-X-ME-Proxy: <xmx:k9OnahBrDsaxL963XQga0pd_HufUJ3UEG3E1KeV3GYJFzKnWO0K0AQ>
-    <xmx:k9Onat8SpXgt7AK8tbhOtlPySC-SAZ8H7kq1LJu9o8BK7nhUb35hFg>
-    <xmx:k9OnavMSoaSp_NcmONiBIEEodxgVb_NxKWozUyJntVafvVjYQx41BQ>
-    <xmx:k9OnanF5FAyueRGy-U3vIDp4RVRlfFaFAvXnoU64J2N6MnXFO9R5Uw>
-    <xmx:k9OnausicBquc8Ki5-pPkwUILlALjYlm6cuBbPexMfzrXZah4wJ2-hhJ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Sep 2026 06:59:30 -0400 (EDT)
-Date: Mon, 14 Sep 2026 11:59:29 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, 
-	surenb@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
- PMDs
-Message-ID: <aqfRCPheDYTgTdAk@thinkstation>
-References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
- <20260913072312.52111-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tM2Wck3U"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789383678; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type;
+	bh=9I6qpgeDCcaTHuE1jJmktcuPaVKe2XvWLkaoxeUkkuI=;
+	b=tM2Wck3U0lcuuDfMfP/YvaE4UlTDWz6E+9UOACMUcPkJE4AF1R3kzCUpBuqGCwk3pPzinnu0lHDu9IF/ObmYtupmxVnOtXn3n+rhb9TNwj0PxXhReQH8kbeA025UURX6lUFURPCp+05GzsPPYrQ36b7idinarjfTFKCQe9973NE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R781e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XAvB94Z_1789383676;
+Received: from 30.178.84.243(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XAvB94Z_1789383676 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 14 Sep 2026 19:01:17 +0800
+Message-ID: <44256f8c-5087-4550-a522-34a828c40c1c@linux.alibaba.com>
+Date: Mon, 14 Sep 2026 19:01:16 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913072312.52111-1-lance.yang@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI/DPC: Honor "pcie_ports=native" when enabling DPC
+From: Guixin Liu <kanie@linux.alibaba.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Jonathan Cameron <jic23@kernel.org>, Lukas Wunner <lukas@wunner.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Kees Cook <kees@kernel.org>, Darshit Shah <darnshah@amazon.de>,
+ Brian Norris <briannorris@chromium.org>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ linux-pci@vger.kernel.org, stable@vger.kernel.org
+References: <20260903230537.GA2273943@bhelgaas>
+ <58ea18fe-6e7d-49ab-b6cf-992db4aae732@linux.alibaba.com>
+In-Reply-To: <58ea18fe-6e7d-49ab-b6cf-992db4aae732@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
-> 
-> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
-> >On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
-> >
-> >> From: Lance Yang <lance.yang@linux.dev>
-> >> 
-> >> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
-> >> PMD has a deposited PTE page table. That also accepts raw PFN mappings
-> >> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
-> >> table on x86.
-> >> 
-> >> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
-> >> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
-> >> a NULL pointer dereference.
-> >
-> >That's the sort of thing we'd prefer to avoid.
-> >
-> >> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
-> >> page tables are allocated, deposited and moved.
-> >> 
-> >> - For anonymous page faults that install a huge zero PMD,
-> >>   do_huge_pmd_anonymous_page() allocates a PTE page table and
-> >>   set_huge_zero_folio() deposits it before installing the PMD.
-> >> 
-> >> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
-> >>   copying a huge zero PMD into an anonymous VMA.
-> >> 
-> >> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
-> >>   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
-> >>   which deposits a PTE page table only when arch_needs_pgtable_deposit()
-> >>   requires it.
-> >> 
-> >> - Moving an anonymous huge PMD preserves its deposited PTE page table.
-> >>   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
-> >>   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
-> >>   deposit as well.
-> >> 
-> >> Keep arch_needs_pgtable_deposit() first so architectures that require a
-> >> deposited PTE page table still return true regardless of the VMA type.
-> >> 
-> >> Commit d80a9cb1a64a ("mm/huge_memory: add and use
-> >> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
-> >> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
-> >> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
-> >> mappings to the incorrect !vma_is_dax() test.
-> >> 
-> >> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
-> >> Cc: stable@vger.kernel.org
-> >
-> >How real is this?  Is there a reported-by:?  Do you have a reproducer? 
-> 
-> Yes, I reproduced it on x86 with a small test module. It sets
-> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
-> huge_zero_pfn, without touching the page tables directly. A full-PMD
-> munmap() crashes before the split series[1] as well.
 
-Ah. So there's no real bug upstream, right?
 
-And I am not sure it is how we want to address this. I don't think we
-should allow randomly map huge zero page (and non-huge too). It can be a
-security risk if it ever gets exposed writable.
+在 2026/9/4 10:34, Guixin Liu 写道:
+>
+>
+> 在 2026/9/4 07:05, Bjorn Helgaas 写道:
+>> On Tue, Sep 01, 2026 at 02:45:54PM +0800, Guixin Liu wrote:
+>>> Commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when
+>>> OS controls AER") replaced the AER service bit with host->native_aer
+>>> when deciding whether to create a DPC service device. Unlike the AER
+>>> service bit, host->native_aer does not reflect the "pcie_ports=native"
+>>> command-line override.
+>>>
+>>> Consequently, if firmware retains AER control, "pcie_ports=native" no
+>>> longer enables DPC on Root Ports that advertise both AER and DPC, even
+>>> though the option is documented to force native DPC handling.
+>>>
+>>> Check pcie_ports_native explicitly so both command-line overrides
+>>> continue to work.
+>>>
+>>> Fixes: 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports 
+>>> when OS controls AER")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+>>> ---
+>>>   drivers/pci/pcie/portdrv.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+>>> index a9cbfc1d2bc7..a05ee7980fb2 100644
+>>> --- a/drivers/pci/pcie/portdrv.c
+>>> +++ b/drivers/pci/pcie/portdrv.c
+>>> @@ -264,7 +264,7 @@ static int get_port_device_capability(struct 
+>>> pci_dev *dev)
+>>>        */
+>>>       if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
+>>>           pci_aer_available() &&
+>>> -        (pcie_ports_dpc_native || host->native_aer))
+>>> +        (pcie_ports_native || pcie_ports_dpc_native || 
+>>> host->native_aer))
+>> Oh my goodness.  I think I completely dropped ball on this YEARS ago.
+>>
+>> It's crazy that we have "pcie_ports_native" checking littered all
+>> over.  I think we should instead treat host->native_* as the single
+>> source of truth, and pay attention to pcie_ports_native when setting
+>> host->native_*.
+>>
+>> Sathy did some great work to do exactly that in 2020, and I never got
+>> it merged.  I wish I had some great excuse, but I looked at my 2020
+>> calendar and couldn't find one.  I think I just blew it.
+>>
+>> So I think we should resurrect that series and update it as needed and
+>> solve the problem that way.  I dug out the links just for
+>> completeness, but we should probably just start with the most recent
+>> ones (v11 or v12):
+>>
+>>    # v2 
+>> https://lore.kernel.org/r/cover.1590355211.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v3 
+>> https://lore.kernel.org/r/cover.1590355824.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v4 
+>> https://lore.kernel.org/r/cover.1590534843.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v5 
+>> https://lore.kernel.org/r/cover.1591545462.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v6 
+>> https://lore.kernel.org/r/cover.1593195899.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v7 
+>> https://lore.kernel.org/r/cover.1595006564.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v8 
+>> https://lore.kernel.org/r/cover.1595649348.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v9 
+>> https://lore.kernel.org/r/cover.1600457297.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v9 
+>> https://lore.kernel.org/r/20200928011131.MI-pJpJNRQw6c35j_O6019flLWHe08C4WvKPmKEbnik@z/
+>>    # v10 
+>> https://lore.kernel.org/r/cover.1603738449.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v11 
+>> https://lore.kernel.org/r/cover.1603766889.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+>>    # v12 
+>> https://lore.kernel.org/r/20201126011816.711106-1-helgaas@kernel.org/
+Hi Bjorn, still not see you resurrect this series.
 
-See CVE-2015-3288 and 6b7339f4c31a ("mm: avoid setting up anonymous
-pages into file mapping").
+Best Regards,
+Guixin Liu
+> Yeah, this series is better than mine, wait for your to recover them.
+>
+> In addition, we should add "Fixes: 97ca178c899d ("PCI/DPC: Allow DPC 
+> on all Downstream Ports when OS controls AER")" also.
+>
+> Best Regards,
+> Guixin Liu
+>>> services |= PCIE_PORT_SERVICE_DPC;
+>>>         /* Enable bandwidth control if more than one speed is 
+>>> supported. */
+>>> -- 
+>>> 2.43.7
+>>>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
