@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801C447B42F
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B62D47ECE8
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395354; cv=none; b=K7EEi5lh7F+X+pSBSnTc6q1PT9dy0yYUlDIaNkpUIqI6Kj7qgqoh2P9subtTy8SOxLRgffb+AYnfPBCHp4NYvUf52PVYOLqAVdCwLxNcPLxzOd+5ZjzGsETGTx+0HMtIDNcKoAE2FR0BYdCxAAbRz0LjHDHanOO+3JCFPMKNp/c=
+	t=1789395355; cv=none; b=r/bQrRntDTw0mvTR4Nkti/8zslFKuzcU1dojulSt0sqW3j8j0uux2QuFaBUWf2AhTdUDLe4ICpr1o61AHYo4ZqVjbnI/j35Ajv/rs8XXUlCJVwNBh8VHg8R/gpD2u/XNGqokzoRKsbJ7qzL6BZcJD9ZDjURCPcgbfczwsMcV+Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395354; c=relaxed/simple;
-	bh=/qa6obdyKpfGQwFSSsXkfUHTD+fehjY+5mrwW3OVTMU=;
+	s=arc-20240116; t=1789395355; c=relaxed/simple;
+	bh=QG8rnCxwHhJuZjK998VmwRum0sXvcvu6gauLzaznHIY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Si/CTLHna+WOdPKQx9tRulzwMJE2aVuq3D9MGoHetjcz9L+id7dd3f43h56yD98VcRMin6D5bK0R6fU8W+7ylBAi7inFxJf5fbQWjd+gpG4q8eAS01jDloJiqYSAJe/b3wLfY1hf4ka+ZVaYnav8PMVx4M2btWbk0mhmOnlBzBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CSRtfI6u; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pzQtdqiuOreELdQa/1K5sWlbWfTUu45paOPKl3WVWOhnojw+cAjjQ47n6OXaxzfqBAzLQhBDl0m4cmavuTHt2PscMrAd2ebmxiQd90wd+NB6UC2eUn3tRdv8SuBYf4OKegVsYYI0leTiE1ck6IJGozrq4Xzve/T21aw4O05APiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LB2dJ+9F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CSRtfI6u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC7A1F000FF;
-	Mon, 14 Sep 2026 14:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LB2dJ+9F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820141F00899;
+	Mon, 14 Sep 2026 14:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395353;
-	bh=FW4XdjfAzIrhID5SRjdJjT5VhxHYWdN9qNqOSc3PSE8=;
+	s=k20260515; t=1789395354;
+	bh=vEYki6wT4itPdzc6uwqwhlTxXeVXIB7g44C6sadJE0k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CSRtfI6usRBW6S+Sa+imHvrMqgV4Aw/tKdSnjiU51cq1CZOLk1hKs+OdSJ4hXw+Vk
-	 HxUzF6Sm7ru2JhSlhCSYT8kUrsDfrSyOU/yyJ0545FafmmpKsh+/+LT8++PcSLxChE
-	 CRvKGVRMJk2ocGEyURJB/UnjufQ5KbDnTqa7ToaZp2YUVQd7h0lrdSzTfuTiqEtLep
-	 wnXFf3F5PuiUTQNBVaGTPwoduDHSXzUzI9EPnm+WxZ2pyNJcIUPoIpzgArnjoSB5AG
-	 zvQBqOhDXJem6qNvU5AbXM1OkFvQr7heMUs4sqyt3T5Xis1bFWV2c73DLYCn2aJ9G+
-	 A7dOShy/lhndg==
+	b=LB2dJ+9Fyk2GZ+DCvqMEqEZtIP6eagkbWN7qF8tC1iXhHi/jIq1ljiwjtxgGy8aRL
+	 QlgccGYosUjo1Rc3g1tBdH0BX6P2YhKn6Bvc1G40NBaVBcKzaDBPGiIpNxehul6d0N
+	 /dn/jP1EwBMN13uDygQBhowzgNx1iNK+yznQN9QeJHR77HXL7joIvCmIozKvLeE8Vo
+	 B6xNtPLba+X5uGpeJBoek6N2EfneeLId2xoKev2UB57u1A4oiboa84KGzfJ5IB4Moh
+	 Uyy062rMBlS9zTURmVdAvreLm1lr9SNoNYsPtF4OunugME62FGa6MZwFWUzcdp7zzc
+	 SBVECijIOtt+A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shuhao Fu <sfual@cse.ust.hk>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Kanishka De Silva <kpskanna1915@gmail.com>,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] ksmbd: fail share config requests when path allocation fails
-Date: Mon, 14 Sep 2026 10:15:50 -0400
-Message-ID: <20260914141551.61407-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] ksmbd: prevent out-of-bounds reads in share config responses
+Date: Mon, 14 Sep 2026 10:15:51 -0400
+Message-ID: <20260914141551.61407-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091411-perish-luster-7e07@gregkh>
+In-Reply-To: <20260914141551.61407-1-sashal@kernel.org>
 References: <2026091411-perish-luster-7e07@gregkh>
+ <20260914141551.61407-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,64 +47,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shuhao Fu <sfual@cse.ust.hk>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit a74668eb2c0b866d7ac4823be6006ab2e227bc03 ]
+[ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
 
-Non-pipe shares must have a duplicated backing path before they can be
-published. share_config_request() currently calls kstrndup() for that
-path, but if the allocation fails it leaves ret unchanged. If veto list
-parsing succeeds and share->name exists, the partially built share is
-still inserted into the global share table with share->path left NULL.
+Validate IPC share configuration payload sizes before consuming
+variable-length fields. Bound veto list parsing and account for
+the separator byte when deriving the path length.
 
-A later share-root SMB2 create uses tree_conn->share_conf->path as the
-lookup root. If the share was published with path == NULL, that request
-passes a NULL pathname into do_getname_kernel()/strlen() and can crash
-the ksmbd worker.
-
-Set ret = -ENOMEM when path duplication fails so the incomplete share is
-destroyed before publication.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Signed-off-by: Shuhao Fu <sfual@cse.ust.hk>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config responses")
+Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
+Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/mgmt/share_config.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ fs/smb/server/mgmt/share_config.c | 40 +++++++++++++++++++++----------
+ fs/smb/server/transport_ipc.c     | 21 ++++++++++------
+ 2 files changed, 41 insertions(+), 20 deletions(-)
 
 diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index 4a5bc3c144284..97b0bbd619979 100644
+index 97b0bbd619979..e34e86cce0fc3 100644
 --- a/fs/smb/server/mgmt/share_config.c
 +++ b/fs/smb/server/mgmt/share_config.c
-@@ -172,7 +172,10 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
+@@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
  
- 		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
- 				      KSMBD_DEFAULT_GFP);
--		if (share->path) {
-+		if (!share->path) {
-+			ret = -ENOMEM;
-+		} else {
-+			ret = 0;
+ static int parse_veto_list(struct ksmbd_share_config *share,
+ 			   char *veto_list,
+-			   int veto_list_sz)
++			   size_t veto_list_sz)
+ {
+-	int sz = 0;
++	size_t sz;
+ 
+ 	if (!veto_list_sz)
+ 		return 0;
+@@ -98,7 +98,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
+ 	while (veto_list_sz > 0) {
+ 		struct ksmbd_veto_pattern *p;
+ 
+-		sz = strlen(veto_list);
++		sz = strnlen(veto_list, veto_list_sz);
+ 		if (!sz)
+ 			break;
+ 
+@@ -106,7 +106,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
+ 		if (!p)
+ 			return -ENOMEM;
+ 
+-		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
++		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
+ 		if (!p->pattern) {
+ 			kfree(p);
+ 			return -ENOMEM;
+@@ -114,6 +114,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
+ 
+ 		list_add(&p->list, &share->veto_list);
+ 
++		if (sz == veto_list_sz)
++			break;
++
+ 		veto_list += sz + 1;
+ 		veto_list_sz -= (sz + 1);
+ 	}
+@@ -165,17 +168,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
+ 	}
+ 
+ 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
+-		int path_len = PATH_MAX;
+-
+-		if (resp->payload_sz)
+-			path_len = resp->payload_sz - resp->veto_list_sz;
++		size_t path_len;
+ 
+-		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
+-				      KSMBD_DEFAULT_GFP);
+-		if (!share->path) {
+-			ret = -ENOMEM;
++		if (resp->payload_sz <= resp->veto_list_sz) {
++			ret = -EINVAL;
+ 		} else {
+-			ret = 0;
++			path_len = resp->payload_sz - resp->veto_list_sz;
++			if (resp->veto_list_sz)
++				path_len--;
++
++			if (!path_len) {
++				ret = -EINVAL;
++			} else {
++				share->path = kstrndup(
++					ksmbd_share_config_path(resp),
++					path_len, KSMBD_DEFAULT_GFP);
++				if (!share->path)
++					ret = -ENOMEM;
++				else
++					ret = 0;
++			}
++		}
++		if (share->path) {
  			share->path_sz = strlen(share->path);
  			while (share->path_sz > 1 &&
  			       share->path[share->path_sz - 1] == '/')
-@@ -184,9 +187,10 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
- 		share->force_directory_mode = resp->force_directory_mode;
- 		share->force_uid = resp->force_uid;
- 		share->force_gid = resp->force_gid;
--		ret = parse_veto_list(share,
--				      KSMBD_SHARE_CONFIG_VETO_LIST(resp),
--				      resp->veto_list_sz);
-+		if (!ret)
-+			ret = parse_veto_list(share,
-+					      KSMBD_SHARE_CONFIG_VETO_LIST(resp),
-+					      resp->veto_list_sz);
- 		if (!ret && share->path) {
- 			if (__ksmbd_override_fsids(work, share)) {
- 				kill_share(share);
+diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
+index a0b9b3def3346..10847d1cda4ac 100644
+--- a/fs/smb/server/transport_ipc.c
++++ b/fs/smb/server/transport_ipc.c
+@@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
+ 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
+ 			return -EINVAL;
+ 
+-		if (resp->payload_sz) {
+-			if (resp->payload_sz < resp->veto_list_sz)
+-				return -EINVAL;
++		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
++		    sizeof(resp->share_name))
++			return -EINVAL;
+ 
+-			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
+-					       resp->payload_sz, &msg_sz))
+-				return -EINVAL;
+-		}
++		if (resp->veto_list_sz > resp->payload_sz)
++			return -EINVAL;
++
++		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
++		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
++		    resp->payload_sz <= resp->veto_list_sz)
++			return -EINVAL;
++
++		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
++				       resp->payload_sz, &msg_sz))
++			return -EINVAL;
+ 		break;
+ 	}
+ 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
 -- 
 2.53.0
 
