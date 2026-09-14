@@ -1,195 +1,225 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011029.outbound.protection.outlook.com [52.103.39.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F6F4446EC
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.39.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386284; cv=fail; b=jmPIZtFXyEXMxJQ5FbADI+iCJe8zqBEEYPsf/bX4osmY/sofqZkMiZ+2jXKGQ6UKJmeK3rja+7AhPKW7xPfB+Cvv96Zt5InSP+uDPU2rjpFc6izw5gZ7JZDCFxCaBXn39Mpa0pSY45l0ZcXn+7KC25iGEcK+kkAl2/pGihKPX3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386284; c=relaxed/simple;
-	bh=p+HvZNIcFkdRPaAMcT2bYnUwiI1yR7ECFp+H2Tsjog0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YbqdXixVHJQR/MxXmldweS4+9joQj825zdnz+FWkgT//ixd9wwJTHecdcu4hRU8AqnQstAaG0KVCraDOzsFaUmcZb0B+K+GIuCjwytG+jbo7fU3sZDYfrTnDb7k0M+OYgioxpHcg/se53QfBThUeDf0ia0t5x9An+iSwTm2AZVU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ZfvtS0u0; arc=fail smtp.client-ip=52.103.39.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06744605C
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789386618; cv=none; b=GKkSPPwxu5L1RNFQaaZqppogHgBGPSlQ3IreYi4e2CS4CiV5ddnk1LqNuqT6Q5LETuTXpFpWqqMIWYqqObEZ508KwNz18xCUcNed9ox4X/oPSoGpipkLisMuzsflFiRO0lE/FJMzYJErpQdSvoPkE2EKpsB05T7GtGppCzadBGE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789386618; c=relaxed/simple;
+	bh=Q8ksi+xZgxIagv9+QQVvkuR0wfKZoHt0nu/3YJrwAf8=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BBrp3oxZ1MJYkqea0iV5UA+A7LJ8M7sUcboi7S2iSmfR1tIlN2+aRSqpxP9bA9PZP2kqIBlGHsM0iB3C5N9V+PppIapPZ6ElstyiBx5MKpfZ+b/w73CM1ENDmRV+mKxmHVMJ+loN5rkhtP9BB7yylSIwHvuwMhiHisSqMndwonI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=X3W0IJr9; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ZfvtS0u0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ww2k/OYWQb7h/m5IGK1YmwDFhoKKJCMnkqWaJWSj/wvX6L56Vhb2Fo6t3yo/902EqJ9hATL8PC4TnIZ+CT9VOO5U9OniKNB57aW2VdkRbze5xPUMOU5qxMr/mPxqgyHpq3W3EcwPnDlxld1Z7OKfG5JVAUmedwdo4a3gNR/T7UkBrgUzhSNLojmnrMBSnBooWgfNrmANCHHjhIELYIxV1RwK4p3PgxGLf5rKbJSRjjELKhKVSAuEXhQ5X+i5ikhNCXXGU6FrvsHrP7reFJpqcHS/S9edpVq04H26nq0WAXlTMXOE3DAvup9oFQXtVrcqXS5neMOuk8Il5nbEsRmdhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p+HvZNIcFkdRPaAMcT2bYnUwiI1yR7ECFp+H2Tsjog0=;
- b=VbpwAfywyJn9+MEwoI5FMV5POQVpwdKinNoig3jjHGWPBLPkqNUuVSfkwlWqQBKBUG1fFZcA2FtP4MRBvmaaX495Hm0MjlSlhJmMtuCTx02YB+a65mpVrcXzILaSBfJkSF+WOrYq7l9rijZBEVpHSXgHlqgs6cvpu+/9SmIafS2/bHdV8bpu7lMAawQH7vZ3OI4va5OVyBUvtAIWiGEN4PfUzw78ml2hc0tClqpwgA4YUUzajqhOJNgQ2iRPtaAj/5ec5I20lfxJRWWNYOFwUiL+Q0++NaiWcYOdteSOsZ4C34XR0XP/tLcD4h+CJTIskwwajwtObQ9Oa4HeDYCkiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+HvZNIcFkdRPaAMcT2bYnUwiI1yR7ECFp+H2Tsjog0=;
- b=ZfvtS0u0bKGvsSxPGzPhzh2liYwJskFswZCRJNX7/FQh4eqJ+CTmOK3q078z9mo9WLtzwIPCsC9ktIXnlipED912+ZdaKGo+dLNrpmRL/kMhfkqgoup4vPTBFyyIwkXA0wQXNHb8m+YAstqzS0jFC4/FmO0hustvFKTOKM51Czs6McsDs93UulgnlD+RCpiDFeib8G1nUSSzYshmulvhhVEtfeutkbT5zjMzNDAemTRcUInQ57OP9Kkb6S5w5ByXb43WAYdLuh/5O0xpHGISDnebdM1A3P0yufAk35G+A3nbvIFHcQRLT7MhzCgnAbCNHfolkfKR5Yd0Ry385p8ALQ==
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
- by PAWPR08MB10117.eurprd08.prod.outlook.com (2603:10a6:102:361::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.7; Mon, 14 Sep
- 2026 11:44:39 +0000
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Mon, 14 Sep 2026
- 11:44:39 +0000
-Message-ID:
- <GV1PR08MB84973FE9321D2874451D5DBDC5BB2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-Subject: Re: [PATCH 7.2 0292/1815] leds: st1202: Stop pattern sequence
- before reprogramming
-From: Manuel Fombuena <fombuena@outlook.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Lee Jones <lee@kernel.org>, Sasha Levin
-	 <sashal@kernel.org>
-Date: Mon, 14 Sep 2026 12:44:37 +0100
-In-Reply-To: <20260912065655.809856076@linuxfoundation.org>
-References: <20260912065648.999753832@linuxfoundation.org>
-	 <20260912065655.809856076@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
-X-ClientProxiedBy: PR3P189CA0031.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:53::6) To GV1PR08MB8497.eurprd08.prod.outlook.com
- (2603:10a6:150:81::22)
-X-Microsoft-Original-Message-ID:
- <d90374ae5da2eca0789455b44b005cee9ce57653.camel@outlook.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="X3W0IJr9"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c2so285991466b.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 04:50:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789386614; x=1789991414; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
+        b=X3W0IJr9hBeZ4qGivj24+Ul+Des8dIPbzdBUI0Q3HKkT75wJXHtgj54KOm+hxQ/KqR
+         fyqkuVBubWlibJlw9IbMg8vMBwpNfU1BdYlbUEMzUXJw6nZR+Sl8LKghIo/Czi2oglzR
+         ko059MNsVA6Xug/DpswvQdsMreHPygok49yraiBKD/RtX0mgU3wy6ojGiWrnGqbjlr3Z
+         207qdc90W5EDJdfiZBlD699pqxU/usdleueoL8FGYku2aewzCsDD8BhgaSGfwh5VL47f
+         Ze2PqngAgaDxwJPk8wxa/ZSZpp9OA2IxHIXunHn0hqsPx4fc+K2h/IbT3Westz4XGr8t
+         oMHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789386614; x=1789991414;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
+        b=JD+maE68fBAr2+d5OXzU5LDLd3Fd88tfSpbHcRuwoHLKqd0UHW0KjNHwhXm96d53/L
+         YvSIUCOe/svPHmYp+/pLl1TwbvJb/lgX66P61cP+0QVWUNwGn8nX7hYUaONsQIq/HpTY
+         RBmtZGUui4N7uFpAY0TBSEA87UfSI0oavTmxKDU3lIdi42vbrZ72q+qCizY64sTSrpiJ
+         a5kmwSXnHtp6olMRcWXbRxqsZKFl6YtfvdENDVxMkv+NYKSTYCBtNuCnKZeDu1L/TdfU
+         UhyJR2d1jRnOhGhPGCCxjB7FDQy1iMFoQGxuug0XCo88dN9QbgJ6s62MP0XImtTbEtZg
+         E06w==
+X-Forwarded-Encrypted: i=1; AKwUvBzv3/S4wCXMhKJfYCZcJGbORfBmk5WFDkq1wT7CBSNmTyUbbukbXvpFEzxQvdW6I1uVaQUgZIg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmJUzEz0WmqkXJF/PNEkeNeQ7qoSEpu4hLgcD5SYWYyOeMDcX6
+	ZxJUR2GqzZc9Fdrh+cPNIW/j83C/SpPcn3KwkOf8id7hQHdZ/64vNlszH+p/AvCpsog=
+X-Gm-Gg: AYBFou2YmLMILIfcJzDR9qFzzE50Rxl+390VOTRNvuy3KduY2dnD9hRhLNR6Y43Yk3e
+	DDA90/loGRuikEyHB16SuCIszNmpFh6qrtxbjacv9yrg66MRHLo0UbaJdTRUqHJXrS4yEXoMsE/
+	GVBD75NSHR+vDIad1o0jfAb6hFPWjjkjVq/7weW+UOqWxcCGw7A4tLY4buMpTm9muJeuQaXQTxD
+	ag6kD5/OjVrqT1kxFVKZPBmIzUeptznIno9vpHGvTvbpPEJoAmDnO0aDPck6EUOHGpSF+2hk7X+
+	XQGp77T7SqxHtQaUBc5mHjFvT0uXdD2+ixV4CMVTnIMDPLwEQfQNkHd7usqLcwAw//nGHTQdyiY
+	C5Y/Ef+PwxLTBhrjQvoX2Mcda0Nt8AQt71H0zrL5zHKgxFygcLEyh1q7b9v5ZpNYhwClIvRUakA
+	aTbSinc/HxyyIjL88ovpVOMDUWR+ku/c5/99sOcSX+8bT+QDfIzcukcWR5zUABHCFiFow=
+X-Received: by 2002:a17:907:3e07:b0:c25:8c05:902f with SMTP id a640c23a62f3a-c29b86b7559mr277818766b.13.1789386614302;
+        Mon, 14 Sep 2026 04:50:14 -0700 (PDT)
+Received: from localhost ([82.145.119.8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4dfc7sm415116366b.4.2026.09.14.04.50.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 04:50:13 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Mon, 14 Sep 2026 13:53:53 +0200
+To: Angel J <iamanaws@httpd.dev>
+Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+	"helgaas@kernel.org" <helgaas@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"andrea.porta@suse.com" <andrea.porta@suse.com>,
+	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
+ bridge configuration
+Message-ID: <aqfgUUkZYZg6ZABF@apocalypse>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+ <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|PAWPR08MB10117:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf586262-d3ec-402b-1f8a-08df12558efa
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|15080799012|51005399006|23021999003|37011999003|6090799003|19110799012|5072599009|25010399006|8060799015|40105399003|1602099012|10035399007|2607281247196008|440099028|3412199025|4302099013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RmUyV2tMRWdRMWw2RjlPb3lyWUs4eU5zaVhvYU9yWitRaUxYYVNBN2htRWVx?=
- =?utf-8?B?RllxbXg3dFp5UTgyYUlIRVBCMWZ3akVscVBwN1lLOTBNaE92dWk5aGd5clUr?=
- =?utf-8?B?RmNERytPL253aHc1SHVYMlc5alJqOTJYekRwajd2MTVXcFlqYk9LaDJzMVBY?=
- =?utf-8?B?MWJ0Y0VGTkoxTkpvYS9XaldZSnVBMGVsWDZiOEFFMlUvYkVVSHQyL1EyTnBp?=
- =?utf-8?B?MXkzS1I2aVFOK1BMOVBpdGVCYzhUZUxFc1lsVUxGMEU3VUJJWG10NmxqYWdl?=
- =?utf-8?B?RTdSaDFHTUJiSGpLSmhvbitacllYcS8rRmVDQXJCMVgyUXVtUndFK2Q0NU1v?=
- =?utf-8?B?cDdDNWtnTG9VMS9XcUQwV2dwVStXcUZMUTU2RVJFNDNjVEM3eUFCTk1JdjRr?=
- =?utf-8?B?MGdzUS9XQUJleUdnVlpCaHQ4OFVvVW1NVlJZMGhqdmhITnZZbVMvUllRb0ZH?=
- =?utf-8?B?VVM4UlpxZy8wRkovRVB2dm5tRlhTVk1IcGZTYllqWVZCVm1vNHJsVU83S2VY?=
- =?utf-8?B?YUZ6N2RzZVZ0czRDY2xhT1RUQUZJT2M3bnd6bjdVbCtVZ3ZCQkdNUG50NHdL?=
- =?utf-8?B?ZEdHakRCU2ZTOGxld1hZazNDYXRJZ0thQWp1M3I3TU1zSUcwaXFnK1FPTFpp?=
- =?utf-8?B?Myt2WTYxc3FhU0dsMU5KMTBudXlkaG04K3dLa0ZOWHBBVkUyQTFNNFYrVlJ2?=
- =?utf-8?B?SHBhWmdjckdMMGFwdGprQ214cno4NWFqVnA3ZDJ5UWo3eFV1dWdOa3Z6VGJM?=
- =?utf-8?B?SVNVYURpSDZHMjVvMFhpQXBXNkxRc2s5SlR1NVY1TFJyWVQxTmYycUxDNDJ4?=
- =?utf-8?B?RWZsd2l4T2pqS0JiQldSbXVaUGZuWG5NWUIxZlNjbEMrSkw0SkxEUFd2K3lG?=
- =?utf-8?B?Z1Npa3hMclpHM25wVldIMVVYTXE2WlB1SEpJU2FzSEg3U2NlM1JzcFgzMzdv?=
- =?utf-8?B?ci9CV2FXZ1BmVVhmZHR3M0JOaHBhQkRrRTRLMHM3aStkb0RKTFVDcHBsRjJK?=
- =?utf-8?B?cEttVWtJRWE4M1I2d3RFeEl2L3QvckdRK3ROUXVqYTZxT2xjMFpybWFFdkE4?=
- =?utf-8?B?Q3ZIelBqSWxodVlpWmlkRzN1ZHhlQ3lRVGtXNnZ4ZzFqd1MwczRqUUZEd1Yz?=
- =?utf-8?B?SDlHRTVFOVdqemsvWE1keW9PbDEzNUZwYjdKWi84RnlleHVlaEZPU2ZmU1Nj?=
- =?utf-8?B?ZG5iejNEckVuSTIvekpoOWZHU3dQMk00d3dsa3FZOTVxeldweVB5Y1Zib2VD?=
- =?utf-8?B?ekpkbE5OdHhwQkxDZGVlRW5sUjdiWWthWGlXR2s2M2lYektDZ0V4UXZMR2VI?=
- =?utf-8?B?U1VVYmJ5S00rQ00yYzRLSXczMElpQ2pkbmVDa3Z2LzdrZXdxUWx3SHFLbkx4?=
- =?utf-8?Q?0dUQtiJRtPmdUtZ9YnBt+iAGQMXsikrA=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGdMTW5UUkNuY08yRzZ6THdEZEFWeGF2YzdBSzNiZ01ycDZXT2Q3MWZTREpt?=
- =?utf-8?B?ZEJYYzlueGlYRkFKdXRBUVZyUlo0VW1xWHZHZXdXdTZ6czduL2tuM3RnazVQ?=
- =?utf-8?B?YWprNUdTRTk2dGlVTi9oRVpINHdHSjlVQXVXbkJjZjRFczUxNkQvQ0FBcUVK?=
- =?utf-8?B?TzdGNTI0SE9ka1FLaHBVS1JqcVdEcFBCb0xDejgzOTVaeU9lbDcvT0RIWmNq?=
- =?utf-8?B?bzFJR1p0MEtqZmRtRG85VU1pQ2hOQVlqZ1ducnVGOXN0VkR4dGpHaHZLTG9X?=
- =?utf-8?B?SzY1eE9Fc3EzdUMvSGF5ZjR6c21FOXJTVEpjQTRKYTJudExRNE9nZm93M2Rq?=
- =?utf-8?B?RUNBNG5LcmY2VnQ2MEtGeTIwZkVkSWl2aW9UV3M2a21WNVNrK1NoNStuaWE1?=
- =?utf-8?B?dFJJVHg4N0piRzdXTEFzRVllSS9aTXNSUW5sNlhwcWVBTi9GTlBRSUpwekNy?=
- =?utf-8?B?NzhXWGJUeDNUbnoxVnRhS0FtME5hejR0NUJ3OE85NUFTbGxwYVlkbW0zNkRi?=
- =?utf-8?B?YWY4V0k5eEh0Mms0UkxFcUVBbCt6ditvWm9uQjRDUVg5WjhtSi9GbnNIWGFG?=
- =?utf-8?B?TktSNnF2SjlDbmxoaUxSMUtudDV2WitmZEh6aXArV2pEZGJOMTNrMnJHRkdh?=
- =?utf-8?B?SmFmV0c3anR2dFZUUXFNNmtoQ1dYODNWdVlRTUpSalFKdU1OOWwvek41Tld6?=
- =?utf-8?B?SGFhRUpaVExoaVQyRjZVdDhWR0N6Q1IwRFhWdm9wOUR3YmxmNWNEUnBEMFhy?=
- =?utf-8?B?U1JpbVUvdUs4QXB6M0t5TmpyOFdzTGRKb3RqZER5ZVBINjJ5SUpKOGZrZjRl?=
- =?utf-8?B?dG9HdFJ6MmNUM1dNTG5NU1pJbExWVVNtZTVEU1RFYTFjb3RKamdMZUdqVTds?=
- =?utf-8?B?QWtFQ3lkZXhadEQ4Y1VMb1h3cEpXVGlnZkg0eENXeUhwQW81cmhCbG9rQTgz?=
- =?utf-8?B?eWVadnAydDgxd2FackxmOXUrczZRM3Jhem9DZXB3VXQwNXRNcDFDUzBpd1JS?=
- =?utf-8?B?aWZYTnNod21UcmxKS21zamE5ZXRhemw3Rzdsa0pqQ3ZUamZwVVNWdUN0WjZV?=
- =?utf-8?B?NlZvYlp1YlNkWklYVTlJNCtINWlHMi81aEsxdXQ0dThLSzVsMlBMNGsxSGlx?=
- =?utf-8?B?NThtaDMzcllyVmNSRUtEV1pzcUkrL2ZrS3R0QXVCa25OYUFCNjh5UTlxdk5Y?=
- =?utf-8?B?dmtPeCtmVnlHdngyazZVTWxzYzZwK2R2cVpoTENsbHN6dml3cS9ETFdQSy9n?=
- =?utf-8?B?Y3hCR2h4K3hwZHN2R0VDSDBUUjhHZmg1MmQwRStlSi9uNlE3THVBYmwwMStu?=
- =?utf-8?B?UGNYTFpEZmg5Y09Xc1ZES2F1WW8xcWRZTE1DL2U5bGx1czVqcG9aaXV2Mnl0?=
- =?utf-8?B?VWRXV290eVFYT2lOMFlTR2xubDdUSzFSOElvYjZveXVYRmVDVXMwZENSbm9P?=
- =?utf-8?B?bXdwODdvTDlsem5mY0crS09VV2RabkRkMHJRd3N2RzNubzBrSnRGaDZQQ2tT?=
- =?utf-8?B?LzJWOGloVkxVdjRaTjh0eW1hL0ZyaUtNOTlnbEk5aGxaR2JYRmVDcE9LQWY5?=
- =?utf-8?B?WTZ1WHRUK0hmdDdrSXNDQXFveHI1amdYS2p1NW1ab09tWFNUTit5ZEtQTkEw?=
- =?utf-8?B?RXNlTVFMQXFQV21vM1JoNlo4RFZmWDRFL0JON3dvOCtFRWQwSzNDdFIwLzFK?=
- =?utf-8?B?WFkwZytueFlERGZSZVhraE5BSy9IVHlYZjdXcWZJRTkzajN4R1g1MGJxOXFw?=
- =?utf-8?B?MHF2TUNLN1djZzJyQmdPTC9WRFQ0U0NJNXhFV1g0Wmtqa1I0bnB2NmVGZk1V?=
- =?utf-8?B?cjJRODBPS05vUnBjZ3VnbmdLYWJBQ01NQmhXWGRaNzYrTW81bDBpcXJyb1dt?=
- =?utf-8?B?VmN1Vno1N1FaUm1BY0xsSG0yN3BBcjFpWHdSMXNhTEFsY1dVWk5Fckttb1pK?=
- =?utf-8?Q?MPasp+V2hjX6r2b0ZyOhzCRu0gyv2p8o?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf586262-d3ec-402b-1f8a-08df12558efa
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:44:39.3169
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10117
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
 
-On Sat, 2026-09-12 at 08:34 +0200, Greg Kroah-Hartman wrote:
-> 7.2-stable review patch.=C2=A0 If anyone has any objections, please let m=
-e
-> know.
->=20
-> ------------------
->=20
-> From: Manuel Fombuena <fombuena@outlook.com>
->=20
-> [ Upstream commit 9c019a8cb95d820e0bd03e75cfbad2c5b13941b7 ]
->=20
+Hi Angel,
 
-Please note that this patch was part of the following series:
+On 23:01 Fri 11 Sep     , Angel J wrote:
+> Hi Andrea, Hervé, Bjorn, Thorsten,
+> 
+> Thanks for the guidance, it was very useful. I went back through the tests
+> and got some more insight into the hang.
+> 
+> Andrea wrote:
+> > Angel, could you please provide the following output:
+> >
+> > lspci -nn
+> > setpci -s 00:00.0 HEADER_TYPE
+> >
+> > from a running (i.e. with CONFIG_PCI_DYNAMIC_OF_NODES=n) system?
+> 
+> On Linux 6.12.109, with CONFIG_PCI_DYNAMIC_OF_NODES disabled, the relevant
+> output is:
+> 
+>   $ lspci -nn
+>   00:00.0 PCI bridge [0604]: Intel Corporation Device [8086:4c43] (rev 01)
+> 
+>   $ setpci -s 00:00.0 HEADER_TYPE
+>   01
+> 
+>   $ setpci -s 00:00.0 PRIMARY_BUS SECONDARY_BUS SUBORDINATE_BUS
+>   ff
+>   ff
+>   ff
 
-https://lore.kernel.org/all/GV1PR08MB8497C0B898789BB73ACE6EE3C5F52@GV1PR08M=
-B8497.eurprd08.prod.outlook.com/
+So it seems that a device which is reported as a PCI bridge does not manage any
+bus underneath.
 
-The testing I carried out on real hardware included the complete series,
-including upstream commit fd2529ba8fb44cd4b56f1069363b949644b42cec,
-"leds: st1202: Validate pattern input before stopping the sequence".
+> 
+> The device is bound to icl_uncore. I get the same values on the patched
+> kernel with CONFIG_PCI_DYNAMIC_OF_NODES=y.
+> 
+> Hervé wrote:
+> > Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=y or PCI_DYNAMIC_OF_NODES=n
+> > or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
+> 
+> The messages appear on successful boots with either setting:
+> 
+>   pci 0000:00:00.0: [8086:4c43] type 01 class 0x060400 conventional PCI bridge
+>   pci 0000:00:00.0: bridge configuration invalid ([bus ff-ff]), reconfiguring
+> 
+> I confirmed this on 6.12.107 with the option disabled and 6.12.108 with it
+> enabled. They also appear on the patched 6.18.44 kernel.
+> 
+> Bjorn wrote:
+> > I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
+> > is a likely culprit by itself because there's just nothing there that
+> > looks like it would relate to a Dell XPS 8940.
+> 
+> That change exposed the problem by enabling PCI_DYNAMIC_OF_NODES in my
+> configuration. I bisected again with the option enabled throughout and
+> found an earlier boundary:
+> 
+>   3dc8adeeefa0  PCI: of_property: Constify parameter in of_pci_get_addr_flags()
+>   1f340724419e  PCI: of: Create device tree PCI host bridge node
+> 
+> The first is the direct parent of the second. I boot-tested both without
+> any guard, changing only the source commit; their generated kernel
+> configurations are identical.
+> 
+> All of these tests have CONFIG_PCI_DYNAMIC_OF_NODES=y:
+> 
+>   Source         Change             Result
+>   3dc8adeeefa0    None               Boots
+>   1f340724419e    None               Hangs
+>   1f340724419e    Subordinate guard  Boots
+>   6.18.44        None               Hangs
+>   6.18.44        Subordinate guard  Boots
+> 
+> Hervé wrote:
+> > Maybe the test done at [1] should be improved to detect those wrong bridges.
+> > and skip the of_pci_make_dev_node() call when a wrong bridge is detected.
+> 
+> I added logging to the first bad commit to check the bridge scan. It shows
+> that 00:00.0 has no subordinate bus after either pass, despite satisfying
+> pci_is_bridge():
+> 
+>   pci 0000:00:00.0: PCI OF debug: scan pass 0, buses ff/ff/ff
+>   pci 0000:00:00.0: PCI OF debug: scan pass 0 done, subordinate bus absent
+>   pci 0000:00:00.0: PCI OF debug: scan pass 1, buses ff/ff/ff
+>   pci 0000:00:00.0: PCI OF debug: scan pass 1 done, subordinate bus absent
 
-That patch did not carry a Fixes: tag, as I considered it an improvement
-rather than a fix in its own right.
+This is confirmed by the BIOS/fw not filling the bus range and by the kernel
+failing to reallocate the bus since the range registers are probably read-only.
+Apparently this is not a bridge, it should be at most a host controller.
 
-I do not anticipate any issues with the series being applied without
-that commit, but I have not tested that configuration. I therefore
-wanted to make you aware of this, in case you consider it advisable to
-backport fd2529ba8f as well.
+> 
+> of_pci_prop_bus_range() dereferences pdev->subordinate without checking it.
+> of_pci_prop_intr_map() also uses that pointer. Before 1f340724419e,
+> of_pci_make_dev_node() returns because the parent OF node is missing on
+> this ACPI system. That commit creates the parent node, allowing property
+> generation to reach the unchecked access.
+> 
+> My earlier report overstated the device_type="pci" result. The minimal-node
+> test that hung added device_type, bus-range and interrupt-map together;
+> I haven't confirmed a hang with device_type alone.
+> 
+> I tested this guard in of_pci_make_dev_node(), before node creation:
+> 
+>   if (pci_is_bridge(pdev) && !pdev->subordinate)
+>           return;
 
-The same applies to all of the following proposed backports, including
-this one. I am not going to respond to each individually, to avoid
-unnecessary mailing list traffic:
+Not sure, maybe can it be considered a hw bug? If this is the case, we can maybe
+add a quirk for this device. Could you please test adding a quirk as PCI_FIXUP_HEADER
+in which you downgrade the class from 0604 to 0600 and see it works even without
+your proposed check in of_pci_make_dev_node()?
 
-https://lore.kernel.org/stable/20260912065655.809856076@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.833961377@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.878387982@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.855974619@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.900583086@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.923720976@linuxfoundation.org=
-/T/#u
-https://lore.kernel.org/stable/20260912065655.945941789@linuxfoundation.org=
-/T/#u
+If this works, maybe we can just turn the body of your conditional into just an error
+log plus fast exit, because a bridge must have valid subordinate.
 
---=20
-Manuel Fombuena
+Many thanks,
+Andrea
+
+> Both the first bad commit and 6.18.44 boot with it. The 6.18.44 test uses
+> only the guard, without diagnostic logging. The host OF node and the nodes
+> for bridges 00:01.0 and 00:1c.0 are still created; 00:00.0 is skipped.
+> 
+> This points to the NULL subordinate pointer as the cause of the hang,
+> although I still don't have a crash trace from an unguarded boot. I'll
+> send the patch as a reply to this email. Is of_pci_make_dev_node() the
+> right place for this check?
+> 
+> #regzbot introduced: 1f340724419eda8ab07a20edcaf5ec8f70134231
+> 
+> Thanks,
+> Angel J
+
+
+
