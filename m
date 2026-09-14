@@ -1,185 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC1647F78B
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DE748122C
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396767; cv=none; b=bveIKpzXCO5w/9+JpyKlYTkJgparUZ1tiEAqNzVnDxI988+SklnTPfnZaM915QxlN9+Hk/xPFpehF4vFZR5SMm4R6xT/BMOfTPK7Ogbn5TKhrhFy2ut6N1xiHMbOgzW0epJEnNT1r4IVILDPkNX01izEo/QqhKaEs48hb9lC8nY=
+	t=1789396818; cv=none; b=fjoC8J5vJM0n2+MLe36Sqekku0YGbl0a9QxM5IMaYYgPCb5mHHcmpOj4URbU0oonR9WTKkaE4tAGavzAmhiAbj+Y3bfdUjWMQTZuAwybPmznXYqY2WGJfvcv8g+zFZCJhITZsXGoEoRUcVy+8XxIKbkFQWOtppABGObzVcbSoL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396767; c=relaxed/simple;
-	bh=7Tmryyf/ZXBbgLe0FuBZqsS6osVn+v2B6+a4vV0B/TM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DqeSYPSRHSOtba5r3RwoPIT+vd5+SeeAdU8FOdfox1ph+r/4/1KYaGRMPRG0cjMWefR/EZmFHHDZNEuz7/dzmbqGoSr5jO7pBHywHx/KPIa9n4sqRRLt9DEbYWBUYmIgbwe2WNCLaECA8Nk/1HDjcraw3Won4vu4FMi8EyKDvow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqQcO+22; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789396818; c=relaxed/simple;
+	bh=D2l8PAgI94DSZ+VUCwal/hbYJBcp1fKGhzfhgGmzocM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IyJouZ6XiPUzGpKk6pTD9MX4I5QM7wBmlbTvZZStHgDmTgaKP/kADbMO2bOzUPcX3OZiAczp4o8XqBeSzJ92si3EkiRojB8r/UOiXbYJvY2HGoR/R8n1WoFBhd5/Mx48RYsB/+oyIOq8EhTtMgPDFmPzzmnm54UrvQUjVUh3jwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OxE0794R; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqQcO+22"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD161F00898;
-	Mon, 14 Sep 2026 14:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789396764;
-	bh=G7O2j3wUPmbbpAFVbfzDg9BJ8joJN8s1+8X3xdPA9P4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cqQcO+2269PoymubP99C6nux+jz5wEkcpOEZlV3cIedvuihNA7HwRBZbhcvMq3NGd
-	 EjfaE7ebYjqBVvAQ5hs16sSPS5ht30umhhPtZnkihnUgIoMb+bgnSkC1kwlDuUnubA
-	 6ZF5x9iGIgfzev8WLr8kRUAcNFspalVdWM5esWvItSNhvLMQAdN9yVFpfwQOjxs1gM
-	 +RQXGVTGkHcYqKUAYbFbWVid+H8aYw/2JVfxEwcqVDHvWRfXl7X8zZZU1XSUwpoGPs
-	 COM/rmcMxJTBCphUyIpGiJvwqs5FOfIoyvAVZxhdK2gpa0LSXzdK2zHfy/VInM+bLS
-	 GS5J5ba2T5qWg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Kanishka De Silva <kpskanna1915@gmail.com>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Mon, 14 Sep 2026 10:39:20 -0400
-Message-ID: <20260914143920.70748-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914143920.70748-1-sashal@kernel.org>
-References: <2026091411-kept-parish-8e82@gregkh>
- <20260914143920.70748-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OxE0794R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789396816; x=1820932816;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=D2l8PAgI94DSZ+VUCwal/hbYJBcp1fKGhzfhgGmzocM=;
+  b=OxE0794RtzxnydkTCDp18uyabHphTNwwUTzT0lhBTfJ3wfFqK/SpBfGL
+   3+klzCxB6FhMVZWso3LP5ewG9+ddRLeP5MNPreT0wdRpbul4QFVVFjz3T
+   L6ugF912z/kmLpwcR+tqPp06hx2ggprwmP1Bm3usKdWnsprZJqfOwKD/A
+   ryAdoXcgp7taooGIzonlBC/QtcmLVOd7plPaoIJHu5vJmvZypFEuhAjTv
+   wV78Ehz+66hBzmVdXwpmM82OXuqEun39zyiHf/A9mxMUrnac6eDZo7Ybi
+   esge6Bw338ghQZDWywIaNPQmyajcdsbzUP23fThKrdg85jBogovASwMY8
+   w==;
+X-CSE-ConnectionGUID: YY0fZI8eRNOQ1tW7SPgu/g==
+X-CSE-MsgGUID: OpHDAl/pTX601W3x5mN28w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="88690711"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="88690711"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 07:40:16 -0700
+X-CSE-ConnectionGUID: gm5pGuJvTDuunFslT7R7Eg==
+X-CSE-MsgGUID: oD2WaTGgRaeUTlwWkPAvnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277925831"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.118]) ([10.245.245.118])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 07:40:14 -0700
+Message-ID: <4d5b3732-948b-4260-b40c-41461d40bda3@intel.com>
+Date: Mon, 14 Sep 2026 15:40:12 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe: Fix shrinker accounting double-subtraction on
+ nested external pins
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, stable@vger.kernel.org
+References: <20260914134540.385186-1-thomas.hellstrom@linux.intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260914134540.385186-1-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+On 14/09/2026 14:45, Thomas Hellström wrote:
+> xe_bo_pin_external() and xe_bo_unpin_external() support nested pins,
+> since the underlying ttm_bo_pin()/ttm_bo_unpin() maintain a pin_count
+> refcount rather than a boolean. However, the shrinker accounting calls
+> xe_ttm_tt_account_subtract() and xe_ttm_tt_account_add() are invoked
+> unconditionally on every pin_external()/unpin_external() call, instead
+> of only on the transition into and out of the pinned state.
+> 
+> An external BO (dma-buf) can be pinned more than once while already
+> pinned, for example when it has multiple attachments/importers, each
+> independently calling xe_bo_pin_external(). Each such nested pin
+> subtracts the BO's pages from the shrinker's accounting again, even
+> though the BO's pages were already removed from consideration by the
+> first pin. Symmetrically, each nested unpin adds them back again
+> before the BO is actually unpinned. This desynchronizes the
+> shrinker's page and object counts from reality, and since they are
+> declared as signed long but interpreted as unsigned long in
+> xe_shrinker_count(), the underflow can turn into an enormous
+> shrinkable/purgeable page count, causing the shrinker to be invoked
+> excessively under memory pressure.
+> 
+> Guard the accounting calls with the same pin-count transition checks
+> already used to guard the pinned_link list maintenance, so accounting
+> is only updated on the outermost pin and the final unpin.
+> 
+> Fixes: 00c8efc3180f ("drm/xe: Add a shrinker for xe bos")
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: intel-xe@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.15+
+> Assisted-by: LLM
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-[ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
-
-Validate IPC share configuration payload sizes before consuming
-variable-length fields. Bound veto list parsing and account for
-the separator byte when deriving the path length.
-
-Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/mgmt/share_config.c | 40 +++++++++++++++++++++----------
- fs/smb/server/transport_ipc.c     | 21 ++++++++++------
- 2 files changed, 41 insertions(+), 20 deletions(-)
-
-diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index 97b0bbd619979..e34e86cce0fc3 100644
---- a/fs/smb/server/mgmt/share_config.c
-+++ b/fs/smb/server/mgmt/share_config.c
-@@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
- 
- static int parse_veto_list(struct ksmbd_share_config *share,
- 			   char *veto_list,
--			   int veto_list_sz)
-+			   size_t veto_list_sz)
- {
--	int sz = 0;
-+	size_t sz;
- 
- 	if (!veto_list_sz)
- 		return 0;
-@@ -98,7 +98,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 	while (veto_list_sz > 0) {
- 		struct ksmbd_veto_pattern *p;
- 
--		sz = strlen(veto_list);
-+		sz = strnlen(veto_list, veto_list_sz);
- 		if (!sz)
- 			break;
- 
-@@ -106,7 +106,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 		if (!p)
- 			return -ENOMEM;
- 
--		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-+		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
- 		if (!p->pattern) {
- 			kfree(p);
- 			return -ENOMEM;
-@@ -114,6 +114,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 
- 		list_add(&p->list, &share->veto_list);
- 
-+		if (sz == veto_list_sz)
-+			break;
-+
- 		veto_list += sz + 1;
- 		veto_list_sz -= (sz + 1);
- 	}
-@@ -165,17 +168,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
- 	}
- 
- 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
--		int path_len = PATH_MAX;
--
--		if (resp->payload_sz)
--			path_len = resp->payload_sz - resp->veto_list_sz;
-+		size_t path_len;
- 
--		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
--				      KSMBD_DEFAULT_GFP);
--		if (!share->path) {
--			ret = -ENOMEM;
-+		if (resp->payload_sz <= resp->veto_list_sz) {
-+			ret = -EINVAL;
- 		} else {
--			ret = 0;
-+			path_len = resp->payload_sz - resp->veto_list_sz;
-+			if (resp->veto_list_sz)
-+				path_len--;
-+
-+			if (!path_len) {
-+				ret = -EINVAL;
-+			} else {
-+				share->path = kstrndup(
-+					ksmbd_share_config_path(resp),
-+					path_len, KSMBD_DEFAULT_GFP);
-+				if (!share->path)
-+					ret = -ENOMEM;
-+				else
-+					ret = 0;
-+			}
-+		}
-+		if (share->path) {
- 			share->path_sz = strlen(share->path);
- 			while (share->path_sz > 1 &&
- 			       share->path[share->path_sz - 1] == '/')
-diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index bbe039a05b1c3..80fd1316d176b 100644
---- a/fs/smb/server/transport_ipc.c
-+++ b/fs/smb/server/transport_ipc.c
-@@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
- 			return -EINVAL;
- 
--		if (resp->payload_sz) {
--			if (resp->payload_sz < resp->veto_list_sz)
--				return -EINVAL;
-+		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-+		    sizeof(resp->share_name))
-+			return -EINVAL;
- 
--			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
--					       resp->payload_sz, &msg_sz))
--				return -EINVAL;
--		}
-+		if (resp->veto_list_sz > resp->payload_sz)
-+			return -EINVAL;
-+
-+		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-+		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-+		    resp->payload_sz <= resp->veto_list_sz)
-+			return -EINVAL;
-+
-+		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-+				       resp->payload_sz, &msg_sz))
-+			return -EINVAL;
- 		break;
- 	}
- 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
--- 
-2.53.0
-
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
