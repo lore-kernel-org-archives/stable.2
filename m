@@ -1,67 +1,107 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A28214A84
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464BD1A9F8C
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 03:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354675; cv=none; b=Ae2KIK7fY8xI98rTA69rWQUBihky3b9pDf1xkF+ULNt7DxS5UX7SmwY1nRrODX+85aeZ0lTsYL2ozYGb2GW10d7fiOLNnzR0eZ+s1XcROzsn+TJuoBR9KU8wNJPi1X32+3JmUkdSkPW/i5VtzL5Y5ZxgKSJfN//1vLsWj7PijW0=
+	t=1789354834; cv=none; b=QIinUhKyRCOKyvNc4qpYyqFGUo3gsL+LDHWLaI4eY7qsBtcjdWQUwdjJZFL1CTc4uQBqmfpzP7e4NtsxNd1dziIrSRUBVwWEjnImONL76ewkQk3Nb8kT3+mjkLRXJCfjdsguHFcEOcHWaB3qF9c/NG/Fvb85hrLcSGtWTupRE3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789354675; c=relaxed/simple;
-	bh=pc7EJcLoyg5ByNWtXPFFwmOctE8DUPqxqewq4Rs9QFQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oDENAx1eLwOdCueP8DbkvcdGE9szzidqFztlqm981ePfgYT4Jc4+geDe0FXpKtdswsyNYpXqsNo/8EkoNU8UTCMA+91sbhXO7cExgulz9DDO+kzd27rXTYoeqaUFYsANhj2WfQBatjGxI85sOvuvH4zD2Ec8BiteR6p2/+7LjiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=diqVx7Cs; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789354834; c=relaxed/simple;
+	bh=38utzkszNAIbnFH8LOYtxKvWmuM2m8bbkylT9qzwrcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ghQuYp2cqV3G8G8k+uh1QqqWRC/TOnqLtnw+CDZ+/1iZyFhfUii6MjdeZeohOQBx8Ry/Il3XXJoFeVv93nHuSrlVZiBp/J4qHfkolGxX48X30pZFcax3t3Tv63D2DyV4UFM5lPGdHVrQGv3ZLG8IqBfcvMt0N3aum1T/1qxTGLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EzYO7CAN; arc=none smtp.client-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="diqVx7Cs"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=pc7EJcLoyg5ByNWtXPFFwmOctE8DUPqxqewq4Rs9QFQ=;
-	b=diqVx7CsG/GhnDygliV7nbarZ0eg3nd6qIftyEPqHrCMf8943FzapdQBcHY3fJM1UTDX/zYRd
-	CJjgkrytVi4iWPBJZrvOOknQEBK4PODNOY1DqW3J41Iaj0g4rR0BMiZ6XRowl3mrsyEyRiK0CGu
-	Wm7C4+FBvMuBhkBaWkCkrLo=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hjqKl02DPz12LF9;
-	Mon, 14 Sep 2026 10:46:35 +0800 (CST)
-Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7F22C40561;
-	Mon, 14 Sep 2026 10:57:44 +0800 (CST)
-Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
- kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 14 Sep 2026 10:57:43 +0800
-From: Xie Yuanbin <xieyuanbin1@huawei.com>
-To: <gregkh@linuxfoundation.org>
-CC: <xieyuanbin1@huawei.com>, <bigeasy@linutronix.de>, <linusw@kernel.org>,
-	<lisongze2@huawei.com>, <ljs@kernel.org>, <patches@lists.linux.dev>,
-	<rmk+kernel@armlinux.org.uk>, <sashal@kernel.org>, <stable@vger.kernel.org>,
-	<wangbing6@huawei.com>, <xiqi2@huawei.com>
-Subject: Re: [PATCH 5.10 613/798] ARM: 9485/1: mm: acquire mmap write lock around show_pte() for user faults
-Date: Mon, 14 Sep 2026 10:56:52 +0800
-Message-ID: <20260914025652.12173-1-xieyuanbin1@huawei.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914024820.11063-1-xieyuanbin1@huawei.com>
-References: <20260914024820.11063-1-xieyuanbin1@huawei.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EzYO7CAN"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=38utzkszNAIbnFH8LOYtxKvWmuM2m8bbkylT9qzwrcA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789354830; v=1; x=1789959630;
+ b=EzYO7CANUBUUn6xZSahP37q7gZNQICRx5OkyPBCBNY3kwHK/Z093dtD8cNZOw1ls2xShyWge
+ UE32N9OjdBUmuaWuIRn5DPTvmXq1nkstmXssycT6fRGvfOBsDbUXA2+kHp1zzwpjSyvazlJx36D
+ LKXb2sh89AQtFV3DM2DUzQUY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d8104f31d56843eb;
+	Mon, 14 Sep 2026 03:00:30 +0000
+X-Mizu-Trace-ID: d8104f31d56843eb
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 14 Sep 2026 11:00:27 +0800
+From: Chenguang Zhao <chenguang.zhao@linux.dev>
+To: Mark Amirkan <markdamirkan@gmail.com>
+Cc: Bryan Whitehead <bryan.whitehead@microchip.com>,
+	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Raju Lakkaraju <Raju.Lakkaraju@microchip.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: lan743x: fix RX checksum use-after-free
+Message-ID: <20260914030027.GA92852@pc>
+References: <20260913-b4-send-lan743x-uaf-v1-1-73d563d08ba9@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk300012.china.huawei.com (7.202.194.175)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-b4-send-lan743x-uaf-v1-1-73d563d08ba9@gmail.com>
 
-On Mon, 14 Sep 2026 10:48:20 +0800, Xie Yuanbin wrote:
-> This commit depends on commit e79ca91165d4fd18549c ("ARM: 9484/1: enable
-> interrupts when unhandled user faults are triggered"), otherwise,
-> mmap_write_lock() may trigger a might_sleep() WARNING.
+On Sun, Sep 13, 2026 at 05:14:09PM -0700, Mark Amirkan wrote:
+> lan743x_rx_process_buffer() adds each non-first receive buffer to the
+> head skb's frag_list.  On the last descriptor, lan743x_rx_trim_skb()
+> linearizes the head and frees the fragment skb metadata.
+> 
+> The checksum-success path then writes ip_summed through the local skb
+> pointer, which still points to the final fragment.  This causes a
+> use-after-free write when a packet spans more than one receive buffer.
+> 
+> Set ip_summed on the surviving head skb instead.  Multi-buffer receive
+> can occur after a live MTU increase because existing ring entries keep
+> their old buffer size until they are replenished.
+> 
+> A KUnit test invoking lan743x_rx_process_buffer() with a two-buffer
+> packet produced a one-byte KASAN use-after-free write before this change.
+> The same test passed after the change.  The driver object also builds
+> with W=1.  This was not tested on physical LAN743x hardware.
+> 
+> Fixes: cd6910501cfd ("net: lan743x: Add support for Rx IP & TCP checksum offload")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> ---
+>  drivers/net/ethernet/microchip/lan743x_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c b/drivers/net/ethernet/microchip/lan743x_main.c
+> index 24ae56a3c9ed7..82d3ec20ba259 100644
+> --- a/drivers/net/ethernet/microchip/lan743x_main.c
+> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
+> @@ -2604,7 +2604,7 @@ static int lan743x_rx_process_buffer(struct lan743x_rx *rx)
+>  							rx->adapter->netdev);
+>  		if (rx->adapter->netdev->features & NETIF_F_RXCSUM) {
+>  			if (!is_ice && !is_tce && !is_icsm)
+> -				skb->ip_summed = CHECKSUM_UNNECESSARY;
+> +				rx->skb_head->ip_summed = CHECKSUM_UNNECESSARY;
+>  		}
+>  		netdev_dbg(netdev, "sending %d byte frame to OS",
+>  			   rx->skb_head->len);
+> 
+> ---
+> base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+> change-id: 20260913-b4-send-lan743x-uaf-9d770ad5c929
+> 
+> Best regards,
+> --  
+> Mark Amirkan <markdamirkan@gmail.com>
+> 
+Reviewed-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
 
-commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled
-in __do_user_fault()") is also needed.
-
-Thanks!
+Chenguang
+Thanks
