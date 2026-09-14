@@ -1,166 +1,140 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A1E3DAAAB
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 16:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789403452; cv=pass; b=ToQUAsFfHjmw0dY/TY0j1deq6CZK4c6wvA/4FoX2AtJRc2Eoj/ROP4E6o/OXsLdqcNlaLqOF02ZGZn2IN+E2KpvU8TpH+5vnWlHoXjqGx9hjO0Szuf1voC0k5zVePN6L9Y2fl3MWEWCyvpfxkJhiOAY7QDAcgIQ0sn4urvUUz6M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789403452; c=relaxed/simple;
-	bh=XSenOVdio0MTk3GC6131u10bA8proRI6SzfxE3M5VwI=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IYRqh78ShEGndTLkE5J28cWEGmWmZzVxc4FrJqjt/jfvpWYEA+kgWbJbGbn9dHu9b9JSL2AVcDsB6KAMpgHSWPt5MYE4GOka6HBqf+pj/5bc2UNn8trgO+i37Clv8ixWVANJbr+HdMd6KZXhsaLncD2wCC6yda+jUAzcfQoTSG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QkJef4Iv; arc=pass smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2863648BD57
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 16:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789404246; cv=none; b=LE6y31asKV+/x36qIDIaMaeaCpX1i1dduTVwJt+kangJbE80taccfC7Ja3DYaudTvYfU9XWyhlTUkoDZfF6rFJhBk92QYHEuAE/fpnwN/LkL/5L07KD5JMy7O1OmWmgrZGnouABH+2LdUGzCEumLZ6gPf87kQF/n1p89SfpbqBY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789404246; c=relaxed/simple;
+	bh=B72i0TqWFDhyfs7iAPK30i8YZVrELBSfmsv2i7LPbl0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=M/OFPq3rNvC1poi2dUVzL33iT2eXXU0g4gUKlbTf48rIXdXZWFpt/zDINTg/Pgt+PD32/gfRxlPHsqQXzPKBD1fXRcEDsfb+KI9t5MO067ABvHVjrL7vc3bc7zxP3dgBaNmGr6nQMrF1wI8CAEL82fR0Gg+0M4+kgA9VKO+pP8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tZWs8dX8; arc=none smtp.client-ip=209.85.222.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QkJef4Iv"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78ffc0e2f23so634430137.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 09:30:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789403450; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WXpm7tihbdh84SA+sbxU6A4Pc41dTP0Dp7qXgZyCptjoF+sWWE6Dn6kMOVb4oxFMDp
-         4uVu5EaaYoiOWiiAD6FM1pt/tpLcqOCoRsmRIOmzAgReOyJWJl6/MxzGeS03pEOdJn+e
-         Ix4pnudwu9sJZpxaVM0LyyuicYfkTVCexNeHKgovvxwTs5z8So0xX9VePiT19CRnPZJ3
-         fAaIiuwIdSUu4KK1p6zE59vjHnshcCB73hW/VfGytGutmKmLm9h/fvWE/Xqls8w7okUc
-         Y9Ghn3wLz+Umj7zQl3q1T49Le8pRyE84JEu/xqDfLl2LhdsJUcV5MyLumC1+potw3rBR
-         HcUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=XSenOVdio0MTk3GC6131u10bA8proRI6SzfxE3M5VwI=;
-        fh=9VtSZTMxOXDwyORLI8GZnPTKZ+pSeS8b60V3gjap8gg=;
-        b=s2HssBqJnfylMxA7xzjLqz//vzFoVVBEpfeT3YU9DKL5LBW8XWrSIYUsKaDC3LKAwb
-         Ru2O46XF8XFKz5KkE9BrM+5Wi6dA+z+W2w22hvkhEEpy8WQvgtiO9lDeG8AuNkXgnc+1
-         TDg7Axvgp1YwV4zUwc64898yfTX2Bv0F/tl78pqv9Xvw5bvH3eBQNtyUprDOrSqfdFHb
-         n5bhB7dcxx2jBpmFSjxL+rYXGRlRQoQ3XntWnDPS3K0t+mUxibsOb2p03wZHKBkZzQbz
-         NRk+ISYz0TfaBq2iblB/s8otYIanyLul3QYi3JE9op/v/oEh2MfceKbphcSOCKwdfDSG
-         9qjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tZWs8dX8"
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f1847fb9so386406885a.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 09:44:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789403450; x=1790008250; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XSenOVdio0MTk3GC6131u10bA8proRI6SzfxE3M5VwI=;
-        b=QkJef4Ivs6iY3syqkU/t38p7D+wTwdUbU8t1xmm/eQm99eHLgDtK2CmSnuksIIFK59
-         ZV+NQVIGYwtPwi3NTjGeIzuxlmVGudaEysd1VCg3kBoSCi86mxGhd6MIZeu7sGeD3SE9
-         rw2XkiUFQKgl0nOCl6Vp/o0odSnDa9ErlWimnlF7NeJ/9wmiNDotmPGEYOLMeZn4bl9J
-         HYqgh6o0H6370UJqhu8ieJglt2VaHzMnqsAZnoePtknhQUAzZNiJFNI7Gk/4VC5HSq5Y
-         zcPrCSnB23FF5QmUwxtFfAXzSb+7GNFQRefFXTlfRyPUA1l2iVqtuFyzu1zLh5MFqHpJ
-         7NKQ==
+        d=google.com; s=20251104; t=1789404243; x=1790009043; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6vLuB0gCfwF6zDMyZTlgcVgD+YFlPOMK6K5wbE2DV94=;
+        b=tZWs8dX8CXU8rIbvTxDWDcYIG+rd0snLpEROaTLOkZptnjoH0Jc+HWuCZvNDPSd2Kl
+         9DE0A1plI1e02htJM2twAct+nFOErTSb6nXRQvqmnurnCio4swtGc51Qtt9aXcyiHHO+
+         6q3juNKxKv0IdYCgo1fUU4C0ZrCIQQ5NteGYWkigNn2vak25xccDlf/Qe+VilaUUOUy/
+         CGuEBh397WPSooHDtA1Q3/tKG29nKz/E6Rbf3knQlSoXdSZuIIv5O9AHabePQEpEaroo
+         3N/q3mqs5q7BOTfUPx1JrmAgOY1M/ky+yLAdz/BzjcBWOg8dIHtm0khRI37t0w1ydVvR
+         QhSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789403450; x=1790008250;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XSenOVdio0MTk3GC6131u10bA8proRI6SzfxE3M5VwI=;
-        b=I8VjwniF4u4dkmxdIakuxcwixDwINIOes8VyzIL6G/30EqH4KMlX6wEyg+hYu1Lmiu
-         R3Ox4BB55776YrOUEjejTmrfYCueGobiQzUn/p5DzMHwE9ymx2zWKhIzqtdMWTsCDJZX
-         qpTbbIlcF+N/yupBUu+tXkKZa3sk9vtXg1LRIyHEUHHJPQMymnih+nh+3q50r44cMUHB
-         9a0MVfzPF5QhGmE66F6n2tujPg3JmbIFMQJb8VBdhqv6ficg84N+XUlaKca3L2j+OuqQ
-         KQF7o8l0Fr1o2ac2KNKtecmqAVL42O2rdqnJnmhR8uFqGbukkzlwOlHUj2fA37euG4us
-         4rEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAKD+zheAX65z8XXwvrqYzrdTJwmzQ2C2uo0gVNU1Hox/TkW1f+FrvuKWWgHwsR8OOlhnEqjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++muAN8pWmmL+BGcCVd8dabbLPRMCHZgfqZIsI8XCjzkvsqTnqCq
-	xyazFdS+yZSqxwHFSigFKMf1yMs/5hmKEh+QnPtO+S9aW1M3OHeuXUv+VnxyaUiODFPOE4Sal2S
-	xiNa0+yxpJMmkA6L79IMmDOl2JgMEu9GWYjUqoLcQ
-X-Gm-Gg: AYBFou26wtYnE7KMkrMHiDGFTBppqMqxIYEhekXNAErfEwbThIWNEhLx/v51bPIniHS
-	leMc3R+aYJXHn7+3lQwOBpJ9KIDjPv/wGEKrgOgHkNyRdPR2XUM8oAmqMQNVPSCnhDNEK0UbYxj
-	NnZJUgREbKzAHCC8sJ9e8Og8fYq4+ZsgAgMZc/DfO6dWcMIcE15xqWlbs+yzFRk/UHogTQCgXjD
-	jgLc3c9uxxzdtczcWqHPIQ/VkagLntot7taY0aweSRVx6nVW/H5JR7WqIN+jOH3kF7v5D7SShe6
-	Im6JrQdpefy1LZtFbRD+pHR4kPK/M6PyD9fRYMV8xIVD8e3kJihqMksqEybQrOZY4nNJEKgeDFJ
-	jvudwHsSGWCZsvUjjXDEaRg==
-X-Received: by 2002:a05:6102:511f:b0:785:d308:cc0a with SMTP id
- ada2fe7eead31-79b5b2909fbmr3656947137.9.1789403448800; Mon, 14 Sep 2026
- 09:30:48 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 09:30:47 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 14 Sep 2026 09:30:47 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <CAEvNRgEwbUXj5cVQq4A-U=AMOzP3S1mjnrOC79Li71wf-E+dDw@mail.gmail.com>
-References: <20260909-hugetlb-subpool-always-track-used-v2-0-30c5d83b572a@google.com>
- <20260909155003.e6c2f4fe3c0bbee3b34578fd@linux-foundation.org> <CAEvNRgEwbUXj5cVQq4A-U=AMOzP3S1mjnrOC79Li71wf-E+dDw@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1789404243; x=1790009043;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6vLuB0gCfwF6zDMyZTlgcVgD+YFlPOMK6K5wbE2DV94=;
+        b=I1YmLVjBvYtV8uR1xjuW1GLQO0d2NrXGFktWxsaXkQ8xuJyomxJsUArH8ASWU7ig+0
+         gSOVrhdfFffkjWUYzEWNpm96DAdIpRyyvEkPs0tjm/26eYiHiWLsPyYePhRThu5M3Ey+
+         IfU1YpkZy+j9ipQfq73zuczNCqcgDvbazawJuicMZvxW3y0+XZyzU1yEhkS3D5Qgyo9w
+         2jHFSnRX/GxFzBlp7wR9DCjZArWjZvBGjQqXDwiTG1Xy9+rJohsoApY4J8N8LbeLPApC
+         +NISlkY5KT3OroMJIMgBhzkOsaq/+/owdzauHF9THnJEDhUHNBWh5AFxrI2EcqPG3kxt
+         2YzA==
+X-Forwarded-Encrypted: i=1; AKwUvByaFEHEgEpniODRVYRR5yA8Ty6jKvhmIcmgqBGpSRn7JAPQgDe4sYUHiz9XLoBRWbrp2LSnbGQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGTfwgdwR2vtXwh/IFTjYap1pSTHcDMLtpeleRnAdcGb1Rwh+F
+	7S+m48KRt4NopPB6UGNZ4yHc6xXTiyBD7KhW7uN1AU94HW9cmsAT9kxMxczXCpy1A5PpNGcQYQ9
+	DWMbzh7MVXpAsrA==
+X-Received: from qknrb22.prod.google.com ([2002:a05:620a:8d16:b0:93a:8de:9f99])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:620a:4409:b0:939:9c21:8ece with SMTP id af79cd13be357-93a29a192e5mr456272385a.42.1789404242566;
+ Mon, 14 Sep 2026 09:44:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 16:44:00 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Mon, 14 Sep 2026 09:30:47 -0700
-X-Gm-Features: AcwNN1XXPLdtIsXucpy4FdPGkhqMrtzwEGfBrz_XeIOSoKwnvb1TbO6LQoI4Y4A
-Message-ID: <CAEvNRgHPGzfyr5Uuir2QoLqSNTkspkn3yJ5CTz7rAQmREe2Apw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] Fix HugeTLB subpool used_hpages tracking
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>, Alex Shi <alexs@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
-	rientjes@google.com, vannapurve@google.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260914164400.2738350-1-edumazet@google.com>
+Subject: [PATCH] dlm: fix send buffer backpressure handling
+From: Eric Dumazet <edumazet@google.com>
+To: Alexander Aring <aahringo@redhat.com>, David Teigland <teigland@redhat.com>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>, gfs2@lists.linux.dev, 
+	Eric Dumazet <eric.dumazet@gmail.com>, netdev@vger.kernel.org, 
+	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Ackerley Tng <ackerleytng@google.com> writes:
+lowcomms.c tests and clears SOCKWQ_ASYNC_NOSPACE in con->sock->flags,
+but this bit has not been stored there for ten years.
 
-> Andrew Morton <akpm@linux-foundation.org> writes:
->
->> On Wed, 09 Sep 2026 14:49:25 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
->>
->>> HugeTLB subpools currently only track used_hpages when the user configures
->>> a size limit.
->>>
->>> This is buggy since when there are existing allocations from the subpool
->>> that would have satisfied the minimum reservations,
->>> hugepage_subpool_put_pages() will still restore a reservation to the
->>> subpool. See below for an example of a false reservation.
->
-> "false reservation" should have read "false reservation
-> restoration". Will fix in the next revision.
->
->>
->> That sounds annoying, although isn't clear how this affects end-users.
->>
->
-> I'll also add this to next revision:
->
-> hugepage_subpool_put_pages() falsely absorbing reservations (aka
-> reservations being falsely restored to the subpool) means
-> hugepage_subpool_put_pages() will return 0, and h->resv_huge_pages won't
-> be decremented. The page(s) still being reserved in h->resv_huge_pages
-> means fewer HugeTLB page(s) for use in the entire host.
->
->>> In addition, the subpool is considered free prematurely, is freed, and this
->>> ends up causing a use-after-free.
->>
->> That sounds alarming.
->>
->> Do you think it's best for us to submit [1-3] for -stable backporting?
->>
->> Is it feasible to come up with a set of small little fixes to get
->> -stable out of trouble and then to prepare broader updates for our
->> ongoing mainline development?
->
-> Please see [1]. I don't think it'll be easy to come up with a complete
-> set of small fixes to fix all the issues that are fixed here.
->
+Commit 9cd3e072b0be ("net: rename SOCK_ASYNC_NOSPACE and
+SOCK_ASYNC_WAITDATA") mechanically renamed the two dlm users, then
+commit ceb5d58b2170 ("net: fix sock_wake_async() rcu protection") moved
+the bit from socket->flags to the RCU protected socket_wq->flags, where
+it is reachable only through sk_set_bit() and sk_clear_bit(), and is
+only maintained for sockets having SOCK_FASYNC set.  dlm uses kernel
+sockets, which never have SOCK_FASYNC set, and never sets the bit
+itself, so the test in send_to_sock() has been false ever since.
 
-I'm hoping this will make it to 7.4 and it's 7.3-rc3 now, so I'll respin
-perhaps tomorrow or so if people are ok with the suggestions on the 4
-patches or if there are no objections!
+The consequence is that when sock_sendmsg() returns -EAGAIN because the
+socket send buffer is full, dlm no longer sets CF_APP_LIMITED, does not
+increment sk_write_pending, and does not return DLM_IO_END to wait for
+lowcomms_write_space().  It returns DLM_IO_RESCHED instead, and
+process_send_sockets() immediately requeues the send work.  A connection
+to a peer that is slow to drain thus keeps cycling through
+sock_sendmsg() and -EAGAIN, burning CPU, instead of sleeping until TCP
+reports that space is available again.
 
->>
->> If it's "shut up Andrew you're always saying that" then OK, I can take
->> that :)
->
-> [1] https://lore.kernel.org/all/CAEvNRgHbzY30n1hz2vv7BiBMMhci+NEv_ubP1LjQNmBuu6Kjgw@mail.gmail.com/
+Test SOCK_NOSPACE instead.  This is the bit that lives in socket->flags,
+that TCP sets whenever sendmsg() returns -EAGAIN for lack of send buffer
+space (tcp_sendmsg_locked() and sk_stream_wait_memory()), and that
+lowcomms_write_space() already clears.  This restores the semantics dlm
+had before the bit moved.
+
+Also remove the clear_bit() of SOCKWQ_ASYNC_NOSPACE from
+lowcomms_write_space(), for the same reason.
+
+SCTP connections are deliberately left as they are.  SCTP does not set
+SOCK_NOSPACE, and it never calls sk->sk_write_space(): sctp_wfree() ends
+up in sctp_wake_up_waiters(), which calls sctp_write_space() directly.
+lowcomms_write_space() is thus never invoked for an SCTP connection, and
+the test added here stays false, so send_to_sock() keeps returning
+DLM_IO_RESCHED as it does today.  This is the only safe behavior, as
+returning DLM_IO_END would wait for a callback that never comes.
+
+Fixes: ceb5d58b2170 ("net: fix sock_wake_async() rcu protection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+---
+ fs/dlm/lowcomms.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 2aff1c7c17de..abe9ae4c643f 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -522,10 +522,8 @@ static void lowcomms_write_space(struct sock *sk)
+ 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
+ 
+ 	spin_lock_bh(&con->writequeue_lock);
+-	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags)) {
++	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags))
+ 		con->sock->sk->sk_write_pending--;
+-		clear_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags);
+-	}
+ 
+ 	lowcomms_queue_swork(con);
+ 	spin_unlock_bh(&con->writequeue_lock);
+@@ -1391,7 +1389,7 @@ static int send_to_sock(struct connection *con)
+ 	if (ret == -EAGAIN || ret == 0) {
+ 		lock_sock(con->sock->sk);
+ 		spin_lock_bh(&con->writequeue_lock);
+-		if (test_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags) &&
++		if (test_bit(SOCK_NOSPACE, &con->sock->flags) &&
+ 		    !test_and_set_bit(CF_APP_LIMITED, &con->flags)) {
+ 			/* Notify TCP that we're limited by the
+ 			 * application window size.
+-- 
+2.55.0.1007.g17ff1f9808-goog
+
