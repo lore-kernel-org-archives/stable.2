@@ -1,53 +1,70 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E591DED42;
-	Mon, 14 Sep 2026 05:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA93337F739
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 05:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364989; cv=none; b=AGjt8MJr0g3JWlO6+2vq7qUUqFR7iOwuzjkfXAf+hZ/V6FoQ0Qaa1ST3ETivZcDp2TsckXve/6x/5BNoYGomhLUDvaWOXCWaRnumXXkva6xmV1/5Iahty5Q06HhnWdVj8PsBamrDZpeZdRFVtZujwiJ2X6/f1yqTvc6/8p60DxM=
+	t=1789365238; cv=none; b=fSeTg4+13I86oEPmkyLCLbXfiGf4CJZsd3ZNhORPnAsR6RUSYJwwrNU2p1/GDxoxyAzeHPeaQ1JqFnCMb2xQYoJlqGjMf+fugJIfG3yJhnAkqmW1VgV8Kjl5291i+dOy5n88FgvhXPYBECK8YK/jVE7Yq7Gl81LezVNUx+LyDkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364989; c=relaxed/simple;
-	bh=m4/BXjLGVuVAlRj8pGSSsD0J60QoI9urtJmiCrZFwk0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F7oHhu5j8HK+2FAPuP4YvBWoBamgum/pQWyRzBWyzF10cgJ+m0uouVLCU+TNDDkpqibHSXQqAcAXFq6W0ApoukwViak+UdR58IFVOgrYm+IEbrc1hv0+lMwVECilAC9n15kKl+u+trKmEqGWA3yI/iowGURJ01RnEewKobXxCZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 116cb736b00011f19a56ed5b684f684d-20260914
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ec0ad7ee-8267-4980-8ad0-40a37e860360,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:a243d128a0b9e0e2ad890da20d224acb,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 116cb736b00011f19a56ed5b684f684d-20260914
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1597423051; Mon, 14 Sep 2026 13:49:36 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v11 6/6] ntfs: check the dirty-state commit on remount and unmount
-Date: Mon, 14 Sep 2026 13:49:26 +0800
-Message-Id: <20260914054926.78808-7-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260914054926.78808-1-zenghongling@kylinos.cn>
-References: <20260914054926.78808-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1789365238; c=relaxed/simple;
+	bh=HPNjM4pLTXiNcEfRHrL4hLZd+ZNQ6uJ5GqL3xE76LSo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTOmvIu461HUNL8Vkj5Lr+RIBZKkjAfSgMu4jbtelAAgCBofVDXYz+zURgie9Tj5gQ58Wp5M54hy7i/C3P1x2l7DEQC9qYRJjKDA270yQWuEmp3RME5oI2D3CfgcgWsFRcIf4PV2fjXU85B7bxK4EoYMPqUyUcI40BKyhnvj88g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Krk6jWUl; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Krk6jWUl"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso1587396a12.0
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 22:53:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1789365227; x=1789970027; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xn+mk68vbRuJzny4Qe7jPXp4/GOeEinEUjVmXKpW8GY=;
+        b=Krk6jWUl7RgfA6pLSCvyQmk6WoDoOyMF1TYvdA7M7xyMaienNZQzOHg/EDDabwn00t
+         iBgvYlv9Cc0OgWZqekr/3rXUtmlztpK/11xvBoV9OVzWWYiELeyQLdBfx+MMsaQyGtJL
+         Ko/Zz1uF0zy/isp7TD6/vTmnmERHBFVp7baFC3SVYtBJqfamv9U3lD7vMND66PouiWi8
+         H9xgPUsuPDL3/FoaI1B8R0mRFqybc/6C0jSUDhLzoTz/GvdjpTNrIXIq3rW6ijMz7Q8O
+         sFJjM5MOcbl9s1pJrZZGVM2jjPQGm+/Z3WBwPwgA9OAfVyj5//Fl0ABS9eb0gUZUyrUs
+         aaUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789365227; x=1789970027;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xn+mk68vbRuJzny4Qe7jPXp4/GOeEinEUjVmXKpW8GY=;
+        b=bAZYg53uG9qe3CDQnzQw1POTUMC2MSbGxOw7EAfrUam7Mb92DQeIf2jyQJLfwzQYls
+         Pb4AHJIMWvd9/imLL7Pjrx/DbtKlq+d2RHHpZg3zW7Izg00iQ0pJtA19J/oN9rewoIvF
+         3qABTEG1bh9sMUzDidjro02+BZ7bHskd/Bulfo0OBGckOWl+eRAykoDCZibqdLsl1bzX
+         53nyPSKU8mHwkFGZpp+12LVd/OrqhrMXHDOON9mf7GbhM3TQFQVn+5k0xuxQZFUs3as3
+         Op9CWXnlCXRuxpjcwTq+wjkk+ldH5YfiGQQSg9H5VVSmqJJTFcDw2cD5HnGLb2vAYQO6
+         FzHg==
+X-Gm-Message-State: AFuF++nZ2R03CshXEajPDWB1I9iIQA34mTtU2CceCEwRyPoTsoUflvX7
+	FbDWkXmdBCewqviVmIE+DvruEFgdQ89sjjOuTA4xbsbFkDyHE6uxFbS8wy+XqcKgY+m+UpR22mt
+	ivXO7
+X-Gm-Gg: AYBFou3cHXS8Mz2n4pDaRFTScSkCs87HiE1uUlRV3VdN8TxeBUWMTVPJ3XHhp7GvGqn
+	ICOVDt0bjuHCgIqRd1Tiu2O1Hvn5GmVlRjxW9m7cYed70xv+obJwW01qXaFrvthxpf0vgpyHahd
+	WirnBAAgIw9ucK+Sm4naDcypS2DOq4fIEPCLtem7o2N/DbABuUBbR8CvnUS0vnfDSXddqDohrx2
+	jTCDOrHhIlV5jbElTSoLIYprFZVuob2TOKxwct9ldQBtdZ6O1ZyaarMUvtgPw68wKwrG2vzFR2E
+	xq/h4inoxaJ6kX6q9xTrzxlsnBEMMUbzZUPC03FdK3X5ZNasfcQbjF4ekFQ+5aG3lpdvu2+ewIJ
+	JRnGuGzWhJQOGDgrxEXQZ+qwVuQEBj2rbOdyft215ezv4ZGRD0V8Zjx7aOS3Bi6JVO7W2DkvcLA
+	3K2wfPuq0l+TG9z+3H/IU1PJ9BPw5LzRaKqZqinKwiZ8n4RXp7bccafN4xT32z+AmY/XZslXatr
+	CdrBkVdlrRJYSd3WrriZZYMUGikQVs7rx/ICpVOKyccW8eQsOsPdtFAyV35zt8fSgVQ5ZWx
+X-Received: by 2002:a05:6a20:3952:b0:3d8:f78a:9349 with SMTP id adf61e73a8af0-3db4064eb17mr2028000637.13.1789365227289;
+        Sun, 13 Sep 2026 22:53:47 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:65f8:1929:8ba0:e395])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b97994sm42674102c88.12.2026.09.13.22.53.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 22:53:46 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Please consider post-v7.1 CVE fixes for 6.1.y, 6.6.y, 6.12.y, and 6.18.y
+Date: Mon, 14 Sep 2026 01:53:41 -0400
+Message-ID: <20260914055341.86197-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,153 +73,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The remount-to-read-only path commits the updated volume flags with
-ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-ignores the blkdev_issue_flush() return value, so a failed commit or
-flush is reported as success.  Once the remount has succeeded no
-persistence point is ever reached again: ntfs_put_super() skips
-read-only superblocks and the VFS never syncs one, so fail the
-remount unless the commit and the flush succeed.  The superblock
-then stays read-write and ntfs_put_super() retries the persistence
-at unmount.  The errors=remount-ro downgrade does not go through
-ntfs_reconfigure() and is unchanged.
+Hi Greg and Sasha,
 
-A zero-return commit is not trusted blindly: write_mft_record()
-redirties the record on allocation failure and reports success, so
-the $Volume inode is required to be clean afterwards.
+Thanks for taking care of the earlier requests. I found one final
+direct-pickup group: 26 CVE fixes that entered mainline between v7.1 and v7.2
+and are still missing from one or more supported 6.x trees. The Linux CNA
+affected ranges include each target listed below. I left out anything that
+needs an adapted backport.
 
-ntfs_put_super() discards the same commit error.  Call
-__ntfs_write_inode() there with the same dirty re-check and warn on
-failure, as put_super() cannot return an error.  The commit is
-skipped when the dirty-state sync itself failed, as that could write
-back an inconsistent flag state; a record left dirty by an earlier
-update is still committed at evict time.
+I checked each of the 73 commit/tree pairs separately, then applied each
+tree's full set together after its current stable queue. All applications were
+clean, and every changed path built with CONFIG_WERROR enabled. The cumulative
+x86_64 allmodconfig kernel and modules built without diagnostics on 6.6.y,
+6.12.y, and 6.18.y. The 6.1.y build completed with four unrelated objtool
+warnings; the same four warnings occurred on the unpatched tree. I also built
+the CoreSight object on arm64 for each target where it is requested. I did not
+runtime-test these fixes.
 
-NVolErrors() is deliberately not used to detect the failure: it is
-sticky for the lifetime of the mount, so it cannot distinguish a
-fresh commit failure from errors recorded before the remount.
+Could you please queue these commits for the trees shown?
 
-Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-them and never dirties the $Volume inode on such a mount, since the
-on-disk flags are already dirty and ntfs_set_volume_flags() has
-nothing to change.  The commit only runs if something dirtied the
-inode independently, as before this patch; mounting hibernated
-volumes read-only removes even that.
+  5152c6d49e3fd4e9f2e857c57527aead752f1f87 (CVE-2026-68097)
+    Targets: 6.1.y
+    ksmbd: validate ACE size against SID sub-authorities
+  ffb2bd7ade36ec4da32c46a6eddbf4515316d08c (CVE-2026-68161)
+    Targets: 6.1.y
+    sctp: close UDP tunnel sockets during netns teardown
+  fd098a23bf8fda7eae48db9b06e7c34fc4d228fa (CVE-2026-68286)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    drop_monitor: perform u64_stats updates under IRQ-disabled section
+  7089f7ab99c89f443c92d8fcc585e63f2727f0b3 (CVE-2026-68287)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    drop_monitor: fix size calculations for 64-bit attributes
+  5e9c8baee0329fbefe7c67aea945e2a07f15e98b (CVE-2026-68288)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    net: drop_monitor: fix info leak in NET_DM_ATTR_PAYLOAD
+  47f42ff521b4eeb46e82f9a46a4783a99f7570d7 (CVE-2026-68289)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    tipc: fix integer overflow in tipc_recvmsg() and tipc_recvstream()
+  7dc3680b7ffe01add3e9299fde8471d2dd53a8ae (CVE-2026-68303)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    drm/vc4: hvs/v3d: Fix null dereference in unbind
+  3f4920d165b29052255527d8ae7619e7ec132ece (CVE-2026-68337)
+    Targets: 6.12.y, 6.18.y
+    bpf: Reject redirect helpers without a bpf_net_context
+  da55f570191d5d72f10c607a7043b947eb05ea46 (CVE-2026-68391)
+    Targets: 6.1.y
+    Bluetooth: mgmt: hold reference for hci_conn in mgmt_pending_cmds
+  e054c1a6ae7310d2815778fddb87da616e11c255 (CVE-2026-72334)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    Bluetooth: ISO: fix malformed ISO_END/CONT handling
+  5c6ce05e406520290c1d89da97fb3cd70c09137d (CVE-2026-72355)
+    Targets: 6.18.y
+    netfs: Fix barriering when walking subrequest list
+  72a85e9464a5332fb2cd7efd26d9295275ceda2d (CVE-2026-72402)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    bpf: Mask pseudo pointer values in verifier logs
+  9f58a0a4d6c2ed5d341bba64f058f15d1b0c36f2 (CVE-2026-72413)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    sctp: fix err_chunk memory leaks in INIT handling
+  393d687131d8aa8c7e4de2cb494438e145d20fc2 (CVE-2026-72438)
+    Targets: 6.12.y, 6.18.y
+    md/raid10: fix writes_pending and barrier reference leaks on discard
+      failures
+  1563ae33dc4f5ebac96b93af2ef72e72aaaa31ae (CVE-2026-72485)
+    Targets: 6.6.y, 6.12.y, 6.18.y
+    coresight: platform: defer connection counter increment until alloc
+      succeeds
+  d9c8c45e6d2f438a3c8e643ae78b59454fa0fadd (CVE-2026-72494)
+    Targets: 6.18.y
+    RDMA/irdma: Replace waitqueue and flag with completion
+  87267803a8c824616eb147c5dad7030a5db6f878 (CVE-2026-72496)
+    Targets: 6.6.y, 6.12.y, 6.18.y
+    RDMA/bnxt_re: Proper rollback if the ioremap fails
+  4d87a251d45b4a95eb4c0abcfab809c9f231258a (CVE-2026-74258)
+    Targets: 6.6.y, 6.12.y, 6.18.y
+    bpf: Guard __get_user acesss with access_ok for uprobe_multi data
+  e26657fe3b85c068b01f42bb0c602f242d643ba9 (CVE-2026-74269)
+    Targets: 6.18.y
+    bnxt: fix head underflow on XDP head-grow
+  06b693d2eb6651a63ad85bad8673de3b7d4edd6d (CVE-2026-74289)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    ipv4: fib: Don't dump dying fib_info in fib_leaf_notify().
+  b7e44d1986d6671342c19b82192189ca5db5dab7 (CVE-2026-74291)
+    Targets: 6.6.y, 6.12.y, 6.18.y
+    ASoC: topology: Check PCM and DAI name strings before use
+  d65adf85477247be04ac86886f8edfaa047b5d4a (CVE-2026-74294)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    ASoC: meson: aiu: Validate written enum values
+  8c79aac429b583301f387374ff37c59be671df87 (CVE-2026-74407)
+    Targets: 6.18.y
+    wifi: ath11k: cancel SSR work items during PCI shutdown
+  e8bb506e6ef749ac0336f3e579d8d02396b7d832 (CVE-2026-74521)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    ksmbd: use memcmp() to compare ClientGUIDs
+  9006c116dd111d457bf5d074990210f70a4ad2c8 (CVE-2026-74735)
+    Targets: 6.12.y, 6.18.y
+    l2tp: fix tunnel and session refcount leak on seq_file release
+  594d905195024b228c962627ae5ae7c17bd582a4 (CVE-2026-80521)
+    Targets: 6.1.y, 6.6.y, 6.12.y, 6.18.y
+    af_unix: Unlink scc_entry in unix_del_edge().
 
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 54 insertions(+), 22 deletions(-)
+Assisted-by: Codex:GPT-5.6
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f155f16b252d..c547d2ca51ca 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -268,6 +268,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
- {
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-+	int err;
- 
- 	ntfs_debug("Entering with remount");
- 
-@@ -324,14 +325,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		 * and ntfs_put_super() skips them, so the only remaining
- 		 * write would be the evict-time commit at unmount, which
- 		 * a crash never reaches.  An error recorded only after
--		 * the remount is still never persisted.
-+		 * the remount is still never persisted; a failed commit
-+		 * or flush fails the remount, leaving the superblock
-+		 * read-write so ntfs_put_super() retries at unmount.
- 		 */
--		if (ntfs_sync_volume_dirty_state(vol)) {
-+		err = ntfs_sync_volume_dirty_state(vol);
-+		if (err) {
- 			ntfs_warning(sb,
- 				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
--			ntfs_commit_inode(vol->vol_ino);
--			blkdev_issue_flush(sb->s_bdev);
-+			return err;
-+		}
-+		if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+			/* ntfs_commit_inode() would discard the error. */
-+			err = __ntfs_write_inode(vol->vol_ino, 1);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+				return err;
-+			}
-+			/*
-+			 * write_mft_record() redirties the record on
-+			 * -ENOMEM and still reports success.
-+			 */
-+			if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+				return -EIO;
-+			}
-+			err = blkdev_issue_flush(sb->s_bdev);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to flush volume information flags.  Run chkdsk.");
-+				return err;
-+			}
- 		}
- 	}
- 
-@@ -1875,26 +1901,32 @@ static void ntfs_put_super(struct super_block *sb)
- 		if (ntfs_sync_volume_dirty_state(vol)) {
- 			ntfs_warning(sb,
- 				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NVolErrors(vol)) {
-+		} else {
- 			/*
--			 * The dirty bit is on disk now; only warn when the
--			 * sync actually succeeded, or this message would
--			 * contradict the one above.
-+			 * __ntfs_write_inode(), not the void
-+			 * ntfs_commit_inode() wrapper: the error can only
-+			 * be warned about here.  The mirror inode is only
-+			 * released below: writing the $Volume record (mft
-+			 * record number 3, below vol->mftmirr_size) mirrors
-+			 * it through ntfs_sync_mft_mirror(), which fails
-+			 * with -EIO once vol->mftmirr_ino is gone.
- 			 */
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			if (__ntfs_write_inode(vol->vol_ino, 1)) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+			} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+			} else if (NVolErrors(vol)) {
-+				/*
-+				 * Only warn once the commit has succeeded,
-+				 * or this could contradict a failure
-+				 * reported above.
-+				 */
-+				ntfs_warning(sb,
-+					"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			}
- 		}
--		/*
--		 * Commits the updated volume flags if they were written.
--		 * The mft mirror must still be around for this: the
--		 * $Volume record (mft record number 3, below
--		 * vol->mftmirr_size) is mirrored by write_mft_record()
--		 * through ntfs_sync_mft_mirror(), which fails with -EIO
--		 * and leaves the mirror stale once vol->mftmirr_ino is
--		 * gone, so the mirror inode is only released after this
--		 * commit.
--		 */
--		ntfs_commit_inode(vol->vol_ino);
- 	}
- 
- 	/*
--- 
-2.25.1
-
+Thanks,
+Artem Dinaburg
+Trail of Bits
