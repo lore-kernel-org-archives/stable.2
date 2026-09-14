@@ -1,79 +1,79 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13906396D19
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 22:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14FA3AE1A9
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 22:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789425322; cv=none; b=OHWUj6OBVQePv0XaX9HrFn3OlUU8zaenHQGZ/C8AANwhg19732KagMxIYFWyqyfIwuRc/FrXU7H46d4AoW7PlQMBVUGopbatkfIev05rbnQLXYqaPc/I1SXAP9Bcjh1sDYJYKWhTuScaxjUXIcsSMk7Oqm3XxVJdXWfsS+9J+tA=
+	t=1789426392; cv=none; b=JhaMnxMSIeeUR/SnADXnWNnuXYIxrhw5DAneyOhBi5EtuvoHnwTR/guwW2QwzHCY36Ggp2vGpNk2HHTJu9CF4wnwi4hkqa6kAR16f7XU67K6TwRxbwaPXEt9RzCc1yxkEufSysA3F11Q1XeCF8Pt9sagN5oGTTP7snxatP1ybB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789425322; c=relaxed/simple;
-	bh=lPgEvreu0zPGM3ILg+o19Q8j1zzZ/FcyTs9QLV6/qZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m0TOpKxqGurGl7z6l9Ivlv911vwdqE/F6jRuO8T6FQBKZeYSBQpYKO9lhlk316nCns5pj8ddktcZwUnPtjxBGZDfrUKvaae05Q1qnF/1dLv/cWhOmcgPqZQB62qVMdenPhnkqrhB3WZ2VUMIrwihd9/Dgyy0bDTD4mpWE8/KGxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=paZw3DSg; arc=none smtp.client-ip=209.85.219.49
+	s=arc-20240116; t=1789426392; c=relaxed/simple;
+	bh=B5NcsJqiM6ca6zoKCCSiRnmiGiK51EUO/f+42QeBqzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PNKsjMWR+Ap+VsSXwOog+WAF0TOH+2wZSJ17UeW+cm4uGuvZ6AmdNij6/5OussXJyNrY2+iLg5IQG7yRUh6JU0Vwzk03ARMcBWO9GQ9ADPrkY4Z4f//uENmtfn9ysJ8xM18Nrxi1dZxek5f9n9fyAdXKmi9upIjl6FxyrfyMtg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fPRZmjAZ; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="paZw3DSg"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9103228ef53so44708936d6.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:35:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fPRZmjAZ"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso420441a12.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 15:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789425320; x=1790030120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EFwlG4gnZYkH84K5Z6UxkyDABvsd4Q+eyxbwPqCRkks=;
-        b=paZw3DSg+Y5euFpKVEViYKsZXWDoCmlgn2K0ZJAJnu6v49+jQluFLkJ1s2CwNolcZE
-         yChKbfz7bKSmycC9oJam01Ev7bYozTHofpfdIkLy1MUSkNGgTPPxqk/yoeh1V6yze2EH
-         WF8IRT/voz9R9RUe+AI486jyY2gV7wh9Rv4HHcUe91VCX5zodPWjDz3jm1eCoZfTKVEp
-         VK+TSog4xvSwST3mJBXTBXvrkBFXzK8oxo4L1VC6oxkE5lUVGjtzZ5bprWBi9a3WshpI
-         L6wkYge7BXTY2lYkyRzVUTqQkoPtoFmWXk1qh6BGslzPm7897fg5HB4w2zx14Tf95upg
-         DMOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789425320; x=1790030120;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789426390; x=1790031190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EFwlG4gnZYkH84K5Z6UxkyDABvsd4Q+eyxbwPqCRkks=;
-        b=aueF/dILQ0Htk97cqW396Ir46XVIwhyN6tH38WMZGpTOEOAspG3UMIsQjudNO5I+oY
-         QQksVRk/I69VpltfKukoUAeRpHEUrKqAE/Xykskdmz8IqOZI7qhSwgum1usP3gwNuBwm
-         b8BqyFpmMhs2Sc+m0kLQRUQ+RmnViiBqLY6YitCwznDT/+FRbe3agy0nB4BFsqp9F9DZ
-         UXPHK/oNlpM3Gnlf6TZNioA/Ux8SwgYKCr9YwG4EQtD3MaqUCxtwjnOob2+mSr6cEWQK
-         ORfGAqqCJTJzF7H91iqXH45rWao6hzJ1sn9FsVwGhmNUTQ2WMf9sb3PR4fPDqAQrpZlx
-         eJvA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8kovzV5YvMWCwOTAYNQFt14ShzLBdlXHe/pp1ph3lvgjBWvTaMuHXkpvVU3KdR7qpm3G9akg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX9N17C+CVxChGgNNNqGWWGztF8NGLvdaNGdcZKpydLHXCW2/r
-	bZrYVrzc4D7KZFOMjxr0QrSlhcfzwIZ8C3hFGAxKorcSdSQ2OrygEHk=
-X-Gm-Gg: AYBFou0D6ivUCDiv2t9iSjJOqMIxjH0ViKoppoZivD13hWBNaYw57o7OpsnzKk6I1iz
-	htqg4/PDEZGv4myco6eeFaG7vlqedBnjfMUGl3nJiTx3lRIXFXeBlsa9ZH+wNRT2piJVEwWYbBd
-	6HFXLU5Pkf+PvS50WHuUlJRLLsn/vwZiKn7OzXNAu1lo8XAhS2IL8jJWTeAyFGyKgyoueSd1WxH
-	t7+BpPYsUs5/BryjqqK+i6g9TbqvNaX+A0Gq2ZGMdznYTSmYGYFsVj2TAkw02ysHvRhla3/pZec
-	sJF/QKsPfJzbF/JGh7DxjGsOXsIS1nLhvwgKi27wViqEIY75B2WgxhIBCKoJho+xm7rhlBTx6P6
-	W9plPds3aUGUWDKxNJUZj+G/XpvHhTdMd/knP5w+gbPZYNie5q7zfpSVIILgSF/EL/w4CYXzJ8t
-	SCi/oGDwee647S0QsS7SkdTNzzMQMLaMwQDlqka1GW8Lqh4huKgA+9oJ/Rp9Z0PXGIg1L+LImob
-	K5oYqS17wScoR0bTTnNLjG6xWv8BKO4VtWVUWhJ/OJhbhB66agC2+3aXtwkMeWgsZA+EREFjDsk
-	6D+E4bkzYgID31UuQgBdy1GMdcU40tdpYrkshrqhJbpDidelfGZEKRnaYJfZXa/yxXZYJg==
-X-Received: by 2002:a05:6214:320d:b0:912:289:647f with SMTP id 6a1803df08f44-9122e6906d0mr85830766d6.33.1789425319817;
-        Mon, 14 Sep 2026 15:35:19 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f477d42sm106004416d6.18.2026.09.14.15.35.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 15:35:18 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	linux-pwm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=fPRZmjAZsPsmNpwQY3WlqF6D4LWwNE4X1Z3K4VbTZwv/KOC1Gh2wqMK9IE8jVWZTaV
+         izthCVBd9+kVlO+nuylxmOYUxuZkWX//HIAs/pJpXAXHXy6VnuGJ1MM8i4g+tzrelmv0
+         2natDsx+Dl2kL8YdNhVmxvGVt8uSHFIgDVT3OPKT2iO15alDvYNhPZSoInE0vG+66V0m
+         lBCIChItBTP4CzfG4mBO87o/3H85VHNjXxkxTnBtpPy1mhxOp1c1hZIzXaC7ACKQGRZt
+         aurg6TgmvfDG7U7z/a5C6Z4qCHCBtbmicep1LOXimuaoCyO9MAoPvFKkNYvhEQO9I9tR
+         rcBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789426390; x=1790031190;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=XxWa/E2H+jvR+ocCNCsfd5A0nEqLc+pwREnA8BPUrBi4qrdSgd46Ta7HyNF7ltnEPl
+         SRErZgInSm/oEapCgVijs+rQmb46lihE2P2zDYxMsS1Za3E5tmcVD4g5MZVn2LAdSaxl
+         ns5GrHt3m958b0qSS6thBolirfG7xQ8Z2oP9HGwOIledx068SqupWVJw201jxsKPJvsW
+         X+ubYOH5ZTbfFz2G3vPDcvtW9UiSCynmcMBUsvYFXHaTi0KwA3r/2SJse54Y0l3vHtVQ
+         cSr0uy70vKDl5A+2xX8UziXmYkyjol+vK5KPfiwQZUW5YK/LWtlbLI3BewZ4J/wUHliP
+         iyAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUQAKsZEPN7imb3WQWG02m0Z8vqs3o/pjFM23lurlLDpkt9b5KCdgRlADEUcUBfWVyxz5m5DY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrif63mjEvt/XW90WiUXL3Sj79D+EOWnC8Z9kvt7AbGZCFlSjQ
+	PRvxcILi4mAJ1vO0dbqQeX119Mtb7Af/O4tOEdPPHe06ejEVW1B+8dc4
+X-Gm-Gg: AYBFou2/rptqcSaSiflcPu/sdgG7tGAXEajtcQFM6jjUTzegGTpwMo1zcMgmbuJhRj9
+	UQAbJCaRA0snH27hcpWwEqkGjxyBir1jxxVo/pBxQL/59bXhno4zIVDdxfifhcsNS2tlwEthDEu
+	c8L9vVDi5qarT1YWyEFyQa+f95RJIy3KZM3InlMJRoyxnuJPcfLJecQ35m99zsoFMNzkZteggS0
+	gf94+lVe0BfnmW0ucMRfAR8BzmJK05Q2eDyQErRwCa4rtnpc8b8F+HZ26Q/ORLhisMo2szYs3DR
+	yadAgVpgQGaOcTfJEw8uBkMdyff79ONmffQVYQdXKZOj2/OKPO/dOzBd5vfSlqxaXmf7qEAFpuR
+	+uaPFNEbDZALBsi3qe1NYhRNNSwBXB+EW7IYisvKf0aslm7uIJdXoDfG0en5WT38LElpnWm9pWJ
+	maknl0QSxZlWy2Z7Sxcyw12BeBmLoB9qKCrYmbHBL176KsCCp4HYMEcOb5r1vrH3ssCF/7Pzggx
+	Lu6MUBCw2yapdKw+ed+wE6FYu+wjfa7/ekTszvhAuc7C/LQJ+2L
+X-Received: by 2002:a05:6a20:4310:b0:3d3:aed2:6f20 with SMTP id adf61e73a8af0-3db50019fa8mr1791026637.20.1789426389991;
+        Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
+Received: from lappy (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] pwm: tegra: Use managed runtime PM cleanup
-Date: Mon, 14 Sep 2026 18:35:12 -0400
-Message-ID: <20260914223512.31049-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	kernel@lists.opengamingcollective.org,
+	stable@vger.kernel.org
+Subject: [PATCH 01/10] HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
+Date: Mon, 14 Sep 2026 15:52:54 -0700
+Message-ID: <20260914225303.868569-2-derekjohn.clark@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914225303.868569-1-derekjohn.clark@gmail.com>
+References: <20260914225303.868569-1-derekjohn.clark@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,87 +82,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Runtime PM remains enabled if the initial resume fails or force-suspend
-fails during probe unwind or removal.
+Currently mcu_property_out() blanket returns 0, discarding the ret
+value and any errors with it. Wait completion returns a positive value
+when it is not timed out, which would error on all successes, so if it
+is positive return the ret value from the raw event handler. Only if
+it is 0 set it to -EBUSY, otherwise pass the actual error.
 
-Use devm_pm_runtime_enable() and replace the force-suspend calls with a
-managed hardware cleanup action. Order cleanup so runtime PM is disabled
-before turning off the clock and selecting sleep pinctrl for an active
-device. Preserve the probe error and usage-count handling.
-
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 3da9b0feaa16 ("pwm: tegra: Add runtime PM and OPP support")
+Fixes: a23f3497bf208c59ad ("HID: hid-lenovo-go-s: Add Lenovo Legion Go S Series HID Driver")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
 ---
-Changes in v2:
-- Use devm_pm_runtime_enable(), as suggested by Mikko Perttunen.
-- Replace probe/remove force-suspend calls with ordered managed cleanup.
-- Retain clock cleanup for devices that remain active at teardown.
+ drivers/hid/hid-lenovo-go-s.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
- drivers/pwm/pwm-tegra.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-index 5cdbe12..b68b690 100644
---- a/drivers/pwm/pwm-tegra.c
-+++ b/drivers/pwm/pwm-tegra.c
-@@ -314,6 +314,19 @@ static const struct pwm_ops tegra_pwm_ops = {
- 	.apply = tegra_pwm_apply,
- };
+diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
+index a72f7f748cb5..68301d4c762a 100644
+--- a/drivers/hid/hid-lenovo-go-s.c
++++ b/drivers/hid/hid-lenovo-go-s.c
+@@ -38,6 +38,7 @@ static struct hid_gos_cfg {
+ 	struct led_classdev *led_cdev;
+ 	struct hid_device *hdev;
+ 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
++	int cmd_status;
+ 	u8 gp_auto_sleep_time;
+ 	u8 gp_dpad_mode;
+ 	u8 gp_mode;
+@@ -435,7 +436,9 @@ static int hid_gos_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	dev_dbg(&hdev->dev, "Rx data as raw input report: [%*ph]\n",
+ 		GO_S_PACKET_SIZE, data);
  
-+static void tegra_pwm_cleanup(void *data)
-+{
-+	struct device *dev = data;
-+	struct pwm_chip *chip = dev_get_drvdata(dev);
-+	struct tegra_pwm_chip *pc = to_tegra_pwm_chip(chip);
++	drvdata.cmd_status = ret;
+ 	complete(&drvdata.send_cmd_complete);
 +
-+	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_status_suspended(dev))
-+		return;
-+
-+	clk_disable_unprepare(pc->clk);
-+	pinctrl_pm_select_sleep_state(dev);
-+}
-+
- static int tegra_pwm_probe(struct platform_device *pdev)
- {
- 	struct pwm_chip *chip;
-@@ -344,7 +357,15 @@ static int tegra_pwm_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	pm_runtime_enable(&pdev->dev);
-+	/* Disable runtime PM before cleaning up the hardware. */
-+	ret = devm_add_action_or_reset(&pdev->dev, tegra_pwm_cleanup, &pdev->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_pm_runtime_enable(&pdev->dev);
-+	if (ret)
-+		return ret;
-+
- 	ret = pm_runtime_resume_and_get(&pdev->dev);
- 	if (ret)
- 		return ret;
-@@ -395,7 +416,6 @@ static int tegra_pwm_probe(struct platform_device *pdev)
- 	return 0;
- put_pm:
- 	pm_runtime_put_sync_suspend(&pdev->dev);
--	pm_runtime_force_suspend(&pdev->dev);
  	return ret;
  }
  
-@@ -407,8 +427,6 @@ static void tegra_pwm_remove(struct platform_device *pdev)
- 	pwmchip_remove(chip);
- 
- 	reset_control_assert(pc->rst);
+@@ -474,12 +477,10 @@ static int mcu_property_out(struct hid_device *hdev, u8 command, u8 index,
+ 	timeout = (command == GET_PL_TEST) ? 200 : 5;
+ 	ret = wait_for_completion_interruptible_timeout(&drvdata.send_cmd_complete,
+ 							msecs_to_jiffies(timeout));
 -
--	pm_runtime_force_suspend(&pdev->dev);
+-	if (ret == 0) /* timeout occurred */
+-		ret = -EBUSY;
++	ret = ret > 0 ? drvdata.cmd_status : ret ?: -EBUSY;
+ 
+ 	reinit_completion(&drvdata.send_cmd_complete);
+-	return 0;
++	return ret;
  }
  
- static int __maybe_unused tegra_pwm_runtime_suspend(struct device *dev)
+ static ssize_t gamepad_property_store(struct device *dev,
+-- 
+2.55.0
+
