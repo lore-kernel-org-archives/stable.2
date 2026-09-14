@@ -1,194 +1,243 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4A33B1ED1
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 11:03:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADCB3B05AC;
+	Mon, 14 Sep 2026 11:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789383814; cv=none; b=fJcANTOqCcUyHjfhy3mHJnfdZDuIVxV7tkJ6BnoWAwNDPlBzsjIcJldCbIqb32QSdDYS1+wETtinqx6bBNErcnAL/fnNgSCWv1inSOPQT4Wssy8eVvh73rtIy4+qLcA3mIg9xZkVyJdFThSgQEyWNJ5sCiIuwOsBdGZqd0K7/lE=
+	t=1789384126; cv=none; b=uKCdGxhL9czAyWso/0SJY1Y8SW2h4dDrumONt0BvyEfUtPeN0ZZ3lwKqE2jCrKxiasA3rFZyfQeGMDPVd20VCK17MHqlS8q4oBPt00kG/EMAdg9Az1fGpxsOnZ6EPmEDH++7SoDPvx55j+6ww2ePbsu0ukv2y3+fjU8ObArLSo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789383814; c=relaxed/simple;
-	bh=2jfZ1pT1VSVncbYbVrfb1KqZaNkdSMDNEq+uvtOyvT0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DAp5T883tr0/wLvRNZMKPuePkzwwJmn0ijqYbDrcj624MiaAhBnkgjh3XggqPPWaCNIukmo1WunqwfUW04z/W2N8/Ccx3BDgDbyFO5UCQBHC+mPs1g+am7LsY7dXrw8kyKQL04sb0xZUvJbuX+Bx81F5c20A7PvTWv/Z2LA6eyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jIxtUnY1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789384126; c=relaxed/simple;
+	bh=e2GBgFGC4Z8fuwShT8cfZGck5rtcRrwp9c0nNK396nA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tK3HISuw6L1QwwyZ+ZBBRNACC0FnOcnbPFJ5iknktNBEMreqsIPqaKyFFuqoxy6YMWfXO+XPdol2Wrx5o+/H7NVdJFOJqNCSCBBzSF2qpApw838WDr1or8XaGogOteWlKOwQNc1fGxFMyReOS57nbNBk8bTnbLj+L5JE83dI+oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCoKhohe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jIxtUnY1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A878C1F00893;
-	Mon, 14 Sep 2026 11:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789383809;
-	bh=pORz8KOiepXOn+CjNlJEDPmBpp6ihKmRsJatA1aVKmA=;
-	h=Subject:To:Cc:From:Date;
-	b=jIxtUnY1tfei7aNtYN8ScAo1AW3Abxns4K6o0EIOXw3bbGH4j7HS0oAletP+ysW9I
-	 Lqw1E03bIWfp0hU2UCS9XmEor/XumMtT3WlLe/Z9+k5MVJqtZ4wMi+JG4shzxrohJY
-	 q7IazX/LJISkGG7V9JK8gdjVjXQzATdSn06oiEtk=
-Subject: FAILED: patch "[PATCH] ksmbd: prevent out-of-bounds reads in share config responses" failed to apply to 6.6-stable tree
-To: linkinjeon@kernel.org,farhad.alemi@berkeley.edu,kpskanna1915@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 14 Sep 2026 13:03:12 +0200
-Message-ID: <2026091411-kept-parish-8e82@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCoKhohe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6002D1F000FF;
+	Mon, 14 Sep 2026 11:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789384116;
+	bh=A05JHSfMHgGRLetcooxsD01qb3+vTPfHuve5cO2TZLk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KCoKhohetNSeLytWbRALrVEIoRDwaWNOOzgN67BFgniHHBR2CL3kCQkMNvyx9ZyOd
+	 BjuL5KI9p1Ile75x7yai1yqitRFQ4YqPEI7emm0Tv4AQgsosbkjrjMSFc6L7d+DAFD
+	 L520OBXbopvC7FhZMZEdGQZbnUUmG2tAb2TPWpMpGi2RdKvs/YbFAPJ0UU97FjB0Xh
+	 7ydb12eUiJhCuS8YLITXvNbPt7iP80clZoidYKdf3i+oDaDzZDQxBeYooHYaiUi9CI
+	 VhD8svlE9MhYXzxalmIW8IrREuQCRF4FywdR9ofDzsZFD1fIVmwziJQiK2rQFsfsaV
+	 7HdD0Gn27EG0Q==
+Subject: Re: [PATCH net] nfc: nci: avoid unbounded skb allocation when
+ max_pkt_payload_len is zero
+From: netdev-bot+sashiko@kernel.org
+To: liuc63@xiaopeng.com
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, ilane@ti.com, linville@tuxdriver.com,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 14 Sep 2026 11:08:34 +0000
+Message-ID: <178938411495.22033.4311942083485691702@kernel.org>
+In-Reply-To: <20260913101309.891633-1-liuc63@xiaopeng.com>
+References: <20260913101309.891633-1-liuc63@xiaopeng.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Critical: 0 · High: 2 (1) · Medium: 0 · Low: 0
 
-To reproduce the conflict and resubmit, you may use the following commands:
+- [High] Incomplete fix: a controller-supplied
+  `conn_info->max_pkt_payload_len` of 0 (or 1) is still consumed…
+- [High] TOCTOU: the new guard reads `conn_info->max_pkt_payload_len`
+  once (net/nfc/nci/data.c:117) but the fragmentation loop re-reads the…
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x f25e93768fcc5d8287e50b1ec52a42e4c276df34
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091411-kept-parish-8e82@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+Pre-existing issues:
+- [High] Use-after-free of `struct nci_conn_info`:
+  `nci_get_conn_info_by_conn_id()` (net/nfc/nci/core.c:43-54) walks…
 
-Possible dependencies:
+--
 
+nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
 
+This adds a check in nci_queue_tx_data_frags() that rejects a
+conn_info->max_pkt_payload_len of zero with -EPROTO, so the fragmentation
+loop cannot spin forever allocating skbs.  The commit message explains why
+the check was placed in the fragmentation path instead of at the two
+assignment sites in ntf.c and rsp.c.
 
-thanks,
+A few questions below about the placement of the check and about how the
+field is read.
 
-greg k-h
+> diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
+> index 4253edea5c8db..b549cef7dc2e4 100644
+> --- a/net/nfc/nci/data.c
+> +++ b/net/nfc/nci/data.c
+> @@ -114,6 +114,11 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
+>  		goto exit;
+>  	}
+>  
+> +	if (!conn_info->max_pkt_payload_len) {
+> +		rc = -EPROTO;
+> +		goto exit;
+> +	}
+> +
 
------------------- original commit in Linus's tree ------------------
+[Severity: High]
+The commit message says:
 
-From f25e93768fcc5d8287e50b1ec52a42e4c276df34 Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 28 Aug 2026 08:39:57 +0900
-Subject: [PATCH] ksmbd: prevent out-of-bounds reads in share config responses
+  "nci_queue_tx_data_frags() is the only place that loops"
 
-Validate IPC share configuration payload sizes before consuming
-variable-length fields. Bound veto list parsing and account for
-the separator byte when deriving the path length.
+Is that accurate?  nci_hci_send_data() in net/nfc/nci/hci.c also loops over
+the same field, and it runs before nci_send_data() gets a chance to reject
+anything:
 
-Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+net/nfc/nci/hci.c:nci_hci_send_data() {
+	skb = nci_skb_alloc(ndev, conn_info->max_pkt_payload_len +
+			    NCI_DATA_HDR_SIZE, GFP_ATOMIC);
+	...
+	skb_reserve(skb, NCI_DATA_HDR_SIZE + 2);
+	*(u8 *)skb_push(skb, 1) = data_type;
 
-diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index b2d9580bddc6..cc9f18ede80d 100644
---- a/fs/smb/server/mgmt/share_config.c
-+++ b/fs/smb/server/mgmt/share_config.c
-@@ -146,9 +146,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
- 
- static int parse_veto_list(struct ksmbd_share_config *share,
- 			   char *veto_list,
--			   int veto_list_sz)
-+			   size_t veto_list_sz)
- {
--	int sz = 0;
-+	size_t sz;
- 
- 	if (!veto_list_sz)
- 		return 0;
-@@ -156,7 +156,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 	while (veto_list_sz > 0) {
- 		struct ksmbd_veto_pattern *p;
- 
--		sz = strlen(veto_list);
-+		sz = strnlen(veto_list, veto_list_sz);
- 		if (!sz)
- 			break;
- 
-@@ -164,7 +164,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 		if (!p)
- 			return -ENOMEM;
- 
--		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-+		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
- 		if (!p->pattern) {
- 			kfree(p);
- 			return -ENOMEM;
-@@ -172,6 +172,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 
- 		list_add(&p->list, &share->veto_list);
- 
-+		if (sz == veto_list_sz)
-+			break;
-+
- 		veto_list += sz + 1;
- 		veto_list_sz -= (sz + 1);
- 	}
-@@ -224,17 +227,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
- 	}
- 
- 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
--		int path_len = PATH_MAX;
-+		size_t path_len;
- 
--		if (resp->payload_sz)
--			path_len = resp->payload_sz - resp->veto_list_sz;
--
--		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
--				      KSMBD_DEFAULT_GFP);
--		if (!share->path) {
--			ret = -ENOMEM;
-+		if (resp->payload_sz <= resp->veto_list_sz) {
-+			ret = -EINVAL;
- 		} else {
--			ret = 0;
-+			path_len = resp->payload_sz - resp->veto_list_sz;
-+			if (resp->veto_list_sz)
-+				path_len--;
-+
-+			if (!path_len) {
-+				ret = -EINVAL;
-+			} else {
-+				share->path = kstrndup(
-+					ksmbd_share_config_path(resp),
-+					path_len, KSMBD_DEFAULT_GFP);
-+				if (!share->path)
-+					ret = -ENOMEM;
-+				else
-+					ret = 0;
-+			}
-+		}
-+		if (share->path) {
- 			share->path_sz = strlen(share->path);
- 			while (share->path_sz > 1 &&
- 			       share->path[share->path_sz - 1] == '/')
-diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index 4b0b572a3e1b..e550aa41ad2c 100644
---- a/fs/smb/server/transport_ipc.c
-+++ b/fs/smb/server/transport_ipc.c
-@@ -532,14 +532,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
- 			return -EINVAL;
- 
--		if (resp->payload_sz) {
--			if (resp->payload_sz < resp->veto_list_sz)
--				return -EINVAL;
-+		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-+		    sizeof(resp->share_name))
-+			return -EINVAL;
- 
--			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
--					       resp->payload_sz, &msg_sz))
--				return -EINVAL;
--		}
-+		if (resp->veto_list_sz > resp->payload_sz)
-+			return -EINVAL;
-+
-+		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-+		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-+		    resp->payload_sz <= resp->veto_list_sz)
-+			return -EINVAL;
-+
-+		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-+				       resp->payload_sz, &msg_sz))
-+			return -EINVAL;
- 		break;
- 	}
- 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
+	do {
+		/* If last packet add NCI_HFP_NO_CHAINING */
+		if (i + conn_info->max_pkt_payload_len -
+		    (skb->len + 1) >= data_len) {
+			cb |= NCI_HFP_NO_CHAINING;
+			len = data_len - i;
+		} else {
+			len = conn_info->max_pkt_payload_len - skb->len - 1;
+		}
 
+		*(u8 *)skb_push(skb, 1) = cb;
+
+		if (len > 0)
+			skb_put_data(skb, data + i, len);
+
+		r = nci_send_data(ndev, conn_info->conn_id, skb);
+	...
+}
+
+skb->len is unsigned int, so i + max_pkt_payload_len - (skb->len + 1) is
+evaluated unsigned.  With max_pkt_payload_len == 0, i == 0 and skb->len == 1
+that is 0 - 2 == 0xfffffffe, which is >= any realistic data_len, so the
+"last packet" branch is always taken and len becomes the whole payload.  The
+same underflow happens for max_pkt_payload_len == 1.
+
+The skb was only sized for 0 + NCI_DATA_HDR_SIZE plus tx_headroom/tx_tailroom,
+so the usable tailroom is just the kmalloc/SKB_DATA_ALIGN slack.  Can
+skb_put_data() then run past skb->end and hit skb_over_panic() -> BUG()
+before the new check in nci_queue_tx_data_frags() is ever consulted?
+
+The value fed into that arithmetic is stored verbatim in
+nci_core_conn_create_rsp_packet():
+
+net/nfc/nci/rsp.c:nci_core_conn_create_rsp_packet() {
+	...
+	if (ndev->cur_params.id == ndev->hci_dev->nfcee_id)
+		ndev->hci_dev->conn_info = conn_info;
+
+	conn_info->conn_id = rsp->conn_id;
+	conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
+	...
+}
+
+and the payload length on the other side is user controlled:
+nfc_genl_se_io() takes NFC_ATTR_SE_APDU as NLA_BINARY with no maximum, and
+st_nci_se_io() -> nci_hci_send_event() -> nci_hci_send_data() carries it
+straight into the loop above.  nci_hci_cmd_received() also calls
+nci_hci_send_data() directly from the rx work.
+
+Would it make more sense to validate at the assignment sites
+(nci_core_conn_create_rsp_packet() and nci_rf_intf_activated_ntf_packet()),
+or to additionally fix the arithmetic in nci_hci_send_data()?  A plain
+!= 0 test would still leave the max_pkt_payload_len == 1 underflow in place.
+
+[Severity: High]
+The new check reads conn_info->max_pkt_payload_len once, but the loop below
+re-reads the same field on every iteration:
+
+net/nfc/nci/data.c:nci_queue_tx_data_frags() {
+	...
+	while (total_len) {
+		frag_len =
+			min_t(int, total_len, conn_info->max_pkt_payload_len);
+	...
+}
+
+The field is a plain __u8 with no READ_ONCE/WRITE_ONCE, no atomic and no
+lock, and it is written from the rx workqueue with controller-supplied data
+in nci_rf_intf_activated_ntf_packet() and nci_core_conn_create_rsp_packet().
+
+The reader side is rawsock_tx_work -> nfc_data_exchange() -> nci_transceive()
+-> nci_send_data() -> nci_queue_tx_data_frags(); the only lock it holds is
+device_lock(&dev->dev), plus ndev->tx_q.lock after the loop.  The writer side
+is nci_rx_work() -> nci_ntf_packet()/nci_rsp_packet() -> the assignments, and
+neither takes device_lock.
+
+CPU0 (rawsock_tx_work)                        CPU1 (nci_rx_work)
+conn_info = nci_get_conn_info_by_conn_id()
+if (!conn_info->max_pkt_payload_len)  /* nonzero, passes */
+frag_len = min_t(int, total_len,
+		 conn_info->max_pkt_payload_len);
+                                              conn_info->max_pkt_payload_len = 0;
+/* next iteration */
+frag_len = 0 -> total_len never decreases
+
+Can the store land between the check and a later re-read, leaving the loop in
+exactly the unbounded nci_skb_alloc(GFP_ATOMIC) state the commit describes?
+
+Would snapshotting the field into a local, e.g.
+
+	u8 max_len = READ_ONCE(conn_info->max_pkt_payload_len);
+
+and using that for both the validation and the min_t() close the window?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the conn_info pointer that the
+new check dereferences has no lifetime guarantee.
+nci_get_conn_info_by_conn_id() walks the list with no lock, no RCU and no
+lockdep assertion:
+
+net/nfc/nci/core.c:nci_get_conn_info_by_conn_id() {
+	list_for_each_entry(conn_info, &ndev->conn_info_list, list) {
+		if (conn_info->conn_id == conn_id)
+			return conn_info;
+	}
+
+	return NULL;
+}
+
+while the rx work frees the same object immediately, with no grace period:
+
+net/nfc/nci/rsp.c:nci_core_conn_close_rsp_packet() {
+	if (status == NCI_STATUS_OK) {
+		conn_info = nci_get_conn_info_by_conn_id(ndev,
+							 ndev->cur_conn_id);
+		if (conn_info) {
+			list_del(&conn_info->list);
+			if (conn_info == ndev->rf_conn_info)
+				ndev->rf_conn_info = NULL;
+			devm_kfree(&ndev->nfc_dev->dev, conn_info->dest_params);
+			devm_kfree(&ndev->nfc_dev->dev, conn_info);
+		}
+	}
+	...
+}
+
+nci_rsp_packet() dispatches CORE_CONN_CLOSE_RSP without checking that a
+matching command was outstanding, and the tx path holds only
+device_lock(&dev->dev), which the rx worker never takes.  Can an unsolicited
+CORE_CONN_CLOSE_RSP with status OK for ndev->cur_conn_id free the conn_info
+while nci_queue_tx_data_frags() is still reading
+conn_info->max_pkt_payload_len, both in the new check and in the min_t() in
+the loop?  The list walk itself can also follow a freed node's linkage.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913101309.891633-1-liuc63%40xiaopeng.com
