@@ -1,68 +1,68 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0EF311968
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB78313E21
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 02:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351819; cv=none; b=iV/5XbULVzAcOTNIB3DvqNA31I1LMA52tlU/OiUjEfVOIZIN8L/Wp48yPj57T3M6LGqTxE4N/X+04qg6pN1TCNVpZ+uKfiJigx59sZXhfRl4Lr5z2iVVTTJqyWAaRhKUgB18hPwRXKqKadStFSO+4chwdYAuVdpb3bZjS5ahxEA=
+	t=1789351821; cv=none; b=VSimVbOxcuDOC23a6AqIAjkFtw6MfPaKRGxv3iAcUC9gmTNjAdP5xYoe3Mg0RBDs+Tx0MWCNHtTWUAO2kRHhTRIlll7Quh68yjiBsZAqkZ2QUc2eHngBiYMRAQSRtKroXArOAn8QCTqt0jGhy1XLWLH+P41jRjSE/w8dVEAF44c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351819; c=relaxed/simple;
-	bh=9Yo6q3xRbzehVoYANIYWHpMZD6dLjaFxkE9BuO/bq+o=;
+	s=arc-20240116; t=1789351821; c=relaxed/simple;
+	bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jqj63KsE9UJMjJLkjsCYMovjM1yZmk8zyYsiEMw1ZLvEpZALmQIeI0ssdK3yYSnFxiEbV0TDVqFqIdUS/8nHo8smhjI6zYFFle054qmIzXHR93pW8vzuJU66pEvIa8VByfhe5KMjjBecuzFLBAbfSkPToqzfIsib9R10hTALahk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IizFMY7H; arc=none smtp.client-ip=74.125.231.65
+	 In-Reply-To:To:Cc; b=qNVaGtLFoW6YVOxyqfjMYMyQbjV1Ak0EwW+3/0PfnBrbyREMF91bGhmWgKii9BGrRIQlbNb1i89Qn1q6d9kFdSKUuygkPM7/JxqEtIb2dpKhArlGXUL2pB8eothx7tWZHCehtwx6+7hW6GW53zx8J4sTctcosxnuaDe45h9vRgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3D7XFKf; arc=none smtp.client-ip=74.125.231.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IizFMY7H"
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so1329942fac.1
-        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:10:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3D7XFKf"
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f4d7dee074so169139a34.0
+        for <stable@vger.kernel.org>; Sun, 13 Sep 2026 19:10:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789351816; x=1789956616; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789351819; x=1789956619; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5ens4tvOvZUZ2shdZ+y3dfNiHm8kjjJbg0o+rL2d/6o=;
-        b=IizFMY7HDN0B/1QgLywToSaQHiZJO2JaS4TjhwMgygCbXEKUJJYxElpAQPh+M7gJiS
-         hJjqvhS8hh6PUDBK8eUQXNv0XAcwA2df1/UmFCUAOAdZ8ZuAxdn+Z9MQEd7cjHuKxP9B
-         /0+pVtJH127m0SIWyQ0Qxt1/NI7CsaVMUysRzenqndHjPoYMnZ1QckeeCqp7tm8xuhRS
-         aycoChCdY9yloEa12prCaebfua+sRUH52I+q6J6NJB5yRBm32LqLFu3LawdkNPHmA8p7
-         XmNDr3MQCLlW30uW6VQkJJIGJbg19/HXMkrGriv1jFtCg0ZgCb+97aHN0X2wf6GAQ5Jj
-         iKDw==
+        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
+        b=b3D7XFKfHqsLVfQKG2TiPW+iYSKzigASyTdAkcdaMF3XMANEb9JnI46WHKcdKmz3MG
+         LSUOcGfj8n2omjKwEesuQS4f6VGSfFs4ISrrHxUDh4iGXWR8q0zocORJvM3tvgtZs8Fq
+         YNRaaoC1w0yN2QxVGHSWCfLynhRhyIGe3n5lmswRR7YYlErSHETPxhRFkHe3/oHqC7Ke
+         ZyhcD15nC4ickp3eWKrE3g+xPkcDeHGCzRpU2fk+R0sYt3tEI6UpOldlGNv7rKGzMT/e
+         tMI+C15lDe1mbL9NXJJfZrXQjC0q5ZyHIpfXFwcSZKFqsgfC3hICYYoZLNfkIt5FKZ8v
+         Qieg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789351816; x=1789956616;
+        d=1e100.net; s=20251104; t=1789351819; x=1789956619;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5ens4tvOvZUZ2shdZ+y3dfNiHm8kjjJbg0o+rL2d/6o=;
-        b=rUsrcOUv9pZZqXhckWxGlhSCskNXfr+ZfuFGieaVkDtdOR6fJmx+sEgJAGqhH9E3J4
-         ESp0+ozfT8GAoE8hsZ7vKKY1FiT5d7AljvpRvjWI4mHXjy4yLCMHnHkke4F691PoIx+K
-         7bAJZvqTri5WzR9qDnweJzOvMr42QFCwuumUVVZREMMwXBR9TuzZQBqkRDVrNiP1VOkH
-         WQGaDzMXjUgX06Fzs0GI8aF8zC+aXjyt20dSsp5Xjyh2dU7KDMcEi7Gp+f1oP5SC10NT
-         wqH7LaFWLVBhlo9YfFcFSrG/dEwSiSxIgnQyIPKvAmx19MhdgqsvB8TqFvfejlngQRym
-         5frQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkjHQSieBSN2xBqqZPhRKsctg/OmToD83+FJG3tKPJFZNQtIxhXrc2ZBDLDAEKgQ/QyR4dPtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kACl+RiT73zL0DmzqMiCOUaatAaSsGxy2P4/UXPO4aTBHMW+2n
-	i70gbz5kc2aKvuxG6err/V/yoUWgM11CikuByLihKROcjMHLbsTtyd3k
-X-Gm-Gg: AYBFou11vMS2m7t1ubbBGAHAhJPw87RgeOHVTllXT58lyrlSJck1TIbTqMQBWicyeUH
-	dQcc6ZOubT8ErZ70O5mvfKCbXAqs4M71xFTUe/mXH+hlMdnszPdPNAn52YpRQ3wg0vvaSFOlg+T
-	xNrN/JnHK7B+lbR0nmg7b34CEqkz9OJSWRUmF6H0jKY5Z6M7cnIshKu0m0PGn8BZost95IvF7cs
-	3YyYR03dTushg/Cliqv+q6M72RpFeUv6cMhKuZ/CqWN2uZL3kEYkECKXMUX7wMnu/WHSh68lOfB
-	Nd0EB9F37P3L95IuBJxI9GbFWUHWEqNCdgYV2wO38sjKNuJwciowOpOOi81yfGDWw/GTsHlHdJW
-	5VZbZJAwMTRfBSuUGuNf7IbyZ90Zqxl5DJJFR2RGAE24zx7W1VKAKZH7Uu6TCxPgxE67ValTVRZ
-	RlAJAwCGkwY+WOkMQ9GQ+KssNPThQfIW2z979mEz1wUrw62fyYm6CWSMd+H4u12IXpn5k=
-X-Received: by 2002:a05:6830:2a86:b0:7f8:4ebe:2854 with SMTP id 46e09a7af769-8089759c582mr369256a34.4.1789351816652;
-        Sun, 13 Sep 2026 19:10:16 -0700 (PDT)
+        bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
+        b=KFNNi2Y07LiQ4W8+CbC6seZZXyyQonUTcNty58kesbMxgdm41YHvF8DkSXYpu4QDb/
+         1sOPUADm1RqrqKvY6oPbU/7KdlLQC9pOxAh8iOn+AZ4MaRPFqG1VzPnulfYIPFXi1QHJ
+         zHj+wNONs/iQehKtbZChFL15iP/NhhrW+SHr7ZXy0zynaY8DutHZEnN9sWCTiQN+mJdt
+         ECAiXxP7YDXa5ztiwp5k/SZaHaWs8pnjnKZl5ZALZpVURT7PaWFEuK0KaX9WM/cfnyZP
+         qn5x+I2NPZebhIu30WltGy7ItpfT4iOz4AbzYmhDaaK66JagAdIlMCqZl4EgzoI8Af0g
+         GEXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwR0S9Vrnx3//XvYL87AL4Gfo7cM6r+3wdMWPO5LvBioQPS35Es+DQwIUY/CSo0rrnepwoSLJg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzNx2xXEP/meAZEoZvnuY4n7S9XCQOjLe5QZ/C/+B+Wk/VACNN
+	glbogfo1u/FcdzNEMdmDTsFPBI2r2S5YwsfW2ztpwufQqVmOC+oQCTdn
+X-Gm-Gg: AYBFou1rJ4P5qBevQa/ykYQ3ZoC0/JYMfPjrRqRA1NFv7adkZXiWZ5toGjnYNlJDl/W
+	kNtnm9s/w0Q2nLRCf9J/Dyx7lACE4hocL44V+2YMAsLxUCZtAWs2f1RG4GkEMjuiUgMaQttOLq1
+	TZDw0UdR9E/Gjz9WvEyo7/QwZZk3lHXE3z2JlUxoJZtCEIIVfxhfV5ROxyFxOJSd4hrMBL1HO+7
+	YuRpxE3CxDrN8E/oLNkHT7cP3T7YjxQf1mzyIK9zYssjikBd4XyURfhbVMA7HobOPT+uO+9h9c1
+	W2xEosla5M+Xx/ZOWxOPk6HHwie2ADlbUbBA8pMsH2UnkKZ533V07WCzb/Z16p83gh32Gia5cOL
+	J+vzVOzdXuul0BwT2wUWFCFkzDv8Bv/jr20Ia4mih6VDsGv6hIhNg6+hhvjbXxf0fcj7pxsJG8p
+	aRVsL2raHkt9jtD2Od7cE4xKmIDPZuv7QdE45EKx8H2wPgORnqeAXc6Pf3HvyK6Dkcw5M=
+X-Received: by 2002:a05:6830:6f81:b0:7dc:e78b:158 with SMTP id 46e09a7af769-808846c49d6mr223406a34.4.1789351819296;
+        Sun, 13 Sep 2026 19:10:19 -0700 (PDT)
 Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.12
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:10:14 -0700 (PDT)
+        Sun, 13 Sep 2026 19:10:18 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 21:09:54 -0500
-Subject: [PATCH v3 3/4] drm/imagination: stop the watchdog before tearing
- the device down
+Date: Sun, 13 Sep 2026 21:09:55 -0500
+Subject: [PATCH v3 4/4] drm/imagination: suspend the GPU for system sleep,
+ not just runtime PM
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-3-674b907d0652@gmail.com>
+Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
 References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
 In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
@@ -83,61 +83,57 @@ Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2128;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2092;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=9Yo6q3xRbzehVoYANIYWHpMZD6dLjaFxkE9BuO/bq+o=;
- b=rNNUnHpmGFQsgkJLLWq00R5uggWAjk/JjRny6l6FmNcxSrvItWpKCt0tt45OW+Nttk7zpXs9V
- CL+mYayaXpQCG8DD49sK5/ANbS97EdXH8RzYP1gZE0ybzlmJMLQpnO0
+ bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
+ b=sogxAc49G5Crj4suR69BUpnafPaK3iEZJ21gP+/t5/X1rHiNPL/wGtJylh4kP0QilF0ofUwbs
+ zFmkUpjGYCjBpyiOvH7tdGZx1THU442gXZOr+oZFMppu9B+n33ZMqen
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-pvr_remove() runs pvr_watchdog_fini() after pvr_device_fini(), so the
-watchdog work can still be queued while pvr_fw_fini() unmaps the
-fwif_osdata it reads. The pm_runtime_suspend() earlier in remove
-normally cancels the work on its way through pvr_power_fw_disable(), but
-it returns -EAGAIN without calling the callback when the usage count is
-raised, and -EINVAL when the device is in runtime_error, and then
-nothing has cancelled the watchdog since the last pvr_power_fw_enable():
+pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for
+system suspend. That works only while it happens to be runtime-suspended
+when the system goes down. If it is runtime-active, genpd counts it as
+suspended anyway and turns the power domain off. After resume the driver
+still believes its firmware is running, the first firmware operation
+times out, and pvr_power_reset() is entered from inside an ioctl's
+drm_dev_enter() section, where its drm_dev_unplug() waits for that very
+section: the caller is left in an unkillable D state and the GPU is dead
+until reboot. On mt8173 it is deterministic:
 
   echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo 13000000.gpu > /sys/bus/platform/drivers/powervr/unbind
+  echo mem > /sys/power/state          # wakes on an RTC alarm
+  vulkaninfo --summary                 # hangs in D state, every time
 
-The worker fires within 500ms of the free and reads freed memory.
+With the default 50ms autosuspend delay the same bug is intermittent in
+ordinary use, depending only on whether the GPU was idle at the instant
+of suspend.
 
-Cancel it first, before the unplug: the worker is one of the callers of
-pvr_device_lost(), so waiting for it here also means the pvr_dev->lost
-test that guards the unplug cannot race it.
+pvr_power_device_suspend() already disables the firmware and powers the
+GPU off and pvr_power_device_resume() is its inverse, so drive both for
+system sleep with the force helpers. The reset-path deadlock is a
+separate bug; this only stops the system-sleep path from reaching it.
 
 Fixes: 727538a4bbff ("drm/imagination: Implement power management")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/gpu/drm/imagination/pvr_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/imagination/pvr_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index fc92a82a7208..20b27a468327 100644
+index 20b27a468327..b7931f75832f 100644
 --- a/drivers/gpu/drm/imagination/pvr_drv.c
 +++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1469,6 +1469,9 @@ static void pvr_remove(struct platform_device *plat_dev)
- 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+@@ -1527,6 +1527,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
  
-+	/* Stop the watchdog before anything it reads is freed. */
-+	pvr_watchdog_fini(pvr_dev);
-+
- 	/*
- 	 * Unplug before freeing anything, so no ioctl is still inside
- 	 * drm_dev_enter(). pvr_device_lost() may already have done it, and
-@@ -1486,7 +1489,6 @@ static void pvr_remove(struct platform_device *plat_dev)
- 	xa_destroy(&pvr_dev->free_list_ids);
+ static const struct dev_pm_ops pvr_pm_ops = {
+ 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ };
  
- 	pvr_device_fini(pvr_dev);
--	pvr_watchdog_fini(pvr_dev);
- 	pvr_queue_device_fini(pvr_dev);
- 	pvr_context_device_fini(pvr_dev);
- 	pvr_power_domains_fini(pvr_dev);
+ static struct platform_driver pvr_driver = {
 
 -- 
 2.55.0
